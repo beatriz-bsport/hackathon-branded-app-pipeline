@@ -28,7 +28,7 @@ export const InvoiceInfoDialog = (props: Props) => {
           ))}
         </div>
         <div className={classes.centeredContainer}>
-          <Button variant="outlined" onClick={props.goToInvoice}>
+          <Button onClick={props.goToInvoice} variant="outlined">
             {t('invoiceInfoDialog.actions.show')}
           </Button>
         </div>

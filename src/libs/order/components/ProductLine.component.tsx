@@ -21,7 +21,7 @@ type Props = {
 } & WithStyles<typeof styles>;
 
 export const ProductLine = (props: Props) => (
-  <ListItem dense={!!props.dense} divider>
+  <ListItem divider dense={!!props.dense}>
     <ListItemAvatar>
       <Avatar className={props.classes.quantity}>
         {`x${props.product.quantity}`}

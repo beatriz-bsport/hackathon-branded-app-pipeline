@@ -163,8 +163,8 @@ const NotificationListInner = (props: Props) => {
               notification.push_notification_title !== '' && (
                 <div className={classes.row}>
                   <NotificationsNoneIcon
-                    fontSize="small"
                     className={classes.icon}
+                    fontSize="small"
                   />
                   <Typography variant="caption">
                     {notification.push_notification_title}
@@ -173,7 +173,7 @@ const NotificationListInner = (props: Props) => {
               )}
             {emailTitle && (
               <div className={classes.row}>
-                <MailOutlineIcon fontSize="small" className={classes.icon} />
+                <MailOutlineIcon className={classes.icon} fontSize="small" />
                 <Typography variant="caption">{emailTitle}</Typography>
               </div>
             )}
@@ -183,7 +183,7 @@ const NotificationListInner = (props: Props) => {
                   <Typography variant="caption">
                     {` ${t('paymentPack:notification.listItem.smartList')}: `}
                   </Typography>
-                  <Typography variant="caption" className={classes.list}>
+                  <Typography className={classes.list} variant="caption">
                     {smartLists
                       .filter((smartlist) =>
                         notification?.event_rules?.smartlist_exclude.includes(
@@ -203,7 +203,7 @@ const NotificationListInner = (props: Props) => {
                       'paymentPack:notification.listItem.smartListInclude',
                     )}: `}
                   </Typography>
-                  <Typography variant="caption" className={classes.list}>
+                  <Typography className={classes.list} variant="caption">
                     {smartLists
                       .filter((smartlist) =>
                         notification?.event_rules?.smartlist_include.includes(

@@ -19,10 +19,10 @@ const PrivatePassTemplateFormDrawer = (props: Props) => {
 
   return (
     <GenericResponsiveDrawer
-      open={props.open}
-      onClose={props.onCancel}
-      title={t('privatePassTemplate.form.title')}
       withoutPadding
+      onClose={props.onCancel}
+      open={props.open}
+      title={t('privatePassTemplate.form.title')}
     >
       <PrivatePassTemplateForm {...props} />
     </GenericResponsiveDrawer>

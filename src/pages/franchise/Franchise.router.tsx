@@ -148,62 +148,62 @@ const FranchiseRouter = (props: Props) => {
         }}
       >
         <FranchiseDrawer
-          tempPasswordState={tempPasswordState}
-          generateTempPassword={generateTempPassword}
-          fetchTempPassword={fetchTempPassword}
           cover={franchisor.cover}
           disconnect={disconnect}
-          push={pushRouter}
+          fetchTempPassword={fetchTempPassword}
           franchisePermissions={franchisePermissions}
+          generateTempPassword={generateTempPassword}
+          push={pushRouter}
           syncMembersAcrossCompanies={franchisor.sync_members_across_companies}
+          tempPasswordState={tempPasswordState}
         >
           <Switch>
             <Route
-              path="/f/franchises/:companyId?"
               component={FranchiseCompanyList}
+              path="/f/franchises/:companyId?"
             />
-            <Route path="/f/settings/theme" component={FranchiseTheme} />
-            <Route path="/f/email-template" component={EmailTemplate} />
-            <Route path="/f/marketing" component={FranchiseMarketingRouter} />
-            <Route path="/f/settings/widget" component={WidgetGeneratorPage} />
+            <Route component={FranchiseTheme} path="/f/settings/theme" />
+            <Route component={EmailTemplate} path="/f/email-template" />
+            <Route component={FranchiseMarketingRouter} path="/f/marketing" />
+            <Route component={WidgetGeneratorPage} path="/f/settings/widget" />
             <Route
               exact
-              path="/f/staffrole/:tab"
               component={FranchiseStaffRoleRouter}
+              path="/f/staffrole/:tab"
             />
 
-            <Route exact path="/f/members" component={FranchiseMemberList} />
+            <Route exact component={FranchiseMemberList} path="/f/members" />
             <Route
-              path="/f/members/:userId/member"
               component={FranchiseMemberDetails}
+              path="/f/members/:userId/member"
             />
             <Route
               exact
-              path="/f/reporting/:reportId"
               component={FranchiseReportDetail}
+              path="/f/reporting/:reportId"
             />
-            <Route path="/f/reporting" component={FranchiseReportList} />
+            <Route component={FranchiseReportList} path="/f/reporting" />
             <Route
-              path="/f/payment-pack-template"
               component={FranchisePaymentPackTemplateRouter}
+              path="/f/payment-pack-template"
             />
             <Route
-              path="/f/private-pass-template"
               component={FranchisePrivatePassTemplateRouter}
+              path="/f/private-pass-template"
             />
             <Route
-              path="/f/coupon-template"
               component={FranchiseCouponTemplateRouter}
+              path="/f/coupon-template"
             />
             {franchisor.sync_members_across_companies && (
               <Route
-                path="/f/giftcard-template"
                 component={FranchiseGiftcardTemplateRouter}
+                path="/f/giftcard-template"
               />
             )}
             <Route
-              path="/f/settings/notification-rule/:notificationId?"
               component={FranchiseNotificationRulesPage}
+              path="/f/settings/notification-rule/:notificationId?"
             />
             <Redirect to="/f/franchises" />
           </Switch>
@@ -219,15 +219,15 @@ const EmailTemplate = () => {
     <Switch>
       <Route
         exact
-        path="/f/email-template/:id/edit"
         component={FranchiseEmailEditor}
+        path="/f/email-template/:id/edit"
       />
       <Route
         exact
-        path="/f/email-template/create"
         component={FranchiseEmailCreate}
+        path="/f/email-template/create"
       />
-      <Route path="/f/email-template/:id?" component={FranchiseEmailList} />
+      <Route component={FranchiseEmailList} path="/f/email-template/:id?" />
       <Redirect to="/f/email-template" />
     </Switch>
   );

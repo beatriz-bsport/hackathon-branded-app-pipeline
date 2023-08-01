@@ -399,65 +399,65 @@ const QuicksalePayment: React.FC<Props> = ({
   return (
     <>
       <QuicksaleCheckout
-        theme={theme}
-        quicksaleStaffFullName={quicksaleStaffFullName}
-        onSignOut={openCannotSignOutModal}
-        goBack={goBack}
-        basket={basket}
-        member={member}
-        openMemberAuthenticationModal={openMemberModal}
-        editPaymentGroupPrice={editPaymentGroupPrice}
-        paymentGroup={paymentGroupId}
-        paymentGroupPriceCts={paymentGroupPriceCts}
         alreadyPaidAmount={alreadyPaidAmount}
-        loading={loading}
-        isProcessing={isProcessing}
-        setIsProcessing={setIsProcessing}
-        removeCoupon={removeCoupon}
         attachCoupon={addCoupon}
-        basketAddress={basketAddress}
-        setBasketAddress={setBasketAddress}
-        deliveryType={deliveryType}
-        setDeliveryType={setDeliveryType}
         availablePaymentMethods={availablePaymentMethods}
-        selectedPaymentMethod={paymentMethod}
-        setSelectedPaymentMethod={setPaymentMethod}
-        stripeReaders={stripeReaders}
-        clientSecret={clientSecret}
-        onPaymentSuccess={onPaymentSuccess}
-        detachPaymentMethodLoading={detachPaymentMethodLoading}
-        removePaymentMethod={removePaymentMethod}
+        basket={basket}
+        basketAddress={basketAddress}
         checkItemsBasket={checkItemsBasket}
+        clientSecret={clientSecret}
+        deliveryType={deliveryType}
+        detachPaymentMethodLoading={detachPaymentMethodLoading}
+        editPaymentGroupPrice={editPaymentGroupPrice}
+        goBack={goBack}
         instalmentPaymentConfigurationList={
           instalmentPaymentConfigurationListForCurrentBasket
         }
+        isProcessing={isProcessing}
+        loading={loading}
+        member={member}
+        onPaymentSuccess={onPaymentSuccess}
         onSelectInstalmentPayment={onSelectInstalmentPayment}
-        setLoading={setLoading}
-        useInternalAccount={useInternalAccount}
+        onSignOut={openCannotSignOutModal}
+        openMemberAuthenticationModal={openMemberModal}
+        paymentGroup={paymentGroupId}
+        paymentGroupPriceCts={paymentGroupPriceCts}
+        quicksaleStaffFullName={quicksaleStaffFullName}
+        removeCoupon={removeCoupon}
         removeInternalAccountPrepaidLine={removeInternalAccountPrepaidLine}
+        removePaymentMethod={removePaymentMethod}
+        selectedPaymentMethod={paymentMethod}
+        setBasketAddress={setBasketAddress}
+        setDeliveryType={setDeliveryType}
+        setIsProcessing={setIsProcessing}
+        setLoading={setLoading}
+        setSelectedPaymentMethod={setPaymentMethod}
+        stripeReaders={stripeReaders}
+        theme={theme}
+        useInternalAccount={useInternalAccount}
       />
 
       <QuicksaleDialogs
-        showStillOpenBasketsModal={showCannotSignOutModal}
-        closeStillOpenBasketsModal={closeCannotSignOutModal}
-        showWarningRemovedItemsModal={showWarningRemovedItemsModal}
-        closeWarningRemovedItemsModal={closeWarningRemovedItemsModal}
-        showPaymentSuccessModal={showPaymentSuccessModal}
-        closePaymentSuccessModal={closePaymentSuccessModal}
-        showAnonymousPaymentSuccessModal={showAnonymousPaymentSuccessModal}
         closeAnonymousPaymentSuccessModal={closeAnonymousPaymentSuccessModal}
-        showPartialPaymentSuccesModal={showPartialPaymentSuccesModal}
         closePartialPaymentSuccesModal={closePaymentSuccessModal}
+        closePaymentSuccessModal={closePaymentSuccessModal}
+        closeStillOpenBasketsModal={closeCannotSignOutModal}
+        closeWarningRemovedItemsModal={closeWarningRemovedItemsModal}
+        showAnonymousPaymentSuccessModal={showAnonymousPaymentSuccessModal}
+        showPartialPaymentSuccesModal={showPartialPaymentSuccesModal}
+        showPaymentSuccessModal={showPaymentSuccessModal}
+        showStillOpenBasketsModal={showCannotSignOutModal}
+        showWarningRemovedItemsModal={showWarningRemovedItemsModal}
       />
 
       <MemberSearchDialog
-        open={showMemberAuthenticationModal}
-        onClose={closeMemberModal}
-        preSelectedMemberId={basket && !member?.is_pos ? basket.member : null}
-        onMemberChoose={onMemberAuthenticate}
         companyCountry={companyCountry}
-        searchMembers={searchMembers}
         createMember={createMember}
+        onClose={closeMemberModal}
+        onMemberChoose={onMemberAuthenticate}
+        open={showMemberAuthenticationModal}
+        preSelectedMemberId={basket && !member?.is_pos ? basket.member : null}
+        searchMembers={searchMembers}
       />
     </>
   );

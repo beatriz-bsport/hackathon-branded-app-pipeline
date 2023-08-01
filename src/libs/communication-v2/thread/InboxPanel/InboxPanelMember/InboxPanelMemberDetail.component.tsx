@@ -82,8 +82,8 @@ const InboxPanelMemberDetail: React.FC<Props> = ({
             <div className={classes.contactItemContainer}>
               <CustomChip
                 displayedValue={member?.phone_number}
-                mainColor={theme.palette.primary.main}
                 icon="LocalPhone"
+                mainColor={theme.palette.primary.main}
               />
             </div>
           )}
@@ -92,8 +92,8 @@ const InboxPanelMemberDetail: React.FC<Props> = ({
             <div className={classes.contactItemContainer}>
               <CustomChip
                 displayedValue={member?.email}
-                mainColor={theme.palette.primary.main}
                 icon="Mail"
+                mainColor={theme.palette.primary.main}
               />
             </div>
           )}
@@ -106,7 +106,7 @@ const InboxPanelMemberDetail: React.FC<Props> = ({
 
         <List dense disablePadding className={classes.section}>
           {!!member?.birthday && (
-            <ListItem disableGutters dense>
+            <ListItem dense disableGutters>
               <TodayIcon />
               <ListItemText
                 className={classes.listItemText}
@@ -126,7 +126,7 @@ const InboxPanelMemberDetail: React.FC<Props> = ({
               />
             </ListItem>
           )}
-          <ListItem disableGutters dense>
+          <ListItem dense disableGutters>
             <PersonOutlineIcon />
             <ListItemText
               className={classes.listItemText}
@@ -171,9 +171,9 @@ const InboxPanelMemberDetail: React.FC<Props> = ({
         {member?.emergency_contact && (
           <div className={classes.emergencyContact}>
             <EmergencyContactItemComponent
-              emergency_contact={member?.emergency_contact}
               disableGutters
               denseListItem={classes.denseListItem}
+              emergency_contact={member?.emergency_contact}
             />
           </div>
         )}
@@ -188,8 +188,8 @@ const InboxPanelMemberDetail: React.FC<Props> = ({
         </ButtonBase>
       </div>
 
-      <Dialog open={displayBarcodeDialog} onClose={handleCloseBarcode}>
-        <BarCode value={member?.barcode} background={theme.palette.grey[50]} />
+      <Dialog onClose={handleCloseBarcode} open={displayBarcodeDialog}>
+        <BarCode background={theme.palette.grey[50]} value={member?.barcode} />
       </Dialog>
     </div>
   );

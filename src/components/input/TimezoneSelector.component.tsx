@@ -55,7 +55,7 @@ export const TimezoneSelector = (props: Props) => {
       {!!props.label && (
         <InputLabel id="timezone-select-label">{props.label}</InputLabel>
       )}
-      <Select value={props.value} onChange={props.onChange}>
+      <Select onChange={props.onChange} value={props.value}>
         {timezoneListExtended.map((tzData) => {
           const { name, offset, abbrs } = tzData;
           let offsetName = '';

@@ -78,21 +78,21 @@ export const UserspaceSwitcher = (props: Props) => {
   }
 
   if (isFranchisor) {
-    return <Route path="/" component={FranchiseHome} />;
+    return <Route component={FranchiseHome} path="/" />;
   }
 
   if (isManager) {
     if (!has_completed_account_configuration_on_boarding) {
       return <Redirect to="/login/accountConfiguration/" />;
     }
-    return <Route path="/" component={Backoffice} />;
+    return <Route component={Backoffice} path="/" />;
   }
   if (isCoach && companyId && !WidgetUtils.isWidget()) {
-    return <Route path="/" component={CoachHome} />;
+    return <Route component={CoachHome} path="/" />;
   }
 
   if (isConsumer) {
-    return <Route path="/" component={ConsumerHome} />;
+    return <Route component={ConsumerHome} path="/" />;
   }
 
   return <Redirect to="/login" />;

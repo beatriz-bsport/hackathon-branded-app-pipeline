@@ -30,8 +30,8 @@ class ConsumerSubscriptionPage extends React.PureComponent<Props> {
     return (
       <div className={classes.container}>
         <ConsumerSubscription
-          membership={this.props.membership}
           hideButtonOnWidget
+          membership={this.props.membership}
         />
       </div>
     );

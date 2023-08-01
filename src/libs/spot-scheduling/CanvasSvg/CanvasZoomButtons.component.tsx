@@ -22,17 +22,17 @@ class CanvasZoomButtons extends React.PureComponent<Props> {
 
     return (
       <div className={classes.container}>
-        <Button variant="contained" onClick={this.props.onClickZoomIn}>
+        <Button onClick={this.props.onClickZoomIn} variant="contained">
           <ZoomInIcon />
         </Button>
 
         {this.props.onClickCenter && (
-          <Button variant="contained" onClick={this.props.onClickCenter}>
+          <Button onClick={this.props.onClickCenter} variant="contained">
             <CenterFocusStrongIcon />
           </Button>
         )}
 
-        <Button variant="contained" onClick={this.props.onClickZoomOut}>
+        <Button onClick={this.props.onClickZoomOut} variant="contained">
           <ZoomOutIcon />
         </Button>
       </div>

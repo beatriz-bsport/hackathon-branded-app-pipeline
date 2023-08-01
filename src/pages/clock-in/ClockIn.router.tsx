@@ -38,8 +38,8 @@ const ClockInSwitcher: React.FC<{
   ) {
     return (
       <Switch>
-        <Route exact path="/clock-in/real-time" component={ClockInRealTime} />
-        <Route exact path="/clock-in/history" component={ClockInHistory} />
+        <Route exact component={ClockInRealTime} path="/clock-in/real-time" />
+        <Route exact component={ClockInHistory} path="/clock-in/history" />
         <Redirect to="/clock-in/real-time" />
       </Switch>
     );
@@ -48,7 +48,7 @@ const ClockInSwitcher: React.FC<{
   if (permissions?.navigationMenu?.payments?.clockIn?.clockInForOther) {
     return (
       <Switch>
-        <Route exact path="/clock-in/real-time" component={ClockInRealTime} />
+        <Route exact component={ClockInRealTime} path="/clock-in/real-time" />
         <Redirect to="/clock-in/real-time" />
       </Switch>
     );
@@ -57,7 +57,7 @@ const ClockInSwitcher: React.FC<{
   if (permissions?.navigationMenu?.payments?.clockIn?.canAccessHistory) {
     return (
       <Switch>
-        <Route exact path="/clock-in/history" component={ClockInHistory} />
+        <Route exact component={ClockInHistory} path="/clock-in/history" />
         <Redirect to="/clock-in/history" />
       </Switch>
     );
@@ -85,9 +85,9 @@ const ClockInRouter: React.FC<Props> = ({
 
   return (
     <ContentWithAppBar
-      tab={tab}
       onChange={onChange}
       pageHeight={pageHeight}
+      tab={tab}
       tabsData={isNavBar ? tabsData : []}
     >
       <ClockInSwitcher permissions={permissions} />

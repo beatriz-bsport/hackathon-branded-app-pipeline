@@ -19,10 +19,10 @@ const RadioList = <S extends ID>(props: React.PropsWithChildren<Props<S>>) => {
       {props.data.map((item, i) => (
         <RadioItem
           key={i}
-          selected={props.selected === item.id}
-          onClick={() => props.onClick(item, i)}
           bottomBorder={i !== props.data.length - 1}
+          onClick={() => props.onClick(item, i)}
           renderItem={() => props.renderItem(item, i)}
+          selected={props.selected === item.id}
         />
       ))}
     </div>

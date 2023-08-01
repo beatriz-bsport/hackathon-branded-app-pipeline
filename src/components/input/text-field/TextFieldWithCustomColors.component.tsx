@@ -37,16 +37,10 @@ const TextFieldWithCustomColors: React.FC<Props> = (props) => {
 
   return (
     <TextField
-      name={props.name ?? ''}
-      placeholder={props.placeholder}
-      fullWidth={props.fullWidth}
-      label={props.label}
-      minRows={numRows}
-      multiline={numRows > 1}
-      value={props.value}
-      onChange={props.onChange}
-      variant={props.variant || 'outlined'}
       className={classnames([props.className, classes.overrideRoot])}
+      error={props.error}
+      fullWidth={props.fullWidth}
+      helperText={props.helperText}
       InputProps={{
         classes: {
           input: classes.input,
@@ -55,9 +49,15 @@ const TextFieldWithCustomColors: React.FC<Props> = (props) => {
         endAdornment: props.endAdornment,
         startAdornment: props.startAdornment,
       }}
+      label={props.label}
+      minRows={numRows}
+      multiline={numRows > 1}
+      name={props.name ?? ''}
+      onChange={props.onChange}
       onFocus={props.onFocus}
-      error={props.error}
-      helperText={props.helperText}
+      placeholder={props.placeholder}
+      value={props.value}
+      variant={props.variant || 'outlined'}
     />
   );
 };

@@ -116,23 +116,23 @@ const SortableListItem = React.memo((props: ListItemProps) => {
   return (
     <Paper
       ref={setNodeRef}
-      style={{ transform: CSS.Translate.toString(transform), transition }}
-      elevation={2}
       className={classes.paper}
+      elevation={2}
+      style={{ transform: CSS.Translate.toString(transform), transition }}
     >
       <props.ListItemComponent
+        key={item.id}
+        divider
         attributes={attributes}
-        listeners={listeners}
+        disabled={false}
         draggable={props.draggable}
         item={item}
-        divider
-        onEdit={props?.onEdit}
-        onDelete={props?.onDelete}
+        listeners={listeners}
         onClick={props?.onClick}
+        onDelete={props?.onDelete}
         onDuplicate={props?.onDuplicate}
+        onEdit={props?.onEdit}
         selected={props.selectedItem === item.id}
-        key={item.id}
-        disabled={false}
       />
     </Paper>
   );
@@ -171,16 +171,16 @@ const SortableItemList = React.memo((props: ListProps) => {
         items.map((item) => {
           return (
             <SortableListItem
-              draggable={!props.selectorItemOrder}
               key={item.id}
+              draggable={!props.selectorItemOrder}
               item={item}
-              onEdit={props.onEdit}
+              ListItemComponent={props.ListItemComponent}
               onClick={props.onClick}
               onDelete={props.onDelete}
               onDuplicate={props.onDuplicate}
-              sortedItems={items}
-              ListItemComponent={props.ListItemComponent}
+              onEdit={props.onEdit}
               selectedItem={props.selectedItem}
+              sortedItems={items}
             />
           );
         })
@@ -210,7 +210,7 @@ export const PresentationalComponentCategory = React.memo(
           <IconButton>
             <DragHandleIcon />
           </IconButton>
-          <Typography variant="h5" component="h2">
+          <Typography component="h2" variant="h5">
             {category
               ? `${category.name || t('category.noCategory.name')} (${
                   category.items?.length || 0
@@ -255,23 +255,23 @@ export const CategoryItemWithItems = React.memo((props: Props) => {
   return (
     <div
       ref={setNodeRef}
-      style={{ transform: CSS.Transform.toString(transform), transition }}
       className={classes.root}
+      style={{ transform: CSS.Transform.toString(transform), transition }}
     >
       <Popover
-        id="category-popover"
-        open={!!anchorEl}
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
         }}
+        id="category-popover"
+        onClose={() => {
+          setAnchorEl(null);
+        }}
+        open={!!anchorEl}
         transformOrigin={{
           vertical: 'top',
           horizontal: 'left',
-        }}
-        onClose={() => {
-          setAnchorEl(null);
         }}
       >
         <List dense>
@@ -305,7 +305,7 @@ export const CategoryItemWithItems = React.memo((props: Props) => {
                 <DragHandleIcon />
               </IconButton>
             )}
-            <Typography variant="h5" component="h2">
+            <Typography component="h2" variant="h5">
               {category
                 ? `${category.name || t('category.noCategory.name')} (${
                     category.items?.length || 0

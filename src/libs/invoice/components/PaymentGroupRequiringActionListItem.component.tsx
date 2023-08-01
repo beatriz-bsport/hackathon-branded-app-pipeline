@@ -30,7 +30,7 @@ export const PaymentGroupRequiringActionListItem = (props: Props) => {
                 `paymentMethod.label.${paymentGroup.payment_method_identifier}`,
               )}`}
             </Typography>
-            <Typography variant="caption" color="textSecondary">
+            <Typography color="textSecondary" variant="caption">
               {formatAsDatetimeAdapted(paymentGroup.date_created, 'LL')}
             </Typography>
             <Typography variant="caption">
@@ -49,8 +49,8 @@ export const PaymentGroupRequiringActionListItem = (props: Props) => {
       </div>
       <div>
         <Button
-          onClick={() => props.onValidate(paymentGroup)}
           color="primary"
+          onClick={() => props.onValidate(paymentGroup)}
           variant="outlined"
         >
           {t('paymentGroup.validateRequiresAction')}

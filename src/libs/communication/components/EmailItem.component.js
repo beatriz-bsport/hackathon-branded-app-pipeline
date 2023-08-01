@@ -45,6 +45,7 @@ export const EmailListItem = (props: Props) => {
         <div className={classes.emailContainers}>
           <AlternateEmailIcon />
           <ListItemText
+            className={classes.listItemText}
             primary={
               <div className={classes.flexEmail}>
                 <Typography>{email || ' - '}</Typography>
@@ -61,7 +62,6 @@ export const EmailListItem = (props: Props) => {
                 )}
               </div>
             }
-            className={classes.listItemText}
           />
         </div>
         <div className={classes.emailContainers}>

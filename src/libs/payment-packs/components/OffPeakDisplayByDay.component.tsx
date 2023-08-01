@@ -46,7 +46,7 @@ const OffPeakDisplayByDay = (props: OffPeakDisplayByDayProps) => {
       key={isoWeekday}
       className={classNames(classes.packInfo, classes.header)}
     >
-      <Typography variant="caption" color="textSecondary">
+      <Typography color="textSecondary" variant="caption">
         {t(`datetime:time.isoWeekdayNumber.${isoWeekday}`)}
       </Typography>
       <div className={classes.scheduleInfo}>

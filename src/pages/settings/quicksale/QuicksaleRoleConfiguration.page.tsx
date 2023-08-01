@@ -66,7 +66,7 @@ const AccessForm: React.FC<FormProps> = React.memo(
     const [password, setPassword] = React.useState('');
 
     return (
-      <GenericResponsiveDialog maxWidth="sm" open={open} onClose={onClose}>
+      <GenericResponsiveDialog maxWidth="sm" onClose={onClose} open={open}>
         <DialogTitle disableTypography>
           <Typography variant="h6">{t('rolePage.modalTitle')}</Typography>
         </DialogTitle>
@@ -78,49 +78,49 @@ const AccessForm: React.FC<FormProps> = React.memo(
             email: '',
             password: '',
           }}
-          validationSchema={AccessSchema}
           onSubmit={onSubmit}
+          validationSchema={AccessSchema}
         >
           {(formik) => (
             <Form>
               <DialogContent>
                 <TextField
-                  placeholder={t('rolePage.firstName')}
-                  name="first_name"
                   fullWidth
                   label={t('rolePage.firstName')}
+                  name="first_name"
+                  placeholder={t('rolePage.firstName')}
                 />
                 <TextField
-                  placeholder={t('rolePage.lastName')}
-                  name="last_name"
                   fullWidth
                   label={t('rolePage.lastName')}
+                  name="last_name"
+                  placeholder={t('rolePage.lastName')}
                 />
                 <TextField
-                  placeholder={t('rolePage.email')}
-                  name="email"
                   fullWidth
                   label={`${t('rolePage.email')} *`}
+                  name="email"
+                  placeholder={t('rolePage.email')}
                 />
                 <PasswordInput
                   fullWidth
                   helperText=""
                   label={`${t('rolePage.password')} *`}
-                  value={password}
                   onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                     setPassword(e.target.value);
                     formik.setFieldValue('password', e.target.value);
                   }}
+                  value={password}
                 />
               </DialogContent>
               <DialogActions>
                 <Button onClick={onClose}>{t('rolePage.cancel')}</Button>
                 <Button
+                  color="primary"
                   onClick={() => {
                     formik.handleSubmit();
                     setPassword('');
                   }}
-                  color="primary"
                 >
                   {t('rolePage.submit')}
                 </Button>
@@ -152,8 +152,8 @@ const Row: React.FC<RowProps> = React.memo(({ user, removeAccess }) => {
       <TableCell>{user.email}</TableCell>
       <TableCell align="right">
         <IconButton
-          onClick={removeUser}
           className={classes.removeAccessIconButton}
+          onClick={removeUser}
         >
           <RemoveCircle className={classes.removeAccessIcon} />
         </IconButton>
@@ -211,7 +211,7 @@ const QuicksaleRoleConfiguration: React.FC<Props> = ({
       <div className={classes.container}>
         <Typography variant="h6">{t('rolePage.title')}</Typography>
 
-        <Alert severity="info" className={classes.alertInfo}>
+        <Alert className={classes.alertInfo} severity="info">
           {t('rolePage.subtitle')}
         </Alert>
 
@@ -229,24 +229,24 @@ const QuicksaleRoleConfiguration: React.FC<Props> = ({
             {!loading && authorizedUsers?.length > 0 && (
               <TableBody>
                 {authorizedUsers.map((user) => (
-                  <Row key={user.id} user={user} removeAccess={removeAccess} />
+                  <Row key={user.id} removeAccess={removeAccess} user={user} />
                 ))}
               </TableBody>
             )}
           </Table>
           {loading && <LinearProgress className={classes.linearProgress} />}
           {!loading && authorizedUsers?.length === 0 && (
-            <Alert severity="info" className={classes.emptyResultAlert}>
+            <Alert className={classes.emptyResultAlert} severity="info">
               {t('rolePage.noResult')}
             </Alert>
           )}
         </div>
 
         <Button
-          variant="outlined"
+          className={classes.addAccessButton}
           color="primary"
           onClick={openAccessCreationModal}
-          className={classes.addAccessButton}
+          variant="outlined"
         >
           <Add className={classes.addAccessIcon} />
           {t('rolePage.addAccess')}
@@ -254,9 +254,9 @@ const QuicksaleRoleConfiguration: React.FC<Props> = ({
       </div>
 
       <AccessForm
-        open={showAccessCreationModal}
         onClose={closeAccessCreationModal}
         onSubmit={createQuicksaleAccess}
+        open={showAccessCreationModal}
       />
     </>
   );

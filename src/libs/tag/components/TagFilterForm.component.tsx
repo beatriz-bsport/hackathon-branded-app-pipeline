@@ -42,24 +42,23 @@ export const TagFilterForm = (props: Props) => {
   const excludeOption = { value: false, label: t('form.filter.exclude') };
 
   return (
-    <Dialog open={!!props.open} onClose={props.onClose}>
+    <Dialog onClose={props.onClose} open={!!props.open}>
       <DialogTitle id="alert-dialog-title">
         {props.t('form.filter.title')}
       </DialogTitle>
       <DialogContent className={classes.container}>
         <MaterialUISelector
           className={classes.selector}
-          placeholder={t('form.filter.includeLabel')}
-          options={[includeOption, excludeOption]}
           onChange={(option: typeof includeOption) =>
             props.setForm({ ...props.form, include: option.value })
           }
+          options={[includeOption, excludeOption]}
+          placeholder={t('form.filter.includeLabel')}
         />
         <div className={classes.selector}>
           <TagSelector
             noMulti
             allTagsWithTagGroup={tagList}
-            selectedTags={[props.form.tagId]}
             onChange={(option) =>
               props.setForm({
                 ...props.form,
@@ -72,6 +71,7 @@ export const TagFilterForm = (props: Props) => {
                 tagId: null,
               })
             }
+            selectedTags={[props.form.tagId]}
           />
         </div>
       </DialogContent>

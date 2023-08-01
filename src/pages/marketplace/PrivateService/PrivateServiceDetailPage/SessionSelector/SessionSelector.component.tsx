@@ -161,21 +161,21 @@ const SessionSelector: React.FC<Props> = (props) => {
                 (prev, now) => prev + now.id,
                 '',
               )}
-              value={selectedEstablishment?.id ? selectedEstablishment.id : ''}
+              centered
+              indicatorColor="primary"
               onChange={(a, id) =>
                 setSelectedEstablishment(
                   establishmentWithSession.find((e) => e.id === id),
                 )
               }
-              indicatorColor="primary"
               textColor="primary"
-              centered
+              value={selectedEstablishment?.id ? selectedEstablishment.id : ''}
             >
               {establishmentWithSession.map((establishment) => (
                 <Tab
                   key={establishment.id}
-                  value={establishment.id}
                   label={establishment.title}
+                  value={establishment.id}
                 />
               ))}
             </Tabs>
@@ -200,11 +200,11 @@ const SessionSelector: React.FC<Props> = (props) => {
                   >
                     <SessionForCoachSelector
                       coach={coach}
+                      durationMinutes={props.durationMinutes}
                       establishment={selectedEstablishment}
+                      onSessionSelect={props.onSessionSelect}
                       sessions={sessions}
                       timezoneName={props.timezoneName}
-                      durationMinutes={props.durationMinutes}
-                      onSessionSelect={props.onSessionSelect}
                     />
                   </div>
                 );
@@ -212,14 +212,14 @@ const SessionSelector: React.FC<Props> = (props) => {
             ) : (
               <div className={classes.sessionItemContainer}>
                 <SessionForCoachSelector
+                  durationMinutes={props.durationMinutes}
                   establishment={selectedEstablishment}
+                  onSessionSelect={props.onSessionSelect}
                   sessions={getSessionsForCoachAndEstablishment(
                     null,
                     selectedEstablishment,
                   )}
                   timezoneName={props.timezoneName}
-                  durationMinutes={props.durationMinutes}
-                  onSessionSelect={props.onSessionSelect}
                 />
               </div>
             )}

@@ -127,7 +127,7 @@ export class CreateRoleMasterAccountDialog extends React.Component<
       : this.state.description;
 
     return (
-      <form onSubmit={this.onNext} id="role-creation-form">
+      <form id="role-creation-form" onSubmit={this.onNext}>
         <div className={classes.content}>
           <div className={classes.infoText}>
             <InfoIcon color="action" />
@@ -137,24 +137,24 @@ export class CreateRoleMasterAccountDialog extends React.Component<
           </div>
           <TextField
             fullWidth
-            value={name}
-            onChange={(ev) => this.setState({ name: ev.target.value })}
-            label={t('forms.role.create.name')}
             required
             disabled={disabled}
             inputProps={{ maxLength: FRANCHISE_ROLE_NAME_MAX_LENGTH }}
+            label={t('forms.role.create.name')}
+            onChange={(ev) => this.setState({ name: ev.target.value })}
+            value={name}
           />
           <TextField
             fullWidth
-            value={description}
-            className={classes.marginTop4}
-            onChange={(ev) => this.setState({ description: ev.target.value })}
-            label={t('forms.role.create.description')}
-            variant="outlined"
             multiline
-            rows={5}
             required
+            className={classes.marginTop4}
             disabled={disabled}
+            label={t('forms.role.create.description')}
+            onChange={(ev) => this.setState({ description: ev.target.value })}
+            rows={5}
+            value={description}
+            variant="outlined"
           />
 
           <Divider className={classes.divider} />
@@ -169,11 +169,11 @@ export class CreateRoleMasterAccountDialog extends React.Component<
             {Object.keys(this.state.permissions).map((key) => (
               <RecursiveCheckBoxComponent
                 key={key}
-                rightKey={key}
                 checkBoxData={this.state.permissions}
-                keysAccumulator={[key]}
                 disabled={this.props.role && !this.props.role.editable}
+                keysAccumulator={[key]}
                 permissions={this.state.permissions}
+                rightKey={key}
                 updatePermission={(permissions) => {
                   this.setState({
                     permissions,
@@ -186,7 +186,7 @@ export class CreateRoleMasterAccountDialog extends React.Component<
           <Divider className={classes.divider} />
         </div>
         <Actions>
-          <Button onClick={this.props.onClose} color="secondary">
+          <Button color="secondary" onClick={this.props.onClose}>
             {t('forms.user.create.cancel')}
           </Button>
           <Submit form="role-creation-form">

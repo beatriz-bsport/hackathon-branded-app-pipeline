@@ -100,13 +100,13 @@ export const PriceCount: React.FC<PriceCountProps> = ({
           <div className={classes.subContainer}>
             {deliveryFeeItem && (
               <BillItem
+                isBillItemPricePositive
                 billItemName={t('payment.deliveryFee')}
                 billItemPrice={getCurrencyDisplayWithPrice(
                   deliveryFeeItem.unit_price,
                   isExcludingTax,
                   deliveryFeeItem.tax,
                 )}
-                isBillItemPricePositive
                 isDeleteButtonDisabled={isDeleteButtonDisabled}
               />
             )}
@@ -120,12 +120,12 @@ export const PriceCount: React.FC<PriceCountProps> = ({
                   discountItem.tax,
                 )}
                 isBillItemPricePositive={false}
-                onRemoveBillItem={handleRemoveDiscountItem(discountItem)}
                 isDeleteButtonDisabled={isDeleteButtonDisabled}
+                onRemoveBillItem={handleRemoveDiscountItem(discountItem)}
               />
             ))}
           </div>
-          <Divider variant="middle" className={classes.divider} />
+          <Divider className={classes.divider} variant="middle" />
         </>
       )}
       {isExcludingTax && (
@@ -134,7 +134,7 @@ export const PriceCount: React.FC<PriceCountProps> = ({
             excludingTaxPrice={basketPriceExcludingTax}
             taxPrice={taxPrice}
           />
-          <Divider variant="middle" className={classes.divider} />
+          <Divider className={classes.divider} variant="middle" />
         </>
       )}
       {!!(giftcardItemList?.length || internalAccountItem) && (
@@ -158,19 +158,19 @@ export const PriceCount: React.FC<PriceCountProps> = ({
                   -internalAccountItem.unit_value,
                 )}
                 isBillItemPricePositive={false}
-                onRemoveBillItem={onRemoveInternalAccountPrepaidLine}
                 isDeleteButtonDisabled={isDeleteButtonDisabled}
+                onRemoveBillItem={onRemoveInternalAccountPrepaidLine}
               />
             )}
           </div>
-          <Divider variant="middle" className={classes.divider} />
+          <Divider className={classes.divider} variant="middle" />
         </>
       )}
       <div className={classes.totalPriceContainer}>
-        <Typography variant="subtitle1" className={classes.totalPriceText}>
+        <Typography className={classes.totalPriceText} variant="subtitle1">
           {isExcludingTax ? t('payment.total') : t('payment.totalHiddingTax')}
         </Typography>
-        <Typography variant="subtitle1" className={classes.totalPriceText}>
+        <Typography className={classes.totalPriceText} variant="subtitle1">
           {`${getCurrencyDisplayWithPrice(
             parseFloat(basket.total_price) -
               parseFloat(basket.total_price_prepaid_lines),

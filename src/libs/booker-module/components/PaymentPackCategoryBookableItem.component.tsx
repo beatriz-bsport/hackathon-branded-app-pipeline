@@ -38,9 +38,9 @@ export const PaymentPackCategoryBookableItem = (props: Props) => {
 
   return (
     <CollapsibleSection
-      title={paymentPackCategory ? `${paymentPackCategory.name}` : null}
       in={props.opened}
       onSwitch={() => props.openPacks(paymentPackCategory.id)}
+      title={paymentPackCategory ? `${paymentPackCategory.name}` : null}
     >
       {paymentPackCategory &&
       paymentPackCategory.packs &&
@@ -51,15 +51,15 @@ export const PaymentPackCategoryBookableItem = (props: Props) => {
               <div key={pack.id} className={classes.relative}>
                 <RadioItem
                   disabled={pack.exceedsBookingMaxout}
-                  selected={pack.id === props.selectedPack?.paymentPack?.id}
                   onClick={() => props.onPackChange({ paymentPack: pack })}
                   renderItem={() => (
                     <PaymentPackBookableItem
-                      paymentPack={pack}
-                      isExcludingTax={props.isExcludingTax}
                       hideCredits={!!hideCredits}
+                      isExcludingTax={props.isExcludingTax}
+                      paymentPack={pack}
                     />
                   )}
+                  selected={pack.id === props.selectedPack?.paymentPack?.id}
                 />
                 {pack.exceedsBookingMaxout && (
                   <div className={classes.maxoutMessageContainer}>

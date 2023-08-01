@@ -129,17 +129,17 @@ export const CoachDetail: React.FC<Props> = ({
         <Paper className={classes.paperContainer}>
           <CoachPaymentRuleBanner
             coach={coach}
-            remunerateCoach={() => goToCoachPerformance(coach)}
-            coachPaymentRulesByKind={coachPaymentRulesByKind}
             coachPaymentRuleGroups={coachPaymentRuleGroups}
+            coachPaymentRulesByKind={coachPaymentRulesByKind}
+            privateServices={privateServices}
+            remunerateCoach={() => goToCoachPerformance(coach)}
             setCoachPaymentRule={setCoachPaymentRule}
-            setCoachWorkshopPaymentRule={setCoachWorkshopPaymentRule}
-            setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
             setCoachPaymentRuleGroup={setCoachPaymentRuleGroup}
+            setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
+            setCoachWorkshopPaymentRule={setCoachWorkshopPaymentRule}
             updateCoachPrivateSlotsPaymentRule={
               updateCoachPrivateSlotsPaymentRule
             }
-            privateServices={privateServices}
           />
         </Paper>
       </div>
@@ -153,18 +153,18 @@ export const CoachDetail: React.FC<Props> = ({
               {hasUpsell(featureList, UPSELL_IDENTIFIER_SUBTEACHER_TOOL) && (
                 <Paper className={classes.paperReplacement}>
                   <AssociatedCoachDisciplineGroupConfiguration
-                    coach={coach}
                     activityList={activityList}
-                    workshopList={workshopList}
+                    assignDisciplineGroup={assignDisciplineGroup}
                     categoryList={categoryList}
-                    establishmentList={establishmentList}
-                    establishmentGroupList={establishmentGroupList}
+                    coach={coach}
                     companyTheme={companyTheme}
                     disciplineGroupList={disciplineGroupList}
-                    assignDisciplineGroup={assignDisciplineGroup}
+                    establishmentGroupList={establishmentGroupList}
+                    establishmentList={establishmentList}
                     updateAssociatedCoachReplacementPreferences={
                       updateAssociatedCoachReplacementPreferences
                     }
+                    workshopList={workshopList}
                   />
                 </Paper>
               )}

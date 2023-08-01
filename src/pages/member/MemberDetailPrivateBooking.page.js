@@ -198,24 +198,23 @@ export class MemberDetailPrivateBooking extends Component<Props> {
     const { t, classes } = this.props;
     return (
       <Grid container direction="row" spacing={3}>
-        <Grid container item xs={12} lg={6} direction="column" spacing={3}>
+        <Grid container item direction="column" lg={6} spacing={3} xs={12}>
           <Grid item>
             <Paper>
               <PrivateBookingFilters
-                setOpenValue={this.props.setOpenValue}
-                setFiltersValue={this.props.setFilterValue}
-                open={this.props.open}
                 filters={
                   !this.props.privateBookingsLoading && this.props.filters
                 }
+                open={this.props.open}
+                setFiltersValue={this.props.setFilterValue}
+                setOpenValue={this.props.setOpenValue}
               />
               <Divider />
               <PaginatedListBase
                 itemPerPage={5}
-                loading={this.props.privateBookingsLoading}
-                listProps={{ disablePadding: true }}
                 items={this.props.private_booking_list}
-                page={this.props.privateBookingCurrentPage || 0}
+                listProps={{ disablePadding: true }}
+                loading={this.props.privateBookingsLoading}
                 nbItems={this.props.bookingCount}
                 onPageRequested={(page, page_size) =>
                   this.props.fetchPrivateBookingsList({
@@ -223,17 +222,18 @@ export class MemberDetailPrivateBooking extends Component<Props> {
                     page_size,
                   })
                 }
+                page={this.props.privateBookingCurrentPage || 0}
                 renderItem={(b) => (
                   <PrivateBookingListItem
+                    key={b.id}
+                    divider
                     onClick={() =>
                       this.props.goToPrivateBooking(this.props.id, b.id)
                     }
-                    divider
-                    selected={this.props.privateBookingId === b.id}
-                    key={b.id}
-                    private_booking={b}
                     onDelete={() => this.props.setBookingToDelete(b)}
                     onRestore={() => this.props.restorePrivateBooking(b.id)}
+                    private_booking={b}
+                    selected={this.props.privateBookingId === b.id}
                   />
                 )}
               />
@@ -248,13 +248,12 @@ export class MemberDetailPrivateBooking extends Component<Props> {
                 <Divider />
                 <PaginatedListStateful
                   itemPerPage={5}
-                  loading={this.props.recurrentPrivateBookingLoading}
-                  listProps={{ disablePadding: true }}
                   items={this.props.recurrenceRulePrivateBooking}
+                  listProps={{ disablePadding: true }}
+                  loading={this.props.recurrentPrivateBookingLoading}
                   renderItem={(rb) => (
                     <RecurrenceRulePrivateBookingItem
                       notShowMember
-                      recurrentPrivateBooking={rb}
                       onDelete={() =>
                         this.props.onDeleteRecurrenceRulePrivateBooking(
                           rb,
@@ -265,6 +264,7 @@ export class MemberDetailPrivateBooking extends Component<Props> {
                         this.props.setBookerInAdvanceDialog(true);
                         this.props.setSelectedRecurrentRule(rb);
                       }}
+                      recurrentPrivateBooking={rb}
                     />
                   )}
                 />
@@ -272,50 +272,49 @@ export class MemberDetailPrivateBooking extends Component<Props> {
             )}
             <div className={classes.createRecurrentBooking}>
               <Button
-                variant="outlined"
+                color="primary"
                 onClick={() => {
                   this.props.setBookerInAdvanceDialog(true);
                   this.props.setSelectedRecurrentRule(null);
                 }}
-                color="primary"
+                variant="outlined"
               >
                 {this.props.t('recurrenceRule.createModal.create')}
               </Button>
             </div>
           </Grid>
         </Grid>
-        <Grid item xs={12} lg={6}>
+        <Grid item lg={6} xs={12}>
           {this.props.private_booking ? (
             <PrivateBookingDetail
-              private_booking={this.props.private_booking}
               availableCoaches={this.props.availableCoaches}
-              private_slot={this.props.private_booking.private_slot}
-              private_service={this.props.private_booking.private_service}
-              onOpenAttachCoach={this.props.openAttachCoach}
-              private_consumer_pass={this.props.private_consumer_pass}
               forceRegularizeUnpaid={this.props.forceRegularizeUnpaid}
-              onPrivateSlotClick={this.props.onPrivateSlotClick}
               goToPrivateConsumerPass={(privateConsumerPassId) =>
                 this.props.goToPrivateConsumerPass(
                   this.props.id,
                   privateConsumerPassId,
                 )
               }
+              onOpenAttachCoach={this.props.openAttachCoach}
+              onPrivateSlotClick={this.props.onPrivateSlotClick}
+              private_booking={this.props.private_booking}
+              private_consumer_pass={this.props.private_consumer_pass}
+              private_service={this.props.private_booking.private_service}
+              private_slot={this.props.private_booking.private_slot}
             />
           ) : null}
         </Grid>
         {!!this.props.isOpenAttachCoach && (
           <PrivateBookingAttachCoachDialog
-            open={!!this.props.isOpenAttachCoach}
             associatedCoachList={this.props.serviceCoaches}
-            onSubmit={this.props.attachCoach}
             onClose={this.props.closeAttachCoach}
+            onSubmit={this.props.attachCoach}
+            open={!!this.props.isOpenAttachCoach}
           />
         )}
         {!!this.props.bookingToDelete && (
           <PrivateBookingDisableDialog
-            open={!!this.props.bookingToDelete}
-            private_booking={this.props.bookingToDelete}
+            onClose={() => this.props.setBookingToDelete(null)}
             onSubmit={(force_refund) =>
               (this.props.bookingToDelete.booking_status_code ===
                 BOOKING_STATUS_OK.id
@@ -336,15 +335,14 @@ export class MemberDetailPrivateBooking extends Component<Props> {
                 },
               )
             }
-            onClose={() => this.props.setBookingToDelete(null)}
+            open={!!this.props.bookingToDelete}
+            private_booking={this.props.bookingToDelete}
           />
         )}
         {this.props.bookerInAdvanceDialog && (
           <RecurrenceRulePrivateBooker
-            open={this.props.bookerInAdvanceDialog}
-            setOpen={this.props.setBookerInAdvanceDialog}
-            memberId={this.props.id}
             initial={this.props.selectedRecurrentRule}
+            memberId={this.props.id}
             onChange={() => {
               this.props.fetchPrivateBookingsList({
                 page: 1,
@@ -352,6 +350,8 @@ export class MemberDetailPrivateBooking extends Component<Props> {
               });
               this.props.fetchRecurrenceRulePrivateBooking();
             }}
+            open={this.props.bookerInAdvanceDialog}
+            setOpen={this.props.setBookerInAdvanceDialog}
           />
         )}
       </Grid>

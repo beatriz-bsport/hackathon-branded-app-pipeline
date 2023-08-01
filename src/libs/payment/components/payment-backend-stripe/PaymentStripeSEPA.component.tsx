@@ -89,11 +89,7 @@ const IbanForm: React.FC<PropsIban> = ({
     <div>
       <div className={classes.nameAndEmailContainer}>
         <TextField
-          required={isActive}
           fullWidth
-          value={billingDetails.name}
-          variant="outlined"
-          placeholder={t('mandate.name')}
           disabled={disabled}
           onChange={(ev) => {
             const { value } = ev.target;
@@ -102,14 +98,13 @@ const IbanForm: React.FC<PropsIban> = ({
               name: value,
             });
           }}
+          placeholder={t('mandate.name')}
+          required={isActive}
+          value={billingDetails.name}
+          variant="outlined"
         />
         <TextField
-          type="email"
-          required={isActive}
           fullWidth
-          variant="outlined"
-          value={billingDetails.email}
-          placeholder={t('mandate.email')}
           disabled={disabled}
           onChange={(ev) => {
             const { value } = ev.target;
@@ -118,14 +113,16 @@ const IbanForm: React.FC<PropsIban> = ({
               email: value,
             });
           }}
+          placeholder={t('mandate.email')}
+          required={isActive}
+          type="email"
+          value={billingDetails.email}
+          variant="outlined"
         />
         {withAddress && (
           <TextField
-            required
             fullWidth
-            value={billingDetails.address.line1}
-            variant="outlined"
-            placeholder={t('mandate.address_line_1')}
+            required
             onChange={(ev) => {
               const { value } = ev.target;
               setBillingDetails({
@@ -136,6 +133,9 @@ const IbanForm: React.FC<PropsIban> = ({
                 },
               });
             }}
+            placeholder={t('mandate.address_line_1')}
+            value={billingDetails.address.line1}
+            variant="outlined"
           />
         )}
       </div>
@@ -145,8 +145,8 @@ const IbanForm: React.FC<PropsIban> = ({
             <IbanElement options={IBAN_ELEMENT_OPTIONS} />
             {!!error && (
               <StripeErrorCode
-                errorCode={error.code}
                 declineCode={error.decline_code}
+                errorCode={error.code}
               />
             )}
           </div>
@@ -480,13 +480,13 @@ export const PaymentStripeSEPA = forwardRef(
         {addPaymentMethod && (
           <div>
             <IbanForm
-              withAddress={needBillingDetailAddress}
-              setBillingDetails={setBillingDetails}
               billingDetails={billingDetails}
-              error={error}
               disabled={!stripe || !clientSecret}
-              processing={processing}
+              error={error}
               isActive={!paymentMethodSelected}
+              processing={processing}
+              setBillingDetails={setBillingDetails}
+              withAddress={needBillingDetailAddress}
             />
             <div
               className={classNames(
@@ -514,21 +514,21 @@ export const PaymentStripeSEPA = forwardRef(
                       )}
                     >
                       <PopOver
-                        title={t(
-                          'paymentPanel.actions.paymentSecurityInformation',
-                        )}
                         anchorOrigin={{
                           vertical: 'bottom',
-                          horizontal: 'center',
-                        }}
-                        transformOrigin={{
-                          vertical: 'top',
                           horizontal: 'center',
                         }}
                         className={classNames(
                           classes.securityInformationText,
                           customClasses?.securityInformationText,
                         )}
+                        title={t(
+                          'paymentPanel.actions.paymentSecurityInformation',
+                        )}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'center',
+                        }}
                       >
                         <Info
                           className={classNames(
@@ -544,13 +544,13 @@ export const PaymentStripeSEPA = forwardRef(
 
               {!!paymentMethodList.length && (
                 <ButtonBase
-                  onClick={() => setAddPaymentMethod(false)}
                   className={classNames(
                     classes.displayButton,
                     customClasses?.displayButton,
                   )}
+                  onClick={() => setAddPaymentMethod(false)}
                 >
-                  <Typography variant="body1" align="right" color="primary">
+                  <Typography align="right" color="primary" variant="body1">
                     {t(
                       'payment:forms.paymentMethod.actions.displayPaymentMethod',
                     )}
@@ -564,23 +564,23 @@ export const PaymentStripeSEPA = forwardRef(
         {!addPaymentMethod && !!paymentMethodList.length && (
           <div>
             <PaymentMethodList
+              detachPaymentMethod={detachPaymentMethod}
+              detachPaymentMethodLoading={detachPaymentMethodLoading}
+              onSelect={(id: string) => defineSelectedPaymentMethod(id)}
+              paymentMethodType="sepa_debit"
               savedPaymentMethodList={paymentMethodList}
               selectedSavedPaymentMethodId={paymentMethodSelected}
-              paymentMethodType="sepa_debit"
-              onSelect={(id: string) => defineSelectedPaymentMethod(id)}
-              setHasDetached={setHasDetached}
-              detachPaymentMethodLoading={detachPaymentMethodLoading}
-              detachPaymentMethod={detachPaymentMethod}
-              sepaDefaultName={userDefaultName}
               sepaDefaultEmail={userDefaultEmail}
+              sepaDefaultName={userDefaultName}
+              setHasDetached={setHasDetached}
             />
             <ButtonBase
-              disabled={false}
-              onClick={() => setAddPaymentMethod(true)}
               className={classNames(
                 classes.addButton,
                 customClasses?.addButton,
               )}
+              disabled={false}
+              onClick={() => setAddPaymentMethod(true)}
             >
               <AddIcon
                 className={classNames(
@@ -589,7 +589,7 @@ export const PaymentStripeSEPA = forwardRef(
                 )}
                 color="primary"
               />
-              <Typography variant="body1" align="left" color="primary">
+              <Typography align="left" color="primary" variant="body1">
                 {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
               </Typography>
             </ButtonBase>
@@ -598,9 +598,9 @@ export const PaymentStripeSEPA = forwardRef(
         {allowConsumerToUseInternalAccount && !!creditAccountBalance && (
           <UseInternalAccountForm
             creditAccountBalance={creditAccountBalance}
+            loading={loading || applyBalanceLoading}
             onBasketSubmit={useInternalAccount}
             onInvoiceSubmit={applyBalanceToInvoice}
-            loading={loading || applyBalanceLoading}
           />
         )}
         {children ?? null}
@@ -627,10 +627,10 @@ export const PaymentStripeSEPA = forwardRef(
               ) : (
                 <React.Fragment>
                   <Button
-                    variant="contained"
                     color="primary"
-                    type="submit"
                     disabled={isSubmitButtonDisabled}
+                    type="submit"
+                    variant="contained"
                   >
                     {t('invoice:paymentPanel.actions.confirmPayment')}
                   </Button>

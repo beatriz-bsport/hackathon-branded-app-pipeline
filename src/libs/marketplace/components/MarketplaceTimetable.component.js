@@ -82,7 +82,7 @@ export class MarketplaceTimetable extends PureComponent<Props> {
 
     return (
       <div key={displayedDate} className={classes.container}>
-        <Typography variant="h6" className={classes.title}>
+        <Typography className={classes.title} variant="h6">
           {displayedDate}
         </Typography>
         <Divider />
@@ -92,36 +92,36 @@ export class MarketplaceTimetable extends PureComponent<Props> {
 
             return (
               <OfferListItemConsumer
-                coachLoading={this.props.coachLoading}
-                establishmentLoading={this.props.establishmentLoading}
-                activityLoading={this.props.activityLoading}
-                hideCoach={this.props.hideCoach}
-                showOfferFilling={this.props.showOfferFilling}
                 key={o.id}
-                offer={o}
-                onClick={this.handleClick(o)}
-                isRegistered={
-                  bookedOffers?.length ? bookedOffers.includes(o.id) : false
-                }
                 actions={
                   <div className={classes.inlineContainer}>
                     <Hidden xsDown>
                       <IconButton
+                        color="secondary"
                         disabled={isInThePast}
                         onClick={this.handleClick(o)}
-                        color="secondary"
                       >
                         <InfoIcon />
                       </IconButton>
                     </Hidden>
                     <MarketplaceBookButton
-                      showOfferGender={this.props.showOfferGender}
+                      offer={o}
                       onClickBook={this.handleBook(o)}
                       onClickBookOption={this.handleBookOption(o)}
-                      offer={o}
+                      showOfferGender={this.props.showOfferGender}
                     />
                   </div>
                 }
+                activityLoading={this.props.activityLoading}
+                coachLoading={this.props.coachLoading}
+                establishmentLoading={this.props.establishmentLoading}
+                hideCoach={this.props.hideCoach}
+                isRegistered={
+                  bookedOffers?.length ? bookedOffers.includes(o.id) : false
+                }
+                offer={o}
+                onClick={this.handleClick(o)}
+                showOfferFilling={this.props.showOfferFilling}
               />
             );
           })}

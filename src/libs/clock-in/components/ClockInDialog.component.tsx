@@ -154,11 +154,11 @@ const ClockInDialog: React.FC<Props> = ({
 
   return (
     <Dialog
-      open={open}
-      onClose={onClose}
       classes={{
         paper: classNames({ [classes.bigPaper]: mode === CLOCK_IN_FOR_OTHER }),
       }}
+      onClose={onClose}
+      open={open}
     >
       <div className={classes.dialog}>
         <DialogTitle>{t('clockinDialog.title')}</DialogTitle>
@@ -175,11 +175,11 @@ const ClockInDialog: React.FC<Props> = ({
                     {isClockingOut && t('clockinDialog.subtitleClockOut')}
                   </Typography>
                   <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleSelfClockIn}
                     className={classes.button}
+                    color="primary"
                     disabled={selfProcessing}
+                    onClick={handleSelfClockIn}
+                    variant="contained"
                   >
                     {isClockingIn && (
                       <>
@@ -208,7 +208,7 @@ const ClockInDialog: React.FC<Props> = ({
                   </Button>
                   <div className={classes.subText}>
                     {isClockingIn && dateStart && (
-                      <Typography variant="caption" className={classes.grey}>
+                      <Typography className={classes.grey} variant="caption">
                         {t('clockinDialog.lastClockIn', {
                           date: moment.unix(dateStart).format('L'),
                           hour: moment.unix(dateStart).format('HH:mm'),
@@ -234,11 +234,11 @@ const ClockInDialog: React.FC<Props> = ({
               {permissions?.navigationMenu?.payments?.clockIn
                 ?.clockInForOther && (
                 <Button
-                  variant="outlined"
                   color="primary"
                   onClick={() => {
                     setMode(CLOCK_IN_FOR_OTHER);
                   }}
+                  variant="outlined"
                 >
                   {t('clockinDialog.clockInForOther')}
                 </Button>
@@ -248,11 +248,11 @@ const ClockInDialog: React.FC<Props> = ({
 
           {mode === CLOCK_IN_FOR_OTHER && (
             <ClockInForOtherTable
-              value={value}
-              fetchAttendance={fetchAttendance}
-              fetchCompanyUserRolesPaginated={fetchCompanyUserRolesPaginated}
               clockIn={clockIn}
               clockOut={clockOut}
+              fetchAttendance={fetchAttendance}
+              fetchCompanyUserRolesPaginated={fetchCompanyUserRolesPaginated}
+              value={value}
             />
           )}
 
@@ -262,7 +262,7 @@ const ClockInDialog: React.FC<Props> = ({
                 {t('clockinDialog.subtitleSuccess')}
               </Typography>
               <div className={classes.iconContainer}>
-                <DoneAllIcon color="primary" className={classes.icon} />
+                <DoneAllIcon className={classes.icon} color="primary" />
               </div>
               <div className={classes.spacing}>
                 <Typography color="textPrimary">

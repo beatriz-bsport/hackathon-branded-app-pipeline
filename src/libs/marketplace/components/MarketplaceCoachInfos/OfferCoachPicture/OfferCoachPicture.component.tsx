@@ -17,11 +17,11 @@ const OfferCoachPicture: React.FC<Props> = React.memo(
     return (
       <img
         alt="coach-avatar"
-        src={picture || DEFAULT_AVATAR}
         className={classNames('bs-card-offer__content__coach__avatar', {
           'bs-card-offer__content__coach__avatar--reverse': reverse,
           ...classes,
         })}
+        src={picture || DEFAULT_AVATAR}
       />
     );
   },

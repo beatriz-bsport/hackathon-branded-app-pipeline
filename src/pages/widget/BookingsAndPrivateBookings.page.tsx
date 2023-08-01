@@ -153,14 +153,14 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
     return (
       <div className={classes.container}>
         <div className={classes.bookingsContainer}>
-          <AppBarMUI position="relative" color="white">
+          <AppBarMUI color="white" position="relative">
             <Tabs
-              value={this.state.tab}
-              onChange={(e, tab) => this.setState({ tab })}
-              indicatorColor="primary"
-              textColor="primary"
-              variant="fullWidth"
               aria-label="full width tabs example"
+              indicatorColor="primary"
+              onChange={(e, tab) => this.setState({ tab })}
+              textColor="primary"
+              value={this.state.tab}
+              variant="fullWidth"
             >
               <Tab
                 label={t('consumerSpace:widget.futureBooking')}
@@ -181,37 +181,35 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
           ) : (
             <div className={classes.bookingsContainerInner}>
               <ConsumerDashboardBookingPanel
+                fullWidth
+                hideTitle
                 bookingsAndPrivateBookings={
                   this.props.bookingsAndPrivateBookings
                 }
+                hasMore={this.props.hasMoreBookingsAndPrivateBookings}
                 isPast={this.state.tab === SHOW_PAST_TAB}
                 loading={this.props.bookingsAndPrivateBookingsLoading}
-                hasMore={this.props.hasMoreBookingsAndPrivateBookings}
-                timezone={this.props.companyTheme.timezone_name}
                 membership={this.props.membership}
                 onDiscardBooking={this.props.setBookingToCancel}
                 onDiscardPrivateBooking={this.props.setPrivateBookingToCancel}
                 showMoreBooking={this.onClickShowMoreBookings}
-                fullWidth
-                hideTitle
+                timezone={this.props.companyTheme.timezone_name}
               />
             </div>
           )}
 
           <BookingCancellationDialog
-            open={!!this.props.bookingToCancel}
             fullScreen
             booking={this.props.bookingToCancel}
             onCancel={() => this.props.setBookingToCancel(null)}
             onSubmit={(options: OptionCallback) =>
               this.onDiscardBooking(this.props.bookingToCancel.id, options)
             }
+            open={!!this.props.bookingToCancel}
           />
 
           <PrivateBookingCancellationDialog
-            open={!!this.props.privateBookingToCancel}
             fullScreen
-            privateBooking={this.props.privateBookingToCancel}
             onCancel={() => this.props.setPrivateBookingToCancel(null)}
             onSubmit={(options) =>
               this.onDiscardPrivateBooking(
@@ -219,6 +217,8 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
                 options,
               )
             }
+            open={!!this.props.privateBookingToCancel}
+            privateBooking={this.props.privateBookingToCancel}
           />
         </div>
       </div>

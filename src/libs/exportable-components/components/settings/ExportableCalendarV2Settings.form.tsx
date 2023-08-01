@@ -130,10 +130,10 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
           <InputLabel>{t('widget:widget.choice')}</InputLabel>
           <Select
             className={classes.fullWidth}
-            value={compactMode}
             onChange={(ev: React.ChangeEvent<HTMLSelectElement>) =>
               setCompactMode(ev.target.value)
             }
+            value={compactMode}
           >
             {COMPACT_MODE_TYPE.map((key) => {
               return (
@@ -152,8 +152,8 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
             control={
               <Switch
                 checked={config?.groupSessionByPeriod ?? true}
-                onChange={setGroupSessionBy}
                 color="primary"
+                onChange={setGroupSessionBy}
               />
             }
             label={t('widget:widget.groupSessionByPeriod')}
@@ -164,10 +164,10 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
         <InputLabel>{t('widget:widget.variant')}</InputLabel>
         <Select
           className={classes.fullWidth}
-          value={config.variant ?? 'activityName'}
           onChange={(ev: React.ChangeEvent<HTMLSelectElement>) =>
             setVariant(ev.target.value as MarketplaceCalendarVariant)
           }
+          value={config.variant ?? 'activityName'}
         >
           {VARIANTS.map((key) => {
             return (
@@ -181,11 +181,11 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
 
       <CommonSettings
         coaches={coaches}
+        config={config}
+        customLevels={props.customLevels}
         establishmentGroupList={establishmentGroupList}
         establishments={establishments}
         metaActivities={metaActivities}
-        customLevels={props.customLevels}
-        config={config}
         onChange={onChange}
       />
     </div>

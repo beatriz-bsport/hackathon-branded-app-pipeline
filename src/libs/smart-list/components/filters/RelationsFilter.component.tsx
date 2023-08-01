@@ -216,13 +216,13 @@ export class RelationsFilter extends Component<Props> {
           <div className={classes.rowContainer}>
             {t(`filters.${filter_data?.filter_identifier}.first`)}
             <Select
-              className={classes.textInput}
               required
-              value={filter_data.comparator_number_relations}
+              className={classes.textInput}
               defaultValue={GTE_COMPARATOR}
               onChange={(ev) =>
                 onChange({ comparator_number_relations: ev.target.value })
               }
+              value={filter_data.comparator_number_relations}
             >
               {COMPARATORS_DICT_BETWEEN.map((item) => (
                 <MenuItem key={item.key} value={item.value}>
@@ -235,11 +235,11 @@ export class RelationsFilter extends Component<Props> {
               : null}
             <DelayedNumericInput
               classes={classes}
-              value={filter_data.value_number_relations}
               InputProps={{ inputProps: { min: 0 } }}
               onChange={(ev) =>
                 onChange({ value_number_relations: ev.target.value })
               }
+              value={filter_data.value_number_relations}
             />
             {filter_data?.comparator_number_relations === BETWEEN_COMPARATOR
               ? t(`filters.${filter_data?.filter_identifier}.between`)
@@ -247,11 +247,11 @@ export class RelationsFilter extends Component<Props> {
             {filter_data?.comparator_number_relations === BETWEEN_COMPARATOR ? (
               <DelayedNumericInput
                 classes={classes}
-                value={filter_data.value_number_relations_second}
                 InputProps={{ inputProps: { min: 0 } }}
                 onChange={(ev) =>
                   onChange({ value_number_relations_second: ev.target.value })
                 }
+                value={filter_data.value_number_relations_second}
               />
             ) : null}
             {t(`filters.${filter_data?.filter_identifier}.second`)}
@@ -261,13 +261,13 @@ export class RelationsFilter extends Component<Props> {
           <div className={classes.inlineContainer}>
             <Switch
               checked={filter_data.date_filter_active}
+              inputProps={{ 'aria-label': 'secondary checkbox' }}
               onChange={() =>
                 onChange({
                   date_filter_active: !filter_data.date_filter_active,
                 })
               }
               value="checkedA"
-              inputProps={{ 'aria-label': 'secondary checkbox' }}
             />
             <div
               className={
@@ -279,9 +279,9 @@ export class RelationsFilter extends Component<Props> {
               {t(`filters.${filter_data?.filter_identifier}.date.first`)}
 
               <CalendarPicker
+                blockValidateOnClickAway
                 filter_data={filter_data}
                 onChange={onChange}
-                blockValidateOnClickAway
               />
             </div>
           </div>
@@ -290,9 +290,9 @@ export class RelationsFilter extends Component<Props> {
               <div key={`filter_${index}`} className={classes.inlineContainer}>
                 <Switch
                   checked={filterActiveList[index]}
+                  inputProps={{ 'aria-label': 'secondary checkbox' }}
                   onChange={() => onChange(filterActiveDictList[index])}
                   value="checkedA"
-                  inputProps={{ 'aria-label': 'secondary checkbox' }}
                 />
                 <div
                   className={
@@ -306,9 +306,8 @@ export class RelationsFilter extends Component<Props> {
                     : t(`filters.${filter_data?.filter_identifier}.third`)}
 
                   <Select
-                    className={classes.textInput}
                     required
-                    value={comparatorList[index]}
+                    className={classes.textInput}
                     defaultValue={GTE_COMPARATOR}
                     onChange={(ev: React.ChangeEvent<{ value: number }>) =>
                       onChange(
@@ -317,6 +316,7 @@ export class RelationsFilter extends Component<Props> {
                         ],
                       )
                     }
+                    value={comparatorList[index]}
                   >
                     {COMPARATORS_DICT_BETWEEN.map((item) => (
                       <MenuItem key={item.key} value={item.value}>
@@ -329,13 +329,13 @@ export class RelationsFilter extends Component<Props> {
                     : null}
                   <DelayedNumericInput
                     classes={classes}
-                    value={valueList[index]}
                     InputProps={{ inputProps: { min: 0 } }}
                     onChange={(ev: React.ChangeEvent<{ value: number }>) =>
                       onChange(
                         this.getValueRelationDictList(ev.target.value)[index],
                       )
                     }
+                    value={valueList[index]}
                   />
                   {comparatorList[index] === BETWEEN_COMPARATOR
                     ? t(`filters.${filter_data?.filter_identifier}.between`)
@@ -343,7 +343,6 @@ export class RelationsFilter extends Component<Props> {
                   {comparatorList[index] === BETWEEN_COMPARATOR ? (
                     <DelayedNumericInput
                       classes={classes}
-                      value={valueSecondList[index]}
                       InputProps={{ inputProps: { min: 0 } }}
                       onChange={(ev: React.ChangeEvent<{ value: number }>) =>
                         onChange(
@@ -352,6 +351,7 @@ export class RelationsFilter extends Component<Props> {
                           ],
                         )
                       }
+                      value={valueSecondList[index]}
                     />
                   ) : null}
                   {t(
@@ -360,9 +360,8 @@ export class RelationsFilter extends Component<Props> {
                   {index !== 2 && (
                     <>
                       <Select
-                        className={classes.textInput}
                         required
-                        value={filterMustBeValidList[index]}
+                        className={classes.textInput}
                         defaultValue={false}
                         onChange={(ev: React.ChangeEvent<{ value: number }>) =>
                           onChange(
@@ -371,6 +370,7 @@ export class RelationsFilter extends Component<Props> {
                             )[index],
                           )
                         }
+                        value={filterMustBeValidList[index]}
                       >
                         {/* eslint-disable-next-line */}
                         <MenuItem key={`valid_${index}`} value={true}>
@@ -383,6 +383,7 @@ export class RelationsFilter extends Component<Props> {
                         </MenuItem>
                       </Select>
                       <ToolTip
+                        aria-label="info"
                         title={
                           <Typography variant="subtitle2">
                             {t(
@@ -390,7 +391,6 @@ export class RelationsFilter extends Component<Props> {
                             )}
                           </Typography>
                         }
-                        aria-label="info"
                       >
                         <IconButton>
                           <InfoIcon />
@@ -407,9 +407,9 @@ export class RelationsFilter extends Component<Props> {
               <div key={`boolean_${index}`} className={classes.inlineContainer}>
                 <Switch
                   checked={booleanFilterActiveList[index]}
+                  inputProps={{ 'aria-label': 'secondary checkbox' }}
                   onChange={() => onChange(booleanFilterActiveDictList[index])}
                   value="checkedA"
-                  inputProps={{ 'aria-label': 'secondary checkbox' }}
                 />
                 <div
                   className={
@@ -423,11 +423,10 @@ export class RelationsFilter extends Component<Props> {
                   )}
 
                   <Select
-                    className={classes.input}
+                    defaultValue
                     required
-                    value={booleanValueList[index]}
+                    className={classes.input}
                     // eslint-disable-next-line
-                    defaultValue={true}
                     onChange={(ev: React.ChangeEvent<{ value: number }>) =>
                       onChange(
                         this.getBooleanValueRelationDictList(ev.target.value)[
@@ -435,6 +434,7 @@ export class RelationsFilter extends Component<Props> {
                         ],
                       )
                     }
+                    value={booleanValueList[index]}
                   >
                     {/* eslint-disable */}
                     <MenuItem

@@ -17,23 +17,23 @@ type FlowProps = {
 export const TriggerCardFlowVersion: React.FC<FlowProps> = ({ data }) => (
   <>
     <HiddenHandle
-      type={HandleTypeChoices.TARGET}
       position={Position.Left}
       style={TRIGGER_LEFT_HANDLE_STYLE}
+      type={HandleTypeChoices.TARGET}
     />
     <TriggerCard
+      disabled={data.disabled}
+      getSmartlist={data.getSmartlist}
+      isSelected={data.isSelected}
+      onCardClick={data.onCardClick}
+      onDelete={data.onDelete}
       step={data.step}
       trigger={data.trigger}
-      isSelected={data.isSelected}
-      disabled={data.disabled}
-      onDelete={data.onDelete}
-      getSmartlist={data.getSmartlist}
-      onCardClick={data.onCardClick}
     />
     <HiddenHandle
-      type={HandleTypeChoices.SOURCE}
       position={Position.Right}
       style={TRIGGER_RIGHT_HANDLE_STYLE}
+      type={HandleTypeChoices.SOURCE}
     />
   </>
 );

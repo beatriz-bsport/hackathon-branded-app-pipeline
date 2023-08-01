@@ -27,8 +27,8 @@ const PrivateServiceDetailSummary: React.FC<Props> = (props) => {
       {privateService && (
         <img
           alt={privateService.name}
-          src={privateService.cover_main}
           className={classes.privateServiceImage}
+          src={privateService.cover_main}
         />
       )}
 
@@ -39,8 +39,8 @@ const PrivateServiceDetailSummary: React.FC<Props> = (props) => {
 
             <TypographyMultiline
               className={classes.serviceDescription}
-              variant="subtitle2"
               color="textSecondary"
+              variant="subtitle2"
             >
               {privateService.description}
             </TypographyMultiline>

@@ -116,10 +116,10 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
                   <Switch
                     checked={!is_disabled}
                     disabled={!hasZoom || !is_configured}
-                    value={!this.state.zoomApp.is_disabled}
                     onChange={(ev) => {
                       this.handleChangeZoom('is_disabled')(!ev.target.checked);
                     }}
+                    value={!this.state.zoomApp.is_disabled}
                   />
                   <Typography
                     color={
@@ -134,12 +134,12 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
                 </Typography>
                 <div className={classes.rowActions}>
                   <CustomColorButton
-                    variant="contained"
                     color="#2d8cff"
                     disabled={
                       this.props.zoomLoading || !hasZoom || is_configured
                     }
                     onClick={this.props.connectZoom}
+                    variant="contained"
                   >
                     {is_configured ? (
                       <CheckIcon className={classes.leftIcon} />
@@ -150,9 +150,9 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
                   </CustomColorButton>
                   {is_configured && hasZoom && (
                     <RedButton
-                      variant="contained"
                       disabled={this.props.zoomLoading}
                       onClick={this.props.revokeZoomApp}
+                      variant="contained"
                     >
                       {t('broadcast.zoom.revoke')}
                     </RedButton>
@@ -160,8 +160,8 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
                   {!!this.props.zoomLoading && <CircularProgress />}
                   {!hasZoom && (
                     <Link
-                      to="/settings/platform-billing"
                       style={{ textDecoration: 'none' }}
+                      to="/settings/platform-billing"
                     >
                       <Button variant="outlined">
                         <ArrowForwardIcon className={classes.leftIcon} />
@@ -176,10 +176,10 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
         </FeatureListProvider>
         <div className={classes.buttonContainer}>
           <Button
-            onClick={() => this.onSubmit()}
-            disabled={this.checkChange() || this.props.processing}
-            variant="contained"
             color="primary"
+            disabled={this.checkChange() || this.props.processing}
+            onClick={() => this.onSubmit()}
+            variant="contained"
           >
             {t('broadcast.submit')}
           </Button>

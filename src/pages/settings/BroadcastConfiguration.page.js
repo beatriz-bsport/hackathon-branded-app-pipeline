@@ -111,13 +111,13 @@ export class BroadcastConfiguration extends Component<Props> {
     return (
       <div className={classes.container}>
         <BroadcastConfigurationForm
-          theme={this.props.theme}
-          onSubmitTheme={this.props.submitTheme}
-          processing={this.props.processing}
-          zoomApp={this.props.zoomApp}
           connectZoom={this.connectZoom}
+          onSubmitTheme={this.props.submitTheme}
           onSubmitZoomApp={this.props.submitZoomApp}
+          processing={this.props.processing}
           revokeZoomApp={this.props.revokeZoomApp}
+          theme={this.props.theme}
+          zoomApp={this.props.zoomApp}
           zoomLoading={!!this.props.zoomCode}
         />
       </div>

@@ -92,18 +92,18 @@ const CommunicationMessageScrollableView = (props: Props) => {
           <CommunicationMessageBubble
             key={threadCommunication.communication.uuid}
             communicationMessage={threadCommunication}
+            oneToOneMessageMember={props.oneToOneMessageMember}
+            onShowEmailTemplate={props.showEmailTemplate}
             onShowInformationClick={() =>
               props.showCommunicationInformation(threadCommunication)
             }
-            onShowEmailTemplate={props.showEmailTemplate}
-            oneToOneMessageMember={props.oneToOneMessageMember}
             resolvedGenericTags={props.resolvedGenericTags}
           />
         ))
       )}
       {!props.loadingCommunicationMessageDataList &&
         sortedMessageList.length === 0 && (
-          <Typography variant="subtitle1" className={classes.emptyLabel}>
+          <Typography className={classes.emptyLabel} variant="subtitle1">
             {t(
               `thread.emptyThread.${
                 props.hasActiveFilters ? 'becauseOfFilters' : 'becauseNeverUsed'

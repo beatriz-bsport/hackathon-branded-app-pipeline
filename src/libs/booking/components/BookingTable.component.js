@@ -80,7 +80,7 @@ export class BookingTable extends PureComponent<Props> {
       bookings.length === 0 && !loading
     ) {
       return (
-        <Typography variant="caption" className={classes.contentWithMargin}>
+        <Typography className={classes.contentWithMargin} variant="caption">
           {t('booking.noBookingOnThisOffer')}
         </Typography>
       );
@@ -90,41 +90,41 @@ export class BookingTable extends PureComponent<Props> {
       .map((b) => members.find((m) => m.id === b.member));
 
     return (
-      <List disablePadding dense>
+      <List dense disablePadding>
         {[
           ...bookings.filter((b) => b.booking_status_code === 0),
           ...bookings.filter((b) => b.booking_status_code !== 0),
         ].map((b) => (
           <BookingItemForManagerV2
-            member={this.props.members.find((m) => m.id === b.member)}
-            redirectToMember={redirectToMember}
-            redirectToOffer={redirectToOffer}
-            newTab={newTab}
-            showQuickInvoiceButton={showQuickInvoiceButton}
-            onQuickInvoiceClick={() => onQuickInvoiceClick(b.member)}
             key={b.id}
-            heading={heading}
+            displayNoShowChip
             booking={b}
             bookings={bookings}
-            showRevertBookingButton={showRevertBookingButton}
+            confirmBookingAttendance={() => confirmBookingAttendance(b.id)}
+            dateRollCallLastModified={this.props.dateRollCallLastModified}
+            discardBookingAttendance={() => discardBookingAttendance(b.id)}
             handleRevert={() => {
               handleRevert(b);
               this.props.refresh();
             }}
-            discardBookingAttendance={() => discardBookingAttendance(b.id)}
-            confirmBookingAttendance={() => confirmBookingAttendance(b.id)}
-            spotSchedulingEnabled={this.props.spotSchedulingEnabled}
-            onClickChangeSpot={onClickChangeSpot}
-            showVaccinationStatus={this.props.showVaccinationStatus}
-            programList={this.props.programList}
-            membersWithStatusOk={membersWithStatusOk}
-            onProgramDetailsClick={onProgramDetailsClick}
-            dateRollCallLastModified={this.props.dateRollCallLastModified}
-            displayNoShowChip
-            onClickWarningIcon={this.props.onClickWarningIcon}
-            onClickNoShowChip={this.props.onClickNoShowChip}
+            heading={heading}
             isRollCallMandatory={this.props.isRollCallMandatory}
+            member={this.props.members.find((m) => m.id === b.member)}
+            membersWithStatusOk={membersWithStatusOk}
+            newTab={newTab}
             noShowChipMessage={this.props.t('booking:noShowChip.message')}
+            onClickChangeSpot={onClickChangeSpot}
+            onClickNoShowChip={this.props.onClickNoShowChip}
+            onClickWarningIcon={this.props.onClickWarningIcon}
+            onProgramDetailsClick={onProgramDetailsClick}
+            onQuickInvoiceClick={() => onQuickInvoiceClick(b.member)}
+            programList={this.props.programList}
+            redirectToMember={redirectToMember}
+            redirectToOffer={redirectToOffer}
+            showQuickInvoiceButton={showQuickInvoiceButton}
+            showRevertBookingButton={showRevertBookingButton}
+            showVaccinationStatus={this.props.showVaccinationStatus}
+            spotSchedulingEnabled={this.props.spotSchedulingEnabled}
           />
         ))}
       </List>

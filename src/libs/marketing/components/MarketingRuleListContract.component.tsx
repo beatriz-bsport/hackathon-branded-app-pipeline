@@ -46,8 +46,8 @@ const ContractNotificationList: React.FC<Props> = (props: Props) => {
   return (
     <div>
       <ButtonBase
-        onClick={() => setShowSection(!showSection)}
         className={classes.buttonTitleHeader}
+        onClick={() => setShowSection(!showSection)}
       >
         <Typography variant="h5">
           {t('notifications.groupTitle.contract')}
@@ -82,8 +82,8 @@ const ContractNotificationList: React.FC<Props> = (props: Props) => {
           return (
             <Collapse in={showSection}>
               <div
-                className={classes.contractItem}
                 key={`notifications_contract_${id}`}
+                className={classes.contractItem}
               >
                 <ButtonBase
                   className={classes.buttonTitleContainer}
@@ -94,7 +94,7 @@ const ContractNotificationList: React.FC<Props> = (props: Props) => {
                     });
                   }}
                 >
-                  <Typography variant="h5" color="primary">
+                  <Typography color="primary" variant="h5">
                     {contract.name}
                   </Typography>
 
@@ -119,11 +119,11 @@ const ContractNotificationList: React.FC<Props> = (props: Props) => {
                             ).toLowerCase()}
                           </Typography>
                           <MarketingNotificationsList
-                            notifications={contractStartCreation}
                             emailSummariesById={props.emailSummariesById}
+                            notifications={contractStartCreation}
                             onClickNotification={props.onClickNotification}
-                            smartLists={props.smartLists}
                             onUpdateNotification={props.onUpdateNotification}
+                            smartLists={props.smartLists}
                           />
                         </div>
                       )}
@@ -135,11 +135,11 @@ const ContractNotificationList: React.FC<Props> = (props: Props) => {
                             ).toLowerCase()}
                           </Typography>
                           <MarketingNotificationsList
-                            notifications={contractStartFirstBilling}
                             emailSummariesById={props.emailSummariesById}
+                            notifications={contractStartFirstBilling}
                             onClickNotification={props.onClickNotification}
-                            smartLists={props.smartLists}
                             onUpdateNotification={props.onUpdateNotification}
+                            smartLists={props.smartLists}
                           />
                         </div>
                       )}
@@ -156,11 +156,11 @@ const ContractNotificationList: React.FC<Props> = (props: Props) => {
                       </div>
                       <div className={classes.notificationsContainer}>
                         <MarketingNotificationsList
-                          notifications={contractEnd}
                           emailSummariesById={props.emailSummariesById}
+                          notifications={contractEnd}
                           onClickNotification={props.onClickNotification}
-                          smartLists={props.smartLists}
                           onUpdateNotification={props.onUpdateNotification}
+                          smartLists={props.smartLists}
                         />
                       </div>
                     </div>

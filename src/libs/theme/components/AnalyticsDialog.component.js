@@ -58,7 +58,7 @@ function createBody(props) {
   const body = [];
   rows.forEach((row) => {
     const events = row.analyticSpec.map((e) => (
-      <TableCell className={props.classes.cellsBorder} align="left">
+      <TableCell align="left" className={props.classes.cellsBorder}>
         {e.label || '----------'}
       </TableCell>
     ));
@@ -83,18 +83,18 @@ const AnalyticsDialog = (props: Props) => {
   const body = createBody(props);
   return (
     <Dialog
+      classes={{ paperWidthSm: props.classes.paperWidthSm }}
       fullScreen={false}
       open={props.open}
-      classes={{ paperWidthSm: props.classes.paperWidthSm }}
     >
       <DialogContent>
-        <Table className={props.classes.table} aria-label="simple table">
+        <Table aria-label="simple table" className={props.classes.table}>
           <TableHead>
             <TableRow>
               <TableCell className={props.classes.cellsBorder}>
                 {props.t('analytics.eventDesc')}
               </TableCell>
-              <TableCell className={props.classes.cellsBorder} align="left">
+              <TableCell align="left" className={props.classes.cellsBorder}>
                 {props.t('analytics.gtmEvent')}
               </TableCell>
               <TableCell align="left">
@@ -107,7 +107,7 @@ const AnalyticsDialog = (props: Props) => {
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={props.onCancel} variant="contained" color="primary">
+        <Button color="primary" onClick={props.onCancel} variant="contained">
           {props.t('analytics.cancel')}
         </Button>
       </DialogActions>

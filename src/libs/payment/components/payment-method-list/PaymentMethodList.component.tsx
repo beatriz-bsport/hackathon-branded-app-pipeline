@@ -14,6 +14,7 @@ import CollectPaymentMethod from '../CollectPaymentMethod.component';
 import { PaymentMethod } from '../../types';
 
 type Props = {
+  companyId?: number;
   disabled?: boolean;
   savedPaymentMethodList: Array<PaymentMethod>;
   selectedSavedPaymentMethodId?: string;
@@ -68,14 +69,14 @@ export const PaymentMethodList = (props: Props) => {
         : relevantSavedPaymentMethodList
       ).map((pm) => (
         <PaymentMethodListItem
-          paymentMethod={pm}
           key={pm.id}
-          disabled={props.disabled}
-          selected={pm.id === props.selectedSavedPaymentMethodId}
-          onClick={props.onSelect && (() => props.onSelect(pm.id))}
-          setHasDetached={props.setHasDetached}
-          detachPaymentMethodLoading={props.detachPaymentMethodLoading}
           detachPaymentMethod={props.detachPaymentMethod}
+          detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+          disabled={props.disabled}
+          onClick={props.onSelect && (() => props.onSelect(pm.id))}
+          paymentMethod={pm}
+          selected={pm.id === props.selectedSavedPaymentMethodId}
+          setHasDetached={props.setHasDetached}
         />
       ))}
       {!!props.requestSetupIntentSecret && onlinePaymentEnabled && (
@@ -90,14 +91,14 @@ export const PaymentMethodList = (props: Props) => {
       )}
       {collectPaymentMethodIsOpen && (
         <CollectPaymentMethod
+          companyId={props.companyId}
+          defaultEmail={props.sepaDefaultEmail}
+          defaultName={props.sepaDefaultName}
           fullScreen={isMobile}
-          requestSetupIntentSecret={props.requestSetupIntentSecret}
+          onClose={() => setCollectPaymentMethodIsOpen(false)}
           paymentMethodType={props.paymentMethodType}
           refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
-          onClose={() => setCollectPaymentMethodIsOpen(false)}
-          defaultName={props.sepaDefaultName}
-          defaultEmail={props.sepaDefaultEmail}
-          companyId={props.companyId}
+          requestSetupIntentSecret={props.requestSetupIntentSecret}
         />
       )}
     </div>

@@ -71,7 +71,7 @@ const CssEditorForm: React.FC<Props> = ({
   return (
     <div className={classes.paper}>
       <div className={classes.innerPaper}>
-        <Typography variant="h6" className={classes.title}>
+        <Typography className={classes.title} variant="h6">
           <CodeIcon className={classes.icon} />
           {t('widget.customCss.CSS')}
         </Typography>
@@ -81,8 +81,8 @@ const CssEditorForm: React.FC<Props> = ({
           labelPlacement="start"
         />
         <CssCodeTextarea
-          code={code}
           baseCss={getCssComponentByLabel(componentId).css}
+          code={code}
           onCodeChange={handleChange}
           showBaseCode={showBaseCode}
         />
@@ -100,10 +100,10 @@ const CssEditorForm: React.FC<Props> = ({
             )}
           </div>
           <Button
-            variant="contained"
-            type="submit"
             color="primary"
             onClick={handleSave}
+            type="submit"
+            variant="contained"
           >
             {t('widget.customCss.save')}
           </Button>
@@ -122,7 +122,7 @@ const ButtonResetComponent = withConfirm(
     return (
       <ButtonBase className={classes.buttonReset} onClick={onClick}>
         <ReplayIcon className={classes.icon} />
-        <Typography color="textSecondary" className={classes.upperCase}>
+        <Typography className={classes.upperCase} color="textSecondary">
           {t('widget.cssEditor.reset')}
         </Typography>
       </ButtonBase>

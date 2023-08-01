@@ -23,17 +23,13 @@ export const PasswordInput = (props: Props) => {
   const [isVisible, toogleVisible] = React.useState<boolean>(false);
   return (
     <TextField
-      data-testid="password"
-      id="textfield_password"
-      value={props.value}
-      fullWidth={props.fullWidth}
       autoComplete="current-password"
-      error={!!props.error}
-      label={props.label || t('forms.password.label')}
+      data-testid="password"
       disabled={props.disabled}
+      error={!!props.error}
+      fullWidth={props.fullWidth}
       helperText={props.helperText}
-      type={isVisible ? 'text' : 'password'}
-      onChange={props.onChange}
+      id="textfield_password"
       InputProps={
         isVisible
           ? {
@@ -55,6 +51,10 @@ export const PasswordInput = (props: Props) => {
               ),
             }
       }
+      label={props.label || t('forms.password.label')}
+      onChange={props.onChange}
+      type={isVisible ? 'text' : 'password'}
+      value={props.value}
     />
   );
 };

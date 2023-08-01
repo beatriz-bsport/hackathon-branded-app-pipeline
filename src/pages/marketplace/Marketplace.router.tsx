@@ -46,22 +46,22 @@ export class MarketplaceRouter extends React.Component<Props> {
     }
     return (
       <Switch>
-        <Route exact path="/m/:companyName" component={MarketplaceResolver} />
+        <Route exact component={MarketplaceResolver} path="/m/:companyName" />
         <MemberShipValidationWrapper>
           <Switch>
             <Route
-              path="/m/:companyName/:companyId/form/:customFormId"
               component={MarketplaceCustomForm}
+              path="/m/:companyName/:companyId/form/:customFormId"
             />
             <Route
               exact
-              path="/m/:companyName/:companyId/"
               component={Marketplace}
+              path="/m/:companyName/:companyId/"
             />
 
             <Route
-              path="/m/:companyName/:companyId/:subcomponent/"
               component={Marketplace}
+              path="/m/:companyName/:companyId/:subcomponent/"
             />
           </Switch>
         </MemberShipValidationWrapper>

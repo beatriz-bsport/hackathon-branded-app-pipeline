@@ -79,25 +79,25 @@ export class AccountConfigurationBankAccountPage extends Component<Props> {
     }
     return (
       <BankAccountStep
-        has_no_need_for_stripe_configuration={
-          this.props.stripeCompany.has_no_need_for_stripe_configuration
-        }
+        company={this.props.companySetup}
+        goNext={this.validateBankAccountStep}
+        goPrevious={this.redirect(AccountConfigurationStripeStepUrl)}
         has_no_need_for_bank_account_configuration={
           this.props.stripeCompany.has_no_need_for_bank_account_configuration
         }
         has_no_need_for_payment_method_configuration={
           this.props.stripeCompany.has_no_need_for_payment_method_configuration
         }
-        submitBankAccount={this.attachExternalAccount}
-        goNext={this.validateBankAccountStep}
-        goPrevious={this.redirect(AccountConfigurationStripeStepUrl)}
-        company={this.props.companySetup}
+        has_no_need_for_stripe_configuration={
+          this.props.stripeCompany.has_no_need_for_stripe_configuration
+        }
         labelGoNext={
           this.props.stripeCompany
             .has_no_need_for_payment_method_configuration &&
           this.props.stripeCompany.has_no_need_for_bank_account_configuration &&
           this.props.t('finish')
         }
+        submitBankAccount={this.attachExternalAccount}
         success={
           !!this.props.companySetup.external_account_last4 &&
           !!this.props.companySetup.bank_account_holder

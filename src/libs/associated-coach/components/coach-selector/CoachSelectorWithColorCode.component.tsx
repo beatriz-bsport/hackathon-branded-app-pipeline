@@ -38,11 +38,11 @@ export const CoachSelectorWithColorCode: React.FC<Props> = ({
       <div className={classes.input}>
         <CoachInput
           required
-          value={coachId}
-          onChange={onChangeCoach}
-          label={t('selector.label')}
           choices={associatedCoachList}
+          label={t('selector.label')}
+          onChange={onChangeCoach}
           onDelete={() => onChangeCoach(null)}
+          value={coachId}
         />
         {loading ? <CircularProgress size="small" /> : null}
       </div>

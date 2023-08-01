@@ -77,43 +77,43 @@ const SectionName: React.FC<Props> = (props) => {
       return (
         <Input
           ref={inputRef}
-          id={`card-title-input-${sectionId}`}
+          autoFocus
           classes={{
             root: classes.nameInput,
             underline: classes.nameInputUnderline,
           }}
-          autoFocus
-          onKeyDown={confirmNameChangeWithEnter}
-          onClick={stopEventPropagation}
-          value={nameOfSection}
-          onChange={editName}
           endAdornment={
             <InputAdornment position="end">
               <IconButton
+                className={classes.confirmNameChangeIconButton}
                 id={`card-title-check-icon-${sectionId}`}
                 onClick={confirmNameChange}
-                className={classes.confirmNameChangeIconButton}
               >
                 <CheckCircle />
               </IconButton>
             </InputAdornment>
           }
+          id={`card-title-input-${sectionId}`}
+          onChange={editName}
+          onClick={stopEventPropagation}
+          onKeyDown={confirmNameChangeWithEnter}
+          value={nameOfSection}
         />
       );
 
     return (
       <div
         className={classes.cardTitleContainer}
+        id={`editable-card-title-${sectionId}`}
         onClick={startEditingName}
         onKeyDown={stopEventPropagation}
         role="button"
         tabIndex={0}
-        id={`editable-card-title-${sectionId}`}
       >
         <Typography
-          variant="h6"
           className={classes.cardTitle}
           id={`card-title-${sectionId}`}
+          variant="h6"
         >
           {nameOfSection}
         </Typography>
@@ -122,7 +122,7 @@ const SectionName: React.FC<Props> = (props) => {
   }
 
   return (
-    <Typography variant="h6" className={classes.cardTitle}>
+    <Typography className={classes.cardTitle} variant="h6">
       {nameOfSection}
     </Typography>
   );

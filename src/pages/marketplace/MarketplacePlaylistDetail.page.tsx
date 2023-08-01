@@ -137,31 +137,31 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
       <div className={this.props.classes.container}>
         <div className={this.props.classes.playlistDetailContainer}>
           <PlaylistDetail
-            playlist={this.props.playlist}
-            videoPlayingId={this.props.videoId}
-            selectedVideo={this.props.selectedVideo}
-            onOpenVideo={this.props.goToVideoInPlaylist}
+            accessDenied={this.props.accessDenied}
             authenticated={this.props.authenticated}
-            requestVideoAccess={this.requestVideoAccess}
             getPlaybackUrl={this.props.getPlaybackUrl}
+            onOpenVideo={this.props.goToVideoInPlaylist}
             playbackUrl={this.props.playbackUrl}
             playbackUrlLoading={this.props.playbackUrlLoading}
-            accessDenied={this.props.accessDenied}
+            playlist={this.props.playlist}
+            requestVideoAccess={this.requestVideoAccess}
+            selectedVideo={this.props.selectedVideo}
+            videoPlayingId={this.props.videoId}
           />
         </div>
         {this.props.registerVideoOpen && (
           <Modal open onClose={() => this.props.setRegisterVideoOpen(false)}>
             <div
+              className={this.props.classes.modal}
               style={{
                 transform: 'translate(-50%, -50%)',
                 top: '50%',
                 left: '50%',
               }}
-              className={this.props.classes.modal}
             >
               <VideoCheckoutComponent
-                id={this.props.video.id}
                 companyId={this.props.video.company}
+                id={this.props.video.id}
                 onSuccess={this.onRegisterSuccess}
               />
             </div>

@@ -20,14 +20,14 @@ type Props = OwnProps &
 export const CustomFormFilledList = (props: Props) => {
   const { t, classes } = props;
   return (
-    <List component="nav" disablePadding>
+    <List disablePadding component="nav">
       <ListItem divider>
         <div className={classes.fullwidth}>
           <Typography variant="subtitle2">{t('customForm.name')}</Typography>
         </div>
 
         <div className={classes.flexFullWidth}>
-          <Typography variant="subtitle2" align="left">
+          <Typography align="left" variant="subtitle2">
             {t('customForm.submit.date_submitted')}
           </Typography>
         </div>
@@ -35,8 +35,8 @@ export const CustomFormFilledList = (props: Props) => {
       {props.customFormFilledList.map((formfilled) => (
         <CustomFormCompletedListItem
           key={formfilled.id}
-          onClick={props.onClickItem}
           customFormFilled={formfilled}
+          onClick={props.onClickItem}
         />
       ))}
     </List>

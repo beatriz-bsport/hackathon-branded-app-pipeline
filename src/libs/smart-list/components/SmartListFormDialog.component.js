@@ -111,32 +111,32 @@ export class SmartListFormDialog extends Component<Props, state> {
               }}
             >
               <TextField
-                value={this.state.name}
                 fullWidth
+                className={this.props.classes.textField}
                 label={t('smart_list.name')}
                 onChange={(ev) => this.setState({ name: ev.target.value })}
-                className={this.props.classes.textField}
+                value={this.state.name}
               />
               <TextField
-                value={this.state.description}
-                multiline
                 fullWidth
-                rows={5}
+                multiline
                 className={this.props.classes.textField}
-                variant="outlined"
                 label={t('smart_list.description.label')}
                 onChange={(ev) =>
                   this.setState({ description: ev.target.value })
                 }
+                rows={5}
+                value={this.state.description}
+                variant="outlined"
               />
               <DialogActions>
                 <Button color="secondary" onClick={this.onCancel}>
                   {t('smart_list.cancel')}
                 </Button>
                 <Button
+                  color="primary"
                   disabled={this.state.name === ''}
                   type="submit"
-                  color="primary"
                   variant="contained"
                 >
                   {t('smart_list.submit')}

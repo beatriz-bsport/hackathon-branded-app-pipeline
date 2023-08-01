@@ -5,7 +5,7 @@ import ExpenseList from './ExpenseList.page';
 
 export default () => (
   <Switch>
-    <Route exact path="/expense" component={ExpenseList} />
-    <Route exact path="/expense/:expenseId" component={ExpenseList} />
+    <Route exact component={ExpenseList} path="/expense" />
+    <Route exact component={ExpenseList} path="/expense/:expenseId" />
   </Switch>
 );

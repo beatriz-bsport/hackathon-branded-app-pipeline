@@ -171,47 +171,47 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
               ? offers.map((offer, index) => (
                   <ActivitiesPlannedTableRow
                     key={offer.id}
-                    offer={offer}
+                    isMobile
                     coach={coach}
-                    selectedOffers={selectedOffers}
-                    enableMultiLocalization={enableMultiLocalization}
-                    establishmentGroups={establishmentGroups}
-                    handleCheckboxAction={handleCheckboxAction}
-                    replacementDisplay={replacementDisplay}
-                    nbLateRequestsLeft={nbLateRequestsLeft}
                     daysBeforeOfferReplacementRequestIsLate={
                       daysBeforeOfferReplacementRequestIsLate
                     }
-                    timezoneName={timezoneName}
-                    setMobileReasonActionDisabled={
-                      setMobileReasonActionDisabled
-                    }
+                    enableMultiLocalization={enableMultiLocalization}
+                    establishmentGroups={establishmentGroups}
                     getHasPendingReplacementRequest={
                       getHasPendingReplacementRequest
                     }
                     getHasRefusedReplacementRequest={
                       getHasRefusedReplacementRequest
                     }
+                    handleCheckboxAction={handleCheckboxAction}
                     isLastItem={index === offers.length - 1}
-                    isMobile
+                    nbLateRequestsLeft={nbLateRequestsLeft}
+                    offer={offer}
+                    replacementDisplay={replacementDisplay}
+                    selectedOffers={selectedOffers}
+                    setMobileReasonActionDisabled={
+                      setMobileReasonActionDisabled
+                    }
+                    timezoneName={timezoneName}
                   />
                 ))
               : replacementRequestList.map((replacementRequest, index) => (
                   <ActivitiesToReplaceTableRow
                     key={replacementRequest.id}
-                    replacementRequest={replacementRequest}
+                    isMobile
+                    coach={coach || null}
                     enableMultiLocalization={enableMultiLocalization}
                     establishmentGroups={establishmentGroups}
-                    replacementDisplay={replacementDisplay}
-                    handleDeleteAction={handleDeleteAction}
                     handleCoachAnswer={handleCoachAnswer}
+                    handleDeleteAction={handleDeleteAction}
                     handleExtensionAction={handleExtensionAction}
-                    handleReplaceAction={handleReplaceAction}
                     handleRefuseAction={handleRefuseAction}
-                    coach={coach || null}
-                    timezoneName={timezoneName}
+                    handleReplaceAction={handleReplaceAction}
                     isLastItem={index === replacementRequestList.length - 1}
-                    isMobile
+                    replacementDisplay={replacementDisplay}
+                    replacementRequest={replacementRequest}
+                    timezoneName={timezoneName}
                   />
                 ))}
           </div>
@@ -225,12 +225,12 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
             replacementRequestList.length === 0)) && (
           <div className={classes.noListItem}>
             <Chip
-              icon={<EventBusy />}
-              label={t(replacementEmptyChipTranslationKey(replacementDisplay))}
               classes={{
                 root: classes.emptyChipLabel,
                 label: classes.emptyChipLabel,
               }}
+              icon={<EventBusy />}
+              label={t(replacementEmptyChipTranslationKey(replacementDisplay))}
             />
           </div>
         )}
@@ -275,39 +275,39 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
               ? offers.map((offer) => (
                   <ActivitiesPlannedTableRow
                     key={offer.id}
-                    offer={offer}
                     coach={coach}
-                    selectedOffers={selectedOffers}
-                    enableMultiLocalization={enableMultiLocalization}
-                    establishmentGroups={establishmentGroups}
-                    handleCheckboxAction={handleCheckboxAction}
-                    replacementDisplay={replacementDisplay}
-                    nbLateRequestsLeft={nbLateRequestsLeft}
                     daysBeforeOfferReplacementRequestIsLate={
                       daysBeforeOfferReplacementRequestIsLate
                     }
-                    timezoneName={timezoneName}
+                    enableMultiLocalization={enableMultiLocalization}
+                    establishmentGroups={establishmentGroups}
                     getHasPendingReplacementRequest={
                       getHasPendingReplacementRequest
                     }
                     getHasRefusedReplacementRequest={
                       getHasRefusedReplacementRequest
                     }
+                    handleCheckboxAction={handleCheckboxAction}
+                    nbLateRequestsLeft={nbLateRequestsLeft}
+                    offer={offer}
+                    replacementDisplay={replacementDisplay}
+                    selectedOffers={selectedOffers}
+                    timezoneName={timezoneName}
                   />
                 ))
               : replacementRequestList.map((replacementRequest) => (
                   <ActivitiesToReplaceTableRow
                     key={replacementRequest.id}
-                    replacementRequest={replacementRequest}
+                    coach={coach || null}
                     enableMultiLocalization={enableMultiLocalization}
                     establishmentGroups={establishmentGroups}
-                    replacementDisplay={replacementDisplay}
-                    handleDeleteAction={handleDeleteAction}
                     handleCoachAnswer={handleCoachAnswer}
+                    handleDeleteAction={handleDeleteAction}
                     handleExtensionAction={handleExtensionAction}
-                    handleReplaceAction={handleReplaceAction}
                     handleRefuseAction={handleRefuseAction}
-                    coach={coach || null}
+                    handleReplaceAction={handleReplaceAction}
+                    replacementDisplay={replacementDisplay}
+                    replacementRequest={replacementRequest}
                     timezoneName={timezoneName}
                   />
                 ))}

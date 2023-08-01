@@ -76,7 +76,7 @@ export class BroadcastRoomWhereby extends React.Component<Props> {
     const link = this.getRoomLink();
     return (
       <div>
-        <a target="_blank" rel="noopener noreferrer" href={link}>
+        <a href={link} rel="noopener noreferrer" target="_blank">
           {this.props.t('video.redirectLink')}
         </a>
         <div>{link}</div>
@@ -101,7 +101,7 @@ export default compose(
   withTranslation(['offer']),
   withStyles(styles),
 )((props) => (
-  <ErrorCatcher t={props.t} classes={props.classes} theme={props.theme}>
+  <ErrorCatcher classes={props.classes} t={props.t} theme={props.theme}>
     <BroadcastRoomWhereby {...props} />
   </ErrorCatcher>
 ));

@@ -78,12 +78,9 @@ export const RefundConsumerPaymentPack = (props: Props) => {
             {!props.consumerPaymentPack.payment_pack.unlimited &&
               props.showCreditRefund && (
                 <TextField
-                  value={props.credits / getCreditFactor()}
                   className={classes.field}
                   InputProps={{ inputProps: { step: 1, min: 1 } }}
-                  variant="outlined"
                   label={t('consumerPaymentPack.refund.credits.label')}
-                  onChange={props.handleCreditChange}
                   onBlur={() =>
                     props.handleCreditChange({
                       target: {
@@ -92,16 +89,16 @@ export const RefundConsumerPaymentPack = (props: Props) => {
                       },
                     })
                   }
+                  onChange={props.handleCreditChange}
                   type="number"
+                  value={props.credits / getCreditFactor()}
+                  variant="outlined"
                 />
               )}
             <TextField
-              label={t('consumerPaymentPack.refund.price.label')}
-              value={props.price}
-              variant="outlined"
-              InputProps={{ inputProps: { step: 0.01, min: 0 } }}
               className={classes.field}
-              onChange={props.handlePriceChange}
+              InputProps={{ inputProps: { step: 0.01, min: 0 } }}
+              label={t('consumerPaymentPack.refund.price.label')}
               onBlur={() =>
                 props.handlePriceChange({
                   target: {
@@ -111,16 +108,19 @@ export const RefundConsumerPaymentPack = (props: Props) => {
                   },
                 })
               }
+              onChange={props.handlePriceChange}
               type="number"
+              value={props.price}
+              variant="outlined"
             />
             <TextField
               required
+              className={classes.field}
               label={t('consumerPaymentPack.refund.note.label')}
+              onChange={props.handleNoteChange}
+              rows={3}
               value={props.note}
               variant="outlined"
-              className={classes.field}
-              rows={3}
-              onChange={props.handleNoteChange}
             />
             {props.consumerPaymentPack.payment_pack.unlimited &&
               props.showCreditRefund && (

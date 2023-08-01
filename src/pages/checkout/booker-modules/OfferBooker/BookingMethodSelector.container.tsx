@@ -228,13 +228,13 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
     const { classes } = this.props;
     return (
       <div className={classes.skeletonContainer}>
-        <Skeleton animation="wave" width="40%" variant="text" height={30} />
+        <Skeleton animation="wave" height={30} variant="text" width="40%" />
         <Box mt={2} />
-        <Skeleton animation="wave" width="100%" variant="rect" height={50} />
+        <Skeleton animation="wave" height={50} variant="rect" width="100%" />
         <Box mt={2} />
-        <Skeleton animation="wave" width="100%" variant="rect" height={50} />
+        <Skeleton animation="wave" height={50} variant="rect" width="100%" />
         <Box mt={2} />
-        <Skeleton animation="wave" width="100%" variant="rect" height={50} />
+        <Skeleton animation="wave" height={50} variant="rect" width="100%" />
       </div>
     );
   };
@@ -346,29 +346,29 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
     return (
       <React.Fragment>
         <BookingMethodSelector
+          availableComboPacks={availableComboPacks}
+          availableConsumerPacks={availableConsumerPacks}
+          contractList={availableContracts}
           isExcludingTax={this.props.isExcludingTax}
           offersConstraint={this.props.offersConstraint}
+          onOpenSubscriptionModal={this.props.setOpenSubscriptionModal}
+          onPackChange={this.props.onPackChange}
+          paymentPackCategories={availablePaymentPackCategories}
           selectedOffers={this.props.selectedOffers}
           selectedPack={this.props.selectedPack}
-          onPackChange={this.props.onPackChange}
-          availableConsumerPacks={availableConsumerPacks}
+          theme={this.props.theme}
           unCategorizedPacks={availablePaymentPacks.filter(
             (pack) => !pack.category,
           )}
-          availableComboPacks={availableComboPacks}
-          contractList={availableContracts}
-          onOpenSubscriptionModal={this.props.setOpenSubscriptionModal}
-          paymentPackCategories={availablePaymentPackCategories}
-          theme={this.props.theme}
         />
 
         <SubscriptionContractBooking
-          isExcludingTax={this.props.isExcludingTax}
-          contract={this.props.openSubscriptionModal}
           companyId={this.props.offer && this.props.offer.company}
-          requestSetupIntentSecret={this.requestSetupIntentSecret}
-          onSubmit={this.goToValidationPage}
+          contract={this.props.openSubscriptionModal}
+          isExcludingTax={this.props.isExcludingTax}
           onCancel={this.props.closeSubscripionModal}
+          onSubmit={this.goToValidationPage}
+          requestSetupIntentSecret={this.requestSetupIntentSecret}
         />
       </React.Fragment>
     );

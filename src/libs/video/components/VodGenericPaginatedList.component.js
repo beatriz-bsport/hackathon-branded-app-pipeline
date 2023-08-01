@@ -25,19 +25,19 @@ type Props = {
 export const PaginatedVideoViewList = (props: Props) => {
   return (
     <PaginatedListBase
-      listProps={{ disablePadding: 'true', dense: 'true' }}
-      items={props.items}
-      nbItems={props.nbItems}
-      loading={props.loading}
-      page={props.page}
       itemPerPage={props.itemPerPage}
+      items={props.items}
+      listProps={{ disablePadding: 'true', dense: 'true' }}
+      loading={props.loading}
+      nbItems={props.nbItems}
       onPageRequested={(page, pageSize) =>
         props.onPageRequested(page, pageSize)
       }
+      page={props.page}
       renderEmpty={() => (
         <>
           <div className={props.classes.emptyContainer}>
-            <Typography variant="caption" color="textSecondary">
+            <Typography color="textSecondary" variant="caption">
               {props.emptyText}
             </Typography>
           </div>

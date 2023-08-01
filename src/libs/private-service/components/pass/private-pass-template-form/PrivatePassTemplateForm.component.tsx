@@ -87,68 +87,68 @@ export const PrivatePassTemplateForm = (props: Props) => {
         </div>
 
         <TextField
-          name="name"
           fullWidth
-          label={`${t('privatePass.form.name.label')}*`}
           helperText={t('privatePass.form.name.helperText')}
+          label={`${t('privatePass.form.name.label')}*`}
+          name="name"
         />
         <TextField
           fullWidth
           multiline
+          label={t('privatePass.form.description.label')}
           minRows={6}
           name="description"
           variant="outlined"
-          label={t('privatePass.form.description.label')}
         />
         <div className={classes.fieldBlock}>
           <IntegerField
-            name="credits"
             fullWidth
             disabled={props.initial && props.initial.editable === false}
-            label={t('privatePass.form.credits.label')}
             helperText={t('privatePass.form.credits.helperText')}
+            label={t('privatePass.form.credits.label')}
+            name="credits"
           />
         </div>
         <div className={`${classes.fieldBlock} ${classes.flexRowCenter}`}>
           <PriceField
-            name="price"
             fullWidth
-            label={t('privatePass.form.price.label')}
             className={classes.priceField}
             helperText={t('privatePass.form.price.helperText')}
+            label={t('privatePass.form.price.label')}
+            name="price"
           />
           <PercentField
-            name="tax"
             fullWidth
-            label={t('privatePass.form.tax.label')}
-            type="number"
             required
-            max={100}
+            className={classes.taxField}
             InputProps={{
               inputProps: { min: 0, max: 100, step: 0.005 },
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
-            className={classes.taxField}
+            label={t('privatePass.form.tax.label')}
+            max={100}
+            name="tax"
+            type="number"
           />
         </div>
 
         <div className={`${classes.fieldBlock} ${classes.flexColumn}`}>
           <SwitchField
-            name="manager_only"
             label={t('privatePass.form.managerOnly.label')}
+            name="manager_only"
           />
         </div>
 
         <div className={`${classes.fieldBlock} ${classes.flexColumn}`}>
           <SwitchField
-            name="unusable_by_staff"
             label={t('privatePass.listItem.unusableByStaff')}
+            name="unusable_by_staff"
           />
         </div>
         <div className={classes.rowExpirationDate}>
           <SwitchField
-            name="expiration_date_active"
             label={t('privatePass.form.expiration_date.label')}
+            name="expiration_date_active"
           />
           <ToolTip title={t('privatePass.form.expiration_date.tooltip')}>
             <InfoIcon color="disabled" />
@@ -159,10 +159,10 @@ export const PrivatePassTemplateForm = (props: Props) => {
             {t('privatePass.form.expiration_date.helperText')}
           </InputLabel>
           <DateField
-            name="expiration_date"
-            format="L"
             allowNullValue
+            format="L"
             minDate={moment.now()}
+            name="expiration_date"
           />
         </Collapse>
       </div>
@@ -178,42 +178,40 @@ export const PrivatePassTemplateForm = (props: Props) => {
         </div>
         <div className={`${classes.durationNbBlock} ${classes.flexRowCenter}`}>
           <IntegerField
-            name="duration_days"
-            label={t('privatePass.form.durationDays.label')}
-            InputProps={{ min: 0, max: 30, step: 1 }}
             fullWidth
             disabled={props.initial && props.initial.editable === false}
+            InputProps={{ min: 0, max: 30, step: 1 }}
+            label={t('privatePass.form.durationDays.label')}
+            name="duration_days"
             style={{ alignSelf: 'flex-start' }}
           />
           <AddIcon className={classes.greyIcon} />
           <IntegerField
-            name="duration_months"
-            label={t('privatePass.form.durationMonths.label')}
-            helperText={t('privatePass.form.durationMonths.helperText')}
-            InputProps={{ min: 0, max: 24, step: 1 }}
             fullWidth
             disabled={props.initial && props.initial.editable === false}
+            helperText={t('privatePass.form.durationMonths.helperText')}
+            InputProps={{ min: 0, max: 24, step: 1 }}
+            label={t('privatePass.form.durationMonths.label')}
+            name="duration_months"
           />
           <AddIcon className={classes.greyIcon} />
           <IntegerField
-            name="duration_years"
-            label={t('privatePass.form.durationYears.label')}
-            helperText={t('privatePass.form.durationYears.helperText')}
-            InputProps={{ min: 0, max: 30, step: 1 }}
             fullWidth
             disabled={props.initial && props.initial.editable === false}
+            helperText={t('privatePass.form.durationYears.helperText')}
+            InputProps={{ min: 0, max: 30, step: 1 }}
+            label={t('privatePass.form.durationYears.label')}
+            name="duration_years"
           />
         </div>
         <Typography variant="caption">
           {getValidityInfo(props.values, t, true, true)}
         </Typography>
         <div style={{ paddingBottom: 16 }}>
-          <Typography variant="body1" className={classes.startDate}>
+          <Typography className={classes.startDate} variant="body1">
             {t('privatePass.form.startDate')}
           </Typography>
           <RadioGroupField
-            name="start_date_method"
-            disabled={props.initial && props.initial.editable === false}
             choices={[
               {
                 label: t('privatePass.form.start_date_method.on_purchase'),
@@ -224,20 +222,22 @@ export const PrivatePassTemplateForm = (props: Props) => {
                 value: START_ON_FIRST_BOOKING,
               },
             ]}
+            disabled={props.initial && props.initial.editable === false}
+            name="start_date_method"
           />
           <Collapse
             in={props.values.start_date_method !== `${START_ON_PURCHASE}`}
           >
             <TextField
-              name="expiration_days_before_first_use"
-              label={t('privatePass.form.expirationDaysBeforeFirstUse.label')}
+              fullWidth
+              className={classes.firstBooking}
               disabled={props.initial && props.initial.editable === false}
               helperText={t(
                 'privatePass.form.expirationDaysBeforeFirstUse.helperText',
               )}
+              label={t('privatePass.form.expirationDaysBeforeFirstUse.label')}
+              name="expiration_days_before_first_use"
               type="number"
-              fullWidth
-              className={classes.firstBooking}
             />
           </Collapse>
         </div>
@@ -255,12 +255,12 @@ export const PrivatePassTemplateForm = (props: Props) => {
           {t('privatePass.form.actions.cancel')}
         </Button>
         <Button
+          color="primary"
+          disabled={isSubmitting}
           onClick={() => {
             trackFormSubmitIntent(props.initial?.id);
             props.handleSubmit();
           }}
-          disabled={isSubmitting}
-          color="primary"
           variant="contained"
         >
           {t('privatePass.form.actions.submit')}

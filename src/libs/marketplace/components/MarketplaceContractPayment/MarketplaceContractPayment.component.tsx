@@ -305,32 +305,32 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
       >
         <div className="bs-contract-payment__container">
           <MarketplaceContractPaymentInfos
-            contractName={contract?.name}
-            isContractLegalTermsAccepted={isContractLegalTermsAccepted}
             billingStartDate={billingStartDate}
-            setBillingStartDate={setBillingStartDate}
+            contractName={contract?.name}
             handleAcceptContract={handleAcceptContract}
+            isContractLegalTermsAccepted={isContractLegalTermsAccepted}
             onOpenContractTermsDialog={onOpenContractTermsDialog}
+            setBillingStartDate={setBillingStartDate}
           />
 
           <MarketplaceContractPaymentPricing
-            contract={contract}
             billingStartDate={billingStartDate}
+            contract={contract}
             isExcludingTax={isExcludingTax}
             voucher={voucher}
           />
 
           <div className="bs-contract-payment__pricing">
             <MarketplaceContractPaymentCoupon
-              voucher={voucher}
               couponCode={couponCode}
-              isLoading={isLoading}
               isContractLegalTermsAccepted={isContractLegalTermsAccepted}
               isCouponFormOpen={isCouponFormOpen}
-              onOpenCouponForm={handleOpenCouponForm}
-              onDeleteCoupon={handleDeleteCoupon}
+              isLoading={isLoading}
               onCancelCouponForm={handleCloseCouponForm}
+              onDeleteCoupon={handleDeleteCoupon}
+              onOpenCouponForm={handleOpenCouponForm}
               onSubmitCouponForm={handleApplyCoupon}
+              voucher={voucher}
             />
 
             {(enabledPaymentMethodsIds?.length > 1 ||
@@ -342,12 +342,12 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
                 ) && (
                   <Radio
                     className="bs-contract-payment__payment__method__option"
-                    name="payment-method-card"
-                    value={MarketplacePaymentMethods.card}
-                    label={t('subscription:paymentMethod.card')}
-                    isChecked={paymentMethod === MarketplacePaymentMethods.card}
                     disabled={!isContractLegalTermsAccepted}
+                    isChecked={paymentMethod === MarketplacePaymentMethods.card}
+                    label={t('subscription:paymentMethod.card')}
+                    name="payment-method-card"
                     onClick={handleSetPaymentMethod}
+                    value={MarketplacePaymentMethods.card}
                   />
                 )}
                 {getIsPaymentMethodAvailable(
@@ -356,12 +356,12 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
                 ) && (
                   <Radio
                     className="bs-contract-payment__payment__method__option"
-                    name="payment-method-bacs_debit"
-                    value={MarketplacePaymentMethods.bacs}
-                    label={t('subscription:paymentMethod.bacs_debit')}
-                    isChecked={paymentMethod === MarketplacePaymentMethods.bacs}
                     disabled={!isContractLegalTermsAccepted}
+                    isChecked={paymentMethod === MarketplacePaymentMethods.bacs}
+                    label={t('subscription:paymentMethod.bacs_debit')}
+                    name="payment-method-bacs_debit"
                     onClick={handleSetPaymentMethod}
+                    value={MarketplacePaymentMethods.bacs}
                   />
                 )}
                 {getIsPaymentMethodAvailable(
@@ -371,14 +371,14 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
                   isCurrencyEuro && (
                     <Radio
                       className="bs-contract-payment__payment__method__option"
-                      name="payment-method-sepa_debit"
-                      value={MarketplacePaymentMethods.sepa}
-                      label={t('subscription:paymentMethod.sepa')}
+                      disabled={!isContractLegalTermsAccepted}
                       isChecked={
                         paymentMethod === MarketplacePaymentMethods.sepa
                       }
-                      disabled={!isContractLegalTermsAccepted}
+                      label={t('subscription:paymentMethod.sepa')}
+                      name="payment-method-sepa_debit"
                       onClick={handleSetPaymentMethod}
+                      value={MarketplacePaymentMethods.sepa}
                     />
                   )}
               </div>
@@ -389,53 +389,53 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
             <div className="bs-contract-payment__payment__methods">
               <MarketplaceContractPaymentMethodList
                 isContractLegalTermsAccepted={isContractLegalTermsAccepted}
-                paymentMethods={filteredSavedPaymentMethodList}
-                selectedPaymentMethod={selectedSavedPaymentMethodId}
-                paymentMethodType={paymentMethod}
                 onDetachPaymentMethod={handleDetachPaymentMethod}
                 onSelectPaymentMethod={handleSelectPaymentMethod}
+                paymentMethods={filteredSavedPaymentMethodList}
+                paymentMethodType={paymentMethod}
+                selectedPaymentMethod={selectedSavedPaymentMethodId}
               />
 
               <button
-                type="button"
                 className="bs-contract-payment__payment__methods__add"
                 onClick={handleOpenCollectPaymentMethodDialog}
+                type="button"
               >
                 <AddIcon />
                 {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
               </button>
 
               <MarketplaceCollectPaymentMethod
-                type={paymentMethod}
                 isOpen={collectPaymentMethodIsOpen}
-                sepaDefaultName={sepaDefaultName}
-                sepaDefaultEmail={sepaDefaultEmail}
-                requestSetupIntentSecret={requestSetupIntentSecret}
-                onSuccess={handleSubmitCollectPaymentMethod}
                 onCancel={handleCloseCollectPaymentMethodDialog}
+                onSuccess={handleSubmitCollectPaymentMethod}
+                requestSetupIntentSecret={requestSetupIntentSecret}
+                sepaDefaultEmail={sepaDefaultEmail}
+                sepaDefaultName={sepaDefaultName}
+                type={paymentMethod}
               />
             </div>
           )}
 
           <div className="bs-contract-payment__actions">
             <button
-              type="button"
               className="bs-contract-payment__cancel__button"
               onClick={onCancelContractPayment}
+              type="button"
             >
               {t('common:cancel')}
             </button>
             <button
+              className="bs-contract-payment__submit__button"
               disabled={
                 !isContractLegalTermsAccepted ||
                 isLoading ||
                 !selectedSavedPaymentMethodId
               }
               type="submit"
-              className="bs-contract-payment__submit__button"
             >
               {isLoading ? (
-                <CircularProgress size="sm" contrastStrokeColor />
+                <CircularProgress contrastStrokeColor size="sm" />
               ) : (
                 t('checkout:myBasket.actions.checkoutBasket')
               )}

@@ -80,8 +80,8 @@ export const WidgetContainerConfigurator = (props: Props) => {
           control={
             <Checkbox
               checked={props.useIframe}
-              onChange={onChangeCompatibilityMode}
               name="checkedA"
+              onChange={onChangeCompatibilityMode}
             />
           }
           label={t('widget.ownStyle')}
@@ -93,8 +93,8 @@ export const WidgetContainerConfigurator = (props: Props) => {
               control={
                 <Switch
                   checked={props.responsiveIframe}
-                  onChange={onChangeIframeResponsiveMode}
                   name="checkedResponsiveIframe"
+                  onChange={onChangeIframeResponsiveMode}
                 />
               }
               label={t('widget.responsiveIframe')}
@@ -107,18 +107,18 @@ export const WidgetContainerConfigurator = (props: Props) => {
               control={
                 <Checkbox
                   checked={props.showFab}
-                  onChange={onChangeShowFab}
                   name="checkedB"
+                  onChange={onChangeShowFab}
                 />
               }
               label={t('widget.showFabLabel')}
             />
 
             <a
-              target="_blank"
-              rel="noreferrer"
-              href={getIntercomLink()}
               className={classes.link}
+              href={getIntercomLink()}
+              rel="noreferrer"
+              target="_blank"
             >
               <HelpOutlineIcon />
             </a>
@@ -129,10 +129,10 @@ export const WidgetContainerConfigurator = (props: Props) => {
           <InputLabel>{t('widget.dialogModeLabel')}</InputLabel>
           <Select
             className={classes.fullWidth}
-            value={props.dialogMode}
             onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
               onChangeDialogMode(parseInt(ev.target.value, 10))
             }
+            value={props.dialogMode}
           >
             <MenuItem value={DIALOG_MODE_TAB}>
               {t(`widget.dialogMode.tab`)}
@@ -155,8 +155,8 @@ export const WidgetContainerConfigurator = (props: Props) => {
             <InputLabel>{t('widget.dialogSizeLabel')}</InputLabel>
             <Select
               className={classes.fullWidth}
-              value={props.fullScreenPopup.toString()}
               onChange={onChangeDialogSize}
+              value={props.fullScreenPopup.toString()}
             >
               <MenuItem value="false">{t(`widget.dialogSize.window`)}</MenuItem>
 
@@ -172,11 +172,11 @@ export const WidgetContainerConfigurator = (props: Props) => {
         <div className={classes.language}>
           <div className={classes.languageSelect}>
             <LanguageSelect
-              handleChange={onChangeLanguage}
-              value={props.language}
               allowNull
+              handleChange={onChangeLanguage}
               label={t('widget.pickALanguage')}
               none={t('widget.browserLanguage')}
+              value={props.language}
             />
           </div>
           <Tooltip title={t('widget.languageHelper')}>

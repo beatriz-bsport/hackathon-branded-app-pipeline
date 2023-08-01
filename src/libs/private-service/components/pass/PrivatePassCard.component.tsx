@@ -87,9 +87,9 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
       <div className={classes.horizontalBlock}>
         <Grid
           container
+          alignItems="flex-start"
           direction="row"
           justify="space-between"
-          alignItems="flex-start"
         >
           <Grid item xs={8}>
             <div className={classes.header}>
@@ -106,8 +106,8 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
 
               {description && (
                 <TypographyMultilineComponent
-                  variant="caption"
                   className={classes.description}
+                  variant="caption"
                 >
                   {description}
                 </TypographyMultilineComponent>
@@ -129,9 +129,9 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
                       </Typography>
                     </div>
                     <Typography
-                      variant="caption"
-                      color="textSecondary"
                       className={classes.passInfo}
+                      color="textSecondary"
+                      variant="caption"
                     >
                       {`${pass.credits / getCreditFactor()}${t(
                         'privatePass.parameters.nbCredits',
@@ -149,13 +149,13 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
           <Grid item xs={4}>
             <div className={classes.columnLeft}>
               <Typography
-                variant="h3"
-                color="primary"
                 className={classes.price}
+                color="primary"
+                variant="h3"
               >
                 {getCurrencyDisplayWithPrice(price)}
               </Typography>
-              <Typography variant="caption" className={classes.priceWithoutTax}>
+              <Typography className={classes.priceWithoutTax} variant="caption">
                 {`${getCurrencyDisplayWithPrice(price, true, tax)}${'\u00A0'}
                 ${t('privatePass.ht')}`}
               </Typography>
@@ -163,18 +163,18 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
                 <div className={classes.buttonBlock}>
                   <div className={classes.buttonContainer}>
                     <Button
-                      id="button_pass_modify"
-                      color="primary"
-                      onClick={props.onEditButtonClick}
                       className={`${classes.buttonWidth} ${classes.buttonAlign}`}
+                      color="primary"
+                      id="button_pass_modify"
+                      onClick={props.onEditButtonClick}
                     >
                       <Hidden xsDown>{t('privatePass.edit')}</Hidden>
                     </Button>
                     {!!props.onDeleteButtonClick && (
                       <RedButton
+                        className={`${classes.buttonWidth} ${classes.buttonAlign}`}
                         id="button_pass_delete"
                         onClick={props.onDeleteButtonClick}
-                        className={`${classes.buttonWidth} ${classes.buttonAlign}`}
                       >
                         <Hidden xsDown>{t('privatePass.delete.delete')}</Hidden>
                       </RedButton>
@@ -195,9 +195,9 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
               </Typography>
             </div>
             <Typography
-              variant="caption"
-              color="textSecondary"
               className={classes.passInfo}
+              color="textSecondary"
+              variant="caption"
             >
               {getValidityInfo(pass, t, true)}
             </Typography>
@@ -214,18 +214,18 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
               <div className={classes.flexInfo}>
                 {new_member_only && !manager_only && (
                   <Typography
-                    variant="caption"
-                    color="textSecondary"
                     className={classes.passInfo}
+                    color="textSecondary"
+                    variant="caption"
                   >
                     {t('privatePass.form.new_member_only.label')}
                   </Typography>
                 )}
                 {manager_only && (
                   <Typography
-                    variant="caption"
-                    color="textSecondary"
                     className={classes.passInfo}
+                    color="textSecondary"
+                    variant="caption"
                   >
                     {t('privatePass.form.managerOnly.label')}
                   </Typography>
@@ -243,9 +243,9 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
                 </Typography>
               </div>
               <Typography
-                variant="caption"
-                color="textSecondary"
                 className={classes.passInfo}
+                color="textSecondary"
+                variant="caption"
               >
                 {t('privatePass.form.full_vod_access.label')}
               </Typography>
@@ -262,9 +262,9 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
             <div className={classes.flexInfo}>
               {available_payment_method_identifiers.includes(CB.id) && (
                 <Typography
-                  variant="caption"
-                  color="textSecondary"
                   className={classes.passInfo}
+                  color="textSecondary"
+                  variant="caption"
                 >
                   {t(`translation:paymentMethod.${CB.text}`)}
                 </Typography>
@@ -273,9 +273,9 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
                 CREDIT_ACCOUNT.id,
               ) && (
                 <Typography
-                  variant="caption"
-                  color="textSecondary"
                   className={classes.passInfo}
+                  color="textSecondary"
+                  variant="caption"
                 >
                   {t(`translation:paymentMethod.${CREDIT_ACCOUNT.text}`)}
                 </Typography>
@@ -292,9 +292,9 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
                 </Typography>
               </div>
               <Typography
-                variant="caption"
-                color="textSecondary"
                 className={classes.passInfo}
+                color="textSecondary"
+                variant="caption"
               >
                 {t('paymentPack:cardDetails.universalPass')}
               </Typography>

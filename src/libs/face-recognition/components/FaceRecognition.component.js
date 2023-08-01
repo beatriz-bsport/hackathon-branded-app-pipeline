@@ -242,12 +242,12 @@ export class FaceRecognition extends React.Component<Props, State> {
       <div>
         <div className={classes.container}>
           <video
-            onLoadedMetadata={this.onPlay}
-            id="inputVideo"
+            ref={this.stream}
             autoPlay
             muted
             playsinline
-            ref={this.stream}
+            id="inputVideo"
+            onLoadedMetadata={this.onPlay}
             style={{
               position: 'absolute',
               width: 500,
@@ -258,6 +258,8 @@ export class FaceRecognition extends React.Component<Props, State> {
           />
 
           <canvas
+            ref={this.canvas}
+            id="myCanvas"
             style={{
               position: 'absolute',
               left: 0,
@@ -265,8 +267,6 @@ export class FaceRecognition extends React.Component<Props, State> {
               width: 500,
               height: 500,
             }}
-            id="myCanvas"
-            ref={this.canvas}
           />
           <canvas
             ref={this.capture}
@@ -279,7 +279,7 @@ export class FaceRecognition extends React.Component<Props, State> {
           )}
           {!!this.state.countdownRestart && (
             <div className={classes.loadingContainer}>
-              <Typography variant="h1" component="p" style={{ color: 'white' }}>
+              <Typography component="p" style={{ color: 'white' }} variant="h1">
                 {this.state.countdownRestart}
               </Typography>
             </div>
@@ -292,16 +292,16 @@ export class FaceRecognition extends React.Component<Props, State> {
               <div className={classes.buttonRow}>
                 <Button
                   color="primary"
-                  variant="contained"
                   onClick={() => this.restartAnalyze(true)}
+                  variant="contained"
                 >
                   <RefreshIcon className={classes.leftIcon} />
                   {t('offerDetail.actions.restartAnalyze')}
                 </Button>
                 <Button
                   color="secondary"
-                  variant="contained"
                   onClick={this.createAccount}
+                  variant="contained"
                 >
                   <PersonAddIcon className={classes.leftIcon} />
                   {t('offerDetail.actions.createAccount')}

@@ -40,9 +40,9 @@ export function LoginBase(props: Props) {
   return (
     <Paper className={classes.container}>
       <img
+        alt={`${theme?.company_name || 'bsport'} logo`}
         className={classes.bsportLogo}
         src={theme?.cover || B_ASSET}
-        alt={`${theme?.company_name || 'bsport'} logo`}
       />
       <div className={classes.content}>{children}</div>
       {loading ? <LinearProgress /> : null}

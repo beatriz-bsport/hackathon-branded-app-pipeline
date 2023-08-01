@@ -12,10 +12,10 @@ export const MarketingRouter = () => {
   return (
     <Switch>
       <Route
-        path="/f/marketing/tags/:selectedTagId"
         component={FranchiseTagManagement}
+        path="/f/marketing/tags/:selectedTagId"
       />
-      <Route path="/f/marketing/tags" component={FranchiseTagManagement} />
+      <Route component={FranchiseTagManagement} path="/f/marketing/tags" />
     </Switch>
   );
 };

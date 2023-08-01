@@ -44,8 +44,8 @@ export const ContractSearch: React.FC<Props> = ({
   return (
     <Search
       data={contractItems}
-      onPressEnter={onPressEnter}
       onClearInput={onClearInput}
+      onPressEnter={onPressEnter}
       renderItem={(item: SearchItemData<BaseAdditionalData>) => (
         <ClickableItem {...item.additionalData} />
       )}

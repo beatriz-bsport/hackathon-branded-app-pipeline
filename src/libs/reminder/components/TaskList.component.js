@@ -70,9 +70,9 @@ const TaskSubList = (props: PropsSubList) => {
         <div className={props.classes.rowRight}>
           {props.openTaskForm ? (
             <Button
-              variant="outlined"
               color="primary"
               onClick={() => props.openTaskForm()}
+              variant="outlined"
             >
               <AlarmAddIcon className={props.classes.leftIcon} />
               {props.t('task.actions.addTask')}
@@ -88,8 +88,8 @@ const TaskSubList = (props: PropsSubList) => {
         {props.taskList.map((t) => (
           <div key={t.id} className={props.classes.taskContainer}>
             <Task
-              task={t}
               onEdit={() => props.openEditForm(t)}
+              task={t}
               updateStatus={(status) => props.updateStatus(t.id, status)}
             />
           </div>
@@ -113,41 +113,41 @@ export const TaskList = (props: Props) => {
   return (
     <div>
       <TaskSubList
-        taskList={pendingTaskList}
-        updateStatus={props.updateTaskStatus}
-        toogleShow={props.toogleShowPending}
-        show={props.showPending}
-        title={props.t('task.sectionTitle.pending')}
+        classes={props.classes}
+        openEditForm={props.openEditForm}
         openTaskForm={props.openTaskForm}
-        openEditForm={props.openEditForm}
+        show={props.showPending}
         t={props.t}
-        classes={props.classes}
+        taskList={pendingTaskList}
+        title={props.t('task.sectionTitle.pending')}
+        toogleShow={props.toogleShowPending}
+        updateStatus={props.updateTaskStatus}
       />
       <TaskSubList
-        taskList={futureTaskList}
-        updateStatus={props.updateTaskStatus}
-        toogleShow={props.toogleShowFuture}
+        classes={props.classes}
+        openEditForm={props.openEditForm}
         show={props.showFuture}
-        title={props.t('task.sectionTitle.future')}
-        openEditForm={props.openEditForm}
-        classes={props.classes}
         t={props.t}
+        taskList={futureTaskList}
+        title={props.t('task.sectionTitle.future')}
+        toogleShow={props.toogleShowFuture}
+        updateStatus={props.updateTaskStatus}
       />
       <TaskSubList
-        taskList={archivedTaskList}
-        updateStatus={props.updateTaskStatus}
-        toogleShow={props.toogleShowPast}
-        show={props.showPast}
-        title={props.t('task.sectionTitle.past')}
-        openEditForm={props.openEditForm}
         classes={props.classes}
+        openEditForm={props.openEditForm}
+        show={props.showPast}
         t={props.t}
+        taskList={archivedTaskList}
+        title={props.t('task.sectionTitle.past')}
+        toogleShow={props.toogleShowPast}
+        updateStatus={props.updateTaskStatus}
       />
       <div className={props.classes.taskButtonContainer}>
         <Button
-          variant="outlined"
           color="primary"
           onClick={() => props.openTaskForm()}
+          variant="outlined"
         >
           <AlarmAddIcon className={props.classes.leftIcon} />
           {props.t('task.actions.addTask')}
@@ -155,11 +155,11 @@ export const TaskList = (props: Props) => {
       </div>
       {props.taskModalOpen ? (
         <TaskFormDialog
+          initial={props.editTaskFormData}
+          onClose={props.closeTaskForm}
+          onSubmit={(data, options) => props.createOrUpdateTask(data, options)}
           open={props.taskModalOpen}
           staffList={props.staffList}
-          initial={props.editTaskFormData}
-          onSubmit={(data, options) => props.createOrUpdateTask(data, options)}
-          onClose={props.closeTaskForm}
         />
       ) : null}
     </div>

@@ -421,90 +421,90 @@ class InboxThreadContainerPage extends PureComponent<Props> {
     return (
       <InboxThreadContainer
         // --- Inbox Thread ---
-        thread={thread}
-        isThreadLoading={isThreadLoading}
-        // --- Thread List ---
-        count={count}
-        contextSelected={contextSelected}
-        // --- Header Actions ---
-        switchFavoriteStatus={switchFavoriteStatus}
-        switchMutedStatus={switchMutedStatus}
-        switchDisabledStatus={switchDisabledStatus}
-        flagAsUnread={flagAsUnread}
-        goToThreadListPage={goToThreadListPage}
-        goToDetailPage={goToDetailPage}
-        // --- Filtering ---
-        filters={filters}
-        filterDateStart={filterDateStart}
-        filterDateEnd={filterDateEnd}
-        kindFilterValues={kindFilterValues}
-        kindFilterSetter={kindFilterSetter}
-        recipientFilterValues={recipientFilterValues}
-        recipientFilterSetter={recipientFilterSetter}
-        sendParameterFilterValues={sendParameterFilterValues}
-        sendParameterFilterSetter={sendParameterFilterSetter}
-        srcOrDstFilterValues={srcOrDstFilterValues}
-        srcOrDstFilterSetter={srcOrDstFilterSetter}
-        dateStartValue={dateStart}
-        dateStartSetter={dateStartSetter}
-        dateEndValue={dateEnd}
-        dateEndSetter={dateEndSetter}
-        handleFiltersSubmit={this.handleFiltersSubmit}
-        allPreviousFilter={allPreviousFilters}
-        popKindFilterValue={this.popKindFilterValue}
-        resetPeriodFilter={this.resetPeriodFilter}
-        popRecipientFilterValue={this.popRecipientFilterValue}
-        popSendParameterFilterValue={this.popSendParameterFilterValue}
-        popSrcOrDstFilterValue={this.popSrcOrDstFilterValue}
-        resetFilters={this.resetFilters}
-        showFilterModal={showFilterModal}
-        setShowFilterModal={setShowFilterModal}
-        onShowFilterModal={onShowFilterModal}
-        // --- Message List ---
-        messageList={messageList}
-        currentPage={messagePage}
-        fetchPageInformationRecipientList={fetchPageInformationRecipientList}
-        fetchMoreCommunicationMessages={this.fetchMoreMessages}
-        loadingCommunicationMessageDataList={loadingMessageList}
-        loadingInformationRecipientList={loadingInformationRecipientList}
-        scrollToBottomFlag={scrollMessagesToBottomFlag}
-        recipientList={recipientList}
-        recipientListCount={recipientListCount}
-        // --- Member ---
-        contextMember={contextMember}
-        // --- Offer ---
         allMemberCategoryList={allMemberCategoryList}
-        // --- Snackbar ---
-        onCloseSnackbar={onCloseSnackbar}
-        displaySnackbar={displaySnackbar}
-        // --- Theme ---
-        theme={theme}
-        // --- Send Message ---
-        showMessageWriter={showMessageWriter}
-        handleShowMessageWriter={handleShowMessageWriter}
+        allPreviousFilter={allPreviousFilters}
+        // --- Thread List ---
         communicationKindBeingWritten={communicationKindBeingWritten}
+        contextMember={contextMember}
+        // --- Header Actions ---
+        contextSelected={contextSelected}
+        count={count}
         countAvailableRecipientsTotal={countAvailableRecipientsTotal}
         countAvailableRecipientsWithEmail={countAvailableRecipientsWithEmail}
         countAvailableRecipientsWithPhone={countAvailableRecipientsWithPhone}
+        currentPage={messagePage}
+        // --- Filtering ---
+        dateEndSetter={dateEndSetter}
+        dateEndValue={dateEnd}
+        dateStartSetter={dateStartSetter}
+        dateStartValue={dateStart}
+        displaySnackbar={displaySnackbar}
+        emailTemplateDetailList={emailTemplateDetailList}
+        emailTemplateSummaryList={emailTemplateSummaryList}
+        fetchEmailDetail={fetchEmailDetail}
         fetchEmailSummaryList={fetchEmailSummaryList}
+        fetchMoreCommunicationMessages={this.fetchMoreMessages}
+        fetchPageInformationRecipientList={fetchPageInformationRecipientList}
         fetchPaginatedAvailableRecipientMemberList={
           fetchPaginatedAvailableRecipientMemberList
         }
-        fetchEmailDetail={fetchEmailDetail}
+        filterDateEnd={filterDateEnd}
+        filterDateStart={filterDateStart}
+        filters={filters}
+        flagAsUnread={flagAsUnread}
+        goToDetailPage={goToDetailPage}
+        goToThreadListPage={goToThreadListPage}
+        handleFiltersSubmit={this.handleFiltersSubmit}
+        handleShowMessageWriter={handleShowMessageWriter}
+        isThreadLoading={isThreadLoading}
+        kindFilterSetter={kindFilterSetter}
+        kindFilterValues={kindFilterValues}
+        loadingCommunicationMessageDataList={loadingMessageList}
+        loadingEmailTemplateDetailList={loadingEmailTemplateDetailList}
+        loadingEmailTemplateSummaryList={loadingEmailTemplateSummaryList}
+        // --- Message List ---
+        loadingInformationRecipientList={loadingInformationRecipientList}
         loadingRecipientsModalMemberList={loadingRecipientsModalMemberList}
+        messageList={messageList}
+        onCloseSnackbar={onCloseSnackbar}
+        onShowFilterModal={onShowFilterModal}
         paginatedMemberList={recipientsModalMemberList}
-        sendCommunication={this.sendCommunication}
-        setCommunicationKindBeingWritten={setCommunicationKindBeingWritten}
+        popKindFilterValue={this.popKindFilterValue}
+        popRecipientFilterValue={this.popRecipientFilterValue}
+        popSendParameterFilterValue={this.popSendParameterFilterValue}
+        // --- Member ---
+        popSrcOrDstFilterValue={this.popSrcOrDstFilterValue}
+        // --- Offer ---
+        recipientFilterSetter={recipientFilterSetter}
+        // --- Snackbar ---
+        recipientFilterValues={recipientFilterValues}
+        recipientList={recipientList}
+        // --- Theme ---
+        recipientListCount={recipientListCount}
+        // --- Send Message ---
+        resetFilters={this.resetFilters}
         resetPaginatedAvailableRecipientMemberList={
           resetPaginatedAvailableRecipientMemberList
         }
-        // --- Email Templates ---
-        emailTemplateDetailList={emailTemplateDetailList}
-        emailTemplateSummaryList={emailTemplateSummaryList}
-        loadingEmailTemplateSummaryList={loadingEmailTemplateSummaryList}
-        loadingEmailTemplateDetailList={loadingEmailTemplateDetailList}
+        resetPeriodFilter={this.resetPeriodFilter}
         resolvedGenericTags={resolvedGenericTags}
+        scrollToBottomFlag={scrollMessagesToBottomFlag}
+        sendCommunication={this.sendCommunication}
+        sendParameterFilterSetter={sendParameterFilterSetter}
+        sendParameterFilterValues={sendParameterFilterValues}
+        setCommunicationKindBeingWritten={setCommunicationKindBeingWritten}
+        setShowFilterModal={setShowFilterModal}
+        showFilterModal={showFilterModal}
+        showMessageWriter={showMessageWriter}
+        srcOrDstFilterSetter={srcOrDstFilterSetter}
+        srcOrDstFilterValues={srcOrDstFilterValues}
+        // --- Email Templates ---
+        switchDisabledStatus={switchDisabledStatus}
+        switchFavoriteStatus={switchFavoriteStatus}
+        switchMutedStatus={switchMutedStatus}
         tagCategories={tagCategories}
+        theme={theme}
+        thread={thread}
       />
     );
   }

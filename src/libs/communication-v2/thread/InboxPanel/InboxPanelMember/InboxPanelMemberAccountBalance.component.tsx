@@ -19,7 +19,7 @@ const InboxMemberTags: React.FC<Props> = ({ accountBalance }) => {
 
   return (
     <div className={classes.container}>
-      <Typography variant="body1" className={classes.title}>
+      <Typography className={classes.title} variant="body1">
         {t('creditAccountBalance')}
       </Typography>
       <CustomChip

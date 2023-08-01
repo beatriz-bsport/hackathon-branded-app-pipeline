@@ -479,34 +479,34 @@ class MarketingTagManagement extends React.PureComponent<Props> {
             {t('management.tagKind.toolbar')}
           </Typography>
           <RadioGroup
+            row
             aria-label="tag-kind"
+            className={classes.row}
             name="tag-kind"
-            value={this.props.tagKind}
             onChange={(ev) =>
               this.props.setQueryParams('tagKind')(ev.target.value)
             }
-            className={classes.row}
-            row
+            value={this.props.tagKind}
           >
             <FormControlLabel
-              value={TAG_KIND_MEMBER}
               control={<Radio />}
               label={t('management.tagKind.member')}
+              value={TAG_KIND_MEMBER}
             />
             <FormControlLabel
-              value={TAG_KIND_COUPON}
               control={<Radio />}
               label={t('management.tagKind.coupon')}
+              value={TAG_KIND_COUPON}
             />
             <FormControlLabel
-              value={TAG_KIND_SMARTLIST}
               control={<Radio />}
               label={t('management.tagKind.smartlist')}
+              value={TAG_KIND_SMARTLIST}
             />
             <FormControlLabel
-              value={TAG_KIND_OFFER}
               control={<Radio />}
               label={t('management.tagKind.offer')}
+              value={TAG_KIND_OFFER}
             />
           </RadioGroup>
         </Paper>
@@ -514,15 +514,15 @@ class MarketingTagManagement extends React.PureComponent<Props> {
         <div className={classes.contentContainer}>
           <div className={classes.leftPanel}>
             <TagGroupList
-              tagGroupList={this.props.tagGroups}
-              onCreateOrUpdateTagGroup={this.createOrUpdateTagGroup}
-              onDeleteTagGroup={this.deleteTagGroup}
               onCreateOrUpdateTag={this.createOrUpdateTag}
+              onCreateOrUpdateTagGroup={this.createOrUpdateTagGroup}
               onDeleteTag={this.onDeleteTag}
+              onDeleteTagGroup={this.deleteTagGroup}
               onSelectTag={this.onSelectTag}
               selectedTag={this.props.selectedTag}
-              tagUsageById={this.props.tagUsageById}
+              tagGroupList={this.props.tagGroups}
               tagKind={this.props.tagKind}
+              tagUsageById={this.props.tagUsageById}
             />
           </div>
 
@@ -552,23 +552,23 @@ class MarketingTagManagement extends React.PureComponent<Props> {
               {this.props.selectedTag &&
                 this.props.tagKind === TAG_KIND_MEMBER && (
                   <TagDetailMembers
-                    tag={this.props.selectedTag}
-                    membersWithTagList={membersWithTagList.items}
-                    membersWithTagListCount={membersWithTagList.count}
-                    membersWithTagListLoading={membersWithTagList.loading}
-                    membersWithTagListPage={membersWithTagList.page}
+                    itemPerPage={MEMBERS_ITEM_PER_PAGE}
                     membersWithoutTagList={membersWithoutTagList.items}
                     membersWithoutTagListCount={membersWithoutTagList.count}
                     membersWithoutTagListLoading={membersWithoutTagList.loading}
                     membersWithoutTagListPage={membersWithoutTagList.page}
-                    onPageRequestWithTag={this.loadMembersWithTag}
-                    onPageRequestWithoutTag={this.loadMembersWithoutTag}
-                    onClickTagMember={this.onClickTagMember}
+                    membersWithTagList={membersWithTagList.items}
+                    membersWithTagListCount={membersWithTagList.count}
+                    membersWithTagListLoading={membersWithTagList.loading}
+                    membersWithTagListPage={membersWithTagList.page}
                     onClickMember={this.props.onClickMember}
+                    onClickTagMember={this.onClickTagMember}
                     onClickUntagMember={this.onClickUntagMember}
-                    itemPerPage={MEMBERS_ITEM_PER_PAGE}
-                    untagAll={this.untagAllMember}
+                    onPageRequestWithoutTag={this.loadMembersWithoutTag}
+                    onPageRequestWithTag={this.loadMembersWithTag}
+                    tag={this.props.selectedTag}
                     tagAll={this.tagAllMember}
+                    untagAll={this.untagAllMember}
                   />
                 )}
 
@@ -576,41 +576,41 @@ class MarketingTagManagement extends React.PureComponent<Props> {
                 this.props.tagKind === TAG_KIND_COUPON && (
                   <TagDetailCoupon
                     coupons={this.props.coupons}
-                    loading={this.props.couponsLoading}
-                    tag={this.props.selectedTag}
-                    onClickRemoveTag={this.onClickUntagCoupon}
                     goToCoupon={this.props.goToCoupon}
+                    loading={this.props.couponsLoading}
+                    onClickRemoveTag={this.onClickUntagCoupon}
+                    tag={this.props.selectedTag}
                   />
                 )}
 
               {this.props.selectedTag &&
                 this.props.tagKind === TAG_KIND_SMARTLIST && (
                   <TagDetailSmartlist
-                    smartlistList={this.props.smartlist}
                     autotagRuleBySmartlist={this.props.autotagRuleBySmartList}
+                    goToSmartlist={this.props.goToSmartlist}
                     loading={
                       this.props.smartlistLoading ||
                       this.props.autotagRuleLoading
                     }
-                    tag={this.props.selectedTag}
-                    onClickRemoveTag={this.onClickUntagSmartlist}
                     onChangeTagRule={this.onChangeSmartListTagRule}
-                    goToSmartlist={this.props.goToSmartlist}
+                    onClickRemoveTag={this.onClickUntagSmartlist}
+                    smartlistList={this.props.smartlist}
+                    tag={this.props.selectedTag}
                   />
                 )}
               {this.props.selectedTag &&
                 this.props.tagKind === TAG_KIND_OFFER && (
                   <TagDetailOffer
+                    count={this.props.offersPaginatedState.count}
+                    itemPerPage={MEMBERS_ITEM_PER_PAGE}
                     loading={
                       this.props.offersLoading ||
                       this.props.offerTagManagementLoading
                     }
-                    tag={this.props.selectedTag}
                     offers={this.props.offersPaginatedData}
-                    count={this.props.offersPaginatedState.count}
-                    page={this.props.offersPaginatedState.page}
-                    itemPerPage={MEMBERS_ITEM_PER_PAGE}
                     onPageRequested={this.loadOfferFilterBySelectedTag}
+                    page={this.props.offersPaginatedState.page}
+                    tag={this.props.selectedTag}
                     unTagAll={this.unTagAllOffers}
                     unTagOffer={this.unTagOffer}
                   />

@@ -28,9 +28,9 @@ export const MemberRelationListItem: React.FC<Props> = ({
 
   return (
     <ListItem
-      onClick={handleSelect}
-      classes={{ button: classes.button }}
       button
+      classes={{ button: classes.button }}
+      onClick={handleSelect}
     >
       <ListItemAvatar>
         <Avatar src={member.photo} />

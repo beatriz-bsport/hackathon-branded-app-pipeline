@@ -36,12 +36,12 @@ function shopItemOption(props: OptionProps) {
   return (
     <div ref={innerRef} {...innerProps}>
       <ShopItemListItem
-        selected={isSelected}
-        isFocused={isFocused}
-        shopitem={data.pp}
-        noDivider
         button
         dense
+        noDivider
+        isFocused={isFocused}
+        selected={isSelected}
+        shopitem={data.pp}
       />
     </div>
   );
@@ -76,17 +76,17 @@ export function ShopItemSelector(props: Props) {
 
   return (
     <Selector
-      autofocus={autofocus}
       searchIcon
-      nullCurrentValue={nullCurrentValue}
-      selected={value}
-      suggestions={suggestions}
+      autofocus={autofocus}
       className={classNames(classes, selectorClass)}
       components={{ Option: shopItemOption }}
       filterOption={filterShopItem}
-      placeholder={helperText || props.t('shopitem.selector.placeholder')}
-      onChange={(event) => onChange(event.value)}
       isDisabled={!!props.disabled}
+      nullCurrentValue={nullCurrentValue}
+      onChange={(event) => onChange(event.value)}
+      placeholder={helperText || props.t('shopitem.selector.placeholder')}
+      selected={value}
+      suggestions={suggestions}
     />
   );
 }

@@ -40,21 +40,21 @@ export const CheckInBookingItem = (props: Props) => {
       <ListItemSecondaryAction>
         {checkedIn ? (
           <Button
-            variant="contained"
-            size="small"
-            className={classes.button}
             disabled
+            className={classes.button}
+            size="small"
+            variant="contained"
           >
             <DoneIcon className={classes.buttonIcon} />
             {t('memberList.checkedIn')}
           </Button>
         ) : (
           <Button
-            variant="contained"
-            size="small"
-            color="secondary"
             className={classes.button}
+            color="secondary"
             onClick={confirmAttendance}
+            size="small"
+            variant="contained"
           >
             {' '}
             <DoneIcon className={classes.buttonIcon} />

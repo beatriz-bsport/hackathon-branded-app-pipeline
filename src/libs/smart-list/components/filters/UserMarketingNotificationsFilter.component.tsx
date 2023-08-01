@@ -43,13 +43,13 @@ export class UserMarketingNotificationsFilter extends Component<Props> {
       <div>
         <div className={classes.inlineContainer}>
           <Select
+            defaultValue
             className={classes.input}
-            value={filter_data.all_filters_must_be_right}
             // eslint-disable-next-line
-            defaultValue={true}
             onChange={(ev) =>
               onChange({ all_filters_must_be_right: ev.target.value })
             }
+            value={filter_data.all_filters_must_be_right}
           >
             {/* eslint-disable-next-line */}
             <MenuItem key="true" value={true}>
@@ -69,13 +69,13 @@ export class UserMarketingNotificationsFilter extends Component<Props> {
         <div className={classes.inlineContainer}>
           <Switch
             checked={filter_data.email_filter_active}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
                 email_filter_active: !filter_data.email_filter_active,
               })
             }
             value="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
           />
           <div
             className={
@@ -85,11 +85,11 @@ export class UserMarketingNotificationsFilter extends Component<Props> {
             }
           >
             <Select
+              defaultValue
               className={classes.input}
-              value={filter_data.email_value}
               // eslint-disable-next-line
-              defaultValue={true}
               onChange={(ev) => onChange({ email_value: ev.target.value })}
+              value={filter_data.email_value}
             >
               {/* eslint-disable-next-line */}
               <MenuItem key="true" value={true}>
@@ -105,13 +105,13 @@ export class UserMarketingNotificationsFilter extends Component<Props> {
         <div className={classes.inlineContainer}>
           <Switch
             checked={filter_data.sms_filter_active}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
                 sms_filter_active: !filter_data.sms_filter_active,
               })
             }
             value="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
           />
           <div
             className={
@@ -121,11 +121,11 @@ export class UserMarketingNotificationsFilter extends Component<Props> {
             }
           >
             <Select
+              defaultValue
               className={classes.input}
-              value={filter_data.sms_value}
               // eslint-disable-next-line
-              defaultValue={true}
               onChange={(ev) => onChange({ sms_value: ev.target.value })}
+              value={filter_data.sms_value}
             >
               {/* eslint-disable-next-line */}
               <MenuItem key="true" value={true}>

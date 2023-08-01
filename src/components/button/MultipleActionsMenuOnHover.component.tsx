@@ -85,48 +85,48 @@ const MultipleActionsMenuOnHover: React.FC<MultipleActionsMenuOnHoverProps> = ({
   return (
     <div className={classes.container}>
       <div
-        onMouseEnter={handleMouseEnter}
-        onContextMenu={handleRightClick}
         className={classes.button}
+        onContextMenu={handleRightClick}
+        onMouseEnter={handleMouseEnter}
       >
         <CustomMuiIcon
-          icon={customIcon || 'MoreVert'}
-          customColor={customColor || 'black'}
-          withBackground={false}
           defaultBackGround
+          customColor={customColor || 'black'}
+          icon={customIcon || 'MoreVert'}
+          withBackground={false}
         />
       </div>
       <Menu
-        id="action-menu"
         anchorEl={anchorEl}
-        getContentAnchorEl={null}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-        open={Boolean(anchorEl)}
-        onClose={handleClickAway}
+        getContentAnchorEl={null}
+        id="action-menu"
         MenuListProps={{
           onMouseLeave: handleMouseLeave,
         }}
+        onClose={handleClickAway}
+        open={Boolean(anchorEl)}
         PaperProps={{
           style: {
             marginTop: '4px',
           },
         }}
+        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
       >
         {actionList.map((action, index) => (
           <MenuItem
             key={`${index}${action.label}`}
-            value={action.label}
             onClick={handleOnClickAction(action.onClick)}
             onContextMenu={handleRightClick}
+            value={action.label}
           >
             <CustomMuiIcon
-              icon={action.icon}
-              customColor={action.customColor || customColor}
-              withBackground={false}
               defaultBackGround
+              customColor={action.customColor || customColor}
+              icon={action.icon}
+              withBackground={false}
             />
-            <Typography variant="body1" className={classes.label}>
+            <Typography className={classes.label} variant="body1">
               {action.label}
             </Typography>
           </MenuItem>

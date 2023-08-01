@@ -83,23 +83,23 @@ export const AccountConfigurationBankAccountStep: React.FC<Props> = ({
         >
           {!externalAccountLast4Digit || !company.bank_account_holder ? (
             <>
-              <Typography variant="h4" className={classes.bankAccountTitle}>
+              <Typography className={classes.bankAccountTitle} variant="h4">
                 {t('payment:bankAccount.form.title')}
               </Typography>
               <Typography className={classes.bankAccountContent}>
                 {t('payment:bankAccount.form.content')}
               </Typography>
               <BankAccountForm
-                labelOnClose={t('common:previous')}
                 company={company}
                 currency={company.currency}
-                onSubmit={submitBankAccount}
+                labelOnClose={t('common:previous')}
                 onClose={goPrevious}
+                onSubmit={submitBankAccount}
               />
             </>
           ) : (
             <div className={classes.paper}>
-              <Typography variant="h6" className={classes.title}>
+              <Typography className={classes.title} variant="h6">
                 {t('login:accountConfiguration.bankAccount.bank_details')}
               </Typography>
               <p>
@@ -129,7 +129,7 @@ export const AccountConfigurationBankAccountStep: React.FC<Props> = ({
         {success && (
           <div className={classes.action}>
             <Button onClick={goPrevious}>{t('common:previous')}</Button>
-            <Button variant="contained" color="primary" onClick={goNext}>
+            <Button color="primary" onClick={goNext} variant="contained">
               {labelGoNext || t('common:next')}
             </Button>
           </div>

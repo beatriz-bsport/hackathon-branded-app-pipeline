@@ -55,6 +55,7 @@ export const MarketplaceCardOffer = (props: Props) => {
   return (
     <div
       className={classes.cardOuter}
+      id={`offer-book-${offer.id}`}
       style={{
         borderRadius: '8px',
         background:
@@ -70,13 +71,12 @@ export const MarketplaceCardOffer = (props: Props) => {
                   : offer.meta_activity_color
               } 3%, ${impairColor} 3%)`,
       }}
-      id={`offer-book-${offer.id}`}
     >
       <ButtonBase
-        onClick={onClick}
         disableRipple
-        component="div"
         className={classes.cardContent}
+        component="div"
+        onClick={onClick}
       >
         <div className={classes.title}>
           {props.activityLoading && metaActivityName === ' - ' ? (
@@ -136,8 +136,8 @@ export const MarketplaceCardOffer = (props: Props) => {
         <Level
           noStyle
           align="center"
-          variant="caption"
           customLevel={offer.customLevel}
+          variant="caption"
         />
         {props.establishmentLoading && establishmentName === ' - ' ? (
           <MoreHorizIcon fontSize="small" />
@@ -149,8 +149,7 @@ export const MarketplaceCardOffer = (props: Props) => {
       </ButtonBase>
       <div className={classes.bottomButton}>
         <MarketplaceBookButton
-          showOfferFilling={props.showOfferFilling}
-          showOfferGender={props.showOfferGender}
+          offer={props.offer}
           onClickBook={(ev) => {
             ev.stopPropagation();
             props.onClickBook(ev);
@@ -159,7 +158,8 @@ export const MarketplaceCardOffer = (props: Props) => {
             ev.stopPropagation();
             props.onClickBookOption(ev);
           }}
-          offer={props.offer}
+          showOfferFilling={props.showOfferFilling}
+          showOfferGender={props.showOfferGender}
           variant="contained"
         />
       </div>

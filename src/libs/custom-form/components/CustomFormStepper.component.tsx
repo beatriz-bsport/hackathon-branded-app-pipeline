@@ -132,11 +132,11 @@ export const CustomFormStepper = (props: Props) => {
 
             <Tooltip title={t('customForm.submitLater')}>
               <IconButton
-                onClick={() => handleDirectSubmitSnoozed()}
                 disabled={
                   !getCurrentDisplayRule(customForm.id)?.snoozable ||
                   props.customFormListIsSubmitting
                 }
+                onClick={() => handleDirectSubmitSnoozed()}
               >
                 <SnoozeIcon
                   color={
@@ -149,11 +149,11 @@ export const CustomFormStepper = (props: Props) => {
             </Tooltip>
           </div>
           <CustomFormView
+            disconnectOnCancel
             initial={customForm}
-            onSubmit={handleDirectSubmit}
             isSubmitting={props.customFormListIsSubmitting}
             onCancel={() => props.onDisconnect()}
-            disconnectOnCancel
+            onSubmit={handleDirectSubmit}
           />
         </div>
       </div>
@@ -173,8 +173,8 @@ export const CustomFormStepper = (props: Props) => {
       )}
       <Stepper
         activeStep={customFormStep}
-        orientation="vertical"
         className={userCanDisconnect ? classes.zeroPadding : null}
+        orientation="vertical"
       >
         {customFormList.map((customForm: CustomForm, index: number) => (
           <Step key={index}>
@@ -183,11 +183,11 @@ export const CustomFormStepper = (props: Props) => {
                 {customForm?.name}
                 <Tooltip title={t('customForm.submitLater')}>
                   <IconButton
-                    onClick={() => handleSubmitSnoozed(customForm.id)}
                     disabled={
                       !getCurrentDisplayRule(customForm.id)?.snoozable ||
                       customFormStep !== index
                     }
+                    onClick={() => handleSubmitSnoozed(customForm.id)}
                   >
                     <SnoozeIcon
                       color={
@@ -207,24 +207,24 @@ export const CustomFormStepper = (props: Props) => {
             </StepLabel>
             <StepContent>
               <CustomFormView
+                isMulti
                 initial={customForm}
                 initialWithAnswer={getDraftData(customForm.id)}
-                onSubmit={handleCustomFormNext}
+                isSubmitting={props.customFormListIsSubmitting}
                 onCancel={
                   customFormStep !== 0 ? handleCustomFormPrevious : null
                 }
+                onSubmit={handleCustomFormNext}
                 onSubmitDraft={(values: CustomForm) =>
                   handleSubmitDraft(customForm.id, values)
                 }
-                isMulti
-                isSubmitting={props.customFormListIsSubmitting}
               />
             </StepContent>
           </Step>
         ))}
       </Stepper>
       {customFormStep === -1 && (
-        <Paper square elevation={0} className={classes.finalStepContainer}>
+        <Paper square className={classes.finalStepContainer} elevation={0}>
           <div className={classes.finalStepHelper}>
             <Typography variant="subtitle1">
               {t('customForm.allStepsCompleted')}
@@ -233,18 +233,18 @@ export const CustomFormStepper = (props: Props) => {
 
           <div className={classes.flexActions}>
             <Button
-              variant="text"
               color="primary"
-              onClick={() => setCustomFormStep(customFormList.length - 1)}
               disabled={props.customFormListIsSubmitting}
+              onClick={() => setCustomFormStep(customFormList.length - 1)}
+              variant="text"
             >
               {t('customForm.resetSubmit')}
             </Button>
             <Button
               color="primary"
-              variant="contained"
-              onClick={() => props.onSubmitCustomFormList()}
               disabled={props.customFormListIsSubmitting}
+              onClick={() => props.onSubmitCustomFormList()}
+              variant="contained"
             >
               {t('customForm.send')}
             </Button>

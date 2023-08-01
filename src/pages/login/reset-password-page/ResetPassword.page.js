@@ -86,7 +86,7 @@ export class ResetPassword extends Component<Props, State> {
         className="bs-reset-password-container__link"
         to={this.getRedirectUrlWithParams()}
       >
-        <Button id="btn-cancel" className={buttonClass}>
+        <Button className={buttonClass} id="btn-cancel">
           {this.props.t('resetPassword.actions.cancel')}
         </Button>
       </Link>
@@ -95,10 +95,10 @@ export class ResetPassword extends Component<Props, State> {
       ) : (
         <Button
           className={buttonClass}
-          type="submit"
           color="primary"
-          variant="contained"
           id="btn-reset-password"
+          type="submit"
+          variant="contained"
         >
           {this.props.simplifyUI
             ? this.props.t('resetPassword.actions.confirm')
@@ -131,9 +131,9 @@ export class ResetPassword extends Component<Props, State> {
         ) && (
           <div className="bs-reset-password-container__help-reset">
             <WarningIcon
-              fontSize="large"
-              color="secondary"
               className="bs-reset-password-container__help-icon"
+              color="secondary"
+              fontSize="large"
             />
             <div>
               <div className="bs-reset-password-container__error-text">
@@ -154,9 +154,9 @@ export class ResetPassword extends Component<Props, State> {
         <Button
           className={buttonClass}
           color="primary"
+          id="btn-back-to-login"
           onClick={this.redirectLogin}
           variant="contained"
-          id="btn-back-to-login"
         >
           {this.props.t('resetPassword.actions.backToLogin')}
         </Button>
@@ -173,7 +173,7 @@ export class ResetPassword extends Component<Props, State> {
       return <Redirect to={this.getRedirectUrlWithParams()} />;
     }
     return (
-      <form onSubmit={this.onSubmit} className="bs-reset-password-container">
+      <form className="bs-reset-password-container" onSubmit={this.onSubmit}>
         {hasSent ? (
           <div />
         ) : (
@@ -188,13 +188,13 @@ export class ResetPassword extends Component<Props, State> {
               {this.props.t('resetPassword.explain2')}
             </div>
             <TextField
-              type="email"
-              className="bs-reset-password-container__text-block"
-              onChange={this.updateEmail}
-              variant="outlined"
-              name="email"
               fullWidth
+              className="bs-reset-password-container__text-block"
               label="Email"
+              name="email"
+              onChange={this.updateEmail}
+              type="email"
+              variant="outlined"
             />
           </div>
         )}

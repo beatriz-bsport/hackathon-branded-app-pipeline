@@ -39,61 +39,61 @@ const GiftcardForm = (props: Props) => {
   }, []);
   return (
     <div className={classes.container}>
-      <ImageField name="cover" disabled={props.disabledSharedGiftcardUpdate} />
+      <ImageField disabled={props.disabledSharedGiftcardUpdate} name="cover" />
       <TextField
-        label={t('form.giftcard.name.label')}
-        className={classes.fullwidth}
-        name="name"
-        disabled={props.disabledSharedGiftcardUpdate}
         required
+        className={classes.fullwidth}
+        disabled={props.disabledSharedGiftcardUpdate}
+        label={t('form.giftcard.name.label')}
+        name="name"
       />
       <TextField
-        className={classes.fullwidth}
-        name="description"
         multiline
-        variant="outlined"
-        label={t('form.giftcard.description.label')}
-        disabled={props.disabledSharedGiftcardUpdate}
         required
+        className={classes.fullwidth}
+        disabled={props.disabledSharedGiftcardUpdate}
+        label={t('form.giftcard.description.label')}
+        name="description"
+        variant="outlined"
       />
       <fieldset className={classes.parameterContainer}>
         <legend>{t('form.giftcard.section.parameters.title')}</legend>
         <PriceField
-          name="price"
-          label={t('form.giftcard.price.label')}
-          helperText={t('form.giftcard.price.helperText')}
           disabled={props.disabledSharedGiftcardUpdate}
+          helperText={t('form.giftcard.price.helperText')}
+          label={t('form.giftcard.price.label')}
+          name="price"
         />
         <Collapse in={!props.values.unlimited}>
           <IntegerField
-            name="expiration_days"
-            label={t('form.giftcard.expiration_days.label')}
-            helperText={t('form.giftcard.expiration_days.helperText')}
-            disabled={props.disabledSharedGiftcardUpdate}
             required
+            disabled={props.disabledSharedGiftcardUpdate}
+            helperText={t('form.giftcard.expiration_days.helperText')}
+            label={t('form.giftcard.expiration_days.label')}
+            name="expiration_days"
           />
         </Collapse>
         <CheckboxField
-          name="unlimited"
-          label={t('form.giftcard.unlimited.label')}
           disabled={props.disabledSharedGiftcardUpdate}
+          label={t('form.giftcard.unlimited.label')}
+          name="unlimited"
         />
       </fieldset>
       <SwitchField
-        name="manager_only"
-        label={t('form.giftcard.manager_only.label')}
         disabled={props.disabledSharedGiftcardUpdate}
+        label={t('form.giftcard.manager_only.label')}
+        name="manager_only"
       />
       <PaymentMethodSelectorField
-        name="available_payment_method_identifiers"
+        asFieldset
         disabled={
           props.values.manager_only || props.disabledSharedGiftcardUpdate
         }
-        asFieldset
-        label={t('form.giftcard.available_payment_method_identifiers.label')}
         helperText={t(
           'form.giftcard.available_payment_method_identifiers.helperText',
         )}
+        label={t('form.giftcard.available_payment_method_identifiers.label')}
+        name="available_payment_method_identifiers"
       />
     </div>
   );

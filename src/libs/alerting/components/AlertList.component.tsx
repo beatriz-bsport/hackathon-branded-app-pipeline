@@ -54,7 +54,7 @@ export function AlertList(props: Props) {
             <span>{t('list.title')}</span>
             <span>
               {onClose ? (
-                <IconButton onClick={onClose} color="secondary">
+                <IconButton color="secondary" onClick={onClose}>
                   <CloseIcon />
                 </IconButton>
               ) : null}
@@ -73,11 +73,11 @@ export function AlertList(props: Props) {
       ) : (
         filteredAlertGroups.map((alert_group) => (
           <AlertListGroup
-            pushRouter={pushRouter}
-            deleteAlert={deleteAlert}
-            alert_group={alert_group}
             key={alert_group.alert_kind}
+            alert_group={alert_group}
+            deleteAlert={deleteAlert}
             onShowMore={() => showMore(alert_group.alert_kind)}
+            pushRouter={pushRouter}
           />
         ))
       )}

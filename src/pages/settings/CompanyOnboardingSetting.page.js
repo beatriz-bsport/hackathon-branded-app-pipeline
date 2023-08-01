@@ -100,8 +100,8 @@ export default (props: Props) => (
     <ElementsConsumer>
       {({ stripe, elements }) => (
         <CompanyOnboardingSettingPageComposed
-          stripe={stripe}
           elements={elements}
+          stripe={stripe}
           {...props}
         />
       )}

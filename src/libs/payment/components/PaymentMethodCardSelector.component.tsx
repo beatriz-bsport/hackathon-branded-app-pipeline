@@ -42,8 +42,8 @@ export const PaymentMethodCardSelector = ({
     >
       <Typography
         className={classnames(classes.title, customClasses?.title)}
-        variant="h6"
         id="payment-method-select-label"
+        variant="h6"
       >
         {t('paymentMethod.select.label')}
       </Typography>
@@ -51,8 +51,8 @@ export const PaymentMethodCardSelector = ({
         {paymentMethodChoices.map((pm) => (
           <ButtonBase
             key={`${pm}`}
-            onClick={() => handleClick(pm)}
             disabled={paymentProcessing}
+            onClick={() => handleClick(pm)}
           >
             <Paper
               className={classnames(classes.paper, customClasses?.paper, {

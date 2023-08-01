@@ -122,7 +122,7 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
     if (this.state.coachId && this.state.privateSlotId) {
       return (
         <React.Fragment>
-          <Typography variant="h6" className={this.props.classes.sectionTitle}>
+          <Typography className={this.props.classes.sectionTitle} variant="h6">
             {this.props.t(
               'privateBooking.managerAdd.compatiblePrivateConsumerPass',
             )}
@@ -130,7 +130,6 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
           {this.state.privateConsumerPassNeedRefresh ? (
             <div className={this.props.classes.refreshButtonContainer}>
               <Button
-                variant="outlined"
                 onClick={() => {
                   this.props.fetchPass(
                     this.state.privateSlotId,
@@ -138,6 +137,7 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
                   );
                   this.setState({ privateConsumerPassNeedRefresh: false });
                 }}
+                variant="outlined"
               >
                 <RefreshIcon className={this.props.classes.leftIcon} />
                 {this.props.t(
@@ -149,7 +149,7 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
             <List disablePadding>
               {this.props.compatiblePrivateConsumerPass.map((pcp) => (
                 <PrivateConsumerPassBookerListItem
-                  private_consumer_pass={pcp}
+                  key={pcp.id}
                   onBook={() => {
                     this.props.registerPrivateBooking({
                       private_consumer_pass: pcp.id,
@@ -159,7 +159,7 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
                       address: this.state.address,
                     });
                   }}
-                  key={pcp.id}
+                  private_consumer_pass={pcp}
                 />
               ))}
             </List>
@@ -172,18 +172,18 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
               )}
             </Typography>
           ) : null}
-          <Typography variant="h6" className={this.props.classes.sectionTitle}>
+          <Typography className={this.props.classes.sectionTitle} variant="h6">
             {this.props.t('privateBooking.managerAdd.compatiblePrivatePass')}
           </Typography>
           <List disablePadding>
             {this.props.compatiblePrivatePass.map((pp) => (
               <PrivatePassBookerListItem
-                private_pass={pp}
+                key={pp.id}
                 onClick={() => {
                   this.props.billMemberPrivatePass(this.state.member.id, pp.id);
                   this.setState({ privateConsumerPassNeedRefresh: true });
                 }}
-                key={pp.id}
+                private_pass={pp}
               />
             ))}
           </List>
@@ -238,14 +238,14 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
       ) {
         return (
           <TextField
+            fullWidth
             multiline
             className={this.props.classes.addressField}
-            rows={5}
             label={this.props.t('privateBooking.managerAdd.address')}
-            fullWidth
+            onChange={(ev) => this.setState({ address: ev.target.value })}
+            rows={5}
             value={this.state.address}
             variant="outlined"
-            onChange={(ev) => this.setState({ address: ev.target.value })}
           />
         );
       }
@@ -257,13 +257,13 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
     if (!this.state.member) {
       return (
         <MemberSearchModal
-          open
           asManager
-          loading={this.props.searchLoading}
-          searchMembers={this.props.searchMembers}
-          searchedMembers={this.props.searchedMembers}
-          onClose={this.props.onClose}
+          open
           handlMemberSelected={(id, member) => this.setState({ member })}
+          loading={this.props.searchLoading}
+          onClose={this.props.onClose}
+          searchedMembers={this.props.searchedMembers}
+          searchMembers={this.props.searchMembers}
         />
       );
     }
@@ -279,10 +279,10 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
           <InlineDateTimePicker
             keyboard
             ampm={false}
-            value={this.state.date}
+            format="YYYY/MM/DD HH:mm"
             onChange={this.handleDateChange}
             onError={console.error}
-            format="YYYY/MM/DD HH:mm"
+            value={this.state.date}
           />
           <MemberMinimalListItem
             member={this.state.member}
@@ -290,25 +290,25 @@ export class PrivateBookingManagerForm extends React.Component<Props, State> {
           />
           <CoachInput
             required
-            value={this.state.coachId}
-            onChange={this.handleCoachChange}
+            choices={this.props.associatedCoachList}
             label={this.props.t(
               'privateBooking.managerAdd.coachSelector.label',
             )}
-            choices={this.props.associatedCoachList}
+            onChange={this.handleCoachChange}
             onDelete={() => this.handleCoachChange(null)}
+            value={this.state.coachId}
           />
           <PrivateServiceSelector
-            privateServices={selectableService}
-            privateServiceId={this.state.privateServiceId}
-            onChange={this.handleServiceChange}
             isDisabled={!this.state.coachId}
+            onChange={this.handleServiceChange}
+            privateServiceId={this.state.privateServiceId}
+            privateServices={selectableService}
           />
           <PrivateSlotSelectorSimple
-            privateSlots={selectableSlots}
-            privateSlotId={this.state.privateSlotId}
-            onChange={this.handleSlotChange}
             isDisabled={!this.state.privateServiceId}
+            onChange={this.handleSlotChange}
+            privateSlotId={this.state.privateSlotId}
+            privateSlots={selectableSlots}
           />
           {this.renderAddressForm(selectableService)}
           {this.props.compatiblePassLoading || this.props.processing ? (

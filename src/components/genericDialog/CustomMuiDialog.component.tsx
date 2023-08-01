@@ -108,10 +108,10 @@ export const CustomMuiDialog = (props: Props) => {
   const classes = useStyles();
   return (
     <GenericResponsiveDialog
-      maxWidth={maxWidth}
-      open={open}
       fullScreenBreakpoint={fullScreenBreakpoint}
+      maxWidth={maxWidth}
       onClose={onClose}
+      open={open}
     >
       <div className={classes.dialog}>
         {!!title && (
@@ -122,9 +122,9 @@ export const CustomMuiDialog = (props: Props) => {
         <DialogContent>
           {!!content && (
             <Typography
-              variant="body1"
               align={contentAlign ?? 'left'}
               color={contentColor ?? 'textPrimary'}
+              variant="body1"
             >
               {content}
             </Typography>
@@ -137,13 +137,13 @@ export const CustomMuiDialog = (props: Props) => {
             {buttons.map((bt: ButtonCustom) =>
               bt.delayBeforeActivation ? (
                 <RedButton
-                  onClick={bt.onClick}
-                  variant={bt.variant || 'text'}
-                  disabled={bt.disabled}
-                  startIcon={!!bt.startIcon && !!bt.label && bt.startIcon}
-                  endIcon={!!bt.endIcon && !!bt.label && bt.endIcon}
                   className={bt.className}
                   delayBeforeActivation={bt.delayBeforeActivation}
+                  disabled={bt.disabled}
+                  endIcon={!!bt.endIcon && !!bt.label && bt.endIcon}
+                  onClick={bt.onClick}
+                  startIcon={!!bt.startIcon && !!bt.label && bt.startIcon}
+                  variant={bt.variant || 'text'}
                 >
                   {!bt.label && !!bt.startIcon && bt.startIcon}
                   {(!!bt.label || !!bt.commonLabel) &&
@@ -152,13 +152,13 @@ export const CustomMuiDialog = (props: Props) => {
                 </RedButton>
               ) : (
                 <Button
-                  onClick={bt.onClick}
-                  variant={bt.variant || 'text'}
+                  className={bt.className}
                   color={bt.color || 'default'}
                   disabled={bt.disabled}
-                  startIcon={!!bt.startIcon && !!bt.label && bt.startIcon}
                   endIcon={!!bt.endIcon && !!bt.label && bt.endIcon}
-                  className={bt.className}
+                  onClick={bt.onClick}
+                  startIcon={!!bt.startIcon && !!bt.label && bt.startIcon}
+                  variant={bt.variant || 'text'}
                 >
                   {!bt.label && !!bt.startIcon && bt.startIcon}
                   {(!!bt.label || !!bt.commonLabel) &&

@@ -30,34 +30,35 @@ const MetaActivityGroupsFilter: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <DateInput
+        clearable
+        className={classes.date}
         label={t('common.from')}
-        value={filter.min_date ? moment(filter.min_date) : null}
         onChange={(value: Moment) => {
           onChange({
             ...filter,
             min_date: value ? value.format('YYYY-MM-DD') : null,
           });
         }}
-        clearable
-        className={classes.date}
+        value={filter.min_date ? moment(filter.min_date) : null}
       />
       <DateInput
+        clearable
+        className={classes.date}
         label={t('common.until')}
-        value={filter.max_date ? moment(filter.max_date) : null}
         onChange={(value: Moment) => {
           onChange({
             ...filter,
             max_date: value ? value.format('YYYY-MM-DD') : null,
           });
         }}
-        clearable
-        className={classes.date}
+        value={filter.max_date ? moment(filter.max_date) : null}
       />
       {!withoutMetaActivity && (
         <div className={classes.selector}>
           <MetaActivitySelector
-            metaActivities={metaActivities}
             closeMenuOnSelect
+            isLoading={isLoading}
+            metaActivities={metaActivities}
             selectedMetaActivities={filter.meta_activity__in}
             selectOption={(ev: { value: number }[]) => {
               onChange({
@@ -65,7 +66,6 @@ const MetaActivityGroupsFilter: React.FC<Props> = ({
                 meta_activity__in: ev.map(({ value }) => value) ?? undefined,
               });
             }}
-            isLoading={isLoading}
           />
         </div>
       )}

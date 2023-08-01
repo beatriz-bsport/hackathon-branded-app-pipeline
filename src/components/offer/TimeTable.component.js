@@ -38,28 +38,28 @@ export class TimeTable extends React.PureComponent<Props, State> {
   renderRow = (offer: Offer, index: number) => (
     <OfferMinimalSummary
       key={offer.id}
-      offer={offer}
-      showCoach
       noDate
-      selected={this.props.selected === offer.id}
-      overrideClickAction={() => {
-        this.props.onOfferSelected(offer);
-      }}
-      onModifyTags={() => {
-        this.props.onModifyTags(offer);
-      }}
-      showTags={this.props.showTags}
+      showCoach
+      companyTheme={this.props.companyTheme}
+      displayCoachInfoOnHover={this.props.displayCoachInfoOnHover}
       fixedHeight={72}
       getHasPendingReplacementRequest={
         this.props.getHasPendingReplacementRequest
       }
+      isRollCallMandatory={!!this.props.isRollCallMandatory}
+      offer={offer}
+      onModifyTags={() => {
+        this.props.onModifyTags(offer);
+      }}
       openRollCallDrawer={() => {
         if (this.props.openRollCallDrawer)
           this.props.openRollCallDrawer(index, offer);
       }}
-      isRollCallMandatory={!!this.props.isRollCallMandatory}
-      displayCoachInfoOnHover={this.props.displayCoachInfoOnHover}
-      companyTheme={this.props.companyTheme}
+      overrideClickAction={() => {
+        this.props.onOfferSelected(offer);
+      }}
+      selected={this.props.selected === offer.id}
+      showTags={this.props.showTags}
     />
   );
 
@@ -67,7 +67,7 @@ export class TimeTable extends React.PureComponent<Props, State> {
     const { loading, offers, t, classes, virtualized } = this.props;
 
     return (
-      <div className={classes.container} disablePadding>
+      <div disablePadding className={classes.container}>
         {loading ? <LinearProgress /> : null}
         {offers.length === 0 && !loading ? (
           <div className={classes.emptyMessage}>
@@ -81,11 +81,11 @@ export class TimeTable extends React.PureComponent<Props, State> {
           <VirtualizeListAutoSize
             itemCount={offers.length}
             itemSize={72}
+            minItemsDisplaid={6}
             renderRow={(index) => {
               const offer = offers[index];
               return this.renderRow(offer, index);
             }}
-            minItemsDisplaid={6}
           />
         )}
         {!loading && !virtualized && offers.map(this.renderRow)}
@@ -102,12 +102,12 @@ export class TimeTable extends React.PureComponent<Props, State> {
             </div>
             <div className={classes.rollCallButton}>
               <ValidationRollCallButton
+                outlined
                 nbRollCallsLeftToValidate={
                   offers.filter((offer) => offer.roll_call_needs_validation)
                     .length
                 }
                 onClick={this.props.openConfirmationRollCallDialog}
-                outlined
               />
             </div>
           </div>

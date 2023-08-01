@@ -145,20 +145,20 @@ export class SubscriptionList extends React.Component<Props, State> {
         this.props.contractListManagerOnly?.length === 0 &&
         !this.props.contractLoading ? (
           <IsEmptyList
-            text={this.props.t('noContracts')}
             button={this.props.t('subscription:contract.actions.create')}
             onCreate={this.props.onRequestCreate}
+            text={this.props.t('noContracts')}
           />
         ) : (
           <div className={this.props.classes.search}>
             <FuzeSearch
-              searchText={this.state.searchText}
-              clearSearch={this.clearSearch}
               changeSearch={this.changeSearch}
+              clearSearch={this.clearSearch}
               items={this.props.contractListAvailableAll}
               placeholder={this.props.t('search')}
               searchFields={['name']}
               searchResult={this.state.searchResult}
+              searchText={this.state.searchText}
             />
 
             <Paper
@@ -176,17 +176,20 @@ export class SubscriptionList extends React.Component<Props, State> {
                 }
               >
                 <SubscriptionContractList
-                  contractList={this.state.searchResult}
                   dense
                   divider
-                  loading={this.props.contractLoading}
-                  onClick={this.onClickContract}
                   company={{
                     id: this.props.theme.company,
                     name: this.props.theme.company_name,
                   }}
-                  selectedContract={this.props.selectedContract}
-                  onRegister={this.props.openContractRegister}
+                  contractList={this.state.searchResult}
+                  loading={this.props.contractLoading}
+                  onClick={this.onClickContract}
+                  onDelete={(id: number) =>
+                    this.props.deleteContract(id, {
+                      onSuccess: this.props.fetchContractList,
+                    })
+                  }
                   onEdit={(data: any, options: OptionCallback<void>) => {
                     this.props.createOrUpdateContract(data, {
                       onSuccess: () => {
@@ -197,14 +200,11 @@ export class SubscriptionList extends React.Component<Props, State> {
                       },
                     });
                   }}
-                  onDelete={(id: number) =>
-                    this.props.deleteContract(id, {
-                      onSuccess: this.props.fetchContractList,
-                    })
-                  }
+                  onRegister={this.props.openContractRegister}
+                  paymentComboList={this.props.paymentComboList}
                   paymentPackList={this.props.paymentPackList}
                   privatePassList={this.props.privatePassList}
-                  paymentComboList={this.props.paymentComboList}
+                  selectedContract={this.props.selectedContract}
                 />
               </Collapse>
             </Paper>
@@ -212,7 +212,7 @@ export class SubscriptionList extends React.Component<Props, State> {
         )}
         <Grid container spacing={2}>
           {!!this.props.contractListAvailableAll?.length && (
-            <Grid item xs={12} lg={6}>
+            <Grid item lg={6} xs={12}>
               <Typography
                 className={this.props.classes.sectionTitle}
                 variant="h5"
@@ -223,17 +223,20 @@ export class SubscriptionList extends React.Component<Props, State> {
               </Typography>
               <Divider className={this.props.classes.divider} />
               <SubscriptionContractList
-                contractList={this.props.contractListAvailableAll}
                 dense
                 divider
-                loading={this.props.contractLoading}
-                onClick={this.onClickContract}
                 company={{
                   id: this.props.theme.company,
                   name: this.props.theme.company_name,
                 }}
-                selectedContract={this.props.selectedContract}
-                onRegister={this.props.openContractRegister}
+                contractList={this.props.contractListAvailableAll}
+                loading={this.props.contractLoading}
+                onClick={this.onClickContract}
+                onDelete={(id: number) =>
+                  this.props.deleteContract(id, {
+                    onSuccess: this.props.fetchContractList,
+                  })
+                }
                 onEdit={(data: any, options: OptionCallback<void>) => {
                   this.props.createOrUpdateContract(data, {
                     onSuccess: () => {
@@ -244,19 +247,16 @@ export class SubscriptionList extends React.Component<Props, State> {
                     },
                   });
                 }}
-                onDelete={(id: number) =>
-                  this.props.deleteContract(id, {
-                    onSuccess: this.props.fetchContractList,
-                  })
-                }
+                onRegister={this.props.openContractRegister}
+                paymentComboList={this.props.paymentComboList}
                 paymentPackList={this.props.paymentPackList}
                 privatePassList={this.props.privatePassList}
-                paymentComboList={this.props.paymentComboList}
+                selectedContract={this.props.selectedContract}
               />
             </Grid>
           )}
           {!!this.props.contractListManagerOnly?.length && (
-            <Grid item xs={12} lg={6}>
+            <Grid item lg={6} xs={12}>
               <Typography
                 className={this.props.classes.sectionTitle}
                 variant="h5"
@@ -265,13 +265,16 @@ export class SubscriptionList extends React.Component<Props, State> {
               </Typography>
               <Divider className={this.props.classes.divider} />
               <SubscriptionContractList
-                contractList={this.props.contractListManagerOnly}
                 dense
                 divider
+                contractList={this.props.contractListManagerOnly}
                 loading={this.props.contractLoading}
                 onClick={this.onClickContract}
-                selectedContract={this.props.selectedContract}
-                onRegister={this.props.openContractRegister}
+                onDelete={(id: number) =>
+                  this.props.deleteContract(id, {
+                    onSuccess: this.props.fetchContractList,
+                  })
+                }
                 onEdit={(data: any, options: OptionCallback<void>) => {
                   this.props.createOrUpdateContract(data, {
                     onSuccess: () => {
@@ -282,19 +285,16 @@ export class SubscriptionList extends React.Component<Props, State> {
                     },
                   });
                 }}
-                onDelete={(id: number) =>
-                  this.props.deleteContract(id, {
-                    onSuccess: this.props.fetchContractList,
-                  })
-                }
+                onRegister={this.props.openContractRegister}
+                paymentComboList={this.props.paymentComboList}
                 paymentPackList={this.props.paymentPackList}
                 privatePassList={this.props.privatePassList}
-                paymentComboList={this.props.paymentComboList}
+                selectedContract={this.props.selectedContract}
               />
             </Grid>
           )}
           {!!this.props.inactiveContracts?.length && (
-            <Grid item xs={12} lg={6}>
+            <Grid item lg={6} xs={12}>
               <ButtonBase
                 onClick={() =>
                   this.props.setShowDisabled(!this.props.showDisabled)
@@ -317,45 +317,34 @@ export class SubscriptionList extends React.Component<Props, State> {
               <Divider className={this.props.classes.divider} />
               {this.props.showDisabled && (
                 <SubscriptionContractList
-                  contractList={this.props.inactiveContracts}
                   dense
                   divider
+                  contractList={this.props.inactiveContracts}
                   loading={this.props.contractLoading}
-                  paymentPackList={this.props.paymentPackList}
-                  privatePassList={this.props.privatePassList}
-                  paymentComboList={this.props.paymentComboList}
                   onRestore={(id: number) => {
                     this.props.restoreContract(id, {
                       onSuccess: () => this.props.fetchContractList(),
                     });
                   }}
+                  paymentComboList={this.props.paymentComboList}
+                  paymentPackList={this.props.paymentPackList}
+                  privatePassList={this.props.privatePassList}
                 />
               )}
             </Grid>
           )}
         </Grid>
         <BottomActionsButton
-          onCreateLabel={this.props.t('subscription:contract.actions.create')}
           onCreate={this.props.onRequestCreate}
+          onCreateLabel={this.props.t('subscription:contract.actions.create')}
         />
         {this.props.contractRegisterOpen &&
         this.props.selectedContract &&
         !!stripeRegion &&
         !!companyCountry ? (
           <SubscriptionContractRegister
-            open={this.props.contractRegisterOpen}
+            companyId={this.props.companyId}
             contract={this.props.selectedContractData}
-            searchMembers={this.props.searchMembers}
-            searchedMembers={this.props.searchedMembers}
-            searchLoading={this.props.searchMemberLoading}
-            onChangeMember={this.props.setMemberToBill}
-            member={this.props.memberToBill}
-            registerContractBackground={this.props.registerContractBackground}
-            onClose={this.props.closeContractRegister}
-            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
-            savedPaymentMethodList={this.props.savedPaymentMethodList}
-            onlinePaymentEnabled={this.props.theme.online_payment_enabled}
             enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
               {
                 currency: this.props.theme.currency,
@@ -365,23 +354,34 @@ export class SubscriptionList extends React.Component<Props, State> {
                 stripeRegion,
               },
             )}
-            waiver={this.props.theme.waiver}
+            enableMultiLocalization={this.props.theme.enable_multi_localization}
+            establishments={this.props.establishmentList}
             generalTermsAndConditions={
               this.props.theme.general_terms_and_conditions
             }
+            member={this.props.memberToBill}
+            onChangeMember={this.props.setMemberToBill}
+            onClose={this.props.closeContractRegister}
+            onlinePaymentEnabled={this.props.theme.online_payment_enabled}
+            open={this.props.contractRegisterOpen}
+            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
+            registerContractBackground={this.props.registerContractBackground}
+            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+            savedPaymentMethodList={this.props.savedPaymentMethodList}
+            searchedMembers={this.props.searchedMembers}
+            searchLoading={this.props.searchMemberLoading}
+            searchMembers={this.props.searchMembers}
             stripeReaders={this.props.stripeReaders || []}
-            companyId={this.props.companyId}
-            establishments={this.props.establishmentList}
-            enableMultiLocalization={this.props.theme.enable_multi_localization}
+            waiver={this.props.theme.waiver}
           />
         ) : null}
         <SubscriptionContractFormDrawer
+          onClose={this.props.onCloseCreate}
+          onSubmit={this.props.onCreate}
+          open={this.props.createContractFormOpen}
+          paymentComboList={this.props.paymentComboList}
           paymentPackList={this.props.paymentPackList}
           privatePassList={this.props.privatePassList}
-          paymentComboList={this.props.paymentComboList}
-          open={this.props.createContractFormOpen}
-          onSubmit={this.props.onCreate}
-          onClose={this.props.onCloseCreate}
         />
       </div>
     );

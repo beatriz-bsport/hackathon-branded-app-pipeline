@@ -47,8 +47,8 @@ const RevertButton = (props: {
   return (
     <RedButton
       color="primary"
-      onClick={props.onClick}
       disabled={props.disabled}
+      onClick={props.onClick}
     >
       <CancelIcon className={props.classes.leftIcon} />
       <Hidden xsDown>
@@ -65,28 +65,28 @@ export const InvoiceEditorActions = (props: Props) => {
   const { t } = useTranslation(['invoice']);
   return (
     <div className={classes.container}>
-      <ButtonGroup disabled={props.loading} variant="contained" color="primary">
+      <ButtonGroup color="primary" disabled={props.loading} variant="contained">
         {!!props.invoice && !props.invoice.is_finalized && (
           <RevertButton
-            t={t}
             classes={classes}
-            reverted={props.invoice.reverted}
             disabled={props.invoice.reverted || props.loading}
             onClick={() => props.revertInvoice(props.invoice.uuid)}
+            reverted={props.invoice.reverted}
+            t={t}
           />
         )}
         {props.step === STEP_INVOICE_ITEM ? (
           <Button
-            onClick={() => props.setStep(STEP_PAYMENT)}
             color="primary"
             disabled={props.invoiceItemIsEmpty}
+            onClick={() => props.setStep(STEP_PAYMENT)}
           >
             <ArrowForwardIcon className={classes.leftIcon} />
             {t('actions.goToPaymentEditor')}
           </Button>
         ) : null}
         {!props.invoice && props.step === STEP_PAYMENT && (
-          <Button onClick={props.onBackToInvoiceItem} color="primary">
+          <Button color="primary" onClick={props.onBackToInvoiceItem}>
             <ArrowBackIcon className={classes.leftIcon} />
             {t('actions.backToInvoiceItemEditor')}
           </Button>

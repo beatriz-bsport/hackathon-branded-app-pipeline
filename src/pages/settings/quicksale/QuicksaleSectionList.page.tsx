@@ -293,14 +293,14 @@ const QuicksaleSectionList: React.FC<Props> = ({
     <>
       <div className={classes.sectionListContainer}>
         <div className={classes.pageHeader}>
-          <Typography variant="h6" className={classes.mediumBold}>
+          <Typography className={classes.mediumBold} variant="h6">
             {t('cardListPage.preview')}
           </Typography>
           <Button
-            variant="contained"
             color="primary"
             disabled={!isSaveNeeded || updateLoading}
             onClick={saveQuicksaleConfiguration}
+            variant="contained"
           >
             {updateLoading ? (
               <CircularProgress size={24} />
@@ -311,7 +311,7 @@ const QuicksaleSectionList: React.FC<Props> = ({
         </div>
 
         <div className={classes.pageBody}>
-          <Alert severity="info" className={classes.alertInfo}>
+          <Alert className={classes.alertInfo} severity="info">
             {!isMobile || showFullHelperAlert ? (
               <>{t('cardListPage.possibleActionsFull')}</>
             ) : (
@@ -342,13 +342,13 @@ const QuicksaleSectionList: React.FC<Props> = ({
           </Alert>
 
           <QuicksaleConfigurationSectionList
-            sectionList={unsavedEnabledSectionList}
+            addSection={addSection}
+            archiveSection={onSectionDisable}
             loading={loading}
             onSectionClick={onSectionClick}
             onSectionEdit={onSectionEdit}
-            archiveSection={onSectionDisable}
             openColorModal={openColorModal}
-            addSection={addSection}
+            sectionList={unsavedEnabledSectionList}
           />
         </div>
       </div>
@@ -363,9 +363,9 @@ const QuicksaleSectionList: React.FC<Props> = ({
           <div
             className={classes.archivedCategoriesTitle}
             onClick={toggleDisabledSections}
+            onKeyDown={undefined}
             role="button"
             tabIndex={0}
-            onKeyDown={undefined}
           >
             <Typography variant="h6">
               {`${t('cardListPage.archivedCategories')} (${
@@ -376,14 +376,14 @@ const QuicksaleSectionList: React.FC<Props> = ({
               {showDisabledSections ? <ExpandLess /> : <ExpandMore />}
             </IconButton>
           </div>
-          <Collapse in={showDisabledSections} unmountOnExit>
+          <Collapse unmountOnExit in={showDisabledSections}>
             {unsavedDisabledSectionList.map((section, index) => (
               <ArchivedSectionListItem
                 key={section.section_id}
-                section={section}
-                onSectionRestore={onSectionEnable}
-                t={t}
                 dividerAbove={index === 0}
+                onSectionRestore={onSectionEnable}
+                section={section}
+                t={t}
               />
             ))}
           </Collapse>
@@ -391,18 +391,18 @@ const QuicksaleSectionList: React.FC<Props> = ({
       )}
 
       <GenericResponsiveDialog
-        maxWidth="sm"
-        open={sectionWhoseColorIsEdited !== ''}
-        onClose={closeColorModal}
         noFullScreen
+        maxWidth="sm"
+        onClose={closeColorModal}
+        open={sectionWhoseColorIsEdited !== ''}
       >
         <DialogTitle disableTypography className={classes.colorModalTitle}>
           <Typography variant="h6">
             {t('cardListPage.categoryModalTitle')}
           </Typography>
           <IconButton
-            onClick={closeColorModal}
             className={classes.colorModalCloseButton}
+            onClick={closeColorModal}
           >
             <Close />
           </IconButton>
@@ -412,22 +412,22 @@ const QuicksaleSectionList: React.FC<Props> = ({
             {t('cardListPage.categoryModalSubtitle')}
           </Typography>
           <ColorPicker
-            colorChoices={availableColors}
-            selectedColor={relatedSection?.section_color ?? ''}
-            onColorChange={onColorSelect}
             className={classes.colorPicker}
+            colorChoices={availableColors}
+            onColorChange={onColorSelect}
+            selectedColor={relatedSection?.section_color ?? ''}
           />
         </DialogContent>
       </GenericResponsiveDialog>
 
       <PromptOnPageLeave
-        openPromptOnPageLeave={isSaveNeeded}
-        title={t('pageLeavePrompt.title')}
+        noFullScreen
         description={t('pageLeavePrompt.description')}
         leaveWithoutSavingText={t('pageLeavePrompt.discard')}
         leaveWithSavingText={t('pageLeavePrompt.save')}
         onLeaveWithSaving={saveQuicksaleConfiguration}
-        noFullScreen
+        openPromptOnPageLeave={isSaveNeeded}
+        title={t('pageLeavePrompt.title')}
       />
     </>
   );

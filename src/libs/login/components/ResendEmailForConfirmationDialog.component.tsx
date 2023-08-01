@@ -60,7 +60,7 @@ export const ResendEmailForConfirmation = (props: Props) => {
   const theme = useTheme();
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm">
+    <Dialog maxWidth="sm" onClose={onClose} open={open}>
       {dialogStep === RESEND_STEP ? (
         <div>
           <DialogTitle> {t('emailConfirmation.dialog.title')}</DialogTitle>
@@ -83,10 +83,10 @@ export const ResendEmailForConfirmation = (props: Props) => {
                 </Button>
                 <Button
                   color="primary"
-                  variant="contained"
+                  disabled={isSubmitting}
                   onClick={onSubmit}
                   type="submit"
-                  disabled={isSubmitting}
+                  variant="contained"
                 >
                   {t('emailConfirmation.dialog.send')}
                 </Button>
@@ -104,7 +104,7 @@ export const ResendEmailForConfirmation = (props: Props) => {
           <Typography variant="h6">
             {t('emailConfirmation.dialog.sentAgain')}
           </Typography>
-          <Typography variant="body1" className={classes.textExplain}>
+          <Typography className={classes.textExplain} variant="body1">
             {t('emailConfirmation.dialog.sentAgainExplain')}
           </Typography>
           <DialogActions>

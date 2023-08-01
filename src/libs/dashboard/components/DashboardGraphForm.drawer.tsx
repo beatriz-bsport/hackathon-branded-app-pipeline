@@ -394,14 +394,14 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
 
   return (
     <GenericResponsiveDrawer
-      open={open}
+      withoutPadding
       onClose={() => {
         onTrack(initial, values, trackFormCancel);
         onClose();
       }}
+      open={open}
       title={t(`graphFormDrawer.title.${initial ? 'edit' : 'create'}`)}
       width="1000px"
-      withoutPadding
     >
       <div className={classes.main}>
         <Form className={classes.form}>
@@ -415,9 +415,9 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
               </div>
               <DelayTextField
                 fullWidth
-                name="title"
                 required
                 label={t('graphFormDrawer.labels.title')}
+                name="title"
               />
             </div>
             <Divider className={classes.divider} />
@@ -432,14 +432,14 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
               <div className={classes.row}>
                 <div>
                   <MaterialUiSingleSelectorField
+                    inScrollBar
                     className={classes.selectInput}
-                    options={dashboardGraphIdentifierOptions}
                     name="dashboard_graph_identifier"
+                    onChange={handleDashboardGraphIdentifierChange}
+                    options={dashboardGraphIdentifierOptions}
                     placeholder={t(
                       'graphFormDrawer.placeholders.dashboardGraphIdentifier',
                     )}
-                    onChange={handleDashboardGraphIdentifierChange}
-                    inScrollBar
                   />
                 </div>
               </div>
@@ -463,11 +463,11 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
                       <div key={value}>
                         <FormControlLabel
                           key={value}
-                          value={value}
                           control={
                             <Radio checked={values.graph_family === value} />
                           }
                           label={label}
+                          value={value}
                         />
                       </div>
                     ))}
@@ -484,10 +484,10 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
                 MEMBER_GRAPH_IDENTIFIER && (
                 <>
                   <CheckboxField
-                    name="graph_params.accumulate_total_data"
                     label={t('graphFormDrawer.accumulate.total')}
+                    name="graph_params.accumulate_total_data"
                   />
-                  <Typography variant="body2" className={classes.helperText}>
+                  <Typography className={classes.helperText} variant="body2">
                     {t('graphFormDrawer.helperText.accumulateMembers')}
                   </Typography>
                 </>
@@ -506,8 +506,8 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
               {values.graph_family === 'temporal' && (
                 <GraphParamTemporalForm
                   currentGraphMetadata={selectedGraphMetadata}
-                  helperText={graphParamHelperText}
                   date_value={values.graph_params.date_value}
+                  helperText={graphParamHelperText}
                   setFieldValue={setFieldValue}
                 />
               )}
@@ -540,42 +540,42 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
                 <div>
                   <DatatypeFilterConfigValueManager
                     comparator={4}
-                    prefix="date_filter_config.groups[0].filters_data[0]"
                     filterItem={
                       values.date_filter_config.groups[0].filters_data[0]
                     }
                     getDataByType={() => []}
+                    prefix="date_filter_config.groups[0].filters_data[0]"
                   />
                 </div>
               </div>
               <Typography
-                variant="body1"
                 className={classNames(
                   classes.selectLabel,
                   classes.selectLabelMargin,
                 )}
+                variant="body1"
               >
                 {t('graphFormDrawer.labels.dateFilterField')}
               </Typography>
               <div className={classes.row}>
                 <div>
                   <MaterialUiSingleSelectorField
+                    inScrollBar
                     className={classes.selectInput}
-                    options={filterableDateOptions}
-                    name="date_filter_config.groups[0].filters_data[0].identifier"
-                    placeholder={t(
-                      'graphFormDrawer.placeholders.dashboardGraphIdentifier',
-                    )}
                     isDisabled={
                       filterableDateOptions.length === 1 ||
                       values.graph_family === 'week_timeslots'
                     }
-                    inScrollBar
+                    name="date_filter_config.groups[0].filters_data[0].identifier"
+                    options={filterableDateOptions}
+                    placeholder={t(
+                      'graphFormDrawer.placeholders.dashboardGraphIdentifier',
+                    )}
                   />
                 </div>
               </div>
               {filterableDateHelperText && (
-                <Typography variant="body2" className={classes.helperText}>
+                <Typography className={classes.helperText} variant="body2">
                   {filterableDateHelperText}
                 </Typography>
               )}
@@ -591,11 +591,11 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
               </div>
               <div className={classes.groupOperand}>
                 <OperandSelect
-                  name="filter_config.group_operand"
                   isPreview={isPreview}
+                  name="filter_config.group_operand"
                 />
               </div>
-              <Typography color="textSecondary" className={classes.helper}>
+              <Typography className={classes.helper} color="textSecondary">
                 {t(
                   `reporting:filter.form.groupOperandHelperText.${values.filter_config.group_operand}`,
                 )}
@@ -611,45 +611,45 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
                     {values.filter_config.groups.map(
                       (filterGroup, indexGroup) => (
                         <DatatypeFilterConfigGroupRow
-                          filterGroup={filterGroup}
                           key={filterGroup.uuid}
-                          consumableColumns={selectedGraphConsumableMetadata}
-                          reportColumns={filterableMetadata}
-                          groupOperand={values.filter_config.group_operand}
-                          prefix={`filter_config.groups[${indexGroup}]`}
-                          setFieldValue={setFieldValue}
-                          hidePrefix={indexGroup === 0}
+                          dashboardTranslationNamespace
+                          noHideDelete
                           addFilter={handleAddFilterInGroup(indexGroup)}
                           checkOtherRowExist={checkOtherRowExist}
-                          onDelete={handleDeleteFilter}
+                          consumableColumns={selectedGraphConsumableMetadata}
+                          filterGroup={filterGroup}
                           getDataByType={handleGetDynamicDataForFilters}
+                          groupOperand={values.filter_config.group_operand}
+                          hidePrefix={indexGroup === 0}
                           isPreview={isPreview}
-                          noHideDelete
-                          dashboardTranslationNamespace
+                          onDelete={handleDeleteFilter}
+                          prefix={`filter_config.groups[${indexGroup}]`}
+                          reportColumns={filterableMetadata}
+                          setFieldValue={setFieldValue}
                         />
                       ),
                     )}
                   </div>
                   <NestedAlertError name="config.groups[0].filters_data">
                     {(error_msg: string) => (
-                      <Typography variant="caption" color="error">
+                      <Typography color="error" variant="caption">
                         {t(`${error_msg}`)}
                       </Typography>
                     )}
                   </NestedAlertError>
                   <NestedAlertError name="config.groups">
                     {(error_msg: string) => (
-                      <Typography variant="caption" color="error">
+                      <Typography color="error" variant="caption">
                         {t(`${error_msg}`)}
                       </Typography>
                     )}
                   </NestedAlertError>
                   {selectedGraphConsumableMetadata?.length > 0 && !isPreview && (
                     <ButtonBase
+                      ref={buttonRef}
+                      className={classes.buttonAdd}
                       color="primary"
                       onClick={handleOpenMenu}
-                      className={classes.buttonAdd}
-                      ref={buttonRef}
                     >
                       <AddIcon color="primary" />
                       <Typography className={classes.bold}>
@@ -659,9 +659,9 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
                   )}
                   <Menu
                     anchorEl={buttonRef.current}
-                    open={isMenuOpen}
-                    onClose={handleCloseMenu}
                     className={classes.menu}
+                    onClose={handleCloseMenu}
+                    open={isMenuOpen}
                   >
                     <MenuItem
                       className={classes.menuItem}
@@ -696,7 +696,7 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
             >
               {t('common:cancel')}
             </Button>
-            <Submit disabled={isSubmitting || !isValid} color="primary">
+            <Submit color="primary" disabled={isSubmitting || !isValid}>
               {isSubmitting ? (
                 <CircularProgress />
               ) : (

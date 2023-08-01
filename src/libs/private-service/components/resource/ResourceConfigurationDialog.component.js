@@ -51,8 +51,8 @@ export class ResourceConfigurationDialog extends React.Component<Props, State> {
         <DialogContent>
           <div className={this.props.classes.row}>
             <ColorInput
-              onChange={(color) => this.setState({ color })}
               color={this.state.color}
+              onChange={(color) => this.setState({ color })}
             />
             <FormLabel>{this.props.t('resource.form.color')}</FormLabel>
           </div>

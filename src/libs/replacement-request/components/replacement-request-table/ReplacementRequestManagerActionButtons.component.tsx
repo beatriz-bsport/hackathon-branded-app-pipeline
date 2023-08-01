@@ -88,7 +88,6 @@ export const ReplacementRequestManagerActionButtons: React.FC<Props> = ({
       )}
       <Tooltip title={t('tooltip.seeAnswers')}>
         <IconButton
-          size="small"
           classes={{
             root: classnames(
               classes.warningButton,
@@ -96,16 +95,17 @@ export const ReplacementRequestManagerActionButtons: React.FC<Props> = ({
             ),
           }}
           onClick={replaceButton}
+          size="small"
         >
           <ArrowForward fontSize={isMobile ? 'small' : 'medium'} />
         </IconButton>
       </Tooltip>
       <IconButton
-        size="small"
         classes={{
           root: classnames(classes.errorButton, classes.managerActionButton),
         }}
         onClick={refuseButton}
+        size="small"
       >
         <CloseIcon fontSize={isMobile ? 'small' : 'medium'} />
       </IconButton>

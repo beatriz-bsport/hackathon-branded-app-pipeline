@@ -28,10 +28,10 @@ export function TagGroupDeleteDialog(props: Props) {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.onClose} color="secondary">
+        <Button color="secondary" onClick={props.onClose}>
           {props.t('form.group.delete.cancel')}
         </Button>
-        <RedButton onClick={props.onSubmit} color="primary">
+        <RedButton color="primary" onClick={props.onSubmit}>
           {props.t('form.group.delete.submit')}
         </RedButton>
       </DialogActions>

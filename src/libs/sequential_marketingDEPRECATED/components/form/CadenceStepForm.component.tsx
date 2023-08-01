@@ -42,25 +42,25 @@ export const CadenceStepForm: React.FC = () => {
 
   return (
     <div className={classes.fullWidth}>
-      <Typography variant="h6" className={classes.paddingBottom3}>
+      <Typography className={classes.paddingBottom3} variant="h6">
         {t('cadence.form.cadenceStep')}
       </Typography>
       <Divider />
       <div className={classes.paddingTop3}>
-        <Alert severity="info" className={classes.alert}>
+        <Alert className={classes.alert} severity="info">
           {t('cadence.form.cadenceStepHelper')}
         </Alert>
         <div className={classes.form}>
           <Form>
             <TextField
-              name="name"
-              label={t('cadence.form.cadenceStepNameLabel')}
               fullWidth
               required
+              label={t('cadence.form.cadenceStepNameLabel')}
+              name="name"
               variant="outlined"
             />
             <div className={classes.actions}>
-              <Submit disabled={isSubmitting || !isValid} color="primary">
+              <Submit color="primary" disabled={isSubmitting || !isValid}>
                 {isSubmitting ? <CircularProgress /> : t('cadence.form.edit')}
               </Submit>
             </div>

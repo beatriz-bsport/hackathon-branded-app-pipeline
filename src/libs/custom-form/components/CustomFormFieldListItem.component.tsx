@@ -111,8 +111,8 @@ export const CustomFormFieldListItem = (props: Props) => {
   return (
     <ListItem
       divider
-      onClick={() => props.onClick && props.onClick(props.customFormField.id)}
       className={classes.listitem}
+      onClick={() => props.onClick && props.onClick(props.customFormField.id)}
     >
       <ToolTip
         title={
@@ -132,9 +132,12 @@ export const CustomFormFieldListItem = (props: Props) => {
       </ToolTip>
       <div className={classes.label}>
         <TextField
-          name={`${props.customFormFieldType}.${props.index}.label`}
+          className={classes.label}
+          disabled={
+            props.customFormField.signup_question_kind ===
+            CUSTOM_FORM_FIELD_SIGN_UP_PHOTO
+          }
           id="label"
-          variant="outlined"
           label={
             props.customFormField?.signup_question_kind
               ? t(
@@ -146,20 +149,15 @@ export const CustomFormFieldListItem = (props: Props) => {
                 )
               : t('customForm.label')
           }
+          name={`${props.customFormFieldType}.${props.index}.label`}
           required={!props.customFormField.signup_question_kind}
-          disabled={
-            props.customFormField.signup_question_kind ===
-            CUSTOM_FORM_FIELD_SIGN_UP_PHOTO
-          }
-          className={classes.label}
+          variant="outlined"
         />
       </div>
 
       {!props.customFormField?.disabled && !props.isMemberForm && (
         <div className={classes.mandatory}>
           <CheckboxField
-            name={`${props.customFormFieldType}.${props.index}.mandatory`}
-            onClick={() => props.onClickRequired && props.onClickRequired()}
             disabled={
               props.customFormField.kind === CUSTOM_FORM_FIELD_TITLE_OPTION ||
               props.customFormField.kind ===
@@ -172,6 +170,8 @@ export const CustomFormFieldListItem = (props: Props) => {
                 CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS ||
               immutableSignAndMemberField
             }
+            name={`${props.customFormFieldType}.${props.index}.mandatory`}
+            onClick={() => props.onClickRequired && props.onClickRequired()}
           />
         </div>
       )}
@@ -186,8 +186,6 @@ export const CustomFormFieldListItem = (props: Props) => {
           >
             <div>
               <CheckboxField
-                name={`${props.customFormFieldType}.${props.index}.editable`}
-                onClick={() => props.onClickEditable && props.onClickEditable()}
                 disabled={
                   props.customFormField.kind ===
                     CUSTOM_FORM_FIELD_TITLE_OPTION ||
@@ -196,6 +194,8 @@ export const CustomFormFieldListItem = (props: Props) => {
                   immutableSignAndMemberField ||
                   props.customFormField.mandatory
                 }
+                name={`${props.customFormFieldType}.${props.index}.editable`}
+                onClick={() => props.onClickEditable && props.onClickEditable()}
               />
             </div>
           </ToolTip>

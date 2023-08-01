@@ -50,7 +50,7 @@ export const MetaActivityCustomRestrictionDialog = (props: Props) => {
           <div className={classes.tagSection}>
             {tags?.map((tag, i) => (
               <div key={`${i}`}>
-                <TagChip key={tag.id} tag={tag} size="small" />
+                <TagChip key={tag.id} size="small" tag={tag} />
               </div>
             ))}
           </div>
@@ -67,7 +67,7 @@ export const MetaActivityCustomRestrictionDialog = (props: Props) => {
                 {t('metaActivity:settings.lastBookingBeforeMinutesHeader')}
               </Typography>
             </div>
-            <Typography variant="caption" className={classes.restrictionsInfo}>
+            <Typography className={classes.restrictionsInfo} variant="caption">
               {t('metaActivity:settings.lastBookingBeforeMinutes', {
                 m: formatMinutes(last_booking_minutes, t, true),
               })}
@@ -80,7 +80,7 @@ export const MetaActivityCustomRestrictionDialog = (props: Props) => {
                 {t('metaActivity:settings.lastDiscardBeforeMinutesHeader')}
               </Typography>
             </div>
-            <Typography variant="caption" className={classes.restrictionsInfo}>
+            <Typography className={classes.restrictionsInfo} variant="caption">
               {t('metaActivity:settings.lastDiscardBeforeMinutes', {
                 m: formatMinutes(last_discard_minutes, t, true),
               })}
@@ -93,17 +93,17 @@ export const MetaActivityCustomRestrictionDialog = (props: Props) => {
                 {t('metaActivity:settings.firstBookingMinutesUntilHeader')}
               </Typography>
             </div>
-            <Typography variant="caption" className={classes.restrictionsInfo}>
+            <Typography className={classes.restrictionsInfo} variant="caption">
               {formatMinutes(first_booking_minutes_until, t, true)}
             </Typography>
           </div>
         </div>
       </DialogContent>
       <DialogActions>
-        <Button variant="text" onClick={() => props.onClose()}>
+        <Button onClick={() => props.onClose()} variant="text">
           {t('metaActivity:close')}
         </Button>
-        <Button variant="text" color="primary" onClick={() => props.onEdit()}>
+        <Button color="primary" onClick={() => props.onEdit()} variant="text">
           {t('metaActivity:edit')}
         </Button>
       </DialogActions>

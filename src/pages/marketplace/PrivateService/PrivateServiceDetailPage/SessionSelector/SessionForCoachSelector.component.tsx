@@ -59,7 +59,7 @@ const SessionForCoachSelector: React.FC<Props> = (props) => {
           const end = `${momentEnd.format('LT')}`;
 
           return (
-            <div className={classes.sessionItemContainer} key={session}>
+            <div key={session} className={classes.sessionItemContainer}>
               <ButtonBase
                 className={classes.sessionItem}
                 onClick={() =>

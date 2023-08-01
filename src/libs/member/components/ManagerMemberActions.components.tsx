@@ -41,7 +41,7 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
   if (speedDialogMode) {
     return (
       <FabWithItems
-        label={t('actions')}
+        badgeValue={props.numberOfUnreadAnswers}
         items={
           Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
           Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
@@ -91,7 +91,7 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
                     },
               ]
         }
-        badgeValue={props.numberOfUnreadAnswers}
+        label={t('actions')}
       />
     );
   }
@@ -102,10 +102,10 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
         Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
         props.companyId === 498) && (
         <Fab
-          color="secondary"
-          variant="extended"
           className={classes.bottomButton}
+          color="secondary"
           onClick={props.openCommunicationDrawer}
+          variant="extended"
         >
           <ExtendedFabBadge badgeValue={props.numberOfUnreadAnswers} />
           <Send className={classes.leftIcon} />
@@ -113,10 +113,10 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
         </Fab>
       )}
       <Fab
-        color="primary"
-        variant="extended"
         className={classes.bottomButton}
+        color="primary"
         onClick={props.billMember}
+        variant="extended"
       >
         <>
           {getCurrencyDisplay() === '€' ? (
@@ -128,10 +128,10 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
         </>
       </Fab>
       <Fab
-        color="secondary"
         className={classes.bottomButton}
-        variant="extended"
+        color="secondary"
         onClick={props.subscribeMember}
+        variant="extended"
       >
         <PaymentIcon className={classes.leftIcon} />
         {t('paymentAction.toSubscribe')}
@@ -139,9 +139,9 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
       <>
         {props.member && props.member.archived ? (
           <GreenFab
-            variant="extended"
             className={classes.bottomButton}
             onClick={props.unArchiveMember}
+            variant="extended"
           >
             <RestoreFromTrashIcon className={classes.leftIcon} />
             {t('restoreMember')}

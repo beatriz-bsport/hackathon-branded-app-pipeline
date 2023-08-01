@@ -119,64 +119,66 @@ export class PrivateSlotForm extends React.Component<Props, State> {
 
     return (
       <form
+        className={classes.container}
         data-testid="privateslot-form"
         onSubmit={this.onSubmit}
-        className={classes.container}
       >
         <div className={classes.field}>
           <TextField
-            id="name-input"
             fullWidth
+            id="name-input"
             label={t('slot.form.name.label')}
+            onChange={(ev) => this.setState({ name: ev.target.value })}
             placeholder={t('slot.form.name.placeholder')}
             value={this.state.name}
-            onChange={(ev) => this.setState({ name: ev.target.value })}
           />
         </div>
-        <div id="credit-input" className={classes.field}>
+        <div className={classes.field} id="credit-input">
           <NumericInput
             fullWidth
-            label={t('slot.form.credit.label')}
-            helperText={t('slot.form.credit.helperText')}
-            value={this.state.credit}
-            onChange={(ev) => this.setState({ credit: ev.target.value })}
             error={this.state.credit < 0}
+            helperText={t('slot.form.credit.helperText')}
+            label={t('slot.form.credit.label')}
+            onChange={(ev) => this.setState({ credit: ev.target.value })}
+            value={this.state.credit}
           />
         </div>
-        <div id="people-capacity-input" className={classes.field}>
+        <div className={classes.field} id="people-capacity-input">
           <NumericInput
             fullWidth
-            label={t('slot.form.people_capacity_used.label')}
+            error={this.state.people_capacity_used < 0}
             helperText={t('slot.form.people_capacity_used.helperText')}
-            value={this.state.people_capacity_used}
+            label={t('slot.form.people_capacity_used.label')}
             onChange={(ev) =>
               this.setState({ people_capacity_used: ev.target.value })
             }
-            error={this.state.people_capacity_used < 0}
+            value={this.state.people_capacity_used}
           />
         </div>
-        <div id="duration-input" className={classes.field}>
+        <div className={classes.field} id="duration-input">
           <FormControl className={classes.flexField}>
             <InputLabel>{t('slot.form.duration_minutes.label')}</InputLabel>
             <DurationInput
               required
-              value={this.state.duration_minutes}
               disallowedNullDuration={this.isDurationError}
               durationError={t('slot.form.durationError')}
               onChange={(e) => {
                 this.onFormFieldChange(e || 0);
               }}
               selectDurationChoices={DURATION_CHOICES_SHORT}
+              value={this.state.duration_minutes}
             />
           </FormControl>
         </div>
-        <div id="booking-interval-input" className={classes.field}>
+        <div className={classes.field} id="booking-interval-input">
           <NumericInput
             fullWidth
+            isPositive
+            error={this.isBookingIntervalError}
+            helperText={t('slot.form.booking_interval_minutes.helperText')}
             InputProps={{ step: 15, max: MAX_DURATION_MINUTES }}
             label={t('slot.form.booking_interval_minutes.label')}
-            helperText={t('slot.form.booking_interval_minutes.helperText')}
-            value={this.state.booking_interval_minutes}
+            onBlur={this.handleBlur}
             onChange={(ev) => {
               if (parseInt(ev.target.value) < MIN_DURATION_MINUTES) {
                 this.setState({
@@ -186,16 +188,14 @@ export class PrivateSlotForm extends React.Component<Props, State> {
                 this.setState({ booking_interval_minutes: ev.target.value });
               }
             }}
-            error={this.isBookingIntervalError}
-            onBlur={this.handleBlur}
-            isPositive
+            value={this.state.booking_interval_minutes}
           />
         </div>
         <div className={classes.buttonContainer}>
           <Button id="button-cancel" onClick={onCancel}>
             {t('slot.form.cancel')}
           </Button>
-          <Submit id="button-submit" disabled={this.isFormError}>
+          <Submit disabled={this.isFormError} id="button-submit">
             {t('slot.form.submit')}
           </Submit>
         </div>

@@ -160,24 +160,24 @@ export class SmartListList extends Component<Props, State> {
       <div>
         {this.props.smartlists.length === 0 && !this.props.loading && (
           <IsEmptyList
-            text={this.props.t('noSmartLists')}
             button={this.props.t('smart_list.add')}
             onCreate={() => this.setState({ openCreateDialog: true })}
+            text={this.props.t('noSmartLists')}
           />
         )}
         {!!this.props.loading && <BackofficeLinearProgress />}
         <Grid container direction="row" spacing={3}>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             {smartlists.length > 0 ? (
               <div className={this.props.classes.search}>
                 <FuzeSearch
-                  searchText={this.state.searchText}
-                  clearSearch={this.clearSearch}
                   changeSearch={this.changeSearch}
+                  clearSearch={this.clearSearch}
                   items={smartlists}
                   placeholder={this.props.t('search')}
                   searchFields={['name', 'description']}
                   searchResult={this.state.searchResult}
+                  searchText={this.state.searchText}
                 />
                 <Paper
                   className={
@@ -194,36 +194,36 @@ export class SmartListList extends Component<Props, State> {
                     }
                   >
                     <List
-                      component="nav"
                       disablePadding
                       className={classes.list}
+                      component="nav"
                     >
                       {this.state.searchResult.map((smartlist) => (
                         <SmartListListItem
                           key={smartlist.id}
+                          cadencesLoading={this.props.cadencesLoading}
+                          fetchCadences={this.fetchCadences}
+                          getCadences={this.props.getCadences}
+                          isSequentialMarketingAuthorized={isSequentialMarketingAuthorized(
+                            this.props.company_id,
+                            this.props.hasSequentialMarketingUpsell,
+                          )}
                           onClick={(id) => {
                             this.selected(id);
                           }}
-                          onClickEdit={this.props.goToEdit}
                           onClickDelete={this.handleDeleteSmartlist}
-                          selected={
-                            this.props.smartlistSelected &&
-                            smartlist.id === this.props.smartlistSelected.id
-                          }
-                          smartlist={smartlist}
                           onClickDuplicate={(id) =>
                             this.props.onClickDuplicate(id, {
                               onSuccess: (newId) =>
                                 this.props.goToSelected(newId),
                             })
                           }
-                          isSequentialMarketingAuthorized={isSequentialMarketingAuthorized(
-                            this.props.company_id,
-                            this.props.hasSequentialMarketingUpsell,
-                          )}
-                          fetchCadences={this.fetchCadences}
-                          getCadences={this.props.getCadences}
-                          cadencesLoading={this.props.cadencesLoading}
+                          onClickEdit={this.props.goToEdit}
+                          selected={
+                            this.props.smartlistSelected &&
+                            smartlist.id === this.props.smartlistSelected.id
+                          }
+                          smartlist={smartlist}
                         />
                       ))}
                     </List>
@@ -232,48 +232,55 @@ export class SmartListList extends Component<Props, State> {
               </div>
             ) : null}
             <Paper>
-              <List component="nav" disablePadding className={classes.list}>
+              <List disablePadding className={classes.list} component="nav">
                 {smartlists.map((smartlist) => (
                   <SmartListListItem
                     key={smartlist.id}
+                    cadencesLoading={this.props.cadencesLoading}
+                    fetchCadences={this.fetchCadences}
+                    getCadences={this.props.getCadences}
+                    isSequentialMarketingAuthorized={isSequentialMarketingAuthorized(
+                      this.props.company_id,
+                      this.props.hasSequentialMarketingUpsell,
+                    )}
                     onClick={(id) => {
                       this.selected(id);
                     }}
-                    onClickEdit={this.props.goToEdit}
                     onClickDelete={this.handleDeleteSmartlist}
-                    selected={
-                      this.props.smartlistSelected &&
-                      smartlist.id === this.props.smartlistSelected.id
-                    }
-                    smartlist={smartlist}
                     onClickDuplicate={(id) =>
                       this.props.onClickDuplicate(id, {
                         onSuccess: (newId) => this.props.goToSelected(newId),
                       })
                     }
-                    isSequentialMarketingAuthorized={isSequentialMarketingAuthorized(
-                      this.props.company_id,
-                      this.props.hasSequentialMarketingUpsell,
-                    )}
-                    fetchCadences={this.fetchCadences}
-                    getCadences={this.props.getCadences}
-                    cadencesLoading={this.props.cadencesLoading}
+                    onClickEdit={this.props.goToEdit}
+                    selected={
+                      this.props.smartlistSelected &&
+                      smartlist.id === this.props.smartlistSelected.id
+                    }
+                    smartlist={smartlist}
                   />
                 ))}
               </List>
             </Paper>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             <SmartListCard
-              smartlist={this.props.smartlistSelected}
-              onEdit={() => this.setState({ openEditDialog: true })}
-              onClickConfigure={this.props.goToEdit}
               onClickCampaign={this.props.goToSelectedCampaign}
+              onClickConfigure={this.props.goToEdit}
+              onEdit={() => this.setState({ openEditDialog: true })}
+              smartlist={this.props.smartlistSelected}
             />
           </Grid>
         </Grid>
         {(this.state.openEditDialog || this.state.openCreateDialog) && (
           <SmartListEditDialog
+            fullScreen
+            onCancel={() =>
+              this.setState({
+                openEditDialog: false,
+                openCreateDialog: false,
+              })
+            }
             open={this.state.openEditDialog || this.state.openCreateDialog}
             smartlist={
               this.state.openEditDialog ? this.props.smartlistSelected : null
@@ -283,18 +290,11 @@ export class SmartListList extends Component<Props, State> {
                 ? this.updateSmartList
                 : this.addNewSmartList
             }
-            onCancel={() =>
-              this.setState({
-                openEditDialog: false,
-                openCreateDialog: false,
-              })
-            }
-            fullScreen
           />
         )}
         <BottomActionButtons
-          onCreateLabel={this.props.t('smart_list.add')}
           onCreate={() => this.setState({ openCreateDialog: true })}
+          onCreateLabel={this.props.t('smart_list.add')}
         />
       </div>
     );

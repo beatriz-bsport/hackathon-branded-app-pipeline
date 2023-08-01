@@ -58,8 +58,8 @@ export class PaymentMethodFilter extends Component<Props> {
         {t(`filters.${filter_data.filter_identifier}.labelFirst`)}
         <Select
           className={classes.input}
-          value={valueAsString}
           onChange={(ev) => onChange({ owns_payment_method: ev.target.value })}
+          value={valueAsString}
         >
           <MenuItem value="0">
             {t(`filters.${filter_data.filter_identifier}.does_not_own`)}
@@ -73,11 +73,11 @@ export class PaymentMethodFilter extends Component<Props> {
           <div className={classes.row}>
             {t(`filters.${filter_data.filter_identifier}.expiryDateLabel`)}
             <CalendarPicker
+              blockValidateOnClickAway
               hideDurationTab
-              overrideDateList={[DATE_BETWEEN, DATE_BEFORE, DATE_AFTER]}
               filter_data={filter_data}
               onChange={onChange}
-              blockValidateOnClickAway
+              overrideDateList={[DATE_BETWEEN, DATE_BEFORE, DATE_AFTER]}
             />
           </div>
         )}

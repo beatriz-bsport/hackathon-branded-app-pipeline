@@ -59,9 +59,9 @@ export const SlotSpecificEstablishmentDialog: React.FC<Props> = ({
       <DialogContent>
         <SlotSpecificEstablishmentPicker
           establishments={activeEstablishments}
-          selectedEstablishments={selectedEstablishments}
-          onSelectedEstablishmentsChange={selectOption}
           isCoachProfile={!!isCoachProfile}
+          onSelectedEstablishmentsChange={selectOption}
+          selectedEstablishments={selectedEstablishments}
         />
       </DialogContent>
       <DialogActions>

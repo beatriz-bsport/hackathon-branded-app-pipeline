@@ -28,32 +28,32 @@ type Props = OwnProps &
 export const CustomFormList = (props: Props) => {
   const { t, classes, customFormList, withDisplayRule } = props;
   return (
-    <List component="nav" disablePadding className={classes.list}>
+    <List disablePadding className={classes.list} component="nav">
       <ListItem divider className={classes.listitem}>
         <Grid container>
-          <Grid item xs={3} className={classes.nameItem}>
-            <Typography variant="subtitle2" component="span">
+          <Grid item className={classes.nameItem} xs={3}>
+            <Typography component="span" variant="subtitle2">
               {t('customForm.name')}
             </Typography>
           </Grid>
           <Grid
             item
-            xs={withDisplayRule ? 3 : 6}
             className={classes.questionItem}
+            xs={withDisplayRule ? 3 : 6}
           >
-            <Typography variant="subtitle2" component="span" align="left">
+            <Typography align="left" component="span" variant="subtitle2">
               {t('customForm.numberQuestions')}
             </Typography>
           </Grid>
           {withDisplayRule && (
-            <Grid item xs={3} className={classes.displayRuleItem}>
-              <Typography variant="subtitle2" component="span">
+            <Grid item className={classes.displayRuleItem} xs={3}>
+              <Typography component="span" variant="subtitle2">
                 {t('customForm.displayRule.header')}
               </Typography>
             </Grid>
           )}
-          <Grid item xs={3} className={classes.actionItem}>
-            <Typography variant="subtitle2" component="span">
+          <Grid item className={classes.actionItem} xs={3}>
+            <Typography component="span" variant="subtitle2">
               {t('customForm.listActions')}
             </Typography>
           </Grid>
@@ -64,20 +64,20 @@ export const CustomFormList = (props: Props) => {
         customFormList.map((customform: CustomForm) => (
           <CustomFormListItem
             key={customform.id}
+            divider
+            showQuestionCount
+            stopPropagation
+            customform={customform}
             onClick={props.onClick}
-            onClickEdit={props.onClickEdit}
             onClickDelete={props.onClickDelete}
+            onClickDuplicate={props.onClickDuplicate}
+            onClickEdit={props.onClickEdit}
+            onRestore={props.onRestore}
             selected={
               props.customFormSelected &&
               customform.id === props.customFormSelected
             }
-            customform={customform}
-            onClickDuplicate={props.onClickDuplicate}
-            onRestore={props.onRestore}
             withDisplayRule={withDisplayRule}
-            divider
-            stopPropagation
-            showQuestionCount
           />
         ))}
     </List>

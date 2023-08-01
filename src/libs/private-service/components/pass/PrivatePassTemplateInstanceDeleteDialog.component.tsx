@@ -32,12 +32,12 @@ const PrivatePassTemplateDeleteDialog = (props: Props) => {
         {t('privatePassTemplateInstance.deleteForm.content')}
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.onClose} disabled={processing}>
+        <Button disabled={processing} onClick={props.onClose}>
           {t('privatePassTemplateInstance.deleteForm.actions.close')}
         </Button>
         <RedButton
-          disabled={processing}
           delayBeforeActivation={5}
+          disabled={processing}
           onClick={() =>
             props.onSubmit(
               props.privatePassTemplate.private_pass_template_instances.find(
@@ -52,9 +52,9 @@ const PrivatePassTemplateDeleteDialog = (props: Props) => {
         >
           {processing && (
             <CircularProgress
-              style={{ marginRight: 12 }}
               color="inherit"
               size={12}
+              style={{ marginRight: 12 }}
             />
           )}
           {t('privatePassTemplateInstance.deleteForm.actions.submit')}

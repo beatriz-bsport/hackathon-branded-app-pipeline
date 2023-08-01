@@ -41,14 +41,14 @@ class OfferManagementRoomBlueprint extends React.PureComponent<Props> {
         </div>
 
         <CanvasPreview
-          roomBlueprint={roomBlueprint}
           assets={
             this.props.assetsForBlueprintById[this.props.offer.room_blueprint]
           }
-          takenSpot={takenSpot}
-          fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
-          spotTypes={this.props?.spotTypes}
           coach={getCoachOrSubstitute(this.props.offer)}
+          fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+          roomBlueprint={roomBlueprint}
+          spotTypes={this.props?.spotTypes}
+          takenSpot={takenSpot}
         />
       </Paper>
     );

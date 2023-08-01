@@ -177,10 +177,8 @@ export class Dashboard extends Component<Props> {
         {loading && <BackofficeLinearProgress />}
         {(dashboardConfiguration || []).length > 0 && (
           <div className={classes.container}>
-            <AppBar position="static" color="default">
+            <AppBar color="default" position="static">
               <Tabs
-                variant="scrollable"
-                value={currentTabIndex}
                 onChange={(e, newValue) => {
                   if (newValue === 'addTab') {
                     this.props.setTabNameDialogOpen(true);
@@ -188,9 +186,12 @@ export class Dashboard extends Component<Props> {
                   }
                   this.props.setCurrentTabIndex(newValue);
                 }}
+                value={currentTabIndex}
+                variant="scrollable"
               >
                 {(dashboardConfiguration || []).map((tab, i) => (
                   <Tab
+                    key={`tab-${i}`}
                     wrapped
                     className={classes.tab}
                     label={
@@ -204,7 +205,6 @@ export class Dashboard extends Component<Props> {
                           <Tooltip title={t('ordering:category.popover.edit')}>
                             <IconButton
                               className={classes.iconButton}
-                              size="small"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 this.props.setTabIndexToRename(i);
@@ -215,11 +215,12 @@ export class Dashboard extends Component<Props> {
                                 );
                                 this.props.setTabNameDialogOpen(true);
                               }}
+                              size="small"
                             >
                               <EditIcon
-                                fontSize="small"
-                                color="primary"
                                 classes={{ fontSizeSmall: classes.smallIcon }}
+                                color="primary"
+                                fontSize="small"
                               />
                             </IconButton>
                           </Tooltip>
@@ -231,22 +232,22 @@ export class Dashboard extends Component<Props> {
                               >
                                 <IconButton
                                   className={classes.iconButton}
-                                  size="small"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    this.props.deleteTab(i);
-                                  }}
                                   disabled={
                                     dashboardConfiguration &&
                                     dashboardConfiguration.length === 1
                                   }
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    this.props.deleteTab(i);
+                                  }}
+                                  size="small"
                                 >
                                   <DeleteIcon
-                                    fontSize="small"
-                                    color="error"
                                     classes={{
                                       fontSizeSmall: classes.smallIcon,
                                     }}
+                                    color="error"
+                                    fontSize="small"
                                   />
                                 </IconButton>
                               </Tooltip>
@@ -255,10 +256,10 @@ export class Dashboard extends Component<Props> {
                       </div>
                     }
                     value={i}
-                    key={`tab-${i}`}
                   />
                 ))}
                 <Tab
+                  classes={{ root: classes.addTabButton }}
                   label={
                     <Tooltip title={t('tabNameDialog.titleAdd')}>
                       <IconButton>
@@ -267,7 +268,6 @@ export class Dashboard extends Component<Props> {
                     </Tooltip>
                   }
                   value="addTab"
-                  classes={{ root: classes.addTabButton }}
                 />
               </Tabs>
             </AppBar>
@@ -279,14 +279,14 @@ export class Dashboard extends Component<Props> {
             (g) => g.ressourceIdentifier !== 'qualitativeInvoiceItem',
           ).length === 0 && (
             <IsEmptyList
-              text={t('noGraphToDisplay')}
+              hideBottomActions
               button={t('customChart.addChart')}
               onCreate={() => this.props.setChartFormOpen(true)}
-              hideBottomActions
+              text={t('noGraphToDisplay')}
             />
           )}
         {dashboardTab && dashboardTab.graphs && dashboardTab.graphs.length > 0 && (
-          <Grid container="row" spacing={3} className={classes.gridRow}>
+          <Grid className={classes.gridRow} container="row" spacing={3}>
             {dashboardTab.graphs
               .filter((g) => g.ressourceIdentifier !== 'qualitativeInvoiceItem')
               .map((graph) => {
@@ -297,29 +297,29 @@ export class Dashboard extends Component<Props> {
                 const { timeSettings } =
                   graphRessources[graph.ressourceIdentifier];
                 return (
-                  <Grid item xs={12} lg={6} key={graph.name}>
+                  <Grid key={graph.name} item lg={6} xs={12}>
                     <DashboardChart
-                      title={graph.title || chartProps[graph.name].title}
-                      popoverText={chartProps[graph.name].popoverText}
-                      loading={graphDataByIdentifier[graph.name].loading}
+                      coaches={coaches}
+                      filters={chartFilterByIdentifier[graph.name]}
                       filtersComponent={
                         graphRessources[graph.ressourceIdentifier]
                           .filtersComponent || (() => null)
                       }
-                      filters={chartFilterByIdentifier[graph.name]}
-                      setChartFilters={this.props.setChartFiltersByIdentifier(
-                        graph.name,
-                      )}
+                      graphIdentifier={graph.name}
+                      loading={graphDataByIdentifier[graph.name].loading}
+                      onDelete={this.props.onDeleteGraphByIdentifier}
+                      onSaveGraph={this.props.onSaveGraphByIdentifier}
+                      popoverText={chartProps[graph.name].popoverText}
                       range={
                         timeSettings !== 'none' &&
                         dateRangeByIdentifier[graph.name]
                       }
+                      setChartFilters={this.props.setChartFiltersByIdentifier(
+                        graph.name,
+                      )}
                       setDateRange={this.props.setChartDateRangeByIdentifier}
                       timeSettings={timeSettings}
-                      onSaveGraph={this.props.onSaveGraphByIdentifier}
-                      graphIdentifier={graph.name}
-                      onDelete={this.props.onDeleteGraphByIdentifier}
-                      coaches={coaches}
+                      title={graph.title || chartProps[graph.name].title}
                     >
                       <ChartComponent
                         data={graphDataByIdentifier[graph.name].data}
@@ -358,28 +358,28 @@ export class Dashboard extends Component<Props> {
         </Dialog>
         {this.props.tabNameDialogOpen && (
           <DashboardTabNameDialog
-            tabIndexToRename={this.props.tabIndexToRename}
-            initialValue={this.props.tabNameToRename}
             addNewTab={this.props.addNewTab}
-            renameTab={this.props.renameTab}
+            initialValue={this.props.tabNameToRename}
             onClose={() => {
               this.props.setTabIndexToRename(null);
               this.props.setTabNameToRename('');
               this.props.setTabNameDialogOpen(false);
             }}
+            renameTab={this.props.renameTab}
+            tabIndexToRename={this.props.tabIndexToRename}
           />
         )}
         <>
           <BottomActionButtons
-            onCreateLabel={t('customChart.addChart')}
-            resetLabel={t('resetModal.title')}
             onCreate={() => this.props.setChartFormOpen(true)}
+            onCreateLabel={t('customChart.addChart')}
             onReset={() => this.props.setResetDialogOpen(true)}
+            resetLabel={t('resetModal.title')}
           />
           <CustomChartForm
             addGraph={(gr) => this.props.addGraph(gr)}
-            graphRessources={graphRessources}
             formOpen={this.props.chartFormOpen}
+            graphRessources={graphRessources}
             setFormOpen={this.props.setChartFormOpen}
           />
         </>

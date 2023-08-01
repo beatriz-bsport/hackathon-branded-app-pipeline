@@ -8,7 +8,7 @@ import CouponDetail from './CouponDetail.page';
 
 export default () => (
   <Switch>
-    <Route path="/coupon/:id/" component={CouponDetail} />
-    <Route path="/coupon" component={CouponList} />
+    <Route component={CouponDetail} path="/coupon/:id/" />
+    <Route component={CouponList} path="/coupon" />
   </Switch>
 );

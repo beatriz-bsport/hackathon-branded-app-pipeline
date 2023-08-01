@@ -12,18 +12,18 @@ const ScheduleRedirect = () => <Redirect to="/schedule" />;
 export default () => {
   return (
     <Switch>
-      <Route path="/private-service/calendar" component={ScheduleRedirect} />
-      <Route path="/private-service/pass/:id" component={PrivatePassDetail} />
-      <Route path="/private-service/pass/" component={PrivatePassList} />
+      <Route component={ScheduleRedirect} path="/private-service/calendar" />
+      <Route component={PrivatePassDetail} path="/private-service/pass/:id" />
+      <Route component={PrivatePassList} path="/private-service/pass/" />
       <Route
+        component={PrivateServiceRouter}
         path="/private-service/service/:id/:tab"
-        component={PrivateServiceRouter}
       />
       <Route
-        path="/private-service/service/:id/"
         component={PrivateServiceRouter}
+        path="/private-service/service/:id/"
       />
-      <Route path="/private-service/service" component={PrivateServiceList} />
+      <Route component={PrivateServiceList} path="/private-service/service" />
     </Switch>
   );
 };

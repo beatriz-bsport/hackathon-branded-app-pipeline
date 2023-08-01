@@ -78,29 +78,29 @@ const PrivatePasssNotification = (props: Props) => {
           <div key={notif.id}>
             <ListItem divider>
               <NotificationListInner
-                notification={notif}
                 emailTitle={
                   props?.emails?.find(
                     (email) => email.id === notif.email_design,
                   )?.title ?? ''
                 }
+                notification={notif}
                 smartLists={smartLists}
               />
               <ListItemSecondaryAction>
                 <Switch
                   checked={notif.active}
+                  inputProps={{ 'aria-label': 'secondary checkbox' }}
                   onChange={() =>
                     props.updateNotification(notif.id, {
                       active: !notif.active,
                     })
                   }
                   value="checkedA"
-                  inputProps={{ 'aria-label': 'secondary checkbox' }}
                 />
                 <IconButton
-                  edge="end"
                   aria-label="Edit"
                   color="primary"
+                  edge="end"
                   onClick={() => {
                     props.setSelectedNotification(notif);
                     props.setIsFormOpen(true);
@@ -124,33 +124,33 @@ const PrivatePasssNotification = (props: Props) => {
       </Paper>
       <div className={classes.addButtonContainer}>
         <Button
-          id="button_private_pass_notification"
-          variant="outlined"
           color="primary"
+          id="button_private_pass_notification"
           onClick={() => props.setIsFormOpen(true)}
+          variant="outlined"
         >
           {t('notification.addButton')}
         </Button>
       </div>
       {props.isFormOpen && (
         <MarketingRuleFormProduct
-          id={props.private_pass.id}
-          goToSmartlist={props.goToSmartlist}
-          onCancel={props.closeForm}
-          emails={emails}
-          emailListLoading={props.emailListLoading}
-          getEmailDetail={props.getEmailDetail}
-          emailDetails={props.emailDetails}
-          getEmails={props.getEmails}
           emailDetailLoading={props.emailDetailLoading}
+          emailDetails={props.emailDetails}
+          emailListLoading={props.emailListLoading}
+          emails={emails}
+          getEmailDetail={props.getEmailDetail}
+          getEmails={props.getEmails}
           getSmartLists={props.getSmartLists}
-          smartLists={props.smartLists}
-          smartListLoading={props.smartListLoading}
-          initial={props.selectedNotification}
-          onSubmit={props.onSubmit}
+          goToSmartlist={props.goToSmartlist}
+          id={props.private_pass.id}
           identifier="private_pass"
-          tags={mergeTags}
+          initial={props.selectedNotification}
+          onCancel={props.closeForm}
+          onSubmit={props.onSubmit}
           resolvedGenericTags={resolvedGenericTags}
+          smartListLoading={props.smartListLoading}
+          smartLists={props.smartLists}
+          tags={mergeTags}
         />
       )}
       <Dialog open={props.isDeleteModalOpen}>

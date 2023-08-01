@@ -26,9 +26,9 @@ export const PrivatePassDeleteDialog = (props: Props) => {
       </DialogContent>
       <DialogActions>
         <Button
-          variant="text"
           color="primary"
           onClick={() => props.onConfirm()}
+          variant="text"
         >
           {t('universalPass.restore.dialog.continue')}
         </Button>

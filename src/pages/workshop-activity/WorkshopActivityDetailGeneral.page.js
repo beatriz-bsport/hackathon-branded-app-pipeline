@@ -196,72 +196,72 @@ export class WorkshopActivity extends Component<Props, State> {
       <div className={this.props.classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
         <MetaActivityDetail
-          metaActivity={workshopActivity}
-          fetchOffersByDay={this.props.fetchOffersByDay}
+          activities={this.props.id}
+          createNotification={this.props.createNotification}
+          deleteNotification={this.props.deleteNotification}
+          emailDetailLoading={this.props.emailDetailLoading}
+          emailDetails={this.props.email_templates_details}
+          emailListLoading={this.props.emailListLoading}
+          emails={this.props.email_templates_list}
           events={this.props.events}
+          fetchOffersByDay={this.props.fetchOffersByDay}
+          getEmailDetail={this.props.fetchEmailTemplateDetail}
+          getEmails={this.props.fetchEmailTemplatesSummaries}
+          getSmartLists={this.props.getSmartLists}
+          goToOffer={this.props.goToOffer}
+          goToSmartlist={this.props.goToSmartlist}
+          metaActivity={workshopActivity}
+          notifications={this.props.notifications}
           offers={this.props.offers.filter(
             (o) => o.meta_activity === this.props.id,
           )}
           offersLoading={this.props.offersLoading}
-          goToOffer={this.props.goToOffer}
-          openCreateOfferForm={this.openCreateOfferForm}
-          activities={this.props.id}
-          notifications={this.props.notifications}
-          getEmails={this.props.fetchEmailTemplatesSummaries}
-          emails={this.props.email_templates_list}
-          getEmailDetail={this.props.fetchEmailTemplateDetail}
-          emailDetails={this.props.email_templates_details}
-          emailListLoading={this.props.emailListLoading}
-          emailDetailLoading={this.props.emailDetailLoading}
-          createNotification={this.props.createNotification}
-          updateNotification={this.props.updateNotification}
-          deleteNotification={this.props.deleteNotification}
           onEdit={this.onEdit}
-          goToSmartlist={this.props.goToSmartlist}
-          getSmartLists={this.props.getSmartLists}
+          openCreateOfferForm={this.openCreateOfferForm}
+          resolvedGenericTags={this.props.resolvedGenericTags}
           smartLists={this.props.smartLists}
           tags={this.props.tagCategories}
-          resolvedGenericTags={this.props.resolvedGenericTags}
+          updateNotification={this.props.updateNotification}
         />
         <BottomActionButtons
-          onEdit={this.onEdit}
           onDelete={
             workshopActivity.customer_enabled
               ? () => this.setState({ deleteOpen: true })
               : null
           }
+          onEdit={this.onEdit}
           onShare={() => this.props.setOpenWidgetDialog(true)}
         />
         <WorkshopDeleteDialog
-          workshopId={this.state.deleteOpen ? this.props.id : null}
-          onClose={() => this.setState({ deleteOpen: false })}
           canDeleteWorkshopChecker={canDeleteWorkshopAPI}
           deleteWorkshop={() => {
             this.props.deleteWorkshop(this.props.id, {
               onSuccess: this.props.goToList,
             });
           }}
+          onClose={() => this.setState({ deleteOpen: false })}
+          workshopId={this.state.deleteOpen ? this.props.id : null}
         />
 
         <WidgetGeneratorDialog
-          open={this.props.openWidgetDialog}
-          onClose={() => this.props.setOpenWidgetDialog(false)}
           componentType="workshop"
           config={{
             workshop: {
               metaActivities: [this.props.id],
             },
           }}
+          onClose={() => this.props.setOpenWidgetDialog(false)}
+          open={this.props.openWidgetDialog}
         />
         <MetaActivityEditDrawer
           initial={{
             ...initialData,
             images: (workshopActivity || {}).images || [],
           }}
-          onSubmit={this.props.onSubmit}
-          SCTs={SCTs}
-          open={this.props.openEditDrawer}
           onCancel={this.onCancelEdit}
+          onSubmit={this.props.onSubmit}
+          open={this.props.openEditDrawer}
+          SCTs={SCTs}
           tags={this.props.allTagsWithTagGroup}
         />
       </div>

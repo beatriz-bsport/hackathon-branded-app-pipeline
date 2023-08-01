@@ -92,41 +92,41 @@ export class VodVideoDetailPage extends React.Component<Props> {
   render() {
     return (
       <div className={this.props.classes.container}>
-        <Grid spacing={3} container direction="row">
-          <Grid item xs={12} lg={8}>
+        <Grid container direction="row" spacing={3}>
+          <Grid item lg={8} xs={12}>
             {this.props.video ? (
               <VideoPlayerFull
                 authenticated
-                video={this.props.video}
+                accessDenied={this.props.accessDenied}
                 managerOnly={this.props.video.manager_only}
                 playbackUrl={this.props.playbackUrl}
                 playbackUrlLoading={this.props.playbackUrlLoading}
-                accessDenied={this.props.accessDenied}
+                video={this.props.video}
               />
             ) : null}
           </Grid>
-          <Grid item xs={12} lg={4}>
+          <Grid item lg={4} xs={12}>
             <VodVideoAnalytics
-              loading={this.props.analytics.loading || !this.props.video}
               data={this.props.analytics.data}
+              loading={this.props.analytics.loading || !this.props.video}
               videoDateCreated={
                 this.props.video ? this.props.video.date_created : null
               }
             />
             <div className={this.props.classes.list}>
-              <Typography variant="h6" className={this.props.classes.listTitle}>
+              <Typography className={this.props.classes.listTitle} variant="h6">
                 {this.props.t('video.viewsListTitle')}
               </Typography>
               <Paper>
                 <VodGenericPaginatedList
-                  items={this.props.views.items}
-                  nbItems={this.props.views.count}
-                  loading={this.props.views.loading}
-                  page={this.props.views.page}
+                  emptyText={this.props.t('video.noVideoView')}
                   itemPerPage={VIDEO_VIEWS_PAGE_SIZE}
+                  items={this.props.views.items}
+                  loading={this.props.views.loading}
+                  nbItems={this.props.views.count}
                   onClick={(view) => this.props.goToMember(view.member_id)}
                   onPageRequested={this.props.onPageRequestedView}
-                  emptyText={this.props.t('video.noVideoView')}
+                  page={this.props.views.page}
                   renderSecondaryText={(view) =>
                     this.props.t('video.viewedOn', {
                       date: moment(view.date_created).format('L'),
@@ -140,23 +140,23 @@ export class VodVideoDetailPage extends React.Component<Props> {
               <>
                 <div className={this.props.classes.list}>
                   <Typography
-                    variant="h6"
                     className={this.props.classes.listTitle}
+                    variant="h6"
                   >
                     {this.props.t('video.purchaseListTitle')}
                   </Typography>
                   <Paper>
                     <VodGenericPaginatedList
-                      items={this.props.purchases.items}
-                      nbItems={this.props.purchases.count}
-                      loading={this.props.purchases.loading}
-                      page={this.props.purchases.page}
+                      emptyText={this.props.t('video.noVideoPurchase')}
                       itemPerPage={VIDEO_PURCHASES_PAGE_SIZE}
+                      items={this.props.purchases.items}
+                      loading={this.props.purchases.loading}
+                      nbItems={this.props.purchases.count}
                       onClick={(purchase) =>
                         this.props.goToMember(purchase.member_id)
                       }
                       onPageRequested={this.props.onPageRequestedPurchase}
-                      emptyText={this.props.t('video.noVideoPurchase')}
+                      page={this.props.purchases.page}
                       renderSecondaryText={(purchase) =>
                         this.props.t('video.boughtOn', {
                           date: moment(purchase.date_created).format('L'),

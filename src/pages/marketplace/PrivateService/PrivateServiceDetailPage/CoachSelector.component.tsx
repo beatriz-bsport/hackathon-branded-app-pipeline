@@ -48,11 +48,11 @@ const CoachSelector: React.FC<Props> = (props) => {
                   [classes.item]: true,
                   [classes.itemSelected]: isCoachSelected(coach),
                 })}
-                onClick={() => props.onSelect(coach)}
                 disabled={!props.privateSlot}
+                onClick={() => props.onSelect(coach)}
               >
                 <div className={classes.itemInner}>
-                  <Avatar src={coach.photo} alt={coach.name} />
+                  <Avatar alt={coach.name} src={coach.photo} />
                   <Typography className={classes.label} variant="subtitle2">
                     {coach.name}
                   </Typography>

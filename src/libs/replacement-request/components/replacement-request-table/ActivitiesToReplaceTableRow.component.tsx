@@ -176,7 +176,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           )}
         >
           <div className={classes.dateRow}>
-            <Typography variant="body2" className={classes.marginRight2}>
+            <Typography className={classes.marginRight2} variant="body2">
               {formatAsDatetimeAdapted(offerDateStartAsMoment, 'll', timezone)}
             </Typography>
             <Typography
@@ -205,15 +205,15 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
             <>
               {replacementRequest?.offer?.available ? (
                 <ReplacementRequestStatusChip
-                  replacementRequestStatus={replacementRequest.status}
                   isMobile={isMobile}
+                  replacementRequestStatus={replacementRequest.status}
                 />
               ) : (
                 <ReplacementRequestStatusChip
+                  isMobile={isMobile}
                   replacementRequestStatus={
                     ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_DISPLAYED_AS_CANCELLED_BECAUSE_OFFER_IS_CANCELLED
                   }
-                  isMobile={isMobile}
                 />
               )}
             </>
@@ -222,8 +222,8 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
             ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_ACTIONS && (
             <ReplacementRequestRegistrationsStatusChip
               areClosed={moment().isAfter(replacementRequest.closing_date)}
-              nbAnswers={(replacementRequest.coach_answer || []).length}
               isMobile={isMobile}
+              nbAnswers={(replacementRequest.coach_answer || []).length}
             />
           )}
         </div>
@@ -245,8 +245,8 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
               {enableMultiLocalization && (
                 <div className={classes.mobileMultiLoc}>
                   <LocationOnIcon
-                    fontSize="small"
                     className={classes.iconLeft}
+                    fontSize="small"
                   />
                   <Typography className={classes.mobileSmallFont}>
                     {establishmentGroupList.join(', ')}
@@ -260,9 +260,9 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
                     {replacementRequest.offer?.coach?.name}
                   </Typography>
                   <ReplacementRequestClosingDateExtensionButton
-                    replacementRequest={replacementRequest}
-                    onClick={handleExtensionAction}
                     isMobile={isMobile}
+                    onClick={handleExtensionAction}
+                    replacementRequest={replacementRequest}
                   />
                 </>
               )}
@@ -281,12 +281,12 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
               {replacementDisplay ===
                 ReplacementDisplays.REPLACEMENT_DISPLAY_REQUEST_PENDING && (
                 <Typography
-                  variant="body2"
                   className={classnames(
                     classes.grey,
                     classes.mobileSmallFont,
                     classes.mobileRequestReason,
                   )}
+                  variant="body2"
                 >
                   {replacementRequest.reason}
                 </Typography>
@@ -295,8 +295,8 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           </div>
 
           <LevelChip
-            customLevel={replacementRequest.offer.customLevel}
             isChip
+            customLevel={replacementRequest.offer.customLevel}
             smallFont={isMobile}
           />
         </div>
@@ -305,22 +305,22 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           {replacementDisplay ===
             ReplacementDisplays.REPLACEMENT_DISPLAY_MARKETPLACE && (
             <ReplacementRequestCoachAnswerButtons
-              smallFont={isMobile}
               coachAnswer={
                 replacementRequest.coach_answer?.length > 0
                   ? replacementRequest.coach_answer[0].answer
                   : null
               }
               handleCoachAnswer={handleCoachAnswerWithReplacementRequest}
+              smallFont={isMobile}
             />
           )}
           {replacementDisplay ===
             ReplacementDisplays.REPLACEMENT_DISPLAY_REQUEST_PENDING && (
             <Button
+              className={classes.mobileDeleteButton}
+              color="primary"
               onClick={onClickDelete}
               value={replacementRequest.id}
-              color="primary"
-              className={classes.mobileDeleteButton}
             >
               {t('requests.cancel')}
             </Button>
@@ -329,10 +329,10 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
             ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_ACTIONS && (
             <>
               <ReplacementRequestManagerActionButtons
-                replacementRequest={replacementRequest}
                 handleRefuseAction={handleRefuseAction}
                 handleReplaceButton={handleReplaceAction}
                 isMobile={isMobile}
+                replacementRequest={replacementRequest}
               />
               <ReplacementRequestLateStatusChip
                 isLate={replacementRequest.has_requested_late}
@@ -353,13 +353,13 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           ReplacementDisplays.REPLACEMENT_DISPLAY_MARKETPLACE,
         ].includes(replacementDisplay) ? (
           <TableCell className={classes.tableCell}>
-            <Typography variant="subtitle1" className={classes.weight500}>
+            <Typography className={classes.weight500} variant="subtitle1">
               {replacementRequest.offer?.meta_activity?.name}
             </Typography>
-            <Typography variant="subtitle2" className={classes.weight500}>
+            <Typography className={classes.weight500} variant="subtitle2">
               {formatAsDatetimeAdapted(offerDateStartAsMoment, 'll', timezone)}
             </Typography>
-            <Typography variant="body2" className={classes.grey}>
+            <Typography className={classes.grey} variant="body2">
               {`${formatAsTime(
                 offerDateStartAsMoment,
                 timezone,
@@ -369,14 +369,14 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
         ) : (
           <>
             <TableCell className={classes.tableCell}>
-              <Typography variant="subtitle1" className={classes.weight500}>
+              <Typography className={classes.weight500} variant="subtitle1">
                 {formatAsDatetimeAdapted(
                   offerDateStartAsMoment,
                   'll',
                   timezone,
                 )}
               </Typography>
-              <Typography variant="body2" className={classes.grey}>
+              <Typography className={classes.grey} variant="body2">
                 {`${formatAsTime(
                   offerDateStartAsMoment,
                   timezone,
@@ -387,7 +387,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
               <Divider className={classes.divider} />
             </Hidden>
             <TableCell className={classes.tableCell}>
-              <Typography variant="subtitle1" className={classes.weight500}>
+              <Typography className={classes.weight500} variant="subtitle1">
                 {replacementRequest.offer?.meta_activity?.name}
               </Typography>
             </TableCell>
@@ -397,8 +397,8 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
         <TableCell className={classes.tableCell}>
           <div className={classes.level}>
             <LevelChip
-              customLevel={replacementRequest.offer.customLevel}
               isChip
+              customLevel={replacementRequest.offer.customLevel}
             />
           </div>
         </TableCell>
@@ -423,7 +423,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
                 classes.responsiveReason,
               )}
             >
-              <Typography variant="body2" className={classes.grey}>
+              <Typography className={classes.grey} variant="body2">
                 {replacementRequest.reason}
               </Typography>
             </TableCell>
@@ -511,8 +511,8 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
             </TableCell>
             <TableCell className={classes.tableCell}>
               <ReplacementRequestClosingDateExtensionButton
-                replacementRequest={replacementRequest}
                 onClick={handleExtensionAction}
+                replacementRequest={replacementRequest}
               />
             </TableCell>
             <TableCell className={classes.tableCell}>
@@ -523,9 +523,9 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
             </TableCell>
             <TableCell className={classes.tableCell}>
               <ReplacementRequestManagerActionButtons
-                replacementRequest={replacementRequest}
                 handleRefuseAction={handleRefuseAction}
                 handleReplaceButton={handleReplaceAction}
+                replacementRequest={replacementRequest}
               />
             </TableCell>
           </>

@@ -12,15 +12,15 @@ export const CoachToolTip: React.FC<Props> = React.memo(({ coach }) => {
   return (
     <>
       {coach && coach?.name && (
-        <Typography display="block" className={classes.bold} variant="caption">
+        <Typography className={classes.bold} display="block" variant="caption">
           {coach.name}
         </Typography>
       )}
       {coach && coach?.notes && (
         <Typography
-          display="block"
           align="left"
           className={classes.italic}
+          display="block"
           variant="caption"
         >
           {coach.notes}

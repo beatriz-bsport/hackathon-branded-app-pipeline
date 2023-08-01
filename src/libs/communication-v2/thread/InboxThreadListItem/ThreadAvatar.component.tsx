@@ -28,18 +28,18 @@ const ThreadAvatar: React.FC<Props> = ({
 
   return (
     <Badge
-      color={isMuted ? 'secondary' : 'error'}
       badgeContent={numberOfUnreadAnswers}
-      max={MAX_NUMBER_OF_UNREAD_THREADS_DISPLAYED}
-      overlap="circular"
       classes={{
         badge: classes.badge,
         colorSecondary: classes.disabledBadge,
       }}
+      color={isMuted ? 'secondary' : 'error'}
+      max={MAX_NUMBER_OF_UNREAD_THREADS_DISPLAYED}
+      overlap="circular"
     >
       <ListItemAvatar>
         {relatedObjectKind === 'smartlist' ? (
-          <GroupIcon fontSize="large" color="action" />
+          <GroupIcon color="action" fontSize="large" />
         ) : (
           <Avatar src={cover} />
         )}

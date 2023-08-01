@@ -33,8 +33,8 @@ const ResourceItem = ({
   const { name, color, resource_identifier } = resource;
   return (
     <ButtonBase
-      onClick={() => onEditResourceConfiguration(resource)}
       className={classes.resourceContainer}
+      onClick={() => onEditResourceConfiguration(resource)}
     >
       <div
         style={{
@@ -88,25 +88,25 @@ const ResourceGroup = ({
 }) => {
   return (
     <div className={classes.resourceGroupContainer}>
-      <Typography variant="subtitle2" className={classes.title}>
+      <Typography className={classes.title} variant="subtitle2">
         {t(`resource.datatype.${datatype}`)}
       </Typography>
       <div className={classes.resourceList}>
         {resourceList.map((resourceData) => (
           <ResourceItem
-            onSelectResource={onSelectResource}
-            onUnselectResource={onUnselectResource}
-            onEditResourceConfiguration={(resource) =>
-              onEditResourceConfiguration({ data: resource, datatype })
-            }
+            key={resourceData.id}
+            classes={classes}
             isSelected={
               !!resourceSelectedListIds.includes(
                 resourceData.resource_identifier,
               )
             }
-            key={resourceData.id}
+            onEditResourceConfiguration={(resource) =>
+              onEditResourceConfiguration({ data: resource, datatype })
+            }
+            onSelectResource={onSelectResource}
+            onUnselectResource={onUnselectResource}
             resource={resourceData}
-            classes={classes}
             t={t}
           />
         ))}
@@ -130,15 +130,15 @@ export const ResourceSelector = (props: Props) => {
     <div className={props.classes.container}>
       {props.resourceAvailable.map(({ datatype, data }) => (
         <ResourceGroup
-          classes={props.classes}
-          t={props.t}
-          datatype={datatype}
-          resourceList={data}
-          resourceSelectedListIds={props.resourceSelectedListIds}
           key={datatype}
+          classes={props.classes}
+          datatype={datatype}
+          onEditResourceConfiguration={props.onEditResourceConfiguration}
           onSelectResource={props.onSelectResource}
           onUnselectResource={props.onUnselectResource}
-          onEditResourceConfiguration={props.onEditResourceConfiguration}
+          resourceList={data}
+          resourceSelectedListIds={props.resourceSelectedListIds}
+          t={props.t}
         />
       ))}
     </div>

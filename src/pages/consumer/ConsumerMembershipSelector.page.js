@@ -63,15 +63,15 @@ export class ConsumerMembershipSelector extends React.Component<Props, State> {
     }
     return (
       <MembershipSelector
-        membershipList={this.props.membershipList}
-        goToConsumerHome={this.props.goToConsumerHome}
-        searchCompany={this.props.searchCompany}
         companyList={this.props.companyList}
         companyLoading={this.props.companyLoading}
-        onClickCompany={this.props.handleCompanySelect}
         fetchMoreMembership={this.props.fetchMoreMembership}
+        goToConsumerHome={this.props.goToConsumerHome}
         hasMore={this.props.hasMoreMembership}
         loading={this.props.membershipListLoading}
+        membershipList={this.props.membershipList}
+        onClickCompany={this.props.handleCompanySelect}
+        searchCompany={this.props.searchCompany}
       />
     );
   }

@@ -76,17 +76,15 @@ export const RecurrentAvailabilityFormDialog: React.FC<Props> = ({
             {t('calendar.form.explain')}
           </Typography>
           <MuiPickersUtilsProvider
-            utils={MomentUtils}
-            moment={moment}
             locale={moment.locale()}
+            moment={moment}
+            utils={MomentUtils}
           >
             <DatePicker
-              required
-              keyboard
-              value={date}
               disablePast
+              keyboard
+              required
               format="L"
-              onChange={handleDateChange}
               mask={(value) => {
                 if (value) {
                   return [
@@ -104,6 +102,8 @@ export const RecurrentAvailabilityFormDialog: React.FC<Props> = ({
                 }
                 return [];
               }}
+              onChange={handleDateChange}
+              value={date}
             />
           </MuiPickersUtilsProvider>
         </DialogContent>
@@ -115,7 +115,7 @@ export const RecurrentAvailabilityFormDialog: React.FC<Props> = ({
               <Button onClick={onClose}>
                 {t('calendar.form.actions.cancel')}
               </Button>
-              <Button type="submit" color="primary">
+              <Button color="primary" type="submit">
                 {t('calendar.form.actions.submit')}
               </Button>
             </React.Fragment>

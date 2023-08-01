@@ -26,13 +26,13 @@ export default function MetaActivityList(props: Props) {
       <List disablePadding>
         {metaActivities.map((ma) => (
           <MetaActivityListItem
-            divider
             key={ma.id}
-            metaActivity={ma}
+            divider
+            deleteMetaActivity={() => props.deleteMetaActivity(ma.id)}
             goToEdit={goToEdit}
+            metaActivity={ma}
             onClick={ma.customer_enabled ? () => goToDetail(ma.id) : null}
             onClickCopy={props.makeActivityCopy}
-            deleteMetaActivity={() => props.deleteMetaActivity(ma.id)}
             restoreMetaActivity={() => props.restoreMetaActivity(ma.id)}
           />
         ))}

@@ -52,7 +52,7 @@ export const StripeTerminalConnectingError = (props: Props) => {
       <div className={classes.errorIcon}>
         <ErrorIcon />
       </div>
-      <Typography variant="h6" className={classes.errorTitle}>
+      <Typography className={classes.errorTitle} variant="h6">
         {t('configuration.stripeTerminal.connectDialog.title.error')}
       </Typography>
       <Typography className={classes.errorMessage}>
@@ -68,8 +68,8 @@ export const StripeTerminalConnectingError = (props: Props) => {
         )}
         <Button
           color="primary"
-          variant="contained"
           onClick={() => props.onRetry()}
+          variant="contained"
         >
           {t('configuration.stripeTerminal.connectDialog.form.retry')}
         </Button>

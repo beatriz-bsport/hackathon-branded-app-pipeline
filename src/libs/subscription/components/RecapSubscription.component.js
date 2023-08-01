@@ -25,17 +25,17 @@ const RecapSubscription = (props: RecapProps) => (
   <div style={{ width: '100%' }}>
     <div className={props.classes.section}>
       <Typography
+        inline
         className={props.classes.highlightText}
         color="primary"
-        inline
       >
         {props.member ? props.member.name : ' -- '}
       </Typography>
       <Typography inline>{`${props.t('recap.willBecharged')}`}</Typography>
       <Typography
+        inline
         className={props.classes.highlightText}
         color="primary"
-        inline
       >
         {` ${getCurrencyDisplayWithPrice(
           props.price
@@ -47,9 +47,9 @@ const RecapSubscription = (props: RecapProps) => (
       <Typography inline>{props.t(`recap.${props.periodName}`)}</Typography>
       <Typography inline>{`${props.t('recap.forObject')}`}</Typography>
       <Typography
+        inline
         className={props.classes.highlightText}
         color="primary"
-        inline
       >
         {props.subscriptionContentName || '--'}
       </Typography>
@@ -57,17 +57,17 @@ const RecapSubscription = (props: RecapProps) => (
     <div className={props.classes.section}>
       <Typography inline>{`${props.t('recap.from')}`}</Typography>
       <Typography
+        inline
         className={props.classes.highlightText}
         color="primary"
-        inline
       >
         {moment(props.dateStart).format('L') || '--/--/----'}
       </Typography>
       <Typography inline>{`${props.t('recap.to')}`}</Typography>
       <Typography
+        inline
         className={props.classes.highlightText}
         color="primary"
-        inline
       >
         {props.nbPeriod
           ? moment(props.dateStart).add('months', props.nbPeriod).format('L')
@@ -76,7 +76,7 @@ const RecapSubscription = (props: RecapProps) => (
     </div>
     <div className={props.classes.section}>
       <Typography inline>{props.t('recap.forATotalOf')}</Typography>
-      <Typography color="error" inline className={props.classes.highlightText}>
+      <Typography inline className={props.classes.highlightText} color="error">
         {` ${getCurrencyDisplayWithPrice(
           props.price && props.nbPeriod
             ? parseInt(props.nbPeriod, 10) *

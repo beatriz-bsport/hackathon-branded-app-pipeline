@@ -59,13 +59,13 @@ function FuzzySearchIcon<T>(props: Props<T>) {
     };
 
   const Cell = ({ columnIndex, rowIndex, style }) => (
-    <div style={style} className={classes.cell}>
+    <div className={classes.cell} style={style}>
       {itemRenderer(searchResult[columnIndex + rowIndex * numberOfColumns])}
     </div>
   );
 
   const CellEmptySearch = ({ columnIndex, rowIndex, style }) => (
-    <div style={style} className={classes.cell}>
+    <div className={classes.cell} style={style}>
       <div>{itemRenderer(items[columnIndex + rowIndex * numberOfColumns])}</div>
     </div>
   );
@@ -74,14 +74,14 @@ function FuzzySearchIcon<T>(props: Props<T>) {
     <div className={iconRender ? classes.wrapper : null}>
       <div className={iconRender ? classes.searchBar : null}>
         <FuzeSearch
-          searchText={search}
+          changeSearch={changeSearch}
           clearSearch={() => {
             setSearch('');
           }}
-          changeSearch={changeSearch}
           items={items}
           placeholder={placeholder}
           searchFields={searchFields}
+          searchText={search}
         />
       </div>
       <div>
@@ -90,11 +90,11 @@ function FuzzySearchIcon<T>(props: Props<T>) {
             className={customClasses?.iconGrid}
             columnCount={numberOfColumns}
             columnWidth={gridWidth / numberOfColumns}
-            width={gridWidth}
             height={gridHeight}
             rowCount={Math.floor(NUMBER_OF_MUI_ICONS / numberOfColumns) + 1}
             rowHeight={80}
             style={{ overflowX: 'hidden' }}
+            width={gridWidth}
           >
             {CellEmptySearch}
           </FixedSizeGrid>
@@ -104,11 +104,11 @@ function FuzzySearchIcon<T>(props: Props<T>) {
               className={customClasses?.iconGrid}
               columnCount={numberOfColumns}
               columnWidth={gridWidth / numberOfColumns}
-              width={gridWidth}
               height={gridHeight}
               rowCount={Math.floor(searchResult.length / numberOfColumns) + 1}
               rowHeight={80}
               style={{ overflowX: 'hidden' }}
+              width={gridWidth}
             >
               {Cell}
             </FixedSizeGrid>

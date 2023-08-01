@@ -25,17 +25,17 @@ export const PrivateServiceSelector = (props: Props) => {
   return (
     <Select
       id="private-service-selector"
-      menuPortalTarget={document.querySelector('body')}
-      placeholder={
-        props.placeholder ? props.placeholder : t('selector.privateService')
-      }
-      value={selectedPrivateServiceOption}
-      options={privateServiceOptions}
-      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
       isDisabled={props.isDisabled}
+      menuPortalTarget={document.querySelector('body')}
       onChange={(option) => {
         props.onChange(option.value);
       }}
+      options={privateServiceOptions}
+      placeholder={
+        props.placeholder ? props.placeholder : t('selector.privateService')
+      }
+      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+      value={selectedPrivateServiceOption}
     />
   );
 };

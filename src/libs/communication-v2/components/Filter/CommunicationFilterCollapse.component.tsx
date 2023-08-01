@@ -71,10 +71,6 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
       <div className={classes.filtersContainer}>
         {props.hasKindFilter && (
           <CommunicationFilterGenericField
-            fieldName={t(`filter.kind.title`)}
-            fieldPlaceholder={t(`filter.kind.placeholder`)}
-            fieldValues={props.kindFilterValues}
-            fieldValuesSetter={props.kindFilterSetter}
             fieldChoices={
               props.kindFilterOptionsOverride ??
               getFieldChoicesByIdentifier(
@@ -82,22 +78,22 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
                 t,
               )
             }
+            fieldName={t(`filter.kind.title`)}
+            fieldPlaceholder={t(`filter.kind.placeholder`)}
+            fieldValues={props.kindFilterValues}
+            fieldValuesSetter={props.kindFilterSetter}
           />
         )}
         {props.hasDatesFilter && (
           <CommunicationFilterDateField
-            fieldStartValue={props.dateStartValue}
-            fieldStartSetter={props.dateStartSetter}
-            fieldEndValue={props.dateEndValue}
             fieldEndSetter={props.dateEndSetter}
+            fieldEndValue={props.dateEndValue}
+            fieldStartSetter={props.dateStartSetter}
+            fieldStartValue={props.dateStartValue}
           />
         )}
         {props.hasRecipientFilter && (
           <CommunicationFilterGenericField
-            fieldName={t(`filter.recipient.title`)}
-            fieldPlaceholder={t(`filter.recipient.placeholder`)}
-            fieldValues={props.recipientFilterValues}
-            fieldValuesSetter={props.recipientFilterSetter}
             fieldChoices={
               props.recipientFilterOptionsOverride ??
               getFieldChoicesByIdentifier(
@@ -105,14 +101,14 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
                 t,
               )
             }
+            fieldName={t(`filter.recipient.title`)}
+            fieldPlaceholder={t(`filter.recipient.placeholder`)}
+            fieldValues={props.recipientFilterValues}
+            fieldValuesSetter={props.recipientFilterSetter}
           />
         )}
         {props.hasChannelFilter && (
           <CommunicationFilterGenericField
-            fieldName={t(`filter.channel.title`)}
-            fieldPlaceholder={t(`filter.channel.placeholder`)}
-            fieldValues={props.channelFilterValues}
-            fieldValuesSetter={props.channelFilterSetter}
             fieldChoices={
               props.channelFilterOptionsOverride ??
               getFieldChoicesByIdentifier(
@@ -120,14 +116,15 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
                 t,
               )
             }
+            fieldName={t(`filter.channel.title`)}
+            fieldPlaceholder={t(`filter.channel.placeholder`)}
+            fieldValues={props.channelFilterValues}
+            fieldValuesSetter={props.channelFilterSetter}
           />
         )}
         {props.hasSendParameterFilter && (
           <CommunicationFilterGenericField
-            fieldName={t(`filter.sendParameter.title`)}
-            fieldPlaceholder={t(`filter.sendParameter.placeholder`)}
-            fieldValues={props.sendParameterFilterValues}
-            fieldValuesSetter={props.sendParameterFilterSetter}
+            noMulti
             fieldChoices={
               props.sendParameterFilterOptionsOverride ??
               getFieldChoicesByIdentifier(
@@ -135,15 +132,15 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
                 t,
               )
             }
-            noMulti
+            fieldName={t(`filter.sendParameter.title`)}
+            fieldPlaceholder={t(`filter.sendParameter.placeholder`)}
+            fieldValues={props.sendParameterFilterValues}
+            fieldValuesSetter={props.sendParameterFilterSetter}
           />
         )}
         {props.hasSrcOrDstFilter && (
           <CommunicationFilterGenericField
-            fieldName={t(`filter.srcOrDst.title`)}
-            fieldPlaceholder={t(`filter.srcOrDst.placeholder`)}
-            fieldValues={props.srcOrDstFilterValues}
-            fieldValuesSetter={props.srcOrDstFilterSetter}
+            noMulti
             fieldChoices={
               props.srcOrDstFilterOptionsOverride ??
               getFieldChoicesByIdentifier(
@@ -151,16 +148,19 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
                 t,
               )
             }
-            noMulti
+            fieldName={t(`filter.srcOrDst.title`)}
+            fieldPlaceholder={t(`filter.srcOrDst.placeholder`)}
+            fieldValues={props.srcOrDstFilterValues}
+            fieldValuesSetter={props.srcOrDstFilterSetter}
           />
         )}
       </div>
       <Button
         className={classes.submitButton}
-        onClick={props.handleFiltersSubmit}
-        variant="contained"
         color="secondary"
         disabled={!enableSubmitButton}
+        onClick={props.handleFiltersSubmit}
+        variant="contained"
       >
         {t('filter.applyFilter')}
       </Button>

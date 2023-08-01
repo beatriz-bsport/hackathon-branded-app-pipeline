@@ -49,12 +49,8 @@ export class TagFilter extends Component<Props, state> {
       <div className={classes.container}>
         {t(`filters.${filter_data.filter_identifier}.first`)}
         <TagChipList
-          tags={this.props.tags}
-          includes={filter_data.tags_included || []}
           excludes={filter_data.tags_excluded || []}
-          handleReinit={() =>
-            onChange({ tags_included: [], tags_excluded: [] })
-          }
+          handleAdd={this.handleClick}
           handleDeleteTag={(id, include) => {
             if (include) {
               const new_included = filter_data.tags_included.filter(
@@ -72,16 +68,20 @@ export class TagFilter extends Component<Props, state> {
               });
             }
           }}
-          handleAdd={this.handleClick}
+          handleReinit={() =>
+            onChange({ tags_included: [], tags_excluded: [] })
+          }
+          includes={filter_data.tags_included || []}
+          tags={this.props.tags}
         />
         <Popover
-          open={open}
-          onClose={() => this.setState({ open: false })}
           anchorEl={anchorEl}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'left',
           }}
+          onClose={() => this.setState({ open: false })}
+          open={open}
           transformOrigin={{
             vertical: 'top',
             horizontal: 'left',
@@ -89,7 +89,6 @@ export class TagFilter extends Component<Props, state> {
         >
           <Paper>
             <TagFilterForm
-              tagList={this.props.tags}
               createFilter={(ev) => {
                 let new_tags = [];
                 if (ev.include) {
@@ -105,6 +104,7 @@ export class TagFilter extends Component<Props, state> {
                 }
                 this.setState({ open: false });
               }}
+              tagList={this.props.tags}
             />
           </Paper>
         </Popover>

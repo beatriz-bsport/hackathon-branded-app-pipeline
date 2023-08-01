@@ -22,9 +22,9 @@ const BasketListItem = (props: Props) => {
   const { basket, onClick } = props;
   return (
     <ListItem
-      selected={props.selected}
       button={!!onClick}
       onClick={() => onClick(basket.id)}
+      selected={props.selected}
     >
       <ListItemIcon>
         {basket.is_finalized ? (

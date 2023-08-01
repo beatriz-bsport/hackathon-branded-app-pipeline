@@ -156,21 +156,20 @@ export class MemberDetailGiftcard extends PureComponent<Props, State> {
     if (!this.props.id) return null;
     return (
       <Grid container spacing={2}>
-        <Grid item sm={12} md={6} style={{ width: '100%' }}>
+        <Grid item md={6} sm={12} style={{ width: '100%' }}>
           <Typography variant="h5">
             {t('consumerGiftcard.list.myPurchases')}
           </Typography>
           <Paper className={classes.listConsumerGiftcard}>
             <PaginatedListBase
+              itemPerPage={PAGE_SIZE}
+              items={this.props.sentState.consumerGiftcardList}
               listProps={{
                 disablePadding: 'true',
                 dense: 'true',
               }}
-              items={this.props.sentState.consumerGiftcardList}
-              nbItems={this.props.sentState.consumerGiftcardCount}
               loading={this.props.sentState.consumerGiftcardLoading}
-              page={this.props.sentState.consumerGiftcardPage}
-              itemPerPage={PAGE_SIZE}
+              nbItems={this.props.sentState.consumerGiftcardCount}
               onPageRequested={(page: number, pageSize: number) =>
                 this.props.fetchConsumerGiftcardSentList(
                   this.props.id,
@@ -178,9 +177,10 @@ export class MemberDetailGiftcard extends PureComponent<Props, State> {
                   pageSize,
                 )
               }
+              page={this.props.sentState.consumerGiftcardPage}
               renderEmpty={() => (
                 <div className={classes.emptyContainer}>
-                  <Typography variant="caption" color="textSecondary">
+                  <Typography color="textSecondary" variant="caption">
                     {t('consumerGiftcard.isEmpty')}
                   </Typography>
                   <Divider />
@@ -191,22 +191,22 @@ export class MemberDetailGiftcard extends PureComponent<Props, State> {
               ) => (
                 <ConsumerGiftcardListItem
                   key={cgc.id}
+                  divider
+                  showReceiver
                   consumerGiftcard={cgc}
                   giftcard={cgc.giftcard}
-                  divider
-                  selected={cgc.id === this.props.selectedConsumerGiftcardId}
-                  showReceiver
                   memberReceiver={cgc.dst_member}
                   memberSender={cgc.src_member}
-                  onClickSender={this.props.goToMemberGiftcard}
                   onClickReceiver={
                     cgc.dst_member && this.props.goToMemberGiftcard
                   }
+                  onClickSender={this.props.goToMemberGiftcard}
                   onClickSendInvitation={
                     cgc.date_activated
                       ? null
                       : () => this.setState({ consumerGiftcardToInvite: cgc })
                   }
+                  selected={cgc.id === this.props.selectedConsumerGiftcardId}
                   sharedFromFranchisor={!!cgc.consumer_giftcard_source}
                 />
               )}
@@ -214,10 +214,10 @@ export class MemberDetailGiftcard extends PureComponent<Props, State> {
           </Paper>
           {!!this.state.consumerGiftcardToInvite && (
             <ConsumerGiftcardInvitationModal
-              onSubmit={this.sendInvitations}
-              consumerGiftcard={this.state.consumerGiftcardToInvite}
               companyId={this.state.consumerGiftcardToInvite.source_company_id}
+              consumerGiftcard={this.state.consumerGiftcardToInvite}
               onClose={() => this.setState({ consumerGiftcardToInvite: null })}
+              onSubmit={this.sendInvitations}
               snackbarSuccess={this.props.snackbarSuccess}
             />
           )}
@@ -228,15 +228,14 @@ export class MemberDetailGiftcard extends PureComponent<Props, State> {
               </Typography>
               <Paper className={classes.listConsumerGiftcard}>
                 <PaginatedListBase
+                  itemPerPage={PAGE_SIZE}
+                  items={this.props.receivedState.consumerGiftcardList}
                   listProps={{
                     disablePadding: 'true',
                     dense: 'true',
                   }}
-                  items={this.props.receivedState.consumerGiftcardList}
-                  nbItems={this.props.receivedState.consumerGiftcardCount}
                   loading={this.props.receivedState.consumerGiftcardLoading}
-                  page={this.props.receivedState.consumerGiftcardPage}
-                  itemPerPage={PAGE_SIZE}
+                  nbItems={this.props.receivedState.consumerGiftcardCount}
                   onPageRequested={(page: number, pageSize: number) =>
                     this.props.fetchConsumerGiftcardReceivedList(
                       this.props.id,
@@ -244,9 +243,10 @@ export class MemberDetailGiftcard extends PureComponent<Props, State> {
                       pageSize,
                     )
                   }
+                  page={this.props.receivedState.consumerGiftcardPage}
                   renderEmpty={() => (
                     <div className={classes.emptyContainer}>
-                      <Typography variant="caption" color="textSecondary">
+                      <Typography color="textSecondary" variant="caption">
                         {t('consumerGiftcard.isEmpty')}
                       </Typography>
                       <Divider />
@@ -259,18 +259,18 @@ export class MemberDetailGiftcard extends PureComponent<Props, State> {
                   ) => (
                     <ConsumerGiftcardListItem
                       key={cgc.id}
+                      divider
+                      showAsRecipient
+                      showSender
                       consumerGiftcard={cgc}
+                      giftcard={cgc.giftcard}
+                      memberReceiver={cgc.dst_member}
+                      memberSender={cgc.src_member}
+                      onClickReceiver={this.props.goToMemberGiftcard}
+                      onClickSender={this.props.goToMemberGiftcard}
                       selected={
                         cgc.id === this.props.selectedConsumerGiftcardId
                       }
-                      giftcard={cgc.giftcard}
-                      showAsRecipient
-                      showSender
-                      divider
-                      onClickSender={this.props.goToMemberGiftcard}
-                      onClickReceiver={this.props.goToMemberGiftcard}
-                      memberReceiver={cgc.dst_member}
-                      memberSender={cgc.src_member}
                       sharedFromFranchisor={!!cgc.consumer_giftcard_source}
                     />
                   )}
@@ -279,14 +279,14 @@ export class MemberDetailGiftcard extends PureComponent<Props, State> {
             </>
           )}
         </Grid>
-        <Grid item sm={12} md={6}>
+        <Grid item md={6} sm={12}>
           {this.props.selectedConsumerGiftcardId && (
             <ConsumerGiftcardDetail
               consumerGiftcard={this.props.selectedConsumerGiftcard}
               consumerGiftCardLoading={this.props.consumerGiftcardLoading}
+              goToGiftcard={this.props.goToGiftcard}
               invoice={this.props.relatedInvoice}
               onInvoiceClick={this.props.goToInvoice}
-              goToGiftcard={this.props.goToGiftcard}
             />
           )}
         </Grid>

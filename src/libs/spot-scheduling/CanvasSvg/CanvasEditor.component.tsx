@@ -262,38 +262,38 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
         <div className={classes.toolbarCanvasContainer}>
           {!this.props.disableEdit && (
             <CanvasToolbar
-              title={this.state.name}
-              onTitleChange={(name) => this.setState({ name })}
-              onClickSave={this.onClickSave}
-              onClickExit={this.props.onExit}
               blueprints={this.props.blueprints}
-              onChangeBlueprint={this.onChangeBlueprint}
               disableSave={!this.hasBlueprintChanged()}
+              onChangeBlueprint={this.onChangeBlueprint}
+              onClickExit={this.props.onExit}
+              onClickSave={this.onClickSave}
+              onTitleChange={(name) => this.setState({ name })}
               openSpiviDialog={this.props.openSpiviDialog}
               selectedRoomBlueprint={this.props.selectedRoomBlueprint}
+              title={this.state.name}
             />
           )}
 
           <div className={classes.canvasContainer}>
             <CanvasViewController
+              coach={this.props.coach}
+              coachHeight={this.state.coachHeight}
+              disabledEdit={this.props.disableEdit}
               elements={this.elements}
-              selectedTool={this.state.selectedTool}
-              strokeColor={this.props.current.strokeColor}
-              wallStrokeColor={this.props.current.wallStrokeColor}
               fillColor={this.props.current.fillColor}
-              wallFillColor={this.props.current.wallFillColor}
+              getAsset={this.getAsset}
               onElementsChange={(elements: CanvasElement<any>[]) =>
                 this.props.setStateWithHistory({ elements })
               }
-              getAsset={this.getAsset}
               onSelectElement={this.props.onSelectElement}
-              disabledEdit={this.props.disableEdit}
-              showGrid={this.state.showGrid && !this.props.disableEdit}
-              coach={this.props.coach}
-              coachHeight={this.state.coachHeight}
+              selectedTool={this.state.selectedTool}
               selectingSpot={this.props.selectingSpot}
-              spotTypes={this.props.spotTypes}
+              showGrid={this.state.showGrid && !this.props.disableEdit}
               spotTypeId={this.state.spotTypeId}
+              spotTypes={this.props.spotTypes}
+              strokeColor={this.props.current.strokeColor}
+              wallFillColor={this.props.current.wallFillColor}
+              wallStrokeColor={this.props.current.wallStrokeColor}
             />
           </div>
         </div>
@@ -301,36 +301,34 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
         {!this.props.disableEdit && (
           <div className={classes.toolMenuContainer}>
             <CanvasToolsMenu
-              selectedTool={this.state.selectedTool}
-              onSelectTool={this.onChangeTool}
-              onClickUndo={this.props.undo}
-              onClickRedo={this.props.redo}
-              strokeColor={this.props.current.strokeColor}
-              wallStrokeColor={this.props.current.wallStrokeColor}
-              wallFillColor={this.props.current.wallFillColor}
+              coachHeight={this.state.coachHeight}
               fillColor={this.props.current.fillColor}
+              onChangeGridVisibility={(showGrid) => this.setState({ showGrid })}
+              onClickRedo={this.props.redo}
+              onClickUndo={this.props.undo}
+              onClickUploadImage={() =>
+                this.setState({ showImageDialog: true })
+              }
+              onDeleteSpotType={this.deleteSpotType}
+              onHeightCoachChange={this.onHeightCoachChange}
+              onSelectTool={this.onChangeTool}
+              onSpiviBoxIdChange={this.onSpiviBoxIdChange}
               onStrokeColorChange={(fillColor) => {
                 this.props.setStateWithHistory({
                   strokeColor: fillColor || 'transparent',
                 });
               }}
-              onwallStrokeColorChange={(strokeColor) =>
-                this.props.setStateWithHistory({
-                  wallStrokeColor: strokeColor || 'transparent',
-                })
-              }
               onwallFillColorChange={(fillColor) =>
                 this.props.setStateWithHistory({
                   wallFillColor: fillColor || 'transparent',
                 })
               }
-              onClickUploadImage={() =>
-                this.setState({ showImageDialog: true })
+              onwallStrokeColorChange={(strokeColor) =>
+                this.props.setStateWithHistory({
+                  wallStrokeColor: strokeColor || 'transparent',
+                })
               }
-              showGrid={this.state.showGrid}
-              onChangeGridVisibility={(showGrid) => this.setState({ showGrid })}
-              onHeightCoachChange={this.onHeightCoachChange}
-              coachHeight={this.state.coachHeight}
+              openDeleteModal={this.props.openDeleteModal}
               openSpotCreationForm={(defaultSpot: boolean) => {
                 this.onClickSave();
                 this.props.openSpotCreationForm(defaultSpot);
@@ -339,21 +337,23 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
                 this.onClickSave();
                 this.props.openSpotUpdateForm(spotType);
               }}
-              openDeleteModal={this.props.openDeleteModal}
-              spotTypes={this.props.spotTypes}
-              onDeleteSpotType={this.deleteSpotType}
-              spotTypeIdSelected={this.state.spotTypeId}
+              selectedTool={this.state.selectedTool}
+              showGrid={this.state.showGrid}
               spiviBoxId={this.state.spiviBoxId}
-              onSpiviBoxIdChange={this.onSpiviBoxIdChange}
+              spotTypeIdSelected={this.state.spotTypeId}
+              spotTypes={this.props.spotTypes}
+              strokeColor={this.props.current.strokeColor}
+              wallFillColor={this.props.current.wallFillColor}
+              wallStrokeColor={this.props.current.wallStrokeColor}
             />
           </div>
         )}
 
         {!this.props.disableEdit && (
           <SpotImageUploadDialog
-            open={this.state.showImageDialog}
             onClose={() => this.setState({ showImageDialog: false })}
             onSubmit={this.updateSpotImages}
+            open={this.state.showImageDialog}
           />
         )}
       </div>

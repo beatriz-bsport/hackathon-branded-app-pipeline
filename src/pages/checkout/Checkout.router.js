@@ -115,62 +115,62 @@ export class PaymentRouter extends React.Component<Props> {
         <Analytics theme={this.props.theme} />
         <Switch>
           <Route
-            path="/(|customer/)checkout/:companyId/validation"
             component={ValidationCheckout}
+            path="/(|customer/)checkout/:companyId/validation"
           />
           <Route
-            path="/(|customer/)checkout/:companyId/offer-booker/:id"
             component={OfferBooker}
+            path="/(|customer/)checkout/:companyId/offer-booker/:id"
           />
           <Route
-            path="/(|customer/)checkout/:companyId/subscription/:contractId/validation"
             component={ContractCheckoutValidation}
+            path="/(|customer/)checkout/:companyId/subscription/:contractId/validation"
           />
           <Route
-            path="/(|customer/)checkout/:companyId/subscription/:contractId"
             component={ContractCheckout}
+            path="/(|customer/)checkout/:companyId/subscription/:contractId"
           />
 
           <Route
-            path="/(|customer/)checkout/:companyId/pre-checkout/payment-pack/:id"
             component={PaymentPackPreCheckout}
+            path="/(|customer/)checkout/:companyId/pre-checkout/payment-pack/:id"
           />
           <Route
-            path="/(|customer/)checkout/:companyId/pre-checkout/payment-pack-template/:id/"
             component={PaymentPackTemplatePreCheckout}
+            path="/(|customer/)checkout/:companyId/pre-checkout/payment-pack-template/:id/"
           />
 
           <Route
-            path="/checkout/:companyId/pre-checkout/payment-combo/:id"
             component={PaymentComboPreCheckoutPage}
+            path="/checkout/:companyId/pre-checkout/payment-combo/:id"
           />
           <Route
-            path="/(|customer/)checkout/:companyId/pre-checkout/private-pass/:id"
             component={PrivatePassPreCheckout}
+            path="/(|customer/)checkout/:companyId/pre-checkout/private-pass/:id"
           />
           <Route
-            path="/(|customer/)checkout/:companyId/private-slot-booker/:privateServiceId/private-slot/:privateSlotId/"
             component={PrivateSlotPaymentPage}
+            path="/(|customer/)checkout/:companyId/private-slot-booker/:privateServiceId/private-slot/:privateSlotId/"
           />
           <Route
-            path="/(|customer/)checkout/:companyId/pre-checkout/shop-item/:id"
             component={ShopItemPreCheckoutPage}
+            path="/(|customer/)checkout/:companyId/pre-checkout/shop-item/:id"
           />
           <Route
-            path="/(|customer/)checkout/:companyId/giftcard/activation/:activationCode"
             component={GiftcardActivationPage}
+            path="/(|customer/)checkout/:companyId/giftcard/activation/:activationCode"
           />
           <Route
-            path="/(|customer/)checkout/:companyId/giftcard/:id"
             component={GiftcardCheckoutPage}
+            path="/(|customer/)checkout/:companyId/giftcard/:id"
           />
           <Route
-            path="/(|customer/)checkout/:companyId/vod/:id/"
             component={VideoCheckoutPage}
+            path="/(|customer/)checkout/:companyId/vod/:id/"
           />
           <Route
-            path="/(|customer/)checkout/:companyId/"
             component={BasketPage}
+            path="/(|customer/)checkout/:companyId/"
           />
         </Switch>
       </MuiThemeProvider>

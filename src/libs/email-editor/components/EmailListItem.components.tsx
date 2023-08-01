@@ -142,16 +142,16 @@ class EmailListItem extends React.PureComponent<Props> {
         <div className={classes.innerList}>
           <div className={classes.textAndChipsContainer}>
             <Typography
+              className={classNames({ [classes.ellipsisStyle]: virtualized })}
               component="span"
               variant="subtitle1"
-              className={classNames({ [classes.ellipsisStyle]: virtualized })}
             >
-              <HighlightedText text={email.title} highlight={search} />
+              <HighlightedText highlight={search} text={email.title} />
             </Typography>
             <span
               className={classNames({ [classes.ellipsisStyle]: virtualized })}
             >
-              <HighlightedText text={email.subject} highlight={search} />
+              <HighlightedText highlight={search} text={email.subject} />
             </span>
             {companies?.length > 0 && !allCompanies && (
               <div className={classes.chipsContainer}>
@@ -173,10 +173,10 @@ class EmailListItem extends React.PureComponent<Props> {
                       companies={companies.slice(2)}
                     >
                       <Chip
-                        variant="outlined"
+                        className={classes.chip}
                         color="primary"
                         label={t('seeAll')}
-                        className={classes.chip}
+                        variant="outlined"
                       />
                     </FranchiseCompaniesListingTooltip>
                   )}
@@ -184,10 +184,10 @@ class EmailListItem extends React.PureComponent<Props> {
                 <Hidden lgUp>
                   <FranchiseCompaniesListingTooltip companies={companies}>
                     <Chip
-                      variant="outlined"
+                      className={classes.chip}
                       color="primary"
                       label={t('seeAll')}
-                      className={classes.chip}
+                      variant="outlined"
                     />
                   </FranchiseCompaniesListingTooltip>
                 </Hidden>
@@ -196,9 +196,9 @@ class EmailListItem extends React.PureComponent<Props> {
             {allCompanies && (
               <FranchiseCompaniesListingTooltip companies={companies}>
                 <Chip
+                  className={classes.chip}
                   color="primary"
                   label={t('allCompanies')}
-                  className={classes.chip}
                 />
               </FranchiseCompaniesListingTooltip>
             )}
@@ -256,11 +256,11 @@ class EmailListItem extends React.PureComponent<Props> {
     if (!virtualized) {
       return (
         <ListItem
-          onClick={navigationTo}
-          selected={selected}
-          className={classes.listItem}
           divider
           button={!disabled}
+          className={classes.listItem}
+          onClick={navigationTo}
+          selected={selected}
         >
           {this.renderChildren(classes.flexBox, virtualized)}
         </ListItem>
@@ -268,14 +268,14 @@ class EmailListItem extends React.PureComponent<Props> {
     }
     return (
       <div
-        onKeyUp={navigationTo}
-        tabIndex={0}
-        role="button"
-        onClick={!disabled ? navigationTo : undefined}
         className={classes.listVirtualizedItem}
+        onClick={!disabled ? navigationTo : undefined}
+        onKeyUp={navigationTo}
+        role="button"
         style={{
           height: heightItem || 120,
         }}
+        tabIndex={0}
       >
         {this.renderChildren({}, virtualized)}
       </div>

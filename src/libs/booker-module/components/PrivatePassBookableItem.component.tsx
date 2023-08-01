@@ -29,15 +29,15 @@ const PrivatePassBookableItem = (props: Props) => {
           {getCurrencyDisplayWithPrice(props.privatePass.price)}
         </Typography>
         {!props.hideCredits && (
-          <Typography className={classes.creditText} variant="h6" align="left">
+          <Typography align="left" className={classes.creditText} variant="h6">
             {creditText}
           </Typography>
         )}
       </div>
-      <Typography variant="body1" color="textSecondary" align="left">
+      <Typography align="left" color="textSecondary" variant="body1">
         {date}
       </Typography>
-      <Typography variant="body1" color="textPrimary" align="left">
+      <Typography align="left" color="textPrimary" variant="body1">
         {props.privatePass.name}
       </Typography>
     </div>

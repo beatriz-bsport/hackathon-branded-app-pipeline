@@ -27,7 +27,7 @@ export class PaymentPack extends Component<Props> {
       ? `${credits} ${t('credits')}`
       : t('unlimitedCredits');
     return (
-      <ListItem key={id} button className={classes.listItem} divider>
+      <ListItem key={id} button divider className={classes.listItem}>
         <ListItemText primary={name} />
         <ListItemText
           primary={getCurrencyDisplayWithPrice(price)}

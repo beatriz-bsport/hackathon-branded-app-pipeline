@@ -35,21 +35,21 @@ export const PaginatedConsumerPrivatePass = (props: Props) => {
   return (
     <div>
       <PaginatedListBase
-        listProps={{ disablePadding: 'true', dense: 'true' }}
-        items={props.items}
-        loading={props.loading}
         itemPerPage={props.itemPerPage}
-        page={props.page}
+        items={props.items}
+        listProps={{ disablePadding: 'true', dense: 'true' }}
+        loading={props.loading}
         nbItems={props.nbItems}
         onPageRequested={(page: number, pageSize: number) =>
           props.onPageRequested(page, pageSize)
         }
+        page={props.page}
         renderEmpty={() => (
           <div>
             <Typography
               className={classes.emptyContainer}
-              variant="caption"
               color="textSecondary"
+              variant="caption"
             >
               {t('noPrivateConsumerPass')}
             </Typography>
@@ -58,16 +58,16 @@ export const PaginatedConsumerPrivatePass = (props: Props) => {
         )}
         renderItem={(pcp: PrivateConsumerPass<Member<number, number>>) => (
           <PrivateConsumerPassBookerListItem
-            divider
             key={pcp.id}
+            divider
+            showMember
             disabled={
               props.allowedFranchisees?.length &&
               !props.allowedFranchisees.includes(pcp.private_pass?.company)
             }
-            showMember
-            private_consumer_pass={pcp}
-            onUpdateCredit={props.updatePrivateConsumerPassCredits}
             onClick={props.onClick ? () => props.onClick(pcp) : null}
+            onUpdateCredit={props.updatePrivateConsumerPassCredits}
+            private_consumer_pass={pcp}
           />
         )}
       />

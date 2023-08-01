@@ -19,9 +19,6 @@ const MarketplaceDatePickerDay: React.FC<{
       )}
     >
       <button
-        type="button"
-        onClick={handleSelect(date)}
-        disabled={isDisabled}
         className={classNames(
           'bs-marketplace-date-picker__menu__calendar__day',
           {
@@ -36,6 +33,9 @@ const MarketplaceDatePickerDay: React.FC<{
               isDisabled,
           },
         )}
+        disabled={isDisabled}
+        onClick={handleSelect(date)}
+        type="button"
       >
         {moment(date).format('D')}
       </button>

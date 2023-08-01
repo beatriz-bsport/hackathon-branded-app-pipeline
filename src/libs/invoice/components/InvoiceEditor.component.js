@@ -78,8 +78,8 @@ const NonEditableMessage = ({
         </Typography>
         <Button
           className={classes.buttonWithMargin}
-          onClick={() => goToSubscription(invoice.billing_plan)}
           color="primary"
+          onClick={() => goToSubscription(invoice.billing_plan)}
           variant="outlined"
         >
           {t('actions.goToSubscription')}
@@ -107,9 +107,9 @@ export const InvoiceEditor = (props: Props) => {
           <div className={classes.uneditableContainer}>
             <NonEditableMessage
               classes={classes}
-              t={t}
-              invoice={props.invoice}
               goToSubscription={props.goToSubscription}
+              invoice={props.invoice}
+              t={t}
             />
           </div>
         ) : (
@@ -117,46 +117,46 @@ export const InvoiceEditor = (props: Props) => {
             {!props.invoice && props.step === STEP_INVOICE_ITEM && (
               <InvoiceItemEditor
                 availableBuyableItems={props.availableBuyableItems}
-                onAddBuyableItem={props.onAddBuyableItem}
                 member={props.member}
+                onAddBuyableItem={props.onAddBuyableItem}
               />
             )}
             {(!!props.invoice || props.step === STEP_PAYMENT) && (
               <PaymentForm
-                requestSetupIntentSecret={props.requestSetupIntentSecret}
-                refreshSavedPaymentMethodList={
-                  props.refreshSavedPaymentMethodList
-                }
-                onCancel={() => props.setStep(STEP_INVOICE_ITEM)}
-                savedPaymentMethodList={props.savedPaymentMethodList}
-                onSubmit={props.onAddPaymentItem}
                 amountDue={
                   Math.max(
                     props.amountInvoiceItem - props.amountPaymentItem,
                     0,
                   ) || 0
                 }
-                detachPaymentMethodLoading={props.detachPaymentMethodLoading}
                 detachPaymentMethod={props.detachPaymentMethod}
+                detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+                memberId={props.member.id}
+                onCancel={() => props.setStep(STEP_INVOICE_ITEM)}
+                onSubmit={props.onAddPaymentItem}
+                refreshSavedPaymentMethodList={
+                  props.refreshSavedPaymentMethodList
+                }
+                requestSetupIntentSecret={props.requestSetupIntentSecret}
+                savedPaymentMethodList={props.savedPaymentMethodList}
                 snackbarErrorMsg={props.snackbarErrorMsg}
                 snackbarSuccessMsg={props.snackbarSuccessMsg}
-                memberId={props.member.id}
               />
             )}
           </div>
         )}
       </Paper>
       <InvoiceEditorActions
-        onBackToInvoiceItem={() => props.setStep(STEP_INVOICE_ITEM)}
-        invoiceItemIsEmpty={props.invoiceItemIsEmpty}
-        invoiceHasChanged={props.invoiceHasChanged}
-        isEquilibrated={props.isEquilibrated}
-        onSubmit={props.onSubmit}
-        step={props.step}
         finalizeInvoice={props.finalizeInvoice}
+        invoice={props.invoice}
+        invoiceHasChanged={props.invoiceHasChanged}
+        invoiceItemIsEmpty={props.invoiceItemIsEmpty}
+        isEquilibrated={props.isEquilibrated}
+        onBackToInvoiceItem={() => props.setStep(STEP_INVOICE_ITEM)}
+        onSubmit={props.onSubmit}
         revertInvoice={props.revertInvoice}
         setStep={props.setStep}
-        invoice={props.invoice}
+        step={props.step}
       />
     </div>
   );

@@ -52,7 +52,7 @@ export const AccountConfigurationFinalStep: React.FC<Props> = ({
             {t('accountConfiguration.congrats')}
           </Typography>
         </div>
-        <Typography variant="h5" className={classes.subtitle}>
+        <Typography className={classes.subtitle} variant="h5">
           {t('accountConfiguration.finishExplain')}
         </Typography>
         <AccountConfigurationStepper
@@ -67,7 +67,7 @@ export const AccountConfigurationFinalStep: React.FC<Props> = ({
           <Typography>{t('accountConfiguration.goToBackoffice')}</Typography>
         </div>
         <div className={classes.action}>
-          <Button variant="contained" color="primary" onClick={goNext}>
+          <Button color="primary" onClick={goNext} variant="contained">
             {t('common:letsGo')}
           </Button>
         </div>

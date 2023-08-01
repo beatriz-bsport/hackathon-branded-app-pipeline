@@ -98,7 +98,7 @@ export const FormikChangesLookUp = (props: Props) => {
       {dirty ? (
         <div className={classes.formChangeContainer}>
           <InfoOutlinedIcon className={classes.changeWarning} />
-          <Typography variant="caption" className={classes.changeWarning}>
+          <Typography className={classes.changeWarning} variant="caption">
             {t('customForm.changesDetected')}
           </Typography>
         </div>
@@ -107,14 +107,14 @@ export const FormikChangesLookUp = (props: Props) => {
           {!props.isSubmitting ? (
             <>
               <CheckOutlinedIcon className={classes.noChangeWarning} />
-              <Typography variant="caption" className={classes.noChangeWarning}>
+              <Typography className={classes.noChangeWarning} variant="caption">
                 {t('customForm.noChanges')}
               </Typography>
             </>
           ) : (
             <>
-              <CircularProgress size={20} className={classes.noChangeWarning} />
-              <Typography variant="caption" className={classes.noChangeWarning}>
+              <CircularProgress className={classes.noChangeWarning} size={20} />
+              <Typography className={classes.noChangeWarning} variant="caption">
                 {t('customForm.changesAreSubmitting')}
               </Typography>
             </>

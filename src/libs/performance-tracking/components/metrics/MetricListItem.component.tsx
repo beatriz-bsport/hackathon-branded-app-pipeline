@@ -34,12 +34,12 @@ export const MetricListItem = (props: Props) => {
   if (sortable) {
     return (
       <>
-        <SortableItem index={metric?.index} key={metric?.index}>
+        <SortableItem key={metric?.index} index={metric?.index}>
           <Paper square className={classes.paperItem}>
             <ListItem
+              key={`${metric?.id}`}
               divider
               className={classes.listitem}
-              key={`${metric?.id}`}
             >
               <div className={classes.icon}>
                 <DragHandle />
@@ -90,14 +90,14 @@ export const MetricListItem = (props: Props) => {
           </Paper>
         </SortableItem>
         <GenericMuiDialog
-          open={isOpenGenericMuiDialog}
-          title={t('metric.deleteHeader')}
           content={t('metric.deleteContent')}
           onCancel={() => setIsOpenGenericMuiDialog(false)}
           onConfirm={() => {
             onDelete(metric);
             setIsOpenGenericMuiDialog(false);
           }}
+          open={isOpenGenericMuiDialog}
+          title={t('metric.deleteHeader')}
         />
       </>
     );
@@ -106,7 +106,7 @@ export const MetricListItem = (props: Props) => {
   return (
     <>
       <Paper square className={classes.paperItem}>
-        <ListItem divider className={classes.listitem} key={`${metric?.id}`}>
+        <ListItem key={`${metric?.id}`} divider className={classes.listitem}>
           <div className={classes.icon} />
           <div className={classes.listItemLeft}>
             <div className={classes.nameAndSlider}>
@@ -150,15 +150,15 @@ export const MetricListItem = (props: Props) => {
         </ListItem>
       </Paper>
       <GenericMuiDialog
-        open={isOpenGenericMuiDialog}
-        title={t('metric.deleteHeader')}
-        content={t('metric.deleteContent')}
         confirmText={t('form.delete')}
+        content={t('metric.deleteContent')}
         onCancel={() => setIsOpenGenericMuiDialog(false)}
         onConfirm={() => {
           onDelete(metric);
           setIsOpenGenericMuiDialog(false);
         }}
+        open={isOpenGenericMuiDialog}
+        title={t('metric.deleteHeader')}
       />
     </>
   );

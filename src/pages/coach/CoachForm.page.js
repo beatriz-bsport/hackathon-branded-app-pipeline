@@ -127,8 +127,8 @@ export class CoachFormPage extends React.Component<Props> {
         </Dialog>
 
         <GenericResponsiveDialog
-          open={isUserAlreadyRegisteredDialogOpen}
           onClose={this.handleUserAlreadyRegisteredDialogClose}
+          open={isUserAlreadyRegisteredDialogOpen}
         >
           <DialogContent>
             <Typography variant="body1">
@@ -136,19 +136,19 @@ export class CoachFormPage extends React.Component<Props> {
             </Typography>
             <DialogActions>
               <Button
-                type="submit"
                 color="primary"
                 onClick={() =>
                   this.props.setIsUserAlreadyRegisteredDialogOpen(false)
                 }
+                type="submit"
               >
                 {t('navigation:backofficeMenu.goBack')}
               </Button>
               <Button
-                type="submit"
                 color="primary"
-                variant="contained"
                 onClick={goToCoachList}
+                type="submit"
+                variant="contained"
               >
                 {t('common.ok')}
               </Button>
@@ -157,11 +157,11 @@ export class CoachFormPage extends React.Component<Props> {
         </GenericResponsiveDialog>
 
         <CoachForm
-          onSubmit={this.props.onSubmit}
-          onCancel={onCancel}
-          initial={initialData}
-          defaultEmail={this.props.initialEmail}
           country={browserCountryCode()}
+          defaultEmail={this.props.initialEmail}
+          initial={initialData}
+          onCancel={onCancel}
+          onSubmit={this.props.onSubmit}
         />
       </div>
     );

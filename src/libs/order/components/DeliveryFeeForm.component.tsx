@@ -66,31 +66,31 @@ export class DeliveryFeeDialogForm extends React.Component<Props, State> {
         <div className={classes.field}>
           <TextField
             className={classes.field}
-            value={name}
             label={t('deliveryFee.forms.nameLabel')}
             onChange={(ev) => this.handleChange('name')(ev.target.value)}
+            value={name}
           />
         </div>
         <div className={classes.field}>
           <PriceInput
-            value={fee}
-            className={classes.field}
             required
+            className={classes.field}
             label={t('deliveryFee.forms.feeLabel')}
             onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
               this.handleChange('fee')(ev.target.value)
             }
+            value={fee}
           />
         </div>
         <div className={classes.field}>
           <PriceInput
-            value={free_threshold}
-            label={t('deliveryFee.forms.freeThresholdLabel')}
-            helperText={t('deliveryFee.forms.freeThresholdHelper')}
             required
+            helperText={t('deliveryFee.forms.freeThresholdHelper')}
+            label={t('deliveryFee.forms.freeThresholdLabel')}
             onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
               this.handleChange('free_threshold')(ev.target.value)
             }
+            value={free_threshold}
           />
         </div>
         <div className={classes.buttons}>

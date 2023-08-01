@@ -48,7 +48,7 @@ const HTMLPreview = (props: Props) => {
       )}
       {!sanitizedHTML && !loading && (
         <div className={classes.previewEmpty}>
-          <InfoIcon fontSize="large" color="disabled" />
+          <InfoIcon color="disabled" fontSize="large" />
           <Typography
             className={classes.emptyMessageText}
             color="textSecondary"
@@ -70,11 +70,11 @@ const HTMLPreview = (props: Props) => {
           })}
         >
           <iframe
-            title="generic-email-preview-iframe"
-            srcDoc={contentPreview}
             className={classes.iframe}
             frameBorder="0"
             scrolling={props.scrolling ? 'yes' : 'no'}
+            srcDoc={contentPreview}
+            title="generic-email-preview-iframe"
           />
         </Paper>
       )}

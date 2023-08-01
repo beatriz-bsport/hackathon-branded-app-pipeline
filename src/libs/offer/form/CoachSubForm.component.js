@@ -34,18 +34,25 @@ export class CoachSubForm extends Component<Props> {
       </Typography>
       <CoachSelector
         coaches={this.props.coaches}
-        value={this.props.coach}
         onChange={this.props.onChangeCoach}
         placeholder={this.props.t('coach:coach')}
+        value={this.props.coach}
       />
       <Typography className={this.props.classes.caption} variant="caption">
         {this.props.t('paymentRules:paymentRules')}
       </Typography>
       {this.props.coach && (
         <CoachPaymentRuleSelectorStyled
+          isClearable
+          noMulti
           coachPaymentRulesList={
             this.props.coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION]
           }
+          disabled={!this.props.coach}
+          onChange={(item: { value: number, label: string }) => {
+            this.props.onChangeCoachPaymentRule(item ? item.value : null);
+          }}
+          placeholder={this.props.t('paymentRules:search')}
           selectedRules={[
             this.props.coachPaymentRulesByKind[
               COACH_PAYMENT_RULE_FOR_SESSION
@@ -54,13 +61,6 @@ export class CoachSubForm extends Component<Props> {
                 COACH_PAYMENT_RULE_FOR_SESSION
               ]?.find((rule) => rule.id === this.props.coach_payment_rule).id,
           ]}
-          placeholder={this.props.t('paymentRules:search')}
-          disabled={!this.props.coach}
-          onChange={(item: { value: number, label: string }) => {
-            this.props.onChangeCoachPaymentRule(item ? item.value : null);
-          }}
-          noMulti
-          isClearable
         />
       )}
     </div>
@@ -73,9 +73,9 @@ export class CoachSubForm extends Component<Props> {
       </Typography>
       <CoachSelector
         coaches={this.props.coachs_override}
-        value={this.props.coach_override}
         onChange={this.props.onChangeCoachOverride}
         placeholder={this.props.t('coach:coach_override')}
+        value={this.props.coach_override}
       />
     </div>
   );
@@ -88,8 +88,8 @@ export class CoachSubForm extends Component<Props> {
           <div className={this.props.classes.warningContainer}>
             <WarningIcon size={20} />
             <Typography
-              variant="caption"
               className={this.props.classes.caption}
+              variant="caption"
             >
               {this.props.t('coach:pleaseFill')}
             </Typography>

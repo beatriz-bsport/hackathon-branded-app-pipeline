@@ -173,29 +173,29 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
   ]);
   return (
     <div className={classes.container}>
-      <Typography variant="h6" component="h4">
+      <Typography component="h4" variant="h6">
         {t('offerManagement.forms.register.passOwnedByMember')}
       </Typography>
       {props.consumerPacksOrMaxoutLoading ? (
         <>
           <div>
-            <Skeleton animation="wave" width="40%" variant="text" height={30} />
+            <Skeleton animation="wave" height={30} variant="text" width="40%" />
             <Box mt={2} />
             <Skeleton
               animation="wave"
-              width="100%"
-              variant="rect"
               height={50}
+              variant="rect"
+              width="100%"
             />
           </div>
           <div>
-            <Skeleton animation="wave" width="40%" variant="text" height={30} />
+            <Skeleton animation="wave" height={30} variant="text" width="40%" />
             <Box mt={2} />
             <Skeleton
               animation="wave"
-              width="100%"
-              variant="rect"
               height={50}
+              variant="rect"
+              width="100%"
             />
           </div>
         </>
@@ -213,23 +213,23 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                         ? handleRegisterToOffer(cp)
                         : undefined,
                     }}
-                    onBookOne={handleRegisterToOffer(cp)}
+                    consumerPack={cp}
+                    maxoutBooking={props.cppMaxoutBookingsByCpp[cp.id]}
+                    offer={props.offer}
                     onBookMultiple={
                       props.disableMultiBooking
                         ? undefined
                         : () =>
                             props.onBookMultiple({ consumerPaymentPack: cp })
                     }
-                    consumerPack={cp}
+                    onBookOne={handleRegisterToOffer(cp)}
                     paymentPack={cp.payment_pack}
-                    maxoutBooking={props.cppMaxoutBookingsByCpp[cp.id]}
-                    offer={props.offer}
                   />
                 ))}
               </List>
             </>
           ) : (
-            <Alert severity="warning" className={classes.alert}>
+            <Alert className={classes.alert} severity="warning">
               {t('offer.noConsumerPackAvailableForPurchase')}
             </Alert>
           )}
@@ -238,18 +238,18 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
 
       <div>
         <ButtonBase
-          onClick={handleSwitchCollapse}
           className={classes.nonCompatibleCollapsable}
           disabled={nonCompatibleByOfferByMemberLoading}
+          onClick={handleSwitchCollapse}
         >
           <Typography
-            variant="h6"
-            styles={{ textAlign: 'start' }}
             color={
               nonCompatibleByOfferByMemberLoading || hasNoInCompatiblePasses
                 ? 'textSecondary'
                 : 'textPrimary'
             }
+            styles={{ textAlign: 'start' }}
+            variant="h6"
           >
             {t('offer.noncompatibleConsumerPaymentPacksAre')}
           </Typography>
@@ -265,23 +265,23 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
               <>
                 <Skeleton
                   animation="wave"
-                  width="40%"
-                  variant="text"
                   height={30}
+                  variant="text"
+                  width="40%"
                 />
                 <Box mt={2} />
                 <Skeleton
                   animation="wave"
-                  width="100%"
-                  variant="rect"
                   height={50}
+                  variant="rect"
+                  width="100%"
                 />
               </>
             ) : (
               <>
                 {hasNoInCompatiblePasses && (
                   <div className={classes.paddingTop2}>
-                    <Alert severity="info" className={classes.alert}>
+                    <Alert className={classes.alert} severity="info">
                       {t('offer.noInConsumerPackAvailableForPurchase')}
                     </Alert>
                   </div>
@@ -292,16 +292,16 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                       key={cp.id}
                       hideConsumer
                       isNonCompatible
-                      paymentPack={cp.payment_pack}
                       consumerPack={cp}
-                      goToPaymentPack={handleGoToPaymentPack(
-                        cp.payment_pack?.id,
-                      )}
                       fetchIncompatibilitiesReasonsByOfferByConsumerPack={
                         props.fetchIncompatibilitiesReasonsByOfferByConsumerPack
                       }
+                      goToPaymentPack={handleGoToPaymentPack(
+                        cp.payment_pack?.id,
+                      )}
                       incompatibilitiesReasons={props.incompatibilitiesReasons}
                       offer={props.offer}
+                      paymentPack={cp.payment_pack}
                     />
                   ))}
               </>
@@ -310,15 +310,15 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
         </Collapse>
       </div>
       <ButtonBase
+        className={classes.nonCompatibleCollapsable}
+        disabled={hasNoCompatiblePasses}
         onClick={() =>
           setOpenBuyableCompatiblePassesCollapse(
             !openBuyableCompatiblePassesCollapse,
           )
         }
-        className={classes.nonCompatibleCollapsable}
-        disabled={hasNoCompatiblePasses}
       >
-        <Typography variant="h6" styles={{ textAlign: 'start' }} component="h4">
+        <Typography component="h4" styles={{ textAlign: 'start' }} variant="h6">
           {t('offerManagement.forms.register.passCompatibleNotOwnedByMember')}
         </Typography>
         {openBuyableCompatiblePassesCollapse ? (
@@ -330,8 +330,8 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
       <Collapse in={openBuyableCompatiblePassesCollapse}>
         {!props.compatiblePacks.length ? (
           <Alert
-            severity="warning"
             className={classNames(classes.alert, classes.paddingTop2)}
+            severity="warning"
           >
             {t('offer.noPackAvailableForOfferPurchase')}
           </Alert>
@@ -341,8 +341,16 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
               .filter((pack) => !pack.disabled)
               .map((pack) => (
                 <PaymentPackListItem
-                  showDuration
+                  key={pack.id}
+                  divider
                   hidePacksNumber
+                  isFlexContainerOnMobile
+                  showDuration
+                  onBookMultiple={
+                    props.disableMultiBooking
+                      ? undefined
+                      : () => props.onBookMultiple({ paymentPack: pack })
+                  }
                   onBookOne={() => {
                     handlePackSelect(pack);
                     if (props.offer.is_full) {
@@ -351,34 +359,26 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                       setVoucherDialogOpen(true);
                     }
                   }}
-                  onBookMultiple={
-                    props.disableMultiBooking
-                      ? undefined
-                      : () => props.onBookMultiple({ paymentPack: pack })
-                  }
-                  divider
-                  key={pack.id}
                   pack={pack}
-                  isFlexContainerOnMobile
                 />
               ))}
           </List>
         )}
       </Collapse>
       <ModalConfirm
-        open={warnManagerOnInvoice}
-        options={{
-          title: 'invoice:invoicePaymentPackTagWarningDialog.title',
-          Content: () => (
-            <p>{t('invoice:invoicePaymentPackTagWarningDialog.content')}</p>
-          ),
-        }}
         handleCancel={() => {
           setVoucherDialogOpen(false);
           setWarnManagerOnInvoice(false);
         }}
         handleConfirm={() => {
           setWarnManagerOnInvoice(false);
+        }}
+        open={warnManagerOnInvoice}
+        options={{
+          title: 'invoice:invoicePaymentPackTagWarningDialog.title',
+          Content: () => (
+            <p>{t('invoice:invoicePaymentPackTagWarningDialog.content')}</p>
+          ),
         }}
       />
       <Dialog open={openConfirmation}>
@@ -404,11 +404,11 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
           </Button>
           <Button
             key="confirm"
+            color="primary"
             onClick={() => {
               setOpenConfirmation(false);
               setVoucherDialogOpen(true);
             }}
-            color="primary"
             variant="contained"
           >
             {t('common.confirm')}
@@ -426,21 +426,13 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
           </Typography>
           <div className={classes.voucherField}>
             <PaymentPackListItem
-              showDuration
               hidePacksNumber
-              pack={selectedPack}
               isFlexContainerOnMobile
+              showDuration
+              pack={selectedPack}
             />
             <div className={classes.voucherRight}>
               <PriceInput
-                variant="outlined"
-                value={voucher}
-                onChange={(ev) =>
-                  setVoucher(
-                    Math.round(parseFloat(ev.target.value) * 100) / 100,
-                  )
-                }
-                label={t('translation:payment.voucher')}
                 error={
                   Number.isNaN(voucher) ||
                   voucher < 0 ||
@@ -451,15 +443,26 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                   (selectedPack ? selectedPack.price < voucher : true) ||
                   voucher < 0
                 }
+                label={t('translation:payment.voucher')}
+                onChange={(ev) =>
+                  setVoucher(
+                    Math.round(parseFloat(ev.target.value) * 100) / 100,
+                  )
+                }
+                value={voucher}
+                variant="outlined"
               />
               <PercentInput
-                variant="outlined"
-                style={{ minWidth: 480 }}
-                value={
-                  selectedPack
-                    ? parseInt((voucher / selectedPack.price) * 100 + 0.5, 10)
-                    : 0
+                error={
+                  Number.isNaN(voucher) ||
+                  voucher < 0 ||
+                  (selectedPack ? selectedPack.price < voucher : true)
                 }
+                invalid={
+                  (selectedPack ? selectedPack.price < voucher : true) ||
+                  voucher < 0
+                }
+                label={t('translation:payment.voucher')}
                 onChange={(ev) =>
                   setVoucher(
                     selectedPack
@@ -469,30 +472,32 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                       : voucher,
                   )
                 }
-                error={
-                  Number.isNaN(voucher) ||
-                  voucher < 0 ||
-                  (selectedPack ? selectedPack.price < voucher : true)
+                style={{ minWidth: 480 }}
+                value={
+                  selectedPack
+                    ? parseInt((voucher / selectedPack.price) * 100 + 0.5, 10)
+                    : 0
                 }
-                label={t('translation:payment.voucher')}
-                invalid={
-                  (selectedPack ? selectedPack.price < voucher : true) ||
-                  voucher < 0
-                }
+                variant="outlined"
               />
             </div>
           </div>
           {props.enableMultiLocalization && (
             <div>
-              <Typography variant="h6" className={classes.sectionTitle}>
+              <Typography className={classes.sectionTitle} variant="h6">
                 {t('invoice:section.invoiceItemList.billing_establishment')}
               </Typography>
               <Divider className={classes.divider} />
 
               <EstablishmentSelector
+                closeMenuOnSelect
+                isOptionDisabled
+                isRequired
+                noMulti
                 establishments={props.establishments}
                 isLoading={props.establishmentLoading}
-                isOptionDisabled
+                requiredValueIsMissing={requiredEstablishmentIsMissing}
+                selectedEstablishments={[billingEstablishmentId]}
                 selectOption={async (item: {
                   value: number,
                   label: string,
@@ -500,11 +505,6 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                   setBillingEstablishmentId(item ? item.value : null);
                   setRequiredEstablishmentIsMissing(!item);
                 }}
-                selectedEstablishments={[billingEstablishmentId]}
-                noMulti
-                closeMenuOnSelect
-                isRequired
-                requiredValueIsMissing={requiredEstablishmentIsMissing}
               />
             </div>
           )}
@@ -521,6 +521,11 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
           </Button>
           <Button
             color="primary"
+            disabled={
+              Number.isNaN(voucher) ||
+              voucher < 0 ||
+              (selectedPack ? selectedPack.price < voucher : true)
+            }
             onClick={() => {
               if (
                 props.enableMultiLocalization &&
@@ -539,11 +544,6 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
               setVoucher(0);
               setBillingEstablishmentId(null);
             }}
-            disabled={
-              Number.isNaN(voucher) ||
-              voucher < 0 ||
-              (selectedPack ? selectedPack.price < voucher : true)
-            }
           >
             {t('translation:common.confirm')}
           </Button>

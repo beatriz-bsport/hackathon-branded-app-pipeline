@@ -91,27 +91,27 @@ export class MarketplaceVideo extends React.Component<Props> {
           <div className={classes.videoListContainer}>
             <div className={classes.searchContainer}>
               <VideoSearchBar
-                searchParams={this.props.searchParams}
+                coaches={this.props.videoFilterableParams.coaches || []}
+                customLevels={this.props.customLevels || []}
                 hideCoach={this.props.theme && this.props.theme.hideCoach}
                 onChangeSearchParams={this.props.setSearchParams}
-                coaches={this.props.videoFilterableParams.coaches || []}
                 scts={this.props.videoFilterableParams.SCTs || []}
-                customLevels={this.props.customLevels || []}
+                searchParams={this.props.searchParams}
               />
             </div>
             <Divider className={classes.divider} />
             <VideoItemList
-              videoList={this.props.videoList}
-              openVideo={this.props.openVideo}
-              hideCoach={this.props.theme && this.props.theme.hideCoach}
-              onShowMore={this.props.fetchMoreVideo}
               hasMoreVideo={this.props.hasMoreVideo}
+              hideCoach={this.props.theme && this.props.theme.hideCoach}
               loading={this.props.loading}
+              onShowMore={this.props.fetchMoreVideo}
+              openVideo={this.props.openVideo}
+              videoList={this.props.videoList}
             />
           </div>
           {!!this.props.playlistList.length && (
             <div className={classes.playlistListContainer}>
-              <Typography variant="h6" component="h3">
+              <Typography component="h3" variant="h6">
                 {this.props.t('playlist.playlist')}
               </Typography>
               <div className={classes.playlistItemsContainer}>
@@ -119,13 +119,13 @@ export class MarketplaceVideo extends React.Component<Props> {
                   <div className={classes.playlistListItem}>
                     <MarketplacePlaylistItem
                       key={pl.id}
-                      title={pl.name}
-                      imageUrl={pl.cover_main}
                       description={pl.description}
+                      imageUrl={pl.cover_main}
+                      onClick={() => this.props.openPlaylist(pl.id)}
+                      title={pl.name}
                       videoCount={this.props.t('video.thumbnailList.count', {
                         count: pl.videos.length,
                       })}
-                      onClick={() => this.props.openPlaylist(pl.id)}
                     />
                   </div>
                 ))}

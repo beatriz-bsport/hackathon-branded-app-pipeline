@@ -23,7 +23,7 @@ export const PrivateServiceFormTag = (props: Props) => {
   const { t } = useTranslation('privateService');
   return (
     <div className={classes.advancedOptionsSection}>
-      <Typography variant="caption" className={classes.helperText}>
+      <Typography className={classes.helperText} variant="caption">
         {t('service.form.unpaidBooking.helperText')}
       </Typography>
       <Collapse in={props.open}>
@@ -40,6 +40,9 @@ export const PrivateServiceFormTag = (props: Props) => {
               </Typography>
             </div>
             <TagSelector
+              closeMenuOnSelect
+              inScrollBar
+              isClearable
               allTagsWithTagGroup={
                 [
                   ...tagList?.filter(
@@ -47,9 +50,6 @@ export const PrivateServiceFormTag = (props: Props) => {
                   ),
                 ] || []
               }
-              placeholder={t(
-                'service.form.unpaidBooking.tag.doNotSelectToAllowAllMembers',
-              )}
               onChange={(
                 items: Array<{
                   item: Tag & { label: string; value: number };
@@ -68,10 +68,10 @@ export const PrivateServiceFormTag = (props: Props) => {
                   ),
                 )
               }
+              placeholder={t(
+                'service.form.unpaidBooking.tag.doNotSelectToAllowAllMembers',
+              )}
               selectedTags={values?.unpaid_whitelist_tags}
-              isClearable
-              closeMenuOnSelect
-              inScrollBar
             />
           </div>
           <div className={classes.tagSelector}>
@@ -82,6 +82,9 @@ export const PrivateServiceFormTag = (props: Props) => {
               </Typography>
             </div>
             <TagSelector
+              closeMenuOnSelect
+              inScrollBar
+              isClearable
               allTagsWithTagGroup={
                 [
                   ...tagList?.filter(
@@ -89,9 +92,6 @@ export const PrivateServiceFormTag = (props: Props) => {
                   ),
                 ] || []
               }
-              placeholder={t(
-                'service.form.unpaidBooking.tag.doNotSelectToAllowAllMembers',
-              )}
               onChange={(
                 items: Array<{
                   item: Tag & { label: string; value: number };
@@ -110,10 +110,10 @@ export const PrivateServiceFormTag = (props: Props) => {
                   ),
                 )
               }
+              placeholder={t(
+                'service.form.unpaidBooking.tag.doNotSelectToAllowAllMembers',
+              )}
               selectedTags={values.unpaid_blacklist_tags}
-              isClearable
-              closeMenuOnSelect
-              inScrollBar
             />
           </div>
         </div>

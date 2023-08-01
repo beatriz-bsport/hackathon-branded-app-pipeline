@@ -45,20 +45,20 @@ export function ActiveCampaignWebhooks(props: Props) {
       <Paper>
         {props.links.map((link) => (
           <ActiveCampaignLinkListItem
-            link={link}
             activeCampaignLists={props.activeCampaignLists}
-            onClickEdit={() => props.onClickEdit(link)}
+            link={link}
             onClickDelete={() => props.onClickDelete(link.id)}
+            onClickEdit={() => props.onClickEdit(link)}
           />
         ))}
       </Paper>
       <div className={props.classes.addButtonContainer}>
         <Button
+          className={props.classes.addButton}
+          color="primary"
           disabled={props.disabled}
           onClick={() => props.onClickAdd()}
           variant="outlined"
-          className={props.classes.addButton}
-          color="primary"
         >
           <AddIcon />
           {props.t('active_campaign.link.add')}

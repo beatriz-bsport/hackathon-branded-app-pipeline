@@ -40,21 +40,21 @@ export class AutoTagPanel extends Component<Props> {
     return (
       <div>
         <ButtonBase
+          className={this.props.classes.header}
           onClick={() =>
             this.setState((previousState) => ({
               displayAutoTagRules: !previousState.displayAutoTagRules,
             }))
           }
-          className={this.props.classes.header}
         >
           {this.props.smartlistAutoTagLoading ? (
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <Typography
-                variant="h6"
-                style={{ marginRight: '10px' }}
                 color={
                   this.state.displayAutoTagRules ? 'default' : 'textSecondary'
                 }
+                style={{ marginRight: '10px' }}
+                variant="h6"
               >
                 {t('tag_rules.display_tag_rules')}
               </Typography>
@@ -62,10 +62,10 @@ export class AutoTagPanel extends Component<Props> {
             </div>
           ) : (
             <Typography
-              variant="h6"
               color={
                 this.state.displayAutoTagRules ? 'default' : 'textSecondary'
               }
+              variant="h6"
             >
               {`${t('tag_rules.display_tag_rules')} (${
                 smartlistAutoTag.length
@@ -86,10 +86,10 @@ export class AutoTagPanel extends Component<Props> {
                 return (
                   <Grid key={tagRule.id} item className={classes.tagPanel}>
                     <TagRuleListItem
-                      tagRule={tagRule}
                       deleteAutoTag={this.props.deleteAutoTag}
-                      updateAutoTag={this.props.updateAutoTag}
+                      tagRule={tagRule}
                       tags={this.props.tags}
+                      updateAutoTag={this.props.updateAutoTag}
                     />
                   </Grid>
                 );
@@ -97,9 +97,9 @@ export class AutoTagPanel extends Component<Props> {
             <Grid item className={classes.tagPanel}>
               <TagRuleListItem
                 creationCard
-                tagRule={this.state.tagRuledefaultCreate}
                 createAutoTag={this.props.createAutoTag}
                 deleteAutoTag={this.props.deleteAutoTag}
+                tagRule={this.state.tagRuledefaultCreate}
                 tags={this.props.tags}
               />
             </Grid>

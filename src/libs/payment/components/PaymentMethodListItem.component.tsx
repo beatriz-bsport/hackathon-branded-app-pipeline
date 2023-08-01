@@ -104,19 +104,19 @@ export const PaymentMethodListItem: FC<Props> = ({
     <ListItem
       // @ts-expect-error
       button={!!onClick}
-      selected={selected}
       className={`${classes.listItem} ${
         selected ? classes.selectedBorder : null
       }`}
-      onClick={handleChangePaymentMethod}
       disabled={disabled}
+      onClick={handleChangePaymentMethod}
+      selected={selected}
     >
       {!!onClick && (
         <Radio
           checked={selected || false}
-          onChange={handleChangePaymentMethod}
-          name="radio-buttons"
           classes={{ root: classes.radio, checked: classes.checked }}
+          name="radio-buttons"
+          onChange={handleChangePaymentMethod}
         />
       )}
       <ListItemIcon className={classes.listItemIcon}>
@@ -139,8 +139,8 @@ export const PaymentMethodListItem: FC<Props> = ({
         <ListItemSecondaryAction>
           <Button
             color="primary"
-            variant="outlined"
             onClick={onPaymentMethodEdit}
+            variant="outlined"
           >
             {t('paymentMethod.edit')}
           </Button>
@@ -149,8 +149,8 @@ export const PaymentMethodListItem: FC<Props> = ({
       {detachPaymentMethod && (
         <ListItemSecondaryAction>
           <IconButton
-            onClick={removePaymentMethod}
             disabled={detachPaymentMethodLoading || disabled}
+            onClick={removePaymentMethod}
           >
             <DeleteIcon />
           </IconButton>

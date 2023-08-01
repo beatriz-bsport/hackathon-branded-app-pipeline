@@ -45,9 +45,9 @@ export class AgeFilter extends Component<Props> {
         {t(`filters.${filter_data.filter_identifier}.first`)}
         <Select
           className={classes.textInput}
-          value={filter_data.comparator}
           defaultValue={GTE_COMPARATOR}
           onChange={(ev) => onChange({ comparator: ev.target.value })}
+          value={filter_data.comparator}
         >
           {COMPARATORS_DICT_BETWEEN.map((item) => (
             <MenuItem key={item.key} value={item.value}>
@@ -60,13 +60,13 @@ export class AgeFilter extends Component<Props> {
           : t(`filters.${filter_data?.filter_identifier}.to`)}
         <DelayedNumericInput
           classes={classes}
-          value={filter_data.value}
           InputProps={{ inputProps: { min: 0 } }}
           onChange={(ev) =>
             onChange({
               value: ev.target.value === '' ? null : ev.target.value,
             })
           }
+          value={filter_data.value}
         />
         {filter_data?.comparator === BETWEEN_COMPARATOR
           ? t(`filters.${filter_data?.filter_identifier}.between`)
@@ -74,13 +74,13 @@ export class AgeFilter extends Component<Props> {
         {filter_data?.comparator === BETWEEN_COMPARATOR ? (
           <DelayedNumericInput
             classes={classes}
-            value={filter_data?.value_second}
             InputProps={{ inputProps: { min: 0 } }}
             onChange={(ev) =>
               onChange({
                 value_second: ev.target.value === '' ? null : ev.target.value,
               })
             }
+            value={filter_data?.value_second}
           />
         ) : null}
         {t(`filters.${filter_data.filter_identifier}.second`)}

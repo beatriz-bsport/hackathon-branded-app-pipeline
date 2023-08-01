@@ -37,18 +37,18 @@ export class PaymentList extends Component<Props> {
       return (
         <IconButton
           disabled
+          color="primary"
           onClick={() => {
             // prettier-ignore
             updateStatus(paymentItem.uuid, !paymentItem.payment_received);
           }}
-          color="primary"
         >
           <CachedIcon />
         </IconButton>
       );
     }
     return (
-      <IconButton onClick={() => onDelete(paymentItem)} color="primary">
+      <IconButton color="primary" onClick={() => onDelete(paymentItem)}>
         <DeleteIcon />
       </IconButton>
     );
@@ -72,9 +72,9 @@ export class PaymentList extends Component<Props> {
     ).text;
     return (
       <ListItem
+        key={`${uuid}-${id}-{payment_method}-{price}`}
         dense
         divider
-        key={`${uuid}-${id}-{payment_method}-{price}`}
         disabled={uneditable}
       >
         <ListItemIcon>{this.renderPaymentReceived(paymentItem)}</ListItemIcon>

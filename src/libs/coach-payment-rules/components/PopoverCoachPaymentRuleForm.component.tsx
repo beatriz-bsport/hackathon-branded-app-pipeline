@@ -82,19 +82,19 @@ const PopoverCoachPaymentRuleForm: React.FC<Props> = ({
 
   return (
     <Popover
-      id="bonus-popover"
-      open={!!anchorEl}
+      disableRestoreFocus
       anchorEl={anchorEl}
       anchorOrigin={{
         vertical: 'bottom',
         horizontal: 'left',
       }}
+      id="bonus-popover"
+      onClose={() => setAnchorEl(null)}
+      open={!!anchorEl}
       transformOrigin={{
         vertical: 'top',
         horizontal: 'left',
       }}
-      disableRestoreFocus
-      onClose={() => setAnchorEl(null)}
     >
       <List dense>
         <ListItem button onClick={handleClickFixedBonusByInterval}>

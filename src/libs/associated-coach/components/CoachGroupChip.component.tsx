@@ -47,10 +47,10 @@ export const CoachGroupChip: React.FC<Props> = ({
     return (
       <CoachChip
         key={currentCoaches[0].id}
-        onDelete={handleDelete(currentCoaches[0])}
+        showDisabledIcon
         coach={currentCoaches[0]}
         loading={loading}
-        showDisabledIcon
+        onDelete={handleDelete(currentCoaches[0])}
       />
     );
   }
@@ -58,6 +58,7 @@ export const CoachGroupChip: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <Chip
+        className={classes.numberCoaches}
         label={
           loading ? (
             <Skeleton animation="wave" variant="text" />
@@ -66,7 +67,6 @@ export const CoachGroupChip: React.FC<Props> = ({
           )
         }
         variant="outlined"
-        className={classes.numberCoaches}
       />
       {currentCoaches.map((c, index) => (
         <div>
@@ -75,10 +75,10 @@ export const CoachGroupChip: React.FC<Props> = ({
             style={{ '--index': index + 1 }}
           >
             <CoachChip
-              coach={c}
-              onDelete={handleDelete && handleDelete(c)}
-              loading={loading}
               showDisabledIcon
+              coach={c}
+              loading={loading}
+              onDelete={handleDelete && handleDelete(c)}
             />
           </div>
         </div>

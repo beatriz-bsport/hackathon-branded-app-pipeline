@@ -41,13 +41,13 @@ const MarkeplaceContractListItem: React.FC<ContractListItemProps> = React.memo(
     return (
       <button
         className={classes.contractButtonContainer}
-        type="button"
         onClick={handleMobileClick}
+        type="button"
       >
         <MarketplaceContractCard
-          isExcludingTax={isExcludingTax}
-          contract={contract}
           addToCart={onAddToCart}
+          contract={contract}
+          isExcludingTax={isExcludingTax}
           onOpenDetailDialog={onOpenDetailDialog}
         />
       </button>

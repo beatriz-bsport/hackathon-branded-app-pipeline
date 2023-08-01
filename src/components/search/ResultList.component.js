@@ -30,8 +30,8 @@ const EmptyResults = (props: { t: TFunction }) => (
       <HighlightOffIcon />
     </ListItemIcon>
     <ListItemText
-      primaryTypographyProps={{ noWrap: true }}
       primary={props.t('noResult')}
+      primaryTypographyProps={{ noWrap: true }}
     />
   </ListItem>
 );
@@ -47,13 +47,13 @@ export class ResultList extends Component<Props> {
     }
     return this.props.items.map((item) => (
       <MemberMinimalListItem
-        member={item}
         key={item.id}
+        bottomCredit
+        member={item}
         onClick={() => {
           this.props.selectEntity({ data: item, type: 'member' });
         }}
         showVaccinationStatus={this.props.showVaccinationStatus}
-        bottomCredit
       />
     ));
   };
@@ -62,9 +62,9 @@ export class ResultList extends Component<Props> {
     const { classes, className } = this.props;
     return (
       <List
+        disablePadding
         className={`${classes.list} ${className}`}
         elevation={10}
-        disablePadding
       >
         {this.props.loading ? (
           <div

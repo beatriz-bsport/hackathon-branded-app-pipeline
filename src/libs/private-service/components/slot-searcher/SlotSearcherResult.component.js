@@ -66,11 +66,11 @@ const Slot = withStyles(stylesSlot)(
       .isBefore(moment());
     return (
       <Button
-        onClick={props.onDateClick}
+        className={props.classes.slot}
         color="primary"
         disabled={moment(props.date).isBefore(moment()) || isTooLate}
+        onClick={props.onDateClick}
         variant="contained"
-        className={props.classes.slot}
       >
         {moment(props.date).format('HH:mm')}
       </Button>
@@ -91,9 +91,9 @@ const SlotList = withTranslation('privateService')(
           <div className={props.classes.columnContainer}>
             <div className={props.classes.emptyColumn}>
               <InfoOutlinedIcon
+                color="textSecondary"
                 fontSize="large"
                 style={{ height: 100, width: 100 }}
-                color="textSecondary"
               />
               <Typography color="error">
                 {props.t('bookerModule.emptySlot')}
@@ -109,10 +109,10 @@ const SlotList = withTranslation('privateService')(
               (s, idx) =>
                 idx % 4 === 0 && (
                   <Slot
-                    onDateClick={() => props.onDateClick(s)}
-                    date={s}
                     key={idx}
+                    date={s}
                     last_booking_minutes={props.last_booking_minutes}
+                    onDateClick={() => props.onDateClick(s)}
                   />
                 ),
             )}
@@ -122,10 +122,10 @@ const SlotList = withTranslation('privateService')(
               (s, idx) =>
                 idx % 4 === 1 && (
                   <Slot
-                    date={s}
-                    onDateClick={() => props.onDateClick(s)}
                     key={idx}
+                    date={s}
                     last_booking_minutes={props.last_booking_minutes}
+                    onDateClick={() => props.onDateClick(s)}
                   />
                 ),
             )}
@@ -135,10 +135,10 @@ const SlotList = withTranslation('privateService')(
               (s, idx) =>
                 idx % 4 === 2 && (
                   <Slot
-                    date={s}
-                    onDateClick={() => props.onDateClick(s)}
                     key={idx}
+                    date={s}
                     last_booking_minutes={props.last_booking_minutes}
+                    onDateClick={() => props.onDateClick(s)}
                   />
                 ),
             )}
@@ -148,10 +148,10 @@ const SlotList = withTranslation('privateService')(
               (s, idx) =>
                 idx % 4 === 3 && (
                   <Slot
-                    date={s}
-                    onDateClick={() => props.onDateClick(s)}
                     key={idx}
+                    date={s}
                     last_booking_minutes={props.last_booking_minutes}
+                    onDateClick={() => props.onDateClick(s)}
                   />
                 ),
             )}
@@ -188,11 +188,11 @@ export const SlotGroup = withStyles(stylesSlot)((props) => {
       </Typography>
       <Divider className={props.classes.divider} />
       <SlotList
+        last_booking_minutes={props.last_booking_minutes}
         onDateClick={(date) =>
           props.onDateClick(date, { [resourceDatatype]: resourceId })
         }
         slots={slots}
-        last_booking_minutes={props.last_booking_minutes}
       />
     </div>
   );
@@ -243,8 +243,8 @@ export const SlotSearcherResult = (props: Props) => {
         {!resourceIdentifierSuffixToFilterBy ? (
           <div className={props.classes.slotGroupContainer}>
             <SlotList
-              onDateClick={props.onDateClick}
               last_booking_minutes={props.last_booking_minutes}
+              onDateClick={props.onDateClick}
               slots={uniq(
                 props.bookable_slots.reduce(
                   (acc, { slots }) => [
@@ -265,13 +265,13 @@ export const SlotSearcherResult = (props: Props) => {
             .filter((g) => g.resource_identifier.includes('coach'))
             .map((slotGroup) => (
               <SlotGroup
+                key={slotGroup.resource_identifier}
+                last_booking_minutes={props.last_booking_minutes}
                 onDateClick={props.onDateClick}
                 private_service={props.private_service}
                 private_slot={props.private_slot}
                 resource_identifier={slotGroup.resource_identifier}
                 slots={slotGroup.slots}
-                key={slotGroup.resource_identifier}
-                last_booking_minutes={props.last_booking_minutes}
               />
             ))
         )}

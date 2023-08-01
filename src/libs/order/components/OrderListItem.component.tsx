@@ -43,7 +43,7 @@ export const OrderListItem: React.FC<Props> = (props) => {
       <Collapse in={expanded}>
         <List disablePadding>
           {order.product_lines.map((pl) => (
-            <ProductLine dense={props.dense} key={pl.id} product={pl} />
+            <ProductLine key={pl.id} dense={props.dense} product={pl} />
           ))}
         </List>
       </Collapse>

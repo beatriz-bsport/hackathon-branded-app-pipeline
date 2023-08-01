@@ -32,17 +32,17 @@ const AppBarProfile: React.FC<ProfileProps> = ({
     <ButtonBase className={classes.loginButton} onClick={handleProfileMenuOpen}>
       {photo ? (
         <Avatar
-          src={photo}
           classes={{
             root: classNames(classes.profilePicSmall, 'ppBorderOnHover'),
           }}
+          src={photo}
         />
       ) : (
         <AccountCircleIcon
-          aria-owns={isMenuOpen ? 'material-appbar' : undefined}
           aria-haspopup="true"
-          color="disabled"
+          aria-owns={isMenuOpen ? 'material-appbar' : undefined}
           className={classNames(classes.noProfilePic, 'noPpBorderOnHover')}
+          color="disabled"
         />
       )}
       {isWidget ? (

@@ -231,23 +231,23 @@ export class BookerModuleManager extends PureComponent<Props> {
     if (!member || !member.id || loading) {
       return (
         <GenericResponsiveDialog
-          onClose={this.props.onClose}
           open
           fullScreenBreakpoint="md"
+          onClose={this.props.onClose}
         >
           <LinearProgress />
           <DialogContent>
             {!!this.props.member.photo && (
               <Avatar size="large" user={{ photo: this.props.member.photo }} />
             )}
-            <Typography variant="h4" align="center">
+            <Typography align="center" variant="h4">
               {this.props.member?.name ?? ''}
             </Typography>
-            <Typography variant="h6" align="center">
+            <Typography align="center" variant="h6">
               {t('offerManagement.forms.register.registerToOffer')}
             </Typography>
             <div className={this.props.classes.centeredLoadingContainer}>
-              <Typography variant="h5" color="textSecondary">
+              <Typography color="textSecondary" variant="h5">
                 {t('offerManagement.forms.register.loadingData')}
               </Typography>
             </div>
@@ -261,9 +261,9 @@ export class BookerModuleManager extends PureComponent<Props> {
     return (
       <>
         <GenericResponsiveDrawer
-          onClose={this.props.onClose}
           open
           fullScreenBreakpoint="md"
+          onClose={this.props.onClose}
           title={t('offerManagement.forms.register.registerToOffer')}
         >
           {(consumerPacksLoading || maxoutLoading) && <LinearProgress />}
@@ -275,7 +275,7 @@ export class BookerModuleManager extends PureComponent<Props> {
                   user={{ photo: this.props.member.photo }}
                 />
               )}
-              <Typography variant="h4" align="center">
+              <Typography align="center" variant="h4">
                 {this.props.member.name}
               </Typography>
               {hasGroup && (
@@ -304,9 +304,6 @@ export class BookerModuleManager extends PureComponent<Props> {
                   )}
                 />
                 <FormControlLabel
-                  label={this.props.t(
-                    'offerManagement.forms.register.forceNotify',
-                  )}
                   control={
                     <Checkbox
                       checked={this.props.notify_member}
@@ -316,16 +313,19 @@ export class BookerModuleManager extends PureComponent<Props> {
                       value="checkedG"
                     />
                   }
+                  label={this.props.t(
+                    'offerManagement.forms.register.forceNotify',
+                  )}
                 />
               </div>
               <Divider />
               {!!this.props.registererObject.consumerPaymentPack && (
                 <ConsumerPackRowItem
                   hideConsumer
+                  consumerPack={this.props.registererObject.consumerPaymentPack}
                   paymentPack={
                     this.props.registererObject.consumerPaymentPack.payment_pack
                   }
-                  consumerPack={this.props.registererObject.consumerPaymentPack}
                 />
               )}
               {!this.props.offer.room_blueprint && !this.props.offer.group && (
@@ -337,8 +337,8 @@ export class BookerModuleManager extends PureComponent<Props> {
                         !this.props.consumerPacks ||
                         this.props.consumerPacks.length === 0
                       }
-                      variant="outlined"
                       onClick={() => this.props.openRecurrenceRuleForm()}
+                      variant="outlined"
                     >
                       {t('booking:recurrenceRule.recurrentRuleBooking')}
                     </Button>
@@ -355,21 +355,51 @@ export class BookerModuleManager extends PureComponent<Props> {
               )}
               {!!this.props.registererObject.paymentPack && (
                 <PaymentPackListItem
-                  showDuration
                   hidePacksNumber
+                  showDuration
                   pack={this.props.registererObject.paymentPack}
                 />
               )}
               {this.props.step === REGISTER_METHOD_CHOICE && (
                 <BookingModuleRegisterMethodChoice
+                  closeDialog={this.props.onCancel}
                   compatiblePacks={this.props.compatiblePacks}
+                  consumerPacks={this.props.consumerPacks}
                   consumerPacksNonCompatible={
                     this.props.consumerPacksNonCompatible
                   }
-                  consumerPacks={this.props.consumerPacks}
                   consumerPacksOrMaxoutLoading={
                     consumerPacksLoading || maxoutLoading
                   }
+                  containerHasFetchedNonCompatiblePasses={
+                    this.props.hasFetchedNonCompatiblePasses
+                  }
+                  cppMaxoutBookingsByCpp={this.props.cppMaxoutBookingsByCpp}
+                  disableMultiBooking={
+                    !!this.props.offer.room_blueprint || hasGroup
+                  }
+                  enableMultiLocalization={
+                    this.props.companyTheme.enable_multi_localization
+                  }
+                  establishments={this.props.establishments}
+                  fetchIncompatibilitiesReasonsByOfferByConsumerPack={
+                    this.props
+                      .fetchIncompatibilitiesReasonsByOfferByConsumerPack
+                  }
+                  goToPaymentPack={this.props.goToPaymentPack}
+                  handleFetchNoncompatibleConsumerPackByOfferByMember={
+                    this.handleFetchNoncompatibleConsumerPackByOfferByMember
+                  }
+                  incompatibilitiesReasons={this.props.incompatibilitiesReasons}
+                  isNotAllowedToOverbook={
+                    !this.props.userRole?.has_booking_override_control
+                  }
+                  member={this.props.member}
+                  memberDetails={this.props.memberDetails}
+                  nonCompatibleByOfferByMemberLoading={
+                    this.props.nonCompatibleByOfferByMemberLoading
+                  }
+                  offer={this.props.offer}
                   onBookMultiple={this.props.setRegistererObject}
                   registerToOffer={(
                     registererObject,
@@ -383,61 +413,31 @@ export class BookerModuleManager extends PureComponent<Props> {
                       billingEstablishmentId,
                     )
                   }
-                  offer={this.props.offer}
-                  cppMaxoutBookingsByCpp={this.props.cppMaxoutBookingsByCpp}
-                  disableMultiBooking={
-                    !!this.props.offer.room_blueprint || hasGroup
-                  }
-                  establishments={this.props.establishments}
-                  enableMultiLocalization={
-                    this.props.companyTheme.enable_multi_localization
-                  }
-                  member={this.props.member}
-                  memberDetails={this.props.memberDetails}
-                  closeDialog={this.props.onCancel}
-                  isNotAllowedToOverbook={
-                    !this.props.userRole?.has_booking_override_control
-                  }
-                  containerHasFetchedNonCompatiblePasses={
-                    this.props.hasFetchedNonCompatiblePasses
-                  }
-                  handleFetchNoncompatibleConsumerPackByOfferByMember={
-                    this.handleFetchNoncompatibleConsumerPackByOfferByMember
-                  }
-                  nonCompatibleByOfferByMemberLoading={
-                    this.props.nonCompatibleByOfferByMemberLoading
-                  }
-                  fetchIncompatibilitiesReasonsByOfferByConsumerPack={
-                    this.props
-                      .fetchIncompatibilitiesReasonsByOfferByConsumerPack
-                  }
-                  incompatibilitiesReasons={this.props.incompatibilitiesReasons}
-                  goToPaymentPack={this.props.goToPaymentPack}
                 />
               )}
               {this.props.step === OFFER_CHOICE && (
                 <BookingModuleOfferChoice
-                  fetchSimilarOffers={this.props.fetchSimilarOffers}
                   fetchLevelList={this.handleLevelList}
+                  fetchSimilarOffers={this.props.fetchSimilarOffers}
+                  goBack={this.props.backToRegistererChoice}
+                  offer={this.props.offer}
+                  offerId={this.props.offerId}
+                  registererObject={this.props.registererObject}
+                  registerToOffer={this.props.registerToOffer}
                   similarOfferLoading={this.props.similarOfferLoading}
                   similarOffers={this.props.similarOffers}
-                  offer={this.props.offer}
-                  registererObject={this.props.registererObject}
-                  offerId={this.props.offerId}
-                  goBack={this.props.backToRegistererChoice}
-                  registerToOffer={this.props.registerToOffer}
                 />
               )}
-              <Button variant="outlined" onClick={onCancel}>
+              <Button onClick={onCancel} variant="outlined">
                 {t('common.cancel')}
               </Button>
             </div>
           </DialogContent>
         </GenericResponsiveDrawer>
         <BookerModuleWarningTagDialog
-          open={this.props.tagWarningDialogOpen}
-          onConfirm={() => this.props.setTagWarningDialogOpen(false)}
           onCancel={this.props.onClose}
+          onConfirm={() => this.props.setTagWarningDialogOpen(false)}
+          open={this.props.tagWarningDialogOpen}
         />
       </>
     );

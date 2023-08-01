@@ -120,10 +120,10 @@ const MarketplaceContractDetail: React.FC<Props> = React.memo(
 
     return (
       <Card
-        size={CardSize.AUTO}
         classes={{
           'bs-contract-details__card': 'bs-contract-details__card',
         }}
+        size={CardSize.AUTO}
       >
         <div className="bs-contract-details__container">
           <Content
@@ -139,10 +139,10 @@ const MarketplaceContractDetail: React.FC<Props> = React.memo(
               }}
             >
               <Item
-                rowStart={1}
-                columnStart={1}
                 columnEnd={1}
+                columnStart={1}
                 justification={Justification.FLEX_START}
+                rowStart={1}
               >
                 <div className="bs-contract-details__header__title-container">
                   <h3 className="bs-contract-details__header__title">
@@ -151,32 +151,32 @@ const MarketplaceContractDetail: React.FC<Props> = React.memo(
                 </div>
                 <ContractDetailList
                   contract={contract}
+                  getPaymentComboSelected={getPaymentComboSelected}
                   getPaymentPackSelected={getPaymentPackSelected}
                   getPrivatePassSelected={getPrivatePassSelected}
-                  getPaymentComboSelected={getPaymentComboSelected}
                 />
               </Item>
               <Item
-                rowStart={1}
-                rowEnd={1}
-                columnStart={2}
-                columnEnd={2}
-                justification={Justification.FLEX_START}
                 classes={{
                   'bs-contract__header__price-container--desktop':
                     'bs-contract__header__price-container--desktop',
                 }}
+                columnEnd={2}
+                columnStart={2}
+                justification={Justification.FLEX_START}
+                rowEnd={1}
+                rowStart={1}
               >
                 <Price
-                  isExcludingTax={isExcludingTax}
-                  tax={parseFloat(contract?.tax) || 0}
                   amount={contract?.recurrent_price ?? 0}
-                  color={Color.PRIMARY}
-                  formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                   classes={{
                     'bs-contract-card__header__price':
                       'bs-contract-card__header__price',
                   }}
+                  color={Color.PRIMARY}
+                  formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+                  isExcludingTax={isExcludingTax}
+                  tax={parseFloat(contract?.tax) || 0}
                 >
                   <BillingInterval contract={contract} />
                 </Price>
@@ -203,15 +203,15 @@ const MarketplaceContractDetail: React.FC<Props> = React.memo(
               >
                 <div className="bs-contract__header__price-container--mobile">
                   <Price
-                    isExcludingTax={isExcludingTax}
-                    tax={parseFloat(contract?.tax) || 0}
                     amount={contract?.recurrent_price}
-                    formatPriceWithCurrency={getCurrencyDisplayWithPrice}
-                    color={Color.PRIMARY}
                     classes={{
                       'bs-contract-card__header__price':
                         'bs-contract-card__header__price',
                     }}
+                    color={Color.PRIMARY}
+                    formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+                    isExcludingTax={isExcludingTax}
+                    tax={parseFloat(contract?.tax) || 0}
                   >
                     <BillingInterval contract={contract} />
                   </Price>

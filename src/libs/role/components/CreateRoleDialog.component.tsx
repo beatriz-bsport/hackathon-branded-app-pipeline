@@ -296,7 +296,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
       <ConditionalWrapper
         condition={!this.props.isFranchisor}
         wrapper={(children) => (
-          <Dialog open={this.props.open} onClose={this.props.onClose}>
+          <Dialog onClose={this.props.onClose} open={this.props.open}>
             {children}
           </Dialog>
         )}
@@ -310,25 +310,25 @@ export class CreateRoleDialog extends React.Component<Props, State> {
               <>
                 <TextField
                   fullWidth
-                  value={name}
-                  onChange={(ev) => this.setState({ name: ev.target.value })}
-                  label={t('forms.role.create.name')}
                   required
                   disabled={disabled}
+                  label={t('forms.role.create.name')}
+                  onChange={(ev) => this.setState({ name: ev.target.value })}
+                  value={name}
                 />
                 <TextField
                   fullWidth
-                  value={description}
+                  multiline
+                  required
                   className={classes.marginTop4}
+                  disabled={disabled}
+                  label={t('forms.role.create.description')}
                   onChange={(ev) =>
                     this.setState({ description: ev.target.value })
                   }
-                  label={t('forms.role.create.description')}
-                  variant="outlined"
-                  multiline
                   rows={5}
-                  required
-                  disabled={disabled}
+                  value={description}
+                  variant="outlined"
                 />
                 <div className={classes.marginTop2} />
               </>
@@ -348,11 +348,11 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                 .map((key) => (
                   <RecursiveCheckBoxComponent
                     key={key}
-                    rightKey={key}
                     checkBoxData={this.state.permissions}
-                    keysAccumulator={[key]}
                     disabled={this.props.role && !this.props.role.editable}
+                    keysAccumulator={[key]}
                     permissions={this.state.permissions}
+                    rightKey={key}
                     updatePermission={(permissions) => {
                       this.setState({
                         permissions,
@@ -372,12 +372,12 @@ export class CreateRoleDialog extends React.Component<Props, State> {
             />
             <div className={classes.advancedOptionsSection}>
               <ButtonBase
+                className={classes.advancedOptionsHeader}
                 onClick={() =>
                   this.setState((prevState) => ({
                     showAdvanced: !prevState.showAdvanced,
                   }))
                 }
-                className={classes.advancedOptionsHeader}
               >
                 <LinkIcon />
                 <Typography variant="h6">
@@ -396,20 +396,20 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                     <div className={classes.restrictedPathContainer}>
                       <TextField
                         fullWidth
-                        value={path}
+                        disabled={disabled}
                         onChange={(ev) =>
                           this.onChangeRestrictedPath(ev.target.value, i)
                         }
                         placeholder={t(
                           'forms.role.create.restrictedUrlPlaceholder',
                         )}
-                        disabled={disabled}
+                        value={path}
                       />
 
                       <ButtonBase
                         className={classes.marginLeft}
-                        onClick={() => this.onClickRemoveRestrictedPath(i)}
                         disabled={disabled}
+                        onClick={() => this.onClickRemoveRestrictedPath(i)}
                       >
                         <RemoveCircleIcon
                           color={disabled ? 'disabled' : 'error'}
@@ -422,19 +422,19 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                 <div className={classes.restrictedPathContainer}>
                   <TextField
                     fullWidth
-                    value={this.state.restrictedPathNew}
+                    disabled={disabled}
                     onChange={(ev) =>
                       this.setState({ restrictedPathNew: ev.target.value })
                     }
                     placeholder={t(
                       'forms.role.create.restrictedUrlPlaceholder',
                     )}
-                    disabled={disabled}
+                    value={this.state.restrictedPathNew}
                   />
                   <ButtonBase
-                    onClick={this.onClickAddRestrictedPath}
                     className={classes.marginLeft}
                     disabled={disabled}
+                    onClick={this.onClickAddRestrictedPath}
                   >
                     <AddIcon color={disabled ? 'disabled' : 'primary'} />
                   </ButtonBase>
@@ -445,13 +445,13 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                       <FormControlLabel
                         control={
                           <Checkbox
+                            checked={!!this.state.hasBookingOverrideControl}
+                            color="secondary"
                             indeterminate={
                               this.state.hasBookingOverrideControl === undefined
                             }
-                            checked={!!this.state.hasBookingOverrideControl}
-                            onChange={this.onCheckManagerControl}
                             name="checkManagerControl"
-                            color="secondary"
+                            onChange={this.onCheckManagerControl}
                           />
                         }
                         label={
@@ -461,7 +461,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                         }
                       />
                     </div>
-                    <Typography variant="caption" color="textSecondary">
+                    <Typography color="textSecondary" variant="caption">
                       {t('forms.role.create.authorizeManagerExplain')}
                     </Typography>
                   </>
@@ -477,24 +477,24 @@ export class CreateRoleDialog extends React.Component<Props, State> {
           </div>
           <Actions>
             <Button
+              color="secondary"
               onClick={
                 this.props.isFranchisor ? this.onPrevious : this.props.onClose
               }
-              color="secondary"
             >
               {this.props.isFranchisor
                 ? t('forms.role.franchise.create.buttons.previous')
                 : t('forms.user.create.cancel')}
             </Button>
             <Button
-              variant="contained"
               color="primary"
+              disabled={disabled && !this.props.isFranchisor}
               onClick={
                 disabled && this.props.isFranchisor
                   ? this.props.onClose
                   : this.onSubmit
               }
-              disabled={disabled && !this.props.isFranchisor}
+              variant="contained"
             >
               {disabled && this.props.isFranchisor
                 ? t('forms.role.franchise.create.buttons.close')

@@ -360,8 +360,8 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
     return (
       <Switch>
         <Route
-          path="/settings/platform-billing"
           component={PlatformBillingSettingPage}
+          path="/settings/platform-billing"
         />
 
         <Redirect to="/settings/platform-billing" />
@@ -372,10 +372,10 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
     return (
       <Switch>
         <Route
-          path="/settings/company_onboarding"
           component={CompanyOnboarding}
+          path="/settings/company_onboarding"
         />
-        <Route path="/settings/company" component={CompanyDetailPage} />
+        <Route component={CompanyDetailPage} path="/settings/company" />
 
         <Redirect to="/settings/company" />
       </Switch>
@@ -383,45 +383,45 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
   }
   return (
     <Switch>
-      <Route path="/shop" component={Shop} />
-      <Route path="/offer/:id" component={OfferManagement} />
-      <Route exact path="/calendar" component={PlanningRouter} />
-      <Route path="/schedule" component={Schedule} />
-      <Route exact path="/add-offers/:id" component={OfferFormPage} />
-      <Route path="/coach" component={Coach} />
-      <Route path="/payment-pack" component={PaymentPack} />
-      <Route path="/invoice" component={Invoice} />
-      <Route path="/expense" component={Expense} />
-      <Route path="/subscription" component={Subscription} />
-      <Route path="/tutorial" component={Tutorial} />
-      <Route path="/member" component={Member} />
-      <Route path="/activity" component={MetaActivity} />
-      <Route path="/workshop-activity" component={WorkshopActivity} />
-      <Route path="/establishment" component={Establishment} />
-      <Route path="/smart-list" component={SmartList} />
-      <Route path="/cadence" component={Cadence} />
-      <Route path="/custom-form" component={CustomForm} />
-      <Route path="/performance-tracking" component={PerformanceTracking} />
-      <Route path="/replacement/:tab" component={Replacement} />
-      <Route path="/instalment-payment" component={InstalmentPayment} />
-      <Route path="/marketing" component={MarketingRouter} />
-      <Route path="/email-template" component={EmailTemplate} />
-      <Route path="/giftcard" component={Giftcard} />
-      <Route path="/reporting/" component={Reporting} />
-      <Route path="/combo/" component={PaymentCombo} />
-      <Route path="/private-service" component={PrivateService} />
-      <Route path="/order" component={Order} />
-      <Route exact path="/dashboard" component={Dashboard} />
-      <Route exact path="/search/results" component={SearchResults} />
-      <Route path="/settings/:tab/" component={Settings} />
-      <Route path="/coupon" component={Coupon} />
-      <Route path="/clock-in/:tab?" component={ClockIn} />
-      <Route path="/spot-scheduling/:id" component={SpotScheduling} />
-      <Route path="/empty" component={() => <div />} />
-      <Route path="/inbox" component={Inbox} />
+      <Route component={Shop} path="/shop" />
+      <Route component={OfferManagement} path="/offer/:id" />
+      <Route exact component={PlanningRouter} path="/calendar" />
+      <Route component={Schedule} path="/schedule" />
+      <Route exact component={OfferFormPage} path="/add-offers/:id" />
+      <Route component={Coach} path="/coach" />
+      <Route component={PaymentPack} path="/payment-pack" />
+      <Route component={Invoice} path="/invoice" />
+      <Route component={Expense} path="/expense" />
+      <Route component={Subscription} path="/subscription" />
+      <Route component={Tutorial} path="/tutorial" />
+      <Route component={Member} path="/member" />
+      <Route component={MetaActivity} path="/activity" />
+      <Route component={WorkshopActivity} path="/workshop-activity" />
+      <Route component={Establishment} path="/establishment" />
+      <Route component={SmartList} path="/smart-list" />
+      <Route component={Cadence} path="/cadence" />
+      <Route component={CustomForm} path="/custom-form" />
+      <Route component={PerformanceTracking} path="/performance-tracking" />
+      <Route component={Replacement} path="/replacement/:tab" />
+      <Route component={InstalmentPayment} path="/instalment-payment" />
+      <Route component={MarketingRouter} path="/marketing" />
+      <Route component={EmailTemplate} path="/email-template" />
+      <Route component={Giftcard} path="/giftcard" />
+      <Route component={Reporting} path="/reporting/" />
+      <Route component={PaymentCombo} path="/combo/" />
+      <Route component={PrivateService} path="/private-service" />
+      <Route component={Order} path="/order" />
+      <Route exact component={Dashboard} path="/dashboard" />
+      <Route exact component={SearchResults} path="/search/results" />
+      <Route component={Settings} path="/settings/:tab/" />
+      <Route component={Coupon} path="/coupon" />
+      <Route component={ClockIn} path="/clock-in/:tab?" />
+      <Route component={SpotScheduling} path="/spot-scheduling/:id" />
+      <Route component={() => <div />} path="/empty" />
+      <Route component={Inbox} path="/inbox" />
       {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
-        props.vodEnabled) && <Route path="/vod" component={VodRouter} />}
-      <Route path="/" component={PlanningRouter} />
+        props.vodEnabled) && <Route component={VodRouter} path="/vod" />}
+      <Route component={PlanningRouter} path="/" />
     </Switch>
   );
 });
@@ -750,36 +750,53 @@ export class Backoffice extends Component<Props, State> {
           >
             <BannerProvider>
               <BackofficeDrawer
-                logo={this.props.theme ? this.props.theme.cover : null}
-                fetchCashBook={this.props.fetchCashBook}
-                onSpotPaymentReportId={this.props.onSpotPaymentReportId}
-                theme={this.props.theme}
-                onSubmit={this.props.updateCashBook}
                 alertings={this.props.alertings}
-                messageAlertings={this.props.messageAlertings}
-                nbAlerting={this.props.nbAlerting}
+                clockIn={this.props.clockIn}
+                clockOut={this.props.clockOut}
+                companyId={this.props.theme.company}
+                companyName={this.props.theme.company_name}
                 countAlertingCommunication={
                   this.props.countAlertingCommunication
-                }
-                nbTutorialAlerting={this.props.nbTutorialAlerting}
-                userAcknowlegdePlatformTutorial={
-                  this.props.userAcknowlegdePlatformTutorial
-                }
-                updateUserAcknowlegdeTutorial={
-                  this.props.updateUserAcknowlegdeTutorial
                 }
                 deleteAlert={this.deleteAlert}
                 disconnect={this.props.disconnect}
                 displayLeftMenu={this.state.displayLeftMenu}
+                email={this.props.username}
+                featureList={this.props.featureList}
+                fetchCashBook={this.props.fetchCashBook}
+                fetchCompanyUserRolesPaginated={
+                  this.props.fetchCompanyUserRolesPaginated
+                }
                 fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}
-                tempPasswordState={this.props.tempPasswordState}
+                fetchOnSpotPaymentReport={this.props.fetchOnSpotPaymentReport}
+                fetchTempPassword={this.props.fetchTempPassword}
                 generateTempPassword={this.props.generateTempPassword}
+                getLastClockin={this.props.getLastClockin}
+                getStaffsAttendanceRealTime={
+                  this.props.getStaffsAttendanceRealTime
+                }
+                isFranchisorNavigation={
+                  !!window.localStorage.getItem('bsport:franchise:http:token')
+                }
+                lastClockIn={this.props.lastClockin}
+                logo={this.props.theme ? this.props.theme.cover : null}
+                messageAlertings={this.props.messageAlertings}
+                name={this.props.name}
+                navigateBackToFranchisor={this.props.navigateBackToFranchise}
+                nbAlerting={this.props.nbAlerting}
+                nbTutorialAlerting={this.props.nbTutorialAlerting}
+                onSpotPaymentReportId={this.props.onSpotPaymentReportId}
+                onSubmit={this.props.updateCashBook}
+                openCalendar={this.props.openCalendar}
+                openCreateMember={this.props.openCreateMember}
                 paymentMethodMissing={
                   this.props.stripeCompany &&
                   !this.props.stripeCompany
                     ?.has_no_need_for_payment_method_configuration &&
                   this.props.theme.payment_method_missing
                 }
+                permissions={this.props.permissions}
+                push={this.props.pushRouter}
                 stripeOnboardingPending={
                   this.props.stripeCompany &&
                   !this.props.stripeCompany
@@ -791,39 +808,18 @@ export class Backoffice extends Component<Props, State> {
                       ['verification', 'creation'].includes(a?.data?.type),
                     )?.length
                 }
-                fetchTempPassword={this.props.fetchTempPassword}
-                openCreateMember={this.props.openCreateMember}
-                openCalendar={this.props.openCalendar}
-                push={this.props.pushRouter}
-                fetchOnSpotPaymentReport={this.props.fetchOnSpotPaymentReport}
-                permissions={this.props.permissions}
-                isFranchisorNavigation={
-                  !!window.localStorage.getItem('bsport:franchise:http:token')
+                tempPasswordState={this.props.tempPasswordState}
+                theme={this.props.theme}
+                updateUserAcknowlegdeTutorial={
+                  this.props.updateUserAcknowlegdeTutorial
                 }
-                navigateBackToFranchisor={this.props.navigateBackToFranchise}
-                companyName={this.props.theme.company_name}
-                name={this.props.name}
-                email={this.props.username}
-                companyId={this.props.theme.company}
-                featureList={this.props.featureList}
-                lastClockIn={this.props.lastClockin}
-                clockIn={this.props.clockIn}
+                userAcknowlegdePlatformTutorial={
+                  this.props.userAcknowlegdePlatformTutorial
+                }
                 usersPaginatedWithRoles={this.props.usersPaginatedWithRoles}
-                getStaffsAttendanceRealTime={
-                  this.props.getStaffsAttendanceRealTime
-                }
-                fetchCompanyUserRolesPaginated={
-                  this.props.fetchCompanyUserRolesPaginated
-                }
-                clockOut={this.props.clockOut}
-                getLastClockin={this.props.getLastClockin}
               >
                 {!isInboxPath && (
                   <Intercom
-                    email={this.props.username}
-                    environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
-                    isBsportChromePluginActivated={this.props.isPluginActivated}
-                    theme={this.props.theme}
                     company={
                       this.props.theme && this.props.theme.company_name
                         ? {
@@ -832,16 +828,20 @@ export class Backoffice extends Component<Props, State> {
                           }
                         : {}
                     }
+                    email={this.props.username}
+                    environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
+                    isBsportChromePluginActivated={this.props.isPluginActivated}
+                    theme={this.props.theme}
                     {...(this.props.name ? { name: this.props.name } : {})}
-                    user_id={this.props.username}
-                    release={RELEASE}
-                    role={this.props.permissions.name}
                     action_color={this.props.theme.primary_color}
                     language_override={isoLanguage}
+                    release={RELEASE}
+                    role={this.props.permissions.name}
+                    user_id={this.props.username}
                   />
                 )}
 
-                <Analytics username={this.props.username} isInternal />
+                <Analytics isInternal username={this.props.username} />
                 <main
                   className={clx({
                     [classes.content]: true,
@@ -854,15 +854,15 @@ export class Backoffice extends Component<Props, State> {
                   })}
                 >
                   <BackofficeRoute
-                    vodEnabled={this.props.theme?.vod ?? null}
-                    blockBackofficeToPayPlatformBilling={
-                      this.props.platformSubscriptionPaymentStatus?.action ===
-                      BLOCK_BACKOFFICE
-                    }
                     blockBackofficeToConfigureStripe={
                       this.props.stripeAccountStatus?.action ===
                       BLOCK_BACKOFFICE
                     }
+                    blockBackofficeToPayPlatformBilling={
+                      this.props.platformSubscriptionPaymentStatus?.action ===
+                      BLOCK_BACKOFFICE
+                    }
+                    vodEnabled={this.props.theme?.vod ?? null}
                   />
                 </main>
               </BackofficeDrawer>
@@ -876,9 +876,9 @@ export class Backoffice extends Component<Props, State> {
               open={!!this.state.need_regularizing_failed_invoice_modal}
             >
               <RegularizingInvoiceInformation
-                goNext={this.redirectToPlatformBilling}
-                contactSupport={this.redirectToPlatformBilling}
                 cancel={this.closePaymentWarningDialog(FAILED_PAYMENT)}
+                contactSupport={this.redirectToPlatformBilling}
+                goNext={this.redirectToPlatformBilling}
                 paymentStatusContext={FAILED_PAYMENT}
               />
             </GenericResponsiveDialog>
@@ -886,9 +886,9 @@ export class Backoffice extends Component<Props, State> {
               open={!!this.state.need_regularizing_disputed_invoice_modal}
             >
               <RegularizingInvoiceInformation
-                goNext={this.redirectToPlatformBilling}
-                contactSupport={this.redirectToPlatformBilling}
                 cancel={this.closePaymentWarningDialog(DISPUTED_PAYMENT)}
+                contactSupport={this.redirectToPlatformBilling}
+                goNext={this.redirectToPlatformBilling}
                 paymentStatusContext={DISPUTED_PAYMENT}
               />
             </GenericResponsiveDialog>
@@ -899,13 +899,6 @@ export class Backoffice extends Component<Props, State> {
             open={!!this.state.need_configuring_stripe_account_dialog}
           >
             <StripeAccountConfiguration
-              contactSupport={this.redirectToCompanySettings}
-              dateAccountIsBlocked={
-                this.props.stripeAccountStatus.action === BLOCK_BACKOFFICE
-                  ? undefined
-                  : this.props.stripeAccountStatus?.date_account_blocked
-              }
-              goNext={this.redirectToCompanySettings}
               cancel={
                 this.props.stripeAccountStatus.action === WARN
                   ? () => {
@@ -915,6 +908,13 @@ export class Backoffice extends Component<Props, State> {
                     }
                   : undefined
               }
+              contactSupport={this.redirectToCompanySettings}
+              dateAccountIsBlocked={
+                this.props.stripeAccountStatus.action === BLOCK_BACKOFFICE
+                  ? undefined
+                  : this.props.stripeAccountStatus?.date_account_blocked
+              }
+              goNext={this.redirectToCompanySettings}
             />
           </GenericResponsiveDialog>
         )}

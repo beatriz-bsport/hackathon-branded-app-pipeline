@@ -46,8 +46,10 @@ export const TagChipList = (props: Props) => {
           }}
         >
           {includedTags.map((tag) => (
-            <div className={classes.chipContainer} key={`${(tag || {}).id}`}>
+            <div key={`${(tag || {}).id}`} className={classes.chipContainer}>
               <TagChip
+                onDelete={() => props.handleDeleteTag(tag.id, true)}
+                size="small"
                 tag={
                   tag
                     ? {
@@ -57,14 +59,14 @@ export const TagChipList = (props: Props) => {
                       }
                     : null
                 }
-                onDelete={() => props.handleDeleteTag(tag.id, true)}
-                size="small"
               />
             </div>
           ))}
           {excludedTags.map((tag) => (
-            <div className={classes.chipContainer} key={`${(tag || {}).id}`}>
+            <div key={`${(tag || {}).id}`} className={classes.chipContainer}>
               <TagChip
+                onDelete={() => props.handleDeleteTag(tag.id, false)}
+                size="small"
                 tag={
                   tag
                     ? {
@@ -74,14 +76,12 @@ export const TagChipList = (props: Props) => {
                       }
                     : null
                 }
-                onDelete={() => props.handleDeleteTag(tag.id, false)}
-                size="small"
               />
             </div>
           ))}
           {excludedTags.length === 0 && includedTags.length === 0 ? (
             <ButtonBase onClick={props.handleAdd}>
-              <Typography color="textSecondary" className={classes.emptyText}>
+              <Typography className={classes.emptyText} color="textSecondary">
                 {t('filter.addATagFilter')}
               </Typography>
             </ButtonBase>

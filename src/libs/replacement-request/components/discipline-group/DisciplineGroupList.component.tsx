@@ -52,13 +52,13 @@ export const DisciplineGroupList: React.FC<Props> = ({
           <DisciplineGroupListItem
             key={disciplineGroup?.id}
             disciplineGroup={disciplineGroup}
-            loading={loading}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
+            loading={loading}
           />
         ))}
       </List>
-      <Button color="primary" variant="outlined" onClick={handleOpenCreate}>
+      <Button color="primary" onClick={handleOpenCreate} variant="outlined">
         <AddIcon className={classes.leftIcon} />
         <Typography>{t('disciplineGroup.add')}</Typography>
       </Button>

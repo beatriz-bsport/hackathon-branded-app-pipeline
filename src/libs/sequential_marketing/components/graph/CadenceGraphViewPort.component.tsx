@@ -85,14 +85,14 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
         </div>
         {active && (
           <div className={classes.topAlert}>
-            <Alert severity="info" className={classes.alert}>
+            <Alert className={classes.alert} severity="info">
               {t('cadence.graph.alert.cadenceIsActive')}
             </Alert>
           </div>
         )}
         {!editMode && !active && (
           <div className={classes.topAlert}>
-            <Alert severity="info" className={classes.alert}>
+            <Alert className={classes.alert} severity="info">
               {t('cadence.graph.alert.switchToEditMode')}
             </Alert>
           </div>
@@ -101,14 +101,14 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
         <div className={classes.outputSection}>
           <CadenceOutputCollapse>
             <CadenceOutput
+              getSmartlist={getSmartlist}
               status={DestinationStatus.WIN}
               triggerList={winTriggers}
-              getSmartlist={getSmartlist}
             />
             <CadenceOutput
+              getSmartlist={getSmartlist}
               status={DestinationStatus.FAIL}
               triggerList={loseTriggers}
-              getSmartlist={getSmartlist}
             />
           </CadenceOutputCollapse>
         </div>

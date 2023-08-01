@@ -23,21 +23,21 @@ export function CoachPaymentRuleFormDrawer(props: Props) {
   const { t, open, handleClose, isSubmitting } = props;
   return (
     <GenericResponsiveDrawer
-      open={open}
       onClose={handleClose}
+      open={open}
       title={t('coach_payment_rules.addNewCoachPaymentRule')}
     >
       <Form>
         <CoachPaymentRuleFields {...props} />
         <DialogActions>
           <Button
-            onClick={props.handleClose}
             color="secondary"
             disabled={isSubmitting}
+            onClick={props.handleClose}
           >
             {t('cancel')}
           </Button>
-          <Submit id="button_coach_remuneration_save" disabled={isSubmitting}>
+          <Submit disabled={isSubmitting} id="button_coach_remuneration_save">
             {t('save')}
           </Submit>
         </DialogActions>

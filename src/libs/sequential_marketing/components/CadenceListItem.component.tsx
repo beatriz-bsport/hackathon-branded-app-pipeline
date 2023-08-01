@@ -93,17 +93,17 @@ export const CadenceListItem: React.FC<Props> = ({
   return (
     <div
       ref={setNodeRef}
-      style={{ transform: CSS.Translate.toString(transform), transition }}
       className={classNames(classes.fullWidth, {
         [classes.spacedItems]: !dense,
       })}
+      style={{ transform: CSS.Translate.toString(transform), transition }}
     >
       <ListItem
         // @ts-expect-error : Still the same error coming from MUI where buttun is typped as false
         button={!!onClick}
-        selected={cadence?.id === selectedId}
         classes={{ root: classes.listItemOutter }}
         onClick={handleClick}
+        selected={cadence?.id === selectedId}
       >
         {sortable && (
           <IconButton {...listeners} {...attributes} style={{ zIndex: 999 }}>
@@ -118,7 +118,7 @@ export const CadenceListItem: React.FC<Props> = ({
               </Typography>
             </div>
           )}
-          <Typography variant="body1" color="textSecondary">
+          <Typography color="textSecondary" variant="body1">
             {cadence.name}
           </Typography>
         </div>
@@ -214,7 +214,7 @@ export const CadenceListItemLoading: React.FC = React.memo(() => {
   return (
     <ListItem classes={{ root: classes.listItemOutter }}>
       <div className={classes.leftItem}>
-        <Skeleton animation="wave" width={30} variant="circle" height={30} />
+        <Skeleton animation="wave" height={30} variant="circle" width={30} />
         <Skeleton animation="wave" variant="text" width={100} />
       </div>
       <div className={classes.listItemAction}>

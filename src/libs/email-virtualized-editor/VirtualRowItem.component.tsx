@@ -90,21 +90,21 @@ export default function VirtualRowItem(props: RowProps) {
       return (
         <EmailListItem
           key={`franchise-${email.id}`}
-          email={email}
-          selectedId={selectedId}
-          navigateTo={navigateTo}
-          onEdit={onEdit}
-          onDuplicate={onDuplicate}
-          onDelete={onDelete}
-          companies={sortCompanyListByIsAllowedAndName(
-            email?.available_for_companies.map((comp) => companyDic?.[comp]),
-          )}
+          virtualized
           allCompanies={
             email?.available_for_companies.length ===
             Object.keys(companyDic).length
           }
-          virtualized
+          companies={sortCompanyListByIsAllowedAndName(
+            email?.available_for_companies.map((comp) => companyDic?.[comp]),
+          )}
+          email={email}
           heightItem={heightItem}
+          navigateTo={navigateTo}
+          onDelete={onDelete}
+          onDuplicate={onDuplicate}
+          onEdit={onEdit}
+          selectedId={selectedId}
         />
       );
     }
@@ -135,13 +135,13 @@ export default function VirtualRowItem(props: RowProps) {
           // We have a category title
           return (
             <div
-              style={{ height: heightCategoryTitle }}
               className={style.categoryContainer}
+              style={{ height: heightCategoryTitle }}
             >
               <Typography
+                key={`group-by-${categoryId}`}
                 className={style.categoryTitle}
                 variant="h5"
-                key={`group-by-${categoryId}`}
               >
                 {companyDic?.[categoryId]?.name}
               </Typography>
@@ -154,13 +154,13 @@ export default function VirtualRowItem(props: RowProps) {
         return (
           <EmailListItem
             key={`group-by-${email.id}`}
-            email={email}
-            selectedId={selectedId}
-            navigateTo={navigateTo}
-            onEdit={onEdit}
-            onDelete={onDelete}
             virtualized
+            email={email}
             heightItem={heightItem}
+            navigateTo={navigateTo}
+            onDelete={onDelete}
+            onEdit={onEdit}
+            selectedId={selectedId}
           />
         );
       }
@@ -171,12 +171,12 @@ export default function VirtualRowItem(props: RowProps) {
         return (
           <EmailListItem
             key={`group-by-${email.id}`}
-            email={email}
-            selectedId={selectedId}
-            navigateTo={navigateTo}
-            onEdit={onEdit}
-            onDelete={onDelete}
             virtualized
+            email={email}
+            navigateTo={navigateTo}
+            onDelete={onDelete}
+            onEdit={onEdit}
+            selectedId={selectedId}
           />
         );
       }
@@ -219,11 +219,11 @@ export default function VirtualRowItem(props: RowProps) {
       return (
         <EmailListItem
           key={`generic-template-${email.id}`}
+          virtualized
           email={email}
-          selectedId={selectedId}
           navigateTo={navigateTo}
           onDuplicate={onDuplicate}
-          virtualized
+          selectedId={selectedId}
         />
       );
     }

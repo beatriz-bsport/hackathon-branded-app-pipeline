@@ -41,8 +41,8 @@ export const InstalmentPaymentAdvancedForm = () => {
           <Grid item xs={12}>
             <div className={classes.row}>
               <ButtonBase
-                onClick={toggleOpenAdvancedOptions}
                 className={classes.advancedOptionsHeader}
+                onClick={toggleOpenAdvancedOptions}
               >
                 <SettingsIcon className={classes.icon} />
                 <Typography variant="h6">{t('form.advanced')}</Typography>
@@ -54,23 +54,23 @@ export const InstalmentPaymentAdvancedForm = () => {
             <div className={classes.padding}>
               <Grid item xs={6}>
                 <PriceField
-                  id="minimum_amount"
-                  type="number"
                   fullWidth
-                  name="minimum_amount"
                   required
-                  label={t('form.minimum_amount')}
                   helperText={t('form.minimumAmountHelperText')}
+                  id="minimum_amount"
+                  label={t('form.minimum_amount')}
+                  name="minimum_amount"
+                  type="number"
                 />
               </Grid>
               <Grid item xs={12}>
                 <div className={classes.column}>
                   <SwitchField
-                    name="is_only_available_when_all_items_are_compatible"
                     label={t('form.onlyAvailable')}
+                    name="is_only_available_when_all_items_are_compatible"
                   />
 
-                  <Typography variant="body2" color="textSecondary">
+                  <Typography color="textSecondary" variant="body2">
                     {t('form.onlyAvailableInfo')}
                   </Typography>
                 </div>
@@ -80,14 +80,12 @@ export const InstalmentPaymentAdvancedForm = () => {
             {!values.partial_payment_enabled && (
               <div className={classes.padding}>
                 <SwitchField
-                  name="custom_first_instalment_enabled"
                   label={t('form.customInstalmentAmount.label')}
+                  name="custom_first_instalment_enabled"
                 />
 
                 {values.custom_first_instalment_enabled && (
                   <RadioGroupField
-                    className={classes.radioGroup}
-                    name="custom_first_instalment_type"
                     choices={[
                       {
                         label: t('form.customInstalmentAmount.type.amount'),
@@ -98,6 +96,8 @@ export const InstalmentPaymentAdvancedForm = () => {
                         value: CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT.toString(),
                       },
                     ]}
+                    className={classes.radioGroup}
+                    name="custom_first_instalment_type"
                   />
                 )}
 
@@ -106,19 +106,19 @@ export const InstalmentPaymentAdvancedForm = () => {
                     CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT.toString() && (
                     <TextField
                       fullWidth
-                      name="custom_first_instalment_percent"
-                      label={t(
-                        'form.customInstalmentAmount.amountHelperText.percent',
-                      )}
-                      type="number"
                       required
-                      max={100}
                       InputProps={{
                         inputProps: { min: 0, max: 100, step: 1 },
                         endAdornment: (
                           <InputAdornment position="end">%</InputAdornment>
                         ),
                       }}
+                      label={t(
+                        'form.customInstalmentAmount.amountHelperText.percent',
+                      )}
+                      max={100}
+                      name="custom_first_instalment_percent"
+                      type="number"
                     />
                   )}
 
@@ -127,11 +127,11 @@ export const InstalmentPaymentAdvancedForm = () => {
                     CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT.toString() && (
                     <PriceField
                       fullWidth
-                      name="custom_first_instalment_amount"
+                      required
                       label={t(
                         'form.customInstalmentAmount.amountHelperText.amount',
                       )}
-                      required
+                      name="custom_first_instalment_amount"
                     />
                   )}
               </div>

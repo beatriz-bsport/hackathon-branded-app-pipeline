@@ -75,10 +75,10 @@ export class MarketplaceGiftcardList extends Component<Props> {
       <div className={classes.container}>
         <Grid container spacing={4}>
           {filteredGiftcards.map((giftcard) => (
-            <Grid key={giftcard.id} item xs={12} sm={6} md={4} lg={3}>
+            <Grid key={giftcard.id} item lg={3} md={4} sm={6} xs={12}>
               <MarketplaceGiftcardItem
-                onClick={this.onClickGiftcard}
                 giftcard={giftcard}
+                onClick={this.onClickGiftcard}
               />
             </Grid>
           ))}

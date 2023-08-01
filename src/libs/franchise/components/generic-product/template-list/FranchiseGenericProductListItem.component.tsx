@@ -60,15 +60,15 @@ const FranchiseGenericProductListItem = (props: Props) => {
   return (
     <ListItem
       divider
-      selected={!!selected}
-      // @ts-ignore
+      // @ts-expect-error
       button={!!onClick}
       onClick={() => onClick && onClick(id)}
+      selected={!!selected}
       style={isFocused ? { backgroundColor: '#EFEFEF' } : {}}
     >
       {withCover && (
         <ListItemAvatar>
-          <Avatar src={cover} alt="" />
+          <Avatar alt="" src={cover} />
         </ListItemAvatar>
       )}
       <ListItemText primary={primaryText} secondary={secondaryText} />

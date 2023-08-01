@@ -30,9 +30,9 @@ const CarouselIndicator = <T extends BaseData>(props: Props<T>) => {
           return (
             <button
               key={item.id}
-              type="button"
               className={`bs-carousel__indicator__dot${selectedIndicatorClass}${smallIndicatorDotClass}`}
               onClick={() => onClick(itemIndex)}
+              type="button"
             />
           );
         }

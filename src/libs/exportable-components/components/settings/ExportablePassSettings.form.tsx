@@ -122,36 +122,36 @@ const ExportablePassSettingsForm: React.FC<Props> = React.memo(
         {paymentPackCategories && (
           <Autocomplete
             multiple
-            options={paymentPackCategories}
             getOptionLabel={getOptionLabel}
-            value={selectedPaymentPackCategories}
             onChange={handleChangePaymentPackCategories}
+            options={paymentPackCategories}
             renderInput={(params) => (
               <TextField
                 {...params}
-                variant="standard"
                 label={t('paymentPack:category.category')}
                 placeholder={t('paymentPack:category.category')}
+                variant="standard"
               />
             )}
+            value={selectedPaymentPackCategories}
           />
         )}
         {privatePassCategories && (
           <Autocomplete
-            className={classes.selector}
             multiple
-            options={privatePassCategories}
+            className={classes.selector}
             getOptionLabel={getOptionLabel}
-            value={selectedPrivatePassCategories}
             onChange={handleChangePrivatePassCategories}
+            options={privatePassCategories}
             renderInput={(params) => (
               <TextField
                 {...params}
-                variant="standard"
                 label={t('privateService:categoryTitle')}
                 placeholder={t('privateService:categoryTitle')}
+                variant="standard"
               />
             )}
+            value={selectedPrivatePassCategories}
           />
         )}
         <FormControl className={classes.marginTop}>

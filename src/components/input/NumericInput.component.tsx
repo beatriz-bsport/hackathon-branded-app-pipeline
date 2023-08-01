@@ -61,24 +61,24 @@ export function NumericInput(props: Props) {
 
   return (
     <TextField
-      id={id}
-      name={name}
-      variant={variant}
       className={classNames(inputClass)}
-      required={required}
       disabled={disabled}
-      value={value}
-      label={label}
-      onChange={handleOnChange}
       error={error}
-      InputProps={InputProps}
-      type="number"
-      helperText={helperText}
       fullWidth={props.fullWidth}
+      helperText={helperText}
+      id={id}
+      InputProps={InputProps}
+      label={label}
       margin={props.margin}
+      name={name}
       onBlur={onBlur}
-      size={size ?? 'medium'}
+      onChange={handleOnChange}
       placeholder={placeholder}
+      required={required}
+      size={size ?? 'medium'}
+      type="number"
+      value={value}
+      variant={variant}
     />
   );
 }

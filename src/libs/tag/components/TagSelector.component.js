@@ -105,7 +105,7 @@ export function TagSelector(props: Props) {
   return (
     <div className={classes.tagSelectorContainer}>
       {!disabled && (
-        <IconButton onClick={onToogleCreate} disabled={disabled}>
+        <IconButton disabled={disabled} onClick={onToogleCreate}>
           <AddIcon />
         </IconButton>
       )}
@@ -113,12 +113,12 @@ export function TagSelector(props: Props) {
         <div className={classes.userInput}>
           <Selector
             isClearable
+            isDisabled={disabled}
             onChange={handleChangeOption}
             onCreateOption={handleOnCreateOption}
             placeholder={t('tag.noTagAttributed')}
             selected={tag ? tag.id : null}
             suggestions={suggestions}
-            isDisabled={disabled}
           />
         </div>
         {!disabled && (
@@ -127,10 +127,10 @@ export function TagSelector(props: Props) {
               <MoreVertIcon />
             </IconButton>
             <Menu
-              id="simple-menu"
               anchorEl={menuAnchorEl}
-              open={Boolean(menuAnchorEl)}
+              id="simple-menu"
               onClose={handleCloseMenu}
+              open={Boolean(menuAnchorEl)}
             >
               <MenuItem onClick={handleTagGroupEdit}>
                 <ListItemIcon>

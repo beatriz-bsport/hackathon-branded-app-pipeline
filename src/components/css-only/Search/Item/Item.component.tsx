@@ -11,7 +11,7 @@ export type Props = {
 
 const Item: React.FC<Props> = ({ item, renderItem }) => {
   return (
-    <li className="bs-search-list-item" key={item.id}>
+    <li key={item.id} className="bs-search-list-item">
       {renderItem ? renderItem(item) : <>{item.name}</>}
     </li>
   );

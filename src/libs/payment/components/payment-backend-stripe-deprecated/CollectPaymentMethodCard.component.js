@@ -161,6 +161,7 @@ export class CollectPaymentMethod extends React.Component<Props> {
       <Wrapper variant={this.props.variant}>
         <>
           <div
+            className={classes.modal}
             style={
               this.props.variant === 'div'
                 ? {
@@ -173,7 +174,6 @@ export class CollectPaymentMethod extends React.Component<Props> {
                     left: dialogOffset,
                   }
             }
-            className={classes.modal}
           >
             {!this.state.displayStripeTerminal && (
               <DialogTitle id="collectPaymentMethodCardDialogTitle">
@@ -189,12 +189,12 @@ export class CollectPaymentMethod extends React.Component<Props> {
               )}
               {this.state.displayStripeTerminal ? (
                 <PaymentStripeTerminal
-                  stripeReaders={this.props.stripeReaders}
+                  isSetupIntent
+                  onlySavePaymentMethod
                   clientSecret={this.state.clientSecret}
                   onCancel={this.props.onClose}
                   onSuccess={this.props.onSuccess}
-                  isSetupIntent
-                  onlySavePaymentMethod
+                  stripeReaders={this.props.stripeReaders}
                 />
               ) : (
                 <div>
@@ -207,8 +207,8 @@ export class CollectPaymentMethod extends React.Component<Props> {
                     <div>
                       <div className={classes.centered}>
                         <CheckIcon
-                          style={{ height: 100, width: 100 }}
                           color="primary"
+                          style={{ height: 100, width: 100 }}
                         />
                         <Typography className={classes.message}>
                           {this.props.t('forms.paymentMethod.message.success')}
@@ -228,8 +228,8 @@ export class CollectPaymentMethod extends React.Component<Props> {
                     <div>
                       <div className={classes.centered}>
                         <ErrorIcon
-                          style={{ height: 100, width: 100 }}
                           color="secondary"
+                          style={{ height: 100, width: 100 }}
                         />
                         <Typography className={classes.message}>
                           {this.props.t('forms.paymentMethod.message.error')}
@@ -237,8 +237,8 @@ export class CollectPaymentMethod extends React.Component<Props> {
                         {this.state.stripe_error_code ||
                         this.state.stripe_decline_code ? (
                           <StripeErrorCode
-                            errorCode={this.state.stripe_error_code}
                             declineCode={this.state.stripe_decline_code}
+                            errorCode={this.state.stripe_error_code}
                           />
                         ) : null}
                       </div>
@@ -264,12 +264,12 @@ export class CollectPaymentMethod extends React.Component<Props> {
                       {this.props.companyId === ADDRESS_REQUIRED_COMPANY_ID && (
                         <CardBillingDetailsForm
                           billingDetails={this.state.billingDetails}
-                          setBillingDetails={this.setBillingDetails}
                           disabled={
                             !this.props.stripe ||
                             !this.state.clientSecret ||
                             this.state.processing
                           }
+                          setBillingDetails={this.setBillingDetails}
                         />
                       )}
                       <div
@@ -289,7 +289,6 @@ export class CollectPaymentMethod extends React.Component<Props> {
                           {(featureList: FeatureList) => (
                             <Button
                               className={classes.addViaTerminal}
-                              variant="outlined"
                               color="primary"
                               disabled={
                                 !hasUpsell(
@@ -300,6 +299,7 @@ export class CollectPaymentMethod extends React.Component<Props> {
                               onClick={() =>
                                 this.setState({ displayStripeTerminal: true })
                               }
+                              variant="outlined"
                             >
                               <AddIcon />
                               {this.props.t(
@@ -417,8 +417,8 @@ export default (props: Props) => (
     <ElementsConsumer>
       {({ stripe, elements }) => (
         <CollectPaymentMethodCompose
-          stripe={stripe}
           elements={elements}
+          stripe={stripe}
           {...props}
         />
       )}

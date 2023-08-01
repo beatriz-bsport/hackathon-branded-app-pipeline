@@ -120,7 +120,7 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
 
   return (
     <div className={classes.container}>
-      <Typography variant="h6" className={classes.fontWeight500}>
+      <Typography className={classes.fontWeight500} variant="h6">
         {t('checkout.priceRecap')}
       </Typography>
 
@@ -160,14 +160,14 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
         {isEditingPrice ? (
           <div className={classes.price}>
             <Input
-              value={newPrice}
+              autoFocus
               onChange={onPriceChange}
               startAdornment={
                 <InputAdornment position="start">
                   {getCurrencyDisplay()}
                 </InputAdornment>
               }
-              autoFocus
+              value={newPrice}
             />
             <Save className={classes.primaryIcon} onClick={saveNewPrice} />
             <Close className={classes.grayIcon} onClick={cancelNewPrice} />
@@ -182,8 +182,8 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
             ) : (
               <IconButton
                 className={classes.iconButton}
-                onClick={startEditingPrice}
                 disabled={preventPriceModification}
+                onClick={startEditingPrice}
               >
                 <Create
                   className={

@@ -78,7 +78,7 @@ export class ImageUploader extends React.Component<Props, State> {
     const { classes, t, name } = this.props;
 
     return (
-      <Dropzone onDrop={this.handleDrop} accept="image/*" multiple>
+      <Dropzone multiple accept="image/*" onDrop={this.handleDrop}>
         {({ getRootProps, getInputProps, isDragActive }) => (
           <div className={classes.dropzone} {...getRootProps()}>
             <input {...getInputProps()} name={name} />

@@ -45,20 +45,20 @@ export const MarketingActionCard: React.FC<Props> = ({
             classes.configuredIconContainer,
           )}
         >
-          <DoneAllIcon fontSize="small" className={classes.configuredIcon} />
+          <DoneAllIcon className={classes.configuredIcon} fontSize="small" />
         </div>
       )}
       <ButtonBase
+        key={`marketing_action_card${item}`}
         disabled={disabled}
         onClick={onClick}
-        key={`marketing_action_card${item}`}
       >
         <Card
+          key={`marketing_action_card${item}`}
           className={classNames(classes.cardOutter, {
             [classes.borderOutlined]: configured,
             [classes.strongElevation]: selected,
           })}
-          key={`marketing_action_card${item}`}
         >
           <div className={classes.cardInner}>
             <div
@@ -68,8 +68,8 @@ export const MarketingActionCard: React.FC<Props> = ({
             >
               <CustomMuiIcon
                 MuiIcon={svgIcon}
-                variant={disabled ? 'disabled' : 'primary'}
                 MuiIconProps={{ fontSize: 'large' }}
+                variant={disabled ? 'disabled' : 'primary'}
               />
             </div>
             <Typography className={classes.stepLabel} variant="subtitle2">

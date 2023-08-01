@@ -91,7 +91,7 @@ export const BookingCancellationDialog: React.FC<Props> = ({
       .isBefore(moment(booking.offer.date_start));
   };
   return (
-    <GenericResponsiveDialog open={!!open} onClose={onClose}>
+    <GenericResponsiveDialog onClose={onClose} open={!!open}>
       {booking?.offer?.group && similarBookingsLoading && <LinearProgress />}
       <DialogTitle>
         {booking && booking.offer && booking.offer.timezone_name
@@ -131,14 +131,14 @@ export const BookingCancellationDialog: React.FC<Props> = ({
                       {t('consumer.booking.discardAllGroup')}
                     </Alert>
                     {similarBookings?.map((b) => (
-                      <div className={classes.item} key={b.id}>
+                      <div key={b.id} className={classes.item}>
                         <OfferListItemV2
+                          divider={false}
                           offer={{
                             ...b.offer,
                             coach: b.coach,
                             customLevel: b.customLevel,
                           }}
-                          divider={false}
                         />
                         {!b.is_discardable && (
                           <Typography color="error">
@@ -178,14 +178,14 @@ export const BookingCancellationDialog: React.FC<Props> = ({
                       {t('consumer.booking.discardAllGroup')}
                     </Alert>
                     {similarBookings?.map((b) => (
-                      <div className={classes.item} key={b.id}>
+                      <div key={b.id} className={classes.item}>
                         <OfferListItemV2
+                          divider={false}
                           offer={{
                             ...b.offer,
                             coach: b.coach,
                             customLevel: b.customLevel,
                           }}
-                          divider={false}
                         />
                         {t(
                           b.is_discardable
@@ -207,7 +207,7 @@ export const BookingCancellationDialog: React.FC<Props> = ({
         )}
       </div>
       <DialogActions>
-        <Button color="secondary" onClick={onCancel} disabled={processing}>
+        <Button color="secondary" disabled={processing} onClick={onCancel}>
           {t('navigation.goBack')}
         </Button>
         {processing ? (

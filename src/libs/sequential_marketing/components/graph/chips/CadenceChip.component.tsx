@@ -23,15 +23,15 @@ export const CadenceChip: React.FC<CadenceChipProps> = ({
   return (
     <div className={classes.customChip}>
       <CustomChip
+        blackText
+        toolTip
         displayedValue={name}
-        mainColor={color}
         icon={icon}
         iconColor={color}
+        mainColor={color}
         maxWidth={CADENCE_CHIP_MAX_SIZE}
         toolTipValue={toolTipValue}
         withBackgroundOnHover={withBackgroundOnHover}
-        blackText
-        toolTip
       />
     </div>
   );

@@ -20,5 +20,5 @@ export default function ActionButton(props: Props) {
       break;
   }
 
-  return <img height={20} width={20} src={src} alt={props.variant} />;
+  return <img alt={props.variant} height={20} src={src} width={20} />;
 }

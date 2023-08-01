@@ -81,8 +81,8 @@ export class GenericEventPanel extends React.Component<Props, State> {
           </IconButton>
           <Menu
             anchorEl={this.state.openFilters}
-            open={Boolean(this.state.openFilters)}
             onClose={() => this.setState({ openFilters: null })}
+            open={Boolean(this.state.openFilters)}
           >
             {Object.keys(this.props.eventSpec)
               .filter((e) => !this.state.actionFilterList.includes(e))
@@ -108,16 +108,16 @@ export class GenericEventPanel extends React.Component<Props, State> {
             <div className={this.props.classes.actionFilterList}>
               {this.state.actionFilterList.map((e) => (
                 <Chip
+                  key={e}
                   icon={this.props.eventSpec[e].icon}
                   label={this.props.t(this.props.eventSpec[e].i18nText)}
-                  key={e}
                   onDelete={() =>
                     this.updateFilters(
                       this.state.actionFilterList.filter((e_) => e !== e_),
                     )
                   }
-                  variant="outlined"
                   size="small"
+                  variant="outlined"
                 />
               ))}
             </div>
@@ -125,19 +125,19 @@ export class GenericEventPanel extends React.Component<Props, State> {
         ) : null}
         <Divider />
         <PaginatedListBase
-          itemPerPage={10}
-          nbItems={0}
           unknownNbItems
-          loading={this.props.loading}
-          listProps={{ dense: true, disablePadding: true }}
+          itemPerPage={10}
           items={this.props.eventList}
-          page={this.props.page}
+          listProps={{ dense: true, disablePadding: true }}
+          loading={this.props.loading}
+          nbItems={0}
           onPageRequested={this.fetchEventPageFiltered}
+          page={this.props.page}
           renderItem={(event: GenericEvent) => (
             <EventListItem
+              key={`${event.date}:${event.identifier}`}
               event={event}
               eventSpec={this.props.eventSpec}
-              key={`${event.date}:${event.identifier}`}
               onEventClick={this.props.onEventClick}
             />
           )}

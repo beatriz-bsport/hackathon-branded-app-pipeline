@@ -43,16 +43,16 @@ export function ActiveCampaignWebhooks(props: Props) {
             <CircularProgress className={props.classes.circularProgress} />
           ) : (
             <Switch
-              disabled={props.disabled}
               checked={
                 !!props.webhooks.items.find(
                   (webhook) => webhook.name === 'CLIENT_WON',
                 )
               }
+              color="primary"
+              disabled={props.disabled}
+              inputProps={{ 'aria-label': 'primary checkbox' }}
               onChange={() => props.handleWebhookActive('CLIENT_WON')}
               value="CLIENT_WON"
-              color="primary"
-              inputProps={{ 'aria-label': 'primary checkbox' }}
             />
           )}
           <ListItemText
@@ -68,16 +68,16 @@ export function ActiveCampaignWebhooks(props: Props) {
             <CircularProgress className={props.classes.circularProgress} />
           ) : (
             <Switch
-              disabled={props.disabled}
               checked={
                 !!props.webhooks.items.find(
                   (webhook) => webhook.name === 'CONTACT_TAG',
                 )
               }
+              color="primary"
+              disabled={props.disabled}
+              inputProps={{ 'aria-label': 'primary checkbox' }}
               onChange={() => props.handleWebhookActive('CONTACT_TAG')}
               value="CONTACT_TAG"
-              color="primary"
-              inputProps={{ 'aria-label': 'primary checkbox' }}
             />
           )}
           <ListItemText

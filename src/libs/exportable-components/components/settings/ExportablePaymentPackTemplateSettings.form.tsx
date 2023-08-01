@@ -25,13 +25,7 @@ const ExportablePaymentPackTemplateSettings: React.FC<Props> = (props) => {
     <div className={classes.marginTop}>
       <Autocomplete
         multiple
-        options={[...paymentPackTemplateListAvailable]}
         getOptionLabel={(option) => option.name?.slice(0, 25)}
-        value={[
-          ...paymentPackTemplateListAvailable.filter((paymentPackTemplate) =>
-            config.paymentPackTemplateList?.includes(paymentPackTemplate.id),
-          ),
-        ]}
         onChange={(e, values) =>
           props.onChange({
             paymentPackTemplateList: values.map(
@@ -39,14 +33,20 @@ const ExportablePaymentPackTemplateSettings: React.FC<Props> = (props) => {
             ),
           })
         }
+        options={[...paymentPackTemplateListAvailable]}
         renderInput={(params) => (
           <TextField
             {...params}
-            variant="standard"
             label={t('paymentPackTemplate.widget.choose')}
             placeholder={t('paymentPackTemplate.widget.choose')}
+            variant="standard"
           />
         )}
+        value={[
+          ...paymentPackTemplateListAvailable.filter((paymentPackTemplate) =>
+            config.paymentPackTemplateList?.includes(paymentPackTemplate.id),
+          ),
+        ]}
       />
     </div>
   );

@@ -55,7 +55,7 @@ const ClickOnPaymentPack = withTranslation(['paymentPack'])(
   (props: { classes: Object, t: TFunction }) => (
     <div className={props.classes.container}>
       <div className={props.classes.emptyMessageContainer}>
-        <Alert severity="info" className={props.classes.alertInfo} color="grey">
+        <Alert className={props.classes.alertInfo} color="grey" severity="info">
           {props.t('details.pleaseSelectAPack')}
         </Alert>
       </div>
@@ -101,28 +101,28 @@ export class MetaActivityDetailPacks extends Component<state, Props> {
     const { paymentPacks, t, classes } = this.props;
     return (
       <div>
-        <Grid container direction="row" alignItems="stretch">
-          <Grid item sm={12} md={6} className={classes.panel}>
-            <Typography variant="h5" component="h2" className={classes.header}>
+        <Grid container alignItems="stretch" direction="row">
+          <Grid item className={classes.panel} md={6} sm={12}>
+            <Typography className={classes.header} component="h2" variant="h5">
               {t('detail.pack.paymentPacks')}
             </Typography>
             <Paper>
               <PaginatedListBase
-                listProps={{ disablePadding: 'true', dense: 'true' }}
-                items={paymentPacks.items}
-                nbItems={paymentPacks.count}
-                loading={paymentPacks.loading}
-                page={paymentPacks.page}
                 itemPerPage={PAGE_SIZE}
+                items={paymentPacks.items}
+                listProps={{ disablePadding: 'true', dense: 'true' }}
+                loading={paymentPacks.loading}
+                nbItems={paymentPacks.count}
                 onPageRequested={(page: number, pageSize: number) =>
                   this.props.fetchPaymentPacks(this.props.id, page, pageSize)
                 }
+                page={paymentPacks.page}
                 renderEmpty={() => (
                   <div>
                     <Typography
                       className={this.props.classes.emptyContainer}
-                      variant="caption"
                       color="textSecondary"
+                      variant="caption"
                     >
                       {t('detail.pack.noCompatiblePass')}
                     </Typography>
@@ -132,40 +132,38 @@ export class MetaActivityDetailPacks extends Component<state, Props> {
                 renderItem={(pack) => (
                   <PaymentPackListItem
                     key={pack.id}
-                    pack={pack}
                     divider
-                    selected={pack.id === this.props.packId}
-                    onClick={() => this.props.goToPack(this.props.id, pack.id)}
                     creditScaleFactor={this.props.theme.pass_credit_factor}
+                    onClick={() => this.props.goToPack(this.props.id, pack.id)}
+                    pack={pack}
+                    selected={pack.id === this.props.packId}
                   />
                 )}
               />
             </Paper>
           </Grid>
-          <Grid item sm={12} md={6} className={classes.panel}>
+          <Grid item className={classes.panel} md={6} sm={12}>
             {this.props.packId ? (
               <div>
                 <Typography
-                  variant="h5"
-                  component="h2"
                   className={classes.header}
+                  component="h2"
+                  variant="h5"
                 >
                   {t('detail.pack.consumerPacks')}
                 </Typography>
                 <Paper>
                   <PaginatedConsumerPackList
-                    paymentPack={this.props.selectedPaymentPack}
-                    items={this.props.consumerPacks.items}
-                    onClick={(cpp) => {
-                      this.props.goToConsumerPackDetail(cpp.member_id, cpp.id);
-                    }}
-                    nbItems={this.props.consumerPacks.count}
-                    loading={this.props.consumerPacks.loading}
-                    page={this.props.consumerPacks.page}
                     consumerPacksUpdatingById={
                       this.props.consumerPacks.updatingById
                     }
                     itemPerPage={CONSUMER_PACKS_PAGE_SIZE}
+                    items={this.props.consumerPacks.items}
+                    loading={this.props.consumerPacks.loading}
+                    nbItems={this.props.consumerPacks.count}
+                    onClick={(cpp) => {
+                      this.props.goToConsumerPackDetail(cpp.member_id, cpp.id);
+                    }}
                     onPageRequested={(page: number, pageSize: number) =>
                       this.props.fetchConsumerPacks(
                         this.props.packId,
@@ -187,6 +185,8 @@ export class MetaActivityDetailPacks extends Component<state, Props> {
                         },
                       )
                     }
+                    page={this.props.consumerPacks.page}
+                    paymentPack={this.props.selectedPaymentPack}
                   />
                 </Paper>
               </div>

@@ -86,15 +86,15 @@ export const EmailInputWithChips = (props: Props) => {
   return (
     <div className={classes.container}>
       <TextField
+        disabled={props.disabled}
         error={error || (props.required && !emailList?.length)}
-        value={currentTextInput}
+        helperText={error ? t('form.warningAddEmail') : t('form.emailHelper')}
         label={props.textFieldLabel}
-        variant="standard"
+        name={props.textFieldName}
         onChange={(e) => handleChange(e)}
         onKeyDown={(e) => handleKeyDown(e)}
-        helperText={error ? t('form.warningAddEmail') : t('form.emailHelper')}
-        name={props.textFieldName}
-        disabled={props.disabled}
+        value={currentTextInput}
+        variant="standard"
       />
       <div className={classes.chipContainer}>
         {wrongChips &&
@@ -102,10 +102,10 @@ export const EmailInputWithChips = (props: Props) => {
           wrongChips.map((text, index) => (
             <div className={classes.chip}>
               <Chip
-                label={text}
                 key={`${index} - ${text}`}
-                onDelete={props.disabled ? null : () => removeChip(text)}
                 color="primary"
+                label={text}
+                onDelete={props.disabled ? null : () => removeChip(text)}
                 style={{ backgroundColor: 'red' }}
               />
             </div>
@@ -115,8 +115,8 @@ export const EmailInputWithChips = (props: Props) => {
           emailList.map((email, index) => (
             <div className={classes.chip}>
               <Chip
-                label={email}
                 key={`${index} - ${email}`}
+                label={email}
                 onDelete={
                   props.disabled ? null : () => removeEmailFromList(index)
                 }

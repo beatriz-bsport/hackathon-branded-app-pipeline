@@ -74,11 +74,11 @@ export const PaymentPackFormValidity: React.FC = () => {
               <div key={value}>
                 <FormControlLabel
                   key={value}
-                  value={value}
                   control={
                     <Radio checked={`${values.timeType}` === `${value}`} />
                   }
                   label={l}
+                  value={value}
                 />
               </div>
             ))}
@@ -88,18 +88,18 @@ export const PaymentPackFormValidity: React.FC = () => {
           <>
             <Grid item xs={3}>
               <DateField
-                name="lower_date"
-                label={t('addPaymentPack.fromDate')}
-                parseAsString
                 bottomError
+                parseAsString
+                label={t('addPaymentPack.fromDate')}
+                name="lower_date"
               />
             </Grid>
             <Grid item xs={3}>
               <DateField
-                name="upper_date"
-                label={t('addPaymentPack.toDate')}
-                parseAsString
                 bottomError
+                parseAsString
+                label={t('addPaymentPack.toDate')}
+                name="upper_date"
               />
             </Grid>
             <Grid item xs={6} />
@@ -109,34 +109,34 @@ export const PaymentPackFormValidity: React.FC = () => {
             <Grid item xs={12}>
               <div className={classes.row}>
                 <TextFieldEnhancedLabelWithError
-                  id="dayValidity"
                   fullWidth
-                  type="number"
-                  name="duration_days"
-                  label={t('addPaymentPack.dayValidity')}
                   helperText=" "
+                  id="dayValidity"
+                  label={t('addPaymentPack.dayValidity')}
+                  name="duration_days"
+                  type="number"
                 />
 
                 <Add />
 
                 <TextFieldEnhancedLabelWithError
-                  id="monthValidity"
                   fullWidth
-                  type="number"
-                  name="duration_months"
-                  label={t('addPaymentPack.monthValidity')}
                   helperText={t('addPaymentPack.monthValidityHelper')}
+                  id="monthValidity"
+                  label={t('addPaymentPack.monthValidity')}
+                  name="duration_months"
+                  type="number"
                 />
 
                 <Add />
 
                 <TextFieldEnhancedLabelWithError
-                  id="yearValidity"
                   fullWidth
-                  type="number"
-                  name="duration_years"
-                  label={t('addPaymentPack.yearValidity')}
                   helperText={t('addPaymentPack.yearValidityHelper')}
+                  id="yearValidity"
+                  label={t('addPaymentPack.yearValidity')}
+                  name="duration_years"
+                  type="number"
                 />
               </div>
             </Grid>
@@ -167,13 +167,13 @@ export const PaymentPackFormValidity: React.FC = () => {
                   <div key={value}>
                     <FormControlLabel
                       key={value}
-                      value={value}
                       control={
                         <Radio
                           checked={`${values.start_date_method}` === `${value}`}
                         />
                       }
                       label={l}
+                      value={value}
                     />
                   </div>
                 ))}
@@ -183,13 +183,13 @@ export const PaymentPackFormValidity: React.FC = () => {
             values.start_date_method === 'attendance' ? (
               <Grid item xs={6}>
                 <TextFieldEnhancedLabelWithError
-                  id="textfield_expiration_date"
                   fullWidth
-                  name="expiration_days_before_first_use"
-                  type="number"
                   required
                   helperText={t('addPaymentPack.expirationDateHelper')}
+                  id="textfield_expiration_date"
                   label={t('addPaymentPack.expirationDate')}
+                  name="expiration_days_before_first_use"
+                  type="number"
                 />
               </Grid>
             ) : null}

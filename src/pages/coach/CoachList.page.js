@@ -102,10 +102,10 @@ export class CoachList extends React.Component<Props, State> {
     ) {
       return (
         <IsEmptyList
-          text={this.props.t('coach:noCoachs')}
           button={this.props.t('coach:addCoach')}
           onCreate={this.props.onCreate}
           onCreateLabel={this.props.t('coach:addCoach')}
+          text={this.props.t('coach:noCoachs')}
         />
       );
     }
@@ -138,13 +138,13 @@ export class CoachList extends React.Component<Props, State> {
         {coachesList.length > 0 && (
           <div className={this.props.classes.search}>
             <FuzeSearch
-              searchText={this.state.searchText}
-              clearSearch={this.clearSearch}
               changeSearch={this.changeSearch}
+              clearSearch={this.clearSearch}
               items={coachesList}
               placeholder={t('coach:search')}
               searchFields={['name', 'email']}
               searchResult={this.state.searchResult}
+              searchText={this.state.searchText}
             />
             <Paper
               className={
@@ -160,17 +160,17 @@ export class CoachList extends React.Component<Props, State> {
                   this.state.searchText !== ''
                 }
               >
-                <List component="nav" dense disablePadding>
+                <List dense disablePadding component="nav">
                   {this.state.searchResult.map((coach) => (
                     <CoachListItem
                       divider
                       coach={coach}
+                      deleteCoach={() => this.props.setDeleteCoachId(coach.id)}
                       onCoachSelected={
                         !coach.disabled
                           ? () => this.goToCoachDetailPage(coach)
                           : null
                       }
-                      deleteCoach={() => this.props.setDeleteCoachId(coach.id)}
                     />
                   ))}
                 </List>
@@ -179,22 +179,22 @@ export class CoachList extends React.Component<Props, State> {
           </div>
         )}
         <Paper>
-          <List component="nav" dense disablePadding>
+          <List dense disablePadding component="nav">
             {coachesList.map((coach) => (
               <CoachListItem
                 divider
                 coach={coach}
-                onCoachSelected={() => this.goToCoachDetailPage(coach)}
                 deleteCoach={() => this.props.setDeleteCoachId(coach.id)}
+                onCoachSelected={() => this.goToCoachDetailPage(coach)}
                 onEditCoach={() => this.props.goToCoachEdit(coach.id)}
               />
             ))}
           </List>
           <CoachDeleteModal
-            coachToDeleteId={this.props.deleteCoachId}
-            onClose={() => this.props.setDeleteCoachId(null)}
             checkCanDeleteCoach={canDeleteCoachAPI}
+            coachToDeleteId={this.props.deleteCoachId}
             deleteCoach={this.props.deleteCoach}
+            onClose={() => this.props.setDeleteCoachId(null)}
           />
         </Paper>
 
@@ -202,17 +202,17 @@ export class CoachList extends React.Component<Props, State> {
           <div>
             <ButtonBase
               className={this.props.classes.buttonTitle}
-              onClick={this.onShowDisabled}
               disabled={!(inactiveCoachesList || []).length}
+              onClick={this.onShowDisabled}
             >
               <Typography
-                variant="h5"
+                className={this.props.classes.titleContainer}
                 color={
                   (inactiveCoachesList || []).length
                     ? 'default'
                     : 'textSecondary'
                 }
-                className={this.props.classes.titleContainer}
+                variant="h5"
               >
                 {`${t('coach:inactiveCoaches')} (${
                   (inactiveCoachesList || []).length
@@ -227,18 +227,18 @@ export class CoachList extends React.Component<Props, State> {
             </ButtonBase>
             <Divider />
             <Collapse
+              unmountOnExit
               className={this.props.classes.collapse}
               in={this.state.showDisabled}
-              unmountOnExit
             >
               <Paper>
-                <List component="nav" dense disablePadding>
+                <List dense disablePadding component="nav">
                   {inactiveCoachesList.map((coach) => (
                     <CoachListItem
                       divider
                       coach={coach}
-                      onCoachSelected={() => this.goToCoachDetailPage(coach)}
                       deleteCoach={() => this.props.setDeleteCoachId(coach.id)}
+                      onCoachSelected={() => this.goToCoachDetailPage(coach)}
                       restoreCoach={() => this.props.restoreCoach(coach.id)}
                     />
                   ))}

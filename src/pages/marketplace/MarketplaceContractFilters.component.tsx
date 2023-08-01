@@ -46,12 +46,12 @@ const MarketplaceContractFilters: React.FC<Props> = ({
     <>
       <div className={classes.searchContainer}>
         <ContractSearch
+          addContractToBasket={addContractToCart}
           contractList={contractList}
           isExcludingTax={isExcludingTax}
-          onPressEnter={onSearchPressEnter}
           onClearInput={onClearSearchResult}
+          onPressEnter={onSearchPressEnter}
           showContractDetail={onShowContractDetail}
-          addContractToBasket={addContractToCart}
         />
       </div>
 
@@ -65,10 +65,10 @@ const MarketplaceContractFilters: React.FC<Props> = ({
           </span>
 
           <Button
-            variant="outlined"
             color="primary"
-            startIcon={<ArrowBackIcon />}
             onClick={onClearSearchResult}
+            startIcon={<ArrowBackIcon />}
+            variant="outlined"
           >
             {t('marketplace:pass.search.goBack')}
           </Button>

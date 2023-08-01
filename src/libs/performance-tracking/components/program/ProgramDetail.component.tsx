@@ -67,7 +67,7 @@ export const ProgramDetail = (props: Props) => {
         </div>
       ) : (
         <>
-          <ProgramCard program={program} onDelete={onDelete} onEdit={onEdit} />
+          <ProgramCard onDelete={onDelete} onEdit={onEdit} program={program} />
           <div>
             <div className={classes.title}>
               <Typography variant="h5">{t('metric.title')}</Typography>
@@ -77,8 +77,8 @@ export const ProgramDetail = (props: Props) => {
           </div>
           <div>
             <MetricList
-              metricList={program.metric_list}
               loading={metricLoading}
+              metricList={program.metric_list}
             />
           </div>
           <div>

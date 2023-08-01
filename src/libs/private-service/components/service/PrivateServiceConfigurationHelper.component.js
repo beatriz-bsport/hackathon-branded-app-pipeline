@@ -65,47 +65,47 @@ type Props = {
 
 const ResourceConfigurationChecker = withStyles(styles)(
   withTranslation(['privateService'])((props) => (
-    <ButtonBase onClick={props.onClick} className={props.classes.row}>
+    <ButtonBase className={props.classes.row} onClick={props.onClick}>
       {props.loading ? (
         <CircularProgress className={props.classes.loading} />
       ) : null}
       {!props.loading && props.exists ? (
-        <CheckIcon color="primary" className={props.classes.leftIcon} />
+        <CheckIcon className={props.classes.leftIcon} color="primary" />
       ) : null}
       {!props.loading && !props.exists ? (
-        <TodayIcon color="error" className={props.classes.leftIcon} />
+        <TodayIcon className={props.classes.leftIcon} color="error" />
       ) : null}
       <div className={props.classes.leftColumn}>
         <Typography align="left" variant="body1">
           {props.name}
         </Typography>
         {props.loading ? (
-          <Typography variant="caption" color="textSecondary">
+          <Typography color="textSecondary" variant="caption">
             {' '}
             -{' '}
           </Typography>
         ) : null}
         {!props.loading && props.exists ? (
-          <Typography align="left" variant="caption" color="textSecondary">
+          <Typography align="left" color="textSecondary" variant="caption">
             {props.t('service.configuration.hasFutureSlot')}
           </Typography>
         ) : null}
         {props.capacity ? (
-          <Typography align="left" variant="caption" color="textSecondary">
+          <Typography align="left" color="textSecondary" variant="caption">
             {props.t('service.configuration.totalCapacity', {
               capacity: props.capacity,
             })}
           </Typography>
         ) : null}
         {!props.loading && !props.exists ? (
-          <Typography align="left" variant="caption" color="error">
+          <Typography align="left" color="error" variant="caption">
             {props.t('service.configuration.noFutureSlot', {
               resourceName: props.name,
             })}
           </Typography>
         ) : null}
         {props.capacityNotConfigured ? (
-          <Typography align="left" variant="subtitle2" color="error">
+          <Typography align="left" color="error" variant="subtitle2">
             {props.t('service.configuration.noCapacity', {
               resourceName: props.name,
             })}
@@ -125,17 +125,17 @@ export const PrivateServiceConfigurationHelper = (props: Props) => {
   return (
     <div>
       <div className={classes.titleRow}>
-        <TodayIcon fontSize="large" className={classes.leftIcon} />
+        <TodayIcon className={classes.leftIcon} fontSize="large" />
         <Typography variant="h4">{t('service.configuration.title')}</Typography>
       </div>
       <Paper>
         <ButtonBase
+          className={classes.row}
           onClick={
             privateService.has_own_availability_slots
               ? () => props.goToPrivateServiceCalendar(privateService.id)
               : null
           }
-          className={classes.row}
         >
           <IconButton
             onClick={(ev) => {
@@ -156,8 +156,8 @@ export const PrivateServiceConfigurationHelper = (props: Props) => {
             {privateService.has_own_availability_slots ? (
               <Typography
                 align="left"
-                variant="caption"
                 color={exists ? 'textSecondary' : 'error'}
+                variant="caption"
               >
                 {exists
                   ? t('service.configuration.hasFutureSlot')
@@ -166,7 +166,7 @@ export const PrivateServiceConfigurationHelper = (props: Props) => {
                     })}
               </Typography>
             ) : (
-              <Typography align="left" variant="caption" color="textSecondary">
+              <Typography align="left" color="textSecondary" variant="caption">
                 {t('service.configuration.explainHasOwnAvailabilitySlots', {
                   serviceName: privateService.name,
                 })}
@@ -182,13 +182,13 @@ export const PrivateServiceConfigurationHelper = (props: Props) => {
           const { exists: e, loading: l } = resourceSlotExistState;
           return (
             <ResourceConfigurationChecker
+              key={`${establishment.id}`}
+              capacity={establishment.capacity}
+              capacityNotConfigured={establishment.capacity === 0}
+              exists={e}
+              loading={l}
               name={establishment.title}
               onClick={() => props.goToEstablishmentCalendar(establishment.id)}
-              loading={l}
-              exists={e}
-              capacityNotConfigured={establishment.capacity === 0}
-              capacity={establishment.capacity}
-              key={`${establishment.id}`}
             />
           );
         })}
@@ -200,11 +200,11 @@ export const PrivateServiceConfigurationHelper = (props: Props) => {
           const { exists: e, loading: l } = resourceSlotExistState;
           return (
             <ResourceConfigurationChecker
+              key={`coach${coach.id}`}
+              exists={e}
+              loading={l}
               name={coach.name}
               onClick={() => props.goToCoachCalendar(coach.id)}
-              loading={l}
-              exists={e}
-              key={`coach${coach.id}`}
             />
           );
         })}

@@ -42,19 +42,19 @@ export function PaymentInfo(props: Props) {
       <div className={classes.paymentContainer}>
         {paymentItems.map((pi) => (
           <Grid
-            container
             key={pi.id}
+            container
+            alignItems="center"
             direction="row"
             justify="space-between"
-            alignItems="center"
           >
             <Grid item>
               <Typography>{t(`payment.paymentMethods.${pi.text}`)}</Typography>
             </Grid>
             <Grid item>
               <PriceInput
-                value={pi.amount}
                 onChange={handlePaymentChange(pi.id)}
+                value={pi.amount}
               />
             </Grid>
           </Grid>
@@ -63,10 +63,10 @@ export function PaymentInfo(props: Props) {
       <Divider />
       <Grid
         container
-        direction="row"
-        justify="space-between"
         alignItems="center"
         className={classes.finalPaymentLine}
+        direction="row"
+        justify="space-between"
       >
         <Grid item>
           <Typography variant="subtitle1">
@@ -74,17 +74,17 @@ export function PaymentInfo(props: Props) {
           </Typography>
         </Grid>
         <Grid item>
-          <Typography variant="button" gutterBottom>
+          <Typography gutterBottom variant="button">
             {getCurrencyDisplayWithPrice(finalPrice.toFixed(2))}
           </Typography>
         </Grid>
       </Grid>
       <Grid
         container
-        direction="row"
-        justify="space-between"
         alignItems="center"
         className={classes.finalPaymentLine}
+        direction="row"
+        justify="space-between"
       >
         <Grid item>
           <Typography variant="subtitle1">
@@ -93,9 +93,9 @@ export function PaymentInfo(props: Props) {
         </Grid>
         <Grid item>
           <Typography
-            variant="button"
             gutterBottom
             style={totalPayment < finalPrice ? { color: '#e57373' } : {}}
+            variant="button"
           >
             {getCurrencyDisplayWithPrice(
               (finalPrice - totalPayment).toFixed(2),
@@ -106,13 +106,13 @@ export function PaymentInfo(props: Props) {
       <Divider />
       <Grid
         container
-        direction="row"
-        justify="flex-end"
         alignItems="center"
         className={classes.buttonsWrapper}
+        direction="row"
+        justify="flex-end"
       >
         <Grid item className={classes.padding}>
-          <Button color="secondary" variant="outlined" onClick={onClose}>
+          <Button color="secondary" onClick={onClose} variant="outlined">
             <CancelIcon className={classes.iconLeft} />
             {t('common.cancel')}
           </Button>
@@ -121,9 +121,9 @@ export function PaymentInfo(props: Props) {
         <Grid item className={classes.padding}>
           <Button
             color="primary"
-            variant="outlined"
-            onClick={onSubmit}
             disabled={disabled}
+            onClick={onSubmit}
+            variant="outlined"
           >
             <SaveIcon className={classes.iconLeft} />
             {t('common.save')}

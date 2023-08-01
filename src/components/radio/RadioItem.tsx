@@ -15,8 +15,8 @@ export const RadioItem = (props: Props) => {
   return (
     <ButtonBase
       className={classes.itemContainer}
-      onClick={() => props.onClick()}
       disabled={!!props.disabled}
+      onClick={() => props.onClick()}
     >
       <div
         className={`${classes.itemContainer} ${
@@ -24,8 +24,8 @@ export const RadioItem = (props: Props) => {
         }`}
       >
         <Radio
-          disabled={!!props.disabled}
           checked={props.selected}
+          disabled={!!props.disabled}
           onClick={props.onClick}
         />
         <div className={classes.itemContent}>{props.renderItem()}</div>

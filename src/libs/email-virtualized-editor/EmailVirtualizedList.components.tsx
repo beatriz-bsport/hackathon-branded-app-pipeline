@@ -142,33 +142,33 @@ export default function EmailVirtualizedList(props: Props) {
     <VirtualizedVariableList
       itemCount={itemCount}
       itemSize={HEIGHT_ITEM}
-      variableItemSize={(index) => getItemSize(index)}
+      minItemsDisplaid={3}
       renderRow={(index) => {
         return (
           <VirtualRowItem
-            index={index}
             key={index}
-            categoriesIndex={mapCategoryTitles}
             categoriesId={mapCategoryId}
-            isGrouped={isGrouped}
-            franchiseEmails={franchiseEmails}
+            categoriesIndex={mapCategoryTitles}
             companiesEmails={companiesEmails}
-            genericBsportTemplates={genericBsportTemplates}
             companiesEmailsByCompanyId={companiesEmailsByCompanyId}
             companyDic={companyDic}
-            t={t}
-            selectedId={selectedId}
-            navigateTo={navigateTo}
-            onEdit={onEdit}
-            onDelete={onDelete}
-            onDuplicate={onDuplicate}
+            franchiseEmails={franchiseEmails}
+            genericBsportTemplates={genericBsportTemplates}
+            heightCategoryTitle={HEIGHT_CATEGORY_TITLE}
             heightItem={HEIGHT_ITEM}
             heightTitle={HEIGHT_TITLE}
-            heightCategoryTitle={HEIGHT_CATEGORY_TITLE}
+            index={index}
+            isGrouped={isGrouped}
+            navigateTo={navigateTo}
+            onDelete={onDelete}
+            onDuplicate={onDuplicate}
+            onEdit={onEdit}
+            selectedId={selectedId}
+            t={t}
           />
         );
       }}
-      minItemsDisplaid={3}
+      variableItemSize={(index) => getItemSize(index)}
     />
   );
 }

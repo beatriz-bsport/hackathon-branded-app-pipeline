@@ -37,19 +37,19 @@ const GiftcardFormDrawer = (props: Props) => {
   const isSharedGiftcard = !!props.initial?.is_shared_giftcard;
   return (
     <GenericResponsiveDrawer
-      open={props.open}
-      title={t('form.giftcard.title')}
-      subtitle={props.initial?.name}
-      trackingObjectIdentifier={SegmentAnalyticsFormObjectIdentifier.Giftcard}
-      trackingObjectId={props.initial?.id}
       onClose={props.onClose}
+      open={props.open}
+      subtitle={props.initial?.name}
+      title={t('form.giftcard.title')}
+      trackingObjectId={props.initial?.id}
+      trackingObjectIdentifier={SegmentAnalyticsFormObjectIdentifier.Giftcard}
     >
       {isSharedGiftcard && (
         <Alert
-          variant="outlined"
-          severity="warning"
-          className={classes.alert}
           classes={{ root: classes.alertOverride }}
+          className={classes.alert}
+          severity="warning"
+          variant="outlined"
         >
           {t('form.canNotUpdateBecauseShared')}
         </Alert>
@@ -70,12 +70,12 @@ const GiftcardFormDrawer = (props: Props) => {
             {t('form.giftcard.actions.cancel')}
           </Button>
           <Button
+            color="primary"
+            disabled={props.isSubmitting || isSharedGiftcard}
             onClick={() => {
               trackFormSubmitIntent(props.initial?.id);
               props.handleSubmit();
             }}
-            disabled={props.isSubmitting || isSharedGiftcard}
-            color="primary"
             variant="contained"
           >
             {t('form.giftcard.actions.submit')}

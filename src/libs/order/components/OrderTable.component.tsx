@@ -50,7 +50,7 @@ const renderRow = (order: OrderWithProducts, t: TFunction) => {
           {first_name || ''} {last_name || ''}
         </Typography>
         {member_archived && (
-          <Typography variant="caption" color="secondary">
+          <Typography color="secondary" variant="caption">
             {`${'\u00A0'}(${t('member:archived')})`}
           </Typography>
         )}
@@ -184,8 +184,8 @@ export class OrderTable extends Component<Props, State> {
     };
     return (
       <MUIDataTable
-        data={renderRows(this.props.orders, this.props.t)}
         columns={getColumnData(this.props.t)}
+        data={renderRows(this.props.orders, this.props.t)}
         options={options}
         title={this.props.title}
       />

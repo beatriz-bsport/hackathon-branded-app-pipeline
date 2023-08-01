@@ -39,21 +39,21 @@ const WorkshopActivityInnerRouter: React.FC<Props> = ({
 
   return (
     <ContentWithAppBar
-      tab={tab}
       onChange={onChange}
       pageHeight={pageHeight}
+      tab={tab}
       tabsData={tabsData}
     >
       <Switch>
         <Route
           exact
-          path="/workshop-activity/tabs/list"
           component={WorkshopActivityList}
+          path="/workshop-activity/tabs/list"
         />
         <Route
           exact
-          path="/workshop-activity/tabs/groups/:selectedOfferId?"
           component={WorkshopActivityGroup}
+          path="/workshop-activity/tabs/groups/:selectedOfferId?"
         />
         <Redirect to="/workshop-activity/tabs/list" />
       </Switch>

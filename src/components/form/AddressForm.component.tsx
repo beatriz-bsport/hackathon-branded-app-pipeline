@@ -85,43 +85,43 @@ export class AddressForm extends PureComponent<Props, State> {
       <form onSubmit={this.onSubmit}>
         <div className={classes.container}>
           <TextField
+            fullWidth
             required
             autoComplete={autoComplete ? 'addres-line1' : null}
-            value={this.state.address_line_1 || this.props.address_line_1}
-            name="address_line_1"
-            fullWidth
-            label={t('form.address.addressLine1')}
-            onChange={this.handleChange('address_line_1')}
             className={classes.addressField}
+            label={t('form.address.addressLine1')}
+            name="address_line_1"
+            onChange={this.handleChange('address_line_1')}
+            value={this.state.address_line_1 || this.props.address_line_1}
           />
           <TextField
-            name="address_line_2"
-            value={this.state.address_line_2 || this.props.address_line_2}
-            autoComplete={autoComplete ? 'address-line2' : null}
             fullWidth
-            label={t('form.address.addressLine2')}
-            onChange={this.handleChange('address_line_2')}
+            autoComplete={autoComplete ? 'address-line2' : null}
             className={classes.addressField}
+            label={t('form.address.addressLine2')}
+            name="address_line_2"
+            onChange={this.handleChange('address_line_2')}
+            value={this.state.address_line_2 || this.props.address_line_2}
           />
-          <Grid container direction="row" spacing={2} className={classes.city}>
+          <Grid container className={classes.city} direction="row" spacing={2}>
             <Grid item>
               <TextField
-                name="city"
-                value={this.state.city || this.props.city}
+                required
                 autoComplete={autoComplete ? 'city' : null}
                 label={t('form.address.city')}
-                required
+                name="city"
                 onChange={this.handleChange('city')}
+                value={this.state.city || this.props.city}
               />
             </Grid>
             <Grid item>
               <TextField
-                name="zipcode"
-                value={this.state.zipcode || this.props.zipcode}
+                required
                 autoComplete={autoComplete ? 'zipcode' : null}
                 label={t('form.address.zipcode')}
-                required
+                name="zipcode"
                 onChange={this.handleChange('zipcode')}
+                value={this.state.zipcode || this.props.zipcode}
               />
             </Grid>
             {ALLOWED_COUNTRIES_FOR_STATES.includes(
@@ -129,35 +129,35 @@ export class AddressForm extends PureComponent<Props, State> {
             ) && (
               <Grid item>
                 <TextField
-                  name="state"
-                  value={this.state.state || this.props.state}
+                  required
                   autoComplete={autoComplete ? 'state' : null}
                   label={t('form.address.state')}
-                  required
+                  name="state"
                   onChange={this.handleChange('state')}
+                  value={this.state.state || this.props.state}
                 />
               </Grid>
             )}
           </Grid>
           <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
             <TextField
-              name="country"
-              value={this.state.country || this.props.country}
-              autoComplete={autoComplete ? 'country' : null}
               required
-              label={t('form.address.country')}
-              onChange={this.handleChange('country')}
+              autoComplete={autoComplete ? 'country' : null}
               className={classes.addressField}
+              label={t('form.address.country')}
+              name="country"
+              onChange={this.handleChange('country')}
+              value={this.state.country || this.props.country}
             />
           </div>
         </div>
         {(this.props.onCancel || this.props.onSubmit || this.props.onSkip) && (
           <Grid
             container
-            direction="row"
             alignItems="center"
-            justify="space-between"
             className={classes.bottomButtons}
+            direction="row"
+            justify="space-between"
           >
             <Grid item>
               {this.props.onCancel && (
@@ -170,14 +170,14 @@ export class AddressForm extends PureComponent<Props, State> {
               <Grid
                 container
                 item
-                direction="row"
                 alignItems="center"
+                direction="row"
                 justify="flex-end"
               >
                 {this.props.onSkip && (
                   <Button
-                    id="btn-signup-skip"
                     color="secondary"
+                    id="btn-signup-skip"
                     onClick={this.onSkip}
                   >
                     {t('common.skip')}
@@ -185,10 +185,10 @@ export class AddressForm extends PureComponent<Props, State> {
                 )}
                 {this.props.onSubmit && (
                   <Button
-                    id="btn-signup"
                     color="primary"
-                    variant="contained"
+                    id="btn-signup"
                     type="submit"
+                    variant="contained"
                   >
                     {this.props.submitText || t('form.save')}
                   </Button>

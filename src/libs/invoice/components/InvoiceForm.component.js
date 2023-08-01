@@ -189,72 +189,72 @@ export class InvoiceForm extends React.Component<Props, State> {
     const invoiceItemAmount = this.getInvoiceItemAmount();
     const paymentAmount = this.getPaymentItemAmount();
     return (
-      <Grid container spacing={1} className={classes.container}>
-        <Grid item xs={12} md={6}>
+      <Grid container className={classes.container} spacing={1}>
+        <Grid item md={6} xs={12}>
           <InvoiceHeader invoice={this.props.invoice} />
           <InvoiceContent
-            removeInvoiceItem={this.removeInvoiceItem}
+            amountInvoiceItem={invoiceItemAmount}
+            amountPaymentItem={paymentAmount}
+            invoice={this.props.invoice}
             invoiceItemList={[
               ...asEditable(false, this.props.invoiceItemList),
               ...asEditable(true, this.state.invoiceItemList),
             ]}
-            amountInvoiceItem={invoiceItemAmount}
-            removePaymentItem={this.removePaymentItem}
+            isReturningPayment={this.props.isReturningPayment}
             paymentItemList={[
               ...asEditable(false, this.props.paymentItemList),
               ...asEditable(true, this.state.paymentItemList),
             ]}
-            amountPaymentItem={paymentAmount}
-            updatePaymentMethod={this.props.updatePaymentMethod}
-            isReturningPayment={this.props.isReturningPayment}
+            removeInvoiceItem={this.removeInvoiceItem}
+            removePaymentItem={this.removePaymentItem}
             returnPayment={this.props.returnPayment}
-            invoice={this.props.invoice}
+            updatePaymentMethod={this.props.updatePaymentMethod}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <InvoiceEditor
-            savedPaymentMethodList={this.props.savedPaymentMethodList}
-            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-            refreshSavedPaymentMethodList={
-              this.props.refreshSavedPaymentMethodList
-            }
+            amountInvoiceItem={invoiceItemAmount}
+            amountPaymentItem={paymentAmount}
             availableBuyableItems={this.props.availableBuyableItems}
-            onAddBuyableItem={this.addBuyableItem}
-            onAddPaymentItem={this.addPaymentItem}
-            invoiceItemIsEmpty={this.invoiceItemIsEmpty()}
-            revertInvoice={this.props.revertInvoice}
+            detachPaymentMethod={this.props.detachPaymentMethod}
+            detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
+            finalizeInvoice={this.props.finalizeInvoice}
+            goToSubscription={this.props.goToSubscription}
             invoice={this.props.invoice}
             invoiceHasChanged={
               this.state.invoiceItemList.length ||
               this.state.paymentItemList.length
             }
-            amountInvoiceItem={invoiceItemAmount}
-            amountPaymentItem={paymentAmount}
+            invoiceItemIsEmpty={this.invoiceItemIsEmpty()}
             isEquilibrated={paymentAmount === invoiceItemAmount}
             member={this.props.member}
+            onAddBuyableItem={this.addBuyableItem}
+            onAddPaymentItem={this.addPaymentItem}
             onSubmit={this.onSubmit}
-            finalizeInvoice={this.props.finalizeInvoice}
-            goToSubscription={this.props.goToSubscription}
-            detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
-            detachPaymentMethod={this.props.detachPaymentMethod}
+            refreshSavedPaymentMethodList={
+              this.props.refreshSavedPaymentMethodList
+            }
+            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+            revertInvoice={this.props.revertInvoice}
+            savedPaymentMethodList={this.props.savedPaymentMethodList}
             snackbarErrorMsg={this.props.snackbarErrorMsg}
             snackbarSuccessMsg={this.props.snackbarSuccessMsg}
           />
         </Grid>
         <UnevenInvoiceDialog
-          open={this.props.unevenInvoiceAlertOpen}
           onClose={this.props.closeUnevenInvoiceDialog}
+          onSubmit={this.onSubmit}
+          open={this.props.unevenInvoiceAlertOpen}
           totalItem={this.getInvoiceItemAmount().toFixed(2)}
           totalPayment={paymentAmount.toFixed(2)}
-          onSubmit={this.onSubmit}
         />
         <FinalizeInvoiceDialog
-          open={this.props.finalizeInvoiceAlertOpen}
           onClose={this.props.closeFinalizeInvoiceDialog}
           onSubmit={() => {
             this.props.finalizeInvoice();
             this.props.closeFinalizeInvoiceDialog();
           }}
+          open={this.props.finalizeInvoiceAlertOpen}
         />
       </Grid>
     );

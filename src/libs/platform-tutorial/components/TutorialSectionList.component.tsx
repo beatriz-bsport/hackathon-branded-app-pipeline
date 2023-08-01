@@ -51,24 +51,24 @@ const LinearProgressFlexItem: React.FC<{
   return (
     <Grid
       container
-      spacing={1}
-      justifyContent="flex-end"
       alignItems="center"
       className={classNames(
         classes.linearProgress,
         { [classes.xsDownHidden]: !mobile },
         classes.flex,
       )}
+      justifyContent="flex-end"
+      spacing={1}
     >
       <Grid item xs={12}>
         <LinearProgress
-          color="primary"
-          variant="determinate"
-          value={(section_statistics || [0, 0, 0])[2]}
           classes={{ root: classes.progressBar }}
+          color="primary"
+          value={(section_statistics || [0, 0, 0])[2]}
+          variant="determinate"
         />
       </Grid>
-      <Typography variant="subtitle1" color="primary">
+      <Typography color="primary" variant="subtitle1">
         {`${(section_statistics || [0, 0, 0])[0]}/${
           (section_statistics || [0, 0, 0])[1]
         }`}
@@ -140,7 +140,7 @@ const TutorialSectionList: React.FC<Props> = (props: Props) => {
     parseInt(defaultSelectedSectionId) || null,
   );
   return (
-    <List component="nav" className={classes.root}>
+    <List className={classes.root} component="nav">
       {!!sections &&
         sections?.length > 0 &&
         sections.map((section) => {
@@ -159,6 +159,8 @@ const TutorialSectionList: React.FC<Props> = (props: Props) => {
             >
               <ListItem
                 button
+                classes={{ root: classes.rootListItem }}
+                className={classes.listItem}
                 onClick={(e) => {
                   e.stopPropagation();
 
@@ -166,8 +168,6 @@ const TutorialSectionList: React.FC<Props> = (props: Props) => {
                     openSection === section.id ? null : section.id,
                   );
                 }}
-                className={classes.listItem}
-                classes={{ root: classes.rootListItem }}
               >
                 <div className={classes.row}>
                   <div className={classes.rowStart}>
@@ -183,8 +183,6 @@ const TutorialSectionList: React.FC<Props> = (props: Props) => {
                       )}
                     >
                       <MuiIcon
-                        icon={section?.icon}
-                        defaultIcon="BusinessCenter"
                         className={classNames(
                           {
                             [classes.iconPrimary]: sectionStarted,
@@ -193,6 +191,8 @@ const TutorialSectionList: React.FC<Props> = (props: Props) => {
                             [classes.iconDisabled]: !sectionStarted,
                           },
                         )}
+                        defaultIcon="BusinessCenter"
+                        icon={section?.icon}
                       />
                     </div>
                     <div className={classes.expandIcon}>
@@ -203,14 +203,14 @@ const TutorialSectionList: React.FC<Props> = (props: Props) => {
                       )}
                     </div>
                     <div className={classes.growSection}>
-                      <Typography variant="h5" className={classes.sectionTitle}>
+                      <Typography className={classes.sectionTitle} variant="h5">
                         {section?.translated_name}
                       </Typography>
                       <CheckCircleOutlineIcon
-                        color="disabled"
                         className={classNames({
                           [classes.iconGreen]: sectionCompleted,
                         })}
+                        color="disabled"
                       />
                       <div className={classes.xsDownHidden}>
                         <SectionStatusChips
@@ -221,11 +221,11 @@ const TutorialSectionList: React.FC<Props> = (props: Props) => {
                     </div>
                     <IconButton
                       className={classes.xsDownShareIcon}
+                      color="secondary"
                       onClick={(e) => {
                         e.stopPropagation();
                         shareObject(section, true);
                       }}
-                      color="secondary"
                     >
                       <Tooltip title={t('sectionList.shareSection')}>
                         <ShareIcon />
@@ -243,11 +243,11 @@ const TutorialSectionList: React.FC<Props> = (props: Props) => {
                     )}
                   >
                     <IconButton
+                      color="secondary"
                       onClick={(e) => {
                         e.stopPropagation();
                         shareObject(section, true);
                       }}
-                      color="secondary"
                     >
                       <Tooltip title={t('sectionList.shareSection')}>
                         <ShareIcon />
@@ -261,8 +261,8 @@ const TutorialSectionList: React.FC<Props> = (props: Props) => {
                     tutorial_completion={tutorial_completion}
                   />
                   <LinearProgressFlexItem
-                    section_statistics={(statistics || {})[section.id]}
                     mobile
+                    section_statistics={(statistics || {})[section.id]}
                   />
                 </div>
               </ListItem>
@@ -270,8 +270,8 @@ const TutorialSectionList: React.FC<Props> = (props: Props) => {
               <Collapse in={openSection === section.id}>
                 <Divider />
                 <TutorialLessonList
-                  lessons={section?.lessons}
                   goToLesson={goToLesson}
+                  lessons={section?.lessons}
                   shareLesson={(lesson: TutorialLesson) =>
                     shareObject(lesson, false)
                   }

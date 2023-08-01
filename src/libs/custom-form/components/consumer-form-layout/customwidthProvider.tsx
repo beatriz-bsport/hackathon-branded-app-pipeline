@@ -89,9 +89,9 @@ export default function WidthProvideRGL<Config>(
       if (measureBeforeMount && !this.mounted) {
         return (
           <div
+            ref={this.elementRef}
             className={clsx(this.props.className, LAYOUT_CLASS_NAME)}
             style={this.props.style}
-            ref={this.elementRef}
           />
         );
       }

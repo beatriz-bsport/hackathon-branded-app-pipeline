@@ -77,7 +77,7 @@ export class MarketingNotificationsList extends React.PureComponent<Props> {
             emailTitle = email.title;
           }
           return (
-            <div className={classes.notificationListContainer} key={notif.id}>
+            <div key={notif.id} className={classes.notificationListContainer}>
               <ButtonBase
                 className={clx({
                   [classes.notificationListItem]: true,
@@ -87,8 +87,8 @@ export class MarketingNotificationsList extends React.PureComponent<Props> {
                 onClick={() => this.props.onClickNotification(notif)}
               >
                 <NotificationListInner
-                  notification={notif}
                   emailTitle={emailTitle}
+                  notification={notif}
                   smartLists={smartLists}
                 />
 

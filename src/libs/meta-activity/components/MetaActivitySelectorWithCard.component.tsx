@@ -80,14 +80,14 @@ const MetaActivitySelectorWithCard = (props: Props) => {
     <div className={classes.main}>
       <div className={classes.container}>
         <FuzeSearch
-          variant="outlined"
-          searchText={searchText}
-          clearSearch={clearSearch}
           changeSearch={changeSearch}
-          searchFields={['name']}
+          className={classes.search}
+          clearSearch={clearSearch}
           items={metaActivities}
           placeholder={placeholder}
-          className={classes.search}
+          searchFields={['name']}
+          searchText={searchText}
+          variant="outlined"
         />
 
         <div className={classes.virtualListContainer}>

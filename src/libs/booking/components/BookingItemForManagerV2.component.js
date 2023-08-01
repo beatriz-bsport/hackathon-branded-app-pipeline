@@ -139,11 +139,11 @@ const AttendanceButton = (props: AttendanceButtonProps) => {
       <Wrapper>
         <Button
           color="primary"
-          variant={props.variant}
           onClick={(e) => {
             e.stopPropagation();
             props.discardBookingAttendance(e);
           }}
+          variant={props.variant}
         >
           {props.t('attend')}
           <CachedIcon className={props.classes.iconButton} />
@@ -154,12 +154,12 @@ const AttendanceButton = (props: AttendanceButtonProps) => {
   return (
     <Wrapper>
       <RedButton
-        variant={props.variant}
+        disabled={props.isNoShow}
         onClick={(e) => {
           e.stopPropagation();
           props.confirmBookingAttendance(e);
         }}
-        disabled={props.isNoShow}
+        variant={props.variant}
       >
         {props.t('doNotAttend')}
         <CachedIcon className={props.classes.iconButton} />
@@ -263,15 +263,15 @@ export class BookingItemForManager extends Component<Props, State> {
         </IconButton>
 
         <Menu
-          id="simple-menu"
           anchorEl={this.state.menuAnchor}
-          open={Boolean(this.state.menuAnchor)}
+          id="simple-menu"
           onClose={closeAndAction()}
+          open={Boolean(this.state.menuAnchor)}
         >
           {showQuickInvoiceButton && onQuickInvoiceClick ? (
             <MenuItem
-              onClick={closeAndAction(onQuickInvoiceClick)}
               className={classes.menuItem}
+              onClick={closeAndAction(onQuickInvoiceClick)}
             >
               {getCurrencyDisplay() === '€' ? (
                 <EuroSymbolIcon className={classes.icon} />
@@ -284,8 +284,8 @@ export class BookingItemForManager extends Component<Props, State> {
           ) : null}
           {!!switchAttendance && !booking.is_no_show && (
             <MenuItem
-              onClick={closeAndAction(switchAttendance)}
               className={classes.menuItem}
+              onClick={closeAndAction(switchAttendance)}
             >
               <CachedIcon className={classes.icon} />
 
@@ -294,8 +294,8 @@ export class BookingItemForManager extends Component<Props, State> {
           )}
           {!!handleRevert && (
             <MenuItem
-              onClick={closeAndAction(handleRevert)}
               className={classes.menuItem}
+              onClick={closeAndAction(handleRevert)}
             >
               <CancelIcon className={classes.icon} />
 
@@ -304,10 +304,10 @@ export class BookingItemForManager extends Component<Props, State> {
           )}
           {this.props.spotSchedulingEnabled && this.props.onClickChangeSpot && (
             <MenuItem
+              className={classes.menuItem}
               onClick={closeAndAction(() =>
                 this.props.onClickChangeSpot(booking),
               )}
-              className={classes.menuItem}
             >
               <EventSeat className={classes.icon} />
               <Typography>
@@ -319,8 +319,8 @@ export class BookingItemForManager extends Component<Props, State> {
           )}
           {!!programList?.length && (
             <MenuItem
-              onClick={this.handleProgramDetailClick}
               className={classes.menuItem}
+              onClick={this.handleProgramDetailClick}
             >
               <OfflineBolt className={classes.icon} />
               <Typography>{t('performanceTracking.stat')}</Typography>
@@ -424,24 +424,24 @@ export class BookingItemForManager extends Component<Props, State> {
               <AttendanceButton
                 attendance={booking.attendance}
                 attendance_date_updated={booking.attendance_date_updated}
-                variant="outlined"
-                t={t}
                 classes={classes}
-                discardBookingAttendance={discardBookingAttendance}
                 confirmBookingAttendance={confirmBookingAttendance}
+                discardBookingAttendance={discardBookingAttendance}
                 isNoShow={booking.is_no_show}
+                t={t}
+                variant="outlined"
               />
             ) : null}
             {showQuickInvoiceButton &&
             booking.booking_status_code === BOOKING_STATUS_OK.id ? (
               <Button
-                variant="outlined"
+                className={classes.rightButton}
                 color="secondary"
                 onClick={(e) => {
                   e.stopPropagation();
                   this.props.onQuickInvoiceClick(e);
                 }}
-                className={classes.rightButton}
+                variant="outlined"
               >
                 {getCurrencyDisplay() === '€' ? (
                   <EuroSymbolIcon />
@@ -456,15 +456,15 @@ export class BookingItemForManager extends Component<Props, State> {
               BOOKING_STATUS_OK.id,
             ].includes(booking.booking_status_code) ? (
               <IconButton
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleRevert(e);
-                }}
                 disabled={
                   booking &&
                   booking.booking_status_code ===
                     BOOKING_STATUS_CANCELLED_BY_MANAGER.id
                 }
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleRevert(e);
+                }}
               >
                 <CancelIcon />
               </IconButton>
@@ -484,18 +484,18 @@ export class BookingItemForManager extends Component<Props, State> {
                     <MoreVertIcon />
                   </IconButton>
                   <Menu
-                    id="simple-menu"
                     anchorEl={this.state.menuAnchor}
-                    open={Boolean(this.state.menuAnchor)}
+                    id="simple-menu"
                     onClose={closeAndAction()}
+                    open={Boolean(this.state.menuAnchor)}
                   >
                     {this.props.spotSchedulingEnabled &&
                       this.props.onClickChangeSpot && (
                         <MenuItem
+                          className={classes.menuItem}
                           onClick={closeAndAction(() =>
                             this.props.onClickChangeSpot(booking),
                           )}
-                          className={classes.menuItem}
                         >
                           <EventSeat className={classes.icon} />
                           <Typography>
@@ -507,8 +507,8 @@ export class BookingItemForManager extends Component<Props, State> {
                       )}
                     {!!programList?.length && (
                       <MenuItem
-                        onClick={this.handleProgramDetailClick}
                         className={classes.menuItem}
+                        onClick={this.handleProgramDetailClick}
                       >
                         <OfflineBolt className={classes.icon} />
                         <Typography>{t('performanceTracking.stat')}</Typography>
@@ -571,8 +571,8 @@ export class BookingItemForManager extends Component<Props, State> {
         if (this.props.showVaccinationStatus)
           Wrapper = (p) => (
             <VaccinationBadge
-              status={this.props.member.vaccination_status}
               topRightIcon
+              status={this.props.member.vaccination_status}
             >
               {p.children}
             </VaccinationBadge>
@@ -596,9 +596,9 @@ export class BookingItemForManager extends Component<Props, State> {
           >
             <Wrapper>
               <AvatarWithBadge
-                member={member}
-                classes={{ badge: classes.badge }}
                 bottomCredit
+                classes={{ badge: classes.badge }}
+                member={member}
               />
             </Wrapper>
           </ListItemAvatar>
@@ -636,18 +636,18 @@ export class BookingItemForManager extends Component<Props, State> {
       return (
         <Tooltip
           placement="right"
-          variant="highlighted"
           title={
             <div>
               {this.props.member.notes
                 .filter((n) => n.highlighted)
                 .map((n) => (
-                  <Typography key={n.id} variant="caption" display="block">
+                  <Typography key={n.id} display="block" variant="caption">
                     {n.text}
                   </Typography>
                 ))}
             </div>
           }
+          variant="highlighted"
         >
           {children}
         </Tooltip>
@@ -678,18 +678,18 @@ export class BookingItemForManager extends Component<Props, State> {
     return this.wrapToolTip(
       <div>
         <ListItem
-          divider
-          selected={!!this.props.selected}
-          button={redirectToMember || redirectToOffer || this.props.button}
           disableRipple
+          divider
+          button={redirectToMember || redirectToOffer || this.props.button}
+          className={classes}
           disabled={disabled}
           onClick={this.handleListItemClick}
-          className={classes}
+          selected={!!this.props.selected}
         >
           <Grid
             container
-            justify="space-between"
             alignItems="center"
+            justify="space-between"
             wrap="nowrap"
           >
             <Grid item>
@@ -708,9 +708,9 @@ export class BookingItemForManager extends Component<Props, State> {
                         {this.getHeading()}
                       </Typography>
                       {isBirthday && this.props.heading !== 'date_start' && (
-                        <Cake style={{ fontSize: '14px' }} color="secondary" />
+                        <Cake color="secondary" style={{ fontSize: '14px' }} />
                       )}
-                      <Typography variant="caption" color="secondary">
+                      <Typography color="secondary" variant="caption">
                         {this.getArchivedStatus()}
                       </Typography>
                       <Typography color="primary">
@@ -720,7 +720,7 @@ export class BookingItemForManager extends Component<Props, State> {
                       <Typography color="primary">
                         <strong>{this.getHasNoteIndicator()}</strong>
                       </Typography>
-                      <Typography variant="body2" inline>
+                      <Typography inline variant="body2">
                         <BookingStatusCodeText booking={booking} />
                       </Typography>
                     </div>
@@ -734,14 +734,14 @@ export class BookingItemForManager extends Component<Props, State> {
                       ) && (
                         <div className={this.props.classes.rowPrimary}>
                           <PersonAddIcon color="textSecondary" />
-                          <Typography variant="body2" color="textSecondary">
+                          <Typography color="textSecondary" variant="body2">
                             {t('asGuest')}
                           </Typography>
                         </div>
                       )}
                       {bookingStatus.map(([txt, color]) => {
                         return (
-                          <Typography key={txt} variant="body2" color={color}>
+                          <Typography key={txt} color={color} variant="body2">
                             {txt}
                           </Typography>
                         );
@@ -761,7 +761,7 @@ export class BookingItemForManager extends Component<Props, State> {
                             }
                           />
                         ) : (
-                          <Typography variant="body2" color="error">
+                          <Typography color="error" variant="body2">
                             {t('noSpotAttributed')}
                           </Typography>
                         ))}

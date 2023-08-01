@@ -60,12 +60,12 @@ const ReplaceInvalidMandateDialog = (props: ReplaceInvalidateMandateProps) => {
       return (
         <GenericResponsiveDialog open>
           <RevalidateMandate
-            variant="div"
-            requestSetupIntentSecret={props.requestSetupIntentSecret}
+            onCancel={props.onCancel}
+            onSuccess={props.onSuccess}
             paymentGroupMethodIdentifier={props.paymentGroupMethodIdentifier}
             paymentMethodIdToRevalidate={props.paymentMethodIdToRevalidate}
-            onSuccess={props.onSuccess}
-            onCancel={props.onCancel}
+            requestSetupIntentSecret={props.requestSetupIntentSecret}
+            variant="div"
           />
         </GenericResponsiveDialog>
       );
@@ -75,7 +75,7 @@ const ReplaceInvalidMandateDialog = (props: ReplaceInvalidateMandateProps) => {
         <GenericResponsiveDialog open>
           <div className={classes.container}>
             <div className={classes.header}>
-              <WarningIcon height={100} color="error" />
+              <WarningIcon color="error" height={100} />
               <Typography variant="h5">
                 {t('plannedPaymentEvent.dialog.invalidMandate.title')}
               </Typography>

@@ -170,8 +170,8 @@ export class ActiveCampaignConfiguration extends Component<Props> {
 
     return (
       <Dialog
-        open={this.state.openHelpModal}
         onClose={() => this.setState({ openHelpModal: false })}
+        open={this.state.openHelpModal}
       >
         <DialogTitle> {t('active_campaign.account.helpTitle')}</DialogTitle>
         <DialogContent>
@@ -186,8 +186,8 @@ export class ActiveCampaignConfiguration extends Component<Props> {
 
     return (
       <Dialog
-        open={this.state.openListInfoModal}
         onClose={() => this.setState({ openListInfoModal: false })}
+        open={this.state.openListInfoModal}
       >
         <DialogTitle>{t('active_campaign.link.helpTitle')}</DialogTitle>
         <DialogContent>{t('active_campaign.link.helpContent')}</DialogContent>
@@ -199,8 +199,8 @@ export class ActiveCampaignConfiguration extends Component<Props> {
     const { t } = this.props;
     return (
       <Dialog
-        open={this.state.openWebhookInfoModal}
         onClose={() => this.setState({ openWebhookInfoModal: false })}
+        open={this.state.openWebhookInfoModal}
       >
         <DialogTitle>{t('active_campaign.webhooks.helpTitle')}</DialogTitle>
         <DialogContent>
@@ -234,8 +234,17 @@ export class ActiveCampaignConfiguration extends Component<Props> {
       <div className={classes.container}>
         {this.renderAccountInfos()}
         <ActiveCampaignLinks
+          activeCampaignLists={this.props.activeCampaignLists}
           disabled={isdisabled}
-          onClickInfo={() => this.setState({ openListInfoModal: true })}
+          links={this.props.links}
+          loading={
+            this.props.linkLoading || this.props.activeCampaignListsLoading
+          }
+          onClickAdd={() => {
+            this.props.getSmartLists();
+            this.setState({ openForm: true });
+          }}
+          onClickDelete={(id) => this.props.deleteActiveCampaignLinks(id)}
           onClickEdit={(link) => {
             this.props.getSmartLists();
             this.setState({
@@ -243,29 +252,26 @@ export class ActiveCampaignConfiguration extends Component<Props> {
               openForm: true,
             });
           }}
-          onClickAdd={() => {
-            this.props.getSmartLists();
-            this.setState({ openForm: true });
-          }}
-          onClickDelete={(id) => this.props.deleteActiveCampaignLinks(id)}
-          links={this.props.links}
-          loading={
-            this.props.linkLoading || this.props.activeCampaignListsLoading
-          }
-          activeCampaignLists={this.props.activeCampaignLists}
+          onClickInfo={() => this.setState({ openListInfoModal: true })}
         />
         <ActiveCampaignWebhooks
           disabled={isdisabled}
+          handleWebhookActive={this.handleWebhookActive}
           onClickInfo={() => this.setState({ openWebhookInfoModal: true })}
           webhookLoading={this.state.webhookLoading}
           webhooks={this.props.webhooks}
-          handleWebhookActive={this.handleWebhookActive}
         />
         <ActiveCampaignLinkForm
+          activeCampaignLists={this.props.activeCampaignLists}
+          link={this.state.selected}
+          onCancel={() =>
+            this.setState({
+              selected: null,
+              openForm: false,
+            })
+          }
           open={this.state.openForm}
           smartLists={this.props.smartLists}
-          link={this.state.selected}
-          activeCampaignLists={this.props.activeCampaignLists}
           updateLink={(data) => {
             if (this.state.selected) {
               this.props.updateActiveCampaignLinks(
@@ -276,15 +282,10 @@ export class ActiveCampaignConfiguration extends Component<Props> {
               this.props.createActiveCampaignLinks(data);
             }
           }}
-          onCancel={() =>
-            this.setState({
-              selected: null,
-              openForm: false,
-            })
-          }
         />
         <ActiveCampaignAccountFormDialog
           account={this.props.account}
+          onCancel={() => this.setState({ openEditAccount: false })}
           open={this.state.openEditAccount}
           updateAccount={(data) => {
             if (this.props.account) {
@@ -308,7 +309,6 @@ export class ActiveCampaignConfiguration extends Component<Props> {
               );
             }
           }}
-          onCancel={() => this.setState({ openEditAccount: false })}
         />
 
         {this.renderAccountHelpModal()}

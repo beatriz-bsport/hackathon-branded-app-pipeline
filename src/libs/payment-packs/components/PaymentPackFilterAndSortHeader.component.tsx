@@ -78,27 +78,27 @@ export class PaymentPackFilterAndSortHeader extends React.PureComponent<Props> {
     return (
       <Grid
         container
-        justify="center"
-        direction="row"
         alignItems="center"
-        spacing={2}
         className={classes.title}
+        direction="row"
+        justify="center"
+        spacing={2}
       >
         <Grid item md={4} xs={12}>
           <Typography className={classes.title}>
             {t('selector.titleCategory')}
           </Typography>
           <MaterialUISelector
-            options={this.props.categoryOptions}
-            onChange={this.categoryFilterOnchange}
-            value={this.props.categoryOptions.filter((option) =>
-              this.props.categoryValue.includes(parseInt(option.value, 10)),
-            )}
             isMulti
             chipsRenderer={({ data, onDelete }) => (
               <Chip color="primary" label={data.label} onDelete={onDelete} />
             )}
+            onChange={this.categoryFilterOnchange}
+            options={this.props.categoryOptions}
             placeholder={t('selector.filterCategory')}
+            value={this.props.categoryOptions.filter((option) =>
+              this.props.categoryValue.includes(parseInt(option.value, 10)),
+            )}
           />
         </Grid>
         <Grid item md={4} xs={12}>
@@ -106,10 +106,10 @@ export class PaymentPackFilterAndSortHeader extends React.PureComponent<Props> {
             {t('selector.titleManagerOnly')}
           </Typography>
           <MaterialUISelector
-            options={managerOnlyOptions(this.props.t)}
-            onChange={this.managerOnlyOnChange}
-            isMulti={false}
             isClearable
+            isMulti={false}
+            onChange={this.managerOnlyOnChange}
+            options={managerOnlyOptions(this.props.t)}
             value={managerOnlyOptions(this.props.t).find(
               (option) =>
                 this.props.managerOnlyValue === parseInt(option.value, 10),
@@ -121,14 +121,14 @@ export class PaymentPackFilterAndSortHeader extends React.PureComponent<Props> {
             {t('selector.titleSort')}
           </Typography>
           <MaterialUISelector
-            options={sortOptions(this.props.t)}
-            onChange={this.sortOnChange}
-            isMulti={false}
             isClearable
+            isMulti={false}
+            onChange={this.sortOnChange}
+            options={sortOptions(this.props.t)}
+            placeholder={t('selector.sorting.customSort')}
             value={sortOptions(this.props.t).find(
               (option) => this.props.sortValue === parseInt(option.value, 10),
             )}
-            placeholder={t('selector.sorting.customSort')}
           />
         </Grid>
       </Grid>

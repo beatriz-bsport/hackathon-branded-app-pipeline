@@ -35,13 +35,13 @@ export function PaymentPackInput(props: Props) {
   const { value, label, onChange, paymentPacks, classes, helperText } = props;
   return (
     <FormControl className={classes.formControl}>
-      <InputLabel shrink={value} htmlFor="pass-helper">
+      <InputLabel htmlFor="pass-helper" shrink={value}>
         {label}
       </InputLabel>
       <Select
-        value={value}
+        input={<Input id="pass-helper" name="pass" />}
         onChange={(event) => onChange(event.target.value)}
-        input={<Input name="pass" id="pass-helper" />}
+        value={value}
       >
         <MenuItem value={null}>
           <em> - </em>
@@ -50,7 +50,7 @@ export function PaymentPackInput(props: Props) {
           .asMutable()
           .sort((pp, pp_) => pp.name > pp_.name)
           .map((pp) => (
-            <MenuItem value={pp.id} key={pp.id}>
+            <MenuItem key={pp.id} value={pp.id}>
               <PaymentPackSummary noDivider paymentPack={pp} />
             </MenuItem>
           ))}

@@ -353,73 +353,73 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
         <div className={classes.container2}>
           {!!privateService?.slots?.length && (
             <PrivateSlotSelector
+              onSelect={onPrivateSlotSelect}
               privateService={privateService}
               privateSlot={selectedSlot}
-              onSelect={onPrivateSlotSelect}
             />
           )}
 
           {showCoachSelector && (
             <CoachSelector
+              onSelect={onCoachSelect}
               privateService={privateService}
               privateSlot={selectedSlot}
               selectedCoaches={selectedCoaches}
-              onSelect={onCoachSelect}
             />
           )}
 
           {showEstablishmentSelector && (
             <EstablishmentSelector
+              onSelect={onEstablishmentSelect}
               privateService={privateService}
               privateSlot={selectedSlot}
               selectedEstablishments={selectedEstablishments}
-              onSelect={onEstablishmentSelect}
             />
           )}
 
           {privateService && (
             <SlotCalendar
               availabilitySlotByDate={availabilitySlotByDate}
-              timezoneName={theme.timezone_name}
-              selectedDate={selectedDate}
+              availableSlotsLoading={availableSlotsLoading}
+              nextAvailableSlotLoading={nextAvailableSlotLoading}
+              nextDateAvailableSlot={nextDateAvailableSlot}
+              numberOfDayToShow={numberOfDayToShow}
+              onDateChange={onDateChange}
+              onSessionMomentSelect={onSessionMomentSelect}
               privateService={privateService}
               privateSlot={selectedSlot}
-              numberOfDayToShow={numberOfDayToShow}
-              availableSlotsLoading={availableSlotsLoading}
-              onSessionMomentSelect={onSessionMomentSelect}
+              selectedDate={selectedDate}
               selectedSessionMoment={selectedSessionMoment}
-              onDateChange={onDateChange}
-              nextDateAvailableSlot={nextDateAvailableSlot}
-              nextAvailableSlotLoading={nextAvailableSlotLoading}
+              timezoneName={theme.timezone_name}
             />
           )}
 
           {selectedSessionMoment && (
             <div ref={sessionSelectorRefs}>
               <SessionSelector
-                sessionMoment={selectedSessionMoment}
-                showCoach={multipleCoach}
+                availabilitySlot={availabilitySlot}
+                bookingIntervalMinutes={selectedSlot.booking_interval_minutes}
                 choseCoach={
                   privateService.coach_attribution ===
                   RESOURCE_ATTRIBUTION_CONSUMER
                 }
-                showEstablishment={multipleEstablishment}
                 coaches={
                   selectedCoaches?.length
                     ? selectedCoaches
                     : privateService.coaches
                 }
+                duration={selectedSlot.duration_minutes}
+                durationMinutes={selectedSlot.duration_minutes}
                 establishments={
                   selectedEstablishments?.length
                     ? selectedEstablishments
                     : privateService.establishments
                 }
-                durationMinutes={selectedSlot.duration_minutes}
-                timezoneName={theme.timezone_name}
-                availabilitySlot={availabilitySlot}
                 onSessionSelect={handleSessionSelect}
-                bookingIntervalMinutes={selectedSlot.booking_interval_minutes}
-                duration={selectedSlot.duration_minutes}
+                sessionMoment={selectedSessionMoment}
+                showCoach={multipleCoach}
+                showEstablishment={multipleEstablishment}
+                timezoneName={theme.timezone_name}
               />
             </div>
           )}

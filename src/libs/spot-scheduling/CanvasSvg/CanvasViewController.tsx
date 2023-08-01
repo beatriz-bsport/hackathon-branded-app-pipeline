@@ -342,8 +342,8 @@ class CanvasViewController extends React.PureComponent<Props> {
             return (
               <DraftComponent
                 key={`spot-${spotType?.id}`}
-                id={`spot-${spotType?.id}`}
                 getAsset={this.props.getAsset}
+                id={`spot-${spotType?.id}`}
                 spotType={spotType}
               />
             );
@@ -357,9 +357,9 @@ class CanvasViewController extends React.PureComponent<Props> {
         return (
           <DraftComponent
             key={tool.draftId}
-            id={tool.draftId}
-            getAsset={this.props.getAsset}
             coachHeight={this.props.coachHeight}
+            getAsset={this.props.getAsset}
+            id={tool.draftId}
           />
         );
       }
@@ -371,16 +371,17 @@ class CanvasViewController extends React.PureComponent<Props> {
           return (
             <Component
               key={element.id}
-              id={element.id}
               getAsset={this.props.getAsset}
-              onMouseOver={(evt: any) => this.onMouseOverElement(evt, element)}
+              id={element.id}
               onClick={(evt: any) => this.onMouseClickElement(evt, element)}
-              onMouseOut={(evt: any) => this.onMouseOutElement(evt, element)}
               onMouseDown={(evt: any) => this.onMouseDownElement(evt, element)}
+              onMouseOut={(evt: any) => this.onMouseOutElement(evt, element)}
+              onMouseOver={(evt: any) => this.onMouseOverElement(evt, element)}
               onMouseUp={(evt: any) => this.onMouseUpElement(evt, element)}
               {...element.data}
               coach={this.props.coach}
               coachHeight={this.props.coachHeight}
+              selectingSpot={this.props?.selectingSpot}
               spotType={
                 this.props?.spotTypes?.filter(
                   (spotType) =>
@@ -388,7 +389,6 @@ class CanvasViewController extends React.PureComponent<Props> {
                     (element?.data?.spotTypeId || DEFAULT_SPOT_TYPE_ID),
                 )[0] || null
               }
-              selectingSpot={this.props?.selectingSpot}
             />
           );
         }
@@ -414,19 +414,19 @@ class CanvasViewController extends React.PureComponent<Props> {
         })}
       >
         <CanvasSvg
-          onClick={this.onSvgClick}
-          onMouseMove={this.onSvgMouseMove}
-          onMouseOut={this.onSvgMouseOut}
+          disabledEdit={this.props.disabledEdit}
           enablePan={[
             CANVAS_SELECTABLE_TOOLS.hand,
             CANVAS_SELECTABLE_TOOLS.spot_selector,
           ].includes(this.props.selectedTool)}
+          onClick={this.onSvgClick}
+          onEnterUnsafeZone={() => this.setState({ isUnsafeZone: true })}
+          onLeaveUnsafeZone={() => this.setState({ isUnsafeZone: false })}
+          onMouseMove={this.onSvgMouseMove}
+          onMouseOut={this.onSvgMouseOut}
           onSvgId={this.onSvgId}
           registerFunction={this.registerSvgFunctions}
           showGrid={this.props.showGrid}
-          onEnterUnsafeZone={() => this.setState({ isUnsafeZone: true })}
-          onLeaveUnsafeZone={() => this.setState({ isUnsafeZone: false })}
-          disabledEdit={this.props.disabledEdit}
         >
           {this.renderElements()}
         </CanvasSvg>
@@ -436,13 +436,13 @@ class CanvasViewController extends React.PureComponent<Props> {
         </div>
 
         <CanvasZoomButtons
-          onClickZoomIn={this.zoomIn}
-          onClickZoomOut={this.zoomOut}
           onClickCenter={
             this.props.disabledEdit
               ? this.centerAccordingToElementBoundaries
               : undefined
           }
+          onClickZoomIn={this.zoomIn}
+          onClickZoomOut={this.zoomOut}
         />
       </div>
     );

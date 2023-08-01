@@ -86,17 +86,17 @@ export const CountrySelector = (props: Props) => {
       {!!props.label && (
         <InputLabel id="locale-simple-select-label">{props.label}</InputLabel>
       )}
-      <Select value={props.value} onChange={props.onChange}>
+      <Select onChange={props.onChange} value={props.value}>
         {localeList.map((localeContainer) => {
           return (
             <MenuItem
               key={localeContainer.country}
-              value={localeContainer.country}
               className={classes.menuItem}
+              value={localeContainer.country}
             >
               <img
-                className={classes.flag}
                 alt={localeContainer.country}
+                className={classes.flag}
                 src={localeContainer.icon}
               />
               {t(`country.${localeContainer.country}`)}

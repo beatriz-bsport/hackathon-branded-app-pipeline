@@ -191,20 +191,20 @@ export class DashboardPage extends Component<Props> {
         {dashboardSettingsLoading && <BackofficeLinearProgress />}
         <div className={classes.container}>
           <DashboardTabBar
-            dashboardSettings={dashboardSettings}
-            currentTabIndex={currentTabIndex}
-            setCurrentTabIndex={setCurrentTabIndex}
-            deleteTab={deleteTab}
             addNewTab={addNewTab}
+            currentTabIndex={currentTabIndex}
+            dashboardSettings={dashboardSettings}
+            deleteTab={deleteTab}
             renameTab={renameTab}
+            setCurrentTabIndex={setCurrentTabIndex}
           />
 
           {dashboardTab?.graphs?.length === 0 && (
             <IsEmptyList
-              text={t('noGraphToDisplay')}
+              hideBottomActions
               button={t('customChart.addChart')}
               onCreate={this.openDrawer}
-              hideBottomActions
+              text={t('noGraphToDisplay')}
             />
           )}
 
@@ -212,24 +212,24 @@ export class DashboardPage extends Component<Props> {
             <div className={classes.gridContainer}>
               <Grid
                 container
+                className={classes.gridRow}
                 direction="row"
                 justifyContent="space-between"
                 spacing={3}
-                className={classes.gridRow}
               >
                 {dashboardTab.graphs.map((graph: DataSourceDashboardGraph) => {
                   const ChartComponent =
                     MAP_GRAPH_TO_CHART_COMPONENT[graph.chart_component];
 
                   return (
-                    <Grid item xs={12} lg={6} key={graph.uuid}>
+                    <Grid key={graph.uuid} item lg={6} xs={12}>
                       <DashboardGraphWrapper
                         graph={graph}
-                        onEdit={this.onEditDashboardGraph}
-                        onDelete={deleteGraph}
+                        graphHeight={GRAPH_HEIGHT}
                         loadingData={graphData[graph.uuid].loading}
                         loadingSettings={dashboardSettingsLoading}
-                        graphHeight={GRAPH_HEIGHT}
+                        onDelete={deleteGraph}
+                        onEdit={this.onEditDashboardGraph}
                       >
                         <ChartComponent
                           data={graphData[graph.uuid].data}
@@ -264,22 +264,22 @@ export class DashboardPage extends Component<Props> {
         </Dialog>
 
         <BottomActionButtons
-          onCreateLabel={t('customChart.addChart')}
-          resetLabel={t('resetModal.title')}
           onCreate={this.handleCreateBottomActionButtons}
+          onCreateLabel={t('customChart.addChart')}
           onReset={this.handleResetBottomActionButtons}
+          resetLabel={t('resetModal.title')}
         />
 
         {isDrawerOpen && (
           <DashboardGraphFormDrawer
             open
-            onClose={this.closeDrawer}
             graphMetadata={graphMetadata}
             handleGetDynamicDataForFilters={
               this.props.handleGetDynamicDataForFilters
             }
-            onSubmit={this.onSubmitForm}
             initial={this.props.graphToEdit}
+            onClose={this.closeDrawer}
+            onSubmit={this.onSubmitForm}
           />
         )}
       </>

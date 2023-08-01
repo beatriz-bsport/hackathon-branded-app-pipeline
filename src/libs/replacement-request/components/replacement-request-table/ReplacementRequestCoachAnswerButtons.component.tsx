@@ -31,23 +31,23 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
   return (
     <div className={classes.buttonAlign}>
       <Button
-        variant="outlined"
+        disableElevation
         classes={{
           root: classnames(classes.successButton, classes.coachAnswerButton, {
             [classes.smallFont]: smallFont,
           }),
           disabled: classes.successButtonDisabled,
         }}
-        disableElevation
+        disabled={
+          coachAnswer ===
+          ReplacementRequestCoachAnswerStatus.REPLACEMENT_REQUEST_COACH_STATUS_YES
+        }
         onClick={() =>
           handleCoachAnswer(
             ReplacementRequestCoachAnswerStatus.REPLACEMENT_REQUEST_COACH_STATUS_YES,
           )
         }
-        disabled={
-          coachAnswer ===
-          ReplacementRequestCoachAnswerStatus.REPLACEMENT_REQUEST_COACH_STATUS_YES
-        }
+        variant="outlined"
       >
         {t(
           `coachAnswer.${
@@ -59,23 +59,23 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
         )}
       </Button>
       <Button
-        variant="outlined"
+        disableElevation
         classes={{
           root: classnames(classes.warningButton, classes.coachAnswerButton, {
             [classes.smallFont]: smallFont,
           }),
           disabled: classes.warningButtonDisabled,
         }}
-        disableElevation
+        disabled={
+          coachAnswer ===
+          ReplacementRequestCoachAnswerStatus.REPLACEMENT_REQUEST_COACH_STATUS_RATHER_NO
+        }
         onClick={() =>
           handleCoachAnswer(
             ReplacementRequestCoachAnswerStatus.REPLACEMENT_REQUEST_COACH_STATUS_RATHER_NO,
           )
         }
-        disabled={
-          coachAnswer ===
-          ReplacementRequestCoachAnswerStatus.REPLACEMENT_REQUEST_COACH_STATUS_RATHER_NO
-        }
+        variant="outlined"
       >
         {t(
           `coachAnswer.${
@@ -87,23 +87,23 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
         )}
       </Button>
       <Button
-        variant="outlined"
+        disableElevation
         classes={{
           root: classnames(classes.errorButton, classes.coachAnswerButton, {
             [classes.smallFont]: smallFont,
           }),
           disabled: classes.errorButtonDisabled,
         }}
-        disableElevation
+        disabled={
+          coachAnswer ===
+          ReplacementRequestCoachAnswerStatus.REPLACEMENT_REQUEST_COACH_STATUS_NO
+        }
         onClick={() =>
           handleCoachAnswer(
             ReplacementRequestCoachAnswerStatus.REPLACEMENT_REQUEST_COACH_STATUS_NO,
           )
         }
-        disabled={
-          coachAnswer ===
-          ReplacementRequestCoachAnswerStatus.REPLACEMENT_REQUEST_COACH_STATUS_NO
-        }
+        variant="outlined"
       >
         {t(
           `coachAnswer.${

@@ -49,7 +49,7 @@ export const CouponTemplateUpdateWarningDialog = (props: Props) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose}>{t('common:cancel')}</Button>
-        <RedButton onClick={props.onSubmit} delayBeforeActivation={5}>
+        <RedButton delayBeforeActivation={5} onClick={props.onSubmit}>
           {t('common:confirm')}
         </RedButton>
       </DialogActions>

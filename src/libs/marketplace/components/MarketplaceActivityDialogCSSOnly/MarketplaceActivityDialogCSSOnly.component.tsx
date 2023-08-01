@@ -46,12 +46,12 @@ export function MarketplaceActivityDialog(props: Props) {
   return (
     <Dialog
       key={offerId}
-      open={props.open}
-      scroll="paper"
-      onClose={onClose}
-      maxWidth="md"
       disablePortal
+      maxWidth="md"
+      onClose={onClose}
+      open={props.open}
       PaperProps={paperProps}
+      scroll="paper"
     >
       <DialogContent id="bs-activity--dialog">
         {props.open ? <MarketplaceActivityV2 {...props} /> : null}

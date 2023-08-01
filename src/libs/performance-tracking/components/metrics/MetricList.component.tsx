@@ -43,7 +43,7 @@ export const MetricList = (props: Props) => {
     return (
       <div className={classes.content}>
         {[0, 0, 0].map(() => (
-          <Skeleton animation="wave" width="100%" variant="rect" height={51} />
+          <Skeleton animation="wave" height={51} variant="rect" width="100%" />
         ))}
       </div>
     );
@@ -53,21 +53,21 @@ export const MetricList = (props: Props) => {
       <>
         <Container
           useDragHandle
-          transitionDuration={500}
           hideSortableGhost={false}
           onSortEnd={(e) => {
             const oldIndex = e.oldIndex;
             const newIndex = e.newIndex;
             organize_index(oldIndex, newIndex, metricList, fieldArrayHelpers);
           }}
+          transitionDuration={500}
         >
           {metricList.map((metric) => (
             <MetricListItem
               key={metric.id}
+              sortable
               metric={metric}
               onDelete={onDelete}
               onEdit={onEdit}
-              sortable
             />
           ))}
         </Container>

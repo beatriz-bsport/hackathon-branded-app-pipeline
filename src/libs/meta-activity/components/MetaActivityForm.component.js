@@ -113,9 +113,9 @@ export function MetaActivityForm(props: Props) {
       <div className={classnames(classes.field, classes.altField)}>
         <TextField
           fullWidth
+          inputProps={{ maxLength: 100 }}
           label={t('activity.altCoverMain')}
           name="alt_cover_main"
-          inputProps={{ maxLength: 100 }}
         />
       </div>
       <div className={classes.container}>
@@ -126,57 +126,57 @@ export function MetaActivityForm(props: Props) {
           <Typography variant="h6">{t('activity.generalInfo')}</Typography>
         </div>
         <TextField
+          fullWidth
+          required
           id="textfield_activity_title"
+          inputProps={{ maxLength: 100 }}
           label={t('activity.name')}
           name="name"
-          required
-          fullWidth
-          inputProps={{ maxLength: 100 }}
         />
         <div className={classes.field}>
           <SCTSelectField
             fullWidth
+            required
             id="select_activity_category"
             label={t('activity.category')}
             name="SCT"
-            scts={SCTs}
             onBlur={props.handleBlur}
-            required
+            scts={SCTs}
           />
           <Typography
             className={classes.explain}
-            variant="caption"
             color="textSecondary"
+            variant="caption"
           >
             {props.t('metaActivityCategory.sctExplain')}
           </Typography>
         </div>
         <div className={classes.field}>
           <TextField
-            id="textfield_activity_description"
-            name="description"
-            label={t('activity.description')}
-            required
-            multiline
-            rows={5}
             fullWidth
+            multiline
+            required
+            id="textfield_activity_description"
+            label={t('activity.description')}
+            name="description"
+            rows={5}
             variant="outlined"
           />
         </div>
         <div className={classes.field}>
           <CheckboxField
-            name="is_broadcast"
-            id="checkbox_activity_broadcast"
             disabled={!props.is_broadcast_enabled}
+            id="checkbox_activity_broadcast"
             label={t('activity.is_broadcast')}
+            name="is_broadcast"
           />
         </div>
         <div className={classes.field}>
           <ColorField
+            transparentColorAvailable
+            id="textfield_activity_color"
             label={t('activity.color')}
             name="color"
-            id="textfield_activity_color"
-            transparentColorAvailable
           />
         </div>
         <div className={classes.restrictionsSection}>
@@ -191,12 +191,14 @@ export function MetaActivityForm(props: Props) {
               <EventAvailableIcon
                 className={classnames(classes.leftIcon, classes.greyIcon)}
               />
-              <Typography variant="subtitle1" className={classes.subtitle1bold}>
+              <Typography className={classes.subtitle1bold} variant="subtitle1">
                 {t('restrictions.lastBookingBeforeMinutes')}
               </Typography>
             </div>
             <div className={classes.field}>
               <DurationField
+                fullWidth
+                required
                 label={
                   variant === 'workshop'
                     ? t('workshopActivity.lastBookingBeforeMinutes')
@@ -204,11 +206,9 @@ export function MetaActivityForm(props: Props) {
                 }
                 name="last_booking_minutes"
                 variant={variant === 'workshop' ? 'long' : null}
-                fullWidth
-                required
               />
               {!!(last_booking_minutes && last_booking_minutes > 60 * 2) && (
-                <Alert severity="warning" className={classes.alignCenter}>
+                <Alert className={classes.alignCenter} severity="warning">
                   {t(
                     'metaActivity:forms.warning.highLastBookingBeforeWarning',
                     {
@@ -227,20 +227,20 @@ export function MetaActivityForm(props: Props) {
               <EventBusyIcon
                 className={classnames(classes.leftIcon, classes.greyIcon)}
               />
-              <Typography variant="subtitle1" className={classes.subtitle1bold}>
+              <Typography className={classes.subtitle1bold} variant="subtitle1">
                 {t('restrictions.lastDiscardBeforeMinutes')}
               </Typography>
             </div>
             <div className={classes.field}>
               <DurationField
-                name="last_discard_minutes"
+                fullWidth
+                required
                 label={
                   variant === 'workshop'
                     ? t('workshopActivity.lastDiscardBeforeMinutes')
                     : t('activity.lastDiscardBeforeMinutes')
                 }
-                fullWidth
-                required
+                name="last_discard_minutes"
               />
             </div>
           </div>
@@ -249,22 +249,22 @@ export function MetaActivityForm(props: Props) {
               <DateRangeIcon
                 className={classnames(classes.leftIcon, classes.greyIcon)}
               />
-              <Typography variant="subtitle1" className={classes.subtitle1bold}>
+              <Typography className={classes.subtitle1bold} variant="subtitle1">
                 {t('restrictions.firstBookingMinutesUntil')}
               </Typography>
             </div>
             <div className={classes.field}>
               <DurationField
-                name="first_booking_minutes_until"
-                label={t('activity.firstBookingMinutesUntil')}
                 fullWidth
                 required
+                label={t('activity.firstBookingMinutesUntil')}
+                name="first_booking_minutes_until"
               />
               {!!(
                 first_booking_minutes_until &&
                 first_booking_minutes_until < 60 * 24
               ) && (
-                <Alert severity="warning" className={classes.alignCenter}>
+                <Alert className={classes.alignCenter} severity="warning">
                   {t('metaActivity:forms.warning.lowFirsBookingUntilWarning', {
                     durationFormatted: formatDurationFromMinute(
                       first_booking_minutes_until,
@@ -274,14 +274,14 @@ export function MetaActivityForm(props: Props) {
                 </Alert>
               )}
               {!first_booking_minutes_until && (
-                <Alert severity="warning" className={classes.alignCenter}>
+                <Alert className={classes.alignCenter} severity="warning">
                   {t('activity.firstMinutesBookingUntilWarning')}
                 </Alert>
               )}
             </div>
           </div>
         </div>
-        <MetaActivityCustomRestrictionsForm variant={variant} tags={tags} />
+        <MetaActivityCustomRestrictionsForm tags={tags} variant={variant} />
         <div className={classes.autoDiscardSection}>
           <div className={classes.headerWithIcon}>
             <CancelIcon
@@ -292,9 +292,9 @@ export function MetaActivityForm(props: Props) {
           <div className={classes.autoDiscardInnerSection}>
             <div className={classes.field}>
               <CheckboxField
-                name="auto_discard_active"
                 id="checkbox_auto_discard_active"
                 label={t('metaActivity.forms.autoDiscard.checkbox')}
+                name="auto_discard_active"
               />
             </div>
             {auto_discard_active ? (
@@ -307,21 +307,21 @@ export function MetaActivityForm(props: Props) {
                 </Typography>
                 <div className={classes.paramContainer}>
                   <div className={classes.inlineNumericField}>
-                    <Typography variant="caption" className={classes.params}>
+                    <Typography className={classes.params} variant="caption">
                       {t('metaActivity.forms.autoDiscard.min_bookings_nb')}
                     </Typography>
                     <IntegerField
-                      name="auto_discard_min_bookings_nb"
                       className={classes.numericField}
+                      name="auto_discard_min_bookings_nb"
                     />
                   </div>
                   <div className={classes.inlineNumericField}>
-                    <Typography variant="caption" className={classes.params}>
+                    <Typography className={classes.params} variant="caption">
                       {t('metaActivity.forms.autoDiscard.hours_before_start')}
                     </Typography>
                     <IntegerField
-                      name="auto_discard_hours_before_start"
                       className={classes.numericField}
+                      name="auto_discard_hours_before_start"
                     />
                   </div>
                 </div>
@@ -337,17 +337,17 @@ export function MetaActivityForm(props: Props) {
         </div>
         <div className={classes.buttonContainer}>
           <Button
+            disabled={isSubmitting}
             onClick={() => {
               props.onCancel();
               trackFormCancel(initial?.id);
             }}
-            disabled={isSubmitting}
           >
             {t('form.discard')}
           </Button>
           <Submit
-            id="button_activity_onsubmit"
             disabled={isSubmitting}
+            id="button_activity_onsubmit"
             onClick={() => {
               trackFormSubmitIntent(initial?.id);
             }}

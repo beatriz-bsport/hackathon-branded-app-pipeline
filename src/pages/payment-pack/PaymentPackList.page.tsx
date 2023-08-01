@@ -337,15 +337,15 @@ export class PaymentPackList extends React.Component<Props, State> {
       <List disablePadding>
         {packs.map((pack) => (
           <PaymentPackListItem
-            pack={pack}
-            divider
-            onEdit={() => this.requestEdit(pack)}
-            onDelete={() => this.requestDelete(pack)}
-            onClick={!pack.disabled ? () => this.props.goToPack(pack.id) : null}
-            onRestore={() => this.restorePaymentPack(pack.id)}
             key={pack.id}
             disabled
+            divider
             creditScaleFactor={this.props.theme.pass_credit_factor}
+            onClick={!pack.disabled ? () => this.props.goToPack(pack.id) : null}
+            onDelete={() => this.requestDelete(pack)}
+            onEdit={() => this.requestEdit(pack)}
+            onRestore={() => this.restorePaymentPack(pack.id)}
+            pack={pack}
           />
         ))}
       </List>
@@ -452,40 +452,40 @@ export class PaymentPackList extends React.Component<Props, State> {
       return (
         <>
           <NoShowPenaltyDialog
-            open={this.props.openNoShowPenaltyDialog}
-            onClose={this.closeNoShowPenaltyDialog}
             goToSettings={this.props.goToSettings}
+            onClose={this.closeNoShowPenaltyDialog}
+            open={this.props.openNoShowPenaltyDialog}
           />
           <DeleteNoShowPenaltyDialog
-            open={this.props.openDeleteNoShowPenaltyDialog}
             onClose={this.closeDeleteNoShowPenaltyDialog}
+            open={this.props.openDeleteNoShowPenaltyDialog}
           />
           <IsEmptyList
-            text={this.props.t('noPaymentPack')}
             button={this.props.t('addButton')}
             onCreate={this.onCreate}
             onCreateLabel={this.props.t('addButton')}
+            text={this.props.t('noPaymentPack')}
           />
           <PaymentPackFormDrawer
-            open={this.props.openPaymentPackFormDialog}
-            categoryList={paymentPackCategoryList}
-            availableEstablishmentList={availableEstablishmentList}
-            metaActivityList={metaActivities}
-            tagList={allTagsWithTagGroup}
-            paymentPackCategories={paymentPackCategories}
-            closeForm={this.closePaymentPackFormDrawer}
-            onSubmit={this.props.createOrUpdatePaymentPack}
-            clearPaymentPackToEdit={() =>
-              this.setState({ paymentPackToEdit: null })
-            }
-            initial={this.state.paymentPackToEdit}
-            privateServices={this.props.privateServices}
-            creditFactor={this.props.theme.pass_credit_factor}
-            compatibleServicePass={this.props.compatibleServicePass}
             allowGuestMaster={
               this.props.theme.allow_guest_activatable &&
               this.props.theme.allow_guest
             }
+            availableEstablishmentList={availableEstablishmentList}
+            categoryList={paymentPackCategoryList}
+            clearPaymentPackToEdit={() =>
+              this.setState({ paymentPackToEdit: null })
+            }
+            closeForm={this.closePaymentPackFormDrawer}
+            compatibleServicePass={this.props.compatibleServicePass}
+            creditFactor={this.props.theme.pass_credit_factor}
+            initial={this.state.paymentPackToEdit}
+            metaActivityList={metaActivities}
+            onSubmit={this.props.createOrUpdatePaymentPack}
+            open={this.props.openPaymentPackFormDialog}
+            paymentPackCategories={paymentPackCategories}
+            privateServices={this.props.privateServices}
+            tagList={allTagsWithTagGroup}
           />
         </>
       );
@@ -497,38 +497,38 @@ export class PaymentPackList extends React.Component<Props, State> {
           <LinearProgress />
         )}
         <NoShowPenaltyDialog
-          open={this.props.openNoShowPenaltyDialog}
-          onClose={this.closeNoShowPenaltyDialog}
           goToSettings={this.props.goToSettings}
+          onClose={this.closeNoShowPenaltyDialog}
+          open={this.props.openNoShowPenaltyDialog}
         />
         <DeleteNoShowPenaltyDialog
-          open={this.props.openDeleteNoShowPenaltyDialog}
           onClose={this.closeDeleteNoShowPenaltyDialog}
+          open={this.props.openDeleteNoShowPenaltyDialog}
         />
         <div className={classes.container}>
           <div className={classes.buttonRow}>
             {this.props.enabledPacks?.length && (
               <div style={{ flex: 1 }}>
                 <FuzeSearch
-                  searchText={this.state.searchText}
-                  clearSearch={this.clearSearch}
                   changeSearch={this.changeSearch}
+                  clearSearch={this.clearSearch}
                   items={[...this.props.enabledPacks]}
                   placeholder={t('search')}
                   searchFields={['name']}
                   searchResult={this.state.searchResult}
+                  searchText={this.state.searchText}
                 />
               </div>
             )}
             <Button
-              variant="outlined"
+              className={classes.buttonAdd}
+              color="primary"
               onClick={() => {
                 this.props.setSelectedCategory(null);
                 this.props.setShowCategoryDialog(true);
                 trackFormAdd();
               }}
-              color="primary"
-              className={classes.buttonAdd}
+              variant="outlined"
             >
               <AddIcon color="primary" />
               {t('category.add')}
@@ -551,18 +551,18 @@ export class PaymentPackList extends React.Component<Props, State> {
                 <List disablePadding>
                   {this.state.searchResult.map((pack) => (
                     <PaymentPackListItem
-                      pack={pack}
+                      key={pack.id}
                       divider
-                      onEdit={() => this.requestEdit(pack)}
-                      onDelete={() => this.requestDelete(pack)}
+                      creditScaleFactor={this.props.theme.pass_credit_factor}
                       onClick={
                         !pack.disabled
                           ? () => this.props.goToPack(pack.id)
                           : null
                       }
+                      onDelete={() => this.requestDelete(pack)}
+                      onEdit={() => this.requestEdit(pack)}
                       onRestore={() => this.restorePaymentPack(pack.id)}
-                      key={pack.id}
-                      creditScaleFactor={this.props.theme.pass_credit_factor}
+                      pack={pack}
                     />
                   ))}
                 </List>
@@ -570,8 +570,8 @@ export class PaymentPackList extends React.Component<Props, State> {
             </Collapse>
           </Paper>
           <PaymentPackFilterAndSortHeader
-            categoryOptions={this.categoryOptions()}
             categoryFilterOnchange={this.categoryFilterOnchange}
+            categoryOptions={this.categoryOptions()}
             categoryValue={this.state.selectedCategories}
             managerOnlyOnChange={this.managerOnlyOnChange}
             managerOnlyValue={this.state.selectedDisponibility}
@@ -581,38 +581,38 @@ export class PaymentPackList extends React.Component<Props, State> {
 
           {this.state.showAlert && (
             <Alert
-              severity="warning"
-              className={classes.alertInfo}
               action={
                 <Button onClick={this.props.goToSettings}>
                   {t('orderingAlert.button')}
                 </Button>
               }
+              className={classes.alertInfo}
+              severity="warning"
             >
               <Typography>{t('orderingAlert.text')}</Typography>
             </Alert>
           )}
 
           <PaymentPackCategoryList
-            paymentPackOrder={this.state.paymentPackOrderByCategory}
-            filterManagerOnly={this.state.selectedDisponibility}
+            deletePaymentPackCategory={this.props.deletePaymentPackCategory}
             filteredCategories={this.state.selectedCategories}
-            paymentPackByCategory={this.props.paymentPackByCategory}
-            onEdit={this.requestEdit}
-            onDelete={this.requestDelete}
+            filterManagerOnly={this.state.selectedDisponibility}
             onClick={this.props.goToPack}
+            onDelete={this.requestDelete}
+            onEdit={this.requestEdit}
             onRestore={this.restorePaymentPack}
-            updatePack={this.props.updatePackOrder}
+            paymentPackByCategory={this.props.paymentPackByCategory}
+            paymentPackOrder={this.state.paymentPackOrderByCategory}
             setSelectedCategory={this.props.setSelectedCategory}
             showCategoryEditDialog={() =>
               this.props.setShowCategoryDialog(true)
             }
-            deletePaymentPackCategory={this.props.deletePaymentPackCategory}
             updateCategory={this.updateCategoryOrder}
+            updatePack={this.props.updatePackOrder}
           />
           <div className={classes.container}>
             <div className={this.props.classes.buttonTitle}>
-              <Typography variant="h5" className={classes.titleContainer}>
+              <Typography className={classes.titleContainer} variant="h5">
                 {`${t('disabledPacksTitle')}`}
               </Typography>
 
@@ -630,39 +630,27 @@ export class PaymentPackList extends React.Component<Props, State> {
               <Divider className={classes.divider} />
             )}
             <Collapse
+              unmountOnExit
               className={classes.collapse}
               in={this.state.showDisabled}
-              unmountOnExit
             >
               {this.renderPackList(this.props.disabledPacks)}
             </Collapse>
           </div>
 
           <PaymentPackDeleteDialog
-            open={!!this.state.paymentPackToDelete}
-            pack={this.state.paymentPackToDelete}
-            isUsedInCombo={
-              this.props.archivationWarning[this.state.paymentPackToDelete?.id]
-                ?.used_in_combo || false
-            }
-            onDelete={() =>
-              this.deletePaymentPack(this.state.paymentPackToDelete.id)
-            }
-            onCancel={this.cancelDelete}
             consumerPackSummary={
               this.state.paymentPackToDelete ? (
                 <PaginatedConsumerPackList
-                  paymentPack={this.state.paymentPackToDelete}
-                  incrementCredit={incrementCredit}
-                  decrementCredit={decrementCredit}
-                  items={this.props.consumerPacks.items}
-                  nbItems={this.props.consumerPacks.count}
-                  loading={this.props.consumerPacks.loading}
-                  page={this.props.consumerPacks.page}
-                  itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
                   consumerPacksUpdatingById={
                     this.props.consumerPacks.updatingById
                   }
+                  decrementCredit={decrementCredit}
+                  incrementCredit={incrementCredit}
+                  itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
+                  items={this.props.consumerPacks.items}
+                  loading={this.props.consumerPacks.loading}
+                  nbItems={this.props.consumerPacks.count}
                   onPageRequested={(page: number, pageSize: number) =>
                     this.props.fetchConsumerPacks(
                       this.state.paymentPackToDelete.id,
@@ -670,52 +658,64 @@ export class PaymentPackList extends React.Component<Props, State> {
                       pageSize,
                     )
                   }
+                  page={this.props.consumerPacks.page}
+                  paymentPack={this.state.paymentPackToDelete}
                 />
               ) : null
             }
+            isUsedInCombo={
+              this.props.archivationWarning[this.state.paymentPackToDelete?.id]
+                ?.used_in_combo || false
+            }
+            onCancel={this.cancelDelete}
+            onDelete={() =>
+              this.deletePaymentPack(this.state.paymentPackToDelete.id)
+            }
+            open={!!this.state.paymentPackToDelete}
+            pack={this.state.paymentPackToDelete}
           />
           <PaymentPackFormDrawer
-            provincialTax={this.props.theme?.provincial_tax_value}
-            open={this.props.openPaymentPackFormDialog}
-            categoryList={paymentPackCategoryList}
-            availableEstablishmentList={availableEstablishmentList}
-            metaActivityList={metaActivities}
-            tagList={allTagsWithTagGroup}
-            paymentPackCategories={paymentPackCategories}
-            closeForm={this.closePaymentPackFormDrawer}
-            onSubmit={this.props.createOrUpdatePaymentPack}
-            clearPaymentPackToEdit={() =>
-              this.setState({ paymentPackToEdit: null })
-            }
-            initial={this.state.paymentPackToEdit}
-            privateServices={this.props.privateServices}
-            compatibleServicePass={this.props.compatibleServicePass}
-            creditScaleFactor={this.props.theme.pass_credit_factor}
             allowGuestMaster={
               this.props.theme.allow_guest &&
               this.props.theme.allow_guest_activatable
             }
+            availableEstablishmentList={availableEstablishmentList}
+            categoryList={paymentPackCategoryList}
+            clearPaymentPackToEdit={() =>
+              this.setState({ paymentPackToEdit: null })
+            }
+            closeForm={this.closePaymentPackFormDrawer}
+            compatibleServicePass={this.props.compatibleServicePass}
+            creditScaleFactor={this.props.theme.pass_credit_factor}
+            initial={this.state.paymentPackToEdit}
+            metaActivityList={metaActivities}
+            onSubmit={this.props.createOrUpdatePaymentPack}
+            open={this.props.openPaymentPackFormDialog}
+            paymentPackCategories={paymentPackCategories}
+            privateServices={this.props.privateServices}
+            provincialTax={this.props.theme?.provincial_tax_value}
+            tagList={allTagsWithTagGroup}
           />
           <BottomActionsButton
-            onCreateLabel={this.props.t('addButton')}
             onCreate={this.onCreate}
+            onCreateLabel={this.props.t('addButton')}
           />
         </div>
         {(this.props.selectedCategory || this.props.showCategoryDialog) && (
           <PaymentPackCategoryCreationDialog
-            open={this.props.showCategoryDialog}
+            compatibleServicePass={this.props.compatibleServicePass}
             handleClose={() => {
               trackFormCancel(this.props.selectedCategory?.id);
               this.props.setShowCategoryDialog(false);
               this.props.setSelectedCategory(null);
             }}
-            paymentPackCategorySelected={this.props.selectedCategory}
             onSubmit={this.props.upsertPaymenPackCategory}
+            open={this.props.showCategoryDialog}
+            paymentPackCategorySelected={this.props.selectedCategory}
+            privateServices={this.props.privateServices}
             trackIntent={() =>
               trackFormSubmitIntent(this.props.selectedCategory?.id)
             }
-            privateServices={this.props.privateServices}
-            compatibleServicePass={this.props.compatibleServicePass}
           />
         )}
       </>

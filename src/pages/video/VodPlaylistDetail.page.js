@@ -112,26 +112,26 @@ export class VodPlaylistDetailPage extends React.Component<Props> {
     return (
       <div container={this.props.classes.container}>
         <PlaylistDetail
-          onAddVideo={this.props.openVideoSearch}
-          onSubVideo={this.props.subVideoToPlaylist}
-          playlist={this.props.playlist}
-          getPlaybackUrl={this.props.getPlaybackUrl}
-          videoPlayingId={this.props.videoId}
-          selectedVideo={this.props.selectedVideo}
-          onOpenVideo={this.props.goToVideoInPlaylist}
           authenticated
+          accessDenied={this.props.accessDenied}
+          getPlaybackUrl={this.props.getPlaybackUrl}
+          onAddVideo={this.props.openVideoSearch}
+          onOpenVideo={this.props.goToVideoInPlaylist}
+          onSubVideo={this.props.subVideoToPlaylist}
           playbackUrl={this.props.playbackUrl}
           playbackUrlLoading={this.props.playbackUrlLoading}
-          accessDenied={this.props.accessDenied}
+          playlist={this.props.playlist}
+          selectedVideo={this.props.selectedVideo}
+          videoPlayingId={this.props.videoId}
         />
         {!!this.props.videoSearchOpen && (
           <VideoSearchModal
-            text={this.props.searchVideoText}
-            onChangeText={this.props.searchVideo}
-            videoList={this.props.searchedVideoList}
             loading={this.props.searchLoading}
+            onChangeText={this.props.searchVideo}
             onClose={this.props.closeVideoSearch}
             onSubmit={this.props.addVideoToPlaylist}
+            text={this.props.searchVideoText}
+            videoList={this.props.searchedVideoList}
           />
         )}
       </div>

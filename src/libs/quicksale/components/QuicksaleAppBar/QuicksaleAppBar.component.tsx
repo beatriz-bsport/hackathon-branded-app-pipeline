@@ -27,22 +27,22 @@ const QuicksaleAppBar: React.FC<Props> = ({
     <div className={classes.container}>
       <div className={classes.companyInfo}>
         <img
-          src={theme?.cover}
-          height={40}
           alt="company logo"
           className={classes.companyLogo}
+          height={40}
+          src={theme?.cover}
         />
         <Typography variant="subtitle2">{theme?.company_name}</Typography>
       </div>
 
       <div className={classes.sellerInfoAndLogOut}>
         <div className={classes.sellerInfo}>
-          <Typography variant="subtitle2" className={classes.seller}>
+          <Typography className={classes.seller} variant="subtitle2">
             {t('interface.seller')}
           </Typography>
           <Typography variant="body2">{staffFullName}</Typography>
         </div>
-        <IconButton onClick={onSignOut} className={classes.signOutButton}>
+        <IconButton className={classes.signOutButton} onClick={onSignOut}>
           <PowerSettingsNewIcon fontSize="large" />
         </IconButton>
       </div>

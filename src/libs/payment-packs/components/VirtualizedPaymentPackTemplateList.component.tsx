@@ -85,10 +85,7 @@ const PaymentPackTemplateList = (props: {
         */}
       <div className={classes.searchContainer}>
         <DelayedTextField
-          value={search}
-          onChange={(ev) => doSearch(ev.target.value)}
           fullWidth
-          variant="outlined"
           InputProps={{
             className: classes.input,
             startAdornment: (
@@ -107,27 +104,30 @@ const PaymentPackTemplateList = (props: {
               </InputAdornment>
             ) : null,
           }}
+          onChange={(ev) => doSearch(ev.target.value)}
+          value={search}
+          variant="outlined"
         />
       </div>
       <VirtualizedVariableList
         itemCount={searchedList?.length || 0}
         itemSize={HEIGHT_ITEM}
-        variableItemSize={() => HEIGHT_ITEM}
+        minItemsDisplaid={3}
         renderRow={(index) => {
           const ppt = searchedList[index];
           return (
             <PaymentPackTemplateListItem
-              paymentPackTemplate={ppt}
-              index={index}
-              divider
               key={ppt.id}
+              divider
+              index={index}
               onClick={props.onClick}
-              onEdit={props.onEdit}
               onDelete={props.onDelete}
+              onEdit={props.onEdit}
+              paymentPackTemplate={ppt}
             />
           );
         }}
-        minItemsDisplaid={3}
+        variableItemSize={() => HEIGHT_ITEM}
       />
     </>
   );

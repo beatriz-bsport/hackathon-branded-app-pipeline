@@ -69,50 +69,50 @@ const getEvents = memoize((events) => {
 export const MetaActivityDetail = (props: Props) => {
   const { metaActivity, classes, t } = props;
   return (
-    <Grid container direction="row" alignItems="stretch">
-      <Grid item sm={12} md={6} className={classes.panel}>
+    <Grid container alignItems="stretch" direction="row">
+      <Grid item className={classes.panel} md={6} sm={12}>
         <MetaActivityCard metaActivity={metaActivity} onEdit={props.onEdit} />
         <BookingCreationNotification
-          notifications={props.notifications}
-          objectId={props.metaActivity.id}
-          getEmails={props.getEmails}
-          emails={props.emails}
-          getEmailDetail={props.getEmailDetail}
+          createNotification={props.createNotification}
+          deleteNotification={props.deleteNotification}
+          emailDetailLoading={props.emailDetailLoading}
           emailDetails={props.emailDetails}
           emailListLoading={props.emailListLoading}
-          emailDetailLoading={props.emailDetailLoading}
-          createNotification={props.createNotification}
-          updateNotification={props.updateNotification}
-          deleteNotification={props.deleteNotification}
-          identifier="meta_activity"
-          goToSmartlist={props.goToSmartlist}
+          emails={props.emails}
+          getEmailDetail={props.getEmailDetail}
+          getEmails={props.getEmails}
           getSmartLists={props.getSmartLists}
-          smartLists={props.smartLists}
+          goToSmartlist={props.goToSmartlist}
+          identifier="meta_activity"
+          notifications={props.notifications}
+          objectId={props.metaActivity.id}
           resolvedGenericTags={props.resolvedGenericTags}
+          smartLists={props.smartLists}
           tags={getMergeTags(props.tags, t)}
+          updateNotification={props.updateNotification}
         />
       </Grid>
-      <Grid item sm={12} md={6} className={classes.panel}>
+      <Grid item className={classes.panel} md={6} sm={12}>
         <Paper className={classes.fullWidth}>
           <Calendar
-            date={(props.dateSelected || moment()).format(DATE_FORMAT)}
-            onDateChange={props.handleDayClick}
             forceMonthDisplay
+            date={(props.dateSelected || moment()).format(DATE_FORMAT)}
             events={getEvents(props.events)}
+            onDateChange={props.handleDayClick}
           />
           <TimeTable
-            offers={props.offers}
-            metaActivityId={props.metaActivity ? props.metaActivity.id : null}
             loading={props.offersLoading}
+            metaActivityId={props.metaActivity ? props.metaActivity.id : null}
+            offers={props.offers}
             onOfferSelected={props.goToOffer}
           />
         </Paper>
         <div className={classes.addOfferButton}>
           <Fab
-            variant="extended"
             aria-label="Add"
             color="primary"
             onClick={props.openCreateOfferForm}
+            variant="extended"
           >
             <AddIcon className={classes.leftIcon} />
             {t('addOffers')}

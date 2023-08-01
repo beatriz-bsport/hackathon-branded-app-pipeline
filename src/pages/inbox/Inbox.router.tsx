@@ -5,7 +5,7 @@ import InboxContainer from './InboxContainer.page';
 
 export default () => (
   <Switch>
-    <Route path="/inbox/thread/:id/" component={InboxContainer} />
-    <Route path="/inbox/thread/" component={InboxContainer} />
+    <Route component={InboxContainer} path="/inbox/thread/:id/" />
+    <Route component={InboxContainer} path="/inbox/thread/" />
   </Switch>
 );

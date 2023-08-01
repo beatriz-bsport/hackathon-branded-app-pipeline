@@ -139,12 +139,12 @@ const RecursiveDeepCheckBox: React.FC<{
       <FormControlLabel
         control={
           <Checkbox
-            indeterminate={checked === undefined}
             checked={!!checked}
-            onChange={() => changeValueForKey(rightKey, keysAccumulator)}
-            name="checkedB"
             color="primary"
             disabled={disabled}
+            indeterminate={checked === undefined}
+            name="checkedB"
+            onChange={() => changeValueForKey(rightKey, keysAccumulator)}
           />
         }
         label={
@@ -153,12 +153,12 @@ const RecursiveDeepCheckBox: React.FC<{
             {typeof value === 'object' && (
               <IconButton
                 aria-label="expand row"
-                size="small"
                 onClick={(ev) => {
                   ev.preventDefault();
                   ev.stopPropagation();
                   setIsFolded(!isFolded);
                 }}
+                size="small"
               >
                 {isFolded ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
               </IconButton>
@@ -172,18 +172,18 @@ const RecursiveDeepCheckBox: React.FC<{
         </div>
       )}
 
-      <Collapse in={!isFolded} unmountOnExit timeout="auto">
+      <Collapse unmountOnExit in={!isFolded} timeout="auto">
         {typeof value === 'object' && (
           <div className={classes.innerCheckBoxContainer}>
             {value &&
               Object.keys(value).map((innerKey) => (
                 <RecursiveDeepCheckBox
                   key={innerKey}
-                  rightKey={innerKey}
                   checkBoxData={value}
-                  keysAccumulator={[...keysAccumulator, innerKey]}
                   disabled={disabled}
+                  keysAccumulator={[...keysAccumulator, innerKey]}
                   permissions={permissions}
+                  rightKey={innerKey}
                   updatePermission={updatePermission}
                 />
               ))}

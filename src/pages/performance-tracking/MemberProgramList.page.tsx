@@ -124,9 +124,9 @@ export class MemberProgramList extends Component<Props> {
               </div>
 
               <Button
-                variant="outlined"
                 color="primary"
                 onClick={() => setIsDialogChooseProgramOpen(true)}
+                variant="outlined"
               >
                 {t('program.form.addProgram')}
               </Button>
@@ -134,25 +134,14 @@ export class MemberProgramList extends Component<Props> {
           </div>
         ) : (
           <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+            <Grid item md={6} xs={12}>
               <div className={classes.programList}>
                 <ProgramList
+                  isLinkedToMemberProgram
+                  isSearchDisplayed
                   noTitle
-                  programList={memberProgramList?.map(
-                    (memberProgram) => memberProgram.program,
-                  )}
-                  programSelectedId={memberProgramDetailed?.program?.id}
+                  creationLoading={creationLoading}
                   onAddProgram={() => setIsDialogChooseProgramOpen(true)}
-                  onDelete={(program) => {
-                    const memberProgramToDelete = [...memberProgramList].find(
-                      (memberProgram) =>
-                        memberProgram.program.id === program.id,
-                    ).id;
-                    this.props.disableMemberProgram(memberProgramToDelete);
-                    if (memberProgramToDelete === memberProgramDetailed.id) {
-                      pushToRouter();
-                    }
-                  }}
                   onClickOnItem={(program) => {
                     const memberProgramSelected = memberProgramList.find(
                       (memberProgram) =>
@@ -163,18 +152,29 @@ export class MemberProgramList extends Component<Props> {
                       memberProgramId: memberProgramSelected?.id,
                     });
                   }}
-                  isSearchDisplayed
-                  isLinkedToMemberProgram
-                  creationLoading={creationLoading}
+                  onDelete={(program) => {
+                    const memberProgramToDelete = [...memberProgramList].find(
+                      (memberProgram) =>
+                        memberProgram.program.id === program.id,
+                    ).id;
+                    this.props.disableMemberProgram(memberProgramToDelete);
+                    if (memberProgramToDelete === memberProgramDetailed.id) {
+                      pushToRouter();
+                    }
+                  }}
+                  programList={memberProgramList?.map(
+                    (memberProgram) => memberProgram.program,
+                  )}
+                  programSelectedId={memberProgramDetailed?.program?.id}
                 />
               </div>
               <div className={classes.programSelector}>
                 <Button
-                  disabled={creationLoading}
                   className={classes.button}
-                  variant="outlined"
                   color="primary"
+                  disabled={creationLoading}
                   onClick={() => setIsDialogChooseProgramOpen(true)}
+                  variant="outlined"
                 >
                   <div className={classes.row}>
                     <Add />
@@ -182,25 +182,14 @@ export class MemberProgramList extends Component<Props> {
                   </div>
                 </Button>
                 <MaterialUISelector
-                  value={{
-                    value: memberProgramDetailed?.id,
-                    label:
-                      memberProgramDetailed.program?.name ||
-                      t('program.selectProgram'),
-                  }}
                   isMenuListPaddingDisabled
+                  isMulti={false}
                   itemRenderer={(itemProps) => {
                     return (
                       <ProgramMenuItem
                         isInSelector
                         isDisabled={itemProps.isDisabled}
                         isSelected={itemProps.isSelected}
-                        program={
-                          [...memberProgramList].find(
-                            (memberProgram) =>
-                              memberProgram.program.id === itemProps.data.value,
-                          ).program
-                        }
                         onDelete={async (program) => {
                           const shouldDelete = await showDeleteDialog(
                             t('memberProgram.deleteHeader'),
@@ -223,14 +212,15 @@ export class MemberProgramList extends Component<Props> {
                             }
                           }
                         }}
+                        program={
+                          [...memberProgramList].find(
+                            (memberProgram) =>
+                              memberProgram.program.id === itemProps.data.value,
+                          ).program
+                        }
                       />
                     );
                   }}
-                  options={[...memberProgramList]?.map((memberProgram) => ({
-                    value: memberProgram.program?.id,
-                    label: memberProgram.program?.name,
-                  }))}
-                  isMulti={false}
                   onChange={(values) => {
                     const memberProgramSelected = memberProgramList.find(
                       (memberProgram) =>
@@ -241,14 +231,23 @@ export class MemberProgramList extends Component<Props> {
                       memberProgramId: memberProgramSelected?.id,
                     });
                   }}
+                  options={[...memberProgramList]?.map((memberProgram) => ({
+                    value: memberProgram.program?.id,
+                    label: memberProgram.program?.name,
+                  }))}
+                  value={{
+                    value: memberProgramDetailed?.id,
+                    label:
+                      memberProgramDetailed.program?.name ||
+                      t('program.selectProgram'),
+                  }}
                 />
                 <GenericDialog />
               </div>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item md={6} xs={12}>
               <MemberProgramDetail
                 withIcon
-                memberProgram={memberProgramDetailed}
                 changeMemberMetricValue={(value, metric) => {
                   updateMemberMetricValue({
                     memberProgram: memberProgramDetailedId,
@@ -256,14 +255,12 @@ export class MemberProgramList extends Component<Props> {
                     value,
                   });
                 }}
+                memberProgram={memberProgramDetailed}
               />
             </Grid>
           </Grid>
         )}
         <ProgramSelectorDialog
-          programList={[...memberAvailablePrograms]}
-          isDialogChooseProgramOpen={isDialogChooseProgramOpen}
-          setIsDialogChooseProgramOpen={setIsDialogChooseProgramOpen}
           createMemberProgram={(id) =>
             createMemberProgram(
               { program: id, member: memberId },
@@ -274,6 +271,9 @@ export class MemberProgramList extends Component<Props> {
               },
             )
           }
+          isDialogChooseProgramOpen={isDialogChooseProgramOpen}
+          programList={[...memberAvailablePrograms]}
+          setIsDialogChooseProgramOpen={setIsDialogChooseProgramOpen}
         />
       </div>
     );

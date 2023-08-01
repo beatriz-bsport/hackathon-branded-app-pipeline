@@ -67,6 +67,7 @@ export class ImageField extends Component<Props, State> {
       <Field {...this.props}>
         {({ field, form: { setFieldValue } }) => (
           <Dropzone
+            accept="image/*"
             onDrop={(acceptedFiles) => {
               try {
                 if (acceptedFiles?.length) {
@@ -80,7 +81,6 @@ export class ImageField extends Component<Props, State> {
                 // eslint-disable-next-line no-empty
               } catch (err) {}
             }}
-            accept="image/*"
           >
             {({ getRootProps, getInputProps, isDragAccept }) => (
               <div {...getRootProps()}>
@@ -88,8 +88,8 @@ export class ImageField extends Component<Props, State> {
                   accept="image/*"
                   className={classes.input}
                   {...getInputProps()}
-                  type="file"
                   disabled={this.props.disabled}
+                  type="file"
                 />
                 <label
                   htmlFor={this.props.id || 'avatar-loader-button'}
@@ -129,25 +129,25 @@ export class ImageField extends Component<Props, State> {
                       >
                         <Icon fontSize="large">
                           <FolderOpenIcon
-                            id={this.props.id}
                             className={classes.icon}
                             fontSize="large"
+                            id={this.props.id}
                           />
                         </Icon>
                         <Typography
-                          variant="caption"
+                          className={classes.text}
                           style={
                             field?.required
                               ? { color: 'red' }
                               : { color: '#BDBDBD' }
                           }
-                          className={classes.text}
+                          variant="caption"
                         >
                           {this.props.t('common.uploadOneImage.new')}
                         </Typography>
                         {this.props.subHelper && (
                           <div className={this.props.classes.subHelper}>
-                            <Typography variant="caption" color="textSecondary">
+                            <Typography color="textSecondary" variant="caption">
                               {this.props.subHelper}
                             </Typography>
                           </div>
@@ -160,8 +160,8 @@ export class ImageField extends Component<Props, State> {
                 <ErrorMessage {...this.props}>
                   {(message) => (
                     <Typography
-                      variant="body2"
                       className={this.props.classes.alertError}
+                      variant="body2"
                     >
                       {this.props.t(message)}
                     </Typography>

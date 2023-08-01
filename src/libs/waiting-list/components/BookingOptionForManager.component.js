@@ -83,9 +83,9 @@ export class BookingOptionForManager extends Component<Props> {
     if (option.cancelled) {
       return (
         <ListItem
-          divider
           button
           disableRipple
+          divider
           onClick={this.handleListItemClick}
         >
           {this.getAvatar()}
@@ -97,7 +97,7 @@ export class BookingOptionForManager extends Component<Props> {
       );
     }
     return (
-      <ListItem divider button disableRipple onClick={this.handleListItemClick}>
+      <ListItem button disableRipple divider onClick={this.handleListItemClick}>
         <div className={classes.outerRow}>
           <div className={classes.innerRow}>
             {this.getAvatar()}
@@ -112,11 +112,11 @@ export class BookingOptionForManager extends Component<Props> {
           </div>
         </div>
         <Button
-          color="primary"
-          variant="outlined"
-          onClick={onClickRegister}
           className={classes.addButton}
+          color="primary"
           disabled={this.props.disabled}
+          onClick={onClickRegister}
+          variant="outlined"
         >
           <AddIcon />
           {t('booking.add')}

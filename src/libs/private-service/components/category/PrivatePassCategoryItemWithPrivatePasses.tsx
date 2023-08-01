@@ -96,21 +96,21 @@ const SortablePrivatePassListItem = React.memo((props: PackListItemProps) => {
   return (
     <Paper
       ref={setNodeRef}
-      style={{ transform: CSS.Translate.toString(transform), transition }}
-      elevation={2}
       className={classes.paper}
+      elevation={2}
+      style={{ transform: CSS.Translate.toString(transform), transition }}
     >
       <PrivatePassListItem
-        attributes={attributes}
-        listeners={listeners}
-        draggable={props.draggable}
-        pass={ppass}
-        divider
-        onEdit={props.onEdit}
-        onDelete={props.onDelete}
-        onClick={props.onClick}
         key={ppass.id}
+        divider
+        attributes={attributes}
         disabled={false}
+        draggable={props.draggable}
+        listeners={listeners}
+        onClick={props.onClick}
+        onDelete={props.onDelete}
+        onEdit={props.onEdit}
+        pass={ppass}
       />
     </Paper>
   );
@@ -166,19 +166,19 @@ const SortablePrivatePassList = React.memo((props: PackListProps) => {
             (props.filterManagerOnly === ManagerOnly.showInvisibleForStaff &&
               !ppass.is_usable_by_staff) ? (
             <SortablePrivatePassListItem
+              key={ppass.id}
               draggable={
                 !props.privatePassOrder &&
                 props.filterManagerOnly === ManagerOnly.showAll
               }
-              key={ppass.id}
-              ppass={ppass}
-              onEdit={props.onEdit ? () => props.onEdit(ppass) : null}
               onClick={
                 ppass.available && props.onClick
                   ? () => props.onClick(ppass.id)
                   : null
               }
               onDelete={props.onDelete ? () => props.onDelete(ppass.id) : null}
+              onEdit={props.onEdit ? () => props.onEdit(ppass) : null}
+              ppass={ppass}
               sortedItems={ppasses}
             />
           ) : null;
@@ -205,7 +205,7 @@ export const PresentationalComponentPassCategory = React.memo(
           <IconButton>
             <DragHandleIcon />
           </IconButton>
-          <Typography variant="h5" component="h2">
+          <Typography component="h2" variant="h5">
             {privatePassCategory
               ? `${
                   privatePassCategory.name || t('paymentPack:noCategory.name')
@@ -269,20 +269,20 @@ export const PrivatePassCategoryItemWithPrivatePass = React.memo(
         style={{ transform: CSS.Transform.toString(transform), transition }}
       >
         <Popover
-          id="category-popover"
-          open={!!anchorEl}
           anchorEl={anchorEl}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'left',
           }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-          }}
+          id="category-popover"
           onClose={() => {
             setAnchorEl(null);
             props.setSelectedCategory(null);
+          }}
+          open={!!anchorEl}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
           }}
         >
           <List dense>
@@ -318,7 +318,7 @@ export const PrivatePassCategoryItemWithPrivatePass = React.memo(
                 <DragHandleIcon />
               </IconButton>
             )}
-            <Typography variant="h5" component="h2">
+            <Typography component="h2" variant="h5">
               {privatePassCategory
                 ? `${
                     privatePassCategory.name || t('paymentPack:noCategory.name')

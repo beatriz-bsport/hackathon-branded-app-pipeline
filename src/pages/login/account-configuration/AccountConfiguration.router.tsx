@@ -63,7 +63,7 @@ export const AccountConfiguration: React.FC<
       has_no_need_for_payment_method_configuration &&
       has_no_need_for_bank_account_configuration)
   ) {
-    return <Route path="/" component={AccountConfigurationFinalStepPage} />;
+    return <Route component={AccountConfigurationFinalStepPage} path="/" />;
   }
   const bankAccountStepCompletedOrNotMandatory =
     has_completed_bank_account_configuration ||
@@ -91,26 +91,26 @@ export const AccountConfiguration: React.FC<
   return (
     <div className={classes.container}>
       <div className={classes.header}>
-        <img src={src} className={classes.logo} alt={alt} />
+        <img alt={alt} className={classes.logo} src={src} />
         <LanguageButton noLabel />
       </div>
       <Switch>
         <Route
-          path={AccountConfigurationWelcomeStepUrl}
           component={WelcomeStepPage}
+          path={AccountConfigurationWelcomeStepUrl}
         />
         {need_stripe_configuration && (
           <Route
-            path={AccountConfigurationStripeStepUrl}
             component={AccountConfigurationStripeStepPage}
+            path={AccountConfigurationStripeStepUrl}
           />
         )}
 
         {need_bank_account_configuration &&
           has_completed_stripe_configuration && (
             <Route
-              path={AccountConfigurationBankAccountStepUrl}
               component={AccountConfigurationBankAccountStepPage}
+              path={AccountConfigurationBankAccountStepUrl}
             />
           )}
 
@@ -118,19 +118,19 @@ export const AccountConfiguration: React.FC<
           stripeConfigurationStepCompletedOrNotMandatory &&
           bankAccountStepCompletedOrNotMandatory && (
             <Route
-              path={AccountConfigurationPaymentMethodStepUrl}
               component={PaymentMethodStepPage}
+              path={AccountConfigurationPaymentMethodStepUrl}
             />
           )}
         {stripeConfigurationStepCompletedOrNotMandatory &&
           bankAccountStepCompletedOrNotMandatory &&
           paymentMethodStepCompletedOrNotMandatory && (
             <Route
-              path={AccountConfigurationFinalStepUrl}
               component={AccountConfigurationFinalStepPage}
+              path={AccountConfigurationFinalStepUrl}
             />
           )}
-        <Route path="/" component={AccountConfigurationStepSwitcherRouter} />
+        <Route component={AccountConfigurationStepSwitcherRouter} path="/" />
       </Switch>
     </div>
   );

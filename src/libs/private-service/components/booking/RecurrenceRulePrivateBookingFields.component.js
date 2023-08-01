@@ -70,65 +70,65 @@ export default function RecurrenceRuleTimeSettingFields(props: Props) {
             {t('booking:recurrenceRule.form.at')}
           </Typography>
           <TextField
+            required
             className={classes.field}
-            type="number"
-            name="hour"
             InputProps={{
               inputProps: {
                 max: 23,
                 min: 0,
               },
             }}
-            value={props.selectedSetting ? props.selectedSetting.hour : null}
             label={t('booking:recurrenceRule.form.hour.label')}
-            required
+            name="hour"
             onChange={(ev) => handleChange(ev)}
+            type="number"
+            value={props.selectedSetting ? props.selectedSetting.hour : null}
           />
           <TextField
+            required
             className={classes.field}
-            type="number"
-            name="minute"
             InputProps={{
               inputProps: {
                 max: 59,
                 min: 0,
               },
             }}
-            value={props.selectedSetting ? props.selectedSetting.minute : null}
             label={t('booking:recurrenceRule.form.minute.label')}
-            required
+            name="minute"
             onChange={(ev) => handleChange(ev)}
+            type="number"
+            value={props.selectedSetting ? props.selectedSetting.minute : null}
           />
         </div>
       )}
       {!props.privateSlotSet && props.selectedSetting && (
         <div className={classes.row}>
           <DateInput
+            label={t('booking:recurrenceRule.form.startFromDate.label')}
+            minDate={moment()}
             onChange={fuckThisCode}
             value={
               props.selectedSetting
                 ? moment(props.selectedSetting.start_from_date)
                 : null
             }
-            minDate={moment()}
-            label={t('booking:recurrenceRule.form.startFromDate.label')}
           />
         </div>
       )}
       <TextField
-        type="number"
-        name="nb_of_weeks"
+        required
+        helperText={t('booking:recurrenceRule.form.delayWeek.helperText')}
         InputProps={{
           inputProps: {
             max: 8,
             min: 1,
           },
         }}
-        value={props.selectedSetting ? props.selectedSetting.nb_of_weeks : null}
         label={t('booking:recurrenceRule.form.delayWeek.label')}
-        helperText={t('booking:recurrenceRule.form.delayWeek.helperText')}
-        required
+        name="nb_of_weeks"
         onChange={(ev) => handleChange(ev)}
+        type="number"
+        value={props.selectedSetting ? props.selectedSetting.nb_of_weeks : null}
       />
 
       {!props.privateSlotSet && props.selectedSetting && (

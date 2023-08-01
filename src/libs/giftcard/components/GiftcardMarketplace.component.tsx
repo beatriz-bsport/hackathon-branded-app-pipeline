@@ -21,7 +21,7 @@ export function GiftcardMarketplace(props: Props) {
         onClick={() => props.onClick(giftcard.id)}
       >
         {giftcard.cover ? (
-          <img alt="" src={giftcard.cover} className={classes.image} />
+          <img alt="" className={classes.image} src={giftcard.cover} />
         ) : (
           <div alt="" className={classes.image} />
         )}

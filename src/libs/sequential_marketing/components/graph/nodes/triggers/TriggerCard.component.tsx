@@ -36,12 +36,12 @@ const TriggerCardHeader: React.FC<TriggerCardHeaderProps> = React.memo(
   ({ name, trigger, getSmartlist, actions }) => {
     return (
       <CadenceNodeTitle
-        name={name}
-        icon={getTriggerIcon(trigger)}
-        color={SequentialMarketingColors.TRIGGER_COLOR}
-        triggerList={[trigger]}
-        getSmartlist={getSmartlist}
         actions={actions}
+        color={SequentialMarketingColors.TRIGGER_COLOR}
+        getSmartlist={getSmartlist}
+        icon={getTriggerIcon(trigger)}
+        name={name}
+        triggerList={[trigger]}
       />
     );
   },
@@ -82,20 +82,20 @@ const TriggerCard: React.FC<TriggerCardProps> = ({
 
   return (
     <StepCard
-      header={
-        <TriggerCardHeader
-          name={t(`cadence.triggers.kinds.${getTriggerKind(trigger)}`)}
-          actions={!!onDelete && Immutable([deleteTriggerAction])}
-          trigger={trigger}
-          getSmartlist={getSmartlist}
-        />
-      }
+      maxWidth
       color={SequentialMarketingColors.TRIGGER_BORDER_COLOR}
-      selectedColor={SequentialMarketingColors.TRIGGER_COLOR}
-      isSelected={isSelected}
       disabled={disabled}
       disableRipple={disableRipple}
-      maxWidth
+      header={
+        <TriggerCardHeader
+          actions={!!onDelete && Immutable([deleteTriggerAction])}
+          getSmartlist={getSmartlist}
+          name={t(`cadence.triggers.kinds.${getTriggerKind(trigger)}`)}
+          trigger={trigger}
+        />
+      }
+      isSelected={isSelected}
+      selectedColor={SequentialMarketingColors.TRIGGER_COLOR}
     />
   );
 };

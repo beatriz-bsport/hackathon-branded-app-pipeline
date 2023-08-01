@@ -50,15 +50,15 @@ const MarketplaceContractTermsModal: React.FC<Props> = ({
   return (
     <>
       {isOpen && (
-        <div className="bs-contract-terms-dialog__backdrop" ref={dialogRef}>
-          <div className="bs-contract-terms-dialog__container" ref={modalRef}>
+        <div ref={dialogRef} className="bs-contract-terms-dialog__backdrop">
+          <div ref={modalRef} className="bs-contract-terms-dialog__container">
             <p className="bs-contract-terms-dialog__text">{contractTerms}</p>
 
             <div className="bs-contract-terms-dialog__actions">
               <button
                 className="bs-contract-terms-dialog__button bs-contract-terms-dialog__cancel"
-                type="button"
                 onClick={onDialogClose}
+                type="button"
               >
                 {t('common:close')}
               </button>
@@ -69,9 +69,9 @@ const MarketplaceContractTermsModal: React.FC<Props> = ({
                   'bs-contract-terms-dialog__download':
                     !isContractTermsDownloadLoading,
                 })}
-                type="button"
                 disabled={isContractTermsDownloadLoading}
                 onClick={handleDownloadTerms}
+                type="button"
               >
                 {t('common:download')}
                 {isContractTermsDownloadLoading && (

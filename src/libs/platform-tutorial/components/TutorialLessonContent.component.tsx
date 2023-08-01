@@ -63,7 +63,7 @@ const TutorialLessonContent: React.FC<Props> = (props: Props) => {
           !isLessonCompleted(selectedLesson, tutorial_completion),
         );
   return (
-    <Paper elevation={0} className={classes.paper}>
+    <Paper className={classes.paper} elevation={0}>
       <Typography className={classes.sectionTitle} variant="h5">
         {selectedLesson?.translated_name}
       </Typography>
@@ -87,18 +87,18 @@ const TutorialLessonContent: React.FC<Props> = (props: Props) => {
               [classes.previousButtonDisabled]:
                 previousLessonId === null || lesson_restricted,
             })}
-            startIcon={<ArrowBackIcon />}
             disabled={previousLessonId === null || lesson_restricted}
             onClick={() => goToLesson(selectedLesson.section, previousLessonId)}
+            startIcon={<ArrowBackIcon />}
           >
             {t('lessonContent.previousLesson')}
           </Button>
           <Button
-            className={classNames(classes.nextButton)}
             classes={{ root: classes.overrideMuiButtonRootHoverMobile }}
+            className={classNames(classes.nextButton)}
+            disabled={lesson_restricted}
             endIcon={<ArrowForwardIcon />}
             onClick={onNextButtonClick}
-            disabled={lesson_restricted}
           >
             {nextLessonId === null && !lesson_restricted
               ? t('lessonContent.finish')

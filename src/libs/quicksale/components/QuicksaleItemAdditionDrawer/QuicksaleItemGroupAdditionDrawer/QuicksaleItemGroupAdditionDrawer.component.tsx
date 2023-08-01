@@ -189,10 +189,6 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
 
   return (
     <GenericResponsiveDrawer
-      open={open}
-      onClose={resetAndClose}
-      title={t('itemList.additionDrawer.title')}
-      subtitle={t('itemList.additionDrawer.objectGroupsSubtitle')}
       withoutPadding
       customClasses={{
         drawer: classes.drawer,
@@ -200,38 +196,42 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
         content: parentDrawerClasses.drawerContainer,
         titleTypography: parentDrawerClasses.drawerTitleTypography,
       }}
+      onClose={resetAndClose}
+      open={open}
+      subtitle={t('itemList.additionDrawer.objectGroupsSubtitle')}
+      title={t('itemList.additionDrawer.title')}
     >
       <div>
         <FormSection
-          sectionTitle={t('itemList.additionDrawer.category')}
           sectionIcon={Search}
-          sectionIconStyle="primary"
           sectionIconContainerStyle={
             parentDrawerClasses.formSectionIconContainer
           }
+          sectionIconStyle="primary"
+          sectionTitle={t('itemList.additionDrawer.category')}
           spacing={3}
         >
           <div className={classes.selectorsContainer}>
             <Selector
-              options={availableItemTypes}
-              value={selectedItemType}
-              onChange={onItemTypeChange}
-              placeholder={t('itemList.additionDrawer.objectType')}
               isSearchable={false}
+              onChange={onItemTypeChange}
+              options={availableItemTypes}
+              placeholder={t('itemList.additionDrawer.objectType')}
+              value={selectedItemType}
             />
 
             <Selector
-              options={availableCategories}
-              value={selectedCategory}
-              onChange={onCategoryChange}
-              placeholder={t('itemList.additionDrawer.category')}
+              blurOnSelect
+              isClearable
               isDisabled={
                 !selectedItemType ||
                 !availableItems[selectedItemType.value].hasCategories
               }
-              isClearable
               isSearchable={false}
-              blurOnSelect
+              onChange={onCategoryChange}
+              options={availableCategories}
+              placeholder={t('itemList.additionDrawer.category')}
+              value={selectedCategory}
             />
           </div>
 
@@ -240,15 +240,15 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
               <>
                 <div className={classes.selectAndUnselectContainer}>
                   <Button
-                    onClick={selectAll}
-                    color="primary"
                     className={classes.selectAndUnselectButton}
+                    color="primary"
+                    onClick={selectAll}
                   >
                     {t('itemList.additionDrawer.selectAll')}
                   </Button>
                   <Button
-                    onClick={unselectAll}
                     className={classes.selectAndUnselectButton}
+                    onClick={unselectAll}
                   >
                     {t('itemList.additionDrawer.unselectAll')}
                   </Button>
@@ -263,19 +263,19 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
                     .map((item) => (
                       <ListItem
                         key={item.id}
-                        item={item}
+                        clickToSelect
                         checked={selectedItems.includes(item)}
                         dispatch={dispatch}
-                        clickToSelect
+                        item={item}
                       />
                     ))}
 
                   {selectableItems.length > PAGE_SIZE && (
                     <Pagination
-                      page={pageNumber}
+                      className={parentDrawerClasses.pagination}
                       count={Math.ceil(selectableItems.length / PAGE_SIZE)}
                       onChange={handleChangePage}
-                      className={parentDrawerClasses.pagination}
+                      page={pageNumber}
                     />
                   )}
                 </div>
@@ -283,12 +283,12 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
             ) : (
               <div className={classes.noResultAlertContainer}>
                 <Alert
-                  variant="filled"
-                  severity="info"
                   className={classNames(
                     parentDrawerClasses.noResultAlert,
                     parentDrawerClasses.pagination,
                   )}
+                  severity="info"
+                  variant="filled"
                 >
                   <Typography variant="body1">
                     {t('itemList.additionDrawer.noResult')}
@@ -302,9 +302,9 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
       <DialogActions className={parentDrawerClasses.dialogActions}>
         <Button onClick={onClose}>{t('itemList.additionDrawer.cancel')}</Button>
         <Button
-          onClick={addSelectedItemsToItemsToAdd}
-          disabled={selectedItems.length === 0}
           color="primary"
+          disabled={selectedItems.length === 0}
+          onClick={addSelectedItemsToItemsToAdd}
           variant="contained"
         >
           {t('itemList.additionDrawer.add')}

@@ -180,25 +180,25 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
     ) {
       return (
         <NotificationSourceSelector
+          contracts={this.props.contracts}
+          establishmentGroups={this.props.establishmentGroups}
+          establishments={this.props.establishments}
           identifier={this.props.createFormOpenType}
-          onClose={this.props.closeForm}
-          onCancel={this.onCancel}
-          onSubmit={(sourceObjectId) => {
-            this.setState({
-              sourceObjectId,
-            });
-          }}
           metaActivities={
             this.props.createFormOpenType === 'workshop'
               ? this.props.workshopList
               : this.props.metaActivities
           }
-          establishments={this.props.establishments}
-          establishmentGroups={this.props.establishmentGroups}
-          privateServices={this.props.privateServices}
+          onCancel={this.onCancel}
+          onClose={this.props.closeForm}
+          onSubmit={(sourceObjectId) => {
+            this.setState({
+              sourceObjectId,
+            });
+          }}
           paymentPacks={this.props.paymentPacks}
           privatePasses={this.props.privatePasses}
-          contracts={this.props.contracts}
+          privateServices={this.props.privateServices}
         />
       );
     }
@@ -266,23 +266,23 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
     ) {
       return (
         <MarketingRuleFormBooking
-          objectId={objectId}
-          identifier={identifier}
-          emailListLoading={this.props.emailListLoading}
           emailDetailLoading={this.props.emailDetailLoading}
-          getEmails={this.props.getEmails}
-          getEmailDetail={this.props.getEmailDetail}
-          emails={this.props.emailSummaryList}
           emailDetails={this.props.emailDetails}
+          emailListLoading={this.props.emailListLoading}
+          emails={this.props.emailSummaryList}
+          getEmailDetail={this.props.getEmailDetail}
+          getEmails={this.props.getEmails}
+          getSmartLists={this.props.getSmartLists}
+          goToSmartlist={this.props.goToSmartlist}
+          identifier={identifier}
           initial={this.props.selectedNotification}
+          objectId={objectId}
           onCancel={this.onCancel}
           onSubmit={this.onSubmit}
           onSubmitIntent={this.onSubmitIntent}
-          tags={this.getMergeTags()}
-          goToSmartlist={this.props.goToSmartlist}
-          getSmartLists={this.props.getSmartLists}
-          smartLists={this.props.smartLists}
           resolvedGenericTags={this.props.resolvedGenericTags}
+          smartLists={this.props.smartLists}
+          tags={this.getMergeTags()}
         />
       );
     }
@@ -290,22 +290,22 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
     if (identifier === 'private_service') {
       return (
         <MarketingRuleFormPrivateBooking
-          serviceId={objectId}
-          emailListLoading={this.props.emailListLoading}
           emailDetailLoading={this.props.emailDetailLoading}
-          getEmails={this.props.getEmails}
-          getEmailDetail={this.props.getEmailDetail}
-          emails={this.props.emailSummaryList}
           emailDetails={this.props.emailDetails}
+          emailListLoading={this.props.emailListLoading}
+          emails={this.props.emailSummaryList}
+          getEmailDetail={this.props.getEmailDetail}
+          getEmails={this.props.getEmails}
+          getSmartLists={this.props.getSmartLists}
+          goToSmartlist={this.props.goToSmartlist}
           initial={this.props.selectedNotification}
           onCancel={this.onCancel}
           onSubmit={this.onSubmit}
           onSubmitIntent={this.onSubmitIntent}
-          tags={this.getMergeTags()}
-          goToSmartlist={this.props.goToSmartlist}
-          getSmartLists={this.props.getSmartLists}
-          smartLists={this.props.smartLists}
           resolvedGenericTags={this.props.resolvedGenericTags}
+          serviceId={objectId}
+          smartLists={this.props.smartLists}
+          tags={this.getMergeTags()}
         />
       );
     }
@@ -313,24 +313,24 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
     if (identifier === 'payment_pack' || identifier === 'private_pass') {
       return (
         <MarketingRuleFormProduct
-          identifier={identifier}
-          id={objectId}
           emailDetailLoading={this.props.emailDetailLoading}
-          emailListLoading={this.props.emailListLoading}
-          getEmails={this.props.getEmails}
-          getEmailDetail={this.props.getEmailDetail}
-          emails={this.props.emailSummaryList}
           emailDetails={this.props.emailDetails}
-          goToSmartlist={this.props.goToSmartlist}
+          emailListLoading={this.props.emailListLoading}
+          emails={this.props.emailSummaryList}
+          getEmailDetail={this.props.getEmailDetail}
+          getEmails={this.props.getEmails}
           getSmartLists={this.props.getSmartLists}
-          smartLists={this.props.smartLists}
-          smartListLoading={this.props.smartListLoading}
+          goToSmartlist={this.props.goToSmartlist}
+          id={objectId}
+          identifier={identifier}
           initial={this.props.selectedNotification}
           onCancel={this.onCancel}
-          onSubmitIntent={this.onSubmitIntent}
           onSubmit={this.onSubmit}
-          tags={this.getMergeTags()}
+          onSubmitIntent={this.onSubmitIntent}
           resolvedGenericTags={this.props.resolvedGenericTags}
+          smartListLoading={this.props.smartListLoading}
+          smartLists={this.props.smartLists}
+          tags={this.getMergeTags()}
         />
       );
     }
@@ -342,20 +342,20 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
       return (
         <MarketingRuleFormBirthday
           emailDetailLoading={this.props.emailDetailLoading}
-          emailListLoading={this.props.emailListLoading}
-          getEmails={this.props.getEmails}
-          getEmailDetail={this.props.getEmailDetail}
-          emails={this.props.emailSummaryList}
           emailDetails={this.props.emailDetails}
+          emailListLoading={this.props.emailListLoading}
+          emails={this.props.emailSummaryList}
+          getEmailDetail={this.props.getEmailDetail}
+          getEmails={this.props.getEmails}
+          getSmartLists={this.props.getSmartLists}
+          goToSmartlist={this.props.goToSmartlist}
           initial={this.props.selectedNotification}
           onCancel={this.onCancel}
-          onSubmitIntent={this.onSubmitIntent}
           onSubmit={this.onSubmit}
-          tags={this.getMergeTags()}
-          goToSmartlist={this.props.goToSmartlist}
-          getSmartLists={this.props.getSmartLists}
-          smartLists={this.props.smartLists}
+          onSubmitIntent={this.onSubmitIntent}
           resolvedGenericTags={this.props.resolvedGenericTags}
+          smartLists={this.props.smartLists}
+          tags={this.getMergeTags()}
         />
       );
     }
@@ -363,22 +363,22 @@ export class MarketingRuleFormGeneric extends React.PureComponent<
     if (identifier === 'contract') {
       return (
         <MarketingRuleFormContract
-          id={objectId}
           emailDetailLoading={this.props.emailDetailLoading}
-          emailListLoading={this.props.emailListLoading}
-          getEmails={this.props.getEmails}
-          getEmailDetail={this.props.getEmailDetail}
-          emails={this.props.emailSummaryList}
           emailDetails={this.props.emailDetails}
+          emailListLoading={this.props.emailListLoading}
+          emails={this.props.emailSummaryList}
+          getEmailDetail={this.props.getEmailDetail}
+          getEmails={this.props.getEmails}
+          getSmartLists={this.props.getSmartLists}
+          goToSmartlist={this.props.goToSmartlist}
+          id={objectId}
           initial={this.props.selectedNotification}
           onCancel={this.onCancel}
           onSubmit={this.onSubmit}
-          tags={this.getMergeTags()}
-          goToSmartlist={this.props.goToSmartlist}
-          getSmartLists={this.props.getSmartLists}
-          smartLists={this.props.smartLists}
-          smartListLoading={this.props.smartListLoading}
           resolvedGenericTags={this.props.resolvedGenericTags}
+          smartListLoading={this.props.smartListLoading}
+          smartLists={this.props.smartLists}
+          tags={this.getMergeTags()}
         />
       );
     }

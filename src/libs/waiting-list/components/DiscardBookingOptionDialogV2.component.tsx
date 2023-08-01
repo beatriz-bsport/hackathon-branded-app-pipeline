@@ -41,10 +41,10 @@ class DiscardBookingOptionDialogV2 extends React.PureComponent<Props, State> {
   render() {
     return (
       <Dialog
-        open={!!this.props.open}
-        onClose={this.props.onClose}
-        aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        aria-labelledby="alert-dialog-title"
+        onClose={this.props.onClose}
+        open={!!this.props.open}
       >
         <DialogTitle id="alert-dialog-title">
           {this.props.t('dialog.delete.title')}
@@ -58,16 +58,16 @@ class DiscardBookingOptionDialogV2 extends React.PureComponent<Props, State> {
             control={
               <Switch
                 checked={this.state.sendEmail}
-                onChange={this.onSwitch}
-                name="checkedB"
                 color="primary"
+                name="checkedB"
+                onChange={this.onSwitch}
               />
             }
             label={this.props.t('dialog.delete.sendEmail')}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.props.onClose} color="secondary">
+          <Button color="secondary" onClick={this.props.onClose}>
             {this.props.t('dialog.delete.cancel')}
           </Button>
           <RedButton onClick={this.onSubmit}>

@@ -63,25 +63,25 @@ export const PartnershipConfigurationForm = (props: Props) => {
 
   return (
     <div>
-      <Typography variant="h4" className={classes.title}>
+      <Typography className={classes.title} variant="h4">
         {t('parameters.configurationTitle')}
       </Typography>
       <RadioGroup
         className={classes.radioGroup}
-        value={configurationType}
         onChange={(ev) => setConfigurationType(parseInt(ev.target.value, 10))}
+        value={configurationType}
       >
         <FormControlLabel
-          value={SIMPLE_MULTIPLE_MODE}
           control={
             <Radio checked={SIMPLE_MULTIPLE_MODE === configurationType} />
           }
           label={t(`configurationType.${SIMPLE_MULTIPLE_MODE}.label`)}
+          value={SIMPLE_MULTIPLE_MODE}
         />
         <Typography
           className={classes.helper}
-          variant="caption"
           color="textSecondary"
+          variant="caption"
         >
           {t(`configurationType.${SIMPLE_MULTIPLE_MODE}.helperText`)}
         </Typography>
@@ -90,24 +90,24 @@ export const PartnershipConfigurationForm = (props: Props) => {
             <PartnershipConfigurationMultipleEstablishmentForm
               associatedEstablishmentList={props.associatedEstablishmentList}
               establishmentList={props.establishmentList}
+              initial={props.initial}
+              iSubmitting={props.isSubmitting}
+              onSubmit={props.onSubmit}
               partnershipEstablishmentMergeList={
                 props.partnershipEstablishmentMergeList
               }
-              initial={props.initial}
-              onSubmit={props.onSubmit}
-              iSubmitting={props.isSubmitting}
             />
           </div>
         </Collapse>
         <FormControlLabel
-          value={OVERRIDE_MODE}
           control={<Radio checked={OVERRIDE_MODE === configurationType} />}
           label={t(`configurationType.${OVERRIDE_MODE}.label`)}
+          value={OVERRIDE_MODE}
         />
         <Typography
           className={classes.helper}
-          variant="caption"
           color="textSecondary"
+          variant="caption"
         >
           {t(`configurationType.${OVERRIDE_MODE}.helperText`)}
         </Typography>
@@ -117,22 +117,22 @@ export const PartnershipConfigurationForm = (props: Props) => {
               associatedEstablishmentList={props.associatedEstablishmentList}
               establishmentList={props.establishmentList}
               initial={props.initial}
-              onSubmit={props.onSubmit}
               iSubmitting={props.isSubmitting}
+              onSubmit={props.onSubmit}
             />
           </div>
         </Collapse>
         <FormControlLabel
-          value={MULTIPLE_MERGE_MODE}
           control={
             <Radio checked={MULTIPLE_MERGE_MODE === configurationType} />
           }
           label={t(`configurationType.${MULTIPLE_MERGE_MODE}.label`)}
+          value={MULTIPLE_MERGE_MODE}
         />
         <Typography
           className={classes.helper}
-          variant="caption"
           color="textSecondary"
+          variant="caption"
         >
           {t(`configurationType.${MULTIPLE_MERGE_MODE}.helperText`)}
         </Typography>
@@ -141,13 +141,13 @@ export const PartnershipConfigurationForm = (props: Props) => {
         <div className={classes.form}>
           <PartnershipConfigurationAdvancedForm
             associatedEstablishmentList={props.associatedEstablishmentList}
+            establishmentList={props.establishmentList}
+            initial={props.initial}
+            iSubmitting={props.isSubmitting}
+            onSubmit={props.onSubmit}
             partnershipEstablishmentMergeList={
               props.partnershipEstablishmentMergeList
             }
-            establishmentList={props.establishmentList}
-            initial={props.initial}
-            onSubmit={props.onSubmit}
-            iSubmitting={props.isSubmitting}
           />
         </div>
       </Collapse>

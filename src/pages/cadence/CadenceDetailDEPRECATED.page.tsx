@@ -276,45 +276,45 @@ export class CadenceDetailPage extends Component<Props> {
               )}
             >
               <CadenceDetailHeader
-                goBack={this.props.backtoCadenceList}
-                onEdit={this.props.updateCadenceName}
-                onEditWinParameters={this.displayWinParametersForm}
-                onEditLoseParameters={this.displayLoseParametersForm}
-                onActivate={this.props.activateCadence}
-                onShutOff={this.props.shutOffCadence}
-                loading={this.props.loading}
                 cadence={this.props.cadence}
                 cadenceEditMode={this.props.cadenceEditMode}
-                switchCadenceEditMode={this.switchCadenceEditMode}
                 cadenceMinimalConfigurationState={
                   this.props.cadenceMinimalConfigurationState
                 }
+                goBack={this.props.backtoCadenceList}
+                loading={this.props.loading}
+                onActivate={this.props.activateCadence}
+                onEdit={this.props.updateCadenceName}
+                onEditLoseParameters={this.displayLoseParametersForm}
+                onEditWinParameters={this.displayWinParametersForm}
+                onShutOff={this.props.shutOffCadence}
+                switchCadenceEditMode={this.switchCadenceEditMode}
               />
             </div>
           </div>
           <div className={classes.mainPanelContent}>
             <CadenceGraphFlow
               cadence={this.props.cadence}
+              cadenceEditMode={this.props.cadenceEditMode}
+              cadenceMinimalConfigurationState={
+                this.props.cadenceMinimalConfigurationState
+              }
+              deleteCadenceStep={this.props.deleteCadenceStep}
+              deleteConnectedTrigger={this.props.deleteConnectedTriggerAction}
+              handleSelectedStepForEdition={this.handleSelectedStepForEdition}
+              handleSelectStepForSubscription={
+                this.handleSelectStepForSubscription
+              }
+              onClickConnectedTrigger={this.handleClickConnectedTrigger}
+              onClickEntryStep={this.props.onClickEntryStep}
+              resetAllSelection={this.resetAllSelection}
+              stepNodeFakerSource={this.props.stepNodeFakerSource}
               updateCadenceStepCanvasPosition={
                 this.props.updateCadenceStepCanvasPosition
               }
               updateConnectedTriggerPosition={
                 this.props.updateCadenceStepConnectedTriggerCanvasPosition
               }
-              onClickEntryStep={this.props.onClickEntryStep}
-              handleSelectStepForSubscription={
-                this.handleSelectStepForSubscription
-              }
-              cadenceMinimalConfigurationState={
-                this.props.cadenceMinimalConfigurationState
-              }
-              stepNodeFakerSource={this.props.stepNodeFakerSource}
-              onClickConnectedTrigger={this.handleClickConnectedTrigger}
-              resetAllSelection={this.resetAllSelection}
-              cadenceEditMode={this.props.cadenceEditMode}
-              handleSelectedStepForEdition={this.handleSelectedStepForEdition}
-              deleteCadenceStep={this.props.deleteCadenceStep}
-              deleteConnectedTrigger={this.props.deleteConnectedTriggerAction}
             />
           </div>
         </div>
@@ -327,43 +327,43 @@ export class CadenceDetailPage extends Component<Props> {
               )}
             >
               <CadenceToolsPanel
-                loading={this.props.loading}
                 cadence={this.props.cadence}
-                mode={this.props.rightPanelMode}
-                smartlists={this.props.smartlists}
-                getEmails={this.props.fetchEmailTemplatesSummaries}
-                emails={this.props.emailTemplatesList}
-                getEmailDetail={this.props.fetchEmailTemplateDetail}
+                cadenceEditMode={this.props.cadenceEditMode}
+                deleteStepMarketingAction={this.props.deleteStepMarketingAction}
+                emailDetailLoading={this.props.emailDetailLoading}
                 emailDetails={this.props.emailTemplatesDetails}
                 emailListLoading={this.props.emailListLoading}
-                emailDetailLoading={this.props.emailDetailLoading}
-                setUpFormSubmit={this.setInitialCadenceConfiguration}
-                updateInitialConfiguration={
-                  this.props.updateInitialCadenceConfiguration
+                emails={this.props.emailTemplatesList}
+                getEmailDetail={this.props.fetchEmailTemplateDetail}
+                getEmails={this.props.fetchEmailTemplatesSummaries}
+                getStepMarketingActions={this.props.getStepMarketingActions}
+                handleSubmitEditConnectedTrigger={
+                  this.handleSubmitEditConnectedTrigger
                 }
                 handleSubmitNewStepWithTrigger={
                   this.handleSubmitNewStepWithTrigger
                 }
-                handleSubmitEditConnectedTrigger={
-                  this.handleSubmitEditConnectedTrigger
-                }
-                subscriptionDestinationConfig={
-                  this.props.subscriptionDestinationConfig
-                }
-                tagList={this.props.allTagsWithTagGroup}
-                triggerForEdition={this.props.triggerForEdition}
-                cadenceEditMode={this.props.cadenceEditMode}
-                updateCadenceStepName={this.props.updateCadenceStepName}
+                loading={this.props.loading}
+                mode={this.props.rightPanelMode}
+                setUpFormSubmit={this.setInitialCadenceConfiguration}
+                smartlists={this.props.smartlists}
                 stepForEdition={this.props.stepForEdition}
-                getStepMarketingActions={this.props.getStepMarketingActions}
-                upsertStepMarketingAtions={this.props.upsertStepMarketingAtions}
                 stepMarketingActionsLoading={
                   this.props.stepMarketingActionsLoading
                 }
                 stepMarketingActionsUpsertLoading={
                   this.props.stepMarketingActionsUpsertLoading
                 }
-                deleteStepMarketingAction={this.props.deleteStepMarketingAction}
+                subscriptionDestinationConfig={
+                  this.props.subscriptionDestinationConfig
+                }
+                tagList={this.props.allTagsWithTagGroup}
+                triggerForEdition={this.props.triggerForEdition}
+                updateCadenceStepName={this.props.updateCadenceStepName}
+                updateInitialConfiguration={
+                  this.props.updateInitialCadenceConfiguration
+                }
+                upsertStepMarketingAtions={this.props.upsertStepMarketingAtions}
               />
             </div>
           </div>

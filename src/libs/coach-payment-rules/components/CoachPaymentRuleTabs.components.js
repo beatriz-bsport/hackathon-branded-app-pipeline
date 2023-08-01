@@ -46,45 +46,45 @@ export const CoachPaymentRuleTabs = (props: Props) => {
   return (
     <div>
       <Tabs
-        value={value}
-        indicatorColor="primary"
-        textColor="primary"
-        onChange={handleChange}
         aria-label="disabled tabs example"
+        indicatorColor="primary"
+        onChange={handleChange}
+        textColor="primary"
+        value={value}
       >
         <Tab
+          index={COACH_PAYMENT_RULE_FOR_SESSION}
           label={`${t('tabs.session')}(${
             items ? items[COACH_PAYMENT_RULE_FOR_SESSION].length : 0
           })`}
-          index={COACH_PAYMENT_RULE_FOR_SESSION}
           value={COACH_PAYMENT_RULE_FOR_SESSION}
         />
         <Tab
+          index={COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY}
           label={`${t('tabs.groupActivity')}(${
             items ? items[COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY]?.length : 0
           })`}
-          index={COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY}
           value={COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY}
         />
         <Tab
+          index={COACH_PAYMENT_RULE_FOR_WORKSHOP}
           label={`${t('tabs.workshop')}(${
             items ? items[COACH_PAYMENT_RULE_FOR_WORKSHOP]?.length : 0
           })`}
-          index={COACH_PAYMENT_RULE_FOR_WORKSHOP}
           value={COACH_PAYMENT_RULE_FOR_WORKSHOP}
         />
         <Tab
+          index={COACH_PAYMENT_RULE_FOR_APPOINTMENT}
           label={`${t('tabs.appointment')}(${
             items ? items[COACH_PAYMENT_RULE_FOR_APPOINTMENT].length : 0
           })`}
-          index={COACH_PAYMENT_RULE_FOR_APPOINTMENT}
           value={COACH_PAYMENT_RULE_FOR_APPOINTMENT}
         />
         <Tab
+          index={COACH_PAYMENT_RULE_GROUP}
           label={`${t('tabs.groups')}(${
             coachPaymentRuleGroups ? coachPaymentRuleGroups.length : 0
           })`}
-          index={COACH_PAYMENT_RULE_GROUP}
           value={COACH_PAYMENT_RULE_GROUP}
         />
       </Tabs>

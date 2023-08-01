@@ -23,13 +23,13 @@ const AppBarBasket: React.FC<BasketProps> = ({
     return null;
   }
   return (
-    <ButtonBase onClick={openCurrentBasket} className={classes.shoppingBadge}>
+    <ButtonBase className={classes.shoppingBadge} onClick={openCurrentBasket}>
       <Badge
-        color="primary"
         badgeContent={currentBasket.checkout_items.reduce(
           (s, a) => s + a.quantity,
           0,
         )}
+        color="primary"
       >
         <ShoppingCartOutlinedIcon />
       </Badge>

@@ -43,11 +43,11 @@ const EntryStepHeader: React.FC<EntryStepHeaderProps> = React.memo(
 
     return (
       <CadenceNodeTitle
-        name={t('cadence.triggers.start')}
-        icon="PlayArrow"
         color={SequentialMarketingColors.ENTRY_COLOR}
-        triggerList={!!triggerList && triggerList}
         getSmartlist={getSmartlist}
+        icon="PlayArrow"
+        name={t('cadence.triggers.start')}
+        triggerList={!!triggerList && triggerList}
       />
     );
   },
@@ -62,12 +62,12 @@ const EntryStepContent: React.FC<EntryStepContentProps> = React.memo(
   }) => {
     return (
       <CadenceNodeContent
-        marketingActionList={!!marketingActionList && marketingActionList}
         addMarketingAction={
           !!onClickNewMarketingAction && onClickNewMarketingAction
         }
-        getTag={getTag}
         getEmailTemplate={getEmailTemplate}
+        getTag={getTag}
+        marketingActionList={!!marketingActionList && marketingActionList}
       />
     );
   },
@@ -105,36 +105,36 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
 
   return (
     <StepCard
-      header={
-        <EntryStepHeader
-          triggerList={triggerList}
-          getSmartlist={getSmartlist}
-        />
-      }
+      maxWidth
+      addButtonAction={addNextStep}
+      addButtonColor={SequentialMarketingColors.INNER_STEP_COLOR}
+      addButtonLabel={t('cadence.steps.actions.addNextStep')}
+      color={SequentialMarketingColors.ENTRY_BORDER_COLOR}
       content={
         (!!marketingActionList || !!addMarketingAction) && (
           <EntryStepContent
+            getEmailTemplate={getEmailTemplate}
+            getTag={getTag}
             marketingActionList={marketingActionList}
             onClickNewMarketingAction={
               !!addMarketingAction && onClickNewMarketingAction
             }
-            getTag={getTag}
-            getEmailTemplate={getEmailTemplate}
           />
         )
       }
-      color={SequentialMarketingColors.ENTRY_BORDER_COLOR}
-      selectedColor={SequentialMarketingColors.ENTRY_COLOR}
-      isSelected={isSelected}
       disabled={disabled}
+      disableRipple={disableRipple}
+      header={
+        <EntryStepHeader
+          getSmartlist={getSmartlist}
+          triggerList={triggerList}
+        />
+      }
       isDivided={!!marketingActionList || !!addMarketingAction}
       isEmpty={!triggerList && !marketingActionList && !addMarketingAction}
-      disableRipple={disableRipple}
+      isSelected={isSelected}
       onCardClick={onCardClick}
-      addButtonAction={addNextStep}
-      addButtonLabel={t('cadence.steps.actions.addNextStep')}
-      addButtonColor={SequentialMarketingColors.INNER_STEP_COLOR}
-      maxWidth
+      selectedColor={SequentialMarketingColors.ENTRY_COLOR}
     />
   );
 };

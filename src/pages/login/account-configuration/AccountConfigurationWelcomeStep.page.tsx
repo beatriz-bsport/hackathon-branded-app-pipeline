@@ -28,14 +28,14 @@ export class AccountConfigurationWelcomeStepPage extends Component<Props> {
     return (
       <WelcomeStep
         goNext={this.goNext}
-        has_no_need_for_stripe_configuration={
-          this.props.stripeCompany.has_no_need_for_stripe_configuration
-        }
         has_no_need_for_bank_account_configuration={
           this.props.stripeCompany.has_no_need_for_bank_account_configuration
         }
         has_no_need_for_payment_method_configuration={
           this.props.stripeCompany.has_no_need_for_payment_method_configuration
+        }
+        has_no_need_for_stripe_configuration={
+          this.props.stripeCompany.has_no_need_for_stripe_configuration
         }
       />
     );

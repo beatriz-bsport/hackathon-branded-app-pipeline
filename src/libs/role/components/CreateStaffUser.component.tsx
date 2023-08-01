@@ -121,49 +121,47 @@ export class CreateStaffUser extends React.Component<Props, State> {
           <DialogTitle>{t('forms.user.create.title')}</DialogTitle>
           <DialogContent>
             <TextField
+              fullWidth
+              className={classes.field}
               id="textfield_role_firstname"
-              fullWidth
-              value={this.state.first_name}
-              className={classes.field}
-              onChange={(ev) => this.setState({ first_name: ev.target.value })}
               label={t('forms.user.create.generalInfo.firstName.label')}
+              onChange={(ev) => this.setState({ first_name: ev.target.value })}
+              value={this.state.first_name}
             />
             <TextField
-              id="textfield_role_lastname"
               fullWidth
-              value={this.state.last_name}
               className={classes.field}
-              onChange={(ev) => this.setState({ last_name: ev.target.value })}
+              id="textfield_role_lastname"
               label={t('forms.user.create.generalInfo.lastName.label')}
+              onChange={(ev) => this.setState({ last_name: ev.target.value })}
+              value={this.state.last_name}
             />
             <TextField
-              id="textfield_role_email"
               fullWidth
               required
+              className={classes.field}
+              id="textfield_role_email"
+              label={t('forms.user.create.generalInfo.email.label')}
+              onChange={(ev) => this.setState({ email: ev.target.value })}
               type="email"
               value={this.state.email}
-              className={classes.field}
-              onChange={(ev) => this.setState({ email: ev.target.value })}
-              label={t('forms.user.create.generalInfo.email.label')}
             />
             <div className={classes.field}>
               <PasswordInput
                 fullWidth
                 required
-                type="password"
-                value={this.state.password}
                 onChange={(ev: any) =>
                   this.setState({ password: ev.target.value })
                 }
+                type="password"
+                value={this.state.password}
               />
             </div>
             <TextField
-              id="textfield_role_commission"
-              fullWidth
               castAsNumber
-              label={t('forms.user.commissionHeader')}
+              fullWidth
               className={classes.field}
-              value={`${this.state.staff_commission_percentage}`}
+              id="textfield_role_commission"
               InputProps={{
                 inputProps: { min: 0, max: 100, step: 1 },
                 endAdornment: (
@@ -172,22 +170,24 @@ export class CreateStaffUser extends React.Component<Props, State> {
                   </InputAdornment>
                 ),
               }}
-              type="number"
+              label={t('forms.user.commissionHeader')}
               onChange={this.handleOnCommissionChange}
+              type="number"
+              value={`${this.state.staff_commission_percentage}`}
             />
             <FormControl className={classes.field}>
-              <InputLabel htmlFor="rol-help" shrink>
+              <InputLabel shrink htmlFor="rol-help">
                 {t('forms.user.create.role.selectRole.topLabel')}
               </InputLabel>
               <Select
-                id="textfield_role_role"
-                className={classes.selectRole}
-                value={this.state.role}
                 required
+                className={classes.selectRole}
+                id="textfield_role_role"
+                name="role"
                 onChange={(ev: any) => {
                   this.setState({ role: parseInt(ev.target.value, 10) });
                 }}
-                name="role"
+                value={this.state.role}
               >
                 {this.props.roles
                   .filter((role) => role.id !== OWNER_ROLE)
@@ -201,16 +201,15 @@ export class CreateStaffUser extends React.Component<Props, State> {
             {!Object.values(COMMON_ROLES).includes(this.state.role) &&
               !!this.state.role && (
                 <div className={classes.field}>
-                  <InputLabel htmlFor="rol-help" shrink>
+                  <InputLabel shrink htmlFor="rol-help">
                     {t('forms.user.selectCoach')}
                   </InputLabel>
                   <MaterialUISelector
-                    placeholder={t('forms.user.selectCoach')}
+                    isMulti
                     isLoading={this.props.coachListLoading}
-                    name="coaches"
                     menuPlacement="top"
                     menuPosition="fixed"
-                    value={this.state.coaches}
+                    name="coaches"
                     onChange={(values: SelectFieldItem[]) =>
                       this.setState({ coaches: values })
                     }
@@ -218,20 +217,21 @@ export class CreateStaffUser extends React.Component<Props, State> {
                       value: coach?.id,
                       label: coach?.name,
                     }))}
-                    isMulti
+                    placeholder={t('forms.user.selectCoach')}
+                    value={this.state.coaches}
                   />
                 </div>
               )}
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.props.onClose} color="secondary">
+            <Button color="secondary" onClick={this.props.onClose}>
               {t('forms.user.create.cancel')}
             </Button>
             <Button
-              type="submit"
-              onClick={this.onSubmit}
               color="primary"
               id="button_role_save"
+              onClick={this.onSubmit}
+              type="submit"
             >
               {t('forms.user.create.submit')}
             </Button>

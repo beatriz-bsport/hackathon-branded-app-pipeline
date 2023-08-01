@@ -32,7 +32,7 @@ export const FranchiseNotificationRuleList = (props: Props) => {
 
   return Object.keys({ ...eventListWithRule }).map((key) => (
     <React.Fragment key={key}>
-      <Typography variant="h5" className={classes.title}>
+      <Typography className={classes.title} variant="h5">
         {t(`ruleGroup.${key}`)}
       </Typography>
 
@@ -44,9 +44,9 @@ export const FranchiseNotificationRuleList = (props: Props) => {
               key={rule.notification_event}
               button
               divider
-              selected={notificationId === rule.notification_event}
-              onClick={navigateToNotification(rule.notification_event)}
               className={classes.row}
+              onClick={navigateToNotification(rule.notification_event)}
+              selected={notificationId === rule.notification_event}
             >
               <Typography variant="body1">
                 {t(`eventType.${rule.notification_event}`)}

@@ -50,7 +50,7 @@ const EuropeanBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
+      <Typography className={classes.title} id="bankAccountTitle" variant="h5">
         {t('bankAccount.form.title')}
       </Typography>
       <Typography className={classes.content} id="bankAccountContent">
@@ -58,39 +58,39 @@ const EuropeanBankAccount = (props: Props) => {
       </Typography>
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.accountHolderName.label')}
-        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
-        required
-        variant="outlined"
-        value={account_holder_name || ''}
         onChange={(ev) => setAccountHolderName(ev.target.value)}
+        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
+        value={account_holder_name || ''}
+        variant="outlined"
       />
       <TextField
         fullWidth
-        label="IBAN"
         required
         className={classes.field}
-        placeholder={t('bankAccount.form.accountNumber.placeholder')}
-        variant="outlined"
-        value={account_number}
+        label="IBAN"
         onChange={(ev) => setAccountNumber(ev.target.value)}
+        placeholder={t('bankAccount.form.accountNumber.placeholder')}
+        value={account_number}
+        variant="outlined"
       />
       <div style={{ marginTop: 8 }}>
         <LocaleSelector
-          label={`${t('login:signupCompany.form.country.label')}*`}
           required
-          value={country}
+          label={`${t('login:signupCompany.form.country.label')}*`}
           onChange={(ev) => setCountry(ev.target.value)}
+          value={country}
         />
       </div>
       {props.error && (
-        <Typography variant="caption" color="error">
+        <Typography color="error" variant="caption">
           {t('bankAccount.form.invalid')}
         </Typography>
       )}
       <div className={classes.actions}>
-        <Button onClick={props.onClose} disabled={props.loading}>
+        <Button disabled={props.loading} onClick={props.onClose}>
           {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
@@ -126,7 +126,7 @@ const CanadaBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
+      <Typography className={classes.title} id="bankAccountTitle" variant="h5">
         {t('bankAccount.form.title')}
       </Typography>
       <Typography className={classes.content} id="bankAccountContent">
@@ -134,63 +134,63 @@ const CanadaBankAccount = (props: Props) => {
       </Typography>
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.accountHolderName.label')}
-        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
-        required
-        variant="outlined"
-        value={account_holder_name || ''}
         onChange={(ev) => setAccountHolderName(ev.target.value)}
+        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
+        value={account_holder_name || ''}
+        variant="outlined"
       />
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.transitNumber.label')}
-        placeholder={t('bankAccount.form.transitNumber.placeholder')}
-        required
-        variant="outlined"
-        value={transitNumber}
         onChange={(ev) => setTransitNumber(ev.target.value)}
+        placeholder={t('bankAccount.form.transitNumber.placeholder')}
+        value={transitNumber}
+        variant="outlined"
       />
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.institutionNumber.label')}
-        placeholder={t('bankAccount.form.institutionNumber.placeholder')}
-        required
-        variant="outlined"
-        value={institutionNumber}
         onChange={(ev) => setInstitutionNumber(ev.target.value)}
+        placeholder={t('bankAccount.form.institutionNumber.placeholder')}
+        value={institutionNumber}
+        variant="outlined"
       />
       <TextField
         fullWidth
-        label={t('bankAccount.form.accountNumber.label')}
         required
         className={classes.field}
-        placeholder={t('bankAccount.form.accountNumber.placeholder')}
-        variant="outlined"
-        value={account_number || ''}
+        label={t('bankAccount.form.accountNumber.label')}
         onChange={(ev) => setAccountNumber(ev.target.value)}
+        placeholder={t('bankAccount.form.accountNumber.placeholder')}
+        value={account_number || ''}
+        variant="outlined"
       />
       <div style={{ marginTop: 8 }}>
         <LocaleSelector
-          required
-          value={country}
           distinctCountry
           hideLang
           noMargin
-          variant="outlined"
-          onChange={(ev) => setCountry(ev.target.value)}
+          required
           label={`${t('login:signupCompany.form.country.label')}*`}
+          onChange={(ev) => setCountry(ev.target.value)}
+          value={country}
+          variant="outlined"
         />
       </div>
       {props.error && (
-        <Typography variant="caption" color="error">
+        <Typography color="error" variant="caption">
           {t('bankAccount.form.invalid')}
         </Typography>
       )}
       <div className={classes.actions}>
-        <Button onClick={props.onClose} disabled={props.loading}>
+        <Button disabled={props.loading} onClick={props.onClose}>
           {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
@@ -232,7 +232,7 @@ const USABankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
+      <Typography className={classes.title} id="bankAccountTitle" variant="h5">
         {t('bankAccount.form.title')}
       </Typography>
       <Typography className={classes.content} id="bankAccountContent">
@@ -240,51 +240,51 @@ const USABankAccount = (props: Props) => {
       </Typography>
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.accountHolderName.label')}
-        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
-        required
-        variant="outlined"
-        value={account_holder_name || ''}
         onChange={(ev) => setAccountHolderName(ev.target.value)}
+        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
+        value={account_holder_name || ''}
+        variant="outlined"
       />
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.routingNumber.label')}
-        placeholder={t('bankAccount.form.routingNumber.placeholder')}
-        required
-        variant="outlined"
-        value={routingNumber}
         onChange={(ev) => setRoutingNumber(ev.target.value)}
+        placeholder={t('bankAccount.form.routingNumber.placeholder')}
+        value={routingNumber}
+        variant="outlined"
       />
       <TextField
         fullWidth
-        label={t('bankAccount.form.accountNumber.label')}
         required
         className={classes.field}
-        placeholder={t('bankAccount.form.accountNumber.placeholder')}
-        variant="outlined"
-        value={account_number || ''}
+        label={t('bankAccount.form.accountNumber.label')}
         onChange={(ev) => setAccountNumber(ev.target.value)}
+        placeholder={t('bankAccount.form.accountNumber.placeholder')}
+        value={account_number || ''}
+        variant="outlined"
       />
       <div style={{ marginTop: 8 }}>
         <LocaleSelector
           distinctCountry
           hideLang
-          label={`${t('login:signupCompany.form.country.label')}*`}
           required
-          value={country}
+          label={`${t('login:signupCompany.form.country.label')}*`}
           onChange={(ev) => setCountry(ev.target.value)}
+          value={country}
         />
       </div>
       {props.error && (
-        <Typography variant="caption" color="error">
+        <Typography color="error" variant="caption">
           {t('bankAccount.form.invalid')}
         </Typography>
       )}
       <div className={classes.actions}>
-        <Button onClick={props.onClose} disabled={props.loading}>
+        <Button disabled={props.loading} onClick={props.onClose}>
           {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
@@ -320,7 +320,7 @@ const MexicoBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
+      <Typography className={classes.title} id="bankAccountTitle" variant="h5">
         {t('bankAccount.form.title')}
       </Typography>
       <Typography className={classes.content} id="bankAccountContent">
@@ -328,49 +328,49 @@ const MexicoBankAccount = (props: Props) => {
       </Typography>
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.accountHolderName.label')}
-        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
-        required
-        variant="outlined"
-        value={account_holder_name || ''}
         onChange={(ev) => setAccountHolderName(ev.target.value)}
+        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
+        value={account_holder_name || ''}
+        variant="outlined"
       />
       <TextField
         fullWidth
-        label="CLABE"
         required
         className={classes.field}
-        placeholder="123456789012345678"
-        variant="outlined"
-        value={account_number || ''}
+        label="CLABE"
         onChange={(ev) => setAccountNumber(ev.target.value)}
+        placeholder="123456789012345678"
+        value={account_number || ''}
+        variant="outlined"
       />
       <div style={{ marginTop: 8 }}>
         <LocaleSelector
           distinctCountry
           hideLang
-          label={`${t('login:signupCompany.form.country.label')}*`}
           required
-          value={country}
+          label={`${t('login:signupCompany.form.country.label')}*`}
           onChange={(ev) => setCountry(ev.target.value)}
+          value={country}
         />
       </div>
       {props.error && (
-        <Typography variant="caption" color="error">
+        <Typography color="error" variant="caption">
           {t('bankAccount.form.invalid')}
         </Typography>
       )}
       <div className={classes.actions}>
-        <Button onClick={props.onClose} disabled={props.loading}>
+        <Button disabled={props.loading} onClick={props.onClose}>
           {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
           <CircularProgress />
         ) : (
           <Button
-            disabled={!account_holder_name || !account_number || props.loading}
             color="primary"
+            disabled={!account_holder_name || !account_number || props.loading}
             onClick={() =>
               props.onSubmit(
                 account_holder_name,
@@ -397,7 +397,7 @@ const AustraliaBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
+      <Typography className={classes.title} id="bankAccountTitle" variant="h5">
         {t('bankAccount.form.title')}
       </Typography>
       <Typography className={classes.content} id="bankAccountContent">
@@ -405,51 +405,51 @@ const AustraliaBankAccount = (props: Props) => {
       </Typography>
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.accountHolderName.label')}
-        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
-        required
-        variant="outlined"
-        value={account_holder_name || ''}
         onChange={(ev) => setAccountHolderName(ev.target.value)}
+        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
+        value={account_holder_name || ''}
+        variant="outlined"
       />
       <TextField
         fullWidth
+        required
         className={classes.field}
         label="BSB"
-        placeholder="123456"
-        required
-        variant="outlined"
-        value={routingNumber}
         onChange={(ev) => setRoutingNumber(ev.target.value)}
+        placeholder="123456"
+        value={routingNumber}
+        variant="outlined"
       />
       <TextField
         fullWidth
-        label={t('bankAccount.form.accountNumber.label')}
         required
         className={classes.field}
-        placeholder={t('bankAccount.form.accountNumber.placeholder')}
-        variant="outlined"
-        value={account_number || ''}
+        label={t('bankAccount.form.accountNumber.label')}
         onChange={(ev) => setAccountNumber(ev.target.value)}
+        placeholder={t('bankAccount.form.accountNumber.placeholder')}
+        value={account_number || ''}
+        variant="outlined"
       />
       <div style={{ marginTop: 8 }}>
         <LocaleSelector
           distinctCountry
           hideLang
-          label={`${t('login:signupCompany.form.country.label')}*`}
           required
-          value={country}
+          label={`${t('login:signupCompany.form.country.label')}*`}
           onChange={(ev) => setCountry(ev.target.value)}
+          value={country}
         />
       </div>
       {props.error && (
-        <Typography variant="caption" color="error">
+        <Typography color="error" variant="caption">
           {t('bankAccount.form.invalid')}
         </Typography>
       )}
       <div className={classes.actions}>
-        <Button onClick={props.onClose} disabled={props.loading}>
+        <Button disabled={props.loading} onClick={props.onClose}>
           {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
@@ -491,7 +491,7 @@ const BrazilBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
+      <Typography className={classes.title} id="bankAccountTitle" variant="h5">
         {t('bankAccount.form.title')}
       </Typography>
       <Typography className={classes.content} id="bankAccountContent">
@@ -499,61 +499,61 @@ const BrazilBankAccount = (props: Props) => {
       </Typography>
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.accountHolderName.label')}
-        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
-        required
-        variant="outlined"
-        value={account_holder_name || ''}
         onChange={(ev) => setAccountHolderName(ev.target.value)}
+        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
+        value={account_holder_name || ''}
+        variant="outlined"
       />
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.bankCode.label')}
-        placeholder={t('bankAccount.form.bankCode.placeholder')}
-        required
-        variant="outlined"
-        value={bankCode}
         onChange={(ev) => setBankCode(ev.target.value)}
+        placeholder={t('bankAccount.form.bankCode.placeholder')}
+        value={bankCode}
+        variant="outlined"
       />
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.branchCode.label')}
-        placeholder={t('bankAccount.form.branchCode.placeholder')}
-        required
-        variant="outlined"
-        value={branchCode}
         onChange={(ev) => setBranchCode(ev.target.value)}
+        placeholder={t('bankAccount.form.branchCode.placeholder')}
+        value={branchCode}
+        variant="outlined"
       />
       <TextField
         fullWidth
-        label={t('bankAccount.form.accountNumber.label')}
         required
         className={classes.field}
-        placeholder={t('bankAccount.form.accountNumber.placeholder')}
-        variant="outlined"
-        value={account_number || ''}
+        label={t('bankAccount.form.accountNumber.label')}
         onChange={(ev) => setAccountNumber(ev.target.value)}
+        placeholder={t('bankAccount.form.accountNumber.placeholder')}
+        value={account_number || ''}
+        variant="outlined"
       />
       <div style={{ marginTop: 8 }}>
         <LocaleSelector
           distinctCountry
           hideLang
-          label={`${t('login:signupCompany.form.country.label')}*`}
           required
-          value={country}
+          label={`${t('login:signupCompany.form.country.label')}*`}
           onChange={(ev) => setCountry(ev.target.value)}
+          value={country}
         />
       </div>
       {props.error && (
-        <Typography variant="caption" color="error">
+        <Typography color="error" variant="caption">
           {t('bankAccount.form.invalid')}
         </Typography>
       )}
       <div className={classes.actions}>
-        <Button onClick={props.onClose} disabled={props.loading}>
+        <Button disabled={props.loading} onClick={props.onClose}>
           {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
@@ -595,7 +595,7 @@ const HongKongBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
+      <Typography className={classes.title} id="bankAccountTitle" variant="h5">
         {t('bankAccount.form.title')}
       </Typography>
       <Typography className={classes.content} id="bankAccountContent">
@@ -603,61 +603,61 @@ const HongKongBankAccount = (props: Props) => {
       </Typography>
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.accountHolderName.label')}
-        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
-        required
-        variant="outlined"
-        value={account_holder_name || ''}
         onChange={(ev) => setAccountHolderName(ev.target.value)}
+        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
+        value={account_holder_name || ''}
+        variant="outlined"
       />
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.clearingCode.label')}
-        placeholder={t('bankAccount.form.clearingCode.placeholder')}
-        required
-        variant="outlined"
-        value={clearingCode}
         onChange={(ev) => setClearingCode(ev.target.value)}
+        placeholder={t('bankAccount.form.clearingCode.placeholder')}
+        value={clearingCode}
+        variant="outlined"
       />
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.branchCode.label')}
-        placeholder={t('bankAccount.form.branchCode.placeholder')}
-        required
-        variant="outlined"
-        value={branchCode}
         onChange={(ev) => setBranchCode(ev.target.value)}
+        placeholder={t('bankAccount.form.branchCode.placeholder')}
+        value={branchCode}
+        variant="outlined"
       />
       <TextField
         fullWidth
-        label={t('bankAccount.form.accountNumber.label')}
         required
         className={classes.field}
-        placeholder={t('bankAccount.form.accountNumber.placeholder')}
-        variant="outlined"
-        value={account_number || ''}
+        label={t('bankAccount.form.accountNumber.label')}
         onChange={(ev) => setAccountNumber(ev.target.value)}
+        placeholder={t('bankAccount.form.accountNumber.placeholder')}
+        value={account_number || ''}
+        variant="outlined"
       />
       <div style={{ marginTop: 8 }}>
         <LocaleSelector
           distinctCountry
           hideLang
-          label={`${t('login:signupCompany.form.country.label')}*`}
           required
-          value={country}
+          label={`${t('login:signupCompany.form.country.label')}*`}
           onChange={(ev) => setCountry(ev.target.value)}
+          value={country}
         />
       </div>
       {props.error && (
-        <Typography variant="caption" color="error">
+        <Typography color="error" variant="caption">
           {t('bankAccount.form.invalid')}
         </Typography>
       )}
       <div className={classes.actions}>
-        <Button onClick={props.onClose} disabled={props.loading}>
+        <Button disabled={props.loading} onClick={props.onClose}>
           {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
@@ -698,7 +698,7 @@ const IndiaBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
+      <Typography className={classes.title} id="bankAccountTitle" variant="h5">
         {t('bankAccount.form.title')}
       </Typography>
       <Typography className={classes.content} id="bankAccountContent">
@@ -706,51 +706,51 @@ const IndiaBankAccount = (props: Props) => {
       </Typography>
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.accountHolderName.label')}
-        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
-        required
-        variant="outlined"
-        value={account_holder_name || ''}
         onChange={(ev) => setAccountHolderName(ev.target.value)}
+        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
+        value={account_holder_name || ''}
+        variant="outlined"
       />
       <TextField
         fullWidth
+        required
         className={classes.field}
         label="IFSC Code"
-        placeholder="HDFC0004051"
-        required
-        variant="outlined"
-        value={ifscCode}
         onChange={(ev) => setIfscCode(ev.target.value)}
+        placeholder="HDFC0004051"
+        value={ifscCode}
+        variant="outlined"
       />
       <TextField
         fullWidth
-        label={t('bankAccount.form.accountNumber.label')}
         required
         className={classes.field}
-        placeholder={t('bankAccount.form.accountNumber.placeholder')}
-        variant="outlined"
-        value={account_number || ''}
+        label={t('bankAccount.form.accountNumber.label')}
         onChange={(ev) => setAccountNumber(ev.target.value)}
+        placeholder={t('bankAccount.form.accountNumber.placeholder')}
+        value={account_number || ''}
+        variant="outlined"
       />
       <div style={{ marginTop: 8 }}>
         <LocaleSelector
           distinctCountry
           hideLang
-          label={`${t('login:signupCompany.form.country.label')}*`}
           required
-          value={country}
+          label={`${t('login:signupCompany.form.country.label')}*`}
           onChange={(ev) => setCountry(ev.target.value)}
+          value={country}
         />
       </div>
       {props.error && (
-        <Typography variant="caption" color="error">
+        <Typography color="error" variant="caption">
           {t('bankAccount.form.invalid')}
         </Typography>
       )}
       <div className={classes.actions}>
-        <Button onClick={props.onClose} disabled={props.loading}>
+        <Button disabled={props.loading} onClick={props.onClose}>
           {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
@@ -790,7 +790,7 @@ const MalaysiaBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
+      <Typography className={classes.title} id="bankAccountTitle" variant="h5">
         {t('bankAccount.form.title')}
       </Typography>
       <Typography className={classes.content} id="bankAccountContent">
@@ -798,41 +798,41 @@ const MalaysiaBankAccount = (props: Props) => {
       </Typography>
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.accountHolderName.label')}
-        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
-        required
-        variant="outlined"
-        value={account_holder_name || ''}
         onChange={(ev) => setAccountHolderName(ev.target.value)}
+        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
+        value={account_holder_name || ''}
+        variant="outlined"
       />
       <TextField
         fullWidth
-        label={t('bankAccount.form.accountNumber.label')}
         required
         className={classes.field}
-        placeholder={t('bankAccount.form.accountNumber.placeholder')}
-        variant="outlined"
-        value={account_number || ''}
+        label={t('bankAccount.form.accountNumber.label')}
         onChange={(ev) => setAccountNumber(ev.target.value)}
+        placeholder={t('bankAccount.form.accountNumber.placeholder')}
+        value={account_number || ''}
+        variant="outlined"
       />
       <div style={{ marginTop: 8 }}>
         <LocaleSelector
           distinctCountry
           hideLang
-          label={`${t('login:signupCompany.form.country.label')}*`}
           required
-          value={country}
+          label={`${t('login:signupCompany.form.country.label')}*`}
           onChange={(ev) => setCountry(ev.target.value)}
+          value={country}
         />
       </div>
       {props.error && (
-        <Typography variant="caption" color="error">
+        <Typography color="error" variant="caption">
           {t('bankAccount.form.invalid')}
         </Typography>
       )}
       <div className={classes.actions}>
-        <Button onClick={props.onClose} disabled={props.loading}>
+        <Button disabled={props.loading} onClick={props.onClose}>
           {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
@@ -840,6 +840,7 @@ const MalaysiaBankAccount = (props: Props) => {
         ) : (
           <Button
             color="primary"
+            disabled={!account_holder_name || !account_number || props.loading}
             onClick={() =>
               props.onSubmit(
                 account_holder_name,
@@ -849,7 +850,6 @@ const MalaysiaBankAccount = (props: Props) => {
                 country.slice(3, 5),
               )
             }
-            disabled={!account_holder_name || !account_number || props.loading}
           >
             {t('bankAccount.form.actions.submit')}
           </Button>
@@ -867,7 +867,7 @@ const NewZealandBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
+      <Typography className={classes.title} id="bankAccountTitle" variant="h5">
         {t('bankAccount.form.title')}
       </Typography>
       <Typography className={classes.content} id="bankAccountContent">
@@ -875,41 +875,41 @@ const NewZealandBankAccount = (props: Props) => {
       </Typography>
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.accountHolderName.label')}
-        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
-        required
-        variant="outlined"
-        value={account_holder_name || ''}
         onChange={(ev) => setAccountHolderName(ev.target.value)}
+        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
+        value={account_holder_name || ''}
+        variant="outlined"
       />
       <TextField
         fullWidth
-        label={t('bankAccount.form.accountNumber.label')}
         required
         className={classes.field}
-        placeholder="xx-xxxx-xxxxxxx-xxx"
-        variant="outlined"
-        value={account_number || ''}
+        label={t('bankAccount.form.accountNumber.label')}
         onChange={(ev) => setAccountNumber(ev.target.value)}
+        placeholder="xx-xxxx-xxxxxxx-xxx"
+        value={account_number || ''}
+        variant="outlined"
       />
       <div style={{ marginTop: 8 }}>
         <LocaleSelector
           distinctCountry
           hideLang
-          label={`${t('login:signupCompany.form.country.label')}*`}
           required
-          value={country}
+          label={`${t('login:signupCompany.form.country.label')}*`}
           onChange={(ev) => setCountry(ev.target.value)}
+          value={country}
         />
       </div>
       {props.error && (
-        <Typography variant="caption" color="error">
+        <Typography color="error" variant="caption">
           {t('bankAccount.form.invalid')}
         </Typography>
       )}
       <div className={classes.actions}>
-        <Button onClick={props.onClose} disabled={props.loading}>
+        <Button disabled={props.loading} onClick={props.onClose}>
           {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
@@ -917,6 +917,7 @@ const NewZealandBankAccount = (props: Props) => {
         ) : (
           <Button
             color="primary"
+            disabled={!account_holder_name || !account_number || props.loading}
             onClick={() =>
               props.onSubmit(
                 account_holder_name,
@@ -924,7 +925,6 @@ const NewZealandBankAccount = (props: Props) => {
                 country.slice(3, 5),
               )
             }
-            disabled={!account_holder_name || !account_number || props.loading}
           >
             {t('bankAccount.form.actions.submit')}
           </Button>
@@ -944,7 +944,7 @@ const SingapourBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
+      <Typography className={classes.title} id="bankAccountTitle" variant="h5">
         {t('bankAccount.form.title')}
       </Typography>
       <Typography className={classes.content} id="bankAccountContent">
@@ -952,61 +952,61 @@ const SingapourBankAccount = (props: Props) => {
       </Typography>
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.accountHolderName.label')}
-        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
-        required
-        variant="outlined"
-        value={account_holder_name || ''}
         onChange={(ev) => setAccountHolderName(ev.target.value)}
+        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
+        value={account_holder_name || ''}
+        variant="outlined"
       />
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.bankCode.label')}
-        placeholder={t('bankAccount.form.bankCode.placeholder')}
-        required
-        variant="outlined"
-        value={bankCode}
         onChange={(ev) => setBankCode(ev.target.value)}
+        placeholder={t('bankAccount.form.bankCode.placeholder')}
+        value={bankCode}
+        variant="outlined"
       />
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.branchCode.label')}
-        placeholder={t('bankAccount.form.branchCode.placeholder')}
-        required
-        variant="outlined"
-        value={branchCode}
         onChange={(ev) => setBranchCode(ev.target.value)}
+        placeholder={t('bankAccount.form.branchCode.placeholder')}
+        value={branchCode}
+        variant="outlined"
       />
       <TextField
         fullWidth
-        label={t('bankAccount.form.accountNumber.label')}
         required
         className={classes.field}
-        placeholder={t('bankAccount.form.accountNumber.placeholder')}
-        variant="outlined"
-        value={account_number || ''}
+        label={t('bankAccount.form.accountNumber.label')}
         onChange={(ev) => setAccountNumber(ev.target.value)}
+        placeholder={t('bankAccount.form.accountNumber.placeholder')}
+        value={account_number || ''}
+        variant="outlined"
       />
       <div style={{ marginTop: 8 }}>
         <LocaleSelector
           distinctCountry
           hideLang
-          label={`${t('login:signupCompany.form.country.label')}*`}
           required
-          value={country}
+          label={`${t('login:signupCompany.form.country.label')}*`}
           onChange={(ev) => setCountry(ev.target.value)}
+          value={country}
         />
       </div>
       {props.error && (
-        <Typography variant="caption" color="error">
+        <Typography color="error" variant="caption">
           {t('bankAccount.form.invalid')}
         </Typography>
       )}
       <div className={classes.actions}>
-        <Button onClick={props.onClose} disabled={props.loading}>
+        <Button disabled={props.loading} onClick={props.onClose}>
           {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (
@@ -1046,7 +1046,7 @@ const UnitedKingdomBankAccount = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.field}>
-      <Typography variant="h5" className={classes.title} id="bankAccountTitle">
+      <Typography className={classes.title} id="bankAccountTitle" variant="h5">
         {t('bankAccount.form.title')}
       </Typography>
       <Typography className={classes.content} id="bankAccountContent">
@@ -1054,51 +1054,51 @@ const UnitedKingdomBankAccount = (props: Props) => {
       </Typography>
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.accountHolderName.label')}
-        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
-        required
-        variant="outlined"
-        value={account_holder_name || ''}
         onChange={(ev) => setAccountHolderName(ev.target.value)}
+        placeholder={t('bankAccount.form.accountHolderName.placeholder')}
+        value={account_holder_name || ''}
+        variant="outlined"
       />
       <TextField
         fullWidth
+        required
         className={classes.field}
         label={t('bankAccount.form.sortCode.label')}
-        placeholder={t('bankAccount.form.sortCode.placeholder')}
-        required
-        variant="outlined"
-        value={sortCode}
         onChange={(ev) => setSortCode(ev.target.value)}
+        placeholder={t('bankAccount.form.sortCode.placeholder')}
+        value={sortCode}
+        variant="outlined"
       />
       <TextField
         fullWidth
-        label={t('bankAccount.form.accountNumber.label')}
         required
         className={classes.field}
-        placeholder={t('bankAccount.form.accountNumber.placeholder')}
-        variant="outlined"
-        value={account_number || ''}
+        label={t('bankAccount.form.accountNumber.label')}
         onChange={(ev) => setAccountNumber(ev.target.value)}
+        placeholder={t('bankAccount.form.accountNumber.placeholder')}
+        value={account_number || ''}
+        variant="outlined"
       />
       <div style={{ marginTop: 8 }}>
         <LocaleSelector
           distinctCountry
           hideLang
-          label={`${t('login:signupCompany.form.country.label')}*`}
           required
-          value={country}
+          label={`${t('login:signupCompany.form.country.label')}*`}
           onChange={(ev) => setCountry(ev.target.value)}
+          value={country}
         />
       </div>
       {props.error && (
-        <Typography variant="caption" color="error">
+        <Typography color="error" variant="caption">
           {t('bankAccount.form.invalid')}
         </Typography>
       )}
       <div className={classes.actions}>
-        <Button onClick={props.onClose} disabled={props.loading}>
+        <Button disabled={props.loading} onClick={props.onClose}>
           {props.labelOnClose || t('bankAccount.form.actions.cancel')}
         </Button>
         {props.loading ? (

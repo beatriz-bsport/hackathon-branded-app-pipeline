@@ -42,8 +42,8 @@ const CouponTemplateListItem = React.memo(
 
     return (
       <ListItem
-        button={!!onClick}
         divider
+        button={!!onClick}
         onClick={onClick && (() => onClick(template.id))}
       >
         <ListItemText

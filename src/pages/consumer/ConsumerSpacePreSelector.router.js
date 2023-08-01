@@ -42,7 +42,7 @@ export const ConsumerSpacePreSelector = (props: Props) => {
 
   return (
     <Switch>
-      <Route path="/welcome/:membership" component={WelcomePage} />
+      <Route component={WelcomePage} path="/welcome/:membership" />
       <Redirect to="/c/membership-selector/" />;
     </Switch>
   );

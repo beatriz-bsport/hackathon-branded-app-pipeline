@@ -64,19 +64,19 @@ export class WidgetMarketplaceConfigBuilder extends React.PureComponent<Props> {
           {t('widget.linkToConfig')}
         </Typography>
 
-        <Paper elevation={1} className={classes.codeContainer}>
+        <Paper className={classes.codeContainer} elevation={1}>
           <Typography
-            variant="caption"
-            color="textSecondary"
             className={classes.code}
+            color="textSecondary"
+            variant="caption"
           >
             {error ? t('widget.widgetPreviewError') : url}
           </Typography>
 
           {!error && (
             <ButtonBase
-              onClick={() => copyToClipboard(url)}
               className={classes.copyClipboardContainer}
+              onClick={() => copyToClipboard(url)}
             >
               <FileCopyIcon />
             </ButtonBase>

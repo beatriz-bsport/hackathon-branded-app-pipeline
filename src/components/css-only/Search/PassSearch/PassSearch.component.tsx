@@ -84,8 +84,8 @@ export const PassSearch: React.FC<Props> = (props) => {
   return (
     <Search
       data={data}
-      onPressEnter={onPressEnter}
       onClearInput={onClearInput}
+      onPressEnter={onPressEnter}
       renderItem={(item: SearchItemData<BaseAdditionalData>) => (
         <ClickableItem {...item.additionalData} />
       )}

@@ -23,8 +23,8 @@ export const PaymentMethodMultiSelector = (props: Props) => {
         {props.paymentMethodChoices.map((pm) => (
           <ButtonBase
             className={classes.buttonContainer}
-            onClick={() => props.selectPaymentMethod(pm)}
             disabled={props.disabled && props.disabled.includes(pm)}
+            onClick={() => props.selectPaymentMethod(pm)}
           >
             <Paper
               className={classnames(

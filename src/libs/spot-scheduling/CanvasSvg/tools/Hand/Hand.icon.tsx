@@ -5,10 +5,10 @@ const HandIcon = () => {
     <svg
       aria-hidden="true"
       focusable="false"
-      width="35px"
       height="35px"
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 36 36"
+      width="35px"
     >
       <path
         d="M6.5 14L10.5 18.5L12 17.5V13.0594V5.5L13 3.5L14.5 3H16.5L17.5 1.5L20 1L22 4L25.5 4.5L27 7L30.5 7.5V11.5V20.5L29 27.5L28 31L26 32.5L25 33L18.5 33.5L14 33L9 28L4 19L3 15.5L4 14H6.5Z"

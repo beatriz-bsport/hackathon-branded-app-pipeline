@@ -79,9 +79,9 @@ export const VideoCardGridItem = (props: Props) => {
               <div className={classes.header}>
                 <div className={classes.titleRow}>
                   <Typography
-                    variant="h6"
-                    component="h3"
                     className={classes.title}
+                    component="h3"
+                    variant="h6"
                   >
                     {props.video.name}
                   </Typography>
@@ -90,9 +90,9 @@ export const VideoCardGridItem = (props: Props) => {
                 <div className={classes.headerAction}>
                   {!!props.onDuplicate && (
                     <IconButton
-                      size="small"
                       color="primary"
                       onClick={() => props.onDuplicate(props.video)}
+                      size="small"
                     >
                       <FileCopyIcon />
                     </IconButton>
@@ -100,17 +100,17 @@ export const VideoCardGridItem = (props: Props) => {
 
                   {!!props.onEdit && (
                     <IconButton
-                      size="small"
                       color="primary"
                       onClick={() => props.onEdit(props.video)}
+                      size="small"
                     >
                       <EditIcon />
                     </IconButton>
                   )}
                   {!!props.onDelete && (
                     <DeleteWithConfirm
-                      size="small"
                       onClick={() => props.onDelete(props.video)}
+                      size="small"
                     >
                       <DeleteIcon />
                     </DeleteWithConfirm>
@@ -121,8 +121,8 @@ export const VideoCardGridItem = (props: Props) => {
                 <div className={classes.flex1}>
                   {props.video.SCT && (
                     <SCT
-                      SCTName={props.video.SCT?.name}
                       parentCategory={props.video.SCT?.SCS?.id}
+                      SCTName={props.video.SCT?.name}
                     />
                   )}
                 </div>
@@ -130,8 +130,8 @@ export const VideoCardGridItem = (props: Props) => {
                   VideoProvider.EBOOK_PROVIDER && (
                   <Typography
                     color="textSecondary"
-                    variant="body2"
                     component="p"
+                    variant="body2"
                   >
                     {t('video.durationMinute', {
                       minute: parseInt(props.video.duration_second / 60, 10),
@@ -150,8 +150,8 @@ export const VideoCardGridItem = (props: Props) => {
               <div className={classes.descriptionContainer}>
                 <TypographyWithShowMore
                   multiline
-                  variant="body2"
                   color="textSecondary"
+                  variant="body2"
                 >
                   {props.video.description}
                 </TypographyWithShowMore>
@@ -162,15 +162,15 @@ export const VideoCardGridItem = (props: Props) => {
         <div>
           {!!props.video.coaches && !!props.video.coaches.length && (
             <div className={classes.coachContainer}>
-              <CoachGroupAvatar size="small" coaches={props.video.coaches} />
+              <CoachGroupAvatar coaches={props.video.coaches} size="small" />
             </div>
           )}
           <CardActions disableSpacing className={classes.actions}>
             {!!props.withStatus && (
               <VideoStatus
+                goToDetail={props.goToDetail}
                 openStream={props.onStream}
                 openUpload={() => props.onRequestUpload(props.video)}
-                goToDetail={props.goToDetail}
                 video={props.video}
               />
             )}

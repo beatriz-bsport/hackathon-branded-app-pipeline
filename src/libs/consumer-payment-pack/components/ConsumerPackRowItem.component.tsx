@@ -201,7 +201,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
               />
             )}
 
-            <IconButton onClick={goToPaymentPack} color="secondary">
+            <IconButton color="secondary" onClick={goToPaymentPack}>
               <ArrowForwardIcon />
             </IconButton>
           </div>
@@ -214,9 +214,9 @@ export class ConsumerPackRowItem extends Component<Props, State> {
             ) : (
               <div className={this.props.classes.tooltipContainer}>
                 <ConsumerPaymentPackIncompatibilitiesReasons
-                  reasons={incompatibilitiesReasons}
                   closeMobileIncompatibilities={closeMobileIncompatibilities}
                   extraStartingDate={consumerPack.starting_date}
+                  reasons={incompatibilitiesReasons}
                 />
               </div>
             ))}
@@ -226,12 +226,12 @@ export class ConsumerPackRowItem extends Component<Props, State> {
     if (onBook) {
       return (
         <Button
+          color="primary"
+          id={`btn-payment-pack-${consumerPack.id}`}
           onClick={() =>
             this.checkMaxoutBeforeBook(() => onBook(consumerPack.id))
           }
           variant="outlined"
-          color="primary"
-          id={`btn-payment-pack-${consumerPack.id}`}
         >
           {t('use')}
         </Button>
@@ -241,25 +241,25 @@ export class ConsumerPackRowItem extends Component<Props, State> {
       return (
         <div className={this.props.classes.buttonRow}>
           <Button
+            color="primary"
+            id={`btn-payment-pack-${consumerPack.id}`}
             onClick={() =>
               this.checkMaxoutBeforeBook(() => onBookOne(consumerPack.id))
             }
             variant="outlined"
-            color="primary"
-            id={`btn-payment-pack-${consumerPack.id}`}
           >
             <EventIcon />
           </Button>
           <Tooltip title={t('multipleBookingTooltip')}>
             <Button
+              color="secondary"
+              id={`btn-payment-pack-${consumerPack.id}`}
               onClick={() =>
                 this.checkMaxoutBeforeBook(() =>
                   onBookMultiple(consumerPack.id),
                 )
               }
               variant="outlined"
-              color="secondary"
-              id={`btn-payment-pack-${consumerPack.id}`}
             >
               <DateRangeIcon />
             </Button>
@@ -354,13 +354,13 @@ export class ConsumerPackRowItem extends Component<Props, State> {
           <>
             <IconButton
               aria-label="change-credits-add"
+              color="primary"
               disabled={
                 updating ||
                 (available_credits
                   ? available_credits >= credits
                   : available_pass_credits >= credits)
               }
-              color="primary"
               onClick={(ev) => {
                 ev.preventDefault();
                 ev.stopPropagation();
@@ -489,12 +489,12 @@ export class ConsumerPackRowItem extends Component<Props, State> {
       <div>
         <ListItem
           dense
-          divider={!this.props.noDivider}
-          selected={!!this.props.selected}
-          disabled={!!consumerPack.reverted || !!this.props.disabled}
           button={!!onClick}
-          onClick={onClick || null}
           className={classes.listContainer}
+          disabled={!!consumerPack.reverted || !!this.props.disabled}
+          divider={!this.props.noDivider}
+          onClick={onClick || null}
+          selected={!!this.props.selected}
           style={
             consumerPack.disabled || !!this.props.isNonCompatible
               ? { backgroundColor: 'rgba(255,0,0,.05)' }
@@ -533,8 +533,8 @@ export class ConsumerPackRowItem extends Component<Props, State> {
                   )}
                 </div>
                 <CreditStatus
-                  paymentPack={paymentPack}
                   consumerPack={consumerPack}
+                  paymentPack={paymentPack}
                 />
               </div>
             }
@@ -554,9 +554,9 @@ export class ConsumerPackRowItem extends Component<Props, State> {
         {isFromShare || consumerPack.isSharedActive ? (
           <React.Fragment>
             <Typography
+              color="textSecondary"
               style={{ paddingLeft: 16 }}
               variant="caption"
-              color="textSecondary"
             >
               {' '}
               {consumerPack.isSharedActive ? t('consumer.isOwnerOfShares') : ''}

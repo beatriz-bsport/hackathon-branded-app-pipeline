@@ -70,18 +70,18 @@ export const CoachPerformanceSynthese = (props: Props) => {
               {t('paymentRules:select.group')}
             </Typography>
             <CoachPaymentRuleSelectorStyled
+              isClearable
+              isGroupSelect
+              noMulti
               coachPaymentRulesList={coachPaymentRuleGroups}
-              selectedRules={[coach.coach_payment_rule_group_id]}
-              placeholder={t('paymentRules:select.group')}
               onChange={(item: { value: number; label: string }) => {
                 props.setCoachPaymentRuleGroup(
                   coach.id,
                   item ? item.value : DISSOCIATED_COACH_PAYMENT_RULE_GROUP,
                 );
               }}
-              noMulti
-              isClearable
-              isGroupSelect
+              placeholder={t('paymentRules:select.group')}
+              selectedRules={[coach.coach_payment_rule_group_id]}
             />
           </div>
           <div className={classes.flexPaymentSelector}>
@@ -89,19 +89,13 @@ export const CoachPerformanceSynthese = (props: Props) => {
               {t('paymentRules:select.coachPaymentRuleForSessions')}
             </Typography>
             <CoachPaymentRuleSelectorStyled
+              isClearable
+              noMulti
               coachPaymentRulesList={coachPaymentRulesByKind[
                 COACH_PAYMENT_RULE_FOR_SESSION
               ].concat(
                 coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY],
               )}
-              selectedRules={[
-                coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict
-                  ? coachPaymentRuleGroupsDict[
-                      coach.coach_payment_rule_group_id
-                    ].session_coach_payment_rule
-                  : coach.coach_payment_rule_id,
-              ]}
-              placeholder={t('paymentRules:label')}
               disabled={!!coach.coach_payment_rule_group_id}
               onChange={(item: { value: number; label: string }) => {
                 props.setCoachPaymentRule(
@@ -110,8 +104,14 @@ export const CoachPerformanceSynthese = (props: Props) => {
                   coach.associated_coach_id,
                 );
               }}
-              noMulti
-              isClearable
+              placeholder={t('paymentRules:label')}
+              selectedRules={[
+                coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict
+                  ? coachPaymentRuleGroupsDict[
+                      coach.coach_payment_rule_group_id
+                    ].session_coach_payment_rule
+                  : coach.coach_payment_rule_id,
+              ]}
             />
           </div>
           <div className={classes.flexPaymentSelector}>
@@ -120,19 +120,13 @@ export const CoachPerformanceSynthese = (props: Props) => {
             </Typography>
 
             <CoachPaymentRuleSelectorStyled
+              isClearable
+              noMulti
               coachPaymentRulesList={coachPaymentRulesByKind[
                 COACH_PAYMENT_RULE_FOR_SESSION
               ].concat(
                 coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_WORKSHOP],
               )}
-              selectedRules={[
-                coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict
-                  ? coachPaymentRuleGroupsDict[
-                      coach.coach_payment_rule_group_id
-                    ].workshop_coach_payment_rule
-                  : coach.workshop_coach_payment_rule_id,
-              ]}
-              placeholder={t('paymentRules:label')}
               disabled={!!coach.coach_payment_rule_group_id}
               onChange={(item: { value: number; label: string }) => {
                 props.setCoachWorkShopPaymentRule(
@@ -141,8 +135,14 @@ export const CoachPerformanceSynthese = (props: Props) => {
                   coach.associated_coach_id,
                 );
               }}
-              noMulti
-              isClearable
+              placeholder={t('paymentRules:label')}
+              selectedRules={[
+                coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict
+                  ? coachPaymentRuleGroupsDict[
+                      coach.coach_payment_rule_group_id
+                    ].workshop_coach_payment_rule
+                  : coach.workshop_coach_payment_rule_id,
+              ]}
             />
           </div>
           <div className={classes.flexPaymentSelector}>
@@ -151,17 +151,11 @@ export const CoachPerformanceSynthese = (props: Props) => {
             </Typography>
 
             <CoachPaymentRuleSelectorStyled
+              isClearable
+              noMulti
               coachPaymentRulesList={
                 coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_APPOINTMENT]
               }
-              selectedRules={[
-                coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict
-                  ? coachPaymentRuleGroupsDict[
-                      coach.coach_payment_rule_group_id
-                    ].private_service_coach_payment_rule
-                  : coach.private_coach_payment_rule_id,
-              ]}
-              placeholder={t('paymentRules:label')}
               disabled={!!coach.coach_payment_rule_group_id}
               onChange={(item: { value: number; label: string }) => {
                 props.setCoachPrivatePaymentRule(
@@ -170,8 +164,14 @@ export const CoachPerformanceSynthese = (props: Props) => {
                   coach.associated_coach_id,
                 );
               }}
-              noMulti
-              isClearable
+              placeholder={t('paymentRules:label')}
+              selectedRules={[
+                coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict
+                  ? coachPaymentRuleGroupsDict[
+                      coach.coach_payment_rule_group_id
+                    ].private_service_coach_payment_rule
+                  : coach.private_coach_payment_rule_id,
+              ]}
             />
           </div>
         </div>

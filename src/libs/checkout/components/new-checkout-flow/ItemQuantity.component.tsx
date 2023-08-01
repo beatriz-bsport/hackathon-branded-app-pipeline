@@ -25,17 +25,17 @@ export const ItemQuantity: React.FC<ItemQuantityProps> = ({
   return (
     <div className={classes.itemQuantityContainer}>
       <IconButton
+        className={classes.quantityIcon}
         disabled={isItemEditionDisabled || itemQuantity === 1}
         onClick={onRemoveOneItem}
-        className={classes.quantityIcon}
       >
         <Remove className={classes.icon} />
       </IconButton>
       <Typography variant="subtitle1">{itemQuantity}</Typography>
       <IconButton
+        className={classes.quantityIcon}
         disabled={isItemEditionDisabled || !isAddingItemPossible}
         onClick={onAddOneItem}
-        className={classes.quantityIcon}
       >
         <Add className={classes.icon} />
       </IconButton>

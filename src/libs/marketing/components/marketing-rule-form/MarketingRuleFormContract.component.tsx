@@ -169,10 +169,10 @@ const MarketingRuleFormContract = (props: Props) => {
   return (
     <GenericResponsiveDrawer
       open
-      onClose={props.onCancel}
-      title={t('notificationForm.title')}
-      subtitle={t('notificationForm.subtitle')}
       mobileMinWidth="0px"
+      onClose={props.onCancel}
+      subtitle={t('notificationForm.subtitle')}
+      title={t('notificationForm.title')}
     >
       <div
         className={classNames({
@@ -185,7 +185,7 @@ const MarketingRuleFormContract = (props: Props) => {
             <div className={classes.infoIcon}>
               <InfoOutlinedIcon color="inherit" />
             </div>
-            <Typography variant="body2" className={classes.breakSpaces}>
+            <Typography className={classes.breakSpaces} variant="body2">
               {t('notificationForm.warning')}
             </Typography>
           </div>
@@ -199,8 +199,6 @@ const MarketingRuleFormContract = (props: Props) => {
             </div>
             <div className={classes.choiceField}>
               <RadioGroupField
-                name="contractPeriod"
-                value={contractPeriod}
                 choices={[
                   {
                     label: t('notificationForm.typeSection.contractStart'),
@@ -211,6 +209,8 @@ const MarketingRuleFormContract = (props: Props) => {
                     value: CONTRACT_END,
                   },
                 ]}
+                name="contractPeriod"
+                value={contractPeriod}
               />
             </div>
           </div>
@@ -226,7 +226,6 @@ const MarketingRuleFormContract = (props: Props) => {
                 </div>
                 <div className={classes.choiceField}>
                   <RadioGroupField
-                    name="triggeringEvent"
                     choices={[
                       {
                         label: t(
@@ -241,6 +240,7 @@ const MarketingRuleFormContract = (props: Props) => {
                         value: FIRST_BILLING,
                       },
                     ]}
+                    name="triggeringEvent"
                   />
                 </div>
               </div>
@@ -258,7 +258,7 @@ const MarketingRuleFormContract = (props: Props) => {
                     </Typography>
                   </div>
                   <div className={classes.rowContainer}>
-                    <Typography variant="body2" className={classes.breakSpaces}>
+                    <Typography className={classes.breakSpaces} variant="body2">
                       {t('notificationRule:type.sendNotification')}
                     </Typography>
                     <IntegerField
@@ -267,11 +267,11 @@ const MarketingRuleFormContract = (props: Props) => {
                     />
                     <FormControl className={classes.select} variant="outlined">
                       <Select
-                        name="periodScale"
                         defaultValue={{
                           value: periodScale,
                           label: t(`notificationRule:type.${periodScale}`),
                         }}
+                        name="periodScale"
                         onChange={(selected) =>
                           setFieldValue('periodScale', selected.value)
                         }
@@ -291,7 +291,7 @@ const MarketingRuleFormContract = (props: Props) => {
                         ]}
                       />
                     </FormControl>
-                    <Typography variant="body2" className={classes.breakSpaces}>
+                    <Typography className={classes.breakSpaces} variant="body2">
                       {t(
                         'notificationForm.notificationType.afterSubcriptionCreation',
                       ).toLowerCase()}
@@ -313,7 +313,7 @@ const MarketingRuleFormContract = (props: Props) => {
                     </Typography>
                   </div>
                   <div className={classes.rowContainer}>
-                    <Typography variant="body2" className={classes.breakSpaces}>
+                    <Typography className={classes.breakSpaces} variant="body2">
                       {t('notificationRule:type.sendNotification')}
                     </Typography>
                     <IntegerField
@@ -322,11 +322,11 @@ const MarketingRuleFormContract = (props: Props) => {
                     />
                     <FormControl className={classes.select} variant="outlined">
                       <Select
-                        name="periodScale"
                         defaultValue={{
                           value: periodScale,
                           label: t(`notificationRule:type.${periodScale}`),
                         }}
+                        name="periodScale"
                         onChange={(selected) =>
                           setFieldValue('periodScale', selected.value)
                         }
@@ -348,13 +348,13 @@ const MarketingRuleFormContract = (props: Props) => {
                     </FormControl>
                     <FormControl className={classes.select} variant="outlined">
                       <Select
-                        name="timeComparator"
                         defaultValue={{
                           value: timeComparator,
                           label: t(
                             `notificationForm.notificationType.${timeComparator}`,
                           ),
                         }}
+                        name="timeComparator"
                         onChange={(selected) =>
                           setFieldValue('timeComparator', selected.value)
                         }
@@ -372,7 +372,7 @@ const MarketingRuleFormContract = (props: Props) => {
                         ]}
                       />
                     </FormControl>
-                    <Typography variant="body2" className={classes.breakSpaces}>
+                    <Typography className={classes.breakSpaces} variant="body2">
                       {t(
                         'notificationForm.notificationType.firstBilling',
                       ).toLowerCase()}
@@ -389,8 +389,8 @@ const MarketingRuleFormContract = (props: Props) => {
                         <InfoOutlinedIcon color="inherit" />
                       </div>
                       <Typography
-                        variant="body2"
                         className={classes.breakSpaces}
+                        variant="body2"
                       >
                         {t('notificationForm.notificationType.warningDayFirst')}
                       </Typography>
@@ -407,8 +407,8 @@ const MarketingRuleFormContract = (props: Props) => {
                         <InfoOutlinedIcon color="inherit" />
                       </div>
                       <Typography
-                        variant="body2"
                         className={classNames([classes.breakSpaces])}
+                        variant="body2"
                       >
                         {t(
                           'notificationForm.notificationType.warningHourFirst',
@@ -430,7 +430,7 @@ const MarketingRuleFormContract = (props: Props) => {
                   </Typography>
                 </div>
                 <div className={classes.rowContainer}>
-                  <Typography variant="body2" className={classes.breakSpaces}>
+                  <Typography className={classes.breakSpaces} variant="body2">
                     {t('notificationRule:type.sendNotification')}
                   </Typography>
                   <IntegerField
@@ -439,11 +439,11 @@ const MarketingRuleFormContract = (props: Props) => {
                   />
                   <FormControl className={classes.select} variant="outlined">
                     <Select
-                      name="periodScale"
                       defaultValue={{
                         value: periodScale,
                         label: t(`notificationRule:type.${periodScale}`),
                       }}
+                      name="periodScale"
                       onChange={(selected) =>
                         setFieldValue('periodScale', selected.value)
                       }
@@ -465,13 +465,13 @@ const MarketingRuleFormContract = (props: Props) => {
                   </FormControl>
                   <FormControl className={classes.select} variant="outlined">
                     <Select
-                      name="timeComparator"
                       defaultValue={{
                         value: timeComparator,
                         label: t(
                           `notificationForm.notificationType.${timeComparator}`,
                         ),
                       }}
+                      name="timeComparator"
                       onChange={(selected) =>
                         setFieldValue('timeComparator', selected.value)
                       }
@@ -487,7 +487,7 @@ const MarketingRuleFormContract = (props: Props) => {
                       ]}
                     />
                   </FormControl>
-                  <Typography variant="body2" className={classes.breakSpaces}>
+                  <Typography className={classes.breakSpaces} variant="body2">
                     {t(
                       'notificationForm.notificationType.contractEnd',
                     ).toLowerCase()}
@@ -503,7 +503,7 @@ const MarketingRuleFormContract = (props: Props) => {
                     <div className={classes.infoIcon}>
                       <InfoOutlinedIcon color="inherit" />
                     </div>
-                    <Typography variant="body2" className={classes.breakSpaces}>
+                    <Typography className={classes.breakSpaces} variant="body2">
                       {t('notificationForm.notificationType.warningDayLast')}
                     </Typography>
                   </div>
@@ -519,8 +519,8 @@ const MarketingRuleFormContract = (props: Props) => {
                       <InfoOutlinedIcon color="inherit" />
                     </div>
                     <Typography
-                      variant="body2"
                       className={classNames([classes.breakSpaces])}
+                      variant="body2"
                     >
                       {t('notificationForm.notificationType.warningHourLast')}
                     </Typography>
@@ -531,28 +531,28 @@ const MarketingRuleFormContract = (props: Props) => {
           )}
           <MarketingRuleSmartlistField
             goToSmartList={goToSmartlist}
-            smartLists={smartLists}
-            smartlist_include={smartlist_include}
             smartlist_exclude={smartlist_exclude}
+            smartlist_include={smartlist_include}
+            smartLists={smartLists}
           />
           <MarketingRuleSendingMethodField
-            send_email={send_email}
-            send_notification_push={send_notification_push}
-            notificationTitle={notificationTitle}
-            notificationContent={notificationContent}
-            errors={errors}
-            emailListLoading={emailListLoading}
-            emails={emails}
             email_design={email_design}
-            getEmailDetail={getEmailDetail}
             emailDetailLoading={emailDetailLoading}
             emailDetails={emailDetails}
+            emailListLoading={emailListLoading}
+            emails={emails}
+            errors={errors}
+            getEmailDetail={getEmailDetail}
+            notificationContent={notificationContent}
+            notificationTitle={notificationTitle}
+            resolvedGenericTags={resolvedGenericTags}
+            send_email={send_email}
+            send_notification_push={send_notification_push}
             setFieldValue={setFieldValue}
             tags={tags}
-            resolvedGenericTags={resolvedGenericTags}
           />
           <Actions>
-            <Button onClick={onCancel} disabled={isSubmitting}>
+            <Button disabled={isSubmitting} onClick={onCancel}>
               {t('notificationForm.buttons.cancel')}
             </Button>
             <Submit

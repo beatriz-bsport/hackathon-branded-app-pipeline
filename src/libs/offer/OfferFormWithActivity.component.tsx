@@ -117,14 +117,14 @@ export const OfferFormWithActivity: React.FC<Props> = ({
         <OfferFormBanner onCancel={onCancel} />
 
         <MetaActivitySelectorWithCard
-          metaActivities={metaActivitiesWithoutBroadcastAndHybrid}
-          placeholder={t('metaActivity:search')}
-          onChange={handleSelectActivity}
           isLoading={activitiesLoading}
+          metaActivities={metaActivitiesWithoutBroadcastAndHybrid}
+          onChange={handleSelectActivity}
+          placeholder={t('metaActivity:search')}
         />
 
         <div className={classes.buttonContainer}>
-          <Button onClick={onCancel} className={classes.button}>
+          <Button className={classes.button} onClick={onCancel}>
             {t('translation:common.cancel')}
           </Button>
         </div>
@@ -134,32 +134,32 @@ export const OfferFormWithActivity: React.FC<Props> = ({
 
   return (
     <OfferCreateForm
-      metaActivity={selectedMetaActivity}
-      selectedDate={selectedDate}
+      editableCoachPaymentRule
       activeCustomLevels={activeCustomLevels}
       allCustomLevels={allCustomLevels}
-      availableEstablishments={availableEstablishments}
-      zoomAppDetail={zoomAppDetail}
-      timezone={timezone}
-      showPartnership={showPartnership}
       allowGuestMaster={allowGuestMaster}
+      availableEstablishments={availableEstablishments}
       coaches={coaches}
-      roomBlueprints={roomBlueprints}
-      isWherebyIntegrationEnabled={is_whereby_integration_enabled}
-      processing={processing}
       coachPaymentRulesByKind={coachPaymentRulesByKind}
-      tagList={tagList}
-      isLoading={coachesLoading || establishmentsLoading}
-      editableCoachPaymentRule
-      fetchLevelList={fetchLevelList}
-      updateLevel={updateLevel}
       createLevel={createLevel}
-      deleteLevel={deleteLevel}
-      onBannerGoBack={handleGoBack}
-      onCancelText={t('common:back')}
-      onCancel={handleGoBack}
-      onSubmit={handleSubmit}
       creditScaleFactor={creditScaleFactor}
+      deleteLevel={deleteLevel}
+      fetchLevelList={fetchLevelList}
+      isLoading={coachesLoading || establishmentsLoading}
+      isWherebyIntegrationEnabled={is_whereby_integration_enabled}
+      metaActivity={selectedMetaActivity}
+      onBannerGoBack={handleGoBack}
+      onCancel={handleGoBack}
+      onCancelText={t('common:back')}
+      onSubmit={handleSubmit}
+      processing={processing}
+      roomBlueprints={roomBlueprints}
+      selectedDate={selectedDate}
+      showPartnership={showPartnership}
+      tagList={tagList}
+      timezone={timezone}
+      updateLevel={updateLevel}
+      zoomAppDetail={zoomAppDetail}
     />
   );
 };

@@ -64,7 +64,7 @@ const Status: FC<{
     return (
       <Tooltip title={t('plannedInvoiceStatus.reverted')}>
         <span>
-          <UndoIcon color="secondary" className={classes.icon} />
+          <UndoIcon className={classes.icon} color="secondary" />
         </span>
       </Tooltip>
     );
@@ -77,7 +77,7 @@ const Status: FC<{
       return (
         <Tooltip title={t('plannedInvoiceStatus.pending')}>
           <span>
-            <HourglassEmptyIcon color="secondary" className={classes.icon} />
+            <HourglassEmptyIcon className={classes.icon} color="secondary" />
           </span>
         </Tooltip>
       );
@@ -85,7 +85,7 @@ const Status: FC<{
       return (
         <Tooltip title={t('plannedInvoiceStatus.succeeded')}>
           <span>
-            <CheckIcon color="primary" className={classes.icon} />
+            <CheckIcon className={classes.icon} color="primary" />
           </span>
         </Tooltip>
       );
@@ -93,7 +93,7 @@ const Status: FC<{
       return (
         <Tooltip title={t('plannedInvoiceStatus.canceled')}>
           <span>
-            <CancelIcon color="secondary" className={classes.icon} />
+            <CancelIcon className={classes.icon} color="secondary" />
           </span>
         </Tooltip>
       );
@@ -101,7 +101,7 @@ const Status: FC<{
       return (
         <Tooltip title={t('plannedInvoiceStatus.failed')}>
           <span>
-            <ErrorIcon color="error" className={classes.icon} />
+            <ErrorIcon className={classes.icon} color="error" />
           </span>
         </Tooltip>
       );
@@ -109,7 +109,7 @@ const Status: FC<{
       return (
         <Tooltip title={t('plannedInvoiceStatus.processing')}>
           <span>
-            <RefreshIcon color="error" className={classes.icon} />
+            <RefreshIcon className={classes.icon} color="error" />
           </span>
         </Tooltip>
       );
@@ -126,7 +126,7 @@ const StopItem = (props: { unscheduleStop: () => void }) => {
   return (
     <React.Fragment>
       <div className={classes.listItem}>
-        <StopIcon color="error" className={classes.icon} />
+        <StopIcon className={classes.icon} color="error" />
         <div className={classes.smallLinkH} />
         <div className={classes.listItemBody}>
           <Typography>{t('scheduledStop.label')}</Typography>
@@ -141,8 +141,8 @@ const StopItem = (props: { unscheduleStop: () => void }) => {
       </div>
       <div className={classes.endLine} />
       <Menu
-        onClose={() => setMenuAnchor(null)}
         anchorEl={menuAnchor}
+        onClose={() => setMenuAnchor(null)}
         open={!!menuAnchor}
       >
         <MenuItem
@@ -175,7 +175,7 @@ const EndItem = (props: {
     <React.Fragment>
       <div className={classes.listItem}>
         {isAutoRenew ? (
-          <RefreshIcon color="primary" className={classes.icon} />
+          <RefreshIcon className={classes.icon} color="primary" />
         ) : (
           <StopIcon className={classes.icon} />
         )}
@@ -194,8 +194,8 @@ const EndItem = (props: {
         </IconButton>
       </div>
       <Menu
-        onClose={() => setMenuAnchor(null)}
         anchorEl={menuAnchor}
+        onClose={() => setMenuAnchor(null)}
         open={!!menuAnchor}
       >
         <MenuItem
@@ -278,7 +278,7 @@ const PlannedInvoiceEditMenu = ({
 
   return (
     <>
-      <Menu onClose={onClose} anchorEl={anchor} open={open}>
+      <Menu anchorEl={anchor} onClose={onClose} open={open}>
         <MenuItem onClick={() => goToInvoice(plannedInvoice.uuid)}>
           <ListItemIcon>
             <ArrowForwardIcon fontSize="small" />
@@ -310,11 +310,11 @@ const PlannedInvoiceEditMenu = ({
           </Typography>
         </MenuItem>
         <MenuItem
-          onClick={handleRequestScheduledStop}
           disabled={
             disableActions ||
             moment(plannedInvoice.date).isBefore(moment().add(-31, 'days'))
           }
+          onClick={handleRequestScheduledStop}
         >
           <ListItemIcon>
             <StopIcon fontSize="small" />
@@ -333,18 +333,18 @@ const PlannedInvoiceEditMenu = ({
           </DialogTitle>
           <DialogContent>
             <TextField
+              fullWidth
               label={t('subscription.scheduledStop.notePlaceholder')}
+              onChange={handleNoteChange}
               placeholder={t('subscription.scheduledStop.notePlaceholder')}
               value={stopNote}
-              onChange={handleNoteChange}
-              fullWidth
             />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCancelScheduledStop}>
               {t('subscription.freeze.form.cancel')}
             </Button>
-            <Button onClick={handleSubmitRequestScheduledStop} color="primary">
+            <Button color="primary" onClick={handleSubmitRequestScheduledStop}>
               {t('subscription.freeze.form.submit')}
             </Button>
           </DialogActions>
@@ -382,13 +382,13 @@ const PlannedInvoiceItem = (props: {
         />
         <div className={classes.smallLinkH} />
         <ButtonBase
+          className={classes.listItemBody}
           disableRipple={props.disableActions}
           onClick={() => {
             if (!props.disableActions) {
               props.onClickInvoice(plannedInvoice.uuid);
             }
           }}
-          className={classes.listItemBody}
         >
           {plannedInvoice &&
           (plannedInvoice.uuid || plannedInvoice.invoice_legal_identifier) ? (
@@ -398,7 +398,7 @@ const PlannedInvoiceItem = (props: {
               >
                 {invoiceLabel}
               </Typography>
-              <Typography variant="caption" color="textSecondary">
+              <Typography color="textSecondary" variant="caption">
                 {formatAsDate(plannedInvoice.date)}
               </Typography>
             </React.Fragment>
@@ -417,16 +417,16 @@ const PlannedInvoiceItem = (props: {
       </div>
       <div className={classes.endLine} />
       <PlannedInvoiceEditMenu
-        onClose={() => setMenuAnchor(null)}
-        open={!!menuAnchor}
         anchor={menuAnchor}
-        plannedInvoice={props.plannedInvoice}
         disableActions={props.disableActions}
-        goToInvoice={props.onClickInvoice}
-        onRequestPriceChange={props.onRequestPriceChange}
-        onRequestDateChange={props.onRequestDateChange}
-        onRequestScheduledStop={props.onRequestScheduledStop}
         disableDateModification={props.disableDateModification}
+        goToInvoice={props.onClickInvoice}
+        onClose={() => setMenuAnchor(null)}
+        onRequestDateChange={props.onRequestDateChange}
+        onRequestPriceChange={props.onRequestPriceChange}
+        onRequestScheduledStop={props.onRequestScheduledStop}
+        open={!!menuAnchor}
+        plannedInvoice={props.plannedInvoice}
       />
     </React.Fragment>
   );
@@ -522,23 +522,23 @@ export function PlannedInvoiceListDetail(props: Props) {
             <React.Fragment>
               {relatedPauses.map((pause: SubscriptionPause) => (
                 <PauseDetailListItem
-                  dateStartIsPast={
-                    moment(pause.from_date).diff(
-                      moment().format('YYYY-MM-DD'),
-                      'days',
-                    ) < 0
-                  }
+                  key={pause.id}
                   dateEndIsPast={
                     moment(pause.until_date).diff(
                       moment().format('YYYY-MM-DD'),
                       'days',
                     ) < 0
                   }
+                  dateStartIsPast={
+                    moment(pause.from_date).diff(
+                      moment().format('YYYY-MM-DD'),
+                      'days',
+                    ) < 0
+                  }
                   deletePause={props.cancelPause}
+                  pause={pause}
                   updateEventList={props.updateEventList}
                   updatePause={() => setPauseToUpdate(pause)}
-                  pause={pause}
-                  key={pause.id}
                 />
               ))}
               <div key={pl.id} className={classes.innerContainer}>
@@ -550,10 +550,10 @@ export function PlannedInvoiceListDetail(props: Props) {
                     !!props.subscription.month_billing_day
                   }
                   onClickInvoice={props.onClickInvoice}
-                  plannedInvoice={pl}
-                  onRequestPriceChange={setPlannedInvoiceToUpdatePrice}
                   onRequestDateChange={setPlannedInvoiceToUpdateDate}
+                  onRequestPriceChange={setPlannedInvoiceToUpdatePrice}
                   onRequestScheduledStop={props.onRequestScheduledStop}
+                  plannedInvoice={pl}
                 />
                 {pl.is_last_invoice_before_scheduled_stop && (
                   <StopItem
@@ -570,66 +570,62 @@ export function PlannedInvoiceListDetail(props: Props) {
       {pausesWithoutRelatedPlannedInvoicesBeforeEnd.length > 0 &&
         pausesWithoutRelatedPlannedInvoicesBeforeEnd.map((pause) => (
           <PauseDetailListItem
-            dateStartIsPast={
-              moment(pause.from_date).diff(
-                moment().format('YYYY-MM-DD'),
-                'days',
-              ) < 0
-            }
+            key={pause.id}
             dateEndIsPast={
               moment(pause.until_date).diff(
                 moment().format('YYYY-MM-DD'),
                 'days',
               ) < 0
             }
+            dateStartIsPast={
+              moment(pause.from_date).diff(
+                moment().format('YYYY-MM-DD'),
+                'days',
+              ) < 0
+            }
             deletePause={props.cancelPause}
+            pause={pause}
             updateEventList={props.updateEventList}
             updatePause={() => setPauseToUpdate(pause)}
-            pause={pause}
-            key={pause.id}
           />
         ))}
       <EndItem
-        toogleAutoRenew={props.toogleAutoRenew}
         subscription={props.subscription}
+        toogleAutoRenew={props.toogleAutoRenew}
       />
       {pausesWithoutRelatedPlannedInvoicesAfterEnd.length > 0 && (
         <>
           <div className={classes.endLine} />
           {pausesWithoutRelatedPlannedInvoicesAfterEnd.map((pause) => (
             <PauseDetailListItem
-              dateStartIsPast={
-                moment(pause.from_date).diff(
-                  moment().format('YYYY-MM-DD'),
-                  'days',
-                ) < 0
-              }
+              key={pause.id}
               dateEndIsPast={
                 moment(pause.until_date).diff(
                   moment().format('YYYY-MM-DD'),
                   'days',
                 ) < 0
               }
+              dateStartIsPast={
+                moment(pause.from_date).diff(
+                  moment().format('YYYY-MM-DD'),
+                  'days',
+                ) < 0
+              }
               deletePause={props.cancelPause}
-              updateEventList={props.updateEventList}
-              updatePause={() => setPauseToUpdate(pause)}
-              pause={pause}
-              key={pause.id}
               isLastPauseAfterEndItem={
                 pausesWithoutRelatedPlannedInvoicesAfterEnd.indexOf(pause) ===
                 pausesWithoutRelatedPlannedInvoicesAfterEnd.length - 1
               }
+              pause={pause}
+              updateEventList={props.updateEventList}
+              updatePause={() => setPauseToUpdate(pause)}
             />
           ))}
         </>
       )}
       {!!plannedInvoiceToUpdatePrice && (
         <PlannedInvoicePriceUpdater
-          subscription={props.subscription}
-          open={!!plannedInvoiceToUpdatePrice}
-          plannedInvoice={plannedInvoiceToUpdatePrice}
           onCancel={() => setPlannedInvoiceToUpdatePrice(null)}
-          plannedInvoiceUpdateLoading={props.plannedInvoiceUpdateLoading}
           onSubmit={(
             data: {
               planned_invoice: number;
@@ -647,11 +643,15 @@ export function PlannedInvoiceListDetail(props: Props) {
               onError: options && options.onError,
             });
           }}
+          open={!!plannedInvoiceToUpdatePrice}
+          plannedInvoice={plannedInvoiceToUpdatePrice}
+          plannedInvoiceUpdateLoading={props.plannedInvoiceUpdateLoading}
+          subscription={props.subscription}
         />
       )}
       {!!plannedInvoiceToUpdateDate && (
         <PlannedInvoiceDateUpdater
-          plannedInvoice={plannedInvoiceToUpdateDate}
+          onClose={() => setPlannedInvoiceToUpdateDate(null)}
           onSubmit={(
             data: {
               date: string;
@@ -659,16 +659,16 @@ export function PlannedInvoiceListDetail(props: Props) {
             },
             options: OptionCallback,
           ) => props.updateDate(data, options)}
-          onClose={() => setPlannedInvoiceToUpdateDate(null)}
+          plannedInvoice={plannedInvoiceToUpdateDate}
         />
       )}
       {!!pauseToUpdate && (
         <PauseFormDialog
-          openForm={!!pauseToUpdate}
           closeDialog={() => setPauseToUpdate(null)}
           onSubmit={props.updatePause}
-          subscription={props.subscription}
+          openForm={!!pauseToUpdate}
           pauseBeingEdited={pauseToUpdate}
+          subscription={props.subscription}
           updateEventList={props.updateEventList}
         />
       )}

@@ -72,24 +72,24 @@ export const CouponCodeForm: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <Button
+        color="primary"
         disabled={loading || disabled}
         onClick={() => setOpen(true)}
-        color="primary"
       >
         {t('code.addCoupon.label')}
       </Button>
       <Dialog open={open}>
         <DialogContent>
           <TextField
+            label={t('code.addCoupon.label')}
             onChange={(ev) => setCode(ev.target.value)}
+            placeholder={t('code.addCoupon.placeholder')}
             value={code}
             variant="outlined"
-            placeholder={t('code.addCoupon.placeholder')}
-            label={t('code.addCoupon.label')}
           />
         </DialogContent>
         {error && (
-          <Typography color="error" className={classes.marginLeft}>
+          <Typography className={classes.marginLeft} color="error">
             {t(`code.addCoupon.${error}`)}
           </Typography>
         )}

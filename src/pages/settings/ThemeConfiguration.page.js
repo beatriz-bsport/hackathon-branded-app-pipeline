@@ -38,9 +38,9 @@ export class ThemeConfiguration extends Component<Props> {
       <div className={classes.container}>
         <Paper className={classes.paperContainer}>
           <ThemeForm
-            theme={this.props.theme}
             onSubmit={this.props.submitTheme}
             processing={this.props.processing}
+            theme={this.props.theme}
           />
         </Paper>
       </div>

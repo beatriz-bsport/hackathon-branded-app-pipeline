@@ -188,82 +188,88 @@ export class VodVideoListPage extends React.PureComponent<Props> {
         {!!this.props.loading && <LinearProgress />}
         <div className={classes.searchContainer}>
           <VideoSearchBar
-            searchParams={this.props.searchParams}
-            onChangeSearchParams={this.props.setSearchParams}
             coaches={this.props.videoFilterableParams.coaches || []}
-            scts={this.props.videoFilterableParams.SCTs || []}
             customLevels={this.props.customLevels || []}
+            onChangeSearchParams={this.props.setSearchParams}
+            scts={this.props.videoFilterableParams.SCTs || []}
+            searchParams={this.props.searchParams}
           />
         </div>
         <div className={classes.viewModeContainer}>
           <ViewSwitcher
-            value={this.props.viewMode}
             onChange={this.props.setViewMode}
+            value={this.props.viewMode}
           />
         </div>
 
         {this.props.viewMode === 'grid' ? (
           <VideoCardGrid
             goToDetail={this.props.goToDetail}
-            videoList={this.props.videoList}
-            onEdit={this.props.openEditForm}
-            onDelete={this.props.deleteVideo}
-            onRequestUpload={this.props.setVideoToUpload}
-            onStream={this.props.setVideoToStream}
-            onShowMore={this.props.fetchMoreVideo}
             hasMoreVideo={this.props.hasMoreVideo}
             loading={this.props.loading}
+            onDelete={this.props.deleteVideo}
             onDuplicate={this.props.onDuplicateVideo}
+            onEdit={this.props.openEditForm}
+            onRequestUpload={this.props.setVideoToUpload}
+            onShowMore={this.props.fetchMoreVideo}
+            onStream={this.props.setVideoToStream}
+            videoList={this.props.videoList}
           />
         ) : (
           <VideoCardList
             goToDetail={this.props.goToDetail}
-            videoList={this.props.videoList}
-            onEdit={this.props.openEditForm}
-            onDelete={this.props.deleteVideo}
-            onRequestUpload={this.props.setVideoToUpload}
-            onStream={this.props.setVideoToStream}
-            onShowMore={this.props.fetchMoreVideo}
             hasMoreVideo={this.props.hasMoreVideo}
             loading={this.props.loading}
+            onDelete={this.props.deleteVideo}
             onDuplicate={this.props.onDuplicateVideo}
+            onEdit={this.props.openEditForm}
+            onRequestUpload={this.props.setVideoToUpload}
+            onShowMore={this.props.fetchMoreVideo}
+            onStream={this.props.setVideoToStream}
+            videoList={this.props.videoList}
           />
         )}
 
         {!!this.props.videoToStream && (
           <VideoStreamDialog
-            video={this.props.videoToStream}
             onClose={this.props.closeVideoStream}
+            video={this.props.videoToStream}
           />
         )}
         {!!this.props.videoToUploadId && (
           <VideoUploadDialog
-            video={this.props.videoToUpload}
-            videoProviderList={this.props.theme.vod_providers}
-            submitProviderIdentifier={this.props.submitVideoProviderIdentifier}
             onClose={this.props.closeUploadVideoForm}
             setExternalUrl={this.props.setExternalUrl}
+            submitProviderIdentifier={this.props.submitVideoProviderIdentifier}
+            video={this.props.videoToUpload}
+            videoProviderList={this.props.theme.vod_providers}
           />
         )}
         {!!this.props.createOpen && (
           <VideoFormDialog
-            coaches={this.props.coaches}
-            onSubmit={this.props.createOrUpdateVideo}
-            onClose={this.props.closeCreateDialog}
-            SCTs={this.props.SCTs}
             open
-            customLevels={this.props.customLevels}
-            fetchLevelList={this.handleFetchLevel}
-            updateLevel={this.props.updateLevel}
+            coaches={this.props.coaches}
             createLevel={this.props.createLevel}
+            customLevels={this.props.customLevels}
             deleteLevel={this.props.deleteLevel}
+            fetchLevelList={this.handleFetchLevel}
+            onClose={this.props.closeCreateDialog}
+            onSubmit={this.props.createOrUpdateVideo}
+            SCTs={this.props.SCTs}
+            updateLevel={this.props.updateLevel}
           />
         )}
         {!!this.props.editVideo && (
           <VideoFormDialog
             open
             coaches={this.props.coaches}
-            SCTs={this.props.SCTs}
+            createLevel={this.props.createLevel}
+            customLevels={this.props.customLevels}
+            deleteLevel={this.props.deleteLevel}
+            fetchLevelList={this.handleFetchLevel}
+            initial={this.props.editVideo}
+            onClose={this.props.closeEditForm}
+            onRemoveVideoSource={this.props.removeVideoSource}
             onSubmit={(data, options) => {
               if (
                 (this.props.editVideo.rental_days === 0 &&
@@ -274,14 +280,8 @@ export class VodVideoListPage extends React.PureComponent<Props> {
               this.props.closeEditForm();
               return this.props.setConfirmEditDialogData({ data, options });
             }}
-            initial={this.props.editVideo}
-            onClose={this.props.closeEditForm}
-            onRemoveVideoSource={this.props.removeVideoSource}
-            customLevels={this.props.customLevels}
-            fetchLevelList={this.handleFetchLevel}
+            SCTs={this.props.SCTs}
             updateLevel={this.props.updateLevel}
-            createLevel={this.props.createLevel}
-            deleteLevel={this.props.deleteLevel}
           />
         )}
         {!!this.props.confirmEditDialogData && (
@@ -317,8 +317,8 @@ export class VodVideoListPage extends React.PureComponent<Props> {
           </Dialog>
         )}
         <BottomActionButtons
-          onCreateLabel={this.props.t('video:video.bottomActions.create')}
           onCreate={this.props.openCreateForm}
+          onCreateLabel={this.props.t('video:video.bottomActions.create')}
         />
       </div>
     );

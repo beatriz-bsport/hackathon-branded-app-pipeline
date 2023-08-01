@@ -234,30 +234,30 @@ export class EstablishmentCalendar extends React.Component<Props, State> {
       <div className={classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
         <PrivateCalendarWithControls
+          hideResourceSelector
+          showHideCancelledEventsToggle
+          showOfferListToogle
+          showPrivateBookingToogle
+          availabilitySlots={this.props.availabilitySlots}
+          availabilitySlotUpdating={this.props.availabilitySlotUpdating}
+          companyTheme={this.props.companyTheme}
           disableResourceAvailabilitySlot={
             this.disableEstablishmentAvailabilitySlot
           }
           enableResourceAvailabilitySlot={
             this.enableEstablishmentAvailabilitySlot
           }
-          showOfferListToogle
-          showPrivateBookingToogle
-          showHideCancelledEventsToggle
           fetchAvailabilitySlots={this.fetchAvailabilitySlots}
-          availabilitySlots={this.props.availabilitySlots}
-          privateBookings={this.props.privateBookingList}
-          offerList={this.props.offerList}
-          availabilitySlotUpdating={this.props.availabilitySlotUpdating}
           goToMember={this.props.goToMember}
+          offerList={this.props.offerList}
           onDateChange={this.props.handleDateChange}
+          privateBookings={this.props.privateBookingList}
           refreshOffers={this.fetchWeekData}
           refreshPrivateBookings={this.fetchWeekData}
-          timezone={this.props.companyTheme.timezone_name}
-          companyTheme={this.props.companyTheme}
+          resourceAvailable={this.state.resourceAvailable}
           scheduleFilter={this.props.scheduleFilter}
           setScheduleFilter={this.setScheduleFilter}
-          resourceAvailable={this.state.resourceAvailable}
-          hideResourceSelector
+          timezone={this.props.companyTheme.timezone_name}
         />
       </div>
     );

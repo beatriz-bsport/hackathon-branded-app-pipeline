@@ -91,45 +91,45 @@ export const CadenceInitialSetupForm: React.FC<InitialSetUpComponentProps> = ({
       </div>
       <div className={classes.stepperContainer}>
         <CadenceSettingsFormStepper
-          step={formStep}
           displaySteps={[
             CADENCE_STEPPER_ENTRY_STEP,
             CADENCE_STEPPER_WIN_STEP,
             CADENCE_STEPPER_LOSE_STEP,
           ]}
+          step={formStep}
         />
       </div>
       <Divider />
       {formStep === CADENCE_STEPPER_ENTRY_STEP && (
         <TriggerForm
-          smartlists={smartlists}
-          onSubmit={handleSubmitEntryForm}
-          formValues={formValuesSubmitted}
           cadenceEntry
           noEmptyTrigger
+          formValues={formValuesSubmitted}
+          onSubmit={handleSubmitEntryForm}
+          smartlists={smartlists}
         />
       )}
 
       {formStep === CADENCE_STEPPER_WIN_STEP && (
         <TriggerForm
-          smartlists={smartlists}
-          onSubmit={handleSubmitWinForm}
-          onCancel={handleCancelWinForm}
-          formValues={formValuesSubmitted}
           cadenceExitSuccess
           noEmptyTrigger
+          formValues={formValuesSubmitted}
+          onCancel={handleCancelWinForm}
+          onSubmit={handleSubmitWinForm}
+          smartlists={smartlists}
         />
       )}
 
       {formStep === CADENCE_STEPPER_LOSE_STEP && (
         <TriggerForm
-          smartlists={smartlists}
-          onSubmit={handleSubmitLoseStep}
-          onCancel={handleCancelLoseStep}
-          formValues={formValuesSubmitted}
-          withTimeout
           cadenceExitFail
           noEmptyTrigger
+          withTimeout
+          formValues={formValuesSubmitted}
+          onCancel={handleCancelLoseStep}
+          onSubmit={handleSubmitLoseStep}
+          smartlists={smartlists}
         />
       )}
     </div>

@@ -10,8 +10,8 @@ const GiftcardList = asyncComponent(() => import('./GiftcardList.page'));
 export const GiftcardRouter = () => {
   return (
     <Switch>
-      <Route exact path="/giftcard/:id/" component={GiftcardDetail} />
-      <Route exact path="/giftcard/" component={GiftcardList} />
+      <Route exact component={GiftcardDetail} path="/giftcard/:id/" />
+      <Route exact component={GiftcardList} path="/giftcard/" />
     </Switch>
   );
 };

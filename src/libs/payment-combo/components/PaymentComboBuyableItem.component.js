@@ -45,6 +45,8 @@ export const PaymentComboBuyableItem = (props: Props) => {
           <CircularProgress />
         ) : (
           <Button
+            className={props.classes.button}
+            color="primary"
             onClick={() => {
               props.setProcessing(true);
               props.onClick({
@@ -52,9 +54,7 @@ export const PaymentComboBuyableItem = (props: Props) => {
                 onError: () => props.setProcessing(false),
               });
             }}
-            color="primary"
             variant="contained"
-            className={props.classes.button}
           >
             <AddShoppingCartIcon />
           </Button>

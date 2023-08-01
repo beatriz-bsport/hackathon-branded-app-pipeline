@@ -249,68 +249,68 @@ export class SubscriptionCreate extends Component<Props, State> {
         <div className={classes.container}>
           {this.props.withName ? (
             <TextField
+              fullWidth
+              className={this.props.classes.field}
               label={this.props.t('contract.form.name.label')}
+              onChange={this.updateName}
               placeholder={this.props.t('contract.form.name.placeholder')}
               value={this.state.name}
-              onChange={this.updateName}
-              className={this.props.classes.field}
-              fullWidth
             />
           ) : null}
           <PaymentPackSelector
-            paymentPacks={paymentPacks}
-            value={this.state.payment_pack}
-            onChange={this.updatePaymentPack}
             helperText={t('parameters.paymentPack')}
-            selectorClass={classes.selector}
             nullCurrentValue={
               typeof this.state.private_pass === 'number' ||
               typeof this.state.payment_combo === 'number' ||
               this.state.warnManagerOnInvoice
             }
+            onChange={this.updatePaymentPack}
+            paymentPacks={paymentPacks}
+            selectorClass={classes.selector}
+            value={this.state.payment_pack}
           />
 
           <PrivatePassSelector
-            privatePassList={privatePassList}
-            value={this.state.private_pass}
             helperText={t('parameters.privatePass')}
-            onChange={this.updatePrivatePass}
-            selectorClass={classes.selector}
             nullCurrentValue={
               typeof this.state.payment_pack === 'number' ||
               typeof this.state.payment_combo === 'number'
             }
+            onChange={this.updatePrivatePass}
+            privatePassList={privatePassList}
+            selectorClass={classes.selector}
+            value={this.state.private_pass}
           />
 
           <PaymentComboSelector
-            paymentComboList={paymentComboList}
-            value={this.state.payment_combo}
             helperText={t('parameters.paymentCombo')}
-            onChange={this.updatePaymentCombo}
-            selectorClass={classes.selector}
             nullCurrentValue={
               typeof this.state.payment_pack === 'number' ||
               typeof this.state.private_pass === 'number'
             }
+            onChange={this.updatePaymentCombo}
+            paymentComboList={paymentComboList}
+            selectorClass={classes.selector}
+            value={this.state.payment_combo}
           />
 
           <div className={classes.field}>
             <NumericInput
-              value={this.state.nb_interval}
+              fullWidth
               label={t('parameters.nbMonths')}
               onChange={this.updateNbInterval}
-              fullWidth
+              value={this.state.nb_interval}
             />
           </div>
           <DateInput
-            minDate={moment().subtract(1, 'years').format('YYYY-MM-DD')}
-            value={this.state.first_billing_timestamp * 1000}
             label={t('parameters.firstBilling')}
+            minDate={moment().subtract(1, 'years').format('YYYY-MM-DD')}
             onChange={this.updateFirstBillingTimestamp}
+            value={this.state.first_billing_timestamp * 1000}
           />
           <GenericResponsiveDialog
-            open={this.state.alertPickedDateInThePast}
             maxWidth="sm"
+            open={this.state.alertPickedDateInThePast}
           >
             <DialogTitle>{this.props.t('contract.pastDate.title')}</DialogTitle>
             <DialogContent>
@@ -329,6 +329,7 @@ export class SubscriptionCreate extends Component<Props, State> {
             </DialogContent>
             <DialogActions>
               <Button
+                color="secondary"
                 onClick={() => {
                   this.setState({
                     first_billing_timestamp: moment().unix(),
@@ -336,16 +337,15 @@ export class SubscriptionCreate extends Component<Props, State> {
                     alertPickedDateInThePast: false,
                   });
                 }}
-                color="secondary"
               >
                 {this.props.t('contract.pastDate.cancel')}
               </Button>
               <Button
+                color="primary"
                 onClick={() => {
                   this.setState({ alertPickedDateInThePast: false });
                 }}
                 variant="contained"
-                color="primary"
               >
                 {this.props.t('contract.pastDate.validate')}
               </Button>
@@ -358,23 +358,23 @@ export class SubscriptionCreate extends Component<Props, State> {
               </Typography>
               <div className={classes.inlineField}>
                 <PriceInput
-                  value={this.state.recurrent_voucher}
+                  fullWidth
                   label={t('parameters.recurrent_voucher')}
                   onChange={this.updateRecurrentVoucher}
-                  fullWidth
+                  value={this.state.recurrent_voucher}
                 />
               </div>
             </div>
           </div>
           <div className={classes.recap}>
             <RecapSubscription
-              periodName="month"
-              member={member}
-              recurrentVoucher={this.state.recurrent_voucher}
-              nbPeriod={this.state.nb_interval}
-              price={recapPrice}
-              subscriptionContentName={recapName}
               dateStart={this.state.first_billing_timestamp * 1000}
+              member={member}
+              nbPeriod={this.state.nb_interval}
+              periodName="month"
+              price={recapPrice}
+              recurrentVoucher={this.state.recurrent_voucher}
+              subscriptionContentName={recapName}
             />
           </div>
           <div>
@@ -391,6 +391,12 @@ export class SubscriptionCreate extends Component<Props, State> {
           </div>
         </div>
         <ModalConfirm
+          handleCancel={this.handleResetSelection}
+          handleConfirm={() =>
+            this.setState({
+              warnManagerOnInvoice: false,
+            })
+          }
           open={this.state.warnManagerOnInvoice}
           options={{
             title: 'invoice:invoicePaymentPackTagWarningDialog.title',
@@ -398,12 +404,6 @@ export class SubscriptionCreate extends Component<Props, State> {
               <p>{t('invoice:invoicePaymentPackTagWarningDialog.content')}</p>
             ),
           }}
-          handleCancel={this.handleResetSelection}
-          handleConfirm={() =>
-            this.setState({
-              warnManagerOnInvoice: false,
-            })
-          }
         />
       </div>
     );

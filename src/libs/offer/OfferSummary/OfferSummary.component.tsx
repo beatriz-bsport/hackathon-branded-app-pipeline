@@ -159,6 +159,7 @@ const OfferSummary: React.FC<Props> = (props) => {
               {metaActivity?.is_broadcast && <MarketplaceBroadcastCSSOnly />}
               {waitlistExists && offer.full && (
                 <Chip
+                  className={classes.waitlistChip}
                   icon={<HourglassFull fontSize="small" />}
                   label={
                     isWaitlistFull
@@ -170,7 +171,6 @@ const OfferSummary: React.FC<Props> = (props) => {
                         )
                   }
                   size="small"
-                  className={classes.waitlistChip}
                 />
               )}
             </div>
@@ -229,7 +229,7 @@ const OfferSummary: React.FC<Props> = (props) => {
               {displayTax && (
                 <div className={classes.columnGap1}>
                   <div className={classes.price}>
-                    <Typography variant="body2" className={classes.grey}>
+                    <Typography className={classes.grey} variant="body2">
                       {t(`checkout:payment.taxExcluded`)}
                     </Typography>
                     <Typography variant="body2">
@@ -237,7 +237,7 @@ const OfferSummary: React.FC<Props> = (props) => {
                     </Typography>
                   </div>
                   <div className={classes.price}>
-                    <Typography variant="body2" className={classes.grey}>
+                    <Typography className={classes.grey} variant="body2">
                       {t(`checkout:payment.tax`)}
                     </Typography>
                     <Typography variant="body2">
@@ -257,11 +257,7 @@ const OfferSummary: React.FC<Props> = (props) => {
             </>
           )}
           <BookingConfirmButton
-            value={
-              !offer.full
-                ? t(`booking:notification.form.submit`)
-                : t(`booking:offer.mainButton.registerWaitingList`)
-            }
+            buttonLoading={confirmLoading}
             disabled={
               (offerStatus && !isBookable && !isWaitlistOpen) ||
               disableButton ||
@@ -269,7 +265,11 @@ const OfferSummary: React.FC<Props> = (props) => {
               loading
             }
             onClick={onConfirm}
-            buttonLoading={confirmLoading}
+            value={
+              !offer.full
+                ? t(`booking:notification.form.submit`)
+                : t(`booking:offer.mainButton.registerWaitingList`)
+            }
           />
         </div>
       )}

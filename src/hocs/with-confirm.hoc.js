@@ -37,11 +37,11 @@ export default function withConfirm<T>(
       return (
         <div style={{ ...wrapperStyle, display: 'inline-block' }}>
           <ModalConfirm
-            open={this.state.dialogOpen}
-            options={options}
+            countDownConfirm={options.countDownConfirm}
             handleCancel={this.handleCancel}
             handleConfirm={this.handleConfirm}
-            countDownConfirm={options.countDownConfirm}
+            open={this.state.dialogOpen}
+            options={options}
           />
           <Component {...mergedProps} />
         </div>

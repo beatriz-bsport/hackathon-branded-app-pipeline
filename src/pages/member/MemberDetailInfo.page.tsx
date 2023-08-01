@@ -410,110 +410,110 @@ export class MemberDetailPage extends React.PureComponent<Props> {
       <Grid container direction="row" spacing={2}>
         <Grid item lg={6} xs={12}>
           <MemberSummaryCard
-            member={this.props.member}
             companyCountry={this.props.companyCountry}
+            editMember={this.handleEditMember}
+            emailDetailLoading={this.props.emailDetailLoading}
+            emailDetails={this.props.email_templates_details}
+            emailListLoading={this.props.emailListLoading}
+            emails={this.props.email_templates_list}
             favoriteEstablishmentGroupList={
               this.props.favoriteEstablishmentGroupList
             }
-            editMember={this.handleEditMember}
-            mergeMember={this.handleMergeMember}
-            getEmails={this.props.fetchEmailTemplatesSummaries}
-            emails={this.props.email_templates_list}
             getEmailDetail={this.props.fetchEmailTemplateDetail}
-            emailDetails={this.props.email_templates_details}
-            emailListLoading={this.props.emailListLoading}
-            emailDetailLoading={this.props.emailDetailLoading}
+            getEmails={this.props.fetchEmailTemplatesSummaries}
+            handleOpenResetPasswordDialog={this.handleOpenResetPasswordDialog}
+            member={this.props.member}
+            mergeMember={this.handleMergeMember}
+            resolvedGenericTags={this.props.resolvedGenericTags}
             sendCommunication={this.props.sendCommunication}
             showVaccinationStatus={this.props.showVaccinationStatus}
-            resolvedGenericTags={this.props.resolvedGenericTags}
-            handleOpenResetPasswordDialog={this.handleOpenResetPasswordDialog}
           />
           {member && !member.is_pos && (
             <>
               <MemberBillingProblemCard
+                adjustCreditWithoutPaymentNote={
+                  this.adjustCreditWithoutPaymentNote
+                }
+                applyBalanceToUnpaidInvoices={this.applyBalanceToUnpaidInvoices}
+                applyGiftcardOnInvoice={this.applyGiftcardOnInvoice}
+                asConsumer={false}
+                availablePaymentMethodList={
+                  this.props.payment_method_available_manager
+                }
+                balance={this.props.member.credit_account_balance}
+                companyId={this.props.companyId}
+                consumerGiftcardList={this.props.consumerGiftcardList}
+                detachPaymentMethod={this.props.detachPaymentMethod}
+                detachPaymentMethodLoading={
+                  this.props.detachPaymentMethodLoading
+                }
+                enableMultiLocalization={
+                  this.props.companyTheme.enable_multi_localization
+                }
+                establishments={this.props.establishmentList}
+                fetchInvoiceListUnpaid={this.fetchInvoiceListUnpaid}
+                forceOnlyInternal={this.props.onlinePaymentEnabled === false}
                 invoiceLoading={this.props.invoiceLoading}
                 member={this.props.member}
                 memberId={this.props.id}
                 memberLoading={this.props.memberLoading}
-                unpaidInvoiceList={this.props.unpaidInvoiceList}
                 onClickInvoice={this.props.goToInvoice}
-                asConsumer={false}
-                balance={this.props.member.credit_account_balance}
-                applyBalanceToUnpaidInvoices={this.applyBalanceToUnpaidInvoices}
-                adjustCreditWithoutPaymentNote={
-                  this.adjustCreditWithoutPaymentNote
-                }
-                fetchInvoiceListUnpaid={this.fetchInvoiceListUnpaid}
-                availablePaymentMethodList={
-                  this.props.payment_method_available_manager
-                }
-                detachPaymentMethodLoading={
-                  this.props.detachPaymentMethodLoading
-                }
+                onlinePaymentEnabled={this.props.onlinePaymentEnabled}
                 snackbarErrorMsg={this.props.snackbarErrorMsg}
                 snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-                detachPaymentMethod={this.props.detachPaymentMethod}
-                establishments={this.props.establishmentList}
-                enableMultiLocalization={
-                  this.props.companyTheme.enable_multi_localization
-                }
-                companyId={this.props.companyId}
                 stripeId={this.props.companyTheme.stripe_id}
-                applyGiftcardOnInvoice={this.applyGiftcardOnInvoice}
-                consumerGiftcardList={this.props.consumerGiftcardList}
                 stripeReaders={this.props.stripeReaders || []}
-                onlinePaymentEnabled={this.props.onlinePaymentEnabled}
-                forceOnlyInternal={this.props.onlinePaymentEnabled === false}
+                unpaidInvoiceList={this.props.unpaidInvoiceList}
               />
               <TaskList
-                taskList={this.props.taskList}
-                updateTaskStatus={this.props.updateTaskStatus}
                 createOrUpdateTask={this.props.createOrUpdateTask}
                 fetchCompanyUserRoles={this.props.fetchCompanyUserRoles}
-                staffList={this.props.staffList}
                 loading={this.props.taskLoading}
+                staffList={this.props.staffList}
+                taskList={this.props.taskList}
+                updateTaskStatus={this.props.updateTaskStatus}
               />
             </>
           )}
         </Grid>
         <Grid item lg={6} xs={12}>
           <MemberCRM
-            snackbarSuccess={this.props.snackbarSuccess}
-            memberId={this.props.id}
-            member={this.props.member}
-            credit_account_balance={member.credit_account_balance}
-            // notes
-            notes={this.props.member?.notes || []}
-            createOrUpdateNote={this.props.createOrUpdateNote}
-            deleteNote={this.props.deleteNote}
-            // Tag
-            memberTags={this.props.member?.tags || []}
-            tagGroups={this.props.tagGroups}
-            createTag={this.handleCreateTag}
-            createTagGroup={this.props.createTagGroup}
-            updateTag={this.props.updateTag}
-            updateTagGroup={this.props.updateTagGroup}
             attributeTag={this.tagMember}
-            untag={this.unTagMember}
+            companyId={this.props.companyTheme.company}
+            createOrUpdateNote={this.props.createOrUpdateNote}
+            createTag={this.handleCreateTag}
+            // notes
+            createTagGroup={this.props.createTagGroup}
+            credit_account_balance={member.credit_account_balance}
+            deleteFile={this.handleDeleteFile}
+            // Tag
+            deleteNote={this.props.deleteNote}
             deleteTag={this.deleteTag}
             deleteTagGroup={this.deleteTagGroup}
-            tagGroupsLoading={this.props.tagGroupsLoading}
-            // Files
-            openFileUploadDialog={this.handleOpenFileUpload}
-            uploadedFiles={this.props.member?.files || []}
-            deleteFile={this.handleDeleteFile}
-            updateVisibility={this.updateFileVisibility}
-            // Payment
-            paymentMethod={this.props.paymentMethod}
-            paymentMethodLoading={this.props.paymentMethodLoading}
             detachPaymentMethod={this.props.detachPaymentMethod}
             detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
-            snackbarErrorMsg={this.props.snackbarErrorMsg}
-            snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+            member={this.props.member}
+            memberId={this.props.id}
+            memberTags={this.props.member?.tags || []}
+            notes={this.props.member?.notes || []}
             openAddPaymentMethodDialog={this.openAddPaymentMethodDialog}
-            companyId={this.props.companyTheme.company}
-            updateSpiviPrivacySettings={this.props.updateSpiviPrivacySettings}
+            openFileUploadDialog={this.handleOpenFileUpload}
+            // Files
+            paymentMethod={this.props.paymentMethod}
+            paymentMethodLoading={this.props.paymentMethodLoading}
+            snackbarErrorMsg={this.props.snackbarErrorMsg}
+            snackbarSuccess={this.props.snackbarSuccess}
+            // Payment
+            snackbarSuccessMsg={this.props.snackbarSuccessMsg}
             spiviPrivacySettingsLoading={this.props.spiviPrivacySettingsLoading}
+            tagGroups={this.props.tagGroups}
+            tagGroupsLoading={this.props.tagGroupsLoading}
+            untag={this.unTagMember}
+            updateSpiviPrivacySettings={this.props.updateSpiviPrivacySettings}
+            updateTag={this.props.updateTag}
+            updateTagGroup={this.props.updateTagGroup}
+            updateVisibility={this.updateFileVisibility}
+            uploadedFiles={this.props.member?.files || []}
           />
           <MemberEventPanel
             eventList={this.props.eventList}
@@ -527,12 +527,12 @@ export class MemberDetailPage extends React.PureComponent<Props> {
         {this.props.member?.id && !!companyCountry && !!stripeRegion && (
           <PaymentModal isOpen={this.props.isAddPaymentMethodDialogOpen}>
             <AddPaymentMethod
-              onCancel={this.handleOpenAddPaymentMethodDialog}
-              requestSetupIntentSecret={this.requestSetupIntentSecret}
-              refreshSavedPaymentMethodList={
-                this.props.fetchMemberPaymentMethod
+              addViaTerminal={
+                stripeRegion === 'NorthAmerica' &&
+                TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
               }
-              paymentMethodType={this.state.paymentMethodType}
+              companyId={this.props.companyTheme.company}
+              disabled={false}
               enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
                 {
                   currency: this.props.companyTheme.currency,
@@ -540,60 +540,60 @@ export class MemberDetailPage extends React.PureComponent<Props> {
                   stripeRegion,
                 },
               )}
+              onCancel={this.handleOpenAddPaymentMethodDialog}
               onChange={this.changePaymentMethodType}
-              disabled={false}
-              sepaDefaultName={this.props.member ? this.props.member.name : ''}
+              paymentMethodType={this.state.paymentMethodType}
+              refreshSavedPaymentMethodList={
+                this.props.fetchMemberPaymentMethod
+              }
+              requestSetupIntentSecret={this.requestSetupIntentSecret}
               sepaDefaultEmail={
                 this.props.member ? this.props.member.email : ''
               }
+              sepaDefaultName={this.props.member ? this.props.member.name : ''}
               stripeReaders={this.props.stripeReaders || []}
-              companyId={this.props.companyTheme.company}
-              addViaTerminal={
-                stripeRegion === 'NorthAmerica' &&
-                TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
-              }
             />
           </PaymentModal>
         )}
         <MemberSearchModal
           asManager
-          searchMembers={this.props.searchMembers}
-          searchedMembers={this.props.filteredSearchedMembers}
-          open={!!this.state.searchModalOpen}
-          onClose={this.handleCloseSearchModal}
-          handlMemberSelected={this.handleMemberSelected}
           companyCountry={this.props.companyCountry}
+          handlMemberSelected={this.handleMemberSelected}
+          onClose={this.handleCloseSearchModal}
+          open={!!this.state.searchModalOpen}
+          searchedMembers={this.props.filteredSearchedMembers}
+          searchMembers={this.props.searchMembers}
         />
         <TagDeleteDialog
-          open={!!this.state.tagToDelete}
           onClose={this.handleCloseTagDeleteDialog}
           onSubmit={this.handleSubmitTagDelete}
+          open={!!this.state.tagToDelete}
         />
         <FileUploadDialog
-          open={!!this.state.fileToUpload}
+          fileUploader={fileUploaderOptions}
           onCancel={this.handleCancelFileUpload}
           onSubmit={this.handleSubmitFileUpload}
-          fileUploader={fileUploaderOptions}
+          open={!!this.state.fileToUpload}
         />
         <ModalDeleteFile
-          open={this.state.fileToDelete}
-          options={this.deleteFileOptions}
           handleCancel={this.handleCancelDeleteFile}
           handleConfirm={this.handleSubmitDeleteFile}
+          open={this.state.fileToDelete}
+          options={this.deleteFileOptions}
         />
         <TagGroupDeleteDialog
-          open={!!this.state.tagGroupToDelete}
           onClose={this.handleCloseTagGroupDialog}
           onSubmit={this.handleSubmitTagGroupDialog}
+          open={!!this.state.tagGroupToDelete}
         />
         <MemberResetPasswordDialog
-          open={this.state.isResetPasswordDialogOpen}
           email={this.props.member?.email}
           emailSent={this.state.isResetPasswordEmailSent}
-          loading={this.props.resetLoading}
           error={this.state.isResetPasswordError}
-          onResetPassword={this.handleResetPassword}
+          loading={this.props.resetLoading}
           onClose={this.handleCloseResetPasswordDialog}
+          onResetPassword={this.handleResetPassword}
+          open={this.state.isResetPasswordDialogOpen}
         />
       </Grid>
     );

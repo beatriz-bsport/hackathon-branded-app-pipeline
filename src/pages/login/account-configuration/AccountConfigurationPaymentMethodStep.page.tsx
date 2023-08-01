@@ -93,32 +93,32 @@ export class AccountConfigurationPaymentMethodStepPage extends Component<Props> 
     }
     return (
       <PaymentMethodStep
-        has_no_need_for_stripe_configuration={
-          this.props.stripeCompany.has_no_need_for_stripe_configuration
-        }
+        currency={this.props.companySetup?.currency}
+        goNext={this.validatePaymentMethodStep}
+        goPrevious={this.goPrevious}
         has_no_need_for_bank_account_configuration={
           this.props.stripeCompany.has_no_need_for_bank_account_configuration
         }
         has_no_need_for_payment_method_configuration={
           this.props.stripeCompany.has_no_need_for_payment_method_configuration
         }
-        onPaymentMethodSuccess={this.onPaymentMethodAdded}
-        goNext={this.validatePaymentMethodStep}
-        goPrevious={this.goPrevious}
-        currency={this.props.companySetup?.currency}
-        requestSetupIntentSecret={this.requestSetupIntentSecret}
+        has_no_need_for_stripe_configuration={
+          this.props.stripeCompany.has_no_need_for_stripe_configuration
+        }
         memberEmail={this.props.myProfile?.email}
         memberName={
           this.props.myProfile?.first_name
             ? `${this.props.myProfile?.first_name} ${this.props.myProfile?.last_name}`
             : null
         }
+        onPaymentMethodSuccess={this.onPaymentMethodAdded}
         paymentMethodLoading={this.props.savedPaymentMethodListLoading}
         paymentMethodRegistered={
           this.props.savedPaymentMethodList?.length
             ? this.props.savedPaymentMethodList[0]
             : null
         }
+        requestSetupIntentSecret={this.requestSetupIntentSecret}
       />
     );
   }

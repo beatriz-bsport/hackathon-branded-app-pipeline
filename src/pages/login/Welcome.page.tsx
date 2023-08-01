@@ -49,7 +49,7 @@ export const WelcomePage: React.FC<Props> = ({
           <LoginBackgroundComponent company />
           <Fade in>
             <div className={classes.header}>
-              <img src={src} className={classes.logo} alt={alt} />
+              <img alt={alt} className={classes.logo} src={src} />
 
               <LanguageButton />
             </div>
@@ -59,11 +59,11 @@ export const WelcomePage: React.FC<Props> = ({
       <Paper className={classes.container}>
         <Welcome
           companyName={theme.company_name}
+          simplifyUI={simplifyUI}
           urlRedirection={
             theme.confirm_email_url_redirection ||
             `${Config.PUBLIC_URL}/c/${companyId}`
           }
-          simplifyUI={simplifyUI}
         />
       </Paper>
     </>

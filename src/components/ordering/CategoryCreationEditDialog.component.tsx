@@ -45,13 +45,13 @@ export const CategoryCreationEditDialog = (props: Props) => {
 
   return (
     <Dialog
-      fullWidth
-      maxWidth="sm"
-      open={props.open}
-      onClose={props.onClose}
       disableBackdropClick
       disableEscapeKeyDown
+      fullWidth
       fullScreen={fullScreen}
+      maxWidth="sm"
+      onClose={props.onClose}
+      open={props.open}
     >
       <DialogTitle id="form-dialog-title">
         {categorySelected
@@ -60,16 +60,16 @@ export const CategoryCreationEditDialog = (props: Props) => {
       </DialogTitle>
       <DialogContent>
         <TextField
-          value={categoryName}
-          placeholder={t('category.creationDialog.name')}
-          onChange={(ev) => setCategoryName(ev.target.value)}
           fullWidth
           required
+          onChange={(ev) => setCategoryName(ev.target.value)}
+          placeholder={t('category.creationDialog.name')}
+          value={categoryName}
           variant="outlined"
         />
         {!categorySelected && props.categoryCreationHelper && (
           <div className={classes.textAndIcon}>
-            <Alert severity="info" className={classes.alertInfo}>
+            <Alert className={classes.alertInfo} severity="info">
               {props.categoryCreationHelper}
             </Alert>
           </div>
@@ -77,19 +77,19 @@ export const CategoryCreationEditDialog = (props: Props) => {
       </DialogContent>
       <DialogActions>
         <Button
+          color="secondary"
           onClick={() => {
             props.onClose();
           }}
-          color="secondary"
         >
           {t('category.creationDialog.cancel')}
         </Button>
         <Button
+          color="secondary"
+          disabled={!categoryName}
           onClick={() => {
             handleSubmit();
           }}
-          disabled={!categoryName}
-          color="secondary"
         >
           {categorySelected
             ? t('category.creationDialog.edit')

@@ -165,28 +165,28 @@ export const PrivateBookingCard = (props: Props) => {
       <div className={classes.container}>
         {openAllocationModal && (
           <ResourceAllocationConfirmDialog
-            privateBooking={private_booking}
-            onSubmit={onSubmit}
-            onCancel={onCancel}
             dateStart={props.updatedTime?.format()}
+            onCancel={onCancel}
+            onSubmit={onSubmit}
+            privateBooking={private_booking}
           />
         )}
         <DialogTitle>{t('privateBooking.updateTime.title')}</DialogTitle>
         <DialogContent>
           <MuiPickersUtilsProvider
-            utils={MomentUtils}
-            moment={moment}
             locale={moment.locale()}
+            moment={moment}
+            utils={MomentUtils}
           >
             <InlineDateTimePicker
               keyboard
               ampm={false}
+              format="YYYY/MM/DD HH:mm"
+              onChange={props.setUpdatedTime}
+              onError={console.error}
               value={
                 props.updatedTime || moment(props.private_booking.date_start)
               }
-              onChange={props.setUpdatedTime}
-              onError={console.error}
-              format="YYYY/MM/DD HH:mm"
             />
           </MuiPickersUtilsProvider>
           <Typography
@@ -215,7 +215,7 @@ export const PrivateBookingCard = (props: Props) => {
             {props.private_booking.booking_status_code !==
             BOOKING_STATUS_OK.id ? (
               <div className={classes.firstRow}>
-                <Typography variant="h6" color="error">
+                <Typography color="error" variant="h6">
                   {t(
                     ...getPrivateBookingStatusCodeForCalendar(
                       props.private_booking,
@@ -225,23 +225,23 @@ export const PrivateBookingCard = (props: Props) => {
                 <div className={classes.chipContainer}>
                   {props.private_booking.was_refunded ? (
                     <Chip
-                      size="small"
                       color="primary"
                       label={
-                        <Typography variant="body2" color="white">
+                        <Typography color="white" variant="body2">
                           {`${t('privateBooking.isRefunded')}`}
                         </Typography>
                       }
+                      size="small"
                     />
                   ) : (
                     <RedChip
-                      size="small"
                       color="primary"
                       label={
-                        <Typography variant="body2" color="white">
+                        <Typography color="white" variant="body2">
                           {`${t('privateBooking.notRefunded')}`}
                         </Typography>
                       }
+                      size="small"
                     />
                   )}
                 </div>
@@ -298,28 +298,28 @@ export const PrivateBookingCard = (props: Props) => {
           </ListItemSecondaryAction>
         </ListItem>
         <MemberMinimalListItem
-          firstPrivateBooking={private_booking.first_in_company}
-          updateMemberMetricValue={props.updateMemberMetricValue}
+          bottomCredit
           createMemberProgram={props.createMemberProgram}
-          programList={props.programList}
+          fetchPerformanceTrackingData={props.fetchPerformanceTrackingData}
+          firstPrivateBooking={private_booking.first_in_company}
           member={private_booking.member}
           onClick={
             props.goToMember
               ? () => props.goToMember(private_booking.member.id)
               : null
           }
-          showVaccinationStatus={props.showVaccinationStatus}
-          fetchPerformanceTrackingData={props.fetchPerformanceTrackingData}
           programDataLoading={props.programDataLoading}
-          bottomCredit
+          programList={props.programList}
+          showVaccinationStatus={props.showVaccinationStatus}
+          updateMemberMetricValue={props.updateMemberMetricValue}
         />
         {private_booking.coach && !props.isCoach ? (
           <CoachListItem
+            noEdit
+            coach={private_booking.coach}
             onCoachSelected={() =>
               props.goToCoachCalendar(private_booking.coach.id)
             }
-            noEdit
-            coach={private_booking.coach}
             onEditCoach={() => props.setIsUpdateCoachFormOpen(true)}
           />
         ) : null}
@@ -338,16 +338,16 @@ export const PrivateBookingCard = (props: Props) => {
             <div className={classes.invoiceTable}>
               <Divider />
               <InvoiceTable
-                hideMemberName
                 compactMode
-                showOpenInvoiceNested
+                hideMemberName
                 hidePagination
-                onBill={props.setInvoiceToBill}
-                invoiceList={props.unpaidInvoiceList}
-                snackbarSuccess={props.snackbarSuccess}
-                companyId={props.companyId}
+                showOpenInvoiceNested
                 applyGiftcardOnInvoice={applyGiftcardOnInvoice}
+                companyId={props.companyId}
                 consumerGiftcardList={props.consumerGiftcardList}
+                invoiceList={props.unpaidInvoiceList}
+                onBill={props.setInvoiceToBill}
+                snackbarSuccess={props.snackbarSuccess}
               />
             </div>
           </>
@@ -378,8 +378,20 @@ export const PrivateBookingCard = (props: Props) => {
       {!!props.invoiceToBill && !!props.invoiceToBill.member && (
         <PaymentDialog
           termsAndConditionsAccepted
+          amountToPay={parseFloat(
+            props.invoiceToBill.amount_due_cts -
+              props.invoiceToBill.amount_paid_cts,
+          ).toFixed(2)}
+          availablePaymentMethodList={props.availablePaymentMethodList}
+          clientSecret={props.clientSecretLoading ? null : props.clientSecret}
+          clientSecretLoading={props.clientSecretLoading}
+          companyId={props.companyId}
+          defaultUserEmail={props.invoiceToBill.member.email}
+          defaultUserName={props.invoiceToBill.member.name}
           memberId={private_booking.member.id}
+          onCancel={() => props.setInvoiceToBill(null)}
           onError={() => {}}
+          onlinePaymentEnabled={props.onlinePaymentEnabled}
           onSuccess={(callback) => {
             setTimeout(() => {
               props.fetchInvoiceListUnpaid(private_booking.member.id);
@@ -387,21 +399,9 @@ export const PrivateBookingCard = (props: Props) => {
               if (typeof callback === 'function') callback();
             }, 3000);
           }}
-          requestClientSecret={props.requestClientSecret}
           paymentGroupId={props.paymentGroupId}
           paymentGroupPriceCts={props.paymentGroupPriceCts}
-          clientSecret={props.clientSecretLoading ? null : props.clientSecret}
-          clientSecretLoading={props.clientSecretLoading}
-          amountToPay={parseFloat(
-            props.invoiceToBill.amount_due_cts -
-              props.invoiceToBill.amount_paid_cts,
-          ).toFixed(2)}
-          onCancel={() => props.setInvoiceToBill(null)}
-          availablePaymentMethodList={props.availablePaymentMethodList}
-          defaultUserName={props.invoiceToBill.member.name}
-          defaultUserEmail={props.invoiceToBill.member.email}
-          onlinePaymentEnabled={props.onlinePaymentEnabled}
-          companyId={props.companyId}
+          requestClientSecret={props.requestClientSecret}
           stripeId={props.stripeId}
         />
       )}

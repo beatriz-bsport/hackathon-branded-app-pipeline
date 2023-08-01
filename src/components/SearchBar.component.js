@@ -72,19 +72,19 @@ export class SearchBar extends Component<Props> {
     return (
       <div className={`${classes.bar} ${className}`}>
         <Popover
+          disableAutoFocus
+          transition
+          anchorEl={this.props.memberHistoryAnchor}
+          open={
+            Boolean(this.props.memberHistoryAnchor) &&
+            !!this.props.memberHistory.length
+          }
           style={{
             zIndex: 1000000,
             padding: 8,
             maxHeight: '70vh',
             overflowY: 'auto',
           }}
-          disableAutoFocus
-          anchorEl={this.props.memberHistoryAnchor}
-          open={
-            Boolean(this.props.memberHistoryAnchor) &&
-            !!this.props.memberHistory.length
-          }
-          transition
         >
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>
@@ -97,8 +97,8 @@ export class SearchBar extends Component<Props> {
                   return (
                     <ListItem
                       key={m.id}
-                      divider
                       button
+                      divider
                       onClick={() => {
                         this.props.push(`/member/${m.id}/info`);
                       }}
@@ -109,7 +109,7 @@ export class SearchBar extends Component<Props> {
                             <div>{m.name}</div>
                             <div className={classes.icon}>
                               {isBirthday && (
-                                <Cake fontSize="inherit" color="secondary" />
+                                <Cake color="secondary" fontSize="inherit" />
                               )}
                             </div>
                           </div>
@@ -124,16 +124,8 @@ export class SearchBar extends Component<Props> {
           )}
         </Popover>
         <DelayedTextField
-          variant="outlined"
-          className={classes.field}
-          placeholder={t('input')}
-          value={searchText || ''}
           fullWidth
-          onChange={this.handleChange}
-          onBlur={() => this.props.setMemberHistoryAnchor(null)}
-          onFocus={(ev) => {
-            this.props.setMemberHistoryAnchor(ev.currentTarget);
-          }}
+          className={classes.field}
           InputProps={{
             className: classes.input,
             startAdornment: (
@@ -153,6 +145,14 @@ export class SearchBar extends Component<Props> {
                 </InputAdornment>
               ) : null,
           }}
+          onBlur={() => this.props.setMemberHistoryAnchor(null)}
+          onChange={this.handleChange}
+          onFocus={(ev) => {
+            this.props.setMemberHistoryAnchor(ev.currentTarget);
+          }}
+          placeholder={t('input')}
+          value={searchText || ''}
+          variant="outlined"
         />
       </div>
     );

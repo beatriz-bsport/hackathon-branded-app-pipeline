@@ -57,8 +57,8 @@ function CompanyCoverPreview(props: { previewURL?: string }) {
   return (
     <img
       alt="company logo"
-      style={{ height: '100%', width: '100%', borderRadius: 35 }}
       src={props.previewURL}
+      style={{ height: '100%', width: '100%', borderRadius: 35 }}
     />
   );
 }
@@ -177,7 +177,7 @@ export class ThemeForm extends Component<Props, State> {
       <div>
         <Dialog open={this.state.isWarningDialogOpen}>
           <DialogTitle>
-            <Typography variant="h6" className={classes.bold}>
+            <Typography className={classes.bold} variant="h6">
               {t('forms.warningColorBrightness.title')}
             </Typography>
           </DialogTitle>
@@ -198,15 +198,15 @@ export class ThemeForm extends Component<Props, State> {
             </RedButton>
           </DialogActions>
         </Dialog>
-        <Typography variant="h6" className={this.props.classes.idContainer}>
+        <Typography className={this.props.classes.idContainer} variant="h6">
           {`BSPORT ID: ${this.props.theme ? this.props.theme.company : ' - '}`}
         </Typography>
         <div className={classes.inputContainer}>
           <ImageUploader169
-            label={t('forms.cover.label')}
             helperText={t('forms.cover.helperText')}
-            onChange={this.handleCoverChange}
             initial={this.state.theme.cover}
+            label={t('forms.cover.label')}
+            onChange={this.handleCoverChange}
           >
             <CompanyCoverPreview />
           </ImageUploader169>
@@ -216,19 +216,19 @@ export class ThemeForm extends Component<Props, State> {
             className={classNames(classes.horizontalInput, classes.alignItems)}
           >
             <ColorInput
-              label={t('forms.primary_color.label')}
+              color={this.state.theme.primary_color}
               helperText={t('forms.primary_color.helperText')}
+              label={t('forms.primary_color.label')}
               onChange={(color: any) =>
                 this.handleChange('primary_color')(color)
               }
-              color={this.state.theme.primary_color}
             />
             <Button
+              className={classes.exampleButton}
               style={{
                 color: this.state.theme.primary_color,
                 borderColor: this.state.theme.primary_color,
               }}
-              className={classes.exampleButton}
               variant="outlined"
             >
               {t('forms.warningColorBrightness.example')}
@@ -238,19 +238,19 @@ export class ThemeForm extends Component<Props, State> {
             className={classNames(classes.horizontalInput, classes.alignItems)}
           >
             <ColorInput
+              color={this.state.theme.secondary_color}
+              helperText={t('forms.secondary_color.helperText')}
+              label={t('forms.secondary_color.label')}
               onChange={(color: any) =>
                 this.handleChange('secondary_color')(color)
               }
-              label={t('forms.secondary_color.label')}
-              helperText={t('forms.secondary_color.helperText')}
-              color={this.state.theme.secondary_color}
             />
             <Button
+              className={classes.exampleButton}
               style={{
                 color: this.state.theme.secondary_color,
                 borderColor: this.state.theme.secondary_color,
               }}
-              className={classes.exampleButton}
               variant="outlined"
             >
               {t('forms.warningColorBrightness.example')}
@@ -260,55 +260,55 @@ export class ThemeForm extends Component<Props, State> {
         <div className={classes.inputContainer}>
           <TextField
             className={classes.textfield}
-            variant="outlined"
-            placeholder={t('forms.websiteURL.placeholder')}
+            error={hasErrorInURL}
             helperText={
               hasErrorInURL
                 ? t('forms.websiteURL.errorText')
                 : t('forms.websiteURL.helperText')
             }
             label={t('forms.websiteURL.label')}
-            error={hasErrorInURL}
-            value={this.state.theme.websiteURL}
             onChange={(ev) => this.handleChange('websiteURL')(ev.target.value)}
+            placeholder={t('forms.websiteURL.placeholder')}
+            value={this.state.theme.websiteURL}
+            variant="outlined"
           />
         </div>
         <div className={classes.inputContainer}>
           <TextField
             className={classes.textfield}
-            variant="outlined"
-            placeholder={t('forms.scheduleURL.placeholder')}
             helperText={t('forms.scheduleURL.helperText')}
             label={t('forms.scheduleURL.label')}
-            value={this.state.theme.scheduleURL}
             onChange={(ev) => this.handleChange('scheduleURL')(ev.target.value)}
+            placeholder={t('forms.scheduleURL.placeholder')}
+            value={this.state.theme.scheduleURL}
+            variant="outlined"
           />
         </div>
         <div className={classes.inputContainer}>
           <div className={classes.horizontalInput}>
             <TextField
-              variant="outlined"
               className={classes.textfield}
-              placeholder={t('forms.android_app_url.placeholder')}
               helperText={t('forms.android_app_url.helperText')}
               label={t('forms.android_app_url.label')}
-              value={this.state.theme.android_app_url}
               onChange={(ev) =>
                 this.handleChange('android_app_url')(ev.target.value)
               }
+              placeholder={t('forms.android_app_url.placeholder')}
+              value={this.state.theme.android_app_url}
+              variant="outlined"
             />
           </div>
           <div className={classes.horizontalInput}>
             <TextField
               className={classes.textfield}
-              variant="outlined"
-              placeholder={t('forms.ios_app_url.placeholder')}
               helperText={t('forms.ios_app_url.helperText')}
               label={t('forms.ios_app_url.label')}
-              value={this.state.theme.ios_app_url}
               onChange={(ev) =>
                 this.handleChange('ios_app_url')(ev.target.value)
               }
+              placeholder={t('forms.ios_app_url.placeholder')}
+              value={this.state.theme.ios_app_url}
+              variant="outlined"
             />
           </div>
         </div>
@@ -316,113 +316,113 @@ export class ThemeForm extends Component<Props, State> {
           <div className={classes.horizontalInput}>
             <TextField
               className={classes.textfield}
-              variant="outlined"
-              placeholder={t('forms.instagramURL.placeholder')}
               helperText={t('forms.instagramURL.helperText')}
               label={t('forms.instagramURL.label')}
-              value={this.state.theme.instagramURL}
               onChange={(ev) =>
                 this.handleChange('instagramURL')(ev.target.value)
               }
+              placeholder={t('forms.instagramURL.placeholder')}
+              value={this.state.theme.instagramURL}
+              variant="outlined"
             />
           </div>
           <div className={classes.horizontalInput}>
             <TextField
               className={classes.textfield}
-              variant="outlined"
-              placeholder={t('forms.facebookURL.placeholder')}
               helperText={t('forms.facebookURL.helperText')}
               label={t('forms.facebookURL.label')}
-              value={this.state.theme.facebookURL}
               onChange={(ev) =>
                 this.handleChange('facebookURL')(ev.target.value)
               }
+              placeholder={t('forms.facebookURL.placeholder')}
+              value={this.state.theme.facebookURL}
+              variant="outlined"
             />
           </div>
         </div>
         <div className={classes.textField}>
           <TextField
             fullWidth
-            variant="outlined"
             multiline
-            rows={5}
-            placeholder={t('forms.general_terms_and_conditions.placeholder')}
             helperText={t('forms.general_terms_and_conditions.helperText')}
             label={t('forms.general_terms_and_conditions.label')}
-            value={this.state.theme.general_terms_and_conditions}
             onChange={(ev) =>
               this.handleChange('general_terms_and_conditions')(ev.target.value)
             }
+            placeholder={t('forms.general_terms_and_conditions.placeholder')}
+            rows={5}
+            value={this.state.theme.general_terms_and_conditions}
+            variant="outlined"
           />
         </div>
         <div className={classes.textField}>
           <TextField
             fullWidth
-            variant="outlined"
             multiline
-            rows={5}
-            placeholder={t('forms.general_terms_of_use.placeholder')}
             helperText={t('forms.general_terms_of_use.helperText')}
             label={t('forms.general_terms_of_use.label')}
-            value={this.state.theme.general_terms_of_use}
             onChange={(ev) =>
               this.handleChange('general_terms_of_use')(ev.target.value)
             }
+            placeholder={t('forms.general_terms_of_use.placeholder')}
+            rows={5}
+            value={this.state.theme.general_terms_of_use}
+            variant="outlined"
           />
         </div>
         <div className={classes.textField}>
           <TextField
             fullWidth
-            variant="outlined"
             multiline
-            rows={5}
-            placeholder={t('forms.waiver.placeholder')}
             helperText={t('forms.waiver.helperText')}
             label={t('forms.waiver.label')}
-            value={this.state.theme.waiver}
             onChange={(ev) => this.handleChange('waiver')(ev.target.value)}
+            placeholder={t('forms.waiver.placeholder')}
+            rows={5}
+            value={this.state.theme.waiver}
+            variant="outlined"
           />
         </div>
         <div className={classes.textField}>
           <TextField
             fullWidth
-            variant="outlined"
             multiline
-            rows={5}
             label={t('forms.extra_info.label')}
-            value={this.state.theme.extra_info}
             onChange={(ev) => this.handleChange('extra_info')(ev.target.value)}
+            rows={5}
+            value={this.state.theme.extra_info}
+            variant="outlined"
           />
         </div>
 
         <div className={classes.inputContainer}>
           <TextField
             className={classes.textfield}
-            variant="outlined"
-            placeholder={t('forms.gtmId.placeholder')}
             label={t('forms.gtmId.label')}
-            value={this.state.theme.gtmId}
             onChange={(ev) => this.handleChange('gtmId')(ev.target.value)}
+            placeholder={t('forms.gtmId.placeholder')}
+            value={this.state.theme.gtmId}
+            variant="outlined"
           />
         </div>
 
         <div className={classes.inputContainer}>
           <TextField
             className={classes.textfield}
-            variant="outlined"
-            placeholder={t('forms.facebookPixelId.placeholder')}
             label={t('forms.facebookPixelId.label')}
-            value={this.state.theme.facebookPixelId}
             onChange={(ev) =>
               this.handleChange('facebookPixelId')(ev.target.value)
             }
+            placeholder={t('forms.facebookPixelId.placeholder')}
+            value={this.state.theme.facebookPixelId}
+            variant="outlined"
           />
         </div>
 
         <div className={classes.buttonContainer}>
           <Button
-            onClick={() => this.props.setOpenAnalyticsUsage(true)}
             color="primary"
+            onClick={() => this.props.setOpenAnalyticsUsage(true)}
           >
             {t('analytics.showAnalyticsInformation')}
           </Button>
@@ -430,20 +430,20 @@ export class ThemeForm extends Component<Props, State> {
 
         <div className={classes.buttonContainer}>
           <Button
-            onClick={() => this.onSubmit()}
+            color="primary"
             disabled={
               this.checkChange() || this.props.processing || hasErrorInURL
             }
+            onClick={() => this.onSubmit()}
             variant="contained"
-            color="primary"
           >
             {t('forms.submit')}
           </Button>
           {hasErrorInURL && (
             <Typography
-              variant="caption"
-              color="error"
               className={classes.messageErrorURL}
+              color="error"
+              variant="caption"
             >
               {t('forms.themePersonalization.errorURL')}
             </Typography>
@@ -454,8 +454,8 @@ export class ThemeForm extends Component<Props, State> {
         </div>
 
         <AnalyticsDialog
-          open={this.props.openAnalyticsUsage}
           onCancel={() => this.props.setOpenAnalyticsUsage(false)}
+          open={this.props.openAnalyticsUsage}
         />
       </div>
     );

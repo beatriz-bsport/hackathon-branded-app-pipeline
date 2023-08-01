@@ -37,17 +37,17 @@ export const PayoutList = (props: Props) => {
 
   return (
     <>
-      <Typography variant="h5" className={classes.title}>
+      <Typography className={classes.title} variant="h5">
         {t('payout.title')}
       </Typography>
       <Divider className={classes.divider} />
 
       {!props.loading && !props.payoutList.length && (
         <div>
-          <Typography variant="body2" color="textSecondary">
+          <Typography color="textSecondary" variant="body2">
             {t('payout.isEmpty')}
           </Typography>
-          <Typography variant="caption" color="textSecondary">
+          <Typography color="textSecondary" variant="caption">
             {t('payout.isEmptyWarning')}
           </Typography>
         </div>
@@ -55,20 +55,20 @@ export const PayoutList = (props: Props) => {
       <Paper>
         {props.payoutList.map((po) => (
           <PayoutListItem
-            payout={po}
-            isOpen={po.id === openedPayoutId}
-            tooglePayoutOpen={tooglePayoutOpen}
-            openInvoice={props.openInvoice}
             key={po.id}
+            isOpen={po.id === openedPayoutId}
+            openInvoice={props.openInvoice}
+            payout={po}
+            tooglePayoutOpen={tooglePayoutOpen}
           />
         ))}
       </Paper>
       {props.hasMorePayout && !props.loading && (
         <div className={classes.centeredButton}>
           <Button
+            color="primary"
             onClick={() => props.fetchMorePayoutList()}
             variant="outlined"
-            color="primary"
           >
             {t('payout.seeMore')}
           </Button>

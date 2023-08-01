@@ -29,23 +29,23 @@ export const VideoSearchModal = (props: Props) => {
     <Dialog open>
       <DialogContent className={classes.content}>
         <DelayedTextField
-          variant="outlined"
           fullWidth
-          value={props.text}
           onChange={props.onChangeText}
           placeholder={props.placeholder || t('video.search.placeholder')}
+          value={props.text}
+          variant="outlined"
         />
         {props.loading && <LinearProgress />}
         <div className={classes.content}>
           {props.text &&
             !props.loading &&
             (!props.videoList || !props.videoList.length) && (
-              <Typography color="textSecondary" variant="h6" component="p">
+              <Typography color="textSecondary" component="p" variant="h6">
                 {t('video.search.isEmpty')}
               </Typography>
             )}
           {props.videoList.map((v) => (
-            <VideoThumbnail video={v} onClick={() => props.onSubmit(v.id)} />
+            <VideoThumbnail onClick={() => props.onSubmit(v.id)} video={v} />
           ))}
         </div>
       </DialogContent>

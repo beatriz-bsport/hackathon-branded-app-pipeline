@@ -123,18 +123,18 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
               this.props.customFormWithEnabledField?.is_signup ? (
                 <Paper className={classes.disabledFormPaper}>
                   <Typography
-                    variant="h5"
                     align="center"
                     className={classes.disabledTitle}
+                    variant="h5"
                   >
                     {t('customForm.unaccessibleForm')}
                   </Typography>
                   <Button
-                    variant="contained"
                     color="primary"
                     onClick={() =>
                       this.props.pushRouter(`/c/${this.props.companyId}`)
                     }
+                    variant="contained"
                   >
                     <ArrowForwardIcon className={classes.arrowIcon} />
                     {t('customForm.backToUserSpace')}
@@ -143,24 +143,24 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
               ) : (
                 <Paper className={classes.paperContainer}>
                   <CustomFormView
-                    initial={this.props.customFormWithEnabledField}
-                    onSubmit={this.props.submitCustomForm}
-                    layouts={this.props.customFormWithEnabledField?.layout}
-                    waiver={this.props.theme.waiver}
+                    fieldsAreIndependent
                     general_terms_and_conditions={
                       this.props.theme.general_terms_of_use
                     }
-                    fieldsAreIndependent
+                    initial={this.props.customFormWithEnabledField}
+                    layouts={this.props.customFormWithEnabledField?.layout}
+                    onSubmit={this.props.submitCustomForm}
+                    waiver={this.props.theme.waiver}
                   />
                 </Paper>
               )}
             </Grid>
           </Grid>
           <CustomFormSubmitDialog
-            open={this.props.submitSuccess}
             goToUserSpace={() =>
               this.props.pushRouter(`/c/${this.props.companyId}`)
             }
+            open={this.props.submitSuccess}
           />
         </div>
       </ConsumerAppBar>

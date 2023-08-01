@@ -72,12 +72,12 @@ export class GiftcardCheckout extends React.Component<Props> {
       <ConsumerAppBarContainer>
         <div className={classes.container}>
           <ConsumerGiftcardFormWithPreview
-            giftcard={this.props.giftcard}
             companyCover={this.props.theme.cover}
-            variant="consumer"
-            onSubmit={this.addItemToBasket}
+            giftcard={this.props.giftcard}
             giftcardBackgroundImageList={this.props.giftcardBackgroundImageList}
             isManager={false}
+            onSubmit={this.addItemToBasket}
+            variant="consumer"
           />
         </div>
       </ConsumerAppBarContainer>

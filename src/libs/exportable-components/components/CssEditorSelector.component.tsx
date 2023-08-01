@@ -79,7 +79,7 @@ const CssEditorSelector: React.FC<Props> = ({
 
   return (
     <div className={classes.container}>
-      <Typography variant="h6" className={classes.title}>
+      <Typography className={classes.title} variant="h6">
         <WidgetsIcon className={classes.icon} />
         {t('widget.customCss.element')}
         <HoverableInfo text={t('widget.customCss.info')} />
@@ -90,10 +90,10 @@ const CssEditorSelector: React.FC<Props> = ({
             {t('widget.customCss.choiceWidget')}
           </Typography>
           <DoubleIndicatorSelector
-            onChange={handleSelectPage}
             isMulti={false}
-            value={pageOptions.find((opt) => opt.value === page)}
+            onChange={handleSelectPage}
             options={pageOptions}
+            value={pageOptions.find((opt) => opt.value === page)}
           />
         </div>
 
@@ -103,10 +103,10 @@ const CssEditorSelector: React.FC<Props> = ({
           </Typography>
 
           <DoubleIndicatorSelector
-            onChange={handleSelectComponent}
             isMulti={false}
-            value={componentOptions.find((opt) => opt.value === componentId)}
+            onChange={handleSelectComponent}
             options={componentOptions}
+            value={componentOptions.find((opt) => opt.value === componentId)}
           />
         </div>
         <div className={classes.innerContainer} />
@@ -124,7 +124,7 @@ const ButtonResetAll = withConfirm(
     return (
       <ButtonBase className={classes.buttonReset} onClick={onClick}>
         <ReplayIcon className={classes.icon} />
-        <Typography color="textSecondary" className={classes.upperCase}>
+        <Typography className={classes.upperCase} color="textSecondary">
           {t('widget.cssEditor.reset')}
         </Typography>
       </ButtonBase>

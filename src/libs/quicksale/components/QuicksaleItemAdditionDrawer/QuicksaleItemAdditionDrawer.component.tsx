@@ -172,34 +172,34 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
 
   return (
     <GenericResponsiveDrawer
-      open={open}
-      onClose={onDrawerClose}
-      title={t('itemList.additionDrawer.title')}
-      subtitle={t('itemList.additionDrawer.simpleObjectsSubtitle')}
       withoutPadding
       customClasses={{
         header: classes.drawerHeader,
         content: classes.drawerContainer,
         titleTypography: classes.drawerTitleTypography,
       }}
+      onClose={onDrawerClose}
+      open={open}
+      subtitle={t('itemList.additionDrawer.simpleObjectsSubtitle')}
+      title={t('itemList.additionDrawer.title')}
     >
       <div>
         <FormSection
-          sectionTitle={t('itemList.additionDrawer.objectsAddition')}
           sectionIcon={AddToPhotos}
-          sectionIconStyle="primary"
           sectionIconContainerStyle={classes.formSectionIconContainer}
+          sectionIconStyle="primary"
+          sectionTitle={t('itemList.additionDrawer.objectsAddition')}
           spacing={3}
         >
           <div ref={searchBarRef}>
             <FuzeSearch
-              variant="outlined"
-              searchText={searchText}
-              clearSearch={clearSearch}
               changeSearch={onSearchTextChange}
+              clearSearch={clearSearch}
               items={searchItems}
               placeholder={t('itemList.additionDrawer.search')}
               searchFields={['title']}
+              searchText={searchText}
+              variant="outlined"
             />
           </div>
 
@@ -212,25 +212,25 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
               .map((item) => (
                 <ListItem
                   key={`selected ${item.id}`}
-                  item={item}
-                  dispatch={dispatch}
                   displayBin
+                  dispatch={dispatch}
+                  item={item}
                 />
               ))}
 
             {selectedItems.length > PAGE_SIZE && (
               <Pagination
-                page={pageNumber}
+                className={classes.pagination}
                 count={Math.ceil(selectedItems.length / PAGE_SIZE)}
                 onChange={handleChangePage}
-                className={classes.pagination}
+                page={pageNumber}
               />
             )}
           </div>
 
           <Button
-            color="primary"
             className={classes.objectGroupButton}
+            color="primary"
             onClick={openObjectGroupDrawer}
             startIcon={<Add />}
           >
@@ -239,16 +239,16 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
         </FormSection>
 
         <FormSection
-          sectionTitle={t('itemList.additionDrawer.tilesColor')}
           sectionIcon={ColorLens}
-          sectionIconStyle="primary"
           sectionIconContainerStyle={classes.formSectionIconContainer}
+          sectionIconStyle="primary"
+          sectionTitle={t('itemList.additionDrawer.tilesColor')}
           spacing={3}
         >
           <ColorPicker
             colorChoices={Object.values(QuicksaleItemColor)}
-            selectedColor={selectedColor}
             onColorChange={setSelectedColor}
+            selectedColor={selectedColor}
           />
         </FormSection>
       </div>
@@ -258,9 +258,9 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
           {t('itemList.additionDrawer.cancel')}
         </Button>
         <Button
-          onClick={addSelectedItems}
-          disabled={selectedItems.length === 0}
           color="primary"
+          disabled={selectedItems.length === 0}
+          onClick={addSelectedItems}
           variant="contained"
         >
           {t('itemList.additionDrawer.add')}
@@ -268,9 +268,9 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
       </DialogActions>
 
       <Popper
+        anchorEl={searchBarRef.current}
         className={classes.popper}
         open={searchText !== ''}
-        anchorEl={searchBarRef.current}
         placement="bottom-start"
         style={{
           width: searchBarRef.current ? searchBarRef.current.clientWidth : 0,
@@ -281,18 +281,18 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
             searchResults.map((result, index) => (
               <ListItem
                 key={`search ${result.id}`}
-                item={result}
-                dispatch={dispatch}
-                onSelectCallback={clearSearch}
                 clickToSelect
+                dispatch={dispatch}
+                item={result}
                 noDivider={index === searchResults.length - 1}
+                onSelectCallback={clearSearch}
               />
             ))
           ) : (
             <Alert
-              variant="filled"
-              severity="info"
               className={classes.noResultAlert}
+              severity="info"
+              variant="filled"
             >
               <Typography variant="body1">
                 {t('itemList.additionDrawer.noResult')}
@@ -303,10 +303,10 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
       </Popper>
 
       <QuicksaleItemGroupAdditionDrawer
-        open={isObjectGroupDrawerOpen}
-        onClose={closeObjectGroupDrawer}
-        availableItems={availableItems}
         addToSelectedItems={addToSelectedItems}
+        availableItems={availableItems}
+        onClose={closeObjectGroupDrawer}
+        open={isObjectGroupDrawerOpen}
       />
     </GenericResponsiveDrawer>
   );

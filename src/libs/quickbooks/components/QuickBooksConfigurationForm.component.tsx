@@ -41,12 +41,12 @@ export const QuickBooksConfigurationForm = (props: Props) => {
               !props.theme.is_quickbook_integration_allowed ||
               props.loading
             }
-            value={!is_disabled}
             onChange={() => {
               props.onSubmitTheme(
                 !props.theme.is_quickbook_integration_enabled,
               );
             }}
+            value={!is_disabled}
           />
           <Typography color={is_configured ? undefined : 'textSecondary'}>
             {t('quickbooks.enable')}
@@ -57,13 +57,13 @@ export const QuickBooksConfigurationForm = (props: Props) => {
         </Typography>
         <div className={classes.rowActions}>
           <CustomColorButton
-            variant="contained"
             color="#00B223"
             disabled={
               !props.theme.is_quickbook_integration_allowed || props.loading
             }
             onClick={props.connectQuickbooks}
             style={{ color: 'white' }}
+            variant="contained"
           >
             {is_configured ? (
               <>
@@ -76,9 +76,9 @@ export const QuickBooksConfigurationForm = (props: Props) => {
           </CustomColorButton>
           {is_configured && (
             <RedButton
-              variant="contained"
               disabled={props.zoomLoading || props.loading}
               onClick={props.revokeQuickBooks}
+              variant="contained"
             >
               {t('quickbooks.buttonRevoke')}
             </RedButton>

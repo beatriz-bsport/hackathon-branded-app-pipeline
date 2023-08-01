@@ -226,27 +226,27 @@ export class MarketingEmail extends Component<Props, State> {
     if (!loading && this.props.email_templates.length === 0) {
       return (
         <IsEmptyList
-          text={this.props.t('templateListEmpty')}
           button={this.props.t('create')}
           onCreate={this.props.goToCreate}
           onCreateLabel={t('create')}
+          text={this.props.t('templateListEmpty')}
         />
       );
     }
     return (
       <div>
         <Grid container direction="row" spacing={3}>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             {this.props.email_templates.length > 0 ? (
               <div className={this.props.classes.search}>
                 <FuzeSearch
-                  searchText={this.state.searchText}
-                  clearSearch={this.clearSearch}
                   changeSearch={this.changeSearch}
+                  clearSearch={this.clearSearch}
                   items={this.props.email_templates}
                   placeholder={t('search')}
                   searchFields={['title', 'subject']}
                   searchResult={this.state.searchResult}
+                  searchText={this.state.searchText}
                 />
                 <Paper
                   className={
@@ -263,8 +263,8 @@ export class MarketingEmail extends Component<Props, State> {
                     }
                   >
                     <List
-                      component="nav"
                       disablePadding
+                      component="nav"
                       style={{
                         display: 'flex',
                         flexDirection: 'column',
@@ -274,11 +274,11 @@ export class MarketingEmail extends Component<Props, State> {
                         <EmailListItem
                           key={`search-${email.id}`}
                           email={email}
-                          selected={email.id === this.props.id}
                           navigateTo={this.selected}
-                          onEdit={
-                            buttonEnabled(email)
-                              ? this.props.goToEdit
+                          onDelete={
+                            email.company_id &&
+                            !email.is_default_bsport_template
+                              ? this.props.emailTemplateDelete
                               : undefined
                           }
                           onDuplicate={
@@ -287,13 +287,13 @@ export class MarketingEmail extends Component<Props, State> {
                               ? this.onDuplicate
                               : undefined
                           }
-                          onDelete={
-                            email.company_id &&
-                            !email.is_default_bsport_template
-                              ? this.props.emailTemplateDelete
+                          onEdit={
+                            buttonEnabled(email)
+                              ? this.props.goToEdit
                               : undefined
                           }
                           search={this.state.searchText}
+                          selected={email.id === this.props.id}
                         />
                       ))}
                     </List>
@@ -302,10 +302,10 @@ export class MarketingEmail extends Component<Props, State> {
               </div>
             ) : null}
             <AddCategoryButton
-              setShowCategoryDialog={this.setShowCategoryDialog}
               onClick={() => {
                 trackFormAdd();
               }}
+              setShowCategoryDialog={this.setShowCategoryDialog}
             />
             <div className={classes.panel}>
               {this.props.email_templates?.filter((email) => !!email.company_id)
@@ -315,21 +315,21 @@ export class MarketingEmail extends Component<Props, State> {
                     {t('companieEmails')}
                   </Typography>
                   <CategoryList
+                    categoryWithItems={this.props.emailTemplateCategories}
+                    deleteCategory={this.onDeleteCategory}
+                    editCategory={this.onEditCategory}
+                    itemLoading={this.props.listLoading}
+                    ListItemComponent={EmailListItem}
                     onClickItem={this.selected}
                     onDeleteItem={this.props.emailTemplateDelete}
-                    updateItemOrder={this.props.editOrderEmailTemplate}
+                    onDuplicateItem={this.onDuplicate}
+                    onEditItem={this.props.goToEdit}
+                    selectedItem={this.props.id}
                     updateCategoryOrder={
                       this.props.updateEmailTemplateCategoryOrder
                     }
-                    selectedItem={this.props.id}
-                    categoryWithItems={this.props.emailTemplateCategories}
-                    onEditItem={this.props.goToEdit}
-                    editCategory={this.onEditCategory}
-                    deleteCategory={this.onDeleteCategory}
-                    ListItemComponent={EmailListItem}
-                    onDuplicateItem={this.onDuplicate}
+                    updateItemOrder={this.props.editOrderEmailTemplate}
                     width="95%"
-                    itemLoading={this.props.listLoading}
                   />
                 </>
               )}
@@ -362,8 +362,8 @@ export class MarketingEmail extends Component<Props, State> {
                     <div className={classes.launchingEmailsList}>
                       <Paper className={classes.list}>
                         <List
-                          component="nav"
                           disablePadding
+                          component="nav"
                           style={{
                             display: 'flex',
                             flexDirection: 'column',
@@ -374,12 +374,12 @@ export class MarketingEmail extends Component<Props, State> {
                               <EmailListItem
                                 key={email.id}
                                 email={email}
-                                selected={email.id === this.props.id}
                                 navigateTo={() => {
                                   this.props.selectTemplate(email.id);
                                 }}
                                 onClick={this.selected}
                                 onDuplicate={this.onDuplicate}
+                                selected={email.id === this.props.id}
                               />
                             ),
                           )}
@@ -396,8 +396,8 @@ export class MarketingEmail extends Component<Props, State> {
                   </Typography>
                   <Paper className={classes.list}>
                     <List
-                      component="nav"
                       disablePadding
+                      component="nav"
                       style={{
                         display: 'flex',
                         flexDirection: 'column',
@@ -408,10 +408,10 @@ export class MarketingEmail extends Component<Props, State> {
                           <EmailListItem
                             key={email.id}
                             email={email}
-                            selected={email.id === this.props.id}
                             navigateTo={() => {
                               this.props.selectTemplate(email.id);
                             }}
+                            selected={email.id === this.props.id}
                           />
                         ),
                       )}
@@ -421,29 +421,29 @@ export class MarketingEmail extends Component<Props, State> {
               )}
               <ArchivedSection
                 disabledItems={this.props.unavailableEmailTemplateSummaries}
-                restoreItem={this.props.restoreEmailTemplate}
                 ListItemComponent={EmailListItem}
+                restoreItem={this.props.restoreEmailTemplate}
                 width="95%"
               />
             </div>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             <HTMLPreview
-              title={this.props.t('preview')}
+              scrolling
               html={this.props.email_templates_details?.[this.props.id]?.html}
               loading={this.props.loading}
-              scrolling
               resolvedGenericTags={this.props.resolvedGenericTags}
+              title={this.props.t('preview')}
             />
           </Grid>
         </Grid>
         <BottomActionsButton
-          onCreateLabel={t('create')}
           onCreate={this.props.goToCreate}
+          onCreateLabel={t('create')}
         />
         {this.state.showCategoryDialog ? (
           <CategoryCreationEditDialog
-            open={this.state.showCategoryDialog}
+            categorySelected={this.state.selectedCategory}
             onClose={() => {
               trackFormCancel();
               this.setState({
@@ -456,7 +456,7 @@ export class MarketingEmail extends Component<Props, State> {
                 onSuccess: () => trackFormSuccess(),
               })
             }
-            categorySelected={this.state.selectedCategory}
+            open={this.state.showCategoryDialog}
           />
         ) : null}
       </div>

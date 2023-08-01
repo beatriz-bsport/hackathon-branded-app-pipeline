@@ -159,8 +159,8 @@ export const ErrorContent = (props: ErrorContentProps) => {
           )}
         />
         <EmailDetailContent
-          old_email={request?.old_email}
           new_email={request?.new_email}
+          old_email={request?.old_email}
         />
         <SpacedText
           text={t(
@@ -189,8 +189,8 @@ export const ErrorContent = (props: ErrorContentProps) => {
           )}
         />
         <EmailDetailContent
-          old_email={request?.old_email}
           new_email={request?.new_email}
+          old_email={request?.old_email}
         />
         <SpacedText
           text={t(
@@ -212,8 +212,8 @@ export const ErrorContent = (props: ErrorContentProps) => {
         })}
       />
       <EmailDetailContent
-        old_email={request?.old_email}
         new_email={request?.new_email}
+        old_email={request?.old_email}
       />
       <SpacedText
         text={t('changeEmailRequest.memberPage.generalError.contactCompany', {

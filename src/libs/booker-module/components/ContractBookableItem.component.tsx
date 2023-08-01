@@ -32,16 +32,16 @@ const ContractBookableItem = (props: Props) => {
               contract.tax,
             )}
           </Typography>
-          <Typography className={classes.creditText} variant="h6" align="left">
+          <Typography align="left" className={classes.creditText} variant="h6">
             {t('contract.item.identifier')}
           </Typography>
         </div>
-        <Typography variant="body1" color="textSecondary" align="left">
+        <Typography align="left" color="textSecondary" variant="body1">
           {t(`contract.item.intervalLabel.${contract.interval}`, {
             count: contract.recurrence_basis,
           })}
         </Typography>
-        <Typography variant="body1" color="textPrimary" align="left">
+        <Typography align="left" color="textPrimary" variant="body1">
           {contract.name}
         </Typography>
       </div>

@@ -31,17 +31,17 @@ export const SubscriptionFreezerDialog = (props: Props) => {
         <DialogContent>
           <Typography>{props.t('subscription.freeze.form.explain')}</Typography>
           <TextField
-            name="name"
-            label={props.t('subscription.freeze.form.name.label')}
-            placeholder={props.t('subscription.freeze.form.name.placeholder')}
-            required
             fullWidth
+            required
+            label={props.t('subscription.freeze.form.name.label')}
+            name="name"
+            placeholder={props.t('subscription.freeze.form.name.placeholder')}
           />
           <IntegerField
-            name="days"
-            label={props.t('subscription.freeze.form.days.label')}
-            required
             fullWidth
+            required
+            label={props.t('subscription.freeze.form.days.label')}
+            name="days"
           />
           <div className={props.classes.row}>
             <WarningIcon className={props.classes.leftIcon} color="error" />

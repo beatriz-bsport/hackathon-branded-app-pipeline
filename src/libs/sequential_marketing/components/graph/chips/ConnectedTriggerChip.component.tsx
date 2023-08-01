@@ -42,31 +42,31 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
       triggerConfig = triggerConfig as TriggerEventConfig;
       return (
         <CadenceChip
+          color={color}
+          icon={getEventCategoryIconAsString(triggerConfig.event_type)}
           name={TriggerText({ connected_trigger_config: trigger })}
           toolTipValue={EventTriggerDetailText({
             connected_trigger_config: trigger,
           })}
-          icon={getEventCategoryIconAsString(triggerConfig.event_type)}
-          color={color}
         />
       );
     case TriggerKind.ONLY_SMARTLIST_FILTERING:
       return (
         <CadenceChip
+          color={color}
+          icon="People"
           name={TriggerText({
             connected_trigger_config: trigger,
             smartlist: getSmartlist?.(trigger?.filtering_config?.smartlist_pk),
           })}
-          icon="People"
-          color={color}
         />
       );
     case TriggerKind.ONLY_TIMEOUT:
       return (
         <CadenceChip
-          name={TriggerText({ connected_trigger_config: trigger })}
-          icon="Timer"
           color={color}
+          icon="Timer"
+          name={TriggerText({ connected_trigger_config: trigger })}
         />
       );
     case TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING:
@@ -74,26 +74,26 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
       return (
         <>
           <CadenceChip
+            color={color}
+            icon={getEventCategoryIconAsString(triggerConfig.event_type)}
             name={TriggerText({ connected_trigger_config: trigger })}
             toolTipValue={EventTriggerDetailText({
               connected_trigger_config: trigger,
             })}
-            icon={getEventCategoryIconAsString(triggerConfig.event_type)}
-            color={color}
           />
           <div className={classes.filter}>
             <CustomMuiIcon
-              icon="FilterList"
-              customColor={SequentialMarketingColors.GREY_FILTER_COLOR}
-              withBackground={false}
               defaultBackGround
+              customColor={SequentialMarketingColors.GREY_FILTER_COLOR}
+              icon="FilterList"
+              withBackground={false}
             />
             <CadenceChip
+              color={color}
+              icon="People"
               name={
                 getSmartlist?.(trigger?.filtering_config?.smartlist_pk)?.name
               }
-              icon="People"
-              color={color}
             />
           </div>
         </>

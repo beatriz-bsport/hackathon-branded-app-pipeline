@@ -43,7 +43,7 @@ const ContractDetail = (props: Props) => {
   return (
     <div>
       <Paper className={classes.paperContainer}>
-        <Typography variant="h3" className={classes.title}>
+        <Typography className={classes.title} variant="h3">
           {name}
         </Typography>
         {!!month_billing_day && (
@@ -60,12 +60,12 @@ const ContractDetail = (props: Props) => {
             {t('contract.duration', { month: nb_interval })}
           </Typography>
           <div className={classes.pricesContainer}>
-            <Typography variant="h6" align="right">
+            <Typography align="right" variant="h6">
               {`${t(
                 'contract.form.recurrent_price.label',
               )} : ${getCurrencyDisplayWithPrice(recurrent_price)}`}
             </Typography>
-            <Typography variant="h6" align="right">
+            <Typography align="right" variant="h6">
               {`${t('parameters.flat_fee')} : ${getCurrencyDisplayWithPrice(
                 flat_fee,
               )}`}
@@ -76,10 +76,10 @@ const ContractDetail = (props: Props) => {
           <div className={classes.block}>
             <Typography variant="h6">{t('contract.paymentPack')}</Typography>
             <PaymentPackListItem
-              onClick={() => props.goToPack(payment_pack.id)}
-              goToPack
-              pack={payment_pack}
               divider
+              goToPack
+              onClick={() => props.goToPack(payment_pack.id)}
+              pack={payment_pack}
             />
           </div>
         )}
@@ -99,9 +99,9 @@ const ContractDetail = (props: Props) => {
           <div className={classes.block}>
             <Typography variant="h6">{t('contract.paymentCombo')}</Typography>
             <PaymentComboListItem
+              divider
               onClick={() => props.goToCombo(props.contract.payment_combo.id)}
               paymentCombo={props.contract.payment_combo}
-              divider
             />
           </div>
         )}
@@ -131,7 +131,7 @@ const ContractDetail = (props: Props) => {
           <TypographyWithShowMore multiline>{contract}</TypographyWithShowMore>
         </div>
         <div className={classes.booleanField}>
-          <Typography variant="h6" className={classes.booleanTitle}>
+          <Typography className={classes.booleanTitle} variant="h6">
             {t('contract.form.autoRenewal.label')}
           </Typography>
           <Typography>
@@ -139,7 +139,7 @@ const ContractDetail = (props: Props) => {
           </Typography>
         </div>
         <div className={classes.booleanField}>
-          <Typography variant="h6" className={classes.booleanTitle}>
+          <Typography className={classes.booleanTitle} variant="h6">
             {t('contract.form.managerOnly.label')}
           </Typography>
           <Typography>

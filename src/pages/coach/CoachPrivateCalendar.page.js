@@ -327,43 +327,43 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
       <div>
         {this.props.loading ? <LinearProgress /> : null}
         <PrivateCalendarWithControls
-          disableResourceAvailabilitySlot={this.disableCoachAvailabilitySlot}
-          enableResourceAvailabilitySlot={this.enableResourceAvailabilitySlot}
+          hideResourceSelector
+          showCustomEventsToogle
+          showHideCancelledEventsToggle
+          showOfferListToogle
+          showPrivateBookingToogle
           availabilitySlots={this.props.availabilitySlots}
-          privateBookings={this.props.privateBookingList}
-          timezone={this.props.companyTheme.timezone_name}
           availabilitySlotUpdating={
             this.props.availabilitySlotUpdating || this.props.loading
           }
-          goToMember={this.props.goToMember}
-          onDateChange={this.props.handleDateChange}
-          offerList={this.props.offerList}
-          showOfferListToogle
-          showPrivateBookingToogle
-          showHideCancelledEventsToggle
-          fetchAvailabilitySlots={this.fetchAvailabilitySlots}
-          refreshOffers={this.fetchWeekData}
-          customEventList={this.props.customEventList}
-          createCustomEvent={this.props.onRequestCustomEvent}
-          showCustomEventsToogle
+          coachNotRelatedToPrivateService={this.isCoachUnrelatedToPrivateService()}
           companyTheme={this.props.companyTheme}
-          scheduleFilter={this.props.scheduleFilter}
-          setScheduleFilter={this.setScheduleFilter}
+          createCustomEvent={this.props.onRequestCustomEvent}
+          customEventList={this.props.customEventList}
+          disableResourceAvailabilitySlot={this.disableCoachAvailabilitySlot}
+          enableResourceAvailabilitySlot={this.enableResourceAvailabilitySlot}
           establishments={this.props.establishments}
-          resourceAvailable={this.state.resourceAvailable}
+          fetchAvailabilitySlots={this.fetchAvailabilitySlots}
           getHasPendingReplacementRequest={
             this.props.getHasPendingReplacementRequest
           }
-          coachNotRelatedToPrivateService={this.isCoachUnrelatedToPrivateService()}
-          hideResourceSelector
+          goToMember={this.props.goToMember}
+          offerList={this.props.offerList}
+          onDateChange={this.props.handleDateChange}
+          privateBookings={this.props.privateBookingList}
+          refreshOffers={this.fetchWeekData}
+          resourceAvailable={this.state.resourceAvailable}
+          scheduleFilter={this.props.scheduleFilter}
+          setScheduleFilter={this.setScheduleFilter}
+          timezone={this.props.companyTheme.timezone_name}
         />
 
         {this.props.customEventData && (
           <CustomEvenFormDialog
-            coaches={[this.props.coach]}
-            onSubmit={this.props.createOrUpdateCustomEvent}
-            onClose={this.props.closeCustomEventDialog}
             open
+            coaches={[this.props.coach]}
+            onClose={this.props.closeCustomEventDialog}
+            onSubmit={this.props.createOrUpdateCustomEvent}
           />
         )}
         {this.state.updateAvailabilitySlotData && (

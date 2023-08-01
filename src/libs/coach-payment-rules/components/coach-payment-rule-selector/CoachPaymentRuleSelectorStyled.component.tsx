@@ -157,18 +157,21 @@ export function CoachPaymentRuleSelectorStyled(props: Props) {
   }
   return (
     <Select
-      id={id}
+      className={classNames(selectorClass)}
       closeMenuOnSelect={closeMenuOnSelect}
+      components={{ DropdownIndicator, SingleValue, Placeholder }}
+      id={id}
+      isClearable={isClearable}
+      isDisabled={disabled}
+      isGroupSelect={isGroupSelect}
       isMulti={!noMulti}
-      placeholder={placeholder || t('coach')}
+      menuPortalTarget={document.querySelector('body')}
+      onChange={onChange}
       options={getPaymentRuleOptions(
         coachPaymentRulesList ? [...coachPaymentRulesList] : [],
       )}
-      onChange={onChange}
-      isDisabled={disabled}
+      placeholder={placeholder || t('coach')}
       styles={ruleStyles}
-      isClearable={isClearable}
-      menuPortalTarget={document.querySelector('body')}
       value={
         selectedRules && coachPaymentRulesList
           ? getPaymentRuleOptions([
@@ -178,9 +181,6 @@ export function CoachPaymentRuleSelectorStyled(props: Props) {
             ])
           : undefined
       }
-      isGroupSelect={isGroupSelect}
-      components={{ DropdownIndicator, SingleValue, Placeholder }}
-      className={classNames(selectorClass)}
     />
   );
 }

@@ -190,12 +190,12 @@ class PaymentMethodSettings extends React.PureComponent<Props, State> {
               </div>
               <div className={classes.selectorContainer}>
                 <PaymentMethodMultiSelector
-                  paymentMethodsSelected={payment_method_available_basket}
+                  disabled={[PAYMENT_GROUP_METHOD_IDENTIFIER_CB]}
                   paymentMethodChoices={
                     this.props.theme.payment_method_available
                   }
+                  paymentMethodsSelected={payment_method_available_basket}
                   selectPaymentMethod={this.onBasketMethodChange}
-                  disabled={[PAYMENT_GROUP_METHOD_IDENTIFIER_CB]}
                 />
               </div>
             </div>
@@ -212,10 +212,10 @@ class PaymentMethodSettings extends React.PureComponent<Props, State> {
               </div>
               <div className={classes.selectorContainer}>
                 <PaymentMethodMultiSelector
-                  paymentMethodsSelected={payment_method_available_subscription}
                   paymentMethodChoices={
                     this.props.theme.payment_method_available_recurringly
                   }
+                  paymentMethodsSelected={payment_method_available_subscription}
                   selectPaymentMethod={this.onSubscriptionMethodsChange}
                 />
                 {this.state.subscriptionError && (
@@ -234,10 +234,10 @@ class PaymentMethodSettings extends React.PureComponent<Props, State> {
 
         <div className={classes.saveButtonContainer}>
           <Button
-            onClick={this.onClickSave}
-            variant="contained"
             color="primary"
             disabled={this.props.updateLoading}
+            onClick={this.onClickSave}
+            variant="contained"
           >
             {t('paymentMethods.save')}
           </Button>

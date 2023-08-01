@@ -110,15 +110,15 @@ export class FranchisePaymentPackTemplateListPage extends Component<
         {this.props.loading && <BackofficeLinearProgress />}
         {!this.props.loading && (
           <IsEmptyList
-            text={t('paymentPackTemplate.isEmptyExplain')}
             button={t('paymentPackTemplate.actions.create')}
-            onCreate={this.props.openCreateDialog}
-            onCreateLabel={t('paymentPackTemplate.actions.create')}
             hideEmptyText={
               this.props.loading ||
               !!this.props.paymentPackTemplateListAvailable.length ||
               !!this.props.paymentPackTemplateListManagerOnly.length
             }
+            onCreate={this.props.openCreateDialog}
+            onCreateLabel={t('paymentPackTemplate.actions.create')}
+            text={t('paymentPackTemplate.isEmptyExplain')}
           />
         )}
         <div className={classes.container}>
@@ -142,13 +142,13 @@ export class FranchisePaymentPackTemplateListPage extends Component<
               <Collapse in={this.state.showAvailable}>
                 <Paper style={{ height: '80vh' }}>
                   <VirtualizedPaymentPackTemplateList
+                    divider
+                    onClick={this.props.goToTemplateDetail}
+                    onDelete={this.props.openDeleteDialog}
+                    onEdit={this.props.openEditDialog}
                     paymentPackTemplateList={
                       this.props.paymentPackTemplateListAvailable
                     }
-                    divider
-                    onClick={this.props.goToTemplateDetail}
-                    onEdit={this.props.openEditDialog}
-                    onDelete={this.props.openDeleteDialog}
                   />
                 </Paper>
               </Collapse>
@@ -177,12 +177,12 @@ export class FranchisePaymentPackTemplateListPage extends Component<
             <Collapse in={this.state.showManagerOnly}>
               <Paper style={{ height: '100vh' }}>
                 <VirtualizedPaymentPackTemplateList
+                  onClick={this.props.goToTemplateDetail}
+                  onDelete={this.props.openDeleteDialog}
+                  onEdit={this.props.openEditDialog}
                   paymentPackTemplateList={
                     this.props.paymentPackTemplateListManagerOnly
                   }
-                  onClick={this.props.goToTemplateDetail}
-                  onEdit={this.props.openEditDialog}
-                  onDelete={this.props.openDeleteDialog}
                 />
               </Paper>
             </Collapse>
@@ -190,21 +190,21 @@ export class FranchisePaymentPackTemplateListPage extends Component<
         </div>
         {!!this.props.createModalOpen && (
           <PaymentPackTemplateFormDrawer
-            onSubmit={this.props.createOrUpdatePaymentPackTemplate}
             onClose={this.props.closeCreateDialog}
+            onSubmit={this.props.createOrUpdatePaymentPackTemplate}
             open={this.props.createModalOpen}
           />
         )}
         <PaymentPackTemplateDeleteDialog
-          open={!!this.props.templateToDelete}
-          onSubmit={this.props.deletePaymentPackTemplate}
           onClose={this.props.closeDeleteDialog}
+          onSubmit={this.props.deletePaymentPackTemplate}
+          open={!!this.props.templateToDelete}
         />
         {!!this.props.paymentPackTemplateForEdit && (
           <PaymentPackTemplateFormDrawer
-            onSubmit={this.props.createOrUpdatePaymentPackTemplate}
             initial={this.props.paymentPackTemplateForEdit}
             onClose={this.props.closeEditDialog}
+            onSubmit={this.props.createOrUpdatePaymentPackTemplate}
             open={this.props.paymentPackTemplateForEdit}
           />
         )}

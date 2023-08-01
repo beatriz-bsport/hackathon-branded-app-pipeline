@@ -40,7 +40,7 @@ const CommunicationMessageNumberRecipients = (props: Props) => {
         <CustomAvatarGroup imgLinks={slicedImageLinks} />
       )}
       {numberRecipients && numberRecipients > 0 && (
-        <Typography variant="body2" className={classes.text}>
+        <Typography className={classes.text} variant="body2">
           {t(
             `recipient.${
               compactText ? 'numberOfRecipientsCompact' : 'numberOfRecipients'

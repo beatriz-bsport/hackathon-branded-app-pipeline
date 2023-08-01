@@ -17,8 +17,8 @@ export default <P extends object>(WrappedComponent: React.ComponentType<P>) => {
           <ElementsConsumer>
             {({ stripe, elements }) => (
               <WrappedComponent
-                stripe={stripe}
                 elements={elements}
+                stripe={stripe}
                 {...(this.props as P)}
               />
             )}

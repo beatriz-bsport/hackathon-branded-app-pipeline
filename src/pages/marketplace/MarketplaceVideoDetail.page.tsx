@@ -110,49 +110,49 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
       <div className={this.props.classes.container}>
         {!!this.props.loading && <LinearProgress />}
         <Grid
-          spacing={2}
           container
-          direction="row"
           className={this.props.classes.gridContainer}
+          direction="row"
+          spacing={2}
         >
-          <Grid item xs={12} md={8}>
+          <Grid item md={8} xs={12}>
             {!!this.props.video && (
               <VideoPlayerFull
+                accessDenied={this.props.accessDenied}
                 authenticated={this.props.authenticated}
-                video={this.props.video}
                 hideCoach={this.props.theme && this.props.theme.hideCoach}
-                requestVideoAccess={this.requestVideoAccess}
                 playbackUrl={this.props.playbackUrl}
                 playbackUrlLoading={this.props.playbackUrlLoading}
-                accessDenied={this.props.accessDenied}
+                requestVideoAccess={this.requestVideoAccess}
+                video={this.props.video}
                 videoPurchaseDate={this.props.videoPurchase?.date_created}
               />
             )}
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item md={4} xs={12}>
             <VideoThumbnailList
-              videoList={this.props.videoListSimilar}
-              loading={this.props.similarVideoLoading}
+              fetchMoreVideo={this.props.fetchMoreVideo}
               hasMoreVideo={this.props.hasMoreVideo}
               hideCoach={this.props.theme && this.props.theme.hideCoach}
-              fetchMoreVideo={this.props.fetchMoreVideo}
+              loading={this.props.similarVideoLoading}
               onOpenVideo={this.props.openVideo}
+              videoList={this.props.videoListSimilar}
             />
           </Grid>
         </Grid>
         {this.props.registerVideoOpen && (
           <Modal open onClose={() => this.props.setRegisterVideoOpen(false)}>
             <div
+              className={this.props.classes.modal}
               style={{
                 transform: 'translate(-50%, -50%)',
                 top: '50%',
                 left: '50%',
               }}
-              className={this.props.classes.modal}
             >
               <VideoCheckoutComponent
-                id={this.props.video.id}
                 companyId={this.props.video.company}
+                id={this.props.video.id}
                 onSuccess={this.onRegisterSuccess}
               />
             </div>

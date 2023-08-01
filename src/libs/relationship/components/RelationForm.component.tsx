@@ -67,17 +67,17 @@ export class RelationForm extends React.Component<Props, State> {
     if (!this.state.dst_member) {
       return (
         <MemberSearchModal
-          open
           asManager
-          loading={this.props.searchLoading}
-          searchMembers={this.props.searchMembers}
-          searchedMembers={this.props.searchedMembers}
-          onClose={this.props.onCancel}
+          open
+          generalTermsAndConditions={this.props.generalTermsAndConditions}
           handlMemberSelected={(id: number, member: Member) =>
             this.setState({ dst_member: member })
           }
+          loading={this.props.searchLoading}
+          onClose={this.props.onCancel}
+          searchedMembers={this.props.searchedMembers}
+          searchMembers={this.props.searchMembers}
           waiver={this.props.waiver}
-          generalTermsAndConditions={this.props.generalTermsAndConditions}
         />
       );
     }

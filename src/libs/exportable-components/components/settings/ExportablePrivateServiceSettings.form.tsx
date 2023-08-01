@@ -52,8 +52,8 @@ const MarketplacePrivateServiceSettingsForm: React.FC<Props> = (props) => {
           {t('marketplaceSettings.createDialog.selectPrivateServiceType')}
         </InputLabel>
         <Select
-          value={typeValue}
           onChange={(ev: any) => props.onChange({ type: ev.target.value })}
+          value={typeValue}
         >
           <MenuItem value="list">
             {t('marketplaceSettings.createDialog.selectPrivateServiceTypeList')}
@@ -68,10 +68,21 @@ const MarketplacePrivateServiceSettingsForm: React.FC<Props> = (props) => {
 
       {typeValue === 'list' && (
         <Autocomplete
-          className={classes.marginTop}
           multiple
-          options={[...props.serviceGroupList]}
+          className={classes.marginTop}
           getOptionLabel={(option) => option.name}
+          onChange={onPrivateGroupChange}
+          options={[...props.serviceGroupList]}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={t('privateService:serviceGroup.selector.placeholder')}
+              placeholder={t(
+                'privateService:serviceGroup.selector.placeholder',
+              )}
+              variant="standard"
+            />
+          )}
           value={[
             ...props.serviceGroupList.filter(
               (group) =>
@@ -79,17 +90,6 @@ const MarketplacePrivateServiceSettingsForm: React.FC<Props> = (props) => {
                 props.config.privateGroups.includes(group.id),
             ),
           ]}
-          onChange={onPrivateGroupChange}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label={t('privateService:serviceGroup.selector.placeholder')}
-              placeholder={t(
-                'privateService:serviceGroup.selector.placeholder',
-              )}
-            />
-          )}
         />
       )}
 
@@ -100,10 +100,10 @@ const MarketplacePrivateServiceSettingsForm: React.FC<Props> = (props) => {
           </InputLabel>
           <Select
             required
-            value={props.config.serviceId || -1}
             onChange={(ev: any) =>
               props.onChange({ type: typeValue, serviceId: ev.target.value })
             }
+            value={props.config.serviceId || -1}
           >
             <MenuItem value={null}>---</MenuItem>
             {props.privateServices.map((privateService) => (

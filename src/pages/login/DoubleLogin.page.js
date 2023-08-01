@@ -32,7 +32,7 @@ export const DoubleLogin = (props: Props) => {
                 membership ? `?membership=${membership}` : ''
               }`}
             >
-              <Button variant="outlined" color="secondary">
+              <Button color="secondary" variant="outlined">
                 {props.t('doubleLogin.disconnect')}
               </Button>
             </Link>

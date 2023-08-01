@@ -271,11 +271,11 @@ export const CategoryList = (props: Props) => {
 
   return (
     <DndContext
+      collisionDetection={closestCenter}
+      modifiers={[restrictToVerticalAxis]}
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
       sensors={sensors}
-      collisionDetection={closestCenter}
-      modifiers={[restrictToVerticalAxis]}
     >
       <SortableContext
         items={items
@@ -290,23 +290,23 @@ export const CategoryList = (props: Props) => {
               key={category.id}
               category={category}
               categoryIds={items.map((cat) => cat.id)}
-              orderingOverride={itemOrderingOverride}
+              deleteCategory={props.deleteCategory}
+              editCategory={props.editCategory}
+              filteredItems={props.filteredItems}
               hideTitle={props.hideTitle}
+              isCategoryDraggable={!props.filteredCategories}
+              isCategoryDragging={isCategoryDragging}
+              itemLoading={props.itemLoading}
+              ListItemComponent={props.ListItemComponent}
+              noCategoryHelper={props.noCategoryHelper}
               onClick={props.onClickItem}
               onDelete={props.onDeleteItem}
-              onEdit={props.onEditItem}
               onDuplicate={props.onDuplicateItem}
-              isCategoryDragging={isCategoryDragging}
-              editCategory={props.editCategory}
-              deleteCategory={props.deleteCategory}
-              ListItemComponent={props.ListItemComponent}
+              onEdit={props.onEditItem}
+              orderingOverride={itemOrderingOverride}
               selectedItem={props.selectedItem}
-              noCategoryHelper={props.noCategoryHelper}
               selectorItemOrder={userOrder}
-              isCategoryDraggable={!props.filteredCategories}
-              filteredItems={props.filteredItems}
               width={props.width}
-              itemLoading={props.itemLoading}
             />
           ) : null;
         })}

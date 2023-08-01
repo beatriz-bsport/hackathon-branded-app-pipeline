@@ -49,12 +49,12 @@ const LanguageSelectBase = (props: Props) => {
 
   const renderMenuItem = (lng, noLabelMenuItem?: boolean) => {
     return (
-      <MenuItem component="div" key={lng} value={lng}>
+      <MenuItem key={lng} component="div" value={lng}>
         {lng !== 'none' && (
           <img
+            alt="text"
             className={classes.flag}
             src={countryFlag[lng.replace('-', '_')]}
-            alt="text"
           />
         )}
         {!noLabelMenuItem && t(`language.${lng}`)}
@@ -66,8 +66,7 @@ const LanguageSelectBase = (props: Props) => {
     <FormControl>
       <Select
         labelId="langage-selector"
-        value={value}
-        renderValue={(valueRendered) => renderMenuItem(valueRendered, noLabel)}
+        name="Language"
         onChange={(e) => {
           handleChange(e);
           if (closeMenu) {
@@ -75,9 +74,10 @@ const LanguageSelectBase = (props: Props) => {
           }
           return null;
         }}
-        name="Language"
+        renderValue={(valueRendered) => renderMenuItem(valueRendered, noLabel)}
+        value={value}
       >
-        <MenuItem component="div" value="" disabled>
+        <MenuItem disabled component="div" value="">
           {t('navigation.pick_a_language')}
         </MenuItem>
         {availableLanguages.map((lng) => renderMenuItem(lng.lang))}
@@ -111,7 +111,7 @@ const UserLanguagePicker = (props) => {
   };
 
   return (
-    <LanguageSelect value={language} handleChange={handleChange} {...props} />
+    <LanguageSelect handleChange={handleChange} value={language} {...props} />
   );
 };
 export default UserLanguagePicker;

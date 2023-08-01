@@ -75,69 +75,69 @@ export const RecurrenceRuleBookingForm: React.FC<Props> = ({
           <div className={classes.row}>
             <SelectField
               choices={[0, 1, 2, 3, 4, 5, 6]}
-              style={{ minWidth: 140, marginBottom: 9 }}
+              disabled={offerSet}
               itemRenderer={(c) => (
                 <MenuItem key={c} value={c}>
                   {t(`datetime:time.weekdayNumber.${c}`)}
                 </MenuItem>
               )}
-              name="day_of_week"
               label={t('booking:recurrenceRule.form.dayOfWeek.label')}
-              disabled={offerSet}
+              name="day_of_week"
+              style={{ minWidth: 140, marginBottom: 9 }}
             />
             <Typography style={{ paddingLeft: 10, paddingRight: 14 }}>
               {t('booking:recurrenceRule.form.at')}
             </Typography>
             <IntegerField
-              id="hour"
-              name="hour"
-              label={t('booking:recurrenceRule.form.hour.label')}
               required
               disabled={offerSet}
+              id="hour"
+              label={t('booking:recurrenceRule.form.hour.label')}
+              name="hour"
             />
             <IntegerField
-              id="minute"
-              name="minute"
-              label={t('booking:recurrenceRule.form.minute.label')}
               required
               disabled={offerSet}
+              id="minute"
+              label={t('booking:recurrenceRule.form.minute.label')}
+              name="minute"
             />
           </div>
         </fieldset>
       </div>
       <div className={classes.field}>
         <EstablishmentSelectorField
-          id="establishment"
-          name="establishment"
-          label={t('booking:recurrenceRule.form.establishment.label')}
-          noMulti
           fullWidth
+          noMulti
           establishmentList={establishmentList}
+          id="establishment"
+          label={t('booking:recurrenceRule.form.establishment.label')}
+          name="establishment"
         />
       </div>
       <div className={classes.field}>
         <MetaActivitySelectorField
-          id="meta_activity"
-          name="meta_activity"
-          label={t('booking:recurrenceRule.form.metaActivity.label')}
-          disabled={offerSet || memberSet}
+          fullWidth
           noMulti
           required
-          fullWidth
-          metaActivityList={metaActivityList}
+          disabled={offerSet || memberSet}
           helperText={(days) =>
             t('booking:recurrenceRule.blockedBookings', { days })
           }
+          id="meta_activity"
+          label={t('booking:recurrenceRule.form.metaActivity.label')}
+          metaActivityList={metaActivityList}
+          name="meta_activity"
           showHelperText={(days) => days > values.delay_week * 7}
         />
       </div>
       <div className={classes.field}>
         <IntegerField
-          id="delay_week"
-          name="delay_week"
-          label={t('booking:recurrenceRule.form.delayWeek.label')}
-          helperText={t('booking:recurrenceRule.form.delayWeek.helperText')}
           required
+          helperText={t('booking:recurrenceRule.form.delayWeek.helperText')}
+          id="delay_week"
+          label={t('booking:recurrenceRule.form.delayWeek.label')}
+          name="delay_week"
         />
       </div>
       <div className={classes.field}>
@@ -160,9 +160,9 @@ export const RecurrenceRuleBookingForm: React.FC<Props> = ({
           <FormControlLabel
             control={
               <Checkbox
+                checked={checked}
                 id="notify_if_booked"
                 name="notify_if_booked"
-                checked={checked}
                 onChange={handleChangeChecked}
               />
             }

@@ -29,20 +29,20 @@ export const DiscountListItem = (props: Props) => {
   const { t } = useTranslation('member');
   const classes = useStyles();
   return (
-    <ListItem divider={!!props.divider} disabled={!!props.disabled}>
+    <ListItem disabled={!!props.disabled} divider={!!props.divider}>
       <ListItemText
         primary={
           <div className={classes.flex}>
             <Typography>{props.discount.name}</Typography>
             {props.company && (
               <CompanyChip
-                company={props.company}
                 className={classes.chip}
+                company={props.company}
                 size="small"
               />
             )}
             {props.discount?.memberArchived && (
-              <Typography variant="caption" color="secondary">
+              <Typography color="secondary" variant="caption">
                 {`${'\u00A0'}(${t('archived')})`}
               </Typography>
             )}
@@ -52,7 +52,7 @@ export const DiscountListItem = (props: Props) => {
           <div className={classes.flex}>
             {getCurrencyDisplayWithPrice(props.discount.voucher)}
             {props.discount.reverted && (
-              <Typography variant="caption" color="error">
+              <Typography color="error" variant="caption">
                 {`${'\u00A0'}(${t('coupon:reverted')})`}
               </Typography>
             )}

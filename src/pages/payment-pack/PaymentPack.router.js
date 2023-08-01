@@ -7,7 +7,7 @@ import PaymentPackDetail from './PaymentPackDetail.page';
 
 export default () => (
   <Switch>
-    <Route exact path="/payment-pack/:id" component={PaymentPackDetail} />
-    <Route path="/payment-pack" component={PaymentPackList} />
+    <Route exact component={PaymentPackDetail} path="/payment-pack/:id" />
+    <Route component={PaymentPackList} path="/payment-pack" />
   </Switch>
 );

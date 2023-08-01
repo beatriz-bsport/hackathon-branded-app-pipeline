@@ -115,13 +115,13 @@ const InboxThreadFilterContainer: React.FC<Props> = ({
       {displayFiltersSelector && (
         <div className={classes.container}>
           <ButtonBase
-            onClick={onShowFilterModal}
-            className={classes.filterDisplayer}
             disableRipple
+            className={classes.filterDisplayer}
+            onClick={onShowFilterModal}
           >
             <div className={classes.filterTitleContainer}>
               <Tune className={classes.filterIcon} />
-              <Typography variant="body1" className={classes.filterTitle}>
+              <Typography className={classes.filterTitle} variant="body1">
                 {t('filter.filterAction')}
               </Typography>
             </div>
@@ -136,10 +136,10 @@ const InboxThreadFilterContainer: React.FC<Props> = ({
                 )}
                 {periodHasChanged && (
                   <CommunicationFilterValuesPeriodSummary
-                    dateStart={dateStart}
                     dateEnd={dateEnd}
-                    title={t('filter.dateFilter.period')}
+                    dateStart={dateStart}
                     resetDates={resetPeriodFilter}
+                    title={t('filter.dateFilter.period')}
                   />
                 )}
                 {!!channelFilterValues?.length && (
@@ -173,48 +173,48 @@ const InboxThreadFilterContainer: React.FC<Props> = ({
               </Hidden>
               <Hidden smUp>
                 <Chip
+                  className={classes.chip}
                   clickable={false}
+                  deleteIcon={<Close />}
                   label={t('filter.numberFilter', { count: countFilter })}
                   onDelete={resetFilters}
                   size="small"
-                  className={classes.chip}
-                  deleteIcon={<Close />}
                 />
               </Hidden>
             </div>
 
             <IconButton
               aria-label="expand row"
-              onClick={resetFilters}
               className={classes.closeFilter}
+              onClick={resetFilters}
             >
               <Close />
             </IconButton>
           </ButtonBase>
         </div>
       )}
-      <Collapse in={showFilterModal} className={classes.collapse}>
+      <Collapse className={classes.collapse} in={showFilterModal}>
         <CommunicationFilterCollapse
-          hasKindFilter={hasKindFilter}
-          kindFilterValues={kindFilterValues}
-          kindFilterSetter={kindFilterSetter}
-          hasRecipientFilter={hasRecipientFilter}
-          recipientFilterValues={recipientFilterValues}
-          recipientFilterSetter={recipientFilterSetter}
-          hasSendParameterFilter={hasSendParameterFilter}
-          sendParameterFilterValues={sendParameterFilterValues}
-          sendParameterFilterSetter={sendParameterFilterSetter}
-          hasSrcOrDstFilter={hasSrcOrDstFilter}
-          srcOrDstFilterValues={srcOrDstFilterValues}
-          srcOrDstFilterSetter={srcOrDstFilterSetter}
-          hasDatesFilter={hasDatesFilter}
-          dateStartValue={dateStart}
-          dateStartSetter={dateStartSetter}
-          dateEndValue={dateEnd}
-          dateEndSetter={dateEndSetter}
-          periodHasChanged={periodHasChanged}
-          handleFiltersSubmit={handleFiltersSubmit}
           allPreviousFilter={allPreviousFilter}
+          dateEndSetter={dateEndSetter}
+          dateEndValue={dateEnd}
+          dateStartSetter={dateStartSetter}
+          dateStartValue={dateStart}
+          handleFiltersSubmit={handleFiltersSubmit}
+          hasDatesFilter={hasDatesFilter}
+          hasKindFilter={hasKindFilter}
+          hasRecipientFilter={hasRecipientFilter}
+          hasSendParameterFilter={hasSendParameterFilter}
+          hasSrcOrDstFilter={hasSrcOrDstFilter}
+          kindFilterSetter={kindFilterSetter}
+          kindFilterValues={kindFilterValues}
+          periodHasChanged={periodHasChanged}
+          recipientFilterSetter={recipientFilterSetter}
+          recipientFilterValues={recipientFilterValues}
+          sendParameterFilterSetter={sendParameterFilterSetter}
+          sendParameterFilterValues={sendParameterFilterValues}
+          srcOrDstFilterSetter={srcOrDstFilterSetter}
+          srcOrDstFilterValues={srcOrDstFilterValues}
         />
         <IconButton className={classes.iconButton} onClick={hideCollapse}>
           <ExpandLess fontSize="large" />

@@ -348,45 +348,45 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
         {this.props.roomBlueprint ? (
           <div style={{ width: '100%' }}>
             <CanvasEditorComponent
-              blueprints={this.props.allBlueprints}
-              selectedRoomBlueprint={this.props.roomBlueprint}
-              onSave={this.onSave}
-              onUpdateImages={this.onUpdateImages}
               assets={this.props.assets}
-              onExit={this.onExit}
-              openSpotCreationForm={this.openSpotCreationForm}
-              openSpotUpdateForm={this.openSpotUpdateForm}
-              openDeleteModal={this.openDeleteModal}
-              spotTypes={this.props.spotTypes.concat({ id: -1 })}
-              spotTypesOfBlueprint={this.props.spotTypesOfBlueprint}
+              blueprints={this.props.allBlueprints}
               fetchSpotForBlueprint={
                 this.fetchSpotForBlueprintAndBuildSpiviCorrespondence
               }
               onDeleteSpotType={this.onDeleteSpotType}
-              spotToSelect={this.state.spotToSelect}
-              selectedTool={this.state.selectedTool}
+              onExit={this.onExit}
+              onSave={this.onSave}
+              onUpdateImages={this.onUpdateImages}
+              openDeleteModal={this.openDeleteModal}
               openSpiviDialog={this.openSpiviDialog}
+              openSpotCreationForm={this.openSpotCreationForm}
+              openSpotUpdateForm={this.openSpotUpdateForm}
+              selectedRoomBlueprint={this.props.roomBlueprint}
+              selectedTool={this.state.selectedTool}
+              spotToSelect={this.state.spotToSelect}
+              spotTypes={this.props.spotTypes.concat({ id: -1 })}
+              spotTypesOfBlueprint={this.props.spotTypesOfBlueprint}
             />
             <CanvasSpotCreatorDrawer
-              open={this.state.creationFormIsOpen}
-              defaultSpot={this.state.defaultSpot}
               closeDialog={this.closeCreationForm}
+              defaultSpot={this.state.defaultSpot}
               onCreateSpot={this.onCreateSpot}
               onUpdateSpot={this.onUpdateSpotType}
+              open={this.state.creationFormIsOpen}
               spotTypeToUpdate={this.state.spotTypeToUpdate}
             />
             <CanvasSpotDeleteModal
-              spotTypeToDeleteId={
-                this.state.deleteModalOpen
-                  ? this.state.spotTypeToDelete || true
-                  : null
-              }
-              onClose={() => this.setState({ deleteModalOpen: false })}
               deleteSpotType={(spotType) => {
                 this.newOnDeleteSpot(spotType.id, {
                   onSuccess: this.closeDeleteModal,
                 });
               }}
+              onClose={() => this.setState({ deleteModalOpen: false })}
+              spotTypeToDeleteId={
+                this.state.deleteModalOpen
+                  ? this.state.spotTypeToDelete || true
+                  : null
+              }
             />
             <FeatureListProvider>
               {(featureList: FeatureList) => (
@@ -394,15 +394,15 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
                   {hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI) &&
                     this.props.roomBlueprint.spivi_box_id && (
                       <SpiviConfirmationDialog
-                        open={this.state.spiviDialogIsOpen}
+                        handlePageChange={this.handlePageChange}
                         onClose={this.closeSpiviDialog}
+                        open={this.state.spiviDialogIsOpen}
                         spotCorrespondence={this.state.spotCorrespondence}
                         spotTypes={this.props.spotTypes.concat({
                           id: -1,
                         })}
-                        tablePages={this.state.tablePages}
                         tableCountPages={this.state.tableCountPages}
-                        handlePageChange={this.handlePageChange}
+                        tablePages={this.state.tablePages}
                       />
                     )}
                 </>

@@ -109,14 +109,14 @@ const ClockInForOtherTable: React.FC<Props> = ({
             <TableRow>
               <TablePagination
                 count={count}
-                rowsPerPage={page_size}
-                page={page - 1}
-                onPageChange={(_, page_) => {
-                  setPage(page_ + 1);
-                }}
                 onChangeRowsPerPage={(event) => {
                   setPageSize(Number.parseInt(event.target.value, 10));
                 }}
+                onPageChange={(_, page_) => {
+                  setPage(page_ + 1);
+                }}
+                page={page - 1}
+                rowsPerPage={page_size}
                 rowsPerPageOptions={[10, MEMBER_PER_PAGE, 50, 100]}
               />
             </TableRow>
@@ -210,6 +210,7 @@ const ClockInForOtherTable: React.FC<Props> = ({
 
   return (
     <MUIDataTable
+      columns={getColumnData(t)}
       data={results.map(
         ({ id, first_name, last_name, email, role, attendance }) => ({
           firstname: first_name,
@@ -244,15 +245,15 @@ const ClockInForOtherTable: React.FC<Props> = ({
           ),
           action: (
             <Button
-              variant="outlined"
               color="primary"
-              style={{ width: '100%' }}
               disabled={processingIdList.includes(id)}
               onClick={
                 attendance?.on_going
                   ? () => handleClockOut({ clockInId: attendance.id }, id)
                   : () => handleClockIn({ userId: id }, id)
               }
+              style={{ width: '100%' }}
+              variant="outlined"
             >
               {processingIdList.includes(id) && (
                 <CircularProgress
@@ -270,7 +271,6 @@ const ClockInForOtherTable: React.FC<Props> = ({
           ),
         }),
       )}
-      columns={getColumnData(t)}
       options={options}
     />
   );

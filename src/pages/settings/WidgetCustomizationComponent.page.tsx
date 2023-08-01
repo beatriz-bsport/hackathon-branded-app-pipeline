@@ -88,10 +88,10 @@ export const WidgetCustomizationComponent: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <CssEditorSelector
-        resetAll={handleRestConfig}
         componentId={componentId}
-        page={page}
         onSelect={handleNav}
+        page={page}
+        resetAll={handleRestConfig}
       />
 
       <div className={classes.wrapper}>
@@ -99,15 +99,15 @@ export const WidgetCustomizationComponent: React.FC<Props> = ({
 
         <CssEditorForm
           code={code}
-          onCodeChange={setCode}
           componentId={componentId}
-          savedCss={cssConfig?.components_css?.[componentId] ?? ''}
+          onCodeChange={setCode}
           onSave={handleSubmit}
+          savedCss={cssConfig?.components_css?.[componentId] ?? ''}
         />
         <CssEditorPreview
+          code={code}
           componentId={componentId}
           customConfiguration={cssConfig}
-          code={code}
           theme={theme}
         />
       </div>

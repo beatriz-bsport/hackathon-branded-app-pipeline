@@ -73,8 +73,8 @@ function ShopItemPreview(props: { previewURL: string }) {
         <Grid
           container
           item
-          justify="center"
           alignItems="center"
+          justify="center"
           style={{ height: '100%', width: '100%' }}
         >
           <LocalDrinkIcon
@@ -89,11 +89,11 @@ function ShopItemPreview(props: { previewURL: string }) {
   }
   return (
     <CardMedia
-      style={{ height: 70, width: 70, borderRadius: 35 }}
       image={
         // prettier-ignore
         props.previewURL
       }
+      style={{ height: 70, width: 70, borderRadius: 35 }}
     />
   );
 }
@@ -236,74 +236,74 @@ export class ShopItemForm extends Component<Props, State> {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label={t('form.shop.item.name')}
-                value={name}
-                required
-                onChange={this.handleField('name')}
-                inputProps={{ maxLength: 200 }}
                 fullWidth
+                required
+                inputProps={{ maxLength: 200 }}
+                label={t('form.shop.item.name')}
+                onChange={this.handleField('name')}
+                value={name}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label={t('form.shop.item.subtitle')}
-                value={subtitle}
-                onChange={this.handleField('subtitle')}
                 fullWidth
+                label={t('form.shop.item.subtitle')}
+                onChange={this.handleField('subtitle')}
+                value={subtitle}
               />
             </Grid>
             <Grid item xs={12}>
               <div className={classes.description}>
                 <TextField
-                  multiline
                   fullWidth
-                  variant="outlined"
-                  rows={5}
+                  multiline
                   color="textSecondary"
-                  value={description}
                   label={t('form.shop.item.description')}
                   onChange={this.handleField('description')}
+                  rows={5}
+                  value={description}
+                  variant="outlined"
                 />
               </div>
             </Grid>
-            <Grid item xs={6} className={classes.leftItem}>
+            <Grid item className={classes.leftItem} xs={6}>
               <PriceInput
-                variant="outlined"
-                label={t('common.price')}
-                value={price}
-                required
                 fullWidth
+                required
+                label={t('common.price')}
                 onChange={this.handleField('price')}
+                value={price}
+                variant="outlined"
               />
             </Grid>
-            <Grid item xs={6} className={classes.rightItem}>
+            <Grid item className={classes.rightItem} xs={6}>
               <NumericInput
-                variant="outlined"
-                value={tva}
-                label={t('form.shop.item.tva')}
-                required
                 fullWidth
-                max={100}
+                required
                 InputProps={{
                   inputProps: { min: 0, max: 100, step: 0.005 },
                   endAdornment: (
                     <InputAdornment position="end">%</InputAdornment>
                   ),
                 }}
+                label={t('form.shop.item.tva')}
+                max={100}
                 onChange={this.handleField('tva')}
+                value={tva}
+                variant="outlined"
               />
-              <Typography variant="body2" color="error">
+              <Typography color="error" variant="body2">
                 {this.state.provincialTaxText}
               </Typography>
             </Grid>
             <Grid item xs={6}>
               <PriceInput
-                variant="outlined"
-                label={t('shop.supplier_price')}
-                value={supplier_price}
-                required
                 fullWidth
+                required
+                label={t('shop.supplier_price')}
                 onChange={this.handleField('supplier_price')}
+                value={supplier_price}
+                variant="outlined"
               />
             </Grid>
           </Grid>
@@ -325,18 +325,18 @@ export class ShopItemForm extends Component<Props, State> {
           <div className={classes.marketplaceSettings}>
             <Grid item xs={12}>
               <PaymentMethodSelectorInput
-                paymentMethodIds={
-                  this.state.available_payment_method_identifiers
-                }
                 disabled={!this.state.marketplace_enabled}
-                label={t(
-                  'form.shop.item.available_payment_method_identifiers.label',
-                )}
                 helperText={t(
                   'form.shop.item.available_payment_method_identifiers.helperText',
                 )}
+                label={t(
+                  'form.shop.item.available_payment_method_identifiers.label',
+                )}
                 onChange={(available_payment_method_identifiers) =>
                   this.setState({ available_payment_method_identifiers })
+                }
+                paymentMethodIds={
+                  this.state.available_payment_method_identifiers
                 }
               />
             </Grid>
@@ -392,11 +392,11 @@ export class ShopItemForm extends Component<Props, State> {
           <div className={classes.barcode}>
             <TextField
               fullWidth
-              variant="outlined"
               color="textSecondary"
-              value={barcode}
               label={t('form.shop.item.barcode')}
               onChange={this.handleField('barcode')}
+              value={barcode}
+              variant="outlined"
             />
           </div>
           <div className={classes.buttons}>
@@ -405,24 +405,24 @@ export class ShopItemForm extends Component<Props, State> {
             ) : (
               <React.Fragment>
                 <Button
+                  className={classes.button}
                   onClick={() => {
                     this.props.onCancel();
                     trackFormCancel(this.props.initial?.id);
                   }}
-                  className={classes.button}
                 >
                   {t('common.cancel')}
                 </Button>
                 <Button
-                  color="primary"
-                  variant="contained"
                   className={classes.button}
+                  color="primary"
                   onClick={(ev) => {
                     ev.preventDefault();
                     trackFormSubmitIntent(this.props.initial?.id);
                     // to improve
                     this.onSubmit(ev);
                   }}
+                  variant="contained"
                 >
                   {t('common.save')}
                 </Button>

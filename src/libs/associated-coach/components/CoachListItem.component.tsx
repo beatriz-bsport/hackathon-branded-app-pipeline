@@ -61,8 +61,8 @@ export const CoachListSkeleton: React.FC<PropsSkeleton> = React.memo(
           <ListItem key={key}>
             <Skeleton
               animation="wave"
-              variant="circle"
               className={classes.avatar}
+              variant="circle"
             />
             <ListItemText
               id="button_teacher"
@@ -79,13 +79,13 @@ export const CoachListSkeleton: React.FC<PropsSkeleton> = React.memo(
             />
             <Skeleton
               animation="wave"
-              variant="rect"
               className={classes.leftActionButtonSkeleton}
+              variant="rect"
             />
             <Skeleton
               animation="wave"
-              variant="rect"
               className={classes.rightActionButtonSkeleton}
+              variant="rect"
             />
           </ListItem>
         ))}
@@ -153,9 +153,9 @@ export const CoachListItem: React.FC<Props> = ({
   return (
     <ListItem
       key={coach.id}
-      id="button_teacher"
       button
       divider={divider}
+      id="button_teacher"
       onClick={onCoachSelected}
       selected={selected}
     >
@@ -176,22 +176,22 @@ export const CoachListItem: React.FC<Props> = ({
           <React.Fragment>
             {coach.email || null ? (
               <Chip
+                clickable
+                className={classes.chip}
                 icon={<MailOutlineIcon />}
                 label={coach.email}
-                className={classes.chip}
                 onClick={handleOpenEmail}
-                clickable
                 variant="outlined"
               />
             ) : null}
 
             {coach.phone || null ? (
               <Chip
+                clickable
+                className={classes.chip}
                 icon={<CallIcon />}
                 label={coach.phone}
-                className={classes.chip}
                 onClick={handleOpenPhone}
-                clickable
                 variant="outlined"
               />
             ) : null}

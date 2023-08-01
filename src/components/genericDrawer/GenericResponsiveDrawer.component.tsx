@@ -64,13 +64,13 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
   return (
     <Drawer
       anchor={anchor}
-      open={open}
       classes={{ paper: classNames(classes.paper, customClasses?.drawer) }}
       ModalProps={{
         hideBackdrop: false,
         disableEnforceFocus: true,
       }}
       onClose={close}
+      open={open}
     >
       <div
         ref={forwardedContainerRef}
@@ -91,11 +91,11 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
               >
                 <Tooltip title={t('cancel')}>
                   <IconButton
-                    onClick={close}
                     className={classNames(
                       classes.cancelButton,
                       customClasses?.cancelButton,
                     )}
+                    onClick={close}
                   >
                     <HighlightOffIcon
                       className={classNames(
@@ -114,15 +114,15 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
                 })}
               >
                 <Typography
-                  variant="h4"
                   className={customClasses?.titleTypography}
+                  variant="h4"
                 >
                   {title}
                 </Typography>
                 {subtitle && (
                   <Typography
-                    variant="body1"
                     className={customClasses?.subtitleTypography}
+                    variant="body1"
                   >
                     {subtitle}
                   </Typography>

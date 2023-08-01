@@ -51,15 +51,14 @@ const OfferFormSelector = (props: Props) => {
 
   return (
     <Field
-      name={name}
       component={({ field }: FieldProps) => (
         <Select
-          id={id}
-          name={field.name}
-          options={options}
-          onChange={handleChange}
           className={className}
-          value={getSelectedValue(field)}
+          id={id}
+          isClearable={isClearable}
+          name={field.name}
+          onChange={handleChange}
+          options={options}
           placeholder={placeholder}
           styles={{
             control: (baseStyles) => ({
@@ -67,9 +66,10 @@ const OfferFormSelector = (props: Props) => {
               borderColor: isError ? 'red' : 'grey',
             }),
           }}
-          isClearable={isClearable}
+          value={getSelectedValue(field)}
         />
       )}
+      name={name}
     />
   );
 };

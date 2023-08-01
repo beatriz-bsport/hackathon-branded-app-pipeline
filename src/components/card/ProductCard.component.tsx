@@ -55,8 +55,8 @@ export const ProductCard = (props: Props) => {
       <div className={classes.gridBlock}>
         <Grid
           container
-          direction="row"
           alignItems="flex-start"
+          direction="row"
           justifyContent="space-between"
         >
           <Grid item xs={8}>
@@ -79,8 +79,8 @@ export const ProductCard = (props: Props) => {
             {typeof headerRightPrimary === 'string' ? (
               <Typography
                 className={classes.headerRight}
-                variant="h3"
                 color="primary"
+                variant="h3"
               >
                 {headerRightPrimary}
               </Typography>
@@ -90,8 +90,8 @@ export const ProductCard = (props: Props) => {
             {typeof headerRightSecondary === 'string' ? (
               <Typography
                 className={classes.headerRight}
-                variant="caption"
                 color="textSecondary"
+                variant="caption"
               >
                 {headerRightSecondary}
               </Typography>
@@ -102,8 +102,8 @@ export const ProductCard = (props: Props) => {
         </Grid>
         <Grid
           container
-          direction="row"
           alignItems="flex-start"
+          direction="row"
           justifyContent="space-between"
         >
           <Grid item xs={8}>
@@ -112,8 +112,8 @@ export const ProductCard = (props: Props) => {
                 <div className={classes.linkContainer}>
                   <CopyToClipboard text={activationLink}>
                     <ButtonBase
-                      id="button_pass_copy"
                       className={classes.link}
+                      id="button_pass_copy"
                       onClick={() =>
                         props.snackbarSuccess &&
                         props.snackbarSuccess('link.copied')
@@ -129,9 +129,9 @@ export const ProductCard = (props: Props) => {
               )}
               {typeof description === 'string' ? (
                 <Typography
-                  variant="body1"
-                  color="textSecondary"
                   className={classes.description}
+                  color="textSecondary"
+                  variant="body1"
                 >
                   {description}
                 </Typography>
@@ -152,18 +152,18 @@ export const ProductCard = (props: Props) => {
                 }) => {
                   return button?.redButton ? (
                     <RedButtonComponent
-                      onClick={button.onClick}
                       className={button.className ?? classes.button}
                       disabled={!button.onClick}
+                      onClick={button.onClick}
                     >
                       {button.label}
                     </RedButtonComponent>
                   ) : (
                     <Button
-                      color="primary"
-                      onClick={button.onClick}
                       className={button.className ?? classes.button}
+                      color="primary"
                       disabled={!button.onClick}
+                      onClick={button.onClick}
                     >
                       {button.label}
                     </Button>

@@ -137,17 +137,17 @@ export class QuickInvoice extends PureComponent<Props, State> {
       <div className={classes.container}>
         <Grid
           container
-          direction="row"
-          justify="space-between"
           alignItems="center"
           className={classes.header}
+          direction="row"
+          justify="space-between"
         >
           <Grid item>
             <CreditMemberBadge
               credit={quickInvoice.member.credit_account_balance}
               unpaidAmount={quickInvoice.member.total_unpaid_amount}
             >
-              <Typography variant="h6" inline>
+              <Typography inline variant="h6">
                 {quickInvoiceTitle}
               </Typography>
             </CreditMemberBadge>
@@ -155,8 +155,8 @@ export class QuickInvoice extends PureComponent<Props, State> {
           {onClose ? (
             <Grid item>
               <IconButton
-                onClick={() => onClose(quickInvoice.memberId, quickInvoice)}
                 color="secondary"
+                onClick={() => onClose(quickInvoice.memberId, quickInvoice)}
               >
                 <CancelIcon />
               </IconButton>
@@ -168,14 +168,14 @@ export class QuickInvoice extends PureComponent<Props, State> {
           <div>
             <InvoiceItemEditor
               availableBuyableItems={this.props.availableBuyableItems}
-              onAddBuyableItem={this.addBuyableItem}
               member={this.getMemberDetail(quickInvoice)}
+              onAddBuyableItem={this.addBuyableItem}
             />
           </div>
         ) : (
           <React.Fragment>
-            <Grid container direction="row" alignItems="center">
-              <Grid item xs={9} className={classes.invoiceItemListContainer}>
+            <Grid container alignItems="center" direction="row">
+              <Grid item className={classes.invoiceItemListContainer} xs={9}>
                 {[
                   ...(this.state.invoiceItemList || []),
                   ...(this.props.uneditableInvoiceItems || []).map((ii) => ({
@@ -185,19 +185,19 @@ export class QuickInvoice extends PureComponent<Props, State> {
                 ].map((ii) => (
                   <div>
                     <InvoiceItem
-                      invoiceItem={ii}
                       key={`${ii.buyable_item_identifier}:${ii.id}:${ii.voucher}`}
+                      invoiceItem={ii}
                       onDelete={() => this.removeInvoiceItem(ii.id)}
                     />
                   </div>
                 ))}
               </Grid>
               <Grid item xs={3}>
-                <Grid container item justify="center" alignItems="center">
+                <Grid container item alignItems="center" justify="center">
                   <Button
+                    color="primary"
                     disabled={this.props.editMode}
                     onClick={this.choseInvoiceItem}
-                    color="primary"
                     variant="contained"
                   >
                     <AddIcon />
@@ -207,16 +207,24 @@ export class QuickInvoice extends PureComponent<Props, State> {
             </Grid>
             {this.props.enableMultiLocalization && (
               <div className={classes.establishmentSection}>
-                <Typography variant="h6" className={classes.sectionTitle}>
+                <Typography className={classes.sectionTitle} variant="h6">
                   {this.props.t(
                     'invoice:section.invoiceItemList.billing_establishment',
                   )}
                 </Typography>
                 <Divider className={classes.divider} />
                 <EstablishmentSelector
+                  closeMenuOnSelect
+                  isOptionDisabled
+                  isRequired
+                  noMulti
                   establishments={this.props.establishments}
                   isLoading={this.props.establishmentLoading}
-                  isOptionDisabled
+                  requiredValueIsMissing={
+                    this.props.enableMultiLocalization &&
+                    this.state.requiredEstablishmentIsMissing
+                  }
+                  selectedEstablishments={[this.state.billingEstablishmentId]}
                   selectOption={async (item: {
                     value: number,
                     label: string,
@@ -226,14 +234,6 @@ export class QuickInvoice extends PureComponent<Props, State> {
                       requiredEstablishmentIsMissing: !item,
                     });
                   }}
-                  selectedEstablishments={[this.state.billingEstablishmentId]}
-                  noMulti
-                  closeMenuOnSelect
-                  isRequired
-                  requiredValueIsMissing={
-                    this.props.enableMultiLocalization &&
-                    this.state.requiredEstablishmentIsMissing
-                  }
                 />
               </div>
             )}
@@ -250,8 +250,8 @@ export class QuickInvoice extends PureComponent<Props, State> {
                 </Button>
               )}
               <Button
-                onClick={this.props.onClose}
                 disabled={this.state.processing}
+                onClick={this.props.onClose}
               >
                 {this.props.t('paymentPanel.actions.cancel')}
               </Button>

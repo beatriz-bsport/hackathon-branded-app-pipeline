@@ -18,11 +18,11 @@ export const CustomFormViewDialog = (props: Props) => {
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Dialog
+      fullScreen={isWidget || fullScreen}
+      fullWidth={fullWidth}
+      maxWidth={maxWidth}
       onClose={onClose}
       open={open}
-      fullScreen={isWidget || fullScreen}
-      maxWidth={maxWidth}
-      fullWidth={fullWidth}
     >
       {children}
     </Dialog>

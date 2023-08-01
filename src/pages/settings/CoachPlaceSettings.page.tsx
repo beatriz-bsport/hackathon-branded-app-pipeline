@@ -53,9 +53,9 @@ export const CoachPlaceSettings: React.FC<Props> = ({
   return (
     <div>
       <CoachUserspaceSettingsForm
-        theme={theme}
         onSubmit={submitTheme}
         setDisplayConfiguration={setDisplayConfiguration}
+        theme={theme}
       />
 
       {hasUpsell(featureList, UPSELL_IDENTIFIER_SUBTEACHER_TOOL) &&

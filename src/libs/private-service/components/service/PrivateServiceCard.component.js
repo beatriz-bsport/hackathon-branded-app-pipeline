@@ -60,9 +60,9 @@ export const PrivateServiceDetail = (props: Props) => {
       {privateService.cover_main ? (
         <div className={classes.coverContainer}>
           <img
+            alt={privateService.name}
             className={classes.cover}
             src={privateService.cover_main}
-            alt={privateService.name}
           />
         </div>
       ) : null}
@@ -70,14 +70,14 @@ export const PrivateServiceDetail = (props: Props) => {
         <div style={{ borderTop: `4px solid ${privateService.color}` }} />
       ) : null}
       <CardContent>
-        <Typography variant="h4" component="h3" className={classes.title}>
+        <Typography className={classes.title} component="h3" variant="h4">
           {privateService.name}
         </Typography>
         <Typography
-          variant="caption"
-          color="textSecondary"
           className={classes.subtitle}
+          color="textSecondary"
           component="p"
+          variant="caption"
         >
           {t('service.parameters.last_discard_minutes.explain', {
             days: discardDays,
@@ -86,10 +86,10 @@ export const PrivateServiceDetail = (props: Props) => {
           })}
         </Typography>
         <Typography
-          variant="caption"
-          color="textSecondary"
           className={classes.subtitle}
+          color="textSecondary"
           component="p"
+          variant="caption"
         >
           {t('service.parameters.last_booking_minutes.explain', {
             days: bookingDays,
@@ -97,17 +97,17 @@ export const PrivateServiceDetail = (props: Props) => {
             minutes: bookingMinutes,
           })}
         </Typography>
-        <Typography variant="h6" component="h4" className={classes.subtitle}>
+        <Typography className={classes.subtitle} component="h4" variant="h6">
           {t('service.parameters.description')}
         </Typography>
         <TypographyMultiline
-          color="textSecondary"
           className={classes.description}
+          color="textSecondary"
         >
           {privateService.description}
         </TypographyMultiline>
         {privateService.coaches.length ? (
-          <Typography variant="h6" component="h4" className={classes.subtitle}>
+          <Typography className={classes.subtitle} component="h4" variant="h6">
             {t('service.parameters.coaches.title')}
           </Typography>
         ) : (
@@ -117,7 +117,7 @@ export const PrivateServiceDetail = (props: Props) => {
           </div>
         )}
         {privateService.coaches.map((coach) => (
-          <CoachListItemBasic coach={coach} key={coach.id} />
+          <CoachListItemBasic key={coach.id} coach={coach} />
         ))}
         {privateService.is_home_service ? (
           <div className={classes.row}>
@@ -128,15 +128,15 @@ export const PrivateServiceDetail = (props: Props) => {
           </div>
         ) : null}
         {privateService.establishments.length ? (
-          <Typography inline variant="h6" component="h4">
+          <Typography inline component="h4" variant="h6">
             {t('service.parameters.establishments.title')}
           </Typography>
         ) : null}
         {privateService.establishments.map((establishment) => (
           <EstablishmentListItem
-            establishment={establishment}
             key={establishment.id}
             showCapacity
+            establishment={establishment}
           />
         ))}
       </CardContent>

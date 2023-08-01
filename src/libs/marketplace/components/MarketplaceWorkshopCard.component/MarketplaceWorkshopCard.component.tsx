@@ -78,18 +78,18 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
 
         <div className="bs-workshop-card__content bs-workshop-card__content--loading">
           <div className="bs-workshop-card__content__title--loading">
-            <Skeleton animation="wave" width="80%" height={40} variant="text" />
+            <Skeleton animation="wave" height={40} variant="text" width="80%" />
           </div>
 
           <Skeleton
             animation="wave"
-            variant="text"
-            height={128}
             className="bs-workshop-card__content__description--loading"
+            height={128}
+            variant="text"
           />
 
           <div className="bs-workshop-card__offer-list__title-wrapper--loading">
-            <Skeleton animation="wave" width="80%" height={40} variant="text" />
+            <Skeleton animation="wave" height={40} variant="text" width="80%" />
           </div>
         </div>
 
@@ -100,10 +100,10 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
               return (
                 <Skeleton
                   key={index}
-                  className="bs-workshop-card__offer-list__offer--loading"
                   animation="pulse"
-                  width="100%"
+                  className="bs-workshop-card__offer-list__offer--loading"
                   height={156}
+                  width="100%"
                 />
               );
             })}
@@ -119,10 +119,10 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
     <div className="bs-workshop-card">
       <div className="bs-workshop-card__cover">
         <CardMedia
-          component="img"
-          image={metaActivity.cover_main}
           alt={metaActivity.alt_cover_main}
           className="bs-workshop-card__cover__image"
+          component="img"
+          image={metaActivity.cover_main}
         />
       </div>
 
@@ -132,12 +132,12 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
         </div>
 
         <UnfoldableText
-          text={metaActivity.description}
-          maxLines={6}
           className="bs-workshop-card__content__description"
           ids={{
             button: 'bs-workshop-card__content__description__unfold',
           }}
+          maxLines={6}
+          text={metaActivity.description}
         />
         <div className="bs-workshop-card__offer-list__title-wrapper">
           <div className="bs-workshop-card__offer-list__title">
@@ -156,88 +156,88 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
             if (!group)
               return (
                 <MarketplaceGroupOfferListItem
+                  hideCoach
+                  isWorkshop
+                  loading
+                  withoutBookButton
+                  bookedOffers={[]}
                   customLevel={{}}
+                  getCoach={getCoach}
+                  getEstablishment={getEstablishment}
+                  getLevel={getLevel}
+                  metaActivity={metaActivity}
+                  offers={[]}
+                  onBook={() => {}}
+                  onBookOption={() => {}}
                   showOfferFilling={showOfferFilling}
                   showOfferGender={showOfferGender}
                   theme={theme}
-                  getEstablishment={getEstablishment}
-                  getCoach={getCoach}
-                  getLevel={getLevel}
-                  hideCoach
-                  loading
-                  onBookOption={() => {}}
-                  onBook={() => {}}
-                  offers={[]}
-                  metaActivity={metaActivity}
-                  bookedOffers={[]}
-                  isWorkshop
-                  withoutBookButton
                 />
               );
 
             return (
               <MarketplaceGroupOfferListItem
                 key={group.id}
-                theme={theme}
-                group={group}
-                hideCoach={hideCoach}
-                getEstablishment={getEstablishment}
-                getCoach={getCoach}
-                getLevel={getLevel}
-                customLevel={getLevel[group.level]}
-                showOfferFilling={showOfferFilling}
-                showOfferGender={showOfferGender}
-                loading={offerDetailsloading || groupsLoading}
-                offers={offersGroup}
-                metaActivity={metaActivity}
-                onBookOption={onBookOption}
-                onBook={onBook}
-                bookedOffers={bookedOffers}
                 isWorkshop
                 withoutBookButton
+                bookedOffers={bookedOffers}
+                customLevel={getLevel[group.level]}
+                getCoach={getCoach}
+                getEstablishment={getEstablishment}
+                getLevel={getLevel}
+                group={group}
+                hideCoach={hideCoach}
+                loading={offerDetailsloading || groupsLoading}
+                metaActivity={metaActivity}
+                offers={offersGroup}
+                onBook={onBook}
+                onBookOption={onBookOption}
+                showOfferFilling={showOfferFilling}
+                showOfferGender={showOfferGender}
+                theme={theme}
               />
             );
           }
           return (
             <MarketplaceOfferListItem
               key={offer.id}
+              isWorkshop
+              showDate
+              additionalCoaches={offer.additional_coaches.map((coachId) =>
+                getCoach(coachId),
+              )}
+              coach={getCoach(offer.coach_override || offer.coach)}
+              customLevel={getLevel[offer.custom_level]}
+              establishment={getEstablishment(offer.establishment)}
+              getLevel={getLevel}
+              hideCoach={hideCoach}
+              isBookingDisabled={!offer.available || isOfferInThePast(offer)}
+              isOfferPassed={isOfferInThePast(offer)}
+              isRegistered={
+                bookedOffers?.length ? bookedOffers.includes(offer.id) : false
+              }
+              loading={offerDetailsloading}
+              metaActivity={metaActivity}
               offer={{
                 ...offer,
                 meta_activity: metaActivity,
               }}
-              metaActivity={metaActivity}
-              establishment={getEstablishment(offer.establishment)}
-              coach={getCoach(offer.coach_override || offer.coach)}
-              additionalCoaches={offer.additional_coaches.map((coachId) =>
-                getCoach(coachId),
-              )}
-              customLevel={getLevel[offer.custom_level]}
+              onBook={onBook}
+              onBookOption={onBookOption}
+              onClick={onBook}
               showOfferFilling={showOfferFilling}
               showOfferGender={showOfferGender}
-              getLevel={getLevel}
               theme={theme}
-              hideCoach={hideCoach}
-              loading={offerDetailsloading}
-              onBookOption={onBookOption}
-              onBook={onBook}
-              onClick={onBook}
-              isWorkshop
-              showDate
-              isRegistered={
-                bookedOffers?.length ? bookedOffers.includes(offer.id) : false
-              }
               variant="time"
-              isOfferPassed={isOfferInThePast(offer)}
-              isBookingDisabled={!offer.available || isOfferInThePast(offer)}
             />
           );
         })}
         {!offerDetailsloading && !offers.loading && offers.nextPage && (
           <Button
+            className="bs-workshop-card__offer-list__offer__load-more"
             onClick={() => {
               onLoadMoreOffer(offers.nextPage);
             }}
-            className="bs-workshop-card__offer-list__offer__load-more"
           >
             {t('marketplace:workshop.card.loadMore')}
           </Button>
@@ -248,10 +248,10 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
             .map((_, index) => (
               <Skeleton
                 key={index}
-                className="bs-workshop-card__offer-list__offer--loading"
                 animation="pulse"
-                width="100%"
+                className="bs-workshop-card__offer-list__offer--loading"
                 height={120}
+                width="100%"
               />
             ))}
       </div>

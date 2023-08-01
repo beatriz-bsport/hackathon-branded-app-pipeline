@@ -144,22 +144,8 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
       <Dialog fullScreen={this.props.fullScreen} open={!!this.props.contract}>
         <DialogContent>
           <SubscriptionPayment
-            isExcludingTax={this.props?.isExcludingTax}
-            processing={this.state.processing}
-            contract={this.props.contract}
-            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-            savedPaymentMethodList={this.props.savedPaymentMethodList}
             withCoupon
-            refreshSavedPaymentMethodList={() =>
-              this.props.fetchPaymentMethodList({
-                company: this.props.companyId,
-              })
-            }
-            onCancel={() => {
-              this.setState({ firstBillingTimestamp: null });
-              this.props.onCancel();
-            }}
-            onSubmit={this.onSubmit}
+            contract={this.props.contract}
             enabledPaymentGroupMethodIdentifier={
               this.props.companyTheme.payment_method_available_subscription
             }
@@ -167,15 +153,29 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
               paymentMethodAvailableSubscription:
                 this.props.companyTheme.payment_method_available_subscription,
             })}
+            isExcludingTax={this.props?.isExcludingTax}
+            onCancel={() => {
+              this.setState({ firstBillingTimestamp: null });
+              this.props.onCancel();
+            }}
+            onSubmit={this.onSubmit}
+            processing={this.state.processing}
+            refreshSavedPaymentMethodList={() =>
+              this.props.fetchPaymentMethodList({
+                company: this.props.companyId,
+              })
+            }
+            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+            savedPaymentMethodList={this.props.savedPaymentMethodList}
           />
         </DialogContent>
         <GenericDialogWithCountdownConfirm
-          open={this.state.openGenericDialogWithCountdownConfirm}
-          onValidate={this.disableOpenGenericDialogWithCountdownConfirm}
-          countdownBeforeActivation={COUNTDOWN_BEFORE_ACTIVATION}
-          validateLabel={this.props.t('alreadySubscribed.dialog.validate')}
           content={this.props.t('alreadySubscribed.dialog.content')}
+          countdownBeforeActivation={COUNTDOWN_BEFORE_ACTIVATION}
+          onValidate={this.disableOpenGenericDialogWithCountdownConfirm}
+          open={this.state.openGenericDialogWithCountdownConfirm}
           title={this.props.t('alreadySubscribed.dialog.title')}
+          validateLabel={this.props.t('alreadySubscribed.dialog.validate')}
         />
       </Dialog>
     );

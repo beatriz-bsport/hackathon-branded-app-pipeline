@@ -81,8 +81,8 @@ export class CheckInOfferDetail extends React.Component<Props> {
           className={classNames([classes.panelContainer, classes.offerSummary])}
         >
           <CheckInOfferSummaryPanel
-            offer={this.props.offer}
             goBack={this.props.goBack}
+            offer={this.props.offer}
           />
         </div>
         <div
@@ -98,27 +98,27 @@ export class CheckInOfferDetail extends React.Component<Props> {
 
             <Switch
               checked={!!this.props.faceIdEnabled}
-              onChange={this.props.toogleFaceId}
               disabled={!this.props.faceIdAvailable}
+              onChange={this.props.toogleFaceId}
             />
             <Typography>{t('offerDetail.activateFaceId')}</Typography>
           </div>
 
           <BookingList
-            offer={this.props.offer}
-            confirmBookingAttendance={this.props.confirmBookingAttendance}
-            onAddMember={this.props.onAddMember}
             bookingLoading={this.props.bookingLoading}
+            confirmBookingAttendance={this.props.confirmBookingAttendance}
             members={this.props.members}
+            offer={this.props.offer}
+            onAddMember={this.props.onAddMember}
           />
         </div>
 
         <div className={classes.backButton}>
           <BookerFab
+            color="primary"
             onClick={
               this.props.offer.is_full ? () => {} : this.props.onAddMember
             }
-            color="primary"
             variant="extended"
           >
             <PersonAddIcon className={classes.leftIcon} />
@@ -126,7 +126,7 @@ export class CheckInOfferDetail extends React.Component<Props> {
               ? t('offerDetail.isFull')
               : t('offerDetail.register')}
           </BookerFab>
-          <Fab variant="extended" color="secondary" onClick={this.props.goBack}>
+          <Fab color="secondary" onClick={this.props.goBack} variant="extended">
             <ChevronLeftIcon className={classes.leftIcon} />
             {t('offerDetail.backToOfferList')}
           </Fab>

@@ -35,13 +35,13 @@ const Quicksale: React.FC<Props> = ({ tab, pageHeight, pushToTab }) => {
 
   return (
     <ContentWithAppBar
-      tab={tab}
-      pageHeight={pageHeight}
-      tabsData={tabsData}
-      onChange={pushToTab}
-      customClasses={classes}
       dense
       fullHeight
+      customClasses={classes}
+      onChange={pushToTab}
+      pageHeight={pageHeight}
+      tab={tab}
+      tabsData={tabsData}
     >
       <Helmet>
         <title>{t('pageTitle')}</title>
@@ -49,18 +49,18 @@ const Quicksale: React.FC<Props> = ({ tab, pageHeight, pushToTab }) => {
       <Switch>
         <Route
           exact
-          path="/settings/quicksale/configuration/:sectionId"
           component={QuicksaleItemListPage}
+          path="/settings/quicksale/configuration/:sectionId"
         />
         <Route
           exact
-          path="/settings/quicksale/configuration"
           component={QuicksaleSectionListPage}
+          path="/settings/quicksale/configuration"
         />
         <Route
           exact
-          path="/settings/quicksale/access"
           component={QuicksaleRoleConfiguration}
+          path="/settings/quicksale/access"
         />
         <Route exact path="/settings/quicksale">
           <Redirect to="/settings/quicksale/configuration" />

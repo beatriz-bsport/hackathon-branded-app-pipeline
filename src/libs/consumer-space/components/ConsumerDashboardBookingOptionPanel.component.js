@@ -23,21 +23,21 @@ export class ConsumerDashboardBookingOptionPanel extends React.PureComponent<Pro
         {this.props.bookingOptionList && this.props.bookingOptionList.length ? (
           <div>
             <Typography
-              variant="h4"
-              component="h3"
               className={this.props.classes.sectionTitle}
+              component="h3"
+              variant="h4"
             >
               {this.props.t('dashboard.optionTitle')}
             </Typography>
             <Divider className={this.props.classes.divider} />
             {this.props.bookingOptionList.map((bo) => (
               <BookingOptionConsumerItem
-                confirmBookingOption={() =>
-                  this.props.confirmBookingOption(bo.offer.id, bo.id)
-                }
                 bookingOption={bo}
                 cancelBookingOption={() =>
                   this.props.cancelBookingOption(bo.id)
+                }
+                confirmBookingOption={() =>
+                  this.props.confirmBookingOption(bo.offer.id, bo.id)
                 }
               />
             ))}

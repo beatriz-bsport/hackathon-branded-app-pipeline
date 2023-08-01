@@ -83,6 +83,8 @@ class ChartRange extends React.Component<Props, State> {
     return (
       <div>
         <Chip
+          clickable={!!this.props.setRange}
+          disabled={this.props.timeSettings !== 'range'}
           icon={<DateRangeIcon />}
           label={
             kind !== 'custom'
@@ -92,34 +94,33 @@ class ChartRange extends React.Component<Props, State> {
                 )}`
           }
           onClick={this.handleClick}
-          variant="outlined"
           size="small"
-          clickable={!!this.props.setRange}
-          disabled={this.props.timeSettings !== 'range'}
+          variant="outlined"
         />
         <Popover
-          open={Boolean(anchorEl)}
           anchorEl={anchorEl}
-          onClose={this.handleClose}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'right',
           }}
+          classes={{ paper: this.props.classes.paper }}
+          onClose={this.handleClose}
+          open={Boolean(anchorEl)}
           transformOrigin={{
             vertical: 'top',
             horizontal: 'right',
           }}
-          classes={{ paper: this.props.classes.paper }}
         >
-          <MenuItem value="" disabled>
+          <MenuItem disabled value="">
             {this.props.t('dateFilter.customSelect')}
           </MenuItem>
           <DateInput
             className={this.props.classes.dateInput}
             id="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
             label={this.props.t('dateRange.start')}
-            type="date"
-            value={start_date}
             onChange={(value) =>
               this.handleChangeInterval(
                 value.format('YYYY-MM-DD'),
@@ -127,15 +128,15 @@ class ChartRange extends React.Component<Props, State> {
                 'custom',
               )
             }
-            InputLabelProps={{
-              shrink: true,
-            }}
+            type="date"
+            value={start_date}
           />
           <DateInput
             id="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
             label={this.props.t('dateRange.end')}
-            type="date"
-            value={end_date}
             onChange={(value) =>
               this.handleChangeInterval(
                 start_date,
@@ -143,19 +144,18 @@ class ChartRange extends React.Component<Props, State> {
                 'custom',
               )
             }
-            InputLabelProps={{
-              shrink: true,
-            }}
+            type="date"
+            value={end_date}
           />
-          <MenuItem value="" disabled>
+          <MenuItem disabled value="">
             {this.props.t('dateFilter.quickSelect')}
           </MenuItem>
           {quickRanges.map((m) => (
             <MenuItem
               key={m.key}
               dense
-              selected={m.key === kind}
               onClick={() => this.handleChangeInterval(m.start, m.end, m.key)}
+              selected={m.key === kind}
             >
               <Typography variant="inherit">{this.props.t(m.key)}</Typography>
             </MenuItem>

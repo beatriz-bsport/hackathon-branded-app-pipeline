@@ -59,30 +59,30 @@ export const MemberMergeForm: React.FC<Props> = ({
     <div className={classes.container}>
       <div className={classes.field}>
         <MemberForm
-          variant="merge-form"
+          companyCountry={country}
+          generalTermsAndConditions={generalTermsAndConditions}
           goToMember={() => goToMember(dstMember.id)}
-          initial={prepareData(dstMember)}
           ignoreMail="true"
+          initial={prepareData(dstMember)}
           onSubmit={(data: any, options: OptionCallback) =>
             onSubmit(data, options)
           }
-          companyCountry={country}
+          variant="merge-form"
           waiver={waiver}
-          generalTermsAndConditions={generalTermsAndConditions}
         />
         <div className={classes.buttonContainer}>
-          <Button size="large" onClick={() => switchSrcDst()}>
+          <Button onClick={() => switchSrcDst()} size="large">
             <SwapHorizIcon fontSize="large" />
           </Button>
         </div>
 
         <MemberForm
-          variant="merge-form"
           disabled
-          initial={prepareData(srcMember)}
-          waiver={waiver}
           companyCountry={country}
           generalTermsAndConditions={generalTermsAndConditions}
+          initial={prepareData(srcMember)}
+          variant="merge-form"
+          waiver={waiver}
         />
       </div>
     </div>

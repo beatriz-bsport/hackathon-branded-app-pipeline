@@ -91,17 +91,17 @@ const CheckInOfferListItem = withTranslation(['selfCheckIn'])(
           <React.Fragment>
             <div className={props.classes.offerStatus}>
               <Typography
-                variant="button"
                 color={notStartedYet || inProgress ? 'textSecondary' : 'error'}
+                variant="button"
               >
                 {props.t(`offerStatus.${timeState}`)}
               </Typography>
             </div>
             <div className={props.classes.CountdownWrapper}>
               <Countdown
-                timeToShow={timeToShow}
-                currentTime={props.currentTime}
                 color={color}
+                currentTime={props.currentTime}
+                timeToShow={timeToShow}
               />
             </div>
           </React.Fragment>
@@ -156,8 +156,8 @@ export class CheckInOfferList extends Component<Props, State> {
           <Fab
             aria-label="refresh"
             color="primary"
-            onClick={this.props.refreshData}
             disabled={offersLoading}
+            onClick={this.props.refreshData}
           >
             <RefreshIcon />
           </Fab>
@@ -175,9 +175,9 @@ export class CheckInOfferList extends Component<Props, State> {
                 )
                 .map((offer) => (
                   <CheckInOfferListItem
-                    offer={offer}
                     key={offer.id}
                     classes={this.props.classes}
+                    offer={offer}
                     onClick={this.props.onOfferSelected}
                   />
                 ))}
@@ -189,9 +189,9 @@ export class CheckInOfferList extends Component<Props, State> {
                 )
                 .map((offer) => (
                   <CheckInOfferListItem
-                    offer={offer}
                     key={offer.id}
                     classes={this.props.classes}
+                    offer={offer}
                     onClick={this.props.onOfferSelected}
                   />
                 ))}

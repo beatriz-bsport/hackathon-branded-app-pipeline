@@ -125,10 +125,10 @@ class ConsumerDrawer extends React.Component<Props, State> {
       return (
         <React.Fragment key={String(i)}>
           <ListItem
+            key={String(i)}
             button
             onClick={() => this.handleClick(item, i)}
             selected={isActive}
-            key={String(i)}
           >
             <ListItemIcon>
               <item.icon />
@@ -144,10 +144,10 @@ class ConsumerDrawer extends React.Component<Props, State> {
             {this.state.open[i] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </ListItem>
           <Collapse
-            in={this.state.open[i]}
             key={`${i}-collapse`}
-            timeout="auto"
             unmountOnExit
+            in={this.state.open[i]}
+            timeout="auto"
           >
             <List disablePadding className={classes.nestedList}>
               {item.nestedItems.map((subitem, subi) =>
@@ -168,25 +168,25 @@ class ConsumerDrawer extends React.Component<Props, State> {
     return (
       <Link
         key={i}
-        to={this.props.buildUrl(item.to)}
-        style={{ textDecoration: 'none' }}
         className={item.className || ''}
+        style={{ textDecoration: 'none' }}
+        to={this.props.buildUrl(item.to)}
       >
         <ListItem
           button
+          className={isNested ? classes.nestedItem : null}
           onClick={() => this.handleDrawerToggle()}
           selected={isActive || item.selected}
-          className={isNested ? classes.nestedItem : null}
         >
           <ListItemIcon className={isNested ? classes.nestedIcon : null}>
             <item.icon />
           </ListItemIcon>
           <ListItemText
             primary={`${item.text} ${item.count || ''}`}
-            secondary={item.subtext}
             primaryTypographyProps={{
               style: { color: 'initial' },
             }}
+            secondary={item.subtext}
             secondaryTypographyProps={{ style: { color: colors.primaryDark } }}
           />
         </ListItem>
@@ -205,25 +205,25 @@ class ConsumerDrawer extends React.Component<Props, State> {
         <Toolbar>
           <Grid
             container
-            direction="row"
             alignItems="center"
+            direction="row"
             justify="space-between"
-            wrap="nowrap"
             style={{ width: '100%' }}
+            wrap="nowrap"
           >
             <Grid item zeroMinWidth>
               <Grid
                 container
-                direction="row"
                 alignItems="center"
+                direction="row"
                 justify="flex-start"
                 wrap="nowrap"
               >
                 <Grid item zeroMinWidth>
                   <Hidden mdUp>
                     <IconButton
-                      color="inherit"
                       aria-label="open drawer"
+                      color="inherit"
                       onClick={this.handleDrawerToggle}
                     >
                       <MenuIcon />
@@ -232,11 +232,11 @@ class ConsumerDrawer extends React.Component<Props, State> {
                 </Grid>
                 <Grid item zeroMinWidth>
                   <Typography
-                    id="app-title"
-                    color="inherit"
                     noWrap
-                    variant="h6"
                     className={classes.title}
+                    color="inherit"
+                    id="app-title"
+                    variant="h6"
                   >
                     {this.props.title}
                   </Typography>
@@ -248,8 +248,8 @@ class ConsumerDrawer extends React.Component<Props, State> {
                 container
                 alignItems="center"
                 direction="row"
-                wrap="nowrap"
                 implementation="css"
+                wrap="nowrap"
               >
                 {this.renderAdditionalButtons()}
               </Grid>
@@ -289,9 +289,9 @@ class ConsumerDrawer extends React.Component<Props, State> {
           !WidgetUtils.isWidget() && (
             <Button
               className={this.props.classes.connectedAsButton}
-              variant="outlined"
               color="primary"
               onClick={() => this.setState({ isConnectedAsDialogOpen: true })}
+              variant="outlined"
             >
               <People className={this.props.classes.icon} />
               <Typography>{this.props.t('navigation.connectedAs')}</Typography>
@@ -301,12 +301,12 @@ class ConsumerDrawer extends React.Component<Props, State> {
           <MoreVertIcon />
         </Button>
         <Menu
-          anchorEl={this.state.anchorEl}
           keepMounted
-          open={Boolean(this.state.anchorEl)}
+          anchorEl={this.state.anchorEl}
           onClose={() => {
             this.setState({ anchorEl: null });
           }}
+          open={Boolean(this.state.anchorEl)}
         >
           <MenuItem>
             <LanguageButton
@@ -359,10 +359,10 @@ class ConsumerDrawer extends React.Component<Props, State> {
       ) {
         return (
           <Badge
-            color="error"
             badgeContent={`${getCurrencyDisplayWithPrice(
               parseInt(membership.credit_account_balance, 10),
             )}`}
+            color="error"
           >
             <ReceiptIcon {...props} />
           </Badge>
@@ -375,8 +375,8 @@ class ConsumerDrawer extends React.Component<Props, State> {
       if (this.props.subscriptionPendingActionCount) {
         return (
           <Badge
-            color="error"
             badgeContent={this.props.subscriptionPendingActionCount}
+            color="error"
           >
             <Payment {...props} />
           </Badge>
@@ -514,15 +514,15 @@ class ConsumerDrawer extends React.Component<Props, State> {
         <div className={classes.toolbar}>
           <Grid
             container
-            style={{ paddingTop: 10 }}
-            justify="center"
             alignItems="center"
+            justify="center"
+            style={{ paddingTop: 10 }}
           >
             <Hidden smDown>
               <img
+                alt="bsport logo"
                 height={40}
                 src={this.props.logo || LOGO_ASSET}
-                alt="bsport logo"
               />
             </Hidden>
           </Grid>
@@ -532,10 +532,10 @@ class ConsumerDrawer extends React.Component<Props, State> {
             !this.props.isRelationNavigation &&
             !WidgetUtils.isWidget() && (
               <ListItem
-                className={this.props.classes.connectedAsListItem}
-                button
-                onClick={() => this.setState({ isConnectedAsDialogOpen: true })}
                 key={MENU.length}
+                button
+                className={this.props.classes.connectedAsListItem}
+                onClick={() => this.setState({ isConnectedAsDialogOpen: true })}
               >
                 <ListItemIcon>
                   <People />
@@ -558,29 +558,29 @@ class ConsumerDrawer extends React.Component<Props, State> {
         {this.renderAppBar()}
         <Hidden mdUp>
           <Drawer
-            variant="temporary"
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={this.state.mobileOpen}
-            onClose={this.handleDrawerToggle}
             classes={{
               paper: classes.drawerPaper,
             }}
             ModalProps={{
               keepMounted: true, // Better open performance on mobile.
             }}
+            onClose={this.handleDrawerToggle}
+            open={this.state.mobileOpen}
+            variant="temporary"
           >
             {drawer}
           </Drawer>
         </Hidden>
         <Hidden smDown implementation="css">
           <Drawer
-            variant="permanent"
             open
             anchor="left"
-            elevation={20}
             classes={{
               paper: classes.drawerPaper,
             }}
+            elevation={20}
+            variant="permanent"
           >
             {drawer}
           </Drawer>
@@ -605,16 +605,16 @@ class ConsumerDrawer extends React.Component<Props, State> {
           {this.props.children}
         </main>
         <Dialog
-          open={this.state.isConnectedAsDialogOpen}
           onClose={() => this.setState({ isConnectedAsDialogOpen: false })}
+          open={this.state.isConnectedAsDialogOpen}
         >
           <ConnectedAsDialog
-            memberList={this.props.controlableMemberList}
-            onSelectMember={() => {}}
             closeDialog={() =>
               this.setState({ isConnectedAsDialogOpen: false })
             }
+            memberList={this.props.controlableMemberList}
             onConfirm={this.props.navigateToRelationAccount}
+            onSelectMember={() => {}}
           />
         </Dialog>
       </div>

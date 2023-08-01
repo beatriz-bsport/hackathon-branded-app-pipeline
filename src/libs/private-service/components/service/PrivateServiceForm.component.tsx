@@ -100,7 +100,7 @@ const HelpPaddingDialog = ({
   const { t } = useTranslation(['privateService']);
   const classes = useStyles();
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog onClose={onClose} open={open}>
       <DialogContent>
         <Typography>{t('privateService.padBeforeBooking.explain1')}</Typography>
         <Typography style={{ marginTop: 16 }} variant="body2">
@@ -136,19 +136,19 @@ export const PrivateServiceForm = (props: Props) => {
     <div className={classes.container}>
       <ImageField id="button_private_service_image" name="cover_main" />
       <TextField
-        className={classes.field}
-        name="name"
-        required
         fullWidth
+        required
+        className={classes.field}
         label={t('service.form.name.label')}
+        name="name"
         placeholder={t('service.form.name.placeholder')}
       />
       <div className={classes.row}>
         <div style={{ display: 'flex', flex: 1 }}>
           <PrivateServiceGroupField
-            serviceGroupList={props.serviceGroupList}
             fullWidth
             name="private_service_group"
+            serviceGroupList={props.serviceGroupList}
           />
         </div>
         {!!props.onAddServiceGroup && (
@@ -158,9 +158,9 @@ export const PrivateServiceForm = (props: Props) => {
         )}
       </div>
       <ColorField
+        transparentColorAvailable
         label={t('service.form.color')}
         name="color"
-        transparentColorAvailable
       />
       <fieldset className={classes.resourceGroup}>
         <legend className={classes.legend}>
@@ -168,7 +168,6 @@ export const PrivateServiceForm = (props: Props) => {
         </legend>
         <div className={classes.field}>
           <RadioGroupField
-            name="establishment_resource_type"
             choices={[
               {
                 label: t(
@@ -198,6 +197,7 @@ export const PrivateServiceForm = (props: Props) => {
                 ),
               },
             ]}
+            name="establishment_resource_type"
           />
         </div>
         <Slide
@@ -217,8 +217,8 @@ export const PrivateServiceForm = (props: Props) => {
                     {props.availableEstablishments.length === 0 ? (
                       <div className={classes.row}>
                         <WarningIcon
-                          color="error"
                           className={classes.leftIcon}
+                          color="error"
                         />
                         <Typography>
                           {t(
@@ -230,23 +230,23 @@ export const PrivateServiceForm = (props: Props) => {
                     {establishments.map((id: number, i: number) => (
                       <EstablishmentListItem
                         key={`${id}-${i}`}
+                        showCapacity
                         establishment={props.allEstablishments.find(
                           (e) => e.id === id,
                         )}
-                        showCapacity
                         onClickDelete={() => remove(i)}
                       />
                     ))}
                     <EstablishmentSelector
+                      closeMenuOnSelect
+                      nullCurrentValue
+                      showCapacity
                       establishments={[
                         ...props.availableEstablishments.filter(
                           (c) => !establishments.includes(c.id),
                         ),
                       ]}
-                      showCapacity
-                      nullCurrentValue
                       selectedEstablishments={[]}
-                      closeMenuOnSelect
                       selectOption={(ev) => {
                         if (ev.length) push(ev[0].value);
                       }}
@@ -256,17 +256,17 @@ export const PrivateServiceForm = (props: Props) => {
               </FieldArray>
             </div>
             <CheckboxField
-              label={t('service.form.use_full_establishment_capacity.label')}
               helperText={t(
                 'service.form.use_full_establishment_capacity.helperText',
               )}
+              label={t('service.form.use_full_establishment_capacity.label')}
               name="use_full_establishment_capacity"
             />
             <CheckboxField
-              label={t('service.form.establishment_consumer_attribution.label')}
               helperText={t(
                 'service.form.establishment_consumer_attribution.helperText',
               )}
+              label={t('service.form.establishment_consumer_attribution.label')}
               name="establishment_consumer_attribution"
             />
           </div>
@@ -293,8 +293,8 @@ export const PrivateServiceForm = (props: Props) => {
                     {coaches.length === 0 ? (
                       <div className={classes.row}>
                         <WarningIcon
-                          color="error"
                           className={classes.leftIcon}
+                          color="error"
                         />
                         <Typography>
                           {t('service.form.coach.isEmpty')}
@@ -309,11 +309,11 @@ export const PrivateServiceForm = (props: Props) => {
                       />
                     ))}
                     <CoachSelector
+                      closeMenuOnSelect
+                      nullCurrentValue
                       coaches={[
                         ...props.coaches.filter((c) => !coaches.includes(c.id)),
                       ]}
-                      closeMenuOnSelect
-                      nullCurrentValue
                       selectedCoaches={[]}
                       selectOption={(ev: Array<{ value: number }>) => {
                         if (ev.length) push(ev[0].value);
@@ -324,54 +324,54 @@ export const PrivateServiceForm = (props: Props) => {
               </FieldArray>
             </div>
             <IntegerField
-              name="coach_capacity_used"
-              className={classes.field}
               fullWidth
-              label={t('service.form.coach_capacity_used.label')}
+              className={classes.field}
               helperText={t('service.form.coach_capacity_used.helperText')}
+              label={t('service.form.coach_capacity_used.label')}
+              name="coach_capacity_used"
             />
-            <Alert severity="info" className={classes.alignCenter}>
+            <Alert className={classes.alignCenter} severity="info">
               {t('service.form.coach_capacity_used.alertText')}
             </Alert>
             <CheckboxField
-              label={t('service.form.coach_consumer_attribution.label')}
               helperText={t(
                 'service.form.coach_consumer_attribution.helperText',
               )}
+              label={t('service.form.coach_consumer_attribution.label')}
               name="coach_consumer_attribution"
             />
           </div>
         </Slide>
       </fieldset>
       <TextField
-        className={classes.field}
-        multiline
         fullWidth
-        variant="outlined"
-        rows={12}
-        name="description"
-        label={t('service.form.description.label')}
+        multiline
         required
+        className={classes.field}
+        label={t('service.form.description.label')}
+        name="description"
+        rows={12}
+        variant="outlined"
       />
       <SwitchField
-        name="manager_only"
         label={t('service.form.managerOnly.label')}
+        name="manager_only"
       />
       <div className={classes.row}>
         <DurationField
-          name="last_discard_minutes"
-          className={classes.field}
           fullWidth
-          label={t('service.form.last_discard_minutes.label')}
+          className={classes.field}
           helperText={t('service.form.last_discard_minutes.helperText')}
+          label={t('service.form.last_discard_minutes.label')}
+          name="last_discard_minutes"
         />
       </div>
       <div className={classes.row}>
         <DurationField
-          name="last_booking_minutes"
-          className={classes.field}
           fullWidth
+          className={classes.field}
           label={t('service.form.last_booking_minutes.label')}
+          name="last_booking_minutes"
         />
       </div>
       <fieldset className={classes.unpaidBookingsection}>
@@ -379,10 +379,9 @@ export const PrivateServiceForm = (props: Props) => {
           {t('service.form.paddingTitle')}
         </legend>
         <IntegerField
-          name="availability_padding_start_minutes"
-          className={classes.integerField}
           fullWidth
-          label={t('service.form.paddingStart.label')}
+          required
+          className={classes.integerField}
           helperText={
             props.values.availability_padding_start_minutes
               ? t('service.form.paddingStart.helperText', {
@@ -390,13 +389,13 @@ export const PrivateServiceForm = (props: Props) => {
                 })
               : t('service.form.paddingStart.helperText0')
           }
-          required
+          label={t('service.form.paddingStart.label')}
+          name="availability_padding_start_minutes"
         />
         <IntegerField
-          name="availability_padding_end_minutes"
-          className={classes.integerField}
           fullWidth
-          label={t('service.form.paddingEnd.label')}
+          required
+          className={classes.integerField}
           helperText={
             props.values.availability_padding_end_minutes
               ? t('service.form.paddingEnd.helperText', {
@@ -404,19 +403,20 @@ export const PrivateServiceForm = (props: Props) => {
                 })
               : t('service.form.paddingEnd.helperText0')
           }
-          required
+          label={t('service.form.paddingEnd.label')}
+          name="availability_padding_end_minutes"
         />
         <div className={classes.row}>
           <SwitchField
-            name="pad_before_booking"
             label={t('service.form.pad_before_booking.label')}
+            name="pad_before_booking"
           />
           <IconButton onClick={openPaddingDialog}>
             <HelpOutlineIcon />
           </IconButton>
           <HelpPaddingDialog
-            open={isOpenPadDialog}
             onClose={closePaddingDialog}
+            open={isOpenPadDialog}
           />
         </div>
       </fieldset>
@@ -425,13 +425,13 @@ export const PrivateServiceForm = (props: Props) => {
           {t('service.form.unpaidBooking.title')}
         </legend>
         <SwitchField
-          name="allow_unpaid_booking"
           label={t('service.form.unpaidBooking.label')}
+          name="allow_unpaid_booking"
         />
         <PrivateServiceFormTag
           open={props.values.allow_unpaid_booking}
-          tagList={props.tagList}
           setFieldValue={props.setFieldValue}
+          tagList={props.tagList}
           values={props.values}
         />
       </fieldset>

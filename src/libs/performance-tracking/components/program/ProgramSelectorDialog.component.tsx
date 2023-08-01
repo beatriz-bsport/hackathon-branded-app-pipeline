@@ -31,15 +31,14 @@ export const ProgramSelectorDialog = (props: Props) => {
   const classes = useStyles();
   return (
     <>
-      <Dialog open={isDialogChooseProgramOpen} maxWidth="sm" fullWidth>
+      <Dialog fullWidth maxWidth="sm" open={isDialogChooseProgramOpen}>
         <div className={classes.dialog}>
-          <Typography variant="h6" className={classes.title}>
+          <Typography className={classes.title} variant="h6">
             {t('program.selectProgram')}
           </Typography>
 
           <MaterialUISelector
             isMenuListPaddingDisabled
-            placeholder={t('program.selectProgram')}
             itemRenderer={(itemProps) => {
               return (
                 <ProgramMenuItem
@@ -52,13 +51,14 @@ export const ProgramSelectorDialog = (props: Props) => {
                 />
               );
             }}
+            onChange={(option: { value: number; label: string }) =>
+              setProgramToAddToMember(option.value)
+            }
             options={programList?.map((program) => ({
               value: program.id,
               label: program.name,
             }))}
-            onChange={(option: { value: number; label: string }) =>
-              setProgramToAddToMember(option.value)
-            }
+            placeholder={t('program.selectProgram')}
           />
 
           <div className={classes.action}>
@@ -66,12 +66,12 @@ export const ProgramSelectorDialog = (props: Props) => {
               {t('form.cancel')}
             </Button>
             <Button
-              variant="contained"
               color="primary"
               onClick={() => {
                 createMemberProgram(programToAddToMember);
                 setIsDialogChooseProgramOpen(false);
               }}
+              variant="contained"
             >
               {t('form.add')}
             </Button>

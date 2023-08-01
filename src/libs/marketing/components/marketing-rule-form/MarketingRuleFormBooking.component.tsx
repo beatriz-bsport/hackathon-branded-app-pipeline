@@ -167,17 +167,17 @@ const MarketingRuleFormBooking = (props: Props) => {
   return (
     <GenericResponsiveDrawer
       open
-      onClose={onCancel}
-      title={t('booking:notification.form.title')}
-      subtitle={t(`notificationRule:tag.Booking.subtitles.${identifier}`)}
       mobileMinWidth="0px"
+      onClose={onCancel}
+      subtitle={t(`notificationRule:tag.Booking.subtitles.${identifier}`)}
+      title={t('booking:notification.form.title')}
     >
       <Form>
         <div className={classes.warningTitleContainer}>
           <div className={classes.infoIcon}>
             <InfoOutlinedIcon color="inherit" />
           </div>
-          <Typography variant="body2" className={classes.breakSpaces}>
+          <Typography className={classes.breakSpaces} variant="body2">
             {t('notification.form.explain')}
           </Typography>
         </div>
@@ -195,7 +195,6 @@ const MarketingRuleFormBooking = (props: Props) => {
               {eventType === 'valid' && (
                 <div className={classes.choiceField}>
                   <RadioGroupField
-                    name="eventKind"
                     choices={[
                       {
                         label: t(
@@ -210,13 +209,13 @@ const MarketingRuleFormBooking = (props: Props) => {
                         value: BOOKING_NOTIFICATION_VALID_ABSENCE,
                       },
                     ]}
+                    name="eventKind"
                   />
                 </div>
               )}
               {eventType === 'cancelled' && (
                 <div className={classes.choiceField}>
                   <RadioGroupField
-                    name="eventKind"
                     choices={[
                       {
                         label: t(
@@ -231,6 +230,7 @@ const MarketingRuleFormBooking = (props: Props) => {
                         value: BOOKING_NOTIFICATION_CANCELLED_NOT_REFUNDED,
                       },
                     ]}
+                    name="eventKind"
                   />
                 </div>
               )}
@@ -245,19 +245,19 @@ const MarketingRuleFormBooking = (props: Props) => {
               </Typography>
               <IntegerField
                 className={classes.integerInput}
-                name="notify_booking_nb"
                 disabled={values.notifyAllEvents}
+                name="notify_booking_nb"
               />
             </div>
             <div className={classes.choiceField}>
               <CheckboxField
                 classes={{ label: classes.label }}
-                name="notifyAllEvents"
                 label={t('booking:notification.form.notifyAllEvents')}
+                name="notifyAllEvents"
               />
             </div>
             <div className={classes.helperText}>
-              <Typography variant="caption" className={classes.greyText}>
+              <Typography className={classes.greyText} variant="caption">
                 {values.notifyAllEvents
                   ? t(
                       `booking:notification.form.help.allEvents.${getNotificationKind(
@@ -276,38 +276,37 @@ const MarketingRuleFormBooking = (props: Props) => {
           <MarketingRuleBasicTypeField
             periodScale={periodScale}
             relativeTimeValue={relativeTimeValue}
-            timeComparator={timeComparator}
             setFieldValue={setFieldValue}
+            timeComparator={timeComparator}
           />
           <MarketingRuleSmartlistField
             goToSmartList={goToSmartlist}
-            smartLists={smartLists}
-            smartlist_include={smartlist_include}
             smartlist_exclude={smartlist_exclude}
+            smartlist_include={smartlist_include}
+            smartLists={smartLists}
           />
           <MarketingRuleSendingMethodField
-            send_email={send_email}
-            send_notification_push={send_notification_push}
-            notificationTitle={notificationTitle}
-            notificationContent={notificationContent}
-            errors={errors}
-            emailListLoading={emailListLoading}
-            emails={emails}
             email_design={email_design}
-            getEmailDetail={getEmailDetail}
             emailDetailLoading={emailDetailLoading}
             emailDetails={emailDetails}
+            emailListLoading={emailListLoading}
+            emails={emails}
+            errors={errors}
+            getEmailDetail={getEmailDetail}
+            notificationContent={notificationContent}
+            notificationTitle={notificationTitle}
+            resolvedGenericTags={resolvedGenericTags}
+            send_email={send_email}
+            send_notification_push={send_notification_push}
             setFieldValue={setFieldValue}
             tags={tags}
-            resolvedGenericTags={resolvedGenericTags}
           />
 
           <DialogActions>
-            <Button onClick={onCancel} disabled={isSubmitting}>
+            <Button disabled={isSubmitting} onClick={onCancel}>
               {t('booking:notification.form.cancel')}
             </Button>
             <Submit
-              onClick={onSubmitIntent}
               color="primary"
               disabled={
                 (!values.email_design && values.send_email) ||
@@ -318,6 +317,7 @@ const MarketingRuleFormBooking = (props: Props) => {
                 !!errors.notify_booking_nb ||
                 !!errors.atLeastOneChannel
               }
+              onClick={onSubmitIntent}
             >
               {t('booking:notification.form.submit')}
             </Submit>

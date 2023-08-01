@@ -354,47 +354,47 @@ export class MarketingRuleListPage extends Component<Props, State> {
         <div className={classes.notificationsContainer}>
           <MarketingRuleListBooking
             bookingNotifications={this.props.notifications.bookings}
+            emailSummariesById={this.props.emailSummariesById}
             establishmentById={this.props.establishmentById}
             establishmentGroupById={this.props.establishmentGroupById}
             metaActivityBydId={this.props.metaActivityById}
             onClickNotification={this.onClickNotification}
-            emailSummariesById={this.props.emailSummariesById}
             onUpdateNotification={this.props.updateMarketingNotification}
             smartLists={this.props.smartLists}
           />
           <MarketingRuleListPrivateBooking
+            emailSummariesById={this.props.emailSummariesById}
+            establishmentById={this.props.establishmentById}
+            establishmentGroupById={this.props.establishmentGroupById}
+            onClickNotification={this.onClickNotification}
+            onUpdateNotification={this.props.updateMarketingNotification}
             privateBookingNotifications={
               this.props.notifications.privateBookings
             }
-            establishmentById={this.props.establishmentById}
-            establishmentGroupById={this.props.establishmentGroupById}
             privateServiceById={this.props.privateServicebyId}
-            onClickNotification={this.onClickNotification}
-            emailSummariesById={this.props.emailSummariesById}
             smartLists={this.props.smartLists}
-            onUpdateNotification={this.props.updateMarketingNotification}
           />
           <MarketingRuleListPaymentPack
-            paymentPackNotifications={this.props.notifications.byPaymentPack}
-            paymentPackById={this.props.paymentPackById}
-            onClickNotification={this.onClickNotification}
             emailSummariesById={this.props.emailSummariesById}
+            onClickNotification={this.onClickNotification}
             onUpdateNotification={this.props.updateMarketingNotification}
+            paymentPackById={this.props.paymentPackById}
+            paymentPackNotifications={this.props.notifications.byPaymentPack}
             smartLists={this.props.smartLists}
           />
           <MarketingRuleListPrivatePass
-            privatePassNotifications={this.props.notifications.byPrivatePass}
-            privatePassById={this.props.privatePassById}
-            onClickNotification={this.onClickNotification}
             emailSummariesById={this.props.emailSummariesById}
+            onClickNotification={this.onClickNotification}
             onUpdateNotification={this.props.updateMarketingNotification}
+            privatePassById={this.props.privatePassById}
+            privatePassNotifications={this.props.notifications.byPrivatePass}
             smartLists={this.props.smartLists}
           />
           <MarketingRuleListContract
-            contractNotifications={this.props.notifications.byContract}
             contractById={this.props.contractById}
-            onClickNotification={this.onClickNotification}
+            contractNotifications={this.props.notifications.byContract}
             emailSummariesById={this.props.emailSummariesById}
+            onClickNotification={this.onClickNotification}
             onUpdateNotification={this.props.updateMarketingNotification}
             smartLists={this.props.smartLists}
           />
@@ -404,8 +404,8 @@ export class MarketingRuleListPage extends Component<Props, State> {
           </Typography>
           <div>
             <NotificationsList
-              notifications={this.props.notifications.birthday}
               emailSummariesById={this.props.emailSummariesById}
+              notifications={this.props.notifications.birthday}
               onClickNotification={this.onClickNotification}
               onUpdateNotification={this.props.updateMarketingNotification}
               smartLists={this.props.smartLists}
@@ -421,12 +421,17 @@ export class MarketingRuleListPage extends Component<Props, State> {
 
         <div className={classes.emailContainer}>
           <MarketingRuleDetail
-            emailSummary={this.getSelectedEmailTemplateSummary()}
+            contractById={this.props.contractById}
             emailDetails={this.getSelectedEmailTemplateDetail()}
+            emailSummary={this.getSelectedEmailTemplateSummary()}
+            establishmentById={this.props.establishmentById}
+            establishmentGroupById={this.props.establishmentGroupById}
             loading={
               this.props.emailTemplateLoading ||
               this.props.notificationStatLoading
             }
+            metaActivityBydId={this.props.metaActivityById}
+            notificationsStatById={this.props.notificationsStatById}
             onClickEdit={() => {
               const editNotification = this.props.notificationList.find(
                 (n) => n.id === this.state.selectedNotification,
@@ -436,55 +441,50 @@ export class MarketingRuleListPage extends Component<Props, State> {
               });
             }}
             onClickRemove={this.onClickRemove}
+            paymentPackById={this.props.paymentPackById}
+            privatePassById={this.props.privatePassById}
+            privateServiceById={this.props.privateServicebyId}
+            resolvedGenericTags={this.props.resolvedGenericTags}
             selectedNotification={this.props.notificationList.find(
               (n) => n.id === this.state.selectedNotification,
             )}
-            establishmentById={this.props.establishmentById}
-            establishmentGroupById={this.props.establishmentGroupById}
-            metaActivityBydId={this.props.metaActivityById}
-            privateServiceById={this.props.privateServicebyId}
-            paymentPackById={this.props.paymentPackById}
-            privatePassById={this.props.privatePassById}
-            contractById={this.props.contractById}
-            notificationsStatById={this.props.notificationsStatById}
             theme={this.props.theme}
-            resolvedGenericTags={this.props.resolvedGenericTags}
           />
         </div>
 
         <MarketingRuleFormGeneric
-          establishmentGroups={this.props.establishmentGroups}
-          selectedNotification={this.state.editNotification}
-          emailSummaryList={this.props.emailSummaryList}
-          emailListLoading={this.props.emailListLoading}
+          closeForm={this.closeForm}
+          contracts={this.props.contracts}
+          createFormOpenType={this.state.createFormOpen}
           emailDetailLoading={this.props.emailDetailLoading}
+          emailDetails={this.props.emailDetailById}
+          emailListLoading={this.props.emailListLoading}
+          emailSummaryList={this.props.emailSummaryList}
+          establishmentGroups={this.props.establishmentGroups}
+          establishments={this.props.establishments}
           getEmailDetail={this.props.fetchEmailTemplateDetail}
           getEmails={this.props.fetchEmailTemplatesSummaries}
-          emailDetails={this.props.emailDetailById}
-          smartListLoading={this.props.smartListLoading}
-          smartLists={this.props.smartLists}
           getSmartLists={this.props.getSmartLists}
           goToSmartlist={this.props.goToSmartlist}
-          onCancel={() => this.setState({ editNotification: null })}
-          onUpdateMarketingNotification={this.onEditNotification}
-          onCreateMarketingNotification={this.handleCreate}
           metaActivities={this.props.metaActivities}
-          workshopList={this.props.workshopList}
-          establishments={this.props.establishments}
-          privateServices={this.props.privateServices}
+          onCancel={() => this.setState({ editNotification: null })}
+          onCreateMarketingNotification={this.handleCreate}
+          onUpdateMarketingNotification={this.onEditNotification}
           paymentPacks={this.props.paymentPacks}
-          contracts={this.props.contracts}
-          tags={this.props.tagCategories}
           privatePasses={this.props.privatePasses}
-          createFormOpenType={this.state.createFormOpen}
-          closeForm={this.closeForm}
+          privateServices={this.props.privateServices}
           resolvedGenericTags={this.props.resolvedGenericTags}
+          selectedNotification={this.state.editNotification}
+          smartListLoading={this.props.smartListLoading}
+          smartLists={this.props.smartLists}
+          tags={this.props.tagCategories}
+          workshopList={this.props.workshopList}
         />
         <FabWithItems
+          items={this.getCreateButtonSpec()}
           label={this.props.t(
             'marketing:notifications.createNotificationFabLabel',
           )}
-          items={this.getCreateButtonSpec()}
         />
       </div>
     );

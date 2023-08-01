@@ -83,7 +83,7 @@ export const InvoiceContent = (props: Props) => {
     <div>
       <Paper className={classes.paperContainer}>
         <div className={classes.section}>
-          <Typography variant="h6" className={classes.sectionTitle}>
+          <Typography className={classes.sectionTitle} variant="h6">
             {t(
               is_reverse
                 ? 'section.invoiceItemList.titleReverse'
@@ -98,8 +98,8 @@ export const InvoiceContent = (props: Props) => {
           {invoiceItemList.map((ii) => (
             <div>
               <InvoiceItem
-                invoiceItem={ii}
                 key={`${ii.buyable_item_identifier}:${ii.id}:${ii.voucher}`}
+                invoiceItem={ii}
                 onDelete={() => removeInvoiceItem(ii.id)}
               />
             </div>
@@ -113,7 +113,7 @@ export const InvoiceContent = (props: Props) => {
           )}
           <div className={classes.sumUp}>
             <div className={classes.sumUpInnerPayment}>
-              <Typography variant="h6" component="p">
+              <Typography component="p" variant="h6">
                 {t('section.invoiceItemList.total')}
               </Typography>
               <Typography variant="h5">
@@ -135,12 +135,12 @@ export const InvoiceContent = (props: Props) => {
             {!!paymentItemList &&
               paymentItemList.map((p) => (
                 <PaymentItem
+                  key={p.uuid}
+                  handleChangeMethod={props.updatePaymentMethod}
+                  isReturningPayment={props.isReturningPayment}
+                  onDelete={() => removePaymentItem(p.id)}
                   paymentItem={p}
                   returnPayment={props.returnPayment}
-                  isReturningPayment={props.isReturningPayment}
-                  handleChangeMethod={props.updatePaymentMethod}
-                  onDelete={() => removePaymentItem(p.id)}
-                  key={p.uuid}
                 />
               ))}
             {!paymentItemList ||
@@ -153,7 +153,7 @@ export const InvoiceContent = (props: Props) => {
               ))}
             <div className={classes.sumUp}>
               <div className={classes.sumUpInnerInvoiceItem}>
-                <Typography variant="h6" component="p">
+                <Typography component="p" variant="h6">
                   {t('section.paymentList.total')}
                 </Typography>
                 <Typography
@@ -175,8 +175,8 @@ export const InvoiceContent = (props: Props) => {
             {!!props.invoice.custom_footer && (
               <Typography
                 className={classes.customFooterContainer}
-                variant="caption"
                 color="textSecondary"
+                variant="caption"
               >
                 {props.invoice.custom_footer}
               </Typography>
@@ -193,9 +193,9 @@ export const InvoiceContent = (props: Props) => {
         {editFooterOpen && (
           <div className={classes.footerSectionRow}>
             <TextField
-              value={customFooterValue}
-              onChange={(ev) => setCustomFooterValue(ev.target.value)}
               fullWidth
+              onChange={(ev) => setCustomFooterValue(ev.target.value)}
+              value={customFooterValue}
               variant="outlined"
             />
             <IconButton onClick={() => setEditFooterOpen(false)}>
@@ -216,8 +216,8 @@ export const InvoiceContent = (props: Props) => {
           {props.couponList && (
             <div className={classes.couponButton}>
               <CouponCodeForm
-                onSubmit={props.applyCoupon}
                 disabled={props.disableCoupon || props.couponLoading}
+                onSubmit={props.applyCoupon}
               />
             </div>
           )}
@@ -253,7 +253,7 @@ export const InvoiceContent = (props: Props) => {
 
         {enableMultiLocalization && props.withEstablishment && (
           <>
-            <Typography variant="h6" className={classes.sectionTitle}>
+            <Typography className={classes.sectionTitle} variant="h6">
               {t('section.invoiceItemList.billing_establishment')}
             </Typography>
             {props.establishmentLoading || props.invoiceItemLoading ? (
@@ -263,9 +263,14 @@ export const InvoiceContent = (props: Props) => {
             )}
             <div className={classes.sectionEstablishmentBilling}>
               <EstablishmentSelector
+                closeMenuOnSelect
+                isOptionDisabled
+                isRequired
+                noMulti
                 establishments={props.establishments}
                 isLoading={props.establishmentLoading || loading}
-                isOptionDisabled
+                requiredValueIsMissing={props.requiredEstablishmentIsMissing}
+                selectedEstablishments={[props.billing_establishment_id]}
                 selectOption={async (item: {
                   value: number;
                   label: string;
@@ -279,11 +284,6 @@ export const InvoiceContent = (props: Props) => {
                   });
                   setLoading(false);
                 }}
-                selectedEstablishments={[props.billing_establishment_id]}
-                noMulti
-                closeMenuOnSelect
-                isRequired
-                requiredValueIsMissing={props.requiredEstablishmentIsMissing}
               />
             </div>
           </>
@@ -294,14 +294,15 @@ export const InvoiceContent = (props: Props) => {
         props.invoice.invoice_type !== INVOICE_TYPE_MIGRATION && (
           <div className={classes.buttonRow}>
             <Tooltip
+              aria-label="pdf-not-available"
               title={
                 props.invoice.is_draft
                   ? `${t('actions.explainPdfDraft')}`
                   : undefined
               }
-              aria-label="pdf-not-available"
             >
               <Button
+                color={props.invoice.is_draft ? undefined : 'primary'}
                 onClick={() => {
                   if (!props.invoice.is_draft) {
                     if (props.invoice.stripe_invoice_pdf) {
@@ -311,7 +312,6 @@ export const InvoiceContent = (props: Props) => {
                     }
                   }
                 }}
-                color={props.invoice.is_draft ? undefined : 'primary'}
                 variant="contained"
               >
                 <AttachFileIcon className={classes.iconLeft} />
@@ -320,12 +320,12 @@ export const InvoiceContent = (props: Props) => {
             </Tooltip>
             {!!props.invoice.payments?.length && (
               <Button
+                color="secondary"
                 onClick={() => {
                   getReceiptUrlAPI(props.invoice.uuid).then((r) =>
                     window.open(r.data),
                   );
                 }}
-                color="secondary"
                 variant="contained"
               >
                 <AttachFileIcon className={classes.iconLeft} />
@@ -334,10 +334,10 @@ export const InvoiceContent = (props: Props) => {
             )}
             {!!props.invoice.plannedinvoice && (
               <Button
+                color="primary"
                 onClick={() =>
                   props.goToSubscription(props.invoice.billing_plan)
                 }
-                color="primary"
                 variant="outlined"
               >
                 {t('actions.goToSubscription')}

@@ -20,12 +20,12 @@ const CommunicationHeader = (props: Props) => {
       <div className={classes.textContainer}>
         {contextAvatar && (
           <Avatar
-            src={contextAvatar}
             alt={contextAvatar}
             className={classes.avatar}
+            src={contextAvatar}
           />
         )}
-        <Typography variant="body1" className={classes.text}>
+        <Typography className={classes.text} variant="body1">
           {contextTitle}
         </Typography>
       </div>

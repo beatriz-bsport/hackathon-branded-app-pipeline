@@ -99,14 +99,14 @@ export class CheckboxSelector<T extends Item> extends Component<
     return (
       <div className={classes.selector}>
         <ListItem
+          button
+          divider
           classes={{
             gutters: classes.gutters,
             button: classes.listItemButton,
             root: classes.root,
             divider: classes.divider,
           }}
-          button
-          divider
           onClick={this.handleClick}
         >
           <ListItemText
@@ -120,23 +120,23 @@ export class CheckboxSelector<T extends Item> extends Component<
           <ArrowDropDownIcon className={classes.dropdownArrow} />
         </ListItem>
         <Popover
-          open={this.state.open}
+          anchorEl={this.state.anchorEl}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+          className={classes.popover}
           onClose={() => {
             this.props.onChange(selectedItems);
             this.setState({
               open: false,
             });
           }}
-          anchorEl={this.state.anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-          }}
+          open={this.state.open}
           transformOrigin={{
             vertical: 'top',
             horizontal: 'left',
           }}
-          className={classes.popover}
         >
           <div
             className={classes.popoverDiv}
@@ -153,10 +153,10 @@ export class CheckboxSelector<T extends Item> extends Component<
               )
               .map((item) => (
                 <MenuItem
-                  className={classes.menuItem}
                   key={item.id}
-                  value={item.id}
+                  className={classes.menuItem}
                   onClick={() => this.handleChange(item.id)}
+                  value={item.id}
                 >
                   {this.props.renderItem ? this.props.renderItem(item) : null}
                   <Checkbox

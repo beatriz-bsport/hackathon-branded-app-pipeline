@@ -143,10 +143,10 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
     <div className={classes.container}>
       <div className={classes.row}>
         <Radio
+          checked={checked}
+          color="primary"
           disabled={disabled}
           onChange={handleChange}
-          color="primary"
-          checked={checked}
         />
 
         {partial_payment_enabled && (
@@ -190,9 +190,9 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
           {!partial_payment_enabled && (
             <>
               {instalmentDateList.map((date, index) => (
-                <div className={classes.row} key={date}>
+                <div key={date} className={classes.row}>
                   <Typography variant="caption">{date}</Typography>
-                  <Typography variant="caption" color="textSecondary">
+                  <Typography color="textSecondary" variant="caption">
                     {`${t(':')} ${getCurrencyDisplayWithPrice(
                       instalmentAmountList[index],
                     )}`}

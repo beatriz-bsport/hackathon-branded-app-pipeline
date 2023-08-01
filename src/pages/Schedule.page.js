@@ -355,55 +355,55 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     return (
       <div className={classes.container}>
         <PrivateCalendarWithControls
-          enableResourceAvailabilitySlot={this.enableResourceAvailabilitySlot}
-          disableResourceAvailabilitySlot={this.disableResourceAvailabilitySlot}
-          availabilitySlots={availabilitySlotList}
-          timezone={this.props.companyTheme.timezone_name}
-          customEventList={this.props.customEventList}
-          privateBookings={privateBookingList}
-          createCustomEvent={this.props.onRequestCustomEvent}
-          disableAvailabilitySlotDisplay
           collapsResourceSelector
-          resourceAvailable={resourceAvailable}
-          setResourceFiltered={this.props.setResourceFiltersArray}
-          goToMember={this.props.goToMember}
-          onDateChange={this.props.handleDateChange}
-          offerList={offerList}
-          resourcesByDatatype={this.props.resourcesByDatatype}
-          refreshOffers={this.props.fetchOfferList}
-          refreshPrivateBookings={this.props.fetchPrivateBookingList}
-          resourceSelectedListIds={this.props.resourceFiltersArray}
-          showOfferListToogle
-          showPrivateBookingToogle
+          disableAvailabilitySlotDisplay
           showCustomEventsToogle
           showHideCancelledEventsToggle
-          companyTheme={this.props.companyTheme}
+          showOfferListToogle
+          showPrivateBookingToogle
+          availabilitySlots={availabilitySlotList}
           availabilitySlotUpdating={this.props.availabilitySlotUpdating}
-          scheduleFilter={this.props.scheduleFilter}
-          setScheduleFilter={this.props.setScheduleFilter}
           coachesSelectedInRole={this.props.coachesSelectedInRole}
+          companyTheme={this.props.companyTheme}
+          createCustomEvent={this.props.onRequestCustomEvent}
+          customEventList={this.props.customEventList}
+          disableResourceAvailabilitySlot={this.disableResourceAvailabilitySlot}
+          enableResourceAvailabilitySlot={this.enableResourceAvailabilitySlot}
           establishments={this.props.establishments}
           getHasPendingReplacementRequest={
             this.props.getHasPendingReplacementRequest
           }
+          goToMember={this.props.goToMember}
+          offerList={offerList}
+          onDateChange={this.props.handleDateChange}
+          privateBookings={privateBookingList}
+          refreshOffers={this.props.fetchOfferList}
+          refreshPrivateBookings={this.props.fetchPrivateBookingList}
+          resourceAvailable={resourceAvailable}
+          resourcesByDatatype={this.props.resourcesByDatatype}
+          resourceSelectedListIds={this.props.resourceFiltersArray}
+          scheduleFilter={this.props.scheduleFilter}
+          setResourceFiltered={this.props.setResourceFiltersArray}
+          setScheduleFilter={this.props.setScheduleFilter}
+          timezone={this.props.companyTheme.timezone_name}
         />
         {this.state.updateAvailabilitySlotData ? (
           <AvailabilityUpdateResourceChoserDialog
-            resourceAvailable={resourceAvailable}
-            onSubmit={this.submitAvailabilitySlotUpdate}
-            onClose={this.onCancelAvailabilityUpdate}
-            open={!!this.state.updateAvailabilitySlotData}
+            coachesRelatedToPrivateServices={coachesIdsRelatedToPrivateServices}
             establishments={this.props.establishments}
             kind={this.state.updateAvailabilitySlotData.kind}
-            coachesRelatedToPrivateServices={coachesIdsRelatedToPrivateServices}
+            onClose={this.onCancelAvailabilityUpdate}
+            onSubmit={this.submitAvailabilitySlotUpdate}
+            open={!!this.state.updateAvailabilitySlotData}
+            resourceAvailable={resourceAvailable}
           />
         ) : null}
         {this.props.customEventData && (
           <CustomEvenFormDialog
-            coaches={coachList}
-            onSubmit={this.props.createOrUpdateCustomEvent}
-            onClose={this.props.closeCustomEventDialog}
             open
+            coaches={coachList}
+            onClose={this.props.closeCustomEventDialog}
+            onSubmit={this.props.createOrUpdateCustomEvent}
           />
         )}
       </div>

@@ -60,7 +60,7 @@ const FranchiseCompanyDetails = (props: Props) => {
     <div>
       {!companyId && (
         <div className={classes.emptySelect}>
-          <Alert severity="info" className={classes.alertInfo}>
+          <Alert className={classes.alertInfo} severity="info">
             {t('companies.emptySelect')}
           </Alert>
         </div>
@@ -73,16 +73,16 @@ const FranchiseCompanyDetails = (props: Props) => {
           <div className={classes.divider} />
           <Button
             className={classes.button}
-            variant="contained"
             color="primary"
-            onClick={goToCompany}
             disabled={isRedirectLoading}
+            onClick={goToCompany}
+            variant="contained"
           >
             {isRedirectLoading && (
               <CircularProgress
-                style={{ marginRight: 8 }}
-                size={24}
                 color="inherit"
+                size={24}
+                style={{ marginRight: 8 }}
               />
             )}
             {t('companies.navigateToCompany')}
@@ -93,26 +93,26 @@ const FranchiseCompanyDetails = (props: Props) => {
           {members && members.length > 0 ? (
             <div className={classes.table}>
               <PaginatedListBase
+                count={memberCounts ?? 0}
                 itemPerPage={5}
                 items={members}
-                page={page}
-                count={memberCounts ?? 0}
                 nbItems={memberCounts ?? 0}
                 onPageRequested={handleChangePage}
+                page={page}
                 renderItem={(member: Member) => {
                   if (!member) return null;
 
                   return (
                     <ListItem
-                      divider
-                      button
-                      className={classes.row}
                       key={member.id}
+                      button
+                      divider
+                      className={classes.row}
                       onClick={goToUser(member.id)}
                     >
                       <Avatar
-                        className={classes.avatar}
                         alt={member?.name}
+                        className={classes.avatar}
                         src={member?.photo}
                       />
                       <Typography variant="body1">{member?.name}</Typography>
@@ -123,7 +123,7 @@ const FranchiseCompanyDetails = (props: Props) => {
             </div>
           ) : (
             <div className={classes.emptySelect}>
-              <Alert severity="info" className={classes.alertInfo}>
+              <Alert className={classes.alertInfo} severity="info">
                 {t('companies.membersEmptyState')}
               </Alert>
             </div>
@@ -147,8 +147,8 @@ const FranchiseCompanyDetails = (props: Props) => {
                             <TableCell>
                               <div className={classes.row}>
                                 <Room
-                                  color="disabled"
                                   className={classes.pin}
+                                  color="disabled"
                                 />
                                 <Typography variant="body1">
                                   {address}
@@ -162,8 +162,8 @@ const FranchiseCompanyDetails = (props: Props) => {
                                 <TableCell>
                                   <div className={classes.establishmentRow}>
                                     <Avatar
-                                      className={classes.avatar}
                                       alt={establishment?.title}
+                                      className={classes.avatar}
                                       src={establishment?.cover}
                                     />
                                     <Typography variant="body1">
@@ -183,7 +183,7 @@ const FranchiseCompanyDetails = (props: Props) => {
               {(!establishmentsByLocation ||
                 Object.keys(establishmentsByLocation).length === 0) && (
                 <div className={classes.emptySelect}>
-                  <Alert severity="info" className={classes.alertInfo}>
+                  <Alert className={classes.alertInfo} severity="info">
                     {t('companies.establishmentEmptyState')}
                   </Alert>
                 </div>

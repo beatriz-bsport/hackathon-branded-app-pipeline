@@ -45,7 +45,7 @@ export const PrivatePassBookerListItem = (props: Props) => {
           </IconButton>
         </Tooltip>
       )}
-      <Button color="primary" variant="outlined" onClick={props.onClick}>
+      <Button color="primary" onClick={props.onClick} variant="outlined">
         <AddShoppingCartIcon className={classes.leftIcon} />
         {getCurrencyDisplayWithPrice(
           private_pass.price,

@@ -23,19 +23,19 @@ export const CustomEventForm = (props: Props) => {
   return (
     <div className={classes.container}>
       <TextField
-        className={classes.field}
-        name="name"
-        required
         fullWidth
-        variant="outlined"
+        required
+        className={classes.field}
         label={t('customEvent.form.name.label')}
+        name="name"
         placeholder={t('customEvent.form.name.placeholder')}
+        variant="outlined"
       />
       <div className={classes.field}>
         <ColorField
+          transparentColorAvailable
           label={t('customEvent.form.color')}
           name="color"
-          transparentColorAvailable
         />
       </div>
       <FieldArray name="coaches">
@@ -60,11 +60,11 @@ export const CustomEventForm = (props: Props) => {
               />
             ))}
             <CoachSelector
+              closeMenuOnSelect
+              nullCurrentValue
               coaches={props.coaches.filter(
                 (c) => !(coaches || []).find((c_) => c_.id === c.id),
               )}
-              closeMenuOnSelect
-              nullCurrentValue
               selectedCoaches={[]}
               selectOption={(ev) => {
                 if (ev.length) push(ev[0].value);
@@ -74,15 +74,15 @@ export const CustomEventForm = (props: Props) => {
         )}
       </FieldArray>
       <TextField
-        className={classes.field}
-        rows={10}
-        multiline
-        name="description"
-        variant="outlined"
-        required
         fullWidth
+        multiline
+        required
+        className={classes.field}
         label={t('customEvent.form.description.label')}
+        name="description"
         placeholder={t('customEvent.form.description.placeholder')}
+        rows={10}
+        variant="outlined"
       />
     </div>
   );

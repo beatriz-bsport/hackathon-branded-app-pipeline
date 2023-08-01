@@ -122,10 +122,10 @@ export const CoachReplacement: React.FC<Props> = (props: Props) => {
             enableMultiLocalization={
               props.companyTheme.enable_multi_localization
             }
-            replacementDisplay={ReplacementDisplays.REPLACEMENT_DISPLAY_CONFIRM}
-            offers={replacementOfferList}
             establishmentGroups={props.establishmentGroupList}
             isLoading={isLoading}
+            offers={replacementOfferList}
+            replacementDisplay={ReplacementDisplays.REPLACEMENT_DISPLAY_CONFIRM}
             timezoneName={companyTheme.timezone_name}
           />
         </TableContainer>
@@ -133,9 +133,9 @@ export const CoachReplacement: React.FC<Props> = (props: Props) => {
           <Pagination
             className={classes.pagination}
             count={totalPages}
-            page={offerPage}
-            // fetch requested page on page change
             onChange={(ev, value) => fetchReplacementOffers(value)}
+            // fetch requested page on page change
+            page={offerPage}
           />
         )}
       </Paper>

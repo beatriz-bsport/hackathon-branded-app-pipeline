@@ -216,19 +216,19 @@ export const PrivatePassForm = (props: Props) => {
       {!!props.initial?.template_instance && (
         <div className={classes.row}>
           <WarningIcon color="error" />
-          <Typography variant="body1" color="error">
+          <Typography color="error" variant="body1">
             {t('privatePass.form.franchise')}
           </Typography>
         </div>
       )}
       <div
-        id="private-pass-form-general-section"
         className={classes.categoryBlock}
+        id="private-pass-form-general-section"
       >
         {props.initial && props.initial.linked_payment_pack && (
           <div className={classes.infoText}>
             <WarningIcon className={classes.redIcon} />
-            <Typography variant="caption" color="error">
+            <Typography color="error" variant="caption">
               {t('privatePass.form.universalPass.warningIsUniversalPass')}
             </Typography>
           </div>
@@ -241,129 +241,129 @@ export const PrivatePassForm = (props: Props) => {
         </div>
 
         <TextField
-          id="private-pass-name-field"
-          name="name"
           fullWidth
-          label={`${t('privatePass.form.name.label')}*`}
-          helperText={t('privatePass.form.name.helperText')}
           disabled={!!props.initial?.template_instance}
+          helperText={t('privatePass.form.name.helperText')}
+          id="private-pass-name-field"
+          label={`${t('privatePass.form.name.label')}*`}
+          name="name"
         />
         <TextField
-          id="private-pass-description-field"
           fullWidth
           multiline
+          disabled={!!props.initial?.template_instance}
+          id="private-pass-description-field"
+          label={t('privatePass.form.description.label')}
           minRows={6}
           name="description"
           variant="outlined"
-          label={t('privatePass.form.description.label')}
-          disabled={!!props.initial?.template_instance}
         />
         <div className={classes.fieldBlock}>
           <PrivatePassCategorySelector
-            packPackCategoryList={props.privatePassCategories}
-            value={props.values.category}
+            closeMenuOnSelect
+            isClearable
+            noMulti
             nullCurrentValue={!!props.values.category}
             onChange={(item: { value: number; label: string }) =>
               props.setFieldValue('category', item ? item.value : null)
             }
-            isClearable
-            closeMenuOnSelect
-            noMulti
+            packPackCategoryList={props.privatePassCategories}
+            value={props.values.category}
           />
         </div>
         <div className={classes.fieldBlock}>
           <TextField
-            id="private-pass-credit-field"
-            name="credits"
-            type="number"
             fullWidth
             disabled={props.initial && props.initial.editable === false}
-            label={t('privatePass.form.credits.label')}
             helperText={t('privatePass.form.credits.helperText')}
+            id="private-pass-credit-field"
+            label={t('privatePass.form.credits.label')}
+            name="credits"
+            type="number"
           />
         </div>
         <div className={`${classes.fieldBlock} ${classes.flexRow}`}>
           <PriceField
-            id="private-pass-price-field"
-            name="price"
             fullWidth
-            label={t('privatePass.form.price.label')}
             className={classes.priceField}
-            helperText={t('privatePass.form.price.helperText')}
             disabled={!!props.initial?.template_instance}
+            helperText={t('privatePass.form.price.helperText')}
+            id="private-pass-price-field"
+            label={t('privatePass.form.price.label')}
+            name="price"
           />
           <PercentField
-            id="private-pass-tax-field"
-            helperText={provincialTaxText}
-            FormHelperTextProps={{ classes: { root: classes.helperTextError } }}
-            name="tax"
             fullWidth
-            label={t('privatePass.form.tax.label')}
-            type="number"
             required
-            max={100}
+            className={classes.taxField}
+            disabled={!!props.initial?.template_instance}
+            FormHelperTextProps={{ classes: { root: classes.helperTextError } }}
+            helperText={provincialTaxText}
+            id="private-pass-tax-field"
             InputProps={{
               inputProps: { min: 0, max: 100, step: 0.005 },
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
-            className={classes.taxField}
-            disabled={!!props.initial?.template_instance}
+            label={t('privatePass.form.tax.label')}
+            max={100}
+            name="tax"
+            type="number"
           />
         </div>
         <div
-          id="private-pass-universal-switch-field-container"
           className={classes.fieldBlockFlex}
+          id="private-pass-universal-switch-field-container"
         >
           <SwitchField
-            name="is_universal_pass"
-            label={t('privatePass.form.universalPass.label')}
             disabled={props.initial || !!props.initial?.linked_payment_pack}
+            label={t('privatePass.form.universalPass.label')}
+            name="is_universal_pass"
           />
-          <Typography variant="caption" color="textSecondary">
+          <Typography color="textSecondary" variant="caption">
             {t('privatePass.form.universalPass.helperText')}
           </Typography>
         </div>
         <div
-          id="private-pass-switch-fields-container"
           className={`${classes.fieldBlock} ${classes.flexColumn}`}
+          id="private-pass-switch-fields-container"
         >
           <SwitchField
-            name="manager_only"
-            label={t('privatePass.form.managerOnly.label')}
             disabled={!!props.initial?.template_instance}
+            label={t('privatePass.form.managerOnly.label')}
+            name="manager_only"
           />
           <SwitchField
-            name="new_member_only"
-            label={t('privatePass.form.new_member_only.label')}
+            disabled={props.values.manager_only}
             helperText={t('member:forms.newMemberOnlyHelperText', {
               currency: getCurrencyDisplay(),
             })}
-            disabled={props.values.manager_only}
+            label={t('privatePass.form.new_member_only.label')}
+            name="new_member_only"
           />
           <SwitchField
-            name="full_vod_access"
             label={t('privatePass.form.full_vod_access.label')}
+            name="full_vod_access"
           />
           <SwitchField
-            name="unusable_by_staff"
-            label={t('privatePass.listItem.unusableByStaff')}
             disabled={!!props.initial?.template_instance}
+            label={t('privatePass.listItem.unusableByStaff')}
+            name="unusable_by_staff"
           />
           <SwitchField
-            name="applies_for_payroll"
-            label={t('privatePass.form.appliesForPayroll.label')}
             helperText={t('privatePass.form.appliesForPayroll.helperText')}
+            label={t('privatePass.form.appliesForPayroll.label')}
+            name="applies_for_payroll"
           />
           <SwitchField
-            name="on_behalf_of_teacher"
-            label={t('privatePass.form.onBehalfOfTeacher.label')}
             helperText={t('privatePass.form.onBehalfOfTeacher.helperText')}
+            label={t('privatePass.form.onBehalfOfTeacher.label')}
+            name="on_behalf_of_teacher"
           />
           <div className={classes.rowExpirationDate}>
             <SwitchField
-              name="expiration_date_active"
-              label={t('privatePass.form.expiration_date.label')}
               disabled={!!props.initial?.template_instance}
+              label={t('privatePass.form.expiration_date.label')}
+              name="expiration_date_active"
             />
             <ToolTip title={t('privatePass.form.expiration_date.tooltip')}>
               <InfoIcon color="disabled" />
@@ -374,11 +374,11 @@ export const PrivatePassForm = (props: Props) => {
               {t('privatePass.form.expiration_date.helperText')}
             </InputLabel>
             <DateField
-              name="expiration_date"
-              format="L"
               allowNullValue
               disabled={!!props.initial?.template_instance}
+              format="L"
               minDate={moment.now()}
+              name="expiration_date"
             />
           </Collapse>
         </div>
@@ -387,8 +387,8 @@ export const PrivatePassForm = (props: Props) => {
       <Divider className={classes.divider} />
 
       <div
-        id="private-pass-form-payment-section"
         className={classes.categoryBlock}
+        id="private-pass-form-payment-section"
       >
         <div className={classes.flexRowCenter}>
           <PaymentIcon className={classes.iconLeft} />
@@ -398,8 +398,8 @@ export const PrivatePassForm = (props: Props) => {
         </div>
         <div className={classes.fieldBlock}>
           <Typography
-            variant="body2"
             className={classes.paymentMeansHelpertext}
+            variant="body2"
           >
             {t(
               'privatePass.form.available_payment_method_identifiers.helperText',
@@ -423,10 +423,10 @@ export const PrivatePassForm = (props: Props) => {
               </Typography>
             </div>
             <PaymentMethodSelectorField
-              name="available_payment_method_identifiers"
               disabled={
                 props.values.manager_only || disabledUniversalPassFields
               }
+              name="available_payment_method_identifiers"
             />
           </div>
         </div>
@@ -435,8 +435,8 @@ export const PrivatePassForm = (props: Props) => {
       <Divider className={classes.divider} />
 
       <div
-        id="private-pass-form-validity-section"
         className={classes.categoryBlock}
+        id="private-pass-form-validity-section"
       >
         <div className={classes.flexRowCenter}>
           <DateRangeIcon className={classes.iconLeft} />
@@ -446,48 +446,43 @@ export const PrivatePassForm = (props: Props) => {
         </div>
         <div className={`${classes.durationNbBlock} ${classes.flexRowCenter}`}>
           <IntegerField
-            id="private-pass-duration-days"
-            name="duration_days"
-            label={t('privatePass.form.durationDays.label')}
-            InputProps={{ min: 0, max: 30, step: 1 }}
             fullWidth
             disabled={props.initial && props.initial.editable === false}
+            id="private-pass-duration-days"
+            InputProps={{ min: 0, max: 30, step: 1 }}
+            label={t('privatePass.form.durationDays.label')}
+            name="duration_days"
             style={{ alignSelf: 'flex-start' }}
           />
           <AddIcon className={classes.greyIcon} />
           <IntegerField
-            id="private-pass-duration-months"
-            name="duration_months"
-            label={t('privatePass.form.durationMonths.label')}
-            helperText={t('privatePass.form.durationMonths.helperText')}
-            InputProps={{ min: 0, max: 24, step: 1 }}
             fullWidth
             disabled={props.initial && props.initial.editable === false}
+            helperText={t('privatePass.form.durationMonths.helperText')}
+            id="private-pass-duration-months"
+            InputProps={{ min: 0, max: 24, step: 1 }}
+            label={t('privatePass.form.durationMonths.label')}
+            name="duration_months"
           />
           <AddIcon className={classes.greyIcon} />
           <IntegerField
-            id="private-pass-duration-years"
-            name="duration_years"
-            label={t('privatePass.form.durationYears.label')}
-            helperText={t('privatePass.form.durationYears.helperText')}
-            InputProps={{ min: 0, max: 30, step: 1 }}
             fullWidth
             disabled={props.initial && props.initial.editable === false}
+            helperText={t('privatePass.form.durationYears.helperText')}
+            id="private-pass-duration-years"
+            InputProps={{ min: 0, max: 30, step: 1 }}
+            label={t('privatePass.form.durationYears.label')}
+            name="duration_years"
           />
         </div>
         <Typography variant="caption">
           {getValidityInfo(props.values, t, true, true)}
         </Typography>
         <div style={{ paddingBottom: 16 }}>
-          <Typography variant="body1" className={classes.startDate}>
+          <Typography className={classes.startDate} variant="body1">
             {t('privatePass.form.startDate')}
           </Typography>
           <RadioGroupField
-            name="start_date_method"
-            disabled={
-              (props.initial && props.initial.editable === false) ||
-              disabledUniversalPassFields
-            }
             choices={[
               {
                 label: t('privatePass.form.start_date_method.on_purchase'),
@@ -498,21 +493,26 @@ export const PrivatePassForm = (props: Props) => {
                 value: START_ON_FIRST_BOOKING,
               },
             ]}
+            disabled={
+              (props.initial && props.initial.editable === false) ||
+              disabledUniversalPassFields
+            }
+            name="start_date_method"
           />
           <Collapse
             in={props.values.start_date_method !== `${START_ON_PURCHASE}`}
           >
             <TextField
-              id="private-pass-expiration-field"
-              name="expiration_days_before_first_use"
-              label={t('privatePass.form.expirationDaysBeforeFirstUse.label')}
+              fullWidth
+              className={classes.firstBooking}
               disabled={props.initial && props.initial.editable === false}
               helperText={t(
                 'privatePass.form.expirationDaysBeforeFirstUse.helperText',
               )}
+              id="private-pass-expiration-field"
+              label={t('privatePass.form.expirationDaysBeforeFirstUse.label')}
+              name="expiration_days_before_first_use"
               type="number"
-              fullWidth
-              className={classes.firstBooking}
             />
           </Collapse>
         </div>
@@ -521,8 +521,8 @@ export const PrivatePassForm = (props: Props) => {
       <Divider className={classes.divider} />
 
       <div
-        id="private-pass-form-compatibility-section"
         className={classes.categoryBlock}
+        id="private-pass-form-compatibility-section"
       >
         <div className={classes.flexRowCenter}>
           <DoneAllIcon className={classes.iconLeft} />
@@ -538,6 +538,12 @@ export const PrivatePassForm = (props: Props) => {
                 <>
                   <div className={classes.privateServiceSelector}>
                     <PrivateServiceSelector
+                      onChange={(e: any) =>
+                        push({ private_service: e, excluded_slot_ids: [] })
+                      }
+                      placeholder={t(
+                        'privatePass.form.selector.privateService',
+                      )}
                       privateServices={privateServices
                         .filter((ps: PrivateServiceWithSlots) =>
                           filterPrivateService(
@@ -547,12 +553,6 @@ export const PrivatePassForm = (props: Props) => {
                           ),
                         )
                         .filter((ps) => ps.available)}
-                      onChange={(e: any) =>
-                        push({ private_service: e, excluded_slot_ids: [] })
-                      }
-                      placeholder={t(
-                        'privatePass.form.selector.privateService',
-                      )}
                     />
                   </div>
                   <List>
@@ -568,9 +568,16 @@ export const PrivatePassForm = (props: Props) => {
                         .filter((ps) => ps.available)
                         .map((ps) => (
                           <PrivateServiceListItem
-                            hideSecondary
-                            privateService={ps}
                             key={ps.id}
+                            hideSecondary
+                            excluded_slots={getExcludedSlots(
+                              ps,
+                              props.values.compatibility,
+                            )}
+                            included_slots={getIncludedSlots(
+                              ps,
+                              props.values.compatibility,
+                            )}
                             onDelete={() => {
                               const psArray: number[] =
                                 props.initial &&
@@ -606,14 +613,7 @@ export const PrivatePassForm = (props: Props) => {
                                 );
                               }
                             }}
-                            excluded_slots={getExcludedSlots(
-                              ps,
-                              props.values.compatibility,
-                            )}
-                            included_slots={getIncludedSlots(
-                              ps,
-                              props.values.compatibility,
-                            )}
+                            privateService={ps}
                           />
                         ))}
 
@@ -642,14 +642,14 @@ export const PrivatePassForm = (props: Props) => {
                     )}
                   </List>
                   <PrivateSlotSelectionDialog
-                    compatibleServicePass={props.compatibleServicePass}
                     compatibility={props.values.compatibility}
+                    compatibleServicePass={props.compatibleServicePass}
+                    onCancel={() => setServiceAndIndex(null, null)}
                     onSubmit={(data: { excluded_slot_ids: number[] }) =>
                       updateSlotData(data, replace)
                     }
-                    onCancel={() => setServiceAndIndex(null, null)}
-                    selectedService={props.selectedService}
                     privateServices={props.privateServices}
+                    selectedService={props.selectedService}
                   />
                   <Dialog open={!!props.openDeleteCompatibilityDialog}>
                     <DialogTitle>
@@ -699,8 +699,8 @@ export const PrivatePassForm = (props: Props) => {
       )}
 
       <div
-        id="private-pass-form-actions-buttons"
         className={`${classes.buttonContainer} ${classes.flexRowCenter}`}
+        id="private-pass-form-actions-buttons"
       >
         <Button
           onClick={(e: MouseEvent) => {
@@ -711,12 +711,12 @@ export const PrivatePassForm = (props: Props) => {
           {t('privatePass.form.actions.cancel')}
         </Button>
         <Button
+          color="primary"
+          disabled={isSubmitting}
           onClick={() => {
             trackFormSubmitIntent(props.initial?.id);
             props.handleSubmit();
           }}
-          disabled={isSubmitting}
-          color="primary"
           variant="contained"
         >
           {t('privatePass.form.actions.submit')}

@@ -64,25 +64,24 @@ export class PaymentPackTemplateList extends Component<Props, State> {
           <List dense disablePadding>
             {paymentPackTemplateListAvailable?.map((ppt) => (
               <MarketplacePaymentPackTemplateListItem
-                paymentPackTemplate={ppt}
                 key={ppt.id}
-                onSelect={() => setPaymentPackTemplateDetailed(ppt)}
                 buyPaymentPackTemplateInstance={() => {
                   goToFranchiseSelection(
                     ppt.id,
                     ppt.companies?.map((company) => company.id),
                   );
                 }}
+                onSelect={() => setPaymentPackTemplateDetailed(ppt)}
+                paymentPackTemplate={ppt}
               />
             ))}
           </List>
         </Paper>
         <Dialog
-          open={!!paymentPackTemplateDetailed}
           onClose={() => setPaymentPackTemplateDetailed(null)}
+          open={!!paymentPackTemplateDetailed}
         >
           <PaymentPackTemplateCard
-            paymentPackTemplate={paymentPackTemplateDetailed}
             buyPaymentPackTemplateInstance={() => {
               goToFranchiseSelection(
                 paymentPackTemplateDetailed.id,
@@ -92,6 +91,7 @@ export class PaymentPackTemplateList extends Component<Props, State> {
               );
               setPaymentPackTemplateDetailed(null);
             }}
+            paymentPackTemplate={paymentPackTemplateDetailed}
           />
         </Dialog>
       </div>

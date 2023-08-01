@@ -29,8 +29,8 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
     <Form>
       <div style={{ display: 'none' }}>
         <CheckboxField
-          label={t('parameters.enabled')}
           reverted
+          label={t('parameters.enabled')}
           name="disabled"
         />
       </div>
@@ -46,10 +46,10 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
             <div>
               <EstablishmentSelector
                 closeMenuOnSelect
-                placeholder={t('parameters.establishment')}
                 establishments={establishmentList.filter(
                   (e) => !associated_establishment_ids.includes(e.id),
                 )}
+                placeholder={t('parameters.establishment')}
                 selectedEstablishments={[]}
                 selectOption={(e: Array<{ value: number; label: string }>) => {
                   if (e && e.length && e[0].value) push(e[0].value);

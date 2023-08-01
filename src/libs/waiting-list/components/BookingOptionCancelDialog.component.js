@@ -23,8 +23,8 @@ export const BookingOptionCancelDialog = (props: Props) => {
   return (
     <Dialog
       aria-labelledby="cancel-booking-option"
-      open={!!props.open}
       onClose={props.onClose}
+      open={!!props.open}
     >
       <DialogTitle>
         {t('consumer.help.areYouSureCancelBookingOption')}

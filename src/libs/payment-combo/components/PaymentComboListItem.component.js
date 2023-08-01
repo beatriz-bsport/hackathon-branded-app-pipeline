@@ -92,8 +92,8 @@ export const PaymentComboListItem = (props: Props) => {
   }
   return (
     <ListItem
-      divider={!!props.divider}
       button={!!props.onClick}
+      divider={!!props.divider}
       onClick={props.onClick}
       style={props.isFocused ? { backgroundColor: '#EFEFEF' } : {}}
     >

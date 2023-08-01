@@ -103,22 +103,22 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
         {quickInvoices.length ? (
           quickInvoices.map((qi, idx) => (
             <QuickInvoice
-              memberCreditAccountBalance={qi.creditAccount || 0.0}
-              member={qi.member}
-              quickInvoiceTitle={qi.memberName}
               key={`${qi.memberId}:${idx}`}
-              quickInvoice={qi}
               availableBuyableItems={this.props.availableBuyableItems}
-              onClose={closeQuickInvoice}
               createInvoice={createInvoice}
-              establishments={this.props.establishments}
-              memberDetails={this.props.memberDetails}
               enableMultiLocalization={this.props.enableMultiLocalization}
+              establishments={this.props.establishments}
+              member={qi.member}
+              memberCreditAccountBalance={qi.creditAccount || 0.0}
+              memberDetails={this.props.memberDetails}
+              onClose={closeQuickInvoice}
+              quickInvoice={qi}
+              quickInvoiceTitle={qi.memberName}
             />
           ))
         ) : (
           <div className={classes.emptyTextContainer}>
-            <Typography variant="caption" color="textSecondary">
+            <Typography color="textSecondary" variant="caption">
               {t('offer.noQuickInvoiceOpened')}
             </Typography>
           </div>
@@ -131,26 +131,40 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
             <Divider />
             <InvoiceTable
               compactMode
-              showOpenInvoiceNested
               hidePagination
-              onBill={this.props.setInvoiceToBill}
-              invoiceList={unevenSavedInvoices}
-              snackbarSuccess={this.props.snackbarSuccess}
-              companyId={this.props.companyId}
+              showOpenInvoiceNested
               applyGiftcardOnInvoice={this.props.applyGiftcardOnInvoice}
+              companyId={this.props.companyId}
               consumerGiftcardList={this.props.consumerGiftcardList}
+              invoiceList={unevenSavedInvoices}
+              onBill={this.props.setInvoiceToBill}
+              snackbarSuccess={this.props.snackbarSuccess}
             />
           </React.Fragment>
         ) : null}
         {!!this.props.invoiceToBill && !!this.props.invoiceToBill.member && (
           <PaymentDialog
             termsAndConditionsAccepted
+            amountToPay={parseFloat(
+              this.props.invoiceToBill.amount_due_cts -
+                this.props.invoiceToBill.amount_paid_cts,
+            ).toFixed(2)}
+            availablePaymentMethodList={this.props.availablePaymentMethodList}
+            clientSecret={
+              this.state.clientSecretLoading ? null : this.state.clientSecret
+            }
+            clientSecretLoading={this.state.clientSecretLoading}
+            companyId={this.props.companyId}
+            defaultUserEmail={this.props.invoiceToBill.member.email}
+            defaultUserName={this.props.invoiceToBill.member.name}
             memberId={
               (this.props.invoiceToBill.member &&
                 this.props.invoiceToBill.member.id) ||
               this.props.invoiceToBill.member
             }
+            onCancel={() => this.props.setInvoiceToBill(null)}
             onError={() => {}}
+            onlyInternal={!this.props.onlinePaymentEnabled}
             onSuccess={(callback) => {
               setTimeout(() => {
                 this.props.refreshInvoice(this.props.invoiceToBill.uuid);
@@ -158,23 +172,9 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
                 if (typeof callback === 'function') callback();
               }, 3000);
             }}
-            requestClientSecret={this.requestClientSecret}
             paymentGroupId={this.state.paymentGroupId}
             paymentGroupPriceCts={this.state.paymentGroupPriceCts}
-            clientSecret={
-              this.state.clientSecretLoading ? null : this.state.clientSecret
-            }
-            clientSecretLoading={this.state.clientSecretLoading}
-            amountToPay={parseFloat(
-              this.props.invoiceToBill.amount_due_cts -
-                this.props.invoiceToBill.amount_paid_cts,
-            ).toFixed(2)}
-            onCancel={() => this.props.setInvoiceToBill(null)}
-            onlyInternal={!this.props.onlinePaymentEnabled}
-            availablePaymentMethodList={this.props.availablePaymentMethodList}
-            defaultUserName={this.props.invoiceToBill.member.name}
-            defaultUserEmail={this.props.invoiceToBill.member.email}
-            companyId={this.props.companyId}
+            requestClientSecret={this.requestClientSecret}
             stripeId={this.props.stripeId}
             stripeReaders={this.props.stripeReaders}
           />

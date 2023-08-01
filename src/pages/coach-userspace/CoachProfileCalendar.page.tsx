@@ -265,38 +265,38 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
         <div className={classes.container}>
           {this.props.loading ? <LinearProgress /> : null}
           <PrivateCalendarWithControls
-            disableResourceAvailabilitySlot={this.disableCoachAvailabilitySlot}
-            enableResourceAvailabilitySlot={this.enableResourceAvailabilitySlot}
-            availabilitySlots={this.props.availabilitySlots}
-            privateBookings={this.props.privateBookingList}
-            timezone={this.props.companyTheme.timezone_name}
-            onDateChange={this.props.handleDateChange}
-            offerList={this.props.offerList}
+            hideCancelledEventsToggle
+            hideResourceSelector
+            isCoach
+            showCustomEventsToogle
             showOfferListToogle
             showPrivateBookingToogle
-            hideCancelledEventsToggle
-            fetchAvailabilitySlots={this.fetchAvailabilitySlots}
-            refreshOffers={this.fetchWeekData}
-            customEventList={this.props.customEventList}
-            showCustomEventsToogle
+            availabilitySlots={this.props.availabilitySlots}
             companyTheme={this.props.companyTheme}
-            isCoach
-            scheduleFilter={this.props.scheduleFilter}
-            setScheduleFilter={this.props.setScheduleFilter}
+            customEventList={this.props.customEventList}
+            disableResourceAvailabilitySlot={this.disableCoachAvailabilitySlot}
+            enableResourceAvailabilitySlot={this.enableResourceAvailabilitySlot}
             establishments={this.props.establishments}
-            resourceAvailable={this.state.resourceAvailable}
+            fetchAvailabilitySlots={this.fetchAvailabilitySlots}
             getHasPendingReplacementRequest={
               this.props.getHasPendingReplacementRequest
             }
-            hideResourceSelector
+            offerList={this.props.offerList}
+            onDateChange={this.props.handleDateChange}
+            privateBookings={this.props.privateBookingList}
+            refreshOffers={this.fetchWeekData}
+            resourceAvailable={this.state.resourceAvailable}
+            scheduleFilter={this.props.scheduleFilter}
+            setScheduleFilter={this.props.setScheduleFilter}
+            timezone={this.props.companyTheme.timezone_name}
           />
         </div>
         {this.state.updateAvailabilitySlotData && (
           <SlotSpecificEstablishmentDialog
+            isCoachProfile
             establishments={this.props.establishments}
             onCancel={this.onCancelAvailabilityUpdate}
             onSubmit={this.submitAvailabilitySlotUpdate}
-            isCoachProfile
           />
         )}
       </>

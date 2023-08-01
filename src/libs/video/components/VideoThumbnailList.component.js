@@ -36,7 +36,7 @@ export const VideoThumbnailList = (props: Props) => {
   return (
     <div className={classes.container}>
       <div className={classes.header}>
-        <Typography variant="h5" component="h4">
+        <Typography component="h4" variant="h5">
           {props.title || t('video.thumbnailList.similarVideoTitle')}
         </Typography>
 
@@ -48,9 +48,9 @@ export const VideoThumbnailList = (props: Props) => {
         {!!props.description && (
           <div>
             <TypographyWithShowMore
+              multiline
               color="textSecondary"
               variant="body"
-              multiline
             >
               {props.description}
             </TypographyWithShowMore>
@@ -64,21 +64,21 @@ export const VideoThumbnailList = (props: Props) => {
           .map((v) => (
             <div key={v.id} className={classes.thumbnailContainer}>
               <VideoThumbnail
-                onDeleteVideo={props.onDeleteVideo}
+                hideCoach={props.hideCoach}
                 isPlaying={props.videoPlayingId === v.id}
                 loading={props.loading}
-                hideCoach={props.hideCoach}
-                video={v}
                 onClick={() => props.onOpenVideo(v.id)}
+                onDeleteVideo={props.onDeleteVideo}
+                video={v}
               />
             </div>
           ))}
         {!props.loading && !!props.hasMoreVideo && !!props.fetchMoreVideo && (
           <Button
-            onClick={props.fetchMoreVideo}
             className={classes.fetchMoreButton}
-            variant="outlined"
             color="primary"
+            onClick={props.fetchMoreVideo}
+            variant="outlined"
           >
             {t('video.showMore')}
           </Button>

@@ -48,9 +48,9 @@ export class MarketplaceShop extends React.PureComponent<Props> {
   render() {
     return (
       <MarketplaceShopComponent
+        addToOrder={this.addToCart}
         isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
         subShops={this.props.subShops}
-        addToOrder={this.addToCart}
       />
     );
   }

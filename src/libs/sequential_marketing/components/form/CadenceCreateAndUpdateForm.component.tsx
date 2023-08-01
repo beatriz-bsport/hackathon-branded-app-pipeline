@@ -67,16 +67,16 @@ export const CadenceCreateAndUpdateForm: React.FC<ComponentProps> = React.memo(
         <DialogContent>
           <Form>
             <TextField
-              name="name"
-              label={t('cadence.form.cadenceNameLabel')}
               fullWidth
               required
+              label={t('cadence.form.cadenceNameLabel')}
+              name="name"
             />
             <DialogActions>
               <Button onClick={onCancel}>{t('cadence.form.cancel')} </Button>
               <Submit
-                disabled={isSubmitting || !isValid || loading}
                 color="primary"
+                disabled={isSubmitting || !isValid || loading}
               >
                 {isSubmitting ? <CircularProgress /> : submitButtonText}
               </Submit>

@@ -26,13 +26,13 @@ const ConsumerGiftcardPreview = (props: Props) => {
       <div className={classes.rightPanel}>
         <Typography variant="h4">{name || giftcard?.name || ''}</Typography>
         <div className={classes.section}>
-          <Typography variant="caption" className={classes.subtitle}>
+          <Typography className={classes.subtitle} variant="caption">
             {t('consumerGiftcard.isFrom')}
           </Typography>
           <Typography>{message_is_from}</Typography>
         </div>
         <div className={classes.section}>
-          <Typography variant="caption" className={classes.subtitle}>
+          <Typography className={classes.subtitle} variant="caption">
             {t('consumerGiftcard.isFor')}
           </Typography>
           <Typography>{message_is_for}</Typography>
@@ -56,8 +56,8 @@ const ConsumerGiftcardPreview = (props: Props) => {
             )}
           </div>
           <img
-            className={classes.logoContainer}
             alt="company-logo"
+            className={classes.logoContainer}
             src={companyCover}
           />
         </div>

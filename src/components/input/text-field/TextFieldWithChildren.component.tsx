@@ -27,15 +27,7 @@ const TextFieldWithChildren = (props: Props) => {
       })}
     >
       <TextField
-        name={props.name ?? ''}
-        placeholder={props.placeholder}
         fullWidth
-        minRows={props.minRows ?? 1}
-        multiline={props.minRows > 1}
-        value={props.value}
-        onChange={props.changeValue}
-        variant="outlined"
-        style={props.style}
         inputProps={props.inputProps}
         // eslint-disable-next-line react/jsx-no-duplicate-props
         InputProps={{
@@ -46,7 +38,15 @@ const TextFieldWithChildren = (props: Props) => {
             root: classes.borderStyleOverride,
           },
         }}
+        minRows={props.minRows ?? 1}
+        multiline={props.minRows > 1}
+        name={props.name ?? ''}
+        onChange={props.changeValue}
         onFocus={props.onFocus}
+        placeholder={props.placeholder}
+        style={props.style}
+        value={props.value}
+        variant="outlined"
       />
       {props.children}
     </div>

@@ -54,7 +54,7 @@ const EnhancedTableToolbar = (props: Props) => {
             {numSelected} {t('common.selected').toLowerCase()}
           </Typography>
         ) : (
-          <Typography variant="h6" id="tableTitle">
+          <Typography id="tableTitle" variant="h6">
             {title}
           </Typography>
         )}

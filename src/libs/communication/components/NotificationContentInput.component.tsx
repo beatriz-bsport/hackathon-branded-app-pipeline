@@ -35,8 +35,8 @@ const NotificationContentInput = (props: Props) => {
       <TextField
         fullWidth
         multiline
-        rows={5}
         inputProps={{ maxLength: MAX_LENGTH_PUSH_CONTENT }}
+        rows={5}
         variant="outlined"
         {...rest}
       />
@@ -45,15 +45,15 @@ const NotificationContentInput = (props: Props) => {
           {`${field.value?.length ?? 0}/${MAX_LENGTH_PUSH_CONTENT}`}
         </Typography>
         <MaterialUISelector
+          withoutPortal
+          className={classes.selector}
+          isMulti={false}
+          onChange={handleAddvariable}
           options={tags}
           value={{
             label: t('booking:notification.form.addVariable'),
             value: '',
           }}
-          isMulti={false}
-          onChange={handleAddvariable}
-          withoutPortal
-          className={classes.selector}
         />
       </div>
     </>

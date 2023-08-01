@@ -112,7 +112,7 @@ export class OfferCard extends Component<Props, State> {
             }
           />
           {available ? null : (
-            <Typography variant="h2" color="error">
+            <Typography color="error" variant="h2">
               {t('offer:disabled')}
             </Typography>
           )}
@@ -121,9 +121,9 @@ export class OfferCard extends Component<Props, State> {
               <OfferIconHybridIndicator iconProps={{ fontSize: 'large' }} />
             )}
             <FreeOfferChip
+              companyTheme={companyTheme}
               credits={credit_price}
               creditsOverride={credit_price_override}
-              companyTheme={companyTheme}
               size="large"
             />
           </div>
@@ -156,10 +156,10 @@ export class OfferCard extends Component<Props, State> {
         <div className={classes.bookingList}>
           {this.props.bookings.length > 0 ? (
             <ButtonBase
+              className={this.props.classes.listButtonBase}
               onClick={() =>
                 this.props.goToOfferManagement(this.props.offer.id)
               }
-              className={this.props.classes.listButtonBase}
             >
               <PermissionContext.Consumer>
                 {(permissions) => (
@@ -168,16 +168,16 @@ export class OfferCard extends Component<Props, State> {
                       .filter((b) => b.booking_status_code === 0)
                       .map((b) => (
                         <MemberMinimalListItem
+                          key={b.id}
+                          bottomCredit
                           anonimize={!permissions?.member?.search}
                           firstBooking={b.first_in_company}
                           member={this.props.members.find(
                             (m) => m.id === b.member,
                           )}
-                          key={b.id}
                           showVaccinationStatus={
                             this.props.showVaccinationStatus
                           }
-                          bottomCredit
                         />
                       ))}
                   </List>
@@ -186,7 +186,7 @@ export class OfferCard extends Component<Props, State> {
             </ButtonBase>
           ) : (
             <div className={this.props.classes.noBookings}>
-              <Typography variant="caption" align="left">
+              <Typography align="left" variant="caption">
                 {t('offer:bookingListEmpty')}
               </Typography>
             </div>
@@ -217,21 +217,21 @@ export class OfferCard extends Component<Props, State> {
       return (
         <div style={{ width: '100%' }}>
           <PaymentPackTagsDialog
-            open={this.state.tagManagementDialog}
-            whitelistTags={offer.whitelist_tags}
             blacklistTags={offer.blacklist_tags}
             onClose={() => this.setState({ tagManagementDialog: false })}
             onModify={() => {
               this.setState({ tagManagementDialog: false });
               this.props.onModifyTags(offer);
             }}
+            open={this.state.tagManagementDialog}
+            whitelistTags={offer.whitelist_tags}
           />
           <Paper square className={available ? null : classes.disabledPaper}>
             {noHeader ? null : this.getHeader()}
             <OfferCardStastiticsContainer
-              offer={this.props.offer}
-              linkedHybridSession={this.props.linkedHybridSession}
               bookings={this.props.bookings}
+              linkedHybridSession={this.props.linkedHybridSession}
+              offer={this.props.offer}
               showOfferGender={this.props.showOfferGender}
             />
             {offer?.source === BOOKING_SOURCE_MIGRATION.id && (
@@ -301,7 +301,7 @@ export class OfferCard extends Component<Props, State> {
               </div>
             )}
             {(offer.has_spivi_error || spiviErrorOnBooking) && offer.available && (
-              <Alert severity="warning" className={classes.alertSpiviContainer}>
+              <Alert className={classes.alertSpiviContainer} severity="warning">
                 <AlertTitle>{t('offer:calendar.alertSpivi.title')}</AlertTitle>
                 <ul className={classes.list}>
                   {offer.has_spivi_error && (
@@ -346,17 +346,17 @@ export class OfferCard extends Component<Props, State> {
                         text={`${window.location.origin}/customer/payment/offer/${offer.id}?membership=${this.props.companyId}`}
                       >
                         <ButtonBase
+                          className={classes.link}
                           onClick={() =>
                             this.props.snackbarSuccess('link.copied')
                           }
-                          className={classes.link}
                         >
                           <LinkIcon />
                           <Hidden xsDown>
                             <Typography
-                              variant="caption"
                               align="left"
                               className={classes.linkTypo}
+                              variant="caption"
                             >
                               {t('offer:card.copyLink')}
                             </Typography>
@@ -372,9 +372,9 @@ export class OfferCard extends Component<Props, State> {
           </Paper>
           <Link style={{ textDecoration: 'none' }} to={`/offer/${offer.id}`}>
             <Button
+              className={classes.manageButton}
               color="primary"
               variant="contained"
-              className={classes.manageButton}
             >
               {t('offer:manageOffer')}
             </Button>
@@ -382,17 +382,17 @@ export class OfferCard extends Component<Props, State> {
           {!available && (
             <>
               <Button
-                color="secondary"
-                variant="contained"
                 className={classes.manageButton}
+                color="secondary"
                 onClick={this.props.onRestoreButtonClick}
+                variant="contained"
               >
                 {t('offer:restoreOffer')}
               </Button>
               <RedButton
+                className={classes.manageButton}
                 onClick={onDeleteButtonClick}
                 variant="contained"
-                className={classes.manageButton}
               >
                 {t('offer:forms.delete.buttonHardDelete')}
               </RedButton>

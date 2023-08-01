@@ -141,26 +141,26 @@ export class SignupPage extends Component<Props> {
       <div className={containerClass}>
         <div className="bs-signup-container--margin-top">
           <CustomFormTitle
-            title={t('signup.title')}
             isCompany={!!membership}
             simplifyUI={simplifyUI}
+            title={t('signup.title')}
           />
           {signUpCustomForm && (
             <div className="bs-signup-container__custom-form">
               <CustomFormView
+                general_terms_and_conditions={theme.general_terms_of_use}
                 initial={signUpCustomForm}
+                layouts={signUpCustomForm.layout}
+                onCancel={this.handleCancel}
                 onSubmit={this.submitCustomForm}
                 onSubmitDraft={this.props.setLoginInformations}
-                layouts={signUpCustomForm.layout}
-                waiver={theme.waiver}
-                general_terms_and_conditions={theme.general_terms_of_use}
-                onCancel={this.handleCancel}
                 simplifyUI={simplifyUI}
+                waiver={theme.waiver}
               />
             </div>
           )}
 
-          {!!theme && membership && <Analytics username="" theme={theme} />}
+          {!!theme && membership && <Analytics theme={theme} username="" />}
         </div>
       </div>
     );

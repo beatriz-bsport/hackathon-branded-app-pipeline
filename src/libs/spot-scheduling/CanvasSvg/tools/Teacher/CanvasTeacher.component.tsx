@@ -38,54 +38,54 @@ export default class CanvasTeacherComponent extends CanvasBaseComponent<CanvasTe
         )}
       >
         <svg
-          width={avatarSize}
           height={avatarSize}
+          width={avatarSize}
           x={-avatarSize / 4}
           y={-avatarSize / 4}
         >
           <defs>
             <pattern
+              height={avatarSize}
               id="image"
               patternUnits="userSpaceOnUse"
-              height={avatarSize}
               width={avatarSize}
             >
               <image
-                x={0}
-                y={0}
                 height={avatarSize}
+                preserveAspectRatio="xMidYMid slice"
                 width={avatarSize}
+                x={0}
                 xlinkHref={
                   this.props.coach?.photo ||
                   'https://d2r95z4j5cc9cx.cloudfront.net/gymnast-female.png'
                 }
-                preserveAspectRatio="xMidYMid slice"
+                y={0}
               />
             </pattern>
           </defs>
           <circle
-            id="top"
             cx={avatarSize / 2}
             cy={avatarSize / 2}
-            r={avatarSize / 2}
             fill="url(#image)"
+            id="top"
+            r={avatarSize / 2}
           />
         </svg>
         <rect
+          fill="transparent"
+          height={avatarSize}
+          stroke="transparent"
           visibility="visible"
           width={avatarSize}
-          height={avatarSize}
           x={-avatarSize / 4}
           y={-avatarSize / 4}
-          stroke="transparent"
-          fill="transparent"
         />
         <text
+          dominantBaseline="middle"
+          style={{ userSelect: 'none' }}
+          textAnchor="middle"
           x={avatarSize / 4}
           y={avatarSize - avatarSize / 4 + MARGIN_BETWEEN_AVATAR_AND_TEXT}
-          dominantBaseline="middle"
-          textAnchor="middle"
-          style={{ userSelect: 'none' }}
         >
           {this.props.coach?.name || CanvasTeacherComponent.label}
         </text>

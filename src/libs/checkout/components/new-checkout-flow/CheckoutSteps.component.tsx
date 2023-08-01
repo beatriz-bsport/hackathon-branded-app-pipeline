@@ -146,10 +146,10 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
         case STEPS.ADDRESS_STEP.id:
           return (
             <BasketDeliveryForm
+              ref={basketDeliveryRef}
               basket={basket}
               companyCountry={companyCountry}
               onSubmit={handleBasketDeliverySubmit}
-              ref={basketDeliveryRef}
             />
           );
         case STEPS.PAYMENT_STEP.id:
@@ -157,6 +157,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
           return (
             <>
               <PaymentStep
+                ref={paymentStepRef}
                 allowConsumerToUseInternalAccount={
                   allowConsumerToUseInternalAccount
                 }
@@ -177,12 +178,11 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
                 isPayLaterAvailable={isPayLaterAvailable}
                 isTotalPriceNull={isTotalPriceNull}
                 loading={basketLoading || paymentProcessing}
-                onSelectInstalmentPayment={onSelectInstalmentPayment}
                 onPaymentSuccess={onPaymentSuccess}
+                onSelectInstalmentPayment={onSelectInstalmentPayment}
                 paymentGroupId={paymentGroupId}
                 paymentMethodChoices={paymentMethodChoices}
                 paymentProcessing={paymentProcessing}
-                ref={paymentStepRef}
                 sepaDefaultEmail={auth.username}
                 sepaDefaultName={auth.name}
                 setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
@@ -247,7 +247,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
     return (
       <div className={classes.paymentStepsContainer}>
         {steps.length > 1 && (
-          <Stepper activeStep={currentStep.id} alternativeLabel>
+          <Stepper alternativeLabel activeStep={currentStep.id}>
             {steps.map((step) => (
               <Step key={step.id}>
                 <StepLabel>

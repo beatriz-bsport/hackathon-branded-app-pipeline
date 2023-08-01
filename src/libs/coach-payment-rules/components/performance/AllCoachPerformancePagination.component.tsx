@@ -42,9 +42,9 @@ export const AllPerformancePagination = (props: Props) => {
     <div className={classes.container}>
       <div>
         <IconButton
-          onClick={handleGeneratePreviousPage}
-          disabled={!props.pagination.previous || props.loading}
           aria-label="previous page"
+          disabled={!props.pagination.previous || props.loading}
+          onClick={handleGeneratePreviousPage}
         >
           <KeyboardArrowLeft />
         </IconButton>
@@ -56,15 +56,15 @@ export const AllPerformancePagination = (props: Props) => {
           } / ${props.pagination.count} `}
         </Typography>
         <IconButton
-          onClick={handleGenerateNextPage}
-          disabled={!props.pagination.next || props.loading}
           aria-label="next page"
+          disabled={!props.pagination.next || props.loading}
+          onClick={handleGenerateNextPage}
         >
           <KeyboardArrowRight />
         </IconButton>
       </div>
       <div>
-        <Typography variant="caption" color="secondary">
+        <Typography color="secondary" variant="caption">
           {props.oldestUpdate
             ? t('cachedData.oldestUpdate', {
                 date: formatAsDatetimeAdapted(

@@ -305,10 +305,10 @@ const PaymentStripe: React.FC<
         {!!priceUpdaterOpen && (
           <div className={classes.priceContainer}>
             <PriceInput
-              value={priceUpdateAmount}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setPriceUpdateAmount(parseInt(e.target.value, 10));
               }}
+              value={priceUpdateAmount}
             />
             <IconButton
               color="primary"
@@ -344,48 +344,33 @@ const PaymentStripe: React.FC<
         )}
         <>
           <PaymentMethodCardSelector
-            selectPaymentMethod={handleSelectPaymentMethod}
-            paymentMethodSelected={paymentMethodSelected}
             paymentMethodChoices={paymentMethodChoices}
+            paymentMethodSelected={paymentMethodSelected}
             paymentProcessing={paymentProcessing}
+            selectPaymentMethod={handleSelectPaymentMethod}
           />
           <InstalmentPaymentSelector
-            instalmentPaymentConfigurationSelectedId={
-              instalmentPaymentSelectedId
-            }
-            instalmentPaymentConfigurationList={
-              instalmentPaymentConfigurationList
-            }
-            paymentProcessing={paymentProcessing}
-            onSelectInstalmentPayment={onSelectInstalmentPayment}
             basketPriceCts={
               basketTotalPriceCts - (basketTotalPricePrepaidLines || 0)
             }
             fromApp={fromApp}
+            instalmentPaymentConfigurationList={
+              instalmentPaymentConfigurationList
+            }
+            instalmentPaymentConfigurationSelectedId={
+              instalmentPaymentSelectedId
+            }
+            onSelectInstalmentPayment={onSelectInstalmentPayment}
+            paymentProcessing={paymentProcessing}
           />
         </>
         {processing || !totalPriceCts ? (
           <CircularProgress />
         ) : (
           <div className={classes.innerContainer}>
-            <Elements stripe={stripePromise} options={elementOptions}>
+            <Elements options={elementOptions} stripe={stripePromise}>
               <StripePaymentMethodForm
-                onSuccess={onSuccess}
-                onError={onError}
-                clientSecret={clientSecret}
-                forceDisabled={priceUpdaterOpen}
-                fromApp={fromApp}
-                basketTotalPriceCts={basketTotalPriceCts}
-                basketId={basketId}
-                forceSave={!!instalmentPaymentSelectedId}
-                onCancel={onCancel}
-                loading={loading || applyBalanceLoading}
-                memberId={memberId}
-                detachPaymentMethodLoading={detachPaymentMethodLoading}
-                detachPaymentMethod={detachPaymentMethod}
-                snackbarErrorMsg={snackbarErrorMsg}
-                snackbarSuccessMsg={snackbarSuccessMsg}
-                companyId={companyId}
+                ref={ref}
                 AcceptTermsAndConditionsComponent={
                   termsAndConditions ? (
                     <AcceptTermsAndConditions
@@ -396,27 +381,42 @@ const PaymentStripe: React.FC<
                     />
                   ) : null
                 }
-                termsAndConditionsAccepted={termsAndConditionsAccepted}
-                userDefaultName={sepaDefaultName}
-                userDefaultEmail={sepaDefaultEmail}
                 allowConsumerToUseInternalAccount={
                   allowConsumerToUseInternalAccount &&
                   (useInternalAccount || applyBalanceToInvoice)
                 }
-                useInternalAccount={useInternalAccount}
-                applyBalanceToInvoice={applyBalanceToInvoice}
-                creditAccountBalance={creditAccountBalance}
                 applyBalanceLoading={applyBalanceLoading}
+                applyBalanceToInvoice={applyBalanceToInvoice}
+                basketId={basketId}
+                basketTotalPriceCts={basketTotalPriceCts}
                 checkItemsBasket={checkItemsBasket}
-                setPaymentProcessing={setPaymentProcessing}
-                paymentGroupId={paymentGroupId}
-                saveForLaterBacsDebit={saveForLaterBacsDebit}
-                setSaveForLaterBacsDebit={setSaveForLaterBacsDebit}
+                clientSecret={clientSecret}
+                companyId={companyId}
                 createPendingBookingsIfNecessary={
                   createPendingBookingsIfNecessary
                 }
+                creditAccountBalance={creditAccountBalance}
+                detachPaymentMethod={detachPaymentMethod}
+                detachPaymentMethodLoading={detachPaymentMethodLoading}
+                forceDisabled={priceUpdaterOpen}
+                forceSave={!!instalmentPaymentSelectedId}
+                fromApp={fromApp}
+                loading={loading || applyBalanceLoading}
+                memberId={memberId}
+                onCancel={onCancel}
+                onError={onError}
+                onSuccess={onSuccess}
+                paymentGroupId={paymentGroupId}
+                saveForLaterBacsDebit={saveForLaterBacsDebit}
                 setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
-                ref={ref}
+                setPaymentProcessing={setPaymentProcessing}
+                setSaveForLaterBacsDebit={setSaveForLaterBacsDebit}
+                snackbarErrorMsg={snackbarErrorMsg}
+                snackbarSuccessMsg={snackbarSuccessMsg}
+                termsAndConditionsAccepted={termsAndConditionsAccepted}
+                useInternalAccount={useInternalAccount}
+                userDefaultEmail={sepaDefaultEmail}
+                userDefaultName={sepaDefaultName}
               />
             </Elements>
           </div>

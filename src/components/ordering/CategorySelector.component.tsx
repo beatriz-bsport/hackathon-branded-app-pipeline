@@ -22,14 +22,14 @@ export const CategorySelector = (props: Props) => {
   return (
     <div className={classes.root}>
       <MaterialUISelector
-        onChange={props.onChange}
+        isClearable
         isMulti={false}
+        onChange={props.onChange}
+        options={options}
+        placeholder={t('category.selector')}
         value={options.find(
           (opt) => props.selected?.toString(10) === opt.value,
         )}
-        placeholder={t('category.selector')}
-        options={options}
-        isClearable
       />
     </div>
   );

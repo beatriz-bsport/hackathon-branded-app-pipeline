@@ -169,12 +169,12 @@ export const PaymentStripeGiropay = forwardRef(
       <form onSubmit={handleSubmit}>
         <div className={classes.fieldContainer}>
           <TextInput
-            value={name}
-            label={t('paymentPanel.fields.accountHolderName.label')}
-            placeholder={t('paymentPanel.fields.accountHolderName.placeholder')}
             required
-            onChange={(ev) => setName(ev.target.value)}
             className={classes.field}
+            label={t('paymentPanel.fields.accountHolderName.label')}
+            onChange={(ev) => setName(ev.target.value)}
+            placeholder={t('paymentPanel.fields.accountHolderName.placeholder')}
+            value={name}
           />
           {errorMessage && (
             <Typography color="error">{errorMessage}</Typography>
@@ -187,14 +187,14 @@ export const PaymentStripeGiropay = forwardRef(
             ) : (
               <Button
                 color="primary"
-                variant="contained"
-                type="submit"
                 disabled={forceDisabled || !stripe}
+                type="submit"
+                variant="contained"
               >
                 {t('paymentPanel.actions.confirmPayment')}
               </Button>
             )}
-            <Button onClick={onCancel} disabled={processing}>
+            <Button disabled={processing} onClick={onCancel}>
               {t('paymentPanel.actions.cancel')}
             </Button>
           </div>

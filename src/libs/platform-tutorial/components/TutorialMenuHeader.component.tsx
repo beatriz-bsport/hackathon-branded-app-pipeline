@@ -28,13 +28,13 @@ const TutorialMenuHeader: React.FC<Props> = (props: Props) => {
       <Grid container className={classes.container}>
         <Grid
           item
-          xs={12}
-          sm={7}
-          md={8}
           className={classNames(classes.gridItem, classes.responsiveGridItem)}
+          md={8}
+          sm={7}
+          xs={12}
         >
           <div className={classNames(classes.box, classes.primary)}>
-            <BookIcon width="65%" height="50%" />
+            <BookIcon height="50%" width="65%" />
           </div>
 
           <div className={classes.textContainer}>
@@ -53,22 +53,22 @@ const TutorialMenuHeader: React.FC<Props> = (props: Props) => {
             </Typography>
           </Grid>
         </Hidden>
-        <Grid item xs={12} sm={5} md={4} className={classes.gridItem}>
+        <Grid item className={classes.gridItem} md={4} sm={5} xs={12}>
           <div className={classes.progressIcon}>
             <div className={classes.overlapping}>
               <CircularProgress
-                variant="determinate"
-                value={100}
-                size={200}
                 className={classes.bottom}
+                size={200}
+                value={100}
+                variant="determinate"
               />
               <CircularProgress
-                variant="determinate"
-                value={percentage}
+                classes={{ circle: classes.circle }}
+                className={classes.top}
                 color="primary"
                 size={200}
-                className={classes.top}
-                classes={{ circle: classes.circle }}
+                value={percentage}
+                variant="determinate"
               />
             </div>
             <div className={classes.iconWithProgress}>

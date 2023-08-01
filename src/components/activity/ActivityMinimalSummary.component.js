@@ -64,20 +64,20 @@ export function ActivityMinimalSummary(props: Props) {
       {noDivider ? null : <Divider />}
       <ListItem
         key={id}
-        dense
         button
-        onClick={overrideClickAction}
+        dense
         className={classes.listItem}
+        onClick={overrideClickAction}
       >
         {showCoach ? (
           <Tooltip title={coach.name}>
             <IconButton disableRipple className={classes.noMargin}>
-              <Avatar user={coach} variant="small" noname />
+              <Avatar noname user={coach} variant="small" />
             </IconButton>
           </Tooltip>
         ) : (
           <IconButton disableRipple>
-            <Sport parentCategory={parent_category} noname />
+            <Sport noname parentCategory={parent_category} />
           </IconButton>
         )}
         <ListItemText primary={name} secondary={dateToShow} />
@@ -92,8 +92,8 @@ export function ActivityMinimalSummary(props: Props) {
           <ListItemText
             primary={showCoachName ? coach.name : etablissement.title}
             primaryTypographyProps={{ align: 'right' }}
-            secondaryTypographyProps={{ align: 'right' }}
             secondary={<Level noStyle customLevel={level} variant="caption" />}
+            secondaryTypographyProps={{ align: 'right' }}
           />
         </div>
       </ListItem>

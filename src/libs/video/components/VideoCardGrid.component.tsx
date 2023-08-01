@@ -28,24 +28,24 @@ export const VideoCardList = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['video']);
   return (
-    <Grid alignItems="stretch" spacing={2} container direction="row">
+    <Grid container alignItems="stretch" direction="row" spacing={2}>
       {props.videoList.map((v) => (
-        <Grid key={v.id} item xs={12} sm={6} md={4} lg={3}>
+        <Grid key={v.id} item lg={3} md={4} sm={6} xs={12}>
           <VideoCardGridItem
-            video={v}
-            onEdit={props.onEdit}
+            withStatus
+            goToDetail={() => props.goToDetail(v.id)}
             onDelete={props.onDelete}
+            onDuplicate={props.onDuplicate}
+            onEdit={props.onEdit}
             onRequestUpload={props.onRequestUpload}
             onStream={props.onStream}
-            goToDetail={() => props.goToDetail(v.id)}
-            onDuplicate={props.onDuplicate}
-            withStatus
+            video={v}
           />
         </Grid>
       ))}
       {!props.loading && !props.videoList.length && (
         <div className={classes.buttonContainer}>
-          <Typography variant="h6" component="p" color="textSecondary">
+          <Typography color="textSecondary" component="p" variant="h6">
             {t('video.search.isEmpty')}
           </Typography>
         </div>
@@ -57,7 +57,7 @@ export const VideoCardList = (props: Props) => {
       )}
       {!props.loading && !!props.hasMoreVideo && !!props.onShowMore && (
         <div className={classes.buttonContainer}>
-          <Button variant="outlined" onClick={props.onShowMore} color="primary">
+          <Button color="primary" onClick={props.onShowMore} variant="outlined">
             {t('video.showMore')}
           </Button>
         </div>

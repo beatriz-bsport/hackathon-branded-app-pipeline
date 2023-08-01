@@ -46,7 +46,7 @@ const SubscriptionContractDetail = (props: Props) => {
   return (
     <div>
       <Paper className={classes.paperContainer}>
-        <Typography variant="h4" className={classes.title}>
+        <Typography className={classes.title} variant="h4">
           {name}
         </Typography>
         <div className={classes.row}>
@@ -60,7 +60,7 @@ const SubscriptionContractDetail = (props: Props) => {
                 tax,
               )}`}
             </Typography>
-            <Typography variant="body1" color="textSecondary" align="left">
+            <Typography align="left" color="textSecondary" variant="body1">
               {t(`contract.item.intervalLabel.${interval}`, {
                 count: recurrence_basis,
               })}
@@ -78,10 +78,10 @@ const SubscriptionContractDetail = (props: Props) => {
           <div className={classes.block}>
             <Typography variant="h6">{t('contract.paymentPack')}</Typography>
             <PaymentPackListItem
-              pack={payment_pack}
               divider
               hidePacksNumber
               isExcludingTax={props.isExcludingTax}
+              pack={payment_pack}
             />
           </div>
         )}
@@ -95,9 +95,9 @@ const SubscriptionContractDetail = (props: Props) => {
           <div className={classes.block}>
             <Typography variant="h6">{t('contract.paymentCombo')}</Typography>
             <PaymentComboListItem
-              paymentCombo={payment_combo}
               divider
               isExcludingTax={props.isExcludingTax}
+              paymentCombo={payment_combo}
             />
           </div>
         )}

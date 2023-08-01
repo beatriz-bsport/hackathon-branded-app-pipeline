@@ -574,8 +574,8 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
         actionType={this.props.communicationKind}
         directMember={this.props.directMember}
         fullScreen={this.props.fullScreen}
-        handleSelectTemplate={onSelectTemplate}
         handleSelectRecipients={onSelectRecipients}
+        handleSelectTemplate={onSelectTemplate}
         memberList={selectedMemberDetailList}
         memberListLoading={this.state.selectedMemberDetailListLoading}
         onBaliseItemClick={this.onBaliseItemClick}
@@ -597,19 +597,19 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
     return (
       <CommunicationTemplateModal
         closeDialog={onClose}
-        emailDetailListLoading={this.props.loadingTemplateDetailList}
         emailDetailList={this.props.emailTemplateDetailList}
-        emailSummaryListLoading={this.props.loadingTemplateSummaryList}
+        emailDetailListLoading={this.props.loadingTemplateDetailList}
         emailSummaryList={this.props.emailTemplateSummaryList}
+        emailSummaryListLoading={this.props.loadingTemplateSummaryList}
         fetchEmailSummaryList={this.props.fetchEmailSummaryList}
         fullScreen={this.props.fullScreen}
         getEmailDetail={this.props.getEmailDetail}
         open={this.state.openTemplateSelector}
+        resolvedGenericTags={this.props.resolvedGenericTags}
         selectedTemplate={this.state.mailTemplateSelected}
         selectedTitle={this.state.mailTitle}
         setTemplate={setTemplate}
         setTitle={setTitle}
-        resolvedGenericTags={this.props.resolvedGenericTags}
       />
     );
   };
@@ -633,9 +633,9 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
         handleCloseDialog={this.handleCloseRecipientModal}
         kind={this.props.communicationKind}
         loadingPaginatedMemberList={this.props.loadingPaginatedMemberList}
-        paginatedMemberList={this.props.paginatedMemberList}
         open={this.state.openRecipientSelector}
         pageSize={this.props.pageSize}
+        paginatedMemberList={this.props.paginatedMemberList}
         setCheckedMemberCategoriesFilters={this.handleCheckMemberCategoryFilter}
         setUncheckedMembers={this.setUncheckedMembers}
         uncheckedMembers={this.state.uncheckedMembers}
@@ -664,11 +664,11 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
           this.props.communicationKind === WRITE_EMAIL &&
           !!html && (
             <HTMLPreviewDialog
-              open={this.state.openTemplateVisualizer}
-              onClose={this.onCloseHTMLPreviewDialog}
               html={html}
-              title={this.state.mailTitle}
+              onClose={this.onCloseHTMLPreviewDialog}
+              open={this.state.openTemplateVisualizer}
               resolvedGenericTags={this.props.resolvedGenericTags}
+              title={this.state.mailTitle}
             />
           )}
       </Paper>

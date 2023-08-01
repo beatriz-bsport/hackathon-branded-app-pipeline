@@ -69,27 +69,27 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
 
   return (
     <div className={classes.container}>
-      <AppBar position="static" color="default" className={classes.bar}>
+      <AppBar className={classes.bar} color="default" position="static">
         <CoachPerformanceDateFilter
-          onSubmit={onSubmit}
-          loading={loading || performanceLoading}
-          handleDateFiltersChange={handleDateFiltersChange}
-          updateStateDate={changeDate}
           hideExport
+          handleDateFiltersChange={handleDateFiltersChange}
+          loading={loading || performanceLoading}
+          onSubmit={onSubmit}
+          updateStateDate={changeDate}
         />
       </AppBar>
       {coachWithPerformance ? (
         <>
           <CoachPerformanceSummaryHeader
-            performances={coachWithPerformance.performance}
             isCoach
+            performances={coachWithPerformance.performance}
           />
           <Paper>
             {loading || performanceLoading ? <LinearProgress /> : null}
             <CoachPerformanceTabs
+              asCoach
               hideRuleSetter
               coachWithPerformance={coachWithPerformance}
-              asCoach
             />
           </Paper>
         </>

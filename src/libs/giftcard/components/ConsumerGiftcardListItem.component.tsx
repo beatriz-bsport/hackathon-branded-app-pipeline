@@ -36,8 +36,11 @@ const GiftcardSender = (props: SenderProps) => {
   const { t } = useTranslation('member');
   return (
     <ListItem
-      selected={props.selected}
       button={!!props.onClick}
+      disabled={
+        props.disableItemIfNoMember &&
+        (!props.consumerGiftcard?.id || !props.memberSender?.id)
+      }
       onClick={
         props.onClick &&
         props.consumerGiftcard?.id &&
@@ -45,10 +48,7 @@ const GiftcardSender = (props: SenderProps) => {
         (() =>
           props.onClick(props.consumerGiftcard?.id, props.memberSender?.id))
       }
-      disabled={
-        props.disableItemIfNoMember &&
-        (!props.consumerGiftcard?.id || !props.memberSender?.id)
-      }
+      selected={props.selected}
     >
       {!!props.showMember && (
         <ListItemAvatar>
@@ -69,7 +69,7 @@ const GiftcardSender = (props: SenderProps) => {
                   }`}
                 </Typography>
                 {props.memberSender && props.memberSender.archived && (
-                  <Typography variant="caption" color="secondary">
+                  <Typography color="secondary" variant="caption">
                     {`${'\u00A0'}(${t('archived')})`}
                   </Typography>
                 )}
@@ -147,7 +147,10 @@ const GiftcardReceiver = (props: ReceiverProps) => {
   return (
     <ListItem
       button={!!props.onClick}
-      selected={props.selected}
+      disabled={
+        props.disableItemIfNoMember &&
+        (!props.consumerGiftcard?.id || !props.memberReceiver?.id)
+      }
       onClick={
         props.onClick &&
         props.consumerGiftcard?.id &&
@@ -155,10 +158,7 @@ const GiftcardReceiver = (props: ReceiverProps) => {
         (() =>
           props.onClick(props.consumerGiftcard?.id, props.memberReceiver?.id))
       }
-      disabled={
-        props.disableItemIfNoMember &&
-        (!props.consumerGiftcard?.id || !props.memberReceiver?.id)
-      }
+      selected={props.selected}
     >
       {!!props.showMember && !!props.consumerGiftcard.dst_member && (
         <ListItemAvatar>
@@ -178,7 +178,7 @@ const GiftcardReceiver = (props: ReceiverProps) => {
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   <Typography>{`${receiverName || '-'}`}</Typography>
                   {props.memberReceiver && props.memberReceiver.archived && (
-                    <Typography variant="caption" color="secondary">
+                    <Typography color="secondary" variant="caption">
                       {`${'\u00A0'}(${t('member:archived')})`}
                     </Typography>
                   )}
@@ -294,36 +294,36 @@ const ConsumerGiftcardListItem = React.memo((props: Props) => {
   const sender = (selected_: boolean) => (
     <GiftcardSender
       consumerGiftcard={consumerGiftcard}
-      selected={selected_}
-      memberSender={memberSender}
-      giftcard={giftcard}
-      showMember={showSender}
-      onClick={onClickSender}
       disableItemIfNoMember={disableItemIfNoMember}
+      giftcard={giftcard}
+      memberSender={memberSender}
+      onClick={onClickSender}
+      selected={selected_}
+      showMember={showSender}
     />
   );
   const receiver = (selected_: boolean) => (
     <GiftcardReceiver
-      selected={selected_}
       consumerGiftcard={consumerGiftcard}
-      memberReceiver={memberReceiver}
+      disableItemIfNoMember={disableItemIfNoMember}
       giftcard={giftcard}
-      showMember={showReceiver}
+      memberReceiver={memberReceiver}
       onClick={onClickReceiver}
       onClickSendInvitation={onClickSendInvitation}
+      selected={selected_}
       sharedFromFranchisor={sharedFromFranchisor}
-      disableItemIfNoMember={disableItemIfNoMember}
+      showMember={showReceiver}
     />
   );
 
   return (
     <Container
-      reverted={reverted}
-      selected={selected}
       divider={divider}
-      reverseArrow={showAsRecipient}
       leftComponent={showAsRecipient ? receiver : sender}
+      reverseArrow={showAsRecipient}
+      reverted={reverted}
       rightComponent={showAsRecipient ? sender : receiver}
+      selected={selected}
     />
   );
 });

@@ -65,7 +65,7 @@ export function TemporalAreaChart(props: Props) {
   }`;
 
   return (
-    <ResponsiveContainer width={width || '100%'} height={height || 400}>
+    <ResponsiveContainer height={height || 400} width={width || '100%'}>
       <AreaChart
         data={data}
         margin={margin || { top: 5, right: 20, bottom: 20, left: 30 }}
@@ -77,8 +77,8 @@ export function TemporalAreaChart(props: Props) {
                 <linearGradient
                   id={`color-${areaData.dataKey}`}
                   x1="0"
-                  y1="0"
                   x2="0"
+                  y1="0"
                   y2="1"
                 >
                   <stop
@@ -99,14 +99,14 @@ export function TemporalAreaChart(props: Props) {
         {noGrid ? null : <CartesianGrid strokeDasharray="3 3" />}
         <XAxis
           dataKey="d"
-          tickFormatter={xFormatter}
-          label={{ value: xLabel, position: 'bottom' }}
           interval="preserveStart"
+          label={{ value: xLabel, position: 'bottom' }}
           minTickGap={10}
+          tickFormatter={xFormatter}
         />
         <YAxis
-          allowDecimals={!!allowDecimals}
           key={refreshKey}
+          allowDecimals={!!allowDecimals}
           tickFormatter={numberFormatter(false)}
         >
           <Label
@@ -128,16 +128,16 @@ export function TemporalAreaChart(props: Props) {
           return (
             <Area
               key={areaData.dataKey}
-              stackId={props.stacked && '1'}
-              type="monotone"
               dataKey={areaData.dataKey}
-              stroke={areaData.stroke}
               fill={
                 props.linearGradient
                   ? `url(#color-${areaData.dataKey})`
                   : areaData.fill
               }
               name={props.tooltip && areaData.caption}
+              stackId={props.stacked && '1'}
+              stroke={areaData.stroke}
+              type="monotone"
             />
           );
         })}

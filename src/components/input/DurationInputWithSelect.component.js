@@ -113,13 +113,10 @@ export class DurationInput extends Component<Props, State> {
           <Grid container direction="row">
             <Grid item>
               <TextField
-                id="duration_day"
                 className={classes.inputText}
                 defaultValue={null}
-                value={getDays(this.props.value)}
-                onChange={this.onChangeDays}
                 error={disallowedNullDuration}
-                type="number"
+                id="duration_day"
                 InputProps={{
                   inputProps: {
                     min: 0,
@@ -132,17 +129,17 @@ export class DurationInput extends Component<Props, State> {
                     </InputAdornment>
                   ),
                 }}
+                onChange={this.onChangeDays}
+                type="number"
+                value={getDays(this.props.value)}
               />
             </Grid>
             <Grid item>
               <TextField
-                id="duration_hour"
                 className={classes.inputText}
                 defaultValue={null}
-                value={getHours(this.props.value)}
-                onChange={this.onChangeHours}
                 error={disallowedNullDuration}
-                type="number"
+                id="duration_hour"
                 InputProps={{
                   inputProps: {
                     min: 0,
@@ -155,17 +152,17 @@ export class DurationInput extends Component<Props, State> {
                     </InputAdornment>
                   ),
                 }}
+                onChange={this.onChangeHours}
+                type="number"
+                value={getHours(this.props.value)}
               />
             </Grid>
             <Grid item>
               <TextField
-                id="duration_minute"
                 className={classes.inputText}
                 defaultValue={0}
-                value={getMinutes(this.props.value)}
                 error={disallowedNullDuration}
-                onChange={this.onChangeMinutes}
-                type="number"
+                id="duration_minute"
                 InputProps={{
                   inputProps: {
                     min: 0,
@@ -178,6 +175,9 @@ export class DurationInput extends Component<Props, State> {
                     </InputAdornment>
                   ),
                 }}
+                onChange={this.onChangeMinutes}
+                type="number"
+                value={getMinutes(this.props.value)}
               />
             </Grid>
           </Grid>
@@ -195,17 +195,17 @@ export class DurationInput extends Component<Props, State> {
             onClick={() => this.setState({ selectOpen: true })}
           >
             <KeyboardArrowDownIcon
-              onClick={() => this.setState({ selectOpen: true })}
               color={this.state.selectOpen ? 'primary' : 'secondary'}
+              onClick={() => this.setState({ selectOpen: true })}
             />
           </IconButton>
         </Tooltip>
         <Select
           className={classes.selectField}
-          value={this.props.value}
           onChange={this.onChangeSelect}
-          open={this.state.selectOpen}
           onClose={() => this.setState({ selectOpen: false })}
+          open={this.state.selectOpen}
+          value={this.props.value}
         >
           {this.props.selectDurationChoices
             .slice(0, -1)

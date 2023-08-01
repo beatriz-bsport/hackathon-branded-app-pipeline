@@ -65,18 +65,18 @@ class TagRuleSelector extends React.PureComponent<Props> {
 
     return (
       <Select
-        id="standard-select-currency"
-        disabled={this.props.disabled}
-        value={this.props.selected.kind}
-        variant="outlined"
-        label="Select"
         dense
+        disabled={this.props.disabled}
+        id="standard-select-currency"
+        label="Select"
         onChange={(event) =>
           this.props.onChange({
             ...this.props.selected,
             kind: event.target.value,
           })
         }
+        value={this.props.selected.kind}
+        variant="outlined"
       >
         {TAG_RULE_CHOICES.map((option) => (
           <MenuItem key={option.value} value={option.value}>

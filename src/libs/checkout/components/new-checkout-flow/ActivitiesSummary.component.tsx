@@ -49,30 +49,30 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
             // @ts-expect-error
             <OfferSummary
               key={`offer-summary-${offer?.id}`}
-              metaActivity={offer?.meta_activity}
               establishment={offer?.establishment}
+              metaActivity={offer?.meta_activity}
               offer={offer}
-              variant="basket"
               theme={companyTheme}
+              variant="basket"
             />
           ))}
 
           <div className={classes.subContainer}>
             <Typography
-              variant="subtitle2"
               className={classes.checkoutItemName}
+              variant="subtitle2"
             >
               {checkoutItem.name}
             </Typography>
             <Typography
-              variant="subtitle2"
               className={classes.checkoutItemPriceClass}
+              variant="subtitle2"
             >
               {getCurrencyDisplayWithPrice(checkoutItem.unit_price)}
             </Typography>
           </div>
           {index !== checkoutItemsWithDetails.length - 1 && (
-            <Divider variant="middle" className={classes.divider} />
+            <Divider className={classes.divider} variant="middle" />
           )}
         </div>
       ))}

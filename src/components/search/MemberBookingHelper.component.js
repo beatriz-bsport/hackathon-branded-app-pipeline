@@ -24,11 +24,11 @@ type Props = {
 
 const MemberBookingHelper = (props: Props) => (
   <ListItem
-    button={props.onClickListItem}
-    selected={props.selected}
-    divider
     dense
+    divider
+    button={props.onClickListItem}
     onClick={props.onClickListItem || (() => {})}
+    selected={props.selected}
   >
     <ListItemText
       primary={props.member.name}

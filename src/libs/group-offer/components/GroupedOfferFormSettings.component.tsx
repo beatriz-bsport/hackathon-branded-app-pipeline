@@ -365,9 +365,9 @@ export const GroupedOfferFormSettings: React.FC<
           </div>
           <div className={classes.column}>
             <TextField
-              name="name"
-              label={t('groupedOption.modal.form.name')}
               required
+              label={t('groupedOption.modal.form.name')}
+              name="name"
             />
             <Typography color="textSecondary" variant="caption">
               {t('groupedOption.modal.form.nameCaption')}
@@ -375,12 +375,12 @@ export const GroupedOfferFormSettings: React.FC<
             <AlertError name="name" />
           </div>
           <LevelSelectorFormik
-            name="level"
             customLevels={customLevels}
             fetchLevelList={fetchLevelList}
-            onEditLevel={updateLevel}
+            name="level"
             onCreateLevel={createLevel}
             onDeleteLevel={handleDeleteLevel}
+            onEditLevel={updateLevel}
           />
         </div>
         {!editingLiveOffer && (
@@ -401,15 +401,15 @@ export const GroupedOfferFormSettings: React.FC<
                   },
                 }) => (
                   <OffersList
-                    offers={offers}
-                    establishments={allEstablishments}
                     coaches={coaches}
+                    establishments={allEstablishments}
+                    level={values.level}
                     metaActivity={metaActivity}
+                    offers={offers}
                     onRemove={remove}
-                    setOfferEdited={setOfferEdited}
                     recurrence_frequence={values.recurrence_frequence}
                     recurrence_interval={values.recurrence_interval}
-                    level={values.level}
+                    setOfferEdited={setOfferEdited}
                     syncEditOnSpivi={editSyncOnSpivi}
                   />
                 )}
@@ -422,8 +422,8 @@ export const GroupedOfferFormSettings: React.FC<
               <div className={classes.buttonAdd}>
                 <Button
                   color="primary"
-                  variant="outlined"
                   onClick={handleOpenOffersModal}
+                  variant="outlined"
                 >
                   <AddIcon color="primary" />
                   {t('groupedOption.modal.form.addOffers')}
@@ -443,8 +443,8 @@ export const GroupedOfferFormSettings: React.FC<
           </div>
 
           <CheckboxField
-            name="full_booking_only"
             label={t('groupedOption.modal.form.fullBookingOnly')}
+            name="full_booking_only"
           />
           <Typography color="textSecondary" variant="caption">
             {t('groupedOption.modal.form.fullBookingOnlyCaption')}
@@ -452,8 +452,8 @@ export const GroupedOfferFormSettings: React.FC<
           {values.full_booking_only && (
             <>
               <CheckboxField
-                name="allow_booking_after_start"
                 label={t('groupedOption.modal.form.allowBookingAfterStart')}
+                name="allow_booking_after_start"
               />
               <Typography color="textSecondary" variant="caption">
                 {t('groupedOption.modal.form.allowBookingAfterStartCaption')}
@@ -481,20 +481,20 @@ export const GroupedOfferFormSettings: React.FC<
           <Collapse in={spiviEnabled && allOffersHaveSpiviBoxId(values.offers)}>
             <FormToggle
               onChange={handleChangeSyncOnSpivi}
-              value={values.sync_on_spivi}
               title={t('groupedOption.modal.form.syncOnSpivi')}
+              value={values.sync_on_spivi}
             />
           </Collapse>
         </div>
         <Divider className={classes.divider} />
         <div className={classes.wrapper}>
           <BlackWhiteListing
-            tagList={tagList}
-            disableTag={false}
-            whitelist_tags={values.whitelist_tags}
             blacklist_tags={values.blacklist_tags}
-            onWhiteListChange={handleWhiteListChange}
+            disableTag={false}
             onBlackListChange={handleBlackListChange}
+            onWhiteListChange={handleWhiteListChange}
+            tagList={tagList}
+            whitelist_tags={values.whitelist_tags}
           />
         </div>
         {!editingLiveOffer && (
@@ -508,10 +508,10 @@ export const GroupedOfferFormSettings: React.FC<
                 </Typography>
               </div>
               <SwitchField
-                name="withRecurrence"
-                label={t('groupedOption.modal.form.withRecurrence')}
-                color="primary"
                 className={classes.switch}
+                color="primary"
+                label={t('groupedOption.modal.form.withRecurrence')}
+                name="withRecurrence"
               />
 
               <Collapse in={values.withRecurrence}>
@@ -523,15 +523,15 @@ export const GroupedOfferFormSettings: React.FC<
                     <div className={classes.recurenceRow}>
                       {t('groupedOption.modal.form.recurrenceNumberPrefix')}
                       <IntegerField
-                        name="recurrence_interval"
                         className={classes.intervalIntegerField}
+                        name="recurrence_interval"
                       />
                       <IntervalRecurrenceSelectField
+                        displayPeriod
+                        withoutDaily
+                        className={classes.intervalSelectorField}
                         name="recurrence_frequence"
                         variant="outlined"
-                        withoutDaily
-                        displayPeriod
-                        className={classes.intervalSelectorField}
                       />
                     </div>
                   </div>
@@ -548,36 +548,36 @@ export const GroupedOfferFormSettings: React.FC<
                         </FormLabel>
                         <div className={classes.radioRow}>
                           <Radio
-                            value="count"
                             checked={`${field.value}` === 'count'}
+                            value="count"
                           />
                           <IntegerField
-                            name="count"
                             label={t(
                               'groupedOption.modal.form.recurrenceCount',
                             )}
+                            name="count"
                           />
                         </div>
                         <div className={classes.radioRow}>
                           <Radio
-                            value="until"
                             checked={`${field.value}` === 'until'}
+                            value="until"
                           />
                           <DateField
-                            name="until"
                             label={t(
                               'groupedOption.modal.form.recurrenceUntil',
                             )}
+                            name="until"
                           />
                         </div>
                         {field.value === 'until' && (
                           <div className={classes.radioHelper}>
-                            <Typography variant="caption" color="textSecondary">
+                            <Typography color="textSecondary" variant="caption">
                               {t(
                                 'groupedOption.modal.form.recurrenceUntilHelper',
                               )}
                             </Typography>
-                            <Typography variant="caption" color="textSecondary">
+                            <Typography color="textSecondary" variant="caption">
                               {t(
                                 'groupedOption.modal.form.recurrenceUntilHelper2',
                               )}
@@ -597,8 +597,8 @@ export const GroupedOfferFormSettings: React.FC<
             {t('translation:common.cancel')}
           </Button>
           <Submit
-            disabled={isSubmitting || !values.offers.some((o) => o)}
             color="primary"
+            disabled={isSubmitting || !values.offers.some((o) => o)}
           >
             {isSubmitting ? (
               <CircularProgress />
@@ -613,21 +613,21 @@ export const GroupedOfferFormSettings: React.FC<
         </div>
       </Form>
       <OfferDialogs
-        coaches={coaches}
-        availableEstablishments={availableEstablishments}
         allEstablishments={allEstablishments}
-        metaActivity={metaActivity}
-        availableRoomBlueprints={availableRoomBlueprints}
         allRoomBlueprints={allRoomBlueprints}
+        availableEstablishments={availableEstablishments}
+        availableRoomBlueprints={availableRoomBlueprints}
+        coaches={coaches}
         coachPaymentRulesByKind={coachPaymentRulesByKind}
-        tagList={tagList}
-        theme={theme}
+        handleAddOffer={handleAddOffer}
+        handleCloseOffersModal={handleCloseOffersModal}
+        handleEditOffer={handleEditOffer}
+        handleResetEdit={handleResetEdit}
+        metaActivity={metaActivity}
         offerEdited={offerEdited}
         openOffersModal={openOffersModal}
-        handleCloseOffersModal={handleCloseOffersModal}
-        handleResetEdit={handleResetEdit}
-        handleEditOffer={handleEditOffer}
-        handleAddOffer={handleAddOffer}
+        tagList={tagList}
+        theme={theme}
         zoomAppDetail={zoomAppDetail}
       />
     </>
@@ -685,61 +685,61 @@ const OfferDialogs: React.FC<{
   return (
     <>
       <GenericResponsiveDrawer
-        open={!!openOffersModal}
-        onClose={handleCloseOffersModal}
-        title={t('translation:common.offers')}
-        subtitle={t('translation:common.offerCreation')}
-        withoutPadding
         withoutHeaderContainer
+        withoutPadding
+        onClose={handleCloseOffersModal}
+        open={!!openOffersModal}
+        subtitle={t('translation:common.offerCreation')}
+        title={t('translation:common.offers')}
       >
         <OfferCreateForm
-          selectedDate={moment()}
-          coaches={coaches}
-          timezone={theme.timezone_name}
+          editableCoachPaymentRule
+          isOfferInGroup
           availableEstablishments={availableEstablishments}
-          roomBlueprints={availableRoomBlueprints}
+          coaches={coaches}
+          coachPaymentRulesByKind={coachPaymentRulesByKind}
+          isWherebyIntegrationEnabled={isWherebyIntegrationEnabled}
           metaActivity={metaActivity}
           onCancel={handleCloseOffersModal}
+          onSubmit={handleAddOffer}
           processing={false}
-          isWherebyIntegrationEnabled={isWherebyIntegrationEnabled}
-          coachPaymentRulesByKind={coachPaymentRulesByKind}
-          editableCoachPaymentRule
+          roomBlueprints={availableRoomBlueprints}
+          selectedDate={moment()}
           showPartnership={theme.has_partnership}
           tagList={tagList}
-          isOfferInGroup
-          onSubmit={handleAddOffer}
+          timezone={theme.timezone_name}
           zoomAppDetail={zoomAppDetail}
         />
       </GenericResponsiveDrawer>
       <GenericResponsiveDrawer
-        open={!!offerEdited}
-        onClose={handleResetEdit}
-        title={t('translation:common.offers')}
-        subtitle={t('translation:common.offerEdition')}
-        withoutPadding
         withoutHeaderContainer
+        withoutPadding
+        onClose={handleResetEdit}
+        open={!!offerEdited}
+        subtitle={t('translation:common.offerEdition')}
+        title={t('translation:common.offers')}
       >
         <OfferEditForm
-          offer={offerEdited}
-          metaActivities={[metaActivity]}
-          coaches={coaches}
-          availableEstablishments={availableEstablishments}
-          allEstablishments={allEstablishments}
-          roomBlueprints={availableRoomBlueprints}
-          allRoomBlueprints={allRoomBlueprints}
-          isWherebyIntegrationEnabled={isWherebyIntegrationEnabled}
-          processing={false}
-          isLoading={!offerEdited}
-          similarOffers={[]}
-          coachPaymentRulesByKind={coachPaymentRulesByKind}
-          showPartnership={theme.has_partnership}
-          tagList={tagList}
-          onSubmit={handleEditOffer}
-          onCancel={handleResetEdit}
-          zoomAppDetail={zoomAppDetail}
           editableCoachPaymentRule
           isOfferInGroup
+          allEstablishments={allEstablishments}
+          allRoomBlueprints={allRoomBlueprints}
+          availableEstablishments={availableEstablishments}
+          coaches={coaches}
+          coachPaymentRulesByKind={coachPaymentRulesByKind}
           creditScaleFactor={creditScaleFactor}
+          isLoading={!offerEdited}
+          isWherebyIntegrationEnabled={isWherebyIntegrationEnabled}
+          metaActivities={[metaActivity]}
+          offer={offerEdited}
+          onCancel={handleResetEdit}
+          onSubmit={handleEditOffer}
+          processing={false}
+          roomBlueprints={availableRoomBlueprints}
+          showPartnership={theme.has_partnership}
+          similarOffers={[]}
+          tagList={tagList}
+          zoomAppDetail={zoomAppDetail}
         />
       </GenericResponsiveDrawer>
     </>
@@ -792,6 +792,7 @@ const OffersList: React.FC<{
 
         return (
           <ListItem
+            key={o.date_start}
             style={{
               borderLeftWidth: 5,
               borderLeftStyle: 'solid',
@@ -799,7 +800,6 @@ const OffersList: React.FC<{
               borderTopLeftRadius: 4,
               borderBottomLeftRadius: 4,
             }}
-            key={o.date_start}
           >
             <div className={classes.coachAvatar}>
               <CoachAvatar
@@ -843,8 +843,8 @@ const OffersList: React.FC<{
                     placement="bottom-start"
                     title={
                       <AdditionalCoachesTooltipTitle
-                        mainCoachName={offer.coach?.name}
                         coaches={offer?.additional_coaches}
+                        mainCoachName={offer.coach?.name}
                       />
                     }
                   >

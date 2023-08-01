@@ -22,11 +22,11 @@ export const MarketplaceAsManager = (props: Props) => {
   return (
     <div className={props.classes.container}>
       <div className={props.classes.innerContainer}>
-        <WarningIcon fontSize="large" className={props.classes.icon} />
+        <WarningIcon className={props.classes.icon} fontSize="large" />
         <Typography
           align="center"
-          color="textSecondary"
           className={props.classes.explainText}
+          color="textSecondary"
         >
           {props.t('warning.isManager')}
         </Typography>

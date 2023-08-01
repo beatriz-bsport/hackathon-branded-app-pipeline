@@ -78,7 +78,7 @@ const DateRangePicker: React.FC<Props> = (props) => {
       });
 
       return (
-        <div onMouseEnter={() => setActiveDate(d)} className={dayClasses}>
+        <div className={dayClasses} onMouseEnter={() => setActiveDate(d)}>
           {d.format('DD')}
         </div>
       );
@@ -88,9 +88,9 @@ const DateRangePicker: React.FC<Props> = (props) => {
 
   return (
     <MuiPickersUtilsProvider
-      utils={MomentUtils}
-      moment={moment}
       locale={moment.locale()}
+      moment={moment}
+      utils={MomentUtils}
     >
       <BasePicker>
         {() => (

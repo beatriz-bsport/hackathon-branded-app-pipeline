@@ -45,11 +45,11 @@ export const MemberPaymentMethodPanel = (props: Props) => {
   return (
     <div style={{ width: '100%' }}>
       <div className={classes.flexTitle}>
-        <Typography component="h2" variant="h6" className={classes.title}>
+        <Typography className={classes.title} component="h2" variant="h6">
           {t('paymentMethod.title')}
         </Typography>
         {props.detachPaymentMethodLoading && (
-          <CircularProgress size="1.5rem" color="secondary" />
+          <CircularProgress color="secondary" size="1.5rem" />
         )}
       </div>
       {props.paymentMethodLoading && <LinearProgress />}
@@ -75,9 +75,9 @@ export const MemberPaymentMethodPanel = (props: Props) => {
 
                 <ListItemSecondaryAction>
                   <IconButton
-                    edge="end"
                     aria-label="delete"
                     disabled={props.detachPaymentMethodLoading}
+                    edge="end"
                   >
                     <DeleteIcon
                       onClick={() => props.detachPaymentMethod(method.id)}
@@ -88,7 +88,7 @@ export const MemberPaymentMethodPanel = (props: Props) => {
             );
           })
         ) : (
-          <Typography variant="caption" color="textSecondary">
+          <Typography color="textSecondary" variant="caption">
             <p> {t('paymentMethod.none')}</p>
           </Typography>
         )}
@@ -97,17 +97,17 @@ export const MemberPaymentMethodPanel = (props: Props) => {
         <div className={classes.row}>
           <Button
             color="primary"
-            variant="outlined"
             onClick={openAddPaymentMethodDialogCallback}
+            variant="outlined"
           >
-            <Add color="primary" className={classes.leftIcon} />
+            <Add className={classes.leftIcon} color="primary" />
             {t('paymentMethod.addPaymentMethod')}
           </Button>
           {props.companyId && (
             <CopyToClipboard text={addPaymentLink}>
               <ButtonBase
-                id="button_pass_copy"
                 className={classes.link}
+                id="button_pass_copy"
                 onClick={() =>
                   props.snackbarSuccess && props.snackbarSuccess('link.copied')
                 }

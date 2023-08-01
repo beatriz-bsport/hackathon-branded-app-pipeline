@@ -12,12 +12,12 @@ export default () => {
 
   return (
     <Switch>
-      <Route exact path="/check-in" component={CheckInOfferList} />
+      <Route exact component={CheckInOfferList} path="/check-in" />
       <Route
-        path="/check-in/offer/:offerId/booking/:bookingId"
         component={CheckInConfirm}
+        path="/check-in/offer/:offerId/booking/:bookingId"
       />
-      <Route path="/check-in/offer/:offerId" component={CheckInOfferDetail} />
+      <Route component={CheckInOfferDetail} path="/check-in/offer/:offerId" />
     </Switch>
   );
 };

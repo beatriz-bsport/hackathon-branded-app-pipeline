@@ -53,17 +53,17 @@ export const IntercomComponent = (props: Props) => {
 
   return (
     <Intercom
+      action_color={props.action_color}
       appID="q6foivp2"
-      email={props.email}
       company={props.company}
-      name={props.name}
-      user_id={props.user_id}
+      custom_launcher_selector="#intercomIcon"
+      email={props.email}
       environment={props.environment}
+      language_override={props.language_override}
+      name={props.name}
       release={props.release}
       role={props.role}
-      action_color={props.action_color}
-      custom_launcher_selector="#intercomIcon"
-      language_override={props.language_override}
+      user_id={props.user_id}
     />
   );
 };

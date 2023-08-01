@@ -91,7 +91,7 @@ export class MemberCustomForm extends React.Component<Props> {
     }
     return (
       <Grid container direction="row" spacing={3}>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <Paper>
             <CustomFormCompletedList
               customFormFilledList={this.props.customFormFilledList}
@@ -99,7 +99,7 @@ export class MemberCustomForm extends React.Component<Props> {
             />
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <div className={classes.formContainer}>
             {this.props.customFormFilledSelected ? (
               this.getCustomFormEnabledFieldWithAnswer() && (
@@ -109,23 +109,23 @@ export class MemberCustomForm extends React.Component<Props> {
                     <Paper className={classes.paperContainer}>
                       <CustomFormView
                         key={this.props.customFormFilledSelected}
-                        initialWithAnswer={this.getCustomFormEnabledFieldWithAnswer()}
-                        refreshLoading={this.props.customFormViewLoading}
                         asManager
-                        waiver={this.props?.theme.waiver}
+                        disableLayout
                         general_terms_and_conditions={
                           this.props.theme.general_terms_of_use
                         }
-                        disableLayout
+                        initialWithAnswer={this.getCustomFormEnabledFieldWithAnswer()}
+                        refreshLoading={this.props.customFormViewLoading}
+                        waiver={this.props?.theme.waiver}
                       />
                     </Paper>
                   ) : (
                     <div className={classes.emptyContainer}>
                       <div className={classes.column}>
                         <Alert
-                          severity="info"
                           className={classes.alertIcon}
                           color="grey"
+                          severity="info"
                         >
                           {t('customForm.allFieldDisabled')}
                         </Alert>
@@ -139,9 +139,9 @@ export class MemberCustomForm extends React.Component<Props> {
                 <div className={classes.emptyContainer}>
                   <div className={classes.column}>
                     <Alert
-                      severity="info"
                       className={classes.alertIcon}
                       color="grey"
+                      severity="info"
                     >
                       {' '}
                       {t('customForm.selectCustomFormFilled')}
@@ -157,12 +157,12 @@ export class MemberCustomForm extends React.Component<Props> {
                   ?.length !== 0 && (
                   <>
                     <ButtonBase
+                      className={classes.disabledHeader}
                       onClick={() =>
                         this.props.setShowDisabledField(
                           !this.props.showDisabledField,
                         )
                       }
-                      className={classes.disabledHeader}
                     >
                       <Typography variant="h5">
                         {`${t('customForm.answerForDisabledField')} (${
@@ -181,14 +181,14 @@ export class MemberCustomForm extends React.Component<Props> {
                       <Paper className={classes.paperContainer}>
                         <CustomFormView
                           key={this.props.customFormFilledSelected}
-                          initialWithAnswer={this.getCustomFormDisabledFieldWithAnswer()}
-                          refreshLoading={this.props.customFormViewLoading}
                           asManager
-                          waiver={this.props?.theme.waiver}
+                          disableLayout
                           general_terms_and_conditions={
                             this.props.theme.general_terms_of_use
                           }
-                          disableLayout
+                          initialWithAnswer={this.getCustomFormDisabledFieldWithAnswer()}
+                          refreshLoading={this.props.customFormViewLoading}
+                          waiver={this.props?.theme.waiver}
                         />
                       </Paper>
                     </Collapse>

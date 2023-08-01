@@ -19,10 +19,10 @@ const CustomAvatarGroup: React.FC<Props> = ({ imgLinks, imgStyle }) => {
           'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png';
         return (
           <Avatar
-            src={imgLink}
-            alt={imgLink}
             key={`${idx}-${imgLink}`}
+            alt={imgLink}
             className={imgStyle ?? classes.img}
+            src={imgLink}
           />
         );
       })}

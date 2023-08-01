@@ -321,26 +321,26 @@ export class EmailEditorPanel extends Component<Props, State> {
       <div className={classes.totalEditorContainer}>
         <div className={classes.paper}>
           <Prompt
-            when={this.state.notReadyToLeave}
             message={this.props.t('emailTemplate:leaveAlert')}
+            when={this.state.notReadyToLeave}
           />
           <TextField
-            onChange={(event) => this.handleTitleChange(event.target.value)}
-            label={t('emailTemplate:editor.title')}
-            inputProps={{ maxLength: 100 }}
-            value={this.state.title}
             required
             className={classes.field}
+            inputProps={{ maxLength: 100 }}
+            label={t('emailTemplate:editor.title')}
+            onChange={(event) => this.handleTitleChange(event.target.value)}
+            value={this.state.title}
           />
           <TextField
+            required
+            className={classes.field}
+            inputProps={{ maxLength: 500 }}
+            label={t('emailTemplate:editor.subject')}
             onChange={(event) => {
               this.handleObjectChange(event.target.value);
             }}
-            label={t('emailTemplate:editor.subject')}
             value={this.state.subject}
-            inputProps={{ maxLength: 500 }}
-            required
-            className={classes.field}
           />
           {this.props.emailTemplateCategories && (
             <CategorySelector
@@ -353,21 +353,21 @@ export class EmailEditorPanel extends Component<Props, State> {
           )}
           {this.props?.companies?.length > 0 && (
             <div className={classes.companies}>
-              <Typography variant="body1" className={classes.subtitle}>
+              <Typography className={classes.subtitle} variant="body1">
                 {t('editor.shareWith')}
               </Typography>
               <div className={classes.selector}>
                 <FranchiseCompaniesSelector
+                  companies={this.props.companies}
+                  companyDic={this.companyDic}
                   onChange={(newValue) => {
                     this.setState({ selectedCompanies: newValue });
                   }}
                   selectedCompanies={this.state.selectedCompanies}
-                  companyDic={this.companyDic}
-                  companies={this.props.companies}
+                  unclearable={!this.allCompaniesAllowed(this.props.companies)}
                   withAllCompaniesTag={this.allCompaniesAllowed(
                     this.props.companies,
                   )}
-                  unclearable={!this.allCompaniesAllowed(this.props.companies)}
                 />
               </div>
               <div className={classes.helper}>
@@ -399,18 +399,18 @@ export class EmailEditorPanel extends Component<Props, State> {
               />
             ) : null}
             <Button
-              color="primary"
-              variant="contained"
               className={classes.button}
+              color="primary"
               onClick={this.handleSaveClick}
+              variant="contained"
             >
               {t('emailTemplate:editor.save')}
             </Button>
             <Button
-              color="primary"
-              variant="contained"
               className={classes.button}
+              color="primary"
               onClick={this.handleExportClick}
+              variant="contained"
             >
               {t('emailTemplate:editor.exportHtml')}
             </Button>
@@ -420,10 +420,10 @@ export class EmailEditorPanel extends Component<Props, State> {
           this.props.relatedNotificationRuleEvents?.length > 0 &&
           (this.state.showAlert ? (
             <Alert
-              severity="error"
-              icon={false}
               classes={{ message: classes.MuiAlertMessage }}
               className={classes.alertBox}
+              icon={false}
+              severity="error"
             >
               <div className={classes.buttonsContainer}>
                 <div className={classes.row}>
@@ -452,10 +452,10 @@ export class EmailEditorPanel extends Component<Props, State> {
             </Alert>
           ) : (
             <Alert
-              severity="info"
-              icon={false}
               classes={{ message: classes.MuiAlertMessage }}
               className={classes.alertBox}
+              icon={false}
+              severity="info"
             >
               <div className={classes.buttonsContainer}>
                 <div className={classes.row}>
@@ -479,12 +479,12 @@ export class EmailEditorPanel extends Component<Props, State> {
                     </Typography>
                   </div>
                 </div>
-                <Button size="small" onClick={this.openModalRequiredTags}>
+                <Button onClick={this.openModalRequiredTags} size="small">
                   {t('emailTemplate:editor.showRequiredTags')}
                 </Button>
                 <Dialog
-                  open={this.state.openRequiredTagsModal}
                   onClose={this.closeModalRequiredTags}
+                  open={this.state.openRequiredTagsModal}
                 >
                   <DialogTitle>
                     {t('emailTemplate:editor.dialogWindowTitle')}
@@ -493,7 +493,7 @@ export class EmailEditorPanel extends Component<Props, State> {
                     <RequiredTags requiredTagsList={this.props.requiredTags} />
                   </DialogContent>
                   <DialogActions>
-                    <Button size="small" onClick={this.closeModalRequiredTags}>
+                    <Button onClick={this.closeModalRequiredTags} size="small">
                       {t('emailTemplate:editor.closeButton')}
                     </Button>
                   </DialogActions>
@@ -505,21 +505,21 @@ export class EmailEditorPanel extends Component<Props, State> {
           {!!Object.entries(mergeTags).length && (
             <EmailEditor
               ref={this.editor}
-              minHeight="80vh"
               locale={i18n.language}
+              minHeight="80vh"
+              onLoad={() => this.onLoad()}
+              options={{
+                mergeTags,
+                designTags: {
+                  business_name: this.props.company_name,
+                },
+              }}
               translations={{
                 'fr-FR': {
                   'labels.merge_tags': 'Ajouter une variable',
                 },
                 'en-US': {
                   'labels.merge_tags': 'Add a variable',
-                },
-              }}
-              onLoad={() => this.onLoad()}
-              options={{
-                mergeTags,
-                designTags: {
-                  business_name: this.props.company_name,
                 },
               }}
             />

@@ -109,18 +109,18 @@ export class AddPaymentMethodWebview extends Component<Props, State> {
     return (
       <div>
         <AddPaymentMethod
-          requestSetupIntentSecret={this.requestSetupIntentSecret}
-          refreshSavedPaymentMethodList={this.fetchMemberPaymentMethod}
-          onCancel={this.onCancel}
-          paymentMethodType={this.state.paymentMethodType}
           enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods({
             currency: this.props.theme.currency,
             companyCountry,
             stripeRegion,
           })}
+          onCancel={this.onCancel}
           onChange={this.changePaymentMethodType}
-          sepaDefaultName={this.props.member ? this.props.member.name : ''}
+          paymentMethodType={this.state.paymentMethodType}
+          refreshSavedPaymentMethodList={this.fetchMemberPaymentMethod}
+          requestSetupIntentSecret={this.requestSetupIntentSecret}
           sepaDefaultEmail={this.props.member ? this.props.member.email : ''}
+          sepaDefaultName={this.props.member ? this.props.member.name : ''}
         />
       </div>
     );

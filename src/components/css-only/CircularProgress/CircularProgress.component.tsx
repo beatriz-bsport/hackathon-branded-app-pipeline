@@ -22,8 +22,8 @@ const CircularProgress: React.FC<Props> = ({ size, contrastStrokeColor }) => {
   return (
     <div className={circleContainerClass}>
       <svg
-        viewBox="22 22 44 44"
         className="bs-circular-progress__circle__container"
+        viewBox="22 22 44 44"
       >
         <circle
           className={classNames({
@@ -32,8 +32,8 @@ const CircularProgress: React.FC<Props> = ({ size, contrastStrokeColor }) => {
           })}
           cx="44"
           cy="44"
-          r="20.2"
           fill="none"
+          r="20.2"
           strokeWidth="3.6"
         />
       </svg>

@@ -24,10 +24,10 @@ export function MarketplaceActivityDialog(props: Props) {
   return (
     <Dialog
       key={offerId}
+      classes={{ paper: classes.dialog }}
+      onClose={onClose}
       open={props.open}
       scroll="paper"
-      onClose={onClose}
-      classes={{ paper: classes.dialog }}
     >
       <DialogContent className={classes.dialogContent}>
         {props.open ? <MarketplaceActivity {...props} /> : null}

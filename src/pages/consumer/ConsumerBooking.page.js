@@ -101,30 +101,30 @@ export class ConsumerBooking extends React.Component<Props> {
 
     return (
       <ConsumerBookingPage
-        membership={this.props.membership}
-        bookings={this.props.bookings}
         bookingCount={this.props.bookingCount}
-        bookingsLoading={this.props.bookingsLoading}
         bookingCurrentPage={this.props.bookingCurrentPage}
-        fetchBookingList={this.props.fetchBookingList}
+        bookings={this.props.bookings}
+        bookingsLoading={this.props.bookingsLoading}
         cancelBooking={this.props.cancelBooking}
-        privateBookingsLoading={this.props.privateBookingsLoading}
-        private_booking_list={this.props.private_booking_list}
+        fetchBookingList={this.props.fetchBookingList}
+        fetchCoachBulk={this.props.fetchCoachBulk}
+        fetchGroupOffer={this.props.fetchGroupOffer}
+        fetchMetaActivityBulk={this.props.fetchMetaActivityBulk}
+        fetchOfferBulk={this.props.fetchOfferBulk}
         fetchPrivateBookings={this.props.fetchPrivateBookings}
-        goToCalendar={this.props.goToCalendar}
-        timezone={this.props.timezone}
-        showVaccinationStatus={this.props.showVaccinationStatus}
-        similarBookings={this.props.similarBookings}
-        similarBookingsLoading={this.props.similarBookingsLoading}
         fetchSimilarFuturBookingInGroup={
           this.props.fetchSimilarFuturBookingInGroup
         }
-        fetchOfferBulk={this.props.fetchOfferBulk}
-        fetchCoachBulk={this.props.fetchCoachBulk}
-        resetGroupOffer={this.props.resetGroupOffer}
-        fetchGroupOffer={this.props.fetchGroupOffer}
-        fetchMetaActivityBulk={this.props.fetchMetaActivityBulk}
+        goToCalendar={this.props.goToCalendar}
         group={this.props.group}
+        membership={this.props.membership}
+        private_booking_list={this.props.private_booking_list}
+        privateBookingsLoading={this.props.privateBookingsLoading}
+        resetGroupOffer={this.props.resetGroupOffer}
+        showVaccinationStatus={this.props.showVaccinationStatus}
+        similarBookings={this.props.similarBookings}
+        similarBookingsLoading={this.props.similarBookingsLoading}
+        timezone={this.props.timezone}
       />
     );
   }

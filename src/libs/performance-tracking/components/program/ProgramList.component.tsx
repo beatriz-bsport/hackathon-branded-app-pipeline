@@ -98,8 +98,8 @@ export const ProgramList = (props: Props) => {
           <div className={classes.end}>
             {onRestore && (
               <IconButton
-                onClick={() => setIsArchivedDisplayed(!isArchivedDisplayed)}
                 disabled={programListFiltered?.length === 0}
+                onClick={() => setIsArchivedDisplayed(!isArchivedDisplayed)}
               >
                 {isArchivedDisplayed ? (
                   <KeyboardArrowUp />
@@ -110,10 +110,10 @@ export const ProgramList = (props: Props) => {
             )}
             {onAddProgram && (
               <Button
-                disabled={creationLoading}
-                variant="outlined"
                 color="primary"
+                disabled={creationLoading}
                 onClick={() => onAddProgram()}
+                variant="outlined"
               >
                 <div className={classes.row}>
                   <Add />
@@ -124,14 +124,14 @@ export const ProgramList = (props: Props) => {
             {isSearchDisplayed && (
               <div className={classes.search}>
                 <FuzeSearch
-                  placeholder={t('form.search')}
-                  searchText={search}
-                  items={programList}
-                  searchFields={['name']}
+                  changeSearch={changeSearch}
                   clearSearch={() => {
                     setSearch('');
                   }}
-                  changeSearch={changeSearch}
+                  items={programList}
+                  placeholder={t('form.search')}
+                  searchFields={['name']}
+                  searchText={search}
                 />
               </div>
             )}
@@ -143,7 +143,7 @@ export const ProgramList = (props: Props) => {
         <Collapse in={isArchivedDisplayed}>
           {programListFiltered.map((program) => (
             <Paper square>
-              <ProgramListItem program={program} onRestore={onRestore} />
+              <ProgramListItem onRestore={onRestore} program={program} />
             </Paper>
           ))}
         </Collapse>
@@ -154,11 +154,11 @@ export const ProgramList = (props: Props) => {
               <Paper square>
                 <ProgramMenuItem
                   isLinkedToMemberProgram={isLinkedToMemberProgram}
-                  program={program}
-                  onEdit={onEdit}
-                  onDelete={onDelete}
-                  onClickOnItem={onClickOnItem}
                   isSelected={program?.id === programSelectedId}
+                  onClickOnItem={onClickOnItem}
+                  onDelete={onDelete}
+                  onEdit={onEdit}
+                  program={program}
                 />
               </Paper>
             ))}

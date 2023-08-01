@@ -22,7 +22,7 @@ export const ReccurenceDisplay: React.FC<Props> = ({
 
   return (
     <div className={classes.row}>
-      <RefreshIcon color="disabled" className={classes.icon} />
+      <RefreshIcon className={classes.icon} color="disabled" />
       <Typography color="textSecondary">
         {getRecurrenceTrad(
           {

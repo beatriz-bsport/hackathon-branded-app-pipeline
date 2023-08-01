@@ -36,19 +36,19 @@ const CreditsPersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
           {t('forms.productsThemePersonalization.credits.subTitle')}
         </Typography>
         <SwitchField
-          name="hide_credits_for_customers"
-          label={t('forms.productsThemePersonalization.credits.label')}
           helperText={t(
             'forms.productsThemePersonalization.credits.description',
           )}
+          label={t('forms.productsThemePersonalization.credits.label')}
+          name="hide_credits_for_customers"
         />
       </div>
       <Button
-        disabled={isSubmitting || !isValid}
-        variant="contained"
-        color="primary"
-        type="submit"
         className={classes.confirm}
+        color="primary"
+        disabled={isSubmitting || !isValid}
+        type="submit"
+        variant="contained"
       >
         {t('forms.submit')}
       </Button>

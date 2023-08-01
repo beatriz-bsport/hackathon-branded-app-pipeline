@@ -49,9 +49,9 @@ const ReportBooleanChip: React.FC<Props> = ({
   }
   return (
     <CustomChip
-      mainColor={color}
-      displayedValue={translation}
       chipClass={chipClass}
+      displayedValue={translation}
+      mainColor={color}
     />
   );
 };

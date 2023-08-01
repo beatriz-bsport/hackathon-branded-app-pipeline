@@ -198,7 +198,7 @@ const MobileCustomShopRedirectionSettings: React.FC<Props> = ({
           <TableHead>
             <TableRow>
               <TableCell className={classes.iconCell} />
-              <TableCell colSpan={2} className={classes.iconCell}>
+              <TableCell className={classes.iconCell} colSpan={2}>
                 {t('mobilePersonalization.externalShopRedirection.icon')}
               </TableCell>
               <TableCell colSpan={8}>
@@ -215,9 +215,9 @@ const MobileCustomShopRedirectionSettings: React.FC<Props> = ({
           {!loading && (
             <TableBody>
               <DndContext
-                sensors={sensors}
                 collisionDetection={closestCenter}
                 onDragEnd={handleDragEnd}
+                sensors={sensors}
               >
                 <SortableContext
                   items={[...shopRedirections]}
@@ -225,7 +225,7 @@ const MobileCustomShopRedirectionSettings: React.FC<Props> = ({
                 >
                   {[...shopRedirections].map((link) => (
                     <SortableTableRow key={link.id} id={link.id}>
-                      <TableCell colSpan={2} className={classes.iconCell}>
+                      <TableCell className={classes.iconCell} colSpan={2}>
                         <div>
                           <MuiIcon icon={link.icon} />
                         </div>
@@ -234,9 +234,9 @@ const MobileCustomShopRedirectionSettings: React.FC<Props> = ({
                       <TableCell colSpan={20}>{link.url}</TableCell>
                       <TableCell className={classes.action}>
                         <IconButton
-                          size="small"
                           color="primary"
                           onClick={onClickEditShopRedirection(link)}
+                          size="small"
                         >
                           <EditIcon />
                         </IconButton>
@@ -258,19 +258,19 @@ const MobileCustomShopRedirectionSettings: React.FC<Props> = ({
       <div className={classes.spacedRow}>
         <div className={classes.row}>
           <Button
-            variant="outlined"
+            className={classes.leftButton}
             color="primary"
             onClick={handleOpenShopRedirectionDialog}
-            className={classes.leftButton}
+            variant="outlined"
           >
             {t('mobilePersonalization.externalShopRedirection.add')}
           </Button>
         </div>
         <Button
-          variant="outlined"
-          color="primary"
           className={classes.row}
+          color="primary"
           onClick={handleOpenPopupPreviewDialog}
+          variant="outlined"
         >
           <VisibilityIcon className={classes.iconPreview} />
           {t('mobilePersonalization.externalShopRedirection.preview')}
@@ -281,8 +281,8 @@ const MobileCustomShopRedirectionSettings: React.FC<Props> = ({
       {openShopRedirectionDialog && (
         <MobileShopCustomShopRedirectionDialog
           key={editingShopRedirection?.id}
-          initial={editingShopRedirection}
           open
+          initial={editingShopRedirection}
           onClose={handleCloseShopRedirectionDialog}
           onSubmit={handleSubmitShopRedirection}
         />
@@ -290,16 +290,16 @@ const MobileCustomShopRedirectionSettings: React.FC<Props> = ({
       {/* CREATE PREVIEW DIALOG */}
       {openPopupPreviewDialog && (
         <MobileShopPreview
-          shopRedirections={shopRedirections}
+          contractListCount={contractListCount}
+          giftcardsCount={giftcardsCount}
           onClose={() => {
             setOpenPopupPreviewDialog(false);
           }}
           paymentComboListCount={paymentComboListCount}
           paymentPackListCount={paymentPackListCount}
-          contractListCount={contractListCount}
-          vodListCount={vodListCount}
-          giftcardsCount={giftcardsCount}
+          shopRedirections={shopRedirections}
           subshopList={subshopList}
+          vodListCount={vodListCount}
         />
       )}
     </div>
@@ -373,7 +373,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const DeleteWithConfirm = withConfirm(
   ({ onClick }: { onClick: () => void }) => (
-    <IconButton size="small" onClick={onClick}>
+    <IconButton onClick={onClick} size="small">
       <DeleteIcon />
     </IconButton>
   ),

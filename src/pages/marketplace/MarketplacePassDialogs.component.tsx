@@ -190,24 +190,24 @@ const MarketplacePassDialogs = (props: Props) => {
   return (
     <>
       <MarketplacePaymentPackDetailsModal
-        paymentPack={dialogSelectedItem as PaymentPack}
+        hideCredits={!!hideCredits}
+        isExcludingTax={isExcludingTax}
         isOpen={isPaymentPackDetailsDialogOpen && !!dialogSelectedItem}
         onAddToCart={addPaymentPackToCart}
-        isExcludingTax={isExcludingTax}
-        tax={dialogSelectedItem?.tax || 0}
         onDialogClose={handleClosePaymentPackDetailsDialog}
-        onShowRestrictionDialog={handleOpenPaymentPackRestrictionDialog}
         onShowCompatibilityDialog={handleOpenPaymentPackCompatibilityDialog}
-        hideCredits={!!hideCredits}
         onShowOffPeakRestrictionDialog={
           handleOpenPaymentPackOffPeakRestrictionDialog
         }
+        onShowRestrictionDialog={handleOpenPaymentPackRestrictionDialog}
+        paymentPack={dialogSelectedItem as PaymentPack}
+        tax={dialogSelectedItem?.tax || 0}
       />
 
       <MarketplacePaymentPackRestrictionModal
-        paymentPack={dialogSelectedItem as PaymentPack}
         isOpen={isPaymentPackRestrictionDialogOpen && !!dialogSelectedItem}
         onDialogClose={handleClosePaymentPackRestrictionDialog}
+        paymentPack={dialogSelectedItem as PaymentPack}
       />
 
       <MarketplacePaymentPackCompatibilityModal
@@ -215,28 +215,28 @@ const MarketplacePassDialogs = (props: Props) => {
           (dialogSelectedItem as MarketplacePassPagePaymentPack)?.categories ??
           []
         }
-        metaActivities={paymentPackCompatibleActivities}
         establishments={paymentPackCompatibleEstablishments}
         isOpen={isPaymentPackCompatibilityDialogOpen}
+        metaActivities={paymentPackCompatibleActivities}
         onDialogClose={handleClosePaymentPackCompatibilityDialog}
       />
       <MarketplacePaymentPackOffPeakRestrictionModal
-        paymentPack={dialogSelectedItem as PaymentPack}
         isOpen={
           isPaymentPackOffPeakRestrictionDialogOpen && !!dialogSelectedItem
         }
         onDialogClose={handleClosePaymentPackOffPeakRestrictionDialog}
+        paymentPack={dialogSelectedItem as PaymentPack}
       />
       <MarketplacePrivatePassDetailsModal
-        privatePass={dialogSelectedItem as PrivatePass}
-        isOpen={isPrivatePassDetailsDialogOpen && !!dialogSelectedItem}
-        onDialogClose={handleClosePrivatePassDetailsDialog}
-        isExcludingTax={isExcludingTax}
-        tax={dialogSelectedItem?.tax || 0}
         compatiblePrivateServices={privatePassCompatibleServices?.length ?? 0}
-        onAddToCart={addPrivatePassToCart}
-        onShowCompatibilityDialog={handleOpenPrivatePassCompatibilityDialog}
         hideCredits={!!hideCredits}
+        isExcludingTax={isExcludingTax}
+        isOpen={isPrivatePassDetailsDialogOpen && !!dialogSelectedItem}
+        onAddToCart={addPrivatePassToCart}
+        onDialogClose={handleClosePrivatePassDetailsDialog}
+        onShowCompatibilityDialog={handleOpenPrivatePassCompatibilityDialog}
+        privatePass={dialogSelectedItem as PrivatePass}
+        tax={dialogSelectedItem?.tax || 0}
       />
 
       <MarketplacePrivatePassCompatibilityModal
@@ -246,12 +246,12 @@ const MarketplacePassDialogs = (props: Props) => {
       />
 
       <MarketplacePaymentComboDetailsModal
-        paymentCombo={dialogSelectedItem as PaymentCombo}
-        isOpen={isPaymentComboDetailsDialogOpen && !!dialogSelectedItem}
         isExcludingTax={isExcludingTax}
-        tax={dialogSelectedItem?.tax || 0}
-        onDialogClose={handleClosePaymentComboDetailsDialog}
+        isOpen={isPaymentComboDetailsDialogOpen && !!dialogSelectedItem}
         onAddToCart={handleAddToCart}
+        onDialogClose={handleClosePaymentComboDetailsDialog}
+        paymentCombo={dialogSelectedItem as PaymentCombo}
+        tax={dialogSelectedItem?.tax || 0}
       />
     </>
   );

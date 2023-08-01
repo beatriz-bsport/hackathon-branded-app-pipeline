@@ -56,33 +56,33 @@ const OfferFormSettings = (props: Props) => {
   return (
     <FormSection
       id="offer-form-settings-section"
-      sectionTitle={t('form.section.settings.title')}
-      sectionIcon={Tune}
       sectionCustomIconStyle={classes.sectionIcon}
+      sectionIcon={Tune}
       sectionIconContainerStyle={classes.sectionIconContainer}
+      sectionTitle={t('form.section.settings.title')}
     >
       <div className={classes.settingsFields}>
         {(!isOfferInGroup || isEditOffer) && (
           <>
             <FormControlLabel
-              label={t('form.section.settings.field.isManagerOnly')}
               control={
                 <Switch
-                  id="offer-form-manager-only-switch"
                   checked={!values.isManagerOnly}
-                  onChange={handleToggleManagerOnly}
-                  name="isManagerOnly"
                   color="secondary"
+                  id="offer-form-manager-only-switch"
+                  name="isManagerOnly"
+                  onChange={handleToggleManagerOnly}
                 />
               }
               disabled={isEditOffer && isOfferInGroup}
+              label={t('form.section.settings.field.isManagerOnly')}
             />
 
             {allowGuestMaster && (
               <SwitchField
                 id="offer-form-allow-guest-switch"
-                name="allowGuestOffer"
                 label={t('form.section.settings.field.allowGuestOffer')}
+                name="allowGuestOffer"
                 switchColor="secondary"
               />
             )}
@@ -96,15 +96,15 @@ const OfferFormSettings = (props: Props) => {
                         roomBlueprint.id === values.roomBlueprint,
                     )?.spivi_box_id && (
                       <SwitchField
-                        id="offer-form-sync-on-spivi"
-                        name="syncOfferOnSpivi"
-                        label={t(
-                          'form.section.settings.field.syncOfferOnSpivi',
-                        )}
-                        switchColor="secondary"
                         disabled={
                           (isEditOffer && isOfferInGroup) || hasActivityGroup
                         }
+                        id="offer-form-sync-on-spivi"
+                        label={t(
+                          'form.section.settings.field.syncOfferOnSpivi',
+                        )}
+                        name="syncOfferOnSpivi"
+                        switchColor="secondary"
                       />
                     )}
                 </>
@@ -116,46 +116,46 @@ const OfferFormSettings = (props: Props) => {
 
       {showPartnership && !isOfferInGroup && (
         <div className={classes.settingsMarketplaceContainer}>
-          <Typography variant="subtitle1" className={classes.mediumFontWeight}>
+          <Typography className={classes.mediumFontWeight} variant="subtitle1">
             {t('form.section.settings.field.partnership.title')}
           </Typography>
 
           <SwitchField
             id="offer-form-available-partnership-switch"
-            name="availableOnPartnership"
             label={t(
               'form.section.settings.field.partnership.availableOnPartnership',
             )}
+            name="availableOnPartnership"
             switchColor="secondary"
           />
 
           {availableOnPartnership && (
             <OfferFormField
+              isRequired
+              isError={!!errors.partnerMaxBookingCount}
               label={t(
                 'form.section.settings.field.partnership.partnerMaxBookingCount',
               )}
-              isRequired
-              isError={!!errors.partnerMaxBookingCount}
             >
               <NumericInput
-                id="offer-form-partner-max-booking-input"
-                name="partnerMaxBookingCount"
-                value={partnerMaxBookingCount}
-                onChange={handleChange}
+                disabled={isOfferInGroup}
                 error={!!errors.partnerMaxBookingCount}
-                variant="outlined"
-                size="small"
-                InputProps={{ inputProps: { min: 0 } }}
-                placeholder="5"
+                id="offer-form-partner-max-booking-input"
                 inputClass={classNames(classes.mediumWidth, {
                   [classes.disabledInput]: isOfferInGroup,
                 })}
-                disabled={isOfferInGroup}
+                InputProps={{ inputProps: { min: 0 } }}
+                name="partnerMaxBookingCount"
+                onChange={handleChange}
+                placeholder="5"
+                size="small"
+                value={partnerMaxBookingCount}
+                variant="outlined"
               />
             </OfferFormField>
           )}
 
-          <Typography variant="caption" color="error">
+          <Typography color="error" variant="caption">
             {t(errors.partnerMaxBookingCount)}
           </Typography>
         </div>

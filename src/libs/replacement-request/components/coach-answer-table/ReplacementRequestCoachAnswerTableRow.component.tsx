@@ -53,7 +53,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
         <TableCell className={classes.tableCell}>
           {replacementRequestCoachAnswer.answer !==
           ReplacementRequestCoachAnswerStatus.REPLACEMENT_REQUEST_COACH_STATUS_NO ? (
-            <Button onClick={handleClick} variant="outlined" color="primary">
+            <Button color="primary" onClick={handleClick} variant="outlined">
               {t('coachAnswers.attribute')}
             </Button>
           ) : null}

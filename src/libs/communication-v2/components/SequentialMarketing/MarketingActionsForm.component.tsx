@@ -141,15 +141,15 @@ const MarketingActionsForm: React.FC<Props> = ({
         <Typography variant="h6">{t('cadence.marketingElement')}</Typography>
       </div>
       <div className={classes.alertContainer}>
-        <Alert severity="info" className={classes.alert}>
+        <Alert className={classes.alert} severity="info">
           {t('cadence.form.marketing_action.form.helper')}
         </Alert>
       </div>
 
       <MarketingActionList
-        selectedAction={selectedMarketingActionKind}
         handleChangeAction={(item) => handleSelectMarketingAction(item)}
         marketingActionConfiguredDict={marketingActionConfiguredDict}
+        selectedAction={selectedMarketingActionKind}
       />
       {!!selectedMarketingActionKind && (
         <div className={classes.actionButtons}>
@@ -171,56 +171,56 @@ const MarketingActionsForm: React.FC<Props> = ({
         CADENCE_MARKETING_ACTION_WRITTEN_EMAIL && (
         <WriteEmail
           mailContent={formikValues?.action_spec?.text_content}
-          title={formikValues?.action_spec?.subject}
           onChangeContent={handleCommunicationTextContentChange}
           onChangeTitle={handleCommunicationTitleChange}
+          title={formikValues?.action_spec?.subject}
         />
       )}
       {selectedMarketingActionKind === CADENCE_MARKETING_ACTION_SMS && (
         <WriteSMS
           hideSmsCount
-          smsContent={formikValues?.action_spec?.text_content ?? ''}
-          onChangeContent={handleCommunicationTextContentChange}
           contentLengthError={!!formikErrors?.action_spec?.text_content}
+          onChangeContent={handleCommunicationTextContentChange}
+          smsContent={formikValues?.action_spec?.text_content ?? ''}
         />
       )}
       {selectedMarketingActionKind ===
         CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION && (
         <WriteNotification
-          notificationTitle={formikValues?.action_spec?.subject}
-          onNotificationTitleChange={handleCommunicationTitleChange}
           notificationContent={formikValues?.action_spec?.text_content}
+          notificationTitle={formikValues?.action_spec?.subject}
           onNotificationContentChange={handleCommunicationTextContentChange}
+          onNotificationTitleChange={handleCommunicationTitleChange}
         />
       )}
       {selectedMarketingActionKind ===
         CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE && (
         <SelectTemplate
-          title={formikValues?.action_spec?.subject}
-          selectedMail={formikValues?.action_spec?.email_design}
-          onChangeTitle={handleCommunicationTitleChange}
-          onChangeTemplate={handleSelectEmailDesign}
-          onCancel={handleCancelEmailDesignSelection}
-          getEmailDetail={getEmailDetail}
-          emailListLoading={emailListLoading}
-          emails={emails || []}
           emailDetailLoading={emailDetailLoading}
           emailDetails={emailDetails}
+          emailListLoading={emailListLoading}
+          emails={emails || []}
+          getEmailDetail={getEmailDetail}
+          onCancel={handleCancelEmailDesignSelection}
+          onChangeTemplate={handleSelectEmailDesign}
+          onChangeTitle={handleCommunicationTitleChange}
+          selectedMail={formikValues?.action_spec?.email_design}
+          title={formikValues?.action_spec?.subject}
         />
       )}
       {selectedMarketingActionKind ===
         CADENCE_MARKETING_ACTION_TAG_MANAGEMENT && (
         <div className={classes.tagSelector}>
           <TagSelector
-            noMulti
-            allTagsWithTagGroup={tagList || []}
-            placeholder={t('cadence.form.marketing_action.select_tag')}
-            selectedTags={[formikValues?.action_spec?.tag_id]}
-            isClearable
             closeMenuOnSelect
             inScrollBar
+            isClearable
+            noMulti
+            allTagsWithTagGroup={tagList || []}
             onChange={(option) => handleChangeTag(option)}
             onDeleteTag={() => handleChangeTag(null)}
+            placeholder={t('cadence.form.marketing_action.select_tag')}
+            selectedTags={[formikValues?.action_spec?.tag_id]}
           />
         </div>
       )}

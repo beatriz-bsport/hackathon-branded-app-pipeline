@@ -15,12 +15,12 @@ type Props = {
 
 export function PartnershipToogle(props: Props) {
   return (
-    <Grid container direction="row" spacing={2} alignItems="center">
+    <Grid container alignItems="center" direction="row" spacing={2}>
       <Grid item>
         <Switch
+          checked={props.available_on_partnership}
           color="primary"
           disabled={props.disabled}
-          checked={props.available_on_partnership}
           onChange={(event) => {
             props.onChange(event.target.checked);
           }}

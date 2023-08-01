@@ -165,31 +165,31 @@ export const CadenceGraphFlow: React.FC<Props> = ({
         })}
       />
       <CadenceGraphViewPort
+        active={cadence.active}
         displayDisabledTriggers={displayDisabledTriggers}
+        editMode={cadenceEditMode}
+        getSmartlist={getSmartlist}
+        loseTriggers={loseTriggers}
         switchDisplayDisabledNodes={() =>
           setDisplayDisabledTriggers(!displayDisabledTriggers)
         }
-        active={cadence.active}
-        editMode={cadenceEditMode}
         winTriggers={winTriggers}
-        loseTriggers={loseTriggers}
-        getSmartlist={getSmartlist}
       />
       <ReactFlow
-        nodes={nodes}
+        fitView
         edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        nodeTypes={nodeTypes}
-        style={rfStyle}
-        onNodeDragStop={onNodeDragStop}
         fitViewOptions={{ maxZoom: 1, minZoom: 0 }}
         maxZoom={2}
-        nodesDraggable={cadenceEditMode}
+        nodes={nodes}
         nodesConnectable={cadenceEditMode}
+        nodesDraggable={cadenceEditMode}
+        nodeTypes={nodeTypes}
+        onConnect={onConnect}
+        onEdgesChange={onEdgesChange}
+        onNodeDragStop={onNodeDragStop}
+        onNodesChange={onNodesChange}
         onPaneClick={resetAllSelection}
-        fitView
+        style={rfStyle}
       />
     </ReactFlowProvider>
   );

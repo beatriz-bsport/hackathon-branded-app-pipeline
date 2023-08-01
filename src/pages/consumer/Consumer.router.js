@@ -60,8 +60,8 @@ export const ConsumerRouter = (props: Props) => {
       <Switch>
         <Route
           exact
-          path="/c/franchisee-selector/:franchisorId"
           component={ConsumerFranchiseeSelector}
+          path="/c/franchisee-selector/:franchisorId"
         />
         <Redirect to="/" />;
       </Switch>
@@ -79,27 +79,27 @@ export const ConsumerRouter = (props: Props) => {
     <Switch>
       <Route
         exact
-        path="/c/membership-validator/:companyId/"
         component={ConsumerMembershipValidator}
+        path="/c/membership-validator/:companyId/"
       />
       <Route
         exact
-        path="/c/membership-selector/"
         component={ConsumerMembershipSelector}
+        path="/c/membership-selector/"
       />
       <Route
         exact
-        path="/c/franchisee-selector/:franchisorId"
         component={ConsumerFranchiseeSelector}
+        path="/c/franchisee-selector/:franchisorId"
       />
 
       <Route
-        path="/c/:companyId/change_email/:uuid"
         component={ConsumerChangeEmailRequestPage}
+        path="/c/:companyId/change_email/:uuid"
       />
-      <Route path="/c/:companyId/" component={ConsumerHome} />
-      <Route exact path="/(|customer)" component={ConsumerSpacePreSelector} />
-      <Route path="/" component={ConsumerSpacePreSelector} />
+      <Route component={ConsumerHome} path="/c/:companyId/" />
+      <Route exact component={ConsumerSpacePreSelector} path="/(|customer)" />
+      <Route component={ConsumerSpacePreSelector} path="/" />
     </Switch>
   );
 };

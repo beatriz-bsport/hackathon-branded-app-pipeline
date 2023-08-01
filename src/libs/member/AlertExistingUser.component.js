@@ -50,18 +50,18 @@ export function AlertExistingUser(props: Props) {
     existingMemberId && emailConfirmed ? (
       <div>
         <Button
+          classes={{ outlined: classes.buttonOutlined }}
           onClick={() => goToMember(existingMemberId)}
           variant="outlined"
-          classes={{ outlined: classes.buttonOutlined }}
         >
           {t(goToButtonText ?? 'exists.goTo')}
         </Button>
         {memberId && existingMemberId && goToMerge ? (
           <Button
-            onClick={() => goToMerge(memberId, existingMemberId)}
-            variant="outlined"
             classes={{ outlined: classes.buttonOutlined }}
             className={classes.mergButton}
+            onClick={() => goToMerge(memberId, existingMemberId)}
+            variant="outlined"
           >
             {t('exists.merge')}
           </Button>

@@ -167,13 +167,13 @@ export const CoachPerformanceSynthese = (props: Props) => {
               {t('paymentRules:select.group')}
             </Typography>
             <CoachPaymentRuleSelectorStyled
-              coachPaymentRulesList={coachPaymentRuleGroups}
-              selectedRules={[coach.coach_payment_rule_group_id]}
-              placeholder={t('paymentRules:select.group')}
-              onChange={memoSetCoachPaymentRuleGroup}
-              noMulti
               isClearable
               isGroupSelect
+              noMulti
+              coachPaymentRulesList={coachPaymentRuleGroups}
+              onChange={memoSetCoachPaymentRuleGroup}
+              placeholder={t('paymentRules:select.group')}
+              selectedRules={[coach.coach_payment_rule_group_id]}
             />
           </div>
           <div className={classes.flexPaymentSelector}>
@@ -181,17 +181,17 @@ export const CoachPerformanceSynthese = (props: Props) => {
               {t('paymentRules:select.coachPaymentRuleForSessions')}
             </Typography>
             <CoachPaymentRuleSelectorStyled
+              isClearable
+              noMulti
               coachPaymentRulesList={coachPaymentRulesByKind[
                 COACH_PAYMENT_RULE_FOR_SESSION
               ].concat(
                 coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY],
               )}
-              selectedRules={[memoSelectedSessionRule]}
-              placeholder={t('paymentRules:label')}
               disabled={!!coach.coach_payment_rule_group_id}
               onChange={memoSetCoachPaymentRule}
-              noMulti
-              isClearable
+              placeholder={t('paymentRules:label')}
+              selectedRules={[memoSelectedSessionRule]}
             />
           </div>
           <div className={classes.flexPaymentSelector}>
@@ -200,17 +200,17 @@ export const CoachPerformanceSynthese = (props: Props) => {
             </Typography>
 
             <CoachPaymentRuleSelectorStyled
+              isClearable
+              noMulti
               coachPaymentRulesList={coachPaymentRulesByKind[
                 COACH_PAYMENT_RULE_FOR_SESSION
               ].concat(
                 coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_WORKSHOP],
               )}
-              selectedRules={[memoSelectedWorkShopRule]}
-              placeholder={t('paymentRules:label')}
               disabled={!!coach.coach_payment_rule_group_id}
               onChange={memoSetCoachWorkShopPaymentRule}
-              noMulti
-              isClearable
+              placeholder={t('paymentRules:label')}
+              selectedRules={[memoSelectedWorkShopRule]}
             />
           </div>
           <div className={classes.flexPaymentSelector}>
@@ -219,15 +219,15 @@ export const CoachPerformanceSynthese = (props: Props) => {
             </Typography>
 
             <CoachPaymentRuleSelectorStyled
+              isClearable
+              noMulti
               coachPaymentRulesList={
                 coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_APPOINTMENT]
               }
-              selectedRules={[memoSelectedPrivateServiceRule]}
-              placeholder={t('paymentRules:label')}
               disabled={!!coach.coach_payment_rule_group_id}
               onChange={memoSetCoachPrivatePaymentRule}
-              noMulti
-              isClearable
+              placeholder={t('paymentRules:label')}
+              selectedRules={[memoSelectedPrivateServiceRule]}
             />
           </div>
         </div>
@@ -236,14 +236,14 @@ export const CoachPerformanceSynthese = (props: Props) => {
       <Paper>
         {loading && performance?.performanceLoading ? <LinearProgress /> : null}
         <CoachPerformanceTabs
-          loading={loading}
-          coach={coach}
           allPerformance={performance}
+          coach={coach}
           coachPaymentRulesByKind={coachPaymentRulesByKind}
+          loading={loading}
+          setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
           updatePrivateBookingCoachPaymentRule={
             props.updatePrivateBookingCoachPaymentRule
           }
-          setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
         />
       </Paper>
     </div>

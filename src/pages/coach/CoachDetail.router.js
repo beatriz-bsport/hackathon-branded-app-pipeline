@@ -36,18 +36,18 @@ export const CoachDetailRouter = (props: Props) => {
   );
   return (
     <ContentWithAppBar
-      tab={props.tab}
       onChange={onChange}
       pageHeight={props.pageHeight}
+      tab={props.tab}
       tabsData={tabsData}
     >
       <Switch>
         <Route
           exact
-          path="/coach/:coachId/private-calendar"
           component={CoachPrivateCalendar}
+          path="/coach/:coachId/private-calendar"
         />
-        <Route path="/coach/:coachId" component={CoachDetail} />
+        <Route component={CoachDetail} path="/coach/:coachId" />
       </Switch>
     </ContentWithAppBar>
   );

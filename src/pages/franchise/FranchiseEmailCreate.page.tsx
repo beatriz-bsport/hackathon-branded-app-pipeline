@@ -70,13 +70,13 @@ const FranchiseEmailCreate = (props: Props) => {
     <DrawerContext.Consumer>
       {(context: DrawerContextValue) => (
         <EmailEditorPanel
-          saveEmail={onSave}
+          companies={companies}
+          displayEmptyError={snackbarError}
+          goToList={goToList}
           hideLeftMenuAction={context.hideLeftMenuAction}
+          saveEmail={onSave}
           showLeftMenuAction={context.showLeftMenuAction}
           tags={tagCategories}
-          goToList={goToList}
-          displayEmptyError={snackbarError}
-          companies={companies}
         />
       )}
     </DrawerContext.Consumer>

@@ -41,9 +41,9 @@ export const SubscriptionPaymentPackSwitcherDialog: React.FC<Props> = ({
         <DialogTitle>{t('subscription.switchPack.form.title')}</DialogTitle>
         <DialogContent>
           <PaymentPackSelectorField
+            fullWidth
             choices={paymentPackList}
             name="payment_pack"
-            fullWidth
           />
           <Typography className={classes.explainText}>
             {t('subscription.switchPack.form.explain')}

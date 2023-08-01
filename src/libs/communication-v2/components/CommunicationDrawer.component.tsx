@@ -272,12 +272,12 @@ export class CommunicationDrawer extends React.PureComponent<Props, State> {
       !theme.is_two_way_email_activated;
     return (
       <GenericResponsiveDrawer
-        open={openDrawer}
-        withoutPadding
-        withoutHeaderContainer
         flexContent
+        withoutHeaderContainer
+        withoutPadding
         mobileMinWidth="350px"
         onClose={onDrawerClose}
+        open={openDrawer}
       >
         <CommunicationHeader
           contextAvatar={contextMember?.photo}
@@ -290,40 +290,40 @@ export class CommunicationDrawer extends React.PureComponent<Props, State> {
         />
         <div className={classes.messageListContainer}>
           <Snackbar
-            open={this.state.displaySnackbar}
-            onClose={this.onCloseSnackbar}
-            autoHideDuration={5000}
-            TransitionComponent={this.SlideTransition}
             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            autoHideDuration={5000}
             className={classes.snackbar}
+            onClose={this.onCloseSnackbar}
+            open={this.state.displaySnackbar}
+            TransitionComponent={this.SlideTransition}
           >
-            <Alert severity="info" className={classes.snackbarContent}>
+            <Alert className={classes.snackbarContent} severity="info">
               {t('messageList.filterOutCommunicationSent')}
             </Alert>
           </Snackbar>
           <CommunicationMessageListContainer
             allMemberCategoryList={this.props.allMemberCategoryList}
             consentWarning={consentWarning}
-            currentPage={this.state.messagePage}
-            fetchRecipientPaginatedList={fetchPageInformationRecipientList}
-            fetchMoreCommunicationMessages={this.fetchMoreMessages}
-            fullScreen={fullScreen}
             contextMember={contextMember}
-            loadingCommunicationMessageDataList={loadingMessageList}
-            loadingRecipientList={loadingInformationRecipientList}
-            onCloseSnackbar={this.onCloseSnackbar}
-            openSnackbar={this.state.displaySnackbar}
-            paginationSize={PAGINATION_SIZE_RECIPIENTS}
-            recipientList={informationRecipientList}
-            recipientListCount={informationRecipientListCount}
-            messageList={messageList}
-            resolvedGenericTags={resolvedGenericTags}
-            scrollToBottomFlag={this.state.scrollToBottomFlag}
+            currentPage={this.state.messagePage}
+            fetchMoreCommunicationMessages={this.fetchMoreMessages}
+            fetchRecipientPaginatedList={fetchPageInformationRecipientList}
+            fullScreen={fullScreen}
             hasActiveFilters={
               !!this.state.filterDateEnd ||
               !!this.state.filterDateStart ||
               !!this.state.filters.length
             }
+            loadingCommunicationMessageDataList={loadingMessageList}
+            loadingRecipientList={loadingInformationRecipientList}
+            messageList={messageList}
+            onCloseSnackbar={this.onCloseSnackbar}
+            openSnackbar={this.state.displaySnackbar}
+            paginationSize={PAGINATION_SIZE_RECIPIENTS}
+            recipientList={informationRecipientList}
+            recipientListCount={informationRecipientListCount}
+            resolvedGenericTags={resolvedGenericTags}
+            scrollToBottomFlag={this.state.scrollToBottomFlag}
             showMailProviderWarningContent={showMailProviderWarningContent}
           />
         </div>
@@ -336,24 +336,24 @@ export class CommunicationDrawer extends React.PureComponent<Props, State> {
           >
             {this.state.showMessageWritter ? (
               <ButtonBase
-                onClick={this.onShowMessageWriter}
                 disableRipple
                 disableTouchRipple
+                onClick={this.onShowMessageWriter}
               >
                 <KeyboardArrowDown className={classes.buttonIconClose} />
               </ButtonBase>
             ) : (
               <div className={classes.buttonMessageWriterContainer}>
                 <ButtonBase
-                  onClick={this.onShowMessageWriter}
                   disableRipple
                   disableTouchRipple
                   className={classes.buttonMessageWriter}
+                  onClick={this.onShowMessageWriter}
                 >
                   <Send fontSize="small" />
                   <Typography
-                    variant="subtitle1"
                     className={classes.buttonText}
+                    variant="subtitle1"
                   >
                     {t('sendMessage.writeCommunication')}
                   </Typography>
@@ -387,16 +387,16 @@ export class CommunicationDrawer extends React.PureComponent<Props, State> {
                 fullScreen={fullScreen}
                 getEmailDetail={fetchEmailDetail}
                 loadingPaginatedMemberList={loadingRecipientsModalMemberList}
-                loadingTemplateSummaryList={loadingEmailTemplateSummaryList}
                 loadingTemplateDetailList={loadingEmailTemplateDetailList}
-                paginatedMemberList={recipientsModalMemberList}
+                loadingTemplateSummaryList={loadingEmailTemplateSummaryList}
                 pageSize={PAGINATION_SIZE_RECIPIENTS}
-                sendCommunication={this.sendCommunication}
-                setCommunicationKind={this.setCommunicationKindBeingWritten}
+                paginatedMemberList={recipientsModalMemberList}
                 resetPaginatedAvailableRecipientMemberList={
                   this.props.resetPaginatedAvailableRecipientMemberList
                 }
                 resolvedGenericTags={resolvedGenericTags}
+                sendCommunication={this.sendCommunication}
+                setCommunicationKind={this.setCommunicationKindBeingWritten}
                 tagCategories={tagCategories}
               />
             </Collapse>

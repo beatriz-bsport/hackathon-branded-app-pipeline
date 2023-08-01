@@ -49,25 +49,25 @@ class MarketplaceFilterComponent extends React.PureComponent<Props> {
 
     return (
       <Grid container>
-        <Grid item xs={12} md={12} className={classes.selector}>
+        <Grid item className={classes.selector} md={12} xs={12}>
           {this.props.showMultiLocalization &&
             establishmentGroupList &&
             establishmentGroupList.length !== 0 && (
               <EstablishmentGroupSelector
+                closeMenuOnSelect
                 isMulti
                 establishmentGroups={establishmentGroupList.filter(
                   (group) => group.establishment.length !== 0,
                 )}
+                selectedEstablishmentGroups={filters.establishment_group__in}
                 selectOption={(ev: SelectOptions) =>
                   setFilters('establishment_group__in')(ev.map((e) => e.value))
                 }
-                closeMenuOnSelect
-                selectedEstablishmentGroups={filters.establishment_group__in}
               />
             )}
         </Grid>
         {!this.props.hideCoach && (
-          <Grid item xs={12} md={6} className={classes.selector}>
+          <Grid item className={classes.selector} md={6} xs={12}>
             <CoachSelector
               coaches={coaches}
               selectedCoaches={filters.coaches}
@@ -77,16 +77,16 @@ class MarketplaceFilterComponent extends React.PureComponent<Props> {
             />
           </Grid>
         )}
-        <Grid item xs={12} md={6} className={classes.selector}>
+        <Grid item className={classes.selector} md={6} xs={12}>
           <LevelMultiSelector
-            selectedLevels={filters.levels}
+            customLevels={customLevels}
             onSelect={(data) => {
               setFilters('levels')(data);
             }}
-            customLevels={customLevels}
+            selectedLevels={filters.levels}
           />
         </Grid>
-        <Grid item xs={12} md={6} className={classes.selector}>
+        <Grid item className={classes.selector} md={6} xs={12}>
           <EstablishmentSelector
             isMulti
             establishments={establishments}
@@ -96,9 +96,8 @@ class MarketplaceFilterComponent extends React.PureComponent<Props> {
             }}
           />
         </Grid>
-        <Grid item xs={12} md={6} className={classes.selector}>
+        <Grid item className={classes.selector} md={6} xs={12}>
           <MetaActivitySelector
-            variant={this.props.variant}
             metaActivities={metaActivities.filter((ma) => {
               if (this.props.variant === 'activity') {
                 return ma.customer_enabled && !ma.is_workshop;
@@ -109,6 +108,7 @@ class MarketplaceFilterComponent extends React.PureComponent<Props> {
             selectOption={(ev: SelectOptions) =>
               setFilters('activity__in')(ev.map((e) => e.value))
             }
+            variant={this.props.variant}
           />
         </Grid>
       </Grid>

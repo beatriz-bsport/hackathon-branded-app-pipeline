@@ -76,7 +76,7 @@ export const MarketingRuleListEstablishmentGroup: React.FC<Props> = ({
 
   return (
     <>
-      <ListItem className={classes.paper} divider>
+      <ListItem divider className={classes.paper}>
         <div className={classes.ListItemLeftPart}>
           <div className={classes.sessionTitle}>
             <Typography className={classes.bold}>{label}</Typography>

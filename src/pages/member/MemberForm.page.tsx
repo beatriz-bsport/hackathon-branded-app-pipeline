@@ -169,28 +169,28 @@ export class MemberFormPage extends Component<Props> {
       <>
         <Paper>
           <MemberForm
-            onCancel={onCancel}
-            memberId={id}
-            theme={this.props.theme}
-            onSubmit={this.onSubmit}
             asManager
-            initial={initialData}
-            goToMember={this.props.goToMember}
-            goToMerge={this.props.goToMerge}
-            goToMemberList={this.props.goToMemberList}
-            snackbarSuccess={this.props.snackbarSuccess}
             companyCountry={this.props.country}
-            waiver={this.props.theme.waiver}
             generalTermsAndConditions={
               this.props.theme.general_terms_and_conditions
             }
+            goToMember={this.props.goToMember}
+            goToMemberList={this.props.goToMemberList}
+            goToMerge={this.props.goToMerge}
+            initial={initialData}
+            memberId={id}
+            onCancel={onCancel}
+            onSubmit={this.onSubmit}
+            snackbarSuccess={this.props.snackbarSuccess}
+            theme={this.props.theme}
+            waiver={this.props.theme.waiver}
           />
         </Paper>
         <MemberChangeEmailDialog
-          open={this.props.emailExistsStatus?.exists}
           data={this.props.emailExistsStatus}
-          onConfirm={this.sendChangeEmailRequestAndUpsert}
           onCancel={this.resetEmailExists}
+          onConfirm={this.sendChangeEmailRequestAndUpsert}
+          open={this.props.emailExistsStatus?.exists}
         />
       </>
     );

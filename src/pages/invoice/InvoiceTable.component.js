@@ -300,6 +300,11 @@ export class InvoiceTable extends Component<Props, State> {
     return (
       <div>
         <MUIDataTable
+          columns={getColumnData(
+            t,
+            !!this.props.showOnlyCore,
+            !!this.props.showOnlyCoreColumnsAndFinalize,
+          )}
           data={renderRows(
             this.props.invoices,
             processing,
@@ -309,18 +314,13 @@ export class InvoiceTable extends Component<Props, State> {
             },
             t,
           )}
-          columns={getColumnData(
-            t,
-            !!this.props.showOnlyCore,
-            !!this.props.showOnlyCoreColumnsAndFinalize,
-          )}
           options={options}
           title={this.props.title}
         />
         <FinalizeInvoiceDialog
-          open={!!this.state.invoiceFinalizing}
           onClose={this.closeFinalizingDialog}
           onSubmit={this.finalizeInvoice}
+          open={!!this.state.invoiceFinalizing}
         />
       </div>
     );

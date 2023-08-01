@@ -28,7 +28,7 @@ export const NeedStripeAccountConfiguration: React.FC<Props> = ({
   );
   return (
     <>
-      <Typography variant="h5" className={classes.title}>
+      <Typography className={classes.title} variant="h5">
         {t('needStripe.stripeAccount')}
       </Typography>
       <Typography className={classes.content}>
@@ -43,9 +43,9 @@ export const NeedStripeAccountConfiguration: React.FC<Props> = ({
         <div className={classes.actionsStart}>
           {contactSupport && (
             <IconButton
-              color="primary"
-              className={classes.intercomButton}
               disableRipple
+              className={classes.intercomButton}
+              color="primary"
               id="intercomIcon"
               onClick={contactSupport}
             >
@@ -59,7 +59,7 @@ export const NeedStripeAccountConfiguration: React.FC<Props> = ({
               {t('common:close')}
             </TimeoutButton>
           )}
-          <Button onClick={goNext} color="primary" variant="contained">
+          <Button color="primary" onClick={goNext} variant="contained">
             {t('accountConfiguration.configureMyStripeAccount')}
           </Button>
         </div>

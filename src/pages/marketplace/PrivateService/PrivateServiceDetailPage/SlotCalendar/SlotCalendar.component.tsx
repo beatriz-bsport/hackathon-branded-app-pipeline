@@ -134,23 +134,23 @@ const SlotCalendar: React.FC<Props> = ({
         <Paper className={classes.container2}>
           <div className={classes.calendarToolbar}>
             <IconButton
-              disabled={!privateSlot}
               aria-label="left"
+              disabled={!privateSlot}
               onClick={selectPreviousDay}
             >
               <ChevronLeftIcon fontSize="large" />
             </IconButton>
 
             <Typography
-              variant="h6"
               color={!privateSlot ? 'textSecondary' : 'primary'}
+              variant="h6"
             >
               {t('service.detail.tab.calendar')}
             </Typography>
 
             <IconButton
-              disabled={!privateSlot}
               aria-label="left"
+              disabled={!privateSlot}
               onClick={selectNextDay}
             >
               <ChevronRightIcon fontSize="large" />
@@ -168,15 +168,15 @@ const SlotCalendar: React.FC<Props> = ({
                 const slotByDate = availabilitySlotByDate[dateStr];
 
                 return (
-                  <div className={classes.itemLayout} key={dateStr}>
+                  <div key={dateStr} className={classes.itemLayout}>
                     <SlotCalendarDay
-                      slots={slotByDate}
-                      timezoneName={timezoneName}
+                      date={date}
+                      onSessionMomentSelect={onSessionMomentSelect}
                       privateService={privateService}
                       privateSlot={privateSlot}
-                      date={date}
                       selectedSessionMoment={selectedSessionMoment}
-                      onSessionMomentSelect={onSessionMomentSelect}
+                      slots={slotByDate}
+                      timezoneName={timezoneName}
                     />
                   </div>
                 );
@@ -194,8 +194,8 @@ const SlotCalendar: React.FC<Props> = ({
                       {nextDateAvailableSlot !== null && (
                         <>
                           <EventAvailableIcon
-                            color="primary"
                             className={classes.icon}
+                            color="primary"
                           />
                           <ButtonBase onClick={goToFirstAvailableSession}>
                             <Typography className={classes.link}>

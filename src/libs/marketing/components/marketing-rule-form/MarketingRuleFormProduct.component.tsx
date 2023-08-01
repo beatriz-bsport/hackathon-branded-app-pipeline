@@ -198,12 +198,12 @@ const ProductNotificationForm = (props: Props) => {
     <GenericResponsiveDrawer
       open
       onClose={onCancel}
-      title={t('notificationForm')}
       subtitle={
         identifier === 'payment_pack'
           ? t('notificationRule:tag.ConsumerPaymentPack.name')
           : t('notificationRule:tag.PrivateConsumerPass.name')
       }
+      title={t('notificationForm')}
     >
       <Form>
         <Divider className={classes.divider} />
@@ -218,8 +218,6 @@ const ProductNotificationForm = (props: Props) => {
 
             <div className={classes.choiceField}>
               <RadioGroupField
-                name="verboseNotifKind"
-                labelClass={classes.labelClass}
                 choices={[
                   {
                     label: t('notification.form.creditType'),
@@ -234,6 +232,8 @@ const ProductNotificationForm = (props: Props) => {
                     value: 'daysPast',
                   },
                 ]}
+                labelClass={classes.labelClass}
+                name="verboseNotifKind"
               />
             </div>
             {verboseNotifKind === 'creditsLeft' && (
@@ -242,9 +242,9 @@ const ProductNotificationForm = (props: Props) => {
                   {t('notification.creditsLeft.first')}
                 </Typography>
                 <TextField
-                  type="number"
-                  name="credits_left"
                   className={classes.textInput}
+                  name="credits_left"
+                  type="number"
                 />
                 <Typography variant="body2">
                   {t('notification.creditsLeft.second')}
@@ -288,8 +288,6 @@ const ProductNotificationForm = (props: Props) => {
                 </div>
                 <div className={classes.choiceField}>
                   <RadioGroupField
-                    name="creditNotificationKind"
-                    labelClass={classes.labelClass}
                     choices={[
                       {
                         label: t(
@@ -304,6 +302,8 @@ const ProductNotificationForm = (props: Props) => {
                         value: 'onOfferStart',
                       },
                     ]}
+                    labelClass={classes.labelClass}
+                    name="creditNotificationKind"
                   />
                 </div>
                 <div className={classes.inlineContainer}>
@@ -350,7 +350,7 @@ const ProductNotificationForm = (props: Props) => {
               <div className={classes.infoIcon}>
                 <InfoOutlinedIcon color="inherit" />
               </div>
-              <Typography variant="body2" className={classes.breakSpaces}>
+              <Typography className={classes.breakSpaces} variant="body2">
                 {t('notification.form.infoContract')}
               </Typography>
             </div>
@@ -358,37 +358,36 @@ const ProductNotificationForm = (props: Props) => {
         </div>
         <MarketingRuleSmartlistField
           goToSmartList={goToSmartlist}
-          smartLists={smartLists}
-          smartlist_include={smartlist_include}
           smartlist_exclude={smartlist_exclude}
+          smartlist_include={smartlist_include}
+          smartLists={smartLists}
         />
         <MarketingRuleSendingMethodField
-          send_email={send_email}
-          send_notification_push={send_notification_push}
-          notificationTitle={notificationTitle}
-          notificationContent={notificationContent}
-          errors={errors}
-          emailListLoading={emailListLoading}
-          emails={emails}
           email_design={email_design}
-          getEmailDetail={getEmailDetail}
           emailDetailLoading={emailDetailLoading}
           emailDetails={emailDetails}
-          setFieldValue={setFieldValue}
+          emailListLoading={emailListLoading}
+          emails={emails}
+          errors={errors}
+          getEmailDetail={getEmailDetail}
+          notificationContent={notificationContent}
+          notificationTitle={notificationTitle}
           resolvedGenericTags={resolvedGenericTags}
+          send_email={send_email}
+          send_notification_push={send_notification_push}
+          setFieldValue={setFieldValue}
           tags={tags}
         />
         <Actions>
           <Button
+            disabled={isSubmitting}
             onClick={() => {
               onCancel();
             }}
-            disabled={isSubmitting}
           >
             {t('booking:notification.form.cancel')}
           </Button>
           <Submit
-            onClick={onSubmitIntent}
             color="primary"
             disabled={
               !!errors.email_design ||
@@ -398,6 +397,7 @@ const ProductNotificationForm = (props: Props) => {
               !!errors.notificationContent ||
               !!errors.atLeastOneChannel
             }
+            onClick={onSubmitIntent}
           >
             {t('booking:notification.form.submit')}
           </Submit>

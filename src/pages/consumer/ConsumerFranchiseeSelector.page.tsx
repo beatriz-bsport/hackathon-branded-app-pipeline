@@ -93,9 +93,9 @@ export class ConsumerFranchiseeSelectorPage extends Component<Props> {
           <Fade in>
             <div>
               <img
-                src={franchiseTheme.cover}
-                className={classes.logo}
                 alt={`${franchiseTheme.name} - logo`}
+                className={classes.logo}
+                src={franchiseTheme.cover}
               />
             </div>
           </Fade>
@@ -103,13 +103,13 @@ export class ConsumerFranchiseeSelectorPage extends Component<Props> {
 
         <div className={classes.container}>
           <FranchiseCompanyLogin
-            context={context}
-            companies={companiesSelectable}
             authenticated={authenticated}
+            companies={companiesSelectable}
+            context={context}
             disconnect={this.props.disconnect}
+            goToCompanyMemberProfilePage={this.props.goToNextPage}
             selectedFranchisee={this.props.selectedFranchisee}
             setSelectedFranchisee={this.props.setSelectedFranchisee}
-            goToCompanyMemberProfilePage={this.props.goToNextPage}
           />
 
           {/* {!!theme && <Analytics username="" theme={theme} />} */}

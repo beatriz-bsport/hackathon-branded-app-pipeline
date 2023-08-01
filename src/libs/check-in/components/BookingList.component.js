@@ -38,9 +38,9 @@ export const BookingList = (props: Props) => {
         ) : (
           <ListItem
             button
+            className={classes.registerListItem}
             disabled={props.offer.is_full}
             onClick={() => props.onAddMember()}
-            className={classes.registerListItem}
           >
             <ListItemAvatar>
               <AddIcon />
@@ -56,18 +56,18 @@ export const BookingList = (props: Props) => {
         )}
         {(props.members || []).map((member) => (
           <CheckInBookingItem
-            member={member}
             key={member.booking.id}
             confirmAttendance={() => {
               playSound(likeAudio);
               props.confirmBookingAttendance(member.booking.id);
             }}
+            member={member}
           />
         ))}
       </List>
       {(props.members || []).length === 0 && !props.bookingLoading ? (
         <div className={classes.emptyTextContainer}>
-          <Typography variant="body2" color="textSecondary">
+          <Typography color="textSecondary" variant="body2">
             {t('offerDetail.emptyList')}
           </Typography>
         </div>

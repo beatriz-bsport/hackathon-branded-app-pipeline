@@ -69,13 +69,13 @@ export class EmailTemplateCreate extends Component<Props> {
       <DrawerContext.Consumer>
         {(context: DrawerContextValue) => (
           <EmailEditorPanel
-            saveEmail={this.onSave}
-            hideLeftMenuAction={context.hideLeftMenuAction}
-            showLeftMenuAction={context.showLeftMenuAction}
-            tags={this.props.tagCategories}
-            goToList={this.props.goToList}
             displayEmptyError={this.props.snackbarError}
             emailTemplateCategories={this.props.emailTemplateCategories}
+            goToList={this.props.goToList}
+            hideLeftMenuAction={context.hideLeftMenuAction}
+            saveEmail={this.onSave}
+            showLeftMenuAction={context.showLeftMenuAction}
+            tags={this.props.tagCategories}
           />
         )}
       </DrawerContext.Consumer>

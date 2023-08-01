@@ -54,7 +54,7 @@ const ContractTermsDialog: React.FC<Props> = ({
 
   return (
     <CustomMuiDialog
-      open={open}
+      withButtonsDivider
       buttons={[
         {
           commonLabel: 'close',
@@ -74,7 +74,7 @@ const ContractTermsDialog: React.FC<Props> = ({
             ]
           : []),
       ]}
-      withButtonsDivider
+      open={open}
     >
       <div className={classes.container}>
         <TypographyMultiline>{contractTerms}</TypographyMultiline>

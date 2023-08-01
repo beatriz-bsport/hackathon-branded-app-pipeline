@@ -64,16 +64,16 @@ export function Figure(props: Props) {
       <CardContent className={classes.content}>
         <div className={classes.header}>
           <Typography
-            variant="subtitle1"
             gutterBottom
             className={[classes.textLight, classes.text].join(' ')}
+            variant="subtitle1"
           >
             {count}
           </Typography>
           <Typography
-            color="textSecondary"
             gutterBottom
             className={classes.textLight}
+            color="textSecondary"
           >
             {name}
           </Typography>

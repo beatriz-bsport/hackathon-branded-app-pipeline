@@ -37,9 +37,9 @@ const CadenceOutputCollapse: React.FC<CadenceOutputCollapseProps> = ({
         <div className={classes.collapseSection}>{children}</div>
       )}
       <ButtonBase
-        onClick={handleExpandClick}
         className={classes.container}
         disabled={disabled}
+        onClick={handleExpandClick}
       >
         <div className={classes.output}>
           <KeyboardArrowLeftIcon className={classes.expandIcon} />

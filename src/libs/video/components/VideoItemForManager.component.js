@@ -59,15 +59,15 @@ export class VideoItemForManager extends Component<Props, State> {
     const videoStatus = getStatusText(this.props.videoPurchase, t);
     return (
       <ListItem
-        divider
-        selected={!!this.props.selected}
         disableRipple
+        divider
         onClick={this.handleListItemClick}
+        selected={!!this.props.selected}
       >
         <Grid
           container
-          justify="space-between"
           alignItems="center"
+          justify="space-between"
           wrap="nowrap"
         >
           <Grid item>
@@ -87,7 +87,7 @@ export class VideoItemForManager extends Component<Props, State> {
                 <div>
                   {videoStatus.map(([txt, color]) => {
                     return (
-                      <Typography key={txt} variant="body2" color={color}>
+                      <Typography key={txt} color={color} variant="body2">
                         {txt}
                       </Typography>
                     );

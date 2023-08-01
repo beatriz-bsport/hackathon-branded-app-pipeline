@@ -86,7 +86,7 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
               }}
             >
               <div>
-                <MuiIcon icon={data?.icon} className={classes.icon} />
+                <MuiIcon className={classes.icon} icon={data?.icon} />
               </div>
             </ButtonBase>
           ) : (
@@ -115,15 +115,15 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
 
   return (
     <div
-      data-testid="quicksale-section-list"
       className={classes.sectionListContainer}
+      data-testid="quicksale-section-list"
     >
       <AutoSizer>
         {(autoSizerProps: { height: number; width: number }) => (
           <Grid
             container
-            spacing={isMobile ? 2 : 3}
             className={classes.sectionContainer}
+            spacing={isMobile ? 2 : 3}
             style={{
               maxHeight: autoSizerProps.height,
               width: autoSizerProps.width,
@@ -132,7 +132,7 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
             {loading ? (
               <>
                 {[...Array(12).keys()].map((index) => (
-                  <Grid item xs={12} sm={6} lg={4} key={index}>
+                  <Grid key={index} item lg={4} sm={6} xs={12}>
                     <QuicksaleSectionCardSkeleton />
                   </Grid>
                 ))}
@@ -141,34 +141,34 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
               <>
                 {(sectionList ?? []).map((section) => (
                   <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    lg={4}
                     key={section.section_id}
+                    item
                     className={classes.sectionItem}
+                    lg={4}
+                    sm={6}
+                    xs={12}
                   >
                     <QuicksaleSectionCard
-                      section={section}
-                      openSection={onSectionClick}
-                      onSectionEdit={onSectionEdit}
-                      archiveSection={archiveSection}
-                      openColorModal={openColorModal}
-                      getMapRefInAdminView={getRefMap}
-                      openIconSelector={setEditedSectionId}
                       adminView={!isQuicksaleInterfaceView}
+                      archiveSection={archiveSection}
+                      getMapRefInAdminView={getRefMap}
                       isIconBeingEdited={editedSectionId === section.section_id}
+                      onSectionEdit={onSectionEdit}
+                      openColorModal={openColorModal}
+                      openIconSelector={setEditedSectionId}
+                      openSection={onSectionClick}
+                      section={section}
                     />
                   </Grid>
                 ))}
                 {!isQuicksaleInterfaceView && (
-                  <Grid item xs={12} sm={6} lg={4}>
+                  <Grid item lg={4} sm={6} xs={12}>
                     <div
-                      onClick={addSection}
                       className={classes.addSectionIconButton}
+                      onClick={addSection}
+                      onKeyDown={stopPropagation}
                       role="button"
                       tabIndex={0}
-                      onKeyDown={stopPropagation}
                     >
                       <AddCircle className={classes.addSectionIcon} />
                     </div>
@@ -180,13 +180,13 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
         )}
       </AutoSizer>
       <Popover
-        open={sectionToEdit !== null}
         anchorEl={sectionToEdit}
-        onClose={closeIconSelector}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
         }}
+        onClose={closeIconSelector}
+        open={sectionToEdit !== null}
         transformOrigin={{
           vertical: 'top',
           horizontal: 'left',
@@ -198,14 +198,14 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
         >
           <FuzzySearchIcon
             iconRender
-            itemRenderer={iconSelectorItemRenderer}
             startWithAll
+            customClasses={{ iconGrid: classes.iconGrid }}
+            gridWidth={isMobile ? 300 : 550}
+            itemRenderer={iconSelectorItemRenderer}
             items={iconList}
+            numberOfColumns={isMobile ? 3 : 6}
             placeholder={t('iconSelector.searchPlaceholder')}
             searchFields={['icon']}
-            customClasses={{ iconGrid: classes.iconGrid }}
-            numberOfColumns={isMobile ? 3 : 6}
-            gridWidth={isMobile ? 300 : 550}
           />
         </Paper>
       </Popover>

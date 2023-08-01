@@ -80,7 +80,7 @@ const ConsumerFormView: React.FC<Props> = (props: Props) => {
     return (
       <div className={classes.emptyContainer}>
         <div className={classes.column}>
-          <Alert severity="info" className={classes.alertInfo}>
+          <Alert className={classes.alertInfo} severity="info">
             {t('customForm.emptyCustomForm')}
           </Alert>
         </div>
@@ -97,11 +97,11 @@ const ConsumerFormView: React.FC<Props> = (props: Props) => {
           {props.onCancel && (
             <Button
               className={classes.button}
-              onClick={handleCancel}
-              variant="text"
               color="primary"
               disabled={isSubmitting}
               id="button_custom_form_cancel"
+              onClick={handleCancel}
+              variant="text"
             >
               {props.disconnectOnCancel
                 ? t('customForm.disconnect')
@@ -110,14 +110,14 @@ const ConsumerFormView: React.FC<Props> = (props: Props) => {
           )}
           <Button
             className={classes.button}
-            variant="contained"
             color="primary"
+            disabled={isSubmitting}
+            id="button_custom_form_save"
             onClick={() => {
               props.handleSubmit();
               props.onSubmitDraft && props.onSubmitDraft(props.values);
             }}
-            id="button_custom_form_save"
-            disabled={isSubmitting}
+            variant="contained"
           >
             {props.isMulti
               ? t('customForm.next')

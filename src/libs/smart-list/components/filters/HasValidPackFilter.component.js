@@ -44,24 +44,16 @@ export class HasValidPackFilter extends Component<Props, state> {
         {t(`filters.${filter_data.filter_identifier}.first`)}
 
         <Selector
-          helperText={t('multiSelector.paymentPacks.helperText')}
-          helperSelectedText={t(
-            'multiSelector.paymentPacks.helperSelectedText',
-          )}
-          textFieldPlaceholder={t(
-            'multiSelector.paymentPacks.textFieldPlaceholder',
-          )}
-          renderItem={(item) => {
-            return <PaymentPackListItem pack={item} />;
-          }}
+          fetchItems={this.props.fetchItems.payment_packs}
           helperAllSelectedText={t(
             'multiSelector.paymentPacks.helperAllSelectedText',
           )}
-          fetchItems={this.props.fetchItems.payment_packs}
-          nameIdentifier="name"
-          selectAll={this.props.filter_data.select_all_payment_pack}
+          helperSelectedText={t(
+            'multiSelector.paymentPacks.helperSelectedText',
+          )}
+          helperText={t('multiSelector.paymentPacks.helperText')}
           items={payment_packs}
-          selectedItems={filter_data.payment_pack}
+          nameIdentifier="name"
           onChange={(items, selectAll) => {
             if (
               filter_data.payment_pack &&
@@ -84,6 +76,14 @@ export class HasValidPackFilter extends Component<Props, state> {
               });
             }
           }}
+          renderItem={(item) => {
+            return <PaymentPackListItem pack={item} />;
+          }}
+          selectAll={this.props.filter_data.select_all_payment_pack}
+          selectedItems={filter_data.payment_pack}
+          textFieldPlaceholder={t(
+            'multiSelector.paymentPacks.textFieldPlaceholder',
+          )}
         />
         {t(`filters.${filter_data.filter_identifier}.second`)}
         {this.props.renderSelectorWarning(

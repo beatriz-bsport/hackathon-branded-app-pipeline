@@ -184,22 +184,22 @@ export class QuickBooks extends React.Component<Props, State> {
     return (
       <div className={classes.container}>
         <QuickBooksConfigrationForm
-          theme={this.props.theme}
           connectQuickbooks={this.connectQuickBooks}
-          revokeQuickBooks={this.revokeQuickBookApp}
+          loading={this.props.loading}
+          onSubmitTheme={this.onSubmitTheme}
           processing={this.props.processing}
           quickbooksApp={this.props.quickbooksApp}
-          onSubmitTheme={this.onSubmitTheme}
-          loading={this.props.loading}
+          revokeQuickBooks={this.revokeQuickBookApp}
+          theme={this.props.theme}
         />
         <div className={classes.paddingTop}>
           <QuickBooksTaxSection
-            loading={this.props.taxDataLoading}
-            upsertLoading={this.props.taxUpsertLoading}
-            quickbooksApp={this.props.quickbooksApp}
-            taxCodesList={this.props.taxCodesList}
-            submitTaxCodeSelection={this.submitTaxCodeSelection}
             handleRefreshQuickBooksTaxData={this.handleRefreshQuickBooksTaxData}
+            loading={this.props.taxDataLoading}
+            quickbooksApp={this.props.quickbooksApp}
+            submitTaxCodeSelection={this.submitTaxCodeSelection}
+            taxCodesList={this.props.taxCodesList}
+            upsertLoading={this.props.taxUpsertLoading}
           />
         </div>
       </div>

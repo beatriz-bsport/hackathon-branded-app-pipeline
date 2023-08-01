@@ -31,17 +31,17 @@ const UpsellPackageList = (props: {
           return (
             <Grid
               key={up.id}
-              className={classes.upsellPackageItemContainer}
               item
-              sm={12}
-              md={6}
+              className={classes.upsellPackageItemContainer}
               lg={4}
+              md={6}
+              sm={12}
             >
               <UpsellPackageComponent
+                defaultCurrencyDisplay={props.defaultCurrencyDisplay}
                 onKnowMore={props.onKnowMore}
                 onRequestUpsell={props.onRequestUpsell}
                 upsellPackage={up}
-                defaultCurrencyDisplay={props.defaultCurrencyDisplay}
               />
             </Grid>
           );
@@ -78,9 +78,9 @@ export const CompanyPlatformBillinGroupDetail = (props: Props) => {
           </Typography>
           <Divider className={classes.sectionDivider} />
           <UpsellPackageList
+            defaultCurrencyDisplay={default_currency_display}
             onKnowMore={props.onKnowMore}
             upsellPackageList={myUpsellPackageList}
-            defaultCurrencyDisplay={default_currency_display}
           />
         </React.Fragment>
       )}
@@ -91,12 +91,12 @@ export const CompanyPlatformBillinGroupDetail = (props: Props) => {
           </Typography>
           <Divider className={classes.sectionDivider} />
           <UpsellPackageList
+            defaultCurrencyDisplay={default_currency_display}
             onKnowMore={props.onKnowMore}
             onRequestUpsell={props.onRequestUpsell}
             upsellPackageList={otherUpsellPackageList.filter(
               (ups) => !ups.hidden,
             )}
-            defaultCurrencyDisplay={default_currency_display}
           />
         </React.Fragment>
       )}
@@ -105,21 +105,21 @@ export const CompanyPlatformBillinGroupDetail = (props: Props) => {
       </Typography>
       <Divider className={classes.sectionDivider} />
       <PlatformBillingPlanGroupCard
-        platformBillingGroup={platformBillingGroup}
         couponCts={props.platformSubscription.coupon_cts}
-        currentPlatformBillingStageId={
-          props.platformSubscription &&
-          props.platformSubscription.current_platform_billing_stage &&
-          props.platformSubscription.current_platform_billing_stage.id
-        }
         currentPlatformBillingPlanId={
           props.platformSubscription &&
           props.platformSubscription.current_platform_billing_plan &&
           props.platformSubscription.current_platform_billing_plan.id
         }
+        currentPlatformBillingStageId={
+          props.platformSubscription &&
+          props.platformSubscription.current_platform_billing_stage &&
+          props.platformSubscription.current_platform_billing_stage.id
+        }
         defaultCurrencyDisplay={
           props.platformSubscription?.default_currency_display
         }
+        platformBillingGroup={platformBillingGroup}
       />
     </div>
   );

@@ -59,7 +59,7 @@ export class ReceiversItem extends Component<Props> {
             }))
           }
         >
-          <PersonIcon color="action" className={classes.iconMargin} />
+          <PersonIcon className={classes.iconMargin} color="action" />
           {this.props.loading ? (
             <CircularProgress size={30} />
           ) : (
@@ -126,17 +126,17 @@ export class ReceiversItem extends Component<Props> {
                   />
                   <ListItemSecondaryAction>
                     <Checkbox
-                      edge="end"
-                      disabled={
-                        !member[this.props.keyword] ||
-                        this.props.receiversNotEditable
-                      }
-                      onChange={this.props.handleToggle(member.id)}
                       checked={
                         member[this.props.keyword]
                           ? this.props.checkedMembers.indexOf(member.id) !== -1
                           : false
                       }
+                      disabled={
+                        !member[this.props.keyword] ||
+                        this.props.receiversNotEditable
+                      }
+                      edge="end"
+                      onChange={this.props.handleToggle(member.id)}
                     />
                   </ListItemSecondaryAction>
                 </ListItem>

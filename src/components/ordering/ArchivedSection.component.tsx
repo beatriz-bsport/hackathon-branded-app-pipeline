@@ -29,7 +29,7 @@ export const ArchivedSection = (props: Props) => {
   return props.disabledItems.length ? (
     <div className={classes.disabledList}>
       <div className={classes.buttonTitle}>
-        <Typography variant="h5" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h5">
           {`${t('disabledItemsTitle')} (${(props.disabledItems || []).length})`}
         </Typography>
 
@@ -44,10 +44,10 @@ export const ArchivedSection = (props: Props) => {
             {props.disabledItems.map((item: any) => (
               <Paper className={classes.paper}>
                 <props.ListItemComponent
-                  item={item}
-                  onRestore={() => props.restoreItem(item.id)}
                   key={item.id}
                   disabled
+                  item={item}
+                  onRestore={() => props.restoreItem(item.id)}
                 />
               </Paper>
             ))}

@@ -30,17 +30,17 @@ export const CommunicationFilterValuesPeriodSummary = (props: PeriodProps) => {
   const periodFormat = dateStartFormat + dateEndFormat;
   return (
     <div className={classes.container}>
-      <Typography variant="body2" className={classes.title}>
+      <Typography className={classes.title} variant="body2">
         {title}
       </Typography>
       <div className={classes.valuesContainer}>
         <Chip
+          className={classes.chip}
           clickable={false}
+          deleteIcon={<Close className={classes.icon} />}
           label={periodFormat}
           onDelete={resetDates}
           size="small"
-          className={classes.chip}
-          deleteIcon={<Close className={classes.icon} />}
         />
       </div>
     </div>

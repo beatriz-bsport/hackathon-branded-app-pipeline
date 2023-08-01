@@ -108,20 +108,20 @@ export class PaymentComboListPage extends React.Component<Props, State> {
         this.props.paymentComboListAvailableOnline.length === 0 &&
         !loading ? (
           <IsEmptyList
-            text={this.props.t('list.explainIfEmpty')}
             button={this.props.t('list.buttons.add')}
             onCreate={() => openCreateOrUpdateForm(null)}
+            text={this.props.t('list.explainIfEmpty')}
           />
         ) : (
           <div className={classes.search}>
             <FuzeSearch
-              searchText={this.state.searchText}
-              clearSearch={this.clearSearch}
               changeSearch={this.changeSearch}
+              clearSearch={this.clearSearch}
               items={paymentComboList}
               placeholder={t('search')}
               searchFields={['name']}
               searchResult={this.state.searchResult}
+              searchText={this.state.searchText}
             />
 
             <Paper
@@ -141,12 +141,12 @@ export class PaymentComboListPage extends React.Component<Props, State> {
                 <List disablePadding>
                   {this.state.searchResult.map((pc) => (
                     <PaymentComboListItem
-                      divider
-                      paymentCombo={pc}
-                      onEdit={() => openCreateOrUpdateForm(pc)}
-                      onDelete={() => this.props.deletePaymentCombo(pc.id)}
                       key={pc.id}
+                      divider
                       onClick={() => this.props.goToPaymentCombo(pc.id)}
+                      onDelete={() => this.props.deletePaymentCombo(pc.id)}
+                      onEdit={() => openCreateOrUpdateForm(pc)}
+                      paymentCombo={pc}
                     />
                   ))}
                 </List>
@@ -155,24 +155,24 @@ export class PaymentComboListPage extends React.Component<Props, State> {
           </div>
         )}
         <PaymentComboList
+          loading={loading}
+          onClickPaymentCombo={this.props.goToPaymentCombo}
+          onDelete={this.props.deletePaymentCombo}
+          onEdit={openCreateOrUpdateForm}
           paymentComboListAvailableOnline={paymentComboListAvailableOnline}
           paymentComboListUnavailableOnline={paymentComboListUnavailableOnline}
-          onEdit={openCreateOrUpdateForm}
-          onDelete={this.props.deletePaymentCombo}
-          onClickPaymentCombo={this.props.goToPaymentCombo}
-          loading={loading}
         />
         <BottomActionButtons
-          onCreateLabel={t('list.buttons.add')}
           onCreate={() => openCreateOrUpdateForm(null)}
+          onCreateLabel={t('list.buttons.add')}
         />
         {this.props.openForm ? (
           <PaymentComboFormDrawerContainer
-            provincialTax={this.props.theme?.provincial_tax_value}
-            initial={this.props.comboInitialData}
-            open={this.props.openForm}
             handleClose={() => this.props.setOpenForm(false)}
+            initial={this.props.comboInitialData}
             onSubmit={this.createOrUpdate}
+            open={this.props.openForm}
+            provincialTax={this.props.theme?.provincial_tax_value}
           />
         ) : null}
       </div>

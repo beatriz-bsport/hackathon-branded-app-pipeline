@@ -34,8 +34,8 @@ export const EmergencyContactItem = (props: Props) => {
         color={props.vaccinationStatus ? 'primary' : 'error'}
       />
       <ListItemText
-        primary={vaccinationStatusLabel}
         className={classes.listItemText}
+        primary={vaccinationStatusLabel}
       />
     </ListItem>
   );

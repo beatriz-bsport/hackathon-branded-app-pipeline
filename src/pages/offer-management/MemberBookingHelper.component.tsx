@@ -46,19 +46,19 @@ function MemberBookingHelper(props: Props) {
   return (
     <ListItem
       key={props.member?.id}
-      button={!!props.onClickListItem}
-      selected={props.selected}
-      divider
       dense
+      divider
+      button={!!props.onClickListItem}
       onClick={props.onClickListItem || (() => {})}
+      selected={props.selected}
     >
       <ListItemText
-        primary={props.member.name}
-        secondary={email}
         classes={{
           primary: classes.text,
           secondary: classes.text,
         }}
+        primary={props.member.name}
+        secondary={email}
       />
       <ListItemSecondaryAction>
         {props.hasBooked ? (
@@ -78,8 +78,8 @@ function MemberBookingHelper(props: Props) {
         ) : (
           <React.Fragment>
             <Button
-              disabled={!props.isFull}
               color="primary"
+              disabled={!props.isFull}
               onClick={props.onClickOption}
             >
               <HourglassEmptyIcon className={classes.rightIcon} />
@@ -87,8 +87,8 @@ function MemberBookingHelper(props: Props) {
             </Button>
             <Button
               color="primary"
-              variant="outlined"
               onClick={props.onClickRegister}
+              variant="outlined"
             >
               <AddIcon className={classes.rightIcon} />
               {t('offer.createBooking')}

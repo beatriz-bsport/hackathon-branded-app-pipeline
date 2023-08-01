@@ -69,10 +69,10 @@ export function CoachPerformanceForm(props: Props) {
     <div className={classes.outterContainer}>
       <Form>
         <ButtonBase
-          onClick={() => setOptionSection(!openSection)}
-          className={classes.flexHeader}
           disableRipple
+          className={classes.flexHeader}
           disabled={!props.coaches?.length || disableFilters}
+          onClick={() => setOptionSection(!openSection)}
         >
           <div className={classes.flexHeader}>
             <FilterListIcon color="primary" />
@@ -87,9 +87,9 @@ export function CoachPerformanceForm(props: Props) {
             <Field name="by_coach_payment_rule_group">
               {(fieldProps: FieldProps) => (
                 <RadioGroup
+                  row
                   name="payment_rule_filter_radio_group"
                   value={fieldProps.field.value}
-                  row
                 >
                   <FormControlLabel
                     value
@@ -109,7 +109,6 @@ export function CoachPerformanceForm(props: Props) {
                     )}
                   />
                   <FormControlLabel
-                    value={false}
                     control={
                       <Radio
                         checked={!fieldProps.field.value}
@@ -124,6 +123,7 @@ export function CoachPerformanceForm(props: Props) {
                     label={t(
                       'coachPerformance:advancedFilters.byCoachPaymentRules',
                     )}
+                    value={false}
                   />
                 </RadioGroup>
               )}
@@ -137,15 +137,15 @@ export function CoachPerformanceForm(props: Props) {
                 </Typography>
                 <MaterialUiMultiSelectorField
                   isMenuListVirtualized
+                  isDisabled={disableFilters}
                   name="coach_payment_rule_groups"
-                  placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
                   options={[...(props?.coachPaymentRuleGroups || [])].map(
                     (group) => ({
                       label: group.name,
                       value: group.id,
                     }),
                   )}
-                  isDisabled={disableFilters}
+                  placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
                 />
               </div>
             </Collapse>
@@ -158,8 +158,8 @@ export function CoachPerformanceForm(props: Props) {
                 </Typography>
                 <MaterialUiMultiSelectorField
                   isMenuListVirtualized
+                  isDisabled={disableFilters}
                   name="session_coach_payment_rules"
-                  placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
                   options={[
                     ...(props?.coachPaymentRulesByKind[
                       COACH_PERFORMANCE_FOR_SESSION
@@ -168,7 +168,7 @@ export function CoachPerformanceForm(props: Props) {
                     label: rule.name,
                     value: rule.id,
                   }))}
-                  isDisabled={disableFilters}
+                  placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
                 />
               </div>
 
@@ -180,8 +180,8 @@ export function CoachPerformanceForm(props: Props) {
                 </Typography>
                 <MaterialUiMultiSelectorField
                   isMenuListVirtualized
+                  isDisabled={disableFilters}
                   name="workshop_coach_payment_rules"
-                  placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
                   options={[
                     ...(props?.coachPaymentRulesByKind[
                       COACH_PERFORMANCE_FOR_SESSION
@@ -190,7 +190,7 @@ export function CoachPerformanceForm(props: Props) {
                     label: rule.name,
                     value: rule.id,
                   }))}
-                  isDisabled={disableFilters}
+                  placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
                 />
               </div>
 
@@ -202,8 +202,8 @@ export function CoachPerformanceForm(props: Props) {
                 </Typography>
                 <MaterialUiMultiSelectorField
                   isMenuListVirtualized
+                  isDisabled={disableFilters}
                   name="private_service_coach_payment_rules"
-                  placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
                   options={[
                     ...(props?.coachPaymentRulesByKind[
                       COACH_PERFORMANCE_FOR_APPOINTMENT
@@ -212,7 +212,7 @@ export function CoachPerformanceForm(props: Props) {
                     label: rule.name,
                     value: rule.id,
                   }))}
-                  isDisabled={disableFilters}
+                  placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
                 />
               </div>
             </Collapse>
@@ -222,30 +222,30 @@ export function CoachPerformanceForm(props: Props) {
               </Typography>
               <MaterialUiMultiSelectorField
                 isMenuListVirtualized
+                isDisabled={disableFilters}
                 name="coaches_selected"
-                placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
                 options={[...props.coaches].map((coach) => ({
                   label: coach.name,
                   value: coach.associated_coach_id,
                 }))}
-                isDisabled={disableFilters}
+                placeholder={t('coachPerformance:form.ifEmptyAllowAll')}
               />
             </div>
 
             <div className={classes.bottomActions}>
               <Button
-                variant="outlined"
                 color="secondary"
-                onClick={() => props.resetForm()}
                 disabled={isSubmitting || !!props.disabled || props.loading}
+                onClick={() => props.resetForm()}
+                variant="outlined"
               >
                 {t('coachPerformance:advancedFilters.reset')}
               </Button>
               <Submit
-                id="button_set_advanced_filters"
-                variant="outlined"
                 color="primary"
                 disabled={isSubmitting || !!props.disabled || props.loading}
+                id="button_set_advanced_filters"
+                variant="outlined"
               >
                 {t('coachPerformance:advancedFilters.apply')}
               </Submit>

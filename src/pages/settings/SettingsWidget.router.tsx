@@ -51,26 +51,26 @@ const SettingsWidget: React.FC<Props> = ({
 
   return (
     <ContentWithAppBar
-      tab={tab}
       onChange={onChange}
       pageHeight={pageHeight}
+      tab={tab}
       tabsData={tabsData}
     >
       <Switch>
         <Route
           exact
-          path="/settings/widget/create"
           component={WidgetGeneratorPage}
+          path="/settings/widget/create"
         />
         <Route
           exact
-          path="/settings/widget/customize"
           component={WidgetCustomizationPage}
+          path="/settings/widget/customize"
         />
         <Route
           exact
-          path="/settings/widget/customize-css/:page/:componentId"
           component={WidgetCustomizationComponentPage}
+          path="/settings/widget/customize-css/:page/:componentId"
         />
         <Redirect to="/settings/widget/create" />
       </Switch>

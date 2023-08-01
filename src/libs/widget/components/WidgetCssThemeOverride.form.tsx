@@ -91,15 +91,12 @@ export const WidgetCssThemeOverrideForm: React.FC<
             {t('widget.cssEditor.general')}
           </Typography>
           <div className={classes.spacedRow}>
-            <ResetableField theme={theme} name="spacing">
+            <ResetableField name="spacing" theme={theme}>
               <IntegerField
-                name="spacing"
-                label={t('widget.cssEditor.spacing')}
+                castAsNumber
                 helperText={t('widget.cssEditor.spacingHelper', {
                   base: values.spacing,
                 })}
-                variant="outlined"
-                castAsNumber
                 InputProps={{
                   min: 0,
                   step: 1,
@@ -109,17 +106,17 @@ export const WidgetCssThemeOverrideForm: React.FC<
                     </InputAdornment>
                   ),
                 }}
+                label={t('widget.cssEditor.spacing')}
+                name="spacing"
+                variant="outlined"
               />
             </ResetableField>
-            <ResetableField theme={theme} name="border">
+            <ResetableField name="border" theme={theme}>
               <IntegerField
-                name="border"
-                label={t('widget.cssEditor.rounding')}
+                castAsNumber
                 helperText={t('widget.cssEditor.roundingHelper', {
                   base: values.border,
                 })}
-                variant="outlined"
-                castAsNumber
                 InputProps={{
                   min: 0,
                   step: 1,
@@ -129,6 +126,9 @@ export const WidgetCssThemeOverrideForm: React.FC<
                     </InputAdornment>
                   ),
                 }}
+                label={t('widget.cssEditor.rounding')}
+                name="border"
+                variant="outlined"
               />
             </ResetableField>
           </div>
@@ -137,26 +137,26 @@ export const WidgetCssThemeOverrideForm: React.FC<
             {t('widget.cssEditor.typography')}
           </Typography>
           <div className={classes.spacedRow}>
-            <ResetableField theme={theme} name="fontFamily">
+            <ResetableField name="fontFamily" theme={theme}>
               <MaterialUiSingleSelectorField
-                name="fontFamily"
-                placeholder="Font"
                 label="Font"
+                name="fontFamily"
                 options={SAFE_FONTS}
+                placeholder="Font"
               />
             </ResetableField>
-            <ResetableField theme={theme} name="greyDark">
+            <ResetableField name="greyDark" theme={theme}>
               <ColorField
-                name="greyDark"
+                buttonStyle={classes.colorButton}
                 label={t('widget.cssEditor.typographyColor')}
-                buttonStyle={classes.colorButton}
+                name="greyDark"
               />
             </ResetableField>
-            <ResetableField theme={theme} name="grey">
+            <ResetableField name="grey" theme={theme}>
               <ColorField
-                name="grey"
-                label={t('widget.cssEditor.subtypographyColor')}
                 buttonStyle={classes.colorButton}
+                label={t('widget.cssEditor.subtypographyColor')}
+                name="grey"
               />
             </ResetableField>
           </div>
@@ -167,25 +167,25 @@ export const WidgetCssThemeOverrideForm: React.FC<
             {t('widget.cssEditor.colors')}
           </Typography>
           <div className={classes.spacedRow}>
-            <ResetableField theme={theme} name="primaryColor">
+            <ResetableField name="primaryColor" theme={theme}>
               <ColorField
-                name="primaryColor"
+                buttonStyle={classes.colorButton}
                 label={t('widget.cssEditor.mainColor')}
-                buttonStyle={classes.colorButton}
+                name="primaryColor"
               />
             </ResetableField>
-            <ResetableField theme={theme} name="secondaryColor">
+            <ResetableField name="secondaryColor" theme={theme}>
               <ColorField
-                name="secondaryColor"
+                buttonStyle={classes.colorButton}
                 label={t('widget.cssEditor.secondaryColor')}
-                buttonStyle={classes.colorButton}
+                name="secondaryColor"
               />
             </ResetableField>
-            <ResetableField theme={theme} name="greyLight">
+            <ResetableField name="greyLight" theme={theme}>
               <ColorField
-                name="greyLight"
-                label={t('widget.cssEditor.borderColor')}
                 buttonStyle={classes.colorButton}
+                label={t('widget.cssEditor.borderColor')}
+                name="greyLight"
               />
             </ResetableField>
           </div>
@@ -194,28 +194,28 @@ export const WidgetCssThemeOverrideForm: React.FC<
             {t('widget.cssEditor.backgroundColor')}
           </Typography>
           <div className={classes.spacedRow}>
-            <ResetableField theme={theme} name="background">
+            <ResetableField name="background" theme={theme}>
               <ColorField
-                name="background"
+                withAlpha
+                buttonStyle={classes.colorButton}
                 label={t('widget.cssEditor.backgroundColorPage')}
-                withAlpha
-                buttonStyle={classes.colorButton}
+                name="background"
               />
             </ResetableField>
-            <ResetableField theme={theme} name="backgroundPaper">
+            <ResetableField name="backgroundPaper" theme={theme}>
               <ColorField
-                name="backgroundPaper"
+                withAlpha
+                buttonStyle={classes.colorButton}
                 label={t('widget.cssEditor.backgroundColorElement')}
-                withAlpha
-                buttonStyle={classes.colorButton}
+                name="backgroundPaper"
               />
             </ResetableField>
-            <ResetableField theme={theme} name="secondaryBackgroundPaper">
+            <ResetableField name="secondaryBackgroundPaper" theme={theme}>
               <ColorField
-                name="secondaryBackgroundPaper"
-                label={t('widget.cssEditor.secondaryBackgroundColorElement')}
                 withAlpha
                 buttonStyle={classes.colorButton}
+                label={t('widget.cssEditor.secondaryBackgroundColorElement')}
+                name="secondaryBackgroundPaper"
               />
             </ResetableField>
           </div>
@@ -223,7 +223,7 @@ export const WidgetCssThemeOverrideForm: React.FC<
         <ButtonWithConfirmMenuItem onClick={handleReset} />
       </div>
       <div className={classes.submitWrapper}>
-        <Submit disabled={isSubmitting || !isValid} color="primary">
+        <Submit color="primary" disabled={isSubmitting || !isValid}>
           {t('widget.cssEditor.submit')}
         </Submit>
       </div>
@@ -239,7 +239,7 @@ const ButtonWithConfirmMenuItem = withConfirm(
     return (
       <ButtonBase className={classes.buttonReset} onClick={onClick}>
         <ReplayIcon className={classes.icon} />
-        <Typography color="textSecondary" className={classes.upperCase}>
+        <Typography className={classes.upperCase} color="textSecondary">
           {t('widget.cssEditor.reset')}
         </Typography>
       </ButtonBase>
@@ -379,10 +379,10 @@ const ResetableField: React.FC<{ name: keyof Values; theme: CompanyTheme }> = ({
         {defaultValue.current !== field.value && (
           <IconButton color="inherit" onClick={handleReset}>
             <ReplayIcon
-              width={20}
-              height={20}
               className={classes.icon}
               fontSize="small"
+              height={20}
+              width={20}
             />
           </IconButton>
         )}

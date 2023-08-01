@@ -154,13 +154,13 @@ export class GiftcardDetailPage extends Component<Props> {
     const { cover, name } = this.props.giftcardTemplate;
     return (
       <Grid container spacing={2}>
-        <Grid item sm={12} md={6}>
+        <Grid item md={6} sm={12}>
           {cover && <img alt={name} className={classes.cover} src={cover} />}
           <FranchiseGenericProductTemplateCard
-            onDeleteTemplate={this.props.onDeleteGiftcardTemplate}
             onCreateTemplateInstances={
               this.props.onCreateGiftcardTemplateInstances
             }
+            onDeleteTemplate={this.props.onDeleteGiftcardTemplate}
             onDeleteTemplateInstance={
               this.props.onDeleteGiftcardTemplateInstanceByCompanyId
             }
@@ -172,24 +172,24 @@ export class GiftcardDetailPage extends Component<Props> {
             allCompanies={this.props.allFranchisedCompanies}
           />
         </Grid>
-        <Grid item sm={12} md={6} style={{ width: '100%' }}>
+        <Grid item md={6} sm={12} style={{ width: '100%' }}>
           <Paper>
             <PaginatedListBase
+              itemPerPage={PAGE_SIZE}
+              items={this.props.consumerGiftcardList}
               listProps={{
                 disablePadding: 'true',
                 dense: 'true',
               }}
-              items={this.props.consumerGiftcardList}
-              nbItems={this.props.consumerGiftcardCount}
               loading={this.props.consumerGiftcardLoading}
-              page={this.props.consumerGiftcardPage}
-              itemPerPage={PAGE_SIZE}
+              nbItems={this.props.consumerGiftcardCount}
               onPageRequested={(page: number, pageSize: number) =>
                 this.props.fetchConsumerGiftcardList(page, pageSize)
               }
+              page={this.props.consumerGiftcardPage}
               renderEmpty={() => (
                 <div className={classes.emptyContainer}>
-                  <Typography variant="caption" color="textSecondary">
+                  <Typography color="textSecondary" variant="caption">
                     {t('giftcard:consumerGiftcard.isEmpty')}
                   </Typography>
                   <Divider />
@@ -198,12 +198,23 @@ export class GiftcardDetailPage extends Component<Props> {
               renderItem={(cgc: WithSender<WithReceiver<ConsumerGiftcard>>) => (
                 <ConsumerGiftcardListItem
                   key={cgc.id}
-                  consumerGiftcard={cgc}
-                  memberSender={cgc.src_member}
-                  memberReceiver={cgc.dst_member}
-                  giftcard={this.props.giftcardTemplate}
-                  showSender
+                  disableItemIfNoMember
+                  divider
                   showReceiver
+                  showSender
+                  consumerGiftcard={cgc}
+                  giftcard={this.props.giftcardTemplate}
+                  memberReceiver={cgc.dst_member}
+                  memberSender={cgc.src_member}
+                  onClickReceiver={
+                    cgc.dst_member &&
+                    ((consumerGiftcardId: number, memberId: number) =>
+                      this.props.goToMemberGiftcard(
+                        cgc.giftcard_company,
+                        consumerGiftcardId,
+                        memberId,
+                      ))
+                  }
                   onClickSender={(
                     consumerGiftcardId: number,
                     memberId: number,
@@ -214,27 +225,16 @@ export class GiftcardDetailPage extends Component<Props> {
                       memberId,
                     )
                   }
-                  divider
-                  onClickReceiver={
-                    cgc.dst_member &&
-                    ((consumerGiftcardId: number, memberId: number) =>
-                      this.props.goToMemberGiftcard(
-                        cgc.giftcard_company,
-                        consumerGiftcardId,
-                        memberId,
-                      ))
-                  }
-                  disableItemIfNoMember
                 />
               )}
             />
           </Paper>
         </Grid>
         <GiftcardFormDrawer
-          open={!!this.props.openTemplateForm}
-          onSubmit={this.props.onUpdateGiftcardTemplate}
-          onClose={this.props.onCloseTemplateForm}
           initial={this.props.giftcardTemplate}
+          onClose={this.props.onCloseTemplateForm}
+          onSubmit={this.props.onUpdateGiftcardTemplate}
+          open={!!this.props.openTemplateForm}
         />
       </Grid>
     );

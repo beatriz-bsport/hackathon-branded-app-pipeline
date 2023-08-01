@@ -61,13 +61,13 @@ export const StepSubscriborSetupForm: React.FC<
       </div>
       <Divider />
       <TriggerForm
-        initial={initial}
-        smartlists={smartlists}
-        onSubmit={handleSubmitForm}
-        withExit={toExit || withExit}
         forceAndLogicForTriggerAndSmartList
-        viewMode={viewMode}
         noEmptyTrigger
+        initial={initial}
+        onSubmit={handleSubmitForm}
+        smartlists={smartlists}
+        viewMode={viewMode}
+        withExit={toExit || withExit}
       />
     </div>
   );

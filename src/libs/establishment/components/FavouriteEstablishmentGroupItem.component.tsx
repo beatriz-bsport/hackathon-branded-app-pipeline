@@ -25,8 +25,8 @@ export const FavouriteEstablishmentLocationItem = (props: Props) => {
         <ListItem key={establishmentGroup?.id}>
           <LocationCityIcon />
           <ListItemText
-            primary={establishmentGroup?.name}
             className={classes.listItemText}
+            primary={establishmentGroup?.name}
           />
         </ListItem>
       ))}

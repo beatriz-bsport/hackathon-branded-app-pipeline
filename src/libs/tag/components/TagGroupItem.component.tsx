@@ -168,7 +168,7 @@ class TagGroupItem extends React.PureComponent<Props, State> {
     return (
       <div className={classes.tagGroup}>
         <div className={classes.tagGroupHeader}>
-          <Typography variant="h5" noWrap>
+          <Typography noWrap variant="h5">
             {tagGroup.name}
           </Typography>
 
@@ -198,11 +198,11 @@ class TagGroupItem extends React.PureComponent<Props, State> {
             </IconButton>
 
             <Menu
-              id={`tag-group-header-menu${tagGroup.id}`}
-              anchorEl={this.state.anchorEl}
               keepMounted
-              open={Boolean(this.state.anchorEl)}
+              anchorEl={this.state.anchorEl}
+              id={`tag-group-header-menu${tagGroup.id}`}
               onClose={this.closeShowMore}
+              open={Boolean(this.state.anchorEl)}
             >
               <MenuItem onClick={() => this.setState({ createTag: true })}>
                 <MenuIcon>
@@ -230,9 +230,9 @@ class TagGroupItem extends React.PureComponent<Props, State> {
         <Collapse in={this.state.expand}>
           <TableContainer component={Paper}>
             <Table
-              size="small"
-              className={classes.tableContainer}
               aria-label="simple table"
+              className={classes.tableContainer}
+              size="small"
             >
               {!!this.props.tagGroup.tags.length && (
                 <TableHead>
@@ -240,9 +240,9 @@ class TagGroupItem extends React.PureComponent<Props, State> {
                     <TableCell align="left">
                       <div className={classes.iconAndName}>
                         <LabelIcon
+                          className={classes.icon}
                           color="disabled"
                           size="small"
-                          className={classes.icon}
                         />
                         {t('management.tagColumn.tag')}
                       </div>
@@ -266,10 +266,6 @@ class TagGroupItem extends React.PureComponent<Props, State> {
                         ? classes.selectedTag
                         : ''
                     }
-                    style={{
-                      borderLeft:
-                        tag.color !== '' ? `5px solid ${tag.color}` : '0px',
-                    }}
                     hover={!!this.props.onSelectTag}
                     onClick={
                       this.props.onSelectTag &&
@@ -278,14 +274,18 @@ class TagGroupItem extends React.PureComponent<Props, State> {
                         this.props.onSelectTag(tag);
                       })
                     }
+                    style={{
+                      borderLeft:
+                        tag.color !== '' ? `5px solid ${tag.color}` : '0px',
+                    }}
                   >
                     <TableCell component="th" scope="row">
                       <div className={classes.iconAndName}>
-                        <MuiIcon icon={tag.icon} className={classes.icon} />
+                        <MuiIcon className={classes.icon} icon={tag.icon} />
                         <Typography
                           noWrap
-                          variant="subtitle2"
                           className={classes.tagName}
+                          variant="subtitle2"
                         >
                           {tag.name}
                         </Typography>
@@ -305,21 +305,21 @@ class TagGroupItem extends React.PureComponent<Props, State> {
                         <EditIcon />
                       </IconButton>
                       <IconButton
+                        className={classes.tagButton}
                         onClick={(ev) => {
                           ev.stopPropagation();
                           this.onClickDeleteTag(tag);
                         }}
-                        className={classes.tagButton}
                       >
                         <DeleteIcon />
                       </IconButton>
                       {this.props.onSelectTag && (
                         <IconButton
+                          className={classes.tagButton}
                           onClick={(ev) => {
                             ev.stopPropagation();
                             this.props.onSelectTag(tag);
                           }}
-                          className={classes.tagButton}
                         >
                           <ArrowForwardIcon color="primary" />
                         </IconButton>
@@ -343,11 +343,11 @@ class TagGroupItem extends React.PureComponent<Props, State> {
             <form onSubmit={this.submitRenameTagGroup}>
               <FormControl>
                 <TextField
+                  required
                   label={t('management.form.tagGroupName')}
-                  variant="outlined"
                   onChange={(ev) => this.setState({ name: ev.target.value })}
                   value={this.state.name}
-                  required
+                  variant="outlined"
                 />
               </FormControl>
 
@@ -356,10 +356,10 @@ class TagGroupItem extends React.PureComponent<Props, State> {
                   {t('management.cancel')}
                 </Button>
                 <Button
-                  variant="outlined"
-                  disabled={!this.state.name}
                   color="primary"
+                  disabled={!this.state.name}
                   type="submit"
+                  variant="outlined"
                 >
                   {t('management.submit')}
                 </Button>
@@ -369,17 +369,17 @@ class TagGroupItem extends React.PureComponent<Props, State> {
         </Dialog>
 
         <Dialog
-          open={this.state.createTag || this.state.editTag !== null}
           fullWidth
+          open={this.state.createTag || this.state.editTag !== null}
         >
           <DialogTitle>{t('management.tagColumn.tag')}</DialogTitle>
           <DialogContent>
             <TagForm
+              initial={this.state.editTag}
               onCancel={() => {
                 this.setState({ createTag: false, editTag: null });
               }}
               onSubmit={this.onSubmitNewTag}
-              initial={this.state.editTag}
             />
           </DialogContent>
         </Dialog>

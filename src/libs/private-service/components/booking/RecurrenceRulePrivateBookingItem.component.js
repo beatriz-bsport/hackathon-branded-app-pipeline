@@ -64,7 +64,7 @@ export const RecurrenceRulePrivateBookingItem = (props: Props) => {
   const from_date = formatAsDatetimeAdapted(start_from_date, 'LL');
 
   return (
-    <ListItem divider dense>
+    <ListItem dense divider>
       {member && member.photo && !notShowMember && (
         <ListItemAvatar>
           <Avatar alt="" src={member.photo} />
@@ -127,12 +127,12 @@ export const RecurrenceRulePrivateBookingItem = (props: Props) => {
         )}
       </ListItemSecondaryAction>
       <RecurrenceRulePrivateBookingDeleteDialog
-        recurrentRuleId={deleteDialogOpen ? recurrentPrivateBooking.id : null}
-        onClose={() => setDeleteDialogOpen(false)}
         onChange={() => {
           props.onDelete(recurrentPrivateBooking.id);
           setDeleteDialogOpen(false);
         }}
+        onClose={() => setDeleteDialogOpen(false)}
+        recurrentRuleId={deleteDialogOpen ? recurrentPrivateBooking.id : null}
       />
     </ListItem>
   );

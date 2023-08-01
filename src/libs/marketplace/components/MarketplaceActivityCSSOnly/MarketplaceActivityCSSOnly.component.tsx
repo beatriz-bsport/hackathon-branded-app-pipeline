@@ -130,12 +130,12 @@ export const MarketplaceActivityV2 = (props: Props) => {
   return (
     <div className="bs-activity">
       <Dialog
-        open={mobileMapModalOpen}
+        disablePortal
+        maxWidth="md"
         onClose={() => {
           setMobileMapModalOpen(false);
         }}
-        maxWidth="md"
-        disablePortal
+        open={mobileMapModalOpen}
         PaperProps={{
           style: {
             margin: '10px',
@@ -153,9 +153,9 @@ export const MarketplaceActivityV2 = (props: Props) => {
         <DialogContent id="bs-activity--mobileMapDialog">
           <Map
             center={center}
+            mapContainerClassName="bs-activity__middle__top__map__dialog"
             markers={markers}
             zoom={15}
-            mapContainerClassName="bs-activity__middle__top__map__dialog"
           />
         </DialogContent>
       </Dialog>
@@ -191,10 +191,10 @@ export const MarketplaceActivityV2 = (props: Props) => {
               </div>
             ) : (
               <button
+                className="bs-activity__top__content__location__address--clickable"
                 onClick={() => {
                   setMobileMapModalOpen(true);
                 }}
-                className="bs-activity__top__content__location__address--clickable"
                 type="button"
               >
                 {establishment?.location.address}
@@ -203,15 +203,15 @@ export const MarketplaceActivityV2 = (props: Props) => {
           </div>
           <div className="bs-activity__top__content__status">
             <FreeOfferChip
+              whiteText
               companyTheme={companyTheme}
               credits={offer?.credit_price}
               creditsOverride={offer?.credit_price_override}
-              whiteText
             />
             <MarketplaceLevel
+              activityDialog
               className="bs-activity__top__content__status__level"
               customLevel={customLevel}
-              activityDialog
             />
             {metaActivity && metaActivity?.is_broadcast && (
               <MarketplaceBroadcast activityDialog />
@@ -224,11 +224,11 @@ export const MarketplaceActivityV2 = (props: Props) => {
         <div className="bs-activity__middle__top">
           {!isMobile && (
             <Map
+              activityDialog
               center={center}
+              mapContainerClassName="bs-activity__middle__top__map"
               markers={markers}
               zoom={15}
-              mapContainerClassName="bs-activity__middle__top__map"
-              activityDialog
             />
           )}
           <div className="bs-activity__middle__top__description">
@@ -272,8 +272,8 @@ export const MarketplaceActivityV2 = (props: Props) => {
             {offer.coach_override && (
               <div className="bs-activity__middle__coach__overrider__personality">
                 <Avatar
-                  src={coach?.photo || ''}
                   className="bs-activity__middle__coach__overrider__personality__avatar"
+                  src={coach?.photo || ''}
                 />
                 <div className="bs-activity__middle__coach__overrider__personality__right">
                   <div className="bs-activity__middle__coach__overrider__personality__right__name">
@@ -289,8 +289,8 @@ export const MarketplaceActivityV2 = (props: Props) => {
             <div className="bs-activity__middle__coach__main">
               <div className="bs-activity__middle__coach__main__personality">
                 <Avatar
-                  src={effectiveCoach?.photo || ''}
                   className="bs-activity__middle__coach__main__personality__avatar"
+                  src={effectiveCoach?.photo || ''}
                 />
                 <div className="bs-activity__middle__coach__main__personality__right">
                   <div className="bs-activity__middle__coach__main__personality__right__name">
@@ -308,9 +308,9 @@ export const MarketplaceActivityV2 = (props: Props) => {
                   <a href={effectiveCoach.instagram_url}>
                     <Icon>
                       <img
+                        alt=""
                         className="bs-activity__middle__coach__main__social__icon"
                         src={INSTAGRAM_PNG}
-                        alt=""
                       />
                     </Icon>
                   </a>
@@ -319,9 +319,9 @@ export const MarketplaceActivityV2 = (props: Props) => {
                   <a href={effectiveCoach.facebook_url}>
                     <Icon>
                       <img
-                        src={FACEBOOK_PNG}
                         alt=""
                         className="bs-activity__middle__coach__main__social__icon"
+                        src={FACEBOOK_PNG}
                       />
                     </Icon>
                   </a>
@@ -344,8 +344,8 @@ export const MarketplaceActivityV2 = (props: Props) => {
               <div className="bs-activity__middle__coach__main">
                 <div className="bs-activity__middle__coach__main__personality">
                   <Avatar
-                    src={additionalCoach?.photo || ''}
                     className="bs-activity__middle__coach__main__personality__avatar"
+                    src={additionalCoach?.photo || ''}
                   />
                   <div className="bs-activity__middle__coach__main__personality__right">
                     <div className="bs-activity__middle__coach__main__personality__right__name">
@@ -363,9 +363,9 @@ export const MarketplaceActivityV2 = (props: Props) => {
                     <a href={additionalCoach.instagram_url}>
                       <Icon>
                         <img
+                          alt=""
                           className="bs-activity__middle__coach__main__social__icon"
                           src={INSTAGRAM_PNG}
-                          alt=""
                         />
                       </Icon>
                     </a>
@@ -374,9 +374,9 @@ export const MarketplaceActivityV2 = (props: Props) => {
                     <a href={additionalCoach.facebook_url}>
                       <Icon>
                         <img
-                          src={FACEBOOK_PNG}
                           alt=""
                           className="bs-activity__middle__coach__main__social__icon"
+                          src={FACEBOOK_PNG}
                         />
                       </Icon>
                     </a>
@@ -396,11 +396,11 @@ export const MarketplaceActivityV2 = (props: Props) => {
             {t('marketplace:calendar.close')}
           </Button>
           <MarketplaceBookButtonForDialog
-            offer={offer}
             group={groupData}
+            metaActivity={metaActivity}
+            offer={offer}
             onClickBook={handleBook}
             onClickBookOption={handleBookOption}
-            metaActivity={metaActivity}
           />
         </div>
       </div>

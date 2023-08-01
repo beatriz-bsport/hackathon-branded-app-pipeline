@@ -28,29 +28,29 @@ const MarketplacePaymentPackRestrictionModal: React.FC<Props> = ({
       {isOpen && (
         <div className="bs-restrictions-modal__backdrop">
           <Card
-            size={CardSize.L}
             classes={{ 'bs-restrictions-modal': 'bs-restrictions-modal' }}
+            size={CardSize.L}
           >
             <Content>
               <Grid>
-                <Item rowStart={1} alignment={Alignment.CENTER}>
+                <Item alignment={Alignment.CENTER} rowStart={1}>
                   <h3 className="bs-restriction-modal__title">
                     {t('genericCardDetails.restrictions')}
                   </h3>
                 </Item>
                 <Item
-                  rowStart={2}
                   classes={{
                     'bs-restriction-modal__body': 'bs-restriction-modal__body',
                   }}
+                  rowStart={2}
                 >
                   <ul className="bs-restriction-modal__list">
                     {!!paymentPack.max_bookings_per_day && (
                       <li className="bs-restriction-modal__list__item">
                         <Trans
-                          t={t}
-                          i18nKey="genericCardDetails.includedElements.restrictions.maxPerDay"
                           count={paymentPack.max_bookings_per_day}
+                          i18nKey="genericCardDetails.includedElements.restrictions.maxPerDay"
+                          t={t}
                         >
                           Maximum usage per day:{' '}
                           <strong>
@@ -62,9 +62,9 @@ const MarketplacePaymentPackRestrictionModal: React.FC<Props> = ({
                     {!!paymentPack.max_bookings_per_week && (
                       <li className="bs-restriction-modal__list__item">
                         <Trans
-                          t={t}
-                          i18nKey="genericCardDetails.includedElements.restrictions.maxPerWeek"
                           count={paymentPack.max_bookings_per_week}
+                          i18nKey="genericCardDetails.includedElements.restrictions.maxPerWeek"
+                          t={t}
                         >
                           Maximum usage per week:{' '}
                           <strong>
@@ -76,9 +76,9 @@ const MarketplacePaymentPackRestrictionModal: React.FC<Props> = ({
                     {!!paymentPack.max_bookings_per_month && (
                       <li className="bs-restriction-modal__list__item">
                         <Trans
-                          t={t}
-                          i18nKey="genericCardDetails.includedElements.restrictions.maxPerMonth"
                           count={paymentPack.max_bookings_per_month}
+                          i18nKey="genericCardDetails.includedElements.restrictions.maxPerMonth"
+                          t={t}
                         >
                           Maximum usage per month:{' '}
                           <strong>
@@ -92,8 +92,8 @@ const MarketplacePaymentPackRestrictionModal: React.FC<Props> = ({
                 <Item alignment={Alignment.FLEX_END} rowStart={3}>
                   <button
                     className="bs-restriction-modal__button"
-                    type="button"
                     onClick={onDialogClose}
+                    type="button"
                   >
                     {t('genericCardDetails.compatibility.button.close')}
                   </button>

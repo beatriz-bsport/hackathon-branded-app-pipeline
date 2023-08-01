@@ -82,7 +82,7 @@ export const PrivateBookingDetail = (props: Props) => {
             <Typography inline>
               {t('privateBooking.detail.source')} :
             </Typography>
-            <BookingSource t={t} source={private_booking.source} />
+            <BookingSource source={private_booking.source} t={t} />
           </div>
           {!!private_booking.date_canceled && (
             <div className={classes.parameterRow}>
@@ -163,8 +163,8 @@ export const PrivateBookingDetail = (props: Props) => {
         {props.private_slot ? (
           <Paper>
             <PrivateSlotListItem
-              slot={props.private_slot}
               onClick={props.onPrivateSlotClick}
+              slot={props.private_slot}
             />
           </Paper>
         ) : (
@@ -187,6 +187,7 @@ export const PrivateBookingDetail = (props: Props) => {
                 {!!props.forceRegularizeUnpaid && (
                   <Button
                     className={classes.paddingTop}
+                    color="primary"
                     disabled={regularizeProcessing}
                     onClick={() => {
                       setRegularizeProcessing(true);
@@ -196,10 +197,9 @@ export const PrivateBookingDetail = (props: Props) => {
                       });
                     }}
                     variant="contained"
-                    color="primary"
                   >
                     {regularizeProcessing && (
-                      <CircularProgress size={16} color="inherit" />
+                      <CircularProgress color="inherit" size={16} />
                     )}
                     {t('privatePass.actions.forceRegularizeUnpaid')}
                   </Button>
@@ -208,12 +208,12 @@ export const PrivateBookingDetail = (props: Props) => {
             ) : (
               <Paper>
                 <PrivateConsumerPassBookerListItem
-                  private_consumer_pass={props.private_consumer_pass}
                   onClick={() =>
                     props.goToPrivateConsumerPass(
                       props.private_consumer_pass.id,
                     )
                   }
+                  private_consumer_pass={props.private_consumer_pass}
                 />
               </Paper>
             )}

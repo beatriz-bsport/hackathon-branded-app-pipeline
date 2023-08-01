@@ -46,9 +46,9 @@ export const CheckoutButtons: React.FC<CheckoutButtonsProps> = ({
             >
               {submitButtonsProcessingState[button.id] && (
                 <CircularProgress
-                  style={{ marginRight: 8 }}
-                  size={24}
                   color="inherit"
+                  size={24}
+                  style={{ marginRight: 8 }}
                 />
               )}
               {t(button.textPath)}
@@ -73,9 +73,9 @@ export const CheckoutButtons: React.FC<CheckoutButtonsProps> = ({
               SUBMIT_BUTTONS.PAY_LATER_BUTTON.id
             ] && (
               <CircularProgress
-                style={{ marginRight: 8 }}
-                size={24}
                 color="inherit"
+                size={24}
+                style={{ marginRight: 8 }}
               />
             )}
             <UpdateIcon className={classes.iconLeft} />
@@ -83,9 +83,9 @@ export const CheckoutButtons: React.FC<CheckoutButtonsProps> = ({
           </Button>
           <div className={classes.payLaterInfoContainer}>
             <PopOver
-              title={t('payLater.explain')}
-              className={classes.payLaterText}
               anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+              className={classes.payLaterText}
+              title={t('payLater.explain')}
               transformOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
               <Info className={classes.infoIcon} />

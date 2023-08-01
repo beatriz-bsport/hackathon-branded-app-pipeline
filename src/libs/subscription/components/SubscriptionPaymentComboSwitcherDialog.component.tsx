@@ -42,9 +42,9 @@ export const SubscriptionPaymentComboSwitcherDialog = (props: Props) => {
         </DialogTitle>
         <DialogContent>
           <PaymentComboSelectorField
+            fullWidth
             choices={props.paymentComboList}
             name="payment_combo"
-            fullWidth
           />
           <div className={classes.warningRow}>
             <WarningIcon className={classes.leftIcon} color="error" />

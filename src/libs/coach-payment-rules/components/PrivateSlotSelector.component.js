@@ -45,14 +45,14 @@ export function PrivateSlotSelector(props: Props) {
   return (
     <div>
       <Selector
-        id={props.id}
         className={classes.root}
-        suggestions={suggestions}
-        selected={selected}
-        nullCurrentValue={!selected}
-        placeholder={t('service.selector.placeholder')}
-        onChange={onChange}
+        id={props.id}
         isDisabled={disabled}
+        nullCurrentValue={!selected}
+        onChange={onChange}
+        placeholder={t('service.selector.placeholder')}
+        selected={selected}
+        suggestions={suggestions}
       />
     </div>
   );

@@ -20,16 +20,16 @@ type Props = {
 } & WithTranslation;
 
 export const DeliveryFeeDialogForm: React.FC<Props> = (props) => (
-  <Dialog open={props.open} onClose={props.onClose}>
+  <Dialog onClose={props.onClose} open={props.open}>
     <DialogTitle>{props.t('deliveryFee.forms.title')}</DialogTitle>
     <DialogContent>
       <DeliveryFeeForm
         initial={props.deliveryFee}
+        onCancel={props.onClose}
         onSubmit={(data: DeliveryFeeCreationOrUpdatePayload) => {
           props.onSubmit(data);
           props.onClose();
         }}
-        onCancel={props.onClose}
       />
     </DialogContent>
   </Dialog>

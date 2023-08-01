@@ -44,7 +44,7 @@ export const ModalConfirm: React.FC<{
   };
 
   return (
-    <Dialog open={open} onClose={handleCancel || (() => {})}>
+    <Dialog onClose={handleCancel || (() => {})} open={open}>
       {options.title && <DialogTitle>{t(options.title)}</DialogTitle>}
       <DialogContent>
         <DialogContentText>
@@ -62,22 +62,22 @@ export const ModalConfirm: React.FC<{
         </Button>
         {countDownConfirm ? (
           <RedButton
+            color="primary"
+            delayBeforeActivation={5}
             onClick={(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
               ev.stopPropagation();
               handleConfirm(ev);
             }}
-            color="primary"
-            delayBeforeActivation={5}
           >
             {t(options.confirm || 'common.confirm')}
           </RedButton>
         ) : (
           <ValidationButton
+            color="primary"
             onClick={(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
               ev.stopPropagation();
               handleConfirm(ev);
             }}
-            color="primary"
           >
             {t(options.confirm || 'common.confirm')}
           </ValidationButton>

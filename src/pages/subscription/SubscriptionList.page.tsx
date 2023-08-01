@@ -82,29 +82,29 @@ export class SubscriptionList extends React.Component<Props> {
     return (
       <div className={this.props.classes.container}>
         <Grid container spacing={1}>
-          <Grid item xs={12} lg={6}>
+          <Grid item lg={6} xs={12}>
             <div className={this.props.classes.divider} />
             <PlannedInvoiceList
               count={this.props.plannedInvoiceCount}
-              title={this.props.t('plannedInvoice.list.titleNext')}
-              page={this.props.plannedInvoicePage}
-              loading={this.props.plannedInvoiceLoading}
-              plannedInvoiceList={this.props.plannedInvoiceList}
               fetchPlannedInvoicePage={this.props.fetchPlannedInvoicePage}
-              onClick={this.props.goToSubscription}
               itemPerPage={PLANNED_INVOICE_PAGE_SIZE}
+              loading={this.props.plannedInvoiceLoading}
+              onClick={this.props.goToSubscription}
+              page={this.props.plannedInvoicePage}
+              plannedInvoiceList={this.props.plannedInvoiceList}
+              title={this.props.t('plannedInvoice.list.titleNext')}
             />
           </Grid>
-          <Grid item xs={12} lg={6}>
+          <Grid item lg={6} xs={12}>
             <div className={this.props.classes.divider} />
             <Paper>
               <EventPanel
-                loading={this.props.eventLoading}
                 eventList={this.props.eventList}
-                page={this.props.eventPage}
                 eventSpec={COMPANY_EVENTS}
                 fetchEventList={this.props.fetchSubscriptionEventList}
+                loading={this.props.eventLoading}
                 onEventClick={this.onEventClick}
+                page={this.props.eventPage}
               />
             </Paper>
           </Grid>
@@ -114,11 +114,11 @@ export class SubscriptionList extends React.Component<Props> {
         </Typography>
         <Divider className={this.props.classes.divider} />
         <SubscriptionTable
-          goToSubscription={this.props.goToSubscription}
-          subscriptionList={this.props.subscriptionList}
-          loading={this.props.subscriptionLoading}
           count={this.props.subscriptionCount}
+          goToSubscription={this.props.goToSubscription}
+          loading={this.props.subscriptionLoading}
           onPageChange={this.props.fetchSubscriptionList}
+          subscriptionList={this.props.subscriptionList}
         />
       </div>
     );

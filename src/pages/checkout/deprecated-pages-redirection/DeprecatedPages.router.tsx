@@ -43,32 +43,32 @@ export const DeprecatedPages = (props: { is_manager: boolean }) => {
   return (
     <Switch>
       <Route
+        component={DEPRECATEDOfferBooker}
         path="/(|customer/)payment/offer/:id"
-        component={DEPRECATEDOfferBooker}
       />
       <Route
+        component={DEPRECATEDOfferBooker}
         path="/(|customer/)payment/offer-booker-module/:id"
-        component={DEPRECATEDOfferBooker}
       />
       <Route
-        path="/(|customer/)payment/private-service/:privateServiceId/private-slot/:privateSlotId/"
         component={DEPRECATEDPrivateSlotPaymentPage}
+        path="/(|customer/)payment/private-service/:privateServiceId/private-slot/:privateSlotId/"
       />
       <Route
-        path="/(|customer/)payment/pass/:id"
         component={DEPRECATEDPaymentPackPreCheckout}
+        path="/(|customer/)payment/pass/:id"
       />
       <Route
-        path="/(|customer/)payment/combo/:id"
         component={DEPRECATEDPaymentComboPreCheckoutPage}
+        path="/(|customer/)payment/combo/:id"
       />
       <Route
-        path="/(|customer/)payment/shop-item/:id"
         component={DEPRECATEDShopItemPreCheckoutPage}
+        path="/(|customer/)payment/shop-item/:id"
       />
       <Route
-        path="/(|customer/)payment/private-pass/:id"
         component={DEPRECATEDPrivatePassPreCheckout}
+        path="/(|customer/)payment/private-pass/:id"
       />
     </Switch>
   );

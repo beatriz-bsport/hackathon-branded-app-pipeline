@@ -48,10 +48,10 @@ export class InvoiceItemList extends Component<Props> {
     <ListItem key={invoiceItem.id} dense disabled={onDelete === null}>
       <ListItemText
         primary={invoiceItem.name}
-        secondary={invoiceItem.subtitle || null}
         primaryTypographyProps={{
           className: invoiceItem.reverted ? this.props.classes.revert : {},
         }}
+        secondary={invoiceItem.subtitle || null}
         secondaryTypographyProps={{
           className: invoiceItem.reverted ? this.props.classes.revert : {},
         }}
@@ -67,9 +67,9 @@ export class InvoiceItemList extends Component<Props> {
           </Grid>
           <Grid item>
             <IconButton
-              onClick={() => (onDelete || (() => {}))(invoiceItem.id)}
-              disabled={onDelete === null}
               color="primary"
+              disabled={onDelete === null}
+              onClick={() => (onDelete || (() => {}))(invoiceItem.id)}
             >
               <DeleteIcon />
             </IconButton>

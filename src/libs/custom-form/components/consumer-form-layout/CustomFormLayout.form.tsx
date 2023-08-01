@@ -160,11 +160,11 @@ export const CustomFormLayoutView = (props: Props) => {
                   <FormControlLabel
                     control={
                       <Switch
-                        size="small"
                         checked={isEditing}
-                        onChange={() => setIsEditing(!isEditing)}
-                        name="edit_custom_form"
                         color="primary"
+                        name="edit_custom_form"
+                        onChange={() => setIsEditing(!isEditing)}
+                        size="small"
                       />
                     }
                     label={t('customForm.layout.editLayout')}
@@ -180,27 +180,27 @@ export const CustomFormLayoutView = (props: Props) => {
                     </Fab>
                   </Tooltip>
                   <Tooltip title={t('customForm.layout.reset')}>
-                    <Fab color="primary" size="small" onClick={onNewLayout}>
+                    <Fab color="primary" onClick={onNewLayout} size="small">
                       <SettingsBackupRestoreIcon />
                     </Fab>
                   </Tooltip>
                   <Tooltip title={t('customForm.layout.redo')}>
                     <Fab
                       color="primary"
-                      size="small"
                       disabled={
                         !isEditing ||
                         currentLayoutIndex >= recordLayouts.length - 1
                       }
                       onClick={onGoingForward}
+                      size="small"
                     >
                       <ArrowForwardIcon />
                     </Fab>
                   </Tooltip>
 
                   <Tooltip
-                    title={t('customForm.layout.save')}
                     onClick={() => saveLayouts()}
+                    title={t('customForm.layout.save')}
                   >
                     <Fab color="primary" size="small">
                       <SaveIcon />
@@ -215,18 +215,18 @@ export const CustomFormLayoutView = (props: Props) => {
                     </Grid>
                     <Grid item xs>
                       <Slider
+                        aria-labelledby="continuous-slider"
                         defaultValue={375 + 10}
-                        value={containerWidth}
+                        getAriaValueText={valuetext}
+                        marks={marks}
+                        max={theme.breakpoints.values.lg + 10}
+                        min={375 + 10}
                         onChange={(e: any, value: number) =>
                           handleWidthChange(value)
                         }
                         step={null}
-                        aria-labelledby="continuous-slider"
-                        marks={marks}
+                        value={containerWidth}
                         valueLabelFormat={valueLabelFormat}
-                        getAriaValueText={valuetext}
-                        min={375 + 10}
-                        max={theme.breakpoints.values.lg + 10}
                       />
                     </Grid>
                     <Grid item>
@@ -239,8 +239,8 @@ export const CustomFormLayoutView = (props: Props) => {
             <div className={classes.formContainer}>
               <Paper className={classes.paperContainer}>
                 <div
-                  id="custom-form-divice-container"
                   className={classes.form}
+                  id="custom-form-divice-container"
                   style={{ width: `${containerWidth}px` }}
                 >
                   {customLoading ? (
@@ -251,10 +251,10 @@ export const CustomFormLayoutView = (props: Props) => {
                   ) : (
                     <ConsumerFormFields
                       {...props}
-                      onLayoutChange={handleLayoutChange}
-                      layouts={layouts}
-                      isEditing={isEditing}
                       customProviderWidth={containerWidth}
+                      isEditing={isEditing}
+                      layouts={layouts}
+                      onLayoutChange={handleLayoutChange}
                     />
                   )}
                 </div>

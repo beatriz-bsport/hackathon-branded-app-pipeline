@@ -79,10 +79,10 @@ const QuicksaleDeliveryForm: React.FC<Props> = ({
               [classes.selectorButtonSelected]:
                 deliveryType === QuicksaleDeliveryType.OnSpot,
             })}
-            tabIndex={0}
-            role="button"
             onClick={setDeliveryTypeToOnSpot}
             onKeyDown={stopPropagation}
+            role="button"
+            tabIndex={0}
           >
             <Place className={classes.icon} />
             <Typography variant="body1">{t('checkout.onSpot')}</Typography>
@@ -93,10 +93,10 @@ const QuicksaleDeliveryForm: React.FC<Props> = ({
               [classes.selectorButtonSelected]:
                 deliveryType === QuicksaleDeliveryType.HomeDelivery,
             })}
-            tabIndex={0}
-            role="button"
             onClick={setDeliveryTypeToHomeDelivery}
             onKeyDown={stopPropagation}
+            role="button"
+            tabIndex={0}
           >
             <LocalShipping className={classes.icon} />
             <Typography variant="body1">
@@ -110,27 +110,27 @@ const QuicksaleDeliveryForm: React.FC<Props> = ({
         <>
           <div className={classes.fullName}>
             <TextField
-              value={basketAddress?.first_name}
-              onChange={onFirstNameChange}
               label={t('checkout.firstName')}
+              onChange={onFirstNameChange}
+              value={basketAddress?.first_name}
             />
 
             <TextField
-              value={basketAddress?.last_name}
-              onChange={onLastNameChange}
               label={t('checkout.lastName')}
+              onChange={onLastNameChange}
+              value={basketAddress?.last_name}
             />
           </div>
 
           <AddressForm
-            companyCountry={companyCountry}
             address_line_1={basketAddress?.address_line_1}
             address_line_2={basketAddress?.address_line_2}
-            zipcode={basketAddress?.zipcode}
             city={basketAddress?.city}
-            state={basketAddress?.state}
+            companyCountry={companyCountry}
             country={basketAddress?.country}
             onChange={onChange}
+            state={basketAddress?.state}
+            zipcode={basketAddress?.zipcode}
           />
         </>
       )}

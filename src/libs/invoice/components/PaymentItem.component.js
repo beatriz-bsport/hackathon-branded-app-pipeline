@@ -84,9 +84,9 @@ export const PaymentItem = (props: Props) => {
             {t(`paymentMethod.${paymentItem.payment_method}`)}
           </Typography>
           <Typography
-            variant="caption"
-            color="textSecondary"
             className={paymentItem.reverted ? classes.revert : null}
+            color="textSecondary"
+            variant="caption"
           >
             {paymentItem.payment_note}
           </Typography>
@@ -109,9 +109,9 @@ export const PaymentItem = (props: Props) => {
         !!props.returnPayment &&
         !props.isReturningPayment && (
           <ButtonReturnPayment
+            className={classes.refundButton}
             onClick={() => props.returnPayment(paymentItem.uuid)}
             variant="outlined"
-            className={classes.refundButton}
           >
             <UndoIcon className={classes.leftIcon} />
             {t('payment.return')}
@@ -120,18 +120,18 @@ export const PaymentItem = (props: Props) => {
       {!!props.isReturningPayment && <CircularProgress />}
       {!!editable && (
         <IconButton
+          color="primary"
           disabled={!paymentItem.is_method_editable}
           onClick={(e) => setChangeMethodAnchorEl(e.currentTarget)}
-          color="primary"
         >
           <CachedIcon />
         </IconButton>
       )}
       <Menu
-        id={`simple-menu${paymentItem.uuid}`}
         anchorEl={changeMethodAnchorEl}
-        open={Boolean(changeMethodAnchorEl)}
+        id={`simple-menu${paymentItem.uuid}`}
         onClose={() => setChangeMethodAnchorEl(null)}
+        open={Boolean(changeMethodAnchorEl)}
       >
         {PAYMENT_METHODS.filter((pm) => pm.is_method_editable).map((pm) => (
           <MenuItem

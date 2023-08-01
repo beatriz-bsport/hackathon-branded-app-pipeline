@@ -388,17 +388,17 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     return (
       <MarketplaceContractCheckout
         hideChooseButton
-        contract={contractInCarousel}
         isExpanded
+        contract={contractInCarousel}
+        getPaymentComboSelected={this.props.getPaymentComboSelected}
+        getPaymentPackSelected={this.props.getPaymentPackSelected}
+        getPrivatePassSelected={this.props.getPrivatePassSelected}
         isContractObjectLoading={this.getContractObjectLoading(
           contractInCarousel,
         )}
-        isSelected={contract?.id === contractInCarousel.id}
         isExcludingTax={this.getIsTaxExcluded()}
+        isSelected={contract?.id === contractInCarousel.id}
         onSelect={this.handleSelectContract}
-        getPaymentPackSelected={this.props.getPaymentPackSelected}
-        getPrivatePassSelected={this.props.getPrivatePassSelected}
-        getPaymentComboSelected={this.props.getPaymentComboSelected}
       />
     );
   };
@@ -441,19 +441,19 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                     <MarketplaceContractCheckout
                       key={contractItem.id}
                       contract={contractItem}
-                      isContractObjectLoading={this.getContractObjectLoading(
-                        contractItem,
-                      )}
-                      isExpanded={contract?.id === contractItem.id}
-                      isSelected={contract?.id === contractItem.id}
-                      isExcludingTax={this.getIsTaxExcluded()}
-                      onSelect={this.handleSelectContract}
-                      getPaymentPackSelected={this.props.getPaymentPackSelected}
-                      getPrivatePassSelected={this.props.getPrivatePassSelected}
+                      customRef={this.selectedContractRef}
                       getPaymentComboSelected={
                         this.props.getPaymentComboSelected
                       }
-                      customRef={this.selectedContractRef}
+                      getPaymentPackSelected={this.props.getPaymentPackSelected}
+                      getPrivatePassSelected={this.props.getPrivatePassSelected}
+                      isContractObjectLoading={this.getContractObjectLoading(
+                        contractItem,
+                      )}
+                      isExcludingTax={this.getIsTaxExcluded()}
+                      isExpanded={contract?.id === contractItem.id}
+                      isSelected={contract?.id === contractItem.id}
+                      onSelect={this.handleSelectContract}
                     />
                   ))}
               </div>
@@ -475,11 +475,11 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                   <div className="bs-contract-payment-page__carousel__container">
                     <Carousel
                       isSlideshowDisabled
-                      initialSelectedItemIndex={this.getInitialCarouselItemIndex()}
                       data={this.props.contractList}
-                      renderItem={this.getCarouselRenderItem}
-                      onSwipe={this.handleOnCarouselItemSwipe}
+                      initialSelectedItemIndex={this.getInitialCarouselItemIndex()}
                       onScroll={this.handleOnCarouselItemSwipe}
+                      onSwipe={this.handleOnCarouselItemSwipe}
+                      renderItem={this.getCarouselRenderItem}
                     />
                   </div>
                 )}
@@ -487,30 +487,18 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                 {displayDirectLinkLayout && (
                   <MarketplaceContractDetail
                     contract={contract}
+                    getPaymentComboSelected={this.props.getPaymentComboSelected}
                     getPaymentPackSelected={this.props.getPaymentPackSelected}
                     getPrivatePassSelected={this.props.getPrivatePassSelected}
-                    getPaymentComboSelected={this.props.getPaymentComboSelected}
                   />
                 )}
 
                 <MarketplaceContractPayment
-                  isWidget={isWidget}
-                  contract={contract}
-                  isExcludingTax={this.getIsTaxExcluded()}
-                  refreshSavedPaymentMethodList={
-                    this.props.fetchPaymentMethodList
-                  }
-                  savedPaymentMethodList={this.props.savedPaymentMethodList}
-                  isLoading={this.state.processing}
-                  isContractLegalTermsAccepted={
-                    this.state.isContractLegalTermsAccepted
-                  }
                   billingStartDate={this.state.billingStartDate}
-                  sepaDefaultName={this.props.auth.name}
-                  sepaDefaultEmail={this.props.auth.username}
-                  setBillingStartDate={this.handleSetBillingStartDate}
-                  setAcceptContractLegalTerms={
-                    this.handleSetAcceptContractLegalTerms
+                  contract={contract}
+                  detachPaymentMethod={this.props.detachPaymentMethod}
+                  enabledPaymentGroupMethodIdentifierIds={
+                    this.props.theme.payment_method_available_subscription
                   }
                   enabledPaymentMethodsIds={getMarketplaceEnabledPaymentMethods(
                     {
@@ -518,14 +506,26 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                         this.props.theme.payment_method_available_subscription,
                     },
                   )}
-                  enabledPaymentGroupMethodIdentifierIds={
-                    this.props.theme.payment_method_available_subscription
+                  isContractLegalTermsAccepted={
+                    this.state.isContractLegalTermsAccepted
                   }
-                  detachPaymentMethod={this.props.detachPaymentMethod}
-                  requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-                  onOpenContractTermsDialog={this.handleOpenContractTermsDialog}
+                  isExcludingTax={this.getIsTaxExcluded()}
+                  isLoading={this.state.processing}
+                  isWidget={isWidget}
                   onCancelContractPayment={this.handleCancelContractPayment}
+                  onOpenContractTermsDialog={this.handleOpenContractTermsDialog}
                   onSubmitContractPayment={this.handleSubmitContractPayment}
+                  refreshSavedPaymentMethodList={
+                    this.props.fetchPaymentMethodList
+                  }
+                  requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+                  savedPaymentMethodList={this.props.savedPaymentMethodList}
+                  sepaDefaultEmail={this.props.auth.username}
+                  sepaDefaultName={this.props.auth.name}
+                  setAcceptContractLegalTerms={
+                    this.handleSetAcceptContractLegalTerms
+                  }
+                  setBillingStartDate={this.handleSetBillingStartDate}
                 />
               </div>
             )}
@@ -533,9 +533,9 @@ export class MarketplaceSubscriptionPayment extends React.Component<
 
           <MarketplaceContractTermsModal
             contractTerms={contract?.contract}
-            onDownloadTerms={this.props.downloadContractTerms}
             isOpen={this.state.openContractTermsDialog}
             onDialogClose={this.handleCloseContractTermsDialog}
+            onDownloadTerms={this.props.downloadContractTerms}
           />
           <MarketplaceContractCooldownModal
             isOpen={this.state.isContractCooldownDialogOpen}

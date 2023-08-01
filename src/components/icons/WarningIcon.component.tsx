@@ -22,18 +22,18 @@ export const WarningIcon: React.FC<Props> = React.memo((props) => {
           }}
         />
         <svg
-          width={theme.spacing(14)}
+          fill="none"
           height={theme.spacing(14)}
           viewBox="0 0 112 112"
-          fill="none"
+          width={theme.spacing(14)}
           xmlns="http://www.w3.org/2000/svg"
         >
           <circle
             cx={theme.spacing(7)}
             cy={theme.spacing(7)}
-            r={theme.spacing(7)}
             fill={props.color || theme.palette.warning.main}
             fillOpacity="0.2"
+            r={theme.spacing(7)}
           />
         </svg>
       </div>

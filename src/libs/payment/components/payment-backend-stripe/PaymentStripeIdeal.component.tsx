@@ -233,20 +233,20 @@ export const PaymentStripeIdeal = forwardRef(
         <IdealBankSection />
         <div className={classes.fieldContainer}>
           <TextInput
-            value={name}
-            label={t('paymentPanel.fields.accountHolderName.label')}
-            placeholder={t('paymentPanel.fields.accountHolderName.placeholder')}
             required
-            onChange={(ev) => setName(ev.target.value)}
             className={classes.field}
+            label={t('paymentPanel.fields.accountHolderName.label')}
+            onChange={(ev) => setName(ev.target.value)}
+            placeholder={t('paymentPanel.fields.accountHolderName.placeholder')}
+            value={name}
           />
           <TextInput
-            value={email}
-            label={t('paymentPanel.fields.email.label')}
-            placeholder={t('paymentPanel.fields.email.placeholder')}
             required
-            onChange={(ev) => setEmail(ev.target.value)}
             className={classes.field}
+            label={t('paymentPanel.fields.email.label')}
+            onChange={(ev) => setEmail(ev.target.value)}
+            placeholder={t('paymentPanel.fields.email.placeholder')}
+            value={email}
           />
           {errorMessage && (
             <Typography color="error">{errorMessage}</Typography>
@@ -263,18 +263,18 @@ export const PaymentStripeIdeal = forwardRef(
               {t('paymentPanel.actions.saveForLater')}
             </Typography>
             <Typography
-              variant={isNewCheckoutFlow ? 'body1' : 'caption'}
               color="textSecondary"
+              variant={isNewCheckoutFlow ? 'body1' : 'caption'}
             >
               {t('paymentPanel.actions.saveForLaterAsSEPA')}
             </Typography>
           </div>
           <div className={classes.securityInformationContainer}>
             <PopOver
-              title={t('paymentPanel.actions.paymentSecurityInformation')}
               anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
               className={classes.securityInformationText}
+              title={t('paymentPanel.actions.paymentSecurityInformation')}
+              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
               <Info className={classes.infoIcon} />
             </PopOver>
@@ -291,14 +291,14 @@ export const PaymentStripeIdeal = forwardRef(
               ) : (
                 <Button
                   color="primary"
-                  variant="contained"
-                  type="submit"
                   disabled={isSubmitButtonDisabled}
+                  type="submit"
+                  variant="contained"
                 >
                   {t('paymentPanel.actions.confirmPayment')}
                 </Button>
               )}
-              <Button onClick={onCancel} disabled={processing}>
+              <Button disabled={processing} onClick={onCancel}>
                 {t('paymentPanel.actions.cancel')}
               </Button>
             </div>

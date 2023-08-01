@@ -58,7 +58,7 @@ const DeleteDialog = (props: DialogProps) => {
   const { t } = useTranslation(['marketing']);
   const { open, onClickDelete, onClickCancel } = props;
   return (
-    <Dialog open={open} disableBackdropClick>
+    <Dialog disableBackdropClick open={open}>
       <DialogTitle>
         <div className={classes.title}>
           <Typography>{t('customForm.modal.delete.title')}</Typography>
@@ -104,17 +104,17 @@ export const CustomFormListItem = (props: Props) => {
   return (
     <>
       <ListItem
-        divider={divider}
         button={!!props.onClick}
-        selected={props.selected}
+        className={classes.listitem}
+        divider={divider}
         onClick={(e) => {
           stopPropagation && e.stopPropagation();
           props.onClick && props.onClick(props.customform.id);
         }}
-        className={classes.listitem}
+        selected={props.selected}
       >
         <Grid container>
-          <Grid item xs={gridItemXs ?? 3} className={classes.nameItem}>
+          <Grid item className={classes.nameItem} xs={gridItemXs ?? 3}>
             <div>
               <Typography component="span">{customFormName()}</Typography>
             </div>
@@ -122,8 +122,8 @@ export const CustomFormListItem = (props: Props) => {
           {showQuestionCount && (
             <Grid
               item
-              xs={withDisplayRule ? 3 : 6}
               className={classes.questionItem}
+              xs={withDisplayRule ? 3 : 6}
             >
               <Typography component="span">
                 {
@@ -141,10 +141,12 @@ export const CustomFormListItem = (props: Props) => {
           )}
 
           {props.withDisplayRule && (
-            <Grid item xs={3} className={classes.displayRuleItem}>
+            <Grid item className={classes.displayRuleItem} xs={3}>
               {props.customform.display_rules.map((rule) => (
                 <Chip
                   key={rule?.id}
+                  className={classes.chip}
+                  color="primary"
                   label={
                     rule.kind === CUSTOM_FORM_DISPLAY_ON_CONNECTION
                       ? t('customForm.displayRule.forRegisteredMember', {
@@ -152,20 +154,18 @@ export const CustomFormListItem = (props: Props) => {
                         })
                       : t('customForm.displayRule.forNewMember')
                   }
-                  color="primary"
-                  className={classes.chip}
                 />
               ))}
             </Grid>
           )}
           <Grid
             item
-            xs={3}
             className={
               props.withDisplayRule
                 ? classes.actionItemMarginRight
                 : classes.actionItem
             }
+            xs={3}
           >
             <ListItemResponsiveAction
               actions={[
@@ -199,9 +199,9 @@ export const CustomFormListItem = (props: Props) => {
         </Grid>
       </ListItem>
       <DeleteDialog
-        open={deleteDialogOpen}
-        onClickDelete={() => props.onClickDelete(props.customform.id)}
         onClickCancel={() => setDeleteDialogOpen(false)}
+        onClickDelete={() => props.onClickDelete(props.customform.id)}
+        open={deleteDialogOpen}
       />
     </>
   );

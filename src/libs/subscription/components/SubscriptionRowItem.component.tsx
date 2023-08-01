@@ -84,7 +84,7 @@ const SubscriptionRowItem = (props: Props) => {
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <Typography>{props.subscription.memberName}</Typography>
               {props.subscription?.memberArchived && (
-                <Typography variant="caption" color="secondary">
+                <Typography color="secondary" variant="caption">
                   {`${'\u00A0'}(${t('member:archived')})`}
                 </Typography>
               )}

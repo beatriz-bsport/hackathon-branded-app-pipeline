@@ -45,17 +45,17 @@ export const TriggerChip: React.FC<TriggerChipProps> = ({
           iconColorSecondary: classes.rootIconColorSecondary,
           label: classes.rootChipLabel,
         }}
+        color="primary"
         icon={
           <CustomMuiIcon
-            MuiIcon={TriggerIcon({ connected_trigger_config })}
             defaultBackGround
+            MuiIcon={TriggerIcon({ connected_trigger_config })}
             MuiIconProps={{ color: 'primary', fontSize: 'small' }}
           />
         }
         label={TriggerText({ connected_trigger_config })}
-        variant="default"
-        color="primary"
         size="small"
+        variant="default"
       />
     </ToolTip>
   );
@@ -110,7 +110,7 @@ export const CadenceConnectedTriggersCard: React.FC<Props> = ({
   }, [cadence, setConnectedTriggers, kind, disabled]);
 
   return (
-    <ButtonBase onClick={onClick} disabled={disabled}>
+    <ButtonBase disabled={disabled} onClick={onClick}>
       <div className={classes.card}>
         <div className={classNames({ [classes.disabledOverLay]: disabled })} />
         <div className={classes.cardHeader}>

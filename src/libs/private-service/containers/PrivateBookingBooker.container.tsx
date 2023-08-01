@@ -307,21 +307,21 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
       return (
         <MemberSearchModal
           asManager
-          searchMembers={this.props.searchMembers}
-          searchedMembers={this.props.searchedMembers.filter(
-            (m) => m.id !== this.props.id,
-          )}
           open
+          country={this.props.country}
           createMember={this.props.createMember}
-          onClose={this.onClose}
+          generalTermsAndConditions={this.props.generalTermsAndConditions}
           handlMemberSelected={(id: number, member: Member) =>
             this.setState({
               member: { ...member, consumer: member.consumer?.consumer },
             })
           }
-          country={this.props.country}
+          onClose={this.onClose}
+          searchedMembers={this.props.searchedMembers.filter(
+            (m) => m.id !== this.props.id,
+          )}
+          searchMembers={this.props.searchMembers}
           waiver={this.props.waiver}
-          generalTermsAndConditions={this.props.generalTermsAndConditions}
         />
       );
     }
@@ -340,41 +340,41 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
         : this.props.private_services;
     return (
       <GenericResponsiveDrawer
+        onClose={this.onClose}
+        open={open}
         title={`${formatAsDatetimeAdapted(
           this.state.date_start,
           'LLLL',
           this.props.timezone,
         )}`}
-        open={open}
-        onClose={this.onClose}
       >
         <div className={this.props.classes.innerDialog}>
           <MemberMinimalListItem
+            bottomCredit
             member={this.state.member}
             showVaccinationStatus={this.props.showVaccinationStatus}
-            bottomCredit
           />
           <DateTimeForm
+            onChange={(date_start: string) => this.setState({ date_start })}
             timezone={this.props.timezone}
             value={this.state.date_start}
-            onChange={(date_start: string) => this.setState({ date_start })}
           />
           <Divider className={this.props.classes.divider} />
           <fieldset className={this.props.classes.fieldset}>
             <legend>{t('bookerModule.step.configuration')}</legend>
             <SlotSearcherParams
-              private_services={privateServiceList}
-              onConfigurationChange={this.handleConfigurationChange}
-              resourceAllocationChecker={resourceAllocationCheckerAPI}
+              asManager
               coachUnique
               establishmentUnique
-              asManager
-              dateStart={this.state.date_start}
               coachesSelectedInRole={this.props.coachesSelectedInRole}
+              dateStart={this.state.date_start}
+              onConfigurationChange={this.handleConfigurationChange}
+              private_services={privateServiceList}
+              resourceAllocationChecker={resourceAllocationCheckerAPI}
             />
             <MissingResourceForBookingHelper
-              missingResources={missingResources}
               address={this.state.private_booking_data.address}
+              missingResources={missingResources}
               updateData={(data: any) =>
                 this.setState((prevState) => ({
                   private_booking_data: {
@@ -452,41 +452,41 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
               <fieldset>
                 <legend>{t('bookerModule.step.billing')}</legend>
                 <PrivatePassCapabilities
-                  registerPrivateBooking={this.registerPrivateBooking}
-                  registerUnPaidPrivateBooking={
-                    this.registerUnPaidPrivateBooking
-                  }
-                  createRecurrentRule={this.createRecurrentRule}
-                  recurrenceRule={this.props.recurrenceRule}
                   billMemberPrivatePass={(ppId: number) =>
                     this.props.billMemberPrivatePass(this.state.member.id, ppId)
                   }
-                  fetchPass={this.fetchPass}
-                  compatiblePrivatePass={this.props.compatiblePrivatePass}
                   compatiblePrivateConsumerPass={
                     this.props.compatiblePrivateConsumerPass
                   }
+                  compatiblePrivatePass={this.props.compatiblePrivatePass}
+                  compatibleWithUnpaidBooking={
+                    this.props.compatibleWithUnpaidBooking
+                  }
+                  createRecurrentRule={this.createRecurrentRule}
+                  fetchIncompatibilitiesReasonsBySlotByConsumerPass={
+                    this.fetchIncompatibilitiesReasonsBySlotByConsumerPass
+                  }
+                  fetchNonCompatiblePrivateConsumerPass={
+                    this.fetchNonCompatiblePrivateConsumerPass
+                  }
+                  fetchPass={this.fetchPass}
+                  goToPrivatePass={this.props.goToPrivatePass}
+                  incompatibilitiesReasons={this.props.incompatibilitiesReasons}
                   nonCompatiblePrivateConsumerPass={
                     this.props.nonCompatiblePrivateConsumerPass
                   }
                   nonCompatiblePrivateConsumerPassIsLoading={
                     this.props.nonCompatiblePrivateConsumerPassIsLoading
                   }
-                  goToPrivatePass={this.props.goToPrivatePass}
-                  compatibleWithUnpaidBooking={
-                    this.props.compatibleWithUnpaidBooking
-                  }
+                  privateSlot={this.state.private_booking_data.private_slot}
                   privateSlotCredit={
                     this.state.private_booking_data.privateSlotCredit
                   }
-                  fetchNonCompatiblePrivateConsumerPass={
-                    this.fetchNonCompatiblePrivateConsumerPass
+                  recurrenceRule={this.props.recurrenceRule}
+                  registerPrivateBooking={this.registerPrivateBooking}
+                  registerUnPaidPrivateBooking={
+                    this.registerUnPaidPrivateBooking
                   }
-                  privateSlot={this.state.private_booking_data.private_slot}
-                  fetchIncompatibilitiesReasonsBySlotByConsumerPass={
-                    this.fetchIncompatibilitiesReasonsBySlotByConsumerPass
-                  }
-                  incompatibilitiesReasons={this.props.incompatibilitiesReasons}
                 />
               </fieldset>
             )}

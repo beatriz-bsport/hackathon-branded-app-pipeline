@@ -48,11 +48,10 @@ const CssCodeTextarea: React.FC<Props> = ({
       <Collapse in={showBaseCode}>
         <Typography variant="h6">{t('widget.customCss.baseCode')}</Typography>
         <Editor
-          value={interpolateCSSVar(baseCss, DOMLoaded)}
-          onValueChange={null}
-          highlight={doHighlight}
-          padding={10}
           disabled
+          highlight={doHighlight}
+          onValueChange={null}
+          padding={10}
           style={{
             fontFamily: '"Fira code", "Fira Mono", monospace',
             fontSize: 12,
@@ -60,13 +59,13 @@ const CssCodeTextarea: React.FC<Props> = ({
             color: '#fff',
             marginBottom: 24,
           }}
+          value={interpolateCSSVar(baseCss, DOMLoaded)}
         />
         <Typography variant="h6">{t('widget.customCss.yourCode')}</Typography>
       </Collapse>
       <Editor
-        value={code}
-        onValueChange={onCodeChange}
         highlight={doHighlight}
+        onValueChange={onCodeChange}
         padding={10}
         style={{
           fontFamily: '"Fira code", "Fira Mono", monospace',
@@ -75,6 +74,7 @@ const CssCodeTextarea: React.FC<Props> = ({
           color: '#fff',
           minHeight: pageHeight,
         }}
+        value={code}
       />
     </div>
   );

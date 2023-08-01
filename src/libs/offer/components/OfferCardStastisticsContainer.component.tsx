@@ -68,13 +68,13 @@ export const OfferCardStastistics: React.FC<Props> = React.memo(
         )}
         <OfferCardStatistics
           effectif={effectif}
-          numberOfBookings={numberOfBookings}
-          waitingListMaxSize={waiting_list_max_size}
-          nbOptions={numberOfBookingOptionsHybridSession}
-          male={male}
           female={female}
+          male={male}
+          nbOptions={numberOfBookingOptionsHybridSession}
+          numberOfBookings={numberOfBookings}
           other={other}
           showOfferGender={showOfferGender}
+          waitingListMaxSize={waiting_list_max_size}
         />
 
         {!!linkedHybridSession && (
@@ -92,13 +92,13 @@ export const OfferCardStastistics: React.FC<Props> = React.memo(
             </div>
             <OfferCardStatistics
               effectif={effectif_hybrid_session}
-              numberOfBookings={nb_bookings_hybrid_session}
-              waitingListMaxSize={waiting_list_max_size_hybrid_session}
-              nbOptions={nb_option}
-              male={male_hybrid_session}
               female={female_hybrid_session}
+              male={male_hybrid_session}
+              nbOptions={nb_option}
+              numberOfBookings={nb_bookings_hybrid_session}
               other={other_hybrid_session}
               showOfferGender={showOfferGender}
+              waitingListMaxSize={waiting_list_max_size_hybrid_session}
             />
           </>
         )}

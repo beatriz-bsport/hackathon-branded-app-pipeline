@@ -109,22 +109,22 @@ const InboxThreadSenderContainer: React.FC<Props> = ({
     <div className={classes.sendMessageContainer}>
       {showMessageWriter ? (
         <ButtonBase
-          onClick={handleShowMessageWriter}
           disableRipple
           disableTouchRipple
+          onClick={handleShowMessageWriter}
         >
           <KeyboardArrowDown className={classes.buttonIconClose} />
         </ButtonBase>
       ) : (
         <div className={classes.buttonMessageWriterContainer}>
           <ButtonBase
-            onClick={handleShowMessageWriter}
             disableRipple
             disableTouchRipple
             className={classes.buttonMessageWriter}
+            onClick={handleShowMessageWriter}
           >
             <Send fontSize="small" />
-            <Typography variant="subtitle1" className={classes.buttonText}>
+            <Typography className={classes.buttonText} variant="subtitle1">
               {t('sendMessage.writeCommunication')}
             </Typography>
           </ButtonBase>
@@ -134,8 +134,6 @@ const InboxThreadSenderContainer: React.FC<Props> = ({
         <CommunicationSendMessageContainer
           allMemberCategoryList={allMemberCategoryList}
           communicationKind={communicationKindBeingWritten}
-          relatedObjectKind={thread.related_object_kind}
-          relatedObjectId={thread.related_object_id}
           countAvailableRecipientsTotal={countAvailableRecipientsTotal}
           countAvailableRecipientsWithEmail={countAvailableRecipientsWithEmail}
           countAvailableRecipientsWithPhone={countAvailableRecipientsWithPhone}
@@ -151,16 +149,18 @@ const InboxThreadSenderContainer: React.FC<Props> = ({
           }
           getEmailDetail={fetchEmailDetail}
           loadingPaginatedMemberList={loadingRecipientsModalMemberList}
-          loadingTemplateSummaryList={loadingEmailTemplateSummaryList}
           loadingTemplateDetailList={loadingEmailTemplateDetailList}
-          paginatedMemberList={paginatedMemberList}
+          loadingTemplateSummaryList={loadingEmailTemplateSummaryList}
           pageSize={PAGINATION_SIZE_RECIPIENTS}
-          sendCommunication={sendCommunication}
-          setCommunicationKind={setCommunicationKindBeingWritten}
+          paginatedMemberList={paginatedMemberList}
+          relatedObjectId={thread.related_object_id}
+          relatedObjectKind={thread.related_object_kind}
           resetPaginatedAvailableRecipientMemberList={
             resetPaginatedAvailableRecipientMemberList
           }
           resolvedGenericTags={resolvedGenericTags}
+          sendCommunication={sendCommunication}
+          setCommunicationKind={setCommunicationKindBeingWritten}
           tagCategories={tagCategories}
         />
       </Collapse>

@@ -77,42 +77,42 @@ const WidgetCustomizationPreview: React.FC<Props> = ({
 
   return (
     <Paper className={classes.paper} style={{ maxHeight: pageHeight }}>
-      <Typography variant="h6" className={classes.title}>
+      <Typography className={classes.title} variant="h6">
         <VisibilityIcon className={classes.icon} />
         {t('widget.cssEditor.preview')}
       </Typography>
       <div className={classes.config}>
         <WidgetComponentConfigBuilder
-          paymentPackTemplateListAvailable={[]}
-          isFranchisor={false}
-          hideTypeSelector={false}
+          cssOnly
+          previewDialog
           coaches={coaches}
+          componentType={componentType}
+          config={config}
+          customLevels={customLevels}
+          establishmentGroupList={establishmentGroupList}
           establishments={establishments}
+          giftcards={[]}
+          hideTypeSelector={false}
+          isFranchisor={false}
           metaActivities={metaActivities}
           metaActivitiesWorkshop={metaActivitiesWorkshop}
-          privateServices={[]}
-          playlists={[]}
-          videos={[]}
-          serviceGroupList={[]}
-          config={config}
+          onComponentTypeChange={onComponentTypeChange}
           onConfigChange={onConfigChange}
           paymentPackCategories={[]}
+          paymentPackTemplateListAvailable={[]}
+          playlists={[]}
           privatePassCategories={[]}
-          establishmentGroupList={establishmentGroupList}
-          giftcards={[]}
-          customLevels={customLevels}
-          cssOnly
-          onComponentTypeChange={onComponentTypeChange}
-          componentType={componentType}
-          previewDialog
+          privateServices={[]}
+          serviceGroupList={[]}
+          videos={[]}
         />
       </div>
       <Alert className={classes.alert} severity="info">
         {t('widget.cssEditor.selectAlert')}
       </Alert>
       <WidgetPreview
-        codeStringPreview={codeStringPreview}
         customizationPreview
+        codeStringPreview={codeStringPreview}
       />
     </Paper>
   );

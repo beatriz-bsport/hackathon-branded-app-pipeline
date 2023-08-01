@@ -31,7 +31,7 @@ export const PrivateBookingPreviewListItem = (props: Props) => {
   const address = props.preview.address || props.address;
   return (
     <React.Fragment>
-      <Typography variant="h4" component="h2" className={props.classes.title}>
+      <Typography className={props.classes.title} component="h2" variant="h4">
         {`${formatAsDatetimeAdapted(
           props.preview.date_start,
           'LLL',

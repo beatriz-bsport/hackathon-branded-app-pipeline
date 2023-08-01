@@ -116,7 +116,7 @@ export class ValidationCheckout extends React.Component<Props> {
       return (
         <div className={classes.header}>
           <ErrorIcon />
-          <Typography variant="h4" className={classes.confirmation}>
+          <Typography className={classes.confirmation} variant="h4">
             {this.props.t('validation.sections.error')}
           </Typography>
           <Typography className={classes.confirmation}>
@@ -132,7 +132,7 @@ export class ValidationCheckout extends React.Component<Props> {
       <div className={classes.header}>
         <ValidationIcon />
 
-        <Typography variant="h4" className={classes.confirmation}>
+        <Typography className={classes.confirmation} variant="h4">
           {this.props.t('validation.sections.title')}
         </Typography>
         <Typography className={classes.confirmation}>
@@ -147,9 +147,9 @@ export class ValidationCheckout extends React.Component<Props> {
       return (
         <div className={this.props.classes.actions}>
           <Button
+            color="primary"
             onClick={this.props.goBack}
             variant="outlined"
-            color="primary"
           >
             {this.props.t('validation.actions.back')}
           </Button>
@@ -160,18 +160,18 @@ export class ValidationCheckout extends React.Component<Props> {
       <div className={this.props.classes.actions}>
         {!WidgetUtils.isWidget() && (
           <Button
-            onClick={this.props.goToMarketplace}
-            color="primary"
             className={this.props.classes.validationButton}
+            color="primary"
+            onClick={this.props.goToMarketplace}
           >
             {this.props.t('validation.actions.continue')}
           </Button>
         )}
         <Button
+          className={this.props.classes.validationButton}
+          color="primary"
           onClick={this.props.onContinue}
           variant="contained"
-          color="primary"
-          className={this.props.classes.validationButton}
         >
           {WidgetUtils.isWidget()
             ? this.props.t('validation.actions.widgetContinue')
@@ -193,7 +193,7 @@ export class ValidationCheckout extends React.Component<Props> {
             </div>
             {!this.isError() && (
               <>
-                <Typography variant="h5" className={classes.paperSection}>
+                <Typography className={classes.paperSection} variant="h5">
                   {this.props.t('validation.sections.recap')}
                 </Typography>
                 <div className={classes.divider} />
@@ -235,9 +235,9 @@ export class ValidationCheckout extends React.Component<Props> {
                         <div className={classes.paper}>
                           {this.props.basket.checkout_items.map((ci) => (
                             <CheckoutItemListItem
+                              key={ci.id}
                               hideExtraData
                               checkout_item={ci}
-                              key={ci.id}
                             />
                           ))}
                         </div>
@@ -294,8 +294,8 @@ export class ValidationCheckout extends React.Component<Props> {
                                 />
                                 <div className={classes.row}>
                                   <WarningIcon
-                                    color="error"
                                     className={classes.smallIcon}
+                                    color="error"
                                   />
                                   <Typography color="error" variant="caption">
                                     {BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES.includes(

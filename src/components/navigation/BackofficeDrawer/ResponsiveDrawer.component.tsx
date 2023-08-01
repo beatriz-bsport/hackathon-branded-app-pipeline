@@ -627,12 +627,12 @@ const ResponsiveDrawer: React.FC<Props> = ({
         <div className={classes.toolbar}>
           <Grid
             container
-            style={{ paddingTop: 10 }}
             alignItems="center"
             justifyContent="center"
+            style={{ paddingTop: 10 }}
           >
             <Hidden smDown>
-              <img height={40} src={logo || LOGO_ASSET} alt="bsport logo" />
+              <img alt="bsport logo" height={40} src={logo || LOGO_ASSET} />
             </Hidden>
           </Grid>
         </div>
@@ -640,17 +640,17 @@ const ResponsiveDrawer: React.FC<Props> = ({
           <>
             <div className={classes.selfCentered}>
               <IconButton
-                onClick={handleToggleDrawer}
                 disableRipple
                 className={classes.iconButton}
+                onClick={handleToggleDrawer}
               >
                 <ToolTip
+                  placement="right-start"
                   title={
                     iconsOnly
                       ? t('backofficeMenu.toggle.expand')
                       : t('backofficeMenu.toggle.shrink')
                   }
-                  placement="right-start"
                 >
                   <DoubleArrow
                     className={classNames(classes.easeRotation, {
@@ -667,18 +667,18 @@ const ResponsiveDrawer: React.FC<Props> = ({
           {items.map((item, i) => (
             <ResponsiveDrawerItem
               key={`responsive_drawer_item${i}`}
-              item={item}
-              i={i}
-              permissions={permissions}
-              location={location}
               handleToggle={handleToggle}
-              toggledMenu={toggledMenu}
-              onMenuItemClick={onMenuItemClick}
-              nbTutorialAlerting={nbTutorialAlerting}
-              userAcknowlegdePlatformTutorial={userAcknowlegdePlatformTutorial}
-              updateUserAcknowlegdeTutorial={updateUserAcknowlegdeTutorial}
-              tutorialDialogOpen={tutorialDialogOpen}
+              i={i}
               iconsOnly={iconsOnly}
+              item={item}
+              location={location}
+              nbTutorialAlerting={nbTutorialAlerting}
+              onMenuItemClick={onMenuItemClick}
+              permissions={permissions}
+              toggledMenu={toggledMenu}
+              tutorialDialogOpen={tutorialDialogOpen}
+              updateUserAcknowlegdeTutorial={updateUserAcknowlegdeTutorial}
+              userAcknowlegdePlatformTutorial={userAcknowlegdePlatformTutorial}
             />
           ))}
           <ListItem />

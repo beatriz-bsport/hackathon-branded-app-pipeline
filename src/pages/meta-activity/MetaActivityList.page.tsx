@@ -272,50 +272,50 @@ export class MetaActivityListPage extends React.Component<Props, State> {
   renderCreateActivity = () => {
     return (
       <MetaActivityCreate
-        onClose={this.onCancelForm}
-        offerIsProcessing={this.props.offerIsProcessing}
-        offerHadError={this.props.offerHadError}
-        availableEstablishments={this.props.availableEstablishments}
-        SCTs={this.props.SCTs}
-        metaActivityNames={this.props.metaActivityNames}
-        coaches={this.props.coaches}
-        upsertedMetaActivity={this.props.upsertedMetaActivity}
-        companyTheme={this.props.companyTheme}
-        compatiblePaymentPacks={this.props.compatiblePaymentPacks}
-        roomBlueprints={this.props.roomBlueprints}
-        coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
-        allEstablishmentList={this.props.allEstablishmentList}
-        allTagsWithTagGroup={this.props.allTagsWithTagGroup}
-        paymentPackCategories={this.props.paymentPackCategories}
-        metaActivities={this.props.metaActivities}
-        categoryList={this.props.SCTs}
-        showPartnership={this.props.showPartnership}
-        metaActivityCategories={this.props.metaActivityCategories}
         activeCustomLevels={this.props.activeCustomLevels}
         allCustomLevels={this.props.allCustomLevels}
+        allEstablishmentList={this.props.allEstablishmentList}
+        allTagsWithTagGroup={this.props.allTagsWithTagGroup}
+        availableEstablishments={this.props.availableEstablishments}
+        categoryList={this.props.SCTs}
+        coaches={this.props.coaches}
+        coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
         companyId={this.props.companyId}
-        goBack={this.props.goBack}
-        fetchEstablishments={this.props.fetchEstablishments}
+        companyTheme={this.props.companyTheme}
+        compatiblePaymentPacks={this.props.compatiblePaymentPacks}
+        createLevel={this.props.createLevel}
+        createOffers={this.props.createOffers}
+        createPaymentPack={this.props.createOrUpdatePaymentPack}
+        deleteLevel={this.props.deleteLevel}
+        fetchAllActivities={this.fetchEnabledMetaActivityList}
+        fetchAllCoachPaymentRules={this.props.fetchAllCoachPaymentRules}
+        fetchAllMetaActivityCategory={this.props.fetchAllMetaActivityCategory}
+        fetchAllOffers={this.props.fetchAllOffers}
+        fetchAllPaymentPackCategory={this.props.fetchAllPaymentPackCategory}
         fetchAssociatedCoachesList={this.props.fetchAssociatedCoachesList}
+        fetchEstablishments={this.props.fetchEstablishments}
+        fetchLevelList={this.props.fetchLevelList}
+        fetchMetactivities={this.props.fetchMetactivities}
         fetchPaymentPacks={this.props.fetchPaymentPacks}
-        upsertMetaActivity={this.props.upsertMetaActivity}
-        resetPaymentPacks={this.props.resetPaymentPacks}
+        fetchRoomBlueprints={this.props.fetchRoomBlueprints}
+        goBack={this.props.goBack}
         goToMetaActivity={this.props.goToMetaActivity}
         goToPaymentPackCreate={this.props.goToPaymentPackCreate}
+        metaActivities={this.props.metaActivities}
         // goToPaymentPack: (id: number) => push(`/payment-pack/${id}`)
-        fetchAllOffers={this.props.fetchAllOffers}
-        fetchRoomBlueprints={this.props.fetchRoomBlueprints}
-        fetchAllCoachPaymentRules={this.props.fetchAllCoachPaymentRules}
-        fetchAllActivities={this.fetchEnabledMetaActivityList}
-        fetchMetactivities={this.props.fetchMetactivities}
-        fetchAllPaymentPackCategory={this.props.fetchAllPaymentPackCategory}
-        createPaymentPack={this.props.createOrUpdatePaymentPack}
-        fetchAllMetaActivityCategory={this.props.fetchAllMetaActivityCategory}
-        createOffers={this.props.createOffers}
-        fetchLevelList={this.props.fetchLevelList}
+        metaActivityCategories={this.props.metaActivityCategories}
+        metaActivityNames={this.props.metaActivityNames}
+        offerHadError={this.props.offerHadError}
+        offerIsProcessing={this.props.offerIsProcessing}
+        onClose={this.onCancelForm}
+        paymentPackCategories={this.props.paymentPackCategories}
+        resetPaymentPacks={this.props.resetPaymentPacks}
+        roomBlueprints={this.props.roomBlueprints}
+        SCTs={this.props.SCTs}
+        showPartnership={this.props.showPartnership}
         updateLevel={this.props.updateLevel}
-        createLevel={this.props.createLevel}
-        deleteLevel={this.props.deleteLevel}
+        upsertedMetaActivity={this.props.upsertedMetaActivity}
+        upsertMetaActivity={this.props.upsertMetaActivity}
       />
     );
   };
@@ -358,12 +358,12 @@ export class MetaActivityListPage extends React.Component<Props, State> {
       return (
         <div>
           <IsEmptyList
-            text={this.props.t('noActivities')}
             button={this.props.t('actions.addActivity')}
             onCreate={() => {
               this.props.setFormIsOpen(true);
             }}
             onCreateLabel={this.props.t('actions.addActivity')}
+            text={this.props.t('noActivities')}
           />
           {!!this.props.formIsOpen && this.renderCreateActivity()}
         </div>
@@ -376,30 +376,30 @@ export class MetaActivityListPage extends React.Component<Props, State> {
           <LinearProgress />
         ) : null}
         <NoShowPenaltyDialog
-          open={this.props.openNoShowPenaltyDialog}
-          onClose={this.closeNoShowPenaltyDialog}
           goToSettings={this.props.goToSettings}
+          onClose={this.closeNoShowPenaltyDialog}
+          open={this.props.openNoShowPenaltyDialog}
         />
         {this.props.enabledMetaActivities.length > 0 && (
           <div className={classes.search}>
             <div className={classes.header}>
               <div className={classes.searchField}>
                 <FuzeSearch
-                  searchText={this.state.searchText}
-                  clearSearch={this.clearSearch}
                   changeSearch={this.changeSearch}
+                  clearSearch={this.clearSearch}
                   items={this.props.enabledMetaActivities}
                   placeholder={t('actions.search')}
                   searchFields={['name', 'description']}
                   searchResult={this.state.searchResult}
+                  searchText={this.state.searchText}
                 />
               </div>
               <Hidden smDown>
                 <Button
-                  onClick={this.props.goToPaymentPack}
                   color="primary"
-                  variant="outlined"
+                  onClick={this.props.goToPaymentPack}
                   startIcon={<ArrowForwardIcon className={classes.leftIcon} />}
+                  variant="outlined"
                 >
                   {t('navigation.goToPaymentPack')}
                 </Button>
@@ -420,10 +420,10 @@ export class MetaActivityListPage extends React.Component<Props, State> {
                 }
               >
                 <MetaActivityList
-                  metaActivities={this.state.searchResult}
+                  deleteMetaActivity={this.props.setActivityToDelete}
                   goToDetail={this.props.goToDetail}
                   goToEdit={this.editMetaActivity}
-                  deleteMetaActivity={this.props.setActivityToDelete}
+                  metaActivities={this.state.searchResult}
                 />
               </Collapse>
             </Paper>
@@ -438,7 +438,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
           */}
         {this.state.showCategoryDialog && (
           <CategoryCreationEditDialog
-            open={this.state.showCategoryDialog}
+            categorySelected={this.state.selectedCategory}
             onClose={() =>
               this.setState({
                 showCategoryDialog: false,
@@ -446,23 +446,23 @@ export class MetaActivityListPage extends React.Component<Props, State> {
               })
             }
             onSubmit={this.props.upsertMetaActivityCategory}
-            categorySelected={this.state.selectedCategory}
+            open={this.state.showCategoryDialog}
           />
         )}
         {!this.props.categoryLoading && (
           <CategoryList
-            onClickItem={this.props.goToDetail}
-            onEditItem={this.editMetaActivity}
-            onDeleteItem={this.props.setActivityToDelete}
-            onDuplicateItem={this.onDuplicate}
-            updateItemOrder={this.props.editOrderMetaActivity}
-            itemLoading={this.props.loading}
             hideTitle
             categoryWithItems={this.props.metaActivityCategoriesWithActivities}
-            editCategory={this.onEditCategory}
             deleteCategory={this.onDeleteCategory}
-            updateCategoryOrder={this.props.updateMetaActivityCategoryOrder}
+            editCategory={this.onEditCategory}
+            itemLoading={this.props.loading}
             ListItemComponent={MetaActivityListItem}
+            onClickItem={this.props.goToDetail}
+            onDeleteItem={this.props.setActivityToDelete}
+            onDuplicateItem={this.onDuplicate}
+            onEditItem={this.editMetaActivity}
+            updateCategoryOrder={this.props.updateMetaActivityCategoryOrder}
+            updateItemOrder={this.props.editOrderMetaActivity}
           />
         )}
         {!!this.props.disabledMetaActivities?.length && (
@@ -486,16 +486,16 @@ export class MetaActivityListPage extends React.Component<Props, State> {
             </ButtonBase>
             <Divider />
             <Collapse
-              in={this.state.showDisabled}
-              className={classes.collapse}
               unmountOnExit
+              className={classes.collapse}
+              in={this.state.showDisabled}
             >
               <MetaActivityList
-                metaActivities={this.props.disabledMetaActivities}
+                deleteMetaActivity={this.props.setActivityToDelete}
                 goToDetail={this.props.goToDetail}
                 goToEdit={this.editMetaActivity}
-                deleteMetaActivity={this.props.setActivityToDelete}
                 makeActivityCopy={this.props.makeActivityCopy}
+                metaActivities={this.props.disabledMetaActivities}
                 restoreMetaActivity={this.restoreMetaActivity}
               />
               {!!this.props.disabledMetaActivitiesPagination?.nextPage &&
@@ -503,9 +503,9 @@ export class MetaActivityListPage extends React.Component<Props, State> {
                   ?.remainingCount && (
                   <div className={classes.showMoreContainer}>
                     <Button
-                      variant="outlined"
-                      onClick={this.fetchMoreDisabledMetaActivities}
                       color="primary"
+                      onClick={this.fetchMoreDisabledMetaActivities}
+                      variant="outlined"
                     >
                       {this.props.t('common:showMore', {
                         count:
@@ -520,10 +520,10 @@ export class MetaActivityListPage extends React.Component<Props, State> {
         )}
 
         <MetaActivityDeleteDialog
-          metaActivityId={this.props.activityToDelete}
-          onClose={() => this.props.setActivityToDelete(null)}
           canDeleteMetaActivityChecker={canDeleteMetaActivityAPI}
           deleteMetaActivity={this.props.deleteMetaActivity}
+          metaActivityId={this.props.activityToDelete}
+          onClose={() => this.props.setActivityToDelete(null)}
         />
 
         <MetaActivityEditDrawer
@@ -531,18 +531,18 @@ export class MetaActivityListPage extends React.Component<Props, State> {
             ...this.getSelectedMetaActivityInitialData(),
             images: (selectedMetaActivity || {}).images || [],
           }}
-          onSubmit={this.props.onSubmit}
-          SCTs={this.props.SCTs}
-          open={!!this.props.selectedMetaActivity}
           onCancel={this.onCancelEdit}
+          onSubmit={this.props.onSubmit}
+          open={!!this.props.selectedMetaActivity}
+          SCTs={this.props.SCTs}
           tags={this.props.allTagsWithTagGroup}
         />
 
         <BottomActionButtons
-          onCreateLabel={this.props.t('actions.addActivity')}
           onCreate={() => {
             this.props.setFormIsOpen(true);
           }}
+          onCreateLabel={this.props.t('actions.addActivity')}
         />
         {this.props.formIsOpen ? this.renderCreateActivity() : ''}
       </div>

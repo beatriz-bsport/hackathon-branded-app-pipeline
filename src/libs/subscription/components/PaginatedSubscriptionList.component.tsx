@@ -24,21 +24,21 @@ export const PaginatedSubscriptionList = (props: Props) => {
   const { t } = useTranslation('subscription');
   return (
     <PaginatedListBase
-      listProps={{ disablePadding: 'true', dense: 'true' }}
-      items={props.items}
-      nbItems={props.nbItems}
-      loading={props.loading}
-      page={props.page}
       itemPerPage={props.itemPerPage}
+      items={props.items}
+      listProps={{ disablePadding: 'true', dense: 'true' }}
+      loading={props.loading}
+      nbItems={props.nbItems}
       onPageRequested={(page: number, pageSize?: number) =>
         props.onPageRequested(page, pageSize)
       }
+      page={props.page}
       renderEmpty={() => (
         <div>
           <Typography
             className={classes.emptyContainer}
-            variant="caption"
             color="textSecondary"
+            variant="caption"
           >
             {t('noAssociatedSubscription')}
           </Typography>
@@ -49,8 +49,8 @@ export const PaginatedSubscriptionList = (props: Props) => {
         sub ? (
           <SubscriptionRowItem
             key={sub.id}
-            subscription={sub}
             onClick={props.onClick ? () => props.onClick(sub.id) : null}
+            subscription={sub}
             withoutSubscriptionStatus={props.withoutSubscriptionStatus}
           />
         ) : null

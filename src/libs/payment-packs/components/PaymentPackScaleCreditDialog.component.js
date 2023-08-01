@@ -40,19 +40,15 @@ export const PaymentPackScaleCreditDialog = (props: Props) => {
               {t('scaleCredit.scaleDown')}
             </Typography>
             <Switch
-              onChange={props.toogleScaleDirection}
               checked={props.scaleDirection}
+              onChange={props.toogleScaleDirection}
             />
             <Typography variant="caption">
               {t('scaleCredit.scaleUp')}
             </Typography>
           </div>
           <TextField
-            onChange={props.handleFactorChange}
-            value={props.factor}
-            type="number"
             Start
-            label={t('scaleCredit.factor.label')}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -62,6 +58,10 @@ export const PaymentPackScaleCreditDialog = (props: Props) => {
 
               inputProps: { step: 1, min: 1 },
             }}
+            label={t('scaleCredit.factor.label')}
+            onChange={props.handleFactorChange}
+            type="number"
+            value={props.factor}
           />
         </fieldset>
       </DialogContent>

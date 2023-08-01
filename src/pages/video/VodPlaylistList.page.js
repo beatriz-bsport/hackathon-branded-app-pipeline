@@ -62,10 +62,10 @@ export class VodPlaylistListPage extends React.Component<Props> {
         {!!this.props.loading && <LinearProgress />}
         <Grid container spacing={2}>
           {this.props.playlistList.map((pl) => (
-            <Grid key={pl.id} item xs={12} sm={6} md={4} lg={3}>
+            <Grid key={pl.id} item lg={3} md={4} sm={6} xs={12}>
               <PlaylistCardItem
-                onEdit={this.props.openEditForm}
                 onDelete={this.props.deletePlaylist}
+                onEdit={this.props.openEditForm}
                 onOpen={this.props.openPlaylist}
                 playlist={pl}
               />
@@ -74,31 +74,31 @@ export class VodPlaylistListPage extends React.Component<Props> {
         </Grid>
         {!!this.props.createOpen && (
           <PlaylistFormDialog
-            onSubmit={this.props.createOrUpdatePlaylist}
-            onClose={this.props.closeCreateDialog}
             open
+            onClose={this.props.closeCreateDialog}
+            onSubmit={this.props.createOrUpdatePlaylist}
           />
         )}
         {!!this.props.editPlaylist && (
           <PlaylistFormDialog
             open
-            onSubmit={this.props.createOrUpdatePlaylist}
             initial={this.props.editPlaylist}
             onClose={this.props.closeEditForm}
+            onSubmit={this.props.createOrUpdatePlaylist}
           />
         )}
         <BottomActionButtons
-          onCreateLabel={this.props.t('video:playlist.bottomActions.create')}
           onCreate={this.props.openCreateForm}
+          onCreateLabel={this.props.t('video:playlist.bottomActions.create')}
         />
         {!this.props.loading &&
           !!this.props.shouldDisplaySeeMoreButton &&
           !!this.props.fetchMorePlaylist && (
             <div className={this.props.classes.buttonContainer}>
               <Button
-                variant="outlined"
-                onClick={this.props.fetchMorePlaylist}
                 color="primary"
+                onClick={this.props.fetchMorePlaylist}
+                variant="outlined"
               >
                 {this.props.t('video.showMore')}
               </Button>

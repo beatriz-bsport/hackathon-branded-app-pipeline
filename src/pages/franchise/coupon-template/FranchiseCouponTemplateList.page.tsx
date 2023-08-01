@@ -76,15 +76,15 @@ export class FranchiseCouponTemplateList extends Component<Props> {
       <div>
         {this.props.loading && <LinearProgress />}
         <IsEmptyList
-          text={t('couponTemplate.isEmptyExplain')}
           button={t('couponTemplate.actions.create')}
-          onCreate={this.props.openCreateDialog}
-          onCreateLabel={t('couponTemplate.actions.create')}
           hideEmptyText={
             this.props.loading ||
             !!(this.props.activeCouponTemplates || []).length ||
             !!(this.props.inactiveCouponTemplates || []).length
           }
+          onCreate={this.props.openCreateDialog}
+          onCreateLabel={t('couponTemplate.actions.create')}
+          text={t('couponTemplate.isEmptyExplain')}
         />
         <div className={classes.container}>
           {(this.props.activeCouponTemplates || []).length ? (
@@ -94,11 +94,11 @@ export class FranchiseCouponTemplateList extends Component<Props> {
               <Paper>
                 {(this.props.activeCouponTemplates || []).map((ct) => (
                   <CouponTemplateListItem
-                    couponTemplate={ct}
                     key={ct.id}
+                    couponTemplate={ct}
                     onClick={this.props.goToTemplateDetail}
-                    onEdit={this.props.openEditDialog}
                     onDelete={this.props.openDeleteDialog}
+                    onEdit={this.props.openEditDialog}
                   />
                 ))}
               </Paper>
@@ -111,11 +111,11 @@ export class FranchiseCouponTemplateList extends Component<Props> {
               <Paper>
                 {(this.props.inactiveCouponTemplates || []).map((ct) => (
                   <CouponTemplateListItem
-                    couponTemplate={ct}
                     key={ct.id}
+                    couponTemplate={ct}
                     onClick={this.props.goToTemplateDetail}
-                    onEdit={this.props.openEditDialog}
                     onDelete={this.props.openDeleteDialog}
+                    onEdit={this.props.openEditDialog}
                   />
                 ))}
               </Paper>
@@ -126,25 +126,25 @@ export class FranchiseCouponTemplateList extends Component<Props> {
           <CouponTemplateFormDrawer
             open
             onClose={this.props.closeCreateDialog}
-            privatePassTemplateList={this.props.privatePassTemplateList || []}
-            paymentPackTemplateList={this.props.paymentPackTemplateList || []}
             onSubmit={this.props.createOrUpdateCouponTemplate}
+            paymentPackTemplateList={this.props.paymentPackTemplateList || []}
+            privatePassTemplateList={this.props.privatePassTemplateList || []}
           />
         )}
         {!!this.props.couponTemplateToEdit && (
           <CouponTemplateFormDrawer
             open
-            onClose={this.props.closeEditDialog}
-            privatePassTemplateList={this.props.privatePassTemplateList || []}
-            paymentPackTemplateList={this.props.paymentPackTemplateList || []}
             initial={this.props.couponTemplateToEdit}
+            onClose={this.props.closeEditDialog}
             onSubmit={this.props.createOrUpdateCouponTemplate}
+            paymentPackTemplateList={this.props.paymentPackTemplateList || []}
+            privatePassTemplateList={this.props.privatePassTemplateList || []}
           />
         )}
         <CouponTemplateDeleteDialog
-          open={!!this.props.couponTemplateIdToDelete}
-          onSubmit={this.props.deleteCouponTemplate}
           onClose={this.props.closeDeleteDialog}
+          onSubmit={this.props.deleteCouponTemplate}
+          open={!!this.props.couponTemplateIdToDelete}
         />
       </div>
     );

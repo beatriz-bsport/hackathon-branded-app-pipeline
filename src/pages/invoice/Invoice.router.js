@@ -11,10 +11,10 @@ export default () => (
   <Switch>
     <Route
       exact
-      path="/invoice/bill-member/:memberId/"
       component={InvoiceCreationPage}
+      path="/invoice/bill-member/:memberId/"
     />
-    <Route exact path="/invoice/:uuid/" component={InvoiceDetailRouter} />
-    <Route path="/invoice" component={InvoiceList} />
+    <Route exact component={InvoiceDetailRouter} path="/invoice/:uuid/" />
+    <Route component={InvoiceList} path="/invoice" />
   </Switch>
 );

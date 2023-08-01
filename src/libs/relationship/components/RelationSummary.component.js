@@ -47,7 +47,7 @@ export const RelationSummary = (props: Props) => {
     return (
       <div>
         <div className={props.classes.nothingSelectedContainer}>
-          <Alert color="grey" severity="info" className={classes.alertInfo}>
+          <Alert className={classes.alertInfo} color="grey" severity="info">
             {props.t('member.list.pleaseSelectOne')}
           </Alert>
         </div>
@@ -57,7 +57,7 @@ export const RelationSummary = (props: Props) => {
   return (
     <>
       <div className={classes.container}>
-        <Typography className={classes.title} variant="h5" component="h3">
+        <Typography className={classes.title} component="h3" variant="h5">
           {t('consumer_payment_pack_links.list.title')}
         </Typography>
         {consumerPaymentPackLinks.length ? (
@@ -71,9 +71,6 @@ export const RelationSummary = (props: Props) => {
                   <ConsumerPackRowItem
                     key={idx}
                     hideConsumer
-                    disabled={!s_cpp.is_active}
-                    consumerPack={consumerPack}
-                    paymentPack={(s_cpp.src || s_cpp.dst || {}).payment_pack}
                     button={
                       s_cpp.is_active ? (
                         <IconButton
@@ -89,6 +86,9 @@ export const RelationSummary = (props: Props) => {
                         </IconButton>
                       )
                     }
+                    consumerPack={consumerPack}
+                    disabled={!s_cpp.is_active}
+                    paymentPack={(s_cpp.src || s_cpp.dst || {}).payment_pack}
                   />
                 );
               })}
@@ -102,17 +102,17 @@ export const RelationSummary = (props: Props) => {
           </div>
         )}
         <Button
-          variant="outlined"
+          className={classes.addButton}
           color="primary"
           onClick={props.requestPassLinking}
-          className={classes.addButton}
+          variant="outlined"
         >
           <AddIcon className={classes.leftIcon} />
           {t('consumer_payment_pack_links.list.create')}
         </Button>
       </div>
       <div className={classes.container}>
-        <Typography className={classes.title} variant="h5" component="h3">
+        <Typography className={classes.title} component="h3" variant="h5">
           {t('private_consumer_pass_links.list.title')}
         </Typography>
         {privateConsumerPassLinks && privateConsumerPassLinks.length ? (
@@ -122,10 +122,8 @@ export const RelationSummary = (props: Props) => {
                 const privateConsumerPass = s_pcp.src || s_pcp.dst || {};
                 return (
                   <PrivateConsumerPassBookerListItem
-                    divider
                     key={idx}
-                    disabled={!s_pcp.is_active}
-                    private_consumer_pass={privateConsumerPass}
+                    divider
                     button={
                       s_pcp.is_active ? (
                         <IconButton
@@ -145,6 +143,8 @@ export const RelationSummary = (props: Props) => {
                         </IconButton>
                       )
                     }
+                    disabled={!s_pcp.is_active}
+                    private_consumer_pass={privateConsumerPass}
                   />
                 );
               })}
@@ -158,10 +158,10 @@ export const RelationSummary = (props: Props) => {
           </div>
         )}
         <Button
-          variant="outlined"
+          className={classes.addButton}
           color="primary"
           onClick={props.requestPrivatePassLinking}
-          className={classes.addButton}
+          variant="outlined"
         >
           <AddIcon className={classes.leftIcon} />
           {t('private_consumer_pass_links.list.create')}

@@ -12,6 +12,7 @@ type Props = {
 export default function PriceInput(props: Props) {
   return (
     <NumericInput
+      isPositive
       InputProps={{
         inputProps: {
           step: 0.01,
@@ -23,7 +24,6 @@ export default function PriceInput(props: Props) {
           </InputAdornment>
         ),
       }}
-      isPositive
       {...props}
     />
   );

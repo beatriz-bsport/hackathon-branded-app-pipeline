@@ -111,7 +111,6 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
               timedelta_after_snooze: 24,
             }
       }
-      validationSchema={CustomFormDisplayRuleSchema}
       onSubmit={(values) => {
         return props.onSubmit(
           { ...values },
@@ -120,11 +119,12 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
           },
         );
       }}
+      validationSchema={CustomFormDisplayRuleSchema}
     >
       {(formik) => (
         <form>
           <>
-            <Dialog open={open} maxWidth="sm" fullWidth>
+            <Dialog fullWidth maxWidth="sm" open={open}>
               <DialogTitle>
                 {t('customForm.displayRule.form.dialog.title')}
               </DialogTitle>
@@ -147,7 +147,6 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
                   >
                     <FormControlLabel
                       key={`kind${CUSTOM_FORM_DISPLAY_ON_SIGN_UP}`}
-                      value={CUSTOM_FORM_DISPLAY_ON_SIGN_UP}
                       control={
                         <Radio
                           checked={
@@ -164,10 +163,10 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
                             )})`
                           : ''
                       }`}
+                      value={CUSTOM_FORM_DISPLAY_ON_SIGN_UP}
                     />
                     <FormControlLabel
                       key={`kind${CUSTOM_FORM_DISPLAY_ON_CONNECTION}`}
-                      value={CUSTOM_FORM_DISPLAY_ON_CONNECTION}
                       control={
                         <Radio
                           checked={
@@ -177,6 +176,7 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
                         />
                       }
                       label={t('customForm.displayRule.kind.connection')}
+                      value={CUSTOM_FORM_DISPLAY_ON_CONNECTION}
                     />
                   </RadioGroup>
                 </FormControl>
@@ -185,19 +185,17 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
                   in={formik.values.kind === CUSTOM_FORM_DISPLAY_ON_CONNECTION}
                 >
                   <IntegerField
-                    name="timedelta_day_before_display"
                     fullWidth
                     disabled={
                       formik.values.kind !== CUSTOM_FORM_DISPLAY_ON_CONNECTION
                     }
-                    label={t('customForm.displayRule.kind.connectionLabel')}
                     helperText={
                       formik.errors.timedelta_day_before_display &&
                       formik.touched.timedelta_after_snooze ? (
                         <ErrorMessage name="timedelta_day_before_display">
                           {(error_msg) => {
                             return (
-                              <Typography variant="caption" color="error">
+                              <Typography color="error" variant="caption">
                                 {t(`${error_msg}`)}
                               </Typography>
                             );
@@ -210,13 +208,15 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
                         })
                       )
                     }
+                    label={t('customForm.displayRule.kind.connectionLabel')}
+                    name="timedelta_day_before_display"
                   />
                 </Collapse>
                 <ButtonBase
+                  className={classes.advancedOptions}
                   onClick={() =>
                     setExpandAdvancedOptions(!expandAdvancedOptions)
                   }
-                  className={classes.advancedOptions}
                 >
                   <div className={classes.advancedOptions}>
                     <Typography variant="h6">
@@ -232,34 +232,35 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
                 <Collapse in={expandAdvancedOptions}>
                   <FormGroup>
                     <FormControlLabel
+                      classes={{ label: classes.smallLabel }}
                       control={
                         <Switch
+                          checked={formik.values.force_display}
+                          disabled={
+                            formik.values.kind ===
+                            CUSTOM_FORM_DISPLAY_ON_SIGN_UP
+                          }
                           id="checkbox_allow_force_display"
                           name="force_display"
-                          checked={formik.values.force_display}
                           onClick={() => {
                             formik.setFieldValue(
                               'force_display',
                               !formik.values.force_display,
                             );
                           }}
-                          disabled={
-                            formik.values.kind ===
-                            CUSTOM_FORM_DISPLAY_ON_SIGN_UP
-                          }
                         />
                       }
-                      classes={{ label: classes.smallLabel }}
                       label={t(
                         'customForm.displayRule.form.dialog.force_display',
                       )}
                     />
                     <FormControlLabel
+                      classes={{ label: classes.smallLabel }}
                       control={
                         <Switch
+                          checked={formik.values.snoozable}
                           id="checkbox_allow_snooze_option"
                           name="snoozable"
-                          checked={formik.values.snoozable}
                           onClick={() => {
                             formik.setFieldValue(
                               'snoozable',
@@ -268,7 +269,6 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
                           }}
                         />
                       }
-                      classes={{ label: classes.smallLabel }}
                       label={t(
                         'customForm.displayRule.form.dialog.snoozeOption',
                       )}
@@ -277,18 +277,18 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
 
                   <Collapse in={formik.values.snoozable}>
                     <IntegerField
-                      name="timedelta_after_snooze"
                       fullWidth
                       disabled={!formik.values.snoozable}
-                      label={t(
-                        'customForm.displayRule.form.dialog.snoozeOptionLabel',
-                      )}
                       helperText={t(
                         'customForm.displayRule.form.dialog.snoozeOptionHelperText',
                         {
                           count: formik?.values?.timedelta_after_snooze || 0,
                         },
                       )}
+                      label={t(
+                        'customForm.displayRule.form.dialog.snoozeOptionLabel',
+                      )}
+                      name="timedelta_after_snooze"
                     />
                   </Collapse>
                 </Collapse>
@@ -296,24 +296,24 @@ export function CustomFormDisplayRuleFormDialog(props: Props) {
               <DialogActions>
                 <Button
                   color="primary"
-                  variant="text"
                   onClick={() => {
                     trackFormCancel(props.initial?.id);
 
                     props.onClose();
                   }}
+                  variant="text"
                 >
                   {t('customForm.displayRule.form.dialog.cancel')}
                 </Button>
                 <Button
-                  id="submit_custom_form_display_rule_creation"
-                  disabled={isSubmitting}
-                  variant="contained"
                   color="primary"
+                  disabled={isSubmitting}
+                  id="submit_custom_form_display_rule_creation"
                   onClick={() => {
                     trackFormSubmitIntent(props.initial?.id);
                     formik.handleSubmit();
                   }}
+                  variant="contained"
                 >
                   {props.initial
                     ? t('customForm.displayRule.form.dialog.modify')

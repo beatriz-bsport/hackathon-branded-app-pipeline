@@ -36,26 +36,26 @@ export function SCTChip(props: Props) {
   }
   return (
     <Chip
-      classes={{
-        avatar: classes.avatar,
-      }}
-      label={SCTName || sport.text}
-      size={size || 'medium'}
-      color="primary"
-      onDelete={onDelete}
-      onClick={onClick}
       avatar={
         sport?.icon ? (
           <img
-            src={sport.icon}
-            height={SIZE}
-            width={SIZE}
             alt="coach profile"
+            height={SIZE}
+            src={sport.icon}
+            width={SIZE}
           />
         ) : null
       }
-      variant={variant || 'default'}
+      classes={{
+        avatar: classes.avatar,
+      }}
       className={classes.chip}
+      color="primary"
+      label={SCTName || sport.text}
+      onClick={onClick}
+      onDelete={onDelete}
+      size={size || 'medium'}
+      variant={variant || 'default'}
     />
   );
 }

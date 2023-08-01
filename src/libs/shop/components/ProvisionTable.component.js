@@ -26,19 +26,19 @@ type Props = {
 
 export const ProvisionGraph = (props: Props) => (
   <PaginatedListBase
-    listProps={{ disablePadding: true, dense: true }}
-    items={props.provisions}
-    nbItems={props.nbItems}
-    loading={props.loading}
-    page={props.page}
     itemPerPage={props.itemPerPage}
+    items={props.provisions}
+    listProps={{ disablePadding: true, dense: true }}
+    loading={props.loading}
+    nbItems={props.nbItems}
     onPageRequested={(page, pageSize) => props.onPageRequested(page, pageSize)}
+    page={props.page}
     renderEmpty={() => (
       <div>
         <Typography
           className={props.classes.emptyContainer}
-          variant="caption"
           color="textSecondary"
+          variant="caption"
         >
           {props.t('provision.noProvisionHistory')}
         </Typography>

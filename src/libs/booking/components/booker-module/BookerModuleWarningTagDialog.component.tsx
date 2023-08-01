@@ -29,11 +29,11 @@ export const BookerModuleWarningTagDialog = (props: Props) => {
       </DialogContent>
 
       <DialogActions>
-        <Button variant="text" color="secondary" onClick={() => onCancel()}>
+        <Button color="secondary" onClick={() => onCancel()} variant="text">
           {t('bookingModule.tags.managerDialogWarningDialog.cancel')}
         </Button>
 
-        <Button variant="text" color="primary" onClick={() => onConfirm()}>
+        <Button color="primary" onClick={() => onConfirm()} variant="text">
           {t('bookingModule.tags.managerDialogWarningDialog.confirm')}
         </Button>
       </DialogActions>

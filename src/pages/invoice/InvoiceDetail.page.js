@@ -517,55 +517,57 @@ export class InvoiceDetail extends React.Component<Props, State> {
       <>
         <div className={this.props.classes.container}>
           <Grid container direction="row">
-            <Grid item xs={12} md={6}>
+            <Grid item md={6} xs={12}>
               <InvoiceHeader
-                onClickInvoice={this.props.goToInvoice}
-                invoice={this.props.invoice}
-                establishments={this.props.establishments}
                 editBillingEstablishment={this.props.editBillingEstablishment}
                 enableMultiLocalization={
                   this.props.companyTheme.enable_multi_localization
                 }
+                establishments={this.props.establishments}
+                invoice={this.props.invoice}
                 memberDefaultBillingEstablishment={
                   this.props.member?.default_billing_establishment
                 }
+                onClickInvoice={this.props.goToInvoice}
               />
               {this.props.invoice.invoice_type !==
                 INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER && (
                 <InvoiceContent
-                  invoice={this.props.invoice}
-                  invoiceItemLoading={this.props.invoiceItemLoading}
+                  amountInvoiceItem={this.props.invoice.amount_due_cts / 100}
                   editCustomFooter={this.props.editCustomFooter}
+                  finalizeInvoice={this.props.finalizeInvoice}
+                  goToSubscription={this.props.goToSubscription}
+                  invoice={this.props.invoice}
                   invoiceItemList={this.props.invoice.invoice_items.filter(
                     (ii) => !!ii,
                   )}
-                  amountInvoiceItem={this.props.invoice.amount_due_cts / 100}
-                  finalizeInvoice={this.props.finalizeInvoice}
-                  goToSubscription={this.props.goToSubscription}
+                  invoiceItemLoading={this.props.invoiceItemLoading}
                 />
               )}
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item md={6} xs={12}>
               <InvoicePaymentPanel
-                invoice={this.props.invoice}
-                paymentList={this.props.paymentList}
-                plannedPaymentEventList={this.props.plannedPaymentEventList}
-                onValidate={this.onValidatePaymentGroup}
-                paymentGroupRequiringActionList={
-                  this.props.paymentGroupRequiringActionList
-                }
-                handleChangeMethod={this.props.updatePaymentMethod}
-                onRevert={this.props.openRevertDialog}
-                onPaymentIntent={() => this.props.setOpenPaymentDialog(true)}
-                onInstalmentPayment={this.props.openInstalmentPaymentDialog}
-                paymentLoading={this.props.paymentLoading}
-                consumeBalance={this.allocateDebt}
-                accountBalanceLoading={this.props.memberLoading}
                 accountBalance={
                   this.props.invoice &&
                   this.props.invoice.member &&
                   this.props.invoice.member.credit_account_balance
                 }
+                accountBalanceLoading={this.props.memberLoading}
+                applyGiftcardOnInvoice={this.applyGiftcardOnInvoice}
+                companyId={this.props.companyId}
+                consumeBalance={this.allocateDebt}
+                consumerGiftcardList={this.props.consumerGiftcardList}
+                handleChangeMethod={this.props.updatePaymentMethod}
+                invoice={this.props.invoice}
+                onInstalmentPayment={this.props.openInstalmentPaymentDialog}
+                onPaymentIntent={() => this.props.setOpenPaymentDialog(true)}
+                onRevert={this.props.openRevertDialog}
+                onValidate={this.onValidatePaymentGroup}
+                paymentGroupRequiringActionList={
+                  this.props.paymentGroupRequiringActionList
+                }
+                paymentList={this.props.paymentList}
+                paymentLoading={this.props.paymentLoading}
                 plannedPaymentEventActions={{
                   onDisable: this.cancelPlannedPaymentEvent,
                   onEnable: this.enablePlannedPaymentEvent,
@@ -575,31 +577,28 @@ export class InvoiceDetail extends React.Component<Props, State> {
                     mandate_invalid: this.revalidateMandateAndRegisterNow,
                   },
                 }}
-                companyId={this.props.companyId}
+                plannedPaymentEventList={this.props.plannedPaymentEventList}
                 snackbarSuccess={this.props.snackbarSuccess}
-                consumerGiftcardList={this.props.consumerGiftcardList}
-                applyGiftcardOnInvoice={this.applyGiftcardOnInvoice}
               />
               <RevalidateMandateDialog
+                onCancel={this.closeRevalidateMandate}
+                onSuccess={this.state.onPaymentMethodRefreshed}
                 open={!!this.state.paymentMethodIdToRevalidate}
-                requestSetupIntentSecret={this.requestSetupIntentSecret}
                 paymentGroupMethodIdentifier={
                   this.state.paymentGroupMethodIdentifierToRevalidate
                 }
                 paymentMethodIdToRevalidate={
                   this.state.paymentMethodIdToRevalidate
                 }
-                onSuccess={this.state.onPaymentMethodRefreshed}
-                onCancel={this.closeRevalidateMandate}
+                requestSetupIntentSecret={this.requestSetupIntentSecret}
               />
             </Grid>
             {!!this.props.isOpenInstalmentPaymentDialog && (
               <InstalmentPaymentDialog
-                requestSetupIntentSecret={this.requestSetupIntentSecret}
-                totalPriceCts={
-                  this.props.invoice.amount_due_cts -
-                  this.props.invoice.amount_paid_cts
+                availablePaymentMethodList={
+                  this.props.payment_method_available_manager
                 }
+                companyId={this.props.companyId}
                 enabledPaymentGroupMethodIdentifier={getBackofficeEnabledPaymentGroupMethods(
                   {
                     currency: this.props.companyTheme.currency,
@@ -609,23 +608,42 @@ export class InvoiceDetail extends React.Component<Props, State> {
                     stripeRegion,
                   },
                 )}
-                availablePaymentMethodList={
-                  this.props.payment_method_available_manager
-                }
+                fetchPaymentMethodList={this.fetchPaymentMethodList}
+                onClose={this.props.closeInstalmentPaymentDialog}
                 onlinePaymentEnabled={
                   this.props.companyTheme.online_payment_enabled
                 }
-                onClose={this.props.closeInstalmentPaymentDialog}
-                savedPaymentMethodList={this.props.savedPaymentMethodList}
-                fetchPaymentMethodList={this.fetchPaymentMethodList}
                 onSubmit={this.schedulePayment}
+                requestSetupIntentSecret={this.requestSetupIntentSecret}
+                savedPaymentMethodList={this.props.savedPaymentMethodList}
                 stripeReaders={this.props.stripeReaders}
-                companyId={this.props.companyId}
+                totalPriceCts={
+                  this.props.invoice.amount_due_cts -
+                  this.props.invoice.amount_paid_cts
+                }
               />
             )}
             {!!this.props.openPaymentDialog && (
               <PaymentDialog
+                termsAndConditionsAccepted
+                amountToPay={parseFloat(
+                  this.props.invoice.amount_due_cts -
+                    this.props.invoice.amount_paid_cts,
+                ).toFixed(2)}
+                availablePaymentMethodList={
+                  this.props.payment_method_available_manager
+                }
+                clientSecret={
+                  this.state.clientSecretLoading
+                    ? null
+                    : this.state.clientSecret
+                }
+                clientSecretLoading={this.state.clientSecretLoading}
+                companyId={this.props.companyId}
+                defaultUserEmail={this.props.invoice.member.email}
+                defaultUserName={this.props.invoice.member.name}
                 memberId={this.props.invoice.member.id}
+                onCancel={() => this.props.setOpenPaymentDialog(false)}
                 onError={() =>
                   setTimeout(() => {
                     this.props.fetchPaymentList({
@@ -634,6 +652,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
                     });
                   }, 2000)
                 }
+                onlyInternal={!this.props.companyTheme.online_payment_enabled}
                 onSuccess={(callback) => {
                   setTimeout(() => {
                     this.props.setOpenPaymentDialog(false);
@@ -641,39 +660,29 @@ export class InvoiceDetail extends React.Component<Props, State> {
                     if (typeof callback === 'function') callback();
                   }, 2000);
                 }}
-                requestClientSecret={this.requestClientSecret}
-                clientSecret={
-                  this.state.clientSecretLoading
-                    ? null
-                    : this.state.clientSecret
-                }
-                clientSecretLoading={this.state.clientSecretLoading}
                 paymentGroupId={this.state.paymentGroupId}
-                termsAndConditionsAccepted
                 paymentGroupPriceCts={this.state.paymentGroupPriceCts}
-                updatePriceCts={this.updatePaymentGroupPriceCts}
-                amountToPay={parseFloat(
-                  this.props.invoice.amount_due_cts -
-                    this.props.invoice.amount_paid_cts,
-                ).toFixed(2)}
-                onCancel={() => this.props.setOpenPaymentDialog(false)}
-                availablePaymentMethodList={
-                  this.props.payment_method_available_manager
-                }
-                defaultUserName={this.props.invoice.member.name}
-                defaultUserEmail={this.props.invoice.member.email}
-                stripeReaders={this.props.stripeReaders}
-                onlyInternal={!this.props.companyTheme.online_payment_enabled}
-                companyId={this.props.companyId}
+                requestClientSecret={this.requestClientSecret}
                 stripeId={this.props.companyTheme.stripe_id}
+                stripeReaders={this.props.stripeReaders}
+                updatePriceCts={this.updatePaymentGroupPriceCts}
               />
             )}
             {this.props.openPlannedPaymentMethodDialog &&
               !!stripeRegion &&
               !!companyCountry && (
                 <PlannedPaymentEventMethodSwitcherDialog
-                  open={this.props.openPlannedPaymentMethodDialog}
-                  selectedPPE={this.props.selectedPlannedPaymentEvent}
+                  availablePaymentMethodList={
+                    this.props.payment_method_available_manager
+                  }
+                  companyId={this.props.companyId}
+                  detachPaymentMethod={this.props.detachPaymentMethod}
+                  detachPaymentMethodLoading={
+                    this.props.detachPaymentMethodLoading
+                  }
+                  dispApplyForAll={
+                    (this.props.plannedPaymentEventList || []).length > 1
+                  }
                   enabledPaymentMethods={getBackofficeEnabledPaymentGroupMethods(
                     {
                       currency: this.props.companyTheme.currency,
@@ -683,52 +692,43 @@ export class InvoiceDetail extends React.Component<Props, State> {
                       stripeRegion,
                     },
                   )}
-                  availablePaymentMethodList={
-                    this.props.payment_method_available_manager
-                  }
-                  requestSetupIntentSecret={this.requestSetupIntentSecret}
-                  savedPaymentMethodList={this.props.savedPaymentMethodList}
-                  refreshSavedPaymentMethodList={this.fetchPaymentMethodList}
-                  detachPaymentMethodLoading={
-                    this.props.detachPaymentMethodLoading
-                  }
-                  detachPaymentMethod={this.props.detachPaymentMethod}
-                  sepaDefaultName={this.props.invoice.member.name}
-                  sepaDefaultEmail={this.props.invoice.member.email}
-                  snackbarSuccessMsg={this.props.snackbarSuccess}
-                  snackbarErrorMsg={this.props.snackbarError}
-                  companyId={this.props.companyId}
                   memberId={this.props.invoice.member.id}
-                  registerNow={this.props.registerNow}
-                  processing={this.props.plannedPaymentDialogProcessing}
-                  dispApplyForAll={
-                    (this.props.plannedPaymentEventList || []).length > 1
-                  }
-                  plannedPaymentEventLoading={
-                    this.props.plannedPaymentEventLoading
-                  }
-                  onSubmitChangePaymentMethodAndRegister={
-                    this.onSubmitChangePaymentMethodAndRegister
-                  }
                   onClose={() => {
                     this.props.setOpenPlannedPaymentMethodDialog(false);
                     this.props.setRegisterNow(false);
                   }}
+                  onSubmitChangePaymentMethodAndRegister={
+                    this.onSubmitChangePaymentMethodAndRegister
+                  }
+                  open={this.props.openPlannedPaymentMethodDialog}
+                  plannedPaymentEventLoading={
+                    this.props.plannedPaymentEventLoading
+                  }
+                  processing={this.props.plannedPaymentDialogProcessing}
+                  refreshSavedPaymentMethodList={this.fetchPaymentMethodList}
+                  registerNow={this.props.registerNow}
+                  requestSetupIntentSecret={this.requestSetupIntentSecret}
+                  savedPaymentMethodList={this.props.savedPaymentMethodList}
+                  selectedPPE={this.props.selectedPlannedPaymentEvent}
+                  sepaDefaultEmail={this.props.invoice.member.email}
+                  sepaDefaultName={this.props.invoice.member.name}
+                  snackbarErrorMsg={this.props.snackbarError}
+                  snackbarSuccessMsg={this.props.snackbarSuccess}
                   stripeReaders={this.props.stripeReaders || []}
                 />
               )}
           </Grid>
           <InvoiceReverterDialog
             invoice={this.props.invoice}
-            payments={this.props.paymentList}
-            onSubmit={this.props.revertInvoice}
-            open={this.props.revertDialogOpen}
-            onClose={this.props.closeRevertDialog}
-            onOpen={this.props.openRevertDialog}
             isAutoDebitActivated={
               this.props.companyTheme.is_auto_debit_activated
             }
             isInChurn={!!this.props.companyTheme.churn_last_paid_month}
+            onClose={this.props.closeRevertDialog}
+            onOpen={this.props.openRevertDialog}
+            onSubmit={this.props.revertInvoice}
+            open={this.props.revertDialogOpen}
+            payments={this.props.paymentList}
             refundBlockingLimit={this.props.companyTheme.refund_blocking_limit}
             stripeBalanceSum={this.props.stripeBalanceSum}
           />
@@ -741,11 +741,11 @@ export class InvoiceDetail extends React.Component<Props, State> {
                     unpaidAmount={this.props.member?.total_unpaid_amount ?? 0}
                   >
                     <Fab
-                      variant="extended"
                       color="secondary"
                       onClick={() =>
                         this.props.goToMemberPage(this.props.invoice.member.id)
                       }
+                      variant="extended"
                     >
                       <PersonIcon />
                       <Hidden xsDown>

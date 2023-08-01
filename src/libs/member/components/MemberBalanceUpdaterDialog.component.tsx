@@ -48,9 +48,9 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
 
   return (
     <GenericResponsiveDialog
-      open={props.open}
-      onClose={props.onClose}
       maxWidth="xs"
+      onClose={props.onClose}
+      open={props.open}
     >
       <form
         onSubmit={(ev) => {
@@ -77,11 +77,11 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
               {t('balance.updaterDialog.typeLabel')}
             </InputLabel>
             <Select
-              id="balance-type-select"
-              value={balanceUpdateType}
-              style={{ minWidth: 200 }}
-              onChange={(ev) => selectBalanceUpdateType(ev.target.value)}
               className={classes.field}
+              id="balance-type-select"
+              onChange={(ev) => selectBalanceUpdateType(ev.target.value)}
+              style={{ minWidth: 200 }}
+              value={balanceUpdateType}
             >
               <MenuItem value="decaissement">
                 {t('balance.updaterDialog.debt')}
@@ -91,15 +91,15 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
               </MenuItem>
             </Select>
             <PriceInput
-              variant="outlined"
-              className={classes.field}
-              value={balanceUpdateValue}
               fullWidth
-              onChange={(ev) => selectBalanceUpdateValue(ev.target.value)}
-              label={t('balance.updaterDialog.balanceValueLabel')}
+              className={classes.field}
               InputProps={{
                 inputProps: { step: 0.01, min: 0, max: 5000 },
               }}
+              label={t('balance.updaterDialog.balanceValueLabel')}
+              onChange={(ev) => selectBalanceUpdateValue(ev.target.value)}
+              value={balanceUpdateValue}
+              variant="outlined"
             />
             <div className={classes.checkboxRow}>
               <Checkbox
@@ -127,18 +127,18 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
                   </Typography>
                   <Divider className={classes.divider} />
                   <EstablishmentSelector
+                    closeMenuOnSelect
+                    isOptionDisabled
+                    isRequired
+                    noMulti
                     establishments={props.establishments}
                     isLoading={props.establishmentLoading}
-                    isOptionDisabled
+                    requiredValueIsMissing={missingValue}
+                    selectedEstablishments={[props.billingEstablishmentId]}
                     selectOption={(item: { value: number; label: string }) => {
                       props.setBillingEstablishmentId(item ? item.value : null);
                       setMissingValue(!item);
                     }}
-                    selectedEstablishments={[props.billingEstablishmentId]}
-                    noMulti
-                    closeMenuOnSelect
-                    isRequired
-                    requiredValueIsMissing={missingValue}
                   />
                 </div>
               )}
@@ -164,7 +164,7 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
           <Button onClick={props.onClose}>
             {t('balance.updaterDialog.actions.cancel')}
           </Button>
-          <Button disabled={!balanceUpdateValue} color="primary" type="submit">
+          <Button color="primary" disabled={!balanceUpdateValue} type="submit">
             {t('balance.updaterDialog.actions.submit')}
           </Button>
         </DialogActions>

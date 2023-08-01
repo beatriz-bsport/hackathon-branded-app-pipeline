@@ -235,11 +235,11 @@ export const PrivatePassCategoryList = (props: Props) => {
 
   return (
     <DndContext
+      collisionDetection={closestCenter}
+      modifiers={[restrictToVerticalAxis]}
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
       sensors={sensors}
-      collisionDetection={closestCenter}
-      modifiers={[restrictToVerticalAxis]}
     >
       <SortableContext
         items={items
@@ -252,19 +252,19 @@ export const PrivatePassCategoryList = (props: Props) => {
             props.filteredCategories?.includes(category.id || -1) ? (
             <PrivatePassCategoryItemWithPrivatePasses
               key={category.id}
-              privatePassOrder={userOrder}
-              privatePassCategory={category}
-              privatePassCategoryIds={items.map((cat) => cat.id)}
-              orderingOverride={frontendOrderingOverride}
+              deletePrivatePassCategory={props.deletePrivatePassCategory}
               filterManagerOnly={props.filterManagerOnly}
+              isCategoryDragging={isCategoryDragging}
               isCategoryFiltered={!!props.filteredCategories.length}
               onClick={props.goToPass}
               onDelete={props.setOpenDeletePassDialog}
               onEdit={props.onEditPass}
-              isCategoryDragging={isCategoryDragging}
+              orderingOverride={frontendOrderingOverride}
+              privatePassCategory={category}
+              privatePassCategoryIds={items.map((cat) => cat.id)}
+              privatePassOrder={userOrder}
               setSelectedCategory={props.setSelectedCategory}
               showCategoryEditDialog={props.showCategoryEditDialog}
-              deletePrivatePassCategory={props.deletePrivatePassCategory}
             />
           ) : null;
         })}

@@ -77,23 +77,23 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
         classes.container,
       )}
       onClick={addItemToBasket}
+      onKeyDown={stopPropagation}
       role="button"
       tabIndex={0}
-      onKeyDown={stopPropagation}
     >
       <div className={classes.cardHeader}>
         {adminView && (
-          <IconButton className={classes.dragIconButton} disableRipple>
+          <IconButton disableRipple className={classes.dragIconButton}>
             <DragIndicator />
           </IconButton>
         )}
 
         <div className={classes.cardTitleAndSubtitle}>
-          <Typography variant="subtitle2" className={classes.cardTitle}>
+          <Typography className={classes.cardTitle} variant="subtitle2">
             {item.title ?? ''}
           </Typography>
 
-          <Typography variant="caption" className={classes.cardSubtitle}>
+          <Typography className={classes.cardSubtitle} variant="caption">
             {item.subtitle ?? ''}
           </Typography>
         </div>
@@ -101,12 +101,12 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
 
       <div className={classes.cardFooter}>
         <div className={classes.priceAndRecurrence}>
-          <Typography variant="subtitle2" className={classes.cardPrice}>
+          <Typography className={classes.cardPrice} variant="subtitle2">
             {getCurrencyDisplayWithPrice((item.price ?? 0).toFixed(2))}
           </Typography>
 
           {item.recurrence && (
-            <Typography variant="caption" className={classes.cardRecurrence}>
+            <Typography className={classes.cardRecurrence} variant="caption">
               {item.recurrence}
             </Typography>
           )}
@@ -122,15 +122,15 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
 
       <div className={globalClasses.quicksaleCardActions}>
         <IconButton
-          className={globalClasses.quicksaleCardAction}
           disableRipple
+          className={globalClasses.quicksaleCardAction}
           onClick={openColorModalForCurrentItem}
         >
           <div className={globalClasses.quicksaleCardColorPickerButton} />
         </IconButton>
         <IconButton
-          className={globalClasses.quicksaleCardAction}
           disableRipple
+          className={globalClasses.quicksaleCardAction}
           onClick={deleteCurrentItem}
         >
           <DeleteIcon className={globalClasses.quicksaleCardDeleteIcon} />

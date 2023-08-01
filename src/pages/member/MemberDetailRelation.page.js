@@ -227,76 +227,68 @@ export class MemberDetailRelation extends React.Component<Props> {
     ]);
     return (
       <Grid container direction="row">
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <div className={this.props.classes.panel}>
             <MemberRelationList
+              goToMember={this.props.goToMember}
               loading={this.props.relationLoading}
               memberId={this.props.memberId}
-              relations={this.props.relationList}
-              selectedId={this.props.selectedRelationId}
-              onClickRelation={this.selectRelationId}
-              onEdit={this.openEditForm}
-              onDelete={this.props.deleteRelation}
-              goToMember={this.props.goToMember}
               onAdd={() => {
                 this.props.setOpenRelationFormDialog({
                   src_member: this.props.member,
                 });
               }}
+              onClickRelation={this.selectRelationId}
+              onDelete={this.props.deleteRelation}
+              onEdit={this.openEditForm}
+              relations={this.props.relationList}
+              selectedId={this.props.selectedRelationId}
             />
           </div>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <div className={this.props.classes.panel}>
             <RelationSummary
-              relation={this.props.selectedRelation}
               consumerPaymentPackLinks={
                 this.props.sharedConsumerPaymentPackLinks
               }
-              requestPassLinking={this.props.openConsumerPaymentPackForm}
-              unlinkPassLinking={this.props.requestUnlinkPassLinking}
-              relinkPassLinking={this.props.requestRelinkPassLinking}
               privateConsumerPassLinks={
                 this.props.sharedPrivateConsumerPassLinks
               }
-              requestPrivatePassLinking={this.props.openPrivateConsumerPassForm}
-              unlinkPrivateConsumerPass={
-                this.props.requestUnlinkPrivateConsumerPass
-              }
+              relation={this.props.selectedRelation}
+              relinkPassLinking={this.props.requestRelinkPassLinking}
               relinkPrivateConsumerPass={
                 this.props.requestRelinkPrivateConsumerPass
+              }
+              requestPassLinking={this.props.openConsumerPaymentPackForm}
+              requestPrivatePassLinking={this.props.openPrivateConsumerPassForm}
+              unlinkPassLinking={this.props.requestUnlinkPassLinking}
+              unlinkPrivateConsumerPass={
+                this.props.requestUnlinkPrivateConsumerPass
               }
             />
           </div>
         </Grid>
         <ConsumerPassLinkingDeleteDialog
-          open={!!this.props.consumerPassLinkToDelete}
-          onSubmit={this.props.unlinkPassLinking}
           consumerPackLink={this.props.consumerPassLinkToDelete}
           onCancel={this.props.cancelUnlinkRequest}
+          onSubmit={this.props.unlinkPassLinking}
+          open={!!this.props.consumerPassLinkToDelete}
           processing={this.props.consumerPassLinkLoading}
         />
         <ConsumerPassRelinkDialog
-          open={!!this.props.consumerPassLinkToRelink}
-          onSubmit={this.props.relinkPassLinking}
           consumerPackLink={this.props.consumerPassLinkToRelink}
           onCancel={this.props.cancelRelinkRequest}
+          onSubmit={this.props.relinkPassLinking}
+          open={!!this.props.consumerPassLinkToRelink}
           processing={this.props.consumerPassLinkLoading}
         />
         <Dialog open={this.props.openConsumerPackLinking}>
           <DialogContent>
             {this.props.consumerPassLinkLoading && <LinearProgress />}
             <ConsumerPackLinkForm
-              page={this.props.consumerPackCurrentPage}
-              count={this.props.consumerPackCount}
-              fetchConsumerPacks={(page, page_size) =>
-                this.props.fetchConsumerPacks(
-                  this.props.memberId,
-                  page,
-                  page_size,
-                )
-              }
               consumerPacks={this.props.memberConsumerPacks}
+              count={this.props.consumerPackCount}
               disabledStuff={this.props.memberConsumerPacks
                 .filter(
                   (cpp) =>
@@ -304,37 +296,39 @@ export class MemberDetailRelation extends React.Component<Props> {
                     linkedPassIds.includes(cpp.id),
                 )
                 .map((cpp) => cpp.id)}
+              fetchConsumerPacks={(page, page_size) =>
+                this.props.fetchConsumerPacks(
+                  this.props.memberId,
+                  page,
+                  page_size,
+                )
+              }
               loading={this.props.passLoading}
-              processing={this.props.consumerPassLinkLoading}
               onCancel={() => this.props.setOpenConsumerPackLinking(false)}
               onSubmit={this.props.createPassLinking}
+              page={this.props.consumerPackCurrentPage}
+              processing={this.props.consumerPassLinkLoading}
             />
           </DialogContent>
         </Dialog>
         <PrivateConsumerPassLinkingDeleteDialog
-          open={!!this.props.privateConsumerPassLinkToDelete}
-          onSubmit={this.props.unlinkPrivateConsumerPassLinking}
-          privateConsumerPassLinkId={this.props.privateConsumerPassLinkToDelete}
           onCancel={this.props.cancelUnlinkPrivateConsumerPass}
+          onSubmit={this.props.unlinkPrivateConsumerPassLinking}
+          open={!!this.props.privateConsumerPassLinkToDelete}
+          privateConsumerPassLinkId={this.props.privateConsumerPassLinkToDelete}
           processing={this.props.consumerPassLinkLoading}
         />
         <PrivateConsumerPassRelinkDialog
-          open={!!this.props.privateConsumerPassLinkToRelink}
-          onSubmit={this.props.relinkPrivateConsumerPassLinking}
-          privateConsumerPassLinkId={this.props.privateConsumerPassLinkToRelink}
           onCancel={this.props.cancelRelinkPrivateConsumerPass}
+          onSubmit={this.props.relinkPrivateConsumerPassLinking}
+          open={!!this.props.privateConsumerPassLinkToRelink}
+          privateConsumerPassLinkId={this.props.privateConsumerPassLinkToRelink}
           processing={this.props.consumerPassLinkLoading}
         />
         <Dialog open={this.props.openPrivateConsumerPassLinking}>
           <DialogContent>
             {this.props.consumerPassLinkLoading && <LinearProgress />}
             <PrivateConsumerPassLinkForm
-              privateConsumerPasses={this.props.privateConsumerPasses}
-              loading={this.props.privatePassLoading}
-              onCancel={() =>
-                this.props.setOpenPrivateConsumerPassLinking(false)
-              }
-              onSubmit={this.props.createPrivatePassLinking}
               disabledStuff={this.props.privateConsumerPasses
                 .filter(
                   (pcp) =>
@@ -343,6 +337,12 @@ export class MemberDetailRelation extends React.Component<Props> {
                     linkedPrivatePassIds.includes(pcp.id),
                 )
                 .map((pcp) => pcp.id)}
+              loading={this.props.privatePassLoading}
+              onCancel={() =>
+                this.props.setOpenPrivateConsumerPassLinking(false)
+              }
+              onSubmit={this.props.createPrivatePassLinking}
+              privateConsumerPasses={this.props.privateConsumerPasses}
               processing={this.props.consumerPassLinkLoading}
             />
           </DialogContent>
@@ -350,19 +350,19 @@ export class MemberDetailRelation extends React.Component<Props> {
         {!!this.props.openRelationFormDialog && (
           <Dialog open={!!this.props.openRelationFormDialog}>
             <RelationForm
+              generalTermsAndConditions={this.props.generalTermsAndConditions}
               initial={this.props.openRelationFormDialog}
-              searchMembers={this.props.searchMembers}
-              searchLoading={this.props.searchMembersLoading}
+              managerFormConfig={this.props.managerFormConfig?.poll_fields}
+              onCancel={() => this.props.setOpenRelationFormDialog(null)}
+              onSubmit={this.createOrUpdateRelation}
               searchedMembers={this.props.searchedMembers.filter(
                 (m) =>
                   m.id !== this.props.memberId &&
                   !relatedMemberIds.includes(m.id),
               )}
-              onCancel={() => this.props.setOpenRelationFormDialog(null)}
-              onSubmit={this.createOrUpdateRelation}
-              managerFormConfig={this.props.managerFormConfig?.poll_fields}
+              searchLoading={this.props.searchMembersLoading}
+              searchMembers={this.props.searchMembers}
               waiver={this.props.waiver}
-              generalTermsAndConditions={this.props.generalTermsAndConditions}
             />
           </Dialog>
         )}

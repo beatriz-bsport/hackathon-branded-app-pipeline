@@ -114,21 +114,21 @@ export class ThemePersonalize extends Component<Props> {
         <div className={classes.container}>
           <Paper className={classes.paper}>
             <ThemePersonalizeForm
-              theme={theme}
               onSubmit={submitTheme}
               processing={themeProcessing}
+              theme={theme}
             />
           </Paper>
           {isCommunicationPersonalizeFormDisplayed &&
             !communicationProviderSettingsLoading && (
               <Paper className={classes.paper}>
                 <CommunicationPersonalizeForm
+                  companyId={theme.company}
+                  fetchCompanyTheme={fetchCompanyTheme}
+                  is_two_way_email_activated={isTwoWayEmailActivated}
                   updateCommunicationProviderSettingsAction={
                     updateCommunicationProviderSettings
                   }
-                  fetchCompanyTheme={fetchCompanyTheme}
-                  is_two_way_email_activated={isTwoWayEmailActivated}
-                  companyId={theme.company}
                 />
               </Paper>
             )}
@@ -138,33 +138,33 @@ export class ThemePersonalize extends Component<Props> {
                 {t('forms.productsThemePersonalization.title')}
               </Typography>
               <CreditsPersonalizeForm
+                onSubmit={submitTheme}
                 productTheme={{
                   company: theme.company,
                   hide_credits_for_customers: theme.hide_credits_for_customers,
                 }}
-                onSubmit={submitTheme}
               />
               {theme.display_new_checkout_flow && (
                 <>
                   <Divider className={classes.divider} />
                   <ProductsOrderingPersonalizeForm
                     companyId={theme?.company}
-                    customPricingOptionOrderingEnabled={
-                      bookingFunnelConfiguration?.custom_pricing_option_ordering_enabled
+                    contractNumberItems={contractNumberItems}
+                    currentPricingOptionOrdering={
+                      bookingFunnelConfiguration?.current_pricing_option_ordering ??
+                      []
                     }
                     customPricingOptionOrdering={
                       bookingFunnelConfiguration?.custom_pricing_option_ordering ??
                       []
                     }
-                    currentPricingOptionOrdering={
-                      bookingFunnelConfiguration?.current_pricing_option_ordering ??
-                      []
+                    customPricingOptionOrderingEnabled={
+                      bookingFunnelConfiguration?.custom_pricing_option_ordering_enabled
                     }
-                    paymentPackCategories={paymentPackCategories}
-                    paymentPackByCategorySummary={paymentPackByCategorySummary}
-                    paymentComboNumberItems={paymentComboNumberItems}
-                    contractNumberItems={contractNumberItems}
                     onSubmit={submitBookingFunnelConfiguration}
+                    paymentComboNumberItems={paymentComboNumberItems}
+                    paymentPackByCategorySummary={paymentPackByCategorySummary}
+                    paymentPackCategories={paymentPackCategories}
                   />
                 </>
               )}

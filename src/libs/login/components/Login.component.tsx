@@ -100,16 +100,16 @@ export class ConsumerLogin extends Component<Props, State> {
           <div className="bs-login-container__logo-div">
             <div>
               <img
-                src={
-                  this.props.theme
-                    ? this.props.theme.cover
-                    : 'https://cdn.bsport.io/bsport_logo_txt.png'
-                }
-                className="bs-login-container__logo"
                 alt={
                   this.props.theme
                     ? `${this.props.theme.company_name} - logo`
                     : 'bsport-logo'
+                }
+                className="bs-login-container__logo"
+                src={
+                  this.props.theme
+                    ? this.props.theme.cover
+                    : 'https://cdn.bsport.io/bsport_logo_txt.png'
                 }
               />
             </div>
@@ -132,8 +132,8 @@ export class ConsumerLogin extends Component<Props, State> {
             )}
             {!simplifyUI && (
               <IconButton
-                id="btn-intercom"
                 className="bs-login-container__icon-button"
+                id="btn-intercom"
                 onClick={() => openIntercomHelp('login')}
               >
                 <HelpIcon />
@@ -164,13 +164,13 @@ export class ConsumerLogin extends Component<Props, State> {
                       return (
                         <form className="bs-flex-row">
                           <Radio
-                            isChecked={this.state.email === email_choice}
+                            labelRight
                             disabled={this.props.loading}
-                            onClick={this.onEmailChange}
-                            value={email_choice}
+                            isChecked={this.state.email === email_choice}
                             label={email_choice}
                             name={email_choice}
-                            labelRight
+                            onClick={this.onEmailChange}
+                            value={email_choice}
                           />
                         </form>
                       );
@@ -180,19 +180,18 @@ export class ConsumerLogin extends Component<Props, State> {
               </div>
             ) : (
               <FormField
-                id="email"
-                data-testid="email"
-                name="login"
-                disabled={this.props.loading}
-                onChange={this.onFormFieldChange}
                 fullWidth
+                data-testid="email"
+                disabled={this.props.loading}
+                id="email"
+                name="login"
+                onChange={this.onFormFieldChange}
               />
             )}
           </div>
           <div className="bs-login-container__field">
             <PasswordInput
               fullWidth
-              value={this.state.password}
               disabled={
                 this.props.loading ||
                 (!!this.props.emailChoices && !this.state.email)
@@ -200,6 +199,7 @@ export class ConsumerLogin extends Component<Props, State> {
               onChange={(ev: any) =>
                 this.onFormFieldChange('password')(ev.target.value)
               }
+              value={this.state.password}
             />
           </div>
           {error ? (
@@ -219,8 +219,8 @@ export class ConsumerLogin extends Component<Props, State> {
               </div>
               <IconButton
                 id="btn-intercom-error"
-                type="submit"
                 onClick={() => openIntercomHelp('login')}
+                type="submit"
               >
                 <HelpIcon />
               </IconButton>
@@ -228,17 +228,17 @@ export class ConsumerLogin extends Component<Props, State> {
           ) : null}
           <Button
             className={signinButtonClass}
-            disabled={this.props.loading}
-            variant="contained"
-            type="submit"
-            id="btn-signin"
             data-testid="btn-signin"
+            disabled={this.props.loading}
+            id="btn-signin"
+            type="submit"
+            variant="contained"
           >
             {!!this.props.loading && (
               <CircularProgress
                 className="bs-login-container__signin-button__circular-progress"
-                size={24}
                 color="inherit"
+                size={24}
               />
             )}
             {t('actions.signin')}
@@ -250,6 +250,7 @@ export class ConsumerLogin extends Component<Props, State> {
             )}
           >
             <a
+              className="bs-login-container__forgotten-password__link"
               href={`${Config.PUBLIC_URL}/login/reset_password${buildUrlParams({
                 ...(this.props.theme
                   ? { membership: this.props.theme.company }
@@ -258,7 +259,6 @@ export class ConsumerLogin extends Component<Props, State> {
                   ? { franchisor: this.props.franchisor.id }
                   : {}),
               })}`}
-              className="bs-login-container__forgotten-password__link"
             >
               <p
                 className={classnames(
@@ -302,21 +302,21 @@ export class ConsumerLogin extends Component<Props, State> {
               {t('actions.signup.noAccount')}
             </div>
             <Button
-              id="btn-goto-signup"
-              variant="outlined"
-              disabled={loading}
-              onClick={requestSignUp}
               className="bs-login-container__register-button"
+              disabled={loading}
+              id="btn-goto-signup"
+              onClick={requestSignUp}
+              variant="outlined"
             >
               {t('actions.signup.register')}
             </Button>
             {!this.props.isPremium && !simplifyUI && (
               <div className="bs-login-container__studio-manager">
                 <a
+                  className="bs-link"
                   href={getCalendlyLinkFromCountry(
                     this.props.theme?.company_name,
                   )}
-                  className="bs-link"
                 >
                   <div className="bs-login-container__body2-text">
                     {t('contactUs')}

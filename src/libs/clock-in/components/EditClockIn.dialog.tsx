@@ -49,7 +49,7 @@ export const EditClockinModal: React.FC<Props> = ({ open, onCancel }) => {
   const classes = useStyles();
 
   return (
-    <Dialog open={open} onClose={onCancel}>
+    <Dialog onClose={onCancel} open={open}>
       <div className={classes.dialog}>
         <Form>
           <DialogTitle>{t('editModal.title')}</DialogTitle>
@@ -67,21 +67,21 @@ export const EditClockinModal: React.FC<Props> = ({ open, onCancel }) => {
               <StopIcon className={classes.icon} />
               <div>{t('editModal.endingTime')}</div>
             </div>
-            <DateField name="dateEnd" outsideErrorDisplay />
-            <TimeField name="dateEnd" outsideErrorDisplay />
+            <DateField outsideErrorDisplay name="dateEnd" />
+            <TimeField outsideErrorDisplay name="dateEnd" />
             <AlertError name="dateEnd" />
 
             <div className={classes.hr} />
           </DialogContent>
           <DialogActions>
-            <Button variant="contained" onClick={onCancel}>
+            <Button onClick={onCancel} variant="contained">
               {t('editModal.cancel')}
             </Button>
             <Button
-              variant="contained"
+              className={classes.primaryButton}
               color="primary"
               type="submit"
-              className={classes.primaryButton}
+              variant="contained"
             >
               {t('editModal.confirm')}
             </Button>

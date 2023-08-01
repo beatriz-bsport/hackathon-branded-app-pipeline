@@ -78,8 +78,9 @@ export class ConsumerPaymentPackListItemCheckout extends Component<
     const buyButtonText = this.getBuyText();
     return (
       <Button
-        variant="contained"
         color="primary"
+        disabled={this.state.processing}
+        id={`btn-payment-pack-user-${consumerPack.id}`}
         onClick={() => {
           this.setState({ processing: true });
           this.props.onBookFromPack({
@@ -87,8 +88,7 @@ export class ConsumerPaymentPackListItemCheckout extends Component<
             onError: () => this.setState({ processing: false }),
           });
         }}
-        disabled={this.state.processing}
-        id={`btn-payment-pack-user-${consumerPack.id}`}
+        variant="contained"
       >
         {buyButtonText}
       </Button>
@@ -99,10 +99,10 @@ export class ConsumerPaymentPackListItemCheckout extends Component<
     return (
       <ConsumerPackRowItem
         hideConsumer
-        noDivider={!this.props.divider}
-        consumerPack={this.props.consumerPack}
-        paymentPack={this.props.consumerPack.payment_pack}
         button={this.renderButton()}
+        consumerPack={this.props.consumerPack}
+        noDivider={!this.props.divider}
+        paymentPack={this.props.consumerPack.payment_pack}
       />
     );
   }

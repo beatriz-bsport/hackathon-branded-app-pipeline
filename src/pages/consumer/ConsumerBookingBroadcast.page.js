@@ -39,13 +39,13 @@ export class ConsumerBookingBroadcast extends React.Component<Props> {
         this.props.booking.offer &&
         this.props.broadcast_info ? (
           <BroadcastRoom
-            userType="consumer"
-            username={this.props.membership.name}
-            offer={this.props.booking.offer}
             broadcast_info={this.props.broadcast_info}
             date_start={this.props.booking.offer_date_start}
-            theme={this.props.theme}
             duration_minute={this.props.booking.offer_duration_minute}
+            offer={this.props.booking.offer}
+            theme={this.props.theme}
+            username={this.props.membership.name}
+            userType="consumer"
           />
         ) : (
           <LinearProgress />

@@ -422,34 +422,34 @@ export const CountrySelector = (props: Props) => {
     >
       {!!props.label && (
         <InputLabel
-          style={props.variant === 'outlined' ? { marginLeft: 16 } : {}}
           id="locale-simple-select-label"
+          style={props.variant === 'outlined' ? { marginLeft: 16 } : {}}
         >
           {props.label}
         </InputLabel>
       )}
       <Select
-        variant={props.variant}
-        required={props.required}
         defaultValue={props.defaultValue}
-        value={props.value}
         onChange={props.onChange}
+        required={props.required}
+        value={props.value}
+        variant={props.variant}
       >
         {localeList.map((localeContainer) => {
           const [lang, country] = localeContainer.locale.split('_');
           return (
             <MenuItem
               key={localeContainer.locale}
+              className={classes.menuItem}
               value={
                 props.valueKey
                   ? localeContainer[props.valueKey]
                   : localeContainer.locale
               }
-              className={classes.menuItem}
             >
               <img
-                className={classes.flag}
                 alt={localeContainer.locale}
+                className={classes.flag}
                 src={localeContainer.icon}
               />
               {t(`country.${country}`)}

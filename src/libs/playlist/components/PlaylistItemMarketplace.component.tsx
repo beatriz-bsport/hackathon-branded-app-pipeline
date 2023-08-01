@@ -98,12 +98,12 @@ const MarketplacePlaylistItem = (props: Props) => {
   const classes = useStyles();
 
   return (
-    <ButtonBase onClick={onClick} className={classes.container}>
+    <ButtonBase className={classes.container} onClick={onClick}>
       <div className={classes.container2}>
         <div className={classes.playlistItem__image_wrapper}>
-          <img src={imageUrl} className={classes.img} alt="playlist" />
+          <img alt="playlist" className={classes.img} src={imageUrl} />
           <div className={classes.image_wrapper__count_wrapper}>
-            <Typography variant="h6" component="h3">
+            <Typography component="h3" variant="h6">
               {videoCount}
             </Typography>
             <VideoLibraryIcon
@@ -116,18 +116,18 @@ const MarketplacePlaylistItem = (props: Props) => {
         <div className={classes.playlist_item__content}>
           <Typography
             align="left"
-            variant="h6"
-            component="h3"
             className={classes.playlist_item_title}
+            component="h3"
+            variant="h6"
           >
             {title}
           </Typography>
 
           <Typography
-            variant="body2"
-            color="textSecondary"
             align="left"
             className={classes.playlist_item__description}
+            color="textSecondary"
+            variant="body2"
           >
             {description}
           </Typography>

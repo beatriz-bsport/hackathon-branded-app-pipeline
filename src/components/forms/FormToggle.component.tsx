@@ -12,15 +12,15 @@ type Props = {
 
 export default function FormToggle(props: Props) {
   return (
-    <Grid container direction="row" spacing={2} alignItems="center">
+    <Grid container alignItems="center" direction="row" spacing={2}>
       <Grid item>
         <Switch
-          color="primary"
           checked={props.value}
+          color="primary"
+          disabled={props.disabled}
           onChange={(event) => {
             props.onChange(!event.target.checked);
           }}
-          disabled={props.disabled}
         />
       </Grid>
       <Grid item>

@@ -159,10 +159,10 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
             <div className={classes.mobileActionColumn}>
               {!isOfferSelected && reasonActionDisabled !== '' ? (
                 <IconButton
-                  size="small"
                   onClick={reasonActionDisabledClickHandler(
                     reasonActionDisabled,
                   )}
+                  size="small"
                 >
                   <ErrorOutlineIcon className={classes.icon} />
                 </IconButton>
@@ -217,7 +217,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
             </Typography>
             {enableMultiLocalization && (
               <div className={classes.mobileMultiLoc}>
-                <LocationOnIcon fontSize="small" className={classes.iconLeft} />
+                <LocationOnIcon className={classes.iconLeft} fontSize="small" />
                 <Typography className={classes.mobileSmallFont}>
                   {establishmentGroupList.join(', ')}
                 </Typography>
@@ -240,8 +240,8 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
           >
             <div className={classes.level}>
               <LevelChip
-                customLevel={offer.customLevel}
                 isChip
+                customLevel={offer.customLevel}
                 smallFont={isMobile}
               />
             </div>
@@ -285,10 +285,10 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
   return (
     <TableRow key={offer.id}>
       <TableCell className={classes.tableCell}>
-        <Typography variant="subtitle1" className={classes.weight500}>
+        <Typography className={classes.weight500} variant="subtitle1">
           {formatAsDatetimeAdapted(offerDateStartAsMoment, 'll', timezone)}
         </Typography>
-        <Typography variant="body2" className={classes.grey}>
+        <Typography className={classes.grey} variant="body2">
           {`${formatAsTime(offerDateStartAsMoment, timezone)} - ${formatAsTime(
             offerDateEndAsMoment,
             timezone,
@@ -299,13 +299,13 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
         <Divider className={classes.divider} />
       </Hidden>
       <TableCell className={classes.tableCell}>
-        <Typography variant="subtitle1" className={classes.weight500}>
+        <Typography className={classes.weight500} variant="subtitle1">
           {offer.meta_activity.name}
         </Typography>
       </TableCell>
       <TableCell className={classes.tableCell}>
         <div className={classes.level}>
-          <LevelChip customLevel={offer.customLevel} isChip />
+          <LevelChip isChip customLevel={offer.customLevel} />
         </div>
       </TableCell>
       <TableCell className={classes.tableCell}>
@@ -337,8 +337,8 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
           >
             <span>
               <Checkbox
-                disabled={!isOfferSelected && reasonActionDisabled !== ''}
                 checked={selectedOffers?.includes(offer.id)}
+                disabled={!isOfferSelected && reasonActionDisabled !== ''}
                 onChange={onClickCheckbox}
               />
             </span>

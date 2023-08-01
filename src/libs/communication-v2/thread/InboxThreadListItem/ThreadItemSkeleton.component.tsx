@@ -18,23 +18,23 @@ const ThreadItemSkeleton: React.FC = () => {
         <Avatar />
       </Skeleton>
       <ListItemText
+        className={classes.content}
         primary={
           <Skeleton
-            variant="text"
             animation="wave"
             height="100%"
+            variant="text"
             width="100%"
           />
         }
         secondary={
           <Skeleton
-            variant="text"
             animation="wave"
             height="100%"
+            variant="text"
             width="100%"
           />
         }
-        className={classes.content}
       />
     </ListItem>
   );

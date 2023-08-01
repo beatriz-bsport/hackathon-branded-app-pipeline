@@ -50,8 +50,8 @@ const AvailableSlots: React.FC<{
               availablePrivateSlots.map((slotAvailable) => {
                 return (
                   <div
-                    className="bs-pass-compatibility-dialog__compatibility__itemList__item"
                     key={slotAvailable.id}
+                    className="bs-pass-compatibility-dialog__compatibility__itemList__item"
                   >
                     {slotAvailable.name}
                   </div>
@@ -89,21 +89,21 @@ const MarketplacePrivatePassCompatibilityModal: React.FC<Props> = ({
       {isOpen && (
         <div className="bs-pass-compatibility-dialog__backdrop">
           <Card
-            size={CardSize.L}
             classes={{
               'bs-pass-compatibility-dialog': 'bs-pass-compatibility-dialog',
             }}
+            size={CardSize.L}
           >
             <Content>
               <Grid>
-                <Item rowStart={1} alignment={Alignment.CENTER}>
+                <Item alignment={Alignment.CENTER} rowStart={1}>
                   <div className="bs-pass-compatibility-dialog__header__check-icon --is-desktop">
                     <ValidationIcon
                       color={validationIconStyles.color}
-                      widthCircle={validationIconStyles.circle.width}
                       heightCircle={validationIconStyles.circle.height}
-                      widthIcon={validationIconStyles.checkIcon.width}
                       heightIcon={validationIconStyles.checkIcon.height}
+                      widthCircle={validationIconStyles.circle.width}
+                      widthIcon={validationIconStyles.checkIcon.width}
                     />
                   </div>
                   <h3 className="bs-pass-compatibility-dialog__header__title --is-desktop">
@@ -119,8 +119,8 @@ const MarketplacePrivatePassCompatibilityModal: React.FC<Props> = ({
                   <div className="bs-pass-compatibility-dialog__body --is-desktop">
                     {compatiblePrivateServices?.map((privateService) => (
                       <AvailableSlots
-                        privateServiceWithSlots={privateService}
                         key={privateService?.id}
+                        privateServiceWithSlots={privateService}
                       />
                     ))}
                   </div>
@@ -133,16 +133,16 @@ const MarketplacePrivatePassCompatibilityModal: React.FC<Props> = ({
                   </div>
                 </Item>
                 <Item
-                  rowStart={3}
                   classes={{
                     'bs-pass-compatibility-dialog__footer':
                       'bs-pass-compatibility-dialog__footer',
                   }}
+                  rowStart={3}
                 >
                   <button
                     className="bs-pass-compatibility-dialog__footer__button"
-                    type="button"
                     onClick={onDialogClose}
+                    type="button"
                   >
                     {t('genericCardDetails.compatibility.button.close')}
                   </button>

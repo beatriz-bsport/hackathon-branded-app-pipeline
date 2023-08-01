@@ -27,8 +27,8 @@ export const EstablishmentGroupByAddressItem = (props: Props) => {
   return (
     <div className={classes.container}>
       <ButtonBase
-        onClick={() => setOpenCollapse(!openCollapse)}
         className={classes.flexHeader}
+        onClick={() => setOpenCollapse(!openCollapse)}
       >
         <Typography variant="h5">{establishmentGroup.address}</Typography>
         {openCollapse ? <ExpandLessIcon /> : <ExpandMoreIcon />}

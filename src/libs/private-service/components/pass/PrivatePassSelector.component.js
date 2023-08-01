@@ -67,16 +67,16 @@ export function PrivatePassSelector(props: Props) {
     : [];
   return (
     <Selector
-      autofocus={autofocus}
       searchIcon
-      selected={value}
-      nullCurrentValue={props.nullCurrentValue}
-      suggestions={suggestions}
+      autofocus={autofocus}
       className={classNames(classes, selectorClass)}
       components={{ Option: privatePassOption }}
-      placeholder={helperText}
-      onChange={(event) => onChange(event.value)}
       isDisabled={!!props.disabled}
+      nullCurrentValue={props.nullCurrentValue}
+      onChange={(event) => onChange(event.value)}
+      placeholder={helperText}
+      selected={value}
+      suggestions={suggestions}
     />
   );
 }

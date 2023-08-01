@@ -40,27 +40,27 @@ export const AcceptTermsAndConditions = (props: Props) => {
       <FormControlLabel
         control={
           <Checkbox
-            required={props.required}
             checked={props.accepted}
-            onChange={(ev) => props.onChecked(ev.target.checked)}
-            disabled={props.disabled}
             classes={{ root: classes.checkbox, checked: classes.checked }}
+            disabled={props.disabled}
+            onChange={(ev) => props.onChecked(ev.target.checked)}
+            required={props.required}
           />
         }
         label={
           <Typography
+            align="left"
             component="div"
             variant={isNewCheckoutFlow ? 'body1' : 'caption'}
-            align="left"
           >
             {!props.label && (
               <span>{props.t('generalTermsAndConditions.iAccept')}</span>
             )}
             <ButtonBase onClick={() => props.setShowTermsAndConditions(true)}>
               <Typography
-                variant={isNewCheckoutFlow ? 'body1' : 'caption'}
-                color={isNewCheckoutFlow ? 'primary' : 'secondary'}
                 align="left"
+                color={isNewCheckoutFlow ? 'primary' : 'secondary'}
+                variant={isNewCheckoutFlow ? 'body1' : 'caption'}
               >
                 {props.label ||
                   props.t(`generalTermsAndConditions.${props.type}`)}
@@ -70,8 +70,8 @@ export const AcceptTermsAndConditions = (props: Props) => {
         }
       />
       <Dialog
-        open={props.showTermsAndConditions}
         onClose={() => props.setShowTermsAndConditions(false)}
+        open={props.showTermsAndConditions}
       >
         <DialogContent>
           <TypographyMultiline>{props.termsAndConditions}</TypographyMultiline>

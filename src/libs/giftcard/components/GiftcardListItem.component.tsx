@@ -54,14 +54,14 @@ export default function GiftcardListItem(props: Props) {
   return (
     <>
       <ListItem
-        divider={divider}
-        selected={!!selected}
         button={!!onClick}
+        divider={divider}
         onClick={() => onClick && onClick(giftcard.id)}
+        selected={!!selected}
         style={isFocused ? { backgroundColor: '#EFEFEF' } : {}}
       >
         <ListItemAvatar>
-          <Avatar src={giftcard.cover} alt="" />
+          <Avatar alt="" src={giftcard.cover} />
         </ListItemAvatar>
         <ListItemText
           primary={giftcard.name}

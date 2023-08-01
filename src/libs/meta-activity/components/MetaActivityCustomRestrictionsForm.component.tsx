@@ -75,9 +75,9 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <ButtonBase
-        onClick={() => setOpenCustomRestrictions(!openCustomRestrcition)}
-        className={classes.flexHeader}
         disableRipple
+        className={classes.flexHeader}
+        onClick={() => setOpenCustomRestrictions(!openCustomRestrcition)}
       >
         <div className={classes.headerWithIcon}>
           <TuneIcon className={classes.leftIcon} />
@@ -93,30 +93,12 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
       <Collapse in={openCustomRestrcition}>
         {maxSteps ? (
           <MobileStepper
-            steps={maxSteps}
-            position="static"
-            variant="text"
             activeStep={activeStep}
-            classes={{ root: classes.transparentBackGround }}
-            nextButton={
-              <Button
-                size="small"
-                onClick={handleNext}
-                disabled={activeStep === maxSteps - 1}
-              >
-                {t('restrictions.next')}
-                {theme.direction === 'rtl' ? (
-                  <KeyboardArrowLeft />
-                ) : (
-                  <KeyboardArrowRight />
-                )}
-              </Button>
-            }
             backButton={
               <Button
-                size="small"
-                onClick={handleBack}
                 disabled={activeStep === 0}
+                onClick={handleBack}
+                size="small"
               >
                 {theme.direction === 'rtl' ? (
                   <KeyboardArrowRight />
@@ -126,6 +108,24 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
                 {t('restrictions.back')}
               </Button>
             }
+            classes={{ root: classes.transparentBackGround }}
+            nextButton={
+              <Button
+                disabled={activeStep === maxSteps - 1}
+                onClick={handleNext}
+                size="small"
+              >
+                {t('restrictions.next')}
+                {theme.direction === 'rtl' ? (
+                  <KeyboardArrowLeft />
+                ) : (
+                  <KeyboardArrowRight />
+                )}
+              </Button>
+            }
+            position="static"
+            steps={maxSteps}
+            variant="text"
           />
         ) : null}
 
@@ -156,11 +156,11 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
                       })}
                     </Typography>
                     <IconButton
+                      aria-label="Delete"
                       onClick={() => {
                         remove(i);
                         setActiveStep(0);
                       }}
-                      aria-label="Delete"
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -171,15 +171,17 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
                     {custom_restriction_rule_error &&
                       custom_restriction_rule_error[i]?.tags && (
                         <div>
-                          <Typography variant="caption" color="error">
+                          <Typography color="error" variant="caption">
                             {t(`restrictions.tags.mandatory`)}
                           </Typography>
                         </div>
                       )}
                     <div className={classes.tagSelector}>
                       <TagSelector
+                        closeMenuOnSelect
+                        inScrollBar
+                        isClearable
                         allTagsWithTagGroup={tags || []}
-                        placeholder={t('restrictions.tags.selectPlaceHolder')}
                         onChange={(
                           items: Array<{
                             item: Tag & { label: string; value: number };
@@ -198,10 +200,8 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
                             ),
                           )
                         }
+                        placeholder={t('restrictions.tags.selectPlaceHolder')}
                         selectedTags={crr?.tags || []}
-                        isClearable
-                        closeMenuOnSelect
-                        inScrollBar
                       />
                     </div>
                     <>
@@ -213,15 +213,15 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
                       </div>
                       <div className={classes.field}>
                         <DurationField
-                          name={`custom_restriction_rule.${i}.last_booking_minutes`}
+                          fullWidth
+                          required
                           label={
                             variant === 'workshop'
                               ? t('workshopActivity.lastBookingBeforeMinutes')
                               : t('activity.lastBookingBeforeMinutes')
                           }
+                          name={`custom_restriction_rule.${i}.last_booking_minutes`}
                           variant={variant === 'workshop' ? 'long' : null}
-                          fullWidth
-                          required
                         />
                       </div>
                     </>
@@ -234,14 +234,14 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
                       </div>
                       <div className={classes.field}>
                         <DurationField
-                          name={`custom_restriction_rule.${i}.last_discard_minutes`}
+                          fullWidth
+                          required
                           label={
                             variant === 'workshop'
                               ? t('workshopActivity.lastDiscardBeforeMinutes')
                               : t('activity.lastDiscardBeforeMinutes')
                           }
-                          fullWidth
-                          required
+                          name={`custom_restriction_rule.${i}.last_discard_minutes`}
                         />
                       </div>
                     </>
@@ -254,16 +254,16 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
                       </div>
                       <div className={classes.field}>
                         <DurationField
-                          name={`custom_restriction_rule.${i}.first_booking_minutes_until`}
-                          label={t('activity.firstBookingMinutesUntil')}
                           fullWidth
                           required
+                          label={t('activity.firstBookingMinutesUntil')}
+                          name={`custom_restriction_rule.${i}.first_booking_minutes_until`}
                         />
                       </div>
                       {isFirstBookingMinutesUntilZero(i) && (
                         <Alert
-                          severity="warning"
                           className={classes.alignCenter}
+                          severity="warning"
                         >
                           {t('activity.firstMinutesBookingUntilWarning')}
                         </Alert>
@@ -274,8 +274,8 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
               ))}
               <div className={classes.actionsContainer}>
                 <Button
-                  variant="outlined"
                   color="secondary"
+                  disabled={values?.custom_restriction_rule?.length >= 3}
                   onClick={() => {
                     push({
                       last_booking_minutes: 0,
@@ -285,7 +285,7 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
 
                     setActiveStep(Math.min(maxSteps, 3));
                   }}
-                  disabled={values?.custom_restriction_rule?.length >= 3}
+                  variant="outlined"
                 >
                   <AddIcon className={classes.leftIcon} />
                   {t('restrictions.add', {

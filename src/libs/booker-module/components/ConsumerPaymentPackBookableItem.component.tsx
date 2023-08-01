@@ -26,14 +26,14 @@ const ConsumerPaymentPackItem = (props: Props) => {
       })}
     >
       <CreditStatus
-        paymentPack={props.consumerPaymentPack.payment_pack}
         consumerPack={props.consumerPaymentPack}
+        paymentPack={props.consumerPaymentPack.payment_pack}
         variant="h6"
       />
-      <Typography variant="body1" color="textSecondary" align="left">
+      <Typography align="left" color="textSecondary" variant="body1">
         {expireDate}
       </Typography>
-      <Typography variant="body1" color="textPrimary" align="left">
+      <Typography align="left" color="textPrimary" variant="body1">
         {props.consumerPaymentPack?.payment_pack?.name || ' - '}
       </Typography>
     </div>

@@ -86,28 +86,28 @@ export class MemberDetailPayment extends Component<Props> {
       <div>
         <div className={this.props.classes.table}>
           <InvoiceTable
-            finalizeInvoice={this.props.finalizeInvoice}
-            count={this.props.count}
-            invoiceList={this.props.invoiceList}
-            onInvoiceExpand={this.fetchInvoiceDataNested}
-            loading={this.props.loading}
-            showType
             hideMemberName
+            showType
             containerComponent={Paper}
-            page={this.props.page}
-            onClickInvoice={this.props.goToInvoice}
+            count={this.props.count}
+            finalizeInvoice={this.props.finalizeInvoice}
+            invoiceList={this.props.invoiceList}
+            loading={this.props.loading}
             onChangePage={this.onChangePage}
+            onClickInvoice={this.props.goToInvoice}
+            onInvoiceExpand={this.fetchInvoiceDataNested}
+            page={this.props.page}
           />
         </div>
         <div className={this.props.classes.table}>
           <SubscriptionTable
-            goToSubscription={this.props.goToSubscription}
-            title={this.props.t('subscriptionTitle')}
             showOnlyCore
-            subscriptionList={this.props.subscriptionList}
-            loading={this.props.subscriptionLoading}
             count={this.props.subscriptionCount}
+            goToSubscription={this.props.goToSubscription}
+            loading={this.props.subscriptionLoading}
             onPageChange={this.fetchSubscriptionList}
+            subscriptionList={this.props.subscriptionList}
+            title={this.props.t('subscriptionTitle')}
           />
         </div>
       </div>

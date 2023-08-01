@@ -16,6 +16,7 @@ export const PaymentModal: React.FC<Props> = ({ isOpen, children }) => {
     <Modal open={isOpen}>
       <>
         <div
+          className={classes.modal}
           style={{
             transform: `translate(-${dialogOffset}, -${dialogOffset})`,
             top: dialogOffset,
@@ -23,7 +24,6 @@ export const PaymentModal: React.FC<Props> = ({ isOpen, children }) => {
             height: fullScreen ? '100%' : 'unset',
             width: fullScreen ? '100%' : 'unset',
           }}
-          className={classes.modal}
         >
           <div className={classes.innerDialog}>{children}</div>
         </div>

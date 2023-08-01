@@ -45,7 +45,7 @@ export function Sport(props: Props) {
         paddingLeft ? classes.paddingLeft : null,
       )}
     >
-      <img src={sport.icon} height={siz} width={siz} alt="coach profile" />
+      <img alt="coach profile" height={siz} src={sport.icon} width={siz} />
       {noname ? null : (
         <Typography className={classes.text} variant={variant}>
           {SCTName || sport.text}

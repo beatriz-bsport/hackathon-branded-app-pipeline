@@ -151,13 +151,13 @@ export class RecipientTable extends React.Component<Props> {
     return (
       <div>
         <MUIDataTable
+          columns={getColumnData(t)}
           data={renderRows(
             this.props.recipientList,
             t,
             this.props.goToMember,
             this.props.setShowLinkOpened,
           )}
-          columns={getColumnData(t)}
           options={options}
         />
         <Dialog open={!!this.props.showLinkOpened}>

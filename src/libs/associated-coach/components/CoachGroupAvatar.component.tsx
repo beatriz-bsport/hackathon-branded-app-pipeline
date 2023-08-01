@@ -43,13 +43,13 @@ export const CoachGroupAvatar: React.FC<Props> = ({
             {loading ? (
               <Skeleton
                 animation="wave"
-                variant="circle"
                 className={classes.smallAvatar}
+                variant="circle"
               />
             ) : (
               <Avatar
-                className={size === 'small' ? classes.smallAvatar : null}
                 alt={c.name}
+                className={size === 'small' ? classes.smallAvatar : null}
                 src={c.photo}
               />
             )}

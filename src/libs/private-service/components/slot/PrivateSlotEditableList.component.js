@@ -51,7 +51,7 @@ export const EditablePrivateSlotList = (props: Props) => {
   return (
     <div className={props.classes.container}>
       <div className={props.classes.titleRow}>
-        <AccessTimeIcon fontSize="large" className={props.classes.leftIcon} />
+        <AccessTimeIcon className={props.classes.leftIcon} fontSize="large" />
         <Typography variant="h4">
           {props.t('service.configuration.slot')}
         </Typography>
@@ -60,7 +60,7 @@ export const EditablePrivateSlotList = (props: Props) => {
         <Paper>
           {slots.length === 0 ? (
             <div className={props.classes.row}>
-              <WarningIcon color="error" className={props.classes.leftIcon} />
+              <WarningIcon className={props.classes.leftIcon} color="error" />
               <div className={props.classes.columnLeft}>
                 <Typography>
                   {props.t('service.parameters.slots.isEmpty')}
@@ -76,10 +76,10 @@ export const EditablePrivateSlotList = (props: Props) => {
               return (
                 <PrivateSlotListItem
                   key={s.id}
-                  slot={s}
                   divider
-                  onEdit={() => props.setEditSlotForm(s)}
                   onDelete={() => props.deletePrivateSlot(s.id)}
+                  onEdit={() => props.setEditSlotForm(s)}
+                  slot={s}
                 />
               );
             }
@@ -89,9 +89,9 @@ export const EditablePrivateSlotList = (props: Props) => {
       </List>
       <Button
         className={props.classes.button}
-        variant="contained"
         color="primary"
         onClick={() => props.setOpenSlotForm(true)}
+        variant="contained"
       >
         <AddIcon className={props.classes.leftIcon} />
         {props.t('service.form.addSlot')}
@@ -100,6 +100,7 @@ export const EditablePrivateSlotList = (props: Props) => {
         <DialogContent>
           <PrivateSlotForm
             initial={props.editSlotForm}
+            onCancel={() => props.setEditSlotForm(null)}
             onSubmit={(data, options) => {
               props.updatePrivateSlot(
                 props.privateService.id,
@@ -119,13 +120,13 @@ export const EditablePrivateSlotList = (props: Props) => {
                 },
               );
             }}
-            onCancel={() => props.setEditSlotForm(null)}
           />
         </DialogContent>
       </Dialog>
       <Dialog open={props.openSlotForm}>
         <DialogContent>
           <PrivateSlotForm
+            onCancel={() => props.setOpenSlotForm(false)}
             onSubmit={(data, options) =>
               props.createPrivateSlot(
                 props.privateService.id,
@@ -140,7 +141,6 @@ export const EditablePrivateSlotList = (props: Props) => {
                 },
               )
             }
-            onCancel={() => props.setOpenSlotForm(false)}
           />
         </DialogContent>
       </Dialog>

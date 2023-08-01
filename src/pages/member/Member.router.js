@@ -31,15 +31,15 @@ export const MemberRouter = (props: { t: TFunction }) => (
       <title>{props.t('member.members')}</title>
     </Helmet>
     <Switch>
-      <Route exact path="/member" component={MemberList} />
-      <Route exact path="/member/edit/:id" component={MemberForm} />
-      <Route path="/member/add" component={MemberForm} />
-      <Route path="/member/merge/:src/into/:dst/" component={MemberMergeForm} />
-      <Route path="/member/:id/:tab" component={MemberDetail} />
+      <Route exact component={MemberList} path="/member" />
+      <Route exact component={MemberForm} path="/member/edit/:id" />
+      <Route component={MemberForm} path="/member/add" />
+      <Route component={MemberMergeForm} path="/member/merge/:src/into/:dst/" />
+      <Route component={MemberDetail} path="/member/:id/:tab" />
       <Route
         exact
-        path="/member/:id/"
         component={() => getLink(window.location.pathname)}
+        path="/member/:id/"
       />
     </Switch>
   </>

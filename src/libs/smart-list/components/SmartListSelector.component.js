@@ -67,15 +67,15 @@ export function SmartListSelector(props: Props) {
     }));
   return (
     <Selector
-      searchIcon
       isMulti
-      selected={values}
-      nullCurrentValue={nullCurrentValue}
-      suggestions={suggestions}
+      searchIcon
       className={classNames(classes, selectorClass)}
       components={{ Option: smartListOption }}
-      placeholder={helperText}
+      nullCurrentValue={nullCurrentValue}
       onChange={onChange}
+      placeholder={helperText}
+      selected={values}
+      suggestions={suggestions}
     />
   );
 }

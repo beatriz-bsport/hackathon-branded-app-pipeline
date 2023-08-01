@@ -16,16 +16,16 @@ type FlowProps = {
 export const ExitCardFlowVersion: React.FC<FlowProps> = ({ data }) => (
   <>
     <HiddenHandle
-      type={HandleTypeChoices.TARGET}
       position={Position.Left}
       style={TRIGGER_LEFT_HANDLE_STYLE}
+      type={HandleTypeChoices.TARGET}
     />
     <CadenceExitCard
-      step={data.step}
-      status={data.status}
       handleChangeInStep={data.handleChangeInStep}
-      onDelete={data.onDelete}
       isSelected={data.isSelected}
+      onDelete={data.onDelete}
+      status={data.status}
+      step={data.step}
     />
   </>
 );

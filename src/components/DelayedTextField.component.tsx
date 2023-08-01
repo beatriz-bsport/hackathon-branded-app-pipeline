@@ -67,12 +67,12 @@ export default class DelayedTextField extends Component<Props, State> {
     return (
       <TextField
         {...this.props}
+        fullWidth
+        autoFocus={this.props.autoFocus ?? true}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           this.handleChange(event);
         }}
         value={this.state.value}
-        autoFocus={this.props.autoFocus ?? true}
-        fullWidth
       />
     );
   }

@@ -30,12 +30,12 @@ const ConsumerPaymentPackIncompatibilitiesReasons: React.FC<{
     <div className={classes.list}>
       {!!incompatibilitiesWithActivity.length && (
         <div className={classes.list}>
-          <Typography variant="caption" className={classes.listItem}>
+          <Typography className={classes.listItem} variant="caption">
             {t('incompatibilities.paymentPack')}
           </Typography>
           <div className={classes.sublist}>
             {incompatibilitiesWithActivity.map((reason) => (
-              <Typography variant="caption" className={classes.listItem}>
+              <Typography className={classes.listItem} variant="caption">
                 {t(`incompatibilities.${reason}`)}
               </Typography>
             ))}
@@ -44,7 +44,7 @@ const ConsumerPaymentPackIncompatibilitiesReasons: React.FC<{
       )}
       {!!otherIncompatibilities.length &&
         otherIncompatibilities.map((reason) => (
-          <Typography variant="caption" className={classes.listItem}>
+          <Typography className={classes.listItem} variant="caption">
             {t(`incompatibilities.${reason}`)}
             {PAYMENT_PACK_INCOMPATIBLE_BEFORE_FIRST_ACTION.includes(reason) &&
               formatAsDate(extraStartingDate)}
@@ -53,8 +53,8 @@ const ConsumerPaymentPackIncompatibilitiesReasons: React.FC<{
       <div>
         {!!closeMobileIncompatibilities && (
           <Button
-            onClick={closeMobileIncompatibilities}
             className={classes.closeMobileDialog}
+            onClick={closeMobileIncompatibilities}
           >
             {t(`actions.close`)}
           </Button>

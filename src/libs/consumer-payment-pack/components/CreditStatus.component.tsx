@@ -23,9 +23,9 @@ export const CreditStatus = (props: Props) => {
   if (!consumerPack || !paymentPack) {
     return (
       <Typography
-        variant={props.variant || 'caption'}
-        component="span"
         color="textSecondary"
+        component="span"
+        variant={props.variant || 'caption'}
       >
         {' '}
         -{' '}
@@ -41,7 +41,7 @@ export const CreditStatus = (props: Props) => {
   } = consumerPack;
   if (disabled && penalty_disabled_from && penalty_disabled_until) {
     return (
-      <Typography variant={props.variant || 'caption'} color="error">
+      <Typography color="error" variant={props.variant || 'caption'}>
         {props.t('blockedCpp', {
           blocked_from: moment(penalty_disabled_from).format('L'),
           blocked_until: moment(penalty_disabled_until).format('L'),
@@ -52,9 +52,9 @@ export const CreditStatus = (props: Props) => {
   if (unlimited) {
     return (
       <Typography
-        variant={props.variant || 'caption'}
         color={props.textColor ?? 'primary'}
         component="span"
+        variant={props.variant || 'caption'}
       >
         {`${props.t('unlimitedCredits')}`}
       </Typography>
@@ -62,12 +62,12 @@ export const CreditStatus = (props: Props) => {
   }
   return (
     <Typography
-      component="span"
-      variant={props.variant || 'caption'}
       color={
         props.textColor ??
         (available_credits / credits > 0.2 ? 'primary' : 'error')
       }
+      component="span"
+      variant={props.variant || 'caption'}
     >
       {`${
         (available_credits || credits - consumerPack?.used_credits) /

@@ -101,32 +101,32 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <PaymentMethodCardSelector
-        paymentMethodChoices={availablePaymentMethods ?? []}
-        paymentMethodSelected={selectedPaymentMethod}
-        selectPaymentMethod={setSelectedPaymentMethod}
-        paymentProcessing={loading}
         customClasses={{
           formControl: classes.paymentMethodSelectorFormControl,
           row: classes.paymentMethodSelectorRow,
           paper: classes.paymentMethodItemPaper,
           selected: classes.paymentMethodItemPaperSelected,
         }}
+        paymentMethodChoices={availablePaymentMethods ?? []}
+        paymentMethodSelected={selectedPaymentMethod}
+        paymentProcessing={loading}
+        selectPaymentMethod={setSelectedPaymentMethod}
       />
 
       {selectedPaymentMethod === QuicksalePaymentMethod.StripeTerminal && (
         <PaymentStripeTerminal
-          stripeReaders={stripeReaders}
-          paymentGroupId={paymentGroup}
-          paymentGroupPriceCts={paymentGroupPriceCts}
-          setProcessing={setIsProcessing}
-          clientSecret={clientSecret}
           hideAmountToPay
-          onSuccess={onPaymentSuccess}
-          onCancel={onCancel}
+          clientSecret={clientSecret}
           customClasses={{
             stripeTerminalContainer: classes.stripeTerminalContainer,
             actionRow: classes.stripeTerminalActions,
           }}
+          onCancel={onCancel}
+          onSuccess={onPaymentSuccess}
+          paymentGroupId={paymentGroup}
+          paymentGroupPriceCts={paymentGroupPriceCts}
+          setProcessing={setIsProcessing}
+          stripeReaders={stripeReaders}
         >
           {children}
         </PaymentStripeTerminal>
@@ -134,20 +134,20 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
 
       {selectedPaymentMethod === QuicksalePaymentMethod.Manual && (
         <PaymentBsportInternal
-          paymentMethodChoices={
-            PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT]
-          }
+          hideAmountToPay
           amountToPay={paymentGroupPriceCts?.toString() ?? ''}
           clientSecret={clientSecret}
-          onCancel={onCancel}
-          onSuccess={onPaymentSuccess}
-          hideAmountToPay
-          dateFieldEndAdornment={
-            <Event className={classes.manualPaymentDateFieldIcon} />
-          }
           customClasses={{
             actionRow: classes.manualPaymentActionRow,
           }}
+          dateFieldEndAdornment={
+            <Event className={classes.manualPaymentDateFieldIcon} />
+          }
+          onCancel={onCancel}
+          onSuccess={onPaymentSuccess}
+          paymentMethodChoices={
+            PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT]
+          }
         >
           {children}
         </PaymentBsportInternal>
@@ -159,49 +159,49 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
       ].includes(selectedPaymentMethod) && (
         <>
           <InstalmentPaymentSelector
-            instalmentPaymentConfigurationSelectedId={
-              instalmentPaymentSelectedId
-            }
-            instalmentPaymentConfigurationList={
-              instalmentPaymentConfigurationList
-            }
-            paymentProcessing={loading}
-            setPaymentProcessing={setLoading}
-            onSelectInstalmentPayment={onSelectInstalmentPayment}
             basketPriceCts={
               (basket?.total_price_cts ?? 0) -
               (basket?.total_price_prepaid_lines_cts ?? 0)
             }
+            instalmentPaymentConfigurationList={
+              instalmentPaymentConfigurationList
+            }
+            instalmentPaymentConfigurationSelectedId={
+              instalmentPaymentSelectedId
+            }
             onlyInstantPayment={isMemberPOS || hasPaymentGroupPriceBeenModified}
+            onSelectInstalmentPayment={onSelectInstalmentPayment}
+            paymentProcessing={loading}
+            setPaymentProcessing={setLoading}
           />
           {isMemberPOS && (
             <Alert
-              severity="warning"
-              className={classes.alert}
               action={
                 <Button
-                  onClick={openMemberAuthenticationModale}
                   className={classes.authenticationButton}
+                  onClick={openMemberAuthenticationModale}
                 >
                   {t('checkout.noAnonymousInstalment.identify')}
                 </Button>
               }
+              className={classes.alert}
+              severity="warning"
             >
               {t('checkout.noAnonymousInstalment.explanation')}
             </Alert>
           )}
           {hasPaymentGroupPriceBeenModified && (
             <Alert
-              severity="warning"
-              className={classes.alert}
               action={
                 <Button
-                  onClick={resetPaymentGroupPrice}
                   className={classes.authenticationButton}
+                  onClick={resetPaymentGroupPrice}
                 >
                   {t('checkout.noPartialInstalment.reset')}
                 </Button>
               }
+              className={classes.alert}
+              severity="warning"
             >
               {t('checkout.noPartialInstalment.explanation')}
             </Alert>
@@ -212,23 +212,23 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
       {selectedPaymentMethod === QuicksalePaymentMethod.CreditCard && (
         <Elements stripe={stripePromise}>
           <PaymentStripeCard
-            memberId={memberId}
-            clientSecret={clientSecret}
+            forceButtonDisplay
+            termsAndConditionsAccepted
             basketId={basketId}
             basketTotalPriceCts={paymentGroupPriceCts}
-            onSuccess={onPaymentSuccess}
-            setPaymentProcessing={setIsProcessing}
-            onCancel={onCancel}
-            termsAndConditionsAccepted
-            detachPaymentMethodLoading={detachPaymentMethodLoading}
-            detachPaymentMethod={removePaymentMethod}
             checkItemsBasket={checkItemsBasket}
-            loading={loading}
+            clientSecret={clientSecret}
             customClasses={{
               actionRow: classes.cardPaymentActionRow,
             }}
-            forceButtonDisplay
+            detachPaymentMethod={removePaymentMethod}
+            detachPaymentMethodLoading={detachPaymentMethodLoading}
             hideSaveForLater={isMemberPOS}
+            loading={loading}
+            memberId={memberId}
+            onCancel={onCancel}
+            onSuccess={onPaymentSuccess}
+            setPaymentProcessing={setIsProcessing}
           >
             {children}
           </PaymentStripeCard>
@@ -238,23 +238,23 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
       {selectedPaymentMethod === QuicksalePaymentMethod.Sepa && (
         <Elements stripe={stripePromise}>
           <PaymentStripeSEPA
-            memberId={memberId}
-            clientSecret={clientSecret}
+            forceButtonDisplay
+            termsAndConditionsAccepted
             basketId={basketId}
             basketTotalPriceCts={paymentGroupPriceCts}
-            onSuccess={onPaymentSuccess}
-            setPaymentProcessing={setIsProcessing}
-            onCancel={onCancel}
-            termsAndConditionsAccepted
-            detachPaymentMethodLoading={detachPaymentMethodLoading}
-            detachPaymentMethod={removePaymentMethod}
             checkItemsBasket={checkItemsBasket}
-            loading={loading}
+            clientSecret={clientSecret}
             customClasses={{
               actionRow: classes.sepaPaymentActionRow,
             }}
-            forceButtonDisplay
+            detachPaymentMethod={removePaymentMethod}
+            detachPaymentMethodLoading={detachPaymentMethodLoading}
             hideSaveForLater={isMemberPOS}
+            loading={loading}
+            memberId={memberId}
+            onCancel={onCancel}
+            onSuccess={onPaymentSuccess}
+            setPaymentProcessing={setIsProcessing}
           >
             {children}
           </PaymentStripeSEPA>

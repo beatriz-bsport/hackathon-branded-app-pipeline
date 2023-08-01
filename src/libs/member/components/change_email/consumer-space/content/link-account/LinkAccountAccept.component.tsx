@@ -59,10 +59,10 @@ export const LinkAccountAcceptContent = (
         )}
       />
       <ContentActions
-        onConfirm={onConfirm}
         confirmText={t('changeEmailRequest.memberPage.actions.confirmFusion')}
-        onDenied={onDenied}
         denyText={t('changeEmailRequest.memberPage.actions.deniedFusion')}
+        onConfirm={onConfirm}
+        onDenied={onDenied}
       />
     </>
   );

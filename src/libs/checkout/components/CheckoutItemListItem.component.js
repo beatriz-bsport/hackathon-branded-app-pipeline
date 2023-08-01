@@ -36,7 +36,7 @@ export const CheckoutItemListItem = (props: {
   isExcludingTax?: boolean,
 }) => (
   <React.Fragment>
-    <ListItem dense={!!props.dense} divider className={props.classes.container}>
+    <ListItem divider className={props.classes.container} dense={!!props.dense}>
       <div className={props.classes.itemContent} id="itemContent">
         <ListItemAvatar>
           <Avatar className={props.classes.quantity}>
@@ -81,10 +81,10 @@ export const CheckoutItemListItem = (props: {
     </ListItem>
     {!props.hideExtraData && props.checkout_item.expiration_datetime && (
       <CountDown
-        timestamp={moment(props.checkout_item.expiration_datetime).unix()}
         onFinish={() =>
           props.onItemExpire && props.onItemExpire(props.checkout_item)
         }
+        timestamp={moment(props.checkout_item.expiration_datetime).unix()}
       >
         {(countdown) => {
           if (countdown) {
@@ -107,7 +107,7 @@ export const CheckoutItemListItem = (props: {
 
     {!props.hideExtraData &&
       (props.checkout_item.sub_items || []).map((sub_item, idx) => (
-        <ListItem dense key={idx} divider>
+        <ListItem key={idx} dense divider>
           <ListItemIcon>
             <CalendarIcon color="textSecondary" />
           </ListItemIcon>

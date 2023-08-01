@@ -35,8 +35,8 @@ export class CreditFilter extends Component<Props, state> {
         {t(`filters.${filter_data.filter_identifier}.first`)}
         <Select
           className={classes.input}
-          value={filter_data.comparator}
           onChange={(ev) => onChange({ comparator: ev.target.value })}
+          value={filter_data.comparator}
         >
           <MenuItem key="lt" value={3}>
             {t(`filters.classic_comparators.${3}`)}
@@ -49,10 +49,10 @@ export class CreditFilter extends Component<Props, state> {
         {t(`filters.${filter_data.filter_identifier}.second`)}
         <DelayedNumericInput
           classes={classes}
-          value={filter_data.value}
           onChange={(ev) =>
             onChange({ value: ev.target.value === '' ? null : ev.target.value })
           }
+          value={filter_data.value}
         />
       </div>
     );

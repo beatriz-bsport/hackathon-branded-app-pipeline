@@ -32,14 +32,14 @@ function sctOption(props: OptionProps) {
   return (
     <div ref={innerRef} {...innerProps}>
       <Sport
-        parentCategory={data.data.SCS.id}
-        SCTName={data.data.name}
-        isSelected={isSelected}
-        isFocused={isFocused}
-        noDivider
         button
         dense
+        noDivider
         paddingLeft
+        isFocused={isFocused}
+        isSelected={isSelected}
+        parentCategory={data.data.SCS.id}
+        SCTName={data.data.name}
       />
     </div>
   );
@@ -50,11 +50,11 @@ function SingleValue(props: OptionProps) {
   return (
     <div ref={innerRef} {...innerProps}>
       <Sport
+        dense
+        noDivider
+        paddingLeft
         parentCategory={data.data.SCS.id}
         SCTName={data.data.name}
-        noDivider
-        dense
-        paddingLeft
       />
     </div>
   );
@@ -64,14 +64,14 @@ export default withTranslation(['category'])(
   ({ t, scts, value, placeholder, isDisabled, selectOption, id, onChange }) => {
     return (
       <Selector
-        id={id}
-        placeholder={placeholder || t('sct.selector.placeholder')}
-        suggestions={getSCTOptions(asMutable(scts))}
-        onChange={selectOption || onChange}
-        isDisabled={isDisabled}
-        selected={value}
-        searchIcon={!value}
         components={{ Option: sctOption, SingleValue }}
+        id={id}
+        isDisabled={isDisabled}
+        onChange={selectOption || onChange}
+        placeholder={placeholder || t('sct.selector.placeholder')}
+        searchIcon={!value}
+        selected={value}
+        suggestions={getSCTOptions(asMutable(scts))}
       />
     );
   },

@@ -42,9 +42,9 @@ const ProductCardCategoryList = (props: {
               {t('card.categoryNames.credits')}
             </Typography>
             <Typography
-              variant="caption"
-              color="textSecondary"
               className={classes.categoryContent}
+              color="textSecondary"
+              variant="caption"
             >
               {categories.credits}
             </Typography>
@@ -59,9 +59,9 @@ const ProductCardCategoryList = (props: {
               {t('card.categoryNames.validity')}
             </Typography>
             <Typography
-              variant="caption"
-              color="textSecondary"
               className={classes.categoryContent}
+              color="textSecondary"
+              variant="caption"
             >
               {categories.validity}
             </Typography>
@@ -76,9 +76,9 @@ const ProductCardCategoryList = (props: {
               {t('card.categoryNames.compatibility')}
             </Typography>
             <Typography
-              variant="caption"
-              color="textSecondary"
               className={classes.categoryContent}
+              color="textSecondary"
+              variant="caption"
             >
               {categories.compatibility}
             </Typography>
@@ -93,9 +93,9 @@ const ProductCardCategoryList = (props: {
               {t('card.categoryNames.accessibility')}
             </Typography>
             <Typography
-              variant="caption"
-              color="textSecondary"
               className={classes.categoryContent}
+              color="textSecondary"
+              variant="caption"
             >
               {categories.accessibility}
             </Typography>
@@ -110,9 +110,9 @@ const ProductCardCategoryList = (props: {
               {t('card.categoryNames.paymentMethods')}
             </Typography>
             <Typography
-              variant="caption"
-              color="textSecondary"
               className={classes.categoryContent}
+              color="textSecondary"
+              variant="caption"
             >
               {categories.paymentMethods}
             </Typography>
@@ -127,9 +127,9 @@ const ProductCardCategoryList = (props: {
               {t('card.categoryNames.vod')}
             </Typography>
             <Typography
-              variant="caption"
-              color="textSecondary"
               className={classes.categoryContent}
+              color="textSecondary"
+              variant="caption"
             >
               {categories.vod}
             </Typography>
@@ -145,9 +145,9 @@ const ProductCardCategoryList = (props: {
             </Typography>
             {categories.restrictions.map((content: string) => (
               <Typography
-                variant="caption"
-                color="textSecondary"
                 className={classes.categoryContent}
+                color="textSecondary"
+                variant="caption"
               >
                 {content}
               </Typography>

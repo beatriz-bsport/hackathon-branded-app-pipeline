@@ -107,15 +107,15 @@ const GenericButtons: React.FC<{
       return (
         <div className={classes.buttons}>
           {onCancel && (
-            <Button onClick={onCancel} className={classes.rejectButton}>
+            <Button className={classes.rejectButton} onClick={onCancel}>
               {textDictionary?.rejectButton}
             </Button>
           )}
           <Button
+            className={classes.approveButton}
+            color="primary"
             onClick={onClose}
             variant="contained"
-            color="primary"
-            className={classes.approveButton}
           >
             {textDictionary?.approveButton}
           </Button>
@@ -125,10 +125,10 @@ const GenericButtons: React.FC<{
     case TUTORIAL_GENERIC_DIALOG_ALL_FINISH:
       return (
         <Button
+          className={classes.continueButton}
+          color="primary"
           onClick={onClose}
           variant="contained"
-          color="primary"
-          className={classes.continueButton}
         >
           {textDictionary?.continueButton}
         </Button>
@@ -136,10 +136,10 @@ const GenericButtons: React.FC<{
     case TUTORIAL_GENERIC_DIALOG_SHARE_SECTION:
       return (
         <Button
+          className={classes.continueButton}
+          color="primary"
           onClick={onClose}
           variant="contained"
-          color="primary"
-          className={classes.continueButton}
         >
           {textDictionary?.continueButton}
         </Button>
@@ -148,10 +148,10 @@ const GenericButtons: React.FC<{
     case TUTORIAL_GENERIC_DIALOG_SHARE_LESSON:
       return (
         <Button
+          className={classes.continueButton}
+          color="primary"
           onClick={onClose}
           variant="contained"
-          color="primary"
-          className={classes.continueButton}
         >
           {textDictionary?.continueButton}
         </Button>
@@ -181,19 +181,19 @@ const TutorialGenericDialog: React.FC<Props> = (props: Props) => {
   return (
     <>
       <GenericResponsiveDialog open={open}>
-        <div id="animated_icon_triggerer" className={classes.container}>
+        <div className={classes.container} id="animated_icon_triggerer">
           <div className={classes.box}>
             <GenericIcon identifier={identifier} />
           </div>
           <Typography variant="h4">{textDictionary?.title}</Typography>
-          <Typography variant="body1" className={classes.infoText}>
+          <Typography className={classes.infoText} variant="body1">
             {textDictionary?.infoText}
           </Typography>
           <GenericButtons
             identifier={identifier}
-            textDictionary={textDictionary}
-            onClose={() => onClose(object)}
             onCancel={onCancel}
+            onClose={() => onClose(object)}
+            textDictionary={textDictionary}
           />
         </div>
       </GenericResponsiveDialog>

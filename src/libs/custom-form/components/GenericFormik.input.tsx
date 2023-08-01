@@ -37,18 +37,18 @@ export const TextField = (props: TextFieldProps) => {
       {() => (
         <MuiTextField
           className={classes.field}
-          error={!!meta.error}
-          variant={variant}
-          label={label}
-          required={required}
           disabled={disabled}
-          onBlur={field.onBlur}
-          onChange={field.onChange}
-          value={field.value}
-          name={field.name}
+          error={!!meta.error}
           inputProps={{
             'data-testid': 'input-test',
           }}
+          label={label}
+          name={field.name}
+          onBlur={field.onBlur}
+          onChange={field.onChange}
+          required={required}
+          value={field.value}
+          variant={variant}
         />
       )}
     </Field>
@@ -69,22 +69,22 @@ export const CheckboxField = (props: CheckboxFieldProps) => {
     <Field {...props}>
       {() => (
         <FormControlLabel
-          label={label}
-          id="checkbox"
           classes={classes}
           control={
             <Checkbox
-              disabled={!!disabled}
               checked={reverted ? !field.value : field.value}
+              disabled={!!disabled}
               {...props}
               {...field}
+              error={!!(meta.touched && meta.error)}
               onChange={() => {
                 onChange && onChange(!field.value);
                 helpers.setValue(!field.value);
               }}
-              error={!!(meta.touched && meta.error)}
             />
           }
+          id="checkbox"
+          label={label}
         />
       )}
     </Field>
@@ -108,11 +108,11 @@ export const SwitchField = (props: SwitchFieldProps) => {
           <FormControlLabel
             id={id}
             {...field}
-            value=""
             checked={revertValue ? !field.value : field.value}
-            label={label}
-            disabled={disabled}
             control={<Switch color={switchColor ?? 'primary'} />}
+            disabled={disabled}
+            label={label}
+            value=""
           />
         );
       }}
@@ -165,21 +165,21 @@ export const MaterialUiSingleSelectorField: React.FC<
       <Field {...props}>
         {() => (
           <MaterialUISelector
-            placeholder={props.placeholder}
+            chipsRenderer={props.chipsRenderer}
+            error={!!(meta.touched && meta.error) || props.forceError}
+            inScrollBar={props.inScrollBar}
+            isDisabled={props.isDisabled}
             isMenuListVirtualized={props.isMenuListVirtualized}
+            isMulti={false}
             onChange={(option) => {
               props.onChange
                 ? props.onChange(option)
                 : helpers.setValue(option.value);
               helpers.setTouched(true, false);
             }}
-            value={value}
-            isMulti={false}
-            inScrollBar={props.inScrollBar}
             options={props.options}
-            error={!!(meta.touched && meta.error) || props.forceError}
-            chipsRenderer={props.chipsRenderer}
-            isDisabled={props.isDisabled}
+            placeholder={props.placeholder}
+            value={value}
           />
         )}
       </Field>
@@ -221,20 +221,20 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
       <Field {...props}>
         {() => (
           <MaterialUISelector
-            isMenuListVirtualized={props.isMenuListVirtualized}
+            isMulti
+            defaultNumberShown={props.defaultNumberShown}
+            error={!!(meta.touched && meta.error) || props.forceError}
+            inScrollBar={props.inScrollBar}
             isDisabled={props.isDisabled}
-            placeholder={props.placeholder}
+            isMenuListVirtualized={props.isMenuListVirtualized}
             onChange={(optionList) => {
               const valueList = optionList.map((option) => option.value);
               helpers.setValue(valueList);
               helpers.setTouched(true, false);
             }}
-            inScrollBar={props.inScrollBar}
-            value={value}
-            isMulti
             options={props.options}
-            error={!!(meta.touched && meta.error) || props.forceError}
-            defaultNumberShown={props.defaultNumberShown}
+            placeholder={props.placeholder}
+            value={value}
           />
         )}
       </Field>

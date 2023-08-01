@@ -177,22 +177,22 @@ export class PrivateServiceList extends React.Component<Props, State> {
         this.props.privateServiceAvailableByGroup.length === 0 &&
         !this.props.loading ? (
           <IsEmptyList
-            text={this.props.t('noPrivateService')}
+            hideBottomActions
             button={this.props.t('service.form.createButton')}
             onCreate={this.doOpenCreateForm}
-            hideBottomActions
+            text={this.props.t('noPrivateService')}
           />
         ) : (
           <div className={classes.search}>
             <div className={classes.header}>
               <FuzeSearch
-                searchText={this.state.searchText}
-                clearSearch={this.clearSearch}
                 changeSearch={this.changeSearch}
+                clearSearch={this.clearSearch}
                 items={this.props.availablePrivateServices}
                 placeholder={t('search')}
                 searchFields={['name']}
                 searchResult={this.state.searchResult}
+                searchText={this.state.searchText}
               />
             </div>
 
@@ -213,10 +213,10 @@ export class PrivateServiceList extends React.Component<Props, State> {
                 {this.state.searchResult.map((ps) => (
                   <PrivateServiceListItem
                     key={ps.id}
-                    privateService={ps}
                     onClick={this.props.goToPrivateService}
-                    onEdit={() => this.props.setOpenEditForm(ps)}
                     onDelete={() => this.props.deletePrivateService(ps.id)}
+                    onEdit={() => this.props.setOpenEditForm(ps)}
+                    privateService={ps}
                   />
                 ))}
               </Collapse>
@@ -225,40 +225,40 @@ export class PrivateServiceList extends React.Component<Props, State> {
         )}
 
         <PrivateServiceListWithGroup
+          deletePrivateService={this.props.deletePrivateService}
+          deleteServiceGroup={this.props.deleteServiceGroup}
+          goToPrivateService={this.props.goToPrivateService}
+          openServiceGroupToEdit={this.props.openServiceGroupToEdit}
           privateServiceAvailableByGroup={
             this.props.privateServiceAvailableByGroup
           }
-          openServiceGroupToEdit={this.props.openServiceGroupToEdit}
-          deleteServiceGroup={this.props.deleteServiceGroup}
-          goToPrivateService={this.props.goToPrivateService}
-          setOpenEditForm={this.props.setOpenEditForm}
-          deletePrivateService={this.props.deletePrivateService}
-          selectedPrivateService={selectedPrivateService}
           privateServiceAvailableWithoutGroup={
             this.props.privateServiceAvailableWithoutGroup
           }
+          selectedPrivateService={selectedPrivateService}
+          setOpenEditForm={this.props.setOpenEditForm}
         />
         {(this.props.serviceGroupToEdit ||
           this.props.serviceGroupCreateOpen) && (
           <PrivateServiceGroupFormDialog
             open
             initial={this.props.serviceGroupToEdit}
-            onSubmit={this.props.createOrUpdateServiceGroup}
             onCancel={this.props.closeServiceGroupForm}
+            onSubmit={this.props.createOrUpdateServiceGroup}
           />
         )}
         {this.props.openEditForm || this.props.openCreateForm ? (
           <PrivateServiceFormDrawer
+            allCoaches={this.props.allCoaches}
+            allEstablishments={this.props.allEstablishments}
+            availableEstablishments={this.props.availableEstablishments}
+            coaches={this.props.availableCoaches}
             initial={this.props.openEditForm}
-            open={this.props.openEditForm || this.props.openCreateForm}
+            onAddServiceGroup={this.props.onOpenServiceGroupCreateForm}
             onCancel={this.closeForm}
             onSubmit={this.createOrUpdatePrivateService}
-            coaches={this.props.availableCoaches}
-            allCoaches={this.props.allCoaches}
-            availableEstablishments={this.props.availableEstablishments}
-            allEstablishments={this.props.allEstablishments}
+            open={this.props.openEditForm || this.props.openCreateForm}
             serviceGroupList={this.props.serviceGroupList}
-            onAddServiceGroup={this.props.onOpenServiceGroupCreateForm}
             tagList={
               this.props.allTagsWithTagGroup
                 ? [...this.props.allTagsWithTagGroup]
@@ -268,9 +268,9 @@ export class PrivateServiceList extends React.Component<Props, State> {
         ) : null}
         <Fab
           className={classes.addButton}
-          variant="extended"
           color="primary"
           onClick={this.doOpenCreateForm}
+          variant="extended"
         >
           <AddIcon className={classes.leftIcon} />
           {t('service.form.createButton')}

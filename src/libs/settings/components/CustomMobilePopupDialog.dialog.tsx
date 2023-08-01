@@ -67,11 +67,11 @@ const CustomMobilePopupDialog: React.FC<FormikProps<FormikValues> & Props> = ({
     <>
       <Form>
         <Dialog
-          open={open}
-          onClose={onClose}
           classes={{
             paper: classes.popup,
           }}
+          onClose={onClose}
+          open={open}
         >
           <DialogTitle>
             {t('mobilePersonalization.popup.editPopup.title')}
@@ -81,8 +81,8 @@ const CustomMobilePopupDialog: React.FC<FormikProps<FormikValues> & Props> = ({
             <div className={classes.container}>
               <div className={classes.innerRow}>
                 <TextField
-                  name="name"
                   label={t('mobilePersonalization.popup.editPopup.name')}
+                  name="name"
                 />
                 <AlertError name="name" />
               </div>
@@ -92,19 +92,19 @@ const CustomMobilePopupDialog: React.FC<FormikProps<FormikValues> & Props> = ({
               <ImageField name="image" />
               <div className={classes.innerRow}>
                 <TextField
-                  name="link"
                   label={t('mobilePersonalization.popup.editPopup.link')}
+                  name="link"
                 />
                 <AlertError name="link" />
               </div>
             </div>
             <Button
+              color="primary"
               disabled={
                 isSubmitting || !dirty || !isValid || values.image === undefined
               }
-              variant="outlined"
-              color="primary"
               onClick={openPreview}
+              variant="outlined"
             >
               <VisibilityIcon className={classes.icon} />
               {t('mobilePersonalization.popup.editPopup.preview')}
@@ -112,15 +112,13 @@ const CustomMobilePopupDialog: React.FC<FormikProps<FormikValues> & Props> = ({
             <DialogActions>
               <Button
                 color="secondary"
-                onClick={onClose}
                 disabled={isSubmitting}
+                onClick={onClose}
               >
                 {t('mobilePersonalization.popup.editPopup.cancel')}
               </Button>
               <Button
-                variant="contained"
                 color="primary"
-                type="submit"
                 disabled={
                   isSubmitting ||
                   !dirty ||
@@ -130,6 +128,8 @@ const CustomMobilePopupDialog: React.FC<FormikProps<FormikValues> & Props> = ({
                 onClick={() => {
                   handleSubmit();
                 }}
+                type="submit"
+                variant="contained"
               >
                 {t('mobilePersonalization.popup.editPopup.submit')}
               </Button>
@@ -140,10 +140,10 @@ const CustomMobilePopupDialog: React.FC<FormikProps<FormikValues> & Props> = ({
       {showPreview && (
         <Dialog
           open
-          onClose={closePreview}
           classes={{
             paper: classes.mobilePopup,
           }}
+          onClose={closePreview}
         >
           <DialogTitle>
             {t('mobilePersonalization.popup.editPopup.previewPopup.title')}
@@ -164,8 +164,8 @@ const CustomMobilePopupDialog: React.FC<FormikProps<FormikValues> & Props> = ({
             <div className={classes.previewBottom}>
               <Button
                 className={classes.previewBottomButton}
-                variant="contained"
                 color="primary"
+                variant="contained"
               >
                 {t('mobilePersonalization.popup.editPopup.preview')}
               </Button>
@@ -174,8 +174,8 @@ const CustomMobilePopupDialog: React.FC<FormikProps<FormikValues> & Props> = ({
           <DialogActions>
             <Button
               color="secondary"
-              onClick={closePreview}
               disabled={isSubmitting}
+              onClick={closePreview}
             >
               {t('mobilePersonalization.popup.editPopup.cancel')}
             </Button>

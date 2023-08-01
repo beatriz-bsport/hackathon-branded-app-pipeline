@@ -57,7 +57,7 @@ export const StripeTerminalPaymentSuccess = (props: Props) => {
       <div className={classes.validateIcon}>
         <ValidationIcon color="#4CAF50" />
       </div>
-      <Typography variant="h6" className={classes.successTitle}>
+      <Typography className={classes.successTitle} variant="h6">
         {t(
           `configuration.stripeTerminal.paymentDialog.paymentSuccess.title.${translationKey}`,
         )}

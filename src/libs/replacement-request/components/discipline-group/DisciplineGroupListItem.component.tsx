@@ -112,7 +112,7 @@ export const DisciplineGroupListItem: React.FC<Props> = ({
                 : t('disciplineGroup.all'),
             })}
           </Typography>
-          <Typography variant="body2" className={classes.detailsList}>
+          <Typography className={classes.detailsList} variant="body2">
             {listSumUp(
               disciplineGroup.meta_activities,
               disciplineGroup.all_activities,
@@ -127,7 +127,7 @@ export const DisciplineGroupListItem: React.FC<Props> = ({
                 : t('disciplineGroup.all'),
             })}
           </Typography>
-          <Typography variant="body2" className={classes.detailsList}>
+          <Typography className={classes.detailsList} variant="body2">
             {listSumUp(
               disciplineGroup.workshops,
               disciplineGroup.all_workshops,
@@ -142,7 +142,7 @@ export const DisciplineGroupListItem: React.FC<Props> = ({
                 : t('disciplineGroup.all'),
             })}
           </Typography>
-          <Typography variant="body2" className={classes.detailsList}>
+          <Typography className={classes.detailsList} variant="body2">
             {listSumUp(
               disciplineGroup.categories,
               disciplineGroup.all_categories,
@@ -170,8 +170,8 @@ export const DisciplineGroupListItem: React.FC<Props> = ({
         <div className={classes.establishmentInfos}>
           <PlaceIcon className={classes.establishmentIcon} />
           <Typography
-            variant="body2"
             className={classes.establishmentDetailsList}
+            variant="body2"
           >
             {multiLocationChoice === MultilocationChoice.Locations
               ? listSumUpEstablishmentGroups(

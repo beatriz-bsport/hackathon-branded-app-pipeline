@@ -135,12 +135,12 @@ const MarketPlaceTabBuilder: React.FC<Props> = (props) => {
       <DialogContent className={classes.container}>
         <TextField
           className={classes.fullWidth}
-          variant="outlined"
-          placeholder={t('')}
-          label={t('marketplaceSettings.createDialog.inputTitle')}
-          value={title}
-          onChange={(ev) => setTitle(ev.target.value)}
           inputProps={{ maxLength: TITLE_MAX_LENGTH }}
+          label={t('marketplaceSettings.createDialog.inputTitle')}
+          onChange={(ev) => setTitle(ev.target.value)}
+          placeholder={t('')}
+          value={title}
+          variant="outlined"
         />
         <Typography variant="caption">
           {t('marketplaceSettings.createDialog.titleCaption', {
@@ -152,10 +152,10 @@ const MarketPlaceTabBuilder: React.FC<Props> = (props) => {
 
         <div className={classes.marginTop}>
           <ExportableComponentSelector
+            error={componentTypeError}
+            onChange={onChangeComponentType}
             source={MARKETPLACE_COMPONENT_TYPE_LIST}
             value={componentType === 'calendarV2' ? 'calendar' : componentType}
-            onChange={onChangeComponentType}
-            error={componentTypeError}
           />
         </div>
 
@@ -165,9 +165,9 @@ const MarketPlaceTabBuilder: React.FC<Props> = (props) => {
           ) && (
             <div className={classes.showMoreContainer}>
               <Button
-                variant="outlined"
                 color="primary"
                 onClick={() => setShowAdvanceSettings(true)}
+                variant="outlined"
               >
                 {t('marketplaceSettings.createDialog.showAdvanced')}
               </Button>
@@ -176,38 +176,38 @@ const MarketPlaceTabBuilder: React.FC<Props> = (props) => {
 
         {showAdvanceSettings && (
           <ExportableComponentConfigurator
-            componentType={componentType}
             coaches={props.coaches}
+            componentType={componentType}
+            config={tabConfig}
+            customLevels={props.customLevels}
+            errors={configErrors}
+            establishmentGroupList={props.establishmentGroupList}
             establishments={props.establishments}
+            giftcards={props.giftcards}
             metaActivities={props.metaActivities}
             metaActivitiesWorkshop={props.metaActivitiesWorkshop}
-            privateServices={props.privateServices}
-            serviceGroupList={props.serviceGroupList}
-            playlists={props.playlists}
-            videos={props.videos}
-            errors={configErrors}
-            config={tabConfig}
             onChange={(config) =>
               setTabConfig({ [componentType]: config[componentType] })
             }
             paymentPackCategories={props.paymentPackCategories}
+            playlists={props.playlists}
             privatePassCategories={props.privatePassCategories}
-            establishmentGroupList={props.establishmentGroupList}
-            giftcards={props.giftcards}
-            customLevels={props.customLevels}
+            privateServices={props.privateServices}
+            serviceGroupList={props.serviceGroupList}
+            videos={props.videos}
           />
         )}
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={props.onClose} color="secondary">
+        <Button color="secondary" onClick={props.onClose}>
           {t('marketplaceSettings.createDialog.cancel')}
         </Button>
         <Button
-          type="submit"
-          onClick={onSubmit_}
           color="primary"
           id="button_role_save"
+          onClick={onSubmit_}
+          type="submit"
         >
           {t('marketplaceSettings.createDialog.submit')}
         </Button>

@@ -97,10 +97,8 @@ export const DashboardTabBar = (props: Props) => {
 
   return (
     <div>
-      <AppBar position="static" color="default" elevation={0}>
+      <AppBar color="default" elevation={0} position="static">
         <Tabs
-          variant="scrollable"
-          value={props.currentTabIndex}
           onChange={(e, newValue) => {
             if (newValue === 'addTab') {
               setTabNameDialogOpen(true);
@@ -108,9 +106,12 @@ export const DashboardTabBar = (props: Props) => {
             }
             props.setCurrentTabIndex(newValue);
           }}
+          value={props.currentTabIndex}
+          variant="scrollable"
         >
           {(props.dashboardSettings || []).map((tab, i) => (
             <Tab
+              key={`tab-${i}`}
               wrapped
               className={classes.tab}
               label={
@@ -124,7 +125,6 @@ export const DashboardTabBar = (props: Props) => {
                     <Tooltip title={t('ordering:category.popover.edit')}>
                       <IconButton
                         className={classes.iconButton}
-                        size="small"
                         onClick={(e) => {
                           e.stopPropagation();
                           setTabIndexToRename(i);
@@ -135,11 +135,12 @@ export const DashboardTabBar = (props: Props) => {
                           );
                           setTabNameDialogOpen(true);
                         }}
+                        size="small"
                       >
                         <EditIcon
-                          fontSize="small"
-                          color="primary"
                           classes={{ fontSizeSmall: classes.smallIcon }}
+                          color="primary"
+                          fontSize="small"
                         />
                       </IconButton>
                     </Tooltip>
@@ -149,22 +150,22 @@ export const DashboardTabBar = (props: Props) => {
                         <Tooltip title={t('ordering:category.popover.delete')}>
                           <IconButton
                             className={classes.iconButton}
-                            size="small"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              props.deleteTab(i);
-                            }}
                             disabled={
                               props.dashboardSettings &&
                               props.dashboardSettings.length === 1
                             }
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              props.deleteTab(i);
+                            }}
+                            size="small"
                           >
                             <DeleteIcon
-                              fontSize="small"
-                              color="error"
                               classes={{
                                 fontSizeSmall: classes.smallIcon,
                               }}
+                              color="error"
+                              fontSize="small"
                             />
                           </IconButton>
                         </Tooltip>
@@ -173,10 +174,10 @@ export const DashboardTabBar = (props: Props) => {
                 </div>
               }
               value={i}
-              key={`tab-${i}`}
             />
           ))}
           <Tab
+            classes={{ root: classes.addTabButton }}
             label={
               <Tooltip title={t('tabNameDialog.titleAdd')}>
                 <IconButton>
@@ -185,21 +186,20 @@ export const DashboardTabBar = (props: Props) => {
               </Tooltip>
             }
             value="addTab"
-            classes={{ root: classes.addTabButton }}
           />
         </Tabs>
       </AppBar>
       {tabNameDialogOpen && (
         <DashboardTabNameDialog
-          tabIndexToRename={tabIndexToRename}
-          initialValue={tabNameToRename}
           addNewTab={onAddNewTab}
-          renameTab={onRenameTab}
+          initialValue={tabNameToRename}
           onClose={() => {
             setTabIndexToRename(null);
             setTabNameToRename('');
             setTabNameDialogOpen(false);
           }}
+          renameTab={onRenameTab}
+          tabIndexToRename={tabIndexToRename}
         />
       )}
     </div>

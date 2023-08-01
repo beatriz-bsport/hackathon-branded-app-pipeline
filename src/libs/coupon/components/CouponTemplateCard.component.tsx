@@ -151,8 +151,8 @@ export const CouponCard = (props: Props) => {
             {couponTemplate.companies.map((c) => (
               <div className={classes.chipContainer}>
                 <CompanyChip
-                  company={c}
                   key={c.id}
+                  company={c}
                   onDelete={
                     props.onDeleteInstance &&
                     (() => props.onDeleteInstance(c.id))
@@ -165,16 +165,16 @@ export const CouponCard = (props: Props) => {
 
         <Button
           className={classes.addInstanceButton}
-          variant="outlined"
           color="primary"
           onClick={props.onCreateInstance}
+          variant="outlined"
         >
           <AddIcon />
           {t('paymentPack:paymentPackTemplateInstance.actions.addCompany')}
         </Button>
       </div>
       <div className={classes.actionButtons}>
-        <Button onClick={props.onDeleteTemplate} className={classes.greyColor}>
+        <Button className={classes.greyColor} onClick={props.onDeleteTemplate}>
           {t('modal.delete.actions.submit')}
         </Button>
         <Button color="primary" onClick={props.onEditTemplate}>

@@ -41,14 +41,14 @@ const CouponTemplateInstanceDeleteDialog = (props: Props) => {
         </Typography>
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.onClose} disabled={processing}>
+        <Button disabled={processing} onClick={props.onClose}>
           {t(
             'paymentPack:paymentPackTemplateInstance.deleteForm.actions.close',
           )}
         </Button>
         <RedButton
-          disabled={processing}
           delayBeforeActivation={5}
+          disabled={processing}
           onClick={() =>
             props.onSubmit(
               props.couponTemplate.coupon_template_instances.find(

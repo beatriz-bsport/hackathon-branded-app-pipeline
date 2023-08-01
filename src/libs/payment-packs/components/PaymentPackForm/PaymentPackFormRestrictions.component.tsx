@@ -77,7 +77,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
   );
   return (
     <>
-      <Grid container spacing={2} id="paymentpack-form-restrictions-section">
+      <Grid container id="paymentpack-form-restrictions-section" spacing={2}>
         <Grid item xs={12}>
           <div className={classes.infoText}>
             <CancelIcon className={classes.icon} />
@@ -88,84 +88,84 @@ export const PaymentPackFormRestrictions = (props: Props) => {
         </Grid>
         <Grid item xs={6}>
           <TextFieldEnhancedLabelWithError
+            fullWidth
+            disabled={
+              disabledUniversalPassFields || !!initial?.template_instance
+            }
+            helperText={t('addPaymentPack.maxUseHelper')}
             id="max-bookings-per-day"
-            fullWidth
-            type="number"
-            name="max_bookings_per_day"
             label={t('addPaymentPack.maxUseDay')}
-            helperText={t('addPaymentPack.maxUseHelper')}
-            disabled={
-              disabledUniversalPassFields || !!initial?.template_instance
-            }
+            name="max_bookings_per_day"
+            type="number"
           />
         </Grid>
         <Grid item xs={6}>
           <TextFieldEnhancedLabelWithError
+            fullWidth
+            disabled={
+              disabledUniversalPassFields || !!initial?.template_instance
+            }
+            helperText={t('addPaymentPack.maxUseHelper')}
             id="max-bookings-per-week"
-            fullWidth
-            type="number"
-            name="max_bookings_per_week"
             label={t('addPaymentPack.maxUseWeek')}
-            helperText={t('addPaymentPack.maxUseHelper')}
-            disabled={
-              disabledUniversalPassFields || !!initial?.template_instance
-            }
+            name="max_bookings_per_week"
+            type="number"
           />
         </Grid>
         <Grid item xs={6}>
           <TextFieldEnhancedLabelWithError
+            fullWidth
+            disabled={
+              disabledUniversalPassFields || !!initial?.template_instance
+            }
+            helperText={t('addPaymentPack.maxUseHelper')}
             id="max-bookings-per-month"
-            fullWidth
-            type="number"
-            name="max_bookings_per_month"
             label={t('addPaymentPack.maxUseMonth')}
-            helperText={t('addPaymentPack.maxUseHelper')}
-            disabled={
-              disabledUniversalPassFields || !!initial?.template_instance
-            }
+            name="max_bookings_per_month"
+            type="number"
           />
         </Grid>
         <Grid item xs={6}>
           <TextFieldEnhancedLabelWithError
-            id="max-purchase-per-member"
             fullWidth
-            type="number"
-            name="max_purchase_per_member"
-            label={t('addPaymentPack.maxUseMember')}
-            helperText={t('addPaymentPack.maxUseHelper')}
             disabled={!!initial?.template_instance}
+            helperText={t('addPaymentPack.maxUseHelper')}
+            id="max-purchase-per-member"
+            label={t('addPaymentPack.maxUseMember')}
+            name="max_purchase_per_member"
+            type="number"
           />
         </Grid>
-        <Grid item xs={12} id="restrictions-switchfields-grid">
+        <Grid item id="restrictions-switchfields-grid" xs={12}>
           <div className={classes.switch}>
             <div className={classes.row}>
               <SwitchField
-                name="new_member_only"
-                label={t('addPaymentPack.newClientOnly')}
                 disabled={values.manager_only || !!initial?.template_instance}
                 helperText={t('member:forms.newMemberOnlyHelperText', {
                   currency: getCurrencyDisplay(),
                 })}
+                label={t('addPaymentPack.newClientOnly')}
+                name="new_member_only"
               />
             </div>
             <div className={classes.row}>
               <SwitchField
-                name="manager_only"
                 disabled={!!initial?.template_instance}
+                name="manager_only"
               />
               <Typography>{t('addPaymentPack.notForSell')}</Typography>
             </div>
             <div className={classes.row}>
               <SwitchField
-                name="onsite_payment_available"
                 disabled={values.manager_only || !!initial?.template_instance}
+                name="onsite_payment_available"
               />
               <Typography>{t('addPaymentPack.inShopPayment')}</Typography>
             </div>
             <div className={classes.row}>
               <SwitchField
-                name="unusable_by_staff"
                 disabled={!!initial?.template_instance}
+                name="unusable_by_staff"
               />
               <Typography>{t('addPaymentPack.unusableByStaff')}</Typography>
             </div>
@@ -177,14 +177,14 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             )}
             <div className={classes.row}>
               <SwitchField
-                name="expiration_date_active"
                 disabled={!!initial?.template_instance}
+                name="expiration_date_active"
               />
               <Typography>
                 {t('addPaymentPack.expiration_date.label')}
               </Typography>
               <ToolTip title={t('addPaymentPack.expiration_date.tooltip')}>
-                <InfoIcon color="disabled" className={classes.infoIcon} />
+                <InfoIcon className={classes.infoIcon} color="disabled" />
               </ToolTip>
             </div>
             <Collapse in={values.expiration_date_active}>
@@ -192,19 +192,19 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 {t('addPaymentPack.expiration_date.helperText')}
               </InputLabel>
               <DateField
-                name="expiration_date"
+                allowNullValue
                 disabled={!!initial?.template_instance}
                 format="L"
-                allowNullValue
                 minDate={moment.now()}
+                name="expiration_date"
               />
             </Collapse>
             <div className={classes.row}>
               <SwitchField
-                name="off_peak_active"
                 disabled={
                   disabledUniversalPassFields || !!initial?.template_instance
                 }
+                name="off_peak_active"
               />
               <Typography>{t('addPaymentPack.offPeak.label')}</Typography>
             </div>
@@ -214,15 +214,15 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                   <OffPeakTimeSlotGroup
                     key={`${index}`}
                     group={group}
-                    setFieldValue={setFieldValue}
                     index={index}
                     multipleGroups={multipleGroups}
                     onGroupDelete={handleDeleteGroup(index)}
+                    setFieldValue={setFieldValue}
                   />
                 ))}
                 <ButtonBase
-                  color="primary"
                   className={classes.buttonAdd}
+                  color="primary"
                   onClick={handleAddGroupTimeSlot}
                 >
                   <AddIcon color="primary" />
@@ -238,18 +238,8 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               {t('addPaymentPack.categories')}
             </Typography>
             <MaterialUISelector
-              id="categories-selector"
-              options={
-                [
-                  ...categoryList?.map((category) => ({
-                    label: category.name,
-                    value: category.id,
-                    parentCategory: category.SCS.id,
-                  })),
-                ] || []
-              }
+              inScrollBar
               isMulti
-              defaultNumberShown={3}
               chipsRenderer={(chipProps: {
                 data: {
                   label: string;
@@ -259,12 +249,30 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 onDelete: () => void;
               }) => (
                 <SCTChip
+                  color="primary"
+                  onDelete={chipProps.onDelete}
                   parentCategory={chipProps.data.parentCategory}
                   SCTName={chipProps.data.label}
-                  onDelete={chipProps.onDelete}
-                  color="primary"
                 />
               )}
+              defaultNumberShown={3}
+              id="categories-selector"
+              onChange={(options) => {
+                setFieldValue(
+                  'categories',
+                  options?.map((option) => option.value),
+                );
+              }}
+              options={
+                [
+                  ...categoryList?.map((category) => ({
+                    label: category.name,
+                    value: category.id,
+                    parentCategory: category.SCS.id,
+                  })),
+                ] || []
+              }
+              placeholder={t('addPaymentPack.letBlank')}
               value={values?.categories?.map((id) => ({
                 label: categoryList.find((category) => category.id === id)
                   ?.name,
@@ -273,14 +281,6 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                   (category) => category.id === id,
                 )?.SCS.id,
               }))}
-              onChange={(options) => {
-                setFieldValue(
-                  'categories',
-                  options?.map((option) => option.value),
-                );
-              }}
-              placeholder={t('addPaymentPack.letBlank')}
-              inScrollBar
             />
           </div>
         </Grid>
@@ -290,8 +290,27 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               {t('addPaymentPack.room')}
             </Typography>
             <MaterialUISelector
+              inScrollBar
+              isMulti
+              chipsRenderer={(chipProps: {
+                data: { label: string; value: number };
+                onDelete: () => void;
+              }) => (
+                <Chip
+                  color="primary"
+                  label={chipProps.data.label}
+                  onDelete={chipProps.onDelete}
+                />
+              )}
+              defaultNumberShown={3}
               id="establishments-selector"
               menuPosition="fixed"
+              onChange={(options) => {
+                setFieldValue(
+                  'establishments',
+                  options?.map((option) => option.value),
+                );
+              }}
               options={
                 [
                   ...availableEstablishmentList?.map((establishment) => ({
@@ -300,32 +319,13 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                   })),
                 ] || []
               }
-              isMulti
-              defaultNumberShown={3}
-              chipsRenderer={(chipProps: {
-                data: { label: string; value: number };
-                onDelete: () => void;
-              }) => (
-                <Chip
-                  label={chipProps.data.label}
-                  onDelete={chipProps.onDelete}
-                  color="primary"
-                />
-              )}
+              placeholder={t('addPaymentPack.letBlank')}
               value={values?.establishments?.map((id) => ({
                 label: availableEstablishmentList.find(
                   (establishment) => establishment.id === id,
                 )?.title,
                 value: id,
               }))}
-              onChange={(options) => {
-                setFieldValue(
-                  'establishments',
-                  options?.map((option) => option.value),
-                );
-              }}
-              placeholder={t('addPaymentPack.letBlank')}
-              inScrollBar
             />
           </div>
         </Grid>
@@ -335,40 +335,40 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               {t('addPaymentPack.activities')}
             </Typography>
             <MaterialUISelector
-              id="activities-selector"
-              options={[
-                ...metaActivityList?.map((metaActivity) => ({
-                  label: metaActivity.name,
-                  value: metaActivity.id,
-                })),
-              ]}
+              inScrollBar
               isMulti
-              defaultNumberShown={3}
               chipsRenderer={(chipProps: { data; onDelete: () => void }) => (
                 <Chip
+                  color="primary"
                   label={chipProps.data.label}
                   onDelete={chipProps.onDelete}
-                  color="primary"
                 />
               )}
-              value={values?.metaActivities?.map((id) => ({
-                label: metaActivityList.find(
-                  (metaActivity) => metaActivity.id === id,
-                )?.name,
-                value: id,
-              }))}
+              defaultNumberShown={3}
+              id="activities-selector"
               onChange={(options) => {
                 setFieldValue(
                   'metaActivities',
                   options?.map((option) => option.value),
                 );
               }}
+              options={[
+                ...metaActivityList?.map((metaActivity) => ({
+                  label: metaActivity.name,
+                  value: metaActivity.id,
+                })),
+              ]}
               placeholder={t('addPaymentPack.letBlank')}
-              inScrollBar
+              value={values?.metaActivities?.map((id) => ({
+                label: metaActivityList.find(
+                  (metaActivity) => metaActivity.id === id,
+                )?.name,
+                value: id,
+              }))}
             />
           </div>
         </Grid>
-        <Grid item xs={6} className={classes.warningItem}>
+        <Grid item className={classes.warningItem} xs={6}>
           <div className={classes.warning}>
             <WarningIcon color="primary" />
             <Typography variant="body2">
@@ -384,17 +384,17 @@ export const PaymentPackFormRestrictions = (props: Props) => {
           <Collapse in={openVodOptions}>
             <div className={classes.switch}>
               <CheckboxField
-                name="full_vod_access"
-                label={t('addPaymentPack.vodAccessCard')}
                 disabled={!!initial?.template_instance}
+                label={t('addPaymentPack.vodAccessCard')}
+                name="full_vod_access"
               />
               <Collapse in={values.full_vod_access}>
                 <CheckboxField
-                  name="only_vod_access"
-                  label={t('addPaymentPack.only_vod_access')}
                   disabled={
                     disabledUniversalPassFields || !!initial?.template_instance
                   }
+                  label={t('addPaymentPack.only_vod_access')}
+                  name="only_vod_access"
                 />
               </Collapse>
             </div>

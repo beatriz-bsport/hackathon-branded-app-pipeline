@@ -62,9 +62,9 @@ export class MarketplaceActivity extends React.Component<Props> {
             <a className={this.props.classes.rightIcon} href={facebook_url}>
               <Icon color="primary">
                 <img
-                  style={{ height: 24, width: 24 }}
-                  src={FACEBOOK_PNG}
                   alt="Facebook"
+                  src={FACEBOOK_PNG}
+                  style={{ height: 24, width: 24 }}
                 />
               </Icon>
             </a>
@@ -73,9 +73,9 @@ export class MarketplaceActivity extends React.Component<Props> {
             <a className={this.props.classes.rightIcon} href={instagram_url}>
               <Icon color="primary">
                 <img
-                  style={{ height: 24, width: 24 }}
-                  src={INSTAGRAM_PNG}
                   alt="Instagram"
+                  src={INSTAGRAM_PNG}
+                  style={{ height: 24, width: 24 }}
                 />
               </Icon>
             </a>
@@ -94,14 +94,14 @@ export class MarketplaceActivity extends React.Component<Props> {
     if (offer && offer.coach) {
       return (
         <div>
-          <Typography variant="h6" className={classes.title}>
+          <Typography className={classes.title} variant="h6">
             {t('marketplace.teacher')}
           </Typography>
           {offer.coach_override ? (
             <div className={classes.coachBox}>
               <Avatar
-                src={offer.coach_override.photo}
                 className={classes.avatarSubstitute}
+                src={offer.coach_override.photo}
               />
               <div className={classes.coachInformations}>
                 <div className={classes.coachContain}>
@@ -113,9 +113,9 @@ export class MarketplaceActivity extends React.Component<Props> {
                 </div>
                 {offer.coach_override.description ? (
                   <TypographyMultiline
+                    className={classes.coachDescription}
                     color="textSecondary"
                     variant="body1"
-                    className={classes.coachDescription}
                   >
                     {offer.coach_override.description}
                   </TypographyMultiline>
@@ -137,9 +137,9 @@ export class MarketplaceActivity extends React.Component<Props> {
               </div>
               {offer.coach_override ? null : (
                 <TypographyMultiline
+                  className={classes.multiline}
                   color="textSecondary"
                   variant="body1"
-                  className={classes.multiline}
                 >
                   {offer.coach.description}
                 </TypographyMultiline>
@@ -180,24 +180,23 @@ export class MarketplaceActivity extends React.Component<Props> {
     return (
       <Card className={classes.card}>
         <IconButton
-          color="secondary"
           className={classes.cancelButton}
+          color="secondary"
           onClick={onClose}
         >
           <ArrowBackIcon className={classes.cancelIcon} />
         </IconButton>
         <CardMedia
           className={classes.media}
-          src={offer.meta_activity.cover_main}
           component="img"
+          src={offer.meta_activity.cover_main}
         />
         <CardContent>
           {this.props.showBookingButton ? (
             <Button
               fullWidth
-              variant="contained"
-              color="primary"
               className={classes.callButton}
+              color="primary"
               disabled={isOfferInThePast(offer) || !offer.available}
               onClick={() => {
                 this.props.goToOfferPayment(offer);
@@ -205,41 +204,42 @@ export class MarketplaceActivity extends React.Component<Props> {
                   this.props.onClose();
                 }
               }}
+              variant="contained"
             >
               {t('marketplace.bookButton.book')}
             </Button>
           ) : null}
           <div>
-            <Typography variant="body2" className={classes.hashtags}>
+            <Typography className={classes.hashtags} variant="body2">
               {/* {activity.hashtags} */}
             </Typography>
-            <Typography variant="h6" className={classes.title}>
+            <Typography className={classes.title} variant="h6">
               {offer.meta_activity.name}
             </Typography>
             <TypographyMultiline color="textSecondary" variant="body2">
               {offer.meta_activity.description}
             </TypographyMultiline>
-            <Typography variant="h6" className={classes.title}>
+            <Typography className={classes.title} variant="h6">
               {t('metaActivity:settings.conditions')}
             </Typography>
-            <Typography variant="caption" component="h4">
+            <Typography component="h4" variant="caption">
               {t('metaActivity:settings.lastDiscardBeforeMinutesFull', {
                 m: formatMinutes(offer.meta_activity.last_discard_minutes, t),
               })}
             </Typography>
             {this.renderCoachBanner()}
-            <Typography variant="h6" className={classes.title}>
+            <Typography className={classes.title} variant="h6">
               {establishment.title}
             </Typography>
-            <Typography variant="body2" className={classes.address}>
+            <Typography className={classes.address} variant="body2">
               {establishment.location.address}
             </Typography>
             {!this.props.hideMap ? (
               <Map
                 center={center}
+                mapContainerClassName={this.props.mapContainerClassName}
                 markers={markers}
                 zoom={15}
-                mapContainerClassName={this.props.mapContainerClassName}
               />
             ) : null}
           </div>
@@ -248,7 +248,6 @@ export class MarketplaceActivity extends React.Component<Props> {
           <CardActions>
             <Button
               fullWidth
-              variant="contained"
               color="primary"
               disabled={isOfferInThePast(offer) || !offer.available}
               onClick={() => {
@@ -257,6 +256,7 @@ export class MarketplaceActivity extends React.Component<Props> {
                   this.props.onClose();
                 }
               }}
+              variant="contained"
             >
               {t('marketplace.bookButton.book')}
             </Button>

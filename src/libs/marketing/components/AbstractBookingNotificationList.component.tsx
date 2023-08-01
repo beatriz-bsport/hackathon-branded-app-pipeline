@@ -117,11 +117,11 @@ export class AbstractBookingNotificationList extends React.PureComponent<Props> 
       <div className={classes.byKindContainer}>
         {Object.entries(byKind).map(([kind, notifications]) => {
           return (
-            <div className={classes.byKindItem} key={kind}>
+            <div key={kind} className={classes.byKindItem}>
               <Typography>• {getLabelForKind(parseInt(kind), t)}</Typography>
               <MarketingNotificationsList
-                notifications={notifications}
                 emailSummariesById={this.props.emailSummariesById}
+                notifications={notifications}
                 onClickNotification={this.props.onClickNotification}
                 onUpdateNotification={this.props.onUpdateNotification}
               />
@@ -146,7 +146,7 @@ export class AbstractBookingNotificationList extends React.PureComponent<Props> 
       const byKind = bySession[sessionNumber];
 
       return (
-        <div className={classes.bySessionItem} key={sessionNumber}>
+        <div key={sessionNumber} className={classes.bySessionItem}>
           <div className={classes.sessionTitleContainer}>
             <EventIcon />
 
@@ -191,15 +191,15 @@ export class AbstractBookingNotificationList extends React.PureComponent<Props> 
     return (
       <div className={classes.container}>
         <NotificationByClass
-          notifications={this.props.bookingNotifications}
-          label={t('marketing:notifications.groupTitle.booking')}
           getLabel={this.getLabel}
+          label={t('marketing:notifications.groupTitle.booking')}
+          notifications={this.props.bookingNotifications}
           renderSession={this.renderSession}
         />
         <NotificationByClass
-          notifications={this.props.privateBookingNotifications}
-          label={t('marketing:notifications.groupTitle.privateBooking')}
           getLabel={this.getLabel}
+          label={t('marketing:notifications.groupTitle.privateBooking')}
+          notifications={this.props.privateBookingNotifications}
           renderSession={this.renderSession}
         />
       </div>
@@ -288,8 +288,8 @@ const NotificationByClass = (props: NotificationByClassProps) => {
   return (
     <>
       <ButtonBase
-        onClick={() => setShowSection(!showSection)}
         className={classes.buttonBaseHeader}
+        onClick={() => setShowSection(!showSection)}
       >
         <Typography variant="h5">{label}</Typography>
         {showSection ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -304,7 +304,7 @@ const NotificationByClass = (props: NotificationByClassProps) => {
         const name = getLabel(key, group.identifier);
         return (
           <Collapse in={showSection}>
-            <div className={classes.itemContainer} key={key}>
+            <div key={key} className={classes.itemContainer}>
               <ButtonBase
                 className={classes.buttonTitleContainer}
                 onClick={() => {

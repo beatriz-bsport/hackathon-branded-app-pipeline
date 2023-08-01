@@ -24,22 +24,22 @@ export const PlaylistForm = (props: Props) => {
       </div>
       <div className={classes.field}>
         <TextField
+          fullWidth
+          required
+          inputProps={{ maxLength: 500 }}
           label={t('playlist.name')}
           name="name"
-          required
-          fullWidth
-          inputProps={{ maxLength: 500 }}
         />
       </div>
       <div className={classes.field}>
         <TextField
-          label={t('playlist.description')}
-          name="description"
-          variant="outlined"
-          required
           fullWidth
           multiline
+          required
+          label={t('playlist.description')}
+          name="description"
           rows={10}
+          variant="outlined"
         />
       </div>
     </div>

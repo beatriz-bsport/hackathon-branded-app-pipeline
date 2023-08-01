@@ -36,10 +36,10 @@ const MarketplaceContractCooldownModal: React.FC<Props> = ({
   return (
     <>
       {isOpen && (
-        <div className="bs-contract-cooldown-dialog__backdrop" ref={dialogRef}>
+        <div ref={dialogRef} className="bs-contract-cooldown-dialog__backdrop">
           <div
-            className="bs-contract-cooldown-dialog__container"
             ref={modalRef}
+            className="bs-contract-cooldown-dialog__container"
           >
             <h5 className="bs-contract-cooldown-dialog__title">
               {t('subscription:alreadySubscribed.dialog.title')}
@@ -52,9 +52,9 @@ const MarketplaceContractCooldownModal: React.FC<Props> = ({
             <div className="bs-contract-cooldown-dialog__actions">
               <button
                 className="bs-contract-cooldown-dialog__button"
-                type="button"
-                onClick={onDialogClose}
                 disabled={modalCountdown > 0}
+                onClick={onDialogClose}
+                type="button"
               >
                 {modalCountdown > 0
                   ? modalCountdown

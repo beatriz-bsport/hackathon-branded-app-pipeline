@@ -46,7 +46,7 @@ export const AccountConfigurationWelcomeStep: React.FC<Props> = ({
       <Typography variant="h2">
         {t('accountConfiguration.welcomeTitle')}
       </Typography>
-      <Typography variant="h5" className={classes.description}>
+      <Typography className={classes.description} variant="h5">
         {t('accountConfiguration.welcomeDescription')}
       </Typography>
       <Typography variant="h6">
@@ -57,13 +57,13 @@ export const AccountConfigurationWelcomeStep: React.FC<Props> = ({
       </Typography>
       <AccountConfigurationStepper
         noTitleGrey
-        variant="verticalOnMobile"
-        steps={steps}
         className={classes.stepper}
+        steps={steps}
+        variant="verticalOnMobile"
       />
 
       <div className={classes.action}>
-        <Button variant="contained" color="primary" onClick={goNext}>
+        <Button color="primary" onClick={goNext} variant="contained">
           {t('common:start')}
         </Button>
       </div>

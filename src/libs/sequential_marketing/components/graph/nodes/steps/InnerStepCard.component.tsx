@@ -44,13 +44,13 @@ const InnerStepHeader: React.FC<InnerStepHeaderProps> = React.memo(
   ({ stepName, actions, handleDisableRipple, handleEnableRipple }) => {
     return (
       <CadenceNodeTitle
-        name={stepName}
-        icon="DeviceHub"
-        color={SequentialMarketingColors.INNER_STEP_COLOR}
+        squareIcon
         actions={actions}
+        color={SequentialMarketingColors.INNER_STEP_COLOR}
         handleDisableRipple={handleDisableRipple}
         handleEnableRipple={handleEnableRipple}
-        squareIcon
+        icon="DeviceHub"
+        name={stepName}
       />
     );
   },
@@ -69,13 +69,13 @@ const InnerStepContent: React.FC<InnerStepContentProps> = React.memo(
 
     return (
       <CadenceNodeContent
-        marketingActionList={!!marketingActionList && marketingActionList}
         addMarketingAction={addMarketingAction}
         disableAddMarketingAction={
           isMarctingActionFull || disableAddMarketingAction
         }
-        getTag={getTag}
         getEmailTemplate={getEmailTemplate}
+        getTag={getTag}
+        marketingActionList={!!marketingActionList && marketingActionList}
       />
     );
   },
@@ -139,40 +139,40 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
 
   return (
     <StepCard
-      header={
-        <InnerStepHeader
-          stepName={step?.name}
-          actions={actions}
-          handleDisableRipple={handleDisableRipple}
-          handleEnableRipple={handleEnableRipple}
-        />
-      }
+      maxWidth
+      addButtonAction={addNextStep}
+      addButtonColor={SequentialMarketingColors.INNER_STEP_COLOR}
+      addButtonLabel={t('cadence.steps.actions.addNextStep')}
+      color={SequentialMarketingColors.INNER_STEP_BORDER_COLOR}
       content={
         ((!!marketingActionList && marketingActionList.length > 0) ||
           !!addMarketingAction) && (
           <InnerStepContent
-            marketingActionList={marketingActionList}
             addMarketingAction={
               !!addMarketingAction && onClickNewMarketingAction
             }
             disableAddMarketingAction={disableAddMarketingAction}
-            getTag={getTag}
             getEmailTemplate={getEmailTemplate}
+            getTag={getTag}
+            marketingActionList={marketingActionList}
           />
         )
       }
-      color={SequentialMarketingColors.INNER_STEP_BORDER_COLOR}
-      selectedColor={SequentialMarketingColors.INNER_STEP_COLOR}
-      isSelected={isSelected}
       disabled={disabled}
+      disableRipple={disableRipple}
+      header={
+        <InnerStepHeader
+          actions={actions}
+          handleDisableRipple={handleDisableRipple}
+          handleEnableRipple={handleEnableRipple}
+          stepName={step?.name}
+        />
+      }
       isDivided={!!marketingActionList || !!addMarketingAction}
       isEmpty={!marketingActionList && !addMarketingAction}
-      disableRipple={disableRipple}
+      isSelected={isSelected}
       onCardClick={onCardClick}
-      addButtonAction={addNextStep}
-      addButtonLabel={t('cadence.steps.actions.addNextStep')}
-      addButtonColor={SequentialMarketingColors.INNER_STEP_COLOR}
-      maxWidth
+      selectedColor={SequentialMarketingColors.INNER_STEP_COLOR}
     />
   );
 };

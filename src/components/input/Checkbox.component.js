@@ -16,15 +16,15 @@ type Props = {
 export const Checkbox = (props: Props) => (
   <FormControl>
     <FormControlLabel
-      label={props.label}
-      helperText={props.helperText}
       control={
         <CheckboxMUI
           {...props}
-          disabled={!!props.disabled}
           checked={props.checked}
+          disabled={!!props.disabled}
         />
       }
+      helperText={props.helperText}
+      label={props.label}
     />
     {props.helperText ? (
       <FormHelperText>{props.helperText}</FormHelperText>

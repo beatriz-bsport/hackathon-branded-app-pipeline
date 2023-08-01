@@ -95,7 +95,7 @@ export const SlotDetailDialog: React.FC<Props> = ({
 
   if (!availabilityDetails) {
     return (
-      <GenericResponsiveDialog maxWidth="sm" open>
+      <GenericResponsiveDialog open maxWidth="sm">
         <DialogTitle>
           <Typography variant="h6">
             {t('availabilitySlot.detail.dialog.title')}
@@ -103,13 +103,13 @@ export const SlotDetailDialog: React.FC<Props> = ({
         </DialogTitle>
         <DialogContent>
           <InfoBox
-            variant="outlined"
-            content={t('availabilitySlot.detail.detailEmpty')}
             className={classes.infoBox}
+            content={t('availabilitySlot.detail.detailEmpty')}
+            variant="outlined"
           />
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" color="primary" onClick={onLeave}>
+          <Button color="primary" onClick={onLeave} variant="contained">
             {t('availabilitySlot.detail.ok')}
           </Button>
         </DialogActions>
@@ -118,7 +118,7 @@ export const SlotDetailDialog: React.FC<Props> = ({
   }
 
   return (
-    <GenericResponsiveDialog maxWidth="sm" open>
+    <GenericResponsiveDialog open maxWidth="sm">
       <DialogTitle>
         <Typography variant="h6">
           {t('availabilitySlot.detail.dialog.title')}
@@ -128,15 +128,15 @@ export const SlotDetailDialog: React.FC<Props> = ({
         <div className={classes.tabContainer}>
           <Tabs
             indicatorColor="primary"
+            onChange={handleResourceChange}
             textColor="primary"
             value={selectedResourceType}
-            onChange={handleResourceChange}
           >
             {Object.keys(detailByResourceType).map((key) => (
               <Tab
+                key={key}
                 label={t(`resource.datatype.${key}`)}
                 value={key}
-                key={key}
               />
             ))}
           </Tabs>
@@ -154,7 +154,7 @@ export const SlotDetailDialog: React.FC<Props> = ({
         </div>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" color="primary" onClick={onLeave}>
+        <Button color="primary" onClick={onLeave} variant="contained">
           {t('availabilitySlot.detail.ok')}
         </Button>
       </DialogActions>

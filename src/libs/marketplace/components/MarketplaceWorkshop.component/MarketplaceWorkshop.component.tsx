@@ -110,7 +110,7 @@ const MarketplaceWorkshop: React.FC<Props> = ({
   }
 
   return (
-    <div className="bs-workshop-page__workshops" ref={refContainer}>
+    <div ref={refContainer} className="bs-workshop-page__workshops">
       <div
         className={classnames('bs-workshop-page__workshops__lists', {
           'bs-workshop-page__workshops__lists--column':
@@ -127,23 +127,23 @@ const MarketplaceWorkshop: React.FC<Props> = ({
           return (
             <div key={m.id}>
               <MarketPlaceWorkshopCard
-                theme={theme}
-                offers={offers}
+                bookedOffers={bookedOffers}
                 getCoach={getCoach}
                 getEstablishment={getEstablishment}
-                getLevel={getLevel}
                 getGroup={getGroup}
-                metaActivity={m}
-                showOfferFilling={showOfferFilling}
-                showOfferGender={showOfferGender}
-                loading={false}
+                getLevel={getLevel}
+                getOffersListByGroup={getOffersListByGroup}
                 hideCoach={hideCoach}
-                bookedOffers={bookedOffers}
+                loading={false}
+                metaActivity={m}
+                offerDetailsloading={offerDetailsloading}
+                offers={offers}
                 onBook={onBook}
                 onBookOption={onBookOption}
-                offerDetailsloading={offerDetailsloading}
                 onLoadMoreOffer={onLoadMoreOffer(m.id)}
-                getOffersListByGroup={getOffersListByGroup}
+                showOfferFilling={showOfferFilling}
+                showOfferGender={showOfferGender}
+                theme={theme}
               />
             </div>
           );

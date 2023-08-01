@@ -33,17 +33,17 @@ export default (props: Props) => {
   }
   return (
     <ListItem
-      dense={props.dense}
       divider
       button={!!props.onClick}
+      dense={props.dense}
       onClick={props.onClick}
       style={props.isFocused ? { backgroundColor: '#EFEFEF' } : {}}
     >
       {!!props.shopitem.cover && (
         <ListItemIcon>
           <Avatar
-            style={{ height: 60, width: 60, marginRight: 8 }}
             src={props.shopitem.cover}
+            style={{ height: 60, width: 60, marginRight: 8 }}
           />
         </ListItemIcon>
       )}

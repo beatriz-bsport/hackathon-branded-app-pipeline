@@ -51,18 +51,18 @@ export const CadenceEntrySetupForm: React.FC<InitialEntryComponentProps> = ({
       </div>
       <div className={classes.stepperContainer}>
         <CadenceSettingsFormStepper
-          step={CADENCE_STEPPER_ENTRY_STEP}
           displaySteps={[CADENCE_STEPPER_ENTRY_STEP]}
+          step={CADENCE_STEPPER_ENTRY_STEP}
         />
       </div>
       <Divider />
       <TriggerForm
-        initial={initial}
-        smartlists={smartlists}
-        onSubmit={handleSubmitForm}
-        viewMode={viewMode}
         cadenceEntry
         noEmptyTrigger
+        initial={initial}
+        onSubmit={handleSubmitForm}
+        smartlists={smartlists}
+        viewMode={viewMode}
       />
     </div>
   );

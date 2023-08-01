@@ -36,7 +36,7 @@ const DrawerItemIcon: React.FC<ItemWithIconProps> = ({
       );
     }
     return (
-      <ToolTip title={item.text} placement="right-start">
+      <ToolTip placement="right-start" title={item.text}>
         <ListItemIcon
           className={classNames(classes.disabledIconPadding, {
             [classes.nestedIcon]: isNested,

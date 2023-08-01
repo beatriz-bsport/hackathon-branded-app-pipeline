@@ -13,7 +13,7 @@ const NestedAlertError: React.FC<{
         if (typeof field.meta.error !== 'string') return null;
         if (typeof field.meta.error === 'string') {
           return (
-            <Typography variant="caption" color="error">
+            <Typography color="error" variant="caption">
               {t(field.meta.error)}
             </Typography>
           );

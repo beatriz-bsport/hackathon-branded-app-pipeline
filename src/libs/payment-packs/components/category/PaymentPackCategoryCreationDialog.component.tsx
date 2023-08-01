@@ -48,13 +48,13 @@ export const PaymentPackCategoryCreationDialog = (props: Props) => {
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Dialog
-      fullWidth
-      maxWidth="sm"
-      open={props.open}
-      onClose={props.handleClose}
       disableBackdropClick
       disableEscapeKeyDown
+      fullWidth
       fullScreen={fullScreen}
+      maxWidth="sm"
+      onClose={props.handleClose}
+      open={props.open}
     >
       <DialogTitle id="form-dialog-title">
         {paymentPackCategorySelected
@@ -63,11 +63,11 @@ export const PaymentPackCategoryCreationDialog = (props: Props) => {
       </DialogTitle>
       <DialogContent>
         <TextField
-          value={paymentPackCategoryName}
-          placeholder={t('category.form.dialog.name')}
-          onChange={(ev) => setPaymentPackCategoryName(ev.target.value)}
           fullWidth
           required
+          onChange={(ev) => setPaymentPackCategoryName(ev.target.value)}
+          placeholder={t('category.form.dialog.name')}
+          value={paymentPackCategoryName}
           variant="outlined"
         />
         {!paymentPackCategorySelected && (
@@ -82,16 +82,16 @@ export const PaymentPackCategoryCreationDialog = (props: Props) => {
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.handleClose} color="secondary">
+        <Button color="secondary" onClick={props.handleClose}>
           {t('category.form.dialog.cancel')}
         </Button>
         <Button
+          color="secondary"
+          disabled={!paymentPackCategoryName}
           onClick={() => {
             handleSubmit();
             props.trackIntent && props.trackIntent();
           }}
-          disabled={!paymentPackCategoryName}
-          color="secondary"
         >
           {paymentPackCategorySelected
             ? t('category.form.dialog.update')

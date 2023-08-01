@@ -60,8 +60,8 @@ class EbookProviderDropzone extends React.PureComponent<Props> {
       <div className={classes.container}>
         <div className={classes.dropZoneContainer}>
           <Dropzone
-            multiple={false}
             accept={['image/png', 'image/jpeg', 'application/pdf']}
+            multiple={false}
             onDropAccepted={this.onDropAccepted}
           >
             {({
@@ -83,7 +83,7 @@ class EbookProviderDropzone extends React.PureComponent<Props> {
                   <input {...getInputProps()} />
                   <p>{this.props.t('video.upload.contentEbook')}</p>
 
-                  <Typography variant="caption" color="textSecondary">
+                  <Typography color="textSecondary" variant="caption">
                     pdf, jpg, jpeg, png
                   </Typography>
                 </div>
@@ -93,8 +93,8 @@ class EbookProviderDropzone extends React.PureComponent<Props> {
         </div>
         {this.props.file && (
           <Typography
-            variant="subtitle2"
             className={this.props.classes.fileName}
+            variant="subtitle2"
           >
             {this.props.file.name}
           </Typography>

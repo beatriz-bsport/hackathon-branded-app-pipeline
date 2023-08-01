@@ -28,12 +28,12 @@ const PartnershipConfigurationOverrideForm = (props: Props) => {
     <div>
       <EstablishmentSelector
         closeMenuOnSelect
-        placeholder={t('parameters.establishment')}
         noMulti
         establishments={props.establishmentList.map((e) => ({
           ...e,
           id: e.associatedestablishment_set[0],
         }))}
+        placeholder={t('parameters.establishment')}
         selectedEstablishments={[]}
         selectOption={(e: { value: number; label: string }) => {
           if (!!e && e.value) setOverrideAssociatedEstablishment(e.value);
@@ -51,18 +51,17 @@ const PartnershipConfigurationOverrideForm = (props: Props) => {
         ) : (
           <div className={classes.row}>
             <WarningIcon
-              fontSize="large"
               className={classes.iconLeft}
               color="error"
+              fontSize="large"
             />
             <Typography>{t('parameters.pleaseChoseEstablishment')}</Typography>
           </div>
         )}
       </div>
       <Button
-        disabled={!overrideAssociatedEstablishment}
-        variant="contained"
         color="primary"
+        disabled={!overrideAssociatedEstablishment}
         onClick={() =>
           props.onSubmit({
             ...(props.initial || {}),
@@ -70,6 +69,7 @@ const PartnershipConfigurationOverrideForm = (props: Props) => {
             override_establishment_pk: overrideAssociatedEstablishment,
           })
         }
+        variant="contained"
       >
         {t('actions.save')}
       </Button>

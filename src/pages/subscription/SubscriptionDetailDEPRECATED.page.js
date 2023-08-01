@@ -148,94 +148,94 @@ export class SubscriptionDetail extends Component<Props> {
       <div className={this.props.classes.container}>
         {loading ? <LinearProgress /> : null}
         <SubscriptionComponent
-          subscription={subscription}
-          stopSubscription={stop}
+          eventList={this.props.eventList}
+          eventLoading={this.props.eventLoading}
+          eventPage={this.props.eventPage}
+          fetchSubscriptionEventList={this.props.fetchSubscriptionEventList}
           goToInvoice={goToInvoice}
           goToMember={goToMember}
           goToSubscribe={goToSubscribe}
-          updateSubscriptionRenewal={this.props.updateSubscriptionRenewal}
           loading={this.props.loading}
-          eventList={this.props.eventList}
-          eventPage={this.props.eventPage}
-          eventLoading={this.props.eventLoading}
-          fetchSubscriptionEventList={this.props.fetchSubscriptionEventList}
+          requestFreeze={() => this.props.setFreezeDialogOpen(true)}
           requestPaymentMethodSwitch={this.props.openPaymentMethodSwitch}
-          requestUpdatePrice={this.props.setPlannedInvoiceToUpdate}
           requestPaymentPackSwitch={this.props.openPackSwitcherDialog}
-          requestStop={() => this.props.setStopDialogOpen(true)}
           requestScheduledStop={() =>
             this.props.setScheduledStopDialogOpen(true)
           }
-          requestFreeze={() => this.props.setFreezeDialogOpen(true)}
+          requestStop={() => this.props.setStopDialogOpen(true)}
+          requestUpdatePrice={this.props.setPlannedInvoiceToUpdate}
+          stopSubscription={stop}
+          subscription={subscription}
           unflagPlannedInvoiceAsLast={this.props.unflagPlannedInvoiceAsLast}
+          updateSubscriptionRenewal={this.props.updateSubscriptionRenewal}
         />
         {this.props.plannedInvoiceToUpdate ? (
           <PlannedInvoicePriceUpdater
-            open={!!this.props.plannedInvoiceToUpdate}
-            planned_invoice={this.props.plannedInvoiceToUpdate}
             onCancel={() => this.props.setPlannedInvoiceToUpdate(null)}
             onSubmit={this.props.updatePlannedInvoicePrice}
+            open={!!this.props.plannedInvoiceToUpdate}
+            planned_invoice={this.props.plannedInvoiceToUpdate}
           />
         ) : null}
         {this.props.freezeDialogOpen ? (
           <SubscriptionFreezerDialog
-            open={!!this.props.freezeDialogOpen}
-            subscription={subscription}
             onCancel={() => this.props.setFreezeDialogOpen(false)}
             onSubmit={this.props.freezeSubscription}
+            open={!!this.props.freezeDialogOpen}
+            subscription={subscription}
           />
         ) : null}
         {this.props.switchPackDialogOpen ? (
           <SubscriptionPaymentPackSwitcherDialog
-            open={!!this.props.switchPackDialogOpen}
-            subscription={subscription}
-            paymentPackList={this.props.availablePaymentPackList}
             onCancel={() => this.props.setSiwtchPackDialogOpen(false)}
             onSubmit={this.props.switchSubscriptionPaymentPack}
+            open={!!this.props.switchPackDialogOpen}
+            paymentPackList={this.props.availablePaymentPackList}
+            subscription={subscription}
           />
         ) : null}
         {this.props.switchPaymentMethodDialogOpen ? (
           <SubscriptionPaymentMethodSwitcherDialog
-            open={this.props.switchPaymentMethodDialogOpen}
-            loading={this.props.memberLoading}
-            onSubmit={this.props.switchPaymentMethod}
-            onCancel={() => this.props.setSwitchPaymentMethodDialogOpen(false)}
-            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
-            savedPaymentMethodList={this.props.savedPaymentMethodList}
             enabledPaymentMethods={[
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
             ]}
+            loading={this.props.memberLoading}
+            onCancel={() => this.props.setSwitchPaymentMethodDialogOpen(false)}
+            onSubmit={this.props.switchPaymentMethod}
+            open={this.props.switchPaymentMethodDialogOpen}
+            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
+            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+            savedPaymentMethodList={this.props.savedPaymentMethodList}
           />
         ) : null}
         {this.props.stopDialogOpen ? (
           <StopConfirmationDialog
-            open={this.props.stopDialogOpen}
-            onSubmit={this.props.stop}
             onCancel={() => this.props.setStopDialogOpen(false)}
+            onSubmit={this.props.stop}
+            open={this.props.stopDialogOpen}
           />
         ) : null}
         {this.props.scheduledStopDialogOpen ? (
           <SubscriptionScheduledStopDialog
-            subscription={subscription}
-            open={this.props.scheduledStopDialogOpen}
-            onCancel={() => this.props.setScheduledStopDialogOpen(false)}
             loading={loading}
+            onCancel={() => this.props.setScheduledStopDialogOpen(false)}
             onSubmit={this.props.flagPlannedInvoiceAsLast}
+            open={this.props.scheduledStopDialogOpen}
+            subscription={subscription}
           />
         ) : null}
         {this.props.subscription ? (
           <div className={this.props.classes.bottomButtonContainer}>
             <Fab
-              color="primary"
-              variant="extended"
               className={this.props.classes.bottomButton}
+              color="primary"
               onClick={() => {
                 if (this.props.subscription) {
                   this.props.goToMember(this.props.subscription.member);
                 }
               }}
+              variant="extended"
             >
               <PersonIcon className={this.props.classes.leftIcon} />
               {this.props.subscription

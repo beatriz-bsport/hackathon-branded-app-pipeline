@@ -42,13 +42,13 @@ export const ProgramMenuItem = (props: Props) => {
   return (
     <>
       <MenuItem
-        disabled={isDisabled}
-        selected={isSelected}
-        className={classes.listitem}
         key={`${program?.id}`}
         dense
         divider
+        className={classes.listitem}
+        disabled={isDisabled}
         onClick={() => onClickOnItem && onClickOnItem(program)}
+        selected={isSelected}
       >
         <div className={classes.icon}>
           <MuiIcon icon={program?.icon} />
@@ -86,23 +86,23 @@ export const ProgramMenuItem = (props: Props) => {
         </div>
       </MenuItem>
       <GenericMuiDialog
+        confirmText={t('form.delete')}
+        content={
+          isLinkedToMemberProgram
+            ? t('memberProgram.deleteContent')
+            : t('program.deleteContent')
+        }
+        onCancel={() => setIsOpenGenericMuiDialog(false)}
+        onConfirm={() => {
+          onDelete(program);
+          setIsOpenGenericMuiDialog(false);
+        }}
         open={isOpenGenericMuiDialog}
         title={
           isLinkedToMemberProgram
             ? t('memberProgram.deleteHeader')
             : t('program.deleteHeader')
         }
-        content={
-          isLinkedToMemberProgram
-            ? t('memberProgram.deleteContent')
-            : t('program.deleteContent')
-        }
-        confirmText={t('form.delete')}
-        onCancel={() => setIsOpenGenericMuiDialog(false)}
-        onConfirm={() => {
-          onDelete(program);
-          setIsOpenGenericMuiDialog(false);
-        }}
       />
     </>
   );

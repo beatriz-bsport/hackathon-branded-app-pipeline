@@ -77,11 +77,11 @@ export const InstalmentPaymentGeneralInfoForm: React.FC = () => {
           </Grid>
           <Grid item xs={12}>
             <TextFieldEnhancedLabelWithError
-              id="name"
               fullWidth
-              name="name"
               required
+              id="name"
               label={t('form.name')}
+              name="name"
             />
           </Grid>
 
@@ -91,9 +91,9 @@ export const InstalmentPaymentGeneralInfoForm: React.FC = () => {
               value={partial_payment_enabled}
             >
               <FormControlLabel
-                value={false}
                 control={<Radio />}
                 label={t('form.partialPaymentRadio.disabled')}
+                value={false}
               />
               <FormControlLabel
                 value
@@ -109,8 +109,6 @@ export const InstalmentPaymentGeneralInfoForm: React.FC = () => {
           {partial_payment_enabled && (
             <Grid item xs={12}>
               <RadioGroupField
-                className={classes.radioGroup}
-                name="custom_first_instalment_type"
                 choices={[
                   {
                     label: t('form.customInstalmentAmount.type.amount'),
@@ -121,25 +119,27 @@ export const InstalmentPaymentGeneralInfoForm: React.FC = () => {
                     value: CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT.toString(),
                   },
                 ]}
+                className={classes.radioGroup}
+                name="custom_first_instalment_type"
               />
 
               {custom_first_instalment_type.toString() ===
                 CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT.toString() && (
                 <TextField
                   fullWidth
-                  name="custom_first_instalment_percent"
-                  label={t(
-                    'form.customInstalmentAmount.amountHelperText.percent',
-                  )}
-                  type="number"
                   required
-                  max={100}
                   InputProps={{
                     inputProps: { min: 0, max: 100, step: 1 },
                     endAdornment: (
                       <InputAdornment position="end">%</InputAdornment>
                     ),
                   }}
+                  label={t(
+                    'form.customInstalmentAmount.amountHelperText.percent',
+                  )}
+                  max={100}
+                  name="custom_first_instalment_percent"
+                  type="number"
                 />
               )}
 
@@ -147,11 +147,11 @@ export const InstalmentPaymentGeneralInfoForm: React.FC = () => {
                 CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT.toString() && (
                 <PriceField
                   fullWidth
-                  name="custom_first_instalment_amount"
+                  required
                   label={t(
                     'form.customInstalmentAmount.amountHelperText.amount',
                   )}
-                  required
+                  name="custom_first_instalment_amount"
                 />
               )}
             </Grid>
@@ -179,11 +179,11 @@ export const InstalmentPaymentGeneralInfoForm: React.FC = () => {
 
                   <div className={classes.shrink}>
                     <TextFieldEnhancedLabelWithError
-                      id="frequency"
-                      type="number"
                       fullWidth
-                      name="frequency"
                       required
+                      id="frequency"
+                      name="frequency"
+                      type="number"
                       variant="outlined"
                     />
                   </div>
@@ -194,18 +194,18 @@ export const InstalmentPaymentGeneralInfoForm: React.FC = () => {
               </Grid>
               <Grid item xs={6}>
                 <TextFieldEnhancedLabelWithError
-                  id="number_of_billing"
-                  type="number"
                   fullWidth
-                  name="number_of_billing"
                   required
+                  id="number_of_billing"
                   label={t('form.numberOfBilling')}
+                  name="number_of_billing"
+                  type="number"
                 />
               </Grid>
               <Grid item xs={6} />
               <Grid item xs={12}>
                 <div className={classes.row}>
-                  <Info color="primary" className={classes.iconUncolored} />
+                  <Info className={classes.iconUncolored} color="primary" />
 
                   <Typography variant="body2">
                     {generateInfo(t, recurrency, frequency, number_of_billing)}

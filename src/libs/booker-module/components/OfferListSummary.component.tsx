@@ -99,10 +99,10 @@ class OfferListSummary extends React.PureComponent<Props> {
       return (
         <div className={classes.container}>
           <div className={classes.topRow}>
-            <Skeleton animation="wave" width="40%" variant="text" height={30} />
+            <Skeleton animation="wave" height={30} variant="text" width="40%" />
           </div>
           <Box mt={2} />
-          <Skeleton animation="wave" width="100%" variant="rect" height={200} />
+          <Skeleton animation="wave" height={200} variant="rect" width="100%" />
         </div>
       );
     }
@@ -138,7 +138,7 @@ class OfferListSummary extends React.PureComponent<Props> {
     return (
       <div className={classes.container}>
         <div className={classes.topRow}>
-          <Typography variant="h5" color="textPrimary">
+          <Typography color="textPrimary" variant="h5">
             {!!this.props.relatedMemberList.length &&
             !this.props.offer?.group?.full_booking_only
               ? t('booking:offer.bookingsTitleFor', {
@@ -150,14 +150,14 @@ class OfferListSummary extends React.PureComponent<Props> {
           </Typography>
           {!!this.props.relatedMemberList.length &&
             !this.props.offer?.group?.full_booking_only && (
-              <FormControl variant="outlined" className={classes.formControl}>
+              <FormControl className={classes.formControl} variant="outlined">
                 <Select
-                  labelId="member-select-filled-label"
                   id="member-select-filled"
-                  value={this.props.member ? this.props.member.id : '-1'}
+                  labelId="member-select-filled-label"
                   onChange={(ev: SyntheticEvent) => {
                     this.props.onSelectMember(parseInt(ev.target.value, 10));
                   }}
+                  value={this.props.member ? this.props.member.id : '-1'}
                 >
                   <MenuItem value="-1">
                     <em>{t('booking:offer.bookingForMe')}</em>
@@ -177,14 +177,14 @@ class OfferListSummary extends React.PureComponent<Props> {
           {!!offer && !this.props.hideGenericOffer && (
             <OfferBookableItem
               disabled={offer.group ? false : noInteraction}
-              offer={offer}
               hideCoach={this.props.hideCoach}
-              offerStatus={offerStatus}
               isBookable={isBookable}
-              isWaitingList={isWaitingList}
               isRegistered={isRegistered}
+              isWaitingList={isWaitingList}
+              offer={offer}
               offerSpot={spotId}
               offerSpotInformation={spotInformation}
+              offerStatus={offerStatus}
             />
           )}
           <Divider />
@@ -220,18 +220,18 @@ class OfferListSummary extends React.PureComponent<Props> {
                       offerData.group ? offerFeature.noInteraction : false
                     }
                     hideCoach={this.props.hideCoach}
-                    offer={offerData.offer}
                     isBookable={offerFeature.isBookable}
+                    isRegistered={offerFeature.isRegistered}
                     isWaitingList={offerFeature.isWaitingList}
+                    offer={offerData.offer}
+                    offerSpot={spotId}
+                    offerSpotInformation={similarOfferSpotInformation}
                     offerStatus={this.props.offerStatusById[offerData.offer.id]}
                     onRemove={
                       offerData.extra_data?.protected
                         ? null
                         : this.props.onClickRemoveOffer
                     }
-                    isRegistered={offerFeature.isRegistered}
-                    offerSpot={spotId}
-                    offerSpotInformation={similarOfferSpotInformation}
                   />
                   <Divider />
                 </React.Fragment>
@@ -242,15 +242,15 @@ class OfferListSummary extends React.PureComponent<Props> {
             !(offer?.group?.full_booking_only ?? false) &&
             (this.props.additionalGuestList || []).length === 0 && (
               <ButtonBase
+                className={classes.bookButtonInner}
                 disabled={!offer}
                 onClick={this.props.onClickAddMoreOffer}
-                className={classes.bookButtonInner}
               >
                 <AddIcon className={classes.leftIcon} />
                 <Typography
-                  variant="body1"
                   align="left"
                   color={offer ? 'primary' : 'textSecondary'}
+                  variant="body1"
                 >
                   {t('booking:offer.addSession')}
                 </Typography>
@@ -265,12 +265,12 @@ class OfferListSummary extends React.PureComponent<Props> {
                   this.props.showBookingButton &&
                   this.props.packAllowsBookingGuest && (
                     <AdditionalGuestForm
-                      onAddAdditionalGuest={this.props.onAddAdditionalGuest}
                       disabled={
                         !!this.props.additionalGuestList?.length &&
                         this.props.additionalGuestList.length + 1 >=
                           this.props.maxGuestNumberFromAllPacks
                       }
+                      onAddAdditionalGuest={this.props.onAddAdditionalGuest}
                     />
                   )}
                 {((this.props.showBookingButton &&
@@ -287,7 +287,7 @@ class OfferListSummary extends React.PureComponent<Props> {
                     <>
                       {this.props.numberBookingGuestLeft >
                       this.props.additionalGuestList?.length ? (
-                        <Typography variant="body2" align="left">
+                        <Typography align="left" variant="body2">
                           {numberOfGuestsAvailable > 1
                             ? t(
                                 'booking:offer.bookingForAGuest.addGuestNumberLeftSeveral',
@@ -301,7 +301,7 @@ class OfferListSummary extends React.PureComponent<Props> {
                           {this.getFrequencyTraduction()}
                         </Typography>
                       ) : (
-                        <Typography variant="body2" align="left">
+                        <Typography align="left" variant="body2">
                           {t('booking:offer.bookingForAGuest.addGuestLimit')}{' '}
                           {this.getFrequencyTraduction()}
                         </Typography>
@@ -318,7 +318,7 @@ class OfferListSummary extends React.PureComponent<Props> {
                 <div className={classes.levelWarningIcon}>
                   <ErrorOutlineIcon />
                 </div>
-                <Typography variant="body2" align="left">
+                <Typography align="left" variant="body2">
                   {hasCustomLevel
                     ? t(
                         'booking:offer.bookingForAGuest.warningCustomLeveledSession',

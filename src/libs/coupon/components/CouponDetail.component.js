@@ -33,8 +33,8 @@ export class CouponDetail extends React.PureComponent<Props> {
     <DiscountListItem
       divider
       discount={discount}
-      goToInvoice={this.props.goToInvoice}
       goToBillingPlan={this.props.goToBillingPlan}
+      goToInvoice={this.props.goToInvoice}
     />
   );
 
@@ -43,37 +43,37 @@ export class CouponDetail extends React.PureComponent<Props> {
     return (
       <div>
         <Grid container>
-          <Grid item xs={12} md={6} className={classes.paperContainer}>
+          <Grid item className={classes.paperContainer} md={6} xs={12}>
             <Paper>
               <CouponCard coupon={coupon} goToEdit={this.props.goToEdit} />
             </Paper>
           </Grid>
-          <Grid item xs={12} md={6} className={classes.paperContainer}>
+          <Grid item className={classes.paperContainer} md={6} xs={12}>
             <Paper className={classes.paper}>
               <PaginatedListBase
-                page={discounts.page}
-                nbItems={discounts.count}
                 itemPerPage={this.props.itemPerPage}
+                items={discounts.items}
+                listProps={{ dense: true }}
+                loading={discountLoading}
+                nbItems={discounts.count}
                 onPageRequested={(page: number, pageSize: number) =>
                   this.props.fetchCouponDiscounts(coupon.id, {
                     page,
                     page_size: pageSize,
                   })
                 }
-                items={discounts.items}
-                renderItem={this.renderDiscountListItem}
-                loading={discountLoading}
-                listProps={{ dense: true }}
+                page={discounts.page}
                 renderEmpty={() => (
                   <React.Fragment>
                     <div className={classes.emptyContainer}>
-                      <Typography variant="caption" color="textSecondary">
+                      <Typography color="textSecondary" variant="caption">
                         {t('noDiscount')}
                       </Typography>
                     </div>
                     <Divider />
                   </React.Fragment>
                 )}
+                renderItem={this.renderDiscountListItem}
               />
             </Paper>
           </Grid>

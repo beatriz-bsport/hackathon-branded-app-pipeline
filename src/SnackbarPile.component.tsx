@@ -79,51 +79,51 @@ export const SnackbarPile: React.FC<Props> = ({
       {topMessages.map((snack) => (
         <Snackbar
           key={snack.id}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
           open
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
           <SnackbarContent
-            className={classes[snack.kind]}
-            message={t(snack.message)}
             action={
               <IconButton
-                size="small"
                 aria-label="close"
                 color="inherit"
                 onClick={handleDeleteTopSnackbar(snack.id)}
+                size="small"
               >
                 <CloseIcon fontSize="small" />
               </IconButton>
             }
+            className={classes[snack.kind]}
+            message={t(snack.message)}
           />
         </Snackbar>
       ))}
       {bottomMessages.map((snack) => (
         <Snackbar
           key={snack.id}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           open
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         >
           <SnackbarContent
-            className={classes[`bottom${snack.kind}`]}
-            message={
-              <Alert
-                severity={snack.kind}
-                variant="filled"
-                className={classes.bottomalert}
-              >
-                {t(snack.message)}
-              </Alert>
-            }
             action={
               <IconButton
-                size="small"
                 aria-label="close"
                 color="inherit"
                 onClick={handleDeleteBottomSnackbar(snack.id)}
+                size="small"
               >
                 <CloseIcon fontSize="small" />
               </IconButton>
+            }
+            className={classes[`bottom${snack.kind}`]}
+            message={
+              <Alert
+                className={classes.bottomalert}
+                severity={snack.kind}
+                variant="filled"
+              >
+                {t(snack.message)}
+              </Alert>
             }
           />
         </Snackbar>

@@ -35,7 +35,7 @@ export const MultipleSessionDetails = (props: Props) => {
   return (
     <div className={classes.container}>
       <div className={classes.title}>
-        <InfoIcon fontSize="large" className={classes.icon} color="disabled" />
+        <InfoIcon className={classes.icon} color="disabled" fontSize="large" />
         <Typography variant="h4">{t('multiSession.title')}</Typography>
       </div>
       <div className={classes.innerContainer}>
@@ -58,10 +58,10 @@ export const MultipleSessionDetails = (props: Props) => {
             </span>
           </Typography>
           <Button
-            color="primary"
-            variant="contained"
-            onClick={restoreSession}
             className={classes.button}
+            color="primary"
+            onClick={restoreSession}
+            variant="contained"
           >
             {t('multiSession.restore')}
           </Button>
@@ -87,10 +87,10 @@ export const MultipleSessionDetails = (props: Props) => {
               </span>
             </Typography>
             <Button
-              color="secondary"
-              variant="contained"
-              onClick={updateSession}
               className={classes.button}
+              color="secondary"
+              onClick={updateSession}
+              variant="contained"
             >
               {t('multiSession.continue')}
             </Button>

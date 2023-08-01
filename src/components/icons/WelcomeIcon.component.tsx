@@ -10,10 +10,10 @@ const WelcomeIcon: React.FC<SVGProps<SVGElement>> = ({
   return (
     <>
       <svg
-        width={width}
+        fill={fill}
         height={height}
         viewBox={viewBox}
-        fill={fill}
+        width={width}
         xmlns={xmlns}
       >
         <path

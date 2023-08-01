@@ -138,9 +138,12 @@ export class ConsumerLoginPage extends Component<Props> {
           {(!franchisorId ||
             (franchisorId && step === STEPS.loginToFranchise)) && (
             <Login
+              company={!!membership}
               doEmailLogin={this.props.doEmailLogin}
               error={this.props.errorLogin}
               errorFields={this.props.errorFields}
+              franchisor={franchisor}
+              isPremium={this.props.is_premium}
               loading={this.props.loginProcessing}
               requestSignUp={
                 franchisorId
@@ -153,31 +156,28 @@ export class ConsumerLoginPage extends Component<Props> {
                         `/login/signup${window.location.search}`,
                       )
               }
-              company={!!membership}
-              isPremium={this.props.is_premium}
-              theme={theme}
-              t={t}
-              franchisor={franchisor}
               simplifyUI={simplifyUI}
+              t={t}
+              theme={theme}
             />
           )}
 
           {franchisor && step === STEPS.franchiseeSelection && (
             <FranchiseCompanyLogin
-              companies={companiesSelectable}
               authenticated={authenticated}
+              companies={companiesSelectable}
               disconnect={this.props.disconnect}
+              franchiseTheme={this.props.franchisor}
+              franchisor={this.props.franchisorId}
+              goToSignup={goToSignup}
               selectedFranchisee={this.props.selectedFranchisee}
               setSelectedFranchisee={this.props.setSelectedFranchisee}
-              goToSignup={goToSignup}
               setStep={this.props.setQueryParams('step')}
-              franchisor={this.props.franchisorId}
-              franchiseTheme={this.props.franchisor}
             />
           )}
 
           {((!!theme && membership) || franchisor) && (
-            <Analytics username="" theme={theme} />
+            <Analytics theme={theme} username="" />
           )}
         </div>
       </div>

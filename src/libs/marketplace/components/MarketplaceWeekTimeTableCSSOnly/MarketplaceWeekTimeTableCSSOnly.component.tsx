@@ -182,8 +182,8 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
       <React.Fragment key={DAY_PARTS[i]}>
         <div className="bs-week__cardMode__period">
           <IconButton
-            onClick={this.handlePanelCollapse(i)}
             className="bs-week__cardMode__period__button"
+            onClick={this.handlePanelCollapse(i)}
           >
             {panelsStatus[i] ? <ExpandLess /> : <ExpandMore />}
             <p className="bs-week__cardMode__dayPart">
@@ -193,10 +193,10 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
         </div>
 
         <Collapse
-          in={panelsStatus[i]}
-          timeout="auto"
           unmountOnExit
           className="bs-week__cardMode__sessionsGroup"
+          in={panelsStatus[i]}
+          timeout="auto"
         >
           <div className="bs-week__cardMode__sessionsGroup__inner">
             {this.renderOffersRows(offersRows)}
@@ -225,34 +225,34 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                 <div className="bs-week__cardMode__offerRow__offer-wrapper">
                   <MarketPlaceCardOfferV2
                     key={o.id}
-                    showOfferFilling={this.props.showOfferFilling}
-                    hideCoach={this.props.hideCoach}
-                    showOfferGender={this.props.showOfferGender}
-                    offer={o}
-                    group={groupData}
-                    metaActivities={this.props.metaActivities}
-                    establishments={this.props.establishments}
-                    coaches={this.props.coaches}
-                    genderCount={this.props.genderCount}
-                    onClickOffer={this.props.onClickOffer}
-                    onClickBook={this.props.onClickBook}
-                    onClickBookOption={this.props.onClickBookOption}
-                    coach={o.coach_override || o.coach}
-                    establishmentLoading={this.props.establishmentLoading}
                     activityLoading={this.props.activityLoading}
+                    coach={o.coach_override || o.coach}
+                    coaches={this.props.coaches}
+                    establishmentLoading={this.props.establishmentLoading}
+                    establishments={this.props.establishments}
+                    genderCount={this.props.genderCount}
                     getLevel={this.props.getLevel}
-                    isRegistered={this.props.bookedOffers?.includes(o?.id)}
-                    theme={this.props.theme}
+                    group={groupData}
+                    hideCoach={this.props.hideCoach}
                     isBookingDisabled={
                       !o.available ||
                       isOfferInThePast(o) ||
                       firstOfferInGroupLocksBookingBecauseInPast(o, groupData)
                     }
-                    variant={this.props.variant}
                     isOfferPassed={
                       isOfferInThePast(o) ||
                       firstOfferInGroupLocksBookingBecauseInPast(o, groupData)
                     }
+                    isRegistered={this.props.bookedOffers?.includes(o?.id)}
+                    metaActivities={this.props.metaActivities}
+                    offer={o}
+                    onClickBook={this.props.onClickBook}
+                    onClickBookOption={this.props.onClickBookOption}
+                    onClickOffer={this.props.onClickOffer}
+                    showOfferFilling={this.props.showOfferFilling}
+                    showOfferGender={this.props.showOfferGender}
+                    theme={this.props.theme}
+                    variant={this.props.variant}
                   />
                 </div>
               );
@@ -330,29 +330,29 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
             return (
               <MarketPlaceOfferListItemComponent
                 key={`list-item-${offer.id}`}
-                offer={offer}
+                additionalCoaches={additionalCoachesData}
+                coach={coachData}
                 establishment={establishment}
                 genderCount={genderData}
-                group={groupData}
-                metaActivity={metaActivity}
-                coach={coachData}
-                additionalCoaches={additionalCoachesData}
                 getLevel={this.props.getLevel}
-                onClick={this.props.onClickOffer}
-                onBook={this.handleBook(offer)}
-                onBookOption={this.handleBookOption(offer)}
-                isRegistered={this.props.bookedOffers?.includes(offer?.id)}
-                showOfferFilling={this.props.showOfferFilling}
-                showOfferGender={this.props.showOfferGender}
+                group={groupData}
                 hideCoach={this.props.hideCoach}
-                theme={this.props.theme}
                 isBookingDisabled={!offer.available || isOfferInThePast(offer)}
-                variant={this.props.variant}
-                position={position}
                 isOfferPassed={
                   isOfferInThePast(offer) ||
                   firstOfferInGroupLocksBookingBecauseInPast(offer, groupData)
                 }
+                isRegistered={this.props.bookedOffers?.includes(offer?.id)}
+                metaActivity={metaActivity}
+                offer={offer}
+                onBook={this.handleBook(offer)}
+                onBookOption={this.handleBookOption(offer)}
+                onClick={this.props.onClickOffer}
+                position={position}
+                showOfferFilling={this.props.showOfferFilling}
+                showOfferGender={this.props.showOfferGender}
+                theme={this.props.theme}
+                variant={this.props.variant}
               />
             );
           })}
@@ -429,15 +429,15 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
               return (
                 <button
                   key={`weekDay-${i}`}
-                  type="button"
-                  disabled={isCardModeDisplay}
-                  onClick={() =>
-                    this.props.onSelectDate(currentDate.format('YYYY-MM-DD'))
-                  }
                   className={classNames({
                     'bs-week__header__date--is-disabled': isCardModeDisplay,
                     'bs-week__header__date--is-abled': !isCardModeDisplay,
                   })}
+                  disabled={isCardModeDisplay}
+                  onClick={() =>
+                    this.props.onSelectDate(currentDate.format('YYYY-MM-DD'))
+                  }
+                  type="button"
                 >
                   <div
                     className={classNames({

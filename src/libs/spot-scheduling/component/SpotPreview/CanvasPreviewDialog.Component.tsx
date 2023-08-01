@@ -80,12 +80,12 @@ class CanvasPreviewDialog extends React.PureComponent<Props> {
                   </MuiDialogTitle>
                   <DialogContent style={{ height: 800 }}>
                     <CanvasPreview
-                      roomBlueprint={this.props.roomBlueprint}
                       assets={this.props.assets}
-                      takenSpot={this.props.takenSpot}
-                      selectedSpot={this.props.selectedSpot}
                       fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+                      roomBlueprint={this.props.roomBlueprint}
+                      selectedSpot={this.props.selectedSpot}
                       spotTypes={this.props.spotTypes}
+                      takenSpot={this.props.takenSpot}
                     />
                   </DialogContent>
                 </div>
@@ -117,15 +117,15 @@ class CanvasPreviewDialog extends React.PureComponent<Props> {
                             return (
                               <SpiviCorrespondenceTable
                                 key={`${spotType.id}-${index}`}
+                                handlePageChange={this.props.handlePageChange}
+                                pageCount={
+                                  this.props.tableCountPages[spotType.id]
+                                }
+                                pageNumber={this.props.tablePages[spotType.id]}
                                 spotCorrespondence={
                                   this.props.spotCorrespondence[spotType.id]
                                 }
                                 spotType={spotType}
-                                pageNumber={this.props.tablePages[spotType.id]}
-                                pageCount={
-                                  this.props.tableCountPages[spotType.id]
-                                }
-                                handlePageChange={this.props.handlePageChange}
                                 spotTypeId={spotType.id}
                               />
                             );

@@ -56,13 +56,10 @@ class BasketPage extends React.PureComponent<Props> {
           <div className={classes.basketContainer}>
             <div className={classes.basketListItemsContainer}>
               <BasketConsumer
-                basket={this.props.basket}
-                withPrice
-                loading={this.props.loading}
                 fullWidth
-                onRemoveCheckoutItem={(data: any) =>
-                  this.props.removeItemFromBasket(this.props.basket.id, data)
-                }
+                withPrice
+                basket={this.props.basket}
+                loading={this.props.loading}
                 onAddCheckoutItem={(data: any, options?: OptionCallback) =>
                   this.props.addItemToBasket(
                     this.props.basket.id,
@@ -71,6 +68,9 @@ class BasketPage extends React.PureComponent<Props> {
                   )
                 }
                 onItemExpire={this.onItemExpire}
+                onRemoveCheckoutItem={(data: any) =>
+                  this.props.removeItemFromBasket(this.props.basket.id, data)
+                }
               />
             </div>
 

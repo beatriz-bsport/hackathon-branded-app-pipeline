@@ -83,7 +83,7 @@ const UnevenAlertListItem = (props: {
     <ListItem divider style={{ paddingTop: 0 }}>
       <div style={{ width: '100%' }}>
         <div className={classes.titleContainer}>
-          <Typography variant="subtitle1" component="h3">
+          <Typography component="h3" variant="subtitle1">
             {t('unevenInvoice.title')}
           </Typography>
           <IconButton onClick={() => props.pushRouter(`/invoice/${uuid}`)}>
@@ -91,8 +91,8 @@ const UnevenAlertListItem = (props: {
           </IconButton>
         </div>
 
-        <Typography variant="caption" component="p">
-          <Trans t={t} i18nKey="unevenInvoice.explainUneven">
+        <Typography component="p" variant="caption">
+          <Trans i18nKey="unevenInvoice.explainUneven" t={t}>
             The invoice{' '}
             <strong>
               {{ invoice_identifier: legal_identifier ?? uuid.slice(0, 8) }}
@@ -125,7 +125,7 @@ const PrivateBookingIncompleteListItem = (props: {
     <ListItem divider style={{ paddingTop: 0 }}>
       <div style={{ width: '100%' }}>
         <div className={classes.titleContainer}>
-          <Typography variant="subtitle1" component="h3">
+          <Typography component="h3" variant="subtitle1">
             {alerting.data.name}
           </Typography>
           <IconButton
@@ -138,8 +138,8 @@ const PrivateBookingIncompleteListItem = (props: {
             <ArrowForwardIcon color="secondary" />
           </IconButton>
         </div>
-        <Typography variant="caption" component="p">
-          <Trans t={t} i18nKey="privateBookingIncomplete.explain">
+        <Typography component="p" variant="caption">
+          <Trans i18nKey="privateBookingIncomplete.explain" t={t}>
             The booking for <strong>{{ name }}</strong> has no coach
           </Trans>
           <br />
@@ -170,19 +170,19 @@ const CompanyOnboardingAlertListItem = (props: {
     resolution_url = '/settings/company_onboarding';
     const date = formatAsDatetimeAdapted(alerting.data.date, 'LL');
     content = (
-      <Typography variant="caption" component="div">
+      <Typography component="div" variant="caption">
         <p>
           <Trans
-            t={t}
             date={date}
             i18nKey="companyOnboarding.verification.content"
+            t={t}
           >
             You have until <strong>{{ date }}</strong>
             to verify your account
           </Trans>
         </p>
         <p>
-          <Trans t={t} i18nKey="companyOnboarding.verification.warning">
+          <Trans i18nKey="companyOnboarding.verification.warning" t={t}>
             Payments may be
             <strong style={{ color: 'red' }}>disabled</strong>!
           </Trans>
@@ -194,7 +194,7 @@ const CompanyOnboardingAlertListItem = (props: {
     title = t('companyOnboarding.creation.title');
     resolution_url = '/settings/company_onboarding';
     content = (
-      <Typography variant="caption" component="p">
+      <Typography component="p" variant="caption">
         {t('companyOnboarding.creation.content')}
       </Typography>
     );
@@ -203,7 +203,7 @@ const CompanyOnboardingAlertListItem = (props: {
     title = t('companyOnboarding.payout.title');
     resolution_url = '/settings/company';
     content = (
-      <Typography variant="caption" component="p">
+      <Typography component="p" variant="caption">
         {t('companyOnboarding.payout.content')}
       </Typography>
     );
@@ -212,7 +212,7 @@ const CompanyOnboardingAlertListItem = (props: {
     <ListItem divider style={{ paddingTop: 0 }}>
       <div style={{ width: '100%' }}>
         <div className={classes.titleContainer}>
-          <Typography variant="subtitle1" component="h3">
+          <Typography component="h3" variant="subtitle1">
             {title}
           </Typography>
           <IconButton onClick={() => props.pushRouter(resolution_url)}>
@@ -237,7 +237,7 @@ const NewOrderAlertListItem = (props: {
     <ListItem divider style={{ paddingTop: 0 }}>
       <div style={{ width: '100%' }}>
         <div className={classes.titleContainer}>
-          <Typography variant="subtitle1" component="h3">
+          <Typography component="h3" variant="subtitle1">
             {t('newOrder.title')}
           </Typography>
           <div className={classes.titleContainer}>
@@ -246,8 +246,8 @@ const NewOrderAlertListItem = (props: {
             </IconButton>
           </div>
         </div>
-        <Typography variant="caption" component="p">
-          <Trans t={t} i18nKey="newOrder.explain" name={name}>
+        <Typography component="p" variant="caption">
+          <Trans i18nKey="newOrder.explain" name={name} t={t}>
             New order paid by <strong>{{ name }}</strong>
           </Trans>
           <br />
@@ -270,10 +270,10 @@ const TaskAlertListItem = (props: {
       <div style={{ width: '100%' }}>
         <div className={classes.titleContainer}>
           <div>
-            <Typography variant="subtitle1" component="h3">
+            <Typography component="h3" variant="subtitle1">
               {name}
             </Typography>
-            <Typography variant="caption" color="textSecondary">
+            <Typography color="textSecondary" variant="caption">
               {formatAsDatetimeAdapted(date_due, 'LL')}
             </Typography>
           </div>
@@ -285,7 +285,7 @@ const TaskAlertListItem = (props: {
             </IconButton>
           </div>
         </div>
-        <Typography variant="caption" component="p">
+        <Typography component="p" variant="caption">
           {member ? member.name : null}
           <br />
           {description}
@@ -311,13 +311,13 @@ const UnreadCommunicationListItem = (props: {
           <div className={classes.row}>
             <Avatar className={classes.marginRight} src={photo} />
             <div>
-              <Typography variant="subtitle1" component="h3">
+              <Typography component="h3" variant="subtitle1">
                 {name}
               </Typography>
               <Typography
-                variant="caption"
                 color="textSecondary"
                 component="h4"
+                variant="caption"
               >
                 {formatAsDatetimeAdapted(alerting.data.date_created, 'lll')}
               </Typography>
@@ -340,8 +340,8 @@ const UnreadCommunicationListItem = (props: {
         </div>
         <Typography
           className={classes.messageContent}
-          variant="caption"
           component="p"
+          variant="caption"
         >
           {content}
         </Typography>
@@ -363,10 +363,10 @@ const UnpaidPrivateBookingIncompleteListItem = (props: {
       <div style={{ width: '100%' }}>
         <div className={classes.titleContainer}>
           <div>
-            <Typography variant="subtitle1" component="h3">
+            <Typography component="h3" variant="subtitle1">
               {alerting.data.name}
             </Typography>
-            <Typography variant="caption" color="textSecondary">
+            <Typography color="textSecondary" variant="caption">
               {t('privateBookingIncomplete.date', {
                 date_start: formatAsDatetimeAdapted(date_start, 'LLLL'),
               })}
@@ -384,10 +384,10 @@ const UnpaidPrivateBookingIncompleteListItem = (props: {
             </IconButton>
           </div>
         </div>
-        <Typography variant="caption" component="p">
+        <Typography component="p" variant="caption">
           {t('privateBookingIncomplete.name', { user_name })}
         </Typography>
-        <Typography variant="caption" component="p">
+        <Typography component="p" variant="caption">
           {t('unpaidPrivateBooking.credits_due', { credits: credits_due })}
         </Typography>
       </div>
@@ -430,7 +430,7 @@ const NewTutorialSectionOrLessonListItem = (props: {
     <ListItem divider style={{ paddingTop: 0 }}>
       <div style={{ width: '100%' }}>
         <div className={classes.titleContainer}>
-          <Typography variant="subtitle1" component="h3">
+          <Typography component="h3" variant="subtitle1">
             {title}
           </Typography>
           <IconButton onClick={onClick}>
@@ -455,7 +455,7 @@ const LateReplacementRequestListItem = (props: {
     <ListItem divider style={{ paddingTop: 0 }}>
       <div style={{ width: '100%' }}>
         <div className={classes.titleContainer}>
-          <Typography variant="subtitle1" component="h3">
+          <Typography component="h3" variant="subtitle1">
             {coach}
           </Typography>
           <div className={classes.titleContainer}>
@@ -466,7 +466,7 @@ const LateReplacementRequestListItem = (props: {
             </IconButton>
           </div>
         </div>
-        <Typography variant="caption" component="p">
+        <Typography component="p" variant="caption">
           {t('lateReplacementRequest.content', {
             activity_name,
             date_start: moment(date_start).format('L LT'),
@@ -515,8 +515,8 @@ export default function AlertList(props: Props) {
       return (
         <NewTutorialSectionOrLessonListItem
           alerting={alerting}
-          pushRouter={pushRouter}
           deleteAlert={deleteAlert}
+          pushRouter={pushRouter}
         />
       );
     case REPLACEMEMENT_REQUEST_LATE_ALERT_KIND.alert_kind:
@@ -530,8 +530,8 @@ export default function AlertList(props: Props) {
       return (
         <UnreadCommunicationListItem
           alerting={alerting}
-          pushRouter={pushRouter}
           deleteAlert={deleteAlert}
+          pushRouter={pushRouter}
         />
       );
     default:

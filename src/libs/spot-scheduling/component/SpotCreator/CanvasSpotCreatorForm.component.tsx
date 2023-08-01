@@ -117,21 +117,21 @@ export const CanvasSpotCreatorForm = (props: Props) => {
         <Typography variant="body2">
           {className === classes.exampleTop ? 'Ex' : 'Ex :'}
         </Typography>
-        <svg width="26" height="26">
+        <svg height="26" width="26">
           <circle
             cx="13"
             cy="13"
-            r="11"
             fill={fill || 'white'}
+            r="11"
             stroke={stroke || 'black'}
             strokeWidth="2"
           />
           <text
+            dominantBaseline="middle"
+            style={{ userSelect: 'none' }}
+            textAnchor="middle"
             x="13"
             y="14"
-            dominantBaseline="middle"
-            textAnchor="middle"
-            style={{ userSelect: 'none' }}
           >
             {text}
           </text>
@@ -142,6 +142,8 @@ export const CanvasSpotCreatorForm = (props: Props) => {
 
   return (
     <Formik
+      enableReinitialize
+      initialValues={initialValues}
       onSubmit={(values, actions) => {
         if (spotTypeToUpdate) {
           onUpdateSpot(values, {
@@ -175,9 +177,7 @@ export const CanvasSpotCreatorForm = (props: Props) => {
           );
         }
       }}
-      initialValues={initialValues}
       validationSchema={CanvasSpotCreatorSchema}
-      enableReinitialize
     >
       {(formikProps: FormikProps<any>) => {
         return (
@@ -192,32 +192,32 @@ export const CanvasSpotCreatorForm = (props: Props) => {
             </div>
             <div className={classes.field}>
               <TextField
+                fullWidth
+                required
                 id="textfield_spot_name"
+                inputProps={{ maxLength: 100 }}
                 label={t('spotCreatorForm.name')}
                 name="name"
-                required
-                fullWidth
-                inputProps={{ maxLength: 100 }}
               />
               <Typography
                 className={classes.explain}
-                variant="caption"
                 color="textSecondary"
+                variant="caption"
               >
                 {t('spotCreatorForm.nameExplain')}
               </Typography>
             </div>
             <div className={classes.field}>
               <TextField
-                id="textfield_spot_prefix"
-                name="prefix"
-                label={t('spotCreatorForm.prefix')}
                 fullWidth
+                id="textfield_spot_prefix"
+                label={t('spotCreatorForm.prefix')}
+                name="prefix"
               />
               <Typography
                 className={classes.explain}
-                variant="caption"
                 color="textSecondary"
+                variant="caption"
               >
                 <div className={classes.nameExplain}>
                   <div>{t('spotCreatorForm.prefixExplain')}</div>
@@ -238,16 +238,16 @@ export const CanvasSpotCreatorForm = (props: Props) => {
               </div>
             </div>
             <RadioGroupField
-              name="customization"
-              className={classes.spotCustomization}
               choices={SPOT_CUSTOMIZATION_CHOICE}
+              className={classes.spotCustomization}
+              name="customization"
             />
             {formikProps.values?.customization === PREDEFINED_CUSTOMIZATION && (
               <PredefinedSpotCreator
                 choices={SPOT_SHAPE_CHOICE}
+                defaultValue={initialShape}
                 setFieldValue={formikProps.setFieldValue}
                 values={formikProps.values}
-                defaultValue={initialShape}
               />
             )}
 
@@ -262,24 +262,24 @@ export const CanvasSpotCreatorForm = (props: Props) => {
                     fill || 'transparent',
                   )
                 }
-                values={formikProps.values}
                 setFieldValue={formikProps.setFieldValue}
                 updating={updating}
+                values={formikProps.values}
               />
             )}
             {defaultSpot && (
               <div className={classes.alertDefaultSpot}>
                 <Alert
+                  className={props.classes.alert}
                   severity="error"
                   variant="outlined"
-                  className={props.classes.alert}
                 >
                   {t('spotCreatorForm.alertDefaultSpot')}
                 </Alert>
               </div>
             )}
             <DialogActions className={classes.action}>
-              <Button onClick={props.closeDialog} color="secondary">
+              <Button color="secondary" onClick={props.closeDialog}>
                 {t('cancel')}
               </Button>
               <Button color="primary" type="submit" variant="contained">

@@ -115,52 +115,52 @@ export const MemberCRM: React.FC<Props> = (props) => {
     <Paper className={classes.noteContainer}>
       {is_not_pos_member && (
         <TagPanel
-          tagGroups={tagGroups}
           attributedTags={memberTags}
-          createTagGroup={createTagGroup}
-          createTag={createTag}
           attributeTag={attributeTag}
-          untag={untag}
-          deleteTagGroup={deleteTagGroup}
-          tagGroupsLoading={tagGroupsLoading}
+          createTag={createTag}
+          createTagGroup={createTagGroup}
           deleteTag={deleteTag}
+          deleteTagGroup={deleteTagGroup}
+          member={member}
+          tagGroups={tagGroups}
+          tagGroupsLoading={tagGroupsLoading}
+          untag={untag}
           updateTag={updateTag}
           updateTagGroup={updateTagGroup}
-          member={member}
         />
       )}
       <div className={classes.separator} />
       <MemberNotePanel
-        notes={medicalNotes}
+        healthNotes
         createOrUpdateNote={createMedicalNote}
         deleteNote={deleteNote}
         memberId={memberId}
-        healthNotes
+        notes={medicalNotes}
       />
       <div className={classes.separator} />
       <MemberNotePanel
-        notes={notMedicalNotes}
         createOrUpdateNote={createNonMedicalNote}
         deleteNote={deleteNote}
         memberId={memberId}
+        notes={notMedicalNotes}
       />
       <div className={classes.separator} />
       <MemberFilesPanel
-        openFileUploadDialog={openFileUploadDialog}
-        uploadedFiles={uploadedFiles}
         onDelete={deleteFile}
+        openFileUploadDialog={openFileUploadDialog}
         updateVisibility={updateVisibility}
+        uploadedFiles={uploadedFiles}
       />
       <div className={classes.separator} />
       {is_not_pos_member && (
         <MemberPaymentMethodPanel
-          snackbarSuccess={props.snackbarSuccessMsg}
           companyId={companyId}
-          paymentMethod={paymentMethod}
-          paymentMethodLoading={paymentMethodLoading}
           detachPaymentMethod={detachPaymentMethod}
           detachPaymentMethodLoading={detachPaymentMethodLoading}
           openAddPaymentMethodDialog={props.openAddPaymentMethodDialog}
+          paymentMethod={paymentMethod}
+          paymentMethodLoading={paymentMethodLoading}
+          snackbarSuccess={props.snackbarSuccessMsg}
         />
       )}
       {props.member?.spivi_privacy_settings_accepted !== null &&
@@ -169,8 +169,8 @@ export const MemberCRM: React.FC<Props> = (props) => {
             <div className={classes.separator} />
             <SpiviPrivacySettingsPanel
               member={props.member}
-              updateSpiviPrivacySettings={props.updateSpiviPrivacySettings}
               spiviPrivacySettingsLoading={props.spiviPrivacySettingsLoading}
+              updateSpiviPrivacySettings={props.updateSpiviPrivacySettings}
             />
           </div>
         )}

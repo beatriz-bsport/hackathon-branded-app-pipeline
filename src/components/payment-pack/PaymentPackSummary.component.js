@@ -33,19 +33,19 @@ export function PaymentPackMinimalSummary(props: Props) {
 
   return (
     <ListItem
-      divider={!!noDivider}
       dense
       button={!!button}
+      divider={!!noDivider}
       selected={!!props.selected}
       style={props.isFocused ? { backgroundColor: '#EFEFEF' } : {}}
     >
       <div className={classes.container}>
         <ListItemText primary={name} secondary={creditsFormatted} />
         <div className={classes.rightInfo}>
-          <Typography variant="caption" align="right">
+          <Typography align="right" variant="caption">
             {getCurrencyDisplayWithPrice(price)}
           </Typography>
-          <Typography variant="caption" align="right">
+          <Typography align="right" variant="caption">
             {dateInfo}
           </Typography>
         </div>

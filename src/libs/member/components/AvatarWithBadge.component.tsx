@@ -29,12 +29,12 @@ export const AvatarWithBadge: React.FC<Props> = ({
         ),
       })}
     >
-      <TagBadge member={member} topLeftIcons>
+      <TagBadge topLeftIcons member={member}>
         <CreditMemberBadge
+          bottomCredit={bottomCredit}
+          classes={classes}
           credit={member?.credit_account_balance}
           unpaidAmount={member?.total_unpaid_amount}
-          classes={classes}
-          bottomCredit={bottomCredit}
         >
           <Avatar src={member?.photo} />
         </CreditMemberBadge>

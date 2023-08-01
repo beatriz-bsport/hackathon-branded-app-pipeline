@@ -68,15 +68,15 @@ export class FranchisePrivatePassTemplateListPage extends Component<Props> {
       <div>
         {this.props.loading && <LinearProgress />}
         <IsEmptyList
-          text={t('privatePassTemplate.isEmptyExplain')}
           button={t('privatePassTemplate.actions.create')}
-          onCreate={this.props.openCreateDialog}
-          onCreateLabel={t('privatePassTemplate.actions.create')}
           hideEmptyText={
             this.props.loading ||
             !!this.props.privatePassTemplateListAvailable.length ||
             !!this.props.privatePassTemplateListManagerOnly.length
           }
+          onCreate={this.props.openCreateDialog}
+          onCreateLabel={t('privatePassTemplate.actions.create')}
+          text={t('privatePassTemplate.isEmptyExplain')}
         />
         <div className={classes.container}>
           {!!this.props.privatePassTemplateListAvailable.length && (
@@ -88,12 +88,12 @@ export class FranchisePrivatePassTemplateListPage extends Component<Props> {
               <Paper>
                 {this.props.privatePassTemplateListAvailable.map((ppt) => (
                   <PrivatePassTemplateListItem
-                    privatePassTemplate={ppt}
-                    divider
                     key={ppt.id}
+                    divider
                     onClick={this.props.goToTemplateDetail}
-                    onEdit={this.props.openEditDialog}
                     onDelete={this.props.openDeleteDialog}
+                    onEdit={this.props.openEditDialog}
+                    privatePassTemplate={ppt}
                   />
                 ))}
               </Paper>
@@ -108,12 +108,12 @@ export class FranchisePrivatePassTemplateListPage extends Component<Props> {
               <Paper>
                 {this.props.privatePassTemplateListManagerOnly.map((ppt) => (
                   <PrivatePassTemplateListItem
-                    privatePassTemplate={ppt}
-                    divider
                     key={ppt.id}
-                    onEdit={this.props.openEditDialog}
+                    divider
                     onClick={this.props.goToTemplateDetail}
                     onDelete={this.props.openDeleteDialog}
+                    onEdit={this.props.openEditDialog}
+                    privatePassTemplate={ppt}
                   />
                 ))}
               </Paper>
@@ -122,21 +122,21 @@ export class FranchisePrivatePassTemplateListPage extends Component<Props> {
         </div>
         {!!this.props.createModalOpen && (
           <PrivatePassTemplateFormDrawer
-            onSubmit={this.props.createOrUpdatePrivatePassTemplate}
             onCancel={this.props.closeCreateDialog}
+            onSubmit={this.props.createOrUpdatePrivatePassTemplate}
             open={this.props.createModalOpen}
           />
         )}
         <PrivatePassTemplateDeleteDialog
-          open={!!this.props.templateToDelete}
-          onSubmit={this.props.deletePrivatePassTemplate}
           onClose={this.props.closeDeleteDialog}
+          onSubmit={this.props.deletePrivatePassTemplate}
+          open={!!this.props.templateToDelete}
         />
         {!!this.props.privatePassTemplateForEdit && (
           <PrivatePassTemplateFormDrawer
-            onSubmit={this.props.createOrUpdatePrivatePassTemplate}
             initial={this.props.privatePassTemplateForEdit}
             onCancel={this.props.closeEditDialog}
+            onSubmit={this.props.createOrUpdatePrivatePassTemplate}
             open={this.props.privatePassTemplateForEdit}
           />
         )}

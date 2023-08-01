@@ -22,15 +22,15 @@ const BubbleCard: React.FC<BubbleCardProps> = ({
   return (
     <div className={classes.card}>
       <svg
-        width="23"
+        className={classes.arrow}
         height="34"
         viewBox="0 0 23 34"
+        width="23"
         xmlns="http://www.w3.org/2000/svg"
-        className={classes.arrow}
       >
         <path
-          id="Arrow"
           d="M0.980749 15.4319L19.7586 0.566112C21.0697 -0.471871 23 0.461933 23 2.1342L23 17L23 31.8658C23 33.5381 21.0697 34.4719 19.7586 33.4339L0.980749 18.5681C-0.0307105 17.7674 -0.0307104 16.2326 0.980749 15.4319Z"
+          id="Arrow"
         />
       </svg>
       <div className={classes.container}>{!!children && children}</div>

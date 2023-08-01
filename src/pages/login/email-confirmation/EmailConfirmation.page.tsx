@@ -51,13 +51,13 @@ export const EmailConfirmationPage: React.FC<Props> = ({
     <div className="bs-email-confirmation-container">
       <div>
         <EmailConfirmation
+          company={!!companyId}
           goBackToLogin={goBackToSignup}
+          lastTimeSentEmailConfirmation={lastTimeSentEmailConfirmation}
           sendEmailForConfirmation={(options) =>
             sendEmailForConfirmation(companyId, options)
           }
-          lastTimeSentEmailConfirmation={lastTimeSentEmailConfirmation}
           simplifyUI={simplifyUI}
-          company={!!companyId}
         />
       </div>
     </div>

@@ -105,13 +105,16 @@ export default withTranslation(['metaActivity'])(
     return (
       <div style={{ zIndex: 9999 }}>
         <Select
-          id={id}
           closeMenuOnSelect={closeMenuOnSelect}
-          isMulti={!noMulti}
-          placeholder={placeholder}
-          onChange={selectOption || onChange}
+          id={id}
           isDisabled={disabled}
+          isLoading={isLoading}
+          isMulti={!noMulti}
+          menuPortalTarget={document.querySelector('body')}
+          onChange={selectOption || onChange}
           options={getMetaActivityOptions([...metaActivities])}
+          placeholder={placeholder}
+          styles={getMetaActivityStyles(controlBackground)}
           value={
             selectedMetaActivities
               ? getMetaActivityOptions([
@@ -121,9 +124,6 @@ export default withTranslation(['metaActivity'])(
                 ])
               : undefined
           }
-          styles={getMetaActivityStyles(controlBackground)}
-          menuPortalTarget={document.querySelector('body')}
-          isLoading={isLoading}
         />
       </div>
     );

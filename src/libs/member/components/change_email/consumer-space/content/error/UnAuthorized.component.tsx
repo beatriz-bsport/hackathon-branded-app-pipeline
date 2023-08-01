@@ -13,8 +13,8 @@ export const UnAuthorizedContent = (props: UnAuthorizedContentProps) => {
   return (
     <>
       <ContentTitle
-        title={t('changeEmailRequest.memberPage.unAuthorizedAccess.title')}
         iconType="blocked"
+        title={t('changeEmailRequest.memberPage.unAuthorizedAccess.title')}
       />
       <SpacedText
         text={t('changeEmailRequest.memberPage.unAuthorizedAccess.helper', {

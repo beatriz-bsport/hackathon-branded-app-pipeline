@@ -70,63 +70,63 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
     return (
       <>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             <CouponTemplateCard
               couponTemplate={this.props.couponTemplate}
-              onEditTemplate={this.props.openEditTemplateDialog}
-              onDeleteTemplate={this.props.openDeleteTemplateDialog}
               onCreateInstance={this.props.openCreateInstanceDialog}
               onDeleteInstance={this.props.openDeleteInstanceDialog}
+              onDeleteTemplate={this.props.openDeleteTemplateDialog}
+              onEditTemplate={this.props.openEditTemplateDialog}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             <PaginatedDiscountList
-              items={this.props.discount.items}
               allowedFranchisees={this.props.allowedFranchisees}
-              nbItems={this.props.discount.count}
-              loading={this.props.discount.loading}
-              page={this.props.discount.page}
+              companies={this.props.couponTemplate.companies}
+              goToBillingPlan={this.props.goToBillingPlan}
+              goToInvoice={this.props.goToInvoice}
               itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
+              items={this.props.discount.items}
+              loading={this.props.discount.loading}
+              nbItems={this.props.discount.count}
               onPageRequested={(page: number, pageSize: number) => {
                 this.props.fetchDiscountList(page, pageSize);
               }}
-              goToInvoice={this.props.goToInvoice}
-              goToBillingPlan={this.props.goToBillingPlan}
-              companies={this.props.couponTemplate.companies}
+              page={this.props.discount.page}
             />
           </Grid>
         </Grid>
         {this.props.editTemplateDialogOpen && (
           <CouponTemplateFormDrawer
             open
-            onClose={this.props.closeEditTemplateDialog}
-            privatePassTemplateList={this.props.privatePassTemplateList || []}
-            paymentPackTemplateList={this.props.paymentPackTemplateList || []}
             initial={this.props.couponTemplate}
+            onClose={this.props.closeEditTemplateDialog}
             onSubmit={this.props.updateCouponTemplate}
+            paymentPackTemplateList={this.props.paymentPackTemplateList || []}
+            privatePassTemplateList={this.props.privatePassTemplateList || []}
           />
         )}
         <CouponTemplateDeleteDialog
-          open={this.props.deleteTemplateDialogOpen}
-          onSubmit={this.props.deleteCouponTemplate}
           onClose={this.props.closeDeleteTemplateDialog}
+          onSubmit={this.props.deleteCouponTemplate}
+          open={this.props.deleteTemplateDialogOpen}
         />
         {!this.props.paymentPackTemplateListLoading &&
           !this.props.privatePassTemplateListLoading &&
           this.props.createInstanceDialogOpen && (
             <CouponTemplateInstanceFormDialog
-              onClose={this.props.closeCreateInstanceDialog}
-              onSubmit={this.props.createCouponTemplateInstance}
               companies={this.props.companies}
               couponTemplate={this.props.couponTemplate}
+              onClose={this.props.closeCreateInstanceDialog}
+              onSubmit={this.props.createCouponTemplateInstance}
               paymentPackTemplateList={this.props.paymentPackTemplateList}
               privatePassTemplateList={this.props.privatePassTemplateList}
             />
           )}
         {!!this.props.instanceCompanyIdToDelete && (
           <CouponTemplateInstanceDeleteDialog
-            couponTemplate={this.props.couponTemplate}
             companyId={this.props.instanceCompanyIdToDelete}
+            couponTemplate={this.props.couponTemplate}
             onClose={this.props.closeDeleteInstanceDialog}
             onSubmit={this.props.deleteCouponTemplateInstance}
           />

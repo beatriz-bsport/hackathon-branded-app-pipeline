@@ -40,12 +40,12 @@ const Coupon: React.FC<CouponProps> = ({ coupon, onCouponRemove }) => {
 
   return (
     <div className={classes.additionalLine}>
-      <Typography variant="body2" className={classes.textGrey600}>
+      <Typography className={classes.textGrey600} variant="body2">
         {coupon.name}
       </Typography>
 
       <div className={classes.couponActions}>
-        <Typography variant="subtitle2" className={classes.fontWeight500}>
+        <Typography className={classes.fontWeight500} variant="subtitle2">
           {getCurrencyDisplayWithPrice(coupon.unit_price)}
         </Typography>
 
@@ -153,24 +153,24 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <BasketName
-        member={member}
         canChangeMember={canChangeMember}
+        member={member}
         openChangeMemberModal={openMemberAuthenticationModal}
       />
 
       {member?.is_pos ? (
-        <Alert severity="warning" className={classes.unauthenticatedAlert}>
+        <Alert className={classes.unauthenticatedAlert} severity="warning">
           {t('checkout.unauthenticatedWarning')}
         </Alert>
       ) : null}
 
       {showInvoiceInformation && (
         <DateInput
-          value={date}
-          onChange={onChangeDate}
-          label={t('checkout.billingDate')}
           className={classes.datePicker}
           endAdornment={<Event className={classes.icon} />}
+          label={t('checkout.billingDate')}
+          onChange={onChangeDate}
+          value={date}
         />
       )}
 
@@ -182,19 +182,19 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
             <div className={classes.checkoutItemQuantityAndName}>
               <div className={classes.checkoutItemQuantity}>
                 <Typography
-                  variant="subtitle2"
                   className={classes.fontWeight500}
+                  variant="subtitle2"
                 >
                   {checkoutItem.quantity}
                 </Typography>
               </div>
 
-              <Typography variant="subtitle2" className={classes.fontWeight500}>
+              <Typography className={classes.fontWeight500} variant="subtitle2">
                 {checkoutItem.name}
               </Typography>
             </div>
 
-            <Typography variant="subtitle2" className={classes.fontWeight500}>
+            <Typography className={classes.fontWeight500} variant="subtitle2">
               {getCurrencyDisplayWithPrice(
                 checkoutItem.unit_price * checkoutItem.quantity,
               )}
@@ -207,32 +207,32 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
 
       <div className={classes.prices}>
         <div className={classes.priceExcludingTax}>
-          <Typography variant="body2" className={classes.textGrey600}>
+          <Typography className={classes.textGrey600} variant="body2">
             {t('checkout.priceExcludingTax')}
           </Typography>
 
-          <Typography variant="subtitle2" className={classes.fontWeight500}>
+          <Typography className={classes.fontWeight500} variant="subtitle2">
             {getCurrencyDisplayWithPrice(basketPriceExcludingTax)}
           </Typography>
         </div>
 
         <div className={classes.tax}>
-          <Typography variant="body2" className={classes.textGrey600}>
+          <Typography className={classes.textGrey600} variant="body2">
             {t('checkout.tax')}
           </Typography>
 
-          <Typography variant="subtitle2" className={classes.fontWeight500}>
+          <Typography className={classes.fontWeight500} variant="subtitle2">
             {getCurrencyDisplayWithPrice(taxPrice)}
           </Typography>
         </div>
 
         {deliveryFee ? (
           <div className={classes.additionalLine}>
-            <Typography variant="body2" className={classes.textGrey600}>
+            <Typography className={classes.textGrey600} variant="body2">
               {t('checkout.deliveryFee')}
             </Typography>
 
-            <Typography variant="subtitle2" className={classes.fontWeight500}>
+            <Typography className={classes.fontWeight500} variant="subtitle2">
               {getCurrencyDisplayWithPrice(deliveryFee.unit_price)}
             </Typography>
           </div>
@@ -241,21 +241,21 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
         {coupons?.length
           ? coupons.map((coupon) => (
               <Coupon
+                key={coupon.id}
                 coupon={coupon}
                 onCouponRemove={onCouponRemove}
-                key={coupon.id}
               />
             ))
           : null}
 
         {basket?.total_price_prepaid_lines_cts ? (
           <div className={classes.additionalLine}>
-            <Typography variant="body2" className={classes.textGrey600}>
+            <Typography className={classes.textGrey600} variant="body2">
               {t('checkout.internalCredits')}
             </Typography>
 
             <div className={classes.internalCredit}>
-              <Typography variant="subtitle2" className={classes.fontWeight500}>
+              <Typography className={classes.fontWeight500} variant="subtitle2">
                 -
                 {getCurrencyDisplayWithPrice(
                   basket?.total_price_prepaid_lines_cts / 100,
@@ -273,11 +273,11 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
         ) : null}
 
         <div className={classes.total}>
-          <Typography variant="subtitle1" className={classes.fontWeight500}>
+          <Typography className={classes.fontWeight500} variant="subtitle1">
             {t('checkout.priceIncludingTax')}
           </Typography>
 
-          <Typography variant="h6" className={classes.fontWeight500}>
+          <Typography className={classes.fontWeight500} variant="h6">
             {getCurrencyDisplayWithPrice(
               (
                 parseFloat(basket.total_price) -
@@ -292,11 +292,7 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
         <>
           <Divider className={classes.divider} />
           <TextField
-            value={invoiceFootNote}
-            onChange={onFootNoteChange}
             fullWidth
-            variant="outlined"
-            label={t('checkout.invoiceFootNote')}
             InputProps={
               invoiceFootNote.length
                 ? {
@@ -311,6 +307,10 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
                   }
                 : {}
             }
+            label={t('checkout.invoiceFootNote')}
+            onChange={onFootNoteChange}
+            value={invoiceFootNote}
+            variant="outlined"
           />
         </>
       )}

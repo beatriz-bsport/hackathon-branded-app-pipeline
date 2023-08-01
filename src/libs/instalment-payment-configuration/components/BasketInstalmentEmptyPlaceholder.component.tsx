@@ -30,10 +30,10 @@ export const BasketInstalmentEmptyPlaceholder: React.FC<Props> = ({
     <div className={classes.container}>
       <div className={classes.row}>
         <Radio
-          onChange={onSelect}
+          checked={checked}
           color="primary"
           disabled={disabled}
-          checked={checked}
+          onChange={onSelect}
         />
         <Typography>{t('paymentAllInOnce')}</Typography>
         <InstalmentPaymentMultiplyIcon multiplyFactor={1} />

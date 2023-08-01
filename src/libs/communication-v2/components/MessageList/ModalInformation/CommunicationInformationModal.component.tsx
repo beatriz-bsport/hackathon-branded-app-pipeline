@@ -133,19 +133,19 @@ export class CommunicationInformationModal extends React.PureComponent<
 
     return (
       <CommunicationWrapperDialog
-        open={open}
-        fullScreen={fullScreen}
-        title={title}
         buttonCancelText={t('common.close')}
-        onCancel={this.onClose}
         closeDialog={this.onClose}
+        fullScreen={fullScreen}
+        onCancel={this.onClose}
+        open={open}
+        title={title}
       >
         <>
           {!!this.props.contextTitle &&
             selectedCommunication?.channel !==
               COMMUNICATION_CHANNEL_SMARTLIST && (
               <div className={classes.contextContainer}>
-                <Typography variant="h6" className={classes.boldTypo}>
+                <Typography className={classes.boldTypo} variant="h6">
                   {this.props.contextTitle}
                 </Typography>
                 <Typography variant="body2">
@@ -155,23 +155,23 @@ export class CommunicationInformationModal extends React.PureComponent<
             )}
           {!!this.props.allMemberCategoryList && (
             <CommunicationInformationModalFilter
-              genericMemberCategories={this.props.allMemberCategoryList}
               checkedFilters={this.state.checkedCategoryFilters}
+              genericMemberCategories={this.props.allMemberCategoryList}
               setCheckedFilters={this.setCheckedCategoryFilters}
             />
           )}
-          <Table aria-label="simple table" size="small" padding="normal">
+          <Table aria-label="simple table" padding="normal" size="small">
             <TableHead>
               <TableRow>
                 <TableCell
                   className={classes.tableContainerWithoutBorderBottom}
                 >
                   <Typography
-                    variant="body1"
                     className={classNames(
                       classes.boldTypo,
                       classes.textHeaderEllipsis,
                     )}
+                    variant="body1"
                   >
                     {recipientsCount}{' '}
                     {t('common.recipient', {
@@ -183,7 +183,7 @@ export class CommunicationInformationModal extends React.PureComponent<
                   align="center"
                   className={classes.tableContainerWithoutBorderBottom}
                 >
-                  <Typography variant="body1" className={classes.boldTypo}>
+                  <Typography className={classes.boldTypo} variant="body1">
                     {t('dialogInformation.headerStatus')}
                   </Typography>
                 </TableCell>
@@ -191,7 +191,7 @@ export class CommunicationInformationModal extends React.PureComponent<
                   align="center"
                   className={classes.tableContainerWithoutBorderBottom}
                 >
-                  <Typography variant="body1" className={classes.boldTypo}>
+                  <Typography className={classes.boldTypo} variant="body1">
                     {t('dialogInformation.headerOpen')}
                   </Typography>
                 </TableCell>
@@ -205,19 +205,19 @@ export class CommunicationInformationModal extends React.PureComponent<
                   recipientList.map((recipient: Recipient<Member>) => (
                     <TableRow key={recipient.id}>
                       <TableCell
+                        className={classes.tableContainerWithoutBorderBottom}
                         component="th"
                         scope="row"
-                        className={classes.tableContainerWithoutBorderBottom}
                       >
                         <div className={classes.tableCellRecipient}>
                           <Avatar
                             alt={recipient.member?.name}
-                            src={recipient.member?.photo}
                             className={classes.avatar}
+                            src={recipient.member?.photo}
                           />
                           <Typography
-                            variant="body1"
                             className={classes.recipientName}
+                            variant="body1"
                           >
                             {recipient.member?.name}
                           </Typography>
@@ -252,10 +252,10 @@ export class CommunicationInformationModal extends React.PureComponent<
           )}
           {pageCount > 1 && (
             <Pagination
-              page={this.state.currentPage}
+              className={classes.paginationContainer}
               count={pageCount}
               onChange={this.handleChangePage}
-              className={classes.paginationContainer}
+              page={this.state.currentPage}
             />
           )}
         </>

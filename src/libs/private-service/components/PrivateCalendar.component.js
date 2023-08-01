@@ -276,8 +276,8 @@ const AvailabilitySlotForm = withTranslation(['privateService'])(
               </ListItem>
               <ListItem
                 button
-                onClick={props.onEnableRecurrentAvailability}
                 disabled={!props.onEnableRecurrentAvailability}
+                onClick={props.onEnableRecurrentAvailability}
               >
                 <ListItemIcon color="primary">
                   <RefreshIcon className={props.classes.leftIcon} />
@@ -297,8 +297,8 @@ const AvailabilitySlotForm = withTranslation(['privateService'])(
             <React.Fragment>
               <ListItem
                 button
-                onClick={props.onDisableAvailability}
                 disabled={!props.onDisableAvailability}
+                onClick={props.onDisableAvailability}
               >
                 <ListItemIcon>
                   <CancelIcon className={props.classes.leftIcon} />
@@ -314,8 +314,8 @@ const AvailabilitySlotForm = withTranslation(['privateService'])(
               </ListItem>
               <ListItem
                 button
-                onClick={props.onDisableRecurrentAvailability}
                 disabled={!props.onDisableRecurrentAvailability}
+                onClick={props.onDisableRecurrentAvailability}
               >
                 <ListItemIcon color="primary">
                   <RefreshIcon className={props.classes.leftIcon} />
@@ -335,8 +335,8 @@ const AvailabilitySlotForm = withTranslation(['privateService'])(
             <React.Fragment>
               <ListItem
                 button
-                onClick={props.onCreateCustomEvent}
                 disabled={!props.onCreateCustomEvent}
+                onClick={props.onCreateCustomEvent}
               >
                 <ListItemIcon>
                   <TodayIcon className={props.classes.leftIcon} />
@@ -349,8 +349,8 @@ const AvailabilitySlotForm = withTranslation(['privateService'])(
             <React.Fragment>
               <ListItem
                 button
-                onClick={props.onRequestAvailabilityDetails}
                 disabled={!props.onRequestAvailabilityDetails}
+                onClick={props.onRequestAvailabilityDetails}
               >
                 <ListItemIcon>
                   <InfoIcon className={props.classes.leftIcon} />
@@ -718,14 +718,11 @@ export class PrivateCalendar extends React.Component<Props, State> {
         )}
         <div>
           <MuiPickersUtilsProvider
-            utils={MomentUtils}
-            moment={moment}
             locale={moment.locale()}
+            moment={moment}
+            utils={MomentUtils}
           >
             <DatePicker
-              onChange={this.setNewDate}
-              value={null}
-              TextFieldComponent={this.hiddenDiv}
               DialogProps={{ open: this.state.datePickerOpen }}
               initialFocusedDate={
                 this.calendarRef.current
@@ -734,21 +731,20 @@ export class PrivateCalendar extends React.Component<Props, State> {
                     )
                   : moment().format(DATE_FORMAT)
               }
+              onChange={this.setNewDate}
               onClose={this.onCloseDatePicker}
+              TextFieldComponent={this.hiddenDiv}
+              value={null}
             />
           </MuiPickersUtilsProvider>
         </div>
         <FullCalendar
           ref={this.calendarRef}
-          plugins={[
-            interactionPlugin,
-            timeGridPlugin,
-            resourceTimeGrid,
-            dayGridPlugin,
-            // momentTimezonePlugin,
-          ]}
-          initialView={initialView}
-          timeZone={this.props.timezone}
+          dateA
+          editable
+          filterResourcesWithEvents
+          selectable
+          allDaySlot={allDaySlot}
           customButtons={{
             zoomIn: {
               text: '+',
@@ -763,6 +759,48 @@ export class PrivateCalendar extends React.Component<Props, State> {
               click: this.openDatePicker,
             },
           }}
+          dateClick={this.dateClick}
+          datesSet={this.handleIntervalChange}
+          eventClick={this.handleEventClick}
+          eventContent={renderEventContent}
+          events={events}
+          firstDay={Moment.localeData()._week.dow}
+          headerToolbar={{
+            left: 'prev,next today',
+            center: isWidthUp('sm', this.props.width) ? 'title' : '',
+            right: this.props.resourceDatatypeView
+              ? 'datePicker zoomOut,zoomIn resourceTimeGridDay,resourceTimeGridThreeDays,resourceTimeGridWeek'
+              : 'datePicker zoomOut,zoomIn timeGridDay,timeGridWeek,dayGridMonth',
+          }}
+          initialView={initialView}
+          locale={i18n.language === 'en' ? 'en-GB' : i18n.language}
+          locales={[frLocale, itLocale, deLocale, nlLocale]}
+          plugins={[
+            interactionPlugin,
+            timeGridPlugin,
+            resourceTimeGrid,
+            dayGridPlugin,
+            // momentTimezonePlugin,
+          ]}
+          resources={this.props.resources}
+          schedulerLicenseKey="0617518912-fcs-1639035029"
+          select={this.select}
+          slotDuration={`00:${
+            15 * 2 ** (this.props.scheduleFilter.zoomLevel ?? 1)
+          }:00`}
+          slotMaxTime={
+            this.props.scheduleTimerangeEnd
+              ? `${moment(this.props.scheduleTimerangeEnd).format('HH')}:00:00`
+              : '23:00:00'
+          }
+          slotMinTime={
+            this.props.scheduleTimerangeBegin
+              ? `${moment(this.props.scheduleTimerangeBegin).format(
+                  'HH',
+                )}:00:00`
+              : '06:00:00'
+          }
+          timeZone={this.props.timezone}
           views={{
             resourceTimeGridThreeDays: {
               type: 'resourceTimeGrid',
@@ -778,65 +816,21 @@ export class PrivateCalendar extends React.Component<Props, State> {
               },
             },
           }}
-          headerToolbar={{
-            left: 'prev,next today',
-            center: isWidthUp('sm', this.props.width) ? 'title' : '',
-            right: this.props.resourceDatatypeView
-              ? 'datePicker zoomOut,zoomIn resourceTimeGridDay,resourceTimeGridThreeDays,resourceTimeGridWeek'
-              : 'datePicker zoomOut,zoomIn timeGridDay,timeGridWeek,dayGridMonth',
-          }}
-          schedulerLicenseKey="0617518912-fcs-1639035029"
-          filterResourcesWithEvents
-          resources={this.props.resources}
-          editable
-          selectable
-          dateA
-          select={this.select}
-          dateClick={this.dateClick}
-          events={events}
-          locale={i18n.language === 'en' ? 'en-GB' : i18n.language}
-          firstDay={Moment.localeData()._week.dow}
-          slotDuration={`00:${
-            15 * 2 ** (this.props.scheduleFilter.zoomLevel ?? 1)
-          }:00`}
-          locales={[frLocale, itLocale, deLocale, nlLocale]}
-          slotMinTime={
-            this.props.scheduleTimerangeBegin
-              ? `${moment(this.props.scheduleTimerangeBegin).format(
-                  'HH',
-                )}:00:00`
-              : '06:00:00'
-          }
-          slotMaxTime={
-            this.props.scheduleTimerangeEnd
-              ? `${moment(this.props.scheduleTimerangeEnd).format('HH')}:00:00`
-              : '23:00:00'
-          }
-          allDaySlot={allDaySlot}
-          eventClick={this.handleEventClick}
-          datesSet={this.handleIntervalChange}
-          eventContent={renderEventContent}
         />
         {this.props.disableAvailabilitySlotDisplay ? null : (
           <Popover
-            open={!!this.state.eventSlotSelected}
-            onClose={() => this.setState({ eventSlotSelected: null })}
             anchorOrigin={{
               vertical: 'center',
               horizontal: 'center',
             }}
+            onClose={() => this.setState({ eventSlotSelected: null })}
+            open={!!this.state.eventSlotSelected}
             transformOrigin={{
               vertical: 'center',
               horizontal: 'center',
             }}
           >
             <AvailabilitySlotForm
-              selectInfo={this.state.selectInfo}
-              onDisableAvailability={
-                this.props.disableResourceAvailabilitySlot
-                  ? this.onDisableAvailability
-                  : null
-              }
               onBookRequest={
                 this.props.onBookRequest
                   ? () => {
@@ -845,21 +839,6 @@ export class PrivateCalendar extends React.Component<Props, State> {
                       );
                       this.setState({ eventSlotSelected: null });
                     }
-                  : null
-              }
-              onEnableAvailability={
-                this.props.enableResourceAvailabilitySlot
-                  ? this.onEnableAvailability
-                  : null
-              }
-              onEnableRecurrentAvailability={
-                this.props.enableResourceAvailabilitySlot
-                  ? () => this.setState({ enableWithRecurrence: true })
-                  : null
-              }
-              onDisableRecurrentAvailability={
-                this.props.disableResourceAvailabilitySlot
-                  ? () => this.setState({ disableWithRecurrence: true })
                   : null
               }
               onCreateCustomEvent={
@@ -872,29 +851,50 @@ export class PrivateCalendar extends React.Component<Props, State> {
                     }
                   : null
               }
+              onDisableAvailability={
+                this.props.disableResourceAvailabilitySlot
+                  ? this.onDisableAvailability
+                  : null
+              }
+              onDisableRecurrentAvailability={
+                this.props.disableResourceAvailabilitySlot
+                  ? () => this.setState({ disableWithRecurrence: true })
+                  : null
+              }
+              onEnableAvailability={
+                this.props.enableResourceAvailabilitySlot
+                  ? this.onEnableAvailability
+                  : null
+              }
+              onEnableRecurrentAvailability={
+                this.props.enableResourceAvailabilitySlot
+                  ? () => this.setState({ enableWithRecurrence: true })
+                  : null
+              }
               onRequestAvailabilityDetails={() => {
                 this.onRequestAvailabilityDetails();
                 this.setState({ eventSlotSelected: null });
               }}
+              selectInfo={this.state.selectInfo}
             />
           </Popover>
         )}
         <RecurrentAvailabilityFormDialog
-          fullScreen={this.props.fullScreen}
-          open={
-            this.state.eventSlotSelected &&
-            (this.state.disableWithRecurrence ||
-              this.state.enableWithRecurrence)
-          }
-          mode={this.state.disableWithRecurrence ? 'disable' : 'enable'}
           eventSlot={this.state.eventSlotSelected}
-          onSubmit={this.createRecurrence}
+          fullScreen={this.props.fullScreen}
           loading={this.props.availabilitySlotUpdating}
+          mode={this.state.disableWithRecurrence ? 'disable' : 'enable'}
           onClose={() =>
             this.setState({
               enableWithRecurrence: false,
               disableWithRecurrence: false,
             })
+          }
+          onSubmit={this.createRecurrence}
+          open={
+            this.state.eventSlotSelected &&
+            (this.state.disableWithRecurrence ||
+              this.state.enableWithRecurrence)
           }
         />
         {this.state.availabilityDetailData && (

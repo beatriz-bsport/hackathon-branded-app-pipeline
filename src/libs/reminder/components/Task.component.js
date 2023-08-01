@@ -95,10 +95,10 @@ export const Task = (props: Props) => {
             ) : null}
           </div>
           <TaskStatus
-            t={props.t}
             classes={props.classes}
-            status={task.status}
             date_due={task.date_due}
+            status={task.status}
+            t={props.t}
           />
         </div>
         <Typography variant="caption">
@@ -106,7 +106,7 @@ export const Task = (props: Props) => {
             .map((u) => formatStaffUser(u))
             .join(', ')}`}
         </Typography>
-        <Typography variant="caption" color="textSecondary">
+        <Typography color="textSecondary" variant="caption">
           {`${t('task.author')}: ${formatStaffUser(task.author)}`}
         </Typography>
         <TypographyMultiline>{task.description}</TypographyMultiline>
@@ -125,9 +125,9 @@ export const Task = (props: Props) => {
           {task.status !== TASK_STATUS_FINISHED &&
           task.status !== TASK_STATUS_CANCELLED ? (
             <RedButton
-              variant="outlined"
               className={classes.statusButton}
               onClick={() => props.updateStatus(TASK_STATUS_CANCELLED)}
+              variant="outlined"
             >
               <CancelIcon className={classes.iconLeft} />
               {props.t('task.actions.cancel')}
@@ -135,9 +135,9 @@ export const Task = (props: Props) => {
           ) : null}
           {task.status !== TASK_STATUS_UNSTARTED ? (
             <Button
-              variant="contained"
               className={classes.statusButton}
               onClick={() => props.updateStatus(TASK_STATUS_UNSTARTED)}
+              variant="contained"
             >
               <RefreshIcon className={classes.iconLeft} />
               {props.t('task.actions.restart')}
@@ -146,10 +146,10 @@ export const Task = (props: Props) => {
           {task.status !== TASK_STATUS_FINISHED &&
           task.status !== TASK_STATUS_CANCELLED ? (
             <Button
-              color="primary"
-              variant="contained"
               className={classes.statusButton}
+              color="primary"
               onClick={() => props.updateStatus(TASK_STATUS_FINISHED)}
+              variant="contained"
             >
               <CheckIcon className={classes.iconLeft} />
               {props.t('task.actions.finish')}

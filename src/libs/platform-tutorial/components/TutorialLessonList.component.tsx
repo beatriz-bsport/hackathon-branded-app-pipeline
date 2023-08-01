@@ -51,35 +51,35 @@ const TutorialLessonList: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      <List component="nav" className={classes.root}>
+      <List className={classes.root} component="nav">
         {lessons.map((lesson) => {
           return (
             <ListItem
               key={`lesson_${lesson.id}`}
               button
+              className={classes.listItem}
               onClick={(e) => {
                 e.stopPropagation();
                 goToLesson(lesson.section, lesson.id);
               }}
-              className={classes.listItem}
             >
               <CheckCircleOutlineIcon
-                color="disabled"
                 className={classNames({
                   [classes.iconGreen]: isLessonCompleted(
                     lesson,
                     tutorial_completion,
                   ),
                 })}
+                color="disabled"
               />
               <div className={classes.growSection}>
-                <Typography variant="body1" className={classes.sectionTitle}>
+                <Typography className={classes.sectionTitle} variant="body1">
                   {lesson.translated_name}
                 </Typography>
                 <LessonStatusChips
+                  withToolTip
                   lesson={lesson}
                   tutorial_completion={tutorial_completion}
-                  withToolTip
                 />
               </div>
               <div className={classes.rowEnd}>
@@ -127,13 +127,14 @@ const TutorialLessonList: React.FC<Props> = (props: Props) => {
         })}
       </List>
       <Menu
-        anchorEl={moreMenuOpen}
         keepMounted
-        open={Boolean(moreMenuOpen)}
+        anchorEl={moreMenuOpen}
         onClick={(e) => e.stopPropagation()}
         onClose={onCloseMenu}
+        open={Boolean(moreMenuOpen)}
       >
         <MenuItem
+          className={classNames(classes.menuItem, classes.primary)}
           onClick={(e) => {
             e.stopPropagation();
             setMoreMenuopen(null);
@@ -142,18 +143,17 @@ const TutorialLessonList: React.FC<Props> = (props: Props) => {
               selectedLessonOpenMenu.id,
             );
           }}
-          className={classNames(classes.menuItem, classes.primary)}
         >
           <PlayArrowIcon />
           <Typography>{t('lessonList.start')}</Typography>
         </MenuItem>
         <MenuItem
+          className={classNames(classes.menuItem, classes.secondary)}
           onClick={(e) => {
             e.stopPropagation();
             setMoreMenuopen(null);
             shareLesson(selectedLessonOpenMenu);
           }}
-          className={classNames(classes.menuItem, classes.secondary)}
         >
           <Tooltip title={t('lessonList.shareLesson')}>
             <ShareIcon />

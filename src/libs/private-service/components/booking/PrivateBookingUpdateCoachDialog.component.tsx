@@ -56,10 +56,10 @@ export const PrivateBookingUpdateCoachDialog: React.FC<Props> = ({
     <>
       {openAllocationModal && (
         <ResourceAllocationConfirmDialog
-          privateBooking={privateBooking}
-          onSubmit={handleSubmitButton}
-          onCancel={handleCancelButton}
           coach={selectedCoach}
+          onCancel={handleCancelButton}
+          onSubmit={handleSubmitButton}
+          privateBooking={privateBooking}
         />
       )}
       <DialogTitle>{t('privateBooking.updateTime.title')}</DialogTitle>
@@ -70,10 +70,10 @@ export const PrivateBookingUpdateCoachDialog: React.FC<Props> = ({
             key={coach.id}
             divider
             coach={coach}
+            onCoachSelected={handleCoachSelected(coach)}
             selected={
               coach.associated_coach_id === privateBooking.associated_coach
             }
-            onCoachSelected={handleCoachSelected(coach)}
           />
         ))}
       </DialogContent>

@@ -25,21 +25,21 @@ export const ReplacementRequestStatusPopover: React.FC<Props> = ({
 
   return (
     <Popover
-      className={classes.popover}
-      classes={{ paper: classes.popoverPaper }}
-      id="mouse-over-popover"
-      open={open}
+      disableRestoreFocus
       anchorEl={anchorEl}
       anchorOrigin={{
         vertical: 'bottom',
         horizontal: 'right',
       }}
+      classes={{ paper: classes.popoverPaper }}
+      className={classes.popover}
+      id="mouse-over-popover"
+      onClose={handleStatusPopoverOpen}
+      open={open}
       transformOrigin={{
         vertical: 'top',
         horizontal: 'right',
       }}
-      onClose={handleStatusPopoverOpen}
-      disableRestoreFocus
     >
       <Typography>{t('replacementStatus.description.description')}</Typography>
       <div className={classes.description}>

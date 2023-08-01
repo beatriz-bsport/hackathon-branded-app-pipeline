@@ -34,8 +34,8 @@ const MemberResetPasswordDialog: React.FC<Props> = ({
   if (error) {
     return (
       <GenericResponsiveDialog
-        maxWidth="sm"
         fullScreenBreakpoint="xs"
+        maxWidth="sm"
         open={open}
       >
         <DialogTitle>{t('resetPassword.dialogTitle')}</DialogTitle>
@@ -51,8 +51,8 @@ const MemberResetPasswordDialog: React.FC<Props> = ({
 
   return (
     <GenericResponsiveDialog
-      maxWidth="sm"
       fullScreenBreakpoint="xs"
+      maxWidth="sm"
       open={open}
     >
       <DialogTitle>{t('resetPassword.dialogTitle')}</DialogTitle>
@@ -64,10 +64,10 @@ const MemberResetPasswordDialog: React.FC<Props> = ({
               {t('cancel')}
             </Button>
             <Button
+              color="primary"
               disabled={loading}
               onClick={onResetPassword}
               variant="outlined"
-              color="primary"
             >
               {t('confirm')}
             </Button>

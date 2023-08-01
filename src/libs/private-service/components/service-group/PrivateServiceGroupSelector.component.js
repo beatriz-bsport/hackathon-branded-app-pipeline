@@ -22,13 +22,13 @@ export default withTranslation(['privateService'])(
   ({ t, serviceGroupList, value, placeholder, isDisabled, selectOption }) => {
     return (
       <Selector
-        placeholder={placeholder || t('serviceGroup.selector.placeholder')}
-        suggestions={getGroupOptions([...serviceGroupList])}
-        onChange={selectOption}
         isClearable
         isDisabled={isDisabled}
-        selected={value}
+        onChange={selectOption}
+        placeholder={placeholder || t('serviceGroup.selector.placeholder')}
         searchIcon={!value}
+        selected={value}
+        suggestions={getGroupOptions([...serviceGroupList])}
       />
     );
   },

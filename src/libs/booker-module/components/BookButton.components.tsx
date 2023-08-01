@@ -62,27 +62,27 @@ class BookButton extends React.PureComponent<Props, State> {
     return (
       <>
         <Button
-          onClick={onClickBook}
-          color="primary"
           className={classnames('bookingButton', {
             bookingButtonAnimation: animation,
           })}
-          variant="contained"
+          color="primary"
           onAnimationEnd={() => {
             this.setState({ animation: false });
           }}
+          onClick={onClickBook}
+          variant="contained"
         />
         <div className="buttonContent">
           {isRegisteringForWaitingList ? (
             <div className="waitingListButtonContent">
               <HourglassEmpty className="iconLeft" />
-              <Typography variant="button" display="block">
+              <Typography display="block" variant="button">
                 {t('offer.mainButton.registerWaitingList')}
               </Typography>
             </div>
           ) : (
             <div className="bookingButtonContent">
-              <Typography variant="button" display="block">
+              <Typography display="block" variant="button">
                 {t('offer.mainButton.book')}
               </Typography>
               <Typography variant="caption">

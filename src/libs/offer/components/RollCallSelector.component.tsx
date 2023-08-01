@@ -27,12 +27,12 @@ const RollCallSelector: React.FC<Props> = (props: Props) => {
     <div style={{ zIndex: 9999 }}>
       <Select
         isClearable
+        menuPortalTarget={document.querySelector('body')}
         onChange={props.selectOption}
         options={getRollCallOptions(t)}
-        value={value}
-        styles={rollCallStyles}
-        menuPortalTarget={document.querySelector('body')}
         placeholder={t('rollCall.filter.placeholder')}
+        styles={rollCallStyles}
+        value={value}
       />
     </div>
   );

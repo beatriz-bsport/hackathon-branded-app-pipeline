@@ -55,17 +55,17 @@ export const SubscriptionContractList = (props: Props) => {
           {props.contractList?.map((c) => (
             <SubscriptionContractListItem
               key={c.id}
-              contract={c}
-              divider={props.divider}
-              dense={props.dense}
-              selected={c.id === props.selectedContract}
-              onClick={props.onClick ? () => props.onClick(c.id) : null}
-              onRegister={props.onRegister ? () => props.onRegister(c) : null}
-              onEdit={props.onEdit ? () => props.setContractToEdit(c) : null}
-              onDelete={props.onDelete ? () => props.onDelete(c.id) : null}
-              onRestore={props.onRestore ? () => props.onRestore(c.id) : null}
-              copy={props.copy}
               company={props.company}
+              contract={c}
+              copy={props.copy}
+              dense={props.dense}
+              divider={props.divider}
+              onClick={props.onClick ? () => props.onClick(c.id) : null}
+              onDelete={props.onDelete ? () => props.onDelete(c.id) : null}
+              onEdit={props.onEdit ? () => props.setContractToEdit(c) : null}
+              onRegister={props.onRegister ? () => props.onRegister(c) : null}
+              onRestore={props.onRestore ? () => props.onRestore(c.id) : null}
+              selected={c.id === props.selectedContract}
               snackbar={props.snackbar}
             />
           ))}
@@ -75,8 +75,8 @@ export const SubscriptionContractList = (props: Props) => {
         <div className={props.classes.buttonRow}>
           <Button
             color="primary"
-            variant="contained"
             onClick={() => props.setCreateOpen(true)}
+            variant="contained"
           >
             <AddIcon className={props.classes.leftIcon} />
             {props.t('contract.list.addButton')}
@@ -84,7 +84,6 @@ export const SubscriptionContractList = (props: Props) => {
           {props.selectedContract ? (
             <Button
               color="primary"
-              variant="contained"
               onClick={() =>
                 props.onRegister(
                   props.contractList?.find(
@@ -92,6 +91,7 @@ export const SubscriptionContractList = (props: Props) => {
                   ),
                 )
               }
+              variant="contained"
             >
               <ReceiptIcon className={props.classes.leftIcon} />
               {props.t('contract.list.register')}
@@ -102,15 +102,11 @@ export const SubscriptionContractList = (props: Props) => {
         </div>
       )}
       <SubscriptionContractFormDrawer
+        initial={props.contractToEdit}
         onClose={() => {
           props.setCreateOpen(false);
           props.setContractToEdit(null);
         }}
-        open={props.createOpen}
-        initial={props.contractToEdit}
-        paymentPackList={props.paymentPackList}
-        paymentComboList={props.paymentComboList}
-        privatePassList={props.privatePassList}
         onSubmit={(data, options) => {
           props.onCreate(data, {
             onSuccess: () => {
@@ -123,15 +119,14 @@ export const SubscriptionContractList = (props: Props) => {
             },
           });
         }}
+        open={props.createOpen}
+        paymentComboList={props.paymentComboList}
+        paymentPackList={props.paymentPackList}
+        privatePassList={props.privatePassList}
       />
       <SubscriptionContractFormDrawer
-        onClose={() => props.setContractToEdit(null)}
         initial={props.contractToEdit}
-        open={!!props.contractToEdit}
-        paymentPackList={props.paymentPackList}
-        paymentComboList={props.paymentComboList}
-        privatePassList={props.privatePassList}
-        processing={props.processing}
+        onClose={() => props.setContractToEdit(null)}
         onSubmit={(data, options) => {
           props.onEdit(data, {
             onSuccess: () => {
@@ -143,6 +138,11 @@ export const SubscriptionContractList = (props: Props) => {
             },
           });
         }}
+        open={!!props.contractToEdit}
+        paymentComboList={props.paymentComboList}
+        paymentPackList={props.paymentPackList}
+        privatePassList={props.privatePassList}
+        processing={props.processing}
       />
     </div>
   );

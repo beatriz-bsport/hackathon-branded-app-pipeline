@@ -18,10 +18,10 @@ export function EasyAccessStack(props: Props) {
   return (
     <div
       className={`easy-access-stack -${size}`}
-      title={name}
       style={{
         fontSize: size === 'xs' ? '10px' : null,
       }}
+      title={name}
     >
       <div className="stack">
         {lines.map((line) => (

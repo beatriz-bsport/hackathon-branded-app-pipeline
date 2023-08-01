@@ -38,54 +38,54 @@ const InboxThreadContextSelector: React.FC<Props> = ({
     <div className={classes.contexts}>
       <div className={classes.buttonsContainer}>
         <Button
-          onClick={getMemberThreads}
-          className={classnames(classes.kindButton, {
-            [classes.buttonActive]: isMemberSelected,
-          })}
           classes={{
             root: classnames({ [classes.noHoverOnSelectd]: isMemberSelected }),
           }}
+          className={classnames(classes.kindButton, {
+            [classes.buttonActive]: isMemberSelected,
+          })}
           disableRipple={isMemberSelected}
+          onClick={getMemberThreads}
         >
           <Typography
-            variant="subtitle2"
             color={isMemberSelected ? 'textPrimary' : 'textSecondary'}
+            variant="subtitle2"
           >
             {t(`thread.kind.${ChatThreadKinds.Member}`)}
           </Typography>
         </Button>
         <Button
-          onClick={getSmartlistThreads}
-          className={classnames(classes.kindButton, {
-            [classes.buttonActive]: isSmartlistSelected,
-          })}
           classes={{
             root: classnames({
               [classes.noHoverOnSelectd]: isSmartlistSelected,
             }),
           }}
+          className={classnames(classes.kindButton, {
+            [classes.buttonActive]: isSmartlistSelected,
+          })}
           disableRipple={isSmartlistSelected}
+          onClick={getSmartlistThreads}
         >
           <Typography
-            variant="subtitle2"
             color={isSmartlistSelected ? 'textPrimary' : 'textSecondary'}
+            variant="subtitle2"
           >
             {t(`thread.kind.${ChatThreadKinds.Smartlist}`)}
           </Typography>
         </Button>
         <Button
-          onClick={getOfferThreads}
-          className={classnames(classes.kindButton, {
-            [classes.buttonActive]: isOfferSelected,
-          })}
           classes={{
             root: classnames({ [classes.noHoverOnSelectd]: isOfferSelected }),
           }}
+          className={classnames(classes.kindButton, {
+            [classes.buttonActive]: isOfferSelected,
+          })}
           disableRipple={isOfferSelected}
+          onClick={getOfferThreads}
         >
           <Typography
-            variant="subtitle2"
             color={isOfferSelected ? 'textPrimary' : 'textSecondary'}
+            variant="subtitle2"
           >
             {t(`thread.kind.${ChatThreadKinds.Offer}`)}
           </Typography>

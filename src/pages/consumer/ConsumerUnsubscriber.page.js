@@ -23,7 +23,7 @@ export const ConsumerUnsubscriber = (props: Props) => {
   if (props.success) {
     return (
       <div className={classes.container}>
-        <CheckIcon fontSize="large" color="primary" />
+        <CheckIcon color="primary" fontSize="large" />
         <Typography>{t('unsubscriber.success')}</Typography>
       </div>
     );
@@ -37,7 +37,7 @@ export const ConsumerUnsubscriber = (props: Props) => {
       {props.loading ? (
         <CircularProgress />
       ) : (
-        <Button variant="outlined" onClick={props.doUnsubscribe}>
+        <Button onClick={props.doUnsubscribe} variant="outlined">
           {t('unsubscriber.doUnsubscribe')}
         </Button>
       )}

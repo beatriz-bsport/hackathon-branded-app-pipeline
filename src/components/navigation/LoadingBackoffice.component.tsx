@@ -8,7 +8,7 @@ export const LoadingBackoffice = () => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      <img src={LOGO_ASSET} alt="bsport logo" height={40} />
+      <img alt="bsport logo" height={40} src={LOGO_ASSET} />
       <CircularProgress className={classes.loading} />
     </div>
   );

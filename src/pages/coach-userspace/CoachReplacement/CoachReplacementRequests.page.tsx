@@ -196,12 +196,12 @@ export const CochReplacementRequests: React.FC<Props> = (props: Props) => {
       </div>
       <Paper className={classes.paperContainer} elevation={0}>
         <Typography
-          variant="h5"
-          component="h2"
           className={classNames(
             classes.buttonTitle,
             classes.buttonTitleMarginBottom,
           )}
+          component="h2"
+          variant="h5"
         >
           {t('requestTableTitles.pending')}
         </Typography>
@@ -209,13 +209,13 @@ export const CochReplacementRequests: React.FC<Props> = (props: Props) => {
           <ActivitiesToReplaceTable
             coach={props.coach}
             enableMultiLocalization={companyTheme.enable_multi_localization}
+            establishmentGroups={props.establishmentGroupList}
+            handleDeleteAction={onClickDelete}
+            isLoading={isLoading}
             replacementDisplay={
               ReplacementDisplays.REPLACEMENT_DISPLAY_REQUEST_PENDING
             }
             replacementRequestList={pendingReplacementRequestList}
-            establishmentGroups={props.establishmentGroupList}
-            handleDeleteAction={onClickDelete}
-            isLoading={isLoading}
             timezoneName={companyTheme.timezone_name}
           />
         </TableContainer>
@@ -223,9 +223,9 @@ export const CochReplacementRequests: React.FC<Props> = (props: Props) => {
           <Pagination
             className={classes.pagination}
             count={pendingRequestsTotalPages}
-            page={pendingRequestsPage}
-            // fetch requested page on page change
             onChange={(ev, value) => fetchMyPendingRequests(value)}
+            // fetch requested page on page change
+            page={pendingRequestsPage}
           />
         )}
       </Paper>
@@ -242,7 +242,7 @@ export const CochReplacementRequests: React.FC<Props> = (props: Props) => {
             <ExpandMoreIcon className={classes.expandButton} />
           )}
           <div className={classes.flex}>
-            <Typography variant="h5" component="h2">
+            <Typography component="h2" variant="h5">
               {t('requestTableTitles.replacementFound')}
             </Typography>
             {hasUnseenConfirmedRequests && <div className={classes.redChip} />}
@@ -253,12 +253,12 @@ export const CochReplacementRequests: React.FC<Props> = (props: Props) => {
             <ActivitiesToReplaceTable
               coach={props.coach}
               enableMultiLocalization={companyTheme.enable_multi_localization}
+              establishmentGroups={props.establishmentGroupList}
+              isLoading={isLoading}
               replacementDisplay={
                 ReplacementDisplays.REPLACEMENT_DISPLAY_REQUEST_TEACHER_FOUND
               }
               replacementRequestList={teacherFoundReplacementRequestList}
-              establishmentGroups={props.establishmentGroupList}
-              isLoading={isLoading}
               timezoneName={companyTheme.timezone_name}
             />
           </TableContainer>
@@ -266,18 +266,18 @@ export const CochReplacementRequests: React.FC<Props> = (props: Props) => {
             <Pagination
               className={classes.pagination}
               count={teacherFoundRequestsTotalPages}
-              page={teacherFoundRequestsPage}
-              // fetch requested page on page change
               onChange={(ev, value) => fetchMyTeacherFoundRequests(value)}
+              // fetch requested page on page change
+              page={teacherFoundRequestsPage}
             />
           )}
         </Collapse>
       </Paper>
       {!!selectedRequest && (
         <ReplacementRequestDeleteDialog
-          open={!!selectedRequest}
           onClose={handleCloseDialog}
           onConfirm={handleConfirm}
+          open={!!selectedRequest}
           updateLoading={replacementRequestUpdateLoading}
         />
       )}

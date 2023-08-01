@@ -142,7 +142,7 @@ export class ConsumerProfile extends React.Component<Props, State> {
     if (!this.props.membership || this.props.companyThemeLoading) {
       return (
         <Grid container className={classes.flexGrid} spacing={2}>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             <CircularProgress />
           </Grid>
         </Grid>
@@ -151,46 +151,46 @@ export class ConsumerProfile extends React.Component<Props, State> {
 
     return (
       <Grid container className={classes.flexGrid} spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <MemberSummaryCard
-            member={this.props.member}
-            companyCountry={this.props.companyCountry}
             hideContactButton
+            companyCountry={this.props.companyCountry}
             editMember={() => this.props.setEditMember(true)}
+            member={this.props.member}
             showVaccinationStatus={this.props.showVaccinationStatus}
           />
         </Grid>
 
         <CustomFormViewDialog
-          isWidget={WidgetUtils.isWidget()}
-          open={this.props.editMember}
-          maxWidth="md"
           fullWidth
+          isWidget={WidgetUtils.isWidget()}
+          maxWidth="md"
+          open={this.props.editMember}
         >
           <div className={classes.customFormContainer}>
             {this.props.memberCustomForm && (
               <CustomFormView
-                initial={this.props.memberCustomForm}
-                onSubmit={this.submitCustomForm}
-                layouts={this.props.memberCustomForm.layout}
-                waiver={this.props.theme.waiver}
+                textButtonConfirm
                 general_terms_and_conditions={
                   this.props.theme.general_terms_of_use
                 }
+                initial={this.props.memberCustomForm}
+                layouts={this.props.memberCustomForm.layout}
                 onCancel={() => this.props.setEditMember(false)}
-                textButtonConfirm
+                onSubmit={this.submitCustomForm}
+                waiver={this.props.theme.waiver}
               />
             )}
           </div>
         </CustomFormViewDialog>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <Paper className={classes.paymentContainer}>
             <MemberPaymentMethodPanel
-              paymentMethod={this.props.paymentMethod}
-              paymentMethodLoading={this.props.paymentMethodLoading}
               detachPaymentMethod={this.props.detachPaymentMethod}
               detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
               openAddPaymentMethodDialog={this.openAddPaymentMethodDialog}
+              paymentMethod={this.props.paymentMethod}
+              paymentMethodLoading={this.props.paymentMethodLoading}
             />
           </Paper>
           {this.props.member?.spivi_privacy_settings_accepted !== null &&
@@ -199,11 +199,11 @@ export class ConsumerProfile extends React.Component<Props, State> {
               <Paper className={classes.spiviPaper}>
                 <SpiviPrivacySettingsPanel
                   member={this.props.member}
-                  updateSpiviPrivacySettings={
-                    this.props.updateSpiviPrivacySettings
-                  }
                   spiviPrivacySettingsLoading={
                     this.props.spiviPrivacySettingsLoading
+                  }
+                  updateSpiviPrivacySettings={
+                    this.props.updateSpiviPrivacySettings
                   }
                 />
               </Paper>
@@ -212,12 +212,8 @@ export class ConsumerProfile extends React.Component<Props, State> {
         {this.props.membership?.id && !!companyCountry && !!stripeRegion && (
           <PaymentModal isOpen={this.props.isAddPaymentMethodDialogOpen}>
             <AddPaymentMethod
-              onCancel={() => this.openAddPaymentMethodDialog(false)}
-              requestSetupIntentSecret={this.requestSetupIntentSecret}
-              refreshSavedPaymentMethodList={
-                this.props.fetchMemberPaymentMethod
-              }
-              paymentMethodType={this.state.paymentMethodType}
+              companyId={this.props.membership.company}
+              disabled={false}
               enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
                 {
                   currency: this.props.theme.currency,
@@ -225,13 +221,17 @@ export class ConsumerProfile extends React.Component<Props, State> {
                   stripeRegion,
                 },
               )}
+              onCancel={() => this.openAddPaymentMethodDialog(false)}
               onChange={this.changePaymentMethodType}
-              disabled={false}
-              sepaDefaultName={this.props.member ? this.props.member.name : ''}
+              paymentMethodType={this.state.paymentMethodType}
+              refreshSavedPaymentMethodList={
+                this.props.fetchMemberPaymentMethod
+              }
+              requestSetupIntentSecret={this.requestSetupIntentSecret}
               sepaDefaultEmail={
                 this.props.member ? this.props.member.email : ''
               }
-              companyId={this.props.membership.company}
+              sepaDefaultName={this.props.member ? this.props.member.name : ''}
             />
           </PaymentModal>
         )}

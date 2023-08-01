@@ -78,37 +78,37 @@ export class AdditionalGuestForm extends React.Component<Props, State> {
                 <AddPersonIcon className={classes.bigIcon} />
 
                 <TextField
-                  value={this.state.first_name || ''}
-                  label={t('guest.form.firstname.label')}
+                  autoFocus
                   required
                   shrink
-                  autoFocus
+                  label={t('guest.form.firstname.label')}
                   onChange={(v) => {
                     this.setState({
                       first_name: v.target?.value || '',
                     });
                   }}
+                  value={this.state.first_name || ''}
                 />
                 <TextField
-                  value={this.state.last_name || ''}
-                  label={t('guest.form.lastname.label')}
                   shrink
+                  label={t('guest.form.lastname.label')}
                   onChange={(v) => {
                     this.setState({
                       last_name: v.target?.value || '',
                     });
                   }}
+                  value={this.state.last_name || ''}
                 />
                 <TextField
-                  value={this.state.email || ''}
-                  label={t('guest.form.email.label')}
                   shrink
-                  type="email"
+                  label={t('guest.form.email.label')}
                   onChange={(v) => {
                     this.setState({
                       email: v.target?.value || '',
                     });
                   }}
+                  type="email"
+                  value={this.state.email || ''}
                 />
               </div>
             </DialogContent>
@@ -116,32 +116,32 @@ export class AdditionalGuestForm extends React.Component<Props, State> {
               <Button onClick={() => this.setState({ dialogOpen: false })}>
                 {t('guest.form.actions.close')}
               </Button>
-              <Button type="submit" color="primary">
+              <Button color="primary" type="submit">
                 {t('guest.form.actions.submit')}
               </Button>
             </DialogActions>
           </form>
         </Dialog>
         <ButtonBase
-          disabled={this.props.disabled}
           className={classes.bookButtonInner}
+          disabled={this.props.disabled}
           onClick={() => this.setState({ dialogOpen: true })}
         >
           <AddIcon className={classes.leftIcon} />
           <Typography
-            variant="body1"
             align="left"
             color={this.props.disabled ? 'textSecondary' : 'primary'}
+            variant="body1"
           >
             {t('guest.form.actions.addGuest')}
           </Typography>
         </ButtonBase>
         {this.props.disabled && (
           <Typography
-            variant="caption"
             align="left"
-            color="textSecondary"
             className={classes.alert}
+            color="textSecondary"
+            variant="caption"
           >
             {t('guest.form.actions.limitGuest')}
           </Typography>

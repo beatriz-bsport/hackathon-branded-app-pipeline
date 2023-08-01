@@ -62,24 +62,24 @@ const TagBadge = (props: Props) => {
   return (
     <>
       <div
-        role="button"
-        tabIndex={0}
         onClick={(e) => e.stopPropagation()}
         onKeyPress={(e) => e.stopPropagation}
+        role="button"
+        tabIndex={0}
       >
         <Popover
-          classes={{ paper: 'MuiPopover-paper' }}
-          onClose={() => setOpenPopup(false)}
           anchorEl={iconRef.current}
           anchorOrigin={{
             vertical: 'top',
             horizontal: 'left',
           }}
+          classes={{ paper: 'MuiPopover-paper' }}
+          onClose={() => setOpenPopup(false)}
+          open={openPopup}
           transformOrigin={{
             vertical: 'bottom',
             horizontal: 'left',
           }}
-          open={openPopup}
         >
           <div className={classes.popover}>
             <Typography className={classes.tag}>{name}</Typography>
@@ -88,33 +88,33 @@ const TagBadge = (props: Props) => {
                 .filter((tag) => tag.icon && tag.color)
                 .map((tag) => (
                   <div className={classes.tag}>
-                    <TagChip tag={tag} size="small" />
+                    <TagChip size="small" tag={tag} />
                   </div>
                 ))}
           </div>
         </Popover>
         <Hidden smUp>
           <Popover
-            onClose={() => setOpenPopup(false)}
             anchorEl={iconRef.current}
             anchorOrigin={{
               vertical: 'bottom',
               horizontal: 'left',
             }}
+            onClose={() => setOpenPopup(false)}
+            open={openPopup}
             transformOrigin={{
               vertical: 'top',
               horizontal: 'left',
             }}
-            open={openPopup}
           >
             <div className={classes.popoverBalance}>
               <div className={classes.parameterRow}>
                 <Typography>{t('accountBalance')}</Typography>
                 <Typography className={classes.badgeContainer}>
                   <BalanceChip
+                    chipChoice={ONLY_BALANCE}
                     credit={member?.credit_account_balance}
                     unpaidAmount={member?.total_unpaid_amount}
-                    chipChoice={ONLY_BALANCE}
                   />
                 </Typography>
               </div>
@@ -123,9 +123,9 @@ const TagBadge = (props: Props) => {
                   <Typography>{t('unpaidInvoiceTitle_plural')}</Typography>
                   <Typography className={classes.badgeContainer}>
                     <BalanceChip
+                      chipChoice={ONLY_UNPAID_AMOUNT}
                       credit={member?.credit_account_balance}
                       unpaidAmount={member?.total_unpaid_amount}
-                      chipChoice={ONLY_UNPAID_AMOUNT}
                     />
                   </Typography>
                 </div>
@@ -137,28 +137,28 @@ const TagBadge = (props: Props) => {
 
       <Hidden xsDown>
         <Popover
-          className={classes.nonFocusablePopover}
-          classes={{ paper: classes.paper }}
-          onClose={() => setOpenBalancePopup(false)}
           anchorEl={iconRef.current}
           anchorOrigin={{
             vertical: 'top',
             horizontal: 'center',
           }}
+          classes={{ paper: classes.paper }}
+          className={classes.nonFocusablePopover}
+          onClose={() => setOpenBalancePopup(false)}
+          open={openBalancePopup}
           transformOrigin={{
             vertical: 'bottom',
             horizontal: 'center',
           }}
-          open={openBalancePopup}
         >
           <div className={classes.popoverBalance}>
             <div className={classes.parameterRow}>
               <Typography>{t('accountBalance')}</Typography>
               <Typography className={classes.badgeContainer}>
                 <BalanceChip
+                  chipChoice={ONLY_BALANCE}
                   credit={member?.credit_account_balance}
                   unpaidAmount={member?.total_unpaid_amount}
-                  chipChoice={ONLY_BALANCE}
                 />
               </Typography>
             </div>
@@ -167,9 +167,9 @@ const TagBadge = (props: Props) => {
                 <Typography>{t('unpaidInvoiceTitle_plural')}</Typography>
                 <Typography className={classes.badgeContainer}>
                   <BalanceChip
+                    chipChoice={ONLY_UNPAID_AMOUNT}
                     credit={member?.credit_account_balance}
                     unpaidAmount={member?.total_unpaid_amount}
-                    chipChoice={ONLY_UNPAID_AMOUNT}
                   />
                 </Typography>
               </div>
@@ -179,7 +179,7 @@ const TagBadge = (props: Props) => {
       </Hidden>
 
       <div className={classes.container}>
-        <div className="hoverCircle" ref={iconRef} />
+        <div ref={iconRef} className="hoverCircle" />
         {props.children}
         <div
           className={classNames('tagBadgeContainer', {
@@ -198,7 +198,7 @@ const TagBadge = (props: Props) => {
                     backgroundColor: tag?.color,
                   }}
                 >
-                  <TagCircle icon={tag.icon} color={tag.color} />
+                  <TagCircle color={tag.color} icon={tag.icon} />
                 </div>
               );
             }
@@ -212,7 +212,7 @@ const TagBadge = (props: Props) => {
                   backgroundColor: tag?.color,
                 }}
               >
-                <TagCircle icon={tag.icon} color={tag.color} />
+                <TagCircle color={tag.color} icon={tag.icon} />
               </div>
             );
           })}

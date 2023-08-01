@@ -29,9 +29,9 @@ export const InvoiceItem = (props: Props) => {
           {invoiceItem.name}
         </Typography>
         <Typography
-          variant="caption"
-          color="textSecondary"
           className={invoiceItem.reverted ? classes.revert : null}
+          color="textSecondary"
+          variant="caption"
         >
           {(invoiceItem.subtitle || '') +
             (voucher
@@ -51,9 +51,9 @@ export const InvoiceItem = (props: Props) => {
         </Typography>
         {!!invoiceItem.editable && onDelete && (
           <IconButton
-            onClick={onDelete}
-            disabled={!invoiceItem.editable}
             color="primary"
+            disabled={!invoiceItem.editable}
+            onClick={onDelete}
           >
             <DeleteIcon />
           </IconButton>

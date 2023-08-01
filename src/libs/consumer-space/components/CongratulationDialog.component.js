@@ -31,13 +31,13 @@ export class CongratulationDialog extends React.PureComponent<Props> {
         <DialogContent>
           <div className={this.props.classes.content}>
             <CheckCircleOutlineIcon
-              color="primary"
               className={this.props.classes.bigCheck}
+              color="primary"
             />
             <Typography
-              color="textSecondary"
               align="left"
               className={this.props.classes.contentText}
+              color="textSecondary"
             >
               {this.props.t('congratulation.content')}
             </Typography>
@@ -45,9 +45,8 @@ export class CongratulationDialog extends React.PureComponent<Props> {
           <div>
             {this.props.offerBooked ? (
               <BookingConsumerItem
-                variant="after_checkout"
-                booking={{ offer: this.props.offerBooked }}
                 key={this.props.offerBooked.id}
+                booking={{ offer: this.props.offerBooked }}
                 goToCalendar={
                   offerBooked &&
                   offerBooked.meta_activity &&
@@ -64,6 +63,7 @@ export class CongratulationDialog extends React.PureComponent<Props> {
                         })
                     : null
                 }
+                variant="after_checkout"
               />
             ) : null}
 
@@ -71,9 +71,8 @@ export class CongratulationDialog extends React.PureComponent<Props> {
             this.props.basketGeneratedObjects.offerList
               ? this.props.basketGeneratedObjects.offerList.map((o) => (
                   <BookingConsumerItem
-                    variant="after_checkout"
-                    booking={{ offer: o }}
                     key={o.id}
+                    booking={{ offer: o }}
                     goToCalendar={() =>
                       this.props.goToCalendar({
                         f_metaActivities: `[${o.meta_activity.id}]`,
@@ -82,6 +81,7 @@ export class CongratulationDialog extends React.PureComponent<Props> {
                         date: moment(o.date_start).format('YYYY-MM-DD'),
                       })
                     }
+                    variant="after_checkout"
                   />
                 ))
               : null}

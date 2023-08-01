@@ -26,7 +26,7 @@ const NotificationRulePreviewHeader = (props: Props) => {
   return (
     <div className={className}>
       <div className={classes.titleWrapper}>
-        <Typography variant="h5" className={classes.title}>
+        <Typography className={classes.title} variant="h5">
           {t('preview.title')}
         </Typography>
         <FeatureListProvider>
@@ -34,15 +34,15 @@ const NotificationRulePreviewHeader = (props: Props) => {
             <>
               {hasUpsell(featureList, UPSELL_IDENTIFIER_PUSH_NOTIFICATION) && (
                 <ToggleButtonGroup
-                  className={classes.toggle}
-                  value={value}
-                  onChange={onChange}
                   exclusive
+                  className={classes.toggle}
+                  onChange={onChange}
+                  value={value}
                 >
-                  <ToggleButton value="email" aria-label="bold">
+                  <ToggleButton aria-label="bold" value="email">
                     {t('preview.email')}
                   </ToggleButton>
-                  <ToggleButton value="notification" aria-label="italic">
+                  <ToggleButton aria-label="italic" value="notification">
                     {t('preview.notification')}
                   </ToggleButton>
                 </ToggleButtonGroup>

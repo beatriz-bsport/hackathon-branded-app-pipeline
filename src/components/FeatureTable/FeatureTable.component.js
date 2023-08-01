@@ -175,45 +175,45 @@ class MemberTable extends React.Component<Props, State> {
         {title ? (
           <EnhancedTableToolbar
             numSelected={selected.length}
-            title={title}
             selectionFeature={selectionFeature}
+            title={title}
           />
         ) : null}
         <div className={classes.tableWrapper}>
-          <Table className={classes.table} aria-labelledby="tableTitle">
+          <Table aria-labelledby="tableTitle" className={classes.table}>
             <EnhancedTableHead
+              columnData={columnData}
+              loading={this.props.loading}
               numSelected={selected.length}
+              onRequestSort={this.handleRequestSort}
+              onSelectAllClick={this.handleSelectAllClick}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={this.handleSelectAllClick}
-              onRequestSort={this.handleRequestSort}
               rowCount={data.length}
-              columnData={columnData}
               showCheckboxes={showCheckboxes}
-              loading={this.props.loading}
             />
             <TableBody>{this.renderContent()}</TableBody>
           </Table>
         </div>
         <TablePagination
+          backIconButtonProps={{
+            'aria-label': 'Previous Page',
+          }}
           component="div"
           count={data.length}
-          rowsPerPage={rowsPerPage}
-          rowsPerPageOptions={[5, 10, 25, 50, 100]}
-          labelRowsPerPage={t('pagination.rowPerPage')}
           labelDisplayedRows={
             // eslint-disable-next-line
             ({ from, to, count }) => this.formatPagination(from, to, count)
           }
-          page={page}
-          backIconButtonProps={{
-            'aria-label': 'Previous Page',
-          }}
+          labelRowsPerPage={t('pagination.rowPerPage')}
           nextIconButtonProps={{
             'aria-label': 'Next Page',
           }}
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          rowsPerPageOptions={[5, 10, 25, 50, 100]}
         />
         {this.props.loading ? (
           <LinearProgress style={{ width: '100%' }} />

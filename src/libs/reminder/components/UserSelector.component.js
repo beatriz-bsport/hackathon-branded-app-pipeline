@@ -31,8 +31,8 @@ function UserItemOption(props: OptionProps) {
   return (
     <div ref={innerRef} {...innerProps}>
       <UserItem
-        selected={!!isSelected}
         isFocused={isFocused}
+        selected={!!isSelected}
         user={data.user}
       />
     </div>
@@ -51,13 +51,13 @@ export function UserSelector(props: Props) {
   return (
     <Selector
       searchIcon
-      selected={value}
-      nullCurrentValue={props.nullCurrentValue}
-      suggestions={suggestions}
       className={classNames(classes, selectorClass)}
       components={{ Option: UserItemOption }}
-      placeholder={helperText}
+      nullCurrentValue={props.nullCurrentValue}
       onChange={(event) => onChange(event.value)}
+      placeholder={helperText}
+      selected={value}
+      suggestions={suggestions}
     />
   );
 }

@@ -60,11 +60,11 @@ const MaterialUISelectorPayout: React.FC<MaterialUISelectorPayoutProps> = ({
   return (
     <div className={classes.container}>
       <MaterialUISelectorHandleScroll
-        options={getOptions()}
         fetch={handleFetch}
         isLoading={isLoading}
-        value={values}
         nextPage={nextPage}
+        options={getOptions()}
+        value={values}
         {...muiSelectProps}
       />
     </div>

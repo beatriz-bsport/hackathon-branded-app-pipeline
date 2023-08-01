@@ -88,11 +88,11 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
       <div className={classes.toolsMenuContainer}>
         <Typography variant="h5">{t('toolsMenu.title')}</Typography>
 
-        <Typography variant="h6" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h6">
           {t('toolsMenu.sections.edition')}
         </Typography>
 
-        <Grid container spacing={4} className={classes.sectionContainer}>
+        <Grid container className={classes.sectionContainer} spacing={4}>
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
@@ -191,10 +191,10 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           </Grid>
         </Grid>
 
-        <Typography variant="h6" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h6">
           {t('toolsMenu.sections.walls')}
         </Typography>
-        <Grid container spacing={4} className={classes.sectionContainer}>
+        <Grid container className={classes.sectionContainer} spacing={4}>
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
@@ -237,9 +237,9 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
               {t('toolsMenu.customStroke')}
             </Typography>
             <ColorInput
+              transparentColorAvailable
               color={this.props.wallStrokeColor}
               onChange={this.props.onwallStrokeColorChange}
-              transparentColorAvailable
             />
           </Grid>
 
@@ -248,9 +248,9 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
               {t('toolsMenu.customFill')}
             </Typography>
             <ColorInput
+              transparentColorAvailable
               color={this.props.wallFillColor}
               onChange={this.props.onwallFillColorChange}
-              transparentColorAvailable
             />
           </Grid>
         </Grid>
@@ -259,25 +259,32 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
             control={
               <Checkbox
                 checked={this.props.showGrid}
+                color="primary"
                 onChange={(e) =>
                   this.props.onChangeGridVisibility(e.target.checked)
                 }
-                color="primary"
               />
             }
             label={t('toolsMenu.showGrid')}
           />
         </div>
 
-        <Typography variant="h6" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h6">
           {t('toolsMenu.sections.place')}
         </Typography>
-        <Grid container spacing={4} className={classes.sectionContainer}>
+        <Grid container className={classes.sectionContainer} spacing={4}>
           {copySpotTypes.sort(sortSpots).map((spotType) => {
             if (spotType.id === DEFAULT_SPOT_TYPE_ID)
               return (
                 <Grid item xs={4}>
                   <CanvasSpotToolMenu
+                    default
+                    onSelectTool={() =>
+                      this.props.onSelectTool(
+                        CANVAS_SELECTABLE_TOOLS.spot,
+                        DEFAULT_SPOT_TYPE_ID,
+                      )
+                    }
                     openSpotUpdateForm={() => {
                       this.props.openSpotCreationForm(true);
                     }}
@@ -286,44 +293,37 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
                         CANVAS_SELECTABLE_TOOLS.spot &&
                       this.props.spotTypeIdSelected === DEFAULT_SPOT_TYPE_ID
                     }
-                    onSelectTool={() =>
-                      this.props.onSelectTool(
-                        CANVAS_SELECTABLE_TOOLS.spot,
-                        DEFAULT_SPOT_TYPE_ID,
-                      )
-                    }
-                    default
                   />
                 </Grid>
               );
             return (
               <Grid item xs={4}>
                 <CanvasSpotToolMenu
-                  spotType={spotType}
                   onDeleteSpot={this.props.openDeleteModal}
-                  openSpotUpdateForm={this.props.openSpotUpdateForm}
-                  selected={
-                    this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.spot &&
-                    this.props.spotTypeIdSelected === spotType.id
-                  }
+                  onDeleteSpotType={this.props.onDeleteSpotType}
                   onSelectTool={() => {
                     this.props.onSelectTool(
                       CANVAS_SELECTABLE_TOOLS.spot,
                       spotType.id,
                     );
                   }}
-                  onDeleteSpotType={this.props.onDeleteSpotType}
+                  openSpotUpdateForm={this.props.openSpotUpdateForm}
+                  selected={
+                    this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.spot &&
+                    this.props.spotTypeIdSelected === spotType.id
+                  }
+                  spotType={spotType}
                 />
               </Grid>
             );
           })}
-          <Grid item xs={4} className={classes.addSpotContainer}>
+          <Grid item className={classes.addSpotContainer} xs={4}>
             <Tooltip title={t('toolsMenu.addSpotType')}>
               <ButtonBase
+                className={classes.addSpotButton}
                 onClick={() => {
                   this.props.openSpotCreationForm(false);
                 }}
-                className={classes.addSpotButton}
               >
                 <AddIcon />
               </ButtonBase>
@@ -331,10 +331,10 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           </Grid>
         </Grid>
 
-        <Typography variant="h6" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h6">
           {t('toolsMenu.teacher')}
         </Typography>
-        <Grid container spacing={4} className={classes.sectionContainer}>
+        <Grid container className={classes.sectionContainer} spacing={4}>
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
@@ -354,19 +354,14 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           </Grid>
           <Grid item xs={5}>
             <div>
-              <Typography variant="body2" className={classes.teacherHeight}>
+              <Typography className={classes.teacherHeight} variant="body2">
                 Taille
               </Typography>
               <TextField
                 defaultValue={1}
-                value={this.props.coachHeight}
                 error={this.props.coachHeight <= 0}
                 helperText={
                   this.props.coachHeight <= 0 && t('toolsMenu.helperText')
-                }
-                type="number"
-                onChange={(ev) =>
-                  this.props.onHeightCoachChange(ev.target.value)
                 }
                 InputProps={{
                   inputProps: { min: 1 },
@@ -376,15 +371,20 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
                     </InputAdornment>
                   ),
                 }}
+                onChange={(ev) =>
+                  this.props.onHeightCoachChange(ev.target.value)
+                }
+                type="number"
+                value={this.props.coachHeight}
               />
             </div>
           </Grid>
         </Grid>
 
-        <Typography variant="h6" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h6">
           {t('toolsMenu.sections.elements')}
         </Typography>
-        <Grid container spacing={3} className={classes.sectionContainer}>
+        <Grid container className={classes.sectionContainer} spacing={3}>
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
@@ -426,24 +426,24 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
             {t('toolsMenu.customFill')}
           </Typography>
           <ColorInput
+            transparentColorAvailable
             color={this.props.strokeColor}
             onChange={this.props.onStrokeColorChange}
-            transparentColorAvailable
           />
         </Grid>
         <FeatureListProvider>
           {(featureList: FeatureList) => (
             <div>
-              <Typography variant="h6" className={classes.sectionTitle}>
+              <Typography className={classes.sectionTitle} variant="h6">
                 {t('toolsMenu.sections.spivi')}
               </Typography>
               <TextField
-                value={this.props.spiviBoxId}
-                label={t('toolsMenu.boxId')}
-                helperText={t('toolsMenu.requiredForSpivi')}
-                type="number"
-                onChange={this.props.onSpiviBoxIdChange}
                 disabled={!hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI)}
+                helperText={t('toolsMenu.requiredForSpivi')}
+                label={t('toolsMenu.boxId')}
+                onChange={this.props.onSpiviBoxIdChange}
+                type="number"
+                value={this.props.spiviBoxId}
               />
             </div>
           )}

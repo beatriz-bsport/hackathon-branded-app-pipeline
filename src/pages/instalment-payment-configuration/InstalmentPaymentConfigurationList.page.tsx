@@ -142,12 +142,12 @@ export class InstalmentPaymentList extends Component<Props, State> {
                 </div>
                 <div>
                   <Button
-                    variant="outlined"
                     color="primary"
                     onClick={() => {
                       setIsCreationFormOpen(true);
                       fetckAllItemInfo();
                     }}
+                    variant="outlined"
                   >
                     {t('list.addInstalmentPayment')}
                   </Button>
@@ -158,49 +158,49 @@ export class InstalmentPaymentList extends Component<Props, State> {
             <Grid container spacing={4}>
               <Grid item xs={6}>
                 <InstalmentPaymentListComponent
-                  selectedInstalmentPaymentId={instalmentPaymentId}
+                  instalmentPaymentList={instalmentPaymentList}
+                  loading={instalmentPaymentLoading}
                   onClickOnItem={(id) => {
                     pushSelectedInstalmentPayment(id);
                   }}
-                  onEdit={(id) => {
-                    fetckAllItemInfo();
-                    setInstalmentPaymentToEditId(id);
-                  }}
-                  instalmentPaymentList={instalmentPaymentList}
-                  loading={instalmentPaymentLoading}
                   onDelete={(id) => {
                     disableInstalmentPayment(id);
                     if (id === instalmentPaymentId) {
                       pushInstalmentPaymentHome();
                     }
                   }}
+                  onEdit={(id) => {
+                    fetckAllItemInfo();
+                    setInstalmentPaymentToEditId(id);
+                  }}
+                  selectedInstalmentPaymentId={instalmentPaymentId}
                 />
               </Grid>
               <Grid item xs={6}>
                 <div className={classes.detailContainer}>
                   <div>
-                    <Typography variant="h5" className={classes.title}>
+                    <Typography className={classes.title} variant="h5">
                       {t('detail.title')}
                     </Typography>
                     <Divider />
                   </div>
                   <InstalmentPaymentDetail
+                    comboList={comboList}
+                    giftcardList={giftcardList}
+                    instalmentPayment={instalmentPaymentDetailed}
+                    instalmentPaymentId={instalmentPaymentId}
                     loading={instalmentPaymentLoading}
-                    onEdit={(id) => {
-                      fetckAllItemInfo();
-                      setInstalmentPaymentToEditId(id);
-                    }}
                     onDelete={(id) => {
                       disableInstalmentPayment(id);
                       pushInstalmentPaymentHome();
                     }}
-                    instalmentPayment={instalmentPaymentDetailed}
-                    instalmentPaymentId={instalmentPaymentId}
+                    onEdit={(id) => {
+                      fetckAllItemInfo();
+                      setInstalmentPaymentToEditId(id);
+                    }}
                     paymentPackList={paymentPackList}
-                    comboList={comboList}
                     privatePassList={privatePassList}
                     shopItemList={shopItemList}
-                    giftcardList={giftcardList}
                   />
                 </div>
               </Grid>
@@ -208,29 +208,29 @@ export class InstalmentPaymentList extends Component<Props, State> {
           )}
         </div>
         <GenericResponsiveDrawer
-          open={isCreationFormOpen || !!instalmentPaymentToEditId}
           onClose={() => {
             trackFormCancel(instalmentPaymentToEdit?.id);
             setIsCreationFormOpen(false);
             setInstalmentPaymentToEditId(null);
           }}
-          width="45%"
+          open={isCreationFormOpen || !!instalmentPaymentToEditId}
           title={t('form.create')}
+          width="45%"
         >
           <InstalmentPaymentForm
-            initial={instalmentPaymentToEdit}
-            paymentPackList={paymentPackList}
-            comboList={comboList}
-            privatePassList={privatePassList}
-            shopItemList={shopItemList}
             isInDrawer
-            giftcardList={giftcardList}
-            submit={(instalmentPayment, options) => {
-              createOrUpdateInstalmentPayment(instalmentPayment, options);
-            }}
             closeDialog={() => {
               setIsCreationFormOpen(false);
               setInstalmentPaymentToEditId(null);
+            }}
+            comboList={comboList}
+            giftcardList={giftcardList}
+            initial={instalmentPaymentToEdit}
+            paymentPackList={paymentPackList}
+            privatePassList={privatePassList}
+            shopItemList={shopItemList}
+            submit={(instalmentPayment, options) => {
+              createOrUpdateInstalmentPayment(instalmentPayment, options);
             }}
           />
         </GenericResponsiveDrawer>

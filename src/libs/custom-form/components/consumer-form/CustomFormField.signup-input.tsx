@@ -122,18 +122,18 @@ export const CustomFormConsumerInput = (props: Props) => {
       return (
         <div className={classes.textField}>
           <TextFieldEnhancedLabelWithError
-            name={`custom_form_field.${props.index}.answer`}
-            label={label}
-            disabled={props.asManager || !props.field.editable}
-            required={props.field.mandatory}
             fullWidth
+            disabled={props.asManager || !props.field.editable}
             InputLabelProps={{ color: 'red' }}
             inputProps={{
               maxlength: getCustomFormFieldMaxLength(
                 props.field.signup_question_kind,
               ),
             }}
+            label={label}
             margin="dense"
+            name={`custom_form_field.${props.index}.answer`}
+            required={props.field.mandatory}
           />
         </div>
       );
@@ -141,16 +141,16 @@ export const CustomFormConsumerInput = (props: Props) => {
       return (
         <div className={classes.emailField}>
           <TextFieldEnhancedLabelWithError
-            name={`custom_form_field.${props.index}.answer`}
-            label={label}
-            disabled={props.asManager || !props.field.editable}
-            required={props.field.mandatory}
-            onBlur={props.handleBlur}
             fullWidth
+            autoComplete="email"
+            disabled={props.asManager || !props.field.editable}
             InputLabelProps={{ color: 'red' }}
             inputProps={{ maxlength: MAX_LENGTH_FOR_SHORT_ANSWER }}
+            label={label}
+            name={`custom_form_field.${props.index}.answer`}
+            onBlur={props.handleBlur}
+            required={props.field.mandatory}
             type="email"
-            autoComplete="email"
           />
         </div>
       );
@@ -158,35 +158,35 @@ export const CustomFormConsumerInput = (props: Props) => {
       return (
         <div className={classes.phoneField}>
           <PhoneInput
-            name={`custom_form_field.${props.index}.answer`}
-            value={props.field?.answer}
-            label={label}
-            disabled={props.asManager || !props.field.editable}
-            required={props.field.mandatory}
             fullWidth
-            country={browserCountryCode()}
-            placeholder={`${label}${props.field.mandatory ? ' *' : ''}`}
             autoComplete="tel"
+            country={browserCountryCode()}
+            disabled={props.asManager || !props.field.editable}
+            flagComponent={({ country }) => (
+              <div className="fill">
+                <img
+                  alt="flag"
+                  src={`https://flagcdn.com/48x36/${(
+                    country ?? 'fr'
+                  ).toLowerCase()}.png`}
+                />
+              </div>
+            )}
+            label={label}
+            name={`custom_form_field.${props.index}.answer`}
             onChange={(phone_number: string) =>
               props.setFieldValue(
                 `custom_form_field.${props.index}.answer`,
                 phone_number || null,
               )
             }
-            flagComponent={({ country }) => (
-              <div className="fill">
-                <img
-                  src={`https://flagcdn.com/48x36/${(
-                    country ?? 'fr'
-                  ).toLowerCase()}.png`}
-                  alt="flag"
-                />
-              </div>
-            )}
+            placeholder={`${label}${props.field.mandatory ? ' *' : ''}`}
+            required={props.field.mandatory}
+            value={props.field?.answer}
           />
           <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
             {(error_msg) => (
-              <Typography variant="caption" color="error">
+              <Typography color="error" variant="caption">
                 {t(`${error_msg}`)}
               </Typography>
             )}
@@ -199,13 +199,9 @@ export const CustomFormConsumerInput = (props: Props) => {
           <Grid container direction="row" spacing={3}>
             <Grid item xs={6}>
               <TextFieldEnhancedLabelWithError
-                name={`custom_form_field.${props.index}.answer`}
-                label={label}
-                disabled={props.asManager}
-                required
-                type={passwordVisibility ? 'text' : 'password'}
                 fullWidth
-                onBlur={props.handleBlur}
+                required
+                disabled={props.asManager}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -222,17 +218,17 @@ export const CustomFormConsumerInput = (props: Props) => {
                     </InputAdornment>
                   ),
                 }}
+                label={label}
+                name={`custom_form_field.${props.index}.answer`}
+                onBlur={props.handleBlur}
+                type={passwordVisibility ? 'text' : 'password'}
               />
             </Grid>
             <Grid item xs={6}>
               <TextFieldEnhancedLabelWithError
-                type={confirmPasswordVisibility ? 'text' : 'password'}
-                name="passwordConfirm"
                 fullWidth
                 required
                 disabled={props.asManager}
-                placeholder={t('customForm.field.repeatPassword')}
-                label={t('customForm.field.repeatPassword')}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -251,6 +247,10 @@ export const CustomFormConsumerInput = (props: Props) => {
                     </InputAdornment>
                   ),
                 }}
+                label={t('customForm.field.repeatPassword')}
+                name="passwordConfirm"
+                placeholder={t('customForm.field.repeatPassword')}
+                type={confirmPasswordVisibility ? 'text' : 'password'}
               />
             </Grid>
           </Grid>
@@ -260,11 +260,18 @@ export const CustomFormConsumerInput = (props: Props) => {
       return (
         <div className={classes.countryField}>
           <SelectFieldWithEnhancedLabeLError
-            name={`custom_form_field.${props.index}.answer`}
-            label={label}
-            placeholder={label}
             isDisabled={props.asManager || !props.field.editable}
+            label={label}
+            name={`custom_form_field.${props.index}.answer`}
+            onChange={(item: { label: string; value: string }) =>
+              props.setFieldValue(
+                `custom_form_field.${props.index}.answer`,
+                item ? item.value : null,
+              )
+            }
+            placeholder={label}
             required={props.field.mandatory}
+            selected={props.field.answer}
             suggestions={[
               ...[...(countries ?? [])]
                 .sort((a, b) => a.label.localeCompare(b.label))
@@ -275,13 +282,6 @@ export const CustomFormConsumerInput = (props: Props) => {
                 value: country.label,
               }),
             )}
-            onChange={(item: { label: string; value: string }) =>
-              props.setFieldValue(
-                `custom_form_field.${props.index}.answer`,
-                item ? item.value : null,
-              )
-            }
-            selected={props.field.answer}
           />
         </div>
       );
@@ -289,23 +289,23 @@ export const CustomFormConsumerInput = (props: Props) => {
       return (
         <div className={classes.countryField}>
           <SelectFieldWithEnhancedLabeLError
-            name={`custom_form_field.${props.index}.answer`}
-            label={label}
-            placeholder={label}
             isDisabled={props.asManager || !props.field.editable}
-            required={props.field.mandatory}
-            suggestions={[
-              { label: t('translation:common.female'), value: 'F' },
-              { label: t('translation:common.male'), value: 'M' },
-              { label: t('translation:common.otherGender'), value: 'X' },
-            ]}
+            label={label}
+            name={`custom_form_field.${props.index}.answer`}
             onChange={(item: { label: string; value: string }) =>
               props.setFieldValue(
                 `custom_form_field.${props.index}.answer`,
                 item ? item.value : null,
               )
             }
+            placeholder={label}
+            required={props.field.mandatory}
             selected={props.field.answer}
+            suggestions={[
+              { label: t('translation:common.female'), value: 'F' },
+              { label: t('translation:common.male'), value: 'M' },
+              { label: t('translation:common.otherGender'), value: 'X' },
+            ]}
           />
         </div>
       );
@@ -313,21 +313,21 @@ export const CustomFormConsumerInput = (props: Props) => {
       return (
         <>
           <DateField
-            name={`custom_form_field.${props.index}.answer`}
-            label={label}
-            disabled={props.asManager || !props.field.editable}
-            required={props.field.mandatory}
-            keyboard
-            format="L"
-            fullWidth
-            openToYearSelection
             clearable
-            returnMoment={false}
             disableFuture
-            clearLabel={t('translation:form.clearDate')}
-            cancelLabel={t('translation:common.cancel')}
-            initialFocusedDate={now}
+            fullWidth
+            keyboard
+            openToYearSelection
             parseAsString
+            cancelLabel={t('translation:common.cancel')}
+            clearLabel={t('translation:form.clearDate')}
+            disabled={props.asManager || !props.field.editable}
+            format="L"
+            initialFocusedDate={now}
+            label={label}
+            name={`custom_form_field.${props.index}.answer`}
+            required={props.field.mandatory}
+            returnMoment={false}
           />
         </>
       );
@@ -336,16 +336,16 @@ export const CustomFormConsumerInput = (props: Props) => {
         <div className={classes.photoContainerOutter}>
           <div className={classes.photoContainerInner}>
             <AvatarFieldWithButton
-              name={`custom_form_field.${props.index}.answer`}
-              label={label}
-              disabled={props.asManager || !props.field.editable}
-              required={props.field.mandatory}
               buttonText={t('translation:form.modify')}
+              disabled={props.asManager || !props.field.editable}
+              label={label}
+              name={`custom_form_field.${props.index}.answer`}
+              required={props.field.mandatory}
             />
           </div>
           <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
             {(error_msg) => (
-              <Typography variant="caption" color="error">
+              <Typography color="error" variant="caption">
                 {t(`${error_msg}`)}
               </Typography>
             )}
@@ -355,26 +355,26 @@ export const CustomFormConsumerInput = (props: Props) => {
     case CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_EMAIL:
       return (
         <CheckboxField
-          name={`custom_form_field.${props.index}.answer`}
+          disabled={props.asManager}
           label={
             <Typography variant="caption">
               {t('translation:form.signup.fields.accept_email')}
             </Typography>
           }
-          disabled={props.asManager}
+          name={`custom_form_field.${props.index}.answer`}
           required={props.field.mandatory}
         />
       );
     case CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_SMS:
       return (
         <CheckboxField
-          name={`custom_form_field.${props.index}.answer`}
+          disabled={props.asManager}
           label={
             <Typography variant="caption">
               {t('translation:form.signup.fields.accept_sms')}
             </Typography>
           }
-          disabled={props.asManager}
+          name={`custom_form_field.${props.index}.answer`}
           required={props.field.mandatory}
         />
       );
@@ -384,24 +384,24 @@ export const CustomFormConsumerInput = (props: Props) => {
         <>
           <div style={{ width: '100%' }}>
             <Selector
-              name={`custom_form_field.${props.index}.answer`}
-              label={`${label}${props.field.mandatory ? ' *' : ''}`}
-              placeholder={`${label}${props.field.mandatory ? ' *' : ''}`}
+              isClearable
               isDisabled={props.asManager || !props.field.editable}
-              suggestions={VACCINATION_STATUS_CHOICES}
+              label={`${label}${props.field.mandatory ? ' *' : ''}`}
+              name={`custom_form_field.${props.index}.answer`}
               onChange={(item: { label: string; value: string }) =>
                 props.setFieldValue(
                   `custom_form_field.${props.index}.answer`,
                   item ? item.value : null,
                 )
               }
+              placeholder={`${label}${props.field.mandatory ? ' *' : ''}`}
               selected={props.values.custom_form_field[props.index]?.answer}
-              isClearable
+              suggestions={VACCINATION_STATUS_CHOICES}
             />
           </div>
           <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
             {(error_msg) => (
-              <Typography variant="caption" color="error">
+              <Typography color="error" variant="caption">
                 {t(`${error_msg}`)}
               </Typography>
             )}
@@ -415,24 +415,24 @@ export const CustomFormConsumerInput = (props: Props) => {
           <>
             <AcceptTermsAndConditions
               accepted={props.values?.custom_form_field[props.index]?.answer}
-              required={props.field.mandatory}
               disabled={
                 props.asManager ||
                 props.initial?.custom_form_field[props.index]?.answer
               }
+              label={label}
               onChecked={(checked: boolean) =>
                 props.setFieldValue(
                   `custom_form_field.${props.index}.answer`,
                   checked,
                 )
               }
+              required={props.field.mandatory}
               termsAndConditions={waiver}
               type={TermsAndConditionType.WAIVER}
-              label={label}
             />
             <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
               {(error_msg) => (
-                <Typography variant="caption" color="error">
+                <Typography color="error" variant="caption">
                   {t(`${error_msg}`)}
                 </Typography>
               )}
@@ -451,12 +451,13 @@ export const CustomFormConsumerInput = (props: Props) => {
             }}
           >
             <AcceptTermsAndConditions
-              accepted={props.values.custom_form_field[props.index]?.answer}
               required
+              accepted={props.values.custom_form_field[props.index]?.answer}
               disabled={
                 props.asManager ||
                 props.initial?.custom_form_field[props.index]?.answer
               }
+              label={label}
               onChecked={(checked: boolean) =>
                 props.setFieldValue(
                   `custom_form_field.${props.index}.answer`,
@@ -465,11 +466,10 @@ export const CustomFormConsumerInput = (props: Props) => {
               }
               termsAndConditions={general_terms_and_conditions}
               type={TermsAndConditionType.GENERAL_TERMS_OF_USE}
-              label={label}
             />
             <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
               {(error_msg) => (
-                <Typography variant="caption" color="error">
+                <Typography color="error" variant="caption">
                   {t(`${error_msg}`)}
                 </Typography>
               )}
@@ -483,11 +483,11 @@ export const CustomFormConsumerInput = (props: Props) => {
             control={
               <CheckBox
                 required
+                checked={props.values.custom_form_field[props.index]?.answer}
                 disabled={
                   props.asManager ||
                   props.initial?.custom_form_field[props.index]?.answer
                 }
-                checked={props.values.custom_form_field[props.index]?.answer}
                 onClick={() =>
                   props.setFieldValue(
                     `custom_form_field.${props.index}.answer`,
@@ -500,8 +500,8 @@ export const CustomFormConsumerInput = (props: Props) => {
               <Typography align="left" variant="caption">
                 <a
                   href="https://www.notion.so/RGPD-4b8e6a8a215a418a95f91197efd94847"
-                  target="_blank"
                   rel="noopener noreferrer"
+                  target="_blank"
                 >
                   {`${t('payment:generalTermsAndConditions.iAccept')} ${label}`}
                 </a>
@@ -511,7 +511,7 @@ export const CustomFormConsumerInput = (props: Props) => {
 
           <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
             {(error_msg) => (
-              <Typography variant="caption" color="error">
+              <Typography color="error" variant="caption">
                 {t(`${error_msg}`)}
               </Typography>
             )}

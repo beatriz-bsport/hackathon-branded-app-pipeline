@@ -30,9 +30,9 @@ const PlatformBillingStageCard = (props: {
     <Paper className={classes.stageCard}>
       {!!props.couponCts && (
         <Typography
-          style={{ textDecoration: 'line-through' }}
-          color="error"
           noWrap
+          color="error"
+          style={{ textDecoration: 'line-through' }}
           variant="h6"
         >
           {t('platformBillingStage.monthlyPrice', {
@@ -52,8 +52,8 @@ const PlatformBillingStageCard = (props: {
         })}
       </Typography>
       <Typography
-        className={classes.stageFooterBooking}
         noWrap
+        className={classes.stageFooterBooking}
         variant="subtitle2"
       >
         {t('platformBillingStage.maxBooking', { max_booking_per_month })}
@@ -81,10 +81,10 @@ const PlatformBillingPlanCard = (props: {
       <div className={classes.planDescription}>
         {platformBillingPlan.description_html ? (
           <iframe
-            title="platform-billing-plan-card-iframe"
-            srcDoc={platformBillingPlan.description_html}
             className={classes.iframe}
             frameBorder="0"
+            srcDoc={platformBillingPlan.description_html}
+            title="platform-billing-plan-card-iframe"
           />
         ) : (
           <TypographyMultiline>
@@ -96,7 +96,7 @@ const PlatformBillingPlanCard = (props: {
       {false && !!platformBillingPlan.max_coach && (
         <div className={classes.planMaxRow}>
           <div className={classes.planRowLeft}>
-            <PersonIcon fontSize="large" className={classes.iconLeft} />
+            <PersonIcon className={classes.iconLeft} fontSize="large" />
             <Typography>
               {t('platformBillingPlan.max_coach.label', {
                 max_coach: platformBillingPlan.max_coach,
@@ -110,7 +110,7 @@ const PlatformBillingPlanCard = (props: {
       )}
       {false && !!platformBillingPlan.max_establishment && (
         <div className={classes.planMaxRow}>
-          <LocationOnIcon fontSize="large" className={classes.iconLeft} />
+          <LocationOnIcon className={classes.iconLeft} fontSize="large" />
           <Typography>
             {t('platformBillingPlan.max_establishment.label', {
               max_establishment: platformBillingPlan.max_establishment,
@@ -127,10 +127,10 @@ const PlatformBillingPlanCard = (props: {
           .map((ps: PlatformBillingStage) => (
             <div key={ps.id}>
               <PlatformBillingStageCard
-                isSelected={props.currentPlatformBillingStageId === ps.id}
-                platformBillingStage={ps}
                 couponCts={props.couponCts}
                 defaultCurrencyDisplay={props.defaultCurrencyDisplay}
+                isSelected={props.currentPlatformBillingStageId === ps.id}
+                platformBillingStage={ps}
               />
             </div>
           ))}
@@ -154,13 +154,13 @@ const PlatformBillingPlanGroup = (props: {
         .map((plan: PlatformBillingPlan) => (
           <div className={classes.planCard}>
             <PlatformBillingPlanCard
-              isSelected={plan.id === props.currentPlatformBillingPlanId}
+              couponCts={props.couponCts}
               currentPlatformBillingStageId={
                 props.currentPlatformBillingStageId
               }
-              platformBillingPlan={plan}
-              couponCts={props.couponCts}
               defaultCurrencyDisplay={props.defaultCurrencyDisplay}
+              isSelected={plan.id === props.currentPlatformBillingPlanId}
+              platformBillingPlan={plan}
             />
           </div>
         ))}

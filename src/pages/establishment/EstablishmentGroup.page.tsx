@@ -152,56 +152,56 @@ export class EstablishmentGroup extends React.Component<Props> {
           (this.props.establishmentGroupList &&
             this.props.establishmentGroupList.length === 0) ? (
             <IsEmptyList
-              text={t('group.noGroupHelper')}
               button={t('group.addLocalisation')}
               onCreate={() => this.props.setOpenDialogForm(true)}
+              text={t('group.noGroupHelper')}
             />
           ) : (
             <Paper>
               <EstablishmentGroupTable
-                setEstablishmentGroupNotificationsToEdit={
-                  this.setEstablishmentGroupNotificationsToEdit
-                }
+                establishmentGroupList={this.props.establishmentGroupList}
                 marketingNotificationByEstablishmentGroup={
                   this.props.marketingNotificationByEstablishmentGroup
                 }
-                establishmentGroupList={this.props.establishmentGroupList}
+                onDeleteEstablishmentGroup={(group: EstablishmentGroupType) =>
+                  this.props.deleteEstablishmentGroupAction(group)
+                }
                 onEditEstablishmentGroup={(group: EstablishmentGroupType) => {
                   this.props.setInitialGroup(group);
                   this.props.setOpenDialogForm(true);
                 }}
-                onDeleteEstablishmentGroup={(group: EstablishmentGroupType) =>
-                  this.props.deleteEstablishmentGroupAction(group)
+                setEstablishmentGroupNotificationsToEdit={
+                  this.setEstablishmentGroupNotificationsToEdit
                 }
               />
             </Paper>
           )}
         </>
         <BottomActionButtons
-          onCreateLabel={t('group.addLocalisation')}
           onCreate={() => {
             this.props.setInitialGroup(null);
             this.props.setOpenDialogForm(true);
           }}
+          onCreateLabel={t('group.addLocalisation')}
         />
         {this.props.openDialogForm && (
           <EstablishmentGroupFormDialog
-            open={this.props.openDialogForm}
-            onSubmit={this.props.upsertEstablishmentGroup}
+            establishments={this.props.establishments}
+            initial={this.props.initialGroup}
+            isSubmitting={this.props.submitting}
             onClose={() => {
               this.props.setOpenDialogForm(false);
               this.props.setInitialGroup(null);
             }}
-            establishments={this.props.establishments}
-            initial={this.props.initialGroup}
-            isSubmitting={this.props.submitting}
+            onSubmit={this.props.upsertEstablishmentGroup}
+            open={this.props.openDialogForm}
           />
         )}
         <GenericFormDialog
-          open={!!this.props.establishmentGroupNotificationsToEditId}
           onClose={this.closeDrawer}
-          title={t('marketing:notifications.listTitle')}
+          open={!!this.props.establishmentGroupNotificationsToEditId}
           subtitle={this.props.establishmentGroupNotificationsToEdit?.name}
+          title={t('marketing:notifications.listTitle')}
         >
           <div className={this.props.classes.notificationContainer}>
             <Paper variant="outlined">
@@ -210,26 +210,26 @@ export class EstablishmentGroup extends React.Component<Props> {
               ]?.map((marketing_notification) => (
                 <MarketingRuleListEstablishmentGroup
                   deleteNotification={this.deleteNotification}
-                  updateNotification={this.updateNotification}
                   editNotification={this.editNotification}
-                  marketingNotification={marketing_notification}
                   email={
                     this.props.emailSummariesById[
                       marketing_notification.email_design
                     ]
                   }
+                  marketingNotification={marketing_notification}
+                  updateNotification={this.updateNotification}
                 />
               ))}
             </Paper>
             <Button
               className={this.props.classes.buttonAdd}
+              color="primary"
               onClick={() =>
                 this.setState({
                   establishmentGroupForNotificationCreation:
                     this.props.establishmentGroupNotificationsToEditId,
                 })
               }
-              color="primary"
             >
               <AddIcon className={this.props.classes.leftIcon} />
               {t('marketing:notifications.create')}
@@ -238,44 +238,44 @@ export class EstablishmentGroup extends React.Component<Props> {
         </GenericFormDialog>
         {this.state.establishmentGroupForNotificationCreation && (
           <MarketingRuleFormGeneric
-            sourceObjectId={
-              this.state.establishmentGroupForNotificationCreation
-            }
-            objectId="establishment_group"
-            establishmentGroups={this.props.establishmentGroupList}
-            emailSummaryList={this.props.emailSummaryList}
-            emailListLoading={this.props.emailListLoading}
-            emailDetailLoading={this.props.emailDetailLoading}
-            getEmailDetail={this.props.fetchEmailTemplateDetail}
-            getEmails={this.props.fetchEmailTemplatesSummaries}
-            emailDetails={this.props.emailDetailById}
-            onCancel={() =>
-              this.setState({ establishmentGroupForNotificationCreation: null })
-            }
-            onUpdateMarketingNotification={this.onEditNotification}
-            onCreateMarketingNotification={this.handleCreateNotification}
-            createFormOpenType="establishment_group"
             closeForm={() =>
               this.setState({ establishmentGroupForNotificationCreation: null })
             }
-            goToSmartlist={this.props.goToSmartlist}
+            createFormOpenType="establishment_group"
+            emailDetailLoading={this.props.emailDetailLoading}
+            emailDetails={this.props.emailDetailById}
+            emailListLoading={this.props.emailListLoading}
+            emailSummaryList={this.props.emailSummaryList}
+            establishmentGroups={this.props.establishmentGroupList}
+            getEmailDetail={this.props.fetchEmailTemplateDetail}
+            getEmails={this.props.fetchEmailTemplatesSummaries}
             getSmartLists={this.props.getSmartLists}
+            goToSmartlist={this.props.goToSmartlist}
+            objectId="establishment_group"
+            onCancel={() =>
+              this.setState({ establishmentGroupForNotificationCreation: null })
+            }
+            onCreateMarketingNotification={this.handleCreateNotification}
+            onUpdateMarketingNotification={this.onEditNotification}
             smartLists={this.props.smartLists}
+            sourceObjectId={
+              this.state.establishmentGroupForNotificationCreation
+            }
           />
         )}
         <MarketingRuleFormGeneric
-          selectedNotification={this.props.notificationToEdit}
-          emailSummaryList={this.props.emailSummaryList}
-          emailListLoading={this.props.emailListLoading}
+          closeForm={this.closeNotificationEditForm}
           emailDetailLoading={this.props.emailDetailLoading}
+          emailDetails={this.props.emailDetailById}
+          emailListLoading={this.props.emailListLoading}
+          emailSummaryList={this.props.emailSummaryList}
           getEmailDetail={this.props.fetchEmailTemplateDetail}
           getEmails={this.props.fetchEmailTemplatesSummaries}
-          emailDetails={this.props.emailDetailById}
-          onCancel={this.closeNotificationEditForm}
-          closeForm={this.closeNotificationEditForm}
-          onUpdateMarketingNotification={this.updateNotification}
-          goToSmartlist={this.props.goToSmartlist}
           getSmartLists={this.props.getSmartLists}
+          goToSmartlist={this.props.goToSmartlist}
+          onCancel={this.closeNotificationEditForm}
+          onUpdateMarketingNotification={this.updateNotification}
+          selectedNotification={this.props.notificationToEdit}
           smartLists={this.props.smartLists}
         />
       </>

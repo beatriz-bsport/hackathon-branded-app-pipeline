@@ -22,13 +22,14 @@ const InboxPanelSmartlistTags: React.FC<Props> = ({
 
   return (
     <div className={classes.sectionContainer}>
-      <Typography variant="body1" color="textPrimary">
+      <Typography color="textPrimary" variant="body1">
         {t('thread.panel.tags')}
       </Typography>
       <div className={classes.tagContainer}>
         {includedTags?.map((tag) => (
-          <div className={classes.chipContainer} key={`${(tag || {}).id}`}>
+          <div key={`${(tag || {}).id}`} className={classes.chipContainer}>
             <TagChip
+              size="small"
               tag={
                 tag && {
                   ...tag,
@@ -36,13 +37,13 @@ const InboxPanelSmartlistTags: React.FC<Props> = ({
                   icon: 'Check',
                 }
               }
-              size="small"
             />
           </div>
         ))}
         {excludedTags?.map((tag) => (
-          <div className={classes.chipContainer} key={`${(tag || {}).id}`}>
+          <div key={`${(tag || {}).id}`} className={classes.chipContainer}>
             <TagChip
+              size="small"
               tag={
                 tag && {
                   ...tag,
@@ -50,7 +51,6 @@ const InboxPanelSmartlistTags: React.FC<Props> = ({
                   icon: 'Block',
                 }
               }
-              size="small"
             />
           </div>
         ))}

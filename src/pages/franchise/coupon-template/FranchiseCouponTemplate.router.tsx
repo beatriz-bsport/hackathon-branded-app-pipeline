@@ -15,12 +15,12 @@ const FranchiseCouponTemplateRouter = () => {
   return (
     <Switch>
       <Route
-        path="/f/coupon-template/:couponTemplateId"
         component={FranchiseCouponTemplateDetailPage}
+        path="/f/coupon-template/:couponTemplateId"
       />
       <Route
-        path="/f/coupon-template"
         component={FranchiseCouponTemplateListPage}
+        path="/f/coupon-template"
       />
     </Switch>
   );

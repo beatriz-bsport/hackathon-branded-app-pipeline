@@ -207,25 +207,25 @@ export const GroupedOfferDuplicateFormDrawer: React.FC<Props> = ({
 
   return (
     <GenericResponsiveDrawer
-      open={open}
       onClose={onClose}
-      title={t('groupedOption.modal.title')}
+      open={open}
       subtitle={getSubtitle()}
+      title={t('groupedOption.modal.title')}
     >
       <div className={classes.drawerInner}>
         {step === STEP_GROUPED_OPTION_FORM && (
           <GroupedOfferCreateDuplicationForm
+            handlePreviousStep={handlePreviousStep}
             initial={group}
             onSubmit={generatePreviewFromSettings}
-            handlePreviousStep={handlePreviousStep}
           />
         )}
         {step === STEP_GROUPED_OPTION_PREVIEW && groupPreview && (
           <GroupedOfferPreviewForm
             groups={groups}
+            handlePreviousStep={handlePreviousStep}
             metaActivity={metaActivity}
             onSubmit={handlecreateGroupOffer}
-            handlePreviousStep={handlePreviousStep}
           />
         )}
       </div>

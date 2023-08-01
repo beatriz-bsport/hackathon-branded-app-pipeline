@@ -43,6 +43,7 @@ export class AvatarFieldWithButton extends Component<Props, State> {
               id="avatar-loader-button"
               {...omit(field, ['value'])}
               {...this.inputProps}
+              disabled={disabled}
               onChange={(e) => {
                 const { files } = e.target;
                 // if a file is selected, files = {0: File, length: 1}
@@ -55,31 +56,30 @@ export class AvatarFieldWithButton extends Component<Props, State> {
                   setFieldValue(field.name, files[0]);
                 }
               }}
-              type="file"
               required={required}
-              disabled={disabled}
+              type="file"
             />
             <label htmlFor="avatar-loader-button" style={{ cursor: 'pointer' }}>
               <Badge
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                 badgeContent={
                   disabled ? null : (
                     <div className={classes.chip}>
                       <Chip
-                        icon={<ImageIcon />}
-                        size="small"
-                        label={buttonText}
                         color="secondary"
+                        icon={<ImageIcon />}
+                        label={buttonText}
+                        size="small"
                       />
                     </div>
                   )
                 }
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                 className={classes.badge}
               >
                 <div className={classes.avatar}>
                   <Avatar
-                    user={{ photo: getUrl(previewUrl, field.value) }}
                     noname
+                    user={{ photo: getUrl(previewUrl, field.value) }}
                     variant="large"
                   />
                 </div>

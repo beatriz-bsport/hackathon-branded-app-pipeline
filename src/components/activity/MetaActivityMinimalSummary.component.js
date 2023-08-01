@@ -29,7 +29,7 @@ export function MetaActivityMinimalSummary(props: Props) {
   const { classes, metaActivity, onClick } = props;
   if (!metaActivity) {
     return (
-      <ListItem divider dense className={classes.listItem}>
+      <ListItem dense divider className={classes.listItem}>
         <CircularProgress />
         <ListItemText primary={props.t('common.loading')} />
       </ListItem>
@@ -39,14 +39,14 @@ export function MetaActivityMinimalSummary(props: Props) {
 
   return (
     <ListItem
-      divider
       key={id}
       dense
+      divider
       button={!!onClick}
       className={classes.listItem}
       onClick={onClick}
     >
-      <Sport parentCategory={parent_category} noname />
+      <Sport noname parentCategory={parent_category} />
       <ListItemText className={classes.text} primary={name} />
     </ListItem>
   );

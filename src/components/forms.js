@@ -72,7 +72,7 @@ export const AlertError = withTranslation([])(
       <ErrorMessage
         {...props}
         render={(message) => (
-          <Typography variant="body2" className={classes.alertError}>
+          <Typography className={classes.alertError} variant="body2">
             {t(message)}
           </Typography>
         )}
@@ -102,6 +102,7 @@ export const TextField = withStyles(textFieldStyles)((props: Props) => {
             shrink={shrink}
             {...field}
             {...omit(props, ['field'])}
+            error={!!(touched && typeof error === 'string')}
             onChange={(ev) => {
               props?.onChange?.(ev);
               setFieldTouched(props.name);
@@ -114,7 +115,6 @@ export const TextField = withStyles(textFieldStyles)((props: Props) => {
               }
               setFieldValue(props.name, ev.target.value);
             }}
-            error={!!(touched && typeof error === 'string')}
           />
         );
       }}
@@ -138,17 +138,17 @@ export const TextFieldEnhancedLabelWithError = withStyles(textFieldStyles)(
                 shrink={shrink}
                 {...field}
                 {...omit(props, ['field', 'classes'])}
-                onBlur={field.onBlur}
                 error={!!(meta.touched && meta.error)}
                 label={
                   meta.touched && meta.error ? (
-                    <Typography variant="caption" color="error">
+                    <Typography color="error" variant="caption">
                       {`${props.label}: ${t(meta.error)}`}
                     </Typography>
                   ) : (
                     props.label
                   )
                 }
+                onBlur={field.onBlur}
               />
             </>
           );
@@ -174,19 +174,19 @@ export const IntegerFieldEnhancedHelperTextError = withStyles(textFieldStyles)(
                 shrink={shrink}
                 {...field}
                 {...omit(props, ['field', 'classes'])}
-                onBlur={field.onBlur}
                 error={!!(meta.touched && meta.error)}
-                InputProps={{ inputProps: { min: props.min ?? 0 } }}
-                type="number"
                 helperText={
                   meta.touched && meta.error ? (
-                    <Typography variant="caption" color="error">
+                    <Typography color="error" variant="caption">
                       {`${t(meta.error)}`}
                     </Typography>
                   ) : (
                     props.helperText
                   )
                 }
+                InputProps={{ inputProps: { min: props.min ?? 0 } }}
+                onBlur={field.onBlur}
+                type="number"
               />
             </>
           );
@@ -282,12 +282,12 @@ export const Submit = withStyles(buttonStyles)((props: SubmitProps) => {
   const { classes } = props;
   return (
     <MuiButton
-      variant="contained"
-      type="submit"
       color="primary"
+      type="submit"
+      variant="contained"
       {...props}
-      className={classes.button}
       classes={props.classes}
+      className={classes.button}
     />
   );
 });
@@ -329,15 +329,27 @@ export const DateField = (
         form: { setFieldValue, setFieldTouched },
       }) => (
         <MuiPickersUtilsProvider
-          utils={MomentUtils}
-          moment={Moment}
           locale={Moment.locale()}
+          moment={Moment}
+          utils={MomentUtils}
         >
           <DatePicker
             {...field}
             {...props}
-            style={{ minWidth: 120 }}
-            value={props.allowNullValue ? field.value : field.value || now}
+            error={!!(touched && error)}
+            format="L"
+            label={
+              touched &&
+              error &&
+              !props.outsideErrorDisplay &&
+              !props.bottomError ? (
+                <Typography color="error" variant="caption">
+                  {`${props.label}: ${t(error)}`}
+                </Typography>
+              ) : (
+                props.label
+              )
+            }
             onChange={(date) => {
               props?.onChange?.(date);
               setFieldTouched(props.name);
@@ -346,26 +358,14 @@ export const DateField = (
                 props.parseAsString ? moment(date).format('YYYY-MM-DD') : date,
               );
             }}
-            format="L"
-            error={!!(touched && error)}
-            label={
-              touched &&
-              error &&
-              !props.outsideErrorDisplay &&
-              !props.bottomError ? (
-                <Typography variant="caption" color="error">
-                  {`${props.label}: ${t(error)}`}
-                </Typography>
-              ) : (
-                props.label
-              )
-            }
+            style={{ minWidth: 120 }}
+            value={props.allowNullValue ? field.value : field.value || now}
           />
           {props.bottomError && !props.outsideErrorDisplay && (
             <ErrorMessage
               {...props}
               render={(message) => (
-                <Typography variant="body2" className={classes.alertError}>
+                <Typography className={classes.alertError} variant="body2">
                   {t(message)}
                 </Typography>
               )}
@@ -384,32 +384,32 @@ export const TimeField = (props: TimeFieldProps) => {
       {({ field, meta: { touched, error }, form: { setFieldValue } }) => (
         <>
           <MuiPickersUtilsProvider
-            utils={MomentUtils}
-            moment={Moment}
             locale={Moment.locale()}
+            moment={Moment}
+            utils={MomentUtils}
           >
             <TimePicker
               {...field}
               {...props}
-              style={{ width: 100 }}
-              onChange={(time) => {
-                setFieldValue(
-                  props.name,
-                  props.parseAsString ? formatAsTime(time) : time,
-                );
-              }}
-              format="LT"
+              ampm={i18n.language === 'en-US'}
               error={!!(touched && error)}
+              format="LT"
               label={
                 touched && error && !props.outsideErrorDisplay ? (
-                  <Typography variant="caption" color="error">
+                  <Typography color="error" variant="caption">
                     {t(error)}
                   </Typography>
                 ) : (
                   props.label
                 )
               }
-              ampm={i18n.language === 'en-US'}
+              onChange={(time) => {
+                setFieldValue(
+                  props.name,
+                  props.parseAsString ? formatAsTime(time) : time,
+                );
+              }}
+              style={{ width: 100 }}
             />
           </MuiPickersUtilsProvider>
           <AccessTimeIcon
@@ -442,15 +442,15 @@ export const DurationField = withStyles(DurationFieldstyles)(
           const minutes = total - days * 24 * 60 - hours * 60;
           return (
             <MuiFormControl
+              error={!!(touched && error)}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
               }}
-              error={!!(touched && error)}
             >
               {!!props.label && (
                 <div className={props.classes.inputLabelContainer}>
-                  <Typography variant="body1" htmlFor={props.name} shrink>
+                  <Typography shrink htmlFor={props.name} variant="body1">
                     {props.label}
                   </Typography>
                 </div>
@@ -463,13 +463,16 @@ export const DurationField = withStyles(DurationFieldstyles)(
                   marginTop: 12,
                 }}
               >
-                <Grid container direction="row" alignItems="center">
-                  <Grid item xs={12} md={4}>
+                <Grid container alignItems="center" direction="row">
+                  <Grid item md={4} xs={12}>
                     <FormHelperText>
                       {props.t('form.duration.day', { count: days })}
                     </FormHelperText>
                     <TextField
                       fullWidth
+                      InputProps={{
+                        inputProps: { min: 0, step: 1 },
+                      }}
                       onChange={(value) => {
                         setFieldValue(
                           props.name,
@@ -478,14 +481,11 @@ export const DurationField = withStyles(DurationFieldstyles)(
                             minutes,
                         );
                       }}
-                      InputProps={{
-                        inputProps: { min: 0, step: 1 },
-                      }}
                       type="number"
                       value={days}
                     />
                   </Grid>
-                  <Grid item xs={12} md={4}>
+                  <Grid item md={4} xs={12}>
                     <div
                       style={{
                         display: 'flex',
@@ -523,7 +523,7 @@ export const DurationField = withStyles(DurationFieldstyles)(
                       </div>
                     </div>
                   </Grid>
-                  <Grid item xs={12} md={4}>
+                  <Grid item md={4} xs={12}>
                     <div
                       style={{
                         display: 'flex',
@@ -547,8 +547,6 @@ export const DurationField = withStyles(DurationFieldstyles)(
                           InputProps={{
                             inputProps: { min: 0, max: 59, step: 1 },
                           }}
-                          type="number"
-                          value={minutes}
                           onChange={(value) => {
                             setFieldValue(
                               props.name,
@@ -557,6 +555,8 @@ export const DurationField = withStyles(DurationFieldstyles)(
                                 hours * 60,
                             );
                           }}
+                          type="number"
+                          value={minutes}
                         />
                       </div>
                     </div>
@@ -571,8 +571,8 @@ export const DurationField = withStyles(DurationFieldstyles)(
               <ErrorMessage {...props}>
                 {(message) => (
                   <Typography
-                    variant="body2"
                     className={props.classes.alertError}
+                    variant="body2"
                   >
                     {props.t(message)}
                   </Typography>
@@ -594,9 +594,9 @@ export const ColorField = (props: ColorFieldProps) => {
           id={props.id}
           {...field}
           {...props}
-          onChange={(color) => setFieldValue(props.name, color)}
-          color={field.value}
           buttonStyle={props.buttonStyle}
+          color={field.value}
+          onChange={(color) => setFieldValue(props.name, color)}
         />
       )}
     </Field>
@@ -655,46 +655,46 @@ export const AddressFields = withTranslation([])(
     return (
       <div>
         <TextField
-          required={required}
-          name="address_line_1"
-          autoComplete={autoComplete ? 'address-line1' : null}
           fullWidth
+          autoComplete={autoComplete ? 'address-line1' : null}
           disabled={!!disabled}
           label={t('form.address.addressLine1')}
+          name="address_line_1"
+          required={required}
         />
         <TextField
-          name="address_line_2"
-          autoComplete={autoComplete ? 'address-line2' : null}
           fullWidth
+          autoComplete={autoComplete ? 'address-line2' : null}
           disabled={!!disabled}
           label={t('form.address.addressLine2')}
+          name="address_line_2"
         />
         <Grid container direction="row" spacing={2}>
           <Grid item>
             <TextField
-              name="zipcode"
               autoComplete={autoComplete ? 'zipcode' : null}
-              label={t('form.address.zipcode')}
               disabled={!!disabled}
+              label={t('form.address.zipcode')}
+              name="zipcode"
               required={required}
             />
           </Grid>
           <Grid item>
             <TextField
-              name="city"
               autoComplete={autoComplete ? 'city' : null}
-              label={t('form.address.city')}
               disabled={!!disabled}
+              label={t('form.address.city')}
+              name="city"
               required={required}
             />
           </Grid>
         </Grid>
         <TextField
-          name="country"
           autoComplete={autoComplete ? 'country' : null}
-          required={required}
           disabled={!!disabled}
           label={t('form.address.country')}
+          name="country"
+          required={required}
         />
       </div>
     );
@@ -721,33 +721,33 @@ export const PhoneField = withTranslation([])(
         {({ field, meta: { touched, error }, form: { setFieldValue } }) => (
           <div>
             <MuiFormControl
-              required={required}
               error={!!(touched && error)}
               fullWidth={fullWidth}
+              required={required}
             >
               <InputLabel
-                htmlFor={name}
                 shrink
                 classes={{
                   root: classes.labelRoot,
                   shrink: classes.labelShrink,
                 }}
+                htmlFor={name}
               >
                 {label}
               </InputLabel>
               <PhoneInput
+                autoComplete="tel"
+                country="FR"
                 flagComponent={({ country }) => (
                   <div className="fill">
                     <img
+                      alt="flag"
                       src={`https://flagcdn.com/48x36/${(
                         country ?? 'fr'
                       ).toLowerCase()}.png`}
-                      alt="flag"
                     />
                   </div>
                 )}
-                country="FR"
-                autoComplete="tel"
                 {...field}
                 name={name}
                 /* FIXME */
@@ -767,7 +767,7 @@ export const PhoneField = withTranslation([])(
             </MuiFormControl>
             <ErrorMessage {...props}>
               {(message) => (
-                <Typography variant="body2" className={classes.alertError}>
+                <Typography className={classes.alertError} variant="body2">
                   {t(message)}
                 </Typography>
               )}
@@ -786,9 +786,9 @@ export const GenderField = withStyles(styles)(
       <Field {...props}>
         {({ field, meta: { touched, error } }) => (
           <MuiFormControl
+            error={!!(touched && error)}
             fullWidth={fullWidth}
             required={required}
-            error={!!(touched && error)}
           >
             <InputLabel shrink htmlFor="gender-helper">
               {label}
@@ -821,7 +821,7 @@ export const GenderField = withStyles(styles)(
             </Select>
             <ErrorMessage {...props}>
               {(message) => (
-                <Typography variant="caption" color="error">
+                <Typography color="error" variant="caption">
                   {t(message)}
                 </Typography>
               )}
@@ -840,9 +840,9 @@ export const VaccinationStatusField = withStyles(styles)(
       <Field {...props}>
         {({ field, meta: { touched, error } }) => (
           <MuiFormControl
+            error={!!(touched && error)}
             fullWidth={fullWidth}
             required={required}
-            error={!!(touched && error)}
           >
             <InputLabel shrink htmlFor="vaccination-helper">
               {label}
@@ -875,7 +875,7 @@ export const VaccinationStatusField = withStyles(styles)(
             </Select>
             <ErrorMessage {...props}>
               {(message) => (
-                <Typography variant="body2" className={classes.alertError}>
+                <Typography className={classes.alertError} variant="body2">
                   {t(message)}
                 </Typography>
               )}
@@ -905,12 +905,12 @@ export const SelectField = withStyles(styles)(
       <Field {...props}>
         {({ field, meta: { touched, error }, form: { setFieldValue } }) => (
           <MuiFormControl
+            error={!!(touched && error)}
             fullWidth={fullWidth}
             required={required}
-            error={!!(touched && error)}
           >
             {label && (
-              <InputLabel shrink htmlFor="select-helper" ref={labelRef}>
+              <InputLabel ref={labelRef} shrink htmlFor="select-helper">
                 {label}
               </InputLabel>
             )}
@@ -926,6 +926,7 @@ export const SelectField = withStyles(styles)(
                 'i18nOptions',
                 'reportNS',
               ])}
+              classes={selectClasses}
               onChange={(e) => {
                 if (!props.keepFocusOnSelect) {
                   labelRef.current?.classList?.remove('Mui-focused');
@@ -933,7 +934,6 @@ export const SelectField = withStyles(styles)(
                 }
                 setFieldValue(field.name, e.target.value);
               }}
-              classes={selectClasses}
             >
               {choices.map((c) => {
                 if (props.itemRenderer) {
@@ -948,7 +948,7 @@ export const SelectField = withStyles(styles)(
             </Select>
             <ErrorMessage {...props}>
               {(message) => (
-                <Typography variant="body1" className={classes.alertError}>
+                <Typography className={classes.alertError} variant="body1">
                   {t(message)}
                 </Typography>
               )}
@@ -1070,22 +1070,22 @@ export const CheckboxField = (props: Props) => {
       <Field {...props}>
         {({ field, form: { setFieldValue }, meta: { touched, error } }) => (
           <FormControlLabel
-            label={label}
-            id="checkbox"
-            helperText={helperText}
             classes={classes}
             control={
               <Checkbox
-                disabled={!!disabled}
                 checked={reverted ? !field.value : field.value}
+                disabled={!!disabled}
                 {...props}
                 {...field}
+                error={!!(touched && error)}
                 onChange={() => {
                   setFieldValue(field.name, !field.value);
                 }}
-                error={!!(touched && error)}
               />
             }
+            helperText={helperText}
+            id="checkbox"
+            label={label}
           />
         )}
       </Field>
@@ -1104,8 +1104,8 @@ export const MultipleCheckboxField = (props: Props) => {
       {!!label && (
         <Label
           className={labelClass}
-          style={{ marginBottom: -2 }}
           component="legend"
+          style={{ marginBottom: -2 }}
         >
           {label}
         </Label>
@@ -1116,14 +1116,12 @@ export const MultipleCheckboxField = (props: Props) => {
             choices.map(({ id, optionLabel }) => (
               <FormControlLabel
                 key={id}
-                name={name}
-                label={optionLabel}
                 control={
                   <Checkbox
-                    disabled={!!disabled}
                     checked={
                       field.value ? field.value.some((v) => v === id) : false
                     }
+                    disabled={!!disabled}
                     onChange={() => {
                       const newValue = field.value.some((v) => v === id)
                         ? field.value.filter((v) => v !== id)
@@ -1133,6 +1131,8 @@ export const MultipleCheckboxField = (props: Props) => {
                     value={`${id}`}
                   />
                 }
+                label={optionLabel}
+                name={name}
               />
             ))
           }
@@ -1171,24 +1171,24 @@ export const CheckboxFieldWithAction = (
       <Field {...props}>
         {({ field, form: { setFieldValue }, meta: { touched, error } }) => (
           <FormControlLabel
-            label={label}
-            id="checkbox"
-            helperText={helperText}
             classes={classes}
             control={
               <Checkbox
-                disabled={!!disabled}
                 checked={reverted ? !field.value : field.value}
+                disabled={!!disabled}
                 {...props}
                 {...field}
+                error={!!(touched && error)}
                 onChange={onChangeCheckboxFieldWithAction(
                   setFieldValue,
                   field.name,
                   !field.value,
                 )}
-                error={!!(touched && error)}
               />
             }
+            helperText={helperText}
+            id="checkbox"
+            label={label}
           />
         )}
       </Field>
@@ -1214,12 +1214,12 @@ export const SwitchField = (props: SwitchFieldProps) => {
         {({ field }) => (
           <FormControlLabel
             {...field}
-            value=""
             checked={inverse ? !field.value : field.value}
-            label={label}
-            disabled={disabled}
-            control={<Switch color={props.color} />}
             className={className}
+            control={<Switch color={props.color} />}
+            disabled={disabled}
+            label={label}
+            value=""
           />
         )}
       </Field>
@@ -1257,11 +1257,11 @@ export const RadioGroupField = (props: RadioFieldProps) => {
             <div key={value}>
               <FormControlLabel
                 key={value}
-                value={value}
-                disabled={props.disabled}
-                control={<Radio checked={`${field.value}` === `${value}`} />}
-                label={l}
                 classes={props.classes}
+                control={<Radio checked={`${field.value}` === `${value}`} />}
+                disabled={props.disabled}
+                label={l}
+                value={value}
               />
               {helperText ? (
                 <FormHelperText style={{ marginTop: -8 }}>
@@ -1291,7 +1291,7 @@ export const FormControl = withStyles(formControlStyles)(
     const { classes, label, children } = props;
     return (
       <div className={classes.control}>
-        <Typography variant="body2" className={classes.label}>
+        <Typography className={classes.label} variant="body2">
           {label}
         </Typography>
         {children}
@@ -1367,7 +1367,7 @@ export const SelectFieldWithEnhancedLabeLError = withStyles(selectFieldStyles)(
               error={!!(touched && error)}
               placeholder={
                 touched && error ? (
-                  <Typography variant="caption" color="error">
+                  <Typography color="error" variant="caption">
                     {`${props.label}: ${t(error)}`}
                   </Typography>
                 ) : (

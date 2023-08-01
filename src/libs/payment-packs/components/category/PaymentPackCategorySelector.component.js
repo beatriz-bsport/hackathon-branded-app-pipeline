@@ -43,8 +43,8 @@ type NoOptionsMessageProps = {
 function NoOptionsMessage(props: NoOptionsMessageProps) {
   return (
     <Typography
-      color="textSecondary"
       className={props.selectProps.classes.noOptionsMessage}
+      color="textSecondary"
       {...props.innerProps}
     >
       {props.children}
@@ -101,8 +101,8 @@ function Option(props: OptionProps) {
   return (
     <MenuItem
       buttonRef={props.innerRef}
-      selected={props.isFocused}
       component="div"
+      selected={props.isFocused}
       style={{
         fontWeight: props.isSelected ? 500 : 400,
       }}
@@ -137,8 +137,8 @@ type ValueContainerProps = {
 function ValueContainer(props: ValueContainerProps) {
   return (
     <div
-      id="value-container"
       className={props.selectProps.classes.valueContainer}
+      id="value-container"
     >
       {props.children}
     </div>
@@ -153,11 +153,11 @@ type MultiValueProps = {
 function MultiValue(props: MultiValueProps) {
   return (
     <Chip
-      tabIndex={-1}
-      label={props.children}
       className={props.selectProps.classes.chip}
-      onDelete={props.removeProps.onClick}
       deleteIcon={<CancelIcon {...props.removeProps} />}
+      label={props.children}
+      onDelete={props.removeProps.onClick}
+      tabIndex={-1}
     />
   );
 }
@@ -287,19 +287,19 @@ export function PaymentPackCategorySelector(props: Props) {
   return (
     <div className={`${className || ''} ${classes.root}`}>
       <Select
-        closeMenuOnSelect={!!closeMenuOnSelect}
-        isMulti={!noMulti}
         classes={classes}
-        placeholder={t('form.paymentPack.category.helperText')}
+        closeMenuOnSelect={!!closeMenuOnSelect}
         components={{ ...components, ...props.components }}
-        options={getPackPaymentPackCategoryList([...packPackCategoryList])}
-        styles={packPackcategoryStyles}
-        onChange={onChange}
-        isDisabled={disabled}
         isClearable={isClearable}
-        menuPortalTarget={document.querySelector('body')}
-        value={selected}
+        isDisabled={disabled}
         isLoading={isLoading}
+        isMulti={!noMulti}
+        menuPortalTarget={document.querySelector('body')}
+        onChange={onChange}
+        options={getPackPaymentPackCategoryList([...packPackCategoryList])}
+        placeholder={t('form.paymentPack.category.helperText')}
+        styles={packPackcategoryStyles}
+        value={selected}
       />
     </div>
   );

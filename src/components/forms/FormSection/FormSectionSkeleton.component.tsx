@@ -18,26 +18,26 @@ const FormSectionSkeleton = React.memo((props: Props) => {
       <Box className={classes.container}>
         <div className={classes.titleSkeleton}>
           <Skeleton
+            className={classes.skeletonBase}
+            height={44}
             variant="rect"
             width={44}
-            height={44}
-            className={classes.skeletonBase}
           />
           <Skeleton
+            className={classes.skeletonBase}
+            height={27}
             variant="rect"
             width={150}
-            height={27}
-            className={classes.skeletonBase}
           />
         </div>
 
         {fields.map((field) => (
           <Skeleton
             key={field}
+            className={classes.skeletonBase}
+            height={38}
             variant="rect"
             width="50%"
-            height={38}
-            className={classes.skeletonBase}
           />
         ))}
       </Box>

@@ -36,9 +36,9 @@ class CollapsibleSection extends React.PureComponent<Props> {
     return (
       <div className={this.props.classes.container}>
         <Wrapper
-          onClick={this.props.onSwitch ? this.onSwitch : undefined}
           className={this.props.classes.topBar}
           disableRipple={this.props.in}
+          onClick={this.props.onSwitch ? this.onSwitch : undefined}
         >
           {!!this.props.onSwitch && (
             <div className={this.props.classes.topBarIconContainer}>
@@ -46,8 +46,8 @@ class CollapsibleSection extends React.PureComponent<Props> {
             </div>
           )}
           <Typography
-            variant={this.props.titleVariant || 'h5'}
             color={this.props.in ? 'inherit' : 'textSecondary'}
+            variant={this.props.titleVariant || 'h5'}
           >
             {this.props.title}
           </Typography>

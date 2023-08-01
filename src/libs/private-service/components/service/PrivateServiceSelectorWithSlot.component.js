@@ -34,8 +34,8 @@ export class PrivateServiceSelectorWithSlot extends React.Component<Props> {
     return (
       <div>
         <ButtonBase
-          onClick={(ev) => this.props.setMenuAnchor(ev.currentTarget)}
           className={this.props.classes.button}
+          onClick={(ev) => this.props.setMenuAnchor(ev.currentTarget)}
         >
           <SearchIcon className={this.props.classes.leftIcon} />
           {this.props.privateServiceId && this.props.privateSlotId ? (
@@ -56,26 +56,26 @@ export class PrivateServiceSelectorWithSlot extends React.Component<Props> {
                     alignItems: 'flex-start',
                   }}
                 >
-                  <Typography variant="body" color="textSecondary" align="left">
+                  <Typography align="left" color="textSecondary" variant="body">
                     {p.name}
                   </Typography>
-                  <Typography variant="body2" align="left">
+                  <Typography align="left" variant="body2">
                     {s.name}
                   </Typography>
                 </div>
               );
             })()
           ) : (
-            <Typography color="textSecondary" align="left">
+            <Typography align="left" color="textSecondary">
               {this.props.t('service.selector.placeholder')}
             </Typography>
           )}
         </ButtonBase>
         <Menu
-          open={!!this.props.menuAnchor}
           anchorEl={this.props.menuAnchor}
-          onClose={() => this.props.setMenuAnchor(null)}
           className={this.props.classes.menu}
+          onClose={() => this.props.setMenuAnchor(null)}
+          open={!!this.props.menuAnchor}
         >
           {this.props.privateServiceList &&
           this.props.privateServiceList.length ? (
@@ -83,13 +83,13 @@ export class PrivateServiceSelectorWithSlot extends React.Component<Props> {
               .filter((ps) => ps.slots.length)
               .map((ps) => (
                 <List
-                  disablePadding
                   key={ps.id}
+                  disablePadding
                   className={this.props.classes.menu}
                   subheader={
                     <ListSubheader
-                      className={this.props.classes.subheader}
                       dense
+                      className={this.props.classes.subheader}
                       component="div"
                     >
                       {ps.name}
@@ -103,9 +103,9 @@ export class PrivateServiceSelectorWithSlot extends React.Component<Props> {
                   >
                     {ps.slots.map((s) => (
                       <ListItem
+                        button
                         dense
                         disableGutters
-                        button
                         onClick={() => {
                           this.props.onSelect(
                             ps.id,

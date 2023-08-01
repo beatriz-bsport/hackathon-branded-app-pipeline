@@ -93,7 +93,7 @@ export class MarketingRule extends Component<Props, State> {
     }
     return (
       <MenuItem value={kindId}>
-        <Grid container direction="row" spacing={1} alignItems="center">
+        <Grid container alignItems="center" direction="row" spacing={1}>
           <Grid item>{icon}</Grid>
           <Grid item>
             <Typography>{ACTION_KIND[kindId].name}</Typography>
@@ -107,7 +107,7 @@ export class MarketingRule extends Component<Props, State> {
     const { classes } = this.props;
     return (
       <FormControl className={classes.formControl} margin="normal">
-        <Select value={action.kind} onChange={this.handleChange}>
+        <Select onChange={this.handleChange} value={action.kind}>
           {ACTION_KIND.map((kind) => this.renderActionKind(kind.id))}
         </Select>
       </FormControl>
@@ -132,7 +132,7 @@ export class MarketingRule extends Component<Props, State> {
     const { classes, t } = this.props;
     return (
       <FormControl className={classes.formControlLarge} margin="normal">
-        <Select value={action.afterMatchingOffers} onChange={this.handleChange}>
+        <Select onChange={this.handleChange} value={action.afterMatchingOffers}>
           {NB_OFFER_BEFORE_TRIGGER.map((nb) => (
             <MenuItem value={nb}>
               <Typography>
@@ -154,7 +154,7 @@ export class MarketingRule extends Component<Props, State> {
         </Grid>
         <Grid item>
           <FormControl className={classes.formControl} margin="normal">
-            <Select value={action.promo} onChange={this.handleChange}>
+            <Select onChange={this.handleChange} value={action.promo}>
               {PROMO.map((promo) => (
                 <MenuItem value={promo}>
                   {promo ? (
@@ -201,7 +201,7 @@ export class MarketingRule extends Component<Props, State> {
               <Typography variant="h6">{t('marketing.strategy')}</Typography>
             </Grid>
             <Grid item>
-              <Typography variant="h6" color="primary">
+              <Typography color="primary" variant="h6">
                 {rule.name}
               </Typography>
             </Grid>
@@ -220,7 +220,7 @@ export class MarketingRule extends Component<Props, State> {
               </Grid>
             </Grid>
             <Grid item xs={12}>
-              <LinearProgress variant="determinate" value={30} />
+              <LinearProgress value={30} variant="determinate" />
             </Grid>
           </Grid>
         </Grid>

@@ -64,16 +64,16 @@ const FranchiseThemeForm = (props: Props) => {
 
   return (
     <div>
-      <Typography variant="h6" className={classes.idContainer}>
+      <Typography className={classes.idContainer} variant="h6">
         {`BSPORT ID: ${id}`}
       </Typography>
 
       <div className={classes.inputContainer}>
         <ImageUploader169
-          label={t('forms.cover.label')}
           helperText={t('forms.cover.helperText')}
-          onChange={onCoverChange}
           initial={cover}
+          label={t('forms.cover.label')}
+          onChange={onCoverChange}
         >
           <FranchiseCoverPreview classes={classes} />
         </ImageUploader169>
@@ -81,42 +81,42 @@ const FranchiseThemeForm = (props: Props) => {
       <div className={classes.inputContainer}>
         <div className={classes.horizontalInput}>
           <ColorInput
-            label={t('forms.primary_color.label')}
-            helperText={t('forms.primary_color.helperText')}
-            onChange={(color: any) => handleChange('primaryColor')(color)}
             color={primaryColor}
+            helperText={t('forms.primary_color.helperText')}
+            label={t('forms.primary_color.label')}
+            onChange={(color: any) => handleChange('primaryColor')(color)}
           />
         </div>
         <div className={classes.horizontalInput}>
           <ColorInput
-            onChange={(color: any) => handleChange('secondaryColor')(color)}
-            label={t('forms.secondary_color.label')}
-            helperText={t('forms.secondary_color.helperText')}
             color={secondaryColor}
+            helperText={t('forms.secondary_color.helperText')}
+            label={t('forms.secondary_color.label')}
+            onChange={(color: any) => handleChange('secondaryColor')(color)}
           />
         </div>
       </div>
       <div>
         <EmailInput
-          value={marketingEmail}
-          label={t('marketingEmail.label')}
-          placeholder={t('marketingEmail.placeholder')}
-          onChange={(ev) => handleChange('marketingEmail')(ev.target.value)}
-          type="email"
           autoComplete="email"
+          label={t('marketingEmail.label')}
+          onChange={(ev) => handleChange('marketingEmail')(ev.target.value)}
+          placeholder={t('marketingEmail.placeholder')}
+          type="email"
+          value={marketingEmail}
         />
         <div>
-          <Typography variant="caption" className={classes.grey}>
+          <Typography className={classes.grey} variant="caption">
             {t('marketingEmail.caption')}
           </Typography>
         </div>
       </div>
       <Button
-        onClick={onSubmit}
-        disabled={submitIsDisabled}
-        variant="contained"
-        color="primary"
         className={classes.submit}
+        color="primary"
+        disabled={submitIsDisabled}
+        onClick={onSubmit}
+        variant="contained"
       >
         {t('forms.submit')}
       </Button>

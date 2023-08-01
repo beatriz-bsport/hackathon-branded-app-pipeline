@@ -250,11 +250,13 @@ export class WorkshopActivityList extends React.Component<Props, State> {
     return (
       <MetaActivityCreate
         // goToPaymentPack: (id: number) => push(`/payment-pack/${id}`)
+        isWorkshop
         activeCustomLevels={this.props.activeCustomLevels}
         allCustomLevels={this.props.allCustomLevels}
         allEstablishmentList={this.props.allEstablishmentList}
         allTagsWithTagGroup={this.props.allTagsWithTagGroup}
         associatedCoaches={this.props.associatedCoaches}
+        availableEstablishments={this.props.availableEstablishments}
         categoryList={this.props.categoryList}
         coaches={this.props.coaches}
         coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
@@ -265,7 +267,6 @@ export class WorkshopActivityList extends React.Component<Props, State> {
         createOffers={this.props.createOffers}
         createPaymentPack={this.props.createOrUpdatePaymentPack}
         deleteLevel={this.props.deleteLevel}
-        availableEstablishments={this.props.availableEstablishments}
         fetchAllActivities={this.props.fetchAllActivities}
         fetchAllCoachPaymentRules={this.props.fetchAllCoachPaymentRules}
         fetchAllMetaActivityCategory={this.props.fetchAllMetaActivityCategory}
@@ -280,7 +281,6 @@ export class WorkshopActivityList extends React.Component<Props, State> {
         goToMetaActivity={this.props.goToWorkshop}
         goToPaymentPackCreate={this.props.goToPaymentPackCreate}
         goToWorkshop={this.props.goToWorkshop}
-        isWorkshop
         metaActivitiesAndWorkshops={this.props.metaActivitiesAndWorkshops}
         metaActivityCategories={this.props.metaActivityCategories}
         metaActivityNames={this.props.metaActivityNames}
@@ -339,12 +339,12 @@ export class WorkshopActivityList extends React.Component<Props, State> {
       return (
         <div>
           <IsEmptyList
-            text={this.props.t('noWorkshops')}
             button={this.props.t('actions.addWorkshopActivity')}
-            onCreateLabel={this.props.t('actions.addWorkshopActivity')}
             onCreate={() => {
               this.props.setFormIsOpen(true);
             }}
+            onCreateLabel={this.props.t('actions.addWorkshopActivity')}
+            text={this.props.t('noWorkshops')}
           />
           {!!this.props.formIsOpen && this.renderCreateWorkshopActivity()}
         </div>
@@ -356,28 +356,28 @@ export class WorkshopActivityList extends React.Component<Props, State> {
           <LinearProgress />
         ) : null}
         <NoShowPenaltyDialog
-          open={this.props.openNoShowPenaltyDialog}
-          onClose={this.closeNoShowPenaltyDialog}
           goToSettings={this.props.goToSettings}
+          onClose={this.closeNoShowPenaltyDialog}
+          open={this.props.openNoShowPenaltyDialog}
         />
         {this.props.workshopActivities.length > 0 ? (
           <div className={this.props.classes.search}>
             <div className={classes.header}>
               <div className={classes.searchField}>
                 <FuzeSearch
-                  searchText={this.state.searchText}
-                  clearSearch={this.clearSearch}
                   changeSearch={this.changeSearch}
+                  clearSearch={this.clearSearch}
                   items={this.props.workshopActivities}
                   placeholder={t('actions.search')}
                   searchFields={['name', 'description']}
                   searchResult={this.state.searchResult}
+                  searchText={this.state.searchText}
                 />
               </div>
               <Hidden smDown>
                 <Button
-                  onClick={this.props.goToPaymentPack}
                   color="primary"
+                  onClick={this.props.goToPaymentPack}
                   variant="outlined"
                 >
                   <ArrowForwardIcon className={classes.leftIcon} />
@@ -400,21 +400,21 @@ export class WorkshopActivityList extends React.Component<Props, State> {
                 }
               >
                 <MetaActivityList
-                  metaActivities={this.state.searchResult}
+                  deleteMetaActivity={this.props.setWorkshopToDelete}
                   goToDetail={this.props.goToDetail}
                   goToEdit={this.editMetaActivity}
-                  deleteMetaActivity={this.props.setWorkshopToDelete}
+                  metaActivities={this.state.searchResult}
                 />
               </Collapse>
             </Paper>
           </div>
         ) : null}
         <MetaActivityList
-          metaActivities={this.props.workshopActivities}
+          deleteMetaActivity={this.props.setWorkshopToDelete}
           goToDetail={this.props.goToDetail}
           goToEdit={this.editMetaActivity}
-          deleteMetaActivity={this.props.setWorkshopToDelete}
           makeActivityCopy={this.props.makeActivityCopy}
+          metaActivities={this.props.workshopActivities}
         />
         {(this.props.disabledWorkshopActivities || []).length ? (
           <div>
@@ -423,8 +423,8 @@ export class WorkshopActivityList extends React.Component<Props, State> {
               onClick={this.onShowDisabled}
             >
               <Typography
-                variant="h5"
                 className={this.props.classes.titleContainer}
+                variant="h5"
               >
                 {`${t('disabledWorkshops')} (${
                   (this.props.disabledWorkshopActivities || []).length
@@ -440,39 +440,39 @@ export class WorkshopActivityList extends React.Component<Props, State> {
             <Divider />
             <Collapse in={this.state.showDisabled}>
               <MetaActivityList
-                metaActivities={this.props.disabledWorkshopActivities}
+                deleteMetaActivity={this.props.setWorkshopToDelete}
                 goToDetail={this.props.goToDetail}
                 goToEdit={this.editMetaActivity}
-                deleteMetaActivity={this.props.setWorkshopToDelete}
-                restoreMetaActivity={this.restoreMetaActivity}
                 makeActivityCopy={this.props.makeActivityCopy}
+                metaActivities={this.props.disabledWorkshopActivities}
+                restoreMetaActivity={this.restoreMetaActivity}
               />
             </Collapse>
           </div>
         ) : null}
         <WorkshopDeleteDialog
-          workshopId={this.props.workshopToDelete}
-          onClose={() => this.props.setWorkshopToDelete(null)}
           canDeleteWorkshopChecker={canDeleteMetaActivityAPI}
           deleteWorkshop={this.props.deleteWorkshop}
+          onClose={() => this.props.setWorkshopToDelete(null)}
+          workshopId={this.props.workshopToDelete}
         />
         <MetaActivityEditDrawer
+          isWorkshop
           initial={{
             ...this.getSelectedMetaActivityInitialData(),
             images: (selectedMetaActivity || {}).images || [],
           }}
-          onSubmit={this.props.onSubmit}
-          SCTs={this.props.SCTs}
-          isWorkshop
-          open={!!this.props.selectedMetaActivity}
           onCancel={this.onCancelEdit}
+          onSubmit={this.props.onSubmit}
+          open={!!this.props.selectedMetaActivity}
+          SCTs={this.props.SCTs}
           tags={this.props.allTagsWithTagGroup}
         />
         <BottomActionsButton
-          onCreateLabel={this.props.t('actions.addWorkshopActivity')}
           onCreate={() => {
             this.props.setFormIsOpen(true);
           }}
+          onCreateLabel={this.props.t('actions.addWorkshopActivity')}
         />
         {this.props.formIsOpen ? this.renderCreateWorkshopActivity() : ''}
       </div>

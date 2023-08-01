@@ -58,9 +58,9 @@ function SCTSelectorForm<T extends FieldTypeBase>({
       onDelete: () => void;
     }) => (
       <SCTChip
+        onDelete={chipProps.onDelete}
         parentCategory={chipProps.data.parentCategory}
         SCTName={chipProps.data.label}
-        onDelete={chipProps.onDelete}
       />
     ),
     [],
@@ -90,9 +90,9 @@ function SCTSelectorForm<T extends FieldTypeBase>({
 
   return (
     <FormControl
+      error={!!(touched[name] && errors[name])}
       fullWidth={fullWidth}
       required={required}
-      error={!!(touched[name] && errors[name])}
     >
       {label && (
         <div style={{ marginBottom: 16 }}>
@@ -102,16 +102,16 @@ function SCTSelectorForm<T extends FieldTypeBase>({
         </div>
       )}
       <MaterialUISelector<SCTOptionType>
-        options={options}
-        chipsRenderer={chipsRenderer}
-        value={value}
-        placeholder={label}
-        onChange={handleChange}
-        isMulti={false}
-        onBlur={onBlur}
-        name={field.name}
         inScrollBar
+        chipsRenderer={chipsRenderer}
         error={!!(touched[field.name] && errors[field.name])}
+        isMulti={false}
+        name={field.name}
+        onBlur={onBlur}
+        onChange={handleChange}
+        options={options}
+        placeholder={label}
+        value={value}
       />
     </FormControl>
   );
@@ -130,11 +130,11 @@ function SCTSelectorField<T extends FieldTypeBase>(
             field={field}
             form={form}
             fullWidth={fullWidth}
-            name={name}
             label={label}
-            scts={scts}
+            name={name}
             onBlur={onBlur}
             required={required}
+            scts={scts}
           />
         )}
       </Field>

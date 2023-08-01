@@ -30,7 +30,7 @@ export const UniversalPassFormPaymentPackCompatibility = (props: Props) => {
   const { values, setFieldValue }: FormikProps<FormikValues> =
     useFormikContext();
   return (
-    <div id="universal-pass-compatibility" className={classes.outterContainer}>
+    <div className={classes.outterContainer} id="universal-pass-compatibility">
       <div className={classes.flexRowCenter}>
         <DoneIcon className={classes.iconLeft} />
         <Typography variant="h6">
@@ -45,15 +45,7 @@ export const UniversalPassFormPaymentPackCompatibility = (props: Props) => {
               {t('addPaymentPack.categories')}
             </Typography>
             <MaterialUISelector
-              options={
-                [
-                  ...(categoryList || [])?.map((category) => ({
-                    label: category.name,
-                    value: category.id,
-                    parentCategory: category.SCS.id,
-                  })),
-                ] || []
-              }
+              inScrollBar
               isMulti
               chipsRenderer={(chipProps: {
                 data: {
@@ -64,12 +56,28 @@ export const UniversalPassFormPaymentPackCompatibility = (props: Props) => {
                 onDelete: () => void;
               }) => (
                 <SCTChip
+                  color="primary"
+                  onDelete={chipProps.onDelete}
                   parentCategory={chipProps.data.parentCategory}
                   SCTName={chipProps.data.label}
-                  onDelete={chipProps.onDelete}
-                  color="primary"
                 />
               )}
+              onChange={(options) => {
+                setFieldValue(
+                  'linked_payment_pack_categories',
+                  options?.map((option) => option.value),
+                );
+              }}
+              options={
+                [
+                  ...(categoryList || [])?.map((category) => ({
+                    label: category.name,
+                    value: category.id,
+                    parentCategory: category.SCS.id,
+                  })),
+                ] || []
+              }
+              placeholder={t('addPaymentPack.letBlank')}
               value={values?.linked_payment_pack_categories?.map((id) => ({
                 label: categoryList.find((category) => category.id === id)
                   ?.name,
@@ -78,14 +86,6 @@ export const UniversalPassFormPaymentPackCompatibility = (props: Props) => {
                   (category) => category.id === id,
                 )?.SCS.id,
               }))}
-              onChange={(options) => {
-                setFieldValue(
-                  'linked_payment_pack_categories',
-                  options?.map((option) => option.value),
-                );
-              }}
-              placeholder={t('addPaymentPack.letBlank')}
-              inScrollBar
             />
           </div>
         </Grid>
@@ -95,7 +95,25 @@ export const UniversalPassFormPaymentPackCompatibility = (props: Props) => {
               {t('addPaymentPack.room')}
             </Typography>
             <MaterialUISelector
+              inScrollBar
+              isMulti
+              chipsRenderer={(chipProps: {
+                data: { label: string; value: number };
+                onDelete: () => void;
+              }) => (
+                <Chip
+                  color="primary"
+                  label={chipProps.data.label}
+                  onDelete={chipProps.onDelete}
+                />
+              )}
               menuPosition="fixed"
+              onChange={(options) => {
+                setFieldValue(
+                  'linked_payment_pack_establishments',
+                  options?.map((option) => option.value),
+                );
+              }}
               options={
                 [
                   ...(establishmentList || [])?.map((establishment) => ({
@@ -104,31 +122,13 @@ export const UniversalPassFormPaymentPackCompatibility = (props: Props) => {
                   })),
                 ] || []
               }
-              isMulti
-              chipsRenderer={(chipProps: {
-                data: { label: string; value: number };
-                onDelete: () => void;
-              }) => (
-                <Chip
-                  label={chipProps.data.label}
-                  onDelete={chipProps.onDelete}
-                  color="primary"
-                />
-              )}
+              placeholder={t('addPaymentPack.letBlank')}
               value={values?.linked_payment_pack_establishments?.map((id) => ({
                 label: establishmentList.find(
                   (establishment) => establishment.id === id,
                 )?.title,
                 value: id,
               }))}
-              onChange={(options) => {
-                setFieldValue(
-                  'linked_payment_pack_establishments',
-                  options?.map((option) => option.value),
-                );
-              }}
-              placeholder={t('addPaymentPack.letBlank')}
-              inScrollBar
             />
           </div>
         </Grid>
@@ -138,38 +138,38 @@ export const UniversalPassFormPaymentPackCompatibility = (props: Props) => {
               {t('addPaymentPack.activities')}
             </Typography>
             <MaterialUISelector
-              options={[
-                ...(metaActivityList || [])?.map((metaActivity) => ({
-                  label: metaActivity.name,
-                  value: metaActivity.id,
-                })),
-              ]}
+              inScrollBar
               isMulti
               chipsRenderer={(chipProps: { data; onDelete: () => void }) => (
                 <Chip
+                  color="primary"
                   label={chipProps.data.label}
                   onDelete={chipProps.onDelete}
-                  color="primary"
                 />
               )}
-              value={values?.linked_payment_pack_metaActivities?.map((id) => ({
-                label: metaActivityList.find(
-                  (metaActivity) => metaActivity.id === id,
-                )?.name,
-                value: id,
-              }))}
               onChange={(options) => {
                 setFieldValue(
                   'linked_payment_pack_metaActivities',
                   options?.map((option) => option.value),
                 );
               }}
+              options={[
+                ...(metaActivityList || [])?.map((metaActivity) => ({
+                  label: metaActivity.name,
+                  value: metaActivity.id,
+                })),
+              ]}
               placeholder={t('addPaymentPack.letBlank')}
-              inScrollBar
+              value={values?.linked_payment_pack_metaActivities?.map((id) => ({
+                label: metaActivityList.find(
+                  (metaActivity) => metaActivity.id === id,
+                )?.name,
+                value: id,
+              }))}
             />
           </div>
         </Grid>
-        <Grid item xs={6} className={classes.warningItem}>
+        <Grid item className={classes.warningItem} xs={6}>
           <div className={classes.warning}>
             <WarningIcon color="primary" />
             <Typography variant="body2">

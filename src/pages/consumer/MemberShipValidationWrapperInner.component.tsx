@@ -156,35 +156,35 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
       <>
         {this.props.memberCustomForm && (
           <Dialog
+            fullWidth
             fullScreen={window.innerWidth < 700 || WidgetUtils.isWidget()}
+            maxWidth="md"
             open={
               !this.props.memberCustomFormLoading &&
               this.props.authenticated &&
               !this.props.isRelationNavigation &&
               !this.props.isValidated
             }
-            maxWidth="md"
-            fullWidth
           >
             <div className={classes.customFormContainer}>
               {this.props.memberCustomForm && (
                 <>
                   <div className={classes.greetingContainer}>
                     <MemberGreetingBanner
-                      userStatus={this.props.userStatus}
                       userProfile={this.props.userProfile}
+                      userStatus={this.props.userStatus}
                     />
                   </div>
                   <CustomFormView
-                    initial={this.props.memberCustomForm}
-                    onSubmit={this.props.submitCustomMembeForm}
-                    layouts={this.props.memberCustomForm.layout}
-                    waiver={this.props.theme.waiver}
+                    disconnectOnCancel
                     general_terms_and_conditions={
                       this.props.theme.general_terms_of_use
                     }
+                    initial={this.props.memberCustomForm}
+                    layouts={this.props.memberCustomForm.layout}
                     onCancel={() => this.props.disconnect()}
-                    disconnectOnCancel
+                    onSubmit={this.props.submitCustomMembeForm}
+                    waiver={this.props.theme.waiver}
                   />
                 </>
               )}
@@ -198,37 +198,37 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
           this.props.customFormIdsList?.length !== 0 &&
           this.props.customFormList[0] && (
             <Dialog
+              fullWidth
               fullScreen={window.innerWidth < 700 || WidgetUtils.isWidget()}
               open={
                 this.props.customFormIdsList?.length !== 0 &&
                 this.props.isValidated &&
                 this.props.authenticated
               }
-              fullWidth
             >
               <CustomFormStepper
+                currentCustomFormSubmittingId={
+                  this.props.currentCustomFormSubmittingId
+                }
+                customFormDisplayRuleList={this.props.customFormDisplayRuleList}
                 customFormList={this.props.customFormList}
+                customFormListIsSubmitting={
+                  this.props.customFormListIsSubmitting
+                }
+                onDirectSubmit={this.handleDirectSubmit}
+                onDisconnect={() => this.props.disconnect()}
                 onSubmitCustomFormItem={(
                   customFormId: number,
                   formData: FormData,
                 ) => this.handleOnSubitCustomFormItem(customFormId, formData)}
+                onSubmitCustomFormList={() => this.handleSubmitCutomFormList()}
                 onSubmitDraft={(customFormId: number, values: CustomForm) =>
                   this.handleSubmitCustomFormDraft(customFormId, values)
                 }
-                onSubmitCustomFormList={() => this.handleSubmitCutomFormList()}
-                onDirectSubmit={this.handleDirectSubmit}
                 onSubmitSnoozed={(customFormId: number) =>
                   this.handleSubmitSnooze(customFormId)
                 }
-                currentCustomFormSubmittingId={
-                  this.props.currentCustomFormSubmittingId
-                }
                 temporaryCustomFormData={this.props.temporaryCustomFormData}
-                customFormDisplayRuleList={this.props.customFormDisplayRuleList}
-                customFormListIsSubmitting={
-                  this.props.customFormListIsSubmitting
-                }
-                onDisconnect={() => this.props.disconnect()}
               />
             </Dialog>
           )}

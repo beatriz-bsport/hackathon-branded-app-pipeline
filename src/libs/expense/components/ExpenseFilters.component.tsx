@@ -30,64 +30,64 @@ export const ExpenseFilters = (props: Props) => {
   return (
     <Grid
       container
-      justify="center"
-      direction="row"
       alignItems="center"
+      direction="row"
+      justify="center"
       spacing={2}
       style={{ marginBottom: 8 }}
     >
       <Grid item md={3} xs={12}>
-        <Typography variant="body2" style={{ marginBottom: 4 }}>
+        <Typography style={{ marginBottom: 4 }} variant="body2">
           {t('filters.titleCategory')}
         </Typography>
         <MaterialUISelector
-          options={props.categoryOptions}
-          onChange={props.categoryFilterOnChange}
-          value={props.categoryValue}
           isMulti
           chipsRenderer={({ data, onDelete }) => (
             <Chip color="primary" label={data.label} onDelete={onDelete} />
           )}
+          onChange={props.categoryFilterOnChange}
+          options={props.categoryOptions}
           placeholder={t('filters.filterCategory')}
+          value={props.categoryValue}
         />
       </Grid>
       <Grid item md={3} xs={12}>
-        <Typography variant="body2" style={{ marginBottom: 4 }}>
+        <Typography style={{ marginBottom: 4 }} variant="body2">
           {t('filters.titleSupplier')}
         </Typography>
         <MaterialUISelector
-          options={props.supplierOptions}
-          onChange={props.supplierFilterOnChange}
-          value={props.supplierValue}
           isMulti
           chipsRenderer={({ data, onDelete }) => (
             <Chip color="primary" label={data.label} onDelete={onDelete} />
           )}
+          onChange={props.supplierFilterOnChange}
+          options={props.supplierOptions}
           placeholder={t('filters.filterSupplier')}
+          value={props.supplierValue}
         />
       </Grid>
       <Grid item md={3} xs={12}>
-        <Typography variant="body2" style={{ marginBottom: 4 }}>
+        <Typography style={{ marginBottom: 4 }} variant="body2">
           {t('filters.titleStaff')}
         </Typography>
         <MaterialUISelector
-          options={props.staffOptions}
-          onChange={props.staffFilterOnChange}
-          value={props.staffValue}
           isMulti
           chipsRenderer={({ data, onDelete }) => (
             <Chip color="primary" label={data.label} onDelete={onDelete} />
           )}
+          onChange={props.staffFilterOnChange}
+          options={props.staffOptions}
           placeholder={t('filters.filterStaff')}
+          value={props.staffValue}
         />
       </Grid>
-      <Grid item md={3} xs={12} style={{ alignSelf: 'end', marginBottom: 6 }}>
+      <Grid item md={3} style={{ alignSelf: 'end', marginBottom: 6 }} xs={12}>
         <FormControlLabel
           control={
             <Switch
               checked={props.showFuture}
-              onChange={() => props.setShowFuture(!props.showFuture)}
               color="primary"
+              onChange={() => props.setShowFuture(!props.showFuture)}
             />
           }
           label={t('filters.showFuture')}

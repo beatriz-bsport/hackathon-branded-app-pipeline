@@ -44,18 +44,18 @@ export const GenericTemplateCardCompanyList = (props: Props) => {
                 ))}
               {props.companies.length > nbChips && (
                 <Chip
-                  variant="outlined"
+                  className={classes.chip}
                   color="primary"
                   label={t('genericProduct.templateCard.shareTemplate.seeAll')}
-                  className={classes.chip}
                   onClick={() => setOpenOtherCompaniesDialog(true)}
+                  variant="outlined"
                 />
               )}
             </>
           ) : (
             <div className={classes.emptyCompanyList}>
               <InfoOutlined className={classes.infoIcon} />
-              <Typography variant="body2" color="textSecondary">
+              <Typography color="textSecondary" variant="body2">
                 {props.emptyCompanyListText ||
                   t(
                     'genericProduct.templateCard.shareTemplate.emptyCompanyList',
@@ -65,10 +65,10 @@ export const GenericTemplateCardCompanyList = (props: Props) => {
           )}
         </div>
         <GenericResponsiveDialog
-          open={openOtherCompaniesDialog && props.companies?.length > nbChips}
           fullScreenBreakpoint="xs"
-          onClose={() => setOpenOtherCompaniesDialog(false)}
           maxWidth="xs"
+          onClose={() => setOpenOtherCompaniesDialog(false)}
+          open={openOtherCompaniesDialog && props.companies?.length > nbChips}
         >
           <div className={classes.chipsContainerInDialog}>
             {props.companies
@@ -85,19 +85,19 @@ export const GenericTemplateCardCompanyList = (props: Props) => {
           </div>
           <DialogActions>
             <Button
-              onClick={() => setOpenOtherCompaniesDialog(false)}
               className={classes.button}
+              onClick={() => setOpenOtherCompaniesDialog(false)}
             >
               {t('genericProduct.templateCard.shareTemplate.closeDialog')}
             </Button>
           </DialogActions>
         </GenericResponsiveDialog>
         <Button
-          onClick={props.onCreateTemplateInstance}
-          variant="outlined"
-          color="primary"
-          startIcon={<Add />}
           className={classes.button}
+          color="primary"
+          onClick={props.onCreateTemplateInstance}
+          startIcon={<Add />}
+          variant="outlined"
         >
           {t('genericProduct.templateCard.shareTemplate.addCompany')}
         </Button>

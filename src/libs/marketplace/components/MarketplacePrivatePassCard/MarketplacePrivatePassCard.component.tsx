@@ -58,7 +58,7 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
   );
 
   return (
-    <Card size={CardSize.AUTO} classes={{ 'bs-pass-card': 'bs-pass-card' }}>
+    <Card classes={{ 'bs-pass-card': 'bs-pass-card' }} size={CardSize.AUTO}>
       <Content
         padding
         classes={{ 'bs-pass-card-content': 'bs-pass-card-content' }}
@@ -66,10 +66,10 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
         <Grid classes={{ 'bs-pass-card__grid': 'bs-pass-card__grid' }}>
           <Item
             alignment={Alignment.FLEX_START}
+            columnEnd={1}
             justification={
               isMobile ? Justification.SPACE_BETWEEN : Justification.FLEX_START
             }
-            columnEnd={1}
           >
             <div className="bs-pass-card__title">
               {!!privatePass?.linked_payment_pack && (
@@ -102,15 +102,15 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
               </div>
             </div>
             <Price
-              tax={privatePass.tax}
-              isExcludingTax={isExcludingTax}
               amount={privatePass.price}
               formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+              isExcludingTax={isExcludingTax}
+              tax={privatePass.tax}
             >
               <button
-                type="button"
                 className="bs-pass-card__price-icon"
                 onClick={handleAddToCart}
+                type="button"
               >
                 <ShoppingCartIcon />
               </button>
@@ -118,14 +118,14 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
           </Item>
         </Grid>
         <Item
-          justification={Justification.SPACE_BETWEEN}
-          direction={Direction.ROW}
           classes={{ 'bs-pass-card__footer': 'bs-pass-card__footer' }}
+          direction={Direction.ROW}
+          justification={Justification.SPACE_BETWEEN}
         >
           <button
-            type="button"
             className="bs-pass-card__left-button"
             onClick={onOpenDetailDialog}
+            type="button"
           >
             <div className="bs-pass-card__left-button__content">
               <VisibilityIcon className="bs-pass-card__left-button__icon" />
@@ -134,9 +134,9 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
           </button>
 
           <button
-            type="button"
             className="bs-pass-card__right-button"
             onClick={addToCart}
+            type="button"
           >
             {t('genericCard.addButton.buttonContent')}
           </button>

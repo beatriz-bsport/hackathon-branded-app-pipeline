@@ -208,17 +208,8 @@ function MaterialUISelector<T extends OptionTypeBase>(
         })}
       >
         <Select
-          id={id}
-          value={value}
-          defaultValue={defaultValue}
-          isMulti={isMulti}
-          inScrollBar={inScrollBar}
-          isMenuListPaddingDisabled={isMenuListPaddingDisabled}
-          isMenuListVirtualized={isMenuListVirtualized}
-          isSearchable={isSearchable}
+          captureMenuScroll
           classes={{ ...classes, ...(props?.classes ?? {}) }}
-          onChange={handleChange}
-          options={options}
           components={{
             Control,
             Menu,
@@ -236,20 +227,29 @@ function MaterialUISelector<T extends OptionTypeBase>(
               ? { IndicatorsContainer: emptyIndicatorsContainer }
               : {}),
           }}
-          withoutSelectAll={withoutSelectAll}
+          defaultValue={defaultValue}
           hideSelectedOptions={false}
-          tabSelectsValue={false}
-          captureMenuScroll
+          id={id}
+          inScrollBar={inScrollBar}
+          isMenuListPaddingDisabled={isMenuListPaddingDisabled}
+          isMenuListVirtualized={isMenuListVirtualized}
+          isMulti={isMulti}
+          isSearchable={isSearchable}
           menuPortalTarget={_menuPortalTarget}
+          onChange={handleChange}
+          options={options}
           styles={getStyles()}
+          tabSelectsValue={false}
+          value={value}
+          withoutSelectAll={withoutSelectAll}
           {...restProps}
           // Mandatory for multi selection use
+          ref={selectRef}
           closeMenuOnSelect
           defaultNumberShown={defaultNumberShown}
-          ref={selectRef}
-          selectRef={selectRef}
-          onInputChange={onInputChange}
           onBlur={handleBlur}
+          onInputChange={onInputChange}
+          selectRef={selectRef}
         />
       </div>
     </SelectorContext.Provider>
@@ -324,12 +324,12 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
           onSelect,
         }}
       >
-        <Paper className={classes.menu} square>
+        <Paper square className={classes.menu}>
           <div
+            className={classes.list}
             style={{
               maxHeight: props.maxMenuHeight,
             }}
-            className={classes.list}
           >
             {props.children}
           </div>
@@ -395,11 +395,11 @@ function Option<T extends OptionTypeBase>(
           return (
             <components.Option
               {...props}
+              getStyles={resetStyle}
               innerProps={{
                 ...props.innerProps,
                 onClick: handleClick,
               }}
-              getStyles={resetStyle}
             >
               {itemRenderer &&
                 itemRenderer({
@@ -410,9 +410,9 @@ function Option<T extends OptionTypeBase>(
                 })}
               {!itemRenderer && (
                 <MenuItem
+                  dense
                   disabled={props.isDisabled}
                   selected={isSelected && !props.isMulti}
-                  dense
                 >
                   {props.isMulti && <Checkbox checked={isSelected} />}
                   {props.children}
@@ -437,14 +437,6 @@ const ShowMoreButton: React.FC<{
         <Chip
           aria-hidden
           color="secondary"
-          variant="outlined"
-          onMouseDown={(ev: React.MouseEvent) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-          }}
-          onClick={() => {
-            setDisplayMore(!displayMore);
-          }}
           label={
             displayMore
               ? t('showLess')
@@ -452,6 +444,14 @@ const ShowMoreButton: React.FC<{
                   count: overflowValues,
                 })
           }
+          onClick={() => {
+            setDisplayMore(!displayMore);
+          }}
+          onMouseDown={(ev: React.MouseEvent) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+          }}
+          variant="outlined"
         />
       )}
     </SelectorContext.Consumer>
@@ -581,8 +581,8 @@ function MenuList<T extends OptionTypeBase>(
             </VirtualizedList>
           ) : (
             <MenuListMaterial
-              disablePadding={props.selectProps.isMenuListPaddingDisabled}
               dense
+              disablePadding={props.selectProps.isMenuListPaddingDisabled}
             >
               {props.children}
             </MenuListMaterial>
@@ -600,8 +600,8 @@ const MultiValueContainer = (props: { children: React.ReactNode[] }) => {
   return (
     <components.MultiValueContainer
       {...props}
-      innerProps={{ className: classes.reset }}
       getStyles={resetStyle}
+      innerProps={{ className: classes.reset }}
     >
       {props?.children?.[1]}
     </components.MultiValueContainer>
@@ -635,8 +635,8 @@ function Placeholder<T extends OptionTypeBase>(
     <components.Placeholder {...props} getStyles={resetStyle}>
       {!props.isFocused && (
         <Typography
-          color="textSecondary"
           className={props?.selectProps?.classes?.placeholder}
+          color="textSecondary"
         >
           {props.children}
         </Typography>

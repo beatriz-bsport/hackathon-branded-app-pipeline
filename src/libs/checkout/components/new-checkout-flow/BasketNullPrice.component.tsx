@@ -21,10 +21,10 @@ export const BasketNullPrice: React.FC<BasketNullPriceProps> = ({
       <div className={classes.iconContainer}>
         <ShoppingBasket className={classes.shoppingBasketIcon} />
       </div>
-      <Typography variant="h6" className={classes.title}>
+      <Typography className={classes.title} variant="h6">
         {t('myBasket.almostDone')}
       </Typography>
-      <Typography variant="body1" className={classes.subtitle}>
+      <Typography className={classes.subtitle} variant="body1">
         {areTermsAndConditionsAccepted
           ? t('myBasket.checkAndFinalize')
           : t('myBasket.acceptTermsAndFinalize')}

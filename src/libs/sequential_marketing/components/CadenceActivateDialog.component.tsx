@@ -26,23 +26,23 @@ export const CadenceActivateDialog: React.FC<Props> = ({
   const classes = useStyles();
 
   return (
-    <GenericResponsiveDialog open={open} maxWidth="xs">
+    <GenericResponsiveDialog maxWidth="xs" open={open}>
       <div className={classes.container}>
         <div className={classes.paddingBottom}>
           <div className={classes.largeIconContainer}>
             <PlayArrowIcon className={classes.largeIcon} />
           </div>
         </div>
-        <Typography variant="h6" className={classes.paddingBottom}>
+        <Typography className={classes.paddingBottom} variant="h6">
           {t('cadence.activate.dialog.title')}
         </Typography>
-        <Typography variant="body1" align="center">
+        <Typography align="center" variant="body1">
           {t('cadence.activate.dialog.firstHelper')}
         </Typography>
         <Typography
-          variant="body1"
           align="center"
           className={classes.paddingBottom}
+          variant="body1"
         >
           {t('cadence.activate.dialog.secondHelper')}
         </Typography>
@@ -50,7 +50,7 @@ export const CadenceActivateDialog: React.FC<Props> = ({
           <Button onClick={onCancel} variant="text">
             {t('cadence.activate.dialog.cancel')}
           </Button>
-          <Button onClick={onConfirm} variant="contained" color="primary">
+          <Button color="primary" onClick={onConfirm} variant="contained">
             {t('cadence.activate.button')}
           </Button>
         </div>

@@ -57,43 +57,43 @@ const PaymentMethodSwitcher = (props: {
   <RadioGroup
     aria-label="payment-method"
     className={props.classes.paymentMethodSelectorContainer}
-    value={props.paymentMethodType}
     onChange={(ev) => props.onChange(ev.target.value)}
+    value={props.paymentMethodType}
   >
     {(props.enabledPaymentMethods || []).includes(
       PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
     ) ? (
       <FormControlLabel
-        value="sepa_debit"
+        className={props.classes.paymentMethodRadio}
         control={<Radio color="primary" />}
+        disabled={props.disabled}
         label={props.t('subscription:paymentMethod.sepa')}
         labelPlacement="bottom"
-        disabled={props.disabled}
-        className={props.classes.paymentMethodRadio}
+        value="sepa_debit"
       />
     ) : null}
     {(props.enabledPaymentMethods || []).includes(
       PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
     ) ? (
       <FormControlLabel
-        value="card"
+        className={props.classes.paymentMethodRadio}
         control={<Radio color="primary" />}
+        disabled={props.disabled}
         label={props.t('subscription:paymentMethod.card')}
         labelPlacement="bottom"
-        disabled={props.disabled}
-        className={props.classes.paymentMethodRadio}
+        value="card"
       />
     ) : null}
     {(props.enabledPaymentMethods || []).includes(
       PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
     ) ? (
       <FormControlLabel
-        value="bacs_debit"
+        className={props.classes.paymentMethodRadio}
         control={<Radio color="primary" />}
+        disabled={props.disabled}
         label={props.t('subscription:paymentMethod.bacs_debit')}
         labelPlacement="bottom"
-        disabled={props.disabled}
-        className={props.classes.paymentMethodRadio}
+        value="bacs_debit"
       />
     ) : null}
     {(props.enabledPaymentMethods || []).includes(
@@ -104,22 +104,22 @@ const PaymentMethodSwitcher = (props: {
         props.currentPPEPaymentMethodIdentifier ===
           PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT)) ? (
       <FormControlLabel
-        value="debt"
+        className={props.classes.paymentMethodRadio}
         control={<Radio color="primary" />}
+        disabled={props.disabled}
         label={props.t('subscription:paymentMethod.bsportCredit')}
         labelPlacement="bottom"
-        disabled={props.disabled}
-        className={props.classes.paymentMethodRadio}
+        value="debt"
       />
     ) : null}
     {props.registerNow ? (
       <FormControlLabel
-        value="internal"
+        className={props.classes.paymentMethodRadio}
         control={<Radio color="primary" />}
+        disabled={props.disabled}
         label={props.t(`invoice:paymentEngine.label.${PAYMENT_ENGINE_BSPORT}`)}
         labelPlacement="bottom"
-        disabled={props.disabled}
-        className={props.classes.paymentMethodRadio}
+        value="internal"
       />
     ) : null}
     {(props.enabledPaymentMethods || []).includes(
@@ -128,17 +128,17 @@ const PaymentMethodSwitcher = (props: {
       <FeatureListProvider>
         {(featureList: FeatureList) => (
           <FormControlLabel
-            value="terminal"
+            className={props.classes.paymentMethodRadio}
             control={<Radio color="primary" />}
-            label={props.t(
-              'invoice:configuration.stripeTerminal.paymentDialog.radio',
-            )}
-            labelPlacement="bottom"
             disabled={
               props.disabled ||
               !hasUpsell(featureList, UPSELL_IDENTIFIER_STRIPE_TERMINAL)
             }
-            className={props.classes.paymentMethodRadio}
+            label={props.t(
+              'invoice:configuration.stripeTerminal.paymentDialog.radio',
+            )}
+            labelPlacement="bottom"
+            value="terminal"
           />
         )}
       </FeatureListProvider>
@@ -329,7 +329,7 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
   };
 
   return (
-    <Dialog open={props.open} classes={{ paper: classes.dialogPaper }}>
+    <Dialog classes={{ paper: classes.dialogPaper }} open={props.open}>
       <DialogTitle>
         {props.registerNow
           ? t('invoice:plannedPaymentEvent.actions.registerNow')
@@ -362,15 +362,15 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
             )}
             <PaymentMethodSwitcher
               classes={classes}
-              t={t}
-              paymentMethodType={paymentMethodType}
-              onChange={onMethodTypeChange}
-              enabledPaymentMethods={props.enabledPaymentMethods}
-              disabled={props.plannedPaymentEventLoading || processing}
-              registerNow={props.registerNow}
               currentPPEPaymentMethodIdentifier={
                 currentPPEPaymentMethodIdentifier
               }
+              disabled={props.plannedPaymentEventLoading || processing}
+              enabledPaymentMethods={props.enabledPaymentMethods}
+              onChange={onMethodTypeChange}
+              paymentMethodType={paymentMethodType}
+              registerNow={props.registerNow}
+              t={t}
             />
             <Divider />
             <div>
@@ -386,23 +386,23 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
               ) && (
                 <PaymentMethodList
                   showEmpty
+                  companyId={props.companyId}
+                  detachPaymentMethod={props.detachPaymentMethod}
+                  detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+                  disabled={props.plannedPaymentEventLoading}
                   memberId={props.memberId}
-                  savedPaymentMethodList={props.savedPaymentMethodList}
-                  selectedSavedPaymentMethodId={selectedSavedPaymentMethodId}
-                  requestSetupIntentSecret={props.requestSetupIntentSecret}
+                  onSelect={(method) => setSelectedSavedPaymentMethodId(method)}
+                  paymentMethodType={paymentMethodType}
                   refreshSavedPaymentMethodList={
                     props.refreshSavedPaymentMethodList
                   }
-                  paymentMethodType={paymentMethodType}
-                  onSelect={(method) => setSelectedSavedPaymentMethodId(method)}
-                  disabled={props.plannedPaymentEventLoading}
-                  detachPaymentMethodLoading={props.detachPaymentMethodLoading}
-                  companyId={props.companyId}
-                  detachPaymentMethod={props.detachPaymentMethod}
+                  requestSetupIntentSecret={props.requestSetupIntentSecret}
+                  savedPaymentMethodList={props.savedPaymentMethodList}
+                  selectedSavedPaymentMethodId={selectedSavedPaymentMethodId}
+                  sepaDefaultEmail={props.sepaDefaultEmail}
+                  sepaDefaultName={props.sepaDefaultName}
                   snackbarErrorMsg={props.snackbarErrorMsg}
                   snackbarSuccessMsg={props.snackbarSuccessMsg}
-                  sepaDefaultName={props.sepaDefaultName}
-                  sepaDefaultEmail={props.sepaDefaultEmail}
                 />
               )}
               {paymentMethodType === 'internal' && (
@@ -412,13 +412,13 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
                       {t('invoice:paymentMethod.select.label')}
                     </InputLabel>
                     <Select
-                      id="payment-method-select"
-                      value={paymentMethod}
                       disabled={props.plannedPaymentEventLoading}
-                      style={{ minWidth: 200 }}
+                      id="payment-method-select"
                       onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
                         setPaymentMethod(parseInt(ev.target.value))
                       }
+                      style={{ minWidth: 200 }}
+                      value={paymentMethod}
                     >
                       {PAYMENT_GROUP_METHOD_BY_ENGINE[
                         PAYMENT_ENGINE_BSPORT
@@ -431,28 +431,28 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
                   </FormControl>
                   <div className={classes.field}>
                     <DateInput
-                      value={internalDate}
                       required
                       disabled={props.plannedPaymentEventLoading}
+                      label={t('invoice:paymentPanel.date.label')}
                       onChange={(dateMoment: MomentType) => {
                         setInternalDate(dateMoment.format());
                       }}
-                      label={t('invoice:paymentPanel.date.label')}
+                      value={internalDate}
                     />
                   </div>
                   <div className={classes.innerContainer}>
                     <TextField
-                      value={internalPaymentNote}
-                      variant="outlined"
                       fullWidth
-                      onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
-                        setInternalPaymentNote(ev.target.value)
-                      }
-                      label={t('invoice:paymentPanel.paymentNote.label')}
+                      disabled={props.plannedPaymentEventLoading}
                       helperText={t(
                         'invoice:paymentPanel.paymentNote.helperText',
                       )}
-                      disabled={props.plannedPaymentEventLoading}
+                      label={t('invoice:paymentPanel.paymentNote.label')}
+                      onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
+                        setInternalPaymentNote(ev.target.value)
+                      }
+                      value={internalPaymentNote}
+                      variant="outlined"
                     />
                   </div>
                 </>
@@ -473,12 +473,12 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
             {paymentMethodType === 'terminal' && (
               <div className={classes.terminalContainer}>
                 <PaymentStripeTerminalWrapper
-                  stripeReaders={props.stripeReaders}
-                  requestSetupIntentSecret={props.requestSetupIntentSecret}
+                  isSetupIntent
                   onCancel={props.onClose}
                   onSuccess={onSuccessStripeTerminal}
+                  requestSetupIntentSecret={props.requestSetupIntentSecret}
                   setProcessing={setProcessing}
-                  isSetupIntent
+                  stripeReaders={props.stripeReaders}
                 />
               </div>
             )}
@@ -492,7 +492,6 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
                 ) : (
                   <Button
                     color="primary"
-                    variant="contained"
                     disabled={
                       props.plannedPaymentEventLoading ||
                       paymentMethod === null ||
@@ -502,6 +501,7 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
                         !selectedSavedPaymentMethodId)
                     }
                     onClick={onSubmit}
+                    variant="contained"
                   >
                     {t('translation:common.confirm')}
                   </Button>

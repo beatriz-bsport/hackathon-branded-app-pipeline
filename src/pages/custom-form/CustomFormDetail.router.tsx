@@ -41,26 +41,26 @@ export const CustomFormDetailRouter = (props: Props) => {
 
   return (
     <ContentWithAppBar
-      tab={props.tab}
       onChange={onChange}
       pageHeight={props.pageHeight}
+      tab={props.tab}
       tabsData={tabsData}
     >
       <Switch>
         <Route
-          path="/custom-form/details/:id/layout"
           component={CustomFormLayout}
+          path="/custom-form/details/:id/layout"
         />
         <Route
           exact
-          path="/custom-form/details/:id/statistics"
           component={CustomFormStatistics}
+          path="/custom-form/details/:id/statistics"
         />
         <Route
-          path="/custom-form/details/:id/general"
           component={CustomFormDetail}
+          path="/custom-form/details/:id/general"
         />
-        <Route path="/custom-form/details/:id" component={CustomFormDetail} />
+        <Route component={CustomFormDetail} path="/custom-form/details/:id" />
       </Switch>
     </ContentWithAppBar>
   );

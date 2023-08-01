@@ -135,14 +135,10 @@ export class MemberProgramList extends Component<Props> {
           </div>
         ) : (
           <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+            <Grid item md={6} xs={12}>
               <div className={classes.programList}>
                 <ProgramList
                   isLinkedToConsumer
-                  programList={memberProgramList?.map(
-                    (memberProgram) => memberProgram.program,
-                  )}
-                  programSelectedId={memberProgramDetailed?.program?.id}
                   onClickOnItem={(program) => {
                     const memberProgramSelected = memberProgramList.find(
                       (memberProgram) =>
@@ -154,17 +150,16 @@ export class MemberProgramList extends Component<Props> {
                       companyId,
                     });
                   }}
+                  programList={memberProgramList?.map(
+                    (memberProgram) => memberProgram.program,
+                  )}
+                  programSelectedId={memberProgramDetailed?.program?.id}
                 />
               </div>
               <div className={classes.programSelector}>
                 <MaterialUISelector
-                  value={{
-                    value: memberProgramDetailed?.id,
-                    label:
-                      memberProgramDetailed.program?.name ||
-                      t('program.selectProgram'),
-                  }}
                   isMenuListPaddingDisabled
+                  isMulti={false}
                   itemRenderer={(itemProps) => {
                     return (
                       <ProgramMenuItem
@@ -180,11 +175,6 @@ export class MemberProgramList extends Component<Props> {
                       />
                     );
                   }}
-                  isMulti={false}
-                  options={[...memberProgramList]?.map((memberProgram) => ({
-                    value: memberProgram.program.id,
-                    label: memberProgram.program.name,
-                  }))}
                   onChange={(values) => {
                     const memberProgramSelected = memberProgramList.find(
                       (memberProgram) =>
@@ -196,14 +186,23 @@ export class MemberProgramList extends Component<Props> {
                       companyId,
                     });
                   }}
+                  options={[...memberProgramList]?.map((memberProgram) => ({
+                    value: memberProgram.program.id,
+                    label: memberProgram.program.name,
+                  }))}
+                  value={{
+                    value: memberProgramDetailed?.id,
+                    label:
+                      memberProgramDetailed.program?.name ||
+                      t('program.selectProgram'),
+                  }}
                 />
                 <GenericDialog />
               </div>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item md={6} xs={12}>
               <MemberProgramDetail
                 withIcon
-                memberProgram={memberProgramDetailed}
                 changeMemberMetricValue={(value, metric) => {
                   updateMemberMetricValue({
                     memberProgram: memberProgramDetailedId,
@@ -212,6 +211,7 @@ export class MemberProgramList extends Component<Props> {
                     company: companyId,
                   });
                 }}
+                memberProgram={memberProgramDetailed}
               />
             </Grid>
           </Grid>

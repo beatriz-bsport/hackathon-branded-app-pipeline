@@ -283,9 +283,9 @@ export class ExpenseRecurrencySelector extends Component<Props> {
               control={
                 <Switch
                   checked={showRepeat}
+                  color="primary"
                   disabled={!!initial?.id}
                   onChange={this.handleShowRepeat}
-                  color="primary"
                 />
               }
               label={t('form.repeat.title')}
@@ -299,24 +299,24 @@ export class ExpenseRecurrencySelector extends Component<Props> {
               {t('form.repeat.repeatEvery')}
             </Typography>
             <TextField
-              type="number"
-              name="interval"
+              className={classnames(classes.integerField, classes.margin)}
+              disabled={!!initial?.rrule}
               InputProps={{
                 inputProps: { min: 0, step: 1, max: { maxInterval } },
               }}
-              value={rrule.interval}
+              name="interval"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setRrule({ ...rrule, interval: Number(e.target.value) });
               }}
-              className={classnames(classes.integerField, classes.margin)}
-              disabled={!!initial?.rrule}
+              type="number"
+              value={rrule.interval}
             />
             <Select
               aria-label="repeat"
-              name="repeat-freq"
-              value={rrule.freq}
-              onChange={this.handleFrequency}
               disabled={!!initial?.rrule}
+              name="repeat-freq"
+              onChange={this.handleFrequency}
+              value={rrule.freq}
             >
               <MenuItem key={RRule.DAILY} value={RRule.DAILY}>
                 {t('form.repeat.day').toLowerCase()}
@@ -337,18 +337,18 @@ export class ExpenseRecurrencySelector extends Component<Props> {
         {showRepeat && rrule.freq === RRule.WEEKLY && (
           <div className={classes.field}>
             <WeekdaySelector
+              lowercase
+              disabled={!!initial?.rrule}
+              name="repeat-weekday"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setRrule({ ...rrule, byweekday: Number(e.target.value) })
+              }
               text={
                 rrule.interval > 1
                   ? t('form.repeat.repeatWeek_nb', { nb: rrule.interval })
                   : t('form.repeat.repeatWeek')
               }
-              name="repeat-weekday"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setRrule({ ...rrule, byweekday: Number(e.target.value) })
-              }
               value={rrule.byweekday}
-              lowercase
-              disabled={!!initial?.rrule}
             />
           </div>
         )}
@@ -358,10 +358,10 @@ export class ExpenseRecurrencySelector extends Component<Props> {
             <FormControl component="fieldset">
               <RadioGroup
                 aria-label="montly-repeat"
-                name="montly-repeat"
-                value={radioValue}
-                onChange={this.handleMonthlyRules}
                 disabled={!!initial?.rrule}
+                name="montly-repeat"
+                onChange={this.handleMonthlyRules}
+                value={radioValue}
               >
                 <div className={classes.flexRow}>
                   <Radio disabled={!!initial?.rrule} value={0} />
@@ -371,20 +371,20 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                       : t('form.repeat.repeatMonth')}
                   </Typography>
                   <TextField
-                    type="number"
-                    name="repeat-day"
+                    className={classnames(classes.integerField, classes.margin)}
+                    disabled={radioValue !== 0 || !!initial?.rrule}
                     InputProps={{
                       inputProps: { min: 1, step: 1, max: 31 },
                     }}
-                    value={rrule.bymonthday}
+                    name="repeat-day"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       setRrule({
                         ...rrule,
                         bymonthday: Number(e.target.value),
                       });
                     }}
-                    className={classnames(classes.integerField, classes.margin)}
-                    disabled={radioValue !== 0 || !!initial?.rrule}
+                    type="number"
+                    value={rrule.bymonthday}
                   />
                 </div>
                 <div
@@ -398,16 +398,16 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                   <Typography>{t('form.repeat.repeatMonthDay')}</Typography>
                   <Select
                     aria-label="repeat"
-                    name="repeat-month-day"
+                    className={classes.marginLeft}
                     disabled={radioValue !== 1 || !!initial?.rrule}
-                    value={rrule.bysetpos}
+                    name="repeat-month-day"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       setRrule({
                         ...rrule,
                         bysetpos: Number(e.target.value),
                       });
                     }}
-                    className={classes.marginLeft}
+                    value={rrule.bysetpos}
                   >
                     <MenuItem key={1} value={1}>
                       {t('form.repeat.weekdays.first')}
@@ -423,6 +423,8 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                     </MenuItem>
                   </Select>
                   <WeekdaySelector
+                    lowercase
+                    plural
                     disabled={radioValue !== 1 || !!initial?.rrule}
                     name="repeat-weekday-per-month"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -432,8 +434,6 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                       })
                     }
                     value={rrule.byweekday}
-                    plural
-                    lowercase
                   />
                 </div>
               </RadioGroup>
@@ -449,33 +449,33 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                 : t('form.repeat.repeatYear')}
             </Typography>
             <TextField
-              type="number"
-              name="repeat-day"
+              className={classnames(classes.integerField, classes.margin)}
+              disabled={!!initial?.rrule}
               InputProps={{
                 inputProps: { min: 1, step: 1, max: 31 },
               }}
-              value={rrule.bymonthday}
-              disabled={!!initial?.rrule}
+              name="repeat-day"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setRrule({
                   ...rrule,
                   bymonthday: Number(e.target.value),
                 })
               }
-              className={classnames(classes.integerField, classes.margin)}
+              type="number"
+              value={rrule.bymonthday}
             />
             <Select
               aria-label="repeat"
+              className={classes.marginLeft}
               disabled={!!initial?.rrule}
               name="repeat-month-day"
-              value={rrule.bymonth}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setRrule({
                   ...rrule,
                   bymonth: Number(e.target.value),
                 });
               }}
-              className={classes.marginLeft}
+              value={rrule.bymonth}
             >
               {months.map((m) => {
                 return (
@@ -496,42 +496,42 @@ export class ExpenseRecurrencySelector extends Component<Props> {
             <RadioGroup
               aria-label="occurrences"
               name="occurrences"
-              value={radioRepeatValue}
               onChange={this.handleRepeatRules}
+              value={radioRepeatValue}
             >
               <div className={classes.flexRow}>
                 <Radio disabled={!!initial?.rrule} value={0} />
                 <Typography>{t('form.repeat.count')}</Typography>
                 <TextField
-                  type="number"
-                  name="count"
+                  className={classnames(classes.integerField, classes.margin)}
+                  disabled={radioRepeatValue !== 0 || !!initial?.rrule}
                   InputProps={{
                     inputProps: { min: 1, step: 1, max: { maxCount } },
                   }}
-                  value={rrule.count}
+                  name="count"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setRrule({ ...rrule, count: Number(e.target.value) });
                   }}
-                  className={classnames(classes.integerField, classes.margin)}
-                  disabled={radioRepeatValue !== 0 || !!initial?.rrule}
+                  type="number"
+                  value={rrule.count}
                 />
                 <Typography>
                   {t('form.repeat.fromDate').toLowerCase()}
                 </Typography>
                 <MuiPickersUtilsProvider
-                  utils={MomentUtils}
-                  moment={Moment}
                   locale={Moment.locale()}
+                  moment={Moment}
+                  utils={MomentUtils}
                 >
                   <DatePicker
-                    style={{ width: 120 }}
-                    value={rrule.dtstart}
+                    className={classes.margin}
+                    disabled={radioRepeatValue === 1 || !!initial?.rrule}
+                    format="L"
                     onChange={(date: Date) => {
                       setRrule({ ...rrule, dtstart: date });
                     }}
-                    format="L"
-                    className={classes.margin}
-                    disabled={radioRepeatValue === 1 || !!initial?.rrule}
+                    style={{ width: 120 }}
+                    value={rrule.dtstart}
                   />
                   <InsertInvitationIcon className={classes.calendarIcon} />
                 </MuiPickersUtilsProvider>
@@ -546,42 +546,42 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                 <Radio disabled={!!initial?.rrule} value={1} />
                 <Typography>{t('form.repeat.from')}</Typography>
                 <MuiPickersUtilsProvider
-                  utils={MomentUtils}
-                  moment={Moment}
                   locale={Moment.locale()}
+                  moment={Moment}
+                  utils={MomentUtils}
                 >
                   <DatePicker
-                    style={{ width: 120 }}
-                    value={rrule.dtstart}
+                    className={classes.margin}
+                    disabled={radioRepeatValue !== 1 || !!initial?.rrule}
+                    format="L"
                     onChange={(date: Date) => {
                       setRrule({ ...rrule, dtstart: date });
                       if (rrule.until < date) {
                         setRrule({ ...rrule, until: date });
                       }
                     }}
-                    format="L"
-                    className={classes.margin}
-                    disabled={radioRepeatValue !== 1 || !!initial?.rrule}
+                    style={{ width: 120 }}
+                    value={rrule.dtstart}
                   />
                   <InsertInvitationIcon className={classes.calendarIcon} />
                 </MuiPickersUtilsProvider>
                 <Typography>{t('form.repeat.until').toLowerCase()}</Typography>
                 <MuiPickersUtilsProvider
-                  utils={MomentUtils}
-                  moment={Moment}
                   locale={Moment.locale()}
+                  moment={Moment}
+                  utils={MomentUtils}
                 >
                   <DatePicker
-                    style={{ width: 120 }}
-                    value={rrule.until}
+                    className={classes.margin}
+                    disabled={radioRepeatValue !== 1 || !!initial?.disabled}
+                    format="L"
+                    maxDate={maxDate}
+                    minDate={rrule.dtstart}
                     onChange={(date: Date) => {
                       setRrule({ ...rrule, until: date });
                     }}
-                    format="L"
-                    className={classes.margin}
-                    minDate={rrule.dtstart}
-                    disabled={radioRepeatValue !== 1 || !!initial?.disabled}
-                    maxDate={maxDate}
+                    style={{ width: 120 }}
+                    value={rrule.until}
                   />
                   <InsertInvitationIcon className={classes.calendarIcon} />
                 </MuiPickersUtilsProvider>

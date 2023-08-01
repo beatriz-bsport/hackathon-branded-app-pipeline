@@ -31,14 +31,14 @@ export const SubscriptionContractFormDrawer = (
 
   return (
     <GenericResponsiveDrawer
-      open={props.open}
+      withoutPadding
       onClose={onDrawerClose}
+      open={props.open}
       title={t('contract.form.title')}
+      trackingObjectId={props.initial?.id}
       trackingObjectIdentifier={
         SegmentAnalyticsFormObjectIdentifier.Subscription
       }
-      trackingObjectId={props.initial?.id}
-      withoutPadding
     >
       <Form>
         <SubscriptionContractFields {...props} />
@@ -53,12 +53,12 @@ export const SubscriptionContractFormDrawer = (
             {t('cancel')}
           </Button>
           <Button
+            color="primary"
+            disabled={props.isSubmitting}
             onClick={() => {
               trackFormSubmitIntent(props.initial?.id);
               props.handleSubmit();
             }}
-            disabled={props.isSubmitting}
-            color="primary"
             variant="contained"
           >
             {t('save')}

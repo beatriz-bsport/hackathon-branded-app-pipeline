@@ -175,25 +175,25 @@ export class TutorialMenu extends React.Component<Props> {
           </div>
 
           <TutorialSectionList
+            defaultSelectedSectionId={this.props.defaultSelectedSectionId}
+            goToLesson={this.props.goToLesson}
             sections={this.props.sections}
             shareObject={this.getShareObject}
-            goToLesson={this.props.goToLesson}
             statistics={this.props.statistics}
-            defaultSelectedSectionId={this.props.defaultSelectedSectionId}
             tutorial_completion={this.props.tutorial_completion}
           />
           <TutorialGenericDialog
-            open={this.props.openShareDialog.dialogOpen}
             identifier={this.props.openShareDialog.identifier}
             object={this.props.openShareDialog.object}
             onClose={this.getOnClose(this.props.openShareDialog.identifier)}
+            open={this.props.openShareDialog.dialogOpen}
           />
         </div>
         <Fab
-          variant="extended"
-          color="primary"
           className={this.props.classes.helpButton}
+          color="primary"
           onClick={openIntercomHelp}
+          variant="extended"
         >
           <HelpOutlineOutlinedIcon className={this.props.classes.lefticon} />
           {this.props.t('menu.helpButton')}

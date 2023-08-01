@@ -50,13 +50,13 @@ const InboxPanelOffer: React.FC<Props> = ({
     <div className={classes.container}>
       <OfferCardStatistics
         effectif={offer.effectif}
-        numberOfBookings={numberOfBookings}
-        waitingListMaxSize={offer.waiting_list_max_size}
-        nbOptions={offer.nb_option}
-        male={offer.male}
         female={offer.female}
+        male={offer.male}
+        nbOptions={offer.nb_option}
+        numberOfBookings={numberOfBookings}
         other={offer.other}
         showOfferGender={showOfferGender}
+        waitingListMaxSize={offer.waiting_list_max_size}
       />
 
       <div className={classes.offerDetailContainer}>
@@ -70,7 +70,7 @@ const InboxPanelOffer: React.FC<Props> = ({
               `thread.panel.navigation.${ChatThreadKinds.Offer}`,
             ).toUpperCase()}
           </Typography>
-          <ArrowForwardIcon color="primary" className={classes.arrowIcon} />
+          <ArrowForwardIcon className={classes.arrowIcon} color="primary" />
         </ButtonBase>
       </div>
     </div>

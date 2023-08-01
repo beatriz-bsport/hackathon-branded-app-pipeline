@@ -163,10 +163,10 @@ const MarketplaceDatePicker: React.FC<Props> = ({
         {!isInputButton && (
           <>
             <button
-              onClick={handleFastSelect('subtract')}
               className={classNames('bs-marketplace-date-picker__left-button', {
                 'bs-marketplace-date-picker___left-button--open': isOpen,
               })}
+              onClick={handleFastSelect('subtract')}
               type="button"
             >
               <ChevronLeftIcon color="inherit" />
@@ -175,19 +175,19 @@ const MarketplaceDatePicker: React.FC<Props> = ({
               className={classNames('bs-marketplace-date-picker__placeholder', {
                 'bs-marketplace-date-picker__placeholder--open': isOpen,
               })}
-              type="button"
               onClick={handleOpenMenu}
+              type="button"
             >
               {getDateDisplay()}
             </button>
             <button
-              onClick={handleFastSelect('add')}
               className={classNames(
                 'bs-marketplace-date-picker__right-button',
                 {
                   'bs-marketplace-date-picker__right-button--open': isOpen,
                 },
               )}
+              onClick={handleFastSelect('add')}
               type="button"
             >
               <ChevronRightIcon color="inherit" />
@@ -198,8 +198,8 @@ const MarketplaceDatePicker: React.FC<Props> = ({
         {isInputButton && (
           <button
             className="bs-marketplace-date-picker__input__button"
-            type="button"
             onClick={handleOpenMenu}
+            type="button"
           >
             {formatAsDate(dateSelected)}
           </button>
@@ -207,12 +207,12 @@ const MarketplaceDatePicker: React.FC<Props> = ({
       </div>
 
       <Popper
-        open={!!anchorRef && isOpen}
-        anchorEl={anchorRef.current}
-        role={undefined}
-        placement="bottom-start"
-        transition
         disablePortal
+        transition
+        anchorEl={anchorRef.current}
+        open={!!anchorRef && isOpen}
+        placement="bottom-start"
+        role={undefined}
         style={{
           zIndex: 'var(--z-index-modal)',
         }}
@@ -224,7 +224,7 @@ const MarketplaceDatePicker: React.FC<Props> = ({
               transformOrigin: 'left top',
             }}
           >
-            <ClickAwayListener onClickAway={handleCloseMenu} disableReactTree>
+            <ClickAwayListener disableReactTree onClickAway={handleCloseMenu}>
               <div className="bs-marketplace-date-picker__menu">
                 <div className="bs-marketplace-date-picker__menu__header">
                   <div className="bs-marketplace-date-picker__menu__header__date">
@@ -232,15 +232,15 @@ const MarketplaceDatePicker: React.FC<Props> = ({
                   </div>
                   <div className="bs-marketplace-date-picker__menu__header__buttons">
                     <button
-                      onClick={handleChangeDateDisplayed('subtract')}
                       className="bs-marketplace-date-picker__menu__header__buttons__left"
+                      onClick={handleChangeDateDisplayed('subtract')}
                       type="button"
                     >
                       <ChevronLeftIcon color="inherit" />
                     </button>
                     <button
-                      onClick={handleChangeDateDisplayed('add')}
                       className="bs-marketplace-date-picker__menu__header__buttons__right"
+                      onClick={handleChangeDateDisplayed('add')}
                       type="button"
                     >
                       <ChevronRightIcon color="inherit" />
@@ -252,8 +252,8 @@ const MarketplaceDatePicker: React.FC<Props> = ({
                     .fill(0)
                     .map((value, i) => (
                       <div
-                        className="bs-marketplace-date-picker__menu__calendar__day bs-marketplace-date-picker__menu__calendar__day--header"
                         key={`header-${i}`}
+                        className="bs-marketplace-date-picker__menu__calendar__day bs-marketplace-date-picker__menu__calendar__day--header"
                       >
                         {moment()
                           .weekday(value + i)
@@ -279,14 +279,14 @@ const MarketplaceDatePicker: React.FC<Props> = ({
                               const dayString = day.format('YYYY-MM-DD');
                               return (
                                 <MarketplaceDatePickerDay
-                                  isDisabled={isDayDisabled(dayString)}
+                                  key={dayString}
                                   date={dayString}
-                                  dateSelected={dateSelected}
                                   dateDisplayed={dateDisplayed.format(
                                     'YYYY-MM-DD',
                                   )}
-                                  key={dayString}
+                                  dateSelected={dateSelected}
                                   handleSelect={handleSelect}
+                                  isDisabled={isDayDisabled(dayString)}
                                 />
                               );
                             })}

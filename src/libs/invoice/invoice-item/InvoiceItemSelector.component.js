@@ -118,11 +118,11 @@ export class InvoiceItemSelector extends Component<Props, State> {
     return (
       <PaymentPackSelector
         autofocus
-        value={paymentPackId}
-        paymentPacks={paymentPacks}
-        onChange={this.storePaymentPackId}
         helperText={t('form.invoice.paymentPackHelper')}
+        onChange={this.storePaymentPackId}
+        paymentPacks={paymentPacks}
         selectorClass={classes.selector}
+        value={paymentPackId}
       />
     );
   };
@@ -133,10 +133,10 @@ export class InvoiceItemSelector extends Component<Props, State> {
     return (
       <PrivatePassSelector
         autofocus
-        value={privatePassId}
-        privatePassList={privatePassList}
         onChange={this.storePrivatePassId}
+        privatePassList={privatePassList}
         selectorClass={classes.selector}
+        value={privatePassId}
       />
     );
   };
@@ -144,20 +144,20 @@ export class InvoiceItemSelector extends Component<Props, State> {
   renderShopItemSelector = () => (
     <ShopItemSelector
       autofocus
-      value={this.state.shopItemId}
       onChange={this.storeShopItemId}
       selectorClass={this.props.classes.selector}
       shopItemList={this.props.shopItems}
+      value={this.state.shopItemId}
     />
   );
 
   renderPaymentComboSelector = () => (
     <PaymentComboSelector
       autofocus
-      value={this.state.paymentComboId}
       onChange={this.storePaymentComboId}
-      selectorClass={this.props.classes.selector}
       paymentComboList={this.props.paymentComboList}
+      selectorClass={this.props.classes.selector}
+      value={this.state.paymentComboId}
     />
   );
 
@@ -168,8 +168,8 @@ export class InvoiceItemSelector extends Component<Props, State> {
       <div>
         <Grid
           container
-          justify="space-between"
           className={classes.accountBalanceInfo}
+          justify="space-between"
         >
           <Grid item>
             <Typography variant="h6">
@@ -178,17 +178,17 @@ export class InvoiceItemSelector extends Component<Props, State> {
           </Grid>
           <Grid item>
             <Typography
-              variant="h6"
               color={creditAccountBalance <= 0 ? 'error' : 'primary'}
+              variant="h6"
             >
               {`${getCurrencyDisplayWithPrice(creditAccountBalance)}`}
             </Typography>
           </Grid>
         </Grid>
         <PriceInput
-          variant="outlined"
-          value={creditTopUp}
           onChange={(e) => this.setState({ creditTopUp: e.target.value })}
+          value={creditTopUp}
+          variant="outlined"
         />
       </div>
     );
@@ -208,12 +208,12 @@ export class InvoiceItemSelector extends Component<Props, State> {
       <div className={classes.container}>
         <Paper className={classes.tabs}>
           <Tabs
-            value={expandedSelector}
             indicatorColor="primary"
-            textColor="primary"
             onChange={this.onSelectorChange}
-            variant="scrollable"
             scrollButtons="off"
+            textColor="primary"
+            value={expandedSelector}
+            variant="scrollable"
           >
             <Tab
               label={t('payment.addPaymentPack')}
@@ -253,18 +253,16 @@ export class InvoiceItemSelector extends Component<Props, State> {
             <Grid item className={classes.addButton}>
               {showCancel ? (
                 <Button
-                  color="secondary"
-                  variant="outlined"
-                  onClick={onCancel}
                   className={classes.cancelButton}
+                  color="secondary"
+                  onClick={onCancel}
+                  variant="outlined"
                 >
                   {t('form.invoice.backToInvoiceItemList')}
                 </Button>
               ) : null}
               <Button
-                variant="contained"
                 color="primary"
-                onClick={this.submitInvoiceItems}
                 disabled={
                   // prettier-ignore
                   (expandedSelector === SELECTOR_PAYMENT_PACK && !paymentPackId)
@@ -273,6 +271,8 @@ export class InvoiceItemSelector extends Component<Props, State> {
                 || (expandedSelector === SELECTOR_PRIVATE_PASS && !privatePassId)
                 || (expandedSelector === SELECTOR_CREDIT_ACCOUNT && !creditTopUp)
                 }
+                onClick={this.submitInvoiceItems}
+                variant="contained"
               >
                 <AddIcon className={classes.leftIcon} />
                 {t('payment.addInvoiceItem')}

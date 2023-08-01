@@ -59,8 +59,8 @@ const PrivateSlotSelector: React.FC<Props> = (props) => {
                       <div className={classes.row}>
                         <AccessTimeIcon fontSize="small" />
                         <Typography
-                          variant="subtitle2"
                           color={isSelected ? 'inherit' : 'textSecondary'}
+                          variant="subtitle2"
                         >
                           {t('privateSlot.duration', {
                             minutes: slot.duration_minutes,
@@ -69,8 +69,8 @@ const PrivateSlotSelector: React.FC<Props> = (props) => {
                       </div>
                       {slot.people_capacity_used > 1 && (
                         <Typography
-                          variant="subtitle2"
                           color={isSelected ? 'inherit' : 'textSecondary'}
+                          variant="subtitle2"
                         >
                           {t('slot.form.people_capacity_used.label')}:{' '}
                           {slot.people_capacity_used}

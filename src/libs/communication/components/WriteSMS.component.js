@@ -89,26 +89,26 @@ export function WriteSMS(props: Props) {
   return (
     <div className={props.classes.container}>
       <TextField
-        name="Mail content"
-        label={t('mail.contentSms')}
-        rows="15"
-        value={props.smsContent}
-        onChange={(e) => props.onChangeContent(e.target.value)}
         fullWidth
         multiline
+        label={t('mail.contentSms')}
+        name="Mail content"
+        onChange={(e) => props.onChangeContent(e.target.value)}
+        rows="15"
+        value={props.smsContent}
         variant="outlined"
       />
       <div className={props.classes.countContainer}>
         <Typography
-          variant="caption"
           color={props.contentLengthError ? 'error' : ''}
+          variant="caption"
         >
           {`${props.smsContent.length} / ${smsMaxLength} ${t('mail.count')}`}
         </Typography>
         {!props.hideSmsCount && (
           <Typography
-            variant={props.countReceivers > 200 ? 'h6' : undefined}
             color={props.countReceivers > 200 ? 'error' : undefined}
+            variant={props.countReceivers > 200 ? 'h6' : undefined}
           >
             {`= ${
               props.countReceivers ? `${props.countReceivers} x ` : ''

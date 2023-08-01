@@ -76,8 +76,8 @@ class ConsumerVOD extends React.PureComponent<Props> {
         {!WidgetUtils.isWidget() && (
           <div className={this.props.classes.header}>
             <Button
-              onClick={this.onCLickGoToVod}
               color="primary"
+              onClick={this.onCLickGoToVod}
               variant="contained"
             >
               <VideoLibrary className={this.props.classes.iconLeft} />
@@ -85,18 +85,18 @@ class ConsumerVOD extends React.PureComponent<Props> {
             </Button>
           </div>
         )}
-        <Typography variant="h4" component="h3">
+        <Typography component="h3" variant="h4">
           {this.props.t('myVideos.title')}
         </Typography>
         <Divider className={this.props.classes.sectionDivider} />
         <VideoItemList
-          hideCoach={this.props.hideCoach}
-          videoList={this.props.videoList}
-          purchasedVideoList={this.props.purchasedVideoList}
-          openVideo={this.props.openVideo}
-          onShowMore={this.props.fetchMoreVideo}
           hasMoreVideo={this.props.hasMoreVideo}
+          hideCoach={this.props.hideCoach}
           loading={this.props.loading}
+          onShowMore={this.props.fetchMoreVideo}
+          openVideo={this.props.openVideo}
+          purchasedVideoList={this.props.purchasedVideoList}
+          videoList={this.props.videoList}
         />
       </div>
     );

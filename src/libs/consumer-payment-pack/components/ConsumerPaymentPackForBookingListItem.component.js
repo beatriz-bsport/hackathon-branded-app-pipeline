@@ -71,10 +71,10 @@ export class ConsumerPackCheckout extends Component<Props, State> {
     const buyButtonText = this.getBuyText();
     return (
       <Button
-        variant="contained"
         color="primary"
-        onClick={this.props.onBookFromPack}
         id={`btn-payment-pack-user-${consumerPack.id}`}
+        onClick={this.props.onBookFromPack}
+        variant="contained"
       >
         {buyButtonText}
       </Button>
@@ -86,9 +86,9 @@ export class ConsumerPackCheckout extends Component<Props, State> {
       <ConsumerPackRowItem
         hideConsumer
         noDivider
+        button={this.renderButton()}
         consumerPack={this.props.consumerPack}
         paymentPack={this.props.consumerPack.payment_pack}
-        button={this.renderButton()}
       />
     );
   }

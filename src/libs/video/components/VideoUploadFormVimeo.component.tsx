@@ -140,18 +140,18 @@ class VideoProviderVimeo extends React.PureComponent<Props, State> {
       <div className={classes.container}>
         <TextField
           className={classes.urlInput}
-          variant="outlined"
-          placeholder={t('')}
           label={t('video.upload.vimeoUrlInput')}
-          value={this.state.url}
           onChange={(ev) => this.onChangeUrl(ev.target.value)}
+          placeholder={t('')}
+          value={this.state.url}
+          variant="outlined"
         />
 
         {this.state.urlError && (
           <Typography
             className={classes.marginTop}
-            variant="caption"
             color="error"
+            variant="caption"
           >
             {this.state.urlError}
           </Typography>
@@ -163,34 +163,34 @@ class VideoProviderVimeo extends React.PureComponent<Props, State> {
 
         <div className={classes.durationWrapper}>
           <NumericInput
-            value={this.state.hours}
             fullWidth
+            InputProps={{
+              inputProps: { step: 1, min: 0 },
+            }}
             label={t('video.upload.hours')}
             onChange={(ev: any) =>
               this.onChangeDuration('hours', ev.target.value)
             }
+            value={this.state.hours}
+          />
+          <NumericInput
+            fullWidth
+            classes={{ textInput: classes.marginLeft }}
             InputProps={{
               inputProps: { step: 1, min: 0 },
             }}
-          />
-          <NumericInput
-            classes={{ textInput: classes.marginLeft }}
-            value={this.state.minutes}
-            fullWidth
             label={t('video.upload.minutes')}
             onChange={(ev: any) =>
               this.onChangeDuration('minutes', ev.target.value)
             }
-            InputProps={{
-              inputProps: { step: 1, min: 0 },
-            }}
+            value={this.state.minutes}
           />
         </div>
         {this.state.durationError && (
           <Typography
             className={classes.marginTop}
-            variant="caption"
             color="error"
+            variant="caption"
           >
             {this.state.durationError}
           </Typography>
@@ -207,11 +207,11 @@ class VideoProviderVimeo extends React.PureComponent<Props, State> {
             <CircularProgress className={this.props.classes.marginLeft} />
           ) : (
             <Button
-              variant="contained"
-              color="primary"
-              onClick={this.submit}
               className={this.props.classes.marginLeft}
+              color="primary"
               disabled={this.state.isUploading}
+              onClick={this.submit}
+              variant="contained"
             >
               {this.props.t('video.upload.submit')}
             </Button>

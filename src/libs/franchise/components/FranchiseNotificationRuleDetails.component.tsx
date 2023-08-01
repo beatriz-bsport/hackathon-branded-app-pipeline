@@ -114,7 +114,7 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
     <>
       {!notificationId && (
         <div className={classes.emptySelect}>
-          <Alert severity="info" className={classes.alertInfo}>
+          <Alert className={classes.alertInfo} severity="info">
             {t('franchise.emptySelect')}
           </Alert>
         </div>
@@ -129,13 +129,13 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
             <>
               <Button
                 className={classes.button}
-                variant="contained"
                 color="primary"
-                onClick={onClickAddConfiguration}
                 disabled={
                   getAvailableCompanies().filter((c) => c.isAllowed).length ===
                   0
                 }
+                onClick={onClickAddConfiguration}
+                variant="contained"
               >
                 {t('franchise.addConfiguration')}
               </Button>
@@ -144,17 +144,17 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
                 return (
                   <FranchiseNotificationRuleCard
                     key={rule.id}
-                    rule={rule}
                     companies={getAvailableCompanies(
                       companies.filter((c) => rule.companies.includes(c.id)),
                     )}
-                    notificationId={notificationId}
-                    previewEmail={previewEmail}
                     emailDesignList={emailDesignList}
+                    fetchPreview={fetchEmailDesignDetail}
+                    notificationId={notificationId}
                     onDelete={handleDelete(rule.id)}
                     onEdit={handleEdit(rule.id)}
-                    fetchPreview={fetchEmailDesignDetail}
+                    previewEmail={previewEmail}
                     requiredTagsByEvent={requiredTagsByEvent}
+                    rule={rule}
                   />
                 );
               })}
@@ -171,9 +171,9 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
               <div className={classes.inverseFlex}>
                 <Button
                   className={classes.emptyButton}
-                  variant="outlined"
                   color="primary"
                   onClick={onClickAddConfiguration}
+                  variant="outlined"
                 >
                   {t('franchise.addConfiguration')}
                 </Button>
@@ -187,9 +187,9 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
           open
           companies={getAvailableCompanies()}
           emailTemplates={emailDesignList}
-          onSubmit={handleSubmit}
-          onClose={onModalClose}
           notification_event={notificationId}
+          onClose={onModalClose}
+          onSubmit={handleSubmit}
           previewEmail={previewEmail?.[selectedPreviewEmail]}
           refreshEmailPreview={handleFetchPreview}
           requiredTagsByEvent={requiredTagsByEvent}

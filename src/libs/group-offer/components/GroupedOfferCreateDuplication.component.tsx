@@ -70,9 +70,9 @@ export const GroupedOfferCreateDuplicationForm: React.FC<
         <div className={classes.wrapper}>
           <div className={classes.column}>
             <TextField
-              name="name"
-              label={t('groupedOption.modal.form.name')}
               required
+              label={t('groupedOption.modal.form.name')}
+              name="name"
             />
             <Typography color="textSecondary" variant="caption">
               {t('groupedOption.modal.form.nameCaption')}
@@ -82,15 +82,15 @@ export const GroupedOfferCreateDuplicationForm: React.FC<
               {t('groupedOption.modal.form.timeStartHelper')}
             </Typography>{' '}
             <DateField
-              name="timeStart"
               label={t('groupedOption.modal.form.timeStart')}
+              name="timeStart"
             />
             <AlertError name="timeStart" />
             {initial.recurrence_id && (
               <SwitchField
-                name="copyRecurrence"
-                label={t('groupedOption.modal.form.copyRecurrence')}
                 className={classes.recurrenceSwitch}
+                label={t('groupedOption.modal.form.copyRecurrence')}
+                name="copyRecurrence"
               />
             )}
             <FeatureListProvider>
@@ -110,7 +110,7 @@ export const GroupedOfferCreateDuplicationForm: React.FC<
           <Button onClick={handlePreviousStep}>
             {t('translation:common.cancel')}
           </Button>
-          <Submit disabled={isSubmitting || !isValid} color="primary">
+          <Submit color="primary" disabled={isSubmitting || !isValid}>
             {isSubmitting ? (
               <CircularProgress />
             ) : (

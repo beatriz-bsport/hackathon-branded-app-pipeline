@@ -48,82 +48,82 @@ export const PaymentPackFormRestrictions = (props: Props) => {
         </Grid>
         <Grid item xs={6}>
           <TextFieldEnhancedLabelWithError
+            fullWidth
+            helperText={t('addPaymentPack.maxUseHelper')}
             id="max_bookings_per_day"
-            fullWidth
-            type="number"
-            name="max_bookings_per_day"
             label={t('addPaymentPack.maxUseDay')}
-            helperText={t('addPaymentPack.maxUseHelper')}
+            name="max_bookings_per_day"
+            type="number"
           />
         </Grid>
         <Grid item xs={6}>
           <TextFieldEnhancedLabelWithError
+            fullWidth
+            helperText={t('addPaymentPack.maxUseHelper')}
             id="max_bookings_per_week"
-            fullWidth
-            type="number"
-            name="max_bookings_per_week"
             label={t('addPaymentPack.maxUseWeek')}
-            helperText={t('addPaymentPack.maxUseHelper')}
+            name="max_bookings_per_week"
+            type="number"
           />
         </Grid>
         <Grid item xs={6}>
           <TextFieldEnhancedLabelWithError
+            fullWidth
+            helperText={t('addPaymentPack.maxUseHelper')}
             id="max_bookings_per_month"
-            fullWidth
-            type="number"
-            name="max_bookings_per_month"
             label={t('addPaymentPack.maxUseMonth')}
-            helperText={t('addPaymentPack.maxUseHelper')}
+            name="max_bookings_per_month"
+            type="number"
           />
         </Grid>
         <Grid item xs={6}>
           <TextFieldEnhancedLabelWithError
-            id="max_purchase_per_member"
             fullWidth
-            type="number"
-            name="max_purchase_per_member"
-            label={t('addPaymentPack.maxUseMember')}
             helperText={t('addPaymentPack.maxUseHelper')}
+            id="max_purchase_per_member"
+            label={t('addPaymentPack.maxUseMember')}
+            name="max_purchase_per_member"
+            type="number"
           />
         </Grid>
         <Grid item xs={12}>
           <div className={classes.switch}>
             <div className={classes.row}>
               <SwitchField
-                name="new_member_only"
-                label={t('addPaymentPack.newClientOnly')}
                 disabled={values.manager_only}
                 helperText={t('member:forms.newMemberOnlyHelperText', {
                   currency: getCurrencyDisplay(),
                 })}
+                label={t('addPaymentPack.newClientOnly')}
+                name="new_member_only"
               />
             </div>
 
             <div className={classes.row}>
               <SwitchField
-                name="manager_only"
                 label={t('form.paymentPack.managerOnly')}
+                name="manager_only"
               />
             </div>
 
             <div className={classes.row}>
               <SwitchField
-                name="onsite_payment_available"
                 disabled={values.manager_only}
                 label={t('addPaymentPack.inShopPayment')}
+                name="onsite_payment_available"
               />
             </div>
 
             <div className={classes.row}>
               <SwitchField
-                name="unusable_by_staff"
                 label={t('addPaymentPack.unusableByStaff')}
+                name="unusable_by_staff"
               />
             </div>
             <div className={classes.row}>
               <SwitchField
-                name="expiration_date_active"
                 label={t('addPaymentPack.expiration_date.label')}
+                name="expiration_date_active"
               />
               <ToolTip title={t('addPaymentPack.expiration_date.tooltip')}>
                 <InfoIcon color="disabled" />
@@ -134,18 +134,18 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 {t('addPaymentPack.expiration_date.helperText')}
               </InputLabel>
               <DateField
-                name="expiration_date"
-                format="L"
                 allowNullValue
+                format="L"
                 minDate={moment.now()}
+                name="expiration_date"
               />
             </Collapse>
           </div>
         </Grid>
         <Grid item xs={12}>
           <ButtonBase
-            onClick={() => setOpenVodOptions(!openVodOptions)}
             className={classes.infoText}
+            onClick={() => setOpenVodOptions(!openVodOptions)}
           >
             <VideoLibraryIcon className={classes.icon} />
             <Typography variant="h6">{t('addPaymentPack.vod')}</Typography>
@@ -155,13 +155,13 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             <div className={classes.vodSection}>
               <div className={classes.switch}>
                 <CheckboxField
-                  name="full_vod_access"
                   label={t('addPaymentPack.vodAccessCard')}
+                  name="full_vod_access"
                 />
                 <Collapse in={values.full_vod_access}>
                   <CheckboxField
-                    name="only_vod_access"
                     label={t('addPaymentPack.only_vod_access')}
+                    name="only_vod_access"
                   />
                 </Collapse>
               </div>

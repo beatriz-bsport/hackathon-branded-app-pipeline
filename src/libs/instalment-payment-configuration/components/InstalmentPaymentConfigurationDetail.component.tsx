@@ -59,7 +59,7 @@ export const InstalmentPaymentDetail: React.FC<Props> = (props) => {
   } = props;
   if (loading && instalmentPaymentId) {
     return (
-      <Skeleton animation="wave" width="100%" variant="rect" height={640} />
+      <Skeleton animation="wave" height={640} variant="rect" width="100%" />
     );
   }
   if (!instalmentPayment) {
@@ -134,8 +134,8 @@ export const InstalmentPaymentDetail: React.FC<Props> = (props) => {
               <Typography variant="h6">{t('detail.compatibility')}</Typography>
               {!noCompatibility && (
                 <Button
-                  color="primary"
                   className={classes.buttonRight}
+                  color="primary"
                   onClick={() => setIsCompabilityDialogOpen(true)}
                 >
                   {t('detail.seeAll')}
@@ -213,18 +213,18 @@ export const InstalmentPaymentDetail: React.FC<Props> = (props) => {
         </div>
       </Paper>
       <Dialog
-        open={isCompabilityDialogOpen}
-        onClose={() => setIsCompabilityDialogOpen(false)}
         maxWidth={false}
+        onClose={() => setIsCompabilityDialogOpen(false)}
+        open={isCompabilityDialogOpen}
       >
         <div className={classes.dialog}>
           <InstalmentPaymentCompatibilityDetail
-            paymentPackList={paymentPackList}
             comboList={comboList}
-            privatePassList={privatePassList}
-            shopItemList={shopItemList}
             giftcardList={giftcardList}
             instalmentPayment={instalmentPayment}
+            paymentPackList={paymentPackList}
+            privatePassList={privatePassList}
+            shopItemList={shopItemList}
           />
           <div className={classes.action}>
             <Button
@@ -237,15 +237,15 @@ export const InstalmentPaymentDetail: React.FC<Props> = (props) => {
         </div>
       </Dialog>
       <GenericMuiDialog
-        open={isConfirmDeleteDialogOpen}
-        title={t('deleteDialog.title')}
+        confirmText={t('delete')}
         content={t('deleteDialog.content')}
         onCancel={() => setIsConfirmDeleteDialogOpen(false)}
         onConfirm={() => {
           onDelete(instalmentPayment.id);
           setIsConfirmDeleteDialogOpen(false);
         }}
-        confirmText={t('delete')}
+        open={isConfirmDeleteDialogOpen}
+        title={t('deleteDialog.title')}
       />
     </>
   );

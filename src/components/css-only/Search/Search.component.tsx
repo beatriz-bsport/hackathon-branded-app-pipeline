@@ -90,20 +90,20 @@ const Search: React.FC<Props> = ({
   return (
     <form className="bs-search__container" onSubmit={handleSubmit}>
       <div className="bs-search__input__container">
-        <button type="button" className="bs-search__input__icon">
+        <button className="bs-search__input__icon" type="button">
           <SearchIcon fontSize="small" />
         </button>
         <input
-          placeholder={t('input')}
           className="bs-search__input"
-          value={search}
           onChange={changeSearch}
+          placeholder={t('input')}
+          value={search}
         />
         {search && (
           <button
-            type="button"
-            onClick={handleClearInput}
             className="bs-search__input__icon"
+            onClick={handleClearInput}
+            type="button"
           >
             <ClearIcon fontSize="small" />
           </button>

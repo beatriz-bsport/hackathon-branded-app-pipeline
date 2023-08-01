@@ -312,10 +312,10 @@ export class FiltersPanel extends Component<Props, State> {
         <div className={classes.buttonsRow}>
           <div className={classes.sendCommunicationButtons}>
             <Button
-              onClick={this.props.onRequestEmail}
-              color="secondary"
-              variant="contained"
               className={classes.sendEmailButton}
+              color="secondary"
+              onClick={this.props.onRequestEmail}
+              variant="contained"
             >
               <SendIcon className={this.props.classes.leftIcon} />
               {t('mail.sendMail')}
@@ -323,17 +323,17 @@ export class FiltersPanel extends Component<Props, State> {
             {hasCustomAppUpsell(this.props.featureList) && (
               <div className={classes.smartListPopupButtonContainer}>
                 <Button
-                  onClick={this.openCustomMobilePopupDialog}
-                  color="secondary"
-                  variant="outlined"
                   className={classes.smartListPopupButton}
+                  color="secondary"
+                  onClick={this.openCustomMobilePopupDialog}
+                  variant="outlined"
                 >
                   <SmartphoneIcon className={this.props.classes.leftIcon} />
                   {t('popup.sendPopup')}
                 </Button>
                 <IconButton
-                  color="primary"
                   className={classes.smartListPopupListButton}
+                  color="primary"
                   onClick={this.openSmartListPopupHistoryDialog}
                 >
                   <VisibilityIcon />
@@ -343,43 +343,43 @@ export class FiltersPanel extends Component<Props, State> {
           </div>
           <CustomMobilePopupDialogDialog
             initial={null}
-            open={this.state.openCustomMobilePopupDialog}
             onClose={this.closeCustomMobilePopupDialog}
             onSubmit={this.onSmartListPopupSend}
+            open={this.state.openCustomMobilePopupDialog}
           />
           <SmartListPopupSendingDrawerComponent
-            smartListId={this.props.smartListId}
-            smartListPopupList={this.props.smartListPopupList}
-            open={this.state.openSmartListPopupHistoryDialog}
-            onClose={this.closeSmartListPopupHistoryDialog}
-            loading={this.props.smartListPopupLoading}
             fetchMembers={this.props.fetchCommunicationsPaginatedMembers}
+            loading={this.props.smartListPopupLoading}
             memberLoading={this.props.memberLoading}
             membersToDisplay={this.props.memberList}
+            onClose={this.closeSmartListPopupHistoryDialog}
+            open={this.state.openSmartListPopupHistoryDialog}
+            smartListId={this.props.smartListId}
+            smartListPopupList={this.props.smartListPopupList}
           />
           <div className={classes.exportButtonsContainer}>
             <div>
               <Button
-                onClick={this.exportSmartlistBackground}
-                disabled={this.state.isSmartListExporting}
-                color="secondary"
-                variant="outlined"
                 className={classes.actionButton}
+                color="secondary"
+                disabled={this.state.isSmartListExporting}
+                onClick={this.exportSmartlistBackground}
+                variant="outlined"
               >
                 {t('generateExport')}
               </Button>
               <Button
-                onClick={this.openCsvExportLink}
-                disabled={!this.props.csvExportLink}
-                color="secondary"
-                variant="contained"
                 className={classes.actionButton}
+                color="secondary"
+                disabled={!this.props.csvExportLink}
+                onClick={this.openCsvExportLink}
+                variant="contained"
               >
                 {this.state.isSmartListExporting ? (
                   <CircularProgress
                     className={this.props.classes.leftIcon}
-                    size={25}
                     color="secondary"
+                    size={25}
                   />
                 ) : (
                   <CloudDownloadIcon className={this.props.classes.leftIcon} />
@@ -398,21 +398,23 @@ export class FiltersPanel extends Component<Props, State> {
           </div>
 
           <Menu
-            className={classes.filtersMenu}
             anchorEl={this.state.anchorEl}
-            open={this.state.displayAddFilter}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+            className={classes.filtersMenu}
+            getContentAnchorEl={null}
             onClose={() =>
               this.setState((previousState) => ({
                 displayAddFilter: !previousState.displayAddFilter,
               }))
             }
-            getContentAnchorEl={null}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+            open={this.state.displayAddFilter}
             transformOrigin={{ vertical: 'top', horizontal: 'left' }}
           >
             {filtersCategory.map((key: number) => (
               <div key={key}>
                 <ListItem
+                  key={key}
+                  button
                   className={this.props.classes.menu}
                   onClick={() => {
                     if (this.state.displayCategoryFilters === key) {
@@ -425,8 +427,6 @@ export class FiltersPanel extends Component<Props, State> {
                       });
                     }
                   }}
-                  button
-                  key={key}
                 >
                   <ListItemText
                     primary={`${t(`filterCategory.${key}`)} (${
@@ -440,10 +440,10 @@ export class FiltersPanel extends Component<Props, State> {
                   )}
                 </ListItem>
                 <Collapse
-                  in={this.state.displayCategoryFilters === key}
                   key={`${key}-collapse`}
-                  timeout="auto"
                   unmountOnExit
+                  in={this.state.displayCategoryFilters === key}
+                  timeout="auto"
                 >
                   <List
                     disablePadding
@@ -451,10 +451,10 @@ export class FiltersPanel extends Component<Props, State> {
                   >
                     {filtersList[key].map((filter: any) => (
                       <ListItem
-                        className={this.props.classes.menu}
-                        onClick={() => this.handleFilterChange(filter)}
                         key={filter}
                         button
+                        className={this.props.classes.menu}
+                        onClick={() => this.handleFilterChange(filter)}
                       >
                         <ListItemText
                           primary={t(`filters.${filter}.name`)}
@@ -474,10 +474,10 @@ export class FiltersPanel extends Component<Props, State> {
         {this.props.cadences && this.props.cadences.length > 0 && (
           <div className={this.props.classes.cadenceChipContainer}>
             <ButtonBase
-              onClick={this.openCadencesDialog}
               className={classes.cadenceChip}
-              disabled={this.props.cadences.length === 1}
               color="secondary"
+              disabled={this.props.cadences.length === 1}
+              onClick={this.openCadencesDialog}
             >
               <AccountTreeIcon className={this.props.classes.leftIcon} />
               {t('cadence.content', {
@@ -489,19 +489,19 @@ export class FiltersPanel extends Component<Props, State> {
         )}
 
         <ButtonBase
+          className={this.props.classes.header}
           onClick={() =>
             this.setState((previousState) => ({
               displayFilters: !previousState.displayFilters,
             }))
           }
-          className={this.props.classes.header}
         >
           {this.props.loading ? (
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <Typography
-                variant="h6"
-                style={{ marginRight: '10px' }}
                 color={this.state.displayFilters ? 'initial' : 'textSecondary'}
+                style={{ marginRight: '10px' }}
+                variant="h6"
               >
                 {`${t('filters.active_filters')}`}
               </Typography>
@@ -509,8 +509,8 @@ export class FiltersPanel extends Component<Props, State> {
             </div>
           ) : (
             <Typography
-              variant="h6"
               color={this.state.displayFilters ? 'initial' : 'textSecondary'}
+              variant="h6"
             >
               {`${t('filters.active_filters')} (${filters.length})`}
             </Typography>
@@ -520,11 +520,11 @@ export class FiltersPanel extends Component<Props, State> {
         <Divider className={this.props.classes.divider} />
         <Collapse in={this.state.displayFilters}>
           <Button
-            onClick={this.addFilterOnClick}
-            color="primary"
-            variant="contained"
             className={classes.actionButton}
+            color="primary"
             disabled={this.state.new_filter}
+            onClick={this.addFilterOnClick}
+            variant="contained"
           >
             <FilterListIcon className={this.props.classes.leftIcon} />
             {t('filters.add_filter')}
@@ -535,46 +535,46 @@ export class FiltersPanel extends Component<Props, State> {
               smartListUpdate={this.props.smartListUpdate}
             />
             <List
-              component="nav"
               disablePadding
               className={classes.filterPanel}
+              component="nav"
             >
               {filters.map((filter) => (
                 <FilterCard
                   key={`${filter.id}-${filter.filter_identifier}`}
+                  coaches={this.props.coaches}
+                  customForms={this.props.customForms}
+                  customLevels={this.props.customLevels}
+                  establishments={this.props.establishments}
+                  fetchBulkItems={this.props.fetchBulkItems}
+                  fetchItems={this.props.fetchItems}
                   filter={filter}
-                  onClickEdit={this.updateFilter}
+                  meta_activities={this.props.meta_activities}
                   onClickDelete={this.props.deleteFilter}
+                  onClickEdit={this.updateFilter}
                   payment_packs={this.props.payment_packs}
                   private_passes={this.props.private_passes}
                   private_services={this.props.private_services}
-                  meta_activities={this.props.meta_activities}
-                  establishments={this.props.establishments}
                   tags={this.props.tags}
-                  coaches={this.props.coaches}
-                  fetchItems={this.props.fetchItems}
-                  fetchBulkItems={this.props.fetchBulkItems}
-                  customLevels={this.props.customLevels}
-                  customForms={this.props.customForms}
                 />
               ))}
               {this.state.new_filter ? (
                 <FilterCard
+                  new
+                  coaches={this.props.coaches}
+                  customForms={this.props.customForms}
+                  customLevels={this.props.customLevels}
+                  establishments={this.props.establishments}
+                  fetchBulkItems={this.props.fetchBulkItems}
+                  fetchItems={this.props.fetchItems}
                   filter={this.state.new_filter}
+                  meta_activities={this.props.meta_activities}
+                  onClickCreate={this.createFilter}
                   onClickDelete={this.cancelFilter}
                   payment_packs={this.props.payment_packs}
                   private_passes={this.props.private_passes}
                   private_services={this.props.private_services}
-                  meta_activities={this.props.meta_activities}
-                  establishments={this.props.establishments}
-                  new
-                  onClickCreate={this.createFilter}
                   tags={this.props.tags}
-                  coaches={this.props.coaches}
-                  fetchItems={this.props.fetchItems}
-                  fetchBulkItems={this.props.fetchBulkItems}
-                  customLevels={this.props.customLevels}
-                  customForms={this.props.customForms}
                 />
               ) : null}
             </List>
@@ -593,11 +593,11 @@ export class FiltersPanel extends Component<Props, State> {
         </Collapse>
         {this.state.openCadenceListDialog && (
           <GenericMuiDialog
-            open={this.state.openCadenceListDialog}
-            title={t('cadenceListDialog.title')}
+            cancelText={t('cadenceListDialog.close')}
             content={this.props.cadences?.map((cadence) => cadence?.name)}
             onCancel={this.closeCadencesDialog}
-            cancelText={t('cadenceListDialog.close')}
+            open={this.state.openCadenceListDialog}
+            title={t('cadenceListDialog.title')}
           />
         )}
       </div>

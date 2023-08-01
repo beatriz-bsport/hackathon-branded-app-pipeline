@@ -44,7 +44,7 @@ export const GroupOfferRedirectToFirstOfferDialog: React.FC<Props> = ({
           {!loading && group?.name ? (
             <Typography variant="h6">{group?.name}</Typography>
           ) : (
-            <Skeleton animation="wave" width="40%" variant="text" height={40} />
+            <Skeleton animation="wave" height={40} variant="text" width="40%" />
           )}
         </div>
         <Divider className={classes.divider} />
@@ -60,19 +60,19 @@ export const GroupOfferRedirectToFirstOfferDialog: React.FC<Props> = ({
           ) : (
             <Skeleton
               animation="wave"
-              width="100%"
-              variant="text"
               height={30}
+              variant="text"
+              width="100%"
             />
           )}
         </div>
       </DialogContent>
       <DialogActions>
         <Button
-          variant="contained"
           color="primary"
-          onClick={onClose}
           disabled={loading}
+          onClick={onClose}
+          variant="contained"
         >
           {t('workshop.confirm')}
         </Button>

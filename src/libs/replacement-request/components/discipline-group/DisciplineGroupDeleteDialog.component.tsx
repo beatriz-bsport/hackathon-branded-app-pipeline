@@ -30,11 +30,11 @@ export const DisciplineGroupDeleteDialog: React.FC<Props> = ({
   const { t } = useTranslation('replacement');
 
   return (
-    <Dialog open={open} maxWidth="sm" classes={{ paper: classes.dialogPaper }}>
-      <Typography variant="h6" className={classes.title}>
+    <Dialog classes={{ paper: classes.dialogPaper }} maxWidth="sm" open={open}>
+      <Typography className={classes.title} variant="h6">
         {t('disciplineGroup.delete.title')}
       </Typography>
-      <Typography variant="body1" className={classes.title}>
+      <Typography className={classes.title} variant="body1">
         {t('disciplineGroup.delete.description', {
           name: disciplineGroup?.name || '',
         })}
@@ -52,8 +52,8 @@ export const DisciplineGroupDeleteDialog: React.FC<Props> = ({
             </Button>
             <Button
               className={classNames(classes.buttons, classes.redButton)}
-              onClick={onConfirm}
               disabled={loading}
+              onClick={onConfirm}
             >
               {t('disciplineGroup.delete.confirm')}
             </Button>

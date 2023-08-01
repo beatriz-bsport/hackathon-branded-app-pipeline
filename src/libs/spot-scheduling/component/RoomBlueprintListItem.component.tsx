@@ -26,9 +26,9 @@ const RoomBlueprintsListItem = (props: Props) => {
   const { t } = useTranslation(['spotScheduling']);
   return (
     <ListItem
-      selected={props.selected}
-      onClick={props.onClick ? () => props.onClick(props.roomBlueprint) : null}
       button={!!props.onClick}
+      onClick={props.onClick ? () => props.onClick(props.roomBlueprint) : null}
+      selected={props.selected}
     >
       <ListItemText
         primary={props.roomBlueprint.name}

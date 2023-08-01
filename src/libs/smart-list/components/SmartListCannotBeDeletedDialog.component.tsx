@@ -21,14 +21,14 @@ export const SmartListCannotBeDeletedDialog: React.FC<Props> = ({
   const { t } = useTranslation('smartList');
   return (
     <GenericDialogWithIconHeaderMUI
-      open={open}
+      content={t('cannotBeDeletedDialog.content', {
+        count: cadences?.length || 0,
+      })}
       headerIcon={<WarningIcon />}
       headerTitle={t('cannotBeDeletedDialog.title')}
       onCancelClick={onCancel}
       onCancelText={t('cannotBeDeletedDialog.cancel')}
-      content={t('cannotBeDeletedDialog.content', {
-        count: cadences?.length || 0,
-      })}
+      open={open}
     >
       {cadences?.map(
         (cadence) =>

@@ -64,20 +64,19 @@ export function CoachPerformanceSessionTable(props: Props) {
       >
         {props.displayChip && (
           <Chip
-            variant="outlined"
             color="primary"
-            style={{ marginTop: 15, marginLeft: 10 }}
             label={
               <Typography variant="subtitle2">
                 {t('paymentRules:tabs.session')}
               </Typography>
             }
+            style={{ marginTop: 15, marginLeft: 10 }}
+            variant="outlined"
           />
         )}
         {!props.asCoach && (
           <div className={classes.downloadButtonsContainer}>
             <Button
-              variant="contained"
               className={classes.buttonCSV}
               color="primary"
               disabled={!performances}
@@ -114,16 +113,17 @@ export function CoachPerformanceSessionTable(props: Props) {
                   'payroll.csv',
                 )
               }
+              variant="contained"
             >
               <AttachIcon style={{ marginRight: 12 }} />
               {t('table.downloadCSV')}
             </Button>
             <Button
-              variant="contained"
-              disabled={!performances || disablePdfButton}
-              onClick={handlePdfExportation}
               className={classes.buttonPDF}
               color="secondary"
+              disabled={!performances || disablePdfButton}
+              onClick={handlePdfExportation}
+              variant="contained"
             >
               <AttachIcon style={{ marginRight: 12 }} />
               {t('table.downloadPDF')}
@@ -224,11 +224,10 @@ export function CoachPerformanceSessionTable(props: Props) {
                 {!props.hideRuleSetter && (
                   <TableCell>
                     <CoachPaymentRuleSelector
-                      id="payment_rule_per_session"
-                      coachPaymentRulesList={coachPaymentRulesList}
-                      selected={session.coach_payment_rule}
-                      isOverride
                       enableReset
+                      isOverride
+                      coachPaymentRulesList={coachPaymentRulesList}
+                      id="payment_rule_per_session"
                       onChange={({ value }: { value: number }) => {
                         setSessionCoachPaymentRule({
                           sessionId: session.session_id,
@@ -236,6 +235,7 @@ export function CoachPerformanceSessionTable(props: Props) {
                           associatedCoachId: coach.associated_coach_id,
                         });
                       }}
+                      selected={session.coach_payment_rule}
                     />
                   </TableCell>
                 )}

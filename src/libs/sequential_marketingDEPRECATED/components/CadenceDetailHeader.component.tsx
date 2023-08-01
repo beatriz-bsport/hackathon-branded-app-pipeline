@@ -89,19 +89,19 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = ({
     <>
       <div className={classes.leftInnerContainer}>
         <ToolTip title={t('cadence.back')}>
-          <IconButton onClick={goBack} disabled={loading}>
+          <IconButton disabled={loading} onClick={goBack}>
             <ArrowBackIcon />
           </IconButton>
         </ToolTip>
 
         <div className={classes.nameWithIcon}>
-          <Typography variant="h6" className={classes.titleTypo}>
+          <Typography className={classes.titleTypo} variant="h6">
             {cadence?.name}
           </Typography>
           <ToolTip title={t('cadence.form.modify_name_label')}>
             <IconButton
-              onClick={() => setOpenEditDialog(true)}
               disabled={loading || cadenceEditMode || cadence?.active}
+              onClick={() => setOpenEditDialog(true)}
             >
               <EditIcon />
             </IconButton>
@@ -111,10 +111,10 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = ({
         <div className={classes.actions}>
           {cadence?.active ? (
             <Button
-              variant="contained"
               color="primary"
               disabled={loading || cadenceEditMode}
               onClick={() => onShutOff()}
+              variant="contained"
             >
               <PauseIcon className={classes.leftIcon} />
               {t('cadence.shutOff')}
@@ -129,10 +129,10 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = ({
             >
               <div>
                 <Button
-                  onClick={() => setOpenActivateDialog(true)}
-                  disabled={loading || cadenceEditMode || !canBeActivated}
-                  variant="outlined"
                   color="primary"
+                  disabled={loading || cadenceEditMode || !canBeActivated}
+                  onClick={() => setOpenActivateDialog(true)}
+                  variant="outlined"
                 >
                   <PlayArrowIcon className={classes.leftIcon} />
                   {t('cadence.activate.button')}
@@ -148,10 +148,10 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = ({
             }
           >
             <Button
-              variant="contained"
               color="secondary"
               disabled={cadence?.active || loading || !canBeActivated}
               onClick={switchCadenceEditMode}
+              variant="contained"
             >
               {cadenceEditMode ? (
                 <>
@@ -226,21 +226,21 @@ export const CadenceDetailHeader: React.FC<Props> = ({
         <div className={classes.flexContent}>
           <CadenceDetailHeaderActions
             cadence={cadence}
+            cadenceEditMode={cadenceEditMode}
+            cadenceMinimalConfigurationState={cadenceMinimalConfigurationState}
             goBack={goBack}
             loading={loading}
-            cadenceEditMode={cadenceEditMode}
-            setOpenEditDialog={setOpenEditDialog}
-            setOpenActivateDialog={setOpenActivateDialog}
             onShutOff={onShutOff}
+            setOpenActivateDialog={setOpenActivateDialog}
+            setOpenEditDialog={setOpenEditDialog}
             switchCadenceEditMode={switchCadenceEditMode}
-            cadenceMinimalConfigurationState={cadenceMinimalConfigurationState}
           />
           <div className={classes.triggerCards}>
             <CadenceConnectedTriggersCard
-              kind="win"
               cadence={cadence}
-              onClick={() => onEditWinParameters()}
               disabled={!cadenceEditMode}
+              kind="win"
+              onClick={() => onEditWinParameters()}
             />
             <div
               style={{
@@ -249,10 +249,10 @@ export const CadenceDetailHeader: React.FC<Props> = ({
               }}
             >
               <CadenceConnectedTriggersCard
-                kind="lost"
                 cadence={cadence}
-                onClick={() => onEditLoseParameters()}
                 disabled={!cadenceEditMode}
+                kind="lost"
+                onClick={() => onEditLoseParameters()}
               />
             </div>
           </div>
@@ -260,17 +260,17 @@ export const CadenceDetailHeader: React.FC<Props> = ({
       </div>
       {openEditDialog && !loading && (
         <CadenceCreateAndUpdateForm
-          initial={cadence}
           open
-          onSubmit={handleEdit}
-          onCancel={() => setOpenEditDialog(false)}
+          initial={cadence}
           loading={false}
+          onCancel={() => setOpenEditDialog(false)}
+          onSubmit={handleEdit}
         />
       )}
       <CadenceActivateDialog
-        open={openActivateDialog}
         onCancel={() => setOpenActivateDialog(false)}
         onConfirm={handleActivate}
+        open={openActivateDialog}
       />
     </>
   );

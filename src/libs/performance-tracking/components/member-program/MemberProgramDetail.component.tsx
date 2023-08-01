@@ -55,9 +55,9 @@ export const MemberProgramDetail = (props: Props) => {
             {memberProgram?.metric_record?.general?.metrics?.map(
               (member_metric) => (
                 <SliderForm
-                  value={member_metric?.value}
-                  metric={member_metric?.metric}
                   changeMemberMetricValue={changeMemberMetricValue}
+                  metric={member_metric?.metric}
+                  value={member_metric?.value}
                 />
               ),
             )}

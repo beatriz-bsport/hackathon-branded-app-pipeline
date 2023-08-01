@@ -43,9 +43,9 @@ const ExportableComponentSelector = (props: Props) => {
         {t('marketplaceSettings.createDialog.selectComponent')}
       </Typography>
       <MaterialUISelector
-        value={selected}
         onChange={onSelect}
         options={options}
+        value={selected}
       />
       {error && <Typography color="error">{error}</Typography>}
     </div>

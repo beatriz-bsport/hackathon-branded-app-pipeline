@@ -56,9 +56,9 @@ export class SelectTemplate extends Component<Props> {
       return (
         <div className={this.props.classes.previewEmpty}>
           <Alert
+            className={this.props.classes.alertInfo}
             color="grey"
             severity="info"
-            className={this.props.classes.alertInfo}
           >
             {this.props.t('mail.noMailAvailable')}
           </Alert>
@@ -69,9 +69,9 @@ export class SelectTemplate extends Component<Props> {
     return (
       <div className={this.props.classes.previewEmpty}>
         <Alert
+          className={this.props.classes.alertInfo}
           color="grey"
           severity="info"
-          className={this.props.classes.alertInfo}
         >
           {this.props.t('mail.selectToShowPreview')}
         </Alert>
@@ -91,15 +91,15 @@ export class SelectTemplate extends Component<Props> {
     return (
       <div>
         <TextField
-          name="Mail title"
-          placeholder={t('mail.title')}
           fullWidth
           required
           className={classes.mailTitle}
-          value={this.props.title}
+          name="Mail title"
           onChange={(e) => {
             this.props.onChangeTitle(e.target.value);
           }}
+          placeholder={t('mail.title')}
+          value={this.props.title}
         />
         <div>
           {this.props.emailListLoading ? (
@@ -108,11 +108,13 @@ export class SelectTemplate extends Component<Props> {
             <div className={classes.selectorContainer}>
               <EmailSelector
                 emails={this.props.emails}
-                value={this.props.selectedMail}
-                onChange={this.handleOnChange}
                 helperText={t('mail.mailSelection')}
+                onChange={this.handleOnChange}
+                value={this.props.selectedMail}
               />
               <Fab
+                className={classes.addIcon}
+                color="secondary"
                 onClick={() => {
                   this.props.onCancel();
                   const url = '/email-template/create';
@@ -121,8 +123,6 @@ export class SelectTemplate extends Component<Props> {
                   this.props.onChangeTemplate(null);
                 }}
                 size="small"
-                color="secondary"
-                className={classes.addIcon}
               >
                 <AddIcon />
               </Fab>
@@ -158,6 +158,10 @@ export class SelectTemplate extends Component<Props> {
             !!this.props.emailDetails[this.props.selectedMail] ? (
               <div className={classes.editIcon}>
                 <Fab
+                  classes={{ disabled: classes.disabled }}
+                  className={classes.advanceIndex}
+                  color="secondary"
+                  disabled={this.props.selectedMail === null}
                   onClick={() => {
                     this.props.onCancel();
                     const url = `/email-template/${this.props.selectedMail}/edit`;
@@ -165,11 +169,7 @@ export class SelectTemplate extends Component<Props> {
                     win.focus();
                     this.props.onChangeTemplate(null);
                   }}
-                  color="secondary"
                   size="small"
-                  disabled={this.props.selectedMail === null}
-                  classes={{ disabled: classes.disabled }}
-                  className={classes.advanceIndex}
                 >
                   <EditIcon />
                 </Fab>

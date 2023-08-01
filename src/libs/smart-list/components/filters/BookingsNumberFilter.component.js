@@ -127,8 +127,8 @@ export class BookingsNumberFilter extends Component<Props, state> {
           {this.props.t(`filters.${filter_data.filter_identifier}.first`)}
           <div className={classes.numericInput}>
             <DelayedNumericInput
+              isPositive
               classes={classes}
-              value={filter_data.value}
               InputProps={{ inputProps: { min: 0 } }}
               onChange={(ev) => {
                 onChange({
@@ -138,7 +138,7 @@ export class BookingsNumberFilter extends Component<Props, state> {
                       : Math.max(parseInt(ev.target.value, 10), 1),
                 });
               }}
-              isPositive
+              value={filter_data.value}
             />
           </div>
           {filter_data.value === '1' || filter_data.value === 1
@@ -151,19 +151,19 @@ export class BookingsNumberFilter extends Component<Props, state> {
         </div>
         <div className={classes.inlineContainer}>
           <Switch
+            required
             checked={
               filter_data.attendance_filter_active === undefined
                 ? false
                 : filter_data.attendance_filter_active
             }
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
                 attendance_filter_active: !filter_data.attendance_filter_active,
               })
             }
             value="checkedA"
-            required
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
           />
           <div
             className={
@@ -176,14 +176,14 @@ export class BookingsNumberFilter extends Component<Props, state> {
               `filters.${filter_data.filter_identifier}.attendance`,
             )}
             <Select
-              className={classes.input}
               required
+              className={classes.input}
+              onChange={(ev) => onChange({ attendance: ev.target.value })}
               value={
                 filter_data.attendance === undefined
                   ? true
                   : filter_data.attendance
               }
-              onChange={(ev) => onChange({ attendance: ev.target.value })}
             >
               <MenuItem value>{t('filters.attendanceTrue')}</MenuItem>
               <MenuItem value={false}>{t('filters.attendanceFalse')}</MenuItem>
@@ -197,6 +197,7 @@ export class BookingsNumberFilter extends Component<Props, state> {
         <div className={classes.inlineContainer}>
           <Switch
             checked={filter_data.establishment_filter_active}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
                 establishment_filter_active:
@@ -204,7 +205,6 @@ export class BookingsNumberFilter extends Component<Props, state> {
               })
             }
             value="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
           />
           <div
             className={
@@ -217,26 +217,18 @@ export class BookingsNumberFilter extends Component<Props, state> {
               `filters.${filter_data.filter_identifier}.establishment.first`,
             )}
             <Selector
-              helperText={t('multiSelector.establishments.helperText')}
-              helperSelectedText={t(
-                'multiSelector.establishments.helperSelectedText',
-              )}
-              textFieldPlaceholder={t(
-                'multiSelector.establishments.textFieldPlaceholder',
-              )}
+              fetchItems={this.props.fetchItems.establishments}
+              groupItemIcon={<LocationOnIcon color="primary" />}
+              groupItemsFunction={this.getEstablishmentGroupByAddress}
               helperAllSelectedText={t(
                 'multiSelector.establishments.helperAllSelectedText',
               )}
-              groupItemsFunction={this.getEstablishmentGroupByAddress}
-              groupItemIcon={<LocationOnIcon color="primary" />}
-              renderItem={(item) => {
-                return <EstablishmentListItem establishment={item} />;
-              }}
-              selectAll={this.props.filter_data.select_all_establishments}
-              nameIdentifier="title"
-              fetchItems={this.props.fetchItems.establishments}
+              helperSelectedText={t(
+                'multiSelector.establishments.helperSelectedText',
+              )}
+              helperText={t('multiSelector.establishments.helperText')}
               items={establishments}
-              selectedItems={filter_data.establishments}
+              nameIdentifier="title"
               onChange={(items, selectAll) => {
                 if (
                   filter_data.establishments &&
@@ -261,6 +253,14 @@ export class BookingsNumberFilter extends Component<Props, state> {
                   });
                 }
               }}
+              renderItem={(item) => {
+                return <EstablishmentListItem establishment={item} />;
+              }}
+              selectAll={this.props.filter_data.select_all_establishments}
+              selectedItems={filter_data.establishments}
+              textFieldPlaceholder={t(
+                'multiSelector.establishments.textFieldPlaceholder',
+              )}
             />
             {this.props.renderSelectorWarning(
               t('multiSelector.establishments.warning'),
@@ -272,13 +272,13 @@ export class BookingsNumberFilter extends Component<Props, state> {
         <div className={classes.inlineContainer}>
           <Switch
             checked={filter_data.coach_filter_active}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
                 coach_filter_active: !filter_data.coach_filter_active,
               })
             }
             value="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
           />
           <div
             className={
@@ -291,22 +291,14 @@ export class BookingsNumberFilter extends Component<Props, state> {
               `filters.${filter_data.filter_identifier}.coach.first`,
             )}
             <Selector
-              helperText={t('multiSelector.coaches.helperText')}
-              helperSelectedText={t('multiSelector.coaches.helperSelectedText')}
-              textFieldPlaceholder={t(
-                'multiSelector.coaches.textFieldPlaceholder',
-              )}
+              fetchItems={this.props.fetchItems.coaches}
               helperAllSelectedText={t(
                 'multiSelector.coaches.helperAllSelectedText',
               )}
-              selectAll={this.props.filter_data.select_all_coaches}
-              fetchItems={this.props.fetchItems.coaches}
-              renderItem={(item) => {
-                return <CoachListItem coach={item} />;
-              }}
-              nameIdentifier="name"
+              helperSelectedText={t('multiSelector.coaches.helperSelectedText')}
+              helperText={t('multiSelector.coaches.helperText')}
               items={coaches}
-              selectedItems={filter_data.coaches}
+              nameIdentifier="name"
               onChange={(items, selectAll) => {
                 if (
                   filter_data.coaches &&
@@ -323,6 +315,14 @@ export class BookingsNumberFilter extends Component<Props, state> {
                   onChange({ coaches: items, select_all_coaches: selectAll });
                 }
               }}
+              renderItem={(item) => {
+                return <CoachListItem coach={item} />;
+              }}
+              selectAll={this.props.filter_data.select_all_coaches}
+              selectedItems={filter_data.coaches}
+              textFieldPlaceholder={t(
+                'multiSelector.coaches.textFieldPlaceholder',
+              )}
             />
             {this.props.renderSelectorWarning(
               t('multiSelector.coaches.warning'),
@@ -334,6 +334,7 @@ export class BookingsNumberFilter extends Component<Props, state> {
         <div className={classes.inlineContainer}>
           <Switch
             checked={filter_data.payment_pack_filter_active}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
                 payment_pack_filter_active:
@@ -341,7 +342,6 @@ export class BookingsNumberFilter extends Component<Props, state> {
               })
             }
             value="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
           />{' '}
           <div
             className={
@@ -354,24 +354,16 @@ export class BookingsNumberFilter extends Component<Props, state> {
               `filters.${filter_data.filter_identifier}.payment_pack.first`,
             )}
             <Selector
-              helperText={t('multiSelector.paymentPacks.helperText')}
-              helperSelectedText={t(
-                'multiSelector.paymentPacks.helperSelectedText',
-              )}
-              textFieldPlaceholder={t(
-                'multiSelector.paymentPacks.textFieldPlaceholder',
-              )}
-              renderItem={(item) => {
-                return <PaymentPackListItem pack={item} />;
-              }}
+              fetchItems={this.props.fetchItems.payment_packs}
               helperAllSelectedText={t(
                 'multiSelector.paymentPacks.helperAllSelectedText',
               )}
-              fetchItems={this.props.fetchItems.payment_packs}
-              nameIdentifier="name"
-              selectAll={this.props.filter_data.select_all_payment_packs}
+              helperSelectedText={t(
+                'multiSelector.paymentPacks.helperSelectedText',
+              )}
+              helperText={t('multiSelector.paymentPacks.helperText')}
               items={payment_packs}
-              selectedItems={filter_data.payment_packs}
+              nameIdentifier="name"
               onChange={(items, selectAll) => {
                 if (
                   filter_data.payment_packs &&
@@ -396,6 +388,14 @@ export class BookingsNumberFilter extends Component<Props, state> {
                   });
                 }
               }}
+              renderItem={(item) => {
+                return <PaymentPackListItem pack={item} />;
+              }}
+              selectAll={this.props.filter_data.select_all_payment_packs}
+              selectedItems={filter_data.payment_packs}
+              textFieldPlaceholder={t(
+                'multiSelector.paymentPacks.textFieldPlaceholder',
+              )}
             />{' '}
             {this.props.renderSelectorWarning(
               t('multiSelector.paymentPacks.warning'),
@@ -407,13 +407,13 @@ export class BookingsNumberFilter extends Component<Props, state> {
         <div className={classes.inlineContainer}>
           <Switch
             checked={filter_data.activity_filter_active}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
                 activity_filter_active: !filter_data.activity_filter_active,
               })
             }
             value="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
           />
           <div
             className={
@@ -426,21 +426,13 @@ export class BookingsNumberFilter extends Component<Props, state> {
               `filters.${filter_data.filter_identifier}.activity.first`,
             )}
             <Selector
-              helperText={t('multiSelector.metaActivities.helperText')}
+              fetchItems={this.props.fetchItems.meta_activities}
               helperSelectedText={t(
                 'multiSelector.metaActivities.helperSelectedText',
               )}
-              textFieldPlaceholder={t(
-                'multiSelector.metaActivities.textFieldPlaceholder',
-              )}
-              renderItem={(item) => {
-                return <MetaActivityListItem metaActivity={item} />;
-              }}
-              selectAll={this.props.filter_data.select_all_activities}
-              nameIdentifier="name"
+              helperText={t('multiSelector.metaActivities.helperText')}
               items={meta_activities}
-              fetchItems={this.props.fetchItems.meta_activities}
-              selectedItems={filter_data.meta_activities}
+              nameIdentifier="name"
               onChange={(items, selectAll) => {
                 if (
                   filter_data.meta_activities &&
@@ -465,6 +457,14 @@ export class BookingsNumberFilter extends Component<Props, state> {
                   });
                 }
               }}
+              renderItem={(item) => {
+                return <MetaActivityListItem metaActivity={item} />;
+              }}
+              selectAll={this.props.filter_data.select_all_activities}
+              selectedItems={filter_data.meta_activities}
+              textFieldPlaceholder={t(
+                'multiSelector.metaActivities.textFieldPlaceholder',
+              )}
             />
             {this.props.renderSelectorWarning(
               t('multiSelector.metaActivities.warning'),
@@ -476,13 +476,13 @@ export class BookingsNumberFilter extends Component<Props, state> {
         <div className={classes.inlineContainer}>
           <Switch
             checked={filter_data.level_filter_active}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
                 level_filter_active: !filter_data.level_filter_active,
               })
             }
             value="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
           />
           <div
             className={
@@ -497,19 +497,19 @@ export class BookingsNumberFilter extends Component<Props, state> {
               )}
             </div>
             <CheckboxSelector
+              filterItemsCallback={(l) => l.enabled}
+              helperText={t('multiSelector.level.select')}
               items={this.props.customLevels.map((level) => ({
                 id: level.id,
                 text: getLevelTrad(level.id, level.name, this.props.t),
                 disabled: !level.enabled,
               }))}
-              renderItem={(item) => <ListItemText primary={item.text} />}
+              labelName="text"
               onChange={(item) => {
                 onChange({ level: item });
               }}
+              renderItem={(item) => <ListItemText primary={item.text} />}
               selectedItems={filter_data.level}
-              labelName="text"
-              helperText={t('multiSelector.level.select')}
-              filterItemsCallback={(l) => l.enabled}
             />
             {this.props.renderSelectorWarning(
               t('multiSelector.level.warning'),
@@ -521,13 +521,13 @@ export class BookingsNumberFilter extends Component<Props, state> {
         <div className={classes.inlineContainer}>
           <Switch
             checked={filter_data.date_filter_active}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
                 date_filter_active: !filter_data.date_filter_active,
               })
             }
             value="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
           />
           <div
             className={
@@ -540,23 +540,23 @@ export class BookingsNumberFilter extends Component<Props, state> {
               `filters.${filter_data.filter_identifier}.date.first`,
             )}
             <CalendarPicker
-              filter_data={filter_data}
-              onChange={onChange}
               blockValidateOnClickAway
               className={classes.calendar}
+              filter_data={filter_data}
+              onChange={onChange}
             />
           </div>
         </div>
         <div className={classes.inlineContainer}>
           <Switch
             checked={filter_data.hour_filter_active}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
                 hour_filter_active: !filter_data.hour_filter_active,
               })
             }
             value="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
           />
           <div
             className={
@@ -569,31 +569,31 @@ export class BookingsNumberFilter extends Component<Props, state> {
               `filters.${filter_data.filter_identifier}.hour.first`,
             )}
             <TextField
-              style={{ minWidth: 60 }}
-              type="time"
-              value={filter_data.hour}
+              required
+              className={classes.hourPicker}
               onChange={(ev) =>
                 onChange({
                   hour: ev.target.value,
                 })
               }
-              required
-              className={classes.hourPicker}
+              style={{ minWidth: 60 }}
+              type="time"
+              value={filter_data.hour}
             />
             {this.props.t(
               `filters.${filter_data.filter_identifier}.hour.second`,
             )}
             <TextField
-              style={{ minWidth: 60 }}
-              type="time"
-              value={filter_data.hour_second}
+              required
+              className={classes.hourPicker}
               onChange={(ev) =>
                 onChange({
                   hour_second: ev.target.value,
                 })
               }
-              required
-              className={classes.hourPicker}
+              style={{ minWidth: 60 }}
+              type="time"
+              value={filter_data.hour_second}
             />
             {this.props.t(
               `filters.${filter_data.filter_identifier}.hour.third`,

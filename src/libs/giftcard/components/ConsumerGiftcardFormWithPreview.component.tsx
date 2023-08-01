@@ -34,7 +34,7 @@ const GridWrapper = {
 };
 
 const GridSecondChildWrapper = {
-  true: (p: any) => <Grid item xs={12} sm={12} md={8} {...p} />,
+  true: (p: any) => <Grid item md={8} sm={12} xs={12} {...p} />,
   false: (p: any) => <div>{p.children}</div>,
 };
 
@@ -44,7 +44,7 @@ const ConsumerGiftcardFormWithPreview = React.memo((props: Props) => {
   const { values } = props;
 
   const GridFirstChildWrapper = {
-    true: (p: any) => <Grid item xs={12} sm={12} md={4} {...p} />,
+    true: (p: any) => <Grid item md={4} sm={12} xs={12} {...p} />,
     false: (p: any) => <div className={classes.center}>{p.children}</div>,
   };
 

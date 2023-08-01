@@ -62,7 +62,7 @@ export class SendEmailDialog extends Component<Props> {
     if (emails.length === 0) {
       return (
         <div className={this.props.classes.previewEmpty}>
-          <InfoIcon fontSize="large" color="disabled" />
+          <InfoIcon color="disabled" fontSize="large" />
           <Typography color="textSecondary">
             {this.props.t('mail.noMailAvailable')}
           </Typography>
@@ -72,7 +72,7 @@ export class SendEmailDialog extends Component<Props> {
 
     return (
       <div className={this.props.classes.previewEmpty}>
-        <InfoIcon fontSize="large" color="disabled" />
+        <InfoIcon color="disabled" fontSize="large" />
         <Typography color="textSecondary">
           {this.props.t('selectToShowPreview')}
         </Typography>
@@ -95,6 +95,7 @@ export class SendEmailDialog extends Component<Props> {
       ) : (
         <Button
           color="primary"
+          disabled={this.state.selectedMail === null}
           onClick={() => {
             if (this.state.selectedMail !== null) {
               this.setState({ processing: true });
@@ -110,7 +111,6 @@ export class SendEmailDialog extends Component<Props> {
               });
             }
           }}
-          disabled={this.state.selectedMail === null}
           variant="outlined"
         >
           {this.props.t('mail.send')}
@@ -122,7 +122,7 @@ export class SendEmailDialog extends Component<Props> {
   render() {
     const { classes, t } = this.props;
     return (
-      <Dialog open={this.props.open} onClose={this.props.onClose}>
+      <Dialog onClose={this.props.onClose} open={this.props.open}>
         <DialogTitle>{t('mail.sendMailTitle')}</DialogTitle>
         <DialogContent>
           {this.renderActionButtons()}
@@ -133,15 +133,17 @@ export class SendEmailDialog extends Component<Props> {
               <div className={classes.selectorContainer}>
                 <EmailSelector
                   emails={this.props.emails}
-                  value={this.state.selectedMail}
+                  helperText={t('mails')}
                   onChange={(ev) => {
                     const { value } = ev;
                     this.setState({ selectedMail: value });
                     this.props.getEmailDetail(value);
                   }}
-                  helperText={t('mails')}
+                  value={this.state.selectedMail}
                 />
                 <Fab
+                  className={classes.addIcon}
+                  color="secondary"
                   onClick={() => {
                     this.props.onClose();
                     const url = '/email-template/create';
@@ -150,8 +152,6 @@ export class SendEmailDialog extends Component<Props> {
                     this.setState({ selectedMail: null });
                   }}
                   size="small"
-                  color="secondary"
-                  className={classes.addIcon}
                 >
                   <AddIcon />
                 </Fab>
@@ -161,6 +161,9 @@ export class SendEmailDialog extends Component<Props> {
 
           <div className={classes.editIcon}>
             <Fab
+              classes={{ disabled: classes.disabled }}
+              color="secondary"
+              disabled={this.state.selectedMail === null}
               onClick={() => {
                 this.props.onClose();
                 const url = `/email-template/${this.state.selectedMail}/edit`;
@@ -168,10 +171,7 @@ export class SendEmailDialog extends Component<Props> {
                 win.focus();
                 this.setState({ selectedMail: null });
               }}
-              color="secondary"
               size="small"
-              disabled={this.state.selectedMail === null}
-              classes={{ disabled: classes.disabled }}
             >
               <EditIcon />
             </Fab>

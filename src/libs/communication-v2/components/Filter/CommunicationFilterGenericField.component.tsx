@@ -45,7 +45,7 @@ export const CommunicationFilterGenericField = (props: GenericProps) => {
   return (
     <Grid container className={classes.container} spacing={1}>
       <Grid item sm={3} xs={12}>
-        <Typography variant="body2" className={classes.title}>
+        <Typography className={classes.title} variant="body2">
           {fieldName}
         </Typography>
       </Grid>
@@ -53,12 +53,12 @@ export const CommunicationFilterGenericField = (props: GenericProps) => {
         <Select
           closeMenuOnSelect
           isMulti
-          placeholder={fieldPlaceholder}
-          options={fieldChoices}
-          onChange={setFieldValue}
           className={classes.selector}
-          value={fieldValues}
+          onChange={setFieldValue}
+          options={fieldChoices}
+          placeholder={fieldPlaceholder}
           styles={{ ...selectorStyles }}
+          value={fieldValues}
         />
       </Grid>
     </Grid>

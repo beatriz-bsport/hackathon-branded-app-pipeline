@@ -41,35 +41,35 @@ export function PaymentComboFormDrawer(props: Props) {
   const { t } = useTranslation('paymentCombo');
   return (
     <GenericResponsiveDrawer
-      open={open}
       onClose={handleClose}
-      title={t('form.title')}
+      open={open}
       subtitle={props.initial?.name}
+      title={t('form.title')}
+      trackingObjectId={props.initial?.id}
       trackingObjectIdentifier={
         SegmentAnalyticsFormObjectIdentifier.PaymentCombo
       }
-      trackingObjectId={props.initial?.id}
     >
       <Form>
         <div className={classes.content}>
           {open ? <PaymentComboFields {...props} /> : null}
           <DialogActions>
             <Button
+              disabled={isSubmitting}
               onClick={() => {
                 props.handleClose();
                 trackFormCancel(props.initial?.id);
               }}
-              disabled={isSubmitting}
             >
               {t('form.actions.cancel')}
             </Button>
             <Button
+              color="primary"
+              disabled={isSubmitting}
               onClick={() => {
                 trackFormSubmitIntent(props.initial?.id);
                 props.handleSubmit();
               }}
-              disabled={isSubmitting}
-              color="primary"
               variant="contained"
             >
               {t('form.actions.submit')}

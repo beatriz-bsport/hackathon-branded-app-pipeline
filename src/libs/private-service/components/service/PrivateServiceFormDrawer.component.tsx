@@ -51,10 +51,10 @@ export const PrivateServiceFormDrawer = (props: Props) => {
   }, [props.initial?.id, props.open]);
   return (
     <GenericResponsiveDrawer
-      open={props.open}
-      title={t('service.form.title')}
-      subtitle={props.initial?.name}
       onClose={cancel}
+      open={props.open}
+      subtitle={props.initial?.name}
+      title={t('service.form.title')}
     >
       <div className={classes.container}>
         <Form>

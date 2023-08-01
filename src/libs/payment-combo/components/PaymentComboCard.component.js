@@ -61,18 +61,18 @@ export const PaymentComboCard = (props: Props) => {
     <div className={classes.container}>
       <div>
         <div className={classes.header}>
-          <Typography variant="h4" component="h3">
+          <Typography component="h3" variant="h4">
             {paymentCombo.name}
           </Typography>
-          <Typography variant="h4" component="p">
+          <Typography component="p" variant="h4">
             {`${getCurrencyDisplayWithPrice(paymentCombo.price)}`}
           </Typography>
         </div>
         <Typography
-          className={classes.sectionTitle}
-          variant="h6"
-          component="h4"
           align="right"
+          className={classes.sectionTitle}
+          component="h4"
+          variant="h6"
         >
           {t('detail.description')}
         </Typography>
@@ -86,10 +86,10 @@ export const PaymentComboCard = (props: Props) => {
       <div className={classes.comboContentContainer}>
         <div>
           <Typography
-            className={classes.contentTitle}
-            variant="h6"
-            component="h4"
             align="right"
+            className={classes.contentTitle}
+            component="h4"
+            variant="h6"
           >
             {t('detail.content')}
           </Typography>
@@ -106,10 +106,10 @@ export const PaymentComboCard = (props: Props) => {
             <Paper>
               {paymentCombo.payment_packs.map((pp) => (
                 <ListItem
-                  button
-                  onClick={() => props.onPaymentPackClick(pp.id)}
                   key={`pack:${pp.id}`}
+                  button
                   divider
+                  onClick={() => props.onPaymentPackClick(pp.id)}
                 >
                   <ListItemIcon>
                     <Avatar className={props.classes.quantity}>
@@ -129,10 +129,10 @@ export const PaymentComboCard = (props: Props) => {
               ))}
               {paymentCombo.shop_items.map((si) => (
                 <ListItem
-                  onClick={() => props.onShopItemClick(si.id)}
-                  button
                   key={`shop_item:${si.id}`}
+                  button
                   divider
+                  onClick={() => props.onShopItemClick(si.id)}
                 >
                   <ListItemIcon>
                     <Avatar className={props.classes.quantity}>
@@ -152,10 +152,10 @@ export const PaymentComboCard = (props: Props) => {
               ))}
               {paymentCombo.private_passes.map((pp) => (
                 <ListItem
-                  button
-                  onClick={() => props.onPrivatePassClick(pp.id)}
                   key={`private_pass:${pp.id}`}
+                  button
                   divider
+                  onClick={() => props.onPrivatePassClick(pp.id)}
                 >
                   <ListItemIcon>
                     <Avatar className={props.classes.quantity}>

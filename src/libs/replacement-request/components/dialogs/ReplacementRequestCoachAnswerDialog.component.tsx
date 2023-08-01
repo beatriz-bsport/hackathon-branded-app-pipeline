@@ -92,25 +92,25 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
 
   if (success)
     return (
-      <GenericResponsiveDialog open={open} maxWidth="sm">
+      <GenericResponsiveDialog maxWidth="sm" open={open}>
         <div className={classes.validationIcon}>
           <ValidationIcon color={theme.palette.success.main} />
         </div>
         <Typography
-          variant="h6"
           className={classnames(
             classes.successTexts,
             classes.confirmAndSuccess,
           )}
+          variant="h6"
         >
           {t('coachAnswers.success.requestSent')}
         </Typography>
         <Typography
-          variant="body1"
           className={classnames(
             classes.successTexts,
             classes.confirmAndSuccess,
           )}
+          variant="body1"
         >
           {t('coachAnswers.success.description', {
             coach: selectedCoachAnswer.coach.name,
@@ -128,11 +128,11 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
 
   if (confirm)
     return (
-      <GenericResponsiveDialog open={open} maxWidth="sm">
-        <Typography variant="h6" className={classes.confirmAndSuccess}>
+      <GenericResponsiveDialog maxWidth="sm" open={open}>
+        <Typography className={classes.confirmAndSuccess} variant="h6">
           {t('coachAnswers.confirmation.title')}
         </Typography>
-        <Typography variant="body1" className={classes.confirmAndSuccess}>
+        <Typography className={classes.confirmAndSuccess} variant="body1">
           {t('coachAnswers.confirmation.description', {
             coach_override: selectedCoachAnswer.coach.name,
             coach: replacementRequest.offer.coach.name,
@@ -148,8 +148,8 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
               </Button>
               <Button
                 className={classes.buttons}
-                onClick={handleSubmit}
                 color="primary"
+                onClick={handleSubmit}
                 variant="contained"
               >
                 {t('coachAnswers.confirmation.confirm')}
@@ -161,12 +161,12 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
     );
 
   return (
-    <GenericResponsiveDialog open={open} maxWidth="sm">
+    <GenericResponsiveDialog maxWidth="sm" open={open}>
       <div className={classes.dateContainer}>
         <Typography variant="h6">
           {moment(replacementRequest.offer.date_start).format('ddd D MMM')}
         </Typography>
-        <Typography variant="body2" className={classes.grey}>
+        <Typography className={classes.grey} variant="body2">
           {formatAsTime(replacementRequest.offer.date_start)} -{' '}
           {formatAsTime(
             moment(replacementRequest.offer.date_start).add(
@@ -177,19 +177,19 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
         </Typography>
       </div>
       <div className={classes.spaceBetween}>
-        <Typography variant="subtitle1" className={classes.weight500}>
+        <Typography className={classes.weight500} variant="subtitle1">
           {replacementRequest.offer.meta_activity.name}
         </Typography>
         <div className={classes.chipContainer}>
           <LevelChip
-            customLevel={replacementRequest.offer.customLevel}
             isChip
+            customLevel={replacementRequest.offer.customLevel}
           />
         </div>
       </div>
       <div className={classes.flexRow}>
         <CoachAvatar coach={replacementRequest.offer.coach} />
-        <Typography variant="body2" className={classes.grey}>
+        <Typography className={classes.grey} variant="body2">
           {replacementRequest.offer.coach.name}
         </Typography>
       </div>
@@ -197,32 +197,32 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
       <div className={classes.responsiveContainer}>
         <div className={classes.responsiveSubContainer}>
           <div className={classes.row}>
-            <Typography variant="subtitle1" className={classes.weight500}>
+            <Typography className={classes.weight500} variant="subtitle1">
               {t('coachAnswers.closing_date')}
             </Typography>
             <ReplacementRequestRegistrationsStatusChip
-              areClosed={moment().isAfter(replacementRequest.closing_date)}
               floatChip
+              areClosed={moment().isAfter(replacementRequest.closing_date)}
             />
           </div>
-          <Typography variant="body2" className={classnames(classes.grey)}>
+          <Typography className={classnames(classes.grey)} variant="body2">
             {moment(replacementRequest.closing_date).format('L')}
           </Typography>
         </div>
 
         <div className={classes.responsiveSubContainer}>
-          <Typography variant="subtitle1" className={classes.weight500}>
+          <Typography className={classes.weight500} variant="subtitle1">
             {t('coachAnswers.reason')}
           </Typography>
-          <Typography variant="body2" className={classnames(classes.grey)}>
+          <Typography className={classnames(classes.grey)} variant="body2">
             {`"${replacementRequest.reason}"`}
           </Typography>
         </div>
       </div>
       <ReplacementRequestCoachAnswerTable
         coaches={coaches}
-        replacementRequestCoachAnswerList={replacementRequest.coach_answer}
         onAttribute={handleAttribute}
+        replacementRequestCoachAnswerList={replacementRequest.coach_answer}
       />
       <div className={classes.alignRight}>
         <Button className={classes.buttons} onClick={onClose}>

@@ -27,10 +27,10 @@ export class ConsumerDashboardPassPanel extends React.PureComponent<Props> {
     return (
       <div>
         <Typography
-          variant="h4"
-          component="h3"
           className={this.props.classes.sectionTitle}
           color="textSecondary"
+          component="h3"
+          variant="h4"
         >
           {this.props.t('dashboard.currentPassTitle')}
         </Typography>
@@ -47,23 +47,23 @@ export class ConsumerDashboardPassPanel extends React.PureComponent<Props> {
         this.props.privateConsumerPassList.length === 0 &&
         !this.props.consumerPackLoading &&
         !this.props.privateConsumerPassLoading ? (
-          <Typography variant="caption" color="textSecondary">
+          <Typography color="textSecondary" variant="caption">
             {this.props.t('dashboard.noPackCurrentlyActive')}
           </Typography>
         ) : (
           <Paper>
             {this.props.consumerPackList.map((cpp) => (
               <ConsumerPackRowItem
-                hideConsumer
                 key={cpp.id}
+                hideConsumer
                 consumerPack={cpp}
                 paymentPack={cpp.payment_pack}
               />
             ))}
             {this.props.privateConsumerPassList.map((pcp) => (
               <PrivateConsumerPassBookerListItem
-                divider
                 key={pcp.id}
+                divider
                 private_consumer_pass={pcp}
               />
             ))}

@@ -29,31 +29,31 @@ export const MetaActivityEditDrawer = (props: Props) => {
   );
   return (
     <GenericResponsiveDrawer
-      open={props.open}
       onClose={() => {
         props.onCancel();
         trackFormCancel(props.initial?.id);
       }}
-      title={
-        props.isWorkshop
-          ? t('titles:workshopActivity.workshopActivityFormPage')
-          : t('titles:metaActivity.metaActivityFormPage')
-      }
+      open={props.open}
       subtitle={
         props.isWorkshop
           ? t('titles:workshopActivity.workshopActivityEditFormSubtitle')
           : t('titles:metaActivity.metaActivityEditFormSubtitle')
       }
+      title={
+        props.isWorkshop
+          ? t('titles:workshopActivity.workshopActivityFormPage')
+          : t('titles:metaActivity.metaActivityFormPage')
+      }
     >
       <MetaActivityForm
-        initial={props.initial}
-        variant={props.isWorkshop ? 'workshop' : null}
-        SCTs={props.SCTs}
-        onSubmit={props.onSubmit}
-        onCancel={props.onCancel}
         is_broadcast_enabled
-        tags={props.tags}
+        initial={props.initial}
+        onCancel={props.onCancel}
+        onSubmit={props.onSubmit}
         resolvedGenericTags={props.resolvedGenericTags}
+        SCTs={props.SCTs}
+        tags={props.tags}
+        variant={props.isWorkshop ? 'workshop' : null}
       />
     </GenericResponsiveDrawer>
   );

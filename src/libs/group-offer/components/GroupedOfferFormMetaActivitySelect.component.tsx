@@ -34,13 +34,13 @@ export const GroupedOfferFormMetaActivitySelect: React.FC<Props> = ({
   return (
     <>
       <MetaActivitySelectorWithCard
-        metaActivities={metaActivities}
-        placeholder={placeholder}
-        onChange={handleSelectActivity}
         isLoading={metaActivityLoading}
+        metaActivities={metaActivities}
+        onChange={handleSelectActivity}
+        placeholder={placeholder}
       />
       <div className={classes.buttonContainer}>
-        <Button onClick={handlePreviousStep} className={classes.button}>
+        <Button className={classes.button} onClick={handlePreviousStep}>
           {t('translation:common.cancel')}
         </Button>
       </div>

@@ -49,16 +49,16 @@ class CanvasToolbar extends React.PureComponent<Props, State> {
   render() {
     const { classes, t } = this.props;
     return (
-      <form onSubmit={this.onClickSave} className={classes.container}>
+      <form className={classes.container} onSubmit={this.onClickSave}>
         <div className={classes.leftContainer}>
           <TextField
-            className={classes.marginRight}
-            size="small"
             required
+            className={classes.marginRight}
             label={t('toolbar.titleLabel')}
-            variant="outlined"
-            value={this.props.title}
             onChange={(e) => this.props.onTitleChange(e.target.value)}
+            size="small"
+            value={this.props.title}
+            variant="outlined"
           />
         </div>
         <div className={classes.rightContainer}>
@@ -69,9 +69,9 @@ class CanvasToolbar extends React.PureComponent<Props, State> {
                   this.props.selectedRoomBlueprint?.spivi_box_id && (
                     <ToolTip title={t('toolbar.spiviHelperText')}>
                       <Button
+                        className={classes.marginRight}
                         onClick={this.props.openSpiviDialog}
                         variant="outlined"
-                        className={classes.marginRight}
                       >
                         {t('toolbar.spivi')}
                       </Button>
@@ -82,17 +82,17 @@ class CanvasToolbar extends React.PureComponent<Props, State> {
           </FeatureListProvider>
 
           <Button
+            className={classes.marginRight}
             onClick={() => this.setState({ showBlueprintList: true })}
             variant="outlined"
-            className={classes.marginRight}
           >
             {t('toolbar.loadExistingBlueprint')}
           </Button>
           <Button
             className={classes.marginRight}
-            variant="contained"
             color="primary"
             type="submit"
+            variant="contained"
           >
             {t('toolbar.save')}
           </Button>
@@ -102,12 +102,12 @@ class CanvasToolbar extends React.PureComponent<Props, State> {
 
         <RoomBlueprintsListDialog
           blueprints={this.props.blueprints}
-          open={this.state.showBlueprintList}
+          onClose={() => this.setState({ showBlueprintList: false })}
           onSubmit={(blueprint) => {
             this.setState({ showBlueprintList: false });
             this.props.onChangeBlueprint(blueprint);
           }}
-          onClose={() => this.setState({ showBlueprintList: false })}
+          open={this.state.showBlueprintList}
         />
       </form>
     );

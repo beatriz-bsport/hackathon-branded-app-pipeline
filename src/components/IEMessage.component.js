@@ -46,28 +46,28 @@ export function IEMessage(props: Props) {
                   </div>
                   <div className={props.classes.row}>
                     <img
-                      src={firefox}
                       alt="Firefox logo"
                       className={props.classes.image}
+                      src={firefox}
                     />
                     <a
+                      className={props.classes.link}
                       href="https://www.mozilla.org/fr/firefox/new/"
                       target="blank"
-                      className={props.classes.link}
                     >
                       {props.t('deprecatedNavigator.downloadFirefox')}
                     </a>
                   </div>
                   <div className={props.classes.row}>
                     <img
-                      src={chrome}
                       alt="Chrome logo"
                       className={props.classes.image}
+                      src={chrome}
                     />
                     <a
+                      className={props.classes.link}
                       href="https://www.google.com/chrome/"
                       target="blank"
-                      className={props.classes.link}
                     >
                       {props.t('deprecatedNavigator.downloadChrome')}
                     </a>

@@ -99,13 +99,13 @@ const GiftcardForm: React.FC<Props> = ({
   const classes = useStyles();
   return (
     <GenericResponsiveDialog
-      open={showGiftcardFormModal}
       onClose={closeGiftcardFormModal}
+      open={showGiftcardFormModal}
     >
       <DialogTitle disableTypography className={classes.giftcardDialogTitle}>
         <IconButton
-          onClick={closeGiftcardFormModal}
           className={classes.giftcardDialogCloseButton}
+          onClick={closeGiftcardFormModal}
         >
           <Close className={classes.giftcardDialogCloseIcon} />
         </IconButton>
@@ -113,11 +113,11 @@ const GiftcardForm: React.FC<Props> = ({
 
       <ConsumerGiftcardFormWithPreviewComponent
         // @ts-expect-error because ConsumerGiftcardFormFieldHOC is wrongly typed
-        giftcard={giftcard}
+        isManager
         companyCover={cover}
+        giftcard={giftcard}
         giftcardBackgroundImageList={giftcardBackgroundImageList}
         onSubmit={addGiftcardToBasket}
-        isManager
       />
     </GenericResponsiveDialog>
   );

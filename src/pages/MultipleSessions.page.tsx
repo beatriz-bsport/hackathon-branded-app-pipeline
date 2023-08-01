@@ -52,10 +52,10 @@ export const MultipleSessions = (props: Props) => {
   return (
     <MuiThemeProvider theme={getTheme(previousTheme)}>
       <MultipleSessionDetails
-        previousName={previousConnexionRight?.username}
-        previousStatus={getStatus(previousConnexionRight)}
         currentName={currentConnexionRight?.username}
         currentStatus={getStatus(currentConnexionRight)}
+        previousName={previousConnexionRight?.username}
+        previousStatus={getStatus(previousConnexionRight)}
         restoreSession={restoreSession}
         updateSession={updateSession}
       />

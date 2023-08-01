@@ -61,7 +61,7 @@ const InvoiceTypeInfo = ({
   }
   return (
     <div className={classes.infoContainer}>
-      <InfoOutlinedIcon fontSize="large" className={classes.leftIcon} />
+      <InfoOutlinedIcon className={classes.leftIcon} fontSize="large" />
       <Typography color="textSecondary">
         {t(`invoiceInfo.${invoice_type}`)}
       </Typography>
@@ -112,13 +112,13 @@ export const InvoiceHeader = (props: Props) => {
       </Typography>
       <div className={classes.additionalInfo}>
         <div className={classes.row}>
-          <TodayIcon fontSize="small" className={classes.leftIcon} />
+          <TodayIcon className={classes.leftIcon} fontSize="small" />
           <Typography color="textSecondary">
             {formatAsDatetimeAdapted(invoice.date, 'LLL')}
           </Typography>
         </div>
         <div className={classes.row}>
-          <PersonIcon fontSize="small" className={classes.leftIcon} />
+          <PersonIcon className={classes.leftIcon} fontSize="small" />
           <Typography color="textSecondary">
             {(invoice?.member &&
               (invoice.is_member_pos
@@ -128,7 +128,7 @@ export const InvoiceHeader = (props: Props) => {
           </Typography>
         </div>
         <div className={classes.row}>
-          <ReceiptIcon fontSize="small" className={classes.leftIcon} />
+          <ReceiptIcon className={classes.leftIcon} fontSize="small" />
           <Typography color="textSecondary">
             {invoice?.author
               ? getStaffName(invoice.author)
@@ -136,7 +136,7 @@ export const InvoiceHeader = (props: Props) => {
           </Typography>
         </div>
         <div className={classes.row}>
-          <DevicesIcon fontSize="small" className={classes.leftIcon} />
+          <DevicesIcon className={classes.leftIcon} fontSize="small" />
           <Typography color="textSecondary">
             {t(`invoice.header.source.${invoice.source}`)}
           </Typography>
@@ -147,10 +147,14 @@ export const InvoiceHeader = (props: Props) => {
               <div className={classes.row}>
                 <div className={classes.selectorRow}>
                   <EstablishmentSelector
-                    establishments={props.establishments}
-                    noMulti
                     closeMenuOnSelect
+                    isClearable
+                    isOptionDisabled
+                    noMulti
                     nullCurrentValue
+                    disabled={!editEstablishment}
+                    establishments={props.establishments}
+                    selectedEstablishments={locationInSelector}
                     selectOption={async (item: {
                       value: number;
                       label: string;
@@ -158,26 +162,22 @@ export const InvoiceHeader = (props: Props) => {
                       props.editBillingEstablishment(item?.value);
                       setEditEstablishment(false);
                     }}
-                    disabled={!editEstablishment}
-                    isClearable
-                    selectedEstablishments={locationInSelector}
-                    isOptionDisabled
                   />
                 </div>
                 <IconButton
-                  onClick={() => setEditEstablishment(!editEstablishment)}
                   className={classes.iconButton}
+                  onClick={() => setEditEstablishment(!editEstablishment)}
                 >
                   <CloseIcon fontSize="small" />
                 </IconButton>
               </div>
             ) : (
               <div className={classes.row}>
-                <LocationIcon fontSize="small" className={classes.leftIcon} />
+                <LocationIcon className={classes.leftIcon} fontSize="small" />
                 <Typography color="textSecondary">{locationName}</Typography>
                 <IconButton
-                  onClick={() => setEditEstablishment(!editEstablishment)}
                   className={classes.iconButton}
+                  onClick={() => setEditEstablishment(!editEstablishment)}
                 >
                   <EditIcon fontSize="small" />
                 </IconButton>
@@ -188,10 +188,10 @@ export const InvoiceHeader = (props: Props) => {
 
         {!!invoice.source_invoice && (
           <ButtonBase
-            onClick={() => props.onClickInvoice(invoice.source_invoice)}
             className={classes.row}
+            onClick={() => props.onClickInvoice(invoice.source_invoice)}
           >
-            <DoubleArrowIcon fontSize="small" className={classes.leftIcon} />
+            <DoubleArrowIcon className={classes.leftIcon} fontSize="small" />
             <Typography color="textSecondary">
               {`${t(
                 'invoice.header.sourceInvoice',
@@ -203,10 +203,10 @@ export const InvoiceHeader = (props: Props) => {
           !!invoice.reverse_invoices.length &&
           invoice.reverse_invoices.map((invUUID: string) => (
             <ButtonBase
-              onClick={() => props.onClickInvoice(invUUID)}
               className={classes.row}
+              onClick={() => props.onClickInvoice(invUUID)}
             >
-              <DoubleArrowIcon fontSize="small" className={classes.leftIcon} />
+              <DoubleArrowIcon className={classes.leftIcon} fontSize="small" />
               <Typography color="error">
                 {`${t('invoice.header.reverseInvoice')} ${invUUID.slice(0, 8)}`}
               </Typography>
@@ -214,9 +214,9 @@ export const InvoiceHeader = (props: Props) => {
           ))}
       </div>
       <InvoiceTypeInfo
-        t={t}
         classes={classes}
         invoice_type={invoice.invoice_type}
+        t={t}
       />
     </div>
   );

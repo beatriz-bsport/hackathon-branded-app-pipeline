@@ -313,20 +313,20 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
       <ReplacementRequestFilters
         coachList={props.coachList}
         coachLoading={props.coachLoading}
-        establishmentList={props.establishmentList}
-        establishmentLoading={props.establishmentLoading}
+        enableMultiLocalization={companyTheme.enable_multi_localization}
         establishmentGroupList={props.establishmentGroupList}
         establishmentGroupLoading={props.establishmentGroupLoading}
+        establishmentList={props.establishmentList}
+        establishmentLoading={props.establishmentLoading}
         metaActivityList={props.metaActivityList}
         metaActivityLoading={props.metaActivityLoading}
-        SCTOptions={SCTOptions}
         replacementRequestManagerFilter={replacementRequestManagerFilter}
+        SCTOptions={SCTOptions}
         setReplacementRequestManagerFilter={setReplacementRequestManagerFilter}
-        enableMultiLocalization={companyTheme.enable_multi_localization}
       />
 
       <Paper className={classes.paperContainer} elevation={0}>
-        <Typography variant="h5" component="h2" className={classes.buttonTitle}>
+        <Typography className={classes.buttonTitle} component="h2" variant="h5">
           {t('managerTableTitles.pendingRequests')}
         </Typography>
         <div className={classes.flexRow}>
@@ -347,19 +347,19 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
             >
               <Select
                 closeMenuOnSelect
-                isMulti={false}
                 isClearable
-                placeholder={t('selects.lateStatus')}
+                isMulti={false}
+                onChange={(ev) => {
+                  setFilter(ev, FILTER_LATE);
+                }}
                 options={hasRequestedLateOptions}
+                placeholder={t('selects.lateStatus')}
+                styles={selectStyles}
                 value={hasRequestedLateOptions.find(
                   (opt) =>
                     opt.value ===
                     replacementRequestManagerFilter.has_requested_late,
                 )}
-                onChange={(ev) => {
-                  setFilter(ev, FILTER_LATE);
-                }}
-                styles={selectStyles}
               />
             </div>
             <div
@@ -370,19 +370,19 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
             >
               <Select
                 closeMenuOnSelect
-                isMulti={false}
                 isClearable
-                placeholder={t('selects.closedStatus')}
+                isMulti={false}
+                onChange={(ev) => {
+                  setFilter(ev, FILTER_CLOSED);
+                }}
                 options={isRequestClosedOptions}
+                placeholder={t('selects.closedStatus')}
+                styles={selectStyles}
                 value={isRequestClosedOptions.find(
                   (opt) =>
                     opt.value ===
                     replacementRequestManagerFilter.closing_date_exceeded,
                 )}
-                onChange={(ev) => {
-                  setFilter(ev, FILTER_CLOSED);
-                }}
-                styles={selectStyles}
               />
             </div>
             <div
@@ -393,13 +393,6 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
             >
               <DateRangeSelector
                 futureOnly
-                date_start={
-                  replacementRequestManagerFilter.offer__date_start__gte
-                    ? moment(
-                        replacementRequestManagerFilter.offer__date_start__gte,
-                      ).unix()
-                    : null
-                }
                 date_end={
                   replacementRequestManagerFilter.offer__date_start__lte
                     ? moment(
@@ -407,8 +400,12 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
                       ).unix()
                     : null
                 }
-                timePeriod={
-                  replacementRequestManagerFilter.timePeriod || 'custom'
+                date_start={
+                  replacementRequestManagerFilter.offer__date_start__gte
+                    ? moment(
+                        replacementRequestManagerFilter.offer__date_start__gte,
+                      ).unix()
+                    : null
                 }
                 onSubmit={(_values) => {
                   setReplacementRequestManagerFilter({
@@ -420,6 +417,9 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
                     timePeriod: _values.timePeriod,
                   });
                 }}
+                timePeriod={
+                  replacementRequestManagerFilter.timePeriod || 'custom'
+                }
               />
             </div>
           </div>
@@ -461,8 +461,8 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
               <div className={classes.alertContent}>
                 <div className={classes.alertContentItem}>
                   <Trans
-                    t={t}
                     i18nKey="requestsLinkedToCancelledOffers.description"
+                    t={t}
                     values={{
                       switchLabel: t('selects.offerCancelled'),
                     }}
@@ -481,8 +481,8 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
               <div className={classes.alertContent}>
                 <div className={classes.alertContentItem}>
                   <Trans
-                    t={t}
                     i18nKey="requestsLinkedToCancelledOffers.filterHelper"
+                    t={t}
                     values={{
                       switchLabel: t('selects.offerCancelled'),
                     }}
@@ -494,15 +494,15 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
         <TableContainer>
           <ActivitiesToReplaceTable
             enableMultiLocalization={companyTheme.enable_multi_localization}
+            establishmentGroups={props.establishmentGroupList}
+            handleExtensionAction={handleExtensionAction}
+            handleRefuseAction={handleRefuseAction}
+            handleReplaceAction={handleReplaceAction}
+            isLoading={isLoading}
             replacementDisplay={
               ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_ACTIONS
             }
             replacementRequestList={props.replacementRequestList}
-            establishmentGroups={props.establishmentGroupList}
-            handleExtensionAction={handleExtensionAction}
-            handleReplaceAction={handleReplaceAction}
-            handleRefuseAction={handleRefuseAction}
-            isLoading={isLoading}
             timezoneName={companyTheme.timezone_name}
           />
         </TableContainer>
@@ -510,9 +510,9 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
           <Pagination
             className={classes.pagination}
             count={replacementRequestsTotalPages}
-            page={replacementRequestPage}
-            // fetch requested page on page change
             onChange={(ev, value) => fetchReplacementRequests(value)}
+            // fetch requested page on page change
+            page={replacementRequestPage}
           />
         )}
       </Paper>
@@ -526,7 +526,7 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
           ) : (
             <ExpandMoreIcon className={classes.expandButton} />
           )}
-          <Typography variant="h5" component="h2">
+          <Typography component="h2" variant="h5">
             {t('managerTableTitles.replacementHistory')}
           </Typography>
         </ButtonBase>
@@ -534,13 +534,6 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
           <div className={classes.filtersContainerHistory}>
             <div className={classes.filters}>
               <DateRangeSelector
-                date_start={
-                  replacementRequestOfferHistoryFilter.min_date
-                    ? moment(
-                        replacementRequestOfferHistoryFilter.min_date,
-                      ).unix()
-                    : moment().subtract(1, 'week').unix()
-                }
                 date_end={
                   replacementRequestOfferHistoryFilter.max_date
                     ? moment(
@@ -548,8 +541,12 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
                       ).unix()
                     : moment().unix()
                 }
-                timePeriod={
-                  replacementRequestOfferHistoryFilter.timePeriod || 'custom'
+                date_start={
+                  replacementRequestOfferHistoryFilter.min_date
+                    ? moment(
+                        replacementRequestOfferHistoryFilter.min_date,
+                      ).unix()
+                    : moment().subtract(1, 'week').unix()
                 }
                 onSubmit={(_values) => {
                   setReplacementRequestOfferHistoryFilter({
@@ -558,18 +555,21 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
                     timePeriod: _values.timePeriod,
                   });
                 }}
+                timePeriod={
+                  replacementRequestOfferHistoryFilter.timePeriod || 'custom'
+                }
               />
             </div>
           </div>
           <TableContainer>
             <ActivitiesToReplaceTable
               enableMultiLocalization={companyTheme.enable_multi_localization}
+              establishmentGroups={props.establishmentGroupList}
+              isLoading={props.offerListLoading}
+              offers={props.replacementRequestOfferHistoryList}
               replacementDisplay={
                 ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_HISTORY
               }
-              offers={props.replacementRequestOfferHistoryList}
-              establishmentGroups={props.establishmentGroupList}
-              isLoading={props.offerListLoading}
               timezoneName={companyTheme.timezone_name}
             />
           </TableContainer>
@@ -577,11 +577,11 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
             <Pagination
               className={classes.pagination}
               count={replacementOfferHistoryTotalPages}
-              page={replacementRequestOfferHistoryPage}
-              // fetch requested page on page change
               onChange={(ev, value) =>
                 fetchReplacementRequestOfferHistory(value)
               }
+              // fetch requested page on page change
+              page={replacementRequestOfferHistoryPage}
             />
           )}
         </Collapse>
@@ -589,34 +589,34 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
 
       {extensionDialogOpen && (
         <ReplacementRequestClosingDateExtensionDialog
+          loading={updatingReplacementRequestLoading}
+          onClose={handleCloseExtensionAction}
+          onSubmit={props.postponeReplacementRequestClosingDate}
+          // eslint-disable-next-line
           open={extensionDialogOpen}
           replacementRequest={replacementRequestSelected}
-          onClose={handleCloseExtensionAction}
-          // eslint-disable-next-line
-          onSubmit={props.postponeReplacementRequestClosingDate}
           timezoneName={props.companyTheme.timezone_name}
-          loading={updatingReplacementRequestLoading}
         />
       )}
 
       {answersDialogOpen && (
         <ReplacementRequestCoachAnswerDialog
-          open={answersDialogOpen}
-          replacementRequest={replacementRequestSelected}
           coaches={props.coachList}
+          loading={updatingReplacementRequestLoading}
           onClose={handleCloseAnswersAction}
           onSubmit={approveReplacementRequestCoachAnswer}
-          loading={updatingReplacementRequestLoading}
+          open={answersDialogOpen}
+          replacementRequest={replacementRequestSelected}
         />
       )}
 
       {refuseDialogOpen && (
         <ReplacementRequestRefuseDialog
-          open={refuseDialogOpen}
-          onClose={handleCloseRefuseAction}
-          replacementRequest={replacementRequestSelected}
-          onConfirm={refuseReplacementRequest}
           loading={updatingReplacementRequestLoading}
+          onClose={handleCloseRefuseAction}
+          onConfirm={refuseReplacementRequest}
+          open={refuseDialogOpen}
+          replacementRequest={replacementRequestSelected}
         />
       )}
     </>

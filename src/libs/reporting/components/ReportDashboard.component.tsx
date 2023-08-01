@@ -96,23 +96,23 @@ export function ReportDashboard(props: Props) {
       {reportConfigurations.length ? (
         <>
           <FuzzySearch
-            items={reportConfigurations}
-            placeholder={t('search')}
-            searchFields={['name']}
+            className={classes.search}
             itemRenderer={(report) => (
               <ReportListItem
                 key={report.id}
-                report={report}
+                onDelete={() => setSelectedForDeletion(report)}
+                onDetail={() => onReportDetail(report.id)}
                 onEdit={() => {
                   setReportConfigurationToEdit(report);
                   setShowModalAdd(true);
                   trackFormAdd(report?.id, { category: report.category });
                 }}
-                onDetail={() => onReportDetail(report.id)}
-                onDelete={() => setSelectedForDeletion(report)}
+                report={report}
               />
             )}
-            className={classes.search}
+            items={reportConfigurations}
+            placeholder={t('search')}
+            searchFields={['name']}
           />
           <ReportCategorySelector
             categories={metadata?.map((c) => c.category) ?? []}
@@ -121,13 +121,15 @@ export function ReportDashboard(props: Props) {
           />
           <div>
             <ReportList
-              items={configurations}
               className={classes.list}
               itemProps={itemProps}
+              items={configurations}
             />
             <ModalConfirm
-              open={!!selectedForDeletion}
               close={onCancelDeletion}
+              handleCancel={onCancelDeletion}
+              handleConfirm={onConfirmDeletion}
+              open={!!selectedForDeletion}
               options={{
                 title: 'report.delete',
                 Content: () =>
@@ -135,8 +137,6 @@ export function ReportDashboard(props: Props) {
                     name: selectedForDeletion && selectedForDeletion.name,
                   }),
               }}
-              handleConfirm={onConfirmDeletion}
-              handleCancel={onCancelDeletion}
             />
           </div>
         </>
@@ -144,22 +144,22 @@ export function ReportDashboard(props: Props) {
         <div className={classes.messageNoReports}>
           <Typography variant="body1">{t('list.empty')}</Typography>
           <Button
-            variant="outlined"
+            className={classes.buttonNew}
             color="primary"
             onClick={() => {
               setReportConfigurationToEdit(null);
               setShowModalAdd(true);
               trackFormAdd(reportConfiguration?.id);
             }}
-            className={classes.buttonNew}
+            variant="outlined"
           >
             {t('list.button_new')}
           </Button>
         </div>
       )}
       <Fab
-        color="primary"
         className={classes.fabAdd}
+        color="primary"
         onClick={() => {
           setReportConfigurationToEdit(null);
           setShowModalAdd(true);
@@ -175,14 +175,11 @@ export function ReportDashboard(props: Props) {
           </DialogTitle>
           <DialogContent>
             <ReportConfigurationForm
-              metadata={metadata}
               initial={reportConfiguration || { category: selectedCategory }}
+              metadata={metadata}
               onClose={() => {
                 setShowModalAdd(false);
                 trackFormCancel(reportConfiguration?.id);
-              }}
-              trackintent={() => {
-                trackFormSubmitIntent(reportConfiguration?.id);
               }}
               onSubmit={(data: ReportConfiguration) => {
                 upsertReportConfiguration({
@@ -199,6 +196,9 @@ export function ReportDashboard(props: Props) {
                     },
                   },
                 });
+              }}
+              trackintent={() => {
+                trackFormSubmitIntent(reportConfiguration?.id);
               }}
             />
           </DialogContent>

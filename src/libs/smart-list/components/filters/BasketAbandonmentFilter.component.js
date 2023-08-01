@@ -55,8 +55,8 @@ export class BasketAbandonmentFilter extends Component<Props, state> {
         {t(`filters.${filter_data.filter_identifier}.first`)}
         <Select
           className={classes.input}
-          value={filter_data.comparator}
           onChange={(ev) => onChange({ comparator: ev.target.value })}
+          value={filter_data.comparator}
         >
           {DURATION_COMPARATORS_DICT_BETWEEN.map((item) => (
             <MenuItem key={item.key} value={item.value}>
@@ -68,30 +68,30 @@ export class BasketAbandonmentFilter extends Component<Props, state> {
           ? null
           : t(`filters.${filter_data.filter_identifier}.second`)}
         <DelayedNumericInput
+          isPositive
           classes={classes}
-          value={filter_data.basket_value}
           InputProps={{ inputProps: { min: 0 } }}
           onChange={(ev) =>
             onChange({
               basket_value: ev.target.value === '' ? null : ev.target.value,
             })
           }
-          isPositive
+          value={filter_data.basket_value}
         />
         {filter_data.comparator === BETWEEN_COMPARATOR
           ? t(`filters.${filter_data.filter_identifier}.between`)
           : null}
         {filter_data.comparator === BETWEEN_COMPARATOR ? (
           <DelayedNumericInput
+            isPositive
             classes={classes}
-            value={filter_data.basket_value_second}
             onChange={(ev) =>
               onChange({
                 basket_value_second:
                   ev.target.value === '' ? null : ev.target.value,
               })
             }
-            isPositive
+            value={filter_data.basket_value_second}
           />
         ) : null}
         {t(`filters.${filter_data.filter_identifier}.third`, {
@@ -100,13 +100,13 @@ export class BasketAbandonmentFilter extends Component<Props, state> {
         <div className={classes.inlineContainer}>
           <Switch
             checked={filter_data.date_filter_active}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
                 date_filter_active: !filter_data.date_filter_active,
               })
             }
             value="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
           />{' '}
           <div
             className={
@@ -119,9 +119,9 @@ export class BasketAbandonmentFilter extends Component<Props, state> {
               `filters.${filter_data.filter_identifier}.date.first`,
             )}
             <CalendarPicker
+              blockValidateOnClickAway
               filter_data={filter_data}
               onChange={onChange}
-              blockValidateOnClickAway
             />
           </div>
         </div>

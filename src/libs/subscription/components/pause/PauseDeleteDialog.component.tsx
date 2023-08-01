@@ -26,10 +26,10 @@ export const PauseDeleteDialog = (props: Props) => {
   ];
   return (
     <CustomMuiDialog
-      open={props.open}
-      title={t('pauseV2.common.deleteDialog.title')}
       buttons={buttons}
       content={props.deleteContent}
+      open={props.open}
+      title={t('pauseV2.common.deleteDialog.title')}
     />
   );
 };

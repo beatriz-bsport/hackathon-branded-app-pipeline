@@ -34,14 +34,14 @@ const QuicksaleItemListHeader: React.FC<Props> = ({
       )}
     >
       <Button
-        color="default"
-        variant="outlined"
-        startIcon={<ArrowBack />}
         className={classNames(
           classes.goBackButton,
           customClasses?.goBackButton,
         )}
+        color="default"
         onClick={goBack}
+        startIcon={<ArrowBack />}
+        variant="outlined"
       >
         <Typography variant="subtitle2">{t('itemList.goBack')}</Typography>
       </Button>
@@ -50,11 +50,11 @@ const QuicksaleItemListHeader: React.FC<Props> = ({
       >
         <MuiIcon icon={sectionIcon} />
         <Typography
-          variant="h6"
           className={classNames(
             classes.sectionTitle,
             customClasses?.sectionTitle,
           )}
+          variant="h6"
         >
           {sectionName}
         </Typography>

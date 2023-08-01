@@ -23,11 +23,11 @@ const TemporalCustomYLabel: React.FC<Props> = ({ chartHeight, yLabel }) => {
   return (
     <g>
       <foreignObject
+        className={classes.yLabelContainer}
+        height={30}
+        width={250}
         x={((chartHeight - 250) / 2 + 250) * -1}
         y={0}
-        width={250}
-        height={30}
-        className={classes.yLabelContainer}
       >
         <div className={classes.yLabel}>{yLabel}</div>
       </foreignObject>

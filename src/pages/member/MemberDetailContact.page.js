@@ -45,12 +45,12 @@ export class MemberDetailContact extends React.Component<Props> {
       <React.Fragment>
         <CampaignList
           campaignList={this.getFilteredCampaignList()}
-          loading={this.props.loading}
           fetchMore={
             this.props.nextPage && this.props.nextPage > 1
               ? () => this.props.fetchCampaignList(this.props.nextPage)
               : null
           }
+          loading={this.props.loading}
           resolvedGenericTags={this.props.resolvedGenericTags}
         />
       </React.Fragment>

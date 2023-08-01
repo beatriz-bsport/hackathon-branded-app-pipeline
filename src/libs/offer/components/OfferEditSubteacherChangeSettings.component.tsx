@@ -46,8 +46,8 @@ const OfferEditSubteacherChangeSettings = (props: Props) => {
 
             <RadioGroup
               className={classes.radioGroup}
-              value={subTeacherEditPropagationMode}
               onChange={onRadioChange}
+              value={subTeacherEditPropagationMode}
             >
               <FormControlLabel
                 control={<Radio />}
@@ -68,10 +68,10 @@ const OfferEditSubteacherChangeSettings = (props: Props) => {
             </RadioGroup>
 
             <SimilarOffersList
-              similarOffers={similarOffers}
-              similarOfferLoading={similarOfferLoading}
-              coaches={coaches}
               isCoachOverrideWarning
+              coaches={coaches}
+              similarOfferLoading={similarOfferLoading}
+              similarOffers={similarOffers}
             />
           </>
         )}

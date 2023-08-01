@@ -35,28 +35,28 @@ export const PlannedInvoiceDateUpdater = (props: Props) => {
       <DialogTitle>{t('plannedInvoice.dateUpdater.title')}</DialogTitle>
       <DialogContent>
         <MuiPickersUtilsProvider
-          utils={MomentUtils}
-          moment={moment}
           locale={moment.locale()}
+          moment={moment}
+          utils={MomentUtils}
         >
           <DatePicker
             disablePast
             keyboard
             format="YYYY-MM-DD"
-            minDate={moment(props.plannedInvoice.date)
-              .add(-1, 'months')
-              .add(1, 'days')
-              .format('YYYY-MM-DD')}
             maxDate={moment(props.plannedInvoice.date)
               .add(1, 'months')
               .add(-1, 'days')
               .format('YYYY-MM-DD')}
-            returnMoment={false}
-            value={date}
+            minDate={moment(props.plannedInvoice.date)
+              .add(-1, 'months')
+              .add(1, 'days')
+              .format('YYYY-MM-DD')}
             onChange={(value) => {
               const date_ = moment(value).format('YYYY-MM-DD');
               setDate(date_);
             }}
+            returnMoment={false}
+            value={date}
           />
         </MuiPickersUtilsProvider>
         <Typography className={classes.explain}>

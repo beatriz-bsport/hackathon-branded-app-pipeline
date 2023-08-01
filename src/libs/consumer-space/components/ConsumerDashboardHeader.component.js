@@ -26,12 +26,12 @@ export class ConsumerDashboardHeader extends React.PureComponent<Props> {
         (this.props.favoriteMetaActivity ||
           this.props.favoriteEstablishment) ? (
           <div>
-            <Typography variant="h4" color="textSecondary">
+            <Typography color="textSecondary" variant="h4">
               {this.props.t('dashboard.favoriteTitle')}
             </Typography>
             <div className={this.props.classes.myFavorite}>
               <Grid container direction="row">
-                <Grid item xs={12} md={6}>
+                <Grid item md={6} xs={12}>
                   {this.props.favoriteMetaActivity ? (
                     <div className={this.props.classes.favoriteContainer}>
                       <MetaActivityListItem
@@ -46,7 +46,7 @@ export class ConsumerDashboardHeader extends React.PureComponent<Props> {
                     </div>
                   ) : null}
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item md={6} xs={12}>
                   {this.props.favoriteEstablishment ? (
                     <div className={this.props.classes.favoriteContainer}>
                       <EstablishmentListItem

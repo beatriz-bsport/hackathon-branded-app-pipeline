@@ -30,12 +30,12 @@ const MarketplacePaymentPackOffPeakRestrictionModal: React.FC<Props> = ({
       {isOpen && (
         <div className="bs-off_peak-modal__backdrop">
           <Card
-            size={CardSize.L}
             classes={{ 'bs-off_peak-modal': 'bs-off_peak-modal' }}
+            size={CardSize.L}
           >
             <Content>
               <Grid>
-                <Item rowStart={1} alignment={Alignment.CENTER}>
+                <Item alignment={Alignment.CENTER} rowStart={1}>
                   <div className="bs-off_peak-clock-icon-background">
                     <AccessTimeIcon className="bss-off_peak_clock-icon" />
                   </div>
@@ -44,10 +44,10 @@ const MarketplacePaymentPackOffPeakRestrictionModal: React.FC<Props> = ({
                   </h3>
                 </Item>
                 <Item
-                  rowStart={2}
                   classes={{
                     'bs-off_peak-modal__body': 'bs-off_peak-modal__body',
                   }}
+                  rowStart={2}
                 >
                   {!!Object.keys(offPeakSchedule).length && (
                     <div>
@@ -55,8 +55,8 @@ const MarketplacePaymentPackOffPeakRestrictionModal: React.FC<Props> = ({
                         ([isoWeekday, timeSlots]: [string, string[][]]) => {
                           return (
                             <div
-                              className="bs-off_peak-days-body"
                               key={isoWeekday}
+                              className="bs-off_peak-days-body"
                             >
                               {t(
                                 `datetime:time.isoWeekdayNumber.${isoWeekday}`,
@@ -99,8 +99,8 @@ const MarketplacePaymentPackOffPeakRestrictionModal: React.FC<Props> = ({
                 <Item alignment={Alignment.CENTER} rowStart={3}>
                   <button
                     className="bs-restriction-modal__button"
-                    type="button"
                     onClick={onDialogClose}
+                    type="button"
                   >
                     {t('genericCardDetails.compatibility.button.close')}
                   </button>

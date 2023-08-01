@@ -64,7 +64,7 @@ export const StripeBalance = ({
       <div className={classes.balanceTitle}>
         <Typography variant="h5">
           {t('stripeBalance.title')}
-          <IconButton onClick={handleOpenModal} className={classes.infoButton}>
+          <IconButton className={classes.infoButton} onClick={handleOpenModal}>
             <InfoIcon />
           </IconButton>
         </Typography>
@@ -78,24 +78,24 @@ export const StripeBalance = ({
         <Paper>
           <ListItem classes={{ root: classes.balancesContainer }}>
             <div className={classes.balanceContainer}>
-              <Typography variant="subtitle1" className={classes.balanceText}>
+              <Typography className={classes.balanceText} variant="subtitle1">
                 {t('stripeBalance.availableBalance')}
               </Typography>
               <div className={classes.line} />
               <StripeBalanceChip
                 isAvailableBalanceChip
-                isAvailableBalancePositive={isAvailableBalancePositive}
                 balanceAvailableText={balanceAvailableText}
+                isAvailableBalancePositive={isAvailableBalancePositive}
               />
             </div>
             <div className={classes.balanceContainer}>
-              <Typography variant="subtitle1" className={classes.balanceText}>
+              <Typography className={classes.balanceText} variant="subtitle1">
                 {t('stripeBalance.pendingBalance')}
               </Typography>
               <div className={classes.line} />
               <StripeBalanceChip
-                isPendingBalanceNonNull={isPendingBalanceNonNull}
                 balancePendingText={balancePendingText}
+                isPendingBalanceNonNull={isPendingBalanceNonNull}
               />
             </div>
           </ListItem>
@@ -103,8 +103,8 @@ export const StripeBalance = ({
       )}
       <GenericResponsiveDialog
         maxWidth="sm"
-        open={isInfoModalOpened}
         onClose={handleCloseModal}
+        open={isInfoModalOpened}
       >
         <DialogTitle id="form-dialog-title">
           {t('stripeBalance.title')}
@@ -112,7 +112,7 @@ export const StripeBalance = ({
 
         <DialogContent className={classes.helperText}>
           <Typography>{t('stripeBalance.dialog.firstPart')}</Typography>
-          <Typography variant="subtitle1" className={classes.balanceText}>
+          <Typography className={classes.balanceText} variant="subtitle1">
             {t('stripeBalance.availableBalance')}
           </Typography>
           {stripeBalanceLoading ? (
@@ -122,12 +122,12 @@ export const StripeBalance = ({
           ) : (
             <StripeBalanceChip
               isAvailableBalanceChip
-              isAvailableBalancePositive={isAvailableBalancePositive}
               balanceAvailableText={balanceAvailableText}
+              isAvailableBalancePositive={isAvailableBalancePositive}
             />
           )}
           <Typography>{t('stripeBalance.dialog.secondPart')}</Typography>
-          <Typography variant="subtitle1" className={classes.balanceText}>
+          <Typography className={classes.balanceText} variant="subtitle1">
             {t('stripeBalance.pendingBalance')}
           </Typography>
           {stripeBalanceLoading ? (
@@ -136,15 +136,15 @@ export const StripeBalance = ({
             </div>
           ) : (
             <StripeBalanceChip
-              isPendingBalanceNonNull={isPendingBalanceNonNull}
               balancePendingText={balancePendingText}
+              isPendingBalanceNonNull={isPendingBalanceNonNull}
             />
           )}
           <Typography>{t('stripeBalance.dialog.thirdPart')}</Typography>
           <Alert severity="info">{t('stripeBalance.dialog.alert')}</Alert>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseModal} color="secondary">
+          <Button color="secondary" onClick={handleCloseModal}>
             {t('stripeBalance.dialog.close')}
           </Button>
         </DialogActions>

@@ -111,18 +111,18 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
         />
 
         <Dialog
-          open={this.state.privateBookerFabOpen}
           fullScreen={window.innerWidth < 400}
           onClose={() => this.setState({ privateBookerFabOpen: false })}
+          open={this.state.privateBookerFabOpen}
         >
           <DialogTitle>{this.props.t('calendar.addBooking')}</DialogTitle>
           <div className={this.props.classes.dialogDateContainer}>
             <DateTimeForm
-              timezone={this.props.timezone}
-              value={this.state.privateBookerDateStart}
               onChange={(privateBookerDateStart: string) =>
                 this.setState({ privateBookerDateStart })
               }
+              timezone={this.props.timezone}
+              value={this.state.privateBookerDateStart}
             />
           </div>
           <DialogActions>
@@ -133,7 +133,6 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
             </Button>
 
             <Button
-              variant="contained"
               color="primary"
               disabled={!this.state.privateBookerDateStart}
               onClick={() => {
@@ -142,6 +141,7 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
                   this.state.privateBookerDateStart,
                 );
               }}
+              variant="contained"
             >
               {this.props.t('bookerModule.confirm')}
             </Button>
@@ -149,37 +149,37 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
         </Dialog>
 
         <Dialog
-          open={this.state.customEventOpen}
           fullScreen={window.innerWidth < 400}
           onClose={() => this.setState({ customEventOpen: false })}
+          open={this.state.customEventOpen}
         >
           <DialogTitle>
             {this.props.t('calendar.createCustomEvent')}
           </DialogTitle>
           <div className={this.props.classes.dialogDateContainer}>
-            <Typography variant="subtitle1" color="textSecondary">
+            <Typography color="textSecondary" variant="subtitle1">
               {this.props.t('calendar.customEvent.dateStart')}
             </Typography>
             <DateTimeForm
-              timezone={this.props.timezone}
-              value={this.state.customEventDateStart}
               onChange={(customEventDateStart: string) =>
                 this.setState({ customEventDateStart })
               }
+              timezone={this.props.timezone}
+              value={this.state.customEventDateStart}
             />
             <Typography
               className={this.props.classes.marginTop}
-              variant="subtitle1"
               color="textSecondary"
+              variant="subtitle1"
             >
               {this.props.t('calendar.customEvent.dateEnd')}
             </Typography>
             <DateTimeForm
-              timezone={this.props.timezone}
-              value={this.state.customEventDateEnd}
               onChange={(customEventDateEnd: string) =>
                 this.setState({ customEventDateEnd })
               }
+              timezone={this.props.timezone}
+              value={this.state.customEventDateEnd}
             />
           </div>
           <DialogActions>
@@ -188,7 +188,6 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
             </Button>
 
             <Button
-              variant="contained"
               color="primary"
               disabled={
                 !this.state.customEventDateStart ||
@@ -204,6 +203,7 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
                   date_end: this.state.customEventDateEnd,
                 });
               }}
+              variant="contained"
             >
               {this.props.t('bookerModule.confirm')}
             </Button>

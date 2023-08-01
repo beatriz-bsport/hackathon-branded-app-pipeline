@@ -35,7 +35,7 @@ export const ConsumerCoachSpaceSelector: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <div className={classes.column}>
-        <Typography variant="h4" className={classes.connection}>
+        <Typography className={classes.connection} variant="h4">
           {t('coachAccess.access')}
         </Typography>
         <div className={classNames(classes.rectangle, 'reactangle-animated')} />
@@ -52,17 +52,17 @@ export const ConsumerCoachSpaceSelector: React.FC<Props> = ({
         {t('coachAccess.student')}
       </Button>
       <Button
-        variant="outlined"
         className={classes.coachButton}
         color="primary"
         onClick={handleGoToCoachSpace}
+        variant="outlined"
       >
         {t('coachAccess.teacher')}
       </Button>
       <div className={classes.divider} />
       <div className={classes.columnInfo}>
         <Typography>{t('common:disconnectInfo')}</Typography>
-        <Button onClick={handleDisconnect} className={classes.disconnectButton}>
+        <Button className={classes.disconnectButton} onClick={handleDisconnect}>
           {t('common:disconnect')}
         </Button>
       </div>

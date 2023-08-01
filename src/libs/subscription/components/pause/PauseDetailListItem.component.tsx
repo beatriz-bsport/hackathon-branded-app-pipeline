@@ -93,7 +93,7 @@ const PauseDetailListItem = (props: Props) => {
                     .format('L'),
             })}
           </Typography>
-          <Typography variant="caption" color="textSecondary">
+          <Typography color="textSecondary" variant="caption">
             {`${
               t('pauseV2.common.listItem.createdAt') +
               moment(props.pause.date_created).format('L')
@@ -109,20 +109,20 @@ const PauseDetailListItem = (props: Props) => {
         </IconButton>
       </div>
       <Menu
-        onClose={() => setMenuAnchor(null)}
         anchorEl={menuAnchor}
+        onClose={() => setMenuAnchor(null)}
         open={!!menuAnchor}
       >
         <Tooltip
-          open={openCancelTooltip}
-          title={t('pauseV2.common.menu.cancelForbidden')}
           onPointerEnter={handleHoverInCancelPause}
           onPointerLeave={handleHoverOutCancelPause}
-          onTouchStart={handleHoverInCancelPause}
           onTouchEnd={handleHoverOutCancelPause}
+          onTouchStart={handleHoverInCancelPause}
+          open={openCancelTooltip}
+          title={t('pauseV2.common.menu.cancelForbidden')}
         >
           <span>
-            <MenuItem onClick={onDeletePause} disabled={props.dateStartIsPast}>
+            <MenuItem disabled={props.dateStartIsPast} onClick={onDeletePause}>
               <ListItemIcon>
                 <TimerOffIcon fontSize="small" />
               </ListItemIcon>
@@ -133,6 +133,10 @@ const PauseDetailListItem = (props: Props) => {
           </span>
         </Tooltip>
         <Tooltip
+          onPointerEnter={handleHoverInUpdatePause}
+          onPointerLeave={handleHoverOutUpdatePause}
+          onTouchEnd={handleHoverOutUpdatePause}
+          onTouchStart={handleHoverInUpdatePause}
           open={openUpdateTooltip}
           title={t(
             `pauseV2.common.menu.${
@@ -141,15 +145,11 @@ const PauseDetailListItem = (props: Props) => {
                 : 'changeContractForbidden'
             }`,
           )}
-          onPointerEnter={handleHoverInUpdatePause}
-          onPointerLeave={handleHoverOutUpdatePause}
-          onTouchStart={handleHoverInUpdatePause}
-          onTouchEnd={handleHoverOutUpdatePause}
         >
           <span>
             <MenuItem
-              onClick={onUpdatePause}
               disabled={props.dateEndIsPast || !!props.pause.contract_pause}
+              onClick={onUpdatePause}
             >
               <ListItemIcon>
                 <DateRangeIcon fontSize="small" />
@@ -164,10 +164,10 @@ const PauseDetailListItem = (props: Props) => {
       {!props.isLastPauseAfterEndItem && <div className={classes.endLine} />}
       {openDeleteDialog && (
         <PauseDeleteDialog
-          open={openDeleteDialog}
-          onConfirmClick={onConfirmDeletePause}
-          onCancelClick={onCancelDeletePause}
           deleteContent={t('pauseV2.subscriptionPause.deleteDialogContent')}
+          onCancelClick={onCancelDeletePause}
+          onConfirmClick={onConfirmDeletePause}
+          open={openDeleteDialog}
         />
       )}
     </React.Fragment>

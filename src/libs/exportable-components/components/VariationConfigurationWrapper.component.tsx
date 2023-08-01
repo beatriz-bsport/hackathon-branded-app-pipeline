@@ -115,7 +115,7 @@ const VariationConfigurationWrapper: React.FC<{
               {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </IconButton>
           </div>
-          <Collapse in={isOpen} unmountOnExit>
+          <Collapse unmountOnExit in={isOpen}>
             {config.variations.map(
               ({ label: variantCategoryLabel, choices }, index) => (
                 <div
@@ -126,13 +126,12 @@ const VariationConfigurationWrapper: React.FC<{
                     {t(`widget.cssConfig.title.${variantCategoryLabel}`)}
                   </Typography>
                   <RadioGroup
-                    onChange={handleSelected(variantCategoryLabel)}
                     className={classes.checkbox}
+                    onChange={handleSelected(variantCategoryLabel)}
                   >
                     {choices.map(({ label: choiceLabel, value }) => (
                       <FormControlLabel
                         key={choiceLabel}
-                        value={value}
                         control={
                           <Radio
                             checked={
@@ -142,6 +141,7 @@ const VariationConfigurationWrapper: React.FC<{
                           />
                         }
                         label={t(`widget.cssConfig.option.${choiceLabel}`)}
+                        value={value}
                       />
                     ))}
                   </RadioGroup>

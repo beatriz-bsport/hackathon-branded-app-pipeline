@@ -81,19 +81,19 @@ export class RoleConfiguration extends React.Component<Props, State> {
 
     return (
       <div className={classes.container}>
-        <Paper id="text_staff_roles" className={classes.rolePaper}>
+        <Paper className={classes.rolePaper} id="text_staff_roles">
           <RoleList
-            roles={roles}
+            isFranchisor
+            currentRole={this.state.currentRole}
             hasOwnerPermission={this.props.hasOwnerPermission}
             onCreateRole={this.createFranchiseRole}
-            onEditRole={this.updateFranchiseRole}
             onDeleteRole={this.props.deleteFranchiseRole}
-            isFranchisor
-            users={this.props.users}
+            onEditRole={this.updateFranchiseRole}
             openCreateRoleDialog={this.state.openCreateRoleDialog}
-            currentRole={this.state.currentRole}
-            setOpenCreateRoleDialog={this.setOpenCreateRoleDialog}
+            roles={roles}
             setCurrentRole={this.setCurrentRole}
+            setOpenCreateRoleDialog={this.setOpenCreateRoleDialog}
+            users={this.props.users}
           />
         </Paper>
         <BottomActionsButtonCustom

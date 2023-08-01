@@ -120,17 +120,17 @@ export const ConsumerPaymentPackExtensionFormDialog = (props: Props) => {
         <div className={props.classes.content}>
           <Grid item xs={12}>
             <RadioGroup
-              value={selectedExtensionOption}
               onChange={handleSelectOption}
+              value={selectedExtensionOption}
             >
               {EXTENSION_OPTIONS.map(({ value, label: l }) => (
                 <div key={value}>
                   <FormControlLabel
                     key={value}
-                    value={value}
                     control={<Radio />}
-                    label={l}
                     disabled={props.processing}
+                    label={l}
+                    value={value}
                   />
                 </div>
               ))}
@@ -138,33 +138,33 @@ export const ConsumerPaymentPackExtensionFormDialog = (props: Props) => {
           </Grid>
           {selectedExtensionOption === 'numericInput' && (
             <NumericInput
-              value={nbDays}
               fullWidth
-              label={props.t('extension.create.nbDays.label')}
-              onChange={handleChangeNumericInput}
+              disabled={props.processing}
               InputProps={{
                 inputProps: { step: 1, min: 0 },
               }}
-              disabled={props.processing}
+              label={props.t('extension.create.nbDays.label')}
+              onChange={handleChangeNumericInput}
+              value={nbDays}
             />
           )}
           {selectedExtensionOption === 'datePicker' && consumerPaymentPack && (
             <DateInput
-              value={newDate}
-              onChange={handleSelectDate}
-              minDate={consumerPaymentPack?.ending_date}
-              label={props.t('extension.create.datePicker.label')}
               disabled={props.processing}
+              label={props.t('extension.create.datePicker.label')}
+              minDate={consumerPaymentPack?.ending_date}
+              onChange={handleSelectDate}
+              value={newDate}
             />
           )}
           <TextField
-            variant="outlined"
-            value={note}
             fullWidth
+            className={props.classes.field}
             inputProps={{ maxLength: 42 }}
             label={props.t('extension.create.note.label')}
             onChange={handleChangeNote}
-            className={props.classes.field}
+            value={note}
+            variant="outlined"
           />
           {props.consumerPaymentPack ? (
             <div className={props.classes.dateExplainer}>
@@ -191,8 +191,8 @@ export const ConsumerPaymentPackExtensionFormDialog = (props: Props) => {
         </Button>
         <Button
           color="primary"
-          onClick={handleSubmit}
           disabled={props.processing}
+          onClick={handleSubmit}
         >
           {props.t('extension.create.submit')}
         </Button>

@@ -41,8 +41,8 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
             <TableCell className={classes.tableCell}>
               <Typography
                 align="left"
-                variant="subtitle2"
                 className={classes.weight500}
+                variant="subtitle2"
               >
                 {t('coachAnswers.header.teacher')}
               </Typography>
@@ -50,8 +50,8 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
             <TableCell className={classes.tableCell}>
               <Typography
                 align="left"
-                variant="subtitle2"
                 className={classes.weight500}
+                variant="subtitle2"
               >
                 {t('coachAnswers.header.answer')}
               </Typography>
@@ -65,8 +65,8 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
               (replacementRequestCoachAnswer) => (
                 <ReplacementRequestCoachAnswerTableRow
                   key={replacementRequestCoachAnswer.id}
-                  replacementRequestCoachAnswer={replacementRequestCoachAnswer}
                   onAttribute={onAttribute}
+                  replacementRequestCoachAnswer={replacementRequestCoachAnswer}
                 />
               ),
             )}

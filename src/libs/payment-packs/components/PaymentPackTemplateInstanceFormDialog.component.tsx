@@ -41,8 +41,8 @@ const PaymentPackTemplateInstanceFormDialog = (props: Props) => {
             {isSubmitting && (
               <CircularProgress
                 className={classes.progress}
-                size={12}
                 color="inherit"
+                size={12}
               />
             )}
             {t('paymentPackTemplateInstance.form.actions.submit')}

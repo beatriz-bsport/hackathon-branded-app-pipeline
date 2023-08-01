@@ -93,17 +93,17 @@ export function CoachPaymentRuleFields(props: Props) {
     <div>
       <PopoverCoachPaymentRuleForm
         anchorEl={anchorEl}
-        setAnchorEl={setAnchorEl}
-        bonusesSortByApplicability={bonusesSortByApplicability}
         bonusCreationApplicability={bonusCreationApplicability}
+        bonusesSortByApplicability={bonusesSortByApplicability}
         id={props.values.id}
+        setAnchorEl={setAnchorEl}
       />
       <TextField
-        id="textfield_coach_payment_rule_name"
-        name="name"
-        label={t('coach_payment_rules.name')}
         fullWidth
         required
+        id="textfield_coach_payment_rule_name"
+        label={t('coach_payment_rules.name')}
+        name="name"
       />
       <AlertError name="name" />
       {COACH_PAYMENT_RULE_FOR_ACTIVITIES.includes(props.values.kind) && (
@@ -111,9 +111,9 @@ export function CoachPaymentRuleFields(props: Props) {
           <FormControlLabel
             control={
               <CheckBox
+                checked={props.values.add_overall_base_remuneration}
                 id="checkbox_base_remuneration"
                 name="add_overall_base_remuneration"
-                checked={props.values.add_overall_base_remuneration}
                 onClick={() => {
                   setFieldValue(
                     'add_overall_base_remuneration',
@@ -130,9 +130,9 @@ export function CoachPaymentRuleFields(props: Props) {
           </FormHelperText>
           <Collapse in={props.values.add_overall_base_remuneration}>
             <PriceField
+              fullWidth
               id="pricefield_base_remuneration"
               name="base_remuneration"
-              fullWidth
             />
             <AlertError name="base_remuneration" />
           </Collapse>
@@ -147,9 +147,9 @@ export function CoachPaymentRuleFields(props: Props) {
           <FormControlLabel
             control={
               <CheckBox
+                checked={props.values.add_overall_base_remuneration}
                 id="checkbox_base_remuneration"
                 name="add_overall_base_remuneration"
-                checked={props.values.add_overall_base_remuneration}
                 onClick={() => {
                   setFieldValue(
                     'add_overall_base_remuneration',
@@ -163,9 +163,9 @@ export function CoachPaymentRuleFields(props: Props) {
           />
           <Collapse in={props.values.add_overall_base_remuneration}>
             <PriceField
+              fullWidth
               id="pricefield_base_remuneration"
               name="base_remuneration"
-              fullWidth
             />
             <AlertError name="base_remuneration" />
           </Collapse>
@@ -174,9 +174,9 @@ export function CoachPaymentRuleFields(props: Props) {
       <FormControlLabel
         control={
           <CheckBox
+            checked={props.values.add_percentage_base_confirmed_bookings}
             id="checkbox_percentage_base"
             name="add_percentage_base_confirmed_bookings"
-            checked={props.values.add_percentage_base_confirmed_bookings}
             onClick={() => {
               setFieldValue(
                 'add_percentage_base_confirmed_bookings',
@@ -190,10 +190,10 @@ export function CoachPaymentRuleFields(props: Props) {
       />
       <Collapse in={props.values.add_percentage_base_confirmed_bookings}>
         <PercentField
-          step={0.1}
+          fullWidth
           id="percentfield_percentage_base"
           name="percentage_base_confirmed_bookings"
-          fullWidth
+          step={0.1}
         />
         <AlertError name="percentage_base_confirmed_bookings" />
       </Collapse>
@@ -217,12 +217,12 @@ export function CoachPaymentRuleFields(props: Props) {
                       </Typography>
                       <TableHead>
                         <TableRow classes={pick(classes, ['root'])}>
-                          <TableCell colSpan={2} className={classes.dense}>
+                          <TableCell className={classes.dense} colSpan={2}>
                             {t(
                               'coach_payment_rules.Bonuses.bookingsThresholds',
                             )}
                           </TableCell>
-                          <TableCell colSpan={2} className={classes.dense}>
+                          <TableCell className={classes.dense} colSpan={2}>
                             {t('coach_payment_rules.Bonuses.bonus')}
                           </TableCell>
                         </TableRow>
@@ -236,16 +236,12 @@ export function CoachPaymentRuleFields(props: Props) {
                             >
                               <TableCell
                                 align="left"
+                                className={classes.dense}
                                 padding="none"
                                 size="small"
-                                className={classes.dense}
                               >
                                 <TextField
-                                  type="number"
-                                  name={`bonus_for_confirmed_bookings.${i}.lower_interval`}
-                                  onBlur={() =>
-                                    replace(i, bonus_for_confirmed_bookings[i])
-                                  }
+                                  className={classes.tableCell}
                                   InputProps={{
                                     inputProp: {
                                       min:
@@ -261,22 +257,22 @@ export function CoachPaymentRuleFields(props: Props) {
                                     ),
                                   }}
                                   margin="none"
-                                  className={classes.tableCell}
+                                  name={`bonus_for_confirmed_bookings.${i}.lower_interval`}
+                                  onBlur={() =>
+                                    replace(i, bonus_for_confirmed_bookings[i])
+                                  }
                                   size="small "
+                                  type="number"
                                 />
                               </TableCell>
                               <TableCell
                                 align="left"
+                                className={classes.dense}
                                 padding="none"
                                 size="small"
-                                className={classes.dense}
                               >
                                 <TextField
-                                  type="number"
-                                  name={`bonus_for_confirmed_bookings.${i}.upper_interval`}
-                                  onBlur={() =>
-                                    replace(i, bonus_for_confirmed_bookings[i])
-                                  }
+                                  className={classes.tableCell}
                                   InputProps={{
                                     inputProp: {
                                       min: bonus.lower_interval + 1,
@@ -288,28 +284,32 @@ export function CoachPaymentRuleFields(props: Props) {
                                     ),
                                   }}
                                   margin="none"
-                                  className={classes.tableCell}
+                                  name={`bonus_for_confirmed_bookings.${i}.upper_interval`}
+                                  onBlur={() =>
+                                    replace(i, bonus_for_confirmed_bookings[i])
+                                  }
                                   size="small"
+                                  type="number"
                                 />
                               </TableCell>
                               <TableCell
                                 align="left"
+                                className={classes.dense}
                                 padding="none"
                                 size="small"
-                                className={classes.dense}
                               >
                                 <PriceField
-                                  name={`bonus_for_confirmed_bookings.${i}.bonus`}
-                                  margin="none"
                                   className={classes.tableCell}
+                                  margin="none"
+                                  name={`bonus_for_confirmed_bookings.${i}.bonus`}
                                   size="small "
                                 />
                               </TableCell>
                               <TableCell
                                 align="left"
+                                className={classes.dense}
                                 padding="none"
                                 size="small"
-                                className={classes.dense}
                               >
                                 {bonus.kind ===
                                 BONUS_COACH_PAYMENT_RULE_EVERY_BOOKING ? (
@@ -328,13 +328,13 @@ export function CoachPaymentRuleFields(props: Props) {
                               </TableCell>
                               <TableCell
                                 align="left"
+                                className={classes.dense}
                                 padding="none"
                                 size="small"
-                                className={classes.dense}
                               >
                                 <IconButton
-                                  onClick={() => remove(i)}
                                   aria-label="Delete"
+                                  onClick={() => remove(i)}
                                 >
                                   <ClearIcon />
                                 </IconButton>
@@ -346,10 +346,10 @@ export function CoachPaymentRuleFields(props: Props) {
                                 <TableCell
                                   key={`error${bonus.id}`}
                                   align="center"
+                                  className={classes.dense}
+                                  colSpan={5}
                                   padding="none"
                                   size="small"
-                                  colSpan={5}
-                                  className={classes.dense}
                                 >
                                   <AlertError
                                     name={`bonus_for_confirmed_bookings.${i}.lower_interval`}
@@ -374,7 +374,7 @@ export function CoachPaymentRuleFields(props: Props) {
                           {!TestBonusesIntervalConformity(
                             bonus_for_confirmed_bookings,
                           ) ? (
-                            <Typography variant="body2" color="error">
+                            <Typography color="error" variant="body2">
                               {t(
                                 'coach_payment_rules.Errors.invalideIntervals',
                               )}
@@ -388,7 +388,7 @@ export function CoachPaymentRuleFields(props: Props) {
                 <Button
                   aria-haspopup="true"
                   aria-owns={anchorEl ? 'bonus-popover' : undefined}
-                  variant="outlined"
+                  className={classes.footerAddButton}
                   color="primary"
                   onClick={(event) =>
                     handlePopover(
@@ -396,7 +396,7 @@ export function CoachPaymentRuleFields(props: Props) {
                       BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CONFIRMED_BOOKING,
                     )
                   }
-                  className={classes.footerAddButton}
+                  variant="outlined"
                 >
                   <AddIcon color="secondary" />
                   {t('coach_payment_rules.Bonuses.addBonus')}
@@ -409,10 +409,10 @@ export function CoachPaymentRuleFields(props: Props) {
       <div className={classes.spaceDivider} />
 
       <CheckboxField
-        id="checkbox_add_remuneration_on_cancellation"
-        name="remuneration_on_cancellation"
-        label={t('coach_payment_rules.addRemunerationOnCancellation')}
         checked={props.values.remuneration_on_cancellation}
+        id="checkbox_add_remuneration_on_cancellation"
+        label={t('coach_payment_rules.addRemunerationOnCancellation')}
+        name="remuneration_on_cancellation"
         onClick={() => {
           setFieldValue(
             'remuneration_on_cancellation',
@@ -432,13 +432,13 @@ export function CoachPaymentRuleFields(props: Props) {
         <FormControlLabel
           control={
             <Switch
-              id="checkbox_exclude_cancelled_from_confirmed_bookings"
-              name="exclude_cancelled_from_confirmed_bookings"
-              disabled={!props.values.remuneration_on_cancellation}
               checked={
                 props.values.exclude_cancelled_from_confirmed_bookings &&
                 props.values.remuneration_on_cancellation
               }
+              disabled={!props.values.remuneration_on_cancellation}
+              id="checkbox_exclude_cancelled_from_confirmed_bookings"
+              name="exclude_cancelled_from_confirmed_bookings"
               onClick={() => {
                 setFieldValue(
                   'exclude_cancelled_from_confirmed_bookings',
@@ -470,11 +470,11 @@ export function CoachPaymentRuleFields(props: Props) {
               <FormControlLabel
                 control={
                   <CheckBox
-                    id="checkbox_base_remuneration"
-                    name="add_base_remuneration_for_cancellation"
                     checked={
                       props.values.add_base_remuneration_for_cancellation
                     }
+                    id="checkbox_base_remuneration"
+                    name="add_base_remuneration_for_cancellation"
                     onClick={() => {
                       setFieldValue(
                         'add_base_remuneration_for_cancellation',
@@ -490,9 +490,9 @@ export function CoachPaymentRuleFields(props: Props) {
                 in={props.values.add_base_remuneration_for_cancellation}
               >
                 <PriceField
+                  fullWidth
                   id="pricefield_base_remuneration_for_cancellation"
                   name="base_remuneration_for_cancellation"
-                  fullWidth
                 />
                 <AlertError name="base_remuneration_for_cancellation" />
               </Collapse>
@@ -502,9 +502,9 @@ export function CoachPaymentRuleFields(props: Props) {
         <FormControlLabel
           control={
             <CheckBox
+              checked={props.values.add_percentage_base_cancelled_bookings}
               id="checkbox_percentage_base"
               name="add_percentage_base_cancelled_bookings"
-              checked={props.values.add_percentage_base_cancelled_bookings}
               onClick={() => {
                 setFieldValue(
                   'add_percentage_base_cancelled_bookings',
@@ -518,10 +518,10 @@ export function CoachPaymentRuleFields(props: Props) {
         />
         <Collapse in={props.values.add_percentage_base_cancelled_bookings}>
           <PercentField
-            step={0.1}
+            fullWidth
             id="percentfield_percentage_base_cancellation"
             name="percentage_base_cancelled_bookings"
-            fullWidth
+            step={0.1}
           />
         </Collapse>
         {COACH_PAYMENT_RULE_FOR_ACTIVITIES.includes(props.values.kind) && (
@@ -542,12 +542,12 @@ export function CoachPaymentRuleFields(props: Props) {
                       </Typography>
                       <TableHead>
                         <TableRow classes={pick(classes, ['root'])}>
-                          <TableCell colSpan={2} className={classes.dense}>
+                          <TableCell className={classes.dense} colSpan={2}>
                             {t(
                               'coach_payment_rules.Bonuses.bookingsThresholds',
                             )}
                           </TableCell>
-                          <TableCell colSpan={2} className={classes.dense}>
+                          <TableCell className={classes.dense} colSpan={2}>
                             {t('coach_payment_rules.Bonuses.bonus')}
                           </TableCell>
                         </TableRow>
@@ -561,16 +561,12 @@ export function CoachPaymentRuleFields(props: Props) {
                             >
                               <TableCell
                                 align="left"
+                                className={classes.dense}
                                 padding="none"
                                 size="small"
-                                className={classes.dense}
                               >
                                 <TextField
-                                  type="number"
-                                  name={`bonus_for_cancelled_bookings.${i}.lower_interval`}
-                                  onBlur={() =>
-                                    replace(i, bonus_for_cancelled_bookings[i])
-                                  }
+                                  className={classes.tableCell}
                                   InputProps={{
                                     inputProp: {
                                       min:
@@ -586,22 +582,22 @@ export function CoachPaymentRuleFields(props: Props) {
                                     ),
                                   }}
                                   margin="none"
-                                  className={classes.tableCell}
+                                  name={`bonus_for_cancelled_bookings.${i}.lower_interval`}
+                                  onBlur={() =>
+                                    replace(i, bonus_for_cancelled_bookings[i])
+                                  }
                                   size="small "
+                                  type="number"
                                 />
                               </TableCell>
                               <TableCell
                                 align="left"
+                                className={classes.dense}
                                 padding="none"
                                 size="small"
-                                className={classes.dense}
                               >
                                 <TextField
-                                  type="number"
-                                  name={`bonus_for_cancelled_bookings.${i}.upper_interval`}
-                                  onBlur={() =>
-                                    replace(i, bonus_for_cancelled_bookings[i])
-                                  }
+                                  className={classes.tableCell}
                                   InputProps={{
                                     inputProp: {
                                       min: bonus.lower_interval + 1,
@@ -613,20 +609,24 @@ export function CoachPaymentRuleFields(props: Props) {
                                     ),
                                   }}
                                   margin="none"
-                                  className={classes.tableCell}
+                                  name={`bonus_for_cancelled_bookings.${i}.upper_interval`}
+                                  onBlur={() =>
+                                    replace(i, bonus_for_cancelled_bookings[i])
+                                  }
                                   size="small"
+                                  type="number"
                                 />
                               </TableCell>
                               <TableCell
                                 align="left"
+                                className={classes.dense}
                                 padding="none"
                                 size="small"
-                                className={classes.dense}
                               >
                                 <PriceField
-                                  name={`bonus_for_cancelled_bookings.${i}.bonus`}
-                                  margin="dense"
                                   fullWidth
+                                  margin="dense"
+                                  name={`bonus_for_cancelled_bookings.${i}.bonus`}
                                   onBlur={() =>
                                     replace(i, bonus_for_cancelled_bookings[i])
                                   }
@@ -634,9 +634,9 @@ export function CoachPaymentRuleFields(props: Props) {
                               </TableCell>
                               <TableCell
                                 align="left"
+                                className={classes.dense}
                                 padding="none"
                                 size="small"
-                                className={classes.dense}
                               >
                                 {bonus.kind ===
                                 BONUS_COACH_PAYMENT_RULE_EVERY_BOOKING ? (
@@ -655,13 +655,13 @@ export function CoachPaymentRuleFields(props: Props) {
                               </TableCell>
                               <TableCell
                                 align="left"
+                                className={classes.dense}
                                 padding="none"
                                 size="small"
-                                className={classes.dense}
                               >
                                 <IconButton
-                                  onClick={() => remove(i)}
                                   aria-label="Delete"
+                                  onClick={() => remove(i)}
                                 >
                                   <ClearIcon />
                                 </IconButton>
@@ -673,10 +673,10 @@ export function CoachPaymentRuleFields(props: Props) {
                                 <TableCell
                                   key={`error${bonus.id}`}
                                   align="center"
+                                  className={classes.dense}
+                                  colSpan={5}
                                   padding="none"
                                   size="small"
-                                  colSpan={5}
-                                  className={classes.dense}
                                 >
                                   <AlertError
                                     name={`bonus_for_cancelled_bookings.${i}.lower_interval`}
@@ -701,7 +701,7 @@ export function CoachPaymentRuleFields(props: Props) {
                           {!TestBonusesIntervalConformity(
                             bonus_for_cancelled_bookings,
                           ) ? (
-                            <Typography variant="body2" color="error">
+                            <Typography color="error" variant="body2">
                               {t(
                                 'coach_payment_rules.Errors.invalideIntervals',
                               )}
@@ -715,7 +715,7 @@ export function CoachPaymentRuleFields(props: Props) {
                 <Button
                   aria-haspopup="true"
                   aria-owns={anchorEl ? 'bonus-popover' : undefined}
-                  variant="outlined"
+                  className={classes.footerAddButton}
                   color="primary"
                   onClick={(event) =>
                     handlePopover(
@@ -723,7 +723,7 @@ export function CoachPaymentRuleFields(props: Props) {
                       BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CANCELLED_BOOKING,
                     )
                   }
-                  className={classes.footerAddButton}
+                  variant="outlined"
                 >
                   <AddIcon color="secondary" />
                   {t('coach_payment_rules.Bonuses.addBonus')}
@@ -744,19 +744,19 @@ export function CoachPaymentRuleFields(props: Props) {
       </div>
       <Collapse in={openLimitSection}>
         <PriceField
-          id="min_remuneration"
-          name="min_remuneration"
-          label={t('coach_payment_rules.min_remuneration')}
-          required
           fullWidth
+          required
+          id="min_remuneration"
+          label={t('coach_payment_rules.min_remuneration')}
+          name="min_remuneration"
         />
         <AlertError name="min_remuneration" />
         <PriceField
-          id="max_remuneration"
-          name="max_remuneration"
-          label={t('coach_payment_rules.max_remuneration')}
-          required
           fullWidth
+          required
+          id="max_remuneration"
+          label={t('coach_payment_rules.max_remuneration')}
+          name="max_remuneration"
         />
         <AlertError name="max_remuneration" />
       </Collapse>
@@ -768,10 +768,10 @@ export function CoachPaymentRuleFields(props: Props) {
       >
         <FormGroup>
           <CheckboxField
-            id="checkbox_taxe_rate"
-            name="checkbox_taxe_rate"
-            label={t('coach_payment_rules.taxe_rate')}
             checked={props.values.exclude_default_tax_rate_from_margin_value}
+            id="checkbox_taxe_rate"
+            label={t('coach_payment_rules.taxe_rate')}
+            name="checkbox_taxe_rate"
             onClick={() =>
               setFieldValue(
                 'exclude_default_tax_rate_from_margin_value',
@@ -809,7 +809,6 @@ export function CoachPaymentRuleFields(props: Props) {
               }) => (
                 <div>
                   <PaymentPackSelector
-                    paymentPacks={props.enabledPaymentPacks}
                     nullCurrentValue
                     helperText={props.t(
                       'coach_payment_rules.paymentPackPlaceHolder',
@@ -817,13 +816,14 @@ export function CoachPaymentRuleFields(props: Props) {
                     onChange={(id) => {
                       if (id) push(id);
                     }}
+                    paymentPacks={props.enabledPaymentPacks}
                   />
                   {excluded_payment_packs.map((id, i) => (
                     <PaymentPackListItem
                       key={`${id}-${i}`}
                       dense
-                      pack={props.getPaymentPack(id)}
                       onDelete={() => remove(i)}
+                      pack={props.getPaymentPack(id)}
                     />
                   ))}
                 </div>

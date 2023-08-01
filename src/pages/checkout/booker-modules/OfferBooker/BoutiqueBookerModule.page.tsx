@@ -677,19 +677,19 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         // @ts-expect-error
         <ConsumerAppBarContainer backgroundColor="white">
           <OfferSpotSelector
-            // @ts-expect-error
-            offer={this.props.offer}
-            updateSpotsForOffer={this.updateSpotForOffer}
-            refreshOfferStatus={this.fetchOfferStatus}
-            roomBlueprintsById={this.props.roomBlueprintsById}
             assetByIdBlueprintByIdentifier={
               this.props.assetByIdBlueprintByIdentifier
             }
-            onCancel={this.onCancelSpotSelector}
-            offerStatusById={this.props.offerStatusById}
             fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
             // @ts-expect-error
+            offer={this.props.offer}
+            offerStatusById={this.props.offerStatusById}
+            onCancel={this.onCancelSpotSelector}
+            refreshOfferStatus={this.fetchOfferStatus}
+            roomBlueprintsById={this.props.roomBlueprintsById}
+            // @ts-expect-error
             spotTypes={this.props.spotTypes.concat(DEFAULT_SPOT_TYPE)}
+            updateSpotsForOffer={this.updateSpotForOffer}
           />
         </ConsumerAppBarContainer>
       );
@@ -701,22 +701,22 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         <ConsumerAppBarContainer backgroundColor="white">
           <>
             <Skeleton
-              id="bs-new-offer-booking__skeleton"
               animation="pulse"
-              width="50%"
               height={100}
+              id="bs-new-offer-booking__skeleton"
+              width="50%"
             />
             <Skeleton
-              id="bs-new-offer-booking__skeleton"
               animation="pulse"
-              width="50%"
               height={100}
+              id="bs-new-offer-booking__skeleton"
+              width="50%"
             />
             <Skeleton
-              id="bs-new-offer-booking__skeleton"
               animation="pulse"
-              width="50%"
               height={100}
+              id="bs-new-offer-booking__skeleton"
+              width="50%"
             />
           </>
         </ConsumerAppBarContainer>
@@ -732,20 +732,20 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       <ConsumerAppBarContainer backgroundColor="white">
         {this.state.isContractSelected && (
           <SubscriptionContractBooking
-            isExcludingTax={this.props.isExcludingTax}
-            contract={this.state.selectedItem.data}
             companyId={this.props.offer && this.props.offer.company}
-            requestSetupIntentSecret={this.requestSetupIntentSecret}
-            onSubmit={this.goToValidationPage}
+            contract={this.state.selectedItem.data}
+            isExcludingTax={this.props.isExcludingTax}
             onCancel={this.closeSubscripionDialog}
+            onSubmit={this.goToValidationPage}
+            requestSetupIntentSecret={this.requestSetupIntentSecret}
           />
         )}
         <div className="bs-new-offer-booking-with-header">
           <div className="bs-new-offer-booking__header">
             <button
-              type="button"
               className="bs-new-offer-booking__consumer-payment-packs__arrow"
               onClick={this.goBackToCalendar}
+              type="button"
             >
               <ArrowBack />
             </button>
@@ -759,8 +759,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                 <>
                   {this.state.isWaitingList && (
                     <Alert
-                      severity="warning"
                       className="bs-new-offer-booking__waiting-list-warning"
+                      severity="warning"
                     >
                       {t('newBookingModule.waitingListWarning')}
                     </Alert>
@@ -779,6 +779,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                         ) => {
                           return (
                             <MarketplaceConsumerPaymentPackCard
+                              key={consumerPaymentPack.id}
                               consumerPaymentPack={consumerPaymentPack}
                               isSelected={isEqual(
                                 consumerPaymentPack,
@@ -787,7 +788,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                               onSelectConsumerPaymentPack={
                                 this.onSelectConsumerPaymentPack
                               }
-                              key={consumerPaymentPack.id}
                             />
                           );
                         },
@@ -796,9 +796,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                         .hide_unnecessary_compatible_purchase_method && (
                         <div className="bs-new-offer-booking__buyable_items__header">
                           <button
-                            type="button"
                             className="bs-new-offer-booking__buyable_items__header__arrow"
                             onClick={this.onClickShowBuyableItems}
+                            type="button"
                           >
                             {this.state.showBuyableItems ? (
                               <KeyboardArrowDown />
@@ -820,8 +820,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                     this.state.availableConsumerPacks.length === 0) && (
                     <>
                       <MarketplaceFilterBuyableItemCategory
-                        onClickCategory={this.onClickCategory}
                         buyableItemCategories={this.state.buyableItemCategories}
+                        onClickCategory={this.onClickCategory}
                         selectedBuyableItemCategory={
                           this.state.selectedBuyableItemCategory
                         }
@@ -830,13 +830,13 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                         this.state.buyableItemCategories.map(
                           (buyableItemCategory) => (
                             <MarketplaceBuyableItemCategoryList
+                              key={buyableItemCategory.index}
                               buyableItemCategory={buyableItemCategory}
                               isExcludingTax={this.props.isExcludingTax}
                               selectBuyableItem={this.onClickBuyableItem}
                               selectedBuyableItem={
                                 this.state.selectedItem?.data as BuyableItem
                               }
-                              key={buyableItemCategory.index}
                               theme={this.props.theme}
                             />
                           ),
@@ -867,17 +867,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
             <div className="bs-new-offer-booking__offer-summary">
               {/* @ts-expect-error */}
               <OfferSummary
-                offer={this.props.offer}
-                metaActivity={this.props.offer.meta_activity}
-                establishment={this.props.offer.establishment}
                 coach={this.props.offer.coach}
-                theme={this.props.theme}
-                spotId={this.state.selectedSpot}
-                onConfirm={this.onConfirm}
-                offerStatus={this.props.offerStatusById[this.props.id]}
-                variant="default"
-                tax={this.props.offer.tax}
-                price={displayPrice}
                 confirmLoading={this.state.confirmLoading}
                 disableButton={
                   this.state.selectedItem === null ||
@@ -885,7 +875,17 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                     !this.state.bookingBlockedReason
                       .isWaitingListOpenMainReason)
                 }
+                establishment={this.props.offer.establishment}
                 loading={loading}
+                metaActivity={this.props.offer.meta_activity}
+                offer={this.props.offer}
+                offerStatus={this.props.offerStatusById[this.props.id]}
+                onConfirm={this.onConfirm}
+                price={displayPrice}
+                spotId={this.state.selectedSpot}
+                tax={this.props.offer.tax}
+                theme={this.props.theme}
+                variant="default"
               />
             </div>
           </div>

@@ -59,9 +59,9 @@ const PayButtonBase = (props: {
 }) => (
   <div className={props.classes.payButtonContainer}>
     <Button
+      color="primary"
       disabled={props.loading || props.processing}
       onClick={props.onClick}
-      color="primary"
     >
       {props.t('checkout:myBasket.actions.payZero')}
     </Button>
@@ -86,24 +86,24 @@ const ChosenPaymentModule = (props: {
     case PAYMENT_METHOD_CREDIT_ACCOUNT.id:
       return (
         <PaymentByCredit
-          loading={props.loading}
-          processing={props.processing}
           accountBalance={0}
+          loading={props.loading}
+          onCancel={props.onCancel}
+          processing={props.processing}
           submitPayment={props.submitPayment}
           termsAndConditions={props.termsAndConditions}
-          onCancel={props.onCancel}
         />
       );
     case PAYMENT_METHOD_STRIPE_PAYMENT_INTENT.id:
     default:
       return (
         <PaymentByCardStripe
-          processing={props.processing}
           loading={props.loading}
+          onCancel={props.onCancel}
+          processing={props.processing}
+          savedPaymentMethodList={props.savedPaymentMethodList}
           submitPaymentIntent={props.submitPayment}
           termsAndConditions={props.termsAndConditions}
-          onCancel={props.onCancel}
-          savedPaymentMethodList={props.savedPaymentMethodList}
         />
       );
   }
@@ -114,8 +114,8 @@ export const PaymentForm = (props: Props) => {
     return (
       <PayButton
         loading={props.loading}
-        processing={props.processing}
         onClick={() => props.submitPayment()}
+        processing={props.processing}
       />
     );
   }
@@ -128,15 +128,14 @@ export const PaymentForm = (props: Props) => {
         <RadioGroup
           aria-label="payment-method"
           className={props.classes.paymentMethodSelectorContainer}
-          value={chosenPaymentMethod}
           disabled={props.loading || props.processing}
           onChange={(ev) =>
             props.setPaymentMethod(parseInt(ev.target.value, 10))
           }
+          value={chosenPaymentMethod}
         >
           {props.availablePaymentMethods.map((id) => (
             <FormControlLabel
-              value={id}
               key={`${id}`}
               control={<Radio color="primary" />}
               label={props.t(
@@ -145,18 +144,19 @@ export const PaymentForm = (props: Props) => {
                 }`,
               )}
               labelPlacement="bottom"
+              value={id}
             />
           ))}
         </RadioGroup>
       ) : null}
       <ChosenPaymentModule
+        loading={props.loading}
+        onCancel={props.onCancel}
         paymentMethod={chosenPaymentMethod}
+        processing={props.processing}
         savedPaymentMethodList={props.savedPaymentMethodList}
         submitPayment={props.submitPayment}
-        loading={props.loading}
-        processing={props.processing}
         termsAndConditions={props.termsAndConditions}
-        onCancel={props.onCancel}
       />
     </div>
   );

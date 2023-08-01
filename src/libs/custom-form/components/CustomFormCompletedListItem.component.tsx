@@ -17,8 +17,8 @@ export const CustomFormCompletedListItem = (props: Props) => {
   const { classes } = props;
   return (
     <ListItem
-      divider
       button
+      divider
       onClick={() => props.onClick(props.customFormFilled.id)}
     >
       <div className={classes.fullwidth}>

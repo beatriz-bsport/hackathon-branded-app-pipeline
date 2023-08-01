@@ -19,8 +19,6 @@ export const ContractPauseUpdateNameDialog = (props: Props) => {
   };
   return (
     <CustomMuiDialog
-      open={props.open}
-      onClose={props.onCancel}
       buttons={[
         {
           onClick: props.onCancel,
@@ -34,18 +32,20 @@ export const ContractPauseUpdateNameDialog = (props: Props) => {
           disabled: name === props.previousName,
         },
       ]}
+      onClose={props.onCancel}
+      open={props.open}
       title={t('pauseV2.contractPause.updateNameDialogTitle')}
     >
       <TextField
-        placeholder={t('pauseV2.common.form.reasonPlaceholder')}
-        value={name}
+        fullWidth
+        multiline
+        inputProps={{ maxLength: PAUSE_NAME_MAX_LENGTH }}
         onChange={(event: React.ChangeEvent) => {
           const target = event.target as HTMLInputElement;
           setName(target.value);
         }}
-        fullWidth
-        multiline
-        inputProps={{ maxLength: PAUSE_NAME_MAX_LENGTH }}
+        placeholder={t('pauseV2.common.form.reasonPlaceholder')}
+        value={name}
       />
     </CustomMuiDialog>
   );

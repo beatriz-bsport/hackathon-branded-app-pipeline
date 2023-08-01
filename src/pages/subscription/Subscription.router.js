@@ -12,14 +12,14 @@ import ContractDetail from './ContractDetail.page';
 
 export default () => (
   <Switch>
-    <Route path="/subscription/contract/:id" component={ContractDetail} />
-    <Route path="/subscription/contract/" component={ContractList} />
+    <Route component={ContractDetail} path="/subscription/contract/:id" />
+    <Route component={ContractList} path="/subscription/contract/" />
     <Route
       exact
-      path="/subscription/add/:memberId"
       component={SubscriptionCreate}
+      path="/subscription/add/:memberId"
     />
-    <Route path="/subscription/:id" component={SubscriptionDetailRouter} />
-    <Route path="/subscription" component={SubscriptionList} />
+    <Route component={SubscriptionDetailRouter} path="/subscription/:id" />
+    <Route component={SubscriptionList} path="/subscription" />
   </Switch>
 );

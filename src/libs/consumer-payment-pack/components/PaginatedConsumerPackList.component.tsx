@@ -37,21 +37,21 @@ type Props = OwnProps &
 
 export const PaginatedConsumerPackList = (props: Props) => (
   <PaginatedListBase
-    listProps={{ disablePadding: 'true', dense: 'true' }}
-    items={props.items}
-    nbItems={props.nbItems}
-    loading={props.loading}
-    page={props.page}
     itemPerPage={props.itemPerPage}
+    items={props.items}
+    listProps={{ disablePadding: 'true', dense: 'true' }}
+    loading={props.loading}
+    nbItems={props.nbItems}
     onPageRequested={(page: number, pageSize: number) =>
       props.onPageRequested(page, pageSize)
     }
+    page={props.page}
     renderEmpty={() => (
       <div>
         <Typography
           className={props.classes.emptyContainer}
-          variant="caption"
           color="textSecondary"
+          variant="caption"
         >
           {props.t('noConsumerPack')}
         </Typography>
@@ -62,14 +62,14 @@ export const PaginatedConsumerPackList = (props: Props) => (
       <ConsumerPackRowItem
         key={cpp.id}
         consumerPack={cpp}
+        decrementCredit={props.decrementCredit}
         disabled={
           props.allowedFranchisees?.length &&
           !props.allowedFranchisees.includes(cpp.payment_pack?.company)
         }
-        paymentPack={props.paymentPack || cpp.payment_pack || null}
-        decrementCredit={props.decrementCredit}
         incrementCredit={props.incrementCredit}
         onClick={props.onClick ? () => props.onClick(cpp) : null}
+        paymentPack={props.paymentPack || cpp.payment_pack || null}
         updating={(props.consumerPacksUpdatingById || {})[cpp?.id] ?? false}
       />
     )}

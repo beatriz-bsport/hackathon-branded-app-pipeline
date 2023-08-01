@@ -108,10 +108,10 @@ export class EstablishmentList extends React.Component<Props, State> {
     ) {
       return (
         <IsEmptyList
-          text={this.props.t('noEstablishement')}
           button={this.props.t('addButton')}
           onCreate={this.props.onCreate}
           onCreateLabel={this.props.t('addButton')}
+          text={this.props.t('noEstablishement')}
         />
       );
     }
@@ -123,13 +123,13 @@ export class EstablishmentList extends React.Component<Props, State> {
         {this.props.establishments.length > 0 ? (
           <div className={this.props.classes.search}>
             <FuzeSearch
-              searchText={this.state.searchText}
-              clearSearch={this.clearSearch}
               changeSearch={this.changeSearch}
-              searchFields={['title', 'location.adress']}
+              clearSearch={this.clearSearch}
               items={this.props.establishments}
               placeholder={this.props.t('search')}
+              searchFields={['title', 'location.adress']}
               searchResult={this.state.searchResult}
+              searchText={this.state.searchText}
             />
             <Paper
               className={
@@ -145,13 +145,13 @@ export class EstablishmentList extends React.Component<Props, State> {
                   this.state.searchText !== ''
                 }
               >
-                <List component="nav" disablePadding>
+                <List disablePadding component="nav">
                   {this.state.searchResult.map((e) => (
                     <EstablishmentListItem
                       key={e.id}
                       divider
-                      onClick={() => this.props.goToEstablishment(e.id)}
                       establishment={e}
+                      onClick={() => this.props.goToEstablishment(e.id)}
                       onClickDelete={() =>
                         this.props.setEstablishmentToDelete(e.id)
                       }
@@ -173,27 +173,27 @@ export class EstablishmentList extends React.Component<Props, State> {
           onClickEdit={this.props.startUpdateEstablishment}
         />
         <Paper className={this.props.classes.map}>
-          <Map markers={this.props.establishments} markerClicked={() => {}} />
+          <Map markerClicked={() => {}} markers={this.props.establishments} />
         </Paper>
         {(this.props.establishmentsArchived || []).length ? (
           <div>
             <ButtonBase
               className={this.props.classes.buttonTitle}
+              disabled={!(this.props.establishmentsArchived || []).length}
               onClick={() =>
                 this.setState((prevState) => ({
                   showDisabled: !prevState.showDisabled,
                 }))
               }
-              disabled={!(this.props.establishmentsArchived || []).length}
             >
               <Typography
-                variant="h5"
-                component="h2"
                 color={
                   (this.props.establishmentsArchived || []).length
                     ? 'default'
                     : 'textSecondary'
                 }
+                component="h2"
+                variant="h5"
               >
                 {`${this.props.t('list.section.archived')} (${
                   (this.props.establishmentsArchived || []).length
@@ -208,12 +208,12 @@ export class EstablishmentList extends React.Component<Props, State> {
             </ButtonBase>
             <Divider />
             <Collapse
-              in={this.state.showDisabled}
-              className={this.props.classes.collapse}
               unmountOnExit
+              className={this.props.classes.collapse}
+              in={this.state.showDisabled}
             >
               <Paper>
-                <List component="nav" disablePadding>
+                <List disablePadding component="nav">
                   {this.props.establishmentsArchived.map((e) => (
                     <EstablishmentListItem
                       key={e.id}
@@ -228,10 +228,10 @@ export class EstablishmentList extends React.Component<Props, State> {
           </div>
         ) : null}
         <EstablishmentDeleteDialog
-          establishmentId={this.props.establishmentToDelete}
-          onClose={() => this.props.setEstablishmentToDelete(null)}
           canDeleteEstablishmentChecker={canDeleteEstablishmentAPI}
           deleteEstablishment={this.props.deleteEstablishment}
+          establishmentId={this.props.establishmentToDelete}
+          onClose={() => this.props.setEstablishmentToDelete(null)}
         />
         <BottomActionsButton
           onCreate={this.props.onCreate}

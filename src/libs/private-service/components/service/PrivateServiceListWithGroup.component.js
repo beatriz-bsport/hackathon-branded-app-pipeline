@@ -37,7 +37,7 @@ export const PrivateServiceListWithGroup = (props: Props) => {
       {props.privateServiceAvailableByGroup.map((g) => (
         <div key={g.id}>
           <div className={classes.titleRow}>
-            <Typography variant="h5" className={classes.sectionTitle}>
+            <Typography className={classes.sectionTitle} variant="h5">
               {g.name}
             </Typography>
             <IconButton
@@ -53,10 +53,10 @@ export const PrivateServiceListWithGroup = (props: Props) => {
               {g.private_services.map((ps) => (
                 <PrivateServiceListItem
                   key={ps.id}
-                  privateService={ps}
                   onClick={props.goToPrivateService}
-                  onEdit={() => props.setOpenEditForm(ps)}
                   onDelete={() => props.deletePrivateService(ps.id)}
+                  onEdit={() => props.setOpenEditForm(ps)}
+                  privateService={ps}
                 />
               ))}
             </Paper>
@@ -74,16 +74,16 @@ export const PrivateServiceListWithGroup = (props: Props) => {
         {props.privateServiceAvailableWithoutGroup.map((ps) => (
           <PrivateServiceListItem
             key={ps.id}
-            privateService={ps}
             onClick={props.goToPrivateService}
-            onEdit={() => props.setOpenEditForm(ps)}
             onDelete={() => props.deletePrivateService(ps.id)}
+            onEdit={() => props.setOpenEditForm(ps)}
+            privateService={ps}
           />
         ))}
       </Paper>
       <Menu
-        onClose={() => props.setMenuOpen([null, null])}
         anchorEl={props.menuOpen[0]}
+        onClose={() => props.setMenuOpen([null, null])}
         open={!!props.menuOpen[0]}
       >
         <div className={classes.actionButtonGroup}>

@@ -192,12 +192,12 @@ export class CustomChartForm extends React.Component<Props, State> {
           <DialogTitle>{t('customChart.form.title')}</DialogTitle>
           <DialogContent>
             <CustomChartSelector
+              iconList={objectIcons}
               itemList={objectList}
               itemSelected={this.state.objectSelected}
               setItemSelected={(item) =>
                 this.setState({ objectSelected: item })
               }
-              iconList={objectIcons}
             />
             {this.state.objectSelected && (
               <FormControl component="fieldset">
@@ -205,19 +205,19 @@ export class CustomChartForm extends React.Component<Props, State> {
                 <RadioGroup
                   aria-label="datatype"
                   name="datatype"
-                  value={this.state.ressourceIdentifierSelected}
                   onChange={(ev) =>
                     this.setState({
                       ressourceIdentifierSelected: ev.target.value,
                       chartTypeSelected: null,
                     })
                   }
+                  value={this.state.ressourceIdentifierSelected}
                 >
                   {this.state.ressourceIdentifierList.map((r) => (
                     <FormControlLabel
-                      value={r}
                       control={<Radio />}
                       label={t(`customChart.form.radio.${r}`)}
+                      value={r}
                     />
                   ))}
                 </RadioGroup>
@@ -227,12 +227,12 @@ export class CustomChartForm extends React.Component<Props, State> {
               <div className={classes.marginTop}>
                 <FormLabel>{t('customChart.form.graphComponent')}</FormLabel>
                 <CustomChartRadio
+                  iconList={this.state.chartIconList}
                   itemList={this.state.chartTypeList}
                   itemSelected={this.state.chartTypeSelected}
                   setItemSelected={(item) =>
                     this.setState({ chartTypeSelected: item })
                   }
-                  iconList={this.state.chartIconList}
                 />
               </div>
             )}
@@ -246,13 +246,13 @@ export class CustomChartForm extends React.Component<Props, State> {
                     control={
                       <Checkbox
                         checked={this.state.aggregate}
+                        color="primary"
+                        name="checkedB"
                         onChange={() =>
                           this.setState((prevState) => ({
                             aggregate: !prevState.aggregate,
                           }))
                         }
-                        name="checkedB"
-                        color="primary"
                       />
                     }
                     label={t('customChart.form.aggregate')}
@@ -264,15 +264,15 @@ export class CustomChartForm extends React.Component<Props, State> {
               )}
             <div className={classes.marginTop}>
               <TextField
-                value={this.state.titleChart}
-                placeholder={this.props.t('customChart.form.name')}
-                variant="outlined"
-                required
                 fullWidth
+                required
+                className={classes.field}
                 onChange={(ev) =>
                   this.setState({ titleChart: ev.target.value })
                 }
-                className={classes.field}
+                placeholder={this.props.t('customChart.form.name')}
+                value={this.state.titleChart}
+                variant="outlined"
               />
             </div>
           </DialogContent>

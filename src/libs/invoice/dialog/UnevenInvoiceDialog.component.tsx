@@ -36,7 +36,7 @@ const UnevenInvoiceDialog = (props: Props) => {
     : '0.00';
 
   return (
-    <GenericResponsiveDialog open={open || isSubmitting} onClose={onClose}>
+    <GenericResponsiveDialog onClose={onClose} open={open || isSubmitting}>
       <DialogTitle id="alert-dialog-title">
         {t('form.invoice.titleUnevenInvoice')}
       </DialogTitle>
@@ -50,7 +50,7 @@ const UnevenInvoiceDialog = (props: Props) => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="secondary" disabled={isSubmitting}>
+        <Button color="secondary" disabled={isSubmitting} onClick={onClose}>
           {t('common.cancel')}
         </Button>
         {isSubmitting ? (
@@ -59,6 +59,8 @@ const UnevenInvoiceDialog = (props: Props) => {
           </div>
         ) : (
           <Button
+            autoFocus
+            color="primary"
             onClick={() => {
               setIsSubmitting(true);
               onSubmit({
@@ -66,8 +68,6 @@ const UnevenInvoiceDialog = (props: Props) => {
                 onError: () => setIsSubmitting(false),
               });
             }}
-            color="primary"
-            autoFocus
           >
             {t('common.confirm')}
           </Button>

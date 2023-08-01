@@ -112,19 +112,19 @@ class PaymentListItem extends Component<PaymentItemProps, PaymentItemState> {
       return (
         <div>
           <IconButton
+            color="primary"
             disabled={!paymentItem.is_method_editable}
             onClick={(e) =>
               this.setState({ changeMethodAnchorEl: e.currentTarget })
             }
-            color="primary"
           >
             <CachedIcon />
           </IconButton>
           <Menu
-            id={`simple-menu${paymentItem.uuid}`}
             anchorEl={this.state.changeMethodAnchorEl}
-            open={Boolean(this.state.changeMethodAnchorEl)}
+            id={`simple-menu${paymentItem.uuid}`}
             onClose={() => this.setState({ changeMethodAnchorEl: null })}
+            open={Boolean(this.state.changeMethodAnchorEl)}
           >
             {PAYMENT_METHODS.filter((pm) => pm.is_method_editable).map((pm) => (
               <MenuItem
@@ -141,7 +141,7 @@ class PaymentListItem extends Component<PaymentItemProps, PaymentItemState> {
       );
     }
     return (
-      <IconButton onClick={() => onDelete(paymentItem)} color="primary">
+      <IconButton color="primary" onClick={() => onDelete(paymentItem)}>
         <DeleteIcon />
       </IconButton>
     );
@@ -181,9 +181,9 @@ class PaymentListItem extends Component<PaymentItemProps, PaymentItemState> {
     ).text;
     return (
       <ListItem
+        key={`${uuid}-{payment_method}-{price}`}
         dense
         divider
-        key={`${uuid}-{payment_method}-{price}`}
         disabled={uneditable}
       >
         <ListItemIcon>{this.renderPaymentReceived(paymentItem)}</ListItemIcon>
@@ -191,10 +191,10 @@ class PaymentListItem extends Component<PaymentItemProps, PaymentItemState> {
           primary={`${getCurrencyDisplayWithPrice(price)}  -  ${t(
             `payment.paymentMethods.${paymentMethodText}`,
           )}`}
-          secondary={payment_note}
           primaryTypographyProps={{
             className: paymentItem.reverted ? this.props.classes.revert : {},
           }}
+          secondary={payment_note}
           secondaryTypographyProps={{
             className: paymentItem.reverted ? this.props.classes.revert : {},
           }}
@@ -228,20 +228,20 @@ export function PaymentList(props: Props) {
     <List disablePadding>
       {paymentItems.map((pi, idx) => (
         <PaymentListItemComposed
-          paymentItem={pi}
-          uneditable={false}
           key={`${pi.price}-${idx}`}
           onDelete={props.onDelete}
+          paymentItem={pi}
+          uneditable={false}
           updatePaymentMethod={props.updatePaymentMethod}
         />
       ))}
       {uneditablePayments.map((pi) => (
         <PaymentListItemComposed
-          paymentItem={pi}
-          returnPayment={props.returnPayment}
-          isReturningPayment={props.isReturningPayment}
           key={pi.uuid}
           uneditable
+          isReturningPayment={props.isReturningPayment}
+          paymentItem={pi}
+          returnPayment={props.returnPayment}
           updatePaymentMethod={props.updatePaymentMethod}
         />
       ))}

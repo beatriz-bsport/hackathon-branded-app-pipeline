@@ -72,12 +72,12 @@ export const BackgroundDialogComponent: React.FC<Props> = ({
     <div>
       {(backgroundDialog ?? []).map((dialog) => (
         <Dialog
-          open
-          fullWidth
-          maxWidth="md"
-          aria-labelledby="alert-excel-report"
-          aria-describedby="alert-excel-report"
           key={dialog.id}
+          fullWidth
+          open
+          aria-describedby="alert-excel-report"
+          aria-labelledby="alert-excel-report"
+          maxWidth="md"
         >
           {!!dialog.title && (
             <DialogTitle id="alert-dialog-title">{dialog.title}</DialogTitle>
@@ -119,7 +119,7 @@ export const BackgroundDialogComponent: React.FC<Props> = ({
             )}
             {dialog.displayMode === DISPLAY_SUCCESS && (
               <div className={classes.contentWithIcon}>
-                <CheckIcon color="secondary" className={classes.icon} />
+                <CheckIcon className={classes.icon} color="secondary" />
                 <Typography
                   align="center"
                   className={classes.infoText}
@@ -133,14 +133,14 @@ export const BackgroundDialogComponent: React.FC<Props> = ({
           <DialogActions>
             {dialog.actionMode === ACTION_MODE_DOWNLOAD && (
               <>
-                <a href={dialog.link} target="_blank" rel="noreferrer">
+                <a href={dialog.link} rel="noreferrer" target="_blank">
                   <Button
+                    autoFocus
+                    color="primary"
                     onClick={() => {
                       handleDownloadDisable();
                     }}
                     variant="contained"
-                    color="primary"
-                    autoFocus
                   >
                     {t('common.download')}
                     <GetAppIcon />
@@ -148,10 +148,10 @@ export const BackgroundDialogComponent: React.FC<Props> = ({
                 </a>
 
                 <Button
+                  autoFocus
+                  color="secondary"
                   disabled={downloadDisable}
                   onClick={() => deletebackgroundDialog(dialog.id)}
-                  color="secondary"
-                  autoFocus
                 >
                   {t('common.continue')}
                 </Button>
@@ -160,19 +160,19 @@ export const BackgroundDialogComponent: React.FC<Props> = ({
             {dialog.actionMode === ACTION_MODE_REDIRECT && (
               <>
                 <Button
-                  onClick={() => deletebackgroundDialog(dialog.id)}
                   color="secondary"
+                  onClick={() => deletebackgroundDialog(dialog.id)}
                 >
                   {t('common.continue')}
                 </Button>
                 {dialog.link && (
                   <Button
+                    autoFocus
+                    color="primary"
                     onClick={() => {
                       pushRouter(dialog.link);
                       deletebackgroundDialog(dialog.id);
                     }}
-                    color="primary"
-                    autoFocus
                   >
                     {t('common.see')}
                     <ArrowForwardIcon />
@@ -184,8 +184,8 @@ export const BackgroundDialogComponent: React.FC<Props> = ({
               dialog.actionMode,
             ) && (
               <Button
-                onClick={() => deletebackgroundDialog(dialog.id)}
                 color="secondary"
+                onClick={() => deletebackgroundDialog(dialog.id)}
               >
                 {t('common.continue')}
               </Button>

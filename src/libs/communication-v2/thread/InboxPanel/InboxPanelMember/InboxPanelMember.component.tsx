@@ -33,7 +33,7 @@ const InboxPanelMember: React.FC<Props> = ({
 
   return (
     <div className={classes.memberContainer}>
-      <InboxPanelMemberDetail member={member} goToMemberPage={goToMemberPage} />
+      <InboxPanelMemberDetail goToMemberPage={goToMemberPage} member={member} />
       {!!member?.tags?.length && (
         <InboxPanelMemberTags memberTags={member?.tags} tags={tags} />
       )}
@@ -47,14 +47,14 @@ const InboxPanelMember: React.FC<Props> = ({
 
       {!!docCount && (
         <InboxPanelMemberSection
-          title={t('thread.panel.member.files')}
           count={docCount}
+          title={t('thread.panel.member.files')}
         />
       )}
       {!!notesCount && (
         <InboxPanelMemberSection
-          title={t('thread.panel.member.notes')}
           count={notesCount}
+          title={t('thread.panel.member.notes')}
         />
       )}
     </div>

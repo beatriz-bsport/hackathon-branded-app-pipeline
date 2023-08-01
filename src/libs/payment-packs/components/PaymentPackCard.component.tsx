@@ -92,8 +92,8 @@ export class PaymentPackCard extends Component<Props, State> {
         text={`${window.location.origin}/customer/payment/pass/${pack.id}/?membership=${pack.company}&force=true`}
       >
         <ButtonBase
-          id="button_pass_copy"
           className={this.props.classes.link}
+          id="button_pass_copy"
           onClick={() => this.props.snackbarSuccess('paymentPack:link.copied')}
         >
           <LinkIcon />
@@ -111,7 +111,7 @@ export class PaymentPackCard extends Component<Props, State> {
     const { pack, classes, t } = this.props;
     if (pack.disabled) {
       return (
-        <Grid container item justify="center" alignItems="center">
+        <Grid container item alignItems="center" justify="center">
           <Typography color="error" variant="subtitle2">
             {t('disabled')}
           </Typography>
@@ -122,28 +122,28 @@ export class PaymentPackCard extends Component<Props, State> {
       <div className={classes.buttonContainer}>
         {!!this.props.onScaleCredit && !pack.linked_private_pass && (
           <Button
-            id="button_pass_multdiv"
-            color="primary"
-            onClick={this.props.toogleScaleMenuOpen}
             className={`${classes.multiDivButton} ${classes.buttonAlign}`}
+            color="primary"
             disabled={!!pack.linked_private_pass}
+            id="button_pass_multdiv"
+            onClick={this.props.toogleScaleMenuOpen}
           >
             <Hidden xsDown>{t('actions.scaleCredit')}</Hidden>
           </Button>
         )}
         <Button
-          id="button_pass_modify"
-          color="primary"
-          onClick={this.onEditPaymentPack}
           className={`${classes.buttonWidth} ${classes.buttonAlign}`}
+          color="primary"
+          id="button_pass_modify"
+          onClick={this.onEditPaymentPack}
         >
           <Hidden xsDown>{t('actions.edit')}</Hidden>
         </Button>
         {!!this.props.onDeleteButtonClick && (
           <RedButton
+            className={`${classes.buttonWidth} ${classes.buttonAlign}`}
             id="button_pass_delete"
             onClick={this.props.onDeleteButtonClick}
-            className={`${classes.buttonWidth} ${classes.buttonAlign}`}
           >
             <Hidden xsDown>{t('actions.delete')}</Hidden>
           </RedButton>
@@ -157,7 +157,7 @@ export class PaymentPackCard extends Component<Props, State> {
 
     return (
       <React.Fragment>
-        <Typography variant="h3" color="primary" className={classes.price}>
+        <Typography className={classes.price} color="primary" variant="h3">
           {getCurrencyDisplayWithPrice(
             pack.price,
             this.props.isExcludingTax,
@@ -165,7 +165,7 @@ export class PaymentPackCard extends Component<Props, State> {
           )}
         </Typography>
         {onlyPublic ? null : (
-          <Typography variant="caption" color="textSecondary">
+          <Typography color="textSecondary" variant="caption">
             {getCurrencyDisplayWithPrice(pack.price, true, pack.tax)}
             {t('ht')}
           </Typography>
@@ -187,9 +187,9 @@ export class PaymentPackCard extends Component<Props, State> {
     return (
       <Grid
         container
+        alignItems="flex-start"
         direction="row"
         justify="space-between"
-        alignItems="flex-start"
       >
         <Grid item sm={7}>
           <div className={classes.header}>
@@ -204,8 +204,8 @@ export class PaymentPackCard extends Component<Props, State> {
 
             {description && (
               <TypographyMultilineComponent
-                variant="caption"
                 className={classes.description}
+                variant="caption"
               >
                 {description}
               </TypographyMultilineComponent>
@@ -235,9 +235,9 @@ export class PaymentPackCard extends Component<Props, State> {
                     </Typography>
                   </div>
                   <Typography
-                    variant="caption"
-                    color="textSecondary"
                     className={classes.packInfo}
+                    color="textSecondary"
+                    variant="caption"
                   >
                     {getCreditInfo(
                       pack,
@@ -455,9 +455,9 @@ export class PaymentPackCard extends Component<Props, State> {
             </Typography>
           </div>
           <Typography
-            variant="caption"
-            color="textSecondary"
             className={classes.packInfo}
+            color="textSecondary"
+            variant="caption"
           >
             {getValidityInfo(pack, t, true)}
           </Typography>
@@ -483,9 +483,9 @@ export class PaymentPackCard extends Component<Props, State> {
             ) : null}
           </div>
           <Typography
-            variant="caption"
-            color="textSecondary"
             className={classes.packInfo}
+            color="textSecondary"
+            variant="caption"
           >
             {getCompatibilityInfo(pack, t)}
           </Typography>
@@ -500,7 +500,7 @@ export class PaymentPackCard extends Component<Props, State> {
               </Typography>
             </div>
             <div className={classes.packInfo}>
-              <Typography variant="caption" color="textSecondary">
+              <Typography color="textSecondary" variant="caption">
                 {accessibility}
               </Typography>
             </div>
@@ -515,9 +515,9 @@ export class PaymentPackCard extends Component<Props, State> {
               </Typography>
             </div>
             <Typography
-              variant="caption"
-              color="textSecondary"
               className={classes.packInfo}
+              color="textSecondary"
+              variant="caption"
             >
               <p className={classes.detailContent}>
                 {t('cardDetails.universalPass')}
@@ -534,9 +534,9 @@ export class PaymentPackCard extends Component<Props, State> {
               </Typography>
             </div>
             <Typography
-              variant="caption"
-              color="textSecondary"
               className={classes.packInfo}
+              color="textSecondary"
+              variant="caption"
             >
               {VOD}
             </Typography>
@@ -560,9 +560,9 @@ export class PaymentPackCard extends Component<Props, State> {
               </div>
             </div>
             <Typography
-              variant="caption"
-              color="textSecondary"
               className={classes.packInfo}
+              color="textSecondary"
+              variant="caption"
             >
               {tags}
             </Typography>
@@ -578,7 +578,7 @@ export class PaymentPackCard extends Component<Props, State> {
               </Typography>
             </div>
             <div className={classes.packInfo}>
-              <Typography variant="caption" color="textSecondary">
+              <Typography color="textSecondary" variant="caption">
                 {restrictions}
               </Typography>
             </div>
@@ -598,8 +598,8 @@ export class PaymentPackCard extends Component<Props, State> {
                 ([isoWeekday, timeSlots]: [string, string[][]]) => {
                   return (
                     <OffPeakDisplayByDay
-                      timeSlots={timeSlots}
                       isoWeekday={isoWeekday}
+                      timeSlots={timeSlots}
                     />
                   );
                 },
@@ -630,28 +630,28 @@ export class PaymentPackCard extends Component<Props, State> {
         <div className={classes.horizontalBlock}>{this.getPackInfo()}</div>
 
         <PaymentPackScaleCreditDialog
-          open={this.props.scaleMenuOpen}
           loading={this.props.scaleCreditLoading}
           onClose={this.props.toogleScaleMenuOpen}
           onSubmit={(data) =>
             this.props.onScaleCredit(this.props.pack.id, data)
           }
+          open={this.props.scaleMenuOpen}
         />
         <PaymentPackCompatibilityDialog
           activities={metaActivities}
           categories={categories}
           establishments={establishments}
-          open={this.state.compatibilityDialogOpen}
+          isManager={isManager}
           onClose={() => this.setState({ compatibilityDialogOpen: false })}
           onModify={this.onEditPaymentPack}
-          isManager={isManager}
+          open={this.state.compatibilityDialogOpen}
         />
         <PaymentPackTagsDialog
           blacklistTags={blacklist_tags}
-          whitelistTags={whitelist_tags}
-          open={this.state.tagsDialogOpen}
           onClose={() => this.setState({ tagsDialogOpen: false })}
           onModify={this.onEditPaymentPack}
+          open={this.state.tagsDialogOpen}
+          whitelistTags={whitelist_tags}
         />
       </Paper>
     );

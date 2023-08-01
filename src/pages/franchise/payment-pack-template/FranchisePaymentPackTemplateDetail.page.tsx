@@ -74,22 +74,25 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
     }
     return (
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <PaymentPackTemplateCard
-            editPaymentPackTemplate={this.props.openEditDialog}
-            deletePaymentPackTemplate={this.props.openPaymentPackDeleteDialog}
-            onDelete={this.props.openDeleteDialog}
             isManager
-            paymentPackTemplate={this.props.paymentPackTemplate}
+            deletePaymentPackTemplate={this.props.openPaymentPackDeleteDialog}
+            editPaymentPackTemplate={this.props.openEditDialog}
             onCreatePaymentPackTemplateInstance={this.props.openCreateForm}
+            onDelete={this.props.openDeleteDialog}
             onDeleteCompany={this.props.openDeleteDialog}
+            paymentPackTemplate={this.props.paymentPackTemplate}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <Paper>
             <PaginatedConsumerPackList
-              items={this.props.consumerPaymentPack.items}
               allowedFranchisees={this.props.allowedFranchisees}
+              itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
+              items={this.props.consumerPaymentPack.items}
+              loading={this.props.consumerPaymentPack.loading}
+              nbItems={this.props.consumerPaymentPack.count}
               onClick={(cpp: any) => {
                 this.props.goToConsumerPaymentPackDetail(
                   cpp.payment_pack.company,
@@ -97,41 +100,38 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
                   cpp.id,
                 );
               }}
-              nbItems={this.props.consumerPaymentPack.count}
-              loading={this.props.consumerPaymentPack.loading}
-              page={this.props.consumerPaymentPack.page}
-              itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
               onPageRequested={(page: number, pageSize: number) => {
                 this.props.fetchConsumerPaymentPackList(page, pageSize);
               }}
+              page={this.props.consumerPaymentPack.page}
             />
           </Paper>
         </Grid>
         <PaymentPackTemplateInstanceFormDialog
-          open={this.props.createFormOpen}
+          companies={this.props.companies}
           onClose={this.props.closeCreateForm}
           onSubmit={this.props.createPaymentPackTemplateInstance}
-          companies={this.props.companies}
+          open={this.props.createFormOpen}
         />
         <PaymentPackTemplateInstanceDeleteDialog
-          open={!!this.props.companyTemplateInstanceIdToDelete}
-          paymentPackTemplate={this.props.paymentPackTemplate}
           companyId={this.props.companyTemplateInstanceIdToDelete}
           onClose={this.props.closeDeleteDialog}
           onSubmit={this.props.deletePaymentPackTemplateInstance}
+          open={!!this.props.companyTemplateInstanceIdToDelete}
+          paymentPackTemplate={this.props.paymentPackTemplate}
         />
         {!!this.props.isEditDialogOpen && (
           <PaymentPackTemplateFormDrawer
-            onSubmit={this.props.createOrUpdatePaymentPackTemplate}
             initial={this.props.paymentPackTemplate}
             onClose={this.props.closeEditDialog}
+            onSubmit={this.props.createOrUpdatePaymentPackTemplate}
             open={this.props.isEditDialogOpen}
           />
         )}
         <PaymentPackTemplateDeleteDialog
-          open={this.props.isDeletePaymentPackDialogOpen}
-          onSubmit={this.props.deletePaymentPackTemplate}
           onClose={this.props.closeDeleteDialog}
+          onSubmit={this.props.deletePaymentPackTemplate}
+          open={this.props.isDeletePaymentPackDialogOpen}
         />
       </Grid>
     );

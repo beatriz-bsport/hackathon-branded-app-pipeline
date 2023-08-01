@@ -46,8 +46,8 @@ const SubText: React.FC<SubTextsProps> = ({
   if (subText.length === 1) {
     return (
       <Typography
-        variant="body1"
         className={classNames(classes.subText, customClasses?.subText)}
+        variant="body1"
       >
         {typeof subText[0] === 'string'
           ? t(subText[0])
@@ -63,11 +63,11 @@ const SubText: React.FC<SubTextsProps> = ({
       {subText.map((line, subIndex) => (
         <li key={`${index}-${subIndex}-${line}`}>
           <Typography
-            variant="body1"
             className={classNames(
               classes.subTextListItem,
               customClasses?.subTextListItem,
             )}
+            variant="body1"
           >
             {typeof line === 'string'
               ? t(line)
@@ -164,18 +164,18 @@ const DialogWithBigIcon: React.FC<Props> = (props) => {
 
   return (
     <Dialog
-      open={open}
-      onClose={onClose}
-      maxWidth={maxWidth ?? 'xs'}
-      className={customClasses?.dialog}
-      PaperProps={{
-        className: classNames(classes.dialogPaper, customClasses?.dialogPaper),
+      BackdropProps={{
+        className: customClasses?.backdrop,
       }}
       classes={{
         root: customClasses?.root,
       }}
-      BackdropProps={{
-        className: customClasses?.backdrop,
+      className={customClasses?.dialog}
+      maxWidth={maxWidth ?? 'xs'}
+      onClose={onClose}
+      open={open}
+      PaperProps={{
+        className: classNames(classes.dialogPaper, customClasses?.dialogPaper),
       }}
     >
       {withCross && (
@@ -217,9 +217,9 @@ const DialogWithBigIcon: React.FC<Props> = (props) => {
           {CustomIcon ? (
             <CustomIcon
               fill={iconColor}
+              fillOpacity={customIconFillOpacity}
               height={customIconHeight}
               width={customIconWidth}
-              fillOpacity={customIconFillOpacity}
             />
           ) : (
             <MuiIconComponent
@@ -227,16 +227,16 @@ const DialogWithBigIcon: React.FC<Props> = (props) => {
                 classes.largeIcon,
                 customClasses?.largeIcon,
               )}
-              icon={icon}
               defaultIcon="CheckCircle"
+              icon={icon}
             />
           )}
         </div>
 
         {title && (
           <Typography
-            variant="h6"
             className={classNames(classes.title, customClasses?.title)}
+            variant="h6"
           >
             {typeof title === 'string'
               ? t(title)
@@ -250,9 +250,9 @@ const DialogWithBigIcon: React.FC<Props> = (props) => {
         {subTexts.map((subText, index) => (
           <SubText
             key={`${index}-${subText}`}
-            subText={subText}
-            index={index}
             customClasses={customClasses}
+            index={index}
+            subText={subText}
           />
         ))}
       </DialogContent>

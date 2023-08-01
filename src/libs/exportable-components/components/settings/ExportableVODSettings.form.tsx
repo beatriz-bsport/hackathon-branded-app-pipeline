@@ -28,8 +28,8 @@ const MarketplaceVodSettingsForm: React.FC<Props> = (props) => {
           {t('marketplaceSettings.createDialog.selectVideo')}
         </InputLabel>
         <Select
-          value={props.config.videoId || -1}
           onChange={(ev: any) => props.onChange({ videoId: ev.target.value })}
+          value={props.config.videoId || -1}
         >
           <MenuItem value={null}>---</MenuItem>
           {props.videos.map((video) => (

@@ -46,18 +46,18 @@ class EstablishmentSpotScheduling extends React.PureComponent<Props> {
           {this.props.roomBlueprints.map((roomBlueprint) => (
             <RoomBlueprintListItem
               onClick={this.props.onClickPreview}
-              roomBlueprint={roomBlueprint}
-              onClickPreview={this.props.onClickPreview}
               onClickDelete={this.props.onClickDelete}
               onClickEdit={this.props.onClickEdit}
+              onClickPreview={this.props.onClickPreview}
+              roomBlueprint={roomBlueprint}
             />
           ))}
         </List>
         <Button
-          onClick={this.props.onClickCreate}
-          color="primary"
-          variant="outlined"
           className={classes.buttonCreateContainer}
+          color="primary"
+          onClick={this.props.onClickCreate}
+          variant="outlined"
         >
           <AddIcon />
           {t('establishment:spotScheduling.add')}

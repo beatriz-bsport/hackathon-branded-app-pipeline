@@ -38,7 +38,7 @@ type Props = {
 };
 
 const renderCoachItem = (coach, selected, handleDelete) => (
-  <MenuItem dense key={coach.id} value={coach.id} wrap="noWrap">
+  <MenuItem key={coach.id} dense value={coach.id} wrap="noWrap">
     <Chip
       icon={coach.photo ? <MUIAvatar src={coach.photo} /> : <FaceIcon />}
       label={coach.name}
@@ -62,17 +62,17 @@ export function CoachInput(props: Props) {
   return (
     <FormControl
       className={classes.formControlLarge}
-      required={required}
-      margin="normal"
       disabled={disabled}
+      margin="normal"
+      required={required}
     >
       <InputLabel
-        shrink={Boolean(value)}
         htmlFor={`${label || 'coach'}-helper`}
+        shrink={Boolean(value)}
       >
         {label || t(`form.coach.${'coachLabel'}`)}
       </InputLabel>
-      <Select value={value} onChange={onChange}>
+      <Select onChange={onChange} value={value}>
         {choices.map((elt) => renderCoachItem(elt, elt.id === value, onDelete))}
       </Select>
     </FormControl>

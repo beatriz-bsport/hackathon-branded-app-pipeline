@@ -87,31 +87,28 @@ const FranchiseEmailListing = (props: Props) => {
   return (
     <div className={classes.container}>
       <FuzzySearch
-        items={[...franchiseEmails, ...companiesEmails]}
-        placeholder={t('emails.searchPlaceholder')}
-        searchFields={['title', 'subject']}
         itemRenderer={(email, search) => {
           if (franchiseEmails.some((e) => e.id === email.id)) {
             return (
               <EmailListItem
                 key={`search_franchise_${email.id}`}
-                email={email}
-                selectedId={selectedId}
-                navigateTo={navigateTo}
-                onEdit={onEdit}
-                onDuplicate={onDuplicate}
-                onDelete={onDelete}
-                search={search}
+                virtualized
+                allCompanies={
+                  email?.available_for_companies.length ===
+                  Object.keys(companyDic).length
+                }
                 companies={sortCompanyListByIsAllowedAndName(
                   email?.available_for_companies.map(
                     (comp) => companyDic?.[comp],
                   ),
                 )}
-                allCompanies={
-                  email?.available_for_companies.length ===
-                  Object.keys(companyDic).length
-                }
-                virtualized
+                email={email}
+                navigateTo={navigateTo}
+                onDelete={onDelete}
+                onDuplicate={onDuplicate}
+                onEdit={onEdit}
+                search={search}
+                selectedId={selectedId}
               />
             );
           }
@@ -119,31 +116,38 @@ const FranchiseEmailListing = (props: Props) => {
             return (
               <EmailListItem
                 key={`search_company_${email.id}`}
-                email={email}
-                selectedId={selectedId}
-                navigateTo={navigateTo}
-                onEdit={onEdit}
-                onDelete={onDelete}
-                search={search}
-                companies={[companyDic?.[email.company_id]]}
                 virtualized
+                companies={[companyDic?.[email.company_id]]}
+                email={email}
+                navigateTo={navigateTo}
+                onDelete={onDelete}
+                onEdit={onEdit}
+                search={search}
+                selectedId={selectedId}
               />
             );
           }
           return null;
         }}
+        items={[...franchiseEmails, ...companiesEmails]}
+        placeholder={t('emails.searchPlaceholder')}
+        searchFields={['title', 'subject']}
       />
 
       <div className={classes.grouping}>
         <Typography variant="body1">{t('emails.groupBy')}</Typography>
         <div className={classes.dropdown}>
           <Select
+            isClearable
+            nullCurrentValue={!isGrouped}
+            onChange={handleGroupByChange}
             options={[
               {
                 value: true,
                 label: t('emails.franchised'),
               },
             ]}
+            placeholder={t('emails.chooseGroup')}
             value={
               isGrouped
                 ? {
@@ -152,10 +156,6 @@ const FranchiseEmailListing = (props: Props) => {
                   }
                 : undefined
             }
-            nullCurrentValue={!isGrouped}
-            placeholder={t('emails.chooseGroup')}
-            onChange={handleGroupByChange}
-            isClearable
           />
         </div>
       </div>
@@ -170,21 +170,21 @@ const FranchiseEmailListing = (props: Props) => {
                 {franchiseEmails.map((email) => (
                   <EmailListItem
                     key={`franchise-${email.id}`}
-                    email={email}
-                    selectedId={selectedId}
-                    navigateTo={navigateTo}
-                    onEdit={onEdit}
-                    onDuplicate={onDuplicate}
-                    onDelete={onDelete}
+                    allCompanies={
+                      email?.available_for_companies.length ===
+                      Object.keys(companyDic).length
+                    }
                     companies={sortCompanyListByIsAllowedAndName(
                       email?.available_for_companies.map(
                         (comp) => companyDic?.[comp],
                       ),
                     )}
-                    allCompanies={
-                      email?.available_for_companies.length ===
-                      Object.keys(companyDic).length
-                    }
+                    email={email}
+                    navigateTo={navigateTo}
+                    onDelete={onDelete}
+                    onDuplicate={onDuplicate}
+                    onEdit={onEdit}
+                    selectedId={selectedId}
                   />
                 ))}
               </List>
@@ -213,10 +213,10 @@ const FranchiseEmailListing = (props: Props) => {
                               <EmailListItem
                                 key={`group-by-${email.id}`}
                                 email={email}
-                                selectedId={selectedId}
                                 navigateTo={navigateTo}
-                                onEdit={onEdit}
                                 onDelete={onDelete}
+                                onEdit={onEdit}
+                                selectedId={selectedId}
                               />
                             ),
                           )}
@@ -230,12 +230,12 @@ const FranchiseEmailListing = (props: Props) => {
                   {companiesEmails.map((email) => (
                     <EmailListItem
                       key={email.id}
-                      email={email}
-                      selectedId={selectedId}
-                      navigateTo={navigateTo}
-                      onEdit={onEdit}
-                      onDelete={onDelete}
                       companies={[companyDic?.[email.company_id]]}
+                      email={email}
+                      navigateTo={navigateTo}
+                      onDelete={onDelete}
+                      onEdit={onEdit}
+                      selectedId={selectedId}
                     />
                   ))}
                 </List>
@@ -245,15 +245,15 @@ const FranchiseEmailListing = (props: Props) => {
         </div>
       ) : (
         <EmailVirtualizedList
+          companiesEmailsByCompanyId={companiesEmailsByCompanyId}
+          companyDic={companyDic}
           emails={emails}
           isGrouped={isGrouped}
           navigateTo={navigateTo}
-          onEdit={onEdit}
           onDelete={onDelete}
           onDuplicate={onDuplicate}
+          onEdit={onEdit}
           selectedId={selectedId}
-          companyDic={companyDic}
-          companiesEmailsByCompanyId={companiesEmailsByCompanyId}
           t={t}
         />
       )}

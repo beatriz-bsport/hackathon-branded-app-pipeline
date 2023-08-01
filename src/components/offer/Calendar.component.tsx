@@ -82,16 +82,16 @@ class Calendar extends PureComponent<Props, State> {
     const dateSelected = this.getDateSelected();
     return (
       <CalendarDay
-        events={this.props.events}
-        ranges={this.props.ranges}
+        activeWrapperStyle={this.props.activeWrapperStyle}
         dateSelected={dateSelected}
         day={day}
-        showDayName={this.props.showDayName}
         displayMode={this.state.displayMode}
-        previewOnly={this.props.previewOnly}
-        wrapperStyle={this.props.wrapperStyle}
-        activeWrapperStyle={this.props.activeWrapperStyle}
+        events={this.props.events}
         onDateChange={this.props.onDateChange}
+        previewOnly={this.props.previewOnly}
+        ranges={this.props.ranges}
+        showDayName={this.props.showDayName}
+        wrapperStyle={this.props.wrapperStyle}
       />
     );
   };
@@ -160,10 +160,10 @@ class Calendar extends PureComponent<Props, State> {
 
     return (
       <Menu
-        anchorEl={this.anchorRef?.current}
         keepMounted
-        open={!!this.anchorRef && this.state.isMenuOpen}
+        anchorEl={this.anchorRef?.current}
         onClose={this.handleCloseMenu}
+        open={!!this.anchorRef && this.state.isMenuOpen}
       >
         {!forceMonthDisplay && !hideSwitchViewButton && (
           <MenuItem onClick={this.togleDisplayMode}>
@@ -257,17 +257,17 @@ class Calendar extends PureComponent<Props, State> {
     }
 
     return (
-      <Grid container direction="column" alignItems="stretch">
+      <Grid container alignItems="stretch" direction="column">
         <Grid item className={this.props.classes.weekdayNameRow}>
           {Moment.weekdaysShort(true).map((wds: string) => (
             <div
+              key={wds}
               style={{
                 flex: 1,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
-              key={wds}
             >
               <Typography variant="h6">{wds[0]}</Typography>
             </div>
@@ -308,8 +308,8 @@ class Calendar extends PureComponent<Props, State> {
             {!this.props.showDayName && (
               <div className={this.props.classes.weekRowContainer}>
                 {Moment.weekdaysShort(true).map((wds: string) => (
-                  <div className={this.props.classes.weekDayShort} key={wds}>
-                    <Typography variant="caption" color="textSecondary">
+                  <div key={wds} className={this.props.classes.weekDayShort}>
+                    <Typography color="textSecondary" variant="caption">
                       {wds[0]}
                     </Typography>
                   </div>
@@ -329,23 +329,23 @@ class Calendar extends PureComponent<Props, State> {
 
   render() {
     return (
-      <div id="calendar" className={this.props.classes.calendarContainer}>
+      <div className={this.props.classes.calendarContainer} id="calendar">
         <CalendarHeader
-          forceMonthDisplay={this.props.forceMonthDisplay}
-          hideSwitchViewButton={this.props.hideSwitchViewButton}
-          setShowCancelledOffers={this.props.setShowCancelledOffers}
-          onRequestMassDisable={this.props.onRequestMassDisable}
-          onDownload={this.props.onDownload}
-          searchBar={this.props.searchBar}
-          toggleSearchBar={this.props.toggleSearchBar}
-          displayMode={this.state.displayMode}
-          getDateSelected={this.getDateSelected}
-          dateSelected={this.props.date}
-          handleOpenMenu={this.handleOpenMenu}
-          showPrevious={this.showPrevious}
-          showNext={this.showNext}
-          onDateChange={this.props.onDateChange}
           ref={this.anchorRef}
+          dateSelected={this.props.date}
+          displayMode={this.state.displayMode}
+          forceMonthDisplay={this.props.forceMonthDisplay}
+          getDateSelected={this.getDateSelected}
+          handleOpenMenu={this.handleOpenMenu}
+          hideSwitchViewButton={this.props.hideSwitchViewButton}
+          onDateChange={this.props.onDateChange}
+          onDownload={this.props.onDownload}
+          onRequestMassDisable={this.props.onRequestMassDisable}
+          searchBar={this.props.searchBar}
+          setShowCancelledOffers={this.props.setShowCancelledOffers}
+          showNext={this.showNext}
+          showPrevious={this.showPrevious}
+          toggleSearchBar={this.props.toggleSearchBar}
         />
         {this.renderSearchBar()}
         {!this.props.hideDateBar && (

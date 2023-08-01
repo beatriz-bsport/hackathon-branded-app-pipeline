@@ -45,12 +45,7 @@ const FranchiseCompaniesSelector = (props: Props) => {
   );
   return (
     <MaterialUISelector
-      options={availableCompanies}
       isMulti
-      isClearable={!unclearable}
-      value={selectedCompanies}
-      onChange={onChange}
-      placeholder={t('editor.selectorPlaceholder')}
       chipsRenderer={(chip) => {
         if (
           withAllCompaniesTag &&
@@ -77,8 +72,13 @@ const FranchiseCompaniesSelector = (props: Props) => {
           />
         );
       }}
-      menuPortalTarget={menuPortalTarget}
       defaultNumberShown={Infinity}
+      isClearable={!unclearable}
+      menuPortalTarget={menuPortalTarget}
+      onChange={onChange}
+      options={availableCompanies}
+      placeholder={t('editor.selectorPlaceholder')}
+      value={selectedCompanies}
     />
   );
 };

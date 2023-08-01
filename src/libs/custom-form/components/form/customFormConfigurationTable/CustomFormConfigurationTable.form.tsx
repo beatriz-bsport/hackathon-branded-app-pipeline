@@ -173,6 +173,7 @@ export function CustomFormConfigurationTable(props: Props) {
         }
       />
       <Formik
+        enableReinitialize={props.isSubmitting}
         initialValues={
           props.initial
             ? {
@@ -197,7 +198,6 @@ export function CustomFormConfigurationTable(props: Props) {
                 custom_form_field_disabled: [],
               }
         }
-        enableReinitialize={props.isSubmitting}
         onSubmit={(values) => {
           const {
             custom_form_field_enabled,
@@ -224,46 +224,46 @@ export function CustomFormConfigurationTable(props: Props) {
             <>
               <FormikChangesLookUp
                 isSubmitting={isSubmitting}
+                registeredSignUpQuestions={registeredSignUpQuestions}
                 setNumberOfQuestionsHasChanged={
                   props.setNumberOfQuestionsHasChanged
                 }
-                registeredSignUpQuestions={registeredSignUpQuestions}
                 setregisteredSignUpQuestions={setregisteredSignUpQuestions}
               />
               {props.isSubmitting && <LinearProgress color="primary" />}
 
-              <List component="nav" disablePadding>
+              <List disablePadding component="nav">
                 <Paper square>
                   <ListItem divider className={classes.listitem}>
                     <div className={classes.type}>
                       <Typography
-                        variant="subtitle2"
-                        component="span"
                         className={classes.marginRight}
+                        component="span"
+                        variant="subtitle2"
                       />
-                      <Typography variant="subtitle2" component="span">
+                      <Typography component="span" variant="subtitle2">
                         {t('customForm.kind')}
                       </Typography>
                     </div>
-                    <Typography variant="subtitle2" className={classes.label}>
+                    <Typography className={classes.label} variant="subtitle2">
                       {t('customForm.label')}
                     </Typography>
                     {!props?.initial?.is_member_form && (
                       <div className={classes.mandatory}>
-                        <Typography variant="subtitle2" component="span">
+                        <Typography component="span" variant="subtitle2">
                           {t('customForm.mandatory')}
                         </Typography>
                       </div>
                     )}
                     {props?.initial?.is_member_form && (
                       <div className={classes.mandatory}>
-                        <Typography variant="subtitle2" component="span">
+                        <Typography component="span" variant="subtitle2">
                           {t('customForm.editable')}
                         </Typography>
                       </div>
                     )}
                     <div className={classes.actions}>
-                      <Typography variant="subtitle2" component="span">
+                      <Typography component="span" variant="subtitle2">
                         {t('customForm.listActions')}
                       </Typography>
                     </div>
@@ -284,7 +284,6 @@ export function CustomFormConfigurationTable(props: Props) {
                     <>
                       <Container
                         useDragHandle
-                        transitionDuration={500}
                         hideSortableGhost={false}
                         onSortEnd={(e) =>
                           onSortEnd(
@@ -293,15 +292,39 @@ export function CustomFormConfigurationTable(props: Props) {
                             mainFormik.setFieldValue,
                           )
                         }
+                        transitionDuration={500}
                       >
                         {custom_form_field_enabled.map(
                           (field: CustomFormField, i: number) => (
-                            <SortableItem index={i} key={`${i}${field.id}`}>
+                            <SortableItem key={`${i}${field.id}`} index={i}>
                               <Paper square className={classes.paperItem}>
                                 <CustomFormFieldListItem
-                                  name={`custom_form_field_enabled.${i}`}
                                   key={`enabled_field${i}`}
                                   customFormField={field}
+                                  customFormFieldType="custom_form_field_enabled"
+                                  index={i}
+                                  isLayoutActive={layoutActive}
+                                  isMemberForm={props.initial.is_member_form}
+                                  isSignUpForm={props.initial.is_signup}
+                                  name={`custom_form_field_enabled.${i}`}
+                                  onClickDelete={() => {
+                                    custom_form_field_disabled.push({
+                                      ...mainFormik.values
+                                        .custom_form_field_enabled[i],
+                                      disabled: true,
+                                    });
+                                    remove(i);
+                                  }}
+                                  onClickEdit={() =>
+                                    handleFieldUpdate(field, i)
+                                  }
+                                  onClickEditable={() =>
+                                    mainFormik.setFieldValue(
+                                      `custom_form_field_enabled.${i}.editable`,
+                                      !mainFormik.values
+                                        .custom_form_field_enabled[i].editable,
+                                    )
+                                  }
                                   onClickRequired={() => {
                                     mainFormik.setFieldValue(
                                       `custom_form_field_enabled.${i}.mandatory`,
@@ -334,29 +357,6 @@ export function CustomFormConfigurationTable(props: Props) {
                                         setShowInfoDialogOnSave(true);
                                     }
                                   }}
-                                  onClickEditable={() =>
-                                    mainFormik.setFieldValue(
-                                      `custom_form_field_enabled.${i}.editable`,
-                                      !mainFormik.values
-                                        .custom_form_field_enabled[i].editable,
-                                    )
-                                  }
-                                  onClickEdit={() =>
-                                    handleFieldUpdate(field, i)
-                                  }
-                                  onClickDelete={() => {
-                                    custom_form_field_disabled.push({
-                                      ...mainFormik.values
-                                        .custom_form_field_enabled[i],
-                                      disabled: true,
-                                    });
-                                    remove(i);
-                                  }}
-                                  index={i}
-                                  customFormFieldType="custom_form_field_enabled"
-                                  isSignUpForm={props.initial.is_signup}
-                                  isMemberForm={props.initial.is_member_form}
-                                  isLayoutActive={layoutActive}
                                 />
                               </Paper>
                             </SortableItem>
@@ -365,9 +365,9 @@ export function CustomFormConfigurationTable(props: Props) {
                         <div className={classes.addField}>
                           <Button
                             color="primary"
-                            variant="outlined"
-                            onClick={() => setOpenCreationDialog(true)}
                             disabled={isSubmitting}
+                            onClick={() => setOpenCreationDialog(true)}
+                            variant="outlined"
                           >
                             <AddIcon className={classes.leftIcon} />
                             {t('customForm.addFieldLong')}
@@ -375,24 +375,24 @@ export function CustomFormConfigurationTable(props: Props) {
                           <div className={classes.submit}>
                             {!showInfoDialogOnsave ? (
                               <Button
-                                type="submit"
-                                id="button_submit_custom_form"
-                                disabled={isSubmitting}
-                                variant="contained"
                                 color="primary"
+                                disabled={isSubmitting}
+                                id="button_submit_custom_form"
+                                type="submit"
+                                variant="contained"
                               >
                                 <SaveIcon className={classes.leftIcon} />
                                 {t('customForm.save')}
                               </Button>
                             ) : (
                               <ButtonSaveWithInfo
-                                disabled={isSubmitting}
-                                variant="contained"
                                 color="primary"
+                                disabled={isSubmitting}
                                 onClick={() => {
                                   mainFormik.handleSubmit();
                                   setShowInfoDialogOnSave(false);
                                 }}
+                                variant="contained"
                               >
                                 <SaveIcon className={classes.leftIcon} />
                                 {t('customForm.save')}
@@ -402,11 +402,12 @@ export function CustomFormConfigurationTable(props: Props) {
                         </div>
                         {(openFieldCreationDialog || initialFieldWithIndex) && (
                           <CustomFormFieldBuilderDialog
-                            open={openFieldCreationDialog}
+                            companyTheme={props.companyTheme}
                             handleClose={() => {
                               setOpenCreationDialog(false);
                               setInitialFieldWithIndex(null);
                             }}
+                            initial={initialFieldWithIndex?.field}
                             onSubmit={(field) => {
                               updateCustomFormField(
                                 field,
@@ -415,13 +416,12 @@ export function CustomFormConfigurationTable(props: Props) {
                                 mainFormik.values,
                               );
                             }}
-                            initial={initialFieldWithIndex?.field}
-                            tag_groups={props.tag_groups}
-                            tags={props.tags}
+                            open={openFieldCreationDialog}
                             registeredSignUpQuestions={
                               registeredSignUpQuestions
                             }
-                            companyTheme={props.companyTheme}
+                            tag_groups={props.tag_groups}
+                            tags={props.tags}
                           />
                         )}
                       </Container>
@@ -440,7 +440,7 @@ export function CustomFormConfigurationTable(props: Props) {
                     className={classes.buttonTitle}
                     onClick={() => setShowDisabledField(!showDisabledField)}
                   >
-                    <Typography variant="h5" component="h2">
+                    <Typography component="h2" variant="h5">
                       {`${t('customForm.disabledCustomFormField')} (${
                         (mainFormik.values.custom_form_field_disabled &&
                           mainFormik.values.custom_form_field_disabled
@@ -476,6 +476,10 @@ export function CustomFormConfigurationTable(props: Props) {
                                 <CustomFormFieldListItem
                                   key={`disabled_field${i}`}
                                   customFormField={field}
+                                  customFormFieldType="custom_form_field_disabled"
+                                  index={i}
+                                  isMemberForm={props.initial.is_member_form}
+                                  isSignUpForm={props.initial.is_signup}
                                   onClickRestore={() => {
                                     custom_form_field_enabled.push({
                                       ...mainFormik.values
@@ -484,10 +488,6 @@ export function CustomFormConfigurationTable(props: Props) {
                                     });
                                     remove(i);
                                   }}
-                                  index={i}
-                                  customFormFieldType="custom_form_field_disabled"
-                                  isSignUpForm={props.initial.is_signup}
-                                  isMemberForm={props.initial.is_member_form}
                                 />
                               </Form>
                             ),

@@ -33,10 +33,10 @@ export const UnpaidPrivateConsumerPassBookerListItem = (props: Props) => {
   return (
     <>
       <ListItem
-        divider={!!props.divider}
-        selected={!!props.selected}
         dense
         disabled={!!props.disabled}
+        divider={!!props.divider}
+        selected={!!props.selected}
       >
         <ListItemText
           primary={
@@ -53,8 +53,8 @@ export const UnpaidPrivateConsumerPassBookerListItem = (props: Props) => {
           }
         />
         <Button
-          onClick={() => setOpenConfirm(true)}
           color="primary"
+          onClick={() => setOpenConfirm(true)}
           variant="outlined"
         >
           {t('bookerModule.unpaidBooking.book')}
@@ -71,10 +71,10 @@ export const UnpaidPrivateConsumerPassBookerListItem = (props: Props) => {
           })}
         </DialogContent>
         <DialogActions>
-          <Button variant="text" onClick={() => setOpenConfirm(false)}>
+          <Button onClick={() => setOpenConfirm(false)} variant="text">
             {t('bookerModule.cancel')}
           </Button>
-          <Button variant="contained" color="primary" onClick={props.onBook}>
+          <Button color="primary" onClick={props.onBook} variant="contained">
             {t('bookerModule.confirm')}
           </Button>
         </DialogActions>

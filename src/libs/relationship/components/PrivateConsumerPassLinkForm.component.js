@@ -32,25 +32,25 @@ export const PrivateConsumerPassLinkForm = (props: Props) => {
         </Typography>
         <PaginatedListStateful
           itemPerPage={5}
-          loading={props.loading}
-          listProps={{ disablePadding: true }}
           items={props.privateConsumerPasses}
+          listProps={{ disablePadding: true }}
+          loading={props.loading}
           renderItem={(pcp) => (
             <PrivateConsumerPassBookerListItem
-              divider
               key={pcp.id}
-              private_consumer_pass={pcp}
+              divider
+              showUniversalWarning
               button={
                 <Button
-                  onClick={() => props.setSelectedPrivateConsumerPass(pcp)}
                   color="primary"
-                  variant="outlined"
                   disabled={props.disabledStuff.includes(pcp.id)}
+                  onClick={() => props.setSelectedPrivateConsumerPass(pcp)}
+                  variant="outlined"
                 >
                   {t('private_consumer_pass_links.form.create.linkButton')}
                 </Button>
               }
-              showUniversalWarning
+              private_consumer_pass={pcp}
             />
           )}
         />

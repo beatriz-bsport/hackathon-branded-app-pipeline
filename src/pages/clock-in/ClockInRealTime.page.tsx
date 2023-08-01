@@ -54,7 +54,6 @@ const ClockInRealTime: React.FC<Props> = ({
       {!usersPaginatedWithRoles.loading &&
       usersPaginatedWithRoles.count === 0 ? (
         <IsEmptyList
-          text={t('attendanceTable.emptyState')}
           button={canAccessStaff && t('attendanceTable.createStaff')}
           onCreate={
             canAccessStaff
@@ -64,14 +63,15 @@ const ClockInRealTime: React.FC<Props> = ({
               : undefined
           }
           onCreateLabel={canAccessStaff && t('attendanceTable.createStaff')}
+          text={t('attendanceTable.emptyState')}
         />
       ) : (
         <ClockInForOtherTable
-          value={usersPaginatedWithRoles}
-          fetchAttendance={getStaffsAttendanceRealTime}
-          fetchCompanyUserRolesPaginated={fetchCompanyUserRolesPaginated}
           clockIn={clockIn}
           clockOut={clockOut}
+          fetchAttendance={getStaffsAttendanceRealTime}
+          fetchCompanyUserRolesPaginated={fetchCompanyUserRolesPaginated}
+          value={usersPaginatedWithRoles}
         />
       )}
     </div>

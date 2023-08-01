@@ -175,17 +175,17 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
     return (
       <>
         {isOpen && !!contract && (
-          <div className="bs-contract-details-dialog" ref={dialogRef}>
+          <div ref={dialogRef} className="bs-contract-details-dialog">
             <Card
-              size={CardSize.L}
               classes={{
                 'bs-contract-details-dialog__card':
                   'bs-contract-details-dialog__card',
               }}
+              size={CardSize.L}
             >
               <div
-                className="bs-contract-details-dialog__container"
                 ref={modalRef}
+                className="bs-contract-details-dialog__container"
               >
                 <Content
                   padding
@@ -201,10 +201,10 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                     }}
                   >
                     <Item
-                      rowStart={1}
-                      columnStart={1}
                       columnEnd={1}
+                      columnStart={1}
                       justification={Justification.FLEX_START}
+                      rowStart={1}
                     >
                       <div className="bs-contract-details-dialog__header__title-container">
                         <h3 className="bs-contract-details-dialog__header__title">
@@ -213,15 +213,15 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                       </div>
                       <div className="bs-contract-dialog__header__price-container--mobile">
                         <Price
-                          isExcludingTax={isExcludingTax}
-                          tax={parseFloat(contract?.tax) || 0}
                           amount={contract?.recurrent_price}
-                          formatPriceWithCurrency={getCurrencyDisplayWithPrice}
-                          color={Color.PRIMARY}
                           classes={{
                             'bs-contract-card__header__price':
                               'bs-contract-card__header__price',
                           }}
+                          color={Color.PRIMARY}
+                          formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+                          isExcludingTax={isExcludingTax}
+                          tax={parseFloat(contract?.tax) || 0}
                         >
                           <BillingInterval contract={contract} />
                         </Price>
@@ -235,32 +235,32 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                       </div>
                       <ContractDetailList
                         contract={contract}
+                        getPaymentComboSelected={getPaymentComboSelected}
                         getPaymentPackSelected={getPaymentPackSelected}
                         getPrivatePassSelected={getPrivatePassSelected}
-                        getPaymentComboSelected={getPaymentComboSelected}
                       />
                     </Item>
                     <Item
-                      rowStart={1}
-                      rowEnd={1}
-                      columnStart={2}
-                      columnEnd={2}
-                      justification={Justification.FLEX_START}
                       classes={{
                         'bs-contract-dialog__header__price-container--desktop':
                           'bs-contract-dialog__header__price-container--desktop',
                       }}
+                      columnEnd={2}
+                      columnStart={2}
+                      justification={Justification.FLEX_START}
+                      rowEnd={1}
+                      rowStart={1}
                     >
                       <Price
-                        isExcludingTax={isExcludingTax}
-                        tax={parseFloat(contract?.tax) || 0}
                         amount={contract?.recurrent_price}
-                        color={Color.PRIMARY}
-                        formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                         classes={{
                           'bs-contract-card__header__price':
                             'bs-contract-card__header__price',
                         }}
+                        color={Color.PRIMARY}
+                        formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+                        isExcludingTax={isExcludingTax}
+                        tax={parseFloat(contract?.tax) || 0}
                       >
                         <BillingInterval contract={contract} />
                       </Price>
@@ -303,9 +303,9 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                       </div>
                       {descriptionText.isExpandable && (
                         <button
-                          type="button"
-                          onClick={handleShowMoreDescription}
                           className="bs-contract-details-dialog__body__button"
+                          onClick={handleShowMoreDescription}
+                          type="button"
                         >
                           {showMoreDescription
                             ? t('contractCard.seeLess')
@@ -328,9 +328,9 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                       </div>
                       {legalContractText.isExpandable && (
                         <button
-                          type="button"
-                          onClick={handleShowMoreLegalContract}
                           className="bs-contract-details-dialog__body__button"
+                          onClick={handleShowMoreLegalContract}
+                          type="button"
                         >
                           {showMoreLegalContract
                             ? t('contractCard.seeLess')
@@ -354,29 +354,29 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                     }}
                   >
                     <Item
-                      rowStart={4}
-                      direction={Direction.ROW}
                       alignment={Alignment.CENTER}
-                      justification={Justification.FLEX_END}
                       classes={{
                         'bs-contract-details-dialog__item':
                           'bs-contract-details-dialog__item',
                         'bs-contract-details-dialog__footer-item':
                           'bs-contract-details-dialog__footer-item',
                       }}
+                      direction={Direction.ROW}
+                      justification={Justification.FLEX_END}
+                      rowStart={4}
                     >
                       <div className="bs-contract-details-dialog__footer__buttons">
                         <button
                           className="bs-contract-details-dialog__buttons__cancel"
-                          type="button"
                           onClick={handleDialogClose}
+                          type="button"
                         >
                           {t('common:cancel')}
                         </button>
                         <button
                           className="bs-contract-details-dialog__buttons__add-to-cart"
-                          type="button"
                           onClick={handleAddToCart}
+                          type="button"
                         >
                           {t('paymentCombo.addToCart')}
                         </button>

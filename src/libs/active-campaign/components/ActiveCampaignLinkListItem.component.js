@@ -39,10 +39,10 @@ export const ActiveCampaignLinkItem = (props: Props) => {
           ).name
         : props.t('active_campaign.link.noList');
     return (
-      <ListItem className={props.classes.container} divider>
+      <ListItem divider className={props.classes.container}>
         <div className={props.classes.inlineContainer}>
           <Typography>
-            <Trans t={props.t} i18nKey="active_campaign.link.listItemText">
+            <Trans i18nKey="active_campaign.link.listItemText" t={props.t}>
               Lier la smartlist <strong>{{ smartlist }}</strong> à la liste
               <strong>
                 {{
@@ -52,7 +52,7 @@ export const ActiveCampaignLinkItem = (props: Props) => {
             </Trans>
           </Typography>
           {list === props.t('active_campaign.link.noList') ? (
-            <WarningIcon color="error" className={props.classes.warningIcon} />
+            <WarningIcon className={props.classes.warningIcon} color="error" />
           ) : null}
         </div>
         <div className={props.classes.inlineContainer}>

@@ -338,38 +338,38 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
     >
       <MarketplaceFilters
         coaches={coaches}
+        customLevels={customLevels}
+        establishmentGroupList={establishmentGroupList}
         establishments={allEstablishments}
+        filters={filters}
         hideCoach={theme && theme.hideCoach}
         metaActivities={allCompatibleWorkshops}
-        filters={filters}
         setFilters={setFilters}
-        customLevels={customLevels}
-        variant="workshop"
-        establishmentGroupList={establishmentGroupList}
         showMultiLocalization={theme.enable_multi_localization}
+        variant="workshop"
       />
       <MarketplaceWorkshop
+        bookedOffers={bookedOffers}
+        getCoach={getCoach}
+        getEstablishment={getEstablishment}
+        getGroup={getGroup}
+        getLevel={getLevel}
+        getOffersListByGroup={getOffersListByGroup}
+        getOffersListByMetaActivity={getOffersListByMetaActivity}
+        hasMoreToLoad={displayedWorkshops < compatibleWorkshops.length}
+        hideCoach={theme && theme.hideCoach}
         metaActivities={[...compatibleWorkshops].slice(0, displayedWorkshops)}
         metaActivityloading={
           workshopsLoading || coachLoading || establishmentLoading
         }
-        hasMoreToLoad={displayedWorkshops < compatibleWorkshops.length}
-        hideCoach={theme && theme.hideCoach}
-        getCoach={getCoach}
-        getEstablishment={getEstablishment}
-        getLevel={getLevel}
-        getGroup={getGroup}
-        getOffersListByGroup={getOffersListByGroup}
         offerDetailsloading={offerDetailsloading}
         onBook={goToBook}
         onBookOption={goToBook}
+        onEndReach={onFetchMore}
         onLoadMoreOffer={handleLoadMoreOffer}
         showOfferFilling={theme.show_offers_filling}
         showOfferGender={theme.show_booked_gender_offer}
-        getOffersListByMetaActivity={getOffersListByMetaActivity}
-        onEndReach={onFetchMore}
         theme={theme}
-        bookedOffers={bookedOffers}
       />
     </div>
   );

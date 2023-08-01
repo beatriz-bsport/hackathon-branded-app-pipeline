@@ -82,13 +82,13 @@ const MarketplaceContractCard: React.FC<Props> = ({
 
   return (
     <Card
-      size={CardSize.AUTO}
-      isSelected={isSelected}
       classes={{
         'bs-contract-card': 'bs-contract-card',
         'bs-contract-card--background':
           cardVariant === CARD_VARIANTS.MARKETPLACE,
       }}
+      isSelected={isSelected}
+      size={CardSize.AUTO}
     >
       <Content padding>
         <Grid>
@@ -128,9 +128,9 @@ const MarketplaceContractCard: React.FC<Props> = ({
             {descriptionText.isExpandable &&
               cardVariant === CARD_VARIANTS.PRICING_PAGE && (
                 <button
-                  type="button"
                   className="bs-paymentpack-card__seemore"
                   onClick={onClickSeeMore}
+                  type="button"
                 >
                   {showAllDescription ? (
                     <div className="bs-paymentpack-card__seemore__row">
@@ -148,9 +148,9 @@ const MarketplaceContractCard: React.FC<Props> = ({
           </Item>
           <Item
             alignment={Alignment.FLEX_END}
+            columnEnd={2}
             justification={Justification.FLEX_START}
             rowStart={1}
-            columnEnd={2}
           >
             {!!contract?.nb_interval &&
               cardVariant === CARD_VARIANTS.MARKETPLACE && (
@@ -164,17 +164,17 @@ const MarketplaceContractCard: React.FC<Props> = ({
               )}
           </Item>
           <Item
-            rowStart={1}
+            alignment={Alignment.FLEX_END}
+            classes={{
+              'bs-contract-card__price-item': 'bs-contract-card__price-item',
+            }}
             columnStart={1}
             justification={
               cardVariant === CARD_VARIANTS.PRICING_PAGE
                 ? Justification.FLEX_START
                 : Justification.FLEX_END
             }
-            alignment={Alignment.FLEX_END}
-            classes={{
-              'bs-contract-card__price-item': 'bs-contract-card__price-item',
-            }}
+            rowStart={1}
           >
             {!!contract?.nb_interval &&
               cardVariant === CARD_VARIANTS.PRICING_PAGE && (
@@ -188,15 +188,15 @@ const MarketplaceContractCard: React.FC<Props> = ({
               )}
             <div className="bs-contract-card__price-container">
               <Price
-                isExcludingTax={isExcludingTax}
-                tax={parseFloat(contract?.tax) || 0}
                 amount={contract?.recurrent_price}
-                formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                 classes={{
                   'bs-contract-card__price': 'bs-contract-card__price',
                   'bs-contract-card__price--small':
                     cardVariant === CARD_VARIANTS.PRICING_PAGE,
                 }}
+                formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+                isExcludingTax={isExcludingTax}
+                tax={parseFloat(contract?.tax) || 0}
               >
                 <div className="bs-contract-card__billing-interval--desktop">
                   <BillingInterval contract={contract} />
@@ -208,19 +208,19 @@ const MarketplaceContractCard: React.FC<Props> = ({
             </div>
           </Item>
           <Item
-            rowStart={2}
-            columnStart={1}
-            justification={Justification.FLEX_START}
             alignment={Alignment.FLEX_END}
             classes={{
               'bs-contract-card__price-icon': 'bs-contract-card__price-icon',
             }}
+            columnStart={1}
+            justification={Justification.FLEX_START}
+            rowStart={2}
           >
             {!!addToCart && (
               <button
-                type="button"
                 className="bs-contract-card__price-icon"
                 onClick={handleAddToCart}
+                type="button"
               >
                 <ShoppingCartIcon />
               </button>
@@ -229,16 +229,16 @@ const MarketplaceContractCard: React.FC<Props> = ({
         </Grid>
         {addToCart && onOpenDetailDialog && (
           <Item
-            justification={Justification.SPACE_BETWEEN}
-            direction={Direction.ROW}
             classes={{
               'bs-contract-card__footer': 'bs-contract-card__footer',
             }}
+            direction={Direction.ROW}
+            justification={Justification.SPACE_BETWEEN}
           >
             <button
-              type="button"
               className="bs-contract-card__left-button"
               onClick={handleOpenDetailDialog}
+              type="button"
             >
               <div className="bs-contract-card__left-button__content">
                 <VisibilityIcon className="bs-contract-card__left-button__icon" />
@@ -247,9 +247,9 @@ const MarketplaceContractCard: React.FC<Props> = ({
             </button>
 
             <button
-              type="button"
               className="bs-contract-card__right-button"
               onClick={handleAddToCart}
+              type="button"
             >
               {t('contractCard.registerButton')}
             </button>

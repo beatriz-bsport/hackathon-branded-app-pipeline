@@ -17,9 +17,9 @@ export const CoachDeleteModal: React.FC<Props> = ({
 
   return (
     <DeleteDialogWithCheck
+      deleteObject={onDeleteCoach}
       idToDelete={coachToDeleteId}
       onClose={onClose}
-      deleteObject={onDeleteCoach}
       trad="coach"
     />
   );

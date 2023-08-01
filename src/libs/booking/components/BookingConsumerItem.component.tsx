@@ -144,9 +144,9 @@ export const BookingConsumerItem = (props: Props) => {
         meta_activity &&
         meta_activity.is_broadcast ? (
           <Button
-            variant="contained"
             color="primary"
             onClick={() => props.goToBroadcast(props.booking.id)}
+            variant="contained"
           >
             <VideoCamIcon className={classes.leftIcon} />
             {t('booking.accessLive')}
@@ -154,12 +154,12 @@ export const BookingConsumerItem = (props: Props) => {
         ) : null}
         {props.goToCalendar && !WidgetUtils.isWidget() ? (
           <Button
+            color="primary"
             onClick={() => props.goToCalendar(props.booking)}
+            style={props.variant === 'after_checkout' ? { width: '100%' } : {}}
             variant={
               props.variant === 'after_checkout' ? 'contained' : 'outlined'
             }
-            color="primary"
-            style={props.variant === 'after_checkout' ? { width: '100%' } : {}}
           >
             <TodayIcon className={classes.leftIcon} />
             {props.variant === 'after_checkout'

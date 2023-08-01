@@ -27,10 +27,10 @@ export const CouponFormDrawer = (props: Props) => {
   const classes = useStyles();
   return (
     <GenericResponsiveDrawer
-      open={open}
       onClose={onClose}
-      title={t('form.title')}
+      open={open}
       subtitle={props.initial?.name}
+      title={t('form.title')}
       withoutPadding={false}
     >
       <div className={classes.content}>

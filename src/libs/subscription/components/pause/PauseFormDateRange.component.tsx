@@ -20,28 +20,28 @@ export const PauseFormDateRange = (props: Props) => {
   return (
     <div className={classes.container}>
       <DateInput
-        value={moment(props.fromDate)}
+        className={classes.dateInput}
+        disabled={!props.setFromDate}
+        label={t('pauseV2.common.form.duration.start')}
+        minDate={moment()}
         onChange={(value: Moment) => {
           !!props.setFromDate && props.setFromDate(value.format());
           if (value.isAfter(props.untilDate))
             props.setUntilDate(value.format());
         }}
-        label={t('pauseV2.common.form.duration.start')}
-        className={classes.dateInput}
-        minDate={moment()}
-        disabled={!props.setFromDate}
+        value={moment(props.fromDate)}
       />
       <DateInput
-        value={moment(props.untilDate)}
+        className={classes.dateInput}
+        error={!props.isDateRangeValid}
+        label={t('pauseV2.common.form.duration.end')}
+        minDate={moment()}
         onChange={(value: Moment) => {
           props.setUntilDate(value.format());
           if (value.isBefore(props.fromDate) && !!props.setFromDate)
             props.setFromDate(value.format());
         }}
-        label={t('pauseV2.common.form.duration.end')}
-        className={classes.dateInput}
-        minDate={moment()}
-        error={!props.isDateRangeValid}
+        value={moment(props.untilDate)}
       />
       {!props.isDateRangeValid && (
         <Typography color="error" variant="caption">

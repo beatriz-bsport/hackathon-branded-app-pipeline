@@ -25,15 +25,15 @@ const CommunicationWrapperDialog = (props: Props) => {
   const classes = useStyles();
   return (
     <Dialog
-      fullScreen={props.fullScreen}
-      open={props.open}
       fullWidth
+      fullScreen={props.fullScreen}
       maxWidth={props.maxWidth ?? 'sm'}
       onClose={props.closeDialog}
+      open={props.open}
     >
       {props.title && (
         <DialogTitle className={classes.dialogTitleContainer}>
-          <Typography variant="h6" className={classes.dialogTitle}>
+          <Typography className={classes.dialogTitle} variant="h6">
             {props.title}
           </Typography>
         </DialogTitle>

@@ -98,20 +98,20 @@ export const LoginBackgroundComponent: React.FC<Props> = ({
       />
       <div className={classNames('bs-login-background__svg', 'svgMove')}>
         <svg
-          width="911"
+          fill="none"
           height="295"
           viewBox="0 0 911 295"
-          fill="none"
+          width="911"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M335 203C565 209 863.5 212.5 910.5 294.5H0V0.5C34 50 105 197 335 203Z"
-            fillOpacity="0.6"
             fill={
               company || franchise
                 ? theme?.palette.primary.main
                 : 'rgba(44, 118, 126)'
             }
+            fillOpacity="0.6"
           />
         </svg>
       </div>

@@ -77,13 +77,13 @@ export class CoachPerformance extends React.Component<Props> {
     } = this.props;
     return (
       <div className={classes.container}>
-        <AppBar position="static" color="default" className={classes.bar}>
+        <AppBar className={classes.bar} color="default" position="static">
           <CoachPerformanceDateFilter
-            onSubmit={onSubmit}
-            handleDateFiltersChange={handleDateFiltersChange}
-            updateStateDate={this.changeDate}
-            loading={loading || performanceLoading}
             hideExport
+            handleDateFiltersChange={handleDateFiltersChange}
+            loading={loading || performanceLoading}
+            onSubmit={onSubmit}
+            updateStateDate={this.changeDate}
           />
         </AppBar>
         {coachWithPerformance && coachPaymentRulesByKind ? (
@@ -94,17 +94,17 @@ export class CoachPerformance extends React.Component<Props> {
             <Paper>
               {loading || performanceLoading ? <LinearProgress /> : null}
               <CoachPerformanceTabs
-                coachWithPerformance={coachWithPerformance}
+                displayLastUpdate
                 coachPaymentRulesByKind={coachPaymentRulesByKind}
-                updatePrivateBookingCoachPaymentRule={(data) =>
-                  this.props.updatePrivateBookingCoachPaymentRule(data)
-                }
+                coachWithPerformance={coachWithPerformance}
+                handlePdfExportation={this.props.handlePdfExportation}
+                loading={this.props.loading || this.props.performanceLoading}
                 setSessionCoachPaymentRule={(data) => {
                   this.props.setSessionCoachPaymentRule(data);
                 }}
-                loading={this.props.loading || this.props.performanceLoading}
-                displayLastUpdate
-                handlePdfExportation={this.props.handlePdfExportation}
+                updatePrivateBookingCoachPaymentRule={(data) =>
+                  this.props.updatePrivateBookingCoachPaymentRule(data)
+                }
               />
             </Paper>
           </>

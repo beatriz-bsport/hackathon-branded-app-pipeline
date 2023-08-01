@@ -106,43 +106,48 @@ export function EstablishmentGroupForm(props: Props) {
               establishment: [],
             }
       }
-      validationSchema={EstablishmentGroupSchema}
       onSubmit={(values) => {
         return props.onSubmit({ ...values });
       }}
+      validationSchema={EstablishmentGroupSchema}
     >
       {(formik) => (
         <form>
           <>
             <Dialog
-              open={props.open}
-              onClose={props.onClose}
+              fullWidth
               aria-labelledby="establishment-group-form"
               maxWidth="xs"
-              fullWidth
+              onClose={props.onClose}
+              open={props.open}
             >
               <DialogTitle id="establishment-group-form">
                 {t('group.form.dialog.title')}
               </DialogTitle>
               <DialogContent>
                 <TextField
-                  id="textfield_establishment_group_name"
-                  name="name"
-                  label={t('group.form.name')}
                   fullWidth
                   required
+                  id="textfield_establishment_group_name"
+                  label={t('group.form.name')}
+                  name="name"
                 />
                 <div className={classes.localizationLabel}>
-                  <Typography variant="subtitle1" color="initial">
+                  <Typography color="initial" variant="subtitle1">
                     {t('group.form.associated_localizations')}
                   </Typography>
                 </div>
                 <div className={classes.establishmentSelector}>
                   <EstablishmentSelector
-                    establishments={props.establishments}
-                    noMulti
                     closeMenuOnSelect
+                    isClearable
+                    isOptionDisabled
+                    noMulti
                     nullCurrentValue
+                    disabled={isSubmitting}
+                    establishments={props.establishments}
+                    isLoading={loading}
+                    selectedEstablishments={formik.values.establishment}
                     selectOption={async (item: {
                       value: number;
                       label: string;
@@ -157,16 +162,11 @@ export function EstablishmentGroupForm(props: Props) {
                       });
                       setLoading(false);
                     }}
-                    disabled={isSubmitting}
-                    isClearable
-                    selectedEstablishments={formik.values.establishment}
-                    isLoading={loading}
-                    isOptionDisabled
                   />
                 </div>
                 <ErrorMessage name="name">
                   {(error_msg) => (
-                    <Typography variant="caption" color="error">
+                    <Typography color="error" variant="caption">
                       {t(`${error_msg}`)}
                     </Typography>
                   )}
@@ -182,26 +182,26 @@ export function EstablishmentGroupForm(props: Props) {
                       {establishmentSelectedGroupedByaddress(establishment).map(
                         (group: EstablishmentGroupByAddress, index: number) => (
                           <List
+                            key={index}
                             component="nav"
                             subheader={
                               <ListSubheader
-                                component="div"
                                 className={classes.listSubHeader}
+                                component="div"
                               >
                                 <LocationOnIcon color="primary" />
-                                <Typography variant="caption" color="initial">
+                                <Typography color="initial" variant="caption">
                                   {group.address}
                                 </Typography>
                               </ListSubheader>
                             }
-                            key={index}
                           >
                             {group.establishmentList.map((est) => (
                               <EstablishmentListItem
                                 key={`${index}${est.id}`}
-                                establishment={est}
-                                noDivider
                                 button
+                                noDivider
+                                establishment={est}
                                 onClickDelete={() => {
                                   const establishmentIndex =
                                     establishment.findIndex(
@@ -219,22 +219,22 @@ export function EstablishmentGroupForm(props: Props) {
                 </FieldArray>
                 <ErrorMessage name="establishment">
                   {(error_msg) => (
-                    <Typography variant="caption" color="error">
+                    <Typography color="error" variant="caption">
                       {t(`${error_msg}`)}
                     </Typography>
                   )}
                 </ErrorMessage>
               </DialogContent>
               <DialogActions>
-                <Button variant="text" onClick={props.onClose}>
+                <Button onClick={props.onClose} variant="text">
                   {t('group.form.dialog.cancel')}
                 </Button>
                 <Button
-                  id="submit_estabishment_group"
-                  disabled={isSubmitting}
-                  variant="contained"
                   color="primary"
+                  disabled={isSubmitting}
+                  id="submit_estabishment_group"
                   onClick={() => formik.handleSubmit()}
+                  variant="contained"
                 >
                   {t('group.form.dialog.save')}
                 </Button>

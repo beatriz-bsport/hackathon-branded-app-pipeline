@@ -76,7 +76,8 @@ const OffPeakButtonDay: React.FC<WeekDayButtonProps> = memo(
     return (
       <Button
         key={day}
-        variant="contained"
+        disableElevation
+        disableRipple
         className={classNames(
           classes.buttonBase,
           {
@@ -87,8 +88,7 @@ const OffPeakButtonDay: React.FC<WeekDayButtonProps> = memo(
           },
         )}
         onClick={handleOnClick}
-        disableRipple
-        disableElevation
+        variant="contained"
       >
         {t(`time.isoWeekdayNumber.${isoWeekDay}`).slice(0, 1)}
       </Button>
@@ -123,16 +123,16 @@ const OffPeaktimeSlotsRow: React.FC<OffPeaktimeSlotsRowProps> = ({
           return (
             <div>
               <div className={classes.row}>
-                <TimeField name={start_time_name} outsideErrorDisplay />
+                <TimeField outsideErrorDisplay name={start_time_name} />
                 <TimeField
-                  name={end_time_name}
-                  className={classes.timeField}
                   outsideErrorDisplay
+                  className={classes.timeField}
+                  name={end_time_name}
                 />
                 {hideDelete && (
                   <ButtonBase
-                    color="primary"
                     className={classes.deleteIcon}
+                    color="primary"
                     onClick={deleteTimeSlot(rowIndex)}
                   >
                     <CloseIcon />
@@ -144,7 +144,7 @@ const OffPeaktimeSlotsRow: React.FC<OffPeaktimeSlotsRowProps> = ({
                   name={`off_peak_schedule[${index}].timeSlots[${rowIndex}]`}
                 >
                   {(error_msg) => (
-                    <Typography variant="caption" color="error">
+                    <Typography color="error" variant="caption">
                       {t(`${error_msg}`)}
                     </Typography>
                   )}
@@ -168,9 +168,9 @@ const OffPeaktimeSlotGroup = (props: Props) => {
       <OffPeakButtonDay
         key={`${day} - ${index}`}
         day={day}
-        setFieldValue={setFieldValue}
-        recurrenceWeekDay={group.recurrenceWeekDay}
         index={index}
+        recurrenceWeekDay={group.recurrenceWeekDay}
+        setFieldValue={setFieldValue}
       />
     ));
   }, [group.recurrenceWeekDay, index, setFieldValue]);
@@ -202,8 +202,8 @@ const OffPeaktimeSlotGroup = (props: Props) => {
     <div className={classes.container}>
       {multipleGroups && (
         <ButtonBase
-          color="primary"
           className={classNames(classes.deleteIcon, classes.groupDelete)}
+          color="primary"
           onClick={onGroupDelete}
         >
           <CloseIcon />
@@ -213,7 +213,7 @@ const OffPeaktimeSlotGroup = (props: Props) => {
       <div>
         <ErrorMessage name={`off_peak_schedule[${index}].recurrenceWeekDay`}>
           {(error_msg) => (
-            <Typography variant="caption" color="error">
+            <Typography color="error" variant="caption">
               {t(`${error_msg}`)}
             </Typography>
           )}
@@ -221,21 +221,21 @@ const OffPeaktimeSlotGroup = (props: Props) => {
       </div>
       <div className={classes.row}>
         <RadioGroupField
-          name={`off_peak_schedule[${index}].slotDurationChoice`}
-          choices={SLOT_DURATION_CHOICE}
           isRow
+          choices={SLOT_DURATION_CHOICE}
+          name={`off_peak_schedule[${index}].slotDurationChoice`}
         />
       </div>
       <div>
         <Collapse in={time_slot_choice}>
           <OffPeaktimeSlotsRow
-            setFieldValue={setFieldValue}
             index={index}
+            setFieldValue={setFieldValue}
             timeSlots={group.timeSlots}
           />
           <ButtonBase
-            color="primary"
             className={classes.buttonAdd}
+            color="primary"
             onClick={handleAddtimeSlot}
           >
             <AddIcon color="primary" />

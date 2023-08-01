@@ -77,8 +77,8 @@ const PricingOptionItemComponent: React.FC<PricingOptionItemComponentProps> =
     return (
       <div ref={setNodeRef}>
         <div
-          style={{ transform: CSS.Transform.toString(transform), transition }}
           className={classes.row}
+          style={{ transform: CSS.Transform.toString(transform), transition }}
         >
           <IconButton {...listeners} {...attributes}>
             <DragHandleIcon />
@@ -99,7 +99,7 @@ const PricingOptionItemComponent: React.FC<PricingOptionItemComponentProps> =
                 {t('subscription:contract.list.title')}
               </Typography>
             )}
-            <Typography variant="body1" color="textSecondary">
+            <Typography color="textSecondary" variant="body1">
               {t(
                 'theme:forms.productsThemePersonalization.productsOrdering.itemNumberCaption',
                 { count: itemsNumber },
@@ -271,20 +271,20 @@ const ProductsOrderingPersonalizeForm: React.FC<Props> = ({
           {t('forms.productsThemePersonalization.productsOrdering.subTitle')}
         </Typography>
         <SwitchField
-          name="custom_pricing_option_ordering_enabled"
-          label={t('forms.productsThemePersonalization.productsOrdering.label')}
           helperText={t(
             'forms.productsThemePersonalization.productsOrdering.description',
           )}
+          label={t('forms.productsThemePersonalization.productsOrdering.label')}
+          name="custom_pricing_option_ordering_enabled"
         />
         <Collapse in={values.custom_pricing_option_ordering_enabled}>
           <FieldArray name="custom_pricing_option_ordering" />
           {currentPricingOptionOrdering && (
             <DndContext
-              sensors={sensors}
-              onDragEnd={handleDragEnd}
-              modifiers={[restrictToVerticalAxis]}
               collisionDetection={closestCenter}
+              modifiers={[restrictToVerticalAxis]}
+              onDragEnd={handleDragEnd}
+              sensors={sensors}
             >
               <SortableContext
                 items={itemsSortableContext}
@@ -299,16 +299,16 @@ const ProductsOrderingPersonalizeForm: React.FC<Props> = ({
                     return (
                       <PricingOptionItemComponent
                         key={pricingOptionItem.id}
-                        passCategoryName={pricingOptionItem.categoryName}
                         dndPricingOptionId={pricingOptionItem.id}
-                        pricingOptionType={
-                          PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER
-                        }
                         itemsNumber={
                           paymentPackByCategorySummary.find(
                             (catSummary) =>
                               catSummary.id === parseInt(pricingOptionItem.id),
                           )?.nbAvailableItems ?? 0
+                        }
+                        passCategoryName={pricingOptionItem.categoryName}
+                        pricingOptionType={
+                          PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER
                         }
                       />
                     );
@@ -321,13 +321,13 @@ const ProductsOrderingPersonalizeForm: React.FC<Props> = ({
                       <PricingOptionItemComponent
                         key={pricingOptionItem.id}
                         dndPricingOptionId={pricingOptionItem.id}
-                        pricingOptionType={
-                          PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER
-                        }
                         itemsNumber={
                           paymentPackByCategorySummary.find(
                             (catSummary) => catSummary.id === null,
                           )?.nbAvailableItems ?? 0
+                        }
+                        pricingOptionType={
+                          PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER
                         }
                       />
                     );
@@ -340,10 +340,10 @@ const ProductsOrderingPersonalizeForm: React.FC<Props> = ({
                       <PricingOptionItemComponent
                         key={pricingOptionItem.id}
                         dndPricingOptionId={pricingOptionItem.id}
+                        itemsNumber={paymentComboNumberItems}
                         pricingOptionType={
                           PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER
                         }
-                        itemsNumber={paymentComboNumberItems}
                       />
                     );
                   }
@@ -354,8 +354,8 @@ const ProductsOrderingPersonalizeForm: React.FC<Props> = ({
                       <PricingOptionItemComponent
                         key={pricingOptionItem.id}
                         dndPricingOptionId={pricingOptionItem.id}
-                        pricingOptionType={CONTRACT_BOOKING_FUNNEL_IDENTIFIER}
                         itemsNumber={contractNumberItems}
+                        pricingOptionType={CONTRACT_BOOKING_FUNNEL_IDENTIFIER}
                       />
                     );
                   }
@@ -367,11 +367,11 @@ const ProductsOrderingPersonalizeForm: React.FC<Props> = ({
         </Collapse>
       </div>
       <Button
-        disabled={isSubmitting || !isValid}
-        variant="contained"
-        color="primary"
-        type="submit"
         className={classes.confirm}
+        color="primary"
+        disabled={isSubmitting || !isValid}
+        type="submit"
+        variant="contained"
       >
         {t('forms.submit')}
       </Button>

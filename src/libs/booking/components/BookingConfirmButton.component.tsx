@@ -17,16 +17,16 @@ const BookingConfirmButton: React.FC<Props> = ({
   const classes = useStyles();
   return (
     <Button
-      variant="contained"
-      onClick={onClick}
-      disabled={disabled || buttonLoading}
       className={classes.button}
+      disabled={disabled || buttonLoading}
+      onClick={onClick}
+      variant="contained"
     >
       {buttonLoading && (
         <CircularProgress
-          style={{ marginRight: 8 }}
-          size={24}
           color="inherit"
+          size={24}
+          style={{ marginRight: 8 }}
         />
       )}
       {value}

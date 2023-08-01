@@ -246,20 +246,20 @@ export const CoachReplacementCalendar: React.FC<Props> = (props: Props) => {
       <div className={classes.dateRangeContainer}>
         <div className={classes.dateRangeSelector}>
           <DateRangeSelector
-            date_start={moment(periodFilter.min_date).unix()}
-            date_end={moment(periodFilter.max_date).unix()}
-            timePeriod="next_month"
-            onSubmit={handlePeriodChange}
             futureOnly
+            date_end={moment(periodFilter.max_date).unix()}
+            date_start={moment(periodFilter.min_date).unix()}
+            onSubmit={handlePeriodChange}
+            timePeriod="next_month"
           />
         </div>
 
         {!lateReplacementRequestStatusLoading && lateReplacementRequestStatus && (
-          <Alert severity="info" classes={{ root: classes.alertOverride }}>
+          <Alert classes={{ root: classes.alertOverride }} severity="info">
             {lateReplacementRequestStatus.is_late_replacement_request_limited ? (
               <Trans
-                t={t}
                 i18nKey="calendar.helperTextLimited"
+                t={t}
                 values={{
                   requestsLeft: interactiveNbLateRequestsLeft,
                   requestsMax:
@@ -283,61 +283,61 @@ export const CoachReplacementCalendar: React.FC<Props> = (props: Props) => {
       <Paper className={classes.paperContainer} elevation={0}>
         <TableContainer>
           <ActivitiesToReplaceTable
-            offers={props.offerList}
-            selectedOffers={selectedOffers}
             coach={props.coach}
-            enableMultiLocalization={
-              props.companyTheme.enable_multi_localization
-            }
-            replacementDisplay={
-              ReplacementDisplays.REPLACEMENT_DISPLAY_CALENDAR
-            }
-            establishmentGroups={props.establishmentGroupList}
-            handleCheckboxAction={handleCheckboxAction}
-            isLoading={isLoading}
-            nbLateRequestsLeft={interactiveNbLateRequestsLeft}
-            setNbLateRequestsLeft={setInteractiveNbLateRequestsLeft}
             daysBeforeOfferReplacementRequestIsLate={
               lateReplacementRequestStatus?.days_before_offer_replacement_request_is_late
             }
-            timezoneName={companyTheme.timezone_name}
+            enableMultiLocalization={
+              props.companyTheme.enable_multi_localization
+            }
+            establishmentGroups={props.establishmentGroupList}
             getHasPendingReplacementRequest={
               props.getHasPendingReplacementRequest
             }
             getHasRefusedReplacementRequest={
               props.getHasRefusedReplacementRequest
             }
+            handleCheckboxAction={handleCheckboxAction}
+            isLoading={isLoading}
+            nbLateRequestsLeft={interactiveNbLateRequestsLeft}
+            offers={props.offerList}
+            replacementDisplay={
+              ReplacementDisplays.REPLACEMENT_DISPLAY_CALENDAR
+            }
+            selectedOffers={selectedOffers}
+            setNbLateRequestsLeft={setInteractiveNbLateRequestsLeft}
+            timezoneName={companyTheme.timezone_name}
           />
         </TableContainer>
         {offerCount > 0 && (
           <Pagination
             className={classes.pagination}
             count={totalPages}
-            page={offerPage}
             onChange={(ev, value) => onChangePage(value)}
+            page={offerPage}
           />
         )}
       </Paper>
       <div className={classes.buttonContainer}>
         <Button
           color="primary"
-          variant="contained"
-          onClick={handleDialogOpen}
           disabled={selectedOffers.length === 0}
+          onClick={handleDialogOpen}
+          variant="contained"
         >
           {t('askForReplacement.title')}
         </Button>
       </div>
       {dialogOpen && (
         <ReplacementRequestReasonDialog
-          open={dialogOpen}
-          onClose={handleDialogClose}
-          onCloseAfterSuccess={handleCloseAfterSuccess}
-          onSubmit={handleSubmit}
+          atLeastOneLateRequest={nbLateRequestsToBeCreated > 0}
           lateReplacementRequestStatus={lateReplacementRequestStatus}
           nbLateRequestsLeft={interactiveNbLateRequestsLeft}
           nbSelectedOffers={selectedOffers.length}
-          atLeastOneLateRequest={nbLateRequestsToBeCreated > 0}
+          onClose={handleDialogClose}
+          onCloseAfterSuccess={handleCloseAfterSuccess}
+          onSubmit={handleSubmit}
+          open={dialogOpen}
         />
       )}
     </>

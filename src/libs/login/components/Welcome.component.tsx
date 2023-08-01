@@ -27,9 +27,9 @@ export const WelcomeComponent: React.FC<Props> = ({
   return (
     <div className={classes.content}>
       <LoginTitleCssHoc
-        title={t('welcome.title', { companyName })}
         isCompany={!!companyName}
         simplifyUI={simplifyUI}
+        title={t('welcome.title', { companyName })}
       />
       {!simplifyUI && (
         <div className={classes.welcomeIconContainer}>
@@ -39,17 +39,17 @@ export const WelcomeComponent: React.FC<Props> = ({
           />
         </div>
       )}
-      <Typography variant="body1" className={classes.textExplain}>
+      <Typography className={classes.textExplain} variant="body1">
         {t('welcome.textExplain')}
       </Typography>
       <Button
+        className={classes.beginButton}
         color="primary"
-        variant="contained"
         id="btn-begin"
         onClick={() => {
           window.location.href = httpParser(urlRedirection);
         }}
-        className={classes.beginButton}
+        variant="contained"
       >
         {t('welcome.begin')}
       </Button>

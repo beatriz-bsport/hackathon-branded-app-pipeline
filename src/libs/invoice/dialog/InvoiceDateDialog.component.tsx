@@ -34,7 +34,7 @@ const InvoiceDateDialog = (props: Props) => {
   const [processing, setProcessing] = useState(false);
 
   return (
-    <GenericResponsiveDialog open={open} onClose={onClose}>
+    <GenericResponsiveDialog onClose={onClose} open={open}>
       <DialogTitle id="alert-dialog-title">
         {t('invoice.choseDateTitle')}
       </DialogTitle>
@@ -45,21 +45,23 @@ const InvoiceDateDialog = (props: Props) => {
         <div style={{ marginTop: 12 }}>
           <DateInput
             required
-            value={moment(date)}
-            onChange={setDate}
-            disabled={processing}
             className=""
+            disabled={processing}
+            onChange={setDate}
+            value={moment(date)}
           />
         </div>
       </DialogContent>
       <DialogActions>
-        <Button disabled={processing} onClick={onClose} color="secondary">
+        <Button color="secondary" disabled={processing} onClick={onClose}>
           {t('common.cancel')}
         </Button>
         {processing ? (
           <CircularProgress size={35} />
         ) : (
           <Button
+            autoFocus
+            color="primary"
             onClick={() => {
               setProcessing(true);
               onSubmit(getDateAtNowHour(moment(date)), {
@@ -67,8 +69,6 @@ const InvoiceDateDialog = (props: Props) => {
                 onError: () => setProcessing(false),
               });
             }}
-            color="primary"
-            autoFocus
           >
             {t('common.confirm')}
           </Button>

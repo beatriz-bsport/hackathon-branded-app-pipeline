@@ -159,26 +159,26 @@ class InboxPanel extends PureComponent<Props> {
 
     return (
       <InboxPanelComponent
-        isPanelOpen={isPanelOpen}
-        setIsPanelOpen={setIsPanelOpen}
-        thread={thread}
-        isLoadingThread={isLoadingThread}
+        closeInboxPanel={closeInboxPanel}
+        excludedTagsForSmartlist={excludedTagsForSmartlist}
+        filtersSmartlist={filtersSmartlist}
+        goToMemberPage={goToMemberPage}
         // In reality, typeof tags is Tag<TagGroup>[] and not Tag<TagGroupAPI>[]
+        goToOfferPage={goToOfferPage}
+        goToSmartlistPage={goToSmartlistPage}
+        includedTagsForSmartlist={includedTagsForSmartlist}
+        isLoadingThread={isLoadingThread}
+        isPanelOpen={isPanelOpen}
+        member={member}
+        memberInSmartlistCount={memberInSmartlistCount}
+        offer={offer}
+        setIsPanelOpen={setIsPanelOpen}
+        showOfferGender={theme?.show_booked_gender_offer}
+        smartlist={smartlist}
         // @ts-expect-error
         tags={tags}
-        member={member}
-        goToMemberPage={goToMemberPage}
+        thread={thread}
         unpaidInvoicesCount={unpaidInvoicesCount}
-        smartlist={smartlist}
-        memberInSmartlistCount={memberInSmartlistCount}
-        filtersSmartlist={filtersSmartlist}
-        includedTagsForSmartlist={includedTagsForSmartlist}
-        excludedTagsForSmartlist={excludedTagsForSmartlist}
-        goToSmartlistPage={goToSmartlistPage}
-        offer={offer}
-        goToOfferPage={goToOfferPage}
-        closeInboxPanel={closeInboxPanel}
-        showOfferGender={theme?.show_booked_gender_offer}
       />
     );
   }

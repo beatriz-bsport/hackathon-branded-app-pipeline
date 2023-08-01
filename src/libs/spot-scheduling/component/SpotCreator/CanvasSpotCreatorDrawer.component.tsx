@@ -18,10 +18,10 @@ export const CanvasSpotCreatorDrawer = (props: Props) => {
   const { t } = useTranslation('spotScheduling');
   return (
     <GenericResponsiveDrawer
-      open={props.open}
       onClose={props.closeDialog}
-      title={t('spotCreatorForm.title')}
+      open={props.open}
       subtitle={t('spotCreatorForm.subtitle')}
+      title={t('spotCreatorForm.title')}
     >
       <CanvasSpotCreatorForm {...props} />
     </GenericResponsiveDrawer>

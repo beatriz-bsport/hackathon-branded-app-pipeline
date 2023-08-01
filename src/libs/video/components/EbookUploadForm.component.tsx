@@ -124,19 +124,19 @@ export class EbookUploadForm extends React.Component<Props, State> {
     return (
       <div className={classes.container}>
         <EbookProviderDropzone
-          processing={this.state.isUploading}
+          file={this.state.file}
           fowardedRef={(ref) => {
             this.DROPZONE_REF = ref;
           }}
+          processing={this.state.isUploading}
           setDropzoneFilled={() => this.setState({ dropzoneFilled: true })}
-          file={this.state.file}
           setFile={this.setFile}
         />
         {this.state.isUploading && (
           <LinearProgress
             className={classes.marginTop}
-            variant="determinate"
             value={this.state.progress}
+            variant="determinate"
           />
         )}
         <div className={this.props.classes.row}>
@@ -148,11 +148,11 @@ export class EbookUploadForm extends React.Component<Props, State> {
           </Button>
 
           <Button
-            variant="contained"
-            color="primary"
-            onClick={this.onClickSubmit}
             className={this.props.classes.marginLeft}
+            color="primary"
             disabled={!this.state.dropzoneFilled || this.state.isUploading}
+            onClick={this.onClickSubmit}
+            variant="contained"
           >
             {t('video.upload.submit')}
           </Button>

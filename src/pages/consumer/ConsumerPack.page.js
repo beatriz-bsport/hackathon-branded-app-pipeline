@@ -101,13 +101,13 @@ export class ConsumerPack extends React.Component<Props> {
         {!WidgetUtils.isWidget() && (
           <div className={this.props.classes.header}>
             <Button
+              color="primary"
               onClick={() =>
                 this.props.goToPass(
                   this.props.membership.company_name,
                   this.props.membership.company,
                 )
               }
-              color="primary"
               variant="contained"
             >
               <VpnKeyIcon className={this.props.classes.iconLeft} />
@@ -115,11 +115,11 @@ export class ConsumerPack extends React.Component<Props> {
             </Button>
           </div>
         )}
-        <Grid item xs={12} lg={6}>
+        <Grid item lg={6} xs={12}>
           <Typography
-            variant="h4"
-            component="h3"
             className={this.props.classes.title}
+            component="h3"
+            variant="h4"
           >
             {this.props.t('pack.titlePaymentPack')}
           </Typography>
@@ -127,11 +127,10 @@ export class ConsumerPack extends React.Component<Props> {
           <Paper>
             <PaginatedListBase
               itemPerPage={CONSUMER_PAYMENT_PACK_PAGE_SIZE}
-              loading={this.props.consumerPackLoading}
-              listProps={{ disablePadding: true }}
               items={this.props.consumerPacks}
+              listProps={{ disablePadding: true }}
+              loading={this.props.consumerPackLoading}
               nbItems={this.props.consumerPackCount}
-              page={this.props.consumerPackCurrentPage}
               onPageRequested={(page, pageSize) =>
                 this.props.fetchConsumerPacksPaginated(
                   this.props.membership.id,
@@ -140,10 +139,11 @@ export class ConsumerPack extends React.Component<Props> {
                   { disabled: false, is_universal: false },
                 )
               }
+              page={this.props.consumerPackCurrentPage}
               renderItem={(cpp) => (
                 <ConsumerPackRowItem
-                  hideConsumer
                   key={cpp.id}
+                  hideConsumer
                   consumerPack={cpp}
                   paymentPack={cpp.payment_pack}
                 />
@@ -151,11 +151,11 @@ export class ConsumerPack extends React.Component<Props> {
             />
           </Paper>
         </Grid>
-        <Grid item xs={12} lg={6}>
+        <Grid item lg={6} xs={12}>
           <Typography
-            variant="h4"
-            component="h3"
             className={this.props.classes.title}
+            component="h3"
+            variant="h4"
           >
             {this.props.t('pack.titlePrivatePack')}
           </Typography>
@@ -163,24 +163,24 @@ export class ConsumerPack extends React.Component<Props> {
           <Paper>
             <PaginatedListStateful
               itemPerPage={5}
-              loading={this.props.privateConsumerPassLoading}
-              listProps={{ disablePadding: true }}
               items={this.props.private_consumer_pass_list}
+              listProps={{ disablePadding: true }}
+              loading={this.props.privateConsumerPassLoading}
               renderItem={(pcp) => (
                 <PrivateConsumerPassBookerListItem
-                  divider
                   key={pcp.id}
+                  divider
                   private_consumer_pass={pcp}
                 />
               )}
             />
           </Paper>
         </Grid>
-        <Grid item xs={12} lg={6}>
+        <Grid item lg={6} xs={12}>
           <Typography
-            variant="h4"
-            component="h3"
             className={this.props.classes.title}
+            component="h3"
+            variant="h4"
           >
             {this.props.t('pack.titleUniversalPack')}
           </Typography>
@@ -188,11 +188,10 @@ export class ConsumerPack extends React.Component<Props> {
           <Paper>
             <PaginatedListBase
               itemPerPage={CONSUMER_PAYMENT_PACK_PAGE_SIZE}
-              loading={this.props.consumerUniversalPackLoading}
-              listProps={{ disablePadding: true }}
               items={this.props.consumerUniversalPacks}
+              listProps={{ disablePadding: true }}
+              loading={this.props.consumerUniversalPackLoading}
               nbItems={this.props.consumerUniversalPackCount}
-              page={this.props.consumerUniversalPackCurrentPage}
               onPageRequested={(page, pageSize) =>
                 this.props.fetchConsumerPacksPaginated(
                   this.props.membership.id,
@@ -201,10 +200,11 @@ export class ConsumerPack extends React.Component<Props> {
                   { disabled: false, is_universal: true },
                 )
               }
+              page={this.props.consumerUniversalPackCurrentPage}
               renderItem={(cpp) => (
                 <ConsumerPackRowItem
-                  hideConsumer
                   key={cpp.id}
+                  hideConsumer
                   consumerPack={cpp}
                   paymentPack={cpp.payment_pack}
                 />

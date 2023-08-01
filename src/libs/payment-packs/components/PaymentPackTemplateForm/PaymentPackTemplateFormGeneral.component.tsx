@@ -108,49 +108,49 @@ export const PaymentPackFormGeneral = (props: Props) => {
       </Grid>
       <Grid item xs={12}>
         <TextFieldEnhancedLabelWithError
-          id="textfield_template_title"
           fullWidth
-          name="name"
           required
-          label={t('addPaymentPack.name')}
           helperText={t('addPaymentPack.namePaymentPack')}
+          id="textfield_template_title"
+          label={t('addPaymentPack.name')}
+          name="name"
         />
       </Grid>
 
       <Grid item xs={12}>
         <TextField
-          id="textfield_template_description"
           fullWidth
           multiline
+          id="textfield_template_description"
+          label={t('addPaymentPack.description')}
           minRows={6}
           name="description"
           variant="outlined"
-          label={t('addPaymentPack.description')}
         />
       </Grid>
 
-      <Grid item xs={12} md={6}>
+      <Grid item md={6} xs={12}>
         <PriceField
-          name="price"
+          fullWidth
+          required
+          helperText={t('form.paymentPack.priceIncludingTax.helperText')}
           id="textfield_template_price"
           label={t('form.paymentPack.priceIncludingTax.label')}
-          required
-          fullWidth
-          helperText={t('form.paymentPack.priceIncludingTax.helperText')}
+          name="price"
         />
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item md={6} xs={12}>
         <TextField
-          name="tax"
-          label={t('form.paymentPack.tax.label')}
-          type="number"
-          required
           fullWidth
-          max={100}
+          required
           InputProps={{
             inputProps: { min: 0, max: 100, step: 0.005 },
             startAdornment: <InputAdornment position="start">%</InputAdornment>,
           }}
+          label={t('form.paymentPack.tax.label')}
+          max={100}
+          name="tax"
+          type="number"
         />
       </Grid>
       <Grid item xs={12}>
@@ -160,11 +160,11 @@ export const PaymentPackFormGeneral = (props: Props) => {
             <div key={value}>
               <FormControlLabel
                 key={value}
-                value={value}
                 control={
                   <Radio checked={`${values.credit_number}` === `${value}`} />
                 }
                 label={l}
+                value={value}
               />
             </div>
           ))}
@@ -172,22 +172,22 @@ export const PaymentPackFormGeneral = (props: Props) => {
       </Grid>
       {values.credit_number === 'limited' ? (
         <>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             <TextField
-              name="credits"
+              fullWidth
+              required
+              helperText={t('addPaymentPack.numberOfAvailableCredits')}
               id="textfield_credit"
               label={t('addPaymentPack.credit')}
+              name="credits"
               type="number"
-              required
-              fullWidth
-              helperText={t('addPaymentPack.numberOfAvailableCredits')}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             {initial && initial.credits !== values.credits ? (
               <div className={classes.creditWarning}>
                 <WarningIcon color="error" />
-                <Typography variant="body2" color="error">
+                <Typography color="error" variant="body2">
                   {t('addPaymentPack.creditWarning')}
                 </Typography>
               </div>
@@ -196,28 +196,28 @@ export const PaymentPackFormGeneral = (props: Props) => {
         </>
       ) : (
         <>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             <PriceField
-              name="theorical_margin_value"
-              id="textfield_pass_marginal_contribution"
-              label={t('addPaymentPack.marginalContribution')}
-              required
               fullWidth
+              required
               helperText={t('addPaymentPack.marginalContributionHelperText', {
                 currencyDisplay: getCurrencyDisplay(),
               })}
+              id="textfield_pass_marginal_contribution"
+              label={t('addPaymentPack.marginalContribution')}
+              name="theorical_margin_value"
             />
           </Grid>
-          <Grid item xs={0} md={6} />
+          <Grid item md={6} xs={0} />
         </>
       )}
       <Grid item xs={12}>
         <Grid item xs={12}>
           <div className={classes.row}>
             <SwitchField
-              name="apply_penalties"
-              label={t('form.paymentPack.penalty.label')}
               disabled={values.credit_number === 'limited'}
+              label={t('form.paymentPack.penalty.label')}
+              name="apply_penalties"
             />
             {values.credit_number === 'limited' ? (
               <div className={classes.row}>
@@ -230,14 +230,14 @@ export const PaymentPackFormGeneral = (props: Props) => {
           </div>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="caption" color="textSecondary">
+          <Typography color="textSecondary" variant="caption">
             {t('form.paymentPack.penalty.helperText')}
           </Typography>
         </Grid>
       </Grid>
       <Collapse
-        in={values.credit_number === 'unlimited' && values.apply_penalties}
         className={classes.penaltyContainer}
+        in={values.credit_number === 'unlimited' && values.apply_penalties}
       >
         <Grid item xs={12}>
           <Divider
@@ -255,8 +255,8 @@ export const PaymentPackFormGeneral = (props: Props) => {
         <Grid item xs={12}>
           <Typography
             className={classes.marginTop}
-            variant="body1"
             color="textSecondary"
+            variant="body1"
           >
             {t('form.paymentPack.penalty.titleCheckbox')}
           </Typography>
@@ -264,22 +264,22 @@ export const PaymentPackFormGeneral = (props: Props) => {
         <Grid item xs={12}>
           <div className={classes.row}>
             <CheckboxField
-              name="penalty_active"
               label={t('form.paymentPack.penalty.cancellationsCheckbox')}
+              name="penalty_active"
             />
           </div>
         </Grid>
         <Grid item xs={12}>
           <div className={classes.row}>
             <CheckboxField
-              name="no_show_penalty_active"
               label={t('form.paymentPack.penalty.noShowCheckbox')}
+              name="no_show_penalty_active"
             />
           </div>
         </Grid>
 
         <Collapse in={errors.apply_penalties}>
-          <Alert severity="error" className={classes.alertContainer}>
+          <Alert className={classes.alertContainer} severity="error">
             {t(errors.apply_penalties)}
           </Alert>
         </Collapse>
@@ -287,8 +287,8 @@ export const PaymentPackFormGeneral = (props: Props) => {
           <Grid item xs={12}>
             <Typography
               className={classes.marginTop}
-              variant="body1"
               color="textSecondary"
+              variant="body1"
             >
               {t('form.paymentPack.penalty.penaltyParams')}
             </Typography>
@@ -296,31 +296,31 @@ export const PaymentPackFormGeneral = (props: Props) => {
         </Collapse>
 
         <Collapse in={values.penalty_active}>
-          <Grid container spacing={4} className={classes.marginTop}>
+          <Grid container className={classes.marginTop} spacing={4}>
             <>
               <Grid item xs={12}>
-                <Typography variant="subtitle1" className={classes.bold}>
+                <Typography className={classes.bold} variant="subtitle1">
                   {t('form.paymentPack.penalty.cancellationsPenaltyTitle')}
                 </Typography>
               </Grid>
               <Grid item xs={3}>
                 <TextFieldEnhancedLabelWithError
-                  id="textfield_penalityNumberCancel"
                   fullWidth
+                  required
+                  id="textfield_penalityNumberCancel"
+                  label={t('addPaymentPack.penalityNumberCancel')}
                   name="penalty_nb_late_cancellations"
                   type="number"
-                  required
-                  label={t('addPaymentPack.penalityNumberCancel')}
                 />
               </Grid>
               <Grid item xs={3}>
                 <TextFieldEnhancedLabelWithError
-                  id="penalty_nb_days"
                   fullWidth
+                  required
+                  id="penalty_nb_days"
+                  label={t('addPaymentPack.penalityNumberDay')}
                   name="penalty_nb_days"
                   type="number"
-                  required
-                  label={t('addPaymentPack.penalityNumberDay')}
                 />
               </Grid>
               {values.penalty_nb_late_cancellations &&
@@ -347,13 +347,13 @@ export const PaymentPackFormGeneral = (props: Props) => {
                     <div key={value}>
                       <FormControlLabel
                         key={value}
-                        value={value}
                         control={
                           <Radio
                             checked={`${values.penalty_kind}` === `${value}`}
                           />
                         }
                         label={l}
+                        value={value}
                       />
                     </div>
                   ))}
@@ -362,34 +362,34 @@ export const PaymentPackFormGeneral = (props: Props) => {
               {values.penalty_kind === 'block' ? (
                 <Grid item xs={6}>
                   <TextFieldEnhancedLabelWithError
-                    id="textfield_block"
                     fullWidth
-                    name="penalty_days_blocked"
-                    type="number"
                     required
-                    label={t('addPaymentPack.penalityBlockDay')}
                     helperText={t('addPaymentPack.penalityBlockDayHelper', {
                       penalityBlockDay: values.penalty_days_blocked,
                     })}
+                    id="textfield_block"
+                    label={t('addPaymentPack.penalityBlockDay')}
+                    name="penalty_days_blocked"
+                    type="number"
                   />
                 </Grid>
               ) : (
                 <Grid item xs={6}>
                   <PriceField
-                    id="textfield_penalityAccount"
                     fullWidth
-                    name="penalty_account_value"
                     required
-                    label={t('addPaymentPack.penalityAccountPrice')}
                     helperText={t('addPaymentPack.penalityAccountHelper', {
                       penalityBlockAccount: values.penalty_account_value,
                       currencyDisplay: getCurrencyDisplay(),
                     })}
+                    id="textfield_penalityAccount"
+                    label={t('addPaymentPack.penalityAccountPrice')}
+                    name="penalty_account_value"
                   />
                 </Grid>
               )}
               <Collapse in={values.penalty_kind === 'account'}>
-                <Grid item xs={12} className={classes.prorataContainer}>
+                <Grid item className={classes.prorataContainer} xs={12}>
                   <RadioGroup
                     name="penalty_mode_franchisor"
                     onChange={(_, value) => {
@@ -407,7 +407,6 @@ export const PaymentPackFormGeneral = (props: Props) => {
                         <div key={value}>
                           <FormControlLabel
                             key={value}
-                            value={value}
                             control={
                               <Radio
                                 checked={
@@ -417,15 +416,16 @@ export const PaymentPackFormGeneral = (props: Props) => {
                               />
                             }
                             label={l}
+                            value={value}
                           />
                         </div>
                       ),
                     )}
                   </RadioGroup>
                   <Alert
-                    severity="info"
                     classes={{ root: classes.alertIcon }}
                     className={classes.alert}
+                    severity="info"
                   >
                     {t(
                       `addPaymentPack.penalityModeFranchisor.${
@@ -447,46 +447,46 @@ export const PaymentPackFormGeneral = (props: Props) => {
           </Grid>
         </Collapse>
         <Collapse in={values.no_show_penalty_active}>
-          <Grid container spacing={4} className={classes.marginTop}>
+          <Grid container className={classes.marginTop} spacing={4}>
             <>
               <Grid item xs={12}>
-                <Typography variant="subtitle1" className={classes.bold}>
+                <Typography className={classes.bold} variant="subtitle1">
                   {t('form.paymentPack.penalty.noShowPenaltyTitle')}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Alert severity="info" className={classes.alertContainer}>
+                <Alert className={classes.alertContainer} severity="info">
                   {t('form.paymentPack.penalty.noShowPenaltyAlert')}
                 </Alert>
               </Grid>
               <Grid item xs={3}>
                 <TextFieldEnhancedLabelWithError
-                  id="no_show_penalty_threshold"
                   fullWidth
-                  name="no_show_penalty_threshold"
-                  type="number"
+                  required
+                  id="no_show_penalty_threshold"
                   InputProps={{
                     inputProps: {
                       min: 0,
                     },
                   }}
-                  required
                   label={t('form.paymentPack.penalty.noShowPenaltyNumber')}
+                  name="no_show_penalty_threshold"
+                  type="number"
                 />
               </Grid>
               <Grid item xs={3}>
                 <TextFieldEnhancedLabelWithError
-                  id="no_show_penalty_time_window_days"
                   fullWidth
-                  name="no_show_penalty_time_window_days"
-                  type="number"
+                  required
+                  id="no_show_penalty_time_window_days"
                   InputProps={{
                     inputProps: {
                       min: 0,
                     },
                   }}
-                  required
                   label={t('addPaymentPack.penalityNumberDay')}
+                  name="no_show_penalty_time_window_days"
+                  type="number"
                 />
               </Grid>
             </>
@@ -514,7 +514,6 @@ export const PaymentPackFormGeneral = (props: Props) => {
                   <div key={value}>
                     <FormControlLabel
                       key={value}
-                      value={value}
                       control={
                         <Radio
                           checked={
@@ -523,6 +522,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
                         />
                       }
                       label={l}
+                      value={value}
                     />
                   </div>
                 ))}
@@ -531,35 +531,35 @@ export const PaymentPackFormGeneral = (props: Props) => {
             {values.no_show_penalty_kind === 'block' ? (
               <Grid item xs={6}>
                 <TextFieldEnhancedLabelWithError
-                  id="textfield_block_no_show"
                   fullWidth
-                  name="no_show_penalty_days_blocked"
-                  type="number"
                   required
-                  label={t('addPaymentPack.penalityBlockDay')}
                   helperText={t('addPaymentPack.penalityBlockDayHelper', {
                     penalityBlockDay: values.no_show_penalty_days_blocked,
                   })}
+                  id="textfield_block_no_show"
+                  label={t('addPaymentPack.penalityBlockDay')}
+                  name="no_show_penalty_days_blocked"
+                  type="number"
                 />
               </Grid>
             ) : (
               <Grid item xs={6}>
                 <PriceField
-                  id="textfield_penalityAccount_no_show"
                   fullWidth
-                  name="no_show_penalty_amount"
                   required
-                  label={t('addPaymentPack.penalityAccountPrice')}
                   helperText={t('addPaymentPack.penalityAccountHelper', {
                     penalityBlockAccount: values.no_show_penalty_amount,
                     currencyDisplay: getCurrencyDisplay(),
                   })}
+                  id="textfield_penalityAccount_no_show"
+                  label={t('addPaymentPack.penalityAccountPrice')}
+                  name="no_show_penalty_amount"
                 />
               </Grid>
             )}
 
             <Collapse in={values.no_show_penalty_kind === 'account'}>
-              <Grid item xs={12} className={classes.prorataContainer}>
+              <Grid item className={classes.prorataContainer} xs={12}>
                 <RadioGroup
                   name="no_show_penalty_mode_franchisor"
                   onChange={(_, value) => {
@@ -577,7 +577,6 @@ export const PaymentPackFormGeneral = (props: Props) => {
                       <div key={value}>
                         <FormControlLabel
                           key={value}
-                          value={value}
                           control={
                             <Radio
                               checked={
@@ -587,15 +586,16 @@ export const PaymentPackFormGeneral = (props: Props) => {
                             />
                           }
                           label={l}
+                          value={value}
                         />
                       </div>
                     ),
                   )}
                 </RadioGroup>
                 <Alert
-                  severity="info"
                   classes={{ root: classes.alertIcon }}
                   className={classes.alert}
+                  severity="info"
                 >
                   {t(
                     `addPaymentPack.penalityModeFranchisor.${

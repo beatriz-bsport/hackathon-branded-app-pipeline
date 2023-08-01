@@ -56,15 +56,15 @@ const TutorialLessonHeader: React.FC<Props> = ({
 
   if (!section) {
     return (
-      <Paper elevation={0} className={classes.paper}>
+      <Paper className={classes.paper} elevation={0}>
         <div className={classNames(classes.secondRow, classes.skeleton)}>
           {[1, 2, 3, 4, 5, 6].map((idx) => (
             <div key={`skeleton_${idx}`} style={{ width: '100%' }}>
               <Skeleton
                 animation="wave"
-                width="80%"
-                variant="text"
                 height={30}
+                variant="text"
+                width="80%"
               />
             </div>
           ))}
@@ -74,7 +74,7 @@ const TutorialLessonHeader: React.FC<Props> = ({
   }
 
   return (
-    <Paper elevation={0} className={classes.paper}>
+    <Paper className={classes.paper} elevation={0}>
       <div className={classes.firstRow}>
         <div
           className={classNames(
@@ -88,8 +88,6 @@ const TutorialLessonHeader: React.FC<Props> = ({
           )}
         >
           <MuiIcon
-            icon={section?.icon}
-            defaultIcon="BusinessCenter"
             className={classNames(
               {
                 [classes.iconPrimary]: sectionCompleted,
@@ -98,6 +96,8 @@ const TutorialLessonHeader: React.FC<Props> = ({
                 [classes.iconDisabled]: !sectionCompleted,
               },
             )}
+            defaultIcon="BusinessCenter"
+            icon={section?.icon}
           />
         </div>
         <Typography className={classes.textContainer} variant="h4">
@@ -111,11 +111,20 @@ const TutorialLessonHeader: React.FC<Props> = ({
           return (
             <ToolTip
               key={`lesson_button_${lesson.id}`}
-              title={lesson?.translated_name}
               placement="bottom"
+              title={lesson?.translated_name}
             >
               <Button
                 disableElevation
+                classes={{
+                  root: classNames(classes.rootButton, {
+                    [classes.overrideMuiLessonCompletedButtonRootHoverMobile]:
+                      isLessonCompleted(lesson, tutorial_completion),
+                    [classes.overrideMuiLessonSelectedButtonRootHoverMobile]:
+                      selectedLesson.id === lesson.id &&
+                      !isLessonCompleted(lesson, tutorial_completion),
+                  }),
+                }}
                 className={classNames(
                   classes.lessonButton,
                   {
@@ -129,30 +138,21 @@ const TutorialLessonHeader: React.FC<Props> = ({
                       !isLessonCompleted(lesson, tutorial_completion),
                   },
                 )}
-                classes={{
-                  root: classNames(classes.rootButton, {
-                    [classes.overrideMuiLessonCompletedButtonRootHoverMobile]:
-                      isLessonCompleted(lesson, tutorial_completion),
-                    [classes.overrideMuiLessonSelectedButtonRootHoverMobile]:
-                      selectedLesson.id === lesson.id &&
-                      !isLessonCompleted(lesson, tutorial_completion),
-                  }),
-                }}
-                variant="contained"
                 color={
                   isLessonCompleted(lesson, tutorial_completion)
                     ? 'primary'
                     : 'default'
                 }
                 onClick={() => goToLesson(section.id, lesson.id)}
+                variant="contained"
               />
             </ToolTip>
           );
         })}
         <EmojiEventsIcon
-          fontSize="medium"
           className={classes.icon}
           color={sectionCompleted ? 'primary' : 'disabled'}
+          fontSize="medium"
         />
       </div>
       <FeatureListProvider>
@@ -167,11 +167,11 @@ const TutorialLessonHeader: React.FC<Props> = ({
               {shouldDisplayUpsellInfos && (
                 <div className={classes.upsellInfoContainer}>
                   <InfoBox
-                    content={t('lessonHeader.warning')}
                     className={classes.borderRadiusAdjustment}
+                    content={t('lessonHeader.warning')}
                     variant="outlined"
                   />
-                  <Button variant="outlined" onClick={handleKnowMore}>
+                  <Button onClick={handleKnowMore} variant="outlined">
                     <HelpOutlinedIcon className={classes.iconLeft} />
                     {t('platformBilling:upsellPackage.knowMore')}
                   </Button>

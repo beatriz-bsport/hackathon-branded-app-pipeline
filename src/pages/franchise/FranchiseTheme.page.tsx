@@ -103,15 +103,15 @@ const FranchiseTheme = (props: Props) => {
     <div className={classes.container}>
       <Paper className={classes.paperContainer}>
         <FranchiseThemeForm
-          id={franchiseId}
           cover={cover}
+          handleChange={handleChange}
+          handleCoverChange={handleCoverChange}
+          id={franchiseId}
+          marketingEmail={marketingEmail}
+          onSubmit={submit}
           primaryColor={primaryColor}
           secondaryColor={secondaryColor}
-          marketingEmail={marketingEmail}
           submitIsDisabled={checkSubmitDisabled()}
-          handleCoverChange={handleCoverChange}
-          handleChange={handleChange}
-          onSubmit={submit}
         />
       </Paper>
     </div>

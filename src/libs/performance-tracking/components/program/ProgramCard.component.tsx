@@ -50,31 +50,31 @@ export const ProgramCard = (props: Props) => {
         )}
         <div className={classes.action}>
           <Button
-            variant="contained"
             color="primary"
             onClick={() => onEdit(program)}
+            variant="contained"
           >
             {t('program.form.modify')}
           </Button>
           <Button
-            variant="outlined"
             color="primary"
             onClick={() => setIsOpenGenericMuiDialog(true)}
+            variant="outlined"
           >
             {t('program.form.delete')}
           </Button>
         </div>
       </Paper>
       <GenericMuiDialog
-        open={isOpenGenericMuiDialog}
-        title={t('program.deleteHeader')}
-        content={t('program.deleteContent')}
         confirmText={t('form.delete')}
+        content={t('program.deleteContent')}
         onCancel={() => setIsOpenGenericMuiDialog(false)}
         onConfirm={() => {
           onDelete(program);
           setIsOpenGenericMuiDialog(false);
         }}
+        open={isOpenGenericMuiDialog}
+        title={t('program.deleteHeader')}
       />
     </>
   );

@@ -34,10 +34,10 @@ export function MemberConfirmMergeDialog(props: Props) {
         </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.onClose} color="secondary">
+        <Button color="secondary" onClick={props.onClose}>
           {props.t('forms.merge.cancel')}
         </Button>
-        <Button onClick={props.onSubmit} color="primary">
+        <Button color="primary" onClick={props.onSubmit}>
           {props.t('forms.merge.submit')}
         </Button>
       </DialogActions>

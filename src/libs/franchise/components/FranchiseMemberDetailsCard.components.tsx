@@ -34,7 +34,7 @@ const FranchiseMemberDetailsCard = (props: Props) => {
   return (
     <div className={classes.card}>
       <div className={classes.header}>
-        <Avatar className={classes.avatar} alt={user.name} src={user.photo} />
+        <Avatar alt={user.name} className={classes.avatar} src={user.photo} />
         <div className={classes.headerTitle}>
           <Typography variant="h5">{user.name}</Typography>
         </div>

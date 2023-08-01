@@ -47,10 +47,10 @@ class TagDetailSmartlist extends React.PureComponent<Props> {
               {t('management.smartlistDetail.empty')}
             </Typography>
             <Button
-              onClick={this.props.goToSmartlist}
-              color="primary"
-              variant="outlined"
               className={classes.marginTop}
+              color="primary"
+              onClick={this.props.goToSmartlist}
+              variant="outlined"
             >
               <ArrowForwardIcon className={classes.leftIcon} />
               {t('management.smartlistDetail.createViaSmartlist')}
@@ -71,7 +71,7 @@ class TagDetailSmartlist extends React.PureComponent<Props> {
                 }
 
                 return (
-                  <ListItem divider key={smartlist.id}>
+                  <ListItem key={smartlist.id} divider>
                     <div className={classes.fullWidth}>
                       <div className={classes.listItemInfo}>
                         <div className={classes.row}>
@@ -91,8 +91,8 @@ class TagDetailSmartlist extends React.PureComponent<Props> {
                           (autotagRule) => (
                             <TagRuleSelector
                               key={autotagRule.id}
-                              selected={autotagRule}
                               onChange={this.props.onChangeTagRule}
+                              selected={autotagRule}
                             />
                           ),
                         )}

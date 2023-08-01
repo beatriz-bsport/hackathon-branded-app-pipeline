@@ -47,11 +47,11 @@ const MobileShopCustomShopRedirectionDialog: React.FC<
   return (
     <Form>
       <Dialog
-        open={open}
-        onClose={onClose}
         classes={{
           paper: classes.popup,
         }}
+        onClose={onClose}
+        open={open}
       >
         <DialogTitle>
           {t('mobilePersonalization.externalShopRedirection.popup.title')}
@@ -61,10 +61,10 @@ const MobileShopCustomShopRedirectionDialog: React.FC<
           <div className={classes.container}>
             <div className={classes.innerRow}>
               <TextField
-                name="name"
                 label={t(
                   'mobilePersonalization.externalShopRedirection.popup.name',
                 )}
+                name="name"
               />
               <div className={classes.error}>
                 <AlertError name="name" />
@@ -72,34 +72,34 @@ const MobileShopCustomShopRedirectionDialog: React.FC<
             </div>
             <div className={classes.innerRow}>
               <TextField
-                name="url"
                 label={t(
                   'mobilePersonalization.externalShopRedirection.popup.link',
                 )}
+                name="url"
               />
               <AlertError name="url" />
             </div>
             <IconField
-              name="icon"
               required
               label={t(
                 'mobilePersonalization.externalShopRedirection.popup.icon',
               )}
+              name="icon"
             />
             <AlertError name="icon" />
           </div>
           <DialogActions>
-            <Button color="secondary" onClick={onClose} disabled={isSubmitting}>
+            <Button color="secondary" disabled={isSubmitting} onClick={onClose}>
               {t('mobilePersonalization.externalShopRedirection.popup.cancel')}
             </Button>
             <Button
-              variant="contained"
               color="primary"
-              type="submit"
               disabled={isSubmitting || !dirty || !isValid}
               onClick={() => {
                 handleSubmit();
               }}
+              type="submit"
+              variant="contained"
             >
               {t('mobilePersonalization.externalShopRedirection.popup.submit')}
             </Button>

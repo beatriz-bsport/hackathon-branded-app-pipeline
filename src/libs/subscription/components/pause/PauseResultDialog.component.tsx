@@ -115,7 +115,7 @@ export const GenericPauseResultDialog = (props: Props) => {
   ) {
     return (
       <GenericDialogWithIconHeader
-        open={props.openDialog}
+        footerAlign="center"
         headerAlign="center"
         headerIcon={<ValidationIcon color="#4CAF50" />}
         headerTitle={
@@ -123,11 +123,11 @@ export const GenericPauseResultDialog = (props: Props) => {
             ? t('pauseV2.contractPause.form.thirdStep.title')
             : t('pauseV2.subscriptionPause.form.successStep.title')
         }
-        footerAlign="center"
         onConfirmClick={props.closeAllDialogs}
         onConfirmText={t('pauseV2.common.actions.continue')}
+        open={props.openDialog}
       >
-        <Typography variant="body1" align="center">
+        <Typography align="center" variant="body1">
           {content}
         </Typography>
       </GenericDialogWithIconHeader>
@@ -136,18 +136,18 @@ export const GenericPauseResultDialog = (props: Props) => {
 
   return (
     <GenericDialogWithIconHeader
-      open={props.openDialog}
+      footerAlign="center"
       headerAlign="center"
       headerIcon={<ErrorIcon />}
       headerTitle={t('pauseV2.subscriptionPause.form.failureStep.title')}
-      footerAlign="center"
+      onCancelClick={props.closeAllDialogs}
+      onCancelText={t('pauseV2.common.actions.cancel')}
       onConfirmClick={props.backToPreviousDialog}
       onConfirmText={t('pauseV2.common.actions.goBack')}
       onConfirmVariant="contained"
-      onCancelClick={props.closeAllDialogs}
-      onCancelText={t('pauseV2.common.actions.cancel')}
+      open={props.openDialog}
     >
-      <Typography variant="body1" align="center">
+      <Typography align="center" variant="body1">
         {content}
       </Typography>
     </GenericDialogWithIconHeader>

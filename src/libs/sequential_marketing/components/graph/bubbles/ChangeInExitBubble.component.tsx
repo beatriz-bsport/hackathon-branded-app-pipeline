@@ -33,12 +33,12 @@ const ChangeInExitBubble: React.FC<ChangeInExitBubbleProps> = ({
 
   return (
     <CadenceBubble
-      title={t('cadence.bubble.changeInExit.title')}
-      icon="Stop"
+      minimalIcon
       color={SequentialMarketingColors.LOSE_COLOR}
+      icon="Stop"
       onCancelClick={onCancel}
       onConfirmClick={onConfirm}
-      minimalIcon
+      title={t('cadence.bubble.changeInExit.title')}
     >
       <div>
         <Typography className={classes.label}>
@@ -47,18 +47,18 @@ const ChangeInExitBubble: React.FC<ChangeInExitBubbleProps> = ({
         <RadioGroup
           aria-labelledby="demo-controlled-radio-buttons-group"
           name="controlled-radio-buttons-group"
-          value={value}
           onChange={handleChange}
+          value={value}
         >
           <FormControlLabel
-            value="won"
             control={<Radio color="primary" />}
             label={t('cadence.cadenceCard.win')}
+            value="won"
           />
           <FormControlLabel
-            value="lost"
             control={<Radio color="primary" />}
             label={t('cadence.cadenceCard.lost')}
+            value="lost"
           />
         </RadioGroup>
       </div>

@@ -162,27 +162,27 @@ export const FranchiseNotificationRule = (props: Props) => {
   return (
     <div className={classes.page}>
       <Grid container direction="row" spacing={3}>
-        <Grid item xs={12} md={6} className={classes.column}>
+        <Grid item className={classes.column} md={6} xs={12}>
           <FranchiseNotificationRuleList
             eventListWithRule={eventListWithRule}
-            notificationId={notificationId}
             navigateToNotification={handleNavigation}
+            notificationId={notificationId}
           />
         </Grid>
-        <Grid item xs={12} md={6} className={classes.column}>
+        <Grid item className={classes.column} md={6} xs={12}>
           <FranchiseNotificationRuleDetails
-            emailDesignList={emailDesignList}
             companies={companies}
-            previewEmail={previewEmail}
-            rules={rules}
-            notificationId={notificationId}
+            emailDesignList={emailDesignList}
             fetchEmailDesignDetail={fetchEmailDesignDetail}
+            handleCreate={handleCreate}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
-            handleCreate={handleCreate}
             handleFetchPreview={handleFetchPreview}
-            selectedPreviewEmail={selectedPreviewEmail}
+            notificationId={notificationId}
+            previewEmail={previewEmail}
             requiredTagsByEvent={requiredTagsByEvent}
+            rules={rules}
+            selectedPreviewEmail={selectedPreviewEmail}
           />
         </Grid>
       </Grid>

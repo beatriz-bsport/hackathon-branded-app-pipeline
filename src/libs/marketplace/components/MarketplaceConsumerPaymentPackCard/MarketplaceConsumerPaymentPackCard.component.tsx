@@ -35,7 +35,6 @@ const MarketplaceConsumerPaymentPackCard: React.FC<Props> = (props) => {
   );
   return (
     <div
-      onClick={!disabled && onClick}
       aria-hidden="true"
       className={classNames(
         'bs-marketplace-consumer-payment-pack-card__container',
@@ -46,11 +45,12 @@ const MarketplaceConsumerPaymentPackCard: React.FC<Props> = (props) => {
             disabled,
         },
       )}
+      onClick={!disabled && onClick}
     >
       <Item
         alignment={Alignment.FLEX_START}
-        justification={Justification.FLEX_START}
         columnEnd={1}
+        justification={Justification.FLEX_START}
       >
         <div
           className={classNames(
@@ -64,8 +64,8 @@ const MarketplaceConsumerPaymentPackCard: React.FC<Props> = (props) => {
           {props.consumerPaymentPack?.payment_pack?.name || ' - '}
         </div>
         <CreditStatus
-          paymentPack={props.consumerPaymentPack.payment_pack}
           consumerPack={props.consumerPaymentPack}
+          paymentPack={props.consumerPaymentPack.payment_pack}
           textColor="textSecondary"
         />
       </Item>

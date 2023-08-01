@@ -29,7 +29,7 @@ const MarketingRuleFormStateField = (props: Props) => {
           </Typography>
         </div>
         <div className={classes.choiceField}>
-          <RadioGroupField name="eventType" choices={choices} />
+          <RadioGroupField choices={choices} name="eventType" />
         </div>
       </div>
     </div>

@@ -197,14 +197,14 @@ export class MultipleSelect extends Component<Props, State> {
     return (
       <div className={classes.selector}>
         <ListItem
+          button
+          divider
           classes={{
             gutters: classes.gutters,
             button: classes.listItemButton,
             root: classes.root,
             divider: classes.divider,
           }}
-          button
-          divider
           onClick={this.handleClick}
         >
           <ListItemText
@@ -218,7 +218,11 @@ export class MultipleSelect extends Component<Props, State> {
           <ArrowDropDownIcon style={{ color: '#757575' }} />
         </ListItem>
         <Popover
-          open={this.state.open}
+          anchorEl={this.state.anchorEl}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
           onClose={() => {
             this.props.onChange(selectedItems, this.state.selectAll);
             this.setState({
@@ -227,27 +231,19 @@ export class MultipleSelect extends Component<Props, State> {
               searchedItems: this.props.items,
             });
           }}
-          anchorEl={this.state.anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-          }}
+          open={this.state.open}
+          style={{ maxHeight: '1200px' }}
           transformOrigin={{
             vertical: 'top',
             horizontal: 'left',
           }}
-          style={{ maxHeight: '1200px' }}
         >
           <div style={{ position: 'sticky', top: '0px' }}>
             <DelayedTextField
-              placeholder={this.props.textFieldPlaceholder}
-              value={this.state.searchText || ''}
-              fullWidth
-              variant="outlined"
-              onChange={this.changeSearch}
-              delay={170}
               autoFocus
+              fullWidth
               className={classes.textField}
+              delay={170}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -267,6 +263,10 @@ export class MultipleSelect extends Component<Props, State> {
                   </InputAdornment>
                 ) : null,
               }}
+              onChange={this.changeSearch}
+              placeholder={this.props.textFieldPlaceholder}
+              value={this.state.searchText || ''}
+              variant="outlined"
             />
           </div>
           {this.props.fetchItems && this.props.fetchItems.loading ? (
@@ -281,15 +281,15 @@ export class MultipleSelect extends Component<Props, State> {
               }}
             >
               <MenuItem
-                className={classes.menuItem}
                 key="all"
-                value="all"
+                className={classes.menuItem}
                 onClick={() =>
                   this.setState((prevState) => ({
                     selectAll: !prevState.selectAll,
                     selectedItems: this.props.items.map((item) => item.id),
                   }))
                 }
+                value="all"
               >
                 <Typography variant="subtitle2">
                   {t('multiSelector.selectAll')}
@@ -297,15 +297,15 @@ export class MultipleSelect extends Component<Props, State> {
                 <Checkbox checked={this.state.selectAll} />
               </MenuItem>
               <MenuItem
-                className={classes.menuItem}
                 key="nothing"
-                value="nothing"
+                className={classes.menuItem}
                 onClick={() =>
                   this.setState(() => ({
                     selectAll: false,
                     selectedItems: [],
                   }))
                 }
+                value="nothing"
               >
                 <Typography variant="subtitle2">
                   {t('multiSelector.selectNothing')}
@@ -314,10 +314,10 @@ export class MultipleSelect extends Component<Props, State> {
               {!this.props.groupItemsFunction
                 ? [...this.state.searchedItems].map((item) => (
                     <MenuItem
-                      className={classes.menuItem}
                       key={item.id}
-                      value={item.id}
+                      className={classes.menuItem}
                       onClick={() => this.handleChange(item.id)}
+                      value={item.id}
                     >
                       {this.props.renderItem
                         ? this.props.renderItem(item)
@@ -334,25 +334,25 @@ export class MultipleSelect extends Component<Props, State> {
                     .groupItemsFunction([...this.state.searchedItems])
                     .map((groupItem) => (
                       <List
+                        key={groupItem.identifier}
                         subheader={
                           <ListSubheader
-                            component="div"
                             className={classes.listSubHeader}
+                            component="div"
                           >
                             {this.props.groupItemIcon}
                             {groupItem.identifier}
                             {` (${groupItem.itemsList?.length})`}
                           </ListSubheader>
                         }
-                        key={groupItem.identifier}
                       >
                         {groupItem.itemsList.map((item) => (
                           <>
                             <MenuItem
-                              className={classes.menuItem}
                               key={item.id}
-                              value={item.id}
+                              className={classes.menuItem}
                               onClick={() => this.handleChange(item.id)}
+                              value={item.id}
                             >
                               {this.props.renderItem
                                 ? this.props.renderItem(item)

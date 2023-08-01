@@ -162,28 +162,28 @@ export class FranchiseCompanyList extends Component<Props, State> {
       <div className={classes.root}>
         <div className={classes.left}>
           <FranchiseCompanySearchList
-            selectedCompanyId={companyId}
             asManager
             companies={companies}
             companyGroupList={this.props.companyGroupList}
-            handleCompanySelected={this.handleCompanySelected}
             createOrUpdateCompanyGroup={this.createOrUpdateCompanyGroup}
-            restrictedFranchisees={!!this.props.allowedFranchisees?.length}
+            handleCompanySelected={this.handleCompanySelected}
             isRedirectLoading={this.state.isRedirectLoading}
+            restrictedFranchisees={!!this.props.allowedFranchisees?.length}
+            selectedCompanyId={companyId}
           />
         </div>
         <div className={classes.right}>
           <FranchiseCompanyDetails
             companyId={companyId}
             companyName={companiesById?.[companyId]?.name}
+            establishmentsByLocation={establishmentsByLocation}
+            goToCompany={this.goToCompany(companyId)}
+            goToUser={this.goToUser(companyId)}
+            handleChangePage={this.handleChangePage}
+            isRedirectLoading={this.state.isRedirectLoading}
             memberCounts={membersCount}
             members={members}
-            establishmentsByLocation={establishmentsByLocation}
             page={this.state.page}
-            handleChangePage={this.handleChangePage}
-            goToCompany={this.goToCompany(companyId)}
-            isRedirectLoading={this.state.isRedirectLoading}
-            goToUser={this.goToUser(companyId)}
           />
         </div>
       </div>

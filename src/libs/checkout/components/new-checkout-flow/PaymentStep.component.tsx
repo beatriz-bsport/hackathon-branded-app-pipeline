@@ -141,6 +141,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       <>
         {isOnlinePaymentAvailable && (
           <PaymentStripe
+            ref={paymentStripeRef}
             allowConsumerToUseInternalAccount={
               allowConsumerToUseInternalAccount
             }
@@ -165,7 +166,6 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
             paymentGroupId={paymentGroupId}
             paymentMethodChoices={paymentMethodChoices}
             paymentProcessing={paymentProcessing}
-            ref={paymentStripeRef}
             sepaDefaultEmail={sepaDefaultEmail}
             sepaDefaultName={sepaDefaultName}
             setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}

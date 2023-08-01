@@ -65,9 +65,9 @@ const PrivatePassDetailsList: React.FC<Props> = React.memo(
               })}
             </span>
             <button
-              type="button"
-              onClick={onShowCompatibilityDialog}
               className="bs-pass-details-dialog__list__item__link"
+              onClick={onShowCompatibilityDialog}
+              type="button"
             >
               {t('genericCardDetails.includedElements.see')}
             </button>

@@ -22,18 +22,18 @@ export const ProvisionForm = (props: Props) => (
     <DialogContent>
       <div style={{ marginTop: 16, marginBottom: 16 }}>
         <NumericInput
-          label={props.t('provision.form.quantityLabel')}
-          variant="outlined"
           helperText={props.t('provision.form.quantityHelperText')}
+          label={props.t('provision.form.quantityLabel')}
           onChange={(ev: SyntheticEvent<HTMLElement>) =>
             props.setQuantity(parseInt(ev.target.value, 10))
           }
           value={props.quantity}
+          variant="outlined"
         />
       </div>
     </DialogContent>
     <DialogActions>
-      <Button onClick={props.onCancel} color="secondary">
+      <Button color="secondary" onClick={props.onCancel}>
         {props.t('provision.form.cancel')}
       </Button>
       <Button

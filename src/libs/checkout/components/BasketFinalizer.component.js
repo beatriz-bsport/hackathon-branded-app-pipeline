@@ -107,6 +107,7 @@ export class BasketFinalizer extends React.Component<Props, State> {
         ) {
           return (
             <Button
+              color="primary"
               disabled={this.props.selfProcessing}
               onClick={async () => {
                 this.props.setProcessing(true);
@@ -141,14 +142,13 @@ export class BasketFinalizer extends React.Component<Props, State> {
                 });
               }}
               variant="contained"
-              color="primary"
             >
               {this.props.t('myBasket.actions.payZero')}
               {this.props.selfProcessing && (
                 <CircularProgress
                   className={this.props.classes.circularProgress}
-                  size={24}
                   color="inherit"
+                  size={24}
                 />
               )}
             </Button>
@@ -191,6 +191,7 @@ export class BasketFinalizer extends React.Component<Props, State> {
                 )}
 
                 <Button
+                  color="primary"
                   disabled={
                     this.props.selfProcessing ||
                     !this.props.termsAndConditionsAccepted
@@ -227,15 +228,14 @@ export class BasketFinalizer extends React.Component<Props, State> {
                     });
                   }}
                   variant="outlined"
-                  color="primary"
                 >
                   <UpdateIcon className={this.props.classes.iconLeft} />
                   {this.props.t('payLater.submit')}
                   {this.props.selfProcessing && (
                     <CircularProgress
                       className={this.props.classes.circularProgress}
-                      size={24}
                       color="inherit"
+                      size={24}
                     />
                   )}
                 </Button>
@@ -311,7 +311,7 @@ export class BasketFinalizer extends React.Component<Props, State> {
           />
         </div>
         {this.state.steps.length > 1 ? (
-          <Stepper activeStep={this.state.currentStep} alternativeLabel>
+          <Stepper alternativeLabel activeStep={this.state.currentStep}>
             {this.state.steps.map((step) => (
               <Step key={step.id}>
                 <StepLabel>

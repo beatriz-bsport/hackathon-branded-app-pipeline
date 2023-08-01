@@ -15,12 +15,12 @@ const FranchisePaymentPackTemplateRouter = () => {
   return (
     <Switch>
       <Route
-        path="/f/payment-pack-template/:paymentPackTemplateId"
         component={FranchisePaymentPackTemplateDetailPage}
+        path="/f/payment-pack-template/:paymentPackTemplateId"
       />
       <Route
-        path="/f/payment-pack-template"
         component={FranchisePaymentPackTemplateListPage}
+        path="/f/payment-pack-template"
       />
     </Switch>
   );

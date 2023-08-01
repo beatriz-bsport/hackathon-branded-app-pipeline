@@ -33,12 +33,12 @@ export const StopDialog = (props: Props) => (
       {props.t('action.stopExplain')}
       <div className={props.classes.row}>
         <Checkbox
-          value={props.also_revert_current}
           onChange={(ev) => props.set_also_revert_current(ev.target.checked)}
+          value={props.also_revert_current}
         />
         <div>
           <Typography>{props.t('action.revertCurrentExplain')}</Typography>
-          <Typography variant="caption" color="textSecondary">
+          <Typography color="textSecondary" variant="caption">
             {props.t('action.revertCurrentExplainHelper')}
           </Typography>
         </div>
@@ -47,8 +47,8 @@ export const StopDialog = (props: Props) => (
     <DialogActions>
       <Button
         color="secondary"
-        onClick={props.onCancel}
         disabled={props.submitting}
+        onClick={props.onCancel}
       >
         {props.t('form.cancel')}
       </Button>

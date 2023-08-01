@@ -23,23 +23,23 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   return (
     <>
       <EntryStepCard
+        addMarketingAction={data.addMarketingAction}
+        addNextStep={data.addNextStep}
+        disabled={data.disabled}
+        getEmailTemplate={data.getEmailTemplate}
+        getTag={data.getTag}
+        isSelected={data.isSelected}
+        marketingActionList={data.marketingActionList}
+        onCardClick={data.onCardClick}
         step={data.step}
         triggerList={data.triggerList}
-        marketingActionList={data.marketingActionList}
-        isSelected={data.isSelected}
-        disabled={data.disabled}
-        onCardClick={data.onCardClick}
-        addNextStep={data.addNextStep}
-        addMarketingAction={data.addMarketingAction}
-        getTag={data.getTag}
-        getEmailTemplate={data.getEmailTemplate}
       />
       <Handle
-        type={HandleTypeChoices.SOURCE}
+        isConnectable
+        onConnect={handleConnect}
         position={Position.Right}
         style={RIGHT_HANDLE_STYLE}
-        onConnect={handleConnect}
-        isConnectable
+        type={HandleTypeChoices.SOURCE}
       />
     </>
   );

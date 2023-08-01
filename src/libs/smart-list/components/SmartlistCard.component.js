@@ -30,7 +30,7 @@ export const SmartlistCard = (props: Props) => {
     <div>
       <div className={props.classes.paper}>
         <div className={props.classes.row}>
-          <Typography variant="h5" className={props.classes.title}>
+          <Typography className={props.classes.title} variant="h5">
             {props.smartlist.name}
           </Typography>
           <IconButton color="primary" onClick={props.onEdit}>
@@ -38,10 +38,10 @@ export const SmartlistCard = (props: Props) => {
           </IconButton>
         </div>
         <Divider className={props.classes.divider} />
-        <Typography variant="subtitle2" className={props.classes.title}>
+        <Typography className={props.classes.title} variant="subtitle2">
           {props.t('smart_list.description.label')}
         </Typography>
-        <Typography color="textSecondary" className={props.classes.description}>
+        <Typography className={props.classes.description} color="textSecondary">
           {props.smartlist.description ||
             props.t('smart_list.description.isEmpty')}
         </Typography>
@@ -49,10 +49,10 @@ export const SmartlistCard = (props: Props) => {
       <div className={props.classes.configureButtonContainer}>
         {!!props.onClickConfigure && (
           <Button
-            variant="contained"
-            color="primary"
             className={props.classes.button}
+            color="primary"
             onClick={() => props.onClickConfigure(props.smartlist.id)}
+            variant="contained"
           >
             <ArrowForwardIcon className={props.classes.leftIcon} />
             {props.t('smart_list.actions.configure')}
@@ -60,10 +60,10 @@ export const SmartlistCard = (props: Props) => {
         )}
         {!!props.onClickCampaign && (
           <Button
-            variant="contained"
-            color="secondary"
             className={props.classes.button}
+            color="secondary"
             onClick={() => props.onClickCampaign(props.smartlist.id)}
+            variant="contained"
           >
             <MailIcon className={props.classes.leftIcon} />
             {props.t('smart_list.actions.campaign')}

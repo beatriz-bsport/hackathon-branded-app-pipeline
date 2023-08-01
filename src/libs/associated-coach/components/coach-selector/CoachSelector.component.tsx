@@ -120,17 +120,20 @@ export const CoachSelector: React.FC<Props> = ({
   return (
     <>
       <Select
-        id={id}
-        shouldSetMinHeight={shouldSetMinHeight}
+        className={selectorClass}
         closeMenuOnSelect={closeMenuOnSelect}
-        isMulti={!noMulti}
-        placeholder={placeholder || t('coach')}
-        options={getCoachOptions([...coaches], associatedCoachOutput, true)}
-        onChange={selectOption}
-        isDisabled={isDisabled}
-        styles={{ ...coachStyles, ...controlStyle(isError) }}
+        id={id}
         isClearable={isClearable}
+        isDisabled={isDisabled}
+        isLoading={isLoading}
+        isMulti={!noMulti}
         menuPortalTarget={document.querySelector('body')}
+        onBlur={onBlur}
+        onChange={selectOption}
+        options={getCoachOptions([...coaches], associatedCoachOutput, true)}
+        placeholder={placeholder || t('coach')}
+        shouldSetMinHeight={shouldSetMinHeight}
+        styles={{ ...coachStyles, ...controlStyle(isError) }}
         value={
           selectedCoaches
             ? getCoachOptions(
@@ -139,13 +142,10 @@ export const CoachSelector: React.FC<Props> = ({
               )
             : undefined
         }
-        isLoading={isLoading}
-        className={selectorClass}
-        onBlur={onBlur}
       />
 
       {error && (
-        <Typography variant="caption" color="error">
+        <Typography color="error" variant="caption">
           {error}
         </Typography>
       )}

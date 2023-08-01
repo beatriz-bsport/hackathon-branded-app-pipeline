@@ -23,19 +23,19 @@ export const MissingResourceForBookingHelper = (props: Props) => {
     <div>
       {missingResources.includes('address') ? (
         <TextField
-          required
-          variant="outlined"
-          value={address || ''}
           fullWidth
-          className={classes.addressField}
           multiline
-          onChange={(ev) => props.updateData({ address: ev.target.value })}
+          required
+          className={classes.addressField}
           label={t('bookerModule.address.label')}
+          onChange={(ev) => props.updateData({ address: ev.target.value })}
+          value={address || ''}
+          variant="outlined"
         />
       ) : null}
       {missingResources.includes('establishment') ? (
         <div className={classes.missingResourceContainer}>
-          <LocationOnIcon color="error" className={classes.leftIcon} />
+          <LocationOnIcon className={classes.leftIcon} color="error" />
           <Typography>
             {t('bookerModule.missingResource.establishment')}
           </Typography>
@@ -43,14 +43,14 @@ export const MissingResourceForBookingHelper = (props: Props) => {
       ) : null}
       {missingResources.includes('coach') ? (
         <div className={classes.missingResourceContainer}>
-          <PeopleIcon color="error" className={classes.leftIcon} />
+          <PeopleIcon className={classes.leftIcon} color="error" />
           <Typography>{t('bookerModule.missingResource.coach')}</Typography>
         </div>
       ) : null}
       {missingResources.includes('private_service') ||
       missingResources.includes('private_slot') ? (
         <div className={classes.missingResourceContainer}>
-          <InfoOutlineIcon color="error" className={classes.leftIcon} />
+          <InfoOutlineIcon className={classes.leftIcon} color="error" />
           <Typography variant="body2">
             {t('bookerModule.missingResource.service')}
           </Typography>

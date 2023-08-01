@@ -40,7 +40,7 @@ export const ConsumerPaymentPackExtensionListItem = (props: Props) => {
   return (
     <ListItem divider={!!props.divider}>
       <ListItemIcon>
-        <Typography variant="subtitle1" color="primary">
+        <Typography color="primary" variant="subtitle1">
           {t('extension.nbDaysAdded', {
             nb_days: extension.nb_days,
           })}

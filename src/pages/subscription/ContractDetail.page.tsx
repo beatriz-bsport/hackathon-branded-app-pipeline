@@ -222,78 +222,78 @@ export class ContractDetailPage extends Component<Props> {
     const { classes, t } = this.props;
     return (
       <div className={classes.pageContainer}>
-        <Grid container spacing={3} alignItems="stretch">
-          <Grid item xs={12} md={6} className={classes.detailContainer}>
+        <Grid container alignItems="stretch" spacing={3}>
+          <Grid item className={classes.detailContainer} md={6} xs={12}>
             <ContractDetail
+              company={this.getCompany(this.props.theme)}
+              contract={this.props.contract}
+              goToCombo={this.props.goToCombo}
               goToPack={this.props.goToPaymentPackDetail}
               goToPrivatePass={this.props.goToPrivatePass}
-              goToCombo={this.props.goToCombo}
-              contract={this.props.contract}
-              company={this.getCompany(this.props.theme)}
               snackbarSuccess={this.props.snackbarSuccess}
             />
             <MarketingRuleListItemContract
-              notifications={this.props.notifications}
-              updateNotification={this.props.updateMarketingNotification}
               deleteNotification={this.props.deleteMarketingNotification}
               deleteNotificationModalOpen={
                 this.props.deleteNotificationModalOpen
               }
-              setDeleteNotificationModalOpen={
-                this.props.setDeleteNotificationModalOpen
-              }
+              emails={this.props.email_templates_list}
+              notifications={this.props.notifications}
               selectedNotification={this.props.selectedNotification}
-              setSelectedNotification={this.props.setSelectedNotification}
               setContractNotificationFormOpen={
                 this.props.setContractNotificationFormOpen
               }
-              emails={this.props.email_templates_list}
+              setDeleteNotificationModalOpen={
+                this.props.setDeleteNotificationModalOpen
+              }
+              setSelectedNotification={this.props.setSelectedNotification}
               smartLists={this.props.smartLists}
+              updateNotification={this.props.updateMarketingNotification}
             />
 
             <div className={classes.notificationButtonContainer}>
               <Button
+                color="primary"
                 onClick={this.openContractNotificationForm}
                 variant="outlined"
-                color="primary"
               >
                 {t('addNotification')}
               </Button>
             </div>
             {this.props.contractNotificationFormOpen && (
               <MarketingRuleFormContract
-                id={this.props.contractId}
-                onCancel={this.props.closeForm}
-                emails={this.props.email_templates_list}
-                emailListLoading={this.props.emailListLoading}
-                getEmailDetail={this.props.fetchEmailTemplateDetail}
-                emailDetails={this.props.email_templates_details}
-                getEmails={this.props.fetchEmailTemplatesSummaries}
                 emailDetailLoading={this.props.emailDetailLoading}
-                initial={this.props.selectedNotification}
-                tags={getMergeTags(this.props.tagCategories, t)}
-                resolvedGenericTags={this.props.resolvedGenericTags}
-                onSubmit={this.props.submitNotificationForm}
-                goToSmartlist={this.props.goToSmartlist}
+                emailDetails={this.props.email_templates_details}
+                emailListLoading={this.props.emailListLoading}
+                emails={this.props.email_templates_list}
+                getEmailDetail={this.props.fetchEmailTemplateDetail}
+                getEmails={this.props.fetchEmailTemplatesSummaries}
                 getSmartLists={this.props.getSmartLists}
-                smartLists={this.props.smartLists}
+                goToSmartlist={this.props.goToSmartlist}
+                id={this.props.contractId}
+                initial={this.props.selectedNotification}
+                onCancel={this.props.closeForm}
+                onSubmit={this.props.submitNotificationForm}
+                resolvedGenericTags={this.props.resolvedGenericTags}
                 smartListLoading={this.props.smartListLoading}
+                smartLists={this.props.smartLists}
+                tags={getMergeTags(this.props.tagCategories, t)}
               />
             )}
           </Grid>
-          <Grid item xs={12} md={6}>
-            <Typography variant="h6" className={classes.title}>
+          <Grid item md={6} xs={12}>
+            <Typography className={classes.title} variant="h6">
               {t('associatedSubscriptions')}
             </Typography>
             <Paper>
               <PaginatedSubscriptionList
+                itemPerPage={SUBSCRIPTION_PAGINATION_SIZE}
                 items={this.props.subscriptions.items}
+                loading={this.props.subscriptions.loading}
                 nbItems={this.props.subscriptions.count}
                 onClick={this.props.goToSubscription}
-                loading={this.props.subscriptions.loading}
-                page={this.props.page}
-                itemPerPage={SUBSCRIPTION_PAGINATION_SIZE}
                 onPageRequested={this.onSubscriptionListPageRequested}
+                page={this.props.page}
               />
             </Paper>
             {this.props.contractPauseLoading ? (
@@ -311,12 +311,12 @@ export class ContractDetailPage extends Component<Props> {
                   (cp: ContractPauseDetails) => (
                     <div key={cp.id} className={classes.pauseItemContainer}>
                       <ContractPauseListItemDetail
-                        fetchSubscriptionBulk={this.props.fetchSubscriptionBulk}
+                        contractPause={cp}
                         fetchMembersBySubscription={
                           this.props.fetchMembersBySubscription
                         }
+                        fetchSubscriptionBulk={this.props.fetchSubscriptionBulk}
                         goToSubscription={this.props.goToSubscription}
-                        contractPause={cp}
                         onDeletePause={this.deleteContractPauseFunction(cp)}
                         onUpdatePause={this.updateContractPauseFunction(cp)}
                         onUpdatePauseName={this.props.updateContractPauseName}
@@ -328,41 +328,41 @@ export class ContractDetailPage extends Component<Props> {
             )}
             {this.props.contractPauseFormOpen && (
               <ContractPauseFormDialog
-                openForm={this.props.contractPauseFormOpen}
                 closeForm={this.closeContractPauseForm}
                 contractId={this.props.contractId}
+                contractPauseBeingEdited={this.props.contractPauseToUpdate}
                 fetchMembersBySubscription={
                   this.props.fetchMembersBySubscription
                 }
                 fetchSubscriptionBulk={this.props.fetchSubscriptionBulk}
                 onSubmit={this.props.createOrUpdateContractPause}
+                openForm={this.props.contractPauseFormOpen}
                 subscriptionData={this.props.subscriptionData}
-                contractPauseBeingEdited={this.props.contractPauseToUpdate}
               />
             )}
           </Grid>
           <BottomActionsButtonCustom
             buttonsProperties={this.getBottomActionsProperties(t)}
-            onEdit={this.onContractEdit}
             onDelete={this.openDeleteContractModal}
+            onEdit={this.onContractEdit}
           />
           <ContractDeleteDialog
             contractToDeleteId={
               this.props.deleteContractModalOpen ? this.props.contract.id : null
             }
-            onClose={this.closeDeleteContractModal}
             deleteContract={this.deleteContract}
+            onClose={this.closeDeleteContractModal}
           />
         </Grid>
 
         <SubscriptionContractFormDrawer
-          onClose={this.closeContractFormDrawer}
           initial={this.props.contract}
+          onClose={this.closeContractFormDrawer}
+          onSubmit={this.submitContractForm}
+          open={!!this.props.contractToEdit}
+          paymentComboList={this.props.paymentComboList}
           paymentPackList={this.props.paymentPackList}
           privatePassList={this.props.privatePassList}
-          paymentComboList={this.props.paymentComboList}
-          open={!!this.props.contractToEdit}
-          onSubmit={this.submitContractForm}
         />
       </div>
     );

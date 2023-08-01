@@ -90,25 +90,25 @@ export const DisciplineGroupFormDrawer: React.FC<Props> = ({
 
   return (
     <GenericResponsiveDrawer
-      open={open}
       onClose={() => {
         handleClose();
         trackFormCancel(initial?.id);
       }}
+      open={open}
       title={t('disciplineGroup.title')}
     >
       {open && (
         <DisciplineGroupForm
-          initial={initial}
-          onSubmit={onSubmit}
-          handleClose={handleClose}
           activityList={activityList}
-          workshopList={workshopList}
           categoryList={categoryList}
           coachList={coachList}
-          establishmentList={establishmentList}
-          establishmentGroupList={establishmentGroupList}
           companyTheme={companyTheme}
+          establishmentGroupList={establishmentGroupList}
+          establishmentList={establishmentList}
+          handleClose={handleClose}
+          initial={initial}
+          onSubmit={onSubmit}
+          workshopList={workshopList}
         />
       )}
     </GenericResponsiveDrawer>

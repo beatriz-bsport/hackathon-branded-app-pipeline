@@ -82,12 +82,12 @@ const ReportColumnSelector: React.FC<Props> = ({
           return (
             <Chip
               key={identifier}
-              label={t(`columns.${identifier}`)}
-              color={color}
-              className={classes.chip}
-              onDelete={onDelete}
-              onClick={onClick}
               clickable
+              className={classes.chip}
+              color={color}
+              label={t(`columns.${identifier}`)}
+              onClick={onClick}
+              onDelete={onDelete}
             />
           );
         })}

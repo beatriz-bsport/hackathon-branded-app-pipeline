@@ -90,17 +90,17 @@ export const PlannedInvoiceItem = (props: {
   return (
     <>
       <ListItem
+        divider
         button={!!props.onClick}
+        className={props.selected ? classes.selectedBorder : null}
         onClick={props.onClick}
         selected={props.selected}
-        className={props.selected ? classes.selectedBorder : null}
-        divider
       >
         {props.showUpdatePriceButton ? (
           <ListItemIcon>
             <IconButton
-              disabled={!props.requestUpdatePrice}
               color="primary"
+              disabled={!props.requestUpdatePrice}
               onClick={(ev) => {
                 ev.stopPropagation();
                 props.requestUpdatePrice();
@@ -122,8 +122,8 @@ export const PlannedInvoiceItem = (props: {
               ? `${getCurrencyDisplayWithPrice(props.invoice.price)}`
               : ' - '
           }
-          secondary={statusText}
           primaryTypographyProps={{ align: 'right' }}
+          secondary={statusText}
           secondaryTypographyProps={{ align: 'right' }}
           style={{ marginRight: 8 }}
         />
@@ -162,14 +162,18 @@ type Props = {
 export function SubscriptionSchedule(props: Props) {
   return (
     <PaginatedList
-      listProps={{ dense: true, disablePadding: true }}
       itemPerPage={6}
       items={props.scheduledInvoices}
+      listProps={{ dense: true, disablePadding: true }}
       renderItem={(si: PlannedInvoice, idx: number, page: number) => (
         <PlannedInvoiceItem
+          key={idx}
           invoice={si}
-          t={props.t}
-          showUpdatePriceButton={!!props.requestUpdatePrice}
+          onClick={
+            props.onPlannedInvoiceClick
+              ? () => props.onPlannedInvoiceClick(si.uuid)
+              : null
+          }
           requestUpdatePrice={
             props.requestUpdatePrice &&
             idx + (page - 1) > 0 &&
@@ -178,13 +182,9 @@ export function SubscriptionSchedule(props: Props) {
               ? () => props.requestUpdatePrice(si)
               : null
           }
-          key={idx}
-          onClick={
-            props.onPlannedInvoiceClick
-              ? () => props.onPlannedInvoiceClick(si.uuid)
-              : null
-          }
+          showUpdatePriceButton={!!props.requestUpdatePrice}
           subscriptionHasEnded={props.subscriptionHasEnded}
+          t={props.t}
         />
       )}
     />

@@ -53,17 +53,16 @@ export function CompatiblePaymentPacks(props: Props) {
     <div>
       <List className={props.classes.list}>
         <div className={props.classes.typographyContainer}>
-          <Typography variant="body1" className={props.classes.helperText}>
+          <Typography className={props.classes.helperText} variant="body1">
             {props.t('forms.create.compatible_packs.passHelperText')}
           </Typography>
         </div>
         <PaginatedListBase
-          listProps={{ disablePadding: 'true', dense: 'true' }}
-          items={props.paymentPacks.items}
-          nbItems={props.paymentPacks.count}
-          loading={props.paymentPacks.loading}
-          page={props.paymentPacks.page}
           itemPerPage={PAGE_SIZE}
+          items={props.paymentPacks.items}
+          listProps={{ disablePadding: 'true', dense: 'true' }}
+          loading={props.paymentPacks.loading}
+          nbItems={props.paymentPacks.count}
           onPageRequested={(page: number, pageSize: number) =>
             props.fetchPaymentPacksAsConsumer(
               props.metaActivity.id,
@@ -71,12 +70,13 @@ export function CompatiblePaymentPacks(props: Props) {
               pageSize,
             )
           }
+          page={props.paymentPacks.page}
           renderEmpty={() => (
             <div>
               <Typography
                 className={props.classes.emptyContainer}
-                variant="caption"
                 color="textSecondary"
+                variant="caption"
               >
                 {props.t('forms.create.compatible_packs.noCompatiblePass')}
               </Typography>
@@ -85,11 +85,11 @@ export function CompatiblePaymentPacks(props: Props) {
           )}
           renderItem={(pack) => (
             <PaymentPackListItem
-              hidePacksNumber
               key={pack.id}
-              pack={pack}
               divider
+              hidePacksNumber
               onClick={() => window.open(`/payment-pack/${pack.id}`)}
+              pack={pack}
             />
           )}
         />
@@ -101,24 +101,24 @@ export function CompatiblePaymentPacks(props: Props) {
           </Button>
         </CheckPermissionComponent>
         <Button
-          id="button_activity_display"
-          variant="contained"
-          color="primary"
           className={props.classes.button}
+          color="primary"
+          id="button_activity_display"
           onClick={() => props.goToMetaActivity(props.metaActivity.id)}
+          variant="contained"
         >
           {props.t('forms.create.compatible_packs.goToActivity')}
         </Button>
       </div>
       <PaymentPackFormDrawer
-        open={openPaymentPackForm}
-        categoryList={props.categoryList}
         availableEstablishmentList={props.availableEstablishmentList}
-        metaActivityList={props.metaActivityList}
-        tagList={props.tagList}
-        paymentPackCategories={props.paymentPackCategories}
+        categoryList={props.categoryList}
         closeForm={closeDrawer}
+        metaActivityList={props.metaActivityList}
         onSubmit={props.onSubmit}
+        open={openPaymentPackForm}
+        paymentPackCategories={props.paymentPackCategories}
+        tagList={props.tagList}
       />
     </div>
   );

@@ -105,9 +105,9 @@ const MarketplaceBuilder = (props: Props) => {
       </div>
       <Container useDragHandle onSortEnd={onSortEnd}>
         {config.map((tab: any, i: number) => (
-          <SortableItem index={i} key={i}>
+          <SortableItem key={i} index={i}>
             <Paper className={classes.paperItem}>
-              <ListItem divider alignItems="center" dense>
+              <ListItem dense divider alignItems="center">
                 <DragHandle />
 
                 <ListItemText
@@ -154,9 +154,9 @@ const MarketplaceBuilder = (props: Props) => {
       <div className={classes.saveContainer}>
         <Button
           color="primary"
+          disabled={isEqual(config, settings.config)}
           onClick={props.onSaveConfig}
           variant="contained"
-          disabled={isEqual(config, settings.config)}
         >
           <SaveIcon className={classes.addIcon} />
           {t('marketplaceSettings.saveButton')}

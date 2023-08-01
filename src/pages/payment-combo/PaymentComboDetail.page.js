@@ -119,17 +119,6 @@ export class PaymentComboDetail extends React.Component<Props> {
           <LinearProgress />
         ) : null}
         <PaymentComboDetailComponent
-          paymentCombo={this.props.paymentCombo}
-          paymentComboPurchaseList={this.props.paymentComboPurchaseList}
-          paymentComboPurchaseCount={this.props.paymentComboPurchaseCount}
-          paymentComboPurchaseLoading={this.props.paymentComboPurchaseLoading}
-          onPaymentPackClick={this.props.onPaymentPackClick}
-          onPrivatePassClick={this.props.onPrivatePassClick}
-          onShopItemClick={this.props.onShopItemClick}
-          goToInvoiceUsingPaymentComboPurchaseId={
-            this.goToInvoiceUsingPaymentComboPurchaseId
-          }
-          snackbarSuccess={this.props.snackbarSuccess}
           fetchPaymentComboPurchaseList={(page, options) =>
             this.props.fetchPaymentComboPurchaseList(
               {
@@ -139,26 +128,35 @@ export class PaymentComboDetail extends React.Component<Props> {
               options,
             )
           }
+          goToInvoiceUsingPaymentComboPurchaseId={
+            this.goToInvoiceUsingPaymentComboPurchaseId
+          }
+          onPaymentPackClick={this.props.onPaymentPackClick}
+          onPrivatePassClick={this.props.onPrivatePassClick}
+          onShopItemClick={this.props.onShopItemClick}
+          paymentCombo={this.props.paymentCombo}
+          paymentComboPurchaseCount={this.props.paymentComboPurchaseCount}
+          paymentComboPurchaseList={this.props.paymentComboPurchaseList}
+          paymentComboPurchaseLoading={this.props.paymentComboPurchaseLoading}
+          snackbarSuccess={this.props.snackbarSuccess}
         />
         <BottomActionsButton
+          onDelete={() => this.props.setDeleteIsOpen(true)}
           onEdit={
             this.props.paymentCombo
               ? () => this.props.setEditIsOpen(true)
               : null
           }
-          onDelete={() => this.props.setDeleteIsOpen(true)}
         />
         <PaymentComboDeleteDialog
-          open={this.props.deleteIsOpen}
-          onSubmit={this.deletePaymentCombo}
           onClose={() => this.props.setDeleteIsOpen(false)}
+          onSubmit={this.deletePaymentCombo}
+          open={this.props.deleteIsOpen}
         />
         {this.props.paymentCombo ? (
           <PaymentComboFormDrawerContainer
-            provincialTax={this.props.theme?.provincial_tax_value}
-            initial={this.props.paymentCombo}
-            open={this.props.editIsOpen}
             handleClose={() => this.props.setEditIsOpen(false)}
+            initial={this.props.paymentCombo}
             onSubmit={(values, options) =>
               this.props.updatePaymentCombo(values, {
                 onSuccess: (...args) => {
@@ -170,6 +168,8 @@ export class PaymentComboDetail extends React.Component<Props> {
                 },
               })
             }
+            open={this.props.editIsOpen}
+            provincialTax={this.props.theme?.provincial_tax_value}
           />
         ) : null}
       </div>

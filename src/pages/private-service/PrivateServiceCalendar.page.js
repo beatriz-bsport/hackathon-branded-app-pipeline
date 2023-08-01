@@ -259,50 +259,49 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
       <div className={classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
         <PrivateCalendarWithControls
-          enableResourceAvailabilitySlot={this.enableResourceAvailabilitySlot}
-          disableResourceAvailabilitySlot={this.disableResourceAvailabilitySlot}
+          showCustomEventsToogle
           availabilitySlots={this.props.availabilitySlots}
-          privateBookings={this.props.privateBookingList}
-          resourceAvailable={this.props.resourceData}
-          resourceSelectedListIds={this.props.resourceFiltersArray}
-          timezone={this.props.companyTheme.timezone_name}
-          resourceDataLoading={this.props.resourceDataLoading}
           availabilitySlotUpdating={this.props.availabilitySlotUpdating}
+          companyTheme={this.props.companyTheme}
+          createCustomEvent={this.props.onRequestCustomEvent}
+          customEventList={this.props.customEventList}
+          disableResourceAvailabilitySlot={this.disableResourceAvailabilitySlot}
+          enableResourceAvailabilitySlot={this.enableResourceAvailabilitySlot}
+          establishments={this.props.establishments}
+          fetchAvailabilitySlots={this.fetchAvailabilitySlotsAllResource}
           goToMember={this.props.goToMember}
           onDateChange={this.props.handleDateChange}
-          setResourceFiltered={this.props.setResourceFiltersArray}
           onEditResourceConfiguration={this.props.setResourceToEdit}
-          fetchAvailabilitySlots={this.fetchAvailabilitySlotsAllResource}
-          customEventList={this.props.customEventList}
-          createCustomEvent={this.props.onRequestCustomEvent}
-          showCustomEventsToogle
-          companyTheme={this.props.companyTheme}
+          privateBookings={this.props.privateBookingList}
+          resourceAvailable={this.props.resourceData}
+          resourceDataLoading={this.props.resourceDataLoading}
+          resourceSelectedListIds={this.props.resourceFiltersArray}
           scheduleFilter={this.props.scheduleFilter}
+          setResourceFiltered={this.props.setResourceFiltersArray}
           setScheduleFilter={this.setScheduleFilter}
-          establishments={this.props.establishments}
+          timezone={this.props.companyTheme.timezone_name}
         />
         {this.props.customEventData && (
           <CustomEvenFormDialog
-            coaches={this.props.service.coaches}
-            onSubmit={this.props.createOrUpdateCustomEvent}
-            onClose={this.props.closeCustomEventDialog}
             open
+            coaches={this.props.service.coaches}
+            onClose={this.props.closeCustomEventDialog}
+            onSubmit={this.props.createOrUpdateCustomEvent}
           />
         )}
         {this.state.updateAvailabilitySlotData ? (
           <AvailabilityUpdateResourceChoserDialog
-            resourceAvailable={this.props.resourceData}
-            onSubmit={this.submitAvailabilitySlotUpdate}
-            onClose={this.onCancelAvailabilityUpdate}
-            open={!!this.state.updateAvailabilitySlotData}
             establishments={this.props.establishments}
             kind={this.state.updateAvailabilitySlotData.kind}
+            onClose={this.onCancelAvailabilityUpdate}
+            onSubmit={this.submitAvailabilitySlotUpdate}
+            open={!!this.state.updateAvailabilitySlotData}
+            resourceAvailable={this.props.resourceData}
           />
         ) : null}
         {this.props.resourceToEdit ? (
           <ResourceConfigurationDialog
-            open={!!this.props.resourceToEdit}
-            resourceData={this.props.resourceToEdit}
+            goToResourceCalendar={this.props.goToResourceCalendar}
             onClose={() => this.props.setResourceToEdit(null)}
             onSubmit={(resourceIdentifier, data, options) =>
               this.props.onEditResourceConfiguration(
@@ -312,7 +311,8 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
                 options,
               )
             }
-            goToResourceCalendar={this.props.goToResourceCalendar}
+            open={!!this.props.resourceToEdit}
+            resourceData={this.props.resourceToEdit}
           />
         ) : null}
       </div>

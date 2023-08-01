@@ -31,8 +31,8 @@ export const SimpleEmailChangeContent = (
         })}
       />
       <EmailDetailContent
-        old_email={request?.old_email}
         new_email={request?.new_email}
+        old_email={request?.old_email}
       />
       <SpacedText
         text={t(
@@ -45,10 +45,10 @@ export const SimpleEmailChangeContent = (
         )}
       />
       <ContentActions
-        onConfirm={onConfirm}
-        onDenied={onDenied}
         confirmText={t('changeEmailRequest.memberPage.actions.confirm')}
         denyText={t('changeEmailRequest.memberPage.actions.cancel')}
+        onConfirm={onConfirm}
+        onDenied={onDenied}
       />
     </>
   );

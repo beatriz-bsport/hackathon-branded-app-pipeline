@@ -204,19 +204,19 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
       {settings && settings.config && config && !loading && (
         <>
           <MarketplaceBuilder
-            theme={theme}
             config={config}
-            settings={settings}
-            setConfig={setConfig}
-            onEditTab={onEditTab}
             onDeleteTab={onDeleteTab}
+            onEditTab={onEditTab}
+            onSaveConfig={onSaveConfig}
+            setConfig={setConfig}
             setCurrentTab={setCurrentTab}
             setOpenWidgetDialog={setOpenWidgetDialog}
-            onSaveConfig={onSaveConfig}
+            settings={settings}
+            theme={theme}
           />
           <MarketplaceTabPreview
-            theme={theme}
             settings={{ ...settings, config }}
+            theme={theme}
           />
         </>
       )}
@@ -228,33 +228,33 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
 
       {openCreation && (
         <MarketplaceTabBuilder
-          onSubmit={onSubmitTab}
-          onClose={() => setOpenCreation(false)}
           coaches={coaches}
+          customLevels={customLevels}
+          establishmentGroupList={establishmentGroupList}
           establishments={establishments}
+          giftcards={giftcards}
+          index={currentTab !== null ? currentTab : config.length}
           metaActivities={metaActivities}
           metaActivitiesWorkshop={metaActivitiesWorkshop}
+          onClose={() => setOpenCreation(false)}
+          onSubmit={onSubmitTab}
+          paymentPackCategories={paymentPackCategories}
+          playlists={playlists || []}
+          privatePassCategories={privatePassCategories}
           privateServices={privateServices}
           serviceGroupList={serviceGroupList}
-          playlists={playlists || []}
-          videos={videoList}
-          index={currentTab !== null ? currentTab : config.length}
           tab={currentTab !== null ? config[currentTab] : defaultTab}
-          paymentPackCategories={paymentPackCategories}
-          privatePassCategories={privatePassCategories}
-          establishmentGroupList={establishmentGroupList}
-          giftcards={giftcards}
-          customLevels={customLevels}
+          videos={videoList}
         />
       )}
 
       {openWidgetDialog && (
         <WidgetGeneratorDialog
-          open={openWidgetDialog}
-          onClose={() => setOpenWidgetDialog(false)}
           componentType={config[currentTab].component_type}
           config={config[currentTab].config}
           configIndex={currentTab}
+          onClose={() => setOpenWidgetDialog(false)}
+          open={openWidgetDialog}
         />
       )}
     </div>

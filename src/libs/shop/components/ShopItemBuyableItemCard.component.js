@@ -50,7 +50,7 @@ const ShopItemBuyableItemCard = (props: {
         ])}
       >
         <div className={props.classes.header}>
-          <Typography variant="h6" component="h3">
+          <Typography component="h3" variant="h6">
             {props.shopitem.name}
           </Typography>
           {props.shopitem.subtitle ? (

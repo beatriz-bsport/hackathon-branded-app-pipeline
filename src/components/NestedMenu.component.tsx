@@ -47,32 +47,32 @@ const NestedMenu = (props: NestedListProps) => {
 
   return (
     <Menu
-      id="nested-menu"
-      getContentAnchorEl={null}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      transformOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-      anchorEl={anchorElMenu}
-      open={Boolean(anchorElMenu)}
       keepMounted
-      onClose={handleCloseMenu}
+      anchorEl={anchorElMenu}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      getContentAnchorEl={null}
+      id="nested-menu"
       MenuListProps={{
         disablePadding: true,
       }}
+      onClose={handleCloseMenu}
+      open={Boolean(anchorElMenu)}
+      transformOrigin={{ vertical: 'bottom', horizontal: 'left' }}
     >
       {Object.keys(dataRecord).map((sublistName) => (
         <NestedItem
           key={sublistName}
           categoryName={sublistName}
-          name={forTagsSelector ? t(`tag.${sublistName}.name`) : sublistName}
-          listData={dataRecord[sublistName]}
-          handleToggle={handleToggle(sublistName)}
+          forTagsSelector={forTagsSelector}
           handleClose={handleClose}
+          handleToggle={handleToggle(sublistName)}
+          listData={dataRecord[sublistName]}
+          name={forTagsSelector ? t(`tag.${sublistName}.name`) : sublistName}
           onItemClick={onItemClick}
           target={toggledMenu[sublistName]}
           withDivider={
             Object.keys(dataRecord).indexOf(sublistName) < numberLists - 1
           }
-          forTagsSelector={forTagsSelector}
         />
       ))}
     </Menu>
@@ -110,10 +110,10 @@ const NestedItem = (props: NestedItemProps) => {
       <ListItem
         key={categoryName}
         // onClick={handleToggle} --> On Mobile, the onPointerEnter seems to trigger it too (on browser)
-        onPointerEnter={handleToggle}
-        className={classes.listItem}
         button
+        className={classes.listItem}
         disabled={listData.length === 0}
+        onPointerEnter={handleToggle}
       >
         <ListItemText>{name}</ListItemText>
         <ListItemIcon className={classes.listItemIcon}>
@@ -122,13 +122,13 @@ const NestedItem = (props: NestedItemProps) => {
       </ListItem>
       {withDivider && <Divider variant="fullWidth" />}
       <Popper
-        open={Boolean(target)}
-        anchorEl={target}
-        placement="right-end"
         transition
-        disablePortal={false}
+        anchorEl={target}
         className={classes.menuContainer}
+        disablePortal={false}
         onPointerLeave={handleClose}
+        open={Boolean(target)}
+        placement="right-end"
       >
         {({ TransitionProps }) => (
           <Grow {...TransitionProps} style={{ transformOrigin: 'left bottom' }}>

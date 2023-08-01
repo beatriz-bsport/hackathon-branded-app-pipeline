@@ -137,9 +137,9 @@ const PaymentPackDetailList: React.FC<Props> = ({
           <span>
             {compatibilityInformation}
             <button
-              type="button"
-              onClick={onShowCompatibilityDialog}
               className="bs-pack-details-dialog__list__item__link"
+              onClick={onShowCompatibilityDialog}
+              type="button"
             >
               {t('genericCardDetails.includedElements.see')}
             </button>
@@ -189,9 +189,9 @@ const PaymentPackDetailList: React.FC<Props> = ({
       {hasRestriction && (
         <li className="bs-pack-details-dialog__list__item sublist">
           <button
-            type="button"
             className="bs-pack-details-dialog__list__item__button mobile"
             onClick={onShowRestrictionDialog}
+            type="button"
           >
             <div className="bs-pack-details-dialog__list__item__button__content">
               <span className="bs-pack-details-dialog__list__item__icon">
@@ -206,9 +206,9 @@ const PaymentPackDetailList: React.FC<Props> = ({
             </div>
           </button>
           <button
-            type="button"
             className="bs-pack-details-dialog__list__item__button desktop"
             onClick={() => setMenuExpanded(!isMenuExpanded)}
+            type="button"
           >
             <div className="bs-pack-details-dialog__list__item__button__content">
               <span className="bs-pack-details-dialog__list__item__icon">
@@ -336,9 +336,9 @@ const PaymentPackDetailList: React.FC<Props> = ({
           <span>
             {t('genericCardDetails.includedElements.offPeakRestrictions.title')}
             <button
-              type="button"
-              onClick={onShowOffPeakRestrictionDialog}
               className="bs-pack-details-dialog__list__item__link"
+              onClick={onShowOffPeakRestrictionDialog}
+              type="button"
             >
               {t('genericCardDetails.includedElements.see')}
             </button>

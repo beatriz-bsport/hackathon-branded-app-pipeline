@@ -83,11 +83,6 @@ const MarketplaceBookButton: React.FC<Props> = ({
           <DoneAllIcon className="bs-book-button-card__inner__icon__already-booked" />
         )}
         <div
-          id={
-            isDisabled
-              ? 'book-button__inner__text--disabled'
-              : 'book-button__inner__text'
-          }
           className={classnames('bs-book-button-card__inner__text', {
             'bs-book-button-card__inner__text--not-available': isDisabled,
             'bs-book-button-card__inner__text--disabled':
@@ -95,6 +90,11 @@ const MarketplaceBookButton: React.FC<Props> = ({
               (offerIsInThePast || firstOfferInGroupIsInThePast),
             'bs-book-button-card__inner__text--booked': isRegistered,
           })}
+          id={
+            isDisabled
+              ? 'book-button__inner__text--disabled'
+              : 'book-button__inner__text'
+          }
         >
           {getBookingButtonTraduction(offer, metaActivity, isRegistered, t)}
         </div>

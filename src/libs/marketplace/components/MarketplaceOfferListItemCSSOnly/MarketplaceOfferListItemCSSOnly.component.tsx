@@ -166,10 +166,10 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   if (loading) {
     return (
       <Skeleton
-        id="bs-offer__list-item--loading"
         animation="pulse"
-        width="100%"
         height={156}
+        id="bs-offer__list-item--loading"
+        width="100%"
       />
     );
   }
@@ -218,8 +218,6 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
 
   return (
     <button
-      type="button"
-      onClick={handleClick}
       className={classNames('bs-offer-list-item', {
         'bs-offer-list-item--mobile': isMobile,
         'bs-offer-list-item--first': position.includes('first'),
@@ -230,6 +228,8 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
         'bs-offer-list-item--isWorkShop-with-hidden-button':
           isWorkshop && theme?.hide_book_button,
       })}
+      disabled={isBookingDisabled}
+      onClick={handleClick}
       style={{
         borderLeftWidth:
           theme?.show_activity_color && metaActivity?.color ? 5 : 2,
@@ -240,7 +240,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                 '--color-grey-light',
               ),
       }}
-      disabled={isBookingDisabled}
+      type="button"
     >
       <div className="bs-offer-list-item__content">
         <div className="bs-offer-list-item__content__offer">
@@ -249,9 +249,6 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
               <>
                 {isSessionNameClickable ? (
                   <button
-                    type="button"
-                    onClick={handleClick}
-                    disabled={isBookingDisabled}
                     className={classNames(
                       MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
                       {
@@ -261,6 +258,9 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                           'bs-offer-list-item__button__title',
                       },
                     )}
+                    disabled={isBookingDisabled}
+                    onClick={handleClick}
+                    type="button"
                   >
                     {metaActivity?.name}
                   </button>
@@ -292,9 +292,6 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
             )}
             {isSessionTimeClickable ? (
               <button
-                type="button"
-                onClick={handleClick}
-                disabled={isBookingDisabled}
                 className={classNames(MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER, {
                   'bs-offer-list-item__button__title':
                     'bs-offer-list-item__button__title',
@@ -304,6 +301,9 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                     !showDate,
                   'bs-offer-list-item__content__offer__left__time': showDate,
                 })}
+                disabled={isBookingDisabled}
+                onClick={handleClick}
+                type="button"
               >
                 {(showDate ? `${date} ` : '') + offerHours}
               </button>
@@ -362,8 +362,6 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
             )}
             <div className="bs-offer-list-item__content__offer__left__establishment">
               <MarketplaceEstablishmentTitle
-                establishment={establishment}
-                theme={theme}
                 classes={{
                   'bs-offer-list-item__content__offer__left__establishment__name':
                     'bs-offer-list-item__content__offer__left__establishment__name',
@@ -371,30 +369,28 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                     isVariantCoachHighlighted &&
                     'bs-offer-list-item__content__offer__left__establishment__name--coach-highlighted',
                 }}
+                establishment={establishment}
                 icon={
                   <RoomIcon className="bs-offer-list-item__content__offer__left__icon" />
                 }
+                theme={theme}
               />
             </div>
             {!!additionalCoaches && additionalCoaches?.length < 1 ? (
               <>
                 {isSessionCoachClickable ? (
                   <button
-                    type="button"
-                    onClick={handleClick}
-                    disabled={isBookingDisabled}
                     className={classNames('bs-card-offer__button__title', {
                       'bs-offer-list-item__content__offer__left__coach':
                         'bs-offer-list-item__content__offer__left__coach',
                       'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
                         'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
                     })}
+                    disabled={isBookingDisabled}
+                    onClick={handleClick}
+                    type="button"
                   >
                     <MarketplaceCoachInfos
-                      theme={theme}
-                      hideCoach={hideCoach}
-                      coach={coach}
-                      offer={offer}
                       classes={{
                         [MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER]: [
                           MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
@@ -404,6 +400,10 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                         'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
                           isVariantCoachHighlighted,
                       }}
+                      coach={coach}
+                      hideCoach={hideCoach}
+                      offer={offer}
+                      theme={theme}
                     />
                   </button>
                 ) : (
@@ -425,16 +425,16 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                       }
                     >
                       <MarketplaceCoachInfos
-                        theme={theme}
-                        hideCoach={hideCoach}
-                        coach={coach}
-                        offer={offer}
                         classes={{
                           'bs-offer-list-item__content__offer__left__coach':
                             'bs-offer-list-item__content__offer__left__coach',
                           'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
                             isVariantCoachHighlighted,
                         }}
+                        coach={coach}
+                        hideCoach={hideCoach}
+                        offer={offer}
+                        theme={theme}
                       />
                     </PopOver>
                   </div>
@@ -445,10 +445,6 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                 {isWorkshop ? (
                   <div>
                     <MarketplaceCoachInfos
-                      theme={theme}
-                      hideCoach={hideCoach}
-                      coach={coach}
-                      offer={offer}
                       classes={{
                         'bs-offer-list-item__content__offer__left__coach':
                           'bs-offer-list-item__content__offer__left__coach',
@@ -459,18 +455,22 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                           isVariantCoachHighlighted &&
                           'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
                       }}
+                      coach={coach}
+                      hideCoach={hideCoach}
+                      offer={offer}
+                      theme={theme}
                     />
                     {additionalCoaches?.map((additionalCoach) => (
                       <MarketplaceCoachInfos
                         key={`addtional_coach${additionalCoach?.id}`}
-                        theme={theme}
-                        hideCoach={hideCoach}
-                        coach={additionalCoach}
-                        offer={offer}
                         classes={{
                           'bs-offer-list-item__content__offer__left__coach':
                             'bs-offer-list-item__content__offer__left__coach',
                         }}
+                        coach={additionalCoach}
+                        hideCoach={hideCoach}
+                        offer={offer}
+                        theme={theme}
                       />
                     ))}
                   </div>
@@ -478,34 +478,30 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                   <div className="bs-offer-list-item__content__offer__left__coaches__row">
                     {isSessionCoachClickable ? (
                       <button
-                        type="button"
-                        onClick={handleClick}
-                        disabled={isBookingDisabled}
                         className={classNames('bs-card-offer__button__title', {
                           'bs-offer-list-item__content__offer__left__coach':
                             'bs-offer-list-item__content__offer__left__coach',
                           'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
                             'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
                         })}
+                        disabled={isBookingDisabled}
+                        onClick={handleClick}
+                        type="button"
                       >
                         <MarketplaceCoachInfos
-                          theme={theme}
-                          hideCoach={hideCoach}
-                          coach={coach}
-                          offer={offer}
                           classes={{
                             [MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER]: [
                               MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
                             ],
                           }}
+                          coach={coach}
+                          hideCoach={hideCoach}
+                          offer={offer}
+                          theme={theme}
                         />
                       </button>
                     ) : (
                       <MarketplaceCoachInfos
-                        theme={theme}
-                        hideCoach={hideCoach}
-                        coach={coach}
-                        offer={offer}
                         classes={{
                           'bs-offer-list-item__content__offer__left__coach':
                             'bs-offer-list-item__content__offer__left__coach',
@@ -516,6 +512,10 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                             isVariantCoachHighlighted &&
                             'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
                         }}
+                        coach={coach}
+                        hideCoach={hideCoach}
+                        offer={offer}
+                        theme={theme}
                       />
                     )}
                     <PopOver
@@ -524,10 +524,6 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                           {additionalCoaches?.map((additionalCoach) => (
                             <MarketplaceCoachInfos
                               key={`addtional_coach${additionalCoach?.id}`}
-                              theme={theme}
-                              hideCoach={hideCoach}
-                              coach={additionalCoach}
-                              offer={offer}
                               classes={{
                                 'bs-offer-list-item__content__offer__left__coach':
                                   'bs-offer-list-item__content__offer__left__coach',
@@ -538,6 +534,10 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                                   isVariantCoachHighlighted &&
                                   'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
                               }}
+                              coach={additionalCoach}
+                              hideCoach={hideCoach}
+                              offer={offer}
+                              theme={theme}
                             />
                           ))}
                         </div>
@@ -579,9 +579,9 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                 )}
                 {offer.custom_level && (
                   <MarketPlaceLevel
-                    hideLevel={!theme.show_level}
                     className="bs-offer-list-item__content__offer__right__top__level"
                     customLevel={getLevel[offer.custom_level]}
+                    hideLevel={!theme.show_level}
                   />
                 )}
                 <FreeOfferChip
@@ -604,19 +604,19 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
             <div>
               {!withoutCTA && !withoutBookButton && (
                 <MarketplaceBookButton
-                  offer={offer}
-                  isRegistered={isRegistered}
                   className="bs-offer-list-item__content__offer__right__bottom"
-                  metaActivity={metaActivity}
                   isHidden={theme?.hide_book_button}
+                  isRegistered={isRegistered}
+                  metaActivity={metaActivity}
+                  offer={offer}
                 />
               )}
               <MarketplaceOfferStatusChip
-                companyTheme={theme}
-                offer={offer}
-                isRegistered={isRegistered}
                 showLabel
+                companyTheme={theme}
+                isRegistered={isRegistered}
                 metaActivity={metaActivity}
+                offer={offer}
               />
             </div>
           </div>

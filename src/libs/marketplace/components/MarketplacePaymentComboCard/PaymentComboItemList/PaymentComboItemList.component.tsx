@@ -67,16 +67,16 @@ const PaymentComboItemList: React.FC<Props> = ({
   return (
     <ul className={classNames('bs-combo-item-list', { ...classes })}>
       {formatedComboItemsToShowInReducedList.map((comboItem, index) => (
-        <li className="bs-combo-item-list__item" key={index}>
+        <li key={index} className="bs-combo-item-list__item">
           {comboItem}
         </li>
       ))}
       {countHiddenItems > 0 && (
         <li className="bs-combo-item-list__item --hidden">
           <button
-            type="button"
             className="bs-combo-item-list --button"
             onClick={onOpenDetailDialog}
+            type="button"
           >
             {t('packCard.comboItemList.hiddenItem', {
               count: countHiddenItems,

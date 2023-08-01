@@ -103,7 +103,7 @@ export class FormsConfiguration extends React.Component<Props> {
     return (
       <div className={classes.container}>
         <Grid container direction="row" spacing={3}>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             <div className={classes.textAndIconInner}>
               <InfoIcon className={classes.leftIcon} fontSize="small" />
               <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -123,56 +123,56 @@ export class FormsConfiguration extends React.Component<Props> {
                       customFormList={customFormList.filter(
                         (form: CustomForm) => !form.disabled,
                       )}
+                      customFormSelected={this.props.customFormSelected?.id}
                       onClick={(id: number) => this.selected(id)}
                       onClickEdit={(id: number) => this.props.goToEdit(id)}
-                      customFormSelected={this.props.customFormSelected?.id}
                     />
                   )}
                 </Paper>
               </>
             ) : null}
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             {this.props.customFormSelected ? (
               <div style={{ flexWrap: 'wrap' }}>
-                <Typography variant="h6" className={classes.divider}>
+                <Typography className={classes.divider} variant="h6">
                   {t('marketing:customForm.content')}
                 </Typography>
                 <div className={classes.topButton}>
                   <Button
-                    variant="contained"
+                    className={classes.button}
                     color="primary"
                     onClick={() =>
                       this.props.goToEdit(this.props.customFormSelected?.id)
                     }
-                    className={classes.button}
+                    variant="contained"
                   >
                     <ArrowForwardIcon className={classes.leftIcon} />
                     {t('marketing:customForm.actions.configure')}
                   </Button>
 
                   <Button
-                    variant="contained"
+                    className={classes.button}
                     color="secondary"
                     onClick={() =>
                       this.props.goToStatistics(
                         this.props.customFormSelected?.id,
                       )
                     }
-                    className={classes.button}
+                    variant="contained"
                   >
                     <EqualizerIcon className={classes.leftIcon} />
                     {t('marketing:customForm.actions.statistics')}
                   </Button>
                   <Button
-                    variant="contained"
+                    className={classes.button}
                     color="secondary"
                     onClick={() =>
                       this.props.goToCustomization(
                         this.props.customFormSelected?.id,
                       )
                     }
-                    className={classes.button}
+                    variant="contained"
                   >
                     <ViewCompactIcon className={classes.leftIcon} />
                     {t('marketing:customForm.actions.customization')}
@@ -184,8 +184,8 @@ export class FormsConfiguration extends React.Component<Props> {
                 <Paper className={classes.paperContainer}>
                   <CustomFormView
                     key={this.props.customFormSelected}
-                    initial={this.props.customFormSelected}
                     asManager
+                    initial={this.props.customFormSelected}
                   />
                 </Paper>
               </div>

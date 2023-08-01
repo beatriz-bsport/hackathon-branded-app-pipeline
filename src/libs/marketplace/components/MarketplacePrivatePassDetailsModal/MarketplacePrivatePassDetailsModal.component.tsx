@@ -49,16 +49,16 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
   return (
     <>
       {isOpen && (
-        <div className="bs-pass-details-dialog " ref={dialogRef}>
+        <div ref={dialogRef} className="bs-pass-details-dialog ">
           <Card
-            size={CardSize.L}
             classes={{
               'bs-pass-details-dialog__card': 'bs-pass-details-dialog__card',
             }}
+            size={CardSize.L}
           >
             <div
-              className="bs-pass-details-dialog__card-content"
               ref={modalRef}
+              className="bs-pass-details-dialog__card-content"
             >
               <div className="bs-pass-details-dialog__container">
                 <Content
@@ -69,19 +69,19 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
                   }}
                 >
                   <Grid>
-                    <Item rowStart={1} rowEnd={1}>
+                    <Item rowEnd={1} rowStart={1}>
                       <div className="bs-pass-details-dialog__header">
                         <h3 className="bs-pass-details-dialog__header__title">
                           {privatePass.name}
                         </h3>
                         <Price
-                          formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                           amount={privatePass.price}
-                          color={Color.PRIMARY}
                           classes={{
                             'bs-pass-details-dialog__price':
                               'bs-pass-details-dialog__price',
                           }}
+                          color={Color.PRIMARY}
+                          formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                           isExcludingTax={isExcludingTax}
                           tax={tax}
                         />
@@ -89,10 +89,10 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
                     </Item>
                     <Item rowStart={2}>
                       <PrivatePassDetailsList
-                        privatePass={privatePass}
                         compatiblePrivateServices={compatiblePrivateServices}
-                        onShowCompatibilityDialog={onShowCompatibilityDialog}
                         hideCredits={!!hideCredits}
+                        onShowCompatibilityDialog={onShowCompatibilityDialog}
+                        privatePass={privatePass}
                       />
                     </Item>
                   </Grid>
@@ -106,13 +106,13 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
                       }}
                     >
                       <Item
-                        rowStart={3}
                         classes={{
                           'bs-pass-details-dialog__description':
                             'bs-pass-details-dialog__description',
                           'bs-pass-details-dialog__item':
                             'bs-pass-details-dialog__item',
                         }}
+                        rowStart={3}
                       >
                         {privatePass.description}
                       </Item>
@@ -135,29 +135,29 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
                   }}
                 >
                   <Item
-                    rowStart={4}
-                    direction={Direction.ROW}
                     alignment={Alignment.CENTER}
-                    justification={Justification.FLEX_END}
                     classes={{
                       'bs-pass-details-dialog__item':
                         'bs-pass-details-dialog__item',
                       'bs-pack-details-dialog__item__buttons':
                         'bs-pack-details-dialog__item__buttons',
                     }}
+                    direction={Direction.ROW}
+                    justification={Justification.FLEX_END}
+                    rowStart={4}
                   >
                     <div className="bs-pass-details-dialog__buttons">
                       <button
                         className="bs-pass-details-dialog__buttons__cancel"
-                        type="button"
                         onClick={onDialogClose}
+                        type="button"
                       >
                         {t('common:cancel')}
                       </button>
                       <button
                         className="bs-pass-details-dialog__buttons__add-to-cart"
-                        type="button"
                         onClick={handleAddToCart}
+                        type="button"
                       >
                         {t('genericCard.addButton.buttonContent')}
                       </button>

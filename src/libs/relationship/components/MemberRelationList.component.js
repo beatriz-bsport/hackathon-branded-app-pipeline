@@ -36,9 +36,9 @@ export const MemberRelationList = (props: Props) => {
   const addButton = (
     <Button
       className={props.classes.addButton}
-      variant="outlined"
       color="primary"
       onClick={props.onAdd}
+      variant="outlined"
     >
       <AddIcon className={props.classes.leftIcon} />
       {props.t('member.list.actions.create')}
@@ -48,7 +48,7 @@ export const MemberRelationList = (props: Props) => {
   if (!props.relations.length) {
     return (
       <div>
-        <Typography className={props.classes.title} variant="h5" component="h3">
+        <Typography className={props.classes.title} component="h3" variant="h5">
           {props.t('member.list.title')}
         </Typography>
         <div>
@@ -63,7 +63,7 @@ export const MemberRelationList = (props: Props) => {
 
   return (
     <div>
-      <Typography className={props.classes.title} variant="h5" component="h3">
+      <Typography className={props.classes.title} component="h3" variant="h5">
         {props.t('member.list.title')}
       </Typography>
       <Paper>
@@ -71,15 +71,15 @@ export const MemberRelationList = (props: Props) => {
           {props.relations.map((r) => (
             <MemberRelationListItem
               key={r.id}
-              relation={r}
-              memberId={props.memberId}
-              selected={props.selectedId === r.id}
               goToMember={props.goToMember}
-              onEdit={props.onEdit}
-              onDelete={props.onDelete}
+              memberId={props.memberId}
               onClick={() => {
                 props.onClickRelation(r.id);
               }}
+              onDelete={props.onDelete}
+              onEdit={props.onEdit}
+              relation={r}
+              selected={props.selectedId === r.id}
             />
           ))}
         </List>

@@ -213,13 +213,13 @@ export const CadenceTriggerForm: React.FC<ComponentProps> = ({
   return (
     <Form className={classes.flexVertical}>
       <TriggerSection
-        smartlists={smartListChoices}
+        cadenceEntry={!!cadenceEntry}
+        cadenceExitFail={!!cadenceExitFail}
+        cadenceExitSuccess={!!cadenceExitSuccess}
         forceAndLogicForTriggerAndSmartList={
           !!forceAndLogicForTriggerAndSmartList
         }
-        cadenceEntry={!!cadenceEntry}
-        cadenceExitSuccess={!!cadenceExitSuccess}
-        cadenceExitFail={!!cadenceExitFail}
+        smartlists={smartListChoices}
       />
       {withExit && <Divider />}
       <ExitConfigurationSection withExit={withExit} />
@@ -237,12 +237,12 @@ export const CadenceTriggerForm: React.FC<ComponentProps> = ({
           <div className={classes.timeoutSelectorContainer}>
             <div className={classes.timeoutInput}>
               <NumericInput
-                value={timeoutValue}
-                onChange={handleChangeTimeOut}
+                error={timeoutValue < 1}
                 InputProps={{
                   inputProps: { step: 1, min: 1 },
                 }}
-                error={timeoutValue < 1}
+                onChange={handleChangeTimeOut}
+                value={timeoutValue}
               />
             </div>
             <div className={classes.timeoutInpoutText}>
@@ -253,7 +253,7 @@ export const CadenceTriggerForm: React.FC<ComponentProps> = ({
           </div>
           {timeoutValue < 1 && (
             <div className={classes.timeoutInputErrorText}>
-              <Typography variant="caption" color="error">
+              <Typography color="error" variant="caption">
                 {t('cadence.form.error.timeoutMustBeStrictPositive')}
               </Typography>
             </div>
@@ -267,7 +267,7 @@ export const CadenceTriggerForm: React.FC<ComponentProps> = ({
       )}
       <ErrorMessage name="noEmptyTrigger">
         {(error_msg) => (
-          <Typography variant="caption" color="error">
+          <Typography color="error" variant="caption">
             {t(`${error_msg}`)}
           </Typography>
         )}
@@ -275,16 +275,16 @@ export const CadenceTriggerForm: React.FC<ComponentProps> = ({
       <>
         <div className={classes.actions}>
           {onCancel && (
-            <Button variant="text" onClick={onCancel}>
+            <Button onClick={onCancel} variant="text">
               {t('cadence.form.previous')}
             </Button>
           )}
           {!viewMode && (
             <Submit
-              id="submit_steup_entry"
-              variant="contained"
               color="primary"
               disabled={isSubmitting || loading || !isValid}
+              id="submit_steup_entry"
+              variant="contained"
             >
               {t('cadence.form.next')}
             </Submit>

@@ -129,17 +129,17 @@ export function EstablishmentGroupSelector(props: Props) {
   return (
     <Select
       closeMenuOnSelect={!!closeMenuOnSelect}
-      isMulti={!noMulti}
-      placeholder={placeholder || t('localisation')}
-      options={getEstablishmentGroupOptions([...establishmentGroups])}
-      styles={establishmentGroupStyles}
-      onChange={selectOption || onChange}
-      isDisabled={disabled}
       isClearable={isClearable}
-      menuPortalTarget={document.querySelector('body')}
-      value={roomsSelected}
-      selectMultipleOptions={selectMultipleOptions}
+      isDisabled={disabled}
       isLoading={isLoading}
+      isMulti={!noMulti}
+      menuPortalTarget={document.querySelector('body')}
+      onChange={selectOption || onChange}
+      options={getEstablishmentGroupOptions([...establishmentGroups])}
+      placeholder={placeholder || t('localisation')}
+      selectMultipleOptions={selectMultipleOptions}
+      styles={establishmentGroupStyles}
+      value={roomsSelected}
     />
   );
 }

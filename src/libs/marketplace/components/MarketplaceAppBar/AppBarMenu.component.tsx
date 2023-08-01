@@ -41,24 +41,24 @@ const AppBarMenu: React.FC<MenuProps> = ({
   }
   return (
     <AppBar
-      position="relative"
-      color="default"
       classes={{
         root: classNames(classes.appbar, {
           [classes.isFullWidth]: onlyNavigation,
         }),
       }}
+      color="default"
+      position="relative"
     >
       <Tabs
-        onChange={handleTabChange || null}
-        textColor="primary"
-        indicatorColor="primary"
-        variant="scrollable"
-        value={parseInt(tabSelected, 10)}
         classes={{
           scrollButtons: classes.scrollButton,
           flexContainer: classes.justifyContent,
         }}
+        indicatorColor="primary"
+        onChange={handleTabChange || null}
+        textColor="primary"
+        value={parseInt(tabSelected, 10)}
+        variant="scrollable"
       >
         {(
           (settings.config && settings.config.tabs ? [] : settings.config) || []
@@ -77,12 +77,12 @@ const AppBarMenu: React.FC<MenuProps> = ({
 
           return (
             <Tab
-              value={i}
               key={titleTab}
-              label={titleTab}
               classes={{
                 root: classes.tabUnselected,
               }}
+              label={titleTab}
+              value={i}
             />
           );
         })}

@@ -63,13 +63,13 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
 
   return (
     <Card
-      size={CardSize.AUTO}
       classes={{
         'bs-pack-card': 'bs-pack-card',
         'bs-pack-card--background': cardVariant === CARD_VARIANTS.MARKETPLACE,
       }}
-      onClick={onClick}
       isSelected={isSelected}
+      onClick={onClick}
+      size={CardSize.AUTO}
     >
       <Content>
         <Grid
@@ -79,12 +79,12 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
         >
           <Item
             alignment={Alignment.FLEX_START}
-            justification={Justification.SPACE_BETWEEN}
-            columnStart={1}
             classes={{
               'bs-pack-card__item': 'bs-pack-card__item',
               '--left': '--left',
             }}
+            columnStart={1}
+            justification={Justification.SPACE_BETWEEN}
           >
             <div className="bs-pack-card__text-container">
               <div
@@ -127,9 +127,9 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
               {descriptionText.isExpandable &&
                 cardVariant === CARD_VARIANTS.PRICING_PAGE && (
                   <button
-                    type="button"
                     className="bs-pack-card__seemore"
                     onClick={onClickSeeMore}
+                    type="button"
                   >
                     {showAllDescription ? (
                       <div className="bs-pack-card__seemore__row">
@@ -147,41 +147,41 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
             </div>
           </Item>
           <Item
-            justification={Justification.SPACE_BETWEEN}
-            columnStart={2}
             classes={{
               'bs-pack-card__item': 'bs-pack-card__item',
               '--rigth': '--rigth',
             }}
+            columnStart={2}
+            justification={Justification.SPACE_BETWEEN}
           >
             {cardVariant === CARD_VARIANTS.MARKETPLACE && (
               <PaymentComboItemList
-                paymentCombo={paymentCombo}
                 classes={{ 'bs-pack-card__list': 'bs-pack-card__list' }}
                 onOpenDetailDialog={onOpenDetailDialog}
+                paymentCombo={paymentCombo}
               />
             )}
             <div className="bs-pack-card__prices-container">
               <InitialPrice
-                paymentCombo={paymentCombo}
                 isExcludingTax={isExcludingTax}
+                paymentCombo={paymentCombo}
               />
               <Price
-                tax={paymentCombo.tax}
-                isExcludingTax={isExcludingTax}
                 amount={paymentCombo.price}
-                formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                 classes={{
                   'bs-pack-card__price': 'bs-pack-card__price',
                   'bs-pack-card__price--small':
                     cardVariant === CARD_VARIANTS.PRICING_PAGE,
                 }}
+                formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+                isExcludingTax={isExcludingTax}
+                tax={paymentCombo.tax}
               >
                 {!!addToCart && (
                   <button
-                    type="button"
                     className="bs-pack-card__price__icon"
                     onClick={addToCart}
+                    type="button"
                   >
                     <ShoppingCartIcon />
                   </button>
@@ -192,15 +192,15 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
         </Grid>
         {!!onOpenDetailDialog && !!addToCart && (
           <Item
-            direction={Direction.ROW}
-            justification={Justification.SPACE_BETWEEN}
             alignment={Alignment.CENTER}
             classes={{ 'bs-pack-card__footer': 'bs-pack-card__footer' }}
+            direction={Direction.ROW}
+            justification={Justification.SPACE_BETWEEN}
           >
             <button
-              type="button"
               className="bs-pack-card__footer__button__left"
               onClick={onOpenDetailDialog}
+              type="button"
             >
               <div className="bs-pack-card__footer__left__button__content">
                 <VisibilityIcon className="bs-pack-card__button__icon" />
@@ -209,9 +209,9 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
             </button>
 
             <button
-              type="button"
               className="bs-pack-card__footer__button__right"
               onClick={addToCart}
+              type="button"
             >
               {t('genericCard.addButton.buttonContent')}
             </button>

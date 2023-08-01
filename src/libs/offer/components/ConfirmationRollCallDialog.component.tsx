@@ -43,12 +43,12 @@ export const ConfirmationRollCallDialog: React.FC<Props> = (props) => {
           />
         </div>
         <DialogContent>
-          <Typography variant="h6" className={classes.title}>
+          <Typography className={classes.title} variant="h6">
             {t('rollCall.dialog.validatedRollCall', {
               count: props.nbRollCallsLeftToValidate,
             })}
           </Typography>
-          <Typography variant="body1" className={classes.subtitle}>
+          <Typography className={classes.subtitle} variant="body1">
             {t('rollCall.dialog.savedRollCall', {
               count: props.nbRollCallsLeftToValidate,
             })}
@@ -63,7 +63,7 @@ export const ConfirmationRollCallDialog: React.FC<Props> = (props) => {
   return (
     <Dialog maxWidth="sm" open={props.open}>
       <DialogTitle>
-        <Typography variant="h6" className={classes.bold}>
+        <Typography className={classes.bold} variant="h6">
           {t('rollCall.dialog.validationRollCall')}
         </Typography>
       </DialogTitle>
@@ -80,10 +80,10 @@ export const ConfirmationRollCallDialog: React.FC<Props> = (props) => {
             {t('common:cancel')}
           </Button>
           <Button
-            variant="contained"
             color="primary"
-            onClick={onClickHandler}
             disabled={props.isLoading}
+            onClick={onClickHandler}
+            variant="contained"
           >
             {t('common:confirm')}
           </Button>

@@ -147,30 +147,28 @@ export class ShopItemList extends Component<Props, State> {
     return (
       <SubShopList
         key={subShop ? subShop.id : -1}
-        subShop={subShop}
         createOrUpdateSubShop={this.props.createOrUpdateSubShop}
         onDelete={() => this.props.deleteSubShop(subShop.id)}
+        subShop={subShop}
       >
         <Paper>
           <List dense disablePadding>
             {subShop.shopItems.map((si) => (
               <ShopItemListItem
-                shopitem={si}
                 key={si.id}
-                onClick={() => this.props.goToShopItem(si.id)}
                 additionalActions={
                   <ListItemSecondaryAction>
                     <IconButton disableRipple>
                       {si.marketplace_enabled ? (
-                        <Tooltip title={t('languageToolTip')} aria-label="info">
+                        <Tooltip aria-label="info" title={t('languageToolTip')}>
                           <IconButton>
                             <LanguageIcon color="secondary" />
                           </IconButton>
                         </Tooltip>
                       ) : (
                         <Tooltip
-                          title={t('visibilityOfIconToolTip')}
                           aria-label="info"
+                          title={t('visibilityOfIconToolTip')}
                         >
                           <IconButton>
                             <VisibilityOffIcon />
@@ -197,13 +195,15 @@ export class ShopItemList extends Component<Props, State> {
                     </IconButton>
                   </ListItemSecondaryAction>
                 }
+                onClick={() => this.props.goToShopItem(si.id)}
+                shopitem={si}
               />
             ))}
             <ListItem
+              button
               onClick={() =>
                 this.setState({ createItemFromSubShop: subShop.id })
               }
-              button
             >
               <ListItemAvatar>
                 <Avatar>
@@ -239,15 +239,15 @@ export class ShopItemList extends Component<Props, State> {
     const { newSubShopFormActive, newSubShopName } = this.state;
     if (newSubShopFormActive) {
       return (
-        <form onSubmit={this.createSubShop} className={classes.title}>
-          <Grid container direction="row" alignItems="center">
+        <form className={classes.title} onSubmit={this.createSubShop}>
+          <Grid container alignItems="center" direction="row">
             <Grid item>
               <TextField
-                required
                 autoFocus
+                required
+                onChange={this.handleSubShopNameChange}
                 placeholder={t('form.shop.subShop.namePlaceholder')}
                 value={newSubShopName}
-                onChange={this.handleSubShopNameChange}
               />
             </Grid>
             <Grid item>
@@ -275,11 +275,11 @@ export class ShopItemList extends Component<Props, State> {
     return (
       <div className={classes.title}>
         <ButtonBase onClick={this.activateNewSubShopForm}>
-          <Grid container direction="row" alignItems="center">
+          <Grid container alignItems="center" direction="row">
             <Grid item>
               <Typography
-                variant="h5"
                 className={this.props.classes.sectionTitle}
+                variant="h5"
               >
                 {`+ ${t('form.shop.subShop.nameTitle')}`}
               </Typography>
@@ -299,9 +299,8 @@ export class ShopItemList extends Component<Props, State> {
     return (
       <div className={this.props.classes.container}>
         <FuzeSearch
-          searchText={this.state.searchText}
-          clearSearch={this.clearSearch}
           changeSearch={this.changeSearch}
+          clearSearch={this.clearSearch}
           items={subShops
             .map((subShop) => subShop.shopItems)
             .reduce(
@@ -311,6 +310,7 @@ export class ShopItemList extends Component<Props, State> {
           placeholder={this.props.t('shop:search')}
           searchFields={['name', 'description']}
           searchResult={this.state.searchResult}
+          searchText={this.state.searchText}
         />
 
         <Paper
@@ -327,9 +327,7 @@ export class ShopItemList extends Component<Props, State> {
           >
             {this.state.searchResult.map((si) => (
               <ShopItemListItem
-                shopitem={si}
                 key={si.id}
-                onClick={() => this.props.goToShopItem(si.id)}
                 additionalActions={
                   <ListItemSecondaryAction>
                     <IconButton disableRipple>
@@ -346,6 +344,8 @@ export class ShopItemList extends Component<Props, State> {
                     </IconButton>
                   </ListItemSecondaryAction>
                 }
+                onClick={() => this.props.goToShopItem(si.id)}
+                shopitem={si}
               />
             ))}
           </Collapse>
@@ -353,8 +353,8 @@ export class ShopItemList extends Component<Props, State> {
         {subShops.map((ss) => this.renderSubShop(ss))}
         {this.renderNewSubShop()}
         <GenericResponsiveDrawer
-          open={!!this.state.createItemFromSubShop}
           onClose={() => this.setState({ createItemFromSubShop: null })}
+          open={!!this.state.createItemFromSubShop}
           title={this.props.t('shop:shopitem.form.title')}
           trackingObjectIdentifier={
             SegmentAnalyticsFormObjectIdentifier.ShopItem
@@ -362,14 +362,13 @@ export class ShopItemList extends Component<Props, State> {
         >
           <ShopItemForm
             createOrUpdate={this.createOrUpdateShopItem}
-            onCancel={() => this.setState({ createItemFromSubShop: null })}
             loading={this.props.shopItemLoading}
+            onCancel={() => this.setState({ createItemFromSubShop: null })}
             provincialTax={this.props.theme?.provincial_tax_value}
           />
         </GenericResponsiveDrawer>
         <Dialog open={!!this.state.shopitemToDelete}>
           <ShopItemDeleteDialog
-            shopitem={this.state.shopitemToDelete}
             isUsedInCombo={
               this.props.archivationWarning[this.state.shopitemToDelete?.id]
                 ?.used_in_combo || false
@@ -379,6 +378,7 @@ export class ShopItemList extends Component<Props, State> {
               this.props.deleteItem(this.state.shopitemToDelete.id);
               this.setState({ shopitemToDelete: null });
             }}
+            shopitem={this.state.shopitemToDelete}
           />
         </Dialog>
       </div>

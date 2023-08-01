@@ -44,25 +44,25 @@ export const TagChip: React.FC<Props> = ({
   return (
     <MuiThemeProvider theme={theme}>
       <Chip
+        clickable
+        avatar={
+          tag?.icon ? (
+            <Avatar>
+              <MuiIcon className={classes.icon} icon={tag.icon} />
+            </Avatar>
+          ) : null
+        }
         classes={{
           root: classes.root,
           avatar: classes.avatar,
         }}
-        label={`${tag?.group?.name} : ${tag?.name}`}
-        size={size || 'medium'}
-        color="primary"
-        onDelete={onDelete}
-        onClick={deleteOnClick ? onDelete : onClick}
-        avatar={
-          tag?.icon ? (
-            <Avatar>
-              <MuiIcon icon={tag.icon} className={classes.icon} />
-            </Avatar>
-          ) : null
-        }
-        variant={variant || 'default'}
         className={classes.chip}
-        clickable
+        color="primary"
+        label={`${tag?.group?.name} : ${tag?.name}`}
+        onClick={deleteOnClick ? onDelete : onClick}
+        onDelete={onDelete}
+        size={size || 'medium'}
+        variant={variant || 'default'}
       />
     </MuiThemeProvider>
   );

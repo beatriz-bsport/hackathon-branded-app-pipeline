@@ -66,7 +66,7 @@ export const PaymentComboPurchaseListItem: React.FC<Props> = ({
   const { payment_combo } = paymentComboPurchase;
 
   return (
-    <ListItem divider={divider} button={!!onClick as any} onClick={onItemClick}>
+    <ListItem button={!!onClick as any} divider={divider} onClick={onItemClick}>
       {/* This as any is required because considering the way ListItem is typed, */}
       {/* TS can't understand a boolean that is not explicitely true or false here */}
       <ListItemText
@@ -79,7 +79,7 @@ export const PaymentComboPurchaseListItem: React.FC<Props> = ({
             </Typography>
             {paymentComboPurchase.member &&
               paymentComboPurchase.member.archived && (
-                <Typography variant="caption" color="secondary">
+                <Typography color="secondary" variant="caption">
                   {`${'\u00A0'}(${t('member:archived')})`}
                 </Typography>
               )}

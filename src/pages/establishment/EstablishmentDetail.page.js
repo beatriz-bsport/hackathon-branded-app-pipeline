@@ -205,83 +205,83 @@ export class EstablishmentDetails extends React.Component<Props, State> {
     return (
       <div className={this.props.classes.container}>
         <EstablishmentDetail
-          timetableLoading={this.props.timetableLoading}
+          createNotification={this.props.createNotification}
+          deleteNotification={this.props.deleteMarketingNotification}
+          emailDetailLoading={this.props.emailDetailLoading}
+          emailDetails={this.props.email_templates_details}
+          emailListLoading={this.props.emailListLoading}
+          emails={this.props.email_templates_list}
+          establishment={this.props.establishment}
+          events={this.props.events}
+          fetchOffersByDay={this.props.fetchOffersByDay}
+          getEmailDetail={this.props.fetchEmailTemplateDetail}
+          getEmails={this.props.fetchEmailTemplatesSummaries}
+          getSmartLists={this.props.getSmartLists}
+          goToOffer={this.props.goToOffer}
+          goToSmartlist={this.props.goToSmartlist}
+          notifications={this.props.notifications}
+          objectId={this.props.establishment.id}
           offers={this.props.offers.filter(
             (o) => o.establishment && o.establishment.id === this.props.id,
           )}
-          fetchOffersByDay={this.props.fetchOffersByDay}
-          goToOffer={this.props.goToOffer}
-          establishment={this.props.establishment}
-          events={this.props.events}
-          notifications={this.props.notifications}
-          objectId={this.props.establishment.id}
-          getEmails={this.props.fetchEmailTemplatesSummaries}
-          emails={this.props.email_templates_list}
-          getEmailDetail={this.props.fetchEmailTemplateDetail}
-          emailDetails={this.props.email_templates_details}
-          emailListLoading={this.props.emailListLoading}
-          emailDetailLoading={this.props.emailDetailLoading}
-          createNotification={this.props.createNotification}
-          updateNotification={this.props.updateMarketingNotification}
-          deleteNotification={this.props.deleteMarketingNotification}
           onCreateRoomBlueprint={this.props.createRoomBlueprint}
           onDeleteRoomBlueprint={this.props.deleteRoomBlueprint}
           onEditRoomBlueprint={this.props.gotoSpotSchedulingEditor}
           onPreviewRoomBlueprint={this.props.setPreviewBlueprint}
-          roomBlueprints={this.props.roomBlueprints}
-          goToSmartlist={this.props.goToSmartlist}
-          getSmartLists={this.props.getSmartLists}
-          smartLists={this.props.smartLists}
-          smartListLoading={this.props.smartListLoading}
-          tags={this.props.tagCategories}
           resolvedGenericTags={this.props.resolvedGenericTags}
+          roomBlueprints={this.props.roomBlueprints}
+          smartListLoading={this.props.smartListLoading}
+          smartLists={this.props.smartLists}
+          tags={this.props.tagCategories}
+          timetableLoading={this.props.timetableLoading}
+          updateNotification={this.props.updateMarketingNotification}
         />
         <BottomActionButtons
-          onEdit={() => this.props.startUpdateEstablishment(this.props.id)}
           onDelete={() => this.setState({ deleteOpen: true })}
+          onEdit={() => this.props.startUpdateEstablishment(this.props.id)}
           onShare={() => this.props.setOpenWidgetDialog(true)}
         />
         <EstablishmentDeleteDialog
-          establishmentId={this.state.deleteOpen ? this.props.id : null}
-          onClose={() => this.setState({ deleteOpen: false })}
           canDeleteEstablishmentChecker={canDeleteEstablishmentAPI}
           deleteEstablishment={() => {
             this.props.deleteEstablishment(this.props.id, {
               onSuccess: this.props.goToList,
             });
           }}
+          establishmentId={this.state.deleteOpen ? this.props.id : null}
+          onClose={() => this.setState({ deleteOpen: false })}
         />
 
         <WidgetGeneratorDialog
-          open={this.props.openWidgetDialog}
-          onClose={() => this.props.setOpenWidgetDialog(false)}
           componentType="calendar"
           config={{
             calendar: {
               establishments: [this.props.id],
             },
           }}
+          onClose={() => this.props.setOpenWidgetDialog(false)}
+          open={this.props.openWidgetDialog}
         />
 
         <CanvasPreviewDialog
-          open={this.props.previewBlueprint}
-          roomBlueprint={this.props.previewBlueprint}
-          fetchSpotForBlueprint={
-            this.fetchSpotForBlueprintAndBuildSpiviCorrespondence
-          }
-          spotTypes={this.props.spotTypes?.concat({
-            id: -1,
-          })}
           assets={
             this.props.assetsByBlueprintByIdentifier[
               { id: '', ...this.props.previewBlueprint }.id
             ]
           }
-          onClose={() => this.props.setPreviewBlueprint(null)}
-          spotCorrespondence={this.state.spotCorrespondence}
-          tablePages={this.state.tablePages}
-          tableCountPages={this.state.tableCountPages}
+          fetchSpotForBlueprint={
+            this.fetchSpotForBlueprintAndBuildSpiviCorrespondence
+          }
           handlePageChange={this.handlePageChange}
+          onClose={() => this.props.setPreviewBlueprint(null)}
+          open={this.props.previewBlueprint}
+          roomBlueprint={this.props.previewBlueprint}
+          spotCorrespondence={this.state.spotCorrespondence}
+          spotTypes={this.props.spotTypes?.concat({
+            id: -1,
+          })}
+          tableCountPages={this.state.tableCountPages}
+          tablePages={this.state.tablePages}
         />
       </div>
     );

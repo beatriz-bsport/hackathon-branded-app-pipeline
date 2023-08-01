@@ -272,13 +272,10 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
           </div>
 
           <WidgetContainerConfigurator
-            isFranchisor={this.props.isFranchisor}
-            showFab={this.state.containerConfig.showFab}
-            useIframe={this.state.containerConfig.useIframe}
-            responsiveIframe={this.state.containerConfig.responsiveIframe}
-            language={this.state.containerConfig.language}
             dialogMode={this.state.containerConfig.dialogMode}
             fullScreenPopup={this.state.containerConfig.fullScreenPopup}
+            isFranchisor={this.props.isFranchisor}
+            language={this.state.containerConfig.language}
             onChangeContainerConfiguration={(containerConfig: any) =>
               this.setState((prevState) => ({
                 containerConfig: {
@@ -287,50 +284,53 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
                 },
               }))
             }
+            responsiveIframe={this.state.containerConfig.responsiveIframe}
+            showFab={this.state.containerConfig.showFab}
+            useIframe={this.state.containerConfig.useIframe}
           />
           <fieldset className={classes.marginTop}>
             <legend>{t('widget.configTitle')}</legend>
 
             <WidgetComponentConfigBuilder
+              coaches={this.props.coaches}
+              componentType={this.state.componentType}
+              config={this.state.config}
+              customLevels={this.props.customLevels}
+              error={this.state.error}
+              establishmentGroupList={this.props.establishmentGroupList}
+              establishments={this.props.establishments}
+              giftcards={this.props.giftcards}
+              hideTypeSelector={this.props.hideTypeSelector}
+              isFranchisor={this.props.isFranchisor}
+              metaActivities={this.props.metaActivities}
+              metaActivitiesWorkshop={this.props.metaActivitiesWorkshop}
+              onComponentTypeChange={this.onComponentTypeChange}
+              onConfigChange={this.onConfigChange}
+              paymentPackCategories={this.props.paymentPackCategories}
               paymentPackTemplateListAvailable={
                 this.props.paymentPackTemplateListAvailable
               }
-              isFranchisor={this.props.isFranchisor}
-              hideTypeSelector={this.props.hideTypeSelector}
-              onComponentTypeChange={this.onComponentTypeChange}
-              error={this.state.error}
-              componentType={this.state.componentType}
-              coaches={this.props.coaches}
-              establishments={this.props.establishments}
-              metaActivities={this.props.metaActivities}
-              metaActivitiesWorkshop={this.props.metaActivitiesWorkshop}
-              privateServices={this.props.privateServices}
-              playlists={this.props.playlists}
-              privateServiceError={this.state.error.privateServiceError}
               playlistError={this.state.error.playlistError}
-              videos={this.props.videoList}
-              serviceGroupList={this.props.serviceGroupList}
-              config={this.state.config}
-              onConfigChange={this.onConfigChange}
-              paymentPackCategories={this.props.paymentPackCategories}
+              playlists={this.props.playlists}
               privatePassCategories={this.props.privatePassCategories}
-              establishmentGroupList={this.props.establishmentGroupList}
-              giftcards={this.props.giftcards}
-              customLevels={this.props.customLevels}
+              privateServiceError={this.state.error.privateServiceError}
+              privateServices={this.props.privateServices}
+              serviceGroupList={this.props.serviceGroupList}
+              videos={this.props.videoList}
             />
           </fieldset>
           <WidgetMarketplaceConfigBuilder
-            theme={this.props.theme}
             componentType={this.state.componentType}
-            copyToClipboard={this.copyToClipboard}
             config={this.state.config}
             configIndex={this.props.defaultValue?.configIndex}
-            error={error}
-          />
-          <WidgetCodePreview
             copyToClipboard={this.copyToClipboard}
             error={error}
+            theme={this.props.theme}
+          />
+          <WidgetCodePreview
             codeString={codeString}
+            copyToClipboard={this.copyToClipboard}
+            error={error}
           />
         </div>
         <WidgetPreview codeStringPreview={codeStringPreview} />

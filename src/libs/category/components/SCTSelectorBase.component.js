@@ -13,11 +13,11 @@ function SingleValue(props: OptionProps) {
   return (
     <div ref={innerRef} {...innerProps}>
       <Sport
+        dense
+        noDivider
+        paddingLeft
         parentCategory={data.data.id}
         SCTName={data.label}
-        noDivider
-        dense
-        paddingLeft
       />
     </div>
   );
@@ -28,12 +28,12 @@ function MultiValueLabel(props: OptionProps) {
   return (
     <div ref={innerRef} {...innerProps}>
       <Sport
-        size={20}
+        dense
+        noDivider
+        paddingLeft
         parentCategory={data.data.id}
         SCTName={data.label}
-        noDivider
-        dense
-        paddingLeft
+        size={20}
       />
     </div>
   );
@@ -44,14 +44,14 @@ function sctOption(props: OptionProps) {
   return (
     <div ref={innerRef} {...innerProps}>
       <Sport
-        parentCategory={data.data.id}
-        SCTName={data.label}
-        isSelected={isSelected}
-        isFocused={isFocused}
-        noDivider
         button
         dense
+        noDivider
         paddingLeft
+        isFocused={isFocused}
+        isSelected={isSelected}
+        parentCategory={data.data.id}
+        SCTName={data.label}
       />
     </div>
   );
@@ -152,12 +152,20 @@ export default withTranslation(['translation'])(
   }) => {
     return (
       <Select
-        shouldSetMinHeight={shouldSetMinHeight}
         closeMenuOnSelect={!!closeMenuOnSelect}
-        isMulti={!isNotMulti}
-        placeholder={placeholder || t('common.sports')}
-        options={getSCTOptions([...scts])}
+        components={{
+          Option: sctOption,
+          SingleValue,
+          MultiValueLabel,
+        }}
         isClearable={isClearable}
+        isMulti={!isNotMulti}
+        menuPortalTarget={document.querySelector('body')}
+        onChange={selectOption || onChange}
+        options={getSCTOptions([...scts])}
+        placeholder={placeholder || t('common.sports')}
+        shouldSetMinHeight={shouldSetMinHeight}
+        styles={sctStyles}
         value={
           selectedValues
             ? getSCTOptions(
@@ -165,14 +173,6 @@ export default withTranslation(['translation'])(
               )
             : undefined
         }
-        onChange={selectOption || onChange}
-        styles={sctStyles}
-        menuPortalTarget={document.querySelector('body')}
-        components={{
-          Option: sctOption,
-          SingleValue,
-          MultiValueLabel,
-        }}
       />
     );
   },

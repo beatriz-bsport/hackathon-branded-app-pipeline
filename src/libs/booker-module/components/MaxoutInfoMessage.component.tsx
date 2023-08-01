@@ -25,7 +25,7 @@ const MaxoutInfoMessage = (props: Props) => {
     <div className={classes.maxOutExplainContainer}>
       <Hidden xsDown>
         <InfoOutlineIcon className={classes.iconLeft} />
-        <Typography variant="body2" className={classes.darkBlue}>
+        <Typography className={classes.darkBlue} variant="body2">
           {maxoutMessage}
         </Typography>
       </Hidden>

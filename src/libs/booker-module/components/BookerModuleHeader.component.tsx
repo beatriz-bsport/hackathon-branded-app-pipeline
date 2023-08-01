@@ -41,15 +41,15 @@ class ActivitySummary extends React.PureComponent<Props> {
         <Hidden smDown>
           <div className={classes.imageContainer}>
             <img
-              className={classes.image}
               alt={offer.meta_activity.name}
+              className={classes.image}
               src={offer.meta_activity.cover_main}
             />
           </div>
         </Hidden>
 
         <div className={classes.content}>
-          <Typography variant="h6" color="textPrimary">
+          <Typography color="textPrimary" variant="h6">
             {meta_activity.name}
           </Typography>
           <div className={classes.centerBottom}>

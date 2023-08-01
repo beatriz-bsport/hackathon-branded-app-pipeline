@@ -23,12 +23,12 @@ describe('FuzeSearch: <FuzeSearch />', () => {
     act(() => {
       component = render(
         <FuzzySearch
-          placeholder="Search"
-          items={items}
-          searchFields={['label']}
           itemRenderer={({ label, id }, search) => (
-            <div data-testid="row-fuze" key={id}>{`${label} / ${search}`}</div>
+            <div key={id} data-testid="row-fuze">{`${label} / ${search}`}</div>
           )}
+          items={items}
+          placeholder="Search"
+          searchFields={['label']}
         />,
       );
     });

@@ -31,55 +31,55 @@ const PaymentMethodTypeSwitcher = (props: {
     <RadioGroup
       aria-label="payment-method"
       className={classes.paymentMethodSelectorContainer}
-      value={props.payment_method}
       onChange={(ev) => props.onChange(parseInt(ev.target.value))}
+      value={props.payment_method}
     >
       {(props.enabledPaymentGroupMethodIdentifier || []).includes(
         PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
       ) && (
         <FormControlLabel
-          value={PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA}
+          className={classes.paymentMethodRadio}
           control={<Radio color="primary" />}
+          disabled={props.disabled || props.onlinePaymentEnabled === false}
           label={t('paymentMethod.sepa')}
           labelPlacement="bottom"
-          disabled={props.disabled || props.onlinePaymentEnabled === false}
-          className={classes.paymentMethodRadio}
+          value={PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA}
         />
       )}
       {(props.enabledPaymentGroupMethodIdentifier || []).includes(
         PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
       ) && (
         <FormControlLabel
-          value={PAYMENT_GROUP_METHOD_IDENTIFIER_CB}
+          className={classes.paymentMethodRadio}
           control={<Radio color="primary" />}
+          disabled={props.disabled || props.onlinePaymentEnabled === false}
           label={t('paymentMethod.card')}
           labelPlacement="bottom"
-          disabled={props.disabled || props.onlinePaymentEnabled === false}
-          className={classes.paymentMethodRadio}
+          value={PAYMENT_GROUP_METHOD_IDENTIFIER_CB}
         />
       )}
       {(props.enabledPaymentGroupMethodIdentifier || []).includes(
         PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
       ) && (
         <FormControlLabel
-          value={PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT}
+          className={classes.paymentMethodRadio}
           control={<Radio color="primary" />}
+          disabled={props.disabled || props.onlinePaymentEnabled === false}
           label={t('paymentMethod.bacs_debit')}
           labelPlacement="bottom"
-          disabled={props.disabled || props.onlinePaymentEnabled === false}
-          className={classes.paymentMethodRadio}
+          value={PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT}
         />
       )}
       {(props.enabledPaymentGroupMethodIdentifier || []).includes(
         PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
       ) && (
         <FormControlLabel
-          value={PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT}
+          className={classes.paymentMethodRadio}
           control={<Radio color="primary" />}
+          disabled={props.disabled}
           label={t('paymentMethod.bsportCredit')}
           labelPlacement="bottom"
-          disabled={props.disabled}
-          className={classes.paymentMethodRadio}
+          value={PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT}
         />
       )}
 
@@ -89,17 +89,17 @@ const PaymentMethodTypeSwitcher = (props: {
         <FeatureListProvider>
           {(featureList: FeatureList) => (
             <FormControlLabel
-              value={PAYMENT_STRIPE_TERMINAL_FAKE}
+              className={classes.paymentMethodRadio}
               control={<Radio color="primary" />}
-              label={t(
-                'invoice:configuration.stripeTerminal.paymentDialog.radio',
-              )}
-              labelPlacement="bottom"
               disabled={
                 props.disabled ||
                 !hasUpsell(featureList, UPSELL_IDENTIFIER_STRIPE_TERMINAL)
               }
-              className={classes.paymentMethodRadio}
+              label={t(
+                'invoice:configuration.stripeTerminal.paymentDialog.radio',
+              )}
+              labelPlacement="bottom"
+              value={PAYMENT_STRIPE_TERMINAL_FAKE}
             />
           )}
         </FeatureListProvider>

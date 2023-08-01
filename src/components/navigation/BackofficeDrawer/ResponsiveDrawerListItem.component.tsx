@@ -67,23 +67,23 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
       })}
     >
       <ListItem
+        ref={item.icon === TutorialIconWithAlertings ? itemRef : null}
         button
+        aria-describedby={id}
+        className={classNames({
+          [classes.nestedItem]: isNested,
+        })}
+        dense={item.dense || isNested}
         onClick={() => {
           item.action && item.action();
           onMenuItemClick();
         }}
-        dense={item.dense || isNested}
         selected={isActive}
-        className={classNames({
-          [classes.nestedItem]: isNested,
-        })}
-        ref={item.icon === TutorialIconWithAlertings ? itemRef : null}
-        aria-describedby={id}
       >
         <DrawerListItemIcon
-          item={item}
           iconsOnly={iconsOnly}
           isNested={isNested}
+          item={item}
           nbTutorialAlerting={nbTutorialAlerting}
         />
 
@@ -104,16 +104,16 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
         updateUserAcknowlegdeTutorial &&
         !tutorialDialogOpen ? (
           <Popper
+            anchorEl={anchorEl}
+            className={classes.customPoper}
             id={id}
             open={!userAcknowlegdePlatformTutorial}
-            anchorEl={anchorEl}
             placement="right"
-            className={classes.customPoper}
           >
             <Alert
               className={classNames(classes.alert, classes.customPoper)}
-              variant="filled"
               severity="info"
+              variant="filled"
             >
               <div className={classes.alertContent}>
                 <Typography variant="body2">

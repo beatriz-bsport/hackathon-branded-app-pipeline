@@ -42,30 +42,30 @@ export const ConsumerPackLinkForm = (props: Props) => {
         </Typography>
         <PaginatedListBase
           itemPerPage={CONSUMER_PAYMENT_PACK_PAGE_SIZE}
-          loading={props.loading}
-          listProps={{ disablePadding: true }}
           items={props.consumerPacks}
+          listProps={{ disablePadding: true }}
+          loading={props.loading}
           nbItems={props.count}
-          page={props.page}
           onPageRequested={props.fetchConsumerPacks}
+          page={props.page}
           renderItem={(cpp) => (
             <ConsumerPackRowItem
-              consumerPack={cpp}
-              paymentPack={cpp.payment_pack}
-              hideConsumer
               key={cpp.id}
+              hideConsumer
               button={
                 <Button
-                  onClick={() => props.setSelectedConsumerPass(cpp)}
                   color="primary"
-                  variant="outlined"
                   disabled={props.disabledStuff.includes(cpp.id)}
+                  onClick={() => props.setSelectedConsumerPass(cpp)}
+                  variant="outlined"
                 >
                   {props.t(
                     'consumer_payment_pack_links.form.create.linkButton',
                   )}
                 </Button>
               }
+              consumerPack={cpp}
+              paymentPack={cpp.payment_pack}
             />
           )}
         />
@@ -88,9 +88,9 @@ export const ConsumerPackLinkForm = (props: Props) => {
         {props.t('consumer_payment_pack_links.form.create.explain')}
       </Typography>
       <ConsumerPackRowItem
+        hideConsumer
         consumerPack={props.selectedConsumerPass}
         paymentPack={props.selectedConsumerPass.payment_pack}
-        hideConsumer
       />
       <div className={props.classes.buttonContainer}>
         <Button onClick={() => props.setSelectedConsumerPass(null)}>
@@ -98,8 +98,8 @@ export const ConsumerPackLinkForm = (props: Props) => {
         </Button>
         <Button
           color="primary"
-          onClick={() => props.onSubmit(props.selectedConsumerPass.id)}
           disabled={props.processing}
+          onClick={() => props.onSubmit(props.selectedConsumerPass.id)}
         >
           {props.t('consumer_payment_pack_links.form.create.submit')}
         </Button>

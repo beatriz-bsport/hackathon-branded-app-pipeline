@@ -135,21 +135,21 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     return flattenDeep(period).length ? (
       <div key={DAY_PARTS[i]}>
         <div className={classes.periodTitle}>
-          <Typography component="h3" variant="h6" align="center">
+          <Typography align="center" component="h3" variant="h6">
             <p>{t(`dayParts.${DAY_PARTS[i]}`)}</p>
           </Typography>
           <IconButton
-            onClick={this.handlePanelCollapse(i)}
             className={classes.collapseButton}
+            onClick={this.handlePanelCollapse(i)}
           >
             {panelsStatus[i] ? <ExpandLess /> : <ExpandMore />}
           </IconButton>
         </div>
         <Collapse
-          in={panelsStatus[i]}
-          timeout="auto"
           unmountOnExit
           className={classes.sessionsGroup}
+          in={panelsStatus[i]}
+          timeout="auto"
         >
           {offersRows.map((row, idx) => (
             <div key={idx} className={classes.offerRow}>
@@ -162,18 +162,18 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                 return (
                   <div key={`${idx}-${index}`} className={classes.rowItem}>
                     <MarketplaceCardOffer
-                      showOfferFilling={this.props.showOfferFilling}
-                      hideCoach={this.props.hideCoach}
-                      showOfferGender={this.props.showOfferGender}
-                      offer={o}
-                      onClickOffer={this.props.onClickOffer}
-                      onClickBook={this.handleBook(o)}
-                      onClickBookOption={this.handleBookOption(o)}
-                      index={index}
+                      activityLoading={this.props.activityLoading}
                       coachLoading={this.props.coachLoading}
                       establishmentLoading={this.props.establishmentLoading}
-                      activityLoading={this.props.activityLoading}
+                      hideCoach={this.props.hideCoach}
+                      index={index}
                       isRegistered={bookedOffers?.includes(o?.id)}
+                      offer={o}
+                      onClickBook={this.handleBook(o)}
+                      onClickBookOption={this.handleBookOption(o)}
+                      onClickOffer={this.props.onClickOffer}
+                      showOfferFilling={this.props.showOfferFilling}
+                      showOfferGender={this.props.showOfferGender}
                     />
                   </div>
                 );
@@ -221,13 +221,13 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
             const isToday = currentDate.isSame(Moment(), 'day');
             return (
               <div
-                className={classes.rowItem}
                 key={currentDate.format('YYYY-MM-DD')}
+                className={classes.rowItem}
               >
                 <Typography
                   align="center"
-                  variant="h5"
                   color={isToday ? 'primary' : 'textSecondary'}
+                  variant="h5"
                 >
                   {`${day} ${currentDate.format(
                     this.props.locale === 'nl' ? 'D' : 'Do',

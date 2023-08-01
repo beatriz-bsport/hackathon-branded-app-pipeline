@@ -15,26 +15,26 @@ export const UpdateIcon: React.FC<Props> = (props) => {
     <div className={classes.container}>
       <div className={classes.updateIcon}>
         <Update
-          width="96px"
-          height="77px"
           className={classes.muiIcon}
+          height="77px"
           style={{
             color: props.color || theme.palette.warning.main,
           }}
+          width="96px"
         />
         <svg
-          width="110"
+          fill="none"
           height="110"
           viewBox="0 0 110 110"
-          fill="none"
+          width="110"
           xmlns="http://www.w3.org/2000/svg"
         >
           <circle
             cx="55"
             cy="55"
-            r="55"
             fill={props.color ? props.color : theme.palette.warning.main}
             fillOpacity="0.2"
+            r="55"
           />
         </svg>
       </div>

@@ -23,12 +23,12 @@ interface Props {
 export const ExportableWorkshopSettings: React.FC<Props> = (props) => (
   <CommonSettings
     coaches={props.coaches}
+    config={props.config}
+    customLevels={props.customLevels}
     establishmentGroupList={props.establishmentGroupList}
     establishments={props.establishments}
     metaActivities={props.metaActivitiesWorkshop}
-    config={props.config}
     onChange={props.onChange}
-    customLevels={props.customLevels}
   />
 );
 

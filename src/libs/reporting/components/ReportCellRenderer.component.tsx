@@ -68,54 +68,54 @@ const ReportCellRenderer: React.FC<ReportCellRendererProps> = ({
       {isStatusChip &&
         (typeof value === 'string' || typeof value === 'number') && (
           <ReportStatusChip
-            value={value}
+            chipClass={chipClass}
             datatype={datatype}
-            translation={displayedValue}
             extra_data={extra_data}
             row_extra_data={row_extra_data}
-            chipClass={chipClass}
+            translation={displayedValue}
+            value={value}
           />
         )}
       {isBooleanGreenGreyChip && value !== undefined && (
         <BooleanChip
-          value={!!value}
-          translation={displayedValue}
-          colorBlacklist="red"
           chipClass={chipClass}
+          colorBlacklist="red"
+          translation={displayedValue}
+          value={!!value}
         />
       )}
       {isBooleanRedGreenChip && value !== undefined && (
         <BooleanChip
-          value={!!value}
-          translation={displayedValue}
-          colorBlacklist="grey"
           chipClass={chipClass}
+          colorBlacklist="grey"
+          translation={displayedValue}
+          value={!!value}
         />
       )}
       {isBooleanRedGreenInvertedChip && value !== undefined && (
         <BooleanChip
-          value={!!value}
-          translation={displayedValue}
-          colorBlacklist="grey"
           colorsInverted
           chipClass={chipClass}
+          colorBlacklist="grey"
+          translation={displayedValue}
+          value={!!value}
         />
       )}
       {isConditionChip && typeof value === 'number' && (
         <ReportConditionChip
-          value={value}
-          datatype={datatype}
-          translation={displayedValue}
           chipClass={chipClass}
+          datatype={datatype}
           row_extra_data={row_extra_data}
+          translation={displayedValue}
+          value={value}
         />
       )}
       {isTagChip && extra_data?.color && (
         <CustomChip
-          displayedValue={displayedValue}
-          mainColor={tagColor}
-          icon={extra_data?.icon.toString()}
           chipClass={chipClass}
+          displayedValue={displayedValue}
+          icon={extra_data?.icon.toString()}
+          mainColor={tagColor}
         />
       )}
     </div>

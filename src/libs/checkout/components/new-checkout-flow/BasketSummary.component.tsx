@@ -63,9 +63,9 @@ export const BasketSummary: React.FC<BasketSummaryProps> = ({
               />
               {index !== basketSummaryCheckoutItems.length - 1 && (
                 <Divider
-                  variant="middle"
-                  className={classes.divider}
                   key={`divider-${checkoutItem.id}`}
+                  className={classes.divider}
+                  variant="middle"
                 />
               )}
             </>

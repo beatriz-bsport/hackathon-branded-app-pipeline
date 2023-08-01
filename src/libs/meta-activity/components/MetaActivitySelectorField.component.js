@@ -23,13 +23,13 @@ export const MetaActivitySelectorField = withTranslation([])((props) => {
           metaActivitySelected.first_booking_minutes_until / 1440;
         return (
           <FormControl
+            error={!!(touched[field.name] && errors[field.name])}
             fullWidth={fullWidth}
             required={required}
-            error={!!(touched[field.name] && errors[field.name])}
           >
             <MetaActivitySelector
-              nameCypress={`select-${props.name}`}
               metaActivities={props.metaActivityList}
+              nameCypress={`select-${props.name}`}
               {...field}
               {...omit(props, [
                 't',
@@ -46,11 +46,11 @@ export const MetaActivitySelectorField = withTranslation([])((props) => {
             />
             {!props.disabled && (
               <input
-                tabIndex={-1}
                 autoComplete="off"
-                style={{ opacity: 0, height: 0 }}
-                value={field.value}
                 required={required}
+                style={{ opacity: 0, height: 0 }}
+                tabIndex={-1}
+                value={field.value}
               />
             )}
             <ErrorMessage {...props}>
@@ -68,7 +68,7 @@ export const MetaActivitySelectorField = withTranslation([])((props) => {
                     justifyContent: 'space-between',
                   }}
                 >
-                  <WarningIcon fontSize="small" color="disabled" />
+                  <WarningIcon color="disabled" fontSize="small" />
                   <Typography variant="caption">
                     {helperText(blockedBookingsDays)}
                   </Typography>

@@ -46,59 +46,59 @@ const AppBarLogo: React.FC<LogoProps> = ({
     return (
       <>
         <ButtonBase
-          variant="outlined"
+          className={classnames([classes.marginLeft, classes.selector])}
           onClick={(ev: React.SyntheticEvent<HTMLButtonElement>) =>
             setOpenMenu(ev.currentTarget)
           }
-          className={classnames([classes.marginLeft, classes.selector])}
+          variant="outlined"
         >
           <Hidden smDown>
             <img
-              height={40}
-              width={40}
-              className={classes.logo}
-              src={franchisor.cover}
               alt="bsport logo"
+              className={classes.logo}
+              height={40}
+              src={franchisor.cover}
+              width={40}
             />
           </Hidden>
           <Hidden smUp>
             <img
-              height={40}
-              width={40}
-              className={classes.logo}
-              src={franchisor.cover}
               alt="bsport logo"
+              className={classes.logo}
+              height={40}
+              src={franchisor.cover}
+              width={40}
             />
           </Hidden>
           <Hidden xsDown>
-            <Typography variant="subtitle2" noWrap align="left">
+            <Typography noWrap align="left" variant="subtitle2">
               {currentTheme.company_name}
             </Typography>
           </Hidden>
           <KeyboardArrowDownIcon />
         </ButtonBase>
         <Menu
-          onClose={() => setOpenMenu(null)}
-          anchorEl={menuOpen}
           keepMounted
+          anchorEl={menuOpen}
+          onClose={() => setOpenMenu(null)}
           open={!!menuOpen}
         >
           {franchisor.companies
             .filter((c) => !!c && !c.hidden_from_marketplace)
             .map((c) => (
               <MenuItem
+                key={c.id}
                 onClick={() => {
                   setOpenMenu(null);
                   onCompanySelected(c);
                 }}
-                key={c.id}
               >
                 <img
-                  height={24}
-                  width={24}
-                  className={classes.logo}
-                  src={c.cover || franchisor.cover}
                   alt="bsport logo"
+                  className={classes.logo}
+                  height={24}
+                  src={c.cover || franchisor.cover}
+                  width={24}
                 />
                 <ListItemText>{c.name}</ListItemText>
               </MenuItem>
@@ -109,25 +109,25 @@ const AppBarLogo: React.FC<LogoProps> = ({
   if (logo && websiteURL)
     return (
       <ButtonBase
+        className={classes.marginLeft}
         onClick={() => {
           window.location.href = httpParser(websiteURL);
         }}
-        className={classes.marginLeft}
       >
-        <img height={40} src={logo} alt="bsport logo" />
+        <img alt="bsport logo" height={40} src={logo} />
       </ButtonBase>
     );
   if (logo)
     return (
       <img
-        height={40}
-        className={classes.marginLeft}
-        src={logo}
         alt="bsport logo"
+        className={classes.marginLeft}
+        height={40}
+        src={logo}
       />
     );
   return (
-    <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+    <Typography noWrap className={classes.title} color="inherit" variant="h6">
       {title}
     </Typography>
   );

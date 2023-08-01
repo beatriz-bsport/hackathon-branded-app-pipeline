@@ -118,8 +118,8 @@ const StepperForm = ({ activeStep }: { activeStep: number }) => {
   const { t } = useTranslation('role');
   return (
     <Stepper
-      activeStep={activeStep}
       alternativeLabel
+      activeStep={activeStep}
       connector={<ColorlibConnector />}
     >
       <Step key={STEP_MASTER_ACCOUNT}>
@@ -205,22 +205,22 @@ class FranchiseCreateRoleDialog extends React.Component<Props, State> {
   render() {
     return (
       <GenericResponsiveDrawer
+        onClose={this.props.onClose}
         open={this.props.open}
         title={this.props.t('forms.role.franchise.create.title')}
-        onClose={this.props.onClose}
       >
         <StepperForm activeStep={this.state.currentStep} />
         <Divider className={this.props.classes.divider} />
         {this.state.currentStep === STEP_MASTER_ACCOUNT && (
           <CreateRoleMasterAccount
             open
+            onClose={this.props.onClose}
             onNext={(data) => {
               this.setState({
                 currentStep: STEP_FRANCHISEE,
                 masterAccountData: data,
               });
             }}
-            onClose={this.props.onClose}
             role={this.state.masterAccountData}
           />
         )}
@@ -228,6 +228,13 @@ class FranchiseCreateRoleDialog extends React.Component<Props, State> {
           <CreateRoleFranchisee
             isFranchisor
             open
+            onClose={this.props.onClose}
+            onPrevious={(data: FranchiseRoleFranchiseeData) => {
+              this.setState({
+                currentStep: STEP_MASTER_ACCOUNT,
+                franchiseeData: data,
+              });
+            }}
             onSubmit={(data: FranchiseRoleFranchiseeData) => {
               this.props.onSubmit({
                 ...this.props.franchisorRole,
@@ -247,13 +254,6 @@ class FranchiseCreateRoleDialog extends React.Component<Props, State> {
                 currentStep: STEP_MASTER_ACCOUNT,
               });
             }}
-            onPrevious={(data: FranchiseRoleFranchiseeData) => {
-              this.setState({
-                currentStep: STEP_MASTER_ACCOUNT,
-                franchiseeData: data,
-              });
-            }}
-            onClose={this.props.onClose}
             role={this.state.franchiseeData}
           />
         )}

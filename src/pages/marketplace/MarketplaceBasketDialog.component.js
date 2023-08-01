@@ -36,18 +36,18 @@ export const MarketplaceBasketDialog = (props: Props) => {
 
   const { t } = useTranslation([]);
   return (
-    <Dialog open={props.open} fullScreen={props.fullScreen}>
-      <Typography variant="h4" className={classes.title}>
+    <Dialog fullScreen={props.fullScreen} open={props.open}>
+      <Typography className={classes.title} variant="h4">
         {t('checkout:myBasket.title')}
       </Typography>
       <BasketConsumer
-        isExcludingTax={props.isExcludingTax}
-        basket={props.basket}
         withPrice
-        onCancel={props.onCancel}
+        basket={props.basket}
+        isExcludingTax={props.isExcludingTax}
         loading={props.loading}
-        onRemoveCheckoutItem={props.onRemoveCheckoutItem}
         onAddCheckoutItem={props.onAddCheckoutItem}
+        onCancel={props.onCancel}
+        onRemoveCheckoutItem={props.onRemoveCheckoutItem}
       />
       <DialogActions>
         <Button color="secondary" onClick={props.onCancel}>

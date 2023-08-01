@@ -67,50 +67,50 @@ export class MemberNotePanel extends Component<Props, State> {
     const { newNote } = this.state;
     return (
       <div style={{ width: '100%' }}>
-        <Typography component="h2" variant="h6" className={classes.title}>
+        <Typography className={classes.title} component="h2" variant="h6">
           {this.props.healthNotes ? t('note.healthNotes') : t('note.myNotes')}
         </Typography>
         <Divider />
         {newNote ? (
           <div className={classes.noteContainer}>
             <MemberNote
-              editMode
               autoFocus
+              editMode
+              note={{ text: '' }}
+              onDelete={this.deleteNewNote}
               onSubmit={(text, highlighted) =>
                 this.handleNoteSubmit(null, text, highlighted)
               }
-              onDelete={this.deleteNewNote}
-              note={{ text: '' }}
             />
           </div>
         ) : null}
         {notes.length
           ? notes.map((note) => (
-              <div className={classes.noteContainer} key={note.id}>
+              <div key={note.id} className={classes.noteContainer}>
                 <MemberNote
+                  key={note.id}
+                  date={note.date}
+                  note={note}
+                  onDelete={() => this.handleNoteDelete(note.id)}
                   onSubmit={(text, highlighted) =>
                     this.handleNoteSubmit(note.id, text, highlighted)
                   }
-                  onDelete={() => this.handleNoteDelete(note.id)}
-                  note={note}
-                  key={note.id}
-                  date={note.date}
                 />
               </div>
             ))
           : null}
         {notes.length === 0 && !newNote ? (
           <div className={classes.emptyMessage}>
-            <Typography variant="caption" color="textSecondary">
+            <Typography color="textSecondary" variant="caption">
               {t('note.noNoteSaved')}
             </Typography>
           </div>
         ) : null}
         <Button
           className={classes.addButton}
-          variant="outlined"
           color="primary"
           onClick={this.addNewNote}
+          variant="outlined"
         >
           <AddIcon className={classes.leftIcon} />
           {t('note.addNote')}

@@ -71,18 +71,18 @@ export const CadenceWinSetupForm: React.FC<InitialWinComponentProps> = ({
       </div>
       <div className={classes.stepperContainer}>
         <CadenceSettingsFormStepper
-          step={CADENCE_STEPPER_WIN_STEP}
           displaySteps={[CADENCE_STEPPER_WIN_STEP]}
+          step={CADENCE_STEPPER_WIN_STEP}
         />
       </div>
       <Divider />
       <TriggerForm
-        initial={initial}
-        smartlists={smartlists}
-        onSubmit={handleSubmitForm}
-        viewMode={viewMode}
         cadenceExitSuccess
         noEmptyTrigger
+        initial={initial}
+        onSubmit={handleSubmitForm}
+        smartlists={smartlists}
+        viewMode={viewMode}
       />
     </div>
   );

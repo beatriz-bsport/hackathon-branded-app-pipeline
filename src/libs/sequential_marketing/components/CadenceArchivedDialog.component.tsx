@@ -29,23 +29,23 @@ export const CadenceArchivedDialog: React.FC<Props> = ({
   const classes = useStyles();
 
   return (
-    <GenericResponsiveDialog open={open} maxWidth="sm">
+    <GenericResponsiveDialog maxWidth="sm" open={open}>
       <div className={classes.container}>
         <div className={classes.paddingBottom}>
           <div className={classes.largeIconContainer}>
-            <DeleteIcon color="error" className={classes.largeIcon} />
+            <DeleteIcon className={classes.largeIcon} color="error" />
           </div>
         </div>
-        <Typography variant="h6" className={classes.paddingBottom}>
+        <Typography className={classes.paddingBottom} variant="h6">
           {t('cadence.archive.dialog.title')}
         </Typography>
-        <Typography variant="body1" align="center">
+        <Typography align="center" variant="body1">
           {t('cadence.archive.dialog.beingArchived', { name: cadence?.name })}
         </Typography>
         <Typography
-          variant="body1"
           align="center"
           className={classes.paddingBottom}
+          variant="body1"
         >
           {t('cadence.archive.dialog.helper', { name: cadence?.name })}
         </Typography>
@@ -53,7 +53,7 @@ export const CadenceArchivedDialog: React.FC<Props> = ({
           <Button onClick={onCancel} variant="text">
             {t('cadence.archive.dialog.cancel')}
           </Button>
-          <Button onClick={onConfirm} variant="contained" color="primary">
+          <Button color="primary" onClick={onConfirm} variant="contained">
             {t('cadence.archive.dialog.confirm')}
           </Button>
         </div>

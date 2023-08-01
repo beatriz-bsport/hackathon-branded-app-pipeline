@@ -29,7 +29,7 @@ export const CustomEventCard = (props: Props) => {
       {!props.isCoach &&
         customEvent.coaches.map((c) =>
           c ? (
-            <CoachListItemBasic coach={c} key={c.id} />
+            <CoachListItemBasic key={c.id} coach={c} />
           ) : (
             <CircularProgress />
           ),

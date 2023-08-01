@@ -381,7 +381,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       <div>
         {withGeneralConditions && (
           <>
-            <Typography variant="h4" className={classes.title}>
+            <Typography className={classes.title} variant="h4">
               {t('contract.actions.subscribe')}
             </Typography>
             <div className={classes.acceptContractTermsContainer}>
@@ -391,18 +391,18 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               />
               <Typography className={classes.contractTerms}>
                 <Trans
-                  t={t}
-                  i18nKey="contract.actions.iAcceptContractTerms"
                   components={[
                     <ButtonBaseWithTypography
-                      onClick={this.props.onOpenContractTermsDialog}
                       disableRipple
-                      typographyColor="primary"
                       className={classes.contractTermsButton}
+                      onClick={this.props.onOpenContractTermsDialog}
+                      typographyColor="primary"
                     >
                       .
                     </ButtonBaseWithTypography>,
                   ]}
+                  i18nKey="contract.actions.iAcceptContractTerms"
+                  t={t}
                 />
               </Typography>
             </div>
@@ -413,15 +413,14 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 </Typography>
                 <div className={classes.column}>
                   <MuiPickersUtilsProvider
-                    utils={MomentUtils}
-                    moment={Moment}
                     locale={Moment.locale()}
+                    moment={Moment}
+                    utils={MomentUtils}
                   >
                     <DatePicker
-                      value={date}
-                      onChange={setDate}
-                      format="L"
+                      disablePast
                       required
+                      format="L"
                       mask={(value) => {
                         if (value) {
                           return [
@@ -439,8 +438,9 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                         }
                         return [];
                       }}
+                      onChange={setDate}
                       returnMoment={false}
-                      disablePast
+                      value={date}
                     />
                   </MuiPickersUtilsProvider>
                 </div>
@@ -528,8 +528,8 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               </div>
             )}
             <CouponCodeForm
-              onSubmit={this.applyCoupon}
               disabled={this.props.disabled}
+              onSubmit={this.applyCoupon}
             />
             <Divider />
           </div>
@@ -537,27 +537,27 @@ export class SubscriptionPayment extends React.Component<Props, State> {
         {!!this.props.withNote && (
           <TextField
             fullWidth
-            variant="outlined"
-            rows={3}
             label={t('subscription:form.note.label')}
-            value={this.state.note}
             onChange={(ev) => this.setState({ note: ev.target.value })}
+            rows={3}
+            value={this.state.note}
+            variant="outlined"
           />
         )}
         {!this.isZeroPrice() && (
           <>
             <PaymentMethodSwitcher
-              paymentMethod={paymentMethod}
+              disabled={this.props.disabled || this.state.processingTerminal}
+              enabledPaymentGroupMethodIdentifier={
+                enabledPaymentGroupMethodIdentifier
+              }
+              enabledPaymentMethods={enabledPaymentMethods}
               onChange={(value) => {
                 setPaymentMethod(value);
                 this.setState({ selectedSavedPaymentMethodId: null });
               }}
-              enabledPaymentMethods={enabledPaymentMethods}
               onlinePaymentEnabled={this.props.onlinePaymentEnabled}
-              enabledPaymentGroupMethodIdentifier={
-                enabledPaymentGroupMethodIdentifier
-              }
-              disabled={this.props.disabled || this.state.processingTerminal}
+              paymentMethod={paymentMethod}
             />
             <Divider />
             <div className={classes.cardContainer}>
@@ -571,40 +571,29 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               {paymentMethod === 'terminal' && (
                 <div className={classes.terminalContainer}>
                   <PaymentStripeTerminalWrapper
-                    stripeReaders={this.props.stripeReaders}
+                    isSetupIntent
+                    onCancel={onCancel}
+                    onSuccess={this.submit}
                     requestSetupIntentSecret={
                       this.props.requestSetupIntentSecret
                     }
-                    onCancel={onCancel}
-                    onSuccess={this.submit}
                     setProcessing={(value: boolean) =>
                       this.setState({ processingTerminal: value })
                     }
-                    isSetupIntent
+                    stripeReaders={this.props.stripeReaders}
                   />
                 </div>
               )}
               {['card', 'sepa_debit', 'bacs_debit'].includes(paymentMethod) &&
                 !(this.props.onlinePaymentEnabled === false) && (
                   <PaymentMethodList
-                    showEmpty
                     isExpanded
                     onDelete
-                    savedPaymentMethodList={this.props.savedPaymentMethodList}
-                    selectedSavedPaymentMethodId={
-                      this.state.selectedSavedPaymentMethodId
-                    }
-                    requestSetupIntentSecret={
-                      this.props.requestSetupIntentSecret
-                    }
-                    refreshSavedPaymentMethodList={
-                      this.props.refreshSavedPaymentMethodList
-                    }
-                    paymentMethodType={paymentMethod}
-                    onSelect={(selectedSavedPaymentMethodId) =>
-                      this.setState({
-                        selectedSavedPaymentMethodId,
-                      })
+                    showEmpty
+                    companyId={this.props.companyId}
+                    detachPaymentMethod={this.props.detachPaymentMethod}
+                    detachPaymentMethodLoading={
+                      this.props.detachPaymentMethodLoading
                     }
                     disabled={
                       this.state.loading ||
@@ -612,15 +601,26 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                       this.props.disabled ||
                       this.props.onlinePaymentEnabled === false
                     }
-                    detachPaymentMethodLoading={
-                      this.props.detachPaymentMethodLoading
+                    onSelect={(selectedSavedPaymentMethodId) =>
+                      this.setState({
+                        selectedSavedPaymentMethodId,
+                      })
                     }
-                    companyId={this.props.companyId}
-                    detachPaymentMethod={this.props.detachPaymentMethod}
+                    paymentMethodType={paymentMethod}
+                    refreshSavedPaymentMethodList={
+                      this.props.refreshSavedPaymentMethodList
+                    }
+                    requestSetupIntentSecret={
+                      this.props.requestSetupIntentSecret
+                    }
+                    savedPaymentMethodList={this.props.savedPaymentMethodList}
+                    selectedSavedPaymentMethodId={
+                      this.state.selectedSavedPaymentMethodId
+                    }
+                    sepaDefaultEmail={this.props.sepaDefaultEmail}
+                    sepaDefaultName={this.props.sepaDefaultName}
                     snackbarErrorMsg={this.props.snackbarErrorMsg}
                     snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-                    sepaDefaultName={this.props.sepaDefaultName}
-                    sepaDefaultEmail={this.props.sepaDefaultEmail}
                   />
                 )}
             </div>
@@ -630,31 +630,31 @@ export class SubscriptionPayment extends React.Component<Props, State> {
           this.props.withEstablishment &&
           this.props.establishments?.length !== 0 && (
             <div className={classes.establishmentSection}>
-              <Typography variant="h6" className={classes.sectionTitle}>
+              <Typography className={classes.sectionTitle} variant="h6">
                 {this.props.t(
                   'invoice:section.invoiceItemList.billing_establishment',
                 )}
               </Typography>
               <Divider className={classes.divider} />
               <EstablishmentSelector
+                closeMenuOnSelect
+                isOptionDisabled
+                noMulti
+                targetParentElement
                 establishments={this.props.establishments}
                 isClearable={!this.props.forceEstablishmentSelection}
                 isLoading={this.props.establishmentLoading}
-                isOptionDisabled
+                isRequired={this.props.forceEstablishmentSelection}
+                requiredValueIsMissing={
+                  this.state.requiredEstablishmentIsMissing
+                }
+                selectedEstablishments={[this.state.billing_establishment_id]}
                 selectOption={(item: { value: number, label: string }) => {
                   this.setState({
                     billing_establishment_id: item ? item.value : null,
                     requiredEstablishmentIsMissing: !item,
                   });
                 }}
-                selectedEstablishments={[this.state.billing_establishment_id]}
-                noMulti
-                closeMenuOnSelect
-                targetParentElement
-                isRequired={this.props.forceEstablishmentSelection}
-                requiredValueIsMissing={
-                  this.state.requiredEstablishmentIsMissing
-                }
               />
             </div>
           )}
@@ -668,22 +668,22 @@ export class SubscriptionPayment extends React.Component<Props, State> {
             <RadioGroup
               aria-label="displayType"
               name="displayType"
-              value={this.state.paymentMethodForPastInvoices}
               onChange={this.handleChangePaymentMethodForPastInvoices}
+              value={this.state.paymentMethodForPastInvoices}
             >
               <FormControlLabel
-                value={SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES}
                 control={<Radio />}
                 label={this.props.t(
                   'subscription:contract.pastDate.payment.registeredMethodPayment',
                 )}
+                value={SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES}
               />
               <FormControlLabel
-                value={MANUAL_PAYMENT_METHOD_FOR_PAST_INVOICES}
                 control={<Radio />}
                 label={this.props.t(
                   'subscription:contract.pastDate.payment.manualPayment',
                 )}
+                value={MANUAL_PAYMENT_METHOD_FOR_PAST_INVOICES}
               />
             </RadioGroup>
             {this.state.paymentMethodForPastInvoices ===
@@ -698,14 +698,14 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               MANUAL_PAYMENT_METHOD_FOR_PAST_INVOICES && (
               <FormControl className={classes.field}>
                 <Select
-                  id="payment-method-select"
-                  value={this.state.manualPaymentMethodForPastInvoices}
                   fullWidth
+                  id="payment-method-select"
                   onChange={(ev) => {
                     this.setState({
                       manualPaymentMethodForPastInvoices: ev.target.value,
                     });
                   }}
+                  value={this.state.manualPaymentMethodForPastInvoices}
                 >
                   {PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT].filter(
                     (pm) => pm !== PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
@@ -730,26 +730,26 @@ export class SubscriptionPayment extends React.Component<Props, State> {
         {showContractTermsCheckbox && (
           <div className={classes.contractTerms}>
             <Checkbox
-              className={classes.contractTermsCheckbox}
               checked={this.state.contractTermsChecked}
-              onChange={this.onContractTermsCheckboxClick}
+              className={classes.contractTermsCheckbox}
               color="primary"
+              onChange={this.onContractTermsCheckboxClick}
             />
-            <Typography variant="body2" className={classes.contractTerms}>
+            <Typography className={classes.contractTerms} variant="body2">
               <Trans
-                t={t}
-                i18nKey="subscription:contract.actions.acceptContractTerms"
                 components={[
                   <ButtonBaseWithTypography
-                    onClick={openContractTermsDialog}
                     disableRipple
-                    typographyVariant="body2"
-                    typographyColor="primary"
                     className={classes.contractTermsButton}
+                    onClick={openContractTermsDialog}
+                    typographyColor="primary"
+                    typographyVariant="body2"
                   >
                     .
                   </ButtonBaseWithTypography>,
                 ]}
+                i18nKey="subscription:contract.actions.acceptContractTerms"
+                t={t}
               />
             </Typography>
           </div>
@@ -757,13 +757,24 @@ export class SubscriptionPayment extends React.Component<Props, State> {
         {paymentMethod !== 'terminal' && (
           <div className={classes.buttonContainer}>
             <Button
-              onClick={onCancel}
               color="secondary"
               disabled={processing || this.state.loading}
+              onClick={onCancel}
             >
               {t('subscription:form.cancel')}
             </Button>
             <Button
+              color="primary"
+              disabled={
+                (['sepa_debit', 'card'].includes(paymentMethod) &&
+                  !this.state.selectedSavedPaymentMethodId &&
+                  !this.isZeroPrice()) ||
+                this.props.disabled ||
+                this.state.loading ||
+                processing ||
+                (showContractTermsCheckbox && !this.state.contractTermsChecked)
+              }
+              id="stripe-pay"
               onClick={() => {
                 this.setState({
                   lastConfirmDifferentMonth: !moment(this.props.date).isSame(
@@ -775,18 +786,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                   this.submit();
                 }
               }}
-              id="stripe-pay"
-              color="primary"
               variant="contained"
-              disabled={
-                (['sepa_debit', 'card'].includes(paymentMethod) &&
-                  !this.state.selectedSavedPaymentMethodId &&
-                  !this.isZeroPrice()) ||
-                this.props.disabled ||
-                this.state.loading ||
-                processing ||
-                (showContractTermsCheckbox && !this.state.contractTermsChecked)
-              }
             >
               {this.state.loading || processing ? (
                 <CircularProgress color="inherit" />
@@ -797,8 +797,8 @@ export class SubscriptionPayment extends React.Component<Props, State> {
           </div>
         )}
         <GenericResponsiveDialog
-          open={this.props.pastInvoices && this.state.lastConfirmDifferentMonth}
           maxWidth="sm"
+          open={this.props.pastInvoices && this.state.lastConfirmDifferentMonth}
         >
           <DialogTitle>{this.props.t('contract.pastDate.title')}</DialogTitle>
           <DialogContent className={classes.alertContentDifferentMonth}>
@@ -812,35 +812,35 @@ export class SubscriptionPayment extends React.Component<Props, State> {
             </Alert>
             <NumericInput
               required
-              label={this.props.t('contract.pastDate.alertDifferentMonthInput')}
+              className={classes.confirmValue}
+              error={this.state.errorValuePastInvoices}
               helperText={
                 this.state.errorValuePastInvoices &&
                 this.props.t('contract.pastDate.valuePastInvoicesInputError')
               }
-              error={this.state.errorValuePastInvoices}
+              label={this.props.t('contract.pastDate.alertDifferentMonthInput')}
               onChange={(event) =>
                 this.setState({
                   amountValuePastInvoices: Number(event.target.value),
                 })
               }
-              className={classes.confirmValue}
             />
           </DialogContent>
           <DialogActions>
             <Button
+              color="secondary"
               onClick={() => {
                 this.setState({ lastConfirmDifferentMonth: false });
               }}
-              color="secondary"
             >
               {this.props.t('contract.pastDate.cancel')}
             </Button>
             <Button
+              color="primary"
               onClick={() => {
                 this.submit(true);
               }}
               variant="contained"
-              color="primary"
             >
               {this.props.t('contract.pastDate.validate')}
             </Button>

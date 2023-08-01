@@ -71,17 +71,17 @@ export const ReplacementRequestReasonDialog: React.FC<Props> = ({
   if (success)
     return (
       <Dialog
-        open={open}
-        maxWidth="sm"
         classes={{ paper: classes.dialogPaper }}
+        maxWidth="sm"
+        open={open}
       >
         <div className={classes.validationIcon}>
           <ValidationIcon color={theme.palette.success.main} />
         </div>
-        <Typography variant="h6" className={classes.successTexts}>
+        <Typography className={classes.successTexts} variant="h6">
           {t('askForReplacement.requestSent', { count: nbSelectedOffers })}
         </Typography>
-        <Typography variant="body1" className={classes.successTexts}>
+        <Typography className={classes.successTexts} variant="body1">
           {t('askForReplacement.requestSentDescription', {
             count: nbSelectedOffers,
           })}
@@ -99,26 +99,26 @@ export const ReplacementRequestReasonDialog: React.FC<Props> = ({
 
   return (
     <Dialog
-      open={open}
-      maxWidth="sm"
       fullWidth
       classes={{ paper: classes.dialogPaper }}
+      maxWidth="sm"
+      open={open}
     >
       <div className={classes.dialogContainer}>
-        <Typography variant="h6" className={classes.title}>
+        <Typography className={classes.title} variant="h6">
           {t('askForReplacement.title')}
         </Typography>
         <TextField
-          name="reason"
-          label={t('askForReplacement.label')}
-          inputProps={{ minLength: 0, maxLength: 100 }}
-          value={reason}
-          onChange={handleChange}
+          fullWidth
+          multiline
+          required
           className={classes.textField}
           helperText={`${reason.length}/100`}
-          required
-          multiline
-          fullWidth
+          inputProps={{ minLength: 0, maxLength: 100 }}
+          label={t('askForReplacement.label')}
+          name="reason"
+          onChange={handleChange}
+          value={reason}
         />
 
         {lateReplacementRequestStatus && atLeastOneLateRequest && (
@@ -133,13 +133,13 @@ export const ReplacementRequestReasonDialog: React.FC<Props> = ({
 
             {lateReplacementRequestStatus.is_late_replacement_request_limited && (
               <Alert
+                classes={{ root: classes.alertOverride }}
                 className={classes.alert}
                 severity="info"
-                classes={{ root: classes.alertOverride }}
               >
                 <Trans
-                  t={t}
                   i18nKey="askForReplacement.lateRequestCounterInfo"
+                  t={t}
                   values={{
                     requestsLeft: nbLateRequestsLeft,
                     requestsMax:
@@ -154,9 +154,9 @@ export const ReplacementRequestReasonDialog: React.FC<Props> = ({
             )}
 
             <Alert
+              classes={{ root: classes.alertOverride }}
               className={classes.alert}
               severity="info"
-              classes={{ root: classes.alertOverride }}
             >
               <Typography variant="body2">
                 {t('askForReplacement.lateRequestInfo', {
@@ -179,12 +179,12 @@ export const ReplacementRequestReasonDialog: React.FC<Props> = ({
                 {t('askForReplacement.cancel')}
               </Button>
               <Button
+                className={classes.buttons}
+                color="primary"
                 disabled={
                   reason.replaceAll(' ', '').replaceAll('', '').length === 0
                 }
-                className={classes.buttons}
                 onClick={handleSubmit}
-                color="primary"
                 variant="contained"
               >
                 {t('askForReplacement.submit')}

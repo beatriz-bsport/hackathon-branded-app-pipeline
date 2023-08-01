@@ -72,28 +72,28 @@ const BasketDeliveryForm: React.FC<BasketDeliveryProps> = forwardRef(
       <div>
         <div className={classes.nameContainer}>
           <TextField
-            value={basketAddress.first_name}
-            placeholder={t('forms.delivery.first_name')}
             required
-            onChange={onChange('first_name')}
             className={classes.firstNameField}
+            onChange={onChange('first_name')}
+            placeholder={t('forms.delivery.first_name')}
+            value={basketAddress.first_name}
           />
           <TextField
-            value={basketAddress.last_name}
-            placeholder={t('forms.delivery.last_name')}
             required
             onChange={onChange('last_name')}
+            placeholder={t('forms.delivery.last_name')}
+            value={basketAddress.last_name}
           />
         </div>
         <AddressForm
-          companyCountry={companyCountry}
           address_line_1={basketAddress.address_line_1}
           address_line_2={basketAddress.address_line_2}
-          zipcode={basketAddress.zipcode}
-          country={basketAddress.country}
-          state={basketAddress.state}
           city={basketAddress.city}
+          companyCountry={companyCountry}
+          country={basketAddress.country}
           onChange={onChange}
+          state={basketAddress.state}
+          zipcode={basketAddress.zipcode}
         />
         {!isNewCheckoutFlow && (
           <div className={classes.buttonContainer}>
@@ -105,8 +105,8 @@ const BasketDeliveryForm: React.FC<BasketDeliveryProps> = forwardRef(
                   {t('forms.delivery.actions.cancel')}
                 </Button>
                 <Button
-                  onClick={onAddressSubmit}
                   color="primary"
+                  onClick={onAddressSubmit}
                   variant="contained"
                 >
                   {t('forms.delivery.actions.submit')}

@@ -158,7 +158,7 @@ export class ResourceAllocationConfirmDialog extends React.Component<
   render() {
     const { classes, t } = this.props;
     return (
-      <Dialog open aria-labelledby="alert-dialog-title" maxWidth="sm" fullWidth>
+      <Dialog fullWidth open aria-labelledby="alert-dialog-title" maxWidth="sm">
         {this.state.loading ? <LinearProgress /> : null}
         <DialogTitle>
           {t(

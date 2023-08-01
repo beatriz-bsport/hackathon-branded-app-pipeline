@@ -153,34 +153,34 @@ const OfferFormCoach = (props: Props) => {
   return (
     <FormSection
       id="offer-form-coach-section"
-      sectionTitle={t('form.section.coach.title')}
-      sectionIcon={FitnessCenter}
       sectionCustomIconStyle={classes.sectionIcon}
+      sectionIcon={FitnessCenter}
       sectionIconContainerStyle={classes.sectionIconContainer}
+      sectionTitle={t('form.section.coach.title')}
     >
       <OfferFormField
-        id="offer-form-coach-field"
-        label={t('form.section.coach.field.coach.title')}
         isRequired
+        id="offer-form-coach-field"
         isError={!!errors.coach}
+        label={t('form.section.coach.field.coach.title')}
       >
         <div className={classes.errorContainer}>
           <CoachSelector
-            id="offer-form-coach-selector"
-            placeholder={t('form.section.coach.field.coach.placeholder')}
-            coaches={availableMainCoaches}
             closeMenuOnSelect
             noMulti
+            coaches={availableMainCoaches}
+            id="offer-form-coach-selector"
+            isDisabled={!!disabled}
+            isError={!!errors.coach && touched.coach}
+            onBlur={handleBlur}
+            placeholder={t('form.section.coach.field.coach.placeholder')}
             selectedCoaches={selectedCoaches}
             selectOption={handleSelectCoach}
-            onBlur={handleBlur}
             selectorClass={classes.bigWidth}
-            isError={!!errors.coach && touched.coach}
-            isDisabled={!!disabled}
           />
 
           {!!errors.coach && touched.coach && (
-            <Typography variant="caption" color="error">
+            <Typography color="error" variant="caption">
               {t(errors.coach)}
             </Typography>
           )}
@@ -189,27 +189,27 @@ const OfferFormCoach = (props: Props) => {
       {!!coach && Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && (
         <OfferFormField
           id="offer-form-coach-field"
-          label={t('form.section.coach.additionalCoaches.title')}
           isError={!!errors.coach}
+          label={t('form.section.coach.additionalCoaches.title')}
         >
           <div className={classes.errorContainer}>
             <CoachSelector
+              closeMenuOnSelect
+              coaches={availableAdditionalCoaches}
               id="offer-form-coach-selector"
+              isDisabled={!!disabled}
+              isError={!!errors.coach && touched.coach}
+              onBlur={handleBlur}
               placeholder={t(
                 'form.section.coach.additionalCoaches.field.placeHolder',
               )}
-              coaches={availableAdditionalCoaches}
-              closeMenuOnSelect
               selectedCoaches={selectedAdditionalCoaches}
               selectOption={handleMultiSelectCoach}
-              onBlur={handleBlur}
               selectorClass={classes.xBigWidth}
-              isError={!!errors.coach && touched.coach}
-              isDisabled={!!disabled}
             />
 
             {!!errors.coach && touched.coach && (
-              <Typography variant="caption" color="error">
+              <Typography color="error" variant="caption">
                 {t(errors.coach)}
               </Typography>
             )}
@@ -223,18 +223,18 @@ const OfferFormCoach = (props: Props) => {
           label={t('form.section.coach.field.coachOverride.title')}
         >
           <CoachSelector
+            closeMenuOnSelect
+            isClearable
+            noMulti
+            coaches={availableCoachOverride}
             id="offer-form-coach-override-selector"
+            isDisabled={!!disabled}
             placeholder={t(
               'form.section.coach.field.coachOverride.placeholder',
             )}
-            coaches={availableCoachOverride}
-            noMulti
-            isClearable
-            closeMenuOnSelect
             selectedCoaches={selectedCoachOverride}
             selectOption={handleSelectCoachOverride}
             selectorClass={classes.xBigWidth}
-            isDisabled={!!disabled}
           />
         </OfferFormField>
       )}
@@ -244,18 +244,18 @@ const OfferFormCoach = (props: Props) => {
           label={t('form.section.coach.field.coachPaymentRule.title')}
         >
           <CoachPaymentRuleSelectorStyled
-            id="offer-form-coach-payment-rule-selector"
+            closeMenuOnSelect
+            isClearable
+            noMulti
             coachPaymentRulesList={coachPaymentRulesList}
-            selectedRules={selectedPaymentRule}
+            disabled={!coach || !!disabled}
+            id="offer-form-coach-payment-rule-selector"
+            onChange={handleSelectPaymentRule}
             placeholder={t(
               'form.section.coach.field.coachPaymentRule.placeholder',
             )}
-            disabled={!coach || !!disabled}
-            onChange={handleSelectPaymentRule}
-            noMulti
-            isClearable
+            selectedRules={selectedPaymentRule}
             selectorClass={classes.bigWidth}
-            closeMenuOnSelect
           />
         </OfferFormField>
       )}

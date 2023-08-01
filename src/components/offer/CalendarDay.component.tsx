@@ -79,7 +79,6 @@ export const CalendarDay: React.FC<Props> = ({
   return (
     <ButtonBase
       key={`calendar-day-${day.format(DATE_FORMAT)}`}
-      id={`calendar-day-${day.format(DATE_FORMAT)}`}
       className={classNames(classes.dayButton, {
         [classes.dayButtonSelected]: isSelected,
         [classes.dayButtonDisabled]: isDisabled,
@@ -88,6 +87,7 @@ export const CalendarDay: React.FC<Props> = ({
         [classes.dayButonEndRange]: isLastDayOfRange,
       })}
       color="primary"
+      id={`calendar-day-${day.format(DATE_FORMAT)}`}
       onClick={() => {
         onDateChange(day.format(DATE_FORMAT));
       }}

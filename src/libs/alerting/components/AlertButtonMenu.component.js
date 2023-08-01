@@ -50,10 +50,9 @@ export default function AlertButtonMenu(props: Props) {
         </Badge>
       </IconButton>
       <Popper
+        transition
         anchorEl={dialogOpen}
-        open={!!dialogOpen}
         id={dialogOpen ? `simple-popper${overrideIcon}` : null}
-        style={{ color: 'red', zIndex: 10000 }}
         modifiers={{
           placement: 'bottom',
           disablePortal: true,
@@ -62,7 +61,8 @@ export default function AlertButtonMenu(props: Props) {
             boundariesElement: 'scrollParent',
           },
         }}
-        transition
+        open={!!dialogOpen}
+        style={{ color: 'red', zIndex: 10000 }}
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={250}>
@@ -77,14 +77,14 @@ export default function AlertButtonMenu(props: Props) {
               <Paper square className={classes.menuContainer}>
                 <AlertList
                   alertings={alertings}
-                  totalCount={nbAlerting}
-                  onClose={() => setDialogOpen(null)}
-                  showMore={props.showMore}
                   deleteAlert={props.deleteAlert}
+                  onClose={() => setDialogOpen(null)}
                   pushRouter={(path) => {
                     setDialogOpen(null);
                     pushRouter(path);
                   }}
+                  showMore={props.showMore}
+                  totalCount={nbAlerting}
                   withCommunicationAlerts={!!props.withCommunicationAlerts}
                 />
               </Paper>

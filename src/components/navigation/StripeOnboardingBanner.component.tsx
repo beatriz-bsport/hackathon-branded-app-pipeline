@@ -19,10 +19,10 @@ const BillingBanner = (props: Props) => {
   return (
     <div className={classes.paymentMissingContainer}>
       <ButtonBase
+        className={classes.errorBanner}
         onClick={() => {
           document.location.pathname = '/settings/company_onboarding';
         }}
-        className={classes.errorBanner}
       >
         <div className={classes.text}>
           <AlertIcon fontSize="small" />

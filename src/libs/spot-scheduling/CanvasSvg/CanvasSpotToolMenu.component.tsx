@@ -47,18 +47,18 @@ export const CanvasSpotToolMenu = (props: Props) => {
         onClick={onSelectTool}
       >
         {!spotType ? (
-          <svg width={TOOL_WIDTH} height={TOOL_WIDTH}>
-            <AdjustIcon x={TOOL_WIDTH / 4} width={TOOL_WIDTH / 2} />
+          <svg height={TOOL_WIDTH} width={TOOL_WIDTH}>
+            <AdjustIcon width={TOOL_WIDTH / 2} x={TOOL_WIDTH / 4} />
           </svg>
         ) : (
-          <svg width={TOOL_WIDTH} height={TOOL_WIDTH}>
+          <svg height={TOOL_WIDTH} width={TOOL_WIDTH}>
             {spotType?.shape === 'circular' &&
               spotType.customization === PREDEFINED_CUSTOMIZATION && (
                 <circle
                   cx={TOOL_WIDTH / 2}
                   cy={TOOL_WIDTH / 2}
-                  r={TOOL_WIDTH / 4}
                   fill={spotType?.fill_color || 'white'}
+                  r={TOOL_WIDTH / 4}
                   stroke={spotType?.stroke_color || 'black'}
                   strokeWidth="2"
                 />
@@ -66,46 +66,46 @@ export const CanvasSpotToolMenu = (props: Props) => {
             {spotType?.shape === 'rectangle' &&
               spotType.customization === PREDEFINED_CUSTOMIZATION && (
                 <rect
-                  x={TOOL_WIDTH / 8}
-                  y={TOOL_WIDTH / 4}
-                  width={(3 * TOOL_WIDTH) / 4}
+                  fill={spotType?.fill_color || 'white'}
                   height={TOOL_WIDTH / 2}
                   stroke={spotType?.stroke_color || 'black'}
-                  fill={spotType?.fill_color || 'white'}
                   strokeWidth={2}
+                  width={(3 * TOOL_WIDTH) / 4}
+                  x={TOOL_WIDTH / 8}
+                  y={TOOL_WIDTH / 4}
                 />
               )}
             {spotType?.shape === 'square' &&
               spotType.customization === PREDEFINED_CUSTOMIZATION && (
                 <rect
-                  x={TOOL_WIDTH / 4}
-                  y={TOOL_WIDTH / 4}
-                  width={TOOL_WIDTH / 2}
+                  fill={spotType?.fill_color || 'white'}
                   height={TOOL_WIDTH / 2}
                   stroke={spotType?.stroke_color || 'black'}
-                  fill={spotType?.fill_color || 'white'}
                   strokeWidth={2}
+                  width={TOOL_WIDTH / 2}
+                  x={TOOL_WIDTH / 4}
+                  y={TOOL_WIDTH / 4}
                 />
               )}
             {spotType?.shape === 'triangle' &&
               spotType.customization === PREDEFINED_CUSTOMIZATION && (
                 <polygon
+                  fill={spotType?.fill_color || 'white'}
                   points={`${TOOL_WIDTH / 2},${TOOL_WIDTH / 4} ${
                     TOOL_WIDTH / 4
                   },${(TOOL_WIDTH * 3) / 4} ${(TOOL_WIDTH * 3) / 4},${
                     (TOOL_WIDTH * 3) / 4
                   }`}
                   stroke={spotType?.stroke_color || 'black'}
-                  fill={spotType?.fill_color || 'white'}
                 />
               )}
             {spotType.customization === PERSONALIZED_CUSTOMIZATION && (
               <image
-                x={TOOL_WIDTH / 4}
-                y={TOOL_WIDTH / 4}
+                height={TOOL_WIDTH / 2}
                 href={spotType.free_image}
                 width={TOOL_WIDTH / 2}
-                height={TOOL_WIDTH / 2}
+                x={TOOL_WIDTH / 4}
+                y={TOOL_WIDTH / 4}
               />
             )}
           </svg>

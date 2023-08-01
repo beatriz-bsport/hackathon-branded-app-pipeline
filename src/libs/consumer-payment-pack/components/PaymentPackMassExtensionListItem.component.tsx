@@ -30,7 +30,7 @@ type Props = OwnProps &
 export const PaymentPackMassExtensionListItem = (props: Props) => {
   const { classes, t, massExtension } = props;
   return (
-    <ListItem divider dense className={classes.itemContainer}>
+    <ListItem dense divider className={classes.itemContainer}>
       <div className={classes.itemContent}>
         <Typography>{massExtension.note}</Typography>
 
@@ -51,7 +51,7 @@ export const PaymentPackMassExtensionListItem = (props: Props) => {
             ),
           })}
         </Typography>
-        <Typography variant="caption" color="textSecondary">
+        <Typography color="textSecondary" variant="caption">
           {t('massExtension.createdAt', {
             date: formatAsDatetimeAdapted(massExtension.date_created, 'lll'),
           })}
@@ -59,8 +59,8 @@ export const PaymentPackMassExtensionListItem = (props: Props) => {
       </div>
 
       <RedButton
-        variant="outlined"
         onClick={() => props.onDelete(massExtension)}
+        variant="outlined"
       >
         {t('form.paymentPack.delete.actions.submit')}
       </RedButton>

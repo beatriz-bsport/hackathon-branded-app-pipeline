@@ -58,13 +58,13 @@ export class OrderConfigrationForm extends Component<Props, State> {
               {t('configuration.defaultDeliveryFee')}
             </InputLabel>
             <Select
+              onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
+                this.handleChange(parseInt(ev.target.value, 10))
+              }
               value={
                 configuration.default_delivery_fee === null
                   ? -1
                   : configuration.default_delivery_fee
-              }
-              onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
-                this.handleChange(parseInt(ev.target.value, 10))
               }
             >
               <MenuItem value={-1}>
@@ -79,10 +79,10 @@ export class OrderConfigrationForm extends Component<Props, State> {
           </FormControl>
         </div>
         <Button
-          disabled={this.compareStateAndProps()}
-          variant="contained"
           color="primary"
+          disabled={this.compareStateAndProps()}
           onClick={this.submit}
+          variant="contained"
         >
           {t('configuration.forms.onSubmit')}
         </Button>

@@ -273,47 +273,47 @@ export class InvoiceForm extends React.Component<Props, State> {
         )
       : null;
     return (
-      <Grid container spacing={1} className={classes.container}>
-        <Grid item xs={12} md={6}>
+      <Grid container className={classes.container} spacing={1}>
+        <Grid item md={6} xs={12}>
           <InvoiceEditorV2
-            availableBuyableItems={this.props.availableBuyableItems}
-            onAddBuyableItem={this.addBuyableItem}
-            invoiceItemIsEmpty={this.invoiceItemIsEmpty()}
-            invoiceHasChanged={this.state.invoiceItemList.length}
-            amountInvoiceItem={invoiceItemAmount}
             isEquilibrated
+            amountInvoiceItem={invoiceItemAmount}
+            availableBuyableItems={this.props.availableBuyableItems}
+            invoiceHasChanged={this.state.invoiceItemList.length}
+            invoiceItemIsEmpty={this.invoiceItemIsEmpty()}
             member={this.props.member}
+            onAddBuyableItem={this.addBuyableItem}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <Typography className={classes.title} variant="h4">
             {this.props.t('invoice.editor.sumup')}
           </Typography>
           <InvoiceContent
-            removeInvoiceItem={this.removeInvoiceItem}
+            withEstablishment
+            amountInvoiceItem={invoiceItemAmount}
+            applyCoupon={this.applyCoupon}
+            billing_establishment_id={this.state.billing_establishment_id}
+            couponList={this.state.coupon_list}
+            couponLoading={this.state.couponLoading}
+            deleteCoupon={this.deleteCoupon}
+            disableCoupon={this.invoiceItemIsEmpty()}
+            enableMultiLocalization={this.props.enableMultiLocalization}
+            establishmentLoading={this.props.establishmentLoading}
+            establishments={this.props.establishments}
             invoiceItemList={[
               ...asEditable(false, this.props.invoiceItemList),
               ...asEditable(true, this.state.invoiceItemList),
             ]}
-            amountInvoiceItem={invoiceItemAmount}
-            applyCoupon={this.applyCoupon}
-            couponList={this.state.coupon_list}
-            deleteCoupon={this.deleteCoupon}
-            disableCoupon={this.invoiceItemIsEmpty()}
-            couponLoading={this.state.couponLoading}
-            withEstablishment
-            establishments={this.props.establishments}
-            establishmentLoading={this.props.establishmentLoading}
-            billing_establishment_id={this.state.billing_establishment_id}
+            removeInvoiceItem={this.removeInvoiceItem}
+            requiredEstablishmentIsMissing={
+              this.state.requiredEstablishmentIsMissing
+            }
             setBillingEstablishment={(billing_establishment_id) =>
               this.setState({
                 billing_establishment_id,
                 requiredEstablishmentIsMissing: !billing_establishment_id,
               })
-            }
-            enableMultiLocalization={this.props.enableMultiLocalization}
-            requiredEstablishmentIsMissing={
-              this.state.requiredEstablishmentIsMissing
             }
           />
           <div className={classes.buttonContainer}>
@@ -328,28 +328,28 @@ export class InvoiceForm extends React.Component<Props, State> {
           </div>
         </Grid>
         <FinalizeInvoiceDialog
-          open={this.props.finalizeInvoiceAlertOpen}
           onClose={this.props.closeFinalizeInvoiceDialog}
           onSubmit={() => {
             this.props.finalizeInvoice();
             this.props.closeFinalizeInvoiceDialog();
           }}
+          open={this.props.finalizeInvoiceAlertOpen}
         />
         {!!this.state.giftcardToConfigureList?.length &&
           this.state.giftcardToConfigureList.map((gc) => (
             <Modal
-              open={gc.id === this.state.giftcardToConfigureList[0].id}
               key={gc.id}
               classes={{ paper: classes.container }}
+              open={gc.id === this.state.giftcardToConfigureList[0].id}
             >
               <>
                 <div
+                  className={classes.modal}
                   style={{
                     transform: 'translate(-50%, -50%)',
                     top: '50%',
                     left: '50%',
                   }}
-                  className={classes.modal}
                 >
                   <div style={{ width: '100%' }}>
                     <ConsumerGiftcardFormWithPreview
@@ -358,13 +358,13 @@ export class InvoiceForm extends React.Component<Props, State> {
                       giftcardBackgroundImageList={
                         this.props.giftcardBackgroundImageList
                       }
+                      isManager={this.props.imageCarouselChangeable}
                       onSubmit={(data) =>
                         this.storeGiftcardConfig({
                           ...data,
                           giftcard: giftcardToConfigure.id,
                         })
                       }
-                      isManager={this.props.imageCarouselChangeable}
                     />
                   </div>
                 </div>

@@ -129,13 +129,13 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
     if (invoice.quickbooks_status === QUICKBOOKS_INVOICE_STATUS_ALREADY_SENT) {
       return (
         <Chip
-          variant="outlined"
-          size="small"
-          label={t('quickbooks.invoice.onQuickbooks')}
           avatar={
-            <Avatar src={quickbooksLogo} alt="QB LOGO" noname variant="small" />
+            <Avatar noname alt="QB LOGO" src={quickbooksLogo} variant="small" />
           }
+          label={t('quickbooks.invoice.onQuickbooks')}
+          size="small"
           style={{ color: '#53B700' }}
+          variant="outlined"
         />
       );
     }
@@ -148,12 +148,12 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
           <ToolTip title={t('quickbooks.invoice.sendToQuickbooks')}>
             <IconButton
               aria-label="send-to-quickbooks"
-              size="small"
+              disabled={props.quickbooksLoading}
               onClick={(ev) => {
                 ev.stopPropagation();
                 props.sendInvoiceToQuickbooks(invoice.uuid);
               }}
-              disabled={props.quickbooksLoading}
+              size="small"
               style={{ fill: '#53B700' }}
             >
               <SendIcon style={{ fill: '#53B700' }} />
@@ -185,7 +185,6 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
           <TableCell>
             <IconButton
               aria-label="expand row"
-              size="small"
               onClick={(ev) => {
                 ev.stopPropagation();
                 if (props.open) {
@@ -195,6 +194,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
                   props.onInvoiceExpand(invoice.uuid);
                 }
               }}
+              size="small"
             >
               {props.open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
@@ -209,7 +209,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
                   : invoice.memberName}
               </Typography>
               {invoice.memberArchived && (
-                <Typography variant="caption" color="secondary">
+                <Typography color="secondary" variant="caption">
                   {`${' '}(${t('member:archived')})`}
                 </Typography>
               )}
@@ -247,12 +247,12 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
             ) : (
               <>
                 <Menu
-                  id="simple-menu"
-                  anchorEl={downloadMenuOpen}
                   keepMounted
-                  open={Boolean(downloadMenuOpen)}
+                  anchorEl={downloadMenuOpen}
+                  id="simple-menu"
                   onClick={(e) => e.stopPropagation()}
                   onClose={() => setDownloadMenuOpen(null)}
+                  open={Boolean(downloadMenuOpen)}
                 >
                   <MenuItem
                     onClick={(ev) => {
@@ -326,8 +326,8 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
                 text={getPaymentLink(props.companyId, invoice.uuid)}
               >
                 <RedButton
-                  variant="outlined"
                   onClick={() => props.snackbarSuccess('link.copied')}
+                  variant="outlined"
                 >
                   <FileCopyIcon className={classes.leftIcon} />
                   {t('paymentPanel.actions.paymentLink')}
@@ -351,9 +351,9 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
               <TableCell>
                 <UseConsumerGiftcardForm
                   outlinedIconVariant
-                  invoice={invoice}
-                  consumerGiftcardList={relatedconsumerGiftcardList}
                   applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
+                  consumerGiftcardList={relatedconsumerGiftcardList}
+                  invoice={invoice}
                 />
               </TableCell>
             )}
@@ -361,16 +361,16 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
             {!!props.showOpenInvoiceNested &&
               (props.asConsumer ? (
                 <Button
-                  variant="outlined"
                   onClick={() => props.onClickInvoice(invoice.uuid, invoice)}
+                  variant="outlined"
                 >
                   <ArrowForwardIcon className={classes.leftIcon} />
                   {t('paymentPanel.actions.showInvoice')}
                 </Button>
               ) : (
                 <Link
-                  to={`/invoice/${invoice.uuid}`}
                   style={{ textDecoration: 'none' }}
+                  to={`/invoice/${invoice.uuid}`}
                 >
                   <Button variant="outlined">
                     <ArrowForwardIcon className={classes.leftIcon} />
@@ -384,26 +384,26 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
       )}
       <TableRow>
         <TableCell
+          colSpan={6}
           style={{
             paddingBottom: 0,
             paddingTop: 0,
             backgroundColor: '#FCFCFC',
           }}
-          colSpan={6}
         >
           <Collapse
-            in={props.open}
-            timeout="auto"
-            style={{ marginBottom: 16 }}
             unmountOnExit
+            in={props.open}
+            style={{ marginBottom: 16 }}
+            timeout="auto"
           >
             <div>
               <Divider style={{ marginLeft: -8, marginRight: -8 }} />
               <Box margin={1}>
-                <Typography variant="h6" component="div">
+                <Typography component="div" variant="h6">
                   {t('table.nested.invoiceItem.title')}
                 </Typography>
-                <Table size="small" aria-label="purchases">
+                <Table aria-label="purchases" size="small">
                   <TableHead>
                     <TableRow>
                       <TableCell>
@@ -467,13 +467,13 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
               </Box>
               <Box margin={1}>
                 <Typography
+                  component="div"
                   style={{ marginTop: 20 }}
                   variant="h6"
-                  component="div"
                 >
                   {t('table.nested.payment.title')}
                 </Typography>
-                <Table size="small" aria-label="purchases">
+                <Table aria-label="purchases" size="small">
                   <TableHead>
                     <TableRow>
                       <TableCell>
@@ -552,12 +552,12 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
               {!!props.onClickInvoice && (
                 <Box margin={1}>
                   <Button
-                    style={{ marginTop: 16 }}
-                    variant="outlined"
                     color="primary"
                     onClick={() => {
                       props.onClickInvoice(invoice.uuid, invoice);
                     }}
+                    style={{ marginTop: 16 }}
+                    variant="outlined"
                   >
                     {t('table.actions.goToInvoice')}
                   </Button>
@@ -636,27 +636,27 @@ export const InvoiceTable = (props: {
             uniqBy(props.invoiceList, 'uuid').map(
               (invoice: Invoice & { memberArchived?: boolean }) => (
                 <InvoiceRow
-                  showType={props.showType}
-                  nestedDataLoading={props.nestedDataLoading}
-                  hideMemberName={props.hideMemberName}
-                  finalizeInvoice={props.finalizeInvoice}
+                  key={invoice.uuid}
+                  applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
                   asConsumer={!!props.asConsumer}
-                  showOpenInvoiceNested={!!props.showOpenInvoiceNested}
+                  compactMode={props.compactMode}
+                  companyId={props.companyId}
+                  consumerGiftcardList={props.consumerGiftcardList}
+                  finalizeInvoice={props.finalizeInvoice}
+                  hideMemberName={props.hideMemberName}
+                  invoice={invoice}
+                  nestedDataLoading={props.nestedDataLoading}
+                  onBill={props.onBill}
                   onClickInvoice={props.onClickInvoice}
                   onInvoiceExpand={props.onInvoiceExpand}
-                  key={invoice.uuid}
-                  compactMode={props.compactMode}
-                  invoice={invoice}
                   open={invoice.uuid === open}
-                  setOpen={setOpen}
-                  onBill={props.onBill}
-                  companyId={props.companyId}
-                  snackbarSuccess={props.snackbarSuccess}
                   quickbooksIntegrated={props.quickbooksIntegrated}
-                  sendInvoiceToQuickbooks={props.sendInvoiceToQuickbooks}
                   quickbooksLoading={props.quickbooksLoading}
-                  consumerGiftcardList={props.consumerGiftcardList}
-                  applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
+                  sendInvoiceToQuickbooks={props.sendInvoiceToQuickbooks}
+                  setOpen={setOpen}
+                  showOpenInvoiceNested={!!props.showOpenInvoiceNested}
+                  showType={props.showType}
+                  snackbarSuccess={props.snackbarSuccess}
                 />
               ),
             )}
@@ -665,14 +665,14 @@ export const InvoiceTable = (props: {
       {props.loading && <LinearProgress />}
       {!props.hidePagination && (
         <TablePagination
-          rowsPerPageOptions={[50]}
           component="div"
           count={props.count || 0}
-          rowsPerPage={50}
-          page={(props.page || 1) - 1}
           onChangePage={(ev, page) => {
             props.onChangePage(page + 1);
           }}
+          page={(props.page || 1) - 1}
+          rowsPerPage={50}
+          rowsPerPageOptions={[50]}
         />
       )}
     </TableContainer>

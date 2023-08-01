@@ -86,12 +86,12 @@ export const SlotDetailListItem: React.FC<Props> = ({
           <>
             {slots.map((slot) => (
               <div
-                className={classNames(classes.flexColumn, classes.slot)}
                 key={`${resourceType}-${resourceId}-${
                   slot.date_start
                 }-${JSON.stringify(
                   slot.restriction_on_associated_establishments,
                 )}`}
+                className={classNames(classes.flexColumn, classes.slot)}
               >
                 <Typography variant="body2">
                   {t('availabilitySlot.detail.slotBoundaries', {
@@ -110,7 +110,7 @@ export const SlotDetailListItem: React.FC<Props> = ({
                     )}
                   </ul>
                 ) : (
-                  <Typography variant="body2" className={classes.greyText}>
+                  <Typography className={classes.greyText} variant="body2">
                     {t('availabilitySlot.detail.availableEverywhere')}
                   </Typography>
                 )}

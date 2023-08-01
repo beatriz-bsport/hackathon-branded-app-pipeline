@@ -41,10 +41,10 @@ export class CompanyDetailPage extends Component<Props> {
         {companySetup ? (
           <CompanyDetail
             attachExternalAccount={this.props.attachExternalAccount}
-            updateCompanyDetail={this.props.updateCompanyDetail}
             company={companySetup}
             currency={companySetup.currency}
             onSuccessDialogConfirmed={this.props.redirectToPlatformBilling}
+            updateCompanyDetail={this.props.updateCompanyDetail}
           />
         ) : (
           <CircularProgress />

@@ -38,12 +38,12 @@ const FranchiseCompanyChipList = (props: Props) => {
               companies={props.companies.slice(nbChips)}
             >
               <Chip
-                variant="outlined"
+                className={classes.chip}
                 color="primary"
                 label={`${t('seeAll')} (${
                   props.companies?.length - nbChips || 0
                 })`}
-                className={classes.chip}
+                variant="outlined"
               />
             </FranchiseCompaniesListingTooltip>
           )}

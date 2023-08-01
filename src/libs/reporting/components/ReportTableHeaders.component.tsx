@@ -30,8 +30,8 @@ const CardHeaders: React.FC<{
       <Grid container direction="row" spacing={2}>
         {headerDetails.map((colum, index) => {
           return (
-            <Grid item xs={6} md={4} alignItems="stretch" lg={2} key={index}>
-              <Card elevation={1} className={classes.cardStyle}>
+            <Grid key={index} item alignItems="stretch" lg={2} md={4} xs={6}>
+              <Card className={classes.cardStyle} elevation={1}>
                 <Typography variant="body2">
                   {t(`columns.${colum.column_identifier}`)}
                 </Typography>

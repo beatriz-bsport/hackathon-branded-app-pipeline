@@ -90,8 +90,8 @@ export class ResourceAllocationChecker extends React.Component<Props, State> {
       <div className={classes.container}>
         <InfoOutlineIcon
           className={classes.iconInfo}
-          fontSize="small"
           color="error"
+          fontSize="small"
         />
         <div className={classes.textContainer}>
           <Typography variant="caption">

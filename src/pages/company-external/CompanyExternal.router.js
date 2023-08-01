@@ -18,8 +18,8 @@ const GoBackComponent = connect(null, { goBack })(
 
 export const CompanyExternalRouter = () => (
   <Switch>
-    <Route path="/external/:companyId/" component={CompanyExternalAddMember} />
-    <Route path="/external/" component={GoBackComponent} />
+    <Route component={CompanyExternalAddMember} path="/external/:companyId/" />
+    <Route component={GoBackComponent} path="/external/" />
   </Switch>
 );
 

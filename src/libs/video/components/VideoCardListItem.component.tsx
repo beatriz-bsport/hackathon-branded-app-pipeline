@@ -59,9 +59,9 @@ export class VideoCardListItem extends React.PureComponent<Props> {
     return (
       <ListItem
         button
+        dense
         divider
         alignItems="center"
-        dense
         onClick={() => this.props.goToDetail(this.props.video.id)}
       >
         <ListItemAvatar>

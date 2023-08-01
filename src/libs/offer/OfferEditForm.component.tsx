@@ -198,7 +198,7 @@ export const OfferEditForm = (props: Props) => {
 
   const submitButtonStartIcon = useMemo(() => {
     if (processing) {
-      return <CircularProgress size={24} color="secondary" />;
+      return <CircularProgress color="secondary" size={24} />;
     }
     return null;
   }, [processing]);
@@ -228,14 +228,14 @@ export const OfferEditForm = (props: Props) => {
   }
 
   return (
-    <Form onSubmit={handleNext} data-testid="offer-edit-form" noValidate>
+    <Form noValidate data-testid="offer-edit-form" onSubmit={handleNext}>
       {!hideBanner && (
         <OfferFormBanner
-          name={offer?.meta_activity.name ?? metaActivity?.name}
-          picture={offer?.meta_activity.cover_main ?? metaActivity?.cover_main}
           isEditOffer
-          onCancel={onCancel}
+          name={offer?.meta_activity.name ?? metaActivity?.name}
           onBannerGoBack={onBannerGoBack}
+          onCancel={onCancel}
+          picture={offer?.meta_activity.cover_main ?? metaActivity?.cover_main}
         />
       )}
 
@@ -245,9 +245,9 @@ export const OfferEditForm = (props: Props) => {
 
       {isOfferInGroup && (
         <Alert
+          className={classes.groupedOfferAlert}
           severity="error"
           variant="outlined"
-          className={classes.groupedOfferAlert}
         >
           {t('offer:form.groupedOffer.warning', {
             name: offer?.group.name,
@@ -255,7 +255,7 @@ export const OfferEditForm = (props: Props) => {
         </Alert>
       )}
       {values?.is_hybrid && metaActivity?.is_broadcast && (
-        <Alert severity="info" className={classes.groupedOfferAlert}>
+        <Alert className={classes.groupedOfferAlert} severity="info">
           {t('offer:form.section.specificities.field.hybridEditHelper')}
         </Alert>
       )}
@@ -265,19 +265,19 @@ export const OfferEditForm = (props: Props) => {
           {values.isModifyRecursively && similarOffers?.length > 1 && (
             <>
               <OfferFormEditSimilarOffers
-                similarOffers={similarOffers}
-                similarOffersLoading={similarOffersLoading}
                 coaches={coaches}
                 offerCoach={offer?.coach}
                 offerId={offer?.id}
+                similarOffers={similarOffers}
+                similarOffersLoading={similarOffersLoading}
               />
               {values.coachOverride && (
                 <OfferFormEditCoachOverride
+                  coaches={coaches}
+                  offerCoachOverrideId={offer?.coach_override?.id}
+                  offerId={offer?.id}
                   similarOffers={similarOffers}
                   similarOffersLoading={similarOffersLoading}
-                  coaches={coaches}
-                  offerId={offer?.id}
-                  offerCoachOverrideId={offer?.coach_override?.id}
                 />
               )}
             </>
@@ -288,50 +288,50 @@ export const OfferEditForm = (props: Props) => {
       {!isWarningStep && (
         <>
           <OfferFormSpecificities
+            isEditOffer
             activeCustomLevels={activeCustomLevels}
             allCustomLevels={allCustomLevels}
             availableEstablishments={availableEstablishments}
-            isBroadcast={metaActivity?.is_broadcast}
-            isWherebyIntegrationEnabled={isWherebyIntegrationEnabled}
-            zoomAppDetail={zoomAppDetail}
-            roomBlueprints={roomBlueprints}
-            isOfferInGroup={isOfferInGroup}
-            isEditOffer
-            metaActivities={metaActivities}
+            createLevel={createLevel}
+            deleteLevel={handleDeleteLevel}
+            fetchLevelList={fetchLevelList}
             initialOfferCredits={
               offer?.credit_price
                 ? offer?.credit_price / (creditScaleFactor || 1)
                 : offer?.credit_price
             }
+            isBroadcast={metaActivity?.is_broadcast}
+            isOfferInGroup={isOfferInGroup}
+            isWherebyIntegrationEnabled={isWherebyIntegrationEnabled}
+            metaActivities={metaActivities}
+            roomBlueprints={roomBlueprints}
             updateLevel={updateLevel}
-            createLevel={createLevel}
-            deleteLevel={handleDeleteLevel}
-            fetchLevelList={fetchLevelList}
+            zoomAppDetail={zoomAppDetail}
           />
 
           <OfferFormDateTime
-            timezone={offer?.timezone_name ?? timezone}
-            isOfferInGroup={isOfferInGroup}
             isEditOffer
             disabled={values.is_hybrid && offer?.meta_activity?.is_broadcast}
+            isOfferInGroup={isOfferInGroup}
+            timezone={offer?.timezone_name ?? timezone}
           />
 
           <OfferFormCoach
+            isEditOffer
             coaches={coaches}
             coachPaymentRulesByKind={coachPaymentRulesByKind}
-            editableCoachPaymentRule={editableCoachPaymentRule}
-            isEditOffer
             disabled={values.is_hybrid && offer?.meta_activity?.is_broadcast}
+            editableCoachPaymentRule={editableCoachPaymentRule}
             isWorkshop={metaActivity?.is_workshop}
           />
 
           <OfferFormSettings
-            allowGuestMaster={allowGuestMaster}
-            showPartnership={showPartnership}
-            isOfferInGroup={isOfferInGroup}
             isEditOffer
-            roomBlueprints={roomBlueprints}
+            allowGuestMaster={allowGuestMaster}
             hasActivityGroup={!!props.offer?.group}
+            isOfferInGroup={isOfferInGroup}
+            roomBlueprints={roomBlueprints}
+            showPartnership={showPartnership}
           />
 
           {!isOfferInGroup && <OfferFormTags tagList={tagList} />}
@@ -340,11 +340,11 @@ export const OfferEditForm = (props: Props) => {
       <div className={classes.buttonsContainer} id="offer-edit-form-actions">
         <Button onClick={handleCancel}>{cancelButtonText}</Button>
         <Button
-          disabled={processing}
-          variant="contained"
           color="primary"
-          type="submit"
+          disabled={processing}
           startIcon={submitButtonStartIcon}
+          type="submit"
+          variant="contained"
         >
           {submitButtonText}
         </Button>

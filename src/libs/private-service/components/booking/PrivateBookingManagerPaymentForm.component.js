@@ -45,17 +45,17 @@ export class PrivateBookingManagerPaymentForm extends React.Component<
     const { classes, t } = this.props;
     return (
       <div>
-        <Typography variant="h6" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h6">
           {t('privateBooking.managerAdd.compatiblePrivateConsumerPass')}
         </Typography>
         {this.state.privateConsumerPassNeedRefresh ? (
           <div className={classes.refreshButtonContainer}>
             <Button
-              variant="outlined"
               onClick={() => {
                 this.props.fetchPass(this.props.privateSlotId);
                 this.setState({ privateConsumerPassNeedRefresh: false });
               }}
+              variant="outlined"
             >
               <RefreshIcon className={classes.leftIcon} />
               {t('privateBooking.managerAdd.privateConsumerPassNeedRefresh')}
@@ -65,11 +65,11 @@ export class PrivateBookingManagerPaymentForm extends React.Component<
           <List disablePadding>
             {this.props.compatiblePrivateConsumerPass.map((pcp) => (
               <PrivateConsumerPassBookerListItem
-                private_consumer_pass={pcp}
+                key={pcp.id}
                 onBook={() => {
                   this.props.onSelectConsumerPass(pcp.id);
                 }}
-                key={pcp.id}
+                private_consumer_pass={pcp}
               />
             ))}
           </List>
@@ -80,18 +80,18 @@ export class PrivateBookingManagerPaymentForm extends React.Component<
             {t('privateBooking.managerAdd.emptyPrivateConsumerPass')}
           </Typography>
         ) : null}
-        <Typography variant="h6" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h6">
           {t('privateBooking.managerAdd.compatiblePrivatePass')}
         </Typography>
         <List disablePadding>
           {this.props.compatiblePrivatePass.map((pp) => (
             <PrivatePassBookerListItem
-              private_pass={pp}
+              key={pp.id}
               onClick={() => {
                 this.props.billMemberPrivatePass(pp.id);
                 this.setState({ privateConsumerPassNeedRefresh: true });
               }}
-              key={pp.id}
+              private_pass={pp}
             />
           ))}
         </List>

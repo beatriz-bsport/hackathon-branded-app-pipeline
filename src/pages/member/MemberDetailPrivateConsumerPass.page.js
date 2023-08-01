@@ -202,26 +202,25 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
       this.props.userFiltersLoading;
     return (
       <Grid container direction="row" spacing={3}>
-        <Grid item xs={12} lg={6}>
+        <Grid item lg={6} xs={12}>
           <Paper>
             <PrivateConsumerPassFilters
-              setOpenValue={this.props.setOpenValue}
-              setFiltersValue={this.props.setFilterValue}
-              open={this.props.open}
               filters={!dataLoading && this.props.filters}
+              open={this.props.open}
+              setFiltersValue={this.props.setFilterValue}
+              setOpenValue={this.props.setOpenValue}
             />
             <Divider />
             <PaginatedListBase
+              additionalFilters={this.props.filters}
               itemPerPage={5}
+              items={this.props.private_consumer_pass_list}
+              listProps={{ disablePadding: true }}
               loading={
                 this.props.privateBookingsLoading ||
                 this.props.privateConsumerPassLoading
               }
-              listProps={{ disablePadding: true }}
-              items={this.props.private_consumer_pass_list}
               nbItems={this.props.privateConsumerPassCount}
-              page={this.props.privateConsumerPassPage}
-              additionalFilters={this.props.filters}
               onPageRequested={(page, page_size) =>
                 this.props.fetchPrivateConsumerPassList({
                   ...this.props.filters,
@@ -230,32 +229,25 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
                   page_size,
                 })
               }
+              page={this.props.privateConsumerPassPage}
               renderItem={(pcp) => (
                 <PrivateConsumerPassBookerListItem
-                  divider
-                  selected={this.props.privateConsumerPassId === pcp.id}
                   key={pcp.id}
-                  private_consumer_pass={pcp}
-                  onUpdateCredit={this.props.updatePrivateConsumerPassCredits}
+                  divider
                   onClick={() =>
                     this.props.goToPrivateConsumerPass(this.props.id, pcp.id)
                   }
+                  onUpdateCredit={this.props.updatePrivateConsumerPassCredits}
+                  private_consumer_pass={pcp}
+                  selected={this.props.privateConsumerPassId === pcp.id}
                 />
               )}
             />
           </Paper>
         </Grid>
-        <Grid item xs={12} lg={6}>
+        <Grid item lg={6} xs={12}>
           {this.props.privateConsumerPassId ? (
             <PrivateConsumerPassDetail
-              private_booking_list={this.props.private_booking_list || []}
-              privateBookingsLoading={this.props.privateBookingsLoading}
-              private_consumer_pass={this.props.privateConsumerPassSelected}
-              disablePrivateBooking={this.props.disablePrivateBooking}
-              extensions={this.props.privateConsumerPassExtensionList}
-              extensionsLoading={this.props.privateConsumerPassExtensionLoading}
-              onCreateExtension={() => this.props.setOpenCreateExtension(true)}
-              deletePrivateBooking={this.props.deletePrivateBooking}
               deleteExtension={(id) => {
                 this.props.deletePrivateConsumerPassExtension(id, {
                   onSuccess: () => {
@@ -265,13 +257,21 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
                   },
                 });
               }}
+              deletePrivateBooking={this.props.deletePrivateBooking}
+              disablePrivateBooking={this.props.disablePrivateBooking}
+              extensions={this.props.privateConsumerPassExtensionList}
+              extensionsLoading={this.props.privateConsumerPassExtensionLoading}
               fetchPrivateConsumerPass={this.props.fetchPrivateConsumerPass}
-              invoice={this.props.privateConsumerPassInvoice}
-              onInvoiceClick={this.props.onInvoiceClick}
               forceRegularizeUnpaid={this.props.forceRegularizeUnpaid}
               goToPrivateBooking={(privateBookingId) =>
                 this.props.goToPrivateBooking(this.props.id, privateBookingId)
               }
+              invoice={this.props.privateConsumerPassInvoice}
+              onCreateExtension={() => this.props.setOpenCreateExtension(true)}
+              onInvoiceClick={this.props.onInvoiceClick}
+              private_booking_list={this.props.private_booking_list || []}
+              private_consumer_pass={this.props.privateConsumerPassSelected}
+              privateBookingsLoading={this.props.privateBookingsLoading}
               privateConsumerPassExtensionDeleteLoading={
                 this.props.privateConsumerPassExtensionDeleteLoading
               }
@@ -279,10 +279,7 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
           ) : null}
         </Grid>
         <PrivateConsumerPassExtensionCreateDialog
-          open={this.props.openCreateExtension}
           onClose={() => this.props.setOpenCreateExtension(false)}
-          privateConsumerPass={this.props.privateConsumerPassSelected}
-          processing={this.props.privateConsumerPassExtensionCreationLoading}
           onSubmit={(data) => {
             this.props.createExtension(
               {
@@ -299,6 +296,9 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
               },
             );
           }}
+          open={this.props.openCreateExtension}
+          privateConsumerPass={this.props.privateConsumerPassSelected}
+          processing={this.props.privateConsumerPassExtensionCreationLoading}
           timezone={this.props.timezone}
         />
       </Grid>

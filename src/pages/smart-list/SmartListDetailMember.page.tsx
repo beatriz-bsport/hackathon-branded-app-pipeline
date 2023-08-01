@@ -436,59 +436,59 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     return (
       <div>
         <FiltersPanel
-          smartListId={this.props.id}
+          cadences={this.props.cadences}
+          coaches={this.props.coaches}
+          createFilter={this.createFilter}
+          csvExportDate={this.props.csvExportDate}
+          csvExportLink={this.props.csvExportLink}
+          customForms={this.props.customForms}
+          customLevels={this.props.customLevels}
+          deleteFilter={this.deleteFilter}
+          establishments={this.props.establishments}
           exportMemberTable={() => getMemberTable(this.props.id)}
           exportMemberTableBackground={this.handleBackgroundCsvExport}
-          csvExportLink={this.props.csvExportLink}
-          csvExportDate={this.props.csvExportDate}
-          smartList={this.props.smartlist}
-          filters={this.props.smartlist_filters}
-          updateFilter={this.updateFilter}
-          deleteFilter={this.deleteFilter}
-          payment_packs={this.props.payment_packs}
-          private_passes={this.props.privatePassList}
-          private_services={this.props.privateServices}
-          createFilter={this.createFilter}
-          coaches={this.props.coaches}
-          meta_activities={this.props.meta_activities}
-          establishments={this.props.establishments}
-          tags={this.props.tags}
-          customLevels={this.props.customLevels}
-          customForms={this.props.customForms}
-          loading={this.props.loading}
-          fetchItems={fetchItems}
+          featureList={this.props.featureList}
           fetchBulkItems={fetchBulkItems}
-          onRequestEmail={() => this.props.setOpenSendEmail(true)}
-          smartListUpdate={this.props.smartListUpdate}
-          sendSmartListPopup={this.props.sendSmartListPopup}
-          smartListPopupList={this.props.smartListPopupList}
-          smartListPopupLoading={this.props.smartListPopupLoading}
           fetchCommunicationsPaginatedMembers={
             this.props.fetchCommunicationsPaginatedMembers
           }
-          memberLoading={this.props.members.loading}
+          fetchItems={fetchItems}
+          filters={this.props.smartlist_filters}
+          loading={this.props.loading}
           memberList={this.props.members.displayItems}
-          featureList={this.props.featureList}
-          cadences={this.props.cadences}
+          memberLoading={this.props.members.loading}
+          meta_activities={this.props.meta_activities}
+          onRequestEmail={() => this.props.setOpenSendEmail(true)}
+          payment_packs={this.props.payment_packs}
+          private_passes={this.props.privatePassList}
+          private_services={this.props.privateServices}
+          sendSmartListPopup={this.props.sendSmartListPopup}
+          smartList={this.props.smartlist}
+          smartListId={this.props.id}
+          smartListPopupList={this.props.smartListPopupList}
+          smartListPopupLoading={this.props.smartListPopupLoading}
+          smartListUpdate={this.props.smartListUpdate}
+          tags={this.props.tags}
+          updateFilter={this.updateFilter}
         />
         <AutomatedCampaignPanel
-          onAdd={this.onAddAutomatedCampaign}
-          onEdit={this.handleEditAutomatedCampaign}
-          onDelete={this.props.deleteAutomatedCampaign}
           loading={this.props.smartlist_automated_campaigns_loading}
+          onAdd={this.onAddAutomatedCampaign}
+          onDelete={this.props.deleteAutomatedCampaign}
+          onEdit={this.handleEditAutomatedCampaign}
           smartListAutomatedCampaigns={this.props.smartlist_automated_campaigns}
         />
 
         <AutoTagPanel
+          createAutoTag={this.props.createAutoTag}
+          deleteAutoTag={this.props.deleteAutoTag}
+          openUpdateDialog={this.props.openAutoTagRulesDialog}
           smartlistAutoTag={this.props.smartlistAutoTagRulesList.filter(
             (tg: AutoTagRule) => tg.smartlist === this.props.id,
           )}
           smartlistAutoTagLoading={this.props.smartlistAutoTagRulesListLoading}
-          createAutoTag={this.props.createAutoTag}
-          deleteAutoTag={this.props.deleteAutoTag}
-          updateAutoTag={this.props.updateAutoTag}
           tags={this.props.tags}
-          openUpdateDialog={this.props.openAutoTagRulesDialog}
+          updateAutoTag={this.props.updateAutoTag}
         />
         <div className={this.props.classes.memberWrapper}>
           <ButtonBase
@@ -498,9 +498,9 @@ export class SmartListDetailMember extends React.Component<Props, State> {
             }
           >
             <Typography
-              variant="h6"
-              color={this.props.closeMemberTable ? 'textSecondary' : 'default'}
               className={this.props.memberTitle}
+              color={this.props.closeMemberTable ? 'textSecondary' : 'default'}
+              variant="h6"
             >
               {this.props.t('member:memberList')}
             </Typography>
@@ -515,6 +515,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           <Collapse in={!this.props.closeMemberTable}>
             {!this.props.closeMemberTable && (
               <MemberTable
+                hideAddButton
                 fetch={({
                   page,
                   page_size,
@@ -528,53 +529,38 @@ export class SmartListDetailMember extends React.Component<Props, State> {
                   })
                 }
                 goToMember={this.props.goToMember}
-                hideAddButton
                 noDataText={this.props.t('member:noData')}
               />
             )}
           </Collapse>
         </div>
         <AutomatedCampaignDrawer
-          open={this.props.openAutomatedCampaignDrawer}
-          initial={this.props.selected_smartlist_autmated_campaign}
-          default_event_kind={this.props.automatedCampaignCreateEventkind}
           alreadyConfiguredCommunicationKind={this.getAlreadyConfiguredCommunicationKind()}
-          getEmails={this.props.fetchEmailTemplatesSummaries}
-          emails={this.props.email_templates_list}
-          getEmailDetail={this.props.fetchEmailTemplateDetail}
+          countTotal={this.props.countTotal}
+          countWithEmail={this.props.countWithEmail}
+          countWithPhone={this.props.countWithPhone}
+          default_event_kind={this.props.automatedCampaignCreateEventkind}
+          emailDetailLoading={this.props.emailDetailLoading}
           emailDetails={this.props.email_templates_details}
           emailListLoading={this.props.emailListLoading}
-          emailDetailLoading={this.props.emailDetailLoading}
+          emails={this.props.email_templates_list}
+          genericTags={this.props.genericTags}
+          getEmailDetail={this.props.fetchEmailTemplateDetail}
+          getEmails={this.props.fetchEmailTemplatesSummaries}
+          initial={this.props.selected_smartlist_autmated_campaign}
           onCancel={this.handleCancelAutomateCampaignForm}
           onSubmit={this.props.createOrUpdateAutomatedCampaign}
-          countTotal={this.props.countTotal}
-          countWithPhone={this.props.countWithPhone}
-          countWithEmail={this.props.countWithEmail}
-          genericTags={this.props.genericTags}
+          open={this.props.openAutomatedCampaignDrawer}
           resolvedGenericTags={this.props.resolvedGenericTags}
         />
         <CommunicationDrawerDEPRECATED
-          open={this.props.openSendEmail}
-          onClose={() => this.props.setOpenSendEmail(false)}
-          getEmails={this.props.fetchEmailTemplatesSummaries}
-          emails={this.props.email_templates_list}
-          getEmailDetail={this.props.fetchEmailTemplateDetail}
+          countTotal={this.props.members.countTotal}
+          countWithEmail={this.props.members.countWithEmail}
+          countWithPhone={this.props.members.countWithPhone}
+          emailDetailLoading={this.props.emailDetailLoading}
           emailDetails={this.props.email_templates_details}
           emailListLoading={this.props.emailListLoading}
-          emailDetailLoading={this.props.emailDetailLoading}
-          onCancel={() => {
-            this.props.setOpenSendEmail(false);
-            this.setState({ resetMembersFetchForCommunication: true });
-          }}
-          membersToDisplay={this.props.members.displayItems}
-          fetchPreviousPage={(page: number, page_size: number) =>
-            this.fetchPaginatedMembers(
-              page - 1
-                ? page - 1
-                : parseInt(this.props.members.countTotal / page_size, 10) + 1,
-              page_size,
-            )
-          }
+          emails={this.props.email_templates_list}
           fetchNextPage={(page: number, page_size: number) =>
             this.fetchPaginatedMembers(
               page > parseInt(this.props.members.countTotal / page_size, 10)
@@ -583,26 +569,40 @@ export class SmartListDetailMember extends React.Component<Props, State> {
               page_size,
             )
           }
+          fetchPreviousPage={(page: number, page_size: number) =>
+            this.fetchPaginatedMembers(
+              page - 1
+                ? page - 1
+                : parseInt(this.props.members.countTotal / page_size, 10) + 1,
+              page_size,
+            )
+          }
+          genericTags={this.props.genericTags}
+          getEmailDetail={this.props.fetchEmailTemplateDetail}
+          getEmails={this.props.fetchEmailTemplatesSummaries}
           initMembers={(page: number, page_size: number) =>
             this.fetchPaginatedMembers(page, page_size)
           }
-          page={this.props.members.page}
           membersAllLoading={
             this.state.resetMembersFetchForCommunication &&
             this.props.members.loading
           }
           membersByPageLoading={this.props.members.loading}
+          membersToDisplay={this.props.members.displayItems}
+          onCancel={() => {
+            this.props.setOpenSendEmail(false);
+            this.setState({ resetMembersFetchForCommunication: true });
+          }}
+          onClose={() => this.props.setOpenSendEmail(false)}
+          open={this.props.openSendEmail}
+          page={this.props.members.page}
+          resolvedGenericTags={this.props.resolvedGenericTags}
           send={(data) =>
             this.props.sendCommunication({
               ...data,
               smartlist_id: this.props.id,
             })
           }
-          countTotal={this.props.members.countTotal}
-          countWithPhone={this.props.members.countWithPhone}
-          countWithEmail={this.props.members.countWithEmail}
-          genericTags={this.props.genericTags}
-          resolvedGenericTags={this.props.resolvedGenericTags}
         />
         {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
           Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
@@ -611,11 +611,11 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           <>
             {!!this.props.openCommunicationChatDrawer && (
               <CommunicationDrawer
-                openDrawer={this.props.openCommunicationChatDrawer}
-                onDrawerClose={this.handleCommunicationDrawerClose}
                 contextIdentifier={CONTEXT_SMARTLIST}
                 contextObjectId={this.props.smartlist?.id ?? this.props.id}
                 contextTitle={this.props.smartlist?.name}
+                onDrawerClose={this.handleCommunicationDrawerClose}
+                openDrawer={this.props.openCommunicationChatDrawer}
                 propToListenToReloadRecipients={
                   this.state.resetMembersFetchForCommunication
                 }
@@ -641,11 +641,11 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           </>
         )}
         <SmartListEditDialog
+          fullScreen
+          onCancel={() => this.setState({ openEditDialog: false })}
           open={this.state.openEditDialog}
           smartlist={this.state.openEditDialog ? this.props.smartlist : null}
           updateSmartList={this.updateSmartList}
-          onCancel={() => this.setState({ openEditDialog: false })}
-          fullScreen
         />
       </div>
     );

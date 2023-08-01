@@ -26,22 +26,22 @@ const PaymentPackTemplateFormDrawer: React.FC<Props> = (props: Props) => {
 
   return (
     <GenericResponsiveDrawer
-      open={props.open}
       onClose={props.onClose}
+      open={props.open}
       title={t('paymentPackTemplate.form.title')}
     >
       <Form>
         <PaymentPackTemplateForm {...props} />
         <DialogActions className={classes.actions}>
-          <Button onClick={props.onClose} disabled={isSubmitting}>
+          <Button disabled={isSubmitting} onClick={props.onClose}>
             {t('paymentPackTemplate.form.actions.close')}
           </Button>
           <Submit disabled={isSubmitting}>
             {isSubmitting && (
               <CircularProgress
                 className={classes.progress}
-                size={12}
                 color="inherit"
+                size={12}
               />
             )}
             {t('paymentPackTemplate.form.actions.submit')}

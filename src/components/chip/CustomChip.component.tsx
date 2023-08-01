@@ -186,16 +186,16 @@ export const CustomChip: React.FC<CustomChipProps> = ({
     <MuiThemeProvider theme={theme}>
       <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <ChipWrapper
+          displayedValue={displayedValue}
           toolTip={toolTip}
           toolTipValue={toolTipValue}
-          displayedValue={displayedValue}
         >
           <Chip
             className={classnames(classes.chip, chipClass)}
-            label={displayedValue}
-            size="small"
             color="primary"
             icon={!!icon && <MuiIcon className={classes.icon} icon={icon} />}
+            label={displayedValue}
+            size="small"
             variant="default"
           />
         </ChipWrapper>

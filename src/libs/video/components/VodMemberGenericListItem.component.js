@@ -36,7 +36,7 @@ const VodMemberGenericListItem = (props: Props) => {
               {`${member && member.name ? member.name : '-'}`}
             </Typography>
             {member && member.archived && (
-              <Typography variant="caption" color="secondary">
+              <Typography color="secondary" variant="caption">
                 {`${'\u00A0'}(${t('member:archived')})`}
               </Typography>
             )}

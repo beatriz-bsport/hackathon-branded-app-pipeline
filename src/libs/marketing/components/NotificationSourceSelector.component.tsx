@@ -181,10 +181,10 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
 
             {['meta_activity', 'workshop'].includes(identifier) && (
               <MetaActivitySelector
-                metaActivities={this.props.metaActivities || []}
                 closeMenuOnSelect
-                selectedMetaActivities={this.state.selectedMetaActivity}
                 noMulti
+                metaActivities={this.props.metaActivities || []}
+                selectedMetaActivities={this.state.selectedMetaActivity}
                 selectOption={({ value }) =>
                   this.onChange('meta_activity', value)
                 }
@@ -193,65 +193,65 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
 
             {identifier === 'establishment' && (
               <EstablishmentSelector
+                closeMenuOnSelect
+                noMulti
                 establishments={this.props.establishments}
                 selectedEstablishments={this.state.selectedEstablishment}
                 selectOption={({ value }) => {
                   this.onChange('establishment', value);
                 }}
-                noMulti
-                closeMenuOnSelect
               />
             )}
             {identifier === 'establishment_group' &&
               !!establishmentGroups?.length && (
                 <MaterialUISelector
+                  isMulti={false}
+                  onChange={(option) =>
+                    this.onChange('establishment_group', option.value)
+                  }
                   options={[...establishmentGroups].map(
                     (establishmentGroup) => ({
                       label: establishmentGroup.name,
                       value: establishmentGroup.id,
                     }),
                   )}
-                  isMulti={false}
-                  onChange={(option) =>
-                    this.onChange('establishment_group', option.value)
-                  }
                 />
               )}
 
             {identifier === 'private_service' && (
               <PrivateServiceSelector
-                privateServices={this.props.privateServices}
-                privateServiceId={this.state.selectedPrivateService}
                 onChange={(value) => this.onChange('private_service', value)}
+                privateServiceId={this.state.selectedPrivateService}
+                privateServices={this.props.privateServices}
               />
             )}
 
             {identifier === 'payment_pack' && (
               <PaymentPackSelector
-                paymentPacks={this.props.paymentPacks}
-                value={this.state.selectedPaymentPack}
-                onChange={(value) => this.onChange('payment_pack', value)}
                 helperText={t('notifications.paymentPackPlaceholder')}
                 isMulti={false}
+                onChange={(value) => this.onChange('payment_pack', value)}
+                paymentPacks={this.props.paymentPacks}
+                value={this.state.selectedPaymentPack}
               />
             )}
             {identifier === 'contract' && (
               <ContractSelector
-                contracts={this.props.contracts}
                 contractId={this.state.selectedContract}
+                contracts={this.props.contracts}
                 onChange={(value) => this.onChange('contract', value)}
               />
             )}
 
             {identifier === 'private_pass' && (
               <PrivatePassSelector
-                value={this.state.selectedPrivatePass}
-                privatePassList={this.props.privatePasses}
+                helperText={t('notifications.privatePassPlaceholder')}
+                isMulti={false}
                 onChange={(value: number) =>
                   this.onChange('private_pass', value)
                 }
-                helperText={t('notifications.privatePassPlaceholder')}
-                isMulti={false}
+                privatePassList={this.props.privatePasses}
+                value={this.state.selectedPrivatePass}
               />
             )}
           </DialogContent>

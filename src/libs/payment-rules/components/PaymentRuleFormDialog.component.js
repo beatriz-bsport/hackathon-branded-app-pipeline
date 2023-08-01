@@ -31,9 +31,9 @@ export function PaymentRuleSetFormDialog(props: Props) {
   const { t, open, handleClose, isSubmitting } = props;
   return (
     <Dialog
-      open={open}
-      onClose={handleClose}
       aria-labelledby="form-dialog-title"
+      onClose={handleClose}
+      open={open}
     >
       <Form>
         <DialogTitle id="form-dialog-title">{t('addNew')}</DialogTitle>
@@ -42,13 +42,13 @@ export function PaymentRuleSetFormDialog(props: Props) {
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={props.handleClose}
             color="secondary"
             disabled={isSubmitting}
+            onClick={props.handleClose}
           >
             {t('cancel')}
           </Button>
-          <Submit id="button_remuneration_save" disabled={isSubmitting}>
+          <Submit disabled={isSubmitting} id="button_remuneration_save">
             {t('save')}
           </Submit>
         </DialogActions>

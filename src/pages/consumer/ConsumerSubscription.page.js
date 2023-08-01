@@ -96,13 +96,13 @@ export class ConsumerSubscription extends React.Component<Props> {
     if (!this.props.hideButtonOnWidget && !WidgetUtils.isWidget()) {
       return (
         <Button
+          color="primary"
           onClick={() =>
             this.props.goToSubscription(
               this.props.membership.company_name,
               this.props.membership.company,
             )
           }
-          color="primary"
           variant="contained"
         >
           <ReceiptIcon className={this.props.classes.iconLeft} />
@@ -127,12 +127,12 @@ export class ConsumerSubscription extends React.Component<Props> {
         ) : null}
         {this.props.subscriptionList.map((sub) => (
           <SubscriptionListItem
-            subscription={sub}
             changePaymentMethod={this.props.setSwitchPaymentMethodDialogOpen}
-            paymentMethodList={this.props.savedPaymentMethodList}
             downloadContractTerms={(options: OptionCallback) =>
               this.props.downloadContractTerms(sub.id, options)
             }
+            paymentMethodList={this.props.savedPaymentMethodList}
+            subscription={sub}
           />
         ))}
         <Dialog open={!!this.props.subscriptionSelected}>
@@ -161,20 +161,20 @@ export class ConsumerSubscription extends React.Component<Props> {
         </Dialog>
         {this.props.switchPaymentMethodDialogOpen ? (
           <SubscriptionPaymentMethodSwitcherDialog
-            open={this.props.switchPaymentMethodDialogOpen}
-            onSubmit={this.props.switchPaymentMethod}
-            savedPaymentMethodList={this.props.savedPaymentMethodList}
-            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
-            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-            onCancel={() => this.props.setSwitchPaymentMethodDialogOpen(false)}
             enabledPaymentGroupMethodIdentifier={
               this.props.theme.payment_method_available_subscription
             }
-            member={this.props.member}
             enabledPaymentMethods={getMarketplaceEnabledPaymentMethods({
               paymentMethodAvailableSubscription:
                 this.props.theme.payment_method_available_subscription,
             })}
+            member={this.props.member}
+            onCancel={() => this.props.setSwitchPaymentMethodDialogOpen(false)}
+            onSubmit={this.props.switchPaymentMethod}
+            open={this.props.switchPaymentMethodDialogOpen}
+            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
+            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+            savedPaymentMethodList={this.props.savedPaymentMethodList}
           />
         ) : null}
       </div>

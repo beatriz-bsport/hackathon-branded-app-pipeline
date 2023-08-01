@@ -147,13 +147,13 @@ export class GiftcardListPage extends Component<Props, State> {
         {this.props.giftcardListActive?.length ? (
           <>
             <FuzeSearch
-              searchText={this.state.searchText}
-              clearSearch={this.clearSearch}
               changeSearch={this.changeSearch}
+              clearSearch={this.clearSearch}
               items={[...this.props.giftcardListActive]}
               placeholder={t('search')}
               searchFields={['name']}
               searchResult={this.state.searchResult}
+              searchText={this.state.searchText}
             />
             <Paper
               className={
@@ -173,12 +173,12 @@ export class GiftcardListPage extends Component<Props, State> {
                   <List disablePadding>
                     {this.state.searchResult.map((giftcard) => (
                       <GiftcardListItem
-                        giftcard={giftcard}
-                        divider
-                        onEdit={this.props.openEditForm}
                         key={giftcard.id}
-                        onRemove={this.props.deleteGiftcard}
+                        divider
+                        giftcard={giftcard}
                         onClick={this.props.goToGiftcard}
+                        onEdit={this.props.openEditForm}
+                        onRemove={this.props.deleteGiftcard}
                       />
                     ))}
                   </List>
@@ -189,9 +189,9 @@ export class GiftcardListPage extends Component<Props, State> {
         ) : null}
         <div className={classes.buttonRow}>
           <Button
-            variant="outlined"
             color="primary"
             onClick={this.props.toggleBackgroundImageForm}
+            variant="outlined"
           >
             <AddIcon />
             {t('list.addBackgroundImage')}
@@ -202,65 +202,65 @@ export class GiftcardListPage extends Component<Props, State> {
         this.props.giftcardListInactive.length === 0 &&
         !this.props.loading ? (
           <IsEmptyList
-            text={this.props.t('list.explainIfEmpty')}
             button={this.props.t('list.actions.create')}
             onCreate={this.props.openCreateForm}
+            text={this.props.t('list.explainIfEmpty')}
           />
         ) : null}
         {!!this.props.giftcardListActive.length && (
           <>
             <Typography
-              variant="h5"
-              component="h2"
               className={classes.titleContainer}
+              component="h2"
+              variant="h5"
             >
               {`${t('list.activeTitle')} (${
                 this.props.giftcardListActive.length
               })`}
             </Typography>
             <DividerLoader
-              loading={this.props.loading}
               className={classes.divider}
+              loading={this.props.loading}
             />
             <GiftcardList
-              onEdit={this.props.openEditForm}
-              onRemove={this.props.deleteGiftcard}
               giftcardList={this.props.giftcardListActive}
               onClick={this.props.goToGiftcard}
               onDuplicate={this.props.makeGiftcardCopy}
+              onEdit={this.props.openEditForm}
+              onRemove={this.props.deleteGiftcard}
             />
           </>
         )}
         {!!this.props.giftcardListUnavailableForSale.length && (
           <div className={classes.titleContainer}>
-            <Typography variant="h5" component="h2">
+            <Typography component="h2" variant="h5">
               {`${t('list.unavailableForSaleTitle')} (${
                 this.props.giftcardListUnavailableForSale.length
               })`}
             </Typography>
             <DividerLoader
-              loading={this.props.loading}
               className={classes.divider}
+              loading={this.props.loading}
             />
             <GiftcardList
-              onEdit={this.props.openEditForm}
-              onRemove={this.props.deleteGiftcard}
               giftcardList={this.props.giftcardListUnavailableForSale}
               onClick={this.props.goToGiftcard}
+              onEdit={this.props.openEditForm}
+              onRemove={this.props.deleteGiftcard}
             />
           </div>
         )}
         {!!this.props.giftcardListInactive.length && (
           <React.Fragment>
             <div className={classes.row}>
-              <Typography variant="h5" component="h2">
+              <Typography component="h2" variant="h5">
                 {`${t('list.archivedTitle')} (${
                   this.props.giftcardListInactive.length
                 })`}
               </Typography>
               <IconButton
-                onClick={this.onShowDisabled}
                 className={classes.iconContainer}
+                onClick={this.onShowDisabled}
               >
                 {this.state.showDisabled ? (
                   <ExpandLessIcon />
@@ -281,28 +281,28 @@ export class GiftcardListPage extends Component<Props, State> {
           )}
         </Collapse>
         <BottomActionButtons
-          onCreateLabel={this.props.t('list.actions.create')}
           onCreate={this.props.openCreateForm}
+          onCreateLabel={this.props.t('list.actions.create')}
         />
         <GiftcardFormDrawer
+          onClose={this.props.closeForms}
+          onSubmit={this.props.createOrUpdate}
           open={!!this.props.queryParams?.isCreateFormOpen}
-          onSubmit={this.props.createOrUpdate}
-          onClose={this.props.closeForms}
         />
         <GiftcardFormDrawer
-          open={!!this.props.giftcardToEdit}
-          onSubmit={this.props.createOrUpdate}
-          onClose={this.props.closeForms}
           initial={this.props.giftcardToEdit}
+          onClose={this.props.closeForms}
+          onSubmit={this.props.createOrUpdate}
+          open={!!this.props.giftcardToEdit}
         />
         {this.props.queryParams.isBackgroundImageUploaderOpen && (
           <GiftcardBackgroundImageUploader
-            open={this.props.queryParams.isBackgroundImageUploaderOpen}
-            giftcardBackgroundImageList={this.props.giftcardBackgroundImageList}
-            onClose={this.props.toggleBackgroundImageForm}
-            onAddImage={this.onAddImage}
-            onRemoveImage={this.onRemoveImage}
             companyCover={this.props.companyCover}
+            giftcardBackgroundImageList={this.props.giftcardBackgroundImageList}
+            onAddImage={this.onAddImage}
+            onClose={this.props.toggleBackgroundImageForm}
+            onRemoveImage={this.onRemoveImage}
+            open={this.props.queryParams.isBackgroundImageUploaderOpen}
           />
         )}
       </div>

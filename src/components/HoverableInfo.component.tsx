@@ -22,19 +22,19 @@ const HoverableInfo: React.FC<{
   return (
     <div
       ref={containerRef}
+      className={classes.main}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={classes.main}
     >
       <InfoOutlinedIcon className={classes.infoIcon} />
       <Popper
-        open={isOpen}
+        disablePortal
         // @ts-ignore
         anchorEl={containerRef}
+        open={isOpen}
         placement="top-start"
-        disablePortal
       >
-        <Alert severity="info" className={classes.alert}>
+        <Alert className={classes.alert} severity="info">
           {text}
         </Alert>
       </Popper>

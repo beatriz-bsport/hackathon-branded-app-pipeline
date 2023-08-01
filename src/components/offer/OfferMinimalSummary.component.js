@@ -101,7 +101,7 @@ type Props = {
 const getFillingInfo = (offer: Offer) => {
   const fillingInfo = (
     <div style={{ display: 'inline-flex', alignItems: 'flex-end' }}>
-      <Typography inline variant="subtitle2" color="secondary">
+      <Typography inline color="secondary" variant="subtitle2">
         {`${offer.nb_bookings} `}
       </Typography>
       <Typography color="textPrimary" variant="subtitle2">
@@ -112,13 +112,13 @@ const getFillingInfo = (offer: Offer) => {
           <Typography inline color="textPrimary" variant="caption">
             &nbsp;(
           </Typography>
-          <Typography inline variant="caption" color="primary">
+          <Typography inline color="primary" variant="caption">
             {offer.nb_attendant}
           </Typography>
           <Typography inline variant="caption">
             +
           </Typography>
-          <Typography inline variant="caption" color="error">
+          <Typography inline color="error" variant="caption">
             {offer.nb_non_attendant}
           </Typography>
           <Typography color="textPrimary" variant="caption">
@@ -165,7 +165,7 @@ export function OfferMinimalSummary(props: Props) {
     : false;
 
   if (!offer || loading) {
-    return <EmptyListItem key="" divider dense />;
+    return <EmptyListItem key="" dense divider />;
   }
 
   const {
@@ -220,27 +220,27 @@ export function OfferMinimalSummary(props: Props) {
   return (
     <>
       <PaymentPackTagsDialog
-        open={tagManagementDialog}
-        className={classes.noOverflow}
-        whitelistTags={whitelist_tags}
         blacklistTags={blacklist_tags}
+        className={classes.noOverflow}
         onClose={() => setTagManagementDialog(false)}
         onModify={() => {
           setTagManagementDialog(false);
           onModifyTags();
         }}
+        open={tagManagementDialog}
+        whitelistTags={whitelist_tags}
       />
       <ListItem
         key={id}
         dense
+        divider
         button={!!overrideClickAction}
-        selected={selected}
-        onClick={overrideClickAction}
         className={classNames(
           classes.listItem,
           available ? {} : classes.disabled,
         )}
-        divider
+        onClick={overrideClickAction}
+        selected={selected}
         style={{
           borderLeft: offer.meta_activity_color ? '5px solid' : '0px',
           borderLeftColor: offer.meta_activity_color,
@@ -252,9 +252,9 @@ export function OfferMinimalSummary(props: Props) {
               : null,
         }}
       >
-        <Grid container directon="row" alignItems="center">
+        <Grid container alignItems="center" directon="row">
           <Grid item xs={6}>
-            <Grid container direction="row" alignItems="center" wrap="nowrap">
+            <Grid container alignItems="center" direction="row" wrap="nowrap">
               <Hidden smDown>
                 <Grid item>
                   {coach_override && isCoach ? (
@@ -290,8 +290,8 @@ export function OfferMinimalSummary(props: Props) {
                       <div>
                         <IconButton disableRipple disabled={!!coach_override}>
                           <Avatar
-                            src={coach ? coach.photo || DEFAULT_AVATAR : ''}
                             imgProps={coach_override ? disabledAvatarProps : {}}
+                            src={coach ? coach.photo || DEFAULT_AVATAR : ''}
                           />
                         </IconButton>
                       </div>
@@ -324,6 +324,7 @@ export function OfferMinimalSummary(props: Props) {
               </Grid>
               <Grid item xs={9}>
                 <ListItemText
+                  classes={textClasses}
                   primary={
                     <div className={classes.offerTitleText}>
                       {offer.is_broadcast && !offer?.linked_hybrid_offer_id && (
@@ -339,17 +340,17 @@ export function OfferMinimalSummary(props: Props) {
                         <FolderIcon className={classes.videocamIcon} />
                       )}
                       <Typography
-                        variant="inherit"
                         className={classNames(textClasses?.primary, {
                           [classes.textMaxWidth]: fixedHeight,
                         })}
+                        variant="inherit"
                       >
                         {formattedName}
                       </Typography>
                       <FreeOfferChip
+                        companyTheme={companyTheme}
                         credits={credit_price}
                         creditsOverride={credit_price_override}
-                        companyTheme={companyTheme}
                         size="small"
                       />
                     </div>
@@ -358,7 +359,6 @@ export function OfferMinimalSummary(props: Props) {
                     date_start,
                     offer.timezone_name,
                   )} - ${formatMinutes(duration_minute, t)}`}
-                  classes={textClasses}
                 />
               </Grid>
               {showTags &&
@@ -366,11 +366,11 @@ export function OfferMinimalSummary(props: Props) {
                   <Grid item className={classes.topAlign}>
                     <Tooltip
                       disableInteractive
+                      placement="bottom-start"
                       title={t('offer:tagManagementInfo', {
                         authorized: whitelist_tags.length || 0,
                         unauthorized: blacklist_tags.length || 0,
                       })}
-                      placement="bottom-start"
                     >
                       <IconButton
                         disableRipple
@@ -389,15 +389,16 @@ export function OfferMinimalSummary(props: Props) {
           </Grid>
           <Grid item xs={3}>
             <ListItemText
+              classes={textClasses}
               primary={fillingInfo}
               primaryTypographyProps={fillingInfoProps}
               secondary={formattedFillingRate}
-              classes={textClasses}
             />
           </Grid>
-          <Grid item xs={2} className={classes.relativeContainer}>
+          <Grid item className={classes.relativeContainer} xs={2}>
             {additional_coaches?.length > 0 ? (
               <ListItemText
+                classes={textClasses}
                 primary={
                   showCoachName
                     ? actualCoachName
@@ -407,8 +408,8 @@ export function OfferMinimalSummary(props: Props) {
                   <Tooltip
                     title={
                       <AdditionalCoachesTooltipTitle
-                        mainCoachName={actualCoachName}
                         coaches={additional_coaches}
+                        mainCoachName={actualCoachName}
                       />
                     }
                   >
@@ -419,28 +420,27 @@ export function OfferMinimalSummary(props: Props) {
                     </div>
                   </Tooltip>
                 }
-                classes={textClasses}
               />
             ) : (
               <ListItemText
+                classes={textClasses}
                 primary={
                   showCoachName
                     ? actualCoachName
                     : (currentEstablishment || {}).title
                 }
                 secondary={actualCoachName}
-                classes={textClasses}
               />
             )}
           </Grid>
-          <Grid item xs={1} className={classes.chipContainer}>
+          <Grid item className={classes.chipContainer} xs={1}>
             {hasPendingReplacementRequest && (
               <Tooltip>
                 <div
-                  title={t('offer:pendingReplacementRequest')}
                   className={
                     props.isRollCallMandatory && classes.replacementChip
                   }
+                  title={t('offer:pendingReplacementRequest')}
                 >
                   <ReplacementRequestPendingChip height={22} width={30} />
                 </div>

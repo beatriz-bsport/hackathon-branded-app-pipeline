@@ -79,44 +79,43 @@ const MarketingRuleFormBirthday = (props: Props) => {
     <GenericResponsiveDrawer
       open
       onClose={onCancel}
-      title={t('notificationForm')}
       subtitle={t('notificationRule:tag.Birthday.name')}
+      title={t('notificationForm')}
     >
       <Form>
         <MarketingRuleSmartlistField
           goToSmartList={goToSmartlist}
-          smartLists={smartLists}
-          smartlist_include={smartlist_include}
           smartlist_exclude={smartlist_exclude}
+          smartlist_include={smartlist_include}
+          smartLists={smartLists}
         />
         <MarketingRuleSendingMethodField
-          send_email={send_email}
-          send_notification_push={send_notification_push}
-          notificationTitle={notificationTitle}
-          notificationContent={notificationContent}
-          errors={errors}
-          emailListLoading={emailListLoading}
-          emails={emails}
           email_design={email_design}
-          getEmailDetail={getEmailDetail}
           emailDetailLoading={emailDetailLoading}
           emailDetails={emailDetails}
+          emailListLoading={emailListLoading}
+          emails={emails}
+          errors={errors}
+          getEmailDetail={getEmailDetail}
+          notificationContent={notificationContent}
+          notificationTitle={notificationTitle}
+          resolvedGenericTags={resolvedGenericTags}
+          send_email={send_email}
+          send_notification_push={send_notification_push}
           setFieldValue={setFieldValue}
           tags={tags}
-          resolvedGenericTags={resolvedGenericTags}
         />
 
         <Actions>
           <Button
+            disabled={isSubmitting}
             onClick={() => {
               onCancel();
             }}
-            disabled={isSubmitting}
           >
             {t('booking:notification.form.cancel')}
           </Button>
           <Submit
-            onClick={onSubmitIntent}
             color="primary"
             disabled={
               !!errors.email_design ||
@@ -124,6 +123,7 @@ const MarketingRuleFormBirthday = (props: Props) => {
               !!errors.notificationContent ||
               !!errors.atLeastOneChannel
             }
+            onClick={onSubmitIntent}
           >
             {t('booking:notification.form.submit')}
           </Submit>

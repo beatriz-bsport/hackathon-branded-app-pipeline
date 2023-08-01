@@ -77,9 +77,9 @@ export const PrivateBookingConsumerItem = (props: Props) => {
       <div className={classes.footer}>
         {props.goToCalendar && !WidgetUtils.isWidget() && (
           <Button
+            color="primary"
             onClick={props.goToCalendar}
             variant="outlined"
-            color="primary"
           >
             <TodayIcon className={classes.leftIcon} />
             {t('booking.showCalendar')}

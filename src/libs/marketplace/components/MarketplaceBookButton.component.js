@@ -56,10 +56,6 @@ const MarketplaceBookButton = (props: Props) => {
   return (
     <Button
       fullWidth
-      id={`offer-book-${offer.id}`}
-      disabled={!offer.available || isOfferInThePast(offer)}
-      onClick={onClick}
-      color="primary"
       className={classnames(
         {
           [classes.offerAvailable]: offer.available,
@@ -67,6 +63,10 @@ const MarketplaceBookButton = (props: Props) => {
         },
         className,
       )}
+      color="primary"
+      disabled={!offer.available || isOfferInThePast(offer)}
+      id={`offer-book-${offer.id}`}
+      onClick={onClick}
     >
       <>
         <Hidden smUp>

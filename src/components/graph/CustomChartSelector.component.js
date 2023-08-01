@@ -30,13 +30,13 @@ export class CustomChartSelector extends React.Component<Props> {
     const Icon = this.props.iconList[item];
     return (
       <List
-        disablePadding
         key={item}
+        disablePadding
         subheader={
           <ListItem
-            disableGutters
             button
             dense
+            disableGutters
             className={this.props.classes.listItem}
             onClick={() => {
               this.props.setItemSelected(item);
@@ -62,8 +62,8 @@ export class CustomChartSelector extends React.Component<Props> {
     return (
       <div className={classes.container}>
         <ButtonBase
-          onClick={(ev) => this.props.setMenuAnchor(ev.currentTarget)}
           className={classes.button}
+          onClick={(ev) => this.props.setMenuAnchor(ev.currentTarget)}
         >
           <SearchIcon className={classes.leftIcon} />
           {!itemList ? (
@@ -78,7 +78,7 @@ export class CustomChartSelector extends React.Component<Props> {
                     alignItems: 'flex-start',
                   }}
                 >
-                  <Typography variant="body" color="textSecondary" align="left">
+                  <Typography align="left" color="textSecondary" variant="body">
                     {t(`customChart.form.selector.${itemSelected}`)}
                   </Typography>
                 </div>
@@ -94,9 +94,9 @@ export class CustomChartSelector extends React.Component<Props> {
           {t('customChart.form.selector.object.helperText')}
         </Typography>
         <Menu
-          open={!!this.props.menuAnchor}
           anchorEl={this.props.menuAnchor}
           onClose={() => this.props.setMenuAnchor(null)}
+          open={!!this.props.menuAnchor}
         >
           {itemList && itemList.length ? (
             itemList.map((item) => this.renderItemList(item))

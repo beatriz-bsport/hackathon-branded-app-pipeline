@@ -290,14 +290,8 @@ export class LocationInput extends Component<Props, State> {
         <Grid container>
           <Grid item xs>
             <TextField
-              id="address_generate"
-              label={t('establishment:location.search_address')}
-              value={generated_address}
-              type="text"
-              onChange={this.change}
-              required={!geometry.x || !geometry.y}
               fullWidth
-              variant="outlined"
+              id="address_generate"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -311,6 +305,12 @@ export class LocationInput extends Component<Props, State> {
                   </InputAdornment>
                 ),
               }}
+              label={t('establishment:location.search_address')}
+              onChange={this.change}
+              required={!geometry.x || !geometry.y}
+              type="text"
+              value={generated_address}
+              variant="outlined"
             />
           </Grid>
         </Grid>
@@ -320,10 +320,10 @@ export class LocationInput extends Component<Props, State> {
               ? candidates.map((c) => (
                   // eslint-disable-next-line
                   <ListItem
-                    button
                     key={c.formatted_address}
-                    onMouseOver={() => this.tempZoomOn()}
+                    button
                     onClick={() => this.selectCandidate(c)}
+                    onMouseOver={() => this.tempZoomOn()}
                   >
                     <ListItemText>{c.formatted_address}</ListItemText>
                   </ListItem>
@@ -334,15 +334,9 @@ export class LocationInput extends Component<Props, State> {
         </List>
         <Grid item xs>
           <TextField
-            id="address_line_1"
-            value={address_line_1}
-            type="text"
-            onChange={(e) =>
-              this.changeAddressField('address_line_1', e.target.value)
-            }
-            required={this.props.required}
-            disabled={!geometry.x || !geometry.y}
             fullWidth
+            disabled={!geometry.x || !geometry.y}
+            id="address_line_1"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -352,16 +346,17 @@ export class LocationInput extends Component<Props, State> {
                 </InputAdornment>
               ),
             }}
+            onChange={(e) =>
+              this.changeAddressField('address_line_1', e.target.value)
+            }
+            required={this.props.required}
+            type="text"
+            value={address_line_1}
           />
           <TextField
-            id="address_line_2"
-            value={address_line_2}
-            type="text"
-            onChange={(e) =>
-              this.changeAddressField('address_line_2', e.target.value)
-            }
-            disabled={!geometry.x || !geometry.y}
             fullWidth
+            disabled={!geometry.x || !geometry.y}
+            id="address_line_2"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -371,17 +366,18 @@ export class LocationInput extends Component<Props, State> {
                 </InputAdornment>
               ),
             }}
+            onChange={(e) =>
+              this.changeAddressField('address_line_2', e.target.value)
+            }
+            type="text"
+            value={address_line_2}
           />
           {(ALLOWED_COUNTRIES_FOR_STATES_LONG_NAMES.includes(country) ||
             ['US', 'CA'].includes(country_code)) && (
             <TextField
-              id="state"
-              value={state}
-              type="text"
-              onChange={(e) => this.changeAddressField('state', e.target.value)}
-              required={this.props.required}
-              disabled={!geometry.x || !geometry.y}
               fullWidth
+              disabled={!geometry.x || !geometry.y}
+              id="state"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -391,16 +387,16 @@ export class LocationInput extends Component<Props, State> {
                   </InputAdornment>
                 ),
               }}
+              onChange={(e) => this.changeAddressField('state', e.target.value)}
+              required={this.props.required}
+              type="text"
+              value={state}
             />
           )}
           <TextField
-            id="city"
-            value={city}
-            type="text"
-            onChange={(e) => this.changeAddressField('city', e.target.value)}
-            required={this.props.required}
-            disabled={!geometry.x || !geometry.y}
             fullWidth
+            disabled={!geometry.x || !geometry.y}
+            id="city"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -410,15 +406,15 @@ export class LocationInput extends Component<Props, State> {
                 </InputAdornment>
               ),
             }}
+            onChange={(e) => this.changeAddressField('city', e.target.value)}
+            required={this.props.required}
+            type="text"
+            value={city}
           />
           <TextField
-            id="zipcode"
-            value={zipcode}
-            type="text"
-            onChange={(e) => this.changeAddressField('zipcode', e.target.value)}
-            disabled={!geometry.x || !geometry.y}
-            required={this.props.required}
             fullWidth
+            disabled={!geometry.x || !geometry.y}
+            id="zipcode"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -428,15 +424,15 @@ export class LocationInput extends Component<Props, State> {
                 </InputAdornment>
               ),
             }}
+            onChange={(e) => this.changeAddressField('zipcode', e.target.value)}
+            required={this.props.required}
+            type="text"
+            value={zipcode}
           />
           <TextField
-            id="country"
-            value={country}
-            type="text"
-            onChange={(e) => this.changeAddressField('country', e.target.value)}
-            disabled={!geometry.x || !geometry.y}
-            required={this.props.required}
             fullWidth
+            disabled={!geometry.x || !geometry.y}
+            id="country"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -446,6 +442,10 @@ export class LocationInput extends Component<Props, State> {
                 </InputAdornment>
               ),
             }}
+            onChange={(e) => this.changeAddressField('country', e.target.value)}
+            required={this.props.required}
+            type="text"
+            value={country}
           />
         </Grid>
       </fieldset>
@@ -459,16 +459,15 @@ export class LocationInput extends Component<Props, State> {
       <div>
         {this.renderInputWithCandidates()}
         <Map
-          id="cy-map-container"
           center={center}
-          zoom={zoom}
+          id="cy-map-container"
           onClick={this.handleClickOnMap}
           onZoomAnim={this.updateZoom}
+          zoom={zoom}
         >
           <TileLayer url={TILE_LAYER_URL} variant="light_all" />
           {geometry ? (
             <Marker
-              position={[geometry.x, geometry.y]}
               icon={
                 new Icon({
                   iconUrl: MARKER_ASSET,
@@ -476,6 +475,7 @@ export class LocationInput extends Component<Props, State> {
                   iconAnchor: [25, 79],
                 })
               }
+              position={[geometry.x, geometry.y]}
             >
               <Popup>{address_line_1.concat(',', address_line_2)}</Popup>
             </Marker>

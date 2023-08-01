@@ -60,15 +60,15 @@ export const PlatformInvoiceListItem = (props: Props) => {
 
   const secondaryText = (
     <div className={classes.row}>
-      <Typography variant="caption" color="textSecondary">
+      <Typography color="textSecondary" variant="caption">
         {getCustomCurrencyDisplayWithPrice(
           total_price_cts / 100,
           defaultCurrencyDisplay,
         )}
       </Typography>
       <Typography
-        variant="caption"
         color={status === 'succeeded' ? 'inherit' : 'error'}
+        variant="caption"
       >
         {` - ${t(`platformInvoice.status.${status}`)}`}
       </Typography>
@@ -91,7 +91,6 @@ export const PlatformInvoiceListItem = (props: Props) => {
         !!props.payNowInvoice && (
           <Button
             color="primary"
-            variant="outlined"
             disabled={paymentProcessing}
             onClick={() => {
               setPaymentProcessing(true);
@@ -100,6 +99,7 @@ export const PlatformInvoiceListItem = (props: Props) => {
                 onError: () => setPaymentProcessing(false),
               });
             }}
+            variant="outlined"
           >
             {t('platformInvoice.bill')}
           </Button>

@@ -42,7 +42,7 @@ const PageHeightCalculator = (props: { children: React.ReactChild }) => {
   const childrenWithProps = React.cloneElement(children, { pageHeight });
 
   return (
-    <div className={classes.page} ref={page}>
+    <div ref={page} className={classes.page}>
       {pageHeight > 0 && childrenWithProps}
     </div>
   );

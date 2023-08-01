@@ -84,13 +84,13 @@ export const ConsumerBookingPage = (props: Props) => {
       {!WidgetUtils.isWidget() && (
         <div className={props.classes.header}>
           <Button
+            color="primary"
             onClick={() =>
               props.goToCalendar(
                 props.membership.company_name,
                 props.membership.company,
               )
             }
-            color="primary"
             variant="contained"
           >
             <TodayIcon className={props.classes.iconLeft} />
@@ -99,11 +99,11 @@ export const ConsumerBookingPage = (props: Props) => {
         </div>
       )}
       <Grid container direction="row" spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <Typography
-            variant="h4"
-            component="h3"
             className={props.classes.title}
+            component="h3"
+            variant="h4"
           >
             {props.t('booking.titleBooking')}
           </Typography>
@@ -111,40 +111,40 @@ export const ConsumerBookingPage = (props: Props) => {
           <Paper>
             <PaginatedListBase
               itemPerPage={BOOKING_PAGE_SIZE}
-              loading={props.bookingsLoading}
-              listProps={{ disablePadding: true }}
               items={props.bookings}
+              listProps={{ disablePadding: true }}
+              loading={props.bookingsLoading}
               nbItems={props.bookingCount}
-              page={props.bookingCurrentPage}
               onPageRequested={(page, page_size) =>
                 props.fetchBookingList(props.membership.id, page, page_size)
               }
+              page={props.bookingCurrentPage}
               renderItem={(b) => (
                 <BookingItemForManagerV2
+                  key={b.id}
+                  displayNoShowChip
+                  booking={b}
+                  disabled={b.booking_status_code !== BOOKING_STATUS_OK.id}
+                  handleRevert={handleCancelBooking(b)}
+                  heading="date_start"
+                  member={props.membership.id}
+                  noShowChipMessage={props.t('booking.noShow')}
                   showRevertBookingButton={
                     b.booking_status_code === BOOKING_STATUS_OK.id &&
                     moment(b.offer_date_start).isAfter(moment())
                   }
-                  disabled={b.booking_status_code !== BOOKING_STATUS_OK.id}
-                  key={b.id}
-                  booking={b}
-                  timezone={props.timezone}
-                  heading="date_start"
-                  member={props.membership.id}
-                  handleRevert={handleCancelBooking(b)}
                   showVaccinationStatus={props.showVaccinationStatus}
-                  displayNoShowChip
-                  noShowChipMessage={props.t('booking.noShow')}
+                  timezone={props.timezone}
                 />
               )}
             />
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <Typography
-            variant="h4"
-            component="h3"
             className={props.classes.title}
+            component="h3"
+            variant="h4"
           >
             {props.t('booking.titlePrivateBooking')}
           </Typography>
@@ -152,29 +152,29 @@ export const ConsumerBookingPage = (props: Props) => {
           <Paper>
             <PaginatedListStateful
               itemPerPage={5}
-              loading={props.privateBookingsLoading}
-              listProps={{ disablePadding: true }}
               items={props.private_booking_list}
+              listProps={{ disablePadding: true }}
+              loading={props.privateBookingsLoading}
               renderItem={(b) => (
                 <PrivateBookingListItem
-                  timezone={props.timezone}
-                  divider
                   key={b.id}
+                  divider
                   private_booking={b}
+                  timezone={props.timezone}
                 />
               )}
             />
           </Paper>
         </Grid>
         <BookingCancellationDialog
-          open={props.bookingToCancel}
           booking={props.bookingToCancel}
+          group={props.group}
           onCancel={() => props.setBookingToCancel(null)}
-          similarBookings={props.similarBookings}
           onSubmit={(options) =>
             props.cancelBooking(props.bookingToCancel.id, options)
           }
-          group={props.group}
+          open={props.bookingToCancel}
+          similarBookings={props.similarBookings}
         />
       </Grid>
     </div>

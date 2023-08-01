@@ -76,27 +76,27 @@ export const UseInternalAccountForm: React.FC<Props> = ({
       {onBasketSubmit && (
         <>
           {!asManager && (
-            <Typography variant="h6" className={classes.header}>
+            <Typography className={classes.header} variant="h6">
               {t('internalAccount.myInternalAccount')}
             </Typography>
           )}
           <div className={classes.greyContainer}>
-            <Typography variant="h6" className={classes.creditAccountBalance}>
+            <Typography className={classes.creditAccountBalance} variant="h6">
               {getCurrencyDisplayWithPrice(creditAccountBalance)}
             </Typography>
             <Collapse
-              in={!open}
               className={classes.fullWidth}
+              in={!open}
               timeout={{ appear: 10000 }}
             >
               <div className={classes.container}>
                 <div className={classes.outterButtonContainer}>
                   <Button
-                    className={classes.fullWidth}
                     fullWidth
+                    className={classes.fullWidth}
+                    color="primary"
                     disabled={loading || disabled}
                     onClick={() => setOpen(true)}
-                    color="primary"
                     variant="outlined"
                   >
                     <AccountBalanceWalletIcon className={classes.iconButton} />
@@ -109,40 +109,33 @@ export const UseInternalAccountForm: React.FC<Props> = ({
             </Collapse>
             {onBasketSubmit && open && (
               <Formik
-                validationSchema={validationSchema}
                 initialValues={{
                   amount: 0,
                   maximum_credits: creditAccountBalance,
                 }}
                 onSubmit={handleUseInternalAccountBasketSubmit}
+                validationSchema={validationSchema}
               >
                 {(formik) => (
                   <Form className={classes.fullWidth}>
                     <Collapse in={open}>
                       <div className={classes.flexCollaspe}>
                         <PriceField
-                          name="amount"
                           fullWidth
-                          label={`${t(
-                            'internalAccount.label',
-                          )}${'\u00A0'}${getCurrencyDisplayWithPrice(
-                            creditAccountBalance,
-                          )}`}
-                          variant="outlined"
                           InputProps={{
                             endAdornment: (
                               <InputAdornment position="start">
                                 {isUseInternalAccountProcessing ? (
                                   <CircularProgress
-                                    size={20}
                                     className={classes.iconButton}
+                                    size={20}
                                   />
                                 ) : (
                                   <IconButton
-                                    disabled={formik.isSubmitting || loading}
-                                    onClick={() => formik.handleSubmit()}
                                     color="primary"
+                                    disabled={formik.isSubmitting || loading}
                                     edge="end"
+                                    onClick={() => formik.handleSubmit()}
                                   >
                                     <CheckCircleIcon />
                                   </IconButton>
@@ -150,6 +143,13 @@ export const UseInternalAccountForm: React.FC<Props> = ({
                               </InputAdornment>
                             ),
                           }}
+                          label={`${t(
+                            'internalAccount.label',
+                          )}${'\u00A0'}${getCurrencyDisplayWithPrice(
+                            creditAccountBalance,
+                          )}`}
+                          name="amount"
+                          variant="outlined"
                         />
                         <div className={classes.flexButtons}>
                           <IconButton onClick={() => setOpen(false)}>
@@ -167,21 +167,21 @@ export const UseInternalAccountForm: React.FC<Props> = ({
       )}
       {onInvoiceSubmit && (
         <>
-          <Typography variant="h6" className={classes.header}>
+          <Typography className={classes.header} variant="h6">
             {t('internalAccount.myInternalAccount')}
           </Typography>
           <div className={classes.greyContainer}>
-            <Typography variant="h6" className={classes.creditAccountBalance}>
+            <Typography className={classes.creditAccountBalance} variant="h6">
               {getCurrencyDisplayWithPrice(creditAccountBalance)}
             </Typography>
             <Button
+              color="primary"
               disabled={loading || disabled}
               onClick={() => onInvoiceSubmit()}
-              color="primary"
               variant="outlined"
             >
               {loading ? (
-                <CircularProgress size={20} className={classes.iconButton} />
+                <CircularProgress className={classes.iconButton} size={20} />
               ) : (
                 <AccountBalanceWalletIcon className={classes.iconButton} />
               )}

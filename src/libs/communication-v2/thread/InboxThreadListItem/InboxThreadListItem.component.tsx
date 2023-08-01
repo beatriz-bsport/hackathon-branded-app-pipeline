@@ -100,36 +100,36 @@ const InboxThreadListItem: React.FC<Props> = ({
     <div className={classes.inline}>
       <div className={classes.titles}>
         <Typography
-          component="span"
-          variant="body1"
+          className={classes.textContent}
           color={
             thread?.last_communication_has_been_read
               ? 'textSecondary'
               : 'textPrimary'
           }
-          className={classes.textContent}
+          component="span"
+          variant="body1"
         >
           {thread?.title}
         </Typography>
         {!!thread?.subtitle && (
           <Typography
-            component="span"
-            variant="body2"
+            className={classes.textContent}
             color={
               thread?.last_communication_has_been_read
                 ? 'textSecondary'
                 : 'textPrimary'
             }
-            className={classes.textContent}
+            component="span"
+            variant="body2"
           >
             {thread?.subtitle}
           </Typography>
         )}
       </div>
       <div className={classes.threadStatus}>
-        {thread?.favorite && <StarIcon fontSize="small" color="primary" />}
+        {thread?.favorite && <StarIcon color="primary" fontSize="small" />}
         {thread?.muted && (
-          <NotificationsOffIcon fontSize="small" color="action" />
+          <NotificationsOffIcon color="action" fontSize="small" />
         )}
       </div>
     </div>
@@ -139,28 +139,28 @@ const InboxThreadListItem: React.FC<Props> = ({
     <div className={classes.secondary}>
       <div>
         <Typography
-          component="span"
-          variant="body2"
+          className={classes.textContent}
           color={
             thread?.last_communication_has_been_read
               ? 'textSecondary'
               : 'textPrimary'
           }
-          className={classes.textContent}
+          component="span"
+          variant="body2"
         >
           {thread?.last_communication_content || t('thread.item.noMessage')}
         </Typography>
       </div>
       {!!thread?.last_communication_datetime && (
         <Typography
-          component="span"
-          variant="body2"
+          className="momentDateDisplay"
           color={
             thread?.last_communication_has_been_read
               ? 'textSecondary'
               : 'textPrimary'
           }
-          className="momentDateDisplay"
+          component="span"
+          variant="body2"
         >
           {displayRelativeTimeDelta(thread?.last_communication_datetime)}
         </Typography>
@@ -174,17 +174,17 @@ const InboxThreadListItem: React.FC<Props> = ({
         <ThreadItemSkeleton />
       ) : (
         <ListItem
-          className={classes.listItem}
-          classes={{ root: classes.root, selected: classes.selected }}
           button
           disableRipple
-          selected={isSelected}
+          classes={{ root: classes.root, selected: classes.selected }}
+          className={classes.listItem}
           onClick={handleClick}
+          selected={isSelected}
         >
           <ThreadAvatar
-            numberOfUnreadAnswers={thread?.numberOfUnreadAnswers || 0}
-            isMuted={thread?.muted}
             cover={thread?.cover}
+            isMuted={thread?.muted}
+            numberOfUnreadAnswers={thread?.numberOfUnreadAnswers || 0}
             relatedObjectKind={thread?.related_object_kind}
           />
           <ListItemText
@@ -194,16 +194,16 @@ const InboxThreadListItem: React.FC<Props> = ({
 
           <div className={classes.threadMenu}>
             <ThreadMenu
-              id={thread?.id}
+              flagAsUnread={flagAsUnread}
               hasBeenRead={thread?.last_communication_has_been_read}
+              id={thread?.id}
+              isDisabled={thread?.disabled}
               isFavorite={thread?.favorite}
               isMuted={thread?.muted}
-              isDisabled={thread?.disabled}
+              relatedObjectKind={thread?.related_object_kind}
+              switchDisabledStatus={switchDisabledStatus}
               switchFavoriteStatus={switchFavoriteStatus}
               switchMutedStatus={switchMutedStatus}
-              switchDisabledStatus={switchDisabledStatus}
-              flagAsUnread={flagAsUnread}
-              relatedObjectKind={thread?.related_object_kind}
             />
           </div>
         </ListItem>

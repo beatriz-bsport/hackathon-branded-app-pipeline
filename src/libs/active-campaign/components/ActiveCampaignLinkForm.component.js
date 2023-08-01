@@ -73,12 +73,6 @@ export class ActiveCampaignFormDialog extends React.Component<Props, State> {
           </div>
 
           <form
-            style={{
-              minHeight: '400px',
-              display: 'flex',
-              justifyContent: 'space-between',
-              flexDirection: 'column',
-            }}
             onSubmit={(ev) => {
               ev.preventDefault();
               updateLink({
@@ -87,11 +81,16 @@ export class ActiveCampaignFormDialog extends React.Component<Props, State> {
               });
               this.onCancel();
             }}
+            style={{
+              minHeight: '400px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexDirection: 'column',
+            }}
           >
             <div>
               <SmartListSelector
-                smartLists={smartLists}
-                values={[this.state.smartlist]}
+                helperText={t('active_campaign.link.smartListSelection')}
                 onChange={(ev) => {
                   if (ev.length) {
                     this.setState({
@@ -103,22 +102,23 @@ export class ActiveCampaignFormDialog extends React.Component<Props, State> {
                     });
                   }
                 }}
-                helperText={t('active_campaign.link.smartListSelection')}
+                smartLists={smartLists}
+                values={[this.state.smartlist]}
               />
               <div className={classes.formControl}>
                 <FormControl className={classes.formControl}>
                   <Select
-                    className={classes.input}
                     required
-                    value={this.state.active_campaign_list}
+                    className={classes.input}
                     onChange={(ev) =>
                       this.setState({ active_campaign_list: ev.target.value })
                     }
+                    value={this.state.active_campaign_list}
                   >
                     <MenuItem
                       key={ACTIVE_CAMPAIGN_LIST_SELECTION}
-                      value={ACTIVE_CAMPAIGN_LIST_SELECTION}
                       disabled
+                      value={ACTIVE_CAMPAIGN_LIST_SELECTION}
                     >
                       {t('active_campaign.link.listActiveCampaignSelection')}
                     </MenuItem>
@@ -136,12 +136,12 @@ export class ActiveCampaignFormDialog extends React.Component<Props, State> {
                 {t('active_campaign.cancel')}
               </Button>
               <Button
-                type="submit"
                 color="primary"
                 disabled={
                   this.state.active_campaign_list ===
                     ACTIVE_CAMPAIGN_LIST_SELECTION || !this.state.smartlist
                 }
+                type="submit"
               >
                 {t('active_campaign.submit')}
               </Button>

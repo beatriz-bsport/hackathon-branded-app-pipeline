@@ -63,33 +63,33 @@ const PaymentItemForm = (props: Props) => {
         <div className={classes.stripeFormContainer}>
           <Elements stripe={stripePromise}>
             <StripeForm
-              price={props.price}
               onComplete={
                 ({ id }) =>
                   props.onAddPaymentItem({
                     stripe_charge_id: id,
                   }) /* this.receiveStripeToken */
               }
+              price={props.price}
             />
           </Elements>
           <PaymentMethodList
-            paymentMethod={relevantSavedPaymentMethodList}
             isExpandable
             showEmpty
-            refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
-            savedPaymentMethodList={relevantSavedPaymentMethodList}
-            paymentMethodType="card"
-            requestSetupIntentSecret={props.requestSetupIntentSecret}
+            detachPaymentMethod={props.detachPaymentMethod}
+            detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+            memberId={props.memberId}
             onSelect={(payment_method_id) => {
               props.onAddPaymentItem({
                 stripe_charge_id: payment_method_id,
               });
             }}
-            detachPaymentMethodLoading={props.detachPaymentMethodLoading}
-            detachPaymentMethod={props.detachPaymentMethod}
+            paymentMethod={relevantSavedPaymentMethodList}
+            paymentMethodType="card"
+            refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
+            requestSetupIntentSecret={props.requestSetupIntentSecret}
+            savedPaymentMethodList={relevantSavedPaymentMethodList}
             snackbarErrorMsg={props.snackbarErrorMsg}
             snackbarSuccessMsg={props.snackbarSuccessMsg}
-            memberId={props.memberId}
           />
         </div>
       );
@@ -99,22 +99,22 @@ const PaymentItemForm = (props: Props) => {
       return (
         <div className={classes.stripeFormContainer}>
           <PaymentMethodList
-            paymentMethod={relevantSavedPaymentMethodList}
             showEmpty
-            refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
-            savedPaymentMethodList={relevantSavedPaymentMethodList}
-            paymentMethodType="sepa_debit"
-            requestSetupIntentSecret={props.requestSetupIntentSecret}
+            detachPaymentMethod={props.detachPaymentMethod}
+            detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+            memberId={props.memberId}
             onSelect={(payment_method_id) => {
               props.onAddPaymentItem({
                 stripe_charge_id: payment_method_id,
               });
             }}
-            detachPaymentMethodLoading={props.detachPaymentMethodLoading}
-            detachPaymentMethod={props.detachPaymentMethod}
+            paymentMethod={relevantSavedPaymentMethodList}
+            paymentMethodType="sepa_debit"
+            refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
+            requestSetupIntentSecret={props.requestSetupIntentSecret}
+            savedPaymentMethodList={relevantSavedPaymentMethodList}
             snackbarErrorMsg={props.snackbarErrorMsg}
             snackbarSuccessMsg={props.snackbarSuccessMsg}
-            memberId={props.memberId}
           />
         </div>
       );
@@ -123,19 +123,19 @@ const PaymentItemForm = (props: Props) => {
       return (
         <div>
           <TextField
-            label={t('paymentNote.label')}
-            helperText={t('paymentNote.helperText')}
-            value={props.payment_note}
-            onChange={(ev) => props.setPaymentNote(ev.target.value)}
-            margin="dense"
             fullWidth
+            helperText={t('paymentNote.helperText')}
+            label={t('paymentNote.label')}
+            margin="dense"
+            onChange={(ev) => props.setPaymentNote(ev.target.value)}
+            value={props.payment_note}
           />
           <Button
             className={classes.addButton}
             color="primary"
-            variant="outlined"
-            onClick={() => props.onAddPaymentItem()}
             disabled={!props.price}
+            onClick={() => props.onAddPaymentItem()}
+            variant="outlined"
           >
             <AddCircleIcon className={classes.leftIcon} />{' '}
             {t('actions.addThisPaymentItem')}
@@ -171,23 +171,23 @@ export const PaymentEditor = (props: {
       <FormControl>
         <InputLabel
           shrink
-          htmlFor="payment-method-helper"
           className={classes.paymentMethodLabel}
+          htmlFor="payment-method-helper"
         >
           {t('paymentMethod.label')}
         </InputLabel>
         <Select
           fullWidth
-          value={paymentMethod}
           className={classes.paymentMethodInput}
-          onChange={(event) => props.setPaymentMethod(event.target.value)}
           input={
             <Input
               className={classes.input}
-              name="payment-method"
               id="payment-method-helper"
+              name="payment-method"
             />
           }
+          onChange={(event) => props.setPaymentMethod(event.target.value)}
+          value={paymentMethod}
         >
           {PAYMENT_METHODS.filter(
             (pm) =>
@@ -211,25 +211,23 @@ export const PaymentEditor = (props: {
           <FormControlLabel
             control={
               <PriceInput
-                value={price}
+                fullWidth
+                required
+                margin="dense"
                 onChange={(ev) => {
                   props.setPrice(ev.target.value);
                 }}
+                value={price}
                 variant="outlined"
-                margin="dense"
-                required
-                fullWidth
               />
             }
           />
         </FormControl>
       </div>
       <PaymentItemForm
-        price={price}
-        paymentMethodIdentifier={paymentMethod}
-        savedPaymentMethodList={props.savedPaymentMethodList}
-        requestSetupIntentSecret={props.requestSetupIntentSecret}
-        refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
+        detachPaymentMethod={props.detachPaymentMethod}
+        detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+        memberId={props.memberId}
         onAddPaymentItem={(extraData) => {
           props.onSubmit({
             payment_method: props.paymentMethod,
@@ -240,12 +238,14 @@ export const PaymentEditor = (props: {
           });
         }}
         payment_note={props.payment_note}
+        paymentMethodIdentifier={paymentMethod}
+        price={price}
+        refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
+        requestSetupIntentSecret={props.requestSetupIntentSecret}
+        savedPaymentMethodList={props.savedPaymentMethodList}
         setPaymentNote={props.setPaymentNote}
-        detachPaymentMethodLoading={props.detachPaymentMethodLoading}
-        detachPaymentMethod={props.detachPaymentMethod}
         snackbarErrorMsg={props.snackbarErrorMsg}
         snackbarSuccessMsg={props.snackbarSuccessMsg}
-        memberId={props.memberId}
       />
     </div>
   );

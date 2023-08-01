@@ -129,27 +129,27 @@ export class CadenceDetailPage extends Component<Props> {
                 outlinedInfo: classes.outlinedInfo,
                 icon: classes.alertIcon,
               }}
-              severity="info"
-              variant="outlined"
               className={classes.alert}
               icon={<ErrorOutlineIcon className={classes.rotate} />}
+              severity="info"
+              variant="outlined"
             >
               {t('cadence.form.createCadenceHelper')}
             </Alert>
             <Button
-              variant="outlined"
               color="secondary"
               onClick={() => this.handleOpenCreationForm()}
+              variant="outlined"
             >
               <AddIcon className={classes.addIcon} />
               {t('cadence.form.addACadence')}
             </Button>
           </div>
           <CadenceCreateAndUpdateForm
-            open={this.props.openCreationForm}
+            loading={this.props.cadenceLoading}
             onCancel={() => this.handleCloseCreationForm()}
             onSubmit={this.handleUpsertCadence}
-            loading={this.props.cadenceLoading}
+            open={this.props.openCreationForm}
           />
         </div>
       );
@@ -162,29 +162,29 @@ export class CadenceDetailPage extends Component<Props> {
               classes={{
                 root: classes.alert,
               }}
+              className={classes.alertHelper}
               severity="info"
               variant="outlined"
-              className={classes.alertHelper}
             >
               {t('cadence.cadenceIndexHelper')}
             </Alert>
             <CadenceList
-              cadences={cadencesList}
               cadenceLoading={cadenceLoading}
+              cadences={cadencesList}
               onClickItem={(cadence) => this.props.goToCadencePage(cadence?.id)}
-              onShow={this.props.goToCadencePage}
-              onEdit={this.handleSetCadenceToEdit}
               onDelete={this.handleSetCadenceToArchive}
+              onEdit={this.handleSetCadenceToEdit}
+              onShow={this.props.goToCadencePage}
               selectedId={this.props.selectedCadence?.id}
               updateCadencePriorityIndex={this.props.updateCadencePriorityIndex}
             />
             <div className={classes.paddingTop}>
               {cadenceArchivedList && cadenceArchivedList.length !== 0 && (
                 <CadenceList
-                  cadences={cadenceArchivedList}
-                  cadenceLoading={cadenceLoading}
-                  onRestore={this.props.restoreCadence}
                   archivedVersion
+                  cadenceLoading={cadenceLoading}
+                  cadences={cadenceArchivedList}
+                  onRestore={this.props.restoreCadence}
                 />
               )}
             </div>
@@ -197,17 +197,17 @@ export class CadenceDetailPage extends Component<Props> {
           />
         </div>
         <CadenceCreateAndUpdateForm
-          open={this.props.openCreationForm || !!this.props.cadenceToEdit}
           initial={this.props.cadenceToEdit}
+          loading={this.props.cadenceLoading}
           onCancel={() => this.handleCloseCreationForm()}
           onSubmit={this.handleUpsertCadence}
-          loading={this.props.cadenceLoading}
+          open={this.props.openCreationForm || !!this.props.cadenceToEdit}
         />
         <CadenceArchiveDialog
-          open={!!cadenceToArchive}
           cadence={cadenceToArchive}
           onCancel={this.handleResetCadenceToArchive}
           onConfirm={this.props.archiveCadence}
+          open={!!cadenceToArchive}
         />
         <CadenceManagerFab onAdd={() => this.handleOpenCreationForm()} />
       </>

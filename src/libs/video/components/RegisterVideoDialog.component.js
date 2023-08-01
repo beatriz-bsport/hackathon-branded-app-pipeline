@@ -43,13 +43,13 @@ export const RegisterVideoDialog = (props: Props) => {
     );
   }
   return (
-    <Dialog open={props.open} onClose={props.onClose}>
+    <Dialog onClose={props.onClose} open={props.open}>
       <DialogTitle>{t('video.register.title')}</DialogTitle>
       <DialogContent>
         {props.consumerPaymentPackList.map((cpp) => (
           <ConsumerPaymentPackListItemCheckout
-            consumerPack={cpp}
             key={cpp.id}
+            consumerPack={cpp}
             creditPrice={props.creditPrice}
             onBookFromPack={() =>
               props.registerVideo({ consumer_payment_pack: cpp.id })
@@ -58,12 +58,12 @@ export const RegisterVideoDialog = (props: Props) => {
         ))}
         {props.privateConsumerPassList.map((pcp) => (
           <PrivateConsumerPassBookerListItem
-            private_consumer_pass={pcp}
             key={pcp.id}
             divider
             onBook={() =>
               props.registerVideo({ private_consumer_pass: pcp.id })
             }
+            private_consumer_pass={pcp}
           />
         ))}
         {!props.consumerPaymentPackList.length &&
@@ -74,10 +74,10 @@ export const RegisterVideoDialog = (props: Props) => {
           )}
         <div className={classes.bottomButton}>
           <Button
-            variant="contained"
-            color="primary"
             className={classes.bottomButton}
+            color="primary"
             onClick={props.onBuyPass}
+            variant="contained"
           >
             {t('video.register.buyPass')}
           </Button>

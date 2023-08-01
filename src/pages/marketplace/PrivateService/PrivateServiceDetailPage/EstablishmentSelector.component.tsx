@@ -43,10 +43,10 @@ const EstablishmentSelector: React.FC<Props> = ({
       return (
         <EstablishmentSelectorItem
           key={establishment.id}
-          privateSlot={privateSlot}
           establishment={establishment}
-          onSelect={onSelect}
           isEstablishmentSelected={isEstablishmentSelected}
+          onSelect={onSelect}
+          privateSlot={privateSlot}
         />
       );
     });

@@ -70,17 +70,17 @@ export function StackedBarChart(props: Props) {
   } = props;
   return (
     <ResponsiveContainer
-      width="100%"
       height={height}
       minHeight={minHeight}
       minWidth={minWidth}
+      width="100%"
     >
       <BarChart
-        width={width}
-        height={height}
-        data={data}
-        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         key={refreshKey}
+        data={data}
+        height={height}
+        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+        width={width}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
@@ -88,16 +88,16 @@ export function StackedBarChart(props: Props) {
           domain={domain}
           tickFormatter={dateFormatter(domain)}
         >
-          <Label value={xLabel} position="insideBottom" />
+          <Label position="insideBottom" value={xLabel} />
         </XAxis>
         <YAxis
-          allowDecimals={!!yAxisAllowDecimals}
           key={refreshKey}
+          allowDecimals={!!yAxisAllowDecimals}
           label={{ value: yLabel, angle: -90, position: 'insideLeft' }}
         />
         <Tooltip />
-        <Bar type="monotone" dataKey={yKeyA} stackId="a" fill={colorA} />
-        <Bar type="monotone" dataKey={yKeyB} stackId="a" fill={colorB} />
+        <Bar dataKey={yKeyA} fill={colorA} stackId="a" type="monotone" />
+        <Bar dataKey={yKeyB} fill={colorB} stackId="a" type="monotone" />
       </BarChart>
     </ResponsiveContainer>
   );

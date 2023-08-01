@@ -80,14 +80,10 @@ export class DurationInput extends Component<Props> {
         <Grid container direction="row">
           <Grid item>
             <TextField
-              id="duration_day"
-              label="Duration"
               className={classes.inputText}
               defaultValue={null}
-              value={getDays(this.props.value)}
-              onChange={this.onChangeDays}
               error={disallowedNullDuration}
-              type="number"
+              id="duration_day"
               InputProps={{
                 inputProps: {
                   min: 0,
@@ -100,18 +96,18 @@ export class DurationInput extends Component<Props> {
                   </InputAdornment>
                 ),
               }}
+              label="Duration"
+              onChange={this.onChangeDays}
+              type="number"
+              value={getDays(this.props.value)}
             />
           </Grid>
           <Grid item>
             <TextField
-              id="duration_hour"
-              label=" "
               className={classes.inputText}
               defaultValue={null}
-              value={getHours(this.props.value)}
-              onChange={this.onChangeHours}
               error={disallowedNullDuration}
-              type="number"
+              id="duration_hour"
               InputProps={{
                 inputProps: {
                   min: 0,
@@ -124,18 +120,18 @@ export class DurationInput extends Component<Props> {
                   </InputAdornment>
                 ),
               }}
+              label=" "
+              onChange={this.onChangeHours}
+              type="number"
+              value={getHours(this.props.value)}
             />
           </Grid>
           <Grid item>
             <TextField
-              id="duration_minute"
-              label=" "
               className={classes.inputText}
               defaultValue={0}
-              value={getMinutes(this.props.value)}
               error={disallowedNullDuration}
-              onChange={this.onChangeMinutes}
-              type="number"
+              id="duration_minute"
               InputProps={{
                 inputProps: { min: 0, max: 59, style: { textAlign: 'right' } },
                 endAdornment: (
@@ -144,6 +140,10 @@ export class DurationInput extends Component<Props> {
                   </InputAdornment>
                 ),
               }}
+              label=" "
+              onChange={this.onChangeMinutes}
+              type="number"
+              value={getMinutes(this.props.value)}
             />
           </Grid>
         </Grid>

@@ -60,7 +60,6 @@ const ContractPaymentMethod: React.FC<ContractPaymentMethodProps> = React.memo(
     return (
       <button
         key={paymentMethod.id}
-        type="button"
         className={classNames(
           'bs-marketplace-contract-payment-method-list__item',
           {
@@ -70,13 +69,14 @@ const ContractPaymentMethod: React.FC<ContractPaymentMethodProps> = React.memo(
               paymentMethod.id === selectedPaymentMethod,
           },
         )}
-        onClick={handleSelectPaymentMethod}
         disabled={!isContractLegalTermsAccepted}
+        onClick={handleSelectPaymentMethod}
+        type="button"
       >
         <div className="bs-marketplace-contract-payment-method-list__item__radio__container">
           <button
-            type="button"
             className="bs-marketplace-contract-payment-method-list__item__radio"
+            type="button"
           >
             {paymentMethod.id === selectedPaymentMethod ? (
               <RadioButtonCheckedOutlinedIcon />
@@ -108,9 +108,9 @@ const ContractPaymentMethod: React.FC<ContractPaymentMethodProps> = React.memo(
         </div>
 
         <button
-          type="button"
-          onClick={handleDetachPaymentMethod}
           className="bs-marketplace-contract-payment-method-list__item__delete"
+          onClick={handleDetachPaymentMethod}
+          type="button"
         >
           <DeleteIcon />
         </button>
@@ -136,11 +136,11 @@ const MarketplaceContractPaymentMethodList: React.FC<Props> = React.memo(
               <ContractPaymentMethod
                 key={paymentMethod.id}
                 isContractLegalTermsAccepted={isContractLegalTermsAccepted}
-                paymentMethod={paymentMethod}
-                selectedPaymentMethod={selectedPaymentMethod}
-                paymentMethodType={paymentMethodType}
                 onDetach={onDetachPaymentMethod}
                 onSelect={onSelectPaymentMethod}
+                paymentMethod={paymentMethod}
+                paymentMethodType={paymentMethodType}
+                selectedPaymentMethod={selectedPaymentMethod}
               />
             ))}
           </div>

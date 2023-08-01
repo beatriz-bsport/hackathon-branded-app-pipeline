@@ -183,17 +183,26 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
                 key={`${editFilterId}-${deleteFilterId}-${
                   isModalOpen ? 'y' : 'n'
                 }`}
-                value={
-                  options.find((o) => o.value === selectedFilter) || options[0]
-                }
                 isMenuListPaddingDisabled
-                placeholder={t('filter.emptyFilter')}
+                chipsRenderer={({ data }) => (
+                  <div className={classes.warningSelect}>
+                    <div>{data.label}</div>
+                    {data.hasError && (
+                      <HoverableWarning
+                        containerPortal={containerRef?.current}
+                        id="warning"
+                        text={t('filter.form.columnError')}
+                      />
+                    )}
+                  </div>
+                )}
+                error={error}
                 itemRenderer={(itemProps) => {
                   return (
                     <ListItem
-                      className={classes.list}
-                      dense
                       button
+                      dense
+                      className={classes.list}
                       selected={itemProps.isSelected}
                     >
                       <div className={classes.listInner}>
@@ -214,21 +223,21 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
                               />
                             )}
                             <IconButton
-                              size="small"
                               onClick={(event) => {
                                 event.stopPropagation();
                                 setEditFilterId(itemProps.data.value);
                                 setIsModalOpen(true);
                               }}
+                              size="small"
                             >
                               <EditIcon />
                             </IconButton>
                             <IconButton
-                              size="small"
                               onClick={(event) => {
                                 event.stopPropagation();
                                 setDeletefilterId(itemProps.data.value);
                               }}
+                              size="small"
                             >
                               <DeleteIcon />
                             </IconButton>
@@ -238,30 +247,21 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
                     </ListItem>
                   );
                 }}
-                chipsRenderer={({ data }) => (
-                  <div className={classes.warningSelect}>
-                    <div>{data.label}</div>
-                    {data.hasError && (
-                      <HoverableWarning
-                        id="warning"
-                        text={t('filter.form.columnError')}
-                        containerPortal={containerRef?.current}
-                      />
-                    )}
-                  </div>
-                )}
-                options={options}
                 onChange={(option: { value: number; label: string }) =>
                   onSelect(option.value)
                 }
-                error={error}
+                options={options}
+                placeholder={t('filter.emptyFilter')}
+                value={
+                  options.find((o) => o.value === selectedFilter) || options[0]
+                }
               />
             </div>
           )}
           <Button
+            className={classes.button}
             color="primary"
             onClick={handleOpenModal}
-            className={classes.button}
           >
             <FilterIcon className={classes.icon} />
             {t('filter.createFilter')?.toUpperCase()}
@@ -269,14 +269,14 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
         </div>
         {selectedFilter && (
           <ButtonBase
+            className={classes.chipList}
             onClick={() => {
               setEditFilterId(selectedFilter);
               setIsModalOpen(true);
             }}
-            className={classes.chipList}
           >
             {uniqsDataTypeForSelectedFilter.map((datatype) => (
-              <ReportFilterChip datatype={datatype} key={datatype} />
+              <ReportFilterChip key={datatype} datatype={datatype} />
             ))}
             {!!uniqsDataTypeForSelectedFilter.length && (
               <IconButton size="small" variant="contained">
@@ -291,15 +291,17 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
         <ReportFilterConfigFormDrawer
           open
           columns={columnsMetadata}
-          initial={reportFilterConfigs.find((r) => r.id === editFilterId)}
-          onClose={handleCloseModal}
           handleGetDynamicDataForReport={handleGetDynamicDataForReport}
-          onSubmit={handleModalSubmit}
+          initial={reportFilterConfigs.find((r) => r.id === editFilterId)}
           isFranchisor={isFranchisor}
+          onClose={handleCloseModal}
+          onSubmit={handleModalSubmit}
         />
       )}
       {deleteFilterId && (
         <ModalConfirm
+          handleCancel={() => setDeletefilterId(null)}
+          handleConfirm={handleDelete}
           open={!!deleteFilterId}
           options={{
             title: t('filter.deleteModal.title'),
@@ -310,8 +312,6 @@ const ReportFilterConfigSelector: React.FC<Props> = ({
             ),
             isDeletion: true,
           }}
-          handleConfirm={handleDelete}
-          handleCancel={() => setDeletefilterId(null)}
         />
       )}
     </>

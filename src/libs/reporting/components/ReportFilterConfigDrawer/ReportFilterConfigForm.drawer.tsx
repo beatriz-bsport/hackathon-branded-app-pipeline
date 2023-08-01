@@ -215,11 +215,11 @@ const ReportFilterConfigFormDrawer: React.FC<
 
   return (
     <GenericResponsiveDrawer
-      open={open}
+      withoutPadding
       onClose={onClose}
+      open={open}
       title={t('filter.form.title')}
       width="1000px"
-      withoutPadding
     >
       <div className={classes.main}>
         <Form className={classes.form}>
@@ -229,9 +229,9 @@ const ReportFilterConfigFormDrawer: React.FC<
                 <div className={classes.innerContainer}>
                   <DelayTextField
                     fullWidth
-                    name="name"
                     required
                     label={t('filter.form.name')}
+                    name="name"
                   />
                 </div>
                 <Divider className={classes.divider} />
@@ -244,11 +244,11 @@ const ReportFilterConfigFormDrawer: React.FC<
               </div>
               <div className={classes.groupOperand}>
                 <OperandSelect
-                  name="config.group_operand"
                   isPreview={isPreview}
+                  name="config.group_operand"
                 />
               </div>
-              <Typography color="textSecondary" className={classes.helper}>
+              <Typography className={classes.helper} color="textSecondary">
                 {t(
                   `filter.form.groupOperandHelperText.${values.config.group_operand}`,
                 )}
@@ -263,42 +263,42 @@ const ReportFilterConfigFormDrawer: React.FC<
                   <div className={classes.verticalRows}>
                     {values.config.groups.map((filterGroup, indexGroup) => (
                       <DatatypeFilterConfigGroupRow
-                        filterGroup={filterGroup}
                         key={filterGroup.uuid}
-                        consumableColumns={consumableColumns}
-                        reportColumns={reportColumns}
-                        groupOperand={values.config.group_operand}
-                        prefix={`config.groups[${indexGroup}]`}
-                        setFieldValue={setFieldValue}
-                        hidePrefix={indexGroup === 0}
                         addFilter={handleAddFilterInGroup(indexGroup)}
                         checkOtherRowExist={checkOtherRowExist}
-                        onDelete={handleDeleteFilter}
+                        consumableColumns={consumableColumns}
+                        filterGroup={filterGroup}
                         getDataByType={handleGetDynamicDataForReport}
+                        groupOperand={values.config.group_operand}
+                        hidePrefix={indexGroup === 0}
                         isPreview={isPreview}
+                        onDelete={handleDeleteFilter}
+                        prefix={`config.groups[${indexGroup}]`}
+                        reportColumns={reportColumns}
+                        setFieldValue={setFieldValue}
                       />
                     ))}
                   </div>
                   <NestedAlertError name="config.groups[0].filters_data">
                     {(error_msg: string) => (
-                      <Typography variant="caption" color="error">
+                      <Typography color="error" variant="caption">
                         {t(`${error_msg}`)}
                       </Typography>
                     )}
                   </NestedAlertError>
                   <NestedAlertError name="config.groups">
                     {(error_msg: string) => (
-                      <Typography variant="caption" color="error">
+                      <Typography color="error" variant="caption">
                         {t(`${error_msg}`)}
                       </Typography>
                     )}
                   </NestedAlertError>
                   {consumableColumns?.length > 0 && !isPreview && (
                     <ButtonBase
+                      ref={buttonRef}
+                      className={classes.buttonAdd}
                       color="primary"
                       onClick={handleOpenMenu}
-                      className={classes.buttonAdd}
-                      ref={buttonRef}
                     >
                       <AddIcon color="primary" />
                       {t('filter.form.add')?.toUpperCase()}
@@ -306,9 +306,9 @@ const ReportFilterConfigFormDrawer: React.FC<
                   )}
                   <Menu
                     anchorEl={buttonRef.current}
-                    open={isMenuOpen}
-                    onClose={handleCloseMenu}
                     className={classes.menu}
+                    onClose={handleCloseMenu}
+                    open={isMenuOpen}
                   >
                     <MenuItem
                       className={classes.menuItem}
@@ -334,7 +334,7 @@ const ReportFilterConfigFormDrawer: React.FC<
           {!isPreview && (
             <div className={classes.buttonContainer}>
               <Button onClick={onClose}>{t('filter.form.cancel')}</Button>
-              <Submit disabled={isSubmitting || !isValid} color="primary">
+              <Submit color="primary" disabled={isSubmitting || !isValid}>
                 {isSubmitting ? <CircularProgress /> : t('filter.form.submit')}
               </Submit>
             </div>
@@ -342,9 +342,9 @@ const ReportFilterConfigFormDrawer: React.FC<
           {isPreview && (
             <div className={classes.buttonContainer}>
               <Button
-                variant="contained"
                 color="primary"
                 onClick={handleEditView}
+                variant="contained"
               >
                 <EditIcon className={classes.editIcon} />
                 {t('filter.form.edit')}

@@ -174,10 +174,17 @@ export class BookingManagement extends React.PureComponent<Props, State> {
       <PermissionContext.Consumer>
         {(permissions) => (
           <MemberBookingHelper
-            anonimize={!permissions?.member?.search}
             key={member.id}
+            anonimize={!permissions?.member?.search}
+            hasBooked={hasBooked}
             isFull={this.props.offer.is_full}
+            member={member}
             onClickBill={() => this.props.addToQuickInvoicePanel(member.id)}
+            onClickListItem={
+              hasBooked
+                ? () => this.props.addToQuickInvoicePanel(member.id)
+                : null
+            }
             onClickOption={() => {
               this.props.registerToWaitingList(this.props.offer.id, member.id);
               this.props.clearSearch();
@@ -189,18 +196,11 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                 id: member.id,
               });
             }}
-            onClickListItem={
-              hasBooked
-                ? () => this.props.addToQuickInvoicePanel(member.id)
-                : null
-            }
             showMember={
               permissions?.member?.retrieve
                 ? () => window.open(`/member/${member.id}/`)
                 : null
             }
-            member={member}
-            hasBooked={hasBooked}
           />
         )}
       </PermissionContext.Consumer>
@@ -394,7 +394,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
           {this.state.hasRollCallWarning && !this.state.hasSpiviWarning && (
             <div>
               <DialogTitle>
-                <Typography variant="h6" className={classes.bold}>
+                <Typography className={classes.bold} variant="h6">
                   {t('offer:rollCall.warningIcon.stateChangedTitle')}
                 </Typography>
               </DialogTitle>
@@ -406,7 +406,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
           {!this.state.hasRollCallWarning && this.state.hasSpiviWarning && (
             <div>
               <DialogTitle>
-                <Typography variant="h6" className={classes.bold}>
+                <Typography className={classes.bold} variant="h6">
                   {t('booking:spivi.connectionImpossible')}
                 </Typography>
               </DialogTitle>
@@ -416,19 +416,19 @@ export class BookingManagement extends React.PureComponent<Props, State> {
           {this.state.hasRollCallWarning && this.state.hasSpiviWarning && (
             <div>
               <DialogTitle>
-                <Typography variant="h6" className={classes.bold}>
+                <Typography className={classes.bold} variant="h6">
                   {t('booking:warning')}
                 </Typography>
               </DialogTitle>
               <DialogContent>
                 <div>
-                  <Typography variant="subtitle1" className={classes.bold}>
+                  <Typography className={classes.bold} variant="subtitle1">
                     {t('booking:spivi.connectionImpossible')}
                   </Typography>
                   {t('booking:spivi.errorText')}
                 </div>
                 <div className={classes.secondWarning}>
-                  <Typography variant="subtitle1" className={classes.bold}>
+                  <Typography className={classes.bold} variant="subtitle1">
                     {t('offer:rollCall.warningIcon.stateChangedTitle')}
                   </Typography>
                   {t('offer:rollCall.warningIcon.stateChanged')}
@@ -460,20 +460,20 @@ export class BookingManagement extends React.PureComponent<Props, State> {
             {offer?.linked_hybrid_offer_id && (
               <div className={classes.alertHybridSection}>
                 <Alert
-                  severity="info"
+                  action={
+                    <IconButton
+                      color="primary"
+                      onClick={this.openLinkedHybridOfferManagementPage}
+                    >
+                      <OpenInNewIcon />
+                    </IconButton>
+                  }
                   icon={
                     <OfferIconHybridIndicator
                       iconProps={{ fontSize: 'large' }}
                     />
                   }
-                  action={
-                    <IconButton
-                      onClick={this.openLinkedHybridOfferManagementPage}
-                      color="primary"
-                    >
-                      <OpenInNewIcon />
-                    </IconButton>
-                  }
+                  severity="info"
                 >
                   <AlertTitle>
                     {t('offer:form.section.specificities.field.hybridSection')}
@@ -507,12 +507,12 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                     >
                       <CheckPermission requiredPermissions="member.retrieve">
                         <IconButton
+                          color="primary"
+                          disabled={this.props.bookingLoading}
                           onClick={(e) => {
                             e.stopPropagation();
                             this.props.openMailDialog();
                           }}
-                          color="primary"
-                          disabled={this.props.bookingLoading}
                         >
                           <MailIcon />
                         </IconButton>
@@ -546,26 +546,26 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                           <>
                             {permissions?.member?.create && (
                               <IconButton
-                                onClick={this.props.openAddMemberModal}
                                 color="primary"
+                                onClick={this.props.openAddMemberModal}
                               >
                                 <PersonAddIcon />
                               </IconButton>
                             )}
                             <SearchMember
-                              onChange={this.onSearchMemberChange}
                               anonimize={!permissions?.member?.search}
-                              value={this.props.searchedText}
-                              onReset={this.props.clearSearch}
+                              memberHistory={this.props.memberHistory || []}
                               memberHistoryAnchor={
                                 this.state.memberHistoryAnchor
                               }
-                              memberHistory={this.props.memberHistory || []}
+                              onChange={this.onSearchMemberChange}
+                              onClickRegister={this.onSearchMemberClickRegister}
+                              onReset={this.props.clearSearch}
+                              permissions={permissions}
                               setMemberHistoryAnchor={
                                 this.setMemberHistoryAnchor
                               }
-                              onClickRegister={this.onSearchMemberClickRegister}
-                              permissions={permissions}
+                              value={this.props.searchedText}
                             />
                           </>
                         )}
@@ -589,13 +589,13 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                             onClick={this.openLastValidatedRollCallDialog}
                           >
                             <ValidationRollCallText
+                              lastValidatedRollCallDate={
+                                this.props.offer.date_roll_call_last_modified
+                              }
                               nbRollCallsLeftToValidate={
                                 this.props.offer.roll_call_needs_validation
                                   ? 1
                                   : 0
-                              }
-                              lastValidatedRollCallDate={
-                                this.props.offer.date_roll_call_last_modified
                               }
                             />
                           </ButtonBase>
@@ -604,13 +604,13 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       <Hidden xsDown>
                         <div className={classes.rollCallText}>
                           <ValidationRollCallText
+                            lastValidatedRollCallDate={
+                              this.props.offer.date_roll_call_last_modified
+                            }
                             nbRollCallsLeftToValidate={
                               this.props.offer.roll_call_needs_validation
                                 ? 1
                                 : 0
-                            }
-                            lastValidatedRollCallDate={
-                              this.props.offer.date_roll_call_last_modified
                             }
                           />
                         </div>
@@ -619,23 +619,22 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                   )}
                   <div className={classes.bookingOrderingContainer}>
                     <RadioGroup
-                      value={this.props.booking_ordering}
                       onChange={(ev) =>
                         this.props.onChangeBookingOrdering(ev.target.value)
                       }
+                      value={this.props.booking_ordering}
                     >
                       <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <FormControlLabel
-                          value={BOOKING_DATE_ORDER}
                           control={<Radio />}
                           label={
                             <Typography variant="caption">
                               {t('offer:offerManagement.bookingOrder.date')}
                             </Typography>
                           }
+                          value={BOOKING_DATE_ORDER}
                         />
                         <FormControlLabel
-                          value={BOOKING_FIRSTNAME_ORDER}
                           control={<Radio />}
                           label={
                             <Typography variant="caption">
@@ -644,15 +643,16 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                               )}
                             </Typography>
                           }
+                          value={BOOKING_FIRSTNAME_ORDER}
                         />
                         <FormControlLabel
-                          value={BOOKING_LASTNAME_ORDER}
                           control={<Radio />}
                           label={
                             <Typography variant="caption">
                               {t('offer:offerManagement.bookingOrder.lastname')}
                             </Typography>
                           }
+                          value={BOOKING_LASTNAME_ORDER}
                         />
                       </div>
                     </RadioGroup>
@@ -666,8 +666,8 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                         <ResultList
                           items={this.props.searchedMembers}
                           loading={this.props.memberSearchLoading}
-                          renderListComponent={this.renderSearchedMember}
                           redirectToMember={permissions?.member?.retrieve}
+                          renderListComponent={this.renderSearchedMember}
                           showVaccinationStatus={
                             this.props.showVaccinationStatus
                           }
@@ -681,10 +681,10 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                   <LinearProgress />
                 ) : (
                   <div className={classes.bookingSubHeader}>
-                    <Typography variant="caption" color="primary">
+                    <Typography color="primary" variant="caption">
                       {this.getNbAttendant()} {t('translation:offer.attendant')}
                     </Typography>
-                    <Typography variant="caption" color="error">
+                    <Typography color="error" variant="caption">
                       {this.getNbNonAttendant()}{' '}
                       {t('translation:offer.nonAttendant')}
                     </Typography>
@@ -701,35 +701,35 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                   {(permissions) => (
                     <>
                       <BookingTable
-                        programList={this.props.programList}
-                        redirectToMember={permissions?.member?.retrieve}
                         newTab
-                        members={this.props.members}
-                        loading={this.props.loading}
+                        showQuickInvoiceButton
+                        showRevertBookingButton
                         bookings={this.props.bookings}
                         confirmBookingAttendance={
                           this.props.confirmBookingAttendance
                         }
-                        discardBookingAttendance={
-                          this.props.discardBookingAttendance
-                        }
-                        showQuickInvoiceButton
-                        showRevertBookingButton
-                        handleRevert={this.handleBookingRevert}
-                        onQuickInvoiceClick={this.props.addToQuickInvoicePanel}
-                        spotSchedulingEnabled={
-                          !!this.props.offer.room_blueprint
-                        }
-                        onClickChangeSpot={this.props.onClickChangeSpot}
-                        showVaccinationStatus={this.props.showVaccinationStatus}
-                        refresh={this.props.refresh}
-                        onProgramDetailsClick={onProgramDetailsClick}
                         dateRollCallLastModified={
                           this.props.offer.date_roll_call_last_modified
                         }
-                        onClickWarningIcon={this.openWarningDialog}
-                        onClickNoShowChip={this.openNoShowChipMessageDialog}
+                        discardBookingAttendance={
+                          this.props.discardBookingAttendance
+                        }
+                        handleRevert={this.handleBookingRevert}
                         isRollCallMandatory={this.props.isRollCallMandatory}
+                        loading={this.props.loading}
+                        members={this.props.members}
+                        onClickChangeSpot={this.props.onClickChangeSpot}
+                        onClickNoShowChip={this.openNoShowChipMessageDialog}
+                        onClickWarningIcon={this.openWarningDialog}
+                        onProgramDetailsClick={onProgramDetailsClick}
+                        onQuickInvoiceClick={this.props.addToQuickInvoicePanel}
+                        programList={this.props.programList}
+                        redirectToMember={permissions?.member?.retrieve}
+                        refresh={this.props.refresh}
+                        showVaccinationStatus={this.props.showVaccinationStatus}
+                        spotSchedulingEnabled={
+                          !!this.props.offer.room_blueprint
+                        }
                       />
                     </>
                   )}
@@ -738,24 +738,19 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                 {this.props.bookingOptionsPending &&
                 this.props.bookingOptionsPending.length ? (
                   <WaitingListControlHeader
+                    bookingOptionsPending={this.props.bookingOptionsPending}
+                    isDisabled={this.props.offer.waiting_list_disabled}
                     switchWaitingListFreeze={() =>
                       this.props.switchWaitingListFreeze(
                         this.props.offer.id,
                         !this.props.offer.waiting_list_disabled,
                       )
                     }
-                    bookingOptionsPending={this.props.bookingOptionsPending}
-                    isDisabled={this.props.offer.waiting_list_disabled}
                   />
                 ) : null}
                 <List disablePadding>
                   {this.props.bookingOptionsPending.map((bo) => (
                     <BookingOptionForManager
-                      option={bo}
-                      onDiscard={(e) => {
-                        e.stopPropagation();
-                        this.props.discardOption(bo.id);
-                      }}
                       disabled={moment(this.props.offer.date_start).isBefore(
                         moment(),
                       )}
@@ -774,6 +769,11 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                           id: bo.member,
                         });
                       }}
+                      onDiscard={(e) => {
+                        e.stopPropagation();
+                        this.props.discardOption(bo.id);
+                      }}
+                      option={bo}
                     />
                   ))}
                 </List>
@@ -792,10 +792,6 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                             {(permissions) => (
                               <RecurrenceRuleBookingListItem
                                 key={r.id}
-                                recurrenceRuleBooking={r}
-                                onDelete={
-                                  this.props.onDeleteRecurrenceRuleBooking
-                                }
                                 onClick={
                                   r.member && permissions?.member?.retrieve
                                     ? () =>
@@ -804,6 +800,10 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                                         )
                                     : null
                                 }
+                                onDelete={
+                                  this.props.onDeleteRecurrenceRuleBooking
+                                }
+                                recurrenceRuleBooking={r}
                               />
                             )}
                           </PermissionContext>

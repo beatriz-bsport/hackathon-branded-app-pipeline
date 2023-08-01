@@ -51,17 +51,17 @@ export const GiftcardBackgroundImageUploader = (props: Props) => {
         <MultipleImageUploader initial={[]} onAddImage={props.onAddImage} />
         {props.giftcardBackgroundImageList.length > 0 ? (
           <CarouselInput
-            imagesArr={props.giftcardBackgroundImageList.map(
-              (img) => img.image,
-            )}
-            selectedImage={selectedImage}
+            isManager
             handleClick={(index) =>
               selectedImage === index
                 ? setSelectedImage(null)
                 : setSelectedImage(index)
             }
+            imagesArr={props.giftcardBackgroundImageList.map(
+              (img) => img.image,
+            )}
             onRemoveImage={(index) => props.onRemoveImage(index)}
-            isManager
+            selectedImage={selectedImage}
           />
         ) : (
           <div className={classes.spacing} />

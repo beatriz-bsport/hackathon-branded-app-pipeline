@@ -53,14 +53,14 @@ const ListItem: React.FC<ListItemProps> = ({ member, selected, onClick }) => {
   return (
     <div
       className={classes.listItemContainer}
-      role="button"
-      tabIndex={0}
       onClick={onClickItem}
       onKeyDown={stopPropagation}
+      role="button"
+      tabIndex={0}
     >
       <div className={classes.listItemInfo}>
         <Avatar className={classes.avatar}>
-          <img height={32} src={member.photo} alt={member.name} />
+          <img alt={member.name} height={32} src={member.photo} />
         </Avatar>
 
         <div className={classes.memberInfo}>
@@ -68,10 +68,10 @@ const ListItem: React.FC<ListItemProps> = ({ member, selected, onClick }) => {
 
           <div className={classes.memberEmailAndPhone}>
             {member.email ? (
-              <Chip icon={<Mail />} size="small" label={member.email} />
+              <Chip icon={<Mail />} label={member.email} size="small" />
             ) : null}
             {member.phone ? (
-              <Chip icon={<Phone />} size="small" label={member.phone} />
+              <Chip icon={<Phone />} label={member.phone} size="small" />
             ) : null}
           </div>
         </div>
@@ -194,17 +194,17 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
 
   return (
     <GenericResponsiveDialog
-      open={open}
-      onClose={closeModal}
       noFullScreen
       maxWidth={showMemberCreateForm ? 'xl' : 'sm'}
+      onClose={closeModal}
+      open={open}
     >
-      <DialogTitle className={classes.dialogTitle} disableTypography>
-        <Typography variant="h6" className={classes.title}>
+      <DialogTitle disableTypography className={classes.dialogTitle}>
+        <Typography className={classes.title} variant="h6">
           {t('interface.memberModal.title')}
         </Typography>
 
-        <IconButton onClick={closeModal} className={classes.closeIcon}>
+        <IconButton className={classes.closeIcon} onClick={closeModal}>
           <Close />
         </IconButton>
       </DialogTitle>
@@ -213,33 +213,33 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
         {showMemberCreateForm ? (
           <MemberForm
             asManager
-            onCancel={closeMemberCreateForm}
-            onSubmit={onNewMemberCreate}
-            goToMember={onMemberValidate}
-            companyCountry={companyCountry}
             withoutTitle
             alreadyExistingGoToButtonText="exists.quicksale"
+            companyCountry={companyCountry}
+            goToMember={onMemberValidate}
+            onCancel={closeMemberCreateForm}
+            onSubmit={onNewMemberCreate}
           />
         ) : (
           <>
             {isAuthenticatingForContract && (
-              <Alert severity="info" className={classes.alert}>
+              <Alert className={classes.alert} severity="info">
                 {t('interface.authenticationNecessary')}
               </Alert>
             )}
             <div className={classes.searchBarAndNewMember}>
               <SearchMember
+                fullWidth
+                memberHistory={[]}
+                onChange={onChange}
+                onClickRegister={setSelectedMemberId}
                 onReset={clearSearch}
                 searchedText={searchText}
-                onChange={onChange}
-                memberHistory={[]}
-                onClickRegister={setSelectedMemberId}
-                fullWidth
               />
 
               <IconButton
-                onClick={openMemberCreateForm}
                 className={classes.addMemberButton}
+                onClick={openMemberCreateForm}
               >
                 <PersonAdd className={classes.addMemberIcon} />
               </IconButton>
@@ -256,20 +256,20 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
                     <ListItem
                       key={member.id}
                       member={member}
+                      onClick={setSelectedMemberId}
                       selected={
                         (!selectedMemberId &&
                           member.id === preSelectedMemberId) ||
                         member.id === selectedMemberId
                       }
-                      onClick={setSelectedMemberId}
                     />
                   ))}
                 {searchResults.length > PAGE_SIZE && (
                   <Pagination
-                    page={pageNumber}
+                    className={classes.pagination}
                     count={Math.ceil(searchResults.length / PAGE_SIZE)}
                     onChange={handleChangePage}
-                    className={classes.pagination}
+                    page={pageNumber}
                   />
                 )}
               </div>
@@ -281,13 +281,13 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
       {!showMemberCreateForm && (
         <DialogActions className={classes.dialogActions}>
           <Button
-            variant="contained"
+            className={classes.confirmButton}
             color="primary"
             disabled={
               !selectedMemberId || selectedMemberId === preSelectedMemberId
             }
             onClick={onValidateClick}
-            className={classes.confirmButton}
+            variant="contained"
           >
             {t('interface.memberModal.confirm')}
           </Button>

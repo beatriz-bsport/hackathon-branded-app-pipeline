@@ -26,17 +26,17 @@ export const ShopItemListCard = (props: Props) => {
     <div className={classes.container}>
       <div className={classes.imageWrapper}>
         <div
-          role="button"
-          tabIndex={shopitem.id}
+          className={classes.media}
           onClick={props.onClick}
           onKeyDown={props.onClick}
-          className={classes.media}
+          role="button"
+          tabIndex={shopitem.id}
         >
           {shopitem.cover ? (
             <img
-              src={shopitem.cover}
               alt={shopitem.name}
               className={classes.media}
+              src={shopitem.cover}
             />
           ) : (
             <div className={classNames(classes.noImage, classes.media)}>
@@ -46,18 +46,18 @@ export const ShopItemListCard = (props: Props) => {
         </div>
       </div>
       <div className={classes.productDetails}>
-        <Typography variant="h6" className={classes.fontWeight}>
+        <Typography className={classes.fontWeight} variant="h6">
           {shopitem.name}
         </Typography>
         <Typography
-          variant="body1"
-          component="div"
           className={classes.subtitle}
+          component="div"
+          variant="body1"
         >
           {shopitem.subtitle}
         </Typography>
         <div className={classes.actions}>
-          <Typography variant="h6" className={classes.fontWeight}>
+          <Typography className={classes.fontWeight} variant="h6">
             {getCurrencyDisplayWithPrice(
               shopitem.price,
               props.isExcludingTax,

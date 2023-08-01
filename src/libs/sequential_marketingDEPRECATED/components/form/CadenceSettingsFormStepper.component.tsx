@@ -59,15 +59,15 @@ export const CadenceSettingsFormStepper: React.FC<Props> = ({
               <div className={classes.iconContainer}>
                 <CustomMuiIcon
                   MuiIcon={IconStepperEnum[step_identifier]}
-                  variant={step >= step_identifier ? 'primary' : 'disabled'}
                   MuiIconProps={{ fontSize: 'large' }}
+                  variant={step >= step_identifier ? 'primary' : 'disabled'}
                 />
                 <div className={classes.stepLabel}>
                   <Typography
-                    variant="caption"
                     color={
                       step >= step_identifier ? 'textPrimary' : 'textSecondary'
                     }
+                    variant="caption"
                   >
                     {t(IconStepLabel[step_identifier])}
                   </Typography>

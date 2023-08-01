@@ -70,10 +70,10 @@ const ReadAllButton = (props: RealAllButtonProps) => {
       <div className={classes.container}>
         <Button
           color="primary"
-          startIcon={<CheckCircleOutlineIcon />}
           onClick={
             () => props.deleteAlert(parseInt(props.alert_group.alert_kind), -1) // -1 means all alerts of that group
           }
+          startIcon={<CheckCircleOutlineIcon />}
         >
           {t('readAll')}
         </Button>
@@ -137,10 +137,10 @@ export const AlertListGroup = (props: Props) => {
       <Collapse in={props.isExpanded}>
         {props.alert_group.results.map((al) => (
           <AlertListItem
-            alerting={al}
             key={al.id}
-            pushRouter={props.pushRouter}
+            alerting={al}
             deleteAlert={props.deleteAlert}
+            pushRouter={props.pushRouter}
           />
         ))}
         {props.alert_group.loading ? <LinearProgress /> : null}

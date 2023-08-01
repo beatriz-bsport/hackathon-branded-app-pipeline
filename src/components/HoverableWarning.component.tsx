@@ -29,12 +29,12 @@ const HoverableWarning: React.FC<{
     >
       <ReportProblemOutlinedIcon className={classes.warningIcon} />
       <Popper
+        anchorEl={containerRef?.current}
+        container={containerPortal}
+        disablePortal={disablePortal}
         id={id}
         open={isOpen}
-        anchorEl={containerRef?.current}
         placement="bottom-start"
-        disablePortal={disablePortal}
-        container={containerPortal}
       >
         <div className={classes.warningPaper}>
           <ReportProblemOutlinedIcon className={classes.warningIcon} />

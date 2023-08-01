@@ -37,14 +37,13 @@ export const MetricConfigurationTable = (props: Props) => {
         <div className={classes.icon}>
           <InsertChart />
         </div>
-        <Typography variant="h6" className={classes.subtitle}>
+        <Typography className={classes.subtitle} variant="h6">
           {t('metric.title')}
         </Typography>
       </div>
       <Button
-        variant="outlined"
-        color="primary"
         className={classes.button}
+        color="primary"
         disabled={openCreationMetricForm}
         onClick={() => {
           setOpenCreationMetricForm(true);
@@ -52,6 +51,7 @@ export const MetricConfigurationTable = (props: Props) => {
             setOpenCreationMetricFormDelay(true);
           }, 50);
         }}
+        variant="outlined"
       >
         <div className={classes.textAndIcon}>
           <Add />
@@ -62,7 +62,9 @@ export const MetricConfigurationTable = (props: Props) => {
       {openCreationMetricForm && (
         <Collapse in={openCreationMetricFormDelay}>
           <MetricForm
-            values={values}
+            fieldArrayHelpers={fieldArrayHelpers}
+            initial={metricToEdit}
+            metricList={metricList}
             onCancel={() => {
               setOpenCreationMetricFormDelay(false);
               setTimeout(() => {
@@ -70,25 +72,16 @@ export const MetricConfigurationTable = (props: Props) => {
               }, 300);
               setMetricToEdit(null);
             }}
-            initial={metricToEdit}
-            metricList={metricList}
-            fieldArrayHelpers={fieldArrayHelpers}
+            values={values}
           />
         </Collapse>
       )}
 
       {metricList && metricList.length !== 0 ? (
         <MetricList
-          fieldArrayHelpers={fieldArrayHelpers}
           sortable
+          fieldArrayHelpers={fieldArrayHelpers}
           metricList={metricList}
-          onEdit={(metric) => {
-            setMetricToEdit(metric);
-            setOpenCreationMetricForm(true);
-            setTimeout(() => {
-              setOpenCreationMetricFormDelay(true);
-            }, 50);
-          }}
           onDelete={(metric) => {
             const index = values.metric_list.findIndex(
               (m) => m?.index === metric?.index,
@@ -97,6 +90,13 @@ export const MetricConfigurationTable = (props: Props) => {
               ...values.metric_list[index],
               is_disabled: true,
             });
+          }}
+          onEdit={(metric) => {
+            setMetricToEdit(metric);
+            setOpenCreationMetricForm(true);
+            setTimeout(() => {
+              setOpenCreationMetricFormDelay(true);
+            }, 50);
           }}
         />
       ) : (

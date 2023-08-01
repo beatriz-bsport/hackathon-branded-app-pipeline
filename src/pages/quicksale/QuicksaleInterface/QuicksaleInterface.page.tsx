@@ -453,94 +453,94 @@ const QuicksaleInterface: React.FC<Props> = ({
   return (
     <>
       <QuicksaleInterfaceComponent
-        theme={theme}
-        quicksaleStaffFullName={quicksaleStaffFullName}
-        signOut={signOut}
-        basketList={basketList}
-        memberById={memberById}
-        currentBasket={currentBasket}
-        setCurrentBasket={setCurrentBasket}
         addBasket={createQuicksaleBasket}
-        sectionList={sectionList}
-        loading={loading}
-        currentSection={currentSection}
-        onSectionClick={onSectionClick}
-        itemCardInfoList={itemCardInfoList}
-        goBackToSectionList={goBackToSectionList}
-        availableSearchItemsInWholeConfig={availableSearchItemsInWholeConfig}
         addItemToBasket={addItemToBasket}
-        removeItemFromBasket={removeItemFromBasket}
-        dropQuicksaleBasket={dropQuicksaleBasket}
-        openMemberAuthenticationModal={openMemberAuthenticationModal}
-        giftcardById={giftcardById}
-        giftcardBackgroundImageList={giftcardBackgroundImageList}
-        pendingItemToAdd={pendingItemToAdd}
-        onItemClick={onItemClick}
-        showGiftcardFormModal={showGiftcardFormModal}
-        closeGiftcardFormModal={closeGiftcardFormModal}
         addToBasket={addToBasket}
+        availableSearchItemsInWholeConfig={availableSearchItemsInWholeConfig}
+        basketList={basketList}
+        closeGiftcardFormModal={closeGiftcardFormModal}
+        currentBasket={currentBasket}
+        currentSection={currentSection}
+        dropQuicksaleBasket={dropQuicksaleBasket}
         fetchGiftcardBackgroundImageList={fetchGiftcardBackgroundImageList}
+        giftcardBackgroundImageList={giftcardBackgroundImageList}
+        giftcardById={giftcardById}
+        goBackToSectionList={goBackToSectionList}
         goToPaymentPage={goToPaymentPage}
+        itemCardInfoList={itemCardInfoList}
+        loading={loading}
+        memberById={memberById}
+        onItemClick={onItemClick}
+        onSectionClick={onSectionClick}
+        openMemberAuthenticationModal={openMemberAuthenticationModal}
+        pendingItemToAdd={pendingItemToAdd}
+        quicksaleStaffFullName={quicksaleStaffFullName}
+        removeItemFromBasket={removeItemFromBasket}
+        sectionList={sectionList}
+        setCurrentBasket={setCurrentBasket}
+        showGiftcardFormModal={showGiftcardFormModal}
+        signOut={signOut}
+        theme={theme}
       />
 
       <MemberSearchDialog
-        open={showMemberAuthenticationModal}
+        companyCountry={companyCountry}
+        createMember={createMember}
+        isAuthenticatingForContract={!!contractToSubscribe}
         onClose={closeMemberModal}
+        onMemberChoose={onMemberAuthenticate}
+        open={showMemberAuthenticationModal}
         preSelectedMemberId={
           currentBasket && !memberById[currentBasket.member]?.is_pos
             ? currentBasket.member
             : null
         }
-        onMemberChoose={onMemberAuthenticate}
-        companyCountry={companyCountry}
         searchMembers={searchMembers}
-        createMember={createMember}
-        isAuthenticatingForContract={!!contractToSubscribe}
       />
 
       {!!stripeRegion && !!companyCountry ? (
         <SubscriptionContractRegister
-          open={showSubscriptionContractModal}
-          onClose={closeSubscriptionContractModal}
-          member={memberToSubscribe}
-          contract={contractToSubscribe}
-          requestSetupIntentSecret={requestSetupIntentSecret}
-          enabledPaymentMethods={enabledPaymentMethods ?? []}
-          savedPaymentMethodList={savedPaymentMethodList ?? []}
-          refreshSavedPaymentMethodList={refreshSavedPaymentMethodList}
-          waiver={theme.waiver}
-          generalTermsAndConditions={theme.general_terms_and_conditions}
-          establishments={establishmentList ?? []}
-          enableMultiLocalization={theme.enable_multi_localization}
-          stripeReaders={stripeReaders ?? []}
-          onlinePaymentEnabled={theme.online_payment_enabled}
-          companyId={theme.company}
-          onSuccess={closeSubscriptionContractModal}
-          registerContractBackground={registerContract}
           withContractTermsCheckbox
+          companyId={theme.company}
+          contract={contractToSubscribe}
+          enabledPaymentMethods={enabledPaymentMethods ?? []}
+          enableMultiLocalization={theme.enable_multi_localization}
+          establishments={establishmentList ?? []}
+          generalTermsAndConditions={theme.general_terms_and_conditions}
+          member={memberToSubscribe}
+          onClose={closeSubscriptionContractModal}
+          onlinePaymentEnabled={theme.online_payment_enabled}
+          onSuccess={closeSubscriptionContractModal}
+          open={showSubscriptionContractModal}
+          refreshSavedPaymentMethodList={refreshSavedPaymentMethodList}
+          registerContractBackground={registerContract}
+          requestSetupIntentSecret={requestSetupIntentSecret}
+          savedPaymentMethodList={savedPaymentMethodList ?? []}
+          stripeReaders={stripeReaders ?? []}
+          waiver={theme.waiver}
         />
       ) : null}
 
       <QuicksaleDialogs
-        showWarningRemovedItemsModal={showWarningRemovedItemsModal}
-        closeWarningRemovedItemsModal={closeWarningRemovedItemsModal}
-        showOutOfStockModal={showOutOfStockModal}
-        closeOutOfStockModal={closeOutOfStockModal}
         addItemAnyway={addOutOfStockShopItemAnyway}
-        showAuthenticatedMemberRestrictionModal={
-          showAuthenticatedMemberRestrictionModal
-        }
         closeAuthenticatedMemberRestrictionModal={
           closeAuthenticatedMemberRestrictionModal
         }
-        showUnauthenticatedMemberRestrictionModal={
-          showUnauthenticatedMemberRestrictionModal
-        }
+        closeOutOfStockModal={closeOutOfStockModal}
         closeUnauthenticatedMemberRestrictionModal={
           closeUnauthenticatedMemberRestrictionModal
         }
+        closeWarningRemovedItemsModal={closeWarningRemovedItemsModal}
         memberRestrictionSubTexts={memberRestrictionSubTexts}
         openAuthenticationModal={openMemberAuthenticationModal}
+        showAuthenticatedMemberRestrictionModal={
+          showAuthenticatedMemberRestrictionModal
+        }
+        showOutOfStockModal={showOutOfStockModal}
+        showUnauthenticatedMemberRestrictionModal={
+          showUnauthenticatedMemberRestrictionModal
+        }
+        showWarningRemovedItemsModal={showWarningRemovedItemsModal}
       />
     </>
   );

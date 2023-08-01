@@ -149,50 +149,50 @@ export class Root extends Component<Props> {
 
         {!WidgetUtils.isWidget() && (
           <Banner
-            networkAvailable={this.props.networkAvailable}
             paymentMethodMissing
             environment={Config.REACT_APP_SENTRY_ENVIRONMENT}
             isPluginActivated={this.props.isPluginActivated}
+            networkAvailable={this.props.networkAvailable}
           />
         )}
 
         {!pendingEmailConfirmation || !authenticated ? (
           <Switch>
             <Route
-              path="/external/:companyId/"
               component={CompanyExternalRouter}
+              path="/external/:companyId/"
             />
-            <Route path="/sentry" component={SentryTestError} />
-            <Route path="/login" component={LoginRouter} />
+            <Route component={SentryTestError} path="/sentry" />
+            <Route component={LoginRouter} path="/login" />
             <Route
-              path="/c/:companyId/unsubscribe/:unsubscribe_uuid"
               component={ConsumerUnsubscribe}
+              path="/c/:companyId/unsubscribe/:unsubscribe_uuid"
             />
             <Route
-              path="/(|customer/)payment"
               component={DeprecatedCheckoutPagesRouter}
+              path="/(|customer/)payment"
             />
-            <Route path="/checkout/:companyId" component={CheckoutRouter} />
-            <Route path="/customer" component={ConsumerRouter} />
-            <Route path="/m/" component={MarketPlaceRouter} />
+            <Route component={CheckoutRouter} path="/checkout/:companyId" />
+            <Route component={ConsumerRouter} path="/customer" />
+            <Route component={MarketPlaceRouter} path="/m/" />
 
-            <Route path="/check-in" component={CheckIn} />
-            <Route path="/rn-webview" component={RNWebView} />
-            <Route path="/c/:companyId" component={ConsumerRouter} />
-            <Route path="/co/:companyId" component={CoachBackoffice} />
-            <Route path="/c/" component={ConsumerRouter} />
+            <Route component={CheckIn} path="/check-in" />
+            <Route component={RNWebView} path="/rn-webview" />
+            <Route component={ConsumerRouter} path="/c/:companyId" />
+            <Route component={CoachBackoffice} path="/co/:companyId" />
+            <Route component={ConsumerRouter} path="/c/" />
             <Route
-              path="/widget/:companyName/:companyId"
               component={WidgetRouter}
+              path="/widget/:companyName/:companyId"
             />
-            <Route path="/quicksale/" component={QuicksaleRouter} />
-            <Route path="/" component={UserspaceSwitcher} />
+            <Route component={QuicksaleRouter} path="/quicksale/" />
+            <Route component={UserspaceSwitcher} path="/" />
           </Switch>
         ) : (
           <Switch>
             <Route
-              path="/login/email_confirmation/"
               component={ConfirmEmailRouter}
+              path="/login/email_confirmation/"
             />
             <Redirect to="/login/email_confirmation/" />
           </Switch>

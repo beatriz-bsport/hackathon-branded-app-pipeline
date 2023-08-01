@@ -35,12 +35,12 @@ function paymentComboOption(props: OptionProps) {
   return (
     <div ref={innerRef} {...innerProps}>
       <PaymentComboListItem
-        selected={isSelected}
-        isFocused={isFocused}
-        paymentCombo={data.pp}
-        noDivider
         button
         dense
+        noDivider
+        isFocused={isFocused}
+        paymentCombo={data.pp}
+        selected={isSelected}
       />
     </div>
   );
@@ -63,16 +63,16 @@ export function PaymentComboSelector(props: Props) {
 
   return (
     <Selector
-      autofocus={autofocus}
       searchIcon
-      nullCurrentValue={nullCurrentValue}
-      selected={value}
-      suggestions={suggestions}
+      autofocus={autofocus}
       className={classNames(classes, selectorClass)}
       components={{ Option: paymentComboOption }}
-      placeholder={helperText}
-      onChange={(event) => onChange(event.value)}
       isDisabled={!!props.disabled}
+      nullCurrentValue={nullCurrentValue}
+      onChange={(event) => onChange(event.value)}
+      placeholder={helperText}
+      selected={value}
+      suggestions={suggestions}
     />
   );
 }

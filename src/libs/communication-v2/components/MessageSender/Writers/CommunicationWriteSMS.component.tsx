@@ -25,30 +25,30 @@ const CommunicationWriteSMS = (props: Props) => {
   return (
     <React.Fragment>
       <TextFieldWithChildren
-        placeholder={t('sendMessage.textField.content')}
-        name="Sms content"
-        value={smsContent}
+        withColumnDirection
         changeValue={handleChangeContent}
         minRows={isMobileSize ? 2 : 6}
-        withColumnDirection
+        name="Sms content"
         onFocus={onFocus}
+        placeholder={t('sendMessage.textField.content')}
+        value={smsContent}
       >
         {nbSmsToSend > 1 ? (
           <div className={classes.warningContainer}>
             <WarningIcon className={classes.warningIcon} />
-            <Typography variant="caption" className={classes.warningText}>
+            <Typography className={classes.warningText} variant="caption">
               {t('sendMessage.textField.warningLength', {
                 number_sms: nbSmsToSend,
               })}
             </Typography>
-            <Typography variant="caption" className={classes.warningText}>
+            <Typography className={classes.warningText} variant="caption">
               {`${smsContent?.length ?? 0}/${MAX_LENGTH_SMS}`}
             </Typography>
           </div>
         ) : (
           <Typography
-            variant="caption"
             className={classes.textFieldLengthContent}
+            variant="caption"
           >
             {`${smsContent?.length ?? 0}/${MAX_LENGTH_SMS}`}
           </Typography>

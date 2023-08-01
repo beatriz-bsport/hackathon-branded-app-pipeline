@@ -73,8 +73,8 @@ const CountryOption: React.FC<{
 }> = React.memo(({ option }) => (
   <div className="bs-select__dropdown__list__item__with__indicator">
     <img
-      className="bs-select_dropdown__list__item__indicator"
       alt={option.metaData.locale}
+      className="bs-select_dropdown__list__item__indicator"
       src={option.metaData.icon}
     />
     {option.label}
@@ -374,13 +374,13 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
       <>
         {isOpen && (
           <form
-            className="bs-collect-payment-method__dialog__backdrop"
             ref={dialogRef}
+            className="bs-collect-payment-method__dialog__backdrop"
             onSubmit={handleSubmit}
           >
             <div
-              className="bs-collect-payment-method__dialog__container"
               ref={modalRef}
+              className="bs-collect-payment-method__dialog__container"
             >
               <h6 className="bs-collect-payment-method__dialog__title">
                 {t('forms.paymentMethod.collect.title')}
@@ -393,18 +393,18 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
               {type === MarketplacePaymentMethods.sepa && !error && !success && (
                 <div className="bs-collect-payment-method__mandate__fields__container">
                   <input
+                    required
+                    className="bs-collect-payment-method__mandate__field"
                     onChange={handleChangeName}
                     placeholder={t('subscription:mandate.name')}
-                    className="bs-collect-payment-method__mandate__field"
-                    required
                     value={billingDetails.name}
                   />
                   <input
-                    onChange={handleChangeEmail}
-                    type="email"
-                    placeholder={t('subscription:mandate.email')}
-                    className="bs-collect-payment-method__mandate__field"
                     required
+                    className="bs-collect-payment-method__mandate__field"
+                    onChange={handleChangeEmail}
+                    placeholder={t('subscription:mandate.email')}
+                    type="email"
                     value={billingDetails.email}
                   />
                 </div>
@@ -413,70 +413,70 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
               {type === MarketplacePaymentMethods.bacs && !error && !success && (
                 <div className="bs-collect-payment-method__mandate__fields__container">
                   <input
+                    required
+                    className="bs-collect-payment-method__mandate__field"
                     onChange={handleChangeName}
                     placeholder={t('subscription:mandate.name')}
-                    className="bs-collect-payment-method__mandate__field"
-                    required
                     value={billingDetails.name}
                   />
                   <input
-                    onChange={handleChangeEmail}
-                    type="email"
-                    placeholder={t('subscription:mandate.email')}
-                    className="bs-collect-payment-method__mandate__field"
                     required
+                    className="bs-collect-payment-method__mandate__field"
+                    onChange={handleChangeEmail}
+                    placeholder={t('subscription:mandate.email')}
+                    type="email"
                     value={billingDetails.email}
                   />
                   <Select
                     fullWidth
                     classes={{ buttonContainer: 'bs-select__button__square' }}
-                    value={billingDetails.address.country}
-                    placeholder={t('translation:form.address.country')}
+                    onChange={handleChangeCountry}
                     options={countryOptions}
+                    placeholder={t('translation:form.address.country')}
                     renderListItem={(
                       option: SelectOptionWithMetaData<CountryMetaData>,
                     ) => <CountryOption option={option} />}
-                    onChange={handleChangeCountry}
+                    value={billingDetails.address.country}
                   />
                   <input
-                    className="bs-collect-payment-method__mandate__field"
                     required
-                    value={billingDetails.address.line1}
-                    placeholder={t('marketing:customForm.field.address_line_1')}
+                    className="bs-collect-payment-method__mandate__field"
                     onChange={handleChangeLineOne}
+                    placeholder={t('marketing:customForm.field.address_line_1')}
+                    value={billingDetails.address.line1}
                   />
                   <input
                     className="bs-collect-payment-method__mandate__field"
-                    value={billingDetails.address.line2}
-                    placeholder={t('marketing:customForm.field.address_line_2')}
                     onChange={handleChangeLineTwo}
+                    placeholder={t('marketing:customForm.field.address_line_2')}
+                    value={billingDetails.address.line2}
                   />
                   <input
+                    required
+                    className="bs-collect-payment-method__mandate__field"
                     onChange={handleChangePostalCode}
                     placeholder={t('marketing:customForm.field.zipcode')}
-                    className="bs-collect-payment-method__mandate__field"
-                    required
                     value={billingDetails.address.postalCode}
                   />
                   <input
-                    className="bs-collect-payment-method__mandate__field"
                     required
-                    value={billingDetails.address.city}
-                    placeholder={t('marketing:customForm.field.city')}
+                    className="bs-collect-payment-method__mandate__field"
                     onChange={handleChangeCity}
+                    placeholder={t('marketing:customForm.field.city')}
+                    value={billingDetails.address.city}
                   />
                   <input
+                    required
+                    className="bs-collect-payment-method__mandate__field"
                     onChange={handleChangeSortCode}
                     placeholder={t('subscription:mandate.sortCode')}
-                    className="bs-collect-payment-method__mandate__field"
-                    required
                     value={billingDetails.sortCode}
                   />
                   <input
+                    required
+                    className="bs-collect-payment-method__mandate__field"
                     onChange={handleChangeAccountNumber}
                     placeholder={t('subscription:mandate.accountNumber')}
-                    className="bs-collect-payment-method__mandate__field"
-                    required
                     value={billingDetails.accountNumber}
                   />
                 </div>
@@ -515,10 +515,10 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
               {isSepaDebitBillingAddressRequired && !error && !success && (
                 <input
                   className="bs-collect-payment-method__mandate__field"
+                  onChange={handleChangeLineOne}
+                  placeholder={t('marketing:customForm.field.address_line_1')}
                   required={isSepaDebitBillingAddressRequired}
                   value={billingDetails.address.line1}
-                  placeholder={t('marketing:customForm.field.address_line_1')}
-                  onChange={handleChangeLineOne}
                 />
               )}
 
@@ -540,24 +540,23 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
 
               <div className="bs-collect-payment-method__dialog__actions">
                 <button
-                  type="button"
                   className="bs-collect-payment-method__cancel__button"
                   onClick={onDialogClose}
+                  type="button"
                 >
                   {t('forms.paymentMethod.actions.close')}
                 </button>
                 {!!error && (
                   <button
-                    type="submit"
                     className="bs-collect-payment-method__try__again__button"
                     onClick={handleRetry}
+                    type="submit"
                   >
                     {t('forms.paymentMethod.actions.retry')}
                   </button>
                 )}
                 {!error && !success && (
                   <button
-                    type="submit"
                     className={classNames(
                       'bs-collect-payment-method__submit__button',
                       {
@@ -566,6 +565,7 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
                       },
                     )}
                     disabled={processing}
+                    type="submit"
                   >
                     {processing ? (
                       <CircularProgress />
@@ -590,8 +590,8 @@ export const MarketplaceCollectPaymentMethodForStorybook = marketplaceCssHoc()(
       <ElementsConsumer>
         {({ stripe, elements }) => (
           <MarketplaceCollectPaymentMethod
-            stripe={stripe}
             elements={elements}
+            stripe={stripe}
             {...props}
           />
         )}
@@ -605,8 +605,8 @@ export default (props: Omit<Props, 'stripe' | 'elements'>) => (
     <ElementsConsumer>
       {({ stripe, elements }) => (
         <MarketplaceCollectPaymentMethod
-          stripe={stripe}
           elements={elements}
+          stripe={stripe}
           {...props}
         />
       )}

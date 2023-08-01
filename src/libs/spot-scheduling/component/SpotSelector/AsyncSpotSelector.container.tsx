@@ -162,21 +162,21 @@ export class AsyncSelectSpotForBlueprint extends React.PureComponent<
 
     return (
       <SpotSelectorDialog
-        offer={offer}
-        roomBlueprint={this.props.roomBlueprintById[offer?.room_blueprint]}
         assets={this.props.assetsForBlueprintById[offer?.room_blueprint]}
+        fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+        offer={offer}
         onClose={this.onClose}
-        onSubmit={this.onSubmit}
         onSelectSpot={this.onSelectSpot}
+        onSubmit={this.onSubmit}
         open={this.state.open}
-        takenSpot={takenSpot}
+        roomBlueprint={this.props.roomBlueprintById[offer?.room_blueprint]}
         selectedIndex={this.state.selectedIndex}
         selectedIndexType={selectedIndexType}
         selectedSpot={selectedSpotType}
         spotTypesOfBlueprint={this.props.spotTypes.filter((spotType) =>
           spotTypesIdOfBlueprint?.includes(spotType.id),
         )}
-        fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+        takenSpot={takenSpot}
       />
     );
   }

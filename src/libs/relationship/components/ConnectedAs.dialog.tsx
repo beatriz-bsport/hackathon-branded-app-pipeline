@@ -33,13 +33,13 @@ export const ConnectedAsDialog: React.FC<Props> = (props) => {
       <Typography>{t('connectedAs.info')}</Typography>
       <Typography>{t('connectedAs.wichUser')}</Typography>
       <MaterialUISelector
-        value={selectedValue}
         isMulti={false}
         onChange={(value) => setSelectedMemberId(value.value)}
         options={[...memberList].map((member) => ({
           value: member.id,
           label: member.name,
         }))}
+        value={selectedValue}
       />
       <div className={classes.bottomButtons}>
         <Button
@@ -50,13 +50,13 @@ export const ConnectedAsDialog: React.FC<Props> = (props) => {
           {t('member.form.cancel')}
         </Button>
         <Button
+          color="primary"
+          disabled={!selectedMemberId}
           onClick={() => {
             onConfirm(selectedMemberId);
             closeDialog();
           }}
           variant="contained"
-          color="primary"
-          disabled={!selectedMemberId}
         >
           {t('member.form.confirm')}
         </Button>

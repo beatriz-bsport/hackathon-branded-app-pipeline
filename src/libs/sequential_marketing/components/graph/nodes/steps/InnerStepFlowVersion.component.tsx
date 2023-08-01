@@ -24,31 +24,31 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   return (
     <>
       <Handle
-        type={HandleTypeChoices.TARGET}
+        isConnectable
         position={Position.Left}
         style={LEFT_HANDLE_STYLE}
-        isConnectable
+        type={HandleTypeChoices.TARGET}
       />
       <InnerStepCard
-        step={data.step}
-        marketingActionList={data.marketingActionList}
-        isSelected={data.isSelected}
-        disabled={data.disabled}
-        disableAddMarketingAction={data.disableAddMarketingAction}
-        onDelete={data.onDelete}
-        handleChangeInExit={data.handleChangeInExit}
-        onCardClick={data.onCardClick}
-        addNextStep={data.addNextStep}
-        getTag={data.getTag}
-        getEmailTemplate={data.getEmailTemplate}
         addMarketingAction={data.addMarketingAction}
+        addNextStep={data.addNextStep}
+        disableAddMarketingAction={data.disableAddMarketingAction}
+        disabled={data.disabled}
+        getEmailTemplate={data.getEmailTemplate}
+        getTag={data.getTag}
+        handleChangeInExit={data.handleChangeInExit}
+        isSelected={data.isSelected}
+        marketingActionList={data.marketingActionList}
+        onCardClick={data.onCardClick}
+        onDelete={data.onDelete}
+        step={data.step}
       />
       <Handle
-        type={HandleTypeChoices.SOURCE}
+        isConnectable
+        onConnect={handleConnect}
         position={Position.Right}
         style={RIGHT_HANDLE_STYLE}
-        onConnect={handleConnect}
-        isConnectable
+        type={HandleTypeChoices.SOURCE}
       />
     </>
   );

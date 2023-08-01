@@ -26,20 +26,20 @@ const CadenceOutputHeader: React.FC<CadenceOutputHeaderProps> = React.memo(
     const { t } = useTranslation('marketing');
     return (
       <CadenceNodeTitle
-        name={
-          status === DestinationStatus.WIN
-            ? t('cadence.cadenceCard.win')
-            : t('cadence.cadenceCard.lost')
-        }
-        icon={status === DestinationStatus.WIN ? 'CheckCircle' : 'Cancel'}
         color={
           status === DestinationStatus.WIN
             ? SequentialMarketingColors.ENTRY_COLOR
             : SequentialMarketingColors.LOSE_COLOR
         }
-        triggerList={!!triggerList && triggerList}
         disabled={disabled}
         getSmartlist={getSmartlist}
+        icon={status === DestinationStatus.WIN ? 'CheckCircle' : 'Cancel'}
+        name={
+          status === DestinationStatus.WIN
+            ? t('cadence.cadenceCard.win')
+            : t('cadence.cadenceCard.lost')
+        }
+        triggerList={!!triggerList && triggerList}
       />
     );
   },
@@ -54,27 +54,27 @@ const CadenceOutput: React.FC<CadenceOutputProps> = ({
 }) => {
   return (
     <StepCard
-      header={
-        <CadenceOutputHeader
-          status={status}
-          triggerList={triggerList}
-          disabled={disabled}
-          getSmartlist={getSmartlist}
-        />
-      }
       color={
         status === DestinationStatus.WIN
           ? SequentialMarketingColors.ENTRY_BORDER_COLOR
           : SequentialMarketingColors.LOSE_BORDER_COLOR
       }
+      disabled={disabled}
+      header={
+        <CadenceOutputHeader
+          disabled={disabled}
+          getSmartlist={getSmartlist}
+          status={status}
+          triggerList={triggerList}
+        />
+      }
+      isEmpty={!triggerList}
+      isSelected={isSelected}
       selectedColor={
         status === DestinationStatus.WIN
           ? SequentialMarketingColors.ENTRY_COLOR
           : SequentialMarketingColors.LOSE_COLOR
       }
-      isSelected={isSelected}
-      disabled={disabled}
-      isEmpty={!triggerList}
     />
   );
 };

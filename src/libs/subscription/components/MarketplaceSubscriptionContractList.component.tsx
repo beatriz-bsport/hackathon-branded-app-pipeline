@@ -45,7 +45,7 @@ const ContractCard = (
     >
       <div className={props.classes.cardInner}>
         <CardContent>
-          <Typography variant="h6" component="h2">
+          <Typography component="h2" variant="h6">
             {`${props.contract.name} - ${getCurrencyDisplayWithPrice(
               props.contract.recurrent_price,
               props.isExcludingTax,
@@ -56,7 +56,7 @@ const ContractCard = (
                 : ''
             }`}
           </Typography>
-          <Typography color="textSecondary" gutterBottom>
+          <Typography gutterBottom color="textSecondary">
             {`${
               (props.contract.payment_pack &&
                 props.contract.payment_pack.name) ||
@@ -95,12 +95,12 @@ export const MarketplaceSubscriptionContractList = (props: Props) => {
         {props.contractList.map((c) => (
           <div key={c.id} className={props.classes.cardContainer}>
             <ContractCard
-              isExcludingTax={props.isExcludingTax}
-              t={props.t}
               classes={props.classes}
               contract={c}
+              isExcludingTax={props.isExcludingTax}
               onClick={() => props.onClick(c)}
               selected={props.selected}
+              t={props.t}
             />
           </div>
         ))}

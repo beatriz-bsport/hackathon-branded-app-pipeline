@@ -70,7 +70,7 @@ const RestrictionsSection: React.FC<{
             </Typography>
           </div>
           <div className={classes.packInfo}>
-            <Typography variant="body1" color="textSecondary">
+            <Typography color="textSecondary" variant="body1">
               {max_bookings_per_day && (
                 <p className={classes.detailContent}>
                   {t('cardDetails.maxBookingPerDay')}
@@ -147,9 +147,9 @@ const VODSection: React.FC<{ paymentPackTemplate: PaymentPackTemplate }> = ({
             <Typography variant="h6">{t('detailTitles.vod')}</Typography>
           </div>
           <Typography
-            variant="body1"
-            color="textSecondary"
             className={classes.packInfo}
+            color="textSecondary"
+            variant="body1"
           >
             {full_vod_access && !only_vod_access && (
               <p className={classes.detailContent}>{t('full_vod')}</p>
@@ -198,9 +198,9 @@ const PaymentPackTemplateCard = (props: Props) => {
           ) : null}
           <Grid
             container
+            alignItems="flex-start"
             direction="row"
             justify="space-between"
-            alignItems="flex-start"
           >
             <Grid item xs={8}>
               <div>
@@ -222,9 +222,9 @@ const PaymentPackTemplateCard = (props: Props) => {
             <Grid item xs={4}>
               <div className={classes.columnLeft}>
                 <Typography
-                  variant="h3"
-                  color="primary"
                   className={classes.price}
+                  color="primary"
+                  variant="h3"
                 >
                   {getCurrencyDisplayWithPrice(
                     template.price,
@@ -233,8 +233,8 @@ const PaymentPackTemplateCard = (props: Props) => {
                   )}
                 </Typography>
                 <Typography
-                  variant="caption"
                   className={classes.priceWithoutTax}
+                  variant="caption"
                 >
                   {getCurrencyDisplayWithPrice(
                     template.price,
@@ -257,7 +257,7 @@ const PaymentPackTemplateCard = (props: Props) => {
                     {t('detailTitles.credit_quantity')}
                   </Typography>
                 </div>
-                <Typography variant="body1" className={classes.packInfo}>
+                <Typography className={classes.packInfo} variant="body1">
                   {getCreditInfo(template, t, isManager)}
                 </Typography>
               </div>
@@ -268,7 +268,7 @@ const PaymentPackTemplateCard = (props: Props) => {
                     {t('detailTitles.validity')}
                   </Typography>
                 </div>
-                <Typography variant="body1" className={classes.packInfo}>
+                <Typography className={classes.packInfo} variant="body1">
                   {getValidityInfo(template, t, true)}
                 </Typography>
               </div>
@@ -316,8 +316,8 @@ const PaymentPackTemplateCard = (props: Props) => {
                   {template.companies.map((c) => (
                     <div className={classes.chipContainer}>
                       <CompanyChip
-                        company={c}
                         key={c.id}
+                        company={c}
                         onDelete={
                           onDeleteCompany && (() => onDeleteCompany(c.id))
                         }
@@ -330,10 +330,10 @@ const PaymentPackTemplateCard = (props: Props) => {
                 <div>
                   <Button
                     className={classes.button}
-                    onClick={onCreatePaymentPackTemplateInstance}
-                    variant="outlined"
                     color="primary"
+                    onClick={onCreatePaymentPackTemplateInstance}
                     startIcon={<AddIcon />}
+                    variant="outlined"
                   >
                     {t('paymentPackTemplateInstance.actions.addCompany')}
                   </Button>
@@ -346,11 +346,11 @@ const PaymentPackTemplateCard = (props: Props) => {
 
       {buyPaymentPackTemplateInstance && (
         <Button
-          onClick={() => buyPaymentPackTemplateInstance()}
-          color="primary"
-          variant="contained"
           fullWidth
+          color="primary"
+          onClick={() => buyPaymentPackTemplateInstance()}
           startIcon={<AddIcon />}
+          variant="contained"
         >
           {t('paymentPackTemplateInstance.actions.buy')}
         </Button>

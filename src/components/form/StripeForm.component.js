@@ -74,28 +74,28 @@ export class StripeForm extends Component<Props, State> {
     return (
       <Grid
         container
+        className={classes.paymentContainer}
         direction="column"
         spacing={2}
-        className={classes.paymentContainer}
       >
         <Grid item>
           <div className={classes.cardContainer}>
             <CardElement />
           </div>
-          <Typography variant="caption" className={classes.caption}>
+          <Typography className={classes.caption} variant="caption">
             {t('payment.stripePaymentWillBeCashedOutOnInvoiceValidation')}
           </Typography>
         </Grid>
-        <Grid item container direction="row" justify="flex-end">
+        <Grid container item direction="row" justify="flex-end">
           <Grid item>
             {loading ? (
               <CircularProgress />
             ) : (
               <Button
-                variant="outlined"
                 color="primary"
-                onClick={this.submit}
                 disabled={!price}
+                onClick={this.submit}
+                variant="outlined"
               >
                 <AddCircleIcon className={classes.leftIcon} />
                 {t('payment.addThisPaymentItem')}
@@ -130,7 +130,7 @@ export default withStyles(styles)(
   withTranslation()((props) => (
     <ElementsConsumer>
       {({ stripe, elements }) => (
-        <StripeForm stripe={stripe} elements={elements} {...props} />
+        <StripeForm elements={elements} stripe={stripe} {...props} />
       )}
     </ElementsConsumer>
   )),

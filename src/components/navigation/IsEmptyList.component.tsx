@@ -37,10 +37,10 @@ export const IsEmptyList = (props: Props) => {
             <div className={classes.buttonTool}>
               {props.button && (
                 <Button
-                  variant="outlined"
+                  className={classes.button}
                   color="primary"
                   onClick={props.onCreate}
-                  className={classes.button}
+                  variant="outlined"
                 >
                   <AddIcon color="primary" />
                   {props.button}

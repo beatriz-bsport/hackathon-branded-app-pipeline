@@ -68,16 +68,16 @@ export const CompatibleCoachesList: React.FC<Props> = ({
           {activities.map((activity) => (
             <CompatibleCoachesListItem
               key={activity.id}
-              name={activity.name}
-              nextSlot={activity.next_slot}
-              logo={activity.cover_main}
               alt={activity.alt_cover_main}
-              color={activity.color}
               categoryId={activity.parent_category}
+              color={activity.color}
               compatibleTeachers={
                 compatibleCoachesByCategory.activities[activity.id] ??
                 compatibleCoachesByCategory.activities.all
               }
+              logo={activity.cover_main}
+              name={activity.name}
+              nextSlot={activity.next_slot}
             />
           ))}
         </Collapse>
@@ -101,16 +101,16 @@ export const CompatibleCoachesList: React.FC<Props> = ({
           {workshops.map((workshop) => (
             <CompatibleCoachesListItem
               key={workshop.id}
-              name={workshop.name}
-              nextSlot={workshop.next_slot}
-              logo={workshop.cover_main}
               alt={workshop.alt_cover_main}
-              color={workshop.color}
               categoryId={workshop.parent_category}
+              color={workshop.color}
               compatibleTeachers={
                 compatibleCoachesByCategory.workshops[workshop.id] ??
                 compatibleCoachesByCategory.workshops.all
               }
+              logo={workshop.cover_main}
+              name={workshop.name}
+              nextSlot={workshop.next_slot}
             />
           ))}
         </Collapse>
@@ -131,13 +131,13 @@ export const CompatibleCoachesList: React.FC<Props> = ({
           {SCTs.map((category) => (
             <CompatibleCoachesListItem
               key={category.id}
-              name={category.name}
-              categoryId={category.SCS.id}
               alt={category.name}
+              categoryId={category.SCS.id}
               compatibleTeachers={
                 compatibleCoachesByCategory.SCTs[category.id] ??
                 compatibleCoachesByCategory.SCTs.all
               }
+              name={category.name}
             />
           ))}
         </Collapse>

@@ -129,48 +129,48 @@ class CommunicationMessageListContainer extends React.PureComponent<
         {consentWarning && (
           <div className={classes.consentContainer}>
             <InfoGenericBox
+              withCollapse
+              alignItems="flex-start"
               content={consentWarning}
+              type="error"
               variant="contained"
               variantIcon="outlined"
-              alignItems="flex-start"
-              type="error"
-              withCollapse
             />
           </div>
         )}
         {showMailProviderWarningContent && (
           <div className={classes.consentContainer}>
             <InfoGenericBox
+              withCollapse
+              alignItems="flex-start"
               content={t('mail.warningProvider')}
+              type="warning"
               variant="contained"
               variantIcon="outlined"
-              alignItems="flex-start"
-              type="warning"
-              withCollapse
             />
           </div>
         )}
         <CommunicationMessageScrollableView
-          messageList={messageList}
+          currentPage={currentPage}
           fetchOnEndScroll={fetchMoreCommunicationMessages}
+          hasActiveFilters={hasActiveFilters}
           loadingCommunicationMessageDataList={
             loadingCommunicationMessageDataList
           }
-          showCommunicationInformation={this.showCommunicationInformation}
-          showEmailTemplate={this.showEmailTemplate}
+          messageList={messageList}
           oneToOneMessageMember={contextMember}
-          currentPage={currentPage}
           resolvedGenericTags={resolvedGenericTags}
           scrollToBottomFlag={scrollToBottomFlag}
-          hasActiveFilters={hasActiveFilters}
+          showCommunicationInformation={this.showCommunicationInformation}
+          showEmailTemplate={this.showEmailTemplate}
         />
         {this.state.openEmailView && (
           <HTMLPreviewDialog
-            open={this.state.openEmailView}
-            onClose={this.closeEmailView}
             html={this.state.selectedMailBody}
-            title={this.state.selectedMailTitle}
+            onClose={this.closeEmailView}
+            open={this.state.openEmailView}
             resolvedGenericTags={this.props.resolvedGenericTags}
+            title={this.state.selectedMailTitle}
           />
         )}
         {this.state.openInformationModal && (

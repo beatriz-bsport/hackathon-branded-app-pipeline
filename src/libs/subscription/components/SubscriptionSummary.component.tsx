@@ -134,8 +134,8 @@ export const SubscriptionSummary = (props: Props) => {
             <div className={classes.rowRight}>
               <IconButton
                 color="primary"
-                onClick={props.requestPaymentPackSwitch}
                 disabled={!subscription.editable}
+                onClick={props.requestPaymentPackSwitch}
               >
                 <EditIcon />
               </IconButton>
@@ -155,8 +155,8 @@ export const SubscriptionSummary = (props: Props) => {
             <div className={classes.rowRight}>
               <IconButton
                 color="primary"
-                onClick={props.requestPrivatePassSwitch}
                 disabled={!subscription.editable}
+                onClick={props.requestPrivatePassSwitch}
               >
                 <EditIcon />
               </IconButton>
@@ -176,8 +176,8 @@ export const SubscriptionSummary = (props: Props) => {
             <div className={classes.rowRight}>
               <IconButton
                 color="primary"
-                onClick={props.requestPaymentComboSwitch}
                 disabled={!subscription.editable}
+                onClick={props.requestPaymentComboSwitch}
               >
                 <EditIcon />
               </IconButton>
@@ -211,22 +211,22 @@ export const SubscriptionSummary = (props: Props) => {
         )}
         {contractTermsDateAccepted && (
           <div className={classes.field}>
-            <Typography variant="body2" className={classes.contractTerms}>
+            <Typography className={classes.contractTerms} variant="body2">
               <Trans
-                t={t}
-                i18nKey="parameters.contractTermsAccepted"
-                values={{ dateAccepted: contractTermsDateAccepted }}
                 components={[
                   <ButtonBaseWithTypography
-                    onClick={onOpenContractTermsDialog}
                     disableRipple
-                    typographyVariant="body2"
-                    typographyColor="primary"
                     className={classes.contractTermsButton}
+                    onClick={onOpenContractTermsDialog}
+                    typographyColor="primary"
+                    typographyVariant="body2"
                   >
                     .
                   </ButtonBaseWithTypography>,
                 ]}
+                i18nKey="parameters.contractTermsAccepted"
+                t={t}
+                values={{ dateAccepted: contractTermsDateAccepted }}
               />
             </Typography>
           </div>
@@ -239,10 +239,10 @@ export const SubscriptionSummary = (props: Props) => {
               })}
             </Typography>
             <Button
-              variant="outlined"
+              color="error"
               disabled={moment(lastInvoice.date).isBefore(moment())}
               onClick={() => props.unflagPlannedInvoiceAsLast(lastInvoice.id)}
-              color="error"
+              variant="outlined"
             >
               {t('form.cancel')}
             </Button>

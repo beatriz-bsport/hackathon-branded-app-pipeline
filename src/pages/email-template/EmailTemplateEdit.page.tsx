@@ -135,24 +135,24 @@ export class MarketingEmail extends Component<Props> {
       <DrawerContext.Consumer>
         {(context: DrawerContextValue) => (
           <EmailEditorPanel
-            saveEmail={this.onSave}
             autoSaveEnabled
             autoSaveEmail={this.onAutoSave}
-            hideLeftMenuAction={context.hideLeftMenuAction}
-            showLeftMenuAction={context.showLeftMenuAction}
+            company_name={this.props.company_name}
+            displayEmptyError={this.props.snackbarError}
+            emailTemplateCategories={this.props.emailTemplateCategories}
             emailToEdit={{
               ...this.props.email_templates_summaries[this.props.id],
               ...this.props.email_templates_details[this.props.id],
             }}
-            tags={this.props.tagCategories}
-            company_name={this.props.company_name}
             goToList={this.props.goToList}
-            displayEmptyError={this.props.snackbarError}
-            emailTemplateCategories={this.props.emailTemplateCategories}
-            requiredTags={this.props.requiredTags}
+            hideLeftMenuAction={context.hideLeftMenuAction}
             relatedNotificationRuleEvents={
               this.props.relatedNotificationRuleEvents
             }
+            requiredTags={this.props.requiredTags}
+            saveEmail={this.onSave}
+            showLeftMenuAction={context.showLeftMenuAction}
+            tags={this.props.tagCategories}
           />
         )}
       </DrawerContext.Consumer>

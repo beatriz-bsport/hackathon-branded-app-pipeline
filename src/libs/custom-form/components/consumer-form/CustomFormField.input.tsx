@@ -85,7 +85,7 @@ export const CustomFormConsumerInput = (props: Props) => {
       return (
         <div className={classes.spacedField}>
           <div style={{ overflowWrap: 'break-word' }}>
-            <Typography variant="caption" component="div">
+            <Typography component="div" variant="caption">
               {props.field.label}
             </Typography>
           </div>
@@ -96,14 +96,14 @@ export const CustomFormConsumerInput = (props: Props) => {
         <div key={props.index}>
           <div className={classes.spacedField}>
             <TextFieldEnhancedLabelWithError
-              name={`custom_form_field.${props.index}.answer`}
-              required={props.field.mandatory}
-              onBlur={props.handleBlur}
-              label={props.field.label}
               fullWidth
-              InputLabelProps={{ color: 'red' }}
               disabled={props.asManager}
+              InputLabelProps={{ color: 'red' }}
               inputProps={{ maxlength: MAX_LENGTH_FOR_SHORT_ANSWER }}
+              label={props.field.label}
+              name={`custom_form_field.${props.index}.answer`}
+              onBlur={props.handleBlur}
+              required={props.field.mandatory}
             />
           </div>
         </div>
@@ -112,15 +112,15 @@ export const CustomFormConsumerInput = (props: Props) => {
       return (
         <div className={classes.spacedField}>
           <TextFieldEnhancedLabelWithError
-            name={`custom_form_field.${props.index}.answer`}
-            variant="outlined"
-            required={props.field.mandatory}
-            onBlur={props.handleBlur}
-            label={props.field.label}
             fullWidth
             multiline
             disabled={props.asManager}
             inputProps={{ maxlength: MAX_LENGTH_FOR_LONG_ANSWER }}
+            label={props.field.label}
+            name={`custom_form_field.${props.index}.answer`}
+            onBlur={props.handleBlur}
+            required={props.field.mandatory}
+            variant="outlined"
           />
         </div>
       );
@@ -129,19 +129,19 @@ export const CustomFormConsumerInput = (props: Props) => {
       return (
         <div className={classes.spacedField}>
           <RadioGroupField
-            name={`custom_form_field.${props.index}.answer`}
-            label={`${props.field.label}${props.field.mandatory ? ' *' : ''}`}
-            required={props.field.mandatory}
             choices={props.field.choices.map((choice: string) => ({
               label: choice,
               value: choice,
             }))}
-            labelClass={classes.labelClass}
             disabled={props.asManager}
+            label={`${props.field.label}${props.field.mandatory ? ' *' : ''}`}
+            labelClass={classes.labelClass}
+            name={`custom_form_field.${props.index}.answer`}
+            required={props.field.mandatory}
           />
           <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
             {(error_msg) => (
-              <Typography variant="caption" color="error">
+              <Typography color="error" variant="caption">
                 {t(`${error_msg}`)}
               </Typography>
             )}
@@ -152,19 +152,19 @@ export const CustomFormConsumerInput = (props: Props) => {
       return (
         <div className={classes.spacedField}>
           <MultipleCheckboxField
-            name={`custom_form_field.${props.index}.answer`}
-            label={`${props.field.label}${props.field.mandatory ? ' *' : ''}`}
-            required={props.field.mandatory}
             choices={props.field.choices.map((choice: string) => ({
               optionLabel: choice,
               id: choice,
             }))}
-            labelClass={classes.labelClass}
             disabled={props.asManager}
+            label={`${props.field.label}${props.field.mandatory ? ' *' : ''}`}
+            labelClass={classes.labelClass}
+            name={`custom_form_field.${props.index}.answer`}
+            required={props.field.mandatory}
           />
           <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
             {(error_msg) => (
-              <Typography variant="caption" color="error">
+              <Typography color="error" variant="caption">
                 {t(`${error_msg}`)}
               </Typography>
             )}
@@ -180,24 +180,24 @@ export const CustomFormConsumerInput = (props: Props) => {
           </FormLabel>
           <div style={{ maxWidth: '400px' }}>
             <SelectFieldWithEnhancedLabeLError
-              name={`custom_form_field.${props.index}.answer`}
-              label={props.field.label}
-              placeholder={t('customForm.field.select_placeholder')}
-              suggestions={[...props.field.choices.slice()].map(
-                (choice: string) => ({
-                  label: choice,
-                  value: choice,
-                }),
-              )}
               isClearable
+              isDisabled={props.asManager}
+              label={props.field.label}
+              name={`custom_form_field.${props.index}.answer`}
               onChange={(item: { label: string; value: string }) =>
                 props.setFieldValue(
                   `custom_form_field.${props.index}.answer`,
                   item ? item.value : null,
                 )
               }
-              isDisabled={props.asManager}
+              placeholder={t('customForm.field.select_placeholder')}
               selected={props.values.custom_form_field[props.index].answer}
+              suggestions={[...props.field.choices.slice()].map(
+                (choice: string) => ({
+                  label: choice,
+                  value: choice,
+                }),
+              )}
             />
           </div>
         </div>
@@ -214,7 +214,7 @@ export const CustomFormConsumerInput = (props: Props) => {
             </FormLabel>
             <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
               {() => (
-                <Typography variant="caption" color="error">
+                <Typography color="error" variant="caption">
                   {t(`marketing:customForm.submit.errors.requiredSignature`)}
                 </Typography>
               )}
@@ -224,9 +224,9 @@ export const CustomFormConsumerInput = (props: Props) => {
           {!props.values.custom_form_field[props.index].answer ? (
             <Button
               color="primary"
-              variant="outlined"
-              onClick={() => setOpenSignatureCanvas(true)}
               disabled={props.asManager}
+              onClick={() => setOpenSignatureCanvas(true)}
+              variant="outlined"
             >
               <AddIcon />
               {t('customForm.customFormField.modal.signature.addSignature')}
@@ -238,8 +238,8 @@ export const CustomFormConsumerInput = (props: Props) => {
                 <div className={classes.fixedIcon}>
                   <IconButton
                     color="primary"
-                    onClick={() => setOpenSignatureCanvas(true)}
                     disabled={props.asManager}
+                    onClick={() => setOpenSignatureCanvas(true)}
                     style={{ padding: 0, paddingRight: 10 }}
                   >
                     <EditIcon />
@@ -248,15 +248,15 @@ export const CustomFormConsumerInput = (props: Props) => {
               </div>
 
               <img
-                className={classes.signature}
                 alt="signature"
+                className={classes.signature}
                 src={props.values.custom_form_field[props.index].answer}
               />
             </div>
           ) : null}
           <SignatureCanvas
-            open={openSignatureCanvas}
             closeCanvas={() => setOpenSignatureCanvas(false)}
+            open={openSignatureCanvas}
             setTrimmedDataURL={setImageAnswer}
           />
         </div>
@@ -269,6 +269,10 @@ export const CustomFormConsumerInput = (props: Props) => {
             {props.field.mandatory && ' *'}
           </FormLabel>
           <FileUploaderCustomized
+            allowPreview={props.asManager}
+            disabled={props.asManager}
+            file={props.values.custom_form_field[props.index].answer}
+            label={t('member:file.drop_file')}
             onAddFile={(file: File) =>
               props.setFieldValue(
                 `custom_form_field.${props.index}.answer`,
@@ -281,14 +285,10 @@ export const CustomFormConsumerInput = (props: Props) => {
                 null,
               )
             }
-            file={props.values.custom_form_field[props.index].answer}
-            disabled={props.asManager}
-            allowPreview={props.asManager}
-            label={t('member:file.drop_file')}
           />
           <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
             {() => (
-              <Typography variant="caption" color="error">
+              <Typography color="error" variant="caption">
                 {t(`marketing:customForm.submit.errors.requiredFile`)}
               </Typography>
             )}

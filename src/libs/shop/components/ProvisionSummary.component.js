@@ -26,39 +26,39 @@ type Props = {
 const ProvisionSummary = (props: Props) => (
   <div className={props.classes.container}>
     <div className={props.classes.line}>
-      <Typography inline color="secondary" variant="subtitle2" component="h3">
+      <Typography inline color="secondary" component="h3" variant="subtitle2">
         {props.t('provision.total_sales')}
       </Typography>
-      <Typography inline color="primary" variant="h6" component="h3">
+      <Typography inline color="primary" component="h3" variant="h6">
         {props.shopitem.total_sales}
       </Typography>
     </div>
     <div className={props.classes.line}>
-      <Typography inline color="secondary" variant="subtitle2" component="h3">
+      <Typography inline color="secondary" component="h3" variant="subtitle2">
         {props.t('provision.current_stock')}
       </Typography>
       <Typography
         inline
         color={props.shopitem.current_stock > 0 ? 'primary' : 'error'}
-        variant="h6"
         component="h3"
+        variant="h6"
       >
         {props.shopitem.current_stock}
       </Typography>
     </div>
     <div className={props.classes.line}>
-      <Typography inline color="secondary" variant="subtitle2" component="h3">
+      <Typography inline color="secondary" component="h3" variant="subtitle2">
         {props.t('shopitem.detail.supplier_price')}
       </Typography>
-      <Typography inline variant="h6" component="h3">
+      <Typography inline component="h3" variant="h6">
         {`${getCurrencyDisplayWithPrice(props.shopitem.supplier_price)}`}
       </Typography>
     </div>
     <div className={props.classes.line}>
-      <Typography inline color="secondary" variant="subtitle2" component="h3">
+      <Typography inline color="secondary" component="h3" variant="subtitle2">
         {props.t('shopitem.detail.onsite_payment_available')}
       </Typography>
-      <Typography inline variant="h6" component="h3">
+      <Typography inline component="h3" variant="h6">
         {props.shopitem.available_payment_method_identifiers &&
         props.shopitem.available_payment_method_identifiers.includes(
           CREDIT_ACCOUNT.id,
@@ -68,10 +68,10 @@ const ProvisionSummary = (props: Props) => (
       </Typography>
     </div>
     <div className={props.classes.line}>
-      <Typography inline color="secondary" variant="subtitle2" component="h3">
+      <Typography inline color="secondary" component="h3" variant="subtitle2">
         {props.t('shopitem.detail.is_deliverable')}
       </Typography>
-      <Typography inline variant="h6" component="h3">
+      <Typography inline component="h3" variant="h6">
         {props.t(
           props.shopitem.is_deliverable
             ? 'shopitem.detail.enabled'
@@ -80,18 +80,18 @@ const ProvisionSummary = (props: Props) => (
       </Typography>
     </div>
     <div className={props.classes.line}>
-      <Typography inline color="secondary" variant="subtitle2" component="h3">
+      <Typography inline color="secondary" component="h3" variant="subtitle2">
         {props.t('shopitem.detail.marketplace_enabled')}
       </Typography>
       <Typography
         inline
-        variant="h6"
         component="h3"
         style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
         }}
+        variant="h6"
       >
         {props.shopitem.marketplace_enabled ? (
           <React.Fragment>
@@ -108,9 +108,9 @@ const ProvisionSummary = (props: Props) => (
     </div>
     <div className={props.classes.actionButtonContainer}>
       <Button
-        variant="contained"
         color="secondary"
         onClick={props.onProvisionUpdate}
+        variant="contained"
       >
         <StoreIcon className={props.classes.iconLeft} />
         {props.t('provision.action.update')}

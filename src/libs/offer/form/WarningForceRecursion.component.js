@@ -14,7 +14,7 @@ type Props = {
 export function WarningForceRecursion(props: Props) {
   return (
     <div className={props.classes.warningContainer}>
-      <AlertIcon color="error" className={props.classes.leftIcon} />
+      <AlertIcon className={props.classes.leftIcon} color="error" />
       <Typography className={props.classes.typo}>{props.text}</Typography>
     </div>
   );

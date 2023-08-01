@@ -35,24 +35,24 @@ const MarketplaceContractPaymentInfos: React.FC<Props> = React.memo(
         </h6>
 
         <Checkbox
-          name="terms-approval"
+          classes={{ label: 'bs-contract-payment__contract__terms__label' }}
+          isChecked={isContractLegalTermsAccepted}
           label={
             <Trans
-              t={t}
-              i18nKey="subscription:contract.actions.iAcceptContractTerms"
               components={[
                 <button
                   className="bs-contract-payment__contract__terms"
-                  type="button"
                   onClick={onOpenContractTermsDialog}
+                  type="button"
                 >
                   .
                 </button>,
               ]}
+              i18nKey="subscription:contract.actions.iAcceptContractTerms"
+              t={t}
             />
           }
-          classes={{ label: 'bs-contract-payment__contract__terms__label' }}
-          isChecked={isContractLegalTermsAccepted}
+          name="terms-approval"
           onChange={handleAcceptContract}
         />
 
@@ -60,10 +60,10 @@ const MarketplaceContractPaymentInfos: React.FC<Props> = React.memo(
           {t('subscription:contract.actions.iwanttostarton')}
           <div className="bs-contract-payment__datepicker__container">
             <MarketplaceDatePicker
-              dateSelected={billingStartDate}
-              isInputButton
-              onSelect={setBillingStartDate}
               disablePast
+              isInputButton
+              dateSelected={billingStartDate}
+              onSelect={setBillingStartDate}
             />
           </div>
         </div>

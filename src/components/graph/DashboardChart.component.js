@@ -60,41 +60,41 @@ const DashboardChart = (props: Props) => {
           {props.popoverText && (
             <InfoOutlineIcon
               className={classes.infoIcon}
+              fontSize="small"
               onMouseEnter={handlePopoverOpen}
               onMouseLeave={handlePopoverClose}
-              fontSize="small"
             />
           )}
         </div>
         <div className={classes.inlineContainer}>
           {!!(props.showSaveButton && !!props.onSaveGraph) && (
             <Chip
+              clickable
               className={classes.saveChip}
-              icon={<SaveIcon />}
               color="primary"
+              icon={<SaveIcon />}
               label={t('save')}
               onClick={props.onSaveGraph}
               size="small"
-              clickable
             />
           )}
 
           {!!props.range && props.setDateRange ? (
             <ChartRange
-              start_date={props.range.start}
               end_date={props.range.end}
               kind={props.range.kind}
               setRange={(range) => {
                 props.setDateRange(props.timeSettings, range);
               }}
+              start_date={props.range.start}
               timeSettings={props.timeSettings}
             />
           ) : null}
           {!!props.onDelete && (
             <IconButton
-              size="small"
               color="primary"
               onClick={() => props.onDelete(props.graphIdentifier)}
+              size="small"
             >
               <DeleteIcon />
             </IconButton>
@@ -103,17 +103,17 @@ const DashboardChart = (props: Props) => {
       </div>
       {props.popoverText && (
         <Popover
-          className={classes.popover}
-          open={open}
+          disableRestoreFocus
           anchorEl={anchorEl}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          classes={{ paper: classes.paper }}
+          className={classes.popover}
+          onClose={handlePopoverClose}
+          open={open}
           transformOrigin={{
             vertical: 'top',
             horizontal: 'left',
           }}
-          onClose={handlePopoverClose}
-          disableRestoreFocus
-          classes={{ paper: classes.paper }}
         >
           <Typography variant="caption">{props.popoverText}</Typography>
         </Popover>
@@ -121,11 +121,11 @@ const DashboardChart = (props: Props) => {
       {props.filtersComponent && (
         <div className={classes.filter}>
           <props.filtersComponent
-            setFiltersValue={props.setFilters}
+            coaches={props.coaches}
             filters={props.filtersValue}
             open={props.openFilters}
+            setFiltersValue={props.setFilters}
             setOpenValue={props.setOpenFiltersValue}
-            coaches={props.coaches}
           />
           <Divider />
         </div>
@@ -133,10 +133,6 @@ const DashboardChart = (props: Props) => {
       {props.loading ? (
         <div className={classes.skeleton}>
           <Skeleton
-            variant="text"
-            width="90%"
-            // Find the graph in props.children and retrieve its height property
-            // (or default wich is 400)
             height={
               props.children.props
                 ? props.children.props.height || 400
@@ -148,6 +144,10 @@ const DashboardChart = (props: Props) => {
                   ).props.height ||
                     400)
             }
+            variant="text"
+            // Find the graph in props.children and retrieve its height property
+            // (or default wich is 400)
+            width="90%"
           />
         </div>
       ) : (

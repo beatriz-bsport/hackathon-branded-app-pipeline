@@ -74,7 +74,7 @@ export class SubShopList extends Component<Props, State> {
     const { editMode, newName } = this.state;
     if (editMode) {
       return (
-        <Grid container direction="row" spacing={1} alignItems="center">
+        <Grid container alignItems="center" direction="row" spacing={1}>
           <Grid item>
             <TextField
               autoFocus
@@ -98,9 +98,9 @@ export class SubShopList extends Component<Props, State> {
     return (
       <Grid
         container
+        alignItems="center"
         direction="row"
         justify="space-between"
-        alignItems="center"
       >
         <Grid item>
           <Typography className={classes.title} variant="h5">
@@ -131,10 +131,10 @@ export class SubShopList extends Component<Props, State> {
     if (showSubShopDeleteDialog) {
       return (
         <Dialog
-          open={showSubShopDeleteDialog}
-          onClose={() => this.setState({ showSubShopDeleteDialog: false })}
-          aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
+          aria-labelledby="alert-dialog-title"
+          onClose={() => this.setState({ showSubShopDeleteDialog: false })}
+          open={showSubShopDeleteDialog}
         >
           <DialogTitle id="alert-dialog-title">
             {t('shop.subShop.delete.title')}
@@ -146,12 +146,12 @@ export class SubShopList extends Component<Props, State> {
           </DialogContent>
           <DialogActions>
             <Button
-              onClick={() => this.setState({ showSubShopDeleteDialog: false })}
               color="secondary"
+              onClick={() => this.setState({ showSubShopDeleteDialog: false })}
             >
               {t('common.cancel')}
             </Button>
-            <RedButton onClick={this.props.onDelete} color="primary" autoFocus>
+            <RedButton autoFocus color="primary" onClick={this.props.onDelete}>
               {t('common.confirm')}
             </RedButton>
           </DialogActions>

@@ -41,21 +41,21 @@ export const OfferListItem = (props: Props) => {
       button={!!props.onClick}
       disabled={props.disabled}
       divider={props?.divider ?? false}
-      selected={props.selected}
       onClick={props.onClick ? () => props.onClick(offer.id) : null}
+      selected={props.selected}
     >
       {props.similarOffer ? (
         <Checkbox
           checked={props.checked}
-          onChange={props.handleChange}
           disabled={props.disabled}
+          onChange={props.handleChange}
         />
       ) : null}
       <ListItemAvatar>
         <CoachAvatar
-          t={t}
           coach={offer && offer.coach ? offer.coach : null}
           coach_override={offer.coach_override ? offer.coach_override : null}
+          t={t}
         />
       </ListItemAvatar>
       <ListItemText
@@ -77,10 +77,10 @@ export const OfferListItem = (props: Props) => {
               <Level
                 noStyle
                 align="left"
-                variant="caption"
-                customLevel={offer && offer.customLevel}
                 className={classes.level}
+                customLevel={offer && offer.customLevel}
                 noWrap={false}
+                variant="caption"
               />
 
               <Typography className={classes.marginLeft} variant="caption">
@@ -91,11 +91,11 @@ export const OfferListItem = (props: Props) => {
               {offer.full ? (
                 <div className={classes.warning}>
                   <WarningIcon
+                    className={classes.warningIcon}
                     color="error"
                     size={15}
-                    className={classes.warningIcon}
                   />
-                  <Typography variant="caption" className={classes.warningText}>
+                  <Typography className={classes.warningText} variant="caption">
                     {t('warningOfferFull')}
                   </Typography>
                 </div>
@@ -118,17 +118,17 @@ export const OfferListItem = (props: Props) => {
       {props.editing_parameters ? (
         <div>
           <Typography
-            variant="caption"
-            color="textSecondary"
             className={classes.inline}
+            color="textSecondary"
+            variant="caption"
           >
             <div className={classes.text}>{t('forms.old_date')}</div>
             {formatAsDatetime(offer.date_start, offer.timezone_name)}
           </Typography>
           <Typography
-            variant="caption"
-            color="textSecondary"
             className={classes.inline}
+            color="textSecondary"
+            variant="caption"
           >
             <div className={classes.text}>{t('forms.new_date')}</div>
             {formatAsDatetime(

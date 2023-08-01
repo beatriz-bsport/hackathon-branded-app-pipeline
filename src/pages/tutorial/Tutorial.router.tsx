@@ -9,12 +9,12 @@ export default () =>
   platformTutorialActivated() && (
     <Switch>
       <Route
-        path="/tutorial/:sectionId/:lessonId"
         component={TutorialLessonDetail}
+        path="/tutorial/:sectionId/:lessonId"
       />
       <Route
-        path="/tutorial/:defaultSelectedSectionId?"
         component={TutorialMenu}
+        path="/tutorial/:defaultSelectedSectionId?"
       />
     </Switch>
   );

@@ -55,13 +55,13 @@ export class PaymentPackNotificationList extends React.PureComponent<
     return (
       <div>
         <ButtonBase
+          className={classes.buttonTitleHeader}
           onClick={() =>
             this.setState((prevState: State) => ({
               ...prevState,
               showSection: !prevState.showSection,
             }))
           }
-          className={classes.buttonTitleHeader}
         >
           <Typography variant="h5">
             {t('notifications.groupTitle.privatePass')}
@@ -85,7 +85,7 @@ export class PaymentPackNotificationList extends React.PureComponent<
           if (product) {
             return (
               <Collapse in={this.state.showSection}>
-                <div className={classes.paymentPackItem} key={id}>
+                <div key={id} className={classes.paymentPackItem}>
                   <ButtonBase
                     className={classes.buttonTitleContainer}
                     onClick={() => {
@@ -97,7 +97,7 @@ export class PaymentPackNotificationList extends React.PureComponent<
                       }));
                     }}
                   >
-                    <Typography variant="h5" color="primary">
+                    <Typography color="primary" variant="h5">
                       {product.name}
                     </Typography>
 
@@ -119,8 +119,8 @@ export class PaymentPackNotificationList extends React.PureComponent<
                         </div>
                         <div className={classes.notificationsContainer}>
                           <MarketingNotificationsList
-                            notifications={byTime}
                             emailSummariesById={this.props.emailSummariesById}
+                            notifications={byTime}
                             onClickNotification={this.props.onClickNotification}
                             onUpdateNotification={
                               this.props.onUpdateNotification
@@ -141,8 +141,8 @@ export class PaymentPackNotificationList extends React.PureComponent<
                         </div>
                         <div className={classes.notificationsContainer}>
                           <MarketingNotificationsList
-                            notifications={byCredits}
                             emailSummariesById={this.props.emailSummariesById}
+                            notifications={byCredits}
                             onClickNotification={this.props.onClickNotification}
                             onUpdateNotification={
                               this.props.onUpdateNotification

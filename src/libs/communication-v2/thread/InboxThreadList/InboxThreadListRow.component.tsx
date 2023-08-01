@@ -51,14 +51,14 @@ const InboxThreadListRow: React.FC<Props> = ({
   return (
     <div style={style}>
       <InboxThreadListItem
-        thread={thread}
-        switchFavoriteStatus={switchFavoriteStatus}
-        switchMutedStatus={switchMutedStatus}
-        switchDisabledStatus={switchDisabledStatus}
         flagAsUnread={flagAsUnread}
         isLoading={isLoading}
         isSelected={thread?.id === selectedThreadId}
         onClick={onItemClick}
+        switchDisabledStatus={switchDisabledStatus}
+        switchFavoriteStatus={switchFavoriteStatus}
+        switchMutedStatus={switchMutedStatus}
+        thread={thread}
       />
     </div>
   );

@@ -147,16 +147,16 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
         </div>
         <div className={classes.field}>
           <NumericInput
-            helperText={t('form.autokick_delay.helper')}
-            label={t('form.autokick_delay.label')}
             fullWidth={false}
-            value={this.state.configuration.autokick_delay}
+            helperText={t('form.autokick_delay.helper')}
             InputProps={{
               inputProps: { min: 2, step: 1, max: 100 },
             }}
+            label={t('form.autokick_delay.label')}
             onChange={(ev) =>
               this.handleChange('autokick_delay')(parseInt(ev.target.value, 10))
             }
+            value={this.state.configuration.autokick_delay}
           />
         </div>
         <div className={classes.field}>
@@ -173,28 +173,28 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
             label={t('form.auto_consume_pack.label')}
           />
           <Typography
-            variant="caption"
             className={classes.helperText}
             color="textSecondary"
+            variant="caption"
           >
             {t('form.auto_consume_pack.helper')}
           </Typography>
         </div>
         <div className={classes.field}>
           <NumericInput
-            helperText={t('form.last_delay_before_auto_consume.helper')}
-            label={t('form.last_delay_before_auto_consume.label')}
             fullWidth={false}
-            value={this.state.configuration.last_delay_before_auto_consume}
+            helperText={t('form.last_delay_before_auto_consume.helper')}
             InputProps={{
               inputProps: { min: 0, step: 1, max: 4 * 60 },
               endAdornment: <InputAdornment position="end">min</InputAdornment>,
             }}
+            label={t('form.last_delay_before_auto_consume.label')}
             onChange={(ev) =>
               this.handleChange('last_delay_before_auto_consume')(
                 parseInt(ev.target.value, 10),
               )
             }
+            value={this.state.configuration.last_delay_before_auto_consume}
           />
         </div>
         <div className={classes.divider} />
@@ -202,84 +202,84 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
           <legend>
             {t(`form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.settingsDelay`)}
           </legend>
-          <Alert severity="info" variant="outlined" className={classes.alert}>
+          <Alert className={classes.alert} severity="info" variant="outlined">
             {this.generateAlertInfoContent()}
           </Alert>
           <div className={classes.field}>
             <FormControlLabel
               control={
                 <Radio
+                  aria-label="simple"
                   checked={
                     this.state.configuration.auto_cancellation_type ===
                     WaitingListAutoCancellation.dumb
                   }
+                  name="simple"
                   onChange={() =>
                     this.handleChange('auto_cancellation_type')(
                       WaitingListAutoCancellation.dumb,
                     )
                   }
                   value={WaitingListAutoCancellation.dumb}
-                  name="simple"
-                  aria-label="simple"
                 />
               }
               label={t('form.dumb_delay_minutes.label')}
             />
             <NumericInput
+              disabled={
+                this.state.configuration.auto_cancellation_type ===
+                WaitingListAutoCancellation.smart
+              }
               InputProps={{
                 inputProps: { min: 15, step: 1, max: 32000 },
                 endAdornment: (
                   <InputAdornment position="end">min</InputAdornment>
                 ),
               }}
-              disabled={
-                this.state.configuration.auto_cancellation_type ===
-                WaitingListAutoCancellation.smart
-              }
-              value={this.state.configuration.dumb_delay_minutes}
               onChange={(ev) =>
                 this.handleChange('dumb_delay_minutes')(
                   parseInt(ev.target.value, 10),
                 )
               }
+              value={this.state.configuration.dumb_delay_minutes}
             />
           </div>
           <div className={classes.field}>
             <FormControlLabel
               control={
                 <Radio
+                  aria-label="smart"
                   checked={
                     this.state.configuration.auto_cancellation_type ===
                     WaitingListAutoCancellation.smart
                   }
+                  name="smart"
                   onChange={() =>
                     this.handleChange('auto_cancellation_type')(
                       WaitingListAutoCancellation.smart,
                     )
                   }
                   value={WaitingListAutoCancellation.smart}
-                  name="smart"
-                  aria-label="smart"
                 />
               }
               label={t('form.smart_delay_percentage.label')}
             />
             <NumericInput
-              fullWidth={false}
-              value={this.state.configuration.smart_delay_percentage}
-              InputProps={{
-                inputProps: { min: 10, step: 1, max: 100 },
-                endAdornment: <InputAdornment position="end">%</InputAdornment>,
-              }}
               disabled={
                 this.state.configuration.auto_cancellation_type ===
                 WaitingListAutoCancellation.dumb
               }
+              fullWidth={false}
+              InputProps={{
+                inputProps: { min: 10, step: 1, max: 100 },
+                endAdornment: <InputAdornment position="end">%</InputAdornment>,
+              }}
               onChange={(ev) =>
                 this.handleChange('smart_delay_percentage')(
                   parseInt(ev.target.value, 10),
                 )
               }
+              value={this.state.configuration.smart_delay_percentage}
             />
           </div>
         </fieldset>
@@ -290,8 +290,8 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
   render() {
     const { classes, t } = this.props;
     return (
-      <form onSubmit={this.onSubmit} className={classes.root}>
-        <FormControl component="fieldset" className={classes.formControl}>
+      <form className={classes.root} onSubmit={this.onSubmit}>
+        <FormControl className={classes.formControl} component="fieldset">
           <div className={classes.field}>
             <FormControlLabel
               control={
@@ -308,9 +308,9 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
               label={t('form.is_option_blocking.label')}
             />
             <Typography
-              variant="caption"
               className={classes.helperText}
               color="textSecondary"
+              variant="caption"
             >
               {t('form.is_option_blocking.helper')}
             </Typography>
@@ -330,9 +330,9 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
               label={t('form.check_credit.label')}
             />
             <Typography
-              variant="caption"
               className={classes.helperText}
               color="textSecondary"
+              variant="caption"
             >
               {t('form.check_credit.helper')}
             </Typography>
@@ -341,27 +341,27 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
           <FormControl className={classes.field} component="fieldset">
             <FormLabel component="div">{t('form.dynamic.label')}</FormLabel>
             <RadioGroup
+              row
+              aria-label="position"
+              defaultValue="right"
               onChange={(ev) =>
                 this.handleChange('dynamic')(parseInt(ev.target.value, 10))
               }
               value={`${this.state.configuration.dynamic}`}
-              row
-              aria-label="position"
-              defaultValue="right"
             >
               <FormControlLabel
-                value={`${WAITING_LIST_DYNAMIC_ORDERED}`}
                 control={<Radio color="primary" />}
                 label={t(`form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.label`)}
                 labelPlacement="right"
+                value={`${WAITING_LIST_DYNAMIC_ORDERED}`}
               />
               <FormControlLabel
-                value={`${WAITING_LIST_DYNAMIC_UNORDERED}`}
                 control={<Radio color="primary" />}
                 label={t(
                   `form.dynamic.${WAITING_LIST_DYNAMIC_UNORDERED}.label`,
                 )}
                 labelPlacement="right"
+                value={`${WAITING_LIST_DYNAMIC_UNORDERED}`}
               />
             </RadioGroup>
           </FormControl>
@@ -385,10 +385,10 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
           </div>
         </FormControl>
         <Button
-          variant="contained"
           color="primary"
-          type="submit"
           disabled={this.compareStateToProps()}
+          type="submit"
+          variant="contained"
         >
           {t('form.submit')}
         </Button>

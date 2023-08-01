@@ -110,19 +110,19 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
     return (
       <div className={this.props.classes.container}>
         <SubscriptionPayment
-          isExcludingTax={this.props.theme?.is_tax_excluded_in_marketplace}
-          onSubmit={this.switchPaymentMethod}
-          onCancel={this.onCancel}
           enabledPaymentGroupMethodIdentifier={
             this.props.theme?.payment_method_available_subscription || []
           }
-          refreshSavedPaymentMethodList={this.fetchPaymentMethods}
+          isExcludingTax={this.props.theme?.is_tax_excluded_in_marketplace}
           member={this.props.member}
+          onCancel={this.onCancel}
+          onSubmit={this.switchPaymentMethod}
           processing={this.state.processing}
-          savedPaymentMethodList={this.props.savedPaymentMethodList}
+          refreshSavedPaymentMethodList={this.fetchPaymentMethods}
           requestSetupIntentSecret={this.requestSetupIntentSecret}
-          sepaDefaultName={this.props.member ? this.props.member.name : ''}
+          savedPaymentMethodList={this.props.savedPaymentMethodList}
           sepaDefaultEmail={this.props.member ? this.props.member.email : ''}
+          sepaDefaultName={this.props.member ? this.props.member.name : ''}
         />
       </div>
     );

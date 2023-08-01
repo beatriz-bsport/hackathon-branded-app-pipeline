@@ -243,15 +243,12 @@ export class PrivatePassDetails extends Component<Props> {
       : null;
     if (!this.props.privatePass) return <BackofficeLinearProgress />;
     return (
-      <Grid container spacing={3} alignItems="stretch">
-        <Grid item xs={12} md={6} className={classes.privatePassDetail}>
+      <Grid container alignItems="stretch" spacing={3}>
+        <Grid item className={classes.privatePassDetail} md={6} xs={12}>
           {privatePass && (
             <>
               <PrivatePassCard
-                pass={privatePass}
-                privatePassCategory={privatePassCategory}
-                snackbarSuccess={this.props.snackbarSuccess}
-                onEditButtonClick={() => this.props.setOpenEditForm(true)}
+                isManager
                 onDeleteButtonClick={
                   !this.props.privatePass?.template_instance &&
                   (() => {
@@ -259,50 +256,52 @@ export class PrivatePassDetails extends Component<Props> {
                     this.props.setOpenDeletePassDialog(privatePass.id);
                   })
                 }
-                isManager
+                onEditButtonClick={() => this.props.setOpenEditForm(true)}
+                pass={privatePass}
+                privatePassCategory={privatePassCategory}
+                snackbarSuccess={this.props.snackbarSuccess}
               />
               <div className={classes.compatiblePSCard}>
                 <PrivatePassCompatibleServiceList
-                  privateServices={this.props.private_services}
-                  deleteCompatibleServicePass={
-                    this.props.deleteCompatibleServicePass
-                  }
+                  isManager
+                  compatibleServicePass={this.props.compatibleServicePass}
                   createCompatibleServicePass={
                     this.props.createCompatibleServicePass
                   }
+                  deleteCompatibleServicePass={
+                    this.props.deleteCompatibleServicePass
+                  }
+                  pass={this.props.privatePass}
+                  privateServices={this.props.private_services}
                   updateCompatibleServicePass={
                     this.props.updateCompatibleServicePass
                   }
-                  compatibleServicePass={this.props.compatibleServicePass}
-                  pass={this.props.privatePass}
-                  isManager
                 />
               </div>
             </>
           )}
           <MarketingRuleListItemPrivatePass
-            private_pass={this.props.privatePass}
-            notifications={this.props.notifications}
-            getEmails={this.props.fetchEmailTemplatesSummaries}
-            emails={this.props.email_templates_list}
-            getEmailDetail={this.props.fetchEmailTemplateDetail}
+            is_expired
+            createNotification={this.createNotification}
+            deleteNotification={this.props.deleteMarketingNotification}
+            emailDetailLoading={this.props.emailDetailLoading}
             emailDetails={this.props.email_templates_details}
             emailListLoading={this.props.emailListLoading}
-            emailDetailLoading={this.props.emailDetailLoading}
-            createNotification={this.createNotification}
-            updateNotification={this.props.updateMarketingNotification}
-            deleteNotification={this.props.deleteMarketingNotification}
-            smartLists={this.props.smartLists}
-            smartListLoading={this.props.smartListLoading}
+            emails={this.props.email_templates_list}
+            getEmailDetail={this.props.fetchEmailTemplateDetail}
+            getEmails={this.props.fetchEmailTemplatesSummaries}
             getSmartLists={this.props.getSmartLists}
-            is_expired
             goToSmartlist={this.props.goToSmartlist}
-            tags={this.props.tagCategories}
+            notifications={this.props.notifications}
+            private_pass={this.props.privatePass}
             resolvedGenericTags={this.props.resolvedGenericTags}
+            smartListLoading={this.props.smartListLoading}
+            smartLists={this.props.smartLists}
+            tags={this.props.tagCategories}
+            updateNotification={this.props.updateMarketingNotification}
           />
         </Grid>
         <BottomActionsButton
-          onEdit={() => this.props.setOpenEditForm(true)}
           onDelete={
             !this.props.privatePass?.template_instance &&
             (() => {
@@ -310,41 +309,42 @@ export class PrivatePassDetails extends Component<Props> {
               this.props.setOpenDeletePassDialog(this.props.id);
             })
           }
+          onEdit={() => this.props.setOpenEditForm(true)}
         />
 
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <Paper>
             <PrivateConsumerPassFilters
-              setOpenValue={this.props.setOpenValue}
-              setFiltersValue={this.props.setFilterValue}
-              open={this.props.open}
               filters={this.props.filters}
+              open={this.props.open}
+              setFiltersValue={this.props.setFilterValue}
+              setOpenValue={this.props.setOpenValue}
             />
             <Divider />
             <PaginatedConsumerPrivatePass
-              privatePass={this.props.privatePass}
-              incrementCredit={
-                this.props.privatePass?.template_instance &&
-                this.props.incrementCredit
-              }
+              consumerPrivatePassUpdating={this.props.consumerPass.updating}
               decrementCredit={
                 this.props.privatePass?.template_instance &&
                 this.props.decrementCredit
               }
-              items={this.props.consumerPass.items}
-              updatePrivateConsumerPassCredits={
-                this.props.updatePrivateConsumerPassCredits
+              incrementCredit={
+                this.props.privatePass?.template_instance &&
+                this.props.incrementCredit
               }
+              itemPerPage={CONSUMER_PrivatePass_PAGINATION_SIZE}
+              items={this.props.consumerPass.items}
+              loading={this.props.consumerPass.loading}
               nbItems={this.props.consumerPass.count}
               onClick={(cpp: { member: { id: number }; id: number }) => {
                 this.props.goToConsumerPrivatePassDetail(cpp.member.id, cpp.id);
               }}
-              loading={this.props.consumerPass.loading}
-              page={this.props.consumerPass.page}
-              consumerPrivatePassUpdating={this.props.consumerPass.updating}
-              itemPerPage={CONSUMER_PrivatePass_PAGINATION_SIZE}
               onPageRequested={(page: number, pageSize: number) =>
                 this.props.fetchConsumerPrivatePassWithMember(page, pageSize)
+              }
+              page={this.props.consumerPass.page}
+              privatePass={this.props.privatePass}
+              updatePrivateConsumerPassCredits={
+                this.props.updatePrivateConsumerPassCredits
               }
             />
           </Paper>
@@ -360,12 +360,12 @@ export class PrivatePassDetails extends Component<Props> {
                 </Typography>
                 <Divider className={this.props.classes.divider} />
                 <PrivatePassMassExtensionList
-                  items={this.props.massExtension.items}
-                  nbItems={this.props.massExtension.count}
                   firstLoadDone={this.props.massExtension.firstLoadDone}
-                  loading={this.props.massExtension.loading}
-                  page={this.props.massExtension.page}
                   itemPerPage={MASS_EXTENSION_PAGINATION_SIZE}
+                  items={this.props.massExtension.items}
+                  loading={this.props.massExtension.loading}
+                  nbItems={this.props.massExtension.count}
+                  onDelete={this.onDeleteMassExtension}
                   onPageRequested={(page, page_size) => {
                     this.props.fetchPrivatePassMassExtensionList({
                       privatePass: this.props.id,
@@ -373,7 +373,7 @@ export class PrivatePassDetails extends Component<Props> {
                       page_size,
                     });
                   }}
-                  onDelete={this.onDeleteMassExtension}
+                  page={this.props.massExtension.page}
                 />
               </React.Fragment>
             )}
@@ -383,9 +383,9 @@ export class PrivatePassDetails extends Component<Props> {
                   <CircularProgress />
                 ) : (
                   <Button
-                    variant="outlined"
                     color="primary"
                     onClick={() => this.props.setOpenMassExtensionDialog(true)}
+                    variant="outlined"
                   >
                     {this.props.t('paymentPack:massExtension.title')}
                   </Button>
@@ -396,27 +396,27 @@ export class PrivatePassDetails extends Component<Props> {
         </Grid>
 
         <GenericResponsiveDrawer
-          open={this.props.openEditForm}
           onClose={() => this.props.setOpenEditForm(false)}
-          title={this.props.t('privatePass.form.title')}
+          open={this.props.openEditForm}
           subtitle={this.props.privatePass?.name}
+          title={this.props.t('privatePass.form.title')}
+          trackingObjectId={this.props.privatePass?.id}
           trackingObjectIdentifier={
             SegmentAnalyticsFormObjectIdentifier.PrivatePass
           }
-          trackingObjectId={this.props.privatePass?.id}
         >
           <PrivatePassForm
-            provincialTax={this.props.theme?.provincial_tax_value}
-            privatePassCategories={this.props.privatePassCategories}
+            compatibleServicePass={this.props.compatibleServicePass}
+            creditScaleFactor={this.props.theme.pass_credit_factor}
             initial={getFormInitial(
               this.props.privatePass,
               this.props.compatibleServicePass,
             )}
-            onSubmit={(data: any) => this.props.onSubmit(data)}
             onCancel={() => this.props.setOpenEditForm(false)}
+            onSubmit={(data: any) => this.props.onSubmit(data)}
+            privatePassCategories={this.props.privatePassCategories}
             privateServices={this.props.private_services}
-            compatibleServicePass={this.props.compatibleServicePass}
-            creditScaleFactor={this.props.theme.pass_credit_factor}
+            provincialTax={this.props.theme?.provincial_tax_value}
           />
         </GenericResponsiveDrawer>
 
@@ -427,9 +427,9 @@ export class PrivatePassDetails extends Component<Props> {
               ?.used_in_combo && (
               <DialogContentText className={classes.warningDelete}>
                 <WarningIcon
-                  fontSize="large"
-                  color="error"
                   className={classes.warningIcon}
+                  color="error"
+                  fontSize="large"
                 />
                 <Typography>{t('privatePass.delete.warning')}</Typography>
               </DialogContentText>
@@ -452,9 +452,9 @@ export class PrivatePassDetails extends Component<Props> {
 
         {!this.props.privatePass?.template_instance && (
           <PaymentPackMassExtensionDialog
-            open={this.props.openMassExtensionDialog}
             onClose={() => this.props.setOpenMassExtensionDialog(false)}
             onSubmit={this.createMassExtension}
+            open={this.props.openMassExtensionDialog}
           />
         )}
       </Grid>

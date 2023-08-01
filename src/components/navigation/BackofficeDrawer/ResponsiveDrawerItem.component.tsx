@@ -30,9 +30,9 @@ class Wrapper extends React.PureComponent<WrapperProp> {
       return (
         <Link
           key={i}
-          to={item.to}
-          style={{ textDecoration: 'none' }}
           className={item.className || ''}
+          style={{ textDecoration: 'none' }}
+          to={item.to}
         >
           {children}
         </Link>
@@ -108,16 +108,16 @@ export const DrawerItemComponent: React.FC<Props> = ({
     return (
       <React.Fragment key={item.text}>
         <ListItem
-          id="button_menu_item"
           button
+          dense={item?.dense || isNested}
+          id="button_menu_item"
           onClick={handleToggle(i, item)}
           selected={isActive}
-          dense={item?.dense || isNested}
         >
           <ResponsiveDrawerListItemIcon
-            item={item}
             iconsOnly={iconsOnly}
             isNested={isNested}
+            item={item}
             nbTutorialAlerting={nbTutorialAlerting}
           />
 
@@ -136,30 +136,30 @@ export const DrawerItemComponent: React.FC<Props> = ({
           )}
         </ListItem>
         <Collapse
-          in={toggledMenu[i]}
           key={`${i}-collapse`}
-          timeout="auto"
           unmountOnExit
+          in={toggledMenu[i]}
+          timeout="auto"
         >
           <List disablePadding className={classes.nestedList}>
             {item?.nestedItems.map((subitem: DrawerItem, subi: number) => (
               <DrawerItemComponent
                 key={`responsive_drawer_item_nested${subi}`}
-                item={subitem}
                 isNested
-                i={subi}
-                permissions={permissions}
-                location={location}
                 handleToggle={handleToggle}
-                toggledMenu={toggledMenu}
-                onMenuItemClick={onMenuItemClick}
+                i={subi}
+                iconsOnly={iconsOnly}
+                item={subitem}
+                location={location}
                 nbTutorialAlerting={nbTutorialAlerting}
+                onMenuItemClick={onMenuItemClick}
+                permissions={permissions}
+                toggledMenu={toggledMenu}
+                tutorialDialogOpen={tutorialDialogOpen}
+                updateUserAcknowlegdeTutorial={updateUserAcknowlegdeTutorial}
                 userAcknowlegdePlatformTutorial={
                   userAcknowlegdePlatformTutorial
                 }
-                updateUserAcknowlegdeTutorial={updateUserAcknowlegdeTutorial}
-                tutorialDialogOpen={tutorialDialogOpen}
-                iconsOnly={iconsOnly}
               />
             ))}
           </List>
@@ -173,18 +173,18 @@ export const DrawerItemComponent: React.FC<Props> = ({
   }
 
   return (
-    <Wrapper item={item} i={i} key={item.text}>
+    <Wrapper key={item.text} i={i} item={item}>
       <DrawerListItem
-        item={item}
-        onMenuItemClick={onMenuItemClick}
-        isNested={isNested}
-        nbTutorialAlerting={nbTutorialAlerting}
-        isActive={isActive}
-        toggledMenu={toggledMenu}
-        userAcknowlegdePlatformTutorial={userAcknowlegdePlatformTutorial}
-        updateUserAcknowlegdeTutorial={updateUserAcknowlegdeTutorial}
-        tutorialDialogOpen={tutorialDialogOpen}
         iconsOnly={iconsOnly}
+        isActive={isActive}
+        isNested={isNested}
+        item={item}
+        nbTutorialAlerting={nbTutorialAlerting}
+        onMenuItemClick={onMenuItemClick}
+        toggledMenu={toggledMenu}
+        tutorialDialogOpen={tutorialDialogOpen}
+        updateUserAcknowlegdeTutorial={updateUserAcknowlegdeTutorial}
+        userAcknowlegdePlatformTutorial={userAcknowlegdePlatformTutorial}
       />
     </Wrapper>
   );

@@ -239,10 +239,10 @@ export class CalendarPicker extends Component<Props, State> {
       <div className={classes.dateTabContainer}>
         <div className={classes.dateTabSelector}>
           <Select
-            value={this.state.date_filter_type}
             onChange={(ev) => {
               this.setState({ date_filter_type: ev.target.value });
             }}
+            value={this.state.date_filter_type}
           >
             {(this.props.overrideDateList || DATE_LIST).map((item) => (
               <MenuItem key={item} value={item}>
@@ -253,9 +253,9 @@ export class CalendarPicker extends Component<Props, State> {
         </div>
 
         <MuiPickersUtilsProvider
-          utils={MomentUtils}
-          moment={moment}
           locale={moment.locale()}
+          moment={moment}
+          utils={MomentUtils}
         >
           <div className={classes.calendarsContainer}>
             <BasePicker>
@@ -263,12 +263,12 @@ export class CalendarPicker extends Component<Props, State> {
                 <div className={classes.picker}>
                   <Calendar
                     autoOk
+                    date={date ? moment(date, 'YYYY-MM-DD') : moment()}
                     maxDate={
                       this.state.date_filter_type === DATE_BETWEEN
                         ? moment(date_second, 'YYYY-MM-DD')
                         : undefined
                     }
-                    date={date ? moment(date, 'YYYY-MM-DD') : moment()}
                     onChange={(ev) =>
                       this.setState({
                         date: ev.format('YYYY-MM-DD'),
@@ -283,12 +283,12 @@ export class CalendarPicker extends Component<Props, State> {
                 {() => (
                   <div className={classes.picker}>
                     <Calendar
-                      minDate={moment(date)}
                       date={
                         date_second
                           ? moment(date_second, 'YYYY-MM-DD')
                           : moment()
                       }
+                      minDate={moment(date)}
                       onChange={(ev) =>
                         this.setState({
                           date_second: ev.format('YYYY-MM-DD'),
@@ -354,10 +354,10 @@ export class CalendarPicker extends Component<Props, State> {
     return (
       <div className={classes.durationContainer}>
         <Select
-          value={this.state.date_filter_type}
           onChange={(ev) =>
             this.setState({ date_filter_type: ev.target.value })
           }
+          value={this.state.date_filter_type}
         >
           {DURATION_LIST.map((item) => (
             <MenuItem key="afterDate" value={item}>
@@ -373,7 +373,6 @@ export class CalendarPicker extends Component<Props, State> {
           </Typography>
           <NumericInput
             classes={classes}
-            value={this.state.duration}
             onChange={(ev) => {
               if (ev.target.value < 0) {
                 this.setState((prevState) => ({
@@ -387,6 +386,7 @@ export class CalendarPicker extends Component<Props, State> {
                 this.setState({ duration_second: Math.abs(ev.target.value) });
               }
             }}
+            value={this.state.duration}
           />
           {this.state.date_filter_type === DURATION_BETWEEN ? (
             <Typography variant="body2">
@@ -406,7 +406,6 @@ export class CalendarPicker extends Component<Props, State> {
           this.state.date_filter_type === DURATION_BETWEEN_PAST ? (
             <NumericInput
               classes={classes}
-              value={this.state.duration_second}
               onChange={(ev) => {
                 if (ev.target.value < 0) {
                   this.setState((prevState) => ({
@@ -420,6 +419,7 @@ export class CalendarPicker extends Component<Props, State> {
                   this.setState({ duration: Math.abs(ev.target.value) });
                 }
               }}
+              value={this.state.duration_second}
             />
           ) : null}
 
@@ -452,14 +452,14 @@ export class CalendarPicker extends Component<Props, State> {
     return (
       <div className={classes.selector}>
         <ListItem
+          button
+          divider
           classes={{
             gutters: classes.gutters,
             button: classes.listItemButton,
             root: classes.root,
             divider: classes.divider,
           }}
-          button
-          divider
           onClick={this.handleClick}
         >
           <ListItemText
@@ -473,20 +473,20 @@ export class CalendarPicker extends Component<Props, State> {
           <ArrowDropDownIcon style={{ color: '#757575' }} />
         </ListItem>
         <Dialog
-          open={this.state.open}
           onClose={() =>
             this.closePopoverAndValidate(!this.props.blockValidateOnClickAway)
           }
+          open={this.state.open}
         >
           <div style={{ width: '100%' }}>
             {!this.props.hideDurationTab && (
               <div className={classes.tabs}>
                 <Tabs
-                  value={this.state.mode}
                   indicatorColor="primary"
-                  textColor="primary"
                   onChange={(ev, value) => this.switchTabs(value)}
                   style={{ width: '100%', overflowX: 'hidden' }}
+                  textColor="primary"
+                  value={this.state.mode}
                   variant="fullWidth"
                 >
                   <Tab label={t('filters.calendarPicker.dateTitle')} />
@@ -495,15 +495,15 @@ export class CalendarPicker extends Component<Props, State> {
               </div>
             )}
             <SwipeableViews
-              ignoreNativeScroll
               animateHeight
+              ignoreNativeScroll
               axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-              index={this.state.mode}
-              onChangeIndex={this.handleChangeIndex}
               containerStyle={{
                 marginTop: '24px',
                 marginBottom: '24px',
               }}
+              index={this.state.mode}
+              onChangeIndex={this.handleChangeIndex}
             >
               {this.renderDateTab()}
               {this.renderDurationTab()}
@@ -511,17 +511,17 @@ export class CalendarPicker extends Component<Props, State> {
           </div>
           <div className={classes.buttonContainer}>
             <Button
-              color="secondary"
-              variant="outlined"
-              onClick={() => this.closePopoverAndValidate(false)}
               className={classes.cancelButton}
+              color="secondary"
+              onClick={() => this.closePopoverAndValidate(false)}
+              variant="outlined"
             >
               {t('modal.delete.cancel')}
             </Button>
             <Button
               color="primary"
-              variant="outlined"
               onClick={() => this.closePopoverAndValidate(true)}
+              variant="outlined"
             >
               {t('modal.validate')}
             </Button>

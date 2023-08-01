@@ -37,18 +37,15 @@ const PopOver = (props: Props) => {
   return (
     <div data-testid="popover-container">
       <div
-        onMouseOver={handlePopoverOpen}
-        onFocus={handleVoid}
-        onBlur={handleVoid}
-        onMouseOut={handlePopoverClose}
         id="hovered-text"
+        onBlur={handleVoid}
+        onFocus={handleVoid}
+        onMouseOut={handlePopoverClose}
+        onMouseOver={handlePopoverOpen}
       >
         {props.children}
       </div>
       <Popover
-        id="mouse-over-popover"
-        className={classes.popover}
-        open={open}
         anchorEl={anchorEl}
         anchorOrigin={
           props.anchorOrigin ?? {
@@ -56,21 +53,24 @@ const PopOver = (props: Props) => {
             horizontal: 'left',
           }
         }
+        className={classes.popover}
+        id="mouse-over-popover"
+        onClose={handlePopoverClose}
+        open={open}
+        PaperProps={{
+          className: classes.popoverPaper,
+        }}
         transformOrigin={
           props.transformOrigin ?? {
             vertical: 'top',
             horizontal: 'left',
           }
         }
-        onClose={handlePopoverClose}
-        PaperProps={{
-          className: classes.popoverPaper,
-        }}
       >
         <Typography
           className={classNames(classes.popoverText, props.className)}
-          id="popover"
           data-testid="popoverid"
+          id="popover"
         >
           {props.title}
         </Typography>

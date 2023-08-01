@@ -40,46 +40,46 @@ type Props = {
 
 export const PrivateServiceDetail = (props: Props) => {
   return (
-    <Grid container spacing={2} direction="row">
+    <Grid container direction="row" spacing={2}>
       <Grid item md={6} xs={12}>
         <PrivateServiceCard
-          privateService={props.privateService}
-          deletePrivateSlot={props.deletePrivateSlot}
           createOrUpdatePrivateSlot={props.createOrUpdatePrivateSlot}
+          deletePrivateSlot={props.deletePrivateSlot}
+          privateService={props.privateService}
         />
         <PrivateBookingNotification
-          notifications={props.notifications}
-          serviceId={props.privateService.id}
-          getEmails={props.getEmails}
-          emails={props.emails}
-          getEmailDetail={props.getEmailDetail}
+          createNotification={props.createNotification}
+          deleteNotification={props.deleteNotification}
+          emailDetailLoading={props.emailDetailLoading}
           emailDetails={props.emailDetails}
           emailListLoading={props.emailListLoading}
-          emailDetailLoading={props.emailDetailLoading}
-          createNotification={props.createNotification}
-          updateNotification={props.updateNotification}
-          deleteNotification={props.deleteNotification}
-          goToSmartlist={props.goToSmartlist}
+          emails={props.emails}
+          getEmailDetail={props.getEmailDetail}
+          getEmails={props.getEmails}
           getSmartLists={props.getSmartLists}
+          goToSmartlist={props.goToSmartlist}
+          notifications={props.notifications}
+          serviceId={props.privateService.id}
           smartLists={props.smartLists}
+          updateNotification={props.updateNotification}
         />
       </Grid>
       <Grid item md={6} xs={12}>
         <PrivateSlotEditableList
-          privateService={props.privateService}
-          deletePrivateSlot={props.deletePrivateSlot}
           createPrivateSlot={props.createOrUpdatePrivateSlot}
+          deletePrivateSlot={props.deletePrivateSlot}
+          privateService={props.privateService}
           updatePrivateSlot={props.createOrUpdatePrivateSlot}
         />
         <PrivateServiceConfigurationChecker
-          privateService={props.privateService}
           getResourceSlotsExistState={props.getResourceSlotsExistState}
-          switchServiceHasOwnAvailabilitySlots={
-            props.switchServiceHasOwnAvailabilitySlots
-          }
           goToCoachCalendar={props.goToCoachCalendar}
           goToEstablishmentCalendar={props.goToEstablishmentCalendar}
           goToPrivateServiceCalendar={props.goToPrivateServiceCalendar}
+          privateService={props.privateService}
+          switchServiceHasOwnAvailabilitySlots={
+            props.switchServiceHasOwnAvailabilitySlots
+          }
         />
       </Grid>
     </Grid>

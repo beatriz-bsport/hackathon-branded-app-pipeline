@@ -58,7 +58,7 @@ const PaymentPackMassExtensionDialog: React.FC<Props> = (props) => {
   }, [minDate, maxDate, nbDays, note, onSubmit]);
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+    <Dialog fullWidth maxWidth="sm" onClose={onClose} open={open}>
       <DialogTitle>{`${t('massExtension.title')}`}</DialogTitle>
       <DialogContent>
         <DialogContentText className={classes.helpTextContainer}>
@@ -75,51 +75,51 @@ const PaymentPackMassExtensionDialog: React.FC<Props> = (props) => {
         <div className={classes.dateContainer}>
           <DateInput
             className={classes.dateInput}
-            label={t('massExtension.minDate')}
-            type="date"
-            value={minDate}
-            onChange={(value: string) => setMinDate(value)}
             InputLabelProps={{
               shrink: true,
             }}
+            label={t('massExtension.minDate')}
+            onChange={(value: string) => setMinDate(value)}
+            type="date"
+            value={minDate}
           />
           <DateInput
             className={classes.dateInput}
-            label={t('massExtension.maxDate')}
-            type="date"
-            value={maxDate}
-            onChange={(value: string) => setMaxDate(value)}
             InputLabelProps={{
               shrink: true,
             }}
+            label={t('massExtension.maxDate')}
+            onChange={(value: string) => setMaxDate(value)}
+            type="date"
+            value={maxDate}
           />
         </div>
 
         <NumericInput
-          classes={{ textInput: classes.marginTop }}
-          value={nbDays}
           fullWidth
-          label={t('extension.create.nbDays.label')}
-          onChange={(ev: any) => setNbDays(ev.target.value)}
+          classes={{ textInput: classes.marginTop }}
           InputProps={{
             inputProps: { step: 1, min: 0 },
           }}
+          label={t('extension.create.nbDays.label')}
+          onChange={(ev: any) => setNbDays(ev.target.value)}
+          value={nbDays}
         />
         <TextField
-          className={classes.marginTop}
-          variant="outlined"
-          value={note}
           fullWidth
+          className={classes.marginTop}
           inputProps={{ maxLength: 42 }}
           label={t('extension.create.note.label')}
           onChange={(ev) => setNote(ev.target.value)}
+          value={note}
+          variant="outlined"
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} variant="outlined" color="secondary">
+        <Button color="secondary" onClick={onClose} variant="outlined">
           {t('massExtension.cancel')}
         </Button>
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
+        <Button color="primary" onClick={handleSubmit} variant="contained">
           {t('massExtension.submit')}
         </Button>
       </DialogActions>

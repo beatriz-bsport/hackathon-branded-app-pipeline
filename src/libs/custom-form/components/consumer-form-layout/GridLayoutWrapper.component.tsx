@@ -26,24 +26,24 @@ export const GridLayoutWrapper = (props: Props) => {
   return (
     <div className={props.isEditing ? 'isEditing' : null}>
       <ResponsiveGridLayout
-        isDraggable={props.isEditing || false}
-        isResizable={props.isEditing || false}
-        className="layout"
         breakpoints={{
           lg: theme.breakpoints.values.lg,
           md: theme.breakpoints.values.md,
           sm: theme.breakpoints.values.sm,
           xs: 375,
         }}
+        className="layout"
         cols={{ lg: 12, md: 12, sm: 12, xs: 12 }}
+        compactType="horizontal"
+        customProviderWidth={props.customProviderWidth}
+        isDraggable={props.isEditing || false}
+        isResizable={props.isEditing || false}
         layouts={props.layouts}
         onLayoutChange={(l: Array<Layout>, allLayouts: ResponsiveLayouts) => {
           props.onLayoutChange && props.onLayoutChange(l, allLayouts);
         }}
-        rowHeight={50}
         resizeHandles={['s', 'n', 'se']}
-        customProviderWidth={props.customProviderWidth}
-        compactType="horizontal"
+        rowHeight={50}
       >
         {props.children}
       </ResponsiveGridLayout>

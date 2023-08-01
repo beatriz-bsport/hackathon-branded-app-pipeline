@@ -75,8 +75,8 @@ const MarketplaceCouponFormModal: React.FC<Props> = ({
   return (
     <>
       {isOpen && (
-        <div className="bs-coupon-form__backdrop" ref={dialogRef}>
-          <div className="bs-coupon-form__dialog" ref={modalRef}>
+        <div ref={dialogRef} className="bs-coupon-form__backdrop">
+          <div ref={modalRef} className="bs-coupon-form__dialog">
             <Formik initialValues={initialValues} onSubmit={handleOnSubmit}>
               <Form className="bs-coupon-form__container">
                 <Field
@@ -95,8 +95,8 @@ const MarketplaceCouponFormModal: React.FC<Props> = ({
                 <div className="bs-coupon-form__actions">
                   <button
                     className="bs-coupon-form__button"
-                    type="button"
                     onClick={handleOnCancel}
+                    type="button"
                   >
                     {t('common:cancel')}
                   </button>

@@ -213,10 +213,10 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
   if (loading) {
     return (
       <Skeleton
-        id="bs-offer-list-group-item--loading"
         animation="pulse"
-        width="100%"
         height={156}
+        id="bs-offer-list-group-item--loading"
+        width="100%"
       />
     );
   }
@@ -238,6 +238,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
             !theme?.show_activity_color || !metaActivity.color,
           '--hidden-book-button': theme?.hide_book_button,
         })}
+        onClick={theme?.hide_book_button && handleClick}
         style={{
           borderLeftWidth:
             theme?.show_activity_color && metaActivity.color ? 5 : 1,
@@ -248,7 +249,6 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
             metaActivity.color,
         }}
         type="button"
-        onClick={theme?.hide_book_button && handleClick}
       >
         <div className="bs-offer-list-group-item__left">
           <div className="bs-offer-list-group-item__left__title">
@@ -283,18 +283,18 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
             return (
               <MarketplaceEstablishmentTitle
                 key={establishment.id}
-                establishment={establishment}
-                theme={theme}
                 classes={{
                   'bs-offer-list-group-item__establishment':
                     'bs-offer-list-group-item__establishment',
                 }}
+                establishment={establishment}
                 icon={
                   <RoomIcon
-                    color="disabled"
                     className="bs-offer-list-group-item__left__icon"
+                    color="disabled"
                   />
                 }
+                theme={theme}
               />
             );
           })}
@@ -308,18 +308,18 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
               return (
                 <MarketplaceCoachInfos
                   key={coach.id}
-                  theme={theme}
-                  hideCoach={hideCoach}
-                  coach={coach}
-                  offer={offer}
                   classes={{
                     'bs-offer-list-group-item__offer__subtitle':
                       'bs-offer-list-group-item__offer__subtitle',
                   }}
+                  coach={coach}
                   coachPictureClasses={{
                     'bs-offer-list-group-item__offer__coach':
                       'bs-offer-list-group-item__offer__coach',
                   }}
+                  hideCoach={hideCoach}
+                  offer={offer}
+                  theme={theme}
                 />
               );
             })}
@@ -327,15 +327,16 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
         <div className="bs-offer-list-group-item__right">
           <div className="bs-offer-list-group-item__right__row">
             <MarketPlaceLevel
-              hideLevel={!theme.show_level}
-              customLevel={customLevel}
               className="bs-offer-list-group-item__right__row__level"
+              customLevel={customLevel}
+              hideLevel={!theme.show_level}
             />
           </div>
           {group?.full_booking_only && firstOfferToBeBooked && (
             <>
               {theme?.hide_book_button ? (
                 <MarketplaceOfferStatusChip
+                  showLabel
                   companyTheme={theme}
                   isRegistered={isRegisteredInOnOfferInGroup}
                   metaActivity={metaActivity}
@@ -344,11 +345,9 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                     full: groupIsFull,
                     group,
                   }}
-                  showLabel
                 />
               ) : (
                 <button
-                  type="button"
                   className={classNames(
                     'bs-offer-list-group-item__right__row__button',
                     {
@@ -361,6 +360,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                     },
                   )}
                   onClick={handleClick}
+                  type="button"
                 >
                   {isRegisteredInOnOfferInGroup && (
                     <DoneAllIcon className="bs-book-button-card__inner__icon__already-booked" />
@@ -395,18 +395,18 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
         <Dialog
           disablePortal
           open
-          onClose={() => {
-            setOpenModal(false);
-          }}
           classes={{
             paper: 'bs-offer-dialog',
+          }}
+          onClose={() => {
+            setOpenModal(false);
           }}
         >
           <div className="bs-offer-dialog__content">
             <CardMedia
               className="bs-offer-dialog__content__media"
-              src={metaActivity.cover_main}
               component="img"
+              src={metaActivity.cover_main}
             />
             <div className="bs-offer-dialog__content__inner">
               <div className="bs-offer-dialog__content__inner__title">
@@ -432,33 +432,33 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                   return (
                     <MarketplaceOfferListItem
                       key={offer.id}
-                      offer={{
-                        ...offer,
-                        meta_activity: metaActivity,
-                        group,
-                      }}
-                      metaActivity={metaActivity}
-                      establishment={getEstablishment(offer.establishment)}
+                      isWorkshop
                       coach={getCoach(offer.coach_override || offer.coach)}
+                      establishment={getEstablishment(offer.establishment)}
                       getLevel={getLevel}
-                      showOfferFilling={showOfferFilling}
-                      showOfferGender={showOfferGender}
-                      theme={theme}
                       hideCoach={hideCoach}
-                      loading={false}
-                      onBookOption={handleBook()}
-                      onBook={handleBookOption()}
-                      onClick={handleBook}
-                      withoutCTA={group.full_booking_only}
                       isRegistered={
                         bookedOffers?.length
                           ? bookedOffers.includes(offer.id)
                           : false
                       }
-                      isWorkshop
-                      variant="time"
+                      loading={false}
+                      metaActivity={metaActivity}
+                      offer={{
+                        ...offer,
+                        meta_activity: metaActivity,
+                        group,
+                      }}
+                      onBook={handleBookOption()}
+                      onBookOption={handleBook()}
+                      onClick={handleBook}
                       position={position}
+                      showOfferFilling={showOfferFilling}
+                      showOfferGender={showOfferGender}
+                      theme={theme}
+                      variant="time"
                       withoutBookButton={withoutBookButton}
+                      withoutCTA={group.full_booking_only}
                     />
                   );
                 })}
@@ -480,7 +480,6 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                 'bs-offer-dialog__content__buttons__book--disabled':
                   disableBookGroupButton(),
               })}
-              type="button"
               onClick={() => {
                 if (disableBookGroupButton()) return;
                 if (firstBookableOffer?.available) {
@@ -490,6 +489,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                   handleBookOption()(firstBookableOffer);
                 }
               }}
+              type="button"
             >
               {t('marketplace.book')}
             </button>

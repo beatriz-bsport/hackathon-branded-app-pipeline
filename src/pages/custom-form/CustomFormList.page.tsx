@@ -130,27 +130,27 @@ export class CustomFormListPage extends React.Component<Props, State> {
         {(!customFormList ||
           (customFormList && customFormList.length === 0)) && (
           <IsEmptyList
-            text={t('customForm.noCustomForm')}
             button={t('customForm.addCustomFrom')}
             onCreate={() => this.props.setOpenCreateDialog(true)}
+            text={t('customForm.noCustomForm')}
           />
         )}
 
         <Grid container direction="row" spacing={3}>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             {customFormList && customFormList.length > 0 ? (
               <>
                 <div className={classes.search}>
                   <FuzeSearch
-                    searchText={this.state.searchText}
-                    clearSearch={this.clearSearch}
                     changeSearch={this.changeSearch}
+                    clearSearch={this.clearSearch}
                     items={customFormList.filter(
                       (customform: CustomForm) => !customform.disabled,
                     )}
                     placeholder={this.props.t('customForm.search')}
                     searchFields={['name', 'description']}
                     searchResult={this.state.searchResult}
+                    searchText={this.state.searchText}
                   />
                   <Paper
                     className={
@@ -167,35 +167,35 @@ export class CustomFormListPage extends React.Component<Props, State> {
                       }
                     >
                       <List
-                        component="nav"
                         disablePadding
                         className={classes.list}
+                        component="nav"
                       >
                         {this.state.searchResult
                           .filter((form) => !form.disabled)
                           .map((customform) => (
                             <CustomFormListItem
                               key={customform.id}
+                              divider
+                              showQuestionCount
+                              stopPropagation
+                              customform={customform}
                               onClick={(id: number) => this.selected(id)}
-                              onClickEdit={this.props.goToEdit}
                               onClickDelete={(id) => {
                                 this.props.setCustomFormSelected(null);
                                 this.props.disableCustomForm(id);
                               }}
-                              selected={
-                                this.props.customFormSelected &&
-                                customform.id === this.props.customFormSelected
-                              }
-                              customform={customform}
                               onClickDuplicate={(id) =>
                                 this.props.duplicateCustomForm(id, {
                                   onSuccess: (payload) =>
                                     this.props.goToEdit(payload.id),
                                 })
                               }
-                              divider
-                              stopPropagation
-                              showQuestionCount
+                              onClickEdit={this.props.goToEdit}
+                              selected={
+                                this.props.customFormSelected &&
+                                customform.id === this.props.customFormSelected
+                              }
                             />
                           ))}
                       </List>
@@ -211,8 +211,8 @@ export class CustomFormListPage extends React.Component<Props, State> {
                       customFormList={customFormList.filter(
                         (form: CustomForm) => !form.disabled,
                       )}
+                      customFormSelected={this.props.customFormSelected}
                       onClick={(id: number) => this.selected(id)}
-                      onClickEdit={(id: number) => this.props.goToEdit(id)}
                       onClickDelete={(id: number) =>
                         this.props.disableCustomForm(id)
                       }
@@ -222,7 +222,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
                             this.props.goToEdit(payload.id),
                         })
                       }
-                      customFormSelected={this.props.customFormSelected}
+                      onClickEdit={(id: number) => this.props.goToEdit(id)}
                     />
                   )}
                 </Paper>
@@ -231,13 +231,13 @@ export class CustomFormListPage extends React.Component<Props, State> {
                   <div>
                     <ButtonBase
                       className={classes.buttonTitle}
-                      onClick={this.onShowDisabled}
                       disabled={
                         customFormList &&
                         customFormList.filter(
                           (form: CustomForm) => form.disabled,
                         ).length === 0
                       }
+                      onClick={this.onShowDisabled}
                     >
                       <Typography variant="h5">
                         {`${t('customForm.disabledCustomForm')} (${
@@ -263,6 +263,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
                             customFormList={customFormList.filter(
                               (form: CustomForm) => form.disabled,
                             )}
+                            customFormSelected={this.props.customFormSelected}
                             onClick={(id: number) => {
                               this.selected(id);
                             }}
@@ -272,7 +273,6 @@ export class CustomFormListPage extends React.Component<Props, State> {
                             onRestore={(id: number) =>
                               this.props.restoreCustomForm(id)
                             }
-                            customFormSelected={this.props.customFormSelected}
                           />
                         )}
                       </Paper>
@@ -282,7 +282,7 @@ export class CustomFormListPage extends React.Component<Props, State> {
               </>
             ) : null}
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             {this.props.customFormSelected ? (
               <>
                 <div className={classes.row}>
@@ -297,28 +297,28 @@ export class CustomFormListPage extends React.Component<Props, State> {
                   </IconButton>
                 </div>
                 <Divider className={classes.divider} />
-                <Typography variant="h6" className={classes.divider}>
+                <Typography className={classes.divider} variant="h6">
                   {t('customForm.content')}
                 </Typography>
                 <div className={classes.topButton}>
                   <Button
-                    variant="contained"
                     color="primary"
                     onClick={() =>
                       this.props.goToEdit(this.props.customFormSelected)
                     }
+                    variant="contained"
                   >
                     <ArrowForwardIcon className={classes.leftIcon} />
                     {t('customForm.actions.configure')}
                   </Button>
 
                   <Button
-                    variant="contained"
+                    className={classes.button}
                     color="secondary"
                     onClick={() =>
                       this.props.goToStatistics(this.props.customFormSelected)
                     }
-                    className={classes.button}
+                    variant="contained"
                   >
                     <EqualizerIcon className={classes.leftIcon} />
                     {t('customForm.actions.statistics')}
@@ -326,16 +326,16 @@ export class CustomFormListPage extends React.Component<Props, State> {
                 </div>
                 <div className={classes.displayRulePanel}>
                   <CustomFormDisplayRulePanel
-                    customForm={this.props.customForm}
                     withItemDivider
+                    customForm={this.props.customForm}
                   />
                 </div>
                 <Typography variant="h6"> {t('customForm.preview')}</Typography>
                 <Paper className={classes.paperContainer}>
                   <CustomFormConsumerView
                     key={this.props.customFormSelected}
-                    initial={this.props.customForm}
                     asManager
+                    initial={this.props.customForm}
                   />
                 </Paper>
               </>
@@ -359,21 +359,21 @@ export class CustomFormListPage extends React.Component<Props, State> {
         {this.props.openCreateDialog && (
           <CustomFormCreateDialog
             customFormSelected={this.props.customForm}
-            open={this.props.openCreateDialog}
-            onSubmit={this.props.upsertCustomForm}
             handleClose={() => {
               this.props.setOpenCreateDialog(false);
               this.props.setCustomFormSelected(null);
             }}
+            onSubmit={this.props.upsertCustomForm}
+            open={this.props.openCreateDialog}
           />
         )}
 
         <BottomActionButtons
-          onCreateLabel={t('customForm.addCustomFrom')}
           onCreate={async () => {
             this.props.setCustomFormSelected(null);
             this.props.setOpenCreateDialog(true);
           }}
+          onCreateLabel={t('customForm.addCustomFrom')}
         />
       </div>
     );

@@ -65,16 +65,16 @@ const PrivatePassCard = (props: PrivatePassCardProps) => {
   return (
     <button
       className={classes.privatePassButtonContainer}
-      type="button"
       onClick={handleClickMobile}
+      type="button"
     >
       <MarketplacePrivatePassCard
         key={pass.id}
-        privatePass={pass}
-        isExcludingTax={isExcludingTax}
-        onOpenDetailDialog={handleOpenDetailDialog}
         addToCart={handleAddToCart}
         hideCredits={!!hideCredits}
+        isExcludingTax={isExcludingTax}
+        onOpenDetailDialog={handleOpenDetailDialog}
+        privatePass={pass}
       />
     </button>
   );
@@ -106,9 +106,9 @@ export const MarketplacePrivatePassList = (props: Props) => {
       {!!filteredPrivatePassByCategory.length && (
         <>
           <Typography
+            className={classes.sectionTitle}
             component="h3"
             variant="h6"
-            className={classes.sectionTitle}
           >
             {t('marketplace.privatePassListTitle')}
           </Typography>
@@ -121,9 +121,9 @@ export const MarketplacePrivatePassList = (props: Props) => {
               >
                 {category?.name && (
                   <Typography
+                    className={classes.sectionTitleWithDivider}
                     component="h3"
                     variant="subtitle1"
-                    className={classes.sectionTitleWithDivider}
                   >
                     {category.name}
                   </Typography>
@@ -133,11 +133,11 @@ export const MarketplacePrivatePassList = (props: Props) => {
                   {category.passes.map((pass) => (
                     <PrivatePassCard
                       key={pass.id}
-                      pass={pass}
-                      isExcludingTax={isExcludingTax}
-                      setSelectedPass={setSelectedPass}
-                      onAddBasket={onAddBasket}
                       hideCredits={!!hideCredits}
+                      isExcludingTax={isExcludingTax}
+                      onAddBasket={onAddBasket}
+                      pass={pass}
+                      setSelectedPass={setSelectedPass}
                     />
                   ))}
                 </div>

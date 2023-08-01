@@ -37,10 +37,10 @@ const CompanyChip = (props: Props) => {
       <Chip
         className={className}
         color={!(company.isAllowed === false) ? 'primary' : 'default'}
+        disabled={company.isAllowed === false}
         label={company.name}
         onDelete={company.isAllowed && onDelete}
         size={size || 'medium'}
-        disabled={company.isAllowed === false}
       />
     </MuiThemeProvider>
   );

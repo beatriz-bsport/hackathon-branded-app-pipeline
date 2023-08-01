@@ -243,9 +243,9 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
           <Typography variant="h5">{t('coach:paymentRule')}</Typography>
           <Button
             color="primary"
-            variant="contained"
-            onClick={this.props.remunerateCoach}
             id="button_teacher_remunerate"
+            onClick={this.props.remunerateCoach}
+            variant="contained"
           >
             {getCurrencyDisplay() === '€' ? (
               <EuroSymbolIcon />
@@ -257,28 +257,29 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
         </div>
 
         {!coachHasPaymentRule && (
-          <Alert severity="warning" className={classes.alert}>
+          <Alert className={classes.alert} severity="warning">
             {t('coach:detail.noPaymentRule')}
           </Alert>
         )}
 
-        <Grid item xs={12} className={classes.payrollGroup}>
+        <Grid item className={classes.payrollGroup} xs={12}>
           <Grid
             container
             direction="row"
             spacing={2}
             style={{ alignItems: 'center' }}
           >
-            <Grid item xs={12} md={4}>
+            <Grid item md={4} xs={12}>
               <Typography>
                 {t('paymentRules:coach_payment_rule_groups.dialogTitle')}
               </Typography>
             </Grid>
             <Grid item xs={8}>
               <CoachPaymentRuleSelectorStyled
+                isClearable
+                isGroupSelect
+                noMulti
                 coachPaymentRulesList={coachPaymentRuleGroups}
-                selectedRules={[coach.coach_payment_rule_group_id]}
-                placeholder={t('paymentRules:select.group')}
                 onChange={(item: { value: number; label: string }) => {
                   this.setState({
                     private_slots_coach_payment_rules: [],
@@ -293,23 +294,22 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                     });
                   }
                 }}
-                noMulti
-                isClearable
-                isGroupSelect
+                placeholder={t('paymentRules:select.group')}
+                selectedRules={[coach.coach_payment_rule_group_id]}
               />
             </Grid>
           </Grid>
           <Grid item className={classes.button}>
             <Button
-              variant="outlined"
               color="secondary"
+              disabled={!coach.coach_payment_rule_group_id}
               onClick={() => {
                 this.setState({
                   private_slots_coach_payment_rules: specificPrivateSlots,
                 });
                 setCoachPaymentRuleGroup(coach.id, -8000);
               }}
-              disabled={!coach.coach_payment_rule_group_id}
+              variant="outlined"
             >
               {t('paymentRules:coach_payment_rule_groups.dissociate')}
             </Button>
@@ -329,17 +329,19 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                   {t('paymentRules:coach_payment_rule_groups.subtitle.default')}
                 </Typography>
                 {coach.coach_payment_rule_group_id ? (
-                  <GroupIcon color="secondary" className={classes.blockIcon} />
+                  <GroupIcon className={classes.blockIcon} color="secondary" />
                 ) : null}
               </div>
             </Grid>
-            <Grid item xs={12} md={4} className={classes.label}>
+            <Grid item className={classes.label} md={4} xs={12}>
               <Typography>
                 {t('paymentRules:coach_payment_rule_groups.fields.activity')}
               </Typography>
             </Grid>
-            <Grid item xs={8} className={classes.selector}>
+            <Grid item className={classes.selector} xs={8}>
               <CoachPaymentRuleSelectorStyled
+                isClearable
+                noMulti
                 coachPaymentRulesList={coachPaymentRulesByKind[
                   COACH_PAYMENT_RULE_FOR_SESSION
                 ].concat(
@@ -347,8 +349,6 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                     COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY
                   ],
                 )}
-                selectedRules={[session_coach_payment_rule]}
-                placeholder={t('paymentRules:label')}
                 disabled={!!coach.coach_payment_rule_group_id}
                 onChange={(item: { value: number; label: string }) => {
                   setCoachPaymentRule(
@@ -356,8 +356,8 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                     item ? item.value : DISSOCIATED_COACH_PAYMENT_RULE,
                   );
                 }}
-                noMulti
-                isClearable
+                placeholder={t('paymentRules:label')}
+                selectedRules={[session_coach_payment_rule]}
               />
             </Grid>
           </Grid>
@@ -369,20 +369,20 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
             spacing={1}
             style={{ alignItems: 'center' }}
           >
-            <Grid item xs={12} md={4} className={classes.label}>
+            <Grid item className={classes.label} md={4} xs={12}>
               <Typography>
                 {t('paymentRules:coach_payment_rule_groups.fields.workshop')}
               </Typography>
             </Grid>
-            <Grid item xs={8} className={classes.selector}>
+            <Grid item className={classes.selector} xs={8}>
               <CoachPaymentRuleSelectorStyled
+                isClearable
+                noMulti
                 coachPaymentRulesList={coachPaymentRulesByKind[
                   COACH_PAYMENT_RULE_FOR_SESSION
                 ].concat(
                   coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_WORKSHOP],
                 )}
-                selectedRules={[workshop_coach_payment_rule]}
-                placeholder={t('paymentRules:label')}
                 disabled={!!coach.coach_payment_rule_group_id}
                 onChange={(item: { value: number; label: string }) => {
                   setCoachWorkshopPaymentRule(
@@ -390,8 +390,8 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                     item ? item.value : DISSOCIATED_COACH_PAYMENT_RULE,
                   );
                 }}
-                noMulti
-                isClearable
+                placeholder={t('paymentRules:label')}
+                selectedRules={[workshop_coach_payment_rule]}
               />
             </Grid>
           </Grid>
@@ -403,20 +403,20 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
             spacing={1}
             style={{ alignItems: 'center' }}
           >
-            <Grid item xs={12} md={4} className={classes.label}>
+            <Grid item className={classes.label} md={4} xs={12}>
               <Typography>
                 {t(
                   'paymentRules:coach_payment_rule_groups.fields.private_service',
                 )}
               </Typography>
             </Grid>
-            <Grid item xs={8} className={classes.selector}>
+            <Grid item className={classes.selector} xs={8}>
               <CoachPaymentRuleSelectorStyled
+                isClearable
+                noMulti
                 coachPaymentRulesList={
                   coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_APPOINTMENT]
                 }
-                selectedRules={[private_service_coach_payment_rule]}
-                placeholder={t('paymentRules:label')}
                 disabled={!!coach.coach_payment_rule_group_id}
                 onChange={(item: { value: number; label: string }) => {
                   setCoachPrivatePaymentRule(
@@ -424,8 +424,8 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                     item ? item.value : DISSOCIATED_COACH_PAYMENT_RULE,
                   );
                 }}
-                noMulti
-                isClearable
+                placeholder={t('paymentRules:label')}
+                selectedRules={[private_service_coach_payment_rule]}
               />
             </Grid>
           </Grid>
@@ -446,11 +446,11 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                   )}
                 </Typography>
                 {coach.coach_payment_rule_group_id ? (
-                  <GroupIcon color="secondary" className={classes.blockIcon} />
+                  <GroupIcon className={classes.blockIcon} color="secondary" />
                 ) : null}
               </div>
               {this.state.private_slots_errors && (
-                <Typography variant="caption" color="error">
+                <Typography color="error" variant="caption">
                   {t(
                     'paymentRules:coach_payment_rules.Errors.privateSlotAlreadySelected',
                   )}
@@ -487,9 +487,7 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                           <TableRow>
                             <TableCell>
                               <PrivateSlotSelectorStyled
-                                privateServiceList={privateServices}
-                                selectedServices={[privateSlot.private_slot]}
-                                placeholder={t('paymentRules:privateSlotLabel')}
+                                noMulti
                                 disabled={!!coach.coach_payment_rule_group_id}
                                 onChange={(item: {
                                   value: number;
@@ -501,18 +499,19 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                                     updateState('private_slot', item.value, i);
                                   }
                                 }}
-                                noMulti
+                                placeholder={t('paymentRules:privateSlotLabel')}
+                                privateServiceList={privateServices}
+                                selectedServices={[privateSlot.private_slot]}
                               />
                             </TableCell>
                             <TableCell>
                               <CoachPaymentRuleSelectorStyled
+                                noMulti
                                 coachPaymentRulesList={
                                   coachPaymentRulesByKind[
                                     COACH_PAYMENT_RULE_FOR_APPOINTMENT
                                   ]
                                 }
-                                selectedRules={[privateSlot.coach_payment_rule]}
-                                placeholder={t('paymentRules:label')}
                                 disabled={!!coach.coach_payment_rule_group_id}
                                 onChange={(item: {
                                   value: number;
@@ -524,15 +523,16 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                                     i,
                                   )
                                 }
-                                noMulti
+                                placeholder={t('paymentRules:label')}
+                                selectedRules={[privateSlot.coach_payment_rule]}
                               />
                             </TableCell>
                             <TableCell align="left" padding="none" size="small">
                               {!coach.coach_payment_rule_group_id && (
                                 <IconButton
-                                  onClick={() => updateState('delete', 0, i)}
                                   aria-label="Delete"
                                   disabled={!!coach.coach_payment_rule_group_id}
+                                  onClick={() => updateState('delete', 0, i)}
                                 >
                                   <ClearIcon />
                                 </IconButton>
@@ -546,12 +546,12 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                 </>
               </Table>
             </TableContainer>
-            <Grid item xs={12} className={classes.flexRow}>
+            <Grid item className={classes.flexRow} xs={12}>
               <Button
                 aria-haspopup="true"
                 color="secondary"
-                onClick={() => updateState('add', 0, 0)}
                 disabled={!!coach.coach_payment_rule_group_id}
+                onClick={() => updateState('add', 0, 0)}
               >
                 <AddIcon
                   color={
@@ -565,6 +565,10 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
               <Button
                 aria-haspopup="true"
                 color="secondary"
+                disabled={
+                  !!coach.coach_payment_rule_group_id ||
+                  !this.state.enableSaveButton
+                }
                 onClick={() => {
                   this.setState((prevState) => ({
                     ...prevState,
@@ -576,10 +580,6 @@ class CoachPaymentRuleBanner extends React.Component<Props, State> {
                     private_slots_coach_payment_rules: specificPrivateSlots,
                   });
                 }}
-                disabled={
-                  !!coach.coach_payment_rule_group_id ||
-                  !this.state.enableSaveButton
-                }
               >
                 {t('paymentRules:save')}
               </Button>

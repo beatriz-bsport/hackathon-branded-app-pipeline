@@ -138,10 +138,9 @@ export function CoachPerformanceForm(props: Props) {
       <Form className={classes.flexSection}>
         <div className={classes.date}>
           <DateField
-            id="textfield_remuneration_beginning"
-            variant="outlined"
             required
-            name="dateStart"
+            disabled={isSubmitting || loading}
+            id="textfield_remuneration_beginning"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -150,28 +149,29 @@ export function CoachPerformanceForm(props: Props) {
               ),
               className: classes.input,
             }}
-            disabled={isSubmitting || loading}
+            name="dateStart"
+            variant="outlined"
           />
 
           <Field name="frequency">
             {(fieldProps: FieldProps) => (
               <RadioGroup
+                row
                 name="row-radio-buttons-group"
-                value={fieldProps.field.value}
                 onChange={(ev) => {
                   fieldProps.form.setFieldValue('frequency', ev.target.value);
                 }}
-                row
+                value={fieldProps.field.value}
               >
                 <FormControlLabel
-                  value="w"
                   control={<Radio disabled={isSubmitting || loading} />}
                   label={t('common:weekly')}
+                  value="w"
                 />
                 <FormControlLabel
-                  value="M"
                   control={<Radio disabled={isSubmitting || loading} />}
                   label={t('common:monthly')}
+                  value="M"
                 />
               </RadioGroup>
             )}
@@ -179,20 +179,20 @@ export function CoachPerformanceForm(props: Props) {
         </div>
         <>
           <Submit
-            id="button_remuneration_calculate"
-            variant="outlined"
             color="secondary"
             disabled={isSubmitting || !!props.disabled || props.loading}
+            id="button_remuneration_calculate"
+            variant="outlined"
           >
             {t('calculate')}
           </Submit>
           {!props.hideExport && (
             <Button
-              id="button_remuneration_export"
-              variant="outlined"
               color="secondary"
               disabled={isSubmitting || !!props.disabled || props.loading}
+              id="button_remuneration_export"
               onClick={() => setOpenExportDialog(true)}
+              variant="outlined"
             >
               {t('coachPerformance:export.buttonText')}
             </Button>
@@ -201,10 +201,10 @@ export function CoachPerformanceForm(props: Props) {
       </Form>
 
       <Dialog
-        open={openExportDialog}
-        onClose={() => setOpenExportDialog(false)}
-        aria-labelledby="popup-excel-report"
         aria-describedby="popup-excel-report"
+        aria-labelledby="popup-excel-report"
+        onClose={() => setOpenExportDialog(false)}
+        open={openExportDialog}
       >
         <DialogTitle id="alert-dialog-title">
           {t('coachPerformance:export.dialog.title')}

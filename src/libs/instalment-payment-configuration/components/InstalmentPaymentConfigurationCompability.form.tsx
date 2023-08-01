@@ -95,11 +95,11 @@ export const InstalmentPaymentCompablityForm: React.FC<Props> = (props) => {
         <Grid item xs={6}>
           <div className={classes.column}>
             <MaterialUiMultiSelectorField
-              isDisabled={is_available_on_all_payment_pack}
               inScrollBar
-              placeholder={t('form.compability.selectPack')}
+              isDisabled={is_available_on_all_payment_pack}
               name="payment_pack_list"
               options={paymentPackOptions}
+              placeholder={t('form.compability.selectPack')}
               title={
                 <Typography className={classes.bold}>
                   {t('form.compability.pack')}
@@ -122,11 +122,11 @@ export const InstalmentPaymentCompablityForm: React.FC<Props> = (props) => {
         <Grid item xs={6}>
           <div className={classes.column}>
             <MaterialUiMultiSelectorField
-              isDisabled={is_available_on_all_private_pass}
               inScrollBar
-              placeholder={t('form.compability.selectPrivatePass')}
+              isDisabled={is_available_on_all_private_pass}
               name="private_pass_list"
               options={privatePassOptions}
+              placeholder={t('form.compability.selectPrivatePass')}
               title={
                 <Typography className={classes.bold}>
                   {t('form.compability.privateBooking')}
@@ -149,11 +149,11 @@ export const InstalmentPaymentCompablityForm: React.FC<Props> = (props) => {
         <Grid item xs={6}>
           <div className={classes.column}>
             <MaterialUiMultiSelectorField
-              isDisabled={is_available_on_all_payment_combo}
               inScrollBar
-              placeholder={t('form.compability.selectCombo')}
+              isDisabled={is_available_on_all_payment_combo}
               name="payment_combo_list"
               options={comboOptions}
+              placeholder={t('form.compability.selectCombo')}
               title={
                 <Typography className={classes.bold}>
                   {t('form.compability.combo')}
@@ -176,11 +176,11 @@ export const InstalmentPaymentCompablityForm: React.FC<Props> = (props) => {
         <Grid item xs={6}>
           <div className={classes.column}>
             <MaterialUiMultiSelectorField
-              isDisabled={is_available_on_all_shop_item}
               inScrollBar
-              placeholder={t('form.compability.selectShopItem')}
+              isDisabled={is_available_on_all_shop_item}
               name="shop_item_list"
               options={shopItemOptions}
+              placeholder={t('form.compability.selectShopItem')}
               title={
                 <Typography className={classes.bold}>
                   {t('form.compability.shopItem')}
@@ -203,11 +203,11 @@ export const InstalmentPaymentCompablityForm: React.FC<Props> = (props) => {
         <Grid item xs={6}>
           <div className={classes.column}>
             <MaterialUiMultiSelectorField
-              isDisabled={is_available_on_all_giftcard}
               inScrollBar
-              placeholder={t('form.compability.selectGiftcard')}
+              isDisabled={is_available_on_all_giftcard}
               name="giftcard_list"
               options={giftcardOptions}
+              placeholder={t('form.compability.selectGiftcard')}
               title={
                 <Typography className={classes.bold}>
                   {t('form.compability.giftcard')}

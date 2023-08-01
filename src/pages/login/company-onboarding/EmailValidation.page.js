@@ -22,9 +22,9 @@ type Props = {
 export const EmailValidationPage = (props: Props) => {
   return (
     <EmailValidation
-      requestValidationEmail={props.requestValidationEmail}
       checkEmailValidation={props.checkEmailValidation}
       disconnect={props.disconnect}
+      requestValidationEmail={props.requestValidationEmail}
     />
   );
 };

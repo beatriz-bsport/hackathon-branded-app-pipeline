@@ -508,10 +508,10 @@ export const PaymentStripeTerminal: React.FC<Props> = (props) => {
       {step === 'connecting' && <StripeTerminalConnectingLoading />}
       {['collecting', 'processing'].includes(step) && (
         <StripeTerminalConnectingSuccess
-          isSetupIntent={!!props.isSetupIntent}
-          isProcessing={step === 'processing'}
-          onCancel={cancelCollectHandler}
           errorWhenCancelling={errorWhenCancelling}
+          isProcessing={step === 'processing'}
+          isSetupIntent={!!props.isSetupIntent}
+          onCancel={cancelCollectHandler}
         />
       )}
       {step === 'paymentSuccess' && (
@@ -524,8 +524,8 @@ export const PaymentStripeTerminal: React.FC<Props> = (props) => {
         <StripeTerminalPaymentError
           error={error}
           isSetupIntent={!!props.isSetupIntent}
-          onRetry={retryHandler}
           onCancel={props.onCancel}
+          onRetry={retryHandler}
         />
       )}
       {step === 'connectionError' && (
@@ -560,10 +560,10 @@ export const PaymentStripeTerminal: React.FC<Props> = (props) => {
               {!!priceUpdaterOpen && (
                 <div className={classes.priceContainer}>
                   <PriceInput
-                    value={priceUpdateAmount}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       setPriceUpdateAmount(Number.parseFloat(e.target.value))
                     }
+                    value={priceUpdateAmount}
                   />
                   <IconButton
                     color="primary"
@@ -605,11 +605,11 @@ export const PaymentStripeTerminal: React.FC<Props> = (props) => {
               {props.stripeReaders.map((reader) => (
                 <>
                   <ButtonBase
+                    key={reader.id}
                     className={classnames(classes.readerItem, {
                       [classes.selectedReader]:
                         selectedReader && selectedReader.id === reader.id,
                     })}
-                    key={reader.id}
                     onClick={() => setSelectedReader(reader)}
                   >
                     <Typography classes={{ root: classes.readerLabel }}>
@@ -627,10 +627,10 @@ export const PaymentStripeTerminal: React.FC<Props> = (props) => {
               <div className={classes.row}>
                 <Checkbox
                   checked={saveForLater}
+                  disabled={!!props.isSetupIntent}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setSaveForLater(e.target.checked)
                   }
-                  disabled={!!props.isSetupIntent}
                 />
                 <Typography>
                   {t('paymentPanel.actions.saveForLater')}
@@ -649,9 +649,9 @@ export const PaymentStripeTerminal: React.FC<Props> = (props) => {
           >
             <Button
               color="primary"
-              variant="contained"
               disabled={!props.clientSecret || !selectedReader}
               onClick={onConnectHandler}
+              variant="contained"
             >
               {t('configuration.stripeTerminal.paymentDialog.connectAndPay')}
             </Button>

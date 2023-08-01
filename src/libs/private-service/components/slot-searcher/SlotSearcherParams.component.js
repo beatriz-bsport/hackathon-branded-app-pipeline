@@ -228,10 +228,10 @@ export class SlotSearcherParams extends React.Component<Props, State> {
     return (
       <div className={classes.container}>
         <PrivateServiceSelectorWithSlot
-          privateServiceList={this.props.private_services}
-          privateServiceId={this.state.privateServiceId}
-          privateSlotId={this.state.privateSlotId}
           onSelect={this.handleServiceChange}
+          privateServiceId={this.state.privateServiceId}
+          privateServiceList={this.props.private_services}
+          privateSlotId={this.state.privateSlotId}
         />
         {this.props.establishment ||
         establishmentResourceState.needChoice ||
@@ -242,22 +242,22 @@ export class SlotSearcherParams extends React.Component<Props, State> {
                 {this.props.t('service.selector.establishment.label')}
               </Typography>
               <EstablishmentSelector
+                closeMenuOnSelect
                 disabled={establishmentResourceState.disabled}
                 establishments={establishmentResourceState.choices}
                 helperText={this.props.t('slotSearcher.selectEstablishment')}
-                closeMenuOnSelect
                 selectedEstablishments={[this.state.establishment_selected]}
                 selectOption={this.handleEstablishmentChange}
               />
             </div>
             {!!this.props.resourceAllocationChecker && (
               <ResourceAllocationChecker
-                updatedTime={this.props.dateStart}
+                privateSlotDuration={this.state.privateSlotDuration || 0}
+                privateSlotId={this.state.privateSlotId}
+                resourceAllocationChecker={this.props.resourceAllocationChecker}
                 resourceId={this.state.establishment_selected}
                 resourceType="establishment"
-                resourceAllocationChecker={this.props.resourceAllocationChecker}
-                privateSlotId={this.state.privateSlotId}
-                privateSlotDuration={this.state.privateSlotDuration || 0}
+                updatedTime={this.props.dateStart}
               />
             )}
           </div>
@@ -270,26 +270,26 @@ export class SlotSearcherParams extends React.Component<Props, State> {
               </Typography>
               <CoachSelector
                 closeMenuOnSelect
+                coaches={coachResourceState.choices}
+                isDisabled={coachResourceState.disabled}
                 placeholder={t('slotSearcher.selectCoach')}
                 selectedCoaches={this.state.coaches_selected}
-                isDisabled={coachResourceState.disabled}
                 selectOption={this.handleCoachChange}
-                coaches={coachResourceState.choices}
               />
             </div>
             {!!this.props.resourceAllocationChecker && (
               <ResourceAllocationChecker
-                updatedTime={this.props.dateStart}
+                privateSlotDuration={this.state.privateSlotDuration || 0}
+                privateSlotId={this.state.privateSlotId}
+                resourceAllocationChecker={this.props.resourceAllocationChecker}
                 resourceId={
                   this.state.coaches_selected &&
                   this.state.coaches_selected.length &&
                   this.state.coaches_selected[0]
                 }
-                resourceAllocationChecker={this.props.resourceAllocationChecker}
                 resourceType="coach"
-                privateSlotId={this.state.privateSlotId}
-                privateSlotDuration={this.state.privateSlotDuration || 0}
                 restrictOnEstablishment={this.state.establishment_selected}
+                updatedTime={this.props.dateStart}
               />
             )}
           </div>

@@ -37,13 +37,13 @@ export const VideoPlayerFull = (props: Props) => {
   return (
     <div className={classes.container}>
       <VideoPlayer
+        rounded
+        accessDenied={props.accessDenied}
         authenticated={props.authenticated}
         playbackUrl={props.playbackUrl}
         playbackUrlLoading={props.playbackUrlLoading}
-        rounded
-        video={props.video}
-        accessDenied={props.accessDenied}
         requestVideoAccess={props.requestVideoAccess}
+        video={props.video}
       />
       <div className={classes.inner}>
         <Typography className={classes.videoTitle} variant="h4">
@@ -97,7 +97,7 @@ export const VideoPlayerFull = (props: Props) => {
         {!!coaches.length && !props.hideCoach && (
           <div className={classes.coachContainer}>
             {coaches.map((c) => (
-              <CoachChip className={classes.coachChip} coach={c} key={c.id} />
+              <CoachChip key={c.id} className={classes.coachChip} coach={c} />
             ))}
           </div>
         )}

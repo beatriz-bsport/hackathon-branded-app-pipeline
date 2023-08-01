@@ -76,16 +76,16 @@ const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
                 <TriggeredPersonIcon fill={color} />
               ) : (
                 <CustomMuiIcon
-                  icon={icon}
-                  customColor={color}
-                  withBackground={false}
                   defaultBackGround
+                  customColor={color}
                   fadeIcon={disabled}
+                  icon={icon}
+                  withBackground={false}
                 />
               )}
             </div>
           </div>
-          <Typography variant="subtitle2" className={classes.label}>
+          <Typography className={classes.label} variant="subtitle2">
             {name}
           </Typography>
         </div>
@@ -100,14 +100,14 @@ const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
             ) : (
               <Tooltip title={actions[0].label}>
                 <ButtonBase
-                  onClick={handleFirstAction}
                   className={classes.button}
+                  onClick={handleFirstAction}
                 >
                   <CustomMuiIcon
-                    icon={actions[0].icon}
-                    customColor={actions[0]?.customColor}
-                    withBackground={false}
                     defaultBackGround
+                    customColor={actions[0]?.customColor}
+                    icon={actions[0].icon}
+                    withBackground={false}
                   />
                 </ButtonBase>
               </Tooltip>
@@ -118,11 +118,11 @@ const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
       {!!triggerList && (
         <div className={classes.chipSection}>
           {triggerList.map((trigger, idx) => (
-            <div className={classes.chip} key={idx}>
+            <div key={idx} className={classes.chip}>
               <ConnectedTriggerChip
-                trigger={trigger}
-                getSmartlist={getSmartlist}
                 color={disabled ? chroma(color).alpha(0.5).hex() : color}
+                getSmartlist={getSmartlist}
+                trigger={trigger}
               />
             </div>
           ))}

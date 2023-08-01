@@ -168,9 +168,9 @@ export class PaginatedList extends PureComponent<Props, State> {
           ) : (
             <Typography
               inline
-              variant="caption"
               color="textSecondary"
               style={{ paddingRight: 16 }}
+              variant="caption"
             >
               {`${this.props.nbItems || 0} ${this.props.t('common.items')}`}
             </Typography>

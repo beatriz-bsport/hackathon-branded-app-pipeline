@@ -44,12 +44,12 @@ export const CoachReplacementRouter = (props: Props) => {
 
   return (
     <div className={classes.container}>
-      <AppBar position="static" color="default">
+      <AppBar color="default" position="static">
         <Tabs
-          scrollButtons="off"
-          variant="scrollable"
-          value={props.tab}
           onChange={handleTabChange}
+          scrollButtons="off"
+          value={props.tab}
+          variant="scrollable"
         >
           <Tab label={t('calendar.title')} value="calendar" />
           <Tab label={t('requests.title')} value="requests" />
@@ -61,20 +61,20 @@ export const CoachReplacementRouter = (props: Props) => {
         <Switch>
           <Route
             exact
-            path="/co/:companyId/replacement/requests/"
             component={CoachReplacementRequests}
+            path="/co/:companyId/replacement/requests/"
           />
           <Route
             exact
-            path="/co/:companyId/replacement/confirmations/"
             component={CoachReplacementConfirmations}
+            path="/co/:companyId/replacement/confirmations/"
           />
           <Route
             exact
-            path="/co/:companyId/replacement/marketplace/"
             component={CoachReplacementMarketplace}
+            path="/co/:companyId/replacement/marketplace/"
           />
-          <Route path="/" component={CoachReplacementCalendar} />
+          <Route component={CoachReplacementCalendar} path="/" />
         </Switch>
       </div>
     </div>

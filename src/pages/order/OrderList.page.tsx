@@ -20,12 +20,12 @@ export const OrderList: React.FC<Props> = (props: Props) => {
   const { fetchOrders, goToOrderPage, orders, count, loading } = props;
   return (
     <OrderTable
-      title=""
-      orders={orders}
       count={count}
       loading={loading}
-      onOrderClick={goToOrderPage}
       onChange={fetchOrders}
+      onOrderClick={goToOrderPage}
+      orders={orders}
+      title=""
     />
   );
 };

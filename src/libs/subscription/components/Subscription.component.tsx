@@ -90,64 +90,64 @@ export function SubscriptionComponent(props: Props) {
   return (
     <div>
       <Grid container direction="row" spacing={3}>
-        <Grid item xs={12} md={6}>
-          <Typography variant="h5" component="h3">
+        <Grid item md={6} xs={12}>
+          <Typography component="h3" variant="h5">
             {t('subscription.invoicesSection')}
           </Typography>
           <Divider className={classes.divider} />
           <PlannedInvoiceListDetail
-            plannedInvoiceList={props.subscription.planned_invoices}
-            pauseList={props.subscription.pauses}
-            subscription={props.subscription}
-            onClickInvoice={props.goToInvoice}
-            requestUpdatePrice={props.requestUpdatePrice}
-            plannedInvoiceUpdateLoading={props.plannedInvoiceUpdateLoading}
             cancelPause={props.cancelPause}
-            updatePause={props.requestPause}
-            toogleAutoRenew={props.updateSubscriptionRenewal}
-            updateDate={props.updateDate}
+            onClickInvoice={props.goToInvoice}
             onRequestScheduledStop={props.requestScheduledStop}
+            pauseList={props.subscription.pauses}
+            plannedInvoiceList={props.subscription.planned_invoices}
+            plannedInvoiceUpdateLoading={props.plannedInvoiceUpdateLoading}
+            requestUpdatePrice={props.requestUpdatePrice}
+            subscription={props.subscription}
+            toogleAutoRenew={props.updateSubscriptionRenewal}
             unflagPlannedInvoiceAsLast={props.unflagPlannedInvoiceAsLast}
+            updateDate={props.updateDate}
             updateEventList={updateEventListOnEventSuccess}
+            updatePause={props.requestPause}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <div className={classes.block}>
             <SubscriptionSummary
-              subscription={props.subscription}
-              goToSubscribe={props.goToSubscribe}
+              downloadContractTerms={props.downloadContractTerms}
               goToMember={props.goToMember}
-              updateRenewal={props.updateSubscriptionRenewal}
+              goToSubscribe={props.goToSubscribe}
               loading={props.loading}
-              requestPaymentPackSwitch={props.requestPaymentPackSwitch}
-              requestPrivatePassSwitch={props.requestPrivatePassSwitch}
               requestPaymentComboSwitch={props.requestPaymentComboSwitch}
               requestPaymentMethodSwitch={props.requestPaymentMethodSwitch}
+              requestPaymentPackSwitch={props.requestPaymentPackSwitch}
+              requestPrivatePassSwitch={props.requestPrivatePassSwitch}
+              subscription={props.subscription}
               unflagPlannedInvoiceAsLast={props.unflagPlannedInvoiceAsLast}
-              downloadContractTerms={props.downloadContractTerms}
+              updateRenewal={props.updateSubscriptionRenewal}
             />
           </div>
           <SubscriptionPaymentMethod
-            paymentMethod={props.paymentMethod}
+            loading={props.paymentMethodLoading}
             onEdit={props.requestPaymentMethodSwitch}
             paymentEngine={props.subscription.payment_engine}
-            loading={props.paymentMethodLoading}
+            paymentMethod={props.paymentMethod}
           />
           <div className={classes.divider} />
           <SubscriptionActionsV2
-            subscription={props.subscription}
             requestPause={props.requestPause}
             requestScheduledStop={props.requestScheduledStop}
+            subscription={props.subscription}
             updateEventList={updateEventListOnEventSuccess}
           />
           <Paper>
             <EventPanel
-              loading={props.eventLoading}
               eventList={props.eventList}
-              page={props.eventPage}
-              fetchEventList={props.fetchSubscriptionEventList}
-              extraFetchParams={{ billing_plan: props.subscription.id }}
               eventSpec={COMPANY_EVENTS}
+              extraFetchParams={{ billing_plan: props.subscription.id }}
+              fetchEventList={props.fetchSubscriptionEventList}
+              loading={props.eventLoading}
+              page={props.eventPage}
             />
           </Paper>
 
@@ -158,7 +158,7 @@ export function SubscriptionComponent(props: Props) {
           ) : null}
           <Paper className={classes.block}>
             {pauseListV1.map((p) => (
-              <PauseV1ListItem pause={p} key={p.id} />
+              <PauseV1ListItem key={p.id} pause={p} />
             ))}
           </Paper>
         </Grid>

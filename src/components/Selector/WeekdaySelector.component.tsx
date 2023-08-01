@@ -43,11 +43,11 @@ export const WeekdaySelector = (props: Props) => {
     <div className={classes.flexRow}>
       {props.text && <Typography>{props.text}</Typography>}
       <Select
-        name={props.name}
-        value={props.value}
-        onChange={props.onChange}
         className={classes.marginLeft}
         disabled={props.disabled}
+        name={props.name}
+        onChange={props.onChange}
+        value={props.value}
       >
         {weekdays.map((d) => {
           return (

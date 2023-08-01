@@ -39,9 +39,9 @@ export const EmailConfirmation: React.FC<Props> = ({
       <div className="bs-email-confirmation-content">
         <div className="bs-email-confirmation-content__top-container">
           <LoginTitle
-            title={t('emailConfirmation.title')}
-            simplifyUI={simplifyUI}
             isCompany={company}
+            simplifyUI={simplifyUI}
+            title={t('emailConfirmation.title')}
           />
         </div>
         {!simplifyUI && (
@@ -63,9 +63,9 @@ export const EmailConfirmation: React.FC<Props> = ({
           {t('emailConfirmation.textExplain')}
         </div>
         <Button
+          className="bs-email-confirmation-content__back-button"
           id="btn-back-to-log-in"
           onClick={goBackToLogin}
-          className="bs-email-confirmation-content__back-button"
         >
           {t('emailConfirmation.backToLogin')}
         </Button>
@@ -75,8 +75,8 @@ export const EmailConfirmation: React.FC<Props> = ({
           </div>
           <div className="bs-email-confirmation-content__bottom-container__second-line">
             <Button
-              id="btn-resend-email"
               className="bs-email-confirmation-content__bottom-container__second-line__resend-email-button"
+              id="btn-resend-email"
               onClick={() => {
                 setResendEmailForConfirmation(true);
               }}
@@ -91,11 +91,11 @@ export const EmailConfirmation: React.FC<Props> = ({
           </div>
         </div>
         <ResendEmailForConfirmationDialog
-          open={resendEmailForConfirmation}
+          lastTimeSentEmailConfirmation={lastTimeSentEmailConfirmation}
           onClose={() => {
             setResendEmailForConfirmation(false);
           }}
-          lastTimeSentEmailConfirmation={lastTimeSentEmailConfirmation}
+          open={resendEmailForConfirmation}
           resendEmailForConfirmation={sendEmailForConfirmation}
         />
       </div>

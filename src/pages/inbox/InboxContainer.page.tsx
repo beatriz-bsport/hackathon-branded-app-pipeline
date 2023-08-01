@@ -136,7 +136,7 @@ class InboxContainer extends React.PureComponent<Props> {
             />
           </Route>
           <Route exact path="/inbox/thread/:id/detail/">
-            <InboxPanel thread={thread} isLoadingThread={isLoadingThread} />
+            <InboxPanel isLoadingThread={isLoadingThread} thread={thread} />
           </Route>
         </Switch>
       );
@@ -170,10 +170,10 @@ class InboxContainer extends React.PureComponent<Props> {
           })}
         >
           <InboxPanel
+            isLoadingThread={isLoadingThread}
             isPanelOpen={isPanelOpen}
             setIsPanelOpen={setIsPanelOpen}
             thread={thread}
-            isLoadingThread={isLoadingThread}
           />
         </div>
       </div>

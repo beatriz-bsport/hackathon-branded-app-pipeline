@@ -103,7 +103,7 @@ const renderCompleted = (completed: boolean, t: TFunction) => {
   );
 };
 const renderDisplayAccount = (display_count: number) => (
-  <Typography color={display_count >= 0 ? 'primary' : 'error'} align="left">
+  <Typography align="left" color={display_count >= 0 ? 'primary' : 'error'}>
     {display_count}
   </Typography>
 );
@@ -112,7 +112,7 @@ const renderMemberName = (name: string, archived: boolean, t: TFunction) => (
   <div style={{ display: 'flex', alignItems: 'center' }}>
     <Typography>{name}</Typography>
     {archived && (
-      <Typography variant="caption" color="secondary">
+      <Typography color="secondary" variant="caption">
         {`\u00A0(${t('member:archived')})`}
       </Typography>
     )}
@@ -254,12 +254,12 @@ export class CutsomFormDetailByMemberPanel extends React.Component<
               <div className={classes.footerContainer}>
                 <TablePagination
                   count={count}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
                   onChangePage={(_, page_) => changePage(page_)}
                   onChangeRowsPerPage={(event) =>
                     changeRowsPerPage(event.target.value)
                   }
+                  page={page}
+                  rowsPerPage={rowsPerPage}
                   rowsPerPageOptions={[10, 15, 100]}
                 />
               </div>
@@ -270,13 +270,13 @@ export class CutsomFormDetailByMemberPanel extends React.Component<
     };
     return (
       <>
-        <Typography variant="h6" className={classes.heading}>
+        <Typography className={classes.heading} variant="h6">
           {t('customForm.statistics.byMember')}
         </Typography>
         <Divider className={classes.divider} />
         <MUIDataTable
-          data={renderRows(this.state.members, t)}
           columns={getColumnData(t)}
+          data={renderRows(this.state.members, t)}
           options={options}
         />
       </>

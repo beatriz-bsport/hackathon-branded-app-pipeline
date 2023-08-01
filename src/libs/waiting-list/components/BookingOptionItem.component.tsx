@@ -35,10 +35,10 @@ class BookingOptionItem extends React.PureComponent<Props> {
     return (
       <ListItem
         divider
+        className={cls({ [classes.expiredItem]: expired })}
+        disabled={expired}
         onClick={this.props.onClick}
         selected={selectedBookingOption?.id === bookingOption.id}
-        disabled={expired}
-        className={cls({ [classes.expiredItem]: expired })}
       >
         <ListItemText
           primary={bookingOption.offer.activity.name}
@@ -51,11 +51,11 @@ class BookingOptionItem extends React.PureComponent<Props> {
         {!expired && (
           <div>
             <Button
-              variant="outlined"
               onClick={(e) => {
                 e.stopPropagation();
                 this.props.onClickRegister(this.props.bookingOption);
               }}
+              variant="outlined"
             >
               {t('member.addToBook')}
             </Button>

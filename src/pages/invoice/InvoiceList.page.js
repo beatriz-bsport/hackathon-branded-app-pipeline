@@ -122,26 +122,23 @@ export class InvoiceList extends Component<Props, State> {
         {quickbooksUnCompletedSetup && (
           <div className={this.props.classes.paddingBottom}>
             <Alert
-              variant="outlined"
-              severity="warning"
-              className={this.props.classes.alert}
               action={
                 this.state.proposeRefreshQBA ? (
                   <Tooltip title={t('settings:quickbooks.tax.refresh')}>
                     <IconButton
-                      onClick={this.refreshQuickbooksApp}
                       disabled={this.props.quickbooksAppLoading}
+                      onClick={this.refreshQuickbooksApp}
                     >
                       <RefreshIcon
+                        className={classNames({
+                          [this.props.classes.rotateIcon]:
+                            this.props.quickbooksAppLoading,
+                        })}
                         color={
                           this.props.quickbooksAppLoading
                             ? 'disabled'
                             : 'primary'
                         }
-                        className={classNames({
-                          [this.props.classes.rotateIcon]:
-                            this.props.quickbooksAppLoading,
-                        })}
                       />
                     </IconButton>
                   </Tooltip>
@@ -155,28 +152,31 @@ export class InvoiceList extends Component<Props, State> {
                   </Tooltip>
                 )
               }
+              className={this.props.classes.alert}
+              severity="warning"
+              variant="outlined"
             >
               {t('settings:quickbooks.tax.alertUnconfigured')}
             </Alert>
           </div>
         )}
         <InvoiceTable
+          showType
+          containerComponent={Paper}
+          count={this.props.count}
+          finalizeInvoice={this.props.finalizeInvoice}
+          invoiceList={this.props.invoiceList}
           loading={this.props.loading}
           nestedDataLoading={this.props.nestedDataLoading}
-          showType
-          onInvoiceExpand={this.fetchInvoiceDataNested}
-          invoiceList={this.props.invoiceList}
-          containerComponent={Paper}
           onChangePage={this.onChangePage}
-          count={this.props.count}
-          page={this.props.page}
           onClickInvoice={this.pushToInvoiceDetail}
-          finalizeInvoice={this.props.finalizeInvoice}
+          onInvoiceExpand={this.fetchInvoiceDataNested}
+          page={this.props.page}
           quickbooksIntegrated={quickbooksIntegrated}
+          quickbooksLoading={this.props.quickbooksLoading}
           sendInvoiceToQuickbooks={(uuid: string) =>
             this.props.sendInvoiceToQuickbooks(uuid)
           }
-          quickbooksLoading={this.props.quickbooksLoading}
         />
       </div>
     );

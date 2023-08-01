@@ -22,15 +22,15 @@ export const OfferListItem = (props: Props) => {
   const { offer, t } = props;
   return (
     <ListItem
-      button={!!props.onClick}
       divider
+      button={!!props.onClick}
       onClick={() => props.onClick(offer.id)}
     >
       <IconButton>
         <CoachAvatar
-          t={t}
           coach={offer && offer.coach ? offer.coach : null}
           coach_override={offer.coach_override ? offer.coach_override : null}
+          t={t}
         />
       </IconButton>
       <ListItemText
@@ -42,7 +42,7 @@ export const OfferListItem = (props: Props) => {
                 ? ` - ${formatAsTime(offer.date_start, offer.timezone_name)} `
                 : ''}
             </Typography>
-            <Level noStyle variant="caption" customLevel={offer.level} />
+            <Level noStyle customLevel={offer.level} variant="caption" />
           </div>
         }
         secondary={

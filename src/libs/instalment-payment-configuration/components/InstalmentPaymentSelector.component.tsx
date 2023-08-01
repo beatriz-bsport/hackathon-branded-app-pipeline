@@ -88,21 +88,21 @@ const InstalmentPaymentSelector: React.FC<Props> = ({
       {processing && <LinearProgress />}
       {!!(instalmentPaymentConfigurationList || []).length && (
         <BasketInstalmentEmptyPlaceholder
-          disabled={processing || paymentProcessing}
           checked={instalmentPaymentConfigurationSelectedId === null}
+          disabled={processing || paymentProcessing}
           onSelect={onEmptyInstalmentPaymentSelect}
         />
       )}
       {(instalmentPaymentConfigurationList || []).map((ipc) => (
         <BasketInstalmentPaymentOption
-          instalmentPayment={ipc}
           key={ipc.id}
-          disabled={onlyInstantPayment || processing || paymentProcessing}
-          checked={instalmentPaymentConfigurationSelectedId === ipc.id}
           basketPrice={basketPriceCts / 100}
+          checked={instalmentPaymentConfigurationSelectedId === ipc.id}
+          disabled={onlyInstantPayment || processing || paymentProcessing}
+          instalmentPayment={ipc}
           onSelect={onSelectInstalmentPaymentWithId}
-          withPaddingLeft={fromApp}
           unselectable={onlyInstantPayment}
+          withPaddingLeft={fromApp}
         />
       ))}
     </div>

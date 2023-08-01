@@ -24,14 +24,14 @@ const MarketingActionChip: React.FC<MarketingActionChipProps> = ({
 }) => {
   return (
     <CadenceChip
+      withBackgroundOnHover
+      color={SequentialMarketingColors.MARKETING_ACTION_COLOR}
+      icon={getMarketingActionChipIcon(marketingAction)}
       name={getMarketingActionChipName({
         marketingAction,
         getTag,
         getEmailTemplate,
       })}
-      icon={getMarketingActionChipIcon(marketingAction)}
-      color={SequentialMarketingColors.MARKETING_ACTION_COLOR}
-      withBackgroundOnHover
     />
   );
 };

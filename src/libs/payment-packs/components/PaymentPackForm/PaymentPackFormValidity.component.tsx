@@ -48,7 +48,7 @@ export const PaymentPackFormValidity = (props: Props) => {
   ];
   return (
     <>
-      <Grid container spacing={2} id="paymentpack-form-validity-section">
+      <Grid container id="paymentpack-form-validity-section" spacing={2}>
         <Grid item xs={12}>
           <div className={classes.infoText}>
             <DateRangeIcon className={classes.icon} />
@@ -68,17 +68,17 @@ export const PaymentPackFormValidity = (props: Props) => {
               <div key={value}>
                 <FormControlLabel
                   key={value}
-                  value={value}
                   control={
                     <Radio
+                      checked={`${values.validity}` === `${value}`}
                       disabled={
                         (initial && !initial?.editable) ||
                         (disabledUniversalPassFields && value === 'slot')
                       }
-                      checked={`${values.validity}` === `${value}`}
                     />
                   }
                   label={l}
+                  value={value}
                 />
               </div>
             ))}
@@ -88,20 +88,20 @@ export const PaymentPackFormValidity = (props: Props) => {
           <>
             <Grid item xs={3}>
               <DateField
-                disabled={initial && !initial?.editable}
-                name="lower_date"
-                label={t('addPaymentPack.fromDate')}
-                parseAsString
                 bottomError
+                parseAsString
+                disabled={initial && !initial?.editable}
+                label={t('addPaymentPack.fromDate')}
+                name="lower_date"
               />
             </Grid>
             <Grid item xs={3}>
               <DateField
-                disabled={initial && !initial?.editable}
-                name="upper_date"
-                label={t('addPaymentPack.toDate')}
-                parseAsString
                 bottomError
+                parseAsString
+                disabled={initial && !initial?.editable}
+                label={t('addPaymentPack.toDate')}
+                name="upper_date"
               />
             </Grid>
             <Grid item xs={6} />
@@ -111,36 +111,36 @@ export const PaymentPackFormValidity = (props: Props) => {
             <Grid item xs={12}>
               <div className={classes.row}>
                 <IntegerFieldEnhancedHelperTextError
-                  disabled={initial && !initial?.editable}
-                  id="paymentpack-form-day-validity-input"
                   fullWidth
-                  type="number"
-                  name="duration_days"
-                  label={t('addPaymentPack.dayValidity')}
+                  disabled={initial && !initial?.editable}
                   helperText=" "
+                  id="paymentpack-form-day-validity-input"
+                  label={t('addPaymentPack.dayValidity')}
+                  name="duration_days"
+                  type="number"
                 />
                 <Add />
 
                 <IntegerFieldEnhancedHelperTextError
-                  disabled={initial && !initial?.editable}
-                  id="paymentpack-form-month-validity-input"
                   fullWidth
-                  type="number"
-                  name="duration_months"
-                  label={t('addPaymentPack.monthValidity')}
+                  disabled={initial && !initial?.editable}
                   helperText={t('addPaymentPack.monthValidityHelper')}
+                  id="paymentpack-form-month-validity-input"
+                  label={t('addPaymentPack.monthValidity')}
+                  name="duration_months"
+                  type="number"
                 />
 
                 <Add />
 
                 <IntegerFieldEnhancedHelperTextError
-                  disabled={initial && !initial?.editable}
-                  id="paymentpack-form-year-validity-input"
                   fullWidth
-                  type="number"
-                  name="duration_years"
-                  label={t('addPaymentPack.yearValidity')}
+                  disabled={initial && !initial?.editable}
                   helperText={t('addPaymentPack.yearValidityHelper')}
+                  id="paymentpack-form-year-validity-input"
+                  label={t('addPaymentPack.yearValidity')}
+                  name="duration_years"
+                  type="number"
                 />
               </div>
             </Grid>
@@ -171,18 +171,18 @@ export const PaymentPackFormValidity = (props: Props) => {
                   <div key={value}>
                     <FormControlLabel
                       key={value}
-                      value={value}
                       control={
                         <Radio
+                          checked={`${values.start_date_method}` === `${value}`}
                           disabled={
                             (initial && !initial?.editable) ||
                             (disabledUniversalPassFields &&
                               value === 'attendance')
                           }
-                          checked={`${values.start_date_method}` === `${value}`}
                         />
                       }
                       label={l}
+                      value={value}
                     />
                   </div>
                 ))}
@@ -192,14 +192,14 @@ export const PaymentPackFormValidity = (props: Props) => {
             values.start_date_method === 'attendance' ? (
               <Grid item xs={6}>
                 <TextFieldEnhancedLabelWithError
-                  disabled={initial && !initial?.editable}
-                  id="paymentpack-form-month-expiration-input"
                   fullWidth
+                  required
+                  disabled={initial && !initial?.editable}
+                  helperText={t('addPaymentPack.expirationDateHelper')}
+                  id="paymentpack-form-month-expiration-input"
+                  label={t('addPaymentPack.expirationDate')}
                   name="expiration_days_before_first_use"
                   type="number"
-                  required
-                  helperText={t('addPaymentPack.expirationDateHelper')}
-                  label={t('addPaymentPack.expirationDate')}
                 />
               </Grid>
             ) : null}

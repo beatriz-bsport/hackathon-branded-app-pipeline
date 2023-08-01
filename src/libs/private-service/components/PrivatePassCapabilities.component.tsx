@@ -90,19 +90,19 @@ export const PrivatePassCapabilities = (props: Props) => {
 
   return (
     <div>
-      <Typography variant="h5" className={classes.sectionTitle}>
+      <Typography className={classes.sectionTitle} variant="h5">
         {t('privateBooking.managerAdd.compatiblePrivateConsumerPass')}
       </Typography>
       <Divider className={classes.divider} />
       {needRefresh ? (
         <div className={classes.refreshButtonContainer}>
           <Button
-            variant="contained"
             color="primary"
             onClick={() => {
               props.fetchPass();
               setNeedRefresh(false);
             }}
+            variant="contained"
           >
             <RefreshIcon className={classes.leftIcon} />
             {t('privateBooking.managerAdd.privateConsumerPassNeedRefresh')}
@@ -115,12 +115,12 @@ export const PrivatePassCapabilities = (props: Props) => {
               props.registerUnPaidPrivateBooking && (
                 <UnPrivateConsumerPassBookerListItem
                   key="unpaid_booking_pass"
+                  divider
                   onBook={() => {
                     props.recurrenceRule
                       ? props.createRecurrentRule(null, true)
                       : props.registerUnPaidPrivateBooking();
                   }}
-                  divider
                   privateSlotCredit={props.privateSlotCredit}
                 />
               )}
@@ -129,14 +129,14 @@ export const PrivatePassCapabilities = (props: Props) => {
               ? props.compatiblePrivateConsumerPass.map(
                   (pcp: PrivateConsumerPass) => (
                     <PrivateConsumerPassBookerListItem
-                      private_consumer_pass={pcp}
+                      key={pcp.id}
+                      divider
                       onBook={(options: OptionCallback) =>
                         props.recurrenceRule
                           ? props.createRecurrentRule(options)
                           : props.registerPrivateBooking(pcp.id, options)
                       }
-                      key={pcp.id}
-                      divider
+                      private_consumer_pass={pcp}
                     />
                   ),
                 )
@@ -146,10 +146,10 @@ export const PrivatePassCapabilities = (props: Props) => {
       )}
       <div className={classes.nonCompatibleSection}>
         <ButtonBase
-          onClick={() => handleSwitchCollapse()}
           className={classes.nonCompatibleCollapsable}
+          onClick={() => handleSwitchCollapse()}
         >
-          <Typography variant="h5" className={classes.textAlign}>
+          <Typography className={classes.textAlign} variant="h5">
             {t('privateBooking.managerAdd.nonCompatiblePrivateConsumerPass')}
           </Typography>
           {openNonCompatiblePrivateConsumerPass ? (
@@ -165,31 +165,31 @@ export const PrivatePassCapabilities = (props: Props) => {
                 <div>
                   <Skeleton
                     animation="wave"
-                    width="40%"
-                    variant="text"
                     height={30}
+                    variant="text"
+                    width="40%"
                   />
                   <Box mt={2} />
                   <Skeleton
                     animation="wave"
-                    width="100%"
-                    variant="rect"
                     height={50}
+                    variant="rect"
+                    width="100%"
                   />
                 </div>
                 <div>
                   <Skeleton
                     animation="wave"
-                    width="40%"
-                    variant="text"
                     height={30}
+                    variant="text"
+                    width="40%"
                   />
                   <Box mt={2} />
                   <Skeleton
                     animation="wave"
-                    width="100%"
-                    variant="rect"
                     height={50}
+                    variant="rect"
+                    width="100%"
                   />
                 </div>
               </>
@@ -199,24 +199,24 @@ export const PrivatePassCapabilities = (props: Props) => {
                   <div className={classes.disabled}>
                     {props.nonCompatiblePrivateConsumerPass.map((pcp) => (
                       <PrivateConsumerPassBookerListItem
-                        private_consumer_pass={pcp}
+                        key={pcp.id}
+                        divider
+                        isNonCompatible
+                        fetchIncompatibilitiesReasonsBySlotByConsumerPass={
+                          props.fetchIncompatibilitiesReasonsBySlotByConsumerPass
+                        }
+                        goToPrivatePass={handleGoToPrivatePass(
+                          pcp.private_pass?.id,
+                        )}
+                        incompatibilitiesReasons={
+                          props.incompatibilitiesReasons
+                        }
                         onBook={(options: OptionCallback) =>
                           props.recurrenceRule
                             ? props.createRecurrentRule(options)
                             : props.registerPrivateBooking(pcp.id, options)
                         }
-                        key={pcp.id}
-                        divider
-                        isNonCompatible
-                        goToPrivatePass={handleGoToPrivatePass(
-                          pcp.private_pass?.id,
-                        )}
-                        fetchIncompatibilitiesReasonsBySlotByConsumerPass={
-                          props.fetchIncompatibilitiesReasonsBySlotByConsumerPass
-                        }
-                        incompatibilitiesReasons={
-                          props.incompatibilitiesReasons
-                        }
+                        private_consumer_pass={pcp}
                         privateSlotId={props.privateSlot}
                       />
                     ))}
@@ -231,7 +231,7 @@ export const PrivatePassCapabilities = (props: Props) => {
           </div>
         </Collapse>
       </div>
-      <Typography variant="h5" className={classes.sectionTitle}>
+      <Typography className={classes.sectionTitle} variant="h5">
         {t('privateBooking.managerAdd.compatiblePrivatePass')}
       </Typography>
       <Divider className={classes.divider} />
@@ -240,13 +240,13 @@ export const PrivatePassCapabilities = (props: Props) => {
           <Paper>
             {props.compatiblePrivatePass.map((privatePass: PrivatePass) => (
               <PrivatePassBookerListItem
-                private_pass={privatePass}
+                key={privatePass.id}
+                divider
                 onClick={() => {
                   props.billMemberPrivatePass(privatePass.id);
                   setNeedRefresh(true);
                 }}
-                key={privatePass.id}
-                divider
+                private_pass={privatePass}
               />
             ))}
           </Paper>

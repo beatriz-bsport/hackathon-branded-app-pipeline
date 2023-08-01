@@ -111,7 +111,7 @@ export const GroupedOfferDelete: React.FC<Props> = ({
   const firstOfferInGroup = getOffersListByGroup(group.id)?.[0];
 
   return (
-    <Dialog open={open} onClose={onCancel} classes={{ paper: classes.dialog }}>
+    <Dialog classes={{ paper: classes.dialog }} onClose={onCancel} open={open}>
       <DialogTitle>
         {t('metaActivity:groupedOption.modal.form.delete.title')}
       </DialogTitle>
@@ -121,8 +121,8 @@ export const GroupedOfferDelete: React.FC<Props> = ({
         </Typography>
         <div className={classes.row}>
           <Switch
-            disabled={processing}
             checked={notify}
+            disabled={processing}
             onChange={onNotifySwitch}
           />
           <Typography className={classes.explainNotify}>
@@ -150,12 +150,12 @@ export const GroupedOfferDelete: React.FC<Props> = ({
             </IconButton>
           </div>
           <Collapse in={isExpanded}>
-            <ButtonBase onClick={selectAll} className={classes.selectOption}>
+            <ButtonBase className={classes.selectOption} onClick={selectAll}>
               <Typography variant="caption">
                 {t('offer:liveOfferEdit.selectAll')}
               </Typography>
             </ButtonBase>
-            <ButtonBase onClick={unselectAll} className={classes.selectOption}>
+            <ButtonBase className={classes.selectOption} onClick={unselectAll}>
               <Typography variant="caption">
                 {t('offer:liveOfferEdit.unselectAll')}
               </Typography>

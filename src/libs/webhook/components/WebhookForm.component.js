@@ -92,14 +92,14 @@ export class WebhookFormDialog extends Component<Props, state> {
               <div className={classes.formControl}>
                 <FormControl className={classes.formControl}>
                   <Select
-                    className={classes.input}
                     required
-                    value={this.state.event_type}
+                    className={classes.input}
                     onChange={(ev) =>
                       this.setState({ event_type: ev.target.value })
                     }
+                    value={this.state.event_type}
                   >
-                    <MenuItem value={NO_EVENT} disabled>
+                    <MenuItem disabled value={NO_EVENT}>
                       {this.props.t('webhook.selectEvent')}
                     </MenuItem>
                     {this.props.eventList.map((item) => (
@@ -111,25 +111,25 @@ export class WebhookFormDialog extends Component<Props, state> {
                 </FormControl>
               </div>
               <TextField
-                value={this.state.url}
                 fullWidth
                 className={this.props.classes.textField}
-                variant="outlined"
+                helperText={this.props.t('webhook.urlHelper')}
                 label={t('url')}
                 onChange={(ev) => this.setState({ url: ev.target.value })}
-                helperText={this.props.t('webhook.urlHelper')}
                 placeholder={this.props.t('webhook.urlPlaceHolder')}
+                value={this.state.url}
+                variant="outlined"
               />
               <DialogActions>
                 <Button color="secondary" onClick={this.onCancel}>
                   {t('webhook.cancel')}
                 </Button>
                 <Button
+                  color="primary"
                   disabled={
                     this.state.event_type === NO_EVENT || !this.state.url
                   }
                   type="submit"
-                  color="primary"
                 >
                   {t('webhook.submit')}
                 </Button>

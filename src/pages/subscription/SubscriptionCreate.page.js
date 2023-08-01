@@ -123,33 +123,33 @@ export class SubscriptionCreate extends Component<Props, State> {
         {this.state.processing ? <LinearProgress /> : null}
         {this.state.tempSubscription ? (
           <SubscriptionScheduleChecker
-            subscriptionData={this.state.tempSubscription}
-            onSubmit={this.createSubscription}
-            onCancel={() => this.storeTempSubscription(null)}
-            processing={this.state.processing}
-            member={this.props.member}
-            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-            savedPaymentMethodList={this.props.savedPaymentMethodList}
-            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
-            establishments={this.props.establishments}
+            companyId={this.props.companyId}
             companyTheme={this.props.companyTheme}
             enableMultiLocalization={
               this.props.companyTheme.enable_multi_localization
             }
-            stripeReaders={this.props.stripeReaders || []}
-            companyId={this.props.companyId}
+            establishments={this.props.establishments}
+            member={this.props.member}
+            onCancel={() => this.storeTempSubscription(null)}
             onlinePaymentEnabled={this.props.onlinePaymentEnabled}
+            onSubmit={this.createSubscription}
+            processing={this.state.processing}
+            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
+            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+            savedPaymentMethodList={this.props.savedPaymentMethodList}
+            stripeReaders={this.props.stripeReaders || []}
+            subscriptionData={this.state.tempSubscription}
           />
         ) : (
           <Paper className={this.props.classes.paper}>
             <div className={this.props.classes.formContainer}>
               <SubscriptionCreateComponent
+                member={this.props.member}
+                onCancel={this.props.onCancel}
+                onSubmit={this.storeTempSubscription}
+                paymentComboList={this.props.paymentComboList}
                 paymentPacks={this.props.paymentPacks}
                 privatePassList={this.props.privatePassList}
-                paymentComboList={this.props.paymentComboList}
-                member={this.props.member}
-                onSubmit={this.storeTempSubscription}
-                onCancel={this.props.onCancel}
               />
             </div>
           </Paper>

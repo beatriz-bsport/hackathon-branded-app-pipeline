@@ -38,9 +38,9 @@ const VodVideoAnalytics = (props: Props) => {
       </div>
       {props.videoDateCreated && (
         <Typography
-          variant="caption"
           className={classes.uploaded}
           component="p"
+          variant="caption"
         >
           {t('video.analytics.uploaded', {
             date: formatAsDatetimeAdapted(props.videoDateCreated, 'LL'),
@@ -49,32 +49,32 @@ const VodVideoAnalytics = (props: Props) => {
       )}
       <Paper className={classes.viewsContainer}>
         <div className={classes.statContainer}>
-          <Typography variant="h5" align="center">
+          <Typography align="center" variant="h5">
             {props.data.nb_views_total !== undefined
               ? props.data.nb_views_total
               : '-'}
           </Typography>
-          <Typography variant="caption" align="center" component="p">
+          <Typography align="center" component="p" variant="caption">
             {t('video.analytics.totalViews')}
           </Typography>
         </div>
         <div className={classes.statContainer}>
-          <Typography variant="h5" align="center">
+          <Typography align="center" variant="h5">
             {props.data.nb_views_last_week !== undefined
               ? props.data.nb_views_last_week
               : '-'}
           </Typography>
-          <Typography variant="caption" align="center" component="p">
+          <Typography align="center" component="p" variant="caption">
             {t('video.analytics.viewsLastWeek')}
           </Typography>
         </div>
         <div className={classes.statContainer}>
-          <Typography variant="h5" align="center">
+          <Typography align="center" variant="h5">
             {props.data.nb_distinct_viewers !== undefined
               ? props.data.nb_distinct_viewers
               : '-'}
           </Typography>
-          <Typography variant="caption" align="center" component="p">
+          <Typography align="center" component="p" variant="caption">
             {t('video.analytics.distinctViewers')}
           </Typography>
         </div>

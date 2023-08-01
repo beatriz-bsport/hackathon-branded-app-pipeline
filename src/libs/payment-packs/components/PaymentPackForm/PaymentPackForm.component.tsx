@@ -185,7 +185,6 @@ export const PaymentPackForm: React.FC<Props> = ({
     <div>
       <Formik
         enableReinitialize
-        validationSchema={paymentPackSchema}
         initialValues={
           initial
             ? {
@@ -434,6 +433,7 @@ export const PaymentPackForm: React.FC<Props> = ({
             },
           });
         }}
+        validationSchema={paymentPackSchema}
       >
         {({
           handleSubmit,
@@ -450,29 +450,29 @@ export const PaymentPackForm: React.FC<Props> = ({
                 }
               >
                 <PaymentPackFormGeneral
+                  disabledUniversalPassFields={disabledUniversalPassFields}
                   initial={initial}
                   paymentPackCategories={paymentPackCategories}
                   provincialTax={provincialTax}
-                  disabledUniversalPassFields={disabledUniversalPassFields}
                   setDisableUniversalPassFields={setDisableUniversalPassFields}
                 />
               </div>
               <Divider className={classes.divider} />
               <div className={classes.formContainer}>
                 <PaymentPackFormValidity
-                  initial={initial}
                   disabledUniversalPassFields={disabledUniversalPassFields}
+                  initial={initial}
                 />
               </div>
               <Divider className={classes.divider} />
               <div className={classes.formContainer}>
                 <PaymentPackFormRestrictions
-                  categoryList={categoryList}
-                  availableEstablishmentList={availableEstablishmentList}
-                  metaActivityList={metaActivityList}
-                  initial={initial}
-                  disabledUniversalPassFields={disabledUniversalPassFields}
                   allowGuestMaster={!!allowGuestMaster}
+                  availableEstablishmentList={availableEstablishmentList}
+                  categoryList={categoryList}
+                  disabledUniversalPassFields={disabledUniversalPassFields}
+                  initial={initial}
+                  metaActivityList={metaActivityList}
                 />
               </div>
               <Divider className={classes.divider} />
@@ -480,10 +480,10 @@ export const PaymentPackForm: React.FC<Props> = ({
                 <>
                   <div className={classes.formContainer}>
                     <UniversalPassFormPrivateserviceCompatibility
-                      initial={initial}
-                      field_name="linked_private_pass_compatibility"
-                      privateServices={privateServices}
                       compatibleServicePass={compatibleServicePass}
+                      field_name="linked_private_pass_compatibility"
+                      initial={initial}
+                      privateServices={privateServices}
                     />
                   </div>
                   <Divider className={classes.divider} />
@@ -491,8 +491,8 @@ export const PaymentPackForm: React.FC<Props> = ({
               )}
               <div className={classes.formContainer}>
                 <PaymentPackFormAdvancedOptions
-                  tagList={tagList}
                   disabledUniversalPassFields={disabledUniversalPassFields}
+                  tagList={tagList}
                 />
               </div>
               <Divider className={classes.divider} />
@@ -507,12 +507,12 @@ export const PaymentPackForm: React.FC<Props> = ({
                     </Button>
                   ) : null}
                   <Button
+                    color="primary"
+                    disabled={isSubmitting}
                     onClick={() => {
                       trackFormSubmitIntent(initial?.id);
                       handleSubmit();
                     }}
-                    disabled={isSubmitting}
-                    color="primary"
                     variant="contained"
                   >
                     {t('form.paymentPack.actions.create')}

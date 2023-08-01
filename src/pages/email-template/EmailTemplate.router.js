@@ -17,12 +17,12 @@ export default () => {
     <Switch>
       <Route
         exact
-        path="/email-template/create"
         component={EmailTemplateCreate}
+        path="/email-template/create"
       />
-      <Route exact path="/email-template/:id/edit" component={EmailEditor} />
-      <Route exact path="/email-template/:id" component={EmailTemplateList} />
-      <Route path="/email-template" component={EmailTemplateList} />
+      <Route exact component={EmailEditor} path="/email-template/:id/edit" />
+      <Route exact component={EmailTemplateList} path="/email-template/:id" />
+      <Route component={EmailTemplateList} path="/email-template" />
     </Switch>
   );
 };

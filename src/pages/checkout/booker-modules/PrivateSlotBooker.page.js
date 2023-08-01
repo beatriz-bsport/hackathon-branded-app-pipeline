@@ -249,8 +249,8 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
         <div className={this.props.classes.container}>
           <div className={this.props.classes.titleContainer}>
             <ScheduleIcon
-              fontSize="large"
               className={this.props.classes.leftIcon}
+              fontSize="large"
             />
             <Typography variant="h4">
               {formatAsDatetimeAdapted(
@@ -266,24 +266,24 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
                 privateService={this.props.privateService}
               />
               <PrivateSlotListItem
-                slot={this.props.privateSlot}
                 hideCredits={this.props.theme.hide_credits_for_customers}
+                slot={this.props.privateSlot}
               />
             </Paper>
             <div className={this.props.classes.bookingCapabilities}>
               {needAddress && !this.state.addressValidated ? (
                 <div className={this.props.classes.addressContainer}>
                   <TextField
-                    label={this.props.t('bookerModule.address.label')}
+                    fullWidth
+                    multiline
                     helperText={this.props.t('bookerModule.address.helperText')}
+                    label={this.props.t('bookerModule.address.label')}
                     onChange={(ev) =>
                       this.setState({ address: ev.target.value })
                     }
+                    rows={5}
                     value={this.state.address}
                     variant="outlined"
-                    fullWidth
-                    multiline
-                    rows={5}
                   />
                   <Button
                     onClick={() => this.setState({ addressValidated: true })}
@@ -293,43 +293,43 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
                 </div>
               ) : (
                 <BookingCapabilities
+                  compatibleWithUnpaidBooking={
+                    this.props.compatibleWithUnpaidBooking
+                  }
+                  hideCredits={this.props.theme.hide_credits_for_customers}
                   isExcludingTax={
                     this.props.theme.is_tax_excluded_in_marketplace
                   }
                   loading={this.state.processing}
+                  onConsumerPassClick={this.handleConsumerPassClick}
+                  onPrivatePassClick={this.handlePrivatePassClick}
                   privateConsumerPassList={
                     this.props.compatiblePrivateConsumerPass
                   }
                   privatePassByCategory={this.props.compatiblePrivatePassByCategory.filter(
                     (cat) => cat.passes.length,
                   )}
-                  onConsumerPassClick={this.handleConsumerPassClick}
-                  onPrivatePassClick={this.handlePrivatePassClick}
-                  compatibleWithUnpaidBooking={
-                    this.props.compatibleWithUnpaidBooking
-                  }
                   privateSlotCredit={this.props.privateSlot?.credit}
-                  hideCredits={this.props.theme.hide_credits_for_customers}
                 />
               )}
             </div>
             <MarketplaceBasketDialog
-              open={!!this.state.currentBasketOpen}
               basket={this.props.currentBasket}
-              onCancel={() => this.toggleCurrentBasketOpen(false)}
+              goToCheckout={() =>
+                this.props.goToCheckout(this.props.currentBasket.company)
+              }
               loading={this.props.currentBasketLoading}
+              onAddCheckoutItem={(data) =>
+                this.props.addItemToBasket(this.props.currentBasket.id, data)
+              }
+              onCancel={() => this.toggleCurrentBasketOpen(false)}
               onRemoveCheckoutItem={(data) =>
                 this.props.removeItemFromBasket(
                   this.props.currentBasket.id,
                   data,
                 )
               }
-              onAddCheckoutItem={(data) =>
-                this.props.addItemToBasket(this.props.currentBasket.id, data)
-              }
-              goToCheckout={() =>
-                this.props.goToCheckout(this.props.currentBasket.company)
-              }
+              open={!!this.state.currentBasketOpen}
             />
           </div>
         </div>

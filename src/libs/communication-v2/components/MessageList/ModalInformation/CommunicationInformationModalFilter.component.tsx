@@ -27,12 +27,12 @@ export const CommunicationInformationModalFilter = (props: Props) => {
   };
   return (
     <Select
-      value={filterValues}
-      options={filterOptions}
-      onChange={handleFilterChange}
       isMulti
-      placeholder={genericMemberCategories.filterPlaceholder}
       className={classes.filterSelector}
+      onChange={handleFilterChange}
+      options={filterOptions}
+      placeholder={genericMemberCategories.filterPlaceholder}
+      value={filterValues}
     />
   );
 };

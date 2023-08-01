@@ -93,21 +93,19 @@ export const FranchiseGenericProductDoubleList = (props: Props) => {
     <div>
       {props.loading && <LinearProgress />}
       <IsEmptyList
-        text={props.emptyExplainLabel}
+        filledIcon
         button={props.emptyButtonLabel}
+        hideBottomActions={displayEmptyText}
+        hideEmptyText={!displayEmptyText}
         onCreate={props.onCreateTemplate}
         onCreateLabel={props.emptyButtonLabel}
-        filledIcon
-        hideEmptyText={!displayEmptyText}
-        hideBottomActions={displayEmptyText}
+        text={props.emptyExplainLabel}
       />
       <div className={classes.container}>
         {!displayEmptyText && props.withFuzzySearch && (
           <FuzzySearch
-            placeholder={t('genericProduct.list.fuzzySearch')}
+            className={classes.fuzzySearch}
             // @ts-ignore
-            searchFields={props.fuzzySearchSearchFields ?? ['name']}
-            items={fuzzySearchItemList}
             itemRenderer={(item: GenericProductTemplate) => {
               if (
                 fuzzySearchItemList.some((template) => template.id === item.id)
@@ -115,23 +113,25 @@ export const FranchiseGenericProductDoubleList = (props: Props) => {
                 return (
                   <FranchiseGenericProductListItem
                     key={item.id}
-                    id={item.id}
                     companies={itemIdToSortedCompanyList[item.id]}
+                    cover={!!props.getItemCover && props.getItemCover(item)}
+                    id={item.id}
+                    manager_only={!!item?.manager_only}
+                    onClick={props.goToItemDetailPage}
+                    onDelete={setTemplateToDelete}
+                    onEdit={props.onUpdateTemplate}
                     primaryText={props.getItemPrimaryText(item)}
                     secondaryText={props.getItemSecondaryText(item)}
-                    cover={!!props.getItemCover && props.getItemCover(item)}
-                    withCover={!!props.getItemCover}
-                    onClick={props.goToItemDetailPage}
-                    onEdit={props.onUpdateTemplate}
-                    onDelete={setTemplateToDelete}
                     t={t}
-                    manager_only={!!item?.manager_only}
+                    withCover={!!props.getItemCover}
                   />
                 );
               }
               return null;
             }}
-            className={classes.fuzzySearch}
+            items={fuzzySearchItemList}
+            placeholder={t('genericProduct.list.fuzzySearch')}
+            searchFields={props.fuzzySearchSearchFields ?? ['name']}
           />
         )}
         {activeItemList.length ? (
@@ -147,17 +147,17 @@ export const FranchiseGenericProductDoubleList = (props: Props) => {
               {activeItemList.map((item: GenericProductTemplate) => (
                 <FranchiseGenericProductListItem
                   key={item.id}
-                  id={item.id}
                   companies={itemIdToSortedCompanyList[item.id]}
+                  cover={!!props.getItemCover && props.getItemCover(item)}
+                  id={item.id}
+                  manager_only={!!item?.manager_only}
+                  onClick={props.goToItemDetailPage}
+                  onDelete={setTemplateToDelete}
+                  onEdit={props.onUpdateTemplate}
                   primaryText={props.getItemPrimaryText(item)}
                   secondaryText={props.getItemSecondaryText(item)}
-                  cover={!!props.getItemCover && props.getItemCover(item)}
-                  withCover={!!props.getItemCover}
-                  onClick={props.goToItemDetailPage}
-                  onEdit={props.onUpdateTemplate}
-                  onDelete={setTemplateToDelete}
                   t={t}
-                  manager_only={!!item?.manager_only}
+                  withCover={!!props.getItemCover}
                 />
               ))}
             </Paper>
@@ -180,17 +180,17 @@ export const FranchiseGenericProductDoubleList = (props: Props) => {
               {inactiveItemList.map((item: GenericProductTemplate) => (
                 <FranchiseGenericProductListItem
                   key={item.id}
-                  id={item.id}
                   companies={itemIdToSortedCompanyList[item.id]}
+                  cover={props.getItemCover && props.getItemCover(item)}
+                  id={item.id}
+                  manager_only={!!item?.manager_only}
+                  onClick={props.goToItemDetailPage}
+                  onDelete={setTemplateToDelete}
+                  onEdit={props.onUpdateTemplate}
                   primaryText={props.getItemPrimaryText(item)}
                   secondaryText={props.getItemSecondaryText(item)}
-                  cover={props.getItemCover && props.getItemCover(item)}
-                  withCover={!!props.getItemCover}
-                  onClick={props.goToItemDetailPage}
-                  onEdit={props.onUpdateTemplate}
-                  onDelete={setTemplateToDelete}
                   t={t}
-                  manager_only={!!item?.manager_only}
+                  withCover={!!props.getItemCover}
                 />
               ))}
             </Paper>
@@ -198,10 +198,10 @@ export const FranchiseGenericProductDoubleList = (props: Props) => {
         ) : null}
       </div>
       <GenericDeleteDialog
-        open={!!templateToDelete}
+        content={props.deleteTemplateDialogContent}
         onCancel={() => setTemplateToDelete(null)}
         onValidate={onDeleteTemplate}
-        content={props.deleteTemplateDialogContent}
+        open={!!templateToDelete}
         title={
           props.deleteTemplateDialogTitle ??
           t('genericProduct.dialogs.deleteTemplate.title')

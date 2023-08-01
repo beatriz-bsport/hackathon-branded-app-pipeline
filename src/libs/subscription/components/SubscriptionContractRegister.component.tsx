@@ -91,7 +91,7 @@ type PickerProps = {
 };
 
 const ContractPickerDialog = (props: PickerProps) => (
-  <GenericResponsiveDialog open={props.open} maxWidth="sm">
+  <GenericResponsiveDialog maxWidth="sm" open={props.open}>
     <DialogTitle>{props.t('contract.registerManager.title')}</DialogTitle>
     <DialogContent>
       <Typography className={props.classes.contentText}>
@@ -110,17 +110,17 @@ const ContractPickerDialog = (props: PickerProps) => (
         props.contractList.map((c) => (
           <SubscriptionContractListItem
             key={c.id}
-            contract={c}
-            divider
             dense
+            divider
+            contract={c}
             onClick={() => props.onChangeContract?.(c)}
           />
         ))}
       {props.goToCustomSubscriptionForm ? (
         <Button
-          variant="outlined"
           className={props.classes.button}
           onClick={props.goToCustomSubscriptionForm}
+          variant="outlined"
         >
           {props.t('contract.registerManager.explainCustomSubscriptionForm')}
         </Button>
@@ -174,42 +174,42 @@ export const SubscriptionContractRegister = (props: Props) => {
     return (
       <MemberSearchModal
         asManager
-        open={props.open}
+        generalTermsAndConditions={props.generalTermsAndConditions}
+        handlMemberSelected={handleMemberSelected}
         loading={props.searchLoading}
+        onClose={props.onClose}
+        open={props.open}
         searchedMembers={props.searchedMembers || []}
         searchMembers={props.searchMembers}
-        onClose={props.onClose}
-        handlMemberSelected={handleMemberSelected}
         waiver={props.waiver}
-        generalTermsAndConditions={props.generalTermsAndConditions}
       />
     );
   }
   if (!props.contract) {
     return (
       <ContractPickerDialog
-        t={t}
         classes={props.classes}
-        open={props.open}
         contractList={props.contractList}
         contractLoading={props.contractLoading}
+        goToCustomSubscriptionForm={props.goToCustomSubscriptionForm}
         onChangeContract={props.onChangeContract}
         onClose={props.onClose}
-        goToCustomSubscriptionForm={props.goToCustomSubscriptionForm}
+        open={props.open}
+        t={t}
       />
     );
   }
 
   return (
-    <GenericResponsiveDialog open={props.open} maxWidth="sm">
+    <GenericResponsiveDialog maxWidth="sm" open={props.open}>
       <DialogTitle>{props.contract.name}</DialogTitle>
       <DialogContent>
         {pickedDateInThePast && (
-          <Typography variant="h6" style={{ marginBottom: '16px' }}>
+          <Typography style={{ marginBottom: '16px' }} variant="h6">
             {t('contract.pastDate.futureInvoicesPayment')}
           </Typography>
         )}
-        <GenericResponsiveDialog open={alertPickedDateInThePast} maxWidth="sm">
+        <GenericResponsiveDialog maxWidth="sm" open={alertPickedDateInThePast}>
           <DialogTitle>{t('contract.pastDate.title')}</DialogTitle>
 
           <DialogContent>
@@ -225,19 +225,19 @@ export const SubscriptionContractRegister = (props: Props) => {
           </DialogContent>
           <DialogActions>
             <Button
+              color="secondary"
               onClick={() => {
                 props.setDate(moment());
               }}
-              color="secondary"
             >
               {t('contract.pastDate.cancel')}
             </Button>
             <Button
+              color="primary"
               onClick={() => {
                 setAlertPickedDateInThePast(false);
               }}
               variant="contained"
-              color="primary"
             >
               {t('contract.pastDate.validate')}
             </Button>
@@ -248,15 +248,13 @@ export const SubscriptionContractRegister = (props: Props) => {
             {t('contract.actions.iwanttostarton')}
           </Typography>
           <MuiPickersUtilsProvider
-            utils={MomentUtils}
-            moment={Moment}
             locale={Moment.locale()}
+            moment={Moment}
+            utils={MomentUtils}
           >
             <DatePicker
-              value={props.date}
-              onChange={props.setDate}
-              format="L"
               required
+              format="L"
               mask={(value) => {
                 if (value) {
                   return [
@@ -275,34 +273,36 @@ export const SubscriptionContractRegister = (props: Props) => {
                 return [];
               }}
               minDate={moment().subtract(1, 'years').format('YYYY-MM-DD')}
+              onChange={props.setDate}
+              value={props.date}
             />
           </MuiPickersUtilsProvider>
         </div>
 
         <Divider />
         <SubscriptionPayment
-          contract={props.contract}
-          onCancel={props.onClose}
-          member={props.member}
-          date={props.date}
-          onSubmit={props.onSubmit}
-          processing={props.processing}
-          requestSetupIntentSecret={props.requestSetupIntentSecret}
-          savedPaymentMethodList={props.savedPaymentMethodList}
-          refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
-          enabledPaymentMethods={props.enabledPaymentMethods}
-          onlinePaymentEnabled={props.onlinePaymentEnabled}
-          withNote
+          forceEstablishmentSelection
           withCoupon
           withEstablishment
-          forceEstablishmentSelection
+          withNote
+          companyId={props.companyId}
+          contract={props.contract}
+          date={props.date}
+          enabledPaymentMethods={props.enabledPaymentMethods}
           enableMultiLocalization={props.enableMultiLocalization}
           establishments={props.establishments}
-          stripeReaders={props.stripeReaders}
-          pastInvoices={pickedDateInThePast}
-          companyId={props.companyId}
-          showContractTermsCheckbox={props.withContractTermsCheckbox}
+          member={props.member}
+          onCancel={props.onClose}
+          onlinePaymentEnabled={props.onlinePaymentEnabled}
+          onSubmit={props.onSubmit}
           openContractTermsDialog={openContractTermsDialog}
+          pastInvoices={pickedDateInThePast}
+          processing={props.processing}
+          refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
+          requestSetupIntentSecret={props.requestSetupIntentSecret}
+          savedPaymentMethodList={props.savedPaymentMethodList}
+          showContractTermsCheckbox={props.withContractTermsCheckbox}
+          stripeReaders={props.stripeReaders}
         />
       </DialogContent>
 

@@ -125,9 +125,9 @@ export const MarketplaceCalendar = (props: Props) => {
         )}
         {nextAvailableOffer && (
           <button
-            type="button"
-            onClick={props.goToFirstAvailableSession}
             className="bs-calendar--no-offer--yes-next"
+            onClick={props.goToFirstAvailableSession}
+            type="button"
           >
             <EventAvailableIcon className="bs-calendar--no-offer--yes-next__icon" />
             <div className="bs-calendar--no-offer--yes-next__text">
@@ -150,64 +150,64 @@ export const MarketplaceCalendar = (props: Props) => {
   };
 
   return (
-    <div className="bs-calendar" ref={refContainer}>
+    <div ref={refContainer} className="bs-calendar">
       {!forceDayDisplayOnly && (
         <div className="bs-calendar__datePicker">
           <MarketplaceDatePicker
             dateSelected={selectedDate}
-            onSelect={onSelectDate}
-            offerFilters={filters}
             events={props.events}
+            offerFilters={filters}
+            onSelect={onSelectDate}
           />
         </div>
       )}
       {!forceDayDisplayOnly && (
         <MarketplaceFilterComponent
-          onSearch={onSearch}
-          onClearInput={onClearInput}
-          offers={offers}
           coaches={coaches}
+          customLevels={props.activeCustomLevels}
+          establishmentGroupList={props.establishmentGroupList}
           establishments={props.establishments}
+          filters={filters}
           hideCoach={props.hideCoach}
           metaActivities={metaActivities}
-          filters={filters}
+          offers={offers}
+          onClearInput={onClearInput}
+          onSearch={onSearch}
           setFilters={setFilters}
-          variant="activity"
-          establishmentGroupList={props.establishmentGroupList}
           showMultiLocalization={props.showMultiLocalization}
-          customLevels={props.activeCustomLevels}
+          variant="activity"
         />
       )}
       {loading && <LoadingIndicator />}
       {!loading && (
         <>
           <MarketplaceWeekTimetableV2
-            searchedOffers={searchedOffers}
-            offers={offers}
-            establishments={props.establishments}
-            genderCount={props.genderCount}
-            group={props.group}
-            metaActivities={metaActivities}
-            coaches={props.coaches}
-            showOfferFilling={props.showOfferFilling}
-            showOfferGender={props.showOfferGender}
-            hideCoach={props.hideCoach}
-            date={selectedDate}
-            onClickOffer={props.onClickOffer}
-            onClickBook={props.onClickBook}
-            onClickBookOption={props.onClickBookOption}
-            coachLoading={props.coachLoading}
-            establishmentLoading={props.establishmentLoading}
             activityLoading={props.activityLoading}
             bookedOffers={props.bookedOffers}
+            coaches={props.coaches}
+            coachLoading={props.coachLoading}
+            date={selectedDate}
+            establishmentLoading={props.establishmentLoading}
+            establishments={props.establishments}
+            forceDayDisplayOnly={forceDayDisplayOnly}
+            genderCount={props.genderCount}
             getLevel={props.getLevel}
-            onSelectDate={props.onSelectDate}
+            group={props.group}
+            hideCoach={props.hideCoach}
             isCompact={isCompact}
             isLarge={isLarge}
-            theme={props.theme}
+            metaActivities={metaActivities}
+            offers={offers}
+            onClickBook={props.onClickBook}
+            onClickBookOption={props.onClickBookOption}
+            onClickOffer={props.onClickOffer}
+            onSelectDate={props.onSelectDate}
+            searchedOffers={searchedOffers}
             showDayParts={showDayParts}
+            showOfferFilling={props.showOfferFilling}
+            showOfferGender={props.showOfferGender}
+            theme={props.theme}
             variant={props.variant}
-            forceDayDisplayOnly={forceDayDisplayOnly}
           />
           {noOfferDisplayed && renderNoOffer()}
         </>

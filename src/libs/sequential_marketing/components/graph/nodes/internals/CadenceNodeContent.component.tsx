@@ -62,9 +62,9 @@ const CadenceNodeContent: React.FC<CadenceNodeContentProps> = ({
               !!marketingAction && (
                 <MarketingActionChip
                   key={marketingAction.id}
-                  marketingAction={marketingAction}
-                  getTag={getTag}
                   getEmailTemplate={getEmailTemplate}
+                  getTag={getTag}
+                  marketingAction={marketingAction}
                 />
               ),
           )}
@@ -72,14 +72,14 @@ const CadenceNodeContent: React.FC<CadenceNodeContentProps> = ({
       )}
       {!!addMarketingAction && (
         <Button
-          onClick={handleAddMarketingAction}
           className={classes.button}
-          variant="text"
           color="inherit"
           disabled={
             disableAddMarketingAction ||
             isFullOfMarketingActions(marketingActionList)
           }
+          onClick={handleAddMarketingAction}
+          variant="text"
         >
           + {t('cadence.marketingAction.addAction')}
         </Button>

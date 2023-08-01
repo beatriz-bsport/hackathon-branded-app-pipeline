@@ -129,64 +129,64 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
   if (props.value === COACH_PERFORMANCE_FOR_SESSION) {
     return (
       <CoachPerformanceSessionTable
+        asCoach={props.asCoach}
+        coach={props.coachWithPerformance}
+        coachPaymentRulesList={coachSessionPaymentRulesList}
+        disablePdfButton={!handlePdfExportation}
+        handlePdfExportation={handlePdfExportationSession}
+        hideRuleSetter={props.hideRuleSetter}
         performances={
           props.coachWithPerformance?.performance[COACH_PERFORMANCE_FOR_SESSION]
         }
-        coachPaymentRulesList={coachSessionPaymentRulesList}
-        coach={props.coachWithPerformance}
         setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
-        hideRuleSetter={props.hideRuleSetter}
-        asCoach={props.asCoach}
-        handlePdfExportation={handlePdfExportationSession}
-        disablePdfButton={!handlePdfExportation}
       />
     );
   }
   if (props.value === COACH_PERFORMANCE_FOR_GROUP_ACTIVITY) {
     return (
       <CoachPerformanceSessionTable
-        performances={coachGroupActivityPerformances}
-        coachPaymentRulesList={coachGroupActivityPaymentRulesList}
-        coach={props.coachWithPerformance}
-        setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
-        hideRuleSetter={props.hideRuleSetter}
         asCoach={props.asCoach}
-        handlePdfExportation={handlePdfExportationSession}
+        coach={props.coachWithPerformance}
+        coachPaymentRulesList={coachGroupActivityPaymentRulesList}
         disablePdfButton={!handlePdfExportation}
+        handlePdfExportation={handlePdfExportationSession}
+        hideRuleSetter={props.hideRuleSetter}
+        performances={coachGroupActivityPerformances}
+        setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
       />
     );
   }
   if (props.value === COACH_PERFORMANCE_FOR_WORKSHOP) {
     return (
       <CoachPerformanceSessionTable
-        performances={coachWorkshopPerformances}
-        coachPaymentRulesList={coachWorkshopPaymentRulesList}
-        coach={props.coachWithPerformance}
-        setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
-        hideRuleSetter={props.hideRuleSetter}
         asCoach={props.asCoach}
-        handlePdfExportation={handlePdfExportationSession}
+        coach={props.coachWithPerformance}
+        coachPaymentRulesList={coachWorkshopPaymentRulesList}
         disablePdfButton={!handlePdfExportation}
+        handlePdfExportation={handlePdfExportationSession}
+        hideRuleSetter={props.hideRuleSetter}
+        performances={coachWorkshopPerformances}
+        setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
       />
     );
   }
   if (props.value === COACH_PERFORMANCE_FOR_APPOINTMENT) {
     return (
       <CoachPerformancePrivateServiceTable
+        asCoach={props.asCoach}
         coach={props.coachWithPerformance}
+        coachPaymentRulesList={coachPrivateServicePaymentRulesList}
+        disablePdfButton={!handlePdfExportation}
+        handlePdfExportation={handlePdfExportationAppointment}
+        hideRuleSetter={props.hideRuleSetter}
         performances={
           props.coachWithPerformance?.performance[
             COACH_PAYMENT_RULE_FOR_APPOINTMENT
           ]
         }
-        coachPaymentRulesList={coachPrivateServicePaymentRulesList}
         updatePrivateBookingCoachPaymentRule={
           props.updatePrivateBookingCoachPaymentRule
         }
-        hideRuleSetter={props.hideRuleSetter}
-        asCoach={props.asCoach}
-        handlePdfExportation={handlePdfExportationAppointment}
-        disablePdfButton={!handlePdfExportation}
       />
     );
   }
@@ -194,35 +194,35 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
     return (
       <div>
         <CoachPerformanceSessionTable
+          displayChip
+          asCoach={props.asCoach}
+          coach={props.coachWithPerformance}
+          coachPaymentRulesList={coachSessionPaymentRulesList}
+          disablePdfButton={!handlePdfExportation}
+          handlePdfExportation={handlePdfExportationAll}
+          hideRuleSetter={props.hideRuleSetter}
           performances={
             props.coachWithPerformance?.performance[
               COACH_PAYMENT_RULE_FOR_SESSION
             ]
           }
-          coachPaymentRulesList={coachSessionPaymentRulesList}
-          coach={props.coachWithPerformance}
           setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
-          hideRuleSetter={props.hideRuleSetter}
-          asCoach={props.asCoach}
-          displayChip
-          handlePdfExportation={handlePdfExportationAll}
-          disablePdfButton={!handlePdfExportation}
         />
 
         <CoachPerformancePrivateServiceTable
+          displayChip
+          asCoach={props.asCoach}
           coach={props.coachWithPerformance}
+          coachPaymentRulesList={coachPrivateServicePaymentRulesList}
+          hideRuleSetter={props.hideRuleSetter}
           performances={
             props.coachWithPerformance?.performance[
               COACH_PAYMENT_RULE_FOR_APPOINTMENT
             ]
           }
-          coachPaymentRulesList={coachPrivateServicePaymentRulesList}
           updatePrivateBookingCoachPaymentRule={
             props.updatePrivateBookingCoachPaymentRule
           }
-          hideRuleSetter={props.hideRuleSetter}
-          asCoach={props.asCoach}
-          displayChip
         />
       </div>
     );
@@ -323,10 +323,10 @@ export const CoachPerformanceTabs = (props: TabProps) => {
   return (
     <div>
       <Tabs
-        value={value}
         indicatorColor="primary"
-        textColor="primary"
         onChange={handleChange}
+        textColor="primary"
+        value={value}
       >
         <Tab
           label={`${t('tabs.session')}(${
@@ -384,9 +384,9 @@ export const CoachPerformanceTabs = (props: TabProps) => {
         props.setCoachWorkShopPaymentRule && (
           <CoachPerformanceRuleSetter
             coach={props.coachWithPerformance}
-            coachPaymentRulesByKind={props.coachPaymentRulesByKind}
             coachPaymentRuleGroups={props.coachPaymentRuleGroups}
             coachPaymentRuleGroupsDict={props.coachPaymentRuleGroupsDict}
+            coachPaymentRulesByKind={props.coachPaymentRulesByKind}
             setCoachPaymentRule={props.setCoachPaymentRule}
             setCoachPaymentRuleGroup={props.setCoachPaymentRuleGroup}
             setCoachPrivatePaymentRule={props.setCoachPrivatePaymentRule}
@@ -394,7 +394,7 @@ export const CoachPerformanceTabs = (props: TabProps) => {
           />
         )}
       <div className={classes.lastUpdateSection}>
-        <Typography variant="caption" color="secondary">
+        <Typography color="secondary" variant="caption">
           {!props.asCoach && props.displayLastUpdate && oldestUpdate
             ? t('coachPerformance:cachedData.oldestUpdate', {
                 date: formatAsDatetimeAdapted(
@@ -406,16 +406,16 @@ export const CoachPerformanceTabs = (props: TabProps) => {
         </Typography>
       </div>
       <CoachPerformanceTabPanel
-        value={value}
-        coachWithPerformance={props.coachWithPerformance}
+        asCoach={props.asCoach}
         coachPaymentRulesByKind={props.coachPaymentRulesByKind}
+        coachWithPerformance={props.coachWithPerformance}
+        handlePdfExportation={props.handlePdfExportation ?? undefined}
+        hideRuleSetter={props.hideRuleSetter}
         setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
         updatePrivateBookingCoachPaymentRule={
           props.updatePrivateBookingCoachPaymentRule
         }
-        hideRuleSetter={props.hideRuleSetter}
-        asCoach={props.asCoach}
-        handlePdfExportation={props.handlePdfExportation ?? undefined}
+        value={value}
       />
     </div>
   );

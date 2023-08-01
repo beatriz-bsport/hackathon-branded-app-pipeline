@@ -156,21 +156,21 @@ export const NotificationRuleListItem = (props: Props) => {
             <div>
               {/* div is need here for the tooltip */}
               <EmailSelector
-                emails={emailDesignList}
-                value={(rule || {}).email_design}
-                helperText={t('emailDesign.placeholder')}
-                onChange={handleChangeEmail}
                 disabled={franchisedOwned}
+                emails={emailDesignList}
+                helperText={t('emailDesign.placeholder')}
                 nullCurrentValue={showAlert && !(rule || {}).email_design}
+                onChange={handleChangeEmail}
+                value={(rule || {}).email_design}
               />
             </div>
           </Tooltip>
         </div>
         <div>
           <IconButton
-            disabled={!rule?.email_design}
             className={classes.showEmail}
             color="primary"
+            disabled={!rule?.email_design}
             onClick={handleShowEmail}
           >
             <VisibilityIcon
@@ -300,16 +300,16 @@ export const NotificationRuleListItem = (props: Props) => {
                       control={
                         <Checkbox
                           checked={!disabled}
-                          onChange={onDisable}
                           disabled={
                             franchisedOwned ||
                             disableCheckboxes ||
                             requiredTags.length > 0
                           }
+                          onChange={onDisable}
                         />
                       }
-                      label={t('listItem.sendTransactionnalEmail')}
                       disabled={disableCheckboxes || requiredTags.length > 0}
+                      label={t('listItem.sendTransactionnalEmail')}
                     />
                   </div>
                 </Tooltip>
@@ -317,12 +317,12 @@ export const NotificationRuleListItem = (props: Props) => {
                   control={
                     <Checkbox
                       checked={sendCompany}
-                      onChange={(ev) => onSendCompany(ev)}
                       disabled={disableCheckboxes || requiredTags.length > 0}
+                      onChange={(ev) => onSendCompany(ev)}
                     />
                   }
-                  label={t('listItem.copyCarbon')}
                   disabled={disableCheckboxes || requiredTags.length > 0}
+                  label={t('listItem.copyCarbon')}
                 />
                 {hasNotificationUpsell && renderEmailSelector()}
               </div>
@@ -341,22 +341,22 @@ export const NotificationRuleListItem = (props: Props) => {
                       control={
                         <Checkbox
                           checked={rule?.is_notification_push_active ?? false}
-                          onChange={handleNotificationToggle}
                           disabled={
                             (rule?.push_notification_content ?? '') === '' ||
                             (rule?.push_notification_title ?? '') === '' ||
                             disableCheckboxes ||
                             requiredTags.length > 0
                           }
+                          onChange={handleNotificationToggle}
                         />
                       }
                       label={t('listItem.sendTransactionnalNotification')}
                     />
                     <Button
                       color="primary"
-                      variant="outlined"
-                      onClick={openDialog}
                       disabled={disableCheckboxes || requiredTags.length > 0}
+                      onClick={openDialog}
+                      variant="outlined"
                     >
                       {t(
                         rule?.push_notification_content ||
@@ -367,9 +367,9 @@ export const NotificationRuleListItem = (props: Props) => {
                     </Button>
                     {dialogIsOpen && (
                       <NotificationForm
-                        onSubmit={handleSubmit}
-                        onCancel={closeDialog}
                         initial={rule}
+                        onCancel={closeDialog}
+                        onSubmit={handleSubmit}
                         tags={tags}
                       />
                     )}
@@ -379,9 +379,9 @@ export const NotificationRuleListItem = (props: Props) => {
             </div>
             {showAlert && requiredTags.length > 0 && (
               <Alert
-                severity="error"
-                icon={false}
                 classes={{ message: classes.MuiAlertMessage }}
+                icon={false}
+                severity="error"
               >
                 <div className={classes.row}>
                   <div className={classes.column}>

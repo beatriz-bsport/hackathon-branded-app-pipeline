@@ -20,24 +20,24 @@ export function WriteEmail(props: Props) {
   return (
     <div>
       <TextField
-        name="Mail title"
-        placeholder={t('mail.title')}
         fullWidth
         required
         className={classes.mailTitle}
-        value={props.title}
+        name="Mail title"
         onChange={(e) => {
           props.onChangeTitle(e.target.value);
         }}
+        placeholder={t('mail.title')}
+        value={props.title}
       />
       <TextField
-        name="Mail content"
-        label={t('mail.content')}
-        rows="15"
-        value={props.mailContent}
-        onChange={(e) => props.onChangeContent(e.target.value)}
         fullWidth
         multiline
+        label={t('mail.content')}
+        name="Mail content"
+        onChange={(e) => props.onChangeContent(e.target.value)}
+        rows="15"
+        value={props.mailContent}
         variant="outlined"
       />
     </div>

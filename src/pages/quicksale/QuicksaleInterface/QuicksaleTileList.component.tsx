@@ -64,24 +64,24 @@ const QuicksaleTileList: React.FC<Props> = ({
             >
               <div className={classes.resultSectionInfo}>
                 <MuiIcon icon={section.section_icon} />
-                <Typography variant="h6" className={classes.resultSectionTitle}>
+                <Typography className={classes.resultSectionTitle} variant="h6">
                   {section.section_name}
                 </Typography>
               </div>
-              <Grid container spacing={2} className={classes.noMargin}>
+              <Grid container className={classes.noMargin} spacing={2}>
                 {resultsForThisSection.map((result) => (
                   <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
                     key={`${section.section_id}-${result.id}`}
+                    item
                     className={classes.resultItem}
+                    lg={3}
+                    md={4}
+                    sm={6}
+                    xs={12}
                   >
                     <QuicksaleItemCard
-                      item={result}
                       addToBasket={onItemClick}
+                      item={result}
                       outOfStock={result.outOfStock}
                       restrictedPurchase={result.restricted}
                     />
@@ -98,20 +98,20 @@ const QuicksaleTileList: React.FC<Props> = ({
   if (currentSection) {
     return (
       <QuicksaleConfigurationItemList
-        itemList={itemCardInfoList}
         isQuicksaleInterfaceView
-        onItemClick={onItemClick}
+        itemList={itemCardInfoList}
         loading={loading}
+        onItemClick={onItemClick}
       />
     );
   }
 
   return (
     <QuicksaleConfigurationSectionList
-      sectionList={sectionList}
+      isQuicksaleInterfaceView
       loading={loading}
       onSectionClick={onSectionClick}
-      isQuicksaleInterfaceView
+      sectionList={sectionList}
     />
   );
 };

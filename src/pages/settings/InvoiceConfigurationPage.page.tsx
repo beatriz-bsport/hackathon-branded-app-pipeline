@@ -89,22 +89,22 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
         <div className={classes.container}>
           <InvoiceConfigurationForm
             configuration={configuration}
-            processing={processing}
-            onSubmit={this.props.patchInvoiceConfiguration}
-            submitTheme={this.props.submitTheme}
-            theme={this.props.theme}
-            goToReports={this.props.goToReports}
-            patchTheme={this.props.patchTheme}
-            stripeReaders={this.props.stripeReaders || []}
-            setOpenConnectReaderDialog={this.props.setOpenConnectReaderDialog}
             createReaderAndFetch={this.props.createReaderAndFetch}
             deleteReaderAndFetch={this.props.deleteReaderAndFetch}
             editReaderAndFetch={this.props.editReaderAndFetch}
+            goToReports={this.props.goToReports}
+            onSubmit={this.props.patchInvoiceConfiguration}
+            patchTheme={this.props.patchTheme}
+            processing={processing}
+            setOpenConnectReaderDialog={this.props.setOpenConnectReaderDialog}
+            stripeReaders={this.props.stripeReaders || []}
+            submitTheme={this.props.submitTheme}
+            theme={this.props.theme}
           />
           {this.props.theme.enable_multi_localization && (
             <>
               <Paper className={classes.paper}>
-                <Typography variant="h6" component="h3">
+                <Typography component="h3" variant="h6">
                   {t('billing_group.header')}
                 </Typography>
                 <div className={classes.textAndIcon}>
@@ -114,12 +114,12 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
                   />
                 </div>
                 <Button
-                  variant="outlined"
                   color="primary"
                   onClick={() => {
                     this.props.setInitialBillingGroup(null);
                     this.props.setOpenDialogForm(true);
                   }}
+                  variant="outlined"
                 >
                   <AddIcon />
                   {t('billing_group.add')}
@@ -129,29 +129,29 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
                     establishmentBillingGroupList={
                       this.props.establishmentBillingGroup
                     }
+                    onDeleteEstablishmentBillingGroup={(
+                      group: EstablishmentBillingGroupType,
+                    ) => this.props.deleteEstablishmentBillingGroup(group)}
                     onEditEstablishmentBillingGroup={(
                       group: EstablishmentBillingGroupType,
                     ) => {
                       this.props.setInitialBillingGroup(group);
                       this.props.setOpenDialogForm(true);
                     }}
-                    onDeleteEstablishmentBillingGroup={(
-                      group: EstablishmentBillingGroupType,
-                    ) => this.props.deleteEstablishmentBillingGroup(group)}
                   />
                 )}
               </Paper>
               {this.props.openDialogForm && (
                 <EstablishmentBillingGroupFormDialog
-                  open={this.props.openDialogForm}
-                  onSubmit={this.props.upsertEstablishmentBillingGroup}
+                  establishments={this.props.establishments}
+                  initial={this.props.initialBillingGroup}
+                  isSubmitting={this.props.submitting}
                   onClose={() => {
                     this.props.setOpenDialogForm(false);
                     this.props.setInitialBillingGroup(null);
                   }}
-                  establishments={this.props.establishments}
-                  initial={this.props.initialBillingGroup}
-                  isSubmitting={this.props.submitting}
+                  onSubmit={this.props.upsertEstablishmentBillingGroup}
+                  open={this.props.openDialogForm}
                 />
               )}
             </>

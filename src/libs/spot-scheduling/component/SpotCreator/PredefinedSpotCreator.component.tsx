@@ -13,14 +13,14 @@ export const PersonalizedSpotCreator = (props) => {
   return (
     <div>
       <MaterialUISelector
-        options={choices}
         fullWidth
         className={classes.selectField}
-        name="shape"
         defaultValue={props.defaultValue}
+        name="shape"
         onChange={(option) => {
           setFieldValue('shape', option.value);
         }}
+        options={choices}
       />
       <Grid className={classes.sectionContainer}>
         <Grid item xs={3}>
@@ -35,19 +35,19 @@ export const PersonalizedSpotCreator = (props) => {
           </Typography>
           <ColorField name="fill_color" />
         </Grid>
-        <Grid item xs={7} className={classes.preview}>
+        <Grid item className={classes.preview} xs={7}>
           <Typography>{t('spotCreatorForm.preview')}</Typography>
-          <svg width={115} height={70}>
+          <svg height={70} width={115}>
             <CanvasSpotComponent
-              x={1}
-              y={4}
+              fill={values?.fill_color}
               index={1}
               indexType={1}
               prefix={values?.prefix}
               stroke={values?.stroke_color}
-              fill={values?.fill_color}
-              type={values?.shape}
               trianglePreview={values?.shape === 'triangle'}
+              type={values?.shape}
+              x={1}
+              y={4}
             />
           </svg>
         </Grid>

@@ -57,15 +57,15 @@ export const TemporalStatistic = React.memo((props: Props) => {
         </div>
       ) : (
         <ComposedChart
-          data={props.data}
-          height={props.height}
-          xKey="d"
           continuous
           color={colors[props.colorId].fill}
+          data={props.data}
+          height={props.height}
+          xFormatter={dateFormatter(props.xFormatter)}
+          xKey="d"
+          yFormatter={(v) => Math.ceil(v)}
           yKey="v"
           yLabel={props.yLabel}
-          xFormatter={dateFormatter(props.xFormatter)}
-          yFormatter={(v) => Math.ceil(v)}
         />
       )}
       <div className={props.classes.title}>

@@ -149,29 +149,29 @@ const ThreadMenuActions: React.FC<Props> = ({
   return (
     <>
       <Menu
-        id="thread-menu"
-        anchorEl={anchorEl}
         keepMounted
-        open={!!anchorEl}
-        onClose={onClose}
-        getContentAnchorEl={null}
+        anchorEl={anchorEl}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center',
         }}
+        getContentAnchorEl={null}
+        id="thread-menu"
+        MenuListProps={{ disablePadding: true }}
+        onClose={onClose}
+        open={!!anchorEl}
         transformOrigin={{
           vertical: 'top',
           horizontal: 'center',
         }}
-        MenuListProps={{ disablePadding: true }}
       >
         {isMobileMenu && (
           <div>
             <MenuItem
+              classes={{ root: classes.menuItem }}
               onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
                 handleAction(ev, goToDetailPage)
               }
-              classes={{ root: classes.menuItem }}
             >
               <InfoIcon color="action" />
               <Typography className={classes.action}>
@@ -179,10 +179,10 @@ const ThreadMenuActions: React.FC<Props> = ({
               </Typography>
             </MenuItem>
             <MenuItem
+              classes={{ root: classes.menuItem }}
               onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
                 handleAction(ev, setOpenCollapse)
               }
-              classes={{ root: classes.menuItem }}
             >
               <FilterListIcon color="action" />
               <Typography className={classes.action}>
@@ -192,27 +192,27 @@ const ThreadMenuActions: React.FC<Props> = ({
           </div>
         )}
         <MenuItem
+          classes={{ root: classes.menuItem }}
           disabled={!hasBeenRead}
           onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
             handleAction(ev, flagAsUnread)
           }
-          classes={{ root: classes.menuItem }}
         >
           <EmailIcon color={hasBeenRead ? 'action' : 'disabled'} />
           <Typography
-            color={hasBeenRead ? 'textPrimary' : 'textSecondary'}
             className={classes.action}
+            color={hasBeenRead ? 'textPrimary' : 'textSecondary'}
           >
             {t('thread.item.markAsRead')}
           </Typography>
         </MenuItem>
 
         <MenuItem
+          classes={{ root: classes.menuItem }}
           disabled={isDisabled}
           onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
             handleAction(ev, switchFavoriteStatus)
           }
-          classes={{ root: classes.menuItem }}
         >
           {isFavorite ? (
             <StarBorderIcon color="action" />
@@ -230,11 +230,11 @@ const ThreadMenuActions: React.FC<Props> = ({
         </MenuItem>
 
         <MenuItem
+          classes={{ root: classes.menuItem }}
           disabled={isDisabled}
           onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
             handleAction(ev, switchMutedStatus)
           }
-          classes={{ root: classes.menuItem }}
         >
           {isMuted ? (
             <NotificationsIcon color="action" />
@@ -250,10 +250,10 @@ const ThreadMenuActions: React.FC<Props> = ({
         </MenuItem>
 
         <MenuItem
+          classes={{ root: classes.menuItem }}
           onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
             handleDisableThread(ev)
           }
-          classes={{ root: classes.menuItem }}
         >
           {isDisabled ? (
             <UnarchiveIcon color="action" />
@@ -266,9 +266,9 @@ const ThreadMenuActions: React.FC<Props> = ({
         </MenuItem>
       </Menu>
       <CustomMuiDialog
+        buttons={getDialogButtons}
         open={isDialogOpen}
         title={t('thread.item.disableDialog.title')}
-        buttons={getDialogButtons}
       >
         <Typography>
           {t('thread.item.disableDialog.firstContent')}

@@ -88,12 +88,12 @@ const OfferFormTags = (props: Props) => {
 
   return (
     <FormSection
-      id="offer-form-tags-section"
-      sectionTitle={t('form.section.tags.title')}
-      sectionIcon={LabelIcon}
       isCollapse
+      id="offer-form-tags-section"
       sectionCustomIconStyle={classes.sectionIcon}
+      sectionIcon={LabelIcon}
       sectionIconContainerStyle={classes.sectionIconContainer}
+      sectionTitle={t('form.section.tags.title')}
     >
       <div>
         <Typography variant="caption">
@@ -102,39 +102,39 @@ const OfferFormTags = (props: Props) => {
       </div>
 
       <OfferFormField
-        label={t('form.section.tags.field.whitelistTags')}
         icon={<CheckIcon className={classes.tagSelectorIcon} />}
+        label={t('form.section.tags.field.whitelistTags')}
       >
         <div className={classes.fullWidth}>
           <TagSelector
-            id="offer-form-whitelist-tags-selector"
-            allTagsWithTagGroup={availableWhitelistTags}
-            placeholder={t('form.section.tags.placeholder')}
-            onChange={handleSelectWhitelistTag}
-            onDeleteTag={handleDeleteWhitelistTag}
-            selectedTags={selectedWhitelistTags}
-            isClearable
             closeMenuOnSelect
             inScrollBar
+            isClearable
+            allTagsWithTagGroup={availableWhitelistTags}
+            id="offer-form-whitelist-tags-selector"
+            onChange={handleSelectWhitelistTag}
+            onDeleteTag={handleDeleteWhitelistTag}
+            placeholder={t('form.section.tags.placeholder')}
+            selectedTags={selectedWhitelistTags}
           />
         </div>
       </OfferFormField>
 
       <OfferFormField
-        label={t('form.section.tags.field.blacklistTags')}
         icon={<BlockIcon className={classes.tagSelectorIcon} />}
+        label={t('form.section.tags.field.blacklistTags')}
       >
         <div className={classes.fullWidth}>
           <TagSelector
-            id="offer-form-blacklist-tags-selector"
-            allTagsWithTagGroup={availableBlacklistTags}
-            placeholder={t('form.section.tags.placeholder')}
-            onChange={handleSelectBlacklistTag}
-            onDeleteTag={handleDeleteBlacklistTag}
-            selectedTags={selectedBlacklistTags}
-            isClearable
             closeMenuOnSelect
             inScrollBar
+            isClearable
+            allTagsWithTagGroup={availableBlacklistTags}
+            id="offer-form-blacklist-tags-selector"
+            onChange={handleSelectBlacklistTag}
+            onDeleteTag={handleDeleteBlacklistTag}
+            placeholder={t('form.section.tags.placeholder')}
+            selectedTags={selectedBlacklistTags}
           />
         </div>
       </OfferFormField>

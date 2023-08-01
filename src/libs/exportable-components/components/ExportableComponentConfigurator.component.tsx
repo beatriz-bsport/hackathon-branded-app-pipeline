@@ -51,26 +51,26 @@ export const ExportableComponentConfigurator = (props: Props) => {
 
   return (
     <SettingForm
-      paymentPackTemplateListAvailable={props.paymentPackTemplateListAvailable}
+      showCompactMode
       coaches={props.coaches}
+      config={props.config[props.componentType]}
+      customLevels={props.customLevels}
+      errors={errors}
+      establishmentGroupList={props.establishmentGroupList}
       establishments={props.establishments}
+      giftcards={props.giftcards}
       metaActivities={props.metaActivities}
       metaActivitiesWorkshop={props.metaActivitiesWorkshop}
-      config={props.config[props.componentType]}
-      playlists={props.playlists}
-      videos={props.videos}
-      showCompactMode
-      privateServices={props.privateServices}
-      serviceGroupList={props.serviceGroupList}
-      errors={errors}
       onChange={(config: any) =>
         props.onChange({ ...props.config, [props.componentType]: config })
       }
       paymentPackCategories={props.paymentPackCategories}
+      paymentPackTemplateListAvailable={props.paymentPackTemplateListAvailable}
+      playlists={props.playlists}
       privatePassCategories={props.privatePassCategories}
-      establishmentGroupList={props.establishmentGroupList}
-      giftcards={props.giftcards}
-      customLevels={props.customLevels}
+      privateServices={props.privateServices}
+      serviceGroupList={props.serviceGroupList}
+      videos={props.videos}
     />
   );
 };

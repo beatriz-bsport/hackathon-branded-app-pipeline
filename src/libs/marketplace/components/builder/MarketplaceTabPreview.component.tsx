@@ -19,16 +19,16 @@ const MarketplaceTabPreview: React.FC<Props> = ({ settings, theme }) => {
   const tabSelected = settings.config.length > 0 ? '0' : null;
   return (
     <div className={classes.marginTop}>
-      <Typography variant="h5" className={classes.sectionTitle}>
+      <Typography className={classes.sectionTitle} variant="h5">
         {t('marketplaceSettings.preview')}
       </Typography>
       <Divider className={classes.divider} />
       <Paper className={classes.paper}>
         <MarketplaceAppBar
           onlyNavigation
-          theme={theme}
           settings={settings}
           tabSelected={tabSelected}
+          theme={theme}
         />
       </Paper>
     </div>

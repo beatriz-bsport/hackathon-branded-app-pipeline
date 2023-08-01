@@ -60,24 +60,24 @@ const OfferSpotSelector = (props: Props) => {
 
   return (
     <SpotSelectorDialog
+      forceFullScreen
       open
-      offer={offer}
-      roomBlueprint={roomBlueprint}
       assets={assets}
+      fetchSpotForBlueprint={props.fetchSpotForBlueprint}
+      offer={offer}
       onClose={props.onCancel(offer)}
-      onSubmit={onSubmit}
-      takenSpot={takenSpot}
-      selectedSpot={selectedSpotType}
-      selectedIndex={selectedIndex}
-      selectedIndexType={selectedIndexType}
       onSelectSpot={(index, spotTypeId) =>
         onSelectSpot(offer.id, index, spotTypeId)
       }
+      onSubmit={onSubmit}
+      roomBlueprint={roomBlueprint}
+      selectedIndex={selectedIndex}
+      selectedIndexType={selectedIndexType}
+      selectedSpot={selectedSpotType}
       spotTypesOfBlueprint={props.spotTypes.filter((spotType) =>
         spotTypesIdOfBlueprint?.includes(spotType.id),
       )}
-      fetchSpotForBlueprint={props.fetchSpotForBlueprint}
-      forceFullScreen
+      takenSpot={takenSpot}
     />
   );
 };

@@ -43,9 +43,9 @@ class CheckInOfferSummaryPanel extends Component<Props> {
         </div>
         <div className={classes.item}>
           <Typography
-            variant="h5"
             align="center"
             className={classes.textUppercase}
+            variant="h5"
           >
             {coach ? coach.name : ''}
           </Typography>
@@ -58,20 +58,20 @@ class CheckInOfferSummaryPanel extends Component<Props> {
         </div>
         <div className={classes.item}>
           <Level
-            variant="body1"
             align="center"
             customLevel={offer.customLevel}
+            variant="body1"
           />
         </div>
 
         <div className={classes.item} />
         <div className={classes.item}>
-          <Typography variant="body2" align="center">
+          <Typography align="center" variant="body2">
             {offer?.etablissement?.title ?? '-'}
           </Typography>
           <div className={classes.row}>
             <PlaceIcon className={classes.leftIcon} />
-            <Typography variant="body1" color="textSecondary" align="center">
+            <Typography align="center" color="textSecondary" variant="body1">
               {offer
                 ? (offer.establishment_override || offer.etablissement).location
                     .address

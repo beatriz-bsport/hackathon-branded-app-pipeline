@@ -162,9 +162,9 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
     return (
       <form>
         <GenericResponsiveDrawer
+          onClose={this.props.onClose}
           open={this.props.open}
           title={t('forms.user.create.title')}
-          onClose={this.props.onClose}
         >
           <div className={classes.container}>
             <div className={classes.infoText}>
@@ -175,56 +175,54 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
             </div>
             <div className={classes.firstRow}>
               <TextField
-                id="textfield_role_firstname"
                 fullWidth
-                value={this.state.first_name}
                 className={classes.field}
+                id="textfield_role_firstname"
+                inputProps={{ maxLength: FRANCHISE_STAFF_USER_NAME_MAX_LENGTH }}
+                label={t('forms.user.create.generalInfo.firstName.label')}
                 onChange={(ev) =>
                   this.setState({ first_name: ev.target.value })
                 }
-                label={t('forms.user.create.generalInfo.firstName.label')}
-                inputProps={{ maxLength: FRANCHISE_STAFF_USER_NAME_MAX_LENGTH }}
+                value={this.state.first_name}
               />
               <TextField
-                id="textfield_role_lastname"
                 fullWidth
-                value={this.state.last_name}
                 className={classes.field}
-                onChange={(ev) => this.setState({ last_name: ev.target.value })}
-                label={t('forms.user.create.generalInfo.lastName.label')}
+                id="textfield_role_lastname"
                 inputProps={{ maxLength: FRANCHISE_STAFF_USER_NAME_MAX_LENGTH }}
+                label={t('forms.user.create.generalInfo.lastName.label')}
+                onChange={(ev) => this.setState({ last_name: ev.target.value })}
+                value={this.state.last_name}
               />
             </div>
             <TextField
-              id="textfield_role_email"
               fullWidth
               required
+              className={classes.field}
               error={missingFields.email}
+              id="textfield_role_email"
+              label={t('forms.user.create.generalInfo.email.label')}
+              onChange={(ev) => this.setState({ email: ev.target.value })}
               type="email"
               value={this.state.email}
-              className={classes.field}
-              onChange={(ev) => this.setState({ email: ev.target.value })}
-              label={t('forms.user.create.generalInfo.email.label')}
             />
             <div className={classes.field}>
               <PasswordInput
                 fullWidth
-                error={missingFields.password}
                 required
-                type="password"
-                value={this.state.password}
+                error={missingFields.password}
                 onChange={(ev: any) =>
                   this.setState({ password: ev.target.value })
                 }
+                type="password"
+                value={this.state.password}
               />
             </div>
             <TextField
-              id="textfield_franchise_role_commission"
-              fullWidth
               castAsNumber
-              label={t('forms.user.commissionHeader')}
+              fullWidth
               className={classes.field}
-              value={`${this.state.staff_commission_percentage}`}
+              id="textfield_franchise_role_commission"
               InputProps={{
                 inputProps: { min: 0, max: 100, step: 1 },
                 endAdornment: (
@@ -233,8 +231,10 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
                   </InputAdornment>
                 ),
               }}
-              type="number"
+              label={t('forms.user.commissionHeader')}
               onChange={this.handleOnCommissionChange}
+              type="number"
+              value={`${this.state.staff_commission_percentage}`}
             />
             <Divider className={classes.divider} />
             <div className={classes.infoText}>
@@ -245,15 +245,15 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
             </div>
             <div className={classes.field}>
               <MaterialUISelector
-                placeholder={t('forms.user.create.role.selectRole.label')}
+                error={missingFields.selectedRole}
                 isLoading={this.props.franchiseeListLoading}
-                name="selectedRole"
                 menuPlacement="top"
                 menuPosition="fixed"
-                value={this.state.selectedRole}
+                name="selectedRole"
                 onChange={this.handleSelectRole}
                 options={availableRoles}
-                error={missingFields.selectedRole}
+                placeholder={t('forms.user.create.role.selectRole.label')}
+                value={this.state.selectedRole}
               />
             </div>
 
@@ -264,42 +264,42 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
                 {t('forms.user.create.franchisees.title')}
               </Typography>
             </div>
-            <Alert severity="info" className={classes.alertInfo}>
+            <Alert className={classes.alertInfo} severity="info">
               {t('forms.user.create.franchisees.warning')}
             </Alert>
             <div className={classNames(classes.field, classes.expandForm)}>
               <MaterialUISelector
+                isMulti
+                isDisabled={
+                  !!this.state.selectedRoleIsAdmin || !this.state.selectedRole
+                }
+                isLoading={this.props.franchiseeListLoading}
+                menuPlacement="top"
+                menuPosition="fixed"
+                name="selectedFranchisees"
+                onChange={(values: SelectFieldItem[]) =>
+                  this.setState({ selectedFranchisees: values })
+                }
+                options={availableFranchisees}
                 placeholder={
                   !!this.state.selectedRoleIsAdmin || !this.state.selectedRole
                     ? t('forms.user.selectFranchiseesDisabled')
                     : t('forms.user.selectFranchisees')
                 }
-                isLoading={this.props.franchiseeListLoading}
-                name="selectedFranchisees"
-                menuPlacement="top"
-                menuPosition="fixed"
-                isDisabled={
-                  !!this.state.selectedRoleIsAdmin || !this.state.selectedRole
-                }
                 value={this.state.selectedFranchisees}
-                onChange={(values: SelectFieldItem[]) =>
-                  this.setState({ selectedFranchisees: values })
-                }
-                options={availableFranchisees}
-                isMulti
               />
             </div>
             <Divider className={classes.divider} />
             <div className={classes.buttonsContainer}>
               <Actions>
-                <Button onClick={this.props.onClose} color="secondary">
+                <Button color="secondary" onClick={this.props.onClose}>
                   {t('forms.user.create.cancel')}
                 </Button>
                 <Submit
-                  type="submit"
-                  onClick={this.onSubmit}
                   color="primary"
                   id="button_role_save"
+                  onClick={this.onSubmit}
+                  type="submit"
                 >
                   {t('forms.user.create.register')}
                 </Submit>

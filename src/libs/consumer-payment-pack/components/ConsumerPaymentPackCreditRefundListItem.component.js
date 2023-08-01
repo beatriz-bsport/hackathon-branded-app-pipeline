@@ -27,9 +27,9 @@ export const ConsumerPaymentPackCreditRefundListItem = (props: Props) => {
     : props.creditRefund.note;
   return (
     <ListItem
+      button={props.onClick}
       dense={props.dense}
       divider={props.divider}
-      button={props.onClick}
       onClick={props.onClick}
     >
       <ListItemText
@@ -40,7 +40,7 @@ export const ConsumerPaymentPackCreditRefundListItem = (props: Props) => {
         )}
       />
       <ListItemSecondaryAction>
-        <Typography variant="subtitle1" color="primary">
+        <Typography color="primary" variant="subtitle1">
           {`${getCurrencyDisplayWithPrice(props.creditRefund.price || 0)}`}
         </Typography>
       </ListItemSecondaryAction>

@@ -79,7 +79,6 @@ const TagDetailOffers = (props: Props) => {
         </Typography>
 
         <Button
-          variant="outlined"
           color="primary"
           disabled={processing || !props.count}
           onClick={() => {
@@ -89,6 +88,7 @@ const TagDetailOffers = (props: Props) => {
               onError: () => setProcessing(false),
             });
           }}
+          variant="outlined"
         >
           <LabelOffIcon className={classes.leftIcon} />
           {t('management.offerDetail.removeTagFromAll')}
@@ -97,20 +97,21 @@ const TagDetailOffers = (props: Props) => {
 
       <Paper className={classes.listContainer}>
         <PaginatedListBase
-          page={props.page}
-          nbItems={props.count}
           itemPerPage={props.itemPerPage}
-          loading={props.loading || processing}
-          onPageRequested={props.onPageRequested}
           items={props.offers || []}
+          listProps={{ dense: true }}
+          loading={props.loading || processing}
+          nbItems={props.count}
+          onPageRequested={props.onPageRequested}
+          page={props.page}
           renderItem={(item: Offer<number, number, MetaActivity>) => {
             return (
               <React.Fragment key={item.id}>
                 <ListItem
-                  divider
                   dense
-                  disabled={props.loading || processing}
+                  divider
                   button={!!props.onClickOffer}
+                  disabled={props.loading || processing}
                   onClick={
                     props.onClickOffer
                       ? () => props.onClickOffer(item.activity)
@@ -195,8 +196,8 @@ const TagDetailOffers = (props: Props) => {
                     </DialogContent>
                     <DialogActions>
                       <Button
-                        onClick={handleUnTagOffer(item.id, false)}
                         color="primary"
+                        onClick={handleUnTagOffer(item.id, false)}
                       >
                         {t('modal.confirm.submit')}
                       </Button>
@@ -206,7 +207,6 @@ const TagDetailOffers = (props: Props) => {
               </React.Fragment>
             );
           }}
-          listProps={{ dense: true }}
         />
       </Paper>
       <div className={classes.divider} />

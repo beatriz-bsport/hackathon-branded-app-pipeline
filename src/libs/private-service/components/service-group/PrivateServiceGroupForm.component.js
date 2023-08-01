@@ -17,9 +17,9 @@ export const PrivateServiceGroupForm = (props: Props) => {
   return (
     <div className={props.classes.container}>
       <TextField
-        variant="outlined"
         label={props.t('serviceGroup.form.name.label')}
         name="name"
+        variant="outlined"
       />
     </div>
   );

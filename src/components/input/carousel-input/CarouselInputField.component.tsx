@@ -19,17 +19,17 @@ export const CarouselInputField = (props: Props) => {
           <div>
             <CarouselInput
               {...field}
-              selectedImage={props.selectedImage}
-              imagesArr={props.imagesArr}
-              onRemoveImage={props.onRemoveImage}
-              isManager={props.isManager}
-              title={props.title}
-              handleSelectedImage={props.handleSelectedImage}
+              error={!!(touched[field.name] && errors[field.name])}
               handleClick={(index) => {
                 setFieldValue(field.name, props.imagesArr[index]);
                 props.handleSelectedImage(index);
               }}
-              error={!!(touched[field.name] && errors[field.name])}
+              handleSelectedImage={props.handleSelectedImage}
+              imagesArr={props.imagesArr}
+              isManager={props.isManager}
+              onRemoveImage={props.onRemoveImage}
+              selectedImage={props.selectedImage}
+              title={props.title}
             />
           </div>
         );

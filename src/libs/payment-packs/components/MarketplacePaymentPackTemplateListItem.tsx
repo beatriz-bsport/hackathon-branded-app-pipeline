@@ -21,9 +21,9 @@ export const MarketplacePaymentPackTemplateListItem = (props: Props) => {
     props;
 
   return (
-    <ListItem divider button onClick={onSelect}>
+    <ListItem button divider onClick={onSelect}>
       <PaymentPackItem paymentPack={paymentPackTemplate} />
-      <IconButton style={{ marginRight: 16 }} disableRipple onClick={onSelect}>
+      <IconButton disableRipple onClick={onSelect} style={{ marginRight: 16 }}>
         <Visibility />
       </IconButton>
       <ListItemSecondaryAction>

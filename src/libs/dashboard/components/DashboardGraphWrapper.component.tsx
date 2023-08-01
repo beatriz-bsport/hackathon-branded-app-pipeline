@@ -78,25 +78,25 @@ export const DashboardGraphWrapper: React.FC<Props> = ({
       <Paper className={classes.paperContainer} elevation={2}>
         <div className={classes.header}>
           <div className={classes.graphTitleRow}>
-            <Typography variant="h6" className={classes.title}>
+            <Typography className={classes.title} variant="h6">
               {graph.title.length > 0 ? graph.title : t(graph.defaultTitle)}
             </Typography>
             <div className={classes.actionIconsContainer}>
               <Tooltip title={t('graphActions.edit')}>
                 <IconButton
-                  size="small"
-                  onClick={handleEdit}
                   disabled={!!loadingSettings}
+                  onClick={handleEdit}
+                  size="small"
                 >
                   <EditIcon color="primary" />
                 </IconButton>
               </Tooltip>
               <Tooltip title={t('graphActions.delete')}>
                 <IconButton
-                  size="small"
                   className={classes.deleteIconButton}
-                  onClick={handleDelete}
                   disabled={!!loadingSettings}
+                  onClick={handleDelete}
+                  size="small"
                 >
                   <DeleteIcon />
                 </IconButton>
@@ -104,15 +104,15 @@ export const DashboardGraphWrapper: React.FC<Props> = ({
             </div>
           </div>
           <DashboardChipRow
+            disabled={!!loadingSettings}
             graph={graph}
             onClick={handleEdit}
-            disabled={!!loadingSettings}
           />
         </div>
 
         {loadingData ? (
           <div className={classes.skeleton}>
-            <Skeleton variant="text" width="90%" height={graphHeight || 400} />
+            <Skeleton height={graphHeight || 400} variant="text" width="90%" />
           </div>
         ) : (
           <>{children}</>

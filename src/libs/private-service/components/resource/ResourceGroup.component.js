@@ -54,8 +54,8 @@ const ResourceGroup = (props: Props) => {
     <div className={classes.resourceGroupContainer}>
       <div className={classes.header}>
         <Checkbox
-          indeterminate={allAreSelected === null}
           checked={allAreSelected}
+          indeterminate={allAreSelected === null}
           onChange={(ev) => {
             if (ev.target.checked) {
               onSelectResource(resourceList.map((r) => r.resource_identifier));
@@ -66,7 +66,7 @@ const ResourceGroup = (props: Props) => {
             }
           }}
         />
-        <Typography variant="subtitle2" className={classes.title}>
+        <Typography className={classes.title} variant="subtitle2">
           {t(`resource.datatype.${datatype}`)}
         </Typography>
       </div>
@@ -77,8 +77,8 @@ const ResourceGroup = (props: Props) => {
           );
           return (
             <ResourceItem
-              onSelectResource={onSelectResource}
-              onUnselectResource={onUnselectResource}
+              key={resourceData.resource_id}
+              isSelected={isSelected}
               onEditResourceConfiguration={(resource) => {
                 if (
                   !onEditResourceConfiguration &&
@@ -94,8 +94,8 @@ const ResourceGroup = (props: Props) => {
                 }
                 /* eslint-enable */
               }}
-              isSelected={isSelected}
-              key={resourceData.resource_id}
+              onSelectResource={onSelectResource}
+              onUnselectResource={onUnselectResource}
               resource={resourceData}
             />
           );

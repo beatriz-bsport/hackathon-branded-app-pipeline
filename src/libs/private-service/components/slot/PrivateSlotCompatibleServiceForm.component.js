@@ -66,7 +66,7 @@ export const PrivateSlotCompatibleServiceForm = (props: Props) => {
         {!!slots && slots.length === 0 && (
           <div className={classes.row}>
             <WarningIcon color="textSecondary" />
-            <Typography variant="caption" color="textSecondary">
+            <Typography color="textSecondary" variant="caption">
               {t('privateServiceCompatibility.excludedSlots.isEmpty')}
             </Typography>
           </div>
@@ -76,7 +76,6 @@ export const PrivateSlotCompatibleServiceForm = (props: Props) => {
           slots.map((slot) => (
             <FormControlLabel
               key={slot.id}
-              label={slot.name}
               control={
                 <Checkbox
                   checked={
@@ -91,17 +90,18 @@ export const PrivateSlotCompatibleServiceForm = (props: Props) => {
                   }
                 />
               }
+              label={slot.name}
             />
           ))}
       </FormGroup>
-      <Typography variant="body2" className={classes.inputContain}>
+      <Typography className={classes.inputContain} variant="body2">
         {t('privateServiceCompatibility.excludedSlots.helperText')}
       </Typography>
       <div className={classes.buttonContainer}>
         <Button onClick={props.onCancel}>
           {t('privateServiceCompatibility.excludedSlots.cancel')}
         </Button>
-        <Button disabled={checkChange()} onClick={handleSubmit} color="primary">
+        <Button color="primary" disabled={checkChange()} onClick={handleSubmit}>
           {t('privateServiceCompatibility.excludedSlots.submit')}
         </Button>
       </div>

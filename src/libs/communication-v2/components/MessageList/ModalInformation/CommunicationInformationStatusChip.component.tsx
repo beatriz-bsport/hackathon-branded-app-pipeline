@@ -26,28 +26,28 @@ const CommunicationInformationStatusChip = (props: {
     case EMAIL_RECIPIENT_DELIVERED:
       return (
         <Chip
-          size="small"
-          icon={<CheckCircle className={classes.successChipIcon} />}
           className={classes.successChip}
+          icon={<CheckCircle className={classes.successChipIcon} />}
           label={t(`dialogInformation.status.${EMAIL_RECIPIENT_DELIVERED}`)}
+          size="small"
         />
       );
     case EMAIL_RECIPIENT_PROCESSED:
       return (
         <Chip
-          size="small"
-          icon={<WatchLater className={classes.warningChipIcon} />}
           className={classes.warningChip}
+          icon={<WatchLater className={classes.warningChipIcon} />}
           label={t(`dialogInformation.status.${EMAIL_RECIPIENT_PROCESSED}`)}
+          size="small"
         />
       );
     default:
       return (
         <Chip
-          size="small"
-          icon={<Cancel className={classes.errorChipIcon} />}
           className={classes.errorChip}
+          icon={<Cancel className={classes.errorChipIcon} />}
           label={t(`dialogInformation.status.notReceived`)}
+          size="small"
         />
       );
   }

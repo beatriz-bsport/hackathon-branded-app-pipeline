@@ -231,19 +231,19 @@ const QuicksaleInterface: React.FC<Props> = ({
 
   return (
     <Grid container>
-      <Grid item xs={9} className={classes.leftContainer}>
+      <Grid item className={classes.leftContainer} xs={9}>
         <QuicksaleAppBar
-          theme={theme}
-          staffFullName={quicksaleStaffFullName}
           onSignOut={onSignOut}
+          staffFullName={quicksaleStaffFullName}
+          theme={theme}
         />
 
         <QuicksaleBasketListBar
           basketList={basketList}
           memberById={memberById}
-          selectedBasket={currentBasket}
-          onBasketClick={setCurrentBasket}
           onBasketAdd={onBasketAdd}
+          onBasketClick={setCurrentBasket}
+          selectedBasket={currentBasket}
         />
 
         <div
@@ -255,11 +255,11 @@ const QuicksaleInterface: React.FC<Props> = ({
         >
           {showResultsOnPage && (
             <Button
-              color="default"
-              variant="outlined"
-              startIcon={<ArrowBack />}
               className={classes.goBackButton}
+              color="default"
               onClick={clearSearch}
+              startIcon={<ArrowBack />}
+              variant="outlined"
             >
               <Typography variant="subtitle2">
                 {t('interface.goBack')}
@@ -268,10 +268,10 @@ const QuicksaleInterface: React.FC<Props> = ({
           )}
           {!showResultsOnPage && currentSection && (
             <QuicksaleItemListHeader
+              customClasses={{ itemListHeader: classes.itemListHeader }}
+              goBack={goBackToSectionList}
               sectionIcon={currentSection.section_icon}
               sectionName={currentSection.section_name}
-              goBack={goBackToSectionList}
-              customClasses={{ itemListHeader: classes.itemListHeader }}
             />
           )}
           <div
@@ -280,90 +280,90 @@ const QuicksaleInterface: React.FC<Props> = ({
             })}
           >
             <QuicksaleInterfaceSearchBar
-              searchText={searchText}
               clearSearch={clearSearch}
+              onItemClick={onItemClick}
+              onSearchIconClick={onSearchIconClick}
               onSearchTextChange={onSearchTextChange}
+              openPopper={
+                searchText !== '' &&
+                !showResultsOnPage &&
+                searchResults.length > 0
+              }
               searchItems={
                 (!currentSection || showResultsOnPage
                   ? availableSearchItemsInWholeConfig
                   : itemCardInfoList) ?? []
               }
               searchResults={searchResults}
-              onItemClick={onItemClick}
-              onSearchIconClick={onSearchIconClick}
-              openPopper={
-                searchText !== '' &&
-                !showResultsOnPage &&
-                searchResults.length > 0
-              }
+              searchText={searchText}
             />
           </div>
         </div>
 
         <QuicksaleTileList
-          sectionList={sectionList}
-          itemCardInfoList={itemCardInfoList}
-          searchResults={searchResults}
-          showResults={showResultsOnPage}
           currentSection={currentSection}
-          searchText={searchText}
-          onSectionClick={onSectionClick}
-          onItemClick={onItemClick}
+          itemCardInfoList={itemCardInfoList}
           loading={loading}
+          onItemClick={onItemClick}
+          onSectionClick={onSectionClick}
+          searchResults={searchResults}
+          searchText={searchText}
+          sectionList={sectionList}
+          showResults={showResultsOnPage}
         />
       </Grid>
 
-      <Grid item xs={3} className={classes.rightContainer}>
+      <Grid item className={classes.rightContainer} xs={3}>
         <QuicksaleBasketPanel
-          basket={currentBasket}
-          member={memberById[currentBasket?.member]}
-          isExcludingTax={theme.is_tax_excluded_in_marketplace}
           addToBasket={addToBasket}
-          removeFromBasket={removeFromBasket}
+          basket={currentBasket}
           closeBasket={onDeleteBasketClick}
-          openChangeMemberModal={openMemberAuthenticationModal}
+          isExcludingTax={theme.is_tax_excluded_in_marketplace}
+          member={memberById[currentBasket?.member]}
           onPaymentClick={goToPaymentPage}
+          openChangeMemberModal={openMemberAuthenticationModal}
+          removeFromBasket={removeFromBasket}
         />
       </Grid>
 
       <QuicksaleDialogs
-        showStillOpenBasketsModal={showStillOpenBasketsModal}
-        closeStillOpenBasketsModal={closeStillOpenBasketsModal}
-        showDeleteWarningModal={showDeleteWarningModal}
-        closeDeleteWarningModal={closeDeleteWarningModal}
-        dropBasket={dropBasket}
         blockActions={blockActions}
+        closeDeleteWarningModal={closeDeleteWarningModal}
+        closeStillOpenBasketsModal={closeStillOpenBasketsModal}
+        dropBasket={dropBasket}
+        showDeleteWarningModal={showDeleteWarningModal}
+        showStillOpenBasketsModal={showStillOpenBasketsModal}
       />
 
       <GenericResponsiveDialog
-        open={showGiftcardFormModal}
         onClose={closeGiftcardFormModal}
+        open={showGiftcardFormModal}
       >
         <DialogTitle disableTypography className={classes.giftcardDialogTitle}>
           <IconButton
-            onClick={closeGiftcardFormModal}
             className={classes.giftcardDialogCloseButton}
+            onClick={closeGiftcardFormModal}
           >
             <Close className={classes.giftcardDialogCloseIcon} />
           </IconButton>
         </DialogTitle>
 
         <GiftcardForm
+          addItemToBasket={addItemToBasket}
+          closeGiftcardFormModal={closeGiftcardFormModal}
           company={theme.company}
+          cover={theme.cover}
+          currentBasket={currentBasket}
+          fetchGiftcardBackgroundImageList={fetchGiftcardBackgroundImageList}
           giftcard={
             giftcardById[
               Number(getIdsFromQuicksaleCardInfoId(pendingItemToAdd)?.[1])
             ] ?? null
           }
-          cover={theme.cover}
           giftcardBackgroundImageList={giftcardBackgroundImageList}
           pendingItemToAdd={pendingItemToAdd}
-          currentBasket={currentBasket}
           setCurrentBasket={setCurrentBasket}
-          addItemToBasket={addItemToBasket}
           showGiftcardFormModal={showGiftcardFormModal}
-          closeGiftcardFormModal={closeGiftcardFormModal}
-          fetchGiftcardBackgroundImageList={fetchGiftcardBackgroundImageList}
         />
       </GenericResponsiveDialog>
     </Grid>

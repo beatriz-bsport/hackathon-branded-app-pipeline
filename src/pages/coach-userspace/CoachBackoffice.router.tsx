@@ -102,34 +102,34 @@ const CoachBackoffice = (props: Props) => {
       }}
     >
       <CoachDrawer
+        coachProfileLoading={props.coachProfileLoading}
+        companyId={companyId}
         cover={theme?.cover}
         disconnect={disconnect}
-        push={pushRouter}
-        companyId={companyId}
-        meAsAssociatedCoach={meAsAssociatedCoach}
-        coachProfileLoading={props.coachProfileLoading}
         has_coach_access_to_calendar={has_coach_access_to_calendar}
         has_coach_access_to_compensation={has_coach_access_to_compensation}
         has_coach_access_to_replacement_request={
           has_coach_access_to_replacement_request
         }
+        meAsAssociatedCoach={meAsAssociatedCoach}
+        push={pushRouter}
       >
         <Switch>
           <Route
-            path="/co/:companyId/calendar/"
             component={CoachProfileCalendar}
+            path="/co/:companyId/calendar/"
           />
           <Route
-            path="/co/:companyId/payroll/"
             component={CoachProfilePerformance}
+            path="/co/:companyId/payroll/"
           />
           <Route
+            component={CoachReplacementRouter}
             path="/co/:companyId/replacement/:tab/"
-            component={CoachReplacementRouter}
           />
           <Route
-            path="/co/:companyId/replacement/"
             component={CoachReplacementRouter}
+            path="/co/:companyId/replacement/"
           />
           <Redirect to={firstAvailableNavigableItem} />
         </Switch>

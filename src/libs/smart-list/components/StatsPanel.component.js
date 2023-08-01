@@ -28,8 +28,8 @@ export const StatsPanel = (props: Props) => {
   return (
     <div className={props.classes.paper}>
       <Typography
-        variant="subtitle2"
         className={props.classes.listSizeContainer}
+        variant="subtitle2"
       >
         {props.t('membersInList')}
         <div className={props.classes.listSize}>
@@ -59,55 +59,55 @@ export const StatsPanel = (props: Props) => {
         {statistics.expensesSegments ? (
           <Grid item xs={6}>
             <PieChart
-              loading={statistics.bookingsSegments.loading}
               data={statistics.bookingsSegments.data}
+              height={250}
+              loading={statistics.bookingsSegments.loading}
               title={t('graphs.bookingsSegments.title')}
               width={400}
-              height={250}
             />
           </Grid>
         ) : null}
       </Grid>
       {statistics.bookings ? (
         <TemporalStatistic
+          colorId={3}
           data={statistics.bookings.data.table}
-          loading={statistics.bookings.loading}
           height={300}
+          loading={statistics.bookings.loading}
+          title={t('graphs.bookings')}
+          xFormatter={statistics.bookings.formatter}
           xKey="d"
           yKey="v"
-          xFormatter={statistics.bookings.formatter}
-          title={t('graphs.bookings')}
-          colorId={3}
         />
       ) : null}
       <div className={props.classes.datePickerContainer}>
         <MuiPickersUtilsProvider
-          utils={MomentUtils}
-          moment={Moment}
           locale={Moment.locale()}
+          moment={Moment}
+          utils={MomentUtils}
         >
           <DatePicker
-            format="L"
             keyboard
+            className={props.classes.datePicker}
+            format="L"
             label={t('dashboard:dateRange.start')}
-            returnMoment={false}
-            value={props.dateRange.start.format('YYYY-MM-DD')}
+            maxDate={props.dateRange.end.format('YYYY-MM-DD')}
             onChange={(value) =>
               props.changeDateRange(value, props.dateRange.end, null)
             }
-            maxDate={props.dateRange.end.format('YYYY-MM-DD')}
-            className={props.classes.datePicker}
+            returnMoment={false}
+            value={props.dateRange.start.format('YYYY-MM-DD')}
           />
           <DatePicker
-            format="L"
             keyboard
+            format="L"
             label={t('dashboard:dateRange.end')}
-            returnMoment={false}
             minDate={props.dateRange.start.format('YYYY-MM-DD')}
-            value={props.dateRange.end.format('YYYY-MM-DD')}
             onChange={(value) =>
               props.changeDateRange(props.dateRange.start, value, null)
             }
+            returnMoment={false}
+            value={props.dateRange.end.format('YYYY-MM-DD')}
           />
         </MuiPickersUtilsProvider>
       </div>

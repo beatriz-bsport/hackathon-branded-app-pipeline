@@ -43,19 +43,19 @@ const FranchiseMemberMembership = (props: Props) => {
           if (!company) return null;
           return (
             <ListItem
+              key={company.id}
               button={company?.isAllowed}
-              onClick={
-                company?.isAllowed && goToFranchiseCompanyDetails(company.id)
-              }
               className={classNames(classes.row, {
                 [classes.isLast]: index === companies.length - 1,
               })}
-              key={company.id}
+              onClick={
+                company?.isAllowed && goToFranchiseCompanyDetails(company.id)
+              }
             >
               <div className={classes.rowTitle}>
                 <Avatar
-                  className={classes.avatar}
                   alt={company.name}
+                  className={classes.avatar}
                   src={company.cover}
                 />
                 <div>
@@ -64,8 +64,8 @@ const FranchiseMemberMembership = (props: Props) => {
               </div>
               <Button
                 className={classes.leftNavigation}
-                onClick={goToCompanyDetails(company.id)}
                 disabled={!company?.isAllowed}
+                onClick={goToCompanyDetails(company.id)}
               >
                 <ArrowForwardIcon className={classes.icon} />
                 <Typography variant="body1">

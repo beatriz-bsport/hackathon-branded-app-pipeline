@@ -164,9 +164,9 @@ export class FilterCard extends Component<Props> {
       return (
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <WarningIcon
+            className={this.props.classes.warningIcon}
             color="error"
             size={15}
-            className={this.props.classes.warningIcon}
           />
           <Typography variant="body1">{text}</Typography>
         </div>
@@ -183,9 +183,9 @@ export class FilterCard extends Component<Props> {
       return (
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <WarningIcon
+            className={this.props.classes.warningIcon}
             color="error"
             size={15}
-            className={this.props.classes.warningIcon}
           />
           <Typography variant="body1">
             {this.props.t('filters.attendanceWarning')}
@@ -202,8 +202,8 @@ export class FilterCard extends Component<Props> {
         return (
           <CreditAccountFilter
             filter_data={this.state.filter_data}
-            onChange={this.handleChange}
             new={this.props.new}
+            onChange={this.handleChange}
             setNotNullableData={this.setNotNullableData}
           />
         );
@@ -211,8 +211,8 @@ export class FilterCard extends Component<Props> {
         return (
           <MemberDateJoinedFilter
             filter_data={this.state.filter_data}
-            onChange={this.handleChange}
             new={this.props.new}
+            onChange={this.handleChange}
             setNotNullableData={this.setNotNullableData}
           />
         );
@@ -220,8 +220,8 @@ export class FilterCard extends Component<Props> {
         return (
           <GenderFilter
             filter_data={this.state.filter_data}
-            onChange={this.handleChange}
             new={this.props.new}
+            onChange={this.handleChange}
             setNotNullableData={this.setNotNullableData}
           />
         );
@@ -229,8 +229,8 @@ export class FilterCard extends Component<Props> {
         return (
           <BasketAbandonmentFilter
             filter_data={this.state.filter_data}
-            onChange={this.handleChange}
             new={this.props.new}
+            onChange={this.handleChange}
             setNotNullableData={this.setNotNullableData}
           />
         );
@@ -238,8 +238,8 @@ export class FilterCard extends Component<Props> {
         return (
           <LastPreviousBookingFilter
             filter_data={this.state.filter_data}
-            onChange={this.handleChange}
             new={this.props.new}
+            onChange={this.handleChange}
             setNotNullableData={this.setNotNullableData}
           />
         );
@@ -247,130 +247,130 @@ export class FilterCard extends Component<Props> {
       case PAYMENT_PACK_FILTER_IDENTIFIER:
         return (
           <PaymentPackFilter
+            fetchBulkItems={this.props.fetchBulkItems}
+            fetchItems={this.props.fetchItems}
             filter_data={this.state.filter_data}
+            new={this.props.new}
             onChange={this.handleChange}
             payment_packs={this.props.payment_packs}
-            fetchItems={this.props.fetchItems}
-            fetchBulkItems={this.props.fetchBulkItems}
-            new={this.props.new}
-            setNotNullableData={this.setNotNullableData}
             renderSelectorWarning={this.renderSelectorWarning}
+            setNotNullableData={this.setNotNullableData}
           />
         );
       case PRIVATE_PASS_FILTER_IDENTIFIER:
         return (
           <PrivatePassFilter
+            fetchBulkItems={this.props.fetchBulkItems}
+            fetchItems={this.props.fetchItems}
             filter_data={this.state.filter_data}
+            new={this.props.new}
             onChange={this.handleChange}
             private_passes={this.props.private_passes}
-            fetchItems={this.props.fetchItems}
-            fetchBulkItems={this.props.fetchBulkItems}
-            new={this.props.new}
-            setNotNullableData={this.setNotNullableData}
             renderSelectorWarning={this.renderSelectorWarning}
+            setNotNullableData={this.setNotNullableData}
           />
         );
       case TAG_FILTER_IDENTIFIER:
         return (
           <TagFilter
             filter_data={this.state.filter_data}
-            tags={this.props.tags}
-            onChange={this.handleChange}
             new={this.props.new}
+            onChange={this.handleChange}
             setNotNullableData={this.setNotNullableData}
+            tags={this.props.tags}
           />
         );
       case BOOKINGS_NUMBER_FILTER_IDENTIFIER:
         return (
           <BookingsNumberFilter
-            filter_data={this.state.filter_data}
+            coaches={this.props.coaches}
+            customLevels={this.props.customLevels}
             establishments={this.props.establishments}
-            onChange={this.handleChange}
+            fetchBulkItems={this.props.fetchBulkItems}
+            fetchItems={this.props.fetchItems}
+            filter_data={this.state.filter_data}
             meta_activities={this.props.meta_activities}
             new={this.props.new}
-            customLevels={this.props.customLevels}
-            fetchItems={this.props.fetchItems}
+            onChange={this.handleChange}
             payment_packs={this.props.payment_packs}
-            coaches={this.props.coaches}
-            fetchBulkItems={this.props.fetchBulkItems}
-            setNotNullableData={this.setNotNullableData}
-            renderSelectorWarning={this.renderSelectorWarning}
             renderAttendanceSelectorWarning={
               this.renderAttendanceSelectorWarning
             }
+            renderSelectorWarning={this.renderSelectorWarning}
+            setNotNullableData={this.setNotNullableData}
           />
         );
       case FIRST_BOOKING_FILTER_IDENTIFIER:
         return (
           <FirstBookingFilter
+            coaches={this.props.coaches}
+            customLevels={this.props.customLevels}
+            establishments={this.props.establishments}
+            fetchBulkItems={this.props.fetchBulkItems}
+            fetchItems={this.props.fetchItems}
             filter_data={{
               ...this.state.filter_data,
               filter_identifier: BOOKINGS_NUMBER_FILTER_IDENTIFIER,
             }}
-            establishments={this.props.establishments}
-            onChange={this.handleChange}
             meta_activities={this.props.meta_activities}
             new={this.props.new}
-            fetchItems={this.props.fetchItems}
+            onChange={this.handleChange}
             payment_packs={this.props.payment_packs}
-            coaches={this.props.coaches}
-            fetchBulkItems={this.props.fetchBulkItems}
-            setNotNullableData={this.setNotNullableData}
-            renderSelectorWarning={this.renderSelectorWarning}
             renderAttendanceSelectorWarning={
               this.renderAttendanceSelectorWarning
             }
-            customLevels={this.props.customLevels}
+            renderSelectorWarning={this.renderSelectorWarning}
+            setNotNullableData={this.setNotNullableData}
           />
         );
       case BOOKINGS_FILTER_IDENTIFIER:
         return (
           <BookingsFilter
-            filter_data={this.state.filter_data}
+            coaches={this.props.coaches}
+            customLevels={this.props.customLevels}
             establishments={this.props.establishments}
-            onChange={this.handleChange}
-            payment_packs={this.props.payment_packs}
+            fetchBulkItems={this.props.fetchBulkItems}
+            fetchItems={this.props.fetchItems}
+            filter_data={this.state.filter_data}
             meta_activities={this.props.meta_activities}
             new={this.props.new}
-            coaches={this.props.coaches}
-            fetchItems={this.props.fetchItems}
-            fetchBulkItems={this.props.fetchBulkItems}
-            setNotNullableData={this.setNotNullableData}
-            renderSelectorWarning={this.renderSelectorWarning}
+            onChange={this.handleChange}
+            payment_packs={this.props.payment_packs}
             renderAttendanceSelectorWarning={
               this.renderAttendanceSelectorWarning
             }
-            customLevels={this.props.customLevels}
+            renderSelectorWarning={this.renderSelectorWarning}
+            setNotNullableData={this.setNotNullableData}
           />
         );
       case PRIVATE_BOOKINGS_FILTER_IDENTIFIER:
         return (
           <PrivateBookingsFilter
-            filter_data={this.state.filter_data}
+            coaches={this.props.coaches}
             establishments={this.props.establishments}
+            fetchBulkItems={this.props.fetchBulkItems}
+            fetchItems={this.props.fetchItems}
+            filter_data={this.state.filter_data}
+            new={this.props.new}
             onChange={this.handleChange}
             private_passes={this.props.private_passes}
             private_services={this.props.private_services}
-            new={this.props.new}
-            coaches={this.props.coaches}
-            fetchItems={this.props.fetchItems}
-            fetchBulkItems={this.props.fetchBulkItems}
-            setNotNullableData={this.setNotNullableData}
             renderSelectorWarning={this.renderSelectorWarning}
+            setNotNullableData={this.setNotNullableData}
           />
         );
       case ACTIVE_PASSES_FILTER_IDENTIFIER:
         return (
           <ActivePassesFilter
+            fetchBulkItems={this.props.fetchBulkItems}
+            fetchItems={this.props.fetchItems}
             filter_data={this.state.filter_data}
+            isNew={this.props.new}
             onChange={this.handleChange}
             payment_packs={this.props.payment_packs}
             private_passes={this.props.private_passes}
-            isNew={this.props.new}
-            fetchItems={this.props.fetchItems}
-            fetchBulkItems={this.props.fetchBulkItems}
-            setNotNullableData={this.setNotNullableData}
             renderSelectorWarning={this.renderSelectorWarning}
+            setNotNullableData={this.setNotNullableData}
           />
         );
       case USER_HAS_PASSWORD_FILTER:
@@ -380,8 +380,8 @@ export class FilterCard extends Component<Props> {
               ...this.state.filter_data,
               filter_identifier: USER_HAS_PASSWORD_FILTER,
             }}
-            onChange={this.handleChange}
             new={this.props.new}
+            onChange={this.handleChange}
             setNotNullableData={this.setNotNullableData}
           />
         );
@@ -392,8 +392,8 @@ export class FilterCard extends Component<Props> {
               ...this.state.filter_data,
               filter_identifier: WAIVER_FILTER_IDENTIFIER,
             }}
-            onChange={this.handleChange}
             new={this.props.new}
+            onChange={this.handleChange}
           />
         );
       case PAYMENT_METHOD_FILTER_IDENTIFIER:
@@ -403,17 +403,13 @@ export class FilterCard extends Component<Props> {
               ...this.state.filter_data,
               filter_identifier: PAYMENT_METHOD_FILTER_IDENTIFIER,
             }}
-            onChange={this.handleChange}
             new={this.props.new}
+            onChange={this.handleChange}
           />
         );
       case EXPENSES_COMPLETE_FILTER_IDENTIFIER:
         return (
           <ExpensesPerCategoryFilter
-            filter_data={this.state.filter_data}
-            onChange={this.handleChange}
-            new={this.props.new}
-            setNotNullableData={this.setNotNullableData}
             buyable_identifiers={[
               {
                 label: this.props.t(
@@ -446,6 +442,10 @@ export class FilterCard extends Component<Props> {
                 id: COMBO_ITEM_IDENTIFIER,
               },
             ]}
+            filter_data={this.state.filter_data}
+            new={this.props.new}
+            onChange={this.handleChange}
+            setNotNullableData={this.setNotNullableData}
           />
         );
       case AGE_FILTER_IDENTIFIER:
@@ -455,25 +455,25 @@ export class FilterCard extends Component<Props> {
               ...this.state.filter_data,
               filter_identifier: AGE_FILTER_IDENTIFIER,
             }}
-            onChange={this.handleChange}
             isNew={this.props.new}
+            onChange={this.handleChange}
             setNotNullableData={this.setNotNullableData}
           />
         );
       case CUSTOM_FORMS_FILTER_IDENTIFIER:
         return (
           <CustomFormsFilter
+            custom_forms={this.props.customForms}
+            fetchBulkItems={this.props.fetchBulkItems}
+            fetchItems={this.props.fetchItems}
             filter_data={{
               ...this.state.filter_data,
               filter_identifier: CUSTOM_FORMS_FILTER_IDENTIFIER,
             }}
-            onChange={this.handleChange}
             isNew={this.props.new}
-            setNotNullableData={this.setNotNullableData}
-            fetchItems={this.props.fetchItems}
-            fetchBulkItems={this.props.fetchBulkItems}
-            custom_forms={this.props.customForms}
+            onChange={this.handleChange}
             renderSelectorWarning={this.renderSelectorWarning}
+            setNotNullableData={this.setNotNullableData}
           />
         );
 
@@ -484,11 +484,11 @@ export class FilterCard extends Component<Props> {
               ...this.state.filter_data,
               filter_identifier: USER_MARKETING_NOTIFICATIONS_FILTER,
             }}
-            onChange={this.handleChange}
             isNew={this.props.new}
-            setNotNullableData={this.setNotNullableData}
-            setNotAllFalsyData={this.setNotAllFalsyData}
+            onChange={this.handleChange}
             renderSelectorWarning={this.renderSelectorWarning}
+            setNotAllFalsyData={this.setNotAllFalsyData}
+            setNotNullableData={this.setNotNullableData}
           />
         );
       case NOTES_FILTER_IDENTIFIER:
@@ -498,8 +498,8 @@ export class FilterCard extends Component<Props> {
               ...this.state.filter_data,
               filter_identifier: NOTES_FILTER_IDENTIFIER,
             }}
-            onChange={this.handleChange}
             isNew={this.props.new}
+            onChange={this.handleChange}
             setNotNullableData={this.setNotNullableData}
           />
         );
@@ -510,8 +510,8 @@ export class FilterCard extends Component<Props> {
               ...this.state.filter_data,
               filter_identifier: RELATIONS_FILTER_IDENTIFIER,
             }}
-            onChange={this.handleChange}
             isNew={this.props.new}
+            onChange={this.handleChange}
           />
         );
       case USER_HAS_PHONE_FILTER_IDENTIFIER:
@@ -521,8 +521,8 @@ export class FilterCard extends Component<Props> {
               ...this.state.filter_data,
               filter_identifier: USER_HAS_PHONE_FILTER_IDENTIFIER,
             }}
-            onChange={this.handleChange}
             isNew={this.props.new}
+            onChange={this.handleChange}
           />
         );
       case TERMS_AND_CONDITIONS_FILTER_IDENTIFIER:
@@ -532,8 +532,8 @@ export class FilterCard extends Component<Props> {
               ...this.state.filter_data,
               filter_identifier: TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
             }}
-            onChange={this.handleChange}
             isNew={this.props.new}
+            onChange={this.handleChange}
           />
         );
 
@@ -548,14 +548,25 @@ export class FilterCard extends Component<Props> {
       <div>
         <div className={this.props.classes.rowContainer}>
           <Typography
-            variant="body2"
             className={this.props.classes.filterContainer}
+            variant="body2"
           >
             {this.filterTypeSelector()}
           </Typography>
           <div className={this.props.classes.buttonContainer}>
             {this.props.onClickCreate ? (
               <Button
+                color="secondary"
+                disabled={
+                  this.state.not_nullable_data
+                    .map((item) => this.state.filter_data[item] ?? null)
+                    .includes(null) ||
+                  this.state.not_all_falsy_data.some((itemList) =>
+                    itemList
+                      .map((item) => this.state.filter_data[item])
+                      .every((item) => !item),
+                  )
+                }
                 onClick={(ev) => {
                   ev.stopPropagation();
                   ev.preventDefault();
@@ -568,17 +579,6 @@ export class FilterCard extends Component<Props> {
                     this.state.filter_data,
                   );
                 }}
-                color="secondary"
-                disabled={
-                  this.state.not_nullable_data
-                    .map((item) => this.state.filter_data[item] ?? null)
-                    .includes(null) ||
-                  this.state.not_all_falsy_data.some((itemList) =>
-                    itemList
-                      .map((item) => this.state.filter_data[item])
-                      .every((item) => !item),
-                  )
-                }
               >
                 <SaveIcon className={this.props.classes.leftIcon} />
                 {t('filters.add')}
@@ -587,12 +587,12 @@ export class FilterCard extends Component<Props> {
             {this.props.onClickDelete ? (
               <IconButton
                 className={this.props.classes.leftIcon}
+                color="secondary"
                 onClick={(ev) => {
                   ev.stopPropagation();
                   ev.preventDefault();
                   this.props.onClickDelete(filter.filter_identifier, filter.id);
                 }}
-                color="secondary"
               >
                 <DeleteIcon />
               </IconButton>

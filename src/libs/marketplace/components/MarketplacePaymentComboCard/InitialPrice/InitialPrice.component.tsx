@@ -41,11 +41,11 @@ export const InitialPrice: React.FC<Props> = ({
     <>
       {sumOfPackItemsPrices > paymentCombo?.price && (
         <Price
-          tax={paymentCombo.tax}
-          isExcludingTax={isExcludingTax}
           amount={sumOfPackItemsPrices}
-          formatPriceWithCurrency={getCurrencyDisplayWithPrice}
           classes={{ 'bs-initial-price__price': 'bs-initial-price__price' }}
+          formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+          isExcludingTax={isExcludingTax}
+          tax={paymentCombo.tax}
         />
       )}
     </>

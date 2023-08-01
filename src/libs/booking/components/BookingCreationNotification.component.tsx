@@ -77,12 +77,12 @@ const BookingCreationNotification = (props: Props) => {
             <ListItem key={notif.id} divider>
               <div className={classes.text}>
                 <NotificationListInner
-                  notification={notif}
                   emailTitle={
                     props?.emails?.find(
                       (email) => email.id === notif.email_design,
                     )?.title ?? ''
                   }
+                  notification={notif}
                   smartLists={props.smartLists}
                 />
               </div>
@@ -94,9 +94,9 @@ const BookingCreationNotification = (props: Props) => {
               />
               <ListItemSecondaryAction>
                 <IconButton
-                  edge="end"
                   aria-label="Edit"
                   color="primary"
+                  edge="end"
                   onClick={() => {
                     props.setSelectedNotification(notif);
                     props.setIsFormOpen(true);
@@ -119,31 +119,31 @@ const BookingCreationNotification = (props: Props) => {
       </Paper>
       <div className={classes.addButtonContainer}>
         <Button
-          variant="outlined"
           color="primary"
           onClick={() => props.setIsFormOpen(true)}
+          variant="outlined"
         >
           {t('notification.addNotification')}
         </Button>
       </div>
       {props.isFormOpen && (
         <MarketingRuleFormBooking
-          objectId={props.objectId}
-          identifier={props.identifier}
-          emails={props.emails}
-          emailListLoading={props.emailListLoading}
-          getEmailDetail={props.getEmailDetail}
-          emailDetails={props.emailDetails}
-          getEmails={props.getEmails}
           emailDetailLoading={props.emailDetailLoading}
-          onCancel={props.closeForm}
-          initial={props.selectedNotification}
-          onSubmit={props.onSubmit}
-          goToSmartlist={props.goToSmartlist}
+          emailDetails={props.emailDetails}
+          emailListLoading={props.emailListLoading}
+          emails={props.emails}
+          getEmailDetail={props.getEmailDetail}
+          getEmails={props.getEmails}
           getSmartLists={props.getSmartLists}
+          goToSmartlist={props.goToSmartlist}
+          identifier={props.identifier}
+          initial={props.selectedNotification}
+          objectId={props.objectId}
+          onCancel={props.closeForm}
+          onSubmit={props.onSubmit}
           resolvedGenericTags={props.resolvedGenericTags}
-          tags={props.tags}
           smartLists={props.smartLists}
+          tags={props.tags}
         />
       )}
       <Dialog open={props.isDeleteModalOpen}>

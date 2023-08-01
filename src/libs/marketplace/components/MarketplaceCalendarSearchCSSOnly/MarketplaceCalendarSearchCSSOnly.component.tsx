@@ -71,20 +71,20 @@ export class MarketplaceCalendarSearch extends PureComponent<Props, State> {
     return (
       <form className="bs-search__container" onSubmit={this.handleSubmit}>
         <div className="bs-search__input__container">
-          <button type="button" className="bs-search__input__icon">
+          <button className="bs-search__input__icon" type="button">
             <SearchIcon fontSize="small" />
           </button>
           <input
-            placeholder={this.props.t('input')}
             className="bs-search__input"
-            value={this.state.searchText}
             onChange={this.handleChange}
+            placeholder={this.props.t('input')}
+            value={this.state.searchText}
           />
           {this.state.searchText && (
             <button
-              type="button"
-              onClick={this.handleClearInput}
               className="bs-search__input__icon"
+              onClick={this.handleClearInput}
+              type="button"
             >
               <ClearIcon fontSize="small" />
             </button>

@@ -443,14 +443,14 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
     <>
       <div className={classes.sectionListContainer}>
         <div className={classes.pageHeader}>
-          <Typography variant="h6" className={classes.mediumBold}>
+          <Typography className={classes.mediumBold} variant="h6">
             {t('cardListPage.preview')}
           </Typography>
           <Button
-            variant="contained"
             color="primary"
             disabled={!isSaveNeeded || updateLoading}
             onClick={saveQuicksaleConfiguration}
+            variant="contained"
           >
             {updateLoading ? (
               <CircularProgress size={24} />
@@ -461,7 +461,7 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
         </div>
 
         <div className={localClasses.pageBody}>
-          <Alert severity="info" className={localClasses.alertInfo}>
+          <Alert className={localClasses.alertInfo} severity="info">
             {!isMobile || showFullHelperAlert ? (
               <>{t('cardListPage.possibleActionsFull')}</>
             ) : (
@@ -491,16 +491,16 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
 
           <div className={localClasses.itemListContainer}>
             <QuicksaleItemListHeader
-              sectionName={currentSection?.section_name ?? ''}
-              sectionIcon={currentSection?.section_icon ?? ''}
               goBack={onGoBackClick}
+              sectionIcon={currentSection?.section_icon ?? ''}
+              sectionName={currentSection?.section_name ?? ''}
             />
             <QuicksaleConfigurationItemList
-              openColorModal={openColorModal}
               deleteItem={onItemDelete}
-              openAddItemDrawer={openItemAdditionDrawer}
               itemList={unsavedItemList}
               loading={loading}
+              openAddItemDrawer={openItemAdditionDrawer}
+              openColorModal={openColorModal}
             />
           </div>
         </div>
@@ -508,16 +508,16 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
 
       <GenericResponsiveDialog
         maxWidth="sm"
-        open={itemWhoseColorIsEdited !== ''}
         onClose={closeColorModal}
+        open={itemWhoseColorIsEdited !== ''}
       >
         <DialogTitle disableTypography className={classes.colorModalTitle}>
           <Typography variant="h6">
             {t('cardListPage.categoryModalTitle')}
           </Typography>
           <IconButton
-            onClick={closeColorModal}
             className={classes.colorModalCloseButton}
+            onClick={closeColorModal}
           >
             <Close />
           </IconButton>
@@ -527,28 +527,28 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
             {t('cardListPage.categoryModalSubtitle')}
           </Typography>
           <ColorPicker
-            colorChoices={availableColors}
-            selectedColor={relatedItem?.color ?? ''}
-            onColorChange={onColorSelect}
             className={classes.colorPicker}
+            colorChoices={availableColors}
+            onColorChange={onColorSelect}
+            selectedColor={relatedItem?.color ?? ''}
           />
         </DialogContent>
       </GenericResponsiveDialog>
 
       <PromptOnPageLeave
-        openPromptOnPageLeave={isSaveNeeded}
-        title={t('pageLeavePrompt.title')}
         description={t('pageLeavePrompt.description')}
         leaveWithoutSavingText={t('pageLeavePrompt.discard')}
         leaveWithSavingText={t('pageLeavePrompt.save')}
         onLeaveWithSaving={saveQuicksaleConfiguration}
+        openPromptOnPageLeave={isSaveNeeded}
+        title={t('pageLeavePrompt.title')}
       />
 
       <QuicksaleItemAdditionDrawer
-        open={showItemAdditionDrawer}
-        onClose={closeItemAdditionDrawer}
         addItems={addManyItems}
         availableItems={availableItems}
+        onClose={closeItemAdditionDrawer}
+        open={showItemAdditionDrawer}
       />
     </>
   );

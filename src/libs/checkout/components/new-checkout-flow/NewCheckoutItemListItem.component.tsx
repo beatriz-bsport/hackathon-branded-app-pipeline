@@ -49,14 +49,14 @@ export const NewCheckoutItemListItem: React.FC<
   return (
     <div className={classes.checkoutItemContainer}>
       <div className={classes.subContainer}>
-        <Typography variant="subtitle2" className={classes.checkoutItemName}>
+        <Typography className={classes.checkoutItemName} variant="subtitle2">
           {checkoutItem.name}
         </Typography>
         {!!onDeleteCheckoutItem && (
           <IconButton
-            onClick={onDeleteCheckoutItem}
-            disabled={isItemEditionDisabled}
             className={classes.removeIconButton}
+            disabled={isItemEditionDisabled}
+            onClick={onDeleteCheckoutItem}
           >
             <DeleteIcon className={classes.deleteIcon} />
           </IconButton>
@@ -71,8 +71,8 @@ export const NewCheckoutItemListItem: React.FC<
           onRemoveOneItem={onRemoveOneItem}
         />
         <Typography
-          variant="subtitle2"
           className={classes.checkoutItemPriceClass}
+          variant="subtitle2"
         >
           {checkoutItemPrice}
         </Typography>

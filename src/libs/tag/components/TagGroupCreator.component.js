@@ -17,15 +17,15 @@ type Props = {
 
 export const TagGroupCreator = (props: Props) => (
   <form
+    onSubmit={(ev: SyntheticEvent<HTMLElement>) => {
+      ev.preventDefault();
+      props.onCreate({ name: props.name });
+    }}
     style={{
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
       flexDirection: 'row',
-    }}
-    onSubmit={(ev: SyntheticEvent<HTMLElement>) => {
-      ev.preventDefault();
-      props.onCreate({ name: props.name });
     }}
   >
     <div>
@@ -34,10 +34,10 @@ export const TagGroupCreator = (props: Props) => (
       </IconButton>
       <TextField
         autoFocus
+        onChange={(ev) => props.setName(ev.target.value)}
+        placeholder={props.t('form.group.namePlaceholder')}
         value={props.name}
         variant="outlined"
-        placeholder={props.t('form.group.namePlaceholder')}
-        onChange={(ev) => props.setName(ev.target.value)}
       />
     </div>
     <IconButton onClick={props.onCancel}>

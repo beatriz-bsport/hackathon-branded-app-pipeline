@@ -46,8 +46,8 @@ const CoachColorSquare = (props: {
   return (
     <Tooltip title={props.associatedCoach.name}>
       <IconButton
-        onClick={props.onClick}
         classes={{ root: classes.avatarButton }}
+        onClick={props.onClick}
       >
         <Avatar
           className={classes.avatar}
@@ -119,7 +119,7 @@ export const CoachColorModifier: React.FC<Props> = ({
   return (
     <div className={classes.row}>
       {associatedCoachList.map((associatedCoach) => (
-        <div className={classes.avatarContainer} key={associatedCoach?.id}>
+        <div key={associatedCoach?.id} className={classes.avatarContainer}>
           <CoachColorSquare
             associatedCoach={associatedCoach}
             onClick={() => setSelectedAssociatedCoach(associatedCoach)}

@@ -43,43 +43,43 @@ export const CustomFormLayoutEditor = (props: Props) => {
     [layouts, saveLayouts],
   );
   return (
-    <Dialog open={props.open} fullWidth classes={{ paper: classes.paper }}>
+    <Dialog fullWidth classes={{ paper: classes.paper }} open={props.open}>
       <div className={classes.dialogTitle}>
         <Typography variant="h5">{t('customForm.editLayoutTitle')} </Typography>
       </div>
       <DialogContextText>
         <div className={classes.formChangeContainer}>
           <InfoOutlinedIcon className={classes.changeWarning} />
-          <Typography variant="caption" className={classes.changeWarning}>
+          <Typography className={classes.changeWarning} variant="caption">
             {t('customForm.editLayoutSubtitle')}
           </Typography>
         </div>
       </DialogContextText>
       <div className={classes.container}>
         <CustomFormLayout
-          initial={props.initial}
-          saveLayouts={() => saveLayouts(layouts)}
-          editable
           asManager
+          defaultEditMode
+          editable
+          general_terms_and_conditions={props.general_terms_and_conditions}
+          initial={props.initial}
+          layouts={props.initial?.layout}
+          maxHeight="65%"
           onLayoutChange={(allLayouts: ResponsiveLayouts) =>
             setLayouts(allLayouts)
           }
-          layouts={props.initial?.layout}
-          waiver={props.waiver}
-          general_terms_and_conditions={props.general_terms_and_conditions}
+          saveLayouts={() => saveLayouts(layouts)}
           setOutterContainerWidth={handleWidthChange}
-          defaultEditMode
-          maxHeight="65%"
+          waiver={props.waiver}
         />
       </div>
       <DialogActions className={classes.dialogActions}>
         <Button
+          color="primary"
           onClick={() => {
             saveLayouts(layouts);
             props.closeEditor();
           }}
           variant="outlined"
-          color="primary"
         >
           {t('customForm.layout.saveAndExit')}
         </Button>

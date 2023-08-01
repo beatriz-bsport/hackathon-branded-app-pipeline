@@ -54,8 +54,8 @@ export class AvatarField extends Component<Props, State> {
             />
             <label htmlFor="avatar-loader-button" style={{ cursor: 'pointer' }}>
               <Avatar
-                user={{ photo: getUrl(previewUrl, field.value) }}
                 noname
+                user={{ photo: getUrl(previewUrl, field.value) }}
                 variant="large"
               />
             </label>

@@ -10,16 +10,16 @@ import AllCoachPerformance from './AllCoachPerformance.page';
 
 export default () => (
   <Switch>
-    <Route exact path="/coach/add" component={CoachForm} />
-    <Route exact path="/coach/edit/:id" component={CoachForm} />
+    <Route exact component={CoachForm} path="/coach/add" />
+    <Route exact component={CoachForm} path="/coach/edit/:id" />
     <Route
       exact
-      path="/coach/:associatedCoachId/performance"
       component={CoachPerformance}
+      path="/coach/:associatedCoachId/performance"
     />
-    <Route path="/coach/performance" component={AllCoachPerformance} />
-    <Route path="/coach/:coachId/:tab" component={CoachDetailRouter} />
-    <Route path="/coach/:coachId" component={CoachDetailRouter} />
-    <Route path="/coach" component={CoachList} />
+    <Route component={AllCoachPerformance} path="/coach/performance" />
+    <Route component={CoachDetailRouter} path="/coach/:coachId/:tab" />
+    <Route component={CoachDetailRouter} path="/coach/:coachId" />
+    <Route component={CoachList} path="/coach" />
   </Switch>
 );

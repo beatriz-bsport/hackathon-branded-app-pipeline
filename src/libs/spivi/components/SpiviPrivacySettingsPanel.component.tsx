@@ -24,16 +24,16 @@ export const SpiviPrivacySettingsPanel = (props: Props) => {
   const { t } = useTranslation('consumerSpace');
   return (
     <div className={classes.spiviContainer}>
-      <Typography component="h2" variant="h6" className={classes.title}>
+      <Typography className={classes.title} component="h2" variant="h6">
         {t('consumerSpace:spivi.settingsTitle')}
       </Typography>
       <Divider />
       <div className={classes.spiviRow}>
         <div className={classes.spiviSettings}>
           <Switch
+            checked={props.member?.spivi_privacy_settings_accepted}
             color="primary"
             disabled={props.spiviPrivacySettingsLoading}
-            checked={props.member?.spivi_privacy_settings_accepted}
             onChange={(ev, value) => {
               props.updateSpiviPrivacySettings(props.member?.id, value);
             }}

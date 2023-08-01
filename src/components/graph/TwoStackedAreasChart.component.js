@@ -70,17 +70,17 @@ export function TwoStackedAreasChart(props: Props) {
   } = props;
   return (
     <ResponsiveContainer
-      width="100%"
       height={height}
       minHeight={minHeight}
       minWidth={minWidth}
+      width="100%"
     >
       <AreaChart
-        width={width}
-        height={height}
-        data={data}
-        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         key={refreshKey}
+        data={data}
+        height={height}
+        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+        width={width}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
@@ -88,27 +88,27 @@ export function TwoStackedAreasChart(props: Props) {
           domain={domain}
           tickFormatter={dateFormatter(domain)}
         >
-          <Label value={xLabel} position="insideBottom" />
+          <Label position="insideBottom" value={xLabel} />
         </XAxis>
         <YAxis
-          allowDecimals={!!yAxisAllowDecimals}
           key={refreshKey}
+          allowDecimals={!!yAxisAllowDecimals}
           label={{ value: yLabel, angle: -90, position: 'insideLeft' }}
         />
         <Tooltip />
         <Area
-          type="monotone"
           dataKey={yKeyA}
+          fill={colorA}
           stackId="1"
           stroke={colorA}
-          fill={colorA}
+          type="monotone"
         />
         <Area
-          type="monotone"
           dataKey={yKeyB}
-          stackId="1"
           fill={colorB}
+          stackId="1"
           stroke={colorB}
+          type="monotone"
         />
       </AreaChart>
     </ResponsiveContainer>

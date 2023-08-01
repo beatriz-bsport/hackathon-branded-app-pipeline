@@ -21,10 +21,10 @@ export const AddCategoryButton = (props: Props) => {
   return (
     <div className={classes.buttonRow}>
       <Button
-        variant="outlined"
-        onClick={onClick}
         color="primary"
+        onClick={onClick}
         startIcon={<AddIcon color="primary" />}
+        variant="outlined"
       >
         {t('category.add')}
       </Button>

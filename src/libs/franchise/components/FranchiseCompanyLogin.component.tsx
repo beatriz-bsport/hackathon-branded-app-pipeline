@@ -57,14 +57,14 @@ const FranchiseCompanyLogin = (props: Props) => {
       {context !== 'widget' && (
         <div className={classes.row}>
           <RedButton
-            variant="outlined"
+            color="primary"
             onClick={() => {
               if (setStep) {
                 setStep(STEPS.loginToFranchise);
               }
               if (authenticated) disconnect();
             }}
-            color="primary"
+            variant="outlined"
           >
             {authenticated ? t('login.disconnect') : t('login.previous')}
           </RedButton>

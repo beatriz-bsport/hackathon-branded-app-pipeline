@@ -42,14 +42,14 @@ export function SearchMember(props: Props) {
   return (
     <div className={classNames({ [classes.input]: fullWidth })}>
       <Popover
-        style={{ zIndex: 1000000 }}
         disableAutoFocus
+        transition
         anchorEl={props.memberHistoryAnchor}
         open={
           Boolean(props.memberHistoryAnchor) && !!props.memberHistory.length
         }
         placement="center"
-        transition
+        style={{ zIndex: 1000000 }}
       >
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
@@ -57,8 +57,8 @@ export function SearchMember(props: Props) {
               {props.memberHistory.slice(0, 5).map((m) => (
                 <ListItem
                   key={m.id}
-                  divider
                   button
+                  divider
                   onClick={(ev) => {
                     ev.stopPropagation();
                     props.onClickRegister(m);
@@ -75,20 +75,8 @@ export function SearchMember(props: Props) {
         )}
       </Popover>
       <DelayedTextField
-        variant="outlined"
-        className={classes.field}
-        placeholder={t('input')}
         fullWidth
-        onBlur={() => {
-          if (props.setMemberHistoryAnchor) {
-            props.setMemberHistoryAnchor(null);
-          }
-        }}
-        onFocus={(ev) => {
-          if (props.setMemberHistoryAnchor) {
-            props.setMemberHistoryAnchor(ev.currentTarget);
-          }
-        }}
+        className={classes.field}
         InputProps={{
           className: classes.input,
           startAdornment: (
@@ -107,8 +95,20 @@ export function SearchMember(props: Props) {
             </InputAdornment>
           ) : null,
         }}
-        value={searchedText}
+        onBlur={() => {
+          if (props.setMemberHistoryAnchor) {
+            props.setMemberHistoryAnchor(null);
+          }
+        }}
         onChange={onChange}
+        onFocus={(ev) => {
+          if (props.setMemberHistoryAnchor) {
+            props.setMemberHistoryAnchor(ev.currentTarget);
+          }
+        }}
+        placeholder={t('input')}
+        value={searchedText}
+        variant="outlined"
       />
     </div>
   );

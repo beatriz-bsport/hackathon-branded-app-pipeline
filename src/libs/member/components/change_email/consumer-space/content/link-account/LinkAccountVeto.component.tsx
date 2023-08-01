@@ -31,8 +31,8 @@ export const LinkAccountVetoContent = (props: LinkAccountVetoContentProps) => {
         })}
       </Typography>
       <EmailDetailContent
-        old_email={request?.old_email}
         new_email={request?.new_email}
+        old_email={request?.old_email}
       />
       <SpacedText
         text={t(
@@ -57,8 +57,8 @@ export const LinkAccountVetoContent = (props: LinkAccountVetoContentProps) => {
         )}
       />
       <ContentActions
-        onDenied={onDenied}
         denyText={t('changeEmailRequest.memberPage.actions.deniedFusion')}
+        onDenied={onDenied}
       />
     </>
   );

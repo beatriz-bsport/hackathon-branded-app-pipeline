@@ -40,8 +40,8 @@ const PrivatePassTemplateListItem = (props: Props) => {
 
   return (
     <ListItem
-      button={!!onClick}
       divider
+      button={!!onClick}
       onClick={onClick && (() => onClick(template.id))}
     >
       <ListItemText

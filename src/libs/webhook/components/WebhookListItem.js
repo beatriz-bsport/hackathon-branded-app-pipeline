@@ -36,7 +36,7 @@ const ButtonWithConfirm = withConfirm(IconButton, 'onClick', {
 export class WebhookListItem extends Component<Props> {
   render() {
     return (
-      <ListItem divider dense>
+      <ListItem dense divider>
         <div className={this.props.classes.container}>
           <ListItemText
             primary={`${this.props.t('webhook.event')}: ${
@@ -54,32 +54,32 @@ export class WebhookListItem extends Component<Props> {
             ) : (
               <Button
                 className={this.props.classes.testButton}
-                variant="outlined"
                 onClick={this.props.testWebhookUrl}
+                variant="outlined"
               >
                 {this.props.t('webhook.test')}
               </Button>
             )}
             {this.props.onClickEdit ? (
               <IconButton
+                color="primary"
                 onClick={(ev) => {
                   ev.stopPropagation();
                   ev.preventDefault();
                   this.props.onClickEdit(this.props.webhook.id);
                 }}
-                color="primary"
               >
                 <EditIcon />
               </IconButton>
             ) : null}
             {this.props.onClickDelete ? (
               <ButtonWithConfirm
+                color="secondary"
                 onClick={(ev) => {
                   ev.stopPropagation();
                   ev.preventDefault();
                   this.props.onClickDelete(this.props.webhook.id);
                 }}
-                color="secondary"
               >
                 <DeleteIcon />
               </ButtonWithConfirm>

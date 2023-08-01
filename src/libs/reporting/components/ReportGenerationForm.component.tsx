@@ -153,8 +153,8 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
 
   return (
     <Button
-      variant="contained"
       color="secondary"
+      disabled={isSubmitting_ || isExporting}
       onClick={() => {
         handleExcelExportation({
           dateStart: moment(values.dateStart).unix(),
@@ -164,11 +164,11 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
         setIsExporting(true);
         setTimeout(() => setIsExporting(false), 5000);
       }}
-      disabled={isSubmitting_ || isExporting}
+      variant="contained"
     >
       {t('common.export')}
       {isExporting ? (
-        <CircularProgress size={30} className={classes.rightIcon} />
+        <CircularProgress className={classes.rightIcon} size={30} />
       ) : (
         <CloudDownloadIcon className={classes.rightIcon} />
       )}
@@ -237,10 +237,10 @@ const ReportGenerationForm: React.FC<Props> = ({
   return (
     <React.Fragment>
       <Dialog
-        open={showDialog}
-        onClose={handleCloseDialog}
-        aria-labelledby="popup-excel-report"
         aria-describedby="popup-excel-report"
+        aria-labelledby="popup-excel-report"
+        onClose={handleCloseDialog}
+        open={showDialog}
       >
         <DialogTitle id="alert-dialog-title">
           <div className={classes.flexTitle}>
@@ -255,10 +255,10 @@ const ReportGenerationForm: React.FC<Props> = ({
         </DialogContent>
         <DialogActions>
           <Button
+            autoFocus
+            color="primary"
             disabled={disableContinue}
             onClick={handleOpenDialog}
-            color="primary"
-            autoFocus
           >
             {t('reporting:export.continue')}
           </Button>
@@ -269,9 +269,8 @@ const ReportGenerationForm: React.FC<Props> = ({
           <div className={classes.datePickerContainer}>
             {reportConfiguration.date_type === 'range' && (
               <DateRangeSelector
-                date_start={moment(values.dateStart).unix()}
                 date_end={moment(values.dateEnd).unix()}
-                timePeriod={values.time_period}
+                date_start={moment(values.dateStart).unix()}
                 onSubmit={(_values) => {
                   setFieldValue(
                     'dateStart',
@@ -283,25 +282,26 @@ const ReportGenerationForm: React.FC<Props> = ({
                   );
                   setFieldValue('timePeriod', _values.timePeriod);
                 }}
+                timePeriod={values.time_period}
               />
             )}
             {reportConfiguration.date_type === 'single' && (
               <DatePickerSelector
                 date={moment(values.dateStart).unix()}
-                timePeriod={values.time_period}
                 onSubmit={(_values) => {
                   setFieldValue('dateStart', _values.date.format('YYYY-MM-DD'));
                   setFieldValue('timePeriod', _values.timePeriod);
                 }}
+                timePeriod={values.time_period}
               />
             )}
             {CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES.includes(
               reportConfiguration?.category,
             ) && (
               <Alert
-                severity="info"
                 classes={{ root: classes.alertIcon }}
                 className={classes.alert}
+                severity="info"
               >
                 {t(`reporting:helperText.${reportConfiguration.category}`)}
               </Alert>
@@ -309,26 +309,26 @@ const ReportGenerationForm: React.FC<Props> = ({
           </div>
           <div className={classes.buttonsContainer}>
             <DownloadButton
-              values={values}
               handleExcelExportation={handleExcelExportation}
               isSubmitting_={isSubmitting_}
+              values={values}
             />
             <Submit disabled={isSubmitting_}>{t('common.generate')}</Submit>
           </div>
         </div>
         <div className={classes.reportFilterConfig}>
           <ReportFilterConfigSelector
-            reportFilterConfigs={reportFilterConfigs}
-            selectedFilter={values.reportFilterConfigId}
-            error={null}
             columnsMetadata={columnsMetadata}
-            fetchReportFilterConfigsList={handleFetchReportFilterConfigList}
             editReportFilterConfig={editReportFilterConfig}
+            error={null}
+            fetchReportFilterConfigsList={handleFetchReportFilterConfigList}
+            handleGetDynamicDataForReport={handleGetDynamicDataForReport}
+            isFranchisor={isFranchisor}
             onCreateReportFilterConfigs={handleCreateFilter}
             onDeleteReportFilterConfigs={deleteReportFilterConfig}
             onSelect={handleSelectFilter}
-            handleGetDynamicDataForReport={handleGetDynamicDataForReport}
-            isFranchisor={isFranchisor}
+            reportFilterConfigs={reportFilterConfigs}
+            selectedFilter={values.reportFilterConfigId}
           />
         </div>
       </Form>

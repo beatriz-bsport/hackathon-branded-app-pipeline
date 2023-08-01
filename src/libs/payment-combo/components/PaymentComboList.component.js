@@ -28,8 +28,8 @@ export const PaymentComboList = (props: Props) => {
   return (
     <Grid container direction="row" spacing={2}>
       {props.paymentComboListAvailableOnline.length ? (
-        <Grid item xs={12} md={6}>
-          <Typography variant="h5" className={props.classes.sectionTitle}>
+        <Grid item md={6} xs={12}>
+          <Typography className={props.classes.sectionTitle} variant="h5">
             {props.t('list.section.availableOnline')}
           </Typography>
           <Divider className={props.classes.divider} />
@@ -37,12 +37,12 @@ export const PaymentComboList = (props: Props) => {
             <List disablePadding>
               {props.paymentComboListAvailableOnline.map((pc) => (
                 <PaymentComboListItem
-                  divider
-                  paymentCombo={pc}
-                  onEdit={() => props.onEdit(pc)}
-                  onDelete={() => props.onDelete(pc.id)}
                   key={pc.id}
+                  divider
                   onClick={() => props.onClickPaymentCombo(pc.id)}
+                  onDelete={() => props.onDelete(pc.id)}
+                  onEdit={() => props.onEdit(pc)}
+                  paymentCombo={pc}
                 />
               ))}
             </List>
@@ -50,8 +50,8 @@ export const PaymentComboList = (props: Props) => {
         </Grid>
       ) : null}
       {props.paymentComboListUnavailableOnline.length ? (
-        <Grid item xs={12} md={6}>
-          <Typography variant="h5" className={props.classes.sectionTitle}>
+        <Grid item md={6} xs={12}>
+          <Typography className={props.classes.sectionTitle} variant="h5">
             {props.t('list.section.unavailableOnline')}
           </Typography>
           <Divider className={props.classes.divider} />
@@ -59,12 +59,12 @@ export const PaymentComboList = (props: Props) => {
             <List disablePadding>
               {props.paymentComboListUnavailableOnline.map((pc) => (
                 <PaymentComboListItem
-                  onEdit={() => props.onEdit(pc)}
-                  onDelete={() => props.onDelete(pc.id)}
-                  onClick={() => props.onClickPaymentCombo(pc.id)}
-                  divider
-                  paymentCombo={pc}
                   key={pc.id}
+                  divider
+                  onClick={() => props.onClickPaymentCombo(pc.id)}
+                  onDelete={() => props.onDelete(pc.id)}
+                  onEdit={() => props.onEdit(pc)}
+                  paymentCombo={pc}
                 />
               ))}
             </List>

@@ -16,10 +16,10 @@ export const SliderForm = (props: Props) => {
     <>
       <MetricSlider
         metric={metric}
-        value={value}
         onChange={(val) => {
           changeMemberMetricValue(val, metric?.id);
         }}
+        value={value}
       />
     </>
   );

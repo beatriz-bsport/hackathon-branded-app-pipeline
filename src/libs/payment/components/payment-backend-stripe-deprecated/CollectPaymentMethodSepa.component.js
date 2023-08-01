@@ -207,6 +207,7 @@ export class CollectPaymentMethod extends React.Component<Props> {
       <Wrapper variant={this.props.variant}>
         <>
           <div
+            className={classes.modal}
             style={
               this.props.variant === 'div'
                 ? { position: 'unset', backgroundColor: 'transparent' }
@@ -216,7 +217,6 @@ export class CollectPaymentMethod extends React.Component<Props> {
                     left: dialogOffset,
                   }
             }
-            className={classes.modal}
           >
             <DialogTitle id="collectPaymentMethodTitle">
               {this.props.t('forms.paymentMethod.collect.title')}
@@ -236,8 +236,8 @@ export class CollectPaymentMethod extends React.Component<Props> {
                   <div>
                     <div className={classes.centered}>
                       <CheckIcon
-                        style={{ height: 100, width: 100 }}
                         color="primary"
+                        style={{ height: 100, width: 100 }}
                       />
                       <Typography className={classes.message}>
                         {this.props.t('forms.paymentMethod.message.success')}
@@ -257,8 +257,8 @@ export class CollectPaymentMethod extends React.Component<Props> {
                   <div>
                     <div className={classes.centered}>
                       <ErrorIcon
-                        style={{ height: 100, width: 100 }}
                         color="secondary"
+                        style={{ height: 100, width: 100 }}
                       />
                       <Typography className={classes.message}>
                         {this.props.t('forms.paymentMethod.message.error')}
@@ -266,8 +266,8 @@ export class CollectPaymentMethod extends React.Component<Props> {
                       {this.state.stripe_error_code ||
                       this.state.stripe_decline_code ? (
                         <StripeErrorCode
-                          errorCode={this.state.stripe_error_code}
                           declineCode={this.state.stripe_decline_code}
+                          errorCode={this.state.stripe_error_code}
                         />
                       ) : null}
                     </div>
@@ -292,11 +292,8 @@ export class CollectPaymentMethod extends React.Component<Props> {
                   <form onSubmit={this.handleSubmit}>
                     <div className={classes.nameAndEmailContainer}>
                       <TextField
-                        required
                         fullWidth
-                        value={this.state.billing_details.name}
-                        variant="outlined"
-                        placeholder={this.props.t('subscription:mandate.name')}
+                        required
                         onChange={(ev) => {
                           const { value } = ev.target;
                           this.setState((prevState) => {
@@ -308,14 +305,13 @@ export class CollectPaymentMethod extends React.Component<Props> {
                             };
                           });
                         }}
+                        placeholder={this.props.t('subscription:mandate.name')}
+                        value={this.state.billing_details.name}
+                        variant="outlined"
                       />
                       <TextField
-                        type="email"
-                        required
                         fullWidth
-                        variant="outlined"
-                        value={this.state.billing_details.email}
-                        placeholder={this.props.t('subscription:mandate.email')}
+                        required
                         onChange={(ev) => {
                           const { value } = ev.target;
                           this.setState((prevState) => ({
@@ -325,6 +321,10 @@ export class CollectPaymentMethod extends React.Component<Props> {
                             },
                           }));
                         }}
+                        placeholder={this.props.t('subscription:mandate.email')}
+                        type="email"
+                        value={this.state.billing_details.email}
+                        variant="outlined"
                       />
                     </div>
                     <div
@@ -348,13 +348,7 @@ export class CollectPaymentMethod extends React.Component<Props> {
                     {this.state.billingAddressNeeded && (
                       <div className={classes.nameAndEmailContainer}>
                         <TextField
-                          required={this.state.billingAddressNeeded}
                           fullWidth
-                          value={this.state.billing_details.address.line1}
-                          variant="outlined"
-                          placeholder={this.props.t(
-                            'subscription:mandate.address_line_1',
-                          )}
                           onChange={(ev) => {
                             const { value } = ev.target;
                             this.setState((prevState) => {
@@ -369,12 +363,18 @@ export class CollectPaymentMethod extends React.Component<Props> {
                               };
                             });
                           }}
+                          placeholder={this.props.t(
+                            'subscription:mandate.address_line_1',
+                          )}
+                          required={this.state.billingAddressNeeded}
+                          value={this.state.billing_details.address.line1}
+                          variant="outlined"
                         />
                       </div>
                     )}
                     <Typography
-                      color="textSecondary"
                       className={classes.mandate}
+                      color="textSecondary"
                     >
                       {this.props.t('subscription:mandate.contentIban')}
                     </Typography>
@@ -476,8 +476,8 @@ export default (props: Props) => (
     <ElementsConsumer>
       {({ stripe, elements }) => (
         <CollectPaymentMethodCompose
-          stripe={stripe}
           elements={elements}
+          stripe={stripe}
           {...props}
         />
       )}

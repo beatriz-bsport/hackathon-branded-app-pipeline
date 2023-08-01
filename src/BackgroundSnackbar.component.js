@@ -56,12 +56,10 @@ export class SnackbarBackgroundTask extends React.Component<Props> {
         {this.props.backgroundMessages.map((snack) => (
           <Snackbar
             key={snack.uuid}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
             open
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           >
             <SnackbarContent
-              className={classes[snack.kind]}
-              message={t(snack.backgroundMessage)}
               action={
                 <div className={classes.snackContainer}>
                   {snack.kind === 'pending' ? (
@@ -75,18 +73,20 @@ export class SnackbarBackgroundTask extends React.Component<Props> {
                   ) : null}
                   <div>
                     <IconButton
-                      size="small"
                       aria-label="close"
                       color="inherit"
                       onClick={() =>
                         this.props.deleteBackgroundSnackbar(snack.uuid)
                       }
+                      size="small"
                     >
                       <CloseIcon fontSize="small" />
                     </IconButton>
                   </div>
                 </div>
               }
+              className={classes[snack.kind]}
+              message={t(snack.backgroundMessage)}
             />
           </Snackbar>
         ))}

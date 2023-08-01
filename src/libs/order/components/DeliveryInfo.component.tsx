@@ -25,7 +25,7 @@ export const DeliveryInfo: React.FC<Props> = ({ order, companyCountry }) => {
       </div>
       <div>
         <Typography variant="subtitle1">{order.address_line_1}</Typography>
-        <Typography variant="subtitle1" color="textSecondary">
+        <Typography color="textSecondary" variant="subtitle1">
           {order.address_line_2}
         </Typography>
         <div className={classes.cityContainer}>

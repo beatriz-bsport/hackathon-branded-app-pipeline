@@ -33,8 +33,8 @@ const AppBarNavigationBetweenRelations: React.FC<
     return (
       <>
         <MemberRelationNavigationList
-          relations={controlableMemberList}
           onClickRelation={navigateToRelationAccount}
+          relations={controlableMemberList}
         />
         <Divider className={classes.dividerRelations} />
       </>

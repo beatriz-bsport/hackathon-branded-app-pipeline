@@ -28,18 +28,18 @@ export const BillItem: React.FC<BillItemProps> = ({
 
   return (
     <div className={classes.billItemContainer}>
-      <Typography variant="body2" className={classes.lightGrey}>
+      <Typography className={classes.lightGrey} variant="body2">
         {billItemName}
       </Typography>
       <div className={classes.endPriceContainer}>
-        <Typography variant="subtitle2" className={billItemPriceClass}>
+        <Typography className={billItemPriceClass} variant="subtitle2">
           {billItemPrice}
         </Typography>
         {!!onRemoveBillItem && (
           <IconButton
-            onClick={onRemoveBillItem}
-            disabled={isDeleteButtonDisabled}
             className={classes.removeIconButton}
+            disabled={isDeleteButtonDisabled}
+            onClick={onRemoveBillItem}
           >
             <DeleteIcon className={classes.lightGrey} />
           </IconButton>

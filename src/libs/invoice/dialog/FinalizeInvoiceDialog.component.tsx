@@ -18,7 +18,7 @@ const FinalizeInvoiceDialog = (props: Props) => {
   const { open, onSubmit, onClose } = props;
   const { t } = useTranslation();
   return (
-    <GenericResponsiveDialog open={open} onClose={onClose}>
+    <GenericResponsiveDialog onClose={onClose} open={open}>
       <DialogTitle id="alert-dialog-title">{t('invoice.finalize')}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
@@ -26,10 +26,10 @@ const FinalizeInvoiceDialog = (props: Props) => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="secondary">
+        <Button color="secondary" onClick={onClose}>
           {t('common.cancel')}
         </Button>
-        <Button onClick={onSubmit} color="primary" autoFocus>
+        <Button autoFocus color="primary" onClick={onSubmit}>
           {t('common.confirm')}
         </Button>
       </DialogActions>

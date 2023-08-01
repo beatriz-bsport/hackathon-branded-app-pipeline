@@ -82,36 +82,36 @@ export const OfferFormRecurrencePreview = (props: Props) => {
 
   return (
     <Dialog
-      open={isRecurrenceWeekDayDialogOpen}
-      onClose={handleCloseDialog}
       classes={{
         paper: classes.popup,
       }}
+      onClose={handleCloseDialog}
+      open={isRecurrenceWeekDayDialogOpen}
     >
       <FormSection
-        sectionTitle={t('offer:form.dialog.recurrencePreview')}
-        sectionIcon={DateRange}
         sectionCustomIconStyle={offerFormClasses.sectionIcon}
+        sectionIcon={DateRange}
         sectionIconContainerStyle={offerFormClasses.sectionIconContainer}
+        sectionTitle={t('offer:form.dialog.recurrencePreview')}
       >
         <MuiPickersUtilsProvider
-          utils={MomentUtils}
-          moment={moment}
           locale={moment.locale()}
+          moment={moment}
+          utils={MomentUtils}
         >
           <Calendar
-            date={calendarSelectedDate}
-            onDateChange={handleDateChange}
-            events={recurrenceCalendarEvents}
             forceMonthDisplay
             previewOnly
-            wrapperStyle={classes.calendarDayBase}
             activeWrapperStyle={offerFormClasses.activeCalendarDay}
+            date={calendarSelectedDate}
+            events={recurrenceCalendarEvents}
+            onDateChange={handleDateChange}
             weekRowContainerStyle={classes.weekRowStyle}
+            wrapperStyle={classes.calendarDayBase}
           />
         </MuiPickersUtilsProvider>
 
-        <Alert severity="info" className={formClasses.recurrencePreviewAlert}>
+        <Alert className={formClasses.recurrencePreviewAlert} severity="info">
           {t('offer:form.section.dateTime.field.recurrence.previewCount', {
             count: offerDates.length,
           })}

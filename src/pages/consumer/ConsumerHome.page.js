@@ -202,47 +202,47 @@ export class ConsumerHome extends React.Component<Props> {
           <>
             {this.props.membership ? (
               <ConsumerDrawer
-                name={this.props.name}
-                isRelationNavigation={isRelationNavigation}
-                navigateBackToMasterRelation={
-                  this.props.navigateBackToMasterRelation
-                }
-                navigateToRelationAccount={this.props.navigateToRelationAccount}
-                controlableMemberList={this.props.controlableMemberList}
-                programList={this.props.programList}
-                disconnect={this.props.disconnect}
-                infosOfMember={this.props.infosOfMember}
                 buildUrl={this.props.buildUrl}
-                logo={this.props.theme ? this.props.theme.cover : null}
-                showCredit={
-                  this.props.theme && this.props.theme.consumer_regularize_debt
-                }
-                membership={this.props.membership}
-                subscriptionPendingActionCount={
-                  this.props.subscriptionPendingActionCount
-                }
+                controlableMemberList={this.props.controlableMemberList}
+                disconnect={this.props.disconnect}
                 hasFranchise={this.props.theme.franchisor}
                 hasMultipleMembership={
                   this.props.membershipCount && this.props.membershipCount > 1
                 }
+                infosOfMember={this.props.infosOfMember}
+                isRelationNavigation={isRelationNavigation}
+                logo={this.props.theme ? this.props.theme.cover : null}
+                membership={this.props.membership}
+                name={this.props.name}
+                navigateBackToMasterRelation={
+                  this.props.navigateBackToMasterRelation
+                }
+                navigateToRelationAccount={this.props.navigateToRelationAccount}
+                programList={this.props.programList}
+                showCredit={
+                  this.props.theme && this.props.theme.consumer_regularize_debt
+                }
+                subscriptionPendingActionCount={
+                  this.props.subscriptionPendingActionCount
+                }
               >
                 <CongratulationDialog
                   basketGeneratedObjects={this.props.basketGeneratedObjects}
+                  goToCalendar={this.props.goToCalendar}
                   offerBooked={
                     this.props.offerBooked && this.props.offerBooked.length
                       ? this.props.offerBooked[0]
                       : null
                   }
                   onCancel={this.props.resetCongratulations}
-                  goToCalendar={this.props.goToCalendar}
                   open={
                     !!this.props.from_basket || !!this.props.from_direct_booking
                   }
                 />
 
                 <Analytics
-                  username={this.props.username}
                   theme={this.props.theme}
+                  username={this.props.username}
                 />
                 <div className={this.props.classes.container}>
                   <Switch>

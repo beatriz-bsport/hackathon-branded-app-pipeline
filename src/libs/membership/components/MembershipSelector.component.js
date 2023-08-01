@@ -46,31 +46,31 @@ const MembershipSelectorBase = (props: {
 }) => (
   <div className={props.classes.selectorContainer}>
     <FuzeSearch
-      variant="outlined"
-      searchText={props.searchText}
-      clearSearch={props.clearSearch}
       changeSearch={props.changeSearch}
-      searchFields={['company_name']}
+      clearSearch={props.clearSearch}
       items={props.membershipList}
       placeholder={props.t('selector.placeholder')}
+      searchFields={['company_name']}
       searchResult={props.searchResult}
+      searchText={props.searchText}
+      variant="outlined"
     />
     <Paper className={props.classes.membershipList}>
       {!props.searchResult || props.searchResult.length === 0
         ? props.membershipList.map((m) => (
             <MembershipListItem
-              membership={m}
-              divider
               button
+              divider
+              membership={m}
               onClick={() => props.onClick(m.company)}
             />
           ))
         : props.searchResult.map((m) => (
             <MembershipListItem
-              divider
-              membership={m}
-              noDivider
               button
+              divider
+              noDivider
+              membership={m}
               onClick={() => props.onClick(m.company)}
             />
           ))}
@@ -108,12 +108,12 @@ class CompanySelectorBase extends React.Component<{
       <div className={this.props.classes.selectorContainer}>
         <Paper>
           <DelayedTextField
-            variant="outlined"
-            value={this.props.text}
             fullWidth
+            className={this.props.classes.selectorContainer}
             onChange={(ev) => this.props.handleTextChange(ev.target.value)}
             placeholder={this.props.t('selector.placeholder')}
-            className={this.props.classes.selectorContainer}
+            value={this.props.text}
+            variant="outlined"
           />
         </Paper>
         <Paper className={this.props.classes.companyList}>
@@ -130,10 +130,10 @@ class CompanySelectorBase extends React.Component<{
           ) : null}
           {this.props.companyList.map((c) => (
             <CompanyListItem
-              divider
-              company={c}
-              noDivider
               button
+              divider
+              noDivider
+              company={c}
               onClick={() => this.props.onClick(c.id, c.name)}
             />
           ))}
@@ -162,12 +162,12 @@ export const MembershipSelector = (props: Props) => {
           <div className={props.classes.panel}>
             <div className={props.classes.leftPanel}>
               <img
+                alt="bsport logo"
                 className={props.classes.bsportLogo}
                 src="https://cdn.bsport.io/assets/logo/logo-icono-dark.png"
-                alt="bsport logo"
               />
               <Typography align="center" variant="subtitle">
-                <Trans t={t} i18nKey="selector.explainConsumer">
+                <Trans i18nKey="selector.explainConsumer" t={t}>
                   With <strong>bsport</strong> blabla <br /> single login
                 </Trans>
               </Typography>
@@ -177,19 +177,19 @@ export const MembershipSelector = (props: Props) => {
         <div className={props.classes.panel}>
           {props.membershipList.length ? (
             <MembershipSelectorBaseComposed
+              classes={props.classes}
               membershipList={props.membershipList}
               onClick={props.goToConsumerHome}
               t={t}
-              classes={props.classes}
             />
           ) : (
             <CompanySelectorBaseComposed
+              classes={props.classes}
               companyList={props.companyList}
+              companyLoading={props.companyLoading}
               onClick={props.goToConsumerHome}
               searchCompany={props.searchCompany}
-              companyLoading={props.companyLoading}
               t={t}
-              classes={props.classes}
             />
           )}
           {props.hasMore && props.loading && (
@@ -200,9 +200,9 @@ export const MembershipSelector = (props: Props) => {
           {props.hasMore && !props.loading && (
             <div className={props.classes.buttonContainer}>
               <Button
+                color="primary"
                 onClick={() => props.fetchMoreMembership(5)}
                 variant="outlined"
-                color="primary"
               >
                 {t('selector.fetchMore')}
               </Button>

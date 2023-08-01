@@ -30,7 +30,7 @@ export const SpiviConfirmationDialog: React.FC<Props> = (props) => {
   return (
     <Dialog open={props.open}>
       <DialogTitle>
-        <Typography variant="h6" className={classes.bold}>
+        <Typography className={classes.bold} variant="h6">
           {t('spotScheduling:spiviDialog.spotCorrespondence')}
         </Typography>
       </DialogTitle>
@@ -43,24 +43,24 @@ export const SpiviConfirmationDialog: React.FC<Props> = (props) => {
                 className={classes.lineContainer}
               >
                 <SpiviCorrespondenceTable
+                  handlePageChange={props.handlePageChange}
+                  pageCount={props.tableCountPages[spotType.id]}
+                  pageNumber={props.tablePages[spotType.id]}
                   spotCorrespondence={props.spotCorrespondence[spotType.id]}
                   spotType={spotType}
-                  pageNumber={props.tablePages[spotType.id]}
-                  pageCount={props.tableCountPages[spotType.id]}
-                  handlePageChange={props.handlePageChange}
                   spotTypeId={spotType.id}
                 />
                 {index + 1 < props.spotTypes.length && (
                   <SpiviCorrespondenceTable
+                    handlePageChange={props.handlePageChange}
+                    pageCount={
+                      props.tableCountPages[props.spotTypes[index + 1].id]
+                    }
+                    pageNumber={props.tablePages[props.spotTypes[index + 1].id]}
                     spotCorrespondence={
                       props.spotCorrespondence[props.spotTypes[index + 1].id]
                     }
                     spotType={props.spotTypes[index + 1]}
-                    pageNumber={props.tablePages[props.spotTypes[index + 1].id]}
-                    pageCount={
-                      props.tableCountPages[props.spotTypes[index + 1].id]
-                    }
-                    handlePageChange={props.handlePageChange}
                     spotTypeId={props.spotTypes[index + 1].id}
                   />
                 )}

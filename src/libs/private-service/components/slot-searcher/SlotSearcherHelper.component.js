@@ -66,9 +66,9 @@ export class SlotSearcherHelper extends React.PureComponent<Props> {
       return (
         <div className={this.props.classes.section}>
           <Typography
-            variant="h5"
-            component="h4"
             className={this.props.classes.sectionTitle}
+            component="h4"
+            variant="h5"
           >
             {privateService.name}
           </Typography>
@@ -97,9 +97,9 @@ export class SlotSearcherHelper extends React.PureComponent<Props> {
       return (
         <div className={this.props.classes.section}>
           <Typography
-            variant="h6"
-            component="h4"
             className={this.props.classes.sectionTitle}
+            component="h4"
+            variant="h6"
           >
             {this.props.t('bookerModule.sections.establishment')}
           </Typography>
@@ -126,9 +126,9 @@ export class SlotSearcherHelper extends React.PureComponent<Props> {
       return (
         <div className={this.props.classes.section}>
           <Typography
-            variant="h6"
-            component="h4"
             className={this.props.classes.sectionTitle}
+            component="h4"
+            variant="h6"
           >
             {this.props.t('bookerModule.sections.privateSlot')}
           </Typography>
@@ -146,9 +146,9 @@ export class SlotSearcherHelper extends React.PureComponent<Props> {
       return (
         <div className={this.props.classes.section}>
           <Typography
-            variant="h6"
-            component="h4"
             className={this.props.classes.sectionTitle}
+            component="h4"
+            variant="h6"
           >
             {this.props.t('bookerModule.sections.coach')}
           </Typography>
@@ -173,9 +173,9 @@ export class SlotSearcherHelper extends React.PureComponent<Props> {
       <div>
         <div className={classes.container}>
           <Stepper
-            classes={{ root: classes.root }}
-            activeStep={this.getActiveStep()}
             alternativeLabel
+            activeStep={this.getActiveStep()}
+            classes={{ root: classes.root }}
           >
             {STEPS.map((label) => (
               <Step key={label}>

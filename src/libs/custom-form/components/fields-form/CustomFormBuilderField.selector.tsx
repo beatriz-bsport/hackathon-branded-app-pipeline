@@ -126,14 +126,15 @@ export function CustomFormBuilderField(props: Props) {
   return (
     <Select
       closeMenuOnSelect={closeMenuOnSelect}
-      isMulti={!noMulti}
-      placeholder={placeholder || t('option')}
-      options={getFieldOptions([...formFieldOptionList])}
-      onChange={onChange}
-      isDisabled={disabled}
-      styles={fieldStyles}
+      components={{ SingleValue, Option }}
       isClearable={isClearable}
+      isDisabled={disabled}
+      isMulti={!noMulti}
       menuPortalTarget={document.querySelector('body')}
+      onChange={onChange}
+      options={getFieldOptions([...formFieldOptionList])}
+      placeholder={placeholder || t('option')}
+      styles={fieldStyles}
       t={t}
       value={
         selectedOptions
@@ -145,7 +146,6 @@ export function CustomFormBuilderField(props: Props) {
             ])
           : undefined
       }
-      components={{ SingleValue, Option }}
     />
   );
 }

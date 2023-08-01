@@ -156,27 +156,27 @@ export class InvoiceCreation extends Component<Props, State> {
     return (
       <div>
         <InvoiceFormV2
-          member={member}
-          onSubmit={this.prepareCreate}
-          onCancel={goToInvoiceList}
-          initialItems={this.props.initialItems}
           availableBuyableItems={this.props.availableBuyableItems}
-          goToSubscription={this.props.goToSubscription}
-          goToMemberPage={() => goToMemberPage(memberId)}
-          establishments={this.props.establishments}
-          establishmentLoading={this.props.establishmentLoading}
           enableMultiLocalization={
             this.props.companyTheme.enable_multi_localization
           }
+          establishmentLoading={this.props.establishmentLoading}
+          establishments={this.props.establishments}
           giftcardBackgroundImageList={this.props.giftcardBackgroundImageList}
+          goToMemberPage={() => goToMemberPage(memberId)}
+          goToSubscription={this.props.goToSubscription}
           ImageCarouselChangeable={false}
+          initialItems={this.props.initialItems}
+          member={member}
+          onCancel={goToInvoiceList}
+          onSubmit={this.prepareCreate}
         />
         <InvoiceDateDialog
-          open={this.state.dateDialogOpen}
           onClose={() =>
             this.setState({ dateDialogOpen: false, invoiceData: null })
           }
           onSubmit={this.createInvoiceAtDate}
+          open={this.state.dateDialogOpen}
         />
       </div>
     );

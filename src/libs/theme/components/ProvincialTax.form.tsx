@@ -38,7 +38,6 @@ export const ProvincialTaxForm = (props: Props) => {
     <div>
       <Formik
         enableReinitialize
-        validationSchema={provincialTaxSchema}
         initialValues={{ value: initial.value || 0, name: initial.name || '' }}
         onSubmit={(values, actions) => {
           const data = new FormData();
@@ -53,6 +52,7 @@ export const ProvincialTaxForm = (props: Props) => {
             },
           });
         }}
+        validationSchema={provincialTaxSchema}
       >
         {(formikProps: FormikProps<{ name: string; value: number }>) => {
           return (
@@ -69,29 +69,27 @@ export const ProvincialTaxForm = (props: Props) => {
                 </div>
                 <div className={classNames(classes.row, classes.mid)}>
                   <TextFieldEnhancedLabelWithError
-                    name="name"
-                    label={t('forms.provincialTax.taxName')}
-                    helperText={t('forms.provincialTax.taxHelperText')}
                     fullWidth
+                    helperText={t('forms.provincialTax.taxHelperText')}
+                    label={t('forms.provincialTax.taxName')}
+                    name="name"
                   />
                   <TextFieldEnhancedLabelWithError
-                    name="value"
-                    type="number"
-                    label={t('forms.provincialTax.taxValue')}
+                    fullWidth
+                    helperText=" "
                     InputProps={{
                       inputProps: { min: 0, max: 100, step: 0.001 },
                       endAdornment: (
                         <InputAdornment position="end">%</InputAdornment>
                       ),
                     }}
-                    fullWidth
-                    helperText=" "
+                    label={t('forms.provincialTax.taxValue')}
+                    name="value"
+                    type="number"
                   />
                 </div>
                 <div>
                   <Button
-                    type="submit"
-                    variant="contained"
                     color="primary"
                     disabled={
                       !formikProps.isValid ||
@@ -99,6 +97,8 @@ export const ProvincialTaxForm = (props: Props) => {
                       (formikProps.values.name === initial.name &&
                         formikProps.values.value === initial.value)
                     }
+                    type="submit"
+                    variant="contained"
                   >
                     {t('common:save')}
                   </Button>

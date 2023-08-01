@@ -87,7 +87,7 @@ const ClickOnPurchaseVideo = withTranslation(['video'])(
   (props: { classes: Object, t: TFunction }) => (
     <div className={props.classes.container}>
       <div className={props.classes.emptyMessageContainer}>
-        <Alert color="grey" severity="info" className={props.classes.alertInfo}>
+        <Alert className={props.classes.alertInfo} color="grey" severity="info">
           {props.t('details.pleaseSelectVod')}
         </Alert>
       </div>
@@ -122,28 +122,31 @@ export class MemberDetailVod extends Component<Props, state> {
       <Grid container direction="row" spacing={3}>
         <Grid
           container
-          alignItems="stretch"
           item
-          xs={12}
-          lg={6}
+          alignItems="stretch"
           direction="column"
+          lg={6}
           spacing={3}
+          xs={12}
         >
           <Grid item style={{ width: '100%' }}>
             <Paper>
               <PaginatedListBase
                 itemPerPage={VIDEO_PURCHASES_PAGE_SIZE}
-                loading={this.props.loading}
-                listProps={{ disablePadding: true }}
                 items={this.props.purchasedVideoList}
+                listProps={{ disablePadding: true }}
+                loading={this.props.loading}
                 nbItems={this.props.videoPurchasedCount}
-                page={this.props.videoCurrentPage}
                 onPageRequested={(page, page_size) =>
                   this.props.onPageRequested(page, page_size)
                 }
+                page={this.props.videoCurrentPage}
                 renderItem={(purchasedVideo) =>
                   purchasedVideo.video && (
                     <VideoItemForManager
+                      key={purchasedVideo.id}
+                      date_created={purchasedVideo.date_created}
+                      memberId={this.props.id}
                       onClick={() => {
                         this.props.onSelectVideoPurchase(purchasedVideo.id);
                         this.selectVideo(purchasedVideo);
@@ -153,10 +156,7 @@ export class MemberDetailVod extends Component<Props, state> {
                         this.props.selectedPurchasedVideo.id ===
                           purchasedVideo.id
                       }
-                      key={purchasedVideo.id}
                       videoPurchase={purchasedVideo}
-                      memberId={this.props.id}
-                      date_created={purchasedVideo.date_created}
                     />
                   )
                 }
@@ -164,23 +164,23 @@ export class MemberDetailVod extends Component<Props, state> {
             </Paper>
           </Grid>
         </Grid>
-        <Grid item xs={12} lg={6}>
+        <Grid item lg={6} xs={12}>
           {this.props.selectedPurchasedVideo ? (
             <VideoDetail
+              analytics={this.props.analyticsbyMember}
+              decrementCredit={this.props.decrementCredit}
+              decrementPrivatePassCredit={this.props.decrementPrivatePassCredit}
               fetchVideoPurchaseInvoice={this.props.fetchVideoPurchaseInvoice}
               getPaymentPack={this.props.getPaymentPack}
-              decrementCredit={this.props.decrementCredit}
               incrementCredit={this.props.incrementCredit}
               incrementPrivatePassCredit={this.props.incrementPrivatePassCredit}
-              decrementPrivatePassCredit={this.props.decrementPrivatePassCredit}
-              videoPurchase={this.props.selectedPurchasedVideo}
-              onConsumerPassSelected={this.goToConsumerPass}
-              onPrivatePassSelected={this.goToPrivatePass}
-              loading={this.props.loading}
-              analytics={this.props.analyticsbyMember}
-              onInvoiceClick={this.props.onInvoiceClick}
               invoice={this.props.privateConsumerPassInvoice}
+              loading={this.props.loading}
+              onConsumerPassSelected={this.goToConsumerPass}
+              onInvoiceClick={this.props.onInvoiceClick}
+              onPrivatePassSelected={this.goToPrivatePass}
               relatedVideoPurchaseList={this.props.associatedVideoPurchase}
+              videoPurchase={this.props.selectedPurchasedVideo}
             />
           ) : (
             <ClickOnPurchaseVideo classes={this.props.classes} />

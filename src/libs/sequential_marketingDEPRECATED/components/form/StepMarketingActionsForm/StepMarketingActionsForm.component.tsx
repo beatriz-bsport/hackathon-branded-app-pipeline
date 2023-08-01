@@ -65,15 +65,15 @@ export const StepMarketingActionsForm: React.FC<MarketingActionsProps> = ({
   return (
     <div>
       <MarketingActionsForm
-        marketingActions={marketingActions}
-        emails={emails}
-        tagList={tagList}
+        deleteStepMarketingAction={deleteStepMarketingAction}
         emailDetailLoading={emailDetailLoading}
         emailDetails={emailDetails}
         emailListLoading={emailListLoading}
+        emails={emails}
         getEmailDetail={getEmailDetail}
+        marketingActions={marketingActions}
         submitActionConfiguration={submitActionConfiguration}
-        deleteStepMarketingAction={deleteStepMarketingAction}
+        tagList={tagList}
       />
     </div>
   );

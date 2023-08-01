@@ -32,9 +32,9 @@ export const WidgetPreview = (props: Props) => {
           </div>
         ) : (
           <iframe
-            title="preview"
             className={classes.iframe}
             srcDoc={props.codeStringPreview}
+            title="preview"
           />
         )}
       </Paper>

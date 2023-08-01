@@ -153,53 +153,53 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
     return (
       <div className={this.props.classes.container}>
         <CheckInOfferDetail
-          goBack={this.props.goBack}
-          refreshData={this.props.fetchOfferData}
+          barcodeDetectorEnabled={this.props.barcodeDetectorEnabled}
+          bookingLoading={this.props.loading}
+          closeBarcodeAndFaceID={this.props.closeBarcodeAndFaceID}
           confirmBookingAttendance={(bookingId) => {
             playSound(likeAudio);
             this.props.confirmBookingAttendance(bookingId);
             this.props.redirectToConfirmPage(this.props.offerId, bookingId);
           }}
-          bookingLoading={this.props.loading}
-          offer={this.props.offer}
-          members={this.props.members}
-          onAddMember={this.props.openSearchMemberModal}
+          faceIdAvailable={this.state.faceIdAvailable}
+          faceIdEnabled={this.props.faceIdEnabled}
           fetchMemberByBarcode={this.props.fetchMemberByBarcode}
+          goBack={this.props.goBack}
+          members={this.props.members}
+          offer={this.props.offer}
+          onAddMember={this.props.openSearchMemberModal}
           onMemberSearched={(member, callback) => {
             this.props.setSearchedMember(member);
             if (callback) this.props.setOnMemberUnSelectedCallback(callback);
           }}
-          barcodeDetectorEnabled={this.props.barcodeDetectorEnabled}
-          faceIdEnabled={this.props.faceIdEnabled}
+          openIncompleteMemberForm={this.props.setMemberDataToComplete}
+          refreshData={this.props.fetchOfferData}
           toogleBarcodeDetector={this.props.toogleBarcodeDetector}
           toogleFaceId={this.props.toogleFaceId}
-          faceIdAvailable={this.state.faceIdAvailable}
-          closeBarcodeAndFaceID={this.props.closeBarcodeAndFaceID}
-          openIncompleteMemberForm={this.props.setMemberDataToComplete}
         />
         {this.props.registrationFlowOpen && (
           <RegistrationFlowDialog
-            member={this.props.searchedMember}
-            companyCountry={this.props.companyCountry}
-            memberDataToComplete={this.props.memberDataToComplete}
-            searchMembers={this.props.searchMembers}
-            loading={this.props.memberLoading}
-            onClose={this.props.closeRegistrationFlow}
-            searchedMemberList={this.props.searchedMemberList}
-            setSearchedMember={this.props.setSearchedMember}
             open
-            offer={this.props.offer}
+            companyCountry={this.props.companyCountry}
             consumerPaymentPacks={this.props.compatibleConsumerPacks}
             consumerPaymentPacksLoading={
               this.props.compatibleConsumerPacksLoading
             }
-            registerWithPass={this.props.registerWithPass}
-            upsertMember={this.props.upsertMember}
-            managerFormConfig={this.props.managerFormConfig?.poll_fields}
-            waiver={this.props.theme.waiver}
             generalTermsAndConditions={
               this.props.theme.general_terms_and_conditions
             }
+            loading={this.props.memberLoading}
+            managerFormConfig={this.props.managerFormConfig?.poll_fields}
+            member={this.props.searchedMember}
+            memberDataToComplete={this.props.memberDataToComplete}
+            offer={this.props.offer}
+            onClose={this.props.closeRegistrationFlow}
+            registerWithPass={this.props.registerWithPass}
+            searchedMemberList={this.props.searchedMemberList}
+            searchMembers={this.props.searchMembers}
+            setSearchedMember={this.props.setSearchedMember}
+            upsertMember={this.props.upsertMember}
+            waiver={this.props.theme.waiver}
           />
         )}
       </div>

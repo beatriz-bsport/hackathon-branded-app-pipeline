@@ -45,6 +45,8 @@ const UnfoldableText: React.FC<{
         ref={(ref) => {
           setTextRef(ref);
         }}
+        className={className}
+        id={id}
         style={{
           ...(!isOpen
             ? {
@@ -57,18 +59,16 @@ const UnfoldableText: React.FC<{
           overflow: 'hidden',
           transition: 'all 0.3s ease-out',
         }}
-        className={className}
-        id={id}
       >
         {text}
       </div>
       {denseHeight < textRef?.scrollHeight && (
         <ButtonBase
+          className={classNames(buttonClassName, classes.showMore)}
+          id={ids?.button}
           onClick={() => {
             setisOpen(!isOpen);
           }}
-          className={classNames(buttonClassName, classes.showMore)}
-          id={ids?.button}
         >
           {t(isOpen ? 'text.showLessText' : 'text.showMoreText')}
         </ButtonBase>

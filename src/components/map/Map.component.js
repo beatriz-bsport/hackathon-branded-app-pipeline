@@ -59,7 +59,6 @@ export default class MyMap extends Component<Props, State> {
     const { title, location, id } = marker;
     return (
       <Marker
-        position={[location.latitude, location.longitude]}
         key={id}
         icon={
           new Icon({
@@ -68,6 +67,7 @@ export default class MyMap extends Component<Props, State> {
             iconAnchor: [25, 79],
           })
         }
+        position={[location.latitude, location.longitude]}
       >
         <Popup>
           <Grid container spacing={1}>
@@ -90,11 +90,11 @@ export default class MyMap extends Component<Props, State> {
     return (
       <div className={`map-container ${mapContainerClassName || ''}`}>
         <Map
-          center={center}
-          zoom={this.state.zoom}
-          scrollWheelZoom={false}
           boxZoom={false}
+          center={center}
           id={`${mapContainerClassName || 'map-container'}`}
+          scrollWheelZoom={false}
+          zoom={this.state.zoom}
         >
           <TileLayer url={TILE_LAYER_URL} variant="light_all" />
           {markers.map((m) => this.renderMarker(m))}

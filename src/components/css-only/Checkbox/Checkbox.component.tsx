@@ -21,15 +21,15 @@ const Checkbox: React.FC<Props> = React.memo(
   ({ isChecked, label, name, classes, onChange }) => (
     <div className="bs-checkbox__container">
       <label
-        htmlFor={name}
         className={classNames(classes.label, 'bs-checkbox__label')}
+        htmlFor={name}
       >
         <input
-          id={name}
-          className="bs-checkbox__input"
-          type="checkbox"
           checked={isChecked}
+          className="bs-checkbox__input"
+          id={name}
           onChange={onChange}
+          type="checkbox"
         />
 
         {isChecked ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}

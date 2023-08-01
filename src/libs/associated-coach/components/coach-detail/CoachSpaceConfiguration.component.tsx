@@ -15,13 +15,13 @@ export const CoachSpaceConfiguration: React.FC<Props> = (props) => {
   return (
     <Paper className={classes.paper}>
       <div className={classes.line}>
-        <Typography variant="h6" className={classes.title}>
+        <Typography className={classes.title} variant="h6">
           {t('detail.coachSpace')}
         </Typography>
         <div className={classes.row}>
           <Switch
-            onChange={(ev) => props.editAccessToCoachSpace(ev.target.checked)}
             checked={props.hasAccessToCoachSpace}
+            onChange={(ev) => props.editAccessToCoachSpace(ev.target.checked)}
           />
           <Typography variant="body1">{t('common:activate')}</Typography>
         </div>

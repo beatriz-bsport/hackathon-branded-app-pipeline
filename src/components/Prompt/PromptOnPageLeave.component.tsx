@@ -77,13 +77,13 @@ const PromptOnPageLeave: React.FC<Props> = ({
   return (
     <GenericResponsiveDialog
       maxWidth="sm"
-      open={showPrompt}
-      onClose={onCancelLeave}
       noFullScreen={noFullScreen}
+      onClose={onCancelLeave}
+      open={showPrompt}
     >
       <DialogTitle disableTypography className={classes.modalTitle}>
         <Typography variant="h6">{title}</Typography>
-        <IconButton onClick={onCancelLeave} className={classes.closeIconButton}>
+        <IconButton className={classes.closeIconButton} onClick={onCancelLeave}>
           <Close />
         </IconButton>
       </DialogTitle>
@@ -97,9 +97,9 @@ const PromptOnPageLeave: React.FC<Props> = ({
           {leaveWithoutSavingText}
         </Button>
         <Button
+          color="primary"
           onClick={handleSaveAndLeave}
           variant="contained"
-          color="primary"
         >
           {leaveWithSavingText}
         </Button>

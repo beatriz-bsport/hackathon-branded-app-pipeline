@@ -12,7 +12,7 @@ type Props = {
 
 const EmptyListWarning = (props: Props) => (
   <div className={props.classes.warningEmptyList}>
-    <WarningIcon color="error" className={props.classes.leftIcon} />
+    <WarningIcon className={props.classes.leftIcon} color="error" />
     <Typography>{props.text}</Typography>
   </div>
 );

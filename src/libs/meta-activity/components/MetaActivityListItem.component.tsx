@@ -93,10 +93,10 @@ const MetaActivityListItem: React.FC<Props> = (props) => {
   const { next_slot } = metaActivity;
   return (
     <ListItem
-      button={!!onClick}
-      divider={props.divider}
       alignItems="center"
+      button={!!onClick}
       dense={props.dense}
+      divider={props.divider}
       onClick={onClick}
       style={{
         borderLeft: metaActivity.color !== '' ? '5px solid' : '0px',
@@ -138,13 +138,13 @@ const MetaActivityListItem: React.FC<Props> = (props) => {
       />
       {metaActivity.hasActiveNotification && (
         <Tooltip
+          aria-label="info"
           classes={classes}
           title={
             <Typography variant="subtitle2">
               {t('metaActivityNotificationToolTip')}
             </Typography>
           }
-          aria-label="info"
         >
           <IconButton>
             <NotificationsIcon />

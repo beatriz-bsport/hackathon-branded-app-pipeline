@@ -64,7 +64,6 @@ export class RoomBlueprintSelectorComponent extends Component<Props, State> {
         {this.props.value ? (
           <div>
             <RoomBlueprintsListItem
-              roomBlueprint={this.props.value}
               onClickCancel={() => {
                 this.props.onChange(null);
                 this.setState({
@@ -72,24 +71,25 @@ export class RoomBlueprintSelectorComponent extends Component<Props, State> {
                   searchResult: this.props.roomBlueprints,
                 });
               }}
+              roomBlueprint={this.props.value}
             />
           </div>
         ) : (
           <div>
             <Button
-              onClick={this.onClickFuzeSearch}
-              id={this.props.id}
               className={this.props.classes.button}
+              id={this.props.id}
+              onClick={this.onClickFuzeSearch}
             >
               <FuzeSearch
-                variant="outlined"
-                searchText={this.state.searchText}
-                clearSearch={this.clearSearch}
                 changeSearch={this.changeSearch}
-                searchFields={['name']}
+                clearSearch={this.clearSearch}
                 items={this.props.roomBlueprints}
                 placeholder={this.props.placeholder}
+                searchFields={['name']}
                 searchResult={this.state.searchResult}
+                searchText={this.state.searchText}
+                variant="outlined"
               />
             </Button>
             {this.state.displayList && this.state.searchResult ? (
@@ -99,9 +99,9 @@ export class RoomBlueprintSelectorComponent extends Component<Props, State> {
                 >
                   {this.state.searchResult.map((roomBlueprint) => (
                     <RoomBlueprintsListItem
-                      roomBlueprint={roomBlueprint}
                       key={roomBlueprint.id}
                       onClick={this.props.onChange}
+                      roomBlueprint={roomBlueprint}
                     />
                   ))}
                 </Collapse>

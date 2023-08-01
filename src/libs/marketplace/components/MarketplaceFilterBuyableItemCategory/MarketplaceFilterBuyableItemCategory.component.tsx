@@ -23,8 +23,6 @@ const MarketplaceFilterBuyableItemCategoryButton: React.FC<ButtonProps> = (
 
   return (
     <button
-      type="button"
-      onClick={onClick}
       className={classNames(
         'bs-marketplace-filter-buyable-item-category__button',
         {
@@ -33,6 +31,8 @@ const MarketplaceFilterBuyableItemCategoryButton: React.FC<ButtonProps> = (
             props.selectedBuyableItemCategory?.index,
         },
       )}
+      onClick={onClick}
+      type="button"
     >
       {buyableItemCategory.name}
     </button>
@@ -56,7 +56,6 @@ const MarketplaceFilterBuyableItemCategory: React.FC<Props> = (props) => {
   return (
     <div className="bs-marketplace-filter-buyable-item-category">
       <button
-        type="button"
         className={classNames(
           'bs-marketplace-filter-buyable-item-category__button',
           {
@@ -65,16 +64,17 @@ const MarketplaceFilterBuyableItemCategory: React.FC<Props> = (props) => {
           },
         )}
         onClick={onClickAll}
+        type="button"
       >
         {t('newBookingModule.filterAll')}
       </button>
       {props.buyableItemCategories.map((buyableItemCategory) => {
         return (
           <MarketplaceFilterBuyableItemCategoryButton
-            buyableItemCategory={buyableItemCategory}
-            selectedBuyableItemCategory={props.selectedBuyableItemCategory}
-            onClickCategory={props.onClickCategory}
             key={buyableItemCategory.id}
+            buyableItemCategory={buyableItemCategory}
+            onClickCategory={props.onClickCategory}
+            selectedBuyableItemCategory={props.selectedBuyableItemCategory}
           />
         );
       })}

@@ -40,18 +40,18 @@ const MarketplaceGiftcardSettingsForm: React.FC<Props> = ({
       <div className={classes.marginTop}>
         <Autocomplete
           multiple
-          options={[...giftcards]}
           getOptionLabel={(option) => option.name.slice(0, 25)}
-          value={value}
           onChange={handleChange}
+          options={[...giftcards]}
           renderInput={(params) => (
             <TextField
               {...params}
-              variant="standard"
               label={t('widget')}
               placeholder={t('widget')}
+              variant="standard"
             />
           )}
+          value={value}
         />
       </div>
     </div>

@@ -64,12 +64,12 @@ const PrivateBookingNotification = (props: Props) => {
           <ListItem key={notif.id} divider>
             <div className={classes.text}>
               <NotificationListInner
-                notification={notif}
                 emailTitle={
                   props?.emails?.find(
                     (email) => email.id === notif.email_design,
                   )?.title ?? ''
                 }
+                notification={notif}
               />
             </div>
             <Switch
@@ -82,8 +82,8 @@ const PrivateBookingNotification = (props: Props) => {
             />
             <ListItemSecondaryAction>
               <IconButton
-                edge="end"
                 color="primary"
+                edge="end"
                 onClick={() => {
                   props.setSelectedNotification(notif);
                   props.setIsFormOpen(true);
@@ -106,27 +106,27 @@ const PrivateBookingNotification = (props: Props) => {
       </Paper>
       <div className={classes.addButtonContainer}>
         <Button
-          variant="outlined"
           color="primary"
           onClick={() => props.setIsFormOpen(true)}
+          variant="outlined"
         >
           {t('paymentPack:notification.addButton')}
         </Button>
       </div>
       {props.isFormOpen && (
         <MarketingRuleFormPrivateBooking
-          serviceId={props.serviceId}
-          emails={props.emails}
-          emailListLoading={props.emailListLoading}
-          getEmailDetail={props.getEmailDetail}
-          emailDetails={props.emailDetails}
-          getEmails={props.getEmails}
           emailDetailLoading={props.emailDetailLoading}
-          onCancel={props.closeForm}
-          initial={props.selectedNotification}
-          onSubmit={props.onSubmit}
-          goToSmartlist={props.goToSmartlist}
+          emailDetails={props.emailDetails}
+          emailListLoading={props.emailListLoading}
+          emails={props.emails}
+          getEmailDetail={props.getEmailDetail}
+          getEmails={props.getEmails}
           getSmartLists={props.getSmartLists}
+          goToSmartlist={props.goToSmartlist}
+          initial={props.selectedNotification}
+          onCancel={props.closeForm}
+          onSubmit={props.onSubmit}
+          serviceId={props.serviceId}
           smartLists={props.smartLists}
         />
       )}

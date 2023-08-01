@@ -52,10 +52,10 @@ const MobileShopPreview: React.FC<Props> = ({
   return (
     <Dialog
       open
-      onClose={onClose}
       classes={{
         paper: classes.popup,
       }}
+      onClose={onClose}
     >
       <DialogTitle>
         {t('mobilePersonalization.externalShopRedirection.popupPreview.title')}
@@ -71,65 +71,65 @@ const MobileShopPreview: React.FC<Props> = ({
             <div className={classes.verticalList}>
               {paymentPackListCount > 0 && (
                 <MobileShopPreviewCard
-                  title={t(
-                    'mobilePersonalization.externalShopRedirection.popupPreview.membershipCard.paymentPack',
-                  )}
+                  iconName="CreditCard"
                   subtitle={t(
                     'mobilePersonalization.externalShopRedirection.popupPreview.membershipCard.paymentPackSubtitle',
                   )}
-                  iconName="CreditCard"
+                  title={t(
+                    'mobilePersonalization.externalShopRedirection.popupPreview.membershipCard.paymentPack',
+                  )}
                 />
               )}
               {contractListCount > 0 && (
                 <MobileShopPreviewCard
-                  title={t(
-                    'mobilePersonalization.externalShopRedirection.popupPreview.membershipCard.contract',
-                  )}
+                  iconName="Loyalty"
                   subtitle={t(
                     'mobilePersonalization.externalShopRedirection.popupPreview.membershipCard.contractSubtitle',
                   )}
-                  iconName="Loyalty"
+                  title={t(
+                    'mobilePersonalization.externalShopRedirection.popupPreview.membershipCard.contract',
+                  )}
                 />
               )}
               {vodListCount > 0 && (
                 <MobileShopPreviewCard
-                  title={t(
-                    'mobilePersonalization.externalShopRedirection.popupPreview.membershipCard.vod',
-                  )}
+                  iconName="Movie"
                   subtitle={t(
                     'mobilePersonalization.externalShopRedirection.popupPreview.membershipCard.vodSubtitle',
                   )}
-                  iconName="Movie"
+                  title={t(
+                    'mobilePersonalization.externalShopRedirection.popupPreview.membershipCard.vod',
+                  )}
                 />
               )}
               {paymentComboListCount > 0 && (
                 <MobileShopPreviewCard
-                  title={t(
-                    'mobilePersonalization.externalShopRedirection.popupPreview.category.paymentCombo',
-                  )}
+                  iconName="LocalOffer"
                   subtitle={t(
                     'mobilePersonalization.externalShopRedirection.popupPreview.membershipCard.paymentComboSubtitle',
                   )}
-                  iconName="LocalOffer"
+                  title={t(
+                    'mobilePersonalization.externalShopRedirection.popupPreview.category.paymentCombo',
+                  )}
                 />
               )}
               {giftcardsCount > 0 && (
                 <MobileShopPreviewCard
-                  title={t(
-                    'mobilePersonalization.externalShopRedirection.popupPreview.category.giftcard',
-                  )}
+                  iconName="CardGiftcard"
                   subtitle={t(
                     'mobilePersonalization.externalShopRedirection.popupPreview.membershipCard.giftcardSubtitle',
                   )}
-                  iconName="CardGiftcard"
+                  title={t(
+                    'mobilePersonalization.externalShopRedirection.popupPreview.category.giftcard',
+                  )}
                 />
               )}
 
               {shopRedirections?.map((link, index) => (
                 <MobileShopPreviewCard
                   key={index}
-                  title={link.name}
                   iconName={link.icon}
+                  title={link.name}
                 />
               ))}
             </div>
@@ -218,11 +218,11 @@ const WavyHeader: React.FC<{
   return (
     <div>
       <svg
-        viewBox="0 0 375 174"
-        xmlns="http://www.w3.org/2000/svg"
         height={height}
-        width="100%"
         preserveAspectRatio="none"
+        viewBox="0 0 375 174"
+        width="100%"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
           <clipPath id="wave">
@@ -234,12 +234,12 @@ const WavyHeader: React.FC<{
           </linearGradient>
         </defs>
         <rect
+          clipPath="url(#wave)"
           fill={theme.palette.primary.main}
+          height="174"
+          width="375"
           x="0"
           y="0"
-          width="375"
-          height="174"
-          clipPath="url(#wave)"
         />
       </svg>
       <div style={{ marginTop: -height }}>{children}</div>

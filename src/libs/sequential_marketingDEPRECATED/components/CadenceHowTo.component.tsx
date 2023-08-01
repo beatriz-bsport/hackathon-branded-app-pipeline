@@ -14,12 +14,12 @@ export const CadenceHowTo: React.FC = () => {
   const classes = useStyles();
   return (
     <div>
-      <Typography variant="h6" className={classes.paddingBottom3}>
+      <Typography className={classes.paddingBottom3} variant="h6">
         {t('cadence.howTo.title')}
       </Typography>
       <div className={classes.explain}>
         <div className={classes.alertContainer}>
-          <Alert severity="info" className={classes.alert}>
+          <Alert className={classes.alert} severity="info">
             {t('cadence.howTo.explain')}
           </Alert>
         </div>

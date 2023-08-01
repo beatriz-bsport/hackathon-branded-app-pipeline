@@ -14,10 +14,10 @@ export const GenericFormDialog: React.FC<Props> = (props) => {
 
   return (
     <Dialog
-      open={open}
-      maxWidth="md"
       fullWidth
       fullScreen={fullScreen}
+      maxWidth="md"
+      open={open}
       scroll="body"
     >
       {children}

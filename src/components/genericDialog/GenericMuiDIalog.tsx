@@ -59,12 +59,12 @@ export const GenericMuiDialog = (props: Props) => {
         </DialogContent>
         <DialogActions>
           {(!!onCancel || !!cancelText) && (
-            <Button onClick={handleCancel} color="secondary">
+            <Button color="secondary" onClick={handleCancel}>
               {cancelText || t('cancel')}
             </Button>
           )}
           {(!!onConfirm || !!confirmText) && (
-            <Button onClick={handleConfirm} variant="contained" color="primary">
+            <Button color="primary" onClick={handleConfirm} variant="contained">
               {confirmText || t('selector.validate')}
             </Button>
           )}

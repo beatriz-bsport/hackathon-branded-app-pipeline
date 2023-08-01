@@ -19,24 +19,24 @@ export const RNWebView = () => {
     <Switch>
       <Route
         exact
-        path="/rn-webview/payment-intent/:basketId/"
         component={BasketPaymentIntent}
+        path="/rn-webview/payment-intent/:basketId/"
       />
       <Route
         exact
-        path="/rn-webview/payment-contract/:contractId/"
         component={ContractPayment}
+        path="/rn-webview/payment-contract/:contractId/"
       />
 
       <Route
         exact
-        path="/rn-webview/subscription-payment-method/:subscriptionId/"
         component={SubscriptionPaymentMethod}
+        path="/rn-webview/subscription-payment-method/:subscriptionId/"
       />
       <Route
         exact
-        path="/rn-webview/add-payment-method"
         component={AddPaymentMethod}
+        path="/rn-webview/add-payment-method"
       />
     </Switch>
   );

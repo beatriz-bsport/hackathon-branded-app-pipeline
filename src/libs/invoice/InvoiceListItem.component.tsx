@@ -37,8 +37,8 @@ const InvoiceListItem = (props: Props) => {
 
   return (
     <ListItem
-      button
       key={invoice.uuid}
+      button
       dense
       divider
       onClick={() => props.onClick(invoice.uuid)}
@@ -46,9 +46,9 @@ const InvoiceListItem = (props: Props) => {
       <ListItemText primary={invoiceDate} secondary={invoiceId} />
       <ListItemSecondaryAction>
         <Typography
-          variant="subtitle1"
-          color={color}
           classes={{ root: classes.listItemTitle }}
+          color={color}
+          variant="subtitle1"
         >
           {invoicePrice}
         </Typography>

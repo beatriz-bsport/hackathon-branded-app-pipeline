@@ -57,9 +57,9 @@ export class App extends Component<{}, {}> {
             <ConnectedRouter history={this.history}>
               <Suspense fallback={<LoadingBackoffice />}>
                 <MuiPickersUtilsProvider
-                  utils={MomentUtils}
-                  moment={Moment}
                   locale={Moment.locale()}
+                  moment={Moment}
+                  utils={MomentUtils}
                 >
                   <SnackbarPile />
                   <BackgroundSnackbar />

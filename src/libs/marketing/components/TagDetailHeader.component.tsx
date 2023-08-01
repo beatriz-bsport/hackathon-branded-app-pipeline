@@ -25,7 +25,7 @@ class TagDetailHeader extends React.PureComponent<Props> {
     if (!this.props.tag) {
       return (
         <div className={classes.noTagContainer}>
-          <Alert severity="info" className={classes.alertInfo}>
+          <Alert className={classes.alertInfo} severity="info">
             {t('management.tagDetail.noTag')}
           </Alert>
         </div>
@@ -35,7 +35,7 @@ class TagDetailHeader extends React.PureComponent<Props> {
     return (
       <div className={classes.content}>
         <div className={classes.tagNameContainer}>
-          <TagIcon fontSize="default" className={classes.leftIcon} />
+          <TagIcon className={classes.leftIcon} fontSize="default" />
           <Typography noWrap variant="h5">
             {this.props.tag.name}
           </Typography>

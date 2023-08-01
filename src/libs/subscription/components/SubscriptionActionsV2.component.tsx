@@ -30,26 +30,26 @@ export const SubscriptionActionsV2: FC<Props> = (props) => {
   const closePauseForm = () => setRequestPause(null);
   return (
     <div>
-      <Typography variant="h5" component="h3">
+      <Typography component="h3" variant="h5">
         {t('subscription.actionSection')}
       </Typography>
       <Divider className={classes.divider} />
       <div className={classes.actionsContainer}>
         <PopOver
-          title={t('subscription.freeze.disabledReasons.month_billing_day')}
           hide={!props.subscription.month_billing_day}
+          title={t('subscription.freeze.disabledReasons.month_billing_day')}
         >
           <Button
             className={classes.button}
             color="primary"
-            variant="outlined"
-            onClick={() => setRequestPause(true)}
             disabled={
               !props.requestPause ||
               props.subscription.has_ended ||
               !!props.subscription.canceled_at ||
               !!props.subscription.month_billing_day
             }
+            onClick={() => setRequestPause(true)}
+            variant="outlined"
           >
             <AlarmAddIcon className={classes.leftIcon} />
             {t('subscription.actions.freeze')}
@@ -58,9 +58,9 @@ export const SubscriptionActionsV2: FC<Props> = (props) => {
       </div>
       {!!requestPause && (
         <PauseFormDialog
+          closeDialog={closePauseForm}
           onSubmit={props.requestPause}
           openForm={!!requestPause}
-          closeDialog={closePauseForm}
           subscription={props.subscription}
           updateEventList={props.updateEventList}
         />
@@ -69,13 +69,13 @@ export const SubscriptionActionsV2: FC<Props> = (props) => {
         <div className={classes.row}>
           <RedButton
             className={classes.button}
-            variant="outlined"
             disabled={
               props.subscription.has_ended ||
               props.subscription.canceled_at ||
               scheduledStop
             }
             onClick={() => props.requestScheduledStop(null)}
+            variant="outlined"
           >
             <EventBusyIcon className={classes.leftIcon} />
             {t('action.planStop')}

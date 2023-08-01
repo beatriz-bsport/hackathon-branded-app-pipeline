@@ -77,11 +77,11 @@ const SubscriptionScheduledStopDialog = (props: Props) => {
       </DialogTitle>
       <DialogContent>
         <TextField
+          fullWidth
           label={t('subscription.scheduledStop.notePlaceholder')}
+          onChange={handleNoteChange}
           placeholder={t('subscription.scheduledStop.notePlaceholder')}
           value={stopNote}
-          onChange={handleNoteChange}
-          fullWidth
         />
         <Typography className={classes.explainText}>
           {t('subscription.scheduledStop.explain')}
@@ -93,9 +93,9 @@ const SubscriptionScheduledStopDialog = (props: Props) => {
             <PlannedInvoiceItem
               key={pi.uuid}
               invoice={pi}
-              t={t}
               onClick={() => setSelectedInvoice(pi)}
               selected={selectedInvoice === pi}
+              t={t}
             />
           ))}
       </DialogContent>
@@ -104,9 +104,9 @@ const SubscriptionScheduledStopDialog = (props: Props) => {
           {t('subscription.freeze.form.cancel')}
         </Button>
         <Button
-          onClick={handleSubmit}
-          disabled={!selectedInvoice}
           color="primary"
+          disabled={!selectedInvoice}
+          onClick={handleSubmit}
         >
           {t('subscription.freeze.form.submit')}
         </Button>

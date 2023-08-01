@@ -26,12 +26,12 @@ export const GenericDialogWithCountdownConfirm = (props: Props) => {
   ];
   return (
     <CustomMuiDialog
-      open={props.open}
       buttons={button}
-      title={props.title}
       content={props.content}
       contentColor="textSecondary"
       fullScreenBreakpoint="xs"
+      open={props.open}
+      title={props.title}
     />
   );
 };

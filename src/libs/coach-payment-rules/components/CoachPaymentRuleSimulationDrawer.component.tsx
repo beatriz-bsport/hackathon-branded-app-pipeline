@@ -76,8 +76,8 @@ export const CoachPaymentRuleSimulationDrawer = (props: Props) => {
 
   return (
     <GenericResponsiveDrawer
-      open={open}
       onClose={handleCloseSimulation}
+      open={open}
       title={t('coach_payment_rules.Simulator.title')}
     >
       <Typography variant="body2">
@@ -87,18 +87,9 @@ export const CoachPaymentRuleSimulationDrawer = (props: Props) => {
         {COACH_PAYMENT_RULE_FOR_ACTIVITIES.includes(coachPaymentRule.kind) ? (
           <div className={classes.dialogFields}>
             <TextField
-              id="confirmed_bookings"
               className={classes.field}
-              value={simulationParams.confirmed_bookings}
               defaultValue={0}
-              onChange={(event) =>
-                setSimulationParams({
-                  ...simulationParams,
-                  confirmed_bookings: parseInt(event.target.value),
-                })
-              }
-              size="small"
-              type="number"
+              id="confirmed_bookings"
               InputProps={{
                 inputProps: {
                   min: 0,
@@ -112,20 +103,20 @@ export const CoachPaymentRuleSimulationDrawer = (props: Props) => {
                   </InputAdornment>
                 ),
               }}
-            />
-            <TextField
-              id="cancelled_bookings"
-              className={classes.field}
-              value={simulationParams.cancelled_bookings}
-              defaultValue={0}
               onChange={(event) =>
                 setSimulationParams({
                   ...simulationParams,
-                  cancelled_bookings: parseInt(event.target.value),
+                  confirmed_bookings: parseInt(event.target.value),
                 })
               }
               size="small"
               type="number"
+              value={simulationParams.confirmed_bookings}
+            />
+            <TextField
+              className={classes.field}
+              defaultValue={0}
+              id="cancelled_bookings"
               InputProps={{
                 inputProps: {
                   min: 0,
@@ -139,20 +130,20 @@ export const CoachPaymentRuleSimulationDrawer = (props: Props) => {
                   </InputAdornment>
                 ),
               }}
-            />
-            <TextField
-              id="margin_value"
-              className={classes.field}
-              value={simulationParams.margin_value}
-              defaultValue={0}
               onChange={(event) =>
                 setSimulationParams({
                   ...simulationParams,
-                  margin_value: parseInt(event.target.value),
+                  cancelled_bookings: parseInt(event.target.value),
                 })
               }
               size="small"
               type="number"
+              value={simulationParams.cancelled_bookings}
+            />
+            <TextField
+              className={classes.field}
+              defaultValue={0}
+              id="margin_value"
               InputProps={{
                 inputProps: {
                   min: 0,
@@ -168,6 +159,15 @@ export const CoachPaymentRuleSimulationDrawer = (props: Props) => {
                   </InputAdornment>
                 ),
               }}
+              onChange={(event) =>
+                setSimulationParams({
+                  ...simulationParams,
+                  margin_value: parseInt(event.target.value),
+                })
+              }
+              size="small"
+              type="number"
+              value={simulationParams.margin_value}
             />
           </div>
         ) : (
@@ -176,13 +176,13 @@ export const CoachPaymentRuleSimulationDrawer = (props: Props) => {
               control={
                 <Switch
                   checked={simulationParams.student_was_here}
+                  name="student_attendance"
                   onChange={() =>
                     setSimulationParams({
                       ...simulationParams,
                       student_was_here: !simulationParams.student_was_here,
                     })
                   }
-                  name="student_attendance"
                 />
               }
               label={
@@ -192,18 +192,9 @@ export const CoachPaymentRuleSimulationDrawer = (props: Props) => {
               }
             />
             <TextField
-              id="margin_value"
               className={classes.field}
-              value={simulationParams.margin_value}
               defaultValue={0}
-              onChange={(event) =>
-                setSimulationParams({
-                  ...simulationParams,
-                  margin_value: parseInt(event.target.value),
-                })
-              }
-              size="small"
-              type="number"
+              id="margin_value"
               InputProps={{
                 inputProps: {
                   min: 0,
@@ -226,6 +217,15 @@ export const CoachPaymentRuleSimulationDrawer = (props: Props) => {
                   </InputAdornment>
                 ),
               }}
+              onChange={(event) =>
+                setSimulationParams({
+                  ...simulationParams,
+                  margin_value: parseInt(event.target.value),
+                })
+              }
+              size="small"
+              type="number"
+              value={simulationParams.margin_value}
             />
           </div>
         )}
@@ -239,16 +239,16 @@ export const CoachPaymentRuleSimulationDrawer = (props: Props) => {
                     {t('coach_payment_rules.Simulator.resultTitle')}
                   </Typography>
                 </div>
-                <Grid container spacing={2} className={classes.gridContainer}>
+                <Grid container className={classes.gridContainer} spacing={2}>
                   <Grid item xs={12}>
                     <Figure
-                      name={t('coach_payment_rules.Simulator.total_payment')}
+                      color="green"
                       count={`${getCurrencyDisplay()}
                       ${(
                         props.simulationResult[props.coachPaymentRule.id]
                           .remuneration || 0
                       ).toFixed(2)}`}
-                      color="green"
+                      name={t('coach_payment_rules.Simulator.total_payment')}
                     />
                   </Grid>
                 </Grid>
@@ -258,9 +258,9 @@ export const CoachPaymentRuleSimulationDrawer = (props: Props) => {
       </div>
       <DialogActions className={classes.dialogActions}>
         <Button
-          onClick={() => handlePrevious(props.coachPaymentRule)}
           color="secondary"
           disabled={isSubmitting}
+          onClick={() => handlePrevious(props.coachPaymentRule)}
           startIcon={
             <DoubleArrowIcon style={{ transform: 'rotate(180deg)' }} />
           }
@@ -268,19 +268,19 @@ export const CoachPaymentRuleSimulationDrawer = (props: Props) => {
           {t('previous')}
         </Button>
         <Button
-          id="button_coach_remuneration_simulation"
-          variant="contained"
-          type="submit"
           color="primary"
-          onClick={() => onSubmit(props.coachPaymentRule.id, simulationParams)}
           disabled={isSubmitting}
+          id="button_coach_remuneration_simulation"
+          onClick={() => onSubmit(props.coachPaymentRule.id, simulationParams)}
+          type="submit"
+          variant="contained"
         >
           {t('simulate')}
         </Button>
         <Button
-          onClick={handleCloseSimulation}
           color="secondary"
           disabled={isSubmitting}
+          onClick={handleCloseSimulation}
           startIcon={<ClearIcon />}
         >
           {t('close')}

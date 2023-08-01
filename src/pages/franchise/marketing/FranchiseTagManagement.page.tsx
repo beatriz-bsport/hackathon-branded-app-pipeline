@@ -224,15 +224,15 @@ class MarketingTagManagement extends React.PureComponent<Props> {
         <div className={classes.contentContainer}>
           <div className={classes.leftPanel}>
             <TagGroupList
-              tagGroupList={this.props.tagGroups}
-              onCreateOrUpdateTagGroup={this.createOrUpdateTagGroup}
-              onDeleteTagGroup={this.deleteTagGroup}
               onCreateOrUpdateTag={this.createOrUpdateTag}
+              onCreateOrUpdateTagGroup={this.createOrUpdateTagGroup}
               onDeleteTag={this.onDeleteTag}
+              onDeleteTagGroup={this.deleteTagGroup}
               onSelectTag={DETAIL_PANEL_ENABLED && this.onSelectTag}
               selectedTag={this.props.selectedTag}
-              tagUsageById={this.props.tagUsageById}
+              tagGroupList={this.props.tagGroups}
               tagKind={this.props.tagKind}
+              tagUsageById={this.props.tagUsageById}
             />
           </div>
           {DETAIL_PANEL_ENABLED && (
@@ -241,21 +241,21 @@ class MarketingTagManagement extends React.PureComponent<Props> {
               <div className={classes.tagDetail}>
                 {this.props.selectedTag && (
                   <TagDetailMembers
-                    tag={this.props.selectedTag}
-                    membersWithTagList={membersWithTagList.items}
-                    membersWithTagListCount={membersWithTagList.count}
-                    membersWithTagListLoading={membersWithTagList.loading}
-                    membersWithTagListPage={membersWithTagList.page}
+                    itemPerPage={MEMBERS_ITEM_PER_PAGE}
                     membersWithoutTagList={membersWithoutTagList.items}
                     membersWithoutTagListCount={membersWithoutTagList.count}
                     membersWithoutTagListLoading={membersWithoutTagList.loading}
                     membersWithoutTagListPage={membersWithoutTagList.page}
-                    onPageRequestWithTag={this.loadMembersWithTag}
-                    onPageRequestWithoutTag={this.loadMembersWithoutTag}
-                    onClickTagMember={this.onClickTagMember}
+                    membersWithTagList={membersWithTagList.items}
+                    membersWithTagListCount={membersWithTagList.count}
+                    membersWithTagListLoading={membersWithTagList.loading}
+                    membersWithTagListPage={membersWithTagList.page}
                     onClickMember={this.props.onClickMember}
+                    onClickTagMember={this.onClickTagMember}
                     onClickUntagMember={this.onClickUntagMember}
-                    itemPerPage={MEMBERS_ITEM_PER_PAGE}
+                    onPageRequestWithoutTag={this.loadMembersWithoutTag}
+                    onPageRequestWithTag={this.loadMembersWithTag}
+                    tag={this.props.selectedTag}
                   />
                 )}
               </div>

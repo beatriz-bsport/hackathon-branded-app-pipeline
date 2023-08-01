@@ -170,31 +170,31 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
           <Paper className={classes.paper}>
             {this.props.theme && (
               <WidgetCssThemeOverride
-                theme={this.props.theme}
                 initial={this.props.theme.widget_theme}
                 onPreview={this.handlePreview}
                 onSubmit={this.handleSubmit}
+                theme={this.props.theme}
               />
             )}
           </Paper>
         </div>
 
         <WidgetCustomizationPreview
-          onComponentTypeChange={this.onComponentTypeChange}
-          componentType={this.state.componentType}
+          key={this.state.uuid}
+          cssOnly
           coaches={this.props.coaches}
+          company={this.props.theme.company}
+          componentType={this.state.componentType}
+          config={this.state.config}
+          customLevels={this.props.customLevels}
+          establishmentGroupList={this.props.establishmentGroupList}
           establishments={this.props.establishments}
           metaActivities={this.props.metaActivities}
           metaActivitiesWorkshop={this.props.metaActivitiesWorkshop}
-          config={this.state.config}
+          onComponentTypeChange={this.onComponentTypeChange}
           onConfigChange={this.onConfigChange}
-          establishmentGroupList={this.props.establishmentGroupList}
-          customLevels={this.props.customLevels}
-          company={this.props.theme.company}
-          uuid={this.state.uuid}
           styles={this.state.styles}
-          key={this.state.uuid}
-          cssOnly
+          uuid={this.state.uuid}
         />
       </div>
     );

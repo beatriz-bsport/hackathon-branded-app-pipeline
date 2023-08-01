@@ -47,25 +47,25 @@ const PaymentMethodInfo = ({
   if (subscription.is_v2) {
     return (
       <SubscriptionPaymentMethod
+        onEdit={() => changePaymentMethod(subscription.id)}
+        paymentEngine={subscription.payment_engine}
         paymentMethod={
           subscription.stripe_payment_method_id &&
           paymentMethodList.find(
             (pm) => pm.id === subscription.stripe_payment_method_id,
           )
         }
-        onEdit={() => changePaymentMethod(subscription.id)}
-        paymentEngine={subscription.payment_engine}
       />
     );
   }
   if (subscription.payment_method === 2) {
     return (
       <RedButton
-        variant="outlined"
         onClick={(ev) => {
           ev.stopPropagation();
           changePaymentMethod(subscription.id);
         }}
+        variant="outlined"
       >
         <AddIcon />
         {t(
@@ -82,9 +82,9 @@ const PaymentMethodInfo = ({
   if (paymentMethod) {
     return (
       <SubscriptionPaymentMethod
-        paymentMethod={paymentMethod}
         onEdit={() => changePaymentMethod(subscription.id)}
         paymentEngine={subscription.payment_engine}
+        paymentMethod={paymentMethod}
       />
     );
   }
@@ -105,7 +105,7 @@ export const SubscriptionListItem = (props: Props) => {
   const subscriptionStatus = t(`billing_plan_status.${subscription.status}`);
   if (variant === 'listItem') {
     return (
-      <ListItem className={classes.paperContainer} divider>
+      <ListItem divider className={classes.paperContainer}>
         <Typography variant="h6">{subscription.name}</Typography>
 
         <div>
@@ -196,24 +196,24 @@ export const SubscriptionListItem = (props: Props) => {
             <CheckIcon className={classes.leftIcon} />
             <Typography className={classes.contractTerms}>
               <Trans
-                t={t}
+                components={[
+                  <ButtonBaseWithTypography
+                    disableRipple
+                    className={classes.contractTermsButton}
+                    onClick={onOpenContractTermsDialog}
+                    typographyColor="primary"
+                  >
+                    .
+                  </ButtonBaseWithTypography>,
+                ]}
                 i18nKey="parameters.contractTermsAccepted"
+                t={t}
                 values={{
                   dateAccepted: formatAsDatetimeAdapted(
                     subscription.contract_terms_date_accepted,
                     'LL',
                   ),
                 }}
-                components={[
-                  <ButtonBaseWithTypography
-                    onClick={onOpenContractTermsDialog}
-                    disableRipple
-                    typographyColor="primary"
-                    className={classes.contractTermsButton}
-                  >
-                    .
-                  </ButtonBaseWithTypography>,
-                ]}
               />
             </Typography>
           </div>
@@ -221,17 +221,17 @@ export const SubscriptionListItem = (props: Props) => {
       </div>
       {props.paymentMethodList && (
         <PaymentMethodInfo
-          subscription={subscription}
           changePaymentMethod={props.changePaymentMethod}
           paymentMethodList={props.paymentMethodList}
+          subscription={subscription}
         />
       )}
       <ContractTermsDialog
         closeContractTermsDialog={onCloseContractTermsDialog}
         contractTerms={subscription.legal_contract}
         contractTermsLink={subscription.contract_terms_pdf_link}
-        open={openContractTermsDialog}
         downloadContractTerms={props.downloadContractTerms}
+        open={openContractTermsDialog}
       />
     </div>
   );

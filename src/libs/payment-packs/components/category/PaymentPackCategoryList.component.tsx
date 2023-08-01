@@ -249,11 +249,11 @@ export const PaymentPackListByCategory = memo((props: Props) => {
 
   return (
     <DndContext
-      sensors={sensors}
-      onDragEnd={handleDragEnd}
-      modifiers={[restrictToVerticalAxis]}
       collisionDetection={closestCenter}
+      modifiers={[restrictToVerticalAxis]}
+      onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
+      sensors={sensors}
     >
       <SortableContext
         items={items.filter((cat) => cat.id).map((cat) => cat.id.toString(10))}
@@ -263,21 +263,21 @@ export const PaymentPackListByCategory = memo((props: Props) => {
           return !props.filteredCategories.length ||
             props.filteredCategories?.includes(ppcat.id || -1) ? (
             <PaymentPackCategoryItemWithPaymentPack
-              isCategoryFiltered={!!props.filteredCategories.length}
-              paymentPackOrder={userOrder}
-              filterManagerOnly={props.filterManagerOnly}
-              orderingOverride={frontendOrderingOverride}
               key={ppcat.id}
+              deletePaymentPackCategory={props.deletePaymentPackCategory}
+              filterManagerOnly={props.filterManagerOnly}
+              isCategoryDragging={isCategoryDragging}
+              isCategoryFiltered={!!props.filteredCategories.length}
+              onClick={props.onClick}
+              onDelete={props.onDelete}
+              onEdit={props.onEdit}
+              onRestore={props.onRestore}
+              orderingOverride={frontendOrderingOverride}
               paymentPackCategory={ppcat}
               paymentPackCategoryIds={items.map((cat) => cat.id)}
-              onEdit={props.onEdit}
-              onDelete={props.onDelete}
-              onClick={props.onClick}
-              onRestore={props.onRestore}
+              paymentPackOrder={userOrder}
               setSelectedCategory={props.setSelectedCategory}
               showCategoryEditDialog={props.showCategoryEditDialog}
-              deletePaymentPackCategory={props.deletePaymentPackCategory}
-              isCategoryDragging={isCategoryDragging}
             />
           ) : null;
         })}

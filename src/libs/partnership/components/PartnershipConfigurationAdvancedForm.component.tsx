@@ -61,11 +61,11 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
           <div className={classes.selector}>
             <EstablishmentSelector
               closeMenuOnSelect
-              placeholder={t('parameters.establishmentMergeMaster')}
+              noMulti
               establishments={establishmentList.filter(
                 (e) => !selectedEstablishments.includes(e.id),
               )}
-              noMulti
+              placeholder={t('parameters.establishmentMergeMaster')}
               selectedEstablishments={[]}
               selectOption={(e: { value: number; label: string }) => {
                 const newConf = [...configuration];
@@ -82,9 +82,9 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
             !conf.reference_establishment ? (
               <div className={classes.rowAlert}>
                 <WarningIcon
-                  fontSize="large"
                   className={classes.iconLeft}
                   color="error"
+                  fontSize="large"
                 />
                 <Typography>
                   {t('parameters.pleaseChoseEstablishment')}
@@ -118,10 +118,10 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
             <div className={classes.selector}>
               <EstablishmentSelector
                 closeMenuOnSelect
-                placeholder={t('parameters.establishmentMergedAs')}
                 establishments={establishmentList.filter(
                   (e) => !selectedEstablishments.includes(e.id),
                 )}
+                placeholder={t('parameters.establishmentMergedAs')}
                 selectedEstablishments={[]}
                 selectOption={(e: Array<{ value: number; label: string }>) => {
                   const newConf = [...configuration];
@@ -144,9 +144,9 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
             {conf.associated_establishment_list.length === 0 ? (
               <div className={classes.rowAlert}>
                 <WarningIcon
-                  fontSize="large"
                   className={classes.iconLeft}
                   color="error"
+                  fontSize="large"
                 />
                 <Typography>
                   {t('parameters.pleaseChoseEstablishmentMany')}
@@ -192,9 +192,8 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
         {t('parameters.add')}
       </Button>
       <Button
-        disabled={!configuration?.length}
-        variant="contained"
         color="primary"
+        disabled={!configuration?.length}
         onClick={() =>
           props.onSubmit({
             ...(props.initial || {}),
@@ -202,6 +201,7 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
             override_establishment_pk: null,
           })
         }
+        variant="contained"
       >
         {t('actions.save')}
       </Button>

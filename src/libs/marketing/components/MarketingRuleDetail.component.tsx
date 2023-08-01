@@ -377,13 +377,13 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
           this.props.theme?.company === 498) &&
           !!this.props.selectedNotification && (
             <CommunicationDrawer
-              openDrawer={this.state.openCommunicationDrawer}
-              onDrawerClose={this.onCloseCommunicationDrawerClick}
               contextIdentifier={CONTEXT_NOTIFICATION}
               contextObjectId={this.props.selectedNotification?.id}
               contextTitle={this.getPrimaryText(
                 this.props.selectedNotification,
               )}
+              onDrawerClose={this.onCloseCommunicationDrawerClick}
+              openDrawer={this.state.openCommunicationDrawer}
             />
           )}
         <div className={classes.container}>
@@ -391,7 +391,7 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
           this.statData &&
           !this.props.loading ? (
             <div className={classes.container2}>
-              <Typography variant="h5" className={classes.sectionTitle}>
+              <Typography className={classes.sectionTitle} variant="h5">
                 {t('marketing:notifications.notificationDetails')}
               </Typography>
               <Divider className={classes.divider} />
@@ -402,18 +402,18 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
 
                 <div className={classes.notificationActions}>
                   <Button
-                    variant="contained"
                     color="primary"
                     onClick={this.props.onClickEdit}
+                    variant="contained"
                   >
                     {t('marketing:notifications.editRule')}
                   </Button>
 
                   <Button
-                    variant="outlined"
-                    color="primary"
                     className={classes.removeContainer}
+                    color="primary"
                     onClick={this.props.onClickRemove}
+                    variant="outlined"
                   >
                     {t('marketing:notifications.removeRule')}
                   </Button>
@@ -422,49 +422,49 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
 
               {this.props.emailSummary && this.props.emailDetails && (
                 <>
-                  <Typography variant="h5" className={classes.titleMarginTop}>
+                  <Typography className={classes.titleMarginTop} variant="h5">
                     {t('marketing:notifications.statisticDetails')}
                   </Typography>
 
                   <Divider className={classes.divider} />
                   <Paper className={classes.paperStats}>
                     <div className={classes.statItem}>
-                      <Typography variant="h5" align="center">
+                      <Typography align="center" variant="h5">
                         {this.statDataForDisplay.total_recipients}
                       </Typography>
 
                       <Typography
-                        variant="caption"
                         align="center"
                         component="p"
+                        variant="caption"
                       >
                         {t('marketing:notifications.stats.total_mail_send')}
                       </Typography>
                     </div>
 
                     <div className={classes.statItem}>
-                      <Typography variant="h5" align="center">
+                      <Typography align="center" variant="h5">
                         {this.statDataForDisplay.opened_rate}
                       </Typography>
 
                       <Typography
-                        variant="caption"
                         align="center"
                         component="p"
+                        variant="caption"
                       >
                         {t('marketing:notifications.stats.opened_rate')}
                       </Typography>
                     </div>
 
                     <div className={classes.statItem}>
-                      <Typography variant="h5" align="center">
+                      <Typography align="center" variant="h5">
                         {this.statDataForDisplay.total_read}
                       </Typography>
 
                       <Typography
-                        variant="caption"
                         align="center"
                         component="p"
+                        variant="caption"
                       >
                         {t('marketing:notifications.stats.total_mail_opened')}
                       </Typography>
@@ -475,22 +475,22 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
                     Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
                     this.props.theme?.company === 498) && (
                     <Button
-                      onClick={this.onOpenCommunicationDrawerClick}
-                      variant="contained"
                       color="primary"
-                      size="medium"
                       disabled={!this.props.selectedNotification}
+                      onClick={this.onOpenCommunicationDrawerClick}
+                      size="medium"
+                      variant="contained"
                     >
                       {t('communication:generic.history')}
                     </Button>
                   )}
-                  <Typography variant="h5" className={classes.emailSummary}>
+                  <Typography className={classes.emailSummary} variant="h5">
                     {t('marketing:notifications.mailTitle')}
                   </Typography>
                   <Divider className={classes.divider} />
                   <HTMLPreview
-                    html={this.props.emailDetails.html}
                     scrolling
+                    html={this.props.emailDetails.html}
                     resolvedGenericTags={this.props.resolvedGenericTags}
                   />
                 </>
@@ -506,8 +506,8 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
                         .push_notification_title !== '' && (
                         <>
                           <Typography
-                            variant="h5"
                             className={classes.titleMarginTop}
+                            variant="h5"
                           >
                             {t('marketing:notifications.notificationPreview')}
                           </Typography>
@@ -516,8 +516,8 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
 
                           <NotificationPushPreview
                             notification={this.props.selectedNotification}
-                            theme={this.props.theme}
                             resolvedGenericTags={this.props.resolvedGenericTags}
+                            theme={this.props.theme}
                           />
                         </>
                       )}
@@ -531,7 +531,7 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
                 <CircularProgress />
               ) : (
                 <div className={classes.selectRulesContainer}>
-                  <Alert severity="info" className={classes.alertInfo}>
+                  <Alert className={classes.alertInfo} severity="info">
                     {t('marketing:notifications.selectNotificationRules')}
                   </Alert>
                 </div>

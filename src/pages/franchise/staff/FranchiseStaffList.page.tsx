@@ -66,22 +66,22 @@ export class FranchiseStaffConfiguration extends React.Component<Props, State> {
     return (
       <div className={classes.container}>
         <InfoBox
-          content={t('staff.explainStaff')}
           className={classes.infoBox}
+          content={t('staff.explainStaff')}
         />
         <UserWithRoleList
-          franchiseeList={this.props.franchiseeList}
-          franchiseeListLoading={this.props.franchiseeListLoading}
+          isFranchisor
           createUserRole={this.props.createStaffFranchiseUser}
           deleteUserRole={this.props.deleteStaffFranchiseUser}
-          isFranchisor
+          franchiseeList={this.props.franchiseeList}
+          franchiseeListLoading={this.props.franchiseeListLoading}
           franchiseRoles={franchiseRoles}
-          updateUserRole={this.props.updateFranchiseUserRole}
           hasOwnerPermission={hasOwnerPermission}
-          users={users}
           openCreateStaffDialog={this.state.openCreateStaffDialog}
           setOpenCreateStaffDialog={this.setOpenCreateStaffDialog}
           updateCommission={this.props.updateFranchiseUserCommission}
+          updateUserRole={this.props.updateFranchiseUserRole}
+          users={users}
         />
         <BottomActionsButtonCustom
           buttonsProperties={[

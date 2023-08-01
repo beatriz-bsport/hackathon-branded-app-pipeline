@@ -9,10 +9,10 @@ export const ExitStepNodeElementFlowVersion: React.FC = () => {
   return (
     <>
       <Handle
-        type="target"
+        isConnectable
         position={Position.Top}
         style={HANDLE_BUTTON_STYLE}
-        isConnectable
+        type="target"
       />
       <ExitStepNodeElement />
     </>

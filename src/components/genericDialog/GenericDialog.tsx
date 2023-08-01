@@ -109,8 +109,8 @@ class GenericDialog extends React.PureComponent<Props, StateI> {
     return (
       <Dialog
         className={this.props.classes.container}
-        open={this.state.open}
         onClose={this.onClose}
+        open={this.state.open}
       >
         <DialogTitle>{this.state.title}</DialogTitle>
         <DialogContent className={this.props.classes.container}>
@@ -121,8 +121,8 @@ class GenericDialog extends React.PureComponent<Props, StateI> {
             return (
               <Button
                 key={i}
-                onClick={(ev) => this.onClickButton(ev, button, i)}
                 color={button.color}
+                onClick={(ev) => this.onClickButton(ev, button, i)}
                 variant={button.variant}
               >
                 {button.label}

@@ -36,17 +36,16 @@ export const TagFilterForm = (props: Props) => {
     <div className={classes.container}>
       <MaterialUISelector
         className={classes.selector}
-        placeholder={t('form.filter.includeLabel')}
-        options={[includeOption, excludeOption]}
         onChange={(option: typeof includeOption) =>
           props.setForm({ ...props.form, include: option.value })
         }
+        options={[includeOption, excludeOption]}
+        placeholder={t('form.filter.includeLabel')}
       />
       <div className={classes.selector}>
         <TagSelector
           noMulti
           allTagsWithTagGroup={tagList}
-          selectedTags={[props.form.tagId]}
           onChange={(option) =>
             props.setForm({
               ...props.form,
@@ -59,20 +58,21 @@ export const TagFilterForm = (props: Props) => {
               tagId: null,
             })
           }
+          selectedTags={[props.form.tagId]}
         />
       </div>
 
       <Fab
         className={classes.fabIcon}
-        size="small"
-        disabled={props.form.include === null || props.form.tagId === null}
         color="primary"
+        disabled={props.form.include === null || props.form.tagId === null}
         onClick={() => {
           if (props.form.include !== null && props.form.tagId) {
             props.createFilter(props.form);
             props.setForm({ include: null, tagId: null });
           }
         }}
+        size="small"
       >
         <DoneIcon />
       </Fab>

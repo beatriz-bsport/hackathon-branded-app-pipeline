@@ -14,10 +14,10 @@ type Props = {
 
 export const WorkshopDeleteDialog = (props: Props) => (
   <DeleteDialogWithCheck
-    idToDelete={props.workshopId}
-    onClose={props.onClose}
     checkCanDeleteObjectAPI={props.canDeleteWorkshopChecker}
     deleteObject={() => props.deleteWorkshop(props.workshopId)}
+    idToDelete={props.workshopId}
+    onClose={props.onClose}
     trad="workshop"
   />
 );

@@ -41,8 +41,8 @@ export class CreditAccountFilter extends Component<Props, state> {
         {t(`filters.${filter_data.filter_identifier}.first`)}
         <Select
           className={classes.input}
-          value={filter_data.comparator}
           onChange={(ev) => onChange({ comparator: ev.target.value })}
+          value={filter_data.comparator}
         >
           {DURATION_COMPARATORS_DICT_BETWEEN.map((item) => (
             <MenuItem key={item.key} value={item.value}>
@@ -55,10 +55,10 @@ export class CreditAccountFilter extends Component<Props, state> {
           : t(`filters.${filter_data.filter_identifier}.second`)}
         <DelayedNumericInput
           classes={classes}
-          value={filter_data.value}
           onChange={(ev) =>
             onChange({ value: ev.target.value === '' ? null : ev.target.value })
           }
+          value={filter_data.value}
         />
         {filter_data.comparator === BETWEEN_COMPARATOR
           ? t(`filters.${filter_data.filter_identifier}.between`)
@@ -66,12 +66,12 @@ export class CreditAccountFilter extends Component<Props, state> {
         {filter_data.comparator === BETWEEN_COMPARATOR ? (
           <DelayedNumericInput
             classes={classes}
-            value={filter_data.value_second}
             onChange={(ev) =>
               onChange({
                 value_second: ev.target.value === '' ? null : ev.target.value,
               })
             }
+            value={filter_data.value_second}
           />
         ) : null}
         {t(`filters.${filter_data.filter_identifier}.third`, {

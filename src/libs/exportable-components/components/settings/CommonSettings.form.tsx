@@ -85,30 +85,41 @@ const MarketplaceCommonFilterForm: React.FC<Props> = (props) => {
       <div className={classes.marginTop}>
         <Autocomplete
           multiple
-          options={[...coaches]}
           getOptionLabel={(option) => option.name}
+          onChange={(e, newValue) => setData('coaches', newValue)}
+          options={[...coaches]}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={t('coach:coach')}
+              placeholder={t('coach:coach')}
+              variant="standard"
+            />
+          )}
           value={[
             ...coaches.filter(
               (c) => config.coaches && config.coaches.includes(c.id),
             ),
           ]}
-          onChange={(e, newValue) => setData('coaches', newValue)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label={t('coach:coach')}
-              placeholder={t('coach:coach')}
-            />
-          )}
         />
       </div>
       {!!establishmentGroupList && (
         <div className={classes.marginTop}>
           <Autocomplete
             multiple
-            options={[...establishmentGroupList]}
             getOptionLabel={(option) => option.name}
+            onChange={(e, newValue) => {
+              setData('establishmentGroups', newValue);
+            }}
+            options={[...establishmentGroupList]}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label={t('establishment:localisation')}
+                placeholder={t('establishment:localisation')}
+                variant="standard"
+              />
+            )}
             value={[
               ...establishmentGroupList.filter(
                 (l) =>
@@ -116,76 +127,65 @@ const MarketplaceCommonFilterForm: React.FC<Props> = (props) => {
                   config.establishmentGroups.includes(l.id),
               ),
             ]}
-            onChange={(e, newValue) => {
-              setData('establishmentGroups', newValue);
-            }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                variant="standard"
-                label={t('establishment:localisation')}
-                placeholder={t('establishment:localisation')}
-              />
-            )}
           />
         </div>
       )}
       <div className={classes.marginTop}>
         <Autocomplete
           multiple
-          options={[...establishments]}
           getOptionLabel={(option) => option.title}
+          onChange={(e, newValue) => setData('establishments', newValue)}
+          options={[...establishments]}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={t('establishment:room')}
+              placeholder={t('establishment:room')}
+              variant="standard"
+            />
+          )}
           value={[
             ...establishments.filter(
               (e) =>
                 config.establishments && config.establishments.includes(e.id),
             ),
           ]}
-          onChange={(e, newValue) => setData('establishments', newValue)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label={t('establishment:room')}
-              placeholder={t('establishment:room')}
-            />
-          )}
         />
       </div>
 
       <div className={classes.marginTop}>
         <Autocomplete
           multiple
-          options={[...metaActivities]}
           getOptionLabel={(option) => option.name}
+          onChange={(e, newValue) => setData('metaActivities', newValue)}
+          options={[...metaActivities]}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={t('metaActivity:metaActivity')}
+              placeholder={t('metaActivity:metaActivity')}
+              variant="standard"
+            />
+          )}
           value={[
             ...metaActivities.filter(
               (m) =>
                 config.metaActivities && config.metaActivities.includes(m.id),
             ),
           ]}
-          onChange={(e, newValue) => setData('metaActivities', newValue)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label={t('metaActivity:metaActivity')}
-              placeholder={t('metaActivity:metaActivity')}
-            />
-          )}
         />
       </div>
       <div className={classes.marginTop}>
         <LevelMultiSelector
           inScrollBar
-          selectedLevels={config.levels}
+          customLevels={props.customLevels}
           onSelect={(data) => {
             setData(
               'levels',
               data.map((l) => ({ id: l })),
             );
           }}
-          customLevels={props.customLevels}
+          selectedLevels={config.levels}
         />
       </div>
     </div>

@@ -20,17 +20,17 @@ export const MetricProgressBar = (props: Props) => {
           <div className={classes.littleCircle} />
         </div>
         <Slider
-          className={classes.slider}
+          disabled
           classes={{
             thumb: classes.sliderThumb,
             valueLabel: classes.valueLabel,
             rail: classes.rail,
             track: classes.track,
           }}
-          value={metric?.default_value}
-          min={metric?.min_value}
+          className={classes.slider}
           max={metric?.max_value}
-          disabled
+          min={metric?.min_value}
+          value={metric?.default_value}
           valueLabelDisplay="on"
         />
         <div className={classes.rightCircle}>

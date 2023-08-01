@@ -22,7 +22,7 @@ const RevertInvoiceDialog = (props: Props) => {
   const { t } = useTranslation();
 
   return (
-    <GenericResponsiveDialog open={open} onClose={onClose}>
+    <GenericResponsiveDialog onClose={onClose} open={open}>
       <DialogTitle id="alert-dialog-title">{t('invoice.revert')}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
@@ -39,7 +39,7 @@ const RevertInvoiceDialog = (props: Props) => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="secondary">
+        <Button color="secondary" onClick={onClose}>
           {t('common.cancel')}
         </Button>
         {!hasSubscription ? (

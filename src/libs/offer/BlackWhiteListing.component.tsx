@@ -64,12 +64,12 @@ export class BlackWhiteListing extends Component<Props, State> {
           <div className={classes.fieldGroup}>
             <div className={classes.advancedOptionsSection}>
               <ButtonBase
+                className={classes.advancedOptionsHeader}
                 onClick={() =>
                   this.setState((prevState: State) => ({
                     openAdvancedOptions: !prevState.openAdvancedOptions,
                   }))
                 }
-                className={classes.advancedOptionsHeader}
               >
                 <SettingsIcon className={classes.settings} />
                 <Typography variant="h6">
@@ -93,6 +93,9 @@ export class BlackWhiteListing extends Component<Props, State> {
                       </Typography>
                     </div>
                     <TagSelector
+                      closeMenuOnSelect
+                      inScrollBar
+                      isClearable
                       allTagsWithTagGroup={
                         [
                           ...tagList?.filter(
@@ -100,9 +103,6 @@ export class BlackWhiteListing extends Component<Props, State> {
                           ),
                         ] || []
                       }
-                      placeholder={t(
-                        'form.offer.advancedOptions.tag.doNotSelectToAllowAllMembers',
-                      )}
                       onChange={(items) =>
                         onWhiteListChange(items.map((item) => item.value))
                       }
@@ -111,10 +111,10 @@ export class BlackWhiteListing extends Component<Props, State> {
                           whitelist_tags.filter((tg) => tg !== itemId),
                         )
                       }
+                      placeholder={t(
+                        'form.offer.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                      )}
                       selectedTags={whitelist_tags}
-                      isClearable
-                      closeMenuOnSelect
-                      inScrollBar
                     />
                   </div>
                   <div className={classes.tagSelector}>
@@ -125,6 +125,9 @@ export class BlackWhiteListing extends Component<Props, State> {
                       </Typography>
                     </div>
                     <TagSelector
+                      closeMenuOnSelect
+                      inScrollBar
+                      isClearable
                       allTagsWithTagGroup={
                         [
                           ...tagList?.filter(
@@ -132,9 +135,6 @@ export class BlackWhiteListing extends Component<Props, State> {
                           ),
                         ] || []
                       }
-                      placeholder={t(
-                        'form.offer.advancedOptions.tag.doNotSelectToAllowAllMembers',
-                      )}
                       onChange={(items) =>
                         onBlackListChange(items.map((item) => item.value))
                       }
@@ -143,10 +143,10 @@ export class BlackWhiteListing extends Component<Props, State> {
                           blacklist_tags.filter((tg) => tg !== itemId),
                         )
                       }
+                      placeholder={t(
+                        'form.offer.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                      )}
                       selectedTags={blacklist_tags}
-                      isClearable
-                      closeMenuOnSelect
-                      inScrollBar
                     />
                   </div>
                 </div>

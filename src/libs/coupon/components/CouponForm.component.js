@@ -252,20 +252,19 @@ export class CouponForm extends React.Component<Props, State> {
     const { t, classes, initial } = this.props;
     return (
       <div>
-        <FormControl component="fieldset" className={classes.radioGroup}>
+        <FormControl className={classes.radioGroup} component="fieldset">
           <RadioGroup
             aria-label="Voucher type"
             name="voucher_type"
-            value={this.state.voucher_type}
             onChange={(ev) =>
               this.handleChange(
                 'voucher_type',
                 false,
               )(parseInt(ev.target.value, 10))
             }
+            value={this.state.voucher_type}
           >
             <FormControlLabel
-              value={VOUCHER_TYPE_PERCENT}
               control={
                 <Radio
                   checked={VOUCHER_TYPE_PERCENT === this.state.voucher_type}
@@ -273,9 +272,9 @@ export class CouponForm extends React.Component<Props, State> {
                 />
               }
               label={t('form.voucher_type.percent')}
+              value={VOUCHER_TYPE_PERCENT}
             />
             <FormControlLabel
-              value={VOUCHER_TYPE_AMOUNT}
               control={
                 <Radio
                   checked={VOUCHER_TYPE_AMOUNT === this.state.voucher_type}
@@ -283,6 +282,7 @@ export class CouponForm extends React.Component<Props, State> {
                 />
               }
               label={t('form.voucher_type.amount')}
+              value={VOUCHER_TYPE_AMOUNT}
             />
           </RadioGroup>
           <Collapse in={this.state.voucher_type === VOUCHER_TYPE_PERCENT}>
@@ -290,8 +290,8 @@ export class CouponForm extends React.Component<Props, State> {
               fullWidth
               disabled={!!initial?.coupon_template_instance}
               label={t('form.percent_off.label')}
-              value={this.state.percent_off}
               onChange={this.handleChange('percent_off', true)}
+              value={this.state.percent_off}
             />
           </Collapse>
           <Collapse in={this.state.voucher_type === VOUCHER_TYPE_AMOUNT}>
@@ -299,8 +299,8 @@ export class CouponForm extends React.Component<Props, State> {
               fullWidth
               disabled={!!initial?.coupon_template_instance}
               label={t('form.amount_off.label')}
-              value={this.state.amount_off}
               onChange={this.handleChange('amount_off', true)}
+              value={this.state.amount_off}
             />
           </Collapse>
         </FormControl>
@@ -312,78 +312,78 @@ export class CouponForm extends React.Component<Props, State> {
     const { t, classes, initial } = this.props;
     return (
       <div>
-        <FormControl component="fieldset" className={classes.radioGroup}>
+        <FormControl className={classes.radioGroup} component="fieldset">
           <RadioGroup
-            disabled={!!initial?.coupon_template_instance}
             aria-label="Subscription mode"
+            disabled={!!initial?.coupon_template_instance}
             name="subscription_mode"
-            value={this.state.subscription_mode}
             onChange={(ev) =>
               this.handleChange(
                 'subscription_mode',
                 false,
               )(parseInt(ev.target.value, 10))
             }
+            value={this.state.subscription_mode}
           >
             <FormControlLabel
-              value={COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE}
               control={
                 <Radio
-                  disabled={!!initial?.coupon_template_instance}
                   checked={
                     COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE ===
                     this.state.subscription_mode
                   }
+                  disabled={!!initial?.coupon_template_instance}
                 />
               }
               label={t(
                 `form.subscription_mode.${COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE}`,
               )}
+              value={COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE}
             />
             <FormControlLabel
-              value={COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE}
               control={
                 <Radio
-                  disabled={!!initial?.coupon_template_instance}
                   checked={
                     COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE ===
                     this.state.subscription_mode
                   }
+                  disabled={!!initial?.coupon_template_instance}
                 />
               }
               label={t(
                 `form.subscription_mode.${COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE}`,
               )}
+              value={COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE}
             />
             <FormControlLabel
-              value={COUPON_SUBSCRIPTION_MODE_ALL_INVOICES}
               control={
                 <Radio
-                  disabled={!!initial?.coupon_template_instance}
                   checked={
                     COUPON_SUBSCRIPTION_MODE_ALL_INVOICES ===
                     this.state.subscription_mode
                   }
+                  disabled={!!initial?.coupon_template_instance}
                 />
               }
               label={t(
                 `form.subscription_mode.${COUPON_SUBSCRIPTION_MODE_ALL_INVOICES}`,
               )}
+              value={COUPON_SUBSCRIPTION_MODE_ALL_INVOICES}
             />
             <FormControlLabel
-              value={COUPON_SUBSCRIPTION_MODE_NONE}
               control={
                 <Radio
-                  disabled={!!initial?.coupon_template_instance}
                   checked={
                     COUPON_SUBSCRIPTION_MODE_NONE ===
                     this.state.subscription_mode
                   }
+                  disabled={!!initial?.coupon_template_instance}
                 />
               }
               label={t(
                 `form.subscription_mode.${COUPON_SUBSCRIPTION_MODE_NONE}`,
               )}
+              value={COUPON_SUBSCRIPTION_MODE_NONE}
             />
           </RadioGroup>
         </FormControl>
@@ -406,13 +406,24 @@ export class CouponForm extends React.Component<Props, State> {
           }
         />
         <MuiPickersUtilsProvider
-          utils={MomentUtils}
-          moment={Moment}
           locale={Moment.locale()}
+          moment={Moment}
+          utils={MomentUtils}
         >
           <DatePicker
-            format="L"
+            clearable
             keyboard
+            openToYearSelection
+            cancelLabel={t('form.expiration_date.cancel')}
+            clearLabel={t('form.expiration_date.clear_date')}
+            disabled={
+              !!initial?.coupon_template_instance ||
+              !this.state.with_expiration_date ||
+              !this.state.is_active
+            }
+            format="L"
+            initialFocusedDate={moment().format('L')}
+            label={t('form.expiration_date.label')}
             mask={(value) => {
               if (value) {
                 return [
@@ -430,23 +441,12 @@ export class CouponForm extends React.Component<Props, State> {
               }
               return [];
             }}
-            openToYearSelection
-            clearable
-            disabled={
-              !!initial?.coupon_template_instance ||
-              !this.state.with_expiration_date ||
-              !this.state.is_active
-            }
-            required={this.state.with_expiration_date && this.state.is_active}
-            value={this.state.expiration_date}
-            label={t('form.expiration_date.label')}
-            returnMoment={false}
             onChange={(date) =>
               this.handleChange('expiration_date', false)(date)
             }
-            clearLabel={t('form.expiration_date.clear_date')}
-            cancelLabel={t('form.expiration_date.cancel')}
-            initialFocusedDate={moment().format('L')}
+            required={this.state.with_expiration_date && this.state.is_active}
+            returnMoment={false}
+            value={this.state.expiration_date}
           />
         </MuiPickersUtilsProvider>
       </div>
@@ -472,7 +472,6 @@ export class CouponForm extends React.Component<Props, State> {
         <RadioGroup
           aria-label="Applies to "
           name="applies_to"
-          value={this.state.applies_to}
           onChange={(ev) => {
             if (
               [
@@ -491,9 +490,9 @@ export class CouponForm extends React.Component<Props, State> {
               )(parseInt(ev.target.value, 10));
             }
           }}
+          value={this.state.applies_to}
         >
           <FormControlLabel
-            value={BUYABLE_ITEM_PASS}
             control={
               <Radio
                 checked={BUYABLE_ITEM_PASS === this.state.applies_to}
@@ -501,14 +500,12 @@ export class CouponForm extends React.Component<Props, State> {
               />
             }
             label={t(`form.applies_to.choices.${BUYABLE_ITEM_PASS}`)}
+            value={BUYABLE_ITEM_PASS}
           />
           <div className={classes.fullWidth}>
             <PaymentPackSelector
-              disabled={!!initial?.coupon_template_instance}
-              paymentPacks={paymentPacks
-                .filter((pp) => !pp.disabled)
-                .filter((pp) => !this.state.only_on_objects.includes(pp.id))}
               nullCurrentValue
+              disabled={!!initial?.coupon_template_instance}
               helperText={t('form.selectorPlaceholder.paymentPack')}
               onChange={(id) => {
                 let newObjects = [...this.state.only_on_objects];
@@ -520,42 +517,40 @@ export class CouponForm extends React.Component<Props, State> {
                 newObjects.push(id);
                 this.handleChange('only_on_objects')(newObjects);
               }}
+              paymentPacks={paymentPacks
+                .filter((pp) => !pp.disabled)
+                .filter((pp) => !this.state.only_on_objects.includes(pp.id))}
             />
             {this.state.applies_to === BUYABLE_ITEM_PASS
               ? this.state.only_on_objects.map((id, i) => (
                   <PaymentPackListItem
-                    disabled={!!initial?.coupon_template_instance}
                     key={`${id}-${i}`}
-                    pack={allPaymentPacksById[id]}
+                    disabled={!!initial?.coupon_template_instance}
                     onDelete={() => {
                       const newObjects = this.state.only_on_objects.filter(
                         (ido) => ido !== id,
                       );
                       this.handleChange('only_on_objects')(newObjects);
                     }}
+                    pack={allPaymentPacksById[id]}
                   />
                 ))
               : null}
           </div>
           <FormControlLabel
-            value={BUYABLE_ITEM_SHOP_ITEM}
             control={
               <Radio
-                disabled={!!initial?.coupon_template_instance}
                 checked={BUYABLE_ITEM_SHOP_ITEM === this.state.applies_to}
+                disabled={!!initial?.coupon_template_instance}
               />
             }
             label={t(`form.applies_to.choices.${BUYABLE_ITEM_SHOP_ITEM}`)}
+            value={BUYABLE_ITEM_SHOP_ITEM}
           />
           <div className={classes.fullWidth}>
             <ShopItemSelector
-              disabled={!!initial?.coupon_template_instance}
-              shopItemList={shopItems
-                .filter((item) => item.subshop && !item.disabled)
-                .filter(
-                  (item) => !this.state.only_on_objects.includes(item.id),
-                )}
               nullCurrentValue
+              disabled={!!initial?.coupon_template_instance}
               helperText={t('form.selectorPlaceholder.shopitem')}
               onChange={(id) => {
                 let newObjects = [...this.state.only_on_objects];
@@ -569,44 +564,44 @@ export class CouponForm extends React.Component<Props, State> {
                 newObjects.push(id);
                 this.handleChange('only_on_objects')(newObjects);
               }}
+              shopItemList={shopItems
+                .filter((item) => item.subshop && !item.disabled)
+                .filter(
+                  (item) => !this.state.only_on_objects.includes(item.id),
+                )}
             />
             {this.state.applies_to === BUYABLE_ITEM_SHOP_ITEM
               ? this.state.only_on_objects.map((id, i) => (
                   <ShopItemListItem
-                    disabled={!!initial?.coupon_template_instance}
                     key={`${id}-${i}`}
                     dense
-                    shopitem={allShopItemsById[id]}
+                    disabled={!!initial?.coupon_template_instance}
                     onDelete={() => {
                       const newObjects = this.state.only_on_objects.filter(
                         (ido) => ido !== id,
                       );
                       this.handleChange('only_on_objects')(newObjects);
                     }}
+                    shopitem={allShopItemsById[id]}
                   />
                 ))
               : null}
           </div>
           <FormControlLabel
-            value={BUYABLE_ITEM_PRIVATE_PASS}
             control={
               <Radio
-                disabled={!!initial?.coupon_template_instance}
                 checked={BUYABLE_ITEM_PRIVATE_PASS === this.state.applies_to}
+                disabled={!!initial?.coupon_template_instance}
               />
             }
             label={t(`form.applies_to.choices.${BUYABLE_ITEM_PRIVATE_PASS}`)}
+            value={BUYABLE_ITEM_PRIVATE_PASS}
           />
           <div className={classes.fullWidth}>
             <PrivatePassSelector
-              disabled={!!initial?.coupon_template_instance}
-              privatePassList={privatePasses
-                .filter((pp) => pp.available)
-                .filter(
-                  (pass) => !this.state.only_on_objects.includes(pass.id),
-                )}
-              helperText={t('form.selectorPlaceholder.privatePass')}
               nullCurrentValue
+              disabled={!!initial?.coupon_template_instance}
+              helperText={t('form.selectorPlaceholder.privatePass')}
               onChange={(id) => {
                 let newObjects = [...this.state.only_on_objects];
 
@@ -620,43 +615,45 @@ export class CouponForm extends React.Component<Props, State> {
                 newObjects.push(id);
                 this.handleChange('only_on_objects')(newObjects);
               }}
+              privatePassList={privatePasses
+                .filter((pp) => pp.available)
+                .filter(
+                  (pass) => !this.state.only_on_objects.includes(pass.id),
+                )}
             />
             {this.state.applies_to === BUYABLE_ITEM_PRIVATE_PASS &&
             privatePasses.length
               ? this.state.only_on_objects.map((id, i) => (
                   <PrivatePassListItem
-                    disabled={!!initial?.coupon_template_instance}
                     key={`${id}-${i}`}
                     dense
-                    pass={allPrivatePassesById[id]}
+                    disabled={!!initial?.coupon_template_instance}
                     onDelete={() => {
                       const newObjects = this.state.only_on_objects.filter(
                         (ido) => ido !== id,
                       );
                       this.handleChange('only_on_objects')(newObjects);
                     }}
+                    pass={allPrivatePassesById[id]}
                   />
                 ))
               : null}
           </div>
           <FormControlLabel
-            value={BUYABLE_ITEM_COMBO_ITEM}
             control={
               <Radio
-                disabled={!!initial?.coupon_template_instance}
                 checked={BUYABLE_ITEM_COMBO_ITEM === this.state.applies_to}
+                disabled={!!initial?.coupon_template_instance}
               />
             }
             label={t(`form.applies_to.choices.${BUYABLE_ITEM_COMBO_ITEM}`)}
+            value={BUYABLE_ITEM_COMBO_ITEM}
           />
           <div className={classes.fullWidth}>
             <PaymentComboSelector
-              disabled={!!initial?.coupon_template_instance}
-              paymentComboList={paymentCombos.filter(
-                (combo) => !this.state.only_on_objects.includes(combo.id),
-              )}
-              helperText={t('form.selectorPlaceholder.paymentCombo')}
               nullCurrentValue
+              disabled={!!initial?.coupon_template_instance}
+              helperText={t('form.selectorPlaceholder.paymentCombo')}
               onChange={(id) => {
                 let newObjects = [...this.state.only_on_objects];
 
@@ -670,44 +667,47 @@ export class CouponForm extends React.Component<Props, State> {
                 newObjects.push(id);
                 this.handleChange('only_on_objects')(newObjects);
               }}
+              paymentComboList={paymentCombos.filter(
+                (combo) => !this.state.only_on_objects.includes(combo.id),
+              )}
             />
             {this.state.applies_to === BUYABLE_ITEM_COMBO_ITEM &&
             paymentCombos.length
               ? this.state.only_on_objects.map((id, i) => (
                   <PaymentComboListItem
-                    disabled={!!initial?.coupon_template_instance}
                     key={`${id}-${i}`}
                     dense
-                    paymentCombo={allPaymentCombosById[id]}
+                    disabled={!!initial?.coupon_template_instance}
                     onDelete={() => {
                       const newObjects = this.state.only_on_objects.filter(
                         (ido) => ido !== id,
                       );
                       this.handleChange('only_on_objects')(newObjects);
                     }}
+                    paymentCombo={allPaymentCombosById[id]}
                   />
                 ))
               : null}
           </div>
           <FormControlLabel
-            value={BUYABLE_ITEM_FEE}
             control={
               <Radio
-                disabled={!!initial?.coupon_template_instance}
                 checked={BUYABLE_ITEM_FEE === this.state.applies_to}
+                disabled={!!initial?.coupon_template_instance}
               />
             }
             label={t(`form.applies_to.choices.${BUYABLE_ITEM_FEE}`)}
+            value={BUYABLE_ITEM_FEE}
           />
           <FormControlLabel
-            value={ALL_BUYABLES}
             control={
               <Radio
-                disabled={!!initial?.coupon_template_instance}
                 checked={ALL_BUYABLES === this.state.applies_to}
+                disabled={!!initial?.coupon_template_instance}
               />
             }
             label={t('form.applies_to.choices.all')}
+            value={ALL_BUYABLES}
           />
         </RadioGroup>
       </div>
@@ -732,7 +732,7 @@ export class CouponForm extends React.Component<Props, State> {
         <div className={classes.flexFormControl}>
           <div className={classes.selector}>
             <TagSelector
-              isDisabled={!!initial?.coupon_template_instance}
+              isClearable
               allTagsWithTagGroup={tagList.filter((tag) => {
                 switch (tag_list_kind) {
                   case 'whitelist_tags':
@@ -744,22 +744,22 @@ export class CouponForm extends React.Component<Props, State> {
                     return false;
                 }
               })}
+              closeMenuOnSelect={false}
+              isDisabled={!!initial?.coupon_template_instance}
+              menuPlacement={
+                tag_list_kind === 'whitelist_tags' ? 'auto' : 'top'
+              }
               onChange={(options) => {
                 const newObjects = options.map((option) => option.value);
                 this.handleChange(tag_list_kind)(newObjects);
               }}
-              selectedTags={this.state[tag_list_kind]}
-              closeMenuOnSelect={false}
-              isClearable
               onDeleteTag={(tagId) => {
                 const newObject = this.state[tag_list_kind].filter(
                   (id) => tagId !== id,
                 );
                 this.handleChange(tag_list_kind)(newObject);
               }}
-              menuPlacement={
-                tag_list_kind === 'whitelist_tags' ? 'auto' : 'top'
-              }
+              selectedTags={this.state[tag_list_kind]}
             />
           </div>
         </div>
@@ -774,110 +774,110 @@ export class CouponForm extends React.Component<Props, State> {
         {!!initial?.coupon_template_instance && (
           <div className={classes.notEditableContainer}>
             <InfoOutlined className={classes.redLeftIcon} />
-            <Typography variant="body1" className={classes.darkRed}>
+            <Typography className={classes.darkRed} variant="body1">
               {t('couponTemplate.notEditable')}
             </Typography>
           </div>
         )}
         <Typography variant="h6">{t('form.section.general')}</Typography>
         <TextField
-          disabled={!!initial?.coupon_template_instance}
           fullWidth
-          onChange={this.handleChange('name', true)}
-          label={t('form.name.label')}
-          value={this.state.name}
-          className={classes.field}
           required
+          className={classes.field}
+          disabled={!!initial?.coupon_template_instance}
+          label={t('form.name.label')}
+          onChange={this.handleChange('name', true)}
+          value={this.state.name}
         />
         <TextField
-          disabled={!!initial?.coupon_template_instance}
           fullWidth
-          onChange={this.handleChange('code', true)}
-          label={t('form.code.label')}
-          value={this.state.code}
-          className={classes.field}
-          helperText={t('form.code.helperText')}
           required
+          className={classes.field}
+          disabled={!!initial?.coupon_template_instance}
+          helperText={t('form.code.helperText')}
           inputProps={{ maxLength: 32 }}
+          label={t('form.code.label')}
+          onChange={this.handleChange('code', true)}
+          value={this.state.code}
         />
-        <Typography variant="h6" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h6">
           {t('form.section.voucherConfig')}
         </Typography>
         {this.renderVoucherConfig()}
-        <Typography variant="h6" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h6">
           {t('form.section.applies_to')}
         </Typography>
         {this.renderApply()}
-        <Typography variant="h6" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h6">
           {t('form.section.availability')}
         </Typography>
         <Checkbox
-          disabled={!!initial?.coupon_template_instance}
           checked={this.state.is_active}
-          label={t('form.is_active.label')}
+          disabled={!!initial?.coupon_template_instance}
           helperText={t('form.is_active.helperText')}
+          label={t('form.is_active.label')}
           onChange={this.handleIsActiveChange}
         />
         <div className={classes.field}>{this.renderExpirationDate()}</div>
-        <Typography variant="h6" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h6">
           {t('form.section.usability')}
         </Typography>
         <div className={classes.field}>
           <NumericInput
-            disabled={!!initial?.coupon_template_instance}
             fullWidth
+            disabled={!!initial?.coupon_template_instance}
             label={t('form.usage_per_member.label')}
-            value={this.state.usage_per_member}
             onChange={this.handleChange('usage_per_member', true)}
+            value={this.state.usage_per_member}
           />
         </div>
         <div className={classes.field}>
           <NumericInput
-            disabled={!!initial?.coupon_template_instance}
             fullWidth
-            value={this.state.usage_total}
+            disabled={!!initial?.coupon_template_instance}
             label={t('form.usage_total.label')}
             onChange={this.handleChange('usage_total', true)}
+            value={this.state.usage_total}
           />
         </div>
 
-        <Typography variant="h6" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h6">
           {t('form.section.subscription')}
         </Typography>
         {this.renderSubscriptionModeConfig()}
 
-        <Typography variant="h6" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h6">
           {t('form.section.advanced')}
         </Typography>
         <Checkbox
-          disabled={!!initial?.coupon_template_instance}
           checked={this.state.only_on_first_checkout}
+          disabled={!!initial?.coupon_template_instance}
+          label={t('form.only_on_first_checkout.label')}
           onChange={(ev) =>
             this.handleChange(
               'only_on_first_checkout',
               false,
             )(ev.target.checked)
           }
-          label={t('form.only_on_first_checkout.label')}
         />
         <Checkbox
-          disabled={!!initial?.coupon_template_instance}
           checked={this.state.combinable}
+          disabled={!!initial?.coupon_template_instance}
+          label={t('form.combinable.label')}
           onChange={(ev) =>
             this.handleChange('combinable', false)(ev.target.checked)
           }
-          label={t('form.combinable.label')}
         />
         <div className={classes.field}>
           <PriceInput
-            disabled={!!initial?.coupon_template_instance}
             fullWidth
-            value={this.state.minimum_amount}
-            onChange={this.handleChange('minimum_amount', true)}
+            disabled={!!initial?.coupon_template_instance}
             label={t('form.minimum_amount.label')}
+            onChange={this.handleChange('minimum_amount', true)}
+            value={this.state.minimum_amount}
           />
         </div>
-        <Typography variant="h6" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h6">
           {t('form.section.tags')}
         </Typography>
         {this.state.tag_selection_error && (
@@ -900,9 +900,8 @@ export class CouponForm extends React.Component<Props, State> {
             {t('form.actions.cancel')}
           </Button>
           <Button
-            variant="contained"
-            color="primary"
             className={classes.actionButton}
+            color="primary"
             disabled={
               !!initial?.coupon_template_instance ||
               this.props.processing ||
@@ -914,6 +913,7 @@ export class CouponForm extends React.Component<Props, State> {
               trackFormSubmitIntent(this.props.initial?.id);
               this.onSubmit(ev);
             }}
+            variant="contained"
           >
             {t('form.actions.submit')}
           </Button>

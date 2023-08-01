@@ -31,7 +31,7 @@ type Props = {
 export const CheckInSignout = (props: Props) => {
   const { t } = props;
   return (
-    <Dialog open={props.open} onClose={props.onClose}>
+    <Dialog onClose={props.onClose} open={props.open}>
       <form
         onSubmit={(ev) => {
           ev.preventDefault();
@@ -46,16 +46,16 @@ export const CheckInSignout = (props: Props) => {
           >
             <TextField
               required
-              type="email"
               label={t('signout.form.username.label')}
               onChange={(ev) => props.setUsername(ev.target.value)}
+              type="email"
               value={props.username}
             />
             <TextField
               required
-              type="password"
               label={t('signout.form.password.label')}
               onChange={(ev) => props.setPassword(ev.target.value)}
+              type="password"
               value={props.password}
             />
           </div>

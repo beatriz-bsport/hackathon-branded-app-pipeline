@@ -198,13 +198,13 @@ export class PaymentIntentGathering extends Component<Props, State> {
   renderProcessing = () => {
     return (
       <div
-        style={this.state.processing ? {} : { display: 'none' }}
         className={this.props.classes.processingContainer}
+        style={this.state.processing ? {} : { display: 'none' }}
       >
         <CircularProgress />
         <Typography
-          variant="caption"
           className={this.props.classes.processingMessage}
+          variant="caption"
         >
           {this.props.t('checkout:paymentIntent.isProcessing')}
         </Typography>
@@ -215,18 +215,18 @@ export class PaymentIntentGathering extends Component<Props, State> {
   render() {
     return (
       <form
-        onSubmit={this.handleSubmit}
-        style={this.props.customContainerStyle}
         className={
           this.props.customContainerStyle ? null : this.props.classes.container
         }
+        onSubmit={this.handleSubmit}
+        style={this.props.customContainerStyle}
       >
         {this.state.processing ? this.renderProcessing() : null}
         {!this.state.selectedSavedPaymentMethodId && (
           <React.Fragment>
             <div
-              style={this.state.processing ? { display: 'none' } : {}}
               className={this.props.classes.cardElementContainer}
+              style={this.state.processing ? { display: 'none' } : {}}
             >
               <CardElement
                 onReady={() => this.setState({ cardReady: true })}
@@ -248,21 +248,21 @@ export class PaymentIntentGathering extends Component<Props, State> {
         )}
         {this.state.stripe_error_code || this.state.stripe_decline_code ? (
           <StripeErrorCode
-            errorCode={this.state.stripe_error_code}
             declineCode={this.state.stripe_decline_code}
+            errorCode={this.state.stripe_error_code}
           />
         ) : null}
         <PaymentMethodList
           isExpandable
-          savedPaymentMethodList={this.props.savedPaymentMethodList}
-          paymentMethodType="card"
-          selectedSavedPaymentMethodId={this.state.selectedSavedPaymentMethodId}
+          disabled={this.props.loading || this.props.processing}
           onSelect={(selectedSavedPaymentMethodId) =>
             this.setState({
               selectedSavedPaymentMethodId,
             })
           }
-          disabled={this.props.loading || this.props.processing}
+          paymentMethodType="card"
+          savedPaymentMethodList={this.props.savedPaymentMethodList}
+          selectedSavedPaymentMethodId={this.state.selectedSavedPaymentMethodId}
         />
         {this.props.termsAndConditions ? (
           <AcceptTermsAndConditions
@@ -275,15 +275,16 @@ export class PaymentIntentGathering extends Component<Props, State> {
         <div className={this.props.classes.buttonContainer}>
           {!this.props.hideCancelButton && (
             <Button
-              onClick={this.props.onCancel}
               disabled={!!(this.props.loading || this.state.processing)}
+              onClick={this.props.onCancel}
             >
               {this.props.t('payment:forms.cancelPayment')}
             </Button>
           )}
           <Button
-            variant="contained"
-            type="submit"
+            className={
+              this.props.customPayStyle ? null : this.props.classes.payButton
+            }
             color="primary"
             disabled={
               !!(
@@ -295,9 +296,8 @@ export class PaymentIntentGathering extends Component<Props, State> {
               )
             }
             style={this.props.customPayStyle || {}}
-            className={
-              this.props.customPayStyle ? null : this.props.classes.payButton
-            }
+            type="submit"
+            variant="contained"
           >
             {this.props.t('payment:forms.paymentIntent.pay')}
           </Button>
@@ -366,8 +366,8 @@ export default (props: Props) => (
     <ElementsConsumer>
       {({ stripe, elements }) => (
         <PaymentIntentGatheringComposed
-          stripe={stripe}
           elements={elements}
+          stripe={stripe}
           {...props}
         />
       )}

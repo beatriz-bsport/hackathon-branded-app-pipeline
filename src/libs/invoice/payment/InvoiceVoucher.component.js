@@ -31,13 +31,13 @@ export class InvoiceVoucher extends Component<Props, State> {
     return (
       <div className={this.props.classes.container}>
         <Button
+          color="secondary"
+          disabled={voucher === 0 || voucher === '0'}
           onClick={() => {
             this.props.onUpdateVoucher(voucher);
             this.setState({ voucher: 0 });
           }}
-          color="secondary"
           variant="contained"
-          disabled={voucher === 0 || voucher === '0'}
         >
           <AddIcon className={this.props.classes.leftIcon} />
           {t('payment.updateInvoiceVoucher')}

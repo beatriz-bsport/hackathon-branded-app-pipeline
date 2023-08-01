@@ -60,12 +60,12 @@ export function PlanningRouter({ location }: { location: Location }) {
   return (
     <Switch>
       <Route
-        path="/calendar/:year/:month/:date/:offerId"
         component={PlanningWithDateAndOffer}
+        path="/calendar/:year/:month/:date/:offerId"
       />
       <Route
-        path="/calendar/:year/:month/:date"
         component={PlanningWithDateAndOffer}
+        path="/calendar/:year/:month/:date"
       />
       <Redirect from="/" to={getfallBack()} />
     </Switch>

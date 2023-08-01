@@ -79,12 +79,8 @@ const CouponCodeInput: React.FC<CouponCodeInputProps> = ({
   return (
     <div className={classes.couponInputContainer}>
       <TextFieldWithCustomColors
-        name="coupon_code-input"
-        label={t('code.addCoupon.label')}
-        value={couponCode}
-        onChange={handleCouponCodeChange}
-        placeholder={t('code.addCoupon.label')}
-        variant="outlined"
+        className={classes.textField}
+        colorsOverride={colorsOverride}
         endAdornment={
           <InputAdornment position="end">
             <IconButton onClick={handleClearCouponCode}>
@@ -92,25 +88,29 @@ const CouponCodeInput: React.FC<CouponCodeInputProps> = ({
             </IconButton>
           </InputAdornment>
         }
-        colorsOverride={colorsOverride}
         error={error !== ERRORTYPE.EMPTY}
         helperText={
           error !== ERRORTYPE.EMPTY ? t(`code.addCoupon.${error}`) : null
         }
-        className={classes.textField}
+        label={t('code.addCoupon.label')}
+        name="coupon_code-input"
+        onChange={handleCouponCodeChange}
+        placeholder={t('code.addCoupon.label')}
+        value={couponCode}
+        variant="outlined"
       />
       <Button
+        className={classes.applyButton}
         disabled={
           !couponCode || isBasketModificationDisabled || couponProcessing
         }
-        className={classes.applyButton}
         onClick={handleApplyCouponCode}
       >
         {couponProcessing ? (
           <CircularProgress
-            style={{ marginRight: 8 }}
-            size={24}
             color="inherit"
+            size={24}
+            style={{ marginRight: 8 }}
           />
         ) : (
           t('code.addCoupon.submit')

@@ -206,45 +206,45 @@ class PauseFormDialog extends React.Component<Props, State> {
     return (
       <>
         <CustomMuiDialog
+          buttons={buttons}
           open={this.props.openForm && !this.state.openDialogResult}
           title={t(
             `pauseV2.subscriptionPause.form.initStep.${
               pauseBeingEdited ? 'titleUpdate' : 'titleCreation'
             }`,
           )}
-          buttons={buttons}
         >
           <div className={classes.formContainer}>
             <TextField
-              placeholder={t('pauseV2.common.form.reasonPlaceholder')}
-              value={this.state.pauseExplanation}
-              onChange={this.handleExplanationChange}
               fullWidth
               multiline
               inputProps={{ maxLength: PAUSE_NAME_MAX_LENGTH }}
+              onChange={this.handleExplanationChange}
+              placeholder={t('pauseV2.common.form.reasonPlaceholder')}
+              value={this.state.pauseExplanation}
             />
-            <Divider variant="fullWidth" className={classes.divider} />
+            <Divider className={classes.divider} variant="fullWidth" />
             <div className={classes.durationContainer}>
-              <AccessTime fontSize="small" className={classes.durationIcon} />
+              <AccessTime className={classes.durationIcon} fontSize="small" />
               <Typography variant="h6">
                 {t('pauseV2.common.form.duration.title')}
               </Typography>
             </div>
             <PauseFormDateRange
               fromDate={this.state.fromDate}
-              untilDate={this.state.untilDate}
+              isDateRangeValid={isDateRangeValid}
               setFromDate={
                 disableEditOfFromDateValue
                   ? undefined
                   : this.handleFromDateChange
               }
               setUntilDate={this.handleUntilDateChange}
-              isDateRangeValid={isDateRangeValid}
+              untilDate={this.state.untilDate}
             />
             <div className={classes.informationContainer}>
               <InfoGenericBox
-                variant="contained"
-                type="info"
+                alignItems="center"
+                className={classes.informationBox}
                 content={t(
                   'pauseV2.subscriptionPause.form.initStep.information1',
                   {
@@ -253,28 +253,28 @@ class PauseFormDialog extends React.Component<Props, State> {
                     count: deltaDays + 1,
                   },
                 )}
+                type="info"
+                variant="contained"
                 variantIcon="outlined"
-                alignItems="center"
-                className={classes.informationBox}
               />
               <InfoGenericBox
-                variant="contained"
-                type="info"
+                alignItems="center"
+                className={classes.informationBox}
                 content={t(
                   'pauseV2.subscriptionPause.form.initStep.information2',
                 )}
+                type="info"
+                variant="contained"
                 variantIcon="outlined"
-                alignItems="center"
-                className={classes.informationBox}
               />
             </div>
           </div>
         </CustomMuiDialog>
         {this.state.openDialogResult && (
           <PauseResultDialog
-            openDialog={this.state.openDialogResult}
-            closeAllDialogs={this.closeFormAndResultDialogs}
             backToPreviousDialog={this.backToFormDialog}
+            closeAllDialogs={this.closeFormAndResultDialogs}
+            openDialog={this.state.openDialogResult}
             results={this.state.submitResults}
           />
         )}

@@ -125,10 +125,10 @@ const MultiValueContainer = ({ ...props }) => (
     >
       {props?.data.tag && (
         <TagChip
-          tag={props?.data.tag}
+          deleteOnClick
           onDelete={() => props?.selectProps?.onDeleteTag(props?.data.tag.id)}
           size="small"
-          deleteOnClick
+          tag={props?.data.tag}
         />
       )}
     </div>
@@ -142,9 +142,9 @@ const SingleValue = ({ ...props }) => {
     <components.SingleValue {...props}>
       {props?.data.tag && (
         <TagChip
-          tag={props?.data.tag}
           onDelete={() => props?.selectProps?.onDeleteTag(props?.data.tag.id)}
           size="small"
+          tag={props?.data.tag}
         />
       )}
     </components.SingleValue>
@@ -246,27 +246,25 @@ export function TagSelector(props: Props) {
     return (
       <div id={`selector_${uuid.current}`} style={{ position: 'relative' }}>
         <Select
-          id={id}
           closeMenuOnSelect={closeMenuOnSelect}
-          options={getTagGroupedByTagGroup(
-            allTagsWithTagGroup ? [...allTagsWithTagGroup] : [],
-          )}
-          onChange={onChange}
-          value={tagsOptionsSelected}
-          menuPortalTarget={document.getElementById(`selector_${uuid.current}`)}
-          isDisabled={isDisabled}
           components={{
             SingleValue,
             DropdownIndicator,
             MultiValueContainer,
             MultiValue,
           }}
-          placeholder={placeholder || t('select')}
-          isMulti={!noMulti}
+          id={id}
           isClearable={isClearable}
-          tagList={allTagsWithTagGroup}
-          onDeleteTag={onDeleteTag}
+          isDisabled={isDisabled}
+          isMulti={!noMulti}
           menuPlacement={menuPlacement}
+          menuPortalTarget={document.getElementById(`selector_${uuid.current}`)}
+          onChange={onChange}
+          onDeleteTag={onDeleteTag}
+          options={getTagGroupedByTagGroup(
+            allTagsWithTagGroup ? [...allTagsWithTagGroup] : [],
+          )}
+          placeholder={placeholder || t('select')}
           styles={{
             ...tagGroupStyles,
             menuPortal: (base) => ({
@@ -277,33 +275,35 @@ export function TagSelector(props: Props) {
               left: '0px',
             }),
           }}
+          tagList={allTagsWithTagGroup}
+          value={tagsOptionsSelected}
         />
       </div>
     );
   }
   return (
     <Select
-      id={id}
       closeMenuOnSelect={closeMenuOnSelect}
-      options={getTagGroupedByTagGroup(
-        allTagsWithTagGroup ? [...allTagsWithTagGroup] : [],
-      )}
-      onChange={onChange}
-      value={tagsOptionsSelected}
-      styles={tagGroupStyles}
-      menuPortalTarget={document.querySelector('body')}
-      isDisabled={isDisabled}
       components={{
         SingleValue,
         DropdownIndicator,
         MultiValueContainer,
       }}
-      placeholder={placeholder || t('select')}
-      isMulti={!noMulti}
+      id={id}
       isClearable={isClearable}
-      tagList={allTagsWithTagGroup}
-      onDeleteTag={onDeleteTag}
+      isDisabled={isDisabled}
+      isMulti={!noMulti}
       menuPlacement={menuPlacement}
+      menuPortalTarget={document.querySelector('body')}
+      onChange={onChange}
+      onDeleteTag={onDeleteTag}
+      options={getTagGroupedByTagGroup(
+        allTagsWithTagGroup ? [...allTagsWithTagGroup] : [],
+      )}
+      placeholder={placeholder || t('select')}
+      styles={tagGroupStyles}
+      tagList={allTagsWithTagGroup}
+      value={tagsOptionsSelected}
     />
   );
 }

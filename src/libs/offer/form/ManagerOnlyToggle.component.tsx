@@ -16,10 +16,10 @@ type Props = {
 export function ManagerOnlyToggle(props: Props) {
   return (
     <FormToggle
-      value={!props.manager_only}
       disabled={props.disabled}
       onChange={props.onChange}
       title={props.t('form.offer.explainManagerOnly')}
+      value={!props.manager_only}
     />
   );
 }

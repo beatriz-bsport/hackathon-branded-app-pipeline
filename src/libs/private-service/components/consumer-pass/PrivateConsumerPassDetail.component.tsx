@@ -59,16 +59,16 @@ export const PrivateConsumerPassDetail = (props: Props) => {
       {props.invoice ? (
         <div className={classes.section}>
           <Typography
-            variant="h5"
-            component="h2"
             className={classes.sectionTitle}
+            component="h2"
+            variant="h5"
           >
             {t('consumerPass.detail.invoice')}
           </Typography>
           <Paper>
             <InvoiceListItem
-              onClick={() => props.onInvoiceClick(props.invoice.uuid)}
               invoice={props.invoice}
+              onClick={() => props.onInvoiceClick(props.invoice.uuid)}
             />
           </Paper>
         </div>
@@ -77,9 +77,9 @@ export const PrivateConsumerPassDetail = (props: Props) => {
       {props.extensions && props.extensions.length ? (
         <div className={classes.section}>
           <Typography
-            variant="h5"
-            component="h2"
             className={classes.sectionTitle}
+            component="h2"
+            variant="h5"
           >
             {t('consumerPass.detail.extensionsTitle')}
           </Typography>
@@ -91,8 +91,8 @@ export const PrivateConsumerPassDetail = (props: Props) => {
               {props.extensions.map((ex) => (
                 <PrivateConsumerPassExtensionListItem
                   key={ex.id}
-                  extension={ex}
                   divider
+                  extension={ex}
                   onDelete={
                     props.private_consumer_pass &&
                     !props.private_consumer_pass.dst_private_consumer_pass
@@ -111,9 +111,9 @@ export const PrivateConsumerPassDetail = (props: Props) => {
         !props.private_consumer_pass?.private_pass?.template_instance && (
           <div className={classes.addButtonContainer}>
             <Button
-              variant="outlined"
               color="primary"
               onClick={props.onCreateExtension}
+              variant="outlined"
             >
               {t('consumerPass.actions.addExtension')}
             </Button>
@@ -121,24 +121,24 @@ export const PrivateConsumerPassDetail = (props: Props) => {
         )}
       <div className={classes.section}>
         <Typography
-          variant="h5"
-          component="h2"
           className={classes.sectionTitle}
+          component="h2"
+          variant="h5"
         >
           {t('consumerPass.detail.booking')}
         </Typography>
         <Paper>
           <PaginatedListStateful
             itemPerPage={5}
-            loading={props.privateBookingsLoading}
-            listProps={{ disablePadding: true }}
             items={props.private_booking_list}
+            listProps={{ disablePadding: true }}
+            loading={props.privateBookingsLoading}
             renderItem={(b: PrivateBooking) => (
               <PrivateBookingListItem
                 key={b.id}
-                private_booking={b}
-                onDelete={() => setPrivateBookingToDelete(b)}
                 onClick={() => props.goToPrivateBooking(b.id)}
+                onDelete={() => setPrivateBookingToDelete(b)}
+                private_booking={b}
               />
             )}
           />
@@ -146,6 +146,7 @@ export const PrivateConsumerPassDetail = (props: Props) => {
         {!!props.forceRegularizeUnpaid && (
           <Button
             className={classes.paddingTop}
+            color="primary"
             disabled={regularizeProcessing}
             onClick={() => {
               setRegularizeProcessing(true);
@@ -155,18 +156,15 @@ export const PrivateConsumerPassDetail = (props: Props) => {
               });
             }}
             variant="contained"
-            color="primary"
           >
             {regularizeProcessing && (
-              <CircularProgress size={16} color="inherit" />
+              <CircularProgress color="inherit" size={16} />
             )}
             {t('privatePass.actions.forceRegularizeUnpaid')}
           </Button>
         )}
         {!!privateBookingToDelete && (
           <PrivateBookingDisableDialog
-            open={!!privateBookingToDelete}
-            private_booking={privateBookingToDelete}
             onClose={() => setPrivateBookingToDelete(null)}
             onSubmit={(force_refund) => {
               if (
@@ -200,6 +198,8 @@ export const PrivateConsumerPassDetail = (props: Props) => {
                 },
               );
             }}
+            open={!!privateBookingToDelete}
+            private_booking={privateBookingToDelete}
           />
         )}
       </div>

@@ -35,14 +35,14 @@ const InboxPanelMemberUnpaidInvoices: React.FC<Props> = ({
 
   return (
     <div className={classes.container}>
-      <Typography variant="body1" className={classes.title}>
+      <Typography className={classes.title} variant="body1">
         {t('communication:thread.panel.member.invoices.title')}
       </Typography>
       <CustomChip
         displayedValue={displayedValue}
-        mainColor={mainColor}
         icon={icon}
         iconColor={iconColor}
+        mainColor={mainColor}
       />
     </div>
   );

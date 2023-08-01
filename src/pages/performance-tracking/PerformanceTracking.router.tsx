@@ -11,8 +11,8 @@ const ProgramList = asyncComponent(() => import('./ProgramList.page'));
 export const PerformanceTrackingRouter = () => {
   return (
     <Switch>
-      <Route path="/performance-tracking/:programId" component={ProgramList} />
-      <Route path="/performance-tracking" component={ProgramList} />
+      <Route component={ProgramList} path="/performance-tracking/:programId" />
+      <Route component={ProgramList} path="/performance-tracking" />
     </Switch>
   );
 };

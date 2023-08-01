@@ -41,14 +41,14 @@ export const DashboardDateChip: React.FC<Props> = ({
   return (
     <Chip
       className={classes.chip}
-      icon={<DateRangeIcon />}
-      label={chipLabel}
-      onClick={onClick}
-      variant="outlined"
-      size="small"
       clickable={!!onClick}
       color="primary"
       disabled={!!disabled}
+      icon={<DateRangeIcon />}
+      label={chipLabel}
+      onClick={onClick}
+      size="small"
+      variant="outlined"
     />
   );
 };

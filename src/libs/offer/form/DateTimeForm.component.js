@@ -22,12 +22,12 @@ export function DateTimeForm(props: Props) {
         <Typography variant="caption">{t('form.offer.changeDate')}</Typography>
       </Grid>
       <Grid item>
-        <Grid container direction="row" spacing={2} alignItems="center">
+        <Grid container alignItems="center" direction="row" spacing={2}>
           <Grid item>
-            <FormField id="date" value={date} onChange={onFormFieldChange} />
+            <FormField id="date" onChange={onFormFieldChange} value={date} />
           </Grid>
           <Grid item>
-            <FormField id="hour" value={hour} onChange={onFormFieldChange} />
+            <FormField id="hour" onChange={onFormFieldChange} value={hour} />
           </Grid>
         </Grid>
       </Grid>

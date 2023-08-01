@@ -57,17 +57,17 @@ export const ConsumerAppBar: React.FC<Props> = ({
       <div className={classes.container}>
         <Analytics theme={theme} />
         <MarketplaceAppBar
-          navigateBackToMasterRelation={navigateBackToMasterRelation}
+          auth={auth}
+          companyId={companyId}
+          disconnect={disconnect}
+          goToUserSpace={() => goToUserSpace(theme.company)}
           isRelationNavigation={isRelationNavigation}
           isWidget={WidgetUtils.isWidget()}
-          auth={auth}
-          theme={theme}
           logo={theme && theme.cover}
-          goToUserSpace={() => goToUserSpace(theme.company)}
-          disconnect={disconnect}
-          companyId={companyId}
-          websiteURL={theme.websiteURL}
+          navigateBackToMasterRelation={navigateBackToMasterRelation}
           photo={consumerProfile?.photo}
+          theme={theme}
+          websiteURL={theme.websiteURL}
         />
         {children}
       </div>

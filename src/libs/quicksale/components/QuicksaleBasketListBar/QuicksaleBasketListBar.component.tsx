@@ -47,13 +47,13 @@ const BasketChip: React.FC<BasketChipProps> = ({
     <div
       className={classes.basketChipContainer}
       onClick={onChipClick}
-      role="button"
       onKeyDown={stopPropagation}
+      role="button"
       tabIndex={0}
     >
       <Avatar className={classes.basketChipAvatar}>
         {!member?.is_pos ? (
-          <img height={32} src={member?.photo} alt="member" />
+          <img alt="member" height={32} src={member?.photo} />
         ) : (
           <PersonIcon />
         )}
@@ -102,7 +102,7 @@ const QuicksaleBasketListBar: React.FC<Props> = ({
 
   return (
     <div className={classes.container}>
-      <IconButton onClick={onBasketAdd} className={classes.addBasketButton}>
+      <IconButton className={classes.addBasketButton} onClick={onBasketAdd}>
         <AddIcon />
       </IconButton>
 
@@ -113,9 +113,9 @@ const QuicksaleBasketListBar: React.FC<Props> = ({
           <BasketChip
             key={basket.id}
             basket={basket}
-            member={memberById[basket.member]}
-            isSelected={basket.id === selectedBasket?.id}
             isFullyPaid={!!basket.invoice && !basket.is_fully_paid}
+            isSelected={basket.id === selectedBasket?.id}
+            member={memberById[basket.member]}
             onClick={onBasketClick}
           />
         ))}

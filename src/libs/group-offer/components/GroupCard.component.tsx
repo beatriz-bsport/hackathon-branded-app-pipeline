@@ -100,17 +100,17 @@ export const GroupCard: React.FC<Props> = ({
         </div>
         <div className={classes.bottomRow}>
           <div
+            className={classes.chip}
             style={{
               backgroundColor: metaActivityColor,
               color: getTextColorFromRGB(chroma(metaActivityColor).rgb()),
             }}
-            className={classes.chip}
           >
             {metaActivity.name}
           </div>
           <ReccurenceDisplay
-            recurrenceRule={group.recurrence_rule}
             withoutUntil
+            recurrenceRule={group.recurrence_rule}
           />
         </div>
       </div>
@@ -148,7 +148,7 @@ export const GroupCard: React.FC<Props> = ({
                   )}
                 </div>
                 <div>
-                  <Typography variant="caption" color="textSecondary">
+                  <Typography color="textSecondary" variant="caption">
                     {formatAsTime(offer.date_start)}
                   </Typography>
                 </div>

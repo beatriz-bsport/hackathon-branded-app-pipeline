@@ -255,15 +255,15 @@ export const InboxThreadCreator = (props: Props) => {
     case ChatThreadKinds.Member:
       return (
         <MemberSearchModal
-          open
           asManager
-          loading={props.loading || processing}
-          disabled={processing}
-          searchMembers={props.searchMembers}
-          searchedMembers={props.searchedMembers}
-          onClose={props.onClose}
-          handlMemberSelected={onResourceSelected}
+          open
           country={props.companyCountry}
+          disabled={processing}
+          handlMemberSelected={onResourceSelected}
+          loading={props.loading || processing}
+          onClose={props.onClose}
+          searchedMembers={props.searchedMembers}
+          searchMembers={props.searchMembers}
         />
       );
     case ChatThreadKinds.Smartlist:
@@ -271,8 +271,8 @@ export const InboxThreadCreator = (props: Props) => {
         <GenericResponsiveDialog open>
           <div className={classes.innerPadding}>
             <SmartListSelector
-              smartLists={props.smartlists}
               onChange={handleSmartlistSelect}
+              smartLists={props.smartlists}
               values={[smartlistSelected]}
             />
           </div>
@@ -293,23 +293,23 @@ export const InboxThreadCreator = (props: Props) => {
         <GenericResponsiveDialog open>
           <div className={classes.innerPadding}>
             <Calendar
-              events={getDayOffers(props.events)}
-              // @ts-expect-error
-              onDateChange={setDate}
+              showDayName
               // @ts-expect-error
               date={date}
+              events={getDayOffers(props.events)}
               filters={offerFilters}
+              // @ts-expect-error
+              onDateChange={setDate}
               showCancelledOffers={false}
-              showDayName
             />
             <TimeTable
-              onOfferSelected={handleOfferSelected}
-              offers={props.offers}
-              selected={offerSelected}
+              displayCoachInfoOnHover
               showTags
               virtualized
               companyTheme={theme}
-              displayCoachInfoOnHover
+              offers={props.offers}
+              onOfferSelected={handleOfferSelected}
+              selected={offerSelected}
             />
           </div>
           <DialogActions>

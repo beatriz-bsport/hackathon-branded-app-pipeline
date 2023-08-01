@@ -58,17 +58,17 @@ export const PlannedInvoiceList = (props: Props) => {
       )}
       <PaginatedListBase
         itemPerPage={props.itemPerPage}
-        nbItems={props.count}
-        loading={props.loading}
-        listProps={{ dense: true, divider: true, disablePadding: true }}
         items={props.plannedInvoiceList}
-        page={props.page}
+        listProps={{ dense: true, divider: true, disablePadding: true }}
+        loading={props.loading}
+        nbItems={props.count}
         onPageRequested={props.fetchPlannedInvoicePage}
+        page={props.page}
         renderItem={(plannedInvoice) => (
           <PlannedInvoiceListItem
-            plannedInvoice={plannedInvoice}
             key={plannedInvoice.id}
             onClick={props.onClick}
+            plannedInvoice={plannedInvoice}
           />
         )}
       />

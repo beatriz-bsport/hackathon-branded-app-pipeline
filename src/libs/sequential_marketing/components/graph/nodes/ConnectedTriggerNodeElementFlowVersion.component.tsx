@@ -37,10 +37,10 @@ export const ConnectedTriggerNodeElementFlowVersion: React.FC<{
   return (
     <>
       <HiddenHandle
-        type="target"
-        position={Position.Top}
         isConnectable={false}
+        position={Position.Top}
         style={{ background: '#555' }}
+        type="target"
       />
       {(data.faker || data.disabled) && (
         <div className={classes.disabledOverLay} />
@@ -54,10 +54,10 @@ export const ConnectedTriggerNodeElementFlowVersion: React.FC<{
                 title={t('cadence.graph.nodeElement.cancelOnGoingCreation')}
               >
                 <IconButton
-                  onClick={() => data.resetFaker()}
                   classes={{ root: classes.overrideIconButton }}
-                  size="small"
                   color="default"
+                  onClick={() => data.resetFaker()}
+                  size="small"
                 >
                   <DeleteIcon fontSize="small" />
                 </IconButton>
@@ -67,10 +67,10 @@ export const ConnectedTriggerNodeElementFlowVersion: React.FC<{
             <div className={classes.buttonTopRightDelete}>
               <ToolTip title={t('cadence.graph.nodeElement.deleteTrigger')}>
                 <IconButton
-                  onClick={data.onDelete}
                   classes={{ root: classes.overrideIconButton }}
-                  size="small"
                   color="default"
+                  onClick={data.onDelete}
+                  size="small"
                 >
                   <DeleteIcon fontSize="small" />
                 </IconButton>
@@ -85,10 +85,10 @@ export const ConnectedTriggerNodeElementFlowVersion: React.FC<{
       />
       {!data.faker && (
         <Handle
-          type="source"
+          isConnectable={false}
           position={Position.Bottom}
           style={{ background: '#555' }}
-          isConnectable={false}
+          type="source"
         />
       )}
     </>

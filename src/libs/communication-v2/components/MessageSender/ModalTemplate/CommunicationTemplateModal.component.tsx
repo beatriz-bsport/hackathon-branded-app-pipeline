@@ -142,7 +142,7 @@ export class CommunicationTemplateModal extends PureComponent<Props, State> {
     }
     return (
       <div className={classes.previewEmpty}>
-        <Alert severity="info" className={classes.alertInfo}>
+        <Alert className={classes.alertInfo} severity="info">
           {emails?.length > 0
             ? t('mail.selectToShowPreview')
             : t('mail.noMailAvailable')}
@@ -159,13 +159,13 @@ export class CommunicationTemplateModal extends PureComponent<Props, State> {
     return (
       <div className={classes.contentContainer}>
         <TextField
-          name="Mail title"
-          placeholder={t('mail.title')}
           fullWidth
           required
           className={classes.mailTitle}
-          value={this.state.currentTitle}
+          name="Mail title"
           onChange={this.onTitleChange}
+          placeholder={t('mail.title')}
+          value={this.state.currentTitle}
         />
         {this.props.emailSummaryListLoading ? (
           <LinearProgress className={classes.selectorContainer} />
@@ -173,15 +173,15 @@ export class CommunicationTemplateModal extends PureComponent<Props, State> {
           <div className={classes.selectorContainer}>
             <EmailSelector
               emails={this.props.emailSummaryList}
-              value={this.state.selectedTemplate}
-              onChange={this.onSelectTemplate}
               helperText={t('mail.mailSelection')}
+              onChange={this.onSelectTemplate}
+              value={this.state.selectedTemplate}
             />
             <Fab
+              className={classes.addIcon}
+              color="secondary"
               onClick={this.onCreateClick}
               size="small"
-              color="secondary"
-              className={classes.addIcon}
             >
               <AddIcon />
             </Fab>
@@ -191,17 +191,17 @@ export class CommunicationTemplateModal extends PureComponent<Props, State> {
           {this.state.displayRefreshAlert && (
             <div className={classes.refreshContainer}>
               <Button
-                onClick={this.onRefreshClick}
                 color="secondary"
+                onClick={this.onRefreshClick}
                 variant="outlined"
               >
                 <RefreshIcon className={classes.icon} color="secondary" />
-                <Typography variant="caption" color="secondary">
+                <Typography color="secondary" variant="caption">
                   {t('common.refresh')}
                 </Typography>
               </Button>
               <div className={classes.refreshText}>
-                <Alert severity="info" className={classes.alertInfo}>
+                <Alert className={classes.alertInfo} severity="info">
                   {t('dialogTemplate.refreshText')}
                 </Alert>
               </div>
@@ -227,19 +227,19 @@ export class CommunicationTemplateModal extends PureComponent<Props, State> {
             </Button>
           </div>
           <Collapse
-            in={this.state.displayTemplatePreview}
             className={classes.collapse}
+            in={this.state.displayTemplatePreview}
           >
             {this.state.selectedTemplate &&
             !this.props.emailDetailListLoading ? (
               <div className={classes.editIcon}>
                 <Fab
-                  onClick={this.onEditClick}
-                  color="secondary"
-                  size="small"
-                  disabled={this.state.selectedTemplate === null}
                   classes={{ disabled: classes.disabled }}
                   className={classes.advancedIndex}
+                  color="secondary"
+                  disabled={this.state.selectedTemplate === null}
+                  onClick={this.onEditClick}
+                  size="small"
                 >
                   <EditIcon />
                 </Fab>
@@ -250,8 +250,8 @@ export class CommunicationTemplateModal extends PureComponent<Props, State> {
               !this.props.emailDetailListLoading &&
               !!html ? (
                 <HTMLPreview
-                  html={html}
                   scrolling
+                  html={html}
                   resolvedGenericTags={this.props.resolvedGenericTags}
                 />
               ) : (
@@ -271,14 +271,14 @@ export class CommunicationTemplateModal extends PureComponent<Props, State> {
     const { open, fullScreen, t } = this.props;
     return (
       <CommunicationWrapperDialog
-        title={t('dialogTemplate.title')}
         buttonCancelText={t('common.cancel')}
         buttonConfirmText={t('common.confirm')}
+        closeDialog={this.onCloseDialog}
+        fullScreen={fullScreen}
         onCancel={this.onCloseDialog}
         onConfirm={this.onConfirm}
         open={open}
-        fullScreen={fullScreen}
-        closeDialog={this.onCloseDialog}
+        title={t('dialogTemplate.title')}
       >
         {this.renderContent()}
       </CommunicationWrapperDialog>

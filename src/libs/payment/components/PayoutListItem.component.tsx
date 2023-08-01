@@ -60,8 +60,8 @@ const PayoutListItem = (props: Props) => {
           </Typography>
           {!!payout.is_included_in_payout && (
             <div className={classes.row}>
-              <InfoOutlinedIcon fontSize="small" className={classes.iconLeft} />
-              <Typography variant="caption" className={classes.info}>
+              <InfoOutlinedIcon className={classes.iconLeft} fontSize="small" />
+              <Typography className={classes.info} variant="caption">
                 {t('payout.payoutIsIncludedInOther', {
                   date: formatAsDatetimeAdapted(
                     payout.is_included_in_payout.date_created,
@@ -75,14 +75,14 @@ const PayoutListItem = (props: Props) => {
           )}
           {payout.automatic === false && (
             <div className={classes.row}>
-              <InfoOutlinedIcon fontSize="small" className={classes.iconLeft} />
-              <Typography variant="caption" className={classes.info}>
+              <InfoOutlinedIcon className={classes.iconLeft} fontSize="small" />
+              <Typography className={classes.info} variant="caption">
                 {t('payout.payoutIsManual')}
               </Typography>
             </div>
           )}
           {!payout.is_included_in_payout && !(payout.automatic === false) && (
-            <Typography variant="caption" color="textSecondary">
+            <Typography color="textSecondary" variant="caption">
               {t('payout.paymentNb', {
                 nb: (payout.payments || []).length,
               })}

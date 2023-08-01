@@ -54,16 +54,13 @@ const InboxThreadLookup: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <InboxThreadContextSelector
-        handleContextThreadChange={handleContextThreadChange}
         contextSelected={contextSelected}
+        handleContextThreadChange={handleContextThreadChange}
       />
 
       <div className={classes.secondGroup}>
         <div className={classes.searchThread}>
           <DelayedTextField
-            onChange={useSearch}
-            placeholder={t('thread.search')}
-            variant="outlined"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -71,23 +68,26 @@ const InboxThreadLookup: React.FC<Props> = ({
                 </InputAdornment>
               ),
             }}
+            onChange={useSearch}
+            placeholder={t('thread.search')}
+            variant="outlined"
           />
           <div className={classes.newThreadContainer}>
             <IconButton
-              onClick={createNewThread}
               className={classes.newThreadBackground}
+              onClick={createNewThread}
             >
-              <EditIcon fontSize="medium" className={classes.newThread} />
+              <EditIcon className={classes.newThread} fontSize="medium" />
             </IconButton>
           </div>
         </div>
 
         <Select
           closeMenuOnSelect
-          options={threadFilteringChoices(t)}
-          value={filterValue}
-          styles={{ ...selectorStyles }}
           onChange={handleFilterChange}
+          options={threadFilteringChoices(t)}
+          styles={{ ...selectorStyles }}
+          value={filterValue}
         />
       </div>
     </div>

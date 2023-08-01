@@ -64,7 +64,7 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
             : moment(replacementRequest.closing_date).format('L - LT')}
         </Typography>
         {moment().isAfter(replacementRequest.closing_date) && (
-          <IconButton onClick={handleClick} className={classes.button}>
+          <IconButton className={classes.button} onClick={handleClick}>
             <Update fontSize={isMobile ? 'small' : 'medium'} />
           </IconButton>
         )}

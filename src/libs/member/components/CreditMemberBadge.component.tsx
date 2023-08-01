@@ -50,7 +50,17 @@ export const CreditMemberBadge: React.FC<Props> = ({
 
   return (
     <Badge
-      color={badgeColor}
+      anchorOrigin={
+        bottomCredit
+          ? {
+              vertical: 'bottom',
+              horizontal: 'right',
+            }
+          : {
+              vertical: 'top',
+              horizontal: 'right',
+            }
+      }
       badgeContent={
         unpaidIconOn ? (
           <span className={classesStyle.balanceStatus}>
@@ -69,17 +79,7 @@ export const CreditMemberBadge: React.FC<Props> = ({
           [classesStyle.bottomCredit]: bottomCredit,
         }),
       }}
-      anchorOrigin={
-        bottomCredit
-          ? {
-              vertical: 'bottom',
-              horizontal: 'right',
-            }
-          : {
-              vertical: 'top',
-              horizontal: 'right',
-            }
-      }
+      color={badgeColor}
     >
       {children}
     </Badge>

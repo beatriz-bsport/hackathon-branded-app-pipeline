@@ -233,21 +233,21 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
                   <LinearProgress />
                 ) : (
                   <SlotSearcherParams
-                    private_services={this.props.private_services}
-                    private_service={this.state.configuration.private_service}
-                    private_slot={this.state.configuration.private_slot}
+                    asManager
+                    coachUnique
+                    establishmentUnique
                     coach={this.state.configuration.coach}
                     establishment={this.state.configuration.establishment}
                     onConfigurationChange={this.handleConfigurationChange}
-                    coachUnique
-                    establishmentUnique
-                    asManager
+                    private_service={this.state.configuration.private_service}
+                    private_services={this.props.private_services}
+                    private_slot={this.state.configuration.private_slot}
                   />
                 )}
                 {!this.props.initial && (
                   <MissingResourceForBookingHelper
-                    missingResources={missingResources}
                     address={this.state.configuration.address}
+                    missingResources={missingResources}
                     updateData={(data) =>
                       this.setState((prevState) => ({
                         configuration: {
@@ -262,8 +262,8 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
               <fieldset style={{ marginTop: 24, marginBottom: 24 }}>
                 <legend>{t('recurrenceRule.form.timeGroup')}</legend>
                 <RecurrenceRulePrivateBookingFields
-                  privateSlotSet={false}
                   onTimeSettingChange={this.handleTimeSettingChange}
+                  privateSlotSet={false}
                   selectedSetting={this.state.time_setting}
                 />
               </fieldset>
@@ -301,14 +301,14 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
             </DialogContent>
             <DialogActions>
               <Button
-                onClick={() => this.props.setOpen(false)}
                 color="secondary"
+                onClick={() => this.props.setOpen(false)}
               >
                 {t('recurrenceRule.actions.close')}
               </Button>
               <Button
-                disabled={!this.state.configuration.private_slot}
                 color="primary"
+                disabled={!this.state.configuration.private_slot}
                 type="submit"
               >
                 {t('recurrenceRule.actions.save')}
@@ -317,14 +317,14 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
           </form>
         </Dialog>
         <RecurrenceRulePrivateBookingUpdateDialog
-          recurrentRuleId={
-            this.props.updateDialogOpen ? this.props.initial.id : null
-          }
-          onClose={() => this.props.setUpdateDialogOpen(false)}
           onChange={() => {
             this.handleSubmit();
             this.props.setUpdateDialogOpen(false);
           }}
+          onClose={() => this.props.setUpdateDialogOpen(false)}
+          recurrentRuleId={
+            this.props.updateDialogOpen ? this.props.initial.id : null
+          }
         />
       </div>
     );

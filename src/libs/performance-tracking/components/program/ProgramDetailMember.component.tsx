@@ -46,7 +46,7 @@ export const ProgramDetailMember = (props: Props) => {
   return (
     <>
       <Paper>
-        <ListItem className={classes.listItem} divider dense disabled={loading}>
+        <ListItem dense divider className={classes.listItem} disabled={loading}>
           <div className={classes.listItemFirstPart}>
             <Typography className={classes.header}>
               {t('program.member.name')}
@@ -64,21 +64,22 @@ export const ProgramDetailMember = (props: Props) => {
           </div>
         </ListItem>
         <PaginatedListBase
-          page={page}
-          nbItems={count}
           itemPerPage={itemPerPage}
-          loading={loading}
-          onPageRequested={onPageRequested}
           items={items}
+          listProps={{ dense: true }}
+          loading={loading}
+          nbItems={count}
+          onPageRequested={onPageRequested}
+          page={page}
           renderItem={(item: PerformanceTrackingMemberProgram) => {
             return (
               <ListItem
-                className={classes.listItem}
-                divider
                 key={item.id}
                 dense
-                disabled={loading}
+                divider
                 button={!!onClickMember}
+                className={classes.listItem}
+                disabled={loading}
                 onClick={() => {
                   onClickMember && props.onClickMember(item.member.id, item.id);
                 }}
@@ -101,7 +102,6 @@ export const ProgramDetailMember = (props: Props) => {
               </ListItem>
             );
           }}
-          listProps={{ dense: true }}
         />
       </Paper>
     </>

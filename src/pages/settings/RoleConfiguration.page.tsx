@@ -81,7 +81,7 @@ export class RoleConfiguration extends React.Component<ConnectedProps, State> {
 
     return (
       <div className={classes.container}>
-        <Typography variant="h5" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h5">
           {t('userRoles')}
         </Typography>
         <Divider className={classes.divider} />
@@ -89,41 +89,41 @@ export class RoleConfiguration extends React.Component<ConnectedProps, State> {
           {this.props.createOrUpdateLoading && <LinearProgress />}
 
           <div className={classes.row}>
-            <InfoOutlinedIcon fontSize="large" className={classes.leftIcon} />
+            <InfoOutlinedIcon className={classes.leftIcon} fontSize="large" />
             <div>
               <Typography>{t('explainStaffDo')}</Typography>
               <Typography color="error">{t('explainStaffDoNot')}</Typography>
             </div>
           </div>
           <UserWithRoleList
-            users={users}
-            roles={roles}
-            updateUserRole={this.props.updateUserRole}
-            deleteUserRole={this.props.deleteStaffUser}
-            createUserRole={this.props.createStaffUser}
             coachList={this.props.coachList}
             coachListLoading={this.props.coachListLoading}
+            createUserRole={this.props.createStaffUser}
+            deleteUserRole={this.props.deleteStaffUser}
             hasOwnerPermission={hasOwnerPermission}
             openCreateStaffDialog={this.state.openCreateStaffDialog}
+            roles={roles}
             setOpenCreateStaffDialog={this.setOpenCreateStaffDialog}
             updateCommission={this.props.updateUserCommission}
+            updateUserRole={this.props.updateUserRole}
+            users={users}
           />
         </Paper>
-        <Typography variant="h5" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h5">
           {t('permissions')}
         </Typography>
         <Divider className={classes.divider} />
-        <Paper id="text_staff_roles" className={classes.rolePaper}>
+        <Paper className={classes.rolePaper} id="text_staff_roles">
           <RoleList
-            roles={roles}
+            currentRole={this.state.currentRole}
             hasOwnerPermission={hasOwnerPermission}
             onCreateRole={(role) => this.props.createCompanyRole(role)}
-            onEditRole={(role) => this.props.updateCompanyRole(role)}
             onDeleteRole={(role) => this.props.deleteCompanyRole(role)}
+            onEditRole={(role) => this.props.updateCompanyRole(role)}
             openCreateRoleDialog={this.state.openCreateRoleDialog}
-            currentRole={this.state.currentRole}
-            setOpenCreateRoleDialog={this.setOpenCreateRoleDialog}
+            roles={roles}
             setCurrentRole={this.setCurrentRole}
+            setOpenCreateRoleDialog={this.setOpenCreateRoleDialog}
           />
         </Paper>
 

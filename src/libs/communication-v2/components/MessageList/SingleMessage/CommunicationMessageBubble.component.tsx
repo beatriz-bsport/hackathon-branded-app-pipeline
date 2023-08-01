@@ -333,14 +333,14 @@ export const CommunicationMessageBubble = (props: Props) => {
       <div className={classes.messageInfoContainer}>
         {!!finalChannel && withChannel && (
           <div className={classes.channelContainer}>
-            <Typography variant="body1" className={classes.channelText}>
+            <Typography className={classes.channelText} variant="body1">
               {t(`filter.choicesLabels.${finalChannel}`)}
             </Typography>
           </div>
         )}
         {reverse && !!answerSourceMember && !oneToOneMessageMember && (
           <div className={classes.answerNameContainer}>
-            <Typography variant="body1" color="textSecondary">
+            <Typography color="textSecondary" variant="body1">
               {answerSourceMember.name}
             </Typography>
           </div>
@@ -362,8 +362,8 @@ export const CommunicationMessageBubble = (props: Props) => {
                   COMMUNICATION_KIND_PUSH_NOTIFICATION,
                 ].includes(communication.kind) && (
                   <Typography
-                    variant="subtitle1"
                     className={classes.communicationTitle}
+                    variant="subtitle1"
                   >
                     <Box fontWeight={500}>{communicationTitle}</Box>
                   </Typography>
@@ -372,9 +372,9 @@ export const CommunicationMessageBubble = (props: Props) => {
               {!reverse &&
                 communication.status === COMMUNICATION_SENT_SENDING_SUCCESS && (
                   <IconButton
-                    size="small"
-                    onClick={onShowInformationClick}
                     className={classes.iconButton}
+                    onClick={onShowInformationClick}
+                    size="small"
                   >
                     <InfoOutlined className={classes.infoIcon} />
                   </IconButton>
@@ -415,20 +415,20 @@ export const CommunicationMessageBubble = (props: Props) => {
               !reverse &&
               communication.status === COMMUNICATION_SENT_SENDING_SUCCESS && (
                 <ButtonBase
-                  onClick={onShowInformationClick}
                   className={classes.showInfo}
+                  onClick={onShowInformationClick}
                 >
                   <CommunicationMessageNumberRecipients
-                    photos={photos}
                     numberRecipients={communication.total_recipients}
+                    photos={photos}
                   />
                 </ButtonBase>
               )}
             {reverse && !!answerSourceMember && (
               <Avatar
-                src={answerSourceMember?.photo || ''}
                 alt=""
                 className={classes.answerAvatar}
+                src={answerSourceMember?.photo || ''}
               />
             )}
           </div>
@@ -451,7 +451,7 @@ export const CommunicationMessageBubble = (props: Props) => {
                 )}
                 variant="body2"
               >
-                <Error fontSize="small" className={classes.statusIcon} />
+                <Error className={classes.statusIcon} fontSize="small" />
                 {t('sentStatus.fail')}
               </Typography>
             )}
@@ -464,7 +464,7 @@ export const CommunicationMessageBubble = (props: Props) => {
                 )}
                 variant="body2"
               >
-                <Info fontSize="small" className={classes.statusIcon} />
+                <Info className={classes.statusIcon} fontSize="small" />
                 {t('sentStatus.processing')}
               </Typography>
             )}

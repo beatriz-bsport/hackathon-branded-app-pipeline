@@ -89,10 +89,10 @@ const FranchiseMembersTable = (props: Props) => {
 
             return (
               <TableRow
-                hover
                 key={user.id}
-                onClick={goToMember(user.id)}
+                hover
                 className={classes.row}
+                onClick={goToMember(user.id)}
               >
                 <TableCell>{user?.name}</TableCell>
                 <TableCell>
@@ -116,21 +116,21 @@ const FranchiseMembersTable = (props: Props) => {
         </TableBody>
       </Table>
       <TablePagination
-        component="div"
-        count={usersCount ?? 0}
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[5, 10, 25, 50, 100]}
-        labelRowsPerPage={t('pagination.rowPerPage')}
-        labelDisplayedRows={formatPagination}
-        page={page}
         backIconButtonProps={{
           'aria-label': t('pagination.previousPage'),
         }}
+        component="div"
+        count={usersCount ?? 0}
+        labelDisplayedRows={formatPagination}
+        labelRowsPerPage={t('pagination.rowPerPage')}
         nextIconButtonProps={{
           'aria-label': t('pagination.nextPage'),
         }}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        rowsPerPageOptions={[5, 10, 25, 50, 100]}
       />
     </div>
   );

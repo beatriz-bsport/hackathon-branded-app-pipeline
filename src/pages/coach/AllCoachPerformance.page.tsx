@@ -228,69 +228,69 @@ export class AllCoachPerformancePage extends Component<Props, State> {
         .associatedCoachWithCoachPaymentRuleAndPerformanceFromCachedData;
     return (
       <div className={classes.container}>
-        <AppBar position="static" color="default" className={classes.bar}>
+        <AppBar className={classes.bar} color="default" position="static">
           <CoachPerformanceDateFilter
             disabled={isInPreviewMode}
-            onSubmit={this.props.onSubmit}
+            endTimestamp={this.state.endTimestamp}
+            exportExcelPerformance={this.props.exportExcelPerformance}
             handleDateFiltersChange={this.props.handleDateFiltersChange}
             loading={
               this.props.coachLoading ||
               this.props.performanceLoading ||
               this.props.isSubmitLoading
             }
-            exportExcelPerformance={this.props.exportExcelPerformance}
-            updateStateDate={this.changeDate}
+            onSubmit={this.props.onSubmit}
             startTimestamp={this.state.startTimestamp}
-            endTimestamp={this.state.endTimestamp}
+            updateStateDate={this.changeDate}
           />
         </AppBar>
 
         <CoachPerformanceAdvancedFilters
           coaches={this.props.allActiveAssociatedCoaches}
+          coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
+          coachPaymentRuleGroupsDict={this.props.coachPaymentRuleGroupsDict}
+          coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
           disabled={isInPreviewMode}
-          onSubmit={this.props.onSubmitFilters}
           loading={
             this.props.coachLoading ||
             this.props.performanceLoading ||
             this.props.isSubmitLoading
           }
-          coachPaymentRuleGroupsDict={this.props.coachPaymentRuleGroupsDict}
-          coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
-          coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+          onSubmit={this.props.onSubmitFilters}
         />
         <CoachPerformanceCachedDataList
           cachedDataList={this.props.coachPerformanceCachedDataList}
+          exportExcelPerformance={this.props.exportExcelPerformance}
           selectedCachedTimestamp={this.props.selectedCachedTimestamp}
           setSelectedCachedTimestamp={this.props.setSelectedCachedTimestamp}
-          exportExcelPerformance={this.props.exportExcelPerformance}
         />
         <CoachPerformanceTable
-          previewMode={isInPreviewMode}
-          leavePreviewMode={this.leavePreviewMode}
           associatedCoachWithPerformance={
             associatedCoachWithCoachPaymentRuleAndPerformanceSelected
           }
+          changePage={this.changePage}
+          coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
+          coachPaymentRuleGroupsDict={this.props.coachPaymentRuleGroupsDict}
           coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+          endTimestamp={this.state.endTimestamp}
+          exportPdfPerformance={this.props.exportPdfPerformance}
+          leavePreviewMode={this.leavePreviewMode}
           loading={
             this.props.coachLoading ||
             this.props.performanceLoading ||
             this.props.isSubmitLoading
           }
+          pagination={this.props.coachPaginationState}
+          previewMode={isInPreviewMode}
+          setCoachPaymentRule={this.props.setCoachPaymentRule}
+          setCoachPaymentRuleGroup={this.props.setCoachPaymentRuleGroup}
+          setCoachPrivatePaymentRule={this.props.setCoachPrivatePaymentRule}
+          setCoachWorkShopPaymentRule={this.props.setCoachWorkShopPaymentRule}
           setSessionCoachPaymentRule={this.props.setSessionCoachPaymentRule}
+          startTimestamp={this.state.startTimestamp}
           updatePrivateBookingCoachPaymentRule={
             this.props.updatePrivateBookingCoachPaymentRule
           }
-          setCoachPaymentRule={this.props.setCoachPaymentRule}
-          setCoachPrivatePaymentRule={this.props.setCoachPrivatePaymentRule}
-          setCoachWorkShopPaymentRule={this.props.setCoachWorkShopPaymentRule}
-          coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
-          coachPaymentRuleGroupsDict={this.props.coachPaymentRuleGroupsDict}
-          setCoachPaymentRuleGroup={this.props.setCoachPaymentRuleGroup}
-          pagination={this.props.coachPaginationState}
-          changePage={this.changePage}
-          exportPdfPerformance={this.props.exportPdfPerformance}
-          startTimestamp={this.state.startTimestamp}
-          endTimestamp={this.state.endTimestamp}
         />
       </div>
     );

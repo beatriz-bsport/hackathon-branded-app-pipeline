@@ -48,7 +48,7 @@ export const ConsumerGiftcardForm = (props: Props) => {
     <div className={classes.container}>
       <div className={classes.titleContainer}>
         <Typography variant="h4">{props.giftcard.name}</Typography>
-        <Typography variant="h5" color="primary">
+        <Typography color="primary" variant="h5">
           {getCurrencyDisplayWithPrice(props.giftcard.price)}
         </Typography>
       </div>
@@ -59,40 +59,40 @@ export const ConsumerGiftcardForm = (props: Props) => {
         {props.giftcard.description}
       </TypographyMultiline>
       <TextField
-        name="name"
-        label={t('consumerGiftcard.form.name.label')}
         helperText={`${props.values.name.length}/40`}
         inputProps={{ maxLength: 40 }}
+        label={t('consumerGiftcard.form.name.label')}
+        name="name"
       />
       <TextField
-        name="message_is_from"
-        label={t('consumerGiftcard.form.message_is_from.label')}
         helperText={`${props.values.message_is_from.length}/40`}
         inputProps={{ maxLength: 40 }}
+        label={t('consumerGiftcard.form.message_is_from.label')}
+        name="message_is_from"
       />
       <TextField
-        name="message_is_for"
-        label={t('consumerGiftcard.form.message_is_for.label')}
         helperText={`${props.values.message_is_for.length}/40`}
         inputProps={{ maxLength: 40 }}
+        label={t('consumerGiftcard.form.message_is_for.label')}
+        name="message_is_for"
       />
       <TextField
-        name="message_content"
-        label={t('consumerGiftcard.form.message_content.label')}
         multiline
-        variant="outlined"
         className={classes.multilineInput}
         helperText={`${props.values.message_content.length}/2000`}
         inputProps={{ maxLength: 2000 }}
+        label={t('consumerGiftcard.form.message_content.label')}
+        name="message_content"
+        variant="outlined"
       />
       {props.giftcardBackgroundImageList.length > 0 && (
         <CarouselInputField
-          imagesArr={props.giftcardBackgroundImageList.map((img) => img.image)}
-          selectedImage={selectedImage}
           handleSelectedImage={handleSelectedImage}
+          imagesArr={props.giftcardBackgroundImageList.map((img) => img.image)}
           isManager={props.isManager}
-          title={t('consumerGiftcard.form.select_image')}
+          selectedImage={selectedImage}
           textFieldName="background_image"
+          title={t('consumerGiftcard.form.select_image')}
         />
       )}
 

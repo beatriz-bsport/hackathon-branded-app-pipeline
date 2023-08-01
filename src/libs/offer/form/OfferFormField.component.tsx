@@ -18,16 +18,16 @@ const OfferFormField = (props: Props) => {
 
   return (
     <div
-      id={id}
       className={classNames(classes.formFieldContainer, classes.flexColumn, {
         [classes.alignItemsBaseline]: isError,
       })}
+      id={id}
     >
       <Typography
-        variant="body1"
         className={classNames({
           [classes.label]: !icon,
         })}
+        variant="body1"
       >
         {icon && icon}
         {label}

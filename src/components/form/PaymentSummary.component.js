@@ -33,9 +33,9 @@ export function PaymentSummary(props: Props) {
   return (
     <Grid
       container
-      direction="row"
       alignItems="center"
       className={classes.container}
+      direction="row"
     >
       <Grid item xs={1}>
         {status ? (
@@ -44,24 +44,24 @@ export function PaymentSummary(props: Props) {
           <CancelIcon color="secondary" />
         )}
       </Grid>
-      <Grid item xs={4} md={2}>
+      <Grid item md={2} xs={4}>
         <Grid
           container
           item
           alignItems="center"
-          justify="center"
           className={classes.field}
+          justify="center"
         >
           <Typography>{getCurrencyDisplayWithPrice(price)}</Typography>
         </Grid>
       </Grid>
-      <Grid item xs={6} md={3}>
+      <Grid item md={3} xs={6}>
         <Grid
           container
           item
           alignItems="center"
-          justify="center"
           className={classes.field}
+          justify="center"
         >
           <Typography>
             {t(
@@ -72,21 +72,21 @@ export function PaymentSummary(props: Props) {
           </Typography>
         </Grid>
       </Grid>
-      <Grid item xs={10} md={5}>
+      <Grid item md={5} xs={10}>
         <Grid
           container
           item
           alignItems="center"
-          justify="flex-start"
           className={classes.field}
+          justify="flex-start"
         >
           <Typography>
             {paymentInfoExtra || t('form.payment.noPaymentExtraInfo')}
           </Typography>
         </Grid>
       </Grid>
-      <Grid item xs={1} md={1}>
-        <IconButton onClick={onDelete} color="secondary">
+      <Grid item md={1} xs={1}>
+        <IconButton color="secondary" onClick={onDelete}>
           <DeleteIcon />
         </IconButton>
       </Grid>

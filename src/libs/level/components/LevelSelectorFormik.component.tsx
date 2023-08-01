@@ -15,11 +15,11 @@ const LevelSelectorFormik = (
       {() => (
         <LevelSelector
           {...props}
+          error={!!(meta.touched && meta.error)}
           onSelect={(value) => {
             helpers.setValue(value);
           }}
           selectedLevel={field.value}
-          error={!!(meta.touched && meta.error)}
         />
       )}
     </Field>

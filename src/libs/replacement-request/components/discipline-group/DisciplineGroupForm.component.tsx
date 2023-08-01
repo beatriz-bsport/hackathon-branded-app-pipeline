@@ -150,7 +150,6 @@ export const DisciplineGroupForm: React.FC<Props> = ({
 
   return (
     <Formik
-      validationSchema={disciplineGroupSchema}
       initialValues={
         initial || {
           name: '',
@@ -192,6 +191,7 @@ export const DisciplineGroupForm: React.FC<Props> = ({
           },
         });
       }}
+      validationSchema={disciplineGroupSchema}
     >
       {({
         isSubmitting,
@@ -236,12 +236,12 @@ export const DisciplineGroupForm: React.FC<Props> = ({
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextFieldEnhancedLabelWithError
-                  id="textfield_discipline_group_title"
                   fullWidth
-                  name="name"
                   required
-                  label={t('disciplineGroup.form.name')}
                   helperText={t('disciplineGroup.form.nameHelperText')}
+                  id="textfield_discipline_group_title"
+                  label={t('disciplineGroup.form.name')}
+                  name="name"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -249,7 +249,7 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                   {t('disciplineGroup.form.groupTypes')}
                 </Typography>
               </Grid>
-              <Grid item container xs={12} direction="row" alignItems="center">
+              <Grid container item alignItems="center" direction="row" xs={12}>
                 <Grid item xs={2}>
                   <Typography variant="body1">
                     {t('disciplineGroup.form.activities')}
@@ -264,11 +264,18 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                     }) => (
                       <div>
                         <MaterialUISelector
-                          isDisabled={all_activities}
-                          options={activityValuesList}
+                          isMenuListVirtualized
                           isMulti
                           defaultNumberShown={3}
-                          isMenuListVirtualized
+                          isDisabled={all_activities}
+                          onChange={(ev: Array<{ value: number }>) =>
+                            setFieldValue(
+                              'meta_activities',
+                              ev?.map((e) => e.value),
+                            )
+                          }
+                          options={activityValuesList}
+                          placeholder={t('disciplineGroup.form.pickActivity')}
                           value={
                             all_activities === false
                               ? meta_activities?.map((id) => ({
@@ -278,28 +285,21 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                                 }))
                               : []
                           }
-                          onChange={(ev: Array<{ value: number }>) =>
-                            setFieldValue(
-                              'meta_activities',
-                              ev?.map((e) => e.value),
-                            )
-                          }
-                          placeholder={t('disciplineGroup.form.pickActivity')}
                         />
                       </div>
                     )}
                   </FieldArray>
                 </Grid>
               </Grid>
-              <Grid item xs={12} className={classes.checkboxes}>
+              <Grid item className={classes.checkboxes} xs={12}>
                 <CheckboxField
-                  id="checkboxfield_discipline_group_all_activities"
                   fullWidth
-                  name="all_activities"
+                  id="checkboxfield_discipline_group_all_activities"
                   label={t('disciplineGroup.form.allActivities')}
+                  name="all_activities"
                 />
               </Grid>
-              <Grid item container xs={12} direction="row" alignItems="center">
+              <Grid container item alignItems="center" direction="row" xs={12}>
                 <Grid item xs={2}>
                   <Typography variant="body1">
                     {t('disciplineGroup.form.workshops')}
@@ -314,11 +314,18 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                     }) => (
                       <div>
                         <MaterialUISelector
-                          isDisabled={all_workshops}
-                          options={workshopValuesList}
+                          isMenuListVirtualized
                           isMulti
                           defaultNumberShown={3}
-                          isMenuListVirtualized
+                          isDisabled={all_workshops}
+                          onChange={(ev: Array<{ value: number }>) =>
+                            setFieldValue(
+                              'workshops',
+                              ev?.map((e) => e.value),
+                            )
+                          }
+                          options={workshopValuesList}
+                          placeholder={t('disciplineGroup.form.pickWorkshop')}
                           value={
                             all_workshops === false
                               ? workshops?.map((id) => ({
@@ -328,28 +335,21 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                                 }))
                               : []
                           }
-                          onChange={(ev: Array<{ value: number }>) =>
-                            setFieldValue(
-                              'workshops',
-                              ev?.map((e) => e.value),
-                            )
-                          }
-                          placeholder={t('disciplineGroup.form.pickWorkshop')}
                         />
                       </div>
                     )}
                   </FieldArray>
                 </Grid>
               </Grid>
-              <Grid item xs={12} className={classes.checkboxes}>
+              <Grid item className={classes.checkboxes} xs={12}>
                 <CheckboxField
-                  id="checkboxfield_discipline_group_all_workshops"
                   fullWidth
-                  name="all_workshops"
+                  id="checkboxfield_discipline_group_all_workshops"
                   label={t('disciplineGroup.form.allWorkshops')}
+                  name="all_workshops"
                 />
               </Grid>
-              <Grid item container xs={12} direction="row" alignItems="center">
+              <Grid container item alignItems="center" direction="row" xs={12}>
                 <Grid item xs={2}>
                   <Typography variant="body1">
                     {t('disciplineGroup.form.categories')}
@@ -364,11 +364,8 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                     }) => (
                       <div>
                         <MaterialUISelector
-                          isDisabled={all_categories}
-                          options={categoryValuesList}
-                          isMulti
-                          defaultNumberShown={3}
                           isMenuListVirtualized
+                          isMulti
                           chipsRenderer={(chipProps: {
                             data: {
                               label: string;
@@ -378,11 +375,21 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                             onDelete: () => void;
                           }) => (
                             <SCTChip
+                              onDelete={chipProps.onDelete}
                               parentCategory={chipProps.data.parentCategory}
                               SCTName={chipProps.data.label}
-                              onDelete={chipProps.onDelete}
                             />
                           )}
+                          defaultNumberShown={3}
+                          isDisabled={all_categories}
+                          onChange={(ev: Array<{ value: number }>) =>
+                            setFieldValue(
+                              'categories',
+                              ev?.map((e) => e.value),
+                            )
+                          }
+                          options={categoryValuesList}
+                          placeholder={t('disciplineGroup.form.pickCategory')}
                           value={
                             all_categories === false
                               ? categories?.map((id) => ({
@@ -396,25 +403,18 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                                 }))
                               : []
                           }
-                          onChange={(ev: Array<{ value: number }>) =>
-                            setFieldValue(
-                              'categories',
-                              ev?.map((e) => e.value),
-                            )
-                          }
-                          placeholder={t('disciplineGroup.form.pickCategory')}
                         />
                       </div>
                     )}
                   </FieldArray>
                 </Grid>
               </Grid>
-              <Grid item xs={12} className={classes.checkboxes}>
+              <Grid item className={classes.checkboxes} xs={12}>
                 <CheckboxField
-                  id="checkboxfield_discipline_group_all_categories"
                   fullWidth
-                  name="all_categories"
+                  id="checkboxfield_discipline_group_all_categories"
                   label={t('disciplineGroup.form.allCategories')}
+                  name="all_categories"
                 />
               </Grid>
 
@@ -435,17 +435,17 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                         <div className={classes.radioButtons}>
                           <RadioGroup
                             name="multilocationRadioGroup"
-                            value={multiLocationChoice}
                             onChange={onChangeRadioButton}
+                            value={multiLocationChoice}
                           >
                             {multiLocalizationChoices.map(
                               ({ value, label: l }) => (
                                 <div key={value}>
                                   <FormControlLabel
                                     key={value}
-                                    value={value}
                                     control={<Radio />}
                                     label={l}
+                                    value={value}
                                   />
                                 </div>
                               ),
@@ -455,23 +455,23 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                       )}
                       {multiLocationChoice === MultilocationChoice.Locations ? (
                         <EstablishmentGroupSelector
-                          establishmentGroups={establishmentGroupList}
-                          selectedEstablishmentGroups={establishment_groups}
-                          selectOption={selectOptionLocations}
                           isClearable
+                          establishmentGroups={establishmentGroupList}
                           placeholder={t(
                             'disciplineGroup.form.pickEstablishment',
                           )}
+                          selectedEstablishmentGroups={establishment_groups}
+                          selectOption={selectOptionLocations}
                         />
                       ) : (
                         <EstablishmentSelector
-                          establishments={establishmentList}
-                          selectedEstablishments={establishments}
-                          selectOption={selectOptionEstablishments}
                           isClearable
+                          establishments={establishmentList}
                           placeholder={t(
                             'disciplineGroup.form.pickEstablishment',
                           )}
+                          selectedEstablishments={establishments}
+                          selectOption={selectOptionEstablishments}
                         />
                       )}
                     </div>
@@ -495,14 +495,14 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                   }) => (
                     <div>
                       <CoachSelector
+                        associatedCoachOutput
+                        closeMenuOnSelect
+                        nullCurrentValue
                         coaches={[
                           ...choicesForCoachSelector.filter(
                             (c) => !associated_coaches.includes(c.id),
                           ),
                         ]}
-                        closeMenuOnSelect
-                        nullCurrentValue
-                        associatedCoachOutput
                         selectedCoaches={associated_coaches}
                         selectOption={(ev: Array<{ value: number }>) => {
                           if (ev.length) push(ev[0].value);
@@ -511,8 +511,8 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                       {errors.associated_coaches ? (
                         <div className={classes.row}>
                           <WarningIcon
-                            color="error"
                             className={classes.leftIcon}
+                            color="error"
                           />
                           <Typography>
                             {t('disciplineGroup.form.coachRequired')}
@@ -523,11 +523,11 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                           {associated_coaches.map((id: number, i: number) => (
                             <CoachListItem
                               key={`${id}-${i}`}
+                              divider
                               coach={coachList.find(
                                 (c) => c.associated_coach_id === id,
                               )}
                               deleteCoach={() => remove(i)}
-                              divider
                             />
                           ))}
                         </div>
@@ -547,6 +547,7 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                 {t('disciplineGroup.form.close')}
               </Button>
               <Submit
+                color="primary"
                 disabled={
                   isSubmitting ||
                   values.associated_coaches.length === 0 ||
@@ -559,7 +560,6 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                       values.categories.length ===
                       0)
                 }
-                color="primary"
               >
                 {t('disciplineGroup.form.submit')}
               </Submit>

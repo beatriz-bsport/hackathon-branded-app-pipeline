@@ -39,14 +39,14 @@ export const VideoCardList = (props: Props) => {
         <List disablePadding>
           {props.videoList.map((v) => (
             <VideoCardListItem
-              video={v}
-              onEdit={props.onEdit}
+              withStatus
+              goToDetail={props.goToDetail}
               onDelete={props.onDelete}
+              onDuplicate={props.onDuplicate}
+              onEdit={props.onEdit}
               onRequestUpload={props.onRequestUpload}
               onStream={props.onStream}
-              goToDetail={props.goToDetail}
-              withStatus
-              onDuplicate={props.onDuplicate}
+              video={v}
             />
           ))}
         </List>
@@ -54,7 +54,7 @@ export const VideoCardList = (props: Props) => {
 
       {!props.loading && !props.videoList.length && (
         <div className={classes.buttonContainer}>
-          <Typography variant="h6" component="p" color="textSecondary">
+          <Typography color="textSecondary" component="p" variant="h6">
             {t('video.search.isEmpty')}
           </Typography>
         </div>
@@ -66,7 +66,7 @@ export const VideoCardList = (props: Props) => {
       )}
       {!props.loading && !!props.hasMoreVideo && !!props.onShowMore && (
         <div className={classes.buttonContainer}>
-          <Button variant="outlined" onClick={props.onShowMore} color="primary">
+          <Button color="primary" onClick={props.onShowMore} variant="outlined">
             {t('video.showMore')}
           </Button>
         </div>

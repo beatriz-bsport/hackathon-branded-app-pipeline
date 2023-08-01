@@ -17,35 +17,35 @@ export const ProgramListSkeleton = (props: OwnProps) => {
             <div className={classes.programHeaderLeft}>
               <Skeleton
                 animation="wave"
-                width="50%"
-                variant="rect"
                 height={28}
+                variant="rect"
+                width="50%"
               />
             </div>
             <div className={classes.programHeaderRight}>
               <Skeleton
                 animation="wave"
-                width="50%"
-                variant="rect"
                 height={25}
+                variant="rect"
+                width="50%"
               />
               <Skeleton
                 animation="wave"
-                width="50%"
-                variant="rect"
                 height={28}
+                variant="rect"
+                width="50%"
               />
             </div>
           </div>
-          <Skeleton animation="wave" width="100%" variant="text" height={4} />
+          <Skeleton animation="wave" height={4} variant="text" width="100%" />
         </div>
         <div className={classes.content}>
           {[1, 1, 1, 1, 1].map(() => (
             <Skeleton
               animation="wave"
-              width="100%"
-              variant="rect"
               height={51}
+              variant="rect"
+              width="100%"
             />
           ))}
         </div>
@@ -54,21 +54,21 @@ export const ProgramListSkeleton = (props: OwnProps) => {
             <div className={classes.leftArchived}>
               <Skeleton
                 animation="wave"
-                width="75%"
-                variant="rect"
                 height={25}
+                variant="rect"
+                width="75%"
               />
             </div>
             <div className={classes.rightArchived}>
               <Skeleton
                 animation="wave"
-                width={25}
-                variant="circle"
                 height={25}
+                variant="circle"
+                width={25}
               />
             </div>
           </div>
-          <Skeleton animation="wave" width="100%" variant="text" height={4} />
+          <Skeleton animation="wave" height={4} variant="text" width="100%" />
         </div>
       </div>
       <div className={classes.subContainer}>
@@ -78,77 +78,77 @@ export const ProgramListSkeleton = (props: OwnProps) => {
               <div className={classes.header}>
                 <Skeleton
                   animation="wave"
-                  width="20%"
-                  variant="rect"
                   height={28}
+                  variant="rect"
+                  width="20%"
                 />
               </div>
               <Skeleton
                 animation="wave"
-                width="100%"
-                variant="text"
                 height={4}
+                variant="text"
+                width="100%"
               />
             </div>
             <Skeleton
               animation="wave"
-              width="100%"
-              variant="rect"
               height={100}
+              variant="rect"
+              width="100%"
             />
             <div className={classes.headerContainer}>
               <div className={classes.header}>
                 <Skeleton
                   animation="wave"
-                  width="15%"
-                  variant="rect"
                   height={28}
+                  variant="rect"
+                  width="15%"
                 />
               </div>
               <Skeleton
                 animation="wave"
-                width="100%"
-                variant="text"
                 height={4}
+                variant="text"
+                width="100%"
               />
             </div>
             <div className={classes.content}>
               <Skeleton
                 animation="wave"
-                width="100%"
-                variant="rect"
                 height={50}
+                variant="rect"
+                width="100%"
               />
               <Skeleton
                 animation="wave"
-                width="100%"
-                variant="rect"
                 height={50}
+                variant="rect"
+                width="100%"
               />
             </div>
             <div className={classes.headerContainer}>
               <div className={classes.header}>
                 <Skeleton
                   animation="wave"
-                  width="15%"
-                  variant="rect"
                   height={28}
+                  variant="rect"
+                  width="15%"
                 />
               </div>
               <Skeleton
                 animation="wave"
-                width="100%"
-                variant="text"
                 height={4}
+                variant="text"
+                width="100%"
               />
             </div>
             <div className={classes.memberHeader}>
               {[0, 0, 0].map(() => (
                 <Skeleton
                   animation="wave"
-                  width="33%"
-                  variant="rect"
                   height={25}
+                  variant="rect"
+                  width="33%"
                 />
               ))}
             </div>
@@ -156,9 +156,9 @@ export const ProgramListSkeleton = (props: OwnProps) => {
               {[0, 0, 0, 0, 0].map(() => (
                 <Skeleton
                   animation="wave"
-                  width="100%"
-                  variant="rect"
                   height={51}
+                  variant="rect"
+                  width="100%"
                 />
               ))}
             </div>
@@ -168,12 +168,12 @@ export const ProgramListSkeleton = (props: OwnProps) => {
             <div className={classes.header}>
               <Skeleton
                 animation="wave"
-                width="20%"
-                variant="rect"
                 height={28}
+                variant="rect"
+                width="20%"
               />
             </div>
-            <Skeleton animation="wave" width="100%" variant="text" height={4} />
+            <Skeleton animation="wave" height={4} variant="text" width="100%" />
           </div>
         )}
       </div>

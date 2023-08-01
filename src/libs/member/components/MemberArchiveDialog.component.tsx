@@ -32,11 +32,11 @@ export const MemberArchiveDialog = (props: Props) => {
     props;
   const { classes } = props;
   return (
-    <Dialog open={open} maxWidth="sm" fullWidth>
+    <Dialog fullWidth maxWidth="sm" open={open}>
       <DialogTitle>{t('archive.dialog.title')}</DialogTitle>
       {loading ? (
         <div className={classes.centerLoading}>
-          <CirculareProgress size={30} color="primary" />
+          <CirculareProgress color="primary" size={30} />
         </div>
       ) : (
         <div className={classes.dialogContent}>
@@ -70,13 +70,13 @@ export const MemberArchiveDialog = (props: Props) => {
         </div>
       )}
       <DialogActions>
-        <Button onClick={() => onClose()} variant="text" color="inherit">
+        <Button color="inherit" onClick={() => onClose()} variant="text">
           {t('archive.dialog.actions.close')}
         </Button>
         <Button
+          color="primary"
           onClick={() => onConfirm(member.id)}
           variant="contained"
-          color="primary"
         >
           {t('archive.dialog.actions.confirm')}
         </Button>

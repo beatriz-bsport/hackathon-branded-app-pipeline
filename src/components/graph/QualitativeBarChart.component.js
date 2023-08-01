@@ -92,22 +92,22 @@ export function QualitativeBarChart(props: Props) {
   const colors = DASHBOARD_COLOR_PALETTE;
 
   return (
-    <ResponsiveContainer width={width || '100%'} height={height || 400}>
+    <ResponsiveContainer height={height || 400} width={width || '100%'}>
       <BarChart
         data={data}
-        margin={margin || { top: 10, right: 20, bottom: 20, left: 0 }}
         layout="vertical"
+        margin={margin || { top: 10, right: 20, bottom: 20, left: 0 }}
       >
         {noGrid ? null : <CartesianGrid strokeDasharray="3 3" />}
         <XAxis
-          type="number"
-          tickFormatter={numberFormatter(isCurrencyFormat)}
-          label={{ value: xLabelFormatted, position: 'bottom' }}
           allowDecimals={allowDecimals}
+          label={{ value: xLabelFormatted, position: 'bottom' }}
+          tickFormatter={numberFormatter(isCurrencyFormat)}
+          type="number"
         />
-        <YAxis type="category" dataKey="name" tick={false} />
+        <YAxis dataKey="name" tick={false} type="category" />
         {tooltip && <Tooltip formatter={formatter} />}
-        <Bar dataKey="value" barSize={barSize}>
+        <Bar barSize={barSize} dataKey="value">
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
           ))}

@@ -104,7 +104,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
         <div>
           <Paper className={classes.paper}>
             <div className={classes.header}>
-              <Typography variant="h6" component="h3">
+              <Typography component="h3" variant="h6">
                 {t('configuration.subscription.title')}
               </Typography>
             </div>
@@ -139,17 +139,16 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
             </div>
             <NumberInput
               fullWidth
-              variant="outlined"
               multiline
               disabled={!this.state.activateSmartRetries}
+              helperText={t(
+                'configuration.subscription.forms.nbRetriesSubscriptionPayments.helperText',
+              )}
               InputProps={{
                 step: 1,
                 min: 0,
                 max: 5,
               }}
-              helperText={t(
-                'configuration.subscription.forms.nbRetriesSubscriptionPayments.helperText',
-              )}
               label={t(
                 'configuration.subscription.forms.nbRetriesSubscriptionPayments.label',
               )}
@@ -167,6 +166,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
                 })
               }
               value={this.state.nb_retries_subscription_payments}
+              variant="outlined"
             />
             <div className={classes.inputContainer}>
               <Switch
@@ -196,10 +196,10 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
             </div>
             <div className={classes.inputContainer}>
               <Switch
-                disabled={!this.state.disable_pass_on_fail_subscription_payment}
                 checked={
                   this.state.revert_bookings_on_fail_subscription_payment
                 }
+                disabled={!this.state.disable_pass_on_fail_subscription_payment}
                 onChange={(ev) => {
                   this.setState({
                     revert_bookings_on_fail_subscription_payment:
@@ -221,12 +221,12 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
             </div>
             <div className={classes.helperTextContainer}>
               <Typography
-                variant="caption"
                 color={
                   this.state.disable_pass_on_fail_subscription_payment
                     ? 'default'
                     : 'textSecondary'
                 }
+                variant="caption"
               >
                 {t(
                   'configuration.subscription.forms.revert_bookings_on_fail_subscription_payment.helperText',
@@ -239,12 +239,12 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
               <div className={classes.warningContainer}>
                 <WarningIcon color="error" fontSize="small" />
                 <Typography
-                  variant="caption"
                   color={
                     this.state.revert_bookings_on_fail_subscription_payment
                       ? 'default'
                       : 'textSecondary'
                   }
+                  variant="caption"
                 >
                   {t(
                     'configuration.subscription.forms.revert_bookings_on_fail_subscription_payment.warning',
@@ -272,7 +272,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
               </Typography>
             </div>
             <div className={classes.helperTextContainer}>
-              <Typography variant="caption" color="textSecondary">
+              <Typography color="textSecondary" variant="caption">
                 {t(
                   'configuration.subscription.forms.advance_sepa_billing.helperText',
                 )}
@@ -281,18 +281,6 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
             <div className={classes.buttonContainer}>
               <Button
                 color="primary"
-                variant="contained"
-                onClick={() =>
-                  this.props.onSubmit({
-                    disable_pass_on_fail_subscription_payment:
-                      this.state.disable_pass_on_fail_subscription_payment,
-                    revert_bookings_on_fail_subscription_payment:
-                      this.state.revert_bookings_on_fail_subscription_payment,
-                    nb_retries_subscription_payments:
-                      this.state.nb_retries_subscription_payments,
-                    advance_sepa_billing: this.state.advance_sepa_billing,
-                  })
-                }
                 disabled={
                   (this.props.configuration.nb_retries_subscription_payments ===
                     parseInt(this.state.nb_retries_subscription_payments, 10) &&
@@ -307,17 +295,29 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
                         .revert_bookings_on_fail_subscription_payment) ||
                   this.props.processing
                 }
+                onClick={() =>
+                  this.props.onSubmit({
+                    disable_pass_on_fail_subscription_payment:
+                      this.state.disable_pass_on_fail_subscription_payment,
+                    revert_bookings_on_fail_subscription_payment:
+                      this.state.revert_bookings_on_fail_subscription_payment,
+                    nb_retries_subscription_payments:
+                      this.state.nb_retries_subscription_payments,
+                    advance_sepa_billing: this.state.advance_sepa_billing,
+                  })
+                }
+                variant="contained"
               >
                 {t('configuration.submit_stripe_footer')}
               </Button>
               {this.props.processing ? (
-                <CircularProgress style={{ marginLeft: 12 }} size={20} />
+                <CircularProgress size={20} style={{ marginLeft: 12 }} />
               ) : null}
             </div>
           </Paper>
           <Paper className={classes.paper}>
             <div className={classes.header}>
-              <Typography variant="h6" component="h3">
+              <Typography component="h3" variant="h6">
                 {t('configuration.invoiceGeneral')}
               </Typography>
             </div>
@@ -334,33 +334,25 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
               </Typography>
             </div>
             <div className={classes.header}>
-              <Typography variant="h6" component="h3">
+              <Typography component="h3" variant="h6">
                 {t('configuration.stripe_footer')}
               </Typography>
             </div>
             <TextField
               fullWidth
-              variant="outlined"
-              placeholder={t('configuration.forms.stripe_footer_placeholder')}
               multiline
-              maxLength="4800"
               helperText={t('configuration.explainStripeFooter')}
+              maxLength="4800"
               onChange={(ev) =>
                 this.setState({ stripe_footer: ev.target.value })
               }
+              placeholder={t('configuration.forms.stripe_footer_placeholder')}
               value={this.state.stripe_footer}
+              variant="outlined"
             />
             <div className={classes.buttonContainer}>
               <Button
                 color="primary"
-                variant="contained"
-                onClick={() =>
-                  this.props.onSubmit({
-                    stripe_footer: this.state.stripe_footer,
-                    show_company_email_in_invoice:
-                      this.state.show_company_email_in_invoice,
-                  })
-                }
                 disabled={
                   (this.props.configuration.show_company_email_in_invoice ===
                     this.state.show_company_email_in_invoice &&
@@ -368,11 +360,19 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
                       this.state.stripe_footer) ||
                   this.props.processing
                 }
+                onClick={() =>
+                  this.props.onSubmit({
+                    stripe_footer: this.state.stripe_footer,
+                    show_company_email_in_invoice:
+                      this.state.show_company_email_in_invoice,
+                  })
+                }
+                variant="contained"
               >
                 {t('configuration.submit_stripe_footer')}
               </Button>
               {this.props.processing ? (
-                <CircularProgress style={{ marginLeft: 12 }} size={20} />
+                <CircularProgress size={20} style={{ marginLeft: 12 }} />
               ) : null}
             </div>
           </Paper>
@@ -397,13 +397,13 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
             </div>
           )}
           <ThemeInternalAccountForm
-            theme={this.props.theme}
-            onSubmit={this.props.submitTheme}
             goToReports={this.props.goToReports}
+            onSubmit={this.props.submitTheme}
+            theme={this.props.theme}
           />
           <Paper className={classes.paper}>
             <div className={classes.header}>
-              <Typography variant="h6" component="h3">
+              <Typography component="h3" variant="h6">
                 {t('configuration.nf525')}
               </Typography>
             </div>
@@ -412,15 +412,15 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
             </div>
             <Button
               component="a"
-              variant="outlined"
               href="https://cdn.bsport.io/assets/docs/NF525-29-04-2020.pdf"
+              variant="outlined"
             >
               <AttachIcon className={classes.leftIcon} />
               {t('configuration.nf525Button')}
             </Button>
           </Paper>
           <Paper className={classes.paper}>
-            <Typography variant="h6" component="h3">
+            <Typography component="h3" variant="h6">
               {t('configuration.stripeTerminal.title')}
             </Typography>
             <div className={classes.infoText}>
@@ -431,13 +431,13 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
             </div>
             <Grid
               container
-              spacing={2}
-              className={classes.readersContainer}
               classes={{ container: classes.gridContainer }}
+              className={classes.readersContainer}
+              spacing={2}
             >
               {this.props.stripeReaders.length > 0 &&
                 this.props.stripeReaders.map((reader) => (
-                  <Grid item xs={12} sm={6} key={reader.id}>
+                  <Grid key={reader.id} item sm={6} xs={12}>
                     <div className={classes.readerItem}>
                       <div className={classes.readerInfo}>
                         <Typography classes={{ root: classes.readerLabel }}>
@@ -472,7 +472,6 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
             <FeatureListProvider>
               {(featureList: FeatureList) => (
                 <Button
-                  variant="outlined"
                   color="primary"
                   disabled={
                     !hasUpsell(featureList, UPSELL_IDENTIFIER_STRIPE_TERMINAL)
@@ -480,6 +479,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
                   onClick={() =>
                     this.setState({ openConnectReaderDialog: true })
                   }
+                  variant="outlined"
                 >
                   <AddIcon />
                   {t('configuration.stripeTerminal.addReader')}
@@ -490,16 +490,16 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
         </div>
         {this.state.openConnectReaderDialog && (
           <StripeTerminalConnectReaderDialog
-            editReaderAndFetch={this.props.editReaderAndFetch}
             createReaderAndFetch={this.props.createReaderAndFetch}
+            editReaderAndFetch={this.props.editReaderAndFetch}
+            mustCreateStripeLocation={!this.props.theme.has_stripe_location}
             selectedReaderToUpdate={this.state.selectedReaderToUpdate}
-            setSelectedReaderToUpdate={(reader: StripeReader | null) =>
-              this.setState({ selectedReaderToUpdate: reader })
-            }
             setOpenDialog={(open: boolean) =>
               this.setState({ openConnectReaderDialog: open })
             }
-            mustCreateStripeLocation={!this.props.theme.has_stripe_location}
+            setSelectedReaderToUpdate={(reader: StripeReader | null) =>
+              this.setState({ selectedReaderToUpdate: reader })
+            }
           />
         )}
         {this.state.selectedReaderToDelete && (
@@ -532,12 +532,11 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
                 <CircularProgress />
               ) : (
                 <Button
-                  className={classes.redButton}
                   classes={{
                     contained: classes.redButton,
                     label: classes.redButtonLabel,
                   }}
-                  variant="contained"
+                  className={classes.redButton}
                   onClick={() => {
                     this.setState({ isProcessingDeleteReader: true });
                     this.props.deleteReaderAndFetch(
@@ -557,6 +556,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
                       },
                     );
                   }}
+                  variant="contained"
                 >
                   {t('common:confirm')}
                 </Button>

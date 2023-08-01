@@ -741,43 +741,43 @@ export class Planning extends PureComponent<Props, State> {
     if (selectedOffer) {
       return (
         <GenericResponsiveDrawer
-          open={editModalOpened}
-          onClose={this.onCancelModal}
-          title={this.props.t('translation:common.offers')}
-          subtitle={this.props.t('translation:common.offerEdition')}
-          withoutPadding
           withoutHeaderContainer
+          withoutPadding
+          onClose={this.onCancelModal}
+          open={editModalOpened}
+          subtitle={this.props.t('translation:common.offerEdition')}
+          title={this.props.t('translation:common.offers')}
         >
           <OfferEditForm
-            offer={selectedOffer}
-            metaActivities={this.props.metaActivities}
-            metaActivity={selectedOffer.meta_activity}
-            coaches={coaches}
-            availableEstablishments={availableEstablishments}
-            allEstablishments={allEstablishments}
-            roomBlueprints={roomBlueprints}
-            allRoomBlueprints={allRoomBlueprints}
-            isWherebyIntegrationEnabled={this.getIsWherebyIntegrationEnabled()}
-            isLoading={this.getEditFormLoading()}
-            onSubmit={this.onConfirmModal}
-            onCancel={this.onCancelModal}
-            processing={this.props.editOfferProcessing}
-            fetchSimilarOffers={fetchSimilarOffers}
-            similarOffers={similarOffers}
-            similarOfferLoading={similarOfferLoading}
-            coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
-            showPartnership={this.props.showPartnership}
-            tagList={allTagsWithTagGroup}
+            editableCoachPaymentRule
             activeCustomLevels={this.props.activeCustomLevels}
             allCustomLevels={this.props.allCustomLevels}
-            fetchLevelList={this.handleFetchLevel}
-            updateLevel={this.props.updateLevel}
-            createLevel={this.props.createLevel}
-            deleteLevel={this.props.deleteLevel}
+            allEstablishments={allEstablishments}
             allowGuestMaster={this.getAllowGuestMaster()}
-            zoomAppDetail={this.props.zoomAppDetail}
-            editableCoachPaymentRule
+            allRoomBlueprints={allRoomBlueprints}
+            availableEstablishments={availableEstablishments}
+            coaches={coaches}
+            coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+            createLevel={this.props.createLevel}
             creditScaleFactor={this.props.theme.pass_credit_factor}
+            deleteLevel={this.props.deleteLevel}
+            fetchLevelList={this.handleFetchLevel}
+            fetchSimilarOffers={fetchSimilarOffers}
+            isLoading={this.getEditFormLoading()}
+            isWherebyIntegrationEnabled={this.getIsWherebyIntegrationEnabled()}
+            metaActivities={this.props.metaActivities}
+            metaActivity={selectedOffer.meta_activity}
+            offer={selectedOffer}
+            onCancel={this.onCancelModal}
+            onSubmit={this.onConfirmModal}
+            processing={this.props.editOfferProcessing}
+            roomBlueprints={roomBlueprints}
+            showPartnership={this.props.showPartnership}
+            similarOfferLoading={similarOfferLoading}
+            similarOffers={similarOffers}
+            tagList={allTagsWithTagGroup}
+            updateLevel={this.props.updateLevel}
+            zoomAppDetail={this.props.zoomAppDetail}
           />
         </GenericResponsiveDrawer>
       );
@@ -796,40 +796,40 @@ export class Planning extends PureComponent<Props, State> {
     const { createOfferModalOpened } = this.state;
     return (
       <GenericResponsiveDrawer
-        open={createOfferModalOpened}
-        onClose={this.closeCreateOffersModal}
-        title={this.props.t('translation:common.offers')}
-        subtitle={this.props.t('translation:common.offerCreation')}
-        withoutPadding
         withoutHeaderContainer
+        withoutPadding
+        onClose={this.closeCreateOffersModal}
+        open={createOfferModalOpened}
+        subtitle={this.props.t('translation:common.offerCreation')}
+        title={this.props.t('translation:common.offers')}
       >
         <div className={classes.spaceTop}>
           <OfferFormWithActivity
-            selectedDate={moment(this.props.date, DATE_FORMAT)}
-            timezone={this.props.theme.timezone_name}
-            metaActivities={metaActivities}
+            activeCustomLevels={this.props.activeCustomLevels}
             activitiesLoading={this.props.activitiesLoading}
-            coaches={coaches}
+            allCustomLevels={this.props.allCustomLevels}
+            allowGuestMaster={this.getAllowGuestMaster()}
             availableEstablishments={availableEstablishments}
-            roomBlueprints={this.props.roomBlueprints}
-            onSubmit={this.createOffers}
-            onCancel={this.closeCreateOffersModal}
-            processing={this.props.creatingOffers}
-            is_whereby_integration_enabled={this.getIsWherebyIntegrationEnabled()}
+            coaches={coaches}
+            coachesLoading={this.props.coachesLoading}
             coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+            createLevel={this.props.createLevel}
+            creditScaleFactor={this.props.theme.pass_credit_factor}
+            deleteLevel={this.props.deleteLevel}
+            establishmentsLoading={this.props.establishmentsLoading}
+            fetchLevelList={this.handleFetchLevel}
+            is_whereby_integration_enabled={this.getIsWherebyIntegrationEnabled()}
+            metaActivities={metaActivities}
+            onCancel={this.closeCreateOffersModal}
+            onSubmit={this.createOffers}
+            processing={this.props.creatingOffers}
+            roomBlueprints={this.props.roomBlueprints}
+            selectedDate={moment(this.props.date, DATE_FORMAT)}
             showPartnership={this.props.showPartnership}
             tagList={allTagsWithTagGroup}
-            activeCustomLevels={this.props.activeCustomLevels}
-            allCustomLevels={this.props.allCustomLevels}
-            fetchLevelList={this.handleFetchLevel}
+            timezone={this.props.theme.timezone_name}
             updateLevel={this.props.updateLevel}
-            createLevel={this.props.createLevel}
-            deleteLevel={this.props.deleteLevel}
-            allowGuestMaster={this.getAllowGuestMaster()}
             zoomAppDetail={this.props.zoomAppDetail}
-            coachesLoading={this.props.coachesLoading}
-            establishmentsLoading={this.props.establishmentsLoading}
-            creditScaleFactor={this.props.theme.pass_credit_factor}
           />
         </div>
       </GenericResponsiveDrawer>
@@ -878,14 +878,21 @@ export class Planning extends PureComponent<Props, State> {
         : false;
       return (
         <GenericResponsiveDialog
+          padding
+          maxWidth="sm"
           onClose={this.onCancelModal}
           open={deleteModalOpened}
-          maxWidth="sm"
-          padding
         >
           <DeleteOfferForm
+            fetchSimilarOffers={() => {
+              this.props.fetchEstablishments();
+              this.props.fetchAssociatedCoachesList();
+              this.props.fetchSimilarOffers(selectedOffer.id);
+            }}
+            hasPendingReplacementRequest={hasPendingReplacementRequest}
             offer={selectedOffer}
             offerWasCancelled={!selectedOffer.available}
+            onCancel={this.onCancelModal}
             onCancelOffer={({
               cashback,
               notify,
@@ -909,23 +916,16 @@ export class Planning extends PureComponent<Props, State> {
             onHardDelete={(data) =>
               this.onHardDeleteOffer(selectedOffer.id, data)
             }
-            fetchSimilarOffers={() => {
-              this.props.fetchEstablishments();
-              this.props.fetchAssociatedCoachesList();
-              this.props.fetchSimilarOffers(selectedOffer.id);
-            }}
-            onCancel={this.onCancelModal}
-            processing={deletingOffer}
-            setOpenDeleteDialog={this.props.setOpenDeleteDialog}
-            similarOffers={similarOffers}
-            similarOfferLoading={similarOfferLoading}
-            hasPendingReplacementRequest={hasPendingReplacementRequest}
-            setOpenReplacementRequestOnCancel={(open: boolean) =>
-              this.setState({ openReplacementRequestPage: open })
-            }
             openReplacementRequestPageOnCancel={
               this.state.openReplacementRequestPage
             }
+            processing={deletingOffer}
+            setOpenDeleteDialog={this.props.setOpenDeleteDialog}
+            setOpenReplacementRequestOnCancel={(open: boolean) =>
+              this.setState({ openReplacementRequestPage: open })
+            }
+            similarOfferLoading={similarOfferLoading}
+            similarOffers={similarOffers}
           />
         </GenericResponsiveDialog>
       );
@@ -975,11 +975,11 @@ export class Planning extends PureComponent<Props, State> {
     return (
       <div>
         <Fab
-          variant="extended"
           aria-label="Add"
           className={classes.button}
           color="primary"
           onClick={this.openCreateOfferModal}
+          variant="extended"
         >
           <AddIcon className={classes.leftIcon} />
           {t('activity.addOffers')}
@@ -994,9 +994,9 @@ export class Planning extends PureComponent<Props, State> {
       return (
         <div className={this.props.classes.goBackButton}>
           <Button
-            size="small"
             className={classes.button}
             onClick={this.props.goBack}
+            size="small"
           >
             <KeyboardArrowLeft />
             {t('offer.backToCalendar')}
@@ -1081,19 +1081,19 @@ export class Planning extends PureComponent<Props, State> {
   renderRollCallDrawer = () => {
     return (
       <RollCallDrawer
-        open={this.state.isRollCallDrawerOpen}
-        onClose={this.closeRollCallDrawer}
-        offer={this.props.offers[this.state.indexOfferInDrawer]}
-        members={this.props.members}
         bookings={this.props.bookingsWithConsumerPack}
-        fetchBookings={this.props.fetchBookingsByOffer}
+        bookingTableLoading={this.props.bookingsLoading}
         confirmBookingAttendance={this.props.confirmBookingAttendance}
         discardBookingAttendance={this.props.discardBookingAttendance}
-        postRollCall={this.props.postRollCall}
+        fetchBookings={this.props.fetchBookingsByOffer}
         fetchOffer={this.props.retrieveOfferAsManager}
-        bookingTableLoading={this.props.bookingsLoading}
-        rollCallLoading={this.props.rollCallLoading}
         isRollCallMandatory={this.props.theme.is_roll_call_mandatory}
+        members={this.props.members}
+        offer={this.props.offers[this.state.indexOfferInDrawer]}
+        onClose={this.closeRollCallDrawer}
+        open={this.state.isRollCallDrawerOpen}
+        postRollCall={this.props.postRollCall}
+        rollCallLoading={this.props.rollCallLoading}
       />
     );
   };
@@ -1101,11 +1101,11 @@ export class Planning extends PureComponent<Props, State> {
   renderConfirmationRollCallDialog = () => {
     return (
       <ConfirmationRollCallDialog
-        open={this.state.isConfirmationRollCallDialogOpen}
-        nbRollCallsLeftToValidate={this.props.offers.length}
-        onConfirm={this.postRollCallBulk}
-        onCancel={this.closeConfirmationRollCallDialog}
         isLoading={this.props.rollCallLoading}
+        nbRollCallsLeftToValidate={this.props.offers.length}
+        onCancel={this.closeConfirmationRollCallDialog}
+        onConfirm={this.postRollCallBulk}
+        open={this.state.isConfirmationRollCallDialogOpen}
       />
     );
   };
@@ -1179,32 +1179,32 @@ export class Planning extends PureComponent<Props, State> {
     return (
       <div className={classes.container}>
         <OfferSearchBar
-          theme={this.props.theme}
-          establishmentGroupList={this.props.establishmentGroupList}
-          allEstablishments={this.props.allEstablishments}
-          establishmentsLoading={this.props.establishmentsLoading}
-          offerFilters={this.props.offerFilters}
-          coachesLoading={this.props.coachesLoading}
-          metaActivities={this.props.metaActivities}
           activitiesLoading={this.props.activitiesLoading}
-          coachesSelectedInRole={this.props.coachesSelectedInRole}
+          allEstablishments={this.props.allEstablishments}
           coaches={this.props.coaches}
+          coachesLoading={this.props.coachesLoading}
+          coachesSelectedInRole={this.props.coachesSelectedInRole}
+          establishmentGroupList={this.props.establishmentGroupList}
+          establishmentsLoading={this.props.establishmentsLoading}
           filterVerification={this.props.filterVerification}
-          setCalendarFilter={this.setCalendarFilter}
+          metaActivities={this.props.metaActivities}
+          offerFilters={this.props.offerFilters}
           selectRollCallFilter={this.selectRollCallFilter}
+          setCalendarFilter={this.setCalendarFilter}
+          theme={this.props.theme}
         />
-        <Grid className={classes.innerContainer} container spacing={3}>
+        <Grid container className={classes.innerContainer} spacing={3}>
           {isWidthDown('md', width) && selectedOffer
             ? this.renderGoBackButton()
             : null}
           {isWidthUp('lg', width) || !selectedOffer ? (
-            <Grid className={classes.panel} item xs={12} lg={6}>
+            <Grid item className={classes.panel} lg={6} xs={12}>
               <CheckPermission requiredPermissions="navigation,calendar">
                 <Button
-                  variant="contained"
                   color="primary"
-                  style={{ width: '100%', margin: 8 }}
                   onClick={this.props.pushToSchedule}
+                  style={{ width: '100%', margin: 8 }}
+                  variant="contained"
                 >
                   {this.props.t('openSchedule')}
                   <ArrowForwardIcon style={{ marginLeft: 8 }} />
@@ -1221,47 +1221,47 @@ export class Planning extends PureComponent<Props, State> {
                 <PermissionContext.Consumer>
                   {(permission) => (
                     <Calendar
+                      showDayName
+                      date={this.props.date}
+                      events={events_}
+                      filters={this.props.offerFilters}
+                      onDateChange={this.loadDayData}
                       onDownload={this.onDownload}
                       onRequestMassDisable={
                         permission.offer.delete &&
                         this.props.setMassDisablerStartDate
                       }
-                      events={events_}
-                      onDateChange={this.loadDayData}
-                      date={this.props.date}
-                      filters={this.props.offerFilters}
+                      setShowCancelledOffers={this.props.setShowCancelledOffers}
                       showCancelledOffers={
                         this.props.offerFilters.available === undefined
                           ? this.props.theme.show_cancelled_offers_manager
                           : !this.props.offerFilters.available
                       }
-                      setShowCancelledOffers={this.props.setShowCancelledOffers}
-                      showDayName
                     />
                   )}
                 </PermissionContext.Consumer>
                 <TimeTable
-                  onOfferSelected={this.selectOffer}
-                  offers={offers}
+                  displayCoachInfoOnHover
+                  showTags
+                  virtualized
+                  className={classes.offerList}
+                  companyTheme={this.props.theme}
+                  getHasPendingReplacementRequest={
+                    this.props.getHasPendingReplacementRequest
+                  }
+                  isRollCallMandatory={this.props.theme.is_roll_call_mandatory}
                   loading={
                     offerByDayLoading ||
                     (timetableLoading && (offers || []).length === 0)
                   }
-                  selected={selectedOffer ? selectedOffer.id : null}
-                  getHasPendingReplacementRequest={
-                    this.props.getHasPendingReplacementRequest
-                  }
+                  offers={offers}
                   onModifyTags={this.onModifyTags}
-                  showTags
-                  className={classes.offerList}
-                  virtualized
-                  isRollCallMandatory={this.props.theme.is_roll_call_mandatory}
-                  companyTheme={this.props.theme}
-                  openRollCallDrawer={this.openRollCallDrawer}
+                  onOfferSelected={this.selectOffer}
                   openConfirmationRollCallDialog={
                     this.openConfirmationRollCallDialog
                   }
-                  displayCoachInfoOnHover
+                  openRollCallDrawer={this.openRollCallDrawer}
+                  selected={selectedOffer ? selectedOffer.id : null}
                 />
               </Paper>
               <CheckPermission requiredPermissions="offer.create">
@@ -1293,38 +1293,38 @@ export class Planning extends PureComponent<Props, State> {
             <Typography />
           )}
           {selectedOffer ? (
-            <Grid item xs={12} lg={6}>
+            <Grid item lg={6} xs={12}>
               <div>
                 <OfferCard
-                  snackbarSuccess={this.props.snackbarSuccess}
-                  offer={selectedOffer}
-                  linkedHybridSession={hybridOfferLinkedToSelectedOffer}
-                  companyId={this.props.companyId}
-                  onEditButtonClick={this.openEditModal}
-                  onDeleteButtonClick={this.openDeleteModal}
-                  onRestoreButtonClick={this.openRestoreModal}
-                  goToOfferManagement={this.props.goToOfferManagement}
-                  members={this.props.members}
-                  membersLoading={
-                    this.props.membersLoading || !this.props.members
-                  }
                   bookings={this.props.bookings}
                   bookingsLoading={
                     this.props.bookingsLoading || !this.props.bookings
                   }
+                  companyId={this.props.companyId}
+                  companyTheme={this.props.theme}
+                  creditScaleFactor={this.props.theme.pass_credit_factor}
+                  goToOfferManagement={this.props.goToOfferManagement}
+                  linkedHybridSession={hybridOfferLinkedToSelectedOffer}
+                  members={this.props.members}
+                  membersLoading={
+                    this.props.membersLoading || !this.props.members
+                  }
+                  offer={selectedOffer}
+                  onDeleteButtonClick={this.openDeleteModal}
+                  onEditButtonClick={this.openEditModal}
+                  onModifyTags={this.onModifyTags}
+                  onRestoreButtonClick={this.openRestoreModal}
                   showOfferGender={
                     this.props.theme &&
                     this.props.theme.show_booked_gender_offer
                   }
                   showVaccinationStatus={this.props.showVaccinationStatus}
-                  onModifyTags={this.onModifyTags}
-                  companyTheme={this.props.theme}
-                  creditScaleFactor={this.props.theme.pass_credit_factor}
+                  snackbarSuccess={this.props.snackbarSuccess}
                 />
               </div>
             </Grid>
           ) : (
-            <Grid item xs={12} lg={6}>
+            <Grid item lg={6} xs={12}>
               <BookingStatisticsCard
                 bookingStatistics={this.props.bookingStatistics}
                 loading={
@@ -1335,10 +1335,10 @@ export class Planning extends PureComponent<Props, State> {
             </Grid>
           )}
           <Dialog
-            open={this.props.openDeleteDialog}
-            onClose={() => this.props.setOpenDeleteDialog(false)}
-            aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
+            aria-labelledby="alert-dialog-title"
+            onClose={() => this.props.setOpenDeleteDialog(false)}
+            open={this.props.openDeleteDialog}
           >
             <DialogTitle id="alert-dialog-title">
               {this.props.t('offer:deleteImpossibleTitle')}
@@ -1350,8 +1350,8 @@ export class Planning extends PureComponent<Props, State> {
             </DialogContent>
             <DialogActions>
               <Button
-                onClick={() => this.props.setOpenDeleteDialog(false)}
                 color="primary"
+                onClick={() => this.props.setOpenDeleteDialog(false)}
               >
                 {this.props.t('offer:close')}
               </Button>
@@ -1365,19 +1365,12 @@ export class Planning extends PureComponent<Props, State> {
           {this.renderConfirmationRollCallDialog()}
           {!!this.props.massDisablerStartDate && (
             <MassDisablerDialog
-              startDate={this.props.massDisablerStartDate}
-              retrieveNumberOfDeletedOffer={({ start, end }) => {
-                this.props.retrieveNumberOfMassDisabledOffer({ start, end });
-                this.props.retrieveNumberOfMassDisabledOfferInGroup({
-                  start,
-                  end,
-                });
-              }}
+              massDisabledOfferInGroup={this.props.massDisabledOfferInGroup}
+              numberOfMassDisabledOffer={this.props.numberOfMassDisabledOffer}
               numberOfMassDisabledOfferLoading={
                 this.props.numberOfMassDisabledOfferLoading
               }
-              numberOfMassDisabledOffer={this.props.numberOfMassDisabledOffer}
-              massDisabledOfferInGroup={this.props.massDisabledOfferInGroup}
+              onClose={() => this.props.setMassDisablerStartDate(null)}
               onSubmit={(params) =>
                 this.props.disableMassOffers(params, this.props.offerFilters, {
                   onSuccess: () => {
@@ -1385,7 +1378,14 @@ export class Planning extends PureComponent<Props, State> {
                   },
                 })
               }
-              onClose={() => this.props.setMassDisablerStartDate(null)}
+              retrieveNumberOfDeletedOffer={({ start, end }) => {
+                this.props.retrieveNumberOfMassDisabledOffer({ start, end });
+                this.props.retrieveNumberOfMassDisabledOfferInGroup({
+                  start,
+                  end,
+                });
+              }}
+              startDate={this.props.massDisablerStartDate}
             />
           )}
         </Grid>

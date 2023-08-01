@@ -35,11 +35,11 @@ function paymentPackOption(props: OptionProps) {
   return (
     <div ref={innerRef} {...innerProps}>
       <PaymentPackSummary
-        selected={isSelected}
+        button
+        noDivider
         isFocused={isFocused}
         paymentPack={data.pp}
-        noDivider
-        button
+        selected={isSelected}
       />
     </div>
   );
@@ -61,14 +61,13 @@ export function PaymentPackSelector(props: Props) {
     .map((pp) => ({ value: pp.id, label: pp.name, pp }));
   return (
     <Selector
-      autofocus={autofocus}
       searchIcon
-      selected={value}
-      nullCurrentValue={nullCurrentValue}
-      suggestions={suggestions}
+      autofocus={autofocus}
       className={classNames(classes, selectorClass)}
       components={{ Option: paymentPackOption }}
-      placeholder={helperText}
+      isDisabled={!!props.disabled}
+      isMulti={props.isMulti}
+      nullCurrentValue={nullCurrentValue}
       onChange={(event: number | { value: number; label: string }) => {
         if (props.isMulti) {
           onChange(event);
@@ -76,8 +75,9 @@ export function PaymentPackSelector(props: Props) {
           onChange(event.value);
         }
       }}
-      isMulti={props.isMulti}
-      isDisabled={!!props.disabled}
+      placeholder={helperText}
+      selected={value}
+      suggestions={suggestions}
     />
   );
 }

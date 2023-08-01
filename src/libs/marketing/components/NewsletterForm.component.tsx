@@ -58,35 +58,35 @@ class NewsletterFormComponent extends React.PureComponent<Props, State> {
           onSubmit={this.onSubmit}
         >
           <TextField
+            required
             className={classes.fullWidth}
-            variant="outlined"
-            placeholder={t('')}
             label={t('newsletter.form.email')}
-            value={this.state.email}
-            required
             onChange={(ev) => this.setState({ email: ev.target.value })}
+            placeholder={t('')}
             type="email"
+            value={this.state.email}
+            variant="outlined"
           />
 
           <TextField
-            className={classNames([classes.marginTop, classes.fullWidth])}
-            variant="outlined"
-            placeholder={t('')}
-            label={t('newsletter.form.firstName')}
-            value={this.state.firstName}
             required
+            className={classNames([classes.marginTop, classes.fullWidth])}
+            label={t('newsletter.form.firstName')}
             onChange={(ev) => this.setState({ firstName: ev.target.value })}
+            placeholder={t('')}
             type="text"
+            value={this.state.firstName}
+            variant="outlined"
           />
 
           <TextField
             className={classNames([classes.marginTop, classes.fullWidth])}
-            variant="outlined"
-            placeholder={t('')}
             label={t('newsletter.form.lastName')}
-            value={this.state.lastName}
             onChange={(ev) => this.setState({ lastName: ev.target.value })}
+            placeholder={t('')}
             type="text"
+            value={this.state.lastName}
+            variant="outlined"
           />
 
           <Button
@@ -95,9 +95,9 @@ class NewsletterFormComponent extends React.PureComponent<Props, State> {
               classes.fullWidth,
               classes.btnHeight,
             ])}
-            variant="contained"
-            type="submit"
             color="primary"
+            type="submit"
+            variant="contained"
           >
             {t('newsletter.form.validate')}
           </Button>

@@ -61,9 +61,9 @@ export class CustomFormStatistics extends React.Component<Props, State> {
       <Grid container direction="row" spacing={4}>
         <Grid item xs={12}>
           <CustomFormDetailByMemberPanel
+            customFormStatistic={this.props.customFormStatistic}
             fetchMemberList={this.fetchMemberList}
             goToMember={this.props.goToMemberPage}
-            customFormStatistic={this.props.customFormStatistic}
           />
         </Grid>
       </Grid>

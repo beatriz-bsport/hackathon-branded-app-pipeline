@@ -176,20 +176,20 @@ export class LoginRouter extends React.Component<Props> {
       <>
         {!simplifyUI && (
           <Hidden
-            xsDown={location.pathname !== '/login/signup'}
             mdDown={location.pathname === '/login/signup'}
+            xsDown={location.pathname !== '/login/signup'}
           >
             <LoginBackground
+              backgroundFixed={isLoginBackgroundFixed(location.pathname)}
               company={!!this.props.membership}
               franchise={!!this.props.franchisor}
-              backgroundFixed={isLoginBackgroundFixed(location.pathname)}
             />
             <Fade in>
               <div className="bs-container__header">
                 <img
-                  src={src}
-                  className="bs-container__header__logo"
                   alt={alt}
+                  className="bs-container__header__logo"
+                  src={src}
                 />
 
                 <LanguageButton />
@@ -200,33 +200,33 @@ export class LoginRouter extends React.Component<Props> {
         <div className="bs-container">
           <Switch>
             <Route
-              path="/login/accountConfiguration"
               component={AccountConfigurationRouter}
+              path="/login/accountConfiguration"
             />
-            <Route path="/login/signout" component={Signout} />
-            <Route path="/login/reset_password" component={ResetPassword} />
-            <Route path="/login/customer" component={LoginPage} />
+            <Route component={Signout} path="/login/signout" />
+            <Route component={ResetPassword} path="/login/reset_password" />
+            <Route component={LoginPage} path="/login/customer" />
             <Route
-              path="/login/company_onboarding/:activeStep/"
               component={CompanyOnboardingRouter}
+              path="/login/company_onboarding/:activeStep/"
             />
             <Route
-              path="/login/company_onboarding"
               component={() => (
                 <Redirect to="/login/company_onboarding/welcome" />
               )}
+              path="/login/company_onboarding"
             />
             <Route
-              path="/login/email_validation/:uid/:token"
               component={ValidateEmailWithTokenPage}
+              path="/login/email_validation/:uid/:token"
             />
             <Route
-              path="/login/change_password/:uid/:token"
               component={ChangePassword}
+              path="/login/change_password/:uid/:token"
             />
-            <Route path="/login/double-login" component={DoubleLogin} />
-            <Route path="/login/signup" component={SignupPage} />
-            <Route path="/login" component={LoginPage} />
+            <Route component={DoubleLogin} path="/login/double-login" />
+            <Route component={SignupPage} path="/login/signup" />
+            <Route component={LoginPage} path="/login" />
           </Switch>
         </div>
       </>

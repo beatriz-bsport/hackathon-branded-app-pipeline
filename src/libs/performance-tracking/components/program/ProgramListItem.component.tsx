@@ -31,7 +31,7 @@ export const ProgramListItem = (props: Props) => {
   return (
     <>
       <Paper className={classes.paper}>
-        <ListItem divider className={classes.listitem} key={`${program?.id}`}>
+        <ListItem key={`${program?.id}`} divider className={classes.listitem}>
           <div className={classes.icon}>
             <MuiIcon icon={program?.icon} />
           </div>
@@ -73,15 +73,15 @@ export const ProgramListItem = (props: Props) => {
       </Paper>
 
       <GenericMuiDialog
-        open={isOpenGenericMuiDialog}
-        title={t('program.deleteHeader')}
-        content={t('program.deleteContent')}
         confirmText={t('form.delete')}
+        content={t('program.deleteContent')}
         onCancel={() => setIsOpenGenericMuiDialog(false)}
         onConfirm={() => {
           onDelete(program);
           setIsOpenGenericMuiDialog(false);
         }}
+        open={isOpenGenericMuiDialog}
+        title={t('program.deleteHeader')}
       />
     </>
   );

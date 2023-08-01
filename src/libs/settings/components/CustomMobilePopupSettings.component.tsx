@@ -149,15 +149,15 @@ const CustomMobilePopupSettings: React.FC<Props> = ({
                   <TableCell colSpan={10}>{popup.name}</TableCell>
                   <TableCell colSpan={10}>{popup.link}</TableCell>
                   <TableCell colSpan={10}>
-                    <a href={popup.image} target="_blank" rel="noreferrer">
+                    <a href={popup.image} rel="noreferrer" target="_blank">
                       {t('mobilePersonalization.popup.see')}
                     </a>
                   </TableCell>
                   <TableCell className={classes.action}>
                     <IconButton
-                      size="small"
                       color="primary"
                       onClick={onClickEditLink(popup)}
+                      size="small"
                     >
                       <EditIcon />
                     </IconButton>
@@ -175,10 +175,10 @@ const CustomMobilePopupSettings: React.FC<Props> = ({
       </Paper>
       <div className={classnames(classes.row, classes.buttons)}>
         <Button
-          variant="outlined"
+          className={classes.leftButton}
           color="primary"
           onClick={handleOpenPopupDialog}
-          className={classes.leftButton}
+          variant="outlined"
         >
           {t('mobilePersonalization.popup.add')}
         </Button>
@@ -187,8 +187,8 @@ const CustomMobilePopupSettings: React.FC<Props> = ({
       {openPopupDialog && (
         <CustomMobilePopupDialog
           key={editingPopup?.id}
-          initial={editingPopup}
           open
+          initial={editingPopup}
           onClose={handleClosePopupDialog}
           onSubmit={handleSubmitLink}
         />
@@ -233,7 +233,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const DeleteWithConfirm = withConfirm(
   ({ onClick }: { onClick: () => void }) => (
-    <IconButton size="small" onClick={onClick}>
+    <IconButton onClick={onClick} size="small">
       <DeleteIcon />
     </IconButton>
   ),

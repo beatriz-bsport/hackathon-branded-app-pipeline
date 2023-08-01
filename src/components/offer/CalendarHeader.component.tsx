@@ -126,13 +126,13 @@ export const CalendarHeader = forwardRef(
           </IconButton>
           <ButtonBase
             disableRipple
-            onClick={openPicker}
             className={open ? classes.clickedButton : classes.unclickedButton}
+            onClick={openPicker}
           >
             <Typography
+              className={classes.textCapitalize}
               component="h3"
               variant="h6"
-              className={classes.textCapitalize}
             >
               {renderCalendarTitle()}
             </Typography>
@@ -146,21 +146,21 @@ export const CalendarHeader = forwardRef(
           </IconButton>
           <div>
             <MuiPickersUtilsProvider
-              utils={MomentUtils}
-              moment={moment}
               locale={moment.locale()}
+              moment={moment}
+              utils={MomentUtils}
             >
               <DatePicker
-                onChange={setNewDate}
-                value={null}
-                TextFieldComponent={hiddenDiv}
                 DialogProps={{ open }}
-                onClose={closePicker}
                 initialFocusedDate={
                   props.dateSelected
                     ? moment(props.dateSelected).format(DATE_FORMAT)
                     : moment().format(DATE_FORMAT)
                 }
+                onChange={setNewDate}
+                onClose={closePicker}
+                TextFieldComponent={hiddenDiv}
+                value={null}
               />
             </MuiPickersUtilsProvider>
           </div>
@@ -170,22 +170,22 @@ export const CalendarHeader = forwardRef(
             <div className={classes.trick} />
             <Button
               className={classes.showOnWideScreen}
-              onClick={goToToday}
-              variant="outlined"
               disabled={
                 moment(props.dateSelected).format(DATE_FORMAT) ===
                 moment().format(DATE_FORMAT)
               }
+              onClick={goToToday}
+              variant="outlined"
             >
               {t('calendar.today')}
             </Button>
             <IconButton
               className={classes.showOnNarrowScreen}
-              onClick={goToToday}
               disabled={
                 moment(props.dateSelected).format(DATE_FORMAT) ===
                 moment().format(DATE_FORMAT)
               }
+              onClick={goToToday}
             >
               <TodayIcon />
             </IconButton>

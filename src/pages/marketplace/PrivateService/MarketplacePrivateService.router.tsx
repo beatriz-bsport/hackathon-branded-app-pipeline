@@ -7,13 +7,13 @@ export const MarketplacePrivateServiceRouter: React.FC = () => {
   return (
     <Switch>
       <Route
-        path="/m/:companyName/:companyId/private-service/:serviceId"
         component={PrivateServiceDetailPage}
+        path="/m/:companyName/:companyId/private-service/:serviceId"
       />
 
       <Route
-        path="/m/:companyName/:companyId/private-service"
         component={PrivateServiceSelectorPage}
+        path="/m/:companyName/:companyId/private-service"
       />
     </Switch>
   );

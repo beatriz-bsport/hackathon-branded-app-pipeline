@@ -49,8 +49,8 @@ const CouponTemplateInstanceFormDialog = (props: Props) => {
             {isSubmitting && (
               <CircularProgress
                 className={classes.progress}
-                size={12}
                 color="inherit"
+                size={12}
               />
             )}
             {t('paymentPack:paymentPackTemplateInstance.form.actions.submit')}

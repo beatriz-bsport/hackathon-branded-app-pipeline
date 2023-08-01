@@ -50,8 +50,8 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
     <RadioGroup
       aria-label="payment-method"
       className={classes.paymentMethodSelectorContainer}
-      value={props.paymentMethod}
       onChange={(ev) => props.onChange(ev.target.value)}
+      value={props.paymentMethod}
     >
       {(props.enabledPaymentMethods || []).includes(
         BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
@@ -60,12 +60,12 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
         PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
       ) ? (
         <FormControlLabel
-          value="card"
+          className={classes.paymentMethodRadio}
           control={<Radio color="primary" />}
+          disabled={props.disabled || props.onlinePaymentEnabled === false}
           label={t('paymentMethod.card')}
           labelPlacement="bottom"
-          disabled={props.disabled || props.onlinePaymentEnabled === false}
-          className={classes.paymentMethodRadio}
+          value="card"
         />
       ) : null}
       {(props.enabledPaymentMethods || []).includes(
@@ -75,12 +75,12 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
         PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
       ) ? (
         <FormControlLabel
-          value="bacs_debit"
+          className={classes.paymentMethodRadio}
           control={<Radio color="primary" />}
+          disabled={props.disabled || props.onlinePaymentEnabled === false}
           label={t('paymentMethod.bacs_debit')}
           labelPlacement="bottom"
-          disabled={props.disabled || props.onlinePaymentEnabled === false}
-          className={classes.paymentMethodRadio}
+          value="bacs_debit"
         />
       ) : null}
       {((props.enabledPaymentMethods || []).includes(
@@ -91,12 +91,12 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
         )) &&
       currency === 'eur' ? (
         <FormControlLabel
-          value="sepa_debit"
+          className={classes.paymentMethodRadio}
           control={<Radio color="primary" />}
+          disabled={props.disabled || props.onlinePaymentEnabled === false}
           label={t('paymentMethod.sepa')}
           labelPlacement="bottom"
-          disabled={props.disabled || props.onlinePaymentEnabled === false}
-          className={classes.paymentMethodRadio}
+          value="sepa_debit"
         />
       ) : null}
       {(props.enabledPaymentMethods || []).includes(
@@ -106,12 +106,12 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
         PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
       ) ? (
         <FormControlLabel
-          value="bsport:credit"
+          className={classes.paymentMethodRadio}
           control={<Radio color="primary" />}
+          disabled={props.disabled}
           label={t('paymentMethod.bsportCredit')}
           labelPlacement="bottom"
-          disabled={props.disabled}
-          className={classes.paymentMethodRadio}
+          value="bsport:credit"
         />
       ) : null}
       {((props.enabledPaymentMethods || []).includes(
@@ -123,17 +123,17 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
         <FeatureListProvider>
           {(featureList: FeatureList) => (
             <FormControlLabel
-              value="terminal"
+              className={classes.paymentMethodRadio}
               control={<Radio color="primary" />}
-              label={t(
-                'invoice:configuration.stripeTerminal.paymentDialog.radio',
-              )}
-              labelPlacement="bottom"
               disabled={
                 props.disabled ||
                 !hasUpsell(featureList, UPSELL_IDENTIFIER_STRIPE_TERMINAL)
               }
-              className={classes.paymentMethodRadio}
+              label={t(
+                'invoice:configuration.stripeTerminal.paymentDialog.radio',
+              )}
+              labelPlacement="bottom"
+              value="terminal"
             />
           )}
         </FeatureListProvider>

@@ -46,8 +46,8 @@ const QuicksaleConfigurationItemList: React.FC<Props> = (props) => {
         {(autoSizerProps: { height: number; width: number }) => (
           <Grid
             container
-            spacing={isMobile ? 2 : 3}
             className={classes.itemContainer}
+            spacing={isMobile ? 2 : 3}
             style={{
               maxHeight: autoSizerProps.height,
               width: autoSizerProps.width,
@@ -57,7 +57,7 @@ const QuicksaleConfigurationItemList: React.FC<Props> = (props) => {
             {loading ? (
               <>
                 {[...Array(16).keys()].map((index) => (
-                  <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                  <Grid key={index} item lg={3} md={4} sm={6} xs={12}>
                     <QuicksaleItemCardSkeleton />
                   </Grid>
                 ))}
@@ -66,33 +66,33 @@ const QuicksaleConfigurationItemList: React.FC<Props> = (props) => {
               <>
                 {(itemList ?? []).map((item) => (
                   <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
                     key={item.id}
+                    item
                     className={classes.item}
+                    lg={3}
+                    md={4}
+                    sm={6}
+                    xs={12}
                   >
                     <QuicksaleItemCard
-                      item={item}
-                      deleteItem={deleteItem}
-                      openColorModal={openColorModal}
-                      adminView={!isQuicksaleInterfaceView}
                       addToBasket={onItemClick}
+                      adminView={!isQuicksaleInterfaceView}
+                      deleteItem={deleteItem}
+                      item={item}
+                      openColorModal={openColorModal}
                       outOfStock={item.outOfStock}
                       restrictedPurchase={item.restricted}
                     />
                   </Grid>
                 ))}
                 {!isQuicksaleInterfaceView && (
-                  <Grid item xs={12} sm={6} md={4} lg={3}>
+                  <Grid item lg={3} md={4} sm={6} xs={12}>
                     <div
-                      onClick={openAddItemDrawer}
                       className={classes.addSectionIconButton}
+                      onClick={openAddItemDrawer}
+                      onKeyDown={stopPropagation}
                       role="button"
                       tabIndex={0}
-                      onKeyDown={stopPropagation}
                     >
                       <AddCircle className={classes.addSectionIcon} />
                     </div>

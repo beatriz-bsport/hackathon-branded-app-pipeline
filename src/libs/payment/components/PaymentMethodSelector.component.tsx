@@ -63,37 +63,37 @@ export const PaymentMethodSelector = (props: Props) => {
       )}
       {['card', 'sepa_debit', 'bacs_debit'].includes(readableIdentifier) && (
         <PaymentMethodList
-          showEmpty
           isExpanded
+          showEmpty
+          companyId={props.companyId}
+          detachPaymentMethod={props.detachPaymentMethod}
+          detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+          disabled={props.loading || props.processing || props.disabled}
           onDelete={!!props.detachPaymentMethod}
-          savedPaymentMethodList={props.savedPaymentMethodList}
-          selectedSavedPaymentMethodId={props.selectedSavedPaymentMethodId}
-          requestSetupIntentSecret={props.requestSetupIntentSecret}
           onlinePaymentEnabled={props.onlinePaymentEnabled}
-          refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
+          onSelect={props.selectPaymentMethod}
           paymentMethodType={fromPaymentGroupIdentifierToPaymentMethodIdentifier(
             props.paymentGroupMethodIdentifier,
           )}
-          onSelect={props.selectPaymentMethod}
-          disabled={props.loading || props.processing || props.disabled}
-          detachPaymentMethodLoading={props.detachPaymentMethodLoading}
-          companyId={props.companyId}
-          detachPaymentMethod={props.detachPaymentMethod}
+          refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
+          requestSetupIntentSecret={props.requestSetupIntentSecret}
+          savedPaymentMethodList={props.savedPaymentMethodList}
+          selectedSavedPaymentMethodId={props.selectedSavedPaymentMethodId}
+          sepaDefaultEmail={props.sepaDefaultEmail}
+          sepaDefaultName={props.sepaDefaultName}
           snackbarErrorMsg={props.snackbarErrorMsg}
           snackbarSuccessMsg={props.snackbarSuccessMsg}
-          sepaDefaultName={props.sepaDefaultName}
-          sepaDefaultEmail={props.sepaDefaultEmail}
         />
       )}
       {props.paymentMethodType === PAYMENT_STRIPE_TERMINAL_FAKE && (
         <div className={classes.terminalContainer}>
           <PaymentStripeTerminalWrapper
-            stripeReaders={props.stripeReaders}
-            requestSetupIntentSecret={props.requestSetupIntentSecret}
+            isSetupIntent
             onCancel={props.onCancelTerminal}
             onSuccess={props.onSuccessTerminal}
+            requestSetupIntentSecret={props.requestSetupIntentSecret}
             setProcessing={props.setProcessing}
-            isSetupIntent
+            stripeReaders={props.stripeReaders}
           />
         </div>
       )}

@@ -50,10 +50,10 @@ class SpotImageUploadDialog extends React.PureComponent<Props> {
             <div className={classes.spotExampleContainer}>
               <div className={classes.spotImageContainer}>
                 <svg
-                  width="73"
+                  fill="none"
                   height="73"
                   viewBox="0 0 73 73"
-                  fill="none"
+                  width="73"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <circle
@@ -68,18 +68,18 @@ class SpotImageUploadDialog extends React.PureComponent<Props> {
               </div>
               <div className={classes.spotImageContainer}>
                 <svg
-                  width="73"
+                  fill="none"
                   height="73"
                   viewBox="0 0 73 73"
-                  fill="none"
+                  width="73"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <circle
                     cx="36.5"
                     cy="36.5"
+                    fill="lightgrey"
                     r="35.5"
                     stroke="darkgrey"
-                    fill="lightgrey"
                     strokeWidth="2"
                   />
                 </svg>
@@ -88,7 +88,7 @@ class SpotImageUploadDialog extends React.PureComponent<Props> {
             </div>
 
             <div className={classes.inputsContainer}>
-              <ImageFieldInput name="spot_free" id="free-spot-image-input">
+              <ImageFieldInput id="free-spot-image-input" name="spot_free">
                 <div className={classes.input}>
                   <Typography>{t('spotImageDialog.freeImageLabel')}</Typography>
 
@@ -106,7 +106,7 @@ class SpotImageUploadDialog extends React.PureComponent<Props> {
 
               <div className={classes.marginTop} />
 
-              <ImageFieldInput name="spot_taken" id="taken-spot-image-input">
+              <ImageFieldInput id="taken-spot-image-input" name="spot_taken">
                 <div className={classes.input}>
                   <Typography>
                     {t('spotImageDialog.takenImageLabel')}
@@ -127,8 +127,8 @@ class SpotImageUploadDialog extends React.PureComponent<Props> {
 
             <Typography
               className={classes.marginTop}
-              variant="body1"
               color="textSecondary"
+              variant="body1"
             >
               {t('spotImageDialog.imageFormat')}
             </Typography>

@@ -155,11 +155,11 @@ export class ProgramList extends Component<Props, State> {
                 <Typography>{t('program.infoNoProgram')}</Typography>
               </div>
               <Button
-                variant="outlined"
                 color="primary"
                 onClick={() => {
                   setIsProgramFormOpen(true);
                 }}
+                variant="outlined"
               >
                 {t('program.form.addProgram')}
               </Button>
@@ -170,7 +170,8 @@ export class ProgramList extends Component<Props, State> {
             <Grid item xs={6}>
               <div className={classes.program}>
                 <ProgramListComponent
-                  programList={programList}
+                  isSearchDisplayed
+                  onClickOnItem={(program) => this.clickItem(program.id)}
                   onDelete={(program) => {
                     enableOrDisableProgram({
                       id: program.id,
@@ -178,9 +179,8 @@ export class ProgramList extends Component<Props, State> {
                     });
                   }}
                   onEdit={this.onEditProgram}
-                  onClickOnItem={(program) => this.clickItem(program.id)}
+                  programList={programList}
                   programSelectedId={selectedProgramId}
-                  isSearchDisplayed
                 />
                 {!!programListDisabled?.length && (
                   <ProgramListComponent
@@ -195,18 +195,6 @@ export class ProgramList extends Component<Props, State> {
             </Grid>
             <Grid item xs={6}>
               <ProgramDetail
-                onClickMember={goToMemberProgramPage}
-                metricLoading={metricLoading}
-                onEdit={(program) => {
-                  setProgramToEdit(program?.id);
-                  setIsProgramFormOpen(true);
-                }}
-                onDelete={(program) => {
-                  enableOrDisableProgram({ id: program.id, enabled: false });
-                }}
-                program={programList.find(
-                  (program) => program.id === selectedProgramId,
-                )}
                 memberProgramPaginated={{
                   items: memberProgramPaginated,
                   page: memberProgramPage?.page,
@@ -214,9 +202,21 @@ export class ProgramList extends Component<Props, State> {
                   count: memberProgramPage?.count,
                   loading: memberProgramLoading,
                 }}
+                metricLoading={metricLoading}
+                onClickMember={goToMemberProgramPage}
+                onDelete={(program) => {
+                  enableOrDisableProgram({ id: program.id, enabled: false });
+                }}
+                onEdit={(program) => {
+                  setProgramToEdit(program?.id);
+                  setIsProgramFormOpen(true);
+                }}
                 onPageRequested={(page, pageSize) =>
                   this.props.fetchMemberProgramPaginated(page, pageSize)
                 }
+                program={programList.find(
+                  (program) => program.id === selectedProgramId,
+                )}
               />
             </Grid>
           </Grid>
@@ -233,14 +233,16 @@ export class ProgramList extends Component<Props, State> {
                 ? t('program.form.create')
                 : t('program.form.update')
             }
+            trackingObjectId={selectedProgramToEdit?.id}
             trackingObjectIdentifier={
               SegmentAnalyticsFormObjectIdentifier.PerformanceTrackingProgram
             }
-            trackingObjectId={selectedProgramToEdit?.id}
           >
             <ProgramForm
-              isTitleEnabled={false}
+              isInDrawer
               closeDialog={() => setIsProgramFormOpen(false)}
+              initial={{ ...selectedProgramToEdit }}
+              isTitleEnabled={false}
               resetInitial={() => setProgramToEdit(null)}
               submit={(
                 program,
@@ -248,8 +250,6 @@ export class ProgramList extends Component<Props, State> {
               ) => {
                 createOrUpdateProgram(program, options);
               }}
-              initial={{ ...selectedProgramToEdit }}
-              isInDrawer
             />
           </GenericResponsiveDrawer>
         )}

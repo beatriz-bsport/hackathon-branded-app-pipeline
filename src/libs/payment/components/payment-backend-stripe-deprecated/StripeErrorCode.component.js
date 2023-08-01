@@ -16,11 +16,11 @@ export const StripeErrorCode = (props: Props) => {
   return (
     <div className={classes.container}>
       {!!props.errorCode && (
-        <Typography variant="caption" color="error">
+        <Typography color="error" variant="caption">
           {props.t(`error_code.${props.errorCode}`)}
         </Typography>
       )}
-      <Typography variant="caption" color="error">
+      <Typography color="error" variant="caption">
         {props.t(`decline_code.${props.declineCode || 'none'}`)}
       </Typography>
     </div>

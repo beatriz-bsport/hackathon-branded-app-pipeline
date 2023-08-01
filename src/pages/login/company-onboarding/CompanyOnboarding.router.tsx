@@ -44,9 +44,9 @@ export const CompanyOnboardingRouter = (props: OwnProps) => {
   return (
     <div className={classes.container}>
       <Stepper
-        style={{ backgroundColor: 'transparent' }}
-        activeStep={activeStepNumber}
         alternativeLabel
+        activeStep={activeStepNumber}
+        style={{ backgroundColor: 'transparent' }}
       >
         {getSteps().map((label) => (
           <Step key={label}>
@@ -56,16 +56,16 @@ export const CompanyOnboardingRouter = (props: OwnProps) => {
       </Stepper>
       <Switch>
         <Route
-          path="/login/company_onboarding/welcome/"
           component={CompanyOnboardingWelcomePage}
+          path="/login/company_onboarding/welcome/"
         />
         <Route
-          path="/login/company_onboarding/form/"
           component={CompanyOnboardingFormPage}
+          path="/login/company_onboarding/form/"
         />
         <Route
-          path="/login/company_onboarding/email_validation/:email"
           component={EmailValidationPage}
+          path="/login/company_onboarding/email_validation/:email"
         />
       </Switch>
     </div>

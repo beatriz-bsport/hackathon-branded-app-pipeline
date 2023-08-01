@@ -53,29 +53,29 @@ export function TagDetailOffersHeaderForm() {
     <Form>
       <Grid container direction="row" spacing={1}>
         <Grid item md={4} xs={12}>
-          <DateField name="dateStart" fullWidth label={t('common.from')} />
+          <DateField fullWidth label={t('common.from')} name="dateStart" />
           <AlertError name="dateStart" />
         </Grid>
         <Grid item md={4} xs={12}>
-          <DateField name="dateEnd" fullWidth label={t('common.until')} />
+          <DateField fullWidth label={t('common.until')} name="dateEnd" />
           <AlertError name="dateEnd" />
         </Grid>
         <Grid item md={12}>
           <MaterialUiSingleSelectorField
+            isMulti={false}
             name="tagAuthorizationFilter"
             options={tagAuthorizationOptions(t)}
-            isMulti={false}
+            placeholder={t('form.compability.selectPack')}
             title={
               <Typography>
                 {t('tag:management.offerDetail.filters.selectorTitle')}
               </Typography>
             }
-            placeholder={t('form.compability.selectPack')}
           />
         </Grid>
         <Grid item md={12}>
           <Actions>
-            <Button variant="outlined" type="submit" color="primary">
+            <Button color="primary" type="submit" variant="outlined">
               {t('common.filter')}
             </Button>
           </Actions>

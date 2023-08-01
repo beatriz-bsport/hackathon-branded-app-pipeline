@@ -359,29 +359,29 @@ export class PrivatePassList extends React.Component<Props, State> {
       return (
         <div>
           <IsEmptyList
-            text={this.props.t('noPrivatePass')}
             button={this.props.t('privatePass.list.createButton')}
             onCreate={() => this.props.setOpenCreateForm(true)}
             onCreateLabel={this.props.t('privatePass.list.createButton')}
+            text={this.props.t('noPrivatePass')}
           />
           <GenericResponsiveDrawer
-            open={this.props.openCreateForm}
             onClose={() => this.props.closePrivatePassForm()}
+            open={this.props.openCreateForm}
             title={this.props.t('privatePass.form.title')}
             trackingObjectIdentifier={
               SegmentAnalyticsFormObjectIdentifier.PrivatePass
             }
           >
             <PrivatePassForm
-              privatePassCategories={this.props.privatePassCategories}
-              onSubmit={this.props.createOrUpdatePrivatePass}
-              onCancel={() => this.props.closePrivatePassForm()}
-              compatibleServicePass={this.props.compatibleServicePass}
-              privateServices={this.props.privateServices}
               categoryList={paymentPackCategoryList}
+              compatibleServicePass={this.props.compatibleServicePass}
+              creditScaleFactor={this.props.theme.pass_credit_factor}
               establishmentList={establishmentList}
               metaActivityList={metaActivities}
-              creditScaleFactor={this.props.theme.pass_credit_factor}
+              onCancel={() => this.props.closePrivatePassForm()}
+              onSubmit={this.props.createOrUpdatePrivatePass}
+              privatePassCategories={this.props.privatePassCategories}
+              privateServices={this.props.privateServices}
             />
           </GenericResponsiveDrawer>
         </div>
@@ -394,22 +394,22 @@ export class PrivatePassList extends React.Component<Props, State> {
           <div className={classes.buttonRow}>
             <div style={{ flex: 1 }}>
               <FuzeSearch
-                searchText={this.state.searchText}
-                clearSearch={this.clearSearch}
                 changeSearch={this.changeSearch}
+                clearSearch={this.clearSearch}
                 items={this.props.privatePassListCustomerEnabled}
                 placeholder={t('searshAppointmentPass')}
                 searchFields={['name']}
                 searchResult={this.state.searchResult}
+                searchText={this.state.searchText}
               />
             </div>
             <Button
-              variant="outlined"
+              color="primary"
               onClick={() => {
                 this.props.setShowCategoryDialog(true);
                 trackFormAdd();
               }}
-              color="primary"
+              variant="outlined"
             >
               <AddIcon color="primary" />
               {t('paymentPack:category.add')}
@@ -433,16 +433,16 @@ export class PrivatePassList extends React.Component<Props, State> {
                 .filter((pp) => !pp.manager_only)
                 .map((pass) => (
                   <PrivatePassListItem
-                    pass={pass}
                     key={pass.id}
                     divider
                     onClick={() => {
                       this.props.goToPass(pass.id);
                     }}
+                    onDelete={() => this.openDeletePassDialog(pass.id)}
                     onEdit={() => {
                       this.openFormAndUploadCompatibilityInfo(pass);
                     }}
-                    onDelete={() => this.openDeletePassDialog(pass.id)}
+                    pass={pass}
                     updatePrivatePass={this.props.createOrUpdatePrivatePass}
                   />
                 ))}
@@ -450,8 +450,8 @@ export class PrivatePassList extends React.Component<Props, State> {
           </Collapse>
         </Paper>
         <PaymentPackFilterAndSortHeader
-          categoryOptions={this.categoryOptions()}
           categoryFilterOnchange={this.categoryFilterOnchange}
+          categoryOptions={this.categoryOptions()}
           categoryValue={this.state.selectedCategories}
           managerOnlyOnChange={this.managerOnlyOnChange}
           managerOnlyValue={this.state.selectedDisponibility}
@@ -465,28 +465,28 @@ export class PrivatePassList extends React.Component<Props, State> {
             </Typography>
           )}
           <PrivatePassCategoryList
-            privatePassOrder={this.state.privatePassOrderByCategory}
-            filterManagerOnly={this.state.selectedDisponibility}
+            deletePrivatePassCategory={this.props.deletePrivatePassCategory}
             filteredCategories={this.state.selectedCategories}
-            privatePassCategoryById={this.props.privatePassByCategory}
+            filterManagerOnly={this.state.selectedDisponibility}
             goToPass={this.props.goToPass}
-            setOpenDeletePassDialog={this.openDeletePassDialog}
-            updatePassOrder={this.props.editOrderPrivatePass}
             onEditPass={(pass) => {
               this.openFormAndUploadCompatibilityInfo(pass);
             }}
-            updateCategoryOrder={this.props.updatePrivatePassCategoryOrder}
+            privatePassCategoryById={this.props.privatePassByCategory}
+            privatePassOrder={this.state.privatePassOrderByCategory}
+            setOpenDeletePassDialog={this.openDeletePassDialog}
             setSelectedCategory={this.props.setSelectedCategory}
             showCategoryEditDialog={() =>
               this.props.setShowCategoryDialog(true)
             }
-            deletePrivatePassCategory={this.props.deletePrivatePassCategory}
+            updateCategoryOrder={this.props.updatePrivatePassCategoryOrder}
+            updatePassOrder={this.props.editOrderPrivatePass}
           />
         </div>
         {this.props.disabledPrivatePassList?.length ? (
           <div className={classes.disbabledList}>
             <div className={classes.buttonTitle}>
-              <Typography variant="h5" className={classes.sectionTitle}>
+              <Typography className={classes.sectionTitle} variant="h5">
                 {`${t('disabledPacksTitle')} (${
                   (this.props.disabledPrivatePassList || []).length
                 })`}
@@ -502,18 +502,18 @@ export class PrivatePassList extends React.Component<Props, State> {
             </div>
             <Divider className={classes.divider} />
             <Collapse
+              unmountOnExit
               className={classes.collapse}
               in={this.props.showDisabled}
-              unmountOnExit
             >
               <List disablePadding>
                 {this.props.disabledPrivatePassList.map((pass: PrivatePass) => (
                   <PrivatePassListItem
-                    pass={pass}
-                    divider
-                    onRestore={() => this.restorePrivatePass(pass.id)}
                     key={pass.id}
                     disabled
+                    divider
+                    onRestore={() => this.restorePrivatePass(pass.id)}
+                    pass={pass}
                   />
                 ))}
               </List>
@@ -521,68 +521,68 @@ export class PrivatePassList extends React.Component<Props, State> {
           </div>
         ) : null}
         <GenericResponsiveDrawer
+          onClose={() => this.props.closePrivatePassForm()}
           open={
             (this.props.openEditForm || this.props.openCreateForm) &&
             !this.props.compatibleServicePassLoading
           }
-          onClose={() => this.props.closePrivatePassForm()}
-          title={this.props.t('privatePass.form.title')}
           subtitle={this.props.selectedPrivatePass?.name}
+          title={this.props.t('privatePass.form.title')}
+          trackingObjectId={this.props.selectedPrivatePass?.id}
           trackingObjectIdentifier={
             SegmentAnalyticsFormObjectIdentifier.PrivatePass
           }
-          trackingObjectId={this.props.selectedPrivatePass?.id}
         >
           <PrivatePassForm
-            provincialTax={this.props.theme?.provincial_tax_value}
-            privatePassCategories={this.props.privatePassCategories}
-            onSubmit={this.props.createOrUpdatePrivatePass}
-            onCancel={(ev: { stopPropagation: () => void }) => {
-              ev.stopPropagation();
-              this.props.closePrivatePassForm();
-            }}
-            privateServices={this.props.privateServices}
+            categoryList={paymentPackCategoryList}
+            compatibleServicePass={this.props.compatibleServicePass}
+            creditScaleFactor={this.props.theme.pass_credit_factor}
+            establishmentList={establishmentList}
             initial={getFormInitial(
               this.props.selectedPrivatePass,
               this.props.compatibleServicePass,
             )}
-            compatibleServicePass={this.props.compatibleServicePass}
-            categoryList={paymentPackCategoryList}
-            establishmentList={establishmentList}
             metaActivityList={metaActivities}
-            creditScaleFactor={this.props.theme.pass_credit_factor}
+            onCancel={(ev: { stopPropagation: () => void }) => {
+              ev.stopPropagation();
+              this.props.closePrivatePassForm();
+            }}
+            onSubmit={this.props.createOrUpdatePrivatePass}
+            privatePassCategories={this.props.privatePassCategories}
+            privateServices={this.props.privateServices}
+            provincialTax={this.props.theme?.provincial_tax_value}
           />
         </GenericResponsiveDrawer>
         <PrivatePassDeleteDialog
+          onCancel={() => this.props.setOpenDeletePassDialog(null)}
+          onConfirm={() =>
+            this.props.deletePrivatePass(this.props.openDeletePassDialog)
+          }
           open={!!this.props.openDeletePassDialog}
           pass={passSelectedForDelete}
-          onCancel={() => this.props.setOpenDeletePassDialog(null)}
           usedInCombo={
             this.props.archivationWarning[this.props.openDeletePassDialog]
               ?.used_in_combo
-          }
-          onConfirm={() =>
-            this.props.deletePrivatePass(this.props.openDeletePassDialog)
           }
         />
 
         <Fab
           className={this.props.classes.addButton}
-          variant="extended"
           color="primary"
           onClick={() => this.props.setOpenCreateForm(true)}
+          variant="extended"
         >
           <AddIcon className={this.props.classes.leftIcon} />
           {this.props.t('privatePass.list.createButton')}
         </Fab>
         {this.props.showCategoryDialog && (
           <PrivatePassCategoryCreationDialog
-            open={this.props.showCategoryDialog}
             handleClose={() => {
               this.props.closePrivatePassCategoryForm();
               trackFormCancel(this.props.selectedCategory?.id);
             }}
             onSubmit={this.props.upsertPrivatePassCategory}
+            open={this.props.showCategoryDialog}
             privatePassCategorySelected={this.props.selectedCategory}
             trackIntent={() =>
               trackFormSubmitIntent(this.props.selectedCategory?.id)

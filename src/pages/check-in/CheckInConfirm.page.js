@@ -40,11 +40,11 @@ export class CheckInConfirmPage extends React.Component<Props> {
     return (
       <div className={this.props.classes.container}>
         <CheckInConfirm
-          offer={this.props.offer}
           booking={this.props.booking}
-          paymentPack={this.props.booking.consumer_payment_pack?.payment_pack}
-          member={this.props.member}
           goBack={this.props.goBack}
+          member={this.props.member}
+          offer={this.props.offer}
+          paymentPack={this.props.booking.consumer_payment_pack?.payment_pack}
         />
       </div>
     );

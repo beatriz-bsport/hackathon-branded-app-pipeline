@@ -222,38 +222,38 @@ export class MarketplaceContract extends React.Component<Props, State> {
     return (
       <div className={classes.container}>
         <MarketplaceContractDetailModal
+          contract={this.state.selectedContract}
+          getPaymentComboSelected={this.props.getPaymentComboSelected}
+          getPaymentPackSelected={this.props.getPaymentPackSelected}
+          getPrivatePassSelected={this.props.getPrivatePassSelected}
           isExcludingTax={
             this.props.companyTheme.is_tax_excluded_in_marketplace
           }
-          contract={this.state.selectedContract}
           isOpen={this.state.isContractDetailsDialogOpen}
           onAddToCart={this.addContractToCart}
           onDialogClose={this.handleCloseContractDetail}
-          getPaymentPackSelected={this.props.getPaymentPackSelected}
-          getPrivatePassSelected={this.props.getPrivatePassSelected}
-          getPaymentComboSelected={this.props.getPaymentComboSelected}
         />
 
         <MarketplaceContractFilters
-          searchResultState={this.state.contractSearchResult}
+          addContractToCart={this.addContractToCart}
           contractList={contractList}
           isExcludingTax={
             this.props.companyTheme.is_tax_excluded_in_marketplace
           }
-          addContractToCart={this.addContractToCart}
-          onShowContractDetail={this.handleShowContractDetail}
           onClearSearchResult={this.handleClearSearchResult}
           onSearchPressEnter={this.handleOnPressSearchEnter}
+          onShowContractDetail={this.handleShowContractDetail}
+          searchResultState={this.state.contractSearchResult}
         />
 
         <MarketplaceContractList
+          contractList={this.props.contractList}
           isExcludingTax={
             this.props.companyTheme.is_tax_excluded_in_marketplace
           }
-          searchedContractIds={this.state.contractSearchResult.contractIds}
-          contractList={this.props.contractList}
           onAddToCart={this.addContractToCart}
           onOpenDetailDialog={this.handleOpenContractDialog}
+          searchedContractIds={this.state.contractSearchResult.contractIds}
         />
       </div>
     );

@@ -193,9 +193,9 @@ export const CoachPerformanceTableRow = (
         <TableCell align="center">
           <IconButton
             aria-label="expand row"
-            size="small"
-            onClick={() => setOpenCollapse(!openCollapse)}
             disabled={props.previewMode}
+            onClick={() => setOpenCollapse(!openCollapse)}
+            size="small"
           >
             {openCollapse ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
@@ -275,24 +275,24 @@ export const CoachPerformanceTableRow = (
         <TableCell className={classes.denseCell} />
         <TableCell className={classes.denseCell} colSpan={13}>
           <Collapse
-            in={openCollapse && !props.previewMode}
             unmountOnExit
+            in={openCollapse && !props.previewMode}
             timeout="auto"
           >
             <CoachPerformanceTabs
-              coachWithPerformance={coachWithPerformance}
+              coachPaymentRuleGroups={coachPaymentRuleGroups}
+              coachPaymentRuleGroupsDict={coachPaymentRuleGroupsDict}
               coachPaymentRulesByKind={coachPaymentRulesByKind}
+              coachWithPerformance={coachWithPerformance}
+              handlePdfExportation={handlePdfExportation}
+              setCoachPaymentRule={setCoachPaymentRule}
+              setCoachPaymentRuleGroup={setCoachPaymentRuleGroup}
+              setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
+              setCoachWorkShopPaymentRule={setCoachWorkShopPaymentRule}
               setSessionCoachPaymentRule={setSessionCoachPaymentRule}
               updatePrivateBookingCoachPaymentRule={
                 updatePrivateBookingCoachPaymentRule
               }
-              setCoachPaymentRule={setCoachPaymentRule}
-              setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
-              setCoachWorkShopPaymentRule={setCoachWorkShopPaymentRule}
-              coachPaymentRuleGroups={coachPaymentRuleGroups}
-              coachPaymentRuleGroupsDict={coachPaymentRuleGroupsDict}
-              setCoachPaymentRuleGroup={setCoachPaymentRuleGroup}
-              handlePdfExportation={handlePdfExportation}
             />
           </Collapse>
         </TableCell>
@@ -432,9 +432,9 @@ export const CoachPerformanceTable = (props: Props) => {
         <TableHead>
           <TableRow>
             <TableCell colSpan={14}>
-              <Collapse in={props.previewMode} unmountOnExit>
+              <Collapse unmountOnExit in={props.previewMode}>
                 <div className={classes.flexRow}>
-                  <Typography variant="h6" color="primary">
+                  <Typography color="primary" variant="h6">
                     {t('coachPerformance:cachedData.previewModeTitle')}
                   </Typography>
                   <Tooltip
@@ -451,16 +451,16 @@ export const CoachPerformanceTable = (props: Props) => {
           <TableRow>
             <TableCell colSpan={14}>
               <AllCoachPerformancePagination
-                pagination={props.pagination}
                 changePage={props.changePage}
                 loading={props.loading}
                 oldestUpdate={oldestUpdate}
+                pagination={props.pagination}
               />
             </TableCell>
           </TableRow>
           <TableRow>
             {tableHeaders.map((header) => (
-              <TableCell colSpan={header.colSpan} align={header.align}>
+              <TableCell align={header.align} colSpan={header.colSpan}>
                 {header.title}
               </TableCell>
             ))}
@@ -478,30 +478,30 @@ export const CoachPerformanceTable = (props: Props) => {
         <TableBody>
           {associatedCoachWithPerformance?.map((perf) => (
             <CoachPerformanceTableRow
-              previewMode={props.previewMode}
-              coachWithPerformance={perf}
+              coachPaymentRuleGroups={coachPaymentRuleGroups}
+              coachPaymentRuleGroupsDict={coachPaymentRuleGroupsDict}
               coachPaymentRulesByKind={props.coachPaymentRulesByKind}
+              coachWithPerformance={perf}
+              handlePdfExportation={handlePdfExportation}
+              previewMode={props.previewMode}
+              setCoachPaymentRule={setCoachPaymentRule}
+              setCoachPaymentRuleGroup={setCoachPaymentRuleGroup}
+              setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
+              setCoachWorkShopPaymentRule={setCoachWorkShopPaymentRule}
               setSessionCoachPaymentRule={setSessionCoachPaymentRule}
               updatePrivateBookingCoachPaymentRule={
                 updatePrivateBookingCoachPaymentRule
               }
-              setCoachPaymentRule={setCoachPaymentRule}
-              setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
-              setCoachWorkShopPaymentRule={setCoachWorkShopPaymentRule}
-              coachPaymentRuleGroups={coachPaymentRuleGroups}
-              coachPaymentRuleGroupsDict={coachPaymentRuleGroupsDict}
-              setCoachPaymentRuleGroup={setCoachPaymentRuleGroup}
-              handlePdfExportation={handlePdfExportation}
             />
           ))}
         </TableBody>
         <TableHead>
           <TableCell colSpan={14}>
             <AllCoachPerformancePagination
-              pagination={props.pagination}
               changePage={props.changePage}
               loading={props.loading}
               oldestUpdate={oldestUpdate}
+              pagination={props.pagination}
             />
           </TableCell>
         </TableHead>

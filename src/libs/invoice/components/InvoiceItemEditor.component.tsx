@@ -43,55 +43,55 @@ const BuyableItemSelector = (props: BuyableItemProps) => {
       return (
         <PaymentPackSelector
           autofocus
-          value={props.value}
+          onChange={(buyableItem) => props.onSelect(buyableItem)}
           paymentPacks={
             props.availableBuyableItems[props.buyableItemIdentifier]
           }
-          onChange={(buyableItem) => props.onSelect(buyableItem)}
+          value={props.value}
         />
       );
     case BUYABLE_ITEM_SHOP_ITEM:
       return (
         <ShopItemSelector
           autofocus
-          value={props.value}
+          onChange={(buyableItem) => props.onSelect(buyableItem)}
           shopItemList={
             props.availableBuyableItems[props.buyableItemIdentifier]
           }
-          onChange={(buyableItem) => props.onSelect(buyableItem)}
+          value={props.value}
         />
       );
     case BUYABLE_ITEM_PRIVATE_PASS:
       return (
         <PrivatePassSelector
           autofocus
-          value={props.value}
+          onChange={(buyableItem) => props.onSelect(buyableItem)}
           privatePassList={
             props.availableBuyableItems[props.buyableItemIdentifier]
           }
-          onChange={(buyableItem) => props.onSelect(buyableItem)}
+          value={props.value}
         />
       );
     case BUYABLE_ITEM_COMBO_ITEM:
       return (
         <PaymentComboSelector
           autofocus
-          value={props.value}
+          onChange={(buyableItem) => props.onSelect(buyableItem)}
           paymentComboList={
             props.availableBuyableItems[props.buyableItemIdentifier]
           }
-          onChange={(buyableItem) => props.onSelect(buyableItem)}
+          value={props.value}
         />
       );
     case BUYABLE_ITEM_GIFTCARD:
       return (
         <GiftcardSelector
           autofocus
-          value={props.value}
           giftcardList={
             props.availableBuyableItems[props.buyableItemIdentifier]
           }
           onChange={(buyableItem) => props.onSelect(buyableItem)}
+          value={props.value}
         />
       );
     default:
@@ -245,17 +245,17 @@ const InvoiceItemEditor = (props: Props) => {
     <div>
       <Paper>
         <Tabs
-          value={buyableItemIdentifier}
           indicatorColor="primary"
-          textColor="primary"
           onChange={(ev, value) => {
             setBuyableItemId(null);
             setVoucher(null);
             setVoucherPercent(null);
             setBuyableItemIdentifier(parseInt(value, 10));
           }}
-          variant="scrollable"
           scrollButtons="auto"
+          textColor="primary"
+          value={buyableItemIdentifier}
+          variant="scrollable"
         >
           <Tab
             label={t(`invoiceItem.buyableItemIdentifier.${BUYABLE_ITEM_PASS}`)}
@@ -292,22 +292,19 @@ const InvoiceItemEditor = (props: Props) => {
           <BuyableItemSelector
             availableBuyableItems={availableBuyableItems}
             buyableItemIdentifier={buyableItemIdentifier}
-            value={buyableItemId}
+            member={member}
             onSelect={(id: number) => {
               setBuyableItemId(id);
               setVoucher(null);
               setVoucherPercent(null);
             }}
-            member={member}
+            value={buyableItemId}
           />
           <div className={classes.numericInputRow}>
             <NumberInput
-              value={quantity}
-              onChange={(ev) => setQuantity(parseInt(ev.target.value, 10))}
-              variant="outlined"
               dense
               shrink
-              label={t('invoiceItem.quantity')}
+              disabled={buyableItemId === null}
               InputProps={{
                 step: 1,
                 min: 1,
@@ -315,27 +312,27 @@ const InvoiceItemEditor = (props: Props) => {
                   <InputAdornment position="start">x</InputAdornment>
                 ),
               }}
-              disabled={buyableItemId === null}
+              label={t('invoiceItem.quantity')}
+              onChange={(ev) => setQuantity(parseInt(ev.target.value, 10))}
+              value={quantity}
+              variant="outlined"
             />
             <div className={classes.discountInputWrapper}>
               <PriceInput
-                value={voucher === null ? '0.00' : voucher}
                 dense
-                variant="outlined"
-                label={t('invoiceItem.discount')}
                 shrink
-                onChange={(ev) => onChangeVoucherCredit(ev.target.value)}
                 disabled={buyableItemId === null}
+                label={t('invoiceItem.discount')}
+                onChange={(ev) => onChangeVoucherCredit(ev.target.value)}
+                value={voucher === null ? '0.00' : voucher}
+                variant="outlined"
               />
 
               <div className={classes.percentDiscountWrapper}>
                 <NumberInput
-                  value={voucherPercent === null ? '0.00' : voucherPercent}
-                  onChange={(ev) => onChangeVoucherPercent(ev.target.value)}
-                  variant="outlined"
                   dense
                   shrink
-                  label={t('invoiceItem.discount')}
+                  disabled={buyableItemId === null}
                   InputProps={{
                     step: 1,
                     min: 1,
@@ -343,7 +340,10 @@ const InvoiceItemEditor = (props: Props) => {
                       <InputAdornment position="start">%</InputAdornment>
                     ),
                   }}
-                  disabled={buyableItemId === null}
+                  label={t('invoiceItem.discount')}
+                  onChange={(ev) => onChangeVoucherPercent(ev.target.value)}
+                  value={voucherPercent === null ? '0.00' : voucherPercent}
+                  variant="outlined"
                 />
               </div>
             </div>
@@ -353,19 +353,19 @@ const InvoiceItemEditor = (props: Props) => {
           <Divider className={classes.divider} />
           {!warnMamangerOnInvoice ? (
             <Button
-              variant="contained"
               color="primary"
-              onClick={onClickAddInvoiceItem}
               disabled={!buyableItemId}
+              onClick={onClickAddInvoiceItem}
+              variant="contained"
             >
               <AddIcon className={classes.leftIcon} />
               {t('actions.addInvoiceItem')}
             </Button>
           ) : (
             <ButtonAddWithWarning
+              color="primary"
               onClick={onClickAddInvoiceItem}
               variant="contained"
-              color="primary"
             >
               <AddIcon className={classes.leftIcon} />
               {t('actions.addInvoiceItem')}

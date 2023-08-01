@@ -42,6 +42,7 @@ const ReportCategorySelector: React.FC<Props> = ({
         return (
           <div key={category.id}>
             <Chip
+              clickable
               avatar={
                 Icon ? (
                   <Avatar>
@@ -49,12 +50,11 @@ const ReportCategorySelector: React.FC<Props> = ({
                   </Avatar>
                 ) : null
               }
+              className={classes.chip}
               color={color}
               label={t(`categories.${category.id}`)}
-              className={classes.chip}
-              clickable
-              onDelete={handleDelete(isSelected)}
               onClick={handleSelect(category.id)}
+              onDelete={handleDelete(isSelected)}
             />
           </div>
         );

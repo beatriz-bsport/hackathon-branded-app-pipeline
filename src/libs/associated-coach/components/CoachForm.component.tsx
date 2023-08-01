@@ -96,19 +96,19 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
         </div>
 
         <Grid container spacing={1}>
-          <Grid item xs={12} md={6}>
-            <TextField name="firstname" label={t('form.firstname')} fullWidth />
+          <Grid item md={6} xs={12}>
+            <TextField fullWidth label={t('form.firstname')} name="firstname" />
           </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField name="lastname" label={t('form.lastname')} fullWidth />
+          <Grid item md={6} xs={12}>
+            <TextField fullWidth label={t('form.lastname')} name="lastname" />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             <TextField
-              InputLabelProps={{ shrink: true }}
-              name="email"
-              label={t('form.email')}
-              type="email"
+              fullWidth
               disabled={!!initial && !!initial.email}
+              error={!!errors.email}
+              helperText={!!errors.email && t('form.emailError')}
+              InputLabelProps={{ shrink: true }}
               InputProps={
                 !!initial && !!initial.email
                   ? {
@@ -122,99 +122,99 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
                     }
                   : {}
               }
-              fullWidth
-              error={!!errors.email}
-              helperText={!!errors.email && t('form.emailError')}
+              label={t('form.email')}
+              name="email"
+              type="email"
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             <PhoneField
-              name="phone"
-              label={t('form.phone')}
               fullWidth
               country={country}
+              label={t('form.phone')}
+              name="phone"
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             <GenderField
-              name="gender"
-              label={t('form.gender')}
-              required
               fullWidth
+              required
+              label={t('form.gender')}
+              name="gender"
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             <DateField
-              format="L"
-              openToYearSelection
               clearable
+              disableFuture
+              openToYearSelection
+              cancelLabel={t('common.cancel')}
+              clearLabel={t('form.clearDate')}
+              format="L"
+              initialFocusedDate="1990/01/01"
               label={t('form.birthday')}
               name="birthday"
               returnMoment={false}
-              disableFuture
-              clearLabel={t('form.clearDate')}
-              cancelLabel={t('common.cancel')}
-              initialFocusedDate="1990/01/01"
             />
           </Grid>
-          <Grid item xs={12} className={classes.largeTopMargin}>
+          <Grid item className={classes.largeTopMargin} xs={12}>
             <TextField
               fullWidth
               multiline
-              variant="outlined"
-              minRows={2}
               helperText={t('form.descriptionHelperText')}
-              name="description"
               label={t('form.description')}
+              minRows={2}
+              name="description"
+              variant="outlined"
             />
           </Grid>
-          <Grid item xs={12} className={classes.largeBottomMargin}>
+          <Grid item className={classes.largeBottomMargin} xs={12}>
             <TextField
               fullWidth
               multiline
               helperText={t('form.notesHelperText')}
-              name="notes"
               label={t('form.notes')}
+              name="notes"
             />
           </Grid>
           <Grid item xs={12}>
             <Typography>{t('form.workingDateSection')}</Typography>
           </Grid>
-          <Grid item xs={12} md={6} className={classes.largeBottomMargin}>
+          <Grid item className={classes.largeBottomMargin} md={6} xs={12}>
             <DateField
+              allowNullValue
+              clearable
               format="L"
-              name="date_joined_company"
               label={t('form.startWorking')}
-              clearable
-              allowNullValue
+              name="date_joined_company"
             />
           </Grid>
-          <Grid item xs={12} md={6} className={classes.largeBottomMargin}>
+          <Grid item className={classes.largeBottomMargin} md={6} xs={12}>
             <DateField
-              format="L"
-              name="date_left_company"
-              label={t('form.endWorking')}
-              clearable
-              bottomError
               allowNullValue
+              bottomError
+              clearable
+              format="L"
+              label={t('form.endWorking')}
+              name="date_left_company"
             />
           </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField name="facebook_url" label="Facebook URL" fullWidth />
+          <Grid item md={6} xs={12}>
+            <TextField fullWidth label="Facebook URL" name="facebook_url" />
           </Grid>
-          <Grid item xs={12} md={6}>
-            <TextField name="instagram_url" label="Instagram URL" fullWidth />
+          <Grid item md={6} xs={12}>
+            <TextField fullWidth label="Instagram URL" name="instagram_url" />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             <ColorField
+              transparentColorAvailable
               label={t('coach:color')}
               name="color"
-              transparentColorAvailable
             />
           </Grid>
         </Grid>
         <Actions>
-          <Button color="secondary" onClick={cancel} disabled={isSubmitting}>
+          <Button color="secondary" disabled={isSubmitting} onClick={cancel}>
             {t('form.discard')}
           </Button>
           <Submit

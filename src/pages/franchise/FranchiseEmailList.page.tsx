@@ -136,35 +136,35 @@ const FranchiseEmailList = (props: Props) => {
   return (
     <div className={classes.container}>
       <Grid container direction="row" spacing={3} style={{ height: '100%' }}>
-        <Grid item xs={12} md={6} className={classes.grid}>
+        <Grid item className={classes.grid} md={6} xs={12}>
           <FranchiseEmailListing
-            companies={companies}
-            isGrouped={savedFilter?.includes('franchised') ?? false}
-            selectedId={id}
-            navigateTo={navigateTo}
-            onEdit={onEdit}
-            onDuplicate={onDuplicate}
-            onDelete={onDelete}
-            saveFilter={saveFilter}
-            emails={emails}
             useVirtualizedList
+            companies={companies}
+            emails={emails}
+            isGrouped={savedFilter?.includes('franchised') ?? false}
+            navigateTo={navigateTo}
+            onDelete={onDelete}
+            onDuplicate={onDuplicate}
+            onEdit={onEdit}
+            saveFilter={saveFilter}
+            selectedId={id}
           />
         </Grid>
 
-        <Grid item xs={12} md={6} className={classes.grid}>
+        <Grid item className={classes.grid} md={6} xs={12}>
           <div className={classes.scroll}>
             <HTMLPreview
-              title={t('emails.emptyStateTitle')}
+              scrolling
               html={emailDetail?.[id]?.html ?? null}
               loading={emailDetailLoading}
-              scrolling
+              title={t('emails.emptyStateTitle')}
             />
           </div>
         </Grid>
       </Grid>
       <BottomActionButtons
-        onCreateLabel={t('emails.create')}
         onCreate={navigateToCreate}
+        onCreateLabel={t('emails.create')}
       />
     </div>
   );

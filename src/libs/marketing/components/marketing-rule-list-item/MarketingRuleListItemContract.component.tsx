@@ -82,27 +82,27 @@ class MarketingRuleListItemContract extends React.PureComponent<Props> {
             <div key={`contract_notification_${notif.id}`}>
               <ListItem divider>
                 <NotificationListInner
-                  notification={notif}
                   emailTitle={
                     this.props?.emails?.find(
                       (email) => email.id === notif.email_design,
                     )?.title ?? ''
                   }
+                  notification={notif}
                   smartLists={this.props.smartLists}
                 />
                 <div className={classes.secondaryAction}>
                   <Switch
                     checked={notif.active}
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
                     onChange={() =>
                       this.handleUpdateNotification(notif.id, !notif.active)
                     }
                     value="checkedA"
-                    inputProps={{ 'aria-label': 'secondary checkbox' }}
                   />
                   <IconButton
-                    edge="end"
                     aria-label="Edit"
                     color="primary"
+                    edge="end"
                     onClick={() => this.handleEditNotification(notif, true)}
                   >
                     <EditIcon />

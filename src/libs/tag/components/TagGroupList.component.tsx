@@ -67,12 +67,12 @@ class TagGroupList extends React.PureComponent<Props> {
       <div className={classes.container}>
         <Button
           className={classes.addGroup}
-          variant="outlined"
           color="primary"
           onClick={() => {
             trackFormAdd();
             this.setState({ createTag: '' });
           }}
+          variant="outlined"
         >
           {t('management.addGroup')}
         </Button>
@@ -81,15 +81,15 @@ class TagGroupList extends React.PureComponent<Props> {
             <TagGroupItem
               key={tagGroup.id}
               filterBy={this.props.tagKind}
+              onCreateTag={this.props.onCreateOrUpdateTag}
+              onDeleteTag={this.props.onDeleteTag}
+              onDeleteTagGroup={this.props.onDeleteTagGroup}
+              onSelectTag={this.props.onSelectTag}
+              onUpdateTag={this.props.onCreateOrUpdateTag}
+              onUpdateTagGroup={this.props.onCreateOrUpdateTagGroup}
+              selectedTag={this.props.selectedTag}
               tagGroup={tagGroup}
               tagUsageById={this.props.tagUsageById}
-              onUpdateTagGroup={this.props.onCreateOrUpdateTagGroup}
-              onDeleteTagGroup={this.props.onDeleteTagGroup}
-              onCreateTag={this.props.onCreateOrUpdateTag}
-              onUpdateTag={this.props.onCreateOrUpdateTag}
-              onDeleteTag={this.props.onDeleteTag}
-              onSelectTag={this.props.onSelectTag}
-              selectedTag={this.props.selectedTag}
             />
           ))}
         </div>
@@ -100,13 +100,13 @@ class TagGroupList extends React.PureComponent<Props> {
             <form onSubmit={this.onSubmitCreateTagGroup}>
               <FormControl>
                 <TextField
+                  required
                   label={t('management.createGroupDialog.field')}
-                  variant="outlined"
                   onChange={(ev) =>
                     this.setState({ createTag: ev.target.value })
                   }
                   value={this.state.createTag}
-                  required
+                  variant="outlined"
                 />
 
                 <div className={classes.dialogHelperContainer}>
@@ -127,10 +127,10 @@ class TagGroupList extends React.PureComponent<Props> {
                   {t('management.cancel')}
                 </Button>
                 <Button
-                  variant="contained"
-                  disabled={!this.state.createTag}
                   color="primary"
+                  disabled={!this.state.createTag}
                   type="submit"
+                  variant="contained"
                 >
                   {t('management.submit')}
                 </Button>

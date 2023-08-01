@@ -38,42 +38,42 @@ const InboxPanelOfferStatistics: React.FC<Props> = ({
   return (
     <div className={classes.statisticsContainer}>
       <div className={classes.statisticItem}>
-        <Typography variant="h5" color="primary" align="center">
+        <Typography align="center" color="primary" variant="h5">
           {numberOfBookings}
           {`/${effectif}`}
         </Typography>
         {showOfferGender ? (
-          <Typography variant="caption" align="center">
+          <Typography align="center" variant="caption">
             {t('booking.confirmed')} (&#9792;{female}
             {`/${male}`}&#9794;+
             {other})
           </Typography>
         ) : (
-          <Typography variant="caption" align="center">
+          <Typography align="center" variant="caption">
             {t('booking.confirmed')}
           </Typography>
         )}
       </div>
 
       <div className={classes.statisticItem}>
-        <Typography variant="h5" color="textPrimary" align="center">
+        <Typography align="center" color="textPrimary" variant="h5">
           {occupancyRate} %
         </Typography>
-        <Typography variant="caption" align="center">
+        <Typography align="center" variant="caption">
           {t('booking.fillRate')}
         </Typography>
       </div>
 
       <div className={classes.statisticItem}>
         <Typography
-          variant="h5"
-          color={numberOfBookingOptions ? 'error' : 'secondary'}
           align="center"
+          color={numberOfBookingOptions ? 'error' : 'secondary'}
+          variant="h5"
         >
           {numberOfBookingOptions}
           {`/${waitingListMaxSize}`}
         </Typography>
-        <Typography variant="caption" align="center">
+        <Typography align="center" variant="caption">
           {t('booking.waiting')}
         </Typography>
       </div>

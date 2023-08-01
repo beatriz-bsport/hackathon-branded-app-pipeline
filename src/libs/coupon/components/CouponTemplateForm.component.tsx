@@ -154,16 +154,16 @@ export const CouponTemplateForm = (props: Props) => {
           <Typography variant="h6">{t('form.section.general')}</Typography>
           <TextField
             fullWidth
-            name="name"
-            label={t('form.name.label')}
             required
+            label={t('form.name.label')}
+            name="name"
           />
           <TextField
             fullWidth
-            name="code"
-            label={t('form.code.label')}
-            helperText={t('form.code.helperTextFranchise')}
             required
+            helperText={t('form.code.helperTextFranchise')}
+            label={t('form.code.label')}
+            name="code"
           />
         </div>
 
@@ -174,7 +174,6 @@ export const CouponTemplateForm = (props: Props) => {
           <div className={classes.fieldGroup}>
             <div className={classes.radioField}>
               <RadioGroupField
-                name="voucher_type"
                 choices={[
                   {
                     label: t('form.voucher_type.percent'),
@@ -185,23 +184,24 @@ export const CouponTemplateForm = (props: Props) => {
                     value: VOUCHER_TYPE_AMOUNT.toString(),
                   },
                 ]}
+                name="voucher_type"
               />
             </div>
             {values.voucher_type === VOUCHER_TYPE_PERCENT.toString() && (
               <div className={classes.reductionInputs}>
                 <TextField
                   fullWidth
-                  name="percent_off"
-                  label={t('form.percent_off.label')}
-                  type="number"
                   required
-                  max={100}
                   InputProps={{
                     inputProps: { min: 0, max: 100, step: 0.005 },
                     endAdornment: (
                       <InputAdornment position="end">%</InputAdornment>
                     ),
                   }}
+                  label={t('form.percent_off.label')}
+                  max={100}
+                  name="percent_off"
+                  type="number"
                 />
               </div>
             )}
@@ -209,9 +209,9 @@ export const CouponTemplateForm = (props: Props) => {
               <div className={classes.reductionInputs}>
                 <PriceField
                   fullWidth
-                  name="amount_off"
-                  label={t('form.amount_off.label')}
                   required
+                  label={t('form.amount_off.label')}
+                  name="amount_off"
                 />
               </div>
             )}
@@ -222,14 +222,13 @@ export const CouponTemplateForm = (props: Props) => {
           <Typography variant="h6">{t('form.section.applies_to')}</Typography>
           <div className={classes.disclaimerContainer}>
             <InfoOutlined className={classes.redLeftIcon} />
-            <Typography variant="body1" className={classes.darkBlue}>
+            <Typography className={classes.darkBlue} variant="body1">
               {t('couponTemplate.formDisclaimer')}
             </Typography>
           </div>
           <div className={classes.fieldGroup}>
             <RadioGroup
               name="applies_to"
-              value={values.applies_to}
               onChange={(ev) => {
                 if (
                   [
@@ -243,10 +242,10 @@ export const CouponTemplateForm = (props: Props) => {
                   props.setFieldValue('applies_to', ev.target.value);
                 }
               }}
+              value={values.applies_to}
             >
               <FormControlLabel
                 className={classes.radioField}
-                value={BUYABLE_ITEM_PASS.toString()}
                 control={
                   <Radio
                     checked={values.applies_to === BUYABLE_ITEM_PASS.toString()}
@@ -255,12 +254,10 @@ export const CouponTemplateForm = (props: Props) => {
                 label={t(
                   `form.applies_to.choicesFranchise.${BUYABLE_ITEM_PASS}`,
                 )}
+                value={BUYABLE_ITEM_PASS.toString()}
               />
               <div className={classes.fullWidth}>
                 <PaymentPackSelector
-                  paymentPacks={props.paymentPackTemplateList
-                    .filter((ppt) => !ppt.disabled)
-                    .filter((ppt) => !values.only_on_objects.includes(ppt.id))}
                   nullCurrentValue
                   helperText={t('form.selectorPlaceholder.paymentPack')}
                   onChange={(id) => {
@@ -275,22 +272,24 @@ export const CouponTemplateForm = (props: Props) => {
                     newObjects.push(id);
                     props.setFieldValue('only_on_objects', newObjects);
                   }}
+                  paymentPacks={props.paymentPackTemplateList
+                    .filter((ppt) => !ppt.disabled)
+                    .filter((ppt) => !values.only_on_objects.includes(ppt.id))}
                 />
                 {values.applies_to === BUYABLE_ITEM_PASS.toString()
                   ? values.only_on_objects.map((id, i) => (
                       <PaymentPackListItem
                         key={`${id}-${i}`}
+                        onDelete={() => onDeletePackOrPass(id)}
                         pack={props.paymentPackTemplateList.find(
                           (ppt) => ppt.id === id,
                         )}
-                        onDelete={() => onDeletePackOrPass(id)}
                       />
                     ))
                   : null}
               </div>
               <FormControlLabel
                 className={classes.radioField}
-                value={BUYABLE_ITEM_PRIVATE_PASS.toString()}
                 control={
                   <Radio
                     checked={
@@ -301,14 +300,12 @@ export const CouponTemplateForm = (props: Props) => {
                 label={t(
                   `form.applies_to.choicesFranchise.${BUYABLE_ITEM_PRIVATE_PASS}`,
                 )}
+                value={BUYABLE_ITEM_PRIVATE_PASS.toString()}
               />
               <div className={classes.fullWidth}>
                 <PrivatePassSelector
-                  privatePassList={props.privatePassTemplateList
-                    .filter((ppt) => !ppt.disabled)
-                    .filter((ppt) => !values.only_on_objects.includes(ppt.id))}
-                  helperText={t('form.selectorPlaceholder.privatePass')}
                   nullCurrentValue
+                  helperText={t('form.selectorPlaceholder.privatePass')}
                   onChange={(id: number) => {
                     let newObjects = [...values.only_on_objects];
                     if (
@@ -323,39 +320,42 @@ export const CouponTemplateForm = (props: Props) => {
                     newObjects.push(id);
                     props.setFieldValue('only_on_objects', newObjects);
                   }}
+                  privatePassList={props.privatePassTemplateList
+                    .filter((ppt) => !ppt.disabled)
+                    .filter((ppt) => !values.only_on_objects.includes(ppt.id))}
                 />
                 {values.applies_to === BUYABLE_ITEM_PRIVATE_PASS.toString()
                   ? values.only_on_objects.map((id, i) => (
                       <PrivatePassListItem
                         key={`${id}-${i}`}
                         dense
+                        onDelete={() => onDeletePackOrPass(id)}
                         pass={props.privatePassTemplateList.find(
                           (ppt) => ppt.id === id,
                         )}
-                        onDelete={() => onDeletePackOrPass(id)}
                       />
                     ))
                   : null}
               </div>
               <FormControlLabel
                 className={classes.radioField}
-                value={BUYABLE_ITEM_FEE.toString()}
                 control={
                   <Radio
                     checked={values.applies_to === BUYABLE_ITEM_FEE.toString()}
                   />
                 }
                 label={t(`form.applies_to.choices.${BUYABLE_ITEM_FEE}`)}
+                value={BUYABLE_ITEM_FEE.toString()}
               />
               <FormControlLabel
                 className={classes.radioField}
-                value={ALL_BUYABLES.toString()}
                 control={
                   <Radio
                     checked={values.applies_to === ALL_BUYABLES.toString()}
                   />
                 }
                 label={t('form.applies_to.choices.all')}
+                value={ALL_BUYABLES.toString()}
               />
             </RadioGroup>
           </div>
@@ -364,19 +364,19 @@ export const CouponTemplateForm = (props: Props) => {
         <div className={classes.formSection}>
           <Typography variant="h6">{t('form.section.availability')}</Typography>
           <CheckboxField
-            name="is_active"
-            label={t('form.is_active.label')}
             helperText={t('form.is_active.helperText')}
+            label={t('form.is_active.label')}
+            name="is_active"
           />
           <CheckboxField
-            name="with_expiration_date"
             label={t('form.with_expiration_date.label')}
+            name="with_expiration_date"
           />
           <div className={classes.fieldGroup}>
             <DateField
-              name="expiration_date"
-              label={t('form.expiration_date.label')}
               disabled={!values.with_expiration_date}
+              label={t('form.expiration_date.label')}
+              name="expiration_date"
             />
           </div>
         </div>
@@ -386,13 +386,13 @@ export const CouponTemplateForm = (props: Props) => {
           <div className={classes.fieldGroup}>
             <TextField
               fullWidth
-              name="usage_per_member"
               label={t('form.usage_per_member.label')}
+              name="usage_per_member"
             />
             <TextField
               fullWidth
-              name="usage_total"
               label={t('form.usage_total.label')}
+              name="usage_total"
             />
           </div>
         </div>
@@ -401,7 +401,6 @@ export const CouponTemplateForm = (props: Props) => {
           <Typography variant="h6">{t('form.section.subscription')}</Typography>
           <div className={classes.fieldGroup}>
             <RadioGroupField
-              name="subscription_mode"
               choices={[
                 {
                   label: t(
@@ -428,6 +427,7 @@ export const CouponTemplateForm = (props: Props) => {
                   value: COUPON_SUBSCRIPTION_MODE_NONE.toString(),
                 },
               ]}
+              name="subscription_mode"
             />
           </div>
         </div>
@@ -438,20 +438,20 @@ export const CouponTemplateForm = (props: Props) => {
           <div className={classes.fieldGroup}>
             <div className={classes.checkboxField}>
               <CheckboxField
-                name="only_on_first_checkout"
                 label={t('form.only_on_first_checkout.label')}
+                name="only_on_first_checkout"
               />
             </div>
             <div className={classes.checkboxField}>
               <CheckboxField
-                name="combinable"
                 label={t('form.combinable.label')}
+                name="combinable"
               />
             </div>
             <PriceField
               fullWidth
-              name="minimum_amount"
               label={t('form.minimum_amount.label')}
+              name="minimum_amount"
             />
           </div>
         </div>
@@ -463,7 +463,7 @@ export const CouponTemplateForm = (props: Props) => {
           {props.isSubmitting ? (
             <CircularProgress />
           ) : (
-            <Button variant="contained" color="primary" type="submit">
+            <Button color="primary" type="submit" variant="contained">
               {t('form.actions.submit')}
             </Button>
           )}

@@ -31,11 +31,11 @@ const ConsumerPrivatePassIncompatibilitiesReasons: React.FC<{
     <div className={classes.list}>
       {privateServiceIncompatible && (
         <div className={classes.list}>
-          <Typography variant="caption" className={classes.listItem}>
+          <Typography className={classes.listItem} variant="caption">
             {t('privateBooking.managerAdd.incompatibilities.privateService')}
           </Typography>
           <div className={classes.sublist}>
-            <Typography variant="caption" className={classes.listItem}>
+            <Typography className={classes.listItem} variant="caption">
               {t(`privateBooking.managerAdd.incompatibilities.${11107}`)}
             </Typography>
           </div>
@@ -45,8 +45,8 @@ const ConsumerPrivatePassIncompatibilitiesReasons: React.FC<{
         otherIncompatibilities.map((reason) => (
           <Typography
             key={`incompatibility-${reason}`}
-            variant="caption"
             className={classes.listItem}
+            variant="caption"
           >
             {t(`privateBooking.managerAdd.incompatibilities.${reason}`)}
             {reason === PRIVATE_PASS_CAN_NOT_BOOK_LATER_FIRST_BOOKING &&
@@ -56,8 +56,8 @@ const ConsumerPrivatePassIncompatibilitiesReasons: React.FC<{
       <div>
         {!!closeMobileIncompatibilities && (
           <Button
-            onClick={closeMobileIncompatibilities}
             className={classes.closeMobileDialog}
+            onClick={closeMobileIncompatibilities}
           >
             {t(`privateBooking.managerAdd.incompatibilities.close`)}
           </Button>

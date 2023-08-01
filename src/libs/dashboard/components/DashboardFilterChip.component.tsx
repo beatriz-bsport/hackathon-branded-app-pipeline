@@ -36,13 +36,13 @@ export const DasboardFilterChip: React.FC<Props> = ({
       {nbFilters > 0 ? (
         <Chip
           className={classes.chip}
+          clickable={!!onClick}
+          disabled={!!disabled}
           icon={<FilterListIcon />}
           label={t('filterChipLabel', { count: nbFilters })}
           onClick={onClick}
-          variant="outlined"
           size="small"
-          clickable={!!onClick}
-          disabled={!!disabled}
+          variant="outlined"
         />
       ) : null}
     </>

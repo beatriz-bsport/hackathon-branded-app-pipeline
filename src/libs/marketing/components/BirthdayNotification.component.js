@@ -39,9 +39,9 @@ export const BirthdayNotification = (props: Props) => {
         <div className={props.classes.selector}>
           <div style={{ flex: 1 }}>
             <IconButton
-              disabled={!(props.event || {}).email_design}
               className={props.classes.showEmail}
               color="primary"
+              disabled={!(props.event || {}).email_design}
               onClick={() => {
                 props.showEmailPreview(props.event.email_design);
               }}
@@ -53,7 +53,6 @@ export const BirthdayNotification = (props: Props) => {
           <div style={{ minWidth: 400 }}>
             <EmailSelector
               emails={props.emailDesignList}
-              value={(props.event || {}).email_design}
               helperText={props.t('emailDesign.birthdayPlaceholder')}
               onChange={(option) => {
                 if (!option) {
@@ -72,6 +71,7 @@ export const BirthdayNotification = (props: Props) => {
                   is_event_based: props.is_event_based,
                 });
               }}
+              value={(props.event || {}).email_design}
             />
           </div>
         </div>

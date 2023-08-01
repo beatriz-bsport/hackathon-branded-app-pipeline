@@ -149,20 +149,20 @@ export class ConsumerDebtRegularizerDialog extends React.Component<
     ) {
       return (
         <Paper className={this.props.classes.container}>
-          <Typography variant="h6" inline>
+          <Typography inline variant="h6">
             {this.props.t('debt.title')}
           </Typography>
           <div className={this.props.classes.row}>
-            <Typography variant="h6" inline color="error">
+            <Typography inline color="error" variant="h6">
               {getCurrencyDisplayWithPrice(
                 parseFloat(this.props.member.credit_account_balance).toFixed(2),
               )}
             </Typography>
             <Button
+              className={this.props.classes.buttonContainer}
               color="primary"
               onClick={() => this.props.openDialog()}
               variant="contained"
-              className={this.props.classes.buttonContainer}
             >
               {this.props.t('debt.regularize')}
             </Button>
@@ -175,28 +175,35 @@ export class ConsumerDebtRegularizerDialog extends React.Component<
             <DialogContent>
               {this.props.member ? (
                 <PaymentDialog
-                  memberId={this.props.member.id}
-                  onError={() => {}}
-                  paymentGroupPriceCts={
+                  asConsumer
+                  termsAndConditionsAccepted
+                  amountToPay={
                     -parseFloat(
                       this.props.member.credit_account_balance,
                     ).toFixed(2) * 100
                   }
-                  onSuccess={(callback) => {
-                    this.listenPaymentGroupCompleted();
-                    this.props.fetchMembership();
-                    if (typeof callback === 'function') callback();
-                    this.props.closeDialog();
-                  }}
-                  requestClientSecret={this.requestClientSecret}
-                  termsAndConditionsAccepted
+                  availablePaymentMethodList={
+                    this.props.availablePaymentMethodList
+                  }
                   clientSecret={
                     this.state.clientSecretLoading
                       ? null
                       : this.state.clientSecret
                   }
+                  clientSecretError={this.state.clientSecretError}
                   clientSecretLoading={this.state.clientSecretLoading}
-                  paymentGroupId={this.state.paymentGroupId}
+                  companyId={this.props.companyId}
+                  defaultUserEmail={this.props.member?.email || ''}
+                  defaultUserName={this.props.member?.name || ''}
+                  detachPaymentMethod={this.props.detachPaymentMethod}
+                  detachPaymentMethodLoading={
+                    this.props.detachPaymentMethodLoading
+                  }
+                  memberId={this.props.member.id}
+                  onCancel={() => {
+                    this.props.closeDialog();
+                  }}
+                  onError={() => {}}
                   onlyInternal={
                     -parseFloat(
                       this.props.member.credit_account_balance,
@@ -204,28 +211,21 @@ export class ConsumerDebtRegularizerDialog extends React.Component<
                       100 <
                       0 || this.props.onlinePaymentEnabled === false
                   }
-                  asConsumer
-                  clientSecretError={this.state.clientSecretError}
-                  amountToPay={
+                  onSuccess={(callback) => {
+                    this.listenPaymentGroupCompleted();
+                    this.props.fetchMembership();
+                    if (typeof callback === 'function') callback();
+                    this.props.closeDialog();
+                  }}
+                  paymentGroupId={this.state.paymentGroupId}
+                  paymentGroupPriceCts={
                     -parseFloat(
                       this.props.member.credit_account_balance,
                     ).toFixed(2) * 100
                   }
-                  onCancel={() => {
-                    this.props.closeDialog();
-                  }}
-                  availablePaymentMethodList={
-                    this.props.availablePaymentMethodList
-                  }
-                  detachPaymentMethod={this.props.detachPaymentMethod}
-                  detachPaymentMethodLoading={
-                    this.props.detachPaymentMethodLoading
-                  }
+                  requestClientSecret={this.requestClientSecret}
                   snackbarErrorMsg={this.props.snackbarErrorMsg}
                   snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-                  defaultUserName={this.props.member?.name || ''}
-                  defaultUserEmail={this.props.member?.email || ''}
-                  companyId={this.props.companyId}
                   stripeId={this.props.stripeId}
                 />
               ) : (

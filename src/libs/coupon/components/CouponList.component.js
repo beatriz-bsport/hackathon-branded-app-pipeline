@@ -32,16 +32,16 @@ export const CouponList = (props: Props) => {
           </Typography>
           <Divider className={classes.divider} />
           <Paper>
-            <List disablePadding dense divider>
+            <List dense disablePadding divider>
               {activeCoupons.map((coupon) => (
                 <CouponListItem
                   key={coupon.id}
+                  divider
+                  coupon={coupon}
                   onClick={() => goToCoupon(coupon.id)}
+                  onDelete={props.setCouponToDelete}
                   onEdit={props.onEdit}
                   onEditCoupon={() => goToCoupon(coupon.id)}
-                  onDelete={props.setCouponToDelete}
-                  coupon={coupon}
-                  divider
                 />
               ))}
             </List>
@@ -55,15 +55,15 @@ export const CouponList = (props: Props) => {
           </Typography>
           <Divider className={props.classes.divider} />
           <Paper>
-            <List disablePadding dense divider>
+            <List dense disablePadding divider>
               {props.inactiveCoupons.map((coupon) => (
                 <CouponListItem
                   key={coupon.id}
-                  onClick={() => props.goToCoupon(coupon.id)}
-                  onEdit={props.onEdit}
-                  onDelete={props.setCouponToDelete}
-                  coupon={coupon}
                   divider
+                  coupon={coupon}
+                  onClick={() => props.goToCoupon(coupon.id)}
+                  onDelete={props.setCouponToDelete}
+                  onEdit={props.onEdit}
                 />
               ))}
             </List>

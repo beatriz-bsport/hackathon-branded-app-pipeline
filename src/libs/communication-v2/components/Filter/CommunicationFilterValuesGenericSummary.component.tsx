@@ -16,21 +16,21 @@ export const CommunicationFilterValuesGenericSummary = (
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      <Typography variant="body2" className={classes.title}>
+      <Typography className={classes.title} variant="body2">
         {title}
       </Typography>
       <div className={classes.valuesContainer}>
         {filterValues.map((item: SelectFieldItem, index: number) => (
           <Chip
             key={index}
+            className={classes.chip}
             clickable={false}
+            deleteIcon={<Close className={classes.icon} />}
             label={item.label}
             onDelete={() => {
               popFilterValue(index);
             }}
             size="small"
-            className={classes.chip}
-            deleteIcon={<Close className={classes.icon} />}
           />
         ))}
       </div>

@@ -66,17 +66,17 @@ export class ImageUploader extends React.Component<Props, State> {
       <FormControl>
         <FormLabel component="legend">{this.props.label}</FormLabel>
         <div className={classes.container}>
-          <Dropzone onDrop={this.handleDrop} accept="image/*">
+          <Dropzone accept="image/*" onDrop={this.handleDrop}>
             {({ getRootProps, getInputProps }) => {
               return (
                 <div className={classes.dropzone} {...getRootProps()}>
                   <input {...getInputProps()} name={name} />
                   {previewURL ? (
-                    <div className={classes.imagePreview} key={previewURL}>
+                    <div key={previewURL} className={classes.imagePreview}>
                       <img
                         alt="preview"
-                        src={previewURL}
                         className={classes.image}
+                        src={previewURL}
                       />
                     </div>
                   ) : null}

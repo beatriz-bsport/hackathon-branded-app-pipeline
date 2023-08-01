@@ -60,10 +60,10 @@ export const CoachPerformanceCachedDataList = (props: Props) => {
   return (
     <div className={classes.outterContainer}>
       <ButtonBase
-        onClick={() => setOptionSection(!openSection)}
-        className={classes.flexHeader}
         disableRipple
+        className={classes.flexHeader}
         disabled={!props.cachedDataList?.length}
+        onClick={() => setOptionSection(!openSection)}
       >
         <div className={classes.flexHeader}>
           <SaveIcon color="primary" />
@@ -80,8 +80,8 @@ export const CoachPerformanceCachedDataList = (props: Props) => {
           {props.cachedDataList?.map(
             (data: CoachPerformanceCachedData, index: number) => (
               <ListItem
-                dense
                 key={`cached_data_item${index}`}
+                dense
                 alignItems="flex-start"
                 ContainerComponent={
                   props.selectedCachedTimestamp === data.timestamp

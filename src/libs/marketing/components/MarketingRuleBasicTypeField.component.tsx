@@ -37,7 +37,7 @@ const MarketingRuleBasicTypeField = (props: Props) => {
           </Typography>
         </div>
         <div className={classes.rowContainer}>
-          <Typography variant="body2" className={classes.breakSpaces}>
+          <Typography className={classes.breakSpaces} variant="body2">
             {t('notificationRule:type.sendNotification')}
           </Typography>
           <IntegerField
@@ -46,11 +46,11 @@ const MarketingRuleBasicTypeField = (props: Props) => {
           />
           <FormControl className={classes.select} variant="outlined">
             <Select
-              name="periodScale"
               defaultValue={{
                 value: periodScale,
                 label: t(`notificationRule:type.${periodScale}`),
               }}
+              name="periodScale"
               onChange={(selected) =>
                 setFieldValue('periodScale', selected.value)
               }
@@ -72,11 +72,11 @@ const MarketingRuleBasicTypeField = (props: Props) => {
           </FormControl>
           <FormControl className={classes.select} variant="outlined">
             <Select
-              name="timeComparator"
               defaultValue={{
                 value: timeComparator,
                 label: t(`notificationForm.notificationType.${timeComparator}`),
               }}
+              name="timeComparator"
               onChange={(selected) =>
                 setFieldValue('timeComparator', selected.value)
               }
@@ -92,7 +92,7 @@ const MarketingRuleBasicTypeField = (props: Props) => {
               ]}
             />
           </FormControl>
-          <Typography variant="body2" className={classes.breakSpaces}>
+          <Typography className={classes.breakSpaces} variant="body2">
             {t('notificationRule:type.bookingConcerned').toLowerCase()}
           </Typography>
         </div>

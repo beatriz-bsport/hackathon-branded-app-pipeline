@@ -47,28 +47,28 @@ export class PhoneItem extends Component<Props> {
         <div className={classes.phoneContainers}>
           <CallIcon />
           <ListItemText
-            primary={phoneNumber || ' - '}
             className={classes.listItemText}
+            primary={phoneNumber || ' - '}
           />
         </div>
         <div className={classes.phoneContainers}>
           {phoneNumber && !hideContactButton && (
             <Button
+              color="primary"
               onClick={(e) => {
                 e.stopPropagation();
                 window.location.href = 'sms:'.concat(phoneNumber);
               }}
-              color="primary"
             >
               <PhoneForwardedIcon />
             </Button>
           )}
           {phoneNumber && openSmsDialog && !hideContactButton && (
             <Button
+              color="primary"
               onClick={() => {
                 openSmsDialog();
               }}
-              color="primary"
             >
               <SmsIcon />
             </Button>

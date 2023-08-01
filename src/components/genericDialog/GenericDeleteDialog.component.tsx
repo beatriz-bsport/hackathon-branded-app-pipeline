@@ -37,12 +37,12 @@ export const GenericDeleteDialog = (props: Props) => {
   ];
   return (
     <CustomMuiDialog
-      open={props.open}
       buttons={buttons}
-      title={props.title}
       content={props.content}
       contentColor="textSecondary"
       fullScreenBreakpoint="xs"
+      open={props.open}
+      title={props.title}
     >
       {props.children}
     </CustomMuiDialog>

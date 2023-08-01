@@ -85,10 +85,10 @@ export const GenericDialogWithIconHeader: React.FC<Props> = (props) => {
 
   return (
     <GenericResponsiveDialog
-      open={open}
-      maxWidth={maxWidth}
       fullScreenBreakpoint={fullScreenBreakpoint}
+      maxWidth={maxWidth}
       onClose={onClose}
+      open={open}
     >
       <div className={classes.container}>
         <DialogTitle>
@@ -122,20 +122,20 @@ export const GenericDialogWithIconHeader: React.FC<Props> = (props) => {
             <div>
               {onCancelClick && onCancelText && (
                 <Button
-                  onClick={onCancelClick}
                   className={classes.button}
-                  variant={cancelVariant}
                   color="default"
+                  onClick={onCancelClick}
+                  variant={cancelVariant}
                 >
                   {onCancelText}
                 </Button>
               )}
               {onConfirmClick && onConfirmText && (
                 <Button
-                  onClick={onConfirmClick}
-                  variant={confirmVariant}
                   className={classes.button}
                   color="secondary"
+                  onClick={onConfirmClick}
+                  variant={confirmVariant}
                 >
                   {onConfirmText}
                 </Button>

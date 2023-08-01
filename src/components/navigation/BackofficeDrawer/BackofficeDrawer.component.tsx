@@ -349,14 +349,14 @@ export const BackOfficeDrawer: React.FC<Props> = ({
         </DialogTitle>
         <DialogContent>
           <CashBookForm
-            initial={cashBook}
-            onSubmit={onSubmit}
-            setOpenCash={setOpenCash}
             handleOpenOnSpotPaymentReport={
               onSpotPaymentReportId &&
               (() => handleOpenOnSpotPaymentReport(onSpotPaymentReportId))
             }
+            initial={cashBook}
+            onSubmit={onSubmit}
             permissions={permissions}
+            setOpenCash={setOpenCash}
           />
         </DialogContent>
       </Dialog>
@@ -372,10 +372,10 @@ export const BackOfficeDrawer: React.FC<Props> = ({
           <MoreVertIcon />
         </Button>
         <Menu
-          anchorEl={anchorEl}
           keepMounted
-          open={Boolean(anchorEl)}
+          anchorEl={anchorEl}
           onClose={() => setAnchorEl(null)}
+          open={Boolean(anchorEl)}
         >
           <MenuItem>
             <LanguageButton closeMenu={() => setAnchorEl(null)} />
@@ -413,10 +413,10 @@ export const BackOfficeDrawer: React.FC<Props> = ({
           <MoreVertIcon />
         </Button>
         <Menu
-          anchorEl={anchorElMini}
           keepMounted
-          open={Boolean(anchorElMini)}
+          anchorEl={anchorElMini}
           onClose={() => setAnchorElMini(null)}
+          open={Boolean(anchorElMini)}
         >
           <MenuItem>
             <LanguageButton closeMenu={() => setAnchorElMini(null)} />
@@ -441,10 +441,10 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                             />
                           )
                         }
-                        color={isClockIn ? 'primary' : 'error'}
                         classes={{
                           badge: isClockIn ? classes.badgesGreen : '',
                         }}
+                        color={isClockIn ? 'primary' : 'error'}
                       >
                         <TimerIcon />
                       </Badge>
@@ -563,17 +563,17 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             <Toolbar>
               <Grid
                 container
-                direction="row"
                 alignItems="center"
+                direction="row"
                 justifyContent="space-between"
-                wrap="nowrap"
                 style={{ width: '100%' }}
+                wrap="nowrap"
               >
                 <Grid item zeroMinWidth>
                   <Grid
                     container
-                    direction="row"
                     alignItems="center"
+                    direction="row"
                     justifyContent="flex-start"
                     wrap="nowrap"
                   >
@@ -581,8 +581,8 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                       {displayMenuIcon && !forced_hide ? (
                         <Hidden smDown>
                           <IconButton
-                            color="inherit"
                             aria-label="open drawer"
+                            color="inherit"
                             onClick={handleDrawerToggleButton}
                           >
                             <MenuIcon />
@@ -592,8 +592,8 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                       {!forced_hide ? (
                         <Hidden mdUp>
                           <IconButton
-                            color="inherit"
                             aria-label="open drawer"
+                            color="inherit"
                             onClick={handleDrawerToggleButton}
                           >
                             <MenuIcon />
@@ -603,11 +603,11 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                     </Grid>
                     <Grid item zeroMinWidth>
                       <Typography
-                        id="app-title"
-                        color="inherit"
                         noWrap
-                        variant="h6"
                         className={classes.title}
+                        color="inherit"
+                        id="app-title"
+                        variant="h6"
                       >
                         {title}
                       </Typography>
@@ -626,14 +626,14 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                         <Grow in>
                           <Grid item>
                             <AlertButtonMenu
-                              alertings={messageAlertings}
-                              overrideIcon={MessageIcon}
-                              nbAlerting={countAlertingCommunication}
-                              deleteAlert={deleteAlert}
-                              showMore={fetchMoreAlertingKind}
-                              dialogOpen={messageDialogOpen}
-                              setDialogOpen={handleMessageNotificationButton}
                               withCommunicationAlerts
+                              alertings={messageAlertings}
+                              deleteAlert={deleteAlert}
+                              dialogOpen={messageDialogOpen}
+                              nbAlerting={countAlertingCommunication}
+                              overrideIcon={MessageIcon}
+                              setDialogOpen={handleMessageNotificationButton}
+                              showMore={fetchMoreAlertingKind}
                             />
                           </Grid>
                         </Grow>
@@ -661,10 +661,10 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                                       />
                                     )
                                   }
-                                  color={isClockIn ? 'primary' : 'error'}
                                   classes={{
                                     badge: isClockIn ? classes.badgesGreen : '',
                                   }}
+                                  color={isClockIn ? 'primary' : 'error'}
                                 >
                                   <TimerIcon />
                                 </Badge>
@@ -733,11 +733,11 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                       <Grid item>
                         <AlertButtonMenu
                           alertings={alertings}
-                          nbAlerting={nbAlerting}
                           deleteAlert={deleteAlert}
-                          showMore={fetchMoreAlertingKind}
                           dialogOpen={dialogOpen}
+                          nbAlerting={nbAlerting}
                           setDialogOpen={handleNotificationButton}
+                          showMore={fetchMoreAlertingKind}
                         />
                       </Grid>
                     )}
@@ -811,120 +811,120 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             <div>
               <Hidden mdUp>
                 <Drawer
-                  variant="temporary"
                   anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                  open={mobileOpen}
-                  onClose={handleDrawerToggle}
-                  elevation={drawerIconsOnly ? 20 : null}
                   classes={{
                     paper: classes.drawerPaper,
                   }}
+                  elevation={drawerIconsOnly ? 20 : null}
                   ModalProps={{
                     keepMounted: true, // Better open performance on mobile.
                   }}
+                  onClose={handleDrawerToggle}
+                  open={mobileOpen}
+                  variant="temporary"
                 >
                   <ResponsiveDrawer
-                    logo={logo}
-                    location={location}
-                    companyId={companyId}
-                    featureList={featureList}
-                    permissions={permissions}
-                    disconnect={disconnect}
-                    onMenuItemClick={hideMobileDrawer}
                     userAcknowlegdePlatformTutorial
+                    companyId={companyId}
+                    disconnect={disconnect}
+                    featureList={featureList}
                     iconsOnly={drawerIconsOnly}
+                    location={location}
+                    logo={logo}
+                    onMenuItemClick={hideMobileDrawer}
+                    permissions={permissions}
                   />
                 </Drawer>
               </Hidden>
               <Hidden smDown implementation="css">
                 <Drawer
-                  variant="permanent"
                   open
                   anchor="left"
-                  elevation={20}
                   classes={{
                     paper: classes.drawerPaper,
                   }}
+                  elevation={20}
+                  variant="permanent"
                 >
                   <ResponsiveDrawer
-                    logo={logo}
-                    location={location}
                     companyId={companyId}
-                    featureList={featureList}
-                    permissions={permissions}
                     disconnect={disconnect}
-                    onMenuItemClick={() => {}}
+                    featureList={featureList}
+                    handleUserSetDrawerIconsOnly={handleUserSetDrawerIconsOnly}
+                    iconsOnly={drawerIconsOnly}
+                    location={location}
+                    logo={logo}
                     nbTutorialAlerting={nbTutorialAlerting}
-                    userAcknowlegdePlatformTutorial={
-                      userAcknowlegdePlatformTutorial
-                    }
+                    onMenuItemClick={() => {}}
+                    permissions={permissions}
+                    setDrawerIconsOnly={setDrawerIconsOnly}
+                    tutorialDialogOpen={openWelcometutorialDialog}
                     updateUserAcknowlegdeTutorial={
                       updateUserAcknowlegdeTutorial
                     }
-                    tutorialDialogOpen={openWelcometutorialDialog}
-                    iconsOnly={drawerIconsOnly}
-                    setDrawerIconsOnly={setDrawerIconsOnly}
-                    handleUserSetDrawerIconsOnly={handleUserSetDrawerIconsOnly}
+                    userAcknowlegdePlatformTutorial={
+                      userAcknowlegdePlatformTutorial
+                    }
                   />
                 </Drawer>
               </Hidden>
             </div>
           ) : (
             <Drawer
-              variant="temporary"
               anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
               classes={{
                 paper: classes.drawerPaper,
               }}
               ModalProps={{
                 keepMounted: true, // Better open performance on mobile.
               }}
+              onClose={handleDrawerToggle}
+              open={mobileOpen}
+              variant="temporary"
             >
               <ResponsiveDrawer
-                logo={logo}
-                location={location}
                 companyId={companyId}
-                featureList={featureList}
-                permissions={permissions}
                 disconnect={disconnect}
-                onMenuItemClick={hideMobileDrawer}
-                nbTutorialAlerting={nbTutorialAlerting}
+                featureList={featureList}
                 iconsOnly={drawerIconsOnly}
+                location={location}
+                logo={logo}
+                nbTutorialAlerting={nbTutorialAlerting}
+                onMenuItemClick={hideMobileDrawer}
+                permissions={permissions}
               />
             </Drawer>
           )}
           <TempPasswordDialog
             generateTempPassword={generateTempPassword}
-            tempPassword={tempPasswordState.password}
             loading={tempPasswordState.loading}
-            tempPasswordExpirationDate={tempPasswordState.expiration_date}
             onClose={closeTempPasswordDialog}
             open={tempPasswordDialogOpen}
+            tempPassword={tempPasswordState.password}
+            tempPasswordExpirationDate={tempPasswordState.expiration_date}
           />
           {clockInDialogOpen && (
             <ClockInDialog
-              open={clockInDialogOpen}
-              name={name}
-              email={email}
-              permissions={permissions}
-              lastClockIn={lastClockIn}
-              onClose={closeClockInDialog}
-              value={usersPaginatedWithRoles}
-              fetchAttendance={getStaffsAttendanceRealTime}
               clockIn={clockIn}
-              fetchCompanyUserRolesPaginated={fetchCompanyUserRolesPaginated}
               clockOut={clockOut}
+              email={email}
+              fetchAttendance={getStaffsAttendanceRealTime}
+              fetchCompanyUserRolesPaginated={fetchCompanyUserRolesPaginated}
               getLastClockin={getLastClockin}
+              lastClockIn={lastClockIn}
+              name={name}
+              onClose={closeClockInDialog}
+              open={clockInDialogOpen}
+              permissions={permissions}
+              value={usersPaginatedWithRoles}
             />
           )}
           {!userAcknowlegdePlatformTutorial && (
             <TutorialGenericDialog
-              open={openWelcometutorialDialog}
               identifier={TUTORIAL_GENERIC_DIALOG_WELCOME}
-              onClose={handleGoToTutorial}
               onCancel={() => setOpenWelcometutorialDialog(false)}
+              onClose={handleGoToTutorial}
+              open={openWelcometutorialDialog}
             />
           )}
           <main

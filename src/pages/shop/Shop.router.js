@@ -8,7 +8,7 @@ import ShopList from './ShopList.page';
 
 export default () => (
   <Switch>
-    <Route exact path="/shop/:id/" component={ShopItem} />
-    <Route path="/shop" component={ShopList} />
+    <Route exact component={ShopItem} path="/shop/:id/" />
+    <Route component={ShopList} path="/shop" />
   </Switch>
 );

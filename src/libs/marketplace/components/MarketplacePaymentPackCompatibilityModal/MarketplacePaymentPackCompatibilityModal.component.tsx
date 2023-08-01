@@ -51,28 +51,28 @@ const MarketplacePaymentPackCompatibilityModal: React.FC<Props> = ({
       {isOpen && (
         <div className="bs-pack-compatibility-dialog__backdrop">
           <Card
-            size={CardSize.L}
             classes={{
               'bs-pack-compatibility-dialog': 'bs-pack-compatibility-dialog',
             }}
+            size={CardSize.L}
           >
             <Content>
               <Grid>
                 <Item
+                  alignment={Alignment.CENTER}
                   classes={{
                     'bs-pack-compatibility-dialog__header':
                       'bs-pack-compatibility-dialog__header',
                   }}
                   rowStart={1}
-                  alignment={Alignment.CENTER}
                 >
                   <div className="bs-pack-compatibility-dialog__header__check-icon --is-desktop">
                     <ValidationIcon
                       color={validationIconStyles.color}
-                      widthCircle={validationIconStyles.circle.width}
                       heightCircle={validationIconStyles.circle.height}
-                      widthIcon={validationIconStyles.checkIcon.width}
                       heightIcon={validationIconStyles.checkIcon.height}
+                      widthCircle={validationIconStyles.circle.width}
+                      widthIcon={validationIconStyles.checkIcon.width}
                     />
                   </div>
                   <h3 className="bs-pack-compatibility-dialog__header__title">
@@ -94,8 +94,8 @@ const MarketplacePaymentPackCompatibilityModal: React.FC<Props> = ({
                         <div className="bs-pack-compatibility-body__compatibility__itemList">
                           {categories?.map((category) => (
                             <div
-                              className="bs-pack-compatibility-body__compatibility__itemList__item"
                               key={category.id}
+                              className="bs-pack-compatibility-body__compatibility__itemList__item"
                             >
                               {category.name}
                             </div>
@@ -116,8 +116,8 @@ const MarketplacePaymentPackCompatibilityModal: React.FC<Props> = ({
                         <div className="bs-pack-compatibility-body__compatibility__itemList">
                           {metaActivities?.map((metaActivity) => (
                             <div
-                              className="bs-pack-compatibility-body__compatibility__itemList__item"
                               key={metaActivity.id}
+                              className="bs-pack-compatibility-body__compatibility__itemList__item"
                             >
                               {metaActivity.name}
                             </div>
@@ -138,8 +138,8 @@ const MarketplacePaymentPackCompatibilityModal: React.FC<Props> = ({
                         <div className="bs-pack-compatibility-body__compatibility__itemList">
                           {establishments?.map((establishment) => (
                             <div
-                              className="bs-pack-compatibility-body__compatibility__itemList__item"
                               key={establishment.id}
+                              className="bs-pack-compatibility-body__compatibility__itemList__item"
                             >
                               {establishment.title}
                             </div>
@@ -150,16 +150,16 @@ const MarketplacePaymentPackCompatibilityModal: React.FC<Props> = ({
                   </div>
                 </Item>
                 <Item
-                  rowStart={3}
                   classes={{
                     'bs-pack-compatibility-dialog__footer':
                       'bs-pack-compatibility-dialog__footer',
                   }}
+                  rowStart={3}
                 >
                   <button
                     className="bs-pack-compatibility-dialog__footer__button"
-                    type="button"
                     onClick={onDialogClose}
+                    type="button"
                   >
                     {t('genericCardDetails.compatibility.button.close')}
                   </button>

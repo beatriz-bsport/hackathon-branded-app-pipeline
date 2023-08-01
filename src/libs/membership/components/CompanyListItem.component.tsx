@@ -16,9 +16,9 @@ export const CompanyListItem = (props: {
   <ListItem
     divider
     button={!!props.onClick}
+    disabled={props.isRedirectLoading}
     onClick={props.onClick}
     selected={props.selected}
-    disabled={props.isRedirectLoading}
   >
     <ListItemAvatar>
       <Avatar alt={props.company.name} src={props.company.cover} />

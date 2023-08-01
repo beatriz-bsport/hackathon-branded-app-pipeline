@@ -40,19 +40,19 @@ export const MemberProgramIconWithDetail = (props: Props) => {
         </IconButton>
       </Tooltip>
       <Popover
-        id="mouse-over-popover"
-        className={classes.popover}
-        open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'center',
         }}
+        className={classes.popover}
+        id="mouse-over-popover"
+        onClose={handlePopoverClose}
+        open={Boolean(anchorEl)}
         transformOrigin={{
           vertical: 'bottom',
           horizontal: 'center',
         }}
-        onClose={handlePopoverClose}
       >
         <div className={classes.popoverContainer}>
           <div className={classes.iconAndText}>

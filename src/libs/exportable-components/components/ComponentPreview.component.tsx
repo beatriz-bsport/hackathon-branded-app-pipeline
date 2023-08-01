@@ -47,13 +47,13 @@ const ComponentPreview: React.FC<
 
   return (
     <div
+      className={classes.previewWrapper}
       style={{
         maxHeight: pageHeight,
       }}
-      className={classes.previewWrapper}
     >
       <VariationConfigurationWrapper componentId={componentId}>
-        <Component theme={theme} state={state} setState={handleSetState} />
+        <Component setState={handleSetState} state={state} theme={theme} />
       </VariationConfigurationWrapper>
     </div>
   );

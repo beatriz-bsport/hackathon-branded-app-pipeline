@@ -12,7 +12,7 @@ type Props = {
 
 export const RefreshButton = (props: Props) => {
   return (
-    <IconButton onClick={props.onRefresh} name="refresh">
+    <IconButton name="refresh" onClick={props.onRefresh}>
       {props.isRefreshing ? (
         <CircularProgress size={24} />
       ) : (

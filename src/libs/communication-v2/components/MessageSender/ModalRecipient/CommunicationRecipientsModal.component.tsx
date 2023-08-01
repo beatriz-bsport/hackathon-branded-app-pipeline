@@ -263,8 +263,8 @@ export class CommunicationRecipientsModal extends React.Component<
           <TableCell>
             <div className={classes.headerCellRecipients}>
               <Typography
-                variant="body1"
                 className={classes.headerTextRecipients}
+                variant="body1"
               >
                 {idsCount}{' '}
                 {t('common.recipient', {
@@ -308,20 +308,20 @@ export class CommunicationRecipientsModal extends React.Component<
           onPointerLeave={hoverOut}
         >
           <ReportProblem className={classes.warningIcon} />
-          <Typography variant="body2" className={classes.headerWarningText}>
+          <Typography className={classes.headerWarningText} variant="body2">
             {t('dialogRecipients.warnings.header')}
           </Typography>
         </div>
         <Hidden xsDown>
           <Popper
+            disablePortal
+            anchorEl={this.state.anchorEl}
+            className={classes.popperContainer}
             id="warning"
             open={this.state.displayWarningFull}
-            anchorEl={this.state.anchorEl}
             placement="bottom"
-            disablePortal
-            className={classes.popperContainer}
           >
-            <Typography variant="caption" className={classes.popperWarningText}>
+            <Typography className={classes.popperWarningText} variant="caption">
               {warningMessage}
             </Typography>
           </Popper>
@@ -355,15 +355,15 @@ export class CommunicationRecipientsModal extends React.Component<
     return (
       <TableRow>
         <TableCell
+          className={classes.cellWithoutBorder}
           component="th"
           scope="row"
-          className={classes.cellWithoutBorder}
         >
           <div className={classes.flexRowContainer}>
             <Avatar
               alt={member.name}
-              src={member.photo}
               className={classes.avatar}
+              src={member.photo}
             />
             <div className={classes.cellRowRecipient}>
               <Typography variant="body1">{member.name}</Typography>
@@ -373,8 +373,8 @@ export class CommunicationRecipientsModal extends React.Component<
                     <div className={classes.flexRowContainer}>
                       <ReportProblem className={classes.warningIcon} />
                       <Typography
-                        variant="body2"
                         className={classes.cellRowRecipientTextWithWarning}
+                        variant="body2"
                       >
                         {missingPhoneOrEmailContent}
                       </Typography>
@@ -403,7 +403,7 @@ export class CommunicationRecipientsModal extends React.Component<
           {this.props.kind !== COMMUNICATION_KIND_PUSH_NOTIFICATION ? (
             <TableCell align="left" className={classes.cellWithoutBorder}>
               {memberWithoutPhoneOrEmail ? (
-                <Typography variant="body2" className={classes.warningRedColor}>
+                <Typography className={classes.warningRedColor} variant="body2">
                   {missingPhoneOrEmailContent}
                 </Typography>
               ) : (
@@ -440,11 +440,11 @@ export class CommunicationRecipientsModal extends React.Component<
     };
     return (
       <CommunicationWrapperDialog
-        open={this.state.openRefreshDialog}
-        fullScreen={false}
         buttonConfirmText={t('common.refresh')}
-        onConfirm={onRefreshMemberData}
+        fullScreen={false}
         maxWidth="xs"
+        onConfirm={onRefreshMemberData}
+        open={this.state.openRefreshDialog}
       >
         <p>{t('dialogRecipients.refreshMemberData')}</p>
       </CommunicationWrapperDialog>
@@ -465,28 +465,28 @@ export class CommunicationRecipientsModal extends React.Component<
     );
     return (
       <CommunicationWrapperDialog
-        open={open}
-        fullScreen={fullScreen}
-        title={t('dialogReceiverChoice.title')}
         buttonCancelText={t('common.cancel')}
         buttonConfirmText={t('common.confirm')}
+        closeDialog={this.onClose}
+        fullScreen={fullScreen}
         onCancel={this.onClose}
         onConfirm={this.onConfirm}
-        closeDialog={this.onClose}
+        open={open}
+        title={t('dialogReceiverChoice.title')}
       >
         <>
           {!!this.props.allMemberCategoryList && (
             <CommunicationRecipientModalFilter
-              genericMemberCategories={this.props.allMemberCategoryList}
               checkedFilters={this.props.checkedMemberCategoriesFilters}
+              genericMemberCategories={this.props.allMemberCategoryList}
               setCheckedFilters={this.handleFilterChangeMemberCategories}
             />
           )}
           <Table
-            className={classes.table}
             aria-label="simple table"
-            size="small"
+            className={classes.table}
             padding="normal"
+            size="small"
           >
             <TableHead>{this.renderHeader()}</TableHead>
             {!loadingPaginatedMemberList && (
@@ -509,10 +509,10 @@ export class CommunicationRecipientsModal extends React.Component<
           )}
           {pageCount > 1 && (
             <Pagination
-              page={this.state.page}
+              className={classes.paginationContainer}
               count={pageCount}
               onChange={this.handleChangePage}
-              className={classes.paginationContainer}
+              page={this.state.page}
             />
           )}
           {this.state.openRefreshDialog && this.renderRefreshDialog()}

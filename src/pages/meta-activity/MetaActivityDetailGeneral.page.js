@@ -194,67 +194,67 @@ export class MetaActivityDetailGeneral extends PureComponent<Props, State> {
         {this.props.loading ? <LinearProgress /> : null}
         <MetaActivityDetail
           coverImages={this.props.metaActivityImages}
-          metaActivity={metaActivity}
-          fetchOffersByDay={this.props.fetchOffersByDay}
+          createNotification={this.props.createNotification}
+          deleteNotification={this.props.deleteMarketingNotification}
+          emailDetailLoading={this.props.emailDetailLoading}
+          emailDetails={this.props.email_templates_details}
+          emailListLoading={this.props.emailListLoading}
+          emails={this.props.email_templates_list}
           events={this.props.events}
+          fetchOffersByDay={this.props.fetchOffersByDay}
+          getEmailDetail={this.props.fetchEmailTemplateDetail}
+          getEmails={this.props.fetchEmailTemplatesSummaries}
+          getSmartLists={this.props.getSmartLists}
+          goToOffer={this.props.goToOffer}
+          goToSmartlist={this.props.goToSmartlist}
+          metaActivity={metaActivity}
+          notifications={this.props.notifications}
           offers={this.props.offers.filter(
             (o) => o.meta_activity === this.props.id,
           )}
-          goToOffer={this.props.goToOffer}
           offersLoading={this.props.offersLoading}
-          openCreateOfferForm={this.openCreateOfferForm}
-          notifications={this.props.notifications}
-          getEmails={this.props.fetchEmailTemplatesSummaries}
-          emails={this.props.email_templates_list}
-          getEmailDetail={this.props.fetchEmailTemplateDetail}
-          emailDetails={this.props.email_templates_details}
-          emailListLoading={this.props.emailListLoading}
-          emailDetailLoading={this.props.emailDetailLoading}
-          createNotification={this.props.createNotification}
-          updateNotification={this.props.updateMarketingNotification}
-          deleteNotification={this.props.deleteMarketingNotification}
           onEdit={this.onEdit}
-          goToSmartlist={this.props.goToSmartlist}
-          getSmartLists={this.props.getSmartLists}
+          openCreateOfferForm={this.openCreateOfferForm}
+          resolvedGenericTags={this.props.resolvedGenericTags}
           smartLists={this.props.smartLists}
           tags={this.props.tagCategories}
-          resolvedGenericTags={this.props.resolvedGenericTags}
+          updateNotification={this.props.updateMarketingNotification}
         />
         <BottomActionButtons
-          onEdit={this.onEdit}
           onDelete={() => this.setState({ deleteOpen: true })}
+          onEdit={this.onEdit}
           onShare={() => this.props.setOpenWidgetDialog(true)}
         />
         <MetaActivityDeleteDialog
-          metaActivityId={this.state.deleteOpen ? this.props.id : null}
-          onClose={() => this.setState({ deleteOpen: false })}
           canDeleteMetaActivityChecker={canDeleteMetaActivityAPI}
           deleteMetaActivity={() => {
             this.props.deleteMetaActivity(this.props.id, {
               onSuccess: this.props.goToList,
             });
           }}
+          metaActivityId={this.state.deleteOpen ? this.props.id : null}
+          onClose={() => this.setState({ deleteOpen: false })}
         />
 
         <WidgetGeneratorDialog
-          open={this.props.openWidgetDialog}
-          onClose={() => this.props.setOpenWidgetDialog(false)}
           componentType="calendar"
           config={{
             calendar: {
               metaActivities: [this.props.id],
             },
           }}
+          onClose={() => this.props.setOpenWidgetDialog(false)}
+          open={this.props.openWidgetDialog}
         />
         <MetaActivityEditDrawer
           initial={{
             ...initialData,
             images: (metaActivity || {}).images || [],
           }}
-          onSubmit={this.props.onSubmit}
-          SCTs={SCTs}
-          open={this.props.openEditDrawer}
           onCancel={this.onCancelEdit}
+          onSubmit={this.props.onSubmit}
+          open={this.props.openEditDrawer}
+          SCTs={SCTs}
           tags={this.props.allTagsWithTagGroup}
         />
       </div>

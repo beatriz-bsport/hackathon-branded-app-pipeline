@@ -181,9 +181,9 @@ const Carousel = <T extends BaseData>({
   return (
     <div className="bs-carousel__container">
       <button
-        type="button"
         className={`bs-carousel__navigation__button${isLeftNavigationButtonHiddenClass}`}
         onClick={() => handleNagivate(previousItemIndex)}
+        type="button"
       >
         <ChevronLeftIcon />
       </button>
@@ -191,15 +191,15 @@ const Carousel = <T extends BaseData>({
       <div
         className="bs-carousel__items__indicator__container"
         onMouseEnter={() => !isMobile && setIsAutomaticSlideshow(false)}
-        onPointerEnter={() => isMobile && setIsAutomaticSlideshow(false)}
         onMouseLeave={() => !isMobile && setIsAutomaticSlideshow(true)}
+        onPointerEnter={() => isMobile && setIsAutomaticSlideshow(false)}
         onPointerLeave={() => isMobile && setIsAutomaticSlideshow(true)}
       >
         <div
-          className="bs-carousel__items__container"
           ref={carouselSwipeContainer}
-          onTouchStart={onTouchStart}
+          className="bs-carousel__items__container"
           onTouchEnd={onTouchEnd}
+          onTouchStart={onTouchStart}
         >
           <div
             className="bs-carousel__items__container__view"
@@ -215,16 +215,16 @@ const Carousel = <T extends BaseData>({
           </div>
         </div>
         <CarouselIndicator
-          data={data}
           currentIndex={currentIndex}
+          data={data}
           onClick={(newIndex: number) => !isMobile && setCurrentIndex(newIndex)}
         />
       </div>
 
       <button
-        type="button"
         className={`bs-carousel__navigation__button${isRightNavigationButtonHiddenClass}`}
         onClick={() => handleNagivate(nextItemIndex)}
+        type="button"
       >
         <ChevronRightIcon />
       </button>

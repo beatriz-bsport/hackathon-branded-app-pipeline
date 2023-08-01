@@ -58,22 +58,22 @@ export const CompanyDetail = (props: Props) => {
 
   return (
     <div className="company-detail">
-      <Typography variant="h4" className={classes.pageTitle}>
+      <Typography className={classes.pageTitle} variant="h4">
         {`${company.business_name} (${company.name.toLowerCase()})`}
       </Typography>
       <Grid container direction="row" spacing={3}>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <Grid container direction="column" spacing={3}>
             <Grid item>
               <Paper className={classes.paper}>
-                <Typography variant="h6" className={classes.title}>
+                <Typography className={classes.title} variant="h6">
                   {t('companies.address')}
                 </Typography>
                 <AddressDetail address={getAddress(company, '')} />
                 <Button
-                  variant="contained"
                   color="primary"
                   onClick={props.updateCompanyDetail}
+                  variant="contained"
                 >
                   {t('common.edit')}
                 </Button>
@@ -81,9 +81,9 @@ export const CompanyDetail = (props: Props) => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <Paper className={classes.paper}>
-            <Typography variant="h6" className={classes.title}>
+            <Typography className={classes.title} variant="h6">
               {t('companies.bank_details')}
             </Typography>
             <p>
@@ -94,17 +94,17 @@ export const CompanyDetail = (props: Props) => {
               {company.bank_account_holder}
               <br />
             </p>
-            <Alert severity="info" className={classes.title}>
+            <Alert className={classes.title} severity="info">
               {`${t('settings:company.bankAccountInfo.content')} `}
-              <Link to="/settings/platform-billing" className={classes.link}>
+              <Link className={classes.link} to="/settings/platform-billing">
                 {t('settings:company.bankAccountInfo.link')}
               </Link>
               .
             </Alert>
             <Button
-              variant="contained"
               color="primary"
               onClick={() => setAddExternalAccountOpen(true)}
+              variant="contained"
             >
               {t('common.edit')}
             </Button>
@@ -112,18 +112,18 @@ export const CompanyDetail = (props: Props) => {
         </Grid>
       </Grid>
       <BankAccountFormDialog
+        company={company}
         country={company.country}
         currency={company.currency}
-        onSubmit={(data, options) => props.attachExternalAccount(data, options)}
-        open={props.addExternalAccountOpen}
         onClose={() => setAddExternalAccountOpen(false)}
-        company={company}
+        onSubmit={(data, options) => props.attachExternalAccount(data, options)}
         onSuccess={bankAccountFormSuccess}
+        open={props.addExternalAccountOpen}
       />
       <BankAccountSuccessDialog
-        open={props.externalAccountSuccessOpen}
         onCancel={() => setExternalAccountSuccessOpen(false)}
         onConfirm={onSuccessDialogConfirmed}
+        open={props.externalAccountSuccessOpen}
       />
     </div>
   );

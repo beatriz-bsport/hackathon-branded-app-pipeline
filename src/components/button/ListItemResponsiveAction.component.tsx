@@ -67,8 +67,8 @@ const ShortMenu: React.FC<Props> = React.memo(({ actions }) => {
   }, [actions]);
   return (
     <div
-      style={{ display: 'flex', flexDirection: 'row' }}
       id="shortMenuContainer"
+      style={{ display: 'flex', flexDirection: 'row' }}
     >
       {clickableActionsWithoutButtonComponent.map((option) => (
         <ShortMenuIconButton action={option} />
@@ -93,9 +93,9 @@ const ShortMenuIconButton: React.FC<{ action: ActionOption }> = React.memo(
     return (
       <IconButton
         key={action.label}
-        onClick={handleClick}
         color={action.color}
         disabled={action.disabled}
+        onClick={handleClick}
       >
         <action.icon />
       </IconButton>
@@ -111,9 +111,9 @@ const ShortMenuCustomButton: React.FC<{ action: ActionOption }> = React.memo(
     return (
       <action.iconButtonComponent
         key={action.label}
-        onClick={handleClick}
         color={action.color}
         disabled={action.disabled}
+        onClick={handleClick}
       />
     );
   },
@@ -137,9 +137,9 @@ const HiddenShortMenuItem: React.FC<{
   );
   return (
     <MenuItem
-      onClick={handleClick}
       key={action.label}
       disabled={action.disabled}
+      onClick={handleClick}
     >
       {!!action.icon && (
         <ListItemIcon>
@@ -161,7 +161,7 @@ const HiddenShortMenuActionItem: React.FC<{
   }, [action, setAnchorEl]);
 
   return (
-    <action.menuItemComponent onClick={handleClick} color={action.color} />
+    <action.menuItemComponent color={action.color} onClick={handleClick} />
   );
 });
 
@@ -196,19 +196,19 @@ export const HiddenShortMenu: React.FC<Props> = React.memo(({ actions }) => {
   return (
     <div>
       <IconButton
-        aria-label="more"
         aria-controls="long-menu"
         aria-haspopup="true"
+        aria-label="more"
         onClick={handleClickOnIconButton}
       >
         <MoreVertIcon />
       </IconButton>
       <Menu
-        id="short-menu"
-        anchorEl={anchorEl}
         keepMounted
-        open={open}
+        anchorEl={anchorEl}
+        id="short-menu"
         onClose={handleClose}
+        open={open}
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,

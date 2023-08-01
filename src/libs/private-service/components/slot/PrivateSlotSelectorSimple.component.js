@@ -23,15 +23,15 @@ export const PrivateSlotSelectorSimple = (props: Props) => {
     null;
   return (
     <Select
-      menuPortalTarget={document.querySelector('body')}
-      placeholder={props.t('selector.privateSlot')}
-      value={selectedOption}
-      options={privateSlotsOptions}
-      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
       isDisabled={!!props.isDisabled}
+      menuPortalTarget={document.querySelector('body')}
       onChange={(option) => {
         props.onChange(option.value);
       }}
+      options={privateSlotsOptions}
+      placeholder={props.t('selector.privateSlot')}
+      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+      value={selectedOption}
     />
   );
 };

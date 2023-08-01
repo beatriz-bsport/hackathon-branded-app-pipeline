@@ -16,10 +16,10 @@ export const PersonalizedSpotCreator = (props) => {
 
   const renderImageUpload = (name: string, id: string) => {
     return (
-      <ImageFieldInput name={name} id={id} style={{ maxWidth: 173 }}>
+      <ImageFieldInput id={id} name={name} style={{ maxWidth: 173 }}>
         <div className={classes.imageInput}>
           <ImageIcon color={theme.palette.grey[700]} />
-          <Typography variant="caption" color="textSecondary">
+          <Typography color="textSecondary" variant="caption">
             {t('spotImageDialog.imageUploadButton')}
           </Typography>
         </div>
@@ -37,17 +37,17 @@ export const PersonalizedSpotCreator = (props) => {
     return (
       <div>
         <div className={classes.previewContainer}>
-          <svg width={105} height={70}>
-            <image x={10} y={5} href={image} width={60} height={60} />;
+          <svg height={70} width={105}>
+            <image height={60} href={image} width={60} x={10} y={5} />;
           </svg>
           <div className={classes.rightIcons}>
-            <ImageFieldInput name={name} id={id}>
-              <CreateIcon color="primary" className={classes.imageInputIcon} />
+            <ImageFieldInput id={id} name={name}>
+              <CreateIcon className={classes.imageInputIcon} color="primary" />
             </ImageFieldInput>
             <DeleteIcon onClick={() => props.setFieldValue(name, null)} />
           </div>
         </div>
-        <Typography variant="body2" className={classes.fileName}>
+        <Typography className={classes.fileName} variant="body2">
           {file.name}
         </Typography>
       </div>
@@ -57,15 +57,15 @@ export const PersonalizedSpotCreator = (props) => {
   return (
     <div>
       <Typography
-        variant="caption"
         className={classes.field}
         color="textSecondary"
+        variant="caption"
       >
         {t('spotCreatorForm.personalizedExplain')}
       </Typography>
       <Grid className={classes.container}>
         <Grid xs={4}>
-          <Typography variant="body1" className={classes.spotStatus}>
+          <Typography className={classes.spotStatus} variant="body1">
             {t('spotCreatorForm.free')}
           </Typography>
           {renderExample()}
@@ -78,7 +78,7 @@ export const PersonalizedSpotCreator = (props) => {
               )}
         </Grid>
         <Grid xs={4}>
-          <Typography variant="body1" className={classes.spotStatus}>
+          <Typography className={classes.spotStatus} variant="body1">
             {t('spotCreatorForm.taken')}
           </Typography>
           {renderExample('', theme.palette.grey[600], theme.palette.grey[400])}
@@ -91,7 +91,7 @@ export const PersonalizedSpotCreator = (props) => {
               )}
         </Grid>
         <Grid xs={4}>
-          <Typography variant="body1" className={classes.spotStatus}>
+          <Typography className={classes.spotStatus} variant="body1">
             {t('spotCreatorForm.selected')}
           </Typography>
           {renderExample(

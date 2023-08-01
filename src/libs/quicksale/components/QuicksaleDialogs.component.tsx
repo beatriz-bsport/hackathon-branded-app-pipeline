@@ -114,26 +114,20 @@ const QuicksaleDialogs: React.FC<Props> = ({
     <>
       {showStillOpenBasketsModal !== undefined && (
         <DialogWithBigIcon
-          open={showStillOpenBasketsModal}
-          onClose={closeStillOpenBasketsModal}
           withCross
           CustomIcon={WarningIconRounded}
           iconColor={QuicksaleInterfaceModalColors.Warning}
-          title="quicksale:interface.ongoingBaskets.title"
-          subTexts={[['quicksale:interface.ongoingBaskets.subText']]}
           namespaces="quicksale"
+          onClose={closeStillOpenBasketsModal}
+          open={showStillOpenBasketsModal}
+          subTexts={[['quicksale:interface.ongoingBaskets.subText']]}
+          title="quicksale:interface.ongoingBaskets.title"
         />
       )}
 
       {showDeleteWarningModal !== undefined && (
         <DialogWithBigIcon
-          open={showDeleteWarningModal}
-          onClose={closeDeleteWarningModal}
           withCross
-          icon="Delete"
-          iconColor={QuicksaleInterfaceModalColors.Error}
-          title="quicksale:interface.deleteCurrentBasket.title"
-          subTexts={[['quicksale:interface.deleteCurrentBasket.subText']]}
           buttons={[
             {
               title: 'quicksale:interface.deleteCurrentBasket.cancel',
@@ -149,17 +143,18 @@ const QuicksaleDialogs: React.FC<Props> = ({
               backgroundColor: QuicksaleInterfaceModalColors.Error,
             },
           ]}
+          icon="Delete"
+          iconColor={QuicksaleInterfaceModalColors.Error}
           namespaces="quicksale"
+          onClose={closeDeleteWarningModal}
+          open={showDeleteWarningModal}
+          subTexts={[['quicksale:interface.deleteCurrentBasket.subText']]}
+          title="quicksale:interface.deleteCurrentBasket.title"
         />
       )}
 
       {blockActions !== undefined && (
         <DialogWithBigIcon
-          open={blockActions}
-          CustomIcon={WarningIconRounded}
-          iconColor={QuicksaleInterfaceModalColors.Warning}
-          title="quicksale:interface.cannotEdit.title"
-          subTexts={[['quicksale:interface.cannotEdit.subText']]}
           buttons={[
             {
               title: 'quicksale:interface.cannotEdit.payment',
@@ -172,32 +167,31 @@ const QuicksaleDialogs: React.FC<Props> = ({
             root: classes.partiallyPaidDialogRoot,
             backdrop: classes.partiallyPaidDialogBackdrop,
           }}
+          CustomIcon={WarningIconRounded}
+          iconColor={QuicksaleInterfaceModalColors.Warning}
           namespaces="quicksale"
+          open={blockActions}
+          subTexts={[['quicksale:interface.cannotEdit.subText']]}
+          title="quicksale:interface.cannotEdit.title"
         />
       )}
 
       {showWarningRemovedItemsModal !== undefined && (
         <DialogWithBigIcon
-          open={showWarningRemovedItemsModal}
-          onClose={closeWarningRemovedItemsModal}
           withCross
           CustomIcon={WarningIconRounded}
           iconColor={QuicksaleInterfaceModalColors.Warning}
-          title="quicksale:interface.itemsRemovedFromBasket.title"
-          subTexts={[['quicksale:interface.itemsRemovedFromBasket.subText']]}
           namespaces="quicksale"
+          onClose={closeWarningRemovedItemsModal}
+          open={showWarningRemovedItemsModal}
+          subTexts={[['quicksale:interface.itemsRemovedFromBasket.subText']]}
+          title="quicksale:interface.itemsRemovedFromBasket.title"
         />
       )}
 
       {showOutOfStockModal !== undefined && (
         <DialogWithBigIcon
-          open={showOutOfStockModal}
-          onClose={closeOutOfStockModal}
           withCross
-          icon="StoreMallDirectory"
-          iconColor={QuicksaleInterfaceModalColors.Warning}
-          title="quicksale:interface.outOfStock.title"
-          subTexts={[['quicksale:interface.outOfStock.subText']]}
           buttons={[
             {
               title: 'quicksale:interface.outOfStock.addAnyway',
@@ -207,31 +201,32 @@ const QuicksaleDialogs: React.FC<Props> = ({
               fontColor: 'white',
             },
           ]}
+          icon="StoreMallDirectory"
+          iconColor={QuicksaleInterfaceModalColors.Warning}
           namespaces="quicksale"
+          onClose={closeOutOfStockModal}
+          open={showOutOfStockModal}
+          subTexts={[['quicksale:interface.outOfStock.subText']]}
+          title="quicksale:interface.outOfStock.title"
         />
       )}
 
       {showAuthenticatedMemberRestrictionModal !== undefined && (
         <DialogWithBigIcon
-          open={showAuthenticatedMemberRestrictionModal}
-          onClose={closeAuthenticatedMemberRestrictionModal}
           withCross
           CustomIcon={SadSmileyIcon}
           iconColor={QuicksaleInterfaceModalColors.Info}
-          title="quicksale:interface.cannotAdd.title"
-          subTexts={memberRestrictionSubTexts}
           namespaces="quicksale"
+          onClose={closeAuthenticatedMemberRestrictionModal}
+          open={showAuthenticatedMemberRestrictionModal}
+          subTexts={memberRestrictionSubTexts}
+          title="quicksale:interface.cannotAdd.title"
         />
       )}
 
       {showUnauthenticatedMemberRestrictionModal !== undefined && (
         <DialogWithBigIcon
-          open={showUnauthenticatedMemberRestrictionModal}
-          onClose={closeUnauthenticatedMemberRestrictionModal}
           withCross
-          icon="Person"
-          title="quicksale:interface.authenticationRequired.title"
-          subTexts={memberRestrictionSubTexts}
           buttons={[
             {
               title:
@@ -240,93 +235,98 @@ const QuicksaleDialogs: React.FC<Props> = ({
               onClick: openAuthenticationModal,
             },
           ]}
+          icon="Person"
           namespaces="quicksale"
+          onClose={closeUnauthenticatedMemberRestrictionModal}
+          open={showUnauthenticatedMemberRestrictionModal}
+          subTexts={memberRestrictionSubTexts}
+          title="quicksale:interface.authenticationRequired.title"
         />
       )}
 
       {showAddItemConfirmationModal !== undefined && (
         <DialogWithBigIcon
-          open={showAddItemConfirmationModal}
-          onClose={closeAddItemConfirmationModal}
           withCross
           icon="AddShoppingCart"
-          title="quicksale:interface.objectAdded.title"
-          subTexts={[['quicksale:interface.objectAdded.subText']]}
           namespaces="quicksale"
+          onClose={closeAddItemConfirmationModal}
+          open={showAddItemConfirmationModal}
+          subTexts={[['quicksale:interface.objectAdded.subText']]}
+          title="quicksale:interface.objectAdded.title"
         />
       )}
 
       {showPaymentSuccessModal !== undefined && (
         <DialogWithBigIcon
-          open={showPaymentSuccessModal}
-          onClose={closePaymentSuccessModal}
           withCross
+          withoutBackground
           CustomIcon={ValidationIcon}
           customIconFillOpacity={0.08}
           iconColor={QuicksaleInterfaceModalColors.Success}
-          withoutBackground
-          title="quicksale:checkout.paymentSuccess.title"
-          subTexts={[['quicksale:checkout.paymentSuccess.subText']]}
           namespaces="quicksale"
+          onClose={closePaymentSuccessModal}
+          open={showPaymentSuccessModal}
+          subTexts={[['quicksale:checkout.paymentSuccess.subText']]}
+          title="quicksale:checkout.paymentSuccess.title"
         />
       )}
 
       {showAnonymousPaymentSuccessModal !== undefined && (
         <DialogWithBigIcon
-          open={showAnonymousPaymentSuccessModal}
-          onClose={closeAnonymousPaymentSuccessModal}
           withCross
+          withoutBackground
           CustomIcon={ValidationIcon}
           customIconFillOpacity={0.08}
           iconColor={QuicksaleInterfaceModalColors.Success}
-          withoutBackground
-          title="quicksale:checkout.paymentSuccess.title"
-          subTexts={[['quicksale:checkout.paymentSuccess.subTextAnonymous']]}
           namespaces="quicksale"
+          onClose={closeAnonymousPaymentSuccessModal}
+          open={showAnonymousPaymentSuccessModal}
+          subTexts={[['quicksale:checkout.paymentSuccess.subTextAnonymous']]}
+          title="quicksale:checkout.paymentSuccess.title"
         />
       )}
 
       {showInvoiceSentModal !== undefined && (
         <DialogWithBigIcon
-          open={showInvoiceSentModal}
-          onClose={closeInvoiceSentModal}
           withCross
           CustomIcon={EmailIcon}
-          title="quicksale:checkout.emailSent.title"
-          subTexts={[['quicksale:checkout.emailSent.subText']]}
           namespaces="quicksale"
+          onClose={closeInvoiceSentModal}
+          open={showInvoiceSentModal}
+          subTexts={[['quicksale:checkout.emailSent.subText']]}
+          title="quicksale:checkout.emailSent.title"
         />
       )}
 
       {showPaymentSetForLaterModal !== undefined && (
         <DialogWithBigIcon
-          open={showPaymentSetForLaterModal}
-          onClose={closePaymentSetForLaterModal}
           withCross
+          withoutBackground
           CustomIcon={ValidationIcon}
           customIconFillOpacity={0.08}
           iconColor={QuicksaleInterfaceModalColors.Success}
-          withoutBackground
-          title="quicksale:checkout.payLater.title"
-          subTexts={[['quicksale:checkout.payLater.subText']]}
           namespaces="quicksale"
+          onClose={closePaymentSetForLaterModal}
+          open={showPaymentSetForLaterModal}
+          subTexts={[['quicksale:checkout.payLater.subText']]}
+          title="quicksale:checkout.payLater.title"
         />
       )}
 
       {showPartialPaymentSuccesModal !== undefined && (
         <DialogWithBigIcon
-          open={showPartialPaymentSuccesModal}
-          onClose={closePartialPaymentSuccesModal}
           withCross
+          withoutBackground
           CustomIcon={ValidationIcon}
           customIconFillOpacity={0.08}
           iconColor={QuicksaleInterfaceModalColors.Success}
-          withoutBackground
-          title="quicksale:checkout.paymentSuccess.title"
+          namespaces="quicksale"
+          onClose={closePartialPaymentSuccesModal}
+          open={showPartialPaymentSuccesModal}
           subTexts={[
             ['quicksale:checkout.paymentSuccess.subTextPartialPayment'],
           ]}
-          namespaces="quicksale"
+          title="quicksale:checkout.paymentSuccess.title"
         />
       )}
     </>

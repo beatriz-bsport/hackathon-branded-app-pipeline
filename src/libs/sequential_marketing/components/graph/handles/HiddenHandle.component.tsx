@@ -21,10 +21,10 @@ export const HiddenHandle: React.FC<Props> = ({
   return (
     <div className={classes.invisible}>
       <Handle
-        position={position}
-        type={type}
         isConnectable={isConnectable}
+        position={position}
         style={style}
+        type={type}
       />
     </div>
   );

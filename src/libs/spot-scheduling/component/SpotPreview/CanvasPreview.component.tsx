@@ -33,18 +33,18 @@ class CanvasPreview extends React.PureComponent<Props> {
 
     return (
       <CanvasEditorComponent
+        disableEdit
+        assets={this.props.assets}
         blueprints={[]}
+        coach={this.props.coach}
+        fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
         selectedRoomBlueprint={SpotSchedulingHelper.canvasTransformer({
           roomBlueprint: this.props.roomBlueprint,
           takenSpot: this.props.takenSpot,
           selectedSpot: this.props.selectedSpot,
         })}
-        assets={this.props.assets}
         selectedTool={CANVAS_SELECTABLE_TOOLS.hand}
-        disableEdit
-        fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
         spotTypes={this.props?.spotTypes?.concat({ id: -1 })}
-        coach={this.props.coach}
       />
     );
   }

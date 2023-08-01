@@ -138,75 +138,75 @@ export class ShopItemDetail extends Component<Props, State> {
 
   render() {
     return (
-      <Grid container spacing={2} className={this.props.classes.container}>
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h5" component="h2">
+      <Grid container className={this.props.classes.container} spacing={2}>
+        <Grid item sm={6} xs={12}>
+          <Typography component="h2" variant="h5">
             {this.props.t('shopitem.detail.title')}
           </Typography>
           <Divider className={this.props.classes.sectionDivider} />
           <ShopItemCard
+            showPaymentLink
             shopitem={this.props.shopitem}
             snackbarSuccess={this.props.snackbarSuccess}
-            showPaymentLink
           />
           {this.props.shopitem.barcode ? (
             <div>
               <div className={this.props.classes.barcode}>
                 <BarCode
-                  value={this.props.shopitem.barcode}
                   background="#fafafa"
+                  value={this.props.shopitem.barcode}
                 />
               </div>
             </div>
           ) : null}
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h5" component="h2">
+        <Grid item sm={6} xs={12}>
+          <Typography component="h2" variant="h5">
             {this.props.t('shopitem.detail.parameters')}
           </Typography>
           <Divider className={this.props.classes.sectionDivider} />
           <div>
             <ProvisionSummary
-              shopitem={this.props.shopitem}
               onProvisionUpdate={() =>
                 this.setState({ provisionFormOpen: true })
               }
+              shopitem={this.props.shopitem}
             />
           </div>
-          <Typography variant="h5" component="h2">
+          <Typography component="h2" variant="h5">
             {this.props.t('shopitem.detail.provisionHistory')}
           </Typography>
           <Divider className={this.props.classes.sectionDivider} />
           <Paper>
             <ProvisionTable
-              provisions={this.props.provision.items}
+              itemPerPage={SHOPITEM_PER_PAGE}
               loading={this.props.provision.loading}
               nbItems={this.props.provision.count}
-              page={this.props.provision.page}
-              itemPerPage={SHOPITEM_PER_PAGE}
               onPageRequested={this.handleRequestProvisionPage}
+              page={this.props.provision.page}
+              provisions={this.props.provision.items}
             />
           </Paper>
         </Grid>
         <BottomActionsButton
-          onEdit={this.openEditForm}
           onDelete={this.requestDelete}
+          onEdit={this.openEditForm}
         />
         <GenericResponsiveDrawer
-          open={this.state.editOpen}
           fullScreen={this.props.fullScreen}
           onClose={this.closeEditForm}
-          title={this.props.t('shop:shopitem.form.title')}
+          open={this.state.editOpen}
           subtitle={this.props.shopitem?.name}
+          title={this.props.t('shop:shopitem.form.title')}
+          trackingObjectId={this.props.shopitem?.id}
           trackingObjectIdentifier={
             SegmentAnalyticsFormObjectIdentifier.ShopItem
           }
-          trackingObjectId={this.props.shopitem?.id}
         >
           <ShopItemForm
+            createOrUpdate={this.createOrUpdateShopItem}
             initial={this.props.shopitem}
             onCancel={this.closeEditForm}
-            createOrUpdate={this.createOrUpdateShopItem}
             provincialTax={this.props.theme?.provincial_tax_value}
           />
         </GenericResponsiveDrawer>
@@ -218,13 +218,13 @@ export class ShopItemDetail extends Component<Props, State> {
         </Dialog>
         <Dialog open={this.state.deleteModalOpen}>
           <ShopItemDeleteDialog
-            shopitem={this.props.shopitem}
             isUsedInCombo={
               this.props.archivationWarning[this.props.shopitem?.id]
                 ?.used_in_combo || false
             }
             onCancel={this.closeDeleteModal}
             onSubmit={this.deleteShopItem}
+            shopitem={this.props.shopitem}
           />
         </Dialog>
       </Grid>

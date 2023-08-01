@@ -53,37 +53,37 @@ export const CustomFormCreatedialog = (props: Props) => {
   };
   return (
     <Dialog
-      fullWidth
-      maxWidth="sm"
-      open={props.open}
-      onClose={props.handleClose}
       disableBackdropClick
       disableEscapeKeyDown
+      fullWidth
+      maxWidth="sm"
+      onClose={props.handleClose}
+      open={props.open}
     >
       <DialogTitle id="form-dialog-title">{t('customForm.title')}</DialogTitle>
       <DialogContent>
         <TextField
-          value={customFormName}
-          placeholder={t('customForm.name')}
-          onChange={(ev) => setCustomFormName(ev.target.value)}
           fullWidth
           required
+          onChange={(ev) => setCustomFormName(ev.target.value)}
+          placeholder={t('customForm.name')}
+          value={customFormName}
         />
       </DialogContent>
       <DialogActions>
         <Button
+          color="secondary"
           onClick={() => {
             trackFormCancel(customFormSelected?.id);
             props.handleClose();
           }}
-          color="secondary"
         >
           {t('cancel')}
         </Button>
         <Button
-          onClick={handleSubmit}
-          disabled={!customFormName}
           color="secondary"
+          disabled={!customFormName}
+          onClick={handleSubmit}
         >
           {customFormSelected ? t('update') : t('create')}
         </Button>

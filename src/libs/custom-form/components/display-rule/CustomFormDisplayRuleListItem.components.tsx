@@ -30,14 +30,14 @@ export const CustomFormDisplayRuleListItem = (props: Props) => {
   const { t, classes, customFormDisplayRule, withItemDivider } = props;
   return (
     <ListItem key={customFormDisplayRule.id} divider={withItemDivider}>
-      <Grid container direction="row" alignItems="center">
+      <Grid container alignItems="center" direction="row">
         <Grid item>
           {customFormDisplayRule.kind === CUSTOM_FORM_DISPLAY_ON_SIGN_UP ? (
             <div className={classes.kind}>
               <PersonAddIcon
-                fontSize="small"
-                color="secondary"
                 className={classes.kindIcon}
+                color="secondary"
+                fontSize="small"
               />
               <ListItemText
                 primary={t('customForm.displayRule.forNewMember')}
@@ -46,19 +46,19 @@ export const CustomFormDisplayRuleListItem = (props: Props) => {
           ) : (
             <div className={classes.kind}>
               <GroupIcon
-                fontSize="small"
-                color="secondary"
                 className={classes.kindIcon}
+                color="secondary"
+                fontSize="small"
               />
               <ListItemText
                 primary={t('customForm.displayRule.forRegisteredMember', {
                   count: customFormDisplayRule.timedelta_day_before_display,
                 })}
-                secondaryTypographyProps={{ variant: 'caption' }}
                 secondary={
                   customFormDisplayRule.force_display &&
                   t('customForm.displayRule.forcedDisplayMinimal')
                 }
+                secondaryTypographyProps={{ variant: 'caption' }}
               />
             </div>
           )}

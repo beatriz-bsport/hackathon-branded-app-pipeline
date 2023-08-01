@@ -145,8 +145,8 @@ export class ChangePassword extends Component<Props, State> {
     const { processing, hasExpired, password1, error, password2 } = this.state;
     return (
       <LoginBase theme={this.props.franchisor || this.props.theme}>
-        <form onSubmit={this.onSubmit} className={classes.formContainer}>
-          <Grid container direction="column" spacing={2} alignItems="center">
+        <form className={classes.formContainer} onSubmit={this.onSubmit}>
+          <Grid container alignItems="center" direction="column" spacing={2}>
             <Grid item>
               <Typography variant="h6">
                 {t('form.login.changePasswordTitle')}
@@ -155,30 +155,30 @@ export class ChangePassword extends Component<Props, State> {
             {!hasExpired && (
               <Grid item>
                 <TextField
-                  type="password"
-                  name="password"
-                  value={password1}
                   required
-                  placeholder={t('form.login.password')}
+                  name="password"
                   onChange={this.handlePassword1Change}
+                  placeholder={t('form.login.password')}
+                  type="password"
+                  value={password1}
                 />
               </Grid>
             )}
             {!hasExpired && (
               <Grid item>
                 <TextField
-                  type="password"
-                  name="passwordConfirm"
-                  value={password2}
                   required
-                  placeholder={t('form.login.confirmPassword')}
+                  name="passwordConfirm"
                   onChange={this.handlePassword2Change}
+                  placeholder={t('form.login.confirmPassword')}
+                  type="password"
+                  value={password2}
                 />
               </Grid>
             )}
             {error ? (
               <Grid item>
-                <Typography variant="caption" color="error">
+                <Typography color="error" variant="caption">
                   {error}
                 </Typography>
               </Grid>
@@ -187,26 +187,26 @@ export class ChangePassword extends Component<Props, State> {
               {!!processing && <CircularProgress />}
               {!processing && !hasExpired && (
                 <Button
-                  color="primary"
-                  variant="contained"
-                  type="submit"
-                  id="btn-new-password-confirm"
                   className={classes.button}
+                  color="primary"
+                  id="btn-new-password-confirm"
+                  type="submit"
+                  variant="contained"
                 >
                   {t('common.ok')}
                 </Button>
               )}
               {!!hasExpired && (
                 <Button
+                  className={classes.button}
+                  color="primary"
                   onClick={() =>
                     this.props.requestResetLink(
                       this.props.membership,
                       this.props.franchisorId,
                     )
                   }
-                  color="primary"
                   variant="contained"
-                  className={classes.button}
                 >
                   {this.props.t('form.login.resetAgainPassword')}
                 </Button>

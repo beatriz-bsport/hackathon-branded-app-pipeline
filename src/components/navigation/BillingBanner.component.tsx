@@ -48,10 +48,10 @@ const BillingBanner = (props: Props) => {
   return (
     <div className={classes.paymentMissingContainer}>
       <ButtonBase
+        className={classes.errorBanner}
         onClick={() => {
           document.location.pathname = '/settings/platform-billing';
         }}
-        className={classes.errorBanner}
       >
         <div className={classes.text}>
           <AlertIcon fontSize="small" />

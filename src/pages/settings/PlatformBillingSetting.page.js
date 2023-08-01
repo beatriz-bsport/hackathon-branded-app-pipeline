@@ -120,14 +120,14 @@ export class PlatformBillingSettings extends React.Component<Props> {
 
     return (
       <div className={classes.container}>
-        <Grid direction="row" container className={classes.container}>
-          <Grid item xs={12} md={6} className={classes.leftColumn}>
+        <Grid container className={classes.container} direction="row">
+          <Grid item className={classes.leftColumn} md={6} xs={12}>
             <PayoutList
               fetchMorePayoutList={this.props.fetchPayoutList}
-              payoutList={this.props.payoutList}
-              loading={this.props.payoutLoading}
               hasMorePayout={this.props.hasMorePayout}
+              loading={this.props.payoutLoading}
               openInvoice={this.props.onOpenInvoice}
+              payoutList={this.props.payoutList}
             />
           </Grid>
           {/* <Grid item xs={12} md={6} className={classes.leftColumn}>
@@ -139,25 +139,25 @@ export class PlatformBillingSettings extends React.Component<Props> {
           </Grid> */}
         </Grid>
         <CompanyPlatformBillingPaymentDetail
-          payNowInvoice={this.props.payNowInvoice}
-          paymentMethodList={this.props.savedPaymentMethodList}
-          platformInvoiceList={this.props.platformInvoiceList}
-          refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
-          requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-          onCollectPaymentMethodSuccess={this.finalizePaymentMethodChange}
-          fetchMorePlatformInvoiceList={this.props.fetchPlatformInvoiceList}
           defaultCurrencyDisplay={
             this.props.platformSubscription?.default_currency_display
           }
+          fetchMorePlatformInvoiceList={this.props.fetchPlatformInvoiceList}
+          onCollectPaymentMethodSuccess={this.finalizePaymentMethodChange}
+          paymentMethodList={this.props.savedPaymentMethodList}
+          payNowInvoice={this.props.payNowInvoice}
+          platformInvoiceList={this.props.platformInvoiceList}
+          refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
+          requestSetupIntentSecret={this.props.requestSetupIntentSecret}
         />
         <CompanyPlatformBillinGroupDetail
-          platformSubscription={this.props.platformSubscription}
-          onRequestUpsell={this.props.onRequestUpsell}
           onKnowMore={this.props.onRequestUpsell}
+          onRequestUpsell={this.props.onRequestUpsell}
+          platformSubscription={this.props.platformSubscription}
         />
         <FeatureRequestDialog
-          open={this.props.openFeatureRequest}
           onClose={() => this.props.setOpenFeatureRequest(false)}
+          open={this.props.openFeatureRequest}
         />
       </div>
     );

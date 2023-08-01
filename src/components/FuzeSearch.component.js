@@ -71,13 +71,9 @@ export class FuzeSearch extends React.Component<Props> {
         )}
       >
         <DelayedTextField
-          variant={this.props.variant || 'standard'}
-          placeholder={this.props.placeholder}
-          value={this.props.searchText || ''}
           fullWidth
-          onChange={this.props.changeSearch(fuse)}
-          delay={170}
           autoFocus={!this.props.disableAutoFocus}
+          delay={170}
           InputProps={{
             className: this.props.inputClassName,
             startAdornment:
@@ -86,8 +82,8 @@ export class FuzeSearch extends React.Component<Props> {
                   {onClickSearch ? (
                     <IconButton
                       className={this.props.classes.iconButton}
-                      onClick={onClickSearch}
                       disabled={!this.props.searchText}
+                      onClick={onClickSearch}
                     >
                       <CustomMuiIcon
                         icon="Search"
@@ -104,10 +100,10 @@ export class FuzeSearch extends React.Component<Props> {
                 {this.props.searchText ? (
                   <InputAdornment position="end">
                     <IconButton
-                      className={this.props.classes.iconButton}
                       aria-label={
                         this.props.searchText ? 'Clear search' : 'Search'
                       }
+                      className={this.props.classes.iconButton}
                       onClick={this.props.clearSearch}
                     >
                       <ClearIcon />
@@ -119,8 +115,8 @@ export class FuzeSearch extends React.Component<Props> {
                     {onClickSearch ? (
                       <IconButton
                         className={this.props.classes.iconButton}
-                        onClick={onClickSearch}
                         disabled={!this.props.searchText}
+                        onClick={onClickSearch}
                       >
                         <CustomMuiIcon
                           icon="Search"
@@ -141,6 +137,10 @@ export class FuzeSearch extends React.Component<Props> {
           inputProps={{
             'data-testid': 'input-fuze-search',
           }}
+          onChange={this.props.changeSearch(fuse)}
+          placeholder={this.props.placeholder}
+          value={this.props.searchText || ''}
+          variant={this.props.variant || 'standard'}
         />
       </div>
     );

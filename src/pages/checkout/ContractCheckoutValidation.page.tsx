@@ -69,7 +69,7 @@ export class ContractCheckoutValidation extends Component<Props> {
             <div className={classes.paperSection}>
               <div className={classes.header}>
                 {success ? <ValidationIcon /> : <ErrorIcon />}
-                <Typography variant="h4" className={classes.centerText}>
+                <Typography className={classes.centerText} variant="h4">
                   {success
                     ? t('subscriptionPaymentDialog.success.title')
                     : t('subscriptionPaymentDialog.error.title')}
@@ -81,10 +81,10 @@ export class ContractCheckoutValidation extends Component<Props> {
               <div className={classes.actions}>
                 {next ? (
                   <TimeoutButton
+                    color="primary"
                     delayBeforeActivation={3}
                     onClick={success ? goToUserSpace : goToSubsciption}
                     variant="contained"
-                    color="primary"
                   >
                     {success
                       ? t('subscriptionPaymentDialog.success.button_text')
@@ -92,9 +92,9 @@ export class ContractCheckoutValidation extends Component<Props> {
                   </TimeoutButton>
                 ) : (
                   <Button
+                    color="primary"
                     onClick={success ? goToUserSpace : goToSubsciption}
                     variant="contained"
-                    color="primary"
                   >
                     {success
                       ? t('subscriptionPaymentDialog.success.button_text')
@@ -103,9 +103,9 @@ export class ContractCheckoutValidation extends Component<Props> {
                 )}
                 {!success && !next && (
                   <Button
+                    color="primary"
                     onClick={goToUserSpace}
                     variant="outlined"
-                    color="primary"
                   >
                     {t('subscriptionPaymentDialog.error.userSpace')}
                   </Button>
@@ -115,7 +115,7 @@ export class ContractCheckoutValidation extends Component<Props> {
 
             {success && (
               <>
-                <Typography variant="h5" className={classes.paperSection}>
+                <Typography className={classes.paperSection} variant="h5">
                   {t('subscriptionPaymentDialog.success.recap')}
                 </Typography>
                 <div className={classes.divider} />

@@ -93,7 +93,7 @@ export const CadenceList: React.FC<Props> = ({
           onClick={() => setCollapseOpen(!collapseOpen)}
         >
           {collapseOpen ? <ExpandMoreIcon /> : <ExpandLessIcon />}
-          <Typography variant="h5" color="textSecondary">
+          <Typography color="textSecondary" variant="h5">
             {`${t('cadence.archive.archivedHeader')}${'\u00A0'}(${
               cadences?.length || 0
             })${'\u00A0'}`}
@@ -105,10 +105,10 @@ export const CadenceList: React.FC<Props> = ({
             {cadences.map((cadence) => (
               <CadenceListItem
                 key={`cadence_disabled${cadence.id}`}
-                loading={cadenceLoading}
-                withoutIndex
                 dense
+                withoutIndex
                 cadence={cadence}
+                loading={cadenceLoading}
                 onRestore={onRestore && handleRestoreCadence}
               />
             ))}
@@ -131,9 +131,9 @@ export const CadenceList: React.FC<Props> = ({
 
   return (
     <DndContext
-      sensors={sensors}
-      onDragEnd={handleDragEnd}
       modifiers={[restrictToVerticalAxis]}
+      onDragEnd={handleDragEnd}
+      sensors={sensors}
     >
       <List>
         <SortableContext
@@ -144,14 +144,14 @@ export const CadenceList: React.FC<Props> = ({
         >
           {cadenceSortableItems.map((cadence) => (
             <CadenceListItem
-              sortable
               key={`cadence_enable${cadence.id}`}
+              sortable
               cadence={cadence}
               onClick={onClickItem && handleClickItem}
-              onShow={onShow && handleShowCadence}
-              onEdit={onEdit && handleEditCadence}
               onDelete={onDelete && handleDeleteCadence}
+              onEdit={onEdit && handleEditCadence}
               onRestore={onRestore && handleRestoreCadence}
+              onShow={onShow && handleShowCadence}
               selectedId={selectedId}
             />
           ))}

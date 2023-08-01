@@ -27,14 +27,14 @@ export function PaymentRuleSelector(props: Props) {
   return (
     <div>
       <Selector
-        id={props.id}
         className={classes.root}
-        suggestions={suggestions}
-        selected={selected}
+        id={props.id}
+        onChange={onChange}
         placeholder={
           isOverride ? t('select.placeholderOverride') : t('select.placeholder')
         }
-        onChange={onChange}
+        selected={selected}
+        suggestions={suggestions}
       />
     </div>
   );

@@ -197,13 +197,13 @@ export const AutomatedCampaignPanel = (props: Props) => {
   return (
     <div className={classes.outterSection}>
       <ButtonBase
-        onClick={handleOpenCloseSection}
         className={classes.flexHeader}
+        onClick={handleOpenCloseSection}
       >
         <div className={classes.title}>
           <Typography
-            variant="h6"
             color={openedSection ? 'inherit' : 'textSecondary'}
+            variant="h6"
           >
             {`${t('campaign.automated.panel.title')} (${
               smartListAutomatedCampaigns?.length || 0
@@ -215,8 +215,8 @@ export const AutomatedCampaignPanel = (props: Props) => {
       </ButtonBase>
       <Divider className={classes.divider} />
       <Collapse
-        in={openedSection}
         className={classNames({ [classes.collapseInner]: openedSection })}
+        in={openedSection}
       >
         <Grid container spacing={2}>
           <Grid item md={6} xs={12}>
@@ -236,20 +236,20 @@ export const AutomatedCampaignPanel = (props: Props) => {
                     <AutoCompaignItem
                       key={`automated_campaign_item${auto_camp?.id}`}
                       campaign={auto_camp}
-                      onEdit={onEdit}
                       onDelete={onDelete}
+                      onEdit={onEdit}
                     />
                   ),
                 )}
               </List>
             ) : null}
             <Button
-              variant="outlined"
               color="primary"
-              onClick={handleAddCommunicationOnJoin}
               disabled={
                 loading || onJoinSmartListAutomatedCampaigns?.length >= 3
               }
+              onClick={handleAddCommunicationOnJoin}
+              variant="outlined"
             >
               <AddIcon />
               {t('campaign.automated.panel.add')}
@@ -272,20 +272,20 @@ export const AutomatedCampaignPanel = (props: Props) => {
                     <AutoCompaignItem
                       key={`automated_campaign_item${auto_camp?.id}`}
                       campaign={auto_camp}
-                      onEdit={onEdit}
                       onDelete={onDelete}
+                      onEdit={onEdit}
                     />
                   ),
                 )}
               </List>
             ) : null}
             <Button
-              variant="outlined"
               color="primary"
-              onClick={handleAddCommunicationOnLeft}
               disabled={
                 loading || onLeftSmartListAutomatedCampaigns?.length >= 3
               }
+              onClick={handleAddCommunicationOnLeft}
+              variant="outlined"
             >
               <AddIcon />
               {t('campaign.automated.panel.add')}

@@ -62,18 +62,18 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
                   {t('header.status')}{' '}
                 </Typography>
                 <div
-                  className={classes.iconInfoDiv}
-                  aria-owns={anchorEl ? 'mouse-over-popover' : undefined}
                   aria-haspopup="true"
+                  aria-owns={anchorEl ? 'mouse-over-popover' : undefined}
+                  className={classes.iconInfoDiv}
                   onMouseEnter={handleStatusPopoverOpen}
                   onMouseLeave={handleStatusPopoverClose}
                 >
                   <InfoIcon className={classes.iconInfo} />
                 </div>
                 <ReplacementRequestStatusPopover
-                  open={isOpen}
                   anchorEl={anchorEl}
                   handleStatusPopoverOpen={handleStatusPopoverOpen}
+                  open={isOpen}
                 />
               </div>
             </TableCell>

@@ -116,6 +116,9 @@ const CouponTemplateInstanceForm = (props: Props) => {
         {t('couponTemplateInstance.create.explain2')}
       </Typography>
       <FranchiseCompaniesSelector
+        companies={compatibleCompanies}
+        companyDic={companyDic}
+        menuPortalTarget={document.querySelector('body')}
         onChange={(newValue) => {
           setFieldValue(
             'selectedCompanies',
@@ -128,9 +131,6 @@ const CouponTemplateInstanceForm = (props: Props) => {
             label: c.name,
             value: `${c.id}`,
           }))}
-        companyDic={companyDic}
-        companies={compatibleCompanies}
-        menuPortalTarget={document.querySelector('body')}
       />
     </div>
   );

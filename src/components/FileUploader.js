@@ -28,10 +28,10 @@ export function FileUploader(props: Props) {
   const { classes, t, name, file } = props;
   return file ? (
     <div>
-      <Typography className={classes.typography} variant="body1" align="center">
+      <Typography align="center" className={classes.typography} variant="body1">
         {file.name}
       </Typography>
-      <Typography variant="body1" align="center">
+      <Typography align="center" variant="body1">
         {t('file.imported')}
       </Typography>
     </div>

@@ -98,11 +98,11 @@ export const MarketplaceAppBar: React.FC<Props> = ({
   if (onlyNavigation) {
     return (
       <AppBarMenu
+        handleTabChange={handleTabChange}
         hideAppBar={hideAppBar}
         onlyNavigation={onlyNavigation}
-        handleTabChange={handleTabChange}
-        tabSelected={tabSelected}
         settings={settings}
+        tabSelected={tabSelected}
         theme={theme}
       />
     );
@@ -113,52 +113,52 @@ export const MarketplaceAppBar: React.FC<Props> = ({
       <div className={classes.container}>
         <div className={classes.logo}>
           <AppBarLogo
+            currentTheme={theme}
+            franchisor={franchisor}
             isWidget={isWidget}
             logo={logo}
-            websiteURL={websiteURL}
-            title={theme.company_name}
-            franchisor={franchisor}
             onCompanySelected={onCompanySelected}
-            currentTheme={theme}
+            title={theme.company_name}
+            websiteURL={websiteURL}
           />
         </div>
         {withNavigation && (
           <AppBarMenu
+            handleTabChange={handleTabChange}
             hideAppBar={hideAppBar}
             onlyNavigation={onlyNavigation}
-            handleTabChange={handleTabChange}
-            tabSelected={tabSelected}
             settings={settings}
+            tabSelected={tabSelected}
             theme={theme}
           />
         )}
         <div className={classes.basketAndProfile}>
           <div className={classes.shoppingBox}>
             <AppBarBasket
-              openCurrentBasket={openCurrentBasket}
               currentBasket={currentBasket}
+              openCurrentBasket={openCurrentBasket}
             />
           </div>
           <AppBarProfile
-            photo={photo}
-            isWidget={isWidget}
-            isMenuOpen={isMenuOpen}
-            handleProfileMenuOpen={handleProfileMenuOpen}
             auth={auth}
+            handleProfileMenuOpen={handleProfileMenuOpen}
+            isMenuOpen={isMenuOpen}
+            isWidget={isWidget}
+            photo={photo}
           />
           <AppBarProfileMenu
-            auth={auth}
             anchorEl={anchorEl}
-            isMenuOpen={isMenuOpen}
-            setIsMenuOpen={setIsMenuOpen}
-            photo={photo}
-            isWidget={isWidget}
-            goToUserSpace={goToUserSpace}
-            disconnect={disconnect}
+            auth={auth}
             controlableMemberList={controlableMemberList}
-            navigateBackToMasterRelation={navigateBackToMasterRelation}
+            disconnect={disconnect}
+            goToUserSpace={goToUserSpace}
+            isMenuOpen={isMenuOpen}
             isRelationNavigation={isRelationNavigation}
+            isWidget={isWidget}
+            navigateBackToMasterRelation={navigateBackToMasterRelation}
             navigateToRelationAccount={navigateToRelationAccount}
+            photo={photo}
+            setIsMenuOpen={setIsMenuOpen}
           />
         </div>
       </div>

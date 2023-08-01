@@ -40,33 +40,33 @@ export const InstalmentPaymentCompatibilityDetail: React.FC<Props> = (
   return (
     <div className={classes.container}>
       <InstalmentPaymentCompatibleItemsList
-        isAvailableOnAll={instalmentPayment.is_available_on_all_payment_pack}
         allItemList={paymentPackList}
+        isAvailableOnAll={instalmentPayment.is_available_on_all_payment_pack}
         itemList={instalmentPayment.payment_pack_list}
         title={t('detail.paymentPack')}
       />
       <InstalmentPaymentCompatibleItemsList
-        isAvailableOnAll={instalmentPayment.is_available_on_all_private_pass}
         allItemList={privatePassList}
+        isAvailableOnAll={instalmentPayment.is_available_on_all_private_pass}
         itemList={instalmentPayment.private_pass_list}
         title={t('detail.privatePass')}
       />
       <InstalmentPaymentCompatibleItemsList
-        isAvailableOnAll={instalmentPayment.is_available_on_all_payment_combo}
         allItemList={comboList}
+        isAvailableOnAll={instalmentPayment.is_available_on_all_payment_combo}
         itemList={instalmentPayment.payment_combo_list}
         title={t('detail.combo')}
       />
       <InstalmentPaymentCompatibleItemsList
-        isAvailableOnAll={instalmentPayment.is_available_on_all_giftcard}
         allItemList={giftcardList}
+        isAvailableOnAll={instalmentPayment.is_available_on_all_giftcard}
         itemList={instalmentPayment.giftcard_list}
         title={t('detail.giftcard')}
       />
 
       <InstalmentPaymentCompatibleItemsList
-        isAvailableOnAll={instalmentPayment.is_available_on_all_shop_item}
         allItemList={shopItemList}
+        isAvailableOnAll={instalmentPayment.is_available_on_all_shop_item}
         itemList={instalmentPayment.shop_item_list}
         title={t('detail.shopItem')}
       />

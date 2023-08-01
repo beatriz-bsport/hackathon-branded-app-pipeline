@@ -29,7 +29,7 @@ export const CustomFormConfigurationBanner = (props: Props) => {
               : t('customForm.memberFormHelper')}
           </Typography>
         </div>
-        <Button variant="outlined" onClick={props.navigateTo}>
+        <Button onClick={props.navigateTo} variant="outlined">
           {customForm?.is_signup
             ? t('customForm.navigateToMemberForm')
             : t('customForm.navigateToSignup')}

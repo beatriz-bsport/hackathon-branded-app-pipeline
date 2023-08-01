@@ -26,18 +26,18 @@ export const PrivatePassMassExtensionList = (props: Props) => {
   return (
     <Paper>
       <PaginatedListBase
-        listProps={{ disablePadding: 'true', dense: 'true' }}
-        items={props.items}
-        nbItems={props.nbItems}
-        loading={props.loading}
-        page={props.page}
         itemPerPage={props.itemPerPage}
+        items={props.items}
+        listProps={{ disablePadding: 'true', dense: 'true' }}
+        loading={props.loading}
+        nbItems={props.nbItems}
         onPageRequested={props.onPageRequested}
+        page={props.page}
         renderEmpty={() => null}
         renderItem={(massExtension: PrivateConsumerPassMassExtension) => (
           <PrivatePassMassExtensionListItem
-            massExtension={massExtension}
             key={massExtension.id}
+            massExtension={massExtension}
             onDelete={props.onDelete}
           />
         )}

@@ -61,63 +61,63 @@ export const RollCallDrawer: React.FC<Props> = (props) => {
   );
   return (
     <GenericResponsiveDrawer
+      onClose={props.onClose}
       open={props.open}
-      title={t('rollCall.drawer.rollCall')}
       subtitle={`${props.offer?.name} - ${formatAsDatetimeAdapted(
         props.offer?.date_start,
         'LLL',
       )}`}
-      onClose={props.onClose}
+      title={t('rollCall.drawer.rollCall')}
     >
       <ConfirmationRollCallDialog
-        open={confirmationRollCallDialogIsOpen}
-        nbRollCallsLeftToValidate={1}
-        onConfirm={validateRollCall}
-        onCancel={closeConfirmationRollCallDialog}
         isLoading={props.rollCallLoading}
+        nbRollCallsLeftToValidate={1}
+        onCancel={closeConfirmationRollCallDialog}
+        onConfirm={validateRollCall}
+        open={confirmationRollCallDialogIsOpen}
       />
       <div className={classes.drawer}>
         <div className={classes.info}>
-          <Alert severity="info" className={classes.alert}>
+          <Alert className={classes.alert} severity="info">
             {t('rollCall.drawer.info')}
           </Alert>
         </div>
         <div className={classes.row}>
           <PeopleAlt className={classes.peopleIcon} />
-          <Typography variant="h6" className={classes.listTitle}>
+          <Typography className={classes.listTitle} variant="h6">
             {t('rollCall.drawer.listMembers')}
           </Typography>
         </div>
         <div className={classes.list}>
           <BookingTable
-            loading={props.bookingTableLoading}
             bookings={props.bookings}
-            members={props.members}
             confirmBookingAttendance={props.confirmBookingAttendance}
-            discardBookingAttendance={props.discardBookingAttendance}
             dateRollCallLastModified={props.offer?.date_roll_call_last_modified}
+            discardBookingAttendance={props.discardBookingAttendance}
             isRollCallMandatory={props.isRollCallMandatory}
+            loading={props.bookingTableLoading}
+            members={props.members}
           />
         </div>
         <Divider />
         <div className={classes.bottomRow}>
           <ValidationRollCallText
-            nbRollCallsLeftToValidate={
-              props.offer?.roll_call_needs_validation ? 1 : 0
-            }
             lastValidatedRollCallDate={
               props.offer?.date_roll_call_last_modified
+            }
+            nbRollCallsLeftToValidate={
+              props.offer?.roll_call_needs_validation ? 1 : 0
             }
           />
           <div>
             <Button onClick={props.onClose}>{t('common:cancel')}</Button>
             <Button
-              onClick={openConfirmationRollCallDialog}
-              variant="contained"
               color="primary"
               disabled={
                 props.isLoading || !props.offer?.roll_call_needs_validation
               }
+              onClick={openConfirmationRollCallDialog}
+              variant="contained"
             >
               {t('common:confirm')}
             </Button>

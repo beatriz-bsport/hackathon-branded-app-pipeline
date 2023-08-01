@@ -57,19 +57,12 @@ const DurationSelector = (props: Props) => {
   return (
     <div>
       <ButtonBase
-        style={{ width: '100%', backgroundColor: 'white' }}
         onClick={(ev) => setAnchorMenu(ev.currentTarget)}
+        style={{ width: '100%', backgroundColor: 'white' }}
       >
         <ThemeProvider theme={theme}>
           <TextField
             fullWidth
-            size="small"
-            value={
-              !props.durationSecondRange
-                ? t('video.filter.duration.all')
-                : t('video.filter.duration.explain', { min, max })
-            }
-            variant="outlined"
             InputProps={{
               classes: {
                 input: classNames(classes.multilineColor, {
@@ -80,8 +73,8 @@ const DurationSelector = (props: Props) => {
                 min !== 0 || max !== 180 ? (
                   <InputAdornment position="end">
                     <IconButton
-                      component="div"
                       aria-label="Clear search"
+                      component="div"
                       onClick={(ev) => {
                         ev.stopPropagation();
                         setValue([0, 180]);
@@ -93,17 +86,24 @@ const DurationSelector = (props: Props) => {
                   </InputAdornment>
                 ) : null,
             }}
+            size="small"
+            value={
+              !props.durationSecondRange
+                ? t('video.filter.duration.all')
+                : t('video.filter.duration.explain', { min, max })
+            }
+            variant="outlined"
           />
         </ThemeProvider>
       </ButtonBase>
       <Popover
-        open={!!anchorMenu}
         anchorEl={anchorMenu}
         anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
         onClose={() => setAnchorMenu(null)}
         onExited={() => {
           props.onChange(value);
         }}
+        open={!!anchorMenu}
       >
         <div style={{ margin: 12 }}>
           <Typography>
@@ -113,23 +113,23 @@ const DurationSelector = (props: Props) => {
             })}
           </Typography>
           <Slider
+            marks
+            aria-labelledby="discrete-duration-slider"
+            defaultValue={[parseInt(min, 10), parseInt(max, 10)]}
+            getAriaValueText={valueLabelFormat}
+            max={180}
+            min={0}
+            onChange={handleChange}
+            step={10}
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.8',
               margin: 16,
               width: 300,
             }}
             value={value}
-            defaultValue={[parseInt(min, 10), parseInt(max, 10)]}
-            onChange={handleChange}
-            aria-labelledby="discrete-duration-slider"
-            getAriaValueText={valueLabelFormat}
-            valueLabelFormat={valueLabelFormat}
-            valueLabelDisplay="on"
             ValueLabelComponent={ValueLabelComponent}
-            step={10}
-            marks
-            min={0}
-            max={180}
+            valueLabelDisplay="on"
+            valueLabelFormat={valueLabelFormat}
           />
         </div>
       </Popover>

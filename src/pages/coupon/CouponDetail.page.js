@@ -185,56 +185,56 @@ export class CouponCreate extends Component<Props, State> {
         {this.props.loading ? <LinearProgress /> : null}
         <CouponDetail
           coupon={this.props.coupon}
-          discounts={this.props.discounts}
-          goToInvoice={this.props.goToInvoice}
-          goToBillingPlan={this.props.goToBillingPlan}
           discountLoading={this.props.discountLoading}
+          discounts={this.props.discounts}
+          fetchCouponDiscounts={this.props.fetchCouponDiscounts}
+          goToBillingPlan={this.props.goToBillingPlan}
           goToEdit={() =>
             this.setState({
               couponFormState: { open: true, initial: this.props.coupon },
             })
           }
+          goToInvoice={this.props.goToInvoice}
           itemPerPage={PAGE_SIZE}
-          fetchCouponDiscounts={this.props.fetchCouponDiscounts}
         />
         <BottomActionButtons
-          onEdit={() =>
-            this.setState({
-              couponFormState: { open: true, initial: this.props.coupon },
-            })
-          }
           onDelete={
             this.props.coupon.coupon_template_instance
               ? null
               : this.openDeleteModal
           }
+          onEdit={() =>
+            this.setState({
+              couponFormState: { open: true, initial: this.props.coupon },
+            })
+          }
         />
         <CouponDeleteModal
-          open={!!this.props.deleteModalOpen}
           onClose={this.closeDeleteModal}
           onSubmit={this.props.deleteCoupon}
+          open={!!this.props.deleteModalOpen}
         />
         <CouponFormDrawer
-          open={this.state.couponFormState.open}
+          allPaymentCombosById={this.props.allPaymentCombosById}
+          allPaymentPacksById={this.props.allPaymentPacksById}
+          allPrivatePassesById={this.props.allPrivatePassesById}
+          allShopItemsById={this.props.allShopItemsById}
+          fetchSelectedPaymentCombos={this.props.fetchSelectedPaymentCombos}
+          fetchSelectedPaymentPacks={this.props.fetchSelectedPaymentPacks}
+          fetchSelectedPrivatePasses={this.props.fetchSelectedPrivatePasses}
+          fetchSelectedShopItems={this.props.fetchSelectedShopItems}
           initial={this.state.couponFormState.initial}
-          processing={this.props.createOrUpdateLoading}
-          onSubmit={this.updateCoupon}
           onCancel={this.onCloseFormDrawer}
           onClose={this.onCloseFormDrawer}
-          paymentPacks={this.props.paymentPacks}
-          allPaymentPacksById={this.props.allPaymentPacksById}
-          shopItems={this.props.shopItems}
-          allShopItemsById={this.props.allShopItemsById}
-          privatePasses={this.props.privatePasses}
-          allPrivatePassesById={this.props.allPrivatePassesById}
+          onSubmit={this.updateCoupon}
+          open={this.state.couponFormState.open}
           paymentCombos={this.props.paymentCombos}
-          allPaymentCombosById={this.props.allPaymentCombosById}
+          paymentPacks={this.props.paymentPacks}
+          privatePasses={this.props.privatePasses}
+          processing={this.props.createOrUpdateLoading}
+          shopItems={this.props.shopItems}
           tagList={this.props.tagList}
           tagsLoading={this.props.tagsLoading}
-          fetchSelectedPaymentPacks={this.props.fetchSelectedPaymentPacks}
-          fetchSelectedShopItems={this.props.fetchSelectedShopItems}
-          fetchSelectedPrivatePasses={this.props.fetchSelectedPrivatePasses}
-          fetchSelectedPaymentCombos={this.props.fetchSelectedPaymentCombos}
         />
       </div>
     );

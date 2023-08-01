@@ -147,45 +147,45 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
     <div className="bs-marketplace-filters__list">
       {variant === 'activity' && (
         <MarketplaceCalendarSearch
-          onSearch={onSearch}
           onClearInput={onClearInput}
+          onSearch={onSearch}
         />
       )}
       <MarketplaceFilter
-        text={metaActivityTitle}
+        onSelect={handleChange('activity__in')}
         options={metaActivitiesOption}
         selectedOptions={filters.activity__in}
-        onSelect={handleChange('activity__in')}
+        text={metaActivityTitle}
       />
       <MarketplaceFilter
-        text={t('offer:levels.select.placeholder')}
-        selectedOptions={filters.levels}
+        levelVariant
         onSelect={handleChange('levels')}
         options={levelsOptions}
-        levelVariant
+        selectedOptions={filters.levels}
+        text={t('offer:levels.select.placeholder')}
       />
       {!hideCoach && (
         <MarketplaceFilter
+          onSelect={handleChange('coaches')}
           options={coachesOptions}
           selectedOptions={filters.coaches}
-          onSelect={handleChange('coaches')}
           text={t('coach:coach')}
         />
       )}
       <MarketplaceFilter
-        text={t('establishment:room')}
+        onSelect={handleChange('establishments')}
         options={establishmentsOptions.concat(disabledEstablishmentOptions)}
         selectedOptions={filters.establishments}
-        onSelect={handleChange('establishments')}
+        text={t('establishment:room')}
       />
       {showMultiLocalization &&
         establishmentGroupList &&
         establishmentGroupList.length !== 0 && (
           <MarketplaceFilter
-            options={establishmentGroupOption}
             onSelect={handleChange('establishment_group__in')}
-            text={t('establishment:localisation')}
+            options={establishmentGroupOption}
             selectedOptions={filters.establishment_group__in}
+            text={t('establishment:localisation')}
           />
         )}
     </div>

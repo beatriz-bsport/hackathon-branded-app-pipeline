@@ -70,15 +70,15 @@ export class SmartListDetailCampaignReport extends React.Component<Props> {
     return (
       <CampaignReport
         campaign={this.props.campaign}
-        goBack={this.props.goBack}
         fetchRecipientList={this.props.fetchRecipientList}
-        recipientState={this.props.recipientState}
+        generateExportLink={this.generateExportLink}
+        goBack={this.props.goBack}
+        goToMember={this.props.goToMember}
         recipientList={this.props.recipientList}
+        recipientState={this.props.recipientState}
         report={this.props.campaignReport}
         reportLoading={this.props.reportLoading}
-        goToMember={this.props.goToMember}
         resolvedGenericTags={this.props.resolvedGenericTags}
-        generateExportLink={this.generateExportLink}
       />
     );
   }

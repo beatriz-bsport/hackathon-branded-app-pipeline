@@ -22,13 +22,13 @@ const InboxNoThread: React.FC<Props> = ({ count, contextSelected }) => {
         <div className={classes.noThread}>
           <ItemClickIcon />
           <Typography
-            variant="h6"
             align="center"
             className={classes.noThreadTitle}
+            variant="h6"
           >
             {t('thread.selectThread.title')}
           </Typography>
-          <Typography variant="body1" align="center">
+          <Typography align="center" variant="body1">
             {t('thread.selectThread.description')}
           </Typography>
         </div>

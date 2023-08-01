@@ -83,19 +83,19 @@ export class WorkshopActivityEditPage extends React.Component<Props> {
       onRemoveImage: (imageId: number) => removeImage(id, imageId),
     };
     return (
-      <Grid container justify="center" alignItems="center">
-        <Grid item xs={12} lg={9}>
+      <Grid container alignItems="center" justify="center">
+        <Grid item lg={9} xs={12}>
           <Paper>
             <MetaActivityForm
-              variant="workshop"
-              SCTs={SCTs}
               is_broadcast_enabled
-              onSubmit={this.props.onSubmit}
-              onCancel={this.props.goToPreviousPage}
-              metaActivityNames={[]}
-              initial={{ ...initialData, images: (initial || {}).images || [] }}
               imageUploader={id ? imageUploader : null}
+              initial={{ ...initialData, images: (initial || {}).images || [] }}
+              metaActivityNames={[]}
+              onCancel={this.props.goToPreviousPage}
+              onSubmit={this.props.onSubmit}
+              SCTs={SCTs}
               tags={this.props.allTagsWithTagGroup}
+              variant="workshop"
             />
           </Paper>
         </Grid>

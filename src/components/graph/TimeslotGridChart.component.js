@@ -62,8 +62,8 @@ export const TimeslotGridChart = (props: Props) => {
           ))}
       </div>
       {[1, 2, 3, 4, 5, 6, 7].map((n) => (
-        <div className={classes.row} key={n}>
-          <Typography style={{ flex: 1 }} align="center" variant="caption">
+        <div key={n} className={classes.row}>
+          <Typography align="center" style={{ flex: 1 }} variant="caption">
             {t(`time.isoWeekdayNumber.${n}`).slice(0, 2)}
           </Typography>
           {Array(hour_end - hour_start)
@@ -74,7 +74,7 @@ export const TimeslotGridChart = (props: Props) => {
               ) || { value: 0, count: 0 };
               return (
                 <div key={m} style={{ flex: 1, height: 'inherit' }}>
-                  <Cell max={max} data={data} />
+                  <Cell data={data} max={max} />
                 </div>
               );
             })}

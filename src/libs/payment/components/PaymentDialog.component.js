@@ -151,62 +151,58 @@ export class PaymentDialog extends React.Component<Props, State> {
       <Modal open classes={{ paper: classes.container }}>
         <>
           <div
+            className={classes.modal}
             style={{
               transform: `translate(-${dialogOffset}, -${dialogOffset})`,
               top: dialogOffset,
               left: dialogOffset,
             }}
-            className={classes.modal}
           >
             <div className={classes.innerDialog}>
               <div className={classes.container}>
                 <FormControl
+                  component="fieldset"
                   disabled={
                     !this.props.clientSecret ||
                     !!this.props.clientSecretLoading ||
                     this.state.processingPayment
                   }
                   style={{ width: '100%' }}
-                  component="fieldset"
                 >
                   {availableEngineList.length > 1 && (
                     <RadioGroup
                       row
                       aria-label="position"
-                      name="position"
+                      className={classes.radioGroupContainer}
                       defaultValue={`${availableEngineList[0]}`}
                       disabled={
                         !!this.props.clientSecretLoading ||
                         this.state.processingPayment
                       }
+                      name="position"
                       onChange={(ev, value) =>
                         this.setState({ paymentEngine: value })
                       }
-                      className={classes.radioGroupContainer}
                     >
                       {[PAYMENT_ENGINE_STRIPE, PAYMENT_ENGINE_BSPORT].map(
                         (engineIdentifier) => (
                           <FormControlLabel
-                            value={`${engineIdentifier}`}
                             control={<Radio color="primary" />}
-                            label={t(`paymentEngine.label.${engineIdentifier}`)}
                             disabled={
                               !availableEngineList.includes(engineIdentifier) ||
                               !!this.props.clientSecretLoading ||
                               this.state.processingPayment
                             }
+                            label={t(`paymentEngine.label.${engineIdentifier}`)}
                             labelPlacement="bottom"
+                            value={`${engineIdentifier}`}
                           />
                         ),
                       )}
                       <FeatureListProvider>
                         {(featureList: FeatureList) => (
                           <FormControlLabel
-                            value={`${PAYMENT_STRIPE_TERMINAL_FAKE}`}
                             control={<Radio color="primary" />}
-                            label={t(
-                              'configuration.stripeTerminal.paymentDialog.radio',
-                            )}
                             disabled={
                               !!this.props.clientSecretLoading ||
                               !stripeReaders ||
@@ -217,7 +213,11 @@ export class PaymentDialog extends React.Component<Props, State> {
                                 UPSELL_IDENTIFIER_STRIPE_TERMINAL,
                               )
                             }
+                            label={t(
+                              'configuration.stripeTerminal.paymentDialog.radio',
+                            )}
                             labelPlacement="bottom"
+                            value={`${PAYMENT_STRIPE_TERMINAL_FAKE}`}
                           />
                         )}
                       </FeatureListProvider>
@@ -234,14 +234,14 @@ export class PaymentDialog extends React.Component<Props, State> {
                       <WarningIcon className={classes.leftIcon} />
                       <div className={classes.multilineTextContainer}>
                         <Typography
-                          variant="caption"
                           style={{ color: 'white' }}
+                          variant="caption"
                         >
                           {t('paymentPanel.errorSecretExplain1')}
                         </Typography>
                         <Typography
-                          variant="caption"
                           style={{ color: 'white' }}
+                          variant="caption"
                         >
                           {t('paymentPanel.errorSecretExplain2')}
                         </Typography>
@@ -251,6 +251,35 @@ export class PaymentDialog extends React.Component<Props, State> {
                   {parseInt(this.state.paymentEngine, 10) ===
                     PAYMENT_ENGINE_STRIPE && (
                     <PaymentStripe
+                      allowConsumerToUseInternalAccount={
+                        this.props.allowConsumerToUseInternalAccount
+                      }
+                      applyBalanceLoading={
+                        this.props.applyBalanceLoading ||
+                        this.props.clientSecretLoading ||
+                        !this.props.clientSecret
+                      }
+                      applyBalanceToInvoice={() =>
+                        this.props.applyBalanceToInvoice({
+                          onSuccess: () =>
+                            this.props.requestClientSecret(
+                              this.state.paymentEngine,
+                            ),
+                        })
+                      }
+                      clientSecret={this.props.clientSecret}
+                      creditAccountBalance={this.props.creditAccountBalance}
+                      detachPaymentMethod={this.props.detachPaymentMethod}
+                      detachPaymentMethodLoading={
+                        this.props.detachPaymentMethodLoading
+                      }
+                      establishments={this.props.establishments}
+                      memberId={this.props.memberId}
+                      onCancel={this.props.onCancel}
+                      onError={this.props.onError}
+                      onSuccess={this.onSuccess}
+                      paymentGroupId={this.props.paymentGroupId}
+                      paymentGroupPriceCts={this.props.paymentGroupPriceCts}
                       paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
                         PAYMENT_ENGINE_STRIPE
                       ].filter((pm) => {
@@ -261,78 +290,49 @@ export class PaymentDialog extends React.Component<Props, State> {
                         }
                         return true;
                       })}
-                      clientSecret={this.props.clientSecret}
-                      paymentGroupPriceCts={this.props.paymentGroupPriceCts}
-                      onSuccess={this.onSuccess}
-                      updatePriceCts={this.props.updatePriceCts}
+                      sepaDefaultEmail={this.props.defaultUserEmail}
+                      sepaDefaultName={this.props.defaultUserName}
+                      snackbarErrorMsg={this.props.snackbarErrorMsg}
+                      snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+                      stripeId={this.props.stripeId}
                       termsAndConditionsAccepted={
                         this.props.termsAndConditionsAccepted
                       }
-                      onError={this.props.onError}
-                      onCancel={this.props.onCancel}
-                      memberId={this.props.memberId}
-                      detachPaymentMethodLoading={
-                        this.props.detachPaymentMethodLoading
-                      }
-                      detachPaymentMethod={this.props.detachPaymentMethod}
-                      snackbarErrorMsg={this.props.snackbarErrorMsg}
-                      snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-                      sepaDefaultName={this.props.defaultUserName}
-                      sepaDefaultEmail={this.props.defaultUserEmail}
-                      establishments={this.props.establishments}
-                      allowConsumerToUseInternalAccount={
-                        this.props.allowConsumerToUseInternalAccount
-                      }
-                      applyBalanceToInvoice={() =>
-                        this.props.applyBalanceToInvoice({
-                          onSuccess: () =>
-                            this.props.requestClientSecret(
-                              this.state.paymentEngine,
-                            ),
-                        })
-                      }
-                      creditAccountBalance={this.props.creditAccountBalance}
-                      applyBalanceLoading={
-                        this.props.applyBalanceLoading ||
-                        this.props.clientSecretLoading ||
-                        !this.props.clientSecret
-                      }
-                      paymentGroupId={this.props.paymentGroupId}
-                      stripeId={this.props.stripeId}
+                      updatePriceCts={this.props.updatePriceCts}
                     />
                   )}
                   {parseInt(this.state.paymentEngine, 10) ===
                     PAYMENT_STRIPE_TERMINAL_FAKE && (
                     <PaymentStripeTerminal
-                      stripeReaders={this.props.stripeReaders}
-                      paymentGroupPriceCts={this.props.paymentGroupPriceCts}
-                      updatePriceCts={this.props.updatePriceCts}
-                      onCancel={this.props.onCancel}
-                      memberId={this.props.memberId}
                       clientSecret={this.props.clientSecret}
+                      memberId={this.props.memberId}
+                      onCancel={this.props.onCancel}
                       onSuccess={this.onSuccess}
                       paymentGroupId={this.props.paymentGroupId}
+                      paymentGroupPriceCts={this.props.paymentGroupPriceCts}
                       setProcessing={(value: boolean) =>
                         this.setState({ processingPayment: value })
                       }
+                      stripeReaders={this.props.stripeReaders}
+                      updatePriceCts={this.props.updatePriceCts}
                     />
                   )}
                   {parseInt(this.state.paymentEngine, 10) ===
                     PAYMENT_ENGINE_BSPORT && (
                     <PaymentBsportInternal
+                      amountToPay={this.props.amountToPay}
+                      clientSecret={this.props.clientSecret}
+                      establishment={this.props.establishments}
+                      memberId={this.props.memberId}
+                      onCancel={this.props.onCancel}
+                      onError={this.props.onError}
+                      onSuccess={this.onSuccess}
                       paymentMethodChoices={
                         PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT]
                       }
-                      clientSecret={this.props.clientSecret}
-                      onSuccess={this.onSuccess}
-                      onError={this.props.onError}
                       termsAndConditionsAccepted={
                         this.props.termsAndConditionsAccepted
                       }
-                      onCancel={this.props.onCancel}
-                      amountToPay={this.props.amountToPay}
-                      memberId={this.props.memberId}
-                      establishment={this.props.establishments}
                     />
                   )}
                 </FormControl>

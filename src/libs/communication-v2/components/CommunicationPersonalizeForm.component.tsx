@@ -42,20 +42,20 @@ const CommunicationPersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             {t('forms.title')}
           </Typography>
           <SwitchField
-            name="is_two_way_email_activated"
             label={t('forms.twoWayEmail.title')}
+            name="is_two_way_email_activated"
           />
-          <Typography variant="caption" color="textSecondary">
+          <Typography color="textSecondary" variant="caption">
             {t('forms.twoWayEmail.description')}
           </Typography>
         </div>
       </div>
       <Button
-        disabled={isSubmitting || !isValid}
-        variant="contained"
-        color="primary"
-        type="submit"
         className={classes.confirm}
+        color="primary"
+        disabled={isSubmitting || !isValid}
+        type="submit"
+        variant="contained"
       >
         {t('forms.submit')}
       </Button>

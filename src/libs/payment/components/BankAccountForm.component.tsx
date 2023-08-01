@@ -41,13 +41,13 @@ export const BankAccountForm = (props: Props) => {
 
     content = (
       <BankAccountFormBase
-        currency={props.currency}
         classes={classes}
-        onSubmit={props.onSubmit}
+        currency={props.currency}
         error={props.error}
+        labelOnClose={props.labelOnClose}
         loading={props.loading}
         onClose={props.onClose}
-        labelOnClose={props.labelOnClose}
+        onSubmit={props.onSubmit}
       />
     );
   }
@@ -136,8 +136,8 @@ export default (props: Props) => (
     <ElementsConsumer>
       {({ stripe, elements }) => (
         <BankAccountFormComposed
-          stripe={stripe}
           elements={elements}
+          stripe={stripe}
           {...props}
         />
       )}

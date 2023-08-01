@@ -75,10 +75,10 @@ export const EstablishmentGroupTable = (props: Props) => {
                       avatar={
                         <Avatar alt={`${est.title}`} src={`${est.cover}`} />
                       }
+                      className={classes.chip}
+                      color="primary"
                       label={`${est.title}`}
                       variant="outlined"
-                      color="primary"
-                      className={classes.chip}
                     />
                   ))}
               </TableCell>

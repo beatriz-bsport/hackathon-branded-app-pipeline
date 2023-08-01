@@ -16,45 +16,45 @@ const PlaceNumber = (props: Props) => {
         {spotInformation?.name || t('booking:place')} {spotInformation.prefix}
         {spotInformation.indexType}
       </Typography>
-      <svg width={20} height={20}>
+      <svg height={20} width={20}>
         <g>
           {spotInformation?.shape === 'circular' && (
             <circle
               cx="10"
               cy="10"
-              r="4"
               fill={spotInformation?.fill || 'white'}
+              r="4"
               stroke={spotInformation?.stroke || 'black'}
               strokeWidth="2"
             />
           )}
           {spotInformation?.shape === 'rectangle' && (
             <rect
-              x={6}
-              y={6}
-              width={13}
+              fill={spotInformation?.fill || 'white'}
               height={8}
               stroke={spotInformation?.stroke || 'black'}
-              fill={spotInformation?.fill || 'white'}
               strokeWidth={2}
+              width={13}
+              x={6}
+              y={6}
             />
           )}
           {spotInformation?.shape === 'square' && (
             <rect
-              x={6}
-              y={5}
-              width={9}
+              fill={spotInformation?.fill || 'white'}
               height={9}
               stroke={spotInformation?.stroke || 'black'}
-              fill={spotInformation?.fill || 'white'}
               strokeWidth={2}
+              width={9}
+              x={6}
+              y={5}
             />
           )}
           {spotInformation?.shape === 'triangle' && (
             <polygon
+              fill={spotInformation?.fill || 'white'}
               points="11,5 6,15 16,15"
               stroke={spotInformation?.stroke || 'black'}
-              fill={spotInformation?.fill || 'white'}
             />
           )}
         </g>

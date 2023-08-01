@@ -215,21 +215,21 @@ export class DeleteOfferForm extends Component<Props, State> {
                 indexBasedSelection
                 color="secondary"
                 disabled={this.props.processing}
-                shouldModifyAllDates={this.state.deleteAll}
+                handleChange={this.handleChangeSelection}
+                listTitle={this.props.t('offer:liveOfferEdit.selectDelete')}
+                loading={similarOfferLoading}
                 message={this.props.t(
                   this.props.offer?.group
                     ? 'offer:liveOfferEdit.deleteSimilarOffersGroups'
                     : 'offer:liveOfferEdit.deleteSimilarOffers',
                 )}
-                listTitle={this.props.t('offer:liveOfferEdit.selectDelete')}
-                loading={similarOfferLoading}
-                onChangeRecursion={handleChangeRecursion}
                 modifyRecursively={this.state.deleteAll}
-                similarOffers={similarOffersWithSelectedStatus}
-                selectedSimilarOfferIds={selectedSimilarOfferIds}
+                onChangeRecursion={handleChangeRecursion}
                 selectAll={this.selectAll}
+                selectedSimilarOfferIds={selectedSimilarOfferIds}
+                shouldModifyAllDates={this.state.deleteAll}
+                similarOffers={similarOffersWithSelectedStatus}
                 unselectAll={this.unselectAll}
-                handleChange={this.handleChangeSelection}
               />
             )}
           <div className={classes.rowRight}>
@@ -272,9 +272,9 @@ export class DeleteOfferForm extends Component<Props, State> {
       <div>
         {this.props.offer.group?.name && (
           <Alert
+            className={this.props.classes.alert}
             severity="error"
             variant="outlined"
-            className={this.props.classes.alert}
           >
             {this.props.t('form.offer.editingGroup', {
               name: this.props.offer.group.name,
@@ -321,8 +321,8 @@ export class DeleteOfferForm extends Component<Props, State> {
         </Hidden>
         <div className={classes.row}>
           <Switch
-            disabled={this.props.processing}
             checked={notify}
+            disabled={this.props.processing}
             onChange={this.onNotifySwitch}
           />
           <Typography className={classes.explainNotify}>
@@ -346,21 +346,21 @@ export class DeleteOfferForm extends Component<Props, State> {
               indexBasedSelection
               color="secondary"
               disabled={this.props.processing}
-              shouldModifyAllDates={deleteAll}
+              handleChange={this.handleChangeSelection}
+              listTitle={this.props.t('offer:liveOfferEdit.selectCancel')}
+              loading={similarOfferLoading}
               message={this.props.t(
                 this.props.offer.group
                   ? 'offer:liveOfferEdit.cancelSimilarOffersGroup'
                   : 'offer:liveOfferEdit.cancelSimilarOffers',
               )}
-              listTitle={this.props.t('offer:liveOfferEdit.selectCancel')}
-              loading={similarOfferLoading}
-              onChangeRecursion={handleChangeRecursion}
               modifyRecursively={this.state.deleteAll}
-              similarOffers={similarOffersWithSelectedStatus}
-              selectedSimilarOfferIds={selectedSimilarOfferIds}
+              onChangeRecursion={handleChangeRecursion}
               selectAll={this.selectAll}
+              selectedSimilarOfferIds={selectedSimilarOfferIds}
+              shouldModifyAllDates={deleteAll}
+              similarOffers={similarOffersWithSelectedStatus}
               unselectAll={this.unselectAll}
-              handleChange={this.handleChangeSelection}
             />
           )}
       </div>

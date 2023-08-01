@@ -18,10 +18,10 @@ type Props = {
 
 export const RevertBookingDialog = (props: Props) => (
   <Dialog
-    open={!!props.open}
-    onClose={props.onClose}
-    aria-labelledby="alert-dialog-title"
     aria-describedby="alert-dialog-description"
+    aria-labelledby="alert-dialog-title"
+    onClose={props.onClose}
+    open={!!props.open}
   >
     <DialogTitle id="alert-dialog-title">
       {props.t('dialog.delete.title')}
@@ -32,7 +32,7 @@ export const RevertBookingDialog = (props: Props) => (
       </DialogContentText>
     </DialogContent>
     <DialogActions>
-      <Button onClick={props.onClose} color="secondary">
+      <Button color="secondary" onClick={props.onClose}>
         {props.t('dialog.delete.cancel')}
       </Button>
       <RedButton onClick={props.onSubmit}>

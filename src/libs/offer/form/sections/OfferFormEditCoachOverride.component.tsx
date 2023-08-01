@@ -65,20 +65,20 @@ const OfferFormEditCoachOverride = (props: Props) => {
   return (
     <FormSection
       id="offer-form-settings-section"
-      sectionTitle={t('form.section.coachOverride.title')}
-      sectionIcon={FitnessCenter}
       sectionCustomIconStyle={classes.sectionIcon}
+      sectionIcon={FitnessCenter}
       sectionIconContainerStyle={classes.sectionIconContainer}
+      sectionTitle={t('form.section.coachOverride.title')}
     >
       <div className={classes.settingsFields}>
         <FormControlLabel
           control={
             <Checkbox
+              checked={isCoachOverridePropagate}
+              color="secondary"
               id="offer-form-edit-"
               name="isCoachOverridePropagate"
               onChange={handleChange}
-              color="secondary"
-              checked={isCoachOverridePropagate}
             />
           }
           label={t('form.section.coachOverride.field.isCoachOverridePropagate')}
@@ -96,8 +96,8 @@ const OfferFormEditCoachOverride = (props: Props) => {
           </Alert>
 
           <RadioGroup
-            name="coachOverridePropagateMode"
             className={classes.coachOverrideModeRadioGroup}
+            name="coachOverridePropagateMode"
             onChange={handleCoachOverridePropagateMode}
             value={coachOverridePropagateMode}
           >
@@ -120,10 +120,10 @@ const OfferFormEditCoachOverride = (props: Props) => {
           </RadioGroup>
 
           <SimilarOffersList
+            isCoachOverrideWarning
+            coaches={coaches}
             similarOffers={similarSessionsWithCoachOverride}
             similarOffersLoading={similarOffersLoading}
-            coaches={coaches}
-            isCoachOverrideWarning
           />
         </>
       )}

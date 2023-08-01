@@ -81,32 +81,32 @@ export class ActiveCampaignAccountFormDialog extends React.Component<
           >
             <div className={classes.container}>
               <TextField
-                value={this.state.api_url}
+                helperText="API url"
                 onChange={(ev) =>
                   this.setState({
                     api_url: ev.target.value,
                   })
                 }
-                helperText="API url"
                 placeholder="https://bsport-example.api-us1.com"
+                value={this.state.api_url}
               />
               <TextField
-                value={this.state.token}
+                className={classes.textField}
+                helperText={t('active_campaign.account.token')}
                 onChange={(ev) =>
                   this.setState({
                     token: ev.target.value,
                   })
                 }
-                className={classes.textField}
                 placeholder="7b5709a81f9b78089f3fc9e0ee189332"
-                helperText={t('active_campaign.account.token')}
+                value={this.state.token}
               />
             </div>
             <DialogActions>
               <Button color="secondary" onClick={this.onCancel}>
                 {t('active_campaign.cancel')}
               </Button>
-              <Button type="submit" color="primary">
+              <Button color="primary" type="submit">
                 {t('active_campaign.submit')}
               </Button>
             </DialogActions>

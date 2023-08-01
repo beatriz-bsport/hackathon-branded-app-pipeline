@@ -76,13 +76,13 @@ export const AccountConfigurationPaymentMethodStep: React.FC<Props> = ({
         {!paymentMethodRegistered && !paymentMethodLoading && (
           <div className={classes.addPaymentMethod}>
             <AddPaymentMethod
+              enabledPaymentMethods={[BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]}
+              labelClose={t('common:previous')}
+              onCancel={goPrevious}
+              onSuccess={onPaymentMethodSuccess}
+              requestSetupIntentSecret={requestSetupIntentSecret}
               sepaDefaultEmail={memberEmail}
               sepaDefaultName={memberName}
-              enabledPaymentMethods={[BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]}
-              requestSetupIntentSecret={requestSetupIntentSecret}
-              onCancel={goPrevious}
-              labelClose={t('common:previous')}
-              onSuccess={onPaymentMethodSuccess}
             />
           </div>
         )}
@@ -100,10 +100,10 @@ export const AccountConfigurationPaymentMethodStep: React.FC<Props> = ({
               <Button onClick={goPrevious}>{t('common:previous')}</Button>
             )}
             <Button
-              variant="contained"
               color="primary"
               disabled={!paymentMethodRegistered}
               onClick={goNext}
+              variant="contained"
             >
               {t('common:finish')}
             </Button>

@@ -31,9 +31,9 @@ export const PrivatePassDeleteDialog = (props: Props) => {
         {props.pass?.linked_payment_pack && (
           <DialogContentText className={classes.warningDelete}>
             <WarningIcon
-              fontSize="large"
-              color="error"
               className={classes.warningIcon}
+              color="error"
+              fontSize="large"
             />
             {t('universalPass.delete.dialog.warningText')}
           </DialogContentText>
@@ -41,9 +41,9 @@ export const PrivatePassDeleteDialog = (props: Props) => {
         {props.usedInCombo && (
           <DialogContentText className={classes.warningDelete}>
             <WarningIcon
-              fontSize="large"
-              color="error"
               className={classes.warningIcon}
+              color="error"
+              fontSize="large"
             />
             <Typography>{t('privatePass.delete.warning')}</Typography>
           </DialogContentText>
@@ -54,7 +54,7 @@ export const PrivatePassDeleteDialog = (props: Props) => {
         <Button onClick={() => props.onCancel()}>
           {t('privatePass.delete.cancel')}
         </Button>
-        <RedButton onClick={() => props.onConfirm()} delayBeforeActivation={3}>
+        <RedButton delayBeforeActivation={3} onClick={() => props.onConfirm()}>
           {t('privatePass.delete.submit')}
         </RedButton>
       </DialogActions>

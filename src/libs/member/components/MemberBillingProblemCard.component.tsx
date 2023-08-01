@@ -184,13 +184,15 @@ export const MemberBillingProblemCard = (props: Props) => {
           <div className={classes.accountBalance}>
             <Typography variant="h6">{t('creditAccountBalance')}</Typography>
             <div className={classes.buttonContainer}>
-              <Typography inline variant="h6" component="span" color={color}>
+              <Typography inline color={color} component="span" variant="h6">
                 {` ${getCurrencyDisplayWithPrice(balance)}`}
               </Typography>
               {props.memberLoading && (
-                <CircularProgress size={24} color="primary" />
+                <CircularProgress color="primary" size={24} />
               )}
               <Button
+                color="primary"
+                disabled={props.memberLoading}
                 onClick={() => {
                   if (props.asConsumer) {
                     setAmountToBill(Math.abs(parseFloat(balance)));
@@ -199,8 +201,6 @@ export const MemberBillingProblemCard = (props: Props) => {
                   }
                 }}
                 variant="outlined"
-                color="primary"
-                disabled={props.memberLoading}
               >
                 {t(props.asConsumer ? 'regularizeBalance' : 'adjustBalance')}
               </Button>
@@ -214,9 +214,9 @@ export const MemberBillingProblemCard = (props: Props) => {
             !!unpaidInvoiceList.length && (
               <div className={classes.applyBalanceToUnpaidButtonContainer}>
                 <Button
-                  variant="outlined"
-                  style={{ width: '100%' }}
                   onClick={props.applyBalanceToUnpaidInvoices}
+                  style={{ width: '100%' }}
+                  variant="outlined"
                 >
                   {t('member:applyBalanceToUnpaidInvoices')}
                 </Button>
@@ -235,16 +235,16 @@ export const MemberBillingProblemCard = (props: Props) => {
                 <div className={classes.buttonContainer}>
                   <Typography
                     inline
-                    variant="h6"
-                    component="span"
                     color={color}
+                    component="span"
+                    variant="h6"
                   >
                     {` ${getCurrencyDisplayWithPrice(balance)}`}
                   </Typography>
                   {props.memberLoading && (
-                    <CircularProgress size={24} color="primary" />
+                    <CircularProgress color="primary" size={24} />
                   )}
-                  <Button variant="outlined" color="primary" disabled>
+                  <Button disabled color="primary" variant="outlined">
                     {t(
                       props.asConsumer ? 'regularizeBalance' : 'adjustBalance',
                     )}
@@ -259,30 +259,30 @@ export const MemberBillingProblemCard = (props: Props) => {
               <Typography className={classes.padding} variant="h6">
                 {t('unpaidInvoiceTitle', { count: unpaidInvoiceList.length })}
               </Typography>
-              <Typography variant="h6" component="span" color="error">
+              <Typography color="error" component="span" variant="h6">
                 {` ${getCurrencyDisplayWithPrice(
                   props.member.total_unpaid_amount,
                 )}`}
               </Typography>
             </div>
             <InvoiceTable
-              asConsumer={props.asConsumer}
               compactMode
               hideMemberName
+              hidePagination
+              showOpenInvoiceNested
+              applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
+              asConsumer={props.asConsumer}
+              companyId={props.companyId}
+              consumerGiftcardList={props.consumerGiftcardList}
+              invoiceList={unpaidInvoiceList}
               loading={props.invoiceLoading}
               onBill={
                 props.asConsumer && props.onlinePaymentEnabled === false
                   ? null
                   : setInvoiceToBill
               }
-              hidePagination
-              invoiceList={unpaidInvoiceList}
               onClickInvoice={props.goToInvoice}
-              showOpenInvoiceNested
-              companyId={props.companyId}
               snackbarSuccess={props.snackbarSuccessMsg}
-              applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
-              consumerGiftcardList={props.consumerGiftcardList}
             />
           </div>
         </React.Fragment>
@@ -294,8 +294,8 @@ export const MemberBillingProblemCard = (props: Props) => {
             <Button
               className={classes.payAllButton}
               color="primary"
-              variant="outlined"
               onClick={() => setRegularizeFullDebt(true)}
+              variant="outlined"
             >
               {t('invoice:paymentPanel.actions.payAll')}
             </Button>
@@ -304,9 +304,12 @@ export const MemberBillingProblemCard = (props: Props) => {
       {!!ajustBalanceOpen && (
         <MemberBalanceUpdaterDialog
           open
+          asManager={props.asConsumer === false}
+          billingEstablishmentId={billingEstablishmentId}
+          enableMultiLocalization={props.enableMultiLocalization}
+          establishments={props.establishments}
           initialValue={parseFloat(props.balance)}
           onClose={() => setAdjustBalanceDialogOpen(false)}
-          asManager={props.asConsumer === false}
           onSubmit={(arg, withoutPaymentNote) => {
             if (withoutPaymentNote) {
               props.adjustCreditWithoutPaymentNote(arg);
@@ -316,17 +319,52 @@ export const MemberBillingProblemCard = (props: Props) => {
               setAdjustBalanceDialogOpen(false);
             }
           }}
-          establishments={props.establishments}
-          billingEstablishmentId={billingEstablishmentId}
           setBillingEstablishmentId={setBillingEstablishmentId}
-          enableMultiLocalization={props.enableMultiLocalization}
         />
       )}
       {(!!invoiceToBill || !!amountToBill || !!regularizeFullDebt) && (
         <PaymentDialog
+          termsAndConditionsAccepted
+          allowConsumerToUseInternalAccount={
+            props.allowConsumerToUseInternalAccount
+          }
+          amountToPay={
+            invoiceToBill
+              ? parseFloat(
+                  invoiceToBill.amount_due_cts - invoiceToBill.amount_paid_cts,
+                ).toFixed(2)
+              : Math.round(amountToBill * 100)
+          }
+          applyBalanceLoading={props.applyBalanceLoading}
+          applyBalanceToInvoice={applyBalanceToInvoice}
+          asConsumer={props.asConsumer}
+          availablePaymentMethodList={
+            props.availablePaymentMethodList.length
+              ? props.availablePaymentMethodList
+              : [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]
+          }
+          clientSecret={clientSecretLoading ? null : clientSecret}
+          clientSecretError={clientSecretError}
+          clientSecretLoading={clientSecretLoading}
+          companyId={props.companyId}
+          creditAccountBalance={props.creditAccountBalance}
+          defaultUserEmail={props.member ? props.member.email : ''}
+          defaultUserName={props.member ? props.member.name : ''}
+          detachPaymentMethod={props.detachPaymentMethod}
+          detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+          establishments={props.establishments}
           memberId={props.memberId}
+          onCancel={() => {
+            setInvoiceToBill(null);
+            setAmountToBill(0);
+            setRegularizeFullDebt(false);
+            if (props.onInvoicePaymentDialogClose)
+              props.onInvoicePaymentDialogClose();
+          }}
           onError={() => {}}
-          paymentGroupPriceCts={paymentGroupPriceCts}
+          onlyInternal={
+            (amountToBill && amountToBill < 0) || props.forceOnlyInternal
+          }
           onSuccess={(callback?: () => void) => {
             props.fetchInvoiceListUnpaid();
             setInvoiceToBill(null);
@@ -337,51 +375,13 @@ export const MemberBillingProblemCard = (props: Props) => {
             if (props.onInvoicePaymentDialogClose)
               props.onInvoicePaymentDialogClose();
           }}
-          requestClientSecret={requestClientSecret}
-          termsAndConditionsAccepted
-          clientSecret={clientSecretLoading ? null : clientSecret}
-          clientSecretLoading={clientSecretLoading}
           paymentGroupId={paymentGroupId}
-          onlyInternal={
-            (amountToBill && amountToBill < 0) || props.forceOnlyInternal
-          }
-          asConsumer={props.asConsumer}
-          clientSecretError={clientSecretError}
-          amountToPay={
-            invoiceToBill
-              ? parseFloat(
-                  invoiceToBill.amount_due_cts - invoiceToBill.amount_paid_cts,
-                ).toFixed(2)
-              : Math.round(amountToBill * 100)
-          }
-          onCancel={() => {
-            setInvoiceToBill(null);
-            setAmountToBill(0);
-            setRegularizeFullDebt(false);
-            if (props.onInvoicePaymentDialogClose)
-              props.onInvoicePaymentDialogClose();
-          }}
-          availablePaymentMethodList={
-            props.availablePaymentMethodList.length
-              ? props.availablePaymentMethodList
-              : [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]
-          }
-          detachPaymentMethod={props.detachPaymentMethod}
-          detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+          paymentGroupPriceCts={paymentGroupPriceCts}
+          requestClientSecret={requestClientSecret}
           snackbarErrorMsg={props.snackbarErrorMsg}
           snackbarSuccessMsg={props.snackbarSuccessMsg}
-          defaultUserName={props.member ? props.member.name : ''}
-          defaultUserEmail={props.member ? props.member.email : ''}
-          establishments={props.establishments}
-          allowConsumerToUseInternalAccount={
-            props.allowConsumerToUseInternalAccount
-          }
-          applyBalanceToInvoice={applyBalanceToInvoice}
-          creditAccountBalance={props.creditAccountBalance}
-          applyBalanceLoading={props.applyBalanceLoading}
-          stripeReaders={props.stripeReaders}
-          companyId={props.companyId}
           stripeId={props.stripeId}
+          stripeReaders={props.stripeReaders}
         />
       )}
     </Paper>

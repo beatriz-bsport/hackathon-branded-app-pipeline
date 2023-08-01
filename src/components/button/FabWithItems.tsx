@@ -73,8 +73,8 @@ class FabWithItems extends React.PureComponent<Props, State> {
       <>
         {this.state.openFab && (
           <ButtonBase
-            className={classes.fabBackgroundContainer}
             disableRipple
+            className={classes.fabBackgroundContainer}
             onClick={this.onClose}
           />
         )}
@@ -102,10 +102,10 @@ class FabWithItems extends React.PureComponent<Props, State> {
           )}
 
           <Fab
-            color="primary"
             aria-label="add"
-            variant={label ? 'extended' : undefined}
+            color="primary"
             onClick={this.onClick}
+            variant={label ? 'extended' : undefined}
           >
             <ExtendedFabBadge badgeValue={this.state.badgeButtonBaseValue} />
             {this.state.openFab ? <CloseIcon /> : <AddIcon />}

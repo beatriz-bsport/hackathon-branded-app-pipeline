@@ -209,11 +209,11 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
 
     return (
       <>
-        <Typography display="inline" color="textSecondary">
+        <Typography color="textSecondary" display="inline">
           {t('header.from')}
         </Typography>
         <Typography display="inline">{values.dateStart.format('L')}</Typography>
-        <Typography display="inline" color="textSecondary">
+        <Typography color="textSecondary" display="inline">
           {t('header.to')}
         </Typography>
         <Typography display="inline">{values.dateEnd.format('L')}</Typography>
@@ -234,21 +234,21 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
     <Form>
       <ButtonBase
         ref={menuRef}
-        onClick={handleOpen}
         className={classes.container}
+        onClick={handleOpen}
       >
-        <CalendarTodayIcon color="disabled" className={classes.icon} />
+        <CalendarTodayIcon className={classes.icon} color="disabled" />
         {getDisplayDate()}
       </ButtonBase>
 
       <Popover
-        open={isOpen}
         anchorEl={menuRef?.current}
-        onClose={handleClose}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
         }}
+        onClose={handleClose}
+        open={isOpen}
         transformOrigin={{
           vertical: 'top',
           horizontal: 'left',
@@ -262,18 +262,18 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
             <div className={classes.row}>
               <div>
                 <DateField
-                  onChange={handleResetTimePeriod}
-                  name="dateStart"
                   label={t('header.start')}
+                  name="dateStart"
+                  onChange={handleResetTimePeriod}
                 />
                 <AlertError name="dateStart" />
               </div>
               <div>
                 <DateField
-                  onChange={handleResetTimePeriod}
-                  name="dateEnd"
                   outsideErrorDisplay
                   label={t('header.end')}
+                  name="dateEnd"
+                  onChange={handleResetTimePeriod}
                 />
                 <AlertError name="dateEnd" />
               </div>
@@ -286,14 +286,14 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
                 futureOnly ? !!selection.futureOnly : !selection.futureOnly,
               ).map((selection) => (
                 <ButtonBase
-                  onClick={handleSelection(selection)}
-                  className={classes.button}
                   key={selection.timePeriod}
+                  className={classes.button}
+                  onClick={handleSelection(selection)}
                 >
                   <Typography>
                     {t(`header.helper.${selection.timePeriod}`)}
                   </Typography>
-                  <Typography variant="caption" color="textSecondary">
+                  <Typography color="textSecondary" variant="caption">
                     {t('header.from_to', {
                       to: moment
                         .unix(selection.getStartEndTimestamps().dateEnd)
@@ -307,11 +307,11 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
               ))}
             </div>
             <Button
-              color="primary"
-              variant="contained"
-              onClick={onSubmit}
               className={classes.submit}
+              color="primary"
               disabled={!isValid}
+              onClick={onSubmit}
+              variant="contained"
             >
               {t('header.save')}
             </Button>

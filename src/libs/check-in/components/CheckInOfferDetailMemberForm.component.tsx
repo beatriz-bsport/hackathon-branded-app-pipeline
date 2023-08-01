@@ -34,15 +34,15 @@ export const CheckInOfferDetailMemberForm: React.FC<Props> = ({
 }) => {
   return (
     <MemberForm
-      onCancel={onClose}
-      onSubmit={onSubmit}
+      fromConsumerAccess
+      companyCountry={companyCountry}
+      generalTermsAndConditions={generalTermsAndConditions}
       goToMember={onAlreadyLinkMember}
       goToMemberList={onLinkMember}
+      onCancel={onClose}
+      onSubmit={onSubmit}
       snackbarSuccess={snackbarSuccess}
-      fromConsumerAccess
       waiver={waiver}
-      generalTermsAndConditions={generalTermsAndConditions}
-      companyCountry={companyCountry}
     />
   );
 };

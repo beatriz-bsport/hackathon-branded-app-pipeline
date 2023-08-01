@@ -44,107 +44,107 @@ export const Settings = () => {
     <Switch>
       <Route
         exact
-        path="/settings/general"
         component={ThemeConfigurationPage}
+        path="/settings/general"
       />
 
       <Route
         exact
-        path="/settings/marketplace-settings"
         component={MarketplaceSettings}
+        path="/settings/marketplace-settings"
       />
 
-      <Route path="/settings/widget/:tab" component={WidgetRouter} />
+      <Route component={WidgetRouter} path="/settings/widget/:tab" />
 
       <Route
         exact
-        path="/settings/notification-rule"
         component={NotificationRulePage}
+        path="/settings/notification-rule"
       />
       <Route
         exact
-        path="/settings/notification-rule/:eventName"
         component={NotificationRuleDetailPage}
+        path="/settings/notification-rule/:eventName"
       />
-      <Route exact path="/settings/company" component={CompanyDetailPage} />
-      <Route exact path="/settings/role" component={RoleConfigurationPage} />
+      <Route exact component={CompanyDetailPage} path="/settings/company" />
+      <Route exact component={RoleConfigurationPage} path="/settings/role" />
       <Route
         exact
-        path="/settings/invoice"
         component={InvoiceConfigurationPage}
+        path="/settings/invoice"
       />
       <Route
         exact
-        path="/settings/payment-rules"
         component={PaymentRuleSetsDashboard}
+        path="/settings/payment-rules"
       />
       <Route
         exact
-        path="/settings/payment-methods"
         component={PaymentMethodSettings}
+        path="/settings/payment-methods"
       />
       <Route
         exact
-        path="/settings/broadcast"
         component={BroadcastConfiguration}
+        path="/settings/broadcast"
       />
       <Route
         exact
-        path="/settings/waiting-list"
         component={WaitingListConfigurationPage}
+        path="/settings/waiting-list"
       />
-      <Route exact path="/settings/shop" component={ShopConfigurationPage} />
-      <Route exact path="/settings/theme" component={ThemeConfigurationPage} />
+      <Route exact component={ShopConfigurationPage} path="/settings/shop" />
+      <Route exact component={ThemeConfigurationPage} path="/settings/theme" />
       <Route
         exact
-        path="/settings/personalization"
         component={SettingsPersonalizePage}
+        path="/settings/personalization"
       />
       <Route
         exact
-        path="/settings/mobile-personalization"
         component={MobilePersonalizationPage}
+        path="/settings/mobile-personalization"
       />
 
       <Route
         exact
-        path="/settings/forms"
         component={CustomSignUpConfiguration}
+        path="/settings/forms"
       />
       <Route
         exact
-        path="/settings/webhook"
         component={WebhookConfigurationPage}
+        path="/settings/webhook"
       />
-      <Route exact path="/settings/partnership" component={PartnershipPage} />
-      <Route exact path="/settings/quickbooks" component={QuickBookPage} />
+      <Route exact component={PartnershipPage} path="/settings/partnership" />
+      <Route exact component={QuickBookPage} path="/settings/quickbooks" />
       <Route
         exact
-        path="/settings/active-campaign"
         component={ActiveCampaignPage}
+        path="/settings/active-campaign"
       />
       <Route
         exact
-        path="/settings/company_onboarding"
         component={CompanyOnboardingSettingPage}
+        path="/settings/company_onboarding"
       />
       <Route
         exact
-        path="/settings/platform-billing"
         component={PlatformBillingSettingPage}
+        path="/settings/platform-billing"
       />
       <Route
         exact
-        path="/settings/coach-userspace"
         component={CoachPlaceSettingsPage}
+        path="/settings/coach-userspace"
       />
       <Route
-        path={['/settings/quicksale/:tab', '/settings/quicksale']}
         component={Quicksale}
+        path={['/settings/quicksale/:tab', '/settings/quicksale']}
       />
       <Route
-        path="/settings"
         component={() => <Redirect to="/settings/general" />}
+        path="/settings"
       />
     </Switch>
   );

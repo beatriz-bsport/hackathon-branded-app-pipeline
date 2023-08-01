@@ -57,10 +57,10 @@ const PaymentPackMarketplaceListItem = (props: {
   const { t } = useTranslation('paymentPack');
 
   return (
-    <ListItem divider button onClick={props.onSelect}>
+    <ListItem button divider onClick={props.onSelect}>
       <PaymentPackItem
-        paymentPack={props.paymentPack}
         isExcludingTax={props.isExcludingTax}
+        paymentPack={props.paymentPack}
       />
 
       {!!props.paymentPack.linked_private_pass && (
@@ -71,9 +71,9 @@ const PaymentPackMarketplaceListItem = (props: {
         </Tooltip>
       )}
       <IconButton
-        style={{ marginRight: 16 }}
         disableRipple
         onClick={props.onSelect}
+        style={{ marginRight: 16 }}
       >
         <VisibilityIcon />
       </IconButton>
@@ -114,9 +114,9 @@ export function MarketplacePassList(props: Props) {
     <>
       <div>
         <Typography
+          className={props.classes.sectionTitle}
           component="h3"
           variant="h6"
-          className={props.classes.sectionTitle}
         >
           {props.t('marketplace.passListTitle')}
         </Typography>
@@ -127,9 +127,9 @@ export function MarketplacePassList(props: Props) {
             <div className={!ppCat.name ? props.classes.noCategory : ''}>
               {ppCat.name && (
                 <Typography
+                  className={props.classes.sectionTitleWithDivider}
                   component="h3"
                   variant="subtitle1"
-                  className={props.classes.sectionTitleWithDivider}
                 >
                   {ppCat.name}
                 </Typography>
@@ -141,42 +141,42 @@ export function MarketplacePassList(props: Props) {
                     .filter((e) => !e.manager_only)
                     .map((pp: PaymentPack) => (
                       <PaymentPackMarketplaceListItem
-                        isExcludingTax={props.isExcludingTax}
-                        onSelect={() => {
-                          props.setSelectedPass(pp);
-                          Analytics.selectPaymentPack(pp);
-                        }}
+                        key={pp.id}
                         disabled={!pushPackCheckout}
+                        isExcludingTax={props.isExcludingTax}
                         onCartAdd={() => {
                           pushPackCheckout(pp.id);
                           Analytics.addPassToCart(pp, 'payment_pack');
                         }}
-                        key={pp.id}
+                        onSelect={() => {
+                          props.setSelectedPass(pp);
+                          Analytics.selectPaymentPack(pp);
+                        }}
                         paymentPack={pp}
                         t={props.t}
                       />
                     ))}
                 </List>
                 <Dialog
-                  open={!!selectedPass}
                   onClose={() => props.setSelectedPass(null)}
+                  open={!!selectedPass}
                 >
                   <div>
                     {selectedPass ? (
                       <PaymentPackCard
-                        pack={selectedPass}
                         onlyPublic
                         isExcludingTax={props.isExcludingTax}
+                        pack={selectedPass}
                       />
                     ) : null}
                     <Button
-                      style={{ width: '100%' }}
+                      color="primary"
                       onClick={() => {
                         pushPackCheckout(selectedPass.id);
                         Analytics.addPassToCart(selectedPass, 'payment_pack');
                         props.setSelectedPass(null);
                       }}
-                      color="primary"
+                      style={{ width: '100%' }}
                       variant="contained"
                     >
                       {t('marketplace.buyPack')}

@@ -97,9 +97,9 @@ export const FilterMenu: React.FC<Props> = ({ menu, emptyLabel }) => {
     <div className={classes.row}>
       <div>
         <IconButton
-          aria-label="more"
           aria-controls="long-menu"
           aria-haspopup="true"
+          aria-label="more"
           onClick={handleClick}
         >
           <FilterListIcon />
@@ -107,19 +107,19 @@ export const FilterMenu: React.FC<Props> = ({ menu, emptyLabel }) => {
         {noFilter && emptyLabel && (
           <Typography
             className={classes.emptyText}
-            variant="caption"
             color="textSecondary"
+            variant="caption"
           >
             {emptyLabel}
           </Typography>
         )}
         <Menu
-          id="short-menu"
-          anchorEl={anchorEl}
           keepMounted
-          open={open}
-          onClose={handleClose}
+          anchorEl={anchorEl}
           getContentAnchorEl={null}
+          id="short-menu"
+          onClose={handleClose}
+          open={open}
           PaperProps={{
             style: {
               maxHeight: ITEM_HEIGHT * 6.5,
@@ -168,10 +168,10 @@ export const FilterMenu: React.FC<Props> = ({ menu, emptyLabel }) => {
                 {m.type === 'coach' ? (
                   <div className={classes.marginSelector}>
                     <CoachSelector
-                      placeholder={t('filters.pickCoach')}
-                      coaches={m.coaches}
-                      selectedCoaches={m.selectedCoaches}
                       isClearable
+                      coaches={m.coaches}
+                      placeholder={t('filters.pickCoach')}
+                      selectedCoaches={m.selectedCoaches}
                       selectOption={(
                         ev: { value: number; label: string }[],
                       ) => {
@@ -220,15 +220,15 @@ export const FilterMenu: React.FC<Props> = ({ menu, emptyLabel }) => {
                   icon={<m.icon />}
                   label={m.label}
                   onDelete={m.onDelete}
-                  variant="outlined"
                   size="small"
+                  variant="outlined"
                 />
               )}
             </div>
           ) : (
             <>
               {m.label === t('filters.coach') ? (
-                <div className={classes.filters} key={m.label}>
+                <div key={m.label} className={classes.filters}>
                   <CoachGroupChip
                     coaches={getCoachesById(m.coaches, m.selectedCoaches)}
                     onDelete={handleCoachDelete(m.selectedCoaches, m.onChange)}
@@ -239,7 +239,7 @@ export const FilterMenu: React.FC<Props> = ({ menu, emptyLabel }) => {
                   (previous, s) => previous || s.show,
                   false,
                 ) && (
-                  <div className={classes.filters} key={m.label}>
+                  <div key={m.label} className={classes.filters}>
                     {m.subMenu.map(
                       (s) =>
                         s.show && (
@@ -248,8 +248,8 @@ export const FilterMenu: React.FC<Props> = ({ menu, emptyLabel }) => {
                               icon={<s.icon />}
                               label={s.label}
                               onDelete={s.onDelete}
-                              variant="outlined"
                               size="small"
+                              variant="outlined"
                             />
                           </div>
                         ),

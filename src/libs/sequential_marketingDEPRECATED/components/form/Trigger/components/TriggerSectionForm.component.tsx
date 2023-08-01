@@ -224,7 +224,7 @@ export const TriggerSectionForm: React.FC<Props> = ({
           </Typography>
         </div>
         <div className={classes.alertContainer}>
-          <Alert severity="info" className={classes.alert}>
+          <Alert className={classes.alert} severity="info">
             {alertInfotext}
           </Alert>
         </div>
@@ -232,10 +232,10 @@ export const TriggerSectionForm: React.FC<Props> = ({
           <Typography variant="body1">{triggerLabel}</Typography>
           <div className={classes.paddingLeft2}>
             <CheckboxFieldWithAction
-              id="select_entry_type_event"
-              name="trigger_has_event"
-              label={t('cadence.form.trigger.trigger_event_kind_label')}
               handleOnChange={handleEventsCheckboxClick}
+              id="select_entry_type_event"
+              label={t('cadence.form.trigger.trigger_event_kind_label')}
+              name="trigger_has_event"
             />
           </div>
           <Collapse in={values.trigger_has_event}>
@@ -246,9 +246,9 @@ export const TriggerSectionForm: React.FC<Props> = ({
               )}
             >
               <MaterialUISelector
-                options={CADENCE_EVENT_GROUPED_OPTIONS}
                 isClearable
                 onChange={setTriggerEventKind}
+                options={CADENCE_EVENT_GROUPED_OPTIONS}
                 value={triggerEventKindSelected}
               />
             </div>
@@ -257,21 +257,21 @@ export const TriggerSectionForm: React.FC<Props> = ({
             className={classNames(classes.paddingLeft2, classes.paddingBottom2)}
           >
             <CheckboxFieldWithAction
-              id="select_entry_type_smartlist"
-              name="trigger_has_smartlist"
-              label={t('cadence.form.trigger.trigger_smartlist_kind_label')}
               handleOnChange={handleSmartlistsCheckboxClick}
+              id="select_entry_type_smartlist"
+              label={t('cadence.form.trigger.trigger_smartlist_kind_label')}
+              name="trigger_has_smartlist"
             />
           </div>
           <Collapse in={values.trigger_has_smartlist}>
             <div className={classes.paddingBottom2}>
               <MaterialUISelector
+                isClearable
+                onChange={setTriggerSmartListSelected}
                 options={(smartListChoices || []).map((sm) => ({
                   label: sm.name,
                   value: sm.id,
                 }))}
-                isClearable
-                onChange={setTriggerSmartListSelected}
                 value={smartListSelectedOption}
               />
             </div>
@@ -293,6 +293,7 @@ export const TriggerSectionForm: React.FC<Props> = ({
               </div>
               <div className={classes.operatorSelector}>
                 <MaterialUISelector
+                  onChange={setTriggerLogicOperandSelected}
                   options={[
                     {
                       label: t(
@@ -305,12 +306,11 @@ export const TriggerSectionForm: React.FC<Props> = ({
                       value: RuleBetweenEntryEvent.OR_RULE_BETWEEN_ENTRY_EVENT,
                     },
                   ]}
-                  onChange={setTriggerLogicOperandSelected}
                   value={triggerOperandSelectedOption}
                 />
               </div>
             </div>
-            <Typography variant="caption" color="textSecondary">
+            <Typography color="textSecondary" variant="caption">
               {helperText}
             </Typography>
           </Collapse>
@@ -326,7 +326,7 @@ export const TriggerSectionForm: React.FC<Props> = ({
         <Typography variant="h6">{t('cadence.form.trigger.title')}</Typography>
       </div>
       <div className={classes.alertContainer}>
-        <Alert severity="info" className={classes.alert}>
+        <Alert className={classes.alert} severity="info">
           {cadenceEntry
             ? t('cadence.form.trigger.helpers.cadence')
             : t('cadence.form.trigger.helpers.step')}
@@ -337,13 +337,13 @@ export const TriggerSectionForm: React.FC<Props> = ({
         {/* NON FORMIK PART */}
         <div className={classes.paddingLeft2}>
           <FormControlLabel
-            id="trigger_has_event_radio"
             control={
               <Radio
                 checked={values.trigger_has_event}
                 onClick={() => handleEventRadioChange(true, false)}
               />
             }
+            id="trigger_has_event_radio"
             label={t('cadence.form.trigger.trigger_event_kind_label')}
           />
         </div>
@@ -351,24 +351,24 @@ export const TriggerSectionForm: React.FC<Props> = ({
           className={classNames(classes.paddingTop2, classes.paddingBottom2)}
         >
           <MaterialUISelector
-            options={CADENCE_EVENT_GROUPED_OPTIONS}
             isClearable
-            onChange={setTriggerEventKind}
-            value={triggerEventKindSelected}
             isDisabled={!values.trigger_has_event}
+            onChange={setTriggerEventKind}
+            options={CADENCE_EVENT_GROUPED_OPTIONS}
+            value={triggerEventKindSelected}
           />
           <div className={classes.paddingLeft2}>
             <Collapse
               in={values.trigger_has_event && !!values.trigger_event_kind}
             >
               <FormControlLabel
-                id="add_filtering_config_to_event_trigger"
                 control={
                   <CheckBox
                     checked={displaySmartlistAsTriggerFilter}
                     onClick={handleDisplaySmartlistAsTriggerFilter}
                   />
                 }
+                id="add_filtering_config_to_event_trigger"
                 label={
                   <Typography variant="caption">
                     {t('cadence.form.trigger.had_filtering_on_selected_event')}
@@ -387,14 +387,14 @@ export const TriggerSectionForm: React.FC<Props> = ({
                 <FilterListIcon />
                 <div style={{ width: '100%' }}>
                   <MaterialUISelector
+                    isClearable
+                    isDisabled={!values.trigger_has_event}
+                    onChange={setTriggerSmartListSelected}
                     options={(smartListChoices || []).map((sm) => ({
                       label: sm.name,
                       value: sm.id,
                     }))}
-                    isClearable
-                    onChange={setTriggerSmartListSelected}
                     value={smartListSelectedOption}
-                    isDisabled={!values.trigger_has_event}
                   />
                 </div>
               </div>
@@ -403,7 +403,6 @@ export const TriggerSectionForm: React.FC<Props> = ({
         </div>
         <div className={classes.paddingLeft2}>
           <FormControlLabel
-            id="trigger_has_smartlist_radio"
             control={
               <Radio
                 checked={
@@ -412,21 +411,22 @@ export const TriggerSectionForm: React.FC<Props> = ({
                 onClick={() => handleEventRadioChange(false, true)}
               />
             }
+            id="trigger_has_smartlist_radio"
             label={t('cadence.form.trigger.trigger_smartlist_kind_label')}
           />
         </div>
         <div className={classes.paddingBottom2}>
           <MaterialUISelector
+            isClearable
+            isDisabled={
+              !values.trigger_has_smartlist || values.trigger_has_event
+            }
+            onChange={setTriggerSmartListSelected}
             options={(smartListChoices || []).map((sm) => ({
               label: sm.name,
               value: sm.id,
             }))}
-            isClearable
-            onChange={setTriggerSmartListSelected}
             value={values.trigger_has_event ? null : smartListSelectedOption}
-            isDisabled={
-              !values.trigger_has_smartlist || values.trigger_has_event
-            }
           />
         </div>
         {/* NON FORMIK PART */}

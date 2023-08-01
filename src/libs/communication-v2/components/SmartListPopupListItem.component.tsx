@@ -44,7 +44,7 @@ const SmartListPopupListItem: React.FC<Props> = ({
     <div>
       {!noDivider && <Divider />}
       <div className={classes.listItemContainer}>
-        <Typography variant="caption" className={classes.listItemDate}>
+        <Typography className={classes.listItemDate} variant="caption">
           {moment(smartListPopup?.custom_app_popup_link?.date_created).format(
             'LLLL',
           )}
@@ -52,7 +52,7 @@ const SmartListPopupListItem: React.FC<Props> = ({
 
         <div className={classes.listItemInfo}>
           <div className={classes.listItemTitleAndRecipients}>
-            <Typography variant="h6" color="primary">
+            <Typography color="primary" variant="h6">
               {smartListPopup?.custom_app_popup_link?.name}
             </Typography>
             <div className={classes.recipients}>
@@ -70,9 +70,9 @@ const SmartListPopupListItem: React.FC<Props> = ({
           </div>
 
           <Button
+            className={classes.previewButton}
             onClick={openPreviewDialog}
             variant="outlined"
-            className={classes.previewButton}
           >
             <VisibilityIcon className={classes.leftIcon} />
             {t('smartListPopup.see')}

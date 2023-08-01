@@ -38,24 +38,24 @@ class WidgetRouter extends React.Component<Props> {
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <Switch>
           <Route
-            path="/widget/:companyName/:companyId/bridge"
             component={BridgeWidget}
+            path="/widget/:companyName/:companyId/bridge"
           />
           <Route
-            path="/widget/:companyName/:companyId/basket"
             component={Basket}
+            path="/widget/:companyName/:companyId/basket"
           />
           <Route
-            path="/widget/:companyName/:companyId/bookings/"
             component={BookingsAndPrivateBookings}
+            path="/widget/:companyName/:companyId/bookings/"
           />
           <Route
-            path="/widget/:companyName/:companyId/profile/"
             component={ProfileWidgetPage}
+            path="/widget/:companyName/:companyId/profile/"
           />
           <Route
-            path="/widget/:companyName/:companyId/subscription/"
             component={ConsumerSubscription}
+            path="/widget/:companyName/:companyId/subscription/"
           />
         </Switch>
       </MuiThemeProvider>

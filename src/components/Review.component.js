@@ -22,21 +22,21 @@ export default class Review extends Component<Props> {
         <Grid item xs={12}>
           <Grid
             container
-            direction="row"
             alignItems="center"
+            direction="row"
             justify="space-between"
             style={{ width: '100%' }}
           >
             <Grid item>
               <Grid
                 container
-                direction="row"
                 alignItems="center"
+                direction="row"
                 justify="flex-start"
                 spacing={2}
               >
                 <Grid item>
-                  <Avatar user={user} noname />
+                  <Avatar noname user={user} />
                 </Grid>
                 <Grid item>
                   <Typography>{user.name}</Typography>

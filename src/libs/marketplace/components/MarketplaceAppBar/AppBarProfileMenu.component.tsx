@@ -51,42 +51,42 @@ const AppBarProfileMenu: React.FC<ProfileMenuProps> = ({
       <Popover
         anchorEl={anchorEl}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
         classes={{ paper: classes.popoverAccount }}
+        onClose={() => setIsMenuOpen(false)}
+        open={isMenuOpen}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
         {photo ? (
-          <Avatar src={photo} classes={{ root: classes.profilePicTall }} />
+          <Avatar classes={{ root: classes.profilePicTall }} src={photo} />
         ) : (
           <AccountCircleIcon
-            aria-owns={isMenuOpen ? 'material-appbar' : undefined}
             aria-haspopup="true"
-            color="disabled"
+            aria-owns={isMenuOpen ? 'material-appbar' : undefined}
             classes={{ root: classes.noProfilePicTall }}
+            color="disabled"
           />
         )}
         <Typography className={classes.menuNameTypo} variant="subtitle1">
           {auth.name !== ' ' ? auth.name : auth.username}
         </Typography>
         {auth.name !== ' ' && (
-          <Typography variant="body2" className={classes.menuUsernameTypo}>
+          <Typography className={classes.menuUsernameTypo} variant="body2">
             {auth.username}
           </Typography>
         )}
         {!isWidget && (
-          <Button onClick={goToUserSpace} className={classes.profileButton}>
+          <Button className={classes.profileButton} onClick={goToUserSpace}>
             {t('consumerSpace:appbar.profile')}
           </Button>
         )}
         <Divider className={classes.dividerProfile} />
         <AppBarNavigationBetweenRelations
           controlableMemberList={controlableMemberList}
-          navigateBackToMasterRelation={navigateBackToMasterRelation}
           isRelationNavigation={isRelationNavigation}
+          navigateBackToMasterRelation={navigateBackToMasterRelation}
           navigateToRelationAccount={navigateToRelationAccount}
         />
-        <Button onClick={disconnect} className={classes.disconnectButton}>
+        <Button className={classes.disconnectButton} onClick={disconnect}>
           {t('consumerSpace:appbar.logout')}
         </Button>
       </Popover>
@@ -96,9 +96,9 @@ const AppBarProfileMenu: React.FC<ProfileMenuProps> = ({
     <Popover
       anchorEl={anchorEl}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
       onClose={() => setIsMenuOpen(false)}
+      open={isMenuOpen}
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
     />
   );
 };

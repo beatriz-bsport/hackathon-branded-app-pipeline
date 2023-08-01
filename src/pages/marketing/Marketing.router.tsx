@@ -21,18 +21,18 @@ const MarketingTagManagement = asyncComponent(
 export const MarketingRouter = () => {
   return (
     <Switch>
-      <Route path="/marketing/rule/:id" component={FakeMarketingRule} />
+      <Route component={FakeMarketingRule} path="/marketing/rule/:id" />
       <Route
-        path="/marketing/notifications/:notificationId"
         component={MarketingRuleList}
+        path="/marketing/notifications/:notificationId"
       />
-      <Route path="/marketing/notifications" component={MarketingRuleList} />
-      <Route path="/marketing/strategies" component={FakeMarketingDashboard} />
+      <Route component={MarketingRuleList} path="/marketing/notifications" />
+      <Route component={FakeMarketingDashboard} path="/marketing/strategies" />
       <Route
-        path="/marketing/tags/:selectedTagId"
         component={MarketingTagManagement}
+        path="/marketing/tags/:selectedTagId"
       />
-      <Route path="/marketing/tags" component={MarketingTagManagement} />
+      <Route component={MarketingTagManagement} path="/marketing/tags" />
     </Switch>
   );
 };

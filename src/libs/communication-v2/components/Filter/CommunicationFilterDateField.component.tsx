@@ -19,27 +19,27 @@ export const CommunicationFilterDateField = (props: DateProps) => {
   return (
     <Grid container className={classes.container} spacing={1}>
       <Grid item sm={3} xs={12}>
-        <Typography variant="body2" className={classes.title}>
+        <Typography className={classes.title} variant="body2">
           {t('filter.dateFilter.title')}
         </Typography>
       </Grid>
       <Grid item className={classes.datePickerContainer} sm={4} xs={12}>
         <DateInput
-          value={props.fieldStartValue}
-          onChange={props.fieldStartSetter}
-          label={t('filter.dateFilter.dateStart')}
-          className={classes.datePicker}
           clearable
+          className={classes.datePicker}
+          label={t('filter.dateFilter.dateStart')}
+          onChange={props.fieldStartSetter}
+          value={props.fieldStartValue}
         />
         <KeyboardArrowDown className={classes.arrowIcon} />
       </Grid>
       <Grid item className={classes.datePickerContainer} sm={4} xs={12}>
         <DateInput
-          value={props.fieldEndValue}
-          onChange={props.fieldEndSetter}
-          label={t('filter.dateFilter.dateEnd')}
-          className={classes.datePicker}
           clearable
+          className={classes.datePicker}
+          label={t('filter.dateFilter.dateEnd')}
+          onChange={props.fieldEndSetter}
+          value={props.fieldEndValue}
         />
         <KeyboardArrowDown className={classes.arrowIcon} />
       </Grid>

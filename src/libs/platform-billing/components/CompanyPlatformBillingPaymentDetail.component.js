@@ -35,9 +35,9 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['platformBilling']);
   return (
-    <Grid direction="row" container className={classes.container}>
-      <Grid item xs={12} md={6} className={classes.leftColumn}>
-        <Typography variant="h4" className={classes.sectionTitle}>
+    <Grid container className={classes.container} direction="row">
+      <Grid item className={classes.leftColumn} md={6} xs={12}>
+        <Typography className={classes.sectionTitle} variant="h4">
           {t('platformInvoice.sectionTitle')}
         </Typography>
         <Divider className={classes.divider} />
@@ -50,26 +50,26 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
           <Paper>
             {props.platformInvoiceList.map((pi) => (
               <PlatformInvoiceListItem
-                divider
-                platformInvoice={pi}
                 key={pi.id}
+                divider
+                defaultCurrencyDisplay={props.defaultCurrencyDisplay}
                 hasPaymentMethod={!!props.paymentMethodList?.length}
                 payNowInvoice={props.payNowInvoice}
-                defaultCurrencyDisplay={props.defaultCurrencyDisplay}
+                platformInvoice={pi}
               />
             ))}
           </Paper>
         )}
       </Grid>
-      <Grid item xs={12} md={6} className={classes.leftColumn}>
-        <Typography variant="h4" className={classes.sectionTitle}>
+      <Grid item className={classes.leftColumn} md={6} xs={12}>
+        <Typography className={classes.sectionTitle} variant="h4">
           {t('paymentMethod.sectionTitle')}
         </Typography>
         <Divider className={classes.divider} />
 
-        <Alert severity="info" className={classes.divider}>
+        <Alert className={classes.divider} severity="info">
           {`${t('paymentMethod.info.content')} `}
-          <Link to="/settings/company" className={classes.link}>
+          <Link className={classes.link} to="/settings/company">
             {t('paymentMethod.info.link')}
           </Link>
           .
@@ -78,8 +78,8 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
         {!!props.paymentMethodList?.length && (
           <PaymentMethodList
             onlyDefault
-            savedPaymentMethodList={props.paymentMethodList}
             refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
+            savedPaymentMethodList={props.paymentMethodList}
           />
         )}
         <div className={classes.addPaymentMethodButtonRow}>
@@ -102,26 +102,26 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
         {window.location.href.includes('show-iban=true') &&
           props.collectPaymentMethodSepaIsOpen && (
             <CollectPaymentMethod
-              requestSetupIntentSecret={props.requestSetupIntentSecret}
-              paymentMethodType="sepa_debit"
               setAsDefault
+              defaultEmail={props.sepaDefaultEmail}
+              defaultName={props.sepaDefaultName}
+              onClose={() => props.setCollectPaymentMethodSepaIsOpen(false)}
               onSuccess={props.onCollectPaymentMethodSuccess}
+              paymentMethodType="sepa_debit"
               refreshSavedPaymentMethodList={
                 props.refreshSavedPaymentMethodList
               }
-              onClose={() => props.setCollectPaymentMethodSepaIsOpen(false)}
-              defaultName={props.sepaDefaultName}
-              defaultEmail={props.sepaDefaultEmail}
+              requestSetupIntentSecret={props.requestSetupIntentSecret}
             />
           )}
         {props.collectPaymentMethodCBIsOpen && (
           <CollectPaymentMethod
-            requestSetupIntentSecret={props.requestSetupIntentSecret}
+            setAsDefault
+            onClose={() => props.setCollectPaymentMethodCBIsOpen(false)}
             onSuccess={props.onCollectPaymentMethodSuccess}
             paymentMethodType="card"
-            setAsDefault
             refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
-            onClose={() => props.setCollectPaymentMethodCBIsOpen(false)}
+            requestSetupIntentSecret={props.requestSetupIntentSecret}
           />
         )}
       </Grid>

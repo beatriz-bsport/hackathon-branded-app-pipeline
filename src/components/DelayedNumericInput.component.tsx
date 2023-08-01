@@ -70,8 +70,8 @@ export default class DelayedNumericInput extends Component<Props, State> {
     return (
       <NumericInput
         {...this.props}
-        onChange={this.handleChange}
         onBlur={this.handleBlur}
+        onChange={this.handleChange}
         value={this.state.value}
       />
     );

@@ -44,8 +44,8 @@ type Props = {
 const EmptyTags = (props: { t: TFunction, classes: Object }) => (
   <Typography
     className={props.classes.noTagText}
-    variant="caption"
     color="textSecondary"
+    variant="caption"
   >
     {props.t('panel.noTagAvailable')}
   </Typography>
@@ -64,9 +64,9 @@ export function MemberTagPanel(props: Props) {
   return (
     <div>
       <ButtonBase
-        style={{ width: '100%' }}
         disableRipple
         onClick={() => props.setExpanded(!props.expanded)}
+        style={{ width: '100%' }}
       >
         <div
           style={{
@@ -77,10 +77,10 @@ export function MemberTagPanel(props: Props) {
           }}
         >
           <Typography
-            component="h3"
-            color={props.expanded ? 'inherit' : 'textSecondary'}
-            variant="h6"
             className={classes.title}
+            color={props.expanded ? 'inherit' : 'textSecondary'}
+            component="h3"
+            variant="h6"
           >
             {t('panel.title')}
           </Typography>
@@ -92,42 +92,42 @@ export function MemberTagPanel(props: Props) {
         {tagGroupsLoading ? <LinearProgress /> : null}
         <div className={classes.tagsContainer}>
           {tagGroups.length === 0 && !tagGroupsLoading ? (
-            <EmptyTags t={t} classes={classes} />
+            <EmptyTags classes={classes} t={t} />
           ) : (
             tagGroups.map((tG) => (
               <TagEditor
                 key={tG.id}
-                updateTag={props.updateTag}
-                updateTagGroup={props.updateTagGroup}
                 deleteTag={(tag) => props.deleteTag(tag.id)}
-                tagGroup={tG}
-                tag={tG.tags.find((tag) => attributedTags.includes(tag.id))}
-                selectTag={attributeTag}
-                untag={untag}
-                onCreate={(data) => props.createTag({ ...data, group: tG.id })}
                 deleteTagGroup={(tagGroup: TagGroup) =>
                   props.deleteTagGroup(tagGroup.id)
                 }
                 disabled={props.member.archived}
+                onCreate={(data) => props.createTag({ ...data, group: tG.id })}
+                selectTag={attributeTag}
+                tag={tG.tags.find((tag) => attributedTags.includes(tag.id))}
+                tagGroup={tG}
+                untag={untag}
+                updateTag={props.updateTag}
+                updateTagGroup={props.updateTagGroup}
               />
             ))
           )}
         </div>
         {props.createMode ? (
           <TagGroupCreator
-            t={props.t}
+            onCancel={() => props.setCreateMode(false)}
             onCreate={(data) => {
               props.setCreateMode(false);
               props.createTagGroup(data);
             }}
-            onCancel={() => props.setCreateMode(false)}
+            t={props.t}
           />
         ) : (
           <Button
             color="primary"
-            variant="outlined"
-            onClick={() => props.setCreateMode(!props.createMode)}
             disabled={props.member.archived}
+            onClick={() => props.setCreateMode(!props.createMode)}
+            variant="outlined"
           >
             <AddIcon className={classes.leftIcon} />
             {t('form.group.addTagGroup')}

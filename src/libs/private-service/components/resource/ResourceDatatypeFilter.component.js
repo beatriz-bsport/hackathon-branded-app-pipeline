@@ -26,8 +26,8 @@ export const ResourceDatatypeFilter = (props: Props) => {
     <div>
       <Button
         color="primary"
-        variant="outlined"
         onClick={(ev) => props.setAnchorEl(ev.currentTarget)}
+        variant="outlined"
       >
         <CategoryIcon />
         <Hidden smDown>
@@ -37,10 +37,10 @@ export const ResourceDatatypeFilter = (props: Props) => {
         </Hidden>
       </Button>
       <Menu
-        id="fade-menu"
         anchorEl={props.anchorEl}
-        open={!!props.anchorEl}
+        id="fade-menu"
         onClose={() => props.setAnchorEl(null)}
+        open={!!props.anchorEl}
         TransitionComponent={Fade}
       >
         {props.resourcesByDatatype.map(({ datatype, items }) => (

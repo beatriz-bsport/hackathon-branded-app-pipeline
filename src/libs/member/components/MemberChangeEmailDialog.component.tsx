@@ -77,7 +77,7 @@ export const MemberChangeEmailDialog = (props: Props) => {
   };
   return (
     <>
-      <Dialog open={props.open} maxWidth="sm" fullWidth>
+      <Dialog fullWidth maxWidth="sm" open={props.open}>
         <DialogTitle>{renderTitle()}</DialogTitle>
         <div className={classes.dialogContent}>
           <Typography variant="body1">{warningText()}</Typography>
@@ -121,13 +121,13 @@ export const MemberChangeEmailDialog = (props: Props) => {
           </div>
         </div>
         <DialogActions>
-          <Button onClick={() => onCancel()} variant="text" color="secondary">
+          <Button color="secondary" onClick={() => onCancel()} variant="text">
             {t('changeEmailRequest.dialog.actions.close')}
           </Button>
           <Button
+            color="primary"
             onClick={() => onConfirm()}
             variant="contained"
-            color="primary"
           >
             {t('changeEmailRequest.dialog.actions.confirm')}
           </Button>

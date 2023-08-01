@@ -35,9 +35,9 @@ class EnhancedTableHead extends React.Component<Props> {
           sortDirection={orderBy === column.id ? order : false}
         >
           <Tooltip
-            title={t('common.sort')}
-            placement={column.numeric ? 'bottom-end' : 'bottom-start'}
             enterDelay={300}
+            placement={column.numeric ? 'bottom-end' : 'bottom-start'}
+            title={t('common.sort')}
           >
             <TableSortLabel
               active={orderBy === column.id}
@@ -76,8 +76,8 @@ class EnhancedTableHead extends React.Component<Props> {
           {showCheckboxes ? (
             <TableCell padding="checkbox">
               <Checkbox
-                indeterminate={numSelected > 0 && numSelected < rowCount}
                 checked={numSelected === rowCount}
+                indeterminate={numSelected > 0 && numSelected < rowCount}
                 onChange={onSelectAllClick}
               />
             </TableCell>

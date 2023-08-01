@@ -47,24 +47,24 @@ export class CustomFormLayoutPage extends Component<Props> {
     return (
       <>
         <CustomFormLayout
+          asManager
+          editable
+          general_terms_and_conditions={
+            this.props.theme?.general_terms_and_conditions
+          }
           initial={this.props.customForm}
+          layouts={this.props.customForm?.layout}
+          maxHeight="75%"
+          onLayoutChange={(allLayouts: ResponsiveLayouts) =>
+            this.props.setCurrentResponsiveLayouts(allLayouts)
+          }
           saveLayouts={() =>
             this.props.updateCutsomFormLayout({
               formId: this.props.id,
               layout: this.props.responsiveLayouts,
             })
           }
-          editable
-          asManager
-          onLayoutChange={(allLayouts: ResponsiveLayouts) =>
-            this.props.setCurrentResponsiveLayouts(allLayouts)
-          }
-          layouts={this.props.customForm?.layout}
           waiver={this.props.theme?.waiver}
-          general_terms_and_conditions={
-            this.props.theme?.general_terms_and_conditions
-          }
-          maxHeight="75%"
         />
       </>
     );

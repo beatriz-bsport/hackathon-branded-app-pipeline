@@ -142,35 +142,34 @@ export function SubscriptionContractFields(
   return (
     <div>
       <FormSection
-        sectionTitle={t('contract.form.general_info.title')}
         sectionIcon={InfoIcon}
+        sectionTitle={t('contract.form.general_info.title')}
       >
         <TextField
-          name="name"
-          label={t('contract.form.name.label')}
-          required
           fullWidth
+          required
           className={classes.field}
+          label={t('contract.form.name.label')}
+          name="name"
         />
         <TextField
-          name="description"
-          label={t('contract.form.description.label')}
-          placeholder={t('contract.form.description.placeholder')}
-          className={classes.field}
-          required
           fullWidth
           multiline
-          variant="outlined"
+          required
+          className={classes.field}
+          label={t('contract.form.description.label')}
+          name="description"
+          placeholder={t('contract.form.description.placeholder')}
           rows={5}
+          variant="outlined"
         />
       </FormSection>
 
       <FormSection
-        sectionTitle={t('contract.form.object_type.label')}
         sectionIcon={PaymentIcon}
+        sectionTitle={t('contract.form.object_type.label')}
       >
         <RadioGroupField
-          name="object_type"
           choices={[
             {
               label: t('contract.form.object_type.privatePass'),
@@ -185,74 +184,74 @@ export function SubscriptionContractFields(
               value: ObjectType.paymentCombo,
             },
           ]}
+          name="object_type"
         />
         <div>
           <Collapse in={props.values.object_type === ObjectType.paymentPack}>
             <PaymentPackSelectorField
-              choices={props.paymentPackList}
-              name="payment_pack"
               fullWidth
+              choices={props.paymentPackList}
               classes={classes}
+              name="payment_pack"
             />
           </Collapse>
           <Collapse in={props.values.object_type === ObjectType.privatePass}>
             <PrivatePassSelectorField
-              choices={props.privatePassList}
-              name="private_pass"
               fullWidth
+              choices={props.privatePassList}
               classes={classes}
+              name="private_pass"
             />
           </Collapse>
           <Collapse in={props.values.object_type === ObjectType.paymentCombo}>
             <PaymentComboSelectorField
-              choices={props.paymentComboList}
-              name="payment_combo"
               fullWidth
+              choices={props.paymentComboList}
               classes={classes}
+              name="payment_combo"
             />
           </Collapse>
         </div>
       </FormSection>
 
       <FormSection
-        sectionTitle={t('contract.form.price.title')}
         sectionIcon={getCurrencyDisplay() === '€' ? EuroIcon : DollarIcon}
+        sectionTitle={t('contract.form.price.title')}
       >
         <PriceField
-          name="recurrent_price"
-          label={t('contract.form.recurrent_price.label')}
-          required
           fullWidth
+          required
           className={classes.fieldMargin2}
+          label={t('contract.form.recurrent_price.label')}
+          name="recurrent_price"
         />
         {props.initial?.id &&
           // the backend returns a string for recurrent_price as it is handled as a decimal
           parseFloat(props.values.recurrent_price as string) !==
             parseFloat(props.initial.recurrent_price as string) && (
-            <Alert severity="info" className={classes.fieldMargin2}>
+            <Alert className={classes.fieldMargin2} severity="info">
               {t('contract.form.recurrent_price.infoBox')}
             </Alert>
           )}
         <PriceField
-          name="flat_fee"
-          label={t('contract.form.flat_fee.label')}
-          helperText={t('contract.form.flat_fee.helperText')}
-          required
           fullWidth
+          required
           className={classes.field}
+          helperText={t('contract.form.flat_fee.helperText')}
+          label={t('contract.form.flat_fee.label')}
+          name="flat_fee"
         />
       </FormSection>
 
       <FormSection
-        sectionTitle={t('contract.form.invoicing.title')}
         sectionIcon={InvoiceIcon}
+        sectionTitle={t('contract.form.invoicing.title')}
       >
         <PopOver
-          title={t('contract.form.invoicing.invoicing_type_readonly')}
           hide={!props.initial?.id}
+          title={t('contract.form.invoicing.invoicing_type_readonly')}
         >
           <RadioGroupField
-            name="invoicing_type"
             choices={[
               {
                 label: t(
@@ -266,6 +265,7 @@ export function SubscriptionContractFields(
               },
             ]}
             disabled={!!props.initial?.id}
+            name="invoicing_type"
           />
         </PopOver>
         <Alert
@@ -284,30 +284,30 @@ export function SubscriptionContractFields(
               {t('contract.form.recurrence_basis.label')}
             </Typography>
             <IntegerField
-              name="recurrence_basis"
               required
               className={classes.intervalIntegerField}
+              name="recurrence_basis"
             />
             <IntervalRecurrenceSelectField
-              name="interval"
-              required
-              variant="outlined"
               displayPeriod
+              required
               className={classes.intervalSelectorField}
+              name="interval"
+              variant="outlined"
             />
           </div>
         </Collapse>
         <TextField
-          name="nb_interval"
+          fullWidth
+          required
+          className={classes.field}
+          helperText={nbIntervalHelperText}
           label={t('contract.form.nb_interval.label', {
             interval: t(`contract.interval.${props.values.interval}`, {
               count: props.values.recurrence_basis,
             }),
           })}
-          className={classes.field}
-          required
-          fullWidth
-          helperText={nbIntervalHelperText}
+          name="nb_interval"
         />
 
         <Collapse
@@ -341,12 +341,12 @@ export function SubscriptionContractFields(
               {t('contract.form.month_billing_day.label1')}
             </Typography>
             <SelectField
-              name="month_billing_day"
-              id="select-month-billing-day"
               select
-              variant="outlined"
               choices={monthBillingDayChoice}
               className={classes.monthBillingDaySelect}
+              id="select-month-billing-day"
+              name="month_billing_day"
+              variant="outlined"
             />
             <Typography variant="body2">
               {t('contract.form.month_billing_day.label2')}
@@ -355,8 +355,8 @@ export function SubscriptionContractFields(
           {props.initial?.id &&
             props.initial?.month_billing_day !== values.month_billing_day && (
               <Alert
-                severity="info"
                 className={classNames(classes.alert, classes.field)}
+                severity="info"
               >
                 {t(
                   `contract.form.invoicing.fixed_day.modification_not_apply_to_past`,
@@ -368,15 +368,15 @@ export function SubscriptionContractFields(
             )}
           {props.values.month_billing_day >= 29 && (
             <Alert
-              severity="warning"
               className={classNames(classes.alert, classes.field)}
+              severity="warning"
             >
               {t(`contract.form.invoicing.fixed_day.end_of_month_explain`, {
                 month_billing_day: props.values.month_billing_day,
               })}
             </Alert>
           )}
-          <Alert severity="info" variant="outlined" className={classes.alert}>
+          <Alert className={classes.alert} severity="info" variant="outlined">
             {t(
               `contract.form.invoicing.fixed_day.recurrence_explain.${props.values.interval}`,
               {
@@ -393,37 +393,37 @@ export function SubscriptionContractFields(
       </FormSection>
 
       <FormSection
-        sectionTitle={t('contract.form.contract.label')}
         sectionIcon={KeyIcon}
+        sectionTitle={t('contract.form.contract.label')}
       >
         <TextField
-          name="contract"
-          label={t('contract.form.contract.label')}
-          placeholder={t('contract.form.contract.placeholder')}
-          className={classes.field}
-          required
           fullWidth
           multiline
+          required
+          className={classes.field}
+          label={t('contract.form.contract.label')}
+          name="contract"
+          placeholder={t('contract.form.contract.placeholder')}
           rows={5}
           variant="outlined"
         />
       </FormSection>
 
       <FormSection
-        sectionTitle={t('contract.form.settings.title')}
         sectionIcon={SettingsIcon}
+        sectionTitle={t('contract.form.settings.title')}
       >
         <SwitchField
-          name="manager_only"
           label={t('contract.form.managerOnly.label')}
+          name="manager_only"
         />
         <SwitchField
-          name="auto_renewal"
           label={t('contract.form.autoRenewal.label')}
+          name="auto_renewal"
         />
         <SwitchField
-          name="unusable_by_staff"
           label={t('contract.form.unusableByStaff.label')}
+          name="unusable_by_staff"
         />
       </FormSection>
     </div>

@@ -70,16 +70,16 @@ export const EmailSelector = (props: Props) => {
     }));
   return (
     <Selector
+      isClearable
       searchIcon
-      selected={value}
-      nullCurrentValue={nullCurrentValue}
-      suggestions={suggestions}
       className={classNames(classes, selectorClass)}
       components={{ Option: emailOption }}
-      placeholder={helperText}
-      onChange={onChange}
-      isClearable
       isDisabled={disabled}
+      nullCurrentValue={nullCurrentValue}
+      onChange={onChange}
+      placeholder={helperText}
+      selected={value}
+      suggestions={suggestions}
     />
   );
 };

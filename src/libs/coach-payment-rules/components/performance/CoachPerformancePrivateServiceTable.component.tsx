@@ -65,22 +65,21 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
       >
         {props.displayChip && (
           <Chip
-            variant="outlined"
             color="primary"
-            style={{ marginTop: 15, marginLeft: 10 }}
             label={
               <Typography variant="subtitle2">
                 {t('paymentRules:tabs.appointment')}
               </Typography>
             }
+            style={{ marginTop: 15, marginLeft: 10 }}
+            variant="outlined"
           />
         )}
         {!props.asCoach && !props.displayChip && (
           <div className={classes.downloadButtonsContainer}>
             <Button
-              variant="contained"
-              color="primary"
               className={classes.buttonCSV}
+              color="primary"
               disabled={!performances}
               onClick={() =>
                 downloadAsCsv(
@@ -115,16 +114,17 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                   'payroll.csv',
                 )
               }
+              variant="contained"
             >
               <AttachIcon style={{ marginRight: 12 }} />
               {t('table.downloadCSV')}
             </Button>
             <Button
-              variant="contained"
+              className={classes.buttonPDF}
+              color="secondary"
               disabled={!performances || disablePdfButton}
               onClick={handlePdfExportation}
-              color="secondary"
-              className={classes.buttonPDF}
+              variant="contained"
             >
               <AttachIcon style={{ marginRight: 12 }} />
               {t('table.downloadPDF')}
@@ -168,16 +168,16 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
               <TableCell colSpan={9}>
                 {!!coach_payment_error && (
                   <Typography
-                    color="error"
                     className={classes.tableRowErrorHelper}
+                    color="error"
                   >
                     {t('fields.error')}
                   </Typography>
                 )}
                 {!!unpaid_private_booking_exists && (
                   <Typography
-                    color="error"
                     className={classes.tableRowUnpaidHelper}
+                    color="error"
                   >
                     {t('fields.unpaid_private_booking')}
                   </Typography>
@@ -250,11 +250,10 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                 {!props.hideRuleSetter && (
                   <TableCell>
                     <CoachPaymentRuleSelector
-                      id="payment_rule_per_private_service"
-                      coachPaymentRulesList={coachPaymentRulesList}
-                      selected={private_service_perf.coach_payment_rule}
-                      isOverride
                       enableReset
+                      isOverride
+                      coachPaymentRulesList={coachPaymentRulesList}
+                      id="payment_rule_per_private_service"
                       onChange={({ value }: { value: number }) => {
                         updatePrivateBookingCoachPaymentRule({
                           privateBookingId:
@@ -263,6 +262,7 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                           associatedCoachId: coach.associated_coach_id,
                         });
                       }}
+                      selected={private_service_perf.coach_payment_rule}
                     />
                   </TableCell>
                 )}

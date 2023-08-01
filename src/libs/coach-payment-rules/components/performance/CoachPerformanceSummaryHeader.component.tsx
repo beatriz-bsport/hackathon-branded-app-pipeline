@@ -107,34 +107,34 @@ export function CoachPerformanceSummary(props: Props) {
     (totalMarginValuePrivateBookings || 0) -
     (totalOnPrivateServices || 0);
   return (
-    <Grid container direction="row" spacing={2} className={classes.root}>
-      <Grid item xs={12} md={props.isCoach ? 4 : 3} id="nbOffersTotal">
+    <Grid container className={classes.root} direction="row" spacing={2}>
+      <Grid item id="nbOffersTotal" md={props.isCoach ? 4 : 3} xs={12}>
         <Figure
-          name={t('performance.nbOffersTotal')}
-          count={nbSessions + nbPrivateServices || '-'}
           color="red"
+          count={nbSessions + nbPrivateServices || '-'}
+          name={t('performance.nbOffersTotal')}
         />
       </Grid>
       {props.isCoach ? (
-        <Grid item xs={12} md={props.isCoach ? 4 : 3} id="durationBookings">
+        <Grid item id="durationBookings" md={props.isCoach ? 4 : 3} xs={12}>
           <Figure
-            name={t('performance.durationBookings')}
-            count={totalDuration ? `${formatMinutes(totalDuration, t)}` : '-'}
             color="marine"
+            count={totalDuration ? `${formatMinutes(totalDuration, t)}` : '-'}
+            name={t('performance.durationBookings')}
           />
         </Grid>
       ) : (
-        <Grid item xs={12} md={props.isCoach ? 4 : 3} id="nbBookings">
+        <Grid item id="nbBookings" md={props.isCoach ? 4 : 3} xs={12}>
           <Figure
-            name={t('performance.nbBookings')}
-            count={(nbBookings || 0) + (nbPrivateServiceAttendants || 0) || '-'}
             color="marine"
+            count={(nbBookings || 0) + (nbPrivateServiceAttendants || 0) || '-'}
+            name={t('performance.nbBookings')}
           />
         </Grid>
       )}
-      <Grid item xs={12} md={props.isCoach ? 4 : 3}>
+      <Grid item md={props.isCoach ? 4 : 3} xs={12}>
         <Figure
-          name={t('performance.payment')}
+          color="green"
           count={
             totalOnBookings || totalOnPrivateServices
               ? `${getCurrencyDisplayWithPrice(
@@ -144,19 +144,19 @@ export function CoachPerformanceSummary(props: Props) {
                 )}`
               : '-'
           }
-          color="green"
+          name={t('performance.payment')}
         />
       </Grid>
       {!props.isCoach && (
-        <Grid item xs={12} md={props.isCoach ? 4 : 3}>
+        <Grid item md={props.isCoach ? 4 : 3} xs={12}>
           <Figure
-            name={t('performance.totalNetGain')}
+            color="green"
             count={
               totalNetGain && totalNetGain !== 0
                 ? `${getCurrencyDisplayWithPrice(totalNetGain.toFixed(2))}`
                 : '-'
             }
-            color="green"
+            name={t('performance.totalNetGain')}
           />
         </Grid>
       )}

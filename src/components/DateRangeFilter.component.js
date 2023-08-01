@@ -50,32 +50,32 @@ export function DateRangeFilter(props: Props) {
   return (
     <Grid
       container
+      className={classes.root}
       direction="row"
       justify="space-between"
-      className={classes.root}
     >
       {!props.hideDatePickers ? (
         <Grid item>
           <DateInput
             className={classes.dateInput}
             id="date"
-            label={t('dateRange.start')}
-            type="date"
-            value={dateRange.start.format('YYYY-MM-DD')}
-            onChange={(value) => onChange(value, dateRange.end, null)}
             InputLabelProps={{
               shrink: true,
             }}
+            label={t('dateRange.start')}
+            onChange={(value) => onChange(value, dateRange.end, null)}
+            type="date"
+            value={dateRange.start.format('YYYY-MM-DD')}
           />
           <DateInput
             id="date"
-            label={t('dateRange.end')}
-            type="date"
-            value={dateRange.end.format('YYYY-MM-DD')}
-            onChange={(value) => onChange(dateRange.start, value, null)}
             InputLabelProps={{
               shrink: true,
             }}
+            label={t('dateRange.end')}
+            onChange={(value) => onChange(dateRange.start, value, null)}
+            type="date"
+            value={dateRange.end.format('YYYY-MM-DD')}
           />
         </Grid>
       ) : null}
@@ -85,11 +85,11 @@ export function DateRangeFilter(props: Props) {
           return (
             <Button
               key={range.key}
-              variant="outlined"
-              size="small"
-              color={selectedColor}
               className={classes.button}
+              color={selectedColor}
               onClick={() => onChange(range.start, range.end, range.key)}
+              size="small"
+              variant="outlined"
             >
               {t(range.key)}
             </Button>

@@ -15,9 +15,9 @@ export const SelectField = withTranslation([])((props) => {
       {({ field, form: { setFieldValue, touched, errors } }) => {
         return (
           <FormControl
+            error={!!(touched[field.name] && errors[field.name])}
             fullWidth={fullWidth}
             required={required}
-            error={!!(touched[field.name] && errors[field.name])}
           >
             <PaymentPackSelector
               nameCypress={`select-${props.name}`}
@@ -38,11 +38,11 @@ export const SelectField = withTranslation([])((props) => {
             />
             {!props.disabled && (
               <input
-                tabIndex={-1}
                 autoComplete="off"
-                style={{ opacity: 0, height: 0 }}
-                value={field.value}
                 required={required}
+                style={{ opacity: 0, height: 0 }}
+                tabIndex={-1}
+                value={field.value}
               />
             )}
             <ErrorMessage {...props}>

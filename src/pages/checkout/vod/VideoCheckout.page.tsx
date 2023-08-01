@@ -254,21 +254,16 @@ export class VideoCheckoutBase extends Component<Props, State> {
             )}
           {consumerPassLength !== 0 && (
             <CollapsibleSection
+              in
               title={`${t(
                 'bookerMethod.section.consumerPass',
               )} (${consumerPassLength})`}
-              in
             >
               {this.props.consumerPaymentPackList.map(
                 (consumerPaymentPack: ConsumerPaymentPack<PaymentPack>) => (
-                  <div className={classes.item} key={consumerPaymentPack.id}>
+                  <div key={consumerPaymentPack.id} className={classes.item}>
                     <RadioItem
                       disabled={this.state.processing}
-                      selected={
-                        consumerPaymentPack.id === this.state.selectedPass.id &&
-                        this.state.selectedPass.buyable_item_identifier ===
-                          BOOKER_ITEM_PASS
-                      }
                       onClick={() =>
                         this.selectBookerMethod(
                           consumerPaymentPack.id,
@@ -280,19 +275,19 @@ export class VideoCheckoutBase extends Component<Props, State> {
                           consumerPaymentPack={consumerPaymentPack}
                         />
                       )}
+                      selected={
+                        consumerPaymentPack.id === this.state.selectedPass.id &&
+                        this.state.selectedPass.buyable_item_identifier ===
+                          BOOKER_ITEM_PASS
+                      }
                     />
                   </div>
                 ),
               )}
               {this.props.privateConsumerPassList.map((privateConsumerPass) => (
-                <div className={classes.item} key={privateConsumerPass.id}>
+                <div key={privateConsumerPass.id} className={classes.item}>
                   <RadioItem
                     disabled={this.state.processing}
-                    selected={
-                      privateConsumerPass.id === this.state.selectedPass.id &&
-                      this.state.selectedPass.buyable_item_identifier ===
-                        BOOKER_ITEM_PRIVATE_PASS
-                    }
                     onClick={() =>
                       this.selectBookerMethod(
                         privateConsumerPass.id,
@@ -304,6 +299,11 @@ export class VideoCheckoutBase extends Component<Props, State> {
                         privateConsumerPass={privateConsumerPass}
                       />
                     )}
+                    selected={
+                      privateConsumerPass.id === this.state.selectedPass.id &&
+                      this.state.selectedPass.buyable_item_identifier ===
+                        BOOKER_ITEM_PRIVATE_PASS
+                    }
                   />
                 </div>
               ))}
@@ -311,41 +311,36 @@ export class VideoCheckoutBase extends Component<Props, State> {
           )}
           {passLength > 0 && (
             <CollapsibleSection
-              title={`${t('bookerMethod.section.pass')} (${passLength})`}
               in
+              title={`${t('bookerMethod.section.pass')} (${passLength})`}
             >
               {this.props.paymentPackList.map((paymentPack: PaymentPack) => (
-                <div className={classes.item} key={paymentPack.id}>
+                <div key={paymentPack.id} className={classes.item}>
                   <RadioItem
                     disabled={this.state.processing}
-                    selected={
-                      paymentPack.id === this.state.selectedPass.id &&
-                      this.state.selectedPass.buyable_item_identifier ===
-                        BUYABLE_ITEM_PASS
-                    }
                     onClick={() =>
                       this.selectBookerMethod(paymentPack.id, BUYABLE_ITEM_PASS)
                     }
                     renderItem={() => (
                       <PaymentPackBookableItem
-                        paymentPack={paymentPack}
                         hideCredits={
                           this.props.theme.hide_credits_for_customers
                         }
+                        paymentPack={paymentPack}
                       />
                     )}
+                    selected={
+                      paymentPack.id === this.state.selectedPass.id &&
+                      this.state.selectedPass.buyable_item_identifier ===
+                        BUYABLE_ITEM_PASS
+                    }
                   />
                 </div>
               ))}
               {this.props.privatePassList.map((privatePass) => (
-                <div className={classes.item} key={privatePass.id}>
+                <div key={privatePass.id} className={classes.item}>
                   <RadioItem
                     disabled={this.state.processing}
-                    selected={
-                      privatePass.id === this.state.selectedPass.id &&
-                      this.state.selectedPass.buyable_item_identifier ===
-                        BUYABLE_ITEM_PRIVATE_PASS
-                    }
                     onClick={() =>
                       this.selectBookerMethod(
                         privatePass.id,
@@ -354,12 +349,17 @@ export class VideoCheckoutBase extends Component<Props, State> {
                     }
                     renderItem={() => (
                       <PrivatePassBookableItem
-                        privatePass={privatePass}
                         hideCredits={
                           this.props.theme.hide_credits_for_customers
                         }
+                        privatePass={privatePass}
                       />
                     )}
+                    selected={
+                      privatePass.id === this.state.selectedPass.id &&
+                      this.state.selectedPass.buyable_item_identifier ===
+                        BUYABLE_ITEM_PRIVATE_PASS
+                    }
                   />
                 </div>
               ))}
@@ -367,19 +367,14 @@ export class VideoCheckoutBase extends Component<Props, State> {
           )}
           {this.props.paymentComboList.length > 0 && (
             <CollapsibleSection
+              in
               title={`${t('bookerMethod.section.combo')} (${
                 this.props.paymentComboList.length
               })`}
-              in
             >
               {this.props.paymentComboList.map((pc) => (
-                <div className={classes.item} key={pc.id}>
+                <div key={pc.id} className={classes.item}>
                   <RadioItem
-                    selected={
-                      pc.id === this.state.selectedPass.id &&
-                      this.state.selectedPass.buyable_item_identifier ===
-                        BUYABLE_ITEM_COMBO_ITEM
-                    }
                     disabled={this.state.processing}
                     onClick={() =>
                       this.selectBookerMethod(pc.id, BUYABLE_ITEM_COMBO_ITEM)
@@ -387,6 +382,11 @@ export class VideoCheckoutBase extends Component<Props, State> {
                     renderItem={() => (
                       <PaymentComboBookableItem paymentCombo={pc} />
                     )}
+                    selected={
+                      pc.id === this.state.selectedPass.id &&
+                      this.state.selectedPass.buyable_item_identifier ===
+                        BUYABLE_ITEM_COMBO_ITEM
+                    }
                   />
                 </div>
               ))}
@@ -395,18 +395,18 @@ export class VideoCheckoutBase extends Component<Props, State> {
         </div>
         <Button
           color="primary"
-          style={{ position: 'sticky', bottom: 0, width: '100%' }}
-          variant="contained"
           disabled={
             !this.state.selectedPass.id ||
             this.state.processing ||
             this.props.loading
           }
           onClick={this.onClickBookVideo}
+          style={{ position: 'sticky', bottom: 0, width: '100%' }}
+          variant="contained"
         >
           <div className={classes.innerButton}>
             {this.props.loading || this.state.processing ? (
-              <CircularProgress size={22} color="inherit" />
+              <CircularProgress color="inherit" size={22} />
             ) : (
               t('bookerMethod.actions.bookVod')
             )}

@@ -113,30 +113,30 @@ export class GiftcardDetailPage extends Component<Props> {
     }
     return (
       <Grid container spacing={2}>
-        <Grid item sm={12} md={6}>
+        <Grid item md={6} sm={12}>
           <GiftcardCardDetail
-            snackbarSuccess={this.props.snackbarSuccess}
             giftcard={this.props.giftcard}
+            snackbarSuccess={this.props.snackbarSuccess}
           />
         </Grid>
-        <Grid item sm={12} md={6} style={{ width: '100%' }}>
+        <Grid item md={6} sm={12} style={{ width: '100%' }}>
           <Paper className={classes.fullWidth}>
             <PaginatedListBase
+              itemPerPage={PAGE_SIZE}
+              items={this.props.consumerGiftcardList}
               listProps={{
                 disablePadding: 'true',
                 dense: 'true',
               }}
-              items={this.props.consumerGiftcardList}
-              nbItems={this.props.consumerGiftcardCount}
               loading={this.props.consumerGiftcardLoading}
-              page={this.props.consumerGiftcardPage}
-              itemPerPage={PAGE_SIZE}
+              nbItems={this.props.consumerGiftcardCount}
               onPageRequested={(page: number, pageSize: number) =>
                 this.props.fetchConsumerGiftcardList(page, pageSize)
               }
+              page={this.props.consumerGiftcardPage}
               renderEmpty={() => (
                 <div className={classes.emptyContainer}>
-                  <Typography variant="caption" color="textSecondary">
+                  <Typography color="textSecondary" variant="caption">
                     {t('consumerGiftcard.isEmpty')}
                   </Typography>
                   <Divider />
@@ -145,37 +145,37 @@ export class GiftcardDetailPage extends Component<Props> {
               renderItem={(cgc: WithSender<WithReceiver<ConsumerGiftcard>>) => (
                 <ConsumerGiftcardListItem
                   key={cgc.id}
-                  consumerGiftcard={cgc}
+                  divider
                   showReceiver
                   showSender
-                  memberSender={cgc.src_member}
-                  memberReceiver={cgc.dst_member}
+                  consumerGiftcard={cgc}
                   giftcard={this.props.giftcard}
-                  onClickSender={this.props.goToMemberGiftcard}
-                  divider
+                  memberReceiver={cgc.dst_member}
+                  memberSender={cgc.src_member}
                   onClickReceiver={
                     cgc.dst_member && this.props.goToMemberGiftcard
                   }
+                  onClickSender={this.props.goToMemberGiftcard}
                 />
               )}
             />
           </Paper>
         </Grid>
         <BottomActionsButton
-          onEdit={
-            this.props.giftcard ? () => this.props.setEditIsOpen(true) : null
-          }
           onDelete={
             !this.props.giftcard?.is_shared_giftcard
               ? () => this.props.setDeleteIsOpen(true)
               : null
           }
+          onEdit={
+            this.props.giftcard ? () => this.props.setEditIsOpen(true) : null
+          }
         />
         <GiftcardFormDrawer
-          open={!!this.props.editIsOpen}
-          onSubmit={this.props.updateGiftcard}
-          onClose={() => this.props.setEditIsOpen(false)}
           initial={this.props.giftcard}
+          onClose={() => this.props.setEditIsOpen(false)}
+          onSubmit={this.props.updateGiftcard}
+          open={!!this.props.editIsOpen}
         />
         {!!this.props.deleteIsOpen && (
           <GiftcardDeleteDialog

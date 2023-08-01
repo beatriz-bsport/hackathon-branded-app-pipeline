@@ -76,12 +76,12 @@ export function TagEditor(props: Props) {
   if (editMode) {
     return (
       <TagGroupForm
-        tagGroup={tagGroup}
-        updateTag={updateTag}
         deleteTag={deleteTag}
         deleteTagGroup={deleteTagGroup}
-        updateTagGroup={updateTagGroup}
         onClose={handleTagGroupFormClose}
+        tagGroup={tagGroup}
+        updateTag={updateTag}
+        updateTagGroup={updateTagGroup}
       />
     );
   }
@@ -89,7 +89,7 @@ export function TagEditor(props: Props) {
   return (
     <div className={classes.container}>
       <div style={{ minWidth: '100px' }}>
-        <Typography variant="subtitle2" noWrap>
+        <Typography noWrap variant="subtitle2">
           {tagGroup.name}
         </Typography>
       </div>
@@ -97,21 +97,21 @@ export function TagEditor(props: Props) {
       <div className={classes.tagSelectorContainer}>
         {props.createMode ? (
           <TagCreator
-            onCreate={handleCreateTag}
-            onCancel={handleOnCancel}
             disabled={props.disabled}
+            onCancel={handleOnCancel}
+            onCreate={handleCreateTag}
           />
         ) : (
           <TagSelector
-            tag={tag}
-            tagGroup={tagGroup}
-            onToogleCreate={handleToggleCreate}
-            selectTag={props.selectTag}
-            untag={props.untag}
             deleteTagGroup={deleteTagGroup}
+            disabled={disabled}
             editTagGroup={handleEditTag}
             onCreate={onCreate}
-            disabled={disabled}
+            onToogleCreate={handleToggleCreate}
+            selectTag={props.selectTag}
+            tag={tag}
+            tagGroup={tagGroup}
+            untag={props.untag}
           />
         )}
       </div>

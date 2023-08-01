@@ -29,7 +29,7 @@ export const NotificationBellWithBadge: React.FC<Props> = ({
   return (
     <>
       <IconButton onClick={onClick}>
-        <Badge badgeContent={badgeContent} color="primary" showZero>
+        <Badge showZero badgeContent={badgeContent} color="primary">
           <ToolTip title={t(toolTipTitle)}>
             {isDisabled || !badgeContent ? (
               <NotificationsOff />

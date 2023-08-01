@@ -14,10 +14,10 @@ export const InstalmentPaymentRouter = () => {
   return (
     <Switch>
       <Route
-        path="/instalment-payment/:instalmentPaymentId"
         component={ProgramList}
+        path="/instalment-payment/:instalmentPaymentId"
       />
-      <Route path="/" component={ProgramList} />
+      <Route component={ProgramList} path="/" />
     </Switch>
   );
 };

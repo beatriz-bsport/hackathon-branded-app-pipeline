@@ -24,10 +24,10 @@ type Props = {
 export const TaskForm = (props: Props) => (
   <div>
     <TextField
-      name="name"
-      label={props.t('task.form.name.label')}
-      required
       fullWidth
+      required
+      label={props.t('task.form.name.label')}
+      name="name"
     />
     <FieldArray name="task_owner_ids">
       {({
@@ -39,22 +39,22 @@ export const TaskForm = (props: Props) => (
       }) => (
         <div>
           <UserSelector
-            helperText={props.t('task.form.task_owner.helperText')}
-            userList={props.staffList.filter(
-              (s) => !task_owner_ids.includes(s.id),
-            )}
             multi
+            helperText={props.t('task.form.task_owner.helperText')}
             onChange={(id) => {
               if (id) push(id);
             }}
+            userList={props.staffList.filter(
+              (s) => !task_owner_ids.includes(s.id),
+            )}
           />
           {task_owner_ids.map((id, i) => (
             <UserItem
               key={`${id}-${i}`}
               dense
               isFocused
-              user={props.staffList.find((u) => u.id === id)}
               onDelete={() => remove(i)}
+              user={props.staffList.find((u) => u.id === id)}
             />
           ))}
         </div>
@@ -65,11 +65,11 @@ export const TaskForm = (props: Props) => (
     </div>
     <div className={props.classes.paddedField}>
       <TextField
-        name="description"
-        label={props.t('task.form.description.label')}
-        required
         fullWidth
         multiline
+        required
+        label={props.t('task.form.description.label')}
+        name="description"
         rows={10}
         variant="outlined"
       />

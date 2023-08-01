@@ -27,12 +27,12 @@ export const PrivateBookingAttachCoachDialog = (props: Props) => {
           .filter((c) => !c.disabled)
           .map((c) => (
             <CoachListItem
+              key={c.id}
               noEdit
+              coach={c}
               onCoachSelected={() => {
                 props.onSubmit({ coach: c.id });
               }}
-              coach={c}
-              key={c.id}
             />
           ))}
       </DialogContent>

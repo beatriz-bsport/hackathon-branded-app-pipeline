@@ -139,7 +139,7 @@ export class MarketingRuleListPrivateBooking extends React.PureComponent<
       const byKind = bySession[sessionNumber];
 
       return (
-        <div className={classes.bySessionItem} key={sessionNumber}>
+        <div key={sessionNumber} className={classes.bySessionItem}>
           <div className={classes.sessionTitleContainer}>
             <EventIcon />
 
@@ -151,16 +151,16 @@ export class MarketingRuleListPrivateBooking extends React.PureComponent<
           <div className={classes.byKindContainer}>
             {Object.entries(byKind).map(([kind, notifications]) => {
               return (
-                <div className={classes.byKindItem} key={kind}>
+                <div key={kind} className={classes.byKindItem}>
                   <Typography>
                     • {getLabelForKind(parseInt(kind), t)}
                   </Typography>
                   <MarketingNotificationsList
-                    notifications={notifications}
                     emailSummariesById={this.props.emailSummariesById}
+                    notifications={notifications}
                     onClickNotification={this.props.onClickNotification}
-                    smartLists={this.props.smartLists}
                     onUpdateNotification={this.props.onUpdateNotification}
+                    smartLists={this.props.smartLists}
                   />
                 </div>
               );
@@ -202,8 +202,8 @@ export class MarketingRuleListPrivateBooking extends React.PureComponent<
     return (
       <div className={classes.container}>
         <ButtonBase
-          onClick={() => this.setShowSection(!this.state.showSection)}
           className={classes.buttonBaseHeader}
+          onClick={() => this.setShowSection(!this.state.showSection)}
         >
           <Typography variant="h5">
             {t('marketing:notifications.groupTitle.privateBooking')}
@@ -219,7 +219,7 @@ export class MarketingRuleListPrivateBooking extends React.PureComponent<
         {Object.entries(this.props.privateBookingNotifications).map(
           ([key, group]) => (
             <Collapse in={this.state.showSection}>
-              <div className={classes.itemContainer} key={key}>
+              <div key={key} className={classes.itemContainer}>
                 <ButtonBase
                   className={classes.buttonTitleContainer}
                   onClick={() => {

@@ -22,36 +22,36 @@ export const VideoCardList = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['video']);
   return (
-    <Grid alignItems="stretch" spacing={2} container direction="row">
+    <Grid container alignItems="stretch" direction="row" spacing={2}>
       {props.videoList.map((v) => (
-        <Grid key={v.id} item xs={12} sm={6} md={4} lg={3}>
+        <Grid key={v.id} item lg={3} md={4} sm={6} xs={12}>
           <VideoItem
-            video={v}
+            hideCoach={props.hideCoach}
+            loading={v.coaches.includes(undefined)}
+            openVideo={props.openVideo}
             purchasedVideo={props.purchasedVideoList?.find(
               (pv) => pv.video === v.id,
             )}
-            hideCoach={props.hideCoach}
-            openVideo={props.openVideo}
-            loading={v.coaches.includes(undefined)}
+            video={v}
           />
         </Grid>
       ))}
       {props.loading &&
         [0, 1, 2, 3, 4].map((i) => (
-          <Grid key={i} item xs={12} sm={6} md={4} lg={3}>
-            <VideoItem video={{ coaches: [] }} loading />
+          <Grid key={i} item lg={3} md={4} sm={6} xs={12}>
+            <VideoItem loading video={{ coaches: [] }} />
           </Grid>
         ))}
       {!props.loading && !props.videoList.length && (
         <div className={classes.buttonContainer}>
-          <Typography variant="h6" component="p" color="textSecondary">
+          <Typography color="textSecondary" component="p" variant="h6">
             {t('video.search.isEmpty')}
           </Typography>
         </div>
       )}
       {!props.loading && !!props.hasMoreVideo && !!props.onShowMore && (
         <div className={classes.buttonContainer}>
-          <Button variant="outlined" onClick={props.onShowMore} color="primary">
+          <Button color="primary" onClick={props.onShowMore} variant="outlined">
             {t('video.showMore')}
           </Button>
         </div>

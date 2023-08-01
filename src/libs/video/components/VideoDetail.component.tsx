@@ -101,8 +101,8 @@ export class VideoDetail extends Component<Props, State> {
               {t('details.title')}
             </Typography>
             <VodVideoAnalytics
-              loading={this.props.analytics.loading || !selectedVideoPurchase}
               data={this.props.analytics.data}
+              loading={this.props.analytics.loading || !selectedVideoPurchase}
               videoDateCreated={selectedVideoPurchase?.video?.date_created}
             />
           </div>
@@ -119,23 +119,23 @@ export class VideoDetail extends Component<Props, State> {
               {this.props.relatedVideoPurchaseList?.length && (
                 <div className={classes.rental}>
                   <IconButton
-                    size="small"
                     disabled={this.state.currentPage === 1}
                     onClick={() => this.onPageChange(-1)}
+                    size="small"
                   >
                     <NavigateBeforeIcon fontSize="small" />
                   </IconButton>
-                  <Typography variant="body2" className={classes.rentText}>
+                  <Typography className={classes.rentText} variant="body2">
                     {`${this.state.currentPage}/${this.props.relatedVideoPurchaseList.length}`}
                   </Typography>
                   <IconButton
                     className={classes.rentText}
-                    size="small"
                     disabled={
                       this.state.currentPage ===
                       this.props.relatedVideoPurchaseList.length
                     }
                     onClick={() => this.onPageChange(1)}
+                    size="small"
                   >
                     <NavigateNextIcon fontSize="small" />
                   </IconButton>
@@ -144,8 +144,8 @@ export class VideoDetail extends Component<Props, State> {
             </div>
             <Typography
               className={classes.marginTop}
-              variant="body2"
               color="textSecondary"
+              variant="body2"
             >
               {`${moment(selectedVideoPurchase.date_created).format(
                 'L',
@@ -174,10 +174,10 @@ export class VideoDetail extends Component<Props, State> {
             </Typography>
             <Paper className={this.props.classes.paper}>
               <InvoiceListItem
+                invoice={this.props.invoice}
                 onClick={() =>
                   this.props.onInvoiceClick(this.props.invoice.uuid)
                 }
-                invoice={this.props.invoice}
               />
             </Paper>
           </div>
@@ -190,27 +190,27 @@ export class VideoDetail extends Component<Props, State> {
             </Typography>
             <Paper className={classes.paperContainer}>
               <ConsumerPackRowItem
+                hideConsumer
                 consumerPack={selectedVideoPurchase.consumer_payment_pack}
-                paymentPack={
-                  selectedVideoPurchase.consumer_payment_pack
-                    ? selectedVideoPurchase.consumer_payment_pack.payment_pack
-                    : null
+                decrementCredit={() =>
+                  this.props.decrementCredit(
+                    selectedVideoPurchase.consumer_payment_pack.id,
+                  )
+                }
+                incrementCredit={() =>
+                  this.props.incrementCredit(
+                    selectedVideoPurchase.consumer_payment_pack.id,
+                  )
                 }
                 onClick={() =>
                   this.props.onConsumerPassSelected(
                     selectedVideoPurchase.consumer_payment_pack.id,
                   )
                 }
-                hideConsumer
-                incrementCredit={() =>
-                  this.props.incrementCredit(
-                    selectedVideoPurchase.consumer_payment_pack.id,
-                  )
-                }
-                decrementCredit={() =>
-                  this.props.decrementCredit(
-                    selectedVideoPurchase.consumer_payment_pack.id,
-                  )
+                paymentPack={
+                  selectedVideoPurchase.consumer_payment_pack
+                    ? selectedVideoPurchase.consumer_payment_pack.payment_pack
+                    : null
                 }
               />
             </Paper>
@@ -223,27 +223,27 @@ export class VideoDetail extends Component<Props, State> {
             </Typography>
             <Paper className={classes.paperContainer}>
               <ConsumerPackRowItem
+                hideConsumer
                 consumerPack={selectedVideoPurchase.private_consumer_pass}
-                paymentPack={
-                  selectedVideoPurchase.private_consumer_pass
-                    ? selectedVideoPurchase.private_consumer_pass.private_pass
-                    : null
+                decrementCredit={() =>
+                  this.props.decrementPrivatePassCredit(
+                    selectedVideoPurchase.private_consumer_pass.id,
+                  )
+                }
+                incrementCredit={() =>
+                  this.props.incrementPrivatePassCredit(
+                    selectedVideoPurchase.private_consumer_pass.id,
+                  )
                 }
                 onClick={() =>
                   this.props.onPrivatePassSelected(
                     selectedVideoPurchase.private_consumer_pass.id,
                   )
                 }
-                hideConsumer
-                incrementCredit={() =>
-                  this.props.incrementPrivatePassCredit(
-                    selectedVideoPurchase.private_consumer_pass.id,
-                  )
-                }
-                decrementCredit={() =>
-                  this.props.decrementPrivatePassCredit(
-                    selectedVideoPurchase.private_consumer_pass.id,
-                  )
+                paymentPack={
+                  selectedVideoPurchase.private_consumer_pass
+                    ? selectedVideoPurchase.private_consumer_pass.private_pass
+                    : null
                 }
               />
             </Paper>

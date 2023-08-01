@@ -65,8 +65,8 @@ const NonEditableMessage = ({
         </Typography>
         <Button
           className={classes.buttonWithMargin}
-          onClick={() => goToSubscription(invoice.billing_plan)}
           color="primary"
+          onClick={() => goToSubscription(invoice.billing_plan)}
           variant="outlined"
         >
           {t('actions.goToSubscription')}
@@ -94,9 +94,9 @@ export const InvoiceEditor = (props: Props) => {
           <div className={classes.uneditableContainer}>
             <NonEditableMessage
               classes={classes}
-              t={t}
-              invoice={props.invoice}
               goToSubscription={props.goToSubscription}
+              invoice={props.invoice}
+              t={t}
             />
           </div>
         ) : (
@@ -104,25 +104,25 @@ export const InvoiceEditor = (props: Props) => {
             {!props.invoice && props.step === STEP_INVOICE_ITEM && (
               <InvoiceItemEditor
                 availableBuyableItems={props.availableBuyableItems}
-                onAddBuyableItem={props.onAddBuyableItem}
                 member={props.member}
+                onAddBuyableItem={props.onAddBuyableItem}
               />
             )}
             {(!!props.invoice || props.step === STEP_PAYMENT) && (
               <PaymentForm
-                requestSetupIntentSecret={props.requestSetupIntentSecret}
-                refreshSavedPaymentMethodList={
-                  props.refreshSavedPaymentMethodList
-                }
-                onCancel={() => props.setStep(STEP_INVOICE_ITEM)}
-                savedPaymentMethodList={props.savedPaymentMethodList}
-                onSubmit={props.onAddPaymentItem}
                 amountDue={
                   Math.max(
                     props.amountInvoiceItem - props.amountPaymentItem,
                     0,
                   ) || 0
                 }
+                onCancel={() => props.setStep(STEP_INVOICE_ITEM)}
+                onSubmit={props.onAddPaymentItem}
+                refreshSavedPaymentMethodList={
+                  props.refreshSavedPaymentMethodList
+                }
+                requestSetupIntentSecret={props.requestSetupIntentSecret}
+                savedPaymentMethodList={props.savedPaymentMethodList}
               />
             )}
           </div>

@@ -13,10 +13,10 @@ const OfferFormSkeleton = () => {
     <div className={classes.container}>
       <div className={classes.headingContainer}>
         <Skeleton
+          className={classes.skeletonBase}
+          height={56}
           variant="rect"
           width={200}
-          height={56}
-          className={classes.skeletonBase}
         />
       </div>
 
@@ -26,16 +26,16 @@ const OfferFormSkeleton = () => {
 
       <div className={classes.actionsContainer}>
         <Skeleton
+          className={classes.skeletonBase}
+          height={36}
           variant="rect"
           width={82}
-          height={36}
-          className={classes.skeletonBase}
         />
         <Skeleton
+          className={classes.skeletonBase}
+          height={36}
           variant="rect"
           width={82}
-          height={36}
-          className={classes.skeletonBase}
         />
       </div>
     </div>

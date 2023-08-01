@@ -104,55 +104,60 @@ export function EstablishmentBillingGroupForm(props: Props) {
               establishments: [],
             }
       }
-      validationSchema={EstablishmentBillingGroupSchema}
       onSubmit={(values) => {
         return props.onSubmit({ ...values });
       }}
+      validationSchema={EstablishmentBillingGroupSchema}
     >
       {(formik) => (
         <form>
           <>
             <Dialog
-              open={props.open}
-              onClose={props.onClose}
+              fullWidth
               aria-labelledby="establishment-billing-group-form"
               maxWidth="xs"
-              fullWidth
+              onClose={props.onClose}
+              open={props.open}
             >
               <DialogTitle id="establishment-billing-group-form">
                 {t('billing_group.form.dialog.title')}
               </DialogTitle>
               <DialogContent>
                 <TextField
-                  id="textfield_establishment_billing_group_name"
-                  name="name"
-                  label={t('billing_group.form.name')}
                   fullWidth
                   required
+                  id="textfield_establishment_billing_group_name"
+                  label={t('billing_group.form.name')}
+                  name="name"
                 />
                 <ErrorMessage name="name">
                   {(error_msg) => (
-                    <Typography variant="caption" color="error">
+                    <Typography color="error" variant="caption">
                       {t(`${error_msg}`)}
                     </Typography>
                   )}
                 </ErrorMessage>
                 <div className={classes.localizationLabel}>
-                  <Typography variant="subtitle1" color="initial">
+                  <Typography color="initial" variant="subtitle1">
                     {t('billing_group.form.associated_localizations')}
                   </Typography>
                 </div>
                 <div className={classes.establishmentSelector}>
                   <EstablishmentSelector
+                    closeMenuOnSelect
+                    isClearable
+                    isOptionDisabled
+                    noMulti
+                    nullCurrentValue
+                    disabled={isSubmitting}
                     establishments={props.establishments?.filter(
                       (est: Establishment) =>
                         !est.establishment_billing_group_id ||
                         est.establishment_billing_group_id ===
                           props.initial?.id,
                     )}
-                    noMulti
-                    closeMenuOnSelect
-                    nullCurrentValue
+                    isLoading={loading}
+                    selectedEstablishments={formik.values.establishments}
                     selectOption={async (item: {
                       value: number;
                       label: string;
@@ -167,16 +172,11 @@ export function EstablishmentBillingGroupForm(props: Props) {
                       });
                       setLoading(false);
                     }}
-                    disabled={isSubmitting}
-                    isClearable
-                    selectedEstablishments={formik.values.establishments}
-                    isLoading={loading}
-                    isOptionDisabled
                   />
                 </div>
                 <ErrorMessage name="name">
                   {(error_msg) => (
-                    <Typography variant="caption" color="error">
+                    <Typography color="error" variant="caption">
                       {t(`${error_msg}`)}
                     </Typography>
                   )}
@@ -194,26 +194,26 @@ export function EstablishmentBillingGroupForm(props: Props) {
                       ).map(
                         (group: EstablishmentGroupByAddress, index: number) => (
                           <List
+                            key={index}
                             component="nav"
                             subheader={
                               <ListSubheader
-                                component="div"
                                 className={classes.listSubHeader}
+                                component="div"
                               >
                                 <LocationOnIcon color="primary" />
-                                <Typography variant="caption" color="initial">
+                                <Typography color="initial" variant="caption">
                                   {group.address}
                                 </Typography>
                               </ListSubheader>
                             }
-                            key={index}
                           >
                             {group.establishmentList.map((est) => (
                               <EstablishmentListItem
                                 key={`${index}${est.id}`}
-                                establishment={est}
-                                noDivider
                                 button
+                                noDivider
+                                establishment={est}
                                 onClickDelete={() => {
                                   const establishmentIndex =
                                     formik.values.establishments.findIndex(
@@ -232,22 +232,22 @@ export function EstablishmentBillingGroupForm(props: Props) {
                 </FieldArray>
                 <ErrorMessage name="establishments">
                   {(error_msg) => (
-                    <Typography variant="caption" color="error">
+                    <Typography color="error" variant="caption">
                       {t(`${error_msg}`)}
                     </Typography>
                   )}
                 </ErrorMessage>
               </DialogContent>
               <DialogActions>
-                <Button variant="text" onClick={props.onClose}>
+                <Button onClick={props.onClose} variant="text">
                   {t('group.form.dialog.cancel')}
                 </Button>
                 <Button
-                  id="submit_estabishment_billing_group"
-                  disabled={isSubmitting}
-                  variant="contained"
                   color="primary"
+                  disabled={isSubmitting}
+                  id="submit_estabishment_billing_group"
                   onClick={() => formik.handleSubmit()}
+                  variant="contained"
                 >
                   {t('group.form.dialog.save')}
                 </Button>

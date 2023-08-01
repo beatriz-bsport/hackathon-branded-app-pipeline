@@ -20,7 +20,7 @@ const PrivateConsumerPassBookableItem = (props: Props) => {
 
   return (
     <div className={classes.itemContainer}>
-      <Typography component="span" variant="h6" color="primary">
+      <Typography color="primary" component="span" variant="h6">
         {`${
           privateConsumerPass.private_pass.credits -
           privateConsumerPass.used_credits
@@ -32,12 +32,12 @@ const PrivateConsumerPassBookableItem = (props: Props) => {
           },
         )}`}
       </Typography>
-      <Typography variant="body1" color="textSecondary" align="left">
+      <Typography align="left" color="textSecondary" variant="body1">
         {t('consumerPass.expiresOn', {
           date: formatAsDatetimeAdapted(expirationDate, 'LL'),
         })}
       </Typography>
-      <Typography variant="body1" color="textPrimary" align="left">
+      <Typography align="left" color="textPrimary" variant="body1">
         {props.privateConsumerPass.private_pass.name}
       </Typography>
     </div>

@@ -180,12 +180,9 @@ export class MemberSummaryCard extends PureComponent<Props> {
         <FeatureListProvider>
           {(featureList: FeatureList) => (
             <PhoneItem
-              phoneNumber={
-                member.consumer.phonenumber &&
-                member.consumer.phonenumber.phone_number
-              }
-              accept_contact={member.accept_sms}
               notificationIcon
+              accept_contact={member.accept_sms}
+              hideContactButton={this.props.hideContactButton}
               openSmsDialog={() => {
                 if (!hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)) {
                   window.location = `sms:${member.consumer.phonenumber.phone_number}`;
@@ -193,20 +190,23 @@ export class MemberSummaryCard extends PureComponent<Props> {
                   this.setState({ displayMailDialog: true, sendSms: true });
                 }
               }}
-              hideContactButton={this.props.hideContactButton}
+              phoneNumber={
+                member.consumer.phonenumber &&
+                member.consumer.phonenumber.phone_number
+              }
             />
           )}
         </FeatureListProvider>
         <EmailItem
-          email={member.consumer.email}
-          pending_email={member.pending_email}
-          accept_email={member.accept_email}
           notificationIcon
+          accept_email={member.accept_email}
+          email={member.consumer.email}
+          hideContactButton={this.props.hideContactButton}
           openMailDialog={
             // eslint-disable-next-line
             () => this.setState({ displayMailDialog: true })
           }
-          hideContactButton={this.props.hideContactButton}
+          pending_email={member.pending_email}
         />
         {member.emergency_contact && (
           <EmergencyContactItemComponent
@@ -224,27 +224,27 @@ export class MemberSummaryCard extends PureComponent<Props> {
         )}
         {this.state.displayMailDialog && (
           <DEPRECATEDCommunicationDrawer
-            getEmails={this.props.getEmails}
-            emails={this.props.emails}
-            getEmailDetail={this.props.getEmailDetail}
-            emailDetails={this.props.emailDetails}
-            emailListLoading={this.props.emailListLoading}
-            emailDetailLoading={this.props.emailDetailLoading}
-            send={this.props.sendCommunication}
-            open={this.state.displayMailDialog}
             fullscreen
-            membersToDisplay={[{ ...member, phone: member.phone_number }]}
+            receiversNotEditable
+            actionType={this.state.sendSms ? SEND_SMS : SELECT_EMAIL}
             allIds={[member.id]}
             allIdsWithEmail={member.email ? [member.id] : []}
             allIdsWithPhone={member.phone_number ? [member.id] : []}
+            emailDetailLoading={this.props.emailDetailLoading}
+            emailDetails={this.props.emailDetails}
+            emailListLoading={this.props.emailListLoading}
+            emails={this.props.emails}
+            getEmailDetail={this.props.getEmailDetail}
+            getEmails={this.props.getEmails}
+            membersToDisplay={[{ ...member, phone: member.phone_number }]}
             onCancel={() =>
               this.setState({ displayMailDialog: false, sendSms: false })
             }
-            receiversNotEditable
-            actionType={this.state.sendSms ? SEND_SMS : SELECT_EMAIL}
+            open={this.state.displayMailDialog}
+            resolvedGenericTags={this.props.resolvedGenericTags}
+            send={this.props.sendCommunication}
             showEmailConsentWarning={!member.accept_email}
             showSmsConsentWarning={!member.accept_sms}
-            resolvedGenericTags={this.props.resolvedGenericTags}
           />
         )}
       </List>
@@ -308,7 +308,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
             credit={member.credit_account_balance}
             unpaidAmount={member.total_unpaid_amount}
           >
-            <Avatar user={member.consumer} variant="mediumNoname" noname />
+            <Avatar noname user={member.consumer} variant="mediumNoname" />
           </CreditMemberBadge>
           <div className={this.props.classes.consumerName}>
             <Typography noWrap>
@@ -323,28 +323,28 @@ export class MemberSummaryCard extends PureComponent<Props> {
           <div className={classes.icons}>
             {mergeMember && (
               <Button
-                onClick={mergeMember}
                 color="secondary"
                 disabled={member?.archived}
+                onClick={mergeMember}
               >
                 <Hidden xsDown>{t('common.merge')}</Hidden>
                 <MergeTypeIcon className={classes.rightIcon} />
               </Button>
             )}
             {editMember && (
-              <Button onClick={editMember} color="primary">
+              <Button color="primary" onClick={editMember}>
                 <Hidden xsDown>{t('common.edit')}</Hidden>
                 <EditIcon className={classes.rightIcon} />
               </Button>
             )}
             {goToMember && (
-              <Button onClick={goToMember} color="primary">
+              <Button color="primary" onClick={goToMember}>
                 <Hidden xsDown>{t('common.show')}</Hidden>
                 <ArrowForwardIcon className={classes.rightIcon} />
               </Button>
             )}
             {handleOpenResetPasswordDialog && this.props.member?.email && (
-              <Button onClick={handleOpenResetPasswordDialog} color="primary">
+              <Button color="primary" onClick={handleOpenResetPasswordDialog}>
                 <Hidden xsDown>{t('member:resetPassword.button')}</Hidden>
                 <LockIcon className={classes.rightIcon} />
               </Button>
@@ -367,11 +367,11 @@ export class MemberSummaryCard extends PureComponent<Props> {
     ) {
       return (
         <div className={this.props.classes.termsAndConditions}>
-          <Typography inline component="div" variant="caption" color="default">
+          <Typography inline color="default" component="div" variant="caption">
             <ButtonBase
               onClick={() => this.props.setShowTermsAndConditions(true)}
             >
-              <Typography inline variant="caption" color="secondary">
+              <Typography inline color="secondary" variant="caption">
                 {this.props.t('member:termsAndConditions')}
               </Typography>
             </ButtonBase>
@@ -382,8 +382,8 @@ export class MemberSummaryCard extends PureComponent<Props> {
             })}
           </Typography>
           <Dialog
-            open={this.props.showTermsAndConditions}
             onClose={() => this.props.setShowTermsAndConditions(false)}
+            open={this.props.showTermsAndConditions}
           >
             <DialogContent>
               <TypographyMultiline>
@@ -413,9 +413,9 @@ export class MemberSummaryCard extends PureComponent<Props> {
     if (general_terms_of_use_date_accepted && general_terms_of_use_accepted) {
       return (
         <div className={this.props.classes.termsAndConditions}>
-          <Typography inline component="div" variant="caption" color="default">
+          <Typography inline color="default" component="div" variant="caption">
             <ButtonBase onClick={() => this.props.setShowTermsOfUse(true)}>
-              <Typography variant="caption" color="secondary">
+              <Typography color="secondary" variant="caption">
                 {this.props.t('member:termsOfUse')}
               </Typography>
             </ButtonBase>
@@ -424,8 +424,8 @@ export class MemberSummaryCard extends PureComponent<Props> {
             })}
           </Typography>
           <Dialog
-            open={this.props.showTermsOfUse}
             onClose={() => this.props.setShowTermsOfUse(false)}
+            open={this.props.showTermsOfUse}
           >
             <DialogContent>
               <TypographyMultiline>
@@ -463,10 +463,10 @@ export class MemberSummaryCard extends PureComponent<Props> {
             </div>
           </Paper>
           <Dialog
-            open={this.state.displayBarcodeDialog}
             onClose={() => this.setState({ displayBarcodeDialog: false })}
+            open={this.state.displayBarcodeDialog}
           >
-            <BarCode value={this.props.member.barcode} background="#fafafa" />
+            <BarCode background="#fafafa" value={this.props.member.barcode} />
           </Dialog>
         </div>
       );

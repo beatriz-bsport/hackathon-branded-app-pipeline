@@ -36,7 +36,7 @@ export const SignatureCanvas = (props: Props) => {
     props.closeCanvas();
   };
   return (
-    <Dialog open={open} fullScreen={fullScreen} fullWidth maxWidth="md">
+    <Dialog fullWidth fullScreen={fullScreen} maxWidth="md" open={open}>
       <DialogTitle>
         {t('customForm.customFormField.modal.signature.addSignature')}
       </DialogTitle>
@@ -45,7 +45,7 @@ export const SignatureCanvas = (props: Props) => {
       </DialogContentText>
       <DialogContent className={classes.dialogContent}>
         <div className={classes.clearContainer}>
-          <Button onClick={clear} color="secondary">
+          <Button color="secondary" onClick={clear}>
             {t('customForm.customFormField.modal.signature.clear')}
           </Button>
         </div>
@@ -57,10 +57,10 @@ export const SignatureCanvas = (props: Props) => {
       </DialogContent>
 
       <DialogActions className={classes.dialogActions}>
-        <Button onClick={props.closeCanvas} color="secondary">
+        <Button color="secondary" onClick={props.closeCanvas}>
           {t('customForm.cancel')}
         </Button>
-        <Button onClick={save} color="primary">
+        <Button color="primary" onClick={save}>
           {t('customForm.save')}
         </Button>
       </DialogActions>

@@ -39,8 +39,8 @@ export const VideoThumbnail = (props: Props) => {
     <div className={classes.container}>
       <ButtonBase
         disableRipple
-        className={classes.buttonContainer}
         button={!!props.onClick}
+        className={classes.buttonContainer}
         onClick={props.onClick}
       >
         <div className={classes.mediaContainer}>
@@ -52,8 +52,8 @@ export const VideoThumbnail = (props: Props) => {
           {props.loading ? (
             <Skeleton
               animation="wave"
-              variant="rect"
               className={classes.media}
+              variant="rect"
             />
           ) : (
             <img
@@ -77,8 +77,8 @@ export const VideoThumbnail = (props: Props) => {
               <div>
                 <Typography
                   align="left"
-                  variant="subtitle2"
                   className={classes.title}
+                  variant="subtitle2"
                 >
                   {props.loading ? (
                     <Skeleton animation="wave" variant="text" />
@@ -93,7 +93,7 @@ export const VideoThumbnail = (props: Props) => {
                       className={classes.leftIcon}
                       fontSize="small"
                     />
-                    <Typography variant="body2" color="textSecondary">
+                    <Typography color="textSecondary" variant="body2">
                       {props.loading ? (
                         <Skeleton animation="wave" variant="text" />
                       ) : (
@@ -112,8 +112,8 @@ export const VideoThumbnail = (props: Props) => {
               </div>
               {!!props.onDeleteVideo && (
                 <IconButton
-                  size="small"
                   onClick={(ev) => props.setMenuAnchorEl(ev.currentTarget)}
+                  size="small"
                 >
                   <MoreVertIcon />
                 </IconButton>
@@ -121,17 +121,17 @@ export const VideoThumbnail = (props: Props) => {
             </div>
           </div>
           <CoachGroupAvatar
-            size="small"
             coaches={video.coaches}
             hideCoach={props.hideCoach}
             loading={props.loading}
+            size="small"
           />
         </div>
       </ButtonBase>
       <Menu
+        anchorEl={props.menuAchorEl}
         onClose={() => props.setMenuAnchorEl(null)}
         open={!!props.menuAchorEl}
-        anchorEl={props.menuAchorEl}
       >
         <MenuItem
           onClick={() => {

@@ -78,11 +78,11 @@ export const SpiviCorrespondenceTable: React.FC<Props> = (props) => {
             SPIVI_CORRESPONDENCE_TABLE_PAGE_SIZE && (
             <div className={classes.pagination}>
               <Pagination
-                page={props.pageNumber}
                 count={props.pageCount}
                 onChange={(ev, value) =>
                   props.handlePageChange(ev, value, props.spotTypeId)
                 }
+                page={props.pageNumber}
               />
             </div>
           )}

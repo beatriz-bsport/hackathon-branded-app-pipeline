@@ -71,7 +71,7 @@ export const TempPasswordDialog = (props: Props) => {
     <Dialog open={props.open}>
       <DialogTitle>{props.t('tempPassword.title')}</DialogTitle>
       <DialogContent>
-        <Typography variant="h6" component="p">
+        <Typography component="p" variant="h6">
           {props.tempPassword}
         </Typography>
         <div className={props.classes.clipboard}>
@@ -89,9 +89,9 @@ export const TempPasswordDialog = (props: Props) => {
           {props.passwordCopied ? (
             <Typography
               className={props.classes.copied}
-              variant="secondary"
               color="textSecondary"
               component="span"
+              variant="secondary"
             >
               {props.t('login:tempPassword.copied')}
             </Typography>

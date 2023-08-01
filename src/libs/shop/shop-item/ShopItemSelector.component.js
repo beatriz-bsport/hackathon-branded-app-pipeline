@@ -29,10 +29,10 @@ function ShopItemOption(props: OptionProps) {
   return (
     <div ref={innerRef} {...innerProps}>
       <ShopItemSummary
+        button
         isFocused={isFocused}
         selected={isSelected}
         shopItem={data.si}
-        button
       />
     </div>
   );
@@ -50,12 +50,12 @@ function ShopItemSelector(props: Props) {
   return (
     <Selector
       searchIcon
-      selected={value}
-      suggestions={suggestions}
-      components={{ Option: ShopItemOption }}
       className={selectorClass}
+      components={{ Option: ShopItemOption }}
       onChange={(event) => onChange(event.value)}
       placeholder={helperText || t('select.placeholder')}
+      selected={value}
+      suggestions={suggestions}
     />
   );
 }

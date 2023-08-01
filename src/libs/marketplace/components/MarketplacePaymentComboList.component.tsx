@@ -55,11 +55,11 @@ const PaymentComboCard = (props: PaymentComboCardProps) => {
   return (
     <MarketplacePaymentComboCard
       key={paymentCombo.id}
-      paymentCombo={paymentCombo}
-      isExcludingTax={isExcludingTax}
       addToCart={handleAddToCart}
+      isExcludingTax={isExcludingTax}
       onClick={handleMobileClick}
       onOpenDetailDialog={handleOpenDetailDialog}
+      paymentCombo={paymentCombo}
     />
   );
 };
@@ -82,7 +82,7 @@ export const MarketplacePaymentComboList = (props: Props) => {
 
   return (
     <>
-      <Typography component="h3" variant="h6" className={classes.sectionTitle}>
+      <Typography className={classes.sectionTitle} component="h3" variant="h6">
         {t('marketplace.paymentComboListTitle')}
       </Typography>
 
@@ -91,10 +91,10 @@ export const MarketplacePaymentComboList = (props: Props) => {
           {filteredPaymentComboList.map((paymentCombo) => (
             <PaymentComboCard
               key={paymentCombo.id}
-              paymentCombo={paymentCombo}
               isExcludingTax={isExcludingTax}
-              setSelectedPass={setSelectedPass}
               onAddBasket={onAddBasket}
+              paymentCombo={paymentCombo}
+              setSelectedPass={setSelectedPass}
             />
           ))}
         </div>

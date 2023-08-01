@@ -73,13 +73,13 @@ const CommunicationWriteEmail = (props: Props) => {
   return (
     <React.Fragment>
       <TextFieldWithChildren
-        placeholder={t('sendMessage.textField.object')}
-        name="Mail title"
-        value={emailTitle}
+        withMarginBottom
         changeValue={handleChangeTitle}
         minRows={1}
-        withMarginBottom
+        name="Mail title"
         onFocus={onTitleFocus}
+        placeholder={t('sendMessage.textField.object')}
+        value={emailTitle}
       />
       {emailTemplateSelected ? (
         <EmailPreview
@@ -95,13 +95,13 @@ const CommunicationWriteEmail = (props: Props) => {
         </EmailPreview>
       ) : (
         <TextFieldWithChildren
-          placeholder={t('sendMessage.textField.content')}
-          name="Mail content"
-          value={emailContent}
+          withColumnDirection
           changeValue={handleChangeContent}
           minRows={isMobileSize ? 2 : 6}
-          withColumnDirection
+          name="Mail content"
           onFocus={onContentFocus}
+          placeholder={t('sendMessage.textField.content')}
+          value={emailContent}
         >
           {props.children}
         </TextFieldWithChildren>
@@ -177,11 +177,11 @@ const RefreshDialog = (props: RefreshProps) => {
   const { t } = useTranslation('communication');
   return (
     <CommunicationWrapperDialog
-      onConfirm={props.refreshTemplateData}
-      buttonConfirmText={t('common.refresh')}
       buttonCancelText={t('common.cancel')}
+      buttonConfirmText={t('common.refresh')}
       fullScreen={false}
       maxWidth="xs"
+      onConfirm={props.refreshTemplateData}
       open={props.openDialog}
     >
       <Typography variant="body2">{t('sendMessage.refresh')}</Typography>

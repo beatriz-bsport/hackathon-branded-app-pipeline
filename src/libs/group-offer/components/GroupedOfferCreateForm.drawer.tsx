@@ -287,20 +287,20 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
 
   return (
     <GenericResponsiveDrawer
-      open={open}
-      onClose={onClose}
-      title={t('groupedOption.modal.title')}
-      subtitle={getSubtitle()}
       withoutPadding
+      onClose={onClose}
+      open={open}
+      subtitle={getSubtitle()}
+      title={t('groupedOption.modal.title')}
     >
       <div className={classes.drawerInner}>
         {step === STEP_METACTIVITY_SELECT && (
           <GroupedOfferFormMetaActivitySelect
-            metaActivities={metaActivities}
-            metaActivityLoading={metaActivityLoading}
-            handleSelectActivity={handleSelectActivity}
             handleNextStep={handleNextStep}
             handlePreviousStep={handlePreviousStep}
+            handleSelectActivity={handleSelectActivity}
+            metaActivities={metaActivities}
+            metaActivityLoading={metaActivityLoading}
             type="workshop"
           />
         )}
@@ -308,6 +308,18 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
         {step === STEP_GROUPED_OPTION_FORM && (
           <div className={classes.padding}>
             <GroupedOfferFormSettings
+              allEstablishments={allEstablishments}
+              allRoomBlueprints={allRoomBlueprints}
+              availableEstablishments={availableEstablishments}
+              availableRoomBlueprints={availableRoomBlueprints}
+              coaches={coaches}
+              coachPaymentRulesByKind={coachPaymentRulesByKind}
+              createLevel={createLevel}
+              creditScaleFactor={creditScaleFactor}
+              customLevels={customLevels}
+              deleteLevel={deleteLevel}
+              fetchLevelList={fetchLevelList}
+              handlePreviousStep={handlePreviousStep}
               initial={
                 groups?.[0]
                   ? {
@@ -316,35 +328,23 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
                     }
                   : null
               }
-              coaches={coaches}
-              availableEstablishments={availableEstablishments}
-              allEstablishments={allEstablishments}
-              availableRoomBlueprints={availableRoomBlueprints}
-              allRoomBlueprints={allRoomBlueprints}
-              coachPaymentRulesByKind={coachPaymentRulesByKind}
-              tagList={tagList}
-              theme={theme}
               metaActivity={selectedMetaActivity}
               onSubmit={handleGeneratePreview}
-              handlePreviousStep={handlePreviousStep}
-              customLevels={customLevels}
-              fetchLevelList={fetchLevelList}
-              updateLevel={updateLevel}
-              createLevel={createLevel}
-              deleteLevel={deleteLevel}
               open={open}
+              tagList={tagList}
+              theme={theme}
+              updateLevel={updateLevel}
               zoomAppDetail={zoomAppDetail}
-              creditScaleFactor={creditScaleFactor}
             />
           </div>
         )}
         {step === STEP_GROUPED_OPTION_PREVIEW && groupPreview && (
           <div className={classes.padding}>
             <GroupedOfferPreviewForm
-              onSubmit={handleCreateGroup}
               groups={groups}
-              metaActivity={selectedMetaActivity}
               handlePreviousStep={handlePreviousStep}
+              metaActivity={selectedMetaActivity}
+              onSubmit={handleCreateGroup}
             />
           </div>
         )}

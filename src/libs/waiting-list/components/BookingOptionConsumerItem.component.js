@@ -29,9 +29,9 @@ export class BookingOptionConsumerItem extends Component<Props> {
       return (
         <Grid
           container
+          alignItems="center"
           direction="row"
           justify="center"
-          alignItems="center"
           spacing={2}
         >
           <Grid item>
@@ -44,16 +44,16 @@ export class BookingOptionConsumerItem extends Component<Props> {
     return (
       <Grid
         container
-        direction="row"
         alignItems="center"
+        direction="row"
         justify="space-around"
       >
         <Grid item>
           <Grid container item alignItems="center" justify="center">
             <Button
               color="primary"
-              onClick={this.props.confirmBookingOption}
               disabled={!this.props.bookingOption.is_convertible}
+              onClick={this.props.confirmBookingOption}
             >
               {this.props.bookingOption.is_convertible
                 ? this.props.t('consumer.booking.confirmBooking')
@@ -81,8 +81,8 @@ export class BookingOptionConsumerItem extends Component<Props> {
         <Grid
           container
           alignItems="stretch"
-          direction="column"
           className={is_convertible ? null : classes.disabled}
+          direction="column"
         >
           <Grid item xs={12}>
             {activity ? (

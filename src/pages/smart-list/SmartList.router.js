@@ -12,9 +12,9 @@ const SmartListList = asyncComponent(() => import('./SmartListList.page'));
 export const SmartListRouter = () => {
   return (
     <Switch>
-      <Route path="/smart-list/:id/:tab/" component={SmartListDetail} />
-      <Route path="/smart-list/:id" component={SmartListList} />
-      <Route path="/smart-list" component={SmartListList} />
+      <Route component={SmartListDetail} path="/smart-list/:id/:tab/" />
+      <Route component={SmartListList} path="/smart-list/:id" />
+      <Route component={SmartListList} path="/smart-list" />
     </Switch>
   );
 };

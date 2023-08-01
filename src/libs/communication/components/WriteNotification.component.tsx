@@ -29,28 +29,28 @@ export const WriteNotification = (props: Props) => {
   return (
     <div className={classes.container}>
       <TextField
-        label={t('mail.titleNotification')}
-        value={notificationTitle}
-        onChange={(e) => onNotificationTitleChange(e.target.value)}
         fullWidth
-        inputProps={{ maxLength: MAX_LENGTH_PUSH_TITLE }}
         className={classes.input}
+        inputProps={{ maxLength: MAX_LENGTH_PUSH_TITLE }}
+        label={t('mail.titleNotification')}
+        onChange={(e) => onNotificationTitleChange(e.target.value)}
+        value={notificationTitle}
       />
-      <Typography variant="caption" className={classes.grey}>
+      <Typography className={classes.grey} variant="caption">
         {`${notificationTitle?.length ?? 0}/${MAX_LENGTH_PUSH_TITLE}`}
       </Typography>
       <TextField
-        label={t('mail.contentNotification')}
-        value={notificationContent}
-        onChange={(e) => onNotificationContentChange(e.target.value)}
         fullWidth
         multiline
-        rows={5}
-        inputProps={{ maxLength: MAX_LENGTH_PUSH_CONTENT }}
-        variant="outlined"
         className={classes.input}
+        inputProps={{ maxLength: MAX_LENGTH_PUSH_CONTENT }}
+        label={t('mail.contentNotification')}
+        onChange={(e) => onNotificationContentChange(e.target.value)}
+        rows={5}
+        value={notificationContent}
+        variant="outlined"
       />
-      <Typography variant="caption" className={classes.grey}>
+      <Typography className={classes.grey} variant="caption">
         {`${notificationContent?.length ?? 0}/${MAX_LENGTH_PUSH_CONTENT}`}
       </Typography>
     </div>

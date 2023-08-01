@@ -70,13 +70,13 @@ const ReportCategoriesSelector: React.FC<Props> = ({
                     {(isSelected || initial) && (
                       <Chip
                         key={category.id}
-                        icon={Icon ? <Icon /> : null}
-                        color={color}
-                        label={t(`categories.${category.id}`)}
-                        className={classes.chip}
                         clickable
-                        onDelete={onDelete}
+                        className={classes.chip}
+                        color={color}
+                        icon={Icon ? <Icon /> : null}
+                        label={t(`categories.${category.id}`)}
                         onClick={() => onSelect(category.id)}
+                        onDelete={onDelete}
                       />
                     )}
                   </div>

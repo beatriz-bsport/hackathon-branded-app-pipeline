@@ -41,14 +41,14 @@ export const ReplacementRequestRefuseDialog: React.FC<Props> = ({
   }, [onConfirm, replacementRequest, onClose]);
 
   return (
-    <GenericResponsiveDialog open={open} maxWidth="sm">
+    <GenericResponsiveDialog maxWidth="sm" open={open}>
       <div className={classes.errorIcon}>
         <ErrorIcon />
       </div>
       <Typography
-        variant="body1"
         align="center"
         className={classes.description}
+        variant="body1"
       >
         {t('coachAnswers.refuse.description')}
       </Typography>
@@ -65,8 +65,8 @@ export const ReplacementRequestRefuseDialog: React.FC<Props> = ({
             </Button>
             <Button
               className={classes.buttons}
-              onClick={handleConfirm}
               color="primary"
+              onClick={handleConfirm}
               variant="contained"
             >
               {t('coachAnswers.refuse.confirm')}

@@ -148,26 +148,26 @@ export const CadenceToolsPanel: React.FC<Props> = ({
       <div className={classes.flexContainer}>
         <div>
           <CadenceStepForm
-            step={stepForEdition}
             onSubmit={updateCadenceStepName}
+            step={stepForEdition}
           />
           <StepMarketingActionsForm
-            marketingActions={marketingActions}
-            step={stepForEdition}
-            smartlists={smartlists}
-            getEmails={getEmails}
-            getEmailDetail={getEmailDetail}
-            emailListLoading={emailListLoading}
-            emails={emails}
+            deleteStepMarketingAction={deleteStepMarketingAction}
             emailDetailLoading={emailDetailLoading}
             emailDetails={emailDetails}
-            tagList={tagList}
+            emailListLoading={emailListLoading}
+            emails={emails}
+            getEmailDetail={getEmailDetail}
+            getEmails={getEmails}
+            marketingActions={marketingActions}
+            smartlists={smartlists}
+            step={stepForEdition}
             stepMarketingActionsLoading={stepMarketingActionsLoading}
             stepMarketingActionsUpsertLoading={
               stepMarketingActionsUpsertLoading
             }
+            tagList={tagList}
             upsertStepMarketingAtions={upsertStepMarketingAtions}
-            deleteStepMarketingAction={deleteStepMarketingAction}
           />
         </div>
       </div>
@@ -179,8 +179,8 @@ export const CadenceToolsPanel: React.FC<Props> = ({
       <div className={classes.flexContainer}>
         <CadenceInitialSetupForm
           cadence={cadence}
-          smartlists={smartlists}
           onSubmit={setUpFormSubmit}
+          smartlists={smartlists}
           viewMode={!cadenceEditMode}
         />
       </div>
@@ -201,28 +201,28 @@ export const CadenceToolsPanel: React.FC<Props> = ({
           <div className={classes.paddingBottom}>
             <CadenceEntrySetupForm
               cadence={cadence}
-              smartlists={smartlists}
               onSubmit={handleSubmit}
+              smartlists={smartlists}
               viewMode={!cadenceEditMode}
             />
           </div>
           <StepMarketingActionsForm
-            marketingActions={marketingActions}
-            step={cadenceEntryPoint}
-            smartlists={smartlists}
-            getEmails={getEmails}
-            getEmailDetail={getEmailDetail}
-            emailListLoading={emailListLoading}
-            emails={emails}
+            deleteStepMarketingAction={deleteStepMarketingAction}
             emailDetailLoading={emailDetailLoading}
             emailDetails={emailDetails}
-            tagList={tagList}
+            emailListLoading={emailListLoading}
+            emails={emails}
+            getEmailDetail={getEmailDetail}
+            getEmails={getEmails}
+            marketingActions={marketingActions}
+            smartlists={smartlists}
+            step={cadenceEntryPoint}
             stepMarketingActionsLoading={stepMarketingActionsLoading}
             stepMarketingActionsUpsertLoading={
               stepMarketingActionsUpsertLoading
             }
+            tagList={tagList}
             upsertStepMarketingAtions={upsertStepMarketingAtions}
-            deleteStepMarketingAction={deleteStepMarketingAction}
           />
         </div>
       </div>
@@ -235,8 +235,8 @@ export const CadenceToolsPanel: React.FC<Props> = ({
       <div className={classes.flexContainer}>
         <CadenceWinSetupForm
           cadence={cadence}
-          smartlists={smartlists}
           onSubmit={handleSubmit}
+          smartlists={smartlists}
           viewMode={!cadenceEditMode}
         />
       </div>
@@ -249,8 +249,8 @@ export const CadenceToolsPanel: React.FC<Props> = ({
       <div className={classes.flexContainer}>
         <CadenceLoseSetupForm
           cadence={cadence}
-          smartlists={smartlists}
           onSubmit={handleSubmit}
+          smartlists={smartlists}
           viewMode={!cadenceEditMode}
         />
       </div>
@@ -265,8 +265,8 @@ export const CadenceToolsPanel: React.FC<Props> = ({
         )}
       >
         <StepSubscriborSetupForm
-          smartlists={smartlists}
           onSubmit={handleSubmitNewStepWithTrigger}
+          smartlists={smartlists}
           toExit={!!subscriptionDestinationConfig?.exit}
           viewMode={!cadenceEditMode}
         />
@@ -282,9 +282,9 @@ export const CadenceToolsPanel: React.FC<Props> = ({
         )}
       >
         <StepSubscriborSetupForm
-          triggerForEdition={triggerForEdition}
-          smartlists={smartlists}
           onSubmit={handleSubmitEditConnectedTrigger}
+          smartlists={smartlists}
+          triggerForEdition={triggerForEdition}
           viewMode={!cadenceEditMode}
         />
       </div>

@@ -30,14 +30,14 @@ export function VaccinationStatusInput(props: Props) {
   const { t, value, onChange, classes, fullWidth } = props;
   return (
     <FormControl
-      required={props.required}
       className={classes.formControl}
       fullWidth={fullWidth}
+      required={props.required}
     >
       <InputLabel shrink htmlFor="vaccination-status-helper">
         {t('common.vaccination_status')}
       </InputLabel>
-      <Select required={props.required} value={value} onChange={onChange}>
+      <Select onChange={onChange} required={props.required} value={value}>
         <MenuItem key="true" value="true">
           <Typography align="left">{t('common.vaccinationDone')}</Typography>
         </MenuItem>

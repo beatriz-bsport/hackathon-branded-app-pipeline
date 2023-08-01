@@ -39,8 +39,8 @@ const PrepaidLineListItem = (props: Props) => {
   return (
     <ListItem
       dense={props.dense}
-      divider={props.divider}
       disableGutters={smalldevice}
+      divider={props.divider}
     >
       <ListItemAvatar>
         <Avatar className={classes.quantity}>{Icon()}</Avatar>

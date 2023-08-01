@@ -88,13 +88,13 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
 
   return (
     <Card
-      size={CardSize.AUTO}
       classes={{
         'bs-paymentpack-card': 'bs-paymentpack-card',
         'bs-paymentpack-card--background':
           cardVariant === CARD_VARIANTS.MARKETPLACE,
       }}
       isSelected={isSelected}
+      size={CardSize.AUTO}
     >
       <Content
         padding
@@ -108,10 +108,10 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
         >
           <Item
             alignment={Alignment.FLEX_START}
+            columnEnd={1}
             justification={
               isMobile ? Justification.SPACE_BETWEEN : Justification.FLEX_START
             }
-            columnEnd={1}
           >
             <div
               className={classNames('bs-paymentpack-card__title', {
@@ -146,9 +146,9 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
             {descriptionText.isExpandable &&
               cardVariant === CARD_VARIANTS.PRICING_PAGE && (
                 <button
-                  type="button"
                   className="bs-paymentpack-card__seemore"
                   onClick={onClickSeeMore}
+                  type="button"
                 >
                   {showAllDescription ? (
                     <div className="bs-paymentpack-card__seemore__row">
@@ -181,20 +181,20 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
               <div>{useValidityInfoForPaymentPackCard(paymentPack)}</div>
             </div>
             <Price
-              tax={paymentPack.tax}
-              isExcludingTax={isExcludingTax}
               amount={paymentPack.price}
-              formatPriceWithCurrency={getCurrencyDisplayWithPrice}
               classes={{
                 'bs-paymentpack-card__price--small':
                   cardVariant === CARD_VARIANTS.PRICING_PAGE,
               }}
+              formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+              isExcludingTax={isExcludingTax}
+              tax={paymentPack.tax}
             >
               {!!addToCart && (
                 <button
-                  type="button"
                   className="bs-pass-card__price-icon"
                   onClick={handleAddToCart}
+                  type="button"
                 >
                   <ShoppingCartIcon />
                 </button>
@@ -204,16 +204,16 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
         </Grid>
         {!!onOpenDetailDialog && !!addToCart && (
           <Item
-            justification={Justification.SPACE_BETWEEN}
-            direction={Direction.ROW}
             classes={{
               'bs-paymentpack-card__footer': 'bs-paymentpack-card__footer',
             }}
+            direction={Direction.ROW}
+            justification={Justification.SPACE_BETWEEN}
           >
             <button
-              type="button"
               className="bs-paymentpack-card__left-button"
               onClick={onOpenDetailDialog}
+              type="button"
             >
               <div className="bs-paymentpack-card__left-button__content">
                 <VisibilityIcon className="bs-paymentpack-card__left-button__icon" />
@@ -222,9 +222,9 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
             </button>
 
             <button
-              type="button"
               className="bs-paymentpack-card__right-button"
               onClick={addToCart}
+              type="button"
             >
               {t('genericCard.addButton.buttonContent')}
             </button>

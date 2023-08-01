@@ -176,9 +176,7 @@ export class EstablishmentForm extends Component<Props, State> {
           {this.props.t('form.discard')}
         </Button>
         <Button
-          variant="contained"
           color="primary"
-          type="submit"
           disabled={
             !!this.state.location.geometry &&
             (!this.state.location.geometry.x || !this.state.location.geometry.y)
@@ -186,6 +184,8 @@ export class EstablishmentForm extends Component<Props, State> {
           onClick={() => {
             trackFormSubmitIntent(this.props.initial?.id);
           }}
+          type="submit"
+          variant="contained"
         >
           {this.props.t('form.send')}
         </Button>
@@ -200,21 +200,21 @@ export class EstablishmentForm extends Component<Props, State> {
       <form onSubmit={this.onSubmit}>
         <Paper className={classes.paperContainer}>
           <ImageUploader
-            onChange={this.onFormFieldChange('cover')}
             initial={this.state.cover}
+            onChange={this.onFormFieldChange('cover')}
           />
           <div className={classes.container}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <FormField
-                  id="title"
                   required
-                  value={this.state.title}
+                  id="title"
                   onChange={this.onFormFieldChange}
+                  value={this.state.title}
                 />
               </Grid>
               {imageUploader ? (
-                <Grid item xs={12} style={{ marginTop: 20 }}>
+                <Grid item style={{ marginTop: 20 }} xs={12}>
                   <label>Carousel</label>
                   <MultipleImageUploader
                     initial={images}
@@ -235,60 +235,60 @@ export class EstablishmentForm extends Component<Props, State> {
               )}
               <Grid item xs={12}>
                 <FormField
-                  id="specific_info"
                   multiline
                   required
-                  value={this.state.specific_info}
+                  id="specific_info"
                   onChange={this.onFormFieldChange}
+                  value={this.state.specific_info}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  fullWidth
                   multiline
-                  rows={3}
-                  value={this.state.practical_info}
+                  helperText={t('establishment:practical_info.helperText')}
+                  label={t('establishment:practical_info.label')}
                   onChange={(ev) =>
                     this.onFormFieldChange('practical_info')(ev.target.value)
                   }
-                  label={t('establishment:practical_info.label')}
                   placeholder={t('establishment:practical_info.placeholder')}
-                  helperText={t('establishment:practical_info.helperText')}
+                  rows={3}
+                  value={this.state.practical_info}
                   variant="outlined"
-                  fullWidth
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  type="numeric"
-                  value={this.state.capacity}
+                  fullWidth
+                  helperText={t('establishment:capacity.helperText')}
+                  label={t('establishment:capacity.label')}
                   onChange={(ev) =>
                     this.onFormFieldChange('capacity')(
                       parseInt(ev.target.value || 0, 10),
                     )
                   }
-                  label={t('establishment:capacity.label')}
                   placeholder={t('establishment:capacity.placeholder')}
-                  helperText={t('establishment:capacity.helperText')}
-                  fullWidth
+                  type="numeric"
+                  value={this.state.capacity}
                 />
               </Grid>
               <Grid item xs={12}>
                 <LocationInput
-                  id="location"
                   required
+                  id="location"
+                  onChange={(data, geocoded_data) => {
+                    this.setState({ location: { ...data, geocoded_data } });
+                  }}
+                  t={this.props.t}
                   value={
                     this.state.location &&
                     this.state.location.address && {
                       ...this.state.location,
                     }
                   }
-                  onChange={(data, geocoded_data) => {
-                    this.setState({ location: { ...data, geocoded_data } });
-                  }}
-                  t={this.props.t}
                 />
               </Grid>
-              <Grid item container justify="flex-start">
+              <Grid container item justify="flex-start">
                 {this.renderButton()}
               </Grid>
             </Grid>

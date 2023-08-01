@@ -67,7 +67,7 @@ export class CoachProfile extends Component<Props, State> {
         !meAsAssociatedCoachLoading) ||
       this.state.has_answered_customer_space
     ) {
-      return <Route path="/" component={ConsumerHome} />;
+      return <Route component={ConsumerHome} path="/" />;
     }
     if (this.state.has_answered_coach_space) {
       return <Redirect to={`/co/${this.props.companyId}`} />;
@@ -78,8 +78,8 @@ export class CoachProfile extends Component<Props, State> {
           <LoginBackgroundComponent company />
           <ConsumerCoachSpaceSelector
             disconnect={this.props.disconnect}
-            goToConsumerSpace={this.handleGoToConsumerSpace}
             goToCoachSpace={this.handleGoToCoachSpace}
+            goToConsumerSpace={this.handleGoToConsumerSpace}
           />
         </div>
       );

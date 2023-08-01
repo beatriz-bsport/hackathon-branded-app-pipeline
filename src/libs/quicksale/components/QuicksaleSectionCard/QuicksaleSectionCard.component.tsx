@@ -111,45 +111,45 @@ const QuicksaleSectionCard: React.FC<Props> = (props) => {
         globalClasses.quicksaleCardContainer,
         classes.container,
       )}
+      data-testid="section-card-container"
       onClick={openCurrentSection}
+      onKeyDown={stopEventPropagation}
       role="button"
       tabIndex={0}
-      onKeyDown={stopEventPropagation}
-      data-testid="section-card-container"
     >
       <div className={classes.cardHeader}>
         {adminView && (
-          <IconButton className={classes.dragIconButton} disableRipple>
+          <IconButton disableRipple className={classes.dragIconButton}>
             <DragIndicator />
           </IconButton>
         )}
 
         {adminView ? (
           <IconButton
+            ref={setCurrentSectionRef}
+            disableRipple
+            className={classes.sectionIconButton}
             id={`editable-card-icon-${section.section_id}`}
             onClick={openIconSelectorForCurrentSection}
-            className={classes.sectionIconButton}
-            disableRipple
-            ref={setCurrentSectionRef}
           >
             <MuiIcon
-              icon={section.section_icon}
               className={classes.sectionIcon}
+              icon={section.section_icon}
             />
           </IconButton>
         ) : (
           <MuiIcon
-            icon={section.section_icon}
             className={classes.sectionIcon}
+            icon={section.section_icon}
           />
         )}
 
         <SectionName
           admin={adminView}
-          sectionId={section.section_id}
-          sectionName={section.section_name}
           color={section.section_color}
           onSectionEdit={onSectionEdit}
+          sectionId={section.section_id}
+          sectionName={section.section_name}
         />
       </div>
 
@@ -162,15 +162,15 @@ const QuicksaleSectionCard: React.FC<Props> = (props) => {
 
       <div className={globalClasses.quicksaleCardActions}>
         <IconButton
-          className={globalClasses.quicksaleCardAction}
           disableRipple
+          className={globalClasses.quicksaleCardAction}
           onClick={openColorModalForCurrentSection}
         >
           <div className={globalClasses.quicksaleCardColorPickerButton} />
         </IconButton>
         <IconButton
-          className={globalClasses.quicksaleCardAction}
           disableRipple
+          className={globalClasses.quicksaleCardAction}
           onClick={archiveCurrentSection}
         >
           <DeleteIcon className={globalClasses.quicksaleCardDeleteIcon} />

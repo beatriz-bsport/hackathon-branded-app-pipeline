@@ -86,6 +86,10 @@ export const BalanceChip: React.FC<Props> = (props: Props) => {
 
   return (
     <Chip
+      className={classnames(classes.chip, {
+        [classes.errorBackground]: chipColor === Color.COLOR_ERROR,
+      })}
+      color={chipColor}
       label={
         unpaidIconOn ? (
           <span className={classes.balanceStatus}>
@@ -98,11 +102,7 @@ export const BalanceChip: React.FC<Props> = (props: Props) => {
           `${getCurrencyDisplayWithPrice(creditFormatted)}`
         )
       }
-      color={chipColor}
       size="small"
-      className={classnames(classes.chip, {
-        [classes.errorBackground]: chipColor === Color.COLOR_ERROR,
-      })}
     />
   );
 };

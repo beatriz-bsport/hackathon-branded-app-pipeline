@@ -125,54 +125,54 @@ const BacsDebitForm = ({
     >
       {({ values, setFieldValue, handleSubmit }) => (
         <Form
-          style={{ display: 'flex', flexDirection: 'column' }}
           onSubmit={handleSubmit}
+          style={{ display: 'flex', flexDirection: 'column' }}
         >
-          <TextField name="email" label={t('subscription:mandate.email')} />
-          <TextField name="name" label={t('subscription:mandate.name')} />
+          <TextField label={t('subscription:mandate.email')} name="email" />
+          <TextField label={t('subscription:mandate.name')} name="name" />
           <LocaleSelector
             distinctCountry
             hideLang
             // noMargin
-            valueKey="country"
-            label={t('translation:form.address.country')}
             defaultValue="GB"
-            value={values.country}
+            label={t('translation:form.address.country')}
             onChange={(ev) => {
               setFieldValue('country', ev.target.value);
             }}
+            value={values.country}
+            valueKey="country"
           />
           <TextField
-            name="line1"
             label={t('translation:form.address.addressLine1')}
+            name="line1"
           />
           <TextField
-            name="line2"
             label={t('translation:form.address.addressLine2')}
+            name="line2"
           />
-          <TextField name="city" label={t('translation:form.address.city')} />
+          <TextField label={t('translation:form.address.city')} name="city" />
           <TextField
-            name="postalCode"
             label={t('translation:form.address.zipcode')}
+            name="postalCode"
           />
           <TextField
-            name="sortCode"
             label={t('subscription:mandate.sortCode')}
+            name="sortCode"
           />
           <ErrorMessage name="sortCode">
             {(error_msg) => (
-              <Typography variant="caption" color="error">
+              <Typography color="error" variant="caption">
                 {t(`${error_msg}`)}
               </Typography>
             )}
           </ErrorMessage>
           <TextField
-            name="accountNumber"
             label={t('subscription:mandate.accountNumber')}
+            name="accountNumber"
           />
           <ErrorMessage name="accountNumber">
             {(error_msg) => (
-              <Typography variant="caption" color="error">
+              <Typography color="error" variant="caption">
                 {t(`${error_msg}`)}
               </Typography>
             )}
@@ -300,6 +300,7 @@ const CollectPaymentMethodBacsDebit = ({
       {/* This fragment is important for compability with 3d secure, please do not delete */}
       <>
         <div
+          className={classes.modal}
           style={
             variant === 'div'
               ? { position: 'unset', backgroundColor: 'transparent' }
@@ -309,7 +310,6 @@ const CollectPaymentMethodBacsDebit = ({
                   left: dialogOffset,
                 }
           }
-          className={classes.modal}
         >
           <DialogTitle id="collectPaymentMethodTitle">
             {t('forms.paymentMethod.collect.title')}
@@ -328,8 +328,8 @@ const CollectPaymentMethodBacsDebit = ({
                 <div>
                   <div className={classes.centered}>
                     <CheckIcon
-                      style={{ height: 100, width: 100 }}
                       color="primary"
+                      style={{ height: 100, width: 100 }}
                     />
                     <Typography className={classes.message}>
                       {t('forms.paymentMethod.message.success')}
@@ -348,8 +348,8 @@ const CollectPaymentMethodBacsDebit = ({
                 <div>
                   <div className={classes.centered}>
                     <ErrorIcon
-                      style={{ height: 100, width: 100 }}
                       color="secondary"
+                      style={{ height: 100, width: 100 }}
                     />
                     <Typography className={classes.message}>
                       {t('forms.paymentMethod.message.error')}
@@ -378,8 +378,8 @@ const CollectPaymentMethodBacsDebit = ({
                   onClose={onClose}
                   processing={processing}
                   t={t}
-                  userDefaultName={userDefaultName}
                   userDefaultEmail={userDefaultEmail}
+                  userDefaultName={userDefaultName}
                 />
               )}
             </div>
@@ -432,8 +432,8 @@ export default (props: Omit<Props, 't' | 'stripe' | 'elements'>) => (
     <ElementsConsumer>
       {({ stripe, elements }) => (
         <CollectPaymentMethodCompose
-          stripe={stripe}
           elements={elements}
+          stripe={stripe}
           {...props}
         />
       )}

@@ -19,24 +19,24 @@ const OfferFormEditSettings = (props: Props) => {
   return (
     <FormSection
       id="offer-form-settings-section"
-      sectionTitle={t('form.section.settings.title')}
-      sectionIcon={Tune}
       sectionCustomIconStyle={classes.sectionIcon}
+      sectionIcon={Tune}
       sectionIconContainerStyle={classes.sectionIconContainer}
+      sectionTitle={t('form.section.settings.title')}
     >
       <div className={classes.settingsFields}>
         <SwitchField
           id="offer-form-edit-notification-on-edit"
-          name="isNotifyConsumers"
           label={t('form.section.settings.field.isNotifyConsumers')}
+          name="isNotifyConsumers"
           switchColor="secondary"
         />
 
         {similarOffersLength > 1 && (
           <SwitchField
             id="offer-form-edit-similar-offer-edit"
-            name="isModifyRecursively"
             label={t('form.section.settings.field.isModifyRecursively')}
+            name="isModifyRecursively"
             switchColor="secondary"
           />
         )}

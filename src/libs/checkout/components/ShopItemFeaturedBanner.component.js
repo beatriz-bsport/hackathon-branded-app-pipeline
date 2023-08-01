@@ -26,20 +26,20 @@ export const ShopItemFeaturedBanner = (props: Props) => {
       <div className={props.classes.innerContainer}>
         {props.shopItemList.map((si) => (
           <div
+            key={si.id}
             className={classname([
               props.classes.shopItemContainer,
               props.shopItemList.filter((si_) => si_.cover).length
                 ? props.classes.shopItemContainerWithImage
                 : null,
             ])}
-            key={si.id}
           >
             <ShopItemBuyableItemCard
-              isExcludingTax={props.isExcludingTax}
-              addToOrder={() => props.onAddShopItem(si.id)}
-              shopitem={si}
               fullHeight
+              addToOrder={() => props.onAddShopItem(si.id)}
+              isExcludingTax={props.isExcludingTax}
               loading={props.loading}
+              shopitem={si}
             />
           </div>
         ))}

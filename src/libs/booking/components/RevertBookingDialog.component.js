@@ -58,11 +58,11 @@ export function RevertBookingDialog(props: Props) {
   if (bookingToRevert.consumer_payment_pack) {
     return (
       <GenericResponsiveDialog
-        maxWidth="sm"
-        open={!!bookingToRevert}
-        onClose={closeRevertBookingDialog}
-        aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        aria-labelledby="alert-dialog-title"
+        maxWidth="sm"
+        onClose={closeRevertBookingDialog}
+        open={!!bookingToRevert}
       >
         <DialogTitle id="alert-dialog-title">
           {t('booking.revertBookingTitle')}
@@ -96,9 +96,9 @@ export function RevertBookingDialog(props: Props) {
           {offer?.group && (
             <>
               <Alert
+                className={classes.alert}
                 severity="error"
                 variant="outlined"
-                className={classes.alert}
               >
                 {t('booking.cancellingOtherBookingInGroup', {
                   name: offer?.group?.name,
@@ -112,10 +112,12 @@ export function RevertBookingDialog(props: Props) {
             <CircularProgress />
           ) : (
             <React.Fragment>
-              <Button onClick={closeRevertBookingDialog} color="secondary">
+              <Button color="secondary" onClick={closeRevertBookingDialog}>
                 {t('common.cancel')}
               </Button>
               <RedButton
+                autoFocus
+                color="primary"
                 onClick={() => {
                   props.setLoading(true);
                   handleBookingDeletion(
@@ -128,8 +130,6 @@ export function RevertBookingDialog(props: Props) {
                     },
                   );
                 }}
-                color="primary"
-                autoFocus
               >
                 {t('common.confirm')}
               </RedButton>
@@ -141,10 +141,10 @@ export function RevertBookingDialog(props: Props) {
   }
   return (
     <Dialog
-      open={!!bookingToRevert}
-      onClose={closeRevertBookingDialog}
-      aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
+      aria-labelledby="alert-dialog-title"
+      onClose={closeRevertBookingDialog}
+      open={!!bookingToRevert}
     >
       <DialogTitle id="alert-dialog-title">
         {t('booking.revertBookingTitle')}
@@ -158,7 +158,7 @@ export function RevertBookingDialog(props: Props) {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={closeRevertBookingDialog} color="secondary">
+        <Button color="secondary" onClick={closeRevertBookingDialog}>
           {t('common.cancel')}
         </Button>
       </DialogActions>

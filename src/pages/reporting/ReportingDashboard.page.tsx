@@ -72,10 +72,10 @@ const ReportingDashboard = (props: Props) => {
     <div>
       <ReportDashboard
         metadata={metadata.results}
+        onDeleteReport={deleteReport}
+        onReportDetail={goToReport}
         reportConfigurations={reports.results ?? []}
         upsertReportConfiguration={handleUpsert}
-        onReportDetail={goToReport}
-        onDeleteReport={deleteReport}
       />
     </div>
   );

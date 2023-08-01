@@ -83,14 +83,14 @@ export const ReplacementRequestClosingDateExtensionDialog: React.FC<Props> = ({
 
   if (success)
     return (
-      <GenericResponsiveDialog open={open} maxWidth="sm">
+      <GenericResponsiveDialog maxWidth="sm" open={open}>
         <div className={classes.validationIcon}>
           <ValidationIcon color={theme.palette.success.main} />
         </div>
-        <Typography variant="h6" className={classes.successTexts}>
+        <Typography className={classes.successTexts} variant="h6">
           {t('askForClosingDateExtension.requestSent')}
         </Typography>
-        <Typography variant="body1" className={classes.successTexts}>
+        <Typography className={classes.successTexts} variant="body1">
           {t('askForClosingDateExtension.requestSentDescription')}
         </Typography>
         <div className={classes.alignMiddle}>
@@ -102,14 +102,14 @@ export const ReplacementRequestClosingDateExtensionDialog: React.FC<Props> = ({
     );
 
   return (
-    <GenericResponsiveDialog open={open} maxWidth="sm">
+    <GenericResponsiveDialog maxWidth="sm" open={open}>
       <div className={classes.validationIcon}>
         <UpdateIcon />
       </div>
-      <Typography variant="h6" className={classes.centered}>
+      <Typography className={classes.centered} variant="h6">
         {t('askForClosingDateExtension.title')}
       </Typography>
-      <Typography variant="body1" className={classes.centered}>
+      <Typography className={classes.centered} variant="body1">
         {t('askForClosingDateExtension.description', {
           closing_date: moment(replacementRequest.closing_date).format('LL LT'),
         })}
@@ -118,7 +118,7 @@ export const ReplacementRequestClosingDateExtensionDialog: React.FC<Props> = ({
         <Typography variant="subtitle1">
           {moment(replacementRequest.offer.date_start).format('ddd D MMM')}
         </Typography>
-        <Typography variant="body2" className={classes.grey}>
+        <Typography className={classes.grey} variant="body2">
           {formatAsTime(replacementRequest.offer.date_start)} -{' '}
           {formatAsTime(
             moment(replacementRequest.offer.date_start).add(
@@ -130,19 +130,19 @@ export const ReplacementRequestClosingDateExtensionDialog: React.FC<Props> = ({
       </div>
       <div className={classes.marginLeft}>
         <DateTimeInput
-          label={t('askForClosingDateExtension.closing_date')}
-          value={date}
-          onChange={handleChange}
+          separateInputs
           className={classes.marginLeft}
-          timezone={timezoneName}
-          minDate={moment(replacementRequest.closing_date).format('YYYY-MM-DD')}
+          label={t('askForClosingDateExtension.closing_date')}
           maxDate={moment(replacementRequest.offer.date_start).format(
             'YYYY-MM-DD',
           )}
-          separateInputs
+          minDate={moment(replacementRequest.closing_date).format('YYYY-MM-DD')}
+          onChange={handleChange}
+          timezone={timezoneName}
+          value={date}
         />
       </div>
-      <Typography variant="body1" className={classes.marginLeft}>
+      <Typography className={classes.marginLeft} variant="body1">
         {t('askForClosingDateExtension.new_closing_date', {
           closing_date: formatAsDatetimeAdapted(date, 'LL'),
           time: formatAsTime(date),
@@ -158,8 +158,8 @@ export const ReplacementRequestClosingDateExtensionDialog: React.FC<Props> = ({
             </Button>
             <Button
               className={classes.buttons}
-              onClick={handleSubmit}
               color="primary"
+              onClick={handleSubmit}
               variant="contained"
             >
               {t('askForClosingDateExtension.submit')}

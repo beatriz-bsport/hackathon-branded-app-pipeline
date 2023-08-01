@@ -57,28 +57,28 @@ export const ContractPauseFormPaginatedSubscriptionList = (props: Props) => {
       {props.displayTextInfo && !!props.textInfo && (
         <div className={classes.informationBoxContainer}>
           <InfoGenericBox
-            variantIcon="outlined"
             alignItems="center"
+            className={classes.informationBox}
             content={props.textInfo}
             type="info"
             variant="contained"
-            className={classes.informationBox}
+            variantIcon="outlined"
           />
         </div>
       )}
       {props.subscriptionIdList?.length > 0 && (
         <PaginatedSubscriptionList
+          itemPerPage={PAGINATED_LIST_SIZE}
           items={props.subscriptionIdList
             .slice(listIdx[0], listIdx[1])
             .map(
               (subscriptionId: number) =>
                 props.subscriptionData[subscriptionId],
             )}
-          nbItems={nbSubscriptions}
           loading={loadingPage}
-          page={currentPage}
-          itemPerPage={PAGINATED_LIST_SIZE}
+          nbItems={nbSubscriptions}
           onPageRequested={onPageRequested}
+          page={currentPage}
         />
       )}
     </React.Fragment>

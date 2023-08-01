@@ -81,14 +81,14 @@ const FranchiseMemberList = (props: Props) => {
   return (
     <div className={classes.root}>
       <FranchiseMembersTable
-        loading={loading}
-        usersCount={usersCount}
-        rowsPerPage={rowsPerPage}
-        page={page}
+        goToMember={navigateToUser}
         handleChangePage={handleChangePage}
         handleChangeRowsPerPage={handleChangeRowsPerPage}
-        goToMember={navigateToUser}
+        loading={loading}
+        page={page}
+        rowsPerPage={rowsPerPage}
         users={users}
+        usersCount={usersCount}
       />
     </div>
   );

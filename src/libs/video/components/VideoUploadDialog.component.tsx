@@ -97,24 +97,23 @@ export class VideoUploadDialog extends React.Component<Props, State> {
               <FormControl>
                 <RadioGroup
                   aria-label="provider-type"
-                  name="provider-type"
                   disabled={
                     this.state.isUploading || this.props.video.upload_id
                   }
-                  value={this.state.providerIdentifier}
+                  name="provider-type"
                   onChange={(ev) =>
                     this.setState({
                       providerIdentifier: parseInt(ev.target.value),
                     })
                   }
+                  value={this.state.providerIdentifier}
                 >
                   <FormControlLabel
-                    value={VideoProvider.MUX_PROVIDER}
-                    control={<Radio />}
                     checked={
                       this.state.providerIdentifier ===
                       VideoProvider.MUX_PROVIDER
                     }
+                    control={<Radio />}
                     disabled={
                       this.state.processing ||
                       !this.props.videoProviderList.includes(
@@ -122,6 +121,7 @@ export class VideoUploadDialog extends React.Component<Props, State> {
                       )
                     }
                     label={this.props.t('video.upload.type.file')}
+                    value={VideoProvider.MUX_PROVIDER}
                   />
                   <Typography
                     color={
@@ -137,42 +137,42 @@ export class VideoUploadDialog extends React.Component<Props, State> {
                   </Typography>
 
                   <FormControlLabel
-                    value={VideoProvider.YOUTUBE_URL_PROVIDER}
-                    control={<Radio />}
                     checked={
                       this.state.providerIdentifier ===
                       VideoProvider.YOUTUBE_URL_PROVIDER
                     }
-                    label={this.props.t('video.upload.type.youtube')}
+                    control={<Radio />}
                     disabled={this.state.processing}
+                    label={this.props.t('video.upload.type.youtube')}
+                    value={VideoProvider.YOUTUBE_URL_PROVIDER}
                   />
                   <Typography variant="caption">
                     {this.props.t('video.upload.type.youtubeExplain')}
                   </Typography>
 
                   <FormControlLabel
-                    value={VideoProvider.VIMEO_URL_PROVIDER}
-                    control={<Radio />}
                     checked={
                       this.state.providerIdentifier ===
                       VideoProvider.VIMEO_URL_PROVIDER
                     }
-                    label={this.props.t('video.upload.type.vimeo')}
+                    control={<Radio />}
                     disabled={this.state.processing}
+                    label={this.props.t('video.upload.type.vimeo')}
+                    value={VideoProvider.VIMEO_URL_PROVIDER}
                   />
                   <Typography variant="caption">
                     {this.props.t('video.upload.type.vimeoExplain')}
                   </Typography>
 
                   <FormControlLabel
-                    value={VideoProvider.EBOOK_PROVIDER}
-                    control={<Radio />}
                     checked={
                       this.state.providerIdentifier ===
                       VideoProvider.EBOOK_PROVIDER
                     }
-                    label={this.props.t('video.upload.type.ebook')}
+                    control={<Radio />}
                     disabled={this.state.processing}
+                    label={this.props.t('video.upload.type.ebook')}
+                    value={VideoProvider.EBOOK_PROVIDER}
                   />
                   <Typography variant="caption">
                     {this.props.t('video.upload.type.ebookExplain')}
@@ -187,11 +187,11 @@ export class VideoUploadDialog extends React.Component<Props, State> {
             </Button>
 
             <Button
-              variant="contained"
-              color="primary"
-              onClick={this.submitProviderIdentifier}
               className={this.props.classes.marginLeft}
+              color="primary"
               disabled={this.state.processing}
+              onClick={this.submitProviderIdentifier}
+              variant="contained"
             >
               {this.props.t('video.upload.submit')}
             </Button>
@@ -219,23 +219,23 @@ export class VideoUploadDialog extends React.Component<Props, State> {
               VideoProvider.YOUTUBE_URL_PROVIDER && (
               <VideoUploadFormYoutube
                 onClose={this.props.onClose}
-                video={this.props.video}
                 setExternalUrl={this.props.setExternalUrl}
+                video={this.props.video}
               />
             )}
             {this.props.video.provider_identifier ===
               VideoProvider.VIMEO_URL_PROVIDER && (
               <VideoUploadFormVimeo
                 onClose={this.props.onClose}
-                video={this.props.video}
                 setExternalUrl={this.props.setExternalUrl}
+                video={this.props.video}
               />
             )}
             {this.props.video.provider_identifier ===
               VideoProvider.EBOOK_PROVIDER && (
               <EbookUploadForm
-                setExternalUrl={this.props.setExternalUrl}
                 onClose={this.props.onClose}
+                setExternalUrl={this.props.setExternalUrl}
                 video={this.props.video}
               />
             )}

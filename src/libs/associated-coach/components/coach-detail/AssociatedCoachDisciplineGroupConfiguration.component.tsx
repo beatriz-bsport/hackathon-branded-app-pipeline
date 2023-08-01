@@ -308,26 +308,21 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
       <Grid item xs={12}>
         <Typography variant="h5">{t('coachEdit.title')}</Typography>
       </Grid>
-      <Grid item xs={12} className={classes.descriptionContainer}>
+      <Grid item className={classes.descriptionContainer} xs={12}>
         <InfoOutlinedIcon className={classes.infoIcon} />
         <Typography className={classes.description} variant="body2">
           {t('coachEdit.description')}
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Grid container direction="row" spacing={2} className={classes.row}>
-          <Grid item xs={12} md={4}>
+        <Grid container className={classes.row} direction="row" spacing={2}>
+          <Grid item md={4} xs={12}>
             <Typography>{t('coachEdit.disciplineGroup')}</Typography>
           </Grid>
           <Grid item xs={8}>
             <Select
               closeMenuOnSelect
               isClearable
-              placeholder={t('coachEdit.disciplineGroup')}
-              options={[...disciplineGroupOptions] || []}
-              value={disciplineGroupOptions.filter(
-                (option) => option.value === coach.discipline_group,
-              )}
               onChange={(ev) => {
                 if (!ev) {
                   // selector has been cleared
@@ -338,132 +333,134 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
                 }
                 assignDisciplineGroupHandler(ev.value);
               }}
+              options={[...disciplineGroupOptions] || []}
+              placeholder={t('coachEdit.disciplineGroup')}
               styles={selectStyles}
+              value={disciplineGroupOptions.filter(
+                (option) => option.value === coach.discipline_group,
+              )}
             />
           </Grid>
         </Grid>
       </Grid>
       <Grid item xs={12}>
         <Button
-          variant="outlined"
           color="secondary"
+          disabled={!values.disciplineGroup}
           onClick={() =>
             assignDisciplineGroupHandler(DISSOCIATE_COACH_DISCIPLINE_GROUP)
           }
-          disabled={!values.disciplineGroup}
+          variant="outlined"
         >
           {t('coachEdit.customRules')}
         </Button>
       </Grid>
-      <Grid item xs={12} className={classes.groupTypes}>
+      <Grid item className={classes.groupTypes} xs={12}>
         <Typography variant="h6">
           {t('disciplineGroup.form.groupTypes')}
         </Typography>
       </Grid>
       <Grid
-        item
         container
-        xs={12}
-        direction="row"
+        item
         alignItems="center"
+        direction="row"
         spacing={1}
+        xs={12}
       >
-        <Grid item xs={12} md={2} className={classes.label}>
+        <Grid item className={classes.label} md={2} xs={12}>
           <Typography variant="body1">{t('coachEdit.activities')}</Typography>
         </Grid>
         <Grid item xs={8}>
           <MaterialUISelector
-            isDisabled={values.allActivities || !!values.disciplineGroup}
-            options={metaActivitySelectorOptions}
+            isMenuListVirtualized
             isMulti
             defaultNumberShown={3}
-            isMenuListVirtualized
-            value={metaActivitySelectorValue}
+            isDisabled={values.allActivities || !!values.disciplineGroup}
             onChange={(ev: OptionTypeBase[]) => {
               handleChange(
                 'activities',
                 ev?.map((e) => e.value),
               );
             }}
+            options={metaActivitySelectorOptions}
             placeholder={t('coachEdit.pickActivity')}
+            value={metaActivitySelectorValue}
           />
         </Grid>
       </Grid>
-      <Grid item xs={12} className={classes.checkboxes}>
+      <Grid item className={classes.checkboxes} xs={12}>
         <FormControlLabel
           control={
             <Checkbox
+              checked={values.allActivities}
               disabled={!!values.disciplineGroup}
               onChange={(_ev, checked) => {
                 handleChange('allActivities', checked);
               }}
-              checked={values.allActivities}
             />
           }
           label={t('coachEdit.allActivities')}
         />
       </Grid>
       <Grid
-        item
         container
-        xs={12}
-        direction="row"
+        item
         alignItems="center"
+        direction="row"
         spacing={1}
+        xs={12}
       >
-        <Grid item xs={12} md={2} className={classes.label}>
+        <Grid item className={classes.label} md={2} xs={12}>
           <Typography variant="body1">{t('coachEdit.workshops')}</Typography>
         </Grid>
         <Grid item xs={8}>
           <MaterialUISelector
-            isDisabled={values.allWorkshops || !!values.disciplineGroup}
-            options={workshopSelectorOptions}
+            isMenuListVirtualized
             isMulti
             defaultNumberShown={3}
-            isMenuListVirtualized
-            value={workshopSelectorValue}
+            isDisabled={values.allWorkshops || !!values.disciplineGroup}
             onChange={(ev: OptionTypeBase[]) => {
               handleChange(
                 'workshops',
                 ev?.map((e) => e.value),
               );
             }}
+            options={workshopSelectorOptions}
             placeholder={t('coachEdit.pickWorkshop')}
+            value={workshopSelectorValue}
           />
         </Grid>
       </Grid>
-      <Grid item xs={12} className={classes.checkboxes}>
+      <Grid item className={classes.checkboxes} xs={12}>
         <FormControlLabel
           control={
             <Checkbox
+              checked={values.allWorkshops}
               disabled={!!values.disciplineGroup}
               onChange={(_ev, checked) => {
                 handleChange('allWorkshops', checked);
               }}
-              checked={values.allWorkshops}
             />
           }
           label={t('coachEdit.allWorkshops')}
         />
       </Grid>
       <Grid
-        item
         container
-        xs={12}
-        direction="row"
+        item
         alignItems="center"
+        direction="row"
         spacing={1}
+        xs={12}
       >
-        <Grid item xs={12} md={2} className={classes.label}>
+        <Grid item className={classes.label} md={2} xs={12}>
           <Typography variant="body1">{t('coachEdit.categories')}</Typography>
         </Grid>
         <Grid item xs={8}>
           <MaterialUISelector
-            isDisabled={values.allCategories || !!values.disciplineGroup}
-            options={categorySelectorOptions}
-            isMulti
-            defaultNumberShown={3}
             isMenuListVirtualized
+            isMulti
             chipsRenderer={(chipProps: {
               data: {
                 label: string;
@@ -473,43 +470,46 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
               onDelete: () => void;
             }) => (
               <SCTChip
+                onDelete={chipProps.onDelete}
                 parentCategory={chipProps.data.parentCategory}
                 SCTName={chipProps.data.label}
-                onDelete={chipProps.onDelete}
               />
             )}
-            value={categorySelectorValue}
+            defaultNumberShown={3}
+            isDisabled={values.allCategories || !!values.disciplineGroup}
             onChange={(ev: OptionTypeBase[]) => {
               handleChange(
                 'categories',
                 ev?.map((e) => e.value),
               );
             }}
+            options={categorySelectorOptions}
             placeholder={t('coachEdit.pickCategory')}
+            value={categorySelectorValue}
           />
         </Grid>
       </Grid>
-      <Grid item xs={12} className={classes.checkboxes}>
+      <Grid item className={classes.checkboxes} xs={12}>
         <FormControlLabel
           control={
             <Checkbox
+              checked={values.allCategories}
               disabled={!!values.disciplineGroup}
               onChange={(_ev, checked) => {
                 handleChange('allCategories', checked);
               }}
-              checked={values.allCategories}
             />
           }
           label={t('coachEdit.allCategories')}
         />
       </Grid>
       <Grid
-        item
         container
-        xs={12}
-        direction="row"
+        item
         alignItems="center"
+        direction="row"
         spacing={2}
+        xs={12}
       >
         <Grid item xs={12}>
           <Typography variant="h6">
@@ -520,17 +520,17 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
           {isMultiLocalizationActivated && (
             <RadioGroup
               name="multilocationRadioGroup"
-              value={multiLocationChoice}
               onChange={onChangeRadioButton}
+              value={multiLocationChoice}
             >
               {multiLocalizationChoices.map(({ value, label: l }) => (
                 <div key={value}>
                   <FormControlLabel
                     key={value}
-                    value={value}
                     control={<Radio />}
-                    label={l}
                     disabled={!!values.disciplineGroup}
+                    label={l}
+                    value={value}
                   />
                 </div>
               ))}
@@ -539,21 +539,21 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
           <div className={classes.establishmentSeletor}>
             {multiLocationChoice === MultilocationChoice.Locations ? (
               <EstablishmentGroupSelector
+                isClearable
+                disabled={!!values.disciplineGroup}
                 establishmentGroups={establishmentGroupList}
+                placeholder={t('disciplineGroup.form.pickEstablishment')}
                 selectedEstablishmentGroups={values.establishmentGroups}
                 selectOption={selectOptionLocations}
-                isClearable
-                placeholder={t('disciplineGroup.form.pickEstablishment')}
-                disabled={!!values.disciplineGroup}
               />
             ) : (
               <EstablishmentSelector
+                isClearable
+                disabled={!!values.disciplineGroup}
                 establishments={establishmentList}
+                placeholder={t('disciplineGroup.form.pickEstablishment')}
                 selectedEstablishments={values.establishments}
                 selectOption={selectOptionEstablishments}
-                isClearable
-                placeholder={t('disciplineGroup.form.pickEstablishment')}
-                disabled={!!values.disciplineGroup}
               />
             )}
           </div>

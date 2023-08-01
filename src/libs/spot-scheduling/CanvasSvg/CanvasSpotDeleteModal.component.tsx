@@ -17,9 +17,9 @@ export const CanvasSpotDeleteModal: React.FC<Props> = ({
 
   return (
     <DeleteDialogWithCheck
+      deleteObject={onDeleteSpotType}
       idToDelete={spotTypeToDeleteId}
       onClose={onClose}
-      deleteObject={onDeleteSpotType}
       trad="spotScheduling"
     />
   );

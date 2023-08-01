@@ -14,10 +14,10 @@ type Props = {
 
 export const MetaActivityDeleteDialog = (props: Props) => (
   <DeleteDialogWithCheck
-    idToDelete={props.metaActivityId}
-    onClose={props.onClose}
     checkCanDeleteObjectAPI={props.canDeleteMetaActivityChecker}
     deleteObject={() => props.deleteMetaActivity(props.metaActivityId)}
+    idToDelete={props.metaActivityId}
+    onClose={props.onClose}
     trad="metaActivity"
   />
 );

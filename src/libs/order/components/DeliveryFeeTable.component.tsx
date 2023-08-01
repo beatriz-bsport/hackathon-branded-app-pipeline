@@ -53,7 +53,7 @@ export function PaymentRuleTable(props: Props) {
               <Button onClick={() => props.onEdit(df)}>
                 <EditIcon />
               </Button>
-              <DeleteButtonWithConfirm t={t} onClick={() => props.onDelete(df)}>
+              <DeleteButtonWithConfirm onClick={() => props.onDelete(df)} t={t}>
                 <DeleteIcon />
               </DeleteButtonWithConfirm>
             </TableCell>

@@ -133,15 +133,15 @@ export const SearchAndRegister = (props: Props) => {
     return (
       <Dialog open>
         <CheckInOfferDetailMemberForm
-          initial={props.memberDataToComplete}
-          onSubmit={props.upsertMember}
-          onClose={props.onClose}
-          onAlreadyLinkMember={props.onClose}
-          onLinkMember={props.onClose}
-          managerFormConfig={props.managerFormConfig}
-          waiver={props.waiver}
-          generalTermsAndConditions={props.generalTermsAndConditions}
           companyCountry={props.companyCountry}
+          generalTermsAndConditions={props.generalTermsAndConditions}
+          initial={props.memberDataToComplete}
+          managerFormConfig={props.managerFormConfig}
+          onAlreadyLinkMember={props.onClose}
+          onClose={props.onClose}
+          onLinkMember={props.onClose}
+          onSubmit={props.upsertMember}
+          waiver={props.waiver}
         />
       </Dialog>
     );
@@ -150,12 +150,12 @@ export const SearchAndRegister = (props: Props) => {
   if (props.member) {
     return (
       <RegisterMember
+        consumerPaymentPacks={props.consumerPaymentPacks}
+        consumerPaymentPacksLoading={props.consumerPaymentPacksLoading}
+        member={props.member}
+        offer={props.offer}
         onClose={props.onClose}
         registerWithPass={props.registerWithPass}
-        consumerPaymentPacksLoading={props.consumerPaymentPacksLoading}
-        consumerPaymentPacks={props.consumerPaymentPacks}
-        offer={props.offer}
-        member={props.member}
         setSearchedMember={props.setSearchedMember}
       />
     );
@@ -164,18 +164,18 @@ export const SearchAndRegister = (props: Props) => {
   return (
     <MemberSearchModal
       open
+      generalTermsAndConditions={props.generalTermsAndConditions}
+      handlMemberSelected={(memberId, member) => {
+        props.setSearchedMember(member);
+      }}
+      managerFormConfig={props.managerFormConfig}
+      onClose={props.onClose}
       searchedMembers={props.searchedMemberList.map((m) => ({
         ...m,
         email: anonymizeEmail(m.email),
       }))}
       searchMembers={props.searchMembers}
-      onClose={props.onClose}
-      handlMemberSelected={(memberId, member) => {
-        props.setSearchedMember(member);
-      }}
-      managerFormConfig={props.managerFormConfig}
       waiver={props.waiver}
-      generalTermsAndConditions={props.generalTermsAndConditions}
     />
   );
 };

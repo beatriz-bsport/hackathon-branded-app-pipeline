@@ -31,17 +31,17 @@ export const PaginatedDiscountList = (props: Props) => {
   return (
     <Paper className={classes.paperContainer}>
       <PaginatedListBase
-        listProps={{ dense: true }}
-        items={props.items}
-        nbItems={props.nbItems}
-        loading={props.loading}
-        page={props.page}
         itemPerPage={props.itemPerPage}
+        items={props.items}
+        listProps={{ dense: true }}
+        loading={props.loading}
+        nbItems={props.nbItems}
         onPageRequested={props.onPageRequested}
+        page={props.page}
         renderEmpty={() => (
           <>
             <div className={classes.emptyContainer}>
-              <Typography variant="caption" color="textSecondary">
+              <Typography color="textSecondary" variant="caption">
                 {t('noDiscount')}
               </Typography>
             </div>
@@ -51,20 +51,20 @@ export const PaginatedDiscountList = (props: Props) => {
         renderItem={(discount: Discount) => (
           <DiscountListItem
             divider
+            company={props.companies.find(
+              (company) => discount.company === company.id,
+            )}
             disabled={
               props.allowedFranchisees?.length &&
               !props.allowedFranchisees.includes(discount.company)
             }
             discount={discount}
-            goToInvoice={(uuid: string) =>
-              props.goToInvoice(discount.company, uuid)
-            }
             goToBillingPlan={(id: number) =>
               props.goToBillingPlan(discount.company, id)
             }
-            company={props.companies.find(
-              (company) => discount.company === company.id,
-            )}
+            goToInvoice={(uuid: string) =>
+              props.goToInvoice(discount.company, uuid)
+            }
           />
         )}
       />

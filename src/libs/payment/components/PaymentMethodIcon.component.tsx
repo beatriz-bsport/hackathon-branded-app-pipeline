@@ -42,23 +42,23 @@ const PaymentMethodIcon = (props: { paymentMethod: number }) => {
     case PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA:
       return (
         <div className={classes.sepaContainer}>
-          <img className={classes.sepaIcon} src={SEPA_LOGO} alt="sepa" />
+          <img alt="sepa" className={classes.sepaIcon} src={SEPA_LOGO} />
         </div>
       );
     case PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT:
       return (
-        <img className={classes.icon} src={BANCONTACT_LOGO} alt="bancontact" />
+        <img alt="bancontact" className={classes.icon} src={BANCONTACT_LOGO} />
       );
     case PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT:
       return (
         <div className={classes.sepaContainer}>
-          <img className={classes.sepaIcon} src={SOFORT_LOGO} alt="sofort" />
+          <img alt="sofort" className={classes.sepaIcon} src={SOFORT_LOGO} />
         </div>
       );
     case PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL:
-      return <img className={classes.icon} src={IDEAL_LOGO} alt="ideal" />;
+      return <img alt="ideal" className={classes.icon} src={IDEAL_LOGO} />;
     case PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT:
-      return <img className={classes.icon} src={BACS_DEBIT_LOGO} alt="ideal" />;
+      return <img alt="ideal" className={classes.icon} src={BACS_DEBIT_LOGO} />;
     case PAYMENT_STRIPE_TERMINAL_FAKE:
       return <Stripe className={classes.stripeIcon} />;
     case QuicksalePaymentMethod.Manual:

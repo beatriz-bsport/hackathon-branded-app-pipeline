@@ -93,9 +93,9 @@ const BottomBarIcons = (props: Props) => {
       <div className={classes.bottomFlexContainer}>
         <Tooltip placement="top" title={t('sendMessage.icons.mail')}>
           <IconButton
-            onClick={() => setActionType(WRITE_EMAIL)}
-            color={actionType === WRITE_EMAIL ? 'primary' : 'default'}
             className={classes.iconButton}
+            color={actionType === WRITE_EMAIL ? 'primary' : 'default'}
+            onClick={() => setActionType(WRITE_EMAIL)}
           >
             {actionType === WRITE_EMAIL ? <MailIcon /> : <MailOutlinedIcon />}
           </IconButton>
@@ -104,13 +104,13 @@ const BottomBarIcons = (props: Props) => {
           {(featureList: FeatureList) => (
             <Tooltip placement="top" title={t('sendMessage.icons.sms')}>
               <IconButton
-                onClick={() => setActionType(WRITE_SMS)}
-                color={actionType === WRITE_SMS ? 'primary' : 'default'}
                 className={classes.iconButton}
+                color={actionType === WRITE_SMS ? 'primary' : 'default'}
                 disabled={
                   Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
                   !hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)
                 }
+                onClick={() => setActionType(WRITE_SMS)}
               >
                 {actionType === WRITE_SMS ? <SmsIcon /> : <SmsOutlinedIcon />}
               </IconButton>
@@ -124,15 +124,15 @@ const BottomBarIcons = (props: Props) => {
               title={t('sendMessage.icons.notification')}
             >
               <IconButton
-                onClick={() => setActionType(WRITE_PUSH_NOTIFICATION)}
+                className={classes.iconButton}
                 color={
                   actionType === WRITE_PUSH_NOTIFICATION ? 'primary' : 'default'
                 }
-                className={classes.iconButton}
                 disabled={
                   Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
                   !hasUpsell(featureList, UPSELL_IDENTIFIER_PUSH_NOTIFICATION)
                 }
+                onClick={() => setActionType(WRITE_PUSH_NOTIFICATION)}
               >
                 {actionType === WRITE_PUSH_NOTIFICATION ? (
                   <NotificationIcon />
@@ -145,9 +145,9 @@ const BottomBarIcons = (props: Props) => {
         </FeatureListProvider>
         <Hidden xsDown>
           <Divider
-            orientation="vertical"
             flexItem
             className={classes.divider}
+            orientation="vertical"
           />
           {actionType === WRITE_EMAIL && (
             <Tooltip placement="top" title={t('sendMessage.icons.template')}>
@@ -164,34 +164,34 @@ const BottomBarIcons = (props: Props) => {
             </IconButton>
           </Tooltip>
           <NestedList
-            dataRecord={tags}
-            onItemClick={onBaliseItemClick}
-            anchorElMenu={menuBalisesAnchorEl}
-            handleCloseMenu={handleCloseMenuBalises}
             forTagsSelector
+            anchorElMenu={menuBalisesAnchorEl}
+            dataRecord={tags}
+            handleCloseMenu={handleCloseMenuBalises}
+            onItemClick={onBaliseItemClick}
           />
         </Hidden>
         <Hidden smUp>
           <IconButton
-            onClick={(event) => setMenuAnchorEl(event.currentTarget)}
             className={classes.iconButton}
+            onClick={(event) => setMenuAnchorEl(event.currentTarget)}
           >
             <MenuIcon />
           </IconButton>
           <Menu
-            id="simple-menu"
-            anchorEl={menuAnchorEl}
             keepMounted
-            open={Boolean(menuAnchorEl)}
-            onClose={handleCloseMenu}
+            anchorEl={menuAnchorEl}
+            id="simple-menu"
             MenuListProps={{
               disablePadding: true,
             }}
+            onClose={handleCloseMenu}
+            open={Boolean(menuAnchorEl)}
           >
             {actionType === WRITE_EMAIL && (
               <MenuItem
-                onClick={handleSelectTemplate}
                 className={classes.mobileMenuItem}
+                onClick={handleSelectTemplate}
               >
                 <TemplateIcon className={classes.mobileIcon} />
                 <Typography variant="caption">
@@ -200,8 +200,8 @@ const BottomBarIcons = (props: Props) => {
               </MenuItem>
             )}
             <MenuItem
-              onClick={(event) => setMenuBalisesAnchorEl(event.currentTarget)}
               className={classes.mobileMenuItem}
+              onClick={(event) => setMenuBalisesAnchorEl(event.currentTarget)}
             >
               <BaliseIcon className={classes.mobileIcon} />
               <Typography variant="caption">
@@ -209,11 +209,11 @@ const BottomBarIcons = (props: Props) => {
               </Typography>
             </MenuItem>
             <NestedList
-              dataRecord={tags}
-              onItemClick={onBaliseItemClick}
-              anchorElMenu={menuBalisesAnchorEl}
-              handleCloseMenu={handleCloseMenuBalises}
               forTagsSelector
+              anchorElMenu={menuBalisesAnchorEl}
+              dataRecord={tags}
+              handleCloseMenu={handleCloseMenuBalises}
+              onItemClick={onBaliseItemClick}
             />
           </Menu>
         </Hidden>
@@ -229,6 +229,9 @@ const BottomBarIcons = (props: Props) => {
           >
             {selectedRecipientsCount ? (
               <CommunicationMessageNumberRecipients
+                compactText
+                compactAvatars={fullScreen}
+                loading={memberListLoading}
                 members={
                   memberList?.slice(
                     0,
@@ -236,16 +239,13 @@ const BottomBarIcons = (props: Props) => {
                   ) ?? []
                 }
                 numberRecipients={selectedRecipientsCount}
-                compactText
-                compactAvatars={fullScreen}
-                loading={memberListLoading}
               />
             ) : (
               <>
                 <PeopleIcon className={classes.bottomRecipientSelectorIcon} />
                 <Typography
-                  variant="caption"
                   className={classes.bottomRecipientSelectorText}
+                  variant="caption"
                 >
                   <Hidden xsDown>
                     {t('sendMessage.buttons.selectRecipients')}
@@ -259,7 +259,7 @@ const BottomBarIcons = (props: Props) => {
           </ButtonBase>
         )}
         {validity === CAN_SEND_MESSAGE ? (
-          <Button color="primary" variant="contained" onClick={sendMessage}>
+          <Button color="primary" onClick={sendMessage} variant="contained">
             <Hidden xsDown>
               <p className={classes.buttonSendText}>
                 {t('sendMessage.buttons.send')}
@@ -270,7 +270,7 @@ const BottomBarIcons = (props: Props) => {
         ) : (
           <Tooltip title={getValidityTooltipMessage(validity, t)}>
             <span id="need-this-span-to-display-tooltip-with-disabled-button">
-              <Button color="primary" variant="contained" disabled>
+              <Button disabled color="primary" variant="contained">
                 <Hidden xsDown>
                   <p className={classes.buttonSendText}>
                     {t('sendMessage.buttons.send')}

@@ -84,10 +84,10 @@ const withUndoRedoState = (initialState: any) => {
           <WrappedComponent
             {...this.props}
             current={this.state.current}
-            setStateWithHistory={this.setStateWithHistory}
-            setInitialState={this.setInitial}
-            undo={this.undo}
             redo={this.redo}
+            setInitialState={this.setInitial}
+            setStateWithHistory={this.setStateWithHistory}
+            undo={this.undo}
           />
         );
       }

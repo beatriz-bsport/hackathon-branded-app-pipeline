@@ -77,12 +77,12 @@ export const CompanyExternalAddMember = (props: Props) => {
       {signUpCustomForm && (
         <Paper className={classes.paper}>
           <CustomFormView
-            initial={signUpCustomForm}
-            onSubmit={submitCustomForm}
-            layouts={signUpCustomForm.layout}
-            waiver={theme.waiver}
             general_terms_and_conditions={theme.general_terms_of_use}
+            initial={signUpCustomForm}
+            layouts={signUpCustomForm.layout}
             onCancel={() => goBack()}
+            onSubmit={submitCustomForm}
+            waiver={theme.waiver}
           />
         </Paper>
       )}

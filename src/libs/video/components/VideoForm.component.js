@@ -66,7 +66,7 @@ export const VideoForm = (props: Props) => {
         <ErrorMessage
           name="cover_main"
           render={() => (
-            <Typography variant="body2" className={classes.alertError}>
+            <Typography className={classes.alertError} variant="body2">
               {t('video.coverMain.alert')}
             </Typography>
           )}
@@ -74,32 +74,32 @@ export const VideoForm = (props: Props) => {
       </div>
       <div className={classes.field}>
         <TextField
+          fullWidth
+          required
+          inputProps={{ maxLength: 500 }}
           label={t('video.name')}
           name="name"
-          required
-          fullWidth
-          inputProps={{ maxLength: 500 }}
         />
       </div>
       <div className={classes.field}>
         <SCTSelectField
-          scts={props.SCTs}
-          label={t('video.category')}
-          onBlur={props.handleBlur}
           fullWidth
-          name="SCT"
           required
+          label={t('video.category')}
+          name="SCT"
+          onBlur={props.handleBlur}
+          scts={props.SCTs}
         />
       </div>
       <div className={classes.field}>
         <LevelSelectorFormik
           inScrollBar
-          name="level"
           customLevels={props.customLevels}
           fetchLevelList={props.fetchLevelList}
-          onEditLevel={props.updateLevel}
+          name="level"
           onCreateLevel={props.createLevel}
           onDeleteLevel={handleDeleteLevel}
+          onEditLevel={props.updateLevel}
         />
       </div>
       <div className={classes.field}>
@@ -128,13 +128,13 @@ export const VideoForm = (props: Props) => {
                   />
                 ))}
                 <CoachSelector
+                  closeMenuOnSelect
+                  nullCurrentValue
                   coaches={[
                     ...(props.coaches || []).filter(
                       (c) => !coaches.includes(c.id) && !c.disabled,
                     ),
                   ]}
-                  closeMenuOnSelect
-                  nullCurrentValue
                   helperText={t('video.form.coach.helperText')}
                   selectedCoaches={[]}
                   selectOption={(ev) => {
@@ -148,12 +148,12 @@ export const VideoForm = (props: Props) => {
       </div>
       <div className={classes.field}>
         <IntegerField
+          fullWidth
+          required
+          helperText={t('video.form.creditPrice.helperText')}
+          inputProps={{ maxLength: 500 }}
           label={t('video.form.creditPrice.label')}
           name="credit_price"
-          required
-          fullWidth
-          inputProps={{ maxLength: 500 }}
-          helperText={t('video.form.creditPrice.helperText')}
         />
       </div>
 
@@ -167,19 +167,19 @@ export const VideoForm = (props: Props) => {
             <Typography>{t('video.upload.durationLabel')}</Typography>
             <div className={classes.durationWrapper}>
               <IntegerField
+                fullWidth
+                required
+                inputProps={{ maxLength: 500 }}
                 label={t('video.upload.hours')}
                 name="_duration_hours"
-                required
-                fullWidth
-                inputProps={{ maxLength: 500 }}
               />
 
               <IntegerField
+                fullWidth
+                required
+                inputProps={{ maxLength: 500 }}
                 label={t('video.upload.minutes')}
                 name="_duration_minutes"
-                required
-                fullWidth
-                inputProps={{ maxLength: 500 }}
               />
             </div>
           </>
@@ -188,47 +188,47 @@ export const VideoForm = (props: Props) => {
       <div className={classes.field}>
         <CheckboxField
           helperText={t('video.manager_only_helper')}
-          name="manager_only"
           label={t('video.manager_only')}
+          name="manager_only"
         />
       </div>
       <div className={classes.field}>
         <CheckboxField
-          helperText={t('video.rental.helper')}
-          name="forRent"
-          label={t('video.rental.label')}
           disabled={
             props.initial?.provider_identifier === VideoProvider.EBOOK_PROVIDER
           }
+          helperText={t('video.rental.helper')}
+          label={t('video.rental.label')}
+          name="forRent"
         />
       </div>
 
       {props.values.forRent && (
         <div className={classes.field}>
           <IntegerField
-            label={t('video.rental.duration_helper')}
-            name="rental_days"
             fullWidth
+            helperText={t('video.rental.rental_days_helper')}
             InputProps={{
               inputProps: {
                 min: 1,
                 maxLength: 500,
               },
             }}
-            helperText={t('video.rental.rental_days_helper')}
+            label={t('video.rental.duration_helper')}
+            name="rental_days"
           />
         </div>
       )}
 
       <div className={classes.field}>
         <TextField
-          label={t('video.description')}
-          name="description"
-          variant="outlined"
-          required
           fullWidth
           multiline
+          required
+          label={t('video.description')}
+          name="description"
           rows={10}
+          variant="outlined"
         />
       </div>
 
@@ -239,7 +239,7 @@ export const VideoForm = (props: Props) => {
           </legend>
 
           <div className={classes.videoSourceContent}>
-            <Typography variant="subtitle1" color="textSecondary">
+            <Typography color="textSecondary" variant="subtitle1">
               {t(
                 {
                   [VideoProvider.AWS_PROVIDER]:
@@ -257,10 +257,10 @@ export const VideoForm = (props: Props) => {
             </Typography>
 
             <Button
-              color="primary"
-              variant="outlined"
               className={classes.videoSourceButton}
+              color="primary"
               onClick={() => props.onRemoveVideoSource(props.initial)}
+              variant="outlined"
             >
               {t('video.form.video_source.edit_button').toUpperCase()}
             </Button>

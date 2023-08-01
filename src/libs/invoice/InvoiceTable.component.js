@@ -148,12 +148,12 @@ export class InvoiceTable extends Component<Props, State> {
     );
     return (
       <FeatureTable
-        data={moneyInvoices}
-        renderRow={this.renderRow}
         columnData={this.getColumnData()}
+        data={moneyInvoices}
         loading={this.props.loading}
-        orderBy="date"
         order="desc"
+        orderBy="date"
+        renderRow={this.renderRow}
       />
     );
   }

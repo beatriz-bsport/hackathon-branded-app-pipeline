@@ -106,11 +106,11 @@ class SimilarOffersSelector extends React.PureComponent<Props> {
     return (
       <Drawer
         anchor="right"
-        open={this.props.open}
         onClose={this.props.onClose}
+        open={this.props.open}
       >
         <div className={classes.topRow}>
-          <Typography variant="h5" color="textPrimary">
+          <Typography color="textPrimary" variant="h5">
             {t('offer.similarOffer.title')}
           </Typography>
 
@@ -160,23 +160,23 @@ class SimilarOffersSelector extends React.PureComponent<Props> {
             ) {
               return (
                 <Box
-                  width="100%"
+                  key={`skeleton-${o.id}`}
+                  className={classes.similarOfferItem}
                   height={60}
                   p={2}
-                  className={classes.similarOfferItem}
-                  key={`skeleton-${o.id}`}
+                  width="100%"
                 >
                   <Skeleton
                     animation="wave"
-                    width="50%"
-                    variant="text"
                     height={20}
+                    variant="text"
+                    width="50%"
                   />
                   <Skeleton
                     animation="wave"
-                    width="30%"
-                    variant="text"
                     height={20}
+                    variant="text"
+                    width="30%"
                   />
                 </Box>
               );
@@ -197,18 +197,18 @@ class SimilarOffersSelector extends React.PureComponent<Props> {
             );
 
             return (
-              <Collapse in={!isSelected} key={o.id}>
+              <Collapse key={o.id} in={!isSelected}>
                 <div className={classes.similarOfferItem}>
                   <OfferItem
-                    offer={o}
-                    hideCoach={this.props.hideCoach}
                     disabled={o.group ? false : noInteraction}
-                    offerStatus={offerStatus}
-                    isBookable={isBookable}
-                    isWaitingList={isWaitingList}
-                    onAdd={this.props.onSelectOffer}
                     height={200}
+                    hideCoach={this.props.hideCoach}
+                    isBookable={isBookable}
                     isRegistered={isRegistered}
+                    isWaitingList={isWaitingList}
+                    offer={o}
+                    offerStatus={offerStatus}
+                    onAdd={this.props.onSelectOffer}
                   />
                 </div>
               </Collapse>

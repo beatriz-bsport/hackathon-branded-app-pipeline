@@ -59,16 +59,16 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
     return (
       <>
         {isOpen && (
-          <div className="bs-pack-details-dialog " ref={dialogRef}>
+          <div ref={dialogRef} className="bs-pack-details-dialog ">
             <Card
-              size={CardSize.L}
               classes={{
                 'bs-pack-details-dialog__card': 'bs-pack-details-dialog__card',
               }}
+              size={CardSize.L}
             >
               <div
-                className="bs-pack-details-dialog__card-content"
                 ref={modalRef}
+                className="bs-pack-details-dialog__card-content"
               >
                 <div className="bs-pack-details-dialog__container">
                   <Content
@@ -79,21 +79,21 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                     }}
                   >
                     <Grid>
-                      <Item rowStart={1} rowEnd={1}>
+                      <Item rowEnd={1} rowStart={1}>
                         <div className="bs-pack-details-dialog__header">
                           <h3 className="bs-pack-details-dialog__header__title">
                             {paymentPack.name}
                           </h3>
                           <Price
-                            formatPriceWithCurrency={
-                              getCurrencyDisplayWithPrice
-                            }
                             amount={paymentPack.price}
-                            color={Color.PRIMARY}
                             classes={{
                               'bs-pack-details-dialog__price':
                                 'bs-pack-details-dialog__price',
                             }}
+                            color={Color.PRIMARY}
+                            formatPriceWithCurrency={
+                              getCurrencyDisplayWithPrice
+                            }
                             isExcludingTax={isExcludingTax}
                             tax={tax}
                           />
@@ -101,14 +101,14 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                       </Item>
                       <Item rowStart={2}>
                         <PaymentPackDetailList
-                          paymentPack={paymentPack}
+                          hideCredits={!!hideCredits}
                           isCompatibleWithAll={isCompatibleWithAll}
                           onShowCompatibilityDialog={onShowCompatibilityDialog}
-                          onShowRestrictionDialog={onShowRestrictionDialog}
-                          hideCredits={!!hideCredits}
                           onShowOffPeakRestrictionDialog={
                             onShowOffPeakRestrictionDialog
                           }
+                          onShowRestrictionDialog={onShowRestrictionDialog}
+                          paymentPack={paymentPack}
                         />
                       </Item>
                     </Grid>
@@ -127,13 +127,13 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                         }}
                       >
                         <Item
-                          rowStart={3}
                           classes={{
                             'bs-pack-details-dialog__item':
                               'bs-pack-details-dialog__item',
                             'bs-pack-details-dialog__description':
                               'bs-pack-details-dialog__description',
                           }}
+                          rowStart={3}
                         >
                           {paymentPack.description}
                         </Item>
@@ -154,29 +154,29 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                     }}
                   >
                     <Item
-                      rowStart={4}
-                      direction={Direction.ROW}
                       alignment={Alignment.CENTER}
-                      justification={Justification.FLEX_END}
                       classes={{
                         'bs-pack-details-dialog__item':
                           'bs-pack-details-dialog__item',
                         'bs-pack-details-dialog__item__buttons':
                           'bs-pack-details-dialog__item__buttons',
                       }}
+                      direction={Direction.ROW}
+                      justification={Justification.FLEX_END}
+                      rowStart={4}
                     >
                       <div className="bs-pack-details-dialog__buttons">
                         <button
                           className="bs-pack-details-dialog__buttons__cancel"
-                          type="button"
                           onClick={onDialogClose}
+                          type="button"
                         >
                           {t('common:cancel')}
                         </button>
                         <button
                           className="bs-pack-details-dialog__buttons__add-to-cart"
-                          type="button"
                           onClick={handleAddToCart}
+                          type="button"
                         >
                           {t('genericCard.addButton.buttonContent')}
                         </button>

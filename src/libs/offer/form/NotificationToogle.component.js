@@ -14,11 +14,11 @@ type Props = {
 
 export function NotificationToogle(props: Props) {
   return (
-    <Grid container direction="row" spacing={2} alignItems="center">
+    <Grid container alignItems="center" direction="row" spacing={2}>
       <Grid item>
         <Switch
-          color="primary"
           checked={props.notifyConsumers}
+          color="primary"
           onChange={(event) => {
             props.onNotificationChange(event.target.checked);
           }}

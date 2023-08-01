@@ -28,7 +28,7 @@ export const DeleteNoShowPenaltyDialog: React.FC<Props> = (props) => {
       </DialogContent>
       <div className={classes.buttonContainer}>
         <DialogActions>
-          <Button onClick={props.onClose} variant="contained" color="primary">
+          <Button color="primary" onClick={props.onClose} variant="contained">
             {t('common:ok')}
           </Button>
         </DialogActions>

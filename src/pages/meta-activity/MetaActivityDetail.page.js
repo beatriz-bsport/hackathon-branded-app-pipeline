@@ -50,26 +50,26 @@ export class MetaActivityDetail extends React.Component<Props> {
 
     return (
       <ContentWithAppBar
-        tab={tab}
         onChange={this.onChange}
         pageHeight={pageHeight}
+        tab={tab}
         tabsData={tabsData}
       >
         <Switch>
           <Route
             exact
+            component={MetaActivityDetailPack}
             path="/activity/:id/pack/:packId"
-            component={MetaActivityDetailPack}
           />
           <Route
             exact
+            component={MetaActivityDetailPack}
             path="/activity/:id/pack"
-            component={MetaActivityDetailPack}
           />
           <Route
             exact
-            path="/activity/:id/general"
             component={MetaActivityDetailGeneral}
+            path="/activity/:id/general"
           />
         </Switch>
       </ContentWithAppBar>

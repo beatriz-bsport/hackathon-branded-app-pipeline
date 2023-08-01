@@ -88,33 +88,15 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
     );
   };
   return (
-    <GenericResponsiveDialog open={open} maxWidth="md">
+    <GenericResponsiveDialog maxWidth="md" open={open}>
       <DialogContent>
         <MobileStepper
-          steps={maxSteps}
-          position="static"
-          variant="text"
           activeStep={activeStep}
-          classes={{ root: classes.transparentBackGround }}
-          nextButton={
-            <Button
-              size="small"
-              onClick={handleNext}
-              disabled={activeStep === maxSteps - 1}
-            >
-              {t('next')}
-              {theme.direction === 'rtl' ? (
-                <KeyboardArrowLeft />
-              ) : (
-                <KeyboardArrowRight />
-              )}
-            </Button>
-          }
           backButton={
             <Button
-              size="small"
-              onClick={handleBack}
               disabled={activeStep === 0}
+              onClick={handleBack}
+              size="small"
             >
               {theme.direction === 'rtl' ? (
                 <KeyboardArrowRight />
@@ -124,6 +106,24 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
               {t('previous')}
             </Button>
           }
+          classes={{ root: classes.transparentBackGround }}
+          nextButton={
+            <Button
+              disabled={activeStep === maxSteps - 1}
+              onClick={handleNext}
+              size="small"
+            >
+              {t('next')}
+              {theme.direction === 'rtl' ? (
+                <KeyboardArrowLeft />
+              ) : (
+                <KeyboardArrowRight />
+              )}
+            </Button>
+          }
+          position="static"
+          steps={maxSteps}
+          variant="text"
         />
         <div className={classes.allSteps}>
           <div className={classes.stepWithIcon}>
@@ -133,10 +133,10 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
               })}
             />
             <Typography
-              variant="h6"
               className={classNames({
                 [classes.highligthed]: activeStep === 0,
               })}
+              variant="h6"
             >
               {t('categories')}
             </Typography>
@@ -148,10 +148,10 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
               })}
             />
             <Typography
-              variant="h6"
               className={classNames({
                 [classes.highligthed]: activeStep === 1,
               })}
+              variant="h6"
             >
               {t('activities')}
             </Typography>
@@ -163,10 +163,10 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
               })}
             />
             <Typography
-              variant="h6"
               className={classNames({
                 [classes.highligthed]: activeStep === 2,
               })}
+              variant="h6"
             >
               {t('establishments')}
             </Typography>
@@ -183,7 +183,7 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
           {t('actions.close')}
         </Button>
         {isManager && (
-          <Button id="button_modify" color="primary" onClick={props.onModify}>
+          <Button color="primary" id="button_modify" onClick={props.onModify}>
             {t('actions.edit')}
           </Button>
         )}

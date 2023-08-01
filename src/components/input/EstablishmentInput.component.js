@@ -42,15 +42,15 @@ export function EstablishmentInput(props: Props) {
   } = props;
   return (
     <FormControl className={classes.formControl} required={required}>
-      <InputLabel shrink={value} htmlFor="establishment-helper">
+      <InputLabel htmlFor="establishment-helper" shrink={value}>
         {label || t('common.establishment')}
       </InputLabel>
       <Select
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
         input={
-          <Input name={t('common.establishment')} id="establishment-helper" />
+          <Input id="establishment-helper" name={t('common.establishment')} />
         }
+        onChange={(event) => onChange(event.target.value)}
+        value={value}
       >
         {noBlank ? null : (
           <MenuItem value={null}>

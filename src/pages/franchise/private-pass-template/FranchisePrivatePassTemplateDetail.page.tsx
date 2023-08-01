@@ -66,14 +66,14 @@ export class FranchisePrivatePassTemplateDetail extends Component<Props> {
     }
     return (
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <PrivatePassTemplateCard
-            privatePassTemplate={this.props.privatePassTemplate}
             onCreatePrivatePassTemplateInstance={this.props.openCreateForm}
             onDeleteCompany={this.props.openDeleteDialog}
+            privatePassTemplate={this.props.privatePassTemplate}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <Paper>
             {/*
             * TODO: add filtering
@@ -86,8 +86,11 @@ export class FranchisePrivatePassTemplateDetail extends Component<Props> {
               */}
             <Divider />
             <PaginatedConsumerPrivatePass
-              items={this.props.consumerPass.items}
               allowedFranchisees={this.props.allowedFranchisees}
+              consumerPrivatePassUpdating={this.props.consumerPass.updating}
+              itemPerPage={PAGINATION_SIZE}
+              items={this.props.consumerPass.items}
+              loading={this.props.consumerPass.loading}
               nbItems={this.props.consumerPass.count}
               onClick={(cpp: {
                 member: { id: number };
@@ -100,28 +103,25 @@ export class FranchisePrivatePassTemplateDetail extends Component<Props> {
                   cpp.id,
                 );
               }}
-              loading={this.props.consumerPass.loading}
-              page={this.props.consumerPass.page}
-              consumerPrivatePassUpdating={this.props.consumerPass.updating}
-              itemPerPage={PAGINATION_SIZE}
               onPageRequested={(page: number, pageSize: number) => {
                 this.props.fetchPrivateConsumerPassList(page, pageSize);
               }}
+              page={this.props.consumerPass.page}
             />
           </Paper>
         </Grid>
         <PrivatePassTemplateInstanceFormDialog
-          open={this.props.createFormOpen}
+          companies={this.props.companies}
           onClose={this.props.closeCreateForm}
           onSubmit={this.props.createPrivatePassTemplateInstance}
-          companies={this.props.companies}
+          open={this.props.createFormOpen}
         />
         <PrivatePassTemplateInstanceDeleteDialog
-          open={!!this.props.companyTemplateInstanceIdToDelete}
-          privatePassTemplate={this.props.privatePassTemplate}
           companyId={this.props.companyTemplateInstanceIdToDelete}
           onClose={this.props.closeDeleteDialog}
           onSubmit={this.props.deletePrivatePassTemplateInstance}
+          open={!!this.props.companyTemplateInstanceIdToDelete}
+          privatePassTemplate={this.props.privatePassTemplate}
         />
       </Grid>
     );

@@ -100,48 +100,48 @@ const ReplacementRequestFilters: React.FC<Props> = ({
 
   return (
     <div className={classes.filtersContainer}>
-      <Typography variant="button" className={classes.filterTitle}>
+      <Typography className={classes.filterTitle} variant="button">
         {t('marketplace.filters')}
       </Typography>
       <div className={classes.filters}>
         <CoachSelector
-          noMulti={false}
           coaches={coachList}
           isLoading={coachLoading}
+          noMulti={false}
           selectedCoaches={replacementRequestManagerFilter.coach__in}
           selectOption={(ev) => setFilter(ev, FILTER_COACH)}
         />
       </div>
       <div className={classes.filters}>
         <EstablishmentsSelector
+          closeMenuOnSelect={false}
           establishments={establishmentList}
           isLoading={establishmentLoading}
+          noMulti={false}
           selectedEstablishments={
             replacementRequestManagerFilter.establishment__in
           }
           selectOption={(ev) => setFilter(ev, FILTER_ESTABLISHMENT)}
-          noMulti={false}
-          closeMenuOnSelect={false}
         />
       </div>
       {enableMultiLocalization && (
         <div className={classes.filters}>
           <EstablishmentGroupSelector
+            closeMenuOnSelect={false}
             establishmentGroups={establishmentGroupList}
             isLoading={establishmentGroupLoading}
+            noMulti={false}
             selectedEstablishmentGroups={
               replacementRequestManagerFilter.establishment_group__in
             }
             selectOption={(ev) => setFilter(ev, FILTER_ESTABLISHMENT_GROUP)}
-            noMulti={false}
-            closeMenuOnSelect={false}
           />
         </div>
       )}
       <div className={classes.filters}>
         <MetaActivitySelector
-          metaActivities={metaActivityList}
           isLoading={metaActivityLoading}
+          metaActivities={metaActivityList}
           selectedMetaActivities={
             replacementRequestManagerFilter.meta_activity__in
           }
@@ -150,9 +150,10 @@ const ReplacementRequestFilters: React.FC<Props> = ({
       </div>
       <div className={classes.filters}>
         <Select
-          options={SCTOptions}
-          isMulti
           isClearable
+          isMulti
+          onChange={(ev) => setFilter(ev, FILTER_CATEGORY)}
+          options={SCTOptions}
           placeholder={t('selects.category')}
           value={
             replacementRequestManagerFilter.category__in
@@ -161,7 +162,6 @@ const ReplacementRequestFilters: React.FC<Props> = ({
               )
               .filter((sct) => !!sct) || []
           }
-          onChange={(ev) => setFilter(ev, FILTER_CATEGORY)}
         />
       </div>
     </div>

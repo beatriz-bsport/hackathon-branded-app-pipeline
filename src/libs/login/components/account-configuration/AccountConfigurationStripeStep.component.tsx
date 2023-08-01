@@ -96,7 +96,7 @@ export const AccountConfigurationStripeStep: React.FC<Props> = ({
         <Typography variant="subtitle2">
           {t('login:accountConfiguration.companyName')}
         </Typography>
-        <Typography variant="body2" className={classes.companyInfo}>
+        <Typography className={classes.companyInfo} variant="body2">
           {companyName}
         </Typography>
         {companyAdress && (
@@ -114,7 +114,7 @@ export const AccountConfigurationStripeStep: React.FC<Props> = ({
             <Typography variant="subtitle2">
               {t('login:accountConfiguration.companyStripeName')}
             </Typography>
-            <Typography variant="body2" className={classes.companyInfo}>
+            <Typography className={classes.companyInfo} variant="body2">
               {companyStripeName}
             </Typography>
           </>
@@ -125,12 +125,12 @@ export const AccountConfigurationStripeStep: React.FC<Props> = ({
           />
         ) : (
           <Button
-            variant="outlined"
-            color="primary"
             className={classes.roundButton}
+            color="primary"
             onClick={() => {
               setIsStripeModalOpen(true);
             }}
+            variant="outlined"
           >
             {t('login:accountConfiguration.configureStripeAction')}
           </Button>
@@ -138,16 +138,16 @@ export const AccountConfigurationStripeStep: React.FC<Props> = ({
         <InfoBox />
         <div className={classes.action}>
           <Button
-            variant="contained"
             color="primary"
             disabled={!success}
             onClick={goNext}
+            variant="contained"
           >
             {labelGoNext || t('common:next')}
           </Button>
         </div>
       </div>
-      <Dialog open={isStripeModalOpen} maxWidth={false}>
+      <Dialog maxWidth={false} open={isStripeModalOpen}>
         {waitingForRedirection ? (
           <div className={classes.redirectionContainer}>
             <div>
@@ -169,15 +169,15 @@ export const AccountConfigurationStripeStep: React.FC<Props> = ({
             </DialogContent>
             <DialogActions>
               <Button
-                onClick={() => setIsStripeModalOpen(false)}
                 color="secondary"
+                onClick={() => setIsStripeModalOpen(false)}
               >
                 {t('common:cancel')}
               </Button>
               <Button
+                color="primary"
                 onClick={() => setWaitingForRedirection(true)}
                 variant="contained"
-                color="primary"
               >
                 {t('common:selector.validate')}
               </Button>

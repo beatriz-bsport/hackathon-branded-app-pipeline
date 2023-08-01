@@ -80,19 +80,10 @@ export const BasketConsumer = (props: Props) => {
           <>
             {props.basket.checkout_items.map((checkoutItem) => (
               <CheckoutItemListItem
-                isExcludingTax={props.isExcludingTax}
-                checkout_item={checkoutItem}
                 key={checkoutItem.id}
+                checkout_item={checkoutItem}
+                isExcludingTax={props.isExcludingTax}
                 loading={props.loading}
-                onRemoveOne={
-                  props.onRemoveCheckoutItem
-                    ? () =>
-                        props.onRemoveCheckoutItem({
-                          checkout_item: checkoutItem.id,
-                          quantity: 1,
-                        })
-                    : null
-                }
                 onAddOne={() => {
                   props.onAddCheckoutItem({
                     quantity: 1,
@@ -105,20 +96,29 @@ export const BasketConsumer = (props: Props) => {
                   });
                 }}
                 onItemExpire={props.onItemExpire}
+                onRemoveOne={
+                  props.onRemoveCheckoutItem
+                    ? () =>
+                        props.onRemoveCheckoutItem({
+                          checkout_item: checkoutItem.id,
+                          quantity: 1,
+                        })
+                    : null
+                }
               />
             ))}
             {props.basket.prepaid_lines.map((pl) => (
               <PrepaidLineListItem
-                divider
-                prepaid_line={pl}
                 key={pl.id}
+                divider
                 onRemove={props.onRemoveInternalAccountPrepaidLine}
+                prepaid_line={pl}
               />
             ))}
           </>
         ) : (
           <div className={classes.centeredAndPadded}>
-            <Typography color="textSecondary" align="center">
+            <Typography align="center" color="textSecondary">
               {t('myBasket.isEmpty')}
             </Typography>
           </div>

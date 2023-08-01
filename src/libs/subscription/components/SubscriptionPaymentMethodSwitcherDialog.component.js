@@ -45,23 +45,23 @@ export class SubscriptionPaymentMethodSwitcherDialog extends React.Component<Pro
       <Dialog open={this.props.open}>
         <DialogContent>
           <SubscriptionPayment
-            onSubmit={this.props.onSubmit}
-            onCancel={this.props.onCancel}
-            enabledPaymentMethods={this.props.enabledPaymentMethods}
+            companyId={this.props.companyId}
             enabledPaymentGroupMethodIdentifier={
               this.props.enabledPaymentGroupMethodIdentifier
             }
+            enabledPaymentMethods={this.props.enabledPaymentMethods}
+            member={this.props.member}
+            onCancel={this.props.onCancel}
+            onSubmit={this.props.onSubmit}
+            processing={this.props.processing}
             refreshSavedPaymentMethodList={
               this.props.refreshSavedPaymentMethodList
             }
-            member={this.props.member}
-            processing={this.props.processing}
-            savedPaymentMethodList={this.props.savedPaymentMethodList}
             requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-            sepaDefaultName={this.props.member ? this.props.member.name : ''}
+            savedPaymentMethodList={this.props.savedPaymentMethodList}
             sepaDefaultEmail={this.props.member ? this.props.member.email : ''}
+            sepaDefaultName={this.props.member ? this.props.member.name : ''}
             stripeReaders={this.props.stripeReaders}
-            companyId={this.props.companyId}
           />
         </DialogContent>
       </Dialog>

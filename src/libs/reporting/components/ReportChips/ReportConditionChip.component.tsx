@@ -253,16 +253,16 @@ const ReportConditionChip: React.FC<Props> = ({
       const config = specs[datatype];
       return (
         <NumberChip
-          config={config}
-          value={value}
-          displayedValue={translation}
           chipClass={chipClass}
+          config={config}
+          displayedValue={translation}
+          value={value}
         />
       );
     }
   }
 
-  return <CustomChip displayedValue={value.toString()} chipClass={chipClass} />;
+  return <CustomChip chipClass={chipClass} displayedValue={value.toString()} />;
 };
 
 export default React.memo(ReportConditionChip);

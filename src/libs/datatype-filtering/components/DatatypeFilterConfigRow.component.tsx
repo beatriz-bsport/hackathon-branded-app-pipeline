@@ -229,7 +229,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
   };
 
   return (
-    <div className={classes.filterRow} ref={rowRef}>
+    <div ref={rowRef} className={classes.filterRow}>
       {!displayAsFirstOrderRow && (
         <div className={classNames(classes.groupRule, classes.center)}>
           {!hidePrefix && (
@@ -241,45 +241,45 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
       )}
       <div className={classNames(classes.flexOne, classes.relative)}>
         <MaterialUiSingleSelectorField
-          options={columsOptions}
-          name={`${prefix}.identifier`}
-          onChange={handleColumnChange}
-          classes={{ root: classes.select }}
           inScrollBar
           chipsRenderer={({ data }) => (
             <div className={classes.warningSelect}>
               <div>{data.label}</div>
               {!reportColumns.includes(filterItem.identifier) && (
                 <HoverableWarning
+                  containerPortal={rowRef?.current}
                   id={`${prefix}.identifier`}
                   text={t('filter.form.columnError')}
-                  containerPortal={rowRef?.current}
                 />
               )}
             </div>
           )}
+          classes={{ root: classes.select }}
           isDisabled={isPreview}
+          name={`${prefix}.identifier`}
+          onChange={handleColumnChange}
+          options={columsOptions}
         />
       </div>
       {filterItem.datatype === 'datetime' && (
         <div className={classes.flexOne}>
           <MaterialUiSingleSelectorField
-            options={subDataTypeOption}
-            name={`${prefix}.sub_datatype`}
-            classes={{ root: classes.select }}
             inScrollBar
+            classes={{ root: classes.select }}
             isDisabled={isPreview}
+            name={`${prefix}.sub_datatype`}
+            options={subDataTypeOption}
           />
         </div>
       )}
       <div className={classes.flexOne}>
         <MaterialUiSingleSelectorField
-          options={filterComparatorOptions}
+          inScrollBar
+          classes={{ root: classes.select }}
+          isDisabled={isPreview}
           name={`${prefix}.comparator`}
           onChange={handleComparatorChange}
-          classes={{ root: classes.select }}
-          inScrollBar
-          isDisabled={isPreview}
+          options={filterComparatorOptions}
         />
       </div>
       <div
@@ -291,10 +291,10 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
       >
         <DatatypeFilterConfigValueManager
           comparator={filterItem.comparator}
-          prefix={prefix}
           filterItem={filterItem}
           getDataByType={getDataByType}
           isPreview={isPreview}
+          prefix={prefix}
         />
       </div>
       <div className={classes.deleteIcon}>

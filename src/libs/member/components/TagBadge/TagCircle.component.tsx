@@ -24,7 +24,7 @@ export const TagCircle = (props: Props) => {
 
   return (
     <>
-      <MuiIcon icon={icon} className={classes.icon} />
+      <MuiIcon className={classes.icon} icon={icon} />
     </>
   );
 };

@@ -38,20 +38,20 @@ export const DashboardChipRow: React.FC<Props> = ({
     <div className={classes.container}>
       <span className={classes.chip}>
         <DashboardDateChip
+          disabled={!!disabled}
           graph={graph}
           onClick={onClick}
-          disabled={!!disabled}
         />
       </span>
       <span className={classes.chip}>
         <DashboardFilterChip
+          disabled={!!disabled}
           graph={graph}
           onClick={onClick}
-          disabled={!!disabled}
         />
       </span>
       <Tooltip title={t('addFilter')}>
-        <IconButton size="small" onClick={onClick} disabled={!!disabled}>
+        <IconButton disabled={!!disabled} onClick={onClick} size="small">
           <AddIcon color="primary" />
         </IconButton>
       </Tooltip>

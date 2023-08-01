@@ -71,7 +71,7 @@ const RenderLegend = (props: { payload: any }) => {
       <div className={classes.legendContainer}>
         <Grid container direction="row">
           {payload.slice(0, MAX_NB_ENTRIES_LEGEND).map((entry, index) => (
-            <Grid item xs={6} key={entry.payload.name}>
+            <Grid key={entry.payload.name} item xs={6}>
               <div
                 className={
                   index % 2 === 0
@@ -96,27 +96,27 @@ const RenderLegend = (props: { payload: any }) => {
         </Grid>
 
         {payload.length > MAX_NB_ENTRIES_LEGEND && (
-          <div className={classes.legendChipContainer} ref={legendPopperRef}>
+          <div ref={legendPopperRef} className={classes.legendChipContainer}>
             <Chip
               clickable
-              variant="outlined"
               label={t('showMoreLegend', {
                 count: payload.length - MAX_NB_ENTRIES_LEGEND,
               })}
               onClick={() => setLegendPopperOpen(true)}
+              variant="outlined"
             />
           </div>
         )}
       </div>
 
       <Popover
-        open={legendPopperOpen}
         anchorEl={legendPopperRef?.current}
-        onClose={handleClose}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center',
         }}
+        onClose={handleClose}
+        open={legendPopperOpen}
         transformOrigin={{
           vertical: 'top',
           horizontal: 'center',
@@ -126,8 +126,8 @@ const RenderLegend = (props: { payload: any }) => {
           <div className={classes.popperInnerContainer}>
             {payload.slice(10).map((entry) => (
               <div
-                className={classes.inlineContainerStart}
                 key={entry.payload.name}
+                className={classes.inlineContainerStart}
               >
                 <div
                   style={{
@@ -197,13 +197,13 @@ export function PieChartComponent(props: Props) {
   const colors = DASHBOARD_COLOR_PALETTE;
 
   return (
-    <ResponsiveContainer width={width || '100%'} height={height || 400}>
+    <ResponsiveContainer height={height || 400} width={width || '100%'}>
       <PieChart margin={margin}>
         <Pie
           data={data}
+          dataKey="value"
           innerRadius={innerRadius || '67%'}
           outerRadius={outerRadius || '80%'}
-          dataKey="value"
           paddingAngle={2}
         >
           {data.map((entry, index) => (
@@ -213,10 +213,10 @@ export function PieChartComponent(props: Props) {
             />
           ))}
           <Label
-            position="center"
             fontSize={25}
-            value={total}
             formatter={numberFormatter(isCurrencyFormat)}
+            position="center"
+            value={total}
           />
         </Pie>
         {tooltip ? (

@@ -262,8 +262,8 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
           <div className={this.props.classes.header}>
             <div>
               <Button
-                onClick={this.props.goToHomeTab}
                 color="primary"
+                onClick={this.props.goToHomeTab}
                 variant="contained"
               >
                 <TodayIcon className={this.props.classes.iconLeft} />
@@ -273,64 +273,64 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
           </div>
         )}
         <ConsumerDashboardHeader
-          favoriteMetaActivity={this.props.favoriteMetaActivity}
           favoriteEstablishment={this.props.favoriteEstablishment}
+          favoriteMetaActivity={this.props.favoriteMetaActivity}
           goToCalendar={this.props.goToCalendar}
         />
         <div style={{ marginBottom: 32 }}>
           {!!this.props.member && !this.props.companyThemeLoading && (
             <MemberBillingProblemCard
-              invoiceLoading={this.props.invoiceLoading}
-              memberId={this.props.membership.id}
-              unpaidInvoiceList={this.props.unpaidInvoiceList}
-              goToInvoice={this.goToInvoice}
-              balance={this.props.membership.credit_account_balance}
-              fetchInvoiceListUnpaid={this.refreshDebtStatus}
-              showPositiveBalance={
-                this.props.companyTheme?.allow_consumer_to_use_internal_account
-              }
               asConsumer
-              availablePaymentMethodList={
-                this.props.payment_method_available_basket
-              }
-              detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
-              detachPaymentMethod={this.props.detachPaymentMethod}
-              snackbarErrorMsg={this.props.snackbarErrorMsg}
-              snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-              member={this.props.member}
-              selectedInvoiceId={this.props.queryParams.invoiceInPayment}
-              onInvoicePaymentDialogClose={this.onInvoicePaymentDialogClose}
               allowConsumerToUseInternalAccount={
                 this.props.companyTheme.allow_consumer_to_use_internal_account
               }
-              applyBalanceToInvoice={this.props.applyBalanceToInvoice}
-              creditAccountBalance={this.props.creditAccountBalance}
               applyBalanceLoading={this.props.applyBalanceLoading}
-              onlinePaymentEnabled={this.props.onlinePaymentEnabled}
+              applyBalanceToInvoice={this.props.applyBalanceToInvoice}
+              availablePaymentMethodList={
+                this.props.payment_method_available_basket
+              }
+              balance={this.props.membership.credit_account_balance}
               companyId={this.props.companyTheme.company}
+              creditAccountBalance={this.props.creditAccountBalance}
+              detachPaymentMethod={this.props.detachPaymentMethod}
+              detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
+              fetchInvoiceListUnpaid={this.refreshDebtStatus}
+              goToInvoice={this.goToInvoice}
+              invoiceLoading={this.props.invoiceLoading}
+              member={this.props.member}
+              memberId={this.props.membership.id}
+              onInvoicePaymentDialogClose={this.onInvoicePaymentDialogClose}
+              onlinePaymentEnabled={this.props.onlinePaymentEnabled}
+              selectedInvoiceId={this.props.queryParams.invoiceInPayment}
+              showPositiveBalance={
+                this.props.companyTheme?.allow_consumer_to_use_internal_account
+              }
+              snackbarErrorMsg={this.props.snackbarErrorMsg}
+              snackbarSuccessMsg={this.props.snackbarSuccessMsg}
               stripeId={this.props.companyTheme.stripe_id}
+              unpaidInvoiceList={this.props.unpaidInvoiceList}
             />
           )}
         </div>
         <Grid container direction="row" spacing={2}>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             <ConsumerDashboardBookingPanel
-              goToCalendar={this.props.goToCalendar}
+              bookingsAndPrivateBookings={this.props.bookingsAndPrivateBookings}
               goToBroadcast={this.props.goToBroadcast}
-              showMoreBooking={this.props.fetchBookingsAndPrivateBookings}
-              timezone={this.props.companyTheme.timezone_name}
+              goToCalendar={this.props.goToCalendar}
+              goToPrivateService={this.props.goToPrivateService}
+              hasMore={this.props.hasMoreBookingsAndPrivateBookings}
               hideCoach={this.props.companyTheme.hideCoach}
+              loading={this.props.bookingsAndPrivateBookingsLoading}
               membership={this.props.membership}
+              onClickBlueprintPreview={this.props.previewSpotHandler}
               onDiscardBooking={this.handleSetBookingToCancel}
               onDiscardPrivateBooking={this.props.setPrivateBookingToCancel}
-              bookingsAndPrivateBookings={this.props.bookingsAndPrivateBookings}
-              loading={this.props.bookingsAndPrivateBookingsLoading}
-              hasMore={this.props.hasMoreBookingsAndPrivateBookings}
-              goToPrivateService={this.props.goToPrivateService}
-              onClickBlueprintPreview={this.props.previewSpotHandler}
+              showMoreBooking={this.props.fetchBookingsAndPrivateBookings}
+              timezone={this.props.companyTheme.timezone_name}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             <ConsumerDashboardBookingOptionPanel
               bookingOptionList={this.props.bookingOptionList}
               cancelBookingOption={this.props.setOptionToCancel}
@@ -338,33 +338,31 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
             />
             <ConsumerDashboardPassPanel
               consumerPackList={this.props.consumerPackList}
-              privateConsumerPassList={this.props.privateConsumerPassList}
               consumerPackLoading={this.props.consumerPackLoading}
+              privateConsumerPassList={this.props.privateConsumerPassList}
               privateConsumerPassLoading={this.props.privateConsumerPassLoading}
             />
           </Grid>
         </Grid>
         <BookingOptionCancelDialog
-          open={this.props.optionToCancel}
           onCancel={() => this.props.setOptionToCancel(null)}
           onSubmit={this.cancelBookingOption}
+          open={this.props.optionToCancel}
         />
         <BookingCancellationDialog
-          open={this.props.bookingToCancel}
           booking={this.props.bookingToCancel}
-          similarBookings={this.props.similarBookings}
-          similarBookingsLoading={this.props.similarBookingsLoading}
+          group={this.props.group}
+          memberTags={this.props.memberTags}
           onCancel={() => this.props.setBookingToCancel(null)}
           onSubmit={(options: OptionCallback) =>
             this.onDiscardBooking(this.props.bookingToCancel.id, options)
           }
-          group={this.props.group}
-          memberTags={this.props.memberTags}
+          open={this.props.bookingToCancel}
+          similarBookings={this.props.similarBookings}
+          similarBookingsLoading={this.props.similarBookingsLoading}
         />
 
         <PrivateBookingCancellationDialog
-          open={!!this.props.privateBookingToCancel}
-          privateBooking={this.props.privateBookingToCancel}
           onCancel={() => this.props.setPrivateBookingToCancel(null)}
           onSubmit={(options) =>
             this.onDiscardPrivateBooking(
@@ -372,21 +370,23 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
               options,
             )
           }
+          open={!!this.props.privateBookingToCancel}
+          privateBooking={this.props.privateBookingToCancel}
         />
 
         {this.props.spotPreview && (
           <CanvasPreviewDialog
             open
-            roomBlueprint={
-              this.props.roomBlueprintById[this.props.spotPreview.blueprint]
-            }
             assets={
               this.props.assetForBlueprint[this.props.spotPreview.blueprint]
             }
-            selectedSpot={this.props.spotPreview.spot}
-            onClose={() => this.props.setSpotPreview(null)}
-            spotTypes={this.props.spotTypes}
             fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+            onClose={() => this.props.setSpotPreview(null)}
+            roomBlueprint={
+              this.props.roomBlueprintById[this.props.spotPreview.blueprint]
+            }
+            selectedSpot={this.props.spotPreview.spot}
+            spotTypes={this.props.spotTypes}
           />
         )}
       </div>

@@ -96,16 +96,16 @@ const renderActions = (
   interrogateMemberStatus: (id: number) => void,
 ) => (
   <>
-    <IconButton onClick={() => goToMemberPage(id)} color="primary">
+    <IconButton color="primary" onClick={() => goToMemberPage(id)}>
       <VisibilityIcon />
     </IconButton>
     {interrogateMemberStatus && (
       <IconButton
+        color="primary"
         onClick={(e) => {
           e.stopPropagation();
           interrogateMemberStatus(id);
         }}
-        color="primary"
       >
         <DeleteIcon />
       </IconButton>
@@ -288,8 +288,8 @@ export class MemberTable extends PureComponent<Props, State> {
                   <div />
                 ) : (
                   <Button
-                    onClick={this.props.addMember}
                     color="primary"
+                    onClick={this.props.addMember}
                     variant="contained"
                   >
                     <AddIcon className={this.props.classes.leftIcon} />
@@ -298,8 +298,6 @@ export class MemberTable extends PureComponent<Props, State> {
                 )}
                 <TablePagination
                   count={count}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
                   onPageChange={(_, page_) => changePage(page_)}
                   onRowsPerPageChange={(event) => {
                     this.setState(
@@ -308,6 +306,8 @@ export class MemberTable extends PureComponent<Props, State> {
                     );
                     changeRowsPerPage(parseInt(event.target.value));
                   }}
+                  page={page}
+                  rowsPerPage={rowsPerPage}
                   rowsPerPageOptions={[10, 15, MEMBER_PER_PAGE, 100]}
                 />
               </div>
@@ -319,7 +319,7 @@ export class MemberTable extends PureComponent<Props, State> {
 
     return (
       <MUIDataTable
-        title=""
+        columns={getColumnData(t)}
         data={renderRows(
           this.state.members?.filter(
             (mem) => !this.props.disabledMemberId?.includes(mem.id),
@@ -328,8 +328,8 @@ export class MemberTable extends PureComponent<Props, State> {
           this.props.goToMember,
           this.props.interrogateMemberStatus,
         )}
-        columns={getColumnData(t)}
         options={options}
+        title=""
       />
     );
   }

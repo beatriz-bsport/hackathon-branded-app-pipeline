@@ -10,11 +10,11 @@ export default () => (
   <Switch>
     <Route
       exact
-      path="/activity/:id/:tab/:packId"
       component={MetaActivityDetail}
+      path="/activity/:id/:tab/:packId"
     />
 
-    <Route exact path="/activity/:id/:tab" component={MetaActivityDetail} />
-    <Route exact path="/activity" component={MetaActivityList} />
+    <Route exact component={MetaActivityDetail} path="/activity/:id/:tab" />
+    <Route exact component={MetaActivityList} path="/activity" />
   </Switch>
 );

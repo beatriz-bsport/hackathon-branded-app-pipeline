@@ -6,7 +6,7 @@ import OrderList from './OrderList.page';
 
 export default () => (
   <Switch>
-    <Route exact path="/order/:id/" component={OrderDetail} />
-    <Route path="/order" component={OrderList} />
+    <Route exact component={OrderDetail} path="/order/:id/" />
+    <Route component={OrderList} path="/order" />
   </Switch>
 );

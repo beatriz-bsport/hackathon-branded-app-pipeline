@@ -266,27 +266,27 @@ export default class MetricSlider extends React.Component<Props, State> {
     return (
       <>
         <div className="mood-slider">
-          <div className="mood-slider-box" ref={this.box} aria-hidden>
+          <div ref={this.box} aria-hidden className="mood-slider-box">
             <svg
-              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="xMidYMid meet"
               version="1.1"
               viewBox="0 0 300 300"
-              preserveAspectRatio="xMidYMid meet"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <circle
                 cx="50%"
                 cy="50%"
-                r={`${RADIUS}`}
-                strokeWidth="1"
-                stroke="rgba(0, 0, 0, 0.15)"
                 fill="transparent"
+                r={`${RADIUS}`}
+                stroke="rgba(0, 0, 0, 0.15)"
+                strokeWidth="1"
               />
               <circle
-                id="cursor"
                 cx={circleCoordinates.x.toString()}
                 cy={circleCoordinates.y.toString()}
-                r="5"
                 fill={metric.color}
+                id="cursor"
+                r="5"
                 // onMouseOver={(evt) => evt.target.setAttribute('r', '10')}
                 // onMouseOut={(evt) => evt.target.setAttribute('r', '5')}
                 // To deepen if you want to put an hoover on the circle
@@ -296,8 +296,8 @@ export default class MetricSlider extends React.Component<Props, State> {
                 d={pathD}
                 fill="none"
                 stroke={metric.color}
-                strokeWidth="5"
                 strokeLinecap="round"
+                strokeWidth="5"
               />
             </svg>
             <div className="circleCenter">

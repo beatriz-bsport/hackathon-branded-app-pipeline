@@ -18,11 +18,11 @@ export const PaymentInfoListItem = (props: Props) => {
     <ListItem>
       <ListItemText
         primary={t(`paymentMethod.${payment.payment_method}`)}
-        secondary={payment.payment_note}
-        secondaryTypographyProps={
+        primaryTypographyProps={
           payment.payment_received === false ? { color: 'error' } : {}
         }
-        primaryTypographyProps={
+        secondary={payment.payment_note}
+        secondaryTypographyProps={
           payment.payment_received === false ? { color: 'error' } : {}
         }
       />

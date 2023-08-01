@@ -56,11 +56,11 @@ export class NotesFilter extends Component<Props> {
       <div>
         {t(`filters.${filter_data.filter_identifier}.first`)}
         <Select
-          className={classes.input}
           required
-          value={filter_data.note_condition}
+          className={classes.input}
           defaultValue={ANY_NOTE}
           onChange={(ev) => onChange({ note_condition: ev.target.value })}
+          value={filter_data.note_condition}
         >
           <MenuItem key="any" value={ANY_NOTE}>
             {t(`filters.${filter_data.filter_identifier}.medicalOrNot`)}
@@ -73,12 +73,12 @@ export class NotesFilter extends Component<Props> {
           </MenuItem>
         </Select>
         <ToolTip
+          aria-label="info"
           title={
             <Typography variant="subtitle2">
               {t(`filters.${filter_data?.filter_identifier}.info`)}
             </Typography>
           }
-          aria-label="info"
         >
           <IconButton>
             <InfoIcon />
@@ -87,13 +87,13 @@ export class NotesFilter extends Component<Props> {
         <div className={classes.inlineContainer}>
           <Switch
             checked={filter_data.date_filter_active}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
                 date_filter_active: !filter_data.date_filter_active,
               })
             }
             value="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
           />
           <div
             className={
@@ -106,9 +106,9 @@ export class NotesFilter extends Component<Props> {
               `filters.${filter_data.filter_identifier}.date.first`,
             )}
             <CalendarPicker
+              blockValidateOnClickAway
               filter_data={filter_data}
               onChange={onChange}
-              blockValidateOnClickAway
             />
           </div>
         </div>

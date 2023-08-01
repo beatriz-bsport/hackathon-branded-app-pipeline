@@ -74,11 +74,11 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
           </Typography>
           <div className={classes.spaceDivider} />
           <TextField
-            id="textfield_coach_payment_rule_group"
-            name="name"
-            label={t('coach_payment_rules.name')}
             fullWidth
             required
+            id="textfield_coach_payment_rule_group"
+            label={t('coach_payment_rules.name')}
+            name="name"
           />
           <AlertError name="name" />
         </div>
@@ -88,7 +88,7 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
             {t('coach_payment_rule_groups.subtitle.default')}
           </Typography>
           <Grid container>
-            <Grid item xs={8} className={classes.paymentRuleRow}>
+            <Grid item className={classes.paymentRuleRow} xs={8}>
               <FieldArray name="session_coach_payment_rule">
                 {({
                   form: {
@@ -108,29 +108,29 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                     </Grid>
                     <Grid item xs={6}>
                       <CoachPaymentRuleSelectorStyled
-                        id="session_coach_payment_rule"
+                        isClearable
+                        noMulti
                         coachPaymentRulesList={rulesByKind[
                           COACH_PAYMENT_RULE_FOR_SESSION
                         ].concat(
                           rulesByKind[COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY],
                         )}
-                        selectedRules={[session_coach_payment_rule]}
-                        placeholder={t('paymentRules:label')}
+                        id="session_coach_payment_rule"
                         onChange={(item: { value: number; label: string }) => {
                           setFieldValue(
                             'session_coach_payment_rule',
                             item ? item.value : null,
                           );
                         }}
-                        noMulti
-                        isClearable
+                        placeholder={t('paymentRules:label')}
+                        selectedRules={[session_coach_payment_rule]}
                       />
                     </Grid>
                   </Grid>
                 )}
               </FieldArray>
             </Grid>
-            <Grid item xs={8} className={classes.paymentRuleRow}>
+            <Grid item className={classes.paymentRuleRow} xs={8}>
               <FieldArray name="workshop_coach_payment_rule">
                 {({
                   form: {
@@ -150,20 +150,20 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                     </Grid>
                     <Grid item xs={6}>
                       <CoachPaymentRuleSelectorStyled
-                        id="workshop_coach_payment_rule"
+                        isClearable
+                        noMulti
                         coachPaymentRulesList={rulesByKind[
                           COACH_PAYMENT_RULE_FOR_SESSION
                         ].concat(rulesByKind[COACH_PAYMENT_RULE_FOR_WORKSHOP])}
-                        selectedRules={[workshop_coach_payment_rule]}
-                        placeholder={t('paymentRules:label')}
+                        id="workshop_coach_payment_rule"
                         onChange={(item: { value: number; label: string }) => {
                           setFieldValue(
                             'workshop_coach_payment_rule',
                             item ? item.value : null,
                           );
                         }}
-                        noMulti
-                        isClearable
+                        placeholder={t('paymentRules:label')}
+                        selectedRules={[workshop_coach_payment_rule]}
                       />
                     </Grid>
                   </Grid>
@@ -191,20 +191,20 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                     </Grid>
                     <Grid item xs={6}>
                       <CoachPaymentRuleSelectorStyled
-                        id="private_service_coach_payment_rule"
+                        isClearable
+                        noMulti
                         coachPaymentRulesList={
                           rulesByKind[COACH_PAYMENT_RULE_FOR_APPOINTMENT]
                         }
-                        selectedRules={[private_service_coach_payment_rule]}
-                        placeholder={t('paymentRules:label')}
+                        id="private_service_coach_payment_rule"
                         onChange={(item: { value: number; label: string }) => {
                           setFieldValue(
                             'private_service_coach_payment_rule',
                             item ? item.value : null,
                           );
                         }}
-                        noMulti
-                        isClearable
+                        placeholder={t('paymentRules:label')}
+                        selectedRules={[private_service_coach_payment_rule]}
                       />
                     </Grid>
                   </Grid>
@@ -266,14 +266,8 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                                 <TableRow>
                                   <TableCell>
                                     <PrivateSlotSelectorStyled
+                                      noMulti
                                       id={`private_slots_coach_payment_rules.${i}.private_slot`}
-                                      privateServiceList={privateServices}
-                                      selectedServices={[
-                                        privateSlot.private_slot,
-                                      ]}
-                                      placeholder={t(
-                                        'coach_payment_rule_groups.fields.private_service_name',
-                                      )}
                                       onChange={(item: {
                                         value: number;
                                         label: string;
@@ -283,21 +277,24 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                                           item.value,
                                         );
                                       }}
-                                      noMulti
+                                      placeholder={t(
+                                        'coach_payment_rule_groups.fields.private_service_name',
+                                      )}
+                                      privateServiceList={privateServices}
+                                      selectedServices={[
+                                        privateSlot.private_slot,
+                                      ]}
                                     />
                                   </TableCell>
                                   <TableCell>
                                     <CoachPaymentRuleSelectorStyled
-                                      id="private_service_coach_payment_rule"
+                                      noMulti
                                       coachPaymentRulesList={
                                         rulesByKind[
                                           COACH_PAYMENT_RULE_FOR_APPOINTMENT
                                         ]
                                       }
-                                      selectedRules={[
-                                        privateSlot.coach_payment_rule,
-                                      ]}
-                                      placeholder={t('paymentRules:label')}
+                                      id="private_service_coach_payment_rule"
                                       onChange={(item: {
                                         value: number;
                                         label: string;
@@ -307,7 +304,10 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                                           item.value,
                                         );
                                       }}
-                                      noMulti
+                                      placeholder={t('paymentRules:label')}
+                                      selectedRules={[
+                                        privateSlot.coach_payment_rule,
+                                      ]}
                                     />
                                   </TableCell>
                                   <TableCell
@@ -316,8 +316,8 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                                     size="small"
                                   >
                                     <IconButton
-                                      onClick={() => remove(i)}
                                       aria-label="Delete"
+                                      onClick={() => remove(i)}
                                     >
                                       <ClearIcon />
                                     </IconButton>
@@ -340,8 +340,8 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                                         )}
                                         {props.errors.private_slot_unicity && (
                                           <Typography
-                                            variant="caption"
                                             color="error"
+                                            variant="caption"
                                           >
                                             {t(
                                               props.errors.private_slot_unicity[
@@ -413,20 +413,20 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                 }) => (
                   <>
                     <CoachSelector
+                      associatedCoachOutput
+                      isClearable
+                      isMulti
+                      nullCurrentValue
                       coaches={associated_coaches.filter(
                         (coach) =>
                           !associated_coach.includes(
                             coach.associated_coach_id,
                           ) && !coach.coach_payment_rule_group_id,
                       )}
-                      nullCurrentValue
                       selectedCoaches={[]}
                       selectOption={(ev) => {
                         if (ev.length) push(ev[0].value);
                       }}
-                      isMulti
-                      isClearable
-                      associatedCoachOutput
                     />
                     <List>
                       {associated_coach.map(

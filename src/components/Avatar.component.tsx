@@ -30,22 +30,22 @@ export const Avatar = (props: Props) => {
   return (
     <Grid
       container
+      alignItems="center"
       direction="column"
       justify="center"
-      alignItems="center"
       spacing={1}
     >
       <Grid item>
         <img
           alt="user"
-          src={user ? user.photo || DEFAULT_PROFIL_PIC : DEFAULT_PROFIL_PIC}
           height={HEIGHT}
-          width={WIDTH}
+          src={user ? user.photo || DEFAULT_PROFIL_PIC : DEFAULT_PROFIL_PIC}
           style={{
             borderRadius: parseInt(`${HEIGHT / 2}`, 10),
             border: 'solid #EEEEEE 2px',
             objectFit: 'cover',
           }}
+          width={WIDTH}
         />
       </Grid>
       {noname ? null : (

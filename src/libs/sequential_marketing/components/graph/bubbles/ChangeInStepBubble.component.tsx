@@ -32,22 +32,22 @@ const ChangeInStepBubble: React.FC<ChangeInStepBubbleProps> = ({
 
   return (
     <CadenceBubble
-      title={stepName}
-      icon="DeviceHub"
+      minimalIcon
       color={SequentialMarketingColors.INNER_STEP_COLOR}
+      icon="DeviceHub"
       onCancelClick={onCancel}
       onConfirmClick={onConfirm}
-      minimalIcon
+      title={stepName}
     >
       <TextField
-        required
-        name="stepName"
-        type="text"
-        label={t('cadence.bubble.changeInStep.label')}
-        defaultValue={t('cadence.bubble.changeInStep.default')}
-        className={classes.label}
-        onChange={handleChange}
         fullWidth
+        required
+        className={classes.label}
+        defaultValue={t('cadence.bubble.changeInStep.default')}
+        label={t('cadence.bubble.changeInStep.label')}
+        name="stepName"
+        onChange={handleChange}
+        type="text"
       />
     </CadenceBubble>
   );

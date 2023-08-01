@@ -153,10 +153,10 @@ export class PaymentForm extends Component<Props, State> {
       <div className={classes.addButton}>
         <Grid container item justify="flex-end">
           <Button
-            type="submit"
             color="primary"
-            variant="outlined"
             onClick={this.onSubmit}
+            type="submit"
+            variant="outlined"
           >
             <AddCircleIcon className={classes.leftIcon} />{' '}
             {t('payment.addThisPaymentItem')}
@@ -172,7 +172,7 @@ export class PaymentForm extends Component<Props, State> {
     if (payment_method === PAYMENT_METHOD_CREDIT_ACCOUNT.id) {
       return (
         <div className={classes.accountBalanceInfo}>
-          <Grid container justify="space-between" alignItems="center">
+          <Grid container alignItems="center" justify="space-between">
             <Grid item>
               <Typography variant="h6">
                 {t('payment.creditAccountBalance')}
@@ -180,8 +180,8 @@ export class PaymentForm extends Component<Props, State> {
             </Grid>
             <Grid item>
               <Typography
-                variant="h6"
                 color={creditAccountBalance <= 0 ? 'error' : 'primary'}
+                variant="h6"
               >
                 {`${getCurrencyDisplayWithPrice(creditAccountBalance)}`}
               </Typography>
@@ -194,19 +194,19 @@ export class PaymentForm extends Component<Props, State> {
       return (
         <div className={classes.stripeFormContainer}>
           <Elements stripe={stripePromise}>
-            <StripeForm price={price} onComplete={this.receiveStripeToken} />
+            <StripeForm onComplete={this.receiveStripeToken} price={price} />
           </Elements>
         </div>
       );
     }
     return (
       <TextField
-        label={t('form.payment.additionalInformationLabel')}
-        helperText={t('form.payment.additionalInformationHelper')}
-        value={payment_note}
-        onChange={this.storePaymentInfoExtra}
-        margin="dense"
         fullWidth
+        helperText={t('form.payment.additionalInformationHelper')}
+        label={t('form.payment.additionalInformationLabel')}
+        margin="dense"
+        onChange={this.storePaymentInfoExtra}
+        value={payment_note}
       />
     );
   };
@@ -221,33 +221,33 @@ export class PaymentForm extends Component<Props, State> {
     return (
       <Grid
         container
+        className={classes.innerForm}
         direction="column"
         spacing={3}
-        className={classes.innerForm}
       >
         <Grid item xs={12}>
           <FormControl>
             <InputLabel
               shrink
-              htmlFor="payment-method-helper"
               className={classes.paymentMethodLabel}
+              htmlFor="payment-method-helper"
             >
               {t('payment.paymentMethod')}
             </InputLabel>
             <Select
               fullWidth
-              value={payment_method}
               className={classes.paymentMethodInput}
-              onChange={(event) =>
-                this.handlePaymentMethodChange(event.target.value)
-              }
               input={
                 <Input
                   className={classes.input}
-                  name="payment-method"
                   id="payment-method-helper"
+                  name="payment-method"
                 />
               }
+              onChange={(event) =>
+                this.handlePaymentMethodChange(event.target.value)
+              }
+              value={payment_method}
             >
               {PAYMENT_METHODS.filter(
                 (pm) =>
@@ -264,18 +264,18 @@ export class PaymentForm extends Component<Props, State> {
         <Grid item>
           <form>
             <div>
-              <Grid container direction="row" alignItems="center" spacing={3}>
+              <Grid container alignItems="center" direction="row" spacing={3}>
                 <Grid item className={classes.priceInputContainer}>
                   <FormControl>
                     <FormControlLabel
                       control={
                         <PriceInput
-                          value={price}
-                          onChange={this.storePrice}
-                          variant="outlined"
-                          margin="dense"
-                          required
                           fullWidth
+                          required
+                          margin="dense"
+                          onChange={this.storePrice}
+                          value={price}
+                          variant="outlined"
                         />
                       }
                     />

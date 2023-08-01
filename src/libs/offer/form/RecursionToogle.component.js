@@ -70,10 +70,10 @@ export class RecursionToogle extends Component<Props, State> {
       <div>
         <Grid
           container
-          direction="row"
-          justify="space-between"
           alignItems="center"
           className={classes.similarListHeader}
+          direction="row"
+          justify="space-between"
         >
           <Grid item>
             <Typography variant="body">{this.props.listTitle}</Typography>
@@ -94,16 +94,16 @@ export class RecursionToogle extends Component<Props, State> {
             {!!this.props.selectAll && !!this.props.unselectAll && (
               <React.Fragment>
                 <ButtonBase
-                  onClick={this.props.selectAll}
                   className={classes.selectOption}
+                  onClick={this.props.selectAll}
                 >
                   <Typography variant="caption">
                     {t('offer:liveOfferEdit.selectAll')}
                   </Typography>
                 </ButtonBase>
                 <ButtonBase
-                  onClick={this.props.unselectAll}
                   className={classes.selectOption}
+                  onClick={this.props.unselectAll}
                 >
                   <Typography variant="caption">
                     {t('offer:liveOfferEdit.unselectAll')}
@@ -122,11 +122,8 @@ export class RecursionToogle extends Component<Props, State> {
                 {(similarOffers || []).map((so, index) => (
                   <OfferListItem
                     key={so.id}
-                    similarOffer={
-                      !!this.props.selectAll && !!this.props.unselectAll
-                    }
+                    checked={selectedSimilarOfferIds?.includes(so.id)}
                     disabled={index === 0}
-                    offer={so}
                     editing_parameters={
                       this.props.edit && {
                         new_date_start: moment(so.date_start).add(
@@ -143,7 +140,10 @@ export class RecursionToogle extends Component<Props, State> {
                               indexBasedSelection ? index : so.id,
                             )
                     }
-                    checked={selectedSimilarOfferIds?.includes(so.id)}
+                    offer={so}
+                    similarOffer={
+                      !!this.props.selectAll && !!this.props.unselectAll
+                    }
                   />
                 ))}
               </List>
@@ -160,8 +160,8 @@ export class RecursionToogle extends Component<Props, State> {
 
     return (
       <Switch
-        color={color || 'primary'}
         checked={modifyRecursively}
+        color={color || 'primary'}
         disabled={disabled}
         onChange={onChangeRecursion}
       />
@@ -174,9 +174,9 @@ export class RecursionToogle extends Component<Props, State> {
       <div>
         <Grid
           container
+          alignItems="center"
           direction="row"
           spacing={2}
-          alignItems="center"
           wrap="nowrap"
         >
           <Grid item>{this.renderSwitchButton()}</Grid>

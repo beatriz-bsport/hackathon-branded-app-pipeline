@@ -26,9 +26,9 @@ export default class CanvasLineComponent extends CanvasBaseComponent<CanvasLineP
       <polyline
         {...this.BaseProps}
         className="svg-element"
+        fill={fill || 'transparent'}
         points={this.pointsStr}
         stroke={stroke || 'black'}
-        fill={fill || 'transparent'}
         strokeWidth={2}
       />
     );

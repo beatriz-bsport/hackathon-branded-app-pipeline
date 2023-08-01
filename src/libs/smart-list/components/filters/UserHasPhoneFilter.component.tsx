@@ -31,11 +31,11 @@ export class UserHasPhoneFilter extends Component<Props> {
     return (
       <div>
         <Select
+          defaultValue
           className={classes.input}
-          value={filter_data.value}
           // eslint-disable-next-line
-          defaultValue={true}
           onChange={(ev) => onChange({ value: ev.target.value })}
+          value={filter_data.value}
         >
           {/* eslint-disable-next-line */}
           <MenuItem key="true" value={true}>

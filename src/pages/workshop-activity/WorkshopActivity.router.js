@@ -11,22 +11,22 @@ export default () => {
   return (
     <Switch>
       <Route
-        path="/workshop-activity/tabs/:tab?"
         component={WorkshopActivityInnerRouter}
+        path="/workshop-activity/tabs/:tab?"
       />
       <Route
-        path="/workshop-activity/:id/edit"
         component={WorkshopActivityEdit}
+        path="/workshop-activity/:id/edit"
       />
       <Route
         exact
+        component={WorkshopActivityDetail}
         path="/workshop-activity/:id/:tab/:packId"
-        component={WorkshopActivityDetail}
       />
       <Route
         exact
-        path="/workshop-activity/:id/:tab"
         component={WorkshopActivityDetail}
+        path="/workshop-activity/:id/:tab"
       />
     </Switch>
   );

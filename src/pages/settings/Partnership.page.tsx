@@ -134,14 +134,14 @@ export class Partnership extends React.Component<Props> {
             style={{ display: 'flex', alignItems: 'row', flexDirection: 'row' }}
           >
             <img
-              src={CLASSPASS_LOGO}
               alt="classpass"
+              src={CLASSPASS_LOGO}
               style={{ height: 64, width: 64 }}
             />
             <Typography
               className={this.props.classes.paper}
-              variant="h3"
               component="h3"
+              variant="h3"
             >
               ClassPass
             </Typography>
@@ -161,24 +161,24 @@ export class Partnership extends React.Component<Props> {
                 </Typography>
                 {this.props.classpass ? (
                   <PartnershipConfigurationForm
-                    establishmentList={this.props.establishmentList}
                     associatedEstablishmentList={
                       this.props.associatedEstablishmentList
                     }
+                    establishmentList={this.props.establishmentList}
+                    initial={this.props.classpass}
+                    iSubmitting={this.props.isSubmitting}
+                    onSubmit={this.updatePartnership}
                     partnershipEstablishmentMergeList={
                       this.props.partnershipEstablishmentMergeList
                     }
-                    initial={this.props.classpass}
-                    onSubmit={this.updatePartnership}
-                    iSubmitting={this.props.isSubmitting}
                   />
                 ) : (
                   <div>
                     <Button
-                      variant="outlined"
-                      color="primary"
                       className={this.props.classes.requestButton}
+                      color="primary"
                       onClick={this.props.requestClasspassPartnership}
+                      variant="outlined"
                     >
                       {this.props.t('actions.requestPartnership')}
                     </Button>

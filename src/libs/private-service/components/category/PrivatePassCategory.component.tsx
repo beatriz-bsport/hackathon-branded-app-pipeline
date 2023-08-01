@@ -100,10 +100,10 @@ export const PrivatePassCategory = (props: Props) => {
 
   return (
     <DndContext
-      onDragEnd={handleDragEnd}
-      sensors={sensors}
       collisionDetection={closestCenter}
       modifiers={[restrictToVerticalAxis]}
+      onDragEnd={handleDragEnd}
+      sensors={sensors}
     >
       <SortableContext
         items={items.map((pass: PrivatePass) => pass.id.toString(10))}
@@ -111,15 +111,15 @@ export const PrivatePassCategory = (props: Props) => {
       >
         {items.map((pass: PrivatePass) => (
           <PrivatePassListItem
-            pass={pass}
             key={pass.id}
             divider
+            draggable
             onClick={() => {
               props.goToPass(pass.id);
             }}
             onDelete={() => props.setOpenDeletePassDialog(pass.id)}
+            pass={pass}
             updatePrivatePass={props.updatePrivatePass}
-            draggable
           />
         ))}
       </SortableContext>

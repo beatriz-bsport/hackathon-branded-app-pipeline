@@ -53,7 +53,7 @@ export const StripeTerminalConnectingSuccess = (props: Props) => {
     return (
       <>
         <div>
-          <Typography variant="h6" className={classes.cancelTitle}>
+          <Typography className={classes.cancelTitle} variant="h6">
             {t(
               'configuration.stripeTerminal.paymentDialog.connectionSuccess.cancel.title',
             )}
@@ -89,7 +89,7 @@ export const StripeTerminalConnectingSuccess = (props: Props) => {
   return (
     <>
       <div className={classes.centerContainer}>
-        <Typography variant="h6" className={classes.successTitle}>
+        <Typography className={classes.successTitle} variant="h6">
           {t('configuration.stripeTerminal.connectDialog.title.success')}
         </Typography>
         {props.isProcessing ? (
@@ -114,7 +114,7 @@ export const StripeTerminalConnectingSuccess = (props: Props) => {
             )}
           </Typography>
         )}
-        <CircularProgress size={30} className={classes.circularProgress} />
+        <CircularProgress className={classes.circularProgress} size={30} />
       </div>
       {!!props.onCancel && !props.isProcessing && (
         <DialogActions>

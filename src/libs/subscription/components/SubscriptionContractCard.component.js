@@ -50,13 +50,13 @@ export const SubscriptionContractCard = (props: Props) => {
         <>
           <FormControl>
             <FormControlLabel
-              label={props.t('contract.actions.iAcceptCondition')}
               control={
                 <Checkbox
                   checked={props.acceptContract}
                   onChange={(ev) => props.setAcceptContract(ev.target.checked)}
                 />
               }
+              label={props.t('contract.actions.iAcceptCondition')}
             />
           </FormControl>
 
@@ -67,15 +67,14 @@ export const SubscriptionContractCard = (props: Props) => {
               </Typography>
               <div className={props.classes.column}>
                 <MuiPickersUtilsProvider
-                  utils={MomentUtils}
-                  moment={Moment}
                   locale={Moment.locale()}
+                  moment={Moment}
+                  utils={MomentUtils}
                 >
                   <DatePicker
-                    value={props.date}
-                    onChange={props.setDate}
-                    format="L"
+                    disablePast
                     required
+                    format="L"
                     mask={(value) => {
                       if (value) {
                         return [
@@ -93,8 +92,9 @@ export const SubscriptionContractCard = (props: Props) => {
                       }
                       return [];
                     }}
+                    onChange={props.setDate}
                     returnMoment={false}
-                    disablePast
+                    value={props.date}
                   />
                 </MuiPickersUtilsProvider>
               </div>
@@ -103,11 +103,11 @@ export const SubscriptionContractCard = (props: Props) => {
         </>
       )}
       <Button
-        variant="contained"
         color="primary"
         disabled={!props.acceptContract && !props.hideConditions}
-        style={{ width: '100%' }}
         onClick={() => props.onPayRequest(props.date)}
+        style={{ width: '100%' }}
+        variant="contained"
       >
         {props.t('contract.actions.subscribe')}
       </Button>

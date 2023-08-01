@@ -23,14 +23,14 @@ export function GiftcardList(props: Props) {
           const divider = i !== giftcardList.length - 1;
           return (
             <GiftcardListItem
+              key={`${i}-${card.name}`}
               divider={divider}
               giftcard={card}
+              onClick={onClick}
               onDuplicate={card.is_shared_giftcard ? undefined : onDuplicate}
               onEdit={onEdit}
               onRemove={card.is_shared_giftcard ? undefined : onRemove}
               onRestore={card.is_shared_giftcard ? undefined : onRestore}
-              onClick={onClick}
-              key={`${i}-${card.name}`}
             />
           );
         })}

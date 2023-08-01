@@ -3,13 +3,13 @@ import React from 'react';
 const PointerIcon = () => {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
       focusable="false"
-      preserveAspectRatio="xMidYMid meet"
-      width="35px"
       height="35px"
+      preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 36 36"
+      width="35px"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         className="clr-i-solid clr-i-solid-path-1"

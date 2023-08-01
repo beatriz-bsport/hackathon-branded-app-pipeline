@@ -245,22 +245,22 @@ const NotificationRuleDetail = (props: Props) => {
   return (
     <div>
       {loading && <BackofficeLinearProgress />}
-      <div style={{ maxHeight: pageHeight }} className={classes.page}>
+      <div className={classes.page} style={{ maxHeight: pageHeight }}>
         <div className={classes.gridContainer}>
           <div className={classes.gridItemLeft}>
             <NotificationRuleGroupHeader
+              isOpen
               eventGroupName={eventName}
               eventsList={eventTypeList}
-              settings={notificationRuleSettings}
-              isOpen
               onToggleClick={navigateToGeneral}
+              settings={notificationRuleSettings}
             />
           </div>
           <div className={classes.gridItemRight}>
             <NotificationRulePreviewHeader
-              value={displayNotification ? 'notification' : 'email'}
-              onChange={handleSetDisplayNotification}
               className={classes.notificationHeader}
+              onChange={handleSetDisplayNotification}
+              value={displayNotification ? 'notification' : 'email'}
             />
           </div>
         </div>
@@ -268,41 +268,41 @@ const NotificationRuleDetail = (props: Props) => {
           <React.Fragment key={event.notification_event}>
             <div className={classes.gridContainer}>
               <NotificationRuleListItem
-                event={event.notification_event}
-                rule={event.rule}
-                emailDesignList={emailDesignList}
-                updateNotification={handleUpdateNotification}
-                showEmailPreview={handleShowEmailPreview}
-                showEmailPreviewHTML={setPreviewEmailHtml}
-                onDeleteNotificationRule={deleteNotificationRule}
-                franchisedOwned={!!event.rule?.franchisor ?? false}
-                disabled={
-                  notificationRuleSettings?.[event.notification_event]
-                    ?.disabled ?? false
-                }
-                sendCompany={
-                  notificationRuleSettings?.[event.notification_event]
-                    ?.send_company ?? false
-                }
+                className={classes.gridItemLeft}
                 disableCheckboxes={
                   notificationRuleSettings?.[event.notification_event]
                     ?.disable_checkboxes ?? false
                 }
+                disabled={
+                  notificationRuleSettings?.[event.notification_event]
+                    ?.disabled ?? false
+                }
+                emailDesignList={emailDesignList}
+                event={event.notification_event}
+                franchisedOwned={!!event.rule?.franchisor ?? false}
+                onDeleteNotificationRule={deleteNotificationRule}
                 onDisable={handleSettingsDisable(event.notification_event)}
                 onSendCompany={handleSettingsCopy(event.notification_event)}
-                tags={getMergeTags()}
-                className={classes.gridItemLeft}
                 requiredTags={requiredTagsByEvent[event.notification_event]}
+                rule={event.rule}
+                sendCompany={
+                  notificationRuleSettings?.[event.notification_event]
+                    ?.send_company ?? false
+                }
+                showEmailPreview={handleShowEmailPreview}
+                showEmailPreviewHTML={setPreviewEmailHtml}
+                tags={getMergeTags()}
+                updateNotification={handleUpdateNotification}
               />
               <NotificationRulePreview
+                className={classes.gridItemRight}
+                displayMode={displayNotification ? 'notification' : 'email'}
                 event={event}
                 previewEmail={previewEmail}
                 resolvedGenericTags={resolvedGenericTags}
-                displayMode={displayNotification ? 'notification' : 'email'}
                 showEmailPreview={handleShowEmailPreview}
                 showEmailPreviewHTML={setPreviewEmailHtml}
                 theme={theme}
-                className={classes.gridItemRight}
               />
             </div>
           </React.Fragment>
@@ -314,10 +314,10 @@ const NotificationRuleDetail = (props: Props) => {
           previewEmail[previewEmailId].html)) && (
         <HTMLPreviewDialog
           open
-          resolvedGenericTags={resolvedGenericTags}
+          buttonText={t('emailDesign.closePreview')}
           html={previewEmailHtml || previewEmail[previewEmailId]?.html}
           onClose={handleCloseEmailPreview}
-          buttonText={t('emailDesign.closePreview')}
+          resolvedGenericTags={resolvedGenericTags}
         />
       )}
     </div>

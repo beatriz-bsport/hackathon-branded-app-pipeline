@@ -18,19 +18,19 @@ export const RecurrenceRulePrivateBookingDeleteDialog = (props: Props) => {
   const { t } = useTranslation(['privateService']);
   return (
     <Dialog
-      open={!!props.recurrentRuleId}
-      aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
+      aria-labelledby="alert-dialog-title"
+      open={!!props.recurrentRuleId}
     >
       <DialogTitle id="alert-dialog-title">
         {t('recurrenceRule.forms.delete.title')}
       </DialogTitle>
       <DialogContent>{t('recurrenceRule.forms.delete.content')}</DialogContent>
       <DialogActions>
-        <Button onClick={props.onClose} autoFocus>
+        <Button autoFocus onClick={props.onClose}>
           {t('recurrenceRule.forms.delete.cancel')}
         </Button>
-        <Button onClick={props.onChange} color="primary">
+        <Button color="primary" onClick={props.onChange}>
           {t('recurrenceRule.forms.delete.confirm')}
         </Button>
       </DialogActions>
@@ -42,19 +42,19 @@ export const RecurrenceRulePrivateBookingUpdateDialog = (props: Props) => {
   const { t } = useTranslation(['privateService']);
   return (
     <Dialog
-      open={!!props.recurrentRuleId}
-      aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
+      aria-labelledby="alert-dialog-title"
+      open={!!props.recurrentRuleId}
     >
       <DialogTitle id="alert-dialog-title">
         {t('recurrenceRule.forms.update.title')}
       </DialogTitle>
       <DialogContent>{t('recurrenceRule.forms.update.content')}</DialogContent>
       <DialogActions>
-        <Button onClick={props.onClose} autoFocus>
+        <Button autoFocus onClick={props.onClose}>
           {t('recurrenceRule.forms.update.cancel')}
         </Button>
-        <Button onClick={props.onChange} color="primary">
+        <Button color="primary" onClick={props.onChange}>
           {t('recurrenceRule.forms.update.confirm')}
         </Button>
       </DialogActions>

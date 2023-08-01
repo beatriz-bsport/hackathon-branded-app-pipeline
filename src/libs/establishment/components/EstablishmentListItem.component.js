@@ -46,14 +46,14 @@ export default withTranslation(['establishment'])(
     const { classes, showCapacity, establishment, divider, onClick, t } = props;
     return (
       <ListItem
-        divider={divider}
-        button={!!onClick}
-        onClick={onClick}
         alignItems="center"
+        button={!!onClick}
+        divider={divider}
+        onClick={onClick}
         selected={props.selected}
       >
         <ListItemAvatar>
-          <Avatar className={classes.avatar} alt="" src={establishment.cover} />
+          <Avatar alt="" className={classes.avatar} src={establishment.cover} />
         </ListItemAvatar>
         <ListItemText
           primary={
@@ -72,13 +72,13 @@ export default withTranslation(['establishment'])(
         />
         {establishment.hasActiveNotification && (
           <Tooltip
+            aria-label="info"
             classes={props.classes}
             title={
               <Typography variant="subtitle2">
                 {t('notificationToolTip')}
               </Typography>
             }
-            aria-label="info"
           >
             <IconButton>
               <NotificationsIcon />

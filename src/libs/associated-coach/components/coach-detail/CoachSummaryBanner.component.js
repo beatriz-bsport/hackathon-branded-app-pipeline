@@ -32,9 +32,9 @@ class CoachSummaryCard extends React.Component<Props> {
       <ListItem>
         <Icon color="primary">
           <img
-            style={{ height: 24, width: 24 }}
-            src={FACEBOOK_PNG}
             alt="Facebook"
+            src={FACEBOOK_PNG}
+            style={{ height: 24, width: 24 }}
           />
         </Icon>
         <ListItemText primary={this.props.coach.facebook_url || '  -  '} />
@@ -42,9 +42,9 @@ class CoachSummaryCard extends React.Component<Props> {
       <ListItem>
         <Icon color="primary">
           <img
-            style={{ height: 24, width: 24 }}
-            src={INSTAGRAM_PNG}
             alt="Instagram"
+            src={INSTAGRAM_PNG}
+            style={{ height: 24, width: 24 }}
           />
         </Icon>
         <ListItemText primary={this.props.coach.instagram_url || '  -  '} />
@@ -55,10 +55,10 @@ class CoachSummaryCard extends React.Component<Props> {
   renderContact = () => {
     return (
       <List dense>
-        <PhoneItem phoneNumber={this.props.coach.phone} accept_contact />
+        <PhoneItem accept_contact phoneNumber={this.props.coach.phone} />
         <EmailItem
-          email={this.props.coach.email}
           accept_email
+          email={this.props.coach.email}
           openMailDialog={() => {
             window.location.href = 'mailto:'.concat(this.props.coach.email);
           }}
@@ -71,15 +71,15 @@ class CoachSummaryCard extends React.Component<Props> {
     const { coach, classes, t } = this.props;
     return (
       <Grid container direction="column" spacing={3}>
-        <Grid container direction="row" spacing={2} alignItems="center">
+        <Grid container alignItems="center" direction="row" spacing={2}>
           <Grid item>
-            <Avatar src={coach.photo} className={classes.bigAvatar} />
+            <Avatar className={classes.bigAvatar} src={coach.photo} />
           </Grid>
           <Grid item>
             <Grid
               container
-              direction="column"
               alignItems="flex-start"
+              direction="column"
               justify="space-around"
               spacing={1}
             >
@@ -100,18 +100,18 @@ class CoachSummaryCard extends React.Component<Props> {
         <div>
           <Grid
             container
+            alignItems="center"
+            className={classes.firstRow}
             direction="row"
             justify="space-between"
-            alignItems="center"
             spacing={3}
-            className={classes.firstRow}
           >
             <Grid item>
               <Grid
                 container
                 item
-                direction="row"
                 alignItems="center"
+                direction="row"
                 spacing={2}
               >
                 {this.renderAvatarNameAndPaymentRule()}

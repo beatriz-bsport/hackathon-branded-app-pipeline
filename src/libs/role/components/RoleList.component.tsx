@@ -138,17 +138,17 @@ export class RoleList extends React.PureComponent<Props> {
         ))}
         {isFranchisor ? (
           <CreateFranchiseRoleDialog
-            open={this.props.openCreateRoleDialog}
-            onClose={this.onCloseCreateRoleDialog}
             franchisorRole={this.props.currentRole}
+            onClose={this.onCloseCreateRoleDialog}
             onSubmit={this.onSubmit}
+            open={this.props.openCreateRoleDialog}
           />
         ) : (
           <CreateRoleDialog
-            open={this.props.openCreateRoleDialog}
             onClose={this.onCloseCreateRoleDialog}
-            role={this.props.currentRole}
             onSubmit={this.onSubmit}
+            open={this.props.openCreateRoleDialog}
+            role={this.props.currentRole}
           />
         )}
 

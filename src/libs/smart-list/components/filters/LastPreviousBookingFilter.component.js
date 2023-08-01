@@ -31,13 +31,13 @@ export class LastPreviousBookingFilter extends Component<Props, state> {
       <div className={classes.wrapper}>
         {t(`filters.${filter_data.filter_identifier}.first`)}
         <DelayedNumericInput
+          isPositive
           classes={classes}
-          value={filter_data.value}
           InputProps={{ inputProps: { min: 0 } }}
           onChange={(ev) =>
             onChange({ value: ev.target.value === '' ? null : ev.target.value })
           }
-          isPositive
+          value={filter_data.value}
         />
         {t(`filters.${filter_data.filter_identifier}.second`)}
       </div>

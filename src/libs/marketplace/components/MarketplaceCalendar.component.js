@@ -124,19 +124,19 @@ export class MarketplaceCalendar extends PureComponent<Props> {
 
       return (
         <MarketplaceTimetable
-          offers={dayOffers}
-          date={selectedDate}
-          onClickOffer={this.props.onClickOffer}
-          onClickBook={this.props.onClickBook}
-          onClickBookOption={this.props.onClickBookOption}
-          showOfferFilling={this.props.showOfferFilling}
-          showOfferGender={this.props.showOfferGender}
-          hideCoach={this.props.hideCoach}
-          coachLoading={this.props.coachLoading}
-          establishmentLoading={this.props.establishmentLoading}
           activityLoading={this.props.activityLoading}
           bookedOffers={this.props.bookedOffers}
+          coachLoading={this.props.coachLoading}
+          date={selectedDate}
+          establishmentLoading={this.props.establishmentLoading}
+          hideCoach={this.props.hideCoach}
           locale={locale}
+          offers={dayOffers}
+          onClickBook={this.props.onClickBook}
+          onClickBookOption={this.props.onClickBookOption}
+          onClickOffer={this.props.onClickOffer}
+          showOfferFilling={this.props.showOfferFilling}
+          showOfferGender={this.props.showOfferGender}
         />
       );
     }
@@ -144,34 +144,34 @@ export class MarketplaceCalendar extends PureComponent<Props> {
     const searchBar = (
       <MarketplaceFilterComponent
         coaches={coaches}
+        customLevels={this.props.activeCustomLevels}
+        establishmentGroupList={this.props.establishmentGroupList}
         establishments={establishments}
+        filters={filters}
         hideCoach={this.props.hideCoach}
         metaActivities={metaActivities}
-        filters={filters}
         setFilters={setFilters}
-        variant="activity"
-        establishmentGroupList={this.props.establishmentGroupList}
         showMultiLocalization={this.props.showMultiLocalization}
-        customLevels={this.props.activeCustomLevels}
+        variant="activity"
       />
     );
 
     return (
       <div className={classes.wrapper}>
         <Calendar
-          forceMonthDisplay={false}
-          clickableDate={isCompact}
-          hideDateBar={isLarge}
-          showDayName={isCompact}
           hideSwitchViewButton
+          clickableDate={isCompact}
+          date={selectedDate}
+          establishmentGroupList={this.props.establishmentGroupList}
+          events={events}
+          forceMonthDisplay={false}
+          hideDateBar={isLarge}
+          onDateChange={onSelectDate}
           searchBar={searchBar}
           searchBarOpen={this.props.filtersOpen}
-          toggleSearchBar={this.props.toggleFiltersOpen}
-          onDateChange={onSelectDate}
-          date={selectedDate}
-          events={events}
-          establishmentGroupList={this.props.establishmentGroupList}
           setFilters={setFilters}
+          showDayName={isCompact}
+          toggleSearchBar={this.props.toggleFiltersOpen}
         />
         {
           // eslint-disable-next-line
@@ -198,36 +198,36 @@ export class MarketplaceCalendar extends PureComponent<Props> {
               )}
             {isCompact && !isLarge ? (
               <MarketplaceTimetable
-                showOfferFilling={this.props.showOfferFilling}
-                showOfferGender={this.props.showOfferGender}
-                hideCoach={this.props.hideCoach}
-                offers={this.props.offers}
-                date={selectedDate}
-                onClickOffer={this.props.onClickOffer}
-                onClickBook={this.props.onClickBook}
-                onClickBookOption={this.props.onClickBookOption}
-                onSelectDate={onSelectDate}
-                coachLoading={this.props.coachLoading}
-                establishmentLoading={this.props.establishmentLoading}
                 activityLoading={this.props.activityLoading}
                 bookedOffers={this.props.bookedOffers}
+                coachLoading={this.props.coachLoading}
+                date={selectedDate}
+                establishmentLoading={this.props.establishmentLoading}
+                hideCoach={this.props.hideCoach}
                 locale={locale}
+                offers={this.props.offers}
+                onClickBook={this.props.onClickBook}
+                onClickBookOption={this.props.onClickBookOption}
+                onClickOffer={this.props.onClickOffer}
+                onSelectDate={onSelectDate}
+                showOfferFilling={this.props.showOfferFilling}
+                showOfferGender={this.props.showOfferGender}
               />
             ) : (
               <MarketplaceWeekTimetable
-                offers={this.props.offers}
-                showOfferFilling={this.props.showOfferFilling}
-                showOfferGender={this.props.showOfferGender}
-                hideCoach={this.props.hideCoach}
-                date={selectedDate}
-                onClickOffer={this.props.onClickOffer}
-                onClickBook={this.props.onClickBook}
-                onClickBookOption={this.props.onClickBookOption}
-                coachLoading={this.props.coachLoading}
-                establishmentLoading={this.props.establishmentLoading}
                 activityLoading={this.props.activityLoading}
                 bookedOffers={this.props.bookedOffers}
+                coachLoading={this.props.coachLoading}
+                date={selectedDate}
+                establishmentLoading={this.props.establishmentLoading}
+                hideCoach={this.props.hideCoach}
                 locale={locale}
+                offers={this.props.offers}
+                onClickBook={this.props.onClickBook}
+                onClickBookOption={this.props.onClickBookOption}
+                onClickOffer={this.props.onClickOffer}
+                showOfferFilling={this.props.showOfferFilling}
+                showOfferGender={this.props.showOfferGender}
               />
             )}
             {noOfferDisplayed && (
@@ -246,8 +246,8 @@ export class MarketplaceCalendar extends PureComponent<Props> {
                   <div className={classes.emptyStateWrapper}>
                     <div className={classes.emptyState}>
                       <EventAvailableIcon
-                        color="primary"
                         className={classes.icon}
+                        color="primary"
                       />
                       <ButtonBase
                         onClick={this.props.goToFirstAvailableSession}

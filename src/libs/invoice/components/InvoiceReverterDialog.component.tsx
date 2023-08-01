@@ -191,9 +191,9 @@ export const InvoiceReverterDialog = ({
   const actionButtons = (
     <DialogActions>
       <Button
+        className={classes.textSecondary}
         disabled={processing}
         onClick={onClose}
-        className={classes.textSecondary}
       >
         {t('revert.dialog.actions.cancel')}
       </Button>
@@ -245,7 +245,7 @@ export const InvoiceReverterDialog = ({
           {!reverseOnPaymentMethodAllowed &&
             allowedReverseMethods[REVERSE_ON_PAYMENT_METHOD]?.error_code ===
               INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE && (
-              <Alert severity="warning" className={classes.warning}>
+              <Alert className={classes.warning} severity="warning">
                 {t('revert.warning.interac')}
               </Alert>
             )}
@@ -309,15 +309,15 @@ export const InvoiceReverterDialog = ({
             <Collapse in={reverseMethod === REVERSE_ON_NEW_PAYMENT_METHOD}>
               <Select
                 id="payment-method-select"
-                value={`${paymentMethodSelected}`}
-                style={{ minWidth: 200, marginTop: 16 }}
                 onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
                   selectPaymentMethod(parseInt(ev.target.value, 10))
                 }
+                style={{ minWidth: 200, marginTop: 16 }}
+                value={`${paymentMethodSelected}`}
               >
                 {PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT].map(
                   (pm) => (
-                    <MenuItem value={pm} key={pm}>
+                    <MenuItem key={pm} value={pm}>
                       {t(`paymentMethod.label.${pm}`)}
                     </MenuItem>
                   ),
@@ -331,16 +331,16 @@ export const InvoiceReverterDialog = ({
       </GenericResponsiveDialog>
 
       <GenericResponsiveDialog
-        maxWidth="sm"
-        open={isConfirmWhenAutoDebitModalOpened}
-        onClose={handleCloseAutoDebitModal}
         className={classes.container}
+        maxWidth="sm"
+        onClose={handleCloseAutoDebitModal}
+        open={isConfirmWhenAutoDebitModalOpened}
       >
         <DialogTitle id="form-dialog-title">
           {t('revert.autoDebitDialog.title')}
         </DialogTitle>
         <DialogContent className={classes.helperText}>
-          <Alert severity="warning" className={classes.alert}>
+          <Alert className={classes.alert} severity="warning">
             {t('revert.blockedDialog.alert', {
               // In the case where the company is in churn, the refund limit is 0 (under it, they will be debited)
               refundBlockingLimit: 0,
@@ -355,26 +355,26 @@ export const InvoiceReverterDialog = ({
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseAutoDebitModal} color="secondary">
+          <Button color="secondary" onClick={handleCloseAutoDebitModal}>
             {t('revert.dialog.actions.cancel')}
           </Button>
-          <Button onClick={handleSubmitAutoDebitModal} color="primary">
+          <Button color="primary" onClick={handleSubmitAutoDebitModal}>
             {t('revert.dialog.actions.confirm')}
           </Button>
         </DialogActions>
       </GenericResponsiveDialog>
 
       <GenericResponsiveDialog
-        maxWidth="sm"
-        open={isBlockedModalOpened}
-        onClose={handleCloseBlockedModal}
         className={classes.container}
+        maxWidth="sm"
+        onClose={handleCloseBlockedModal}
+        open={isBlockedModalOpened}
       >
         <DialogTitle id="form-dialog-title">
           {t('revert.blockedDialog.title')}
         </DialogTitle>
         <DialogContent className={classes.helperText}>
-          <Alert severity="warning" className={classes.alert}>
+          <Alert className={classes.alert} severity="warning">
             {t('revert.blockedDialog.alert', {
               // In the case where the company is in churn, the refund limit is 0
               refundBlockingLimit: isInChurn ? 0 : refundBlockingLimit,
@@ -384,7 +384,7 @@ export const InvoiceReverterDialog = ({
           <Typography>{t('revert.blockedDialog.helper')}</Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseBlockedModal} color="secondary">
+          <Button color="secondary" onClick={handleCloseBlockedModal}>
             {t('revert.dialog.actions.cancel')}
           </Button>
         </DialogActions>

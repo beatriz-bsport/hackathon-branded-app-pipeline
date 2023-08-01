@@ -22,10 +22,10 @@ const OfferFormTooltip = (props: Props) => {
 
   return (
     <GenericResponsiveDialog
-      open={isOpen}
-      onClose={onClose}
       noFullScreen
       maxWidth="xs"
+      onClose={onClose}
+      open={isOpen}
     >
       <DialogContent>
         <Typography>{children}</Typography>

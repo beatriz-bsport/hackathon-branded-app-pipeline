@@ -36,11 +36,11 @@ export const CashBookForm: React.FC<Props & FormikProps<Transaction>> = ({
     <Form className={classes.container}>
       <div className={classes.field}>
         <PriceField
-          name="todayStartAmount"
           fullWidth
-          variant="outlined"
           disabled={initial && initial.today_start_amount}
           label={t('backofficeMenu.cashBook.todayStartAmount')}
+          name="todayStartAmount"
+          variant="outlined"
         />
       </div>
       <div className={classes.field}>
@@ -59,14 +59,14 @@ export const CashBookForm: React.FC<Props & FormikProps<Transaction>> = ({
       </div>
       <div className={classes.field}>
         <PriceField
-          variant="outlined"
-          name="todayEndAmount"
           fullWidth
           label={t('backofficeMenu.cashBook.todayEndAmount')}
+          name="todayEndAmount"
+          variant="outlined"
         />
       </div>
       <div className={classes.field}>
-        <Typography variant="caption" color="textSecondary">
+        <Typography color="textSecondary" variant="caption">
           {`${t(
             'backofficeMenu.cashBook.lastUpdated',
           )} :  ${formatAsDatetimeAdapted(initial.date_last_update, 'LLLL')}`}
@@ -75,11 +75,11 @@ export const CashBookForm: React.FC<Props & FormikProps<Transaction>> = ({
       {permissions?.navigationMenu?.reporting && (
         <div className={classes.fieldCenter}>
           <Button
-            variant="outlined"
             onClick={() => {
               handleOpenOnSpotPaymentReport();
               setOpenCash(false);
             }}
+            variant="outlined"
           >
             {t('backofficeMenu.cashBook.onSpotPaymentReport')}
           </Button>

@@ -44,10 +44,10 @@ const MarketplaceContractPaymentCoupon: React.FC<Props> = React.memo(
       <>
         {!voucher && (
           <button
-            type="button"
             className="bs-contract-payment__pricing__promo__button"
             disabled={isLoading || !isContractLegalTermsAccepted}
             onClick={onOpenCouponForm}
+            type="button"
           >
             {t('coupon:code.addCoupon.label')}
           </button>
@@ -62,8 +62,8 @@ const MarketplaceContractPaymentCoupon: React.FC<Props> = React.memo(
             </span>
             <button
               className="bs-contract-payment__coupon__delete"
-              type="button"
               onClick={onDeleteCoupon}
+              type="button"
             >
               <DeleteIcon fontSize="small" />
             </button>

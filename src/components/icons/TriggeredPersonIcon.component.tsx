@@ -9,10 +9,10 @@ export const TriggeredPersonIcon: React.FC<SVGProps<SVGElement>> = ({
 }) => {
   return (
     <svg
-      width={width}
+      fill={fill}
       height={height}
       viewBox={viewBox}
-      fill={fill}
+      width={width}
       xmlns={xmlns}
     >
       <path d="M13.6801 7.68997C15.5401 7.68997 17.0301 6.18997 17.0301 4.32997C17.0301 2.46997 15.5401 0.969971 13.6801 0.969971C11.8201 0.969971 10.3201 2.46997 10.3201 4.32997C10.3201 6.18997 11.8201 7.68997 13.6801 7.68997Z" />

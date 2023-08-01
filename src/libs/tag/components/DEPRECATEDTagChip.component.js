@@ -17,11 +17,11 @@ type Props = {
 export const TagChip = (props: Props) => (
   <Chip
     key={props.key ? `${props.key}` : null}
+    color={props.include ? 'primary' : 'secondary'}
     icon={props.include ? <CheckIcon /> : <BlockIcon />}
     label={`${(props.tagGroup || {}).name}: ${(props.tag || {}).name}`}
     onDelete={() => props.handleDelete((props.tag || {}).id, props.include)}
     size="small"
-    color={props.include ? 'primary' : 'secondary'}
   />
 );
 

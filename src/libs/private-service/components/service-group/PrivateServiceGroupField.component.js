@@ -17,9 +17,9 @@ export default (props: SelectFieldProps) => {
     <Field {...props}>
       {({ field, form: { touched, setFieldValue, errors } }) => (
         <FormControl
+          error={!!(touched[field.name] && errors[field.name])}
           fullWidth={fullWidth}
           required={required}
-          error={!!(touched[field.name] && errors[field.name])}
         >
           {label ? (
             <div style={{ marginBottom: 16 }}>
@@ -48,16 +48,16 @@ export default (props: SelectFieldProps) => {
           />
           {!props.disabled && (
             <input
-              tabIndex={-1}
               autoComplete="off"
-              style={{ opacity: 0, height: 0 }}
-              value={field.value}
               required={required}
+              style={{ opacity: 0, height: 0 }}
+              tabIndex={-1}
+              value={field.value}
             />
           )}
           <ErrorMessage {...props}>
             {(message) => (
-              <Typography variant="body1" className={classes.alertError}>
+              <Typography className={classes.alertError} variant="body1">
                 {t(message)}
               </Typography>
             )}

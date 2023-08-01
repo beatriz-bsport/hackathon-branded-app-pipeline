@@ -43,8 +43,8 @@ type NoOptionsMessageProps = {
 function NoOptionsMessage(props: NoOptionsMessageProps) {
   return (
     <Typography
-      color="textSecondary"
       className={props.selectProps.classes.noOptionsMessage}
+      color="textSecondary"
       {...props.innerProps}
     >
       {props.children}
@@ -101,8 +101,8 @@ function Option(props: OptionProps) {
   return (
     <MenuItem
       buttonRef={props.innerRef}
-      selected={props.isFocused}
       component="div"
+      selected={props.isFocused}
       style={{
         fontWeight: props.isSelected ? 500 : 400,
       }}
@@ -154,8 +154,8 @@ type ValueContainerProps = {
 function ValueContainer(props: ValueContainerProps) {
   return (
     <div
-      id="value-container"
       className={props.selectProps.classes.valueContainer}
+      id="value-container"
     >
       {props.children}
     </div>
@@ -170,11 +170,11 @@ type MultiValueProps = {
 function MultiValue(props: MultiValueProps) {
   return (
     <Chip
-      tabIndex={-1}
-      label={props.children}
       className={props.selectProps.classes.chip}
-      onDelete={props.removeProps.onClick}
       deleteIcon={<CancelIcon {...props.removeProps} />}
+      label={props.children}
+      onDelete={props.removeProps.onClick}
+      tabIndex={-1}
     />
   );
 }
@@ -283,26 +283,26 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
   return (
     <div className={`${className || ''} ${classes.root}`}>
       <SelectComponent
-        id={props.id}
         autofocus={autofocus}
         classes={classes}
-        styles={selectStyles}
-        options={suggestions}
         components={{ ...components, ...props.components }}
+        filterOption={props.filterOption}
+        id={props.id}
+        isClearable={props.isClearable}
+        isDisabled={isDisabled}
+        isMulti={isMulti}
+        menuPortalTarget={document.querySelector('body')}
+        onChange={onChange}
+        onCreateOption={onCreateOption}
+        options={suggestions}
+        placeholder={placeholder}
+        searchIcon={searchIcon}
+        styles={selectStyles}
         value={
           nullCurrentValue
             ? null
             : valueSelector(isMulti, suggestions, selected)
         }
-        onChange={onChange}
-        placeholder={placeholder}
-        onCreateOption={onCreateOption}
-        searchIcon={searchIcon}
-        isMulti={isMulti}
-        filterOption={props.filterOption}
-        isClearable={props.isClearable}
-        menuPortalTarget={document.querySelector('body')}
-        isDisabled={isDisabled}
       />
     </div>
   );

@@ -81,10 +81,10 @@ export const MemberProgramDetailDialog: React.FC<Props> = (props) => {
 
   return (
     <GenericResponsiveDialog
-      maxWidth="lg"
-      open={open}
       fullScreenBreakpoint="sm"
+      maxWidth="lg"
       onClose={closeDialog}
+      open={open}
     >
       <div className={classes.container}>
         {loading ? (
@@ -110,7 +110,6 @@ export const MemberProgramDetailDialog: React.FC<Props> = (props) => {
               <div>
                 {memberProgramList?.map((memberProgram) => (
                   <MemberProgramDetail
-                    memberProgram={memberProgram}
                     withIcon
                     changeMemberMetricValue={(value, metric) =>
                       updateMemberMetricValue({
@@ -119,6 +118,7 @@ export const MemberProgramDetailDialog: React.FC<Props> = (props) => {
                         value,
                       })
                     }
+                    memberProgram={memberProgram}
                   />
                 ))}
               </div>
@@ -132,9 +132,9 @@ export const MemberProgramDetailDialog: React.FC<Props> = (props) => {
                     </Typography>
                   </div>
                   <Button
-                    variant="outlined"
                     color="primary"
                     onClick={() => setIsDialogChooseProgramOpen(true)}
+                    variant="outlined"
                   >
                     {t('program.form.addProgram')}
                   </Button>
@@ -142,13 +142,13 @@ export const MemberProgramDetailDialog: React.FC<Props> = (props) => {
               </div>
             )}
             <ProgramSelectorDialog
-              programList={programList?.length ? [...programList] : []}
-              isDialogChooseProgramOpen={isDialogChooseProgramOpen}
-              setIsDialogChooseProgramOpen={setIsDialogChooseProgramOpen}
               createMemberProgram={createMemberProgram}
+              isDialogChooseProgramOpen={isDialogChooseProgramOpen}
+              programList={programList?.length ? [...programList] : []}
+              setIsDialogChooseProgramOpen={setIsDialogChooseProgramOpen}
             />
             <div className={classes.action}>
-              <Button variant="contained" color="primary" onClick={closeDialog}>
+              <Button color="primary" onClick={closeDialog} variant="contained">
                 {t('form.close')}
               </Button>
             </div>

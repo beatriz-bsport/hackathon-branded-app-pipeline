@@ -46,11 +46,11 @@ class CheckInConfirm extends Component<Props> {
       <React.Fragment>
         <div item className={classes.leftHeader} />
         <div className={classes.column}>
-          <Avatar src={member?.photo ?? ''} className={classes.memberAvatar} />
+          <Avatar className={classes.memberAvatar} src={member?.photo ?? ''} />
           <Typography variant="h5">
             {member && member.name ? member.name : ''}
           </Typography>
-          <Typography variant="body1" color="textSecondary" align="center">
+          <Typography align="center" color="textSecondary" variant="body1">
             {member && member.email ? member.email : ''}
           </Typography>
           <Paper className={classes.footer}>
@@ -72,7 +72,7 @@ class CheckInConfirm extends Component<Props> {
     return (
       <React.Fragment>
         <div className={classes.rightHeader}>
-          <Typography variant="h3" className={classes.headerTitle}>
+          <Typography className={classes.headerTitle} variant="h3">
             {t('confirmPage.signIn')}
           </Typography>
         </div>
@@ -81,14 +81,14 @@ class CheckInConfirm extends Component<Props> {
             {t('confirmPage.headOnIn')}
           </Typography>
           <Typography
-            className={classes.paddedElement}
-            variant="subtitle1"
-            color="textSecondary"
             align="center"
+            className={classes.paddedElement}
+            color="textSecondary"
+            variant="subtitle1"
           >
             {t('confirmPage.classLocation')}
           </Typography>
-          <Typography variant="h6" align="center">
+          <Typography align="center" variant="h6">
             {offer?.etablissement?.title ?? '-'}
           </Typography>
         </div>
@@ -105,10 +105,10 @@ class CheckInConfirm extends Component<Props> {
         <div className={this.props.classes.rightPanel}>
           {this.renderRightPanel()}
           <Button
-            variant="extendedFab"
-            color="primary"
             className={this.props.classes.backButton}
+            color="primary"
             onClick={this.dismissConfirm}
+            variant="extendedFab"
           >
             <ChevronLeftIcon className={this.props.classes.buttonIcon} />
             {this.props.t('translation:navigation.goBack')}

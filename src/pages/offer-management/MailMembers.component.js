@@ -91,8 +91,8 @@ export class MailDialog extends Component<Props, State> {
       <div>
         <Dialog
           fullScreen={fullScreen}
-          open={this.state.openMailChoiceDialog}
           onClose={onClose}
+          open={this.state.openMailChoiceDialog}
         >
           <DialogContent>
             <ListItem>
@@ -109,12 +109,12 @@ export class MailDialog extends Component<Props, State> {
             <div>
               <ListItem
                 button
+                className={classes.mailChoiceDialog}
                 onClick={() =>
                   this.setState((prevState) => ({
                     mailToBookings: !prevState.mailToBookings,
                   }))
                 }
-                className={classes.mailChoiceDialog}
               >
                 <ListItemText
                   id="bookings"
@@ -122,24 +122,24 @@ export class MailDialog extends Component<Props, State> {
                 />
                 <ListItemSecondaryAction>
                   <Checkbox
+                    checked={this.state.mailToBookings}
+                    edge="end"
                     onChange={() =>
                       this.setState((prevState) => ({
                         mailToBookings: !prevState.mailToBookings,
                       }))
                     }
-                    edge="end"
-                    checked={this.state.mailToBookings}
                   />
                 </ListItemSecondaryAction>
               </ListItem>
               <ListItem
                 button
+                className={classes.mailChoiceDialogEnd}
                 onClick={() =>
                   this.setState((prevState) => ({
                     mailToCanceledBookings: !prevState.mailToCanceledBookings,
                   }))
                 }
-                className={classes.mailChoiceDialogEnd}
               >
                 <ListItemText
                   id="CanceledBookings"
@@ -149,6 +149,7 @@ export class MailDialog extends Component<Props, State> {
                 />
                 <ListItemSecondaryAction>
                   <Checkbox
+                    checked={this.state.mailToCanceledBookings}
                     edge="end"
                     onChange={() =>
                       this.setState((prevState) => ({
@@ -156,18 +157,17 @@ export class MailDialog extends Component<Props, State> {
                           !prevState.mailToCanceledBookings,
                       }))
                     }
-                    checked={this.state.mailToCanceledBookings}
                   />
                 </ListItemSecondaryAction>
               </ListItem>
               <ListItem
                 button
+                className={classes.mailChoiceDialogEnd}
                 onClick={() =>
                   this.setState((prevState) => ({
                     mailToWaitingList: !prevState.mailToWaitingList,
                   }))
                 }
-                className={classes.mailChoiceDialogEnd}
               >
                 <ListItemText
                   id="waitingList"
@@ -175,13 +175,13 @@ export class MailDialog extends Component<Props, State> {
                 />
                 <ListItemSecondaryAction>
                   <Checkbox
+                    checked={this.state.mailToWaitingList}
                     edge="end"
                     onChange={() =>
                       this.setState((prevState) => ({
                         mailToWaitingList: !prevState.mailToWaitingList,
                       }))
                     }
-                    checked={this.state.mailToWaitingList}
                   />
                 </ListItemSecondaryAction>
               </ListItem>
@@ -202,8 +202,6 @@ export class MailDialog extends Component<Props, State> {
               </Button>
               <Button
                 color="primary"
-                variant="outlined"
-                type="submit"
                 onClick={() =>
                   this.setState((prevState) => ({
                     receiversList: (prevState.mailToBookings
@@ -248,6 +246,8 @@ export class MailDialog extends Component<Props, State> {
                     openMailDialog: true,
                   }))
                 }
+                type="submit"
+                variant="outlined"
               >
                 {t('common.confirm')}
               </Button>
@@ -255,30 +255,6 @@ export class MailDialog extends Component<Props, State> {
           </DialogContent>
         </Dialog>
         <DEPRECATEDCommunicationDrawer
-          getEmails={this.props.fetchEmailTemplatesSummaries}
-          emails={this.props.emails}
-          getEmailDetail={this.props.fetchEmailTemplateDetail}
-          emailDetails={this.props.emailDetails}
-          emailListLoading={this.props.emailListLoading}
-          emailDetailLoading={this.props.emailDetailLoading}
-          fullScreen={fullScreen}
-          open={this.state.openMailDialog}
-          receiverInfo={this.state.receiversList}
-          mailDefaultTitle={this.props.mailDefaultTitle}
-          onCancel={() => {
-            onClose();
-            this.setState({
-              openMailDialog: false,
-              mailToWaitingList: false,
-              mailToBookings: false,
-              mailToCanceledBookings: false,
-            });
-          }}
-          membersToDisplay={[...this.state.receiversList].splice(
-            (this.state.page - 1) * 5,
-            this.state.page * 5,
-          )}
-          page_size={5}
           allIds={this.state.receiversList.map((member) => member.id)}
           allIdsWithEmail={this.state.receiversList
             .filter((member) => member.email)
@@ -286,16 +262,10 @@ export class MailDialog extends Component<Props, State> {
           allIdsWithPhone={this.state.receiversList
             .filter((member) => member.phone)
             .map((member) => member.id)}
-          fetchPreviousPage={(page, page_size) => {
-            if (page - 1 === 0) {
-              this.setState((prevState) => ({
-                page:
-                  parseInt(prevState.receiversList.length / page_size, 10) + 1,
-              }));
-            } else {
-              this.setState({ page });
-            }
-          }}
+          emailDetailLoading={this.props.emailDetailLoading}
+          emailDetails={this.props.emailDetails}
+          emailListLoading={this.props.emailListLoading}
+          emails={this.props.emails}
           fetchNextPage={(page, page_size) => {
             if (
               page > parseInt(this.state.receiversList.length / page_size, 10)
@@ -307,14 +277,44 @@ export class MailDialog extends Component<Props, State> {
               this.setState({ page: page + 1 });
             }
           }}
-          page={this.state.page}
+          fetchPreviousPage={(page, page_size) => {
+            if (page - 1 === 0) {
+              this.setState((prevState) => ({
+                page:
+                  parseInt(prevState.receiversList.length / page_size, 10) + 1,
+              }));
+            } else {
+              this.setState({ page });
+            }
+          }}
+          fullScreen={fullScreen}
+          getEmailDetail={this.props.fetchEmailTemplateDetail}
+          getEmails={this.props.fetchEmailTemplatesSummaries}
+          mailDefaultTitle={this.props.mailDefaultTitle}
           membersAllLoading={
             this.state.resetMembersFetchForCommunication &&
             this.props.members.loading
           }
           membersByPageLoading={this.props.members.loading}
-          send={this.props.sendCommunication}
+          membersToDisplay={[...this.state.receiversList].splice(
+            (this.state.page - 1) * 5,
+            this.state.page * 5,
+          )}
+          onCancel={() => {
+            onClose();
+            this.setState({
+              openMailDialog: false,
+              mailToWaitingList: false,
+              mailToBookings: false,
+              mailToCanceledBookings: false,
+            });
+          }}
+          open={this.state.openMailDialog}
+          page={this.state.page}
+          page_size={5}
+          receiverInfo={this.state.receiversList}
           resolvedGenericTags={this.props.resolvedGenericTags}
+          send={this.props.sendCommunication}
         />
       </div>
     );

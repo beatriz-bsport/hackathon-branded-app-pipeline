@@ -293,10 +293,10 @@ const DefaultTemplate = (props: Props) => {
             <div className={classes.innerDescription}>
               {upsellPackage.description_html ? (
                 <iframe
-                  title="upsell-package-default-template-iframe"
-                  srcDoc={props.upsellPackage.description_html}
                   className={classes.iframe}
                   frameBorder="0"
+                  srcDoc={props.upsellPackage.description_html}
+                  title="upsell-package-default-template-iframe"
                 />
               ) : (
                 <Typography>{upsellPackage.description}</Typography>
@@ -307,7 +307,7 @@ const DefaultTemplate = (props: Props) => {
       </div>
       <div className={classes.buttonContainer}>
         {canSeeMoreUpsellInformation && (
-          <Button variant="outlined" onClick={showMoreUpsellInformation}>
+          <Button onClick={showMoreUpsellInformation} variant="outlined">
             <HelpOutlinedIcon className={classes.iconLeft} />
             {t('upsellPackage.knowMore')}
           </Button>
@@ -338,10 +338,10 @@ const UpsellPackageSMS = (props: Omit<Props, 'children'>) => {
           <div className={classes.innerDescription}>
             {upsellPackage.description_html ? (
               <iframe
-                title="upsell-package-sms-iframe"
-                srcDoc={props.upsellPackage.description_html}
                 className={classes.iframe}
                 frameBorder="0"
+                srcDoc={props.upsellPackage.description_html}
+                title="upsell-package-sms-iframe"
               />
             ) : (
               <Typography>{upsellPackage.description}</Typography>
@@ -351,7 +351,7 @@ const UpsellPackageSMS = (props: Omit<Props, 'children'>) => {
       </div>
       <div className={classes.buttonContainer}>
         {canSeeMoreUpsellInformation && (
-          <Button variant="outlined" onClick={showMoreUpsellInformation}>
+          <Button onClick={showMoreUpsellInformation} variant="outlined">
             <HelpOutlinedIcon className={classes.iconLeft} />
             {t('upsellPackage.knowMore')}
           </Button>

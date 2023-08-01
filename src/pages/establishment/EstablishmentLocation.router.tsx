@@ -38,24 +38,24 @@ export const EstablishmentRoomLocationRouter = (props: Props) => {
   if (props.companyTheme.enable_multi_localization) {
     return (
       <ContentWithAppBar
-        tab={props.tab}
         onChange={onChange}
         pageHeight={props.pageHeight}
+        tab={props.tab}
         tabsData={tabsData}
       >
         <Switch>
           <Route
             exact
-            path="/establishment/location"
             component={EstablishmentGroupPage}
+            path="/establishment/location"
           />
-          <Route path="/" component={EstablishmentList} />
+          <Route component={EstablishmentList} path="/" />
         </Switch>
       </ContentWithAppBar>
     );
   }
 
-  return <Route path="/" component={EstablishmentList} />;
+  return <Route component={EstablishmentList} path="/" />;
 };
 
 const mapStateToProps = (state: RootState) => ({

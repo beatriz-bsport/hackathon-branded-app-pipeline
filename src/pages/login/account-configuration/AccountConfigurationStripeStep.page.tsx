@@ -102,30 +102,30 @@ export class AccountConfigurationStripeStepPage extends Component<
     }
     return (
       <StripeStep
-        has_no_need_for_stripe_configuration={
-          this.props.stripeCompany.has_no_need_for_stripe_configuration
-        }
+        companyAdress={this.props.companySetup?.address}
+        companyName={this.props.companySetup?.name}
+        companyStripeName={this.props.companySetup?.business_name}
+        error={this.state.error}
+        goNext={this.validateStripeStep}
         has_no_need_for_bank_account_configuration={
           this.props.stripeCompany.has_no_need_for_bank_account_configuration
         }
         has_no_need_for_payment_method_configuration={
           this.props.stripeCompany.has_no_need_for_payment_method_configuration
         }
-        success={
-          this.props.stripeCompany?.currently_due_verifications === 0 &&
-          this.props.stripeCompany?.stripe_id !== ''
+        has_no_need_for_stripe_configuration={
+          this.props.stripeCompany.has_no_need_for_stripe_configuration
         }
-        error={this.state.error}
-        goNext={this.validateStripeStep}
-        redirectToStripe={this.goToStripeOnBoarding}
-        companyAdress={this.props.companySetup?.address}
-        companyStripeName={this.props.companySetup?.business_name}
-        companyName={this.props.companySetup?.name}
         labelGoNext={
           this.props.stripeCompany
             .has_no_need_for_payment_method_configuration &&
           this.props.stripeCompany.has_no_need_for_bank_account_configuration &&
           this.props.t('finish')
+        }
+        redirectToStripe={this.goToStripeOnBoarding}
+        success={
+          this.props.stripeCompany?.currently_due_verifications === 0 &&
+          this.props.stripeCompany?.stripe_id !== ''
         }
       />
     );

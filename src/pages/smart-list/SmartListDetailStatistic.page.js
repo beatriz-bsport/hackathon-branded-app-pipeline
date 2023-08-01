@@ -101,7 +101,6 @@ export class SmartListDetailStatistic extends React.Component<Props> {
     return (
       <div>
         <StatsPanel
-          statistics={this.formatExpensesSegmentsStatistic()}
           changeDateRange={(start, end, kind = 'custom') => {
             this.props.dateRangeChange({ start, end, kind });
             this.props.fetchSmartListStats({
@@ -124,6 +123,7 @@ export class SmartListDetailStatistic extends React.Component<Props> {
 	    */
           }}
           dateRange={this.props.dateRange}
+          statistics={this.formatExpensesSegmentsStatistic()}
         />
       </div>
     );

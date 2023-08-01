@@ -150,12 +150,12 @@ export function CustomFormFieldBuilderDialog(props: Props) {
   );
   return (
     <Dialog
-      fullWidth
-      maxWidth="sm"
-      open={open}
-      onClose={handleClose}
       disableBackdropClick
       disableEscapeKeyDown
+      fullWidth
+      maxWidth="sm"
+      onClose={handleClose}
+      open={open}
     >
       <DialogTitle id="form-dialog-title">
         <div
@@ -171,6 +171,7 @@ export function CustomFormFieldBuilderDialog(props: Props) {
       </DialogTitle>
 
       <Formik
+        enableReinitialize
         initialValues={
           props.initial
             ? {
@@ -195,7 +196,6 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                 model_based_question_kind: null,
               }
         }
-        enableReinitialize
         onSubmit={(values) => {
           trackFormSuccess(props.initial?.id);
 
@@ -232,6 +232,10 @@ export function CustomFormFieldBuilderDialog(props: Props) {
               </div>
 
               <CustomFormFieldSelector
+                closeMenuOnSelect
+                isClearable
+                noMulti
+                disabled={!!formik.values.id}
                 formFieldOptionList={CUSTOM_FORM_FIELDS_OPTIONS.filter(
                   (option) =>
                     !(
@@ -239,8 +243,6 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                       !props.companyTheme?.enable_multi_localization
                     ),
                 )}
-                selectedOptions={[formik.values.kind]}
-                placeholder={t('customForm.customFormField.modal.add.select')}
                 onChange={(option: { value: number; label: string }) => {
                   formik.setFieldValue('kind', option ? option.value : null);
                   formik.setFieldValue(
@@ -256,31 +258,29 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                       : null,
                   );
                 }}
-                noMulti
-                isClearable
-                closeMenuOnSelect
-                disabled={!!formik.values.id}
+                placeholder={t('customForm.customFormField.modal.add.select')}
+                selectedOptions={[formik.values.kind]}
               />
               <AlertError name="choices" />
               <div className={classes.signupQuestionSelector}>
                 {formik.values.kind ===
                   CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION && (
                   <CustomFormFieldSelector
+                    closeMenuOnSelect
+                    isClearable
+                    noMulti
+                    disabled={!!formik.values.id}
                     formFieldOptionList={signupQuestionsChoices}
-                    selectedOptions={[formik.values.signup_question_kind]}
-                    placeholder={t(
-                      'customForm.customFormField.modal.add.select',
-                    )}
                     onChange={(option: { value: number; label: string }) => {
                       formik.setFieldValue(
                         'signup_question_kind',
                         option ? option.value : null,
                       );
                     }}
-                    noMulti
-                    isClearable
-                    closeMenuOnSelect
-                    disabled={!!formik.values.id}
+                    placeholder={t(
+                      'customForm.customFormField.modal.add.select',
+                    )}
+                    selectedOptions={[formik.values.signup_question_kind]}
                   />
                 )}
               </div>
@@ -299,12 +299,12 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                         {choices.map((choice: string, i: number) => (
                           <div className={classes.choicesWithTag}>
                             <TextField
-                              name={`choices.${i}`}
-                              onBlur={() => replace(i, choices[i])}
                               disabled={
                                 formik.values.id &&
                                 formik.initialValues.choices.includes(choice)
                               }
+                              name={`choices.${i}`}
+                              onBlur={() => replace(i, choices[i])}
                             />
                             <IconButton
                               onClick={() => {
@@ -317,8 +317,20 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                               <ClearIcon />
                             </IconButton>
                             <CustomFormFieldTagRuleSelector
-                              tag_groups={props.tag_groups}
-                              tags={props.tags}
+                              choice_tag_rule={formik.values.custom_form_field_tag_rule.find(
+                                (rule) => rule.answer_for_tag === choices[i],
+                              )}
+                              deleteTagRule={() => {
+                                formik.setFieldValue(
+                                  'custom_form_field_tag_rule',
+                                  [
+                                    ...formik.values.custom_form_field_tag_rule.filter(
+                                      (rule) =>
+                                        rule.answer_for_tag !== choices[i],
+                                    ),
+                                  ],
+                                );
+                              }}
                               setTag={(tag_id: string) =>
                                 formik.setFieldValue(
                                   'custom_form_field_tag_rule',
@@ -331,28 +343,16 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                                   ],
                                 )
                               }
-                              deleteTagRule={() => {
-                                formik.setFieldValue(
-                                  'custom_form_field_tag_rule',
-                                  [
-                                    ...formik.values.custom_form_field_tag_rule.filter(
-                                      (rule) =>
-                                        rule.answer_for_tag !== choices[i],
-                                    ),
-                                  ],
-                                );
-                              }}
-                              choice_tag_rule={formik.values.custom_form_field_tag_rule.find(
-                                (rule) => rule.answer_for_tag === choices[i],
-                              )}
+                              tag_groups={props.tag_groups}
+                              tags={props.tags}
                             />
                           </div>
                         ))}
                         <div className={classes.optionButton}>
                           <Button
-                            variant="outlined"
                             color="primary"
                             onClick={() => push('')}
+                            variant="outlined"
                           >
                             <AddIcon color="primary" />
                             {t('customForm.customFormField.modal.add.option')}
@@ -388,10 +388,10 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                     })}
                   </FormHelperText>
                   <CheckboxField
-                    id="checkbox_taxe_rate"
-                    name="link_to_note"
-                    label={t('customForm.field.link_to_note')}
                     checked={formik.values.link_to_note}
+                    id="checkbox_taxe_rate"
+                    label={t('customForm.field.link_to_note')}
+                    name="link_to_note"
                     onClick={() =>
                       formik.setFieldValue(
                         'link_to_note',
@@ -402,9 +402,9 @@ export function CustomFormFieldBuilderDialog(props: Props) {
 
                   <div className={classes.textAndIcon}>
                     <Alert
-                      severity="info"
                       className={classes.alertInfo}
                       color="grey"
+                      severity="info"
                     >
                       {t('customForm.field.link_to_note_helper')}
                     </Alert>
@@ -414,9 +414,9 @@ export function CustomFormFieldBuilderDialog(props: Props) {
               {formik.values.kind === CUSTOM_FORM_FIELD_FILE_OPTION && (
                 <div className={classes.textAndIcon}>
                   <Alert
-                    severity="info"
                     className={classes.alertInfo}
                     color="grey"
+                    severity="info"
                   >
                     {' '}
                     {t('customForm.field.fileHelper')}
@@ -426,24 +426,24 @@ export function CustomFormFieldBuilderDialog(props: Props) {
             </DialogContent>
             <DialogActions>
               <Button
+                color="secondary"
+                disabled={isSubmitting}
                 onClick={() => {
                   trackFormCancel(props.initial?.id);
                   handleClose();
                 }}
-                color="secondary"
-                disabled={isSubmitting}
               >
                 {t('customForm.customFormField.modal.add.cancel')}
               </Button>
               <Button
-                id="button_submit_custom_form_field"
-                disabled={isSubmitting}
-                variant="contained"
                 color="primary"
+                disabled={isSubmitting}
+                id="button_submit_custom_form_field"
                 onClick={() => {
                   trackFormSubmitIntent(props.initial?.id);
                   formik.handleSubmit();
                 }}
+                variant="contained"
               >
                 {t('customForm.customFormField.modal.add.confirm')}
               </Button>

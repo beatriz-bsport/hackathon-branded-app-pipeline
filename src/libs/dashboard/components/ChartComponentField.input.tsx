@@ -83,7 +83,7 @@ export const ChartComponentFieldInput = (
                 }}
               >
                 <Icon className={classes.flex1} />
-                <Typography variant="body2" className={classes.flex1}>
+                <Typography className={classes.flex1} variant="body2">
                   {t(`graphFormDrawer.chartComponents.${option}`)}
                 </Typography>
               </ButtonBase>

@@ -54,14 +54,17 @@ const CompanyGroupFormDialog = (props: Props) => {
       <DialogTitle>{t('companyGroup.actions.add')}</DialogTitle>
       <DialogContent>
         <TextField
-          variant="outlined"
-          value={name}
           fullWidth
-          onChange={(ev) => setName(ev.target.value)}
-          label={t('companyGroup.name.label')}
           className={classes.input}
+          label={t('companyGroup.name.label')}
+          onChange={(ev) => setName(ev.target.value)}
+          value={name}
+          variant="outlined"
         />
         <FranchiseCompaniesSelector
+          companies={companyList}
+          companyDic={companyDic}
+          menuPortalTarget={document.querySelector('body')}
           onChange={(newValue) => {
             setCompaniesSelected(
               newValue.map((val) =>
@@ -70,9 +73,6 @@ const CompanyGroupFormDialog = (props: Props) => {
             );
           }}
           selectedCompanies={asSelectable(companiesSelected)}
-          companyDic={companyDic}
-          companies={companyList}
-          menuPortalTarget={document.querySelector('body')}
         />
         <div className={classes.explainContainer}>
           <InfoOutlineIcon className={classes.iconLeft} />

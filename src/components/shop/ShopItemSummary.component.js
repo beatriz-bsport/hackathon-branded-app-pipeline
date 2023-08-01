@@ -27,10 +27,10 @@ export class ShopItemSummary extends Component<Props> {
     // secondary={`${t('form.shop.item.provisions')} : ${current_stock}`}
     return (
       <ListItem
-        selected={!!this.props.selected}
-        divider={!noDivider}
-        button={!!button}
         dense
+        button={!!button}
+        divider={!noDivider}
+        selected={!!this.props.selected}
         style={isFocused ? { backgroundColor: '#EFEFEF' } : {}}
       >
         <ListItemText primary={name} secondary={subtitle || ''} />

@@ -54,13 +54,13 @@ export const MemberFilesPanel = (props: Props) => {
 
   return (
     <div>
-      <Typography component="h2" variant="h6" className={classes.title}>
+      <Typography className={classes.title} component="h2" variant="h6">
         {t('file.title')}
       </Typography>
       <Divider />
       {uploadedFiles.length === 0 && (
         <div className={classes.emptyMessage}>
-          <Typography variant="caption" color="textSecondary">
+          <Typography color="textSecondary" variant="caption">
             {t('file.nofileSaved')}
           </Typography>
         </div>
@@ -94,10 +94,10 @@ export const MemberFilesPanel = (props: Props) => {
       ))}
       <Button
         className={classes.addButton}
-        variant="outlined"
         color="primary"
         disabled={hasTooManyFilesUploaded}
         onClick={openFileUploadDialog}
+        variant="outlined"
       >
         <AddIcon className={classes.leftIcon} />
         {t(hasTooManyFilesUploaded ? 'file.addButtonBlocked' : 'file.add')}

@@ -725,9 +725,9 @@ class OfferBooking extends React.PureComponent<Props, State> {
         <div className={this.props.classes.cannotBookContainer}>
           <TheIcon className={this.props.classes.noItemIcon} />
           <Typography
-            color="textSecondary"
             align="center"
             className={this.props.classes.canNotBookMessage}
+            color="textSecondary"
           >
             {message}
           </Typography>
@@ -736,18 +736,18 @@ class OfferBooking extends React.PureComponent<Props, State> {
     }
     return (
       <BookingMethodSelector
-        isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
-        offerId={this.props.id}
-        offer={this.props.offer}
         company={this.props.offer.company}
-        offersConstraint={this.state.offersConstraint}
-        offerStatus={offerStatus}
-        selectedPack={this.state.selectedPack}
-        onPackChange={(selectedPack) => this.setState({ selectedPack })}
-        selectedOffers={this.state.selectedOffers}
+        isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
         loading={
           loading || !this.props.offer || !this.props.offer.meta_activity
         }
+        offer={this.props.offer}
+        offerId={this.props.id}
+        offersConstraint={this.state.offersConstraint}
+        offerStatus={offerStatus}
+        onPackChange={(selectedPack) => this.setState({ selectedPack })}
+        selectedOffers={this.state.selectedOffers}
+        selectedPack={this.state.selectedPack}
         setGuestMaxNumber={(maxNumber: number) =>
           this.setState({ guestMaxNumberOverAllPacks: maxNumber })
         }
@@ -826,8 +826,8 @@ class OfferBooking extends React.PureComponent<Props, State> {
         <div className={classes.pageContainer}>
           <div className={classes.contentContainer}>
             <BookerModuleHeader
-              offer={this.props.offer}
               hideCoach={this.props.theme.hideCoach}
+              offer={this.props.offer}
             />
             <Hidden mdUp>
               <div className={classes.inverseDivider1} />
@@ -836,27 +836,24 @@ class OfferBooking extends React.PureComponent<Props, State> {
               <div className={classes.offerGroupContainer}>
                 <div className={classes.offerContainer}>
                   <OfferListSummary
-                    offer={this.props.offer}
-                    offerStatus={this.props.offerStatusById[this.props.id]}
-                    member={this.state.selectedMember}
-                    onSelectMember={this.selectMember}
-                    relatedMemberList={this.props.relatedMemberList}
-                    onClickAddMoreOffer={
-                      this.showBookingButton() &&
-                      !isRegisteringForWaitingList &&
-                      this.openSimilarOfferSelector
-                    }
-                    onClickRemoveOffer={this.onClickRemoveOffer}
-                    selectedOffers={this.state.selectedOffers}
-                    offerStatusById={this.props.offerStatusById}
-                    hideCoach={this.props.theme.hideCoach}
                     acceptDoubleBooking={this.props.theme.accept_double_booking}
                     acceptDoubleBookingWorkshop={
                       this.props.theme.accept_double_booking_workshop
                     }
-                    isRegisteringForWaitingList={isRegisteringForWaitingList}
-                    onRemoveGuest={this.removeGuest}
                     additionalGuestList={this.state.additionalGuestList}
+                    frequencyBookingGuest={
+                      this.props.theme.allow_guest_frequency
+                    }
+                    hideCoach={this.props.theme.hideCoach}
+                    isRegisteringForWaitingList={isRegisteringForWaitingList}
+                    maxGuestNumberFromAllPacks={
+                      this.state.guestMaxNumberOverAllPacks
+                    }
+                    member={this.state.selectedMember}
+                    numberBookingGuestLeft={this.props.bookingGuestNumberLeft}
+                    offer={this.props.offer}
+                    offerStatus={this.props.offerStatusById[this.props.id]}
+                    offerStatusById={this.props.offerStatusById}
                     onAddAdditionalGuest={
                       this.props.theme?.allow_guest_activatable &&
                       this.props.theme?.allow_guest &&
@@ -865,45 +862,48 @@ class OfferBooking extends React.PureComponent<Props, State> {
                         ? this.addAdditionalGuest
                         : null
                     }
-                    numberBookingGuestLeft={this.props.bookingGuestNumberLeft}
-                    showBookingButton={this.showBookingButton()}
+                    onClickAddMoreOffer={
+                      this.showBookingButton() &&
+                      !isRegisteringForWaitingList &&
+                      this.openSimilarOfferSelector
+                    }
+                    onClickRemoveOffer={this.onClickRemoveOffer}
+                    onRemoveGuest={this.removeGuest}
+                    onSelectMember={this.selectMember}
                     packAllowsBookingGuest={
                       this.state.packAllowsBookingForAGuest
                     }
-                    frequencyBookingGuest={
-                      this.props.theme.allow_guest_frequency
-                    }
-                    maxGuestNumberFromAllPacks={
-                      this.state.guestMaxNumberOverAllPacks
-                    }
+                    relatedMemberList={this.props.relatedMemberList}
+                    roomBlueprintsById={this.props.roomBlueprintsById}
+                    selectedOffers={this.state.selectedOffers}
+                    showBookingButton={this.showBookingButton()}
                     spotsForOffers={this.state.spotsForOffers}
                     spotTypes={this.props.spotTypes.concat(DEFAULT_SPOT_TYPE)}
-                    roomBlueprintsById={this.props.roomBlueprintsById}
                   />
                 </div>
                 {this.showBookingButton() && (
                   <div className={classes.bookingButtonContainer}>
                     <BookButton
+                      is_tax_excluded_in_marketplace={
+                        this.props.theme.is_tax_excluded_in_marketplace
+                      }
                       isRegisteringForWaitingList={this.getIsRegisteringForWaitingList()}
-                      selectedOffersCount={this.state.selectedOffers.length + 1}
+                      onClickBook={this.bookOffers}
                       price={
                         this.state.selectedPack?.paymentPack?.price ||
                         this.state.selectedPack?.paymentPackCombo?.price
+                      }
+                      selectedOffersCount={this.state.selectedOffers.length + 1}
+                      selectedPackId={
+                        this.state.selectedPack?.consumerPaymentPack?.id ||
+                        this.state.selectedPack?.paymentPack?.id ||
+                        this.state.selectedPack?.paymentPackCombo?.id
                       }
                       tax={
                         this.state.selectedPack?.paymentPack?.tax ||
                         this.state.selectedPack?.paymentPackCombo
                           ?.tax_calculation
                       }
-                      selectedPackId={
-                        this.state.selectedPack?.consumerPaymentPack?.id ||
-                        this.state.selectedPack?.paymentPack?.id ||
-                        this.state.selectedPack?.paymentPackCombo?.id
-                      }
-                      is_tax_excluded_in_marketplace={
-                        this.props.theme.is_tax_excluded_in_marketplace
-                      }
-                      onClickBook={this.bookOffers}
                     />
                   </div>
                 )}
@@ -922,12 +922,21 @@ class OfferBooking extends React.PureComponent<Props, State> {
 
           {!this.props.offer?.group?.full_booking_only && (
             <SimilarOffers
+              acceptDoubleBooking={this.props.theme.accept_double_booking}
+              acceptDoubleBookingWorkshop={
+                this.props.theme.accept_double_booking_workshop
+              }
+              hasMoreSimilarOffer={this.props.hasMoreSimilarOffer}
+              hideCoach={this.props.theme.hideCoach}
+              loading={this.props.similarLoading}
               offer={this.props.offer}
-              selectedOffers={this.state.selectedOffers}
+              offerStatusById={this.props.offerStatusById}
+              onClickShowMore={this.fetchSimilarOffers}
+              onClose={this.closeSimilarOfferSelector}
               onSelectOffer={this.onSelectOffer}
               open={this.state.showSimilarOffers}
-              onClose={this.closeSimilarOfferSelector}
-              hideCoach={this.props.theme.hideCoach}
+              resetSimilarOffers={this.props.resetSimilarOffers}
+              selectedOffers={this.state.selectedOffers}
               similarOffers={
                 this.props.offer.group
                   ? this.props.similarOfferGroups.filter(
@@ -937,44 +946,35 @@ class OfferBooking extends React.PureComponent<Props, State> {
                     )
                   : this.props.similarOffers
               }
-              loading={this.props.similarLoading}
-              offerStatusById={this.props.offerStatusById}
-              resetSimilarOffers={this.props.resetSimilarOffers}
-              onClickShowMore={this.fetchSimilarOffers}
-              hasMoreSimilarOffer={this.props.hasMoreSimilarOffer}
-              acceptDoubleBooking={this.props.theme.accept_double_booking}
-              acceptDoubleBookingWorkshop={
-                this.props.theme.accept_double_booking_workshop
-              }
             />
           )}
           {!!this.state.offersWaitingForSpotSelection.length && (
             <OfferSpotSelector
-              offer={this.state.offersWaitingForSpotSelection[0]}
-              updateSpotsForOffer={this.updateSpotsForOffers}
-              refreshOfferStatus={(id) => this.fetchOfferStatusList([id])}
-              roomBlueprintsById={this.props.roomBlueprintsById}
               assetByIdBlueprintByIdentifier={
                 this.props.assetByIdBlueprintByIdentifier
               }
-              onCancel={this.onCancelSpotSelection}
-              offerStatusById={this.props.offerStatusById}
               fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+              offer={this.state.offersWaitingForSpotSelection[0]}
+              offerStatusById={this.props.offerStatusById}
+              onCancel={this.onCancelSpotSelection}
+              refreshOfferStatus={(id) => this.fetchOfferStatusList([id])}
+              roomBlueprintsById={this.props.roomBlueprintsById}
               spotTypes={this.props.spotTypes.concat(DEFAULT_SPOT_TYPE)}
+              updateSpotsForOffer={this.updateSpotsForOffers}
             />
           )}
           <Backdrop className={classes.backdrop} open={this.state.showLoader}>
             <CircularProgress color="primary" />
           </Backdrop>
           <GroupOfferRedirectToFirstOfferDialog
-            loading={this.props.offerLoading || this.props.groupLoading}
             group={this.props.offer?.group}
-            open={this.state.openRedirectedToFirstOfferToBeBookedDialog}
+            loading={this.props.offerLoading || this.props.groupLoading}
             onClose={() =>
               this.setState({
                 openRedirectedToFirstOfferToBeBookedDialog: false,
               })
             }
+            open={this.state.openRedirectedToFirstOfferToBeBookedDialog}
           />
         </div>
       </ConsumerAppBarContainer>

@@ -56,14 +56,14 @@ export const InstalmentPaymentList: React.FC<Props> = (props) => {
       <div>
         <div className={classes.search}>
           <FuzeSearch
-            placeholder={t('form.search')}
-            searchText={search}
-            items={instalmentPaymentList}
-            searchFields={['name']}
+            changeSearch={changeSearch}
             clearSearch={() => {
               setSearch('');
             }}
-            changeSearch={changeSearch}
+            items={instalmentPaymentList}
+            placeholder={t('form.search')}
+            searchFields={['name']}
+            searchText={search}
           />
         </div>
         <Divider />
@@ -73,9 +73,9 @@ export const InstalmentPaymentList: React.FC<Props> = (props) => {
           {[1, 1, 1, 1].map(() => (
             <Skeleton
               animation="wave"
-              width="100%"
-              variant="rect"
               height={60}
+              variant="rect"
+              width="100%"
             />
           ))}
         </div>
@@ -84,11 +84,11 @@ export const InstalmentPaymentList: React.FC<Props> = (props) => {
           <Paper square>
             {instalmentPaymentListFiltered.map((instalmentPayment) => (
               <InstalmentPaymentMenuItem
-                onEdit={onEdit}
-                onDelete={onDelete}
                 instalmentPayment={instalmentPayment}
-                selected={instalmentPayment.id === selectedInstalmentPaymentId}
                 onClickOnItem={onClickOnItem}
+                onDelete={onDelete}
+                onEdit={onEdit}
+                selected={instalmentPayment.id === selectedInstalmentPaymentId}
               />
             ))}
           </Paper>

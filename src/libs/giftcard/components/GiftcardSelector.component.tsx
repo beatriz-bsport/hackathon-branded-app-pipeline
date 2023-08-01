@@ -41,12 +41,12 @@ function paymentComboOption(props: OptionProps) {
   return (
     <div ref={innerRef} {...innerProps}>
       <GiftcardListItem
-        selected={isSelected}
-        isFocused={isFocused}
-        giftcard={data.pp}
-        noDivider
         button
         dense
+        noDivider
+        giftcard={data.pp}
+        isFocused={isFocused}
+        selected={isSelected}
       />
     </div>
   );
@@ -69,15 +69,15 @@ export function GiftcardSelector(props: Props) {
 
   return (
     <Selector
-      autofocus={autofocus}
       searchIcon
-      nullCurrentValue={nullCurrentValue}
-      selected={value}
-      suggestions={suggestions}
+      autofocus={autofocus}
       className={classNames(classes, selectorClass)}
       components={{ Option: paymentComboOption }}
-      placeholder={helperText}
+      nullCurrentValue={nullCurrentValue}
       onChange={(event) => onChange(event.value)}
+      placeholder={helperText}
+      selected={value}
+      suggestions={suggestions}
     />
   );
 }

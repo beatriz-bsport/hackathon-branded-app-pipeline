@@ -29,11 +29,11 @@ export const VideoStatus = (props: Props) => {
     <div className={classes.container}>
       {status === VIDEO_STATUS_PROCESSED && (
         <Button
-          color="primary"
-          variant="outlined"
           className={classes.button}
-          // onClick={() => props.openStream(props.video)}
+          color="primary"
           onClick={props.goToDetail}
+          // onClick={() => props.openStream(props.video)}
+          variant="outlined"
         >
           <ArrowForwardIcon className={classes.leftIcon} />
           {t('video.status.processed')}
@@ -42,9 +42,9 @@ export const VideoStatus = (props: Props) => {
       {status === VIDEO_STATUS_PROCESSING && (
         <Button
           disabled
+          className={classes.button}
           color="secondary"
           variant="outlined"
-          className={classes.button}
         >
           <HourglassEmptyIcon className={classes.leftIcon} />
           {t('video.status.processing')}
@@ -52,9 +52,9 @@ export const VideoStatus = (props: Props) => {
       )}
       {status === VIDEO_STATUS_ERROR && (
         <RedButton
-          variant="outlined"
           className={classes.button}
           onClick={() => props.openUpload(props.video)}
+          variant="outlined"
         >
           <ErrorIcon className={classes.leftIcon} />
           {t('video.status.error')}
@@ -62,10 +62,10 @@ export const VideoStatus = (props: Props) => {
       )}
       {status === VIDEO_STATUS_CREATED && (
         <Button
-          color="secondary"
-          variant="outlined"
           className={classes.button}
+          color="secondary"
           onClick={() => props.openUpload(props.video)}
+          variant="outlined"
         >
           <CloudUploadIcon className={classes.leftIcon} />
           {t('video.status.submitted')}

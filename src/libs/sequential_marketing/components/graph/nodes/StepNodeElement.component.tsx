@@ -40,10 +40,10 @@ export const StepNodeElement: React.FC<StepNodeElementProps> = ({
         <div className={classes.buttonTopRight}>
           <ToolTip title={t('cadence.graph.nodeElement.deleteStep')}>
             <IconButton
-              onClick={onDelete}
               classes={{ root: classes.overrideIconButton }}
-              size="small"
               color="default"
+              onClick={onDelete}
+              size="small"
             >
               <DeleteIcon fontSize="small" />
             </IconButton>

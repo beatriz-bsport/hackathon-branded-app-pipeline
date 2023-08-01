@@ -85,16 +85,16 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
 
     return (
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h5" className={classes.title}>
+        <Grid item sm={6} xs={12}>
+          <Typography className={classes.title} variant="h5">
             {t('subscription:schedule.provisionalTitle')}
           </Typography>
           <Paper>
             <SubscriptionSchedule scheduledInvoices={scheduledInvoices} />
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h5" className={classes.title}>
+        <Grid item sm={6} xs={12}>
+          <Typography className={classes.title} variant="h5">
             {t('subscription:schedule.paymentMethodTitle')}
           </Typography>
           <Paper className={classes.paymentContainer}>
@@ -107,11 +107,10 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
             )}
             {!!companyCountry && !!stripeRegion && (
               <SubscriptionPayment
-                onSubmit={this.props.onSubmit}
-                onCancel={this.props.onCancel}
-                processing={this.props.processing}
-                onlinePaymentEnabled={this.props.onlinePaymentEnabled}
-                member={this.props.member}
+                forceEstablishmentSelection
+                withEstablishment
+                companyId={this.props.companyId}
+                date={moment(subscriptionData.first_billing_timestamp * 1000)}
                 enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
                   {
                     currency: this.props.companyTheme.currency,
@@ -120,22 +119,23 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
                     stripeRegion,
                   },
                 )}
-                requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-                savedPaymentMethodList={this.props.savedPaymentMethodList}
-                refreshSavedPaymentMethodList={
-                  this.props.refreshSavedPaymentMethodList
-                }
                 enableMultiLocalization={this.props.enableMultiLocalization}
-                forceEstablishmentSelection
-                withEstablishment
                 establishments={this.props.establishments}
-                stripeReaders={this.props.stripeReaders}
-                subscriptionData={this.props.subscriptionData}
+                member={this.props.member}
+                onCancel={this.props.onCancel}
+                onlinePaymentEnabled={this.props.onlinePaymentEnabled}
+                onSubmit={this.props.onSubmit}
                 pastInvoices={moment(
                   subscriptionData.first_billing_timestamp * 1000,
                 ).isBefore(moment().startOf('day'))}
-                date={moment(subscriptionData.first_billing_timestamp * 1000)}
-                companyId={this.props.companyId}
+                processing={this.props.processing}
+                refreshSavedPaymentMethodList={
+                  this.props.refreshSavedPaymentMethodList
+                }
+                requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+                savedPaymentMethodList={this.props.savedPaymentMethodList}
+                stripeReaders={this.props.stripeReaders}
+                subscriptionData={this.props.subscriptionData}
               />
             )}
           </Paper>

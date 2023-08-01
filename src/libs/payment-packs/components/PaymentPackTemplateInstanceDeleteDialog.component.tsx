@@ -32,12 +32,12 @@ const PaymentPackTemplateDeleteDialog = (props: Props) => {
         {t('paymentPackTemplateInstance.deleteForm.content')}
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.onClose} disabled={processing}>
+        <Button disabled={processing} onClick={props.onClose}>
           {t('paymentPackTemplateInstance.deleteForm.actions.close')}
         </Button>
         <RedButton
-          disabled={processing}
           delayBeforeActivation={5}
+          disabled={processing}
           onClick={() =>
             props.onSubmit(
               props.paymentPackTemplate.payment_pack_template_instances?.find(
@@ -52,9 +52,9 @@ const PaymentPackTemplateDeleteDialog = (props: Props) => {
         >
           {processing && (
             <CircularProgress
-              style={{ marginRight: 12 }}
               color="inherit"
               size={12}
+              style={{ marginRight: 12 }}
             />
           )}
           {t('paymentPackTemplateInstance.deleteForm.actions.submit')}

@@ -43,17 +43,17 @@ export default class SpotSelector extends React.PureComponent<Props> {
   render() {
     return (
       <CanvasEditor
-        blueprints={[]}
-        selectedRoomBlueprint={this.getRoomBlueprint()}
-        assets={this.props.assets}
-        selectedTool={CANVAS_SELECTABLE_TOOLS.spot_selector}
         disableEdit
-        onSelectElement={this.onSelectElement}
+        selectingSpot
+        assets={this.props.assets}
+        blueprints={[]}
         coach={this.props.coach}
         fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
-        spotTypes={this.props.spotTypesOfBlueprint}
-        selectingSpot
         isMobile={this.props.isMobile}
+        onSelectElement={this.onSelectElement}
+        selectedRoomBlueprint={this.getRoomBlueprint()}
+        selectedTool={CANVAS_SELECTABLE_TOOLS.spot_selector}
+        spotTypes={this.props.spotTypesOfBlueprint}
       />
     );
   }

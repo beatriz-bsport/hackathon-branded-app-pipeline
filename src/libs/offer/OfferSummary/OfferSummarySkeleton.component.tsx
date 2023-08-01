@@ -22,24 +22,24 @@ const OfferSummarySkeleton: React.FC<OfferSummarySkeletonProps> = ({
           <div className={classes.lineGap1}>
             <Skeleton
               animation="wave"
-              variant="circle"
               className={classes.avatar}
+              variant="circle"
             />
             <Skeleton animation="wave" width="50%" />
           </div>
           <div className={classes.lineGap1}>
             <Skeleton
               animation="wave"
-              variant="circle"
               className={classes.avatar}
+              variant="circle"
             />
             <Skeleton animation="wave" width="50%" />
           </div>
           <div className={classes.lineGap1}>
             <Skeleton
               animation="wave"
-              variant="circle"
               className={classes.avatar}
+              variant="circle"
             />
             <Skeleton animation="wave" width="50%" />
           </div>

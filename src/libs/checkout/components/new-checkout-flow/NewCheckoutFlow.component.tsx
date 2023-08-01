@@ -260,13 +260,14 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
     <div className={classes.container}>
       <div className={classes.titleContainer}>
         <ArrowBack className={classes.arrowIcon} />
-        <Typography variant="h5" className={classes.title}>
+        <Typography className={classes.title} variant="h5">
           {t('payment.title')}
         </Typography>
       </div>
       <div className={classes.subContainer}>
         <div className={classes.paymentContainer}>
           <CheckoutSteps
+            ref={checkoutStepsRef}
             allowConsumerToUseInternalAccount={
               allowConsumerToUseInternalAccount
             }
@@ -287,17 +288,16 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
             isOnlinePaymentAvailable={isOnlinePaymentAvailable}
             isPayLaterAvailable={isPayLaterAvailable}
             isTotalPriceNull={isTotalPriceNull}
-            onSelectInstalmentPayment={onSelectInstalmentPayment}
             onPaymentSuccess={onPaymentSuccess}
+            onSelectInstalmentPayment={onSelectInstalmentPayment}
             patchBasket={patchBasket}
             paymentGroupId={paymentGroupId}
-            paymentProcessing={paymentProcessing}
             paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
               PAYMENT_ENGINE_STRIPE
             ].filter((pm) =>
               (theme.payment_method_available_basket || []).includes(pm),
             )}
-            ref={checkoutStepsRef}
+            paymentProcessing={paymentProcessing}
             setCurrentStep={setCurrentStep}
             setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
             setPaymentProcessing={setPaymentProcessing}
@@ -315,8 +315,8 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
         <div className={classes.sumupContainer}>
           <div className={classes.scrollableItems}>
             <ActivitiesSummary
-              basketOffers={basketOffers}
               activitySummaryCheckoutItems={activitySummaryCheckoutItems}
+              basketOffers={basketOffers}
               companyTheme={theme}
             />
             <BasketSummary
@@ -328,8 +328,8 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
             />
           </div>
           <CouponCodeInput
-            onSubmit={attachCoupon}
             isBasketModificationDisabled={isBasketModificationDisabled}
+            onSubmit={attachCoupon}
           />
           <PriceCount
             basket={basket}

@@ -89,7 +89,7 @@ export class ThemeInternalAccountForm extends Component<Props, State> {
       <>
         <Paper className={classes.paper}>
           <div className={classes.header}>
-            <Typography variant="h6" component="h3">
+            <Typography component="h3" variant="h6">
               {t('forms.themePersonalization.internalAccount')}
             </Typography>
           </div>
@@ -130,10 +130,10 @@ export class ThemeInternalAccountForm extends Component<Props, State> {
           </div>
           <div className={classes.buttonContainer}>
             <Button
-              onClick={() => this.onSubmit()}
-              disabled={this.checkChange() || this.props.processing}
-              variant="contained"
               color="primary"
+              disabled={this.checkChange() || this.props.processing}
+              onClick={() => this.onSubmit()}
+              variant="contained"
             >
               {t('forms.submit')}
             </Button>
@@ -143,11 +143,11 @@ export class ThemeInternalAccountForm extends Component<Props, State> {
           </div>
         </Paper>
         <Dialog
-          open={this.state.openWarning}
           onClose={() => {
             this.handleChange('allow_consumer_to_use_internal_account')(false);
             this.setState({ openWarning: false });
           }}
+          open={this.state.openWarning}
         >
           <DialogContent>
             <div>
@@ -166,9 +166,9 @@ export class ThemeInternalAccountForm extends Component<Props, State> {
                 </Typography>
                 <div className={classes.goToReportRow}>
                   <Button
-                    variant="outlined"
                     color="secondary"
                     onClick={() => this.props.goToReports()}
+                    variant="outlined"
                   >
                     <DoubleArrowIcon className={classes.leftIcon} />
                     {t('forms.themePersonalization.goToReports')}
@@ -190,6 +190,8 @@ export class ThemeInternalAccountForm extends Component<Props, State> {
               {t('common:cancel')}
             </Button>
             <RedButton
+              color="primary"
+              delayBeforeActivation={5}
               onClick={(
                 ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
               ) => {
@@ -199,8 +201,6 @@ export class ThemeInternalAccountForm extends Component<Props, State> {
                 );
                 this.setState({ openWarning: false });
               }}
-              color="primary"
-              delayBeforeActivation={5}
             >
               {t('common:confirm')}
             </RedButton>

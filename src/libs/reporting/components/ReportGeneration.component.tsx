@@ -120,9 +120,9 @@ const ReportGeneration: React.FC<Props> = ({
     <div>
       {isFranchisor && (
         <Alert
-          severity="warning"
           classes={{ root: classes.alertIcon }}
           className={classes.alert}
+          severity="warning"
         >
           {t('franchiseWarning.part1')} <br />
           {t('franchiseWarning.part2')}
@@ -130,33 +130,33 @@ const ReportGeneration: React.FC<Props> = ({
       )}
       {CATEGORIES_NEEDING_HELPER_TEXT.includes(report?.category) && (
         <Alert
-          severity="info"
           classes={{ root: classes.alertIcon }}
           className={classes.alert}
+          severity="info"
         >
           {t(`helperText.${report.category}`)}
         </Alert>
       )}
       {report.date_start && (
         <ReportGenerationForm
-          reportConfiguration={report}
-          onSubmit={handleGenerate}
+          allowedFranchisees={allowedFranchisees}
           columnsMetadata={columnsMetadata}
-          handleExcelExportation={handleExcelExportation}
-          showDialog={showDialog}
-          setShowDialog={setShowDialog}
-          disableContinue={disableContinue}
-          setDisableContinue={setDisableContinue}
-          resultLoading={resultLoading}
-          isSubmitting_={reportStoreRowsLoading}
-          handleGetDynamicDataForReport={handleGetDynamicDataForReport}
-          reportFilterConfigs={reportFilterConfigs}
           createReportFilterConfig={createReportFilterConfig}
+          deleteReportFilterConfig={deleteReportFilterConfig}
+          disableContinue={disableContinue}
           editReportFilterConfig={editReportFilterConfig}
           fetchReportFilterConfigList={fetchReportFilterConfigList}
-          deleteReportFilterConfig={deleteReportFilterConfig}
+          handleExcelExportation={handleExcelExportation}
+          handleGetDynamicDataForReport={handleGetDynamicDataForReport}
           isFranchisor={isFranchisor}
-          allowedFranchisees={allowedFranchisees}
+          isSubmitting_={reportStoreRowsLoading}
+          onSubmit={handleGenerate}
+          reportConfiguration={report}
+          reportFilterConfigs={reportFilterConfigs}
+          resultLoading={resultLoading}
+          setDisableContinue={setDisableContinue}
+          setShowDialog={setShowDialog}
+          showDialog={showDialog}
         />
       )}
       <ReportTableHeaders
@@ -168,17 +168,17 @@ const ReportGeneration: React.FC<Props> = ({
       {!report.loading && !!reportStoreRows && (
         <Paper>
           <ReportTable
-            report={report}
-            result={reportStoreRows}
+            handleGenerateNextPage={handleGenerateNextPage}
+            handleGeneratePreviousPage={handleGeneratePreviousPage}
             loading={resultLoading}
             metadata={metadata}
-            previousPage={previousPage}
             nextPage={nextPage}
             otherPages={otherPages}
-            handleGeneratePreviousPage={handleGeneratePreviousPage}
-            handleGenerateNextPage={handleGenerateNextPage}
             pageSize={pageSize}
+            previousPage={previousPage}
+            report={report}
             reportStoreRowsLoading={reportStoreRowsLoading}
+            result={reportStoreRows}
             userPermissions={userPermissions}
           />
         </Paper>

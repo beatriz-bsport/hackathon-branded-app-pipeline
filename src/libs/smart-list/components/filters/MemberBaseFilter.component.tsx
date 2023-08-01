@@ -39,13 +39,13 @@ export const MemberBaseFilter = (props: Props) => {
         <div className={classes.select}>
           <Select
             required
-            value={smartlist?.member_base}
             onChange={(ev) =>
               smartListUpdate(smartlist.id, {
                 ...smartlist,
                 member_base: ev.target.value,
               })
             }
+            value={smartlist?.member_base}
           >
             {SMARTLIST_MEMBERS_BASE_OPTIONS.map((option, index) => (
               <MenuItem key={index} value={option}>

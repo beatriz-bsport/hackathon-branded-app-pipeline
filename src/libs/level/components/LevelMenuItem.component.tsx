@@ -36,9 +36,9 @@ export const LevelMenuItem: React.FC<Props> = ({
 
   return (
     <ListItem
-      className={classes.list}
-      dense
       button
+      dense
+      className={classes.list}
       disabled={isDisabled}
       selected={isSelected}
     >

@@ -119,13 +119,13 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
         <div className={this.props.classes.marginTop}>
           <BookingConsumerItem
             key={`booking-${booking.id}`}
-            timezone={this.props.timezone}
             booking={booking}
-            hideCoach={this.props.hideCoach}
-            onDiscard={this.props.onDiscardBooking}
             goToBroadcast={this.props.goToBroadcast}
             goToCalendar={this.props.goToCalendar ? this.goToCalendar : null}
+            hideCoach={this.props.hideCoach}
             onClickBlueprintPreview={this.props.onClickBlueprintPreview}
+            onDiscard={this.props.onDiscardBooking}
+            timezone={this.props.timezone}
           />
         </div>
       );
@@ -140,8 +140,8 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
         <div className={this.props.classes.marginTop}>
           <PrivateBookingConsumerItem
             key={`private-${privateBooking.id}`}
-            onDiscard={this.props.onDiscardPrivateBooking}
             goToCalendar={this.props.goToPrivateService}
+            onDiscard={this.props.onDiscardPrivateBooking}
             private_booking={privateBooking}
             timezone={this.props.timezone}
           />
@@ -157,10 +157,10 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
         {!this.props.hideTitle && (
           <>
             <Typography
-              variant="h4"
-              component="h3"
               className={this.props.classes.sectionTitle}
               color="textSecondary"
+              component="h3"
+              variant="h4"
             >
               {this.props.t('dashboard.nextBookingTitle')}
             </Typography>
@@ -184,11 +184,11 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
         )}
 
         <BookingFooter
-          t={this.props.t}
           classes={this.props.classes}
           hasMore={this.props.hasMore}
           loading={this.props.loading}
           onShowMore={this.props.showMoreBooking}
+          t={this.props.t}
         />
       </div>
     );

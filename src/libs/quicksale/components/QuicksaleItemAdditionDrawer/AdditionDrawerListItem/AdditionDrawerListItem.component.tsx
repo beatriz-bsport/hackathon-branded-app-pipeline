@@ -63,17 +63,17 @@ const AdditionDrawerListItem: React.FC<Props> = ({
     <div className={classes.listItemContainer}>
       <div
         className={classes.listItem}
+        onClick={clickToSelect ? handleCheck : undefined}
+        onKeyDown={stopPropagation}
         role="button"
         tabIndex={0}
-        onKeyDown={stopPropagation}
-        onClick={clickToSelect ? handleCheck : undefined}
       >
         {checked !== undefined && (
           <Checkbox
-            color="primary"
             checked={checked}
-            onChange={handleCheck}
             className={classes.checkbox}
+            color="primary"
+            onChange={handleCheck}
           />
         )}
         <div className={classes.flexCol}>

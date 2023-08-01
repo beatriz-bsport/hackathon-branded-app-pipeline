@@ -255,28 +255,28 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             {t('forms.themePersonalization.bookingTitle')}
           </Typography>
           <SwitchField
-            name="show_studio_on_general_app"
             label={t('forms.themePersonalization.hiddenFromMarketplace')}
+            name="show_studio_on_general_app"
           />
           <FeatureListProvider>
             {(featureList: FeatureList) => (
               <>
                 <SwitchField
-                  name="accept_double_booking"
+                  disabled={hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI)}
                   label={t(
                     'forms.themePersonalization.acceptDoubleBookingMetaActivity',
                   )}
-                  disabled={hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI)}
+                  name="accept_double_booking"
                 />
                 <SwitchField
-                  name="accept_double_booking_workshop"
+                  disabled={hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI)}
                   label={t(
                     'forms.themePersonalization.acceptDoubleBookingWorkshop',
                   )}
-                  disabled={hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI)}
+                  name="accept_double_booking_workshop"
                 />
                 {hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI) && (
-                  <Typography variant="caption" color="textSecondary">
+                  <Typography color="textSecondary" variant="caption">
                     {t(
                       'forms.themePersonalization.doubleBookingDisabledWithSpivi',
                     )}
@@ -291,15 +291,15 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
               control={
                 <Switch
                   checked={values.allow_guest}
+                  disabled={
+                    Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+                    !theme.allow_guest_activatable
+                  }
                   onChange={() => {
                     values.allow_guest
                       ? setShowDialogGuest(true)
                       : setFieldValue('allow_guest', true);
                   }}
-                  disabled={
-                    Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                    !theme.allow_guest_activatable
-                  }
                 />
               }
               label={t('forms.allowGuest.title')}
@@ -307,26 +307,26 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             {theme.allow_guest_activatable && values.allow_guest && (
               <div className={classes.frequencyContainer}>
                 <IntegerField
-                  name="allow_guest_max_number"
                   InputProps={{
                     inputProps: { min: 1, step: 1, max: 200 },
                   }}
+                  name="allow_guest_max_number"
                 />
                 <div className={classes.frequencyText}>
-                  <Typography variant="body1" align="left">
+                  <Typography align="left" variant="body1">
                     {t('forms.allowGuest.frequencies.text')}
                   </Typography>
                 </div>
                 <Select
-                  options={guestFrequencyOptions}
-                  placeholder={t('forms.allowGuest.frequencies.placeholder')}
                   className={classes.frequencySelector}
-                  onChange={(option) =>
-                    setFieldValue('allow_guest_frequency', option.value)
-                  }
                   defaultValue={guestFrequencyOptions.find(
                     (element) => element.value === values.allow_guest_frequency,
                   )}
+                  onChange={(option) =>
+                    setFieldValue('allow_guest_frequency', option.value)
+                  }
+                  options={guestFrequencyOptions}
+                  placeholder={t('forms.allowGuest.frequencies.placeholder')}
                 />
               </div>
             )}
@@ -340,7 +340,7 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
                     <div className={classes.dialogIconContainer}>
                       <ErrorOutlineIcon color="error" />
                     </div>
-                    <Typography variant="body1" align="left">
+                    <Typography align="left" variant="body1">
                       {t('forms.allowGuest.dialog.dialogContent')}
                     </Typography>
                   </div>
@@ -382,24 +382,24 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
               <div className={classes.borderLeft}>
                 <div className={classes.verticalInput}>
                   <IntegerField
-                    name="max_future_booking"
                     helperText={t(
                       'forms.themePersonalization.maxFutureBooking.numberCheck.helperText',
-                    )}
-                    label={t(
-                      'forms.themePersonalization.maxFutureBooking.numberCheck.placeholder',
                     )}
                     InputProps={{
                       inputProps: { min: 1, step: 1, max: 50 },
                     }}
+                    label={t(
+                      'forms.themePersonalization.maxFutureBooking.numberCheck.placeholder',
+                    )}
+                    name="max_future_booking"
                   />
                 </div>
               </div>
             )}
           </div>
           <SwitchField
-            name="hide_unnecessary_compatible_purchase_method"
             label={t('forms.themePersonalization.hideBuyablePassIfSuperfluous')}
+            name="hide_unnecessary_compatible_purchase_method"
           />
 
           <div>
@@ -422,17 +422,17 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             {values.basket_expiration_days > 0 && (
               <div className={classes.borderLeft}>
                 <IntegerField
-                  name="basket_expiration_days"
+                  disabled={values.basket_expiration_days === 0}
                   helperText={t(
                     'forms.themePersonalization.basket_expiration_days.helperText',
                   )}
-                  label={t(
-                    'forms.themePersonalization.basket_expiration_days.placeholder',
-                  )}
-                  disabled={values.basket_expiration_days === 0}
                   InputProps={{
                     inputProps: { min: 1, step: 1, max: 100 },
                   }}
+                  label={t(
+                    'forms.themePersonalization.basket_expiration_days.placeholder',
+                  )}
+                  name="basket_expiration_days"
                 />
               </div>
             )}
@@ -443,7 +443,6 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             </Typography>
             <div className={classes.borderLeft}>
               <RadioGroupField
-                name="default_booking_ordering"
                 choices={[
                   {
                     label: t(
@@ -464,6 +463,7 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
                     value: BOOKING_LASTNAME_ORDER,
                   },
                 ]}
+                name="default_booking_ordering"
               />
             </div>
           </div>
@@ -473,8 +473,8 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             {t('forms.themePersonalization.attendanceTitle')}
           </Typography>
           <SwitchField
-            name="coach_can_edit_attendance"
             label={t('forms.themePersonalization.coach_can_edit_attendance')}
+            name="coach_can_edit_attendance"
           />
           <div>
             <Typography className={classes.radioLabel}>
@@ -482,7 +482,6 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             </Typography>
             <div className={classes.borderLeft}>
               <RadioGroupField
-                name="default_attendance"
                 choices={[
                   {
                     label: t(
@@ -497,6 +496,7 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
                     value: true,
                   },
                 ]}
+                name="default_attendance"
               />
             </div>
           </div>
@@ -505,79 +505,79 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
           </Typography>
           {theme.is_roll_call_mandatory ? (
             <div>
-              <Alert severity="info" className={classes.alert}>
+              <Alert className={classes.alert} severity="info">
                 {t('forms.themePersonalization.noShow.alert')}
               </Alert>
 
               <Typography className={classes.textWithInput}>
                 <Trans
-                  t={t}
-                  i18nKey="forms.themePersonalization.noShow.daysBeforeNoShow"
                   components={[
                     <TextField
-                      name="no_show_validated_time"
-                      type="number"
                       className={classes.numberTextField}
                       InputProps={{
                         inputProps: {
                           min: 0,
                         },
                       }}
+                      name="no_show_validated_time"
+                      type="number"
                     />,
                     <HoursDaysIntervalRecurrenceSelectField
-                      name="no_show_validated_interval"
-                      variant="outlined"
                       displayPeriod
                       className={classes.intervalSelectorField}
+                      name="no_show_validated_interval"
+                      variant="outlined"
                     />,
                   ]}
+                  i18nKey="forms.themePersonalization.noShow.daysBeforeNoShow"
+                  t={t}
                 />
               </Typography>
-              <Typography variant="caption" color="textSecondary">
+              <Typography color="textSecondary" variant="caption">
                 {t(
                   'forms.themePersonalization.noShow.daysBeforeNoShowHelpText',
                 )}
               </Typography>
               {errors?.no_show_validated_time && (
-                <Alert severity="error" className={classes.alert}>
+                <Alert className={classes.alert} severity="error">
                   {t(errors.no_show_validated_time)}
                 </Alert>
               )}
               <Typography className={classes.textWithInput}>
                 <Trans
-                  t={t}
-                  i18nKey="forms.themePersonalization.noShow.sendMail"
                   components={[
                     <TextField
-                      name="no_show_email_time"
-                      type="number"
                       className={classes.numberTextField}
                       InputProps={{
                         inputProps: {
                           min: 0,
                         },
                       }}
+                      name="no_show_email_time"
+                      type="number"
                     />,
                     <HoursDaysIntervalRecurrenceSelectField
-                      name="no_show_email_interval"
-                      variant="outlined"
                       displayPeriod
                       className={classes.intervalSelectorField}
+                      name="no_show_email_interval"
+                      variant="outlined"
                     />,
                   ]}
+                  i18nKey="forms.themePersonalization.noShow.sendMail"
+                  t={t}
                 />
               </Typography>
-              <Typography variant="caption" color="textSecondary">
+              <Typography color="textSecondary" variant="caption">
                 {t('forms.themePersonalization.noShow.sendMailHelpText')}
               </Typography>
               {errors?.no_show_email_time && (
-                <Alert severity="error" className={classes.alert}>
+                <Alert className={classes.alert} severity="error">
                   {t(errors.no_show_email_time)}
                 </Alert>
               )}
             </div>
           ) : (
-            <Alert severity="info" className={classes.alert}>
+            <Alert className={classes.alert} severity="info">
               {t('forms.themePersonalization.noShow.notAvailable')}
             </Alert>
           )}
@@ -587,92 +587,92 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             {t('forms.themePersonalization.calendarPersonalizationTitle')}
           </Typography>
           <SwitchField
-            name="show_offers_filling"
             label={t('forms.themePersonalization.offersFilling')}
+            name="show_offers_filling"
           />
 
           <SwitchField
-            name="show_cancelled_offers_customer"
             label={t('forms.themePersonalization.cancelledOffersCustomer')}
+            name="show_cancelled_offers_customer"
           />
           <SwitchField
-            name="hideCoach"
             label={t('forms.themePersonalization.hideCoach')}
+            name="hideCoach"
           />
           <div className={classes.selector}>
             <InputLabel shrink>
               {t('forms.themePersonalization.coachDisplayOptions.label')}
             </InputLabel>
             <Select
+              isDisabled={values.hideCoach}
+              name="coach_display"
+              onChange={handleOnChangeCoachDisplay}
               options={coachDisplayOptions}
               placeholder={t(
                 'forms.themePersonalization.coachDisplayOptions.showCoachFullNameWithPicture',
               )}
-              variant="outlined"
-              isDisabled={values.hideCoach}
-              name="coach_display"
-              onChange={handleOnChangeCoachDisplay}
               value={coachDisplayCurrent}
+              variant="outlined"
             />
           </div>
           <SwitchField
-            name="show_cancelled_offers_manager"
             label={t('forms.themePersonalization.cancelledOffersManager')}
+            name="show_cancelled_offers_manager"
           />
           <SwitchField
-            name="hide_member_details_in_app_private_booking_for_coach"
             label={t('forms.themePersonalization.hideMemberForCoach')}
+            name="hide_member_details_in_app_private_booking_for_coach"
           />
           <SwitchField
-            name="show_workshops_customer"
             label={t('forms.themePersonalization.workshopsCustomer')}
+            name="show_workshops_customer"
           />
           <SwitchField
-            name="hide_sessions_with_tags_when_not_eligible"
             label={t(
               'forms.themePersonalization.hideSessionWithTagsNotEligible',
             )}
+            name="hide_sessions_with_tags_when_not_eligible"
           />
           <SwitchField
-            name="show_booked_gender_offer"
             label={t('forms.themePersonalization.showGenderOffer')}
+            name="show_booked_gender_offer"
           />
           <SwitchField
-            name="show_establishment"
             label={t('forms.themePersonalization.showEstablishment')}
+            name="show_establishment"
           />
           <SwitchField
-            name="show_level"
             label={t('forms.themePersonalization.showLevel')}
+            name="show_level"
           />
           <SwitchField
-            name="show_activity_color"
             label={t('forms.themePersonalization.showActivityColor')}
+            name="show_activity_color"
           />
           <SwitchField
-            name="show_free_session_label"
             label={t('forms.themePersonalization.showFreeSessionLabel')}
+            name="show_free_session_label"
           />
           <SwitchField
-            name="hide_book_button"
             label={t('forms.themePersonalization.hideBookButton.switchLabel', {
               bookButtonTranslation: t(
                 'translation:marketplace.bookButton.book',
               ),
             })}
+            name="hide_book_button"
           />
           <div className={classes.selector}>
             <InputLabel shrink>
               {t('forms.themePersonalization.sessionDatesDisplayOptions.label')}
             </InputLabel>
             <Select
+              name="session_time_display"
+              onChange={handleOnChangeSessionTimeDisplay}
               options={sessionDatesDisplayOptions}
               placeholder={t(
                 'forms.themePersonalization.sessionDatesDisplayOptions.showEndingTime',
               )}
-              name="session_time_display"
               value={sessionDatesDisplayCurrent}
-              onChange={handleOnChangeSessionTimeDisplay}
             />
           </div>
           <div className={classes.selector}>
@@ -680,12 +680,12 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
               {t('forms.themePersonalization.daysFormatSelector.label')}
             </InputLabel>
             <Select
-              options={daysFormatDisplayOptions}
               name="days_format_display"
+              onChange={handleOnChangeDayFormatDisplay}
+              options={daysFormatDisplayOptions}
               placeholder={t(
                 'forms.themePersonalization.daysFormatSelector.fullWord',
               )}
-              onChange={handleOnChangeDayFormatDisplay}
               value={daysFormatDisplayCurrent}
             />
           </div>
@@ -727,36 +727,36 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             {t('forms.themePersonalization.offerBalance')}
           </Typography>
           <SwitchField
-            name="is_checking_balance"
             label={t('forms.themePersonalization.checkBalance.checkbox')}
+            name="is_checking_balance"
           />
           {values.is_checking_balance && (
             <div className={classes.borderLeft}>
               <div className={classes.verticalInput}>
                 <IntegerField
-                  name="nb_to_check_balance"
                   helperText={t(
                     'forms.themePersonalization.checkBalance.numberCheck.helperText',
-                  )}
-                  label={t(
-                    'forms.themePersonalization.checkBalance.numberCheck.placeholder',
-                    { number: values.nb_to_check_balance },
                   )}
                   InputProps={{
                     inputProps: { min: 2, step: 1, max: 10 },
                   }}
+                  label={t(
+                    'forms.themePersonalization.checkBalance.numberCheck.placeholder',
+                    { number: values.nb_to_check_balance },
+                  )}
+                  name="nb_to_check_balance"
                 />
               </div>
               <div className={classes.verticalInput}>
                 <IntegerField
                   fullWidth
-                  name="gender_max_shift_for_booking"
-                  label={t(
-                    'forms.themePersonalization.checkBalance.shiftRatio.placeholder',
-                  )}
                   InputProps={{
                     inputProps: { min: 1, step: 1, max: 10 },
                   }}
+                  label={t(
+                    'forms.themePersonalization.checkBalance.shiftRatio.placeholder',
+                  )}
+                  name="gender_max_shift_for_booking"
                 />
               </div>
               <Typography variant="body2">
@@ -777,23 +777,23 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             </Typography>
             <div className={classes.fieldWithHelperText}>
               <SwitchField
-                name="requires_email_confirmation_when_signing_up"
                 label={t('forms.themePersonalization.signup.label')}
+                name="requires_email_confirmation_when_signing_up"
               />
-              <Typography variant="caption" color="textSecondary">
+              <Typography color="textSecondary" variant="caption">
                 {t('forms.themePersonalization.signup.helperText')}
               </Typography>
             </div>
             {values.requires_email_confirmation_when_signing_up && (
               <div className={classes.textFieldWithHelperText}>
                 <TextField
-                  name="confirm_email_url_redirection"
-                  variant="outlined"
-                  size="small"
                   className={classes.textField}
+                  name="confirm_email_url_redirection"
                   placeholder={t(
                     'forms.themePersonalization.signup.urlRedirection',
                   )}
+                  size="small"
+                  variant="outlined"
                 />
                 {errors?.confirm_email_url_redirection && (
                   <Typography
@@ -803,9 +803,9 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
                   </Typography>
                 )}
                 <Typography
-                  variant="caption"
-                  color="textSecondary"
                   className={classes.helperText}
+                  color="textSecondary"
+                  variant="caption"
                 >
                   {t('forms.themePersonalization.signup.urlHelperText')}
                 </Typography>
@@ -815,11 +815,11 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
         </div>
       </div>
       <Button
-        disabled={isSubmitting || !isValid}
-        variant="contained"
-        color="primary"
-        onClick={() => handleSubmit()}
         className={classes.confirm}
+        color="primary"
+        disabled={isSubmitting || !isValid}
+        onClick={() => handleSubmit()}
+        variant="contained"
       >
         {t('forms.submit')}
       </Button>

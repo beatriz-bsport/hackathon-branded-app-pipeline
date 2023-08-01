@@ -30,7 +30,7 @@ const CssEditorPreview: React.FC<{
   return (
     <>
       <div className={classes.paper}>
-        <Typography variant="h6" className={classes.title}>
+        <Typography className={classes.title} variant="h6">
           <VisibilityIcon className={classes.icon} />
           {t('widget.customCss.preview', {
             name: t(`widget.components.${componentId}`),
@@ -38,14 +38,14 @@ const CssEditorPreview: React.FC<{
         </Typography>
         <div className={classes.chips}>
           {config.pages.map((page) => (
-            <div className={classes.chip} key={page}>
+            <div key={page} className={classes.chip}>
               {t(`widget.page.${page}`)}
             </div>
           ))}
         </div>
         <ComponentPreview
-          componentId={componentId}
           component={CSS_COMPONENTS_BY_ID[componentId]}
+          componentId={componentId}
           defaultState={config.defaultState}
           theme={theme}
         />

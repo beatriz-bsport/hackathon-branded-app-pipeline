@@ -83,7 +83,6 @@ export const ProgramForm = (props: Props) => {
     <div>
       <Formik
         enableReinitialize
-        validationSchema={programSchema}
         initialValues={initialValues}
         onSubmit={(values, actions) => {
           submit(values, {
@@ -100,6 +99,7 @@ export const ProgramForm = (props: Props) => {
             },
           });
         }}
+        validationSchema={programSchema}
       >
         {(
           formikProps: FormikProps<
@@ -123,36 +123,36 @@ export const ProgramForm = (props: Props) => {
                         <div className={classes.icon}>
                           <Info />
                         </div>
-                        <Typography variant="h6" className={classes.subtitle}>
+                        <Typography className={classes.subtitle} variant="h6">
                           {t('program.form.generalInfo')}
                         </Typography>
                       </div>
                     </Grid>
                     <Grid item xs={12}>
                       <TextFieldEnhancedLabelWithError
-                        id="name"
                         fullWidth
-                        name="name"
                         required
+                        id="name"
                         label={t('program.form.name')}
+                        name="name"
                       />
                     </Grid>
                     <Grid item xs={12}>
                       <TextFieldEnhancedLabelWithError
-                        name="description"
-                        variant="outlined"
-                        label={t('program.form.description')}
                         fullWidth
                         multiline
-                        rows={4}
                         inputProps={{ maxlength: MAX_LENGTH_FOR_LONG_ANSWER }}
+                        label={t('program.form.description')}
+                        name="description"
+                        rows={4}
+                        variant="outlined"
                       />
                     </Grid>
                     <Grid item xs={3}>
                       <ColorField
+                        defaultCompanyThemeColor
                         label={t('program.form.color')}
                         name="color"
-                        defaultCompanyThemeColor
                       />
                     </Grid>
                     <Grid item xs={3}>
@@ -173,11 +173,11 @@ export const ProgramForm = (props: Props) => {
                   <FieldArray name="metric_list">
                     {(fieldArrayHelpers) => (
                       <MetricConfigurationTable
+                        fieldArrayHelpers={fieldArrayHelpers}
                         metricList={formikProps.values.metric_list.filter(
                           (metric) => !metric?.is_disabled,
                         )}
                         values={formikProps.values}
-                        fieldArrayHelpers={fieldArrayHelpers}
                       />
                     )}
                   </FieldArray>
@@ -198,11 +198,11 @@ export const ProgramForm = (props: Props) => {
                   </Button>
                   <Button
                     color="primary"
-                    type="submit"
-                    variant="contained"
                     onClick={() => {
                       trackFormSubmitIntent(initial?.id);
                     }}
+                    type="submit"
+                    variant="contained"
                   >
                     {t('form.save')}
                   </Button>

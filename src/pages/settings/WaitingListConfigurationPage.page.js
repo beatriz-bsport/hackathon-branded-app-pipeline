@@ -42,8 +42,8 @@ export class WaitingListConfigurationPage extends Component<Props> {
         <Paper className={classes.paper}>
           <WaitingListConfigurationForm
             configuration={configuration}
-            processing={processing}
             onSubmit={this.props.patchWaitingListConfiguration}
+            processing={processing}
           />
         </Paper>
       </div>

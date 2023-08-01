@@ -115,10 +115,10 @@ const DatatypeFilterConfigValueManager: React.FC<{
   if (filterItem.datatype === 'boolean') {
     return (
       <MaterialUiSingleSelectorField
-        options={booleanOptions}
-        name={`${prefix}.value`}
         inScrollBar
         isDisabled={isPreview}
+        name={`${prefix}.value`}
+        options={booleanOptions}
       />
     );
   }
@@ -129,21 +129,21 @@ const DatatypeFilterConfigValueManager: React.FC<{
         <div>
           <NestedAlertError name={`${prefix}.value`}>
             {(error_msg: string) => (
-              <Typography variant="caption" color="error">
+              <Typography color="error" variant="caption">
                 {t(`${error_msg}`)}
               </Typography>
             )}
           </NestedAlertError>
           <div className={classes.rowValue}>
             <DatatypeFilterConfigValueFloat
-              name={`${prefix}.value[0]`}
               datatype={filterItem.datatype}
               isPreview={isPreview}
+              name={`${prefix}.value[0]`}
             />
             <DatatypeFilterConfigValueFloat
-              name={`${prefix}.value[1]`}
               datatype={filterItem.datatype}
               isPreview={isPreview}
+              name={`${prefix}.value[1]`}
             />
           </div>
         </div>
@@ -152,9 +152,9 @@ const DatatypeFilterConfigValueManager: React.FC<{
 
     return (
       <DatatypeFilterConfigValueFloat
-        name={`${prefix}.value`}
         datatype={filterItem.datatype}
         isPreview={isPreview}
+        name={`${prefix}.value`}
       />
     );
   }
@@ -163,10 +163,10 @@ const DatatypeFilterConfigValueManager: React.FC<{
     return (
       <DatatypeFilterConfigValueList
         key={`${prefix}.value`}
-        name={`${prefix}.value`}
         datatype={filterItem.datatype}
         getDataByType={getDataByType}
         isPreview={isPreview}
+        name={`${prefix}.value`}
       />
     );
   }
@@ -176,9 +176,9 @@ const DatatypeFilterConfigValueManager: React.FC<{
     filterItem.sub_datatype === DATE_SUBDATA_TYPE
   ) {
     if (comparator === FILTER_IN_OPERAND) {
-      return <DateRangeSelectorFormik name={prefix} isPreview={isPreview} />;
+      return <DateRangeSelectorFormik isPreview={isPreview} name={prefix} />;
     }
-    return <DatePickerSelectorFormik name={prefix} isPreview={isPreview} />;
+    return <DatePickerSelectorFormik isPreview={isPreview} name={prefix} />;
   }
 
   if (
@@ -190,25 +190,25 @@ const DatatypeFilterConfigValueManager: React.FC<{
         <div>
           <NestedAlertError name={`${prefix}.value`}>
             {(error_msg: string) => (
-              <Typography variant="caption" color="error">
+              <Typography color="error" variant="caption">
                 {t(`${error_msg}`)}
               </Typography>
             )}
           </NestedAlertError>
           <div className={classes.rowValue}>
             <TimeInputFormik
-              name={`${prefix}.value[0]`}
               isPreview={isPreview}
+              name={`${prefix}.value[0]`}
             />
             <TimeInputFormik
-              name={`${prefix}.value[1]`}
               isPreview={isPreview}
+              name={`${prefix}.value[1]`}
             />
           </div>
         </div>
       );
     }
-    return <TimeInputFormik name={`${prefix}.value`} isPreview={isPreview} />;
+    return <TimeInputFormik isPreview={isPreview} name={`${prefix}.value`} />;
   }
 
   return null;
@@ -225,9 +225,8 @@ const TimeInputFormik: React.FC<{
         form: { setFieldValue },
       }: FieldAttributes<any>) => (
         <TextField
+          disabled={isPreview}
           id="time_picker"
-          type="time"
-          value={moment.unix(value).format('HH:mm')}
           onChange={(ev) => {
             setFieldValue(
               name,
@@ -237,7 +236,8 @@ const TimeInputFormik: React.FC<{
                 .unix(),
             );
           }}
-          disabled={isPreview}
+          type="time"
+          value={moment.unix(value).format('HH:mm')}
         />
       )}
     </Field>
@@ -255,15 +255,15 @@ const DateRangeSelectorFormik: React.FC<{
         form: { setFieldValue },
       }: FieldAttributes<any>) => (
         <DateRangeSelector
-          date_start={value?.value?.[0]}
           date_end={value?.value?.[1]}
-          timePeriod={value.time_period}
+          date_start={value?.value?.[0]}
+          isDisabled={isPreview}
           onSubmit={(values) => {
             setFieldValue(`${name}.value[0]`, values.dateStart.unix());
             setFieldValue(`${name}.value[1]`, values.dateEnd.unix());
             setFieldValue(`${name}.time_period`, values.timePeriod);
           }}
-          isDisabled={isPreview}
+          timePeriod={value.time_period}
         />
       )}
     </Field>
@@ -282,12 +282,12 @@ const DatePickerSelectorFormik: React.FC<{
       }: FieldAttributes<any>) => (
         <DatePickerSelector
           date={value?.value}
-          timePeriod={value.time_period}
+          isDisabled={isPreview}
           onSubmit={(values) => {
             setFieldValue(`${name}.value`, values.date.unix());
             setFieldValue(`${name}.time_period`, values.timePeriod);
           }}
-          isDisabled={isPreview}
+          timePeriod={value.time_period}
         />
       )}
     </Field>
@@ -302,28 +302,28 @@ const DatatypeFilterConfigValueFloat: React.FC<{
   if (datatype === 'price') {
     return (
       <PriceField
-        name={name}
         castAsNumber
-        min={-Infinity}
         disabled={isPreview}
+        min={-Infinity}
+        name={name}
       />
     );
   }
 
   if (datatype === 'percent') {
-    return <PercentField name={name} castAsNumber disabled={isPreview} />;
+    return <PercentField castAsNumber disabled={isPreview} name={name} />;
   }
 
   return (
     <TextField
+      castAsNumber
+      datatype="number"
+      disabled={isPreview}
       InputProps={{
         inputProps: { min: 0, step: 1 },
       }}
-      name={name}
-      datatype="number"
-      castAsNumber
       min={-Infinity}
-      disabled={isPreview}
+      name={name}
     />
   );
 };
@@ -504,19 +504,19 @@ const DatatypeFilterConfigValueList: React.FC<{
         }: FieldAttributes<any>) => {
           return (
             <MaterialUISelectorConsumers
+              inScrollBar
+              isMenuListVirtualized
               isMulti
+              defaultNumberShown={1}
+              error={!!(meta.touched && meta.error)}
+              isDisabled={isPreview}
+              kind={datatype}
               onChange={(optionList) => {
                 const valueList = optionList.map((option) => option.value);
                 setFieldTouched(name, true, false);
                 setFieldValue(name, valueList);
               }}
-              isMenuListVirtualized
-              inScrollBar
               value={value}
-              error={!!(meta.touched && meta.error)}
-              defaultNumberShown={1}
-              isDisabled={isPreview}
-              kind={datatype}
             />
           );
         }}
@@ -534,18 +534,18 @@ const DatatypeFilterConfigValueList: React.FC<{
         }: FieldAttributes<any>) => {
           return (
             <MaterialUISelectorPayout
+              inScrollBar
+              isMenuListVirtualized
               isMulti
+              defaultNumberShown={1}
+              error={!!(meta.touched && meta.error)}
+              isDisabled={isPreview}
               onChange={(optionList) => {
                 const valueList = optionList.map((option) => option.value);
                 setFieldTouched(name, true, false);
                 setFieldValue(name, valueList);
               }}
-              isMenuListVirtualized
-              inScrollBar
               value={value}
-              error={!!(meta.touched && meta.error)}
-              defaultNumberShown={1}
-              isDisabled={isPreview}
             />
           );
         }}
@@ -580,15 +580,15 @@ const DatatypeFilterConfigValueList: React.FC<{
 
   return (
     <MaterialUiMultiSelectorField
+      inScrollBar
+      isMenuListVirtualized
+      className={classes.flexOne}
+      defaultNumberShown={1}
+      forceError={false && error && isTouched}
+      isDisabled={isPreview}
       name={name}
       options={[...getOptions()]}
       placeholder={t('filter.form.placeholderList')}
-      isMenuListVirtualized
-      defaultNumberShown={1}
-      className={classes.flexOne}
-      inScrollBar
-      forceError={false && error && isTouched}
-      isDisabled={isPreview}
     />
   );
 };

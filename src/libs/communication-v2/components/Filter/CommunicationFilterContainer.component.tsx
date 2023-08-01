@@ -217,10 +217,10 @@ export class CommunicationFilterContainer extends React.Component<
           )}
           {periodHasChanged && (
             <CommunicationFilterValuesPeriodSummary
-              dateStart={this.state.dateStart}
               dateEnd={this.state.dateEnd}
-              title={t('filter.dateFilter.period')}
+              dateStart={this.state.dateStart}
               resetDates={this.resetPeriodFilter}
+              title={t('filter.dateFilter.period')}
             />
           )}
           {this.state.channelFilterValues.length > 0 && (
@@ -254,14 +254,14 @@ export class CommunicationFilterContainer extends React.Component<
         </Hidden>
         <Hidden smUp>
           <Chip
+            className={classes.chip}
             clickable={false}
+            deleteIcon={<Close />}
             label={t('filter.numberFilter', { count: countFilter })}
             onDelete={() => {
               this.resetFilters();
             }}
             size="small"
-            className={classes.chip}
-            deleteIcon={<Close />}
           />
         </Hidden>
       </div>
@@ -280,8 +280,8 @@ export class CommunicationFilterContainer extends React.Component<
       return (
         <IconButton
           aria-label="expand row"
-          size="small"
           onClick={this.resetFilters}
+          size="small"
         >
           <Close />
         </IconButton>
@@ -337,13 +337,13 @@ export class CommunicationFilterContainer extends React.Component<
     return (
       <div className={classes.container}>
         <ButtonBase
-          onClick={this.onCollapseClick}
           className={classes.filterDisplayer}
           disableRipple={hasSetSomeFilters || periodHasChanged}
+          onClick={this.onCollapseClick}
         >
           <div className={classes.filterTitleContainer}>
             <Tune className={classes.filterIcon} />
-            <Typography variant="body1" className={classes.filterTitle}>
+            <Typography className={classes.filterTitle} variant="body1">
               {t('filter.filterAction')}
             </Typography>
           </div>
@@ -354,36 +354,36 @@ export class CommunicationFilterContainer extends React.Component<
         </ButtonBase>
         <Collapse in={this.state.showFilterModal}>
           <CommunicationFilterCollapse
-            hasKindFilter={hasKindFilter}
-            kindFilterValues={this.state.kindFilterValues}
-            kindFilterSetter={updateKindFilterValues}
-            kindFilterOptionsOverride={kindFilterOptionsOverride}
-            hasRecipientFilter={hasRecipientFilter}
-            recipientFilterValues={this.state.recipientFilterValues}
-            recipientFilterSetter={updateRecipientFilterValues}
-            recipientFilterOptionsOverride={recipientFilterOptionsOverride}
-            hasChannelFilter={hasChannelFilter}
-            channelFilterValues={this.state.channelFilterValues}
-            channelFilterSetter={updateChannelFilterValues}
+            allPreviousFilter={this.state.allPreviousFilters}
             channelFilterOptionsOverride={channelFilterOptionsOverride}
+            channelFilterSetter={updateChannelFilterValues}
+            channelFilterValues={this.state.channelFilterValues}
+            dateEndSetter={updateDateEndValue}
+            dateEndValue={this.state.dateEnd}
+            dateStartSetter={updateDateStartValue}
+            dateStartValue={this.state.dateStart}
+            handleFiltersSubmit={this.handleFiltersSubmit}
+            hasChannelFilter={hasChannelFilter}
+            hasDatesFilter={hasDatesFilter}
+            hasKindFilter={hasKindFilter}
+            hasRecipientFilter={hasRecipientFilter}
             hasSendParameterFilter={hasSendParameterFilter}
-            sendParameterFilterValues={this.state.sendParameterFilterValues}
-            sendParameterFilterSetter={updateSendParameterFilterValues}
+            hasSrcOrDstFilter={hasSrcOrDstFilter}
+            kindFilterOptionsOverride={kindFilterOptionsOverride}
+            kindFilterSetter={updateKindFilterValues}
+            kindFilterValues={this.state.kindFilterValues}
+            periodHasChanged={periodHasChanged}
+            recipientFilterOptionsOverride={recipientFilterOptionsOverride}
+            recipientFilterSetter={updateRecipientFilterValues}
+            recipientFilterValues={this.state.recipientFilterValues}
             sendParameterFilterOptionsOverride={
               sendParameterFilterOptionsOverride
             }
-            hasSrcOrDstFilter={hasSrcOrDstFilter}
-            srcOrDstFilterValues={this.state.srcOrDstFilterValues}
-            srcOrDstFilterSetter={updateSrcOrDstFilterValues}
+            sendParameterFilterSetter={updateSendParameterFilterValues}
+            sendParameterFilterValues={this.state.sendParameterFilterValues}
             srcOrDstFilterOptionsOverride={srcOrDstFilterOptionsOverride}
-            hasDatesFilter={hasDatesFilter}
-            dateStartValue={this.state.dateStart}
-            dateStartSetter={updateDateStartValue}
-            dateEndValue={this.state.dateEnd}
-            dateEndSetter={updateDateEndValue}
-            periodHasChanged={periodHasChanged}
-            handleFiltersSubmit={this.handleFiltersSubmit}
-            allPreviousFilter={this.state.allPreviousFilters}
+            srcOrDstFilterSetter={updateSrcOrDstFilterValues}
+            srcOrDstFilterValues={this.state.srcOrDstFilterValues}
           />
         </Collapse>
       </div>

@@ -74,14 +74,14 @@ const MarketplaceCalendarSettingsForm: React.FC<Props> = (props) => {
         control={
           <Checkbox
             checked={config.todayOnly}
+            color="primary"
+            name="checkedB"
             onChange={() =>
               onChange({
                 ...config,
                 todayOnly: !config.todayOnly,
               })
             }
-            name="checkedB"
-            color="primary"
           />
         }
         label={t('settings:marketplaceSettings.createDialog.todayOnly')}
@@ -91,11 +91,11 @@ const MarketplaceCalendarSettingsForm: React.FC<Props> = (props) => {
           <InputLabel>{t('widget:widget.choice')}</InputLabel>
           <Select
             className={classes.fullWidth}
+            onChange={(ev: any) => setCompactMode(ev.target.value)}
             value={Object.keys(COMPACT_MODE_TYPE).find(
               (key: keyof typeof COMPACT_MODE_TYPE) =>
                 COMPACT_MODE_TYPE[key] === config.compactMode,
             )}
-            onChange={(ev: any) => setCompactMode(ev.target.value)}
           >
             {Object.keys(COMPACT_MODE_TYPE).map((key) => {
               return (
@@ -110,11 +110,11 @@ const MarketplaceCalendarSettingsForm: React.FC<Props> = (props) => {
 
       <CommonSettings
         coaches={coaches}
+        config={config}
+        customLevels={props.customLevels}
         establishmentGroupList={establishmentGroupList}
         establishments={establishments}
         metaActivities={metaActivities}
-        customLevels={props.customLevels}
-        config={config}
         onChange={onChange}
       />
     </div>

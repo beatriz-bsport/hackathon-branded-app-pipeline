@@ -344,11 +344,11 @@ export default class CanvasSvg extends React.PureComponent<Props, State> {
 
     for (let i = 0; i < SVG_WORK_SIZE; i += lineSpace) {
       line.push(
-        <line x1={i} y1={0} x2={i} y2={SVG_WORK_SIZE} stroke="lightgrey" />,
+        <line stroke="lightgrey" x1={i} x2={i} y1={0} y2={SVG_WORK_SIZE} />,
       );
 
       line.push(
-        <line x1={0} y1={i} x2={SVG_WORK_SIZE} y2={i} stroke="lightgrey" />,
+        <line stroke="lightgrey" x1={0} x2={SVG_WORK_SIZE} y1={i} y2={i} />,
       );
     }
 
@@ -356,8 +356,8 @@ export default class CanvasSvg extends React.PureComponent<Props, State> {
       <circle
         cx={SVG_WORK_SIZE / 2}
         cy={SVG_WORK_SIZE / 2}
-        r={2}
         fill="grey"
+        r={2}
       />,
     );
 
@@ -367,50 +367,50 @@ export default class CanvasSvg extends React.PureComponent<Props, State> {
   render() {
     return (
       <div
+        id={this.svgContainerId}
         style={{
           display: 'flex',
           flex: 1,
         }}
-        id={this.svgContainerId}
       >
         <svg
-          width={this.state.width}
           height={this.state.height}
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
+          id={this.svgId}
           onClick={this.onSvgClick}
           onMouseDown={this.onSvgMouseDown}
-          onMouseUp={this.onSvgMouseUp}
-          onMouseMove={this.onSvgMouseMove}
           onMouseLeave={this.onSvgMouseOut}
+          onMouseMove={this.onSvgMouseMove}
           onMouseOver={this.onMouseOver}
-          id={this.svgId}
-          viewBox={this.viewBox}
+          onMouseUp={this.onSvgMouseUp}
           style={{ maxWidth: '100%' }}
+          version="1.1"
+          viewBox={this.viewBox}
+          width={this.state.width}
+          xmlns="http://www.w3.org/2000/svg"
         >
           {!this.props.disabledEdit && (
             <rect
               className="svg-element"
-              x={-SVG_WALL_SIZE}
-              y={-SVG_WALL_SIZE}
-              width={SVG_WORK_SIZE + SVG_WALL_SIZE * 2}
+              fill="#DFDFE2"
               height={SVG_WORK_SIZE + SVG_WALL_SIZE * 2}
               stroke="black"
-              fill="#DFDFE2"
               style={{
                 cursor: this.props.enablePan ? undefined : 'not-allowed',
               }}
+              width={SVG_WORK_SIZE + SVG_WALL_SIZE * 2}
+              x={-SVG_WALL_SIZE}
+              y={-SVG_WALL_SIZE}
             />
           )}
 
           <rect
             className="svg-element"
-            x={0}
-            y={0}
-            width={SVG_WORK_SIZE}
+            fill="white"
             height={SVG_WORK_SIZE}
             stroke="transparent"
-            fill="white"
+            width={SVG_WORK_SIZE}
+            x={0}
+            y={0}
           />
 
           {this.renderGrid()}

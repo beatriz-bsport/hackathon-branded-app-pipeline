@@ -216,29 +216,29 @@ class InboxThreadListPage extends PureComponent<Props> {
     return (
       <>
         <InboxThreadList
-          threadList={threadItems}
+          contextSelected={contextSelected}
+          count={count}
+          createNewThread={this.toggleThreadCreator}
+          filterValue={filterValue}
+          flagAsUnread={handleFlagAsUnread}
+          handleContextThreadChange={this.handleContextThreadChange}
+          handleFilterChange={this.handleFilterChange}
+          handleOnItemClick={handleOnItemClick}
+          isListLoading={isListLoading}
+          loadMoreItems={this.loadMoreItems}
+          nextPage={nextPage}
+          searchThread={this.searchThread}
+          selectedThreadId={thread?.id}
+          switchDisabledStatus={handleSwitchDisabledStatus}
           switchFavoriteStatus={handleSwitchFavoriteStatus}
           switchMutedStatus={handleSwitchMutedStatus}
-          switchDisabledStatus={handleSwitchDisabledStatus}
-          flagAsUnread={handleFlagAsUnread}
-          selectedThreadId={thread?.id}
-          handleOnItemClick={handleOnItemClick}
-          loadMoreItems={this.loadMoreItems}
-          searchThread={this.searchThread}
-          filterValue={filterValue}
-          handleFilterChange={this.handleFilterChange}
-          handleContextThreadChange={this.handleContextThreadChange}
-          createNewThread={this.toggleThreadCreator}
-          contextSelected={contextSelected}
-          isListLoading={isListLoading}
-          nextPage={nextPage}
-          count={count}
+          threadList={threadItems}
         />
         <InboxThreadCreator
-          open={!!this.props.createThreadIsOpen}
           contextSelected={this.props.contextSelected}
-          onClose={this.toggleThreadCreator}
           getOrCreateThread={this.props.getOrCreateInboxThread}
+          onClose={this.toggleThreadCreator}
+          open={!!this.props.createThreadIsOpen}
           redirectToThread={this.props.selectThread}
         />
       </>

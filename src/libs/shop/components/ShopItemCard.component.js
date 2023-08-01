@@ -73,10 +73,10 @@ const ShopItemCard = (props: {
             flexDirection: 'row',
           }}
         >
-          <Typography variant="h5" component="h3">
+          <Typography component="h3" variant="h5">
             {props.shopitem.name}
           </Typography>
-          <Typography variant="h6" component="p" style={{ marginLeft: 28 }}>
+          <Typography component="p" style={{ marginLeft: 28 }} variant="h6">
             {`${getCurrencyDisplayWithPrice(
               props.shopitem.price,
               props.isExcludingTax,
@@ -84,13 +84,13 @@ const ShopItemCard = (props: {
             )}`}
           </Typography>
         </div>
-        <Typography variant="h6" component="h4">
+        <Typography component="h4" variant="h6">
           {props.shopitem.subtitle}
         </Typography>
         <TypographyMultiline
-          variant="body1"
           color="textSecondary"
           style={{ marginTop: 16 }}
+          variant="body1"
         >
           {props.shopitem.description || props.t('shopitem.noDescription')}
         </TypographyMultiline>

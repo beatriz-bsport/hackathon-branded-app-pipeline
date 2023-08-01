@@ -72,8 +72,8 @@ export const QuickBooksTaxSection: React.FC<Props> = ({
 
         <Tooltip title={t('quickbooks.tax.refresh')}>
           <IconButton
-            onClick={handleRefreshQuickBooksTaxData}
             disabled={upsertLoading || loading}
+            onClick={handleRefreshQuickBooksTaxData}
           >
             <RefreshIcon
               className={classNames({
@@ -84,7 +84,7 @@ export const QuickBooksTaxSection: React.FC<Props> = ({
         </Tooltip>
       </div>
       {!taxSelected && !loading && !upsertLoading && (
-        <Alert variant="outlined" severity="warning" className={classes.alert}>
+        <Alert className={classes.alert} severity="warning" variant="outlined">
           {t('quickbooks.tax.alertUnconfigured')}
         </Alert>
       )}
@@ -108,8 +108,8 @@ export const QuickBooksTaxSection: React.FC<Props> = ({
                 {(taxCodesList || []).map((taxCode) => (
                   <TableRow
                     key={`tax_code_row_${taxCode?.Id}`}
-                    onClick={() => handleSubmitTaxCodeSelection(taxCode)}
                     classes={{ root: classes.MuiRowRoot }}
+                    onClick={() => handleSubmitTaxCodeSelection(taxCode)}
                   >
                     <TableCell>{taxCode?.Name}</TableCell>
                     <TableCell>{taxCode?.Description}</TableCell>
@@ -129,14 +129,11 @@ export const QuickBooksTaxSection: React.FC<Props> = ({
       ) : (
         <div className={classes.paddingTop}>
           <Alert
-            variant="outlined"
-            severity="info"
-            className={classes.alert}
             action={
               <Tooltip title={t('quickbooks.tax.refresh')}>
                 <IconButton
-                  onClick={handleRefreshQuickBooksTaxData}
                   disabled={upsertLoading || loading}
+                  onClick={handleRefreshQuickBooksTaxData}
                 >
                   <RefreshIcon
                     className={classNames({
@@ -146,6 +143,9 @@ export const QuickBooksTaxSection: React.FC<Props> = ({
                 </IconButton>
               </Tooltip>
             }
+            className={classes.alert}
+            severity="info"
+            variant="outlined"
           >
             {t('quickbooks.tax.alertNonTaxInformation')}
           </Alert>

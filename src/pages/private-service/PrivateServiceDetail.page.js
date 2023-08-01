@@ -197,46 +197,46 @@ export class PrivateServiceList extends React.Component<Props> {
         {this.props.loading ? <LinearProgress /> : null}
         {this.props.privateService ? (
           <PrivateServiceDetailPage
-            onDelete={this.props.deletePrivateService}
-            privateService={this.props.privateService}
+            createNotification={this.props.createNotification}
             createOrUpdatePrivateSlot={this.props.createOrUpdatePrivateSlot}
+            deleteNotification={this.props.deleteMarketingNotification}
             deletePrivateSlot={this.props.deletePrivateSlot}
+            emailDetailLoading={this.props.emailDetailLoading}
+            emailDetails={this.props.email_templates_details}
+            emailListLoading={this.props.emailListLoading}
+            emails={this.props.email_templates_list}
+            getEmailDetail={this.props.fetchEmailTemplateDetail}
+            getEmails={this.props.fetchEmailTemplatesSummaries}
             getResourceSlotsExistState={this.props.getResourceSlotsExistState}
+            getSmartLists={this.props.getSmartLists}
             goToCoachCalendar={this.props.goToCoachCalendar}
             goToEstablishmentCalendar={this.props.goToEstablishmentCalendar}
             goToPrivateServiceCalendar={this.props.goToPrivateServiceCalendar}
+            goToSmartlist={this.props.goToSmartlist}
+            notifications={this.props.notifications}
+            onDelete={this.props.deletePrivateService}
+            privateService={this.props.privateService}
+            smartLists={this.props.smartLists}
             switchServiceHasOwnAvailabilitySlots={() =>
               this.props.switchServiceHasOwnAvailabilitySlots(
                 this.props.privateService.id,
               )
             }
-            notifications={this.props.notifications}
-            createNotification={this.props.createNotification}
             updateNotification={this.props.updateMarketingNotification}
-            deleteNotification={this.props.deleteMarketingNotification}
-            getEmails={this.props.fetchEmailTemplatesSummaries}
-            emails={this.props.email_templates_list}
-            getEmailDetail={this.props.fetchEmailTemplateDetail}
-            emailDetails={this.props.email_templates_details}
-            emailListLoading={this.props.emailListLoading}
-            emailDetailLoading={this.props.emailDetailLoading}
-            goToSmartlist={this.props.goToSmartlist}
-            getSmartLists={this.props.getSmartLists}
-            smartLists={this.props.smartLists}
           />
         ) : null}
         {this.props.privateService && (
           <PrivateServiceFormDrawer
+            allCoaches={this.props.allCoaches}
+            allEstablishments={this.props.allEstablishments}
+            availableEstablishments={this.props.availableEstablishments}
+            coaches={this.props.availableCoaches}
             initial={this.props.privateService}
-            open={this.props.openEditForm}
+            onAddServiceGroup={this.props.onOpenServiceGroupCreateForm}
             onCancel={this.closeForm}
             onSubmit={this.createOrUpdatePrivateService}
-            coaches={this.props.availableCoaches}
-            allCoaches={this.props.allCoaches}
-            availableEstablishments={this.props.availableEstablishments}
-            allEstablishments={this.props.allEstablishments}
+            open={this.props.openEditForm}
             serviceGroupList={this.props.serviceGroupList}
-            onAddServiceGroup={this.props.onOpenServiceGroupCreateForm}
             tagList={
               this.props.allTagsWithTagGroup
                 ? [...this.props.allTagsWithTagGroup]
@@ -247,8 +247,8 @@ export class PrivateServiceList extends React.Component<Props> {
         {this.props.serviceGroupCreateOpen && (
           <PrivateServiceGroupFormDialog
             open
-            onSubmit={this.props.createOrUpdateServiceGroup}
             onCancel={this.props.closeServiceGroupForm}
+            onSubmit={this.props.createOrUpdateServiceGroup}
           />
         )}
         <BottomActionButtons

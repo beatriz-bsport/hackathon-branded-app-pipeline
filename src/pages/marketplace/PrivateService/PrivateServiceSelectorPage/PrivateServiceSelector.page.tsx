@@ -96,7 +96,7 @@ export class PrivateServiceSelectorPage extends React.PureComponent<Props> {
         <div className={classes.container2}>
           <Grid container align="stretch" className={classes.servicesContainer}>
             {[1, 2, 3].map((i) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
+              <Grid key={i} item lg={3} md={4} sm={6} xs={12}>
                 <ButtonBase
                   className={classes.buttonContainer}
                   onClick={() => null}
@@ -105,14 +105,14 @@ export class PrivateServiceSelectorPage extends React.PureComponent<Props> {
                     <div className={classes.itemPaperImageContainer}>
                       <Skeleton
                         animation="wave"
-                        variant="rect"
                         className={classes.itemPaperImage}
+                        variant="rect"
                       />
                     </div>
                     <div className={classes.itemPaperContent}>
                       <Skeleton animation="wave" width="50%" />
                       {[1, 2, 3].map((j) => (
-                        <Skeleton animation="wave" key={j} />
+                        <Skeleton key={j} animation="wave" />
                       ))}
                     </div>
                     <div className={classes.itemPaperContent}>
@@ -140,7 +140,7 @@ export class PrivateServiceSelectorPage extends React.PureComponent<Props> {
         <div className={classes.container2}>
           <Grid container align="stretch" className={classes.servicesContainer}>
             {this.props._privateServices.map((ps: PrivateService) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={ps.id}>
+              <Grid key={ps.id} item lg={3} md={4} sm={6} xs={12}>
                 <ButtonBase
                   className={classes.buttonContainer}
                   onClick={() => this.onClickPrivateService(ps)}
@@ -149,18 +149,18 @@ export class PrivateServiceSelectorPage extends React.PureComponent<Props> {
                     <div className={classes.itemPaperImageContainer}>
                       <img
                         alt={ps.name}
-                        src={ps.cover_main}
                         className={classes.itemPaperImage}
+                        src={ps.cover_main}
                       />
                     </div>
 
                     <div className={classes.itemPaperContent}>
-                      <Typography align="left" variant="h6" color="textPrimary">
+                      <Typography align="left" color="textPrimary" variant="h6">
                         {ps.name}
                       </Typography>
                       <TypographyWithShowMore
-                        align="left"
                         multiline
+                        align="left"
                         color="textSecondary"
                         variant="subtitle1"
                       >
@@ -171,25 +171,25 @@ export class PrivateServiceSelectorPage extends React.PureComponent<Props> {
                         <div className={classes.tagsContainer2}>
                           {uniq(ps.slots_duration_minute).map((duration) => (
                             <Chip
-                              size="small"
                               key={duration}
-                              className={classes.tagItem}
                               avatar={<AccessTimeIcon fontSize="small" />}
+                              className={classes.tagItem}
                               label={
                                 duration + t('datetime:shortMinuteIdentifier')
                               }
+                              size="small"
                               variant="outlined"
                             />
                           ))}
 
                           {ps.is_home_service && (
                             <Chip
-                              size="small"
                               className={classes.tagItem}
+                              color="primary"
                               label={t(
                                 'privateService:service.form.establishmentResourceType.isHomeService.label',
                               )}
-                              color="primary"
+                              size="small"
                               variant="outlined"
                             />
                           )}

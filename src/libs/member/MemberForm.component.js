@@ -153,12 +153,12 @@ const MemberExistsBanner = ({
   return (
     <AlertExistingUser
       email={email}
+      emailConfirmed={exists.email_confirmed}
+      existingMemberId={exists.member_pk}
+      goToButtonText={goToButtonText}
+      goToMember={goToMember}
       memberId={memberId}
       phonenumber={phonenumber}
-      existingMemberId={exists.member_pk}
-      emailConfirmed={exists.email_confirmed}
-      goToMember={goToMember}
-      goToButtonText={goToButtonText}
     />
   );
 };
@@ -231,9 +231,9 @@ export function MemberForm(props: Props) {
         <MemberExistsBanner
           emailExists={props.emailExists}
           emailExistsError={props.emailExistsError}
+          goToButtonText={alreadyExistingGoToButtonText}
           goToMember={props.goToMember}
           memberId={props.memberId}
-          goToButtonText={alreadyExistingGoToButtonText}
         />
       )}
 
@@ -246,7 +246,7 @@ export function MemberForm(props: Props) {
       >
         {variant === 'merge-form' ? (
           <div className={classes.mergeTitle}>
-            <Typography variant="h6" component="h2">
+            <Typography component="h2" variant="h6">
               {disabled
                 ? t('member:forms.merge.srcMember')
                 : t('member:forms.merge.dstMember')}
@@ -256,7 +256,7 @@ export function MemberForm(props: Props) {
 
         {!withoutTitle && (
           <div className={classes.title}>
-            <MemberFormTitle userStatus={userStatus} t={t} />
+            <MemberFormTitle t={t} userStatus={userStatus} />
           </div>
         )}
 
@@ -267,49 +267,45 @@ export function MemberForm(props: Props) {
             }
           />
           <Grid container spacing={2}>
-            <Grid item xs={12} className={classes.photoContainer}>
+            <Grid item className={classes.photoContainer} xs={12}>
               <div className={classes.photoWithError}>
                 <AvatarFieldWithButton
-                  name="avatar"
-                  disabled={disabled}
                   buttonText={t('translation:form.modify')}
+                  disabled={disabled}
+                  name="avatar"
                 />
               </div>
             </Grid>
 
             <Grid container spacing={2}>
-              <Grid item xs={12} md={mdSize}>
+              <Grid item md={mdSize} xs={12}>
                 <div className={classes.marginLeft}>
                   <TextField
-                    shrink
-                    name="firstname"
-                    label={t('translation:form.firstname')}
-                    required
-                    disabled={disabled}
                     fullWidth
+                    required
+                    shrink
+                    disabled={disabled}
+                    label={t('translation:form.firstname')}
+                    name="firstname"
                   />
                 </div>
               </Grid>
-              <Grid item xs={12} md={mdSize}>
+              <Grid item md={mdSize} xs={12}>
                 <TextField
-                  name="lastname"
-                  shrink
-                  label={t('translation:form.lastname')}
-                  required
                   fullWidth
+                  required
+                  shrink
                   disabled={disabled}
+                  label={t('translation:form.lastname')}
+                  name="lastname"
                 />
               </Grid>
-              <Grid item xs={12} md={mdSize}>
+              <Grid item md={mdSize} xs={12}>
                 <div className={classes.marginLeft}>
                   {variant === 'merge-form' ? (
                     <TextField
-                      name="email"
-                      shrink
-                      label={t('translation:form.email')}
-                      type="email"
                       fullWidth
-                      required={!asManager}
+                      shrink
                       disabled={disabled || variant === 'merge-form'}
                       InputProps={{
                         endAdornment: (
@@ -331,15 +327,15 @@ export function MemberForm(props: Props) {
                           </InputAdornment>
                         ),
                       }}
+                      label={t('translation:form.email')}
+                      name="email"
+                      required={!asManager}
+                      type="email"
                     />
                   ) : (
                     <>
                       <DelayTextField
-                        name="email"
-                        label={t('translation:form.email')}
-                        type="email"
                         fullWidth
-                        required={!asManager}
                         disabled={disabled || variant === 'merge-form'}
                         InputProps={{
                           endAdornment: (
@@ -361,63 +357,67 @@ export function MemberForm(props: Props) {
                             </InputAdornment>
                           ),
                         }}
+                        label={t('translation:form.email')}
+                        name="email"
+                        required={!asManager}
+                        type="email"
                       />
                     </>
                   )}
                 </div>
               </Grid>
-              <Grid item xs={12} md={mdSize}>
+              <Grid item md={mdSize} xs={12}>
                 <GenderField
-                  name="gender"
-                  label={t('translation:form.gender')}
                   fullWidth
-                  required={!asManager}
                   disabled={disabled || !asManager}
+                  label={t('translation:form.gender')}
+                  name="gender"
+                  required={!asManager}
                 />
               </Grid>
             </Grid>
 
             {!asManager ? null : (
-              <Grid item xs={12} md={mdSize}>
+              <Grid item md={mdSize} xs={12}>
                 <TextField
-                  name="membership_ID"
-                  label={t('form.member.referenceNumber')}
-                  helperText={t('form.member.referenceNumberHelper')}
                   fullWidth
                   shrink
                   disabled={disabled || !!props.fromConsumerAccess}
+                  helperText={t('form.member.referenceNumberHelper')}
+                  label={t('form.member.referenceNumber')}
+                  name="membership_ID"
                 />
               </Grid>
             )}
             {!asManager ? null : (
-              <Grid item xs={12} md={mdSize}>
+              <Grid item md={mdSize} xs={12}>
                 <TextField
-                  name="barcode"
-                  shrink
-                  label={t('form.member.barcode')}
-                  helperText={t('form.member.barcodeHelper')}
                   fullWidth
+                  shrink
                   disabled={disabled || !!props.fromConsumerAccess}
+                  helperText={t('form.member.barcodeHelper')}
+                  label={t('form.member.barcode')}
+                  name="barcode"
                 />
               </Grid>
             )}
-            <Grid item xs={12} md={mdSize}>
+            <Grid item md={mdSize} xs={12}>
               <Grid container direction="row" spacing={2}>
                 <Grid item>
                   <DateField
-                    keyboard
-                    format="L"
-                    required={!asManager}
-                    openToYearSelection
                     clearable
+                    disableFuture
+                    keyboard
+                    openToYearSelection
+                    cancelLabel={t('translation:common.cancel')}
+                    clearLabel={t('translation:form.clearDate')}
                     disabled={disabled || !asManager}
+                    format="L"
+                    initialFocusedDate="1990/01/01"
                     label={t('translation:form.birthday')}
                     name="birthday"
+                    required={!asManager}
                     returnMoment={false}
-                    disableFuture
-                    clearLabel={t('translation:form.clearDate')}
-                    cancelLabel={t('translation:common.cancel')}
-                    initialFocusedDate="1990/01/01"
                   />
                 </Grid>
 
@@ -425,47 +425,47 @@ export function MemberForm(props: Props) {
                   <Grid item>
                     <DateField
                       keyboard
-                      returnMoment={false}
-                      format="YYYY-MM-DD"
-                      name="date_joined"
-                      disabled={disabled}
-                      label={t('member:date_joined')}
                       cancelLabel={t('translation:common.cancel')}
+                      disabled={disabled}
+                      format="YYYY-MM-DD"
+                      label={t('member:date_joined')}
+                      name="date_joined"
+                      returnMoment={false}
                     />
                   </Grid>
                 )}
               </Grid>
             </Grid>
-            <Grid item xs={12} md={mdSize}>
+            <Grid item md={mdSize} xs={12}>
               <Grid container direction="row" spacing={2}>
                 <Grid item md={12} xs={12}>
                   <PhoneField
-                    name="phone"
-                    label={t('translation:form.phone')}
                     fullWidth
-                    required={!asManager}
-                    disabled={disabled || !asManager}
                     country={browserCountryCode()}
+                    disabled={disabled || !asManager}
+                    label={t('translation:form.phone')}
+                    name="phone"
+                    required={!asManager}
                   />
                 </Grid>
               </Grid>
             </Grid>
-            <Grid container xs={12} md={12} direction="row">
-              <Grid item xs={12} md={mdSize}>
+            <Grid container direction="row" md={12} xs={12}>
+              <Grid item md={mdSize} xs={12}>
                 <div className={classes.gridColumn}>
                   <TextField
-                    required={!asManager}
-                    name="address_line_1"
                     fullWidth
                     disabled={disabled || !asManager}
                     label={t('form.address.addressLine1')}
+                    name="address_line_1"
+                    required={!asManager}
                   />
                   <TextField
-                    name="address_line_2"
-                    required={!asManager}
                     fullWidth
                     disabled={disabled || !asManager}
                     label={t('form.address.addressLine2')}
+                    name="address_line_2"
+                    required={!asManager}
                   />
                   <Grid container direction="row" spacing={2}>
                     {ALLOWED_COUNTRIES_FOR_STATES.includes(
@@ -473,9 +473,9 @@ export function MemberForm(props: Props) {
                     ) && (
                       <Grid item>
                         <TextField
-                          name="state"
-                          label={t('form.address.state')}
                           disabled={disabled || !asManager}
+                          label={t('form.address.state')}
+                          name="state"
                           required={!asManager}
                         />
                       </Grid>
@@ -483,98 +483,96 @@ export function MemberForm(props: Props) {
 
                     <Grid item>
                       <TextField
-                        name="zipcode"
-                        label={t('form.address.zipcode')}
                         disabled={disabled || !asManager}
+                        label={t('form.address.zipcode')}
+                        name="zipcode"
                         required={!asManager}
                       />
                     </Grid>
 
                     <Grid item>
                       <TextField
-                        name="city"
-                        label={t('form.address.city')}
                         disabled={disabled || !asManager}
+                        label={t('form.address.city')}
+                        name="city"
                         required={!asManager}
                       />
                     </Grid>
                   </Grid>
                   <TextField
-                    name="country"
-                    required={!asManager}
                     disabled={disabled || !asManager}
                     label={t('form.address.country')}
+                    name="country"
+                    required={!asManager}
                   />
                 </div>
               </Grid>
-              <Grid item xs={12} md={mdSize}>
+              <Grid item md={mdSize} xs={12}>
                 <div className={classes.gridColumn}>
                   <Grid container direction="column">
                     <TextField
-                      name="emergency_contact"
-                      label={t('translation:form.emergencyContact')}
                       fullWidth
-                      required={!asManager}
                       disabled={disabled || !asManager}
+                      label={t('translation:form.emergencyContact')}
+                      name="emergency_contact"
+                      required={!asManager}
                     />
                   </Grid>
                   <Grid
-                    style={{ marginTop: 12, marginBottom: 12 }}
                     item
+                    style={{ marginTop: 12, marginBottom: 12 }}
                     xs={12}
                   >
                     <VaccinationStatusField
-                      name="vaccination_status"
-                      label={t('translation:common.vaccination_status')}
                       fullWidth
-                      required={!asManager}
                       disabled={disabled || !asManager}
+                      label={t('translation:common.vaccination_status')}
+                      name="vaccination_status"
+                      required={!asManager}
                     />
                   </Grid>
-                  <Grid item xs={12} md={12}>
+                  <Grid item md={12} xs={12}>
                     <FormControl>
-                      <Grid item xs={12} md={12}>
+                      <Grid item md={12} xs={12}>
                         <FormLabel>
                           {t('translation:form.member.rgpdTitle')}
                         </FormLabel>
                       </Grid>
 
-                      <Grid item xs={12} md={12}>
+                      <Grid item md={12} xs={12}>
                         <CheckboxField
-                          id="checkbox_accept_email"
-                          name="accept_email"
                           disabled={disabled || !asManager}
+                          id="checkbox_accept_email"
                           label={t('translation:form.member.rgpd.email')}
+                          name="accept_email"
                         />
                       </Grid>
-                      <Grid item xs={12} md={12}>
+                      <Grid item md={12} xs={12}>
                         <CheckboxField
-                          id="checkbox_accept_sms"
-                          name="accept_sms"
                           disabled={disabled || !asManager}
+                          id="checkbox_accept_sms"
                           label={t('translation:form.member.rgpd.sms')}
+                          name="accept_sms"
                         />
                       </Grid>
 
-                      <Grid item xs={12} md={12}>
+                      <Grid item md={12} xs={12}>
                         {props.waiver && (
                           <CheckboxField
-                            id="checkbox_waiver"
-                            name="waiver"
                             disabled={
                               disabled ||
                               (props.initial && props.initial.waiver) ||
                               !asManager
                             }
-                            required={!asManager}
+                            id="checkbox_waiver"
                             label={
                               <Typography component="div">
                                 {t('translation:form.member.waiver.iAccept')}
                                 <WaiverPopUp
-                                  waiver={props.waiver}
                                   onClick={() =>
                                     !asManager && setFieldValue('waiver', true)
                                   }
+                                  waiver={props.waiver}
                                 >
                                   <Typography color="secondary">
                                     {`${' '}${t(
@@ -584,6 +582,8 @@ export function MemberForm(props: Props) {
                                 </WaiverPopUp>
                               </Typography>
                             }
+                            name="waiver"
+                            required={!asManager}
                           />
                         )}
                       </Grid>
@@ -607,11 +607,11 @@ export function MemberForm(props: Props) {
                 <Actions>
                   {props.onCancel ? (
                     <Button
+                      disabled={isSubmitting}
                       onClick={() => {
                         trackFormCancel(memberId);
                         props.onCancel();
                       }}
-                      disabled={isSubmitting}
                     >
                       {t('translation:common.cancel')}
                     </Button>
@@ -646,9 +646,9 @@ export function MemberForm(props: Props) {
         <MemberExistsBanner
           emailExists={props.emailExists}
           emailExistsError={props.emailExistsError}
+          goToButtonText={alreadyExistingGoToButtonText}
           goToMember={props.goToMember}
           memberId={props.memberId}
-          goToButtonText={alreadyExistingGoToButtonText}
         />
       )}
     </div>

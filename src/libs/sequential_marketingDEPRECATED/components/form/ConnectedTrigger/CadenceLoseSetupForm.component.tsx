@@ -71,19 +71,19 @@ export const CadenceLoseSetupForm: React.FC<InitialLoseComponentProps> = ({
       </div>
       <div className={classes.stepperContainer}>
         <CadenceSettingsFormStepper
-          step={CADENCE_STEPPER_LOSE_STEP}
           displaySteps={[CADENCE_STEPPER_LOSE_STEP]}
+          step={CADENCE_STEPPER_LOSE_STEP}
         />
       </div>
       <Divider />
       <TriggerForm
-        initial={initial}
-        smartlists={smartlists}
-        onSubmit={handleSubmitForm}
-        withTimeout
-        viewMode={viewMode}
         cadenceExitFail
         noEmptyTrigger
+        withTimeout
+        initial={initial}
+        onSubmit={handleSubmitForm}
+        smartlists={smartlists}
+        viewMode={viewMode}
       />
     </div>
   );

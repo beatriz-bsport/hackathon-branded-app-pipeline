@@ -50,17 +50,17 @@ export const CollectPaymentMethod = (props: Props) => {
   if (props.paymentMethodType === 'card') {
     return (
       <CollectPaymentMethodCard
-        requestSetupIntentSecret={props.requestSetupIntentSecret}
-        onSuccess={onSuccessCard}
-        onClose={props.onClose}
-        variant={props.variant}
-        content={props.content}
-        stripeReaders={props.stripeReaders}
         addViaTerminal={!!props.addViaTerminal}
-        labelClose={props.labelClose}
-        fullScreen={props.fullScreen}
-        defaultName={props.defaultName}
         companyId={props.companyId}
+        content={props.content}
+        defaultName={props.defaultName}
+        fullScreen={props.fullScreen}
+        labelClose={props.labelClose}
+        onClose={props.onClose}
+        onSuccess={onSuccessCard}
+        requestSetupIntentSecret={props.requestSetupIntentSecret}
+        stripeReaders={props.stripeReaders}
+        variant={props.variant}
       />
     );
   }
@@ -84,15 +84,15 @@ export const CollectPaymentMethod = (props: Props) => {
   if (props.paymentMethodType === 'sepa_debit') {
     return (
       <CollectPaymentMethodSepa
-        requestSetupIntentSecret={props.requestSetupIntentSecret}
-        onSuccess={onSuccessDebit}
-        onClose={props.onClose}
-        defaultName={props.defaultName}
-        defaultEmail={props.defaultEmail}
-        variant={props.variant}
         content={props.content}
-        labelClose={props.labelClose}
+        defaultEmail={props.defaultEmail}
+        defaultName={props.defaultName}
         fullScreen={props.fullScreen}
+        labelClose={props.labelClose}
+        onClose={props.onClose}
+        onSuccess={onSuccessDebit}
+        requestSetupIntentSecret={props.requestSetupIntentSecret}
+        variant={props.variant}
       />
     );
   }

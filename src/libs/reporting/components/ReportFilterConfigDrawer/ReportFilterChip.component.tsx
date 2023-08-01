@@ -89,8 +89,8 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = ({
   return (
     <Chip
       icon={getIcon()}
-      onClick={onClick}
       label={t(`datatype.${datatype}`)}
+      onClick={onClick}
     />
   );
 };

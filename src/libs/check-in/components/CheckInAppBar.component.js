@@ -22,7 +22,7 @@ export const CheckInAppBar = (props: Props) => {
     <AppBarMUI color="default">
       <Toolbar className={props.classes.toolbar}>
         <Avatar src={props.theme.cover} />
-        <Typography variant="h5" component="h1">
+        <Typography component="h1" variant="h5">
           {props.theme.company_name}
         </Typography>
         <IconButton onClick={props.onSignout}>

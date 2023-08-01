@@ -22,10 +22,10 @@ export const ValidateEmailWithTokenPage = (props: OwnProps) => {
   return (
     <div className={classes.container}>
       <ValidateEmailWithToken
-        uid={props.uid}
-        token={props.token}
-        validateEmail={props.validateEmail}
         goToLogin={props.goToRoot}
+        token={props.token}
+        uid={props.uid}
+        validateEmail={props.validateEmail}
       />
     </div>
   );

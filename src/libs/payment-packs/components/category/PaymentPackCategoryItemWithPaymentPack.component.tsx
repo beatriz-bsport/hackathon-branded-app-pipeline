@@ -105,22 +105,22 @@ const SortablePaymentPackListItem = React.memo((props: PackListItemProps) => {
   return (
     <Paper
       ref={setNodeRef}
-      style={{ transform: CSS.Translate.toString(transform), transition }}
-      elevation={2}
       className={props.classes.paper}
+      elevation={2}
+      style={{ transform: CSS.Translate.toString(transform), transition }}
     >
       <PaymentPackListItem
-        attributes={attributes}
-        listeners={listeners}
-        draggable={props.draggable}
-        pack={pack}
-        divider
-        onEdit={props.onEdit}
-        onDelete={props.onDelete}
-        onClick={props.onClick}
-        onRestore={props.onRestore}
         key={pack.id}
+        divider
+        attributes={attributes}
         disabled={false}
+        draggable={props.draggable}
+        listeners={listeners}
+        onClick={props.onClick}
+        onDelete={props.onDelete}
+        onEdit={props.onEdit}
+        onRestore={props.onRestore}
+        pack={pack}
       />
     </Paper>
   );
@@ -181,23 +181,23 @@ const SortablePaymentPackList = React.memo((props: PackListProps) => {
               (props.filterManagerOnly === ManagerOnly.showInvisibleForStaff &&
                 !pack.is_usable_by_staff) ? (
               <SortablePaymentPackListItem
+                key={pack.id}
+                classes={props.classes}
                 draggable={
                   !props.paymentPackOrder &&
                   props.filterManagerOnly === ManagerOnly.showAll
                 }
-                key={pack.id}
-                pack={pack}
-                onEdit={props.onEdit ? () => props.onEdit(pack) : null}
                 onClick={
                   !pack.disabled && props.onClick
                     ? () => props.onClick(pack.id)
                     : null
                 }
                 onDelete={props.onDelete ? () => props.onDelete(pack) : null}
+                onEdit={props.onEdit ? () => props.onEdit(pack) : null}
                 onRestore={
                   props.onRestore ? () => props.onRestore(pack.id) : null
                 }
-                classes={props.classes}
+                pack={pack}
                 sortedItems={packs.filter((pp) => !!pp)}
               />
             ) : null;
@@ -227,7 +227,7 @@ export const PresentationalComponentPaymentPackCategory = React.memo(
           <IconButton>
             <DragHandleIcon />
           </IconButton>
-          <Typography variant="h5" component="h2">
+          <Typography component="h2" variant="h5">
             {paymentPackCategory
               ? `${paymentPackCategory.name || t('noCategory.name')} (${
                   paymentPackCategory.packs?.length || 0
@@ -289,20 +289,20 @@ export const PaymentPackCategoryItemWithPaymentPack = React.memo(
         style={{ transform: CSS.Transform.toString(transform), transition }}
       >
         <Popover
-          id="category-popover"
-          open={!!anchorEl}
           anchorEl={anchorEl}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'left',
           }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-          }}
+          id="category-popover"
           onClose={() => {
             setAnchorEl(null);
             props.setSelectedCategory(null);
+          }}
+          open={!!anchorEl}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
           }}
         >
           <List dense>
@@ -336,7 +336,7 @@ export const PaymentPackCategoryItemWithPaymentPack = React.memo(
                 <DragHandleIcon />
               </IconButton>
             )}
-            <Typography variant="h5" component="h2">
+            <Typography component="h2" variant="h5">
               {paymentPackCategory
                 ? `${paymentPackCategory.name || t('noCategory.name')} (${
                     paymentPackCategory.packs?.length || 0

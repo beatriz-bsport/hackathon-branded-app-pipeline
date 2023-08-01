@@ -165,36 +165,36 @@ export const CoachReplacement: React.FC<Props> = (props: Props) => {
       </div>
 
       <div className={classes.filtersContainer}>
-        <Typography variant="button" className={classes.filterTitle}>
+        <Typography className={classes.filterTitle} variant="button">
           {t('marketplace.filters')}
         </Typography>
         <div className={classes.filters}>
           <MetaActivitySelector
-            metaActivities={props.metaActivityList}
             isLoading={metaActivityLoading}
+            metaActivities={props.metaActivityList}
             selectedMetaActivities={filters.metaActivities}
             selectOption={handleFilterSelect('metaActivities')}
           />
         </div>
         <div className={classes.filters}>
           <EstablishmentsSelector
+            closeMenuOnSelect={false}
             establishments={props.establishmentList}
             isLoading={establishmentLoading}
+            noMulti={false}
             selectedEstablishments={filters.establishments}
             selectOption={handleFilterSelect('establishments')}
-            noMulti={false}
-            closeMenuOnSelect={false}
           />
         </div>
         {props.companyTheme.enable_multi_localization && (
           <div className={classes.filters}>
             <EstablishmentGroupSelector
+              closeMenuOnSelect={false}
               establishmentGroups={props.establishmentGroupList}
               isLoading={establishmentGroupLoading}
+              noMulti={false}
               selectedEstablishmentGroups={filters.establishmentGroups}
               selectOption={handleFilterSelect('establishmentGroups')}
-              noMulti={false}
-              closeMenuOnSelect={false}
             />
           </div>
         )}
@@ -206,13 +206,13 @@ export const CoachReplacement: React.FC<Props> = (props: Props) => {
             enableMultiLocalization={
               props.companyTheme.enable_multi_localization
             }
+            establishmentGroups={props.establishmentGroupList}
+            handleCoachAnswer={createOrUpdateAnswer}
+            isLoading={isLoading}
             replacementDisplay={
               ReplacementDisplays.REPLACEMENT_DISPLAY_MARKETPLACE
             }
             replacementRequestList={props.replacementRequestList}
-            establishmentGroups={props.establishmentGroupList}
-            handleCoachAnswer={createOrUpdateAnswer}
-            isLoading={isLoading}
             timezoneName={companyTheme.timezone_name}
           />
         </TableContainer>
@@ -220,11 +220,11 @@ export const CoachReplacement: React.FC<Props> = (props: Props) => {
           <Pagination
             className={classes.pagination}
             count={replacementRequestsTotalPages}
-            page={replacementRequestPage}
-            // fetch requested page on page change
             onChange={(ev, value) =>
               fetchCompatibleReplacementRequests(value, filters)
             }
+            // fetch requested page on page change
+            page={replacementRequestPage}
           />
         )}
       </Paper>

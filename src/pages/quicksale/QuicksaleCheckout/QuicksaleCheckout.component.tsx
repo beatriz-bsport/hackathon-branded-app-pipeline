@@ -154,90 +154,71 @@ const QuicksaleCheckout: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <QuicksaleAppBar
-        theme={theme}
-        staffFullName={quicksaleStaffFullName}
         onSignOut={onSignOut}
+        staffFullName={quicksaleStaffFullName}
+        theme={theme}
       />
 
       <Button
-        color="default"
-        variant="outlined"
-        startIcon={<ArrowBack />}
         className={classes.goBackButton}
+        color="default"
         onClick={goBack}
+        startIcon={<ArrowBack />}
+        variant="outlined"
       >
         <Typography variant="subtitle2">{t('itemList.goBack')}</Typography>
       </Button>
 
-      <Grid container spacing={4} className={classes.gridContainer}>
-        <Grid item xs={12} sm={4}>
+      <Grid container className={classes.gridContainer} spacing={4}>
+        <Grid item sm={4} xs={12}>
           <QuicksaleBasketSummary
             basket={basket}
-            member={member}
-            openMemberAuthenticationModal={openMemberAuthenticationModal}
             date={date}
-            setDate={setDate}
             invoiceFootNote={invoiceFootNote}
-            setInvoiceFootNote={setInvoiceFootNote}
+            member={member}
             onCouponRemove={removeCoupon}
+            openMemberAuthenticationModal={openMemberAuthenticationModal}
             removeInternalAccountPrepaidLine={removeInternalAccountPrepaidLine}
+            setDate={setDate}
+            setInvoiceFootNote={setInvoiceFootNote}
           />
         </Grid>
 
-        <Grid item xs={12} sm={8} className={classes.rightContainer}>
+        <Grid item className={classes.rightContainer} sm={8} xs={12}>
           <QuicksaleBasketPriceRecap
+            attachCoupon={attachCoupon}
             basketTotalPrice={basket?.total_price_cts / 100}
+            internalAccount={basket.total_price_prepaid_lines_cts / 100}
+            loading={loading || isProcessing}
             modifiedPrice={
               basket.instalment_payment
                 ? basket.total_price_cts / 100 -
                   basket.total_price_prepaid_lines_cts / 100
                 : paymentGroupPriceCts / 100
             }
-            setModifiedPrice={editPaymentGroupPrice}
             partialPayment={alreadyPaidAmount}
-            loading={loading || isProcessing}
-            attachCoupon={attachCoupon}
             preventPriceModification={
               member.is_pos || !!basket.instalment_payment
             }
-            internalAccount={basket.total_price_prepaid_lines_cts / 100}
+            setModifiedPrice={editPaymentGroupPrice}
           />
 
           {basketContainsShopItem && (
             <QuicksaleDeliveryForm
               basketAddress={basketAddress}
-              setBasketAddress={setBasketAddress}
               deliveryType={deliveryType}
+              setBasketAddress={setBasketAddress}
               setDeliveryType={setDeliveryType}
             />
           )}
 
           <QuicksalePaymentInfo
-            basket={basket}
             availablePaymentMethods={availablePaymentMethods}
-            selectedPaymentMethod={selectedPaymentMethod}
-            setSelectedPaymentMethod={setSelectedPaymentMethod}
-            loading={loading}
-            stripeReaders={stripeReaders}
-            clientSecret={clientSecret}
-            paymentGroupPriceCts={paymentGroupPriceCts}
-            paymentGroup={paymentGroup}
-            setIsProcessing={setIsProcessing}
-            onPaymentSuccess={onPaymentSuccess}
-            onCancel={goBack}
-            detachPaymentMethodLoading={detachPaymentMethodLoading}
-            removePaymentMethod={removePaymentMethod}
+            basket={basket}
             basketId={basket.id}
-            isMemberPOS={member.is_pos}
-            memberId={basket.member}
             checkItemsBasket={checkItemsBasket}
-            instalmentPaymentConfigurationList={
-              instalmentPaymentConfigurationList
-            }
-            onSelectInstalmentPayment={onSelectInstalmentPayment}
-            instalmentPaymentSelectedId={basket.instalment_payment}
-            setLoading={setLoading}
-            openMemberAuthenticationModale={openMemberAuthenticationModal}
+            clientSecret={clientSecret}
+            detachPaymentMethodLoading={detachPaymentMethodLoading}
             hasPaymentGroupPriceBeenModified={
               !basket.instalment_payment &&
               paymentGroupPriceCts !==
@@ -245,24 +226,43 @@ const QuicksaleCheckout: React.FC<Props> = ({
                   (alreadyPaidAmount ?? 0) -
                   basket.total_price_prepaid_lines_cts
             }
+            instalmentPaymentConfigurationList={
+              instalmentPaymentConfigurationList
+            }
+            instalmentPaymentSelectedId={basket.instalment_payment}
+            isMemberPOS={member.is_pos}
+            loading={loading}
+            memberId={basket.member}
+            onCancel={goBack}
+            onPaymentSuccess={onPaymentSuccess}
+            onSelectInstalmentPayment={onSelectInstalmentPayment}
+            openMemberAuthenticationModale={openMemberAuthenticationModal}
+            paymentGroup={paymentGroup}
+            paymentGroupPriceCts={paymentGroupPriceCts}
+            removePaymentMethod={removePaymentMethod}
             resetPaymentGroupPrice={resetPaymentGroupPrice}
+            selectedPaymentMethod={selectedPaymentMethod}
+            setIsProcessing={setIsProcessing}
+            setLoading={setLoading}
+            setSelectedPaymentMethod={setSelectedPaymentMethod}
+            stripeReaders={stripeReaders}
           >
             {member.credit_account_balance ? (
               <div className={classes.clientDebt}>
                 <Typography variant="h6">{t('checkout.clientDebt')}</Typography>
                 {member.is_pos ? (
-                  <Alert severity="info" className={classes.alert}>
+                  <Alert className={classes.alert} severity="info">
                     {t('checkout.noAnonymousClientDebt')}
                   </Alert>
                 ) : (
                   <UseInternalAccountForm
-                    onBasketSubmit={useInternalAccount}
+                    asManager
                     creditAccountBalance={
                       member.credit_account_balance -
                       basket.total_price_prepaid_lines_cts / 100
                     }
                     loading={loading || isProcessing}
-                    asManager
+                    onBasketSubmit={useInternalAccount}
                   />
                 )}
               </div>

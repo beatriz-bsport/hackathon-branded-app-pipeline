@@ -45,16 +45,16 @@ const TabsGenerator: React.FC<{
     const { t } = useTranslation('navigation');
     return (
       <Tabs
-        scrollButtons="auto"
-        variant="scrollable"
-        value={isTabIntoTabsDataValue ? tab : defaultTab}
-        onChange={handleChangeTab}
         className={customClasses?.tabs}
+        onChange={handleChangeTab}
+        scrollButtons="auto"
+        value={isTabIntoTabsDataValue ? tab : defaultTab}
+        variant="scrollable"
       >
         {tabsData?.map((tabValue) => (
           <Tab
-            className={customClasses?.tab}
             key={tabValue.value}
+            className={customClasses?.tab}
             label={`${t(tabValue.label, {
               // we want to use the singular (i.e. 'count: 1') only when tabValue.count is falsy (=== 0, undefined or null)
               count: (tabValue.count || 0) + 1,
@@ -116,7 +116,7 @@ const ContentWithAppBar: React.FC<Props> = memo(
     /** If tabsData is null or empty, there will be no appbar */
     if (isTabsDataNullOrEmpty) {
       return (
-        <div className={classes.container} ref={fieldRef}>
+        <div ref={fieldRef} className={classes.container}>
           <div className={classes.insideContent}>{children}</div>
         </div>
       );
@@ -126,22 +126,22 @@ const ContentWithAppBar: React.FC<Props> = memo(
     return (
       <div className={classNames(classes.container, customClasses?.container)}>
         <AppBar
-          position="static"
-          color="default"
           className={customClasses?.appBar}
+          color="default"
+          position="static"
         >
           <TabsGenerator
-            tabsData={tabsData}
-            isTabIntoTabsDataValue={isTabIntoTabsDataValue}
-            tab={tab}
+            customClasses={customClasses}
             defaultTab={defaultTab}
             handleChangeTab={handleChangeTab}
-            customClasses={customClasses}
+            isTabIntoTabsDataValue={isTabIntoTabsDataValue}
+            tab={tab}
+            tabsData={tabsData}
           />
         </AppBar>
         <div
-          className={classNames(classes.content, customClasses?.content)}
           ref={fieldRef}
+          className={classNames(classes.content, customClasses?.content)}
         >
           <div
             className={classNames(

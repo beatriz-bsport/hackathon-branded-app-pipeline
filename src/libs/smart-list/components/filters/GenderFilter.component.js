@@ -33,8 +33,8 @@ export class GenderFilter extends Component<Props, state> {
         {t(`filters.${filter_data.filter_identifier}.first`)}
         <Select
           className={classes.input}
-          value={filter_data.value}
           onChange={(ev) => onChange({ value: ev.target.value })}
+          value={filter_data.value}
         >
           <MenuItem key="M" value="M">
             {t(`filters.${filter_data.filter_identifier}.men`)}

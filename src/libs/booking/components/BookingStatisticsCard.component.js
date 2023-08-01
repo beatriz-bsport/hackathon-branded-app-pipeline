@@ -97,7 +97,7 @@ export function BookingStatisticsCard(props: Props) {
 
   return (
     <div>
-      <Typography variant="h5" className={classes.title}>
+      <Typography className={classes.title} variant="h5">
         {props.offerId
           ? t('bookingStatistics.offerFilteredBookingRecap', {
               date: props.title,
@@ -125,7 +125,7 @@ export function BookingStatisticsCard(props: Props) {
             </Typography>
           </div>
           <div className={classNames(classes.rightBorder, classes.stat)}>
-            <Typography color="error" align="center">
+            <Typography align="center" color="error">
               {t('bookingStatistics.cancelledBookings', {
                 nb: cancelledBookingsCount,
                 count: cancelledBookingsCount,
@@ -136,31 +136,31 @@ export function BookingStatisticsCard(props: Props) {
         {props.offerId ? (
           <div className={classes.chart}>
             <TwoStackedAreasChart
+              colorA={theme.palette.primary.main}
+              colorB="#E05123"
               data={data}
-              height={300}
-              width={600}
               domain={[start, end]}
+              height={300}
               refreshKey={`${start}:${end}`}
+              width={600}
               xKey="d"
               yKeyA={t('bookingStatistics.keys.created')}
               yKeyB={t('bookingStatistics.keys.cancelled')}
-              colorA={theme.palette.primary.main}
-              colorB="#E05123"
             />
           </div>
         ) : (
           <div className={classes.chart}>
             <StackedBarChart
+              colorA={theme.palette.primary.main}
+              colorB="#E05123"
               data={data}
-              height={300}
-              width={600}
               domain={[start, end]}
+              height={300}
               refreshKey={`${start}:${end}`}
+              width={600}
               xKey="d"
               yKeyA={t('bookingStatistics.keys.created')}
               yKeyB={t('bookingStatistics.keys.cancelled')}
-              colorA={theme.palette.primary.main}
-              colorB="#E05123"
             />
           </div>
         )}

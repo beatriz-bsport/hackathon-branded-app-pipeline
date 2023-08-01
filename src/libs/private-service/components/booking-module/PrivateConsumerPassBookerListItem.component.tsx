@@ -111,7 +111,7 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
         }`}
       </Typography>
       {private_consumer_pass.member && private_consumer_pass.member.archived && (
-        <Typography variant="caption" color="secondary">
+        <Typography color="secondary" variant="caption">
           {`${'\u00A0'}(${t('member:archived')})`}
         </Typography>
       )}
@@ -148,7 +148,7 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
               />
             )}
 
-            <IconButton onClick={props.goToPrivatePass} color="secondary">
+            <IconButton color="secondary" onClick={props.goToPrivatePass}>
               <ArrowForwardIcon />
             </IconButton>
           </div>
@@ -160,9 +160,9 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
             ) : (
               <div className={classes.tooltipContainer}>
                 <ConsumerPrivatePassIncompatibilitiesReasons
-                  reasons={incompatibilitiesReasons ?? []}
                   closeMobileIncompatibilities={closeMobileIncompatibilities}
                   extraStartingDate={private_consumer_pass.date_bought}
+                  reasons={incompatibilitiesReasons ?? []}
                 />
               </div>
             ))}
@@ -173,7 +173,6 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
       return (
         <Button
           color="primary"
-          variant="outlined"
           onClick={() => {
             setProcessing(true);
             props.onBook({
@@ -181,6 +180,7 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
               onError: () => setProcessing(false),
             });
           }}
+          variant="outlined"
         >
           {t('bookerModule.useCredit')}
         </Button>
@@ -251,12 +251,8 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
   return (
     <>
       <ListItem
-        divider={!!props.divider}
-        selected={!!props.selected}
         dense
-        disabled={!!props.disabled}
         button={!!props.onClick}
-        onClick={props.onClick}
         className={
           private_consumer_pass.reverted ||
           private_consumer_pass.disabled ||
@@ -264,6 +260,10 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
             ? classes.disabled
             : null
         }
+        disabled={!!props.disabled}
+        divider={!!props.divider}
+        onClick={props.onClick}
+        selected={!!props.selected}
       >
         {showMember && private_consumer_pass && private_consumer_pass.member && (
           <ListItemAvatar>
@@ -302,9 +302,9 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
       {isFromShare || isOwnerOfShares ? (
         <React.Fragment>
           <Typography
+            color="textSecondary"
             style={{ paddingLeft: 16 }}
             variant="caption"
-            color="textSecondary"
           >
             {' '}
             {isOwnerOfShares ? t('consumerPass.isOwnerOfShares') : ''}
@@ -321,9 +321,9 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
       {showUniversalWarning && isUniversal ? (
         <React.Fragment>
           <Typography
+            color="error"
             style={{ paddingLeft: 16 }}
             variant="caption"
-            color="error"
           >
             {t('consumerPass.warningShareUniversal')}
           </Typography>

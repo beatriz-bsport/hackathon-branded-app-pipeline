@@ -82,10 +82,10 @@ export class EstablishmentSelectorWithCard extends Component<Props, State> {
         {this.props.value ? (
           <div>
             <EstablishmentListItem
-              establishment={this.props.value}
-              noDivider
               button
               clearIcon
+              noDivider
+              establishment={this.props.value}
               onClickDelete={() => {
                 this.props.onChange(null);
                 this.setState({
@@ -98,6 +98,8 @@ export class EstablishmentSelectorWithCard extends Component<Props, State> {
         ) : (
           <div>
             <Button
+              className={this.props.classes.button}
+              id={this.props.id}
               onClick={() => {
                 if (this.state.searchText === '') {
                   this.setState((prevstate: State) => ({
@@ -106,19 +108,17 @@ export class EstablishmentSelectorWithCard extends Component<Props, State> {
                   }));
                 }
               }}
-              id={this.props.id}
-              className={this.props.classes.button}
             >
               <FuzeSearch
-                variant="outlined"
-                searchText={this.state.searchText}
-                clearSearch={this.clearSearch}
                 changeSearch={this.changeSearch}
-                searchFields={['title', 'location.adress']}
+                clearSearch={this.clearSearch}
+                disableAutoFocus={this.props.disableAutoFocus}
                 items={this.props.establishments}
                 placeholder={this.props.placeholder}
+                searchFields={['title', 'location.adress']}
                 searchResult={this.state.searchResult}
-                disableAutoFocus={this.props.disableAutoFocus}
+                searchText={this.state.searchText}
+                variant="outlined"
               />
             </Button>
             {this.state.displayList && this.state.searchResult ? (
@@ -130,25 +130,25 @@ export class EstablishmentSelectorWithCard extends Component<Props, State> {
                     this.state.searchResult,
                   ).map((group, index) => (
                     <List
+                      key={index}
                       component="nav"
                       subheader={
                         <ListSubheader
-                          component="div"
                           className={this.props.classes.listSubHeader}
+                          component="div"
                         >
                           <LocationOnIcon color="primary" />
                           {group.address}
                         </ListSubheader>
                       }
-                      key={index}
                     >
                       {group.establishmentList.map(
                         (establishment: Establishment) => (
                           <EstablishmentListItem
                             key={`${index}${establishment.id}`}
-                            establishment={establishment}
-                            noDivider
                             button
+                            noDivider
+                            establishment={establishment}
                             onClick={() => this.props.onChange(establishment)}
                           />
                         ),

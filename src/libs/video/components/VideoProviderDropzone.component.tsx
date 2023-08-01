@@ -65,8 +65,8 @@ class VideoProviderDropzone extends React.PureComponent<Props> {
       <div className={classes.container}>
         <div className={classes.dropZoneContainer}>
           <Dropzone
-            multiple={false}
             accept="video/*"
+            multiple={false}
             onDropAccepted={this.onDropAccepted}
           >
             {({
@@ -88,7 +88,7 @@ class VideoProviderDropzone extends React.PureComponent<Props> {
                   <input {...getInputProps()} />
                   <p>{this.props.t('video.upload.content')}</p>
 
-                  <Typography variant="caption" color="textSecondary">
+                  <Typography color="textSecondary" variant="caption">
                     mp4, mov, avi, mkv, etc...
                   </Typography>
                 </div>
@@ -98,8 +98,8 @@ class VideoProviderDropzone extends React.PureComponent<Props> {
         </div>
         {this.state.file && (
           <Typography
-            variant="subtitle2"
             className={this.props.classes.fileName}
+            variant="subtitle2"
           >
             {this.state.file.name}
           </Typography>

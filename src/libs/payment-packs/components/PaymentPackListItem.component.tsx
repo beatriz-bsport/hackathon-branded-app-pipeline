@@ -102,13 +102,13 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
 
     return (
       <ListItem
+        button={!!this.props.onClick}
         className={classNames(this.props.classes.container, {
           [this.props.classes.containerFlexOnMobile]:
             this.props.isFlexContainerOnMobile,
         })}
-        button={!!this.props.onClick}
-        onClick={this.props.onClick}
         divider={this.props.divider}
+        onClick={this.props.onClick}
         selected={this.props.selected}
       >
         {this.props.draggable ? (
@@ -122,7 +122,7 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
               <Typography component="span">{this.props.pack.name}</Typography>
               {this.props.hidePacksNumber ||
               this.props.pack.nb_consumer_payment_packs === undefined ? null : (
-                <Typography variant="caption" component="span" color="primary">
+                <Typography color="primary" component="span" variant="caption">
                   {` (${this.props.pack.nb_consumer_payment_packs})`}
                 </Typography>
               )}
@@ -179,13 +179,13 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               {this.props.pack.hasActiveNotification && (
                 <Tooltip
+                  aria-label="info"
                   classes={this.props.classes}
                   title={
                     <Typography variant="subtitle2">
                       {this.props.t('notificationToolTip')}
                     </Typography>
                   }
-                  aria-label="info"
                 >
                   <IconButton>
                     <NotificationsIcon />
@@ -252,9 +252,9 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
             <ListItemSecondaryAction>
               <Button
                 className={this.props.classes.bookButton}
-                variant="contained"
                 color="primary"
                 onClick={this.props.onBook}
+                variant="contained"
               >
                 <AddShoppingCartIcon />
               </Button>
@@ -264,9 +264,9 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
           {!this.props.disabled && this.props.onBookOne ? (
             <Button
               className={this.props.classes.bookButton}
-              variant="outlined"
               color="primary"
               onClick={this.props.onBookOne}
+              variant="outlined"
             >
               <EventIcon />
             </Button>
@@ -275,9 +275,9 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
             <Tooltip title={this.props.t('multipleBookingTooltip')}>
               <Button
                 className={this.props.classes.bookButton}
-                variant="outlined"
                 color="secondary"
                 onClick={this.props.onBookMultiple}
+                variant="outlined"
               >
                 <DateRangeIcon />
               </Button>

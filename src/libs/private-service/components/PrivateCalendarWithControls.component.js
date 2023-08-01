@@ -127,11 +127,11 @@ export const PrivateCalendarWithControls = (props: Props) => {
           {!props.hideResourceSelector && !!props.resourceAvailable && (
             <ResourceSelector
               collapse={props.collapsResourceSelector}
-              resourceAvailable={props.resourceAvailable}
-              resourceSelectedListIds={props.resourceSelectedListIds}
-              resourceDataLoading={props.resourceDataLoading}
-              onEditResourceConfiguration={props.onEditResourceConfiguration}
               onChangeResourcesSelected={props.onChangeResourcesSelected}
+              onEditResourceConfiguration={props.onEditResourceConfiguration}
+              resourceAvailable={props.resourceAvailable}
+              resourceDataLoading={props.resourceDataLoading}
+              resourceSelectedListIds={props.resourceSelectedListIds}
               setResourceFiltered={props.setResourceFiltered}
               updateRessourcesFilters={props.updateRessourcesFilters}
             />
@@ -141,15 +141,15 @@ export const PrivateCalendarWithControls = (props: Props) => {
         <div className={props.classes.rowBetween}>
           <div className={props.classes.collapseHeader}>
             <IconButton
-              size="small"
               onClick={(e) => {
                 e.stopPropagation();
                 props.toogleExand();
               }}
+              size="small"
             >
               {props.expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </IconButton>
-            <ButtonBase onClick={props.toogleExand} disabledRipple>
+            <ButtonBase disabledRipple onClick={props.toogleExand}>
               <Typography>{props.t('calendar.toogle.title')}</Typography>
             </ButtonBase>
             <div
@@ -172,56 +172,56 @@ export const PrivateCalendarWithControls = (props: Props) => {
           </div>
           <Collapse in={props.expanded}>
             <div className={props.classes.expandedInnerContainer}>
-              <Grid container justify="flex-start" direction="row">
+              <Grid container direction="row" justify="flex-start">
                 {!!props.showOfferListToogle && (
-                  <Grid item xs={12} sm={3} md={2}>
+                  <Grid item md={2} sm={3} xs={12}>
                     <FormControlLabel
-                      label={props.t('calendar.toogle.showOfferList')}
                       control={
                         <Checkbox
                           checked={props.scheduleFilter.showOfferList}
                           onChange={onChangeFilter('showOfferList')}
                         />
                       }
+                      label={props.t('calendar.toogle.showOfferList')}
                     />
                   </Grid>
                 )}
                 {!!props.showPrivateBookingToogle && (
-                  <Grid item xs={12} sm={3} md={2}>
+                  <Grid item md={2} sm={3} xs={12}>
                     <FormControlLabel
-                      label={props.t('calendar.toogle.showPrivateBookings')}
                       control={
                         <Checkbox
                           checked={props.scheduleFilter.showPrivateBookings}
                           onChange={onChangeFilter('showPrivateBookings')}
                         />
                       }
+                      label={props.t('calendar.toogle.showPrivateBookings')}
                     />
                   </Grid>
                 )}
                 {!!props.showCustomEventsToogle && (
-                  <Grid item xs={12} sm={3} md={2}>
+                  <Grid item md={2} sm={3} xs={12}>
                     <FormControlLabel
-                      label={props.t('calendar.toogle.showCustomEvents')}
                       control={
                         <Checkbox
                           checked={props.scheduleFilter.showCustomEvents}
                           onChange={onChangeFilter('showCustomEvents')}
                         />
                       }
+                      label={props.t('calendar.toogle.showCustomEvents')}
                     />
                   </Grid>
                 )}
                 {!!props.showHideCancelledEventsToggle && (
-                  <Grid item xs={12} sm={3} md={2}>
+                  <Grid item md={2} sm={3} xs={12}>
                     <FormControlLabel
-                      label={props.t('calendar.toogle.hideCancelledEvents')}
                       control={
                         <Checkbox
                           checked={!props.scheduleFilter.hideCancelledEvents}
                           onChange={onChangeFilter('hideCancelledEvents')}
                         />
                       }
+                      label={props.t('calendar.toogle.hideCancelledEvents')}
                     />
                   </Grid>
                 )}
@@ -237,10 +237,10 @@ export const PrivateCalendarWithControls = (props: Props) => {
       )}
       {!!props.goToCalendar && (
         <Button
-          variant="contained"
           color="primary"
-          style={{ width: '100%', margin: 8 }}
           onClick={props.goToCalendar}
+          style={{ width: '100%', margin: 8 }}
+          variant="contained"
         >
           {props.t('openCalendar')}
           <ArrowForwardIcon style={{ marginLeft: 8 }} />
@@ -248,77 +248,77 @@ export const PrivateCalendarWithControls = (props: Props) => {
       )}
       <div className={props.classes.content}>
         <PrivateCalendar
-          disableResourceAvailabilitySlot={
-            props.disableResourceAvailabilitySlot
-          }
-          timezone={props.timezone}
+          availabilitySlots={props.availabilitySlots}
+          availabilitySlotUpdating={props.availabilitySlotUpdating}
           createCustomEvent={props.createCustomEvent}
-          resources={
-            props.scheduleFilter.resourceFilter?.resourceItemsFilter || []
-          }
-          resourceDatatypeView={
-            props.scheduleFilter.resourceFilter?.resourceDatatypeFilter || null
-          }
           customEventList={
             props.scheduleFilter?.showCustomEvents
               ? props.customEventList || []
               : []
           }
-          enableResourceAvailabilitySlot={props.enableResourceAvailabilitySlot}
-          availabilitySlots={props.availabilitySlots}
-          privateBookings={
-            props.scheduleFilter?.showPrivateBookings
-              ? props.privateBookings || []
-              : []
+          disableResourceAvailabilitySlot={
+            props.disableResourceAvailabilitySlot
           }
+          enableResourceAvailabilitySlot={props.enableResourceAvailabilitySlot}
+          establishments={props.establishments || []}
+          getHasPendingReplacementRequest={
+            props.getHasPendingReplacementRequest
+          }
+          goToMember={props.goToMember}
           hideCancelledEvents={props.scheduleFilter?.hideCancelledEvents}
           offerList={
             props.scheduleFilter?.showOfferList ? props.offerList || [] : []
           }
-          availabilitySlotUpdating={props.availabilitySlotUpdating}
-          goToMember={props.goToMember}
+          onBookRequest={props.isCoach ? null : props.onRequestPrivateBooking}
           onDateChange={(data) => {
             props.onDateChange(data);
             props.setPrivateCalendarDateStart(data);
           }}
           onEventClick={props.handleEventClick}
-          onBookRequest={props.isCoach ? null : props.onRequestPrivateBooking}
+          privateBookings={
+            props.scheduleFilter?.showPrivateBookings
+              ? props.privateBookings || []
+              : []
+          }
+          resourceAvailable={props.resourceAvailable}
+          resourceDatatypeView={
+            props.scheduleFilter.resourceFilter?.resourceDatatypeFilter || null
+          }
+          resources={
+            props.scheduleFilter.resourceFilter?.resourceItemsFilter || []
+          }
+          scheduleFilter={props.scheduleFilter}
           scheduleTimerangeBegin={props.companyTheme.schedule_timerange_begin}
           scheduleTimerangeEnd={props.companyTheme.schedule_timerange_end}
-          scheduleFilter={props.scheduleFilter}
           setScheduleFilter={props.setScheduleFilter}
-          establishments={props.establishments || []}
-          resourceAvailable={props.resourceAvailable}
-          getHasPendingReplacementRequest={
-            props.getHasPendingReplacementRequest
-          }
+          timezone={props.timezone}
         />
         <CalendarEventDetail
-          popoverAnchor={props.popoverAnchor}
+          customEventId={props.customEventId}
           fetchAvailabilitySlots={props.fetchAvailabilitySlots}
-          privateBookingId={props.privateBookingId}
+          isCoach={props.isCoach}
           offerId={props.offerId}
           onClose={props.closePopover}
+          popoverAnchor={props.popoverAnchor}
+          privateBookingId={props.privateBookingId}
           refreshOffers={props.refreshOffers}
-          customEventId={props.customEventId}
           refreshPrivateBookings={props.refreshPrivateBookings}
-          isCoach={props.isCoach}
         />
         <PrivateBookingBooker
-          open={props.privateBookerOpen}
-          requestedSlot={props.privateBookingRequestedSlot}
+          coachesSelectedInRole={props.coachesSelectedInRole || []}
           onClose={() => {
             props.closePrivateBooker();
             if (props.refreshPrivateBookings) props.refreshPrivateBookings();
           }}
-          coachesSelectedInRole={props.coachesSelectedInRole || []}
+          open={props.privateBookerOpen}
+          requestedSlot={props.privateBookingRequestedSlot}
         />
         {props.createCustomEvent && (
           <FabPrivateCalendar
-            timezone={props.timezone}
-            startDate={props.privateCalendarDateStart}
-            onSubmitPrivateServiceWithDate={props.onRequestPrivateBooking}
             createCustomEvent={props.createCustomEvent}
+            onSubmitPrivateServiceWithDate={props.onRequestPrivateBooking}
+            startDate={props.privateCalendarDateStart}
+            timezone={props.timezone}
           />
         )}
       </div>

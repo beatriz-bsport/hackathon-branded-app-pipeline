@@ -25,18 +25,18 @@ export const EntryStepNodeElementFlowVersion: React.FC<Props> = ({ data }) => {
   return (
     <>
       <EntryStepNodeElement
-        step={data.step}
         cadence={data.cadence}
-        onCardClick={data.onCardClick}
         handleSelectStepForSubscription={data.handleSelectStepForSubscription}
+        onCardClick={data.onCardClick}
+        step={data.step}
       />
       <Handle
-        type="source"
+        isConnectable
+        isValidConnection={isValidConnection}
+        onConnect={(params) => data.onConnectToStep(parseInt(params.target))}
         position={Position.Bottom}
         style={HANDLE_BUTTON_STYLE}
-        onConnect={(params) => data.onConnectToStep(parseInt(params.target))}
-        isValidConnection={isValidConnection}
-        isConnectable
+        type="source"
       />
     </>
   );

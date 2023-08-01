@@ -40,21 +40,21 @@ export const ReplacementRouter: React.FC<Props> = (props) => {
 
   return (
     <ContentWithAppBar
-      tab={tab}
       onChange={onChange}
       pageHeight={pageHeight}
+      tab={tab}
       tabsData={tabsData}
     >
       <Switch>
         <Route
           exact
-          path="/replacement/discipline-group"
           component={ReplacementDisciplineGroup}
+          path="/replacement/discipline-group"
         />
         <Route
           exact
-          path="/replacement/management"
           component={ReplacementManagement}
+          path="/replacement/management"
         />
         <Redirect to="/replacement/management" />
       </Switch>

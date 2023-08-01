@@ -45,10 +45,10 @@ const ListItem: React.FC<ListItemProps> = ({ item, onItemClick }) => {
   return (
     <div
       className={classes.listItemContainer}
+      onClick={onClick}
+      onKeyDown={stopPropagation}
       role="button"
       tabIndex={0}
-      onKeyDown={stopPropagation}
-      onClick={onClick}
     >
       <div className={classes.listItemInfo}>
         <Typography variant="body2">{item.title}</Typography>
@@ -56,13 +56,13 @@ const ListItem: React.FC<ListItemProps> = ({ item, onItemClick }) => {
       </div>
 
       <IconButton
-        onClick={onIconButtonClick}
         className={classes.listItemIconButton}
+        onClick={onIconButtonClick}
       >
         <CustomMuiIcon
+          customClassName={classes.listItemIcon}
           icon="AddShoppingCart"
           variant="primary"
-          customClassName={classes.listItemIcon}
         />
       </IconButton>
     </div>
@@ -101,24 +101,24 @@ const QuicksaleInterfaceSearchBar: React.FC<Props> = ({
   return (
     <div ref={searchBarRef} className={classes.searchBarContainer}>
       <FuzeSearch
-        variant="outlined"
-        searchText={searchText}
-        clearSearch={clearSearch}
-        changeSearch={onSearchTextChange}
-        items={searchItems}
-        placeholder={t('interface.searchAProduct')}
-        searchFields={['title']}
-        adornmentPosition="end"
-        onClickSearch={onSearchIconClick}
-        inputClassName={classes.textBar}
         disableAutoFocus
         searchOnItemsChange
+        adornmentPosition="end"
+        changeSearch={onSearchTextChange}
+        clearSearch={clearSearch}
+        inputClassName={classes.textBar}
+        items={searchItems}
+        onClickSearch={onSearchIconClick}
+        placeholder={t('interface.searchAProduct')}
+        searchFields={['title']}
+        searchText={searchText}
+        variant="outlined"
       />
 
       <Popper
+        anchorEl={searchBarRef.current}
         className={classes.popper}
         open={openPopper}
-        anchorEl={searchBarRef.current}
         placement="bottom-start"
         style={{
           width: searchBarRef.current ? searchBarRef.current.clientWidth : 0,

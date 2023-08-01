@@ -50,34 +50,34 @@ const NotificationForm = (props: Omit<Props, 'initial' | 'onSubmit'>) => {
         <Form>
           <div className={classes.fieldContainer}>
             <Typography
-              variant="subtitle2"
               className={classNames([classes.spacingTop], {
                 [classes.errorText]:
                   errors.notificationTitle || errors.notificationContent,
               })}
+              variant="subtitle2"
             >
               {t('paymentPack:notification.form.pushTitle')}
             </Typography>
             <TextField
+              fullWidth
+              className={classes.notificationInput}
+              inputProps={{ maxLength: MAX_LENGTH_PUSH_TITLE }}
               label={t('communication:mail.titleNotification')}
               name="notificationTitle"
-              fullWidth
-              inputProps={{ maxLength: MAX_LENGTH_PUSH_TITLE }}
-              className={classes.notificationInput}
             />
             <Typography variant="caption">
               {`${notificationTitle?.length ?? 0}/${MAX_LENGTH_PUSH_TITLE}`}
             </Typography>
             <NotificationContentInput
+              className={classes.notificationInput}
               label={t('communication:mail.contentNotification')}
               name="notificationContent"
-              className={classes.notificationInput}
-              value={notificationContent}
               tags={tags}
+              value={notificationContent}
             />
           </div>
           <Actions>
-            <Button onClick={onCancel} disabled={isSubmitting}>
+            <Button disabled={isSubmitting} onClick={onCancel}>
               {t('booking:notification.form.cancel')}
             </Button>
             <Submit

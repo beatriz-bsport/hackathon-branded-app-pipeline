@@ -72,24 +72,16 @@ export class PaymentPackDateCreditFilter extends Component<Props, state> {
       <div className={classes.wrapper}>
         {t(`filters.${filter_data.filter_identifier}.first`)}
         <Selector
-          helperText={t('multiSelector.paymentPacks.helperText')}
-          helperSelectedText={t(
-            'multiSelector.paymentPacks.helperSelectedText',
-          )}
-          textFieldPlaceholder={t(
-            'multiSelector.paymentPacks.textFieldPlaceholder',
-          )}
-          renderItem={(item) => {
-            return <PaymentPackListItem pack={item} />;
-          }}
+          fetchItems={this.props.fetchItems.payment_packs}
           helperAllSelectedText={t(
             'multiSelector.paymentPacks.helperAllSelectedText',
           )}
-          fetchItems={this.props.fetchItems.payment_packs}
-          nameIdentifier="name"
-          selectAll={this.props.filter_data.select_all_payment_pack}
+          helperSelectedText={t(
+            'multiSelector.paymentPacks.helperSelectedText',
+          )}
+          helperText={t('multiSelector.paymentPacks.helperText')}
           items={payment_pack}
-          selectedItems={filter_data.payment_pack}
+          nameIdentifier="name"
           onChange={(items, selectAll) => {
             if (
               filter_data.payment_pack &&
@@ -112,45 +104,53 @@ export class PaymentPackDateCreditFilter extends Component<Props, state> {
               });
             }
           }}
+          renderItem={(item) => {
+            return <PaymentPackListItem pack={item} />;
+          }}
+          selectAll={this.props.filter_data.select_all_payment_pack}
+          selectedItems={filter_data.payment_pack}
+          textFieldPlaceholder={t(
+            'multiSelector.paymentPacks.textFieldPlaceholder',
+          )}
         />
         {t(`filters.${filter_data.filter_identifier}.second`)}
         <MuiPickersUtilsProvider
-          utils={MomentUtils}
-          moment={Moment}
           locale={Moment.locale()}
+          moment={Moment}
+          utils={MomentUtils}
         >
           <div className={classes.datePicker}>
             <InlineDatePicker
-              className={classes.input}
               keyboard
               ampm={false}
-              value={filter_data.date_start}
+              className={classes.input}
+              format="YYYY/MM/DD"
               onChange={(ev) =>
                 onChange({ date_start: ev.format('YYYY-MM-DD') })
               }
               onError={console.error}
-              format="YYYY/MM/DD"
+              value={filter_data.date_start}
             />
           </div>
           {t(`filters.${filter_data.filter_identifier}.third`)}
           <div className={classes.datePicker}>
             <InlineDatePicker
-              className={classes.input}
               keyboard
               ampm={false}
-              value={filter_data.date_end}
+              className={classes.input}
+              format="YYYY/MM/DD"
               onChange={(ev) => onChange({ date_end: ev.format('YYYY-MM-DD') })}
               onError={console.error}
-              format="YYYY/MM/DD"
+              value={filter_data.date_end}
             />
           </div>
         </MuiPickersUtilsProvider>
         {t(`filters.${filter_data.filter_identifier}.fourth`)}
         <Select
-          className={classes.input}
           required
-          value={filter_data.comparator}
+          className={classes.input}
           onChange={(ev) => onChange({ comparator: ev.target.value })}
+          value={filter_data.comparator}
         >
           {COMPARATORS_DICT.map((item) => (
             <MenuItem key={item.key} value={item.value}>
@@ -160,14 +160,15 @@ export class PaymentPackDateCreditFilter extends Component<Props, state> {
         </Select>
         <DelayedNumericInput
           classes={classes}
-          value={filter_data.value}
           onChange={(ev) =>
             onChange({ value: ev.target.value === '' ? null : ev.target.value })
           }
+          value={filter_data.value}
         />
         {this.props.t(`filters.${filter_data.filter_identifier}.fifth`)}
 
         <Tooltip
+          aria-label="info"
           classes={classes}
           title={
             <Typography variant="subtitle2">
@@ -176,7 +177,6 @@ export class PaymentPackDateCreditFilter extends Component<Props, state> {
               )}
             </Typography>
           }
-          aria-label="info"
         >
           <IconButton>
             <InfoIcon />

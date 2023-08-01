@@ -45,30 +45,30 @@ export class WorkshopActivityDetail extends React.Component<Props> {
 
     return (
       <ContentWithAppBar
-        tab={tab}
         onChange={this.onChange}
         pageHeight={pageHeight}
+        tab={tab}
         tabsData={tabsData}
       >
         <Switch>
           <Route
             exact
+            component={WorkshopActivityDetailPack}
             path="/workshop-activity/:id/pack/:packId"
-            component={WorkshopActivityDetailPack}
           />
           <Route
             exact
+            component={WorkshopActivityDetailPack}
             path="/workshop-activity/:id/pack"
-            component={WorkshopActivityDetailPack}
           />
           <Route
             exact
-            path="/workshop-activity/:id/general"
             component={WorkshopActivityDetailGeneral}
+            path="/workshop-activity/:id/general"
           />
           <Route
-            path="/workshop-activity/:id/group/:selectedOfferId?"
             component={WorkshopActivityDetailGroup}
+            path="/workshop-activity/:id/group/:selectedOfferId?"
           />
         </Switch>
       </ContentWithAppBar>

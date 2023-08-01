@@ -10,14 +10,14 @@ import VodVideoDetailPage from './VodVideoDetail.page';
 export const VodRouter = () => {
   return (
     <Switch>
-      <Route path="/vod/video/:videoId" component={VodVideoDetailPage} />
-      <Route path="/vod/video" component={VodVideoListPage} />
+      <Route component={VodVideoDetailPage} path="/vod/video/:videoId" />
+      <Route component={VodVideoListPage} path="/vod/video" />
       <Route
-        path="/vod/playlist/:id/video/:videoId"
         component={VodPlaylistDetailPage}
+        path="/vod/playlist/:id/video/:videoId"
       />
-      <Route path="/vod/playlist/:id" component={VodPlaylistDetailPage} />
-      <Route path="/vod/playlist" component={VodPlaylistListPage} />
+      <Route component={VodPlaylistDetailPage} path="/vod/playlist/:id" />
+      <Route component={VodPlaylistListPage} path="/vod/playlist" />
     </Switch>
   );
 };

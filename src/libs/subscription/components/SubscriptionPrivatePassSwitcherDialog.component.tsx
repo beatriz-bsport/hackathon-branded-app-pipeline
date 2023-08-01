@@ -42,9 +42,9 @@ export const SubscriptionPrivatePassSwitcherDialog = (props: Props) => {
         </DialogTitle>
         <DialogContent>
           <PrivatePassSelectorField
+            fullWidth
             choices={props.privatePassList}
             name="private_pass"
-            fullWidth
           />
           <Typography className={classes.explainText}>
             {t('subscription.switchPrivatePass.form.explain')}

@@ -83,14 +83,14 @@ export const PaymentStripeTerminalWrapper = (props: Props) => {
       {error ? (
         <div>
           <div className={classes.centered}>
-            <ErrorIcon style={{ height: 100, width: 100 }} color="secondary" />
+            <ErrorIcon color="secondary" style={{ height: 100, width: 100 }} />
             <Typography className={classes.message}>
               {t('forms.paymentMethod.message.error')}
             </Typography>
             {stripeErrorCode || stripeDeclineCode ? (
               <StripeErrorCode
-                errorCode={stripeErrorCode}
                 declineCode={stripeDeclineCode}
+                errorCode={stripeErrorCode}
               />
             ) : null}
           </div>
@@ -105,11 +105,11 @@ export const PaymentStripeTerminalWrapper = (props: Props) => {
       ) : (
         <PaymentStripeTerminal
           clientSecret={clientSecret}
+          isSetupIntent={props.isSetupIntent}
           onCancel={props.onCancel}
           onSuccess={props.onSuccess}
-          stripeReaders={props.stripeReaders}
-          isSetupIntent={props.isSetupIntent}
           setProcessing={props.setProcessing}
+          stripeReaders={props.stripeReaders}
         />
       )}
     </>

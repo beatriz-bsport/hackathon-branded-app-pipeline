@@ -71,8 +71,8 @@ const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
         {!filterGroup.display_has_single && (
           <div className={classes.groupOperand}>
             <OperandSelect
-              name={`${prefix}.inner_operand`}
               isPreview={isPreview}
+              name={`${prefix}.inner_operand`}
             />
           </div>
         )}
@@ -81,18 +81,18 @@ const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
             <DatatypeFilterConfigRow
               key={filterItem.uuid}
               consumableColumns={consumableColumns}
-              reportColumns={reportColumns}
-              groupOperand={filterGroup.inner_operand}
-              prefix={`${prefix}.filters_data[${indexFilter}]`}
+              dashboardTranslationNamespace={dashboardTranslationNamespace}
+              displayAsFirstOrderRow={filterGroup.display_has_single}
               filterItem={filterItem}
-              setFieldValue={setFieldValue}
+              getDataByType={getDataByType}
+              groupOperand={filterGroup.inner_operand}
+              hideDelete={!noHideDelete && !checkOtherRowExist(filterItem.uuid)}
               hidePrefix={indexFilter === 0}
               isPreview={isPreview}
-              displayAsFirstOrderRow={filterGroup.display_has_single}
-              hideDelete={!noHideDelete && !checkOtherRowExist(filterItem.uuid)}
               onDelete={onDelete(filterItem.uuid)}
-              getDataByType={getDataByType}
-              dashboardTranslationNamespace={dashboardTranslationNamespace}
+              prefix={`${prefix}.filters_data[${indexFilter}]`}
+              reportColumns={reportColumns}
+              setFieldValue={setFieldValue}
             />
           ))}
         </div>
@@ -100,8 +100,8 @@ const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
           consumableColumns?.length > 0 &&
           !isPreview && (
             <ButtonBase
-              color="primary"
               className={classes.buttonAdd}
+              color="primary"
               onClick={addFilter}
             >
               <AddIcon color="primary" />

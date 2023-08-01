@@ -385,68 +385,68 @@ export class CalendarEventDetail extends React.Component<Props, State> {
     if (privateBooking) {
       return this.props.isUpdateCoachFormOpen ? (
         <PrivateBookingUpdateCoachDialog
-          privateBooking={privateBooking}
           coaches={filteredCoaches}
+          privateBooking={privateBooking}
+          setIsUpdateCoachFormOpen={this.props.setIsUpdateCoachFormOpen}
           updatePrivateBookingCoach={
             this.props.updatePrivateBookingCoachHandler
           }
-          setIsUpdateCoachFormOpen={this.props.setIsUpdateCoachFormOpen}
         />
       ) : (
         <PrivateBookingCard
-          onClose={this.props.onClose}
-          isCoach={this.props.isCoach}
-          updateMemberMetricValue={
-            this.props.isCoach ? null : this.props.updateMemberMetricValue
+          applyGiftcardOnInvoice={this.applyGiftcardOnInvoice}
+          availablePaymentMethodList={
+            this.props.payment_method_available_manager
           }
+          clientSecret={this.state.clientSecret}
+          clientSecretLoading={this.state.clientSecretLoading}
+          companyId={this.props.companyId}
+          consumerGiftcardList={this.props.consumerGiftcardList}
           createMemberProgram={
             this.props.isCoach ? null : this.props.createMemberProgram
           }
-          fetchPerformanceTrackingData={this.props.fetchPerformanceTrackingData}
-          programDataLoading={this.props.programDataLoading}
-          programList={this.props.programList}
-          onRestore={
-            this.props.isCoach
-              ? null
-              : () => this.props.restorePrivateBooking(privateBooking.id)
+          fetchConsumerGiftcardReceivedList={
+            this.props.fetchConsumerGiftcardReceivedList
           }
+          fetchInvoiceListUnpaid={this.fetchInvoiceListUnpaid}
+          fetchMember={this.props.fetchMember}
+          fetchMemberPaymentMethod={this.props.fetchMemberPaymentMethod}
+          fetchPerformanceTrackingData={this.props.fetchPerformanceTrackingData}
+          goToCoachCalendar={this.props.goToCoachCalendar}
+          goToInvoice={this.props.goToInvoice}
+          goToMember={this.props.isCoach ? null : goToMember}
+          invoiceToBill={this.props.invoiceToBill}
+          isCoach={this.props.isCoach}
+          loading={this.props.privateBookingLoading}
+          onClose={this.props.onClose}
           onDelete={
             this.props.isCoach
               ? null
               : this.props.openDisablePrivateBookingModal
           }
-          private_booking={privateBooking}
-          goToMember={this.props.isCoach ? null : goToMember}
-          loading={this.props.privateBookingLoading}
-          updateTime={
-            this.props.isCoach ? null : this.props.updatePrivateBookingDatetime
+          onlinePaymentEnabled={this.props.theme?.online_payment_enabled}
+          onRestore={
+            this.props.isCoach
+              ? null
+              : () => this.props.restorePrivateBooking(privateBooking.id)
           }
-          goToCoachCalendar={this.props.goToCoachCalendar}
-          setIsUpdateCoachFormOpen={this.props.setIsUpdateCoachFormOpen}
-          showVaccinationStatus={this.props.showVaccinationStatus}
-          unpaidInvoiceList={this.props.unpaidInvoiceList}
-          goToInvoice={this.props.goToInvoice}
-          fetchInvoiceListUnpaid={this.fetchInvoiceListUnpaid}
-          availablePaymentMethodList={
-            this.props.payment_method_available_manager
-          }
-          snackbarSuccess={this.props.snackbarSuccess}
-          companyId={this.props.companyId}
-          stripeId={this.props.theme?.stripe_id}
-          fetchMemberPaymentMethod={this.props.fetchMemberPaymentMethod}
-          fetchMember={this.props.fetchMember}
-          invoiceToBill={this.props.invoiceToBill}
-          setInvoiceToBill={this.props.setInvoiceToBill}
-          clientSecretLoading={this.state.clientSecretLoading}
-          clientSecret={this.state.clientSecret}
           paymentGroupId={this.state.paymentGroupId}
           paymentGroupPriceCts={this.state.paymentGroupPriceCts}
+          private_booking={privateBooking}
+          programDataLoading={this.props.programDataLoading}
+          programList={this.props.programList}
           requestClientSecret={this.requestClientSecret}
-          consumerGiftcardList={this.props.consumerGiftcardList}
-          applyGiftcardOnInvoice={this.applyGiftcardOnInvoice}
-          onlinePaymentEnabled={this.props.theme?.online_payment_enabled}
-          fetchConsumerGiftcardReceivedList={
-            this.props.fetchConsumerGiftcardReceivedList
+          setInvoiceToBill={this.props.setInvoiceToBill}
+          setIsUpdateCoachFormOpen={this.props.setIsUpdateCoachFormOpen}
+          showVaccinationStatus={this.props.showVaccinationStatus}
+          snackbarSuccess={this.props.snackbarSuccess}
+          stripeId={this.props.theme?.stripe_id}
+          unpaidInvoiceList={this.props.unpaidInvoiceList}
+          updateMemberMetricValue={
+            this.props.isCoach ? null : this.props.updateMemberMetricValue
+          }
+          updateTime={
+            this.props.isCoach ? null : this.props.updatePrivateBookingDatetime
           }
         />
       );
@@ -455,12 +455,12 @@ export class CalendarEventDetail extends React.Component<Props, State> {
       return (
         <CustomEventCard
           customEvent={customEvent}
+          isCoach={this.props.isCoach}
           onDelete={
             this.props.isCoach
               ? null
               : () => this.props.deleteCustomEvent(customEvent.id)
           }
-          isCoach={this.props.isCoach}
         />
       );
     }
@@ -468,11 +468,11 @@ export class CalendarEventDetail extends React.Component<Props, State> {
       return (
         <div>
           <OfferMinimalSummary
-            offer={offer}
-            isCoach={this.props.isCoach}
             getHasPendingReplacementRequest={
               this.props.getHasPendingReplacementRequest
             }
+            isCoach={this.props.isCoach}
+            offer={offer}
           />
           {offer.available ? (
             <div className={classes.buttonRow}>
@@ -493,9 +493,9 @@ export class CalendarEventDetail extends React.Component<Props, State> {
           {!this.props.isCoach && (
             <Link style={{ textDecoration: 'none' }} to={`/offer/${offer.id}`}>
               <Button
+                className={classes.manageButton}
                 color="primary"
                 variant="contained"
-                className={classes.manageButton}
               >
                 {t('manageOffer')}
               </Button>
@@ -578,17 +578,17 @@ export class CalendarEventDetail extends React.Component<Props, State> {
     return (
       <div>
         <Popover
-          open={!!this.props.popoverAnchor}
-          TransitionComponent={Fade}
-          onClose={this.props.onClose}
           anchorOrigin={{
             vertical: 'center',
             horizontal: 'center',
           }}
+          onClose={this.props.onClose}
+          open={!!this.props.popoverAnchor}
           transformOrigin={{
             vertical: 'center',
             horizontal: 'center',
           }}
+          TransitionComponent={Fade}
         >
           {this.renderContent()}
         </Popover>
@@ -599,8 +599,12 @@ export class CalendarEventDetail extends React.Component<Props, State> {
           >
             <DialogContent>
               <DeleteOfferForm
+                fetchSimilarOffers={() =>
+                  this.props.fetchSimilarOffers(this.props.offer.id)
+                }
                 offer={offer}
                 offerWasCancelled={!offer.available}
+                onCancel={this.props.closeOfferDeleteModal}
                 onCancelOffer={({
                   cashback,
                   notify,
@@ -616,13 +620,9 @@ export class CalendarEventDetail extends React.Component<Props, State> {
                   })
                 }
                 onHardDelete={this.onHardDeleteOffer}
-                onCancel={this.props.closeOfferDeleteModal}
                 processing={this.props.offerProcessing}
-                fetchSimilarOffers={() =>
-                  this.props.fetchSimilarOffers(this.props.offer.id)
-                }
-                similarOffers={this.props.similarOffers}
                 similarOfferLoading={this.props.similarOfferLoading}
+                similarOffers={this.props.similarOffers}
               />
             </DialogContent>
           </Dialog>
@@ -630,8 +630,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
         {this.props.privateBooking &&
         this.props.privateBookingDeleteModalOpen ? (
           <PrivateBookingDisableDialog
-            open={this.props.privateBookingDeleteModalOpen}
-            private_booking={this.props.privateBooking}
+            onClose={this.props.closeDisablePrivateBookingModal}
             onSubmit={(force_refund, send_mail) =>
               this.props.disableOrDeletePrivateBooking(
                 this.props.privateBooking,
@@ -645,58 +644,59 @@ export class CalendarEventDetail extends React.Component<Props, State> {
                 },
               )
             }
-            onClose={this.props.closeDisablePrivateBookingModal}
+            open={this.props.privateBookingDeleteModalOpen}
+            private_booking={this.props.privateBooking}
           />
         ) : null}
 
         <GenericResponsiveDrawer
-          open={this.props.offerEditModalOpen}
-          onClose={this.props.closeOfferEditModal}
-          title={this.props.t('translation:common.offers')}
-          subtitle={this.props.t('translation:common.offerEdition')}
-          withoutPadding
           withoutHeaderContainer
+          withoutPadding
+          onClose={this.props.closeOfferEditModal}
+          open={this.props.offerEditModalOpen}
+          subtitle={this.props.t('translation:common.offerEdition')}
+          title={this.props.t('translation:common.offers')}
         >
           <OfferEditForm
+            editableCoachPaymentRule
+            activeCustomLevels={this.props.activeCustomLevels}
+            allCustomLevels={this.props.allCustomLevels}
+            allEstablishments={this.props.allEstablishments}
+            allowGuestMaster={
+              this.props.theme.allow_guest_activatable &&
+              this.props.theme.allow_guest
+            }
+            allRoomBlueprints={this.props.allRoomBlueprints}
+            availableEstablishments={this.props.availableEstablishments}
+            coaches={filteredCoaches}
+            coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+            companyId={this.props.companyId}
+            createLevel={this.props.createLevel}
+            creditScaleFactor={this.props.theme.pass_credit_factor}
+            deleteLevel={this.props.deleteLevel}
+            fetchLevelList={this.handleFetchLevel}
+            fetchSimilarOffers={this.props.fetchSimilarOffers}
             isLoading={
               this.props.offerEditLoading ||
               this.props.similarOfferLoading ||
               !offer
             }
-            offer={offer}
-            coaches={filteredCoaches}
-            availableEstablishments={this.props.availableEstablishments}
-            allEstablishments={this.props.allEstablishments}
-            roomBlueprints={this.props.roomBlueprints}
-            allRoomBlueprints={this.props.allRoomBlueprints}
-            metaActivities={this.props.metaActivities}
             isWherebyIntegrationEnabled={
               this.props.theme &&
               this.props.theme.is_whereby_integration_enabled &&
               this.props.theme.is_whereby_integration_allowed
             }
+            metaActivities={this.props.metaActivities}
             metaActivity={offer?.meta_activity}
-            zoomAppDetail={this.props.zoomAppDetail}
-            onSubmit={this.updateOffer}
+            offer={offer}
             onCancel={this.props.closeOfferEditModal}
+            onSubmit={this.updateOffer}
             processing={this.props.offerProcessing}
-            fetchSimilarOffers={this.props.fetchSimilarOffers}
-            companyId={this.props.companyId}
+            roomBlueprints={this.props.roomBlueprints}
             similarOffers={this.props.similarOffers}
-            coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
             tagList={this.props.allTagsWithTagGroup}
-            allCustomLevels={this.props.allCustomLevels}
-            activeCustomLevels={this.props.activeCustomLevels}
-            fetchLevelList={this.handleFetchLevel}
             updateLevel={this.props.updateLevel}
-            createLevel={this.props.createLevel}
-            deleteLevel={this.props.deleteLevel}
-            allowGuestMaster={
-              this.props.theme.allow_guest_activatable &&
-              this.props.theme.allow_guest
-            }
-            editableCoachPaymentRule
-            creditScaleFactor={this.props.theme.pass_credit_factor}
+            zoomAppDetail={this.props.zoomAppDetail}
           />
         </GenericResponsiveDrawer>
       </div>

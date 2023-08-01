@@ -59,7 +59,6 @@ const TagDetailMembers = (props: Props) => {
         </Typography>
 
         <Button
-          variant="outlined"
           color="primary"
           disabled={processing}
           onClick={() => {
@@ -69,6 +68,7 @@ const TagDetailMembers = (props: Props) => {
               onError: () => setProcessing(false),
             });
           }}
+          variant="outlined"
         >
           <LabelOffIcon className={classes.leftIcon} />
           {t('management.memberDetail.removeTagFromAll')}
@@ -77,20 +77,21 @@ const TagDetailMembers = (props: Props) => {
 
       <Paper className={classes.listContainer}>
         <PaginatedListBase
-          page={props.membersWithTagListPage}
-          nbItems={props.membersWithTagListCount}
           itemPerPage={props.itemPerPage}
-          loading={props.membersWithTagListLoading || processing}
-          onPageRequested={props.onPageRequestWithTag}
           items={props.membersWithTagList}
+          listProps={{ dense: true }}
+          loading={props.membersWithTagListLoading || processing}
+          nbItems={props.membersWithTagListCount}
+          onPageRequested={props.onPageRequestWithTag}
+          page={props.membersWithTagListPage}
           renderItem={(item: Member) => {
             return (
               <ListItem
-                divider
                 key={item.id}
                 dense
-                disabled={props.membersWithTagListLoading || processing}
+                divider
                 button={!!props.onClickMember}
+                disabled={props.membersWithTagListLoading || processing}
                 onClick={
                   props.onClickMember
                     ? () => props.onClickMember(item.id)
@@ -116,7 +117,6 @@ const TagDetailMembers = (props: Props) => {
               </ListItem>
             );
           }}
-          listProps={{ dense: true }}
         />
       </Paper>
       <div className={classes.divider} />
@@ -126,7 +126,6 @@ const TagDetailMembers = (props: Props) => {
           {t('management.memberDetail.memberWithoutTag')}
         </Typography>
         <Button
-          variant="outlined"
           color="primary"
           disabled={processing}
           onClick={() => {
@@ -136,6 +135,7 @@ const TagDetailMembers = (props: Props) => {
               onError: () => setProcessing(false),
             });
           }}
+          variant="outlined"
         >
           <LabelIcon className={classes.leftIcon} />
           {t('management.memberDetail.addTagToAll')}
@@ -144,20 +144,21 @@ const TagDetailMembers = (props: Props) => {
 
       <Paper className={classes.listContainer}>
         <PaginatedListBase
-          page={props.membersWithoutTagListPage}
-          nbItems={props.membersWithoutTagListCount}
           itemPerPage={props.itemPerPage}
-          loading={props.membersWithoutTagListLoading || processing}
-          onPageRequested={props.onPageRequestWithoutTag}
           items={props.membersWithoutTagList}
+          listProps={{ dense: true }}
+          loading={props.membersWithoutTagListLoading || processing}
+          nbItems={props.membersWithoutTagListCount}
+          onPageRequested={props.onPageRequestWithoutTag}
+          page={props.membersWithoutTagListPage}
           renderItem={(item: Member) => {
             return (
               <ListItem
-                divider
                 key={item.id}
                 dense
-                disabled={props.membersWithoutTagListLoading || processing}
+                divider
                 button={!!props.onClickMember}
+                disabled={props.membersWithoutTagListLoading || processing}
                 onClick={
                   props.onClickMember
                     ? () => props.onClickMember(item.id)
@@ -183,7 +184,6 @@ const TagDetailMembers = (props: Props) => {
               </ListItem>
             );
           }}
-          listProps={{ dense: true }}
         />
       </Paper>
     </div>

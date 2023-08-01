@@ -15,12 +15,12 @@ const FranchisePrivatePassTemplateRouter = () => {
   return (
     <Switch>
       <Route
-        path="/f/private-pass-template/:privatePassTemplateId"
         component={FranchisePrivatePassTemplateDetailPage}
+        path="/f/private-pass-template/:privatePassTemplateId"
       />
       <Route
-        path="/f/private-pass-template"
         component={FranchisePrivatePassTemplateListPage}
+        path="/f/private-pass-template"
       />
     </Switch>
   );

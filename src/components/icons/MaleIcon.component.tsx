@@ -15,10 +15,10 @@ export const MaleIcon: React.FC<MaleIconProps> = ({
     <div className="bs-genderIconContainer">
       <svg
         className={isMobile ? 'bs-genderIconMobile' : 'bs-genderIcon'}
-        width={width}
+        fill={fill}
         height={height}
         viewBox={viewBox}
-        fill={fill}
+        width={width}
         xmlns={xmlns}
       >
         <path

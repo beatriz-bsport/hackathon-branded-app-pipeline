@@ -48,29 +48,29 @@ const OfferFormEditSimilarOffers = (props: Props) => {
 
       <div className={classes.selectButtonContainer}>
         <Button
-          disabled={similarOffersLoading}
-          size="small"
           className={classes.selectButton}
+          disabled={similarOffersLoading}
           onClick={handleSelectAll}
+          size="small"
         >
           {t('form.section.similarOffers.selectAll')}
         </Button>
         <Button
-          disabled={similarOffersLoading}
-          size="small"
           className={classes.selectButton}
+          disabled={similarOffersLoading}
           onClick={handleDeselectAll}
+          size="small"
         >
           {t('form.section.similarOffers.unselectAll')}
         </Button>
       </div>
 
       <SimilarOffersList
-        similarOffers={similarOffers}
-        similarOffersLoading={similarOffersLoading}
         coaches={coaches}
         offerCoach={offerCoach}
         offerId={offerId}
+        similarOffers={similarOffers}
+        similarOffersLoading={similarOffersLoading}
       />
 
       <Alert severity="info">{t('form.section.similarOffers.info')}</Alert>

@@ -47,9 +47,9 @@ const MarketplaceBookButtonForDialog: React.FC<Props> = ({
   );
   return (
     <button
+      className="bs-book-button"
       disabled={isDisabled}
       onClick={onClick}
-      className="bs-book-button"
       type="button"
     >
       {isRegistered && (

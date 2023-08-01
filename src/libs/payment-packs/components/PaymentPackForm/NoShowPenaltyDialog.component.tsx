@@ -26,7 +26,7 @@ export const NoShowPenaltyDialog: React.FC<Props> = (props) => {
       </DialogTitle>
       <DialogContent>
         {t('form.paymentPack.penalty.noShowDialog.text')}
-        <Alert severity="info" className={classes.alert}>
+        <Alert className={classes.alert} severity="info">
           <Typography>
             {t('form.paymentPack.penalty.noShowDialog.alert')}
           </Typography>
@@ -36,9 +36,9 @@ export const NoShowPenaltyDialog: React.FC<Props> = (props) => {
         <DialogActions>
           <Button onClick={props.onClose}>{t('common:close')}</Button>
           <Button
+            color="primary"
             onClick={props.goToSettings}
             variant="contained"
-            color="primary"
           >
             {t('common:params')}
           </Button>

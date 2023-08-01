@@ -30,24 +30,24 @@ export const VideoItem = (props: Props) => {
 
   return (
     <div
-      role="button"
-      tabIndex={props.video.id}
+      className={classes.container}
       onClick={() => {
         if (props.openVideo) props.openVideo(props.video.id);
       }}
       onKeyDown={() => {
         if (props.openVideo) props.openVideo(props.video.id);
       }}
-      className={classes.container}
+      role="button"
+      tabIndex={props.video.id}
     >
       <div className={classes.imageWrapper}>
         {props.loading ? (
           <Skeleton animatoin="wave" className={classes.media} />
         ) : (
           <img
+            alt={props.video.name}
             className={classes.media}
             src={props.video.cover_main}
-            alt={props.video.name}
           />
         )}
         <div className={classes.mediaOverlay} />
@@ -61,17 +61,17 @@ export const VideoItem = (props: Props) => {
 
         {!props.hideCoach && (
           <CoachGroupAvatar
-            size="small"
             coaches={props.video.coaches}
             loading={props.loading}
+            size="small"
           />
         )}
       </div>
       {expiration_date && (
         <Typography
           className={classes.typo}
-          variant="body2"
           color="textSecondary"
+          variant="body2"
         >
           {t(
             !props.purchasedVideo.available

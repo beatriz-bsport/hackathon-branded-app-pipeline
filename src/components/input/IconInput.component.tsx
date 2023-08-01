@@ -43,7 +43,7 @@ export function IconInput(props: Props) {
             }}
           >
             <div>
-              <MuiIcon icon={data?.icon} className={classes.icon} />
+              <MuiIcon className={classes.icon} icon={data?.icon} />
             </div>
           </ButtonBase>
         ) : (
@@ -55,17 +55,17 @@ export function IconInput(props: Props) {
 
   return (
     <div>
-      <Typography color="textSecondary" className={classes.title}>
+      <Typography className={classes.title} color="textSecondary">
         {props?.label || t('form.tag.icon')}
       </Typography>
 
       {props.icon?.length !== 0 ? (
         <div className={classes.icons}>
           <ButtonBase
+            ref={buttonRef}
             onClick={() => {
               setOpenPopup(!openPopup);
             }}
-            ref={buttonRef}
           >
             <MuiIcon icon={props.icon} />
           </ButtonBase>
@@ -75,12 +75,12 @@ export function IconInput(props: Props) {
         </div>
       ) : (
         <ButtonBase
+          ref={buttonRef}
+          className={classes.button}
           onClick={() => {
             setOpenPopup(!openPopup);
             setFieldTouched();
           }}
-          className={classes.button}
-          ref={buttonRef}
         >
           <Typography color="textSecondary">
             {t('form.tag.selectIcon')}
@@ -88,13 +88,13 @@ export function IconInput(props: Props) {
         </ButtonBase>
       )}
       <Popover
-        open={openPopup}
         anchorEl={buttonRef.current}
-        onClose={() => setOpenPopup(false)}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center',
         }}
+        onClose={() => setOpenPopup(false)}
+        open={openPopup}
         transformOrigin={{
           vertical: 'top',
           horizontal: 'center',
@@ -103,8 +103,8 @@ export function IconInput(props: Props) {
         <Paper>
           <FuzzySearchIcon
             iconRender
-            itemRenderer={itemRenderer}
             startWithAll
+            itemRenderer={itemRenderer}
             items={Object.keys(muiIconNames).map((icon) => ({
               icon,
               key: icon,

@@ -58,9 +58,9 @@ export const RecurrenceRuleBookingListItem = (props: Props) => {
   const DeleteDialog = () => {
     return (
       <Dialog
-        open={dialogOpen}
-        aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        aria-labelledby="alert-dialog-title"
+        open={dialogOpen}
       >
         <DialogTitle id="alert-dialog-title">
           {t('booking:recurrenceRule.deleteModal.title')}
@@ -73,9 +73,9 @@ export const RecurrenceRuleBookingListItem = (props: Props) => {
             <FormControlLabel
               control={
                 <Checkbox
+                  checked={checked}
                   id="notify_if_canceled"
                   name="notify_if_canceled"
-                  checked={checked}
                   onChange={handleChangeChecked}
                 />
               }
@@ -84,10 +84,11 @@ export const RecurrenceRuleBookingListItem = (props: Props) => {
           </FormGroup>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setDialogOpen(false)} autoFocus>
+          <Button autoFocus onClick={() => setDialogOpen(false)}>
             {t('booking:recurrenceRule.deleteModal.cancel')}
           </Button>
           <Button
+            color="primary"
             onClick={() => {
               onDelete(recurrenceRuleBooking.id, {
                 notify_if_canceled: checked,
@@ -95,7 +96,6 @@ export const RecurrenceRuleBookingListItem = (props: Props) => {
 
               setDialogOpen(false);
             }}
-            color="primary"
           >
             {t('booking:recurrenceRule.deleteModal.confirm')}
           </Button>
@@ -104,7 +104,7 @@ export const RecurrenceRuleBookingListItem = (props: Props) => {
     );
   };
   return (
-    <ListItem button={!!props.onClick} onClick={props.onClick} dense divider>
+    <ListItem dense divider button={!!props.onClick} onClick={props.onClick}>
       {member && member.photo && !notShowMember && (
         <ListItemAvatar>
           <Avatar alt="" src={member.photo} />

@@ -39,32 +39,32 @@ const CommunicationWriteNotification = (props: Props) => {
   return (
     <React.Fragment>
       <TextFieldWithChildren
-        placeholder={t('sendMessage.textField.title')}
-        name="Mail title"
-        value={notificationTitle}
-        changeValue={handleChangeTitle}
-        minRows={1}
         withMarginBottom
+        changeValue={handleChangeTitle}
         inputProps={{ maxLength: MAX_LENGTH_PUSH_TITLE }}
+        minRows={1}
+        name="Mail title"
         onFocus={onTitleFocus}
+        placeholder={t('sendMessage.textField.title')}
+        value={notificationTitle}
       >
-        <Typography variant="caption" className={classes.textFieldLengthTitle}>
+        <Typography className={classes.textFieldLengthTitle} variant="caption">
           {`${notificationTitle?.length ?? 0}/${MAX_LENGTH_PUSH_TITLE}`}
         </Typography>
       </TextFieldWithChildren>
       <TextFieldWithChildren
-        placeholder={t('sendMessage.textField.content')}
-        name="Mail content"
-        value={notificationContent}
-        changeValue={handleChangeContent}
-        minRows={isMobileSize ? 2 : 6}
-        inputProps={{ maxLength: MAX_LENGTH_PUSH_CONTENT }}
         withColumnDirection
+        changeValue={handleChangeContent}
+        inputProps={{ maxLength: MAX_LENGTH_PUSH_CONTENT }}
+        minRows={isMobileSize ? 2 : 6}
+        name="Mail content"
         onFocus={onContentFocus}
+        placeholder={t('sendMessage.textField.content')}
+        value={notificationContent}
       >
         <Typography
-          variant="caption"
           className={classes.textFieldLengthContent}
+          variant="caption"
         >
           {`${notificationContent?.length ?? 0}/${MAX_LENGTH_PUSH_CONTENT}`}
         </Typography>

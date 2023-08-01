@@ -79,11 +79,11 @@ export class CustomFormsFilter extends Component<Props> {
       <div>
         <div className={classes.wrapper}>
           <Select
-            className={classes.input}
             required
+            className={classes.input}
+            defaultValue={false}
             onChange={(ev) => onChange({ has_filled: ev.target.value })}
             value={filter_data.has_filled}
-            defaultValue={false}
           >
             {/* eslint-disable-next-line */}
             <MenuItem key="true" value={true}>
@@ -101,13 +101,13 @@ export class CustomFormsFilter extends Component<Props> {
             </MenuItem>
           </Select>
           <Select
-            className={classes.input}
             required
+            className={classes.input}
+            defaultValue={false}
             onChange={(ev) =>
               onChange({ all_selected_must_fulfill_condition: ev.target.value })
             }
             value={filter_data.all_selected_must_fulfill_condition}
-            defaultValue={false}
           >
             {/* eslint-disable-next-line */}
             <MenuItem key="true" value={true}>
@@ -123,30 +123,16 @@ export class CustomFormsFilter extends Component<Props> {
 
           {t(`filters.${filter_data?.filter_identifier}.second`)}
           <Selector
-            helperText={t('multiSelector.customForms.helperText')}
-            helperSelectedText={t(
-              'multiSelector.customForms.helperSelectedText',
-            )}
-            textFieldPlaceholder={t(
-              'multiSelector.customForms.textFieldPlaceholder',
-            )}
-            renderItem={(item: CustomForm) => {
-              return (
-                <CustomFormListItem
-                  key={item.id}
-                  customform={item}
-                  gridItemXs={6}
-                />
-              );
-            }}
+            fetchItems={this.props.fetchItems.custom_forms}
             helperAllSelectedText={t(
               'multiSelector.customForms.helperAllSelectedText',
             )}
-            fetchItems={this.props.fetchItems.custom_forms}
-            nameIdentifier="name"
-            selectAll={this.props.filter_data?.select_all_custom_forms}
+            helperSelectedText={t(
+              'multiSelector.customForms.helperSelectedText',
+            )}
+            helperText={t('multiSelector.customForms.helperText')}
             items={sortedCustomForms}
-            selectedItems={sortedFilterDataCustomForms}
+            nameIdentifier="name"
             onChange={(items: CustomForm[], selectAll: boolean) => {
               if (
                 (sortedFilterDataCustomForms &&
@@ -164,6 +150,20 @@ export class CustomFormsFilter extends Component<Props> {
                 });
               }
             }}
+            renderItem={(item: CustomForm) => {
+              return (
+                <CustomFormListItem
+                  key={item.id}
+                  customform={item}
+                  gridItemXs={6}
+                />
+              );
+            }}
+            selectAll={this.props.filter_data?.select_all_custom_forms}
+            selectedItems={sortedFilterDataCustomForms}
+            textFieldPlaceholder={t(
+              'multiSelector.customForms.textFieldPlaceholder',
+            )}
           />
           {this.props.renderSelectorWarning(
             t('multiSelector.customForms.warning'),
@@ -173,6 +173,7 @@ export class CustomFormsFilter extends Component<Props> {
         <div className={classes.inlineContainer}>
           <Switch
             checked={filter_data.completion_percentage_filter_active}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
                 completion_percentage_filter_active:
@@ -180,7 +181,6 @@ export class CustomFormsFilter extends Component<Props> {
               })
             }
             value="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
           />
           <div
             className={
@@ -191,13 +191,13 @@ export class CustomFormsFilter extends Component<Props> {
           >
             {t(`filters.${filter_data?.filter_identifier}.third`)}
             <Select
-              className={classes.input}
               required
-              value={filter_data?.completion_percentage_comparator}
+              className={classes.input}
               defaultValue={GTE_COMPARATOR}
               onChange={(ev) =>
                 onChange({ completion_percentage_comparator: ev.target.value })
               }
+              value={filter_data?.completion_percentage_comparator}
             >
               {COMPARATORS_DICT_BETWEEN.map((item) => (
                 <MenuItem key={item.key} value={item.value}>
@@ -211,7 +211,6 @@ export class CustomFormsFilter extends Component<Props> {
               : null}
             <DelayedNumericInput
               classes={classes}
-              value={filter_data?.completion_percentage_value}
               InputProps={{ inputProps: { min: 0, max: 100 } }}
               onChange={(ev) =>
                 onChange({
@@ -219,6 +218,7 @@ export class CustomFormsFilter extends Component<Props> {
                     ev.target.value === '' ? null : ev.target.value,
                 })
               }
+              value={filter_data?.completion_percentage_value}
             />
           </div>
           {filter_data?.completion_percentage_comparator === BETWEEN_COMPARATOR
@@ -228,7 +228,6 @@ export class CustomFormsFilter extends Component<Props> {
           BETWEEN_COMPARATOR ? (
             <DelayedNumericInput
               classes={classes}
-              value={filter_data?.completion_percentage_value_interval_end}
               InputProps={{ inputProps: { min: 0, max: 100 } }}
               onChange={(ev) =>
                 onChange({
@@ -236,19 +235,20 @@ export class CustomFormsFilter extends Component<Props> {
                     ev.target.value === '' ? null : ev.target.value,
                 })
               }
+              value={filter_data?.completion_percentage_value_interval_end}
             />
           ) : null}
         </div>
         <div className={classes.inlineContainer}>
           <Switch
             checked={filter_data.date_filter_active}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
                 date_filter_active: !filter_data.date_filter_active,
               })
             }
             value="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
           />
           <div
             className={
@@ -261,9 +261,9 @@ export class CustomFormsFilter extends Component<Props> {
               `filters.${filter_data.filter_identifier}.date.first`,
             )}
             <CalendarPicker
+              blockValidateOnClickAway
               filter_data={filter_data}
               onChange={onChange}
-              blockValidateOnClickAway
             />
           </div>
         </div>

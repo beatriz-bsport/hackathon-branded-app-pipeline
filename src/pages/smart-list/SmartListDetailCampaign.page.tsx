@@ -70,14 +70,14 @@ export class SmartListCampaign extends React.Component<Props> {
     return (
       <div className={classes.container}>
         <ButtonBase
+          className={classes.flexHeader}
           onClick={() =>
             setOpenAutomatedCampaignSection(!openAutomatedCampaignSection)
           }
-          className={classes.flexHeader}
         >
           <Typography
-            variant="h5"
             color={openAutomatedCampaignSection ? 'inherit' : 'textSecondary'}
+            variant="h5"
           >
             {t('campaign.automatedTitle')}
           </Typography>
@@ -95,8 +95,6 @@ export class SmartListCampaign extends React.Component<Props> {
               c,
               null,
             ])}
-            loading={this.props.loading}
-            onClickReport={this.props.goToCampaignReport}
             fetchMore={
               this.props.automatedCampaignState.next_page
                 ? () =>
@@ -105,19 +103,21 @@ export class SmartListCampaign extends React.Component<Props> {
                     )
                 : null
             }
+            loading={this.props.loading}
+            onClickReport={this.props.goToCampaignReport}
             resolvedGenericTags={this.props.resolvedGenericTags}
           />
         </Collapse>
         <ButtonBase
+          className={classes.flexHeader}
           onClick={() =>
             setOpenManualCampaignSection(!openManualCampaignSection)
           }
-          className={classes.flexHeader}
         >
           <div className={classes.title}>
             <Typography
-              variant="h5"
               color={openManualCampaignSection ? 'inherit' : 'textSecondary'}
+              variant="h5"
             >
               {t('campaign.manualTitle')}
             </Typography>
@@ -129,8 +129,6 @@ export class SmartListCampaign extends React.Component<Props> {
         <Collapse in={openManualCampaignSection}>
           <CampaignList
             campaignList={this.props.campaignList.map((c) => [c, null])}
-            loading={this.props.loading}
-            onClickReport={this.props.goToCampaignReport}
             fetchMore={
               this.props.campaignState.next_page
                 ? () =>
@@ -139,6 +137,8 @@ export class SmartListCampaign extends React.Component<Props> {
                     )
                 : null
             }
+            loading={this.props.loading}
+            onClickReport={this.props.goToCampaignReport}
             resolvedGenericTags={this.props.resolvedGenericTags}
           />
         </Collapse>

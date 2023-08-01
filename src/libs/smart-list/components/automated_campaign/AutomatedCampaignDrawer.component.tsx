@@ -190,10 +190,10 @@ export const AutomatedCommunicationDrawer: React.FC<
 
   return (
     <GenericResponsiveDrawer
-      title={t('mail.dialogTitle')}
-      subtitle={renderSubTitle()}
-      open={open}
       onClose={handleClose}
+      open={open}
+      subtitle={renderSubTitle()}
+      title={t('mail.dialogTitle')}
     >
       <GenericResponsiveDialog maxWidth="sm" open={openRefreshDialog}>
         <DialogContent>
@@ -207,10 +207,10 @@ export const AutomatedCommunicationDrawer: React.FC<
               {t('common.cancel')}
             </Button>
             <Button
-              variant="outlined"
-              type="submit"
               color="primary"
               onClick={handleReloadPage}
+              type="submit"
+              variant="outlined"
             >
               {t('common.refresh')}
             </Button>
@@ -227,12 +227,12 @@ export const AutomatedCommunicationDrawer: React.FC<
                   values.communication_kind === COMMUNICATION_KIND_EMAIL &&
                   values.email_kind === WRITTEN_EMAIL_KIND
                 }
-                onChange={handleSwitchToWrittenKindEmail}
                 disabled={
                   (alreadyConfiguredCommunicationKind || []).includes(
                     COMMUNICATION_KIND_EMAIL,
                   ) || !!initial?.id
                 }
+                onChange={handleSwitchToWrittenKindEmail}
               />
             }
             label={t('mail.writeMail')}
@@ -246,12 +246,12 @@ export const AutomatedCommunicationDrawer: React.FC<
                   values.communication_kind === COMMUNICATION_KIND_EMAIL &&
                   values.email_kind === TEMPLATE_EMAIL_KIND
                 }
-                onChange={handleSwitchToEmailDesignKindEmail}
                 disabled={
                   (alreadyConfiguredCommunicationKind || []).includes(
                     COMMUNICATION_KIND_EMAIL,
                   ) || !!initial?.id
                 }
+                onChange={handleSwitchToEmailDesignKindEmail}
               />
             }
             label={t('mail.selectTemplate')}
@@ -315,9 +315,14 @@ export const AutomatedCommunicationDrawer: React.FC<
         {values.communication_kind === COMMUNICATION_KIND_EMAIL &&
           values.email_kind === TEMPLATE_EMAIL_KIND && (
             <SelectTemplate
-              title={values.title}
-              selectedMail={values.email_design}
-              onChangeTitle={handleTitleChange}
+              emailDetailLoading={emailDetailLoading}
+              emailDetails={emailDetails}
+              emailListLoading={emailListLoading}
+              emails={emails}
+              getEmailDetail={getEmailDetail}
+              getEmails={getEmails}
+              mailDefaultTitle={mailDefaultTitle}
+              onCancel={onCancel}
               onChangeTemplate={(id: number) => {
                 setFieldValue('email_design', id);
                 setFieldValue(
@@ -325,48 +330,43 @@ export const AutomatedCommunicationDrawer: React.FC<
                   emails.find((email) => email.id === id)?.subject ?? '',
                 );
               }}
-              onCancel={onCancel}
-              getEmails={getEmails}
-              getEmailDetail={getEmailDetail}
-              emailListLoading={emailListLoading}
-              emails={emails}
-              emailDetailLoading={emailDetailLoading}
-              emailDetails={emailDetails}
-              mailDefaultTitle={mailDefaultTitle}
+              onChangeTitle={handleTitleChange}
               resolvedGenericTags={resolvedGenericTags}
+              selectedMail={values.email_design}
+              title={values.title}
             />
           )}
         {values.communication_kind === COMMUNICATION_KIND_EMAIL &&
           values.email_kind === WRITTEN_EMAIL_KIND && (
             <WriteEmail
               mailContent={values.text}
-              title={values.title}
               onChangeContent={handleTextChange}
               onChangeTitle={handleTitleChange}
+              title={values.title}
             />
           )}
         {values.communication_kind === COMMUNICATION_KIND_SMS && (
           <WriteSMS
             hideSmsCount
-            smsContent={values.text}
-            onChangeContent={handleTextChange}
             contentLengthError={!!errors?.text}
             maxLengthContent={MAX_LENGTH_AUTOMATIC_SMS}
+            onChangeContent={handleTextChange}
+            smsContent={values.text}
           />
         )}
         {values.communication_kind === COMMUNICATION_KIND_PUSH_NOTIFICATION && (
           <WriteNotification
-            notificationTitle={values.title}
-            onNotificationTitleChange={handleTitleChange}
             notificationContent={values.text}
+            notificationTitle={values.title}
             onNotificationContentChange={handleTextChange}
+            onNotificationTitleChange={handleTitleChange}
           />
         )}
         <div className={classes.avancedSection}>
           <ButtonBase
-            onClick={handleOpenCloseAdvancedSection}
-            className={classes.flexHeader}
             disableRipple
+            className={classes.flexHeader}
+            onClick={handleOpenCloseAdvancedSection}
           >
             <div className={classes.headerWithIcon}>
               <SettingsIcon className={classes.leftIcon} />
@@ -380,24 +380,24 @@ export const AutomatedCommunicationDrawer: React.FC<
           </ButtonBase>
           <Collapse in={openedAdvancedSection}>
             <NumericInput
-              required
               fullWidth
+              required
               helperText={t(
                 'campaign.automated.form.max_communications_sent_per_member_limit',
                 { max: 3 },
               )}
-              label={t(
-                'campaign.automated.form.max_communications_sent_per_member',
-              )}
-              value={values.max_communications_sent_per_member}
-              onChange={handleChangeMaxCommunicationPerMember}
               InputProps={{
                 inputProps: { step: 1, min: 0 },
               }}
+              label={t(
+                'campaign.automated.form.max_communications_sent_per_member',
+              )}
+              onChange={handleChangeMaxCommunicationPerMember}
+              value={values.max_communications_sent_per_member}
             />
           </Collapse>
         </div>
-        <Alert variant="outlined" severity="info" className={classes.alert}>
+        <Alert className={classes.alert} severity="info" variant="outlined">
           {t('campaign.automated.form.frequenceHelper', {
             event_kind: t(`campaign.automated.eventKind.${values.event_kind}`),
             max: values.max_communications_sent_per_member,
@@ -407,7 +407,7 @@ export const AutomatedCommunicationDrawer: React.FC<
           <Button onClick={handleClose}>
             {t('translation:common.cancel')}
           </Button>
-          <Submit disabled={isSubmitting || !isValid} color="primary">
+          <Submit color="primary" disabled={isSubmitting || !isValid}>
             {isSubmitting ? (
               <CircularProgress />
             ) : (

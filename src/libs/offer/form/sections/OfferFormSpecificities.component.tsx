@@ -208,55 +208,55 @@ const OfferFormSpecificities = (props: Props) => {
   return (
     <FormSection
       id="offer-form-specificities-section"
-      sectionTitle={t('form.section.specificities.title')}
-      sectionIcon={People}
       sectionCustomIconStyle={classes.sectionIcon}
+      sectionIcon={People}
       sectionIconContainerStyle={classes.sectionIconContainer}
+      sectionTitle={t('form.section.specificities.title')}
     >
       {isEditOffer && (
         <MetaActivitySelector
+          closeMenuOnSelect
+          noMulti
+          controlBackground={isOfferInGroup && '#F2F2F2'}
+          disabled={isOfferInGroup || is_hybrid}
           id="offer-form-edit-meta-activity-selector"
           metaActivities={metaActivities ?? []}
-          closeMenuOnSelect
           selectedMetaActivities={
             selectedMetaActivity ? [selectedMetaActivity] : undefined
           }
-          noMulti
           selectOption={handleSelectMetaActivity}
-          controlBackground={isOfferInGroup && '#F2F2F2'}
-          disabled={isOfferInGroup || is_hybrid}
         />
       )}
 
       <div className={classes.formFieldColumns}>
         <OfferFormField
-          id="offer-form-effectif-field"
-          label={t('form.section.specificities.field.effectif')}
           isRequired
+          id="offer-form-effectif-field"
           isError={
             !!errors.effectif && (touched.effectif || touched.roomBlueprint)
           }
+          label={t('form.section.specificities.field.effectif')}
         >
           <div className={classes.errorContainer}>
             <NumericInput
-              id="offer-form-effectif-input"
-              name="effectif"
-              value={effectif}
-              onChange={handleChange}
               error={
                 !!errors.effectif && (touched.effectif || touched.roomBlueprint)
               }
-              variant="outlined"
-              size="small"
-              InputProps={{ inputProps: { min: 0 } }}
-              placeholder="20"
+              id="offer-form-effectif-input"
               inputClass={classes.mediumWidth}
+              InputProps={{ inputProps: { min: 0 } }}
+              name="effectif"
               onBlur={handleBlur}
+              onChange={handleChange}
+              placeholder="20"
+              size="small"
+              value={effectif}
+              variant="outlined"
             />
 
             {!!errors.effectif && (touched.effectif || touched.roomBlueprint) && (
               <div>
-                <Typography variant="caption" color="error">
+                <Typography color="error" variant="caption">
                   {t(errors.effectif)}
                 </Typography>
               </div>
@@ -265,87 +265,87 @@ const OfferFormSpecificities = (props: Props) => {
         </OfferFormField>
 
         <OfferFormField
-          label={t('form.section.specificities.field.waitingListMaxSize')}
           isRequired
           isError={!!errors.waitingListMaxSize && touched.waitingListMaxSize}
+          label={t('form.section.specificities.field.waitingListMaxSize')}
         >
           <NumericInput
-            id="offer-form-waiting-list-input"
-            name="waitingListMaxSize"
-            value={waitingListMaxSize}
-            onChange={handleChange}
-            onBlur={handleBlur}
+            disabled={isOfferInGroup}
             error={!!errors.waitingListMaxSize && touched.waitingListMaxSize}
             helperText={
               !!errors.waitingListMaxSize &&
               touched.waitingListMaxSize &&
               t(errors.waitingListMaxSize)
             }
-            variant="outlined"
-            size="small"
-            InputProps={{ inputProps: { min: 0, max: 100 } }}
-            placeholder="20"
+            id="offer-form-waiting-list-input"
             inputClass={classNames(classes.mediumWidth, {
               [classes.disabledInput]: isOfferInGroup,
             })}
-            disabled={isOfferInGroup}
+            InputProps={{ inputProps: { min: 0, max: 100 } }}
+            name="waitingListMaxSize"
+            onBlur={handleBlur}
+            onChange={handleChange}
+            placeholder="20"
+            size="small"
+            value={waitingListMaxSize}
+            variant="outlined"
           />
         </OfferFormField>
       </div>
 
       <OfferFormField
+        isRequired
         id="offer-form-level-field"
         label={t('form.section.specificities.field.level')}
-        isRequired
       >
         <LevelSelector
-          id="offer-form-level-selector"
-          name="level"
-          noLabel
           inScrollBar
-          selectedLevel={level}
-          onSelect={handleSelectLevel}
+          noLabel
+          buttonContainerStyle={classes.levelSelectorAdd}
+          containerStyle={classes.levelSelector}
           customLevels={activeCustomLevels}
-          memoryLevels={allCustomLevels}
+          error={!!errors.level}
           fetchLevelList={fetchLevelList}
-          onEditLevel={updateLevel}
+          id="offer-form-level-selector"
+          isDisabled={isOfferInGroup || (is_hybrid && isBroadcast)}
+          memoryLevels={allCustomLevels}
+          name="level"
           onCreateLevel={createLevel}
           onDeleteLevel={deleteLevel}
+          onEditLevel={updateLevel}
+          onSelect={handleSelectLevel}
+          selectedLevel={level}
           selectorClass={classNames({ [classes.bigWidth]: !isMobile })}
-          containerStyle={classes.levelSelector}
-          buttonContainerStyle={classes.levelSelectorAdd}
-          error={!!errors.level}
-          isDisabled={isOfferInGroup || (is_hybrid && isBroadcast)}
         />
       </OfferFormField>
 
       <OfferFormField
-        id="offer-form-establishment-field"
-        label={t('form.section.specificities.field.establishment')}
         isRequired
+        id="offer-form-establishment-field"
         isError={!!errors.establishment}
+        label={t('form.section.specificities.field.establishment')}
       >
         <div className={classes.errorContainer}>
           <EstablishmentSelector
+            closeMenuOnSelect
+            hideError
+            isRequired
+            noMulti
+            establishments={availableEstablishments}
             id="offer-form-establishment-selector"
             name="establishment"
-            noMulti
-            selectedEstablishments={selectedEstablishment}
-            closeMenuOnSelect
-            establishments={availableEstablishments}
-            selectOption={handleSelectEstablishment}
+            onBlur={handleBlur}
             placeholder={t('establishment:search')}
-            selectorClass={classes.bigWidth}
-            isRequired
             requiredValueIsMissing={
               !!errors.establishment && touched.establishment
             }
-            hideError
-            onBlur={handleBlur}
+            selectedEstablishments={selectedEstablishment}
+            selectOption={handleSelectEstablishment}
+            selectorClass={classes.bigWidth}
           />
 
           {!!errors.establishment && touched.establishment && (
-            <Typography variant="caption" color="error">
+            <Typography color="error" variant="caption">
               {t(errors.establishment)}
             </Typography>
           )}
@@ -358,32 +358,32 @@ const OfferFormSpecificities = (props: Props) => {
           label={t('form.section.specificities.field.roomBlueprint.title')}
         >
           <div
-            id="offer-form-spot-scheduling-field-container"
             className={classes.stretchSelf}
+            id="offer-form-spot-scheduling-field-container"
           >
             <FeatureListProvider>
               {(featureList: FeatureList) => (
                 <OfferFormSelector
-                  id="offer-form-blueprint-selector"
-                  name="roomBlueprint"
-                  options={getAvailableRoomBlueprints()}
+                  isClearable
                   className={classes.bigWidth}
-                  placeholder={t(
-                    'form.section.specificities.field.roomBlueprint.placeholder',
-                  )}
+                  id="offer-form-blueprint-selector"
+                  isError={!!errors.roomBlueprint}
+                  name="roomBlueprint"
                   onSelectedOption={handleSetRoomBlueprintSpot(
                     hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI),
                   )}
-                  isClearable
-                  isError={!!errors.roomBlueprint}
+                  options={getAvailableRoomBlueprints()}
+                  placeholder={t(
+                    'form.section.specificities.field.roomBlueprint.placeholder',
+                  )}
                 />
               )}
             </FeatureListProvider>
 
             <Tooltip
-              title={t('form.section.specificities.tooltip.roomBlueprint')}
               className={classes.tooltip}
               onClick={handleDisplaySpotSchedulingTooltip}
+              title={t('form.section.specificities.tooltip.roomBlueprint')}
             >
               <Info />
             </Tooltip>
@@ -399,33 +399,33 @@ const OfferFormSpecificities = (props: Props) => {
       )}
 
       <OfferFormField
-        id="offer-form-credits-field"
-        label={t('form.section.specificities.field.credits')}
         isRequired
+        id="offer-form-credits-field"
         isError={!!errors.credits && touched.credits}
+        label={t('form.section.specificities.field.credits')}
       >
         <div className={classes.fieldWithTooltip}>
           <NumericInput
-            id="offer-form-credits-input"
-            name="credits"
-            value={credits}
-            onChange={handleChange}
             error={!!errors.credits && touched.credits}
             helperText={
               !!errors.credits && touched.credits && t(errors.credits)
             }
-            variant="outlined"
-            size="small"
-            InputProps={{ inputProps: { min: 0 } }}
-            placeholder="1"
+            id="offer-form-credits-input"
             inputClass={classes.mediumWidth}
+            InputProps={{ inputProps: { min: 0 } }}
+            name="credits"
             onBlur={handleBlur}
+            onChange={handleChange}
+            placeholder="1"
+            size="small"
+            value={credits}
+            variant="outlined"
           />
 
           <Tooltip
-            title={t('form.section.specificities.tooltip.credits')}
             className={classes.tooltip}
             onClick={handleDisplayCreditTooltip}
+            title={t('form.section.specificities.tooltip.credits')}
           >
             <Info />
           </Tooltip>
@@ -456,12 +456,12 @@ const OfferFormSpecificities = (props: Props) => {
         >
           <SwitchField
             id="offer-form-available-partnership-switch"
-            name="is_hybrid"
             label={t('form.section.specificities.field.hybridLabel')}
+            name="is_hybrid"
             switchColor="secondary"
           />
           {is_hybrid && (
-            <Alert severity="info" className={classes.centerAlert}>
+            <Alert className={classes.centerAlert} severity="info">
               {t('form.section.specificities.field.hybridHelper', {
                 onlineOfferDefaultEffectif:
                   HYBRID_OFFER_DEFAULT_EFFECTIF_FOR_ONLINE_SESSION,
@@ -473,32 +473,32 @@ const OfferFormSpecificities = (props: Props) => {
       {isBroadcast && !isWherebyIntegrationEnabled && (
         <OfferFormField
           id="offer-form-broadcast-link-field"
-          label={t('form.section.specificities.field.broadcastLink')}
           isError={!!errors.broadcastLink}
+          label={t('form.section.specificities.field.broadcastLink')}
         >
           <div className={classes.fieldWithTooltip}>
             <TextField
-              id="offer-form-broadcast-link-input"
-              variant="outlined"
-              size="small"
-              name="broadcastLink"
-              placeholder="https://zoom.us/123456789"
-              disabled={zoomAppEnabled && !zoomAppDetail?.is_disabled}
-              error={!!errors.broadcastLink && touched.broadcastLink}
-              onChange={handleChange}
-              onBlur={handleBlur}
               className={classNames(classes.bigWidth, {
                 [classes.disabledInput]:
                   zoomAppEnabled && !zoomAppDetail?.is_disabled,
               })}
+              disabled={zoomAppEnabled && !zoomAppDetail?.is_disabled}
+              error={!!errors.broadcastLink && touched.broadcastLink}
+              id="offer-form-broadcast-link-input"
+              name="broadcastLink"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              placeholder="https://zoom.us/123456789"
+              size="small"
+              variant="outlined"
             />
 
             {zoomAppEnabled && !zoomAppDetail?.is_disabled && (
               <>
                 <Tooltip
-                  title={t('form.section.specificities.tooltip.broadcastLink')}
                   className={classes.tooltip}
                   onClick={handleDisplayBroadcastLinkTooltip}
+                  title={t('form.section.specificities.tooltip.broadcastLink')}
                 >
                   <Info />
                 </Tooltip>
@@ -516,7 +516,7 @@ const OfferFormSpecificities = (props: Props) => {
       )}
 
       {!!errors.broadcastLink && (
-        <Typography variant="caption" color="error">
+        <Typography color="error" variant="caption">
           {t(errors.broadcastLink)}
         </Typography>
       )}

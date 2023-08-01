@@ -176,13 +176,13 @@ export const FranchiseDrawer = (props: Props) => {
       return (
         <React.Fragment key={String(i)}>
           <ListItem
-            id="button_menu_item"
+            key={String(i)}
             button
+            id="button_menu_item"
             onClick={() => {
               handleClick(item, i);
             }}
             selected={isActive}
-            key={String(i)}
           >
             {item.icon && (
               <ListItemIcon>
@@ -199,10 +199,10 @@ export const FranchiseDrawer = (props: Props) => {
             {open[i] ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse
-            in={open[i]}
             key={`${i}-collapse`}
-            timeout="auto"
             unmountOnExit
+            in={open[i]}
+            timeout="auto"
           >
             <List disablePadding className={classes.nestedList}>
               {item.nestedItems.map((subitem, subi) =>
@@ -221,21 +221,21 @@ export const FranchiseDrawer = (props: Props) => {
     return (
       <Link
         key={i}
-        to={item.to}
-        style={{ textDecoration: 'none' }}
         className={item.className || ''}
+        style={{ textDecoration: 'none' }}
+        to={item.to}
       >
         <ListItem
           button
+          className={isNested ? classes.nestedItem : null}
+          dense={item.dense || isNested}
           onClick={() => {
             handleDrawerToggle();
             if (item.action) {
               item.action();
             }
           }}
-          dense={item.dense || isNested}
           selected={isActive}
-          className={isNested ? classes.nestedItem : null}
         >
           {item.icon && (
             <ListItemIcon className={isNested ? classes.nestedIcon : null}>
@@ -267,12 +267,12 @@ export const FranchiseDrawer = (props: Props) => {
           <MoreVert />
         </Button>
         <Menu
-          anchorEl={anchorEl}
           keepMounted
-          open={!!anchorEl}
+          anchorEl={anchorEl}
           onClose={() => {
             setAnchorEl(null);
           }}
+          open={!!anchorEl}
         >
           <MenuItem>
             <LanguageButton
@@ -327,25 +327,25 @@ export const FranchiseDrawer = (props: Props) => {
         <Toolbar>
           <Grid
             container
-            direction="row"
             alignItems="center"
+            direction="row"
             justify="space-between"
-            wrap="nowrap"
             style={{ width: '100%' }}
+            wrap="nowrap"
           >
             <Grid item zeroMinWidth>
               <Grid
                 container
-                direction="row"
                 alignItems="center"
+                direction="row"
                 justify="flex-start"
                 wrap="nowrap"
               >
                 {(isMobileDevice || !displayLeftMenu) && (
                   <Grid item zeroMinWidth>
                     <IconButton
-                      color="inherit"
                       aria-label="open drawer"
+                      color="inherit"
                       onClick={handleDrawerToggleButton}
                     >
                       <MenuIcon />
@@ -354,15 +354,15 @@ export const FranchiseDrawer = (props: Props) => {
                 )}
                 <Grid item zeroMinWidth>
                   <Typography
-                    id="app-title"
-                    color="inherit"
                     noWrap
-                    variant="h6"
                     className={
                       !displayLeftMenu && !isMobileDevice
                         ? classes.titleAlternative
                         : classes.title
                     }
+                    color="inherit"
+                    id="app-title"
+                    variant="h6"
                   >
                     {document?.title}
                   </Typography>
@@ -404,12 +404,12 @@ export const FranchiseDrawer = (props: Props) => {
         <div className={classes.toolbar}>
           <Grid
             container
-            style={{ paddingTop: 10 }}
             alignItems="center"
             justifyContent="center"
+            style={{ paddingTop: 10 }}
           >
             <Hidden smDown>
-              <img height={40} src={cover ?? LOGO_ASSET} alt="bsport logo" />
+              <img alt="bsport logo" height={40} src={cover ?? LOGO_ASSET} />
             </Hidden>
           </Grid>
         </div>
@@ -439,29 +439,29 @@ export const FranchiseDrawer = (props: Props) => {
                 <div>
                   <Hidden mdUp>
                     <Drawer
-                      variant="temporary"
                       anchor="left"
-                      open={mobileOpen}
-                      onClose={handleDrawerToggle}
                       classes={{
                         paper: classes.drawerPaper,
                       }}
                       ModalProps={{
                         keepMounted: true, // Better open performance on mobile.
                       }}
+                      onClose={handleDrawerToggle}
+                      open={mobileOpen}
+                      variant="temporary"
                     >
                       {drawer}
                     </Drawer>
                   </Hidden>
                   <Hidden smDown implementation="css">
                     <Drawer
-                      variant="permanent"
                       open
                       anchor="left"
-                      elevation={20}
                       classes={{
                         paper: classes.drawerPaper,
                       }}
+                      elevation={20}
+                      variant="permanent"
                     >
                       {drawer}
                     </Drawer>
@@ -469,27 +469,27 @@ export const FranchiseDrawer = (props: Props) => {
                 </div>
               ) : (
                 <Drawer
-                  variant="temporary"
                   anchor="left"
-                  open={mobileOpen}
-                  onClose={handleDrawerToggle}
                   classes={{
                     paper: classes.drawerPaper,
                   }}
                   ModalProps={{
                     keepMounted: true, // Better open performance on mobile.
                   }}
+                  onClose={handleDrawerToggle}
+                  open={mobileOpen}
+                  variant="temporary"
                 >
                   {drawer}
                 </Drawer>
               )}
               <TempPasswordDialog
                 generateTempPassword={generateTempPassword}
-                tempPassword={tempPasswordState.password}
                 loading={tempPasswordState.loading}
-                tempPasswordExpirationDate={tempPasswordState.expiration_date}
                 onClose={closeTempPasswordDialog}
                 open={tempPasswordDialogOpen}
+                tempPassword={tempPasswordState.password}
+                tempPasswordExpirationDate={tempPasswordState.expiration_date}
               />
               <main className={classes.content}>
                 {banner}

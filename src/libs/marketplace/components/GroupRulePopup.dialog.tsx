@@ -64,7 +64,7 @@ export const GroupRulePopup: React.FC<Props> = ({
   }, [offersList, group, anchorDate]);
 
   return (
-    <GenericResponsiveDialog maxWidth="xs" open={open} onClose={onClose}>
+    <GenericResponsiveDialog maxWidth="xs" onClose={onClose} open={open}>
       {loading && <LinearProgress />}
       <DialogContent className={classes.fullWidth}>
         <div
@@ -92,7 +92,7 @@ export const GroupRulePopup: React.FC<Props> = ({
         </div>
       </DialogContent>
       <DialogActions>
-        <Button variant="text" onClick={onClose}>
+        <Button onClick={onClose} variant="text">
           {t('workshop.cancel')}
         </Button>
         <Button className={classes.button} onClick={onSubmit}>

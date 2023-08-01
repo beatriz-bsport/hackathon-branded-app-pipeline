@@ -81,10 +81,10 @@ export const TagRuleListItem = (props: Props) => {
     return (
       <div>
         <Button
-          variant="contained"
           color="primary"
           onClick={() => setEditRule(!editRule)}
           startIcon={editRule ? <CloseIcon /> : <AddIcon />}
+          variant="contained"
         >
           {`${editRule ? t('tag_rules.cancel') : t('tag_rules.create')}`}
         </Button>
@@ -105,9 +105,9 @@ export const TagRuleListItem = (props: Props) => {
           </Typography>
         </div>
         <TagRuleSelector
-          selected={tagRuleState}
-          onChange={(autotagRule) => setTagRuleState(autotagRule)}
           disabled={!editRule}
+          onChange={(autotagRule) => setTagRuleState(autotagRule)}
+          selected={tagRuleState}
         />
 
         <Typography className={editRule ? null : classes.tagDisabled}>
@@ -117,20 +117,20 @@ export const TagRuleListItem = (props: Props) => {
           <TagSelector
             noMulti
             allTagsWithTagGroup={props.tags}
-            selectedTags={[tagRuleState.tag]}
+            isDisabled={!editRule}
             onChange={(option) =>
               setTagRuleState({ ...tagRuleState, tag: option.tag.id })
             }
-            isDisabled={!editRule}
             onDeleteTag={() => setTagRuleState({ ...tagRuleState, tag: null })}
+            selectedTags={[tagRuleState.tag]}
           />
         </div>
       </CardContent>
       <CardActions className={classes.formFooter}>
         {props.updateAutoTag && (
           <IconButton
-            color="secondary"
             aria-label="modify rule"
+            color="secondary"
             component="span"
             onClick={() => setEditRule(!editRule)}
           >
@@ -140,8 +140,8 @@ export const TagRuleListItem = (props: Props) => {
 
         {editRule && !props.creationCard && (
           <IconButton
-            color="primary"
             aria-label="save rule modification"
+            color="primary"
             component="span"
             onClick={() => {
               props.deleteAutoTag(props.tagRule.id);
@@ -156,10 +156,10 @@ export const TagRuleListItem = (props: Props) => {
 
         {props.updateAutoTag && editRule && (
           <IconButton
-            disabled={!editRule}
-            color="secondary"
             aria-label="save rule modification"
+            color="secondary"
             component="span"
+            disabled={!editRule}
             onClick={() => handleUpdateTagRule()}
           >
             <Zoom in={editRule}>
@@ -169,20 +169,20 @@ export const TagRuleListItem = (props: Props) => {
         )}
         {props.createAutoTag && (
           <Button
-            variant="contained"
             color="primary"
             onClick={() => setEditRule(!editRule)}
             startIcon={editRule ? <CloseIcon /> : <AddIcon />}
+            variant="contained"
           >
             {`${editRule ? t('tag_rules.cancel') : t('tag_rules.create')}`}
           </Button>
         )}
         {props.createAutoTag && editRule && (
           <IconButton
-            disabled={!editRule || !tagRuleState.tag}
-            color="primary"
             aria-label="create rule"
+            color="primary"
             component="span"
+            disabled={!editRule || !tagRuleState.tag}
             onClick={() => handleCreateTagRule()}
           >
             <Zoom in={editRule}>

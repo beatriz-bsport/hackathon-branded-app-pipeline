@@ -31,11 +31,11 @@ export const CoachAvatar: React.FC<Props> = ({ coach, coach_override }) => {
   return (
     <Tooltip title={tooltipText}>
       <Avatar
+        className={coach_override && classes.avatarSubstitute}
         src={
           (coach_override && coach_override.photo) ||
           (coach ? coach.photo : null)
         }
-        className={coach_override && classes.avatarSubstitute}
       />
     </Tooltip>
   );

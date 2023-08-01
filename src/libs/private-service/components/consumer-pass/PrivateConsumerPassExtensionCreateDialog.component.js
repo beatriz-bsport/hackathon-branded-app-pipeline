@@ -131,17 +131,17 @@ export const PrivateConsumerPassExtensionCreateDialog = (props: Props) => {
         <div className={props.classes.content}>
           <Grid item xs={12}>
             <RadioGroup
-              value={selectedExtensionOption}
               onChange={handleSelectOption}
+              value={selectedExtensionOption}
             >
               {EXTENSION_OPTIONS.map(({ value, label: l }) => (
                 <div key={value}>
                   <FormControlLabel
                     key={value}
-                    value={value}
                     control={<Radio />}
-                    label={l}
                     disabled={props.processing}
+                    label={l}
+                    value={value}
                   />
                 </div>
               ))}
@@ -149,35 +149,35 @@ export const PrivateConsumerPassExtensionCreateDialog = (props: Props) => {
           </Grid>
           {selectedExtensionOption === 'numericInput' && (
             <NumericInput
-              value={nbDays}
               fullWidth
-              label={props.t('consumerPass.extension.create.nbDays.label')}
-              onChange={handleChangeNumericInput}
               InputProps={{
                 inputProps: { step: 1, min: 0 },
               }}
+              label={props.t('consumerPass.extension.create.nbDays.label')}
+              onChange={handleChangeNumericInput}
+              value={nbDays}
             />
           )}
           {selectedExtensionOption === 'datePicker' &&
             !!privateConsumerPass && (
               <DateInput
-                value={newDate}
-                onChange={handleSelectDate}
-                minDate={endingDate}
+                disabled={props.processing}
                 label={props.t(
                   'consumerPass.extension.create.datePicker.label',
                 )}
-                disabled={props.processing}
+                minDate={endingDate}
+                onChange={handleSelectDate}
+                value={newDate}
               />
             )}
           <TextField
-            variant="outlined"
-            value={props.note}
             fullWidth
+            className={props.classes.field}
             inputProps={{ maxLength: 42 }}
             label={props.t('consumerPass.extension.create.note.label')}
             onChange={handleChangeNote}
-            className={props.classes.field}
+            value={props.note}
+            variant="outlined"
           />
           {privateConsumerPass ? (
             <div className={props.classes.dateExplainer}>
@@ -206,8 +206,8 @@ export const PrivateConsumerPassExtensionCreateDialog = (props: Props) => {
         </Button>
         <Button
           color="primary"
-          onClick={handleSubmit}
           disabled={props.processing}
+          onClick={handleSubmit}
         >
           {props.t('consumerPass.extension.create.submit')}
         </Button>

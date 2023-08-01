@@ -26,8 +26,8 @@ export const CoachInformation = (props: Props) => {
       <div className={classNames(classes.flexRow, classes.expansionTitle)}>
         <Typography variant="h5">{t('common.information')}</Typography>
         <Button
-          onClick={() => startUpdateCoach(coach)}
           color="primary"
+          onClick={() => startUpdateCoach(coach)}
           variant="contained"
         >
           <EditIcon className={classes.leftIcon} />

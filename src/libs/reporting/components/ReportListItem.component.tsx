@@ -35,7 +35,7 @@ const ReportListItem: React.FC<Props> = ({
   const onClick = () => onDetail(report.id);
 
   return (
-    <ListItem className={classes.listItem} onClick={onClick} button>
+    <ListItem button className={classes.listItem} onClick={onClick}>
       <ListItemAvatar>
         <Icon fontSize="large" />
       </ListItemAvatar>

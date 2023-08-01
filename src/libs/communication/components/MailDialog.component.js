@@ -176,15 +176,15 @@ export class MailDialog extends Component<Props> {
                     />
                     <ListItemSecondaryAction>
                       <Checkbox
-                        edge="end"
-                        disabled={!member.email || receiversNotEditable}
-                        onChange={this.handleToggle(member.id)}
                         checked={
                           member.email
                             ? this.state.checkedReceivers.indexOf(member.id) !==
                               -1
                             : false
                         }
+                        disabled={!member.email || receiversNotEditable}
+                        edge="end"
+                        onChange={this.handleToggle(member.id)}
                       />
                     </ListItemSecondaryAction>
                   </ListItem>
@@ -203,10 +203,10 @@ export class MailDialog extends Component<Props> {
                       {t('common.cancel')}
                     </Button>
                     <Button
-                      variant="outlined"
-                      type="submit"
                       color="primary"
                       onClick={() => document.location.reload(true)}
+                      type="submit"
+                      variant="outlined"
                     >
                       {t('common.refresh')}
                     </Button>
@@ -214,23 +214,23 @@ export class MailDialog extends Component<Props> {
                 </DialogContent>
               </Dialog>
               <TextField
-                name="Mail title"
-                label={t('mail.title')}
                 fullWidth
                 required
-                placeholder={this.props.t('mail.noObject')}
                 className={classes.mailTitle}
-                value={this.state.mailTitle}
+                label={t('mail.title')}
+                name="Mail title"
                 onChange={(e) => this.setState({ mailTitle: e.target.value })}
+                placeholder={this.props.t('mail.noObject')}
+                value={this.state.mailTitle}
               />
               <TextField
-                name="Mail content"
-                label={t('mail.content')}
-                rows="15"
-                value={this.state.mailContent}
-                onChange={(e) => this.setState({ mailContent: e.target.value })}
                 fullWidth
                 multiline
+                label={t('mail.content')}
+                name="Mail content"
+                onChange={(e) => this.setState({ mailContent: e.target.value })}
+                rows="15"
+                value={this.state.mailContent}
                 variant="outlined"
               />
               <DialogActions>
@@ -238,10 +238,10 @@ export class MailDialog extends Component<Props> {
                   {t('common.cancel')}
                 </Button>
                 <Button
-                  variant="outlined"
+                  color="primary"
                   disabled={this.state.mailContent === ''}
                   type="submit"
-                  color="primary"
+                  variant="outlined"
                 >
                   {t('common.submit')}
                 </Button>

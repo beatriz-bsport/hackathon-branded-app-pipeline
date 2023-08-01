@@ -101,8 +101,8 @@ const InboxPanel: React.FC<Props> = ({
       {panelClosedOnFullScreen ? (
         <div className={classes.infoIconPadding}>
           <Tooltip
-            title={t('thread.panel.openPanel')}
             classes={{ tooltip: classes.tooltip }}
+            title={t('thread.panel.openPanel')}
           >
             <IconButton onClick={handleClick}>
               <InfoIcon />
@@ -119,16 +119,16 @@ const InboxPanel: React.FC<Props> = ({
             <>
               {isMobile && (
                 <InboxThreadHeader
-                  id={thread?.id}
+                  closeInboxPanel={closeInboxPanel}
                   cover={thread?.cover}
-                  title={thread?.title}
-                  subtitle={thread?.subtitle}
+                  hasBeenRead={thread?.last_communication_has_been_read}
+                  id={thread?.id}
+                  isDisabled={thread?.disabled}
                   isFavorite={thread?.favorite}
                   isMuted={thread?.muted}
-                  hasBeenRead={thread?.last_communication_has_been_read}
-                  isDisabled={thread?.disabled}
                   relatedObjectKind={thread?.related_object_kind}
-                  closeInboxPanel={closeInboxPanel}
+                  subtitle={thread?.subtitle}
+                  title={thread?.title}
                 />
               )}
               <div className={classnames({ [classes.openPanel]: isMobile })}>
@@ -147,26 +147,26 @@ const InboxPanel: React.FC<Props> = ({
 
                 {thread?.related_object_kind === ChatThreadKinds.Member && (
                   <InboxPanelMember
+                    goToMemberPage={goToMemberPage}
                     member={member}
                     tags={tags}
-                    goToMemberPage={goToMemberPage}
                     unpaidInvoicesCount={unpaidInvoicesCount}
                   />
                 )}
                 {thread?.related_object_kind === ChatThreadKinds.Smartlist && (
                   <InboxPanelSmartlist
-                    smartlist={smartlist}
-                    memberCount={memberInSmartlistCount}
-                    goToSmartlistPage={goToSmartlistPage}
-                    filters={filtersSmartlist}
-                    includedTags={includedTagsForSmartlist}
                     excludedTags={excludedTagsForSmartlist}
+                    filters={filtersSmartlist}
+                    goToSmartlistPage={goToSmartlistPage}
+                    includedTags={includedTagsForSmartlist}
+                    memberCount={memberInSmartlistCount}
+                    smartlist={smartlist}
                   />
                 )}
                 {thread?.related_object_kind === ChatThreadKinds.Offer && (
                   <InboxPanelOffer
-                    offer={offer}
                     goToOfferPage={goToOfferPage}
+                    offer={offer}
                     showOfferGender={showOfferGender}
                   />
                 )}

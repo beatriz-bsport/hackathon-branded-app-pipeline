@@ -46,14 +46,14 @@ const FormSection = React.memo((props: Props) => {
       <div id={id}>
         <Box className={classes.container}>
           <FormSectionTitle
-            Icon={sectionIcon}
-            title={sectionTitle}
-            iconStyle={sectionIconStyle}
-            iconContainerStyle={sectionIconContainerStyle}
-            customIconStyle={sectionCustomIconStyle}
             isCollapse
+            customIconStyle={sectionCustomIconStyle}
+            Icon={sectionIcon}
+            iconContainerStyle={sectionIconContainerStyle}
+            iconStyle={sectionIconStyle}
             isExpanded={isExpanded}
             onToggleExpandSection={toggleExpandSection}
+            title={sectionTitle}
           />
           <Collapse in={isExpanded}>
             <Box className={classes.collapseContainer}>{children}</Box>
@@ -69,11 +69,11 @@ const FormSection = React.memo((props: Props) => {
       <Box className={classes.container}>
         {sectionTitle && (
           <FormSectionTitle
-            Icon={sectionIcon}
-            title={sectionTitle}
-            iconStyle={sectionIconStyle}
-            iconContainerStyle={sectionIconContainerStyle}
             customIconStyle={sectionCustomIconStyle}
+            Icon={sectionIcon}
+            iconContainerStyle={sectionIconContainerStyle}
+            iconStyle={sectionIconStyle}
+            title={sectionTitle}
           />
         )}
         {children}

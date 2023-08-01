@@ -42,8 +42,8 @@ export class PaymentByCredit extends React.Component<Props, State> {
         ) : (
           <Typography
             align="center"
-            color="textSecondary"
             className={this.props.classes.explainText}
+            color="textSecondary"
           >
             {this.props.t('forms.credit.explain')}
           </Typography>
@@ -60,12 +60,18 @@ export class PaymentByCredit extends React.Component<Props, State> {
         ) : null}
         <div className={this.props.classes.buttonContainer}>
           <Button
-            onClick={this.props.onCancel}
             disabled={this.props.loading || this.state.processing}
+            onClick={this.props.onCancel}
           >
             {this.props.t('forms.cancelPayment')}
           </Button>
           <Button
+            color="primary"
+            disabled={
+              (!this.props.termsAccepted && this.props.termsAndConditions) ||
+              this.props.loading ||
+              this.state.processing
+            }
             onClick={() => {
               this.setState({ processing: true });
               this.props.submitPayment(
@@ -83,13 +89,7 @@ export class PaymentByCredit extends React.Component<Props, State> {
                 },
               );
             }}
-            color="primary"
             variant="contained"
-            disabled={
-              (!this.props.termsAccepted && this.props.termsAndConditions) ||
-              this.props.loading ||
-              this.state.processing
-            }
           >
             {this.props.t('forms.credit.pay')}
           </Button>

@@ -53,16 +53,16 @@ const OfferItem = React.memo((props: OfferItemProps) => {
         [classes.alignItemsEnd]: isAlignItemsEnd,
       })}
       primary={
-        <Typography variant="caption" className={classes.offerDate}>
+        <Typography className={classes.offerDate} variant="caption">
           {date}
         </Typography>
       }
       secondary={
         <CardHeader
-          className={classes.noPadding}
           avatar={
             <Avatar className={classes.avatarContainer} src={coachPicture} />
           }
+          className={classes.noPadding}
           title={<Typography variant="caption">{coachName}</Typography>}
         />
       }
@@ -101,8 +101,8 @@ const SimilarOfferCheckbox = (props: SimilarOfferCheckboxProps) => {
     <div className={classes.alignCenter}>
       <Checkbox
         checked={isOfferChecked}
-        onChange={handleCheckSimilarOffer}
         disabled={isDisabled}
+        onChange={handleCheckSimilarOffer}
       />
     </div>
   );
@@ -208,24 +208,23 @@ const SimilarOffersList = (props: Props) => {
 
       {!!similarOffersList.length && (
         <>
-          <List component="ul" className={classes.list}>
+          <List className={classes.list} component="ul">
             {similarOffersList.map((similarOffer) => (
               <li
+                key={similarOffer.id}
                 className={classNames(classes.offerItem, {
                   [classes.disabled]: similarOffer.id === offerId,
                 })}
-                key={similarOffer.id}
               >
                 {!isCoachOverrideWarning && (
                   <SimilarOfferCheckbox
-                    similarOfferId={similarOffer.id}
                     isDisabled={similarOffer.id === offerId}
+                    similarOfferId={similarOffer.id}
                   />
                 )}
 
                 <div className={classes.flexBetween}>
                   <OfferItem
-                    date={getInitialOfferDate(similarOffer.date_start)}
                     coachName={
                       isCoachOverrideWarning
                         ? getCoachName(similarOffer.coach_override)
@@ -240,6 +239,7 @@ const SimilarOffersList = (props: Props) => {
                             coach !== offerCoach.id ? coach : offerCoach.id,
                           )
                     }
+                    date={getInitialOfferDate(similarOffer.date_start)}
                   />
 
                   {!isCoachOverrideWarning && !isMobile && (
@@ -247,10 +247,10 @@ const SimilarOffersList = (props: Props) => {
                       <ArrowForwardIcon className={classes.arrow} />
 
                       <OfferItem
-                        date={getNewOfferDate(similarOffer.date_start)}
+                        isAlignItemsEnd
                         coachName={getCoachName(coachOverride)}
                         coachPicture={getCoachPhoto(coachOverride)}
-                        isAlignItemsEnd
+                        date={getNewOfferDate(similarOffer.date_start)}
                       />
                     </>
                   )}
@@ -261,10 +261,10 @@ const SimilarOffersList = (props: Props) => {
 
           <div className={classes.paginationIndicator}>
             <Pagination
-              disabled={similarOffersLoading}
               count={pageCount}
-              page={currentPage}
+              disabled={similarOffersLoading}
               onChange={handlePageChange}
+              page={currentPage}
             />
           </div>
         </>

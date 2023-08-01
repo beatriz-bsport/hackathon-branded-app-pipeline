@@ -34,9 +34,9 @@ type Props = OwnProps & StateHandlerType;
 
 export const PrivateBookingCancellationDialog = (props: Props) => (
   <Dialog
-    open={!!props.open}
     fullScreen={props.fullScreen}
     onClose={props.onClose}
+    open={!!props.open}
   >
     <DialogTitle>
       {props.t('privateService:privateBooking.delete.consumer.title')}
@@ -59,8 +59,8 @@ export const PrivateBookingCancellationDialog = (props: Props) => (
     <DialogActions>
       <Button
         color="secondary"
-        onClick={props.onCancel}
         disabled={props.processing}
+        onClick={props.onCancel}
       >
         {props.t('common.cancel')}
       </Button>

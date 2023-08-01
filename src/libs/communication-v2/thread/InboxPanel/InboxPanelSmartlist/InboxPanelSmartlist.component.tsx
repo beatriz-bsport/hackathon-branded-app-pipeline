@@ -58,15 +58,15 @@ const InboxPanelSmartlist: React.FC<Props> = ({
       </div>
 
       <div className={classes.sectionContainer}>
-        <Typography variant="body1" color="textPrimary">
+        <Typography color="textPrimary" variant="body1">
           {t('communication:thread.panel.smartlist.filters')}
         </Typography>
         <div className={classes.smallPaddingTop}>
           <CustomChip
             displayedValue={t(`memberBase.options.${smartlist?.member_base}`)}
             icon="Person"
-            mainColor={theme.palette.common.black}
             iconColor={theme.palette.common.black}
+            mainColor={theme.palette.common.black}
           />
         </div>
         <div className={classes.filterContainer}>
@@ -83,20 +83,20 @@ const InboxPanelSmartlist: React.FC<Props> = ({
 
       {hasTagFilters && (
         <InboxPanelSmartlistTags
-          includedTags={includedTags}
           excludedTags={excludedTags}
+          includedTags={includedTags}
         />
       )}
 
       {smartlist?.description && (
         <div className={classes.sectionContainer}>
-          <Typography variant="body1" color="textPrimary">
+          <Typography color="textPrimary" variant="body1">
             {t('communication:thread.panel.smartlist.description')}
           </Typography>
           <Typography
-            variant="body2"
-            color="textPrimary"
             className={classes.smallPaddingTop}
+            color="textPrimary"
+            variant="body2"
           >
             {smartlist?.description}
           </Typography>

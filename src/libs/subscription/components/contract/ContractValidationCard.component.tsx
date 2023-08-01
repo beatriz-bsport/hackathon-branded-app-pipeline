@@ -16,7 +16,7 @@ export const ContractValidationCard = (props: Props) => {
   const classes = useStyles();
   if (!contract) return null;
   return (
-    <ListItem className={classes.paperContainer} divider>
+    <ListItem divider className={classes.paperContainer}>
       <Typography variant="h6">{contract.name}</Typography>
       <div className={classes.row}>
         <AccessTimeIcon className={classes.leftIcon} />

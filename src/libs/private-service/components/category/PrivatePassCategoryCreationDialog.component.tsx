@@ -48,13 +48,13 @@ export const PrivatePassCategoryCreationDialogComponent = (props: Props) => {
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <Dialog
-      fullWidth
-      maxWidth="sm"
-      open={props.open}
-      onClose={props.handleClose}
       disableBackdropClick
       disableEscapeKeyDown
+      fullWidth
       fullScreen={fullScreen}
+      maxWidth="sm"
+      onClose={props.handleClose}
+      open={props.open}
     >
       <DialogTitle id="form-dialog-title">
         {privatePassCategorySelected
@@ -63,11 +63,11 @@ export const PrivatePassCategoryCreationDialogComponent = (props: Props) => {
       </DialogTitle>
       <DialogContent>
         <TextField
-          value={privatePassCategoryName}
-          placeholder={t('category.form.dialog.name')}
-          onChange={(ev) => setPrivatePassCategoryName(ev.target.value)}
           fullWidth
           required
+          onChange={(ev) => setPrivatePassCategoryName(ev.target.value)}
+          placeholder={t('category.form.dialog.name')}
+          value={privatePassCategoryName}
           variant="outlined"
         />
         {!privatePassCategorySelected && (
@@ -82,16 +82,16 @@ export const PrivatePassCategoryCreationDialogComponent = (props: Props) => {
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.handleClose} color="secondary">
+        <Button color="secondary" onClick={props.handleClose}>
           {t('cancel')}
         </Button>
         <Button
+          color="secondary"
+          disabled={!privatePassCategoryName}
           onClick={() => {
             props.trackIntent();
             handleSubmit();
           }}
-          disabled={!privatePassCategoryName}
-          color="secondary"
         >
           {privatePassCategorySelected ? t('update') : t('create')}
         </Button>

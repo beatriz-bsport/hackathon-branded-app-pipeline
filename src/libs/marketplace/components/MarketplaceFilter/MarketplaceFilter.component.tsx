@@ -133,7 +133,6 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
             </div>
           )}
           <KeyboardArrowDownIcon
-            color="inherit"
             classes={{
               root: classNames(
                 'bs-marketplace-filter__right__placeholder-icon',
@@ -143,17 +142,18 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
                 },
               ),
             }}
+            color="inherit"
           />
         </div>
       </button>
 
       <Popper
-        open={!!anchorRef.current && isOpen}
-        anchorEl={anchorRef.current}
-        role={undefined}
-        placement="bottom-start"
-        transition
         disablePortal
+        transition
+        anchorEl={anchorRef.current}
+        open={!!anchorRef.current && isOpen}
+        placement="bottom-start"
+        role={undefined}
         style={{
           zIndex: 'var(--z-index-modal)',
         }}
@@ -165,7 +165,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
               transformOrigin: 'left top',
             }}
           >
-            <ClickAwayListener onClickAway={handleCloseMenu} disableReactTree>
+            <ClickAwayListener disableReactTree onClickAway={handleCloseMenu}>
               <div className="bs-marketplace-filter__menu">
                 <div
                   className={classNames('bs-marketplace-filter__menu__list', {
@@ -190,14 +190,14 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
                           {newOpt.options.map((subOption) => {
                             return (
                               <div
-                                className="bs-marketplace-filter__menu__list__sub-item"
                                 key={subOption.value}
+                                className="bs-marketplace-filter__menu__list__sub-item"
                               >
                                 <Checkbox
-                                  color="primary"
                                   checked={selected.includes(subOption.value)}
-                                  onClick={handleSelect(subOption.value)}
                                   className="bs-marketplace-filter__menu__list__sub-item__checkbox"
+                                  color="primary"
+                                  onClick={handleSelect(subOption.value)}
                                 />
                                 {subOption.label}
                               </div>
@@ -210,8 +210,8 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
                     const simpleOption = opt as Option;
                     return (
                       <div
-                        className="bs-marketplace-filter__menu__list__item"
                         key={simpleOption.value}
+                        className="bs-marketplace-filter__menu__list__item"
                         style={
                           {
                             '--levelChipColor':
@@ -223,10 +223,10 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
                           <div className="bs-marketplace-filter__menu__list__item__chip__level" />
                         )}
                         <Checkbox
-                          color="primary"
                           checked={selected.includes(simpleOption.value)}
-                          onClick={handleSelect(simpleOption.value)}
                           className="bs-marketplace-filter__menu__list__item__checkbox"
+                          color="primary"
+                          onClick={handleSelect(simpleOption.value)}
                         />
                         {simpleOption.label}
                       </div>
@@ -235,8 +235,8 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
                 </div>
                 <div className="bs-marketplace-filter__menu__buttons">
                   <button
-                    onClick={handleSelectAll}
                     className="bs-marketplace-filter__menu__buttons__select"
+                    onClick={handleSelectAll}
                     type="button"
                   >
                     {selected?.length > 0
@@ -244,8 +244,8 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
                       : t('selector.selectAll')}
                   </button>
                   <button
-                    onClick={handleValidate}
                     className="bs-marketplace-filter__menu__buttons__confirm"
+                    onClick={handleValidate}
                     type="button"
                   >
                     {t('selector.validate')}

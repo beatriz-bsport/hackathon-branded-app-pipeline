@@ -11,13 +11,13 @@ const MetaActivitySelectorWithCardSkeleton = () => {
       <div className={classes.skeletonCardContainer}>
         <Skeleton
           animation="wave"
-          variant="rect"
           className={classes.skeletonCard}
+          variant="rect"
         >
           <Skeleton
             animation="wave"
-            variant="circle"
             className={classes.skeletonCardAvatar}
+            variant="circle"
           />
         </Skeleton>
       </div>
@@ -28,8 +28,8 @@ const MetaActivitySelectorWithCardSkeleton = () => {
     <>
       <Skeleton
         animation="wave"
-        variant="rect"
         className={classes.skeletonSearch}
+        variant="rect"
       />
 
       <div className={classes.skeletonList}>

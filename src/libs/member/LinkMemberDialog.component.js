@@ -35,17 +35,17 @@ class MemberLinkDialog extends React.Component<Props> {
     return (
       <div>
         <Button
+          classes={{ outlined: this.props.classes.buttonOutlined }}
           onClick={this.handleClickOpen}
           variant="outlined"
-          classes={{ outlined: this.props.classes.buttonOutlined }}
         >
           {t('exists.linkUser')}
         </Button>
         <Dialog
-          open={this.state.open}
-          onClose={this.handleClose}
-          aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
+          aria-labelledby="alert-dialog-title"
+          onClose={this.handleClose}
+          open={this.state.open}
         >
           <DialogTitle id="alert-dialog-title">
             {t('linkDialog.title')}
@@ -56,10 +56,10 @@ class MemberLinkDialog extends React.Component<Props> {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button color="primary" onClick={this.handleClose}>
               {t('linkDialog.cancel')}
             </Button>
-            <Button onClick={this.handleConfirm} color="primary" autoFocus>
+            <Button autoFocus color="primary" onClick={this.handleConfirm}>
               {t('linkDialog.confirm')}
             </Button>
           </DialogActions>

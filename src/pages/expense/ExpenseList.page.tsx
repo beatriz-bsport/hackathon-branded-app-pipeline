@@ -172,47 +172,46 @@ export class ExpenseList extends Component<Props> {
       <>
         <div className={this.props.classes.container}>
           <ExpenseFilters
+            categoryFilterOnChange={this.props.setSelectedCategories}
             categoryOptions={categoryOptions.filter(
               (opt) => opt.label !== null,
             )}
+            categoryValue={this.props.selectedCategories}
+            setShowFuture={this.props.setShowFuture}
+            showFuture={this.props.showFuture}
+            staffFilterOnChange={this.props.setSelectedStaff}
             staffOptions={staffOptions}
+            staffValue={this.props.selectedStaff}
+            supplierFilterOnChange={this.props.setSelectedSuppliers}
             supplierOptions={[
               ...this.props.suppliers.map((sup: string) => {
                 return { value: sup, label: sup };
               }),
             ]}
-            categoryFilterOnChange={this.props.setSelectedCategories}
-            staffFilterOnChange={this.props.setSelectedStaff}
-            supplierFilterOnChange={this.props.setSelectedSuppliers}
-            categoryValue={this.props.selectedCategories}
-            staffValue={this.props.selectedStaff}
             supplierValue={this.props.selectedSuppliers}
-            showFuture={this.props.showFuture}
-            setShowFuture={this.props.setShowFuture}
           />
           {this.props.loading && <LinearProgress />}
           <ExpenseTable
-            expenseList={this.props.expenseList}
-            page={this.props.page}
             count={this.props.count}
-            onPageChange={this.onPageChange}
+            deleteDialogOpen={this.props.deleteDialogOpen}
+            expenseList={this.props.expenseList}
             onDelete={this.props.deleteExpense}
             onEdit={() => this.props.setExpenseFormOpen(true)}
+            onPageChange={this.onPageChange}
+            page={this.props.page}
             selectedExpense={this.props.selectedExpense}
-            setSelectedExpense={this.props.setSelectedExpense}
-            deleteDialogOpen={this.props.deleteDialogOpen}
             setDeleteDialogOpen={this.props.setDeleteDialogOpen}
-            setExpenseFormOpen={this.props.setExpenseFormOpen}
             setEditChoice={this.props.setEditChoice}
+            setExpenseFormOpen={this.props.setExpenseFormOpen}
+            setSelectedExpense={this.props.setSelectedExpense}
           />
           <BottomActionsButton
-            onCreateLabel={t('addButton')}
             onCreate={() => this.props.setExpenseFormOpen(true)}
+            onCreateLabel={t('addButton')}
           />
         </div>
 
         <GenericResponsiveDrawer
-          open={this.props.expenseFormOpen}
           onClose={() => {
             trackFormCancel(
               this.props.expenseList?.find(
@@ -221,6 +220,7 @@ export class ExpenseList extends Component<Props> {
             );
             this.handleClose();
           }}
+          open={this.props.expenseFormOpen}
           title={
             this.props.expenseList?.find(
               (exp: Expense) => exp.id === this.props.selectedExpense,
@@ -230,16 +230,16 @@ export class ExpenseList extends Component<Props> {
           }
         >
           <ExpenseForm
-            onClose={this.handleClose}
-            staffList={this.props.staffList}
+            isInDrawer
+            editChoice={this.props.editChoice}
             initial={this.props.expenseList?.find(
               (exp: Expense) => exp.id === this.props.selectedExpense,
             )}
-            isInDrawer
+            onClose={this.handleClose}
             onCreateSubmit={this.props.createExpense}
             onUpdateSubmit={this.props.updateExpense}
-            editChoice={this.props.editChoice}
             setEditChoice={this.props.setEditChoice}
+            staffList={this.props.staffList}
           />
         </GenericResponsiveDrawer>
       </>

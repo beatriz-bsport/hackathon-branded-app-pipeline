@@ -202,13 +202,13 @@ export class SearchResults extends React.Component<Props, State> {
     const isLoadingMember = !hasLoaded && selected;
     return (
       <Grid container>
-        <Grid item xs={12} md={4} className={classes.root}>
+        <Grid item className={classes.root} md={4} xs={12}>
           <SearchBar changeLocation className={classes.mobileOnly} />
           {hasLoaded ? (
             <Button
-              color="secondary"
               fullWidth
               className={classes.buttonGoBack}
+              color="secondary"
               onClick={() => this.props.selectEntity(null)}
             >
               {t('go_back')}
@@ -223,6 +223,7 @@ export class SearchResults extends React.Component<Props, State> {
                   </Typography>
                 </div>
                 <MemberMinimalListItem
+                  bottomCredit
                   member={this.state.memberArchivedCloseMatch}
                   onClick={() => {
                     this.props.pushToMember(
@@ -230,7 +231,6 @@ export class SearchResults extends React.Component<Props, State> {
                     );
                   }}
                   showVaccinationStatus={this.props.showVaccinationStatus}
-                  bottomCredit
                 />
               </div>
             </Paper>
@@ -246,11 +246,11 @@ export class SearchResults extends React.Component<Props, State> {
                 </ListItem>
               )}
               <ResultList
+                className={selected && !isLoadingMember ? classes.hidden : ''}
                 items={this.props.members}
                 loading={this.props.loading}
                 selected={selected}
                 selectEntity={this.selectEntity}
-                className={selected && !isLoadingMember ? classes.hidden : ''}
                 showVaccinationStatus={this.props.showVaccinationStatus}
               />
             </Paper>
@@ -267,11 +267,11 @@ export class SearchResults extends React.Component<Props, State> {
               </ListItem>
               <Collapse in={this.state.openArchivedSection}>
                 <ResultList
+                  className={selected && !isLoadingMember ? classes.hidden : ''}
                   items={this.props.membersArchived}
                   loading={this.props.archivedSearchLoading}
                   selected={selected}
                   selectEntity={this.selectEntity}
-                  className={selected && !isLoadingMember ? classes.hidden : ''}
                   showVaccinationStatus={this.props.showVaccinationStatus}
                 />
               </Collapse>
@@ -279,7 +279,7 @@ export class SearchResults extends React.Component<Props, State> {
           </div>
         </Grid>
         {this.state.memberArchivedCloseMatch && (
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             <div className={classes.stickyPoper}>
               <Paper>
                 <div className={classes.card}>
@@ -289,6 +289,7 @@ export class SearchResults extends React.Component<Props, State> {
                     </Typography>
                   </div>
                   <MemberMinimalListItem
+                    bottomCredit
                     member={this.state.memberArchivedCloseMatch}
                     onClick={() => {
                       this.props.pushToMember(
@@ -296,7 +297,6 @@ export class SearchResults extends React.Component<Props, State> {
                       );
                     }}
                     showVaccinationStatus={this.props.showVaccinationStatus}
-                    bottomCredit
                   />
                 </div>
               </Paper>

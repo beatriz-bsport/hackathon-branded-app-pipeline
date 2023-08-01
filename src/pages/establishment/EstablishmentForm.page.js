@@ -105,12 +105,12 @@ export class EstablishmentFormPage extends Component<Props> {
     }
     return (
       <EstablishmentForm
+        initial={update}
+        onCancel={this.cancel}
         onSubmit={this.createEstablishment}
         processing={this.props.pending}
-        initial={update}
-        update={this.props.update}
         // imageUploader={imageUploader}
-        onCancel={this.cancel}
+        update={this.props.update}
       />
     );
   }

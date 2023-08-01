@@ -101,8 +101,8 @@ export const PaymentStripe: React.FC<Props> = ({
 
   return (
     <form
-      onSubmit={onFormSubmit}
       className={classNames(classes.container, customClasses?.contaier)}
+      onSubmit={onFormSubmit}
     >
       {!hideAmountToPay && (
         <div
@@ -112,11 +112,11 @@ export const PaymentStripe: React.FC<Props> = ({
           )}
         >
           <PriceInput
-            value={modifiedAmountToPay}
-            label={t('paymentPanel.amount.label')}
-            variant="outlined"
             disabled={processing || !clientSecret}
+            label={t('paymentPanel.amount.label')}
             onChange={onPriceChange}
+            value={modifiedAmountToPay}
+            variant="outlined"
           />
           {!!amountToPay &&
             parseInt(amountToPay) / 100 <= modifiedAmountToPay - 1 && (
@@ -138,14 +138,14 @@ export const PaymentStripe: React.FC<Props> = ({
           {t('paymentMethod.select.label')}
         </InputLabel>
         <Select
-          id="payment-method-select"
-          value={`${paymentMethodSelected}`}
           disabled={processing || !clientSecret}
-          style={{ minWidth: 200 }}
+          id="payment-method-select"
           onChange={onPaymentMethodSelect}
+          style={{ minWidth: 200 }}
+          value={`${paymentMethodSelected}`}
         >
           {(paymentMethodChoices ?? []).map((pm) => (
-            <MenuItem value={pm} key={pm}>
+            <MenuItem key={pm} value={pm}>
               {t(`paymentMethod.label.${pm}`)}
             </MenuItem>
           ))}
@@ -153,14 +153,14 @@ export const PaymentStripe: React.FC<Props> = ({
       </FormControl>
       <div className={classNames(classes.field, customClasses?.field)}>
         <DateInput
-          value={date}
           required
           disabled={processing}
+          endAdornment={dateFieldEndAdornment}
+          label={t('paymentPanel.date.label')}
           onChange={(dateMoment) => {
             setDate(dateMoment.format());
           }}
-          label={t('paymentPanel.date.label')}
-          endAdornment={dateFieldEndAdornment}
+          value={date}
         />
       </div>
       <div
@@ -170,13 +170,13 @@ export const PaymentStripe: React.FC<Props> = ({
         )}
       >
         <TextField
+          fullWidth
+          disabled={processing || !clientSecret}
+          helperText={t('paymentPanel.paymentNote.helperText')}
+          label={t('paymentPanel.paymentNote.label')}
+          onChange={(ev) => setPaymentNote(ev.target.value)}
           value={payment_note}
           variant="outlined"
-          fullWidth
-          onChange={(ev) => setPaymentNote(ev.target.value)}
-          label={t('paymentPanel.paymentNote.label')}
-          helperText={t('paymentPanel.paymentNote.helperText')}
-          disabled={processing || !clientSecret}
         />
         <div
           className={classNames(classes.actionRow, customClasses?.actionRow)}
@@ -186,14 +186,14 @@ export const PaymentStripe: React.FC<Props> = ({
           ) : (
             <Button
               color="primary"
-              variant="contained"
-              type="submit"
               disabled={processing || !clientSecret}
+              type="submit"
+              variant="contained"
             >
               {t('paymentPanel.actions.confirmPayment')}
             </Button>
           )}
-          <Button onClick={onCancel} disabled={processing}>
+          <Button disabled={processing} onClick={onCancel}>
             {t('paymentPanel.actions.cancel')}
           </Button>
         </div>

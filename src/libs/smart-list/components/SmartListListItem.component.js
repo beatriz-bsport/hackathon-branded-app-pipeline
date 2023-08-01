@@ -157,11 +157,11 @@ export const SmartListItem = (props: Props) => {
   return (
     <>
       <ListItem
-        divider
         button
-        selected={props.selected}
-        onClick={() => props.onClick(props.smartlist.id)}
+        divider
         className={classes.listitem}
+        onClick={() => props.onClick(props.smartlist.id)}
+        selected={props.selected}
         style={{ display: 'flex', flexWrap: 'nowrap' }}
       >
         <ListItemText
@@ -200,9 +200,9 @@ export const SmartListItem = (props: Props) => {
         !cadencesLoading &&
         openCannotBeDeletedDialog && (
           <SmartListCannotBeDeletedDialog
-            open={openCannotBeDeletedDialog}
-            onCancel={handleCloseCannotBeDeletedDialog}
             cadences={props.getCadences(props.smartlist.id)}
+            onCancel={handleCloseCannotBeDeletedDialog}
+            open={openCannotBeDeletedDialog}
           />
         )}
     </>

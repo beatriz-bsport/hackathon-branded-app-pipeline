@@ -366,10 +366,10 @@ const PaymentStripeBacsDebit = forwardRef(
                 </Typography>
                 <div className={classes.securityInformationContainer}>
                   <PopOver
-                    title={t('paymentPanel.actions.paymentSecurityInformation')}
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                    transformOrigin={{ vertical: 'top', horizontal: 'center' }}
                     className={classes.securityInformationText}
+                    title={t('paymentPanel.actions.paymentSecurityInformation')}
+                    transformOrigin={{ vertical: 'top', horizontal: 'center' }}
                   >
                     <Info className={classes.infoIcon} />
                   </PopOver>
@@ -377,10 +377,10 @@ const PaymentStripeBacsDebit = forwardRef(
               </div>
               {!!paymentMethodList.length && (
                 <ButtonBase
-                  onClick={() => setAddPaymentMethod(false)}
                   className={classes.displayButton}
+                  onClick={() => setAddPaymentMethod(false)}
                 >
-                  <Typography variant="body1" align="right" color="primary">
+                  <Typography align="right" color="primary" variant="body1">
                     {t(
                       'payment:forms.paymentMethod.actions.displayPaymentMethod',
                     )}
@@ -393,21 +393,21 @@ const PaymentStripeBacsDebit = forwardRef(
         {!addPaymentMethod && !!paymentMethodList.length && (
           <div>
             <PaymentMethodList
+              detachPaymentMethod={detachPaymentMethod}
+              detachPaymentMethodLoading={detachPaymentMethodLoading}
+              onSelect={defineSelectedPaymentMethod}
+              paymentMethodType="bacs_debit"
               savedPaymentMethodList={paymentMethodList}
               selectedSavedPaymentMethodId={paymentMethodSelected}
-              paymentMethodType="bacs_debit"
-              onSelect={defineSelectedPaymentMethod}
               setHasDetached={setHasDetached}
-              detachPaymentMethodLoading={detachPaymentMethodLoading}
-              detachPaymentMethod={detachPaymentMethod}
             />
             <ButtonBase
+              className={classes.addButton}
               disabled={false}
               onClick={() => setAddPaymentMethod(true)}
-              className={classes.addButton}
             >
               <AddIcon className={classes.leftIcon} color="primary" />
-              <Typography variant="body1" align="left" color="primary">
+              <Typography align="left" color="primary" variant="body1">
                 {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
               </Typography>
             </ButtonBase>
@@ -425,14 +425,14 @@ const PaymentStripeBacsDebit = forwardRef(
               ) : (
                 <Button
                   color="primary"
-                  variant="contained"
-                  type="submit"
                   disabled={isSubmitButtonDisabled}
+                  type="submit"
+                  variant="contained"
                 >
                   {t('paymentPanel.actions.confirmPayment')}
                 </Button>
               )}
-              <Button onClick={onCancel} disabled={processing}>
+              <Button disabled={processing} onClick={onCancel}>
                 {t('paymentPanel.actions.cancel')}
               </Button>
             </div>

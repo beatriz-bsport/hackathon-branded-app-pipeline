@@ -23,16 +23,16 @@ export const TagCreator = (props: Props) => (
       props.onCreate({ name: props.tagName });
     }}
   >
-    <IconButton type="submit" color="primary">
+    <IconButton color="primary" type="submit">
       <SaveIcon />
     </IconButton>
     <TextField
       autoFocus
-      style={{ width: 200 }}
-      variant="outlined"
-      value={props.tagName}
-      placeholder={props.t('form.tag.namePlaceholder')}
       onChange={(event) => props.setTagName(event.target.value)}
+      placeholder={props.t('form.tag.namePlaceholder')}
+      style={{ width: 200 }}
+      value={props.tagName}
+      variant="outlined"
     />
     <IconButton onClick={props.onCancel}>
       <CancelIcon />

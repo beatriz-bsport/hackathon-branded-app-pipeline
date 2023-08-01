@@ -21,11 +21,11 @@ export const WidgetCodePreview = (props: Props) => {
         {t('widget:widget.codeInfo')}
       </Typography>
 
-      <Paper elevation={1} className={classes.codeContainer}>
+      <Paper className={classes.codeContainer} elevation={1}>
         <Typography
-          variant="caption"
-          color="textSecondary"
           className={classes.code}
+          color="textSecondary"
+          variant="caption"
         >
           {props.error
             ? t('widget:widget.widgetPreviewError')
@@ -34,8 +34,8 @@ export const WidgetCodePreview = (props: Props) => {
 
         {!props.error && (
           <ButtonBase
-            onClick={() => props.copyToClipboard(props.codeString)}
             className={classes.copyClipboardContainer}
+            onClick={() => props.copyToClipboard(props.codeString)}
           >
             <FileCopyIcon />
           </ButtonBase>

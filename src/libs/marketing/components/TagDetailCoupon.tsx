@@ -41,10 +41,10 @@ class TagDetailCoupon extends React.PureComponent<Props> {
               {t('management.couponDetail.empty', { tag: this.props.tag.name })}
             </Typography>
             <Button
-              onClick={this.props.goToCoupon}
-              color="primary"
-              variant="outlined"
               className={classes.marginTop}
+              color="primary"
+              onClick={this.props.goToCoupon}
+              variant="outlined"
             >
               <ArrowForwardIcon className={classes.leftIcon} />
               {t('management.couponDetail.createViaCoupon')}
@@ -60,17 +60,17 @@ class TagDetailCoupon extends React.PureComponent<Props> {
 
             <Paper className={classes.paper}>
               {this.props.coupons.map((coupon) => (
-                <ListItem divider key={coupon.id}>
+                <ListItem key={coupon.id} divider>
                   <div className={classes.listItemInfo}>
                     <Typography>{coupon.name}</Typography>
                     {coupon.whitelist_tags.includes(this.props.tag.id) && (
-                      <Typography variant="caption" color="textSecondary">
+                      <Typography color="textSecondary" variant="caption">
                         {t('management.couponDetail.whitelist')}
                       </Typography>
                     )}
 
                     {coupon.blacklist_tags.includes(this.props.tag.id) && (
-                      <Typography variant="caption" color="textSecondary">
+                      <Typography color="textSecondary" variant="caption">
                         {t('management.couponDetail.blacklist')}
                       </Typography>
                     )}

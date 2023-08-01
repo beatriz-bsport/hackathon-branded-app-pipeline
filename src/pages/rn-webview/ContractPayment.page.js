@@ -130,21 +130,21 @@ export class ContractPayment extends React.Component<Props, State> {
     return (
       <div className={this.props.classes.container}>
         <SubscriptionPayment
-          isExcludingTax={this.state.theme?.is_tax_excluded_in_marketplace}
-          onCancel={this.props.onCancel}
-          onSubmit={this.onSubmit}
-          processing={this.state.processing}
-          savedPaymentMethodList={this.props.savedPaymentMethodList}
-          requestSetupIntentSecret={this.props.requestSetupIntentSecret}
           withCoupon
           contract={this.props.contract}
-          refreshSavedPaymentMethodList={() => {
-            this.props.fetchPaymentMethodList({ member: this.props.memberId });
-          }}
           enabledPaymentGroupMethodIdentifier={
             this.props.companyTheme.payment_method_available_subscription
           }
+          isExcludingTax={this.state.theme?.is_tax_excluded_in_marketplace}
           memberId={this.props.memberId}
+          onCancel={this.props.onCancel}
+          onSubmit={this.onSubmit}
+          processing={this.state.processing}
+          refreshSavedPaymentMethodList={() => {
+            this.props.fetchPaymentMethodList({ member: this.props.memberId });
+          }}
+          requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+          savedPaymentMethodList={this.props.savedPaymentMethodList}
         />
       </div>
     );

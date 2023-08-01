@@ -110,33 +110,33 @@ export const GroupedOfferEditDrawer: React.FC<Props> = ({
 
   return (
     <GenericResponsiveDrawer
-      open={open}
       onClose={onClose}
-      title={t('groupedOption.modal.title')}
+      open={open}
       subtitle={group?.name}
+      title={t('groupedOption.modal.title')}
     >
       <div className={classes.drawerInner}>
         <GroupedOfferFormSettings
-          coaches={coaches}
-          availableEstablishments={availableEstablishments}
+          editingLiveOffer
           allEstablishments={allEstablishments}
-          availableRoomBlueprints={availableRoomBlueprints}
           allRoomBlueprints={allRoomBlueprints}
+          availableEstablishments={availableEstablishments}
+          availableRoomBlueprints={availableRoomBlueprints}
+          coaches={coaches}
           coachPaymentRulesByKind={coachPaymentRulesByKind}
+          createLevel={createLevel}
+          creditScaleFactor={creditScaleFactor}
+          customLevels={customLevels}
+          deleteLevel={deleteLevel}
+          fetchLevelList={fetchLevelList}
+          handlePreviousStep={onClose}
+          initial={group}
+          metaActivity={metaActivity}
+          onSubmit={handleSubmit}
           tagList={tagList}
           theme={theme}
-          metaActivity={metaActivity}
-          initial={group}
-          onSubmit={handleSubmit}
-          handlePreviousStep={onClose}
-          customLevels={customLevels}
-          fetchLevelList={fetchLevelList}
           updateLevel={updateLevel}
-          createLevel={createLevel}
-          deleteLevel={deleteLevel}
-          editingLiveOffer
           zoomAppDetail={zoomAppDetail}
-          creditScaleFactor={creditScaleFactor}
         />
       </div>
     </GenericResponsiveDrawer>

@@ -256,36 +256,36 @@ export class ReportingGeneration extends Component<Props, State> {
     return (
       <div>
         <ReportGeneration
-          report={report}
-          metadata={metadata}
-          resultLoading={
-            reportsLoading || reportStoreRowsLoading || metadata.loading
-          }
-          reportStoreRows={reportStoreRows}
-          handleGenerate={this.handleGenerate}
-          handleGeneratePreviousPage={this.handleGeneratePreviousPage}
-          handleGenerateNextPage={this.handleGenerateNextPage}
-          handleExcelExportation={this.handleExcelExportation}
-          previousPage={previousPage}
-          nextPage={nextPage}
-          otherPages={otherPages}
-          pageSize={pageSize}
-          reportStoreRowsLoading={reportStoreRowsLoading}
-          reportHeaders={reportHeaders}
-          reportHeadersLoading={reportHeadersLoading}
-          showDialog={this.state.showDialog}
-          setShowDialog={this.setShowDialog}
-          setDisableContinue={this.setDisableContinue}
+          createReportFilterConfig={this.props.createReportFilterConfig}
+          deleteReportFilterConfig={this.props.deleteReportFilterConfig}
           disableContinue={this.state.disableContinue}
+          editReportFilterConfig={this.props.editReportFilterConfig}
+          fetchReportFilterConfigList={this.props.fetchReportFilterConfigList}
+          handleExcelExportation={this.handleExcelExportation}
+          handleGenerate={this.handleGenerate}
+          handleGenerateNextPage={this.handleGenerateNextPage}
+          handleGeneratePreviousPage={this.handleGeneratePreviousPage}
           handleGetDynamicDataForReport={
             this.props.handleGetDynamicDataForFilters
           }
-          reportFilterConfigs={this.props.reportFilterConfigs}
-          createReportFilterConfig={this.props.createReportFilterConfig}
-          editReportFilterConfig={this.props.editReportFilterConfig}
-          fetchReportFilterConfigList={this.props.fetchReportFilterConfigList}
-          deleteReportFilterConfig={this.props.deleteReportFilterConfig}
           isFranchisor={this.props.isFranchisor}
+          metadata={metadata}
+          nextPage={nextPage}
+          otherPages={otherPages}
+          pageSize={pageSize}
+          previousPage={previousPage}
+          report={report}
+          reportFilterConfigs={this.props.reportFilterConfigs}
+          reportHeaders={reportHeaders}
+          reportHeadersLoading={reportHeadersLoading}
+          reportStoreRows={reportStoreRows}
+          reportStoreRowsLoading={reportStoreRowsLoading}
+          resultLoading={
+            reportsLoading || reportStoreRowsLoading || metadata.loading
+          }
+          setDisableContinue={this.setDisableContinue}
+          setShowDialog={this.setShowDialog}
+          showDialog={this.state.showDialog}
           userPermissions={this.props.userPermissions}
         />
       </div>

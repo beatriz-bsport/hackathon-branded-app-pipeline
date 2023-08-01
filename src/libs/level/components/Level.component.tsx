@@ -43,9 +43,8 @@ export const LevelComponent: React.FC<Props> = ({
   return (
     // TODO: Typo should be wrapped in a container, to center vertically
     <Typography
-      align={align}
-      variant={variant}
       noWrap
+      align={align}
       className={classNames(
         {
           [classes.level]: !noStyle,
@@ -56,10 +55,11 @@ export const LevelComponent: React.FC<Props> = ({
         },
         className,
       )}
+      variant={variant}
     >
       {getLevelTrad(customLevel.id, customLevel.name, t)}
       {onRemove && (
-        <IconButton size="small" onClick={onRemove}>
+        <IconButton onClick={onRemove} size="small">
           <CloseIcon className={classes.icon} />
         </IconButton>
       )}

@@ -28,42 +28,18 @@ export const LevelMultiSelector: React.FC<Props> = ({
   const groupedOption = getGroupOptionsForSelect(customLevels ?? [], t);
   return (
     <MaterialUISelector
-      value={
-        selectedLevels
-          ? customLevels
-              .map((level) => ({ value: level.id, label: level.name }))
-              .filter((l) => selectedLevels?.includes(l.value))
-          : []
-      }
       isMenuListPaddingDisabled
-      placeholder={t('levels.select.placeholder')}
-      itemRenderer={(itemProps) => {
-        return (
-          <LevelMenuItem
-            level={customLevels?.find(
-              (level) => level.id === itemProps.data.value,
-            )}
-            isSelected={itemProps.isSelected}
-          />
-        );
-      }}
+      isMulti
       chipsRenderer={({ data, onDelete }) => {
         return (
           <LevelComponent
-            customLevel={customLevels.find((l) => l.id === data.value)}
             isChip
             showVoid
+            customLevel={customLevels.find((l) => l.id === data.value)}
             onRemove={onDelete}
           />
         );
       }}
-      options={groupedOption}
-      onChange={(options: { value: number; label: string }[]) => {
-        onSelect(options.map((o) => o.value));
-      }}
-      inScrollBar={inScrollBar}
-      isMulti
-      // Temporarly until the selector is uniform
       classes={{
         control: {
           height: 22,
@@ -73,6 +49,30 @@ export const LevelMultiSelector: React.FC<Props> = ({
           color: '#808080',
         },
       }}
+      inScrollBar={inScrollBar}
+      itemRenderer={(itemProps) => {
+        return (
+          <LevelMenuItem
+            isSelected={itemProps.isSelected}
+            level={customLevels?.find(
+              (level) => level.id === itemProps.data.value,
+            )}
+          />
+        );
+      }}
+      onChange={(options: { value: number; label: string }[]) => {
+        onSelect(options.map((o) => o.value));
+      }}
+      options={groupedOption}
+      placeholder={t('levels.select.placeholder')}
+      // Temporarly until the selector is uniform
+      value={
+        selectedLevels
+          ? customLevels
+              .map((level) => ({ value: level.id, label: level.name }))
+              .filter((l) => selectedLevels?.includes(l.value))
+          : []
+      }
     />
   );
 };

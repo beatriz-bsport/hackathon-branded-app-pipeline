@@ -53,7 +53,7 @@ class ConsumerMenu extends React.Component<Props, State> {
     const drawer = (
       <Paper className={classes.drawerPaper}>
         <List>
-          <Link to="/" style={{ textDecoration: 'none' }}>
+          <Link style={{ textDecoration: 'none' }} to="/">
             <ListItem button onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <EventIcon />
@@ -62,7 +62,7 @@ class ConsumerMenu extends React.Component<Props, State> {
             </ListItem>
           </Link>
           <Divider />
-          <Link to="/pass" style={{ textDecoration: 'none' }}>
+          <Link style={{ textDecoration: 'none' }} to="/pass">
             <ListItem button onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <AssignmentIcon />
@@ -71,7 +71,7 @@ class ConsumerMenu extends React.Component<Props, State> {
             </ListItem>
           </Link>
           <Divider />
-          <Link to="/order" style={{ textDecoration: 'none' }}>
+          <Link style={{ textDecoration: 'none' }} to="/order">
             <ListItem button onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <ShoppingCartIcon />
@@ -80,7 +80,7 @@ class ConsumerMenu extends React.Component<Props, State> {
             </ListItem>
           </Link>
           <Divider />
-          <Link to="/profile" style={{ textDecoration: 'none' }}>
+          <Link style={{ textDecoration: 'none' }} to="/profile">
             <ListItem button onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <AccountCircleIcon />
@@ -89,7 +89,7 @@ class ConsumerMenu extends React.Component<Props, State> {
             </ListItem>
           </Link>
           <Divider />
-          <Link to="/login/signout" style={{ textDecoration: 'none' }}>
+          <Link style={{ textDecoration: 'none' }} to="/login/signout">
             <ListItem button onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <HighlightOff />
@@ -107,14 +107,14 @@ class ConsumerMenu extends React.Component<Props, State> {
           <AppBar className={classes.appBar}>
             <Toolbar>
               <IconButton
-                color="inherit"
                 aria-label="Open drawer"
-                onClick={this.handleDrawerToggle}
                 className={classes.navIconHide}
+                color="inherit"
+                onClick={this.handleDrawerToggle}
               >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="h6" color="inherit" noWrap>
+              <Typography noWrap color="inherit" variant="h6">
                 Menu
               </Typography>
             </Toolbar>
@@ -122,19 +122,19 @@ class ConsumerMenu extends React.Component<Props, State> {
         </Hidden>
         <Hidden mdUp>
           <Drawer
-            variant="temporary"
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={this.state.mobileOpen}
-            onClose={this.handleDrawerToggle}
             ModalProps={{
               keepMounted: true, // Better open performance on mobile.
             }}
+            onClose={this.handleDrawerToggle}
+            open={this.state.mobileOpen}
+            variant="temporary"
           >
             {drawer}
           </Drawer>
         </Hidden>
         <Hidden smDown implementation="css">
-          <Drawer variant="permanent" open style={{ width: drawerWidth }}>
+          <Drawer open style={{ width: drawerWidth }} variant="permanent">
             {drawer}
           </Drawer>
         </Hidden>

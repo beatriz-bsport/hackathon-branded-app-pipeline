@@ -67,27 +67,30 @@ export const FranchiseDialogSelectCompanies = (props: Props) => {
   ];
   return (
     <CustomMuiDialog
-      open={open}
       buttons={buttons}
-      title={overrideTitle || t('genericProduct.dialogs.selectCompanies.title')}
       fullScreenBreakpoint="xs"
+      open={open}
+      title={overrideTitle || t('genericProduct.dialogs.selectCompanies.title')}
     >
       <Typography
+        className={classes.typography}
         color="textSecondary"
         variant="body1"
-        className={classes.typography}
       >
         {content1 || t('genericProduct.dialogs.selectCompanies.content1')}
       </Typography>
       <Typography
+        className={classes.typography}
         color="textSecondary"
         variant="body1"
-        className={classes.typography}
       >
         {content2 || t('genericProduct.dialogs.selectCompanies.content2')}
       </Typography>
       {companyWithoutInstanceList?.length ? (
         <FranchiseCompaniesSelector
+          companies={companyWithoutInstanceList}
+          companyDic={companyDic}
+          menuPortalTarget={document.querySelector('body')}
           onChange={(newValue) => {
             setSelectedCompanies(
               newValue.map((val) => parseInt(val?.value, 10)),
@@ -96,12 +99,9 @@ export const FranchiseDialogSelectCompanies = (props: Props) => {
           selectedCompanies={companyWithoutInstanceList
             .filter((c) => selectedCompanies.includes(c.id))
             .map((c) => ({ label: c.name, value: `${c.id}` }))}
-          companyDic={companyDic}
-          companies={companyWithoutInstanceList}
-          menuPortalTarget={document.querySelector('body')}
         />
       ) : (
-        <Alert severity="info" classes={{ root: classes.alertOverride }}>
+        <Alert classes={{ root: classes.alertOverride }} severity="info">
           {t('genericProduct.dialogs.selectCompanies.allCompaniesShared')}
         </Alert>
       )}

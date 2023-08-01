@@ -135,13 +135,13 @@ export const CoachDrawer = (props: Props) => {
       return (
         <React.Fragment key={String(i)}>
           <ListItem
-            id="button_menu_item"
+            key={String(i)}
             button
+            id="button_menu_item"
             onClick={() => {
               handleClick(item, i);
             }}
             selected={isActive}
-            key={String(i)}
           >
             {item.icon && (
               <ListItemIcon>
@@ -158,10 +158,10 @@ export const CoachDrawer = (props: Props) => {
             {open[i] ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse
-            in={open[i]}
             key={`${i}-collapse`}
-            timeout="auto"
             unmountOnExit
+            in={open[i]}
+            timeout="auto"
           >
             <List disablePadding className={classes.nestedList}>
               {item.nestedItems.map((subitem, subi) =>
@@ -180,21 +180,21 @@ export const CoachDrawer = (props: Props) => {
     return (
       <Link
         key={i}
-        to={item.to}
-        style={{ textDecoration: 'none' }}
         className={item.className || ''}
+        style={{ textDecoration: 'none' }}
+        to={item.to}
       >
         <ListItem
           button
+          className={isNested ? classes.nestedItem : null}
+          dense={item.dense || isNested}
           onClick={() => {
             handleDrawerToggle();
             if (item.action) {
               item.action();
             }
           }}
-          dense={item.dense || isNested}
           selected={isActive}
-          className={isNested ? classes.nestedItem : null}
         >
           {item.icon && (
             <ListItemIcon className={isNested ? classes.nestedIcon : null}>
@@ -226,12 +226,12 @@ export const CoachDrawer = (props: Props) => {
           <MoreVert />
         </Button>
         <Menu
-          anchorEl={anchorEl}
           keepMounted
-          open={!!anchorEl}
+          anchorEl={anchorEl}
           onClose={() => {
             setAnchorEl(null);
           }}
+          open={!!anchorEl}
         >
           <MenuItem>
             <LanguageButton
@@ -269,25 +269,25 @@ export const CoachDrawer = (props: Props) => {
         <Toolbar>
           <Grid
             container
-            direction="row"
             alignItems="center"
+            className={classes.appBarGrid}
+            direction="row"
             justify="space-between"
             wrap="nowrap"
-            className={classes.appBarGrid}
           >
             <Grid item zeroMinWidth>
               <Grid
                 container
-                direction="row"
                 alignItems="center"
+                direction="row"
                 justify="flex-start"
                 wrap="nowrap"
               >
                 {isMobileDevice && (
                   <Grid item zeroMinWidth>
                     <IconButton
-                      color="inherit"
                       aria-label="open drawer"
+                      color="inherit"
                       onClick={handleDrawerToggleButton}
                     >
                       <MenuIcon />
@@ -296,11 +296,11 @@ export const CoachDrawer = (props: Props) => {
                 )}
                 <Grid item zeroMinWidth>
                   <Typography
-                    id="app-title"
-                    color="inherit"
                     noWrap
-                    variant="h6"
                     className={classes.title}
+                    color="inherit"
+                    id="app-title"
+                    variant="h6"
                   >
                     {document?.title}
                   </Typography>
@@ -336,12 +336,12 @@ export const CoachDrawer = (props: Props) => {
         <div className={classes.toolbar}>
           <Grid
             container
+            alignItems="center"
             className={classes.paddingTop}
             justify="center"
-            alignItems="center"
           >
             <Hidden smDown>
-              <img height={40} src={cover ?? LOGO_ASSET} alt="bsport logo" />
+              <img alt="bsport logo" height={40} src={cover ?? LOGO_ASSET} />
             </Hidden>
           </Grid>
         </div>
@@ -373,29 +373,29 @@ export const CoachDrawer = (props: Props) => {
                 <div>
                   <Hidden mdUp>
                     <Drawer
-                      variant="temporary"
                       anchor="left"
-                      open={mobileOpen}
-                      onClose={handleDrawerToggle}
                       classes={{
                         paper: classes.drawerPaper,
                       }}
                       ModalProps={{
                         keepMounted: true, // Better open performance on mobile.
                       }}
+                      onClose={handleDrawerToggle}
+                      open={mobileOpen}
+                      variant="temporary"
                     >
                       {drawer}
                     </Drawer>
                   </Hidden>
                   <Hidden smDown implementation="css">
                     <Drawer
-                      variant="permanent"
                       open
                       anchor="left"
-                      elevation={20}
                       classes={{
                         paper: classes.drawerPaper,
                       }}
+                      elevation={20}
+                      variant="permanent"
                     >
                       {drawer}
                     </Drawer>

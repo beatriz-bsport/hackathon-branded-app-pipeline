@@ -71,16 +71,16 @@ const PaymentPackCard = (props: PaymentPackCardProps) => {
   return (
     <button
       className={classes.paymentPackButtonContainer}
-      type="button"
       onClick={handleMobileClick}
+      type="button"
     >
       <MarketplacePaymentPackCard
         key={pack.id}
-        paymentPack={pack}
-        isExcludingTax={isExcludingTax}
-        onOpenDetailDialog={handleOpenDetailDialog}
         addToCart={handleAddToCart}
         hideCredits={!!hideCredits}
+        isExcludingTax={isExcludingTax}
+        onOpenDetailDialog={handleOpenDetailDialog}
+        paymentPack={pack}
       />
     </button>
   );
@@ -118,9 +118,9 @@ export function MarketplacePaymentPackList(props: Props) {
       {!!filteredPaymentPackByCategory.length && (
         <>
           <Typography
+            className={classes.sectionTitle}
             component="h3"
             variant="h6"
-            className={classes.sectionTitle}
           >
             {t('marketplace.passListTitle')}
           </Typography>
@@ -129,14 +129,14 @@ export function MarketplacePaymentPackList(props: Props) {
             (category: PaymentPackCategoryWithPacks) =>
               !!getAvailableCategoryPacks(category).length && (
                 <div
-                  className={!category.name ? classes.noCategory : ''}
                   key={category.id}
+                  className={!category.name ? classes.noCategory : ''}
                 >
                   {category.name && (
                     <Typography
+                      className={classes.sectionTitleWithDivider}
                       component="h3"
                       variant="subtitle1"
-                      className={classes.sectionTitleWithDivider}
                     >
                       {category.name}
                     </Typography>
@@ -146,11 +146,11 @@ export function MarketplacePaymentPackList(props: Props) {
                     {getAvailableCategoryPacks(category).map((pack) => (
                       <PaymentPackCard
                         key={pack.id}
-                        pack={pack}
+                        hideCredits={!!hideCredits}
                         isExcludingTax={isExcludingTax}
+                        pack={pack}
                         pushPackCheckout={pushPackCheckout}
                         setSelectedPass={setSelectedPass}
-                        hideCredits={!!hideCredits}
                       />
                     ))}
                   </div>

@@ -198,16 +198,16 @@ export class ConsumerChangeEmailRequestPage extends Component<Props> {
       return (
         <div className={classes.loginContainer}>
           <LoginComponent
+            hideRegister
+            company={!!this.props.companyId}
             doEmailLogin={this.props.doEmailLogin}
+            emailChoices={this.props.changeEmailRequestEmailChoices}
             error={this.props.errorLogin}
             errorFields={this.props.errorFields}
-            loading={this.props.loginProcessing}
-            company={!!this.props.companyId}
             isPremium={this.props.theme.is_premium}
-            theme={this.props.theme}
+            loading={this.props.loginProcessing}
             t={this.props.t}
-            hideRegister
-            emailChoices={this.props.changeEmailRequestEmailChoices}
+            theme={this.props.theme}
           />
         </div>
       );
@@ -226,15 +226,15 @@ export class ConsumerChangeEmailRequestPage extends Component<Props> {
         <div className={classes.container}>{this.renderContent()}</div>
         {changeEmailRequest && (
           <ChangeEmailSubmitDialog
-            open={this.props.submitStatus.success}
-            goToUserSpace={this.goToUserSpace}
-            request={changeEmailRequest}
             accepted={this.props.submitStatus.accepted}
-            denied={this.props.submitStatus.denied}
-            old_email={this.props.changeEmailRequest.old_email}
-            new_email={this.props.changeEmailRequest.new_email}
-            member_id={this.props.activeMemberShip?.id}
             companyTheme={this.props.theme}
+            denied={this.props.submitStatus.denied}
+            goToUserSpace={this.goToUserSpace}
+            member_id={this.props.activeMemberShip?.id}
+            new_email={this.props.changeEmailRequest.new_email}
+            old_email={this.props.changeEmailRequest.old_email}
+            open={this.props.submitStatus.success}
+            request={changeEmailRequest}
           />
         )}
       </ConsumerAppBar>

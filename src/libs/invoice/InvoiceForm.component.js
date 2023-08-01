@@ -100,10 +100,10 @@ const DownloadButton = (props: {
   t: TFunction,
 }) => (
   <Button
-    variant="contained"
-    onClick={props.onClick}
-    color="primary"
     className={props.classes.actionButton}
+    color="primary"
+    onClick={props.onClick}
+    variant="contained"
   >
     <DownloadIcon />
     <Hidden xsDown>
@@ -122,10 +122,10 @@ const RevertButton = (props: {
   t: TFunction,
 }) => (
   <RedButton
-    variant="contained"
     color="primary"
-    onClick={props.onClick}
     disabled={props.processing || props.reverted}
+    onClick={props.onClick}
+    variant="contained"
   >
     <CancelIcon className={props.classes.leftIcon} />
     <Hidden xsDown>
@@ -143,17 +143,17 @@ const SaveButton = (props: {
   processing: boolean,
 }) => (
   <Button
-    variant="contained"
+    className={props.classes.actionButton}
     color="primary"
     disabled={props.processing}
     onClick={props.onClick}
-    className={props.classes.actionButton}
+    variant="contained"
   >
     {props.processing ? (
       <CircularProgress
         className={props.classes.leftIcon}
-        size={20}
         color="inherit"
+        size={20}
       />
     ) : (
       <SaveIcon className={props.classes.leftIcon} />
@@ -434,10 +434,10 @@ export class InvoiceForm extends Component<Props, State> {
   renderNavigationButtons = () => (
     <div>
       <Button
-        variant="contained"
+        className={this.props.classes.navigationButton}
         color="secondary"
         onClick={this.cancelPayments}
-        className={this.props.classes.navigationButton}
+        variant="contained"
       >
         <ArrowBackIcon />
         <Hidden xsDown>
@@ -452,11 +452,11 @@ export class InvoiceForm extends Component<Props, State> {
           unpaidAmount={this.props.member.total_unpaid_amount}
         >
           <Button
-            variant="contained"
+            className={this.props.classes.navigationButton}
             color="secondary"
             disabled={!this.props.goToMemberPage}
             onClick={this.props.goToMemberPage || (() => {})}
-            className={this.props.classes.navigationButton}
+            variant="contained"
           >
             <PersonIcon />
             <Hidden xsDown>
@@ -480,10 +480,8 @@ export class InvoiceForm extends Component<Props, State> {
       return (
         <div>
           <Button
-            onClick={this.goToPayment}
-            variant="contained"
-            color="primary"
             className={this.props.classes.actionButton}
+            color="primary"
             disabled={
               !(
                 (this.state.paymentPackInvoiceItems || []).length ||
@@ -494,6 +492,8 @@ export class InvoiceForm extends Component<Props, State> {
                 !!this.state.topUp
               )
             }
+            onClick={this.goToPayment}
+            variant="contained"
           >
             {getCurrencyDisplay() === '€' ? (
               <EuroSymbolIcon className={classes.leftIcon} />
@@ -509,11 +509,11 @@ export class InvoiceForm extends Component<Props, State> {
       <div>
         {invoice && invoice.uuid ? (
           <RevertButton
-            t={this.props.t}
+            classes={classes}
             onClick={() => this.props.revertInvoice(invoice.uuid)}
             processing={this.props.processing}
             reverted={invoice.reverted}
-            classes={classes}
+            t={this.props.t}
           />
         ) : null}
         {invoice && invoice.stripe_invoice_pdf ? (
@@ -527,10 +527,10 @@ export class InvoiceForm extends Component<Props, State> {
         {!invoice ||
         (invoice && !invoice.stripe_invoice_pdf && !invoice.reverted) ? (
           <SaveButton
+            classes={this.props.classes}
+            invoiceReverted={invoice && invoice.reverted}
             onClick={this.createInvoice}
             processing={processing}
-            invoiceReverted={invoice && invoice.reverted}
-            classes={this.props.classes}
             t={this.props.t}
           />
         ) : null}
@@ -568,10 +568,10 @@ export class InvoiceForm extends Component<Props, State> {
           </Typography>
           <Button
             className={this.props.classes.buttonWithMargin}
+            color="primary"
             onClick={() =>
               this.props.goToSubscription(this.props.invoice.billing_plan)
             }
-            color="primary"
             variant="outlined"
           >
             {this.props.t('payment.goToSubscription')}
@@ -584,9 +584,9 @@ export class InvoiceForm extends Component<Props, State> {
     const totalPayment = this.getTotalPayment();
     return (
       <PaymentForm
-        onSubmit={this.addPaymentItem}
         amountDue={finalPrice - totalPayment}
         creditAccountBalance={this.getUpdatedCreditAccountBalance()}
+        onSubmit={this.addPaymentItem}
       />
     );
   };
@@ -608,14 +608,14 @@ export class InvoiceForm extends Component<Props, State> {
         <div className={classes.itemSelectorPanel}>
           <InvoiceItemSelector
             creditAccountBalance={this.getUpdatedCreditAccountBalance()}
+            onAddPaymentCombo={this.onAddPaymentCombo}
             onAddPaymentPack={this.onAddPaymentPack}
             onAddPrivatePass={this.onAddPrivatePass}
             onAddShopItem={this.onAddShopItem}
-            onAddPaymentCombo={this.onAddPaymentCombo}
             onTopUp={this.onTopUp}
+            paymentComboList={this.props.paymentComboList}
             paymentPacks={paymentPacks}
             privatePassList={this.props.privatePassList}
-            paymentComboList={this.props.paymentComboList}
             shopItems={shopItems}
           />
           <Divider />
@@ -636,10 +636,10 @@ export class InvoiceForm extends Component<Props, State> {
           </Typography>
           <div className={classes.paymentItemsListContainer}>
             <PaymentList
-              paymentItems={paymentItems}
-              returnPayment={this.props.returnPayment}
               isReturningPayment={this.props.isReturningPayment}
               onDelete={this.deletePaymentItem}
+              paymentItems={paymentItems}
+              returnPayment={this.props.returnPayment}
               uneditablePayments={uneditablePayments}
               updatePaymentMethod={updatePaymentMethod}
             />
@@ -648,13 +648,13 @@ export class InvoiceForm extends Component<Props, State> {
                 {t('payment.stillUnpaid')}
               </Typography>
               <Typography
-                variant="h6"
-                color={finalPrice - totalPayment <= 0 ? 'primary' : 'error'}
                 className={
                   this.props.invoice && this.props.invoice.reverted
                     ? this.props.classes.revert
                     : {}
                 }
+                color={finalPrice - totalPayment <= 0 ? 'primary' : 'error'}
+                variant="h6"
               >
                 {getCurrencyDisplayWithPrice(
                   (finalPrice - totalPayment).toFixed(2),
@@ -679,15 +679,15 @@ export class InvoiceForm extends Component<Props, State> {
     return (
       <div className={this.props.classes.invoiceItemListPanel}>
         <InvoiceItemList
+          deletePaymentComboInvoiceItem={this.deletePaymentComboInvoiceItem}
           deletePPackInvoiceItem={this.deletePPackInvoiceItem}
           deletePrivatePassInvoiceItem={this.deletePrivatePassInvoiceItem}
-          deletePaymentComboInvoiceItem={this.deletePaymentComboInvoiceItem}
           deleteShopItemInvoiceItem={this.deleteShopItemInvoiceItem}
-          deleteVoucher={this.deleteVoucher}
           deleteTopUp={this.deleteTopUp}
+          deleteVoucher={this.deleteVoucher}
+          paymentComboInvoiceItems={paymentComboInvoiceItems}
           paymentPackInvoiceItems={paymentPackInvoiceItems}
           privatePassInvoiceItems={privatePassInvoiceItems}
-          paymentComboInvoiceItems={paymentComboInvoiceItems}
           shopItemInvoiceItems={shopItemInvoiceItems}
           uneditableInvoiceItems={uneditableInvoiceItems || []}
         />
@@ -714,22 +714,22 @@ export class InvoiceForm extends Component<Props, State> {
     return (
       <div>
         <Paper className={classes.paperContainer}>
-          <Grid container direction="row" alignItems="stretch">
-            <Grid item xs={12} md={6} className={classes.invoiceList}>
+          <Grid container alignItems="stretch" direction="row">
+            <Grid item className={classes.invoiceList} md={6} xs={12}>
               {this.renderLeftPanel()}
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item md={6} xs={12}>
               {this.renderRightPanel()}
             </Grid>
           </Grid>
         </Paper>
         {this.renderBottomActionButton()}
         <UnevenInvoiceDialog
-          open={this.state.unevenInvoiceAlertOpen}
           onClose={this.closeUnevenInvoiceAlert}
+          onSubmit={this.createInvoice}
+          open={this.state.unevenInvoiceAlertOpen}
           totalItem={this.getFinalPrice()}
           totalPayment={this.getTotalPayment().toFixed(2)}
-          onSubmit={this.createInvoice}
         />
       </div>
     );

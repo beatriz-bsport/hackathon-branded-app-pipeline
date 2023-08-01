@@ -14,7 +14,7 @@ export default (load, loadingStatus) => (WrappedComponent) => {
     render() {
       if (this.props[loadingStatus]) {
         return (
-          <Grid container item justify="center" alignItems="center">
+          <Grid container item alignItems="center" justify="center">
             <CircularProgress />
           </Grid>
         );

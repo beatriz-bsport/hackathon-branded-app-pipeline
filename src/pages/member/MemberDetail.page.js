@@ -375,9 +375,9 @@ export class MemberDetail extends React.Component<Props> {
 
     return (
       <ContentWithAppBar
-        tab={tab}
         onChange={this.handleOnChange}
         pageHeight={pageHeight}
+        tab={tab}
         tabsData={tabsData}
       >
         <Helmet>
@@ -386,123 +386,115 @@ export class MemberDetail extends React.Component<Props> {
         <Switch>
           <Route
             exact
+            component={MemberDetailBooking}
             path="/member/:id/bookings/:bookingId/"
-            component={MemberDetailBooking}
           />
           <Route
             exact
+            component={MemberDetailBooking}
             path="/member/:id/bookings"
-            component={MemberDetailBooking}
           />
           <Route
             exact
-            path="/member/:id/vod/:vodId/"
             component={MemberDetailVod}
+            path="/member/:id/vod/:vodId/"
           />
           <Route
+            component={MemberDetailProgram}
             path="/member/:id/performance-tracking/:memberProgramId/"
-            component={MemberDetailProgram}
           />
           <Route
+            component={MemberDetailProgram}
             path="/member/:id/performance-tracking/"
-            component={MemberDetailProgram}
           />
-          <Route exact path="/member/:id/vod" component={MemberDetailVod} />
+          <Route exact component={MemberDetailVod} path="/member/:id/vod" />
           <Route
             exact
-            path="/member/:id/pass/:consumerPassId"
             component={MemberDetailPass}
+            path="/member/:id/pass/:consumerPassId"
           />
-          <Route exact path="/member/:id/pass" component={MemberDetailPass} />
+          <Route exact component={MemberDetailPass} path="/member/:id/pass" />
           <Route
             exact
-            path="/member/:id/relation/:relation"
             component={MemberDetailRelation}
+            path="/member/:id/relation/:relation"
           />
-          <Route path="/member/:id/relation" component={MemberDetailRelation} />
+          <Route component={MemberDetailRelation} path="/member/:id/relation" />
           <Route
             exact
-            path="/member/:id/payment"
             component={MemberDetailPayment}
+            path="/member/:id/payment"
           />
-          <Route exact path="/member/:id/info" component={MemberDetailInfo} />
+          <Route exact component={MemberDetailInfo} path="/member/:id/info" />
           <Route
             exact
+            component={MemberDetailPrivateBooking}
             path="/member/:id/private-booking/:privateBookingId"
-            component={MemberDetailPrivateBooking}
           />
           <Route
             exact
+            component={MemberDetailPrivateBooking}
             path="/member/:id/private-booking"
-            component={MemberDetailPrivateBooking}
           />
           <Route
             exact
+            component={MemberDetailPrivateConsumerPass}
             path="/member/:id/private-consumer-pass/:privateConsumerPassId"
-            component={MemberDetailPrivateConsumerPass}
           />
           <Route
             exact
+            component={MemberDetailPrivateConsumerPass}
             path="/member/:id/private-consumer-pass"
-            component={MemberDetailPrivateConsumerPass}
           />
           <Route
             exact
-            path="/member/:id/contact"
             component={MemberDetailContact}
+            path="/member/:id/contact"
           />
           <Route
-            path="/member/:id/basket/:selectedBasketId"
             component={MemberDetailBasket}
+            path="/member/:id/basket/:selectedBasketId"
           />
           <Route
+            component={MemberDetailGiftcard}
             path="/member/:id/giftcard/:selectedConsumerGiftcardId"
-            component={MemberDetailGiftcard}
           />
           <Route
-            path="/member/:id/giftcard/"
             component={MemberDetailGiftcard}
+            path="/member/:id/giftcard/"
           />
           <Route
             exact
-            path="/member/:id/basket"
             component={MemberDetailBasket}
+            path="/member/:id/basket"
           />
-          <Route exact path="/member/:id/form" component={MemberCustomForm} />
+          <Route exact component={MemberCustomForm} path="/member/:id/form" />
         </Switch>
         {member && !member.is_pos && (
           <MemberActions
             billMember={this.handleBillMember}
-            subscribeMember={this.props.openContractDialog}
+            companyId={this.props.companyId}
             interrogateMemberStatus={this.interrogateMemberStatus}
             member={this.props.member}
-            unArchiveMember={this.unArchiveMember}
-            openCommunicationDrawer={this.handleOpenCommunicationDrawer}
-            companyId={this.props.companyId}
             numberOfUnreadAnswers={numberOfUnreadAnswers}
+            openCommunicationDrawer={this.handleOpenCommunicationDrawer}
+            subscribeMember={this.props.openContractDialog}
+            unArchiveMember={this.unArchiveMember}
           />
         )}
         {!!this.props.invoiceInfo && (
           <InvoiceInfoDialog
+            goToInvoice={this.handleGoToInvoice}
             invoiceInfo={this.props.invoiceInfo}
             onClose={this.props.resetInvoiceInfo}
-            goToInvoice={this.handleGoToInvoice}
           />
         )}
         {!!stripeRegion && !!companyCountry && (
           <SubscriptionContractRegister
-            initialMember={this.props.member}
+            companyId={this.props.companyId}
             contract={this.props.contractToBill}
             contractList={this.props.contractList}
             contractLoading={this.props.contractLoading}
-            onChangeContract={this.props.setContractToBill}
-            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
-            savedPaymentMethodList={this.props.savedPaymentMethodList}
-            onlinePaymentEnabled={this.props.theme.online_payment_enabled}
-            member={this.props.member}
-            open={this.props.contractDialogOpen}
-            onClose={this.props.closeContractDialog}
             enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
               {
                 currency: this.props.theme.currency,
@@ -512,27 +504,35 @@ export class MemberDetail extends React.Component<Props> {
                 stripeRegion,
               },
             )}
-            goToCustomSubscriptionForm={this.handleSubscribeMember}
-            onSuccess={this.handleOnContractRegisterSuccess}
-            managerFormConfig={this.props.managerFormConfig?.poll_fields}
-            waiver={this.props.theme.waiver}
+            enableMultiLocalization={this.props.theme.enable_multi_localization}
+            establishments={this.props.establishmentList}
             generalTermsAndConditions={
               this.props.theme.general_terms_and_conditions
             }
-            establishments={this.props.establishmentList}
-            enableMultiLocalization={this.props.theme.enable_multi_localization}
-            stripeReaders={this.props.stripeReaders || []}
-            companyId={this.props.companyId}
+            goToCustomSubscriptionForm={this.handleSubscribeMember}
+            initialMember={this.props.member}
+            managerFormConfig={this.props.managerFormConfig?.poll_fields}
+            member={this.props.member}
+            onChangeContract={this.props.setContractToBill}
+            onClose={this.props.closeContractDialog}
+            onlinePaymentEnabled={this.props.theme.online_payment_enabled}
+            onSuccess={this.handleOnContractRegisterSuccess}
+            open={this.props.contractDialogOpen}
+            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
             registerContractBackground={this.props.registerContractBackground}
+            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+            savedPaymentMethodList={this.props.savedPaymentMethodList}
+            stripeReaders={this.props.stripeReaders || []}
+            waiver={this.props.theme.waiver}
           />
         )}
         <MemberArchiveDialog
-          open={this.props.openArchiveDialog}
-          member={this.props.memberToArchive}
           archiveMemberStatus={this.props.memberArchiveStatus}
           loading={this.props.memberArchiveLoading}
+          member={this.props.memberToArchive}
           onClose={this.handleMemberArchiveDialogClose}
           onConfirm={this.archiveMember}
+          open={this.props.openArchiveDialog}
         />
         {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
           Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
@@ -540,11 +540,11 @@ export class MemberDetail extends React.Component<Props> {
           this.props.companyId === 498) &&
           isOpenChat && (
             <CommunicationDrawer
-              openDrawer={isOpenChat}
-              onDrawerClose={this.handleCloseCommunicationDrawer}
               contextIdentifier={CONTEXT_MEMBER}
-              contextObjectId={this.props.member?.id ?? this.props.id}
               contextMember={this.props.member}
+              contextObjectId={this.props.member?.id ?? this.props.id}
+              onDrawerClose={this.handleCloseCommunicationDrawer}
+              openDrawer={isOpenChat}
             />
           )}
       </ContentWithAppBar>

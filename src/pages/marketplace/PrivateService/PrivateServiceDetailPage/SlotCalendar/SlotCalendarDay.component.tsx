@@ -59,7 +59,7 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
   const renderNoSessions = useCallback(() => {
     return (
       <div className={classes.centerView}>
-        <Typography variant="h5" component="p">
+        <Typography component="p" variant="h5">
           {' '}
           -
         </Typography>{' '}
@@ -112,15 +112,15 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
           className={classes.slotMomentContainer}
         >
           <ButtonBase
-            onClick={() => privateSlot && onSessionMomentSelect(sessionMoment)}
             className={`${classes.slotMoment} ${
               selected ? classes.selected : ''
             }`}
+            onClick={() => privateSlot && onSessionMomentSelect(sessionMoment)}
           >
             <AccessTimeIcon
+              className={classes.absoluteTopLeft}
               color={selected ? 'inherit' : 'primary'}
               fontSize="small"
-              className={classes.absoluteTopLeft}
             />
             <div className={classes.row}>
               <Typography align="left" variant="subtitle2">
@@ -180,7 +180,7 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
     <div className={classes.container}>
       <div className={classes.dateContainer}>
         <Typography variant="subtitle1">{weekDay}</Typography>
-        <Typography variant="subtitle2" color="textSecondary">
+        <Typography color="textSecondary" variant="subtitle2">
           {`${month} ${date.date()}`}
         </Typography>
       </div>

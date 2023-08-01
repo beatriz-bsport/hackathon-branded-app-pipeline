@@ -46,17 +46,17 @@ export const BasketName: React.FC<BasketNameProps> = ({
   return (
     <div
       className={classes.basketName}
+      onClick={canChangeMember ? openChangeMemberModal : undefined}
+      onKeyDown={stopPropagation}
       role="button"
       tabIndex={0}
-      onKeyDown={stopPropagation}
-      onClick={canChangeMember ? openChangeMemberModal : undefined}
     >
       {!member?.is_pos && (
         <Avatar className={classes.avatar}>
-          <img height={32} src={member?.photo ?? ''} alt="member" />
+          <img alt="member" height={32} src={member?.photo ?? ''} />
         </Avatar>
       )}
-      <Typography variant="h6" className={classes.basketNameTypography}>
+      <Typography className={classes.basketNameTypography} variant="h6">
         {!member?.is_pos ? member?.name || '' : t('interface.anonymousSale')}
       </Typography>
       <Cached className={classes.nameIcon} />
@@ -113,7 +113,7 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
   if (!basket)
     return (
       <div className={classes.container}>
-        <Alert severity="info" className={classes.alert} variant="outlined">
+        <Alert className={classes.alert} severity="info" variant="outlined">
           {t('interface.selectItemToStart')}
         </Alert>
       </div>
@@ -125,19 +125,19 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
         <div className={classes.header}>
           <div className={classes.headerActions}>
             <BasketName
-              member={member}
               canChangeMember={canChangeMember}
+              member={member}
               openChangeMemberModal={openChangeMemberModal}
             />
 
             <IconButton
-              onClick={closeCurrentBasket}
               className={classes.closeIconButton}
+              onClick={closeCurrentBasket}
             >
               <CustomMuiIcon
-                icon="Cancel"
-                customColor={QuicksaleInterfaceModalColors.Error}
                 customClassName={classes.closeIcon}
+                customColor={QuicksaleInterfaceModalColors.Error}
+                icon="Cancel"
               />
             </IconButton>
           </div>
@@ -168,28 +168,28 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
         <Divider />
         <div className={classes.footer}>
           <div className={classes.totalExcludingTax}>
-            <Typography variant="body2" className={classes.color600}>
+            <Typography className={classes.color600} variant="body2">
               {t('interface.totalExcludingTax')}
             </Typography>
-            <Typography variant="subtitle2" className={classes.fontWeight500}>
+            <Typography className={classes.fontWeight500} variant="subtitle2">
               {getCurrencyDisplayWithPrice(basketPriceExcludingTax)}
             </Typography>
           </div>
 
           <div className={classes.taxes}>
-            <Typography variant="body2" className={classes.color600}>
+            <Typography className={classes.color600} variant="body2">
               {t('interface.taxes')}
             </Typography>
-            <Typography variant="subtitle2" className={classes.fontWeight500}>
+            <Typography className={classes.fontWeight500} variant="subtitle2">
               {getCurrencyDisplayWithPrice(taxPrice)}
             </Typography>
           </div>
 
           <div className={classes.total}>
-            <Typography variant="subtitle1" className={classes.fontWeight500}>
+            <Typography className={classes.fontWeight500} variant="subtitle1">
               {t('interface.totalIncludingTax')}
             </Typography>
-            <Typography variant="h6" className={classes.fontWeight500}>
+            <Typography className={classes.fontWeight500} variant="h6">
               {getCurrencyDisplayWithPrice(
                 parseFloat(basket.total_price).toFixed(2),
               )}
@@ -198,10 +198,10 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
 
           <Button
             fullWidth
-            variant="contained"
-            color="primary"
             className={classes.payButton}
+            color="primary"
             onClick={onPaymentClick}
+            variant="contained"
           >
             {t('interface.payment')}
           </Button>

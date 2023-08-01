@@ -49,24 +49,22 @@ export function PaymentRuleFields(props: Props) {
   return (
     <div>
       <TextField
-        id="textfield_remuneration_title"
-        name="name"
-        label={t('name')}
-        required
         fullWidth
+        required
+        id="textfield_remuneration_title"
+        label={t('name')}
+        name="name"
       />
       <CheckboxField
         id="select_remuneration_presence"
-        name="only_attendant"
         label={t('only_attendant')}
+        name="only_attendant"
       />
       <div
-        id="select_remuneration_method"
         className={classes.calculation_method}
+        id="select_remuneration_method"
       >
         <RadioGroupField
-          name="calculation_method"
-          label={t('calculation_method')}
           choices={[
             {
               label: t('calculation_methods.bookings'),
@@ -77,6 +75,8 @@ export function PaymentRuleFields(props: Props) {
               value: PAYMENT_RULE_CALCULATION_MARGIN_VALUE,
             },
           ]}
+          label={t('calculation_method')}
+          name="calculation_method"
         />
       </div>
       {
@@ -85,11 +85,11 @@ export function PaymentRuleFields(props: Props) {
         PAYMENT_RULE_CALCULATION_MARGIN_VALUE ? (
           <React.Fragment>
             <PercentField
-              step={0.1}
-              name="base_percent"
-              label={t('base_percent')}
-              required
               fullWidth
+              required
+              label={t('base_percent')}
+              name="base_percent"
+              step={0.1}
             />
             <CheckboxField label={t('include_tax')} name="include_tax" />
           </React.Fragment>
@@ -100,11 +100,11 @@ export function PaymentRuleFields(props: Props) {
         props.values.calculation_method == PAYMENT_RULE_CALCULATION_BOOKINGS ? (
           <React.Fragment>
             <PriceField
-              id="textfield_remuneration_fixedamount"
-              name="base_price"
-              label={t('base_price')}
-              required
               fullWidth
+              required
+              id="textfield_remuneration_fixedamount"
+              label={t('base_price')}
+              name="base_price"
             />
 
             <Typography variant="subtitle2">{t('rules')}</Typography>
@@ -137,14 +137,7 @@ export function PaymentRuleFields(props: Props) {
                         >
                           <TableCell className={classes.dense}>
                             <TextField
-                              type="number"
-                              name={`bonuses.${i}.threshold`}
-                              onBlur={() => {
-                                setFieldValue(
-                                  'bonuses',
-                                  sortBy(bonuses, 'threshold'),
-                                );
-                              }}
+                              fullWidth
                               InputProps={{
                                 inputProps: { min: 0 },
                                 startAdornment: (
@@ -154,20 +147,27 @@ export function PaymentRuleFields(props: Props) {
                                 ),
                               }}
                               margin="dense"
-                              fullWidth
+                              name={`bonuses.${i}.threshold`}
+                              onBlur={() => {
+                                setFieldValue(
+                                  'bonuses',
+                                  sortBy(bonuses, 'threshold'),
+                                );
+                              }}
+                              type="number"
                             />
                           </TableCell>
                           <TableCell className={classes.dense}>
                             <PriceField
-                              name={`bonuses.${i}.variable_bonus`}
-                              margin="dense"
                               fullWidth
+                              margin="dense"
+                              name={`bonuses.${i}.variable_bonus`}
                             />
                           </TableCell>
                           <TableCell className={classes.dense}>
                             <IconButton
-                              onClick={() => remove(i)}
                               aria-label="Delete"
+                              onClick={() => remove(i)}
                             >
                               <ClearIcon />
                             </IconButton>
@@ -177,6 +177,7 @@ export function PaymentRuleFields(props: Props) {
                     </TableBody>
                   </Table>
                   <Button
+                    color="secondary"
                     onClick={() => {
                       const max = maxBy(bonuses, 'variable_bonus');
                       push({
@@ -186,7 +187,6 @@ export function PaymentRuleFields(props: Props) {
                           (max || { variable_bonus: 0 }).variable_bonus + 1,
                       });
                     }}
-                    color="secondary"
                   >
                     <AddIcon className={classes.leftButton} />
                     <div id="button_remuneration_add_new">{t('addBonus')}</div>

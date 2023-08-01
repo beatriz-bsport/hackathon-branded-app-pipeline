@@ -20,13 +20,13 @@ const MemberEventPanel: React.FC<Props> = (props) => {
   return (
     <Paper className={classes.panelContainer}>
       <EventPanel
-        loading={props.eventListLoading}
         eventList={props.eventList}
-        page={props.eventListPage}
-        fetchEventList={props.fetchEventList}
-        extraFetchParams={{ object_id: props.memberId }}
         eventSpec={COMPANY_EVENTS}
+        extraFetchParams={{ object_id: props.memberId }}
+        fetchEventList={props.fetchEventList}
+        loading={props.eventListLoading}
         onEventClick={props.onEventClick}
+        page={props.eventListPage}
       />
     </Paper>
   );

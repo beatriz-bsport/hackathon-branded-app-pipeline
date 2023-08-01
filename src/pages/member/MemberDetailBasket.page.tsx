@@ -99,9 +99,9 @@ export class MemberDetailBasket extends Component<Props> {
             {this.props.basketHistoryList.map((basket) => (
               <BasketListItem
                 key={basket.id}
-                selected={basket.id === this.props.selectedBasketId}
                 basket={basket}
                 onClick={this.selectBasket}
+                selected={basket.id === this.props.selectedBasketId}
               />
             ))}
           </Paper>
@@ -114,7 +114,7 @@ export class MemberDetailBasket extends Component<Props> {
               </Typography>
               <Divider className={classes.divider} />
               <Paper>
-                <BasketConsumer basket={this.props.selectedBasket} withPrice />
+                <BasketConsumer withPrice basket={this.props.selectedBasket} />
               </Paper>
               <Typography className={classes.secontionTitle} variant="h4">
                 {t('eventHistory.sectionTitle')}
@@ -122,12 +122,12 @@ export class MemberDetailBasket extends Component<Props> {
               <Divider className={classes.divider} />
               <Paper>
                 <EventPanel
-                  loading={this.props.eventLoading}
                   eventList={this.props.eventList.items}
-                  page={this.props.eventPage}
-                  fetchEventList={this.props.fetchBasketEventList}
-                  extraFetchParams={{ object_id: this.props.selectedBasketId }}
                   eventSpec={COMPANY_EVENTS}
+                  extraFetchParams={{ object_id: this.props.selectedBasketId }}
+                  fetchEventList={this.props.fetchBasketEventList}
+                  loading={this.props.eventLoading}
+                  page={this.props.eventPage}
                 />
               </Paper>
             </>
@@ -135,8 +135,8 @@ export class MemberDetailBasket extends Component<Props> {
             <div className={classes.paddedContent}>
               <div className={classes.emptyMessageContainer}>
                 <Alert
-                  color="grey"
                   className={classes.alertIcon}
+                  color="grey"
                   severity="info"
                 >
                   {t('eventHistory.pleaseSelectABasket')}

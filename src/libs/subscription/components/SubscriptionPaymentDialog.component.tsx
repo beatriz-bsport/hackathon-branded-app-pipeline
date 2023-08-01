@@ -30,18 +30,18 @@ export const SubscriptionPaymentDialog = (props: Props) => {
   const { t, classes, open, success, onNext, goToSubscriptionList } = props;
   return (
     <Dialog
-      open={open}
+      fullWidth
       fullScreen={window.innerWidth < 700 || WidgetUtils.isWidget()}
       maxWidth="md"
-      fullWidth
+      open={open}
     >
       <DialogTitle>
         <div className={classes.dialogTitle}>
           {t('subscriptionPaymentDialog.title')}
           <IconButton
-            size="small"
             color="inherit"
             onClick={() => goToSubscriptionList()}
+            size="small"
           >
             <CloseIcon />
           </IconButton>
@@ -66,7 +66,7 @@ export const SubscriptionPaymentDialog = (props: Props) => {
           </Typography>
         </div>
         <div className={classes.actions}>
-          <Button onClick={() => onNext()} variant="contained" color="primary">
+          <Button color="primary" onClick={() => onNext()} variant="contained">
             {success
               ? t('subscriptionPaymentDialog.success.button_text')
               : t('subscriptionPaymentDialog.error.button_text')}

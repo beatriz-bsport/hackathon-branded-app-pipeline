@@ -29,7 +29,7 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
     if (tags?.length) {
       return tags.map((tag: Tag<TagGroup>) => (
         <div className={classes.tag}>
-          <TagChip key={tag.id} tag={tag} size="small" />
+          <TagChip key={tag.id} size="small" tag={tag} />
         </div>
       ));
     }
@@ -37,7 +37,7 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
   };
 
   return (
-    <GenericResponsiveDialog open={open} maxWidth="sm">
+    <GenericResponsiveDialog maxWidth="sm" open={open}>
       <DialogContent>
         <div className={classes.tagsBlock}>
           <Typography variant="h6">{t('whiteList')}</Typography>
@@ -59,7 +59,7 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
         <Button id="button_exit" onClick={props.onClose}>
           {t('actions.close')}
         </Button>
-        <Button id="button_modify" color="primary" onClick={props.onModify}>
+        <Button color="primary" id="button_modify" onClick={props.onModify}>
           {t('actions.edit')}
         </Button>
       </DialogActions>

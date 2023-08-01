@@ -33,6 +33,9 @@ const PrivatePassTemplateInstanceForm = (props: Props) => {
         {t('privatePassTemplateInstance.form.explain2')}
       </Typography>
       <FranchiseCompaniesSelector
+        companies={companies}
+        companyDic={companyDic}
+        menuPortalTarget={document.querySelector('body')}
         onChange={(newValue) => {
           setFieldValue(
             'selectedCompanies',
@@ -45,9 +48,6 @@ const PrivatePassTemplateInstanceForm = (props: Props) => {
             label: c.name,
             value: `${c.id}`,
           }))}
-        companyDic={companyDic}
-        companies={companies}
-        menuPortalTarget={document.querySelector('body')}
       />
     </div>
   );

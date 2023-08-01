@@ -120,9 +120,9 @@ export const InstalmentPaymentForm = (props: Props) => {
     <div>
       <Formik
         enableReinitialize
-        validationSchema={instalmentPaymentSchema}
         initialValues={initialValues}
         onSubmit={handleSumit}
+        validationSchema={instalmentPaymentSchema}
       >
         {(formikProps: FormikProps<InstalmentPaymentApi>) => {
           return (
@@ -131,20 +131,16 @@ export const InstalmentPaymentForm = (props: Props) => {
                 <InstalmentPaymentGeneralInfoForm />
                 <Divider className={classes.divider} />
                 <InstalmentPaymentCompabilityForm
-                  setFieldValue={formikProps.setFieldValue}
-                  paymentPackList={paymentPackList}
-                  giftcardList={giftcardList}
                   comboList={comboList}
-                  shopItemList={shopItemList}
-                  privatePassList={privatePassList}
-                  is_available_on_all_payment_pack={
-                    formikProps.values.is_available_on_all_payment_pack
-                  }
+                  giftcardList={giftcardList}
                   is_available_on_all_giftcard={
                     formikProps.values.is_available_on_all_giftcard
                   }
                   is_available_on_all_payment_combo={
                     formikProps.values.is_available_on_all_payment_combo
+                  }
+                  is_available_on_all_payment_pack={
+                    formikProps.values.is_available_on_all_payment_pack
                   }
                   is_available_on_all_private_pass={
                     formikProps.values.is_available_on_all_private_pass
@@ -153,6 +149,10 @@ export const InstalmentPaymentForm = (props: Props) => {
                     formikProps.values.is_available_on_all_shop_item
                   }
                   isInDrawer={isInDrawer}
+                  paymentPackList={paymentPackList}
+                  privatePassList={privatePassList}
+                  setFieldValue={formikProps.setFieldValue}
+                  shopItemList={shopItemList}
                 />
                 <Divider className={classes.divider} />
                 <InstalmentPaymentAdvancedForm />
@@ -170,12 +170,12 @@ export const InstalmentPaymentForm = (props: Props) => {
                   </Button>
                   <Button
                     color="primary"
-                    type="submit"
-                    variant="contained"
                     disabled={!formikProps.isValid || formikProps.isSubmitting}
                     onClick={() => {
                       trackFormSubmitIntent(initial?.id);
                     }}
+                    type="submit"
+                    variant="contained"
                   >
                     {t('form.save')}
                   </Button>

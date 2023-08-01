@@ -39,10 +39,10 @@ export const ConnectedTriggerNodeElement: React.FC<
                 <div className={classNames(classes.customPulse)}>
                   <div className={classes.icon}>
                     <CustomMuiIcon
+                      defaultBackGround
                       MuiIcon={TriggerIcon({
                         connected_trigger_config: connectedTrigger,
                       })}
-                      defaultBackGround
                       MuiIconProps={{ color: 'primary', fontSize: 'small' }}
                     />
                   </div>
@@ -51,7 +51,7 @@ export const ConnectedTriggerNodeElement: React.FC<
             </div>
             {hasFilterSmartList && (
               <div className={classes.groupIconContainer}>
-                <GroupIcon fontSize="small" className={classes.groupIcon} />
+                <GroupIcon className={classes.groupIcon} fontSize="small" />
               </div>
             )}
           </div>

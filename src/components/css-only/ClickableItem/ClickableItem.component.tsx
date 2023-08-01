@@ -32,10 +32,10 @@ const ClickableItem: React.FC<Props> = React.memo(
 
     return (
       <button
-        className="bs-clickable-item__container"
-        type="button"
-        onClick={onClick}
         key={key}
+        className="bs-clickable-item__container"
+        onClick={onClick}
+        type="button"
       >
         <div className="bs-clickable-item__text__container">
           <h3 className="bs-clickable-item__primary">{primary}</h3>
@@ -52,8 +52,8 @@ const ClickableItem: React.FC<Props> = React.memo(
         {actionIcon && (
           <button
             className="bs-clickable-item__action"
-            type="button"
             onClick={handleOnActionClick}
+            type="button"
           >
             {actionIcon}
           </button>

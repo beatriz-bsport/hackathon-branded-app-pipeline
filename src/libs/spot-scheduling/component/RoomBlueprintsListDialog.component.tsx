@@ -40,7 +40,7 @@ class RoomBlueprintsListDialog extends React.PureComponent<Props, State> {
     const { t } = this.props;
 
     return (
-      <Dialog open={this.props.open} maxWidth="md">
+      <Dialog maxWidth="md" open={this.props.open}>
         <MuiDialogTitle
           disableTypography
           style={{
@@ -58,15 +58,15 @@ class RoomBlueprintsListDialog extends React.PureComponent<Props, State> {
         </MuiDialogTitle>
 
         <DialogContent style={{ width: 400 }}>
-          <List component="nav" aria-label="main mailbox folders">
+          <List aria-label="main mailbox folders" component="nav">
             {this.props.blueprints.map((roomBlueprint: RoomBlueprint) => (
               <RoomBlueprintListItem
                 key={roomBlueprint.id}
-                selected={roomBlueprint.id === this.state.selected?.id}
                 onClick={(selected: RoomBlueprint) =>
                   this.setState({ selected })
                 }
                 roomBlueprint={roomBlueprint}
+                selected={roomBlueprint.id === this.state.selected?.id}
               />
             ))}
           </List>
@@ -77,8 +77,8 @@ class RoomBlueprintsListDialog extends React.PureComponent<Props, State> {
           </Button>
           <Button
             color="primary"
-            onClick={this.onSubmit}
             disabled={!this.state.selected}
+            onClick={this.onSubmit}
           >
             {t('spotSelectorDialog.submit')}
           </Button>

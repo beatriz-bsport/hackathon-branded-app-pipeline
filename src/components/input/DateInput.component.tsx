@@ -47,25 +47,25 @@ export const DateInput: React.FC<Props> = ({
 
   return (
     <MuiPickersUtilsProvider
-      utils={MomentUtils}
-      moment={Moment}
       locale={Moment.locale()}
+      moment={Moment}
+      utils={MomentUtils}
     >
       <DatePicker
-        format={format || 'L'}
-        value={value}
-        required={required}
-        disabled={disabled}
-        onChange={onChange}
-        minDate={minDate}
-        maxDate={maxDate}
-        label={label}
-        error={error}
         className={`${className || ''} ${classes.container}`}
         clearable={clearable}
+        disabled={disabled}
+        error={error}
+        format={format || 'L'}
         InputProps={{
           endAdornment,
         }}
+        label={label}
+        maxDate={maxDate}
+        minDate={minDate}
+        onChange={onChange}
+        required={required}
+        value={value}
       />
     </MuiPickersUtilsProvider>
   );

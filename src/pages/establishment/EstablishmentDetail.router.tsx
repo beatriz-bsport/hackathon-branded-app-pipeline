@@ -37,24 +37,24 @@ export const EstablishmentDetailRouter = (props: Props) => {
   );
   return (
     <ContentWithAppBar
-      tab={props.tab}
       onChange={onChange}
       pageHeight={props.pageHeight}
+      tab={props.tab}
       tabsData={tabsData}
     >
       <Switch>
         <Route
           exact
-          path="/establishment/details/:id/calendar"
           component={EstablishmentCalendar}
+          path="/establishment/details/:id/calendar"
         />
         <Route
+          component={EstablishmentDetail}
           path="/establishment/details/:id/general"
-          component={EstablishmentDetail}
         />
         <Route
-          path="/establishment/details/:id"
           component={EstablishmentDetail}
+          path="/establishment/details/:id"
         />
       </Switch>
     </ContentWithAppBar>

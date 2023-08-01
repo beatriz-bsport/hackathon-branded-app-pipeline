@@ -470,9 +470,9 @@ const WorkshopActivityGroup: React.FC<Props> = ({
         <Grid container spacing={3}>
           {isWidthDown('md', width) && selectedOffer && (
             <Button
-              size="small"
               className={classes.button}
               onClick={resetOffer}
+              size="small"
             >
               <KeyboardArrowLeft />
               {t('workshop:group.backToGroup')}
@@ -480,11 +480,11 @@ const WorkshopActivityGroup: React.FC<Props> = ({
           )}
 
           {(isWidthUp('lg', width) || !selectedOffer) && !!hideEmptyState && (
-            <Grid item xs={12} lg={6}>
+            <Grid item lg={6} xs={12}>
               <MetaActivityGroupsFilter
-                metaActivities={[..._metaActivities]}
                 filter={filter}
                 isLoading={metaActivityLoading}
+                metaActivities={[..._metaActivities]}
                 onChange={(_filter) => {
                   setWorkshopGroupFilter(_filter);
                   resetPage();
@@ -496,7 +496,6 @@ const WorkshopActivityGroup: React.FC<Props> = ({
                   {t('workshop:group.pageSize')}
                 </Typography>
                 <Select
-                  value={pageSize}
                   onChange={(
                     ev: React.ChangeEvent<{
                       value: number;
@@ -504,6 +503,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
                   ) => {
                     handleSetPageSize(ev.target.value);
                   }}
+                  value={pageSize}
                 >
                   {PAGE_SIZE_OPTIONS.map((ps) => (
                     <MenuItem key={ps} value={ps}>
@@ -517,8 +517,8 @@ const WorkshopActivityGroup: React.FC<Props> = ({
                 <>
                   {groupListCount === 0 && (
                     <Typography
-                      color="textSecondary"
                       className={classes.emptyState}
+                      color="textSecondary"
                     >
                       {t('workshop:group.emptySearch')}
                     </Typography>
@@ -533,10 +533,10 @@ const WorkshopActivityGroup: React.FC<Props> = ({
                         )}
                         offers={getOffersListByGroup(group.id)}
                         offerSelected={selectedOffer?.id}
-                        onSelect={handleSelectOffer}
-                        onEdit={handleOpenEditGroupModal}
                         onCopy={handleOpenDuplicateGroupModal}
                         onDelete={handleOpenDeleteGroupModal}
+                        onEdit={handleOpenEditGroupModal}
+                        onSelect={handleSelectOffer}
                       />
                     ))}
                   </div>
@@ -547,10 +547,10 @@ const WorkshopActivityGroup: React.FC<Props> = ({
                 <div className={classes.pagination}>
                   <Pagination
                     count={Math.ceil(groupListCount / pageSize)}
-                    page={page}
                     onChange={(_, _page) => {
                       handleSetPage(_page);
                     }}
+                    page={page}
                     shape="round"
                   />
                 </div>
@@ -558,30 +558,30 @@ const WorkshopActivityGroup: React.FC<Props> = ({
             </Grid>
           )}
           {!!hideEmptyState && (
-            <Grid item xs={12} lg={6}>
+            <Grid item lg={6} xs={12}>
               {selectedOffer ? (
                 <div className={classes.offerCard}>
                   <OfferCard
-                    snackbarSuccess={snackbarSuccess}
-                    offer={selectedOffer}
+                    bookings={bookings}
+                    bookingsLoading={bookingsLoading || !bookings}
                     companyId={companyId}
+                    creditScaleFactor={theme.pass_credit_factor}
                     goToOfferManagement={navigateToOffer}
                     members={members}
                     membersLoading={membersLoading || !members}
-                    bookings={bookings}
-                    bookingsLoading={bookingsLoading || !bookings}
+                    offer={selectedOffer}
+                    onDeleteButtonClick={handleOpenOfferDeleteModal}
+                    onEditButtonClick={handleOpenOfferEditModal}
+                    onModifyTags={handleOpenOfferEditModal}
+                    onRestoreButtonClick={handleOpenOfferRestoreModal}
                     showOfferGender={theme?.show_booked_gender_offer}
                     showVaccinationStatus={showVaccinationStatus}
-                    onEditButtonClick={handleOpenOfferEditModal}
-                    onDeleteButtonClick={handleOpenOfferDeleteModal}
-                    onRestoreButtonClick={handleOpenOfferRestoreModal}
-                    onModifyTags={handleOpenOfferEditModal}
-                    creditScaleFactor={theme.pass_credit_factor}
+                    snackbarSuccess={snackbarSuccess}
                   />
                 </div>
               ) : (
                 <div className={classes.emptySelect}>
-                  <InfoIcon color="disabled" className={classes.info} />
+                  <InfoIcon className={classes.info} color="disabled" />
                   <div>
                     <Typography color="textSecondary" variant="body1">
                       {t('workshop:group.emptySelect')}
@@ -593,138 +593,138 @@ const WorkshopActivityGroup: React.FC<Props> = ({
           )}
         </Grid>
         <IsEmptyList
-          text={t('workshop:group.emptyState')}
           button={t('workshop:actions.addWorkshopGroup')}
+          hideEmptyText={hideEmptyState}
           onCreate={handleOpenCreateModal}
           onCreateLabel={t('workshop:actions.addWorkshopGroup')}
-          hideEmptyText={hideEmptyState}
+          text={t('workshop:group.emptyState')}
         />
         {/* Groups Modal */}
         <GroupedOfferCreateForm
-          open={openCreateModal}
+          allEstablishments={allEstablishments}
+          allRoomBlueprints={allRoomBlueprints}
+          availableEstablishments={availableEstablishments}
+          availableRoomBlueprints={availableRoomBlueprints}
+          coaches={coaches}
+          coachPaymentRulesByKind={coachPaymentRulesByKind}
+          createGroupOffers={handleCreateGroup}
+          createLevel={createLevel}
+          creditScaleFactor={theme.pass_credit_factor}
+          customLevels={customLevels}
+          deleteLevel={deleteLevel}
+          fetchLevelList={handleFetchLevel}
+          fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
+          generatePreview={generateGroupOffersPreview}
+          groupPreview={groupPreview}
           metaActivities={[..._metaActivities]}
           metaActivity={metaActivity}
           metaActivityLoading={metaActivityLoading}
-          availableRoomBlueprints={availableRoomBlueprints}
-          allRoomBlueprints={allRoomBlueprints}
-          theme={theme}
-          coaches={coaches}
-          availableEstablishments={availableEstablishments}
-          allEstablishments={allEstablishments}
-          coachPaymentRulesByKind={coachPaymentRulesByKind}
-          tagList={allTagsWithTagGroup}
-          customLevels={customLevels}
-          fetchLevelList={handleFetchLevel}
-          updateLevel={updateLevel}
-          createLevel={createLevel}
-          deleteLevel={deleteLevel}
-          resetPreview={resetPreview}
-          generatePreview={generateGroupOffersPreview}
-          groupPreview={groupPreview}
-          createGroupOffers={handleCreateGroup}
           onClose={handleCloseCreateModal}
+          open={openCreateModal}
+          resetPreview={resetPreview}
+          tagList={allTagsWithTagGroup}
+          theme={theme}
+          updateLevel={updateLevel}
           zoomAppDetail={zoomAppDetail}
-          fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
-          creditScaleFactor={theme.pass_credit_factor}
         />
         <GroupedOfferEditDrawer
-          open={!!editingGroup}
+          allEstablishments={allEstablishments}
+          allRoomBlueprints={allRoomBlueprints}
+          availableEstablishments={availableEstablishments}
+          availableRoomBlueprints={availableRoomBlueprints}
+          coaches={coaches}
+          coachPaymentRulesByKind={coachPaymentRulesByKind}
+          createLevel={createLevel}
+          creditScaleFactor={theme.pass_credit_factor}
+          customLevels={customLevels}
+          deleteLevel={deleteLevel}
+          fetchLevelList={handleFetchLevel}
+          fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
+          group={editingGroup}
           metaActivity={_metaActivities.find(
             (o) => o.id === editingGroup?.meta_activity,
           )}
-          availableRoomBlueprints={availableRoomBlueprints}
-          allRoomBlueprints={allRoomBlueprints}
-          theme={theme}
-          coaches={coaches}
-          group={editingGroup}
-          availableEstablishments={availableEstablishments}
-          allEstablishments={allEstablishments}
-          coachPaymentRulesByKind={coachPaymentRulesByKind}
-          tagList={allTagsWithTagGroup}
-          customLevels={customLevels}
-          onSubmit={handleEditGroup}
-          fetchLevelList={handleFetchLevel}
-          updateLevel={updateLevel}
-          createLevel={createLevel}
-          deleteLevel={deleteLevel}
           onClose={handleCloseEditGroupModal}
+          onSubmit={handleEditGroup}
+          open={!!editingGroup}
+          tagList={allTagsWithTagGroup}
+          theme={theme}
+          updateLevel={updateLevel}
           zoomAppDetail={zoomAppDetail}
-          fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
-          creditScaleFactor={theme.pass_credit_factor}
         />
         {deletingGroup && (
           <GroupedOfferDeleteDialog
-            open={!!deletingGroup}
-            onCancel={handleCloseDeleteGroupModal}
-            processing={false}
-            onSubmit={handleDeleteGroup}
-            fetchSimilar={fetchSimilarGroupOffers}
             fetchOfferBulk={fetchOfferBulk}
+            fetchSimilar={fetchSimilarGroupOffers}
+            getOffersListByGroup={getOffersListByGroup}
+            group={deletingGroup}
+            onCancel={handleCloseDeleteGroupModal}
+            onSubmit={handleDeleteGroup}
+            open={!!deletingGroup}
+            processing={false}
             similarLoading={similarLoading}
             similars={[...(similarGroups ?? [])]}
-            group={deletingGroup}
-            getOffersListByGroup={getOffersListByGroup}
           />
         )}
         {!!duplicatingGroup && (
           <GroupedOfferDuplicate
-            open={!!duplicatingGroup}
-            onClose={handleCloseDuplicateGroupModal}
             createGroupOffers={handleCreateGroup}
-            group={duplicatingGroup}
             generatePreview={generateGroupOffersPreview}
+            group={duplicatingGroup}
             groupPreview={groupPreview}
             metaActivity={_metaActivities.find(
               (o) => o.id === duplicatingGroup?.meta_activity,
             )}
+            onClose={handleCloseDuplicateGroupModal}
+            open={!!duplicatingGroup}
             resetPreview={resetPreview}
           />
         )}
         {/* OFFERS MODAL */}
         {editOfferModalOpen && (
           <GenericResponsiveDrawer
-            open={editOfferModalOpen}
-            onClose={handleCloseEditModal}
-            title={t('translation:common.offers')}
-            subtitle={t('translation:common.offerEdition')}
-            withoutPadding
             withoutHeaderContainer
+            withoutPadding
+            onClose={handleCloseEditModal}
+            open={editOfferModalOpen}
+            subtitle={t('translation:common.offerEdition')}
+            title={t('translation:common.offers')}
           >
             <OfferEditForm
+              editableCoachPaymentRule
+              isOfferInGroup
+              activeCustomLevels={customLevels}
+              allCustomLevels={allCustomLevels}
+              allEstablishments={allEstablishments}
+              allRoomBlueprints={allRoomBlueprints}
+              availableEstablishments={availableEstablishments}
+              coaches={coaches}
+              coachPaymentRulesByKind={coachPaymentRulesByKind}
+              createLevel={createLevel}
+              creditScaleFactor={theme.pass_credit_factor}
+              deleteLevel={deleteLevel}
+              fetchLevelList={handleFetchLevel}
+              fetchSimilarOffers={fetchSimilarOffers}
               isLoading={
                 coachesLoading ||
                 metaActivityLoading ||
                 establishmentsLoading ||
                 similarOfferLoading
               }
-              offer={selectedOffer}
-              coaches={coaches}
-              availableEstablishments={availableEstablishments}
-              allEstablishments={allEstablishments}
-              roomBlueprints={availableRoomBlueprints}
-              allRoomBlueprints={allRoomBlueprints}
               isWherebyIntegrationEnabled={
                 theme?.is_whereby_integration_enabled &&
                 theme?.is_whereby_integration_allowed
               }
-              onSubmit={onEditOffer}
+              offer={selectedOffer}
               onCancel={handleCloseEditModal}
+              onSubmit={onEditOffer}
               processing={editOfferProcessing}
-              fetchSimilarOffers={fetchSimilarOffers}
-              similarOffers={similarOffers}
-              coachPaymentRulesByKind={coachPaymentRulesByKind}
+              roomBlueprints={availableRoomBlueprints}
               showPartnership={theme.has_partnership}
-              creditScaleFactor={theme.pass_credit_factor}
+              similarOffers={similarOffers}
               tagList={allTagsWithTagGroup}
-              activeCustomLevels={customLevels}
-              allCustomLevels={allCustomLevels}
-              fetchLevelList={handleFetchLevel}
               updateLevel={updateLevel}
-              createLevel={createLevel}
-              deleteLevel={deleteLevel}
               zoomAppDetail={zoomAppDetail}
-              editableCoachPaymentRule
-              isOfferInGroup
             />
           </GenericResponsiveDrawer>
         )}
@@ -732,28 +732,28 @@ const WorkshopActivityGroup: React.FC<Props> = ({
           <Dialog onClose={handleCloseDeleteModal} open={deleteOfferModalOpen}>
             <DialogContent>
               <DeleteOfferForm
-                offer={selectedOffer}
-                offerWasCancelled={!selectedOffer.available}
-                onCancelOffer={handleCancelOffer}
-                onHardDelete={handleDeleteOffer}
                 fetchSimilarOffers={() => {
                   fetchSimilarOffers(selectedOfferId);
                 }}
+                offer={selectedOffer}
+                offerWasCancelled={!selectedOffer.available}
                 onCancel={handleCloseDeleteModal}
+                onCancelOffer={handleCancelOffer}
+                onHardDelete={handleDeleteOffer}
                 processing={false}
                 setOpenDeleteDialog={handleOpenOfferDeleteImpossibleModal}
-                similarOffers={similarOffers}
                 similarOfferLoading={similarOfferLoading}
+                similarOffers={similarOffers}
               />
             </DialogContent>
           </Dialog>
         )}
         {deleteImpossibleModalOpen && (
           <Dialog
-            open={deleteImpossibleModalOpen}
-            onClose={handleCloseDeleteImpossibleModal}
-            aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
+            aria-labelledby="alert-dialog-title"
+            onClose={handleCloseDeleteImpossibleModal}
+            open={deleteImpossibleModalOpen}
           >
             <DialogTitle id="alert-dialog-title">
               {t('offer:deleteImpossibleTitle')}
@@ -765,8 +765,8 @@ const WorkshopActivityGroup: React.FC<Props> = ({
             </DialogContent>
             <DialogActions>
               <Button
-                onClick={handleCloseDeleteImpossibleModal}
                 color="primary"
+                onClick={handleCloseDeleteImpossibleModal}
               >
                 {t('offer:close')}
               </Button>

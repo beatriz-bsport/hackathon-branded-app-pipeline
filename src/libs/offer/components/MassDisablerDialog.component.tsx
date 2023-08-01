@@ -65,9 +65,8 @@ export const MassDisablerDialog = (props: Props) => {
     props?.massDisabledOfferInGroup?.length ?? 0;
 
   return (
-    <GenericResponsiveDialog open maxWidth="sm" fullScreenBreakpoint="xs">
+    <GenericResponsiveDialog open fullScreenBreakpoint="xs" maxWidth="sm">
       <Formik
-        validationSchema={dateRangeScheme}
         initialValues={initialValues}
         onSubmit={(values, actions) => {
           props.onSubmit({
@@ -78,6 +77,7 @@ export const MassDisablerDialog = (props: Props) => {
           actions.setSubmitting(false);
           setSuccessDialogOpen(true);
         }}
+        validationSchema={dateRangeScheme}
       >
         {(
           formikProps: FormikProps<{
@@ -95,17 +95,17 @@ export const MassDisablerDialog = (props: Props) => {
                 <div className={classes.row}>
                   <div>
                     <DateField
-                      name="startDate"
-                      label={t('massDisabler.startDateLabel')}
                       bottomError
+                      label={t('massDisabler.startDateLabel')}
+                      name="startDate"
                     />
                   </div>
                   <ArrowForwardIos className={classes.center} />
                   <div>
                     <DateField
-                      name="endDate"
                       bottomError
                       label={t('massDisabler.endDateLabel')}
+                      name="endDate"
                     />
                   </div>
                 </div>
@@ -117,7 +117,7 @@ export const MassDisablerDialog = (props: Props) => {
                 </div>
                 <div className={classes.iconAndInfo}>
                   <Warning color="error" />
-                  <Typography color="error" className={classes.infoRed}>
+                  <Typography className={classes.infoRed} color="error">
                     {t('massDisabler.warning')}
                   </Typography>
                 </div>
@@ -130,6 +130,7 @@ export const MassDisablerDialog = (props: Props) => {
                   </div>
                   <div>
                     <Button
+                      color="primary"
                       disabled={!formikProps.isValid}
                       onClick={() => {
                         props.retrieveNumberOfDeletedOffer({
@@ -143,7 +144,6 @@ export const MassDisablerDialog = (props: Props) => {
                         setSecondWarningOpen(true);
                       }}
                       variant="contained"
-                      color="primary"
                     >
                       {t('massDisabler.actions.continue')}
                     </Button>
@@ -152,9 +152,9 @@ export const MassDisablerDialog = (props: Props) => {
               </div>
               {props.numberOfMassDisabledOfferLoading && <LinearProgress />}
               <GenericResponsiveDialog
-                open={secondWarningOpen}
-                maxWidth="sm"
                 fullScreenBreakpoint="xs"
+                maxWidth="sm"
+                open={secondWarningOpen}
               >
                 <div className={classes.container}>
                   <Typography variant="h6">
@@ -184,9 +184,9 @@ export const MassDisablerDialog = (props: Props) => {
                     <div className={classes.iconAndInfo}>
                       <Warning color="error" />
                       <Alert
-                        severity="error"
-                        icon={<></>}
                         className={classes.alert}
+                        icon={<></>}
+                        severity="error"
                       >
                         <Typography color="error">
                           {t('massDisabler.warningOfferGroupTitle')}
@@ -198,8 +198,8 @@ export const MassDisablerDialog = (props: Props) => {
                           </Typography>
                         </div>
                         <ButtonBase
-                          onClick={() => setShowOfferGroup(!showOfferGroup)}
                           className={classes.buttonBaseHeader}
+                          onClick={() => setShowOfferGroup(!showOfferGroup)}
                         >
                           <Typography>{t('massDisabler.offers')}</Typography>
                           {showOfferGroup ? (
@@ -212,11 +212,11 @@ export const MassDisablerDialog = (props: Props) => {
                           {props.massDisabledOfferInGroup.map((so) => (
                             <OfferListItemV2
                               key={so.id}
-                              similarOffer
-                              disabled
-                              offer={so}
-                              handleChange={null}
                               checked
+                              disabled
+                              similarOffer
+                              handleChange={null}
+                              offer={so}
                             />
                           ))}
                         </Collapse>
@@ -226,9 +226,9 @@ export const MassDisablerDialog = (props: Props) => {
                   <div className={classes.iconAndInfo}>
                     <Warning color="error" />
                     <Typography
+                      className={classes.infoRed}
                       color="error"
                       variant="subtitle1"
-                      className={classes.infoRed}
                     >
                       {t('massDisabler.secondWarning')}
                     </Typography>
@@ -250,12 +250,12 @@ export const MassDisablerDialog = (props: Props) => {
                     </div>
                     <div>
                       <RedButtonComponent
-                        onClick={() => formikProps.handleSubmit()}
                         delayBeforeActivation={5}
                         disabled={
                           formikProps.values.confirmation !==
                           t('massDisabler.iConfirm')
                         }
+                        onClick={() => formikProps.handleSubmit()}
                       >
                         {t('massDisabler.actions.submit')}
                       </RedButtonComponent>
@@ -265,9 +265,9 @@ export const MassDisablerDialog = (props: Props) => {
                 {formikProps.isSubmitting && <LinearProgress />}
               </GenericResponsiveDialog>
               <GenericResponsiveDialog
-                open={successDialogOpen}
-                maxWidth="sm"
                 fullScreenBreakpoint="xs"
+                maxWidth="sm"
+                open={successDialogOpen}
               >
                 <div className={classes.container}>
                   <Typography variant="h6">
@@ -275,8 +275,8 @@ export const MassDisablerDialog = (props: Props) => {
                   </Typography>
                   <div className={classes.centerRow}>
                     <CheckCircleOutline
-                      color="primary"
                       className={classes.icon}
+                      color="primary"
                     />
                   </div>
                   <Typography>

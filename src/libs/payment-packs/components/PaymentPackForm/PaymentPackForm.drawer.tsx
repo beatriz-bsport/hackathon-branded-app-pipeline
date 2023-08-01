@@ -64,32 +64,32 @@ export const PaymentPackFormDrawer = (props: Props) => {
 
   return (
     <GenericResponsiveDrawer
-      open={open}
       onClose={closeForm}
-      title={t('addPaymentPack.paymentPack')}
+      open={open}
       subtitle={initial?.name || null}
+      title={t('addPaymentPack.paymentPack')}
+      trackingObjectId={initial?.id}
       trackingObjectIdentifier={
         SegmentAnalyticsFormObjectIdentifier.PaymentPack
       }
-      trackingObjectId={initial?.id}
     >
       <PaymentPackForm
-        provincialTax={provincialTax}
-        paymentPackCategories={paymentPackCategories}
-        categoryList={categoryList}
-        availableEstablishmentList={availableEstablishmentList}
-        metaActivityList={metaActivityList}
-        tagList={tagList}
-        initial={initial}
         isInDrawer
-        onCancelText={onCancelText}
-        onSubmit={onSubmit}
+        allowGuestMaster={!!allowGuestMaster}
+        availableEstablishmentList={availableEstablishmentList}
+        categoryList={categoryList}
         clearPaymentPackToEdit={clearPaymentPackToEdit}
         closeForm={closeForm}
-        privateServices={privateServices}
         compatibleServicePass={compatibleServicePass}
-        allowGuestMaster={!!allowGuestMaster}
         creditScaleFactor={props.creditScaleFactor}
+        initial={initial}
+        metaActivityList={metaActivityList}
+        onCancelText={onCancelText}
+        onSubmit={onSubmit}
+        paymentPackCategories={paymentPackCategories}
+        privateServices={privateServices}
+        provincialTax={provincialTax}
+        tagList={tagList}
       />
     </GenericResponsiveDrawer>
   );

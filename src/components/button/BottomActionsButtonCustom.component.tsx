@@ -36,14 +36,14 @@ export const BottomActionsButtonCustom: React.FC<Props> = (props: Props) => {
     <div className={classes.buttonContainer}>
       {props.buttonsProperties?.map(
         (button: ButtonProperties, index: number) => (
-          <PopOver title={button.popOverTitle} hide={!button.popOverTitle}>
+          <PopOver hide={!button.popOverTitle} title={button.popOverTitle}>
             <Fab
               key={`bottom_action_${index}`}
-              variant={button.fabVariant ?? 'extended'}
-              color={button.color ?? 'primary'}
               className={classes.actionButton}
-              onClick={button.onClick}
+              color={button.color ?? 'primary'}
               disabled={button.disabled}
+              onClick={button.onClick}
+              variant={button.fabVariant ?? 'extended'}
             >
               <ExtendedFabBadge badgeValue={button.badgeValue} />
               {!!button.icon && button.icon}

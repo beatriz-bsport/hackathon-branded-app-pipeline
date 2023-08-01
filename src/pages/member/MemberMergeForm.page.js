@@ -88,22 +88,22 @@ export class MemberMergeFormPage extends Component<Props, State> {
     return (
       <div>
         <MemberMergeForm
-          srcMember={this.props.srcMember}
-          dstMember={this.props.dstMember}
-          switchSrcDst={this.switchSrcDst}
-          goToMember={this.props.goToMember}
-          onSubmit={this.preSubmit}
           country={this.props.country}
-          waiver={this.props.theme.waiver}
+          dstMember={this.props.dstMember}
           generalTermsAndConditions={
             this.props.theme.general_terms_and_conditions
           }
+          goToMember={this.props.goToMember}
+          onSubmit={this.preSubmit}
+          srcMember={this.props.srcMember}
+          switchSrcDst={this.switchSrcDst}
+          waiver={this.props.theme.waiver}
         />
 
         <MemberConfirmMergeDialog
-          open={this.state.showConfirmDialog}
           onClose={this.closeDialog}
           onSubmit={this.mergeMembers}
+          open={this.state.showConfirmDialog}
         />
       </div>
     );

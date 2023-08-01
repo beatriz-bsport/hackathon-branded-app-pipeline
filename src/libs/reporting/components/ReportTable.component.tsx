@@ -56,9 +56,9 @@ const TablePaginationActions: React.FC<PaginationProps> = ({
     <TableRow>
       <TableCell colSpan={columnSpan}>
         <IconButton
-          onClick={handleGeneratePreviousPage}
-          disabled={!previousPage || reportStoreRowsLoading}
           aria-label="previous page"
+          disabled={!previousPage || reportStoreRowsLoading}
+          onClick={handleGeneratePreviousPage}
         >
           <KeyboardArrowLeft />
         </IconButton>
@@ -68,9 +68,9 @@ const TablePaginationActions: React.FC<PaginationProps> = ({
           }`}
         </Typography>
         <IconButton
-          onClick={handleGenerateNextPage}
-          disabled={!nextPage || reportStoreRowsLoading}
           aria-label="next page"
+          disabled={!nextPage || reportStoreRowsLoading}
+          onClick={handleGenerateNextPage}
         >
           <KeyboardArrowRight />
         </IconButton>
@@ -110,13 +110,13 @@ const ReportTable: React.FC<TableProps> = ({
       <Table>
         <TableHead>
           <TablePaginationActions
-            previousPage={previousPage}
+            columnSpan={columns.length}
+            handleGenerateNextPage={handleGenerateNextPage}
+            handleGeneratePreviousPage={handleGeneratePreviousPage}
             nextPage={nextPage}
             otherPages={otherPages}
-            handleGeneratePreviousPage={handleGeneratePreviousPage}
-            handleGenerateNextPage={handleGenerateNextPage}
+            previousPage={previousPage}
             reportStoreRowsLoading={reportStoreRowsLoading}
-            columnSpan={columns.length}
           />
           <TableRow>
             {columns.map((column) => (
@@ -129,14 +129,14 @@ const ReportTable: React.FC<TableProps> = ({
             result.map((serializedRow, index) => (
               <ReportTableRow
                 key={index}
-                reportStoreRowsLoading={reportStoreRowsLoading}
-                index={index}
-                converters={converters}
                 classes={classes}
                 columns={columns}
                 columnsConfigs={columnsConfigs}
-                serializedRow={serializedRow}
+                converters={converters}
+                index={index}
                 reportCategory={report.category}
+                reportStoreRowsLoading={reportStoreRowsLoading}
+                serializedRow={serializedRow}
                 userPermissions={userPermissions}
               />
             ))}
@@ -144,13 +144,13 @@ const ReportTable: React.FC<TableProps> = ({
         {result && (
           <TableFooter>
             <TablePaginationActions
-              previousPage={previousPage}
+              columnSpan={columns.length}
+              handleGenerateNextPage={handleGenerateNextPage}
+              handleGeneratePreviousPage={handleGeneratePreviousPage}
               nextPage={nextPage}
               otherPages={otherPages}
-              handleGeneratePreviousPage={handleGeneratePreviousPage}
-              handleGenerateNextPage={handleGenerateNextPage}
+              previousPage={previousPage}
               reportStoreRowsLoading={reportStoreRowsLoading}
-              columnSpan={columns.length}
             />
           </TableFooter>
         )}

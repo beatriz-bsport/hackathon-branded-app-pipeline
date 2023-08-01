@@ -44,8 +44,8 @@ class EditableTag extends Component<
   render() {
     return (
       <div
-        style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
         key={this.props.key}
+        style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
       >
         {this.state.editMode ? (
           <IconButton
@@ -65,10 +65,10 @@ class EditableTag extends Component<
           </IconButton>
         )}
         <TextField
-          style={{ width: 200 }}
-          value={this.state.name}
           disabled={!this.state.editMode}
           onChange={(ev) => this.setState({ name: ev.target.value })}
+          style={{ width: 200 }}
+          value={this.state.name}
         />
         {this.props.delete ? (
           <IconButton onClick={this.props.delete}>
@@ -104,15 +104,15 @@ export const TagGroupForm = (props: Props) => {
         {tagGroup.tags.map((tag) => (
           <EditableTag
             key={`${tag.id}`}
-            tag={tag}
             delete={() => deleteTag(tag)}
+            tag={tag}
             updateTag={updateTag}
           />
         ))}
         <RedButton
           className={classes.deleteGroupButton}
-          variant="outlined"
           onClick={() => props.deleteTagGroup(tagGroup)}
+          variant="outlined"
         >
           {t('form.group.deleteCategory')}
         </RedButton>

@@ -43,11 +43,11 @@ export const CompatibleCoachesListItem: React.FC<Props> = ({
       <ListItemIcon>
         {logo || sport?.icon ? (
           <img
-            src={logo || sport?.icon}
             alt={alt || ''}
-            height={56}
-            width={56}
             className={classes.image}
+            height={56}
+            src={logo || sport?.icon}
+            width={56}
           />
         ) : null}
       </ListItemIcon>

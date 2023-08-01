@@ -17,24 +17,24 @@ export const StepNodeElementFlowVersion: React.FC<FlowProps> = ({ data }) => {
   return (
     <>
       <Handle
-        type="target"
+        isConnectable
         position={Position.Top}
         style={HANDLE_BUTTON_STYLE}
-        isConnectable
+        type="target"
       />
       <StepNodeElement
-        step={data.step}
+        cadenceEditMode={data.cadenceEditMode}
         handleSelectStepForSubscription={data.handleSelectStepForSubscription}
         onCardClick={data.onCardClick}
         onDelete={data.onDelete}
-        cadenceEditMode={data.cadenceEditMode}
+        step={data.step}
       />
       <Handle
-        type="source"
+        isConnectable
+        onConnect={(params) => data.onConnectToStep(params.target)}
         position={Position.Bottom}
         style={HANDLE_BUTTON_STYLE}
-        onConnect={(params) => data.onConnectToStep(params.target)}
-        isConnectable
+        type="source"
       />
     </>
   );

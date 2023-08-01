@@ -147,10 +147,10 @@ export class PaymentPackTemplatePreCheckoutPage extends Component<
                 {this.props.t('checkout:autoAdd.paymentPack.locked')}
               </Typography>
               <Button
-                color="secondary"
-                variant="contained"
                 className={this.props.classes.button}
+                color="secondary"
                 onClick={this.goToPassMarketplace}
+                variant="contained"
               >
                 {this.props.t('payment:goBack')}
               </Button>

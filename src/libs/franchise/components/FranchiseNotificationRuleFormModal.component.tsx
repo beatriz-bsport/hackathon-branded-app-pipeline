@@ -96,50 +96,50 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
         <DialogContent ref={ref} className={classes.content}>
           {restrictedAccess && (
             <InfoBox
-              content={t('franchise.form.restrictedAccess')}
               className={classes.infoBox}
+              content={t('franchise.form.restrictedAccess')}
             />
           )}
-          <Typography variant="body1" className={classes.description}>
+          <Typography className={classes.description} variant="body1">
             {t('franchise.form.description', {
               name: t(`eventType.${notification_event}`),
             })}
           </Typography>
           <TextField
-            id="name"
-            name="name"
-            label={t('franchise.form.name')}
             fullWidth
             required
             disabled={restrictedAccess}
+            id="name"
+            label={t('franchise.form.name')}
+            name="name"
           />
           <AlertError name="name" />
 
-          <Typography variant="h6" className={classes.subtitle}>
+          <Typography className={classes.subtitle} variant="h6">
             {t('franchise.form.pickTemplate')}
           </Typography>
           <div className={classes.selector}>
             <div className={classes.emailSelector}>
               <EmailSelector
                 error
-                name="email_design"
+                disabled={restrictedAccess}
                 emails={
                   emailTemplates.filter((e) => e.company_id === null) || []
                 }
-                value={values.email_design}
+                helperText={t('franchise.form.mailSelection')}
+                name="email_design"
                 onChange={(ev) => {
                   setFieldValue('email_design', ev ? ev.value : null);
                   ev && refreshEmailPreview(ev.value);
                 }}
-                helperText={t('franchise.form.mailSelection')}
-                disabled={restrictedAccess}
+                value={values.email_design}
               />
               <AlertError name="email_design" />
             </div>
             <IconButton
-              disabled={!values.email_design}
               className={classes.showEmail}
               color="primary"
+              disabled={!values.email_design}
               onClick={() => {
                 setShowPreview(true);
               }}
@@ -149,9 +149,9 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
           </div>
           {requiredTagsByEvent[notification_event] && showAlert && (
             <Alert
-              severity="error"
-              icon={false}
               classes={{ message: classes.MuiAlertMessage }}
+              icon={false}
+              severity="error"
             >
               <div className={classes.row}>
                 <div className={classes.column}>
@@ -173,10 +173,13 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
               </div>
             </Alert>
           )}
-          <Typography variant="h6" className={classes.subtitle}>
+          <Typography className={classes.subtitle} variant="h6">
             {t('franchise.form.useFor')}
           </Typography>
           <FranchiseCompaniesSelector
+            companies={companies}
+            companyDic={companyDic}
+            menuPortalTarget={document.querySelector('body')}
             onChange={(newValue) => {
               setFieldValue(
                 'selectedCompanies',
@@ -189,24 +192,21 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
                 label: c.name,
                 value: `${c.id}`,
               }))}
-            companyDic={companyDic}
-            companies={companies}
             unclearable={restrictedAccess}
-            menuPortalTarget={document.querySelector('body')}
           />
           <AlertError name="selectedCompanies" />
-          <Typography variant="h6" className={classes.subtitle}>
+          <Typography className={classes.subtitle} variant="h6">
             {t('franchise.form.parameters')}
           </Typography>
           <CheckboxField
-            name="active"
-            label={t('franchise.form.activate')}
             disabled={
               restrictedAccess ||
               requiredTagsByEvent[notification_event].length > 0
             }
+            label={t('franchise.form.activate')}
+            name="active"
           />
-          <Typography variant="caption" className={classes.grey}>
+          <Typography className={classes.grey} variant="caption">
             {t(
               values.active
                 ? 'franchise.form.activateSubtitleActivate'
@@ -214,28 +214,28 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
             )}
           </Typography>
           <CheckboxField
-            name="receiveCarbonCopy"
-            label={t('franchise.form.receiveCC')}
             disabled={
               restrictedAccess ||
               requiredTagsByEvent[notification_event].length > 0
             }
+            label={t('franchise.form.receiveCC')}
+            name="receiveCarbonCopy"
           />
           {values.receiveCarbonCopy && (
-            <Typography variant="caption" className={classes.grey}>
+            <Typography className={classes.grey} variant="caption">
               {t('franchise.form.receiveCarbonCopySubtitle')}
             </Typography>
           )}
         </DialogContent>
         <DialogActions>
-          <Button variant="text" onClick={onClose}>
+          <Button onClick={onClose} variant="text">
             {t('franchise.form.cancel')}
           </Button>
           <Submit
-            disabled={isSubmitting || !dirty || !isValid}
-            variant="contained"
             color="primary"
+            disabled={isSubmitting || !dirty || !isValid}
             onClick={() => handleSubmit()}
+            variant="contained"
           >
             {t('franchise.form.save')}
           </Submit>
@@ -244,9 +244,9 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
       {showPreview && previewEmail && (
         <HTMLPreviewDialog
           open
+          buttonText={t('franchise.form.cancel')}
           html={previewEmail?.html}
           onClose={() => setShowPreview(false)}
-          buttonText={t('franchise.form.cancel')}
         />
       )}
     </>

@@ -45,8 +45,8 @@ const GiftcardCardDetail = (props: Props) => {
           text={`${window.location.origin}/checkout/${giftcard.company}/giftcard/${giftcard.id}/?force=true`}
         >
           <ButtonBase
-            id="button_pass_copy"
             className={classes.link}
+            id="button_pass_copy"
             onClick={() =>
               props.snackbarSuccess && props.snackbarSuccess('link.copied')
             }
@@ -81,7 +81,7 @@ const GiftcardCardDetail = (props: Props) => {
           </div>
         )}
         <div className={classes.paymentMethodContainer}>
-          <Typography variant="body2" color="textSecondary">
+          <Typography color="textSecondary" variant="body2">
             {t('giftcard.detail.availablePaymentMethods')}
           </Typography>
           <AvailablePaymentMethodList

@@ -46,7 +46,7 @@ export class BookingDetail extends Component<Props> {
       return (
         <div className={classes.container}>
           <div className={classes.emptyMessageContainer}>
-            <Alert severity="info" color="grey" className={classes.alertInfo}>
+            <Alert className={classes.alertInfo} color="grey" severity="info">
               {t('details.pleaseSelectABooking')}
             </Alert>
           </div>
@@ -79,7 +79,7 @@ export class BookingDetail extends Component<Props> {
 
             <div className={classes.parameter}>
               <Typography inline>{`${t('parameters.source')}: `}</Typography>
-              <BookingSource t={this.props.t} source={booking.source} />
+              <BookingSource source={booking.source} t={this.props.t} />
             </div>
             {booking.date_canceled && (
               <div className={classes.parameter}>
@@ -111,10 +111,10 @@ export class BookingDetail extends Component<Props> {
         <Paper className={classes.paperContainer}>
           <OfferMinimalSummary
             loading={this.props.offerLoading}
+            offer={this.props.offer}
             overrideClickAction={() =>
               this.props.onOfferClick(this.props.offer.id)
             }
-            offer={this.props.offer}
           />
         </Paper>
         <Typography component="h3" variant="h6">
@@ -123,21 +123,21 @@ export class BookingDetail extends Component<Props> {
         {booking.consumer_payment_pack ? (
           <Paper className={classes.paperContainer}>
             <ConsumerPackRowItem
+              hideConsumer
               consumerPack={booking.consumer_payment_pack}
-              paymentPack={
-                booking.consumer_payment_pack
-                  ? booking.consumer_payment_pack.payment_pack
-                  : null
+              decrementCredit={() =>
+                this.props.decrementCredit(booking.consumer_payment_pack.id)
+              }
+              incrementCredit={() =>
+                this.props.incrementCredit(booking.consumer_payment_pack.id)
               }
               onClick={() =>
                 this.props.onConsumerPassSelected(booking.consumer_payment_pack)
               }
-              hideConsumer
-              incrementCredit={() =>
-                this.props.incrementCredit(booking.consumer_payment_pack.id)
-              }
-              decrementCredit={() =>
-                this.props.decrementCredit(booking.consumer_payment_pack.id)
+              paymentPack={
+                booking.consumer_payment_pack
+                  ? booking.consumer_payment_pack.payment_pack
+                  : null
               }
             />
           </Paper>

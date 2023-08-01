@@ -137,11 +137,11 @@ export const GroupedOfferPreviewForm: React.FC<
               <div className={classes.listItem}>
                 <div className={classes.listItemInner}>
                   <DelayedTextField
-                    value={group.name}
-                    shrink
-                    label={t('groupedOption.modal.form.groupName')}
                     disabled
+                    shrink
                     className={classes.textField}
+                    label={t('groupedOption.modal.form.groupName')}
+                    value={group.name}
                   />
                 </div>
               </div>
@@ -182,7 +182,7 @@ export const GroupedOfferPreviewForm: React.FC<
     if (frequenceIsYearly) {
       return (
         <div className={classes.row}>
-          <Alert severity="info" color="grey" className={classes.alertInfo}>
+          <Alert className={classes.alertInfo} color="grey" severity="info">
             {t(
               `groupedOption.helperText.year${
                 intervalIsPlural ? '_plural' : ''
@@ -206,7 +206,7 @@ export const GroupedOfferPreviewForm: React.FC<
 
     return (
       <div className={classes.row}>
-        <Alert severity="info" color="grey" className={classes.alertInfo}>
+        <Alert className={classes.alertInfo} color="grey" severity="info">
           <Typography color="textSecondary">
             {t(
               `groupedOption.helperText.${
@@ -249,13 +249,13 @@ export const GroupedOfferPreviewForm: React.FC<
       {getHelperText()}
       <div className={classes.calendar}>
         <Calendar
+          forceMonthDisplay
           date={dateSelected}
+          events={formatedData.events}
           onDateChange={(date) => {
             setDateSelected(date);
           }}
-          events={formatedData.events}
           ranges={formatedData.groups.map((fg) => [fg[0], fg[fg.length - 1]])}
-          forceMonthDisplay
         />
       </div>
       <Form className={classes.form}>
@@ -291,10 +291,10 @@ export const GroupedOfferPreviewForm: React.FC<
                   <ListItem
                     key={firstOfferDate}
                     button
+                    className={classes.listItemBox}
                     onClick={() => {
                       setDateSelected(firstOfferDate);
                     }}
-                    className={classes.listItemBox}
                   >
                     <ListItemText
                       primary={
@@ -308,11 +308,13 @@ export const GroupedOfferPreviewForm: React.FC<
                             }}
                           >
                             <DelayedTextField
+                              required
+                              shrink
+                              className={classes.textField}
                               error={
                                 errors?.formikGroups?.[index]?.name ?? false
                               }
-                              value={group.name}
-                              shrink
+                              label={t('groupedOption.modal.form.groupName')}
                               onChange={(
                                 ev: React.ChangeEvent<HTMLInputElement>,
                               ) => {
@@ -321,9 +323,7 @@ export const GroupedOfferPreviewForm: React.FC<
                                   name: ev.target.value,
                                 });
                               }}
-                              label={t('groupedOption.modal.form.groupName')}
-                              required
-                              className={classes.textField}
+                              value={group.name}
                             />
                           </div>
                         </div>
@@ -336,8 +336,8 @@ export const GroupedOfferPreviewForm: React.FC<
                     />
                     {formikGroups.length > 1 && (
                       <IconButton
-                        onClick={handleRemove}
                         className={classes.icon}
+                        onClick={handleRemove}
                       >
                         <DeleteIcon />
                       </IconButton>
@@ -380,7 +380,7 @@ export const GroupedOfferPreviewForm: React.FC<
           <Button onClick={handlePreviousStep}>
             {t('groupedOption.modal.form.back')}
           </Button>
-          <Submit disabled={isSubmitting || !isValid} color="primary">
+          <Submit color="primary" disabled={isSubmitting || !isValid}>
             {isSubmitting ? (
               <CircularProgress />
             ) : (

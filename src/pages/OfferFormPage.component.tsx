@@ -115,41 +115,41 @@ export class OfferFormPage extends Component<Props, {}> {
 
     return (
       <Grid container className={classes.container}>
-        <Grid item xs={12} lg={7}>
+        <Grid item lg={7} xs={12}>
           <Paper>
             <OfferCreateForm
-              onSubmit={this.createOffers}
-              metaActivity={metaActivity}
-              coaches={this.props.coaches}
+              editableCoachPaymentRule
+              activeCustomLevels={this.props.activeCustomLevels}
+              allCustomLevels={this.props.allCustomLevels}
+              allowGuestMaster={
+                this.props.theme.allow_guest &&
+                this.props.theme.allow_guest_activatable
+              }
               availableEstablishments={this.props.availableEstablishments}
+              coaches={this.props.coaches}
+              coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+              createLevel={this.props.createLevel}
+              creditScaleFactor={this.props.theme.pass_credit_factor}
+              deleteLevel={this.props.deleteLevel}
+              error={this.props.error}
+              fetchLevelList={this.handleFetchLevel}
               is_whereby_integration_enabled={
                 this.props.theme &&
                 this.props.theme.is_whereby_integration_enabled &&
                 this.props.theme.is_whereby_integration_allowed
               }
-              processing={this.props.processing}
-              error={this.props.error}
-              onCancel={goBack}
+              isLoading={loading || !metaActivity}
+              metaActivity={metaActivity}
               onBannerGoBack={goBack}
-              timezone={this.props.timezone}
+              onCancel={goBack}
+              onSubmit={this.createOffers}
+              processing={this.props.processing}
               roomBlueprints={this.props.roomBlueprints}
-              coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
-              editableCoachPaymentRule
               showPartnership={this.props.showPartnership}
               tagList={allTagsWithTagGroup}
-              fetchLevelList={this.handleFetchLevel}
-              activeCustomLevels={this.props.activeCustomLevels}
-              allCustomLevels={this.props.allCustomLevels}
+              timezone={this.props.timezone}
               updateLevel={this.props.updateLevel}
-              createLevel={this.props.createLevel}
-              deleteLevel={this.props.deleteLevel}
-              allowGuestMaster={
-                this.props.theme.allow_guest &&
-                this.props.theme.allow_guest_activatable
-              }
               zoomAppDetail={this.props.zoomAppDetail}
-              isLoading={loading || !metaActivity}
-              creditScaleFactor={this.props.theme.pass_credit_factor}
             />
           </Paper>
         </Grid>

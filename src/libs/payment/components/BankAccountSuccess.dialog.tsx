@@ -39,7 +39,7 @@ const BankAccountSuccessDialog = (props: Props) => {
           {t('settings:company.bankAccountSuccess.content')}
         </Typography>
 
-        <Typography variant="body1" className={classes.note}>
+        <Typography className={classes.note} variant="body1">
           {t('settings:company.bankAccountSuccess.note')}
         </Typography>
       </DialogContent>

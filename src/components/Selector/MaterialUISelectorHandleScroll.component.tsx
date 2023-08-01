@@ -62,11 +62,11 @@ const MaterialUISelectorHandleScroll: React.FC<Props<OptionTypeBase>> = ({
 
   return (
     <MaterialUISelector
+      withoutSelectAll
       backspaceRemovesValue={false}
+      isLoading={isLoading}
       onEndMenuListReach={handleEndReach}
       onInputChange={handleInputChange}
-      isLoading={isLoading}
-      withoutSelectAll
       {...selectorProps}
     />
   );

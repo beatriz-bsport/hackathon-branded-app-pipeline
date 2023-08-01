@@ -75,13 +75,13 @@ const ConsumerGiftcardInvitationModal = (props: Props) => {
           </Button>
         </CopyToClipboard>
         <EmailInputWithChips
+          required
+          addEmailToList={addEmailToList}
           disabled={hasBeenSent || processing}
           emailList={recipient}
-          textFieldLabel={t('consumerGiftcard.form.recipients.label')}
-          required
-          textFieldName="recipients"
-          addEmailToList={addEmailToList}
           removeEmailFromList={removeEmailFromList}
+          textFieldLabel={t('consumerGiftcard.form.recipients.label')}
+          textFieldName="recipients"
         />
       </DialogContent>
       <DialogActions>
@@ -89,8 +89,8 @@ const ConsumerGiftcardInvitationModal = (props: Props) => {
           {t('consumerGiftcard.invitationForm.actions.close')}
         </Button>
         <Button
-          disabled={!!(processing || hasBeenSent || !recipient?.length)}
           color="primary"
+          disabled={!!(processing || hasBeenSent || !recipient?.length)}
           onClick={() => {
             setProcessing(true);
             props.onSubmit(

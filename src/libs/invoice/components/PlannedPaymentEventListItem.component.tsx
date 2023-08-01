@@ -135,11 +135,11 @@ export const PlannedPaymentEventListItem = (props: Props) => {
 
   return (
     <div className={classes.container}>
-      <Backdrop open={processing} className={classes.backdrop}>
+      <Backdrop className={classes.backdrop} open={processing}>
         <CircularProgress />
       </Backdrop>
       <div className={classes.row}>
-        <StatusIcon color={statusColor} className={classes.leftIcon} />
+        <StatusIcon className={classes.leftIcon} color={statusColor} />
         <div className={classes.leftColumn}>
           <Typography
             style={
@@ -164,7 +164,6 @@ export const PlannedPaymentEventListItem = (props: Props) => {
             <div className={classes.row}>
               <Typography
                 color="textSecondary"
-                variant="caption"
                 style={
                   [
                     PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
@@ -173,6 +172,7 @@ export const PlannedPaymentEventListItem = (props: Props) => {
                     ? { 'text-decoration': 'line-through' }
                     : null
                 }
+                variant="caption"
               >
                 {moment(plannedPaymentEvent.future_date).isSameOrBefore(
                   moment(),
@@ -186,7 +186,6 @@ export const PlannedPaymentEventListItem = (props: Props) => {
             <div className={classes.row}>
               <Typography
                 color="textSecondary"
-                variant="caption"
                 style={
                   [
                     PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
@@ -195,6 +194,7 @@ export const PlannedPaymentEventListItem = (props: Props) => {
                     ? { 'text-decoration': 'line-through' }
                     : null
                 }
+                variant="caption"
               >
                 {t('plannedPaymentEvent.nextRetryDate', {
                   d: formatAsDatetimeAdapted(
@@ -209,8 +209,8 @@ export const PlannedPaymentEventListItem = (props: Props) => {
       </div>
       {!!secondaryAction && (
         <RedButton
-          variant="outlined"
           onClick={() => secondaryAction(plannedPaymentEvent)}
+          variant="outlined"
         >
           {t('plannedPaymentEvent.actions.solveInvalidPaymentAttempt')}
         </RedButton>
@@ -234,9 +234,9 @@ export const PlannedPaymentEventListItem = (props: Props) => {
               </IconButton>
             )}
           <Menu
+            anchorEl={menuAchorEl}
             onClose={() => setMenuAnchorEl(null)}
             open={!!menuAchorEl}
-            anchorEl={menuAchorEl}
           >
             {!!onChangeMethod && (
               <MenuItem

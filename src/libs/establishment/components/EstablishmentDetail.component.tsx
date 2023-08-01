@@ -93,6 +93,8 @@ export class EstablishmentDetail extends Component<Props, State> {
     return (
       <div>
         <Calendar
+          forceMonthDisplay
+          date={(selectedDay[establishment.id] || Moment()).format(DATE_FORMAT)}
           events={events.reduce((acc, o) => {
             const midnight = Moment(o.date_start).startOf('day');
             if (Object.hasOwnProperty.call(events, midnight)) {
@@ -102,9 +104,7 @@ export class EstablishmentDetail extends Component<Props, State> {
             acc[midnight] = [o];
             return acc;
           }, {})}
-          forceMonthDisplay
           onDateChange={this.onDateClick(establishment.id)}
-          date={(selectedDay[establishment.id] || Moment()).format(DATE_FORMAT)}
         />
         <TimeTable
           loading={timetableLoading}
@@ -123,35 +123,35 @@ export class EstablishmentDetail extends Component<Props, State> {
     return (
       <div>
         <Grid container direction="row">
-          <Grid item xs={12} md={6}>
+          <Grid item md={6} xs={12}>
             <div className={classes.imgBackground}>
               {!establishment?.cover ? (
-                <img src={sport?.icon} alt="sport" />
+                <img alt="sport" src={sport?.icon} />
               ) : (
                 <img
+                  alt="establishment-cover"
                   className={classes.imgStyle}
                   src={establishment.cover}
-                  alt="establishment-cover"
                 />
               )}
             </div>
           </Grid>
 
-          <Grid item xs={12} md={6}>
-            <Map markers={markers} markerClicked={() => {}} center={center} />
+          <Grid item md={6} xs={12}>
+            <Map center={center} markerClicked={() => {}} markers={markers} />
           </Grid>
 
           <Grid container direction="row">
-            <Grid item sm={12} md={6} className={classes.generalInfoBlock}>
+            <Grid item className={classes.generalInfoBlock} md={6} sm={12}>
               <Paper>
                 <div className={classes.paperContent}>
-                  <Typography variant="h4" gutterBottom>
+                  <Typography gutterBottom variant="h4">
                     {establishment.title}
                   </Typography>
                   <Typography
-                    variant="subtitle2"
-                    color="textSecondary"
                     gutterBottom
+                    color="textSecondary"
+                    variant="subtitle2"
                   >
                     {t('capacity.explain', {
                       count: establishment.capacity,
@@ -159,16 +159,16 @@ export class EstablishmentDetail extends Component<Props, State> {
                     })}
                   </Typography>
                   <EasyAccessStack
-                    name={establishment.easy_access.name}
-                    lines={establishment.easy_access.lines}
-                    size="xs"
                     className={classes.easyAccess}
+                    lines={establishment.easy_access.lines}
+                    name={establishment.easy_access.name}
+                    size="xs"
                   />
                   <Typography variant="caption">
                     {establishment.location.address}
                   </Typography>
                   <div className={classes.descriptionBlock}>
-                    <Typography variant="h5" gutterBottom>
+                    <Typography gutterBottom variant="h5">
                       {t('description')}
                     </Typography>
                     <TypographyMultiline>
@@ -178,34 +178,34 @@ export class EstablishmentDetail extends Component<Props, State> {
                 </div>
 
                 <EstablishmentSpotScheduling
-                  roomBlueprints={this.props.roomBlueprints}
                   onClickCreate={this.props.onCreateRoomBlueprint}
-                  onClickEdit={this.props.onEditRoomBlueprint}
                   onClickDelete={this.props.onDeleteRoomBlueprint}
+                  onClickEdit={this.props.onEditRoomBlueprint}
                   onClickPreview={this.props.onPreviewRoomBlueprint}
+                  roomBlueprints={this.props.roomBlueprints}
                 />
               </Paper>
               <BookingCreationNotification
-                notifications={this.props.notifications}
-                objectId={this.props.establishment.id}
-                getEmails={this.props.getEmails}
-                emails={this.props.emails}
-                getEmailDetail={this.props.getEmailDetail}
+                createNotification={this.props.createNotification}
+                deleteNotification={this.props.deleteNotification}
+                emailDetailLoading={this.props.emailDetailLoading}
                 emailDetails={this.props.emailDetails}
                 emailListLoading={this.props.emailListLoading}
-                emailDetailLoading={this.props.emailDetailLoading}
-                createNotification={this.props.createNotification}
-                updateNotification={this.props.updateNotification}
-                deleteNotification={this.props.deleteNotification}
-                identifier="establishment"
-                goToSmartlist={this.props.goToSmartlist}
+                emails={this.props.emails}
+                getEmailDetail={this.props.getEmailDetail}
+                getEmails={this.props.getEmails}
                 getSmartLists={this.props.getSmartLists}
+                goToSmartlist={this.props.goToSmartlist}
+                identifier="establishment"
+                notifications={this.props.notifications}
+                objectId={this.props.establishment.id}
+                resolvedGenericTags={this.props.resolvedGenericTags}
                 smartLists={this.props.smartLists}
                 tags={getMergeTags(this.props.tags, t)}
-                resolvedGenericTags={this.props.resolvedGenericTags}
+                updateNotification={this.props.updateNotification}
               />
             </Grid>
-            <Grid item sm={12} md={6} className={classes.calendarBlock}>
+            <Grid item className={classes.calendarBlock} md={6} sm={12}>
               <Paper>{this.renderCalendar(establishment)}</Paper>
             </Grid>
           </Grid>

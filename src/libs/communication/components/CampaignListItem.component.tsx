@@ -75,9 +75,9 @@ const MultiRecipientStatAction: React.FC<{
 
   return (
     <Button
+      className={classes.button}
       onClick={onClickReport}
       variant="outlined"
-      className={classes.button}
     >
       <VisibilityOnIcon className={classes.leftIcon} />
       {t('campaign.showReport')}
@@ -123,7 +123,7 @@ const SingleRecipientInfoAction: React.FC<{
   const classes = useStyles();
   const { t } = useTranslation(['communication']);
   return (
-    <Button onClick={onClickShow} variant="outlined" className={classes.button}>
+    <Button className={classes.button} onClick={onClickShow} variant="outlined">
       <VisibilityOnIcon className={classes.leftIcon} />
       {t(
         (kind === COMMUNICATION_KIND_EMAIL && 'recipient.showEmail') ||
@@ -190,19 +190,19 @@ export const CampaignListItem: React.FC<Props> = ({
                 <div className={classes.column}>
                   {subject ? (
                     <>
-                      <Typography variant="h6" color="primary">
+                      <Typography color="primary" variant="h6">
                         {interpolate(subject)}
                       </Typography>
                       {subject.match(regexInterpolateValue) &&
                         ((tags_groups ?? []).length === 0 ||
                           tags_groups?.length > 1) && (
-                          <Typography variant="caption" color="secondary">
+                          <Typography color="secondary" variant="caption">
                             {t('mail.titleInterpolated')}
                           </Typography>
                         )}
                     </>
                   ) : (
-                    <Typography variant="h6" color="primary">
+                    <Typography color="primary" variant="h6">
                       {t(`campaign.kind.${kind}`)}
                     </Typography>
                   )}
@@ -230,8 +230,8 @@ export const CampaignListItem: React.FC<Props> = ({
             SEND_COMMUNICATION_ON_JOIN ? (
               <div className={classes.row}>
                 <DoubleArrowIcon
-                  fontSize="small"
                   className={classes.joinIcon}
+                  fontSize="small"
                 />
                 <Typography variant="caption">
                   {t('campaign.automated.onJoin')}
@@ -242,8 +242,8 @@ export const CampaignListItem: React.FC<Props> = ({
             SEND_COMMUNICATION_ON_LEFT ? (
               <div className={classes.row}>
                 <DoubleArrowIcon
-                  fontSize="small"
                   className={classes.leavingIcon}
+                  fontSize="small"
                 />
                 <Typography variant="caption">
                   {t('campaign.automated.onLeft')}
@@ -258,13 +258,13 @@ export const CampaignListItem: React.FC<Props> = ({
             COMMUNICATION_KIND_SMS,
             COMMUNICATION_KIND_PUSH_NOTIFICATION,
           ].includes(kind) ? (
-            <SingleRecipientInfo recipient={singleRecipientData} kind={kind} />
+            <SingleRecipientInfo kind={kind} recipient={singleRecipientData} />
           ) : (
             <MultiRecipientStat
+              kind={kind}
+              total_click={total_click}
               total_read={total_read}
               total_recipients={total_recipients}
-              total_click={total_click}
-              kind={kind}
             />
           )}
         </div>
@@ -275,8 +275,8 @@ export const CampaignListItem: React.FC<Props> = ({
             COMMUNICATION_KIND_PUSH_NOTIFICATION,
           ].includes(kind) ? (
             <SingleRecipientInfoAction
-              onClickShow={handleClickShow}
               kind={kind}
+              onClickShow={handleClickShow}
             />
           ) : (
             <MultiRecipientStatAction onClickReport={onClickReport} />

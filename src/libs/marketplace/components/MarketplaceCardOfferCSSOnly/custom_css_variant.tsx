@@ -174,10 +174,10 @@ export const MARKETPLACE_OFFER_CARD_PREVIEW: React.FC<{
   const componentProps = usePropsFromVariation(variationsSelected);
   return (
     <MarketPlaceCardOfferCSSOnly
-      theme={theme}
-      showOfferFilling={theme.show_offers_filling}
       hideCoach={theme.hideCoach}
+      showOfferFilling={theme.show_offers_filling}
       showOfferGender={theme.show_booked_gender_offer}
+      theme={theme}
       {...componentProps}
     />
   );

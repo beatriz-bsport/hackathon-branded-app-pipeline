@@ -13,10 +13,10 @@ export const SuccessIcon: React.FC<SuccessIconProps> = ({
   return (
     <svg
       className={className}
-      width={width}
+      fill={fill}
       height={height}
       viewBox={viewBox}
-      fill={fill}
+      width={width}
       xmlns={xmlns}
     >
       <path d="M0 21L14 16L5 6.99997L0 21Z" />

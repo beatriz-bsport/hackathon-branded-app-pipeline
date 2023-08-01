@@ -11,29 +11,29 @@ export default () => {
     <Switch>
       <Route
         exact
-        path="/establishment/add"
         component={EstablishmentFormPage}
+        path="/establishment/add"
       />
       <Route
         exact
-        path="/establishment/edit/:id"
         component={EstablishmentFormPage}
+        path="/establishment/edit/:id"
       />
       <Route
+        component={EstablishmentDetailRouter}
         path="/establishment/details/:id/:tab"
-        component={EstablishmentDetailRouter}
       />
 
       <Route
+        component={EstablishmentDetailRouter}
         path="/establishment/details/:id/"
-        component={EstablishmentDetailRouter}
       />
 
       <Route
-        path="/establishment/:tab"
         component={EstablishmentLocationRouter}
+        path="/establishment/:tab"
       />
-      <Route path="/" component={EstablishmentLocationRouter} />
+      <Route component={EstablishmentLocationRouter} path="/" />
     </Switch>
   );
 };

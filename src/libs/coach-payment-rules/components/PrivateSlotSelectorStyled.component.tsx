@@ -126,16 +126,16 @@ export function PrivateSlotSelectorStyled(props: Props) {
   return (
     <Select
       closeMenuOnSelect={closeMenuOnSelect}
-      isMulti={!noMulti}
-      placeholder={placeholder || t('coach')}
-      options={getPrivateSlotOptions([...privateServiceList])}
-      onChange={onChange}
-      isDisabled={disabled}
-      styles={ruleStyles}
       isClearable={isClearable}
-      menuPortalTarget={document.querySelector('body')}
-      value={value}
+      isDisabled={disabled}
       isGroupSelect={isGroupSelect}
+      isMulti={!noMulti}
+      menuPortalTarget={document.querySelector('body')}
+      onChange={onChange}
+      options={getPrivateSlotOptions([...privateServiceList])}
+      placeholder={placeholder || t('coach')}
+      styles={ruleStyles}
+      value={value}
     />
   );
 }

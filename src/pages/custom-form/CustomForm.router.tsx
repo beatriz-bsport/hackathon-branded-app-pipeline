@@ -14,15 +14,15 @@ export const CustomFormRouter = () => {
     <Switch>
       <Route
         exact
-        path="/custom-form/details/:id/:tab"
         component={CustomFormDetailRouter}
+        path="/custom-form/details/:id/:tab"
       />
       <Route
         exact
-        path="/custom-form/details/:id/"
         component={CustomFormDetailRouter}
+        path="/custom-form/details/:id/"
       />
-      <Route path="/custom-form" component={CustomFormList} />
+      <Route component={CustomFormList} path="/custom-form" />
     </Switch>
   );
 };

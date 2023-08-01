@@ -31,11 +31,11 @@ export const BottomActionButtonBaseList = (props: Props) => {
     <>
       {props.onCreate ? (
         <Fab
-          id="bottom_action_add"
-          variant="extended"
-          color="primary"
           className={classes.actionButton}
+          color="primary"
+          id="bottom_action_add"
           onClick={props.onCreate}
+          variant="extended"
         >
           <AddIcon />
           <Hidden xsDown>
@@ -47,11 +47,11 @@ export const BottomActionButtonBaseList = (props: Props) => {
       ) : null}
       {props.onEdit ? (
         <Fab
-          id="bottom_action_edit"
-          variant="extended"
-          color="primary"
           className={classes.actionButton}
+          color="primary"
+          id="bottom_action_edit"
           onClick={props.onEdit}
+          variant="extended"
         >
           <EditIcon />
           <Hidden xsDown>
@@ -61,10 +61,10 @@ export const BottomActionButtonBaseList = (props: Props) => {
       ) : null}
       {props.onShare ? (
         <Fab
-          variant="extended"
-          color="secondary"
           className={classes.actionButton}
+          color="secondary"
           onClick={props.onShare}
+          variant="extended"
         >
           <ShareIcon />
           <Hidden xsDown>
@@ -74,10 +74,10 @@ export const BottomActionButtonBaseList = (props: Props) => {
       ) : null}
       {props.onReset && props.resetLabel ? (
         <Fab
-          variant="extended"
-          color="secondary"
           className={classes.actionButton}
+          color="secondary"
           onClick={props.onReset}
+          variant="extended"
         >
           <SettingsBackupRestoreIcon />
           <Hidden xsDown>
@@ -87,8 +87,8 @@ export const BottomActionButtonBaseList = (props: Props) => {
       ) : null}
       {props.onDelete ? (
         <RedFab
-          id="bottom_action_delete"
           className={classes.actionButton}
+          id="bottom_action_delete"
           onClick={props.onDelete}
         >
           <DeleteIcon />

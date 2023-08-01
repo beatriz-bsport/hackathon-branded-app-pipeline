@@ -41,15 +41,15 @@ const MarketplaceBuyableItemCard: React.FC<CardProps> = (props) => {
     case PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER: {
       return (
         <div
-          className="bs-marketplace-buyable-item-category__card"
           aria-hidden="true"
+          className="bs-marketplace-buyable-item-category__card"
           onClick={onClick}
         >
           <MarketplacePaymentPackCard
-            paymentPack={buyableItem as PaymentPack}
+            hideCredits={props.theme.hide_credits_for_customers}
             isExcludingTax={props.isExcludingTax}
             isSelected={isEqual(props.selectedBuyableItem, buyableItem)}
-            hideCredits={props.theme.hide_credits_for_customers}
+            paymentPack={buyableItem as PaymentPack}
             variant="pricing_page"
           />
         </div>
@@ -58,14 +58,14 @@ const MarketplaceBuyableItemCard: React.FC<CardProps> = (props) => {
     case PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER: {
       return (
         <div
-          className="bs-marketplace-buyable-item-category__card"
           aria-hidden="true"
+          className="bs-marketplace-buyable-item-category__card"
           onClick={onClick}
         >
           <MarketplacePaymentComboCard
-            paymentCombo={buyableItem as PaymentCombo}
             isExcludingTax={props.isExcludingTax}
             isSelected={isEqual(props.selectedBuyableItem, buyableItem)}
+            paymentCombo={buyableItem as PaymentCombo}
             variant="pricing_page"
           />
         </div>
@@ -74,8 +74,8 @@ const MarketplaceBuyableItemCard: React.FC<CardProps> = (props) => {
     case CONTRACT_BOOKING_FUNNEL_IDENTIFIER: {
       return (
         <div
-          className="bs-marketplace-buyable-item-category__card"
           aria-hidden="true"
+          className="bs-marketplace-buyable-item-category__card"
           onClick={onClick}
         >
           <MarketplaceContractCard
@@ -112,9 +112,9 @@ const MarketplaceBuyableItemCategoryList: React.FC<Props> = (props) => {
             key={`${props.buyableItemCategory.identifier}${buyableItem.id}`}
             buyableItem={buyableItem}
             categoryIdentifier={props.buyableItemCategory.identifier}
-            selectItem={props.selectBuyableItem}
             isExcludingTax={props.isExcludingTax}
             selectedBuyableItem={props.selectedBuyableItem}
+            selectItem={props.selectBuyableItem}
             theme={props.theme}
           />
         );

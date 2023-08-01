@@ -32,27 +32,27 @@ export const CoachChip: React.FC<Props> = ({
           <Skeleton animation="wave" variant="circle" />
         ) : (
           <Badge
-            badgeContent={<Archive className={classes.badge} />}
             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            overlap="circular"
+            badgeContent={<Archive className={classes.badge} />}
             invisible={!showDisabledIcon || !coach.disabled}
+            overlap="circular"
           >
             <Avatar
               alt={coach.name}
-              src={coach.photo}
               classes={{ root: classes.avatar }}
+              src={coach.photo}
             />
           </Badge>
         )
       }
+      className={classnames(classes.background, {
+        [classes.disabled]: showDisabledIcon && coach.disabled,
+      })}
       label={
         loading ? <Skeleton animation="wave" variant="text" /> : coach.name
       }
       onDelete={onDelete}
       variant="outlined"
-      className={classnames(classes.background, {
-        [classes.disabled]: showDisabledIcon && coach.disabled,
-      })}
     />
   );
 };

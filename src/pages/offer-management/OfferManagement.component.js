@@ -598,13 +598,13 @@ export class OfferManagement extends Component<Props, State> {
         <Grid container direction="row" spacing={2}>
           <Grid item xs={12}>
             <OfferNavigationHeader
-              goToOffer={this.props.goToOffer}
               bookingLoading={this.props.bookingLoading}
+              goToCalendar={this.props.goToCalendar}
+              goToOffer={this.props.goToOffer}
+              loading={this.props.offerLoading}
               offer={offer}
               offerId={this.props.offerId}
-              loading={this.props.offerLoading}
               offerLoading={this.props.offerLoading || !this.props.offer}
-              goToCalendar={this.props.goToCalendar}
               refresh={this.refreshNavigationHeader}
             />
           </Grid>
@@ -614,34 +614,35 @@ export class OfferManagement extends Component<Props, State> {
     return (
       <Grid container direction="row" spacing={2}>
         <ConfirmationRollCallDialog
-          open={this.state.openConfirmationRollCallDialog}
-          nbRollCallsLeftToValidate={1}
-          onConfirm={this.postRollCall}
-          onCancel={this.closeConfirmationRollCallDialog}
           isLoading={this.props.rollCallLoading}
+          nbRollCallsLeftToValidate={1}
+          onCancel={this.closeConfirmationRollCallDialog}
+          onConfirm={this.postRollCall}
+          open={this.state.openConfirmationRollCallDialog}
         />
         <MemberProgramDetailDialog
-          open={this.state.isMemberProgramDetailDialogOpen}
-          memberProgramList={this.props.memberProgramIdsList(
-            this.state.memberIdFocused,
-          )}
           booking={this.props.bookings?.find(
             (b) => b?.member === this.state.memberIdFocused,
           )}
-          members={this.props.members}
-          programList={this.props.programList}
-          updateMemberMetricValue={this.props.updateMemberMetricValue}
-          createMemberProgram={this.handleCreateMemberProgram}
           changeMember={this.handleChangeMember}
           closeDialog={this.closeMemberProgramDetailDialog}
+          createMemberProgram={this.handleCreateMemberProgram}
           loading={this.props.programDataLoading}
+          memberProgramList={this.props.memberProgramIdsList(
+            this.state.memberIdFocused,
+          )}
+          members={this.props.members}
+          open={this.state.isMemberProgramDetailDialogOpen}
+          programList={this.props.programList}
+          updateMemberMetricValue={this.props.updateMemberMetricValue}
         />
 
         {!!this.props.offer && this.props.bookerInAvanceDialog && (
           <RecurrenceRuleBookingFormDialog
             offerSet
-            refresh={this.refreshRecurrenceRuleBookingFormDialog}
-            onClose={() => this.props.setBookerInAvanceDialog(false)}
+            establishmentList={this.props.establishmentList}
+            fetchGroupsOfferList={this.props.fetchGroupsOfferList}
+            hasActivityGroups={this.props.activityGroups > 0}
             initial={{
               meta_activity: {
                 id: this.props.offer.meta_activity_id,
@@ -660,7 +661,7 @@ export class OfferManagement extends Component<Props, State> {
                   .isoWeekday() - 1,
             }}
             metaActivityList={this.props.metaActivities}
-            establishmentList={this.props.establishmentList}
+            onClose={() => this.props.setBookerInAvanceDialog(false)}
             onSubmit={(data, options) => {
               if (this.props.memberToRegister) {
                 this.props.createRecurrenceRuleBooking(
@@ -669,87 +670,86 @@ export class OfferManagement extends Component<Props, State> {
                 );
               }
             }}
-            fetchGroupsOfferList={this.props.fetchGroupsOfferList}
-            hasActivityGroups={this.props.activityGroups > 0}
+            refresh={this.refreshRecurrenceRuleBookingFormDialog}
           />
         )}
         <Grid item xs={12}>
           <OfferNavigationHeader
-            goToOffer={this.props.goToOffer}
             bookingLoading={this.props.bookingLoading}
+            goToCalendar={this.props.goToCalendar}
+            goToOffer={this.props.goToOffer}
+            loading={this.props.offerLoading}
             offer={offer}
             offerId={this.props.offerId}
-            loading={this.props.offerLoading}
             offerLoading={this.props.offerLoading || !this.props.offer}
-            goToCalendar={this.props.goToCalendar}
             refresh={this.refreshNavigationHeader}
           />
         </Grid>
-        <Grid item xs={12} lg={6}>
+        <Grid item lg={6} xs={12}>
           <BookingManagement
+            addToQuickInvoicePanel={this.addToQuickInvoicePanel}
+            booking_ordering={this.props.booking_ordering}
+            bookingOptionsPending={this.props.bookingOptionsPending}
+            bookings={this.props.bookings}
+            clearSearch={this.props.clearSearch}
+            companyId={this.props.companyId}
+            confirmBookingAttendance={this.props.confirmBookingAttendance}
             createMemberProgram={this.props.createMemberProgram}
+            discardBookingAttendance={this.props.discardBookingAttendance}
+            discardOption={this.props.setOptionToDiscardWithDialog}
+            fetchBookingsByConsumerPack={this.props.fetchBookingsByConsumerPack}
             fetchPerformanceTrackingData={
               this.props.fetchPerformanceTrackingData
             }
+            fetchVideoPurchase={this.props.fetchVideoPurchase}
+            goToMemberBooking={this.props.goToMemberBooking}
+            handleMemberToRegister={this.props.setMemberToRegister}
+            handleRevertBooking={this.props.handleRevertBooking}
+            isRollCallMandatory={
+              this.props.company_theme.is_roll_call_mandatory
+            }
+            loading={this.props.offerLoading}
+            memberHistory={this.props.memberHistory}
+            members={this.props.members}
+            memberSearchLoading={this.props.memberSearchLoading}
+            numberOfUnreadAnswers={numberOfUnreadAnswers}
+            offer={this.props.offer}
+            onChangeBookingOrdering={this.props.onChangeBookingOrdering}
+            onClickChangeSpot={this.onClickChangeSpot}
+            onDeleteRecurrenceRuleBooking={
+              this.props.onDeleteRecurrenceRuleBooking
+            }
+            onProgramDetailsClick={this.onProgramDetailsClick}
+            onRollCallButtonClick={this.openConfirmationRollCallDialog}
+            openAddMemberModal={this.props.openAddMemberModal}
+            openCommunicationDrawer={this.props.openCommunicationDrawer}
+            openMailDialog={this.props.openCommunicationDialog}
             programDataLoading={this.props.programDataLoading}
             programList={this.props.programList}
-            registerToWaitingList={this.props.registerToWaitingList}
-            addToQuickInvoicePanel={this.addToQuickInvoicePanel}
-            loading={this.props.offerLoading}
-            bookings={this.props.bookings}
-            offer={this.props.offer}
-            confirmBookingAttendance={this.props.confirmBookingAttendance}
-            discardBookingAttendance={this.props.discardBookingAttendance}
-            refresh={this.props.fetchOfferData}
-            booking_ordering={this.props.booking_ordering}
-            openAddMemberModal={this.props.openAddMemberModal}
-            onChangeBookingOrdering={this.props.onChangeBookingOrdering}
-            members={this.props.members}
-            bookingOptionsPending={this.props.bookingOptionsPending}
-            openMailDialog={this.props.openCommunicationDialog}
-            openCommunicationDrawer={this.props.openCommunicationDrawer}
-            searchedText={this.props.searchedText}
-            memberSearchLoading={this.props.memberSearchLoading}
-            clearSearch={this.props.clearSearch}
-            searchMembers={this.props.searchMembers}
-            searchedMembers={this.props.searchedMembers}
-            memberHistory={this.props.memberHistory}
-            revertQuickInvoice={this.props.revertQuickInvoiceAndRefreshOffer}
-            handleRevertBooking={this.props.handleRevertBooking}
-            handleMemberToRegister={this.props.setMemberToRegister}
-            revertQuickInvoiceAndRefreshOffer={
-              this.props.revertQuickInvoiceAndRefreshOffer
-            }
-            registerOption={this.props.registerOption}
-            discardOption={this.props.setOptionToDiscardWithDialog}
-            switchWaitingListFreeze={this.props.switchWaitingListFreeze}
+            quickCreatedInvoices={this.props.quickCreatedInvoices}
             recurrenceRuleBookingList={this.props.recurrenceRuleBooking}
             recurrentBookingCount={this.props.recurrentBookingCount}
-            recurrentBookingItemPerPage={RECURRENT_BOOKING_PAGE_SIZE}
             recurrentBookingCurrentPage={this.props.recurrentBookingCurrentPage}
+            recurrentBookingItemPerPage={RECURRENT_BOOKING_PAGE_SIZE}
             recurrentBookingNextPage={this.props.recurrentBookingNextPage}
             recurrentBookingOnPageRequested={
               this.props.recurrentBookingOnPageRequested
             }
-            goToMemberBooking={this.props.goToMemberBooking}
-            onDeleteRecurrenceRuleBooking={
-              this.props.onDeleteRecurrenceRuleBooking
+            refresh={this.props.fetchOfferData}
+            registerOption={this.props.registerOption}
+            registerToWaitingList={this.props.registerToWaitingList}
+            revertQuickInvoice={this.props.revertQuickInvoiceAndRefreshOffer}
+            revertQuickInvoiceAndRefreshOffer={
+              this.props.revertQuickInvoiceAndRefreshOffer
             }
-            onClickChangeSpot={this.onClickChangeSpot}
+            searchedMembers={this.props.searchedMembers}
+            searchedText={this.props.searchedText}
+            searchMembers={this.props.searchMembers}
             showVaccinationStatus={this.props.showVaccinationStatus}
-            fetchBookingsByConsumerPack={this.props.fetchBookingsByConsumerPack}
-            fetchVideoPurchase={this.props.fetchVideoPurchase}
-            quickCreatedInvoices={this.props.quickCreatedInvoices}
-            companyId={this.props.companyId}
-            onProgramDetailsClick={this.onProgramDetailsClick}
-            onRollCallButtonClick={this.openConfirmationRollCallDialog}
-            isRollCallMandatory={
-              this.props.company_theme.is_roll_call_mandatory
-            }
-            numberOfUnreadAnswers={numberOfUnreadAnswers}
+            switchWaitingListFreeze={this.props.switchWaitingListFreeze}
           />
         </Grid>
-        <Grid item xs={12} lg={6}>
+        <Grid item lg={6} xs={12}>
           {!!this.props.offer.is_broadcast &&
             !!this.props.offer.broadcast_info && (
               <OfferBroadcastHelper offer={this.props.offer} />
@@ -757,95 +757,95 @@ export class OfferManagement extends Component<Props, State> {
 
           {!!this.props.offer.room_blueprint && (
             <OfferManagementRoomBlueprint
-              offer={this.props.offer}
-              roomBlueprintById={this.props.roomBlueprintById}
               assetsForBlueprintById={this.props.assetsForBlueprintById}
               fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
-              spotTypes={this.props.spotTypes}
+              offer={this.props.offer}
               offerStatusById={this.props.offerStatusById}
+              roomBlueprintById={this.props.roomBlueprintById}
+              spotTypes={this.props.spotTypes}
             />
           )}
 
           <QuickInvoicePanel
-            unevenSavedInvoices={this.props.unpaidInvoiceList}
-            revertQuickInvoice={this.props.revertQuickInvoiceAndRefreshOffer}
-            quickInvoices={this.state.quickInvoices}
-            createInvoice={this.createInvoice}
-            closeQuickInvoice={this.closeQuickInvoice}
+            applyGiftcardOnInvoice={this.props.applyGiftcardOnInvoice}
             availableBuyableItems={this.props.availableBuyableItems}
-            className={classes.autoScroll}
-            refreshInvoice={this.props.fetchInvoice}
             availablePaymentMethodList={
               this.props.payment_method_available_manager
             }
-            establishments={this.props.establishmentList}
+            className={classes.autoScroll}
+            closeQuickInvoice={this.closeQuickInvoice}
+            companyId={this.props.companyId}
+            consumerGiftcardList={this.props.consumerGiftcardList}
+            createInvoice={this.createInvoice}
             enableMultiLocalization={
               this.props.company_theme.enable_multi_localization
             }
-            snackbarSuccess={this.props.snackbarSuccess}
-            companyId={this.props.companyId}
-            stripeId={this.props.company_theme.stripe_id}
+            establishments={this.props.establishmentList}
             memberDetails={this.props.memberDetails}
-            applyGiftcardOnInvoice={this.props.applyGiftcardOnInvoice}
-            consumerGiftcardList={this.props.consumerGiftcardList}
             onlinePaymentEnabled={
               this.props.company_theme.online_payment_enabled
             }
+            quickInvoices={this.state.quickInvoices}
+            refreshInvoice={this.props.fetchInvoice}
+            revertQuickInvoice={this.props.revertQuickInvoiceAndRefreshOffer}
+            snackbarSuccess={this.props.snackbarSuccess}
+            stripeId={this.props.company_theme.stripe_id}
             stripeReaders={this.props.stripeReaders}
+            unevenSavedInvoices={this.props.unpaidInvoiceList}
           />
           <Prompt
-            when={this.props.unpaidInvoiceList.length > 0}
             message={this.props.t('offerManagement.unevenQuickInvoices')}
+            when={this.props.unpaidInvoiceList.length > 0}
           />
         </Grid>
         {!!this.props.memberToRegister && (
           <BookerModuleManager
-            offerId={this.props.offerId}
-            offer={this.props.offer}
             member={this.props.memberToRegister}
             memberDetails={this.props.memberDetails}
+            offer={this.props.offer}
+            offerId={this.props.offerId}
             onCancel={this.closeBookerModule}
             onClose={this.closeBookerModule}
-            registerToOffer={this.props.registerToOffer}
             openRecurrenceRuleForm={this.openRecurrenceRuleForm}
+            registerToOffer={this.props.registerToOffer}
           />
         )}
         <Dialog
           fullScreen={fullScreen}
-          open={!!this.props.addMemberModal}
           onClose={this.props.closeAddMemberModal}
+          open={!!this.props.addMemberModal}
         >
           <DialogContent>
             <MemberForm
               asManager
-              onCancel={this.props.closeAddMemberModal}
-              onSubmit={this.createMember}
-              goToMember={this.props.goToMember}
-              snackbarSuccess={this.props.snackbarSuccess}
               companyCountry={this.props.country}
-              waiver={this.props.company_theme.waiver}
               generalTermsAndConditions={
                 this.props.company_theme.general_terms_and_conditions
               }
+              goToMember={this.props.goToMember}
+              onCancel={this.props.closeAddMemberModal}
+              onSubmit={this.createMember}
+              snackbarSuccess={this.props.snackbarSuccess}
+              waiver={this.props.company_theme.waiver}
             />
           </DialogContent>
         </Dialog>
         <RevertBookingDialog
-          handleBookingDeletion={this.handleBookingDeletion}
           bookingToRevert={this.props.bookingToRevert}
           closeRevertBookingDialog={this.props.closeRevertBookingDialog}
-          offerIsAvailable={this.props.offer.available}
+          handleBookingDeletion={this.handleBookingDeletion}
           offer={this.props.offer}
+          offerIsAvailable={this.props.offer.available}
         />
         <DiscardBookingOptionDialog
+          onClose={this.props.cancelDiscardOption}
+          onSubmit={this.discardBookingOptionDialogOnSubmit}
           open={
             !!this.props.optionToDiscard && !!this.props.confirmOptionToDiscard
           }
-          onSubmit={this.discardBookingOptionDialogOnSubmit}
-          onClose={this.props.cancelDiscardOption}
         />
         <DiscardBookingOptionDialogV2
-          open={!!this.props.optionToDiscardWithDialog}
+          onClose={() => this.props.setOptionToDiscardWithDialog(null)}
           onSubmit={(sendEmail: boolean) => {
             this.props.discardOption(
               this.props.optionToDiscardWithDialog,
@@ -856,41 +856,41 @@ export class OfferManagement extends Component<Props, State> {
               },
             );
           }}
-          onClose={() => this.props.setOptionToDiscardWithDialog(null)}
+          open={!!this.props.optionToDiscardWithDialog}
         />
         {!!this.props.communicationDialogIsOpen && (
           <MailMembers
+            bookingOptionsPending={bookingOptionsPending}
+            bookings={bookings}
+            emailDetailLoading={this.props.emailDetailLoading}
+            emailDetails={this.props.email_templates_details}
+            emailListLoading={this.props.emailListLoading}
+            emails={this.props.email_templates_list}
+            fetchEmailTemplateDetail={this.props.fetchEmailTemplateDetail}
             fetchEmailTemplatesSummaries={
               this.props.fetchEmailTemplatesSummaries
             }
-            emails={this.props.email_templates_list}
-            fetchEmailTemplateDetail={this.props.fetchEmailTemplateDetail}
-            emailDetails={this.props.email_templates_details}
-            emailListLoading={this.props.emailListLoading}
-            emailDetailLoading={this.props.emailDetailLoading}
             fullscreen={fullScreen}
-            bookingOptionsPending={bookingOptionsPending}
-            bookings={bookings}
-            openMailChoiceDialog={this.props.communicationDialogIsOpen}
-            onClose={this.props.closeCommunicationDialog}
-            members={members}
             mailDefaultTitle={this.props.offer ? this.props.offer.name : ''}
-            sendCommunication={this.props.sendCommunication}
+            members={members}
+            onClose={this.props.closeCommunicationDialog}
+            openMailChoiceDialog={this.props.communicationDialogIsOpen}
             resolvedGenericTags={this.props.resolvedGenericTags}
+            sendCommunication={this.props.sendCommunication}
           />
         )}
         {!!this.props.offer.room_blueprint && (
           <AsyncSpotSelector
-            fetchRoomBlueprintDetail={this.props.fetchRoomBlueprintDetail}
-            roomBlueprintById={this.props.roomBlueprintById}
+            assetsForBlueprintById={this.props.assetsForBlueprintById}
             fetchAssetForBlueprint={this.props.fetchAssetForBlueprint}
-            fetchOfferStatus={this.props.fetchOfferStatus}
             fetchOfferById={this.props.fetchOffer}
+            fetchOfferStatus={this.props.fetchOfferStatus}
+            fetchRoomBlueprintDetail={this.props.fetchRoomBlueprintDetail}
             offer={this.props.offer}
             offerStatusById={this.props.offerStatusById}
-            assetsForBlueprintById={this.props.assetsForBlueprintById}
-            spotTypes={this.props.spotTypes.concat(DEFAULT_SPOT_TYPE)}
             onCancelRegisterMember={() => this.props.setMemberToRegister(null)}
+            roomBlueprintById={this.props.roomBlueprintById}
+            spotTypes={this.props.spotTypes.concat(DEFAULT_SPOT_TYPE)}
           />
         )}
         {!!this.props.offer &&
@@ -900,16 +900,16 @@ export class OfferManagement extends Component<Props, State> {
             Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
             this.props.companyId === 498) && (
             <CommunicationDrawer
-              openDrawer={this.props.communicationDrawerIsOpen}
-              onDrawerClose={this.handleCloseCommunicationDrawer}
-              contextIdentifier={CONTEXT_OFFER}
-              contextObjectId={this.props.offer.id ?? this.props.offerId}
-              contextTitle={this.props.offer?.name}
               allMemberCategoryList={getOfferCategories(
                 this.props.t,
                 bookings,
                 bookingOptionsPending,
               )}
+              contextIdentifier={CONTEXT_OFFER}
+              contextObjectId={this.props.offer.id ?? this.props.offerId}
+              contextTitle={this.props.offer?.name}
+              onDrawerClose={this.handleCloseCommunicationDrawer}
+              openDrawer={this.props.communicationDrawerIsOpen}
             />
           )}
         <GenericDialog />

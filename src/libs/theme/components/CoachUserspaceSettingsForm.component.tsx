@@ -69,16 +69,16 @@ const CoachUserspaceSettingsForm: React.FC<FormikProps<FormikValues>> = ({
                 </div>
               </div>
 
-              <Paper elevation={0} className={classes.section}>
+              <Paper className={classes.section} elevation={0}>
                 <div className={classes.subsection}>
                   <Typography variant="h6">
                     {t('forms.themePersonalization.coachUserspace.access')}
                   </Typography>
                   <SwitchField
-                    name="is_coach_access_enabled_by_default"
                     label={t(
                       'forms.themePersonalization.coachUserspace.enable',
                     )}
+                    name="is_coach_access_enabled_by_default"
                   />
                   <div className={classes.descriptionContainer}>
                     <InfoOutlinedIcon className={classes.infoIcon} />
@@ -101,28 +101,28 @@ const CoachUserspaceSettingsForm: React.FC<FormikProps<FormikValues>> = ({
                   </Typography>
                 </div>
                 <SwitchField
-                  name="has_coach_access_to_calendar"
                   label={t(
                     'forms.themePersonalization.coachUserspace.enableSchedule',
                   )}
+                  name="has_coach_access_to_calendar"
                 />
                 <SwitchField
-                  name="has_coach_access_to_compensation"
                   label={t(
                     'forms.themePersonalization.coachUserspace.enableRemuneration',
                   )}
+                  name="has_coach_access_to_compensation"
                 />
                 <SwitchField
-                  name="has_coach_access_to_replacement_request"
-                  label={t(
-                    'forms.themePersonalization.coachUserspace.enableReplacement',
-                  )}
                   disabled={
                     !hasUpsell(featureList, UPSELL_IDENTIFIER_SUBTEACHER_TOOL)
                   }
+                  label={t(
+                    'forms.themePersonalization.coachUserspace.enableReplacement',
+                  )}
+                  name="has_coach_access_to_replacement_request"
                 />
                 {errors.has_coach_access_to_replacement_request && (
-                  <Typography variant="body2" className={classes.error}>
+                  <Typography className={classes.error} variant="body2">
                     {t(errors.has_coach_access_to_replacement_request)}
                   </Typography>
                 )}
@@ -130,11 +130,11 @@ const CoachUserspaceSettingsForm: React.FC<FormikProps<FormikValues>> = ({
 
               <div>
                 <Button
-                  type="submit"
-                  disabled={isSubmitting || !dirty || !isValid}
-                  variant="contained"
-                  color="primary"
                   className={classes.confirm}
+                  color="primary"
+                  disabled={isSubmitting || !dirty || !isValid}
+                  type="submit"
+                  variant="contained"
                 >
                   {t('forms.submit')}
                 </Button>

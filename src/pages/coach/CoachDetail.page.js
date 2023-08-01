@@ -189,52 +189,52 @@ export class Coach extends React.Component<Props> {
       <div>
         {this.props.loading ? <LinearProgress /> : null}
         <CoachDetail
-          editAccessToCoachSpace={this.props.editAccessToCoachSpace}
-          coach={coach}
-          coachPaymentRulesByKind={coachPaymentRulesByKind}
-          setCoachPaymentRule={this.props.setCoachPaymentRule}
-          setCoachWorkshopPaymentRule={this.props.setCoachWorkshopPaymentRule}
-          setCoachPrivatePaymentRule={this.props.setCoachPrivatePaymentRule}
-          goToCoachPerformance={this.props.goToCoachPerformance}
-          startUpdateCoach={this.props.startUpdateCoach}
-          coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
-          setCoachPaymentRuleGroup={this.props.setCoachPaymentRuleGroup}
-          updateCoachPrivateSlotsPaymentRule={
-            this.props.updateCoachPrivateSlotsPaymentRule
-          }
-          privateServices={this.props.privateServices}
           activityList={this.props.activityList}
-          workshopList={this.props.workshopList}
-          categoryList={this.props.SCTList}
-          disciplineGroupList={this.props.disciplineGroupList}
-          establishmentList={this.props.establishmentList}
-          establishmentGroupList={this.props.establishmentGroupList}
-          companyTheme={this.props.theme}
           assignDisciplineGroup={this.props.assignDisciplineGroup}
+          categoryList={this.props.SCTList}
+          coach={coach}
+          coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
+          coachPaymentRulesByKind={coachPaymentRulesByKind}
+          companyTheme={this.props.theme}
+          disciplineGroupList={this.props.disciplineGroupList}
+          editAccessToCoachSpace={this.props.editAccessToCoachSpace}
+          establishmentGroupList={this.props.establishmentGroupList}
+          establishmentList={this.props.establishmentList}
+          goToCoachPerformance={this.props.goToCoachPerformance}
+          privateServices={this.props.privateServices}
+          setCoachPaymentRule={this.props.setCoachPaymentRule}
+          setCoachPaymentRuleGroup={this.props.setCoachPaymentRuleGroup}
+          setCoachPrivatePaymentRule={this.props.setCoachPrivatePaymentRule}
+          setCoachWorkshopPaymentRule={this.props.setCoachWorkshopPaymentRule}
+          startUpdateCoach={this.props.startUpdateCoach}
           updateAssociatedCoachReplacementPreferences={
             this.props.updateAssociatedCoachReplacementPreferences
           }
+          updateCoachPrivateSlotsPaymentRule={
+            this.props.updateCoachPrivateSlotsPaymentRule
+          }
+          workshopList={this.props.workshopList}
         />
         <BottomActionButtons
-          onEdit={this.handleEdit}
           onDelete={this.handleDelete}
+          onEdit={this.handleEdit}
           onShare={this.handleShare}
         />
         <CoachDeleteModal
-          coachToDeleteId={this.props.deleteOpen ? this.props.coach.id : null}
-          onClose={this.handleCloseCoachDeleteModal}
           checkCanDeleteCoach={canDeleteCoachAPI}
+          coachToDeleteId={this.props.deleteOpen ? this.props.coach.id : null}
           deleteCoach={this.handleDeleteCoach}
+          onClose={this.handleCloseCoachDeleteModal}
         />
         <WidgetGeneratorDialog
-          open={this.props.openWidgetDialog}
-          onClose={this.handleCloseWidgetGeneratorDialog}
           componentType="calendar"
           config={{
             calendar: {
               coaches: [this.props.coachId],
             },
           }}
+          onClose={this.handleCloseWidgetGeneratorDialog}
+          open={this.props.openWidgetDialog}
         />
       </div>
     );

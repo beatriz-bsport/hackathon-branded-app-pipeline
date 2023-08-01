@@ -50,7 +50,7 @@ export function PaymentTable(props: Props) {
         </TableHead>
         <TableBody>
           {data.map((n) => (
-            <TableRow className={classes.row} key={n.id}>
+            <TableRow key={n.id} className={classes.row}>
               <CustomTableCell component="th" scope="row">
                 {n.id.slice(0, 8).toUpperCase()}
               </CustomTableCell>

@@ -41,13 +41,13 @@ const ReportTableCell: React.FC<ReportTableCellProps> = ({
       className={classes.cell}
     >
       <ReportCellRenderer
-        reportCategory={reportCategory}
-        value={cellValues?.value}
+        chipClass={chipClass}
         datatype={column}
         extra_data={cellValues?.extra_data}
-        row_extra_data={row_extra_data}
         formattedValue={value}
-        chipClass={chipClass}
+        reportCategory={reportCategory}
+        row_extra_data={row_extra_data}
+        value={cellValues?.value}
       />
     </TableCell>
   );

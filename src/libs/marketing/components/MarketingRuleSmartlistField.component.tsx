@@ -47,8 +47,8 @@ const MarketingRuleSmartlistField = (props: Props) => {
         <Grid container spacing={4}>
           <div className={classes.row}>
             <ButtonBase
-              onClick={() => setOpenAdvancedOptions(!openAdvancedOptions)}
               className={classes.advancedOptionsHeader}
+              onClick={() => setOpenAdvancedOptions(!openAdvancedOptions)}
             >
               <div className={classes.rowLeft}>
                 <SettingsIcon className={classes.icon} />
@@ -82,6 +82,8 @@ const MarketingRuleSmartlistField = (props: Props) => {
                 {t('notificationForm.smartLists.smartListHelperInclude')}
               </Typography>
               <MaterialUiMultiSelectorField
+                isClearable
+                isMulti
                 name="smartlist_include"
                 options={
                   smartListSelectOptions ? [...smartListSelectOptions] : []
@@ -89,8 +91,6 @@ const MarketingRuleSmartlistField = (props: Props) => {
                 placeholder={t(
                   'notificationForm.smartLists.smartListSelection',
                 )}
-                isMulti
-                isClearable
                 value={smartListSelectOptions?.filter((opt) =>
                   smartlist_include?.includes(opt?.value),
                 )}
@@ -101,16 +101,16 @@ const MarketingRuleSmartlistField = (props: Props) => {
                 <div className={classes.leftWarningContainerSmartlist}>
                   <WarningIcon className={classes.warningIcon} />
                   <Typography
-                    variant="body2"
                     className={classes.warningContent}
+                    variant="body2"
                   >
                     {t('notificationForm.smartLists.warning')}
                   </Typography>
                 </div>
                 <Button
-                  variant="outlined"
-                  onClick={goToSmartList}
                   className={classes.createSmartList}
+                  onClick={goToSmartList}
+                  variant="outlined"
                 >
                   {t('notificationForm.smartLists.createSmartList')}
                 </Button>

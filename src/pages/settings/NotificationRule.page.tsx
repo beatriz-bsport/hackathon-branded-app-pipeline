@@ -76,12 +76,12 @@ const NotificationRule = (props: Props) => {
           {Object.entries(eventListWithRule).map(
             ([eventGroupName, eventTypeList]) => (
               <NotificationRuleGroupHeader
+                className={classes.group}
                 eventGroupName={eventGroupName}
                 eventsList={eventTypeList}
-                settings={notificationRuleSettings}
                 isOpen={false}
                 onToggleClick={navigateToDetails}
-                className={classes.group}
+                settings={notificationRuleSettings}
               />
             ),
           )}

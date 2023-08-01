@@ -80,7 +80,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
   let Wrapper = (p) => <div>{p.children}</div>;
   if (showVaccinationStatus)
     Wrapper = (p) => (
-      <VaccinationBadge status={member.vaccination_status} topRightIcon>
+      <VaccinationBadge topRightIcon status={member.vaccination_status}>
         {p.children}
       </VaccinationBadge>
     );
@@ -92,16 +92,16 @@ export const MemberMinimalListItem: React.FC<Props> = ({
   return (
     <>
       <ListItem
-        className={classes.listItem}
         button={!!onClick}
+        className={classes.listItem}
         onClick={onClick ? () => onClick(member.id) : null}
       >
         <ListItemAvatar className={classes.avatar}>
           <Wrapper>
             <AvatarWithBadge
-              member={member}
-              classes={{ badge: 'currencyBadge' }}
               bottomCredit={bottomCredit}
+              classes={{ badge: 'currencyBadge' }}
+              member={member}
             />
           </Wrapper>
         </ListItemAvatar>
@@ -112,7 +112,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
                 {member.name + (firstBooking ? ' ★' : '')}
               </Typography>
               {isBirthday && (
-                <Cake style={{ fontSize: '14px' }} color="secondary" />
+                <Cake color="secondary" style={{ fontSize: '14px' }} />
               )}
               <Typography color="secondary" variant="caption">
                 {member.archived ? `${'\u00A0'}(${t('archived')})` : ''}
@@ -143,19 +143,19 @@ export const MemberMinimalListItem: React.FC<Props> = ({
       </ListItem>
 
       <MemberProgramDetailDialog
-        loading={programDataLoading}
-        open={isMemberProgramDetailDialogOpen}
         closeDialog={() => setIsMemberProgramDetailDialogOpen(false)}
-        memberName={member.name + (firstPrivateBooking ? ' ★' : '')}
-        memberProgramList={member.memberProgramList}
-        updateMemberMetricValue={updateMemberMetricValue}
         createMemberProgram={(id: number) =>
           createMemberProgram({
             program: id,
             member: member.id,
           })
         }
+        loading={programDataLoading}
+        memberName={member.name + (firstPrivateBooking ? ' ★' : '')}
+        memberProgramList={member.memberProgramList}
+        open={isMemberProgramDetailDialogOpen}
         programList={programList}
+        updateMemberMetricValue={updateMemberMetricValue}
       />
     </>
   );

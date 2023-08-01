@@ -35,10 +35,10 @@ export const CustomFormSubmitDialog = (props: Props) => {
       <DialogContent>{t('customForm.submit.dialog.content')}</DialogContent>
       <DialogActions>
         <Button
-          variant="contained"
           color="primary"
-          size="small"
           onClick={props.goToUserSpace}
+          size="small"
+          variant="contained"
         >
           {t('customForm.submit.dialog.confirmButton')}
         </Button>

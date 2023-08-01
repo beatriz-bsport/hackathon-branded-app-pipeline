@@ -69,7 +69,6 @@ export const MetricForm = (props: Props) => {
     <div className={classes.formContainer}>
       <Formik
         enableReinitialize
-        validationSchema={metricSchema}
         initialValues={initialValues}
         onSubmit={(submitValues, actions) => {
           if (initial) {
@@ -85,6 +84,7 @@ export const MetricForm = (props: Props) => {
           actions.setSubmitting(false);
           onCancel();
         }}
+        validationSchema={metricSchema}
       >
         {(metricFormikProps: FormikProps<PerformanceTrackingMetric>) => {
           return (
@@ -98,56 +98,56 @@ export const MetricForm = (props: Props) => {
                   </Grid>
                   <Grid item xs={6}>
                     <TextFieldEnhancedLabelWithError
-                      id="metric_textfield_name"
                       fullWidth
-                      name="name"
                       required
+                      id="metric_textfield_name"
                       label={t('metric.form.name')}
+                      name="name"
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <TextFieldEnhancedLabelWithError
-                      id="metric_machine_id"
                       fullWidth
-                      name="machine_id"
+                      id="metric_machine_id"
                       label={t('metric.form.machine')}
+                      name="machine_id"
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <div className={classes.values}>
                       <TextFieldEnhancedLabelWithError
-                        required
                         fullWidth
+                        required
+                        helperText={t('metric.form.default_valueHelperText')}
                         id="metric_default_value"
+                        inputProps={{ max: 99999 }}
+                        label={t('metric.form.default_value')}
                         name="default_value"
                         type="number"
-                        label={t('metric.form.default_value')}
-                        helperText={t('metric.form.default_valueHelperText')}
-                        inputProps={{ max: 99999 }}
                       />
                       <div className={classes.row}>
                         <div className={classes.midRow}>
                           <TextFieldEnhancedLabelWithError
-                            required
                             fullWidth
+                            required
+                            helperText={t('metric.form.minValueHelperText')}
                             id="metric_min_value"
+                            inputProps={{ max: 99999 }}
+                            label={t('metric.form.minValue')}
                             name="min_value"
                             type="number"
-                            label={t('metric.form.minValue')}
-                            helperText={t('metric.form.minValueHelperText')}
-                            inputProps={{ max: 99999 }}
                           />
                         </div>
                         <div className={classes.midRow}>
                           <TextFieldEnhancedLabelWithError
-                            required
                             fullWidth
+                            required
+                            helperText={t('metric.form.maxValueHelperText')}
                             id="metric_max_value"
+                            inputProps={{ max: 99999 }}
+                            label={t('metric.form.maxValue')}
                             name="max_value"
                             type="number"
-                            label={t('metric.form.maxValue')}
-                            helperText={t('metric.form.maxValueHelperText')}
-                            inputProps={{ max: 99999 }}
                           />
                         </div>
                       </div>
@@ -155,15 +155,15 @@ export const MetricForm = (props: Props) => {
                   </Grid>
                   <Grid item xs={6}>
                     <ColorField
+                      defaultCompanyThemeColor
                       label={t('metric.form.color')}
                       name="color"
-                      defaultCompanyThemeColor
                     />
                   </Grid>
                 </Grid>
                 <Grid item xs={12}>
                   <div className={classes.action}>
-                    <Button onClick={onCancel} color="secondary">
+                    <Button color="secondary" onClick={onCancel}>
                       {t('form.cancel')}
                     </Button>
                     <Button color="primary" type="submit" variant="contained">

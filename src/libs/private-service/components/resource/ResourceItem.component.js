@@ -29,8 +29,8 @@ export const ResourceItem = (props: Props) => {
   const { name, color, resource_identifier } = resource;
   return (
     <ButtonBase
-      onClick={() => onEditResourceConfiguration(resource)}
       className={classes.resourceContainer}
+      onClick={() => onEditResourceConfiguration(resource)}
     >
       <div
         style={{

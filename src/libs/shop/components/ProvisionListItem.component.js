@@ -23,9 +23,9 @@ export default (props: Props) => (
     <ListItemSecondaryAction>
       <Button disableRipple>
         <Typography
-          variant="h5"
           color={props.provision.qty < 0 ? 'primary' : 'secondary'}
           component="p"
+          variant="h5"
         >
           {(props.provision.qty >= 0 ? '+ ' : '') + props.provision.qty}
         </Typography>

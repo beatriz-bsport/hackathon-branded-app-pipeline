@@ -124,16 +124,16 @@ export class VideoUploadFormMUX extends React.Component<Props, State> {
     return (
       <div className={this.props.classes.container}>
         <VideoProviderDropzone
-          processing={this.state.isUploading}
           fowardedRef={(ref) => {
             this.DROPZONE_REF = ref;
           }}
+          processing={this.state.isUploading}
         />
         {this.state.isUploading && (
           <LinearProgress
             className={this.props.classes.marginTop}
-            variant="determinate"
             value={this.state.progress}
+            variant="determinate"
           />
         )}
         <div className={this.props.classes.row}>
@@ -145,11 +145,11 @@ export class VideoUploadFormMUX extends React.Component<Props, State> {
           </Button>
 
           <Button
-            variant="contained"
-            color="primary"
-            onClick={this.onClickSubmit}
             className={this.props.classes.marginLeft}
+            color="primary"
             disabled={this.state.isUploading}
+            onClick={this.onClickSubmit}
+            variant="contained"
           >
             {this.props.t('video.upload.submit')}
           </Button>

@@ -38,11 +38,10 @@ const PaymentMethodSelectorField = (props: Props) => {
         ].map((pm) => (
           <FormControlLabel
             key={pm.id}
-            label={pm.optionLabel}
             control={
               <Checkbox
-                disabled={!!props.disabled}
                 checked={props.paymentMethodIds.includes(pm.id)}
+                disabled={!!props.disabled}
                 onChange={() => {
                   if (props.paymentMethodIds.includes(pm.id)) {
                     props.onChange(
@@ -54,6 +53,7 @@ const PaymentMethodSelectorField = (props: Props) => {
                 }}
               />
             }
+            label={pm.optionLabel}
           />
         ))}
       </FormGroup>

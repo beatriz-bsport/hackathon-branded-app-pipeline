@@ -40,15 +40,15 @@ const Quicksale: React.FC<Props> = ({
     <Switch>
       <Route
         exact
-        path="/quicksale/checkout/:basketId/"
         component={QuicksaleCheckout}
+        path="/quicksale/checkout/:basketId/"
       />
       <Route
         exact
-        path="/quicksale/:sectionId/"
         component={QuicksaleInterface}
+        path="/quicksale/:sectionId/"
       />
-      <Route exact path="/quicksale/" component={QuicksaleInterface} />
+      <Route exact component={QuicksaleInterface} path="/quicksale/" />
     </Switch>
   );
 };

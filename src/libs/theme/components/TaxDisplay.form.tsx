@@ -63,18 +63,18 @@ export const TaxDisplayForm = (props: Props) => {
                 </Typography>
                 <InfoTypography content={t('theme:taxDisplay.info')} />
                 <SwitchField
-                  name="is_tax_excluded_in_marketplace"
                   label={t('theme:taxDisplay.checkbox')}
+                  name="is_tax_excluded_in_marketplace"
                 />
                 <div>
                   <Button
-                    type="submit"
-                    variant="contained"
                     color="primary"
                     disabled={
                       formikProps.values.is_tax_excluded_in_marketplace ===
                       initial.is_tax_excluded_in_marketplace
                     }
+                    type="submit"
+                    variant="contained"
                   >
                     {t('common:save')}
                   </Button>

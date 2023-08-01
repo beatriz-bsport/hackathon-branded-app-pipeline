@@ -38,25 +38,25 @@ const CadenceBubbleHeader: React.FC<CadenceBubbleHeaderProps> = React.memo(
         <div className={classes.flexIconAndText}>
           {minimalIcon ? (
             <CustomMuiIcon
-              icon={icon}
-              customColor={color}
-              withBackground={false}
               defaultBackGround
+              customColor={color}
+              icon={icon}
+              withBackground={false}
             />
           ) : (
             <div className={classes.losange}>
               <div className={classes.centerAbsolute}>
                 <CustomMuiIcon
-                  icon={icon}
-                  customColor={color}
-                  withBackground={false}
                   defaultBackGround
+                  customColor={color}
+                  icon={icon}
+                  withBackground={false}
                 />
               </div>
             </div>
           )}
           <div className={classes.labelContainer}>
-            <Typography variant="subtitle2" className={classes.label}>
+            <Typography className={classes.label} variant="subtitle2">
               {title}
             </Typography>
           </div>
@@ -86,11 +86,11 @@ const CadenceBubble: React.FC<CadenceBubbleProps> = ({
     <BubbleCard withShadow width={CADENCE_BUBBLE_WIDTH}>
       <div className={classes.header}>
         <CadenceBubbleHeader
-          title={title}
-          icon={icon}
-          color={color}
-          minimalIcon={minimalIcon}
           classes={classes}
+          color={color}
+          icon={icon}
+          minimalIcon={minimalIcon}
+          title={title}
         />
       </div>
       {!!children && children}
@@ -98,20 +98,20 @@ const CadenceBubble: React.FC<CadenceBubbleProps> = ({
         <div className={classes.footer}>
           {onCancelClick && (
             <Button
-              onClick={onCancelClick}
-              variant="text"
               className={classes.button}
               color="default"
+              onClick={onCancelClick}
+              variant="text"
             >
               {onCancelText || t('cadence.bubble.cancel')}
             </Button>
           )}
           {onConfirmClick && (
             <Button
-              onClick={onConfirmClick}
-              variant="contained"
               className={classes.button}
               color="primary"
+              onClick={onConfirmClick}
+              variant="contained"
             >
               {onConfirmText || t('cadence.bubble.confirm')}
             </Button>

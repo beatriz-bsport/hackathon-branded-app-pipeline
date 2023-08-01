@@ -83,13 +83,8 @@ export class Members extends Component<Props, State> {
   tagFilterBar = () => (
     <div className={this.props.classes.actionBar}>
       <TagChipList
-        // @ts-expect-error tags actually has the type Tag<TagGroup>[]
-        tags={this.props.tags}
-        includes={this.state.tagsIncluded}
         excludes={this.state.tagsExcluded}
-        handleReinit={() =>
-          this.setState({ tagsIncluded: [], tagsExcluded: [] })
-        }
+        handleAdd={() => this.setState({ showFilterForm: true })}
         handleDeleteTag={(id: number, include: boolean) => {
           if (include) {
             this.setState((prevState) => ({
@@ -101,7 +96,12 @@ export class Members extends Component<Props, State> {
             }));
           }
         }}
-        handleAdd={() => this.setState({ showFilterForm: true })}
+        handleReinit={() =>
+          this.setState({ tagsIncluded: [], tagsExcluded: [] })
+        }
+        includes={this.state.tagsIncluded}
+        // @ts-expect-error tags actually has the type Tag<TagGroup>[]
+        tags={this.props.tags}
       />
     </div>
   );
@@ -145,36 +145,36 @@ export class Members extends Component<Props, State> {
         <Grid container direction="row" spacing={4}>
           <Grid item xs={12}>
             <MemberTable
-              tagsExcluded={this.state.tagsExcluded}
-              tagsIncluded={this.state.tagsIncluded}
-              fetch={this.fetchMemberList}
-              goToMember={goToMemberPage}
               addMember={addMember}
               customToolBar={this.tagFilterBar}
+              disabledMemberId={this.state.disabledMemberId}
+              fetch={this.fetchMemberList}
+              goToMember={goToMemberPage}
+              hideAddButton={!this.props.permissions?.member?.create}
               interrogateMemberStatus={(id: number) =>
                 this.interrogateMemberStatus(id)
               }
-              disabledMemberId={this.state.disabledMemberId}
-              hideAddButton={!this.props.permissions?.member?.create}
+              tagsExcluded={this.state.tagsExcluded}
+              tagsIncluded={this.state.tagsIncluded}
             />
           </Grid>
           <TagFilterForm
-            open={this.state.showFilterForm}
-            onClose={() => this.setState({ showFilterForm: false })}
-            tagList={this.props.tags}
             createFilter={this.createTagFilter}
+            onClose={() => this.setState({ showFilterForm: false })}
+            open={this.state.showFilterForm}
+            tagList={this.props.tags}
           />
         </Grid>
         <MemberArchiveDialog
-          open={this.props.openArchiveDialog}
-          member={this.props.memberToArchive}
           archiveMemberStatus={this.props.memberArchiveStatus}
           loading={this.props.memberArchiveLoading}
+          member={this.props.memberToArchive}
           onClose={() => {
             this.props.setOpenArchiveDialog(false);
             this.props.setMemberSelectedForArchive(null);
           }}
           onConfirm={this.archiveMember}
+          open={this.props.openArchiveDialog}
         />
       </>
     );

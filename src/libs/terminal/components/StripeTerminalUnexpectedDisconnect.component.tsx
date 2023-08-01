@@ -52,7 +52,7 @@ export const StripeTerminalUnexpectedDisconnect = (props: Props) => {
       <div className={classes.smileyIcon}>
         <SadSmileyIcon />
       </div>
-      <Typography variant="h6" className={classes.successTitle}>
+      <Typography className={classes.successTitle} variant="h6">
         {t('configuration.stripeTerminal.paymentDialog.disconnect.title')}
       </Typography>
       <Typography className={classes.blueText}>
@@ -64,8 +64,8 @@ export const StripeTerminalUnexpectedDisconnect = (props: Props) => {
         )}
         <Button
           color="primary"
-          variant="contained"
           onClick={() => props.onRetry()}
+          variant="contained"
         >
           {t('configuration.stripeTerminal.connectDialog.form.retry')}
         </Button>

@@ -107,7 +107,6 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
 
   return (
     <Card
-      size={CardSize.AUTO}
       classes={{
         ...(isSelected && {
           '--expanded-card': '--expanded-card',
@@ -115,6 +114,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
         'bs-contract-checkout': 'bs-contract-checkout',
       }}
       customRef={isSelected && customRef ? customRef : null}
+      size={CardSize.AUTO}
     >
       <div
         className={classNames('bs-contract-checkout__header', {
@@ -129,8 +129,8 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
           >
             <Item
               alignment={Alignment.FLEX_START}
-              columnStart={1}
               columnEnd={1}
+              columnStart={1}
               justification={Justification.SPACE_BETWEEN}
             >
               <div className="bs-contract-checkout__title">
@@ -147,11 +147,11 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
               <div className="bs-contract-checkout__price-container">
                 <Price
                   amount={contract?.recurrent_price}
-                  formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                   classes={{
                     'bs-contract-checkout__price':
                       'bs-contract-checkout__price',
                   }}
+                  formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                   isExcludingTax={isExcludingTax}
                   tax={parseFloat(contract?.tax) || 0}
                 >
@@ -161,10 +161,10 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
             </Item>
             <Item
               alignment={Alignment.FLEX_END}
+              columnEnd={2}
+              columnStart={2}
               justification={Justification.SPACE_BETWEEN}
               rowStart={1}
-              columnStart={2}
-              columnEnd={2}
             >
               <div className="bs-contract-checkout__planned-invoices">
                 {!!contract?.nb_interval && (
@@ -177,10 +177,10 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
               </div>
               {!hideChooseButton && (
                 <button
-                  type="button"
                   className="bs-contract-checkout__right-button"
                   disabled={isExpanded}
                   onClick={handleChooseContract}
+                  type="button"
                 >
                   {t('marketplace:contractCard.chooseButton')}
                 </button>
@@ -230,9 +230,9 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
             </div>
             {descriptionText.isExpandable && (
               <button
-                type="button"
-                onClick={handleShowMoreDescription}
                 className="bs-contract-checkout__body__button"
+                onClick={handleShowMoreDescription}
+                type="button"
               >
                 {showMoreDescription
                   ? t('marketplace:contractCard.seeLess')
@@ -254,9 +254,9 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
             </div>
             {legalContractText.isExpandable && (
               <button
-                type="button"
-                onClick={handleShowMoreLegal}
                 className="bs-contract-checkout__body__button"
+                onClick={handleShowMoreLegal}
+                type="button"
               >
                 {showMoreLegalContract
                   ? t('marketplace:contractCard.seeLess')

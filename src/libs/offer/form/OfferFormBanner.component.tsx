@@ -34,8 +34,8 @@ const OfferFormBanner = (props: Props) => {
   return (
     <div
       className={classes.container}
-      style={{ backgroundImage }}
       id="offer-form-banner"
+      style={{ backgroundImage }}
     >
       {picture && <div className={classes.gradientContainer} />}
 
@@ -46,11 +46,11 @@ const OfferFormBanner = (props: Props) => {
       >
         <Tooltip title={t('cancel')}>
           <IconButton
-            onClick={onCancel}
             classes={{
               root: classes.cancelButtonRoot,
               label: picture ? classes.whiteText : null,
             }}
+            onClick={onCancel}
           >
             <HighlightOffIcon className={classes.cancelButtonIcon} />
           </IconButton>
@@ -70,20 +70,20 @@ const OfferFormBanner = (props: Props) => {
       {name && onBannerGoBack && (
         <div className={classes.buttonContainer}>
           <Button
-            id="offer-form-banner-back"
-            variant="contained"
-            color="primary"
-            size="small"
-            startIcon={
-              <ArrowBackIcon className={classes.backButtonsStartIcon} />
-            }
             classes={{
               root: classNames(classes.backButtonRoot, {
                 [classes.whiteText]: picture,
               }),
               label: classes.backButtonLabel,
             }}
+            color="primary"
+            id="offer-form-banner-back"
             onClick={onBannerGoBack}
+            size="small"
+            startIcon={
+              <ArrowBackIcon className={classes.backButtonsStartIcon} />
+            }
+            variant="contained"
           >
             {name}
           </Button>
@@ -94,8 +94,8 @@ const OfferFormBanner = (props: Props) => {
         <div className={classes.colorIndicatorContainer}>
           <div className={classes.colorIndicator} />
           <Typography
-            variant="subtitle1"
             className={classNames(classes.whiteText, classes.fontMedium)}
+            variant="subtitle1"
           >
             {name}
           </Typography>

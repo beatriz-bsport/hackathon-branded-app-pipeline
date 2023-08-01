@@ -63,30 +63,30 @@ export const CustomFormBuilderTagRuleSelector = (props: Props) => {
       <>
         <IconButton onClick={() => setShowTagRule(!showTagRule)}>
           <LinkIcon
-            color="primary"
-            aria-owns={open ? 'mouse-over-popover' : undefined}
             aria-haspopup="true"
+            aria-owns={open ? 'mouse-over-popover' : undefined}
+            color="primary"
             onMouseEnter={handlePopoverOpen}
             onMouseLeave={handlePopoverClose}
           />
         </IconButton>
         <Popover
-          id="mouse-over-popover"
-          className={classes.popover}
-          classes={{
-            paper: classes.paper,
-          }}
-          open={open}
           anchorEl={anchorEl}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'left',
           }}
+          classes={{
+            paper: classes.paper,
+          }}
+          className={classes.popover}
+          id="mouse-over-popover"
+          onClose={handlePopoverClose}
+          open={open}
           transformOrigin={{
             vertical: 'top',
             horizontal: 'left',
           }}
-          onClose={handlePopoverClose}
         >
           <Typography variant="caption">
             {t('customForm.field.link_to_tag_popover')}
@@ -110,10 +110,10 @@ export const CustomFormBuilderTagRuleSelector = (props: Props) => {
       </IconButton>
       <FormControl className={classes.select}>
         <Select
-          labelId="tag-group"
-          value={`${tagRuleState?.tag_group && tagRuleState.tag_group.id}`}
-          onChange={(event) => handleTagGroupSelection(event.target.value)}
           disabled={!!props.choice_tag_rule?.tag_id}
+          labelId="tag-group"
+          onChange={(event) => handleTagGroupSelection(event.target.value)}
+          value={`${tagRuleState?.tag_group && tagRuleState.tag_group.id}`}
         >
           {props.tag_groups.map((group) => (
             <MenuItem key={group.id} value={group.id}>
@@ -125,6 +125,7 @@ export const CustomFormBuilderTagRuleSelector = (props: Props) => {
       </FormControl>
       <FormControl className={classes.select}>
         <Select
+          disabled={!!tagRuleState?.tag_id}
           labelId="tag_name"
           onChange={(event) => {
             props.setTag(event.target.value);
@@ -134,7 +135,6 @@ export const CustomFormBuilderTagRuleSelector = (props: Props) => {
             });
           }}
           value={`${tagRuleState?.tag_id && tagRuleState.tag_id.toString()}`}
-          disabled={!!tagRuleState?.tag_id}
         >
           {tagRuleState &&
             tagRuleState?.tag_group?.tags?.map((tag) => (

@@ -18,19 +18,19 @@ export function ImageList(props: Props) {
   return (
     <div className={classes.container}>
       {images.map((image) => (
-        <div className={classes.imagePreview} key={image.id}>
+        <div key={image.id} className={classes.imagePreview}>
           <Button
-            size="small"
-            className={classes.imageRemove}
             aria-label="Remove"
+            className={classes.imageRemove}
             onClick={(e) => {
               e.preventDefault();
               onRemoveImage(image.id);
             }}
+            size="small"
           >
             <DeleteIcon />
           </Button>
-          <img alt="preview" src={image.image} className={classes.image} />
+          <img alt="preview" className={classes.image} src={image.image} />
         </div>
       ))}
     </div>

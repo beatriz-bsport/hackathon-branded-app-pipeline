@@ -35,9 +35,9 @@ export const ToolTip = (props: Props) => {
 
   return (
     <Tooltip
-      title={props.title || null}
-      placement={props.placement || 'bottom'}
       classes={{ tooltip: classes[props.variant || 'tooltip'] }}
+      placement={props.placement || 'bottom'}
+      title={props.title || null}
     >
       {props.children}
     </Tooltip>

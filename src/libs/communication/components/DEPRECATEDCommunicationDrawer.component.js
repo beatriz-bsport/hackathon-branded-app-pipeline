@@ -437,12 +437,12 @@ export class CommunicationDrawer extends Component<Props, State> {
 
     return (
       <GenericResponsiveDrawer
-        title={t('mail.dialogTitle')}
-        open={open}
         onClose={() => {
           this.onClose();
           onCancel();
         }}
+        open={open}
+        title={t('mail.dialogTitle')}
       >
         <>
           <div>
@@ -467,10 +467,10 @@ export class CommunicationDrawer extends Component<Props, State> {
                       {t('common.cancel')}
                     </Button>
                     <Button
-                      variant="outlined"
-                      type="submit"
                       color="primary"
                       onClick={() => document.location.reload(true)}
+                      type="submit"
+                      variant="outlined"
                     >
                       {t('common.refresh')}
                     </Button>
@@ -480,27 +480,32 @@ export class CommunicationDrawer extends Component<Props, State> {
               {this.renderCommunicationTypeChoice()}
               {this.renderConsentWarning()}
               <DEPRECATEDReceiversCollapseItem
-                members={membersToDisplay}
-                membersCount={allIds.length}
-                page_size={this.state.page_size}
-                page={page}
+                checkedMembers={this.getCheckedMember()}
+                fetchNextPage={() => fetchNextPage(page, this.state.page_size)}
                 fetchPreviousPage={() =>
                   fetchPreviousPage(page, this.state.page_size)
                 }
-                fetchNextPage={() => fetchNextPage(page, this.state.page_size)}
-                checkedMembers={this.getCheckedMember()}
-                keyword={this.state.actionType === SEND_SMS ? 'phone' : 'email'}
-                receiversNotEditable={receiversNotEditable}
                 handleToggle={this.handleToggle}
-                openMemberPage={this.openMemberPage}
+                keyword={this.state.actionType === SEND_SMS ? 'phone' : 'email'}
                 loading={membersAllLoading}
+                members={membersToDisplay}
                 membersByPageLoading={membersByPageLoading}
+                membersCount={allIds.length}
+                openMemberPage={this.openMemberPage}
+                page={page}
+                page_size={this.state.page_size}
+                receiversNotEditable={receiversNotEditable}
               />
               {this.state.actionType === SELECT_EMAIL && !hideTemplateMail && (
                 <SelectTemplate
-                  title={this.state.mailTitle}
-                  selectedMail={this.state.selectedTemplate}
-                  onChangeTitle={(text) => this.setState({ mailTitle: text })}
+                  emailDetailLoading={emailDetailLoading}
+                  emailDetails={emailDetails}
+                  emailListLoading={emailListLoading}
+                  emails={emails}
+                  getEmailDetail={getEmailDetail}
+                  getEmails={getEmails}
+                  mailDefaultTitle={mailDefaultTitle}
+                  onCancel={onCancel}
                   onChangeTemplate={(id) => {
                     this.setState({
                       selectedTemplate: id,
@@ -509,29 +514,23 @@ export class CommunicationDrawer extends Component<Props, State> {
                         : '',
                     });
                   }}
-                  onCancel={onCancel}
-                  getEmails={getEmails}
-                  getEmailDetail={getEmailDetail}
-                  emailListLoading={emailListLoading}
-                  emails={emails}
-                  emailDetailLoading={emailDetailLoading}
-                  emailDetails={emailDetails}
-                  mailDefaultTitle={mailDefaultTitle}
+                  onChangeTitle={(text) => this.setState({ mailTitle: text })}
+                  selectedMail={this.state.selectedTemplate}
+                  title={this.state.mailTitle}
                 />
               )}
               {this.state.actionType === WRITE_EMAIL && !hideWrittenMail && (
                 <WriteEmail
                   mailContent={this.state.mailContent}
-                  title={this.state.mailTitle}
                   onChangeContent={(text) =>
                     this.setState({ mailContent: text })
                   }
                   onChangeTitle={(text) => this.setState({ mailTitle: text })}
+                  title={this.state.mailTitle}
                 />
               )}
               {this.state.actionType === SEND_SMS && (
                 <WriteSMS
-                  smsContent={this.state.smsContent}
                   countReceivers={
                     allIdsWithPhone.filter(
                       (item) => !this.state.unCheckedMembers.includes(item),
@@ -540,17 +539,18 @@ export class CommunicationDrawer extends Component<Props, State> {
                   onChangeContent={(text) =>
                     this.setState({ smsContent: text })
                   }
+                  smsContent={this.state.smsContent}
                 />
               )}
               {this.state.actionType === SEND_PUSH_NOTIFICATION && (
                 <WriteNotification
-                  notificationTitle={this.state.notificationTitle}
-                  onNotificationTitleChange={(text) => {
-                    this.setState({ notificationTitle: text });
-                  }}
                   notificationContent={this.state.notificationContent}
+                  notificationTitle={this.state.notificationTitle}
                   onNotificationContentChange={(text) => {
                     this.setState({ notificationContent: text });
+                  }}
+                  onNotificationTitleChange={(text) => {
+                    this.setState({ notificationTitle: text });
                   }}
                 />
               )}
@@ -565,10 +565,10 @@ export class CommunicationDrawer extends Component<Props, State> {
                   {t('common.cancel')}
                 </Button>
                 <Button
-                  variant="outlined"
+                  color="primary"
                   disabled={this.checkValidity()}
                   type="submit"
-                  color="primary"
+                  variant="outlined"
                 >
                   {t('common.submit')}
                 </Button>

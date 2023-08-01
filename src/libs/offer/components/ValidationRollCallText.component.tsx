@@ -18,7 +18,7 @@ export const ValidationRollCallText: React.FC<Props> = (props) => {
   if (props.nbRollCallsLeftToValidate !== 0) {
     if (!props.lastValidatedRollCallDate) {
       return (
-        <Alert severity="warning" className={classes.alert}>
+        <Alert className={classes.alert} severity="warning">
           {props.isSeveralRollCallsPage && props.nbRollCallsLeftToValidate
             ? t('rollCall.warningText.rollCallsLeftToValidate', {
                 number: props.nbRollCallsLeftToValidate,
@@ -35,7 +35,7 @@ export const ValidationRollCallText: React.FC<Props> = (props) => {
           time: formatAsTime(props.lastValidatedRollCallDate),
         })}
       >
-        <Alert severity="warning" className={classes.alert}>
+        <Alert className={classes.alert} severity="warning">
           {t('rollCall.warningText.modifiedRollCall')}
         </Alert>
       </Tooltip>

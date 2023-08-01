@@ -184,23 +184,23 @@ export class CouponList extends React.PureComponent<Props, State> {
         this.props.activeCoupons.length === 0 &&
         !this.props.loading ? (
           <IsEmptyList
-            text={this.props.t('list.isEmpty')}
             button={this.props.t('createCoupon')}
             onCreate={() =>
               this.setState({ couponFormState: { open: true, initial: null } })
             }
+            text={this.props.t('list.isEmpty')}
           />
         ) : (
           <div>
             <div className={classes.search}>
               <FuzeSearch
-                searchText={this.state.searchText}
-                clearSearch={this.clearSearch}
                 changeSearch={this.changeSearch}
+                clearSearch={this.clearSearch}
                 items={this.props.allCoupons}
                 placeholder={t('search')}
                 searchFields={['name']}
                 searchResult={this.state.searchResult}
+                searchText={this.state.searchText}
               />
 
               <Paper
@@ -217,11 +217,14 @@ export class CouponList extends React.PureComponent<Props, State> {
                     this.state.searchText !== ''
                   }
                 >
-                  <List disablePadding dense>
+                  <List dense disablePadding>
                     {this.state.searchResult.map((coupon) => (
                       <CouponListItem
                         key={coupon.id}
+                        divider
+                        coupon={coupon}
                         onClick={() => this.props.goToCoupon(coupon.id)}
+                        onDelete={this.props.setCouponToDelete}
                         onEdit={(couponSelected: Coupon) =>
                           this.setState({
                             couponFormState: {
@@ -230,9 +233,6 @@ export class CouponList extends React.PureComponent<Props, State> {
                             },
                           })
                         }
-                        onDelete={this.props.setCouponToDelete}
-                        coupon={coupon}
-                        divider
                       />
                     ))}
                   </List>
@@ -241,9 +241,9 @@ export class CouponList extends React.PureComponent<Props, State> {
             </div>
 
             <CouponListComponent
-              inactiveCoupons={this.props.inactiveCoupons}
               activeCoupons={this.props.activeCoupons}
               goToCoupon={this.props.goToCoupon}
+              inactiveCoupons={this.props.inactiveCoupons}
               onEdit={(couponSelected: Coupon) =>
                 this.setState(
                   {
@@ -260,43 +260,43 @@ export class CouponList extends React.PureComponent<Props, State> {
           </div>
         )}
         <CouponFormDrawer
-          open={this.state.couponFormState.open}
+          allPaymentCombosById={this.props.allPaymentCombosById}
+          allPaymentPacksById={this.props.allPaymentPacksById}
+          allPrivatePassesById={this.props.allPrivatePassesById}
+          allShopItemsById={this.props.allShopItemsById}
+          fetchSelectedPaymentCombos={this.props.fetchSelectedPaymentCombos}
+          fetchSelectedPaymentPacks={this.props.fetchSelectedPaymentPacks}
+          fetchSelectedPrivatePasses={this.props.fetchSelectedPrivatePasses}
+          fetchSelectedShopItems={this.props.fetchSelectedShopItems}
           initial={this.state.couponFormState.initial}
-          processing={this.props.createOrUpdateLoading}
-          onSubmit={this.createOrUpdateCoupon}
           onCancel={this.onCloseFormDrawer}
           onClose={this.onCloseFormDrawer}
-          paymentPacks={this.props.paymentPacks}
-          allPaymentPacksById={this.props.allPaymentPacksById}
-          shopItems={this.props.shopItems}
-          allShopItemsById={this.props.allShopItemsById}
-          privatePasses={this.props.privatePasses}
-          allPrivatePassesById={this.props.allPrivatePassesById}
+          onSubmit={this.createOrUpdateCoupon}
+          open={this.state.couponFormState.open}
           paymentCombos={this.props.paymentCombos}
-          allPaymentCombosById={this.props.allPaymentCombosById}
+          paymentPacks={this.props.paymentPacks}
+          privatePasses={this.props.privatePasses}
+          processing={this.props.createOrUpdateLoading}
+          shopItems={this.props.shopItems}
           tagList={this.props.tagList}
           tagsLoading={this.props.tagsLoading}
-          fetchSelectedPaymentPacks={this.props.fetchSelectedPaymentPacks}
-          fetchSelectedShopItems={this.props.fetchSelectedShopItems}
-          fetchSelectedPrivatePasses={this.props.fetchSelectedPrivatePasses}
-          fetchSelectedPaymentCombos={this.props.fetchSelectedPaymentCombos}
         />
         <CouponDeleteModal
-          open={!!this.props.couponToDelete}
           onClose={this.props.closeDeleteModal}
           onSubmit={this.props.deleteCoupon}
+          open={!!this.props.couponToDelete}
         />
         {(!!this.props.inactiveCoupons?.length ||
           !!this.props.activeCoupons?.length) && (
           <div className={classes.addButtonContainer}>
             <Fab
               color="primary"
-              variant="extended"
               onClick={() =>
                 this.setState({
                   couponFormState: { open: true, initial: null },
                 })
               }
+              variant="extended"
             >
               <AddIcon />
               {t('createCoupon')}

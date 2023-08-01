@@ -37,7 +37,7 @@ export const CustomEvenFormDialog = (props: Props) => {
   const classes = useStyles();
 
   return (
-    <Dialog fullScreen={fullScreen} open={props.open} fullWidth>
+    <Dialog fullWidth fullScreen={fullScreen} open={props.open}>
       <Form>
         <DialogTitle>{t('customEvent.form.title')}</DialogTitle>
         <div className={classes.innerDialog}>

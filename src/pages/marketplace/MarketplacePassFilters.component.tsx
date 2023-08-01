@@ -128,18 +128,18 @@ const MarketplacePassFilters: React.FC<Props> = React.memo(
       <>
         <div className={classes.searchContainer}>
           <PassSearch
-            onPressEnter={onSearchPressEnter}
-            paymentPackList={filteredPaymentPackList}
-            paymentComboList={filteredPaymentComboList}
-            privatePassList={filteredPrivatePassList}
+            addPaymentComboToBasket={addComboToCart}
+            addPaymentPackToBasket={addPaymentPackToCart}
+            addPrivatePassToBasket={addPrivatePassToCart}
             isExcludingTax={isExcludingTax}
             onClearInput={onClearSearchResult}
-            showPaymentPackDetail={onShowPaymentPackDetail}
-            addPaymentPackToBasket={addPaymentPackToCart}
-            showPrivatePassDetail={onShowPrivatePassDetail}
-            addPrivatePassToBasket={addPrivatePassToCart}
+            onPressEnter={onSearchPressEnter}
+            paymentComboList={filteredPaymentComboList}
+            paymentPackList={filteredPaymentPackList}
+            privatePassList={filteredPrivatePassList}
             showPaymentComboDetail={onShowPaymentComboDetail}
-            addPaymentComboToBasket={addComboToCart}
+            showPaymentPackDetail={onShowPaymentPackDetail}
+            showPrivatePassDetail={onShowPrivatePassDetail}
           />
 
           <div
@@ -150,21 +150,21 @@ const MarketplacePassFilters: React.FC<Props> = React.memo(
           >
             {!hidePaymentPack && !hidePrivatePass && (
               <Select
-                placeholder={t('marketplace:pass.filters.placeholder.type')}
-                value={searchFiltersState.type}
-                options={searchFilterTypeOptions}
                 isClearable
                 onChange={onChangeType}
+                options={searchFilterTypeOptions}
+                placeholder={t('marketplace:pass.filters.placeholder.type')}
+                value={searchFiltersState.type}
               />
             )}
 
             {!!searchFiltersState.allCategories?.length && (
               <MarketplaceFilter
-                text={t('marketplace:pass.filters.placeholder.categories')}
+                levelVariant={false}
+                onSelect={onChangeCategory}
                 options={searchFiltersState.allCategories}
                 selectedOptions={searchFiltersState.selectedCategories}
-                onSelect={onChangeCategory}
-                levelVariant={false}
+                text={t('marketplace:pass.filters.placeholder.categories')}
               />
             )}
           </div>
@@ -180,10 +180,10 @@ const MarketplacePassFilters: React.FC<Props> = React.memo(
             </span>
 
             <Button
-              variant="outlined"
               color="primary"
-              startIcon={<ArrowBackIcon />}
               onClick={onClearSearchResult}
+              startIcon={<ArrowBackIcon />}
+              variant="outlined"
             >
               {t('marketplace:pass.search.goBack')}
             </Button>

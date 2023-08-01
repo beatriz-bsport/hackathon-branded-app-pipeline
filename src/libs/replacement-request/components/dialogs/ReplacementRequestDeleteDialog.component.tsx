@@ -26,11 +26,11 @@ export const ReplacementRequestDeleteDialog: React.FC<Props> = ({
   const { t } = useTranslation('replacement');
 
   return (
-    <Dialog open={open} maxWidth="sm" classes={{ paper: classes.dialogPaper }}>
-      <Typography variant="h6" className={classes.title}>
+    <Dialog classes={{ paper: classes.dialogPaper }} maxWidth="sm" open={open}>
+      <Typography className={classes.title} variant="h6">
         {t('delete.title')}
       </Typography>
-      <Typography variant="body1" className={classes.title}>
+      <Typography className={classes.title} variant="body1">
         {t('delete.description')}
       </Typography>
       <div className={classes.alignRight}>

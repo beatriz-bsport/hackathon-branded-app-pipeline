@@ -15,12 +15,12 @@ const FranchiseGiftcardTemplateRouter = () => {
   return (
     <Switch>
       <Route
-        path="/f/giftcard-template/:giftcardTemplateId"
         component={FranchiseGiftcardTemplateDetailPage}
+        path="/f/giftcard-template/:giftcardTemplateId"
       />
       <Route
-        path="/f/giftcard-template"
         component={FranchiseGiftcardTemplateListPage}
+        path="/f/giftcard-template"
       />
     </Switch>
   );

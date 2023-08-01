@@ -36,8 +36,8 @@ const ConsumerGiftcardDetail = (props: Props) => {
           </Typography>
           <Paper>
             <InvoiceListItem
-              onClick={() => props.onInvoiceClick(props.invoice.uuid)}
               invoice={props.invoice}
+              onClick={() => props.onInvoiceClick(props.invoice.uuid)}
             />
           </Paper>
         </div>
@@ -49,10 +49,10 @@ const ConsumerGiftcardDetail = (props: Props) => {
           </Typography>
           <Paper>
             <GiftcardListItem
+              giftcard={props.consumerGiftcard.giftcard}
               onClick={() =>
                 props.goToGiftcard(props.consumerGiftcard.giftcard.id)
               }
-              giftcard={props.consumerGiftcard.giftcard}
             />
           </Paper>
         </div>

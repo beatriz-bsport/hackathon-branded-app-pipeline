@@ -51,32 +51,33 @@ export class ColorInput extends Component<Props> {
               backgroundColor: this.props.color,
             }}
           />
-          <Typography id={this.props.id} color="textSecondary">
+          <Typography color="textSecondary" id={this.props.id}>
             {this.props.color ? this.props.color : t('colorPicker.noColor')}
           </Typography>
         </ButtonBase>
         <Popover
-          open={this.props.pickerOpen}
           anchorEl={this.buttonRef.current}
-          onClose={() => this.props.setPickerOpen(false)}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'center',
           }}
+          onClose={() => this.props.setPickerOpen(false)}
+          open={this.props.pickerOpen}
           transformOrigin={{
             vertical: 'top',
             horizontal: 'center',
           }}
         >
           <SketchPicker
+            color={this.props.color}
             disableAlpha={!this.props.withAlpha}
             onChangeComplete={this.onColorChange}
-            color={this.props.color}
           />
           {this.props.transparentColorAvailable ||
           this.props.defaultCompanyThemeColor ? (
             <div className={classes.buttonContainer}>
               <Button
+                className={classes.buttons}
                 onClick={() => {
                   if (this.props.transparentColorAvailable) {
                     this.props.onChange('');
@@ -87,15 +88,14 @@ export class ColorInput extends Component<Props> {
                     this.props.setPickerOpen(!this.props.pickerOpen);
                   }
                 }}
-                className={classes.buttons}
               >
                 {t('colorPicker.delete')}
               </Button>
               <Button
+                className={classes.buttons}
                 onClick={() => {
                   this.props.setPickerOpen(!this.props.pickerOpen);
                 }}
-                className={classes.buttons}
               >
                 {t('colorPicker.validate')}
               </Button>

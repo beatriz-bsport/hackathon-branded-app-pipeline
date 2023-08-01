@@ -42,8 +42,8 @@ export const OfferNavigationHeader = (props: Props) => (
   <Paper className={props.classes.headerContainer}>
     <div className={props.classes.titleBanner}>
       <Button
-        onClick={() => props.goToOffer(props.offer.previous_offer)}
         disabled={!props.offer || props.offer.id !== props.offerId}
+        onClick={() => props.goToOffer(props.offer.previous_offer)}
       >
         <ChevronLeftIcon className={props.classes.leftIcon} />
         <Hidden xsDown>{props.t('translation:offer.previousOffer')}</Hidden>
@@ -77,8 +77,8 @@ export const OfferNavigationHeader = (props: Props) => (
         )}
       </div>
       <Button
-        onClick={() => props.goToOffer(props.offer.next_offer)}
         disabled={!props.offer || props.offer.id !== props.offerId}
+        onClick={() => props.goToOffer(props.offer.next_offer)}
       >
         <Hidden xsDown>{props.t('translation:offer.nextOffer')}</Hidden>
         <ChevronRightIcon className={props.classes.rightIcon} />

@@ -45,9 +45,9 @@ export class ValidateEmailWithToken extends React.Component<Props> {
           <CancelIcon className={classes.icon} />
           <Typography>{t('emailValidation.linkExpired')}</Typography>
           <Button
-            variant="outlined"
-            onClick={this.props.goToLogin}
             color="primary"
+            onClick={this.props.goToLogin}
+            variant="outlined"
           >
             {t('emailValidation.goToLogin')}
           </Button>

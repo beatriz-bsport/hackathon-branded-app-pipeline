@@ -22,15 +22,15 @@ export const ContractSelector = (props: Props) => {
     contractOptions.find((pso) => pso.value === props.contractId) || null;
   return (
     <Select
-      menuPortalTarget={document.querySelector('body')}
-      value={selectedContractOption}
-      options={contractOptions}
-      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
-      placeholder={props.placeholder ?? t('notifications.fabLabels.contract')}
       isDisabled={props.isDisabled}
+      menuPortalTarget={document.querySelector('body')}
       onChange={(option) => {
         props.onChange(option.value);
       }}
+      options={contractOptions}
+      placeholder={props.placeholder ?? t('notifications.fabLabels.contract')}
+      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
+      value={selectedContractOption}
     />
   );
 };

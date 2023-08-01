@@ -97,9 +97,9 @@ const MarketingRuleSendingMethodField = (props: Props) => {
         </div>
         <div className={classes.choiceField}>
           <CheckboxField
-            name="send_email"
-            label={t('notificationForm.sendingMethod.email')}
             checked={send_email}
+            label={t('notificationForm.sendingMethod.email')}
+            name="send_email"
           />
           <FeatureListProvider>
             {(featureList: FeatureList) => {
@@ -109,18 +109,18 @@ const MarketingRuleSendingMethodField = (props: Props) => {
               );
               return (
                 <Tooltip
-                  title={t('booking:notification.form.needPushUpsell')}
                   hide={hasPushNotificationUpsell}
                   placement="bottom-start"
+                  title={t('booking:notification.form.needPushUpsell')}
                 >
                   <div className={classes.flex}>
                     <CheckboxField
-                      name="send_notification_push"
+                      checked={send_notification_push}
+                      disabled={!hasPushNotificationUpsell}
                       label={t(
                         'notificationForm.sendingMethod.notificationPush',
                       )}
-                      checked={send_notification_push}
-                      disabled={!hasPushNotificationUpsell}
+                      name="send_notification_push"
                     />
                   </div>
                 </Tooltip>
@@ -129,7 +129,7 @@ const MarketingRuleSendingMethodField = (props: Props) => {
           </FeatureListProvider>
         </div>
         {send_notification_push && (
-          <Typography variant="caption" color="textSecondary">
+          <Typography color="textSecondary" variant="caption">
             {t('notificationForm.notificationPush.warning')}
           </Typography>
         )}
@@ -145,10 +145,10 @@ const MarketingRuleSendingMethodField = (props: Props) => {
               {t('notificationForm.emailNotification.parameters')}
             </Typography>
             <Typography
-              variant="caption"
               className={classNames({
                 [classes.errorText]: errors.email_design,
               })}
+              variant="caption"
             >
               {t('notificationForm.emailNotification.emailToSend')}
             </Typography>
@@ -158,13 +158,13 @@ const MarketingRuleSendingMethodField = (props: Props) => {
               <div className={classes.selectorContainer}>
                 <EmailSelector
                   emails={emails}
+                  helperText={t('paymentPack:notification.form.mailSelection')}
                   name="email_design"
-                  value={email_design}
                   onChange={(ev) => {
                     setFieldValue('email_design', ev ? ev.value : null);
                     if (ev) getEmailDetail(ev.value);
                   }}
-                  helperText={t('paymentPack:notification.form.mailSelection')}
+                  value={email_design}
                 />
               </div>
             )}
@@ -208,7 +208,7 @@ const MarketingRuleSendingMethodField = (props: Props) => {
                       <CircularProgress />
                     ) : (
                       <div className={classes.previewEmpty}>
-                        <Alert severity="info" className={classes.alertInfo}>
+                        <Alert className={classes.alertInfo} severity="info">
                           {emails.length
                             ? t('communication:mail.selectToShowPreview')
                             : t('notification.form.noMailAvailable')}
@@ -224,7 +224,6 @@ const MarketingRuleSendingMethodField = (props: Props) => {
         {send_notification_push && (
           <div className={classes.fieldContainer}>
             <Typography
-              variant="subtitle2"
               className={classNames(
                 [classes.spacingTop],
                 [classes.spacingBottom],
@@ -232,24 +231,25 @@ const MarketingRuleSendingMethodField = (props: Props) => {
                   [classes.errorText]: errors.notificationContent,
                 },
               )}
+              variant="subtitle2"
             >
               {t('paymentPack:notification.form.pushTitle')}
             </Typography>
             <TextField
-              label={t('communication:mail.titleNotification')}
-              name="notificationTitle"
               fullWidth
               inputProps={{ maxLength: MAX_LENGTH_PUSH_TITLE }}
+              label={t('communication:mail.titleNotification')}
+              name="notificationTitle"
             />
             <Typography variant="caption">
               {`${notificationTitle?.length ?? 0}/${MAX_LENGTH_PUSH_TITLE}`}
             </Typography>
             <NotificationContentInput
+              className={classes.notificationInput}
               label={t('communication:mail.contentNotification')}
               name="notificationContent"
-              className={classes.notificationInput}
-              value={notificationContent}
               tags={tags}
+              value={notificationContent}
             />
           </div>
         )}

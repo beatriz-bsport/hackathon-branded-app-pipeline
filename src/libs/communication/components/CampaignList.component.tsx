@@ -33,8 +33,8 @@ export const CampaignList: React.FC<Props> = ({
     <div className={classes.container}>
       {campaignList.map(([c, r]) => (
         <CampaignListItem
-          campaign={c}
           key={c.uuid}
+          campaign={c}
           onClickReport={() => onClickReport(c.uuid)}
           onClickShow={setShowEmail}
           singleRecipientData={r}
@@ -43,22 +43,22 @@ export const CampaignList: React.FC<Props> = ({
       <div className={classes.buttonContainer}>
         {loading && <CircularProgress />}
         {!loading && fetchMore && (
-          <Button variant="outlined" onClick={fetchMore}>
+          <Button onClick={fetchMore} variant="outlined">
             {t('campaign.list.showMore')}
           </Button>
         )}
         {!loading && campaignList.length === 0 && (
           <div className={classes.column}>
-            <Alert color="grey" severity="info" className={classes.alertInfo}>
+            <Alert className={classes.alertInfo} color="grey" severity="info">
               {t('campaign.list.isEmpty')}
             </Alert>
           </div>
         )}
       </div>
       <HTMLPreviewDialog
-        open={!!showEmail}
         html={showEmail}
         onClose={() => setShowEmail(null)}
+        open={!!showEmail}
         resolvedGenericTags={resolvedGenericTags}
       />
     </div>

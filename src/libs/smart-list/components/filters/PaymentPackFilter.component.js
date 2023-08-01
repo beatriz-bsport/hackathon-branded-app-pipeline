@@ -81,10 +81,10 @@ export class PaymentPackFilter extends Component<Props, state> {
       <div>
         <div className={classes.wrapper}>
           <Select
-            className={classes.input}
             required
-            value={filter_data.has_pack}
+            className={classes.input}
             onChange={(ev) => onChange({ has_pack: !!ev.target.value })}
+            value={filter_data.has_pack}
           >
             <MenuItem key="true" value="true">
               {t(`filters.${filter_data.filter_identifier}.has`)}
@@ -95,24 +95,16 @@ export class PaymentPackFilter extends Component<Props, state> {
           </Select>
           {t(`filters.${filter_data.filter_identifier}.first`)}
           <Selector
-            helperText={t('multiSelector.paymentPacks.helperText')}
-            helperSelectedText={t(
-              'multiSelector.paymentPacks.helperSelectedText',
-            )}
-            textFieldPlaceholder={t(
-              'multiSelector.paymentPacks.textFieldPlaceholder',
-            )}
-            renderItem={(item) => {
-              return <PaymentPackListItem pack={item} />;
-            }}
+            fetchItems={this.props.fetchItems.payment_packs}
             helperAllSelectedText={t(
               'multiSelector.paymentPacks.helperAllSelectedText',
             )}
-            fetchItems={this.props.fetchItems.payment_packs}
-            nameIdentifier="name"
-            selectAll={this.props.filter_data.select_all_payment_packs}
+            helperSelectedText={t(
+              'multiSelector.paymentPacks.helperSelectedText',
+            )}
+            helperText={t('multiSelector.paymentPacks.helperText')}
             items={payment_packs}
-            selectedItems={filter_data.payment_packs}
+            nameIdentifier="name"
             onChange={(items, selectAll) => {
               if (
                 filter_data.payment_packs &&
@@ -137,6 +129,14 @@ export class PaymentPackFilter extends Component<Props, state> {
                 });
               }
             }}
+            renderItem={(item) => {
+              return <PaymentPackListItem pack={item} />;
+            }}
+            selectAll={this.props.filter_data.select_all_payment_packs}
+            selectedItems={filter_data.payment_packs}
+            textFieldPlaceholder={t(
+              'multiSelector.paymentPacks.textFieldPlaceholder',
+            )}
           />
           {this.props.renderSelectorWarning(
             t('multiSelector.paymentPacks.warning'),
@@ -147,13 +147,13 @@ export class PaymentPackFilter extends Component<Props, state> {
         <div className={classes.dateBoughtContainer}>
           <Switch
             checked={filter_data.date_filter_active}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
                 date_filter_active: !filter_data.date_filter_active,
               })
             }
             value="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
           />
           <div
             className={
@@ -166,6 +166,7 @@ export class PaymentPackFilter extends Component<Props, state> {
               `filters.${filter_data.filter_identifier}.date_bought.first`,
             )}
             <CalendarPicker
+              blockValidateOnClickAway
               filter_data={{
                 date_filter_type: filter_data.date_filter_type,
                 duration_second: filter_data.duration_bought_second,
@@ -182,13 +183,13 @@ export class PaymentPackFilter extends Component<Props, state> {
                   date_bought: data.date,
                 })
               }
-              blockValidateOnClickAway
             />
           </div>
         </div>
         <div className={classes.dateBoughtContainer}>
           <Switch
             checked={filter_data.expiration_date_filter_active}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
                 expiration_date_filter_active:
@@ -196,7 +197,6 @@ export class PaymentPackFilter extends Component<Props, state> {
               })
             }
             value="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
           />
           <div
             className={
@@ -236,13 +236,13 @@ export class PaymentPackFilter extends Component<Props, state> {
         <div className={classes.dateBoughtContainer}>
           <Switch
             checked={filter_data.credit_filter_active}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
             onChange={() =>
               onChange({
                 credit_filter_active: !filter_data.credit_filter_active,
               })
             }
             value="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
           />
           <div
             className={
@@ -256,12 +256,12 @@ export class PaymentPackFilter extends Component<Props, state> {
             )}
 
             <Select
-              className={classes.input}
               required
-              value={filter_data.credit_comparator}
+              className={classes.input}
               onChange={(ev) =>
                 onChange({ credit_comparator: ev.target.value })
               }
+              value={filter_data.credit_comparator}
             >
               {DURATION_COMPARATORS_DICT_BETWEEN.map((item) => (
                 <MenuItem key={item.key} value={item.value}>
@@ -270,14 +270,14 @@ export class PaymentPackFilter extends Component<Props, state> {
               ))}
             </Select>
             <DelayedNumericInput
+              isPositive
               classes={classes}
-              value={filter_data.credit_value}
               onChange={(ev) =>
                 onChange({
                   credit_value: ev.target.value === '' ? null : ev.target.value,
                 })
               }
-              isPositive
+              value={filter_data.credit_value}
             />
             {filter_data.credit_comparator === BETWEEN_COMPARATOR
               ? this.props.t(
@@ -287,19 +287,20 @@ export class PaymentPackFilter extends Component<Props, state> {
 
             {filter_data.credit_comparator === BETWEEN_COMPARATOR ? (
               <DelayedNumericInput
+                isPositive
                 classes={classes}
-                value={filter_data.credit_value_second}
                 onChange={(ev) =>
                   onChange({
                     credit_value_second:
                       ev.target.value === '' ? null : ev.target.value,
                   })
                 }
-                isPositive
+                value={filter_data.credit_value_second}
               />
             ) : null}
           </div>
           <Tooltip
+            aria-label="info"
             classes={classes}
             title={
               <Typography variant="subtitle2">
@@ -308,7 +309,6 @@ export class PaymentPackFilter extends Component<Props, state> {
                 )}
               </Typography>
             }
-            aria-label="info"
           >
             <IconButton>
               <InfoIcon />

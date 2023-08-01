@@ -116,67 +116,68 @@ const OfferSearchBar = ({
     <Grid container style={{ overflow: 'auto' }}>
       <Grid
         item
-        xs={6}
+        className={classes.selector}
         // @ts-ignore
         md={mediumSize}
-        className={classes.selector}
+        xs={6}
       >
         <CoachSelector
           coaches={Immutable(coachList)}
+          isLoading={coachesLoading}
           selectedCoaches={filterVerification && offerFilters.coaches}
           selectOption={(ev: number) => setCalendarFilter(ev, FILTER_COACH)}
-          isLoading={coachesLoading}
         />
       </Grid>
       {hasMultiLocation && (
         <Grid
           item
-          xs={6}
+          className={classes.selector}
           // @ts-ignore
           md={mediumSize}
-          className={classes.selector}
+          xs={6}
         >
           <EstablishmentGroupSelector
+            closeMenuOnSelect
             establishmentGroups={establishmentGroupList.filter(
               (group) => group.establishment.length !== 0,
             )}
+            selectedEstablishmentGroups={
+              filterVerification && offerFilters.establishment_group__in
+            }
             selectOption={(ev: EstablishmentGroupSelectOption[]) => {
               // @ts-expect-error
               setCalendarFilter(ev, FILTER_ESTABLISHMENT_GROUP);
             }}
-            closeMenuOnSelect
-            selectedEstablishmentGroups={
-              filterVerification && offerFilters.establishment_group__in
-            }
           />
         </Grid>
       )}
       <Grid
         item
-        xs={6}
+        className={classes.selector}
         // @ts-ignore
         md={mediumSize}
-        className={classes.selector}
+        xs={6}
       >
         <EstablishmentSelector
           establishments={Immutable(filteredEstablishments)}
+          isLoading={establishmentsLoading}
           selectedEstablishments={
             filterVerification && offerFilters.establishments
           }
           selectOption={(ev: number) =>
             setCalendarFilter(ev, FILTER_ESTABLISHMENT)
           }
-          isLoading={establishmentsLoading}
         />
       </Grid>
       <Grid
         item
-        xs={6}
+        className={classes.selector}
         // @ts-ignore
         md={mediumSize}
-        className={classes.selector}
+        xs={6}
       >
         <MetaActivitySelector
+          isLoading={activitiesLoading}
           metaActivities={metaActivities.filter(
             (ma) => ma.customer_enabled && !ma.is_workshop,
           )}
@@ -184,16 +185,15 @@ const OfferSearchBar = ({
             filterVerification && offerFilters.activity__in
           }
           selectOption={(ev: number) => setCalendarFilter(ev, FILTER_ACTIVITY)}
-          isLoading={activitiesLoading}
         />
       </Grid>
       {theme.is_roll_call_mandatory && selectedRollCallStatus && (
         <Grid
           item
-          xs={6}
+          className={classes.selector}
           // @ts-ignore
           md={mediumSize}
-          className={classes.selector}
+          xs={6}
         >
           <RollCallSelector
             selectedRollCallStatus={

@@ -40,12 +40,12 @@ const EstablishmentSelectorItem: React.FC<Props> = (props) => {
 
           <Typography
             className={classes.establishmentAddress}
-            variant="subtitle2"
             color={
               isEstablishmentSelected(establishment)
                 ? 'inherit'
                 : 'textSecondary'
             }
+            variant="subtitle2"
           >
             {establishment.location.address}
           </Typography>

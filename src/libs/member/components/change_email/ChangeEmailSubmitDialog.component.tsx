@@ -134,7 +134,7 @@ export const ChangeEmailSubmitDialog = (props: Props) => {
     return null;
   };
   return (
-    <Dialog open={open} maxWidth="sm" fullWidth>
+    <Dialog fullWidth maxWidth="sm" open={open}>
       <DialogTitle>
         <div className={classes.title}>
           <Typography>{renderTitle()}</Typography>
@@ -146,10 +146,10 @@ export const ChangeEmailSubmitDialog = (props: Props) => {
       <DialogContent>{renderContent()}</DialogContent>
       <DialogActions>
         <Button
-          variant="contained"
           color="primary"
-          size="small"
           onClick={props.goToUserSpace}
+          size="small"
+          variant="contained"
         >
           {t('changeEmailRequest.memberPage.actions.continue')}
         </Button>

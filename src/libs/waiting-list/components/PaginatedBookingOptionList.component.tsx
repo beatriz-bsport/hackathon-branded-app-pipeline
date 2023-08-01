@@ -38,18 +38,18 @@ const PaginatedBookingOptionList = (props: Props) => {
       </div>
 
       <PaginatedListBase
-        listProps={{ disablePadding: 'true', dense: 'true' }}
-        items={props.items}
-        nbItems={props.nbItems}
-        loading={props.loading}
-        page={props.page}
         itemPerPage={props.itemPerPage}
+        items={props.items}
+        listProps={{ disablePadding: 'true', dense: 'true' }}
+        loading={props.loading}
+        nbItems={props.nbItems}
         onPageRequested={(page: number, pageSize: number) =>
           props.onPageRequested(page, pageSize)
         }
+        page={props.page}
         renderEmpty={() => (
           <div className={props.classes.emptyContainer}>
-            <Typography variant="caption" color="textSecondary">
+            <Typography color="textSecondary" variant="caption">
               {props.t('member.empty')}
             </Typography>
           </div>
@@ -58,8 +58,8 @@ const PaginatedBookingOptionList = (props: Props) => {
           <BookingOptionItem
             bookingOption={bo}
             onClick={() => props.onClick(bo)}
-            onClickRegister={() => props.onClickRegister(bo)}
             onClickDiscard={() => props.onClickDiscard(bo)}
+            onClickRegister={() => props.onClickRegister(bo)}
             selectedBookingOption={props.selectedBookingOption}
           />
         )}

@@ -157,11 +157,11 @@ export const ReportStatusChip = (props: Props) => {
 
   return (
     <CustomChip
-      mainColor={textColor}
+      chipClass={chipClass}
       displayedValue={translation}
       icon={icon}
       iconColor={iconColor}
-      chipClass={chipClass}
+      mainColor={textColor}
     />
   );
 };

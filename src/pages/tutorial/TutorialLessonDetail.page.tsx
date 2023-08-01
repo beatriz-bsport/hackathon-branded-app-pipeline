@@ -243,41 +243,41 @@ class TutorialLessonDetail extends React.Component<Props> {
       <div className={classes.container}>
         {this.props.checkTutorialPermission && (
           <Button
+            className={classes.button}
             onClick={() => this.goToMenu()}
             startIcon={<ArrowBackIcon />}
-            className={classes.button}
           >
             {t('lessonHeader.backToList')}
           </Button>
         )}
 
         <TutorialLessonHeader
-          selectedLesson={this.props.selectedLesson}
-          section={this.props.section}
           goToLesson={this.props.goToLesson}
-          tutorial_completion={this.props.tutorial_completion}
           onKnowMore={this.props.onRequestUpsell}
+          section={this.props.section}
+          selectedLesson={this.props.selectedLesson}
+          tutorial_completion={this.props.tutorial_completion}
         />
         <TutorialLessonContent
-          selectedLesson={this.props.selectedLesson}
-          goToLesson={this.props.goToLesson}
-          completeAndGoToMenu={this.completeAndGoToMenu}
           completeAndGoToLesson={this.completeAndGoToLesson}
-          previousLessonId={previousLessonId}
-          nextLessonId={nextLessonId}
+          completeAndGoToMenu={this.completeAndGoToMenu}
+          goToLesson={this.props.goToLesson}
           lesson_restricted={
             this.props.lessonRestricted && !this.props.checkTutorialPermission
           }
+          nextLessonId={nextLessonId}
+          previousLessonId={previousLessonId}
+          selectedLesson={this.props.selectedLesson}
           tutorial_completion={this.props.tutorial_completion}
         />
         <TutorialGenericDialog
-          open={this.props.openSectionFinishDialog}
           identifier={TUTORIAL_GENERIC_DIALOG_SECTION_FINISH}
           onClose={this.onCloseSectionFinishDialog}
+          open={this.props.openSectionFinishDialog}
         />
         <FeatureRequestDialog
-          open={this.props.openFeatureRequest}
           onClose={() => this.props.setOpenFeatureRequest(false)}
+          open={this.props.openFeatureRequest}
         />
       </div>
     );

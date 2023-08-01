@@ -72,12 +72,14 @@ const GraphParamTimeslotsForm: React.FC<Props> = ({
 
   return (
     <>
-      <Typography variant="body1" className={classes.selectLabel}>
+      <Typography className={classes.selectLabel} variant="body1">
         {t('graphFormDrawer.labels.dataToDisplay')}
       </Typography>
       <div className={classes.row}>
         <div>
           <MaterialUiSingleSelectorField
+            inScrollBar
+            isDisabled
             className={classNames(classes.selectInput)}
             name="graph_params.date_for_slots"
             options={[
@@ -91,13 +93,11 @@ const GraphParamTimeslotsForm: React.FC<Props> = ({
             placeholder={t(
               'graphFormDrawer.placeholders.dashboardGraphIdentifier',
             )}
-            isDisabled
-            inScrollBar
           />
         </div>
       </div>
 
-      <Typography variant="body2" className={classes.helperText}>
+      <Typography className={classes.helperText} variant="body2">
         {t('dashboard:graphFormDrawer.helperText.booking_effectif_timeslots')}
       </Typography>
     </>

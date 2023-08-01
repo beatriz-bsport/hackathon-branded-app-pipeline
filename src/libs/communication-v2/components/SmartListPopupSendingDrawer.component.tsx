@@ -123,10 +123,10 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
 
   return (
     <GenericResponsiveDrawer
-      open={open}
-      onClose={onClose}
-      title={t('smartListPopup.drawerTitle')}
       withoutPadding
+      onClose={onClose}
+      open={open}
+      title={t('smartListPopup.drawerTitle')}
     >
       <Divider className={classes.topDivider} />
       {loading ? (
@@ -139,15 +139,15 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
             smartListPopupsToDisplay.map((smartListPopup, index) => (
               <SmartListPopupListItem
                 key={smartListPopup.id}
-                smartListPopup={smartListPopup}
-                openPreview={setSmartListPopupToPreview}
-                openMemberList={openMemberList}
                 noDivider={index === 0}
+                openMemberList={openMemberList}
+                openPreview={setSmartListPopupToPreview}
+                smartListPopup={smartListPopup}
               />
             ))
           ) : (
             <div className={classes.noResult}>
-              <Alert severity="info" className={classes.noResultInfo}>
+              <Alert className={classes.noResultInfo} severity="info">
                 {t('smartListPopup.noSmartListPopup')}
               </Alert>
             </div>
@@ -161,9 +161,9 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
 
       {/* Preview */}
       <GenericResponsiveDialog
-        open={!!smartListPopupToPreview}
-        onClose={closePreview}
         padding
+        onClose={closePreview}
+        open={!!smartListPopupToPreview}
       >
         <DialogTitle>{t('smartListPopup.previewTitle')}</DialogTitle>
         <div className={classes.previewInner}>
@@ -173,14 +173,14 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
           </div>
           <img
             alt="some-cover"
-            src={getUrl(smartListPopupToPreview?.custom_app_popup_link?.image)}
             className={classes.previewImage}
+            src={getUrl(smartListPopupToPreview?.custom_app_popup_link?.image)}
           />
           <div className={classes.previewBottom}>
             <Button
               className={classes.previewBottomButton}
-              variant="contained"
               color="primary"
+              variant="contained"
             >
               {t('smartListPopup.preview')}
             </Button>
@@ -195,9 +195,9 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
 
       {/* Recipient list */}
       <GenericResponsiveDialog
-        open={!!smartListPopupToShowMembers}
-        onClose={closeMemberList}
         maxWidth="sm"
+        onClose={closeMemberList}
+        open={!!smartListPopupToShowMembers}
       >
         <DialogTitle>
           {`${t('smartListPopup.memberListTitle')} - ${moment(
@@ -206,7 +206,7 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
             smartListPopupToShowMembers?.custom_app_popup_link?.date_created,
           ).format('LT')}`}
         </DialogTitle>
-        <Typography variant="subtitle1" className={classes.recipientsAmount}>
+        <Typography className={classes.recipientsAmount} variant="subtitle1">
           {`${smartListPopupToShowMembers?.member_ids.length ?? 0} ${t(
             'smartListPopup.recipient',
             { count: smartListPopupToShowMembers?.member_ids.length ?? 0 },
@@ -216,7 +216,7 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
           <CircularProgress />
         ) : (
           filteredMembersToDisplay.map((member) => (
-            <div className={classes.memberListItem} key={member.id}>
+            <div key={member.id} className={classes.memberListItem}>
               <Avatar src={member.photo} />
               <Typography variant="body1">{member.name}</Typography>
             </div>
@@ -224,12 +224,12 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
         )}
         {smartListPopupToShowMembers?.member_ids.length > MEMBER_PAGE_SIZE && (
           <Pagination
-            page={memberListPage}
+            className={classes.pagination}
             count={Math.ceil(
               smartListPopupToShowMembers?.member_ids.length / MEMBER_PAGE_SIZE,
             )}
             onChange={handleChangePage}
-            className={classes.pagination}
+            page={memberListPage}
           />
         )}
         <DialogActions>

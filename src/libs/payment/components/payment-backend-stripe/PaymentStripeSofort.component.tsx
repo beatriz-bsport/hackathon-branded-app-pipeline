@@ -198,29 +198,29 @@ export const PaymentStripeSofort = forwardRef(
       <form onSubmit={handleSubmit}>
         <div className={classes.fieldContainer}>
           <CountrySelector
-            value={country}
             label={t('paymentPanel.fields.country.label')}
             onChange={(
               ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
             ) => {
               setCountry(ev.target.value);
             }}
+            value={country}
           />
           <TextInput
-            value={name}
+            required
+            className={classes.field}
             label={t('paymentPanel.fields.accountHolderName.label')}
-            placeholder={t('paymentPanel.fields.accountHolderName.placeholder')}
-            required
             onChange={(ev) => setName(ev.target.value)}
-            className={classes.field}
+            placeholder={t('paymentPanel.fields.accountHolderName.placeholder')}
+            value={name}
           />
           <TextInput
-            value={email}
-            label={t('paymentPanel.fields.email.label')}
-            placeholder={t('paymentPanel.fields.email.placeholder')}
             required
-            onChange={(ev) => setEmail(ev.target.value)}
             className={classes.field}
+            label={t('paymentPanel.fields.email.label')}
+            onChange={(ev) => setEmail(ev.target.value)}
+            placeholder={t('paymentPanel.fields.email.placeholder')}
+            value={email}
           />
           {errorMessage && (
             <Typography color="error">{errorMessage}</Typography>
@@ -237,18 +237,18 @@ export const PaymentStripeSofort = forwardRef(
               {t('paymentPanel.actions.saveForLater')}
             </Typography>
             <Typography
-              variant={isNewCheckoutFlow ? 'body1' : 'caption'}
               color="textSecondary"
+              variant={isNewCheckoutFlow ? 'body1' : 'caption'}
             >
               {t('paymentPanel.actions.saveForLaterAsSEPA')}
             </Typography>
           </div>
           <div className={classes.securityInformationContainer}>
             <PopOver
-              title={t('paymentPanel.actions.paymentSecurityInformation')}
               anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
               className={classes.securityInformationText}
+              title={t('paymentPanel.actions.paymentSecurityInformation')}
+              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
               <Info className={classes.infoIcon} />
             </PopOver>
@@ -265,19 +265,19 @@ export const PaymentStripeSofort = forwardRef(
               ) : (
                 <Button
                   color="primary"
-                  variant="contained"
-                  type="submit"
                   disabled={
                     loading ||
                     forceDisabled ||
                     !stripe ||
                     !termsAndConditionsAccepted
                   }
+                  type="submit"
+                  variant="contained"
                 >
                   {t('paymentPanel.actions.confirmPayment')}
                 </Button>
               )}
-              <Button onClick={onCancel} disabled={processing}>
+              <Button disabled={processing} onClick={onCancel}>
                 {t('paymentPanel.actions.cancel')}
               </Button>
             </div>

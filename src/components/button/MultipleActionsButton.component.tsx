@@ -78,46 +78,46 @@ const MultipleActionsButton: React.FC<MultipleActionsButtonProps> = ({
     <div className={classes.container}>
       <ClickAwayListener onClickAway={handleClickAway}>
         <ButtonBase
+          className={classes.button}
           onClick={handleClick}
           onContextMenu={handleRightClick}
-          className={classes.button}
         >
           <CustomMuiIcon
-            icon={customIcon || 'MoreVert'}
-            customColor={customColor || 'black'}
-            withBackground={false}
             defaultBackGround
+            customColor={customColor || 'black'}
+            icon={customIcon || 'MoreVert'}
+            withBackground={false}
           />
         </ButtonBase>
       </ClickAwayListener>
       <Menu
-        id="action-menu"
         anchorEl={anchorEl}
-        getContentAnchorEl={null}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-        open={Boolean(anchorEl)}
+        getContentAnchorEl={null}
+        id="action-menu"
         onClose={handleClickAway}
+        open={Boolean(anchorEl)}
         PaperProps={{
           style: {
             marginTop: '4px',
           },
         }}
+        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
       >
         {actionList.map((action, index) => (
           <MenuItem
             key={`${index}${action.label}`}
-            value={action.label}
             onClick={handleOnClickAction(action.onClick)}
             onContextMenu={handleRightClick}
+            value={action.label}
           >
             <CustomMuiIcon
-              icon={action.icon}
-              customColor={action.customColor || customColor}
-              withBackground={false}
               defaultBackGround
+              customColor={action.customColor || customColor}
+              icon={action.icon}
+              withBackground={false}
             />
-            <Typography variant="body1" className={classes.label}>
+            <Typography className={classes.label} variant="body1">
               {action.label}
             </Typography>
           </MenuItem>

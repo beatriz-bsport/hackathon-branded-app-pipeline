@@ -124,12 +124,12 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
   return (
     <>
       <ButtonBase
-        disableRipple={!onClick || props.onRemove}
-        onClick={!props.onRemove && onClick}
         className={clx([
           classes.container,
           props.disabled ? classes.disableContainer : null,
         ])}
+        disableRipple={!onClick || props.onRemove}
+        onClick={!props.onRemove && onClick}
       >
         {props.disabled && <div className={classes.disableOverlay} />}
         <div className={classes.time}>
@@ -161,11 +161,11 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
             />
           )}
           {!props.hideCoach && (
-            <Typography variant="body2" align="left">
+            <Typography align="left" variant="body2">
               <strong>{coachName}</strong>
             </Typography>
           )}
-          <Typography variant="caption" align="left">
+          <Typography align="left" variant="caption">
             {establishmentTitle}
           </Typography>
           <div className={classes.rightPanel}>
@@ -184,7 +184,7 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
       </ButtonBase>
       {props.isRegistered && (
         <div className={classes.hasRegisteredContainer}>
-          <Typography variant="caption" className={classes.hasRegisteredTypo}>
+          <Typography className={classes.hasRegisteredTypo} variant="caption">
             {t('booking:bookingModule.hasRegistered')}
           </Typography>
         </div>

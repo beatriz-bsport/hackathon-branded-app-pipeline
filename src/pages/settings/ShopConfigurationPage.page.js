@@ -62,7 +62,7 @@ export class OrderConfigrationPage extends Component<Props> {
     }
     return (
       <div className={classes.container}>
-        <Typography variant="h5" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h5">
           {t('configuration.deliveryFee')}
         </Typography>
         <Divider className={classes.divider} />
@@ -70,23 +70,23 @@ export class OrderConfigrationPage extends Component<Props> {
           <div className={classes.paperInner}>
             <OrderConfigurationForm
               configuration={configuration}
-              processing={processing}
               deliveryFees={deliveryFees}
               onSubmit={this.props.patchConfiguration}
+              processing={processing}
             />
           </div>
         </Paper>
         <Paper className={classes.paper}>
           <DeliveryFeeTable
             deliveryFees={deliveryFees}
-            onEdit={this.props.openEditModal}
             onDelete={this.props.disableDeliveryFee}
+            onEdit={this.props.openEditModal}
           />
           <div className={classes.paperInner}>
             <Button
               color="primary"
-              variant="outlined"
               onClick={() => this.props.openEditModal({})}
+              variant="outlined"
             >
               <AddIcon className={classes.leftIcon} />
               {t('deliveryFee.forms.create')}
@@ -94,10 +94,10 @@ export class OrderConfigrationPage extends Component<Props> {
           </div>
         </Paper>
         <DeliveryFeeDialogForm
-          open={!!this.props.openedFee}
           deliveryFee={this.props.openedFee}
           onClose={() => this.props.openEditModal(null)}
           onSubmit={this.props.createOrUpdateDeliveryFee}
+          open={!!this.props.openedFee}
         />
       </div>
     );

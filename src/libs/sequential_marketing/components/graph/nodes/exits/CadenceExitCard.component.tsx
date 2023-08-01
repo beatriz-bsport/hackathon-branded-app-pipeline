@@ -61,20 +61,20 @@ const CadenceExitHeader: React.FC<CadenceExitHeaderProps> = React.memo(
 
     return (
       <CadenceNodeTitle
-        name={
-          status === DestinationStatus.WIN
-            ? t('cadence.cadenceCard.win')
-            : t('cadence.cadenceCard.lost')
-        }
-        icon={status === DestinationStatus.WIN ? 'CheckCircle' : 'Cancel'}
+        actions={actions}
         color={
           status === DestinationStatus.WIN
             ? SequentialMarketingColors.ENTRY_COLOR
             : SequentialMarketingColors.LOSE_COLOR
         }
-        actions={actions}
         handleDisableRipple={handleDisableRipple}
         handleEnableRipple={handleEnableRipple}
+        icon={status === DestinationStatus.WIN ? 'CheckCircle' : 'Cancel'}
+        name={
+          status === DestinationStatus.WIN
+            ? t('cadence.cadenceCard.win')
+            : t('cadence.cadenceCard.lost')
+        }
       />
     );
   },
@@ -98,29 +98,29 @@ const CadenceExitCard: React.FC<CadenceExitCardProps> = ({
 
   return (
     <StepCard
-      header={
-        <CadenceExitHeader
-          status={status}
-          onDelete={onDelete}
-          handleChangeInStep={handleChangeInStep}
-          handleDisableRipple={handleDisableRipple}
-          handleEnableRipple={handleEnableRipple}
-        />
-      }
+      maxWidth
+      minHeight
       color={
         status === DestinationStatus.WIN
           ? SequentialMarketingColors.ENTRY_BORDER_COLOR
           : SequentialMarketingColors.LOSE_BORDER_COLOR
       }
+      disableRipple={disableRipple}
+      header={
+        <CadenceExitHeader
+          handleChangeInStep={handleChangeInStep}
+          handleDisableRipple={handleDisableRipple}
+          handleEnableRipple={handleEnableRipple}
+          onDelete={onDelete}
+          status={status}
+        />
+      }
+      isSelected={isSelected}
       selectedColor={
         status === DestinationStatus.WIN
           ? SequentialMarketingColors.ENTRY_COLOR
           : SequentialMarketingColors.LOSE_COLOR
       }
-      isSelected={isSelected}
-      disableRipple={disableRipple}
-      maxWidth
-      minHeight
     />
   );
 };

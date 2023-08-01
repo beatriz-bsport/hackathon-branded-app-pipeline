@@ -87,25 +87,25 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
     return (
       <Grid container className={classes.container} direction="row" spacing={3}>
         <Grid
-          xs={4}
           style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
+          xs={4}
         >
-          <svg width={105} height={73}>
+          <svg height={73} width={105}>
             <CanvasSpotComponent
-              x={x}
-              y={y}
-              spotType={spotType}
-              getAsset={getAsset}
-              assets={this.props.assets}
               selectingSpot
               asset_identifier="spot_free"
+              assets={this.props.assets}
+              getAsset={getAsset}
+              spotType={spotType}
+              x={x}
+              y={y}
             />
           </svg>
-          <Typography variant="body2" className={classes.spotStatus}>
+          <Typography className={classes.spotStatus} variant="body2">
             {spotType?.name
               ? t('spotCreatorForm.freePersonalized', {
                   name: spotType.name,
@@ -114,26 +114,26 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
           </Typography>
         </Grid>
         <Grid
-          xs={4}
           style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
+          xs={4}
         >
-          <svg width={105} height={73}>
+          <svg height={73} width={105}>
             <CanvasSpotComponent
+              selectingSpot
+              taken
+              asset_identifier="spot_taken"
+              assets={this.props.assets}
+              getAsset={getAsset}
+              spotType={spotType}
               x={x}
               y={y}
-              spotType={spotType}
-              taken
-              selectingSpot
-              getAsset={getAsset}
-              assets={this.props.assets}
-              asset_identifier="spot_taken"
             />
           </svg>
-          <Typography variant="body2" className={classes.spotStatus}>
+          <Typography className={classes.spotStatus} variant="body2">
             {spotType?.name
               ? t('spotCreatorForm.takenPersonalized', {
                   name: spotType.name,
@@ -142,26 +142,26 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
           </Typography>
         </Grid>
         <Grid
-          xs={4}
           style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
+          xs={4}
         >
-          <svg width={105} height={73}>
+          <svg height={73} width={105}>
             <CanvasSpotComponent
-              x={x}
-              y={y}
-              spotType={spotType}
               selected
               selectingSpot
-              getAsset={getAsset}
-              assets={this.props.assets}
               asset_identifier="spot_taken"
+              assets={this.props.assets}
+              getAsset={getAsset}
+              spotType={spotType}
+              x={x}
+              y={y}
             />
           </svg>
-          <Typography variant="body2" className={classes.spotStatus}>
+          <Typography className={classes.spotStatus} variant="body2">
             {spotType?.name
               ? t('spotCreatorForm.selectedPersonalized', {
                   name: spotType.name,
@@ -218,16 +218,16 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
           })}
         >
           <SpotSelector
-            roomBlueprint={this.props.roomBlueprint}
             assets={this.props.assets}
-            takenSpot={this.props.takenSpot}
+            coach={getCoachOrSubstitute(this.props.offer)}
+            fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+            isMobile={isMobile}
             onSelectSpot={this.onSelectSpot}
             onSelectTakenSpot={this.onSelectTakenSpot}
+            roomBlueprint={this.props.roomBlueprint}
             selectedSpot={this.props.selectedIndex}
-            fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
             spotTypesOfBlueprint={this.props.spotTypesOfBlueprint}
-            coach={getCoachOrSubstitute(this.props.offer)}
-            isMobile={isMobile}
+            takenSpot={this.props.takenSpot}
           />
           <div
             className={clx([
@@ -237,8 +237,8 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
           >
             {!isMobile && (
               <IconButton
-                className={classes.closeButton}
                 aria-label="close"
+                className={classes.closeButton}
                 onClick={this.props.onClose}
               >
                 <CloseIcon />
@@ -249,7 +249,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                 <Typography variant="h5">
                   {t('spotSelectorDialog.title')}
                 </Typography>
-                <Typography variant="h6" className={classes.metaActivityName}>
+                <Typography className={classes.metaActivityName} variant="h6">
                   {this.props.offer?.meta_activity?.name}
                 </Typography>
                 <div className={classes.dateContainer}>
@@ -279,21 +279,21 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
             {!isMobile && (
               <div className={this.props.classes.buttonContainer}>
                 <button
-                  type="button"
-                  disabled={
-                    !this.props.selectedIndex || this.state.takenSpotError
-                  }
-                  onClick={this.props.onSubmit}
                   className={clx([
                     classes.submitButton,
                     this.props.selectedIndex && !this.state.takenSpotError
                       ? classes.submitButtonAvailable
                       : null,
                   ])}
+                  disabled={
+                    !this.props.selectedIndex || this.state.takenSpotError
+                  }
+                  onClick={this.props.onSubmit}
+                  type="button"
                 >
                   <Typography
-                    variant="subtitle1"
                     className={classes.submitText}
+                    variant="subtitle1"
                   >
                     {typeof this.props.selectedIndex === 'number'
                       ? t('spotSelectorDialog.book', {
@@ -324,11 +324,6 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
               ])}
             >
               <button
-                type="button"
-                disabled={
-                  !this.props.selectedIndex || this.state.takenSpotError
-                }
-                onClick={this.props.onSubmit}
                 className={clx([
                   classes.submitButton,
                   classes.submitButtonMobile,
@@ -336,8 +331,13 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                     ? classes.submitButtonAvailable
                     : null,
                 ])}
+                disabled={
+                  !this.props.selectedIndex || this.state.takenSpotError
+                }
+                onClick={this.props.onSubmit}
+                type="button"
               >
-                <Typography variant="subtitle1" className={classes.submitText}>
+                <Typography className={classes.submitText} variant="subtitle1">
                   {typeof this.props.selectedIndex === 'number'
                     ? t('spotSelectorDialog.book', {
                         prefix: this.props.selectedSpot?.prefix,
@@ -372,21 +372,21 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
     const isMobile = isWidthDown('sm', width);
     return (
       <Dialog
-        fullScreen={this.props.fullScreen || this.props.forceFullScreen}
-        open={this.props.open}
-        maxWidth="lg"
         fullWidth
+        classes={{ paper: this.props.classes.dialogPaper }}
+        fullScreen={this.props.fullScreen || this.props.forceFullScreen}
+        maxWidth="lg"
+        open={this.props.open}
         PaperProps={
           !this.props.fullScreen && {
             style: { borderRadius: 20 },
           }
         }
-        classes={{ paper: this.props.classes.dialogPaper }}
       >
         {isMobile && (
           <div className={classes.mobileTitle}>
             <div className={classes.topMobileTitle}>
-              <Typography variant="h5" style={{ width: '100%' }}>
+              <Typography style={{ width: '100%' }} variant="h5">
                 {t('spotSelectorDialog.title')}
               </Typography>
               <IconButton onClick={this.props.onClose}>
@@ -394,7 +394,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
               </IconButton>
             </div>
 
-            <Typography variant="h6" className={classes.metaActivityNameMobile}>
+            <Typography className={classes.metaActivityNameMobile} variant="h6">
               {this.props.offer?.meta_activity?.name}
             </Typography>
             <div className={classes.dateContainer}>

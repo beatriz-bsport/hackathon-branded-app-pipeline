@@ -40,8 +40,8 @@ export const BookingCapabilities = (props: Props) => {
       <div classsName={classes.section}>
         <Typography
           className={classes.sectionTitle}
-          variant="h5"
           component="h4"
+          variant="h5"
         >
           {t('bookerModule.bookingCapabilities.compatibleConsumerPassTitle')}
         </Typography>
@@ -53,19 +53,19 @@ export const BookingCapabilities = (props: Props) => {
         <Paper>
           {props.compatibleWithUnpaidBooking && (
             <UnPrivateConsumerPassBookerListItem
-              private_consumer_pass={null}
               key="unpaid_booking_pass"
-              onBook={() => props.onConsumerPassClick(null, true)}
               compatibleWithUnpaidBooking={props.compatibleWithUnpaidBooking}
+              onBook={() => props.onConsumerPassClick(null, true)}
+              private_consumer_pass={null}
               privateSlotCredit={props.privateSlotCredit}
             />
           )}
           {privateConsumerPassList.map((pcp) => (
             <PrivateConsumerPassBookerListItem
-              private_consumer_pass={pcp}
               key={pcp.id}
-              onBook={() => props.onConsumerPassClick(pcp.id)}
               compatibleWithUnpaidBooking={props.compatibleWithUnpaidBooking}
+              onBook={() => props.onConsumerPassClick(pcp.id)}
+              private_consumer_pass={pcp}
             />
           ))}
         </Paper>
@@ -75,8 +75,8 @@ export const BookingCapabilities = (props: Props) => {
         <div classsName={classes.section}>
           <Typography
             className={classes.sectionTitle}
-            variant="h5"
             component="h4"
+            variant="h5"
           >
             {t('bookerModule.bookingCapabilities.compatiblePassTitle')}
           </Typography>
@@ -90,8 +90,8 @@ export const BookingCapabilities = (props: Props) => {
           <div classsName={classes.section}>
             <Typography
               className={classes.sectionTitle}
-              variant="h5"
               component="h4"
+              variant="h5"
             >
               {cat.name
                 ? cat.name
@@ -101,11 +101,11 @@ export const BookingCapabilities = (props: Props) => {
               <Paper>
                 {cat.passes.map((pp) => (
                   <PrivatePassBookerListItem
-                    isExcludingTax={props.isExcludingTax}
-                    private_pass={pp}
                     key={pp.id}
-                    onClick={() => props.onPrivatePassClick(pp.id)}
                     hideCredits={!!hideCredits}
+                    isExcludingTax={props.isExcludingTax}
+                    onClick={() => props.onPrivatePassClick(pp.id)}
+                    private_pass={pp}
                   />
                 ))}
               </Paper>

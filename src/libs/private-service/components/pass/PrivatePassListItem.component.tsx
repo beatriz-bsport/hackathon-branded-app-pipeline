@@ -52,9 +52,9 @@ export const PrivatePassListItem = (props: Props) => {
       wrapper={(children) => <Paper>{children}</Paper>}
     >
       <ListItem
+        button={!!props.onClick}
         dense={props.dense}
         divider={props.divider}
-        button={!!props.onClick}
         onClick={props.onClick}
       >
         {props.draggable && (
@@ -63,12 +63,12 @@ export const PrivatePassListItem = (props: Props) => {
           </IconButton>
         )}
         <ListItemText
-          style={{ marginLeft: 10 }}
           primary={props.pass.name}
           secondary={`${t('privatePass.parameters.nbCredits', {
             count: props.pass.credits / getCreditFactor(),
             credits: props.pass.credits / getCreditFactor(),
           })} - ${dateInfo}`}
+          style={{ marginLeft: 10 }}
         />
         {!props.pass.is_usable_by_staff && props.pass.available && (
           <Tooltip title={t('privatePass.listItem.unusableByStaff')}>

@@ -92,10 +92,10 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
     if (outlinedIconVariant) {
       return (
         <Button
-          onClick={() => setOpen(true)}
-          variant="outlined"
           color="secondary"
           disabled={props.disabled}
+          onClick={() => setOpen(true)}
+          variant="outlined"
         >
           <CardGiftcardIcon className={classes.leftIcon} />
           {t('applyGiftcard.giftcard')}
@@ -104,10 +104,10 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
     }
     return (
       <Button
-        onClick={() => setOpen(true)}
-        variant="contained"
         color="secondary"
         disabled={props.disabled}
+        onClick={() => setOpen(true)}
+        variant="contained"
       >
         {t('applyGiftcard.actions.apply')}
       </Button>
@@ -123,7 +123,6 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
       {props.applyGiftcardOnInvoice && open && (
         <Formik
           enableReinitialize
-          validationSchema={validationSchema}
           initialValues={{
             amount: initializeAmount(),
             invoice_amount_due:
@@ -148,6 +147,7 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
               },
             );
           }}
+          validationSchema={validationSchema}
         >
           {({
             setFieldValue,
@@ -179,7 +179,7 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
             };
             return (
               <Form>
-                <Dialog open={open} fullWidth maxWidth="md">
+                <Dialog fullWidth maxWidth="md" open={open}>
                   {isSubmitting && <LinearProgress color="primary" />}
                   <div className={classes.dialogContent}>
                     <div className={classes.header}>
@@ -192,6 +192,7 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
                         <>
                           <PriceField name="amount" />
                           <IconButton
+                            color="primary"
                             onClick={async () => {
                               await setFieldTouched('amount');
                               await validateField('amount');
@@ -200,7 +201,6 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
                               }
                               setEditablePrice(false);
                             }}
-                            color="primary"
                           >
                             <SaveIcon />
                           </IconButton>
@@ -211,8 +211,8 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
                             {getCurrencyDisplayWithPrice(values.amount)}
                           </Typography>
                           <IconButton
-                            onClick={() => setEditablePrice(true)}
                             color="primary"
+                            onClick={() => setEditablePrice(true)}
                           >
                             <EditIcon />
                           </IconButton>
@@ -221,7 +221,7 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
                     </div>
                     <ErrorMessage name="amount">
                       {(error_msg) => (
-                        <Typography variant="caption" color="error">
+                        <Typography color="error" variant="caption">
                           {t(`${error_msg}`)}
                         </Typography>
                       )}
@@ -246,15 +246,15 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
                           <div className={classes.radioRow}>
                             <Radio
                               checked={values.giftcard_selected === cgc.id}
-                              onClick={() => handleSelection(cgc)}
                               className={classes.radio}
+                              onClick={() => handleSelection(cgc)}
                             />
                             <ConsumerGiftcardListItem
                               key={cgc.id}
-                              consumerGiftcard={cgc}
-                              giftcard={cgc.giftcard}
                               showAsRecipient
                               showSender
+                              consumerGiftcard={cgc}
+                              giftcard={cgc.giftcard}
                               memberReceiver={props.invoice.member}
                               memberSender={cgc.src_member}
                             />
@@ -266,16 +266,16 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
                   <DialogActions className={classes.actions}>
                     <Button
                       disabled={props.disabled || isSubmitting}
-                      variant="text"
                       onClick={() => setOpen(false)}
+                      variant="text"
                     >
                       {t('applyGiftcard.actions.cancel')}
                     </Button>
                     <Button
-                      disabled={props.disabled || isSubmitting}
-                      variant="contained"
                       color="primary"
+                      disabled={props.disabled || isSubmitting}
                       onClick={() => handleSubmit()}
+                      variant="contained"
                     >
                       {t('applyGiftcard.actions.confirm')}
                     </Button>

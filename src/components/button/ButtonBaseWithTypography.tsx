@@ -22,13 +22,13 @@ type Props = {
 const ButtonBaseWithTypography = (props: Props) => {
   return (
     <ButtonBase
-      onClick={props.onClick}
       className={classnames({ [props.className]: !!props.className })}
       disableRipple={!!props.disableRipple}
+      onClick={props.onClick}
     >
       <Typography
-        variant={props.typographyVariant}
         color={props.typographyColor}
+        variant={props.typographyVariant}
       >
         {props.children}
       </Typography>

@@ -47,12 +47,12 @@ export const SubscriptionContractListItem = (props: Props) => {
 
   return (
     <ListItem
-      onClick={props.onClick}
       button={!!props.onClick}
-      selected={props.selected}
-      divider={props.divider}
       dense={props.dense}
+      divider={props.divider}
       id={`contract#${props.contract.id}`}
+      onClick={props.onClick}
+      selected={props.selected}
     >
       <ListItemText
         primary={`${props.contract.name} - ${getCurrencyDisplayWithPrice(
@@ -86,12 +86,12 @@ export const SubscriptionContractListItem = (props: Props) => {
       )}
       {props.contract.hasActiveNotification && (
         <Tooltip
+          aria-label="info"
           title={
             <Typography variant="subtitle2">
               {props.t('notificationToolTip')}
             </Typography>
           }
-          aria-label="info"
         >
           <IconButton>
             <NotificationsIcon />

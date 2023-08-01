@@ -35,14 +35,14 @@ function FuzzySearch<T>(props: Props<T>) {
   return (
     <div className={className}>
       <FuzeSearch
-        searchText={search}
+        changeSearch={changeSearch}
         clearSearch={() => {
           setSearch('');
         }}
-        changeSearch={changeSearch}
         items={items}
         placeholder={placeholder}
         searchFields={searchFields}
+        searchText={search}
       />
       <Paper
         className={
@@ -52,7 +52,7 @@ function FuzzySearch<T>(props: Props<T>) {
         }
       >
         <Collapse in={searchResult.length > 0 && search !== ''}>
-          <List component="nav" disablePadding>
+          <List disablePadding component="nav">
             {searchResult.map((item) => itemRenderer(item, search))}
           </List>
         </Collapse>

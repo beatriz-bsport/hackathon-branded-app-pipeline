@@ -33,13 +33,13 @@ export const GenericResponsiveDialog: React.FC<Props> = (props) => {
 
   return (
     <Dialog
-      open={open}
-      maxWidth={maxWidth}
       fullWidth
-      fullScreen={noFullScreen ? false : fullScreen}
-      scroll="body"
-      onClose={onClose}
       classes={{ paper: classes.modal }}
+      fullScreen={noFullScreen ? false : fullScreen}
+      maxWidth={maxWidth}
+      onClose={onClose}
+      open={open}
+      scroll="body"
     >
       {children}
     </Dialog>

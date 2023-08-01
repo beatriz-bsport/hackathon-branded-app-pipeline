@@ -90,21 +90,21 @@ const PaymentPackComboBookableItem = (props: Props) => {
         </Typography>
 
         {showTotalPrice && (
-          <Typography variant="h6" className={classes.totalPrice}>
+          <Typography className={classes.totalPrice} variant="h6">
             {getCurrencyDisplayWithPrice(totalItemsPrice)}
           </Typography>
         )}
       </div>
-      <Typography variant="body1" color="textPrimary" align="left">
+      <Typography align="left" color="textPrimary" variant="body1">
         {props.paymentCombo.name}
       </Typography>
       <TypographyWithShowMore
-        maxCharacterCount={65}
         alignButtonRight
-        component="div"
         multiline
-        variant="body2"
         color="textPrimary"
+        component="div"
+        maxCharacterCount={65}
+        variant="body2"
       >
         {props.paymentCombo.description}
       </TypographyWithShowMore>
@@ -112,9 +112,9 @@ const PaymentPackComboBookableItem = (props: Props) => {
       {packs.map((pack) => (
         <Typography
           key={pack}
-          variant="body2"
-          color="textSecondary"
           align="left"
+          color="textSecondary"
+          variant="body2"
         >
           - {pack}
         </Typography>

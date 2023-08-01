@@ -68,7 +68,7 @@ export const UserWithRoleList = (props: Props) => {
   return (
     <List>
       {props.users.map((user) => (
-        <div className={props.classes.roleListItem} key={user.id}>
+        <div key={user.id} className={props.classes.roleListItem}>
           <UserWithRoleItem
             coachList={props.coachList}
             coachListLoading={props.coachListLoading}
@@ -81,9 +81,12 @@ export const UserWithRoleList = (props: Props) => {
                   : { coaches: objectsIds },
               )
             }
-            franchiseRoles={props.franchiseRoles}
             franchiseeList={props.franchiseeList}
             franchiseeListLoading={props.franchiseeListLoading}
+            franchiseRoles={props.franchiseRoles}
+            handleCommissionChange={(commissionValue) =>
+              props.updateCommission(user.id, { commission: commissionValue })
+            }
             handleRoleChange={(role) =>
               props.updateUserRole(user.id, { roleId: role })
             }
@@ -91,29 +94,26 @@ export const UserWithRoleList = (props: Props) => {
             isFranchisor={props.isFranchisor}
             roles={props.roles}
             user={user}
-            handleCommissionChange={(commissionValue) =>
-              props.updateCommission(user.id, { commission: commissionValue })
-            }
           />
         </div>
       ))}
       {props.isFranchisor ? (
         <FranchiseCreateStaffUser
-          open={props.openCreateStaffDialog}
-          onSubmit={onSubmitStaffUserCreation}
-          onClose={onCloseCreateStaffDialog}
-          franchiseRoles={props.franchiseRoles}
           franchiseeList={props.franchiseeList}
           franchiseeListLoading={props.franchiseeListLoading}
+          franchiseRoles={props.franchiseRoles}
+          onClose={onCloseCreateStaffDialog}
+          onSubmit={onSubmitStaffUserCreation}
+          open={props.openCreateStaffDialog}
         />
       ) : (
         <CreateStaffUser
-          open={props.openCreateStaffDialog}
-          onSubmit={onSubmitStaffUserCreation}
-          onClose={onCloseCreateStaffDialog}
-          roles={props.roles}
           coachList={props.coachList}
           coachListLoading={props.coachListLoading}
+          onClose={onCloseCreateStaffDialog}
+          onSubmit={onSubmitStaffUserCreation}
+          open={props.openCreateStaffDialog}
+          roles={props.roles}
         />
       )}
     </List>

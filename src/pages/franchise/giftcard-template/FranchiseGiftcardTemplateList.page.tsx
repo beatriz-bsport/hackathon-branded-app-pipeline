@@ -84,33 +84,33 @@ export class FranchiseGiftcardTemplateListPage extends Component<Props> {
     return (
       <>
         <FranchiseGenericProductDoubleList
-          activeItemList={this.props.activeGiftcardTemplateList}
-          inactiveItemList={this.props.inactiveGiftcardTemplateList}
-          fuzzySearchItemList={this.props.allGiftcardTemplateList}
           withFuzzySearch
-          fuzzySearchPlaceholder={t(
-            'giftcardTemplate.listPage.fuzzyPlaceholder',
-          )}
-          loading={this.props.loadingTemplateGiftcardList}
-          emptyExplainLabel={t('giftcardTemplate.listPage.emptyLabel')}
-          emptyButtonLabel={t('giftcardTemplate.listPage.addButton')}
-          goToItemDetailPage={this.props.goToTemplateGiftcardDetail}
+          activeItemList={this.props.activeGiftcardTemplateList}
           deleteTemplateDialogContent={t(
             'giftcardTemplate.template.deleteDialogContent',
           )}
+          emptyButtonLabel={t('giftcardTemplate.listPage.addButton')}
+          emptyExplainLabel={t('giftcardTemplate.listPage.emptyLabel')}
+          fuzzySearchItemList={this.props.allGiftcardTemplateList}
+          fuzzySearchPlaceholder={t(
+            'giftcardTemplate.listPage.fuzzyPlaceholder',
+          )}
           getItemCover={this.getTemplateCover}
+          getItemFranchiseCompanies={this.getTemplateFranchiseCompanyList}
           getItemPrimaryText={this.getTemplatePrimaryText}
           getItemSecondaryText={this.getTemplateSecondaryText}
-          getItemFranchiseCompanies={this.getTemplateFranchiseCompanyList}
-          onDeleteTemplate={this.props.deleteGiftcardTemplate}
+          goToItemDetailPage={this.props.goToTemplateGiftcardDetail}
+          inactiveItemList={this.props.inactiveGiftcardTemplateList}
+          loading={this.props.loadingTemplateGiftcardList}
           onCreateTemplate={this.props.onCreateTemplate}
+          onDeleteTemplate={this.props.deleteGiftcardTemplate}
           onUpdateTemplate={this.props.onUpdateTemplate}
         />
         <GiftcardFormDrawer
-          open={this.props.openForm}
-          onSubmit={this.props.createOrUpdateGiftcardTemplate}
-          onClose={this.props.closeCreateOrUpdateForm}
           initial={this.props.templateToUpdate}
+          onClose={this.props.closeCreateOrUpdateForm}
+          onSubmit={this.props.createOrUpdateGiftcardTemplate}
+          open={this.props.openForm}
         />
       </>
     );

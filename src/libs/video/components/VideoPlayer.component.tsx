@@ -56,11 +56,11 @@ export const VideoPlayer = (props: Props) => {
                 <VideoLockOverlay
                   accessDenied={props.accessDenied}
                   authenticated={props.authenticated}
-                  requestVideoAccess={props.requestVideoAccess}
                   isEbook={
                     props.video.provider_identifier ===
                     VideoProvider.EBOOK_PROVIDER
                   }
+                  requestVideoAccess={props.requestVideoAccess}
                 />
               )}
           </div>

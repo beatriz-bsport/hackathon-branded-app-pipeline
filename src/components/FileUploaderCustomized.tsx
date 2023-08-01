@@ -193,9 +193,9 @@ const FileUploaderCustomized: React.FC<Props> = React.memo(
                 </>
               ) : (
                 <FolderOutlinedIcon
-                  fontSize="large"
-                  color="primary"
                   className={customClasses?.folderIcon}
+                  color="primary"
+                  fontSize="large"
                 />
               )}
             </div>
@@ -203,17 +203,17 @@ const FileUploaderCustomized: React.FC<Props> = React.memo(
             {!file ? (
               <>
                 <Typography
-                  variant="body1"
                   align="center"
                   className={customClasses?.title}
+                  variant="body1"
                 >
                   {label}
                 </Typography>
                 {subtitle && (
                   <Typography
-                    variant="body2"
                     align="center"
                     className={classes.helperText}
+                    variant="body2"
                   >
                     {subtitle}
                   </Typography>
@@ -221,10 +221,10 @@ const FileUploaderCustomized: React.FC<Props> = React.memo(
               </>
             ) : (
               <>
-                <Typography variant="body1" align="center" color="primary">
+                <Typography align="center" color="primary" variant="body1">
                   {t('file.imported')}
                 </Typography>
-                <Typography variant="body1" align="center">
+                <Typography align="center" variant="body1">
                   {file.name}
                 </Typography>
               </>
@@ -233,16 +233,16 @@ const FileUploaderCustomized: React.FC<Props> = React.memo(
         </div>
         {helperText && (
           <Typography
-            variant="body2"
             align="left"
             className={classes.helperText}
+            variant="body2"
           >
             {helperText}
           </Typography>
         )}
         {error && (
           <div className={classes.errorMessageContainer}>
-            <Alert severity="error" className={classes.alertError}>
+            <Alert className={classes.alertError} severity="error">
               {t(error)}
             </Alert>
           </div>

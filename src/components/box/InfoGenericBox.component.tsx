@@ -27,21 +27,21 @@ const IconFromType = (
   switch (type) {
     case 'error':
       return variant === 'outlined' ? (
-        <ErrorOutline fontSize="small" className={classes.iconError} />
+        <ErrorOutline className={classes.iconError} fontSize="small" />
       ) : (
-        <Error fontSize="small" className={classes.iconError} />
+        <Error className={classes.iconError} fontSize="small" />
       );
     case 'info':
       return variant === 'outlined' ? (
-        <InfoOutlined fontSize="small" className={classes.iconInfo} />
+        <InfoOutlined className={classes.iconInfo} fontSize="small" />
       ) : (
-        <Info fontSize="small" className={classes.iconInfo} />
+        <Info className={classes.iconInfo} fontSize="small" />
       );
     case 'warning':
       return variant === 'outlined' ? (
-        <WarningOutlined fontSize="small" className={classes.iconWarning} />
+        <WarningOutlined className={classes.iconWarning} fontSize="small" />
       ) : (
-        <Warning fontSize="small" className={classes.iconWarning} />
+        <Warning className={classes.iconWarning} fontSize="small" />
       );
     default:
       return <></>;
@@ -67,11 +67,11 @@ export const InfoGenericBox = (props: OwnProps) => {
 
   return (
     <ButtonBase
-      onClick={onCollapseClick}
-      disabled={!props.withCollapse}
-      className={props.className}
       disableRipple
       disableTouchRipple
+      className={props.className}
+      disabled={!props.withCollapse}
+      onClick={onCollapseClick}
     >
       <div
         className={classNames(classes.boxContainer, {
@@ -94,10 +94,10 @@ export const InfoGenericBox = (props: OwnProps) => {
       >
         {IconFromType(props.type, props.variantIcon)}
         <Typography
-          variant="body2"
           className={classNames(classes.content, {
             [classes.contentWithCollapse]: !openCollapse,
           })}
+          variant="body2"
         >
           {props.content}
         </Typography>

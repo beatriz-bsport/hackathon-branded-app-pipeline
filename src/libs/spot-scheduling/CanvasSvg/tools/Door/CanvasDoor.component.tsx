@@ -29,29 +29,29 @@ export default class CanvasDoorComponent extends CanvasBaseComponent<CanvasDoorP
         )}
       >
         <polyline
+          fill={stroke || 'black'}
           points="20,15 20,50"
           stroke={stroke || 'black'}
-          fill={stroke || 'black'}
-          strokeWidth={5}
           strokeLinecap="round"
+          strokeWidth={5}
         />
 
         <path
-          stroke={stroke || 'black'}
-          fill={stroke || 'black'}
           d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+          fill={stroke || 'black'}
+          stroke={stroke || 'black'}
           strokeLinecap="round"
           transform="translate(25 15) scale(1.5)"
         />
 
         <rect
+          fill="transparent"
+          height={65}
+          stroke="transparent"
           visibility="visible"
           width={70}
-          height={65}
           x={0}
           y={0}
-          stroke="transparent"
-          fill="transparent"
         />
       </g>
     );

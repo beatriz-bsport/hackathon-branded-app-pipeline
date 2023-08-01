@@ -83,21 +83,21 @@ export const CheckoutFlow: React.FC<Props> = (props) => {
   const { t } = useTranslation('checkout');
   return (
     <div className={classes.container}>
-      <Typography variant="h4" className={classes.title}>
+      <Typography className={classes.title} variant="h4">
         {t('myBasket.title')}
       </Typography>
       <Paper square>
         <BasketConsumer
-          isExcludingTax={props.isExcludingTax}
           basket={props.basket}
+          isExcludingTax={props.isExcludingTax}
           loading={props.loading}
-          onRemoveCheckoutItem={(data) =>
-            props.removeItemFromBasket(props.basket.id, data)
-          }
           onAddCheckoutItem={(data) => {
             props.addItemToBasket(props.basket.id, data);
           }}
           onItemExpire={props.onItemExpire}
+          onRemoveCheckoutItem={(data) =>
+            props.removeItemFromBasket(props.basket.id, data)
+          }
           onRemoveInternalAccountPrepaidLine={
             props.onRemoveInternalAccountPrepaidLine
           }
@@ -107,40 +107,40 @@ export const CheckoutFlow: React.FC<Props> = (props) => {
         <div className={classes.featureBanner}>
           <ShopItemFeaturedBanner
             isExcludingTax={props.isExcludingTax}
+            loading={props.loading || props.processing}
             onAddShopItem={props.addShopItemToBasket}
             shopItemList={props.shopItemList}
-            loading={props.loading || props.processing}
           />
         </div>
       ) : null}
       {props.basket.checkout_items.length ? (
         <Paper square className={classes.paper}>
           <BasketFinalizer
-            isExcludingTax={props.isExcludingTax}
             withPrice
-            basket={props.basket}
-            companyCountry={props.companyCountry}
-            checkItemsBasket={props.checkItemsBasket}
-            validateUnpaid={props.validateUnpaid}
-            submitPayment={props.submitPayment}
-            attachCoupon={props.attachCoupon}
-            availablePaymentMethods={props.basket.available_payment_methods}
-            onBasketFinalized={props.onBasketFinalized}
-            patchBasket={props.patchBasket}
-            processing={props.processing}
-            loading={props.loading}
-            termsAndConditions={props.termsAndConditions}
-            backToCalendar={props.backToCalendar}
-            savedPaymentMethodList={props.savedPaymentMethodList}
-            paymentModule={props.paymentModule}
-            termsAndConditionsAccepted={props.termsAndConditionsAccepted}
-            setTermsAndConditionsAccepted={props.setTermsAndConditionsAccepted}
             allowConsumerToUseInternalAccount={
               props.allowConsumerToUseInternalAccount &&
               props.useInternalAccount
             }
-            useInternalAccount={props.useInternalAccount}
+            attachCoupon={props.attachCoupon}
+            availablePaymentMethods={props.basket.available_payment_methods}
+            backToCalendar={props.backToCalendar}
+            basket={props.basket}
+            checkItemsBasket={props.checkItemsBasket}
+            companyCountry={props.companyCountry}
             creditAccountBalance={props.creditAccountBalance}
+            isExcludingTax={props.isExcludingTax}
+            loading={props.loading}
+            onBasketFinalized={props.onBasketFinalized}
+            patchBasket={props.patchBasket}
+            paymentModule={props.paymentModule}
+            processing={props.processing}
+            savedPaymentMethodList={props.savedPaymentMethodList}
+            setTermsAndConditionsAccepted={props.setTermsAndConditionsAccepted}
+            submitPayment={props.submitPayment}
+            termsAndConditions={props.termsAndConditions}
+            termsAndConditionsAccepted={props.termsAndConditionsAccepted}
+            useInternalAccount={props.useInternalAccount}
+            validateUnpaid={props.validateUnpaid}
           />
         </Paper>
       ) : null}

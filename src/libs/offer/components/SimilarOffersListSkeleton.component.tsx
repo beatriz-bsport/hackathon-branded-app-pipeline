@@ -17,17 +17,17 @@ const SimilarOffersListSkeleton = () => {
       {similarOfferSkeletons.map((key) => (
         <Skeleton
           key={key}
+          className={classes.skeletonBase}
+          height={70}
           variant="rect"
           width="100%"
-          height={70}
-          className={classes.skeletonBase}
         />
       ))}
       <Skeleton
+        className={classes.skeletonBase}
+        height={30}
         variant="rect"
         width="50%"
-        height={30}
-        className={classes.skeletonBase}
       />
     </div>
   );

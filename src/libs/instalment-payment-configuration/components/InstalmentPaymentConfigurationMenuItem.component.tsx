@@ -28,10 +28,10 @@ export const InstalmentPaymentMenuItem: React.FC<Props> = (props) => {
     <>
       <MenuItem
         key={instalmentPayment.id}
-        selected={selected}
         dense
         divider
         onClick={() => onClickOnItem(instalmentPayment.id)}
+        selected={selected}
       >
         <ListItemText
           primary={instalmentPayment.name}
@@ -62,15 +62,15 @@ export const InstalmentPaymentMenuItem: React.FC<Props> = (props) => {
         </IconButton>
       </MenuItem>
       <GenericMuiDialog
-        open={isConfirmDeleteDialogOpen}
-        title={t('deleteDialog.title')}
+        confirmText={t('delete')}
         content={t('deleteDialog.content')}
         onCancel={() => setIsConfirmDeleteDialogOpen(false)}
         onConfirm={() => {
           onDelete(instalmentPayment.id);
           setIsConfirmDeleteDialogOpen(false);
         }}
-        confirmText={t('delete')}
+        open={isConfirmDeleteDialogOpen}
+        title={t('deleteDialog.title')}
       />
     </>
   );

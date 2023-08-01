@@ -202,107 +202,90 @@ const InboxThreadContainer: React.FC<Props> = (props) => {
         <>
           {!props.thread ? (
             <InboxNoThread
-              count={props.count}
               contextSelected={props.contextSelected}
+              count={props.count}
             />
           ) : (
             <>
               <InboxThreadContainerHeader
-                thread={props.thread}
-                switchFavoriteStatus={props.switchFavoriteStatus}
-                switchMutedStatus={props.switchMutedStatus}
-                switchDisabledStatus={props.switchDisabledStatus}
+                allPreviousFilter={props.allPreviousFilter}
+                dateEndSetter={props.dateEndSetter}
+                dateEndValue={props.dateEndValue}
+                dateStartSetter={props.dateStartSetter}
+                dateStartValue={props.dateStartValue}
                 flagAsUnread={props.flagAsUnread}
                 goToDetailPage={props.goToDetailPage}
                 goToThreadListPage={props.goToThreadListPage}
-                kindFilterValues={props.kindFilterValues}
-                kindFilterSetter={props.kindFilterSetter}
-                recipientFilterValues={props.recipientFilterValues}
-                recipientFilterSetter={props.recipientFilterSetter}
-                sendParameterFilterValues={props.sendParameterFilterValues}
-                sendParameterFilterSetter={props.sendParameterFilterSetter}
-                srcOrDstFilterValues={props.srcOrDstFilterValues}
-                srcOrDstFilterSetter={props.srcOrDstFilterSetter}
-                dateStartValue={props.dateStartValue}
-                dateStartSetter={props.dateStartSetter}
-                dateEndValue={props.dateEndValue}
-                dateEndSetter={props.dateEndSetter}
                 handleFiltersSubmit={props.handleFiltersSubmit}
-                allPreviousFilter={props.allPreviousFilter}
-                showFilterModal={props.showFilterModal}
-                setShowFilterModal={props.setShowFilterModal}
+                kindFilterSetter={props.kindFilterSetter}
+                kindFilterValues={props.kindFilterValues}
                 onShowFilterModal={props.onShowFilterModal}
                 popKindFilterValue={props.popKindFilterValue}
-                resetPeriodFilter={props.resetPeriodFilter}
                 popRecipientFilterValue={props.popRecipientFilterValue}
                 popSendParameterFilterValue={props.popSendParameterFilterValue}
                 popSrcOrDstFilterValue={props.popSrcOrDstFilterValue}
+                recipientFilterSetter={props.recipientFilterSetter}
+                recipientFilterValues={props.recipientFilterValues}
                 resetFilters={props.resetFilters}
+                resetPeriodFilter={props.resetPeriodFilter}
+                sendParameterFilterSetter={props.sendParameterFilterSetter}
+                sendParameterFilterValues={props.sendParameterFilterValues}
+                setShowFilterModal={props.setShowFilterModal}
+                showFilterModal={props.showFilterModal}
+                srcOrDstFilterSetter={props.srcOrDstFilterSetter}
+                srcOrDstFilterValues={props.srcOrDstFilterValues}
+                switchDisabledStatus={props.switchDisabledStatus}
+                switchFavoriteStatus={props.switchFavoriteStatus}
+                switchMutedStatus={props.switchMutedStatus}
+                thread={props.thread}
               />
 
               <div className={classes.threadContainer}>
                 <Snackbar
-                  open={props.displaySnackbar}
-                  onClose={props.onCloseSnackbar}
-                  autoHideDuration={5000}
                   anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                  autoHideDuration={5000}
                   className={classes.snackbar}
+                  onClose={props.onCloseSnackbar}
+                  open={props.displaySnackbar}
                 >
-                  <Alert severity="info" className={classes.snackbarContent}>
+                  <Alert className={classes.snackbarContent} severity="info">
                     {t('messageList.filterOutCommunicationSent')}
                   </Alert>
                 </Snackbar>
                 <CommunicationMessageListContainer
+                  consentWarning={consentWarning}
+                  contextMember={props.contextMember}
                   currentPage={props.currentPage}
-                  fetchRecipientPaginatedList={
-                    props.fetchPageInformationRecipientList
-                  }
                   fetchMoreCommunicationMessages={
                     props.fetchMoreCommunicationMessages
                   }
-                  contextMember={props.contextMember}
+                  fetchRecipientPaginatedList={
+                    props.fetchPageInformationRecipientList
+                  }
+                  hasActiveFilters={hasActiveFilters}
                   loadingCommunicationMessageDataList={
                     props.loadingCommunicationMessageDataList
                   }
                   loadingRecipientList={props.loadingInformationRecipientList}
+                  messageList={props.messageList}
                   onCloseSnackbar={props.onCloseSnackbar}
                   openSnackbar={props.displaySnackbar}
                   paginationSize={PAGINATION_SIZE_RECIPIENTS}
                   recipientList={props.recipientList}
                   recipientListCount={props.recipientListCount}
-                  messageList={props.messageList}
                   resolvedGenericTags={props.resolvedGenericTags}
                   scrollToBottomFlag={props.scrollToBottomFlag}
-                  hasActiveFilters={hasActiveFilters}
                   showMailProviderWarningContent={
                     showMailProviderWarningContent
                   }
-                  consentWarning={consentWarning}
                 />
               </div>
               <InboxThreadSenderContainer
-                thread={props.thread}
+                allMemberCategoryList={props.allMemberCategoryList}
                 communicationKindBeingWritten={
                   props.communicationKindBeingWritten
                 }
-                showMessageWriter={props.showMessageWriter}
-                handleShowMessageWriter={props.handleShowMessageWriter}
-                fetchEmailSummaryList={props.fetchEmailSummaryList}
-                fetchEmailDetail={props.fetchEmailDetail}
-                fetchPaginatedAvailableRecipientMemberList={
-                  props.fetchPaginatedAvailableRecipientMemberList
-                }
-                loadingRecipientsModalMemberList={
-                  props.loadingRecipientsModalMemberList
-                }
-                paginatedMemberList={props.paginatedMemberList}
-                resetPaginatedAvailableRecipientMemberList={
-                  props.resetPaginatedAvailableRecipientMemberList
-                }
-                sendCommunication={props.sendCommunication}
-                setCommunicationKindBeingWritten={
-                  props.setCommunicationKindBeingWritten
-                }
+                contextMember={props.contextMember}
                 countAvailableRecipientsTotal={
                   props.countAvailableRecipientsTotal
                 }
@@ -312,18 +295,35 @@ const InboxThreadContainer: React.FC<Props> = (props) => {
                 countAvailableRecipientsWithPhone={
                   props.countAvailableRecipientsWithPhone
                 }
-                contextMember={props.contextMember}
-                allMemberCategoryList={props.allMemberCategoryList}
                 emailTemplateDetailList={props.emailTemplateDetailList}
                 emailTemplateSummaryList={props.emailTemplateSummaryList}
+                fetchEmailDetail={props.fetchEmailDetail}
+                fetchEmailSummaryList={props.fetchEmailSummaryList}
+                fetchPaginatedAvailableRecipientMemberList={
+                  props.fetchPaginatedAvailableRecipientMemberList
+                }
+                handleShowMessageWriter={props.handleShowMessageWriter}
                 loadingEmailTemplateDetailList={
                   props.loadingEmailTemplateDetailList
                 }
                 loadingEmailTemplateSummaryList={
                   props.loadingEmailTemplateSummaryList
                 }
+                loadingRecipientsModalMemberList={
+                  props.loadingRecipientsModalMemberList
+                }
+                paginatedMemberList={props.paginatedMemberList}
+                resetPaginatedAvailableRecipientMemberList={
+                  props.resetPaginatedAvailableRecipientMemberList
+                }
                 resolvedGenericTags={props.resolvedGenericTags}
+                sendCommunication={props.sendCommunication}
+                setCommunicationKindBeingWritten={
+                  props.setCommunicationKindBeingWritten
+                }
+                showMessageWriter={props.showMessageWriter}
                 tagCategories={props.tagCategories}
+                thread={props.thread}
               />
             </>
           )}

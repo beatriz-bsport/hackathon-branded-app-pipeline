@@ -260,8 +260,8 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
           <div className={classes.loadingContainer}>
             <CheckIcon
               color="primary"
-              style={{ height: 128, width: 128 }}
               fontSize="large"
+              style={{ height: 128, width: 128 }}
             />
             <Typography>{t('myBasket.isFinalized')}</Typography>
           </div>
@@ -297,10 +297,10 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
           this.props.paymentProcessing) && <LinearProgress color="primary" />}
         {this.props.basket?.prepaid_lines.map((pl) => (
           <PrepaidLineListItem
-            divider
-            prepaid_line={pl}
             key={pl.id}
+            divider
             onRemove={this.props.onRemoveInternalAccountPrepaidLine}
+            prepaid_line={pl}
           />
         ))}
 
@@ -312,31 +312,56 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         ) ? (
           <div className={classes.innerContainer}>
             <Button
+              color="primary"
               disabled={
                 this.state.selfProcessing ||
                 this.props.basket?.checkout_items?.length === 0
               }
               onClick={() => this.validateUnpaid()}
               variant="contained"
-              color="primary"
             >
               {t('myBasket.actions.payZero')}
               {this.state.selfProcessing && (
                 <CircularProgress
                   className={classes.circularProgress}
-                  size={24}
                   color="inherit"
+                  size={24}
                 />
               )}
             </Button>
           </div>
         ) : (
           <PaymentStripe
+            fromApp
+            termsAndConditionsAccepted
+            allowConsumerToUseInternalAccount={
+              this.state.theme.allow_consumer_to_use_internal_account
+            }
+            basketId={this.props.basketId}
+            basketTotalPriceCts={this.props.basket.total_price_cts}
+            basketTotalPricePrepaidLines={
+              this.props.basket.total_price_prepaid_lines_cts
+            }
+            checkItemsBasket={this.props.checkItemsBasket}
+            clientSecret={this.state.clientSecret}
+            clientSecretLoading={this.state.clientSecretLoading}
+            createPendingBookingsIfNecessary={
+              this.createPendingBookingsIfNecessary
+            }
+            creditAccountBalance={this.props.creditAccountBalance}
+            instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
+              (ipc) => ipc.basketId === this.props.basket?.id,
+            )}
+            instalmentPaymentSelectedId={this.props.basket?.instalment_payment}
             loading={
               this.props.loading ||
               this.props.processing ||
               this.props.paymentProcessing
             }
+            memberId={this.props.basket.member}
+            onSelectInstalmentPayment={this.onSelectInstalmentPayment}
+            onSuccess={this.onSuccess}
+            paymentGroupId={this.state.paymentGroupId}
             paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
               PAYMENT_ENGINE_STRIPE
             ].filter((pm) =>
@@ -344,36 +369,11 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
                 pm,
               ),
             )}
-            basketTotalPriceCts={this.props.basket.total_price_cts}
-            basketTotalPricePrepaidLines={
-              this.props.basket.total_price_prepaid_lines_cts
-            }
-            basketId={this.props.basketId}
-            clientSecret={this.state.clientSecret}
-            clientSecretLoading={this.state.clientSecretLoading}
-            termsAndConditionsAccepted
-            onSuccess={this.onSuccess}
-            memberId={this.props.basket.member}
-            allowConsumerToUseInternalAccount={
-              this.state.theme.allow_consumer_to_use_internal_account
-            }
-            useInternalAccount={this.props.useInternalAccount}
-            creditAccountBalance={this.props.creditAccountBalance}
-            validateUnpaid={this.validateUnpaid}
-            checkItemsBasket={this.props.checkItemsBasket}
-            instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
-              (ipc) => ipc.basketId === this.props.basket?.id,
-            )}
-            instalmentPaymentSelectedId={this.props.basket?.instalment_payment}
-            onSelectInstalmentPayment={this.onSelectInstalmentPayment}
-            createPendingBookingsIfNecessary={
-              this.createPendingBookingsIfNecessary
-            }
-            fromApp
-            paymentGroupId={this.state.paymentGroupId}
             paymentProcessing={this.props.paymentProcessing}
             setPaymentProcessing={this.props.setPaymentProcessing}
             stripeId={this.state.theme.stripe_id}
+            useInternalAccount={this.props.useInternalAccount}
+            validateUnpaid={this.validateUnpaid}
           />
         )}
 

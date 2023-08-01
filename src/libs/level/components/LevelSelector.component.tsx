@@ -150,11 +150,11 @@ export const LevelSelector: React.FC<Props> = ({
     (itemProps) => {
       return (
         <LevelMenuItem
-          level={getLevelitem(itemProps.data.value)}
-          isSelected={itemProps.isSelected}
-          onEditLevel={handleEditLevel}
-          onDeleteLevel={handleDeleteLevel}
           withEdit
+          isSelected={itemProps.isSelected}
+          level={getLevelitem(itemProps.data.value)}
+          onDeleteLevel={handleDeleteLevel}
+          onEditLevel={handleEditLevel}
         />
       );
     },
@@ -174,27 +174,31 @@ export const LevelSelector: React.FC<Props> = ({
 
         <MaterialUISelector
           // dirty trick to close selector on click for popup edit/create/delete
-          id={id}
           key={`${editLevelId}-${deleteLevelId}-${isModalOpen ? 'y' : 'n'}`}
-          value={
-            selectedLevel
-              ? [...customLevels, ...memoryLevels]
-                  .map((level) => ({ value: level.id, label: level.name }))
-                  .find((l) => l.value === selectedLevel)
-              : null
-          }
           isMenuListPaddingDisabled
-          placeholder={t('offer:levels.select.placeholder')}
+          chipsRenderer={() => {
+            return (
+              <LevelComponent
+                isChip
+                showVoid
+                customLevel={[...customLevels, ...memoryLevels].find(
+                  (l) => l.id === selectedLevel,
+                )}
+              />
+            );
+          }}
+          className={classNames(selectorClass)}
+          error={error}
           headerListRenderer={() => (
             <div className={classes.buttonSelectWrapper}>
               <Button
-                color="primary"
-                size="small"
-                onClick={handleOpenModal}
                 className={classNames(
                   classes.buttonSelect,
                   buttonContainerStyle,
                 )}
+                color="primary"
+                onClick={handleOpenModal}
+                size="small"
               >
                 <AddIcon className={classes.icon} />
                 {t('levels.select.add')}
@@ -202,31 +206,24 @@ export const LevelSelector: React.FC<Props> = ({
               <Divider />
             </div>
           )}
-          itemRenderer={renderLevelItem}
-          chipsRenderer={() => {
-            return (
-              <LevelComponent
-                customLevel={[...customLevels, ...memoryLevels].find(
-                  (l) => l.id === selectedLevel,
-                )}
-                isChip
-                showVoid
-              />
-            );
-          }}
-          options={groupedOption}
-          onChange={handleChange}
+          id={id}
           inScrollBar={inScrollBar}
-          error={error}
           isDisabled={isDisabled}
+          itemRenderer={renderLevelItem}
           name={name}
-          className={classNames(selectorClass)}
+          onChange={handleChange}
+          options={groupedOption}
+          placeholder={t('offer:levels.select.placeholder')}
+          value={
+            selectedLevel
+              ? [...customLevels, ...memoryLevels]
+                  .map((level) => ({ value: level.id, label: level.name }))
+                  .find((l) => l.value === selectedLevel)
+              : null
+          }
         />
         {!isDisabled && (
           <Button
-            color="primary"
-            size="small"
-            onClick={handleOpenModal}
             className={classNames(
               buttonContainerStyle,
               classes.fitContentOnMobile,
@@ -234,6 +231,9 @@ export const LevelSelector: React.FC<Props> = ({
                 [classes.button]: !buttonContainerStyle,
               },
             )}
+            color="primary"
+            onClick={handleOpenModal}
+            size="small"
           >
             <AddIcon className={classes.icon} />
             {t('levels.select.add')}
@@ -246,16 +246,18 @@ export const LevelSelector: React.FC<Props> = ({
           initial={
             editLevelId ? customLevels.find((l) => l.id === editLevelId) : null
           }
-          open={isModalOpen}
-          onSubmit={handleModalSubmit}
           onClose={() => {
             setIsModalOpen(false);
             setEditLevelId(null);
           }}
+          onSubmit={handleModalSubmit}
+          open={isModalOpen}
         />
       )}
       {deleteLevelId && (
         <ModalConfirm
+          handleCancel={() => setDeleteLevelId(null)}
+          handleConfirm={handleConfirm}
           open={!!deleteLevelId}
           options={{
             title: 'offer:levels.deleteModal.title',
@@ -267,8 +269,6 @@ export const LevelSelector: React.FC<Props> = ({
             ),
             isDeletion: true,
           }}
-          handleConfirm={handleConfirm}
-          handleCancel={() => setDeleteLevelId(null)}
         />
       )}
     </>

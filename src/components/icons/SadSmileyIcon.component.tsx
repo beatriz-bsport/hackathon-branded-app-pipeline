@@ -9,13 +9,13 @@ export const SadSmileyIcon: React.FC<SVGProps<SVGElement>> = ({
 }) => {
   return (
     <svg
-      width={width}
+      fill={fill}
       height={height}
       viewBox={viewBox}
-      fill={fill}
+      width={width}
       xmlns={xmlns}
     >
-      <circle cx="55" cy="55" r="55" fill="#2196F3" fillOpacity="0.08" />
+      <circle cx="55" cy="55" fill="#2196F3" fillOpacity="0.08" r="55" />
       <path
         d="M48 43.0012C48 47.419 44.1948 51 39.5 51C34.8052 51 31 47.4192 31 43.0012C31 38.5832 34.8052 35 39.5 35C44.1948 35 48 38.5832 48 43.0012Z"
         fill="#2196F3"

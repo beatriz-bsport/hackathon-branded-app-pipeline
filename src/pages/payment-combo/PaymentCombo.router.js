@@ -10,8 +10,8 @@ import PaymentComboList from './PaymentComboList.page';
 
 export const PaymentComboRouter = () => (
   <Switch>
-    <Route exact path="/combo/:id/" component={PaymentComboDetail} />
-    <Route path="/combo" component={PaymentComboList} />
+    <Route exact component={PaymentComboDetail} path="/combo/:id/" />
+    <Route component={PaymentComboList} path="/combo" />
   </Switch>
 );
 

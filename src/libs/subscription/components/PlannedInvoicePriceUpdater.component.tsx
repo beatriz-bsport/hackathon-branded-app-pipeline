@@ -42,30 +42,30 @@ export const PlannedInvoicePriceUpdater = (props: Props) => {
         <DialogTitle>{t('plannedInvoice.priceUpdater.title')}</DialogTitle>
         <DialogContent>
           <PriceField
-            name="price"
-            label={t('plannedInvoice.priceUpdater.price')}
-            required
             fullWidth
+            required
             disabled={props.isSubmitting || props.plannedInvoiceUpdateLoading}
+            label={t('plannedInvoice.priceUpdater.price')}
+            name="price"
           />
           {!!props.subscription && props.subscription.is_v2 ? (
             <>
               <CheckboxField
+                disabled={
+                  props.isSubmitting || props.plannedInvoiceUpdateLoading
+                }
                 label={t('plannedInvoice.priceUpdater.updateAll')}
                 name="update_all"
-                disabled={
-                  props.isSubmitting || props.plannedInvoiceUpdateLoading
-                }
               />
               <CheckboxField
-                label={t('plannedInvoice.priceUpdater.updateRecurrentPrice')}
-                name="update_recurrent_price"
                 disabled={
                   props.isSubmitting || props.plannedInvoiceUpdateLoading
                 }
+                label={t('plannedInvoice.priceUpdater.updateRecurrentPrice')}
+                name="update_recurrent_price"
               />
               {has_non_null_flat_fees && (
-                <Alert severity="warning" className={classes.alertdiv}>
+                <Alert className={classes.alertdiv} severity="warning">
                   {t('plannedInvoice.priceUpdater.nonNullFlatFees', {
                     flatFeesAmount: props.subscription.flat_fee,
                     currencyDisplay: getCurrencyDisplay(),
@@ -73,7 +73,7 @@ export const PlannedInvoicePriceUpdater = (props: Props) => {
                 </Alert>
               )}
               {!!props.subscription.has_discount && (
-                <Alert severity="warning" className={classes.alertdiv}>
+                <Alert className={classes.alertdiv} severity="warning">
                   {t('plannedInvoice.priceUpdater.nonNullDiscount')}
                 </Alert>
               )}

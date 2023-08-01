@@ -71,8 +71,8 @@ const Group = ({ children, ...props }) => {
         >
           <Checkbox
             checked={checked}
-            onChange={() => handleChange()}
             color="primary"
+            onChange={() => handleChange()}
             size="small"
           />
         </div>
@@ -284,13 +284,32 @@ export function EstablishmentSelector(props: Props) {
   return (
     <>
       <Select
-        id={id}
+        className={classNames(selectorClass)}
         closeMenuOnSelect={!!closeMenuOnSelect}
+        components={{ GroupHeading, Group, Menu }}
+        id={id}
+        isClearable={!!isClearable}
+        isDisabled={disabled}
+        isLoading={isLoading}
         isMulti={!noMulti}
-        placeholder={placeholder || t(isRequired ? 'roomRequired' : 'room')}
+        isOptionDisabled={
+          isOptionDisabled
+            ? (option: { value: number; label: string }) =>
+                (selectedEstablishments || []).includes(option.value)
+            : null
+        }
+        menuPortalTarget={
+          !targetParentElement && document.querySelector('body')
+        }
+        name={name}
+        onBlur={onBlur}
+        onChange={selectOption}
         options={getGroupedEstablishmentOptions(
           establishments ? [...establishments] : null,
         )}
+        placeholder={placeholder || t(isRequired ? 'roomRequired' : 'room')}
+        selectedEstablishments={selectedEstablishments}
+        selectMultipleOptions={selectMultipleOptions}
         styles={{
           ...establishmentStyles,
           ...controlStyle(
@@ -298,30 +317,11 @@ export function EstablishmentSelector(props: Props) {
             theme.palette.error.main,
           ),
         }}
-        onChange={selectOption}
-        isDisabled={disabled}
-        isClearable={!!isClearable}
-        menuPortalTarget={
-          !targetParentElement && document.querySelector('body')
-        }
         value={roomsSelected}
-        components={{ GroupHeading, Group, Menu }}
-        selectedEstablishments={selectedEstablishments}
-        isOptionDisabled={
-          isOptionDisabled
-            ? (option: { value: number; label: string }) =>
-                (selectedEstablishments || []).includes(option.value)
-            : null
-        }
-        selectMultipleOptions={selectMultipleOptions}
-        isLoading={isLoading}
-        name={name}
-        className={classNames(selectorClass)}
-        onBlur={onBlur}
       />
 
       {isRequired && requiredValueIsMissing && !hideError && (
-        <Typography variant="caption" color="error">
+        <Typography color="error" variant="caption">
           {t('offer:form.errors.required')}
         </Typography>
       )}

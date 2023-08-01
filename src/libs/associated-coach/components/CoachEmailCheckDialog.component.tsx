@@ -38,8 +38,8 @@ export const CoachEmailCheckDialog: React.FC<Props> = ({
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={CoachEmailSchema}
       onSubmit={handleSubmit}
+      validationSchema={CoachEmailSchema}
     >
       {(formik) => (
         <Form>
@@ -47,21 +47,21 @@ export const CoachEmailCheckDialog: React.FC<Props> = ({
           <DialogContent>
             <Typography>{t('forms.linkByEmail.explain')}</Typography>
             <TextField
-              name="email"
-              type="email"
-              className={classes.marginTop}
-              placeholder={t('forms.linkByEmail.emailPlaceHolder')}
-              label={t('forms.linkByEmail.emailLabel')}
               fullWidth
+              className={classes.marginTop}
+              label={t('forms.linkByEmail.emailLabel')}
+              name="email"
+              placeholder={t('forms.linkByEmail.emailPlaceHolder')}
+              type="email"
             />
           </DialogContent>
           <DialogActions>
             <Button onClick={onCancel}>{t('forms.linkByEmail.cancel')}</Button>
             <Button
-              type="submit"
               color="primary"
-              variant="contained"
               disabled={!!formik.errors.email || !formik.values.email}
+              type="submit"
+              variant="contained"
             >
               {t('forms.linkByEmail.submit')}
             </Button>

@@ -41,13 +41,13 @@ const ResourceSelectorInner = (props: Props) => (
     {props.resourceAvailable.map(({ datatype, data }) => (
       <div className={props.classes.row}>
         <ResourceGroup
-          datatype={datatype}
-          resourceList={data}
-          resourceSelectedListIds={props.resourceSelectedListIds}
           key={datatype}
+          datatype={datatype}
+          onEditResourceConfiguration={props.onEditResourceConfiguration}
           onSelectResource={props.onSelectResource}
           onUnselectResource={props.onUnselectResource}
-          onEditResourceConfiguration={props.onEditResourceConfiguration}
+          resourceList={data}
+          resourceSelectedListIds={props.resourceSelectedListIds}
         />
       </div>
     ))}
@@ -62,15 +62,15 @@ export const ResourceSelector = (props: PropsSelector) => {
       <div className={classes.ressourceSelector}>
         <div className={classes.collapseHeader}>
           <IconButton
-            size="small"
             onClick={(e) => {
               e.stopPropagation();
               props.toogleExand();
             }}
+            size="small"
           >
             {props.expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>
-          <ButtonBase onClick={props.toogleExand} disabledRipple>
+          <ButtonBase disabledRipple onClick={props.toogleExand}>
             <Typography>{t('resource.selector.title')}</Typography>
           </ButtonBase>
         </div>

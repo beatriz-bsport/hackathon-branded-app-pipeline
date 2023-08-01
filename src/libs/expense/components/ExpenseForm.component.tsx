@@ -111,26 +111,26 @@ export const ExpenseForm = (props: Props) => {
         <FormControl className={classes.marginBottom}>
           <RadioGroup
             aria-label="edit-choice"
-            value={editChoice}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               props.setEditChoice(e.target.value);
             }}
+            value={editChoice}
           >
             <FormControlLabel
-              value="date_due"
               control={<Radio />}
               label={t('form.editChoices.editDateDue')}
+              value="date_due"
             />
-            <Typography variant="caption" className={classes.grey}>
+            <Typography className={classes.grey} variant="caption">
               {t('form.editChoices.explanation.dateDue')}
             </Typography>
 
             <FormControlLabel
-              value="details"
               control={<Radio />}
               label={t('form.editChoices.editDetails')}
+              value="details"
             />
-            <Typography variant="caption" className={classes.grey}>
+            <Typography className={classes.grey} variant="caption">
               {t('form.editChoices.explanation.details')}
             </Typography>
           </RadioGroup>
@@ -139,7 +139,6 @@ export const ExpenseForm = (props: Props) => {
 
       <Formik
         enableReinitialize
-        validationSchema={expenseSchema}
         initialValues={
           initial?.id
             ? {
@@ -189,6 +188,7 @@ export const ExpenseForm = (props: Props) => {
             );
           }
         }}
+        validationSchema={expenseSchema}
       >
         {(formikProps: FormikProps<ExpenseFormValues>) => {
           return (
@@ -197,9 +197,9 @@ export const ExpenseForm = (props: Props) => {
                 {editChoice !== 'details' && (
                   <div className={classes.field}>
                     <DateField
+                      disabled={showRepeat && editChoice !== 'date_due'}
                       label={t('form.date_due')}
                       name="date_due"
-                      disabled={showRepeat && editChoice !== 'date_due'}
                     />
                   </div>
                 )}
@@ -208,45 +208,45 @@ export const ExpenseForm = (props: Props) => {
                   <React.Fragment>
                     <div className={classes.field}>
                       <SelectField
-                        choices={staffChoices}
                         fullWidth
-                        name="assigned_staff"
+                        choices={staffChoices}
                         label={t('form.staff')}
+                        name="assigned_staff"
                       />
                     </div>
                     <div className={classes.field}>
                       <TextField
-                        name="category"
-                        label={t('form.category')}
-                        type="text"
                         fullWidth
+                        label={t('form.category')}
+                        name="category"
+                        type="text"
                       />
                     </div>
                     <div className={classes.field}>
                       <PriceField
-                        name="amount"
+                        fullWidth
+                        required
                         label={t('form.amount')}
-                        required
-                        fullWidth
+                        name="amount"
                       />
                     </div>
                     <div className={classes.field}>
                       <TextField
-                        name="supplier"
+                        fullWidth
+                        required
                         label={t('form.supplier')}
+                        name="supplier"
                         type="text"
-                        required
-                        fullWidth
                       />
                     </div>
                     <div className={classes.field}>
                       <TextField
-                        name="description"
-                        label={t('form.description')}
-                        type="text"
-                        required
                         fullWidth
                         multiline
+                        required
+                        label={t('form.description')}
+                        name="description"
+                        type="text"
                       />
                     </div>
 
@@ -254,17 +254,8 @@ export const ExpenseForm = (props: Props) => {
                       {({ field, form: { setFieldValue } }) => (
                         <ExpenseRecurrencySelector
                           {...field}
-                          showRepeat={showRepeat}
-                          setShowRepeat={setShowRepeat}
-                          radioValue={radioValue}
-                          setRadioValue={setRadioValue}
-                          radioRepeatValue={radioRepeatValue}
-                          setRadioRepeatValue={setRadioRepeatValue}
-                          initial={initial}
                           disabled
-                          value={field.value}
-                          rrule={rrule}
-                          setRrule={setRrule}
+                          initial={initial}
                           onChange={(recRule) => {
                             const rule = { ...recRule };
                             for (const key in rule) {
@@ -281,6 +272,15 @@ export const ExpenseForm = (props: Props) => {
                                 : new RRule(rule),
                             );
                           }}
+                          radioRepeatValue={radioRepeatValue}
+                          radioValue={radioValue}
+                          rrule={rrule}
+                          setRadioRepeatValue={setRadioRepeatValue}
+                          setRadioValue={setRadioValue}
+                          setRrule={setRrule}
+                          setShowRepeat={setShowRepeat}
+                          showRepeat={showRepeat}
+                          value={field.value}
                         />
                       )}
                     </Field>
@@ -298,6 +298,8 @@ export const ExpenseForm = (props: Props) => {
                         {t('form.actions.cancel')}
                       </Button>
                       <Button
+                        color="primary"
+                        disabled={formikProps.isSubmitting}
                         onClick={() => {
                           trackFormSubmitIntent(initial?.id);
                           if (initial?.rrule && editChoice === 'details') {
@@ -307,8 +309,6 @@ export const ExpenseForm = (props: Props) => {
                             formikProps.handleSubmit();
                           }
                         }}
-                        disabled={formikProps.isSubmitting}
-                        color="primary"
                         variant="contained"
                       >
                         {!!initial && !!initial.id
@@ -329,20 +329,20 @@ export const ExpenseForm = (props: Props) => {
                   <FormControl>
                     <RadioGroup
                       aria-label="edit-scope"
-                      value={editScope}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         setEditScope(e.target.value);
                       }}
+                      value={editScope}
                     >
                       <FormControlLabel
-                        value="future"
                         control={<Radio />}
                         label={t('dialogEditExpense.future')}
+                        value="future"
                       />
                       <FormControlLabel
-                        value="all"
                         control={<Radio />}
                         label={t('dialogEditExpense.all')}
+                        value="all"
                       />
                     </RadioGroup>
                   </FormControl>
@@ -350,19 +350,19 @@ export const ExpenseForm = (props: Props) => {
                 <DialogActions>
                   <div className={classes.actionButtons}>
                     <Button
+                      className={classes.cancel}
                       onClick={() => {
                         setEditDialogOpen(false);
                         setEditScope(null);
                       }}
-                      className={classes.cancel}
                     >
                       {t('dialogEditExpense.cancel')}
                     </Button>
                     <Button
+                      color="primary"
                       onClick={() => {
                         formikProps.handleSubmit();
                       }}
-                      color="primary"
                       variant="contained"
                     >
                       {t('dialogEditExpense.validate')}

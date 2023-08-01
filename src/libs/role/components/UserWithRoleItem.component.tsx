@@ -196,28 +196,28 @@ class UserWithRoleItem extends React.Component<Props, State> {
       <div className={classes.roleFieldContainer}>
         <div className={classes.userRoleFieldContainer}>
           <TextField
-            className={classes.roleField}
             disabled
+            className={classes.roleField}
             value={user.email}
           />
           <TextField
-            className={classes.roleField}
             disabled
+            className={classes.roleField}
             value={`${user.first_name} ${user.last_name}`}
           />
           <FormControl>
             <Select
               className={classes.roleField}
               disabled={isRoleIn([OWNER_ROLE, CHECKIN_APP_ROLE])}
-              value={roleId || 0}
-              onChange={handleOnRoleChange}
               name="role"
+              onChange={handleOnRoleChange}
+              value={roleId || 0}
             >
               {(isFranchisor ? franchiseRoles : roles).map((role) => {
                 return (
                   <MenuItem
-                    disabled={disableRoleMenuItem(role)}
                     key={role.id}
+                    disabled={disableRoleMenuItem(role)}
                     value={role.id}
                   >
                     {getRoleName(role, t)}
@@ -229,10 +229,8 @@ class UserWithRoleItem extends React.Component<Props, State> {
           {!isRoleIn([OWNER_ROLE]) && (
             <TextField
               castAsNumber
-              label={t('forms.user.commissionHeader')}
               className={classes.roleField}
               disabled={!hasOwnerPermission || isRelatedToFranchisor}
-              value={this.state.commission}
               InputProps={{
                 inputProps: { min: 0, max: 100, step: 1 },
                 endAdornment: (
@@ -241,14 +239,16 @@ class UserWithRoleItem extends React.Component<Props, State> {
                   </InputAdornment>
                 ),
               }}
-              type="number"
-              onChange={handleOnCommissionChange}
+              label={t('forms.user.commissionHeader')}
               onBlur={handleOnCommissionFocus}
+              onChange={handleOnCommissionChange}
+              type="number"
+              value={this.state.commission}
             />
           )}
         </div>
         {!isRoleIn([OWNER_ROLE]) && hasOwnerPermission && (
-          <DeleteButton t={t} deleteUser={deleteUser} />
+          <DeleteButton deleteUser={deleteUser} t={t} />
         )}
         {!(
           isRoleIn(Object.values(COMMON_ROLES)) || roleIdentifier === ADMIN_ROLE
@@ -256,15 +256,10 @@ class UserWithRoleItem extends React.Component<Props, State> {
           hasOwnerPermission && (
             <div className={classes.selectorField}>
               <MaterialUISelector
-                placeholder={
-                  isFranchisor
-                    ? t('forms.user.selectFranchisees')
-                    : t('forms.user.selectCoach')
-                }
+                isMulti
                 isLoading={objectListLoading}
-                name={isFranchisor ? 'franchisees' : 'coaches'}
                 menuPlacement="bottom"
-                value={this.state.selectedObjects ?? selectedObjectsInitial}
+                name={isFranchisor ? 'franchisees' : 'coaches'}
                 onChange={(values: SelectFieldItem[]) => {
                   this.setState(
                     { selectedObjects: values },
@@ -275,9 +270,14 @@ class UserWithRoleItem extends React.Component<Props, State> {
                   value: object.id,
                   label: object.name,
                 }))}
-                isMulti
+                placeholder={
+                  isFranchisor
+                    ? t('forms.user.selectFranchisees')
+                    : t('forms.user.selectCoach')
+                }
+                value={this.state.selectedObjects ?? selectedObjectsInitial}
               />
-              <Typography variant="caption" color="textSecondary">
+              <Typography color="textSecondary" variant="caption">
                 {t('forms.user.ifEmptySelectAll')}
               </Typography>
             </div>

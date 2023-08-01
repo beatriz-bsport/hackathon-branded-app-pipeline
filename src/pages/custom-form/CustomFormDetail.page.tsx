@@ -138,7 +138,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
       <>
         <div className={classes.container}>
           <Grid container direction="row" spacing={3}>
-            <Grid item md={12} lg={7} xl={6}>
+            <Grid item lg={7} md={12} xl={6}>
               {this.props.customForm?.is_member_form ||
               this.props.customForm?.is_signup ? null : (
                 <>
@@ -163,10 +163,10 @@ export class CustomFormDetail extends React.Component<Props, State> {
                         <div className={classes.linkContainer}>
                           <Button
                             className={classes.buttonBase}
-                            variant="outlined"
                             onClick={() =>
                               this.props.snackbarSuccess('link.copied')
                             }
+                            variant="outlined"
                           >
                             <LinkIcon className={classes.linkIcon} />
                             <Typography variant="caption">
@@ -185,26 +185,28 @@ export class CustomFormDetail extends React.Component<Props, State> {
               )}
 
               <CustomFormConfigurationTable
-                initial={this.props.customForm}
-                onSubmit={this.props.upsertCustomForm}
+                companyTheme={this.props.companyTheme}
                 handleUpdateView={this.handleUpdateView}
-                tag_groups={this.props.tag_groups}
-                tags={this.props.tags}
+                initial={this.props.customForm}
                 isSubmitting={this.props.isSubmitting}
-                navigateToSignup={this.props.navigateToSignup}
                 navigateToMemberForm={this.props.navigateToMemberForm}
+                navigateToSignup={this.props.navigateToSignup}
+                onSubmit={this.props.upsertCustomForm}
                 setNumberOfQuestionsHasChanged={
                   this.props.setNumberOfQuestionsHasChanged
                 }
-                companyTheme={this.props.companyTheme}
+                tag_groups={this.props.tag_groups}
+                tags={this.props.tags}
               />
             </Grid>
-            <Grid item md={12} lg={5} xl={6}>
+            <Grid item lg={5} md={12} xl={6}>
               {this.props.customForm?.is_member_form ||
               this.props.customForm?.is_signup ? null : (
                 <div className={classes.displayRulePanel}>
                   <CustomFormDisplayRulePanel
+                    withItemDivider
                     customForm={this.props.customForm}
+                    onAddRule={() => this.props.setOpenDisplayRuleDialog(true)}
                     onDeleteDisplayRule={this.props.deleteCustomFormDisplayRule}
                     onEditDisplayRule={(
                       display_rule: CustomFormDisplayRule,
@@ -212,8 +214,6 @@ export class CustomFormDetail extends React.Component<Props, State> {
                       this.props.setInitialDisplayRule(display_rule);
                       this.props.setOpenDisplayRuleDialog(true);
                     }}
-                    onAddRule={() => this.props.setOpenDisplayRuleDialog(true)}
-                    withItemDivider
                   />
                 </div>
               )}
@@ -223,9 +223,9 @@ export class CustomFormDetail extends React.Component<Props, State> {
                   Object.keys(this.props.customForm.layout || {})?.length ===
                     4 && (
                     <Button
-                      variant="contained"
                       color="secondary"
                       onClick={() => this.props.setOpenLayoutUpdateDialog(true)}
+                      variant="contained"
                     >
                       <ViewCompactIcon className={classes.leftIcon} />
                       {t('marketing:customForm.actions.customization')}
@@ -235,19 +235,19 @@ export class CustomFormDetail extends React.Component<Props, State> {
               <Paper className={classes.paperContainer}>
                 {this.props.isSubmitting ? (
                   <CustomFormsKeleton
-                    layouts={this.props.customFormView?.layout}
                     customForm={this.props.customFormView}
+                    layouts={this.props.customFormView?.layout}
                   />
                 ) : (
                   <CustomFormView
-                    refreshLoading={this.props.isSubmitting}
-                    layouts={this.props.customFormView?.layout}
-                    initial={this.props.customFormView}
                     asManager
-                    waiver={this.props.theme?.waiver}
                     general_terms_and_conditions={
                       this.props.theme?.general_terms_of_use
                     }
+                    initial={this.props.customFormView}
+                    layouts={this.props.customFormView?.layout}
+                    refreshLoading={this.props.isSubmitting}
+                    waiver={this.props.theme?.waiver}
                   />
                 )}
               </Paper>
@@ -256,13 +256,13 @@ export class CustomFormDetail extends React.Component<Props, State> {
         </div>
         {this.props.openDisplayRuleDialog && (
           <CustomFormDisplayFormDialog
-            open={this.props.openDisplayRuleDialog}
+            initial={this.props.initialDisplayRule}
             onClose={() => {
               this.props.setOpenDisplayRuleDialog(false);
               this.props.setInitialDisplayRule(null);
             }}
             onSubmit={this.props.upsertCustomFormDisplayRule}
-            initial={this.props.initialDisplayRule}
+            open={this.props.openDisplayRuleDialog}
             signUpRuleAlreadyExists={
               !!this.getDisplayRuleOnSignUpAlreadyExists()
             }
@@ -271,19 +271,19 @@ export class CustomFormDetail extends React.Component<Props, State> {
 
         {this.props.openLayoutUpdateDialog && (
           <CustomFormLayoutEditor
-            open={this.props.openLayoutUpdateDialog}
-            initial={this.props.customFormView}
-            waiver={this.props.theme?.waiver}
+            closeEditor={() => this.props.setOpenLayoutUpdateDialog(false)}
             general_terms_and_conditions={
               this.props.theme?.general_terms_and_conditions
             }
+            initial={this.props.customFormView}
+            open={this.props.openLayoutUpdateDialog}
             saveLayouts={(layouts) =>
               this.props.updateCutsomFormLayout(
                 { formId: this.props.customForm.id, layout: layouts },
                 { noSuccessMessage: true },
               )
             }
-            closeEditor={() => this.props.setOpenLayoutUpdateDialog(false)}
+            waiver={this.props.theme?.waiver}
           />
         )}
       </>

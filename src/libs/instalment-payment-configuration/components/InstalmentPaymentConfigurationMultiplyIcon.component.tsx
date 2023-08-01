@@ -15,7 +15,7 @@ export const InstalmentPaymentMultiplyIcon: React.FC<Props> = ({
 
   return (
     <div className={classes.container}>
-      <Typography variant="subtitle1" className={classes.typo}>
+      <Typography className={classes.typo} variant="subtitle1">
         {`${multiplyFactor}x`}
       </Typography>
     </div>

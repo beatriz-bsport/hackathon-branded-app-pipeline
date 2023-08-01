@@ -26,7 +26,7 @@ export const StripeTerminalPaymentDialogConnecting = () => {
 
   return (
     <div className={classes.centerContainer}>
-      <Typography variant="h6" align="center" className={classes.loadingTitle}>
+      <Typography align="center" className={classes.loadingTitle} variant="h6">
         {t('configuration.stripeTerminal.connectDialog.title.connect')}
       </Typography>
       <CircularProgress size={30} />

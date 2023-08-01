@@ -33,20 +33,20 @@ function Countdown(props: Props) {
     <div className={classes.countdownWrapper}>
       {hours !== null && (
         <div className={classes.countdownItem}>
-          <Typography variant="h5" color={color}>
+          <Typography color={color} variant="h5">
             {hours}
           </Typography>
-          <Typography variant="body1" color="textSecondary">
+          <Typography color="textSecondary" variant="body1">
             {t('countdown.hours')}
           </Typography>
         </div>
       )}
       {minutes !== null && (
         <div className={classes.countdownItem}>
-          <Typography variant="h5" color={color}>
+          <Typography color={color} variant="h5">
             {minutes}
           </Typography>
-          <Typography variant="body1" color="textSecondary">
+          <Typography color="textSecondary" variant="body1">
             {t('countdown.minutes')}
           </Typography>
         </div>

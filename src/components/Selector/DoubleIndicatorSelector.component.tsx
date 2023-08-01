@@ -42,12 +42,12 @@ const DoubleIndicatorSelector: React.FC<MuiSelectProps<any>> = ({
       </ButtonBase>
       <div className={classes.select}>
         <MaterialUISelector
-          options={options}
-          value={value}
           removeIndicator
+          className={classes.control}
           isMulti={false}
           onChange={onChange}
-          className={classes.control}
+          options={options}
+          value={value}
           {...rest}
         />
       </div>

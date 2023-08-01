@@ -39,7 +39,7 @@ export const SubscriptionActions = (props: Props) => {
   );
   return (
     <div>
-      <Typography variant="h5" component="h3">
+      <Typography component="h3" variant="h5">
         {props.t('subscription.actionSection')}
       </Typography>
       <Divider className={props.classes.divider} />
@@ -48,11 +48,11 @@ export const SubscriptionActions = (props: Props) => {
           {!!props.subscription.payment_pack && (
             <Button
               className={props.classes.button}
-              variant="outlined"
-              onClick={props.requestPaymentPackSwitch}
               disabled={
                 !props.subscription.editable || !props.subscription.payment_pack
               }
+              onClick={props.requestPaymentPackSwitch}
+              variant="outlined"
             >
               <RefreshIcon className={props.classes.leftIcon} />
               {props.t('subscription.actions.switchPack')}
@@ -61,13 +61,13 @@ export const SubscriptionActions = (props: Props) => {
           <Button
             className={props.classes.button}
             color="primary"
-            variant="outlined"
-            onClick={props.requestFreeze}
             disabled={
               !props.requestFreeze ||
               props.subscription.has_ended ||
               props.subscription.canceled_at
             }
+            onClick={props.requestFreeze}
+            variant="outlined"
           >
             <AlarmAddIcon className={props.classes.leftIcon} />
             {props.t('subscription.actions.freeze')}
@@ -75,10 +75,8 @@ export const SubscriptionActions = (props: Props) => {
         </div>
         <div className={props.classes.row}>
           <Button
-            color="primary"
-            variant="outlined"
-            onClick={props.requestPaymentMethodSwitch}
             className={props.classes.button}
+            color="primary"
             disabled={
               !props.subscription.stripe_payment_method_id &&
               [
@@ -87,17 +85,19 @@ export const SubscriptionActions = (props: Props) => {
                 BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
               ].includes(props.subscription.payment_method)
             }
+            onClick={props.requestPaymentMethodSwitch}
+            variant="outlined"
           >
             <ReceiptIcon className={props.classes.leftIcon} />
             {props.t('subscription.actions.switchPaymentMethod')}
           </Button>
           <RedButton
             className={props.classes.button}
-            variant="outlined"
             disabled={
               props.subscription.has_ended || props.subscription.canceled_at
             }
             onClick={props.requestStop}
+            variant="outlined"
           >
             {props.t('action.stop')}
           </RedButton>
@@ -105,13 +105,13 @@ export const SubscriptionActions = (props: Props) => {
         <div className={props.classes.row}>
           <RedButton
             className={props.classes.button}
-            variant="outlined"
             disabled={
               props.subscription.has_ended ||
               props.subscription.canceled_at ||
               scheduledStop
             }
             onClick={props.requestScheduledStop}
+            variant="outlined"
           >
             <EventBusyIcon className={props.classes.leftIcon} />
             {props.t('action.planStop')}

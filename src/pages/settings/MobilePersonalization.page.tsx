@@ -109,25 +109,25 @@ const MobilePersonalization: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <MobileCustomShopRedirectionSettings
+        contractListCount={contractList?.length}
+        createCustomShopRedirection={createCustomShopRedirection}
+        deleteCustomShopRedirection={deleteCustomShopRedirection}
+        giftcardsCount={giftcards?.length}
         loading={customShopRedirectionsLoading}
-        shopRedirections={customMobileRedirectionsList}
         paymentComboListCount={paymentComboList?.length}
         paymentPackListCount={paymentPackList?.length}
-        contractListCount={contractList?.length}
-        vodListCount={vodList?.length}
-        giftcardsCount={giftcards?.length}
+        shopRedirections={customMobileRedirectionsList}
         subshopList={subshopList}
-        createCustomShopRedirection={createCustomShopRedirection}
         updateCustomShopRedirection={updateCustomShopRedirection}
-        deleteCustomShopRedirection={deleteCustomShopRedirection}
+        vodListCount={vodList?.length}
       />
       <div className={classes.mobileSettings}>
         <CustomMobilePopupSettings
-          popups={customMobilePopupsList}
-          loading={customMobilePopupsLoading}
           createCustomMobilePopup={createCustomMobilePopup}
-          updateCustomMobilePopup={updateCustomMobilePopup}
           deleteCustomMobilePopup={deleteCustomMobilePopup}
+          loading={customMobilePopupsLoading}
+          popups={customMobilePopupsList}
+          updateCustomMobilePopup={updateCustomMobilePopup}
         />
       </div>
     </div>

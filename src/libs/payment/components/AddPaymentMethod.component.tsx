@@ -47,26 +47,26 @@ export const AddPaymentMethod: React.FC<Props> = ({
   return (
     <>
       <PaymentMethodSwitcher
-        paymentMethod={paymentMethodType || paymentMethodTypeControlled}
-        enabledPaymentMethods={enabledPaymentMethods}
         disabled={disabled}
+        enabledPaymentMethods={enabledPaymentMethods}
         onChange={onChange || changePaymentMethod}
+        paymentMethod={paymentMethodType || paymentMethodTypeControlled}
       />
 
       <CollectPaymentMethod
+        addViaTerminal={!!addViaTerminal}
+        companyId={companyId}
+        content={t('forms.paymentMethod.collect.contentAdd')}
+        defaultEmail={sepaDefaultEmail}
+        defaultName={sepaDefaultName}
+        labelClose={labelClose}
+        onClose={onCancel}
         onSuccess={onSuccess}
-        variant="div"
-        requestSetupIntentSecret={requestSetupIntentSecret}
         paymentMethodType={paymentMethodType || paymentMethodTypeControlled}
         refreshSavedPaymentMethodList={refreshSavedPaymentMethodList}
-        defaultName={sepaDefaultName}
-        defaultEmail={sepaDefaultEmail}
-        onClose={onCancel}
-        content={t('forms.paymentMethod.collect.contentAdd')}
+        requestSetupIntentSecret={requestSetupIntentSecret}
         stripeReaders={stripeReaders || []}
-        addViaTerminal={!!addViaTerminal}
-        labelClose={labelClose}
-        companyId={companyId}
+        variant="div"
       />
     </>
   );

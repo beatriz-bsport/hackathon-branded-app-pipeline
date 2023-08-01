@@ -38,29 +38,29 @@ export const PaylistCardItem = (props: Props) => {
   return (
     <Card>
       <CardMedia
-        title={playlist.name}
-        image={playlist.cover_main}
         className={classes.media}
+        image={playlist.cover_main}
+        title={playlist.name}
       />
       <CardContent>
         <div className={classes.header}>
-          <Typography variant="h6" component="h3">
+          <Typography component="h3" variant="h6">
             {playlist.name}
           </Typography>
           <div className={classes.headerAction}>
             {!!props.onEdit && (
               <IconButton
-                size="small"
                 color="primary"
                 onClick={() => props.onEdit(playlist)}
+                size="small"
               >
                 <EditIcon />
               </IconButton>
             )}
             {!!props.onDelete && (
               <DeleteWithConfirm
-                size="small"
                 onClick={() => props.onDelete(props.playlist)}
+                size="small"
               >
                 <DeleteIcon />
               </DeleteWithConfirm>
@@ -71,8 +71,8 @@ export const PaylistCardItem = (props: Props) => {
           <div className={classes.descriptionContainer}>
             <TypographyWithShowMore
               multiline
-              variant="body2"
               color="textSecondary"
+              variant="body2"
             >
               {playlist.description}
             </TypographyWithShowMore>
@@ -82,8 +82,8 @@ export const PaylistCardItem = (props: Props) => {
       {!!props.onOpen && (
         <CardActions>
           <Button
-            onClick={() => props.onOpen(playlist.id)}
             color="primary"
+            onClick={() => props.onOpen(playlist.id)}
             variant="outlined"
           >
             {t('playlist.open')}

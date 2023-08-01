@@ -120,48 +120,48 @@ const InboxThreadContainerHeader: React.FC<Props> = ({
   return (
     <>
       <InboxThreadHeader
-        id={id}
-        title={title}
         cover={cover}
-        subtitle={subtitle}
-        isFavorite={favorite}
-        isMuted={muted}
-        hasBeenRead={last_communication_has_been_read}
-        isDisabled={disabled}
-        relatedObjectKind={related_object_kind}
-        onShowFilterModal={onShowFilterModal}
-        switchFavoriteStatus={switchFavoriteStatus}
-        switchMutedStatus={switchMutedStatus}
-        switchDisabledStatus={switchDisabledStatus}
         flagAsUnread={flagAsUnread}
         goToDetailPage={goToDetailPage}
         goToThreadListPage={goToThreadListPage}
+        hasBeenRead={last_communication_has_been_read}
+        id={id}
+        isDisabled={disabled}
+        isFavorite={favorite}
+        isMuted={muted}
+        onShowFilterModal={onShowFilterModal}
+        relatedObjectKind={related_object_kind}
+        subtitle={subtitle}
+        switchDisabledStatus={switchDisabledStatus}
+        switchFavoriteStatus={switchFavoriteStatus}
+        switchMutedStatus={switchMutedStatus}
+        title={title}
       />
       <InboxThreadFilterContainer
-        relatedObjectKind={related_object_kind}
-        kindFilterValues={kindFilterValues}
-        popKindFilterValue={popKindFilterValue}
-        recipientFilterValues={recipientFilterValues}
-        popRecipientFilterValue={popRecipientFilterValue}
-        sendParameterFilterValues={sendParameterFilterValues}
-        popSendParameterFilterValue={popSendParameterFilterValue}
-        srcOrDstFilterValues={srcOrDstFilterValues}
-        popSrcOrDstFilterValue={popSrcOrDstFilterValue}
-        dateStart={dateStartValue}
-        dateEnd={dateEndValue}
-        resetPeriodFilter={resetPeriodFilter}
-        resetFilters={resetFilters}
-        kindFilterSetter={kindFilterSetter}
-        recipientFilterSetter={recipientFilterSetter}
-        sendParameterFilterSetter={sendParameterFilterSetter}
-        srcOrDstFilterSetter={srcOrDstFilterSetter}
-        dateStartSetter={dateStartSetter}
-        dateEndSetter={dateEndSetter}
-        handleFiltersSubmit={handleFiltersSubmit}
         allPreviousFilter={allPreviousFilter}
-        showFilterModal={showFilterModal}
-        setShowFilterModal={setShowFilterModal}
+        dateEnd={dateEndValue}
+        dateEndSetter={dateEndSetter}
+        dateStart={dateStartValue}
+        dateStartSetter={dateStartSetter}
+        handleFiltersSubmit={handleFiltersSubmit}
+        kindFilterSetter={kindFilterSetter}
+        kindFilterValues={kindFilterValues}
         onShowFilterModal={onShowFilterModal}
+        popKindFilterValue={popKindFilterValue}
+        popRecipientFilterValue={popRecipientFilterValue}
+        popSendParameterFilterValue={popSendParameterFilterValue}
+        popSrcOrDstFilterValue={popSrcOrDstFilterValue}
+        recipientFilterSetter={recipientFilterSetter}
+        recipientFilterValues={recipientFilterValues}
+        relatedObjectKind={related_object_kind}
+        resetFilters={resetFilters}
+        resetPeriodFilter={resetPeriodFilter}
+        sendParameterFilterSetter={sendParameterFilterSetter}
+        sendParameterFilterValues={sendParameterFilterValues}
+        setShowFilterModal={setShowFilterModal}
+        showFilterModal={showFilterModal}
+        srcOrDstFilterSetter={srcOrDstFilterSetter}
+        srcOrDstFilterValues={srcOrDstFilterValues}
       />
     </>
   );

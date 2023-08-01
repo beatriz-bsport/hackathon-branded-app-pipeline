@@ -75,7 +75,7 @@ const ReplacementRequestConfigurationForm: React.FC<
     <form>
       <Form>
         <>
-          <Paper elevation={0} className={classes.section}>
+          <Paper className={classes.section} elevation={0}>
             <Typography variant="h6">
               {t(
                 'forms.themePersonalization.coachUserspace.replacementSettings',
@@ -88,16 +88,16 @@ const ReplacementRequestConfigurationForm: React.FC<
                 )}
               </Typography>
               <IntegerField
+                fullWidth
                 className={classes.integerField}
-                name="days_before_offer_replacement_request_is_late"
-                label={t(
-                  'forms.themePersonalization.coachUserspace.daysBeforeRequestIsLate.placeholder',
-                )}
                 InputProps={{
                   inputProps: { min: 1, step: 1 },
                   classes: { input: classes.integerInput },
                 }}
-                fullWidth
+                label={t(
+                  'forms.themePersonalization.coachUserspace.daysBeforeRequestIsLate.placeholder',
+                )}
+                name="days_before_offer_replacement_request_is_late"
                 variant="outlined"
               />
               <div className={classes.descriptionContainer}>
@@ -115,23 +115,23 @@ const ReplacementRequestConfigurationForm: React.FC<
             </div>
             <div>
               <SwitchField
-                name="is_late_replacement_request_limited"
                 label={t(
                   'forms.themePersonalization.coachUserspace.isLateReplacementRequestLimited',
                 )}
+                name="is_late_replacement_request_limited"
               />
               <Collapse in={values.is_late_replacement_request_limited}>
                 <IntegerField
+                  fullWidth
                   className={classes.integerField}
-                  name="max_late_requests_per_limitation_period"
-                  label={t(
-                    'forms.themePersonalization.coachUserspace.maxNbRequestPerPeriod.helperText',
-                  )}
                   InputProps={{
                     inputProps: { min: 1, step: 1 },
                     classes: { input: classes.integerInput },
                   }}
-                  fullWidth
+                  label={t(
+                    'forms.themePersonalization.coachUserspace.maxNbRequestPerPeriod.helperText',
+                  )}
+                  name="max_late_requests_per_limitation_period"
                   variant="outlined"
                 />
                 <div
@@ -147,19 +147,19 @@ const ReplacementRequestConfigurationForm: React.FC<
                   </Typography>
                   <IntegerField
                     className={classes.nbPeriods}
-                    name="late_request_limitation_period_nb"
                     InputProps={{
                       inputProps: { min: 1, step: 1 },
                     }}
+                    name="late_request_limitation_period_nb"
                   />
                   <MaterialUiSingleSelectorField
+                    inScrollBar
                     className={classes.periodSelector}
-                    options={periodOptions}
                     name="late_request_limitation_period_type"
+                    options={periodOptions}
                     placeholder={t(
                       'forms.themePersonalization.coachUserspace.requestLimitationPeriods.placeholder',
                     )}
-                    inScrollBar
                   />
                 </div>
                 <div className={classes.descriptionContainer}>
@@ -184,19 +184,19 @@ const ReplacementRequestConfigurationForm: React.FC<
                 )}
               </Typography>
               <IntegerField
+                fullWidth
                 className={classes.integerField}
-                name="days_before_offer_replacement_request_closing_date"
-                label={t(
-                  'forms.themePersonalization.coachUserspace.daysBeforeReplacementClosingAcceptance.placeholder',
-                )}
                 InputProps={{
                   inputProps: { min: 1, step: 1 },
                   classes: { input: classes.integerInput },
                 }}
+                label={t(
+                  'forms.themePersonalization.coachUserspace.daysBeforeReplacementClosingAcceptance.placeholder',
+                )}
+                name="days_before_offer_replacement_request_closing_date"
                 value={
                   values.days_before_offer_replacement_request_closing_date
                 }
-                fullWidth
                 variant="outlined"
               />
               <div className={classes.descriptionContainer}>
@@ -215,11 +215,11 @@ const ReplacementRequestConfigurationForm: React.FC<
           </Paper>
           <div>
             <Button
-              type="submit"
-              disabled={isSubmitting || !dirty || !isValid}
-              variant="contained"
-              color="primary"
               className={classes.confirm}
+              color="primary"
+              disabled={isSubmitting || !dirty || !isValid}
+              type="submit"
+              variant="contained"
             >
               {t('forms.submit')}
             </Button>

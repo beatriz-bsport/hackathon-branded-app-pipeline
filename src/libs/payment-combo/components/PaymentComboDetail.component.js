@@ -41,42 +41,42 @@ type Props = {
 
 export const PaymentComboDetail = (props: Props) => (
   <Grid container spacing={2}>
-    <Grid item xs={12} md={6}>
+    <Grid item md={6} xs={12}>
       <PaymentComboCard
-        paymentCombo={props.paymentCombo}
         onPaymentPackClick={props.onPaymentPackClick}
         onPrivatePassClick={props.onPrivatePassClick}
         onShopItemClick={props.onShopItemClick}
+        paymentCombo={props.paymentCombo}
         snackbarSuccess={props.snackbarSuccess}
       />
     </Grid>
-    <Grid item xs={12} md={6}>
+    <Grid item md={6} xs={12}>
       <div className={props.classes.centerRight}>
-        <Typography variant="h5" align="right">
+        <Typography align="right" variant="h5">
           {props.t('detail.purchases')}
         </Typography>
       </div>
       <Paper>
         <PaginatedListBase
+          itemPerPage={15}
           items={props.paymentComboPurchaseList}
           listProps={{ disablePadding: true }}
-          renderItem={(item) => (
-            <PaymentComboPurchaseListItem
-              key={item.id}
-              divider
-              paymentComboPurchase={item}
-              onClick={props.goToInvoiceUsingPaymentComboPurchaseId}
-            />
-          )}
-          itemPerPage={15}
-          nbItems={props.paymentComboPurchaseCount}
           loading={props.paymentComboPurchaseLoading}
-          page={props.page}
+          nbItems={props.paymentComboPurchaseCount}
           onPageRequested={(page) =>
             props.fetchPaymentComboPurchaseList(page, {
               onSuccess: () => props.setPage(page),
             })
           }
+          page={props.page}
+          renderItem={(item) => (
+            <PaymentComboPurchaseListItem
+              key={item.id}
+              divider
+              onClick={props.goToInvoiceUsingPaymentComboPurchaseId}
+              paymentComboPurchase={item}
+            />
+          )}
         />
       </Paper>
     </Grid>

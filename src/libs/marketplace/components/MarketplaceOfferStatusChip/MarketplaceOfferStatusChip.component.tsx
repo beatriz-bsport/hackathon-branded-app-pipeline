@@ -46,12 +46,12 @@ const MarketplaceOfferStatusChip: React.FC<Props> = ({
           title={t('marketplace.bookButton.popOverTitle.alreadyRegistered')}
         >
           <Chip
-            label={showLabel && t('marketplace.bookButton.alreadyRegistered')}
-            icon={<DoneAllIcon fontSize="small" />}
             classes={{
               'bs-offer-status-chip': 'bs-offer-status-chip',
               '--booked': '--booked',
             }}
+            icon={<DoneAllIcon fontSize="small" />}
+            label={showLabel && t('marketplace.bookButton.alreadyRegistered')}
           />
         </PopOver>
       );
@@ -59,24 +59,24 @@ const MarketplaceOfferStatusChip: React.FC<Props> = ({
       return (
         <PopOver title={t('marketplace.bookButton.popOverTitle.notAvailable')}>
           <Chip
-            label={showLabel && t('marketplace.bookButton.notAvailable')}
-            icon={<CancelIcon fontSize="small" />}
             classes={{
               'bs-offer-status-chip': 'bs-offer-status-chip',
               '--cancelled': '--cancelled',
             }}
+            icon={<CancelIcon fontSize="small" />}
+            label={showLabel && t('marketplace.bookButton.notAvailable')}
           />
         </PopOver>
       );
     case MarketplaceOfferStatus.COMPLETED:
       return (
         <Chip
-          label={showLabel && t('marketplace.bookButton.isPast')}
-          icon={<AlarmOnIcon fontSize="small" />}
           classes={{
             'bs-offer-status-chip': 'bs-offer-status-chip',
             '--completed': '--completed',
           }}
+          icon={<AlarmOnIcon fontSize="small" />}
+          label={showLabel && t('marketplace.bookButton.isPast')}
         />
       );
     case MarketplaceOfferStatus.SOON:
@@ -85,12 +85,12 @@ const MarketplaceOfferStatusChip: React.FC<Props> = ({
           title={t('marketplace.bookButton.popOverTitle.notBookableYet')}
         >
           <Chip
-            label={showLabel && t('marketplace.bookButton.notBookableYet')}
-            icon={<UpdateIcon fontSize="small" />}
             classes={{
               'bs-offer-status-chip': 'bs-offer-status-chip',
               '--primary': '--primary',
             }}
+            icon={<UpdateIcon fontSize="small" />}
+            label={showLabel && t('marketplace.bookButton.notBookableYet')}
           />
         </PopOver>
       );
@@ -98,12 +98,12 @@ const MarketplaceOfferStatusChip: React.FC<Props> = ({
       return (
         <PopOver title={t('marketplace.bookButton.popOverTitle.bookOption')}>
           <Chip
-            label={showLabel && t('marketplace.bookButton.bookOption')}
-            icon={<HourglassFullIcon fontSize="small" />}
             classes={{
               'bs-offer-status-chip': 'bs-offer-status-chip',
               '--primary': '--primary',
             }}
+            icon={<HourglassFullIcon fontSize="small" />}
+            label={showLabel && t('marketplace.bookButton.bookOption')}
           />
         </PopOver>
       );

@@ -35,15 +35,15 @@ export const PrivateBookingListItem: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
   return (
     <ListItem
-      divider={!!props.divider}
       button={!!props.onClick}
-      onClick={props.onClick}
-      selected={!!props.selected}
       className={
         props.private_booking.booking_status_code !== BOOKING_STATUS_OK.id
           ? classes.disabled
           : null
       }
+      divider={!!props.divider}
+      onClick={props.onClick}
+      selected={!!props.selected}
     >
       <ListItemText
         className={classes.listItemText}
@@ -58,7 +58,7 @@ export const PrivateBookingListItem: React.FC<Props> = (props: Props) => {
               <BookingStatusCodeText booking={props.private_booking} />
             </Typography>
             {props.private_booking.is_unpaid ? null : (
-              <Typography variant="body2" style={{ marginLeft: 'auto' }}>
+              <Typography style={{ marginLeft: 'auto' }} variant="body2">
                 {props.private_booking.booking_status_code !==
                   BOOKING_STATUS_OK.id &&
                   `${
@@ -111,7 +111,7 @@ export const PrivateBookingListItem: React.FC<Props> = (props: Props) => {
         )}
       {props.private_booking.is_unpaid && (
         <IconButton disabled>
-          <Typography variant="body2" color="error">
+          <Typography color="error" variant="body2">
             {t('privateBooking.isUnpaid')}
           </Typography>
         </IconButton>

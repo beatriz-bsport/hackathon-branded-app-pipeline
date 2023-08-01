@@ -39,9 +39,9 @@ const MarketplaceCoachInfos: React.FC<Props> = React.memo(
         case MarketPlaceCoachDisplay.ONLY_FIRST_NAME:
           return (
             <OfferCoachName
+              classes={classes}
               coachNameToDisplay={coach?.firstname}
               offer={offer}
-              classes={classes}
             />
           );
 
@@ -54,15 +54,15 @@ const MarketplaceCoachInfos: React.FC<Props> = React.memo(
             >
               {coach?.photo && (
                 <OfferCoachPicture
+                  classes={coachPictureClasses}
                   picture={coach?.photo}
                   reverse={reverse}
-                  classes={coachPictureClasses}
                 />
               )}
               <OfferCoachName
+                classes={coachNameClasses}
                 coachNameToDisplay={coach?.firstname}
                 offer={offer}
-                classes={coachNameClasses}
               />
             </div>
           );
@@ -70,9 +70,9 @@ const MarketplaceCoachInfos: React.FC<Props> = React.memo(
         case MarketPlaceCoachDisplay.FULL_NAME_WITHOUT_PICTURE:
           return (
             <OfferCoachName
+              classes={classes}
               coachNameToDisplay={coach?.name}
               offer={offer}
-              classes={classes}
             />
           );
 
@@ -85,15 +85,15 @@ const MarketplaceCoachInfos: React.FC<Props> = React.memo(
             >
               {coach?.photo && (
                 <OfferCoachPicture
+                  classes={coachPictureClasses}
                   picture={coach?.photo}
                   reverse={reverse}
-                  classes={coachPictureClasses}
                 />
               )}
               <OfferCoachName
+                classes={classes}
                 coachNameToDisplay={coach?.name}
                 offer={offer}
-                classes={classes}
               />
             </div>
           );

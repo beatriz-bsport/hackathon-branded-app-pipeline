@@ -104,30 +104,30 @@ export const OrderDetail: React.FC<Props> = ({
           }}
         >
           <RedButton
-            variant="contained"
             className={classes.actionButton}
             disabled={order.state >= 1000}
             onClick={() => updateOrderState(ORDER_STATE_CANCELLED.id)}
+            variant="contained"
           >
             <CancelIcon className={classes.leftIcon} />
             {t('actions.flagAsCancelled')}
           </RedButton>
           <Button
-            color="secondary"
-            variant="contained"
             className={classes.actionButton}
+            color="secondary"
             disabled={order.state >= 1000}
             onClick={() => updateOrderState(ORDER_STATE_ONSITEDELIVERY.id)}
+            variant="contained"
           >
             <LocationOnIcon className={classes.leftIcon} />
             {t('actions.flagAsOnSiteDelivery')}
           </Button>
           <Button
-            color="primary"
-            variant="contained"
             className={classes.actionButton}
+            color="primary"
             disabled={order.state >= 1000}
             onClick={() => updateOrderState(ORDER_STATE_SENT.id)}
+            variant="contained"
           >
             <SendIcon className={classes.leftIcon} />
             {t('actions.flagAsSent')}
@@ -135,11 +135,11 @@ export const OrderDetail: React.FC<Props> = ({
         </div>
       </div>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid item sm={6} xs={12}>
           <Typography
+            className={classes.sectionTitle}
             component="h2"
             variant="h5"
-            className={classes.sectionTitle}
           >
             {t('detail.section.productDetail')}
           </Typography>
@@ -160,21 +160,21 @@ export const OrderDetail: React.FC<Props> = ({
             </List>
           </Paper>
           <Typography
+            className={classes.sectionTitle}
             component="h2"
             variant="h5"
-            className={classes.sectionTitle}
           >
             {t('detail.section.deliveryInfo')}
           </Typography>
           <Paper className={classes.addressPaper}>
-            <DeliveryInfo order={order} companyCountry={companyCountry} />
+            <DeliveryInfo companyCountry={companyCountry} order={order} />
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item sm={6} xs={12}>
           <Typography
+            className={classes.sectionTitle}
             component="h2"
             variant="h5"
-            className={classes.sectionTitle}
           >
             {t('detail.section.invoice')}
           </Typography>
@@ -182,24 +182,24 @@ export const OrderDetail: React.FC<Props> = ({
             <InvoiceSummary invoice={invoice} onClick={onInvoiceClick} />
           </Paper>
           <Typography
+            className={classes.sectionTitle}
             component="h2"
             variant="h5"
-            className={classes.sectionTitle}
           >
             {t('detail.section.member')}
           </Typography>
           {order.member ? (
             <MemberSummaryCard
-              member={order.member}
               companyCountry={companyCountry}
-              goToMember={() => goToMember(order.member.id)}
-              sendCommunication={sendCommunication}
-              getEmails={getEmails}
-              emails={emails}
-              getEmailDetail={getEmailDetail}
+              emailDetailLoading={emailDetailLoading}
               emailDetails={emailDetails}
               emailListLoading={emailListLoading}
-              emailDetailLoading={emailDetailLoading}
+              emails={emails}
+              getEmailDetail={getEmailDetail}
+              getEmails={getEmails}
+              goToMember={() => goToMember(order.member.id)}
+              member={order.member}
+              sendCommunication={sendCommunication}
               showVaccinationStatus={showVaccinationStatus}
             />
           ) : null}

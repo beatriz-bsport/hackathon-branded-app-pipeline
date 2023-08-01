@@ -38,11 +38,11 @@ const OperandSelect: React.FC<{
         {t('filter.form.operandSelect')}
       </Typography>
       <MaterialUiSingleSelectorField
-        options={options}
-        className={classes.operandSelect}
-        name={name}
         inScrollBar
+        className={classes.operandSelect}
         isDisabled={isPreview}
+        name={name}
+        options={options}
       />
     </div>
   );

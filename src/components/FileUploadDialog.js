@@ -59,28 +59,28 @@ export class FileUploadDialog extends Component<Props, State> {
         <DialogContent>
           <form onSubmit={this.handleOnSubmit}>
             <TextField
-              name="File name"
-              label={t('file.name')}
               fullWidth
               required
+              label={t('file.name')}
+              name="File name"
+              onChange={this.handleOnChange}
               placeholder={t('file.name')}
               value={this.state.name}
-              onChange={this.handleOnChange}
             />
             <div className={classes.fieldSeparator} />
             <FileUploader
+              file={this.state.file}
               onAddFile={this.handleAddFile}
               onRemoveFile={fileUploader.onRemoveFile}
-              file={this.state.file}
             />
             <div className={classes.fieldSeparator} />
             <DialogActions>
               <Button onClick={this.handleCancel}>{t('file.cancel')}</Button>
               <Button
-                variant="outlined"
+                color="primary"
                 disabled={this.state.file === null || this.state.name === null}
                 type="submit"
-                color="primary"
+                variant="outlined"
               >
                 {t('file.submit')}
               </Button>

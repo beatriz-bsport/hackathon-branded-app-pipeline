@@ -17,6 +17,8 @@ export const Container: React.FC<Props> = React.memo(
   ({ children, size, classes, customRef, onClick, isSelected }) => {
     return (
       <div
+        ref={customRef}
+        aria-hidden="true"
         className={classNames('bs-generic-card', {
           'bs-generic-card--selected': !!isSelected,
           'size-m': !size,
@@ -24,8 +26,6 @@ export const Container: React.FC<Props> = React.memo(
           ...classes,
         })}
         onClick={onClick}
-        aria-hidden="true"
-        ref={customRef}
       >
         {children}
       </div>

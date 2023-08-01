@@ -73,21 +73,21 @@ const ThreadMenu: React.FC<Props> = ({
         <MoreVertIcon fontSize="medium" />
       </IconButton>
       <ThreadMenuActions
-        id={id}
+        anchorEl={anchorEl}
+        flagAsUnread={flagAsUnread}
+        goToDetailPage={goToDetailPage}
         hasBeenRead={hasBeenRead}
-        isFavorite={isFavorite}
-        isMuted={isMuted}
+        id={id}
         isDisabled={isDisabled}
+        isFavorite={isFavorite}
+        isMobileMenu={isMobileMenu}
+        isMuted={isMuted}
         relatedObjectKind={relatedObjectKind}
+        setAnchorEl={setAnchorEl}
+        setOpenCollapse={setOpenCollapse}
+        switchDisabledStatus={switchDisabledStatus}
         switchFavoriteStatus={switchFavoriteStatus}
         switchMutedStatus={switchMutedStatus}
-        switchDisabledStatus={switchDisabledStatus}
-        flagAsUnread={flagAsUnread}
-        isMobileMenu={isMobileMenu}
-        goToDetailPage={goToDetailPage}
-        setOpenCollapse={setOpenCollapse}
-        anchorEl={anchorEl}
-        setAnchorEl={setAnchorEl}
       />
     </>
   );

@@ -53,7 +53,7 @@ export const CarouselInput = (props: Props) => {
   return (
     <div className={classes.container}>
       {!!title && (
-        <Typography variant="subtitle1" style={{ fontSize: 16 }}>
+        <Typography style={{ fontSize: 16 }} variant="subtitle1">
           {title}
         </Typography>
       )}
@@ -70,33 +70,33 @@ export const CarouselInput = (props: Props) => {
           {imagesArr.map((cardImage, index) => {
             return (
               <div
-                className={index === selectedImage ? classes.outlined : ''}
                 key={cardImage}
+                className={index === selectedImage ? classes.outlined : ''}
               >
                 <div className={classes.imagePreview}>
                   {isManager && (
                     <IconButton
-                      size="small"
-                      className={classes.deleteIcon}
                       aria-label="delete"
+                      className={classes.deleteIcon}
                       onClick={() => {
                         onRemoveImage(index);
                       }}
+                      size="small"
                     >
                       <DeleteIcon />
                     </IconButton>
                   )}
                   <div
+                    aria-hidden="true"
+                    className={classes.onClick}
                     onClick={() => {
                       handleClick(index);
                     }}
-                    aria-hidden="true"
-                    className={classes.onClick}
                   >
                     <img
                       alt={`preview #${index}`}
-                      src={cardImage}
                       className={classes.image}
+                      src={cardImage}
                     />
                   </div>
                 </div>

@@ -66,13 +66,13 @@ export const MarketingActionCardList: React.FC<Props> = ({
 
         return (
           <MarketingActionCard
-            item={item}
-            selected={item === selectedAction}
             configured={marketingActionConfiguredDict[item] ?? false}
             disabled={disabled}
-            onClick={() => handleChangeAction(item)}
-            svgIcon={MarketingActionIconEnum[item]}
+            item={item}
             label={t(MarktingIconLabel[item])}
+            onClick={() => handleChangeAction(item)}
+            selected={item === selectedAction}
+            svgIcon={MarketingActionIconEnum[item]}
           />
         );
       })}

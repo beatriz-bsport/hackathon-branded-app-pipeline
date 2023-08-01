@@ -36,10 +36,10 @@ export const EbookDownload = (props: Props) => {
             </Typography>
             <Button
               className={classes.buttonLarge}
-              variant="contained"
               color="primary"
-              startIcon={<CloudDownloadIcon />}
               onClick={() => window.open(props.url)}
+              startIcon={<CloudDownloadIcon />}
+              variant="contained"
             >
               {t('video.download')}
             </Button>
@@ -51,9 +51,9 @@ export const EbookDownload = (props: Props) => {
             <MenuBookIcon className={clx([classes.icon, classes.iconSmall])} />
             <Button
               className={classes.buttonSmall}
-              variant="contained"
               color="primary"
               onClick={() => window.open(props.url)}
+              variant="contained"
             >
               <CloudDownloadIcon />
             </Button>

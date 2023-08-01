@@ -32,18 +32,18 @@ export const DashboardTabNameDialog = (props: Props) => {
       <DialogContent>
         <TextField
           autoFocus
-          placeholder={t('tabNameDialog.placeholder')}
-          value={tabName}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setTabName(e.target.value)
           }
+          placeholder={t('tabNameDialog.placeholder')}
+          value={tabName}
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose}>{t('resetModal.cancel')}</Button>
         <Button
-          disabled={!tabName.length}
           color="primary"
+          disabled={!tabName.length}
           onClick={() => {
             if (props.tabIndexToRename === null) {
               props.addNewTab(tabName);

@@ -71,7 +71,7 @@ const NotificationRulePreview = (props: Props) => {
       {!event && (
         <div className={classes.center}>
           <div className={classes.emptyState}>
-            <Alert severity="info" className={classes.alertInfo} color="grey">
+            <Alert className={classes.alertInfo} color="grey" severity="info">
               {t('preview.emptyState')}
             </Alert>
           </div>
@@ -80,15 +80,15 @@ const NotificationRulePreview = (props: Props) => {
       {event && displayMode === 'email' && (
         <Paper className={classes.preview}>
           <iframe
-            title="notification-rule-preview-iframe"
-            srcDoc={emailPreview}
             className={classes.html}
-            scrolling="no"
             frameBorder="0"
+            scrolling="no"
+            srcDoc={emailPreview}
+            title="notification-rule-preview-iframe"
           />
           <IconButton
-            onClick={handleShowEmail(event.rule)}
             className={classes.showMore}
+            onClick={handleShowEmail(event.rule)}
           >
             <CropFreeIcon color="disabled" />
           </IconButton>
@@ -100,21 +100,21 @@ const NotificationRulePreview = (props: Props) => {
             event.rule.push_notification_title &&
             event.rule.push_notification_content && (
               <NotificationPushPreview
+                className={classes.fullAvailableSize}
                 notification={{
                   push_notification_title: event.rule.push_notification_title,
                   push_notification_content:
                     event.rule.push_notification_content,
                 }}
-                theme={theme}
-                className={classes.fullAvailableSize}
                 resolvedGenericTags={resolvedGenericTags}
+                theme={theme}
               />
             )}
           {(!event.rule ||
             event.rule.push_notification_title === '' ||
             event.rule.push_notification_content === '') && (
             <div className={classes.emptyState}>
-              <Alert severity="info" className={classes.alertInfo} color="grey">
+              <Alert className={classes.alertInfo} color="grey" severity="info">
                 {t('preview.emptyStateNotification')}
               </Alert>
             </div>

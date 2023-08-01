@@ -60,18 +60,18 @@ export class InstalmentPaymentForm extends Component<Props> {
     return (
       <div className={classes.section}>
         <IntervalRecurrenceSelectField
-          name="interval"
-          label={t('instalment.form.interval.label')}
-          helperText={t('instalment.form.interval.helperText')}
-          className={classes.field}
-          required
           fullWidth
+          required
+          className={classes.field}
+          helperText={t('instalment.form.interval.helperText')}
+          label={t('instalment.form.interval.label')}
+          name="interval"
         />
         <div className={classes.row}>
           <Typography variant="body2">
             {t('instalment.form.recurrence_basis.label')}
           </Typography>
-          <TextField name="recurrence_basis" required variant="outlined" />
+          <TextField required name="recurrence_basis" variant="outlined" />
           <Typography variant="body2">
             {t(
               `instalment.form.recurrence_basis.intervalName.${values.interval}`,
@@ -82,29 +82,29 @@ export class InstalmentPaymentForm extends Component<Props> {
           </Typography>
         </div>
         <TextField
-          name="nb_interval"
+          fullWidth
+          required
+          className={classes.field}
           label={t('instalment.form.nb_interval.label', {
             interval: t(`instalment.interval.${values.interval}`, {
               count: values.recurrence_basis,
             }),
           })}
-          className={classes.field}
-          required
-          fullWidth
+          name="nb_interval"
         />
         <div className={classes.field}>
           <DateField
-            label={t('instalment.form.anchor_date.label')}
-            helperText={t('instalment.form.anchor_date.helperText')}
-            name="anchor_date"
             parseAsString
+            helperText={t('instalment.form.anchor_date.helperText')}
+            label={t('instalment.form.anchor_date.label')}
+            name="anchor_date"
           />
         </div>
         <InstalmentPaymentPreview
-          interval={values.interval}
-          recurrence_basis={parseInt(values.recurrence_basis)}
-          nb_interval={parseInt(values.nb_interval)}
           anchor_date={values.anchor_date}
+          interval={values.interval}
+          nb_interval={parseInt(values.nb_interval)}
+          recurrence_basis={parseInt(values.recurrence_basis)}
           totalPriceCts={this.props.totalPriceCts}
         />
       </div>

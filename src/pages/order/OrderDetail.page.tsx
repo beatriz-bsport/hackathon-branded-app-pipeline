@@ -74,11 +74,19 @@ export class OrderDetail extends Component<Props> {
     return (
       <div>
         <OrderDetailComponent
-          order={order}
           companyCountry={this.props.companyCountry}
+          emailDetailLoading={this.props.emailDetailLoading}
+          emailDetails={this.props.email_templates_details}
+          emailListLoading={this.props.emailListLoading}
+          emails={this.props.email_templates_list}
+          getEmailDetail={this.props.fetchEmailTemplateDetail}
+          getEmails={this.props.fetchEmailTemplatesSummaries}
+          goToMember={goToMember}
           invoice={invoice}
           onInvoiceClick={onInvoiceClick}
-          goToMember={goToMember}
+          order={order}
+          sendCommunication={this.props.sendCommunication}
+          showVaccinationStatus={this.props.showVaccinationStatus}
           updateOrderState={(state) =>
             this.props.patchOrder(
               order.id,
@@ -88,14 +96,6 @@ export class OrderDetail extends Component<Props> {
               },
             )
           }
-          sendCommunication={this.props.sendCommunication}
-          getEmails={this.props.fetchEmailTemplatesSummaries}
-          emails={this.props.email_templates_list}
-          getEmailDetail={this.props.fetchEmailTemplateDetail}
-          emailDetails={this.props.email_templates_details}
-          emailListLoading={this.props.emailListLoading}
-          emailDetailLoading={this.props.emailDetailLoading}
-          showVaccinationStatus={this.props.showVaccinationStatus}
         />
       </div>
     );

@@ -275,23 +275,40 @@ export class CadenceDetailPage extends Component<Props> {
               )}
             >
               <CadenceDetailHeader
-                goBack={this.props.backtoCadenceList}
-                onEdit={this.props.updateCadenceName}
-                onActivate={this.props.activateCadence}
-                onShutOff={this.props.shutOffCadence}
-                loading={this.props.loading}
                 cadence={this.props.cadence}
                 cadenceEditMode={this.props.cadenceEditMode}
-                switchCadenceEditMode={this.switchCadenceEditMode}
                 cadenceMinimalConfigurationState={
                   this.props.cadenceMinimalConfigurationState
                 }
+                goBack={this.props.backtoCadenceList}
+                loading={this.props.loading}
+                onActivate={this.props.activateCadence}
+                onEdit={this.props.updateCadenceName}
+                onShutOff={this.props.shutOffCadence}
+                switchCadenceEditMode={this.switchCadenceEditMode}
               />
             </div>
           </div>
           <div className={classes.mainPanelContent}>
             <CadenceGraphFlow
               cadence={this.props.cadence}
+              cadenceEditMode={this.props.cadenceEditMode}
+              cadenceMinimalConfigurationState={
+                this.props.cadenceMinimalConfigurationState
+              }
+              deleteCadenceStep={this.props.deleteCadenceStep}
+              deleteConnectedTrigger={this.props.deleteConnectedTriggerAction}
+              getEmailTemplate={this.props.getEmailTemplate}
+              getSmartlist={this.props.getSmartlist}
+              getStepMarketingActions={this.props.getStepMarketingActions}
+              getTag={this.props.getTag}
+              handleSelectedStepForEdition={this.handleSelectedStepForEdition}
+              handleSelectStepForSubscription={
+                this.handleSelectStepForSubscription
+              }
+              onClickConnectedTrigger={this.handleClickConnectedTrigger}
+              onClickEntryStep={this.props.onClickEntryStep}
+              resetAllSelection={this.resetAllSelection}
               steps={this.props.steps}
               updateCadenceStepCanvasPosition={
                 this.props.updateCadenceStepCanvasPosition
@@ -299,23 +316,6 @@ export class CadenceDetailPage extends Component<Props> {
               updateConnectedTriggerPosition={
                 this.props.updateCadenceStepConnectedTriggerCanvasPosition
               }
-              onClickEntryStep={this.props.onClickEntryStep}
-              handleSelectStepForSubscription={
-                this.handleSelectStepForSubscription
-              }
-              cadenceMinimalConfigurationState={
-                this.props.cadenceMinimalConfigurationState
-              }
-              onClickConnectedTrigger={this.handleClickConnectedTrigger}
-              resetAllSelection={this.resetAllSelection}
-              cadenceEditMode={this.props.cadenceEditMode}
-              handleSelectedStepForEdition={this.handleSelectedStepForEdition}
-              deleteCadenceStep={this.props.deleteCadenceStep}
-              deleteConnectedTrigger={this.props.deleteConnectedTriggerAction}
-              getSmartlist={this.props.getSmartlist}
-              getStepMarketingActions={this.props.getStepMarketingActions}
-              getTag={this.props.getTag}
-              getEmailTemplate={this.props.getEmailTemplate}
             />
           </div>
         </div>

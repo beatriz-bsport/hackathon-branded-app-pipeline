@@ -81,9 +81,9 @@ const InboxThreadHeader: React.FC<Props> = ({
 
   return (
     <Paper
+      classes={{ outlined: classes.paperBorder }}
       className={classes.header}
       variant="outlined"
-      classes={{ outlined: classes.paperBorder }}
     >
       <div className={classes.left}>
         {!isMobilePanel && (
@@ -104,10 +104,10 @@ const InboxThreadHeader: React.FC<Props> = ({
                 : classes.titles
             }
           >
-            <Typography variant="h5" className={classes.offerTexts}>
+            <Typography className={classes.offerTexts} variant="h5">
               {title}
             </Typography>
-            <Typography variant="body1" className={classes.offerTexts}>
+            <Typography className={classes.offerTexts} variant="body1">
               {subtitle}
             </Typography>
           </div>
@@ -123,12 +123,12 @@ const InboxThreadHeader: React.FC<Props> = ({
             {title}
           </Typography>
         )}
-        {isFavorite && <StarIcon fontSize="small" color="primary" />}
-        {isMuted && <NotificationsOffIcon fontSize="small" color="action" />}
+        {isFavorite && <StarIcon color="primary" fontSize="small" />}
+        {isMuted && <NotificationsOffIcon color="action" fontSize="small" />}
       </div>
 
       <div className={classes.right}>
-        <IconButton onClick={onShowFilterModal} className={classes.filterIcon}>
+        <IconButton className={classes.filterIcon} onClick={onShowFilterModal}>
           <FilterListIcon />
         </IconButton>
         <div className={classes.threadStatus}>
@@ -139,19 +139,19 @@ const InboxThreadHeader: React.FC<Props> = ({
           ) : (
             <>
               <ThreadMenu
-                id={id}
+                isMobileMenu
+                flagAsUnread={flagAsUnread}
+                goToDetailPage={goToDetailPage}
                 hasBeenRead={hasBeenRead}
+                id={id}
+                isDisabled={isDisabled}
                 isFavorite={isFavorite}
                 isMuted={isMuted}
-                isDisabled={isDisabled}
                 relatedObjectKind={relatedObjectKind}
+                setOpenCollapse={onShowFilterModal}
+                switchDisabledStatus={switchDisabledStatus}
                 switchFavoriteStatus={switchFavoriteStatus}
                 switchMutedStatus={switchMutedStatus}
-                switchDisabledStatus={switchDisabledStatus}
-                flagAsUnread={flagAsUnread}
-                isMobileMenu
-                goToDetailPage={goToDetailPage}
-                setOpenCollapse={onShowFilterModal}
               />
             </>
           )}

@@ -176,7 +176,9 @@ export class PaymentRulesDashboard extends Component<Props> {
         />
         {this.props.ruleDialogFormOpen ? (
           <CoachPaymentRuleFormDrawer
-            open={this.props.ruleDialogFormOpen}
+            enabledPaymentPacks={this.props.enabledPaymentPacks}
+            error={this.props.error}
+            getPaymentPack={this.props.getPaymentPack}
             handleClose={this.props.handleClose}
             initial={
               this.props.initial && this.props.initial.bonus_coach_payment
@@ -189,28 +191,28 @@ export class PaymentRulesDashboard extends Component<Props> {
                 : this.props.initial
             }
             onSubmit={this.props.upsertCoachPaymentRule}
-            error={this.props.error}
-            getPaymentPack={this.props.getPaymentPack}
-            enabledPaymentPacks={this.props.enabledPaymentPacks}
+            open={this.props.ruleDialogFormOpen}
             ruleTypeCreation={this.props.ruleTypeCreation}
           />
         ) : null}
         {this.props.simulationOpen && this.props.ruleForSimulation ? (
           <CoachPaymentRuleSimulationDrawer
-            open={this.props.simulationOpen}
-            onSubmit={this.props.runCoachPaymenrRuleSimulation}
+            coachPaymentRule={this.props.ruleForSimulation}
             handleCloseSimulation={this.props.handleCloseSimulation}
             handlePrevious={(payment_rule: CoachPaymentRule) => {
               this.props.handlePrevious(payment_rule);
             }}
-            coachPaymentRule={this.props.ruleForSimulation}
+            onSubmit={this.props.runCoachPaymenrRuleSimulation}
+            open={this.props.simulationOpen}
             simulationResult={this.props.simulationResult}
           />
         ) : null}
         {this.props.groupDialogFormOpen ? (
           <CoachPaymentRuleGroupFormDrawer
-            open={this.props.groupDialogFormOpen}
+            associated_coaches={this.props.associated_coaches}
+            error={this.props.error}
             handleClose={this.props.handleCloseGroup}
+            initial={this.props.initialGroup}
             onSubmit={(g) =>
               this.props.upsertCoachPaymentRuleGroup(g, {
                 onSuccess: (group: CoachPaymentRuleGroup) => {
@@ -228,17 +230,16 @@ export class PaymentRulesDashboard extends Component<Props> {
                 },
               })
             }
-            error={this.props.error}
-            initial={this.props.initialGroup}
-            rulesByKind={this.props.rulesByKind}
-            associated_coaches={this.props.associated_coaches}
+            open={this.props.groupDialogFormOpen}
             privateServices={this.props.privateServices}
+            rulesByKind={this.props.rulesByKind}
           />
         ) : null}
         <Paper className={classes.table}>
           <CoachPaymentRuleTabs
-            loading={this.props.loading}
+            coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
             items={this.props.rulesByKind}
+            loading={this.props.loading}
             onDeletePaymentRule={this.props.deleteCoachPaymentRule}
             onDeletePaymentRuleGroup={this.props.deleteCoachPaymentRuleGroup}
             onEditPaymentRule={(paymentRule: CoachPaymentRule) => {
@@ -251,7 +252,6 @@ export class PaymentRulesDashboard extends Component<Props> {
               this.props.setInitialGroup(paymentRuleGroup);
               this.props.handleOpenGroup();
             }}
-            coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
           />
         </Paper>
       </div>

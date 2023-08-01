@@ -30,15 +30,15 @@ type PropsBase = {
 
 export function PieChartBase(props: PropsBase) {
   return (
-    <ResponsiveContainer width="100%" height={props.height}>
+    <ResponsiveContainer height={props.height} width="100%">
       <PieChart>
         <Pie
           data={props.data}
           dataKey="value"
-          startAngle={180}
           endAngle={-180}
-          labelLine={false}
           isAnimationActive={false}
+          labelLine={false}
+          startAngle={180}
         >
           {props.data.map((entry, index) => (
             <Cell key={`slice-${index}`} fill={colors[index % 6].fill} />
@@ -46,11 +46,11 @@ export function PieChartBase(props: PropsBase) {
         </Pie>
         <Tooltip />
         <Legend
-          verticalAlign="center"
           align="left"
+          height={36}
           iconType="circle"
           layout="vertical"
-          height={36}
+          verticalAlign="center"
         />
       </PieChart>
     </ResponsiveContainer>
@@ -83,9 +83,9 @@ export function PieChartComposed(props: Props) {
         </div>
       ) : (
         <PieChartBase
-          width={props.width}
-          height={props.height}
           data={props.data}
+          height={props.height}
+          width={props.width}
         />
       )}
       <div className={props.classes.title}>

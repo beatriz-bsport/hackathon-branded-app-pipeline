@@ -22,16 +22,16 @@ const HTMLPreviewDialog = (props: OwnProps) => {
   const classes = useStyles();
   const { t } = useTranslation('common');
   return (
-    <GenericResponsiveDialog open={props.open} onClose={props.onClose}>
+    <GenericResponsiveDialog onClose={props.onClose} open={props.open}>
       <>
         <DialogContent className={classes.content}>
           <HTMLPreview
-            title={props.title}
+            inDialog
+            scrolling
             html={props.html}
             loading={props.loading}
-            scrolling
-            inDialog
             resolvedGenericTags={props.resolvedGenericTags}
+            title={props.title}
           />
         </DialogContent>
         <DialogActions>

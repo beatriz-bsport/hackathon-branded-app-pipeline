@@ -54,8 +54,8 @@ const ColorPicker: React.FC<Props> = ({
       {colorChoices.map((color) => (
         <ColoredButton
           key={color}
-          color={color}
           changeColor={onColorChange}
+          color={color}
           selectedColor={selectedColor}
         />
       ))}

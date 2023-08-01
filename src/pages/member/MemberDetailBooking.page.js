@@ -436,26 +436,25 @@ export class MemberDetailBooking extends Component<Props, State> {
               {this.props.t('booking:memberGraph.title')}
             </Typography>
             <ChartRange
-              start_date={this.props.chartRange.start}
               end_date={this.props.chartRange.end}
               kind={this.props.chartRange.kind}
               setRange={this.props.setChartRange}
+              start_date={this.props.chartRange.start}
               timeSettings="range"
             />
           </div>
           <BookingFilters
-            setOpenValue={this.props.setOpenValue}
-            setFiltersValue={this.props.setFilterValue}
-            open={this.props.open}
-            filters={!dataLoading && this.props.filters}
             coaches={this.props.coaches}
+            filters={!dataLoading && this.props.filters}
+            open={this.props.open}
+            setFiltersValue={this.props.setFilterValue}
+            setOpenValue={this.props.setOpenValue}
           />
           {this.props.graphData.loading ? (
             <Skeleton height={300} />
           ) : (
             <TemporalBarChart
-              height={300}
-              data={this.props.graphData.data}
+              tooltip
               chartOptions={[
                 {
                   dataKey: 'v',
@@ -464,10 +463,11 @@ export class MemberDetailBooking extends Component<Props, State> {
                   caption: this.props.t('memberGraph.label'),
                 },
               ]}
+              data={this.props.graphData.data}
+              height={300}
               margin={{ top: 0, right: 20, bottom: 0, left: 20 }}
               yLabel={this.props.t('memberGraph.label')}
               yLabelOffset={-2}
-              tooltip
             />
           )}
         </Paper>
@@ -492,26 +492,26 @@ export class MemberDetailBooking extends Component<Props, State> {
     if (this.props.selectBooking) {
       return (
         <BookingDetail
+          booking={this.props.selectedBooking}
           consumerPack={
             this.props.selectedBooking &&
             this.props.getPass(
               parseInt(this.props.selectedBooking.consumer_payment_pack_id, 10),
             )
           }
-          getPaymentPack={this.props.getPaymentPack}
           decrementCredit={this.props.decrementCredit}
+          getPaymentPack={this.props.getPaymentPack}
           incrementCredit={this.props.incrementCredit}
-          booking={this.props.selectedBooking}
-          member={this.props.member}
-          onConsumerPassSelected={this.goToConsumerPass}
           loading={this.props.consumerPackLoading || this.props.offerLoading}
-          onOfferClick={this.props.goToOffer}
+          member={this.props.member}
           offer={this.props.offer}
           offerLoading={
             !this.props.selectedBooking ||
             !this.props.offer ||
             this.props.selectedBooking.offer !== this.props.offer.id
           }
+          onConsumerPassSelected={this.goToConsumerPass}
+          onOfferClick={this.props.goToOffer}
         />
       );
     }
@@ -529,12 +529,12 @@ export class MemberDetailBooking extends Component<Props, State> {
       <Grid container direction="row" spacing={3}>
         <Grid
           container
-          alignItems="stretch"
           item
-          xs={12}
-          lg={6}
+          alignItems="stretch"
           direction="column"
+          lg={6}
           spacing={3}
+          xs={12}
         >
           <Dialog maxWidth="sm" open={this.state.noShowChipMessageDialogIsOpen}>
             <DialogContent>
@@ -553,7 +553,7 @@ export class MemberDetailBooking extends Component<Props, State> {
             {this.state.hasRollCallWarning && !this.state.hasSpiviWarning && (
               <div>
                 <DialogTitle>
-                  <Typography variant="h6" className={this.props.classes.bold}>
+                  <Typography className={this.props.classes.bold} variant="h6">
                     {this.props.t(
                       'offer:rollCall.warningIcon.stateChangedTitle',
                     )}
@@ -567,7 +567,7 @@ export class MemberDetailBooking extends Component<Props, State> {
             {!this.state.hasRollCallWarning && this.state.hasSpiviWarning && (
               <div>
                 <DialogTitle>
-                  <Typography variant="h6" className={this.props.classes.bold}>
+                  <Typography className={this.props.classes.bold} variant="h6">
                     {this.props.t('booking:spivi.connectionImpossible')}
                   </Typography>
                 </DialogTitle>
@@ -579,15 +579,15 @@ export class MemberDetailBooking extends Component<Props, State> {
             {this.state.hasRollCallWarning && this.state.hasSpiviWarning && (
               <div>
                 <DialogTitle>
-                  <Typography variant="h6" className={this.props.classes.bold}>
+                  <Typography className={this.props.classes.bold} variant="h6">
                     {this.props.t('booking:warning')}
                   </Typography>
                 </DialogTitle>
                 <DialogContent>
                   <div>
                     <Typography
-                      variant="subtitle1"
                       className={this.props.classes.bold}
+                      variant="subtitle1"
                     >
                       {this.props.t('booking:spivi.connectionImpossible')}
                     </Typography>
@@ -595,8 +595,8 @@ export class MemberDetailBooking extends Component<Props, State> {
                   </div>
                   <div className={this.props.classes.secondWarning}>
                     <Typography
-                      variant="subtitle1"
                       className={this.props.classes.bold}
+                      variant="subtitle1"
                     >
                       {this.props.t(
                         'offer:rollCall.warningIcon.stateChangedTitle',
@@ -621,15 +621,7 @@ export class MemberDetailBooking extends Component<Props, State> {
               itemPerPage={5}
               items={this.props.bookingOptionList}
               loading={this.props.bookingOptionListLoading}
-              onPageRequested={(page) => {
-                this.props.fetchBookingOptionForMember({
-                  member: this.props.id,
-                  page,
-                  page_size: 5,
-                });
-              }}
               nbItems={this.props.bookingOptionCount}
-              page={this.props.bookingOptionPage}
               onClick={(bo) => {
                 this.props.setSelectedBookingOption(
                   this.props.selectedBookingOption &&
@@ -638,72 +630,80 @@ export class MemberDetailBooking extends Component<Props, State> {
                     : bo,
                 );
               }}
-              onClickRegister={(bo) => this.props.goToOffer(bo.offer.id)}
               onClickDiscard={(bo) => this.props.setDiscardBookingOption(bo.id)}
+              onClickRegister={(bo) => this.props.goToOffer(bo.offer.id)}
+              onPageRequested={(page) => {
+                this.props.fetchBookingOptionForMember({
+                  member: this.props.id,
+                  page,
+                  page_size: 5,
+                });
+              }}
+              page={this.props.bookingOptionPage}
               selectedBookingOption={this.props.selectedBookingOption}
             />
 
             <Paper style={{ width: '100%' }}>
               <BookingFilters
-                setOpenValue={this.props.setOpenValue}
-                setFiltersValue={this.props.setFilterValue}
-                open={this.props.open}
-                filters={!dataLoading && this.props.filters}
                 coaches={this.props.coaches}
+                filters={!dataLoading && this.props.filters}
+                open={this.props.open}
+                setFiltersValue={this.props.setFilterValue}
+                setOpenValue={this.props.setOpenValue}
               />
               <Divider />
 
               <MemberProgramDetailDialog
-                loading={this.props.programDataLoading}
-                open={this.state.isMemberProgramDetailDialogOpen}
+                booking={this.props.bookings?.find(
+                  (b) => b?.member === this.props.id,
+                )}
                 closeDialog={() =>
                   this.setState({
                     isMemberProgramDetailDialogOpen: false,
                   })
                 }
-                memberProgramList={this.props.memberProgramIdsList(
-                  this.props.id,
-                )}
-                booking={this.props.bookings?.find(
-                  (b) => b?.member === this.props.id,
-                )}
-                members={[this.props.member]}
-                updateMemberMetricValue={this.props.updateMemberMetricValue}
                 createMemberProgram={(id) =>
                   this.props.createMemberProgram({
                     program: id,
                     member: this.props.id,
                   })
                 }
+                loading={this.props.programDataLoading}
+                memberProgramList={this.props.memberProgramIdsList(
+                  this.props.id,
+                )}
+                members={[this.props.member]}
+                open={this.state.isMemberProgramDetailDialogOpen}
                 programList={this.props.programList}
+                updateMemberMetricValue={this.props.updateMemberMetricValue}
               />
               {!this.props.userFiltersLoading && (
                 <PaginatedListBase
-                  itemPerPage={BOOKING_PAGE_SIZE}
-                  loading={this.props.bookingsLoading}
-                  listProps={{ disablePadding: true }}
-                  items={this.props.bookings}
-                  nbItems={this.props.bookingCount}
-                  page={this.props.bookingCurrentPage}
                   additionalFilters={this.props.filters}
+                  itemPerPage={BOOKING_PAGE_SIZE}
+                  items={this.props.bookings}
+                  listProps={{ disablePadding: true }}
+                  loading={this.props.bookingsLoading}
+                  nbItems={this.props.bookingCount}
                   onPageRequested={(page, page_size) =>
                     this.props.fetchMemberBookingsList(page, page_size)
                   }
+                  page={this.props.bookingCurrentPage}
                   renderCustomPageFirst={!!this.props.bookingId}
                   renderItem={(b: Booking) => (
                     <BookingItemForManagerV2
-                      programList={this.props.programList}
-                      onClick={() => this.selectBooking(b)}
-                      showRevertBookingButton
-                      button
-                      selected={
-                        this.props.selectedBooking &&
-                        this.props.selectedBooking.id === b.id
-                      }
                       key={b.id}
+                      button
+                      displayNoShowChip
+                      showRevertBookingButton
                       booking={b}
-                      heading="date_start"
-                      member={this.props.member}
+                      confirmBookingAttendance={() =>
+                        this.props.confirmBookingAttendance(b.id)
+                      }
+                      dateRollCallLastModified={b.date_roll_call_last_modified}
+                      discardBookingAttendance={() =>
+                        this.props.discardBookingAttendance(b.id)
+                      }
                       handleRevert={() => {
                         this.props.fetchOffer(b.offer, {
                           onSuccess: (offer: Offer) => {
@@ -719,30 +719,30 @@ export class MemberDetailBooking extends Component<Props, State> {
 
                         this.setState({ bookingToRevert: b });
                       }}
-                      discardBookingAttendance={() =>
-                        this.props.discardBookingAttendance(b.id)
+                      heading="date_start"
+                      isRollCallMandatory={
+                        this.props.theme.is_roll_call_mandatory
                       }
-                      confirmBookingAttendance={() =>
-                        this.props.confirmBookingAttendance(b.id)
-                      }
-                      spotSchedulingEnabled={typeof b.spot_id === 'number'}
+                      member={this.props.member}
+                      noShowChipMessage={this.props.t(
+                        'booking:noShowChip.message',
+                      )}
+                      onClick={() => this.selectBooking(b)}
                       onClickChangeSpot={this.onClickChangeSpot}
+                      onClickNoShowChip={this.openNoShowChipMessageDialog}
+                      onClickWarningIcon={this.openWarningDialog}
                       onProgramDetailsClick={() => {
                         this.props.fetchPerformanceTrackingData(this.props.id);
                         this.setState({
                           isMemberProgramDetailDialogOpen: true,
                         });
                       }}
-                      displayNoShowChip
-                      noShowChipMessage={this.props.t(
-                        'booking:noShowChip.message',
-                      )}
-                      onClickNoShowChip={this.openNoShowChipMessageDialog}
-                      isRollCallMandatory={
-                        this.props.theme.is_roll_call_mandatory
+                      programList={this.props.programList}
+                      selected={
+                        this.props.selectedBooking &&
+                        this.props.selectedBooking.id === b.id
                       }
-                      dateRollCallLastModified={b.date_roll_call_last_modified}
-                      onClickWarningIcon={this.openWarningDialog}
+                      spotSchedulingEnabled={typeof b.spot_id === 'number'}
                     />
                   )}
                 />
@@ -750,19 +750,15 @@ export class MemberDetailBooking extends Component<Props, State> {
             </Paper>
             {!!this.props.recurrenceRuleBooking.length && (
               <Paper className={this.props.classes.recurrenceRuleContainer}>
-                <Typography variant="caption" style={{ padding: 10 }}>
+                <Typography style={{ padding: 10 }} variant="caption">
                   {this.props.t('booking:recurrenceRule.recurrentBookings')}
                 </Typography>
                 <Divider />
                 <List disablePadding>
                   {this.props.recurrenceRuleBooking.map((r) => (
                     <RecurrenceRuleBookingListItem
-                      notShowMember
                       key={r.id}
-                      recurrenceRuleBooking={{
-                        ...r,
-                        member: this.props.member,
-                      }}
+                      notShowMember
                       onDelete={(id, data) =>
                         this.props.onDeleteRecurrenceRuleBooking(
                           r,
@@ -777,6 +773,10 @@ export class MemberDetailBooking extends Component<Props, State> {
                         this.props.fetchEstablishmentList();
                         this.props.setBookerInAvanceDialog(true);
                         this.props.setSelectedRecurrentBooking(r);
+                      }}
+                      recurrenceRuleBooking={{
+                        ...r,
+                        member: this.props.member,
                       }}
                     />
                   ))}
@@ -802,40 +802,40 @@ export class MemberDetailBooking extends Component<Props, State> {
 
             <div className={this.props.classes.createRecurrentBooking}>
               <Button
-                variant="outlined"
+                color="primary"
                 onClick={() => {
                   this.props.setBookerInAvanceDialog(true);
                   this.props.fetchActivitiesCompany(this.props.theme.company);
                   this.props.fetchEstablishmentList();
                 }}
-                color="primary"
+                variant="outlined"
               >
                 {this.props.t('booking:recurrenceRule.createModal.create')}
               </Button>
             </div>
             {this.props.bookerInAvanceDialog && (
               <RecurrenceRuleBookingFormDialog
-                refresh={this.props.refresh}
+                establishmentList={this.props.establishmentList}
+                fetchGroupsOfferList={this.props.fetchGroupsOfferList}
+                hasActivityGroups={this.props.activityGroups > 0}
                 initial={this.props.selectedRecurrentBooking}
                 metaActivityList={this.props.metaActivities}
-                establishmentList={this.props.establishmentList}
                 onClose={() => {
                   this.props.setBookerInAvanceDialog(false);
                   this.props.setSelectedRecurrentBooking(null);
                 }}
                 onSubmit={this.props.onSubmitRecurrentBooking}
-                fetchGroupsOfferList={this.props.fetchGroupsOfferList}
-                hasActivityGroups={this.props.activityGroups > 0}
+                refresh={this.props.refresh}
               />
             )}
           </Grid>
         </Grid>
-        <Grid item xs={12} lg={6}>
+        <Grid item lg={6} xs={12}>
           {this.renderDetails()}
         </Grid>
 
         <DiscardBookingOptionDialogV2
-          open={!!this.props.discardBookingOption}
+          onClose={() => this.props.setDiscardBookingOption(null)}
           onSubmit={(sendEmail: boolean) => {
             this.props.discardOption(
               this.props.discardBookingOption,
@@ -853,32 +853,32 @@ export class MemberDetailBooking extends Component<Props, State> {
               },
             );
           }}
-          onClose={() => this.props.setDiscardBookingOption(null)}
+          open={!!this.props.discardBookingOption}
         />
 
         {this.state.bookingToRevert && (
           <RevertBookingDialog
-            handleBookingDeletion={this.handleBookingDeletion}
-            bookingToRevert={this.state.bookingToRevert}
             offerIsAvailable
+            bookingToRevert={this.state.bookingToRevert}
             closeRevertBookingDialog={() =>
               this.setState({ bookingToRevert: null })
             }
+            handleBookingDeletion={this.handleBookingDeletion}
             offer={this.props.offer}
             similarBookings={this.props.similarBookingList}
           />
         )}
 
         <AsyncSpotSelector
-          fetchRoomBlueprintDetail={this.props.fetchRoomBlueprintDetail}
-          roomBlueprintById={this.props.roomBlueprintById}
+          assetsForBlueprintById={this.props.assetsForBlueprintById}
           fetchAssetForBlueprint={this.props.fetchAssetForBlueprint}
-          fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
-          fetchOfferStatus={this.props.fetchOfferStatus}
           fetchOfferById={this.props.fetchOffer}
+          fetchOfferStatus={this.props.fetchOfferStatus}
+          fetchRoomBlueprintDetail={this.props.fetchRoomBlueprintDetail}
+          fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
           offer={this.props.offer}
           offerStatusById={this.props.offerStatusById}
-          assetsForBlueprintById={this.props.assetsForBlueprintById}
+          roomBlueprintById={this.props.roomBlueprintById}
           spotTypes={this.props.spotTypes.concat(DEFAULT_SPOT_TYPE)}
         />
       </Grid>

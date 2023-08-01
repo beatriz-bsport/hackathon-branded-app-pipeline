@@ -14,7 +14,7 @@ const InboxPanelMemberSection: React.FC<Props> = ({ title, count }) => {
 
   return (
     <div className={classes.container}>
-      <Typography variant="body1" className={classes.title}>
+      <Typography className={classes.title} variant="body1">
         {title}
       </Typography>
       <CustomChip

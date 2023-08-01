@@ -36,7 +36,6 @@ const MarketplaceBookingBlockedReason: React.FC<Props> = (props) => {
         )}
       >
         <TheIcon
-          fontSize="large"
           className={classNames({
             'bs-marketplace-booking-blocked-reason__icon--success':
               props.bookingBlockedReason.color === 'success',
@@ -45,6 +44,7 @@ const MarketplaceBookingBlockedReason: React.FC<Props> = (props) => {
             'bs-marketplace-booking-blocked-reason__icon--error':
               props.bookingBlockedReason.color === 'error',
           })}
+          fontSize="large"
         />
       </div>
       <div className="bs-marketplace-booking-blocked-reason__title">
@@ -54,9 +54,9 @@ const MarketplaceBookingBlockedReason: React.FC<Props> = (props) => {
         {props.bookingBlockedReason.message}
       </div>
       <button
-        type="button"
-        onClick={props.goBackToCalendar}
         className="bs-marketplace-booking-blocked-reason__back-button"
+        onClick={props.goBackToCalendar}
+        type="button"
       >
         {t('newBookingModule.backToCalendar')}
       </button>

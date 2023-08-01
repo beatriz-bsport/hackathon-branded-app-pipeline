@@ -35,19 +35,19 @@ export function ShopItemInput(props: Props) {
   const { value, label, onChange, shopItems, classes, helperText } = props;
   return (
     <FormControl className={classes.formControl}>
-      <InputLabel shrink={value} htmlFor="pass-helper">
+      <InputLabel htmlFor="pass-helper" shrink={value}>
         {label}
       </InputLabel>
       <Select
-        value={value}
+        input={<Input id="shop-item-helper" name="shop-item" />}
         onChange={(event) => onChange(event.target.value)}
-        input={<Input name="shop-item" id="shop-item-helper" />}
+        value={value}
       >
         <MenuItem value={null}>
           <em> - </em>
         </MenuItem>
         {shopItems.map((si) => (
-          <MenuItem value={si.id} key={si.id}>
+          <MenuItem key={si.id} value={si.id}>
             <ShopItemSummary shopItem={si} />
           </MenuItem>
         ))}

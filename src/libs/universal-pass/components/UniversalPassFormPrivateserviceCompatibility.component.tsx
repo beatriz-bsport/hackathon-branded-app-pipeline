@@ -104,6 +104,10 @@ export const UniversalPassFormPrivateserviceCompatibility = (props: Props) => {
               <>
                 <div className={classes.privateServiceSelector}>
                   <PrivateServiceSelector
+                    onChange={(e: any) =>
+                      push({ private_service: e, excluded_slot_ids: [] })
+                    }
+                    placeholder={t('privatePass.form.selector.privateService')}
                     privateServices={privateServices
                       .filter((ps: PrivateServiceWithSlots) =>
                         filterPrivateService(
@@ -113,10 +117,6 @@ export const UniversalPassFormPrivateserviceCompatibility = (props: Props) => {
                         ),
                       )
                       .filter((ps) => ps.available)}
-                    onChange={(e: any) =>
-                      push({ private_service: e, excluded_slot_ids: [] })
-                    }
-                    placeholder={t('privatePass.form.selector.privateService')}
                   />
                 </div>
                 <List>
@@ -132,9 +132,16 @@ export const UniversalPassFormPrivateserviceCompatibility = (props: Props) => {
                       .filter((ps) => ps.available)
                       .map((ps) => (
                         <PrivateServiceListItem
-                          hideSecondary
-                          privateService={ps}
                           key={ps.id}
+                          hideSecondary
+                          excluded_slots={getExcludedSlots(
+                            ps,
+                            values.linked_private_pass_compatibility,
+                          )}
+                          included_slots={getIncludedSlots(
+                            ps,
+                            values.linked_private_pass_compatibility,
+                          )}
                           onDelete={() => {
                             const psArray: number[] =
                               props.initial &&
@@ -171,14 +178,7 @@ export const UniversalPassFormPrivateserviceCompatibility = (props: Props) => {
                               );
                             }
                           }}
-                          excluded_slots={getExcludedSlots(
-                            ps,
-                            values.linked_private_pass_compatibility,
-                          )}
-                          included_slots={getIncludedSlots(
-                            ps,
-                            values.linked_private_pass_compatibility,
-                          )}
+                          privateService={ps}
                         />
                       ))}
 
@@ -207,14 +207,14 @@ export const UniversalPassFormPrivateserviceCompatibility = (props: Props) => {
                   )}
                 </List>
                 <PrivateSlotSelectionDialog
-                  compatibleServicePass={props.compatibleServicePass}
                   compatibility={values.linked_private_pass_compatibility}
+                  compatibleServicePass={props.compatibleServicePass}
+                  onCancel={() => setServiceAndIndex(null, null)}
                   onSubmit={(data: { excluded_slot_ids: number[] }) =>
                     updateSlotData(data, replace)
                   }
-                  onCancel={() => setServiceAndIndex(null, null)}
-                  selectedService={selectedService}
                   privateServices={props.privateServices}
+                  selectedService={selectedService}
                 />
                 <Dialog open={openDeleteCompatibilityDialog}>
                   <DialogTitle>

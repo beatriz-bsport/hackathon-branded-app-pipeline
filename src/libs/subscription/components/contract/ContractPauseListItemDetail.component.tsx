@@ -216,7 +216,7 @@ class ContractPauseListItemDetail extends React.Component<Props, State> {
             </div>
             <div className={classes.rowCenter}>
               {contractPause.from_date && contractPause.until_date && (
-                <Typography variant="body1" className={classes.dateTypography}>
+                <Typography className={classes.dateTypography} variant="body1">
                   {t('pauseV2.common.listItem.fromToUntil', {
                     fromDate: moment(contractPause.from_date).format('L'),
                     untilDate: moment(contractPause.until_date).format('L'),
@@ -236,22 +236,22 @@ class ContractPauseListItemDetail extends React.Component<Props, State> {
               )}
             </div>
             <Menu
-              onClose={this.onCloseMenu}
               anchorEl={this.state.menuAnchor}
+              onClose={this.onCloseMenu}
               open={!!this.state.menuAnchor}
             >
               <Tooltip
-                open={this.state.openTooltipCancelDisabled}
-                title={t('pauseV2.common.menu.cancelForbidden')}
                 onPointerEnter={this.handleHoverInMenuCancel}
                 onPointerLeave={this.handleHoverOutMenuCancel}
-                onTouchStart={this.handleHoverInMenuCancel}
                 onTouchEnd={this.handleHoverOutMenuCancel}
+                onTouchStart={this.handleHoverInMenuCancel}
+                open={this.state.openTooltipCancelDisabled}
+                title={t('pauseV2.common.menu.cancelForbidden')}
               >
                 <span>
                   <MenuItem
-                    onClick={this.onOpenDeleteDialog}
                     disabled={this.state.dateStartIsPast}
+                    onClick={this.onOpenDeleteDialog}
                   >
                     <ListItemIcon>
                       <TimerOffIcon fontSize="small" />
@@ -263,17 +263,17 @@ class ContractPauseListItemDetail extends React.Component<Props, State> {
                 </span>
               </Tooltip>
               <Tooltip
-                open={this.state.openTooltipUpdateDisabled}
-                title={t('pauseV2.common.menu.changeForbidden')}
                 onPointerEnter={this.handleHoverInMenuUpdate}
                 onPointerLeave={this.handleHoverOutMenuUpdate}
-                onTouchStart={this.handleHoverInMenuUpdate}
                 onTouchEnd={this.handleHoverOutMenuUpdate}
+                onTouchStart={this.handleHoverInMenuUpdate}
+                open={this.state.openTooltipUpdateDisabled}
+                title={t('pauseV2.common.menu.changeForbidden')}
               >
                 <span>
                   <MenuItem
-                    onClick={this.onOpenUpdatePauseDialog}
                     disabled={this.state.dateEndIsPast}
+                    onClick={this.onOpenUpdatePauseDialog}
                   >
                     <ListItemIcon>
                       <DateRangeIcon fontSize="small" />
@@ -285,8 +285,8 @@ class ContractPauseListItemDetail extends React.Component<Props, State> {
                 </span>
               </Tooltip>
               <MenuItem
-                onClick={this.onOpenUpdateNameDialog}
                 disabled={this.state.dateEndIsPast}
+                onClick={this.onOpenUpdateNameDialog}
               >
                 <ListItemIcon>
                   <EditIcon fontSize="small" />
@@ -313,15 +313,15 @@ class ContractPauseListItemDetail extends React.Component<Props, State> {
                 </AccordionSummary>
                 <div className={classes.billingPlanListContainer}>
                   <PaginatedSubscriptionList
+                    itemPerPage={PAGINATED_LIST_SIZE}
                     items={contractPause.billing_plan_success.slice(
                       (this.state.successPage - 1) * PAGINATED_LIST_SIZE,
                       this.state.successPage * PAGINATED_LIST_SIZE,
                     )}
                     nbItems={contractPause.billing_plan_success.length}
                     onClick={this.props.goToSubscription}
-                    page={this.state.successPage}
-                    itemPerPage={PAGINATED_LIST_SIZE}
                     onPageRequested={this.onPageSuccessRequested}
+                    page={this.state.successPage}
                   />
                 </div>
               </Accordion>
@@ -333,9 +333,9 @@ class ContractPauseListItemDetail extends React.Component<Props, State> {
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <div className={classes.rowCenter}>
                       <AlertIcon
-                        fontSize="small"
-                        color="error"
                         className={classes.iconLeft}
+                        color="error"
+                        fontSize="small"
                       />
                       <Typography variant="caption">
                         {t('pauseV2.contractPause.sections.error', {
@@ -346,15 +346,15 @@ class ContractPauseListItemDetail extends React.Component<Props, State> {
                   </AccordionSummary>
                   <div className={classes.billingPlanListContainer}>
                     <PaginatedSubscriptionList
+                      itemPerPage={PAGINATED_LIST_SIZE}
                       items={contractPause.billing_plan_invalid.slice(
                         (this.state.invalidPage - 1) * PAGINATED_LIST_SIZE,
                         this.state.invalidPage * PAGINATED_LIST_SIZE,
                       )}
                       nbItems={contractPause.billing_plan_invalid.length}
                       onClick={this.props.goToSubscription}
-                      page={this.state.invalidPage}
-                      itemPerPage={PAGINATED_LIST_SIZE}
                       onPageRequested={this.onPageInvalidRequested}
+                      page={this.state.invalidPage}
                     />
                   </div>
                 </Accordion>
@@ -371,10 +371,10 @@ class ContractPauseListItemDetail extends React.Component<Props, State> {
           )}
           {this.state.openUpdateNameDialog && (
             <ContractPauseUpdateNameDialog
-              open={this.state.openUpdateNameDialog}
-              previousName={contractPause.name}
               onCancel={this.onCloseUpdateNameDialog}
               onUpdateName={this.onUpdateName}
+              open={this.state.openUpdateNameDialog}
+              previousName={contractPause.name}
             />
           )}
         </div>

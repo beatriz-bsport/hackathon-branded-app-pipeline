@@ -98,19 +98,19 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
       <>
         <div className={classes.leftInnerContainer}>
           <ToolTip title={t('cadence.back')}>
-            <IconButton onClick={goBack} disabled={loading}>
+            <IconButton disabled={loading} onClick={goBack}>
               <KeyboardArrowLeftIcon />
             </IconButton>
           </ToolTip>
 
           <div className={classes.nameWithIcon}>
-            <Typography variant="h6" className={classes.titleTypo}>
+            <Typography className={classes.titleTypo} variant="h6">
               {cadence?.name}
             </Typography>
             <ToolTip title={t('cadence.form.modify_name_label')}>
               <IconButton
-                onClick={handleOpenEditDialog}
                 disabled={loading || cadenceEditMode || cadence?.active}
+                onClick={handleOpenEditDialog}
               >
                 <EditIcon />
               </IconButton>
@@ -122,10 +122,10 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
           <div className={classes.actions}>
             {cadence?.active ? (
               <Button
-                variant="contained"
                 color="primary"
                 disabled={loading || cadenceEditMode}
                 onClick={handleShutOff}
+                variant="contained"
               >
                 <PauseIcon className={classes.leftIcon} />
                 {t('cadence.shutOff')}
@@ -140,10 +140,10 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
               >
                 <div>
                   <Button
-                    onClick={handleOpenActivateDialog}
-                    disabled={loading || cadenceEditMode || !canBeActivated}
-                    variant="outlined"
                     color="primary"
+                    disabled={loading || cadenceEditMode || !canBeActivated}
+                    onClick={handleOpenActivateDialog}
+                    variant="outlined"
                   >
                     <PlayArrowIcon className={classes.leftIcon} />
                     {t('cadence.activate.button')}
@@ -159,10 +159,10 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
               }
             >
               <Button
-                variant="contained"
                 color="secondary"
                 disabled={cadence?.active || loading || !canBeActivated}
                 onClick={switchCadenceEditMode}
+                variant="contained"
               >
                 {cadenceEditMode ? (
                   <>
@@ -249,30 +249,30 @@ export const CadenceDetailHeader: React.FC<Props> = ({
         <div className={classes.flexContent}>
           <CadenceDetailHeaderActions
             cadence={cadence}
+            cadenceEditMode={cadenceEditMode}
+            cadenceMinimalConfigurationState={cadenceMinimalConfigurationState}
             goBack={goBack}
             loading={loading}
-            cadenceEditMode={cadenceEditMode}
-            setOpenEditDialog={setOpenEditDialog}
-            setOpenActivateDialog={setOpenActivateDialog}
             onShutOff={onShutOff}
+            setOpenActivateDialog={setOpenActivateDialog}
+            setOpenEditDialog={setOpenEditDialog}
             switchCadenceEditMode={switchCadenceEditMode}
-            cadenceMinimalConfigurationState={cadenceMinimalConfigurationState}
           />
         </div>
       </div>
       {openEditDialog && !loading && (
         <CadenceCreateAndUpdateForm
-          initial={cadence}
           open
-          onSubmit={handleEdit}
-          onCancel={handleCloseEditForm}
+          initial={cadence}
           loading={false}
+          onCancel={handleCloseEditForm}
+          onSubmit={handleEdit}
         />
       )}
       <CadenceActivateDialog
-        open={openActivateDialog}
         onCancel={handleCloseActivateDialog}
         onConfirm={handleActivate}
+        open={openActivateDialog}
       />
     </>
   );

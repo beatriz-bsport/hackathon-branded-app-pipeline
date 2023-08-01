@@ -41,25 +41,25 @@ const PaymentPackComboItem = (props: Props) => {
             props.paymentCombo.tax_calculation,
           )}
         </Typography>
-        <Typography variant="body1" color="textPrimary" align="left">
+        <Typography align="left" color="textPrimary" variant="body1">
           {props.paymentCombo.name}
         </Typography>
         <TypographyWithShowMore
-          maxCharacterCount={100}
-          component="div"
           multiline
-          variant="body2"
           color="textPrimary"
+          component="div"
+          maxCharacterCount={100}
           style={{ textAlign: 'left' }}
+          variant="body2"
         >
           {props.paymentCombo.description}
         </TypographyWithShowMore>
         {packs.map((pack) => (
           <Typography
             key={pack}
-            variant="body2"
-            color="textSecondary"
             align="left"
+            color="textSecondary"
+            variant="body2"
           >
             - {pack}
           </Typography>

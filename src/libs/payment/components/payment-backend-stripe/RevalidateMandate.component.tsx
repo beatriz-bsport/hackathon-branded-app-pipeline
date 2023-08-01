@@ -165,6 +165,7 @@ export class RevalidateMandate extends React.Component<Props, State> {
       <Wrapper variant={this.props.variant}>
         <>
           <div
+            className={classes.modal}
             style={
               this.props.variant === 'div'
                 ? { position: 'unset', backgroundColor: 'transparent' }
@@ -174,7 +175,6 @@ export class RevalidateMandate extends React.Component<Props, State> {
                     left: dialogOffset,
                   }
             }
-            className={classes.modal}
           >
             <DialogContent>
               {!this.state.success && (
@@ -220,8 +220,8 @@ export class RevalidateMandate extends React.Component<Props, State> {
                   <div>
                     <div className={classes.centered}>
                       <ErrorIcon
-                        style={{ height: 100, width: 100 }}
                         color="secondary"
+                        style={{ height: 100, width: 100 }}
                       />
                       <Typography className={classes.message}>
                         {this.props.t(
@@ -231,8 +231,8 @@ export class RevalidateMandate extends React.Component<Props, State> {
                       {this.state.stripe_error_code ||
                       this.state.stripe_decline_code ? (
                         <StripeErrorCode
-                          errorCode={this.state.stripe_error_code}
                           declineCode={this.state.stripe_decline_code}
+                          errorCode={this.state.stripe_error_code}
                         />
                       ) : null}
                     </div>
@@ -260,8 +260,8 @@ export class RevalidateMandate extends React.Component<Props, State> {
                 {!this.state.error && !this.state.success && (
                   <form onSubmit={this.handleSubmit}>
                     <Typography
-                      color="textSecondary"
                       className={classes.mandate}
+                      color="textSecondary"
                     >
                       {this.props.t('subscription:mandate.contentIban')}
                     </Typography>

@@ -23,31 +23,31 @@ type Props = {
 
 const PlaylistDetail = (props: Props) => {
   return (
-    <Grid spacing={2} container direction="row">
-      <Grid item xs={12} md={8}>
+    <Grid container direction="row" spacing={2}>
+      <Grid item md={8} xs={12}>
         {props.selectedVideo ? (
           <VideoPlayerFull
+            accessDenied={props.accessDenied}
             authenticated={props.authenticated}
-            video={props.selectedVideo}
-            requestVideoAccess={props.requestVideoAccess}
             playbackUrl={props.playbackUrl}
             playbackUrlLoading={props.playbackUrlLoading}
-            accessDenied={props.accessDenied}
+            requestVideoAccess={props.requestVideoAccess}
+            video={props.selectedVideo}
           />
         ) : (
           <PlaylistEmpty onAddVideo={props.onAddVideo} />
         )}
       </Grid>
-      <Grid item xs={12} md={4}>
+      <Grid item md={4} xs={12}>
         <VideoThumbnailList
+          count={props.playlist.videos.length}
+          description={props.playlist.description}
           onAddVideo={props.onAddVideo}
           onDeleteVideo={props.onSubVideo}
+          onOpenVideo={props.onOpenVideo}
+          title={props.playlist.name}
           videoList={props.playlist.videos}
           videoPlayingId={props.videoPlayingId}
-          onOpenVideo={props.onOpenVideo}
-          description={props.playlist.description}
-          title={props.playlist.name}
-          count={props.playlist.videos.length}
         />
       </Grid>
     </Grid>

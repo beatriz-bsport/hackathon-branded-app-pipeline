@@ -116,7 +116,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
             <Button onClick={props.onClose}>
               {t('instalment.form.actions.close')}
             </Button>
-            <Submit variant="outlined" color="primary">
+            <Submit color="primary" variant="outlined">
               {t('instalment.form.actions.next')}
             </Submit>
           </DialogActions>
@@ -138,8 +138,10 @@ const InstalmentPaymentFormDialog = (props: Props) => {
           </div>
           <PaymentMethodTypeSwitcher
             classes={classes}
-            payment_method={paymentConfig.payment_method}
             disabled={processing || props.loading}
+            enabledPaymentGroupMethodIdentifier={
+              props.enabledPaymentGroupMethodIdentifier
+            }
             onChange={(payment_method) => {
               setPaymentConfig({
                 payment_method,
@@ -150,32 +152,30 @@ const InstalmentPaymentFormDialog = (props: Props) => {
               });
             }}
             onlinePaymentEnabled={props.onlinePaymentEnabled}
-            enabledPaymentGroupMethodIdentifier={
-              props.enabledPaymentGroupMethodIdentifier
-            }
+            payment_method={paymentConfig.payment_method}
           />
           <Divider />
           <PaymentMethodSelector
-            selectedSavedPaymentMethodId={paymentConfig.payment_method_id}
-            paymentGroupMethodIdentifier={paymentConfig.payment_method}
-            paymentMethodType={paymentConfig.payment_method}
-            requestSetupIntentSecret={props.requestSetupIntentSecret}
-            savedPaymentMethodList={props.savedPaymentMethodList}
-            refreshSavedPaymentMethodList={props.fetchPaymentMethodList}
+            companyId={props.companyId}
             disabled={
               processing ||
               props.loading ||
               props.onlinePaymentEnabled === false
             }
+            onCancelTerminal={onCancelSecondStep}
             onlinePaymentEnabled={props.onlinePaymentEnabled}
+            onSuccessTerminal={onSubmitSecondStep}
+            paymentGroupMethodIdentifier={paymentConfig.payment_method}
+            paymentMethodType={paymentConfig.payment_method}
+            refreshSavedPaymentMethodList={props.fetchPaymentMethodList}
+            requestSetupIntentSecret={props.requestSetupIntentSecret}
+            savedPaymentMethodList={props.savedPaymentMethodList}
+            selectedSavedPaymentMethodId={paymentConfig.payment_method_id}
             selectPaymentMethod={(payment_method_id) =>
               setPaymentConfig({ ...paymentConfig, payment_method_id })
             }
-            onSuccessTerminal={onSubmitSecondStep}
-            onCancelTerminal={onCancelSecondStep}
-            stripeReaders={props.stripeReaders}
             setProcessing={setProcessing}
-            companyId={props.companyId}
+            stripeReaders={props.stripeReaders}
           />
         </DialogContent>
         {paymentConfig.payment_method !== PAYMENT_STRIPE_TERMINAL_FAKE && (
@@ -184,6 +184,7 @@ const InstalmentPaymentFormDialog = (props: Props) => {
               {t('instalment.form.actions.previous')}
             </Button>
             <Button
+              color="primary"
               disabled={
                 processing ||
                 props.loading ||
@@ -191,9 +192,8 @@ const InstalmentPaymentFormDialog = (props: Props) => {
                   PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT &&
                   !paymentConfig.payment_method_id)
               }
-              variant="contained"
-              color="primary"
               onClick={onSubmitSecondStep}
+              variant="contained"
             >
               {(processing || props.loading) && <CircularProgress />}
               {t('instalment.form.actions.submit')}

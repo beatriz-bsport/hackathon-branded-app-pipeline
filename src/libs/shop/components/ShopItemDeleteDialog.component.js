@@ -36,9 +36,9 @@ export function ShopItemDeleteDialog(props: Props) {
         {props.isUsedInCombo && (
           <DialogContentText className={classes.warningDelete}>
             <WarningIcon
-              fontSize="large"
-              color="error"
               className={classes.warningIcon}
+              color="error"
+              fontSize="large"
             />
             <Typography>{t('dialog.delete.warning')}</Typography>
           </DialogContentText>
@@ -48,14 +48,14 @@ export function ShopItemDeleteDialog(props: Props) {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onCancel} color="secondary">
+        <Button color="secondary" onClick={onCancel}>
           {t('dialog.delete.cancel')}
         </Button>
         <RedButton
-          onClick={onSubmit}
-          color="primary"
           autoFocus
+          color="primary"
           delayBeforeActivation={3}
+          onClick={onSubmit}
         >
           {t('dialog.delete.confirm')}
         </RedButton>

@@ -72,49 +72,49 @@ const GraphParamQualitativeForm: React.FC<Props> = ({
 
   return (
     <>
-      <Typography variant="body1" className={classes.selectLabel}>
+      <Typography className={classes.selectLabel} variant="body1">
         {t('graphFormDrawer.labels.groupByField')}
       </Typography>
       <div className={classes.row}>
         <div>
           <MaterialUiSingleSelectorField
+            inScrollBar
             className={classNames(classes.selectInput)}
-            options={groupByOptions}
+            isDisabled={groupByOptions.length === 1}
             name="graph_params.group_by"
+            options={groupByOptions}
             placeholder={t(
               'graphFormDrawer.placeholders.dashboardGraphIdentifier',
             )}
-            isDisabled={groupByOptions.length === 1}
-            inScrollBar
           />
         </div>
       </div>
 
       <Typography
-        variant="body1"
         className={classNames(
           classes.selectLabel,
           classes.selectLabelWithMargin,
         )}
+        variant="body1"
       >
         {t('graphFormDrawer.labels.dataToDisplay')}
       </Typography>
       <div className={classes.row}>
         <div>
           <MaterialUiSingleSelectorField
+            inScrollBar
             className={classes.selectInput}
-            options={groupByValueOptions}
+            isDisabled={groupByValueOptions.length === 1}
             name="graph_params.group_by_value"
+            options={groupByValueOptions}
             placeholder={t(
               'graphFormDrawer.placeholders.dashboardGraphIdentifier',
             )}
-            isDisabled={groupByValueOptions.length === 1}
-            inScrollBar
           />
         </div>
       </div>
       {helperText && (
-        <Typography variant="body2" className={classes.helperText}>
+        <Typography className={classes.helperText} variant="body2">
           {helperText}
         </Typography>
       )}

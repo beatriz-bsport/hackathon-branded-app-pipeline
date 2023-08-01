@@ -115,17 +115,17 @@ export class BookingModuleOfferChoice extends React.Component<Props> {
                 moment(o.date_start).isBefore(start) ||
                 moment(o.date_start).isAfter(end);
               return (
-                <div className={classes.row} key={o.id}>
+                <div key={o.id} className={classes.row}>
                   <Checkbox
                     checked={this.props.offersSelected.includes(o.id)}
-                    onChange={() => this.props.toogleChecked(o.id)}
                     disabled={disabled}
+                    onChange={() => this.props.toogleChecked(o.id)}
                   />
                   <OfferListItemV2
-                    onClick={this.props.toogleChecked}
-                    offer={o}
                     showDate
                     disabled={disabled}
+                    offer={o}
+                    onClick={this.props.toogleChecked}
                     selected={this.props.offersSelected.includes(o.id)}
                   />
                 </div>
@@ -133,12 +133,12 @@ export class BookingModuleOfferChoice extends React.Component<Props> {
             })}
         <div className={classes.actions}>
           <Button
-            variant="contained"
             color="primary"
-            style={{ flex: 2 }}
             onClick={() =>
               this.props.registerToOffer(this.props.offersSelected)
             }
+            style={{ flex: 2 }}
+            variant="contained"
           >
             {`${t('bookingModule.recurrent.bookMultiple')} (${
               this.props.offersSelected.length

@@ -74,12 +74,12 @@ export const CompanySignupForm = (props: Props) => {
       <div className={classes.field}>
         <TextField
           fullWidth
-          value={props.name}
-          onChange={props.setName}
-          label={t('signupCompany.form.name.label')}
-          helperText={t('signupCompany.form.name.helperText')}
-          placeholder={t('signupCompany.form.name.placeholder')}
           required
+          helperText={t('signupCompany.form.name.helperText')}
+          label={t('signupCompany.form.name.label')}
+          onChange={props.setName}
+          placeholder={t('signupCompany.form.name.placeholder')}
+          value={props.name}
         />
       </div>
       <div className={classes.field}>
@@ -87,54 +87,54 @@ export const CompanySignupForm = (props: Props) => {
           fullWidth
           required
           autoComplete="email"
-          type="email"
-          value={props.email}
-          onChange={props.setEmail}
-          label={t('signupCompany.form.email.label')}
-          placeholder={t('signupCompany.form.email.placeholder')}
+          error={props.emailExists}
           helperText={
             !!props.emailExists && t('signupCompany.form.email.errorExists')
           }
-          error={props.emailExists}
+          label={t('signupCompany.form.email.label')}
+          onChange={props.setEmail}
+          placeholder={t('signupCompany.form.email.placeholder')}
+          type="email"
+          value={props.email}
         />
         {props.checkEmailExistsLoading && <CircularProgress size={12} />}
       </div>
       <PasswordInput
+        required
         className={classes.field}
+        label={t('signupCompany.form.password1.label')}
+        onChange={props.setPassword1}
         type="password"
         value={props.password1}
-        required
-        onChange={props.setPassword1}
-        label={t('signupCompany.form.password1.label')}
       />
       <PasswordInput
-        className={classes.field}
-        type="password"
-        value={props.password2}
         required
-        onChange={props.setPassword2}
+        className={classes.field}
         error={props.passwordMismatch}
         helperText={
           props.passwordMismatch && t('signupCompany.form.password2.error')
         }
         label={t('signupCompany.form.password2.label')}
+        onChange={props.setPassword2}
+        type="password"
+        value={props.password2}
       />
       <div className={classes.field}>
         <LocaleSelector
-          value={props.locale}
           label={t('signupCompany.form.country.label')}
           onChange={props.setLocale}
+          value={props.locale}
         />
         <TimezoneSelector
           fullWidth
-          value={props.timezone_name}
-          label={t('signupCompany.form.timezone.label')}
           country={props.locale.slice(3, 6)}
+          label={t('signupCompany.form.timezone.label')}
+          onChange={props.setTimezone}
           timezoneList={moment.tz.zonesForCountry(
             props.locale.slice(3, 6),
             true,
           )}
-          onChange={props.setTimezone}
+          value={props.timezone_name}
         />
       </div>
       <div className={classes.field}>
@@ -143,8 +143,8 @@ export const CompanySignupForm = (props: Props) => {
           onChange={(v: boolean) => {
             props.validateCaptcha(!!v);
           }}
-          onExpired={() => props.validateCaptcha(false)}
           onErrored={() => props.validateCaptcha(false)}
+          onExpired={() => props.validateCaptcha(false)}
           sitekey={`${Config.REACT_APP_RECAPTCHA_V2}`}
         />
       </div>
@@ -153,12 +153,12 @@ export const CompanySignupForm = (props: Props) => {
           {t('signupCompany.form.previous')}
         </Button>
         <Button
-          type="submit"
           disabled={
             props.passwordMismatch ||
             !props.validatedCaptcha ||
             !props.timezone_name
           }
+          type="submit"
         >
           {t('signupCompany.form.next')}
         </Button>

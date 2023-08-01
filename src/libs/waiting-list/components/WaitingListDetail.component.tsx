@@ -48,7 +48,7 @@ class WaitingListDetail extends React.PureComponent<Props> {
               <Typography>
                 {`${t('member.detail.registrationSource')}: `}
               </Typography>
-              <BookingSource t={this.props.t} source={bookingOption.source} />
+              <BookingSource source={bookingOption.source} t={this.props.t} />
             </div>
           </div>
         </Paper>
@@ -58,10 +58,10 @@ class WaitingListDetail extends React.PureComponent<Props> {
         <Paper className={classes.paperContainer}>
           <OfferMinimalSummary
             loading={false}
+            offer={this.props.offer}
             overrideClickAction={() =>
               this.props.onOfferClick(this.props.offer.id)
             }
-            offer={this.props.offer}
           />
         </Paper>
       </div>

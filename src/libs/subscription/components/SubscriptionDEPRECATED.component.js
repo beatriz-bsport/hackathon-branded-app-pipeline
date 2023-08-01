@@ -54,16 +54,16 @@ export function SubscriptionComponent(props: Props) {
   return (
     <div>
       <Grid container direction="row" spacing={3}>
-        <Grid item xs={12} md={6}>
-          <Typography variant="h5" component="h3">
+        <Grid item md={6} xs={12}>
+          <Typography component="h3" variant="h5">
             {props.t('subscription.invoicesSection')}
           </Typography>
           <Divider className={props.classes.divider} />
           <Paper>
             <SubscriptionSchedule
-              scheduledInvoices={props.subscription.planned_invoices}
               onPlannedInvoiceClick={props.goToInvoice}
               requestUpdatePrice={props.requestUpdatePrice}
+              scheduledInvoices={props.subscription.planned_invoices}
               subscriptionHasEnded={
                 props.subscription.has_ended || props.subscription.canceled_at
               }
@@ -72,35 +72,35 @@ export function SubscriptionComponent(props: Props) {
           <div className={props.classes.divider} />
           <Paper>
             <EventPanel
-              loading={props.eventLoading}
               eventList={props.eventList}
-              page={props.eventPage}
-              fetchEventList={props.fetchSubscriptionEventList}
-              extraFetchParams={{ billing_plan: props.subscription.id }}
               eventSpec={COMPANY_EVENTS}
+              extraFetchParams={{ billing_plan: props.subscription.id }}
+              fetchEventList={props.fetchSubscriptionEventList}
+              loading={props.eventLoading}
+              page={props.eventPage}
             />
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <div className={props.classes.block}>
             <SubscriptionSummary
-              subscription={props.subscription}
-              goToSubscribe={props.goToSubscribe}
               goToMember={props.goToMember}
-              updateRenewal={props.updateSubscriptionRenewal}
+              goToSubscribe={props.goToSubscribe}
               loading={props.loading}
-              requestPaymentPackSwitch={props.requestPaymentPackSwitch}
               requestPaymentMethodSwitch={props.requestPaymentMethodSwitch}
+              requestPaymentPackSwitch={props.requestPaymentPackSwitch}
+              subscription={props.subscription}
               unflagPlannedInvoiceAsLast={props.unflagPlannedInvoiceAsLast}
+              updateRenewal={props.updateSubscriptionRenewal}
             />
           </div>
           <SubscriptionActions
-            subscription={props.subscription}
             requestFreeze={props.requestFreeze}
             requestPaymentMethodSwitch={props.requestPaymentMethodSwitch}
             requestPaymentPackSwitch={props.requestPaymentPackSwitch}
-            requestStop={props.requestStop}
             requestScheduledStop={props.requestScheduledStop}
+            requestStop={props.requestStop}
+            subscription={props.subscription}
           />
 
           {props.subscription.pauses.length ? (
@@ -110,7 +110,7 @@ export function SubscriptionComponent(props: Props) {
           ) : null}
           <Paper className={props.classes.block}>
             {props.subscription.pauses.map((p) => (
-              <SubscriptionPauseListItem pause={p} key={p.id} />
+              <SubscriptionPauseListItem key={p.id} pause={p} />
             ))}
           </Paper>
         </Grid>

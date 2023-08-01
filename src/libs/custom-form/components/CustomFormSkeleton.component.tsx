@@ -17,9 +17,9 @@ export const CustomFormSkeleton = (props: OwnProps) => {
             <Box mt={2} />
             <Skeleton
               animation="wave"
-              width="100%"
-              variant="text"
               height={30}
+              variant="text"
+              width="100%"
             />
           </div>
         ))}
@@ -28,13 +28,13 @@ export const CustomFormSkeleton = (props: OwnProps) => {
   }
   return (
     <div>
-      <Skeleton animation="wave" width={100} variant="circle" height={100} />
-      <Skeleton animation="wave" width="100%" variant="text" height={30} />
-      <Skeleton animation="wave" width="80%" variant="text" height={30} />
-      <Skeleton animation="wave" width="50%" variant="text" height={30} />
+      <Skeleton animation="wave" height={100} variant="circle" width={100} />
+      <Skeleton animation="wave" height={30} variant="text" width="100%" />
+      <Skeleton animation="wave" height={30} variant="text" width="80%" />
+      <Skeleton animation="wave" height={30} variant="text" width="50%" />
 
       <Box mt={2} />
-      <Skeleton animation="wave" width="100%" variant="rect" height={50} />
+      <Skeleton animation="wave" height={50} variant="rect" width="100%" />
     </div>
   );
 };

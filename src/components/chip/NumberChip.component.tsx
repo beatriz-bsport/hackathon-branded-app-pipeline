@@ -66,11 +66,11 @@ const NumberChip: React.FC<Props> = ({
   }
   return (
     <CustomChip
+      chipClass={chipClass}
       displayedValue={displayedValue}
-      mainColor={mainColor}
       icon={icon}
       iconColor={iconColor}
-      chipClass={chipClass}
+      mainColor={mainColor}
     />
   );
 };

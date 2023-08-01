@@ -149,7 +149,7 @@ const FranchiseNotificationRuleCard = (props: Props) => {
       <Paper className={classes.card}>
         <Grid container direction="row" spacing={3}>
           <Grid item xs={6}>
-            <Typography variant="body1" className={classes.grey}>
+            <Typography className={classes.grey} variant="body1">
               {t('franchise.card.parameters')}
             </Typography>
             <Typography variant="body1">
@@ -164,7 +164,7 @@ const FranchiseNotificationRuleCard = (props: Props) => {
             )}
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="body1" className={classes.grey}>
+            <Typography className={classes.grey} variant="body1">
               {t('franchise.card.template')}
             </Typography>
             <div>
@@ -185,7 +185,7 @@ const FranchiseNotificationRuleCard = (props: Props) => {
             </div>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body1" className={classes.grey}>
+            <Typography className={classes.grey} variant="body1">
               {t('franchise.card.companies')}
             </Typography>
             <div className={classes.companyList}>
@@ -202,16 +202,16 @@ const FranchiseNotificationRuleCard = (props: Props) => {
       {isEditing && (
         <FranchiseNotificationRuleFormModal
           open
-          rule={rule}
           companies={companies}
-          restrictedAccess={restrictedAccess}
           emailTemplates={emailDesignList}
-          onSubmit={handleSubmit}
-          onClose={onCloseModal}
           notification_event={rule.notification_event}
+          onClose={onCloseModal}
+          onSubmit={handleSubmit}
           previewEmail={previewEmail?.[selectedEmailId]}
           refreshEmailPreview={handleFetchPreview}
           requiredTagsByEvent={requiredTagsByEvent}
+          restrictedAccess={restrictedAccess}
+          rule={rule}
           showAlert={showAlertForEdition}
         />
       )}

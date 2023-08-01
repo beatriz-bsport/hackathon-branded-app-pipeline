@@ -18,15 +18,16 @@ export const OfferBroadcastHelper = (props: Props) => {
   if (props.broadcastActivated) {
     return (
       <BroadcastRoom
-        userType="coach"
+        broadcast_info={props.offer.broadcast_info}
         date_start={props.offer.date_start}
         duration_minute={props.offer.duration_minute}
-        broadcast_info={props.offer.broadcast_info}
+        userType="coach"
       />
     );
   }
   return (
     <ButtonBase
+      onClick={props.activateBroadcast}
       style={{
         display: 'flex',
         alignItems: 'center',
@@ -36,10 +37,9 @@ export const OfferBroadcastHelper = (props: Props) => {
         width: '100%',
         flexDirection: 'column',
       }}
-      onClick={props.activateBroadcast}
     >
       <VideocamIcon style={{ height: '30vh', width: '30vh' }} />
-      <Button variant="outlined" color="primary" style={{ marginBottom: 30 }}>
+      <Button color="primary" style={{ marginBottom: 30 }} variant="outlined">
         {t('video.activateVideo')}
       </Button>
     </ButtonBase>

@@ -118,20 +118,20 @@ export const StripeTerminalConnectReaderDialog = (props: Props) => {
             (!props.isSubmitting || props.selectedReaderToUpdate) && (
               <Form className={classes.formContainer}>
                 <TextField
-                  name="label"
                   label={t(
                     'configuration.stripeTerminal.connectDialog.form.readerLabel',
                   )}
+                  name="label"
                 />
                 {!props.selectedReaderToUpdate && (
                   <TextField
-                    name="registration_code"
                     helperText={t(
                       'configuration.stripeTerminal.connectDialog.form.registrationCodeHelperText',
                     )}
                     label={t(
                       'configuration.stripeTerminal.connectDialog.form.registrationCode',
                     )}
+                    name="registration_code"
                   />
                 )}
 
@@ -146,35 +146,35 @@ export const StripeTerminalConnectReaderDialog = (props: Props) => {
                       distinctCountry
                       hideLang
                       noMargin
-                      valueKey="country"
                       label={t('translation:form.address.country')}
-                      value={props.values.country}
                       onChange={(ev) => {
                         props.setFieldValue('country', ev.target.value);
                       }}
+                      value={props.values.country}
+                      valueKey="country"
                     />
                     <TextField
-                      name="line1"
                       label={t('translation:form.address.addressLine1')}
+                      name="line1"
                     />
                     <TextField
-                      name="line2"
                       label={t('translation:form.address.addressLine2')}
+                      name="line2"
                     />
                     <TextField
-                      name="city"
                       label={t('translation:form.address.city')}
+                      name="city"
                     />
                     <TextField
-                      name="postal_code"
                       label={t('translation:form.address.zipcode')}
+                      name="postal_code"
                     />
                     {['AU', 'CA', 'ES', 'US'].includes(
                       props.values.country,
                     ) && (
                       <TextField
-                        name="state"
                         label={t('translation:form.address.state')}
+                        name="state"
                       />
                     )}
                   </>
@@ -193,7 +193,7 @@ export const StripeTerminalConnectReaderDialog = (props: Props) => {
                   {props.isSubmitting ? (
                     <CircularProgress />
                   ) : (
-                    <Button type="submit" color="primary" variant="contained">
+                    <Button color="primary" type="submit" variant="contained">
                       {props.selectedReaderToUpdate
                         ? t(
                             'configuration.stripeTerminal.connectDialog.form.update',
@@ -210,9 +210,9 @@ export const StripeTerminalConnectReaderDialog = (props: Props) => {
             <>
               <div className={classes.centerContainer}>
                 <Typography
-                  variant="h6"
                   align="center"
                   className={classes.loadingTitle}
+                  variant="h6"
                 >
                   {t(
                     'configuration.stripeTerminal.connectDialog.title.connect',
@@ -235,7 +235,7 @@ export const StripeTerminalConnectReaderDialog = (props: Props) => {
               <div className={classes.validateIcon}>
                 <ValidationIcon color="#4CAF50" />
               </div>
-              <Typography variant="h6" className={classes.successTitle}>
+              <Typography className={classes.successTitle} variant="h6">
                 {t('configuration.stripeTerminal.connectDialog.title.success')}
               </Typography>
               <Typography>
@@ -258,7 +258,7 @@ export const StripeTerminalConnectReaderDialog = (props: Props) => {
               <div className={classes.validateIcon}>
                 <ErrorIcon />
               </div>
-              <Typography variant="h6" className={classes.successTitle}>
+              <Typography className={classes.successTitle} variant="h6">
                 {t('configuration.stripeTerminal.connectDialog.title.error')}
               </Typography>
               <Typography className={classes.errorMessage}>
@@ -273,11 +273,11 @@ export const StripeTerminalConnectReaderDialog = (props: Props) => {
                 </Button>
                 <Button
                   color="primary"
-                  variant="contained"
                   onClick={() => {
                     props.setDisplayError(false);
                     props.setDisplayForm(true);
                   }}
+                  variant="contained"
                 >
                   {t('configuration.stripeTerminal.connectDialog.form.retry')}
                 </Button>

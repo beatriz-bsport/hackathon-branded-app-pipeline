@@ -324,27 +324,27 @@ export class MarketPlace extends Component<Props, State> {
         return (
           <MarketplaceContractPage
             key={this.props.tabSelected}
-            companyId={this.props.companyId}
-            requestSignUp={this.openLogin}
             authenticated={this.props.auth.authenticated}
+            companyId={this.props.companyId}
             goToUserSpace={() => this.props.goToUserSpace(this.props.companyId)}
+            requestSignUp={this.openLogin}
           />
         );
       case MARKETPLACE_PATH_TAB_SHOP:
         return (
           <MarketplaceShopPage
             key={this.props.tabSelected}
+            companyId={this.props.companyId}
             requestSignUp={this.openLogin}
             toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
-            companyId={this.props.companyId}
           />
         );
       case MARKETPLACE_PATH_TAB_PRIVATE_SERVICE:
         return (
           <MarketplacePrivateServiceRouter
             key={this.props.tabSelected}
-            companyId={this.props.companyId}
             authenticated={this.props.auth.authenticated}
+            companyId={this.props.companyId}
             requestLogin={this.openLogin}
           />
         );
@@ -365,11 +365,11 @@ export class MarketPlace extends Component<Props, State> {
       case MARKETPLACE_PATH_TAB_GIFTCARD:
         return (
           <MarketplaceGiftcardPage
-            requestSignUp={this.openLogin}
-            authenticated={this.props.auth.authenticated}
-            toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
             key={this.props.tabSelected}
+            authenticated={this.props.auth.authenticated}
             companyId={this.props.companyId}
+            requestSignUp={this.openLogin}
+            toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
           />
         );
       case MARKETPLACE_PATH_TAB_CALENDAR:
@@ -377,11 +377,11 @@ export class MarketPlace extends Component<Props, State> {
           <div className={this.props.classes.calendarContainer}>
             <MarketplaceCalendarPage
               key={this.props.tabSelected}
+              authenticated={this.props.auth.authenticated}
               companyId={this.props.companyId}
               requestSignUp={this.openLogin}
-              toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
               startWeekThisWeekday={false}
-              authenticated={this.props.auth.authenticated}
+              toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
             />
           </div>
         );
@@ -391,11 +391,11 @@ export class MarketPlace extends Component<Props, State> {
           <div className={this.props.classes.calendarContainer}>
             <MarketplaceCalendarPage
               key={this.props.tabSelected}
+              authenticated={this.props.auth.authenticated}
               companyId={this.props.companyId}
               requestSignUp={this.openLogin}
-              toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
               startWeekThisWeekday={false}
-              authenticated={this.props.auth.authenticated}
+              toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
             />
           </div>
         );
@@ -493,57 +493,52 @@ export class MarketPlace extends Component<Props, State> {
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <MemberShipValidationWrapper companyId={this.props.companyId}>
           <Analytics
-            username={(this.props.auth && this.props.auth.username) || ''}
             theme={this.props.theme}
+            username={(this.props.auth && this.props.auth.username) || ''}
           />
           <div className={classes.container}>
             <MarketplaceAppBar
               withNavigation
+              auth={this.props.auth}
+              controlableMemberList={this.props.controlableMemberList}
+              currentBasket={this.props.currentBasket}
+              disconnect={() => {
+                this.props.disconnect();
+              }}
+              franchisor={this.props.franchisor}
+              goToUserSpace={() =>
+                this.props.goToUserSpace(this.props.companyId)
+              }
+              handleTabChange={this.handleTabChange}
+              hideAppBar={this.props.hideAppBar}
               isRelationNavigation={
                 !!window.localStorage.getItem(
                   'bsport:relatedMemberMaster:http:token',
                 )
               }
-              controlableMemberList={this.props.controlableMemberList}
-              franchisor={this.props.franchisor}
-              onCompanySelected={this.onCompanySelected}
+              logo={this.props.theme.cover}
               navigateBackToMasterRelation={
                 this.props.navigateBackToMasterRelation
               }
               navigateToRelationAccount={this.props.navigateToRelationAccount}
-              logo={this.props.theme.cover}
-              websiteURL={this.props.theme.websiteURL}
-              auth={this.props.auth}
-              goToUserSpace={() =>
-                this.props.goToUserSpace(this.props.companyId)
-              }
-              currentBasket={this.props.currentBasket}
+              onCompanySelected={this.onCompanySelected}
               openCurrentBasket={() => this.toggleCurrentBasketOpen(true)}
-              requestSignUp={() => this.toggleSignUp(true)}
-              requestLogin={this.openLogin}
-              disconnect={() => {
-                this.props.disconnect();
-              }}
-              hideAppBar={this.props.hideAppBar}
-              handleTabChange={this.handleTabChange}
-              tabSelected={this.props.tabSelected}
-              settings={this.props.settings}
-              theme={this.props.theme}
               photo={this.props.consumerProfile?.photo}
+              requestLogin={this.openLogin}
+              requestSignUp={() => this.toggleSignUp(true)}
+              settings={this.props.settings}
+              tabSelected={this.props.tabSelected}
+              theme={this.props.theme}
+              websiteURL={this.props.theme.websiteURL}
             />
             <div className={classes.content}>{this.renderContent()}</div>
             <MarketplaceBasketDialog
-              isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
-              open={!!this.state.currentBasketOpen}
               basket={this.props.currentBasket}
-              onCancel={() => this.toggleCurrentBasketOpen(false)}
-              loading={this.props.currentBasketLoading}
-              onRemoveCheckoutItem={(data) =>
-                this.props.removeItemFromBasket(
-                  this.props.currentBasket.id,
-                  data,
-                )
+              goToCheckout={() =>
+                this.props.goToCheckout(this.props.currentBasket.company)
               }
+              isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
+              loading={this.props.currentBasketLoading}
               onAddCheckoutItem={(data, options?) =>
                 this.props.addItemToBasket(
                   this.props.currentBasket.id,
@@ -551,68 +546,73 @@ export class MarketPlace extends Component<Props, State> {
                   options,
                 )
               }
-              goToCheckout={() =>
-                this.props.goToCheckout(this.props.currentBasket.company)
+              onCancel={() => this.toggleCurrentBasketOpen(false)}
+              onRemoveCheckoutItem={(data) =>
+                this.props.removeItemFromBasket(
+                  this.props.currentBasket.id,
+                  data,
+                )
               }
+              open={!!this.state.currentBasketOpen}
             />
             <Dialog
+              onClose={this.closeLogin}
               open={
                 this.state.loginDialogOpen && !this.props.auth.authenticated
               }
-              onClose={this.closeLogin}
             >
-              <div id="bs-setup-derived-variable" className="bs-setup-variable">
+              <div className="bs-setup-variable" id="bs-setup-derived-variable">
                 <DialogContent>
                   <div className={classes.loginDialog}>
                     <Login
-                      doEmailLogin={this.doEmailLogin}
-                      errorFields={this.props.errorFields}
-                      error={this.props.auth.error}
-                      loading={this.props.auth.loading}
-                      requestSignUp={() => this.toggleSignUp(true)}
-                      franchisor={this.props.franchisor}
                       company
-                      theme={this.props.theme}
                       isPremium
                       logoHidden
                       marketplace
+                      doEmailLogin={this.doEmailLogin}
+                      error={this.props.auth.error}
+                      errorFields={this.props.errorFields}
+                      franchisor={this.props.franchisor}
+                      loading={this.props.auth.loading}
+                      requestSignUp={() => this.toggleSignUp(true)}
+                      theme={this.props.theme}
                     />
                   </div>
                 </DialogContent>
               </div>
             </Dialog>
             <CustomFormViewDialogComponent
+              fullWidth
+              maxWidth="md"
+              onClose={this.closeSignup}
               open={
                 this.state.signupDialogOpen &&
                 !this.props.auth.authenticated &&
                 this.props.signUpCustomForm
               }
-              onClose={this.closeSignup}
-              maxWidth="md"
-              fullWidth
             >
               <DialogTitle>
-                <CustomFormTitle title={t('form.signUpTitle')} isCompany />
+                <CustomFormTitle isCompany title={t('form.signUpTitle')} />
               </DialogTitle>
               <div className={classes.customFormContainer}>
                 <CustomFormView
-                  initial={this.props.signUpCustomForm}
-                  onSubmit={this.submitCustomForm}
-                  onSubmitDraft={(values: CustomFormFilled) =>
-                    this.props.setLoginInformations(values)
+                  general_terms_and_conditions={
+                    this.props.theme.general_terms_of_use
                   }
+                  initial={this.props.signUpCustomForm}
                   layouts={
                     this.props.signUpCustomForm
                       ? this.props.signUpCustomForm.layout
                       : null
                   }
-                  waiver={this.props.theme.waiver}
-                  general_terms_and_conditions={
-                    this.props.theme.general_terms_of_use
-                  }
                   onCancel={() => {
                     this.setState({ signupDialogOpen: false });
                   }}
+                  onSubmit={this.submitCustomForm}
+                  onSubmitDraft={(values: CustomFormFilled) =>
+                    this.props.setLoginInformations(values)
+                  }
+                  waiver={this.props.theme.waiver}
                 />
               </div>
             </CustomFormViewDialogComponent>

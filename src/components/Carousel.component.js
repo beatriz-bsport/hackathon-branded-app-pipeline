@@ -40,7 +40,7 @@ class Carousel extends Component<Props, State> {
     return slides.map((slide, index) => {
       if (this.state.checked === index) {
         return (
-          <Slide in direction={this.state.direction} mountOnEnter unmountOnExit>
+          <Slide in mountOnEnter unmountOnExit direction={this.state.direction}>
             <CardMedia
               className={this.props.classes.media}
               image={slide}
@@ -51,10 +51,10 @@ class Carousel extends Component<Props, State> {
       }
       return (
         <Slide
-          in={false}
-          direction={this.state.direction}
           mountOnEnter
           unmountOnExit
+          direction={this.state.direction}
+          in={false}
         >
           <CardMedia
             className={`${this.props.classes.media} ${this.props.classes.cardMedia}`}
@@ -84,8 +84,8 @@ class Carousel extends Component<Props, State> {
         {this.state.checked < images.length - 1 ? (
           <IconButton
             className={classes.forwardButton}
-            variant="extendedFab"
             onClick={() => this.handleForwardButton(images.length)}
+            variant="extendedFab"
           >
             <ChevronRightIcon className={classes.largeIcon} />
           </IconButton>

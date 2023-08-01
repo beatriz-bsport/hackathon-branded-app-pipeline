@@ -103,26 +103,26 @@ const GraphParamTemporalForm: React.FC<Props> = ({
 
   return (
     <>
-      <Typography variant="body1" className={classes.selectLabel}>
+      <Typography className={classes.selectLabel} variant="body1">
         {t('graphFormDrawer.labels.dataToDisplay')}
       </Typography>
       <div className={classes.row}>
         <div>
           <MaterialUiSingleSelectorField
+            inScrollBar
             className={classes.selectInput}
-            options={dateValueOptions}
+            isDisabled={dateValueOptions.length === 1}
             name="graph_params.date_value"
+            onChange={handleDateValueChange}
+            options={dateValueOptions}
             placeholder={t(
               'graphFormDrawer.placeholders.dashboardGraphIdentifier',
             )}
-            onChange={handleDateValueChange}
-            isDisabled={dateValueOptions.length === 1}
-            inScrollBar
           />
         </div>
       </div>
       {helperText && (
-        <Typography variant="body2" className={classes.helperText}>
+        <Typography className={classes.helperText} variant="body2">
           {helperText}
         </Typography>
       )}
@@ -130,25 +130,25 @@ const GraphParamTemporalForm: React.FC<Props> = ({
         aggregationFunctionNameChoices[0].value !== 'count' && (
           <>
             <Typography
-              variant="body1"
               className={classNames(
                 classes.selectLabel,
                 classes.selectLabelWithMargin,
               )}
+              variant="body1"
             >
               {t('graphFormDrawer.labels.aggregationName')}
             </Typography>
             <div className={classes.row}>
               <div>
                 <MaterialUiSingleSelectorField
+                  inScrollBar
                   className={classes.selectInput}
-                  options={aggregationFunctionNameChoices}
+                  isDisabled={aggregationFunctionNameChoices.length === 1}
                   name="graph_params.aggregation_function_name"
+                  options={aggregationFunctionNameChoices}
                   placeholder={t(
                     'graphFormDrawer.placeholders.aggregationSelector',
                   )}
-                  isDisabled={aggregationFunctionNameChoices.length === 1}
-                  inScrollBar
                 />
               </div>
             </div>

@@ -208,8 +208,8 @@ export class AvailabilityUpdateResourceChoserDialog extends React.PureComponent<
               <>
                 <Typography
                   className={classes.resourceTypeTitle}
-                  variant="subtitle2"
                   color="textSecondary"
+                  variant="subtitle2"
                 >
                   {t(`availabilitySlot.${key}`)}
                 </Typography>
@@ -264,8 +264,8 @@ export class AvailabilityUpdateResourceChoserDialog extends React.PureComponent<
               <>
                 <Divider />
                 <ButtonBase
-                  disabled={!atLeastOneCoachSelected}
                   className={classes.collapseSectionButton}
+                  disabled={!atLeastOneCoachSelected}
                   onClick={this.toggleCollapse}
                 >
                   <div
@@ -296,10 +296,10 @@ export class AvailabilityUpdateResourceChoserDialog extends React.PureComponent<
                   <div className={classes.fatMargin}>
                     <SlotSpecificEstablishmentPicker
                       establishments={this.state.activeEstablishments}
-                      selectedEstablishments={this.state.selectedEstablishments}
                       onSelectedEstablishmentsChange={
                         this.onSpecificEstablishmentChange
                       }
+                      selectedEstablishments={this.state.selectedEstablishments}
                     />
                   </div>
                 </Collapse>

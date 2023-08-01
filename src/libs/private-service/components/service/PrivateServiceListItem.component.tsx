@@ -53,12 +53,12 @@ export const PrivateServiceListItem = (props: Props) => {
 
   return (
     <ListItem
-      button={!!onClick}
       divider
-      selected={props.selected}
-      onClick={onClick ? () => onClick(privateService.id) : null}
       alignItems="center"
+      button={!!onClick}
       dense={props.dense}
+      onClick={onClick ? () => onClick(privateService.id) : null}
+      selected={props.selected}
       style={{
         borderLeft: privateService.color !== '' ? '5px solid' : '0px',
         borderLeftColor: privateService.color,
@@ -66,8 +66,8 @@ export const PrivateServiceListItem = (props: Props) => {
     >
       <ListItemAvatar>
         <Avatar
-          className={classes.avatar}
           alt={privateService.name}
+          className={classes.avatar}
           src={privateService.cover_main}
         />
       </ListItemAvatar>

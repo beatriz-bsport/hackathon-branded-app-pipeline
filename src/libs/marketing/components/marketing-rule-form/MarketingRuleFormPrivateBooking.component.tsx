@@ -147,15 +147,15 @@ const MarketingRuleFormPrivateBooking = (props: Props) => {
     <GenericResponsiveDrawer
       open
       onClose={onCancel}
-      title={t('privateService:privateBookingNotification.form.title')}
       subtitle={t('notificationRule:tag.PrivateBooking.name')}
+      title={t('privateService:privateBookingNotification.form.title')}
     >
       <Form>
         <div className={classes.warningTitleContainer}>
           <div className={classes.infoIcon}>
             <InfoOutlinedIcon color="inherit" />
           </div>
-          <Typography variant="body2" className={classes.breakSpaces}>
+          <Typography className={classes.breakSpaces} variant="body2">
             {t('privateService:privateBookingNotification.form.intro')}
           </Typography>
         </div>
@@ -179,22 +179,22 @@ const MarketingRuleFormPrivateBooking = (props: Props) => {
               </Typography>
               <IntegerField
                 className={classes.integerInput}
-                name="notify_booking_nb"
                 disabled={values.notifyAllEvents}
+                name="notify_booking_nb"
               />
             </div>
             <div className={classes.fieldContainer}>
               <div className={classes.fieldContainer}>
                 <CheckboxField
                   classes={{ label: classes.label }}
-                  name="notifyAllEvents"
                   label={t(
                     'privateService:privateBookingNotification.form.notifyAllEvents',
                   )}
+                  name="notifyAllEvents"
                 />
               </div>
               <div className={classes.helperText}>
-                <Typography variant="caption" className={classes.greyText}>
+                <Typography className={classes.greyText} variant="caption">
                   {t(
                     `privateService:privateBookingNotification.form.help.${getNotificationKind(
                       kind,
@@ -208,38 +208,37 @@ const MarketingRuleFormPrivateBooking = (props: Props) => {
           <MarketingRuleBasicTypeField
             periodScale={periodScale}
             relativeTimeValue={relativeTimeValue}
-            timeComparator={timeComparator}
             setFieldValue={setFieldValue}
+            timeComparator={timeComparator}
           />
           <MarketingRuleSmartlistField
             goToSmartList={goToSmartlist}
-            smartLists={smartLists}
-            smartlist_include={smartlist_include}
             smartlist_exclude={smartlist_exclude}
+            smartlist_include={smartlist_include}
+            smartLists={smartLists}
           />
           <MarketingRuleSendingMethodField
-            send_email={send_email}
-            send_notification_push={send_notification_push}
-            notificationTitle={notificationTitle}
-            notificationContent={notificationContent}
-            errors={errors}
-            emailListLoading={emailListLoading}
-            emails={emails}
             email_design={email_design}
-            getEmailDetail={getEmailDetail}
             emailDetailLoading={emailDetailLoading}
             emailDetails={emailDetails}
-            setFieldValue={setFieldValue}
+            emailListLoading={emailListLoading}
+            emails={emails}
+            errors={errors}
+            getEmailDetail={getEmailDetail}
+            notificationContent={notificationContent}
+            notificationTitle={notificationTitle}
             resolvedGenericTags={resolvedGenericTags}
+            send_email={send_email}
+            send_notification_push={send_notification_push}
+            setFieldValue={setFieldValue}
             tags={tags}
           />
 
           <DialogActions>
-            <Button onClick={onCancel} disabled={isSubmitting}>
+            <Button disabled={isSubmitting} onClick={onCancel}>
               {t('privateService:serviceGroup.form.actions.cancel')}
             </Button>
             <Submit
-              onClick={onSubmitIntent}
               color="primary"
               disabled={
                 (!values.email_design && values.send_email) ||
@@ -251,6 +250,7 @@ const MarketingRuleFormPrivateBooking = (props: Props) => {
                 !!errors.notificationContent ||
                 !!errors.atLeastOneChannel
               }
+              onClick={onSubmitIntent}
             >
               {t('privateService:serviceGroup.form.actions.submit')}
             </Submit>

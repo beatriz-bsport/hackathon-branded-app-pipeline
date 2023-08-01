@@ -53,15 +53,15 @@ export const CoachPaymentRuleGroupSelector = (props: Props) => {
   return (
     <div>
       <Selector
-        id={props.id}
         className={classes.root}
-        suggestions={suggestions}
-        selected={selected}
+        id={props.id}
         nullCurrentValue={!selected}
+        onChange={onChange}
         placeholder={
           isOverride ? t('select.placeholderOverride') : t('select.placeholder')
         }
-        onChange={onChange}
+        selected={selected}
+        suggestions={suggestions}
       />
     </div>
   );

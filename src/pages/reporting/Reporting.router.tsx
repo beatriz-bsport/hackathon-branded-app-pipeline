@@ -8,11 +8,11 @@ import ReportingGeneration from './ReportingGeneration.page';
 export default function Reporting() {
   return (
     <Switch>
-      <Route exact path="/reporting/" component={ReportingDashboard} />
+      <Route exact component={ReportingDashboard} path="/reporting/" />
       <Route
         exact
-        path="/reporting/:reportId"
         component={ReportingGeneration}
+        path="/reporting/:reportId"
       />
     </Switch>
   );

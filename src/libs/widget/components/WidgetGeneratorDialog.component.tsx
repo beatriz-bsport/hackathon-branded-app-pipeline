@@ -20,25 +20,25 @@ class WidgetGeneratorDialog extends React.PureComponent<Props> {
 
     return (
       <GenericResponsiveDrawer
-        open={this.props.open}
         onClose={this.props.onClose}
+        open={this.props.open}
         title={t('widget:widget.dialogTitle')}
         width="85%"
       >
         <DialogContent>
           <WidgetGeneratorPage
+            hidePreview
+            hideTypeSelector
             defaultValue={{
               componentType: this.props.componentType,
               config: this.props.config,
               configIndex: this.props.configIndex,
             }}
-            hideTypeSelector
-            hidePreview
           />
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={this.props.onClose} color="secondary">
+          <Button color="secondary" onClick={this.props.onClose}>
             {t('widget:widget.cancel')}
           </Button>
         </DialogActions>

@@ -94,12 +94,12 @@ export class ActivePassesFilter extends Component<Props> {
         <div className={classes.wrapper}>
           {t(`filters.${filter_data?.filter_identifier}.first`)}
           <Select
-            className={classes.input}
             required
-            value={filter_data?.nb_active_passes_comparator}
+            className={classes.input}
             onChange={(ev) =>
               onChange({ nb_active_passes_comparator: ev.target.value })
             }
+            value={filter_data?.nb_active_passes_comparator}
           >
             {DURATION_COMPARATORS_DICT_BETWEEN.map((item) => (
               <MenuItem key={item.key} value={item.value}>
@@ -108,8 +108,8 @@ export class ActivePassesFilter extends Component<Props> {
             ))}
           </Select>
           <DelayedNumericInput
+            isPositive
             classes={classes}
-            value={filter_data?.nb_active_passes_value}
             InputProps={{ inputProps: { min: 0 } }}
             onChange={(ev) =>
               onChange({
@@ -117,15 +117,15 @@ export class ActivePassesFilter extends Component<Props> {
                   ev.target.value === '' ? null : ev.target.value,
               })
             }
-            isPositive
+            value={filter_data?.nb_active_passes_value}
           />{' '}
           {filter_data?.nb_active_passes_comparator === BETWEEN_COMPARATOR
             ? t(`filters.${filter_data?.filter_identifier}.between`)
             : null}
           {filter_data?.nb_active_passes_comparator === BETWEEN_COMPARATOR ? (
             <DelayedNumericInput
+              isPositive
               classes={classes}
-              value={filter_data?.nb_active_passes_value_second}
               InputProps={{ inputProps: { min: 0 } }}
               onChange={(ev) =>
                 onChange({
@@ -133,29 +133,21 @@ export class ActivePassesFilter extends Component<Props> {
                     ev.target.value === '' ? null : ev.target.value,
                 })
               }
-              isPositive
+              value={filter_data?.nb_active_passes_value_second}
             />
           ) : null}
           {t(`filters.${filter_data?.filter_identifier}.second`)}
           <Selector
-            helperText={t('multiSelector.activePasses.paymentPackHelperText')}
-            helperSelectedText={t(
-              'multiSelector.paymentPacks.helperSelectedText',
-            )}
-            textFieldPlaceholder={t(
-              'multiSelector.paymentPacks.textFieldPlaceholder',
-            )}
-            renderItem={(item: PaymentPack) => {
-              return <PaymentPackListItem pack={item} />;
-            }}
+            fetchItems={this.props.fetchItems.payment_packs}
             helperAllSelectedText={t(
               'multiSelector.paymentPacks.helperAllSelectedText',
             )}
-            fetchItems={this.props.fetchItems.payment_packs}
-            nameIdentifier="name"
-            selectAll={this.props.filter_data?.select_all_payment_packs}
+            helperSelectedText={t(
+              'multiSelector.paymentPacks.helperSelectedText',
+            )}
+            helperText={t('multiSelector.activePasses.paymentPackHelperText')}
             items={sortedPaymentPacks}
-            selectedItems={sortedFilterDataPaymentPacks}
+            nameIdentifier="name"
             onChange={(items: PaymentPack[], selectAll: boolean) => {
               if (
                 (sortedFilterDataPaymentPacks &&
@@ -179,27 +171,27 @@ export class ActivePassesFilter extends Component<Props> {
                 });
               }
             }}
+            renderItem={(item: PaymentPack) => {
+              return <PaymentPackListItem pack={item} />;
+            }}
+            selectAll={this.props.filter_data?.select_all_payment_packs}
+            selectedItems={sortedFilterDataPaymentPacks}
+            textFieldPlaceholder={t(
+              'multiSelector.paymentPacks.textFieldPlaceholder',
+            )}
           />
           {t(`filters.${filter_data?.filter_identifier}.third`)}
           <Selector
-            helperText={t('multiSelector.activePasses.privatePassHelperText')}
-            helperSelectedText={t(
-              'multiSelector.privatePass.helperSelectedText',
-            )}
-            textFieldPlaceholder={t(
-              'multiSelector.privatePass.textFieldPlaceholder',
-            )}
-            renderItem={(item: PrivatePass) => {
-              return <PrivatePassListItem pass={item} removePaper />;
-            }}
+            fetchItems={this.props.fetchItems.private_passes}
             helperAllSelectedText={t(
               'multiSelector.privatePass.helperAllSelectedText',
             )}
-            fetchItems={this.props.fetchItems.private_passes}
-            nameIdentifier="name"
-            selectAll={this.props.filter_data?.select_all_private_passes}
+            helperSelectedText={t(
+              'multiSelector.privatePass.helperSelectedText',
+            )}
+            helperText={t('multiSelector.activePasses.privatePassHelperText')}
             items={sortedPrivatePasses}
-            selectedItems={sortedFilterDataPrivatePasses}
+            nameIdentifier="name"
             onChange={(items: PrivatePass[], selectAll: boolean) => {
               if (
                 (sortedFilterDataPrivatePasses &&
@@ -223,15 +215,23 @@ export class ActivePassesFilter extends Component<Props> {
                 });
               }
             }}
+            renderItem={(item: PrivatePass) => {
+              return <PrivatePassListItem removePaper pass={item} />;
+            }}
+            selectAll={this.props.filter_data?.select_all_private_passes}
+            selectedItems={sortedFilterDataPrivatePasses}
+            textFieldPlaceholder={t(
+              'multiSelector.privatePass.textFieldPlaceholder',
+            )}
           />
           {t(`filters.${filter_data?.filter_identifier}.fourth`)}
           <ToolTip
+            aria-label="info"
             title={
               <Typography variant="subtitle2">
                 {t(`filters.${filter_data?.filter_identifier}.info`)}
               </Typography>
             }
-            aria-label="info"
           >
             <IconButton>
               <InfoIcon />

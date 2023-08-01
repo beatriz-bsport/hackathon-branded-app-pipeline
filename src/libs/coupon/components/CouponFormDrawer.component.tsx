@@ -49,12 +49,12 @@ export const CouponFormDrawer = (props: Props) => {
   const { t } = useTranslation('coupon');
   return (
     <GenericResponsiveDrawer
-      open={open}
       onClose={onClose}
-      title={t('form.title')}
+      open={open}
       subtitle={props.initial?.name}
-      trackingObjectIdentifier={SegmentAnalyticsFormObjectIdentifier.Coupon}
+      title={t('form.title')}
       trackingObjectId={initial?.id}
+      trackingObjectIdentifier={SegmentAnalyticsFormObjectIdentifier.Coupon}
     >
       <CouponForm {...props} />
     </GenericResponsiveDrawer>

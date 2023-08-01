@@ -14,14 +14,14 @@ const YoutubeEmbedVideo: React.FC<Props> = (props) => {
     <div className={classes.container}>
       <div className={classes.iframeWrapper}>
         <iframe
-          title="youtube-video"
+          allowFullScreen
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           className={classes.iframe}
-          width="100%"
+          frameBorder="0"
           height="100%"
           src={`https://www.youtube.com/embed/${video.id}`}
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
+          title="youtube-video"
+          width="100%"
         />
       </div>
     </div>

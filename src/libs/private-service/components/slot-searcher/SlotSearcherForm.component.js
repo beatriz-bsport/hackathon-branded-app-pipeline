@@ -169,7 +169,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
       this.getResourceState();
     return (
       <div className={this.props.classes.container}>
-        <Typography variant="h6" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h6">
           {t('slotSearcher.title')}
         </Typography>
         <PrivateSlotSelector
@@ -197,43 +197,43 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
         ) : null}
         {coachResourceState.canSelect ? (
           <CoachSelector
-            placeholder={t('slotSearcher.selectCoach')}
-            selectedCoaches={this.state.coaches_selected || []}
-            isDisabled={
-              !coachResourceState.canSelect ||
-              (this.state.service_selected &&
-                this.state.service_selected.coaches.length === 1)
-            }
-            selectOption={this.handleCoachChange}
             coaches={
               this.state.service_selected
                 ? this.state.service_selected.coaches.filter((c) => !!c)
                 : []
             }
+            isDisabled={
+              !coachResourceState.canSelect ||
+              (this.state.service_selected &&
+                this.state.service_selected.coaches.length === 1)
+            }
+            placeholder={t('slotSearcher.selectCoach')}
+            selectedCoaches={this.state.coaches_selected || []}
+            selectOption={this.handleCoachChange}
           />
         ) : null}
         {this.props.onDateChange || this.props.searchAvailableSlots ? (
           <MuiPickersUtilsProvider
-            utils={MomentUtils}
-            moment={moment}
             locale={moment.locale()}
+            moment={moment}
+            utils={MomentUtils}
           >
             <BasePicker
-              value={this.state.date_selected}
               onChange={this.handleDateChange}
+              value={this.state.date_selected}
             >
               {() => (
                 <div className="picker">
                   <Paper style={{ overflow: 'hidden' }}>
                     <Calendar
                       disablePast
+                      date={moment(this.state.date_selected, 'YYYY-MM-DD')}
                       disableFuture={
                         !(
                           this.state.service_selected &&
                           this.state.slot_selected
                         )
                       }
-                      date={moment(this.state.date_selected, 'YYYY-MM-DD')}
                       onChange={this.handleDateChange}
                     />
                   </Paper>

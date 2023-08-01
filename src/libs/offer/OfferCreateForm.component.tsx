@@ -130,7 +130,7 @@ export const OfferCreateForm = (props: Props) => {
 
   const submitButtonStartIcon = useMemo(() => {
     if (processing) {
-      return <CircularProgress size={24} color="secondary" />;
+      return <CircularProgress color="secondary" size={24} />;
     }
     return null;
   }, [processing]);
@@ -144,15 +144,15 @@ export const OfferCreateForm = (props: Props) => {
   }
 
   return (
-    <Form onSubmit={handleSubmit} data-testid="offer-form" noValidate>
+    <Form noValidate data-testid="offer-form" onSubmit={handleSubmit}>
       <OfferFormRecurrencePreview timezone={timezone} />
 
       {!hideBanner && (
         <OfferFormBanner
           name={metaActivity?.name}
-          picture={metaActivity?.cover_main}
-          onCancel={onCancel}
           onBannerGoBack={onBannerGoBack}
+          onCancel={onCancel}
+          picture={metaActivity?.cover_main}
         />
       )}
 
@@ -160,18 +160,18 @@ export const OfferCreateForm = (props: Props) => {
         activeCustomLevels={activeCustomLevels}
         allCustomLevels={allCustomLevels}
         availableEstablishments={availableEstablishments}
-        isBroadcast={metaActivity?.is_broadcast}
-        isWherebyIntegrationEnabled={isWherebyIntegrationEnabled}
-        zoomAppDetail={zoomAppDetail}
-        roomBlueprints={roomBlueprints}
-        isOfferInGroup={isOfferInGroup}
-        updateLevel={updateLevel}
         createLevel={createLevel}
         deleteLevel={handleDeleteLevel}
         fetchLevelList={fetchLevelList}
+        isBroadcast={metaActivity?.is_broadcast}
+        isOfferInGroup={isOfferInGroup}
+        isWherebyIntegrationEnabled={isWherebyIntegrationEnabled}
+        roomBlueprints={roomBlueprints}
+        updateLevel={updateLevel}
+        zoomAppDetail={zoomAppDetail}
       />
 
-      <OfferFormDateTime timezone={timezone} isOfferInGroup={isOfferInGroup} />
+      <OfferFormDateTime isOfferInGroup={isOfferInGroup} timezone={timezone} />
 
       <OfferFormCoach
         coaches={coaches}
@@ -183,9 +183,9 @@ export const OfferCreateForm = (props: Props) => {
       {!isOfferInGroup && (
         <OfferFormSettings
           allowGuestMaster={allowGuestMaster}
-          showPartnership={showPartnership}
           isOfferInGroup={isOfferInGroup}
           roomBlueprints={roomBlueprints}
+          showPartnership={showPartnership}
         />
       )}
 
@@ -194,11 +194,11 @@ export const OfferCreateForm = (props: Props) => {
       <div className={classes.buttonsContainer} id="offer-form-actions">
         <Button onClick={onCancel}>{onCancelText ?? t('cancel')}</Button>
         <Button
-          disabled={processing || !isValid}
-          variant="contained"
           color="primary"
-          type="submit"
+          disabled={processing || !isValid}
           startIcon={submitButtonStartIcon}
+          type="submit"
+          variant="contained"
         >
           {t('saveRecord')}
         </Button>

@@ -73,10 +73,10 @@ export const MemberRelationListItem = (props: Props) => {
   return (
     <>
       <ListItem
-        selected={props.selected}
+        divider
         button={!!props.onClick}
         onClick={props.onClick}
-        divider
+        selected={props.selected}
       >
         <ListItemAvatar>
           <CreditMemberBadge
@@ -90,7 +90,7 @@ export const MemberRelationListItem = (props: Props) => {
           primary={relatedMember.name || '  -'}
           secondary={
             <div className={classes.secondaryRow}>
-              <Typography variant="caption" color="textSecondary">
+              <Typography color="textSecondary" variant="caption">
                 {relationName}
               </Typography>
 
@@ -118,10 +118,10 @@ export const MemberRelationListItem = (props: Props) => {
           <MoreVertIcon />
         </IconButton>
         <Menu
-          anchorEl={props.menuAnchorEl}
           keepMounted
-          open={!!props.menuAnchorEl}
+          anchorEl={props.menuAnchorEl}
           onClose={props.toogleMenu}
+          open={!!props.menuAnchorEl}
         >
           <MenuItem
             onClick={(ev) => {

@@ -71,15 +71,15 @@ export class CheckInOfferListPage extends React.Component<Props> {
     return (
       <div className={this.props.classes.container}>
         <CheckInOfferList
+          establishments={this.props.establishments}
+          offerFilters={this.props.offerFilters}
           offers={this.props.offers}
           offersLoading={this.props.offersLoading}
-          establishments={this.props.establishments}
-          refreshData={this.refreshData}
           onOfferSelected={this.props.onOfferSelected}
-          offerFilters={this.props.offerFilters}
-          setOpen={this.props.setOpen}
-          setFilters={this.props.setFilters}
+          refreshData={this.refreshData}
           selectedOffers={this.props.selectedOffers}
+          setFilters={this.props.setFilters}
+          setOpen={this.props.setOpen}
         />
       </div>
     );

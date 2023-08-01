@@ -39,14 +39,14 @@ const Checkbox: React.FC<Props> = React.memo(
 
     return (
       <div className={classNames('bs-radio__container', className)}>
-        <label htmlFor={name} className={labelClass}>
+        <label className={labelClass} htmlFor={name}>
           <input
-            id={name}
-            className="bs-radio__input"
-            type="radio"
             checked={isChecked}
+            className="bs-radio__input"
             disabled={disabled}
+            id={name}
             onClick={handleOnClick}
+            type="radio"
           />
 
           {isChecked ? (

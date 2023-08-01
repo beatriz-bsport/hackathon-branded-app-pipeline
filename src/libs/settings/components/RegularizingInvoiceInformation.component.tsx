@@ -30,7 +30,7 @@ export const RegularizingInvoiceInformation: React.FC<Props> = ({
     paymentStatusContext === DISPUTED_PAYMENT ? 'dispute' : 'fail';
   return (
     <>
-      <Typography variant="h5" className={classes.title}>
+      <Typography className={classes.title} variant="h5">
         {t(`regularizeInvoice.needPaymentMethod.${additionalContext}`)}
       </Typography>
       <Typography className={classes.content}>
@@ -39,8 +39,8 @@ export const RegularizingInvoiceInformation: React.FC<Props> = ({
       {paymentStatusContext === FAILED_PAYMENT && (
         <InfoBox
           className={classes.infoBox}
-          variant="outlined"
           content={t('login:accountConfiguration.needToConfigureStripeInfo')}
+          variant="outlined"
         />
       )}
 
@@ -48,9 +48,9 @@ export const RegularizingInvoiceInformation: React.FC<Props> = ({
         <div className={classes.actionsStart}>
           {contactSupport && (
             <IconButton
-              color="primary"
-              className={classes.intercomButton}
               disableRipple
+              className={classes.intercomButton}
+              color="primary"
               id="intercomIcon"
               onClick={contactSupport}
             >
@@ -64,7 +64,7 @@ export const RegularizingInvoiceInformation: React.FC<Props> = ({
               {t('common:close')}
             </TimeoutButton>
           )}
-          <Button onClick={goNext} color="primary" variant="contained">
+          <Button color="primary" onClick={goNext} variant="contained">
             {t(`regularizeInvoice.actionRegularize.${additionalContext}`)}
           </Button>
         </div>

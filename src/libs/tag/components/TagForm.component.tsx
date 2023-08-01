@@ -71,18 +71,18 @@ export function TagForm(props: Props) {
   return (
     <Form>
       <TextField
-        name="name"
-        label={t('form.tag.name')}
-        required
         fullWidth
+        required
+        label={t('form.tag.name')}
+        name="name"
         variant="outlined"
       />
-      <Grid container spacing={2} className={classes.gridContainer}>
+      <Grid container className={classes.gridContainer} spacing={2}>
         <Grid item xs={6}>
           <ColorField
+            defaultCompanyThemeColor
             label={t('form.tag.color')}
             name="color"
-            defaultCompanyThemeColor
           />
         </Grid>
         <Grid item xs={6}>
@@ -96,19 +96,19 @@ export function TagForm(props: Props) {
       <Actions>
         <Button
           color="secondary"
+          disabled={isSubmitting}
           onClick={() => {
             trackFormCancel(initial?.id);
             onCancel();
           }}
-          disabled={isSubmitting}
         >
           {t('form.tag.delete.cancel')}
         </Button>
         <Submit
+          disabled={isSubmitting}
           onClick={() => {
             trackFormSubmitIntent(initial?.id);
           }}
-          disabled={isSubmitting}
         >
           {t('form.tag.submit')}
         </Submit>

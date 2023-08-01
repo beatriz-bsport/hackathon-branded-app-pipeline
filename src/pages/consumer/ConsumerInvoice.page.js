@@ -84,36 +84,36 @@ export class ConsumerInvoice extends React.Component<Props> {
             0 && (
             <ConsumerDebtRegularizerDialog
               withButton
-              member={this.props.member}
               availablePaymentMethodList={
                 this.props.payment_method_available_basket
               }
-              detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
+              companyId={this.props.companyId}
               detachPaymentMethod={this.props.detachPaymentMethod}
+              detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
               fetchMembership={() =>
                 this.props.fetchMembership(this.props.membership.id)
               }
-              snackbarErrorMsg={this.props.snackbarErrorMsg}
-              snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+              member={this.props.member}
               onlinePaymentEnabled={
                 this.props.companyTheme.online_payment_enabled
               }
-              companyId={this.props.companyId}
+              snackbarErrorMsg={this.props.snackbarErrorMsg}
+              snackbarSuccessMsg={this.props.snackbarSuccessMsg}
               stripeId={this.props.companyTheme.stripe_id}
             />
           )}
 
         <InvoiceTable
           hideMemberName
+          containerComponent={Paper}
+          count={this.props.count}
+          finalizeInvoice={this.props.finalizeInvoice}
+          invoiceList={this.props.invoiceList}
           loading={this.props.loading}
           nestedDataLoading={this.props.nestedDataLoading}
-          onInvoiceExpand={this.fetchInvoiceDataNested}
-          invoiceList={this.props.invoiceList}
-          containerComponent={Paper}
           onChangePage={this.onChangePage}
-          count={this.props.count}
+          onInvoiceExpand={this.fetchInvoiceDataNested}
           page={this.props.page}
-          finalizeInvoice={this.props.finalizeInvoice}
         />
       </div>
     );

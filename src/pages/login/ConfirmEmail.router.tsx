@@ -77,9 +77,9 @@ export const ConfirmEmailRouter: React.FC<Props> = ({
           <Fade in>
             <div className="bs-confirm-email-header">
               <img
-                src={src}
-                className="bs-confirm-email-header__logo"
                 alt={alt}
+                className="bs-confirm-email-header__logo"
+                src={src}
               />
 
               <LanguageButton />
@@ -89,12 +89,12 @@ export const ConfirmEmailRouter: React.FC<Props> = ({
       )}
       <Switch>
         <Route
-          path="/login/email_confirmation/:uuid/"
           component={ConfirmingEmailPage}
+          path="/login/email_confirmation/:uuid/"
         />
         <Route
-          path="/login/email_confirmation/"
           component={EmailConfirmationPage}
+          path="/login/email_confirmation/"
         />
       </Switch>
     </>

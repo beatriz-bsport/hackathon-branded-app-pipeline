@@ -16,12 +16,12 @@ describe('GenericFormik: <TextField />', () => {
       component = render(
         <Formik initialValues={{ label: '' }} onSubmit={() => {}}>
           <TextField
-            variant="filled"
-            name="label"
+            disabled={false}
             id="label"
             label="label"
-            disabled={false}
+            name="label"
             required={false}
+            variant="filled"
           />
         </Formik>,
       );

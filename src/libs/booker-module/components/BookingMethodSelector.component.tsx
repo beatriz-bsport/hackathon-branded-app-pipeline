@@ -298,11 +298,11 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
 
         {!!availableConsumerPacks.length && (
           <CollapsibleSection
-            title={t('booking:bookingModule.section.consumerPacks')}
             in={this.state.openPacks === CollapsePackEnum.consumerPacks}
             onSwitch={() =>
               this.openPacks(CollapsePackEnum.consumerPacks, false)
             }
+            title={t('booking:bookingModule.section.consumerPacks')}
           >
             {availableConsumerPacks
               .slice(0, numberOfConsumerPackToRender)
@@ -312,15 +312,11 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                 }
                 return (
                   <div
-                    className={classNames(classes.item, classes.relative)}
                     key={consumerPaymentPack.id}
+                    className={classNames(classes.item, classes.relative)}
                   >
                     <RadioItem
                       disabled={consumerPaymentPack.exceedsBookingMaxout}
-                      selected={
-                        consumerPaymentPack.id ===
-                        this.props.selectedPack?.consumerPaymentPack?.id
-                      }
                       onClick={() =>
                         this.props.onPackChange({ consumerPaymentPack })
                       }
@@ -329,6 +325,10 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                           consumerPaymentPack={consumerPaymentPack}
                         />
                       )}
+                      selected={
+                        consumerPaymentPack.id ===
+                        this.props.selectedPack?.consumerPaymentPack?.id
+                      }
                     />
                     {consumerPaymentPack.exceedsBookingMaxout && (
                       <div className={classes.maxoutMessageContainer}>
@@ -361,8 +361,8 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
             {!!contractList.length && (
               <div className={classes.marginTop}>
                 <CollapsibleSection
-                  title={t('booking:bookingModule.section.contract')}
                   in
+                  title={t('booking:bookingModule.section.contract')}
                 >
                   {contractList.map((contract) => {
                     if (!contract) {
@@ -370,15 +370,15 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                     }
                     return (
                       <div
-                        className={classNames(classes.item, classes.relative)}
                         key={contract.id}
+                        className={classNames(classes.item, classes.relative)}
                       >
                         <ButtonBase
-                          disabled={contract.exceedsBookingMaxout}
                           className={classNames(
                             classes.item,
                             classes.fullWidth,
                           )}
+                          disabled={contract.exceedsBookingMaxout}
                           onClick={() => {
                             this.props.onOpenSubscriptionModal(contract);
                           }}
@@ -390,11 +390,11 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                             )}
                           >
                             <VisibilityIcon
-                              color="primary"
                               className={classNames({
                                 [classes.opacity]:
                                   contract.exceedsBookingMaxout,
                               })}
+                              color="primary"
                             />
                             <ContractBookableItem
                               contract={contract}
@@ -420,14 +420,14 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
             {this.props.paymentPackCategories.length
               ? this.props.paymentPackCategories.map((cat) => (
                   <PaymentPackCategoryBookableItem
-                    paymentPackCategory={cat}
-                    selectedPack={this.props.selectedPack}
+                    hideCredits={this.props.theme.hide_credits_for_customers}
+                    isExcludingTax={this.props.isExcludingTax}
                     onPackChange={this.props.onPackChange}
                     opened={this.state.openedCategory === cat.id}
-                    openPacks={(id) => this.openPacks(id, true)}
-                    isExcludingTax={this.props.isExcludingTax}
                     openModale={this.openMaxoutMessageModale}
-                    hideCredits={this.props.theme.hide_credits_for_customers}
+                    openPacks={(id) => this.openPacks(id, true)}
+                    paymentPackCategory={cat}
+                    selectedPack={this.props.selectedPack}
                   />
                 ))
               : null}
@@ -435,11 +435,11 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
               <>
                 <div className={classes.marginTop} />
                 <CollapsibleSection
-                  title={t('booking:bookingModule.section.paymentPacks')}
                   in={this.state.openPacks === CollapsePackEnum.paymentPacks}
                   onSwitch={() =>
                     this.openPacks(CollapsePackEnum.paymentPacks, false)
                   }
+                  title={t('booking:bookingModule.section.paymentPacks')}
                 >
                   {unCategorizedPacks
                     .filter((e) => !e.category)
@@ -450,27 +450,27 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                       }
                       return (
                         <div
-                          className={classNames(classes.item, classes.relative)}
                           key={paymentPack.id}
+                          className={classNames(classes.item, classes.relative)}
                         >
                           <RadioItem
                             disabled={paymentPack.exceedsBookingMaxout}
-                            selected={
-                              paymentPack.id ===
-                              this.props.selectedPack?.paymentPack?.id
-                            }
                             onClick={() =>
                               this.props.onPackChange({ paymentPack })
                             }
                             renderItem={() => (
                               <PaymentPackBookableItem
-                                paymentPack={paymentPack}
-                                isExcludingTax={this.props.isExcludingTax}
                                 hideCredits={
                                   this.props.theme.hide_credits_for_customers
                                 }
+                                isExcludingTax={this.props.isExcludingTax}
+                                paymentPack={paymentPack}
                               />
                             )}
+                            selected={
+                              paymentPack.id ===
+                              this.props.selectedPack?.paymentPack?.id
+                            }
                           />
                           {paymentPack.exceedsBookingMaxout && (
                             <div className={classes.maxoutMessageContainer}>
@@ -501,11 +501,11 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
               <>
                 <div className={classes.marginTop} />
                 <CollapsibleSection
-                  title={t('booking:bookingModule.section.paymentCombos')}
                   in={this.state.openPacks === CollapsePackEnum.paymentCombo}
                   onSwitch={() =>
                     this.openPacks(CollapsePackEnum.paymentCombo, false)
                   }
+                  title={t('booking:bookingModule.section.paymentCombos')}
                 >
                   {availableComboPacks
                     .slice(0, numberOfPaymentComboToRender)
@@ -515,15 +515,11 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                       }
                       return (
                         <div
-                          className={classNames(classes.item, classes.relative)}
                           key={paymentPackCombo.id}
+                          className={classNames(classes.item, classes.relative)}
                         >
                           <RadioItem
                             disabled={paymentPackCombo.exceedsBookingMaxout}
-                            selected={
-                              paymentPackCombo.id ===
-                              this.props.selectedPack?.paymentPackCombo?.id
-                            }
                             onClick={() =>
                               this.props.onPackChange({ paymentPackCombo })
                             }
@@ -533,6 +529,10 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                                 paymentCombo={paymentPackCombo}
                               />
                             )}
+                            selected={
+                              paymentPackCombo.id ===
+                              this.props.selectedPack?.paymentPackCombo?.id
+                            }
                           />
                           {paymentPackCombo.exceedsBookingMaxout && (
                             <div className={classes.maxoutMessageContainer}>

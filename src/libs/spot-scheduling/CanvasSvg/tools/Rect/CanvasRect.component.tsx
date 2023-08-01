@@ -19,17 +19,17 @@ export default class CanvasRectComponent extends CanvasBaseComponent<CanvasRectP
       <rect
         {...this.BaseProps}
         className="svg-element"
-        x={x || 0}
-        y={y || 0}
-        width={width || 0}
+        data-rotation={rotation || 0}
+        fill={fill || 'transparent'}
         height={height || 0}
         stroke={stroke || 'black'}
-        fill={fill || 'transparent'}
         strokeWidth={2}
-        data-rotation={rotation || 0}
         transform={
           rotation && `rotate(${rotation} ${x + width / 2} ${y + height / 2})`
         }
+        width={width || 0}
+        x={x || 0}
+        y={y || 0}
       />
     );
   }

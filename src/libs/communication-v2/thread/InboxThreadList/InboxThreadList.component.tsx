@@ -101,12 +101,12 @@ const InboxThreadList: React.FC<Props> = ({
     <div className={classes.listContainer}>
       <div ref={ref}>
         <InboxThreadLookup
-          searchThread={searchThread}
-          filterValue={filterValue}
-          handleFilterChange={handleFilterChange}
-          handleContextThreadChange={handleContextThreadChange}
-          createNewThread={createNewThread}
           contextSelected={contextSelected}
+          createNewThread={createNewThread}
+          filterValue={filterValue}
+          handleContextThreadChange={handleContextThreadChange}
+          handleFilterChange={handleFilterChange}
+          searchThread={searchThread}
         />
       </div>
       <div
@@ -117,9 +117,9 @@ const InboxThreadList: React.FC<Props> = ({
       >
         {!isListLoading && !count && (
           <div className={classes.loading}>
-            <Fab variant="extended" className={classes.fab} disabled>
+            <Fab disabled className={classes.fab} variant="extended">
               <InfoOutlinedIcon className={classes.icon} color="action" />
-              <Typography variant="body1" color="textPrimary">
+              <Typography color="textPrimary" variant="body1">
                 {t('thread.noThread.list')}
               </Typography>
             </Fab>
@@ -143,14 +143,14 @@ const InboxThreadList: React.FC<Props> = ({
                 >
                   {(props: { index: number; style: React.CSSProperties }) => (
                     <InboxThreadListRow
+                      flagAsUnread={flagAsUnread}
+                      handleOnItemClick={handleOnItemClick}
                       index={props.index}
+                      selectedThreadId={selectedThreadId}
                       style={props.style}
+                      switchDisabledStatus={switchDisabledStatus}
                       switchFavoriteStatus={switchFavoriteStatus}
                       switchMutedStatus={switchMutedStatus}
-                      switchDisabledStatus={switchDisabledStatus}
-                      flagAsUnread={flagAsUnread}
-                      selectedThreadId={selectedThreadId}
-                      handleOnItemClick={handleOnItemClick}
                       threadList={threadList}
                     />
                   )}
@@ -162,9 +162,9 @@ const InboxThreadList: React.FC<Props> = ({
                     style={{ width: dimensions.width }}
                   >
                     <Fab
-                      variant="extended"
-                      onClick={handleLoadMoreItems}
                       className={classes.fab}
+                      onClick={handleLoadMoreItems}
+                      variant="extended"
                     >
                       {isListLoading ? (
                         <CircularProgress className={classes.icon} size={30} />

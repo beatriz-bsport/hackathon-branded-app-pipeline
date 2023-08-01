@@ -66,7 +66,7 @@ export function TemporalBarChart(props: Props) {
   }`;
 
   return (
-    <ResponsiveContainer width={width || '100%'} height={height || 400}>
+    <ResponsiveContainer height={height || 400} width={width || '100%'}>
       <BarChart
         data={data}
         margin={margin || { top: 5, right: 20, bottom: 20, left: 30 }}
@@ -74,14 +74,14 @@ export function TemporalBarChart(props: Props) {
         {noGrid ? null : <CartesianGrid strokeDasharray="3 3" />}
         <XAxis
           dataKey="d"
-          tickFormatter={xFormatter}
-          label={{ value: xLabel, position: 'bottom' }}
           interval="preserveStart"
+          label={{ value: xLabel, position: 'bottom' }}
           minTickGap={10}
+          tickFormatter={xFormatter}
         />
         <YAxis
-          allowDecimals={!!allowDecimals}
           key={refreshKey}
+          allowDecimals={!!allowDecimals}
           tickFormatter={numberFormatter(false)}
         >
           <Label
@@ -103,12 +103,12 @@ export function TemporalBarChart(props: Props) {
           return (
             <Bar
               key={barData.dataKey}
-              stackId={props.stacked && '1'}
-              dataKey={barData.dataKey}
-              stroke={barData.stroke}
-              fill={barData.fill}
               barSize={barSize}
+              dataKey={barData.dataKey}
+              fill={barData.fill}
               name={props.tooltip && barData.caption}
+              stackId={props.stacked && '1'}
+              stroke={barData.stroke}
             />
           );
         })}

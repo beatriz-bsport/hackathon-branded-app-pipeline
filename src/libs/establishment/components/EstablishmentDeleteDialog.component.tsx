@@ -14,10 +14,10 @@ type Props = {
 
 export const EstablishmentDeleteDialog = (props: Props) => (
   <DeleteDialogWithCheck
+    checkCanDeleteObjectAPI={props.canDeleteEstablishmentChecker}
+    deleteObject={() => props.deleteEstablishment(props.establishmentId)}
     idToDelete={props.establishmentId}
     onClose={props.onClose}
-    deleteObject={() => props.deleteEstablishment(props.establishmentId)}
-    checkCanDeleteObjectAPI={props.canDeleteEstablishmentChecker}
     trad="establishment"
   />
 );

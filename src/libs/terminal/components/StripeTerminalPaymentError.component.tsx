@@ -84,7 +84,7 @@ export const StripeTerminalPaymentError = (props: Props) => {
           <div className={classes.errorIcon}>
             <CardRefusedIcon />
           </div>
-          <Typography variant="h6" className={classes.errorTitle}>
+          <Typography className={classes.errorTitle} variant="h6">
             {t(
               'configuration.stripeTerminal.paymentDialog.paymentFailed.interac.title',
             )}
@@ -100,7 +100,7 @@ export const StripeTerminalPaymentError = (props: Props) => {
           <div className={classes.errorIcon}>
             <ErrorIcon />
           </div>
-          <Typography variant="h6" className={classes.errorTitle}>
+          <Typography className={classes.errorTitle} variant="h6">
             {t(
               `configuration.stripeTerminal.paymentDialog.paymentFailed.title.${translationKey}`,
             )}
@@ -127,8 +127,8 @@ export const StripeTerminalPaymentError = (props: Props) => {
         )}
         <Button
           color="primary"
-          variant="contained"
           onClick={() => props.onRetry()}
+          variant="contained"
         >
           {t('configuration.stripeTerminal.connectDialog.form.retry')}
         </Button>

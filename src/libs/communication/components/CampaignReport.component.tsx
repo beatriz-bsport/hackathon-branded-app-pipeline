@@ -139,8 +139,8 @@ const CampaignStatistics = (props: CampaignStatisticsProps) => {
             {isSmartListExporting ? (
               <CircularProgress
                 className={classes.leftIcon}
-                size={25}
                 color="inherit"
+                size={25}
               />
             ) : (
               <CloudDownloadIcon className={classes.leftIcon} />
@@ -173,9 +173,9 @@ const CampaignStatistics = (props: CampaignStatisticsProps) => {
           <div className={classes.numberStat}>
             <Typography>{t('campaign.report.lastOpen')}</Typography>
             <Typography
+              className={classes.inlineStat}
               color="secondary"
               variant="subtitle2"
-              className={classes.inlineStat}
             >
               {report.last_open
                 ? formatAsDatetimeAdapted(report.last_open, 'LLLL')
@@ -194,7 +194,7 @@ const CampaignStatistics = (props: CampaignStatisticsProps) => {
           </div>
         </div>
         {campaign?.data?.body ? (
-          <Button color="primary" variant="contained" onClick={onShowMail}>
+          <Button color="primary" onClick={onShowMail} variant="contained">
             <VisibilityIcon className={classes.leftIcon} />
             {t('campaign.showMail')}
           </Button>
@@ -227,7 +227,7 @@ const CampaignClick = (props: CampaignClickProps) => {
   const classes = useStyles();
   return (
     <div>
-      <Typography variant="h4" className={classes.title}>
+      <Typography className={classes.title} variant="h4">
         {t('campaign.report.topLinks')}
       </Typography>
       <Divider className={classes.divider} />
@@ -265,7 +265,7 @@ export const CampaignReport = (props: Props) => {
   return (
     <div>
       <div className={classes.titleRow}>
-        <IconButton onClick={props.goBack} className={classes.backIcon}>
+        <IconButton className={classes.backIcon} onClick={props.goBack}>
           <ArrowBackIcon fontSize="large" />
         </IconButton>
         <Typography className={classes.title} variant="h2">
@@ -277,30 +277,33 @@ export const CampaignReport = (props: Props) => {
         <div>
           <CampaignStatistics
             campaign={props.campaign}
-            report={props.report}
-            onShowMail={() => setShowMail(props.campaign.data.body)}
+            campaignXlsxExportLink={props.campaignXlsxExportLink}
             generateExportLink={props.generateExportLink}
+            onShowMail={() => setShowMail(props.campaign.data.body)}
+            onShowMail={() => setShowMail(props.campaign.data.body)}
+            report={props.report}
+            report={props.report}
           />
           <CampaignClick report={props.report} />
         </div>
       ) : (
         <LinearProgress />
       )}
-      <Typography variant="h4" className={classes.title}>
+      <Typography className={classes.title} variant="h4">
         {t('campaign.report.recipientList')}
       </Typography>
       <Divider className={classes.divider} />
       <RecipientTable
         fetchRecipientList={props.fetchRecipientList}
+        goToMember={props.goToMember}
         recipientList={props.recipientList}
         recipientState={props.recipientState}
-        goToMember={props.goToMember}
       />
       <HTMLPreviewDialog
-        open={!!showMail}
         html={showMail}
-        resolvedGenericTags={props.resolvedGenericTags}
         onClose={() => setShowMail(null)}
+        open={!!showMail}
+        resolvedGenericTags={props.resolvedGenericTags}
       />
     </div>
   );

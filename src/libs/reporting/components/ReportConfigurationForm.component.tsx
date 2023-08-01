@@ -48,23 +48,23 @@ const ReportConfigurationForm: React.FC<Props> = ({
 
   return (
     <Form>
-      <TextField required name="name" fullWidth label={t('form.name')} />
+      <TextField fullWidth required label={t('form.name')} name="name" />
       <AlertError name="name" />
       <TextField
-        required
-        name="description"
         fullWidth
+        required
         label={t('form.description')}
+        name="description"
       />
       <AlertError name="description" />
       <FormControl label={t('form.category')}>
         <Field name="category">
           {({ field: { value, onChange } }) => (
             <ReportCategoriesSelector
-              selected={value}
               categories={categories}
               globalCategories={globalCategories}
               onSelect={onChange('category')}
+              selected={value}
             />
           )}
         </Field>
@@ -76,10 +76,10 @@ const ReportConfigurationForm: React.FC<Props> = ({
             {({ name, form: { values, setFieldValue } }) => (
               <ReportColumnSelector
                 columns={categoryMetadata.columns}
-                value={values[name]}
                 onChange={(value) => {
                   setFieldValue('columns', value, true);
                 }}
+                value={values[name]}
               />
             )}
           </FieldArray>
@@ -88,7 +88,7 @@ const ReportConfigurationForm: React.FC<Props> = ({
       ) : null}
       <Actions>
         <Button onClick={onClose}>{t('form.cancel')}</Button>
-        <Submit onClick={trackintent} disabled={isSubmitting}>
+        <Submit disabled={isSubmitting} onClick={trackintent}>
           {t('form.save')}
         </Submit>
       </Actions>

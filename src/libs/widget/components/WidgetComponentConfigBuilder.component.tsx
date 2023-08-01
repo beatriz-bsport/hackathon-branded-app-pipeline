@@ -122,53 +122,53 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
     <div className={classes.container}>
       {!props.hideTypeSelector && (
         <ExportableComponentSelector
+          onChange={onComponentTypeChange}
           source={selectorSource}
           value={props.componentType}
-          onChange={onComponentTypeChange}
         />
       )}
       {props.previewDialog ? (
         <div>
           <Button
-            variant="outlined"
+            className={classes.openDialogButton}
             color="primary"
             onClick={() => setWidgetConfigOpen(true)}
-            className={classes.openDialogButton}
+            variant="outlined"
           >
             <SettingsIcon />
-            <Typography variant="body1" className={classes.textButton}>
+            <Typography className={classes.textButton} variant="body1">
               {t('widget:widget.configDialog.title')}
             </Typography>
           </Button>
 
           <GenericResponsiveDialog
-            open={widgetConfigOpen}
-            onClose={() => setWidgetConfigOpen(false)}
             maxWidth="sm"
+            onClose={() => setWidgetConfigOpen(false)}
+            open={widgetConfigOpen}
           >
             <DialogTitle>{t('widget:widget.configDialog.title')}</DialogTitle>
             <DialogContent>
               <ExportableComponentConfigurator
+                coaches={props.coaches}
+                componentType={props.componentType}
+                config={config}
+                customLevels={props.customLevels}
+                errors={props.config?.error}
+                establishmentGroupList={props.establishmentGroupList}
+                establishments={props.establishments}
+                giftcards={props.giftcards}
+                metaActivities={props.metaActivities}
+                metaActivitiesWorkshop={props.metaActivitiesWorkshop}
+                onChange={setConfig}
+                paymentPackCategories={props.paymentPackCategories}
                 paymentPackTemplateListAvailable={
                   props.paymentPackTemplateListAvailable
                 }
-                componentType={props.componentType}
-                coaches={props.coaches}
-                establishments={props.establishments}
-                metaActivities={props.metaActivities}
-                metaActivitiesWorkshop={props.metaActivitiesWorkshop}
-                privateServices={props.privateServices}
                 playlists={props.playlists}
-                videos={props.videos}
-                serviceGroupList={props.serviceGroupList}
-                config={config}
-                onChange={setConfig}
-                errors={props.config?.error}
-                paymentPackCategories={props.paymentPackCategories}
                 privatePassCategories={props.privatePassCategories}
-                establishmentGroupList={props.establishmentGroupList}
-                giftcards={props.giftcards}
-                customLevels={props.customLevels}
+                privateServices={props.privateServices}
+                serviceGroupList={props.serviceGroupList}
+                videos={props.videos}
               />
             </DialogContent>
             <DialogActions>
@@ -176,12 +176,12 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
                 {t('widget:widget.configDialog.cancel')}
               </Button>
               <Button
-                type="submit"
+                color="primary"
                 onClick={() => {
                   onConfigChange(config);
                   handleClose();
                 }}
-                color="primary"
+                type="submit"
               >
                 {t('widget:widget.configDialog.submit')}
               </Button>
@@ -190,26 +190,26 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
         </div>
       ) : (
         <ExportableComponentConfigurator
+          coaches={props.coaches}
+          componentType={props.componentType}
+          config={props.config}
+          customLevels={props.customLevels}
+          errors={props.config?.error}
+          establishmentGroupList={props.establishmentGroupList}
+          establishments={props.establishments}
+          giftcards={props.giftcards}
+          metaActivities={props.metaActivities}
+          metaActivitiesWorkshop={props.metaActivitiesWorkshop}
+          onChange={onConfigChange}
+          paymentPackCategories={props.paymentPackCategories}
           paymentPackTemplateListAvailable={
             props.paymentPackTemplateListAvailable
           }
-          componentType={props.componentType}
-          coaches={props.coaches}
-          establishments={props.establishments}
-          metaActivities={props.metaActivities}
-          metaActivitiesWorkshop={props.metaActivitiesWorkshop}
-          privateServices={props.privateServices}
           playlists={props.playlists}
-          videos={props.videos}
-          serviceGroupList={props.serviceGroupList}
-          config={props.config}
-          onChange={onConfigChange}
-          errors={props.config?.error}
-          paymentPackCategories={props.paymentPackCategories}
           privatePassCategories={props.privatePassCategories}
-          establishmentGroupList={props.establishmentGroupList}
-          giftcards={props.giftcards}
-          customLevels={props.customLevels}
+          privateServices={props.privateServices}
+          serviceGroupList={props.serviceGroupList}
+          videos={props.videos}
         />
       )}
     </div>

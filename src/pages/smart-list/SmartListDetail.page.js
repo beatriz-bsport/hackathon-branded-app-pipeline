@@ -46,31 +46,31 @@ export class SmartListDetail extends React.Component<Props> {
     const { tab, pageHeight } = this.props;
     return (
       <ContentWithAppBar
-        tab={tab}
         onChange={this.onChange}
         pageHeight={pageHeight}
+        tab={tab}
         tabsData={tabsData}
       >
         <Switch>
           <Route
             exact
-            path="/smart-list/:id/member/"
             component={SmartListDetailMember}
+            path="/smart-list/:id/member/"
           />
           <Route
             exact
-            path="/smart-list/:id/campaign/:campaignId/"
             component={SmartListDetailCampaignReport}
+            path="/smart-list/:id/campaign/:campaignId/"
           />
           <Route
             exact
-            path="/smart-list/:id/campaign/"
             component={SmartListDetailCampaign}
+            path="/smart-list/:id/campaign/"
           />
           <Route
             exact
-            path="/smart-list/:id/statistic/"
             component={SmartListDetailStatistic}
+            path="/smart-list/:id/statistic/"
           />
         </Switch>
       </ContentWithAppBar>

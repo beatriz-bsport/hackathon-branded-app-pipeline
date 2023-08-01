@@ -57,7 +57,7 @@ const SelectOptionItem: React.FC<SelectOptionProps> = React.memo(
 
     return (
       <li className="bs-select__dropdown__list__item">
-        <button type="button" onClick={handleOptionClick}>
+        <button onClick={handleOptionClick} type="button">
           {innerListItemRender()}
         </button>
       </li>
@@ -130,20 +130,20 @@ const Select: React.FC<Props> = React.memo(
 
     return (
       <div
+        ref={selectContainer}
         className={classNames('bs-select__container', {
           'bs-select--idle-width': !fullWidth,
           'bs-select--full-width': fullWidth,
         })}
-        ref={selectContainer}
       >
         <button
-          type="button"
           className={classNames(classes?.buttonContainer, {
             'bs-select__button': !classes?.buttonContainer,
             'bs-select__focused': value && !classes?.buttonContainer,
             'bs-select__text__primary': value && !classes?.buttonContainer,
           })}
           onClick={toggleOpenOptionList}
+          type="button"
         >
           <div
             className={classNames('bs-select__input__container', {
@@ -165,7 +165,7 @@ const Select: React.FC<Props> = React.memo(
               })}
             >
               {isClearable && value && (
-                <button type="button" onClick={handleClear}>
+                <button onClick={handleClear} type="button">
                   <ClearIcon />
                 </button>
               )}

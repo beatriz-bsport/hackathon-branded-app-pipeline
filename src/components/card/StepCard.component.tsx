@@ -119,10 +119,10 @@ const StepCard: React.FC<StepCardProps> = ({
     <div className={classes.stepCard}>
       <ClickAwayListener onClickAway={handleClickAway}>
         <ButtonBase
-          onClick={handleClick}
           className={classes.container}
           disabled={disabled}
           disableRipple={disableRipple}
+          onClick={handleClick}
         >
           <div className={classes.card}>
             <StepCardHeader>{header}</StepCardHeader>
@@ -137,7 +137,7 @@ const StepCard: React.FC<StepCardProps> = ({
           style={{ color: addButtonColor || DEFAULT_ADD_BUTTON_COLOR }}
         >
           <ToolTip title={addButtonLabel || ''}>
-            <IconButton onClick={addButtonAction} size="small" color="inherit">
+            <IconButton color="inherit" onClick={addButtonAction} size="small">
               <AddCircleIcon fontSize="small" />
             </IconButton>
           </ToolTip>

@@ -79,27 +79,27 @@ export const CreateLevelModal = (props: Props) => {
 
   return (
     <Dialog
-      open={open}
-      onClose={onClose}
       classes={{
         paper: classes.popup,
       }}
+      onClose={onClose}
+      open={open}
     >
       <Formik
         initialValues={{
           name: initial?.name ?? '',
           color: initial?.color ?? '#FFFFFF',
         }}
-        validationSchema={CreateLevelModalSchema}
         onSubmit={handleSubmit}
+        validationSchema={CreateLevelModalSchema}
       >
         {(formik) => (
           <Form>
             <FormSection
-              sectionTitle={t('offer:form.dialog.createLevel')}
-              sectionIcon={DateRange}
               sectionCustomIconStyle={offerFormClasses.sectionIcon}
+              sectionIcon={DateRange}
               sectionIconContainerStyle={offerFormClasses.sectionIconContainer}
+              sectionTitle={t('offer:form.dialog.createLevel')}
             >
               <div className={classes.inputsContainer}>
                 <div className={classes.inputField}>
@@ -107,17 +107,17 @@ export const CreateLevelModal = (props: Props) => {
                     {t('offer:levels.modal.name')} *
                   </Typography>
                   <TextField
-                    name="name"
-                    value={formik.values.name}
-                    onChange={formik.handleChange}
-                    variant="outlined"
+                    required
                     className={classNames({
                       [offerFormClasses.bigWidth]: !isMobile,
                     })}
-                    size="small"
-                    required
-                    placeholder={t('offer:levels.modal.name')}
                     inputProps={{ maxLength: NAME_MAX_LENGTH }}
+                    name="name"
+                    onChange={formik.handleChange}
+                    placeholder={t('offer:levels.modal.name')}
+                    size="small"
+                    value={formik.values.name}
+                    variant="outlined"
                   />
                 </div>
 
@@ -126,9 +126,9 @@ export const CreateLevelModal = (props: Props) => {
                     {t('levels.modal.color')} *
                   </Typography>
                   <ColorField
+                    buttonStyle={classes.colorInput}
                     name="color"
                     onChange={formik.handleChange}
-                    buttonStyle={classes.colorInput}
                   />
                 </div>
               </div>
@@ -137,18 +137,18 @@ export const CreateLevelModal = (props: Props) => {
             <DialogActions className={classes.actionsContainer}>
               <Button
                 color="secondary"
-                onClick={onClose}
                 disabled={formik.isSubmitting}
+                onClick={onClose}
               >
                 {t('common:cancel')}
               </Button>
               <Button
-                variant="contained"
                 color="primary"
-                type="submit"
                 disabled={
                   formik.isSubmitting || !formik.dirty || !formik.isValid
                 }
+                type="submit"
+                variant="contained"
               >
                 {t('common:saveRecord')}
               </Button>

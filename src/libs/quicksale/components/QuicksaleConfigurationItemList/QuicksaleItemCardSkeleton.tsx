@@ -8,11 +8,11 @@ const QuicksaleItemCardSkeleton: React.FC = () => {
   return (
     <div className={classes.skeletonContainer}>
       <Skeleton
-        variant="rect"
         animation="wave"
-        width="100%"
-        height="100%"
         className={classes.skeleton}
+        height="100%"
+        variant="rect"
+        width="100%"
       />
     </div>
   );

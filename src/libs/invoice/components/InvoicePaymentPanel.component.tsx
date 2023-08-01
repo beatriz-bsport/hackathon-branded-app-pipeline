@@ -69,18 +69,18 @@ const InvoicePaymentStatus = (props: {
         !props.isDraft &&
         !props.hasPendingDispute &&
         props.amountToPayCts <= 0 && (
-          <CheckIcon color="primary" className={classes.statusIcon} />
+          <CheckIcon className={classes.statusIcon} color="primary" />
         )}
       {(props.hasPendingPlannedPaymentEvent ||
         !!props.isDraft ||
         props.hasPendingDispute) && (
-        <HourglassEmptyIcon color="secondary" className={classes.statusIcon} />
+        <HourglassEmptyIcon className={classes.statusIcon} color="secondary" />
       )}
       {!props.hasPendingPlannedPaymentEvent &&
         !props.isDraft &&
         !props.hasPendingDispute &&
         props.amountToPayCts > 0 && (
-          <CancelIcon color="error" className={classes.statusIcon} />
+          <CancelIcon className={classes.statusIcon} color="error" />
         )}
     </div>
   );
@@ -146,7 +146,6 @@ const PaymentActions: FC<{
               )}
               {props.accountBalance > 0 && !!props.consumeBalance && (
                 <Button
-                  variant="contained"
                   color="primary"
                   disabled={processing || props.accountBalanceLoading}
                   onClick={() => {
@@ -156,12 +155,13 @@ const PaymentActions: FC<{
                       onError: () => setProcessing(false),
                     });
                   }}
+                  variant="contained"
                 >
                   {!!props.accountBalanceLoading && (
                     <CircularProgress
-                      size={20}
-                      color="inherit"
                       className={classes.iconLeft}
+                      color="inherit"
+                      size={20}
                     />
                   )}
                   {t('actions.consumeBalance')}
@@ -179,7 +179,6 @@ const PaymentActions: FC<{
                   text={getPaymentLink(props.companyId, props.invoice.uuid)}
                 >
                   <Button
-                    variant="contained"
                     color="primary"
                     disabled={
                       !props.invoice.member ||
@@ -187,19 +186,20 @@ const PaymentActions: FC<{
                       processing
                     }
                     onClick={() => props.snackbarSuccess('link.copied')}
+                    variant="contained"
                   >
                     {t('paymentPanel.actions.generatePaymentLink')}
                   </Button>
                 </CopyToClipboard>
                 <Button
-                  onClick={props.onPaymentIntent}
-                  variant="contained"
                   color="primary"
                   disabled={
                     !props.invoice.member ||
                     props.amountToPayCts === 0 ||
                     processing
                   }
+                  onClick={props.onPaymentIntent}
+                  variant="contained"
                 >
                   {t('paymentPanel.actions.bill')}
                 </Button>
@@ -212,8 +212,8 @@ const PaymentActions: FC<{
                   (p) => p.payment_engine !== PAYMENT_ENGINE_BSPORT,
                 ).length === 1) && (
                 <RedButton
-                  onClick={props.onRevert}
                   disabled={processing}
+                  onClick={props.onRevert}
                   variant="contained"
                 >
                   {t('paymentPanel.actions.revert')}
@@ -222,27 +222,27 @@ const PaymentActions: FC<{
           </div>
           <div className={classes.buttonRow}>
             <UseConsumerGiftcardForm
-              invoice={props.invoice}
               applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
               consumerGiftcardList={props.consumerGiftcardList}
-              loading={props.loading}
               disabled={
                 !props.invoice.member ||
                 props.amountToPayCts === 0 ||
                 processing
               }
+              invoice={props.invoice}
+              loading={props.loading}
             />
             {props.invoice.invoice_type === INVOICE_TYPE_REGULAR &&
               !props.invoice.plannedinvoice && (
                 <Button
-                  onClick={props.onInstalmentPayment}
-                  variant="contained"
                   color="secondary"
                   disabled={
                     !props.invoice.member ||
                     props.amountToPayCts === 0 ||
                     processing
                   }
+                  onClick={props.onInstalmentPayment}
+                  variant="contained"
                 >
                   {t('paymentPanel.actions.billByInstalment')}
                 </Button>
@@ -348,14 +348,7 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
     <div className={classes.container}>
       <div className={classes.innerContainer}>
         <InvoicePaymentStatus
-          invoice_type={props.invoice.invoice_type}
-          hasPendingPlannedPaymentEvent={
-            plannedPaymentWithoutUnrecoverableErrorList &&
-            plannedPaymentWithoutUnrecoverableErrorList.length > 0 &&
-            plannedPaymentWithoutUnrecoverableErrorList.filter(
-              (ppe) => ppe.status !== PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
-            ).length > 0
-          }
+          amountToPayCts={amountToPayCts}
           hasPendingDispute={
             !!props.paymentList?.filter(
               (payment) =>
@@ -363,10 +356,17 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
                 (payment.is_processing || payment.payment_received === null),
             ).length
           }
-          amountToPayCts={amountToPayCts}
+          hasPendingPlannedPaymentEvent={
+            plannedPaymentWithoutUnrecoverableErrorList &&
+            plannedPaymentWithoutUnrecoverableErrorList.length > 0 &&
+            plannedPaymentWithoutUnrecoverableErrorList.filter(
+              (ppe) => ppe.status !== PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
+            ).length > 0
+          }
+          invoice_type={props.invoice.invoice_type}
           isDraft={props.invoice.is_draft}
         />
-        <Typography variant="h6" className={classes.sectionTitle}>
+        <Typography className={classes.sectionTitle} variant="h6">
           {t(
             is_reverse
               ? 'paymentPanel.paymentList.titleReverse'
@@ -381,39 +381,39 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
         {!props.paymentLoading &&
           !props.paymentList.length &&
           !props.paymentGroupRequiringActionList.length && (
-            <Typography variant="caption" color="textSecondary">
+            <Typography color="textSecondary" variant="caption">
               {t('paymentPanel.paymentList.isEmpty')}
             </Typography>
           )}
         <div className={classes.listContainer}>
           {props.paymentList.map((p) => (
             <PaymentListItemV2
-              handleChangeMethod={props.handleChangeMethod}
-              paymentItem={p}
               key={p.id}
               invoiceVariant
+              handleChangeMethod={props.handleChangeMethod}
+              paymentItem={p}
             />
           ))}
           {plannedPaymentUnrecoverableErrorList.map((p) => (
             <PlannedPaymentEventErrorListItem
-              plannedPaymentError={p}
               key={p.id}
+              plannedPaymentError={p}
             />
           ))}
           {props.invoice.is_fully_paid
             ? null
             : props.paymentGroupRequiringActionList.map((p) => (
                 <PaymentGroupRequiringActionListItem
+                  key={p.id}
                   onValidate={props.onValidate}
                   paymentGroup={p}
-                  key={p.id}
                 />
               ))}
         </div>
         {!props.plannedPaymentEventLoading &&
           !!plannedPaymentWithoutUnrecoverableErrorList.length && (
             <React.Fragment>
-              <Typography variant="h6" className={classes.sectionTitle}>
+              <Typography className={classes.sectionTitle} variant="h6">
                 {t('paymentPanel.plannedPaymentEvent.title', {
                   count: plannedPaymentWithoutUnrecoverableErrorList.length,
                 })}
@@ -422,11 +422,11 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
               <div className={classes.listContainer}>
                 {plannedPaymentWithoutUnrecoverableErrorList.map((p) => (
                   <PlannedPaymentEventListItem
-                    plannedPaymentEvent={p}
-                    requestSetupIntentSecret={props.requestSetupIntentSecret}
-                    invoice={props.invoice}
                     key={p.id}
                     actions={props.plannedPaymentEventActions}
+                    invoice={props.invoice}
+                    plannedPaymentEvent={p}
+                    requestSetupIntentSecret={props.requestSetupIntentSecret}
                   />
                 ))}
               </div>
@@ -476,7 +476,7 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
               </Typography>
               <div className={classes.line} />
               <Typography
-                variant="h5"
+                color={amountToPayCts > 0 ? 'error' : 'primary'}
                 style={
                   props.invoice.reverse_invoices.length
                     ? {
@@ -484,7 +484,7 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
                       }
                     : {}
                 }
-                color={amountToPayCts > 0 ? 'error' : 'primary'}
+                variant="h5"
               >
                 {getCurrencyDisplayWithPrice(
                   Math.max(amountToPayCts / 100, 0).toFixed(2),
@@ -498,21 +498,21 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
         props.invoice.invoice_type,
       ) && (
         <PaymentActions
-          invoice={props.invoice}
-          paymentList={props.paymentList}
-          onRevert={props.onRevert}
-          is_reverse={is_reverse}
           accountBalance={props.accountBalance}
           accountBalanceLoading={props.accountBalanceLoading}
-          consumeBalance={props.consumeBalance}
           amountToPayCts={amountToPayCts}
-          onPaymentIntent={props.onPaymentIntent}
-          onInstalmentPayment={props.onInstalmentPayment}
-          loading={paymentActionsLoading}
-          companyId={props.companyId}
-          snackbarSuccess={props.snackbarSuccess}
-          consumerGiftcardList={props.consumerGiftcardList}
           applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
+          companyId={props.companyId}
+          consumeBalance={props.consumeBalance}
+          consumerGiftcardList={props.consumerGiftcardList}
+          invoice={props.invoice}
+          is_reverse={is_reverse}
+          loading={paymentActionsLoading}
+          onInstalmentPayment={props.onInstalmentPayment}
+          onPaymentIntent={props.onPaymentIntent}
+          onRevert={props.onRevert}
+          paymentList={props.paymentList}
+          snackbarSuccess={props.snackbarSuccess}
         />
       )}
     </div>

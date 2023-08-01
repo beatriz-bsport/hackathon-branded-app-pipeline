@@ -44,7 +44,7 @@ const NotificationRuleGroupHeader = (props: Props) => {
   return (
     <div className={className}>
       <div className={classes.titleWrapper}>
-        <Typography variant="h5" className={classes.title}>
+        <Typography className={classes.title} variant="h5">
           {t(`ruleGroup.${eventGroupName}`)}
         </Typography>
         <Typography className={classes.subtitle}>
@@ -57,8 +57,8 @@ const NotificationRuleGroupHeader = (props: Props) => {
             <Button
               className={classes.backButton}
               color="primary"
-              variant="outlined"
               onClick={onToggleClick(eventGroupName)}
+              variant="outlined"
             >
               <ArrowBackIcon className={classes.iconLeft} />
               {t('goBackToMenu')}
@@ -76,8 +76,8 @@ const NotificationRuleGroupHeader = (props: Props) => {
             <Button
               className={classes.configureButton}
               color="primary"
-              variant="outlined"
               onClick={onToggleClick(eventGroupName)}
+              variant="outlined"
             >
               <ArrowForwardIcon className={classes.iconLeft} />
               {t('configureNotif')}
@@ -91,12 +91,12 @@ const NotificationRuleGroupHeader = (props: Props) => {
                   UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
                 ) && (
                   <Chip
+                    className={classes.rightChip}
                     label={t('countNotification', {
                       nbr: eventsList.filter(
                         (event) => event?.rule?.is_notification_push_active,
                       ).length,
                     })}
-                    className={classes.rightChip}
                   />
                 )}
               </>

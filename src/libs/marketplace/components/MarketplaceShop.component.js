@@ -50,14 +50,14 @@ const SubShopComponent = (props: {
         </IconButton>
       </div>
       <Collapse in={props.expanded}>
-        <Grid alignItems="stretch" spacing={4} container direction="row">
+        <Grid container alignItems="stretch" direction="row" spacing={4}>
           {props.subshop.shopItems.map((si) => (
-            <Grid key={si.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
+            <Grid key={si.id} item lg={3} md={4} sm={6} xl={2} xs={12}>
               <ShopItemListCard
-                isExcludingTax={props.isExcludingTax}
-                shopitem={si}
-                onClick={() => props.selectShopItem(si)}
                 addToOrder={props.addToOrder}
+                isExcludingTax={props.isExcludingTax}
+                onClick={() => props.selectShopItem(si)}
+                shopitem={si}
               />
             </Grid>
           ))}
@@ -86,9 +86,9 @@ export function MarketplaceShop(props: Props) {
     return (
       <div className={props.classes.container}>
         <Typography
+          className={props.classes.emptyText}
           color="textSecondary"
           variantl="caption"
-          className={props.classes.emptyText}
         >
           {props.t('marketplace.shop.isEmpty')}
         </Typography>
@@ -102,10 +102,13 @@ export function MarketplaceShop(props: Props) {
           .filter((sub) => sub.shopitems.length !== 0)
           .map((sub) => (
             <SubShopComponent
-              isExcludingTax={props.isExcludingTax}
               key={sub.id}
-              subshop={sub}
+              addToOrder={props.addToOrder}
+              classes={props.classes}
               expanded={!props.notExpandedSubshop.includes(sub.id)}
+              isExcludingTax={props.isExcludingTax}
+              selectShopItem={props.selectShopItem}
+              subshop={sub}
               toggleExpanded={() => {
                 if (props.notExpandedSubshop.includes(sub.id)) {
                   props.setNotExpandedSubshop(
@@ -118,24 +121,21 @@ export function MarketplaceShop(props: Props) {
                   ]);
                 }
               }}
-              classes={props.classes}
-              addToOrder={props.addToOrder}
-              selectShopItem={props.selectShopItem}
             />
           ))}
         <Dialog
-          open={!!props.selectedShopItem}
           onClose={() => props.selectShopItem(null)}
+          open={!!props.selectedShopItem}
         >
           <div style={{ scroll: 'auto' }}>
             <ShopItemCard
-              isExcludingTax={props.isExcludingTax}
-              shopitem={props.selectedShopItem}
-              t={props.t}
               addToOrder={(id: number) => {
                 props.selectShopItem(null);
                 props.addToOrder(id);
               }}
+              isExcludingTax={props.isExcludingTax}
+              shopitem={props.selectedShopItem}
+              t={props.t}
             />
           </div>
         </Dialog>

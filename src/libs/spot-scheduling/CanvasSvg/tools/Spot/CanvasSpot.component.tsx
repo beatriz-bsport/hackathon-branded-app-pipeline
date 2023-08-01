@@ -66,41 +66,41 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
       >
         <rect
           className="svg-element"
-          width={LENGTH_REFERENCE}
+          fill="transparent"
           height={LENGTH_REFERENCE}
           stroke={
             this.props.selected && !this.props.selectingSpot
               ? 'red'
               : 'transparent'
           }
-          fill="transparent"
           strokeWidth={2}
+          width={LENGTH_REFERENCE}
         />
-        <image x={1} y={1} href={image} width={60} height={60} />
+        <image height={60} href={image} width={60} x={1} y={1} />
         <text
-          x={LENGTH_REFERENCE / 2}
-          y={LENGTH_REFERENCE / 2}
+          dominantBaseline="middle"
           fontSize="45"
           fontWeight="bold"
-          dominantBaseline="middle"
-          textAnchor="middle"
-          transform={CanvasSpotComponent.getTransform(0, 0, -rotation || 0)}
-          style={{ userSelect: 'none' }}
           stroke="white"
           strokeWidth={2}
+          style={{ userSelect: 'none' }}
+          textAnchor="middle"
+          transform={CanvasSpotComponent.getTransform(0, 0, -rotation || 0)}
+          x={LENGTH_REFERENCE / 2}
+          y={LENGTH_REFERENCE / 2}
         >
           {spotType?.prefix && indexType && `${spotType?.prefix}${indexType}`}
           {!spotType?.prefix && indexType && indexType}
           {!spotType?.prefix && !indexType && index}
         </text>
         <rect
+          fill="transparent"
+          height={LENGTH_REFERENCE}
+          stroke="transparent"
           visibility="visible"
           width={LENGTH_REFERENCE}
-          height={LENGTH_REFERENCE}
           x={0}
           y={0}
-          stroke="transparent"
-          fill="transparent"
         />
       </g>
     );
@@ -121,56 +121,56 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
       >
         {this.props.selected && !this.props.selectingSpot && (
           <rect
-            x={0}
-            y={0}
-            width={LENGTH_REFERENCE}
+            fill="transparent"
             height={LENGTH_REFERENCE}
             stroke="black"
-            fill="transparent"
             strokeWidth={2}
+            width={LENGTH_REFERENCE}
+            x={0}
+            y={0}
           />
         )}
         <rect
           className="svg-element"
-          width={LENGTH_REFERENCE}
+          fill={spotType.fill_color || 'transparent'}
           height={LENGTH_REFERENCE}
           stroke={
             this.props.selected && !this.props.selectingSpot
               ? 'red'
               : spotType.stroke_color || 'black'
           }
-          fill={spotType.fill_color || 'transparent'}
           strokeWidth={2}
+          width={LENGTH_REFERENCE}
         />
         <rect
+          fill={spotType.fill_color || 'transparent'}
+          height={15}
+          width={indexType > 9 ? 20 : 15}
           x={LENGTH_REFERENCE / 2 - (indexType > 9 ? 20 : 15) / 2}
           y={LENGTH_REFERENCE / 2 - 15 / 2}
-          width={indexType > 9 ? 20 : 15}
-          height={15}
-          fill={spotType.fill_color || 'transparent'}
         />
         <text
+          dominantBaseline="middle"
+          fill={getTextColorFromRGB(chroma(fill)?.rgb())}
+          fontSize="30"
+          style={{ userSelect: 'none' }}
+          textAnchor="middle"
+          transform={CanvasSpotComponent.getTransform(0, 0, -rotation || 0)}
           x={LENGTH_REFERENCE / 2}
           y={LENGTH_REFERENCE / 2}
-          dominantBaseline="middle"
-          textAnchor="middle"
-          style={{ userSelect: 'none' }}
-          fontSize="30"
-          transform={CanvasSpotComponent.getTransform(0, 0, -rotation || 0)}
-          fill={getTextColorFromRGB(chroma(fill)?.rgb())}
         >
           {spotType?.prefix && indexType && `${spotType?.prefix}${indexType}`}
           {!spotType?.prefix && indexType && indexType}
           {!spotType?.prefix && !indexType && index}
         </text>
         <rect
+          fill="transparent"
+          height={LENGTH_REFERENCE}
+          stroke="transparent"
           visibility="visible"
           width={LENGTH_REFERENCE}
-          height={LENGTH_REFERENCE}
           x={0}
           y={0}
-          stroke="transparent"
-          fill="transparent"
         />
       </g>
     );
@@ -195,57 +195,57 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
       >
         {this.props.selected && !this.props.selectingSpot && (
           <rect
-            x={0}
-            y={0}
-            width={TRIANGLE_LENGTH}
+            fill="transparent"
             height={TRIANGLE_LENGTH}
             stroke="black"
-            fill="transparent"
             strokeWidth={2}
+            width={TRIANGLE_LENGTH}
+            x={0}
+            y={0}
           />
         )}
         <rect
           className="svg-element"
-          width={LENGTH_REFERENCE}
+          fill="transparent"
           height={LENGTH_REFERENCE}
           stroke="transparent"
-          fill="transparent"
           strokeWidth={2}
+          width={LENGTH_REFERENCE}
         />
         <polygon
+          fill={spotType?.fill_color || 'white'}
           points={`${
             TRIANGLE_LENGTH / 2
           },0 0,${TRIANGLE_LENGTH} ${TRIANGLE_LENGTH},${TRIANGLE_LENGTH}`}
           stroke={spotType?.stroke_color || 'black'}
-          fill={spotType?.fill_color || 'white'}
           strokeWidth={2}
         />
         <text
-          x={TRIANGLE_LENGTH / 2}
-          y={TRIANGLE_LENGTH / 2 + 13}
           dominantBaseline="middle"
-          textAnchor="middle"
-          style={{ userSelect: 'none' }}
+          fill={getTextColorFromRGB(chroma(fill)?.rgb())}
           fontSize="25"
+          style={{ userSelect: 'none' }}
+          textAnchor="middle"
           transform={CanvasSpotComponent.getTransformTriangle(
             0,
             0,
             -rotation || 0,
           )}
-          fill={getTextColorFromRGB(chroma(fill)?.rgb())}
+          x={TRIANGLE_LENGTH / 2}
+          y={TRIANGLE_LENGTH / 2 + 13}
         >
           {spotType?.prefix && indexType && `${spotType?.prefix}${indexType}`}
           {!spotType?.prefix && indexType && indexType}
           {!spotType?.prefix && !indexType && index}
         </text>
         <rect
+          fill="transparent"
+          height={TRIANGLE_LENGTH}
+          stroke="transparent"
           visibility="visible"
           width={TRIANGLE_LENGTH}
-          height={TRIANGLE_LENGTH}
           x={0}
           y={0}
-          stroke="transparent"
-          fill="transparent"
         />
       </g>
     );
@@ -266,62 +266,62 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
       >
         {this.props.selected && !this.props.selectingSpot && (
           <rect
-            x={0}
-            y={0}
-            width={LENGTH_REFERENCE}
+            fill="transparent"
             height={LENGTH_REFERENCE}
             stroke="black"
-            fill="transparent"
             strokeWidth={2}
+            width={LENGTH_REFERENCE}
+            x={0}
+            y={0}
           />
         )}
         <rect
           className="svg-element"
-          width={100}
+          data-rotation={rotation || 0}
+          fill={spotType.fill_color || 'transparent'}
           height={LENGTH_REFERENCE}
           stroke={
             this.props.selected && !this.props.selectingSpot
               ? 'red'
               : spotType.stroke_color || 'black'
           }
-          fill={spotType.fill_color || 'transparent'}
           strokeWidth={2}
-          data-rotation={rotation || 0}
+          width={100}
         />
         <rect
+          fill={spotType.fill_color || 'transparent'}
+          height={15}
+          width={indexType > 9 ? 20 : 15}
           x={LENGTH_REFERENCE / 2 - (indexType > 9 ? 20 : 15) / 2}
           y={LENGTH_REFERENCE / 2 - 15 / 2}
-          width={indexType > 9 ? 20 : 15}
-          height={15}
-          fill={spotType.fill_color || 'transparent'}
         />
 
         <text
-          x={100 / 2}
-          y={LENGTH_REFERENCE / 2}
           dominantBaseline="middle"
-          textAnchor="middle"
-          style={{ userSelect: 'none' }}
+          fill={getTextColorFromRGB(chroma(fill)?.rgb())}
           fontSize="30"
+          style={{ userSelect: 'none' }}
+          textAnchor="middle"
           transform={CanvasSpotComponent.getTransformRectangle(
             0,
             0,
             -rotation || 0,
           )}
-          fill={getTextColorFromRGB(chroma(fill)?.rgb())}
+          x={100 / 2}
+          y={LENGTH_REFERENCE / 2}
         >
           {spotType?.prefix && indexType && `${spotType?.prefix}${indexType}`}
           {!spotType?.prefix && indexType && indexType}
           {!spotType?.prefix && !indexType && index}
         </text>
         <rect
+          fill="transparent"
+          height={LENGTH_REFERENCE}
+          stroke="transparent"
           visibility="visible"
           width={100}
-          height={LENGTH_REFERENCE}
           x={0}
           y={0}
-          stroke="transparent"
-          fill="transparent"
         />
       </g>
     );
@@ -343,52 +343,52 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
       >
         {this.props.selected && !this.props.selectingSpot && (
           <rect
-            x={0}
-            y={0}
-            width={LENGTH_REFERENCE}
+            fill="transparent"
             height={LENGTH_REFERENCE}
             stroke="black"
-            fill="transparent"
             strokeWidth={2}
+            width={LENGTH_REFERENCE}
+            x={0}
+            y={0}
           />
         )}
         <circle
           cx="31"
           cy="31"
-          r="29"
           fill={spotType.fill_color || 'white'}
+          r="29"
           stroke={spotType.stroke_color || 'black'}
           strokeWidth="2"
         />
         <rect
+          fill={spotType.fill_color || 'white'}
+          height={15}
+          width={indexType > 9 ? 20 : 15}
           x={LENGTH_REFERENCE / 2 - (indexType > 9 ? 20 : 15) / 2}
           y={LENGTH_REFERENCE / 2 - 15 / 2}
-          width={indexType > 9 ? 20 : 15}
-          height={15}
-          fill={spotType.fill_color || 'white'}
         />
         <text
-          x={LENGTH_REFERENCE / 2}
-          y={LENGTH_REFERENCE / 2}
           dominantBaseline="middle"
-          textAnchor="middle"
+          fill={getTextColorFromRGB(chroma(fill)?.rgb())}
           fontSize="30"
           style={{ userSelect: 'none' }}
+          textAnchor="middle"
           transform={CanvasSpotComponent.getTransform(0, 0, -rotation || 0)}
-          fill={getTextColorFromRGB(chroma(fill)?.rgb())}
+          x={LENGTH_REFERENCE / 2}
+          y={LENGTH_REFERENCE / 2}
         >
           {spotType?.prefix && indexType && `${spotType?.prefix}${indexType}`}
           {!spotType?.prefix && indexType && indexType}
           {!spotType?.prefix && !indexType && index}
         </text>
         <rect
+          fill="transparent"
+          height={LENGTH_REFERENCE}
+          stroke="transparent"
           visibility="visible"
           width={LENGTH_REFERENCE}
-          height={LENGTH_REFERENCE}
           x={0}
           y={0}
-          stroke="transparent"
-          fill="transparent"
         />
       </g>
     );

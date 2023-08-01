@@ -78,22 +78,22 @@ export class GiftcardCheckout extends React.Component<Props> {
       <ConsumerAppBarContainer companyId={this.props.companyId}>
         <div className={classes.container}>
           <div className={classes.innerContainer}>
-            <Typography variant="h4" className={classes.title}>
+            <Typography className={classes.title} variant="h4">
               {t('consumerGiftcard.activation.title')}
             </Typography>
             <Typography className={classes.text}>
               {t('consumerGiftcard.activation.subtitle')}
             </Typography>
             <ConsumerGiftcardPreview
-              giftcard={this.props.consumerGiftcard.giftcard}
-              consumerGiftcard={this.props.consumerGiftcard}
               companyCover={this.props.theme.cover}
+              consumerGiftcard={this.props.consumerGiftcard}
+              giftcard={this.props.consumerGiftcard.giftcard}
             />
             <div>
               <Typography
+                className={classes.text}
                 color="textSecondary"
                 variant="body2"
-                className={classes.text}
               >
                 {t(
                   this.props.consumerGiftcard?.giftcard.expiration_days
@@ -109,16 +109,16 @@ export class GiftcardCheckout extends React.Component<Props> {
                 )}
               </Typography>
               <Typography
+                className={classes.text}
                 color="textSecondary"
                 variant="body2"
-                className={classes.text}
               >
                 {t('consumerGiftcard.activation.content2')}
               </Typography>
               <Typography
-                variant="body2"
-                color="textSecondary"
                 className={classes.text}
+                color="textSecondary"
+                variant="body2"
               >
                 {t('consumerGiftcard.activation.content3')}
               </Typography>
@@ -133,11 +133,11 @@ export class GiftcardCheckout extends React.Component<Props> {
             )}
             <div className={classes.buttonContainer}>
               <Button
-                variant="contained"
                 className={classes.button}
                 color="primary"
-                onClick={this.activate}
                 disabled={!!this.props.consumerGiftcard.date_activated}
+                onClick={this.activate}
+                variant="contained"
               >
                 <RedeemIcon className={classes.leftIcon} />
                 {t('consumerGiftcard.activation.activate')}

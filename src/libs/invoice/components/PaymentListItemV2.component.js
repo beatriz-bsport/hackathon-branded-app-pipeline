@@ -90,16 +90,16 @@ export const PaymentItem = (props: Props) => {
           </div>
 
           <Typography
-            variant="caption"
-            color="textSecondary"
             className={paymentItem.reverted ? classes.revert : null}
+            color="textSecondary"
+            variant="caption"
           >
             {paymentItem.payment_note}
           </Typography>
           <Typography
-            variant="caption"
-            color="textSecondary"
             className={paymentItem.reverted ? classes.revert : null}
+            color="textSecondary"
+            variant="caption"
           >
             {formatAsDatetimeAdapted(paymentItem.date, 'LL')}
           </Typography>
@@ -125,18 +125,18 @@ export const PaymentItem = (props: Props) => {
       {!!processing && <CircularProgress />}
       {!!props.paymentItem.is_method_editable && !processing && (
         <IconButton
+          color="primary"
           disabled={!paymentItem.is_method_editable}
           onClick={(e) => setChangeMethodAnchorEl(e.currentTarget)}
-          color="primary"
         >
           <CachedIcon />
         </IconButton>
       )}
       <Menu
-        id={`simple-menu${paymentItem.uuid}`}
         anchorEl={changeMethodAnchorEl}
-        open={Boolean(changeMethodAnchorEl)}
+        id={`simple-menu${paymentItem.uuid}`}
         onClose={() => setChangeMethodAnchorEl(null)}
+        open={Boolean(changeMethodAnchorEl)}
       >
         {PAYMENT_METHODS.filter((pm) => pm.is_method_editable).map((pm) => (
           <MenuItem

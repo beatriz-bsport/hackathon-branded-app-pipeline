@@ -156,14 +156,14 @@ export class ExpenseTable extends Component<Props> {
             )}
             {this.props.loading && <LinearProgress />}
             <TablePagination
-              rowsPerPageOptions={[PAGE_SIZE]}
               component="div"
               count={this.props.count || 0}
-              rowsPerPage={PAGE_SIZE}
-              page={(this.props.page || 1) - 1}
               onPageChange={(ev, page) => {
                 this.props.onPageChange(page + 1);
               }}
+              page={(this.props.page || 1) - 1}
+              rowsPerPage={PAGE_SIZE}
+              rowsPerPageOptions={[PAGE_SIZE]}
             />
           </TableContainer>
         </Paper>
@@ -194,25 +194,25 @@ export class ExpenseTable extends Component<Props> {
                 <FormControl className={classes.radio}>
                   <RadioGroup
                     aria-label="edit-scope"
-                    value={this.state.deleteScope}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       this.setState({ deleteScope: e.target.value });
                     }}
+                    value={this.state.deleteScope}
                   >
                     <FormControlLabel
-                      value="current"
                       control={<Radio />}
                       label={t('dialogDeleteExpense.current')}
+                      value="current"
                     />
                     <FormControlLabel
-                      value="future"
                       control={<Radio />}
                       label={t('dialogDeleteExpense.future')}
+                      value="future"
                     />
                     <FormControlLabel
-                      value="all"
                       control={<Radio />}
                       label={t('dialogDeleteExpense.all')}
+                      value="all"
                     />
                   </RadioGroup>
                 </FormControl>
@@ -221,22 +221,22 @@ export class ExpenseTable extends Component<Props> {
             <DialogActions>
               <div className={classes.actionButtons}>
                 <Button
+                  className={classes.cancel}
                   onClick={() => {
                     this.props.setSelectedExpense(null);
                     this.props.setDeleteDialogOpen(false);
                   }}
-                  className={classes.cancel}
                 >
                   {t('dialogDeleteExpense.cancel')}
                 </Button>
                 <Button
+                  color="primary"
                   onClick={() =>
                     this.props.onDelete(
                       this.props.selectedExpense,
                       this.state.deleteScope,
                     )
                   }
-                  color="primary"
                   variant="contained"
                 >
                   {t('dialogDeleteExpense.delete')}

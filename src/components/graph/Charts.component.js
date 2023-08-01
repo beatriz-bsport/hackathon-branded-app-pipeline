@@ -62,14 +62,14 @@ export function SimpleBarChart(props: Props) {
   const { height, data, color, xKey, yKey, xFormatter, domain } = props;
   const style = getStyle(color);
   return (
-    <ResponsiveContainer width="100%" height={height}>
+    <ResponsiveContainer height={height} width="100%">
       <BarChartBase
         data={data}
         margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
       >
-        <XAxis dataKey={xKey} domain={domain} tickFormatter={xFormatter} hide />
-        <YAxis dataKey={yKey} hide />
-        <Bar dataKey={yKey} fill={style.fill} barSize={30} />
+        <XAxis hide dataKey={xKey} domain={domain} tickFormatter={xFormatter} />
+        <YAxis hide dataKey={yKey} />
+        <Bar barSize={30} dataKey={yKey} fill={style.fill} />
       </BarChartBase>
     </ResponsiveContainer>
   );
@@ -81,7 +81,7 @@ export function BarChart(props: BarChartProps) {
   const { height, data, xKey, yKey, color, domain, xFormatter, yFormatter } =
     props;
   return (
-    <ResponsiveContainer width="100%" height={height}>
+    <ResponsiveContainer height={height} width="100%">
       <BarChartBase
         data={data}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
@@ -91,11 +91,11 @@ export function BarChart(props: BarChartProps) {
         <YAxis dataKey={yKey} />
         <Legend />
         <Bar
+          barSize={60}
           dataKey={yKey}
           fill={getStyle(color).fill}
-          barSize={60}
-          name={props.label}
           label={{ stroke: 'white', position: 'center', formatter: yFormatter }}
+          name={props.label}
         />
       </BarChartBase>
     </ResponsiveContainer>
@@ -115,7 +115,7 @@ export const ComposedChart = React.memo((props: BarChartProps) => {
     continuous,
   } = props;
   return (
-    <ResponsiveContainer key={Math.random()} width="100%" height={height}>
+    <ResponsiveContainer key={Math.random()} height={height} width="100%">
       <ComposedChartBase
         data={data}
         margin={{ top: 40, right: 20, bottom: 20, left: 20 }}
@@ -132,24 +132,24 @@ export const ComposedChart = React.memo((props: BarChartProps) => {
         />
         {continuous ? (
           <Area
-            type="monotone"
             dataKey={yKey}
             fill={color}
             fillOpacity={0.7}
-            stroke={false}
             isAnimationActive={false}
+            stroke={false}
+            type="monotone"
           />
         ) : (
           <Bar
+            barSize={40}
             dataKey={yKey}
             fill={getStyle(color).fill}
-            barSize={40}
-            name={props.label}
             label={{ position: 'top', formatter: yFormatter }}
+            name={props.label}
           />
         )}
         {continuous ? null : (
-          <Line type="monotone" dataKey={yKey} stroke={getStyle(color).fill} />
+          <Line dataKey={yKey} stroke={getStyle(color).fill} type="monotone" />
         )}
       </ComposedChartBase>
     </ResponsiveContainer>

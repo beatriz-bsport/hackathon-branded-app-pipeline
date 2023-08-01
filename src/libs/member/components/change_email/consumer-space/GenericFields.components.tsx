@@ -23,7 +23,7 @@ export const ContentTitle = ({
       ) : (
         <MailIcon className={classes.greyIcon} />
       )}
-      <Typography variant="h5" className={classes.title}>
+      <Typography className={classes.title} variant="h5">
         {title}
       </Typography>
     </div>
@@ -84,12 +84,12 @@ export const ContentActions = ({
   return (
     <div className={classes.actions}>
       {denyText && onDenied && (
-        <Button onClick={() => onDenied()} variant="text" color="inherit">
+        <Button color="inherit" onClick={() => onDenied()} variant="text">
           {denyText}
         </Button>
       )}
       {confirmText && onConfirm && (
-        <Button onClick={() => onConfirm()} variant="contained" color="primary">
+        <Button color="primary" onClick={() => onConfirm()} variant="contained">
           {confirmText}
         </Button>
       )}

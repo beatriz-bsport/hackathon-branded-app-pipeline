@@ -108,30 +108,26 @@ export class SubscriptionDetail extends Component<Props> {
       <div className={this.props.classes.container}>
         {loading ? <LinearProgress /> : null}
         <SubscriptionComponent
-          subscription={subscription}
+          cancelPause={this.props.cancelPause}
+          downloadContractTerms={this.props.downloadContractTerms}
+          eventList={this.props.eventList}
+          eventLoading={this.props.eventLoading}
+          eventPage={this.props.eventPage}
+          fetchSubscriptionEventList={this.props.fetchSubscriptionEventList}
           goToInvoice={goToInvoice}
           goToMember={goToMember}
           goToSubscribe={goToSubscribe}
-          updateSubscriptionRenewal={this.props.updateSubscriptionRenewal}
           loading={this.props.loading}
-          eventList={this.props.eventList}
-          eventPage={this.props.eventPage}
-          eventLoading={this.props.eventLoading}
-          fetchSubscriptionEventList={this.props.fetchSubscriptionEventList}
-          requestPaymentMethodSwitch={this.props.openPaymentMethodSwitch}
-          paymentMethodLoading={this.props.paymentMethodLoading}
           paymentMethod={this.props.savedPaymentMethodList.find(
             (pm) => pm.id === subscription.stripe_payment_method_id,
           )}
+          paymentMethodLoading={this.props.paymentMethodLoading}
+          plannedInvoiceUpdateLoading={this.props.plannedInvoiceUpdateLoading}
+          requestPause={this.props.freezeSubscription}
+          requestPaymentComboSwitch={this.props.openPaymentComboSwitcherDialog}
+          requestPaymentMethodSwitch={this.props.openPaymentMethodSwitch}
           requestPaymentPackSwitch={this.props.openPackSwitcherDialog}
           requestPrivatePassSwitch={this.props.openPrivatePassSwitcherDialog}
-          requestPaymentComboSwitch={this.props.openPaymentComboSwitcherDialog}
-          requestStop={() => this.props.setStopDialogOpen(true)}
-          requestPause={this.props.freezeSubscription}
-          updateDate={this.props.updatePlannedInvoiceDate}
-          requestUpdatePrice={this.props.updatePlannedInvoicePrice}
-          plannedInvoiceUpdateLoading={this.props.plannedInvoiceUpdateLoading}
-          cancelPause={this.props.cancelPause}
           requestScheduledStop={(
             plannedInvoiceId?: number,
             stopNote?: string,
@@ -142,37 +138,41 @@ export class SubscriptionDetail extends Component<Props> {
               this.props.setScheduledStopDialogOpen(true);
             }
           }}
+          requestStop={() => this.props.setStopDialogOpen(true)}
+          requestUpdatePrice={this.props.updatePlannedInvoicePrice}
+          subscription={subscription}
           unflagPlannedInvoiceAsLast={this.props.unflagPlannedInvoiceAsLast}
-          downloadContractTerms={this.props.downloadContractTerms}
+          updateDate={this.props.updatePlannedInvoiceDate}
+          updateSubscriptionRenewal={this.props.updateSubscriptionRenewal}
         />
         {this.props.switchPackDialogOpen ? (
           <SubscriptionPaymentPackSwitcherDialog
-            open={!!this.props.switchPackDialogOpen}
             loading={this.props.switchSubscriptionItemLoading}
-            subscription={subscription}
-            paymentPackList={this.props.availablePaymentPackList}
             onCancel={() => this.props.setSwitchPackDialogOpen(false)}
             onSubmit={this.props.switchSubscriptionPaymentPack}
+            open={!!this.props.switchPackDialogOpen}
+            paymentPackList={this.props.availablePaymentPackList}
+            subscription={subscription}
           />
         ) : null}
         {this.props.switchPrivatePassDialogOpen ? (
           <SubscriptionPrivatePassSwitcherDialog
-            open={!!this.props.switchPrivatePassDialogOpen}
             loading={this.props.switchSubscriptionItemLoading}
-            subscription={subscription}
-            privatePassList={this.props.availablePrivatePassList}
             onCancel={() => this.props.setSwitchPrivatePassDialogOpen(false)}
             onSubmit={this.props.switchSubscriptionPrivatePass}
+            open={!!this.props.switchPrivatePassDialogOpen}
+            privatePassList={this.props.availablePrivatePassList}
+            subscription={subscription}
           />
         ) : null}
         {this.props.switchPaymentComboDialogOpen ? (
           <SubscriptionPaymentComboSwitcherDialog
-            open={!!this.props.switchPaymentComboDialogOpen}
             loading={this.props.switchSubscriptionItemLoading}
-            subscription={subscription}
-            paymentComboList={this.props.availablePaymentComboList}
             onCancel={() => this.props.setSwitchPaymentComboDialogOpen(false)}
             onSubmit={this.props.switchSubscriptionPaymentCombo}
+            open={!!this.props.switchPaymentComboDialogOpen}
+            paymentComboList={this.props.availablePaymentComboList}
+            subscription={subscription}
           />
         ) : null}
 
@@ -180,13 +180,7 @@ export class SubscriptionDetail extends Component<Props> {
         !!stripeRegion &&
         !!companyCountry ? (
           <SubscriptionPaymentMethodSwitcherDialog
-            open={this.props.switchPaymentMethodDialogOpen}
-            loading={this.props.memberLoading}
-            onSubmit={this.props.switchPaymentMethod}
-            onCancel={() => this.props.setSwitchPaymentMethodDialogOpen(false)}
-            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
-            savedPaymentMethodList={this.props.savedPaymentMethodList}
+            companyId={this.props.companyId}
             enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
               {
                 currency: this.props.theme.currency,
@@ -196,31 +190,37 @@ export class SubscriptionDetail extends Component<Props> {
                 stripeRegion,
               },
             )}
+            loading={this.props.memberLoading}
             member={this.props.memberById[this.props.subscription.member]}
+            onCancel={() => this.props.setSwitchPaymentMethodDialogOpen(false)}
+            onSubmit={this.props.switchPaymentMethod}
+            open={this.props.switchPaymentMethodDialogOpen}
+            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
+            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+            savedPaymentMethodList={this.props.savedPaymentMethodList}
             stripeReaders={this.props.stripeReaders || []}
-            companyId={this.props.companyId}
           />
         ) : null}
         {this.props.scheduledStopDialogOpen ? (
           <SubscriptionScheduledStopDialog
-            subscription={subscription}
-            open={this.props.scheduledStopDialogOpen}
-            onCancel={() => this.props.setScheduledStopDialogOpen(false)}
             loading={loading}
+            onCancel={() => this.props.setScheduledStopDialogOpen(false)}
             onSubmit={this.props.flagPlannedInvoiceAsLast}
+            open={this.props.scheduledStopDialogOpen}
+            subscription={subscription}
           />
         ) : null}
         {!!this.props.subscription && (
           <div className={this.props.classes.bottomButtonContainer}>
             <Fab
-              color="primary"
-              variant="extended"
               className={this.props.classes.bottomButton}
+              color="primary"
               onClick={() => {
                 if (this.props.subscription) {
                   this.props.goToMember(this.props.subscription.member);
                 }
               }}
+              variant="extended"
             >
               <PersonIcon className={this.props.classes.leftIcon} />
               {this.props.subscription

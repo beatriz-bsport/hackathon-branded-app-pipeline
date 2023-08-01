@@ -37,21 +37,21 @@ const SettingsWidget: React.FC<Props> = ({
 }) => {
   return (
     <ContentWithAppBar
-      tab={tab}
       onChange={pushToFranchiseStaffRoleTab}
       pageHeight={pageHeight}
+      tab={tab}
       tabsData={tabsData}
     >
       <Switch>
         <Route
           exact
-          path="/f/staffrole/staff"
           component={FranchiseStaffListPage}
+          path="/f/staffrole/staff"
         />
         <Route
           exact
-          path="/f/staffrole/role"
           component={FranchiseRoleListPage}
+          path="/f/staffrole/role"
         />
         <Redirect to="/f/staffrole/staff" />
       </Switch>

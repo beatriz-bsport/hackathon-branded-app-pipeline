@@ -89,8 +89,8 @@ export const PrivateSlotSelectionDialog = (props: Props) => {
             props.compatibleServicePass,
             props.compatibility,
           )}
-          onSubmit={(data: Object) => props.onSubmit(data)}
           onCancel={props.onCancel}
+          onSubmit={(data: Object) => props.onSubmit(data)}
         />
       </DialogContent>
     </Dialog>

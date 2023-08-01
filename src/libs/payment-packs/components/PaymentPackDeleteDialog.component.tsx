@@ -33,11 +33,11 @@ export function PaymentPackDeleteDialog(props: Props) {
   const classes = useStyles();
   return (
     <Dialog
-      fullScreen={fullScreen}
-      open={open}
-      onClose={onCancel}
       fullWidth
+      fullScreen={fullScreen}
       maxWidth="md"
+      onClose={onCancel}
+      open={open}
       scroll="body"
     >
       <DialogTitle>
@@ -49,10 +49,10 @@ export function PaymentPackDeleteDialog(props: Props) {
         {props.pack?.linked_private_pass && (
           <DialogContentText className={classes.warningMessage}>
             <WarningIcon
-              fontSize="large"
-              color="error"
-              size={32}
               className={classes.warningIcon}
+              color="error"
+              fontSize="large"
+              size={32}
             />
             <Typography>
               {t('universalPass.delete.dialog.warningText')}
@@ -62,11 +62,11 @@ export function PaymentPackDeleteDialog(props: Props) {
         {props.isUsedInCombo && (
           <DialogContentText className={classes.warningMessage}>
             <WarningIcon
-              fontSize="large"
-              color="error"
-              size={32}
               alignItems="center"
               className={classes.warningIcon}
+              color="error"
+              fontSize="large"
+              size={32}
             />
             <Typography>
               {t('form.paymentPack.delete.isUsedInCombo')}
@@ -75,11 +75,11 @@ export function PaymentPackDeleteDialog(props: Props) {
         )}
         <DialogContentText className={classes.warningMessage}>
           <WarningIcon
-            fontSize="large"
-            color="error"
-            size={32}
             alignItems="center"
             className={classes.warningIcon}
+            color="error"
+            fontSize="large"
+            size={32}
           />
           <Typography>
             {t('form.paymentPack.delete.thereAreConsumers')}
@@ -88,13 +88,13 @@ export function PaymentPackDeleteDialog(props: Props) {
         <div className={classes.framed}>{props.consumerPackSummary}</div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.onCancel} variant="outlined" color="secondary">
+        <Button color="secondary" onClick={props.onCancel} variant="outlined">
           {t('form.paymentPack.delete.actions.cancel')}
         </Button>
         <RedButton
-          variant="contained"
-          onClick={props.onDelete}
           delayBeforeActivation={3}
+          onClick={props.onDelete}
+          variant="contained"
         >
           {t('form.paymentPack.delete.actions.submit')}
         </RedButton>

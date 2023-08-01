@@ -119,25 +119,25 @@ export const PaymentComboForm: React.FC<Props> = ({
 
   return (
     <div className={classes.container}>
-      <TextField name="name" label={t('form.name.label')} required fullWidth />
+      <TextField fullWidth required label={t('form.name.label')} name="name" />
       <div className={classes.description}>
         <TextField
-          name="description"
-          label={t('form.description.label')}
-          multiline
-          variant="outlined"
-          rows={10}
           fullWidth
+          multiline
           required
+          label={t('form.description.label')}
+          name="description"
+          rows={10}
+          variant="outlined"
         />
       </div>
       <TextField
+        fullWidth
+        helperText={t('form.maxPurchasePerMember.helperText')}
         id="textfield_restrictions_maxpurchase"
         label={t('form.maxPurchasePerMember.label')}
-        type="number"
-        fullWidth
         name="max_purchase_per_member"
-        helperText={t('form.maxPurchasePerMember.helperText')}
+        type="number"
       />
       <fieldset className={classes.fieldset}>
         <legend>{t('form.content')}</legend>
@@ -145,18 +145,18 @@ export const PaymentComboForm: React.FC<Props> = ({
           {(f) => (
             <div>
               <PaymentPackSelector
-                paymentPacks={selectablePaymentPacks}
                 nullCurrentValue
                 helperText={t('form.selectorPlaceholder.paymentPack')}
                 onChange={(id: number) => {
                   if (id) f.push(id);
                 }}
+                paymentPacks={selectablePaymentPacks}
               />
               {f.form.values.payment_pack_ids.map((id: number, i: number) => (
                 <PaymentPackListItem
                   key={`${id}-${i}`}
-                  pack={paymentPackList.find((pp) => pp.id === id)}
                   onDelete={() => f.remove(i)}
+                  pack={paymentPackList.find((pp) => pp.id === id)}
                 />
               ))}
             </div>
@@ -172,19 +172,19 @@ export const PaymentComboForm: React.FC<Props> = ({
           }) => (
             <div>
               <ShopItemSelector
-                shopItemList={shopItemList.filter((item) => !item.disabled)}
                 nullCurrentValue
                 helperText={t('form.selectorPlaceholder.shopitem')}
                 onChange={(id: number) => {
                   if (id) push(id);
                 }}
+                shopItemList={shopItemList.filter((item) => !item.disabled)}
               />
               {shop_item_ids.map((id: number, i: number) => (
                 <ShopItemListItem
                   key={`${id}-${i}`}
                   dense
-                  shopitem={shopItemList.find((si) => si.id === id)}
                   onDelete={() => remove(i)}
+                  shopitem={shopItemList.find((si) => si.id === id)}
                 />
               ))}
             </div>
@@ -200,12 +200,12 @@ export const PaymentComboForm: React.FC<Props> = ({
           }) => (
             <div>
               <PrivatePassSelector
-                privatePassList={selectablePrivatePasses}
-                helperText={t('form.selectorPlaceholder.privatePass')}
                 nullCurrentValue
+                helperText={t('form.selectorPlaceholder.privatePass')}
                 onChange={(id: number) => {
                   if (id) push(id);
                 }}
+                privatePassList={selectablePrivatePasses}
               />
               {privatePassListLoading ? (
                 <div>{relatedPrivatePassList && <CircularProgress />}</div>
@@ -220,8 +220,8 @@ export const PaymentComboForm: React.FC<Props> = ({
                       <PrivatePassListItem
                         key={`${id}-${i}`}
                         dense
-                        pass={pass}
                         onDelete={() => remove(i)}
+                        pass={pass}
                       />
                     );
                   }
@@ -238,39 +238,39 @@ export const PaymentComboForm: React.FC<Props> = ({
         )}
       </fieldset>
       <PriceField
-        name="price"
         fullWidth
         required
         label={t('form.price.label')}
+        name="price"
       />
       <CheckboxField
-        label={t('form.usePaymentComboTaxOnItems.label')}
         helperText={t('form.usePaymentComboTaxOnItems.helperText')}
+        label={t('form.usePaymentComboTaxOnItems.label')}
         name="use_payment_combo_tax_on_items"
       />
       {valuesFormik.use_payment_combo_tax_on_items && (
         <PercentField
-          name="tax"
           fullWidth
           required
-          step={0.005}
-          label={t('form.tax.label')}
-          helperText={provincialTaxText}
           FormHelperTextProps={{
             classes: { root: classes.helperTextError },
           }}
+          helperText={provincialTaxText}
+          label={t('form.tax.label')}
+          name="tax"
+          step={0.005}
         />
       )}
 
-      <SwitchField name="manager_only" label={t('form.manager_only.label')} />
+      <SwitchField label={t('form.manager_only.label')} name="manager_only" />
       <SwitchField
-        name="unusable_by_staff"
         label={t('form.unusableByStaff.label')}
+        name="unusable_by_staff"
       />
       <div className={classes.row}>
         <SwitchField
-          name="expiration_date_active"
           label={t('form.expiration_date.label')}
+          name="expiration_date_active"
         />
         <ToolTip title={t('form.expiration_date.tooltip')}>
           <InfoIcon color="disabled" />
@@ -282,29 +282,29 @@ export const PaymentComboForm: React.FC<Props> = ({
           {t('form.expiration_date.helperText')}
         </InputLabel>
         <DateField
-          name="expiration_date"
-          format="L"
           allowNullValue
+          format="L"
           minDate={moment.now()}
+          name="expiration_date"
         />
       </Collapse>
 
       <div className={classes.fieldset}>
         <PaymentMethodSelectorField
-          name="available_payment_method_identifiers"
-          disabled={values.manager_only}
           asFieldset
-          label={t('form.available_payment_method_identifiers.label')}
+          disabled={values.manager_only}
           helperText={t('form.available_payment_method_identifiers.helperText')}
+          label={t('form.available_payment_method_identifiers.label')}
+          name="available_payment_method_identifiers"
         />
       </div>
       <CheckboxField
-        label={t('form.new_member_only.label')}
-        name="new_member_only"
         disabled={values.manager_only}
         helperText={t('member:forms.newMemberOnlyHelperText', {
           currency: getCurrencyDisplay(),
         })}
+        label={t('form.new_member_only.label')}
+        name="new_member_only"
       />
     </div>
   );

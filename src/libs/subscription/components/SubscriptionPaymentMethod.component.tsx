@@ -38,7 +38,7 @@ export const SubscriptionPaymentMethod = (props: Props) => {
             {t('paymentMethod.isInternalExplain')}
           </Typography>
 
-          <Button color="primary" variant="outlined" onClick={props.onEdit}>
+          <Button color="primary" onClick={props.onEdit} variant="outlined">
             {t('paymentMethod.add')}
           </Button>
         </React.Fragment>
@@ -57,8 +57,8 @@ export const SubscriptionPaymentMethod = (props: Props) => {
           <CircularProgress color="inherit" />
         ) : (
           <div className={classes.inconsistentMsg}>
-            <AlertIcon color="error" className={classes.iconLeft} />
-            <Typography variant="caption" color="error">
+            <AlertIcon className={classes.iconLeft} color="error" />
+            <Typography color="error" variant="caption">
               {t('paymentMethod.inconsistent')}
             </Typography>
           </div>
@@ -66,7 +66,7 @@ export const SubscriptionPaymentMethod = (props: Props) => {
       {!props.paymentMethod &&
         !props.loading &&
         props.paymentEngine !== PAYMENT_ENGINE_BSPORT && (
-          <Button color="primary" variant="outlined" onClick={props.onEdit}>
+          <Button color="primary" onClick={props.onEdit} variant="outlined">
             {t('paymentMethod.add')}
           </Button>
         )}

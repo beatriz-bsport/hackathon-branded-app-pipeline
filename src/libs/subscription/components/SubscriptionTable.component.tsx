@@ -58,7 +58,7 @@ const renderMemberName = (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <Typography>{memberName || ''}</Typography>
       {memberArchived && (
-        <Typography variant="caption" color="secondary">
+        <Typography color="secondary" variant="caption">
           {`${'\u00A0'}(${t('member:archived')})`}
         </Typography>
       )}
@@ -109,13 +109,13 @@ const getColumnData = (
               >
                 {addPayment && !value.hasEnded ? (
                   <RedButton
-                    variant="outlined"
                     onClick={(
                       ev: React.MouseEvent<HTMLLIElement, MouseEvent>,
                     ) => {
                       ev.stopPropagation();
                       addPayment(value.subscriptionId);
                     }}
+                    variant="outlined"
                   >
                     <AddIcon />
                     {t(
@@ -242,18 +242,18 @@ export class SubscriptionTable extends Component<Props, State> {
     };
     return (
       <MUIDataTable
-        title={this.props.title}
-        data={
-          this.props.loading
-            ? []
-            : renderRows(this.props.subscriptionList, this.props.t)
-        }
         columns={getColumnData(
           this.props.t,
           !!this.props.showOnlyCore,
           this.props.addPayment,
         )}
+        data={
+          this.props.loading
+            ? []
+            : renderRows(this.props.subscriptionList, this.props.t)
+        }
         options={options}
+        title={this.props.title}
       />
     );
   }

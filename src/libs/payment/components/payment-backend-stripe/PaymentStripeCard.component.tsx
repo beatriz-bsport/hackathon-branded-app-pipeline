@@ -94,8 +94,8 @@ const CardSection = (props: { error: any }) => {
       {!!props.error && (
         <div style={{ margin: 8 }}>
           <StripeErrorCode
-            errorCode={props.error.error_code}
             declineCode={props.error.decline_code}
+            errorCode={props.error.error_code}
           />
         </div>
       )}
@@ -344,8 +344,8 @@ const StripePaymentCard = forwardRef(
 
     return (
       <form
-        onSubmit={handleSubmit}
         className={classNames(classes.container, customClasses?.container)}
+        onSubmit={handleSubmit}
       >
         <Typography variant="h6">
           {t(
@@ -359,8 +359,8 @@ const StripePaymentCard = forwardRef(
             {companyId === ADDRESS_REQUIRED_COMPANY_ID && (
               <CardBillingDetailsForm
                 billingDetails={billingDetails}
-                setBillingDetails={setBillingDetails}
                 disabled={!stripe || !clientSecret || processing}
+                setBillingDetails={setBillingDetails}
               />
             )}
             <CardSection error={error} />
@@ -390,21 +390,21 @@ const StripePaymentCard = forwardRef(
                       )}
                     >
                       <PopOver
-                        title={t(
-                          'paymentPanel.actions.paymentSecurityInformation',
-                        )}
                         anchorOrigin={{
                           vertical: 'bottom',
-                          horizontal: 'center',
-                        }}
-                        transformOrigin={{
-                          vertical: 'top',
                           horizontal: 'center',
                         }}
                         className={classNames(
                           classes.securityInformationText,
                           customClasses?.securityInformationText,
                         )}
+                        title={t(
+                          'paymentPanel.actions.paymentSecurityInformation',
+                        )}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'center',
+                        }}
                       >
                         <Info
                           className={classNames(
@@ -419,13 +419,13 @@ const StripePaymentCard = forwardRef(
               </div>
               {!!paymentMethodList.length && (
                 <ButtonBase
-                  onClick={() => setAddPaymentMethod(false)}
                   className={classNames(
                     classes.displayButton,
                     customClasses?.displayButton,
                   )}
+                  onClick={() => setAddPaymentMethod(false)}
                 >
-                  <Typography variant="body1" align="right" color="primary">
+                  <Typography align="right" color="primary" variant="body1">
                     {t(
                       'payment:forms.paymentMethod.actions.displayPaymentMethod',
                     )}
@@ -438,34 +438,34 @@ const StripePaymentCard = forwardRef(
         {!addPaymentMethod && !!error && (
           <div style={{ margin: 8 }}>
             <StripeErrorCode
-              errorCode={error.error_code}
               declineCode={error.decline_code}
+              errorCode={error.error_code}
             />
           </div>
         )}
         {!addPaymentMethod && !!paymentMethodList.length && (
           <div>
             <PaymentMethodList
+              companyId={companyId}
+              detachPaymentMethod={detachPaymentMethod}
+              detachPaymentMethodLoading={detachPaymentMethodLoading}
+              onSelect={(id: string) => defineSelectedPaymentMethod(id)}
+              paymentMethodType="card"
               savedPaymentMethodList={paymentMethodList}
               selectedSavedPaymentMethodId={paymentMethodSelected}
-              paymentMethodType="card"
-              onSelect={(id: string) => defineSelectedPaymentMethod(id)}
+              sepaDefaultEmail={userDefaultEmail}
+              sepaDefaultName={userDefaultName}
               setHasDetached={setHasDetached}
-              detachPaymentMethodLoading={detachPaymentMethodLoading}
-              detachPaymentMethod={detachPaymentMethod}
               snackbarErrorMsg={snackbarErrorMsg}
               snackbarSuccessMsg={snackbarSuccessMsg}
-              companyId={companyId}
-              sepaDefaultName={userDefaultName}
-              sepaDefaultEmail={userDefaultEmail}
             />
             <ButtonBase
-              disabled={false}
-              onClick={() => setAddPaymentMethod(true)}
               className={classNames(
                 classes.addButton,
                 customClasses?.addButton,
               )}
+              disabled={false}
+              onClick={() => setAddPaymentMethod(true)}
             >
               <AddIcon
                 className={classNames(
@@ -474,7 +474,7 @@ const StripePaymentCard = forwardRef(
                 )}
                 color="primary"
               />
-              <Typography variant="body1" align="left" color="primary">
+              <Typography align="left" color="primary" variant="body1">
                 {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
               </Typography>
             </ButtonBase>
@@ -483,9 +483,9 @@ const StripePaymentCard = forwardRef(
         {allowConsumerToUseInternalAccount && !!creditAccountBalance && (
           <UseInternalAccountForm
             creditAccountBalance={creditAccountBalance}
+            loading={loading || processing || applyBalanceLoading}
             onBasketSubmit={useInternalAccount}
             onInvoiceSubmit={applyBalanceToInvoice}
-            loading={loading || processing || applyBalanceLoading}
           />
         )}
         {children ?? null}
@@ -512,15 +512,15 @@ const StripePaymentCard = forwardRef(
               ) : (
                 <React.Fragment>
                   <Button
-                    variant="contained"
                     color="primary"
-                    type="submit"
                     disabled={isSubmitButtonDisabled}
+                    type="submit"
+                    variant="contained"
                   >
                     {t('paymentPanel.actions.confirmPayment')}
                   </Button>
                   {onCancel ? (
-                    <Button onClick={onCancel} disabled={processing}>
+                    <Button disabled={processing} onClick={onCancel}>
                       {t('paymentPanel.actions.cancel')}
                     </Button>
                   ) : (

@@ -18,7 +18,7 @@ export const InstalmentPaymentCompatibleItemsList: React.FC<Props> = (
     <>
       {(!!itemList?.length || isAvailableOnAll) && (
         <div className={classes.column}>
-          <Typography variant="h6" className={classes.typo}>
+          <Typography className={classes.typo} variant="h6">
             {title}
           </Typography>
           {isAvailableOnAll

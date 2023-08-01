@@ -28,8 +28,8 @@ export class UserHasPasswordFilter extends Component<Props> {
       <div className={classes.container}>
         <div className={classes.content}>
           <Switch
-            className={classes.input}
             checked={!!filter_data.value}
+            className={classes.input}
             onChange={(ev) => onChange({ value: ev.target.checked })}
           />
           <Typography>

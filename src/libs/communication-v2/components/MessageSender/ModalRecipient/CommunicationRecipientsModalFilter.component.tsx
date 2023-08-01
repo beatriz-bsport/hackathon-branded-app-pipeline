@@ -30,16 +30,16 @@ export const CommunicationRecipientModalFilter = (props: Props) => {
           <ListItem
             key={`item-${index}-${memberCategory.categoryIdentifier}`}
             button
-            onClick={() => onCheckFilter(memberCategory.categoryIdentifier)}
             className={classes.checkboxDisableHover}
+            onClick={() => onCheckFilter(memberCategory.categoryIdentifier)}
           >
             <Checkbox
-              edge="start"
+              disableRipple
+              disableTouchRipple
               checked={checkedFilters?.includes(
                 memberCategory.categoryIdentifier,
               )}
-              disableRipple
-              disableTouchRipple
+              edge="start"
             />
             <ListItemText
               id={`text-${index}-${memberCategory.categoryIdentifier}`}

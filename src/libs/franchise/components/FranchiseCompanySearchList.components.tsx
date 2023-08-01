@@ -55,37 +55,37 @@ const FranchiseCompanySearchList = (props: Props) => {
   return (
     <div>
       <FuzzySearch
-        items={companies}
-        placeholder={t('companies.searchPlaceholder')}
-        searchFields={['name']}
         itemRenderer={(company, search) => (
           <ListItem
             key={company.id}
             button
             divider
-            selected={company.id === selectedCompanyId}
             className={classes.row}
             onClick={handleCompanySelected(company.id, company.name)}
+            selected={company.id === selectedCompanyId}
           >
             <div className={classes.companyRow}>
               <Avatar
                 alt={company.name}
-                src={company.cover}
                 className={classes.avatar}
+                src={company.cover}
               />
               <Typography variant="body1">
-                <HighlightedText text={company.name} highlight={search} />
+                <HighlightedText highlight={search} text={company.name} />
               </Typography>
             </div>
           </ListItem>
         )}
+        items={companies}
+        placeholder={t('companies.searchPlaceholder')}
+        searchFields={['name']}
       />
       {!!props.asManager && !props.restrictedFranchisees && (
         <Button
-          variant="outlined"
-          color="primary"
           className={classes.categoryButton}
+          color="primary"
           onClick={() => setCreateGroupOpen(true)}
+          variant="outlined"
         >
           <AddIcon className={classes.iconLeft} />
           {t('companyGroup.actions.add')}
@@ -98,7 +98,7 @@ const FranchiseCompanySearchList = (props: Props) => {
             <div className={classes.rowLarge}>
               <Typography variant="h4">{g.name}</Typography>
               {!props.restrictedFranchisees && (
-                <IconButton onClick={() => setGroupToEdit(g)} color="primary">
+                <IconButton color="primary" onClick={() => setGroupToEdit(g)}>
                   <EditIcon />
                 </IconButton>
               )}
@@ -109,11 +109,11 @@ const FranchiseCompanySearchList = (props: Props) => {
                 .filter((c) => c.company_group === g.id)
                 .map((c) => (
                   <CompanyListItem
-                    company={c}
                     key={c.id}
+                    company={c}
+                    isRedirectLoading={props.isRedirectLoading}
                     onClick={handleCompanySelected(c.id, c.name)}
                     selected={c.id === selectedCompanyId}
-                    isRedirectLoading={props.isRedirectLoading}
                   />
                 ))}
             </Paper>
@@ -125,38 +125,38 @@ const FranchiseCompanySearchList = (props: Props) => {
             .filter((c) => !c.company_group)
             .map((company) => (
               <CompanyListItem
-                company={company}
                 key={company.id}
+                company={company}
+                isRedirectLoading={props.isRedirectLoading}
                 onClick={handleCompanySelected(company.id, company.name)}
                 selected={company.id === selectedCompanyId}
-                isRedirectLoading={props.isRedirectLoading}
               />
             ))}
         </Paper>
       </div>
       {!!groupToEdit && (
         <CompanyGroupFormDialog
-          onClose={() => setGroupToEdit(null)}
-          open={!!groupToEdit}
-          initial={groupToEdit}
           companyList={companies}
+          initial={groupToEdit}
+          onClose={() => setGroupToEdit(null)}
           onSubmit={(data) =>
             props.createOrUpdateCompanyGroup(data, {
               onSuccess: () => setGroupToEdit(null),
             })
           }
+          open={!!groupToEdit}
         />
       )}
       {!!createGroupOpen && (
         <CompanyGroupFormDialog
-          onClose={() => setCreateGroupOpen(false)}
-          open={!!createGroupOpen}
           companyList={companies}
+          onClose={() => setCreateGroupOpen(false)}
           onSubmit={(data) =>
             props.createOrUpdateCompanyGroup(data, {
               onSuccess: () => setCreateGroupOpen(false),
             })
           }
+          open={!!createGroupOpen}
         />
       )}
     </div>

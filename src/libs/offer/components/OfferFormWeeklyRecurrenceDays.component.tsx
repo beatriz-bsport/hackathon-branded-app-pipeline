@@ -61,7 +61,8 @@ const WeekDayButton = (props: WeekDayButtonProps) => {
   return (
     <Button
       key={day}
-      variant="contained"
+      disableElevation
+      disableRipple
       className={classNames(
         classes.buttonBase,
         {
@@ -72,8 +73,7 @@ const WeekDayButton = (props: WeekDayButtonProps) => {
         },
       )}
       onClick={handleOnClick}
-      disableRipple
-      disableElevation
+      variant="contained"
     >
       {t(`time.isoWeekdayNumber.${isoWeekDay}`).slice(0, 3)}
     </Button>
@@ -91,7 +91,7 @@ const OfferFormWeeklyRecurrenceDays = (props: Props) => {
   }, [timezone]);
 
   return (
-    <div id={id} className={classes.weekDaysContainer}>
+    <div className={classes.weekDaysContainer} id={id}>
       {weekDaysButtons}
     </div>
   );

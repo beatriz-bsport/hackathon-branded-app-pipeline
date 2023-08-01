@@ -35,23 +35,23 @@ export class PrivateServiceRouter extends React.Component<Props> {
     const { tab, pageHeight } = this.props;
     return (
       <ContentWithAppBar
-        tab={tab}
         onChange={this.onChange}
         pageHeight={pageHeight}
+        tab={tab}
         tabsData={tabsData}
       >
         <Switch>
           <Route
-            path="/private-service/service/:id/calendar"
             component={PrivateServiceCalendar}
+            path="/private-service/service/:id/calendar"
           />
           <Route
+            component={PrivateServiceDetail}
             path="/private-service/service/:id/general"
-            component={PrivateServiceDetail}
           />
           <Route
-            path="/private-service/service/:id"
             component={PrivateServiceDetail}
+            path="/private-service/service/:id"
           />
         </Switch>
       </ContentWithAppBar>

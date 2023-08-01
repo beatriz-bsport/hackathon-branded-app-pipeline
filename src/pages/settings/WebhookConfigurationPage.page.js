@@ -78,7 +78,7 @@ export class WebhookConfiguration extends Component<Props> {
             {this.props.webhooks.map((webhook) => (
               <WebhookListItem
                 key={webhook.id}
-                webhook={webhook}
+                onClickDelete={() => this.props.deleteWebhook(webhook.id)}
                 onClickEdit={() =>
                   this.setState({
                     selected: webhook,
@@ -87,26 +87,31 @@ export class WebhookConfiguration extends Component<Props> {
                 }
                 testLoadingId={this.state.testLoadingId}
                 testWebhookUrl={() => this.testWebhookUrl(webhook.id)}
-                onClickDelete={() => this.props.deleteWebhook(webhook.id)}
+                webhook={webhook}
               />
             ))}
           </Paper>
         ) : null}
         <div className={this.props.classes.addButtonContainer}>
           <Button
-            onClick={() => this.setState({ openForm: true })}
-            variant="outlined"
             className={this.props.classes.addButton}
             color="primary"
+            onClick={() => this.setState({ openForm: true })}
+            variant="outlined"
           >
             <AddIcon />
             {this.props.t('webhook.add')}
           </Button>
         </div>
         <WebhookFormDialog
-          open={this.state.openForm}
-          webhook={this.state.selected}
           eventList={this.props.eventList}
+          onCancel={() =>
+            this.setState({
+              selected: null,
+              openForm: false,
+            })
+          }
+          open={this.state.openForm}
           updateWebhook={(data, options) => {
             if (this.state.selected) {
               this.props.updateWebhook(this.state.selected.id, data, options);
@@ -114,12 +119,7 @@ export class WebhookConfiguration extends Component<Props> {
               this.props.createWebhook(data, options);
             }
           }}
-          onCancel={() =>
-            this.setState({
-              selected: null,
-              openForm: false,
-            })
-          }
+          webhook={this.state.selected}
         />
       </div>
     );

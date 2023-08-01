@@ -15,9 +15,9 @@ const AppBarAuth: React.FC<AuthProps> = ({ auth }) => {
 
   return (
     <Typography
+      className={classes.authInfo}
       color="inherit"
       variant="subtitle2"
-      className={classes.authInfo}
     >
       {!auth.authenticated && t('consumerSpace:appbar.login')}
       {auth.authenticated && (auth.name !== ' ' ? auth.name : auth.username)}

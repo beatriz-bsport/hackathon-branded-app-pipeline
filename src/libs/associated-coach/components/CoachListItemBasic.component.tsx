@@ -35,8 +35,8 @@ export const CoachListItem: React.FC<Props> = ({
     <ListItem
       key={coach.id}
       button={!!onClick}
-      onClick={onClick}
       divider={divider}
+      onClick={onClick}
     >
       <ListItemAvatar>
         <Avatar src={coach.photo || DEFAULT_AVATAR} />

@@ -36,12 +36,12 @@ const MarketplacePlaylistSettingsForm: React.FC<Props> = (props) => {
           {t('marketplaceSettings.createDialog.selectPlaylist')}
         </InputLabel>
         <Select
+          onChange={(ev: any) => onChange({ playlistId: ev.target.value })}
           value={
             config?.playlistId !== undefined
               ? config.playlistId
               : (playlists.length && playlists[0].id) || -1
           }
-          onChange={(ev: any) => onChange({ playlistId: ev.target.value })}
         >
           {playlists.map((p) => (
             <MenuItem key={p.id} value={p.id}>

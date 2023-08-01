@@ -35,13 +35,13 @@ export const EmergencyContactItem = (props: Props) => {
         {t('common.emergencyContact')}
       </FormLabel>
       <ListItem
-        disableGutters={disableGutters}
         classes={{ root: denseListItem }}
+        disableGutters={disableGutters}
       >
         <AssignmentIndIcon />
         <ListItemText
-          primary={(emergency_contact !== 'null' && emergency_contact) || ' - '}
           className={classes.listItemText}
+          primary={(emergency_contact !== 'null' && emergency_contact) || ' - '}
         />
       </ListItem>
     </div>

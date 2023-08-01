@@ -217,53 +217,53 @@ export const ReplacementDisciplineGroup: React.FC<Props> = (props) => {
         props.metaActivityLoading ||
         props.coachLoading) && <LinearProgress />}
       <Grid container spacing={2}>
-        <Grid item xs={12} lg={6}>
+        <Grid item lg={6} xs={12}>
           <Paper className={classes.compatibleCoachesContainer} elevation={0}>
-            <Typography variant="h5" className={classes.title}>
+            <Typography className={classes.title} variant="h5">
               {t('disciplineGroup.title')}
             </Typography>
             <DisciplineGroupList
               disciplineGroups={props.disciplineGroupList}
-              loading={false}
               handleDelete={handleDelete}
               handleEdit={handleEdit}
               handleOpenCreate={handleOpenCreate}
+              loading={false}
             />
           </Paper>
         </Grid>
-        <Grid item xs={12} lg={6}>
+        <Grid item lg={6} xs={12}>
           <Paper className={classes.compatibleCoachesContainer} elevation={0}>
-            <Typography variant="h5" className={classes.title}>
+            <Typography className={classes.title} variant="h5">
               {t('compatibleCoaches.title')}
             </Typography>
             <CompatibleCoachesList
               activities={activitiesToDisplay}
-              workshops={workshopsToDisplay}
-              SCTs={SCTsToDisplay}
               compatibleCoachesByCategory={compatibleCoachesByCategory}
+              SCTs={SCTsToDisplay}
+              workshops={workshopsToDisplay}
             />
           </Paper>
         </Grid>
       </Grid>
       <DisciplineGroupDeleteDialog
-        open={deleteOpen}
         disciplineGroup={disciplineGroupSelected}
+        loading={props.disciplineGroupLoading}
         onClose={handleDeleteClose}
         onConfirm={handleDeleteConfirm}
-        loading={props.disciplineGroupLoading}
+        open={deleteOpen}
       />
       <DisciplineGroupFormDrawer
-        open={editOpen}
-        handleClose={handleEditClose}
-        disciplineGroup={disciplineGroupSelected}
         activityList={props.activityList}
-        workshopList={props.workshopList}
         categoryList={myStudioSCTs}
-        establishmentList={props.establishmentList}
-        establishmentGroupList={props.establishmentGroupList}
         coachList={props.coachList}
-        onSubmit={handleSubmit}
         companyTheme={props.theme}
+        disciplineGroup={disciplineGroupSelected}
+        establishmentGroupList={props.establishmentGroupList}
+        establishmentList={props.establishmentList}
+        handleClose={handleEditClose}
+        onSubmit={handleSubmit}
+        open={editOpen}
+        workshopList={props.workshopList}
       />
     </>
   );

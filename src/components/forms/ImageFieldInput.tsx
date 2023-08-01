@@ -36,13 +36,13 @@ export class ImageFieldInput extends Component<Props> {
           <div>
             <input
               accept="image/*"
+              className={this.props.children ? this.props.classes.hide : ''}
               id={this.props.id}
               onChange={(e) => {
                 const { files } = e.target;
                 setFieldValue(field.name, files[0]);
               }}
               type="file"
-              className={this.props.children ? this.props.classes.hide : ''}
             />
 
             {this.props.children && (
@@ -52,8 +52,8 @@ export class ImageFieldInput extends Component<Props> {
             <ErrorMessage {...this.props}>
               {(message) => (
                 <Typography
-                  variant="body2"
                   className={this.props.classes.alertError}
+                  variant="body2"
                 >
                   {this.props.t(message)}
                 </Typography>

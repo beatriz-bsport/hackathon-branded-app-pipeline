@@ -237,42 +237,42 @@ class ContractPauseFormDialog extends React.Component<Props, State> {
     return (
       <>
         <CustomMuiDialog
+          buttons={buttonsStep1}
           open={this.state.step === STEP_DATE_SELECTION}
           title={t(
             `pauseV2.contractPause.form.firstStep.${
               contractPauseBeingEdited ? 'titleUpdate' : 'titleCreation'
             }`,
           )}
-          buttons={buttonsStep1}
         >
           <div className={classes.formContainer}>
             <TextField
-              placeholder={t('pauseV2.common.form.reasonPlaceholder')}
-              value={this.state.pauseExplanation}
-              onChange={this.handleExplanationChange}
               fullWidth
               multiline
-              inputProps={{ maxLength: PAUSE_NAME_MAX_LENGTH }}
               disabled={!!contractPauseBeingEdited}
+              inputProps={{ maxLength: PAUSE_NAME_MAX_LENGTH }}
+              onChange={this.handleExplanationChange}
+              placeholder={t('pauseV2.common.form.reasonPlaceholder')}
+              value={this.state.pauseExplanation}
             />
-            <Divider variant="fullWidth" className={classes.divider} />
+            <Divider className={classes.divider} variant="fullWidth" />
             <div className={classes.durationContainer}>
-              <AccessTime fontSize="small" className={classes.durationIcon} />
+              <AccessTime className={classes.durationIcon} fontSize="small" />
               <Typography variant="h6">
                 {t('pauseV2.common.form.duration.title')}
               </Typography>
             </div>
             <PauseFormDateRange
               fromDate={this.state.fromDate}
-              untilDate={this.state.untilDate}
+              isDateRangeValid={isDateRangeValid}
               setFromDate={this.handleFromDateChange}
               setUntilDate={this.handleUntilDateChange}
-              isDateRangeValid={isDateRangeValid}
+              untilDate={this.state.untilDate}
             />
             <div className={classes.informationContainer}>
               <InfoGenericBox
-                variant="contained"
-                type="info"
+                alignItems="center"
+                className={classes.informationBox}
                 content={t(
                   'pauseV2.contractPause.form.firstStep.information1',
                   {
@@ -281,56 +281,56 @@ class ContractPauseFormDialog extends React.Component<Props, State> {
                     count: deltaDays + 1,
                   },
                 )}
+                type="info"
+                variant="contained"
                 variantIcon="outlined"
-                alignItems="center"
-                className={classes.informationBox}
               />
               <InfoGenericBox
-                variant="contained"
-                type="info"
-                content={t('pauseV2.contractPause.form.firstStep.information2')}
-                variantIcon="outlined"
                 alignItems="center"
                 className={classes.informationBox}
+                content={t('pauseV2.contractPause.form.firstStep.information2')}
+                type="info"
+                variant="contained"
+                variantIcon="outlined"
               />
             </div>
           </div>
         </CustomMuiDialog>
 
         <CustomMuiDialog
+          buttons={buttonsStep2}
           open={this.state.step === STEP_SUBSCRIPTION_VERIFICATION}
           title={t(`pauseV2.contractPause.form.secondStep.title`)}
-          buttons={buttonsStep2}
         >
           <ContractPauseFormPaginatedSubscriptionList
-            icon={<PauseIcon />}
-            title={t('pauseV2.contractPause.form.secondStep.sectionSuccess')}
-            subscriptionIdList={this.state.subscriptionValid}
-            subscriptionData={this.props.subscriptionData}
+            displayTextInfo={!this.state.subscriptionValid?.length}
             fetchMembersBySubscription={this.props.fetchMembersBySubscription}
             fetchSubscriptionBulk={this.props.fetchSubscriptionBulk}
-            displayTextInfo={!this.state.subscriptionValid?.length}
+            icon={<PauseIcon />}
+            subscriptionData={this.props.subscriptionData}
+            subscriptionIdList={this.state.subscriptionValid}
             textInfo={t(
               'pauseV2.contractPause.form.secondStep.noCompatibleSubscriptions',
             )}
+            title={t('pauseV2.contractPause.form.secondStep.sectionSuccess')}
           />
           {this.state.subscriptionInvalid?.length > 0 && (
             <>
-              <Divider variant="fullWidth" className={classes.dividerList} />
+              <Divider className={classes.dividerList} variant="fullWidth" />
               <ContractPauseFormPaginatedSubscriptionList
-                icon={<CancelIcon />}
-                title={t(
-                  'pauseV2.contractPause.form.secondStep.sectionFailure',
-                )}
-                subscriptionIdList={this.state.subscriptionInvalid}
-                subscriptionData={this.props.subscriptionData}
+                displayTextInfo
                 fetchMembersBySubscription={
                   this.props.fetchMembersBySubscription
                 }
                 fetchSubscriptionBulk={this.props.fetchSubscriptionBulk}
-                displayTextInfo
+                icon={<CancelIcon />}
+                subscriptionData={this.props.subscriptionData}
+                subscriptionIdList={this.state.subscriptionInvalid}
                 textInfo={t(
                   'pauseV2.contractPause.form.secondStep.incompatibleSubscriptions',
+                )}
+                title={t(
+                  'pauseV2.contractPause.form.secondStep.sectionFailure',
                 )}
               />
             </>
@@ -339,8 +339,8 @@ class ContractPauseFormDialog extends React.Component<Props, State> {
 
         {this.state.step === STEP_RESULTS && (
           <PauseResultDialog
-            openDialog={this.state.step === STEP_RESULTS}
             closeAllDialogs={this.closeForm}
+            openDialog={this.state.step === STEP_RESULTS}
             results={{
               fromDate: moment(this.state.fromDate).format('L'),
               untilDate: moment(this.state.untilDate).format('L'),

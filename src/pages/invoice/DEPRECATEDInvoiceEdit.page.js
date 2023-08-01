@@ -153,35 +153,35 @@ export class DEPRECATEDInvoiceFormPage extends Component<Props, State> {
         <PermissionContext.Consumer>
           {(permissions) => (
             <InvoiceForm
-              updatePaymentMethod={this.props.updatePaymentMethod}
-              onSubmit={this.props.updateInvoice}
-              onCancel={this.props.goBack}
-              paymentItemList={this.props.invoice.payments}
-              invoiceItemList={this.props.invoice.invoice_items}
-              goToSubscription={this.props.goToSubscription}
-              isReturningPayment={this.props.isReturningPayment}
-              processing={updatingInvoice}
-              member={invoice.member}
               availableBuyableItems={this.props.availableBuyableItems}
+              finalizeInvoice={(options) =>
+                this.props.finalizeInvoice(this.props.uuid, options)
+              }
+              goToMemberPage={
+                permissions?.member?.retrieve &&
+                (() => goToMemberPage(invoice.member.id))
+              }
+              goToSubscription={this.props.goToSubscription}
               invoice={invoice}
-              savedPaymentMethodList={this.props.savedPaymentMethodList}
-              requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+              invoiceItemList={this.props.invoice.invoice_items}
+              isReturningPayment={this.props.isReturningPayment}
+              member={invoice.member}
+              onCancel={this.props.goBack}
+              onSubmit={this.props.updateInvoice}
+              paymentItemList={this.props.invoice.payments}
+              processing={updatingInvoice}
               refreshSavedPaymentMethodList={() => {
                 this.props.fetchPaymentMethodList({
                   member: this.props.invoice.member.id,
                 });
               }}
+              requestSetupIntentSecret={this.props.requestSetupIntentSecret}
               returnPayment={(payment) =>
                 this.props.returnPayment(payment, this.props.uuid)
               }
               revertInvoice={() => this.setState({ revertDialogOpen: true })}
-              goToMemberPage={
-                permissions?.member?.retrieve &&
-                (() => goToMemberPage(invoice.member.id))
-              }
-              finalizeInvoice={(options) =>
-                this.props.finalizeInvoice(this.props.uuid, options)
-              }
+              savedPaymentMethodList={this.props.savedPaymentMethodList}
+              updatePaymentMethod={this.props.updatePaymentMethod}
             />
           )}
         </PermissionContext.Consumer>
@@ -193,11 +193,11 @@ export class DEPRECATEDInvoiceFormPage extends Component<Props, State> {
                 unpaidAmount={this.props.invoice.member.total_unpaid_amount}
               >
                 <Fab
-                  variant="contained"
                   color="secondary"
                   onClick={() =>
                     this.props.goToMemberPage(this.props.invoice.member.id)
                   }
+                  variant="contained"
                 >
                   <PersonIcon />
                   <Hidden xsDown>
@@ -212,8 +212,8 @@ export class DEPRECATEDInvoiceFormPage extends Component<Props, State> {
         </CheckPermission>
 
         <RevertInvoiceDialog
-          open={this.state.revertDialogOpen}
           hasSubscription={!!invoice.plannedinvoice}
+          onClose={() => this.setState({ revertDialogOpen: false })}
           onSubmit={() => {
             this.props.revertInvoice(
               this.props.uuid,
@@ -224,7 +224,7 @@ export class DEPRECATEDInvoiceFormPage extends Component<Props, State> {
             );
             this.setState({ revertDialogOpen: false });
           }}
-          onClose={() => this.setState({ revertDialogOpen: false })}
+          open={this.state.revertDialogOpen}
         />
       </div>
     );

@@ -20,8 +20,8 @@ export const Banner = (props: Props) => {
       <div className={classes.visible}>
         <Slide in={!networkAvailable}>
           <ButtonBase
-            onClick={() => document.location.reload(true)}
             className={classes.errorBanner}
+            onClick={() => document.location.reload(true)}
           >
             <div className={classes.text}>{t('banner.networkError')}</div>
           </ButtonBase>

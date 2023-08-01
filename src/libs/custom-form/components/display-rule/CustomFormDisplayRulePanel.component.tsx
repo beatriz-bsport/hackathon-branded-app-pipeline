@@ -70,8 +70,6 @@ export const CustomFormDisplayRulePanel = (props: Props) => {
         {props.onAddRule ? (
           <div className={classes.addButton}>
             <Button
-              onClick={props.onAddRule}
-              variant="text"
               color="primary"
               disabled={
                 props.customForm?.custom_form_field?.length === 0 ||
@@ -79,8 +77,10 @@ export const CustomFormDisplayRulePanel = (props: Props) => {
                 props.customForm?.is_member_form ||
                 props.customForm?.is_signup
               }
+              onClick={props.onAddRule}
+              variant="text"
             >
-              <AddIcon color="inherit" className={classes.addIcon} />
+              <AddIcon className={classes.addIcon} color="inherit" />
               {t('customForm.displayRule.addNewDisplayRule')}
             </Button>
           </div>

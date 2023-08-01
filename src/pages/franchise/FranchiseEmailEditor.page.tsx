@@ -143,18 +143,18 @@ const FranchiseEmailEditor = (props: Props) => {
     <DrawerContext.Consumer>
       {(context: DrawerContextValue) => (
         <EmailEditorPanel
-          saveEmail={onSave}
           autoSaveEnabled
           autoSaveEmail={onAutoSave}
-          hideLeftMenuAction={context.hideLeftMenuAction}
-          showLeftMenuAction={context.showLeftMenuAction}
-          emailToEdit={emailToEdit}
-          tags={tagCategories}
-          goToList={goToList}
-          displayEmptyError={snackbarError}
           companies={emailToEdit.company_id ? [] : companies}
-          requiredTags={requiredTags}
+          displayEmptyError={snackbarError}
+          emailToEdit={emailToEdit}
+          goToList={goToList}
+          hideLeftMenuAction={context.hideLeftMenuAction}
           relatedNotificationRuleEvents={relatedNotificationRuleEvents}
+          requiredTags={requiredTags}
+          saveEmail={onSave}
+          showLeftMenuAction={context.showLeftMenuAction}
+          tags={tagCategories}
         />
       )}
     </DrawerContext.Consumer>

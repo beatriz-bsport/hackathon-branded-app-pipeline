@@ -60,9 +60,9 @@ export const MetaActivityCard = (props: Props) => {
                 </Typography>
               </div>
               <Typography
-                variant="caption"
-                color="textSecondary"
                 className={classes.restrictionsInfo}
+                color="textSecondary"
+                variant="caption"
               >
                 {t('metaActivity:settings.lastBookingBeforeMinutes', {
                   m: formatMinutes(metaActivity.last_booking_minutes, t, true),
@@ -77,9 +77,9 @@ export const MetaActivityCard = (props: Props) => {
                 </Typography>
               </div>
               <Typography
-                variant="caption"
-                color="textSecondary"
                 className={classes.restrictionsInfo}
+                color="textSecondary"
+                variant="caption"
               >
                 {t('metaActivity:settings.lastDiscardBeforeMinutes', {
                   m: formatMinutes(metaActivity.last_discard_minutes, t, true),
@@ -94,9 +94,9 @@ export const MetaActivityCard = (props: Props) => {
                 </Typography>
               </div>
               <Typography
-                variant="caption"
-                color="textSecondary"
                 className={classes.restrictionsInfo}
+                color="textSecondary"
+                variant="caption"
               >
                 {formatMinutes(
                   metaActivity.first_booking_minutes_until,
@@ -117,9 +117,9 @@ export const MetaActivityCard = (props: Props) => {
                 {metaActivity.custom_restriction_rule.map((crr, i) => (
                   <div key={`${i}`} className={classes.restrictionItem}>
                     <Typography
-                      variant="caption"
-                      color="textSecondary"
                       className={classes.restrictionsInfo}
+                      color="textSecondary"
+                      variant="caption"
                     >
                       {t('metaActivity:settings.restrictions', {
                         count: i + 1,
@@ -145,9 +145,9 @@ export const MetaActivityCard = (props: Props) => {
                   </Typography>
                 </div>
                 <Typography
-                  variant="caption"
-                  color="textSecondary"
                   className={classes.restrictionsInfo}
+                  color="textSecondary"
+                  variant="caption"
                 >
                   {t('metaActivity:settings.autoDiscard', {
                     nb_bookings: metaActivity.auto_discard_min_bookings_nb,
@@ -158,7 +158,7 @@ export const MetaActivityCard = (props: Props) => {
             ) : null}
           </div>
           <div>
-            <TypographyMultiline variant="" color="textSecondary">
+            <TypographyMultiline color="textSecondary" variant="">
               {metaActivity.description}
             </TypographyMultiline>
           </div>

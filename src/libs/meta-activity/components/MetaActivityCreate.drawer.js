@@ -110,7 +110,7 @@ export const MetaActivityMap = {
 
 const StepperForm = withTranslation(['metaActivity'])(
   (props: { t: TFunction, activeStep: { id: number, label: string } }) => (
-    <Stepper activeStep={props.activeStep.id} alternativeLabel>
+    <Stepper alternativeLabel activeStep={props.activeStep.id}>
       {STEPS.map((step) => (
         <Step key={step.id}>
           <StepLabel>{props.t(`forms.create.steps.${step.label}`)}</StepLabel>
@@ -177,76 +177,67 @@ export class MetaActivityCreateDrawer extends Component<Props> {
 
   renderMetaActivityStep = () => (
     <MetaActivityForm
-      variant={this.props.isWorkshop ? 'workshop' : null}
-      SCTs={this.props.SCTs}
+      is_broadcast_enabled
+      onCancel={this.handleClose}
       onSubmit={
         this.props.isWorkshop
           ? this.handleOnSubmitWorkshopActivity
           : this.handleOnSubmitMetaActivity
       }
-      onCancel={this.handleClose}
-      is_broadcast_enabled
+      SCTs={this.props.SCTs}
       tags={this.props.allTagsWithTagGroup}
+      variant={this.props.isWorkshop ? 'workshop' : null}
     />
   );
 
   renderOfferStep = () => (
     <OfferCreateForm
+      disableCoachSelectorFocus
+      disableEstablishmentSelectorFocus
+      editableCoachPaymentRule
       hideBanner
-      onSubmit={
-        this.props.isWorkshop
-          ? this.handleCreateWorkshopOffers
-          : this.handleCreateMetaOffers
+      activeCustomLevels={this.props.activeCustomLevels}
+      allCustomLevels={this.props.allCustomLevels}
+      allowGuestMaster={
+        this.props.companyTheme.allow_guest_activatable &&
+        this.props.companyTheme.allow_guest
       }
-      metaActivity={
-        this.props.isWorkshop
-          ? this.props.upsertedWorkshop
-          : this.props.upsertedMetaActivity
-      }
+      availableEstablishments={this.props.availableEstablishments}
       coaches={
         this.props.isWorkshop
           ? this.props.associatedCoaches
           : this.props.coaches
       }
-      availableEstablishments={this.props.availableEstablishments}
-      roomBlueprints={this.props.roomBlueprints}
-      error={this.props.offerHadError}
-      processing={this.props.offerIsProcessing}
-      onCancelText={this.props.t('common.skip')}
-      onCancel={this.handleSkip}
-      timezone={this.props.companyTheme.timezone_name}
       coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
-      editableCoachPaymentRule
-      showPartnership={this.props.showPartnership}
-      tagList={this.props.allTagsWithTagGroup}
-      activeCustomLevels={this.props.activeCustomLevels}
-      allCustomLevels={this.props.allCustomLevels}
-      fetchLevelList={this.handleFetchLevel}
-      updateLevel={this.props.updateLevel}
       createLevel={this.props.createLevel}
       deleteLevel={this.props.deleteLevel}
-      allowGuestMaster={
-        this.props.companyTheme.allow_guest_activatable &&
-        this.props.companyTheme.allow_guest
+      error={this.props.offerHadError}
+      fetchLevelList={this.handleFetchLevel}
+      metaActivity={
+        this.props.isWorkshop
+          ? this.props.upsertedWorkshop
+          : this.props.upsertedMetaActivity
       }
-      disableEstablishmentSelectorFocus
-      disableCoachSelectorFocus
+      onCancel={this.handleSkip}
+      onCancelText={this.props.t('common.skip')}
+      onSubmit={
+        this.props.isWorkshop
+          ? this.handleCreateWorkshopOffers
+          : this.handleCreateMetaOffers
+      }
+      processing={this.props.offerIsProcessing}
+      roomBlueprints={this.props.roomBlueprints}
+      showPartnership={this.props.showPartnership}
+      tagList={this.props.allTagsWithTagGroup}
+      timezone={this.props.companyTheme.timezone_name}
+      updateLevel={this.props.updateLevel}
     />
   );
 
   renderPaymentPackStep = () => {
     return (
       <CompatiblePaymentPacks
-        loading={this.props.compatiblePacksLoading}
-        paymentPacks={this.props.compatiblePaymentPacks}
-        metaActivity={
-          this.props.isWorkshop
-            ? this.props.upsertedWorkshop
-            : this.props.upsertedMetaActivity
-        }
-        fetchPaymentPacksAsConsumer={this.props.fetchPaymentPacks}
-        goToMetaActivity={this.props.goToMetaActivity}
-        goToPaymentPackCreate={this.props.goToPaymentPackCreate}
+        availableEstablishmentList={this.props.availableEstablishments}
         categoryList={
           this.props.isWorkshop
             ? this.props.SCTs.filter(
@@ -262,15 +253,24 @@ export class MetaActivityCreateDrawer extends Component<Props> {
                     .indexOf(category.id) !== -1,
               )
         }
-        availableEstablishmentList={this.props.availableEstablishments}
+        fetchPaymentPacksAsConsumer={this.props.fetchPaymentPacks}
+        goToMetaActivity={this.props.goToMetaActivity}
+        goToPaymentPackCreate={this.props.goToPaymentPackCreate}
+        loading={this.props.compatiblePacksLoading}
+        metaActivity={
+          this.props.isWorkshop
+            ? this.props.upsertedWorkshop
+            : this.props.upsertedMetaActivity
+        }
         metaActivityList={
           this.props.isWorkshop
             ? this.props.metaActivitiesAndWorkshops
             : this.props.metaActivities
         }
-        tagList={this.props.allTagsWithTagGroup}
-        paymentPackCategories={this.props.paymentPackCategories}
         onSubmit={this.props.createPaymentPack}
+        paymentPackCategories={this.props.paymentPackCategories}
+        paymentPacks={this.props.compatiblePaymentPacks}
+        tagList={this.props.allTagsWithTagGroup}
       />
     );
   };
@@ -289,16 +289,12 @@ export class MetaActivityCreateDrawer extends Component<Props> {
       <GenericResponsiveDrawer
         open
         withoutPadding
+        forwardedContainerRef={this.topDrawerRef}
         onClose={() => {
           this.props.fetchAllActivities();
           this.props.onClose();
           trackFormCancel();
         }}
-        title={
-          this.props.isWorkshop
-            ? this.props.t('titles:workshopActivity.workshopActivityFormPage')
-            : this.props.t('titles:metaActivity.metaActivityFormPage')
-        }
         subtitle={
           this.props.isWorkshop
             ? this.props.t(
@@ -306,7 +302,11 @@ export class MetaActivityCreateDrawer extends Component<Props> {
               )
             : this.props.t('titles:metaActivity.metaActivityFormSubtitle')
         }
-        forwardedContainerRef={this.topDrawerRef}
+        title={
+          this.props.isWorkshop
+            ? this.props.t('titles:workshopActivity.workshopActivityFormPage')
+            : this.props.t('titles:metaActivity.metaActivityFormPage')
+        }
       >
         <StepperForm activeStep={this.props.step} />
         {this.props.step.id === STEP_ACTIVITY.id &&

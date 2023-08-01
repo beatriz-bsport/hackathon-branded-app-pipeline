@@ -44,8 +44,8 @@ export const CouponListItem = (props: Props) => {
   }
   return (
     <ListItem
-      divider={!!props.divider}
       button={!!props.onClick}
+      divider={!!props.divider}
       onClick={props.onClick}
     >
       <ListItemText

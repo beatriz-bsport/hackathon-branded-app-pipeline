@@ -110,10 +110,6 @@ const FranchiseGenericProductTemplateCard = (props: Props) => {
   return (
     <>
       <ProductCard
-        headerLeftPrimary={headerLeftPrimary}
-        headerRightPrimary={headerRightPrimary}
-        headerLeftSecondary={headerLeftSecondary}
-        headerRightSecondary={headerRightSecondary}
         buttons={
           buttons ?? [
             {
@@ -131,22 +127,26 @@ const FranchiseGenericProductTemplateCard = (props: Props) => {
         }
         categories={categories}
         description={description}
+        headerLeftPrimary={headerLeftPrimary}
+        headerLeftSecondary={headerLeftSecondary}
+        headerRightPrimary={headerRightPrimary}
+        headerRightSecondary={headerRightSecondary}
       >
         <GenericTemplateCardCompanyList
           companies={sortedCompaniesInTemplate}
+          nbCompanyChips={nbCompanyChips}
+          onCreateTemplateInstance={() => setOpenSelectCompaniesDialog(true)}
           onDeleteTemplateInstance={(companyId: number) =>
             setDeleteTemplateInstanceId(companyId)
           }
-          onCreateTemplateInstance={() => setOpenSelectCompaniesDialog(true)}
-          nbCompanyChips={nbCompanyChips}
         />
       </ProductCard>
       <GenericDeleteDialog
         // To delete Template
         content={deleteTemplateContent}
-        open={openDeleteTemplateDialog}
         onCancel={() => setOpenDeleteTemplateDialog(false)}
         onValidate={handleDeleteTemplate}
+        open={openDeleteTemplateDialog}
         title={
           deleteTemplateTitle ??
           t('genericProduct.dialogs.deleteTemplate.title')
@@ -154,6 +154,8 @@ const FranchiseGenericProductTemplateCard = (props: Props) => {
       />
       <GenericDeleteDialog
         // To delete TemplateInstance
+        onCancel={() => setDeleteTemplateInstanceId(null)}
+        onValidate={handleDeleteTemplateInstance}
         open={!!deleteTemplateInstanceId}
         title={
           deleteTemplateInstanceTitle ||
@@ -162,20 +164,18 @@ const FranchiseGenericProductTemplateCard = (props: Props) => {
         validateLabel={t(
           'genericProduct.dialogs.deleteTemplateInstance.buttonValidate',
         )}
-        onValidate={handleDeleteTemplateInstance}
-        onCancel={() => setDeleteTemplateInstanceId(null)}
       >
         {deleteTemplateInstanceChildren}
         {(deleteTemplateInstanceContents || []).map(
           (content: string, index: number) => (
             <Typography
-              color="textSecondary"
-              variant="body1"
+              key={`${index}-${content.slice(0, 10)}`}
               className={classNames({
                 [classes.description]:
                   index < (deleteTemplateInstanceContents || []).length - 1,
               })}
-              key={`${index}-${content.slice(0, 10)}`}
+              color="textSecondary"
+              variant="body1"
             >
               {content}
             </Typography>
@@ -184,9 +184,9 @@ const FranchiseGenericProductTemplateCard = (props: Props) => {
       </GenericDeleteDialog>
       <FranchiseDialogSelectCompanies
         companyWithoutInstanceList={companiesWithoutInstance}
-        open={openSelectCompaniesDialog}
         onCancel={() => setOpenSelectCompaniesDialog(false)}
         onCreateTemplateInstances={handleCreateTemplateInstances}
+        open={openSelectCompaniesDialog}
       />
     </>
   );

@@ -26,21 +26,21 @@ export function CoachPaymentRuleGroupFormDrawer(props: Props) {
   const { t, open, handleClose, isSubmitting } = props;
   return (
     <GenericResponsiveDrawer
-      open={open}
       onClose={handleClose}
+      open={open}
       title={t('coach_payment_rule_groups.dialogTitle')}
     >
       <Form>
         <CoachPaymentRuleFormGroupFields {...props} />
         <DialogActions>
           <Button
-            onClick={handleClose}
             color="secondary"
             disabled={isSubmitting}
+            onClick={handleClose}
           >
             {t('cancel')}
           </Button>
-          <Submit id="button_coach_remuneration_save" disabled={isSubmitting}>
+          <Submit disabled={isSubmitting} id="button_coach_remuneration_save">
             {t('save')}
           </Submit>
         </DialogActions>

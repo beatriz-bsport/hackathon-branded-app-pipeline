@@ -43,9 +43,9 @@ const PrivatePassTemplateCard = (props: Props) => {
         ) : null}
         <Grid
           container
+          alignItems="flex-start"
           direction="row"
           justify="space-between"
-          alignItems="flex-start"
         >
           <Grid item xs={8}>
             <div>
@@ -69,7 +69,7 @@ const PrivatePassTemplateCard = (props: Props) => {
           </Grid>
           <Grid item xs={4}>
             <div className={classes.columnLeft}>
-              <Typography variant="h4" color="primary">
+              <Typography color="primary" variant="h4">
                 {getCurrencyDisplayWithPrice(template.price)}
               </Typography>
               <Typography variant="caption">
@@ -108,8 +108,8 @@ const PrivatePassTemplateCard = (props: Props) => {
             {template.companies.map((c) => (
               <div className={classes.chipContainer}>
                 <CompanyChip
-                  company={c}
                   key={c.id}
+                  company={c}
                   onDelete={
                     props.onDeleteCompany && (() => props.onDeleteCompany(c.id))
                   }
@@ -119,9 +119,9 @@ const PrivatePassTemplateCard = (props: Props) => {
           </div>
         </div>
         <Button
+          color="primary"
           onClick={props.onCreatePrivatePassTemplateInstance}
           variant="outlined"
-          color="primary"
         >
           <AddIcon className={classes.iconLeft} />
           {t('privatePassTemplateInstance.actions.addCompany')}

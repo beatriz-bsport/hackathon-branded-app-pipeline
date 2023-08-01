@@ -63,22 +63,22 @@ export class MemberNote extends Component<Props, State> {
         <Grid item xs={8}>
           <TextField
             fullWidth
-            disabled={!editMode}
-            autoFocus={autoFocus}
             multiline
-            value={text}
-            variant="outlined"
+            autoFocus={autoFocus}
+            disabled={!editMode}
+            inputProps={{ className: classes.text }}
             label={formatAsDate(date || Moment())}
             onChange={this.handleChange}
-            inputProps={{ className: classes.text }}
+            value={text}
+            variant="outlined"
           />
         </Grid>
         <Grid item xs={4}>
           <Grid
             container
+            alignItems="flex-end"
             direction="column"
             spacing={2}
-            alignItems="flex-end"
             wrap="nowrap"
           >
             <Grid item>
@@ -86,8 +86,8 @@ export class MemberNote extends Component<Props, State> {
                 <React.Fragment>
                   <Checkbox
                     checked={highlighted}
-                    icon={<VisibilityOff />}
                     checkedIcon={<VisibilityOn />}
+                    icon={<VisibilityOff />}
                     onChange={(e, checked) =>
                       this.setState({ highlighted: checked })
                     }

@@ -50,9 +50,10 @@ export class CoachSelector extends Component<Props, State> {
         {this.props.value ? (
           <div>
             <CoachListItem
-              coach={this.props.value}
-              noDivider
               button
+              clearIcon
+              noDivider
+              coach={this.props.value}
               onDelete={() => {
                 this.props.onChange();
                 this.setState({
@@ -60,12 +61,12 @@ export class CoachSelector extends Component<Props, State> {
                   searchResult: this.props.coaches,
                 });
               }}
-              clearIcon
             />
           </div>
         ) : (
           <div>
             <Button
+              className={this.props.classes.button}
               id={this.props.id}
               onClick={() => {
                 if (this.state.searchText === '') {
@@ -75,18 +76,17 @@ export class CoachSelector extends Component<Props, State> {
                   }));
                 }
               }}
-              className={this.props.classes.button}
             >
               <FuzeSearch
-                variant="outlined"
-                searchText={this.state.searchText}
-                clearSearch={this.clearSearch}
                 changeSearch={this.changeSearch}
-                searchFields={['name']}
+                clearSearch={this.clearSearch}
+                disableAutoFocus={this.props.disableAutoFocus}
                 items={this.props.coaches}
                 placeholder={this.props.placeholder}
+                searchFields={['name']}
                 searchResult={this.state.searchResult}
-                disableAutoFocus={this.props.disableAutoFocus}
+                searchText={this.state.searchText}
+                variant="outlined"
               />
             </Button>
             {this.state.displayList && this.state.searchResult ? (
@@ -96,9 +96,9 @@ export class CoachSelector extends Component<Props, State> {
                 >
                   {this.state.searchResult.map((coach) => (
                     <CoachListItem
-                      coach={coach}
-                      noDivider
                       button
+                      noDivider
+                      coach={coach}
                       onClick={() => this.props.onChange(coach)}
                     />
                   ))}

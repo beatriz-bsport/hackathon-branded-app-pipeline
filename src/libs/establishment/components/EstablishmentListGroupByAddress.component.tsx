@@ -20,9 +20,9 @@ export const EstablishmentListGroupByAddress = (props: Props) => {
         <>
           <EstablishmentGroupByAddressItem
             establishmentGroup={estaGroup}
-            onClickEdit={props.onClickEdit}
-            onClickDelete={props.onClickDelete}
             onClick={props.onClick}
+            onClickDelete={props.onClickDelete}
+            onClickEdit={props.onClickEdit}
           />
         </>
       ))}

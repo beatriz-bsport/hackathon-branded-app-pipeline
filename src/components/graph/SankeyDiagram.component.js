@@ -27,29 +27,29 @@ const DemoSankeyNode = ({
   return (
     <Layer key={`CustomNode${index}`}>
       <Rectangle
-        x={x}
-        y={y}
-        width={width}
-        height={height}
         fill={colors[index]}
         fillOpacity="1"
+        height={height}
+        width={width}
+        x={x}
+        y={y}
       />
       <text
+        fontSize="14"
+        stroke="#333"
         textAnchor={isOut ? 'end' : 'start'}
         x={isOut ? x - 6 : x + width + 6}
         y={y + height / 2}
-        fontSize="14"
-        stroke="#333"
       >
         {payload.name}
       </text>
       <text
-        textAnchor={isOut ? 'end' : 'start'}
-        x={isOut ? x - 6 : x + width + 6}
-        y={y + height / 2 + 13}
         fontSize="12"
         stroke="#333"
         strokeOpacity="0.5"
+        textAnchor={isOut ? 'end' : 'start'}
+        x={isOut ? x - 6 : x + width + 6}
+        y={y + height / 2 + 13}
       >
         {payload.value}
       </text>
@@ -103,13 +103,13 @@ export class DemoSankeyLink extends Component {
             Z
           `}
           fill={fill}
-          strokeWidth="0"
           onMouseEnter={() => {
             this.setState({ fill: 'rgba(0, 136, 254, 0.5)' });
           }}
           onMouseLeave={() => {
             this.setState({ fill: `url(#linkGradient-${index})` });
           }}
+          strokeWidth="0"
         />
       </Layer>
     );
@@ -181,16 +181,16 @@ export default function SankeyGraph(props: Props) {
       <div>
         {props.title}
         <Sankey
-          width={props.width}
-          height={props.height}
-          margin={{ top: 20, bottom: 20 }}
           data={props.data}
-          nodeWidth={20}
-          nodePadding={60}
-          linkCurvature={0.61}
+          height={props.height}
           iterations={64}
           link={<DemoSankeyLink />}
-          node={<DemoSankeyNode containerWidth={500} colors={randomColors} />}
+          linkCurvature={0.61}
+          margin={{ top: 20, bottom: 20 }}
+          node={<DemoSankeyNode colors={randomColors} containerWidth={500} />}
+          nodePadding={60}
+          nodeWidth={20}
+          width={props.width}
         >
           <defs>
             {props.data.links.map((link, index) => (

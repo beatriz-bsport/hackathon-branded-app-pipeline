@@ -21,19 +21,19 @@ type Props = {
 export class EstablishmentSubForm extends Component<Props> {
   renderModifyEstablishment = () => (
     <div className={this.props.classes.selector}>
-      <Typography variant="caption" className={this.props.classes.caption}>
+      <Typography className={this.props.classes.caption} variant="caption">
         {this.props.t('establishment:baseEstablishment')}
       </Typography>
       <EstablishmentSelector
-        id="establishment"
-        placeholder={this.props.t('establishment:room')}
         establishments={
           this.props.establishments
             ? this.props.establishments.filter((est) => !est.disabled)
             : []
         }
-        value={this.props.establishment}
+        id="establishment"
         onChange={this.props.onChangeEstablishment}
+        placeholder={this.props.t('establishment:room')}
+        value={this.props.establishment}
       />
     </div>
   );
@@ -46,8 +46,8 @@ export class EstablishmentSubForm extends Component<Props> {
           <div className={this.props.classes.warningContainer}>
             <WarningIcon size={20} />
             <Typography
-              variant="caption"
               className={this.props.classes.caption}
+              variant="caption"
             >
               {this.props.t('establishment:pleaseFill')}
             </Typography>

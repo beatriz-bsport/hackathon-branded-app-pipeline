@@ -75,9 +75,18 @@ export class CustomFormFieldLocationInput extends Component<Props> {
         </FormLabel>
         <div style={{ maxWidth: '400px' }}>
           <SelectFieldWithEnhancedLabeLError
-            name={`custom_form_field.${index}.answer`}
+            isClearable
+            isDisabled={asManager}
             label={field.label}
+            name={`custom_form_field.${index}.answer`}
+            onChange={(item: { label: string; value: string }) =>
+              setFieldValue(
+                `custom_form_field.${index}.answer`,
+                item ? [item.value] : [],
+              )
+            }
             placeholder={t('customForm.field.select_placeholder')}
+            selected={values.custom_form_field[index].answer}
             suggestions={
               establishmentGroupList
                 ? [...establishmentGroupList].map((establishmentGroup) => ({
@@ -86,15 +95,6 @@ export class CustomFormFieldLocationInput extends Component<Props> {
                   }))
                 : []
             }
-            isClearable
-            onChange={(item: { label: string; value: string }) =>
-              setFieldValue(
-                `custom_form_field.${index}.answer`,
-                item ? [item.value] : [],
-              )
-            }
-            isDisabled={asManager}
-            selected={values.custom_form_field[index].answer}
           />
         </div>
       </div>

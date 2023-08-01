@@ -52,10 +52,10 @@ export class ValidateEmail extends React.Component<Props> {
       <div className={this.props.classes.container}>
         {!this.props.validated && (
           <div className={this.props.classes.inner}>
-            <EmailIcon fontSize="large" className={this.props.classes.icon} />
+            <EmailIcon className={this.props.classes.icon} fontSize="large" />
             <Typography>{this.props.t('emailValidation.explain')}</Typography>
             {!!this.props.hasSentAgain && (
-              <Button variant="outlined" disabled>
+              <Button disabled variant="outlined">
                 <CheckIcon className={this.props.classes.leftIcon} />
                 {this.props.t('emailValidation.hasSentAgain')}
               </Button>
@@ -63,6 +63,7 @@ export class ValidateEmail extends React.Component<Props> {
             <div className={this.props.classes.row}>
               {!this.props.hasSentAgain && (
                 <Button
+                  color="primary"
                   disabled={this.props.isSending}
                   onClick={() => {
                     this.props.setSending(true);
@@ -77,12 +78,11 @@ export class ValidateEmail extends React.Component<Props> {
                     });
                   }}
                   variant="outlined"
-                  color="primary"
                 >
                   {this.props.t('emailValidation.sendAgain')}
                 </Button>
               )}
-              <RedButton onClick={this.props.disconnect} color="secondary">
+              <RedButton color="secondary" onClick={this.props.disconnect}>
                 {this.props.t('emailValidation.disconnect')}
               </RedButton>
             </div>
@@ -90,7 +90,7 @@ export class ValidateEmail extends React.Component<Props> {
         )}
         {!!this.props.validated && (
           <div className={this.props.classes.inner}>
-            <CheckIcon color="primary" className={this.props.classes.icon} />
+            <CheckIcon className={this.props.classes.icon} color="primary" />
             <Typography>{this.props.t('emailValidation.success')}</Typography>
             <CircularProgress />
           </div>

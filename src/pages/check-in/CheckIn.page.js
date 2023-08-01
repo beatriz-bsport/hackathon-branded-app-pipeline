@@ -105,26 +105,26 @@ export class CheckInPage extends React.Component<Props, State> {
     return (
       <MuiThemeProvider theme={getMUITheme(this.props.theme)}>
         <CheckInAppBar
-          theme={this.props.theme}
           onSignout={() => this.props.setSignoutOpen(true)}
+          theme={this.props.theme}
         />
         <CheckInSignout
-          open={this.props.signoutOpen}
-          onSubmit={this.signout}
           authError={this.props.authError}
           onClose={() => this.props.setSignoutOpen(false)}
+          onSubmit={this.signout}
+          open={this.props.signoutOpen}
         />
         <div className={this.props.classes.content}>
           <CheckInRouter />
         </div>
         <div className={this.props.classes.bottomButtonContainer}>
           <Fab
+            className={this.props.classes.bottomButton}
+            color="primary"
             onClick={() =>
               this.props.goToCreateMember(this.props.theme.company)
             }
-            color="primary"
             variant="extended"
-            className={this.props.classes.bottomButton}
           >
             <PersonAddIcon className={this.props.classes.leftIcon} />
             {this.props.t('selfCheckIn:addMember.button')}

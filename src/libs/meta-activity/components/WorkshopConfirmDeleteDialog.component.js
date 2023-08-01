@@ -19,7 +19,7 @@ type Props = {
 
 export const WorkshopConfirmDeleteDialog = (props: Props) => {
   return (
-    <Dialog open={props.open} onClose={props.onClose}>
+    <Dialog onClose={props.onClose} open={props.open}>
       <DialogTitle>{props.t('modal.delete.title')}</DialogTitle>
       <DialogContent>{props.t('modal.delete.content')}</DialogContent>
       <DialogActions>

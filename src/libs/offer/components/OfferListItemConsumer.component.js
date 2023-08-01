@@ -47,10 +47,10 @@ export const OfferListItemConsumer = (props: Props) => {
 
   return (
     <ListItem
-      button={!isInThePast}
-      selected={selected}
-      onClick={props.onClick}
       divider
+      button={!isInThePast}
+      onClick={props.onClick}
+      selected={selected}
       style={{
         borderLeft: '5px solid',
         borderLeftColor: offer.meta_activity_color
@@ -74,7 +74,7 @@ export const OfferListItemConsumer = (props: Props) => {
             <div className={classes.inlineContainer}>
               {(props.activityLoading && metaActivityName === ' - ') ||
               !offer.establishment.tzname ? (
-                <MoreHorizIcon fontSize="small" className={classes.icon} />
+                <MoreHorizIcon className={classes.icon} fontSize="small" />
               ) : (
                 <div className={classes.offerTitleText}>
                   {offer.meta_activity && offer.meta_activity.is_broadcast ? (
@@ -93,8 +93,8 @@ export const OfferListItemConsumer = (props: Props) => {
                     )}`}
                     {props.isRegistered && (
                       <Tooltip
-                        title={t('calendar.registered')}
                         placement="right"
+                        title={t('calendar.registered')}
                       >
                         <CheckCircleIcon
                           className={classes.registrationIcon}
@@ -109,9 +109,9 @@ export const OfferListItemConsumer = (props: Props) => {
             <div className={classes.levelCoachContainer}>
               <Level
                 noStyle
-                variant="caption"
                 align="left"
                 customLevel={offer.customLevel}
+                variant="caption"
               />
               {!props.hideCoach && (
                 <Typography className={classes.coachName} variant="caption">

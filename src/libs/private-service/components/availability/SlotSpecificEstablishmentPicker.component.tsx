@@ -53,10 +53,10 @@ export const SlotSpecificEstablishmentPicker: React.FC<Props> = ({
         className={classes.input}
         control={
           <Switch
-            size="small"
             checked={isSpecificSlot}
-            onChange={handleToggle}
             color="primary"
+            onChange={handleToggle}
+            size="small"
           />
         }
         label={t('availabilitySlot.specificAvailabilityForm.switchLabel')}

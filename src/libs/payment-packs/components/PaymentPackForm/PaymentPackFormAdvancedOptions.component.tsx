@@ -35,8 +35,8 @@ export const PaymentPackFormAdvancedOptions = (props: Props) => {
         id="paymentpack-form-advanced-options-section"
       >
         <ButtonBase
-          onClick={() => setOpenAdvancedOptions(!openAdvancedOptions)}
           className={classes.advancedOptionsHeader}
+          onClick={() => setOpenAdvancedOptions(!openAdvancedOptions)}
         >
           <SettingsIcon className={classes.settings} />
           <Typography variant="h6">
@@ -48,12 +48,12 @@ export const PaymentPackFormAdvancedOptions = (props: Props) => {
           <div className={classes.section}>
             <Typography className={classes.title}>
               {`${t('form.paymentPack.advancedOptions.tag.header')}\u00A0`}
-              <Typography variant="caption" color="error">
+              <Typography color="error" variant="caption">
                 {disabledUniversalPassFields &&
                   `(${t('form.paymentPack.universalPass.deativatedTags')})`}
               </Typography>
             </Typography>
-            <Typography variant="caption" className={classes.helperText}>
+            <Typography className={classes.helperText} variant="caption">
               {t('form.paymentPack.advancedOptions.tag.helperText')}
             </Typography>
             <Collapse in={!disabledUniversalPassFields}>
@@ -65,6 +65,9 @@ export const PaymentPackFormAdvancedOptions = (props: Props) => {
                   </Typography>
                 </div>
                 <TagSelector
+                  closeMenuOnSelect
+                  inScrollBar
+                  isClearable
                   allTagsWithTagGroup={
                     (!disabledUniversalPassFields && [
                       ...tagList?.filter(
@@ -73,9 +76,7 @@ export const PaymentPackFormAdvancedOptions = (props: Props) => {
                     ]) ||
                     []
                   }
-                  placeholder={t(
-                    'form.paymentPack.advancedOptions.tag.doNotSelectToAllowAllMembers',
-                  )}
+                  isDisabled={disabledUniversalPassFields}
                   onChange={(
                     items: Array<{
                       item: Tag & { label: string; value: number };
@@ -94,11 +95,10 @@ export const PaymentPackFormAdvancedOptions = (props: Props) => {
                       ),
                     )
                   }
+                  placeholder={t(
+                    'form.paymentPack.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                  )}
                   selectedTags={values?.whitelist_tags}
-                  isClearable
-                  closeMenuOnSelect
-                  inScrollBar
-                  isDisabled={disabledUniversalPassFields}
                 />
               </div>
               <div className={classes.tagSelector}>
@@ -109,6 +109,9 @@ export const PaymentPackFormAdvancedOptions = (props: Props) => {
                   </Typography>
                 </div>
                 <TagSelector
+                  closeMenuOnSelect
+                  inScrollBar
+                  isClearable
                   allTagsWithTagGroup={
                     (!disabledUniversalPassFields && [
                       ...tagList?.filter(
@@ -117,9 +120,7 @@ export const PaymentPackFormAdvancedOptions = (props: Props) => {
                     ]) ||
                     []
                   }
-                  placeholder={t(
-                    'form.paymentPack.advancedOptions.tag.doNotSelectToAllowAllMembers',
-                  )}
+                  isDisabled={disabledUniversalPassFields}
                   onChange={(
                     items: Array<{
                       item: Tag & { label: string; value: number };
@@ -138,11 +139,10 @@ export const PaymentPackFormAdvancedOptions = (props: Props) => {
                       ),
                     )
                   }
+                  placeholder={t(
+                    'form.paymentPack.advancedOptions.tag.doNotSelectToAllowAllMembers',
+                  )}
                   selectedTags={values.blacklist_tags}
-                  isClearable
-                  closeMenuOnSelect
-                  inScrollBar
-                  isDisabled={disabledUniversalPassFields}
                 />
               </div>
             </Collapse>
@@ -150,12 +150,12 @@ export const PaymentPackFormAdvancedOptions = (props: Props) => {
 
           <div className={classes.section}>
             <SwitchField
-              name="applies_for_payroll"
               label={t(
                 'form.paymentPack.advancedOptions.appliesForPayroll.label',
               )}
+              name="applies_for_payroll"
             />
-            <Typography variant="caption" className={classes.helperText}>
+            <Typography className={classes.helperText} variant="caption">
               {t(
                 'form.paymentPack.advancedOptions.appliesForPayroll.helperText',
               )}

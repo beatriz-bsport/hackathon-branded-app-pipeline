@@ -2767,7 +2767,8 @@
                 "dateCreated": "Sent on:",
                 "topLinks": "Most clicked links",
                 "recipientList": "Details of the recipients",
-                "noTopLink": "No clicks"
+                "noTopLink": "No clicks",
+                "exportError": "An error occurred while exporting"
             },
             "showMail": "Show email",
             "kind": {
@@ -6439,7 +6440,8 @@
             "label": "Available amount: ",
             "use": "Use my internal account balance",
             "myInternalAccount": "My internal account balance",
-            "useMyInternalAccount": "Use my internal account credit"
+            "useMyInternalAccount": "Use my internal account credit",
+            "useAsManager": "Use the internal account credit"
         },
         "payment": {
             "total": "Total (incl. VAT / Sales Tax)",
@@ -8028,7 +8030,8 @@
             "inconsistent": "This payment method has been invalidated. It's possible that the member has requested to deactivate this payment method or that this profile has been merged with another profile. Either way, this payment method is no longer usable.",
             "isInternalExplainFuturePayments": "The due date will be deducted automatically from the account balance. If this is not sufficient, a negative account will be created.",
             "addPaymentMethod": "Add a payment method",
-            "copyLink": "Copy the link to add a payment method"
+            "copyLink": "Copy the link to add a payment method",
+            "manual": "Manual"
         },
         "paymentEngine": {
             "label": {
@@ -8635,7 +8638,8 @@
                 "label": "Payment method",
                 "2": "Internal account balance",
                 "1": "SEPA Transfer",
-                "0": "Card"
+                "0": "Card",
+                "paymentOnline": "Online payment"
             },
             "private_pass": "Appointment pass",
             "privatePass": "Appointment pass",
@@ -9268,7 +9272,7 @@
             "src_email": "Buyer's email",
             "src_lastname": "Buyer's last name",
             "src_firstname": "Buyer's first name",
-            "reverted": "Canceled",
+            "reverted": "Cancelled",
             "sum_available_amount_non_expired": "Remaining credits",
             "sum_consumed_amount": "Consumed credits",
             "sum_available_amount_expired": "Used and expired credits",
@@ -9765,7 +9769,8 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
-                "Canceled"
+                "Canceled",
+                "Cancelled"
             ]
         },
         "payment_method_with_credit_account": {
@@ -15570,6 +15575,29 @@
             },
             "marketingAction": {
                 "addAction": "Add an action"
+            },
+            "bubble": {
+                "previous": "Previous",
+                "changeInExit": {
+                    "title": "Exit",
+                    "label": "Consider the member as"
+                },
+                "entryTrigger": {
+                    "addTrigger": "Add an entry trigger",
+                    "helperText": "Please define when and who will enter this cadence with the selected criteria and triggers.",
+                    "title": "Entry"
+                },
+                "changeInStep": {
+                    "default": "Step label",
+                    "label": "Step label"
+                },
+                "marketingAction": {
+                    "title": "Marketing action",
+                    "label": "Select a marketing action"
+                },
+                "cancel": "Cancel",
+                "confirm": "Save",
+                "next": "Next"
             }
         }
     },
@@ -16961,16 +16989,65 @@
                 "subText": "You have invoices in progress, please close them before logging out."
             },
             "deleteCurrentBasket": {
-                "title": "Deleting the shopping cart in progress",
-                "subText": "Are you sure that you want to deleted the current shopping cart ?",
+                "title": "Deletion of the current basket",
+                "subText": "Are you sure that you want to deleted the current basket ?",
                 "cancel": "Cancel",
-                "delete": "Deleted"
+                "delete": "Delete"
             },
             "outOfStock": {
                 "title": "Out of stock",
                 "subText": "The item you try to add to the shopping cart is out of stock in your establishment. Do you want to add it anyway ?",
                 "addAnyway": "Add anyway"
             }
+        },
+        "checkout": {
+            "billingDate": "Billing date",
+            "priceExcludingTax": "Total before tax",
+            "tax": "Taxes",
+            "priceIncludingTax": "Total",
+            "invoiceFootNote": "Invoice footnote",
+            "deliveryFee": "Delivery fee",
+            "priceRecap": "Summary",
+            "amountDue": "Total due",
+            "partialPayment": "Paid",
+            "leftToPay": "Outstanding amount",
+            "leftDue": "Outstanding amount :",
+            "onSpot": "On site",
+            "homeDelivery": "Delivery",
+            "firstName": "First name",
+            "lastName": "Last name",
+            "unauthenticatedWarning": "If no member is authenticated for this invoice, it will be created in anonymous mode. Assigning a member is recommended to make it easier to track information.",
+            "sendToTerminal": "Send to terminal",
+            "cancel": "Cancel",
+            "validate": "Validate",
+            "paymentSuccess": {
+                "title": "Payment accepted",
+                "subTextAnonymous": "The payment has been processed.",
+                "subText": "The payment has been processed. The invoice was sent by e-mail.",
+                "subTextPartialPayment": "The payment has been processed. The invoice was sent by e-mail. The rest of the payment has been postponed: it can be made from the Backoffice or the customer profile.",
+                "printTicket": "Print ticket",
+                "sendByEmail": "Email the invoice"
+            },
+            "emailSent": {
+                "title": "Email sent",
+                "subText": "The invoice has been sent to the email address that was provided.",
+                "printTicket": "Print ticket"
+            },
+            "payLater": {
+                "title": "Payment postponed",
+                "subText": "The payment has been postponed: it can be carried out from the Backoffice or on the customer profile."
+            },
+            "noAnonymousInstalment": {
+                "explanation": "Payment by instalments is not possible when the invoice is anonymous",
+                "identify": "Identify"
+            },
+            "noPartialInstalment": {
+                "explanation": "Payment by instalments is not possible when the total due amount has been modified.",
+                "reset": "Reset"
+            },
+            "clientDebt": "Client account balance",
+            "noAnonymousClientDebt": "It is necessary to identify a member on the invoice to use the client account balance",
+            "internalCredits": "Internal credits"
         }
     }
 }

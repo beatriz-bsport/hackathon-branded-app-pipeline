@@ -7237,7 +7237,8 @@
                 "0": "Betaalkaart",
                 "1": "Automatische incasso (SEPA)",
                 "2": "Interne rekening (Wallet)",
-                "label": "Betaalmethode"
+                "label": "Betaalmethode",
+                "paymentOnline": "Online betaling"
             },
             "trial_nb": "Totaal aantal gratis facturen",
             "member": "Lid",
@@ -12467,7 +12468,8 @@
             "label": "Beschikbaar bedrag: ",
             "use": "Mijn interne rekening (Wallet) gebruiken",
             "myInternalAccount": "Mijn interne rekening (Wallet)",
-            "useMyInternalAccount": "Mijn interne rekening (Wallet) gebruiken"
+            "useMyInternalAccount": "Mijn interne rekening (Wallet) gebruiken",
+            "useAsManager": "Gebruik interne rekening (Wallet)"
         },
         "payment": {
             "total": "Totaal (incl. btw)",
@@ -12892,7 +12894,8 @@
             "inconsistent": "Deze betaalmethode is niet meer geldig. Het is mogelijk dat het lid deze betaalmethode heeft gedeactiveerd of dat het profiel met een ander profiel is samengevoegd. In beide gevallen is het niet langer mogelijk om deze betaalmethode te gebruiken.",
             "isInternalExplainFuturePayments": "De interne rekening (Wallet) van leden wordt automatisch geïncasseerd voor betalingen. De interne rekening (Wallet) wordt negatief, indien er onvoldoende saldo opstaat.",
             "addPaymentMethod": "Een betaalmethode toevoegen",
-            "copyLink": "Kopieer de directe link naar de betaalmethode"
+            "copyLink": "Kopieer de directe link naar de betaalmethode",
+            "manual": "Handmatig"
         },
         "paymentEngine": {
             "label": {
@@ -15961,6 +15964,55 @@
                 "title": "Er zijn producten uit het winkelmandje verwijderd",
                 "subText": "Als een nieuw lid lid wordt, worden bepaalde items uit het mandje verwijderd omdat ze niet compatibel zijn met het nieuwe lid."
             }
+        },
+        "checkout": {
+            "paymentSuccess": {
+                "subText": "De betaling is succesvol voltooid. Zo dadelijk wordt de de factuur per e-mail verstuurd.",
+                "subTextPartialPayment": "De betaling is ontvangen en de factuur is per e-mail verstuurd. Het resterende bedrag kan later worden geïncasseerd via de Back Office.",
+                "title": "Betaling geaccepteerd!",
+                "subTextAnonymous": "De betaling is succesvol voltooid.",
+                "printTicket": "Bon printen",
+                "sendByEmail": "Factuur per e-mail versturen"
+            },
+            "payLater": {
+                "subText": "Deze betaling kan later via de Back Office worden voltooid.",
+                "title": "Later betalen"
+            },
+            "billingDate": "Factuurdatum",
+            "priceExcludingTax": "Totaal (excl. btw)",
+            "tax": "Btw",
+            "priceIncludingTax": "Totaal (incl. btw)",
+            "invoiceFootNote": "Voetnoot factuur",
+            "deliveryFee": "Verzendkosten",
+            "priceRecap": "Samenvatting",
+            "leftToPay": "Resterend bedrag",
+            "amountDue": "Verschuldigd bedrag",
+            "partialPayment": "Incassering",
+            "leftDue": "Resterend bedrag:",
+            "onSpot": "Afhalen",
+            "homeDelivery": "Bezorging",
+            "firstName": "Voornaam",
+            "lastName": "Achternaam",
+            "unauthenticatedWarning": "Er wordt een anonieme factuur aangemaakt, indien er geen lid aan gekoppeld kan worden. We raden aan om facturen altijd aan leden te koppelen om de informatie overzichtelijk te houden.",
+            "sendToTerminal": "Stripe Terminal",
+            "cancel": "Annuleren",
+            "validate": "Bevestigen",
+            "emailSent": {
+                "title": "E-mail verstuurd",
+                "printTicket": "Bon printen",
+                "subText": "De factuur is verzonden naar het opgegeven e-mailadres."
+            },
+            "noAnonymousInstalment": {
+                "explanation": "Anonieme facturen kunnen niet in termijnen worden betaald",
+                "identify": "Identificatie"
+            },
+            "noPartialInstalment": {
+                "reset": "Herstellen",
+                "explanation": "Het is niet mogelijk om in termijnen te betalen als het totaalbedrag gewijzigd is."
+            },
+            "clientDebt": "Klantsaldo",
+            "noAnonymousClientDebt": "Klantsaldo kan alleen voor bestaande leden worden gebruikt.",
+            "internalCredits": "Interne credits"
         }
     }
 }

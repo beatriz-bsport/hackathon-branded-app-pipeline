@@ -2768,7 +2768,8 @@
                 "topLinks": "Most clicked links",
                 "recipientList": "Details of the recipients",
                 "noTopLink": "No clicks",
-                "exportError": "An error occurred while exporting"
+                "exportError": "An error occurred while exporting",
+                "exportCampaign": "Export campaign"
             },
             "showMail": "Show email",
             "kind": {
@@ -9770,7 +9771,8 @@
                 "Canceled",
                 "Canceled",
                 "Canceled",
-                "Cancelled"
+                "Cancelled",
+                "Canceled"
             ]
         },
         "payment_method_with_credit_account": {

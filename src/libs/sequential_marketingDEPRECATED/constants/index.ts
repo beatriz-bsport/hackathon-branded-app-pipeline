@@ -65,7 +65,9 @@ export {
   CadencePanelMode,
 };
 
-export const SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS = [498];
+export const SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS = [
+  498, 383, 412, 845, 432, 997, 1319, 434,
+];
 
 export const HANDLE_BUTTON_STYLE = {
   background: '#888',

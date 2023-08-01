@@ -29,6 +29,7 @@ interface Props {
   onEnterUnsafeZone: () => void;
   onLeaveUnsafeZone: () => void;
   disabledEdit: boolean;
+  preventResize?: boolean;
 }
 
 interface State {
@@ -121,7 +122,8 @@ export default class CanvasSvg extends React.PureComponent<Props, State> {
     !this.props.disabledEdit &&
       this.svg &&
       this.svg.addEventListener('wheel', this.onWheelChange);
-    window.addEventListener('resize', this.setDimensions);
+    if (!this.props.preventResize)
+      window.addEventListener('resize', this.setDimensions);
     this.setDimensions();
   };
 

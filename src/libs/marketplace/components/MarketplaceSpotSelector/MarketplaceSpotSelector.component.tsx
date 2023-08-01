@@ -4,7 +4,11 @@ import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { useMediaQuery, useTheme } from '@material-ui/core';
-import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import {
+  TransformWrapper,
+  TransformComponent,
+  ReactZoomPanPinchRef,
+} from 'react-zoom-pan-pinch';
 import type { OptionCallback } from '../../../../state/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import OfferSummary from '#libs/offer/OfferSummary';
@@ -158,8 +162,8 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
 
   const lastSpotTypes = spotTypesOfBlueprint.slice(2);
 
-  const onZoomStop = useCallback((ref) => {
-    setIsPanningDisabled(ref.state.scale < 1);
+  const onZoomStop = useCallback((ref: ReactZoomPanPinchRef) => {
+    setIsPanningDisabled(ref.state.scale <= 1);
   }, []);
 
   return (

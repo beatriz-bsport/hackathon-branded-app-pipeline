@@ -39,6 +39,7 @@ interface OwnProps {
   spotType?: number;
   spotTypes: SpotType[];
   isBoutiqueDisplay: boolean;
+  isMobile?: boolean;
   onMouseOverSpot?: (spot: CanvasElement<any>) => void;
 }
 
@@ -432,6 +433,7 @@ class CanvasViewController extends React.PureComponent<Props> {
           onMouseMove={this.onSvgMouseMove}
           onMouseOut={this.onSvgMouseOut}
           onSvgId={this.onSvgId}
+          preventResize={this.props.isBoutiqueDisplay && this.props.isMobile}
           registerFunction={this.registerSvgFunctions}
           showGrid={this.props.showGrid}
         >

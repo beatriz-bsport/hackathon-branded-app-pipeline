@@ -21,7 +21,7 @@
 
 @container (max-width: 750px) {
   .bs-marketplace-spot-selector__legend {
-    padding-bottom: 5vh;
+    padding-bottom: 10vh;
   }
 }
 

@@ -290,6 +290,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
               fillColor={this.props.current.fillColor}
               getAsset={this.getAsset}
               isBoutiqueDisplay={this.props.isBoutiqueDisplay}
+              isMobile={this.props.isMobile}
               onElementsChange={(elements: CanvasElement<any>[]) =>
                 this.props.setStateWithHistory({ elements })
               }

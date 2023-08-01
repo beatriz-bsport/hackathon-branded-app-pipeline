@@ -9177,6 +9177,18 @@
                 "pack": "Passe de aulas",
                 "allPass": "Compatível com todos os passes de aulas",
                 "selectPack": "Selecionar um passe de aulas"
+            },
+            "partialPaymentRadio": {
+                "enabled": {
+                    "label": "Pagamento parcial do carrinho",
+                    "helperText": "Os membros pagam apenas uma parte do montante total do seu carrinho imediatamente, sendo o restante debitado do seu depósito interno"
+                },
+                "disabled": "Pagar a totalidade do carrinho em várias prestações"
+            },
+            "customInstalmentAmount": {
+                "amountHelperText": {
+                    "percent": "Percentagem"
+                }
             }
         },
         "detail": {
@@ -9184,6 +9196,14 @@
             "packAvailable_plural": "{{length}} passes de aulas compatíveis",
             "packAvailableForAll": "Todos os passes de aulas compatíveis",
             "paymentPack": "Passes de aulas"
+        },
+        "configurationOption": {
+            "payLaterRemainder": "O restante do montante a pagar ({{remainder}}) será deduzido do seu saldo interno",
+            "payLater": "Apenas pagamento {{amount}}"
+        },
+        "validation": {
+            "amountMin": "O montante deve ser superior a 1",
+            "percentRange": "A percentagem deve estar compreendida entre 1 e 100"
         }
     },
     "workshop": {
@@ -9276,29 +9296,128 @@
     "tag": {
         "management": {
             "smartlistDetail": {
-                "removeTag": "Eliminar"
+                "removeTag": "Eliminar",
+                "createViaSmartlist": "Acesso a Listas inteligentes",
+                "title": "Regra de marcação (Listas inteligentes)",
+                "empty": "Nenhuma regra de etiquetagem está ligada à etiqueta {{ tag }}"
             },
             "deleteTagDialog": {
-                "text": "Tens a certeza de que queres eliminar esta etiqueta ? Todas as regras ligadas a esta etiqueta serão eliminadas."
+                "text": "Tens a certeza de que queres eliminar esta etiqueta ? Todas as regras ligadas a esta etiqueta serão eliminadas.",
+                "title": "Eliminar etiqueta"
             },
             "deleteTagGroupDialog": {
-                "text": "Tem a certeza de que pretende eliminar esta categoria ? Todas as etiquetas da categoria também serão eliminadas. "
+                "text": "Tem a certeza de que pretende eliminar esta categoria ? Todas as etiquetas da categoria também serão eliminadas. ",
+                "title": "Eliminação de categorias"
             },
-            "delete": "Eliminar"
+            "delete": "Eliminar",
+            "addGroup": "Criar uma categoria",
+            "createGroupDialog": {
+                "title": "Categoria",
+                "field": "Nome",
+                "helper": "Crie uma categoria para identificar um conjunto de membros. Por exemplo, \"VIP\". Pode então criar etiquetas \"sim\" e \"não\" para indicar se o membro pertence a esse grupo."
+            },
+            "tagColumn": {
+                "member_count": "Membros afectados",
+                "smartlist_count": "Regras de marcação",
+                "tag": "Etiqueta",
+                "actions": "Acções ",
+                "offer_count": "Sessões relacionadas"
+            },
+            "tagKind": {
+                "member": "Membros",
+                "coupon": "Código promocional",
+                "toolbar": "Mostrar por",
+                "smartlist": "Listas inteligentes",
+                "offer": "Sessões"
+            },
+            "memberDetail": {
+                "removeTagFromAll": "Remover a etiqueta de todos",
+                "removeTag": "Desmarcar",
+                "addTag": "Etiquetador",
+                "memberWithoutTag": "Membros não marcados",
+                "addTagToAll": "Adicionar etiqueta a todos",
+                "memberWithTag": "Membros etiquetados"
+            },
+            "couponDetail": {
+                "whitelist": "Pode ser utilizado por membros que tenham a etiqueta",
+                "blacklist": "Não utilizável por membros com a etiqueta",
+                "removeTag": "Retirar a etiqueta",
+                "empty": "Nenhum código promocional está associado à etiqueta {{- tag }}",
+                "createViaCoupon": "Códigos promocionais",
+                "title": "Códigos de cupão associados à etiqueta"
+            },
+            "offerDetail": {
+                "detailTable": {
+                    "tagInBlackList": "Não pode ser reservado por membros com a etiqueta",
+                    "tagInWhiteList": "Reserva apenas por membros com etiqueta"
+                },
+                "offerWithTag": "Ofertas de produtos",
+                "removeTagFromAll": "Remover todas as etiquetas"
+            },
+            "addTag": "Adicionar uma etiqueta",
+            "form": {
+                "groupRename": "Categoria",
+                "tagGroupName": "Nome",
+                "tagGroupEmpty": "Não há etiquetas nesta categoria"
+            },
+            "submit": "Confirmar",
+            "tagDetail": {
+                "noTag": "Seleccione uma etiqueta para ver os detalhes"
+            },
+            "rename": "Mudar o nome",
+            "cancel": "Cancelar"
         },
         "form": {
             "tag": {
                 "delete": {
-                    "submit": "Eliminar"
-                }
+                    "submit": "Eliminar",
+                    "title": "Eliminar",
+                    "explain": "Tenha em atenção que esta etiqueta será eliminada de TODOS os membros. Esta operação é irreversível",
+                    "cancel": "Cancelar"
+                },
+                "searchIcon": "Procurar um ícone",
+                "info": "Se selecionar um ícone, este aparecerá como um emblema junto à fotografia de perfil de todos os membros marcados com esta etiqueta.",
+                "selectIcon": "Selecionar um ícone",
+                "namePlaceholder": "Nome da etiqueta",
+                "name": "Nome da etiqueta",
+                "submit": "Registo",
+                "icon": "Ícone (opcional)",
+                "color": "Cor"
             },
             "group": {
                 "deleteCategory": "Eliminar categoria",
                 "delete": {
-                    "submit": "Eliminar"
+                    "submit": "Eliminar",
+                    "title": "Eliminar",
+                    "cancel": "Cancelar",
+                    "explain": "Tenha em atenção que a eliminação desta categoria afectará todos os membros. Esta operação é irreversível"
                 },
-                "edit": "Alterar as etiquetas"
+                "edit": "Alterar as etiquetas",
+                "addTagGroup": "Criar uma categoria",
+                "namePlaceholder": "Nome da categoria"
+            },
+            "filter": {
+                "include": "Inclui etiqueta",
+                "cancel": "Cancelar",
+                "addFilter": "Filtrar",
+                "exclude": "Não inclui a etiqueta",
+                "includeLabel": "Tipo",
+                "tagGroupLabel": "Etiqueta (categoria)",
+                "tagLabel": "Etiqueta (valor)",
+                "title": "Filtro"
             }
+        },
+        "select": "Selecionar uma etiqueta",
+        "panel": {
+            "title": "As minhas etiquetas",
+            "noTagAvailable": "Nenhuma etiqueta criada"
+        },
+        "memberStatus": "Estatuto de membro : ",
+        "filter": {
+            "addATagFilter": "Filtrar por etiqueta..."
+        },
+        "tag": {
+            "noTagAttributed": "Selecionar uma etiqueta"
         }
     },
     "subscription": {
@@ -9651,6 +9770,10 @@
         "noContracts": "Os contratos permitem-lhe faturar aos seus membros numa base regular (mensal) um passe de aulas que é creditado de novo todos os meses/dias/anos.",
         "events": {
             "billing_plan-update_payment_pack": "Passe de aulas alterado"
+        },
+        "subscriptionNotFound": {
+            "explanation": "Este contrato já não existe. Escolha outro contrato ou contacte o seu gestor do estúdio.",
+            "title": "Contrato não encontrado"
         }
     },
     "shop": {
@@ -10423,6 +10546,61 @@
                 "succeeded": "Pagamento efetuado com sucesso",
                 "missing_charge": "Não foi efetuada qualquer tentativa de pagamento"
             }
+        }
+    },
+    "tutorial": {
+        "lessonList": {
+            "share": "Partilhar",
+            "addOn": "Complemento",
+            "missingUpsell": "Se não tiver esta função, contacte o seu gestor de conta.",
+            "start": "Início",
+            "shareLesson": "Partilhar a sessão",
+            "new": "Novo"
+        },
+        "shareDialog": {
+            "infoTextSection": "Partilhar todos os cursos da secção {{name}} com membros da sua turma que não têm acesso ao separador dos tutoriais. Só poderão navegar nesta secção.",
+            "infoTextLesson": "Partilhar o curso {{name}} com membros da sua equipa que não têm acesso ao separador dos tutoriais. Eles só poderão navegar nesta disciplina.",
+            "title": "Partilhar",
+            "continueButton": "Continuar"
+        },
+        "menu": {
+            "helpButton": "Encontrar ajuda"
+        },
+        "sectionList": {
+            "shareSection": "Partilhar esta secção",
+            "addOn": "Complemento",
+            "missingUpsell": "Algumas das funcionalidades desta secção não estão disponíveis para si. Contacte o seu gestor de conta.",
+            "new": "Novo"
+        },
+        "welcomeDialog": {
+            "title": "Bem-vindo à Bsport!",
+            "rejectButton": "Quero aprender sozinho",
+            "approveButton": "Vamos embora!",
+            "infoText": "Bem-vindo à sua nova plataforma de gestão. Vamos aprender juntos a descobrir todas as funcionalidades da Bsport para lançar o seu estúdio nas melhores condições possíveis."
+        },
+        "allFinishDialog": {
+            "continueButton": "Continuar",
+            "title": "Terminar!",
+            "infoText": "Muito bem, já completou todos os cursos propostos pela Bsport. Agora conhece a plataforma como a palma da sua mão! Sabe como utilizar todas as funcionalidades básicas e muitas outras estão à espera para o ajudar a desenvolver o seu negócio."
+        },
+        "lessonContent": {
+            "previousLesson": "Anterior",
+            "nextLesson": "Seguinte",
+            "finish": "Secção final"
+        },
+        "menuHeader": {
+            "title": "Bem-vindo ao nosso guia de iniciação.",
+            "infoText": "Aprenda a utilizar todas as funções básicas do Bsport graças aos nossos vários cursos."
+        },
+        "lessonHeader": {
+            "backToList": "Voltar à lista",
+            "addOn": "Complemento",
+            "warning": "Esta funcionalidade é um complemento. Se não tiver esta funcionalidade, contacte o seu gestor de conta."
+        },
+        "sectionFinishDialog": {
+            "infoText": "Concluiu todos os cursos do {{name}}. Continue a melhorar completando a secção seguinte.",
+            "continueButton": "Continuar",
+            "title": "Parabéns!"
         }
     }
 }

@@ -113,7 +113,7 @@ const QuicksalePayment: React.FC<Props> = ({
     availablePaymentMethods,
     setPaymentMethod,
     fetchOrRefreshPaymentGroup,
-  } = useQuicksalePayments({ basketId, setLoading });
+  } = useQuicksalePayments({ basketId, setLoading, theme });
 
   React.useEffect(() => {
     fetchOrRefreshPaymentGroup();

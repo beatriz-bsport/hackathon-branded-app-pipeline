@@ -10,13 +10,16 @@ import { QuicksalePaymentMethod } from '#libs/quicksale/constants';
 import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook ';
 
 import { requestClientSecret as requestClientSecretAPI } from '../../../../libs/invoice/api';
+import type { Theme } from '#libs/theme/types';
 
 const useQuicksalePayments = ({
   basketId,
   setLoading,
+  theme,
 }: {
   basketId: string;
   setLoading: (loading: boolean) => void;
+  theme?: Theme;
 }) => {
   // ========== Client secret and payment info ==========
   const [clientSecret, setClientSecret] = React.useState<string>(null);
@@ -51,9 +54,13 @@ const useQuicksalePayments = ({
       ...(stripeTerminalEnabled ? [QuicksalePaymentMethod.StripeTerminal] : []),
       QuicksalePaymentMethod.Manual,
       QuicksalePaymentMethod.CreditCard,
-      QuicksalePaymentMethod.Sepa,
+      ...((theme?.payment_method_available_manager ?? []).includes(
+        QuicksalePaymentMethod.Sepa,
+      )
+        ? [QuicksalePaymentMethod.Sepa]
+        : []),
     ],
-    [stripeTerminalEnabled],
+    [stripeTerminalEnabled, theme.payment_method_available_manager],
   );
 
   React.useEffect(() => {

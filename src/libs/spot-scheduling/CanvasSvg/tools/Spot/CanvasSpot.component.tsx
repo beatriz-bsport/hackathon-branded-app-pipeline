@@ -49,11 +49,18 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
     })`;
   }
 
+  getSpotTextColor(spotFillColor) {
+    return this.props.taken
+      ? chroma('black').alpha(0.5).hex()
+      : getTextColorFromRGB(chroma(spotFillColor)?.rgb());
+  }
+
   renderPersonalizedSpot(spotType: SpotType) {
     const { x, y, rotation, indexType, index } = this.props;
     let image = spotType?.free_image;
     if (this.props.selected) image = spotType?.selected_image;
     if (this.props.taken) image = spotType.taken_image;
+
     return (
       <g
         {...this.BaseProps}
@@ -109,6 +116,8 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
   renderSquareSpot(spotType: SpotType) {
     const { x, y, rotation, indexType, index } = this.props;
     const fill = spotType.fill_color || 'white';
+    const spotTextColor = this.getSpotTextColor(fill);
+
     return (
       <g
         {...this.BaseProps}
@@ -151,7 +160,7 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
         />
         <text
           dominantBaseline="middle"
-          fill={getTextColorFromRGB(chroma(fill)?.rgb())}
+          fill={spotTextColor}
           fontSize="30"
           style={{ userSelect: 'none' }}
           textAnchor="middle"
@@ -179,6 +188,7 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
   renderTriangleSpot(spotType: SpotType) {
     const { x, y, rotation, indexType, index } = this.props;
     const fill = spotType.fill_color || 'white';
+    const spotTextColor = this.getSpotTextColor(fill);
 
     if (this.props.trianglePreview) {
       TRIANGLE_LENGTH = LENGTH_REFERENCE;
@@ -222,7 +232,7 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
         />
         <text
           dominantBaseline="middle"
-          fill={getTextColorFromRGB(chroma(fill)?.rgb())}
+          fill={spotTextColor}
           fontSize="25"
           style={{ userSelect: 'none' }}
           textAnchor="middle"
@@ -254,6 +264,7 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
   renderRectSpot(spotType: SpotType) {
     const { x, y, rotation, indexType, index } = this.props;
     const fill = spotType.fill_color || 'white';
+    const spotTextColor = this.getSpotTextColor(fill);
     return (
       <g
         {...this.BaseProps}
@@ -298,7 +309,7 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
 
         <text
           dominantBaseline="middle"
-          fill={getTextColorFromRGB(chroma(fill)?.rgb())}
+          fill={spotTextColor}
           fontSize="30"
           style={{ userSelect: 'none' }}
           textAnchor="middle"
@@ -330,6 +341,7 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
   renderCircularSpot(spotType: SpotType) {
     const { x, y, rotation, indexType, index } = this.props;
     const fill = spotType.fill_color || 'white';
+    const spotTextColor = this.getSpotTextColor(fill);
 
     return (
       <g
@@ -369,7 +381,7 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
         />
         <text
           dominantBaseline="middle"
-          fill={getTextColorFromRGB(chroma(fill)?.rgb())}
+          fill={spotTextColor}
           fontSize="30"
           style={{ userSelect: 'none' }}
           textAnchor="middle"

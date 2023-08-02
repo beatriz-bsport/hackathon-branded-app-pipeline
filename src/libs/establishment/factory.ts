@@ -139,6 +139,7 @@ export function establishmentGroup_factory(
 ): Array<EstablishmentGroup> {
   const ESTABLISHMENTGROUP_IDS = [...Array(num_el).keys()];
   const names = [...Array(num_el)].map((_, i) => TITLES[i % TITLES.length]);
+  // @ts-expect-error
   return ESTABLISHMENTGROUP_IDS.map((id) => ({
     id: id + 1,
     name: names[id],

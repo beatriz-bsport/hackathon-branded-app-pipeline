@@ -96,7 +96,7 @@ export class ConsumerLogin extends Component<Props, State> {
       <div
         className={`${'bs-flex-column--center'} ${'bs-login-container__get-email-login'}`}
       >
-        {!WidgetUtils.isWidget() && !this.props.logoHidden && (
+        {!WidgetUtils.isWidget() && !this.props.logoHidden && !simplifyUI && (
           <div className="bs-login-container__logo-div">
             <div>
               <img

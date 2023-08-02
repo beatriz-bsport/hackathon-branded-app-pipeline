@@ -48,6 +48,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 
 import Tooltip from '@material-ui/core/Tooltip';
+import { useFullScreenWithIconDrawer } from '../../../hooks/useFullScreenWithIconDrawer';
 import Config from '../../../config';
 import { getTextColorFromRGB } from '../../../utils/color';
 
@@ -234,14 +235,18 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   const [openWelcometutorialDialog, setOpenWelcometutorialDialog] =
     React.useState(false);
 
-  const [drawerIconsOnly, setDrawerIconsOnly] = React.useState(
-    displayLeftMenu && shrinkResponsiveDrawer,
-  );
-  const [hideAppBar, setHideAppBar] = React.useState(false);
   const handleUserSetDrawerIconsOnly = (shrink: boolean) => {
     setDrawerIconsOnly(shrink);
     setShrinkResponsiveDrawer(shrink);
   };
+
+  const { drawerIconsOnly, hideAppBar, setDrawerIconsOnly } =
+    useFullScreenWithIconDrawer({
+      onEnter: '^/cadence/.*',
+      ignoredPaths: ['/cadence/wip'],
+      forceFullDrawer: !displayLeftMenu || mobileOpen,
+      initialDrawerIconsOnly: displayLeftMenu && shrinkResponsiveDrawer,
+    });
 
   const classes = useStyles({ drawerIconsOnly });
   const location = useLocation();
@@ -278,35 +283,6 @@ export const BackOfficeDrawer: React.FC<Props> = ({
     location,
     setOpenWelcometutorialDialog,
     openWelcometutorialDialog,
-  ]);
-
-  // Close  the left menu when editing a cadence and
-  // reopen the left menu when leaving a cadence edition
-  React.useEffect(() => {
-    const LOCATION_IS_CADENCE_EDITION_PAGE =
-      location?.pathname?.startsWith('/cadence/') &&
-      location?.pathname !== '/cadence/wip';
-    const PREVIOUS_LOCATION_WAS_CADENCE_EDITION_PAGE =
-      previousLocation?.pathname?.startsWith('/cadence/') &&
-      previousLocation?.pathname !== '/cadence/wip';
-
-    if (LOCATION_IS_CADENCE_EDITION_PAGE) {
-      setDrawerIconsOnly(true);
-      setHideAppBar(true);
-    } else {
-      setHideAppBar(false);
-      PREVIOUS_LOCATION_WAS_CADENCE_EDITION_PAGE && setDrawerIconsOnly(false);
-    }
-
-    if (!displayLeftMenu || mobileOpen) {
-      setDrawerIconsOnly(false);
-    }
-  }, [
-    displayLeftMenu,
-    location,
-    mobileOpen,
-    previousLocation,
-    setDrawerIconsOnly,
   ]);
 
   const handleDrawerToggle = () => {

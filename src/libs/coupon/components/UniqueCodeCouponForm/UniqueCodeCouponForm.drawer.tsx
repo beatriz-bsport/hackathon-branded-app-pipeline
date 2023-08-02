@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ImmutableArray } from 'seamless-immutable';
-import { OptionCallback } from '../../../../state/types';
+import { OptionCallBackWithKeyedCallbacks } from '../../../../state/types';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { ShopItem } from '#libs/shop/types';
 import { PrivatePass } from '#libs/private-service/types';
@@ -9,6 +9,7 @@ import { PaymentCombo } from '#libs/payment-combo/types';
 import UniqueCodeCouponForm from './UniqueCodeCouponForm.component';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { Coupon, UniqueCodeCouponCreationPayload } from '#libs/coupon/types';
+import { CouponErrorCodes } from '#libs/coupon/constants';
 
 type Props = {
   uniqueCodeCoupon?: Coupon;
@@ -16,7 +17,7 @@ type Props = {
   onCancel: () => void;
   onSubmit: (
     data: UniqueCodeCouponCreationPayload,
-    options?: OptionCallback<Coupon>,
+    options?: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
   ) => void;
   isLoading: boolean;
   isProcessing: boolean;
@@ -53,6 +54,18 @@ const UniqueCodeCouponFormDrawer: React.FC<Props> = ({
   const [isUsagePerMemberLimited, setIsUsagePerMemberLimited] =
     useState<boolean>(false);
 
+  const errorMessages = {
+    [CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS]: t(
+      `form.actions.errors.${CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS}`,
+    ),
+    [CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT]: t(
+      `form.actions.errors.${CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT}`,
+    ),
+    [CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT]: t(
+      `form.actions.errors.${CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS}`,
+    ),
+  };
+
   return (
     <GenericResponsiveDrawer
       onClose={onCancel}
@@ -60,6 +73,7 @@ const UniqueCodeCouponFormDrawer: React.FC<Props> = ({
       title={t('fabLabels.voucherCodes')}
     >
       <UniqueCodeCouponForm
+        errorMessages={errorMessages}
         isLoading={isLoading}
         isProcessing={isProcessing}
         isUsagePerMemberLimited={isUsagePerMemberLimited}

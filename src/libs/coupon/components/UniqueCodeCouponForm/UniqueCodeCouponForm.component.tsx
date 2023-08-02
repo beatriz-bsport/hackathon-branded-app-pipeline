@@ -6,7 +6,7 @@ import { Theme, makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import { ImmutableArray } from 'seamless-immutable';
 import moment from 'moment-timezone';
-import type { OptionCallback } from '../../../../state/types';
+import type { OptionCallBackWithKeyedCallbacks } from '../../../../state/types';
 import type { Coupon, UniqueCodeCouponUpdatePayload } from '#libs/coupon/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { PrivatePass } from '#libs/private-service/types';
@@ -19,6 +19,7 @@ import UniqueCodeCouponFormSettings from './sections/UniqueCodeCouponFormSetting
 import UniqueCodeCouponFormAvailability from './sections/UniqueCodeCouponFormAvailability.component';
 import UniqueCodeCouponFormUsability from './sections/UniqueCodeCouponFormUsability.component';
 import UniqueCodeCouponFormUpload from './sections/UniqueCodeCouponFormUpload.component';
+import { CouponErrorCodes } from '#libs/coupon/constants';
 
 type ComponentProps = {
   uniqueCodeCoupon?: Coupon;
@@ -37,6 +38,7 @@ type ComponentProps = {
   setWithExpirationDate: React.Dispatch<React.SetStateAction<boolean>>;
   isUsagePerMemberLimited: boolean;
   setIsUsagePerMemberLimited: React.Dispatch<React.SetStateAction<boolean>>;
+  errorMessages: { [errorCode: number]: string };
 };
 
 type UniqueCodeCouponPayload = UniqueCodeCouponUpdatePayload;
@@ -44,7 +46,7 @@ type UniqueCodeCouponPayload = UniqueCodeCouponUpdatePayload;
 type FormProps = {
   onSubmit: (
     data: UniqueCodeCouponPayload,
-    options?: OptionCallback<Coupon>,
+    options?: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
   ) => void;
 };
 
@@ -183,8 +185,14 @@ const formikFormWrapper = withFormik<
   handleSubmit: (
     values,
     {
-      props: { onSubmit, withExpirationDate, isUsagePerMemberLimited },
+      props: {
+        onSubmit,
+        withExpirationDate,
+        isUsagePerMemberLimited,
+        errorMessages,
+      },
       setSubmitting,
+      setFieldError,
     },
   ) => {
     const {
@@ -217,9 +225,31 @@ const formikFormWrapper = withFormik<
       codes,
       update_mode,
     };
+
     onSubmit(uniqueCodeCoupon, {
       onSuccess: () => setSubmitting(false),
       onError: () => setSubmitting(false),
+      [CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS]: () =>
+        setFieldError(
+          'codes',
+          errorMessages[
+            CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS
+          ],
+        ),
+      [CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT]: () =>
+        setFieldError(
+          'codes',
+          errorMessages[
+            CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT
+          ],
+        ),
+      [CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT]: () =>
+        setFieldError(
+          'codes',
+          errorMessages[
+            CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT
+          ],
+        ),
     });
   },
   validationSchema: (props: ComponentProps) =>

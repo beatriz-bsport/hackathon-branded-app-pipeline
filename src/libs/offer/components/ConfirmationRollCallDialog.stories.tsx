@@ -3,7 +3,7 @@ import {
   Props,
   ConfirmationRollCallDialog,
 } from './ConfirmationRollCallDialog.component';
-import { OptionCallback } from 'src/state/types';
+import { OptionCallback } from '../../../state/types';
 
 const GenericConfirmationRollCallDialogTemplate = (args: Props) => (
   <ConfirmationRollCallDialog {...args} />

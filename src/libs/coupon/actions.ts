@@ -23,7 +23,12 @@ import {
   exportCodesAsCsv as exportCodesAsCsvAPI,
 } from './api';
 
-import { OptionCallback, Dispatch, ThunkAction } from '../../state/types';
+import {
+  OptionCallback,
+  Dispatch,
+  ThunkAction,
+  OptionCallBackWithKeyedCallbacks,
+} from '../../state/types';
 import {
   Coupon,
   CouponTemplate,
@@ -443,7 +448,7 @@ export function retrieveCouponTemplate(
 
 export function createUniqueCodeCoupon(
   data: UniqueCodeCouponCreationPayload,
-  options?: OptionCallback<Coupon>,
+  options?: OptionCallBackWithKeyedCallbacks<Coupon>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(couponCreateOrUpdate.isLoading(true));
@@ -458,7 +463,11 @@ export function createUniqueCodeCoupon(
       }
     } catch (error) {
       dispatch(couponCreateOrUpdate.error(error));
-      dispatch(snackbarError('coupon.create.error'));
+      if (error.response?.status === 499 && error.response?.data?.error_code) {
+        if (options && options[error.response?.data?.error_code]) {
+          options[error.response.data.error_code]?.();
+        }
+      }
       if (options && options.onError) {
         options.onError();
       }
@@ -470,7 +479,7 @@ export function createUniqueCodeCoupon(
 export function updateUniqueCodeCoupon(
   id: number,
   data: UniqueCodeCouponCreationPayload,
-  options?: OptionCallback<Coupon>,
+  options?: OptionCallBackWithKeyedCallbacks<Coupon>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(couponCreateOrUpdate.isLoading(true));
@@ -485,7 +494,11 @@ export function updateUniqueCodeCoupon(
       }
     } catch (error) {
       dispatch(couponCreateOrUpdate.error(error));
-      dispatch(snackbarError('coupon.update.error'));
+      if (error.response?.status === 499 && error.response?.data?.error_code) {
+        if (options && options[error.response?.data?.error_code]) {
+          options[error.response.data.error_code]?.();
+        }
+      }
       if (options && options.onError) {
         options.onError();
       }

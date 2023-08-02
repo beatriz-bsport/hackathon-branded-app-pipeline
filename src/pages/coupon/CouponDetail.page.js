@@ -6,12 +6,6 @@ import { connect, ConnectedProps } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 import { compose, withState, withProps, withHandlers } from 'recompose';
 import { CouponKind } from '@bsport/common/lib/master-data/coupon';
-import {
-  BUYABLE_ITEM_PASS,
-  BUYABLE_ITEM_SHOP_ITEM,
-  BUYABLE_ITEM_PRIVATE_PASS,
-  BUYABLE_ITEM_COMBO_ITEM,
-} from '@bsport/common/lib/master-data/buyable-items';
 import CouponDeleteModal from '../../libs/coupon/components/CouponDeleteModal.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -80,7 +74,10 @@ import type { ShopItem } from '#libs/shop/types';
 import type { PrivatePass } from '#libs/private-service/types';
 import type { PaymentCombo } from '#libs/payment_combo/types';
 import type { Tag, TagGroupAPI } from '../../tag/types';
-import type { OptionCallback } from '../../state/types';
+import type {
+  OptionCallback,
+  OptionCallBackWithKeyedCallbacks,
+} from '../../state/types';
 import { WithHandlerType } from '../../utils/types';
 import Config from '../../config';
 import type {
@@ -88,6 +85,7 @@ import type {
   Discount,
   ExportCodesAsCsvResponse,
 } from '../../libs/coupon/types';
+import { CouponErrorCodes } from '../../libs/coupon/constants';
 
 type Props = {
   id: number,
@@ -225,35 +223,38 @@ export class CouponCreate extends Component<Props, State> {
           onError: () => {
             if (options && options.onError) options.onError();
           },
+          [CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT]:
+            () => {
+              if (
+                options &&
+                options[
+                  CouponErrorCodes
+                    .UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT
+                ]
+              )
+                options[
+                  CouponErrorCodes
+                    .UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT
+                ]();
+            },
+          [CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT]:
+            () => {
+              if (
+                options &&
+                options[
+                  CouponErrorCodes
+                    .UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT
+                ]
+              )
+                options[
+                  CouponErrorCodes
+                    .UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT
+                ]();
+            },
         },
       );
     }
     return null;
-  };
-
-  fetchItemsOnUpdateMode = (uniqueCodeCoupon: Coupon) => {
-    switch (uniqueCodeCoupon.applies_to) {
-      case BUYABLE_ITEM_PASS:
-        fetchSelectedPaymentPacks(uniqueCodeCoupon.only_on_objects);
-        break;
-      case BUYABLE_ITEM_SHOP_ITEM:
-        fetchSelectedShopItems(
-          uniqueCodeCoupon.company,
-          uniqueCodeCoupon.only_on_objects,
-        );
-        break;
-      case BUYABLE_ITEM_PRIVATE_PASS:
-        fetchSelectedPrivatePasses(uniqueCodeCoupon.only_on_objects);
-        break;
-      case BUYABLE_ITEM_COMBO_ITEM:
-        fetchSelectedPaymentCombos({
-          company: uniqueCodeCoupon.company,
-          id__in: uniqueCodeCoupon.only_on_objects,
-        });
-        break;
-      default:
-        break;
-    }
   };
 
   handleOnEdit = () => {
@@ -403,7 +404,7 @@ const mapWithHandlers = {
     (
       id: number,
       data: UniqueCodeCouponUpdatePayload,
-      options?: OptionCallback<Coupon>,
+      options?: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
     ) => {
       props.updateUniqueCodeCouponAction(id, data, {
         onSuccess: (couponUpdated: Coupon) => {
@@ -412,6 +413,34 @@ const mapWithHandlers = {
         onError: () => {
           if (options && options.onError) options.onError();
         },
+        [CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT]:
+          () => {
+            if (
+              options &&
+              options[
+                CouponErrorCodes
+                  .UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT
+              ]
+            )
+              options[
+                CouponErrorCodes
+                  .UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT
+              ]();
+          },
+        [CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT]:
+          () => {
+            if (
+              options &&
+              options[
+                CouponErrorCodes
+                  .UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT
+              ]
+            )
+              options[
+                CouponErrorCodes
+                  .UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT
+              ]();
+          },
       });
     },
   markCodesAsRedeemed:

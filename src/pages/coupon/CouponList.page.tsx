@@ -86,11 +86,16 @@ import {
   getPaymentComboList,
 } from '#libs/payment-combo/selectors';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import type { OptionCallback } from '../../state/types';
+import type {
+  OptionCallback,
+  OptionCallBackWithKeyedCallbacks,
+} from '../../state/types';
 import type { RootState } from '../../reducers';
 import FabWithItems from '#components/button/FabWithItems';
 import UniqueCodeCouponFormDrawer from '#libs/coupon/components/UniqueCodeCouponForm/UniqueCodeCouponForm.drawer';
 import Config from '../../config';
+
+import { CouponErrorCodes } from '#libs/coupon/constants';
 
 type OwnProps = {
   couponToDelete: (id: string) => void;
@@ -188,7 +193,7 @@ export class CouponList extends React.PureComponent<Props, State> {
 
   createOrUpdateUniqueCodeCoupon = (
     data: UniqueCodeCouponCreationPayload,
-    options?: OptionCallback<Coupon>,
+    options?: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
   ) => {
     if (this.state.uniqueCodeCouponFormState.initial?.id) {
       return this.props.updateUniqueCodeCoupon(
@@ -207,6 +212,34 @@ export class CouponList extends React.PureComponent<Props, State> {
           onError: () => {
             if (options && options.onError) options.onError();
           },
+          [CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT]:
+            () => {
+              if (
+                options &&
+                options[
+                  CouponErrorCodes
+                    .UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT
+                ]
+              )
+                options[
+                  CouponErrorCodes
+                    .UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT
+                ]();
+            },
+          [CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT]:
+            () => {
+              if (
+                options &&
+                options[
+                  CouponErrorCodes
+                    .UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT
+                ]
+              )
+                options[
+                  CouponErrorCodes
+                    .UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT
+                ]();
+            },
         },
       );
     }
@@ -222,6 +255,15 @@ export class CouponList extends React.PureComponent<Props, State> {
       },
       onError: () => {
         if (options && options.onError) options.onError();
+      },
+      [CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS]: () => {
+        if (
+          options &&
+          options[CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS]
+        )
+          options[
+            CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS
+          ]();
       },
     });
   };
@@ -559,7 +601,7 @@ const mapWithHandlers = {
     (props: ConnectedProps<typeof connector>) =>
     (
       data: UniqueCodeCouponCreationPayload,
-      options?: OptionCallback<Coupon>,
+      options?: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
     ) => {
       props.createUniqueCodeCouponAction(data, {
         onSuccess: (couponCreated: Coupon) => {
@@ -569,6 +611,17 @@ const mapWithHandlers = {
         onError: () => {
           if (options && options.onError) options.onError();
         },
+        [CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS]: () => {
+          if (
+            options &&
+            options[
+              CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS
+            ]
+          )
+            options[
+              CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS
+            ]();
+        },
       });
     },
   updateUniqueCodeCoupon:
@@ -576,7 +629,7 @@ const mapWithHandlers = {
     (
       id: number,
       data: UniqueCodeCouponUpdatePayload,
-      options?: OptionCallback<Coupon>,
+      options?: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
     ) => {
       props.updateUniqueCodeCouponAction(id, data, {
         onSuccess: (couponUpdated: Coupon) => {
@@ -586,6 +639,34 @@ const mapWithHandlers = {
         onError: () => {
           if (options && options.onError) options.onError();
         },
+        [CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT]:
+          () => {
+            if (
+              options &&
+              options[
+                CouponErrorCodes
+                  .UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT
+              ]
+            )
+              options[
+                CouponErrorCodes
+                  .UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT
+              ]();
+          },
+        [CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT]:
+          () => {
+            if (
+              options &&
+              options[
+                CouponErrorCodes
+                  .UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT
+              ]
+            )
+              options[
+                CouponErrorCodes
+                  .UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT
+              ]();
+          },
       });
     },
 };

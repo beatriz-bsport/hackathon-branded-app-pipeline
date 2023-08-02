@@ -8,7 +8,7 @@ import type { TFunction } from 'i18next';
 import moment from 'moment-timezone';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import type { OptionCallback } from 'src/state/types';
+import type { OptionCallback } from '../../../state/types';
 import type { RootState } from '../../reducers';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { snackbar } from '#libs/snackbar/actions';

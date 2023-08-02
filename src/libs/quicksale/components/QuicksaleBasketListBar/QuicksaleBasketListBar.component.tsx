@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 
+import { BUYABLE_ITEM_FEE } from '@bsport/common/lib/master-data/buyable-items';
 import { sortByDate } from '../../../../utils/datetime';
 import type { Basket } from '#libs/checkout/types';
 import type { Member } from '#libs/member/types';
@@ -43,6 +44,15 @@ const BasketChip: React.FC<BasketChipProps> = ({
     e.stopPropagation();
   }, []);
 
+  const deliveryFeePrice = React.useMemo(
+    () =>
+      (basket.checkout_items || []).find(
+        (checkoutItem) =>
+          checkoutItem.buyable_item_identifier === BUYABLE_ITEM_FEE,
+      )?.unit_price ?? 0,
+    [basket.checkout_items],
+  );
+
   return (
     <div
       className={classes.basketChipContainer}
@@ -66,7 +76,7 @@ const BasketChip: React.FC<BasketChipProps> = ({
         <div className={classes.basketPrice}>
           <Typography variant="caption">
             {getCurrencyDisplayWithPrice(
-              Number(basket?.total_price).toFixed(2),
+              (parseFloat(basket?.total_price) - deliveryFeePrice).toFixed(2),
             )}
           </Typography>
           {isFullyPaid && (

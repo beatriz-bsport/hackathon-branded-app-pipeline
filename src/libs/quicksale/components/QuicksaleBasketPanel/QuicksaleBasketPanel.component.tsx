@@ -9,6 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
 
+import { BUYABLE_ITEM_FEE } from '@bsport/common/lib/master-data/buyable-items';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 import { QuicksaleInterfaceModalColors } from '#libs/quicksale/constants';
 import { formatAsDate, formatAsTime } from '../../../../utils/datetime';
@@ -90,25 +91,45 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
   const canChangeMember = basket && !basket.invoice;
   const basketPriceExcludingTax = React.useMemo(() => {
     if (basket) {
-      return getBasketTotalPriceExcludingTax(basket);
+      return getBasketTotalPriceExcludingTax(basket, true);
     }
     return '0';
   }, [basket]);
 
+  const deliveryFee = React.useMemo(
+    () =>
+      (basket?.checkout_items ?? []).find(
+        (checkoutItem) =>
+          checkoutItem.buyable_item_identifier === BUYABLE_ITEM_FEE,
+      ),
+    [basket?.checkout_items],
+  );
+
   const taxPrice = React.useMemo(() => {
     if (basket) {
       return (
-        parseFloat(basket.total_price) - parseFloat(basketPriceExcludingTax)
+        parseFloat(basket.total_price) -
+        (deliveryFee?.unit_price ?? 0) -
+        parseFloat(basketPriceExcludingTax)
       ).toFixed(2);
     }
     return '0';
-  }, [basket, basketPriceExcludingTax]);
+  }, [basket, basketPriceExcludingTax, deliveryFee?.unit_price]);
 
   const classes = useStyles({ canChangeMember, basket });
 
   const closeCurrentBasket = React.useCallback(() => {
     closeBasket(basket);
   }, [closeBasket, basket]);
+
+  const checkoutItemsWithouDeliveryFee = React.useMemo(
+    () =>
+      (basket?.checkout_items ?? []).filter(
+        (checkoutItem) =>
+          checkoutItem.buyable_item_identifier !== BUYABLE_ITEM_FEE,
+      ),
+    [basket?.checkout_items],
+  );
 
   if (!basket)
     return (
@@ -155,7 +176,7 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
 
         <div className={classes.overflow}>
           <BasketSummary
-            basketSummaryCheckoutItems={basket?.checkout_items ?? []}
+            basketSummaryCheckoutItems={checkoutItemsWithouDeliveryFee}
             isExcludingTax={isExcludingTax}
             isItemEditionDisabled={false}
             onAddCheckoutItem={addToBasket}
@@ -191,7 +212,10 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
             </Typography>
             <Typography className={classes.fontWeight500} variant="h6">
               {getCurrencyDisplayWithPrice(
-                parseFloat(basket.total_price).toFixed(2),
+                (
+                  parseFloat(basket.total_price) -
+                  (deliveryFee?.unit_price ?? 0)
+                ).toFixed(2),
               )}
             </Typography>
           </div>

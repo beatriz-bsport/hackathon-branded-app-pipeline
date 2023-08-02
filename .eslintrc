@@ -158,7 +158,7 @@
         "ignoreCase": true, // Ignores the case of prop names during sorting
         "shorthandFirst": true, // Short hand props must be listed before all other props, but still respecting the alphabetical order
         // "multiline": "last", // Multiline props must be listed after all other props
-        "reservedFirst": true // Reserved props suck as key, children will be placed first, but still respecting the alphabetical order
+        "reservedFirst": true // Reserved props such as key, children will be placed first, but still respecting the alphabetical order
       },
     ]
   },

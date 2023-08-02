@@ -64,6 +64,7 @@ import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '../role/constants'
 import { PaymentItem } from './payment/types';
 import { InvoiceItem } from './invoice-item/types';
 import { Payment } from '#libs/payment/types';
+import { CouponErrorCodes } from '#libs/coupon/constants';
 
 export const invoiceConfigurationPatchActions = {
   isLoading: createAction<boolean>('INVOICE-CONFIGURATION/PATCH/IS_LOADING'),
@@ -472,16 +473,24 @@ export function createOrUpdateInvoice(
       if (options && options.onSuccess) {
         options.onSuccess(invoice);
       }
-    } catch (e) {
-      console.error(e);
-      dispatch(snackbarError('invoice.error'));
-      dispatch(createOrUpdateInvoiceActions.error(null));
-      if (options && options.onError) {
-        options.onError(e);
+    } catch (error) {
+      console.error(error);
+      if (
+        error.response?.status === 499 &&
+        error.response?.data?.error_code === CouponErrorCodes.UNIQUE_CODE_LOCKED
+      ) {
+        dispatch(
+          snackbarError(`coupon.errors.${error.response.data.error_code}`),
+        );
+      } else {
+        dispatch(snackbarError('invoice.error'));
+        if (options && options.onError) {
+          options.onError(error);
+        }
       }
+      dispatch(createOrUpdateInvoiceActions.isLoading(false));
+      dispatch(fetchAlerting());
     }
-    dispatch(createOrUpdateInvoiceActions.isLoading(false));
-    dispatch(fetchAlerting());
   };
 }
 export const createOrUpdateInvoiceActions = {

@@ -558,8 +558,11 @@ export function markCodesAsRedeemed(
       }
     } catch (error) {
       dispatch(couponCreateOrUpdate.error(error));
-      dispatch(snackbarError('coupon.update.error'));
-      if (options && options.onError) {
+      if (error.response?.status === 499 && error.response?.data?.error_code) {
+        dispatch(
+          snackbarError(`coupon.errors.${error.response.data.error_code}`),
+        );
+      } else if (options && options.onError) {
         options.onError();
       }
     }

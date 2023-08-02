@@ -608,8 +608,8 @@ export class PaymentPackCard extends Component<Props, State> {
                 return (
                   <OffPeakDisplayByDay
                     key={`${isoWeekday}-${index}`}
-                    timeSlots={timeSlots}
                     isoWeekday={isoWeekday}
+                    timeSlots={timeSlots}
                   />
                 );
               })}

@@ -35,8 +35,8 @@ const MarketplacePaymentPackOffPeakSchedule: React.FC<Props> = ({
           return (
             <MarketplaceOffPeakDisplayByDay
               key={`${isoWeekday}-${index}`}
-              timeSlots={timeSlots}
               isoWeekday={isoWeekday}
+              timeSlots={timeSlots}
             />
           );
         })}
@@ -50,15 +50,15 @@ const MarketplaceOffPeakDisplayByDay: React.FC<MarketplaceOffPeakDisplayByDayPro
     const { t } = useTranslation(['datetime']);
 
     return (
-      <div className="bs-off_peak-days-body" key={isoWeekday}>
+      <div key={isoWeekday} className="bs-off_peak-days-body">
         {t(`datetime:time.isoWeekdayNumber.${isoWeekday}`)}
         <div className="bs-off_peak-timeSlots-body">
           {timeSlots.map((timeSlot: string[]) => {
             return (
               <MarketplaceOffPeakDisplayByTimeslot
                 key={`${timeSlots}-${isoWeekday}`}
-                timeSlot={timeSlot}
                 isoWeekday={isoWeekday}
+                timeSlot={timeSlot}
               />
             );
           })}

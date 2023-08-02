@@ -2,6 +2,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 } from '@bsport/common/lib/master-data/payment-group';
+import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
 
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
 
@@ -77,3 +78,15 @@ export enum QuicksalePaymentMethod {
 }
 
 export const WARNING_FONT_COLOR = '#663D00';
+
+/**
+ * @description This list contains all the object types of the buyable items that need
+ * a member authentication to be bought. The subscriptions are not included here since
+ * this list is used in the checkout page and the subscriptions are handled before
+ * reaching this page
+ */
+export const QUICKSALE_ITEMS_REQUIRING_AUTHENTICATION = [
+  QuicksaleBasketItem.PaymentPackIdentifier,
+  QuicksaleBasketItem.PrivatePassIdentifier,
+  QuicksaleBasketItem.PaymentComboIdentifier,
+];

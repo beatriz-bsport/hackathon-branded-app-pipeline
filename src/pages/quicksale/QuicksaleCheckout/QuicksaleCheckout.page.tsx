@@ -50,12 +50,12 @@ import QuicksaleDialogs from '#libs/quicksale/components/QuicksaleDialogs.compon
 
 import { getCompanyCountry } from '#libs/theme/selectors';
 
-import { OptionCallback } from '../../../state/types';
+import type { OptionCallback } from '../../../state/types';
 // @ts-expect-error
 import { mapFormData } from '../../form.utils';
 import QuicksaleCheckout from './QuicksaleCheckout.component';
-import { PaymentGroup } from '#libs/payment/types';
-import { Basket, BasketAddress } from '#libs/checkout/types';
+import type { PaymentGroup } from '#libs/payment/types';
+import type { Basket, BasketAddress } from '#libs/checkout/types';
 import { QuicksaleDeliveryType } from '#libs/quicksale/constants';
 import { getFeatureList as getFeatureListAction } from '#libs/company/actions';
 import { fetchStripeReaders as fetchStripeReadersAction } from '#libs/terminal/actions';
@@ -127,6 +127,8 @@ const QuicksalePayment: React.FC<Props> = ({
     basket?.instalment_payment,
   ]);
 
+  const member = memberById[basket?.member];
+
   const {
     showCannotSignOutModal,
     showMemberAuthenticationModal,
@@ -144,7 +146,9 @@ const QuicksalePayment: React.FC<Props> = ({
     closeWarningRemovedItemsModal,
     closeAnonymousPaymentSuccessModal,
     setShowPartialPaymentSuccesModal,
-  } = useModals({ goBack });
+    someObjectsRequireAuthentication,
+    setSomeObjectsRequireAuthentication,
+  } = useModals({ goBack, basket, member });
 
   // ===========================================
 
@@ -206,8 +210,6 @@ const QuicksalePayment: React.FC<Props> = ({
 
   // ========== Member authentication handlers ==========
 
-  const member = memberById[basket?.member];
-
   const createMember = React.useCallback(
     (data: any, options: OptionCallback) => {
       const memberData = data;
@@ -233,6 +235,7 @@ const QuicksalePayment: React.FC<Props> = ({
         onSuccess: (updateData) => {
           if (updateData.updated_member) {
             closeMemberModal();
+            setSomeObjectsRequireAuthentication(false);
             replace(`/quicksale/checkout/${updateData.new_basket.id}/`);
             if (updateData.has_removed_incompatible_items)
               setShowWarningRemovedItemsModal(true);
@@ -246,6 +249,7 @@ const QuicksalePayment: React.FC<Props> = ({
       updateQuicksaleBasketMember,
       fetchMembers,
       closeMemberModal,
+      setSomeObjectsRequireAuthentication,
       replace,
       setShowWarningRemovedItemsModal,
     ],
@@ -453,6 +457,7 @@ const QuicksalePayment: React.FC<Props> = ({
       <MemberSearchDialog
         companyCountry={companyCountry}
         createMember={createMember}
+        isAuthenticatingForSpecificAction={someObjectsRequireAuthentication}
         onClose={closeMemberModal}
         onMemberChoose={onMemberAuthenticate}
         open={showMemberAuthenticationModal}

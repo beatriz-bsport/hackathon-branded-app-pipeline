@@ -486,7 +486,7 @@ const QuicksaleInterface: React.FC<Props> = ({
       <MemberSearchDialog
         companyCountry={companyCountry}
         createMember={createMember}
-        isAuthenticatingForContract={!!contractToSubscribe}
+        isAuthenticatingForSpecificAction={!!contractToSubscribe}
         onClose={closeMemberModal}
         onMemberChoose={onMemberAuthenticate}
         open={showMemberAuthenticationModal}

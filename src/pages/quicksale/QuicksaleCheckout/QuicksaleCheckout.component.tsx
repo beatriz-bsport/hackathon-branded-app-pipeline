@@ -9,8 +9,6 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import Grid from '@material-ui/core/Grid';
 import Alert from '@material-ui/lab/Alert';
 
-import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
-
 import QuicksaleAppBar from '#libs/quicksale/components/QuicksaleAppBar';
 
 import type { Theme } from '#libs/theme/types';
@@ -124,16 +122,6 @@ const QuicksaleCheckout: React.FC<Props> = ({
 
   const [date, setDate] = React.useState(moment().format('YYYY-MM-DD'));
 
-  const basketContainsShopItem = React.useMemo(
-    () =>
-      basket?.checkout_items.some(
-        (item) =>
-          item.buyable_item_identifier ===
-          QuicksaleBasketItem.ShopItemIdentifier,
-      ),
-    [basket?.checkout_items],
-  );
-
   const resetPaymentGroupPrice = React.useCallback(
     () =>
       editPaymentGroupPrice?.(
@@ -205,7 +193,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
             setModifiedPrice={editPaymentGroupPrice}
           />
 
-          {basketContainsShopItem && (
+          {basket.need_address && (
             <QuicksaleDeliveryForm
               basketAddress={basketAddress}
               deliveryType={deliveryType}

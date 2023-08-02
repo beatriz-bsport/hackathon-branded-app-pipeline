@@ -188,6 +188,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
           <QuicksaleBasketPriceRecap
             attachCoupon={attachCoupon}
             basketTotalPrice={basket?.total_price_cts / 100}
+            disableCoupon={member.is_pos}
             internalAccount={basket.total_price_prepaid_lines_cts / 100}
             loading={loading || isProcessing}
             modifiedPrice={

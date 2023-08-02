@@ -33,6 +33,7 @@ type Props = {
   attachCoupon: (code: string, options?: OptionCallback<Basket>) => void;
   preventPriceModification?: boolean;
   internalAccount?: number;
+  disableCoupon?: boolean;
 };
 
 const QuicksaleBasketPriceRecap: React.FC<Props> = ({
@@ -44,6 +45,7 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
   attachCoupon,
   preventPriceModification,
   internalAccount,
+  disableCoupon,
 }) => {
   const { t } = useTranslation('quicksale');
 
@@ -207,7 +209,11 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
       </div>
 
       <div className={classes.couponButton}>
-        <CouponCodeForm loading={loading} onSubmit={addCoupon} />
+        <CouponCodeForm
+          disabled={disableCoupon}
+          loading={loading}
+          onSubmit={addCoupon}
+        />
       </div>
     </div>
   );

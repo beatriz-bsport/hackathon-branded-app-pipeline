@@ -224,6 +224,7 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
             fullWidth
             className={classes.payButton}
             color="primary"
+            disabled={!basket.checkout_items.length}
             onClick={onPaymentClick}
             variant="contained"
           >

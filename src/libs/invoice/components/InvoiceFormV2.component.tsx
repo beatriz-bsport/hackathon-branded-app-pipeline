@@ -16,7 +16,10 @@ import Typography from '@material-ui/core/Typography';
 import InvoiceContent from './InvoiceContent.component';
 import InvoiceEditorV2 from './InvoiceEditorV2.component';
 import FinalizeInvoiceDialog from '../dialog/FinalizeInvoiceDialog.component';
-import { OptionCallback } from '../../../state/types';
+import {
+  OptionCallback,
+  OptionCallBackWithKeyedCallbacks,
+} from '../../../state/types';
 import { appliesToInvoice } from '#libs/coupon/api';
 import { Establishment } from '#libs/establishment/types';
 import ConsumerGiftcardFormWithPreview from '#libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
@@ -165,7 +168,7 @@ export class InvoiceForm extends React.Component<Props, State> {
 
   applyCoupon = async (
     couponCode: string,
-    options?: OptionCallback & { onNotFound: () => void },
+    options?: OptionCallBackWithKeyedCallbacks & { onNotFound: () => void },
   ) => {
     try {
       const { data } = await appliesToInvoice(
@@ -190,9 +193,15 @@ export class InvoiceForm extends React.Component<Props, State> {
           };
         });
         if (options && options.onSuccess) options.onSuccess();
-      } else if (options && options.onError) options.onError();
-    } catch {
-      if (options && options.onNotFound) {
+      }
+    } catch (error) {
+      if (error.response?.status === 499 && error.response?.data?.error_code) {
+        if (options && options[error.response?.data?.error_code]) {
+          options[error.response?.data?.error_code]();
+        }
+      } else if (options && options.onError) {
+        options.onError(error);
+      } else if (options && options.onNotFound) {
         options.onNotFound();
       }
     }

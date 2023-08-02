@@ -9,7 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core';
-import { COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS } from '../constants';
+import { CouponErrorCodes } from '../constants';
 
 type Props = {
   onSubmit: (
@@ -24,10 +24,11 @@ type Props = {
   disabled?: boolean;
 };
 
-enum ERRORTYPE {
+enum ErrorType {
   COUPON_NOT_APPLICABLE = 'not_applicable',
   COUPON_NOT_FOUND = 'not_found',
-  ON_SEVERAL_ITEMS = COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS,
+  ON_SEVERAL_ITEMS = CouponErrorCodes.COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS,
+  LOCKED = CouponErrorCodes.UNIQUE_CODE_LOCKED,
   EMPTY = '',
 }
 export const CouponCodeForm: React.FC<Props> = ({
@@ -42,29 +43,34 @@ export const CouponCodeForm: React.FC<Props> = ({
   const [open, setOpen] = React.useState(false);
   const [code, setCode] = React.useState('');
   const [modalLoading, setModalLoading] = React.useState(false);
-  const [error, setError] = React.useState<ERRORTYPE>(ERRORTYPE.EMPTY);
+  const [error, setError] = React.useState<ErrorType>(ErrorType.EMPTY);
 
   const onCouponSubmit = () => {
     setModalLoading(true);
-    setError(ERRORTYPE.EMPTY);
+    setError(ErrorType.EMPTY);
     onSubmit(code, {
       onSuccess: () => {
         setOpen(false);
         setModalLoading(false);
-        setError(ERRORTYPE.EMPTY);
+        setError(ErrorType.EMPTY);
         setCode('');
       },
-      [COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS]: () => {
+      [CouponErrorCodes.COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS]:
+        () => {
+          setModalLoading(false);
+          setError(ErrorType.ON_SEVERAL_ITEMS);
+        },
+      [CouponErrorCodes.UNIQUE_CODE_LOCKED]: () => {
         setModalLoading(false);
-        setError(ERRORTYPE.ON_SEVERAL_ITEMS);
+        setError(ErrorType.LOCKED);
       },
       onError: () => {
         setModalLoading(false);
-        setError(ERRORTYPE.COUPON_NOT_APPLICABLE);
+        setError(ErrorType.COUPON_NOT_APPLICABLE);
       },
       onNotFound: () => {
         setModalLoading(false);
-        setError(ERRORTYPE.COUPON_NOT_FOUND);
+        setError(ErrorType.COUPON_NOT_FOUND);
       },
     });
   };
@@ -72,7 +78,7 @@ export const CouponCodeForm: React.FC<Props> = ({
   const onCancel = () => {
     setOpen(false);
     setModalLoading(false);
-    setError(ERRORTYPE.EMPTY);
+    setError(ErrorType.EMPTY);
   };
 
   return (

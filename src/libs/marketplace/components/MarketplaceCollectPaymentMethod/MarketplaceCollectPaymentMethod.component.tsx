@@ -51,6 +51,8 @@ const stripePromise = loadStripe(getStripePkKey());
 export type Props = {
   type: MarketplacePaymentMethods;
   isOpen: boolean;
+  doNotOpenInDialog?: boolean;
+  hideCancelButton?: boolean;
   sepaDefaultName?: string;
   sepaDefaultEmail?: string;
   stripe: Stripe;
@@ -132,6 +134,8 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
   ({
     type,
     isOpen,
+    doNotOpenInDialog,
+    hideCancelButton,
     sepaDefaultName,
     sepaDefaultEmail,
     stripe,
@@ -254,7 +258,7 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
         const ibanElement = elements.getElement(
           stripePaymentMethod.type as MarketplaceStripeElementType.sepa,
         );
-        ibanElement.on('change', (data: { country: string }) => {
+        ibanElement?.on('change', (data: { country: string }) => {
           detectSepaDebitNeedsBillingAddress(data?.country);
         });
       }
@@ -400,6 +404,9 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
           err.decline_code && setStripeDeclineCode(err.decline_code);
         } finally {
           setProcessing(false);
+          if (doNotOpenInDialog) {
+            onDialogClose();
+          }
         }
       },
       [
@@ -413,6 +420,8 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
         type,
         onSuccess,
         cardBillingDetailsMandatory,
+        doNotOpenInDialog,
+        onDialogClose,
       ],
     );
     const countryOptions = useMemo(
@@ -449,20 +458,32 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
         {isOpen && (
           <form
             ref={dialogRef}
-            className="bs-collect-payment-method__dialog__backdrop"
+            className={
+              doNotOpenInDialog
+                ? 'bs-collect-payment-method__container'
+                : 'bs-collect-payment-method__dialog__backdrop'
+            }
             onSubmit={handleSubmit}
           >
             <div
               ref={modalRef}
-              className="bs-collect-payment-method__dialog__container"
+              className={
+                doNotOpenInDialog
+                  ? 'bs-collect-payment-method__dialog__container-not-dialog'
+                  : 'bs-collect-payment-method__dialog__container'
+              }
             >
-              <h6 className="bs-collect-payment-method__dialog__title">
-                {t('forms.paymentMethod.collect.title')}
-              </h6>
+              {!doNotOpenInDialog && (
+                <>
+                  <h6 className="bs-collect-payment-method__dialog__title">
+                    {t('forms.paymentMethod.collect.title')}
+                  </h6>
 
-              <p className="bs-collect-payment-method__dialog__content">
-                {t('forms.paymentMethod.collect.content')}
-              </p>
+                  <p className="bs-collect-payment-method__dialog__content">
+                    {t('forms.paymentMethod.collect.content')}
+                  </p>
+                </>
+              )}
 
               {type === MarketplacePaymentMethods.card &&
                 !error &&
@@ -497,7 +518,6 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
                     />
                   </div>
                 )}
-
               {type === MarketplacePaymentMethods.bacs &&
                 !error &&
                 !success && (
@@ -575,7 +595,6 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
                     />
                   </div>
                 )}
-
               {error && (
                 <div className="bs-collect-payment-method__info__container">
                   <ErrorIcon className="bs-collect-payment-method__icon" />
@@ -594,7 +613,6 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
                   )}
                 </div>
               )}
-
               {success && (
                 <div className="bs-collect-payment-method__info__container">
                   <CheckIcon className="bs-collect-payment-method__icon bs-primary-text" />
@@ -603,9 +621,7 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
                   </span>
                 </div>
               )}
-
               {!(error || success) && <PaymentMethodInput type={type} />}
-
               {isSepaDebitBillingAddressRequired && !error && !success && (
                 <input
                   className="bs-collect-payment-method__mandate__field"
@@ -615,31 +631,34 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
                   value={billingDetails.address.line1}
                 />
               )}
-
               {type === MarketplacePaymentMethods.sepa &&
                 !error &&
-                !success && (
+                !success &&
+                !doNotOpenInDialog && (
                   <div className="bs-collect-payment-method__mandate__terms">
                     {t('subscription:mandate.contentIban')}
                   </div>
                 )}
-
               {type === MarketplacePaymentMethods.bacs &&
                 !error &&
-                !success && (
+                !success &&
+                !doNotOpenInDialog && (
                   <div className="bs-collect-payment-method__mandate__terms">
                     {t('subscription:mandate.contentBacsDebit')}
                   </div>
                 )}
-
               <div className="bs-collect-payment-method__dialog__actions">
-                <button
-                  className="bs-collect-payment-method__cancel__button"
-                  onClick={onDialogClose}
-                  type="button"
-                >
-                  {t('forms.paymentMethod.actions.close')}
-                </button>
+                {!hideCancelButton && (
+                  <button
+                    className="bs-collect-payment-method__cancel__button"
+                    onClick={onDialogClose}
+                    type="button"
+                  >
+                    {doNotOpenInDialog
+                      ? t('forms.paymentMethod.actions.cancel')
+                      : t('forms.paymentMethod.actions.close')}
+                  </button>
+                )}
                 {!!error && (
                   <button
                     className="bs-collect-payment-method__try__again__button"

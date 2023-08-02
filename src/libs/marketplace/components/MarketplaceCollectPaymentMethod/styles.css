@@ -12,6 +12,10 @@
   justify-content: center;
 }
 
+.bs-collect-payment-method__container {
+  width: 100%;
+}
+
 .bs-collect-payment-method__dialog__container {
   display: flex;
   flex-direction: column;
@@ -24,6 +28,23 @@
   max-width: calc(100vw - var(--spacing-4));
   max-height: calc(100vh - var(--spacing-4));
   overflow-y: auto;
+}
+
+.bs-collect-payment-method__dialog__container-not-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  border: none;
+  width: '100%';
+  max-width: calc(100vw - var(--spacing-4));
+  max-height: calc(100vh - var(--spacing-4));
+  overflow-y: auto;
+}
+
+.bs-collect-payment-method__dialog__container__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
 }
 
 .bs-collect-payment-method__dialog__title {

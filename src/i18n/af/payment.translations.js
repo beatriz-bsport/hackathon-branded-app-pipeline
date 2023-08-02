@@ -176,6 +176,7 @@ exports.default = {
         close: 'Fermer',
         collect: 'Sauvegarder',
         retry: 'Réessayer',
+        cancel: 'Annuler',
         addPaymentMethod: 'Ajouter une méthode de paiement',
         selectPaymentMethod: 'Sélectionner votre moyen de paiement',
         displayPaymentMethod: 'Afficher mes méthodes de paiement',

@@ -287,7 +287,7 @@ export const PaymentStripeSEPA = forwardRef(
       React.useState(false);
 
     const iban = elements?.getElement(IbanElement);
-    const ibanExists = !!iban;
+    const ibanElementExists = !!iban;
     React.useEffect(() => {
       if (iban) {
         iban.on('change', (data) => {
@@ -329,7 +329,7 @@ export const PaymentStripeSEPA = forwardRef(
       };
       // eslint-disable-next-line
     }, [
-      ibanExists,
+      ibanElementExists,
       setNeedBillingDetailAddress,
       setBillingDetails,
       billingDetails,

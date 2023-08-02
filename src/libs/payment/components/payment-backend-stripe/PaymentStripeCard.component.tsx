@@ -332,11 +332,35 @@ const StripePaymentCard = forwardRef(
       [handleSubmit],
     );
 
-    const defineSelectedPaymentMethod = (id: string) => {
-      if (id !== paymentMethodSelected) {
-        setPaymentMethodSelected(id);
-      }
-    };
+    const defineSelectedPaymentMethod = React.useCallback(
+      (id: string) => {
+        if (id !== paymentMethodSelected) {
+          setPaymentMethodSelected(id);
+        }
+      },
+      [paymentMethodSelected],
+    );
+
+    const onSaveForLaterChange = React.useCallback(
+      (ev: React.ChangeEvent<HTMLInputElement>) =>
+        setSaveForLater(ev.target.checked),
+      [],
+    );
+
+    const startAddingPaymentMethod = React.useCallback(
+      () => setAddPaymentMethod(true),
+      [],
+    );
+
+    const stopAddingPaymentMethod = React.useCallback(
+      () => setAddPaymentMethod(false),
+      [],
+    );
+
+    const onPaymentMethodSelect = React.useCallback(
+      (id: string) => defineSelectedPaymentMethod(id),
+      [defineSelectedPaymentMethod],
+    );
 
     return (
       <form
@@ -372,7 +396,7 @@ const StripePaymentCard = forwardRef(
                     <Checkbox
                       checked={saveForLater || forceSave}
                       disabled={forceSave}
-                      onChange={(ev) => setSaveForLater(ev.target.checked)}
+                      onChange={onSaveForLaterChange}
                     />
                     <Typography
                       variant={isNewCheckoutFlow ? 'body1' : 'caption'}
@@ -419,7 +443,7 @@ const StripePaymentCard = forwardRef(
                     classes.displayButton,
                     customClasses?.displayButton,
                   )}
-                  onClick={() => setAddPaymentMethod(false)}
+                  onClick={stopAddingPaymentMethod}
                 >
                   <Typography align="right" color="primary" variant="body1">
                     {t(
@@ -445,7 +469,7 @@ const StripePaymentCard = forwardRef(
               companyId={companyId}
               detachPaymentMethod={detachPaymentMethod}
               detachPaymentMethodLoading={detachPaymentMethodLoading}
-              onSelect={(id: string) => defineSelectedPaymentMethod(id)}
+              onSelect={onPaymentMethodSelect}
               paymentMethodType="card"
               savedPaymentMethodList={paymentMethodList}
               selectedSavedPaymentMethodId={paymentMethodSelected}
@@ -459,7 +483,7 @@ const StripePaymentCard = forwardRef(
                 customClasses?.addButton,
               )}
               disabled={false}
-              onClick={() => setAddPaymentMethod(true)}
+              onClick={startAddingPaymentMethod}
             >
               <AddIcon
                 className={classNames(

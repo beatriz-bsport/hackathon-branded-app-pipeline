@@ -13,6 +13,7 @@ import CreditCardIcon from '@material-ui/icons/CreditCard';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import type { PaymentMethod } from '../types';
 import type { OptionCallback } from '../../../state/types';
+import { MarketplacePaymentMethods } from '#libs/marketplace/types';
 
 type Props = {
   paymentMethod?: PaymentMethod;
@@ -120,7 +121,7 @@ export const PaymentMethodListItem: FC<Props> = ({
         />
       )}
       <ListItemIcon className={classes.listItemIcon}>
-        {paymentMethod.type === 'card' ? (
+        {paymentMethod.type === MarketplacePaymentMethods.card ? (
           <CreditCardIcon />
         ) : (
           <AccountBalanceIcon />
@@ -130,7 +131,7 @@ export const PaymentMethodListItem: FC<Props> = ({
       <ListItemText
         primary={`**** **** **** ${paymentMethod.readable_identifier}`}
         secondary={
-          paymentMethod.type === 'card'
+          paymentMethod.type === MarketplacePaymentMethods.card
             ? `${paymentMethod.additional_info || ' '} ${paymentMethod.brand}`
             : null
         }

@@ -112,20 +112,7 @@ const QuicksalePayment: React.FC<Props> = ({
     paymentMethod,
     availablePaymentMethods,
     setPaymentMethod,
-    fetchOrRefreshPaymentGroup,
   } = useQuicksalePayments({ basketId, setLoading, theme });
-
-  React.useEffect(() => {
-    fetchOrRefreshPaymentGroup();
-  }, [
-    fetchOrRefreshPaymentGroup,
-    basket?.total_price,
-    basket?.member,
-    basket?.total_price_prepaid_lines_cts,
-    fetchInstalmentPaymentByBasket,
-    basketId,
-    basket?.instalment_payment,
-  ]);
 
   const member = memberById[basket?.member];
 

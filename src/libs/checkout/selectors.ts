@@ -25,9 +25,8 @@ export const getBasketList = createSelector(
   (allIds, byId) => Immutable<Basket[]>(allIds.map((id) => byId[id])),
 );
 
-export const getUnfinalizeBasketList = createSelector(
-  [getBasketList],
-  (basketList) => basketList.filter((basket) => !basket.is_finalized),
+export const getOpenBasketList = createSelector([getBasketList], (basketList) =>
+  basketList.filter((basket) => !basket.is_finalized),
 );
 
 export const getCurrentBasket = (state: RootState) =>

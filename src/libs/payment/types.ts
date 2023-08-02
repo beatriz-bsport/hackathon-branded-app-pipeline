@@ -1,5 +1,7 @@
+import { MarketplacePaymentMethods } from '#libs/marketplace/types';
+
 export type PaymentMethod = {
-  type: string;
+  type: MarketplacePaymentMethods;
   id: string;
   readable_identifier: string;
   brand: string;

@@ -1,9 +1,8 @@
 import React, { JSX } from 'react';
-import moment from 'moment-timezone';
+import moment, { type Moment } from 'moment-timezone';
 import classNames from 'classnames';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { compose, withState } from 'recompose';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
@@ -21,7 +20,7 @@ import PriceInput from '../../../../components/input/PriceInput.component';
 
 import { submitInternalPayment as submitInternalPaymentAPI } from '../../api';
 
-type OwnProps = {
+type Props = {
   paymentMethodChoices: Array<number>;
   amountToPay: string;
   clientSecret: string;
@@ -30,16 +29,10 @@ type OwnProps = {
   hideAmountToPay?: boolean;
   dateFieldEndAdornment?: JSX.Element;
   customClasses?: { [className: string]: string };
-};
-
-type Props = OwnProps & {
-  paymentMethodSelected: number;
-  selectPaymentMethod: (paymentMethod: number) => void;
+  children?: React.ReactNode;
 };
 
 export const PaymentStripe: React.FC<Props> = ({
-  paymentMethodSelected,
-  selectPaymentMethod,
   paymentMethodChoices,
   amountToPay,
   clientSecret,
@@ -48,6 +41,7 @@ export const PaymentStripe: React.FC<Props> = ({
   hideAmountToPay,
   dateFieldEndAdornment,
   customClasses,
+  children,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
@@ -62,9 +56,13 @@ export const PaymentStripe: React.FC<Props> = ({
 
   const [date, setDate] = React.useState(moment().format());
 
+  const [paymentMethodSelected, setPaymentMethodSelected] = React.useState(
+    PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
+  );
+
   const onPaymentMethodSelect = React.useCallback(
-    (ev) => selectPaymentMethod(parseInt(ev.target.value, 10)),
-    [selectPaymentMethod],
+    (ev) => setPaymentMethodSelected(parseInt(ev.target.value, 10)),
+    [],
   );
 
   const onPriceChange = React.useCallback(
@@ -97,6 +95,16 @@ export const PaymentStripe: React.FC<Props> = ({
       paymentMethodSelected,
       payment_note,
     ],
+  );
+
+  const onDateChange = React.useCallback((dateMoment: Moment) => {
+    setDate(dateMoment.format());
+  }, []);
+
+  const onPaymentNoteChange = React.useCallback(
+    (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
+      setPaymentNote(ev.target.value),
+    [],
   );
 
   return (
@@ -157,9 +165,7 @@ export const PaymentStripe: React.FC<Props> = ({
           disabled={processing}
           endAdornment={dateFieldEndAdornment}
           label={t('paymentPanel.date.label')}
-          onChange={(dateMoment) => {
-            setDate(dateMoment.format());
-          }}
+          onChange={onDateChange}
           value={date}
         />
       </div>
@@ -174,10 +180,11 @@ export const PaymentStripe: React.FC<Props> = ({
           disabled={processing || !clientSecret}
           helperText={t('paymentPanel.paymentNote.helperText')}
           label={t('paymentPanel.paymentNote.label')}
-          onChange={(ev) => setPaymentNote(ev.target.value)}
+          onChange={onPaymentNoteChange}
           value={payment_note}
           variant="outlined"
         />
+        {children ?? null}
         <div
           className={classNames(classes.actionRow, customClasses?.actionRow)}
         >
@@ -238,11 +245,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default compose<Props, OwnProps>(
-  withState(
-    'paymentMethodSelected',
-    'selectPaymentMethod',
-    PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
-  ),
-  React.memo,
-)(PaymentStripe);
+export default React.memo(PaymentStripe);

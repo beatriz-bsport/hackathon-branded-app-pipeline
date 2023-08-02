@@ -90,3 +90,8 @@ export const QUICKSALE_ITEMS_REQUIRING_AUTHENTICATION = [
   QuicksaleBasketItem.PrivatePassIdentifier,
   QuicksaleBasketItem.PaymentComboIdentifier,
 ];
+
+export const PAYMENT_METHODS_COMPATIBLE_WITH_INSTALMENT_PAYMENT = [
+  QuicksalePaymentMethod.CreditCard,
+  QuicksalePaymentMethod.Sepa,
+];

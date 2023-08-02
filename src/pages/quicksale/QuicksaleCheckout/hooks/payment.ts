@@ -11,15 +11,18 @@ import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook 
 
 import { requestClientSecret as requestClientSecretAPI } from '../../../../libs/invoice/api';
 import type { Theme } from '#libs/theme/types';
+import type { Basket } from '#libs/checkout/types';
 
 const useQuicksalePayments = ({
   basketId,
   setLoading,
   theme,
+  basket,
 }: {
   basketId: string;
   setLoading: (loading: boolean) => void;
   theme?: Theme;
+  basket?: Basket;
 }) => {
   // ========== Client secret and payment info ==========
   const [clientSecret, setClientSecret] = React.useState<string>(null);
@@ -85,6 +88,17 @@ const useQuicksalePayments = ({
         .catch((err) => console.error(err));
     }
   }, [basketId, paymentEngine, paymentMethod, setLoading]);
+
+  React.useEffect(() => {
+    fetchOrRefreshPaymentGroup();
+  }, [
+    fetchOrRefreshPaymentGroup,
+    basket?.total_price,
+    basket?.member,
+    basket?.total_price_prepaid_lines_cts,
+    basketId,
+    basket?.instalment_payment,
+  ]);
 
   return {
     clientSecret,

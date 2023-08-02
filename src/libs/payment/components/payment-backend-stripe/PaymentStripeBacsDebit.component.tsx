@@ -34,6 +34,7 @@ import {
 } from '../../api';
 import PaymentMethodList from '../payment-method-list';
 import PopOver from '#components/Popover';
+import { MarketplacePaymentMethods } from '#libs/marketplace/types';
 
 interface PaymentStripeBacsDebitProps {
   onCancel: () => void;
@@ -115,7 +116,10 @@ const PaymentStripeBacsDebit = forwardRef(
     useEffect(() => {
       fetchPaymentMethodListAPI({ member: memberId }).then((r) =>
         setPaymentMethodList(
-          r.data.filter((paymentMethod) => paymentMethod.type === 'bacs_debit'),
+          r.data.filter(
+            (paymentMethod) =>
+              paymentMethod.type === MarketplacePaymentMethods.bacs,
+          ),
         ),
       );
     }, [memberId, clientSecret, hasDetached]);

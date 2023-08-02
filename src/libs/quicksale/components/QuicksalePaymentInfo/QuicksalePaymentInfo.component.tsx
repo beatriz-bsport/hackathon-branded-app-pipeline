@@ -14,6 +14,7 @@ import {
 } from '@bsport/common/lib/master-data/payment-group';
 
 import {
+  PAYMENT_METHODS_COMPATIBLE_WITH_INSTALMENT_PAYMENT,
   QuicksalePaymentMethod,
   WARNING_FONT_COLOR,
 } from '#libs/quicksale/constants';
@@ -153,10 +154,9 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
         </PaymentBsportInternal>
       )}
 
-      {[
-        QuicksalePaymentMethod.CreditCard,
-        QuicksalePaymentMethod.Sepa,
-      ].includes(selectedPaymentMethod) && (
+      {PAYMENT_METHODS_COMPATIBLE_WITH_INSTALMENT_PAYMENT.includes(
+        selectedPaymentMethod,
+      ) && (
         <>
           <InstalmentPaymentSelector
             basketPriceCts={

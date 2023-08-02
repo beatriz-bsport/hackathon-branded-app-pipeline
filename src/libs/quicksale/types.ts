@@ -33,6 +33,7 @@ export type QuicksaleCardInfo = {
   sectionId: string;
   outOfStock?: boolean;
   restricted?: boolean;
+  tax?: string;
 };
 
 type QuicksaleItemsByCategory = {

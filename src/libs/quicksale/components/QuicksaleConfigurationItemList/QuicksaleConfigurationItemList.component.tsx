@@ -21,6 +21,7 @@ type Props = {
   loading?: boolean;
   isQuicksaleInterfaceView?: boolean;
   onItemClick?: (item: QuicksaleCardInfo) => void;
+  isExcludingTax?: boolean;
 };
 
 const QuicksaleConfigurationItemList: React.FC<Props> = (props) => {
@@ -32,6 +33,7 @@ const QuicksaleConfigurationItemList: React.FC<Props> = (props) => {
     loading,
     isQuicksaleInterfaceView,
     onItemClick,
+    isExcludingTax,
   } = props;
 
   const classes = useStyle({ isQuicksaleInterfaceView });
@@ -78,6 +80,7 @@ const QuicksaleConfigurationItemList: React.FC<Props> = (props) => {
                       addToBasket={onItemClick}
                       adminView={!isQuicksaleInterfaceView}
                       deleteItem={deleteItem}
+                      isExcludingTax={isExcludingTax}
                       item={item}
                       openColorModal={openColorModal}
                       outOfStock={item.outOfStock}

@@ -175,6 +175,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
             basket={basket}
             date={date}
             invoiceFootNote={invoiceFootNote}
+            isExcludingTax={theme.is_tax_excluded_in_marketplace}
             member={member}
             onCouponRemove={removeCoupon}
             openMemberAuthenticationModal={openMemberAuthenticationModal}

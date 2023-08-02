@@ -128,41 +128,40 @@ export const getCardInfoFromBuyableItem = (
         id,
         title: buyableItem.name,
         subtitle: `${t('objectCard.subtitle.paymentPack')} - ${
-          (<PaymentPack>buyableItem).credits === null
+          buyableItem.credits === null
             ? t('objectCard.subtitle.unlimited')
-            : `${(<PaymentPack>buyableItem).credits} ${t(
-                'objectCard.subtitle.credit',
-                {
-                  count: (<PaymentPack>buyableItem).credits,
-                },
-              )}`
+            : `${buyableItem.credits} ${t('objectCard.subtitle.credit', {
+                count: buyableItem.credits,
+              })}`
         }`,
-        price: Number((<PaymentPack>buyableItem).price),
+        price: Number(buyableItem.price),
         color: itemColor,
         sectionId: sectionId ?? '',
         outOfStock,
         restricted,
+        tax: buyableItem.tax.toString(),
       };
     case QuicksaleBasketItem.PrivatePassIdentifier:
       return {
         id,
         title: buyableItem.name,
         subtitle: `${t('objectCard.subtitle.privatePass')} - ${
-          (<PrivatePass>buyableItem).credits
+          buyableItem.credits
         } ${t('objectCard.subtitle.credit', {
-          count: (<PrivatePass>buyableItem).credits,
+          count: buyableItem.credits,
         })}`,
-        price: Number((<PrivatePass>buyableItem).price),
+        price: Number(buyableItem.price),
         color: itemColor,
         sectionId: sectionId ?? '',
         outOfStock,
         restricted,
+        tax: buyableItem.tax.toString(),
       };
     case QuicksaleBasketItem.PaymentComboIdentifier: {
       const numberOfProducts =
-        (<PaymentCombo>buyableItem).payment_packs.length +
-        (<PaymentCombo>buyableItem).private_passes.length +
-        (<PaymentCombo>buyableItem).shop_items.length;
+        buyableItem.payment_packs.length +
+        buyableItem.private_passes.length +
+        buyableItem.shop_items.length;
       return {
         id,
         title: buyableItem.name,
@@ -171,11 +170,12 @@ export const getCardInfoFromBuyableItem = (
         )} - ${numberOfProducts} ${t('objectCard.subtitle.product', {
           count: numberOfProducts,
         })}`,
-        price: Number((<PaymentCombo>buyableItem).price),
+        price: Number(buyableItem.price),
         color: itemColor,
         sectionId: sectionId ?? '',
         outOfStock,
         restricted,
+        tax: buyableItem.tax.toString(),
       };
     }
     case QuicksaleBasketItem.ShopItemIdentifier:
@@ -183,40 +183,40 @@ export const getCardInfoFromBuyableItem = (
         id,
         title: buyableItem.name,
         subtitle: t('objectCard.subtitle.shopProduct'),
-        price: Number((<ShopItem>buyableItem).price),
+        price: Number(buyableItem.price),
         color: itemColor,
         sectionId: sectionId ?? '',
         outOfStock,
         restricted,
+        tax: buyableItem.tva.toString(),
       };
     case QuicksaleBasketItem.SubscriptionIdentifier:
       return {
         id,
         title: buyableItem.name,
         subtitle: t('objectCard.subtitle.subscription'),
-        price: Number((<Contract>buyableItem).recurrent_price),
-        recurrence: t(
-          `objectCard.recurrence.${(<Contract>buyableItem).interval}`,
-          {
-            count: (<Contract>buyableItem).recurrence_basis,
-            recurrence_basis: (<Contract>buyableItem).recurrence_basis,
-          },
-        ),
+        price: Number(buyableItem.recurrent_price),
+        recurrence: t(`objectCard.recurrence.${buyableItem.interval}`, {
+          count: buyableItem.recurrence_basis,
+          recurrence_basis: buyableItem.recurrence_basis,
+        }),
         color: itemColor,
         sectionId: sectionId ?? '',
         outOfStock,
         restricted,
+        tax: '0',
       };
     default:
       return {
         id,
         title: buyableItem.name,
         subtitle: t('objectCard.subtitle.giftcard'),
-        price: Number((<Giftcard>buyableItem).price),
+        price: Number(buyableItem.price),
         color: itemColor,
         sectionId: sectionId ?? '',
         outOfStock,
         restricted,
+        tax: '0',
       };
   }
 };

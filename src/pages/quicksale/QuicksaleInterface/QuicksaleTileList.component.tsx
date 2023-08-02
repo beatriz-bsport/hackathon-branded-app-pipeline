@@ -26,6 +26,7 @@ type Props = {
   onSectionClick: (sectionId: string) => void;
   onItemClick?: (item: QuicksaleCardInfo) => void;
   loading?: boolean;
+  isExcludingTax?: boolean;
 };
 
 const QuicksaleTileList: React.FC<Props> = ({
@@ -38,6 +39,7 @@ const QuicksaleTileList: React.FC<Props> = ({
   onSectionClick,
   onItemClick,
   loading,
+  isExcludingTax,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('quicksale');
@@ -81,6 +83,7 @@ const QuicksaleTileList: React.FC<Props> = ({
                   >
                     <QuicksaleItemCard
                       addToBasket={onItemClick}
+                      isExcludingTax={isExcludingTax}
                       item={result}
                       outOfStock={result.outOfStock}
                       restrictedPurchase={result.restricted}
@@ -99,6 +102,7 @@ const QuicksaleTileList: React.FC<Props> = ({
     return (
       <QuicksaleConfigurationItemList
         isQuicksaleInterfaceView
+        isExcludingTax={isExcludingTax}
         itemList={itemCardInfoList}
         loading={loading}
         onItemClick={onItemClick}

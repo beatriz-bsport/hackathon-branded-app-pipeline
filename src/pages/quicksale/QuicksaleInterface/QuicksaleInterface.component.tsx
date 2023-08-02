@@ -302,6 +302,7 @@ const QuicksaleInterface: React.FC<Props> = ({
 
         <QuicksaleTileList
           currentSection={currentSection}
+          isExcludingTax={theme.is_tax_excluded_in_marketplace}
           itemCardInfoList={itemCardInfoList}
           loading={loading}
           onItemClick={onItemClick}

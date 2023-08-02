@@ -23,6 +23,7 @@ type Props = {
   outOfStock?: boolean;
   restrictedPurchase?: boolean;
   adminView?: boolean;
+  isExcludingTax?: boolean;
 };
 
 const QuicksaleItemCard: React.FC<Props> = (props) => {
@@ -34,6 +35,7 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
     outOfStock,
     restrictedPurchase,
     adminView,
+    isExcludingTax,
   } = props;
 
   const isMobile = useMediaQuery((theme: Theme) =>
@@ -102,7 +104,11 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
       <div className={classes.cardFooter}>
         <div className={classes.priceAndRecurrence}>
           <Typography className={classes.cardPrice} variant="subtitle2">
-            {getCurrencyDisplayWithPrice((item.price ?? 0).toFixed(2))}
+            {getCurrencyDisplayWithPrice(
+              (item.price ?? 0).toFixed(2),
+              isExcludingTax,
+              item.tax ?? '0',
+            )}
           </Typography>
 
           {item.recurrence && (

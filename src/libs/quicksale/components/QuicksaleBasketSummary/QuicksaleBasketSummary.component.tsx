@@ -67,6 +67,7 @@ type Props = {
   setInvoiceFootNote: (note: string) => void;
   onCouponRemove: (data: { checkout_item: string; quantity: number }) => void;
   removeInternalAccountPrepaidLine: (options?: OptionCallback<Basket>) => void;
+  isExcludingTax?: boolean;
 };
 
 const QuicksaleBasketSummary: React.FC<Props> = ({
@@ -79,6 +80,7 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
   setInvoiceFootNote,
   onCouponRemove,
   removeInternalAccountPrepaidLine,
+  isExcludingTax,
 }) => {
   const { t } = useTranslation('quicksale');
   const classes = useStyles();
@@ -197,6 +199,8 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
             <Typography className={classes.fontWeight500} variant="subtitle2">
               {getCurrencyDisplayWithPrice(
                 checkoutItem.unit_price * checkoutItem.quantity,
+                isExcludingTax,
+                checkoutItem.tax,
               )}
             </Typography>
           </div>

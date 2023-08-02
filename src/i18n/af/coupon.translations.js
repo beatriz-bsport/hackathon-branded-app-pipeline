@@ -15,6 +15,15 @@ const {
   COUPON_SUBSCRIPTION_MODE_NONE,
 } = require('@bsport/common/lib/master-data/coupon-subscription-mode');
 
+const {
+  COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS,
+  UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT,
+  UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT,
+  COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS,
+  COUPON_UNIQUE_CODE_NOT_AVAILABLE,
+  UNIQUE_CODE_LOCKED,
+} = require('../../libs/coupon/errors.ts');
+
 exports.default = {
   list: {
     isEmpty: 'Aucun code promotionnel enregistré',
@@ -175,6 +184,9 @@ exports.default = {
       placeholder: 'SPECIAL_RENTREE',
       not_applicable: "Ce code promo n'est pas applicable.",
       not_found: "Ce code promo n'est pas valide.",
+      [COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS]:
+        'Ce code ne peut être appliqué que sur un seul article.',
+      [UNIQUE_CODE_LOCKED]: 'Ce code unique est déjà lié à un panier ouvert',
     },
   },
   search: 'Rechercher un code promo',
@@ -270,6 +282,17 @@ exports.default = {
           "L'objet sur lequel appliquer la réduction doit être impérativement une carte de cours, une carte de rendez-vous, un pack ou un article du magasin",
         update_mode:
           'Si vous souhaitez modifier les codes enregistrés pour cette promotion vous pouvez ajouter les codes aux existants, ou remplacer les codes existants',
+        [COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS]:
+          'Vous ne pouvez pas fournir de code déjà utilisé dans un autre coupon.',
+        [UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT]:
+          'Certains des codes uniques ne peuvent pas être ajoutés car ils ont déjà été enregistrés.',
+        [UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT]:
+          'Certains codes uniques sont déjà enregistrés dans un autre coupon.',
+        [COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS]:
+          'Ce code ne peut être appliqué que sur un seul article.',
+        [COUPON_UNIQUE_CODE_NOT_AVAILABLE]:
+          'Ce code est déjà utilisé ou est actuellement attaché à un panier.',
+        [UNIQUE_CODE_LOCKED]: 'Ce code unique est déjà lié à un panier ouvert',
       },
     },
     voucherCodesDialog: {

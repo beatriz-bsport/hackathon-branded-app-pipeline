@@ -136,6 +136,9 @@ const {
   SPIVI_EVENT_DURATION_EXCEPTION,
   SPIVI_DOUBLE_BOOKING_ACTIVATION_EXCEPTION,
 } = require('@bsport/common/lib/master-data/error-codes/spivi');
+const {
+  CANNOT_REDEEM_CODE_BECAUSE_NOT_USED,
+} = require('../../libs/coupon/errors.ts');
 
 exports.default = {
   canNotBuyErrorCode: {
@@ -538,6 +541,10 @@ exports.default = {
     exportCodes: {
       success: "Bons d'achat correctement exportés",
       error: "Impossible d'exporter les codes sélectionnés",
+    },
+    errors: {
+      [CANNOT_REDEEM_CODE_BECAUSE_NOT_USED]:
+        "Un des codes à marquer comme utilisé n'a pas encore été utilisé.",
     },
   },
   email: {

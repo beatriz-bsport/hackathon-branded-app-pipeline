@@ -1314,6 +1314,8 @@
     "createCoupon": "Ajouter un code",
     "code": {
       "addCoupon": {
+        "5004": "Ce code ne peut être appliqué que sur un seul article.",
+        "5006": "Ce code unique est déjà lié à un panier ouvert",
         "apply": "Appliquer",
         "submit": "Valider",
         "cancel": "annuler",
@@ -1374,6 +1376,12 @@
           "popover": "Les codes non utilisés seront supprimés, mais les codes utilisés seront conservés."
         },
         "errors": {
+          "5000": "Vous ne pouvez pas fournir de code déjà utilisé dans un autre coupon.",
+          "5001": "Certains des codes uniques ne peuvent pas être ajoutés car ils ont déjà été enregistrés.",
+          "5003": "Certains codes uniques sont déjà enregistrés dans un autre coupon.",
+          "5004": "Ce code ne peut être appliqué que sur un seul article.",
+          "5005": "Ce code est déjà utilisé ou est actuellement attaché à un panier.",
+          "5006": "Ce code unique est déjà lié à un panier ouvert",
           "required": "Ce champ est requis",
           "positiveNumber": "La valeur doit être supérieure à 0",
           "expirationDate": {
@@ -10102,7 +10110,8 @@
       "createOrUpdate": { "success": "Code promotionnel enregistré", "error": "Erreur lors de l'enregistrement du code promotionnel" },
       "attachToBasket": { "error": "Aucun code promo compatible trouvé" },
       "templateInstance": { "create": { "error": "Impossible de partager cette promotion avec ce(s) studio(s)" } },
-      "exportCodes": { "success": "Bons d'achat correctement exportés", "error": "Impossible d'exporter les codes sélectionnés" }
+      "exportCodes": { "success": "Bons d'achat correctement exportés", "error": "Impossible d'exporter les codes sélectionnés" },
+      "errors": { "5002": "Un des codes à marquer comme utilisé n'a pas encore été utilisé." }
     },
     "email": {
       "create": { "success": "Email créé", "error": "Impossible d'enregistrer l'email" },

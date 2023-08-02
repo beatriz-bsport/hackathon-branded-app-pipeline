@@ -195,6 +195,7 @@ exports.default = {
     },
   },
   newBookingModule: {
+    reviewAndConfirm: 'Revoir et confirmer',
     filterAll: 'Tout',
     cards: { seeLess: 'Voir moins', seeMore: 'Voir plus' },
     choosePass: 'Choisir une carte de cours',
@@ -235,7 +236,7 @@ exports.default = {
       },
       isWaitingListFull: {
         title: `Liste d'attente pleine`,
-        message: `Cette séance et la liste d'attente sont complètes. Veuillez réessayer ultérieurement.`,
+        message: `Cette séance et la liste d'attente sont complètes.\nVeuillez réessayer ultérieurement.`,
       },
       isAlreadyOnWaitingList: {
         title: `Déjà sur liste d'attente`,
@@ -244,6 +245,11 @@ exports.default = {
       waitingListOpen: {
         title: 'Séance pleine',
         message: `Rejoignez la liste d'attente et vous recevrez un message dès qu'une place se libère.`,
+      },
+      noPassAvailable: {
+        title: 'Aucune carte de cours disponible',
+        message:
+          "Aucune carte de cours n'est disponible pour s'inscrire sur la liste d'attente.",
       },
     },
     subscriptions: 'Contrats',

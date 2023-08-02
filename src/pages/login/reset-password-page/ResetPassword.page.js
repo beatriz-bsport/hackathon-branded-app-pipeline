@@ -220,17 +220,20 @@ export class ResetPassword extends Component<Props, State> {
 
 export default compose(
   withTranslation(['authentication']),
-  connect(
-    (state) => ({
-      resetError: state.auth.resetPassword.error,
-      loading: state.auth.resetPassword.loading,
-      last_password_reset_request:
-        state.auth.resetPassword.last_password_reset_request,
-    }),
-    { resetPassword },
-  ),
   withProps((props) => ({
     membership: parseQueryString(props.location.search)?.membership,
     franchisorId: parseQueryString(props.location.search)?.franchisor,
   })),
+  connect(
+    (state, { membership }) => {
+      return {
+        resetError: state.auth.resetPassword.error,
+        loading: state.auth.resetPassword.loading,
+        last_password_reset_request:
+          state.auth.resetPassword.last_password_reset_request,
+        simplifyUI: !!membership && state.theme.theme.display_new_checkout_flow,
+      };
+    },
+    { resetPassword },
+  ),
 )(ResetPassword);

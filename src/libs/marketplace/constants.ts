@@ -1,4 +1,9 @@
 import {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+} from '@bsport/common/lib/master-data/payment-group';
+import {
   EXPORTABLE_COMPONENTS,
   EXPORTABLE_COMPONENT_TYPE_VOD,
   EXPORTABLE_COMPONENT_TYPE_CALENDAR,
@@ -10,6 +15,7 @@ import {
   EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION,
   EXPORTABLE_COMPONENT_TYPE_GIFTCARD,
 } from '../exportable-components/constants';
+import { MarketplacePaymentMethods } from '#libs/marketplace/types';
 
 export const MARKETPLACE_SUPPORTED_EXPORTABLE_COMPONENTS = [
   EXPORTABLE_COMPONENT_TYPE_VOD,
@@ -110,3 +116,9 @@ export enum CARD_VARIANTS {
   MARKETPLACE = 'marketplace',
   PRICING_PAGE = 'pricing_page',
 }
+
+export const MAP_MARKETPLACE_PAYMENT_METHOD_TO_IDENTIFIER = {
+  [MarketplacePaymentMethods.card]: PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  [MarketplacePaymentMethods.sepa]: PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+  [MarketplacePaymentMethods.bacs]: PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
+};

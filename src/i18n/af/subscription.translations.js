@@ -837,5 +837,8 @@ exports.default = {
       payNow: 'Payer maintenant',
       message: 'Vous pourrez voir votre abonnement sur la page de votre profil',
     },
+    payment: {
+      details: 'Détails de paiement',
+    },
   },
 };

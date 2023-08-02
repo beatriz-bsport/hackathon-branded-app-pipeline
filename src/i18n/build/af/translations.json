@@ -11370,7 +11370,8 @@
         "seeLess": "Voir moins",
         "acceptTerms": "J'accepte les <0>mentions légales</0>."
       },
-      "subscriptionBasketSummary": { "payNow": "Payer maintenant", "message": "Vous pourrez voir votre abonnement sur la page de votre profil" }
+      "subscriptionBasketSummary": { "payNow": "Payer maintenant", "message": "Vous pourrez voir votre abonnement sur la page de votre profil" },
+      "payment": { "details": "Détails de paiement" }
     }
   },
   "tag": {

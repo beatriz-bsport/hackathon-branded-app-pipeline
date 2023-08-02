@@ -1,0 +1,56 @@
+.bs-contract-payment__payment__methods__container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.bs-contract-payment__payment__methods__add {
+  display: flex;
+  font-family: var(--button-fontFamily);
+  font-size: var(--button-fontSize);
+  font-weight: var(--button-fontWeight);
+  letter-spacing: var(--button-letterSpacing);
+  line-height: var(--button-lineHeight);
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--border-radius-6);
+  cursor: pointer;
+  padding: calc(var(--spacing-1) / 2) var(--spacing-2);
+  background: none;
+  margin-top: var(--spacing-2);
+  color: (var(--color-grey-dark));
+  gap: var(--spacing-1);
+  width: fit-content;
+}
+
+.bs-contract-payment__payment__details-title {
+  font-size: var(--h6-fontSize);
+  font-weight: var(--fontWeightMedium);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-1);
+  display: flex;
+  align-items: center;
+}
+
+.bs-contract-payment__payment__details {
+  width: 100%;
+}
+
+.bs-contract-payment__payment__details-icon-container {
+  padding: var(--spacing-1);
+  border-radius: var(--spacing-1);
+  margin-left: var(--spacing-1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bs-contract-payment__payment__details-icon-container:hover {
+  background: var(--color-grey-light);
+}
+
+.bs-contract-payment__payment__details-icon {
+  color: var(--color-grey-600);
+  margin: auto;
+}

@@ -1,5 +1,9 @@
 import { Moment } from 'moment-timezone';
 
+/*
+ * TODO update offer waiting list status codes
+ *https://gitlab.com/bsport/bsport-saas/-/issues/2106
+ */
 import {
   OFFER_BOOKABLE_STATUS_BOOKABLE,
   OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON,
@@ -9,11 +13,13 @@ import {
 } from '@bsport/common/lib/master-data/bookable-status';
 import {
   OFFER_WAITING_LIST_STATUS_OPEN,
-  OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED,
-  OFFER_WAITING_LIST_STATUS_CONVERTIBLE,
   OFFER_WAITING_LIST_LOCKED_BY_PENDING_BOOKINGS,
 } from '@bsport/common/lib/master-data/waiting-list-status';
-import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
+import {
+  OFFER_WAITING_LIST_STATUS_FULL,
+  OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED,
+  OFFER_WAITING_LIST_STATUS_CONVERTIBLE,
+} from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
 import { ErrorAndLoading } from '../types';
 import { Establishment } from '../establishment/types';
 import { MetaActivity } from '../meta-activity/types';

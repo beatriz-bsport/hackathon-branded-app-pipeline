@@ -8,12 +8,11 @@ import PriceCountForStorybook, {
 import {
   BUYABLE_ITEM_COUPON,
   BUYABLE_ITEM_PRIVATE_PASS,
-  BUYABLE_ITEM_SUBSCRIPTION,
 } from '@bsport/common/lib/master-data/buyable-items';
+import { CONTRACT_BOOKING_FUNNEL_IDENTIFIER } from '#libs/marketplace/constants';
 import { PrepaidLine } from '#libs/checkout/types';
 
 const PriceCountTemplate = (args: PriceCountProps) => (
-  // @ts-ignore
   <div
     style={{
       width: '374px',
@@ -59,7 +58,7 @@ const flatFeeItem = {
   id: '123456',
   unit_price: 8,
   name: 'Flat fee',
-  buyable_item_identifier: BUYABLE_ITEM_SUBSCRIPTION,
+  buyable_item_identifier: CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
   buyable_item_id: 1234567,
   editable: false,
   clearable: false,

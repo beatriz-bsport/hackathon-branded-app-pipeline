@@ -7,8 +7,8 @@ import Divider from '@material-ui/core/Divider';
 import {
   BUYABLE_ITEM_COUPON,
   BUYABLE_ITEM_FEE,
-  BUYABLE_ITEM_SUBSCRIPTION,
 } from '@bsport/common/lib/master-data/buyable-items';
+import { CONTRACT_BOOKING_FUNNEL_IDENTIFIER } from '#libs/marketplace/constants';
 import {
   Basket,
   CheckoutItem,
@@ -26,8 +26,8 @@ export type PriceCountProps = {
   isDeleteButtonDisabled: boolean;
   isExcludingTax?: boolean;
   onRemoveCheckoutItem: (onRemoveItemdata: OnRemoveCheckoutItemData) => void;
-  onRemoveInternalAccountPrepaidLine: () => void;
-  prepaidLines: Array<PrepaidLine>;
+  onRemoveInternalAccountPrepaidLine?: () => void;
+  prepaidLines?: Array<PrepaidLine>;
 };
 
 export const PriceCount: React.FC<PriceCountProps> = ({
@@ -54,7 +54,8 @@ export const PriceCount: React.FC<PriceCountProps> = ({
     () =>
       basket.checkout_items?.find(
         (checkoutItem) =>
-          checkoutItem.buyable_item_identifier === BUYABLE_ITEM_SUBSCRIPTION,
+          checkoutItem.buyable_item_identifier ===
+          CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
       ),
     [basket.checkout_items],
   );

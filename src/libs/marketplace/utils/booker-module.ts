@@ -280,7 +280,7 @@ export const getBookingBlockedReasonIcon = (icon: string) => {
 export const buildDataForUserRegistration = (
   offerFeature: OfferFeature,
   selectedItem: BookerItem,
-  goToSubscriptionPage: (contractId: number) => void,
+  goToSubscriptionPage?: (contractId: number) => void,
   offerId: number,
   selectedSpotId: number | null,
 ) => {

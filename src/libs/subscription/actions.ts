@@ -47,6 +47,7 @@ import {
   SubscriptionQueryParams,
   ContractPauseRequestData,
   ContractPauseDetails,
+  RegisterBackgroundReturnValue,
 } from './types';
 
 import { fetchEventList } from '../event/actions';
@@ -1012,8 +1013,9 @@ export const registerContractBackgroundActions = {
 export function registerContractBackground(
   id: number,
   data: any,
-  options?: OptionBackgroundCallback,
+  options?: OptionBackgroundCallback<void, RegisterBackgroundReturnValue>,
   noAuth: boolean = false,
+  hideBackgroundTaskSnackbar: boolean = false,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(registerContractBackgroundActions.isLoading(true));
@@ -1027,18 +1029,24 @@ export function registerContractBackground(
 
       const backgroundTaskUuid = response.headers['x-background-task-uuid'];
       dispatch(
-        monitorBackgroundTask(backgroundTaskUuid, {
-          onError: (err) => {
-            console.error(err);
-            if (options?.onBackgroundError) options.onBackgroundError(err);
+        monitorBackgroundTask(
+          backgroundTaskUuid,
+          {
+            onError: (err) => {
+              console.error(err);
+              if (options?.onBackgroundError) options.onBackgroundError(err);
+            },
+            onSuccess: (responseData) => {
+              dispatch(
+                registerContractBackgroundActions.success(response.data),
+              );
+              if (options && options.onBackgroundSuccess) {
+                options.onBackgroundSuccess(responseData?.return_value);
+              }
+            },
           },
-          onSuccess: (responseData) => {
-            dispatch(registerContractBackgroundActions.success(response.data));
-            if (options && options.onBackgroundSuccess) {
-              options.onBackgroundSuccess(responseData?.return_value);
-            }
-          },
-        }),
+          hideBackgroundTaskSnackbar,
+        ),
       );
 
       if (options && options.onSuccess) {

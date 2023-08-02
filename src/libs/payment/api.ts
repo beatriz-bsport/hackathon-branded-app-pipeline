@@ -54,7 +54,7 @@ export const requestSetupIntentSecret = async (
   as_company: boolean = false,
   payment_method: string = '',
 ) => {
-  return postAuth(
+  return postAuth<{ client_secret: string }>(
     `${API_V1_URI}/payment/payment_method/register_setup_intent/`,
     {
       member,

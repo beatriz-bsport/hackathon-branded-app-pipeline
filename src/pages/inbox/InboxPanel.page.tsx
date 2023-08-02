@@ -200,11 +200,7 @@ const connector = connect(
       withMetaActivity(
         // @ts-expect-error
         withGroup(withCustomLevel(withEstablishment(withCoach(getOfferById)))),
-      )(
-        state,
-        // @ts-expect-error
-        thread?.related_object_id,
-      ),
+      )(state, thread?.related_object_id),
     theme: getTheme(state),
   }),
   {

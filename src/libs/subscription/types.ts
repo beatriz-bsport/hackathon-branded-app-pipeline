@@ -272,3 +272,8 @@ export type ContractFactoryOptions = {
   monthBillingDay?: number;
   isHighlightedAsRecommended?: boolean;
 };
+
+export type RegisterBackgroundReturnValue = {
+  billing_plan: Subscription;
+  compatible_consumer_payment_pack_id: number | null;
+};

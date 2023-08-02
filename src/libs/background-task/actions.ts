@@ -55,12 +55,21 @@ export function fetchBackgroundTask(uuid: string) {
 export function monitorBackgroundTask(
   uuid: string,
   options?: OptionCallback<BackgroundTask>,
+  hideBackgroundTaskSnackbar: boolean = false,
 ) {
   return (dispatch: Dispatch, getState: () => State) => {
     fetchFailedCounter = 0;
-    dispatch(pendingBackgroundSnackbar(uuid, 'background.pending'));
+    if (!hideBackgroundTaskSnackbar)
+      dispatch(pendingBackgroundSnackbar(uuid, 'background.pending'));
     // The param 0 represents the current timeout index
-    checkFetchSetTimeoutRecursive(dispatch, getState, 0, uuid, options);
+    checkFetchSetTimeoutRecursive(
+      dispatch,
+      getState,
+      0,
+      uuid,
+      options,
+      hideBackgroundTaskSnackbar,
+    );
   };
 }
 
@@ -70,15 +79,20 @@ const checkFetchSetTimeoutRecursive = async (
   timeout_index: number,
   uuid: string,
   options: OptionCallback<BackgroundTask>,
+  hideBackgroundTaskSnackbar: boolean = false,
 ) => {
   if (timeout_index >= TIMEOUTS.length) {
-    dispatch(deleteBackgroundSnackbar(uuid));
-    dispatch(backgroundSnackbarWarning(uuid, 'background.timeout'));
+    if (!hideBackgroundTaskSnackbar) {
+      dispatch(deleteBackgroundSnackbar(uuid));
+      dispatch(backgroundSnackbarWarning(uuid, 'background.timeout'));
+    }
     return;
   }
   if (fetchFailedCounter >= MAX_RETRY) {
-    dispatch(deleteBackgroundSnackbar(uuid));
-    dispatch(backgroundSnackbarError(uuid, 'background.cannotFetch'));
+    if (!hideBackgroundTaskSnackbar) {
+      dispatch(deleteBackgroundSnackbar(uuid));
+      dispatch(backgroundSnackbarError(uuid, 'background.cannotFetch'));
+    }
     return;
   }
   await fetchBackgroundTask(uuid)(dispatch);
@@ -95,13 +109,15 @@ const checkFetchSetTimeoutRecursive = async (
       getState().backgroundTask.byUuid[uuid].status ===
       BACKGROUND_TASK_STATUS_CODE_SUCCESS
     ) {
-      dispatch(backgroundSnackbarSuccess(uuid, 'background.success'));
+      !hideBackgroundTaskSnackbar &&
+        dispatch(backgroundSnackbarSuccess(uuid, 'background.success'));
       if (options && options.onSuccess) options.onSuccess(data);
     } else if (
       getState().backgroundTask.byUuid[uuid].status ===
       BACKGROUND_TASK_STATUS_CODE_FAILED
     ) {
-      dispatch(backgroundSnackbarError(uuid, 'background.error'));
+      !hideBackgroundTaskSnackbar &&
+        dispatch(backgroundSnackbarError(uuid, 'background.error'));
       if (options && options.onError) options.onError();
     }
   } else {
@@ -113,6 +129,7 @@ const checkFetchSetTimeoutRecursive = async (
           timeout_index + 1,
           uuid,
           options,
+          hideBackgroundTaskSnackbar,
         ),
       fetchFailedCounter > 0
         ? FETCH_RETRY_DELAY * 1000

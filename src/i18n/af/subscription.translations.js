@@ -839,6 +839,7 @@ exports.default = {
     },
     payment: {
       details: 'Détails de paiement',
+      tooltip: 'Ce moyen de paiement sera conservé pour être facturé conformément au contrat. Ne vous inquiétez pas, vous pourrez le modifier ultérieurement à partir de votre compte.'
     },
   },
 };

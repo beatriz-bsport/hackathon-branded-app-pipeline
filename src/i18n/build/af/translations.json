@@ -11371,7 +11371,10 @@
         "acceptTerms": "J'accepte les <0>mentions légales</0>."
       },
       "subscriptionBasketSummary": { "payNow": "Payer maintenant", "message": "Vous pourrez voir votre abonnement sur la page de votre profil" },
-      "payment": { "details": "Détails de paiement" }
+      "payment": {
+        "details": "Détails de paiement",
+        "tooltip": "Ce moyen de paiement sera conservé pour être facturé conformément au contrat. Ne vous inquiétez pas, vous pourrez le modifier ultérieurement à partir de votre compte."
+      }
     }
   },
   "tag": {

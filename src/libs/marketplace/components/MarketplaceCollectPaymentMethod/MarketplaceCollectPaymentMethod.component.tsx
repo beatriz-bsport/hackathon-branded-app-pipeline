@@ -72,6 +72,7 @@ export type Props = {
   paymentMethodFetchDone: boolean;
   isContractLegalTermsAccepted: boolean;
   companyCountry?: string;
+  paymentMethodLoading?: boolean;
 };
 
 type PaymentMethodInputProps = {
@@ -152,6 +153,7 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
     paymentMethodFetchDone,
     isContractLegalTermsAccepted,
     companyCountry,
+    paymentMethodLoading,
   }) => {
     const [
       isSepaDebitBillingAddressRequired,
@@ -240,7 +242,7 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
     ]);
 
     useEffect(() => {
-      if (!clientSecret && isOpen) {
+      if (!clientSecret && isOpen && !paymentMethodLoading) {
         const getClientSecret = async () => {
           try {
             const clientSecretResponse = await requestSetupIntentSecret();
@@ -271,6 +273,7 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
       detectSepaDebitNeedsBillingAddress,
       handleRetry,
       requestSetupIntentSecret,
+      paymentMethodLoading,
     ]);
 
     const onDialogClose = useCallback(() => {

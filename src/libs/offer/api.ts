@@ -252,6 +252,12 @@ export const listOffersWithRefusedReplacementRequestIds = (data: {
   );
 };
 
+export const invalidatePendingBooking = (offerId: number) =>
+  patchAuth<void>(
+    `${API_V1_URI}/offer/${offerId}/invalidate_pending_booking_for_billing_plan/`,
+    {},
+  );
+
 export default {
   fetchAllEvents,
   fetchCompatiblePacks,

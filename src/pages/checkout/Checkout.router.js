@@ -22,7 +22,7 @@ const MarketplaceAsManager = asyncComponent(() =>
 );
 
 const OfferBooker = asyncComponent(() =>
-  import('./booker-modules/OfferBooker/OfferBooking.page'),
+  import('./booker-modules/OfferBooker/BoutiqueBookerModule.page'),
 );
 const PaymentPackPreCheckout = asyncComponent(() =>
   import('./pre-checkout/PaymentPackPreCheckout.page'),
@@ -49,9 +49,7 @@ const PaymentComboPreCheckoutPage = asyncComponent(() =>
 const PrivatePassPreCheckout = asyncComponent(() =>
   import('./pre-checkout/PrivatePassPreCheckout.page'),
 );
-const ContractCheckout = asyncComponent(() =>
-  import('./ContractCheckout.page'),
-);
+const ContractCheckout = asyncComponent(import('./ContractCheckout.page'));
 const ContractCheckoutValidation = asyncComponent(() =>
   import('./ContractCheckoutValidation.page'),
 );

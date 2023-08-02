@@ -138,6 +138,10 @@ const useStyles = makeStyles((theme) => ({
     '&:disabled': {
       backgroundColor: theme.palette.grey[100],
     },
+    color: theme.palette.primary.contrastText,
+    '&:hover': {
+      backgroundColor: theme.palette.primary.dark,
+    },
   },
   couponInputContainer: {
     display: 'flex',

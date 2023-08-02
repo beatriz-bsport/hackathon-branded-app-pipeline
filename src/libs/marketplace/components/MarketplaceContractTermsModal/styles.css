@@ -28,6 +28,7 @@
   padding: var(--spacing-2) var(--spacing-3);
   overflow-y: auto;
   max-height: 500px;
+  white-space: pre-wrap;
 }
 
 .bs-contract-terms-dialog__actions {

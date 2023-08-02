@@ -10,6 +10,10 @@ const useIsTextExpandable = (showMore: boolean) => {
       showMore ||
         textRef?.current?.scrollHeight > textRef?.current?.clientHeight,
     );
+    // scroll back to the top when shrinking
+    if (!showMore) {
+      textRef?.current?.scrollTo?.(0, 0);
+    }
   }, [
     showMore,
     textRef?.current?.scrollHeight,

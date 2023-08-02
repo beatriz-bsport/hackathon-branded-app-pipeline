@@ -75,28 +75,29 @@ export const getSimilarsPage = (state: RootState) =>
 export const getSimilarsCount = (state: RootState) =>
   state.offer.similarOffers.count;
 
-export const withMetaActivity = memoize((selector: (state: RootState) => any) =>
-  createSelector(
-    [selector, getMetaActivityAbstractDict, getWorkshopActivitiesDict],
-    (offers, metaActivityData, workshopData) => {
-      if (!offers) return null;
-      if (!Array.isArray(offers)) {
-        return {
-          ...offers,
+export const withMetaActivity = memoize(
+  (selector: (state: RootState, offerId?: number) => any) =>
+    createSelector(
+      [selector, getMetaActivityAbstractDict, getWorkshopActivitiesDict],
+      (offers, metaActivityData, workshopData) => {
+        if (!offers) return null;
+        if (!Array.isArray(offers)) {
+          return {
+            ...offers,
+            meta_activity:
+              metaActivityData[offers.meta_activity] ||
+              workshopData[offers.meta_activity],
+          };
+        }
+        return offers.map((o) => ({
+          ...o,
           meta_activity:
-            metaActivityData[offers.meta_activity] ||
-            workshopData[offers.meta_activity],
-        };
-      }
-      return offers.map((o) => ({
-        ...o,
-        meta_activity:
-          metaActivityData[o.meta_activity] ||
-          workshopData[o.meta_activity] ||
-          o.meta_activity,
-      }));
-    },
-  ),
+            metaActivityData[o.meta_activity] ||
+            workshopData[o.meta_activity] ||
+            o.meta_activity,
+        }));
+      },
+    ),
 );
 
 export const withEstablishment = memoize(

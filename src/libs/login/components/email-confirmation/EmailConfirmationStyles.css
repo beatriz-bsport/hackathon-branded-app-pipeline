@@ -98,4 +98,7 @@
   .bs-email-confirmation-content__bottom-container {
     margin-top: var(--spacing-2);
   }
+  .bs-email-confirmation-content__icon-container {
+    margin-top: 0;
+  }
 }

@@ -395,3 +395,9 @@ export enum MarketplaceOfferStatus {
 export type UserRegistrationParams = {
   check_offer_unicity?: boolean;
 };
+
+export enum OfferSummaryVariant {
+  DEFAULT = 'default',
+  BASKET = 'basket',
+  BOOKING = 'booking',
+}

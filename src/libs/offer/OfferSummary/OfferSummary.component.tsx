@@ -27,7 +27,12 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
 import { DEFAULT_AVATAR } from '#libs/associated-coach/utils';
-import type { OfferStatus, Offer_FULL, Offer } from '#libs/offer/types';
+import {
+  type OfferStatus,
+  type Offer_FULL,
+  type Offer,
+  OfferSummaryVariant,
+} from '#libs/offer/types';
 import { CompanyTheme } from '#libs/theme/types';
 
 import BookingConfirmButton from '#libs/booking/components/BookingConfirmButton.component';
@@ -70,9 +75,10 @@ export type Props = {
   confirmLoading?: boolean;
   offerStatus?: OfferStatus;
   loading?: boolean;
-  variant: 'default' | 'basket';
+  variant: OfferSummaryVariant;
   tax?: number;
   theme: CompanyTheme;
+  isBookingButtonHidden?: boolean;
 };
 
 const OfferSummary: React.FC<Props> = ({

@@ -29,7 +29,10 @@ import {
   StepType,
   STEPS,
 } from '../../types';
-import type { OptionCallback } from '../../../../state/types';
+import type {
+  OptionCallback,
+  OptionCallBackWithKeyedCallbacks,
+} from '../../../../state/types';
 import { ActivitiesSummary } from './ActivitiesSummary.component';
 import { BasketSummary } from './BasketSummary.component';
 import CouponCodeInput from './CouponCodeInput.component';
@@ -48,6 +51,8 @@ import {
   useSubmitButtonsDisplayableState,
   useSubmitButtonsProcessingState,
 } from './submitButtonsHooks';
+import { Coupon } from '#libs/coupon/types';
+import { CouponErrorCodes } from '#libs/coupon/constants';
 
 // These checkout item types are displayed in the bill after the basket summary
 const BILL_CHECKOUT_ITEMS = [BUYABLE_ITEM_COUPON, BUYABLE_ITEM_FEE];
@@ -59,7 +64,10 @@ type NewCheckoutFlowProps = {
     options?: OptionCallback,
   ) => void;
   allowConsumerToUseInternalAccount: boolean;
-  attachCoupon: (code: string, options: OptionCallback) => void;
+  attachCoupon: (
+    code: string,
+    options: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
+  ) => void;
   auth: any;
   basket: Basket<string, PrepaidLine>;
   basketLoading: boolean;

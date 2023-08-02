@@ -9,6 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core';
+import { COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS } from '../constants';
 
 type Props = {
   onSubmit: (
@@ -17,7 +18,7 @@ type Props = {
       onSuccess?: () => void;
       onError?: (error?: Error) => void;
       onNotFound?: () => void;
-    },
+    } & { [errorCode: number]: () => void },
   ) => void;
   loading?: boolean;
   disabled?: boolean;
@@ -26,6 +27,7 @@ type Props = {
 enum ERRORTYPE {
   COUPON_NOT_APPLICABLE = 'not_applicable',
   COUPON_NOT_FOUND = 'not_found',
+  ON_SEVERAL_ITEMS = COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS,
   EMPTY = '',
 }
 export const CouponCodeForm: React.FC<Props> = ({
@@ -51,6 +53,10 @@ export const CouponCodeForm: React.FC<Props> = ({
         setModalLoading(false);
         setError(ERRORTYPE.EMPTY);
         setCode('');
+      },
+      [COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS]: () => {
+        setModalLoading(false);
+        setError(ERRORTYPE.ON_SEVERAL_ITEMS);
       },
       onError: () => {
         setModalLoading(false);
@@ -87,12 +93,12 @@ export const CouponCodeForm: React.FC<Props> = ({
             value={code}
             variant="outlined"
           />
+          {error && (
+            <Typography className={classes.errorMessage} color="error">
+              {t(`code.addCoupon.${error}`)}
+            </Typography>
+          )}
         </DialogContent>
-        {error && (
-          <Typography className={classes.marginLeft} color="error">
-            {t(`code.addCoupon.${error}`)}
-          </Typography>
-        )}
         <DialogActions>
           <Button onClick={onCancel}>{t('code.addCoupon.cancel')}</Button>
           {modalLoading ? (
@@ -114,8 +120,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  marginLeft: {
-    marginLeft: theme.spacing(2),
+  errorMessage: {
+    marginTop: theme.spacing(2),
+    maxWidth: '220px',
   },
 }));
 

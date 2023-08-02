@@ -43,7 +43,10 @@ type Props = {
   processing: boolean,
   backToCalendar: () => void,
   patchBasket: (data: any) => void,
-  attachCoupon: (basketId: string, code: string) => void,
+  attachCoupon: (
+    code: string,
+    options: OptionCallback & { [errorCode: number]: () => void },
+  ) => void,
   paymentModule: any,
   processing: boolean,
   validateUnpaid: (options: OptionsCallback) => void,

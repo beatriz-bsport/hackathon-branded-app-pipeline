@@ -87,7 +87,10 @@ import { fetchProfile } from '../../../libs/consumer-space/actions';
 import CheckPaymentStatus from './CheckPaymentStatus.component';
 import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 import { getUsableCreditAccountBalance } from '#libs/membership/selectors';
-import type { OptionCallback } from '../../../state/types';
+import type {
+  OptionCallback,
+  OptionCallBackWithKeyedCallbacks,
+} from '../../../state/types';
 import { fetchMember } from '#libs/member/actions';
 import { BasketAddress } from '#libs/checkout/types';
 import { fetchMembership } from '#libs/membership/actions';
@@ -96,6 +99,7 @@ import {
   getCheckoutValidationUrl,
   getUserSpaceUrl,
 } from '#libs/marketplace/routing-utils';
+import { CouponErrorCodes } from '#libs/coupon/constants';
 
 type Props = {
   basket: ?Basket,
@@ -119,7 +123,7 @@ type Props = {
   attachCoupon: (
     basketId: string,
     code: string,
-    options?: { onSuccess?: () => void, onError?: () => void },
+    options?: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
   ) => void,
 
   shopItemList: Array<ShopItem>,
@@ -309,7 +313,10 @@ export class BasketPage extends React.Component<Props> {
     this.props.goBack();
   };
 
-  attachCoupon = (code: string, options: OptionCallback) => {
+  attachCoupon = (
+    code: string,
+    options: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
+  ) => {
     this.props.attachCoupon(this.props.basket.id, code, {
       onSuccess: () => {
         this.props.refreshBasket(options);
@@ -319,6 +326,20 @@ export class BasketPage extends React.Component<Props> {
           options.onError();
         }
       },
+      [CouponErrorCodes.COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS]:
+        () => {
+          if (
+            options &&
+            options[
+              CouponErrorCodes
+                .COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS
+            ]
+          )
+            options[
+              CouponErrorCodes
+                .COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS
+            ]();
+        },
     });
   };
 

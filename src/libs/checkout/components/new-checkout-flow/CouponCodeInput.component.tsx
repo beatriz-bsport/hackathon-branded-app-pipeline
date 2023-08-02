@@ -7,20 +7,21 @@ import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles, useTheme } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
+import { OptionCallBackWithKeyedCallbacks } from '../../../../state/types';
 import TextFieldWithCustomColors from '#components/input/text-field/TextFieldWithCustomColors.component';
+import { CouponErrorCodes } from '#libs/coupon/constants';
+import { Coupon } from '#libs/coupon/types';
 
-enum ERRORTYPE {
+enum ErrorType {
   COUPON_NOT_APPLICABLE = 'not_applicable',
+  ON_SEVERAL_ITEMS = CouponErrorCodes.COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS,
   EMPTY = '',
 }
 
 type CouponCodeInputProps = {
   onSubmit: (
     code: string,
-    options: {
-      onSuccess?: () => void;
-      onError?: (error?: Error) => void;
-    },
+    options?: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
   ) => void;
   isBasketModificationDisabled: boolean;
 };
@@ -33,7 +34,7 @@ const CouponCodeInput: React.FC<CouponCodeInputProps> = ({
   const theme = useTheme();
   const [couponCode, setCouponCode] = React.useState('');
   const [couponProcessing, setCouponProcessing] = React.useState(false);
-  const [error, setError] = React.useState<ERRORTYPE>(ERRORTYPE.EMPTY);
+  const [error, setError] = React.useState<ErrorType>(ErrorType.EMPTY);
   const { t } = useTranslation('coupon');
 
   const handleCouponCodeChange = React.useCallback(
@@ -45,22 +46,27 @@ const CouponCodeInput: React.FC<CouponCodeInputProps> = ({
 
   const handleClearCouponCode = React.useCallback(() => {
     setCouponCode('');
-    setError(ERRORTYPE.EMPTY);
+    setError(ErrorType.EMPTY);
   }, []);
 
   const handleApplyCouponCode = React.useCallback(() => {
     setCouponProcessing(true);
-    setError(ERRORTYPE.EMPTY);
+    setError(ErrorType.EMPTY);
     onSubmit(couponCode, {
       onSuccess: () => {
         setCouponProcessing(false);
-        setError(ERRORTYPE.EMPTY);
+        setError(ErrorType.EMPTY);
         setCouponCode('');
       },
       onError: () => {
         setCouponProcessing(false);
-        setError(ERRORTYPE.COUPON_NOT_APPLICABLE);
+        setError(ErrorType.COUPON_NOT_APPLICABLE);
       },
+      [CouponErrorCodes.COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS]:
+        () => {
+          setCouponProcessing(false);
+          setError(ErrorType.ON_SEVERAL_ITEMS);
+        },
     });
   }, [couponCode, onSubmit]);
 
@@ -88,9 +94,9 @@ const CouponCodeInput: React.FC<CouponCodeInputProps> = ({
             </IconButton>
           </InputAdornment>
         }
-        error={error !== ERRORTYPE.EMPTY}
+        error={error !== ErrorType.EMPTY}
         helperText={
-          error !== ERRORTYPE.EMPTY ? t(`code.addCoupon.${error}`) : null
+          error !== ErrorType.EMPTY ? t(`code.addCoupon.${error}`) : null
         }
         label={t('code.addCoupon.label')}
         name="coupon_code-input"

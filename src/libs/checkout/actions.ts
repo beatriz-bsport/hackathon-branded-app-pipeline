@@ -29,7 +29,12 @@ import {
 import { getCurrentBasket } from './selectors';
 import { snackbarError } from '#libs/snackbar/actions';
 
-import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import type {
+  Dispatch,
+  ThunkAction,
+  OptionCallback,
+  OptionCallBackWithKeyedCallbacks,
+} from '../../state/types';
 import type { RootState } from '../../reducers';
 import type {
   AddItemToBasketParams,
@@ -319,7 +324,7 @@ export function patchCurrentBasket(
 export function attachCoupon(
   basketId: string,
   code: string,
-  options?: OptionCallback<Basket>,
+  options?: OptionCallBackWithKeyedCallbacks<Basket>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(currentBasket.isUpdating(true));
@@ -330,17 +335,25 @@ export function attachCoupon(
       dispatch(currentBasket.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
-      if (
-        error.response?.status === 499 &&
-        error.response?.data?.error_code === BASKET_PROCESSING_PAYMENT_EXCEPTION
-      ) {
-        dispatch(
-          snackbarError(`modifyBasket.${BASKET_PROCESSING_PAYMENT_EXCEPTION}`),
-        );
+      if (error.response?.status === 499 && error.response?.data?.error_code) {
+        if (
+          error.response?.data?.error_code ===
+          BASKET_PROCESSING_PAYMENT_EXCEPTION
+        ) {
+          dispatch(
+            snackbarError(
+              `modifyBasket.${BASKET_PROCESSING_PAYMENT_EXCEPTION}`,
+            ),
+          );
+        }
+        if (options && options[error.response?.data?.error_code]) {
+          options[error.response.data.error_code]?.();
+        }
+      } else if (options && options.onError) {
+        options.onError();
       }
       dispatch(currentBasket.error(error));
       dispatch(snackbarError('coupon:message.attachToBasket.error'));
-      if (options && options.onError) options.onError();
     }
 
     dispatch(currentBasket.isUpdating(false));

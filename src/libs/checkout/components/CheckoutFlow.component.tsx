@@ -11,7 +11,12 @@ import ShopItemFeaturedBanner from './ShopItemFeaturedBanner.component';
 import { CheckoutItem, Basket, PrepaidLine } from '../types';
 import { ShopItem } from '../../shop/types';
 import { PaymentMethod } from '../../payment/types';
-import { OptionCallback } from '../../../state/types';
+import {
+  OptionCallback,
+  OptionCallBackWithKeyedCallbacks,
+} from '../../../state/types';
+import { Coupon } from '#libs/coupon/types';
+import { CouponErrorCodes } from '#libs/coupon/constants';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -57,7 +62,10 @@ type Props = {
 
   onBasketFinalized: () => void;
   submitPayment: (data: any) => void;
-  attachCoupon: (code: string) => void;
+  attachCoupon: (
+    code: string,
+    options: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
+  ) => void;
   patchBasket: (data: any) => void;
 
   backToCalendar: () => void;

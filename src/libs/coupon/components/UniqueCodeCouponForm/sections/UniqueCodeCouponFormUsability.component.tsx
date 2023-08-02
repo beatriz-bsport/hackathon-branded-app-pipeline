@@ -48,38 +48,38 @@ const UniqueCodeCouponFormUsability: React.FC<Props> = ({
       sectionTitle={t('form.section.usability')}
     >
       <div
-        id="unique-code-coupon-form-usability-container"
         className={classes.usabilityContainer}
+        id="unique-code-coupon-form-usability-container"
       >
         <FormControlLabel
           control={
             <Switch
-              id="unique-code-coupon-form-usage_per_member"
               checked={isUsagePerMemberLimited}
-              onChange={toggleUsagePerMemberLimit}
               disabled={isProcessing}
+              id="unique-code-coupon-form-usage_per_member"
+              onChange={toggleUsagePerMemberLimit}
             />
           }
           label={t('uniqueCodeCoupon.form.usage_per_member.label')}
         />
         {isUsagePerMemberLimited && (
           <TextFieldEnhancedLabelWithError
-            id="unique-code-coupon-form-usage-limit"
-            name="usage_per_member"
-            label={t('uniqueCodeCoupon.form.usage_per_member.helperText')}
             fullWidth
-            type="number"
             disabled={!isUsagePerMemberLimited || isProcessing}
+            id="unique-code-coupon-form-usage-limit"
+            label={t('uniqueCodeCoupon.form.usage_per_member.helperText')}
+            name="usage_per_member"
+            type="number"
             value={values.usage_per_member}
           />
         )}
         <FormControlLabel
           control={
             <Switch
-              id="unique-code-coupon-form-first-checkout"
               checked={values.only_on_first_checkout}
-              onChange={toggleFirstCheckoutLimit}
               disabled={isProcessing}
+              id="unique-code-coupon-form-first-checkout"
+              onChange={toggleFirstCheckoutLimit}
             />
           }
           label={t('uniqueCodeCoupon.form.only_on_first_checkout.label')}

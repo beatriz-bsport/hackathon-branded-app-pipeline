@@ -25,29 +25,29 @@ const UniqueCodeCouponFormGeneral: React.FC<Props> = ({ isProcessing }) => {
       sectionTitle={t('form.section.general')}
     >
       <Alert
+        className={classes.alert}
         id="unique-code-coupon-form-main-alert"
         severity="info"
-        className={classes.alert}
       >
         {t('uniqueCodeCoupon.form.alertInfo')}
       </Alert>
       <TextFieldEnhancedLabelWithError
-        id="unique-code-coupon-form-name-input"
-        name="name"
-        label={t('form.name.label')}
         fullWidth
         required
         disabled={isProcessing}
+        id="unique-code-coupon-form-name-input"
+        label={t('form.name.label')}
+        name="name"
       />
       <TextFieldEnhancedLabelWithError
-        id="unique-code-coupon-form-price-input"
-        type="number"
-        name="coupon_cost_for_company"
-        label={t('uniqueCodeCoupon.form.couponCostForCompany.label')}
-        helperText={t('uniqueCodeCoupon.form.couponCostForCompany.helperText')}
         fullWidth
         required
         disabled={isProcessing}
+        helperText={t('uniqueCodeCoupon.form.couponCostForCompany.helperText')}
+        id="unique-code-coupon-form-price-input"
+        label={t('uniqueCodeCoupon.form.couponCostForCompany.label')}
+        name="coupon_cost_for_company"
+        type="number"
       />
     </FormSection>
   );

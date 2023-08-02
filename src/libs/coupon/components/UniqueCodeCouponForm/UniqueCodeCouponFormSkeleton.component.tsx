@@ -13,46 +13,46 @@ const UniqueCouponFormSkeleton: React.FC = () => {
     <div className={classes.container}>
       <div className={classes.headingContainer}>
         <Skeleton
+          className={classes.skeletonBase}
+          height={56}
           variant="rect"
           width={200}
-          height={56}
-          className={classes.skeletonBase}
         />
       </div>
 
-      <FormSectionSkeleton fieldsCount={2} withoutIcon />
-      <FormSectionSkeleton fieldsCount={5} withoutIcon />
-      <FormSectionSkeleton fieldsCount={3} withoutIcon />
-      <FormSectionSkeleton fieldsCount={2} withoutIcon />
+      <FormSectionSkeleton withoutIcon fieldsCount={2} />
+      <FormSectionSkeleton withoutIcon fieldsCount={5} />
+      <FormSectionSkeleton withoutIcon fieldsCount={3} />
+      <FormSectionSkeleton withoutIcon fieldsCount={2} />
       <Box className={classes.container}>
         <div className={classes.titleSkeleton}>
           <Skeleton
+            className={classes.skeletonBase}
+            height={27}
             variant="rect"
             width={150}
-            height={27}
-            className={classes.skeletonBase}
           />
         </div>
         <Skeleton
+          className={classes.skeletonBase}
+          height={81}
           variant="rect"
           width="100%"
-          height={81}
-          className={classes.skeletonBase}
         />
       </Box>
 
       <div className={classes.actionsContainer}>
         <Skeleton
+          className={classes.skeletonBase}
+          height={36}
           variant="rect"
           width={82}
-          height={36}
-          className={classes.skeletonBase}
         />
         <Skeleton
+          className={classes.skeletonBase}
+          height={36}
           variant="rect"
           width={82}
-          height={36}
-          className={classes.skeletonBase}
         />
       </div>
     </div>

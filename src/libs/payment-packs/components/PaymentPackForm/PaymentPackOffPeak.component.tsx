@@ -184,9 +184,9 @@ const OffPeaktimeSlotGroup = (props: Props) => {
   const weekDaysButtons = useMemo(() => {
     return WEEK_DAYS.map((day: WeekDay) => (
       <OffPeakButtonDay
-        disabled={disabled}
         key={`${day} - ${index}`}
         day={day}
+        disabled={disabled}
         index={index}
         recurrenceWeekDay={group.recurrenceWeekDay}
         setFieldValue={setFieldValue}
@@ -260,7 +260,7 @@ const OffPeaktimeSlotGroup = (props: Props) => {
             timeSlots={group.timeSlots}
           />
           <ButtonBase
-            className={classes.buttonAdd}
+            className={classes.buttonAddTimeSlot}
             color="primary"
             disabled={disabled}
             onClick={handleAddtimeSlot}
@@ -288,6 +288,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     position: 'relative',
     paddingRight: theme.spacing(10),
   },
+  buttonAddTimeSlot: { marginTop: theme.spacing(2) },
   timeField: { marginLeft: theme.spacing(2) },
   deleteIcon: {
     marginLeft: theme.spacing(1),

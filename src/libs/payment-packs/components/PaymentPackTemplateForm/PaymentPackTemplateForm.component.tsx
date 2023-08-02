@@ -326,10 +326,10 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         expiration_date_active: !!initial?.expiration_date,
         off_peak_active:
           !!initial?.off_peak_schedule &&
-          !!Object.keys(initial.off_peak_schedule)?.length,
+          !!Object.keys(initial.off_peak_schedule).length,
         off_peak_schedule:
           initial?.off_peak_schedule &&
-          Object.keys(initial.off_peak_schedule)?.length
+          Object.keys(initial.off_peak_schedule).length
             ? formatOffPeakScheduleOnEdit(initial?.off_peak_schedule)
             : offPeakGroupDefaultValue,
       }) ||

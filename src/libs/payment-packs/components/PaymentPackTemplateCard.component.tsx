@@ -198,8 +198,8 @@ const OffPeakSection: React.FC<{
             ([isoWeekday, timeSlots]: [string, string[][]]) => {
               return (
                 <OffPeakDisplayByDay
-                  timeSlots={timeSlots}
                   isoWeekday={isoWeekday}
+                  timeSlots={timeSlots}
                 />
               );
             },

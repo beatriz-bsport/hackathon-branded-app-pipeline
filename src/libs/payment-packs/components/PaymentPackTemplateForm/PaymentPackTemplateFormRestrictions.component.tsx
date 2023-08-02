@@ -165,8 +165,8 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             </Collapse>
             <div className={classes.row}>
               <SwitchField
-                name="off_peak_active"
                 label={t('addPaymentPack.offPeak.label')}
+                name="off_peak_active"
               />
             </div>
             <div>
@@ -175,15 +175,15 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                   <OffPeakTimeSlotGroup
                     key={`${index}`}
                     group={group}
-                    setFieldValue={setFieldValue}
-                    index={index}
                     hasMultipleGroups={hasMultipleGroups}
+                    index={index}
                     onGroupDelete={handleDeleteGroup(index)}
+                    setFieldValue={setFieldValue}
                   />
                 ))}
                 <ButtonBase
-                  color="primary"
                   className={classes.buttonAdd}
+                  color="primary"
                   onClick={handleAddGroupTimeSlot}
                 >
                   <AddIcon color="primary" />

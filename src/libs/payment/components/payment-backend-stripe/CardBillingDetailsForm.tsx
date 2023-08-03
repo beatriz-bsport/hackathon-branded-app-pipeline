@@ -32,11 +32,8 @@ const CardBillingDetailsForm = ({
     <div>
       <div className={classes.nameAndEmailContainer}>
         <TextField
-          required
           fullWidth
-          value={billingDetails.name}
-          variant="outlined"
-          placeholder={t('mandate.name')}
+          required
           disabled={disabled}
           onChange={(ev) => {
             const { value } = ev.target;
@@ -45,14 +42,14 @@ const CardBillingDetailsForm = ({
               name: value,
             });
           }}
+          placeholder={t('mandate.name')}
+          value={billingDetails.name}
+          variant="outlined"
         />
         <TextField
-          required
           fullWidth
-          value={billingDetails.address.line1}
-          variant="outlined"
+          required
           disabled={disabled}
-          placeholder={t('mandate.address_line_1')}
           onChange={(ev) => {
             const { value } = ev.target;
             setBillingDetails({
@@ -63,15 +60,15 @@ const CardBillingDetailsForm = ({
               },
             });
           }}
+          placeholder={t('mandate.address_line_1')}
+          value={billingDetails.address.line1}
+          variant="outlined"
         />
         <TextField
-          required
           fullWidth
-          value={billingDetails.address.postal_code}
-          variant="outlined"
-          name="postalCode"
+          required
           disabled={disabled}
-          placeholder={t('mandate.address_postal_code')}
+          name="postalCode"
           onChange={(ev) => {
             const { value } = ev.target;
             setBillingDetails({
@@ -82,6 +79,9 @@ const CardBillingDetailsForm = ({
               },
             });
           }}
+          placeholder={t('mandate.address_postal_code')}
+          value={billingDetails.address.postal_code}
+          variant="outlined"
         />
       </div>
     </div>

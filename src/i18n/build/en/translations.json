@@ -9813,6 +9813,7 @@
                 "Canceled",
                 "Cancelled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -12134,7 +12135,8 @@
             "subscriptions": "Subscriptions",
             "combos": "Packs",
             "passes": "Passes",
-            "otherPasses": "Other passes"
+            "otherPasses": "Other passes",
+            "spotSelectorTitle": "Choose your spot"
         }
     },
     "marketplace": {
@@ -15765,6 +15767,17 @@
             "spiviIdentifiers": "Spivi logins",
             "bsportIdentifiers": "bsport logins",
             "spotCorrespondence": "Corresponding spots"
+        },
+        "spotSelector": {
+            "legend": "Legend",
+            "available": "Available",
+            "availableSpot": "Available spot",
+            "availablePersonalizedSpot": "{{ spotName }} available",
+            "unavailable": "Not available",
+            "unavailableSpot": "Spot not available",
+            "unavailablePersonalizedSpot": "{{ spotName }} not available",
+            "seeAll": "See all",
+            "confirm": "Confirm"
         }
     },
     "franchise": {

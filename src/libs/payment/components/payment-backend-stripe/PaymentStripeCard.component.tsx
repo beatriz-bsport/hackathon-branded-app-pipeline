@@ -29,7 +29,7 @@ import { OptionCallback } from '../../../../state/types';
 
 type Props = {
   memberId: number;
-  companyId: number;
+  companyId?: number;
   onSuccess: (callback: () => void) => void;
   onError?: () => void;
   setPaymentProcessing?: (processing: boolean) => void;
@@ -44,8 +44,6 @@ type Props = {
     options?: OptionCallback,
   ) => void;
   loading?: boolean;
-  snackbarErrorMsg: (msg: string) => void;
-  snackbarSuccessMsg: (msg: string) => void;
   userDefaultName?: string;
   userDefaultEmail?: string;
   basketId?: string;
@@ -119,8 +117,6 @@ const StripePaymentCard = forwardRef(
       detachPaymentMethodLoading,
       detachPaymentMethod,
       loading,
-      snackbarErrorMsg,
-      snackbarSuccessMsg,
       userDefaultName,
       userDefaultEmail,
       basketId,
@@ -456,8 +452,6 @@ const StripePaymentCard = forwardRef(
               sepaDefaultEmail={userDefaultEmail}
               sepaDefaultName={userDefaultName}
               setHasDetached={setHasDetached}
-              snackbarErrorMsg={snackbarErrorMsg}
-              snackbarSuccessMsg={snackbarSuccessMsg}
             />
             <ButtonBase
               className={classNames(

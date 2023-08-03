@@ -53,7 +53,7 @@ type Props = {
   stripeReaders: StripeReader[],
   addViaTerminal?: boolean,
   labelClose?: string,
-  companyId: number,
+  companyId?: number,
   defaultName?: string,
 };
 

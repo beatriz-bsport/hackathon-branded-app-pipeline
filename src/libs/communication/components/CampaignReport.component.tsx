@@ -279,8 +279,6 @@ export const CampaignReport = (props: Props) => {
             campaign={props.campaign}
             generateExportLink={props.generateExportLink}
             onShowMail={() => setShowMail(props.campaign.data.body)}
-            onShowMail={() => setShowMail(props.campaign.data.body)}
-            report={props.report}
             report={props.report}
           />
           <CampaignClick report={props.report} />

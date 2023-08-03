@@ -356,7 +356,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
     this.setState({
       buyableItemCategories:
-        this.props.bookingFunnelConfiguration.current_pricing_option_ordering &&
+        this.props.bookingFunnelConfiguration
+          ?.current_pricing_option_ordering &&
         buildBuyableItemCategories(
           availableContracts,
           availableComboPacks,
@@ -380,7 +381,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.props.fetchAllPaymentPackCategory(this.props.offer?.company);
     }
 
-    if (this.arePropsLoading(prevProps) !== this.arePropsLoading(this.props))
+    if (
+      !!this.props.bookingFunnelConfiguration &&
+      this.arePropsLoading(prevProps) !== this.arePropsLoading(this.props)
+    )
       this.setBuyableItemsAndOfferFeature();
   }
 
@@ -442,9 +446,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     let prefix = '';
 
     if (spot.spotTypeId !== DEFAULT_SPOT_TYPE_ID) {
-      prefix = this.props.spotTypes.find(
-        (spotType) => spotType.id === spot.spotTypeId,
-      ).prefix;
+      prefix =
+        this.props.spotTypes?.find(
+          (spotType) => spotType.id === spot.spotTypeId,
+        ).prefix ?? '';
     }
 
     const selectedSpot = prefix + spot.indexType.toString();

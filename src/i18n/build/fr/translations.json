@@ -2818,6 +2818,11 @@
                 "customize": "Personnaliser",
                 "modify": "modifier"
             }
+        },
+        "cadence": {
+            "howTo": {
+                "explain": "Éditez les éléments du graphique en cliquant sur ces éléments ou créer des liens entre les blocs en glissé déposé."
+            }
         }
     },
     "marketplace": {

@@ -5031,6 +5031,7 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelada",
+                "Cancelada",
                 "Cancelada"
             ]
         },
@@ -6293,7 +6294,8 @@
             "subscriptions": "Subscripciones",
             "combos": "Packs",
             "passes": "Bonos",
-            "otherPasses": "Otros bonos"
+            "otherPasses": "Otros bonos",
+            "spotSelectorTitle": "Elige tu sitio"
         }
     },
     "marketplace": {
@@ -7252,6 +7254,44 @@
                 "title": "Confirmar la modificación"
             },
             "formDisclaimer": "Si en el futuro desea modificar esta sección para que esta promoción se aplique a una o varias tarjetas de curso/cita en particular, la lista de estudios que compartirán esta promoción se pondrá a cero por motivos de compatibilidad."
+        },
+        "uniqueCodeCoupon": {
+            "form": {
+                "alertInfo": "Los cupones son códigos únicos que ofrecen un descuento del 100% en un producto específico para el miembro. Estos códigos no son generados por la propia plataforma, sino que deben cargarse aquí como archivo CSV. Esta función es especialmente útil si te has asociado con una entidad externa como Groupon para realizar una campaña promocional. En este caso, Groupon (o una entidad similar) genera y vende los cupones en nombre de su estudio.",
+                "couponCostForCompany": {
+                    "helperText": "Los ingresos que recibe del socio de la campaña por cada cupón vendido. Se utilizarán para calcular el valor marginal para la remuneración de los profesores, así como para los informes. Para cualquier cálculo que no tenga en cuenta el valor marginal, los informes ignorarán este precio dado y tratarán esta promoción como un descuento del 100%.",
+                    "label": "Precio IVA incl."
+                },
+                "errors": {
+                    "applies_to": "El artículo al que se aplica el descuento debe ser un bono, una tarjeta de cita, un pack o un artículo de la tienda online.",
+                    "expirationDate": {
+                        "dateBeforeNow": "La fecha de caducidad no puede ser anterior a la fecha actual.",
+                        "format": "Error al formatear la fecha"
+                    },
+                    "required": "Este campo es obligatorio",
+                    "positiveNumber": "El valor debe ser superior a 0",
+                    "fileUploader": {
+                        "fileTooLargeError": "El archivo es demasiado grande. Por favor, no exceda 1 MB.",
+                        "incorrectDataError": "El fichero no contiene los datos correctos.",
+                        "notCsvFileError": "El tipo de archivo no corresponde a un archivo CSV."
+                    },
+                    "only_on_objects": "Debe elegir un objeto sobre el que aplicar la reducción"
+                },
+                "alertWarning": "No aplicable a las suscripciones",
+                "usage_per_member": {
+                    "label": "Limitar el número de cupones que puede comprar un socio",
+                    "helperText": "Límite máximo"
+                },
+                "only_on_first_checkout": {
+                    "label": "Sólo puede utilizarse para la primera compra"
+                },
+                "fileUploader": {
+                    "title": "Descargar cupones exclusivos",
+                    "label": "Arrastre y suelte o haga clic para seleccionar el archivo",
+                    "sizeLimitHelper": "Archivo CSV (1 MB máximo)",
+                    "helperText": "Cargue un archivo CSV con todos los códigos de bono en la primera columna, un código por línea, sin encabezado."
+                }
+            }
         }
     },
     "privateService": {
@@ -14747,6 +14787,17 @@
             "spiviIdentifiers": "Identificadores de acceso a Spivi",
             "bsportIdentifiers": "Identificadores de acceso a bsport",
             "spotCorrespondence": "Posiciones correspondientes"
+        },
+        "spotSelector": {
+            "legend": "Leyenda",
+            "available": "Disponible",
+            "availableSpot": "Sitio disponible",
+            "availablePersonalizedSpot": "{{ spotName }} disponible",
+            "unavailable": "No disponible",
+            "unavailableSpot": "Sitio no disponible",
+            "unavailablePersonalizedSpot": "{{ spotName }} no disponible",
+            "seeAll": "Ver todo",
+            "confirm": "Confirmar"
         }
     },
     "franchise": {

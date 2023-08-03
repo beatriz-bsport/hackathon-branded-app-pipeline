@@ -9,6 +9,8 @@ import {
   sleep,
   querySelectedElementShouldBeInTheDocument,
 } from '../../../../../utils/storybookHelper';
+import { ReactFramework, StoryContext } from '@storybook/react';
+import { PaymentPackCategory } from '#libs/payment-packs/types';
 
 // Rendering Interaction Tests
 // The purpose of these tests is to mimic user behavior and check that hidden fields / elements are rendered
@@ -16,10 +18,10 @@ import {
 export const generalSectionRenderingInteractionTests = async ({
   args,
   canvasElement,
-}: {
-  args: React.ComponentProps<typeof PaymentPackForm>;
-  canvasElement: HTMLElement;
-}) => {
+}: StoryContext<
+  ReactFramework,
+  React.ComponentProps<typeof PaymentPackForm>
+>) => {
   const canvas = within(canvasElement);
   const paymentPackForm = await canvas.findByTestId(
     'paymentpack-form',
@@ -159,9 +161,10 @@ export const generalSectionRenderingInteractionTests = async ({
 
 export const validitySectionRenderingInteractionTests = async ({
   canvasElement,
-}: {
-  canvasElement: HTMLElement;
-}) => {
+}: StoryContext<
+  ReactFramework,
+  React.ComponentProps<typeof PaymentPackForm>
+>) => {
   const canvas = within(canvasElement);
   const paymentPackForm = await canvas.findByTestId(
     'paymentpack-form',
@@ -234,10 +237,10 @@ export const validitySectionRenderingInteractionTests = async ({
 export const restrictionsSectionRenderingInteractionTests = async ({
   args,
   canvasElement,
-}: {
-  args: React.ComponentProps<typeof PaymentPackForm>;
-  canvasElement: HTMLElement;
-}) => {
+}: StoryContext<
+  ReactFramework,
+  React.ComponentProps<typeof PaymentPackForm>
+>) => {
   const canvas = within(canvasElement);
   const paymentPackForm = await canvas.findByTestId(
     'paymentpack-form',
@@ -323,10 +326,10 @@ export const restrictionsSectionRenderingInteractionTests = async ({
 export const advancedSectionRenderingInteractionTests = async ({
   args,
   canvasElement,
-}: {
-  args: React.ComponentProps<typeof PaymentPackForm>;
-  canvasElement: HTMLElement;
-}) => {
+}: StoryContext<
+  ReactFramework,
+  React.ComponentProps<typeof PaymentPackForm>
+>) => {
   const canvas = within(canvasElement);
   const paymentPackForm = await canvas.findByTestId(
     'paymentpack-form',

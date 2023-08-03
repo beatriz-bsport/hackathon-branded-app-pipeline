@@ -1,4 +1,5 @@
 import { userEvent, within } from '@storybook/testing-library';
+import { ReactFramework, StoryContext } from '@storybook/react';
 import { expect } from '@storybook/jest';
 
 import { PaymentPackForm } from '../PaymentPackForm.component';
@@ -10,10 +11,10 @@ import { inputValues } from './constants';
 export const formValidationTests = async ({
   canvasElement,
   args,
-}: {
-  canvasElement: HTMLElement;
-  args: React.ComponentProps<typeof PaymentPackForm>;
-}) => {
+}: StoryContext<
+  ReactFramework,
+  React.ComponentProps<typeof PaymentPackForm>
+>) => {
   const canvas = within(canvasElement);
   const paymentPackForm = await canvas.findByTestId(
     'paymentpack-form',

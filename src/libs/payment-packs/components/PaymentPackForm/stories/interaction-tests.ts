@@ -12,14 +12,15 @@ import {
 } from '../../../../../utils/storybookHelper';
 
 import { inputValues } from './constants';
+import { ReactFramework, StoryContext } from '@storybook/react';
 
 export const generalSectionInteractionTests = async ({
   canvasElement,
   args,
-}: {
-  args: React.ComponentProps<typeof PaymentPackForm>;
-  canvasElement: HTMLElement;
-}) => {
+}: StoryContext<
+  ReactFramework,
+  React.ComponentProps<typeof PaymentPackForm>
+>) => {
   const canvas = within(canvasElement);
   const paymentPackForm = await canvas.findByTestId(
     'paymentpack-form',
@@ -183,10 +184,10 @@ export const generalSectionInteractionTests = async ({
 export const validitySectionInteractionTests = async ({
   canvasElement,
   args,
-}: {
-  args: React.ComponentProps<typeof PaymentPackForm>;
-  canvasElement: HTMLElement;
-}) => {
+}: StoryContext<
+  ReactFramework,
+  React.ComponentProps<typeof PaymentPackForm>
+>) => {
   const canvas = within(canvasElement);
   const paymentPackForm = await canvas.findByTestId(
     'paymentpack-form',
@@ -284,10 +285,10 @@ export const validitySectionInteractionTests = async ({
 export const restrictionsSectionInteractionTests = async ({
   canvasElement,
   args,
-}: {
-  args: React.ComponentProps<typeof PaymentPackForm>;
-  canvasElement: HTMLElement;
-}) => {
+}: StoryContext<
+  ReactFramework,
+  React.ComponentProps<typeof PaymentPackForm>
+>) => {
   const canvas = within(canvasElement);
   const paymentPackForm = await canvas.findByTestId(
     'paymentpack-form',
@@ -436,10 +437,10 @@ export const restrictionsSectionInteractionTests = async ({
 export const advancedOptionsSectionInteractionTests = async ({
   canvasElement,
   args,
-}: {
-  args: React.ComponentProps<typeof PaymentPackForm>;
-  canvasElement: HTMLElement;
-}) => {
+}: StoryContext<
+  ReactFramework,
+  React.ComponentProps<typeof PaymentPackForm>
+>) => {
   const canvas = within(canvasElement);
   const paymentPackForm = await canvas.findByTestId(
     'paymentpack-form',

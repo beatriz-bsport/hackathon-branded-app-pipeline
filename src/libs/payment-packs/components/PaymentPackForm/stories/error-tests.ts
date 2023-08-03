@@ -1,5 +1,6 @@
 import { expect } from '@storybook/jest';
 import { userEvent, within } from '@storybook/testing-library';
+import { ReactFramework, StoryContext } from '@storybook/react';
 
 import i18n from 'i18next';
 
@@ -12,10 +13,10 @@ import { inputValues } from './constants';
 export const generalSectionErrorsTests = async ({
   canvasElement,
   args,
-}: {
-  canvasElement: HTMLElement;
-  args: React.ComponentProps<typeof PaymentPackForm>;
-}) => {
+}: StoryContext<
+  ReactFramework,
+  React.ComponentProps<typeof PaymentPackForm>
+>) => {
   const canvas = within(canvasElement);
   const paymentPackForm = await canvas.findByTestId(
     'paymentpack-form',
@@ -100,10 +101,10 @@ export const generalSectionErrorsTests = async ({
 export const validitySectionErrorsTests = async ({
   args,
   canvasElement,
-}: {
-  args: React.ComponentProps<typeof PaymentPackForm>;
-  canvasElement: HTMLElement;
-}) => {
+}: StoryContext<
+  ReactFramework,
+  React.ComponentProps<typeof PaymentPackForm>
+>) => {
   const canvas = within(canvasElement);
   const paymentPackForm = await canvas.findByTestId(
     'paymentpack-form',
@@ -219,10 +220,10 @@ export const validitySectionErrorsTests = async ({
 export const restrictionSectionErrorsTests = async ({
   args,
   canvasElement,
-}: {
-  args: React.ComponentProps<typeof PaymentPackForm>;
-  canvasElement: HTMLElement;
-}) => {
+}: StoryContext<
+  ReactFramework,
+  React.ComponentProps<typeof PaymentPackForm>
+>) => {
   const canvas = within(canvasElement);
   const paymentPackForm = await canvas.findByTestId(
     'paymentpack-form',

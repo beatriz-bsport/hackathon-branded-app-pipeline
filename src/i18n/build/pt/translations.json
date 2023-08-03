@@ -2746,7 +2746,8 @@
                     "showControls": "Exibir a barra de ferramentas",
                     "hideControls": "Ocultar a barra de ferramentas",
                     "showMap": "Ver o minimapa",
-                    "hideMap": "Ocultar o minimapa"
+                    "hideMap": "Ocultar o minimapa",
+                    "centerView": ""
                 },
                 "nodeElement": {
                     "deleteStep": "Eliminar etapa",
@@ -2900,7 +2901,8 @@
     "marketplace": {
         "warning": {
             "isManager": "Para aceder à perspetiva do cliente, é necessário terminar a sessão.",
-            "disconnect": "Terminar sessão"
+            "disconnect": "Terminar sessão",
+            "backToBackoffice": ""
         },
         "pass": {
             "search": {
@@ -3084,9 +3086,13 @@
                 },
                 "maxPurchasePerMember": "{{count}} compra por membro",
                 "maxPurchasePerMember_plural": "{{count}} compras por membro",
-                "isUniversalPass": "Passe geral"
+                "isUniversalPass": "Passe geral",
+                "offPeakRestrictions": {
+                    "title": "Compatível apenas em determinados horários"
+                }
             },
-            "restrictions": "Restrições"
+            "restrictions": "Restrições",
+            "compatibleTimeSlot": ""
         },
         "packCard": {
             "comboItemList": {
@@ -3154,7 +3160,9 @@
             "programs": "Programas",
             "paymentPack": "Passes de aulas",
             "basket": "Carrinho",
-            "vod": "Vídeos on Demand"
+            "vod": "Vídeos on Demand",
+            "relation": "Agregados",
+            "privateBooking": "Marcações"
         },
         "forms": {
             "needInformationValidation": {
@@ -3177,9 +3185,28 @@
                 "error": "Impossível unir membros",
                 "srcMember": "Membro a unir (eliminado)",
                 "dstMember": "Membro a manter",
-                "explainBookingsAndPassAndInvoiceAndNotes": "Os passes ativos, as reservas, as faturas e as notas serão transferidos."
+                "explainBookingsAndPassAndInvoiceAndNotes": "Os passes ativos, as reservas, as faturas e as notas serão transferidos.",
+                "explainCredit": "O depósito interno do membro será transferido",
+                "emailWillBeSend": "Será enviado um e-mail para ambos os endereços para informar os membros.",
+                "title": "Membro agregado",
+                "success": "Membros agregados",
+                "explainTags": "As etiquetas de membro eliminadas não serão transferidas",
+                "cancel": "Cancelar"
             },
-            "title": "Informação do utilizador"
+            "title": "Informação do utilizador",
+            "error": "Não é possível guardar o membro",
+            "phone": {
+                "error": "Número de telemóvel inválido"
+            },
+            "newMemberOnlyHelperText": "Um membro é considerado novo desde que não tenha efectuado uma compra de mais de 0 {{ currency }} na plataforma. Tenha em atenção que qualquer compra de um item de pagamento com uma redução de preço de 100% resultará na perda do estatuto de \"Novo membro\".",
+            "create": {
+                "title": "Novo membro",
+                "success": "Membro criado com sucesso"
+            },
+            "update": {
+                "success": "Membro alterado com sucesso",
+                "title": "Editar informações"
+            }
         },
         "paymentAction": {
             "toSubscribe": "Subscrever",
@@ -3256,6 +3283,23 @@
                 "primaryText": "O passe de oferta {{- giftcardName }} está ativado.",
                 "filter": "Passes de oferta utilizados"
             }
+        },
+        "member": {
+            "existsWithEmailButNotConfirmed": "Já existe um membro com o endereço de e-mail {{email}} , mas o seu e-mail está a aguardar confirmação. Ao registar este membro, o seu endereço de e-mail será automaticamente verificado.",
+            "existsWithPhoneButNotConfirmed": "Já existe um membro com o número de telemóvel {{phonenumber}} , mas o seu e-mail ({{email}}) está a aguardar confirmação. Ao registar este membro, o seu e-mail será automaticamente verificado.",
+            "existsWithEmail": "Já existe um membro com o endereço de e-mail :  {{email}} .",
+            "existsWithPhone": "Já existe um membro com o número de telemóvel {{phonenumber}} ."
+        },
+        "user": {
+            "existsWithEmail": "Já existe um utilizador com o e-mail :  {{email}} .",
+            "existsWithPhone": "Já existe um utilizador com o número de telemóvel :  {{phonenumber}} .",
+            "existsWithPhoneButNotConfirmed": "Já existe um utilizador com o número de telemóvel {{phonenumber}} , mas o seu e-mail ({{email}}) está a aguardar confirmação. Ao registar este utilizador, o seu e-mail será automaticamente verificado.",
+            "existsWithEmailButNotConfirmed": "Já existe um utilizador com o endereço de e-mail {{email}} , mas o seu e-mail está a aguardar confirmação. Ao registar este utilizador, o seu e-mail será automaticamente verificado."
+        },
+        "exists": {
+            "linkUser": "Ligar o utilizador",
+            "goTo": "Ver membro",
+            "quicksale": "Selecionar o membro"
         }
     },
     "metaActivity": {
@@ -6080,7 +6124,8 @@
                 }
             },
             "createOrUpdate": {
-                "error": "Erro de registo"
+                "error": "Erro de registo",
+                "success": ""
             },
             "merge": {
                 "explainBookingsAndPassAndInvoiceAndNotes": "Os passes de aulas, as reservas, as faturas e as notas serão transferidos",
@@ -6098,7 +6143,15 @@
             "link": {
                 "success": "Conta ligada com sucesso"
             },
-            "error": "Não é possível guardar o membro"
+            "error": "Não é possível guardar o membro",
+            "update": {
+                "success": "",
+                "title": ""
+            },
+            "create": {
+                "success": "",
+                "title": ""
+            }
         },
         "canNotBuyErrorCode": {
             "6003": "Já está na lista de espera",
@@ -10393,7 +10446,8 @@
                     "changeName": "Alterar o motivo",
                     "changeForbidden": "Não é possível editar uma pausa que já tenha terminado.",
                     "cancelForbidden": "Não é possível anular uma interrupção de férias cuja data de início já tenha passado.",
-                    "changeContractForbidden": "Não é possível processar uma interrupção criada a nível do contrato."
+                    "changeContractForbidden": "Não é possível processar uma interrupção criada a nível do contrato.",
+                    "change": ""
                 }
             }
         },

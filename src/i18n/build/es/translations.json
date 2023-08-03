@@ -10179,7 +10179,7 @@
         "colorPicker": {
             "validate": "Guardar",
             "delete": "Borrar",
-            "noColor": "Ninguna color"
+            "noColor": "Ningún color"
         },
         "form": {
             "duration": {
@@ -11870,7 +11870,7 @@
             "marginalContribution": "Contribución marginal teórica, incluido el IVA",
             "expirationDateHelper": "Si la tarjeta del curso no se utiliza por primera vez dentro de este número de días, queda invalidada",
             "expirationDate": "Caducidad si no hay reserva inicial",
-            "beginningDate": "Fecha de initio",
+            "beginningDate": "Fecha de inicio",
             "attendance": "A la primera presencia",
             "firstBooking": "A la primera reservación",
             "billing": "A la facturación",

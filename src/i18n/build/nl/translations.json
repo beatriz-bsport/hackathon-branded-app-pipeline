@@ -250,7 +250,7 @@
             },
             "ConsumerPaymentPack": {
                 "tags": {
-                    "pass_credit_left": "Resterende credit",
+                    "pass_credit_left": "Resterende credits",
                     "pass_expiration": "Vervaldatum van de leskaart",
                     "pass_starting_date": "Startdatum van de leskaart",
                     "pass_name": "Naam van de leskaart",
@@ -272,7 +272,7 @@
             },
             "PrivateConsumerPass": {
                 "tags": {
-                    "pass_credit_left": "Resterende credit",
+                    "pass_credit_left": "Resterende credits",
                     "pass_expiration": "Vervaldatum van de leskaart",
                     "pass_starting_date": "Startdatum van de leskaart",
                     "pass_name": "Naam van de leskaart",
@@ -803,7 +803,7 @@
             "amount": "Bedrag",
             "type": "Type",
             "pay": "Afrekenen",
-            "payWithNCredits2": "credits)",
+            "payWithNCredits2": "credit(s)",
             "payWithNCredits1": "Reserveren (",
             "availablePaymentPacks": " compatibele leskaarten",
             "yourBasket": "Jouw aankoop",
@@ -812,7 +812,7 @@
             "bookWithUnlimitedPack": "Reserveer",
             "actions": "Acties",
             "invoiceFinalizedThusNotEditable": "De factuur is nu aangemaakt en kan niet meer worden bewerkt.",
-            "topUp": "Credits(s)",
+            "topUp": "Credits",
             "invoiceRevertedThusNotEditable": "De factuur is geannuleerd en kan niet worden gewijzigd",
             "products": "artikelen",
             "paymentCombo": "Pakketten",
@@ -2573,7 +2573,7 @@
             "membership_ID": "Lidmaatschapsnummer",
             "amortized_price": "Resterende schulden",
             "end_date": "Vervaldatum",
-            "credits": "Totaal in credits",
+            "credits": "Credits (totaal)",
             "available_credits": "Overige credits",
             "payment_method_readable_identifier": "Betaalmethode",
             "address": "Adres",
@@ -2621,14 +2621,14 @@
             "bsport_fee": "Transactiekosten",
             "nb_bookings_same_pass": "Aantal reserveringen met dezelfde kaart",
             "author": "Auteur",
-            "credit_consumed": "Aantal gebruikte credits",
+            "credit_consumed": "Gebruikte credits",
             "effectif_rate": "Bezettingsgraad",
             "cancel_rate": "Annuleringspercentage",
             "rate_non_attendance": "Afwezigheidspercentage",
             "rate_attendance": "Aanwezigheidspercentage",
             "availability": "Geldigheid",
-            "min_credit": "credits (min.)",
-            "max_credit": "credits (max.)",
+            "min_credit": "Credits (min.)",
+            "max_credit": "Credits (max.)",
             "canceled_bookings": "Aantal annuleringen",
             "c": "Instructeur",
             "private_slot": "Sessie",
@@ -2671,7 +2671,7 @@
             "accept_email": "Accepteert marketingmeldingen (e-mails)",
             "accept_sms": "Accepteert marketingmeldingen (sms'jes)",
             "payout_identifier": "Bankoverschrijving",
-            "credit_amount": "Aantal credits",
+            "credit_amount": "Credits",
             "initial_price": "Koopprijs",
             "last_view": "Laatst bekeken op",
             "video_title": "Titel van de video",
@@ -2808,7 +2808,7 @@
             "shop": "Webshop",
             "private_cpasses": "Afspraakkaarten",
             "payment_sumup": "Totaal aantal betalingen",
-            "credit": "Credits",
+            "credit": "Interne rekening (Wallet)",
             "basket": "Winkelmandje",
             "memberships": "Leskaarten",
             "invoices": "Aankopen",
@@ -2983,7 +2983,7 @@
             "disputeStatus": "Status van het geschil",
             "invoice_status": "Status van de laatste betaling",
             "billing_plan_status": "Abonnementsstatus",
-            "payment_method_with_credit_account": "Wijze van betaling",
+            "payment_method_with_credit_account": "Betaalmethode",
             "payment_pack_category": "Cursus kaart categorie",
             "private_pass_category": "Categorie afsprakenkaart"
         },
@@ -3029,7 +3029,7 @@
             "payment_method_with_credit_account": {
                 "13": "SEPA",
                 "10": "Automatische betaling",
-                "9": "Klantenkrediet",
+                "9": "Interne rekening (Wallet)",
                 "0": "Kaart"
             },
             "billing_plan_status": {
@@ -3144,9 +3144,9 @@
         "payment_method_with_credit_account": {
             "13": "SEPA",
             "10": "Automatische betaling",
-            "9": "Klantenkrediet",
+            "9": "Interne rekening (Wallet)",
             "0": "Kaart",
-            "70": "BACS Automatische Incasso"
+            "70": "BACS Direct Debit"
         }
     },
     "alerting": {
@@ -3242,7 +3242,7 @@
                 "note": {
                     "label": "Notitie"
                 },
-                "description": "{{ credits }} credit - {{ note }}",
+                "description": "{{ credits }} credit(s) - {{ note }}",
                 "description_plural": "{{ credits }} credits - {{ note }}",
                 "price": {
                     "label": "Te verrekenen bedrag"
@@ -3342,7 +3342,7 @@
             "daysLeftLabel_plural": "Een melding versturen wanneer deze kaart nog {{day}} dagen geldig is.",
             "daysPastLabel": "Een melding versturen wanneer deze kaart {{day}} dag verlopen is.",
             "daysPastLabel_plural": "Een melding versturen wanneer deze kaart {{day}} dagen verlopen is.",
-            "creditsLeftLabel": "Een melding versturen wanneer deze kaart nog {{count}} credit heeft.",
+            "creditsLeftLabel": "Een melding versturen wanneer deze kaart nog {{count}} credit(s) heeft.",
             "creditsLeftLabel_plural": "Een melding versturen wanneer deze kaart nog {{credit}} credits heeft.",
             "creditsLeftOnOfferStart": "{{hours}} uur na het einde van de sessie",
             "creditsLeftOnBooking": "{{hours}} uur na het maken van de reservering"
@@ -3570,7 +3570,7 @@
             "bookingsTitle": "Gekoppelde reserveringen",
             "extensionsTitle": "Geldigheid verlengen",
             "refundTitle": "Bijbehorende terugbetaling",
-            "trackModifiedCreditTitle": "Gebruiksgeschiedenis",
+            "trackModifiedCreditTitle": "Geschiedenis",
             "penaltyAccount": "Extra facturatie t.w.v. {{currencyDisplay }}{{account_value}}",
             "penaltyBlock": "Deze kaart is voor {{nb_days}} dag(en) geblokkeerd.",
             "penaltyTitle": "Toegepaste sancties"
@@ -3616,12 +3616,12 @@
         "expirationDate": "Vervalt op",
         "never": "Nooit",
         "unlimitedCredits": "Onbeperkt",
-        "credits": "credit",
-        "credits_plural": "credits",
+        "credits": "Credit(s)",
+        "credits_plural": "Credits",
         "specifications": {
             "unlimitedCredits": "Onbeperkt",
             "price": "{{price, price}}",
-            "nbCredits": "{{ credits}} credit",
+            "nbCredits": "{{ credits}} credit(s)",
             "nbCredits_plural": "{{credits}} credits"
         },
         "availableOnFollowingSports": "Categorieën: ",
@@ -3662,7 +3662,7 @@
             "scaleUp": "Vermenigvuldigen",
             "scaleDown": "Delen",
             "explain": "Je kunt de credit op je leskaart vermenigvuldigen (bijv. 3/7 x 2 wordt 6/14) of delen in het geval van een fout (bijv. 3/7 ÷ 2 wordt 1/3) en naar een beneden afgerond.",
-            "title": "[Formulier] creditswijziging"
+            "title": "[Formulier] Credits wijzigen"
         },
         "notificationForm": "[Formulier] Melding",
         "noPaymentPack": "Met leskaarten kunnen leden zich inschrijven voor workshops en groepsactiviteiten. Leden moeten een (geldig en compatibel) leskaart bezitten voordat zij zich ergens voor kunnen inschrijven.",
@@ -3774,8 +3774,8 @@
             "titleManagerOnly": "Beschikbaarheid",
             "titleCategory": "Categorieën",
             "sorting": {
-                "descendingCredit": "credits : aflopend",
-                "ascendingCredit": "credits : oplopend",
+                "descendingCredit": "Credits (aflopend)",
+                "ascendingCredit": "Credits (oplopend)",
                 "descendingPrice": "Prijs: aflopend",
                 "ascendingPrice": "Prijs: oplopend",
                 "customSort": "Aanvullende bestellingen (MarketPlace en Mobiele App)"
@@ -3934,7 +3934,7 @@
             "numberOfAvailableCredits": "Aantal beschikbare credits",
             "credit": "Credits",
             "unlimited": "Onbeperkt",
-            "numberOfCredit": "Aantal credits",
+            "numberOfCredit": "Credits",
             "namePaymentPack": "Naam van de leskaart.",
             "name": "Naam",
             "generalInfo": "Algemeen",
@@ -4980,7 +4980,7 @@
             "autoDiscard": "Deze sessie wordt automatisch {{hours}} uur voor het begin van de sessie geannuleerd als er minder dan {{nb_bookings}} reserveringen zijn.",
             "firstBookingMinutesUntilHeader": "Opening reserveringen",
             "lastDiscardBeforeMinutesHeader": "Annuleringsvoorwaarden",
-            "lastBookingBeforeMinutesHeader": "Opening reserveringen",
+            "lastBookingBeforeMinutesHeader": "Sluiting reserveringen",
             "seeRestrictions": "Toon",
             "restrictions": " Gepersonaliseerde beperking: {{ count }}",
             "restrictionsHeader": "Gepersonaliseerde beperkingen",
@@ -5296,7 +5296,7 @@
         },
         "form": {
             "warnings": {
-                "editOfferInitialCredits": "Oudere reserveringen houden geen rekening met wijzigingen in kredieten",
+                "editOfferInitialCredits": "Oudere reserveringen houden geen rekening met wijzigingen in credits",
                 "effectif": "Wees voorzichtig, je voert geen prijs in. Ben je zeker van de waarde?"
             },
             "errors": {
@@ -5404,14 +5404,14 @@
                 },
                 "credits": {
                     "field": {
-                        "creditCount": "Nummer of kredieten"
+                        "creditCount": "Credits"
                     },
-                    "title": "Kredieten"
+                    "title": "Credits"
                 },
                 "specificities": {
                     "tooltip": {
                         "roomBlueprint": "Laat uw leerlingen de plek in de zaal reserveren die ze willen",
-                        "credits": "Het vereiste aantal credits voor een reservering.",
+                        "credits": "Dit is het vereiste aantal credits voor een reservering.",
                         "broadcastLink": "De link wordt automatisch gegenereerd voor ZOOM door bsport"
                     },
                     "field": {
@@ -5421,7 +5421,7 @@
                         },
                         "broadcastLink": "Link naar de livestream",
                         "establishment": "Vestiging",
-                        "credits": "Kredieten",
+                        "credits": "Credits",
                         "level": "Niveau",
                         "waitingListMaxSize": "Wachtlijst",
                         "effectif": "Beschikbare plaatsen",
@@ -6007,7 +6007,7 @@
             "pickCoach": "Zoek een instructeur...",
             "coach": "Instructeur"
         },
-        "creditConsumed": "{{credit_consumed}} credit",
+        "creditConsumed": "{{credit_consumed}} credit(s)",
         "creditConsumed_plural": "{{credit_consumed}} credits",
         "actions": {
             "unregister": "Uitschrijven",
@@ -6424,7 +6424,7 @@
             },
             "credits": {
                 "unlimited": "Onbeperkt",
-                "availableCredit": "{{count}} credit",
+                "availableCredit": "{{count}} credit(s)",
                 "availableCredit_plural": "{{count}} credits"
             }
         },
@@ -6523,7 +6523,7 @@
             },
             "credits": {
                 "unlimited": "Onbeperkt",
-                "availableCredit": "{{count}} credit",
+                "availableCredit": "{{count}} credit(s)",
                 "availableCredit_plural": "{{count}} credits"
             },
             "compatibleTimeSlot": "Compatibele tijdsloten"
@@ -8720,7 +8720,7 @@
                 "managerOnly": "Onbeschikbare afspraakkaarten"
             },
             "parameters": {
-                "nbCredits": "{{ credits}} credit",
+                "nbCredits": "{{ credits}} credit(s)",
                 "nbCredits_plural": "{{ credits }} credits",
                 "price": "{{ price, price}}",
                 "tax": "Btw: {{ tax }}%",
@@ -9649,7 +9649,7 @@
         "paymentComboSectionTitle": "Pakketten",
         "method": {
             "CB": "Kaart",
-            "CREDIT_ACCOUNT": "Klantenkrediet",
+            "CREDIT_ACCOUNT": "Interne rekening (Wallet)",
             "GIROPAY": "Giropay",
             "EPS": "EPS",
             "IDEAL": "iDEAL",
@@ -10373,7 +10373,7 @@
         "privateConsumerPass": {
             "creditUpdate": {
                 "success": "Wijzigingen opgeslagen",
-                "error": "credit kon niet worden opgeslagen"
+                "error": "Fout bij het opslaan van de credits"
             },
             "incompatibilitiesReasons": {
                 "error": "Er is een fout opgetreden tijdens het laden van de kaart incompatibiliteitsredenen"
@@ -12062,7 +12062,7 @@
                 "coach_can_edit_attendance": "Sta toe dat instructeurs de aan- en/of afwezigheid op de mobiele app kunnen wijzigen",
                 "internalAccount": "Interne rekening (Wallet)",
                 "internalAccountNotusableOnContract": "Deze betaalmethode kan niet voor abonnementen worden gebruikt.",
-                "internalAccountWarning2": "Ga naar Rapportages > Een rapportage toevoegen > Scroll naar \"Betalingen\" > Selecteer \" credit(s) > Selecteer alle kolommen > Klik op \"Bevestigen\".",
+                "internalAccountWarning2": "Ga naar Rapportages > Een rapportage toevoegen > Scroll naar \"Betalingen\" > Selecteer \"credit(s)\" > Selecteer alle kolommen > Klik op \"Bevestigen\".",
                 "internalAccountWarning1": "We raden aan om eerst een rapportage voor het saldo van leden hun interne rekening (Wallet) aan te maken voordat deze functie aan wordt gezet.",
                 "internalAccountWarningTitle": "Houd rekening met het saldo van leden hun interne rekening (Wallet).",
                 "allowConsumerToUseInternalAccount": "Sta leden toe om het saldo van hun interne rekening (Wallet) te gebruiken om uitstaande facturen/winkelmandjes te betalen",
@@ -13908,7 +13908,7 @@
                     "activityName": "Activiteit",
                     "false": "Nee",
                     "true": "Gereserveerd",
-                    "card": "Creditcard",
+                    "card": "Leskaart",
                     "sepa_debit": "SEPA",
                     "bacs_debit": "BACS Direct Debit",
                     "sepa": "SEPA"
@@ -15905,7 +15905,7 @@
                 "paymentPack": "Leskaart",
                 "product": "product",
                 "product_plural": "producten",
-                "credit": "credit",
+                "credit": "credit(s)",
                 "credit_plural": "credits",
                 "unlimited": "Onbeperkt"
             }

@@ -107,3 +107,12 @@ export type OptionPaginatedCallback<T = void> = {
   onSuccess?: (args?: PaginatedResponse<T>) => void;
   onError?: (error?: Error) => void;
 };
+
+export type KeyedCallbacks<KeyEnum extends number> = {
+  [key in KeyEnum]?: () => void;
+};
+
+export type OptionCallBackWithKeyedCallbacks<
+  T = void,
+  KeyedCallBackEnum extends number = number,
+> = OptionCallback<T> & KeyedCallbacks<KeyedCallBackEnum>;

@@ -32,6 +32,10 @@ import { AVAILABLE_PAYMENT_METHOD_TYPE } from './helpers';
 import type { StripeReader } from '#libs/terminal/types';
 import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
+import CardBillingDetailsForm, {
+  BillingDetails,
+  ADDRESS_REQUIRED_COMPANY_ID,
+} from '../payment-backend-stripe/CardBillingDetailsForm';
 
 const stripePromise = loadStripe(getStripePkKey());
 
@@ -50,6 +54,7 @@ type Props = {
   addViaTerminal?: boolean,
   labelClose?: string,
   companyId: number,
+  defaultName?: string,
 };
 
 const PAYMENT_METHOD = AVAILABLE_PAYMENT_METHOD_TYPE.card;
@@ -67,6 +72,13 @@ export class CollectPaymentMethod extends React.Component<Props> {
     clientSecret: null,
     success: null,
     displayStripeTerminal: false,
+    billingDetails: {
+      name: this.props.defaultName || '',
+      address: {
+        line1: '',
+        postal_code: '',
+      },
+    },
   };
 
   componentDidMount() {
@@ -104,6 +116,9 @@ export class CollectPaymentMethod extends React.Component<Props> {
     this.props.stripe[PAYMENT_METHOD.method](this.state.clientSecret, {
       payment_method: {
         card: element,
+        ...(this.props.companyId === ADDRESS_REQUIRED_COMPANY_ID
+          ? { billing_details: this.state.billingDetails }
+          : {}),
       },
     }).then((result) => {
       if (result.error) {
@@ -128,9 +143,20 @@ export class CollectPaymentMethod extends React.Component<Props> {
     });
   };
 
+  setBillingDetails = (billingDetails: BillingDetails) => {
+    this.setState({ billingDetails });
+  };
+
   render() {
     const { classes, fullScreen } = this.props;
     const dialogOffset = fullScreen ? '0%' : '50%';
+
+    const areBillingDetailsProvided =
+      this.props.companyId !== ADDRESS_REQUIRED_COMPANY_ID ||
+      (this.state.billingDetails.name &&
+        this.state.billingDetails.address.line1 &&
+        this.state.billingDetails.address.postal_code);
+
     return (
       <Wrapper variant={this.props.variant}>
         <>
@@ -236,6 +262,17 @@ export class CollectPaymentMethod extends React.Component<Props> {
                   )}
                   {!this.state.error && !this.state.success && (
                     <form onSubmit={this.handleSubmit}>
+                      {this.props.companyId === ADDRESS_REQUIRED_COMPANY_ID && (
+                        <CardBillingDetailsForm
+                          billingDetails={this.state.billingDetails}
+                          setBillingDetails={this.setBillingDetails}
+                          disabled={
+                            !this.props.stripe ||
+                            !this.state.clientSecret ||
+                            this.state.processing
+                          }
+                        />
+                      )}
                       <div
                         style={this.state.processing ? { display: 'none' } : {}}
                       >
@@ -285,7 +322,9 @@ export class CollectPaymentMethod extends React.Component<Props> {
                         )}
                         <Button
                           color="primary"
-                          disabled={this.state.processing}
+                          disabled={
+                            this.state.processing || !areBillingDetailsProvided
+                          }
                           type="submit"
                         >
                           {this.props.t('forms.paymentMethod.actions.collect')}

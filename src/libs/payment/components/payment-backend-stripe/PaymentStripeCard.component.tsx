@@ -22,6 +22,9 @@ import {
 } from '../../api';
 import UseInternalAccountForm from '#libs/payment/components/UseInternalAccountForm.component';
 import PopOver from '#components/Popover';
+import CardBillingDetailsForm, {
+  ADDRESS_REQUIRED_COMPANY_ID,
+} from './CardBillingDetailsForm';
 
 type Props = {
   memberId: number;
@@ -39,8 +42,8 @@ type Props = {
   loading?: boolean;
   snackbarErrorMsg: (msg: string) => void;
   snackbarSuccessMsg: (msg: string) => void;
-  sepaDefaultName?: string;
-  sepaDefaultEmail?: string;
+  userDefaultName?: string;
+  userDefaultEmail?: string;
   basketId?: string;
   basketTotalPriceCts?: number;
   allowConsumerToUseInternalAccount?: boolean;
@@ -110,8 +113,8 @@ const StripePaymentCard = forwardRef(
       loading,
       snackbarErrorMsg,
       snackbarSuccessMsg,
-      sepaDefaultName,
-      sepaDefaultEmail,
+      userDefaultName,
+      userDefaultEmail,
       basketId,
       basketTotalPriceCts,
       allowConsumerToUseInternalAccount,
@@ -140,6 +143,14 @@ const StripePaymentCard = forwardRef(
       React.useState(null);
     const [hasDetached, setHasDetached] = React.useState(null);
     const [addPaymentMethod, setAddPaymentMethod] = React.useState(true);
+
+    const [billingDetails, setBillingDetails] = React.useState({
+      name: userDefaultName || '',
+      address: {
+        line1: '',
+        postal_code: '',
+      },
+    });
 
     const isNewCheckoutFlow = React.useContext(CheckoutContext);
 
@@ -172,13 +183,22 @@ const StripePaymentCard = forwardRef(
       }
     }, [addPaymentMethod]);
 
+    // Temporary test to limit the number of 3DS required for card payments for one company (id 1416)
+    const areBillingDetailsProvided =
+      companyId !== ADDRESS_REQUIRED_COMPANY_ID ||
+      paymentMethodSelected ||
+      (billingDetails.name &&
+        billingDetails.address.line1 &&
+        billingDetails.address.postal_code);
+
     const isSubmitButtonDisabled =
       loading ||
       forceDisabled ||
       !stripe ||
       !elements ||
       !clientSecret ||
-      !termsAndConditionsAccepted;
+      !termsAndConditionsAccepted ||
+      !areBillingDetailsProvided;
 
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
     // if needed
@@ -226,6 +246,9 @@ const StripePaymentCard = forwardRef(
           const result = await stripe.confirmCardPayment(clientSecret, {
             payment_method: paymentMethodSelected || {
               card: elements.getElement(CardElement),
+              ...(companyId === ADDRESS_REQUIRED_COMPANY_ID
+                ? { billing_details: billingDetails }
+                : {}),
             },
             ...(saveForLater || forceSave
               ? { setup_future_usage: 'off_session' }
@@ -272,8 +295,10 @@ const StripePaymentCard = forwardRef(
       [
         basketId,
         basketTotalPriceCts,
+        billingDetails,
         checkItemsBasket,
         clientSecret,
+        companyId,
         createPendingBookingsIfNecessary,
         elements,
         forceSave,
@@ -316,6 +341,13 @@ const StripePaymentCard = forwardRef(
         </Typography>
         {addPaymentMethod && (
           <div>
+            {companyId === ADDRESS_REQUIRED_COMPANY_ID && (
+              <CardBillingDetailsForm
+                billingDetails={billingDetails}
+                setBillingDetails={setBillingDetails}
+                disabled={!stripe || !clientSecret || processing}
+              />
+            )}
             <CardSection error={error} />
             <div className={classes.saveAndDisplay}>
               <div className={classes.row}>
@@ -375,8 +407,8 @@ const StripePaymentCard = forwardRef(
               snackbarErrorMsg={snackbarErrorMsg}
               snackbarSuccessMsg={snackbarSuccessMsg}
               companyId={companyId}
-              sepaDefaultName={sepaDefaultName}
-              sepaDefaultEmail={sepaDefaultEmail}
+              sepaDefaultName={userDefaultName}
+              sepaDefaultEmail={userDefaultEmail}
             />
             <ButtonBase
               disabled={false}
@@ -432,7 +464,6 @@ const StripePaymentCard = forwardRef(
     );
   },
 );
-
 const useStyles = makeStyles((theme) => ({
   container: {},
   cardSectionContainer: {

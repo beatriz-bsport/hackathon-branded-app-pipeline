@@ -23,6 +23,7 @@ type Props = {
   addViaTerminal?: boolean;
   labelClose?: string;
   fullScreen?: boolean;
+  companyId?: number;
 };
 
 export const CollectPaymentMethod = (props: Props) => {
@@ -58,6 +59,8 @@ export const CollectPaymentMethod = (props: Props) => {
         addViaTerminal={!!props.addViaTerminal}
         labelClose={props.labelClose}
         fullScreen={props.fullScreen}
+        defaultName={props.defaultName}
+        companyId={props.companyId}
       />
     );
   }

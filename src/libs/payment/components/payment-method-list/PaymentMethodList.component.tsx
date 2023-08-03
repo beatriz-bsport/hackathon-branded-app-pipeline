@@ -116,6 +116,7 @@ export const PaymentMethodList = (props: Props) => {
           onClose={() => setCollectPaymentMethodIsOpen(false)}
           defaultName={props.sepaDefaultName}
           defaultEmail={props.sepaDefaultEmail}
+          companyId={props.companyId}
         />
       )}
     </div>

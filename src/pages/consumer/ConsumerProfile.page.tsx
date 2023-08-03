@@ -231,6 +231,7 @@ export class ConsumerProfile extends React.Component<Props, State> {
               sepaDefaultEmail={
                 this.props.member ? this.props.member.email : ''
               }
+              companyId={this.props.membership.company}
             />
           </PaymentModal>
         )}

@@ -20,6 +20,7 @@ type OwnProps = {
   addViaTerminal?: boolean;
   onSuccess?: () => void;
   labelClose?: string;
+  companyId?: number;
 };
 type Props = OwnProps;
 export const AddPaymentMethod: React.FC<Props> = ({
@@ -36,6 +37,7 @@ export const AddPaymentMethod: React.FC<Props> = ({
   stripeReaders,
   addViaTerminal,
   onSuccess,
+  companyId,
 }) => {
   const { t } = useTranslation('payment');
   const [paymentMethodTypeControlled, setPaymentMethodTypeControlled] =
@@ -65,6 +67,7 @@ export const AddPaymentMethod: React.FC<Props> = ({
         stripeReaders={stripeReaders || []}
         addViaTerminal={!!addViaTerminal}
         labelClose={labelClose}
+        companyId={companyId}
       />
     </>
   );

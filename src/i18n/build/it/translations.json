@@ -7714,6 +7714,7 @@
                 "Cancellata",
                 "Cancellata",
                 "Cancella",
+                "Cancella",
                 "Cancella"
             ]
         },
@@ -9680,7 +9681,8 @@
                 "seeMore": "Vedi più",
                 "seeLess": "Vedi meno"
             },
-            "filterAll": "Tutto"
+            "filterAll": "Tutto",
+            "spotSelectorTitle": "Scegli il tuo posto"
         }
     },
     "smartList": {
@@ -10681,6 +10683,44 @@
                 "title": "Conferma modifica"
             },
             "formDisclaimer": "Se in futuro vorrai modificare questa sezione per rendere applicabile questa promozione su uno o più abbonamenti/appuntamenti in particolare, l'elenco degli studi che condivideranno questa promozione verrà azzerato per problemi di compatibilità."
+        },
+        "uniqueCodeCoupon": {
+            "form": {
+                "errors": {
+                    "applies_to": "L'articolo su cui applicare lo sconto deve essere un pass, un pass per appuntamenti, un pack o un articolo del negozio",
+                    "required": "Questo campo è obbligatorio",
+                    "positiveNumber": "Il valore deve essere superiore a 0",
+                    "expirationDate": {
+                        "dateBeforeNow": "La data di scadenza non può essere precedente alla data corrente.",
+                        "format": "Errore nella formattazione della data"
+                    },
+                    "fileUploader": {
+                        "fileTooLargeError": "Il file è troppo grande. Si prega di non superare 1 Mb.",
+                        "incorrectDataError": "Il file non contiene i dati corretti.",
+                        "notCsvFileError": "Il tipo di file non corrisponde ad un file CSV."
+                    },
+                    "only_on_objects": "È necessario scegliere un oggetto su cui applicare la riduzione"
+                },
+                "fileUploader": {
+                    "title": "Scarica i voucher una tantum",
+                    "label": "Trascina e rilascia o fai clic per selezionare il file",
+                    "sizeLimitHelper": "File CSV (1Mb massimo)",
+                    "helperText": "Carica un file CSV con tutti i codici dei voucher nella prima colonna, un codice per riga, senza intestazione."
+                },
+                "alertInfo": "I voucher sono codici unici che offrono al membro uno sconto del 100% su un prodotto specifico. Questi codici non sono generati dalla piattaforma stessa, ma devono essere caricati qui come file CSV. Questa funzione è particolarmente utile se si collabora con un'entità esterna, come Groupon, per gestire una campagna promozionale. In questo caso, Groupon (o simili) genera e vende i buoni per conto dello studio.",
+                "alertWarning": "Non applicabile agli abbonamenti",
+                "couponCostForCompany": {
+                    "label": "Prezzo tasse incluse",
+                    "helperText": "Entrate ricevute dal partner della campagna per ogni voucher venduto. Esse saranno utilizzate per calcolare il valore marginale per la retribuzione degli insegnanti e per i report. Per qualsiasi calcolo che non tenga conto del valore marginale, i report ignoreranno questo valore e tratteranno questa promozione come uno sconto del 100%."
+                },
+                "usage_per_member": {
+                    "label": "Limita il numero di voucher che un membro può acquistare",
+                    "helperText": "Limite massimo"
+                },
+                "only_on_first_checkout": {
+                    "label": "Può essere utilizzato solo per il primo acquisto"
+                }
+            }
         }
     },
     "tag": {
@@ -14687,6 +14727,17 @@
             "spiviIdentifiers": "Login Spivi",
             "bsportIdentifiers": "Login bsport",
             "spotCorrespondence": "Posti corrispondenti"
+        },
+        "spotSelector": {
+            "legend": "Leggenda",
+            "available": "Disponibile",
+            "availableSpot": "Posto disponibile",
+            "availablePersonalizedSpot": "{{ spotName }} disponibile",
+            "unavailable": "Non disponibile",
+            "unavailableSpot": "Posto non disponibile",
+            "unavailablePersonalizedSpot": "{{ spotName }} non disponibile",
+            "seeAll": "Vedi tutto",
+            "confirm": "Conferma"
         }
     },
     "franchise": {

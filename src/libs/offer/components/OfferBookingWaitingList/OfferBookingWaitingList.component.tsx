@@ -1,0 +1,163 @@
+import React from 'react';
+
+import { useTranslation } from 'react-i18next';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Skeleton from '@material-ui/lab/Skeleton';
+
+import OfferSummary from '#libs/offer/OfferSummary';
+import StatusMessageWithIcon from '#csscomponents/StatusMessageWithIcon';
+import {
+  useOfferWaitingListStatus,
+  useOfferWaitingListStatusText,
+} from '#libs/offer/hooks';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import OfferBookingWaitingListStatusIcon from '../OfferBookingWaitingListStatusIcon';
+
+import {
+  OfferSummaryVariant,
+  type Offer,
+  type OfferStatus,
+} from '#libs/offer/types';
+import { Coach } from '#libs/associated-coach/types';
+import { Establishment } from '#libs/establishment/types';
+import { MetaActivity } from '#libs/meta-activity/types';
+import { CompanyTheme } from '#libs/theme/types';
+import { OffersGroup } from '#libs/group-offer/types';
+
+import './styles.css';
+
+export type Props = {
+  offer: Offer<Coach, Establishment, MetaActivity, number, number, OffersGroup>;
+  offerStatusById: {
+    [id: number]: OfferStatus;
+  };
+  isLoading: boolean;
+  companyTheme: CompanyTheme;
+  isNoPassCompatibleForBooking: boolean;
+  isWaitingListRegisterLoading: boolean;
+  offerSummaryVariant: OfferSummaryVariant;
+  offerSummaryPrice: string;
+  bookingSpotId?: string;
+  isPassTabInMarketplaceConfig: boolean;
+  onRegisterToWaitList: () => void;
+  onRedirectToCalendar: () => void;
+  onRedirectToPass: () => void;
+};
+
+const OfferBookingWaitingList: React.FC<Props> = ({
+  offer,
+  offerStatusById,
+  isLoading,
+  companyTheme,
+  isNoPassCompatibleForBooking,
+  isWaitingListRegisterLoading,
+  offerSummaryVariant,
+  offerSummaryPrice,
+  bookingSpotId,
+  isPassTabInMarketplaceConfig,
+  onRegisterToWaitList,
+  onRedirectToCalendar,
+  onRedirectToPass,
+}) => {
+  const { t } = useTranslation('booking');
+
+  const { headerTitle, title, message } = useOfferWaitingListStatusText(
+    offerStatusById && offerStatusById[offer?.id],
+    isNoPassCompatibleForBooking,
+  );
+
+  const {
+    isWaitlistOpen,
+    isWaitlistAlreadyBooked,
+    isWaitlistFull,
+    isWaitingListLockedByPendingBookings,
+  } = useOfferWaitingListStatus(offerStatusById && offerStatusById[offer?.id]);
+
+  const isDisplayButtons = !isWaitlistOpen || isNoPassCompatibleForBooking;
+
+  const isDisplayBuyPassButton =
+    !isWaitlistFull &&
+    !isWaitlistAlreadyBooked &&
+    !isWaitingListLockedByPendingBookings;
+
+  const isErrorIcon =
+    !isWaitlistAlreadyBooked &&
+    (isWaitlistFull ||
+      isNoPassCompatibleForBooking ||
+      isWaitingListLockedByPendingBookings);
+
+  const isBookingButtonHidden =
+    isNoPassCompatibleForBooking || isWaitingListLockedByPendingBookings;
+
+  const waitingListHeaderTitle = headerTitle || title;
+
+  return (
+    <div className="bs-offer-booking-waiting-list__content__container">
+      <div className="bs-offer-booking-waiting-list__header__container">
+        <button
+          className="bs-offer-booking-waiting-list__header__arrow__button"
+          onClick={onRedirectToCalendar}
+          type="button"
+        >
+          <ArrowBackIcon />
+        </button>
+        {isLoading ? (
+          <Skeleton height={32} variant="rect" width={350} />
+        ) : (
+          <div className="bs-offer-booking-waiting-list__header__title">
+            {waitingListHeaderTitle}
+          </div>
+        )}
+      </div>
+
+      <div className="bs-offer-booking-waiting-list__status__summary__container">
+        <div className="bs-offer-booking-waiting-list__status__container">
+          <StatusMessageWithIcon
+            actions={
+              isDisplayButtons && {
+                cancel: {
+                  label: t('booking:newBookingModule.backToCalendar'),
+                  onClick: onRedirectToCalendar,
+                },
+                confirm: isDisplayBuyPassButton &&
+                  isPassTabInMarketplaceConfig && {
+                    label: t('booking:newBookingModule.buyPass'),
+                    onClick: onRedirectToPass,
+                  },
+              }
+            }
+            icon={<OfferBookingWaitingListStatusIcon isError={isErrorIcon} />}
+            isLoading={isLoading}
+            message={message}
+            title={title}
+          />
+        </div>
+
+        <div className="bs-offer-booking-waiting-list__summary__container">
+          <OfferSummary
+            coach={offer.coach}
+            confirmLoading={isWaitingListRegisterLoading}
+            establishment={offer.establishment}
+            isBookingButtonHidden={isBookingButtonHidden}
+            loading={isLoading}
+            metaActivity={offer.meta_activity}
+            offer={offer}
+            offerStatus={offerStatusById[offer?.id]}
+            onConfirm={onRegisterToWaitList}
+            price={offerSummaryPrice}
+            spotId={bookingSpotId}
+            tax={offer.tax}
+            theme={companyTheme}
+            variant={offerSummaryVariant}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const OfferBookingWaitingListForStorybook = marketplaceCssHoc()(
+  OfferBookingWaitingList,
+);
+
+export default React.memo(OfferBookingWaitingList);

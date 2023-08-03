@@ -8078,6 +8078,8 @@
             "content": "By completing this payment and by using your IBAN, you authorize BSPORT Solution and Stripe (our payment processor) to start billing you for all payments. You can request refunds through your bank and should be done within 8 weeks of the first payment.",
             "email": "Email address",
             "name": "Account holder's full name",
+            "address_line_1": "Address line 1",
+            "address_postal_code": "Postal code",
             "contentBacsDebit": "By providing your bank details and confirming your payment, you authorise bsport and Stripe, our payment system, to send debit instructions to your bank in accordance with the payment schedule. You may request a refund from your bank in accordance with the terms of your contract with your bank. You can request your bank to cancel the Direct Debit mandate at any time.",
             "contentIban": "By providing your IBAN and confirming your payment, you authorise bsport and Stripe, our payment system, to send debit instructions to your bank in accordance with the payment schedule. You may request a refund from your bank in accordance with the terms of your contract with your bank. A refund must be requested within 8 weeks of the first debit."
         },

@@ -5081,6 +5081,7 @@
                 "Stornieren",
                 "Stornieren",
                 "Stornieren",
+                "Stornieren",
                 "Stornieren"
             ]
         }
@@ -7836,7 +7837,8 @@
             "subscriptions": "Verträge",
             "combos": "Pakete",
             "passes": "Kurspässe",
-            "otherPasses": "Andere Kurspässe"
+            "otherPasses": "Andere Kurspässe",
+            "spotSelectorTitle": "Wählen Sie Ihren Platz"
         }
     },
     "member": {
@@ -8476,6 +8478,44 @@
                 "create": "Einen geteilten Code hinzufügen"
             },
             "formDisclaimer": "Wenn Sie in Zukunft diese Sektion ändern möchten, um diese Aktion auf eine oder mehrere bestimmte Kurs-/Termin-Karten anwendbar zu machen, wird die Liste der Studios, die diese Aktion teilen, aus Kompatibilitätsgründen auf Null zurückgesetzt."
+        },
+        "uniqueCodeCoupon": {
+            "form": {
+                "alertInfo": "Gutscheine sind einzigartige Codes, die dem Mitglied einen 100%igen Rabatt auf ein bestimmtes Produkt bieten. Diese Codes werden nicht von der Plattform selbst generiert, sondern müssen hier als CSV-Datei hochgeladen werden. Diese Funktion ist besonders nützlich, wenn Sie mit einem externen Unternehmen wie Groupon eine Werbekampagne durchgeführt haben. In diesem Fall generiert und verkauft Groupon (oder ein ähnliches Unternehmen) die Gutscheine im Namen Ihres Studios.",
+                "alertWarning": "Gilt nicht für Abonnements",
+                "couponCostForCompany": {
+                    "helperText": "Die Einnahmen, die Sie vom Kampagnenpartner für jeden verkauften Gutschein erhalten. Sie werden bei der Berechnung des Grenzwerts für die Wiederbezahlung der Lehrer sowie in den Berichten verwendet. Bei allen Berechnungen, die den Grenzwert nicht berücksichtigen, wird in den Berichten dieser gegebene Preis ignoriert und diese Aktion als 100% Rabatt behandelt.",
+                    "label": "Preis inkl. MwSt"
+                },
+                "usage_per_member": {
+                    "label": "Begrenzen Sie die Anzahl der Gutscheine, die ein Mitglied kaufen kann",
+                    "helperText": "Obergrenze"
+                },
+                "only_on_first_checkout": {
+                    "label": "Kann nur für den ersten Kauf genutzt werden"
+                },
+                "fileUploader": {
+                    "title": "Einmalige Gutscheine herunterladen",
+                    "label": "Drag & Drop oder Anklicken, um die Datei auszuwählen",
+                    "sizeLimitHelper": "CSV-Datei (maximal 1MB)",
+                    "helperText": "Bitte laden Sie eine CSV-Datei mit allen Gutscheincodes in der ersten Spalte hoch, einen Code pro Zeile, ohne Kopfzeile."
+                },
+                "errors": {
+                    "required": "Dieses Feld ist ein Pflichtfeld",
+                    "positiveNumber": "Der Wert muss größer als 0 sein",
+                    "expirationDate": {
+                        "dateBeforeNow": "Das Verfallsdatum kann nicht vor dem aktuellen Datum liegen.",
+                        "format": "Fehler bei der Formatierung des Datums"
+                    },
+                    "fileUploader": {
+                        "fileTooLargeError": "Die Datei ist zu groß. Bitte überschreiten Sie nicht 1 MB.",
+                        "incorrectDataError": "Die Datei enthält keine korrekten Daten.",
+                        "notCsvFileError": "Der Dateityp entspricht nicht einer CSV-Datei."
+                    },
+                    "only_on_objects": "Sie müssen ein Objekt auswählen, auf das Sie die Reduzierung anwenden möchten",
+                    "applies_to": "Der Artikel, auf den der Rabatt angewendet werden soll, muss ein Pass, ein Terminpass, ein Paket oder ein Webshop-Artikel sein"
+                }
+            }
         }
     },
     "privateService": {
@@ -14592,6 +14632,17 @@
             "spiviIdentifiers": "Spivi-IDs",
             "bsportIdentifiers": "bsport-IDs",
             "spotCorrespondence": "Übereinstimmung der Spots"
+        },
+        "spotSelector": {
+            "legend": "Legende",
+            "available": "Verfügbar",
+            "availableSpot": "Platz verfügbar",
+            "availablePersonalizedSpot": "{{ spotName }} verfügbar",
+            "unavailable": "Nicht verfügbar",
+            "unavailableSpot": "Platz nicht verfügbar",
+            "unavailablePersonalizedSpot": "{{ spotName }} nicht verfügbar",
+            "seeAll": "Alle sehen",
+            "confirm": "Bestätigen"
         }
     },
     "franchise": {

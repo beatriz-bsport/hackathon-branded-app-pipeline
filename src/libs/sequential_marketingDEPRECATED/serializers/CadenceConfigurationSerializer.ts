@@ -7,9 +7,9 @@ import {
   CADENCE_STEPPER_LOSE_STEP,
 } from '#libs/sequential_marketingDEPRECATED/components/form/CadenceSettingsFormStepper.component';
 
-import type {
-  BackEndConnectedTriggerPayload,
-  FormValues,
+import {
+  type BackEndConnectedTriggerPayload,
+  type FormValues,
   BackEndTriggerIdentifier,
   BackEndDestinationKind,
   BackendFiltering,

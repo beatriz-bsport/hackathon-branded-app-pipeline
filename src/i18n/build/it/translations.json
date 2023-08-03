@@ -1824,7 +1824,8 @@
                 "dateCreated": "Data di invio",
                 "topLinks": "Link più cliccati",
                 "recipientList": "Dettagli per destinatario",
-                "exportError": "Si è verificato un errore durante l'esportazione"
+                "exportError": "Si è verificato un errore durante l'esportazione",
+                "exportCampaign": "Esporta la strategia"
             },
             "recipientCount": "Destinatario: {{total_recipients}}",
             "clickCount": "Click",
@@ -6065,7 +6066,8 @@
             "inconsistent": "Metodo di pagamento non autorizzato, per favore riconfiguralo. Il cliente potrebbe aver richiesto di de-autorizzare il suo metodo di pagamento, o potresti aver unito due membri, in entrambi i casi il metodo di pagamento non è più utilizzabile.",
             "isInternalExplainFuturePayments": "La data di scadenza sarà dedotta automaticamente dall'acconto del cliente. Se questo non è sufficiente, verrà creato un acconto negativo.",
             "addPaymentMethod": "Aggiungere un metodo di pagamento",
-            "copyLink": "Copia il link per aggiungere un metodo di pagamento"
+            "copyLink": "Copia il link per aggiungere un metodo di pagamento",
+            "manual": "Manuale"
         },
         "paymentEngine": {
             "label": {
@@ -6397,7 +6399,8 @@
                 "2": "Sul conto",
                 "0": "Carta",
                 "1": "Bonifici SEPA",
-                "label": "Metodo di pagamento"
+                "label": "Metodo di pagamento",
+                "paymentOnline": "Pagamento online"
             },
             "name": "Nome",
             "dateCreated": "Data di creazione",
@@ -7710,6 +7713,7 @@
                 "Annullato",
                 "Cancellata",
                 "Cancellata",
+                "Cancella",
                 "Cancella"
             ]
         },
@@ -12613,7 +12617,8 @@
             "useMyInternalAccount": "Usare il mio equilibrio",
             "myInternalAccount": "Il mio equilibrio",
             "use": "Usa il mio equilibrio",
-            "label": "Importo disponibile : "
+            "label": "Importo disponibile : ",
+            "useAsManager": "Utilizza il saldo interno"
         },
         "payment": {
             "total": "Totale IVA inclusa",
@@ -15958,6 +15963,55 @@
                 "title": "Articoli rimossi dal carrello",
                 "subText": "Quando un nuovo membro si iscrive, alcuni articoli vengono rimossi dal carrello perché non compatibili con il nuovo membro."
             }
+        },
+        "checkout": {
+            "priceExcludingTax": "Totale tasse incluse",
+            "tax": "Tasse",
+            "priceIncludingTax": "Totale",
+            "invoiceFootNote": "Nota a piè di pagina",
+            "priceRecap": "Sintesi",
+            "amountDue": "Totale da pagare",
+            "partialPayment": "Incasso",
+            "homeDelivery": "Consegna",
+            "paymentSuccess": {
+                "subTextAnonymous": "Il pagamento è stato elaborato.",
+                "printTicket": "Stampa ricevuta",
+                "subText": "Il pagamento è stato elaborato. La fattura è stata inviata per email.",
+                "sendByEmail": "Invia la fattura per email",
+                "subTextPartialPayment": "Il pagamento è stato elaborato e la fattura inviata per email. Il resto del pagamento è stato posticipato: può essere effettuato dal Backoffice o dal profilo del membro.",
+                "title": "Pagamento accettato"
+            },
+            "emailSent": {
+                "title": "Email inviata",
+                "subText": "La fattura è stata inviata all'indirizzo email inserito.",
+                "printTicket": "Stampa ricevuta"
+            },
+            "noAnonymousInstalment": {
+                "identify": "Identificazione",
+                "explanation": "È impossibile pagare in più rate se la fattura è anonima"
+            },
+            "noPartialInstalment": {
+                "reset": "Reset",
+                "explanation": "Non è possibile rateizzare il pagamento se l'importo totale da pagare è cambiato."
+            },
+            "internalCredits": "Credito interno",
+            "billingDate": "Data di fatturazione",
+            "deliveryFee": "Spese di consegna",
+            "leftToPay": "Importo in sospeso",
+            "onSpot": "Sul posto",
+            "cancel": "Annulla",
+            "payLater": {
+                "title": "Pagamento posticipato",
+                "subText": "Il pagamento è stato posticipato: può essere effettuato dal Backoffice o dal profilo del cliente."
+            },
+            "noAnonymousClientDebt": "Per utilizzare il saldo del cliente, è necessario identificare un membro nella fattura",
+            "leftDue": "Importo in sospeso :",
+            "firstName": "Nome",
+            "lastName": "Cognome",
+            "unauthenticatedWarning": "Se nessun membro è autenticato per questa fattura, questa verrà creata in forma anonima. È consigliabile assegnare un membro per facilitare la tracciabilità delle informazioni.",
+            "sendToTerminal": "Invia al terminale di pagamento",
+            "validate": "Convalida",
+            "clientDebt": "Saldo cliente"
         }
     }
 }

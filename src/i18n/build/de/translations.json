@@ -85,7 +85,8 @@
                 "0": "Kreditkarte",
                 "label": "Zahlungsmethode",
                 "1": "SEPA-Überweisung",
-                "2": "mit Guthaben"
+                "2": "mit Guthaben",
+                "paymentOnline": "Online-Bezahlung"
             },
             "parameters": "Einstellungen",
             "autoRenew": "Automatische Verlängerung",
@@ -196,7 +197,7 @@
                         "recurrence_explain": {
                             "month": "Das Abonnement wird an jedem {{ month_billing_day }} des Monats über eine Gesamtdauer von {{ nb_interval }} Monaten in Rechnung gestellt und erzeugt {{ nb_interval }} {{ invoice }}. Die erste Zahlung wird ggf. anteilig berechnet."
                         },
-                        "modification_not_apply_to_past": "Sie sind dabei, den Tag der Rechnungsstellung für Ihr Abonnement zu ändern. Nur neu erstellte Abonnements werden davon betroffen sein. Laufende Abonnements und bereits bestehende Abonnements mit Verlängerung werden sich nicht ändern (auch nicht nach einer Verlängerung).",
+                        "modification_not_apply_to_past": "Sie sind dabei, den Tag der Rechnungsstellung für Ihr Abonnement zu ändern. Nur neu erstellte Abonnements werden davon betroffen sein. Laufende Abonnements und bereits bestehende Abonnements mit Verlängerung werden sich nicht ändern (auch nicht nach einer Verlängerung)",
                         "label": "Rechnung an einem festen Tag",
                         "explain": "Jede Rechnung wird an dem gewählten Tag in Rechnung gestellt. Die erste Zahlung wird ggf. anteilig berechnet."
                     },
@@ -221,7 +222,7 @@
                 },
                 "month_billing_day": {
                     "label1": "Rechnung aller",
-                    "label2": "Monate"
+                    "label2": "Monate."
                 },
                 "general_info": {
                     "title": "Allgemeine Informationen"
@@ -321,7 +322,7 @@
                 "valuePastInvoicesInputError": "Der Wert stimmt nicht überein. Bitte versuchen Sie es erneut",
                 "futureInvoicesPayment": "Zahlung zukünftiger Rechnungen",
                 "alertSameMonth": "Bitte beachten Sie, dass sie ein vergangenes Datum gewählt haben. Wenn das Abonnement einen Pass beinhaltet, beginnt die Gültigkeit des Passes an dem gewählten Datum. Im Falle einer einmonatigen Gültigkeit verliert Ihr Mitglied {{lostDays}} Tage an Gültigkeit.",
-                "alertDifferentMonthConfirmAsk": "Sie sind dabei, Ihrem Mitglied {{valuePastInvoicesPrice}} in Rechnung zu stellen. Um diese Aktion zu bestätigen, geben Sie {{valuePastInvoices}} ein.",
+                "alertDifferentMonthConfirmAsk": "Sie sind dabei, Ihrem Mitglied {{valuePastInvoicesPrice}} in Rechnung zu stellen. Um diese Aktion zu bestätigen, geben Sie {{valuePastInvoices}} ein",
                 "alertDifferentMonthInput": "Wert vergangener Rechnungen",
                 "validate": "Bestätigen",
                 "title": "Vergangenes Datum",
@@ -409,7 +410,7 @@
             "switchPaymentCombo": {
                 "form": {
                     "title": "Pack ändern",
-                    "explain": "Dieses Paket wird NUR auf Rechnungen, die nach der Erneuerung des Abonnements erstellt werden, anstelle des alten Pakets in Rechnung gestellt.",
+                    "explain": "Dieses Paket wird NUR auf Rechnungen, die nach der Erneuerung des Abonnements erstellt werden, anstelle des alten Pakets in Rechnung gestellt",
                     "warning": "Die Abrechnung bleibt gleich. Wenn Sie den monatlichen Betrag erhöhen/verringern möchten, ändern Sie jede Rate einzeln.",
                     "cancel": "Abbrechen",
                     "submit": "Registrieren",
@@ -758,7 +759,7 @@
             },
             "smartLists": {
                 "smartListHelper": "Die Benachrichtigung wird nicht gesendet, wenn das Mitglied in einer der folgenden Smartlists enthalten ist",
-                "warning": "Wenn Sie keine Smartlist auswählen, besteht die Gefahr, dass Sie Mitglieder benachrichtigen, die bereits einen anderen Kurspass gekauft haben.",
+                "warning": "Wenn Sie keine Smartlist auswählen, besteht die Gefahr, dass Sie Mitglieder benachrichtigen, die bereits einen anderen Kurspass gekauft haben",
                 "advanced": "Fortgeschritten",
                 "smartListSelection": "(Optional) Smartlist(s) auswählen",
                 "smartListHelperInclude": "Benachrichtigung nur senden, wenn das Mitglied in einer der folgenden Smartlists enthalten ist",
@@ -858,7 +859,7 @@
                 "orderDetail": "Details der Bestellung",
                 "orderList": "Bestellungen",
                 "reportingDashboard": "Reports",
-                "planning": "Planning",
+                "planning": "Kalender",
                 "invoiceFormPage": "Änderung der Rechnung"
             }
         },
@@ -876,7 +877,7 @@
                 }
             },
             "buyPack": "Kaufen",
-            "private_service": "Terminvereinbarungen",
+            "private_service": "Termine",
             "pass": "Kurspässe",
             "checkout": {
                 "dialog": {
@@ -1156,8 +1157,8 @@
             "coachPerformance": "Lehrkräfte",
             "privateService": {
                 "pass": "Terminpässe",
-                "services": "Terminvereinbarungen",
-                "title": "Terminvereinbarungen"
+                "services": "Termine",
+                "title": "Termine"
             },
             "schedule": "Stundenplan",
             "invoice": "Rechnungen",
@@ -1588,7 +1589,7 @@
             "warningAddEmail": "Diese E-Mail ist bereits hinzugefügt worden.",
             "emailHelper": "Um mehrere E-Mails hinzuzufügen, geben Sie nach jeder E-Mail ein Komma oder ein Leerzeichen ein.",
             "partner_max_booking_count": "Maximale Anzahl von Marketplace-Buchungen (nur OneFit)",
-            "noPartnershipIntegration": "Marktplatzreservierungen sind für Gruppensessions nicht möglich.",
+            "noPartnershipIntegration": "Marktplatzreservierungen sind für Gruppensessions nicht möglich",
             "noWaitingList": "Wartelisten sind für Gruppensessions nicht verfügbar",
             "tenMinutes": "10min",
             "period": {
@@ -1696,7 +1697,7 @@
             "subShop": {
                 "delete": {
                     "title": "Löschung",
-                    "explain": "Bist du sicher, dass diese Kategorie gelöscht werden soll? Der gesamte Inhalt wird ebenfalls gelöscht."
+                    "explain": "Bist du sicher, dass diese Kategorie gelöscht werden soll? Der gesamte Inhalt wird ebenfalls gelöscht"
                 }
             },
             "supplier_price": "Einkaufspreis",
@@ -1881,7 +1882,7 @@
             "general": "Allgemein",
             "address": "Adresse"
         },
-        "private_service": "Terminvereinbarungen",
+        "private_service": "Termine",
         "bookingConfirmed": "Buchung bestätigt",
         "button": {
             "login": "Einloggen"
@@ -1936,7 +1937,7 @@
         "metaActivityNotificationToolTip": "Benachrichtigungen sind für diese Buchungen aktiviert",
         "quickInvoiceNoVoucher": "Lasse den Wert dieses Feldes auf 0, wenn Du keinen Rabatt anwenden möchtest",
         "metaActivityCategory": {
-            "explain": "Diese Kategorien dienen lediglich dazu, die Aktivitäten im Backoffice nach Ihren Wünschen zu ordnen. Sie haben keine Auswirkungen auf die Kundenseite.",
+            "explain": "Diese Kategorien dienen lediglich dazu, die Aktivitäten im Backoffice nach Ihren Wünschen zu ordnen. Sie haben keine Auswirkungen auf die Kundenseite",
             "sctExplain": "Diese Kategorien geben die Art der Aktivität an. Sie werden auf dem Marketplace und in der App angezeigt."
         },
         "restrictions": {
@@ -2795,7 +2796,7 @@
                 "internalAccountWarning2": "Um einen Bericht über Kundensalden zu erstellen, gehen Sie auf die Registerkarte 'Berichte' und wählen Sie bei der Erstellung des neuen Berichts in der Kategorie 'Zahlungen' 'Kredite' aus.",
                 "internalAccountWarning1": "Wir empfehlen dringend, einen Bericht über die Kundensalden zu erstellen, bevor Sie diese Funktion aktivieren.",
                 "goToReports": "Seite mit Berichten",
-                "allowConsumerToUseInternalAccount": "Der Kunde kann seine interne Anzahlung verwenden, um seine Rechnungen oder seinen Warenkorb zu bezahlen.",
+                "allowConsumerToUseInternalAccount": "Der Kunde kann seine interne Anzahlung verwenden, um seine Rechnungen oder seinen Warenkorb zu bezahlen",
                 "internalAccountNotusableOnContract": "Diese Zahlungsmethode ist nicht für Verträge nutzbar",
                 "coachUserspace": {
                     "restrictions": "Einschränkungen",
@@ -2844,18 +2845,18 @@
                     "errors": {
                         "restrictionToggles": "Bitte wählen Sie mindestens eine Option aus"
                     },
-                    "enableDescription": "Wenn Sie diese Funktion aktivieren, wird der Zugang für alle neuen Lehrkräfte standardmäßig aktiviert.",
+                    "enableDescription": "Wenn Sie diese Funktion aktivieren, wird der Zugang für alle neuen Lehrkräfte standardmäßig aktiviert",
                     "replacementSettings": "Vertretungs-Einstellungen"
                 },
                 "noShow": {
                     "title": "Abwesend (No-Show)",
                     "sendMailHelpText": "Zum Aktivieren/Deaktivieren der E-Mail gehen Sie bitte zu Einstellungen> Transaktionsbenachrichtigungen> Sanktion> Abwesenheitsbenachrichtigung",
-                    "errorValidatedTime": "Die Zeit, die vergeht, bevor die Buchung eines Mitglieds als No-Show gilt, muss größer als 0 sein.",
+                    "errorValidatedTime": "Die Zeit, die vergeht, bevor die Buchung eines Mitglieds als No-Show gilt, muss größer als 0 sein",
                     "alert": "Diese Einstellungen gelten nur für Nicht-Erscheinen bei unbegrenzten Pässen. Um die folgenden Zählungen auszulösen, müssen Sie die Zählung für jede Sitzung aufrufen.",
                     "daysBeforeNoShow": "Betrachten Sie das Mitglied als (nicht anwesend) <0/> <1/> nach dem namentlichen Aufruf der Einheiten, in denen es als abwesend aufgeführt wurde.",
                     "sendMail": "Senden Sie nach dem Anruf eine E-Mail <0/> <1/>, um das Mitglied darüber zu informieren, dass es als No-Show gilt, wenn es als abwesend angegeben wurde.",
                     "error": "Die E-Mail zur Benachrichtigung über die Abwesenheit kann nicht mehr gesendet werden, nachdem das Mitglied als No-Show betrachtet wird.",
-                    "errorEmailTime": "Die Zeit, die verstrichen ist, bevor die E-Mail gesendet wurde, um das Mitglied darüber zu informieren, dass es No-Show gelten wird, muss größer als 0 sein.",
+                    "errorEmailTime": "Die Zeit, die verstrichen ist, bevor die E-Mail gesendet wurde, um das Mitglied darüber zu informieren, dass es No-Show gelten wird, muss größer als 0 sein",
                     "notAvailable": "Die Verwaltung von Abwesenheiten (No-Show) ist nicht verfügbar. Um sie zu aktivieren, müssen Sie zunächst einen unbegrenzten Kurspass mit Abzügen für Abwesenheiten (No-Show) erstellen.",
                     "daysBeforeNoShowHelpText": "Mit dieser Einstellung können Sie Sanktionen für das Nichterscheinen von Mitgliedern mit einem unbegrenzten Pass verhängen."
                 },
@@ -2866,7 +2867,7 @@
                 "signup": {
                     "urlRedirection": "URL-Weiterleitung",
                     "urlError": "Bitte geben Sie eine gültige URL ein",
-                    "helperText": "Nach der Anmeldung erhalten Ihre Mitglieder eine E-Mail zur Bestätigung ihrer E-Mail-Adresse. Ihr Konto wird erst aktiviert, wenn diese E-Mail bestätigt wurde.",
+                    "helperText": "Nach der Anmeldung erhalten Ihre Mitglieder eine E-Mail zur Bestätigung ihrer E-Mail-Adresse. Ihr Konto wird erst aktiviert, wenn diese E-Mail bestätigt wurde",
                     "urlHelperText": "Das Mitglied wird zu diesem Link weitergeleitet, nachdem es die E-Mail-Adresse bestätigt hat. Falls nicht angegeben, wird es zu dessen Profil auf dem Marketplace weitergeleitet.",
                     "label": "Bestätigungs-E-Mail bei Anmeldung",
                     "title": "Anmeldung"
@@ -4014,7 +4015,7 @@
             "deleteModal": {
                 "confirm": "Bestätigen Sie",
                 "cancel": "ringförmig",
-                "content": "Sind Sie sicher, dass Sie diese Kategorie löschen möchten? Alle darin enthaltenen Artikel werden in den Bereich der unsortierten Unterrichtskarten verschoben.",
+                "content": "Sind Sie sicher, dass Sie diese Kategorie löschen möchten? Alle darin enthaltenen Artikel werden in den Bereich der unsortierten Unterrichtskarten verschoben",
                 "title": "Unterdrückung"
             },
             "popover": {
@@ -4119,7 +4120,7 @@
             "only_vod_access": "Die Nutzung der Karte ausschließlich auf VOD beschränken",
             "vodAccessCard": "Gibt Zugang zu VOD",
             "vod": "VOD",
-            "compatibility": "Ihre Karte ist nur mit Vorstellungen kompatibel, die einer der ausgewählten Kategorien UND einem der ausgewählten Räume UND einer der ausgewählten Aktivitäten entsprechen.",
+            "compatibility": "Ihre Karte ist nur mit Vorstellungen kompatibel, die einer der ausgewählten Kategorien UND einem der ausgewählten Räume UND einer der ausgewählten Aktivitäten entsprechen",
             "letBlank": "Leer lassen, um alles zu erlauben",
             "activities": "Aktivitäten",
             "room": "Säle",
@@ -4134,31 +4135,31 @@
             "maxUseDay": "Maximale Nutzungen pro Tag",
             "restriction": "Restriktionen",
             "penalityAccountHelper": "Für dieses Mitglied wird eine Anzahlung von {{penalityBlockAccount}}{{ currencyDisplay }} erhoben",
-            "penalityBlockDayHelper": "Die Karte des betroffenen Mitglieds wird für {{penalityBlockDay}} Tage gesperrt.",
+            "penalityBlockDayHelper": "Die Karte des betroffenen Mitglieds wird für {{penalityBlockDay}} Tage gesperrt",
             "penalityAccountPrice": "Betrag der Anzahlung",
             "penalityBlockDay": "Sperrfrist für die Karte (in Tagen)",
             "penalityType": "Art der zu verhängenden Sanktion",
             "penalityAccount": "Erstellen Sie eine Anzahlung für das betreffende Mitglied",
             "penalityBlock": "Kurspass vorübergehend sperren",
-            "penalityInfo": "Eine Sanktion wird erhoben, wenn es innerhalb eines Zeitraums von {{penalityNumberCancel}} Tagen {{penalityNumberDay}} außerterminliche Stornierungen gibt.",
+            "penalityInfo": "Eine Sanktion wird erhoben, wenn es innerhalb eines Zeitraums von {{penalityNumberCancel}} Tagen {{penalityNumberDay}} außerterminliche Stornierungen gibt",
             "penalityNumberDay": "Anzahl der Tage",
             "penalityNumberCancel": "Anzahl der Absagen",
             "marginalContributionHelperText": "Wird verwendet, um die Vergütung von Lehrern zu berechnen. 10{{ currencyDisplay }} bedeutet, dass eine mit dieser Karte vorgenommene Buchung mit 10{{ currencyDisplay }} vergütet wird. Wenn leer oder 0{{ currencyDisplay }}, wird die Einbringung einer Karte PREIS/NB_RESERVATION",
             "marginalContribution": "Theoretischer Grenzertrag TTC",
-            "expirationDateHelper": "Wenn der Kurspass innerhalb dieser Anzahl an Tagen nicht zum ersten Mal verbraucht wird, wird sie ungültig.",
+            "expirationDateHelper": "Wenn der Kurspass innerhalb dieser Anzahl an Tagen nicht zum ersten Mal verbraucht wird, wird sie ungültig",
             "expirationDate": "Verfall, wenn keine ursprüngliche Buchung",
             "beginningDate": "Startdatum",
             "attendance": "Bei der ersten Anwesenheit",
             "firstBooking": "Bei der ersten Buchung",
             "billing": "Bei der Rechnungsstellung",
             "validForDuration": {
-                "day": "Diese Karte wird für {{ duration_day }} Tage gültig sein.",
-                "month": "Diese Karte ist für {{ duration_month }} Monate und {{ duration_day }} Tage gültig.",
-                "year": "Diese Karte wird für {{ duration_year }} Jahre, {{ duration_month }} Monate und {{ duration_day }} Tage gültig sein.",
-                "monthNoDay": "Diese Karte ist für {{ duration_month }} Monate gültig.",
-                "yearNoDayNoMonth": "Diese Karte wird für {{ duration_year }} Jahre gültig sein.",
-                "yearDayNoMonth": "Diese Karte wird für {{ duration_year }} Jahre und {{ duration_day }} Tage gültig sein.",
-                "yearNoDay": "Diese Karte wird für {{ duration_year }} Jahre und {{ duration_month }} Monate gültig sein."
+                "day": "Diese Karte wird für {{ duration_day }} Tage gültig sein",
+                "month": "Diese Karte ist für {{ duration_month }} Monate und {{ duration_day }} Tage gültig",
+                "year": "Diese Karte wird für {{ duration_year }} Jahre, {{ duration_month }} Monate und {{ duration_day }} Tage gültig sein",
+                "monthNoDay": "Diese Karte ist für {{ duration_month }} Monate gültig",
+                "yearNoDayNoMonth": "Diese Karte wird für {{ duration_year }} Jahre gültig sein",
+                "yearDayNoMonth": "Diese Karte wird für {{ duration_year }} Jahre und {{ duration_day }} Tage gültig sein",
+                "yearNoDay": "Diese Karte wird für {{ duration_year }} Jahre und {{ duration_month }} Monate gültig sein"
             },
             "yearValidityHelper": "Kommt zur Anzahl der Tage hinzu",
             "monthValidityHelper": "Kommt zur Anzahl der Tage hinzu",
@@ -4170,7 +4171,7 @@
             "fromDate": "Ab dem",
             "availabilitySlot": "Die Karte nur in einem bestimmten Datumsfenster gültig machen",
             "availabilityGivenNumber": "Die Karte nur eine bestimmte Anzahl von Tagen gültig machen (nach dem Kaufdatum)",
-            "penalityRule": "Sie können eine Sanktion nur anwenden, wenn die Anzahl der Credits unbegrenzt ist.",
+            "penalityRule": "Sie können eine Sanktion nur anwenden, wenn die Anzahl der Credits unbegrenzt ist",
             "penality": "Verhängung einer Sanktion bei zu vielen nicht fristgerechten Stornierungen",
             "packValidity": "Gültigkeit der Karte",
             "numberOfAvailableCredits": "Anzahl der verfügbaren Credits",
@@ -4370,7 +4371,7 @@
         },
         "companyOnboarding": {
             "creation": {
-                "content": "Um Karten- und SEPA-Zahlungen einziehen zu können, überprüfen Sie bitte Ihre rechtlichen Informationen.",
+                "content": "Um Karten- und SEPA-Zahlungen einziehen zu können, überprüfen Sie bitte Ihre rechtlichen Informationen",
                 "title": "Online-Zahlungen deaktiviert"
             },
             "payout": {
@@ -4626,7 +4627,7 @@
             "invoice_date": "Rechnungsdatum",
             "payment_amount_by_payment_method": "Zeitpunkt der Ausstellung der Rechnung",
             "invoice_time": "Zeitpunkt der Ausstellung der Rechnung",
-            "invoice_datetime": "Datum und Uhrzeit der Ausstellung der Rechnung.",
+            "invoice_datetime": "Datum und Uhrzeit der Ausstellung der Rechnung",
             "invoice_date_created": "Datum der Ausstellung der Rechnung",
             "last_payment_date": "Datum der letzten Zahlung",
             "billing_establishment": "Adresse",
@@ -4710,11 +4711,11 @@
             "payment_legal_identifier": "Referenz-Rechnung",
             "payment_method_bacs_debit": "Bacs-Lastschriftverfahren",
             "plan_note": "Notizen",
-            "staff_commission_amount_notax": "Personalprovision ohne MwSt.",
+            "staff_commission_amount_notax": "Personalprovision ohne MwSt",
             "franchisor_commission_amount": "Franchisegebühren inkl. Steuer",
             "product_category": "Kategorie des Produkts",
-            "staff_commission_amount": "Mitarbeiterprovisionen inkl. MwSt.",
-            "franchisor_commission_amount_notax": "Konzessionsabgaben ohne MwSt.",
+            "staff_commission_amount": "Mitarbeiterprovisionen inkl. MwSt",
+            "franchisor_commission_amount_notax": "Konzessionsabgaben ohne MwSt",
             "invoiceitem_pk": "ID des Abrechnungselements",
             "nb_invoice_items": "Anzahl der gekauften Produkte",
             "on_behalf_of_teacher": "Vollständig an die Lehrkraft gezahlte Vergütung",
@@ -5079,6 +5080,7 @@
                 "Stornieren",
                 "Stornieren",
                 "Stornieren",
+                "Stornieren",
                 "Stornieren"
             ]
         }
@@ -5389,7 +5391,7 @@
                 "error": "Beim Laden von nicht kompatiblen Pässen ist ein Fehler aufgetreten"
             },
             "incompatibilitiesReasons": {
-                "error": "Beim Laden der Gründe für die Inkompatibilität des Passes ist ein Fehler aufgetreten."
+                "error": "Beim Laden der Gründe für die Inkompatibilität des Passes ist ein Fehler aufgetreten"
             }
         },
         "email": {
@@ -6340,7 +6342,7 @@
         },
         "balance": {
             "updaterDialog": {
-                "explainDecaissement": "Eine Auszahlung von {{amount}} {{CurrencyDisplay}} wird erfasst.",
+                "explainDecaissement": "Eine Auszahlung von {{amount}} {{currencyDisplay}} wird erfasst.",
                 "typeLabel": "Art der Zahlung",
                 "title": "Guthaben-Einstellungen",
                 "actions": {
@@ -6395,7 +6397,8 @@
             "inconsistent": "De-autorisierte Zahlungsmethode, bitte konfigurieren Sie sie neu. Der Kunde hat möglicherweise beantragt, seine Karte nicht mehr zu autorisieren, oder Sie haben zwei Mitglieder zusammengelegt; in beiden Fällen ist die Zahlungsmethode nicht mehr verwendbar.",
             "isInternalExplainFuturePayments": "Die Fälligkeit wird automatisch von der Kundenanzahlung abgezogen. Wenn diese nicht ausreichend ist, wird eine negative Anzahlung erstellt.",
             "addPaymentMethod": "Ein Zahlungsmittel hinzufügen",
-            "copyLink": "Link zum Hinzufügen eines Zahlungsmittels kopieren"
+            "copyLink": "Link zum Hinzufügen eines Zahlungsmittels kopieren",
+            "manual": "Manuell"
         },
         "table": {
             "nested": {
@@ -6528,7 +6531,7 @@
             "registerNowInitialData": "Ursprünglich vorgesehene Zahlung am {{-date}}",
             "dialog": {
                 "invalidMandate": {
-                    "explainSituation": "Der mit dieser Zahlungsmethode verbundene Auftrag ist ausgelaufen. Dafür kann es verschiedene Gründe geben: zu viele fehlgeschlagene Zahlungen, eine einseitige Entscheidung der Bank, usw. Die Zahlungsmethode kann nicht mehr verwendet werden und Sie müssen eine neue registrieren.",
+                    "explainSituation": "Der mit dieser Zahlungsmethode verbundene Auftrag ist ausgelaufen. Dafür kann es verschiedene Gründe geben: zu viele fehlgeschlagene Zahlungen, eine einseitige Entscheidung der Bank, usw. Die Zahlungsmethode kann nicht mehr verwendet werden und Sie müssen eine neue registrieren",
                     "title": "Abgelaufene oder ungültige Lastschriften!",
                     "cancel": "Abbrechen",
                     "confirm": "Weiter"
@@ -6800,7 +6803,7 @@
                 "1": "in Bearbeitung",
                 "0": "In Bearbeitung"
             },
-            "payoutIsIncludedInOther": "Diese Überweisung wurde in die Überweisung vom {{date}} mit der Kennung {{readable_identifier}} aufgenommen.",
+            "payoutIsIncludedInOther": "Diese Überweisung wurde in die Überweisung vom {{date}} mit der Kennung {{readable_identifier}} aufgenommen",
             "payoutAmountFromIncludedPayouts": "davon {{price}} aus vorherigen Auszahlungen",
             "payoutIsManual": "Dieser Auszahlungstransfer wurde vom bsport-Team manuell ausgelöst, um die Überweisung Ihres Geldes zu beschleunigen. In diesem Fall sind die Details der verbundenen Zahlungen nicht verfügbar. Bitte setzen Sie sich für weitere Informationen mit unserem Team in Verbindung."
         },
@@ -7055,7 +7058,7 @@
             "session": "Gruppenkurse",
             "fields": {
                 "addPrivateSlot": "Eine Regel hinzufügen",
-                "private_service": "Terminvereinbarungen",
+                "private_service": "Termine",
                 "coach_payment_rule": "Vergütungsregel",
                 "private_service_name": "Name der Session",
                 "activity": "Aktivitäten",
@@ -7067,11 +7070,11 @@
                     "title": "Eine Gruppe löschen",
                     "cancel": "Abbrechen",
                     "confirm": "Bestätigen Sie",
-                    "content": "Wenn Sie diese Gruppe löschen, wird sie von allen Lehrkräften getrennt, denen sie derzeit zugeordnet ist."
+                    "content": "Wenn Sie diese Gruppe löschen, wird sie von allen Lehrkräften getrennt, denen sie derzeit zugeordnet ist"
                 }
             },
             "dialogTitle": "Vergütungsgruppe",
-            "private_service": "Terminvereinbarungen"
+            "private_service": "Termine"
         },
         "simulate": "Simulieren Sie",
         "privateSlotLabel": "Termine"
@@ -7376,7 +7379,7 @@
             },
             "download": "Download",
             "ebook": {
-                "downloadHelper": "Sie haben Ihr ebook freigeschaltet. Um es anzusehen, klicken Sie bitte auf die Schaltfläche {{button}}."
+                "downloadHelper": "Sie haben Ihr ebook freigeschaltet. Um es anzusehen, klicken Sie bitte auf die Schaltfläche {{button}}"
             }
         },
         "playlist": {
@@ -7608,7 +7611,7 @@
                 "sendBeforeNotification": "Gesandter la Benachrichtigung push au membre avant la séance Concréée par la Benachrichtigung",
                 "smartListHelper": "Keine E-Mail senden, wenn das Mitglied zu einer der folgenden Smartlisten gehört",
                 "smartListHelperInclude": "Eine E-Mail nur senden, wenn das Mitglied einer der folgenden Smartlisten angehört",
-                "warning": "Wenn Sie keine Smartlist auswählen, besteht die Gefahr, dass Sie Mitglieder benachrichtigen, die bereits einen anderen Kurspass gekauft haben.",
+                "warning": "Wenn Sie keine Smartlist auswählen, besteht die Gefahr, dass Sie Mitglieder benachrichtigen, die bereits einen anderen Kurspass gekauft haben",
                 "createSmartList": "Eine Smartlist erstellen",
                 "smartListSelection": "Smartlisten auswählen (optional)",
                 "advanced": "Fortgeschrittene"
@@ -7660,11 +7663,11 @@
                 "explain": "Alle {{dayOfWeek}} - {{hour}}: {{minute}}, {{delayWeek}} Wochen zuvor"
             },
             "recurrentBookings": "Wiederkehrende Buchungen",
-            "needConsumerPack": "Dieses Mitglied hat keinen kompatiblen Kurspass, es ist nicht möglich, eine Wiederholungsregel einzurichten.",
+            "needConsumerPack": "Dieses Mitglied hat keinen kompatiblen Kurspass, es ist nicht möglich, eine Wiederholungsregel einzurichten",
             "createModal": {
                 "create": "Erstelle eine wiederkehrende Buchung",
                 "info": "Eine bereits vorhandene wiederkehrende Buchung kann nicht neu erstellt werden",
-                "success": "Die wiederkehrende Buchung wurde geändert"
+                "success": "Die wiederkehrende Buchung wurde geändert."
             },
             "editModal": {
                 "success": "Die wiederkehrende Buchung wurde geändert"
@@ -8135,7 +8138,7 @@
                         "acceptedTitle": "Geänderte Anmeldeadresse"
                     },
                     "multipleCompanyHelper": "Ihre E-Mail-Adresse ist eine gemeinsame Adresse für alle Studios, die die Bsport-Lösung verwenden. Sie wird daher für alle Studios geändert. Folgende Studios sind davon betroffen:",
-                    "deniedRequestHelper": "Wenn diese Anfrage nicht von Ihnen stammt oder Sie Ihre Adresse nicht ändern möchten, klicken Sie bitte auf \"Meine Adresse behalten\".",
+                    "deniedRequestHelper": "Wenn diese Anfrage nicht von Ihnen stammt oder Sie Ihre Adresse nicht ändern möchten, klicken Sie bitte auf \"Meine Adresse behalten\"",
                     "acceptRequestHelper": "Wenn Sie Ihre Adresse tatsächlich auf diese neue E-Mail-Adresse ändern möchten, klicken Sie bitte auf \"Meine neue Adresse bestätigen\".",
                     "title": "Änderung Ihrer Anmelde-E-Mail"
                 }
@@ -8147,7 +8150,7 @@
                 },
                 "cancelHelperText": "Wenn Sie die E-Mail des Mitglieds nicht ändern möchten, klicken Sie auf \"Abbrechen\".",
                 "securityHelperText": "Aus Sicherheitsgründen werden wir ihm eine E-Mail schicken, um diese Änderung zu bestätigen.",
-                "expiryText": "Nach dem Absenden läuft der Änderungsantrag innerhalb von 7 Tagen ab.",
+                "expiryText": "Nach dem Absenden läuft der Änderungsantrag innerhalb von 7 Tagen ab",
                 "newEmail": "Neue Adresse: {{ email }}",
                 "oldEmail": "Ehemalige Adresse: {{ email }}",
                 "mergeMember": {
@@ -8678,7 +8681,7 @@
                         "label": "Zu Hause"
                     }
                 },
-                "createButton": "Eine Terminkategorie hinzufügen",
+                "createButton": "Einen Termin hinzufügen",
                 "delete": {
                     "content": "Bist Du Dir sicher, dass Du diese Terminkategorie löschen möchtest?",
                     "confirm": "Löschen",
@@ -8704,7 +8707,7 @@
                 },
                 "color": "Farbcode",
                 "coach_capacity_used": {
-                    "helperText": "Beispiel: Eine Lehrkraft kann zwei Kunden getrennt auf zwei Rechnern überwachen.",
+                    "helperText": "Beispiel: Eine Lehrkraft kann zwei Kunden getrennt auf zwei Rechnern überwachen",
                     "label": "Maximale Anzahl von gleichzeitigen Terminen, die eine Lehrkraft leiten kann",
                     "alertText": "Eine Lehrkraft kann 1, 2, 3, 4, 6, oder 12 Termine gleichzeitig verwalten."
                 },
@@ -8745,7 +8748,7 @@
                     "label": "Letzte mögliche Buchung vor Kursbeginn"
                 },
                 "paddingEnd": {
-                    "helperText0": "Im Kalender werden die Lehrkraft und / oder der Raum am Ende des Termins erneut als verfügbar markiert.",
+                    "helperText0": "Im Kalender werden die Lehrkraft und / oder der Raum am Ende des Termins erneut als verfügbar markiert",
                     "helperText": "Im Kalender werden die Lehrkraft und / oder der Raum {{minutes}} nach Ende des Termins erneut als verfügbar markiert",
                     "label": "Anzahl der Minuten nach dem Ende des Termins"
                 },
@@ -8851,7 +8854,7 @@
             "selectSession": "Wähle einen Termin",
             "searchFirstSlot": "Die nächste Verfügbarkeit finden",
             "emptyState": "Derzeit nicht verfügbar",
-            "previousOffer": "Eine neuere Sitzung ist am {{- Datum }} verfügbar: {{ hour }}",
+            "previousOffer": "Eine neuere Sitzung ist am {{- date }} verfügbar: {{ hour }}",
             "nextOffer": "Erste Verfügbarkeit: {{- date }} um {{ hour }}"
         },
         "availabilitySlot": {
@@ -8948,7 +8951,7 @@
                 "establishment": "Diese Einrichtung ist derzeit nicht verfügbar",
                 "coach": "Diese Lehrkraft ist zu diesem Zeitpunkt nicht verfügbar",
                 "title": "Zeitfenster nicht verfügbar",
-                "resource": "Achtung! {{ ressource }} ist im Moment nicht verfügbar.\n",
+                "resource": "Achtung! {{ resource }} ist im Moment nicht verfügbar.\n",
                 "continue": "Sind Sie sicher, dass Sie den Termin verschieben möchten?",
                 "validate": "Bestätigen",
                 "cancel": "Stornieren",
@@ -8986,7 +8989,7 @@
                     "label": "Mehrwertsteuer"
                 },
                 "price": {
-                    "label": "Preis inkl. MwSt.",
+                    "label": "Preis inkl. MwSt",
                     "helperText": "Kartenpreis für den Kunden"
                 },
                 "name": {
@@ -9262,7 +9265,7 @@
                 "explain4": "NICHT AKTIVIERT: Das Rendezvous ist möglich, aber der Raum wird 15 Minuten vor und nach der Buchung blockiert. Das nächste Rendezvous ist ab 11:30 Uhr möglich.",
                 "explain3": "AKTIV: Das RDV ist nicht möglich. Der Raum muss von 9:45 bis 11:15 Uhr verfügbar sein. Das nächste Rendezvous ist erst ab 11:30 Uhr möglich.",
                 "explain2": "Beispiel: Der Raum ist von 10:00 bis 11:00 Uhr verfügbar, Ihr Termin dauert 1 Stunde, benötigt aber 15 Minuten vor und nach der Buchung.",
-                "explain1": "Wenn aktiviert, können Buchungen nur vorgenommen werden, wenn der Kalender unter Einbeziehung der Buchung verfügbar ist."
+                "explain1": "Wenn aktiviert, können Buchungen nur vorgenommen werden, wenn der Kalender unter Einbeziehung der Buchung verfügbar ist"
             }
         },
         "privateSlot": {
@@ -9283,7 +9286,7 @@
         },
         "pageTitles": {
             "calendar": "Kalender",
-            "serviceList": "Terminvereinbarungen",
+            "serviceList": "Termine",
             "passList": "Terminpässe"
         },
         "serviceGroup": {
@@ -9305,7 +9308,7 @@
             "delete": "Löschen"
         },
         "noPrivatePass": "Die Terminpässe ermöglichen den Mitgliedern, Termine zu vereinbaren. Definiere hier die Preise und Bedingungen.",
-        "noPrivateService": "Ein Termin kann vom Mitglied auf dem von Ihnen gewählten Slot gebucht werden.",
+        "noPrivateService": "Hier können Termine hinzugefügt, gemanaged, überarbeitet und gelöscht werden.",
         "customEvent": {
             "form": {
                 "name": {
@@ -9414,7 +9417,7 @@
                     "afterMail": "Senden Sie die E-Mail an das Mitglied nach dem von der Benachrichtigung betroffenen Termin",
                     "beforeNotification": "Senden Sie die Push-Benachrichtigung an das Mitglied vor dem von der Benachrichtigung betroffenen RDV",
                     "beforeNotifications": "Benachrichtigungen an das Mitglied vor dem von der Benachrichtigung betroffenen RDV senden",
-                    "beforeMail": "Senden Sie die E-Mail an das Mitglied vor dem Termin, der von der Benachrichtigung betroffen ist."
+                    "beforeMail": "Senden Sie die E-Mail an das Mitglied vor dem Termin, der von der Benachrichtigung betroffen ist"
                 },
                 "help": {
                     "cancelledNotRefunded": {
@@ -9571,7 +9574,7 @@
             "readCount": "Öffnung",
             "showSms": "SMS anzeigen",
             "isAnswerWarning": "Achtung ! Nur Sie können diese Nachricht sehen",
-            "numberOfRecipientsCompact": "{{count}} Empfänger",
+            "numberOfRecipientsCompact": "{{count}} Empfänger.",
             "numberOfRecipients": "Gesendet an 1 Empfänger",
             "numberOfRecipients_plural": "Gesendet an {{count}} Empfänger",
             "showNotification": "Siehe Benachrichtigung"
@@ -9592,7 +9595,8 @@
                 "topLinks": "Meist angeklickte Links",
                 "totalRead": "Number of people who opened the mail",
                 "lastOpen": "Letzte Öffnung",
-                "exportError": "Beim Export ist ein Fehler aufgetreten"
+                "exportError": "Beim Export ist ein Fehler aufgetreten",
+                "exportCampaign": "Kampagne exportieren"
             },
             "clickCount": "Klicks",
             "recipientCount": "Empfänger : {{ total_recipients }}",
@@ -9674,7 +9678,7 @@
             "sendNotification": "Push-Benachrichtigung",
             "warningConsent2": "Diese Entscheidung deines Mitglieds zu missachten, wäre illegal. Bsport distanziert sich von jeglicher Verantwortung für den Missbrauch von direkten E-Mails.",
             "warningConsent1": "Achtung! Dieses Mitglied hat die Möglichkeit, ihm Werbe-E-Mails zu senden, deaktiviert. Direkte E-Mails ermöglichen es Ihnen, mit Ihren Mitgliedern auf einfache und schnelle Weise zu chatten. Sie sollten nicht für Werbe- oder Promotionszwecke verwendet werden.",
-            "titleInterpolated": "Die Variablen in der Betreffzeile und im Corp der E-Mail werden entsprechend dem Empfänger aktualisiert.",
+            "titleInterpolated": "Die Variablen in der Betreffzeile und im Corp der E-Mail werden entsprechend dem Empfänger aktualisiert",
             "warningProvider": "Bitte beachten Sie, dass die Antworten der Mitglieder auf diese Nachricht nicht auf der Plattform, sondern direkt in Ihrer Mailbox erscheinen werden. Damit sie alle hier erscheinen, ändern Sie die Kommunikationseinstellung auf der Seite Einstellungen/Anpassung."
         },
         "table": {
@@ -9808,7 +9812,7 @@
                 "missingRecipients": "Wählen Sie zunächst Empfänger aus"
             },
             "buttons": {
-                "selectRecipientsMobile": "Empfänger",
+                "selectRecipientsMobile": "Empfänger.",
                 "selectRecipients": "Wählen Sie Empfänger",
                 "send": "Senden"
             },
@@ -10137,7 +10141,7 @@
             "modal": {
                 "form": {
                     "delete": {
-                        "content": "Die Streichung dieses Ereignisses hat zur Folge, dass alle Buchungen der angemeldeten Mitglieder storniert werden. Diese Aktion kann nicht rückgängig gemacht werden.",
+                        "content": "Die Streichung dieses Ereignisses hat zur Folge, dass alle Buchungen der angemeldeten Mitglieder storniert werden. Diese Aktion kann nicht rückgängig gemacht werden",
                         "title": "Unterdrückung",
                         "applyRecursive": "Andere ähnliche Gruppen stornieren",
                         "selectGroup": "Andere ähnliche Gruppen stornieren",
@@ -11007,7 +11011,7 @@
             "establishmentGroupPage": "Standorte"
         },
         "privateService": {
-            "serviceList": "Terminvereinbarungen"
+            "serviceList": "Termine"
         },
         "coupon": {
             "couponList": "Werbecodes",
@@ -11075,7 +11079,7 @@
             "workshopActivityEditFormSubtitle": "Workshop bearbeiten",
             "workshopActivityFormSubtitle": "Workshop erstellen"
         },
-        "planning": "Planning",
+        "planning": "Kalender",
         "shop": "Mein Shop",
         "offerFormPage": "Erstellung eines Kurses",
         "expense": {
@@ -11107,7 +11111,7 @@
             "call_issuer": "Ihre Karte wurde aus einem unbekannten Grund abgelehnt. Bitte kontaktieren Sie Ihre Bank",
             "offline_pin_required": "Pin-Code erforderlich",
             "pin_try_exceeded": "Maximale Anzahl der Versuche erreicht. Versuchen Sie eine andere Zahlungsmethode",
-            "test_mode_live_card": "Ihre Karte wurde abgelehnt, weil Sie eine Testkarte verwende. Bitte verwenden Sie eine echte Karte."
+            "test_mode_live_card": "Ihre Karte wurde abgelehnt, weil Sie eine Testkarte verwende. Bitte verwenden Sie eine echte Karte"
         },
         "error_code": {
             "unknown": "Netzwerkfehler, bitte versuche es in wenigen Augenblicken erneut",
@@ -11394,11 +11398,11 @@
             "payment_pack": "Kurspässe",
             "activity": "Aktivität",
             "private_service_name": "Termin",
-            "price": "Preis inkl. MwSt.",
+            "price": "Preis inkl. MwSt",
             "contract": "Vertrag",
             "date": "Datum der Zahlung",
             "payment_method": "Zahlungsmethode",
-            "payment_price": "Preis inkl. MwSt.",
+            "payment_price": "Preis inkl. MwSt",
             "payment_date": "Datum der Zahlung",
             "accept_sms": "Akzeptiert SMS",
             "accept_email": "Akzeptiert E-Mails",
@@ -11447,12 +11451,12 @@
             "dispute_status": "Streitstand",
             "payout_date_created": "Überweisungsdatum",
             "is_unpaid": "Unbezahlt",
-            "staff_commission_amount_notax": "Personalprovision ohne MwSt.",
-            "staff_commission_amount": "Personalprovisionen inkl. MwSt.",
+            "staff_commission_amount_notax": "Personalprovision ohne MwSt",
+            "staff_commission_amount": "Personalprovisionen inkl. MwSt",
             "franchisor_commission_amount_notax": "Gebühren für die Franchisenehmerprovision HT",
             "franchisor_commission_amount": "Franchisenemer commissie HT",
-            "total_price_notax": "Gesamtbetrag ohne MwSt.",
-            "total_price": "Gesamtbetrag inkl. MwSt.",
+            "total_price_notax": "Gesamtbetrag ohne MwSt",
+            "total_price": "Gesamtbetrag inkl. MwSt",
             "invoice_date_created": "Datum der Rechnungsstellung",
             "author": "Autor",
             "invoiceitem_pk": "Anzahl der in Rechnung gestellten Artikel",
@@ -11610,9 +11614,9 @@
             "marketing_automation": "Automatisches Marketing",
             "schedule": "Stundenplan",
             "privateService": {
-                "services": "Terminvereinbarungen",
+                "services": "Termine",
                 "pass": "Terminpässe",
-                "title": "Terminvereinbarungen"
+                "title": "Termine"
             },
             "product": "Produkte",
             "myShop": "Shop",
@@ -12302,8 +12306,8 @@
                     "perDay_plural": "{{count}} Nutzungen pro Tag",
                     "maxPerDay": "Maximale Nutzung pro Tag : <strong>{{count}}</strong>",
                     "maxPerDay_plural": "Maximale Nutzungen pro Tag : <strong>{{count}}</strong>",
-                    "perWeek": "{count}} Nutzung pro Woche",
-                    "perWeek_plural": "{count}} Nutzungen pro Woche",
+                    "perWeek": "{{count}} Nutzung pro Woche",
+                    "perWeek_plural": "{{count}} Nutzungen pro Woche",
                     "maxPerWeek": "Maximale Nutzung pro Woche : <strong>{{count}}</strong>",
                     "maxPerWeek_plural": "Maximale Nutzungen pro Woche : <strong>{{count}}</strong>",
                     "perMonth": "{{count}} Nutzung pro Monat",
@@ -12454,7 +12458,7 @@
             "companyId": "Deine Klub-ID lautet: {{ company }}",
             "pleaseChoseEstablishment": "Bitte wählen Sie eine Einrichtung aus",
             "add": "Hinzufügen",
-            "establishmentMergeMaster": "In dieser Einrichtung zusammenführen ⬇️.",
+            "establishmentMergeMaster": "In dieser Einrichtung zusammenführen ⬇️",
             "establishmentMergedAs": "Diese Einrichtungen zusammenlegen",
             "partnerId": "PartnerID: {{ company }}",
             "venueIds": "VenueIDs: {{ establishmentIdList }}",
@@ -12478,7 +12482,7 @@
             },
             "1": {
                 "label": "Unabhängige Einrichtungen",
-                "helperText": "Jede Schule wird in ClassPass als eigenständiger Ort angezeigt."
+                "helperText": "Jede Schule wird in ClassPass als eigenständiger Ort angezeigt"
             }
         }
     },
@@ -12587,7 +12591,7 @@
             },
             "explainLoading": "Bitte warten",
             "explainWarning": "VORSICHT diese Aktion ist unwiderruflich.",
-            "explain": "Wähle das Datumsintervall, über das Du Deine Kurse stornieren möchtest. Mitglieder, die gebucht haben, werden per E-Mail benachrichtigt und ihre Credits werden automatisch auf den entsprechenden Kurspass zurückerstattet",
+            "explain": "Wähle das Datumsintervall, über das Du Deine Kurse stornieren möchtest. Mitglieder, die gebucht haben, werden per E-Mail benachrichtigt und ihre Credits werden automatisch auf den entsprechenden Kurspass zurückerstattet.",
             "title": "Kollektive Stornierung",
             "secondWarningConfirm": "Bist du dir sicher, dass du weitermachen willst?",
             "secondWarning": "Wenn Du auf \"BESTÄTIGEN\" klickst, werden die im ausgewählten Intervall enthaltenen Kurse storniert und Du kannst sie nicht mehr wiederherstellen.",
@@ -13000,7 +13004,7 @@
                 "subscription": "Abonnement",
                 "vod": "VOD",
                 "pass": "Pässe",
-                "privateService": "Terminvereinbarungen",
+                "privateService": "Termine",
                 "workshop": "Workshops",
                 "calendar": "Kalender",
                 "newsletter": "Newsletter",
@@ -13042,7 +13046,7 @@
             "buttonRevoke": "Quickbooks deaktivieren",
             "buttonReConnect": "Meine Verbindung aktualisieren",
             "buttonConnect": "Verbindung zu Quickbooks",
-            "explainEnable": "Übertragen Sie alle Ihre Rechnungen direkt in QuickBooks. Die Rechnungen werden alle 24 Stunden übermittel",
+            "explainEnable": "Übertragen Sie alle Ihre Rechnungen direkt in QuickBooks. Die Rechnungen werden alle 24 Stunden übermittel.",
             "submit": "Speichern Sie",
             "enable": "Aktivieren Sie die Quickbooks-Integration",
             "title": "QuickBooks",
@@ -13086,11 +13090,11 @@
                         "invoiceEmpty": "Keine Rechnungen",
                         "giftcardSubtitle": "Hier finden Sie alle Gutscheinkarten in Ihrem Studio",
                         "paymentComboEmpty": "Kein Angebot vorgeschlagen",
-                        "privateConsumerPassListEmpty": "Sie besitzen noch keinen Terminpass.",
+                        "privateConsumerPassListEmpty": "Sie besitzen noch keinen Terminpass",
                         "mySubscription": "Meine\nAbonnements",
-                        "paymentPackSubtitle": "Entdecken Sie das gesamte Angebot dieses Studios.",
+                        "paymentPackSubtitle": "Entdecken Sie das gesamte Angebot dieses Studios",
                         "contractSubtitle": "Wählen Sie das Abonnement, das am besten zu Ihnen passt",
-                        "consumerPaymentPackEmpty": "Sie besitzen noch keinen Pass.",
+                        "consumerPaymentPackEmpty": "Sie besitzen noch keinen Pass",
                         "vodSubtitle": "Sehen Sie sich Ihre Lieblingsvideos überall und jederzeit an",
                         "paymentComboSubtitle": "Hier finden Sie alle Angebote in Ihrem Studio"
                     },
@@ -13391,7 +13395,7 @@
             },
             "isFinalized": "Dein Warenkorb wurde validiert",
             "checkingPaymentStatus": "Bitte warten Sie, wir prüfen den Status Ihrer Zahlung",
-            "totalQuantity": "Enthält: {{ Anzahl }} Produkt(e)",
+            "totalQuantity": "Enthält: {{ qty }} Produkt(e)",
             "acceptTermsAndFinalize": "Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen und schließen Sie Ihre Buchung ab",
             "checkAndFinalize": "Bitte überprüfen Sie Ihren Warenkorb und schließen Sie Ihre Buchung ab",
             "almostDone": "Fast geschafft"
@@ -13485,7 +13489,8 @@
             "cancel": "Abbrechen",
             "confirm": "Bestätigen",
             "useMyInternalAccount": "Verwendung meines Guthabens",
-            "myInternalAccount": "Mein Kontostand"
+            "myInternalAccount": "Mein Kontostand",
+            "useAsManager": "Guthaben verwenden"
         },
         "payment": {
             "total": "Gesamtwert einschließlich aller Steuern",
@@ -13607,7 +13612,7 @@
             "submit": "Bestätigen Sie",
             "cancel": "Abbrechen",
             "form": {
-                "tagGroupEmpty": "In dieser Kategorie sind keine Tags vorhanden.",
+                "tagGroupEmpty": "In dieser Kategorie sind keine Tags vorhanden",
                 "tagGroupName": "Nachname",
                 "groupRename": "Kategorie"
             },
@@ -13764,7 +13769,7 @@
                 "reset": "zurücksetzen",
                 "spacingHelper": "Die Abstände basieren auf Vielfachen von {{base}}px",
                 "roundingHelper": "Ecken werden in Vielfachen von {{base}}px gerundet",
-                "selectAlert": "Die Widget-Anpassung ist im Moment nur für die Workshops, den Kalender, die Abonnements und die Pässe verfügbar.",
+                "selectAlert": "Die Widget-Anpassung ist im Moment nur für die Workshops, den Kalender, die Abonnements und die Pässe verfügbar",
                 "dialog": {
                     "title": "Einstellungen zurücksetzen",
                     "content": "Achtung Sie sind dabei, alle bereits angepassten Felder zurückzusetzen.",
@@ -14098,7 +14103,7 @@
                 "configure": "Konfigurieren Sie",
                 "customization": "Personalisierung"
             },
-            "allFieldDisabled": "Alle Fragen werden archiviert.",
+            "allFieldDisabled": "Alle Fragen werden archiviert",
             "answerForDisabledField": "Archivierte Fragen",
             "noChanges": "Aktualisiertes Formular.",
             "changesDetected": "Es wurden Änderungen vorgenommen. Speichern Sie das Formular, um sie anzuwenden.",
@@ -14472,7 +14477,7 @@
             "customStroke": "Farbe der Linien",
             "door": "Tür",
             "screen": "Bildschirm",
-            "teacher": "Prof.",
+            "teacher": "Professor",
             "spot": "Spot",
             "rect": "Rechteck",
             "line": "Merkmal",
@@ -14566,7 +14571,7 @@
             "prefixExplain": "Das hier angegebene Zeichen wird als Vorwahl der Platznummern erscheinen",
             "selectedPersonalized": "{{name}} ausgewählt",
             "missImageTaken": "Sie haben das Bild für den gebuchten Spot nicht geladen",
-            "alertDefaultSpot": "Wenn Sie den Standard-spot ändern, werden alle Standard-spots auf allen Plänen identisch geändert.",
+            "alertDefaultSpot": "Wenn Sie den Standard-spot ändern, werden alle Standard-spots auf allen Plänen identisch geändert",
             "personalizedExplain": "Sie können die Form der Slots anpassen, indem Sie Ihre eigenen Bilder importieren. Hierfür benötigen wir 3 verschiedene Symbole. Eines zeigt an, dass der Platz frei ist, ein anderes, dass er reserviert ist. Achten Sie darauf, dass sie die gleiche Größe haben, und fügen Sie bitte keine Zahlen in Ihre Icons ein.",
             "free": "Spot verfügbar"
         },
@@ -14640,7 +14645,7 @@
             "signUp": "Mich anmelden"
         },
         "companyGroup": {
-            "explain": "Kategorien dienen dazu, Ihre Lizenzen unter einem gemeinsamen Namen zu gruppieren (z. B. Studios Paris) und werden insbesondere in der mobilen Anwendung angezeigt.",
+            "explain": "Kategorien dienen dazu, Ihre Lizenzen unter einem gemeinsamen Namen zu gruppieren (z. B. Studios Paris) und werden insbesondere in der mobilen Anwendung angezeigt",
             "actions": {
                 "add": "Kategorie hinzufügen",
                 "submit": "Bestätigen",
@@ -14701,9 +14706,9 @@
     "giftcard": {
         "backgroundImage": {
             "dialog": {
-                "explain": "Fügen Sie Bilder hinzu, um Ihren Mitgliedern die Möglichkeit zu geben, ihre Geschenkkarte zu personalisieren. Bei der Erstellung der Karte können Ihre Mitglieder ein Hintergrundbild für die Geschenkkarte auswählen.",
+                "explain": "Hier klicken, um ein Bild einzufügen.",
                 "actions": {
-                    "close": "Schließen Sie"
+                    "close": "Schließen"
                 },
                 "title": "Bilder zur Anpassung"
             }
@@ -14717,7 +14722,7 @@
                     "label": "Unbegrenzt"
                 },
                 "expiration_days": {
-                    "helperText": "Die Gültigkeit der Karte beginnt an dem Tag, an dem die E-Mail mit der Geschenkkarte versandt wird.",
+                    "helperText": "Die Gültigkeit der Karte beginnt an dem Tag, an dem die E-Mail mit der Geschenkkarte versandt wird",
                     "label": "Dauer der Gültigkeit in Tagen"
                 },
                 "price": {
@@ -14741,8 +14746,8 @@
                 },
                 "title": "Geschenkkarte",
                 "actions": {
-                    "submit": "Bestätigen Sie",
-                    "cancel": "Schließen Sie"
+                    "submit": "Bestätigen",
+                    "cancel": "Schließen"
                 }
             },
             "canNotUpdateBecauseShared": "Dieser Gutschein wird vom Franchisegeber zur Verfügung gestellt. Sie wurde vom Franchisegeber festgelegt und kann nicht geändert werden."
@@ -14751,7 +14756,7 @@
             "delete": {
                 "dialog": {
                     "actions": {
-                        "close": "Schließen Sie",
+                        "close": "Schließen",
                         "delete": "Löschen"
                     },
                     "content": "Sind Sie sicher, dass Sie diese Karte löschen wollen? Mitglieder, die die Karte bereits erworben haben, können sie weiterhin nutzen.",
@@ -14771,7 +14776,7 @@
         },
         "consumerGiftcard": {
             "form": {
-                "footer": "Die Karte wird am {{- date_send }} um {{- hour_send }} per E-Mail an die angegebenen Adressen gesendet. Sie ist für {{ expiration_days }} Tage nach dem Versand der E-Mail gültig. Dem Konto des Empfängers wird ein Betrag von {{- price }} für zukünftige Einkäufe gutgeschriebe",
+                "footer": "Die Karte wird am {{- date_send }} um {{- hour_send }} per E-Mail an die angegebenen Adressen gesendet. Sie ist für {{ expiration_days }} Tage nach dem Versand der E-Mail gültig. Dem Konto des Empfängers wird ein Betrag von {{- price }} für zukünftige Einkäufe gutgeschriebe.",
                 "actions": {
                     "submit": "In den Warenkorb legen",
                     "cancel": "Abbrechen"
@@ -14799,8 +14804,8 @@
                 "hour_send": "Uhrzeit des Versands"
             },
             "previewPlaceholder": {
-                "message_content": "[Personalisierte Nachricht].",
-                "message_is_for": "[Name des Empfängers].",
+                "message_content": "[Personalisierte Nachricht]",
+                "message_is_for": "[Name des Empfängers]",
                 "message_is_from": "[Name des Käufers]",
                 "name": "[Name der Karte]",
                 "giftcard_amount": "[Kartenbetrag]"
@@ -14821,8 +14826,8 @@
             },
             "invitationForm": {
                 "actions": {
-                    "submit": "Senden Sie",
-                    "close": "Schließen Sie"
+                    "submit": "Senden",
+                    "close": "Schließen"
                 },
                 "content": "Sie können die Empfänger der Geschenkkarte ändern. Beachten Sie, dass nur einer sie verwenden kann. Wenn die E-Mail nicht angekommen ist, können Sie auch diesen Aktivierungslink weiterleiten :",
                 "title": "Senden Sie eine Einladungs-E-Mail",
@@ -14943,7 +14948,7 @@
         },
         "metric": {
             "form": {
-                "minMax": "Der Minimalwert kann nicht kleiner als der Maximalwert sein.",
+                "minMax": "Der Minimalwert kann nicht kleiner als der Maximalwert sein",
                 "default_valueHelperText": "Der Basiswert der Metrik. Wenn leer wird der Wert auf den Minimalwert gesetzt",
                 "range": "Der Standardwert liegt nicht zwischen dem Minimal- und Maximalwert ",
                 "addMetric": "eine Metrik hinzufügen",
@@ -14986,16 +14991,16 @@
             "repeat": {
                 "from": "Von",
                 "weekdays": {
-                    "third": "3.",
+                    "third": "dritte",
                     "monday": "Montag",
                     "tuesday": "Dienstag",
                     "wednesday": "Mittwoch",
                     "sunday": "Sonntag",
                     "first": "1ers",
-                    "second": "2.",
+                    "second": "zweite",
                     "thursday": "Donnerstag",
                     "saturday": "Samstag",
-                    "fourth": "4.",
+                    "fourth": "vierte",
                     "friday": "Freitag"
                 },
                 "interval": "Intervall",
@@ -15176,10 +15181,10 @@
             "compabilityInfo": "Wählen Sie die Artikel aus, auf die Sie die Ratenzahlung anwenden möchten, sie wird nur mit diesen kompatibel sein. Beim Kauf eines der ausgewählten Artikel wird die Ratenzahlung angeboten.",
             "name": "Name",
             "info": {
-                "startDay": "Die Zahlung wird alle {{frequency}} Tage in Rechnung gestellt.",
-                "startWeek": "Die Zahlung wird alle {{frequency}} Wochen in Rechnung gestellt.",
-                "startMonth": "Die Zahlung wird jeden {{frequency}} Monat in Rechnung gestellt.",
-                "startYear": "Die Zahlung wird alle {{frequency}} Jahre in Rechnung gestellt.",
+                "startDay": "Die Zahlung wird alle {{frequency}} Tage in Rechnung gestellt",
+                "startWeek": "Die Zahlung wird alle {{frequency}} Wochen in Rechnung gestellt",
+                "startMonth": "Die Zahlung wird jeden {{frequency}} Monat in Rechnung gestellt",
+                "startYear": "Die Zahlung wird alle {{frequency}} Jahre in Rechnung gestellt",
                 "middle": " über eine Gesamtdauer von {{total}} ",
                 "end": " und erzeugt {{number_of_billing}} Inkasso",
                 "end_plural": " und erzeugt {{number_of_billing}} Zahlungseingänge"
@@ -15309,7 +15314,7 @@
                 "title": "Löschen",
                 "cancel": "Abbrechen",
                 "confirm": "Bestätigen",
-                "content": "Sind Sie sicher, dass Sie diese Kategorie löschen möchten? Alle Elemente, die sie enthält, werden in den Abschnitt ohne Kategorie verschoben."
+                "content": "Sind Sie sicher, dass Sie diese Kategorie löschen möchten? Alle Elemente, die sie enthält, werden in den Abschnitt ohne Kategorie verschoben"
             },
             "add": "Kategorie hinzufügen",
             "empty": "Diese Kategorie ist leer",
@@ -15323,7 +15328,7 @@
             "successClockIn": "Ankunftszeit:",
             "subtitleSuccess": "Ihre Zeiterfassung wurde erfolgreich abgeschlossen. Sie können eine neue Zeiterfassung starten, wenn Sie dieses Fenster das nächste Mal öffnen.",
             "clockInForOther": "für einen anderen Staff ausstempeln",
-            "subtitleClockOut": "Jetzt geht es los! Um erneut auszustempeln und den Stundenzähler zu stoppen, klicken Sie bitte auf \"Beenden\".",
+            "subtitleClockOut": "Jetzt geht es los! Um erneut auszustempeln und den Stundenzähler zu stoppen, klicken Sie bitte auf \"Beenden\"",
             "subtitleClockIn": "Hallo {{ name }}, klicken Sie auf \"Starten\", um mit der Stempelung Ihres Tages zu beginnen.",
             "lastClockOut": "Ankunftszeit: ",
             "lastClockIn": "Letzte Stempelung: {{- date }}-{{ hour }}",
@@ -15441,8 +15446,8 @@
             "requestSentDescription_plural": "Ihre Ersatzanträge wurden berücksichtigt. Gehen Sie auf die Registerkarte \"Meine Anträge\", um die Bearbeitung zu verfolgen.",
             "lateRequestTypo": "Achtung: Ihr Antrag auf einen Ersatztermin verspätet sich. Sie haben {{daysBeforeOffer}} Tage vor Kursbeginn Zeit, um Ihren Antrag rechtzeitig zu stellen.",
             "lateRequestTypo_plural": "Achtung: Ihr Antrag auf einen Ersatztermin verspätet sich. Sie haben {{daysBeforeOffer}}. Tage vor Kursbeginn Zeit, um Ihren Antrag rechtzeitig zu stellen.",
-            "lateRequestCounterInfo": "<strong>{{requestLeft}}</strong> auf <strong>{{requestMax}}</strong> verbleibende späte Anfrage bis {{-dateEnd}}.",
-            "lateRequestCounterInfo_plural": "<strong>{{requestLeft}}</strong> auf <strong>{{requestMax}}</strong> verbleibende späte Anfragen bis {{-dateEnd}}.",
+            "lateRequestCounterInfo": "<strong>{{requestsLeft}}</strong> auf <strong>{{requestsMax}}</strong> verbleibende späte Anfrage bis {{-dateEnd}}.",
+            "lateRequestCounterInfo_plural": "<strong>{{requestsLeft}}</strong> auf <strong>{{requestsMax}}</strong> verbleibende späte Anfragen bis {{-dateEnd}}.",
             "lateRequestInfo": "Die Anfrage wird registriert, aber stellen Sie sicher, dass Sie Ihr Studio direkt kontaktieren, um es so schnell wie möglich zu benachrichtigen.",
             "lateRequestInfo_plural": "Die Anfragen werden registriert, aber stellen Sie sicher, dass Sie Ihr Studio direkt kontaktieren, um es so schnell wie möglich zu benachrichtigen.",
             "title": "Vertretung anfragen",
@@ -15863,6 +15868,55 @@
             "seller": "Verkäufer",
             "anonymousSale": "Anonymer Verkauf",
             "searchAProduct": "Ein Produkt suchen"
+        },
+        "checkout": {
+            "leftToPay": "Noch zu zahlen",
+            "leftDue": "Restbetrag :",
+            "paymentSuccess": {
+                "subText": "Die Zahlung wurde erfolgreich berücksichtigt. Die Rechnung wurde per E-Mail versendet.",
+                "subTextAnonymous": "Die Zahlung wurde erfolgreich berücksichtigt.",
+                "subTextPartialPayment": "Die Zahlung wurde erfolgreich berücksichtigt. Die Rechnung wurde per E-Mail versendet. Der Rest der Zahlung wurde zurückgestellt: Sie kann über das Backoffice oder das Kundenprofil erfolgen.",
+                "title": "Bezahlung akzeptiert",
+                "printTicket": "Ticket drucken",
+                "sendByEmail": "Rechnung per E-Mail senden"
+            },
+            "emailSent": {
+                "printTicket": "Ticket drucken",
+                "subText": "Die Rechnung wurde erfolgreich an die angegebene E-Mail-Adresse gesendet.",
+                "title": "E-Mail gesendet"
+            },
+            "payLater": {
+                "title": "Zahlung aufgeschoben",
+                "subText": "Die Zahlung wurde erfolgreich verschoben: Sie kann vom Backoffice aus oder über das Kundenprofil erfolgen."
+            },
+            "noAnonymousInstalment": {
+                "explanation": "Es ist nicht möglich, in Raten zu zahlen, wenn die Rechnung anonym ist",
+                "identify": "Identifizieren"
+            },
+            "tax": "Steuern",
+            "amountDue": "Geschuldeter Gesamtbetrag",
+            "partialPayment": "Bezahlt",
+            "onSpot": "Vor Ort",
+            "unauthenticatedWarning": "Wenn kein Mitglied für diese Rechnung authentifiziert ist, wird sie im anonymen Modus erstellt. Es ist ratsam, ein Mitglied zuzuweisen, um die Nachverfolgung der Informationen zu erleichtern.",
+            "noPartialInstalment": {
+                "explanation": "Es ist nicht möglich, in Raten zu zahlen, wenn der zu zahlende Gesamtbetrag geändert wurde.",
+                "reset": "Zurücksetzen"
+            },
+            "noAnonymousClientDebt": "Um den Kunden-Saldo zu nutzen, muss ein Mitglied auf der Rechnung identifiziert werden",
+            "billingDate": "Rechnungsdatum",
+            "priceExcludingTax": "Gesamt ohne MwSt",
+            "priceIncludingTax": "Gesamt",
+            "invoiceFootNote": "Fußnote zur Rechnung",
+            "deliveryFee": "Versandkosten",
+            "priceRecap": "Zusammenfassung",
+            "homeDelivery": "Lieferung",
+            "firstName": "Vorname",
+            "lastName": "Nachname",
+            "sendToTerminal": "An das Terminal senden",
+            "cancel": "Stornieren",
+            "validate": "Bestätigen",
+            "clientDebt": "Kunden-Saldo",
+            "internalCredits": "Interne Credits"
         }
     }
 }

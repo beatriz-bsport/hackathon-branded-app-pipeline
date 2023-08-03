@@ -9348,9 +9348,9 @@
             "date_canceled": "Cancellation date",
             "invoiceitem_pk": "Billing element ID",
             "last_booked_offer_pass_name": "Pass used for the last session booked",
-            "last_booked_offer_meta_activity_name": "Name of activity of last session booked",
-            "last_booked_offer_date": "Date of last session booked",
-            "last_booked_offer_id": "ID of last session booked"
+            "last_booked_offer_meta_activity_name": "Last booked session activity",
+            "last_booked_offer_date": "Last booked session date",
+            "last_booked_offer_id": "Last booked session ID"
         },
         "yes": "Yes",
         "no": "No",

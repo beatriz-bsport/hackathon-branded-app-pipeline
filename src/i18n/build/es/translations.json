@@ -2110,10 +2110,10 @@
                     "title": "Grupo de facturación"
                 },
                 "associated_localizations": "Establecimientos asociados",
-                "name": "Apellido"
+                "name": "Nombre"
             },
             "actions": "acciones",
-            "name": " Apellido"
+            "name": " Nombre"
         },
         "description": "Descripción",
         "favouriteLocation": "Ubicación preferida",
@@ -3332,7 +3332,8 @@
             "inconsistent": "Método de pago desautorizado, por favor reconfigúrelo. El cliente puede haber solicitado la desautorización de su método de pago, o puede haber fusionado dos miembros, en ambos casos el método de pago ya no es utilizable",
             "isInternalExplainFuturePayments": "La fecha de vencimiento se deducirá automáticamente del anticipo del cliente. Si no es suficiente, se creará un anticipo negativo.",
             "addPaymentMethod": "Añadir un método de pago",
-            "copyLink": "Copie el enlace para añadir un método de pago"
+            "copyLink": "Copie el enlace para añadir un método de pago",
+            "manual": "Manual"
         },
         "paymentEngine": {
             "label": {
@@ -3619,7 +3620,8 @@
                 "label": "Método de pago",
                 "2": "A cuenta",
                 "1": "Transferencia SEPA",
-                "0": "Tarjeta de pago"
+                "0": "Tarjeta de pago",
+                "paymentOnline": "Pago en línea"
             },
             "autoRenew": "Renovación automática",
             "private_pass": "Tarjeta de cita",
@@ -5028,6 +5030,7 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelada",
+                "Cancelada",
                 "Cancelada"
             ]
         },
@@ -6403,16 +6406,16 @@
                 "maxPurchasePerMember": "{{count}} compra por socio",
                 "maxPurchasePerMember_plural": "{{count}} compras por socio",
                 "restrictions": {
-                    "maxPerMonth": "Máximo {{count}} uso al mes",
-                    "maxPerMonth_plural": "Máximo {{count}} usos al mes",
+                    "maxPerMonth": "Máximo <strong>{{count}}</strong> uso al mes",
+                    "maxPerMonth_plural": "Máximo <strong>{{count}}</strong> usos al mes",
                     "perMonth": "{{count}} uso al mes",
                     "perMonth_plural": "{{count}} usos al mes",
-                    "maxPerWeek": "Máximo {{count}} uso por semana",
-                    "maxPerWeek_plural": "Máximo {{count}} usos por semana",
+                    "maxPerWeek": "Máximo <strong>{{count}}</strong> uso por semana",
+                    "maxPerWeek_plural": "Máximo <strong>{{count}}</strong> usos por semana",
                     "perWeek": "{{count}} uso por semana",
                     "perWeek_plural": "{{count}} usos por semana",
-                    "maxPerDay": "Máximo {{count}} uso por día",
-                    "maxPerDay_plural": "Máximo {{count}} usos por día",
+                    "maxPerDay": "Máximo <strong>{{count}}</strong> uso por día",
+                    "maxPerDay_plural": "Máximo <strong>{{count}}</strong> usos por día",
                     "perDay": "{{count}} uso por día",
                     "perDay_plural": "{{count}} usos por día",
                     "title": "Restricciones de uso"
@@ -8400,7 +8403,9 @@
                 "noTopLink": "Ningún click",
                 "recipientList": "Detalle por destinatario",
                 "topLinks": "Enlaces más visitados",
-                "totalClick": "Número de personas que han hecho clic en un enlace"
+                "totalClick": "Número de personas que han hecho clic en un enlace",
+                "exportError": "Se ha producido un error al exportar",
+                "exportCampaign": "Exportar campaña"
             },
             "list": {
                 "showMore": "Ver más",
@@ -10030,7 +10035,8 @@
             "label": "Importe disponible : ",
             "use": "Utilizar mi saldo",
             "myInternalAccount": "Mi saldo",
-            "cancel": "Cancelar"
+            "cancel": "Cancelar",
+            "useAsManager": "Utilizar el crédito de la cuenta interna"
         },
         "payment": {
             "total": "Total con IVA incluido",
@@ -11896,7 +11902,7 @@
             "limited": "Limitado",
             "numberOfCredit": "Número de créditos",
             "namePaymentPack": "Nombre del bono",
-            "name": "Apellido",
+            "name": "Nombre",
             "generalInfo": "Informaciones generales",
             "paymentPack": "Bono",
             "minusZero": "este campo no puede ser igual a 0",
@@ -12115,7 +12121,7 @@
         "editor": {
             "error": {
                 "content": "Por favor ingresa el contenido en el email",
-                "title": "Por favor ingresa un apellido",
+                "title": "Por favor ingresa un título",
                 "subject": "Por favor, introduzca un objeto"
             },
             "cancel": "Cancelar",
@@ -14594,6 +14600,29 @@
             },
             "marketingAction": {
                 "addAction": "Añadir una acción"
+            },
+            "bubble": {
+                "previous": "Atrás",
+                "changeInExit": {
+                    "title": "Salir",
+                    "label": "Considere al miembro como"
+                },
+                "marketingAction": {
+                    "label": "Seleccione una acción de marketing",
+                    "title": "Acción de marketing"
+                },
+                "entryTrigger": {
+                    "helperText": "Defina cuándo y quién entrará en esta cadencia con los criterios y desencadenantes seleccionados.",
+                    "title": "Entrada",
+                    "addTrigger": "Añadir un desencadenador de entrada"
+                },
+                "cancel": "Cancelar",
+                "confirm": "Guardar",
+                "next": "Siguiente",
+                "changeInStep": {
+                    "label": "Nombre de la etapa",
+                    "default": "Nombre de la etapa"
+                }
             }
         }
     },
@@ -14778,7 +14807,7 @@
                 "cancel": "Cancelar"
             },
             "name": {
-                "label": "Apellido"
+                "label": "Nombre"
             }
         },
         "staff": {
@@ -15399,7 +15428,7 @@
             "compatibility": "Compatibilidad",
             "create": "Pago fraccionado",
             "generalInfo": "Información general",
-            "name": "Apellido",
+            "name": "Nombre",
             "frequency": {
                 "start": "Repetir cada"
             },
@@ -15995,6 +16024,55 @@
                 "title": "Se han eliminado artículos de la cesta",
                 "subText": "Cuando se cambiaba de miembro, algunos artículos que no eran compatibles con el nuevo miembro se eliminaban de la cesta de la compra."
             }
+        },
+        "checkout": {
+            "paymentSuccess": {
+                "subTextPartialPayment": "El pago ha sido procesado. La factura se ha enviado por correo electrónico. El resto del pago se ha pospuesto: puede realizarse desde el Backoffice o el perfil de cliente.",
+                "title": "Pago aceptado",
+                "subText": "El pago ha sido procesado. La factura se ha enviado por correo electrónico.",
+                "subTextAnonymous": "El pago ha sido procesado.",
+                "printTicket": "Imprimir ticket",
+                "sendByEmail": "Enviar la factura por correo electrónico"
+            },
+            "billingDate": "Fecha de facturación",
+            "priceExcludingTax": "Total antes de impuestos",
+            "tax": "Impuestos",
+            "leftToPay": "Importe pendiente",
+            "leftDue": "Importe pendiente:",
+            "onSpot": "En el centro",
+            "homeDelivery": "Entrega",
+            "firstName": "Nombre",
+            "emailSent": {
+                "printTicket": "Imprimir ticket",
+                "title": "Correo electrónico enviado",
+                "subText": "La factura se ha enviado a la dirección de correo electrónico facilitada."
+            },
+            "noPartialInstalment": {
+                "explanation": "El pago a plazos no es posible cuando se ha modificado el importe total adeudado.",
+                "reset": "Restablecer"
+            },
+            "noAnonymousClientDebt": "Es necesario identificar a un socio en la factura para utilizar el saldo de la cuenta cliente",
+            "internalCredits": "Créditos internos",
+            "priceIncludingTax": "Total",
+            "invoiceFootNote": "Nota a pie de factura",
+            "deliveryFee": "Gastos de envío",
+            "priceRecap": "Resumen",
+            "amountDue": "Total debido",
+            "partialPayment": "Pagado",
+            "lastName": "Apellido",
+            "unauthenticatedWarning": "Si no hay ningún miembro autentificado para esta factura, se creará en modo anónimo. Se recomienda asignar un miembro para facilitar el seguimiento de la información.",
+            "sendToTerminal": "Enviar al terminal",
+            "cancel": "Cancelar",
+            "validate": "Validar",
+            "payLater": {
+                "title": "Pago aplazado",
+                "subText": "El pago ha sido aplazado: puede realizarse desde el Backoffice o en el perfil del cliente."
+            },
+            "noAnonymousInstalment": {
+                "explanation": "El pago a plazos no es posible cuando la factura es anónima",
+                "identify": "Identificar"
+            },
+            "clientDebt": "Saldo de la cuenta cliente"
         }
     }
 }

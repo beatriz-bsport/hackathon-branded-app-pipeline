@@ -2747,7 +2747,7 @@
                     "requiredSignature": "Veuillez signer le formulaire.",
                     "requiredFile": "Veuillez joindre un fichier",
                     "passwordMinimumRequirementsError": "Le mot de passe doit contenir au moins 6 caratères",
-                    "passwordConfirmationError": "Les mots de passes ne sont pas indetiques",
+                    "passwordConfirmationError": "Les mots de passes ne sont pas identiques",
                     "invalidEmail": "Email invalide"
                 }
             },
@@ -5929,7 +5929,7 @@
                 },
                 "coach_capacity_used": {
                     "label": "Nb maximum de RDV simultanés qu'un professeur peut gérer",
-                    "helperText": "Ex: un professeur peut surveiller deux élèves séparément sur deux machines "
+                    "helperText": "Ex : un professeur peut surveiller deux élèves séparément sur deux machines"
                 },
                 "color": "Code couleur",
                 "use_full_establishment_capacity": {
@@ -6575,7 +6575,8 @@
             "due_date": "Date d'échéance",
             "is_recurring": "Récurrent",
             "category": "Catégorie",
-            "supplier": "Fournisseur"
+            "supplier": "Fournisseur",
+            "last_booked_offer_pass_name": "Carte de cours utilisée pour la dernière séance réservée"
         },
         "yes": "Oui",
         "no": "Non",

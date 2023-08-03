@@ -1811,7 +1811,8 @@
                 "topLinks": "Populaire links",
                 "recipientList": "Details",
                 "noTopLink": "Er is nog geen informatie om weer te geven.",
-                "exportError": "Fout bij het exporteren van de gegevens"
+                "exportError": "Fout bij het exporteren van de gegevens",
+                "exportCampaign": "Campagne exporteren"
             },
             "recipientCount": "Ontvanger(s): {{total_recipients}}",
             "kind": {
@@ -3122,6 +3123,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Annuleren",
+                "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",

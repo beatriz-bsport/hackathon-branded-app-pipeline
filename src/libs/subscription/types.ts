@@ -253,21 +253,6 @@ export type SubscriptionQueryParams = {
   id__in?: number[];
 };
 
-export type SubscriptionFactoryOptions = {
-  isAutoRenewal?: boolean;
-  isCanceled?: boolean;
-  isEditable?: boolean;
-  isSubscriptionEnded?: boolean;
-  isV2?: boolean;
-  isMemberArchived?: boolean;
-  nextBillingDate?: string;
-  hasPaymentCombo?: boolean;
-  hasPaymentPack?: boolean;
-  hasPrivatePass?: boolean;
-  status?: number;
-  hasDiscount?: boolean;
-};
-
 export type PlannedInvoiceFactoryOptions = {
   status?: number;
   isLastInvoiceBeforeScheduledStop?: boolean;

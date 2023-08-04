@@ -96,7 +96,7 @@ const SortablePaymentPackListItem = React.memo((props: PackListItemProps) => {
   const { pack } = props;
   const { listeners, attributes, setNodeRef, transform, transition } =
     useSortable({
-      id: props.pack.id.toString(10),
+      id: props.pack?.id?.toString(10),
       data: {
         category: { packs: props.sortedItems },
         pack,
@@ -198,7 +198,7 @@ const SortablePaymentPackList = React.memo((props: PackListProps) => {
                   props.onRestore ? () => props.onRestore(pack.id) : null
                 }
                 pack={pack}
-                sortedItems={packs.filter((pp) => !!pp)}
+                sortedItems={packs.filter((paymentPack) => !!paymentPack)}
               />
             ) : null;
           })

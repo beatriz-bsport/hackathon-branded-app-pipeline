@@ -539,6 +539,7 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
               <div className={classes.row}>
                 <div>
                   <DatatypeFilterConfigValueManager
+                    inScrollBar
                     comparator={4}
                     filterItem={
                       values.date_filter_config.groups[0].filters_data[0]

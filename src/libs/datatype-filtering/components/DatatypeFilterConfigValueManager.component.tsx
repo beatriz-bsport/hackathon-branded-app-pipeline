@@ -96,7 +96,15 @@ const DatatypeFilterConfigValueManager: React.FC<{
   filterItem: DatatypeFilterConfigItem;
   isPreview?: boolean;
   getDataByType: (datatype: DynamicFilterDataType) => any[];
-}> = ({ prefix, filterItem, comparator, isPreview, getDataByType }) => {
+  inScrollBar?: boolean;
+}> = ({
+  prefix,
+  filterItem,
+  comparator,
+  isPreview,
+  getDataByType,
+  inScrollBar,
+}) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
 
@@ -117,7 +125,7 @@ const DatatypeFilterConfigValueManager: React.FC<{
   if (filterItem.datatype === 'boolean') {
     return (
       <MaterialUiSingleSelectorField
-        inScrollBar
+        inScrollBar={inScrollBar}
         isDisabled={isPreview}
         name={`${prefix}.value`}
         options={booleanOptions}
@@ -167,6 +175,7 @@ const DatatypeFilterConfigValueManager: React.FC<{
         key={`${prefix}.value`}
         datatype={filterItem.datatype}
         getDataByType={getDataByType}
+        inScrollBar={inScrollBar}
         isPreview={isPreview}
         name={`${prefix}.value`}
       />
@@ -335,7 +344,8 @@ const DatatypeFilterConfigValueList: React.FC<{
   datatype: DatatypeFilterConfigItemTypeById;
   isPreview?: boolean;
   getDataByType: (datatype: DynamicFilterDataType) => any[];
-}> = ({ name, datatype, isPreview, getDataByType }) => {
+  inScrollBar: boolean;
+}> = ({ name, datatype, isPreview, getDataByType, inScrollBar }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
   const { errors, touched } = useFormikContext();
@@ -520,11 +530,11 @@ const DatatypeFilterConfigValueList: React.FC<{
         }: FieldAttributes<any>) => {
           return (
             <MaterialUISelectorConsumers
-              inScrollBar
               isMenuListVirtualized
               isMulti
               defaultNumberShown={1}
               error={!!(meta.touched && meta.error)}
+              inScrollBar={inScrollBar}
               isDisabled={isPreview}
               kind={datatype}
               onChange={(optionList) => {
@@ -550,11 +560,11 @@ const DatatypeFilterConfigValueList: React.FC<{
         }: FieldAttributes<any>) => {
           return (
             <MaterialUISelectorPayout
-              inScrollBar
               isMenuListVirtualized
               isMulti
               defaultNumberShown={1}
               error={!!(meta.touched && meta.error)}
+              inScrollBar={inScrollBar}
               isDisabled={isPreview}
               onChange={(optionList) => {
                 const valueList = optionList.map((option) => option.value);
@@ -596,11 +606,11 @@ const DatatypeFilterConfigValueList: React.FC<{
 
   return (
     <MaterialUiMultiSelectorField
-      inScrollBar
       isMenuListVirtualized
       className={classes.flexOne}
       defaultNumberShown={1}
       forceError={false && error && isTouched}
+      inScrollBar={inScrollBar}
       isDisabled={isPreview}
       name={name}
       options={[...getOptions()]}

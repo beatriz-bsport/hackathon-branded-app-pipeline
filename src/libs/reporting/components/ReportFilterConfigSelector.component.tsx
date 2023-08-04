@@ -23,6 +23,8 @@ import { OptionCallback } from '../../../state/types';
 import { ReportFilterConfig } from '../types';
 import {
   DataSourceFieldMetadata,
+  DatatypeFilterConfigGroup,
+  DatatypeFilterConfigItem,
   DynamicFilterDataType,
 } from '#libs/datatype-filtering/types';
 import HoverableWarning from '#components/HoverableWarning.component';
@@ -68,13 +70,20 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
     onSelect,
     handleGetDynamicDataForReport,
     isFranchisor,
+    values,
   }) => {
     const { t } = useTranslation(['reporting']);
     const classes = useStyles();
+    const [selectedColumn, setSelectedColumn] =
+      useState<DatatypeFilterConfigItem>();
     const [isQuickFilterModalOpen, setIsQuickFilterModalOpen] = useState(false);
     const [
       isQuickFilterConfigColumnModalOpen,
       setIsQuickFilterConfigColumnModalOpen,
+    ] = useState(false);
+    const [
+      isQuickFilterConfigRowModalOpen,
+      setIsQuickFilterConfigRowModalOpen,
     ] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editFilterId, setEditFilterId] = useState<number>(null);
@@ -190,6 +199,20 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
       setAnchorEl(null);
     }, []);
 
+    // TYPING A FINIR SUR LA PARTIE 2 LIEES AUX CHIPS
+    const columnsDataSelectedQuickFilter = useMemo(() => {
+      return values.config.groups
+        ? values.config.groups.flatMap((group: DatatypeFilterConfigGroup) =>
+            group.filters_data.map((row: DatatypeFilterConfigItem) => ({
+              identifier: row.identifier,
+              value: row.value,
+              comparator: row.comparator,
+              datatype: row.datatype,
+            })),
+          )
+        : [];
+    }, [values.config.groups]);
+
     return (
       <>
         <div ref={containerRef} style={{ width: '100%' }}>
@@ -282,16 +305,31 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
                 <QuickReportFilterConfigColumnsMenu
                   anchorEl={anchorEl}
                   columns={columnsMetadata}
+                  columnsDataSelectedQuickFilter={
+                    columnsDataSelectedQuickFilter
+                  }
+                  getDataByType={handleGetDynamicDataForReport}
                   handleOpenModal={handleOpenModal}
                   handleQuickFilterModalClose={handleQuickFilterModalClose}
                   isFranchisor={isFranchisor}
                   isQuickFilterConfigColumnModalOpen={
                     isQuickFilterConfigColumnModalOpen
                   }
+                  isQuickFilterConfigRowModalOpen={
+                    isQuickFilterConfigRowModalOpen
+                  }
                   isQuickFilterModalOpen={isQuickFilterModalOpen}
+                  selectedColumn={selectedColumn}
+                  setIsQuickFilterConfigColumnModalOpen={
+                    setIsQuickFilterConfigColumnModalOpen
+                  }
+                  setIsQuickFilterConfigRowModalOpen={
+                    setIsQuickFilterConfigRowModalOpen
+                  }
+                  setIsQuickFilterModalOpen={setIsQuickFilterModalOpen}
+                  setSelectedColumn={setSelectedColumn}
                 />
               )}
-
               <Button
                 className={classes.button}
                 color="primary"

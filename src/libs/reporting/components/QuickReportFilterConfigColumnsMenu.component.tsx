@@ -15,11 +15,18 @@ import { useFormikContext } from 'formik';
 import uniqBy from 'lodash/uniqBy';
 // @ts-expect-error
 import FuzeSearch from '../../../components/FuzeSearch.component';
-import { ReportFilterConfig } from '../types';
+import { ReportFilterConfig, ReportMetadataColumn } from '../types';
 import {
   DataSourceFieldMetadata,
   DataSourceMedadataDataType,
+  DatatypeFilterConfigItem,
+  DynamicFilterDataType,
 } from '#libs/datatype-filtering/types';
+import {
+  generateNewFilterItem,
+  generateNewGroup,
+} from '#libs/datatype-filtering/utils';
+import QuickReportFilterConfigFilter from './QuickReportFilterConfigFilter.component';
 import { getFilterableColumns } from '../utils';
 
 type QuickFilterConfigSearchColumnOptions = {
@@ -31,12 +38,27 @@ type QuickFilterConfigSearchColumnOptions = {
 
 type Props = {
   isQuickFilterConfigColumnModalOpen: boolean;
+  setIsQuickFilterConfigColumnModalOpen: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
   isQuickFilterModalOpen: boolean;
+  setIsQuickFilterModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isQuickFilterConfigRowModalOpen: boolean;
+  setIsQuickFilterConfigRowModalOpen: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
   handleQuickFilterModalClose: () => void;
   handleOpenModal: () => void;
   anchorEl: (EventTarget & HTMLButtonElement) | HTMLDivElement;
   columns: DataSourceFieldMetadata[];
   isFranchisor: boolean;
+  getDataByType: (datatype: DynamicFilterDataType) => any[];
+  // TYPING A FINIR SUR LA PARTIE 2 LIEES AUX CHIPS
+  columnsDataSelectedQuickFilter: any;
+  selectedColumn: DatatypeFilterConfigItem;
+  setSelectedColumn: React.Dispatch<
+    React.SetStateAction<DatatypeFilterConfigItem>
+  >;
 };
 
 const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
@@ -47,6 +69,14 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
   columns,
   isFranchisor,
   isQuickFilterConfigColumnModalOpen,
+  setIsQuickFilterConfigColumnModalOpen,
+  setIsQuickFilterModalOpen,
+  getDataByType,
+  columnsDataSelectedQuickFilter,
+  selectedColumn,
+  setSelectedColumn,
+  isQuickFilterConfigRowModalOpen,
+  setIsQuickFilterConfigRowModalOpen,
 }) => {
   const classes = useStyles();
   const [search, setSearch] = useState('');
@@ -54,7 +84,7 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
     QuickFilterConfigSearchColumnOptions[]
   >([]);
   const { t } = useTranslation('reporting');
-  const { values } = useFormikContext<ReportFilterConfig>();
+  const { values, setFieldValue } = useFormikContext<ReportFilterConfig>();
 
   const changeSearch =
     (fuse: Fuse<ReportFilterConfig, FuseOptions<ReportFilterConfig>>) =>
@@ -101,9 +131,48 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
     return searchResult;
   }, [columnsOptions, searchResult, search]);
 
-  const handleQuickFilterConfigColumnModalClose = useCallback(() => {
+  const handleQuickFilterConfigRowOpen = useCallback(
+    (column: ReportMetadataColumn) => {
+      values.config.groups?.length
+        ? setFieldValue('config.groups[0].filters_data', [
+            ...values.config.groups[0].filters_data,
+            generateNewFilterItem(column),
+          ])
+        : setFieldValue('config.groups', [generateNewGroup(column, true)]);
+      setIsQuickFilterConfigColumnModalOpen(false);
+      setSelectedColumn(generateNewFilterItem(column));
+      setIsQuickFilterConfigRowModalOpen(true);
+    },
+    [
+      setIsQuickFilterConfigColumnModalOpen,
+      setFieldValue,
+      values.config.groups,
+      setSelectedColumn,
+      setIsQuickFilterConfigRowModalOpen,
+    ],
+  );
+
+  const handleQuickFilterConfigRowClose = useCallback(() => {
     handleQuickFilterModalClose();
-  }, [handleQuickFilterModalClose]);
+    setIsQuickFilterModalOpen(false);
+    setIsQuickFilterConfigRowModalOpen(false);
+  }, [
+    handleQuickFilterModalClose,
+    setIsQuickFilterModalOpen,
+    setIsQuickFilterConfigRowModalOpen,
+  ]);
+
+  const handleQuickFilterConfigColumnModalClose = useCallback(() => {
+    if (!isQuickFilterConfigRowModalOpen) {
+      handleQuickFilterModalClose();
+    } else {
+      setIsQuickFilterConfigColumnModalOpen(false);
+    }
+  }, [
+    setIsQuickFilterConfigColumnModalOpen,
+    handleQuickFilterModalClose,
+    isQuickFilterConfigRowModalOpen,
+  ]);
 
   return (
     <div className={classes.row}>
@@ -131,7 +200,10 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
         {quickFilterConfigListSearchFiltered.map(
           (column: QuickFilterConfigSearchColumnOptions) => {
             return (
-              <MenuItem key={column.value}>
+              <MenuItem
+                key={column.value}
+                onClick={() => handleQuickFilterConfigRowOpen(column)}
+              >
                 <ListItemText primary={column.label} />
               </MenuItem>
             );
@@ -146,6 +218,18 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
           </ListItem>
         </MenuItem>
       </Popover>
+
+      {selectedColumn && (
+        <QuickReportFilterConfigFilter
+          anchorEl={anchorEl}
+          columnsDataSelectedQuickFilter={columnsDataSelectedQuickFilter}
+          getDataByType={getDataByType}
+          isQuickFilterConfigRowModalOpen={isQuickFilterConfigRowModalOpen}
+          isQuickFilterModalOpen={isQuickFilterModalOpen}
+          onClose={handleQuickFilterConfigRowClose}
+          selectedColumn={selectedColumn}
+        />
+      )}
     </div>
   );
 };

@@ -125,22 +125,24 @@ type MaterialUiSingleSelectorOwnProps = {
   title?: ReactNode;
   onChange?: (value: { label: string; value: any }) => void;
   forceError?: boolean;
-} & Pick<
-  MaterialUISelectorProps<{
-    label: string;
-    value: string;
-  }>,
-  | 'chipsRenderer'
-  | 'isMenuListVirtualized'
-  | 'itemRenderer'
-  | 'inScrollBar'
-  | 'placeholder'
-  | 'isDisabled'
+} & Partial<
+  Pick<
+    MaterialUISelectorProps<{
+      label: string;
+      value: string;
+    }>,
+    | 'chipsRenderer'
+    | 'isMenuListVirtualized'
+    | 'itemRenderer'
+    | 'inScrollBar'
+    | 'placeholder'
+    | 'isDisabled'
+  >
 >;
 
 type MaterialUiSingleSelectorProps = BaseFieldProps &
   MaterialUiSingleSelectorOwnProps & {
-    className: string;
+    className?: string;
   };
 
 const useMaterialUiSingleSelectStyles = makeStyles<Theme>((theme) => ({

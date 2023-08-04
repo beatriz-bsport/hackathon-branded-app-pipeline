@@ -290,6 +290,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
         })}
       >
         <DatatypeFilterConfigValueManager
+          inScrollBar
           comparator={filterItem.comparator}
           filterItem={filterItem}
           getDataByType={getDataByType}

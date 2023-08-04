@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
@@ -48,6 +48,20 @@ export function CompatiblePaymentPacks(props: Props) {
   const toggleDrawerOpen = () => {
     setOpenPaymentPackForm(!openPaymentPackForm);
   };
+  const renderPaymentPackListItem = useCallback((pack) => {
+    if (pack) {
+      return (
+        <PaymentPackListItem
+          key={pack.id}
+          divider
+          hidePacksNumber
+          onClick={() => window.open(`/payment-pack/${pack.id}`)}
+          pack={pack}
+        />
+      );
+    }
+    return null;
+  }, []);
 
   return (
     <div>
@@ -83,15 +97,7 @@ export function CompatiblePaymentPacks(props: Props) {
               <Divider />
             </div>
           )}
-          renderItem={(pack) => (
-            <PaymentPackListItem
-              key={pack.id}
-              divider
-              hidePacksNumber
-              onClick={() => window.open(`/payment-pack/${pack.id}`)}
-              pack={pack}
-            />
-          )}
+          renderItem={renderPaymentPackListItem}
         />
       </List>
       <div className={props.classes.buttonContainer}>

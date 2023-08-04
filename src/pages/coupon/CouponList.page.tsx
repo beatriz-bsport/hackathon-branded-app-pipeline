@@ -274,6 +274,7 @@ export class CouponList extends React.PureComponent<Props, State> {
   onEditCouponListItem = (couponSelected: Coupon) => {
     this.fetchItemsOnUpdateMode(couponSelected);
     if (
+      ['dev', 'local'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT) &&
       couponSelected.coupon_type === CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE
     ) {
       this.setState({
@@ -295,6 +296,7 @@ export class CouponList extends React.PureComponent<Props, State> {
   onEditCouponListComponent = (couponSelected: Coupon) => {
     this.fetchItemsOnUpdateMode(couponSelected);
     if (
+      ['dev', 'local'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT) &&
       couponSelected.coupon_type === CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE
     ) {
       this.setState({

@@ -76,7 +76,7 @@ export const DrawerItemComponent: React.FC<Props> = ({
 }) => {
   const classes = useStyles({ iconsOnly });
 
-  const currentPath = location.pathname;
+  const currentPath = location?.pathname ?? '';
   const hasAnActiveNestedItem = item?.nestedItems?.some((_item) =>
     currentPath.startsWith(_item.to),
   );
@@ -102,7 +102,7 @@ export const DrawerItemComponent: React.FC<Props> = ({
     }
   }
 
-  const isActive = currentPath.startsWith(item.to) || hasAnActiveNestedItem;
+  const isActive = currentPath?.startsWith(item.to) || hasAnActiveNestedItem;
 
   if (item.type === 'nested') {
     return (

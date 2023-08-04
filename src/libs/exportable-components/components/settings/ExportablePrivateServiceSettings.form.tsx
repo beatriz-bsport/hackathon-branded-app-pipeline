@@ -28,7 +28,7 @@ const MarketplacePrivateServiceSettingsForm: React.FC<Props> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation('settings');
 
-  let typeValue = props.config.type;
+  let typeValue = props.config?.type;
 
   if (!typeValue) {
     if (typeof props.config.serviceId === 'number') {

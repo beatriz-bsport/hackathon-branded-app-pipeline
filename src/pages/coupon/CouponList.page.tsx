@@ -9,7 +9,9 @@ import { compose, withState, withProps, withHandlers } from 'recompose';
 import { Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';
-import { List } from '@material-ui/core';
+import { Fab, List } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+
 import Fuse, { FuseOptions } from 'fuse.js';
 import FuzeSearch from '../../components/FuzeSearch.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -78,6 +80,7 @@ import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
 import FabWithItems from '#components/button/FabWithItems';
 import UniqueCodeCouponFormDrawer from '#libs/coupon/components/UniqueCodeCouponForm/UniqueCodeCouponForm.drawer';
+import Config from '../../config';
 
 type OwnProps = {
   couponToDelete: (id: string) => void;
@@ -229,6 +232,9 @@ export class CouponList extends React.PureComponent<Props, State> {
 
   render() {
     const { classes, t } = this.props;
+    const isDevelopment = ['dev', 'local'].includes(
+      Config.REACT_APP_SENTRY_ENVIRONMENT,
+    );
     return (
       <div>
         {this.props.loading ? <LinearProgress /> : null}
@@ -333,32 +339,48 @@ export class CouponList extends React.PureComponent<Props, State> {
           tagList={this.props.tagList}
           tagsLoading={this.props.tagsLoading}
         />
-        <UniqueCodeCouponFormDrawer
-          isLoading={this.props.loading}
-          isProcessing={this.props.createOrUpdateLoading}
-          onCancel={this.onCloseUniqueCodeCouponFormDrawer}
-          onSubmit={this.createUniqueCodeCoupon}
-          open={this.state.uniqueCodeCouponFormState.open}
-          paymentCombos={this.props.paymentCombos}
-          paymentCombosById={this.props.allPaymentCombosById}
-          paymentPacks={this.props.paymentPacks}
-          paymentPacksById={this.props.allPaymentPacksById}
-          privatePasses={this.props.privatePasses}
-          privatePassesById={this.props.allPrivatePassesById}
-          shopItems={this.props.shopItems}
-          shopItemsById={this.props.allShopItemsById}
-        />
+        {isDevelopment && (
+          <UniqueCodeCouponFormDrawer
+            isLoading={this.props.loading}
+            isProcessing={this.props.createOrUpdateLoading}
+            onCancel={this.onCloseUniqueCodeCouponFormDrawer}
+            onSubmit={this.createUniqueCodeCoupon}
+            open={this.state.uniqueCodeCouponFormState.open}
+            paymentCombos={this.props.paymentCombos}
+            paymentCombosById={this.props.allPaymentCombosById}
+            paymentPacks={this.props.paymentPacks}
+            paymentPacksById={this.props.allPaymentPacksById}
+            privatePasses={this.props.privatePasses}
+            privatePassesById={this.props.allPrivatePassesById}
+            shopItems={this.props.shopItems}
+            shopItemsById={this.props.allShopItemsById}
+          />
+        )}
         <CouponDeleteModal
           onClose={this.props.closeDeleteModal}
           onSubmit={this.props.deleteCoupon}
           open={!!this.props.couponToDelete}
         />
         {(!!this.props.inactiveCoupons?.length ||
-          !!this.props.activeCoupons?.length) && (
-          <div className={classes.addButtonContainer}>
-            <FabWithItems items={this.fabItems} label={t('createCoupon')} />
-          </div>
-        )}
+          !!this.props.activeCoupons?.length) &&
+          (isDevelopment ? (
+            <div className={classes.addButtonContainer}>
+              <FabWithItems items={this.fabItems} label={t('createCoupon')} />
+            </div>
+          ) : (
+            <Fab
+              color="primary"
+              onClick={() =>
+                this.setState({
+                  couponFormState: { open: true, initial: null },
+                })
+              }
+              variant="extended"
+            >
+              <AddIcon />
+              {t('createCoupon')}
+            </Fab>
+          ))}
       </div>
     );
   }

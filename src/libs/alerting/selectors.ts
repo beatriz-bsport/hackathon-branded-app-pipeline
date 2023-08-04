@@ -6,6 +6,7 @@ import {
 } from '@bsport/common/lib/master-data/alerting_kind';
 import type { AlertingState } from './types';
 import type { RootState } from '../../reducers';
+import { AlertKind } from './constants';
 
 const getState = (state: RootState) => state.alerting;
 
@@ -80,10 +81,14 @@ const getOneKind = createSelector(
   },
 );
 
+const getCompanyOnboardingAlerting = (state: RootState) =>
+  getOneKind(state, AlertKind.COMPANY_ONBOARDING);
+
 export default {
   countAlerting,
   countAlertingForKind,
   countTutorialAlerting,
   getByKind,
   getOneKind,
+  getCompanyOnboardingAlerting,
 };

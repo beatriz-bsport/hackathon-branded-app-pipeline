@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
@@ -90,10 +88,7 @@ import {
 } from '../actions/auth.actions';
 
 import type { TempPasswordState } from '../libs/login/types';
-import type {
-  CompanyOnboardingAlerting,
-  DeleteAlert,
-} from '#libs/alerting/types';
+import type { DeleteAlert } from '#libs/alerting/types';
 import {
   fetchCompanyRoles,
   fetchCompanyUserRolesPaginated as fetchCompanyUserRolesPaginatedAction,
@@ -133,6 +128,7 @@ import {
 import type { StripeAccountStatus, StripeCompany } from '../libs/company/types';
 import { getCurrentLanguageIsoCode } from '../utils/language';
 import type { OptionCallback } from '../state/types';
+import { getStripeOnboardingPending } from '../libs/company/selectors';
 
 const CompanyDetailPage = asyncComponent(() =>
   import('./settings/CompanyDetailPage.page'),
@@ -231,7 +227,7 @@ const Tutorial = asyncComponent(() => import('./tutorial/Tutorial.router'));
 const Inbox = asyncComponent(() => import('./inbox/Inbox.router'));
 
 type Props = {
-  companyOnboardingAlertings: CompanyOnboardingAlerting[],
+  isStripeOnboardingPending: boolean,
   nbAlerting: number,
   countAlertingCommunication: number,
   nbTutorialAlerting: number,
@@ -733,13 +729,6 @@ export class Backoffice extends Component<Props, State> {
 
     const isInboxPath = this.props.location.pathname.includes('/inbox/');
 
-    const isStripeOnboardingPending =
-      this.props.stripeCompany &&
-      !this.props.stripeCompany?.has_no_need_for_stripe_configuration &&
-      !!this.props.companyOnboardingAlertings?.results?.filter((a) =>
-        ['verification', 'creation'].includes(a?.data?.type),
-      )?.length;
-
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <PermissionContext.Provider value={this.props.permissions}>
@@ -797,7 +786,7 @@ export class Backoffice extends Component<Props, State> {
                 }
                 permissions={this.props.permissions}
                 push={this.props.pushRouter}
-                stripeOnboardingPending={isStripeOnboardingPending}
+                stripeOnboardingPending={this.props.isStripeOnboardingPending}
                 tempPasswordState={this.props.tempPasswordState}
                 theme={this.props.theme}
                 updateUserAcknowlegdeTutorial={
@@ -954,10 +943,7 @@ export default compose(
   withTranslation('navigation'),
   connect(
     (state) => ({
-      companyOnboardingAlertings: alertingSelectors.getOneKind(
-        state,
-        AlertKind.COMPANY_ONBOARDING,
-      ),
+      isStripeOnboardingPending: getStripeOnboardingPending(state),
       nbAlerting: alertingSelectors.countAlerting(state),
       countAlertingCommunication: alertingSelectors.countAlertingForKind(
         state,
@@ -1057,6 +1043,8 @@ export default compose(
       fetchUserTutorialCompletion,
       updateUserAcknowlegdeTutorial,
       updateTutorialLessonViewedStatus,
+
+      getStripeOnboardingPending,
     },
   ),
   withHandlers({

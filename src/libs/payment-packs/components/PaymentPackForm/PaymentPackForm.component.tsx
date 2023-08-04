@@ -271,7 +271,11 @@ export const PaymentPackForm: React.FC<Props> = ({
                 penalty_kind: penaltyKindDict[initial?.penalty_kind] || 'block',
                 no_show_penalty_kind:
                   penaltyKindDict[initial?.no_show_penalty_kind] || 'block',
-                categories: initial?.categories?.map((category) => category.id),
+                categories:
+                  initial?.categories
+                    ?.map((category) => category?.id)
+                    ?.filter((category_id) => !!category_id) ?? [],
+
                 is_universal_pass: !!initial?.linked_private_pass,
                 linked_private_pass_compatibility: getFormInitialValue,
                 apply_penalties:

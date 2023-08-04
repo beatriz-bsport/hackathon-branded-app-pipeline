@@ -129,7 +129,7 @@ export const withSpecificCoach = memoize(
       if (!offers) return null;
       return {
         ...offers,
-        coach: coachData[offers.coach.id] || offers.coach,
+        coach: coachData[offers.coach?.id] ?? offers.coach,
         coach_override: offers.coach_override
           ? coachData[
               typeof offers.coach_override === 'number'

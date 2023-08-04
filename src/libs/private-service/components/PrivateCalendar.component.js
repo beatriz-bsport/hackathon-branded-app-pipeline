@@ -236,7 +236,7 @@ const privateBookingAsEvent = (resourceDatatypeView) => (pb) => {
   };
 };
 
-const AvailabilitySlotForm = withTranslation(['privateService'])(
+const AvailabilitySlotForm = withTranslation('privateService')(
   withStyles(styles)(
     (props: {
       classes: Object,
@@ -248,6 +248,10 @@ const AvailabilitySlotForm = withTranslation(['privateService'])(
       onDisableRecurrentAvailability: (any) => void,
       onCreateCustomEvent?: (any) => void,
       selectInfo: Object,
+      eventSlotSelected: {
+        startStr: string,
+        endStr: string,
+      },
     }) => {
       return (
         <List>
@@ -259,7 +263,7 @@ const AvailabilitySlotForm = withTranslation(['privateService'])(
               <ListItemText primary={props.t('calendar.addBooking')} />
             </ListItem>
           ) : null}
-          {props.onEnableAvailability ? (
+          {props.onEnableAvailability && props.eventSlotSelected ? (
             <React.Fragment>
               <ListItem button onClick={props.onEnableAvailability}>
                 <ListItemIcon color="primary">
@@ -293,7 +297,7 @@ const AvailabilitySlotForm = withTranslation(['privateService'])(
               </ListItem>
             </React.Fragment>
           ) : null}
-          {props.onDisableAvailability ? (
+          {props.onDisableAvailability && props.eventSlotSelected ? (
             <React.Fragment>
               <ListItem
                 button
@@ -331,7 +335,7 @@ const AvailabilitySlotForm = withTranslation(['privateService'])(
               </ListItem>
             </React.Fragment>
           ) : null}
-          {!!props.onCreateCustomEvent && (
+          {!!props.onCreateCustomEvent && props.eventSlotSelected && (
             <React.Fragment>
               <ListItem
                 button
@@ -345,7 +349,7 @@ const AvailabilitySlotForm = withTranslation(['privateService'])(
               </ListItem>
             </React.Fragment>
           )}
-          {!!props.onRequestAvailabilityDetails && (
+          {!!props.onRequestAvailabilityDetails && props.eventSlotSelected && (
             <React.Fragment>
               <ListItem
                 button
@@ -398,12 +402,17 @@ export class PrivateCalendar extends React.Component<Props, State> {
 
   select = (eventSlotSelected: EventSlot) => {
     if (this.props.disableAvailabilitySlotDisplay) return;
-    const { startStr, endStr } = eventSlotSelected;
 
-    const start = moment.tz(startStr, this.props.timezone);
-    const end = moment.tz(endStr, this.props.timezone);
+    const start = moment.tz(
+      this.state.eventSlotSelected?.startStr,
+      this.props.timezone,
+    );
+    const end = moment.tz(
+      this.state.eventSlotSelected?.endStr,
+      this.props.timezone,
+    );
 
-    if (start.isSame(end, 'day')) {
+    if (!start.isSame(end) && start.isSame(end, 'day')) {
       this.setState({
         eventSlotSelected: {
           ...eventSlotSelected,
@@ -498,11 +507,10 @@ export class PrivateCalendar extends React.Component<Props, State> {
   );
 
   onDisableAvailability = () => {
-    const { startStr, endStr } = this.state.eventSlotSelected;
     this.props.disableResourceAvailabilitySlot(
       {
-        date_start: startStr,
-        date_end: endStr,
+        date_start: this.state.eventSlotSelected?.startStr,
+        date_end: this.state.eventSlotSelected?.endStr,
       },
       {
         onSuccess: () => {
@@ -514,11 +522,10 @@ export class PrivateCalendar extends React.Component<Props, State> {
   };
 
   onCreateCustomEvent = () => {
-    const { startStr, endStr } = this.state.eventSlotSelected;
     this.props.createCustomEvent(
       {
-        date_start: startStr,
-        date_end: endStr,
+        date_start: this.state.eventSlotSelected?.startStr,
+        date_end: this.state.eventSlotSelected?.endStr,
       },
       {
         onSuccess: () => {
@@ -530,11 +537,12 @@ export class PrivateCalendar extends React.Component<Props, State> {
   };
 
   onRequestAvailabilityDetails = () => {
-    const { startStr, endStr } = this.state.eventSlotSelected;
-
     const mergedIntervals = groupSlotsAndMerge(this.props.availabilitySlots);
     const intersectionWithSelection = intersectSelectionWithMergedIntervals(
-      { startStr, endStr },
+      {
+        startStr: this.state.eventSlotSelected?.startStr,
+        endStr: this.state.eventSlotSelected?.endStr,
+      },
       mergedIntervals,
     );
     const availabilityDetailData = formatSlotDetailData(
@@ -547,11 +555,10 @@ export class PrivateCalendar extends React.Component<Props, State> {
   };
 
   onEnableAvailability = () => {
-    const { startStr, endStr } = this.state.eventSlotSelected;
     this.props.enableResourceAvailabilitySlot(
       {
-        date_start: startStr,
-        date_end: endStr,
+        date_start: this.state.eventSlotSelected?.startStr,
+        date_end: this.state.eventSlotSelected?.endStr,
       },
       {
         onSuccess: () => {
@@ -564,12 +571,13 @@ export class PrivateCalendar extends React.Component<Props, State> {
 
   createRecurrence = (recurrence_until: string, eventSlot: any) => {
     const { enableWithRecurrence } = this.state;
-    const { startStr, endStr } = eventSlot;
     const endDate = moment(recurrence_until);
     const all_date_start = [];
     let i = 0;
-    while (moment(startStr).add(i, 'week').isSameOrBefore(endDate, 'day')) {
-      all_date_start.push(moment(startStr).add(i, 'week'));
+    while (
+      moment(eventSlot?.startStr).add(i, 'week').isSameOrBefore(endDate, 'day')
+    ) {
+      all_date_start.push(moment(eventSlot?.startStr).add(i, 'week'));
       i += 1;
     }
 
@@ -577,8 +585,8 @@ export class PrivateCalendar extends React.Component<Props, State> {
       ? this.props.enableResourceAvailabilitySlot
       : this.props.disableResourceAvailabilitySlot)(
       {
-        date_start: startStr,
-        date_end: endStr,
+        date_start: eventSlot?.startStr,
+        date_end: eventSlot?.endStr,
         all_date_start,
       },
       {
@@ -831,8 +839,9 @@ export class PrivateCalendar extends React.Component<Props, State> {
             }}
           >
             <AvailabilitySlotForm
+              eventSlotSelected={this.state.eventSlotSelected}
               onBookRequest={
-                this.props.onBookRequest
+                this.props.onBookRequest && this.state.eventSlotSelected
                   ? () => {
                       this.props.onBookRequest(
                         this.state.eventSlotSelected.startStr,
@@ -842,7 +851,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
                   : null
               }
               onCreateCustomEvent={
-                this.props.createCustomEvent
+                this.props.createCustomEvent && this.state.eventSlotSelected
                   ? () => {
                       this.onCreateCustomEvent(
                         this.state.eventSlotSelected.startStr,

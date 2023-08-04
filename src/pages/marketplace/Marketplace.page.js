@@ -218,12 +218,7 @@ export class MarketPlace extends Component<Props, State> {
   sanitizeURL = () => {
     const { settings } = this.props;
 
-    if (
-      !this.props.subcomponent &&
-      settings &&
-      settings.config &&
-      settings.config.length
-    ) {
+    if (!this.props.subcomponent && settings?.config?.length) {
       this.handleTabChange(null, 0);
     }
 
@@ -243,10 +238,11 @@ export class MarketPlace extends Component<Props, State> {
       }
 
       const hasMultipleComponentTypeConfig =
-        settings.config.filter((e) => e.component_type === componentType)
-          .length > 1;
+        (settings?.config || []).filter(
+          (tabConfig) => tabConfig.component_type === componentType,
+        ).length > 1;
 
-      let configIndex = settings.config.findIndex(
+      let configIndex = (settings?.config || []).findIndex(
         (tab) => tab.component_type === componentType,
       );
 
@@ -255,7 +251,7 @@ export class MarketPlace extends Component<Props, State> {
       }
 
       if (componentType === 'pass' && !paramsJson.isPreview) {
-        const tabConfig = settings.config[configIndex];
+        const tabConfig = settings?.config?.[configIndex];
         const newPath = fromConfigToUrl(tabConfig, {
           tabSelected: configIndex,
         });

@@ -1,20 +1,18 @@
-// @flow
-
 import Immutable from 'seamless-immutable';
 import { createSelector } from 'reselect';
 import {
   NEW_TUTORIAL_SECTION_OR_LESSON,
   UNREAD_COMMUNICATION,
-  // @ts-ignore
 } from '@bsport/common/lib/master-data/alerting_kind';
-import type { State } from '../../state/types';
+import type { AlertingState } from './types';
+import type { RootState } from '../../reducers';
 
-const getState = (state: State) => state.alerting;
+const getState = (state: RootState) => state.alerting;
 
 const countTutorialAlerting = createSelector(getState, (alertingState) => {
   if (
-    // eslint-disable-next-line
-    alertingState.items_by_kind.hasOwnProperty(
+    Object.prototype.hasOwnProperty.call(
+      alertingState.items_by_kind,
       NEW_TUTORIAL_SECTION_OR_LESSON.alert_kind,
     )
   ) {
@@ -30,11 +28,9 @@ const ALERTING_NOT_IN_GENERAL_COUNT = [UNREAD_COMMUNICATION.alert_kind];
 const countAlerting = createSelector(getState, (alertingState) => {
   let count = 0;
   for (const k in alertingState.items_by_kind) {
-    // eslint-disable-next-line
     if (
       !ALERTING_NOT_IN_GENERAL_COUNT.includes(parseInt(k)) &&
-      // eslint-disable-next-line
-      alertingState.items_by_kind.hasOwnProperty(k)
+      Object.prototype.hasOwnProperty.call(alertingState.items_by_kind, k)
     ) {
       count += alertingState.items_by_kind[k].count || 0;
     }
@@ -43,14 +39,13 @@ const countAlerting = createSelector(getState, (alertingState) => {
 });
 
 const countAlertingForKind = createSelector(
-  [getState, (state, kind) => kind],
+  [getState, (_: RootState, kind: number) => kind],
   (alertingState, kind) => {
     let count = 0;
     for (const k in alertingState.items_by_kind) {
       if (
-        parseInt(k) === parseInt(kind) &&
-        // eslint-disable-next-line
-        alertingState.items_by_kind.hasOwnProperty(k)
+        parseInt(k) === parseInt(kind?.toString()) &&
+        Object.prototype.hasOwnProperty.call(alertingState.items_by_kind, k)
       ) {
         count += alertingState.items_by_kind[k].count || 0;
       }
@@ -59,11 +54,10 @@ const countAlertingForKind = createSelector(
   },
 );
 
-const getByKind = createSelector(getState, (alertingState) => {
+const getByKind = createSelector(getState, (alertingState: AlertingState) => {
   const byKind = [];
   for (const k in alertingState.items_by_kind) {
-    // eslint-disable-next-line
-    if (alertingState.items_by_kind.hasOwnProperty(k)) {
+    if (Object.prototype.hasOwnProperty.call(alertingState.items_by_kind, k)) {
       byKind.push({ alert_kind: k, ...alertingState.items_by_kind[k] });
     }
   }
@@ -71,14 +65,13 @@ const getByKind = createSelector(getState, (alertingState) => {
 });
 
 const getOneKind = createSelector(
-  [getState, (state, kind) => kind],
+  [getState, (_: RootState, kind: number) => kind],
   (alertingState, kind) => {
     const byKind = [];
     for (const k in alertingState.items_by_kind) {
       if (
-        parseInt(k) === parseInt(kind) &&
-        // eslint-disable-next-line
-        alertingState.items_by_kind.hasOwnProperty(k)
+        parseInt(k) === parseInt(kind?.toString()) &&
+        Object.prototype.hasOwnProperty.call(alertingState.items_by_kind, k)
       ) {
         byKind.push({ alert_kind: k, ...alertingState.items_by_kind[k] });
       }

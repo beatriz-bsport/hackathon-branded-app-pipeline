@@ -1,23 +1,26 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import { listActions, deleteActions } from './actions';
+import { listActions } from './actions';
 
-import { AlertingState } from './types';
+import {
+  AlertPayloadSuccess,
+  AlertPayloadLoading,
+  AlertingState,
+} from './types';
 
 const initialState: Immutable.Immutable<AlertingState> =
   Immutable<AlertingState>({
     items_by_kind: {},
-    items_processing: [],
     loading: false,
     error: null,
   });
 
-export default handleActions(
+export default handleActions<Immutable.Immutable<AlertingState>, any>(
   {
     [listActions.success.toString()]: (
-      state: any,
-      { payload }: { payload: any },
+      state,
+      { payload }: { payload: AlertPayloadSuccess },
     ) => {
       let new_results = [];
       if (payload.page === 1) {
@@ -37,14 +40,14 @@ export default handleActions(
         );
     },
     [listActions.isLoading.toString()]: (
-      state: any,
-      { payload }: { payload: any },
+      state,
+      { payload }: { payload: AlertPayloadLoading },
     ) => {
       return state.set('loading', payload.isLoading);
     },
     [listActions.isLoading.toString()]: (
-      state: any,
-      { payload }: { payload: any },
+      state,
+      { payload }: { payload: AlertPayloadLoading },
     ) => {
       return state.setIn(
         ['items_by_kind', payload.alert_kind, 'loading'],
@@ -52,11 +55,11 @@ export default handleActions(
       );
     },
     [listActions.error.toString()]: (
-      state: any,
-      { payload }: { payload: any },
+      state,
+      { payload }: { payload: Error | null },
     ) => {
       return state.set('error', payload);
     },
   },
   initialState,
-) as () => AlertingState;
+);

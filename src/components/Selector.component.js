@@ -270,7 +270,7 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
 
   const valueSelector = (
     multi: boolean,
-    suggestionValues: Array<any>,
+    suggestionValues: Suggestion[],
     selectedValues: any,
   ) => {
     if (multi) {

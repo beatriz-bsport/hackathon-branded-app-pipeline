@@ -30,9 +30,11 @@ import {
   DataSourceMedadataDataType,
   DatatypeFilterConfigGroup,
   DataSourceFieldMetadata,
+  DatatypeFilterConfigItem,
 } from '#libs/datatype-filtering/types';
 import { TIME_PERIODS_RANGE } from '#components/date/DateRangeSelector.component';
 import { TIME_PERIODS_SINGLE } from '#components/date/DatePickerSelector.component';
+import { ReportMetadataColumn } from '#libs/reporting/types';
 
 //
 // Getters
@@ -198,7 +200,7 @@ export const getDefaultValueForTimePeriod = (details: {
 //
 
 export const generateNewGroup = (
-  defaultMetadata: DataSourceFieldMetadata,
+  defaultMetadata: DataSourceFieldMetadata | ReportMetadataColumn,
   hidden?: boolean,
 ) => {
   if (!defaultMetadata) {
@@ -218,7 +220,9 @@ export const generateNewGroup = (
   };
 };
 
-export const generateNewFilterItem = (metadata: DataSourceFieldMetadata) => {
+export const generateNewFilterItem = (
+  metadata: ReportMetadataColumn | DataSourceFieldMetadata,
+): DatatypeFilterConfigItem => {
   const comparator = getComparatorsByDataType(metadata?.datatype)?.[0];
   const datatype = metadata?.datatype;
   const sub_datatype =
@@ -320,6 +324,8 @@ export const checkColumnAlreadyExist = memoize(
 export const checkIdentifierAlreadyExist = memoize(
   (identifier: string, groups: DatatypeFilterConfigGroup[]) =>
     groups.some((fg) =>
-      fg.filters_data.some((fd) => fd.identifier === identifier),
+      fg.filters_data.some((fd) => {
+        return fd.identifier === identifier;
+      }),
     ),
 );

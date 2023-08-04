@@ -107,14 +107,12 @@ const ReportGeneration: React.FC<Props> = ({
   const { t } = useTranslation('reporting');
   const classes = useStyles();
 
-  const columnsMetadata = React.useMemo(
-    () => report?.columns?.map((c) => getColumn(metadata, report, c)) ?? [],
-    [metadata, report],
-  );
-
   if (!report || metadata.loading) {
     return <LinearProgress />;
   }
+
+  const columnsMetadata =
+    report?.columns?.map((c) => getColumn(metadata, report, c)) ?? [];
 
   return (
     <div>

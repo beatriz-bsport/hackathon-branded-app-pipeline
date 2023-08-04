@@ -38,6 +38,7 @@ export type OptionTypeBase =
   | {
       label: string;
       value: string;
+      hasError?: boolean;
     }
   | {
       label: string;
@@ -62,16 +63,8 @@ type BaseProps<T extends OptionTypeBase> = {
   error?: boolean;
   withoutSelectAll?: boolean;
   removeIndicator?: boolean;
-  chipsRenderer?: (props: {
-    data: T;
-    onDelete: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  }) => React.ReactNode;
-  itemRenderer?: (props: {
-    data: T;
-    isSelected: boolean;
-    children: React.ReactNode;
-    isDisabled: boolean;
-  }) => React.ReactNode;
+  chipsRenderer?: (props: ChipsRendererProps<T>) => React.ReactNode;
+  itemRenderer?: (props: ItemRendererProps<T>) => React.ReactNode;
   headerListRenderer?: () => React.ReactChild;
   onEndMenuListReach?: () => void;
   onInputChange?: (value: string, meta: { action: InputActionTypes }) => void;
@@ -81,6 +74,17 @@ type BaseProps<T extends OptionTypeBase> = {
   placeholder?: string;
 } & Omit<NamedProps, 'options' | 'isMulti' | 'onChange' | 'value'>;
 
+type ItemRendererProps<T extends OptionTypeBase> = {
+  data: T;
+  isSelected: boolean;
+  children: React.ReactNode;
+  isDisabled: boolean;
+};
+
+type ChipsRendererProps<T extends OptionTypeBase> = {
+  data: T;
+  onDelete: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+};
 export type OwnProps<T extends OptionTypeBase> =
   | ({
       onChange?: (values: T[] | OptionTypeBase[]) => void;

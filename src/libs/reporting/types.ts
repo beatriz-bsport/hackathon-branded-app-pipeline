@@ -126,6 +126,7 @@ export type ReportFilterConfig = {
     group_operand: DatatypeFilterConfigItemComparatorById;
     groups: DatatypeFilterConfigGroup[];
   };
+  is_quick_report_filter: boolean;
 };
 
 export type ReportFilterConfigParams = {

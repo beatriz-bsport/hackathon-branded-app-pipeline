@@ -9,6 +9,9 @@ import ReportFilterChip from './ReportFilterConfigDrawer/ReportFilterChip.compon
 import {
   AllComparator,
   DatatypeFilterConfigItem,
+  DatatypeFilterConfigItemTypeById,
+  DatatypeFilterConfigItemTypeDate,
+  DatatypeFilterConfigItemTypeFloat,
   DynamicFilterDataType,
 } from '#libs/datatype-filtering/types';
 import {
@@ -24,13 +27,24 @@ import {
 import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 import DatatypeFilterConfigValueManager from '#libs/datatype-filtering/components/DatatypeFilterConfigValueManager.component';
 
+export type QuickFiltersColumnsData = {
+  identifier: string;
+  value: number | boolean | number[] | [number, number];
+  comparator: 0 | 1 | 2 | 3 | 4 | 5;
+  datatype:
+    | 'boolean'
+    | DatatypeFilterConfigItemTypeById
+    | DatatypeFilterConfigItemTypeFloat
+    | DatatypeFilterConfigItemTypeDate
+    | 'datetime';
+}[];
+
 type QuickReportFilterConfigFilterProps = {
   isQuickFilterConfigRowModalOpen: boolean;
   selectedColumn: DatatypeFilterConfigItem;
   getDataByType: (datatype: DynamicFilterDataType) => any[];
   anchorEl: (EventTarget & HTMLButtonElement) | HTMLDivElement;
-  // TYPING A FINIR SUR LA PARTIE 2 LIEES AUX CHIPS
-  columnsDataSelectedQuickFilter: any;
+  columnsDataSelectedQuickFilter: QuickFiltersColumnsData;
   isQuickFilterModalOpen: boolean;
   onClose: () => void;
 };

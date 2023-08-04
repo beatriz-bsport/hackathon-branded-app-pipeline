@@ -16,18 +16,20 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined';
 import { withFormik } from 'formik';
+import cloneDeep from 'lodash/cloneDeep';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 import ModalConfirm from '#components/ModalConfirm.component';
 import ReportFilterConfigFormDrawer from './ReportFilterConfigDrawer';
-import { OptionCallback } from '../../../state/types';
-import { ReportFilterConfig } from '../types';
-import {
+import type { OptionCallback } from '../../../state/types';
+import type { ReportFilterConfig } from '../types';
+import type {
   DataSourceFieldMetadata,
   DatatypeFilterConfigGroup,
   DatatypeFilterConfigItem,
   DynamicFilterDataType,
 } from '#libs/datatype-filtering/types';
 import HoverableWarning from '#components/HoverableWarning.component';
+import ReportFilterChip from './ReportFilterConfigDrawer/ReportFilterChip.component';
 import QuickReportFilterConfigColumnsMenu from './QuickReportFilterConfigColumnsMenu.component';
 
 export type Props = {
@@ -42,7 +44,7 @@ export type Props = {
   ) => void;
   editReportFilterConfig: (
     reportFilterConfigId: number,
-    data: Omit<ReportFilterConfig, 'id'> | Pick<ReportFilterConfig, 'config'>,
+    data: Omit<ReportFilterConfig, 'id'> | ReportFilterConfig,
     options?: OptionCallback<ReportFilterConfig>,
   ) => void;
   onDeleteReportFilterConfigs: (reportFilterConfigsId: number) => void;
@@ -71,6 +73,7 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
     handleGetDynamicDataForReport,
     isFranchisor,
     values,
+    reportQuickFilter,
   }) => {
     const { t } = useTranslation(['reporting']);
     const classes = useStyles();
@@ -197,9 +200,28 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
       setIsQuickFilterModalOpen(false);
       setIsQuickFilterConfigColumnModalOpen(false);
       setAnchorEl(null);
-    }, []);
 
-    // TYPING A FINIR SUR LA PARTIE 2 LIEES AUX CHIPS
+      const newFiltersData: DatatypeFilterConfigItem[] = values.config?.groups
+        ?.length
+        ? values.config?.groups[0].filters_data
+        : [];
+
+      // values from formik is immutable so I have to create a deep copy hence deepCopyQuickReportFilter
+      const deepCopyQuickReportFilter = cloneDeep(values);
+      if (deepCopyQuickReportFilter.config.groups) {
+        deepCopyQuickReportFilter.config.groups[0].filters_data =
+          newFiltersData;
+      }
+
+      // If there is no filters data in the quickfilters, return empty config
+      editReportFilterConfig(
+        reportQuickFilter?.id,
+        newFiltersData.length > 0
+          ? deepCopyQuickReportFilter
+          : { ...reportQuickFilter, config: {} },
+      );
+    }, [editReportFilterConfig, reportQuickFilter, values]);
+
     const columnsDataSelectedQuickFilter = useMemo(() => {
       return values.config.groups
         ? values.config.groups.flatMap((group: DatatypeFilterConfigGroup) =>
@@ -301,6 +323,23 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
               </div>
             )}
             <div className={classes.row}>
+              <div className={classes.chipList}>
+                {columnsDataSelectedQuickFilter.map((filterItem) => (
+                  <ReportFilterChip
+                    key={filterItem.identifier}
+                    datatype={filterItem.datatype}
+                    editReportFilterConfig={editReportFilterConfig}
+                    label={filterItem.identifier}
+                    reportQuickFilter={reportQuickFilter}
+                    setAnchorEl={setAnchorEl}
+                    setIsQuickFilterConfigRowModalOpen={
+                      setIsQuickFilterConfigRowModalOpen
+                    }
+                    setIsQuickFilterModalOpen={setIsQuickFilterModalOpen}
+                    setSelectedColumn={setSelectedColumn}
+                  />
+                ))}
+              </div>
               {isQuickFilterModalOpen && (
                 <QuickReportFilterConfigColumnsMenu
                   anchorEl={anchorEl}

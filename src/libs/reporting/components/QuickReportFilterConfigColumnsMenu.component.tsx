@@ -26,7 +26,9 @@ import {
   generateNewFilterItem,
   generateNewGroup,
 } from '#libs/datatype-filtering/utils';
-import QuickReportFilterConfigFilter from './QuickReportFilterConfigFilter.component';
+import QuickReportFilterConfigFilter, {
+  QuickFiltersColumnsData,
+} from './QuickReportFilterConfigFilter.component';
 import { getFilterableColumns } from '../utils';
 
 type QuickFilterConfigSearchColumnOptions = {
@@ -53,8 +55,7 @@ type Props = {
   columns: DataSourceFieldMetadata[];
   isFranchisor: boolean;
   getDataByType: (datatype: DynamicFilterDataType) => any[];
-  // TYPING A FINIR SUR LA PARTIE 2 LIEES AUX CHIPS
-  columnsDataSelectedQuickFilter: any;
+  columnsDataSelectedQuickFilter: QuickFiltersColumnsData;
   selectedColumn: DatatypeFilterConfigItem;
   setSelectedColumn: React.Dispatch<
     React.SetStateAction<DatatypeFilterConfigItem>

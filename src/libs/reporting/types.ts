@@ -123,8 +123,8 @@ export type ReportFilterConfig = {
   report: number;
   name: string;
   config: {
-    group_operand: DatatypeFilterConfigItemComparatorById;
-    groups: DatatypeFilterConfigGroup[];
+    group_operand?: DatatypeFilterConfigItemComparatorById;
+    groups?: DatatypeFilterConfigGroup[];
   };
   is_quick_report_filter: boolean;
 };

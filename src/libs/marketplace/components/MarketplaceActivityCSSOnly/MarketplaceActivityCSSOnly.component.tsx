@@ -75,7 +75,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
   const [mobileMapModalOpen, setMobileMapModalOpen] = useState(false);
 
   const establishment = useMemo(
-    () => establishments.find((est) => est.id === offer.establishment),
+    () => establishments?.find((est) => est.id === offer.establishment),
     [establishments, offer.establishment],
   );
   const { location } = establishment || { location: null };
@@ -95,28 +95,28 @@ export const MarketplaceActivityV2 = (props: Props) => {
   );
 
   const coach = useMemo(
-    () => coaches.find((c) => c.id === offer.coach),
+    () => coaches?.find((c) => c.id === offer.coach),
     [coaches, offer.coach],
   );
 
   const effectiveCoach = useMemo(
     () =>
       offer.coach_override
-        ? coaches.find((c) => c.id === offer.coach_override)
+        ? coaches?.find((c) => c.id === offer.coach_override)
         : coach,
     [coaches, coach, offer.coach_override],
   );
 
   const additionalCoaches = useMemo(
     () =>
-      offer.additional_coaches.map((coachId) =>
+      (offer?.additional_coaches || []).map((coachId) =>
         coaches?.find((c) => c.id === coachId),
       ),
     [coaches, offer.additional_coaches],
   );
 
   const customLevel = useMemo(
-    () => customLevels.find((level) => level.id === offer.custom_level),
+    () => customLevels?.find((level) => level.id === offer.custom_level),
     [customLevels, offer.custom_level],
   );
 
@@ -187,7 +187,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
             <LocationOnIcon />
             {!isMobile ? (
               <div className="bs-activity__top__content__location__address">
-                {establishment?.location.address}
+                {establishment?.location?.address || ''}
               </div>
             ) : (
               <button
@@ -197,7 +197,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
                 }}
                 type="button"
               >
-                {establishment?.location.address}
+                {establishment?.location?.address || ''}
               </button>
             )}
           </div>
@@ -219,7 +219,6 @@ export const MarketplaceActivityV2 = (props: Props) => {
           </div>
         </div>
       </div>
-      {/* </div> */}
       <div className="bs-activity__middle">
         <div className="bs-activity__middle__top">
           {!isMobile && (
@@ -277,7 +276,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
                 />
                 <div className="bs-activity__middle__coach__overrider__personality__right">
                   <div className="bs-activity__middle__coach__overrider__personality__right__name">
-                    {coach?.name}
+                    {coach?.name || ''}
                   </div>
 
                   <div className="bs-activity__middle__coach__overrider__personality__right__override">
@@ -294,7 +293,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
                 />
                 <div className="bs-activity__middle__coach__main__personality__right">
                   <div className="bs-activity__middle__coach__main__personality__right__name">
-                    {effectiveCoach.name}
+                    {effectiveCoach?.name || ''}
                   </div>
                   {offer.coach_override && (
                     <div className="bs-activity__middle__coach__main__personality__right__override">
@@ -304,8 +303,8 @@ export const MarketplaceActivityV2 = (props: Props) => {
                 </div>
               </div>
               <div className="bs-activity__middle__coach__main__social">
-                {effectiveCoach.instagram_url && (
-                  <a href={effectiveCoach.instagram_url}>
+                {effectiveCoach?.instagram_url && (
+                  <a href={effectiveCoach?.instagram_url}>
                     <Icon>
                       <img
                         alt=""
@@ -315,8 +314,8 @@ export const MarketplaceActivityV2 = (props: Props) => {
                     </Icon>
                   </a>
                 )}
-                {effectiveCoach.facebook_url && (
-                  <a href={effectiveCoach.facebook_url}>
+                {effectiveCoach?.facebook_url && (
+                  <a href={effectiveCoach?.facebook_url}>
                     <Icon>
                       <img
                         alt=""
@@ -329,7 +328,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
               </div>
             </div>
             <div className="bs-activity__middle__coach__description">
-              {effectiveCoach.description ? effectiveCoach.description : null}
+              {effectiveCoach?.description || ''}
             </div>
           </div>
         )}
@@ -349,7 +348,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
                   />
                   <div className="bs-activity__middle__coach__main__personality__right">
                     <div className="bs-activity__middle__coach__main__personality__right__name">
-                      {additionalCoach.name}
+                      {additionalCoach?.name || ''}
                     </div>
                     {offer.coach_override && (
                       <div className="bs-activity__middle__coach__main__personality__right__override">

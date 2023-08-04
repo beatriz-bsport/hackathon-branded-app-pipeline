@@ -52,7 +52,7 @@ const MarketplaceLevelCSSOnly: React.FC<Props> = ({
       }
     >
       <div className={classNames('bs-level', className)}>
-        {getLevelTranslation(customLevel.id, customLevel.name, t)}
+        {getLevelTranslation(customLevel?.id, customLevel?.name || '', t)}
       </div>
     </div>
   );

@@ -353,9 +353,10 @@ export const getSignUpCustomFormWithEnabledField = createSelector(
     if (!customSignupForm) return null;
     return {
       ...customSignupForm,
-      custom_form_field: customSignupForm.custom_form_field.filter(
-        (field) => !field.disabled,
-      ),
+      custom_form_field:
+        customSignupForm.custom_form_field?.filter(
+          (field) => !field.disabled,
+        ) ?? [],
     };
   },
 );

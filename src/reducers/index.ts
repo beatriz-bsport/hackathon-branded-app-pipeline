@@ -83,6 +83,7 @@ import exportableComponentsReducers from '#libs/exportable-components/reducers';
 import quicksaleReducers from '#libs/quicksale/reducers';
 import referralReducers from '#libs/referral/reducers';
 
+import { AlertingState } from '#libs/alerting/types';
 import { BackgroundDialogState } from '#libs/background-dialog/types';
 import { BackgroundTaskState } from '#libs/background-task/types';
 import { BookingsState } from '#libs/booking/types';
@@ -236,7 +237,7 @@ const rootReducer = (history: any) =>
 export type RootState = {
   router: ReturnType<typeof connectRouter>;
   activeCampaign: any;
-  alerting: any;
+  alerting: AlertingState;
   auth: any;
   backgroundDialog: BackgroundDialogState;
   backgroundTask: BackgroundTaskState;

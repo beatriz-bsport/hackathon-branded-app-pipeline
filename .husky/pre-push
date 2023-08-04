@@ -1,11 +1,12 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
-
+echo "---------- Git fetching remote ----------" &&
+git fetch && 
 echo "---------- 🎨 Prettier ----------" &&
 yarn pretty &&
 echo "---------- 👮 TypeScript ----------" && 
 npx tsc -p . &&
 echo "---------- 🧪 Tests ----------" &&
 yarn test && 
-echo "---------- 📑 Lint ----------" &&
-yarn lint-cache
+echo "---------- 📑 Linting upstream diff in src/ ----------" &&
+./scripts/lint-upstream-diff.sh

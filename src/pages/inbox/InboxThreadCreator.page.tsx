@@ -7,9 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { useTranslation } from 'react-i18next';
-import GroupAdd from '@material-ui/icons/GroupAdd';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import { Link } from 'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
@@ -54,6 +52,7 @@ import { fetchAllSmartLists as fetchAllSmartListsAction } from '#libs/smart-list
 import { getDayOffers } from '../planning/Planning.page';
 import { useOfferHandler } from '#libs/communication-v2/hooks/useOfferHandler';
 import { useSmartlistHandler } from '#libs/communication-v2/hooks/useSmartlistHandler';
+import ThreadCreatorIconAction from '#libs/communication-v2/thread/commons/ThreadCreatorIconAction.component';
 
 const connector = connect(
   (state: RootState) => ({
@@ -101,40 +100,6 @@ type OwnProps = {
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
-
-type InboxThreadCreatorActionProps = {
-  threadType: ChatThreadKinds;
-  onNavigateToSmartlistCreation: () => void;
-};
-
-const InboxThreadCreatorIconAction: React.FC<InboxThreadCreatorActionProps> =
-  React.memo(({ threadType, onNavigateToSmartlistCreation }) => {
-    const classes = useStyles();
-
-    const getThreadCreatorActionRoute = React.useCallback(() => {
-      switch (threadType) {
-        case ChatThreadKinds.Smartlist:
-          return '/smart-list?create=true';
-        default:
-          return '#';
-      }
-    }, [threadType]);
-
-    const handleNavigateToSmartlistCreation = React.useCallback(() => {
-      onNavigateToSmartlistCreation();
-    }, [onNavigateToSmartlistCreation]);
-
-    return (
-      <Link
-        className={classes.dialogActionContainer}
-        onClick={handleNavigateToSmartlistCreation}
-        target="_blank"
-        to={getThreadCreatorActionRoute()}
-      >
-        <GroupAdd />
-      </Link>
-    );
-  });
 
 export const InboxThreadCreator: React.FC<Props> = ({
   open,
@@ -251,7 +216,7 @@ export const InboxThreadCreator: React.FC<Props> = ({
                 smartLists={smartlists}
                 values={[smartlistSelected]}
               />
-              <InboxThreadCreatorIconAction
+              <ThreadCreatorIconAction
                 onNavigateToSmartlistCreation={handleDisplayRefreshSmartlist}
                 threadType={ChatThreadKinds.Smartlist}
               />

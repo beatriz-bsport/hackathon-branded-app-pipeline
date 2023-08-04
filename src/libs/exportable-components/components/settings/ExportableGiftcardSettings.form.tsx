@@ -22,8 +22,12 @@ const MarketplaceGiftcardSettingsForm: React.FC<Props> = ({
   const { t } = useTranslation('giftcard');
 
   const value = React.useMemo(
-    () => [...giftcards.filter((g) => config.giftcards?.includes(g.id))],
-    [giftcards, config.giftcards],
+    () => [
+      ...(giftcards || []).filter((giftcard) =>
+        config?.giftcards?.includes(giftcard.id),
+      ),
+    ],
+    [giftcards, config?.giftcards],
   );
 
   const handleChange = React.useCallback(

@@ -154,10 +154,9 @@ export const fromConfigToUrl = (
   } else if (component_type === 'giftcard') {
     path = MARKETPLACE_PATH_TAB_GIFTCARD;
     const conf = tabConfig.config.giftcard || {};
-    conf.giftcards &&
-      conf.giftcards.length &&
+    conf?.giftcards?.length &&
       Object.assign(query, {
-        giftcards: conf.giftcards.join(','),
+        giftcards: conf?.giftcards?.join(',') || '',
       });
   } else {
     return '';

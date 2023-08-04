@@ -149,24 +149,26 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
             videoPlayingId={this.props.videoId}
           />
         </div>
-        {this.props.registerVideoOpen && (
-          <Modal open onClose={() => this.props.setRegisterVideoOpen(false)}>
-            <div
-              className={this.props.classes.modal}
-              style={{
-                transform: 'translate(-50%, -50%)',
-                top: '50%',
-                left: '50%',
-              }}
-            >
-              <VideoCheckoutComponent
-                companyId={this.props.video.company}
-                id={this.props.video.id}
-                onSuccess={this.onRegisterSuccess}
-              />
-            </div>
-          </Modal>
-        )}
+        {this.props.registerVideoOpen &&
+          !!this.props.video?.company &&
+          !!this.props.video?.id && (
+            <Modal open onClose={() => this.props.setRegisterVideoOpen(false)}>
+              <div
+                className={this.props.classes.modal}
+                style={{
+                  transform: 'translate(-50%, -50%)',
+                  top: '50%',
+                  left: '50%',
+                }}
+              >
+                <VideoCheckoutComponent
+                  companyId={this.props.video.company}
+                  id={this.props.video.id}
+                  onSuccess={this.onRegisterSuccess}
+                />
+              </div>
+            </Modal>
+          )}
       </div>
     );
   }

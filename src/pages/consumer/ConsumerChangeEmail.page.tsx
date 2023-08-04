@@ -212,7 +212,7 @@ export class ConsumerChangeEmailRequestPage extends Component<Props> {
         </div>
       );
     }
-    if (authenticated && this.props.error?.response.status === 403) {
+    if (authenticated && this.props.error?.response?.status === 403) {
       return (
         <ConsumerAppBar backgroundColor="white">
           <div className={classes.container}>

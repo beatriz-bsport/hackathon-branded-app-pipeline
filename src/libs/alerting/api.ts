@@ -1,4 +1,4 @@
-import { API_URI, getAuth, postAuth, deleteAuth } from '../../http';
+import { API_URI, getAuth, postAuth } from '../../http';
 
 const PAGE_SIZE = 10;
 
@@ -14,13 +14,7 @@ const deleteAlert = async (alert_kind: number, id: number) => {
   }
   return postAuth(`${API_URI}/alerts/${alert_kind}/${id}/flag_as_viewed/`);
 };
-
-const delete_ = async (id: number) => {
-  return deleteAuth(`${API_URI}/alerts/${id}/`);
-};
-
 export default {
   fetch,
-  delete_,
   deleteAlert,
 };

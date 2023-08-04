@@ -57,28 +57,6 @@ export default handleActions(
     ) => {
       return state.set('error', payload);
     },
-
-    [deleteActions.success.toString()]: (
-      state: any,
-      { payload }: { payload: any },
-    ) => {
-      return state.set(
-        'items',
-        state.items.filter((al: any) => al.id !== payload),
-      );
-    },
-    [deleteActions.isLoading.toString()]: (
-      state: any,
-      { payload }: { payload: any },
-    ) => {
-      return state.set('loading', payload);
-    },
-    [deleteActions.error.toString()]: (
-      state: any,
-      { payload }: { payload: any },
-    ) => {
-      return state.set('error', payload);
-    },
   },
   initialState,
 ) as () => AlertingState;

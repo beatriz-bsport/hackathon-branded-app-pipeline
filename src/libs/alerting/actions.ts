@@ -38,29 +38,6 @@ export const listActions = {
   success: createAction('ALERTING/LIST/SUCCESS'),
 };
 
-export const deleteActions = {
-  error: createAction('ALERTING/DELETE/ERROR'),
-  isLoading: createAction('ALERTING/DELETE/IS_LOADING'),
-  success: createAction('ALERTING/DELETE/SUCCESS'),
-};
-
-export function delete_(id: number): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(deleteActions.isLoading(true));
-    dispatch(deleteActions.error(null));
-
-    try {
-      await api.delete_(id);
-
-      dispatch(deleteActions.success(id));
-    } catch (error) {
-      dispatch(deleteActions.error(error));
-    }
-
-    dispatch(deleteActions.isLoading(false));
-  };
-}
-
 export function fetchAll(): ThunkAction {
   return async (dispatch: Dispatch) =>
     ALERT_KINDS.map((al) => dispatch(fetch(al, 1)));

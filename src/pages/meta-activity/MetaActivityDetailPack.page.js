@@ -97,6 +97,20 @@ export class MetaActivityDetailPacks extends Component<state, Props> {
     }
   }
 
+  renderItem = (pack) => {
+    if (!pack) return null;
+    return (
+      <PaymentPackListItem
+        key={pack.id}
+        divider
+        creditScaleFactor={this.props.theme.pass_credit_factor}
+        onClick={() => this.props.goToPack(this.props.id, pack.id)}
+        pack={pack}
+        selected={pack.id === this.props.packId}
+      />
+    );
+  };
+
   render() {
     const { paymentPacks, t, classes } = this.props;
     return (
@@ -129,16 +143,7 @@ export class MetaActivityDetailPacks extends Component<state, Props> {
                     <Divider />
                   </div>
                 )}
-                renderItem={(pack) => (
-                  <PaymentPackListItem
-                    key={pack.id}
-                    divider
-                    creditScaleFactor={this.props.theme.pass_credit_factor}
-                    onClick={() => this.props.goToPack(this.props.id, pack.id)}
-                    pack={pack}
-                    selected={pack.id === this.props.packId}
-                  />
-                )}
+                renderItem={this.renderItem}
               />
             </Paper>
           </Grid>

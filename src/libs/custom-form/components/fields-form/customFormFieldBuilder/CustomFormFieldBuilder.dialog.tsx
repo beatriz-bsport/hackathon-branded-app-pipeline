@@ -239,7 +239,7 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                 formFieldOptionList={CUSTOM_FORM_FIELDS_OPTIONS.filter(
                   (option) =>
                     !(
-                      option.value === CUSTOM_FORM_FIELD_LOCATION_OPTION &&
+                      option?.value === CUSTOM_FORM_FIELD_LOCATION_OPTION &&
                       !props.companyTheme?.enable_multi_localization
                     ),
                 )}
@@ -247,13 +247,13 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                   formik.setFieldValue('kind', option ? option.value : null);
                   formik.setFieldValue(
                     'model_based_question_kind',
-                    option.value === CUSTOM_FORM_FIELD_LOCATION_OPTION
+                    option?.value === CUSTOM_FORM_FIELD_LOCATION_OPTION
                       ? MODEL_BASED_QUESTION_FAVORITE
                       : null,
                   );
                   formik.setFieldValue(
                     'datatype',
-                    option.value === CUSTOM_FORM_FIELD_LOCATION_OPTION
+                    option?.value === CUSTOM_FORM_FIELD_LOCATION_OPTION
                       ? CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP
                       : null,
                   );

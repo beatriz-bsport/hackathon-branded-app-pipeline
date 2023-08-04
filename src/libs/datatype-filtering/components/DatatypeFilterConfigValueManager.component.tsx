@@ -85,6 +85,7 @@ import {
 import NestedAlertError from './NestedAlertError.component';
 import MaterialUISelectorConsumers from '#components/Selector/MaterialUISelectorConsumers.container';
 import MaterialUISelectorPayout from '#components/Selector/MaterialUISelectorPayout.container';
+import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
 
 const PAYMENT_METHODS_WITHOUT_CREDIT_ACCOUNT = PAYMENT_METHODS.filter(
   (paymentMethod) => paymentMethod.id !== CREDIT_ACCOUNT.id,
@@ -95,7 +96,9 @@ const DatatypeFilterConfigValueManager: React.FC<{
   prefix: string;
   filterItem: DatatypeFilterConfigItem;
   isPreview?: boolean;
-  getDataByType: (datatype: DynamicFilterDataType) => any[];
+  getDataByType: (
+    datatype: DynamicFilterDataType,
+  ) => handleGetDynamicDataForFiltersReturn;
   inScrollBar?: boolean;
 }> = ({
   prefix,
@@ -343,7 +346,9 @@ const DatatypeFilterConfigValueList: React.FC<{
   name: string;
   datatype: DatatypeFilterConfigItemTypeById;
   isPreview?: boolean;
-  getDataByType: (datatype: DynamicFilterDataType) => any[];
+  getDataByType: (
+    datatype: DynamicFilterDataType,
+  ) => handleGetDynamicDataForFiltersReturn;
   inScrollBar: boolean;
 }> = ({ name, datatype, isPreview, getDataByType, inScrollBar }) => {
   const { t } = useTranslation('reporting');

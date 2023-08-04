@@ -30,6 +30,7 @@ import QuickReportFilterConfigFilter, {
   QuickFiltersColumnsData,
 } from './QuickReportFilterConfigFilter.component';
 import { getFilterableColumns } from '../utils';
+import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
 
 type QuickFilterConfigSearchColumnOptions = {
   label: string;
@@ -54,7 +55,9 @@ type Props = {
   anchorEl: (EventTarget & HTMLButtonElement) | HTMLDivElement;
   columns: DataSourceFieldMetadata[];
   isFranchisor: boolean;
-  getDataByType: (datatype: DynamicFilterDataType) => any[];
+  getDataByType: (
+    datatype: DynamicFilterDataType,
+  ) => handleGetDynamicDataForFiltersReturn;
   columnsDataSelectedQuickFilter: QuickFiltersColumnsData;
   selectedColumn: DatatypeFilterConfigItem;
   setSelectedColumn: React.Dispatch<

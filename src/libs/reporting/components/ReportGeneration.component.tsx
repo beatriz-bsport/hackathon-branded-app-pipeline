@@ -22,6 +22,7 @@ import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
 import { getColumn } from '../utils';
 import { OptionCallback } from '../../../state/types';
 import { RolePermission } from '#libs/role/types';
+import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
 
 type Props = {
   resultLoading?: boolean;
@@ -46,7 +47,10 @@ type Props = {
   setShowDialog: (boolean: boolean) => void;
   disableContinue: boolean;
   setDisableContinue: (boolean: boolean) => void;
-  handleGetDynamicDataForReport: (type: DynamicFilterDataType) => any[];
+  handleGetDynamicDataForReport: (
+    type: DynamicFilterDataType,
+    valueId?: number,
+  ) => handleGetDynamicDataForFiltersReturn;
   reportFilterConfigs: ReportFilterConfig[];
   createReportFilterConfig: (
     reportId: number,

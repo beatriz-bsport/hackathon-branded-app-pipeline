@@ -17,6 +17,7 @@ import {
 
 import DatatypeFilterConfigRow from './DatatypeFilterConfigRow.component';
 import OperandSelect from '#libs/datatype-filtering/components/OperandSelect.component';
+import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
 
 type Props = {
   filterGroup: DatatypeFilterConfigGroup;
@@ -30,7 +31,9 @@ type Props = {
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
   onDelete?: (uuid: number) => () => void;
   addFilter: () => void;
-  getDataByType: (datatype: DynamicFilterDataType) => any[];
+  getDataByType: (
+    datatype: DynamicFilterDataType,
+  ) => handleGetDynamicDataForFiltersReturn;
   noHideDelete?: boolean;
   dashboardTranslationNamespace?: boolean;
 };

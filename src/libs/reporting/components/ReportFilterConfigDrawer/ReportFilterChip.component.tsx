@@ -1,6 +1,6 @@
 import React, { useCallback, memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Chip } from '@material-ui/core';
+import { Chip, CircularProgress } from '@material-ui/core';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import LocationOn from '@material-ui/icons/LocationOn';
@@ -17,18 +17,28 @@ import HomeIcon from '@material-ui/icons/Home';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import Star from '@material-ui/icons/Star';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import { useFormikContext } from 'formik';
 
 import cloneDeep from 'lodash/cloneDeep';
+import { useFormikContext } from 'formik';
 import type {
+  AllComparator,
   DataSourceMedadataDataType,
   DatatypeFilterConfigItem,
+  DynamicFilterDataType,
 } from '#libs/datatype-filtering/types';
+import { ReportFilterableDataType } from '#libs/datatype-filtering/constants';
 import { ReportFilterConfig } from '#libs/reporting/types';
+import {
+  getComparatorLabel,
+  getMultipleValuesLabel,
+  getSingleValueLabel,
+} from '#libs/reporting/utils';
+import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
 
 type ReportFilterChipProps = {
   datatype: DataSourceMedadataDataType;
   label?: string;
+  comparator?: AllComparator;
   setIsQuickFilterModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsQuickFilterConfigRowModalOpen?: React.Dispatch<
     React.SetStateAction<boolean>
@@ -45,77 +55,108 @@ type ReportFilterChipProps = {
   ) => void;
   reportQuickFilter?: ReportFilterConfig;
   onlyDisplay?: boolean;
+  value?: boolean | number[] | number;
+  getDataByTypeAndId?: (
+    type: DynamicFilterDataType,
+    valueId?: number[],
+  ) => handleGetDynamicDataForFiltersReturn;
 };
 
 const ReportFilterChip: React.FC<ReportFilterChipProps> = ({
   datatype,
   label,
   onlyDisplay,
+  comparator,
   reportQuickFilter,
   setIsQuickFilterModalOpen,
   setIsQuickFilterConfigRowModalOpen,
   setAnchorEl,
   setSelectedColumn,
   editReportFilterConfig,
+  value,
+  getDataByTypeAndId,
 }) => {
   const { t } = useTranslation('reporting');
   const { values, setFieldValue } = useFormikContext<ReportFilterConfig>();
 
+  const valueLabel = () => {
+    if (Array.isArray(value)) {
+      if (value?.length > 1) {
+        return getMultipleValuesLabel(datatype, value);
+      }
+      if (value.length === 1) {
+        return `${getComparatorLabel(comparator) ?? ''} ${getSingleValueLabel(
+          datatype,
+          value,
+          getDataByTypeAndId,
+          t,
+        )}`;
+      }
+      // case where only the column has been selected without value
+      return '';
+    }
+    return `${getComparatorLabel(comparator) ?? ''} ${getSingleValueLabel(
+      datatype,
+      value,
+      getDataByTypeAndId,
+      t,
+    )}`;
+  };
+
   const getIcon = useCallback(() => {
     switch (datatype) {
-      case 'price':
-      case 'cts':
-      case 'payment_method':
-      case 'coupon':
-      case 'contract':
-      case 'payout_status':
-      case 'payout':
+      case ReportFilterableDataType.PRICE:
+      case ReportFilterableDataType.CTS:
+      case ReportFilterableDataType.PAYMENT_METHOD:
+      case ReportFilterableDataType.COUPON:
+      case ReportFilterableDataType.CONTRACT:
+      case ReportFilterableDataType.PAYOUT_STATUS:
+      case ReportFilterableDataType.PAYOUT:
         return <MonetizationOnIcon />;
-      case 'date':
-      case 'time':
-      case 'dow':
-      case 'datetime':
+      case ReportFilterableDataType.DATE:
+      case ReportFilterableDataType.TIME:
+      case ReportFilterableDataType.DOW:
+      case ReportFilterableDataType.DATETIME:
         return <CalendarTodayIcon />;
-      case 'establishment':
+      case ReportFilterableDataType.ESTABLISHMENT:
         return <LocationOn />;
-      case 'coach':
+      case ReportFilterableDataType.COACH:
         return <FitnessCenter />;
-      case 'giftcard':
+      case ReportFilterableDataType.GIFTCARD:
         return <RedeemIcon />;
-      case 'video':
+      case ReportFilterableDataType.VIDEO:
         return <VideoLibraryIcon />;
-      case 'payment_pack':
+      case ReportFilterableDataType.PAYMENT_PACK:
         return <VpnKey />;
-      case 'int':
-      case 'number':
-      case 'percent':
+      case ReportFilterableDataType.INT:
+      case ReportFilterableDataType.NUMBER:
+      case ReportFilterableDataType.PERCENT:
         return <ExposurePlus1Icon />;
-      case 'email':
-      case 'user':
-      case 'staff':
+      case ReportFilterableDataType.EMAIL:
+      case ReportFilterableDataType.USER:
+      case ReportFilterableDataType.STAFF:
         return <PeopleIcon />;
-      case 'boolean':
+      case ReportFilterableDataType.BOOLEAN:
         return <CheckBoxIcon />;
-      case 'private_service':
-      case 'private_pass':
-      case 'private_slot':
+      case ReportFilterableDataType.PRIVATE_SERVICE:
+      case ReportFilterableDataType.PRIVATE_PASS:
+      case ReportFilterableDataType.PRIVATE_SLOT:
         return <ScheduleIcon />;
-      case 'subshop':
+      case ReportFilterableDataType.SUBSHOP:
         return <ShoppingCartIcon />;
-      case 'billing_establishment':
-      case 'billing_group':
+      case ReportFilterableDataType.BILLING_ESTABLISHMENT:
+      case ReportFilterableDataType.BILLING_GROUP:
         return <ReceiptIcon />;
-      case 'activity':
+      case ReportFilterableDataType.ACTIVITY:
         return <Star />;
-      case 'booking_status_code':
+      case ReportFilterableDataType.BOOKING_STATUS_CODE:
         return <AccountBalanceWalletIcon />;
-      case 'company':
+      case ReportFilterableDataType.COMPANY:
         return <HomeIcon />;
       default:
         return null;
     }
   }, [datatype]);
-
   const allFilters = values?.config?.groups[0].filters_data;
 
   const handleQuickFilterEditFilter = useCallback(
@@ -164,11 +205,18 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = ({
     editReportFilterConfig,
   ]);
 
+  if (
+    !onlyDisplay &&
+    getSingleValueLabel(datatype, value, getDataByTypeAndId, t) === ''
+  ) {
+    return <CircularProgress />;
+  }
+
   return (
     <Chip
       key={label}
       icon={getIcon()}
-      label={`${t(`columns.${label}`)}`}
+      label={`${t(`columns.${label}`)} ${!onlyDisplay ? valueLabel() : ''}`}
       onClick={!onlyDisplay && handleQuickFilterEditFilter}
       onDelete={!onlyDisplay && handleQuickFilterDeleteFilter}
     />

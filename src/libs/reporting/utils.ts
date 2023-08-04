@@ -66,6 +66,12 @@ import {
 } from '@bsport/common/lib/master-data/metadata-identifiers';
 import uniqBy from 'lodash/uniqBy';
 import {
+  BOOKING_STATUS_CANCELLED_BY_CONSUMER,
+  BOOKING_STATUS_CANCELLED_BY_MANAGER,
+  BOOKING_STATUS_CANCELLED_BY_OFFER,
+  BOOKING_STATUS_OK,
+} from '@bsport/common/lib/master-data/booking_status_code';
+import {
   getCurrencyDisplay,
   getCurrencyDisplayWithPrice,
 } from '../theme/selectors';
@@ -79,8 +85,21 @@ import type {
 import type {
   DataSourceFieldMetadata,
   DatatypeFilterConfigGroup,
+  AllComparator,
+  DataSourceMedadataDataType,
+  DynamicFilterDataType,
 } from '#libs/datatype-filtering/types';
 import { checkIdentifierAlreadyExist } from '#libs/datatype-filtering/utils';
+import {
+  FILTER_EQUAL_OPERAND,
+  FILTER_GTE_OPERAND,
+  FILTER_IN_OPERAND,
+  FILTER_LTE_OPERAND,
+  FILTER_NOT_EQUAL_OPERAND,
+  FILTER_OUT_OPERAND,
+  ReportFilterableDataType,
+} from '#libs/datatype-filtering/constants';
+import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
 
 export const CATEGORIES: ReportCategory[] = [
   {
@@ -744,3 +763,112 @@ export const getFilterableColumns = (
     }),
     (column) => [column.datatype, column.identifier],
   );
+
+export const getComparatorLabel = (comparator: AllComparator) => {
+  switch (comparator) {
+    case FILTER_EQUAL_OPERAND:
+    case FILTER_IN_OPERAND:
+      return '=';
+    case FILTER_NOT_EQUAL_OPERAND:
+    case FILTER_OUT_OPERAND:
+      return '≠';
+    case FILTER_LTE_OPERAND:
+      return '≥';
+    case FILTER_GTE_OPERAND:
+      return '≤';
+    default:
+      return '';
+  }
+};
+
+export const getSingleValueLabel = (
+  datatype: DataSourceMedadataDataType,
+  value: boolean | number[] | number,
+  getDataByTypeAndId: (
+    type: DynamicFilterDataType,
+    valueId?: number[],
+  ) => handleGetDynamicDataForFiltersReturn,
+  t: TFunction,
+) => {
+  switch (datatype) {
+    case ReportFilterableDataType.ACTIVITY:
+    case ReportFilterableDataType.BILLING_ESTABLISHMENT:
+    case ReportFilterableDataType.BILLING_GROUP:
+    case ReportFilterableDataType.COACH:
+    case ReportFilterableDataType.COMPANY:
+    case ReportFilterableDataType.CONTRACT:
+    case ReportFilterableDataType.COUPON:
+    case ReportFilterableDataType.ESTABLISHMENT:
+    case ReportFilterableDataType.GIFTCARD:
+    case ReportFilterableDataType.PAYMENT_PACK:
+    case ReportFilterableDataType.PAYMENT_PACK_CATEGORY:
+    case ReportFilterableDataType.PRIVATE_PASS:
+    case ReportFilterableDataType.PRIVATE_PASS_CATEGORY:
+    case ReportFilterableDataType.PRIVATE_SERVICE:
+    case ReportFilterableDataType.PRIVATE_SLOT:
+    case ReportFilterableDataType.SUBSHOP:
+    case ReportFilterableDataType.VIDEO:
+    case ReportFilterableDataType.STAFF:
+      return `${getDataByTypeAndId(datatype, value) ?? ''}`;
+    // Those above are the ones filterable by ID
+    case ReportFilterableDataType.DATE:
+    case ReportFilterableDataType.TIME:
+    case ReportFilterableDataType.DATETIME:
+      return moment.unix(value as number).format('L');
+    case ReportFilterableDataType.BOOLEAN:
+      return value === true ? t('yes') : t('no');
+    case ReportFilterableDataType.PAYOUT_STATUS:
+      return t(`payment:payout.status.${value}`);
+    case ReportFilterableDataType.INVOICE_STATUS:
+      return t(`invoice:status.${value}`);
+    case ReportFilterableDataType.BILLING_PLAN_STATUS:
+      return t(`subscription:billing_plan_status.${value}`);
+    case ReportFilterableDataType.DISPUTE_STATUS:
+      return t(`payment:disputeStatus.${value}`);
+    case ReportFilterableDataType.BOOKING_STATUS_CODE:
+      switch (value) {
+        case BOOKING_STATUS_OK.id:
+          return t('booking:filters.notCancelled');
+        case BOOKING_STATUS_CANCELLED_BY_MANAGER.id:
+          return t('booking:filters.managerCanceled');
+        case BOOKING_STATUS_CANCELLED_BY_CONSUMER.id:
+          return t('booking:filters.consumerCanceled');
+        case BOOKING_STATUS_CANCELLED_BY_OFFER.id:
+          return t('booking:filters.canceled');
+        default:
+          return value;
+      }
+    case ReportFilterableDataType.SOURCE_DEVICE:
+      return t(`reporting:presetValuesByDatatype.source_device.${value}`);
+    case ReportFilterableDataType.PAYMENT_ENGINE:
+      return t(`invoice:paymentEngine.label.${value}`);
+    case ReportFilterableDataType.PAYMENT_METHOD:
+      return t(`payment:method.${value}`);
+    case ReportFilterableDataType.PAYMENT_METHOD_WITH_CREDIT_ACCOUNT:
+      return t(`payment:method.${value}`);
+    case ReportFilterableDataType.DOW:
+      return t(`datetime:time.isoWeekdayNumber.${value}`);
+    default:
+      return value;
+  }
+};
+
+export const getMultipleValuesLabel = (
+  datatype: DataSourceMedadataDataType,
+  value: number[],
+) => {
+  switch (datatype) {
+    case ReportFilterableDataType.NUMBER:
+    case ReportFilterableDataType.PRICE:
+      return `: ${value[0]} → ${value[1]}`;
+    case ReportFilterableDataType.DATE:
+    case ReportFilterableDataType.TIME:
+    case ReportFilterableDataType.DATETIME:
+      return `: ${moment.unix(value[0]).format('L')} → ${moment
+        .unix(value[1])
+        .format('L')}`;
+
+    default:
+      return `(${value?.length})`;
+  }
+};

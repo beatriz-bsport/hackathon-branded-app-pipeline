@@ -60,11 +60,21 @@ import {
   resetDynamicDataHasBeenLoaded as resetDynamicDataHasBeenLoadedAction,
 } from '#libs/datatype-filtering/actions';
 import { getFranchiseCompanies } from '../franchise/selectors';
+import { ReportFilterableDataType } from './constants';
+import { OptionTypeBase } from '#components/Selector/MaterialUISelector.component';
 
 type DynamicConnectedProps = ConnectedProps<typeof connector>;
 
+export type handleGetDynamicDataForFiltersReturn =
+  | OptionTypeBase[]
+  | string
+  | null;
+
 export type withDatatypeDynamicDataProps = DynamicConnectedProps & {
-  handleGetDynamicDataForFilters: (type: DynamicFilterDataType) => any[];
+  handleGetDynamicDataForFilters: (
+    type: DynamicFilterDataType,
+    valueId: number[],
+  ) => handleGetDynamicDataForFiltersReturn;
 };
 
 const connector = connect(
@@ -124,13 +134,14 @@ export default function withDatatypeDynamicData(
     connector,
     withHandlers({
       handleGetDynamicDataForFilters:
-        (props: DynamicConnectedProps) => (type: DynamicFilterDataType) => {
+        (props: DynamicConnectedProps) =>
+        (type: DynamicFilterDataType, valueId?: number[]) => {
           if (
             !props.dynamicDataLoading[type] &&
             !props.dynamicDataHasBeenLoaded[type]
           ) {
             switch (type) {
-              case 'activity':
+              case ReportFilterableDataType.ACTIVITY:
                 props.fetchActivitiesCompany(
                   props.companyId,
                   {},
@@ -141,7 +152,7 @@ export default function withDatatypeDynamicData(
                   },
                 );
                 break;
-              case 'payment_pack':
+              case ReportFilterableDataType.PAYMENT_PACK:
                 props.fetchAllPaymentPacks(
                   { page_size: 70000, disabled: false },
                   {
@@ -151,14 +162,14 @@ export default function withDatatypeDynamicData(
                   },
                 );
                 break;
-              case 'payment_pack_category':
+              case ReportFilterableDataType.PAYMENT_PACK_CATEGORY:
                 props.fetchAllPaymentPackCategory(props.companyId, {
                   onSuccess: () => {
                     props.setDynamicDataHasBeenLoaded('payment_pack_category');
                   },
                 });
                 break;
-              case 'coach':
+              case ReportFilterableDataType.COACH:
                 props.fetchAssociatedCoachesList(
                   {},
                   {
@@ -168,8 +179,8 @@ export default function withDatatypeDynamicData(
                   },
                 );
                 break;
-              case 'billing_establishment':
-              case 'establishment':
+              case ReportFilterableDataType.BILLING_ESTABLISHMENT:
+              case ReportFilterableDataType.ESTABLISHMENT:
                 props.fetchEstablishments(
                   {},
                   {
@@ -183,14 +194,14 @@ export default function withDatatypeDynamicData(
                 );
                 break;
 
-              case 'billing_group':
+              case ReportFilterableDataType.BILLING_GROUP:
                 props.fetchAllEstablishmentBillingGroup({
                   onSuccess: () => {
                     props.setDynamicDataHasBeenLoaded('billing_group');
                   },
                 });
                 break;
-              case 'private_service':
+              case ReportFilterableDataType.PRIVATE_SERVICE:
                 props.fetchAllPrivateServices(
                   { page_size: null },
                   {
@@ -200,7 +211,7 @@ export default function withDatatypeDynamicData(
                   },
                 );
                 break;
-              case 'private_slot':
+              case ReportFilterableDataType.PRIVATE_SLOT:
                 props.fetchAllPrivateSlots(
                   { page_size: null, company: props.companyId },
                   {
@@ -211,7 +222,7 @@ export default function withDatatypeDynamicData(
                 );
                 break;
 
-              case 'private_pass':
+              case ReportFilterableDataType.PRIVATE_PASS:
                 props.fetchPrivatePassList(
                   { page_size: null },
                   {
@@ -221,14 +232,14 @@ export default function withDatatypeDynamicData(
                   },
                 );
                 break;
-              case 'private_pass_category':
+              case ReportFilterableDataType.PRIVATE_PASS_CATEGORY:
                 props.fetchAllPrivatePassCategory(props.companyId, {
                   onSuccess: () => {
                     props.setDynamicDataHasBeenLoaded('private_pass_category');
                   },
                 });
                 break;
-              case 'giftcard':
+              case ReportFilterableDataType.GIFTCARD:
                 props.fetchGiftcardList(
                   { page_size: null },
                   {
@@ -238,7 +249,7 @@ export default function withDatatypeDynamicData(
                   },
                 );
                 break;
-              case 'coupon':
+              case ReportFilterableDataType.COUPON:
                 props.fetchCoupons(
                   { page_size: null },
                   {
@@ -248,7 +259,7 @@ export default function withDatatypeDynamicData(
                   },
                 );
                 break;
-              case 'video':
+              case ReportFilterableDataType.VIDEO:
                 props.fetchVideoList({ page_size: null }, 1, {
                   onSuccess: () => {
                     props.setDynamicDataHasBeenLoaded('video');
@@ -256,7 +267,7 @@ export default function withDatatypeDynamicData(
                 });
                 break;
 
-              case 'contract':
+              case ReportFilterableDataType.CONTRACT:
                 props.fetchContractList(
                   { page_size: null },
                   {
@@ -266,14 +277,14 @@ export default function withDatatypeDynamicData(
                   },
                 );
                 break;
-              case 'subshop':
+              case ReportFilterableDataType.SUBSHOP:
                 props.fetchAllSubShop(props.companyId, {
                   onSuccess: () => {
                     props.setDynamicDataHasBeenLoaded('subshop');
                   },
                 });
                 break;
-              case 'staff':
+              case ReportFilterableDataType.STAFF:
                 props.fetchCompanyUserRoles(
                   {},
                   {
@@ -283,7 +294,7 @@ export default function withDatatypeDynamicData(
                   },
                 );
                 break;
-              case 'company':
+              case ReportFilterableDataType.COMPANY:
                 props.fetchFranchise({
                   onSuccess: () => {
                     props.setDynamicDataHasBeenLoaded('company');
@@ -300,98 +311,216 @@ export default function withDatatypeDynamicData(
           ) {
             return null;
           }
+          if (valueId?.length) {
+            const stringifiedValue = valueId[0].toString();
+            switch (type) {
+              case ReportFilterableDataType.ACTIVITY:
+                return props.metaActivities.find(
+                  (metaActivity) =>
+                    metaActivity.id.toString() === stringifiedValue,
+                )?.name;
 
+              case ReportFilterableDataType.PAYMENT_PACK:
+                return props.paymentPacks.find(
+                  (paymentPack) =>
+                    paymentPack.id.toString() === stringifiedValue,
+                )?.name;
+
+              case ReportFilterableDataType.PAYMENT_PACK_CATEGORY:
+                return props.paymentPackCategories.find(
+                  (paymentPackCategories) =>
+                    paymentPackCategories.id.toString() === stringifiedValue,
+                )?.name;
+
+              case ReportFilterableDataType.COACH:
+                return props.coaches.find(
+                  (coach) => coach.id.toString() === stringifiedValue,
+                )?.name;
+
+              case ReportFilterableDataType.BILLING_ESTABLISHMENT:
+                return props.establishments.find(
+                  (establishment) =>
+                    establishment.id.toString() === stringifiedValue,
+                )?.name;
+
+              case ReportFilterableDataType.ESTABLISHMENT:
+                return props.establishments.find(
+                  (establishment) =>
+                    establishment.id.toString() === stringifiedValue,
+                )?.title;
+
+              case ReportFilterableDataType.PRIVATE_SERVICE:
+                return props.privateServices.find(
+                  (privateService) =>
+                    privateService.id.toString() === stringifiedValue,
+                )?.name;
+
+              case ReportFilterableDataType.PRIVATE_SLOT:
+                return props.privateSlots.find(
+                  (privateSlot) =>
+                    privateSlot.id.toString() === stringifiedValue,
+                )?.name;
+
+              case ReportFilterableDataType.PRIVATE_PASS:
+                return props.privatePasses
+                  .filter((pp) => pp.credits > 0)
+                  .find(
+                    (privatePass) =>
+                      privatePass.id.toString() === stringifiedValue,
+                  )?.name;
+
+              case ReportFilterableDataType.PRIVATE_PASS_CATEGORY:
+                return props.privatePassCategories.find(
+                  (privatePassCategory) =>
+                    privatePassCategory.id.toString() === stringifiedValue,
+                )?.name;
+
+              case ReportFilterableDataType.GIFTCARD:
+                return props.giftCards.find(
+                  (giftCard) => giftCard.id.toString() === stringifiedValue,
+                )?.name;
+
+              case ReportFilterableDataType.COUPON:
+                return props.coupons.find(
+                  (coupon) => coupon.id.toString() === stringifiedValue,
+                )?.name;
+
+              case ReportFilterableDataType.VIDEO:
+                return props.videos.find(
+                  (video) => video.id.toString() === stringifiedValue,
+                )?.name;
+
+              case ReportFilterableDataType.BILLING_GROUP:
+                return props.billingGroups.find(
+                  (billingGroup) =>
+                    billingGroup.id.toString() === stringifiedValue,
+                )?.name;
+
+              case ReportFilterableDataType.CONTRACT:
+                return props.contracts.find(
+                  (contract) => contract.id.toString() === stringifiedValue,
+                )?.name;
+
+              case ReportFilterableDataType.SUBSHOP:
+                return props.subshops.find(
+                  (subshop) => subshop.id.toString() === stringifiedValue,
+                )?.name;
+
+              case ReportFilterableDataType.STAFF: {
+                const staff = props.staffs.find(
+                  (staffUser) => staffUser.id.toString() === stringifiedValue,
+                );
+                if (staff) {
+                  const firstName = staff.first_name || '';
+                  const lastName = staff.last_name || '';
+
+                  return `${firstName} ${lastName}`.trim() || null;
+                }
+
+                return null;
+              }
+
+              case ReportFilterableDataType.COMPANY:
+                return props.franchiseCompanies.find(
+                  (franchiseCompany) =>
+                    franchiseCompany.i.toString() === stringifiedValue,
+                )?.name;
+
+              default:
+                return null;
+            }
+          }
           switch (type) {
-            case 'activity':
+            case ReportFilterableDataType.ACTIVITY:
               return props.metaActivities.map((m) => ({
                 label: m.name,
                 value: m.id,
               }));
-            case 'payment_pack':
+            case ReportFilterableDataType.PAYMENT_PACK:
               return props.paymentPacks.map((p) => ({
                 label: p.name,
                 value: p.id,
               }));
-            case 'payment_pack_category':
+            case ReportFilterableDataType.PAYMENT_PACK_CATEGORY:
               return props.paymentPackCategories.map((paymentPackCategory) => ({
                 label: paymentPackCategory.name,
                 value: paymentPackCategory.id,
               }));
-            case 'coach':
+            case ReportFilterableDataType.COACH:
               return props.coaches.map((c) => ({
                 label: c.name,
                 value: c.id,
               }));
-            case 'billing_establishment':
+            case ReportFilterableDataType.BILLING_ESTABLISHMENT:
               return props.establishments.map((e) => ({
                 label: e.location.address,
                 value: e.id,
               }));
-            case 'establishment':
+            case ReportFilterableDataType.ESTABLISHMENT:
               return props.establishments.map((e) => ({
                 label: e.title,
                 value: e.id,
               }));
-            case 'private_service':
+            case ReportFilterableDataType.PRIVATE_SERVICE:
               return props.privateServices.map((ps) => ({
                 label: ps.name,
                 value: ps.id,
               }));
-            case 'private_slot':
+            case ReportFilterableDataType.PRIVATE_SLOT:
               return props.privateSlots.map((ps) => ({
                 label: ps.name,
                 value: ps.id,
               }));
-            case 'private_pass':
+            case ReportFilterableDataType.PRIVATE_PASS:
               return props.privatePasses
                 .filter((pp) => pp.credits > 0)
                 .map((pp) => ({
                   label: pp.name,
                   value: pp.id,
                 }));
-            case 'private_pass_category':
+            case ReportFilterableDataType.PRIVATE_PASS_CATEGORY:
               return props.privatePassCategories.map((privatePassCategory) => ({
                 label: privatePassCategory.name,
                 value: privatePassCategory.id,
               }));
-            case 'giftcard':
+            case ReportFilterableDataType.GIFTCARD:
               return props.giftCards.map((gc) => ({
                 label: gc.name,
                 value: gc.id,
               }));
-            case 'coupon':
+            case ReportFilterableDataType.COUPON:
               return props.coupons.map((c) => ({
                 label: c.name,
                 value: c.id,
               }));
-            case 'video':
+            case ReportFilterableDataType.VIDEO:
               return props.videos.map((v) => ({
                 label: v.name,
                 value: v.id,
               }));
-            case 'billing_group':
+            case ReportFilterableDataType.BILLING_GROUP:
               return props.billingGroups.map((bg) => ({
                 label: bg.name,
                 value: bg.id,
               }));
-            case 'contract':
+            case ReportFilterableDataType.CONTRACT:
               return props.contracts.map((contract) => ({
                 label: contract.name,
                 value: contract.id,
               }));
-            case 'subshop':
+            case ReportFilterableDataType.SUBSHOP:
               return (
                 props.subshops?.map((subshop) => ({
                   label: subshop.name,
                   value: subshop.id,
                 })) ?? []
               );
-            case 'staff':
+            case ReportFilterableDataType.STAFF:
               return props.staffs.map((staff) => ({
                 value: staff.id,
                 label: `${staff.first_name} ${staff.last_name}`,
               }));
-            case 'company':
+            case ReportFilterableDataType.COMPANY:
               return (
                 props.franchiseCompanies?.map((c) => ({
                   label: c.name,

@@ -31,6 +31,7 @@ import {
 import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 import HoverableWarning from '#components/HoverableWarning.component';
 import DatatypeFilterConfigValueManager from './DatatypeFilterConfigValueManager.component';
+import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
 
 type Props = {
   filterItem: DatatypeFilterConfigItem;
@@ -44,7 +45,9 @@ type Props = {
   isPreview?: boolean;
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
   onDelete?: () => void;
-  getDataByType: (datatype: DynamicFilterDataType) => any[];
+  getDataByType: (
+    datatype: DynamicFilterDataType,
+  ) => handleGetDynamicDataForFiltersReturn;
   dashboardTranslationNamespace?: boolean;
 };
 

@@ -31,6 +31,7 @@ import type {
 import HoverableWarning from '#components/HoverableWarning.component';
 import ReportFilterChip from './ReportFilterConfigDrawer/ReportFilterChip.component';
 import QuickReportFilterConfigColumnsMenu from './QuickReportFilterConfigColumnsMenu.component';
+import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
 
 export type Props = {
   reportFilterConfigs: ReportFilterConfig[];
@@ -49,7 +50,10 @@ export type Props = {
   ) => void;
   onDeleteReportFilterConfigs: (reportFilterConfigsId: number) => void;
   onSelect: (reportFilterConfigsId: number | null) => void;
-  handleGetDynamicDataForReport: (type: DynamicFilterDataType) => any[];
+  handleGetDynamicDataForReport: (
+    type: DynamicFilterDataType,
+    valueId?: number[],
+  ) => handleGetDynamicDataForFiltersReturn;
   fetchReportFilterConfigList: () => void;
   isFranchisor: boolean;
   reportQuickFilter: ReportFilterConfig;
@@ -327,8 +331,10 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
                 {columnsDataSelectedQuickFilter.map((filterItem) => (
                   <ReportFilterChip
                     key={filterItem.identifier}
+                    comparator={filterItem.comparator}
                     datatype={filterItem.datatype}
                     editReportFilterConfig={editReportFilterConfig}
+                    getDataByTypeAndId={handleGetDynamicDataForReport}
                     label={filterItem.identifier}
                     reportQuickFilter={reportQuickFilter}
                     setAnchorEl={setAnchorEl}
@@ -337,6 +343,7 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
                     }
                     setIsQuickFilterModalOpen={setIsQuickFilterModalOpen}
                     setSelectedColumn={setSelectedColumn}
+                    value={filterItem.value}
                   />
                 ))}
               </div>

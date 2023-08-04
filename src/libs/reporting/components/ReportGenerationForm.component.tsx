@@ -34,6 +34,7 @@ import {
 import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
 import { OptionCallback } from '../../../state/types';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
 
 type Props = {
   isSubmitting_: boolean;
@@ -45,7 +46,10 @@ type Props = {
   handleExcelExportation: () => void;
   setShowDialog: (boolean: boolean) => void;
   setDisableContinue: (boolean: boolean) => void;
-  handleGetDynamicDataForReport: (type: DynamicFilterDataType) => any[];
+  handleGetDynamicDataForReport: (
+    type: DynamicFilterDataType,
+    valueId?: number,
+  ) => handleGetDynamicDataForFiltersReturn;
   reportFilterConfigs: ReportFilterConfig[];
   createReportFilterConfig: (
     reportId: number,

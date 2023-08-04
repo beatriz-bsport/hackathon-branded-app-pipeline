@@ -26,6 +26,7 @@ import {
 } from '#libs/datatype-filtering/utils';
 import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 import DatatypeFilterConfigValueManager from '#libs/datatype-filtering/components/DatatypeFilterConfigValueManager.component';
+import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
 
 export type QuickFiltersColumnsData = {
   identifier: string;
@@ -42,7 +43,9 @@ export type QuickFiltersColumnsData = {
 type QuickReportFilterConfigFilterProps = {
   isQuickFilterConfigRowModalOpen: boolean;
   selectedColumn: DatatypeFilterConfigItem;
-  getDataByType: (datatype: DynamicFilterDataType) => any[];
+  getDataByType: (
+    datatype: DynamicFilterDataType,
+  ) => handleGetDynamicDataForFiltersReturn;
   anchorEl: (EventTarget & HTMLButtonElement) | HTMLDivElement;
   columnsDataSelectedQuickFilter: QuickFiltersColumnsData;
   isQuickFilterModalOpen: boolean;
@@ -178,15 +181,17 @@ const QuickReportFilterConfigFilter: React.FC<
                 options={filterComparatorOptions}
               />
             </div>
-            <div className={classes.flexOne}>
-              <DatatypeFilterConfigValueManager
-                comparator={
-                  values.config.groups[0].filters_data[index].comparator
-                }
-                filterItem={selectedColumn}
-                getDataByType={getDataByType}
-                prefix={`config.groups[0].filters_data.${index}`}
-              />
+            <div className={classes.flexTwo}>
+              {!!values.config.groups.length && (
+                <DatatypeFilterConfigValueManager
+                  comparator={
+                    values.config.groups[0].filters_data[index].comparator
+                  }
+                  filterItem={selectedColumn}
+                  getDataByType={getDataByType}
+                  prefix={`config.groups[0].filters_data.${index}`}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -203,7 +208,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     gap: theme.spacing(1),
-    width: '500px',
+    minWidth: '500px',
+    width: 'fit-content',
   },
   quickReportFilterSelectorRows: {
     display: 'flex',
@@ -212,7 +218,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '100%',
   },
   flexOne: {
-    flex: '0.5 1 120px',
+    flex: '0.2 1 120px',
+    position: 'relative',
+  },
+  flexTwo: {
+    flex: '0.8 1 120px',
     position: 'relative',
   },
   select: {

@@ -54,6 +54,7 @@ import NestedAlertError from './NestedAlertError.component';
 import OperandSelect from '#libs/datatype-filtering/components/OperandSelect.component';
 import DatatypeFilterConfigGroupRow from '#libs/datatype-filtering/components/DatatypeFilterConfigGroupRow.component';
 import { OptionCallback } from '../../../../state/types';
+import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
 
 type Values = {
   name: string;
@@ -69,7 +70,9 @@ export type OuterProps = {
   initial?: ReportFilterConfig;
   isPreview?: boolean;
   onClose?: () => void;
-  handleGetDynamicDataForReport: (datatype: DynamicFilterDataType) => any[];
+  handleGetDynamicDataForReport: (
+    datatype: DynamicFilterDataType,
+  ) => handleGetDynamicDataForFiltersReturn;
   onSubmit: (props: {
     id: number;
     valuesHandledByDrawer: Omit<ReportFilterConfig, 'id'>;

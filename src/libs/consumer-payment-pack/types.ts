@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { Consumer } from '../../api/types';
 import { ErrorAndLoading, WithPagination } from '../types';
 
 export type ConsumerPaymentPackExtension = {
@@ -30,6 +31,7 @@ export type ConsumerPaymentPack<PP = number> = {
   penalty_disabled_until: string | null;
   consumer_payment_pack_source: number;
   linked_private_consumer_pass: number | null;
+  consumer: Consumer;
 };
 
 export type MaxoutBookingData = {

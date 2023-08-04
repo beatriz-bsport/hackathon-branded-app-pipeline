@@ -482,8 +482,8 @@ export class ConsumerPackRowItem extends Component<Props, State> {
       onClick,
       classes,
     } = this.props;
-    const { consumer } = consumerPack;
-    const isFromShare = consumerPack && consumerPack.dst_consumer_payment_pack;
+    const { consumer, dst_consumer_payment_pack: isFromShare } =
+      consumerPack ?? {};
 
     return (
       <div>

@@ -49,7 +49,10 @@ export default function withQueryParams([
           (key) =>
           (value, callback) => {
             if (!paramsArray.includes(key)) return;
-            const { search, pathname } = location;
+            const { search, pathname } = location ?? {
+              search: '',
+              pathname: '',
+            };
             const allParams = parseQueryString(search);
             if (value === 'null' || value === '' || value === null) {
               replace(pathname + buildUrlParams({ ...omit(allParams, key) }));

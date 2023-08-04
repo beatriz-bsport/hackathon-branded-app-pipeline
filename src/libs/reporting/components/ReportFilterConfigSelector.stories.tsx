@@ -20,6 +20,7 @@ Default.args = {
   onDeleteReportFilterConfigs: () => {},
   onSelect: () => {},
   columnsMetadata: [],
+  reportQuickFilter: { config: {} },
 };
 
 export default {

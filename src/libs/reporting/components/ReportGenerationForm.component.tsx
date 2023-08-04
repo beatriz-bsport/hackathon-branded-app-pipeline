@@ -1,6 +1,5 @@
 // @ts-nocheck
-// @flow
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import moment from 'moment-timezone';
 
 import { compose } from 'recompose';
@@ -200,7 +199,6 @@ const ReportGenerationForm: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
-
   const handleCloseDialog = useCallback(() => {
     if (disableContinue) return;
     setShowDialog(false);
@@ -235,6 +233,14 @@ const ReportGenerationForm: React.FC<Props> = ({
       setFieldValue('reportFilterConfigId', id > 0 ? id : null);
     },
     [setFieldValue],
+  );
+
+  const quickFilter = useMemo(
+    () =>
+      reportFilterConfigs.find(
+        (reportFilter) => reportFilter.is_quick_report_filter === true,
+      ),
+    [reportFilterConfigs],
   );
 
   return (
@@ -337,6 +343,7 @@ const ReportGenerationForm: React.FC<Props> = ({
             onDeleteReportFilterConfigs={deleteReportFilterConfig}
             onSelect={handleSelectFilter}
             reportFilterConfigs={reportFilterConfigs}
+            reportQuickFilter={quickFilter}
             selectedFilter={values.reportFilterConfigId}
           />
         </div>

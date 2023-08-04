@@ -64,6 +64,7 @@ import {
   PaymentSumupMetadataIdentifierEnum,
   ReferralGrantMetadataIdentifierEnum,
 } from '@bsport/common/lib/master-data/metadata-identifiers';
+import uniqBy from 'lodash/uniqBy';
 import {
   getCurrencyDisplay,
   getCurrencyDisplayWithPrice,
@@ -75,6 +76,11 @@ import type {
   ReportConfiguration,
   CellConverter,
 } from './types';
+import type {
+  DataSourceFieldMetadata,
+  DatatypeFilterConfigGroup,
+} from '#libs/datatype-filtering/types';
+import { checkIdentifierAlreadyExist } from '#libs/datatype-filtering/utils';
 
 export const CATEGORIES: ReportCategory[] = [
   {
@@ -709,3 +715,32 @@ export const generateRowLink = ({
 
   return null;
 };
+
+/**
+ *
+ * @param filterGroups Every filtersItem that are applied
+ * @param columns All the columns of the report that were chosen
+ * @param isFranchisor If report comes from franchisor side
+ * @returns Unique filterable columns by identifiers and datatype
+ */
+
+export const getFilterableColumns = (
+  filterGroups: DatatypeFilterConfigGroup[],
+  columns: DataSourceFieldMetadata[],
+  isFranchisor: boolean,
+) =>
+  uniqBy(
+    (columns || []).filter((d) => {
+      if (!d.is_filterable) return false;
+      // For franchisors, we only allow the 'company' datatype among DATATYPE_FILTERABLE_BY_ID_IN
+      if (isFranchisor && d.datatype !== 'company') return false;
+      // If the column has already been filtered on, a filter on the same column can't be applied
+      if (
+        filterGroups &&
+        checkIdentifierAlreadyExist(d.identifier, filterGroups)
+      )
+        return false;
+      return true;
+    }),
+    (column) => [column.datatype, column.identifier],
+  );

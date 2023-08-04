@@ -53,6 +53,7 @@ import {
 import NestedAlertError from './NestedAlertError.component';
 import OperandSelect from '#libs/datatype-filtering/components/OperandSelect.component';
 import DatatypeFilterConfigGroupRow from '#libs/datatype-filtering/components/DatatypeFilterConfigGroupRow.component';
+import { OptionCallback } from '../../../../state/types';
 
 type Values = {
   name: string;
@@ -71,7 +72,8 @@ export type OuterProps = {
   handleGetDynamicDataForReport: (datatype: DynamicFilterDataType) => any[];
   onSubmit: (props: {
     id: number;
-    values: Omit<ReportFilterConfig, 'id'>;
+    valuesHandledByDrawer: Omit<ReportFilterConfig, 'id'>;
+    options: OptionCallback<ReportFilterConfig>;
   }) => void;
   isFranchisor: boolean;
 };
@@ -122,12 +124,7 @@ const ReportFilterConfigFormDrawer: React.FC<
         columns.filter((d) => {
           if (!d.is_filterable) return false;
           // For franchisors, we only allow the 'company' datatype among DATATYPE_FILTERABLE_BY_ID_IN
-          if (
-            isFranchisor &&
-            DATATYPE_FILTERABLE_BY_ID_IN.includes(d.datatype) &&
-            d.datatype !== 'company'
-          )
-            return false;
+          if (isFranchisor && d.datatype !== 'company') return false;
           // by Id filter sould be uniq across the filter as a product decision
           if (
             DATATYPE_FILTERABLE_BY_ID_IN.includes(d.datatype) &&

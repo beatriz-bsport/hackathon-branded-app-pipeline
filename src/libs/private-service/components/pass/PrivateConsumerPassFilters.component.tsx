@@ -44,7 +44,7 @@ export function PrivateConsumerPassFilters(props: Props) {
               onDelete: () => props.setFiltersValue({ is_expired: null }),
               icon: HourglassFullIcon,
               label: t('filters.isExpired'),
-              show: props.filters.is_expired,
+              show: props.filters?.is_expired,
             },
             {
               onClick: () => {
@@ -56,7 +56,7 @@ export function PrivateConsumerPassFilters(props: Props) {
               onDelete: () => props.setFiltersValue({ is_expired: null }),
               icon: AccessTimeIcon,
               label: t('filters.isActive'),
-              show: props.filters.is_expired === false,
+              show: props.filters?.is_expired === false,
             },
             {
               onClick: () => {

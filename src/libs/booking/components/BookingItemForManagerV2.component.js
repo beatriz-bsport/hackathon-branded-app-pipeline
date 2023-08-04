@@ -619,7 +619,7 @@ export class BookingItemForManager extends Component<Props, State> {
     }
     if (redirectToMember && newTab) {
       const win = window.open(url);
-      win.focus();
+      win?.focus();
       return;
     }
     if (redirectToMember) {

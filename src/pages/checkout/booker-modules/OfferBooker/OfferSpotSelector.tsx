@@ -52,9 +52,9 @@ const OfferSpotSelector = (props: Props) => {
 
   const takenSpot = offerStatus?.taken_spots || [];
 
-  const spotTypesIdOfBlueprint = roomBlueprint?.canvas.elements
-    .filter((element) => element.type === 'spot')
-    .map((element) => element.data.spotTypeId || DEFAULT_SPOT_TYPE_ID);
+  const spotTypesIdOfBlueprint = roomBlueprint?.canvas?.elements
+    ?.filter((element) => element.type === 'spot')
+    ?.map((element) => element.data.spotTypeId || DEFAULT_SPOT_TYPE_ID);
 
   const selectedIndexType = getSpotIndexType(roomBlueprint, selectedIndex);
 

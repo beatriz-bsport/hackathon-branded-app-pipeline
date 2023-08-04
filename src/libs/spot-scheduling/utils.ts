@@ -82,12 +82,12 @@ export const getSpotIndexType = (
 ) => {
   const spotTypeId =
     roomBlueprint?.canvas?.elements?.filter(
-      (element) => element.data.index === spotId && element.type === 'spot',
+      (element) => element.data?.index === spotId && element.type === 'spot',
     )[0]?.data?.spotTypeId || DEFAULT_SPOT_TYPE_ID;
 
-  const indexType = roomBlueprint?.canvas.elements
+  const indexType = roomBlueprint?.canvas?.elements
     .filter(
-      (element) => element.data.index <= spotId && element.type === 'spot',
+      (element) => element.data?.index <= spotId && element.type === 'spot',
     )
     .map((element) => element.data?.spotTypeId || DEFAULT_SPOT_TYPE_ID)
     .filter((id: number) => id === spotTypeId).length;
@@ -101,7 +101,7 @@ export const getSpotType = (
 ) => {
   const spotTypeId =
     roomBlueprint?.canvas?.elements?.filter(
-      (element) => element.data.index === spotId && element.type === 'spot',
+      (element) => element.data?.index === spotId && element.type === 'spot',
     )[0]?.data?.spotTypeId || DEFAULT_SPOT_TYPE_ID;
 
   const spotType = spotTypes.filter((spot) => spot?.id === spotTypeId)[0];

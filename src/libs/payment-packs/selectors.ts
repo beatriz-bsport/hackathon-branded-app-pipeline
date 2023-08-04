@@ -66,8 +66,9 @@ export const getEnabledPaymentPacks = createSelector(
   [getPaymentPackById, getPaymentPackAllIds],
   (paymentPacks, idList) =>
     idList
-      .map((id: number) => paymentPacks[id])
-      .filter((pack: PaymentPack) => !pack.disabled),
+      .filter((id: number) => !!id)
+      .map((id: number) => paymentPacks?.[id])
+      .filter((pack: PaymentPack) => !pack?.disabled),
 );
 
 export const getDisabledPaymentPacks = createSelector(

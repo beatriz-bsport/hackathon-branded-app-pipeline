@@ -98,7 +98,7 @@ export class CheckInPage extends React.Component<Props, State> {
       return <CircularProgress />;
     }
 
-    if (!this.props.permission.checkin) {
+    if (!this.props.permission?.checkin) {
       return <Redirect to="/" />;
     }
 

@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import { listActions, performActionAction, deleteActions } from './actions';
+import { listActions, deleteActions } from './actions';
 
 import { AlertingState } from './types';
 
@@ -74,40 +74,6 @@ export default handleActions(
       return state.set('loading', payload);
     },
     [deleteActions.error.toString()]: (
-      state: any,
-      { payload }: { payload: any },
-    ) => {
-      return state.set('error', payload);
-    },
-
-    [performActionAction.success.toString()]: (
-      state: any,
-      { payload }: { payload: any },
-    ) => {
-      return state.setIn(['items', payload.id], payload);
-    },
-    [performActionAction.error.toString()]: (
-      state: any,
-      { payload }: { payload: any },
-    ) => {
-      return state.set('error', payload);
-    },
-    [performActionAction.isLoading.toString()]: (
-      state: any,
-      { payload }: { payload: any },
-    ) => {
-      if (payload.isLoading) {
-        return state.set('items_processing', [
-          ...state.items_processing,
-          payload.id,
-        ]);
-      }
-      return state.set(
-        'items_processing',
-        state.items_processing.filter((ip: any) => ip.id !== payload.id),
-      );
-    },
-    [performActionAction.error.toString()]: (
       state: any,
       { payload }: { payload: any },
     ) => {

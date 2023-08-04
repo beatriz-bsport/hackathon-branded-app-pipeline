@@ -19,15 +19,8 @@ const delete_ = async (id: number) => {
   return deleteAuth(`${API_URI}/alerts/${id}/`);
 };
 
-const performAction = async (id: number, action_name: string) => {
-  return postAuth(`${API_URI}/alerts/${id}/perform_action/`, {
-    action_name,
-  });
-};
-
 export default {
   fetch,
-  performAction,
   delete_,
   deleteAlert,
 };

@@ -38,12 +38,6 @@ export const listActions = {
   success: createAction('ALERTING/LIST/SUCCESS'),
 };
 
-export const performActionAction = {
-  error: createAction('ALERTING/ACTION/ERROR'),
-  isLoading: createAction('ALERTING/ACTION/IS_LOADING'),
-  success: createAction('ALERTING/ACTION/SUCCESS'),
-};
-
 export const deleteActions = {
   error: createAction('ALERTING/DELETE/ERROR'),
   isLoading: createAction('ALERTING/DELETE/IS_LOADING'),
@@ -101,23 +95,6 @@ export function fetch(alert_kind: number, page: number): ThunkAction {
     }
 
     dispatch(listActions.isLoading({ alert_kind, isLoading: false }));
-  };
-}
-
-export function performAction(id: number, action_name: string): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(performActionAction.isLoading({ id, isLoading: true }));
-    dispatch(performActionAction.error(null));
-
-    try {
-      const response = await api.performAction(id, action_name);
-      dispatch(performActionAction.success(response.data));
-    } catch (error) {
-      dispatch(performActionAction.error(error));
-    }
-
-    dispatch(performActionAction.error(null));
-    dispatch(performActionAction.isLoading({ id, isLoading: false }));
   };
 }
 

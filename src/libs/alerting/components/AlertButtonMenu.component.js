@@ -14,7 +14,7 @@ import { push } from 'connected-react-router';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { useDispatch } from 'react-redux';
 
-import type { AlertGroup, DeleteAlert } from '../types';
+import type { DeleteAlert } from '../types';
 import AlertList from './AlertList.component';
 
 type Props = {
@@ -22,7 +22,6 @@ type Props = {
   dialogOpen: ?Object,
   nbAlerting: number,
   countAlertingCommunication: number,
-  alertings: Array<AlertGroup>,
   deleteAlert: DeleteAlert,
   showMore: (alert_kind: number) => void,
   overrideIcon: any,
@@ -30,8 +29,7 @@ type Props = {
 };
 
 export default function AlertButtonMenu(props: Props) {
-  const { setDialogOpen, dialogOpen, nbAlerting, alertings, overrideIcon } =
-    props;
+  const { setDialogOpen, dialogOpen, nbAlerting, overrideIcon } = props;
   const dispatch = useDispatch();
   const pushRouter = (path) => {
     dispatch(push(path));
@@ -76,7 +74,6 @@ export default function AlertButtonMenu(props: Props) {
             >
               <Paper square className={classes.menuContainer}>
                 <AlertList
-                  alertings={alertings}
                   deleteAlert={props.deleteAlert}
                   onClose={() => setDialogOpen(null)}
                   pushRouter={(path) => {

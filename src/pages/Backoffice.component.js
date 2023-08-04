@@ -11,10 +11,7 @@ import { CircularProgress, Typography } from '@material-ui/core';
 import { withTranslation } from 'react-i18next';
 import clx from 'classnames';
 import moment from 'moment-timezone';
-import {
-  UNREAD_COMMUNICATION,
-  // @ts-ignore
-} from '@bsport/common/lib/master-data/alerting_kind';
+import { AlertKind } from '../libs/alerting/constants';
 import {
   BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
   BsportRequestFromHeaderValue,
@@ -94,8 +91,7 @@ import {
 
 import type { TempPasswordState } from '../libs/login/types';
 import type {
-  Alerting,
-  UnreadCommunicationAlerting,
+  CompanyOnboardingAlerting,
   DeleteAlert,
 } from '#libs/alerting/types';
 import {
@@ -235,8 +231,7 @@ const Tutorial = asyncComponent(() => import('./tutorial/Tutorial.router'));
 const Inbox = asyncComponent(() => import('./inbox/Inbox.router'));
 
 type Props = {
-  alertings: Array<Alerting>,
-  messageAlertings: Array<UnreadCommunicationAlerting>,
+  companyOnboardingAlertings: CompanyOnboardingAlerting[],
   nbAlerting: number,
   countAlertingCommunication: number,
   nbTutorialAlerting: number,
@@ -738,6 +733,13 @@ export class Backoffice extends Component<Props, State> {
 
     const isInboxPath = this.props.location.pathname.includes('/inbox/');
 
+    const isStripeOnboardingPending =
+      this.props.stripeCompany &&
+      !this.props.stripeCompany?.has_no_need_for_stripe_configuration &&
+      !!this.props.companyOnboardingAlertings?.results?.filter((a) =>
+        ['verification', 'creation'].includes(a?.data?.type),
+      )?.length;
+
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <PermissionContext.Provider value={this.props.permissions}>
@@ -750,7 +752,6 @@ export class Backoffice extends Component<Props, State> {
           >
             <BannerProvider>
               <BackofficeDrawer
-                alertings={this.props.alertings}
                 clockIn={this.props.clockIn}
                 clockOut={this.props.clockOut}
                 companyId={this.props.theme.company}
@@ -780,7 +781,6 @@ export class Backoffice extends Component<Props, State> {
                 }
                 lastClockIn={this.props.lastClockin}
                 logo={this.props.theme ? this.props.theme.cover : null}
-                messageAlertings={this.props.messageAlertings}
                 name={this.props.name}
                 navigateBackToFranchisor={this.props.navigateBackToFranchise}
                 nbAlerting={this.props.nbAlerting}
@@ -797,17 +797,7 @@ export class Backoffice extends Component<Props, State> {
                 }
                 permissions={this.props.permissions}
                 push={this.props.pushRouter}
-                stripeOnboardingPending={
-                  this.props.stripeCompany &&
-                  !this.props.stripeCompany
-                    ?.has_no_need_for_stripe_configuration &&
-                  !!this.props.alertings
-                    .filter((ag) => (ag.results || []).length)
-                    .find((ag) => ag.alert_kind === '5')
-                    ?.results?.filter((a) =>
-                      ['verification', 'creation'].includes(a?.data?.type),
-                    )?.length
-                }
+                stripeOnboardingPending={isStripeOnboardingPending}
                 tempPasswordState={this.props.tempPasswordState}
                 theme={this.props.theme}
                 updateUserAcknowlegdeTutorial={
@@ -964,15 +954,14 @@ export default compose(
   withTranslation('navigation'),
   connect(
     (state) => ({
-      alertings: alertingSelectors.getByKind(state),
-      messageAlertings: alertingSelectors.getOneKind(
+      companyOnboardingAlertings: alertingSelectors.getOneKind(
         state,
-        UNREAD_COMMUNICATION.alert_kind,
+        AlertKind.COMPANY_ONBOARDING,
       ),
       nbAlerting: alertingSelectors.countAlerting(state),
       countAlertingCommunication: alertingSelectors.countAlertingForKind(
         state,
-        UNREAD_COMMUNICATION.alert_kind,
+        AlertKind.UNREAD_COMMUNICATION,
       ),
       nbTutorialAlerting: alertingSelectors.countTutorialAlerting(state),
       userAcknowlegdePlatformTutorial: userAcknowlegdePlatformTutorial(state),

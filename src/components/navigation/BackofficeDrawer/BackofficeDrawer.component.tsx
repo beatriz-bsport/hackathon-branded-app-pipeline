@@ -60,7 +60,7 @@ import SearchBar from '../../SearchBar.component';
 import AlertButtonMenu from '#libs/alerting/components/AlertButtonMenu.component';
 import { windowTitleToProps } from '../../../hocs/with-title.hoc';
 import { openIntercomHelp } from '../../../intercom';
-import { Alerting, DeleteAlert } from '#libs/alerting/types';
+import { DeleteAlert } from '#libs/alerting/types';
 import { TempPasswordState } from '#libs/login/types';
 import { RolePermission, Role } from '#libs/role/types';
 import { BannerContext, BannerContextValue } from '../../../hocs/banner.hoc';
@@ -108,8 +108,6 @@ type Props = {
   countAlertingCommunication: number;
   userAcknowlegdePlatformTutorial: boolean;
   updateUserAcknowlegdeTutorial: () => void;
-  alertings: Array<Alerting>;
-  messageAlertings: Array<Alerting>;
   disconnect: () => void;
   logo?: string;
   hidden: boolean;
@@ -176,8 +174,6 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   theme,
   nbAlerting,
   countAlertingCommunication,
-  alertings,
-  messageAlertings,
   disconnect,
   logo,
   hidden,
@@ -627,7 +623,6 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                           <Grid item>
                             <AlertButtonMenu
                               withCommunicationAlerts
-                              alertings={messageAlertings}
                               deleteAlert={deleteAlert}
                               dialogOpen={messageDialogOpen}
                               nbAlerting={countAlertingCommunication}
@@ -732,7 +727,6 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                     {permissions?.appbarButtons?.notificationCenter && (
                       <Grid item>
                         <AlertButtonMenu
-                          alertings={alertings}
                           deleteAlert={deleteAlert}
                           dialogOpen={dialogOpen}
                           nbAlerting={nbAlerting}

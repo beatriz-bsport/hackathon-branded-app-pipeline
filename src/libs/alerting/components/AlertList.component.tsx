@@ -9,8 +9,13 @@ import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { UNREAD_COMMUNICATION } from '@bsport/common/lib/master-data/alerting_kind';
+// eslint-disable-next-line bsport/no-redux-in-component
+import { connect } from 'react-redux';
+import { RootState } from '../../../reducers';
 import AlertListGroup from './AlertListGroup.component';
 import type { AlertGroup, DeleteAlert } from '../types';
+import { AlertKind } from '../constants';
+import alertingSelectors from '../selectors';
 
 type Props = {
   alertings: Array<AlertGroup>;
@@ -99,4 +104,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default AlertList;
+export default connect((state: RootState, props: Props) => ({
+  alertings: props.withCommunicationAlerts
+    ? alertingSelectors.getOneKind(state, AlertKind.UNREAD_COMMUNICATION)
+    : alertingSelectors.getByKind(state),
+}))(AlertList);

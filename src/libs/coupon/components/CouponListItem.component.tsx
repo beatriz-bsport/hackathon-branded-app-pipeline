@@ -22,6 +22,7 @@ import ListItemResponsiveAction, {
 } from '../../../components/button/ListItemResponsiveAction.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import Popover from '#components/Popover';
+import Config from '../../../config';
 
 type Props = {
   coupon: Coupon;
@@ -41,6 +42,10 @@ export const CouponListItem: React.FC<Props> = ({
   const { t } = useTranslation(['translation', 'coupon']);
 
   const classes = useStyles();
+
+  const isDevelopment = ['dev', 'local'].includes(
+    Config.REACT_APP_SENTRY_ENVIRONMENT,
+  );
 
   const isCouponViaUniqueCode =
     coupon?.coupon_type === CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE;
@@ -103,7 +108,7 @@ export const CouponListItem: React.FC<Props> = ({
         secondary={!isCouponViaUniqueCode && secondaryText}
       />
       <div className={classes.buttonContainer}>
-        {isCouponViaUniqueCode && (
+        {isCouponViaUniqueCode && isDevelopment && (
           <Popover
             className={classes.popover}
             title={t('coupon:fabLabels.voucherCodes')}

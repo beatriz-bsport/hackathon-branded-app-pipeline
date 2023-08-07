@@ -9,6 +9,7 @@ import { CouponKind } from '@bsport/common/lib/master-data/coupon';
 import CouponListItem from './CouponListItem.component';
 import CouponTypeFilter from './CouponTypeFilter/CouponTypeFilter.component';
 import { CouponFilterOptions, type Coupon } from '../types';
+import Config from '../../../config';
 
 type Props = {
   activeCoupons: Coupon[];
@@ -43,6 +44,10 @@ export const CouponList: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('coupon');
   const classes = useStyles();
+
+  const isDevelopment = ['dev', 'local'].includes(
+    Config.REACT_APP_SENTRY_ENVIRONMENT,
+  );
 
   const [filteredInactiveCoupons, setFilteredInactiveCoupons] =
     useState(inactiveCoupons);
@@ -82,9 +87,11 @@ export const CouponList: React.FC<Props> = ({
 
   return (
     <div>
-      <div className={classes.filter}>
-        <CouponTypeFilter onCouponTypeFilter={handleFilter} />
-      </div>
+      {isDevelopment && (
+        <div className={classes.filter}>
+          <CouponTypeFilter onCouponTypeFilter={handleFilter} />
+        </div>
+      )}
       {filteredActiveCoupons.length > 0 && (
         <div className={classes.section}>
           <Typography className={classes.sectionTitle} variant="h5">

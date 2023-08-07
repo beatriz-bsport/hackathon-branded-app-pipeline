@@ -33,6 +33,10 @@ const getPermissionForRole = (roleState: RoleState, roleId: number) => {
   return roleState.role.byId?.[roleId]?.permissions;
 };
 
+const getObjectPermissionsForRole = (roleState: RoleState, roleId: number) => {
+  return roleState.role.byId?.[roleId]?.object_level_permissions;
+};
+
 const getFranchisePermissionForRole = (
   roleState: RoleState,
   franchiseRoleId: number,
@@ -58,6 +62,16 @@ export const getPermissions = createSelector(
       return getPermissionForRole(roleState, auth.role);
     }
     return getPermissionForRole(roleState, OWNER_ROLE);
+  },
+);
+
+export const getObjectPermissions = createSelector(
+  [getAuthState, getRoleState],
+  (auth, roleState) => {
+    if (auth && auth.role !== null && typeof auth.role !== 'undefined') {
+      return getObjectPermissionsForRole(roleState, auth.role);
+    }
+    return getObjectPermissionsForRole(roleState, OWNER_ROLE);
   },
 );
 

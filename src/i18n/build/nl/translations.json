@@ -238,7 +238,7 @@
             "BookingOption": {
                 "tags": {
                     "option_expiration_date": "Vervaldatum van de plaats op de wachtlijst",
-                    "option_payment_url": "Link om te reserveren",
+                    "option_payment_url": "Reserveerlink",
                     "address": "Adres",
                     "establishment_practical_info": "Toegangsinformatie",
                     "establishment": "Vestiging",
@@ -302,10 +302,10 @@
             },
             "User": {
                 "tags": {
-                    "lastname": "Achternaam lid",
-                    "firstname": "Voornaam lid",
+                    "lastname": "Achternaam",
+                    "firstname": "Voornaam",
                     "unsubscribe_link": "Uitschrijven voor de nieuwsbrief",
-                    "reset_password_url": "Link naar wachtwoord reset",
+                    "reset_password_url": "Wachtwoordherstel link",
                     "email_confirmation_url": "E-mail bevestigingslink"
                 },
                 "name": "Lid"
@@ -315,9 +315,9 @@
                     "subscription_nb_days_pause": "Pauze: aantal dagen",
                     "subscription_payment_method": "Betaalmethode",
                     "subscription_flat_fee": "Inschrijfkosten",
-                    "subscription_nb_months": "Aantal maanden",
-                    "subscription_recurrent_price": "Maandelijks bedrag",
-                    "subscription_name": "Naam van het abonnement",
+                    "subscription_nb_months": "Looptijd",
+                    "subscription_recurrent_price": "Maandbedrag",
+                    "subscription_name": "Abonnementsnaam",
                     "subscription_next_invoice_date": "Eerstvolgende factuurdatum",
                     "subscription_contract_terms_link": "Link voor voorwaarden"
                 },
@@ -330,7 +330,7 @@
                     "establishment": "Vestiging",
                     "date": "Tijd en datum",
                     "coach": "Instructeur",
-                    "activity": "Activiteit"
+                    "activity": "Groepsactiviteit"
                 },
                 "name": "Sessie"
             },
@@ -354,10 +354,10 @@
                     "establishment_practical_info": "Toegangsinformatie",
                     "establishment": "Vestiging",
                     "date": "Tijd en datum",
-                    "coach": "Teacher",
+                    "coach": "Instructeur",
                     "address": "Adres",
                     "activity": "Activiteit",
-                    "recurring_booking_fail_reason": "Reden voor terugkerende mislukte boekingen"
+                    "recurring_booking_fail_reason": "Reden voor terugkerende mislukte reserveringen"
                 },
                 "name": "Terugkerende regel"
             },
@@ -374,7 +374,7 @@
             "Invoice": {
                 "name": "Facturatie",
                 "tags": {
-                    "id": "Factuur ID",
+                    "id": "Factuurnummer",
                     "invoice_price": "Factuurbedrag",
                     "invoice_sum_up": "Factuuroverzicht",
                     "invoice_date": "Factuurdatum",

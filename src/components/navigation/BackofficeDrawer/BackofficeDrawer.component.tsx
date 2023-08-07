@@ -1112,4 +1112,8 @@ const connector = connect(
     setShrinkResponsiveDrawer: setShrinkResponsiveDrawerAction,
   },
 );
-export default compose(connector, windowTitleToProps)(BackOfficeDrawer);
+export default compose(
+  React.memo,
+  connector,
+  windowTitleToProps,
+)(BackOfficeDrawer);

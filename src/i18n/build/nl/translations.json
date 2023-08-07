@@ -386,26 +386,26 @@
                     "activate_giftcard_url": "Cadeaubon activeringslink",
                     "message_is_from": "Lid dat de cadeaubon verstuurt",
                     "message_is_for": "Ontvanger van de cadeaubon",
-                    "giftcard_message": "Bericht van de cadeaubon",
+                    "giftcard_message": "Gepersonaliseerd bericht van de cadeaubon",
                     "giftcard_value": "Waarde van de cadeaubon",
                     "giftcard_name": "Naam van de cadeaubon"
                 },
                 "name": "Cadeaubon"
             },
             "EmailChange": {
-                "name": "Wijziging van de rekening",
+                "name": "Profielwijziging",
                 "tags": {
                     "new_email": "Nieuwe aanmeldingsmail",
-                    "old_email": "Oude login e-mail",
+                    "old_email": "Oude aanmeldingsmail",
                     "manage_changing_email_link": "E-mail link voor wijzigingsbeheer",
-                    "login_link": "Persoonlijke ruimte login link"
+                    "login_link": "Link naar Mijn profiel"
                 }
             },
             "requiredTags": {
-                "reset_password_url": "Link naar wachtwoord reset",
+                "reset_password_url": "Wachtwoordherstel link",
                 "email_confirmation_url": "E-mail bevestigingslink",
                 "new_email": "Nieuwe aanmeldingsmail",
-                "old_email": "Oude login e-mail",
+                "old_email": "Oude aanmeldingsmail",
                 "activate_giftcard_url": "Cadeaubon activeringslink",
                 "message_is_from": "Lid dat de cadeaubon verstuurt",
                 "giftcard_message": "Bericht van de cadeaubon",
@@ -423,7 +423,7 @@
                     "max_HR": "Maximale hartslag",
                     "average_watts": "Watt",
                     "average_speed": "Gemiddelde snelheid",
-                    "average_RPM": "RPM",
+                    "average_RPM": "Gemiddelde RPM",
                     "average_HR": "Gemiddelde hartslag",
                     "SEP": "Spivi Ecosystem Point"
                 },

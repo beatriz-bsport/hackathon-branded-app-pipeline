@@ -13186,6 +13186,7 @@
         "yourCode": "Votre implémentation complémentaire:"
       },
       "components": {
+        "search": "Filtre de recherche",
         "filter": "Filtre unique",
         "offerListItem": "Détails d'une séance",
         "level": "Chip de niveau",
@@ -13221,7 +13222,13 @@
         "contractPayment": "Module de paiement d'abonnement",
         "collectPaymentMethod": "Ajout de méthode de paiement"
       },
-      "page": { "workshop": "Atelier", "calendar": "Calendrier", "pass": "Cartes de cours", "subscription": "Abonnements" },
+      "page": {
+        "common": "Commun",
+        "workshop": "Atelier",
+        "calendar": "Calendrier",
+        "pass": "Cartes de cours",
+        "subscription": "Abonnements"
+      },
       "cssConfig": {
         "configurationTitle": "Variations",
         "title": {

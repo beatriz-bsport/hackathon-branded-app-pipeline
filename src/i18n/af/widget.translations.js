@@ -118,6 +118,7 @@ exports.default = {
       yourCode: 'Votre implémentation complémentaire:',
     },
     components: {
+      search: 'Filtre de recherche',
       filter: 'Filtre unique',
       offerListItem: "Détails d'une séance",
       level: 'Chip de niveau',
@@ -155,6 +156,7 @@ exports.default = {
       collectPaymentMethod: 'Ajout de méthode de paiement',
     },
     page: {
+      common: 'Commun',
       workshop: 'Atelier',
       calendar: 'Calendrier',
       pass: 'Cartes de cours',

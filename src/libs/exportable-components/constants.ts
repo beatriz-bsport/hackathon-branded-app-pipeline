@@ -84,6 +84,10 @@ import {
   MARKETPLACE_WEEK_TIME_TABLE_CONFIGURATION,
   MARKETPLACE_WEEK_TIME_TABLE_PREVIEW,
 } from '#libs/marketplace/components/MarketplaceWeekTimeTableCSSOnly/custom_css_variant';
+import {
+  MARKETPLACE_SEARCH_CONFIGURATION,
+  MARKETPLACE_SEARCH_PREVIEW,
+} from '#components/css-only/Search/custom_css_variant';
 
 import {
   CSSComponentPreviews,
@@ -279,6 +283,7 @@ export type SetState = (key: string) => (value: any) => void;
  }
 */
 export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
+  MARKETPLACE_SEARCH_CONFIGURATION,
   MARKETPLACE_OFFER_CARD_CONFIGURATION,
   MARKETPLACE_OFFER_LIST_ITEM_CONFIGURATION,
   MARKETPLACE_CALENDAR_FILTER_CONFIGURATION,
@@ -334,6 +339,7 @@ Template
 */
 export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
   Immutable({
+    search: MARKETPLACE_SEARCH_PREVIEW,
     cardOffer: MARKETPLACE_OFFER_CARD_PREVIEW,
     offerListItem: MARKETPLACE_OFFER_LIST_ITEM_PREVIEW,
     calendarFilters: MARKETPLACE_CALENDAR_FILTER_PREVIEW,

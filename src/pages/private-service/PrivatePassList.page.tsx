@@ -33,6 +33,7 @@ import {
   getCompatibleServicePassLoading,
   withLinkedPaymentPack,
 } from '#libs/private-service/selectors/private-pass';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { getPrivateServices } from '#libs/private-service/selectors/private-service';
 import {
   fetchPrivatePassList,
@@ -99,6 +100,7 @@ import PrivatePassDeleteDialog from '#libs/private-service/components/pass/Priva
 import UniversalPassRestoreDialog from '#libs/universal-pass/components/UniversalPassRestoreDialog.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { fetchTags } from '#libs/tag/actions';
 
 const {
   trackFormAdd,
@@ -177,6 +179,7 @@ export class PrivatePassList extends React.Component<Props, State> {
       customer_enabled: true,
     });
     this.props.fetchMetaActivities();
+    this.props.fetchTags();
   }
 
   componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>) {
@@ -395,6 +398,7 @@ export class PrivatePassList extends React.Component<Props, State> {
               onSubmit={this.props.createOrUpdatePrivatePass}
               privatePassCategories={this.props.privatePassCategories}
               privateServices={this.props.privateServices}
+              tagList={this.props.allTagsWithTagGroup}
             />
           </GenericResponsiveDrawer>
         </div>
@@ -589,6 +593,7 @@ export class PrivatePassList extends React.Component<Props, State> {
                 privatePassCategories={this.props.privatePassCategories}
                 privateServices={this.props.privateServices}
                 provincialTax={this.props.theme?.provincial_tax_value}
+                tagList={this.props.allTagsWithTagGroup}
               />
             </GenericResponsiveDrawer>
             <PrivatePassDeleteDialog
@@ -743,6 +748,7 @@ const mapStateToProps = (state: RootState) => ({
     ],
     'id',
   ),
+  allTagsWithTagGroup: getAllTagsWithTagGroup(state),
   videoCategories: state.video.filterableParams.items.SCTs,
 });
 
@@ -768,6 +774,7 @@ const mapDispatchToProps = {
   fetchEstablishments,
   fetchActivitiesCompany,
   fetchMetaActivities: fetchMetaActivitiesAction,
+  fetchTags,
 };
 
 const withStateHandlersInit: StateHandlerInit = {

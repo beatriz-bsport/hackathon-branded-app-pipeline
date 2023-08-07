@@ -116,6 +116,8 @@ import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsive
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { setGenericFilterValue } from '#libs/payment-packs/utils';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { fetchTags } from '#libs/tag/actions';
 
 type OwnProps = {
   id: number;
@@ -164,6 +166,7 @@ export class PrivatePassDetails extends Component<Props> {
     });
     this.props.fetchResolvedGenericTags();
     this.props.fetchTagList();
+    this.props.fetchTags();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -440,6 +443,7 @@ export class PrivatePassDetails extends Component<Props> {
                 privatePassCategories={this.props.privatePassCategories}
                 privateServices={this.props.private_services}
                 provincialTax={this.props.theme?.provincial_tax_value}
+                tagList={this.props.allTagsWithTagGroup}
               />
             </GenericResponsiveDrawer>
 
@@ -566,6 +570,7 @@ const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
   tagCategories: getTagCategories(state),
   resolvedGenericTags: getResolvedGenericTags(state),
   archivationWarning: state.privateService.privatePass.archivationWarning,
+  allTagsWithTagGroup: getAllTagsWithTagGroup(state),
 });
 
 const mapDispatchToProps = {
@@ -615,6 +620,7 @@ const mapDispatchToProps = {
   redirectToLinkedPaymentPack: (linkedPaymentPackId: number) =>
     replace(`/payment-pack/${linkedPaymentPackId}`),
   fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
+  fetchTags,
 };
 
 const mapWithHandlers = {

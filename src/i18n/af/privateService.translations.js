@@ -595,6 +595,15 @@ const getTranslations = async () => {
             'After chosen date, the pack will not be available for sale anymore, for the customers.',
         },
         description: { label: 'Description' },
+        advancedOptions: {
+          header: 'Advanced',
+          tag: {
+            tagsOnAcquisition: 'Tag after purchase',
+            tagsOnAcquisitionHelper:
+              'Use tags to identify which member bought the appointment pass.',
+            selectTags: 'Select tags',
+          },
+        },
       },
       validForDuration: {
         general:

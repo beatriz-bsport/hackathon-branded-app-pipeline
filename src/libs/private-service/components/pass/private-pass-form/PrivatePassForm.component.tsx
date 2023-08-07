@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { MouseEvent } from 'react';
-import { Theme } from '@material-ui/core';
+import { Theme, ButtonBase } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -11,6 +11,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import AddIcon from '@material-ui/icons/Add';
 import PaymentIcon from '@material-ui/icons/Payment';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SettingsIcon from '@material-ui/icons/Settings';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';
@@ -41,6 +44,9 @@ import {
 } from 'formik';
 import WarningIcon from '@material-ui/icons/Warning';
 import InputLabel from '@material-ui/core/InputLabel';
+import { Tag, TagGroup } from '#libs/tag/types';
+import TagSelector from '#libs/tag/components/TagSelector.selector';
+import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
 import {
   DateField,
   PriceField,
@@ -77,6 +83,7 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { ALMOST_100 } from '../../../../../constants';
+import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
 
 import ToolTip from '#components/Tooltip.component';
 
@@ -106,6 +113,7 @@ export interface FormikValues {
   on_behalf_of_teacher: boolean;
   expiration_date?: string;
   description?: string | null;
+  tags_on_consumer_item_creation?: Array<number>;
 }
 type Props = {
   provincialTax: number;
@@ -132,6 +140,7 @@ type Props = {
   categoryList: Array<SCT>;
   establishmentList: Array<Establishment>;
   metaActivityList: Array<MetaActivity>;
+  tagList: Array<Tag<TagGroup>>;
 } & FormikProps<FormikValues>;
 
 const getExcludedSlots = (
@@ -169,15 +178,43 @@ export const PrivatePassForm = (props: Props) => {
   }, []);
   const { t } = useTranslation(['privateService']);
   const classes = useStyles();
-  const { isSubmitting, privateServices } = props;
+  const { isSubmitting, privateServices, setFieldValue } = props;
   const [disabledUniversalPassFields, setDisableUniversalPassFields] =
     React.useState<boolean>(false);
+  const [openAdvancedOptions, setOpenAdvancedOptions] = React.useState(false);
   const { values, setValues }: FormikProps<FormikValues> = useFormikContext();
 
   const is_universal_pass_value = React.useMemo(
     () => values.is_universal_pass,
     [values],
   );
+
+  const hasTagsSameGroup = useHasTagsSameGroup({
+    selectedTagsIds: values?.tags_on_consumer_item_creation,
+    tagsWithGroup: props.tagList,
+  });
+
+  const onChangeTagsOnAcquisition = React.useCallback(
+    (items: Array<{ label: string; value: number; tag: Tag<TagGroup> }>) => {
+      return setFieldValue(
+        'tags_on_consumer_item_creation',
+        items.map((item) => item.value),
+      );
+    },
+    [setFieldValue],
+  );
+
+  const onDeleteTagsOnAcquisition = React.useCallback(
+    (itemId: number) =>
+      setFieldValue(
+        'tags_on_consumer_item_creation',
+        values?.tags_on_consumer_item_creation?.filter(
+          (tagId) => tagId !== itemId,
+        ),
+      ),
+    [setFieldValue, values?.tags_on_consumer_item_creation],
+  );
+
   React.useEffect(() => {
     if (is_universal_pass_value) {
       setValues({
@@ -266,7 +303,7 @@ export const PrivatePassForm = (props: Props) => {
             noMulti
             nullCurrentValue={!!props.values.category}
             onChange={(item: { value: number; label: string }) =>
-              props.setFieldValue('category', item ? item.value : null)
+              setFieldValue('category', item ? item.value : null)
             }
             packPackCategoryList={props.privatePassCategories}
             value={props.values.category}
@@ -700,6 +737,48 @@ export const PrivatePassForm = (props: Props) => {
       )}
 
       <div
+        className={classes.categoryBlock}
+        id="private-pass-form-advanced-section"
+      >
+        <ButtonBase
+          className={classes.advancedOptionsHeader}
+          onClick={() => setOpenAdvancedOptions(!openAdvancedOptions)}
+        >
+          <SettingsIcon />
+          <Typography variant="h6">
+            {t('privatePass.form.advancedOptions.header')}
+          </Typography>
+          {openAdvancedOptions ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </ButtonBase>
+
+        <Collapse in={openAdvancedOptions}>
+          <div className={classes.section}>
+            <Typography className={classes.title}>
+              {t('privatePass.form.advancedOptions.tag.tagsOnAcquisition')}
+            </Typography>
+            <Typography variant="caption">
+              {t(
+                'privatePass.form.advancedOptions.tag.tagsOnAcquisitionHelper',
+              )}
+            </Typography>
+            <TagSelector
+              closeMenuOnSelect
+              inScrollBar
+              isClearable
+              allTagsWithTagGroup={props.tagList || []}
+              onChange={onChangeTagsOnAcquisition}
+              onDeleteTag={onDeleteTagsOnAcquisition}
+              placeholder={t('privatePass.form.advancedOptions.tag.selectTags')}
+              selectedTags={values.tags_on_consumer_item_creation}
+            />
+            {hasTagsSameGroup && <TagGroupDuplicatedAlert />}
+          </div>
+        </Collapse>
+      </div>
+
+      <Divider className={classes.divider} />
+
+      <div
         className={`${classes.buttonContainer} ${classes.flexRowCenter}`}
         id="private-pass-form-actions-buttons"
       >
@@ -871,6 +950,22 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
   },
   inputLabelExpirationDate: { marginTop: theme.spacing(1), fontSize: 12 },
+  advancedOptionsHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: theme.spacing(2),
+  },
+  section: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+    paddingTop: theme.spacing(2),
+  },
+  title: {
+    fontWeight: 500,
+    color: '#000',
+  },
 }));
 
 export const PrivatePassSchema = Yup.object().shape({
@@ -906,6 +1001,7 @@ export const PrivatePassSchema = Yup.object().shape({
   on_behalf_of_teacher: Yup.boolean().required(),
   expiration_date: Yup.date().nullable(),
   description: Yup.string().nullable(),
+  tags_on_consumer_item_creation: Yup.array().of(Yup.number().integer()),
 });
 
 export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
@@ -927,6 +1023,8 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
         on_behalf_of_teachr: initial.on_behalf_of_teacher,
         expiration_date_active: !!initial?.expiration_date,
         credits: initial?.credits / (creditScaleFactor || 1),
+        tags_on_consumer_item_creation:
+          initial.tags_on_consumer_item_creation || [],
       };
 
     return {
@@ -955,6 +1053,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
       expiration_date: null,
       expiration_date_active: false,
       description: null,
+      tags_on_consumer_item_creation: [],
     };
   },
   enableReinitialize: true,

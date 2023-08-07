@@ -7585,7 +7585,15 @@
           "label": "Date limit for purchase",
           "tooltip": "After chosen date, the pack will not be available for sale anymore, for the customers."
         },
-        "description": { "label": "Description" }
+        "description": { "label": "Description" },
+        "advancedOptions": {
+          "header": "Advanced",
+          "tag": {
+            "tagsOnAcquisition": "Tag after purchase",
+            "tagsOnAcquisitionHelper": "Use tags to identify which member bought the appointment pass.",
+            "selectTags": "Select tags"
+          }
+        }
       },
       "validForDuration": {
         "general": "This appointment pass is valid for {{ duration_days }} day(s), {{ duration_months }} month(s), and {{ duration_years }} year(s).",

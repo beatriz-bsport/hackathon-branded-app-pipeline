@@ -171,6 +171,7 @@ export type PrivatePass<LPP = number | null> = {
   is_usable_by_staff: boolean;
   applies_for_payroll: boolean;
   on_behalf_of_teacher: boolean;
+  tags_on_consumer_item_creation?: Array<number>;
 };
 
 export type PrivatePassWithDetailedPrivateServices = PrivatePass & {
@@ -201,6 +202,7 @@ export type PrivatePassWithCompatibility<LPP = number | null> = {
   template_instance: number;
   linked_payment_pack?: LPP;
   is_usable_by_staff: boolean;
+  tags_on_consumer_item_creation?: Array<number>;
 };
 
 export type PrivateConsumerPass<AssociatedMember = number> = {

@@ -132,10 +132,10 @@
                     "placeholder": "Neues exklusives Angebot"
                 },
                 "name": {
-                    "label": "Name des Vertrags"
+                    "label": "Name des Abonnements"
                 },
                 "nb_interval": {
-                    "label": "Rechnungsnummer (n)",
+                    "label": "Anzahl an Rechnungen",
                     "helperText": "Mindestens 2 Monate",
                     "error": "Die Anzahl der Rechnungen darf 90 nicht überschreiten",
                     "errorForFixedBillingDay": "Die Anzahl der Rechnungen darf 12 nicht überschreiten",
@@ -152,7 +152,7 @@
                     "label": "Anmeldegebühren",
                     "helperText": "Diese Gebühr wird der ersten Rechnung hinzugefügt"
                 },
-                "title": "Vertrag-Formular",
+                "title": "Abonnement-Formular",
                 "contract": {
                     "placeholder": "Gib hier alle erforderlichen rechtlichen Hinweise ein, unter anderem zu den Rückerstattungsverfahren.",
                     "label": "Allgemeine Geschäftsbedingungen"
@@ -221,7 +221,7 @@
                     "invoice_plural": "Rechnungen"
                 },
                 "month_billing_day": {
-                    "label1": "Rechnung aller",
+                    "label1": "Rechnung alle",
                     "label2": "Monate."
                 },
                 "general_info": {
@@ -249,7 +249,7 @@
             "actions": {
                 "iwanttostarton": "Ich möchte mit der Rechnungsstellung am... beginnen : ",
                 "subscribe": "Abonnieren",
-                "create": "Einen Vertrag hinzufügen",
+                "create": "Ein Abonnement hinzufügen",
                 "iAcceptCondition": "Ich akzeptiere die oben genannten Bedingungen",
                 "iAcceptGeneralCondition": " Ich akzeptiere den rechtlichen Hinweis",
                 "alertPastDateSameMonth": "Bitte beachten Sie, dass Sie ein vergangenes Datum gewählt haben. Wenn das Abonnement einen Pass beinhaltet, beginnt die Gültigkeit des Passes an dem gewählten Datum. Im Falle einer einmonatigen Gültigkeit, verliert ihr Mitglied {{lostDays}} Tage der Gültigkeit.",
@@ -610,7 +610,7 @@
             "title": "Globale Pausen"
         },
         "seeMore": "Mehr sehen",
-        "search": "Suche nach einem Vertrag",
+        "search": "Suche nach einem Abonnement",
         "pauseV2": {
             "subscriptionPause": {
                 "form": {
@@ -844,7 +844,7 @@
                 "offerFormPage": "Erstellung eines Workshops",
                 "metaActivityFormPage": "Aktivität-Formular",
                 "metaActivityEditForm": "Aktivität-Formular",
-                "WorkshopActivityFormPage": "Event-Formular",
+                "WorkshopActivityFormPage": "Workshop-Formular",
                 "workshopActivityList": "Workshops",
                 "coachList": "Lehrkräfte",
                 "shopManager": "Mein Shop",
@@ -858,7 +858,7 @@
                 "allCoachPerformance": "Übersicht der Lehrkräfte",
                 "orderDetail": "Details der Bestellung",
                 "orderList": "Bestellungen",
-                "reportingDashboard": "Reports",
+                "reportingDashboard": "Berichte",
                 "planning": "Kalender",
                 "invoiceFormPage": "Änderung der Rechnung"
             }
@@ -1142,7 +1142,7 @@
             "noBookingsLeftOnPackInMonth": "Karte für diesen Monat aufgebraucht"
         },
         "navigation": {
-            "combo": "Packages",
+            "combo": "Pakete",
             "myClub": "Mein Studio",
             "settings": "Einstellungen",
             "pass": "Kurspässe",
@@ -1184,7 +1184,7 @@
             "coupon": "Werbeaktionen",
             "subscription": "Abonnements",
             "member": "Mitglieder",
-            "reporting": "Reports",
+            "reporting": "Berichte",
             "digital": "Digitales Angebot",
             "playlist": "Playlist"
         },
@@ -1742,7 +1742,7 @@
             "lastDiscardBeforeMinutes": "Letzte mögliche Stornierung vor Beginn des Workshops",
             "lastBookingBeforeMinutes": "Letzte mögliche Buchung vor Beginn des Workshops",
             "imageUploaderRequireEditMessage": "Sobald ein Event erstellt ist, hast Du die Möglichkeit, zusätzliche Bilder hinzuzufügen.",
-            "addWorkshopActivity": "Ein Event hinzufügen"
+            "addWorkshopActivity": "Einen Workshop hinzufügen"
         },
         "activity": {
             "orNcredits2": " Kredite)",
@@ -2126,7 +2126,7 @@
                 "between": "und",
                 "attendance": "mit Status",
                 "level": {
-                    "first": "Ebene"
+                    "first": "Niveau"
                 }
             },
             "21": {
@@ -2157,7 +2157,7 @@
                 },
                 "attendance": "mit Status",
                 "level": {
-                    "first": "Ebene "
+                    "first": "Niveau "
                 }
             },
             "20": {
@@ -2590,7 +2590,7 @@
             },
             "level": {
                 "warning": "Wählen Sie mindestens eine Stufe",
-                "select": "eine Ebene auswählen",
+                "select": "ein Niveau auswählen",
                 "advanced": "erweiterte",
                 "intermediary": "Zwischenbericht",
                 "beginner": "Anfänger",
@@ -2791,7 +2791,7 @@
                     "title": "Aufstellung des Zeitplans"
                 },
                 "coach_can_edit_attendance": "In der mobilen Anwendung kann die Lehrkraft die An-/Abwesenheit ändern",
-                "internalAccount": "Saldo Kunde",
+                "internalAccount": "Restguthaben Kunde",
                 "internalAccountWarningTitle": "Achten Sie auf aktuelle Kundensalden.",
                 "internalAccountWarning2": "Um einen Bericht über Kundensalden zu erstellen, gehen Sie auf die Registerkarte 'Berichte' und wählen Sie bei der Erstellung des neuen Berichts in der Kategorie 'Zahlungen' 'Kredite' aus.",
                 "internalAccountWarning1": "Wir empfehlen dringend, einen Bericht über die Kundensalden zu erstellen, bevor Sie diese Funktion aktivieren.",
@@ -2850,7 +2850,7 @@
                 },
                 "noShow": {
                     "title": "Abwesend (No-Show)",
-                    "sendMailHelpText": "Zum Aktivieren/Deaktivieren der E-Mail gehen Sie bitte zu Einstellungen> Transaktionsbenachrichtigungen> Sanktion> Abwesenheitsbenachrichtigung",
+                    "sendMailHelpText": "Zum Aktivieren/Deaktivieren der E-Mail gehen Sie bitte zu Einstellungen> Transaktionsbenachrichtigungen> Strafen> Abwesenheitsbenachrichtigung",
                     "errorValidatedTime": "Die Zeit, die vergeht, bevor die Buchung eines Mitglieds als No-Show gilt, muss größer als 0 sein",
                     "alert": "Diese Einstellungen gelten nur für Nicht-Erscheinen bei unbegrenzten Pässen. Um die folgenden Zählungen auszulösen, müssen Sie die Zählung für jede Sitzung aufrufen.",
                     "daysBeforeNoShow": "Betrachten Sie das Mitglied als (nicht anwesend) <0/> <1/> nach dem namentlichen Aufruf der Einheiten, in denen es als abwesend aufgeführt wurde.",
@@ -2858,7 +2858,7 @@
                     "error": "Die E-Mail zur Benachrichtigung über die Abwesenheit kann nicht mehr gesendet werden, nachdem das Mitglied als No-Show betrachtet wird.",
                     "errorEmailTime": "Die Zeit, die verstrichen ist, bevor die E-Mail gesendet wurde, um das Mitglied darüber zu informieren, dass es No-Show gelten wird, muss größer als 0 sein",
                     "notAvailable": "Die Verwaltung von Abwesenheiten (No-Show) ist nicht verfügbar. Um sie zu aktivieren, müssen Sie zunächst einen unbegrenzten Kurspass mit Abzügen für Abwesenheiten (No-Show) erstellen.",
-                    "daysBeforeNoShowHelpText": "Mit dieser Einstellung können Sie Sanktionen für das Nichterscheinen von Mitgliedern mit einem unbegrenzten Pass verhängen."
+                    "daysBeforeNoShowHelpText": "Mit dieser Einstellung können Sie Strafen für das Nichterscheinen von Mitgliedern mit einem unbegrenzten Pass verhängen."
                 },
                 "bookingTitle": "Buchung",
                 "attendanceTitle": "Anwesenheit",
@@ -3115,7 +3115,7 @@
                         }
                     },
                     "title": "Ein Staffkonto erstellen",
-                    "buttonLabel": "Einen Zugang hinzufügen",
+                    "buttonLabel": "Einen Admin-Account hinzufügen",
                     "email": {
                         "label": "E-Mail"
                     },
@@ -3193,7 +3193,7 @@
         "explainStaffDoNot": "Ein Mitarbeiter-Zugang ermöglicht keine Verbindung zur mobilen Anwendung (nur Lehrkräfte und Schüler)",
         "explainStaffDo": "Ein Staffzugang ermöglicht eine Verbindung per Handy oder Computer mit dem folgenden Link : https://backoffice.bsport.io",
         "permissions": "Verfügbare Rollen",
-        "userRoles": "Staff Kontos",
+        "userRoles": "Admin-Konten",
         "pageTitle": "Staff",
         "roleDescription": {
             "4": {
@@ -3217,7 +3217,7 @@
                 "description": "Zugang des Administrators, keine Einschränkung, kann Staff-Konten erstellen"
             },
             "5": {
-                "name": "Reports",
+                "name": "Berichte",
                 "description": "Zugriff nur auf Berichte, die beispielsweise für Deine Buchhaltung nützlich sind"
             },
             "-1": {
@@ -3297,7 +3297,7 @@
                     }
                 },
                 "reporting": {
-                    "_label": "Reports"
+                    "_label": "Berichte"
                 },
                 "member": {
                     "_label": "Mitglied"
@@ -3554,7 +3554,7 @@
             "trackModifiedCreditTitle": "Vergangenen Credits-Anpassungen",
             "penaltyAccount": "Zusätzliche Abrechnung von {{account_value}} {{currencyDisplay}}",
             "penaltyBlock": "Karte für {{nb_days}} Tage gesperrt",
-            "penaltyTitle": "Sanktion angewendet"
+            "penaltyTitle": "Strafe angewendet"
         },
         "notification": {
             "form": {
@@ -3756,38 +3756,38 @@
                     "kind": {
                         "account": "Erstelle eine Einzahlung für das betreffende Mitglied",
                         "block": "Blockiere vorübergehend diesen Kurspass",
-                        "label": "Wählen Sie die Art der Sanktion aus"
+                        "label": "Wählen Sie die Art der Strafe aus"
                     },
                     "nb_days": "Anzahl der Tage:",
                     "nb_cancellations": "Anzahl der Stornierungen:",
-                    "explain": "Bei {{nb_cancellations}} verspäteten Stornierungen über einen Zeitraum von {{nb_days}} Tagen wird eine Sanktion erhoben",
-                    "checkbox": "Bei zu vielen verspäteten Stornierungen wird eine Sanktion verhängt",
-                    "title": "Sanktionen",
-                    "helperText": "Verhängen Sie Sanktionen bei zu vielen Fehlzeiten oder nicht fristgerechten Stornierungen",
-                    "errorNoPenaltyRule": "Ihre Änderungen können nicht gespeichert werden, Sie müssen eine Sanktion auswählen oder die Sanktion deaktivieren, um fortfahren zu können",
+                    "explain": "Bei {{nb_cancellations}} verspäteten Stornierungen über einen Zeitraum von {{nb_days}} Tagen wird eine Strafe erhoben",
+                    "checkbox": "Bei zu vielen verspäteten Strafen wird eine Sanktion verhängt",
+                    "title": "Strafen",
+                    "helperText": "Verhängen Sie Strafen bei zu vielen Fehlzeiten oder nicht fristgerechten Stornierungen",
+                    "errorNoPenaltyRule": "Ihre Änderungen können nicht gespeichert werden, Sie müssen eine Strafe auswählen oder die Strafe deaktivieren, um fortfahren zu können",
                     "penaltyParamsText": "Wenden Sie die gleiche Abrechnung für nicht fristgerechte Stornierungen und Abwesenheiten (no show) an",
-                    "noShowPenaltyInfo": "Eine Sanktion wird verhängt, wenn {{penalityNumberNoShow}} innerhalb eines Zeitraums von {{penalityNumberDay}} Tag nicht erscheint",
-                    "noShowPenaltyInfo_plural": "Eine Sanktion wird verhängt, wenn {{penalityNumberNoShow}} innerhalb eines Zeitraums von {{penalityNumberDay}} Tagen nicht erscheint",
+                    "noShowPenaltyInfo": "Eine Strafe wird verhängt, wenn {{penalityNumberNoShow}} innerhalb eines Zeitraums von {{penalityNumberDay}} Tag nicht erscheint",
+                    "noShowPenaltyInfo_plural": "Eine Strafe wird verhängt, wenn {{penalityNumberNoShow}} innerhalb eines Zeitraums von {{penalityNumberDay}} Tagen nicht erscheint",
                     "bothPenaltiesInfo": "Eine Strafe wird erhoben, wenn es innerhalb eines Zeitraums von {{penalityNumberNoShow}} Tagen {{penalityNumberDay}} nicht fristgerechte Stornierungen oder Abwesenheit (no show) gibt",
                     "bothPenaltiesInfo_plural": "Eine Strafe wird erhoben, wenn es in einem Zeitraum von {{penalityNumberNoShow}} Tagen {{penalityNumberDay}} nicht fristgerechte Stornierungen oder Abwesenheiten (no show) gibt",
                     "noShowDialog": {
-                        "text": "Sie haben soeben Sanktionen für das Nichterscheinen erstellt.  Wir haben die Funktion \"Namensaufruf\" aktiviert. Sie müssen nun für jede Session einen Namensaufruf durchführen, um die Sanktion zu aktivieren.",
-                        "title": "Sanktionen bei Nichterscheinen",
+                        "text": "Sie haben soeben Strafen für das Nichterscheinen erstellt.  Wir haben die Funktion \"Namensaufruf\" aktiviert. Sie müssen nun für jede Session einen Namensaufruf durchführen, um die Strafe zu aktivieren.",
+                        "title": "Strafen bei Nichterscheinen",
                         "alert": "Sie können die Bedingungen für die Nichtanzeige in den Personalisierungseinstellungen festlegen."
                     },
-                    "titleCheckbox": "Anwenden einer Sanktion für",
+                    "titleCheckbox": "Anwenden einer Strafe für",
                     "cancellationsCheckbox": "Zu viele nicht fristgerechte Stornierungen",
-                    "cancellationsPenaltyTitle": "Sanktionen für nicht fristgerechte Stornierungen",
-                    "noShowPenaltyTitle": "Sanktionen für Abwesenheit (no show)",
-                    "bothPenaltiesTitle": "Sanktionen für nicht fristgerechte Stornierungen und Abwesenheiten (no show)",
+                    "cancellationsPenaltyTitle": "Strafen für nicht fristgerechte Stornierungen",
+                    "noShowPenaltyTitle": "Strafen für Abwesenheit (no show)",
+                    "bothPenaltiesTitle": "Strafen für nicht fristgerechte Stornierungen und Abwesenheiten (no show)",
                     "bothPenaltiesNumber": "Anzahl der Stornierungen und Abwesenheiten (no show)",
                     "deleteNoShowDialog": {
-                        "title": "Aufgehobene Sanktionen",
-                        "text": "Es gibt keine unbegrenzten Pässe mehr mit Sanktionen für Nicht-Erscheinen. Wir haben die Funktion \" Namensaufruf \" deaktiviert, so dass Sie nicht mehr für jede Session die Namen aufrufen müssen."
+                        "title": "Aufgehobene Strafen",
+                        "text": "Es gibt keine unbegrenzten Pässe mehr mit Strafen für Nicht-Erscheinen. Wir haben die Funktion \" Namensaufruf \" deaktiviert, so dass Sie nicht mehr für jede Session die Namen aufrufen müssen."
                     },
-                    "label": "Eine Sanktion anwenden",
+                    "label": "Eine Strafe anwenden",
                     "noShowCheckbox": "Zu viele Abwesenheiten (no show)",
-                    "penaltyParams": "Einstellungen Sanktionen",
+                    "penaltyParams": "Einstellungen Strafen",
                     "noShowPenaltyAlert": "Um festzulegen, wann ein Mitglied als abwesend (no show) gilt, gehen Sie bitte zu Einstellungen>Personalisierung",
                     "noShowPenaltyNumber": "Anzahl der Abwesenheiten (no show)"
                 },
@@ -3811,7 +3811,7 @@
                     },
                     "header": "Fortgeschrittene",
                     "appliesForPayroll": {
-                        "label": "Sessiona, die bei der Berechnung der Vergütung der Lehrkraft berücksichtigt werden",
+                        "label": "Session, die bei der Berechnung der Vergütung der Lehrkraft berücksichtigt werden",
                         "helperText": "Standardmäßig werden die Sessions dem Studio in Rechnung gestellt und in die Gehaltsabrechnung der Lehrkraft und die Vergütung durch das Studio aufgenommen. Wenn Sie diese Einstellung deaktivieren, erscheinen die mit diesem Pass verbundenen Sessions nicht mehr in der Gehaltsabrechnung der Lehrkraft."
                     }
                 },
@@ -3838,7 +3838,7 @@
         "expirationDate": "Ablaufdatum",
         "validUntil": "Gültig bis",
         "noPaymentPackSubscribed": "Kein Abonnement",
-        "addButton": "Eine Karte erstellen",
+        "addButton": "Einen Pass erstellen",
         "validTo": " bis ",
         "validFrom": "Gültig vom ",
         "validForNdays1": "Gültig ",
@@ -4123,7 +4123,7 @@
             "compatibility": "Ihre Karte ist nur mit Vorstellungen kompatibel, die einer der ausgewählten Kategorien UND einem der ausgewählten Räume UND einer der ausgewählten Aktivitäten entsprechen",
             "letBlank": "Leer lassen, um alles zu erlauben",
             "activities": "Aktivitäten",
-            "room": "Säle",
+            "room": "Einrichtungen",
             "categories": "Kategorien",
             "inShopPayment": "Möglichkeit, vor Ort zu bezahlen",
             "notForSell": "Unsichtbar für Kunden",
@@ -4138,10 +4138,10 @@
             "penalityBlockDayHelper": "Die Karte des betroffenen Mitglieds wird für {{penalityBlockDay}} Tage gesperrt",
             "penalityAccountPrice": "Betrag der Anzahlung",
             "penalityBlockDay": "Sperrfrist für die Karte (in Tagen)",
-            "penalityType": "Art der zu verhängenden Sanktion",
+            "penalityType": "Art der zu verhängenden Strafe",
             "penalityAccount": "Erstellen Sie eine Anzahlung für das betreffende Mitglied",
             "penalityBlock": "Kurspass vorübergehend sperren",
-            "penalityInfo": "Eine Sanktion wird erhoben, wenn es innerhalb eines Zeitraums von {{penalityNumberCancel}} Tagen {{penalityNumberDay}} außerterminliche Stornierungen gibt",
+            "penalityInfo": "Eine Strafe wird erhoben, wenn es innerhalb eines Zeitraums von {{penalityNumberCancel}} Tagen {{penalityNumberDay}} außerterminliche Stornierungen gibt",
             "penalityNumberDay": "Anzahl der Tage",
             "penalityNumberCancel": "Anzahl der Absagen",
             "marginalContributionHelperText": "Wird verwendet, um die Vergütung von Lehrern zu berechnen. 10{{ currencyDisplay }} bedeutet, dass eine mit dieser Karte vorgenommene Buchung mit 10{{ currencyDisplay }} vergütet wird. Wenn leer oder 0{{ currencyDisplay }}, wird die Einbringung einer Karte PREIS/NB_RESERVATION",
@@ -4171,8 +4171,8 @@
             "fromDate": "Ab dem",
             "availabilitySlot": "Die Karte nur in einem bestimmten Datumsfenster gültig machen",
             "availabilityGivenNumber": "Die Karte nur eine bestimmte Anzahl von Tagen gültig machen (nach dem Kaufdatum)",
-            "penalityRule": "Sie können eine Sanktion nur anwenden, wenn die Anzahl der Credits unbegrenzt ist",
-            "penality": "Verhängung einer Sanktion bei zu vielen nicht fristgerechten Stornierungen",
+            "penalityRule": "Sie können eine Strafe nur anwenden, wenn die Anzahl der Credits unbegrenzt ist",
+            "penality": "Verhängung einer Strafe bei zu vielen nicht fristgerechten Stornierungen",
             "packValidity": "Gültigkeit der Karte",
             "numberOfAvailableCredits": "Anzahl der verfügbaren Credits",
             "credit": "Credit",
@@ -4193,7 +4193,7 @@
                     "explain": "Die Anzahlung von {{ price }} wird nur bei dem Franchisenehmer angewendet, bei dem die Karte ursprünglich in Rechnung gestellt wurde.",
                     "label": "An den Franchisenehmer, der die Karte abgerechnet hat"
                 },
-                "label": "Der Saldo des Mitgliedskontos wird belastet",
+                "label": "Das Restguthaben des Mitgliedskontos wird belastet",
                 "prorata": {
                     "label": "Anteilig pro Franchisenehmer für nicht fristgerechte Stornierungen",
                     "explain": "Die Anzahlung von {{ price }} wird anteilig auf die nicht fristgerechten Stornierungen angewendet, die bei jedem Ihrer Franchisenehmer registriert wurden. Insgesamt wird ein Betrag von {{ price }} auf Ihr Franchise berechnet."
@@ -4225,7 +4225,7 @@
         },
         "paymentPackTemplate": {
             "actions": {
-                "create": "Erstellen einer geteilten Karte"
+                "create": "Erstellen eines geteilten Passes"
             },
             "deleteForm": {
                 "actions": {
@@ -4729,7 +4729,7 @@
         "no": "Nein",
         "yes": "Ja",
         "list": {
-            "empty": "Keine Reports? Erstelle den ersten Report!",
+            "empty": "Keine Berichte? Erstelle den ersten Bericht!",
             "button_new": "Erstelle meinen ersten Report"
         },
         "report": {
@@ -4763,7 +4763,7 @@
             "shop": "Shop",
             "private_cpasses": "Terminpass",
             "payment_sumup": "Gesamte Zahlungen",
-            "credit": "Saldo des Kundenkontos",
+            "credit": "Restguthaben des Kundenkontos",
             "basket": "Warenkorb",
             "memberships": "Kurspässe",
             "invoices": "Einkäufe",
@@ -5316,12 +5316,12 @@
                 "error": "Es ist nicht möglich, den gewünschten Betrag mit dieser Geschenkkarte zu bezahlen"
             },
             "applyBalance": {
-                "success": "Der Betrag Ihres Saldos wurde auf die Rechnung angewendet.",
+                "success": "Der Betrag Ihres Restguthabens wurde auf die Rechnung angewendet.",
                 "error": "Es ist nicht möglich, Ihr Guthaben zur Begleichung dieser Rechnung zu verwenden."
             },
             "revert": {
                 "errors": {
-                    "14101": "Sie können eine Saldokorrektur nicht mit einer Gutschrift erstatten.",
+                    "14101": "Sie können eine Restguthabenkorrektur nicht mit einer Gutschrift erstatten.",
                     "14100": "Es ist nicht möglich, eine Rechnung mit Interac-Zahlungen zu stornieren.",
                     "14102": "Diese Rechnung kann nicht erstattet werden."
                 }
@@ -6243,7 +6243,7 @@
             "goToSubscription": "Das Abonnement anzeigen",
             "revert": "Abbrechen",
             "invoiceReverted": "Die Rechnung wurde storniert",
-            "consumeBalance": "Zahle per Saldo",
+            "consumeBalance": "Zahle per Restguthaben",
             "explainPdfDraft": "Die Rechnung ist noch in Entwurfsform, das PDF ist nicht verfügbar.",
             "addFooter": "Fußnote anpassen",
             "addCoupon": "Einen Promo-Code hinzufügen",
@@ -6298,7 +6298,7 @@
             "invoiceRevertedThusNotEditable": "Die Rechnung wurde storniert und kann nicht mehr geändert werden"
         },
         "creditAccountBalance": {
-            "current": "Aktueller Saldo"
+            "current": "Aktuelles Restguthaben"
         },
         "invoiceInfoDialog": {
             "actions": {
@@ -6336,7 +6336,7 @@
                 "title": "Unzureichendes Strip-Guthaben"
             },
             "blockedDialog": {
-                "title": "Unzureichender Streifensaldo",
+                "title": "Unzureichender Stripe-Saldo",
                 "helper": "Ihr Stripe-Guthaben reicht nicht aus, um die Erstattung zu bearbeiten. Bitte versuchen Sie es in ein paar Tagen erneut, damit die Zahlungen gesammelt werden können.",
                 "alert": "Achtung, mit dieser Rückzahlung überschreiten Sie den zulässigen Überziehungsrahmen von {{ refundBlockingLimit }} {{currencyDisplay}}."
             }
@@ -6383,7 +6383,7 @@
             "select": {
                 "label": "Zahlungsmethode"
             },
-            "isInternalExplain": "Kundenzahlung (manuell): Jeden Monat wird automatisch ein Saldo auf dem Konto des Mitglieds erstellt.",
+            "isInternalExplain": "Kundenzahlung (manuell): Jeden Monat wird automatisch ein Restguthaben auf dem Konto des Mitglieds erstellt.",
             "add": "Hinzufügen",
             "edit": "Ändern",
             "title": "Zahlungsmethode",
@@ -6792,7 +6792,7 @@
         "returnedAmount": "Erstattet: ",
         "payout": {
             "isEmptyWarning": "NB: Einige Bareinnahmen vor dem 15. März 2021 sind möglicherweise nicht unten aufgeführt.",
-            "title": "Meine Einzüge",
+            "title": "Meine Auszahlungen",
             "isEmpty": "Keine Auszahlung.",
             "invoice": "Rechnung {{ uuid }}",
             "seeMore": "Mehr anzeigen",
@@ -6888,8 +6888,8 @@
         "stripeBalance": {
             "dialog": {
                 "firstPart": "Bei bsport verwenden wir den Stripe-Service, um alle Ihre Online-Zahlungen zu verwalten. Die Beträge dieser werden bei Stripe gespeichert und dann auf Ihr Konto zurücküberwiesen (Abschnitt \"Meine Zahlungseingänge\").",
-                "secondPart": "Ihr \"verfügbarer Saldo\" entspricht also dem Betrag der Online-Zahlungen, der Ihnen noch nicht ausgezahlt wurde.",
-                "thirdPart": "Ihr \"Saldo in Bearbeitung\" entspricht dem Betrag, der auf Ihr verfügbares Guthaben eingehen wird.",
+                "secondPart": "Ihr \"verfügbares Restguthaben\" entspricht also dem Betrag der Online-Zahlungen, der Ihnen noch nicht ausgezahlt wurde.",
+                "thirdPart": "Ihr \"Restguthaben in Bearbeitung\" entspricht dem Betrag, der auf Ihr verfügbares Guthaben eingehen wird.",
                 "alert": "Beachten Sie, dass bei einer direkten Rückerstattung dieses Geld direkt von Ihrem Stripe-Konto abgebucht wird. Dadurch kann es ins Minus rutschen.",
                 "close": "Schließen"
             },
@@ -6934,7 +6934,7 @@
         },
         "setPaymentRuleSetForCoachFirst": "Weise dieser Lehrkraft zunächst eine Standardregel für das Gehalt zu.",
         "coaches": "Lehrkräfte",
-        "label": "Gehaltsregel",
+        "label": "Gehaltsregulation",
         "calculate": "Berechnen",
         "calculation_methods": {
             "margin_value": "Auf marginalem Wert jeder Buchung",
@@ -6947,7 +6947,7 @@
         "only_attendant": "Beschränkung des Buchungsnachweises auf die anwesenden Schüler",
         "bookingThreshold": "Buchungsgrenze (ausgeschlossen)",
         "title": "Lohnausstellung der Lehrkraft {{name}}",
-        "pageTitle": "Gehaltsregel",
+        "pageTitle": "Gehaltsregulation",
         "coach_payment_rules": {
             "Simulator": {
                 "student_did_not_attend": "Abwesender Student",
@@ -7317,7 +7317,7 @@
             },
             "filter": {
                 "duration": {
-                    "all": "Jede Länge",
+                    "all": "Länge",
                     "explain": "Zwischen {{min}} und {{max}} Min"
                 }
             },
@@ -7970,7 +7970,7 @@
             "noNoteSaved": "Keine gespeicherte Information"
         },
         "memberList": "Liste der Mitglieder",
-        "addMember": "Einen Mitgliederprofil hinzufügen",
+        "addMember": "Ein Mitgliederprofil hinzufügen",
         "engagement": "Engagement",
         "nextBooking": "nächste : ",
         "memberSince": "Angemeldet am ",
@@ -8032,7 +8032,7 @@
                     "3": "Abonnement mit laufender automatischer Verlängerung",
                     "2": "Aktuelles Abonnement",
                     "1": "Unbezahlte Rechnung(en)",
-                    "0": "Negativer interner Saldo"
+                    "0": "Negatives internes Restguthaben"
                 },
                 "helper_text_2": "Ce membre n'apparaitra plus dans la liste de vos membres.",
                 "helper_text_1": "Sind Sie sicher, dass Sie dieses Mitglied archivieren möchten?"
@@ -8325,7 +8325,7 @@
                 "apply": "Bewerben"
             }
         },
-        "createCoupon": "Einen Code hinzufügen",
+        "createCoupon": "Einen Rabatt hinzufügen",
         "form": {
             "actions": {
                 "submit": "Bestätigen",
@@ -8475,9 +8475,9 @@
             },
             "isEmptyExplain": "Keine gespeicherten geteilten Aktionscodes",
             "actions": {
-                "create": "Einen geteilten Code hinzufügen"
+                "create": "Einen geteilten Rabatt hinzufügen"
             },
-            "formDisclaimer": "Wenn Sie in Zukunft diese Sektion ändern möchten, um diese Aktion auf eine oder mehrere bestimmte Kurs-/Termin-Karten anwendbar zu machen, wird die Liste der Studios, die diese Aktion teilen, aus Kompatibilitätsgründen auf Null zurückgesetzt."
+            "formDisclaimer": "Wenn Sie in Zukunft diese Sektion ändern möchten, um diese Aktion auf eine oder mehrere bestimmte Kurs-/Termin-Pässe anwendbar zu machen, wird die Liste der Studios, die diese Aktion teilen, aus Kompatibilitätsgründen auf Null zurückgesetzt."
         },
         "uniqueCodeCoupon": {
             "form": {
@@ -8528,7 +8528,7 @@
             "missingResource": {
                 "establishment": "Bitte wähle die Einrichtung aus",
                 "coach": "Bitte wähle die Lehrkraft aus",
-                "service": "Bitte gib eine Terminkategorie ein"
+                "service": "Bitte gib einen Termin ein"
             },
             "emptySlot": "Keine Verfügbarkeiten",
             "address": {
@@ -9571,7 +9571,7 @@
                 "content": "Wenn Sie eine geteilte Karte deaktivieren, können Mitglieder, die diese Karte besitzen, sie nur noch in dem Studio nutzen, in dem sie sie gekauft haben."
             },
             "actions": {
-                "create": "Erstellen einer geteilten Karte"
+                "create": "Erstellen eines geteilten Passes"
             }
         },
         "specificAvailabilitiesCalendar": {
@@ -10008,7 +10008,7 @@
         },
         "dashboard": {
             "noBooking": "Kein bevorstehender Kurs",
-            "noPackCurrentlyActive": "Keine gültige Karte",
+            "noPackCurrentlyActive": "Kein gültiger Pass",
             "showMore": "Mehr anzeigen",
             "currentPassTitle": "Meine Pässe",
             "favoriteTitle": "Buchungsvorschlag",
@@ -10028,7 +10028,7 @@
             "logoff": "Abmelden",
             "profile": "Profil",
             "invoice": "Rechnungen",
-            "pack": "Karten",
+            "pack": "Pässe",
             "dashboard": "Überblick",
             "myVideos": "Meine Videos",
             "pick_a_language": "Wähle eine Sprache",
@@ -10415,7 +10415,7 @@
                 "label": "Allgemeine Mehrwertsteuer auf das gesamte Paket anwenden"
             },
             "unusableByStaff": {
-                "label": "Unsichtbar für die Mitarbeiter"
+                "label": "Unsichtbar für Mitarbeiter"
             },
             "expiration_date": {
                 "label": "Frist für den Kauf",
@@ -10425,9 +10425,9 @@
         },
         "list": {
             "buttons": {
-                "add": "Ein Package erstellen"
+                "add": "Ein Paket erstellen"
             },
-            "explainIfEmpty": "Hier können die Packages erstellt werden, die von Kunden gekauft werden können und die Kurspässe, Produkte des Shops, usw. enthalten können...",
+            "explainIfEmpty": "Hier können die Pakete erstellt werden, die von Kunden gekauft werden können und die Kurspässe, Produkte des Shops, usw. enthalten können...",
             "section": {
                 "availableOnline": "Zum Verkauf verfügbar",
                 "unavailableOnline": "Nicht zum Verkauf verfügbar"
@@ -10438,11 +10438,11 @@
             "copied": "Kopierter Link"
         },
         "pageTitle": {
-            "list": "Packages"
+            "list": "Pakete"
         },
         "delete": {
             "content": "Bist Du sicher, dass Du dieses Package löschen möchtest? Diese Aktion ist unwiderruflich. Die bereits abgeschlossene Käufe und der aktuelle Warenkorb werden nicht davon betroffen.",
-            "title": "Löschung des Packages",
+            "title": "Löschung des Pakets",
             "submit": "Löschen",
             "cancel": "Abbrechen"
         },
@@ -10454,7 +10454,7 @@
             "purchases": "Verkäufe"
         },
         "edit": "Ändern",
-        "search": "Suche nach einer Packung",
+        "search": "Suche nach einem Paket",
         "parameters": {
             "unusableByStaff": "Unsichtbar für die Mitarbeiter"
         }
@@ -10800,7 +10800,7 @@
             "booking": "Buchung",
             "marketing": "Marketing",
             "invoice": "Abrechnung",
-            "payment_pack": "Sanktionen",
+            "payment_pack": "Strafe",
             "recurrent_private_booking": "Wiederkehrende Verabredung",
             "replacement_request": "Vertretung",
             "giftcard": "Geschenkkarte",
@@ -11036,7 +11036,7 @@
         "dashboard": {
             "marketingDashboard": "Marketing",
             "dashboard": "Dashboard",
-            "reportingDashboard": "Reports"
+            "reportingDashboard": "Berichte"
         },
         "marketplace": {
             "marketplacePass": "Kurspässe",
@@ -11054,7 +11054,7 @@
             "serviceList": "Termine"
         },
         "coupon": {
-            "couponList": "Werbecodes",
+            "couponList": "Rabatte",
             "couponDetail": "{{name}}",
             "couponCreate": "Werbeaktion-Formular",
             "couponEdit": "Werbeaktion-Formular"
@@ -11115,7 +11115,7 @@
         "workshopActivity": {
             "workshopActivityList": "Workshops",
             "workshopActivityCreate": "Ein Event erstellen",
-            "workshopActivityFormPage": "Event-Formular",
+            "workshopActivityFormPage": "Workshop-Formular",
             "workshopActivityEditFormSubtitle": "Workshop bearbeiten",
             "workshopActivityFormSubtitle": "Workshop erstellen"
         },
@@ -11194,7 +11194,7 @@
             "already_connected": "Ein anderes Bezahlgerät ist bereits angeschlossen",
             "reader_error": "Es ist ein Fehler aufgetreten. Vergewissern Sie sich, dass Ihr Terminal online ist und mit demselben WLAN verbunden ist wie Ihr Gerät.",
             "discovery_too_many_readers": "Keine Verbindung möglich, zu viele Terminals in der Nähe",
-            "invalid_bank_account_routing_number": "Die angegebene Bankleizahl ist ungültig.",
+            "invalid_bank_account_routing_number": "Die angegebene Bankleitzahl ist ungültig.",
             "invalid_bank_account": "Das angegebene Bankkonto ist ungültig.",
             "invalid_bank_account_account_number": "Die Kontonummer ist ungültig.",
             "email_invalid": "Die E-Mail Adresse ist ungültig.",
@@ -11270,7 +11270,7 @@
         },
         "invoiceItemDropdown": {
             "contentType": {
-                "10": "Packages",
+                "10": "Pakete",
                 "9": "Terminpässe",
                 "7": "Werbeaktion",
                 "6": "Versandkosten",
@@ -11646,7 +11646,7 @@
             "playlist": "Playlist",
             "podcast": "Podcasts",
             "digital": "Digitales Angebot",
-            "combo": "Packages",
+            "combo": "Pakete",
             "sequence": "Automation",
             "order": "Bestellungen",
             "workshopActivities": "Workshops",
@@ -11672,7 +11672,7 @@
                 "waitingList": "Warteliste",
                 "invoice": "Rechnungsstellung",
                 "company": "Unternehmen",
-                "paymentRules": "Gehaltsregel",
+                "paymentRules": "Gehaltsregulation",
                 "notificationRule": "Transaktions-E-Mails",
                 "broadcast": "Videokonferenz",
                 "general": "Allgemein",
@@ -11694,7 +11694,7 @@
             "requestTempPassword": "Zugang erlauben",
             "smart_list": "Smartlists",
             "alpha": "in Entwicklung",
-            "reporting": "Reports",
+            "reporting": "Berichte",
             "search": "Suchen",
             "dashboard": "Dashboard",
             "calendar": "Kalender",
@@ -12009,7 +12009,7 @@
             },
             "coachSpaceInfo": "In diesem Bereich kann Ihre Lehrkraft auf dessen Abrechnungsübersicht pro Session zugreifen und dessen Stundenplan einsehen. Er/Sie kann auch dessen Verfügbarkeiten hinzufügen.",
             "coachSpace": "Lehrkräftebereich",
-            "noPaymentRule": "Achtung, für diese Lehrkraft wurden keine Gehaltsregeln festgelegt."
+            "noPaymentRule": "Achtung, für diese Lehrkraft wurden keine Gehaltsregulation festgelegt."
         },
         "showPerformance": "Lohn ausstellen",
         "noCoach": "Zur Zeit gibt es keine registrierten Lehrkräfte",
@@ -12706,8 +12706,8 @@
             },
             "select": {
                 "add": "Eine Stufe hinzufügen",
-                "title": "Ebene",
-                "placeholder": "Ebene"
+                "title": "Niveau",
+                "placeholder": "Niveau"
             },
             "edit": "Bearbeiten",
             "deleteModal": {
@@ -12730,7 +12730,7 @@
                 "lastValidatedRollCall": "Letzter freigegebener Aufruf am {{- date }} {{ time }}"
             },
             "dialog": {
-                "confirmationRollCall": "Achtung: Mitglieder, die als abwesend markiert sind und eine unbeschränkte Karte besitzen, die den Sanktionen unterliegt, werden sanktioniert. Sind Sie sicher, dass Sie den Anruf bestätigen möchten?",
+                "confirmationRollCall": "Achtung: Abwesende Mitglieder mit einem unlimitierten Pass, der der Strafe unterliegt, werden sanktioniert. Sind Sie sicher, dass Sie den Anruf bestätigen möchten?",
                 "confirmationRollCall_plural": "Sie werden den Aufruf für alle Sessions des Tages bestätigen. Achtung: Mitglieder, die als abwesend markiert sind und eine unbegrenzte Karte besitzen, die den Sanktionen unterliegt, werden sanktioniert. Sind Sie sicher, dass Sie alle Aufrufe bestätigen wollen?",
                 "validationRollCall": "Anruf freigeben",
                 "validatedRollCall": "Anruf freigegeben",
@@ -12753,7 +12753,7 @@
             },
             "drawer": {
                 "rollCall": "Anruf",
-                "info": "Mit der Freigabe des Anrufs beginnt der Countdown für die Sanktionen bei Nichterscheinen.",
+                "info": "Mit der Freigabe des Anrufs beginnt der Countdown für die Strafe bei Nichterscheinen.",
                 "listMembers": "Liste der eingeschriebenen Mitglieder"
             },
             "filter": {
@@ -12832,7 +12832,7 @@
                     "field": {
                         "coachPaymentRule": {
                             "placeholder": "Regel auswählen",
-                            "title": "Gehaltsregel"
+                            "title": "Gehaltsregulation"
                         },
                         "coachOverride": {
                             "placeholder": "Vertretung auswählen",
@@ -13001,7 +13001,7 @@
             "active_campaign": "ActiveCampaign",
             "general": "Allgemein",
             "waitingList": "Warteliste",
-            "paymentRules": "Gehaltsregel",
+            "paymentRules": "Gehaltsregulation",
             "broadcast": "Videokonferenz",
             "notificationRule": "Transaktions-E-Mails",
             "company": "Unternehmen",
@@ -13032,7 +13032,7 @@
                 "selectPrivateServiceTypeList": "Alle Termine",
                 "selectPrivateServiceType": "Typ",
                 "hidePrivatePass": "Terminpässe nicht anzeigen",
-                "hidePaymentCombo": "Packages nicht anzeigen",
+                "hidePaymentCombo": "Pakete nicht anzeigen",
                 "hidePaymentPack": "Kurspässe nicht anzeigen",
                 "todayOnly": "Nur die heutigen Kurse anzeigen",
                 "titleCaption": "{{max}} Zeichen max ( {{count}} / {{max}} )",
@@ -13229,11 +13229,11 @@
             "goToPaymentPack": "Kurspässe"
         },
         "actions": {
-            "search": "Ein Event suchen",
-            "addWorkshopActivity": "Ein Event hinzufügen",
+            "search": "Workshop suchen",
+            "addWorkshopActivity": "Einen Workshop hinzufügen",
             "addWorkshopGroup": "Gruppensession hinzufügen"
         },
-        "search": "Ein Event suchen",
+        "search": "Workshop suchen",
         "noWorkshops": "Verwalte Deine Workshops hier. Ein Workshop ist eine Veranstaltung, deren Datum im Voraus festgelegt wird.",
         "disabledWorkshops": "Archivierte Workshops",
         "group": {
@@ -13339,8 +13339,8 @@
         "group": {
             "table": {
                 "name": "Nachname",
-                "establishment": "Verhalten",
-                "actions": "Verhalten"
+                "establishment": "Aktionen",
+                "actions": "Aktionen"
             },
             "modal": {
                 "delete": {
@@ -13360,7 +13360,7 @@
                 "name": "Nachname"
             },
             "noGroupHelper": "Standorte werden verwendet, um mehrere Adressen zu gruppieren. Wenn Sie mehrere Studios in verschiedenen Städten haben, können Sie Studios aus derselben Stadt an einem Ort gruppieren. Auf dem Markt, dem Widget und der personalisierten Anwendung können Ihre Kunden den Standort auswählen, der sie am meisten interessiert, um nur die Kurse in ihrer Nähe zu sehen.",
-            "actions": "Verhalten",
+            "actions": "Aktionen",
             "name": " Nachname",
             "addLocalisation": "einen Ort hinzufügen",
             "groupButton": "Gruppenbetriebe"
@@ -13521,7 +13521,7 @@
             "actions": {
                 "bookVod": "Das Video freischalten"
             },
-            "emptyMethod": "Keine Karte ist mit diesem Video kompatibel, bitte kontaktieren Sie Ihr Studio"
+            "emptyMethod": "Kein Pass ist mit diesem Video kompatibel, bitte kontaktieren Sie Ihr Studio"
         },
         "internalAccount": {
             "use": "Mein Guthaben verwenden",
@@ -13597,7 +13597,7 @@
         },
         "management": {
             "smartlistDetail": {
-                "createViaSmartlist": "Auf intelligente Listen zugreifen",
+                "createViaSmartlist": "Auf Smartlist zugreifen",
                 "empty": "Keine Tagging-Regel ist mit dem Tag {{ tag }} verknüpft",
                 "removeTag": "Löschen",
                 "title": "Beschriftungsregel (Smart List)"
@@ -13611,7 +13611,7 @@
                 "title": "Mit dem Tag verknüpfte Gutscheincodes"
             },
             "memberDetail": {
-                "addTag": "Beschriftet",
+                "addTag": "Tag hinzufügen",
                 "addTagToAll": "Tag zu allen hinzufügen",
                 "memberWithoutTag": "Mitglieder nicht markiert",
                 "removeTag": "Tag aufheben",
@@ -13619,8 +13619,8 @@
                 "memberWithTag": "Getaggte Mitglieder"
             },
             "tagKind": {
-                "smartlist": "Intelligente Listen",
-                "coupon": "Angebotscode",
+                "smartlist": "Smartlists",
+                "coupon": "Rabatt",
                 "member": "Mitglieder",
                 "toolbar": "Anzeigen von",
                 "offer": "Sessions"
@@ -13642,7 +13642,7 @@
                 "title": "Entfernung von Kategorien"
             },
             "tagColumn": {
-                "actions": "Verhalten ",
+                "actions": "Aktionen ",
                 "smartlist_count": "Kennzeichnungsregeln",
                 "member_count": "Getaggte Mitglieder",
                 "tag": "Etikett",
@@ -14157,7 +14157,7 @@
             "noCustomForm": "Verwenden Sie die Formulare, um zusätzliche Informationen über Ihre Mitglieder abzurufen.",
             "disabledCustomFormField": "Archivierte Artikel",
             "disabledCustomForm": "Archivierte Formulare",
-            "listActions": "Verhalten",
+            "listActions": "Aktionen",
             "numberQuestions": "Anzahl der Fragen",
             "mandatory": "Obligatorisch",
             "send": "senden an",
@@ -14167,11 +14167,11 @@
             "label": "Etikett",
             "preview": "Formular für die Vorschau",
             "content": "Inhalt des Formulars",
-            "name": "Nachname",
+            "name": "Titel",
             "search": "Ein Formular finden",
             "linkHelper": "Um das Formular an Ihre Mitglieder zu senden, fügen Sie den obigen Link in deren E-Mails ein. Es werden nur die gespeicherten Änderungen sichtbar sein.",
             "CustomFormLink": "Formular Link",
-            "title": "Formularios",
+            "title": "Formulare",
             "displayRule": {
                 "snoozeTime": "Eingeschlafen für {{ count }} Stunde(n)",
                 "unSnoozableMinimal": "Obligatorisch",
@@ -15953,7 +15953,7 @@
                 "explanation": "Es ist nicht möglich, in Raten zu zahlen, wenn der zu zahlende Gesamtbetrag geändert wurde.",
                 "reset": "Zurücksetzen"
             },
-            "noAnonymousClientDebt": "Um den Kunden-Saldo zu nutzen, muss ein Mitglied auf der Rechnung identifiziert werden",
+            "noAnonymousClientDebt": "Um das Kunden-Restguthaben zu nutzen, muss ein Mitglied auf der Rechnung identifiziert werden",
             "billingDate": "Rechnungsdatum",
             "priceExcludingTax": "Gesamt ohne MwSt",
             "priceIncludingTax": "Gesamt",
@@ -15966,7 +15966,7 @@
             "sendToTerminal": "An das Terminal senden",
             "cancel": "Stornieren",
             "validate": "Bestätigen",
-            "clientDebt": "Kunden-Saldo",
+            "clientDebt": "Kunden-Restguthaben",
             "internalCredits": "Interne Credits"
         }
     }

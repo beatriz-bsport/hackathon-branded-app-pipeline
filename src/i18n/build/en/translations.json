@@ -285,7 +285,15 @@
                         "provisions": "Provisions",
                         "name": "Name",
                         "price": "Price",
-                        "tva": "Tax"
+                        "tva": "Tax",
+                        "advancedOptions": {
+                            "tag": {
+                                "tagsOnAcquisition": "Tags after purchase",
+                                "tagsOnAcquisitionHelper": "Use tags to mark members who have bought this shop item.",
+                                "selectTags": "Select tags"
+                            },
+                            "header": "Advanced"
+                        }
                     }
                 },
                 "booking": {

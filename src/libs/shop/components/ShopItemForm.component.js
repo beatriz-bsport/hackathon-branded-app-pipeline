@@ -10,10 +10,14 @@ import Checkbox from '@material-ui/core/Checkbox';
 import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SettingsIcon from '@material-ui/icons/Settings';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation, TFunction } from 'react-i18next';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
-import { Typography } from '@material-ui/core';
+import { Typography, ButtonBase } from '@material-ui/core';
+import Collapse from '@material-ui/core/Collapse';
 import { provincialTaxHelperText } from '../../theme/utils';
 import type { ShopItem } from '../types';
 import NumericInput from '../../../components/input/NumericInput.component';
@@ -25,6 +29,9 @@ import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segm
 import type { OptionCallback } from '../../../state/types';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { ALMOST_100 } from '../../../constants';
+import { Tag, TagGroup } from '#libs/tag/types';
+import TagSelector from '#libs/tag/components/TagSelector.selector';
+import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
 
 const {
   trackFormAdd,
@@ -42,6 +49,7 @@ type Props = {
   onCancel: () => void,
   loading: boolean,
   provincialTax: number,
+  tagList: Array<Tag<TagGroup>>,
 };
 type State = {
   name: ?string,
@@ -58,6 +66,7 @@ type State = {
   sell_only_on_provision: boolean,
   is_deliverable: boolean,
   provincialTax: string,
+  tags_on_purchase?: Array<number>,
 };
 
 function ShopItemPreview(props: { previewURL: string }) {
@@ -124,6 +133,8 @@ export class ShopItemForm extends Component<Props, State> {
           props.provincialTax,
           props.t,
         ),
+        tags_on_purchase: initial.tags_on_purchase,
+        hasTagsSameGroup: initial.hasTagsSameGroup,
       };
     } else {
       this.state = {
@@ -141,6 +152,8 @@ export class ShopItemForm extends Component<Props, State> {
         sell_only_on_provision: false,
         is_deliverable: true,
         provincialTaxText: '',
+        tags_on_purchase: [],
+        hasTagsSameGroup: false,
       };
     }
   }
@@ -162,7 +175,53 @@ export class ShopItemForm extends Component<Props, State> {
           this.props.t,
         ),
       }));
+    if (
+      prevState.tags_on_purchase !== this.state.tags_on_purchase ||
+      prevProps.tagList !== this.props.tagList
+    ) {
+      this.setState((currentState: State) => ({
+        ...currentState,
+        hasTagsSameGroup: this.getHasTagsSameGroup(),
+      }));
+    }
   }
+
+  getHasTagsSameGroup = (): boolean => {
+    const tagsGroup: Array<TagGroup> = [];
+
+    const allTags = this.state.tags_on_purchase || [];
+
+    for (let i = 0; i < allTags.length; i += 1) {
+      const tagGroup = this.props.tagList.find(
+        (tag) => tag.id === allTags[i],
+      )?.group;
+      if (tagGroup) {
+        if (tagsGroup.includes(tagGroup)) {
+          return true;
+        }
+        tagsGroup.push(tagGroup);
+      }
+    }
+    return false;
+  };
+
+  onChangeTagsOnAcquisition = (
+    items: Array<{
+      item: Array<{ label: string, value: number, tag: Tag<TagGroup> }>,
+    }>,
+  ) => {
+    this.setState({
+      tags_on_purchase: items.map((item) => item.value),
+    });
+  };
+
+  onDeleteTagsOnAcquisition = (itemId: number) => {
+    this.setState((currentState: State) => ({
+      tags_on_purchase: currentState.tags_on_purchase.filter(
+        (tagId) => tagId !== itemId,
+      ),
+    }));
+  };
 
   handleField = (fieldName: string) => (event) => {
     this.setState({ [fieldName]: event.target.value });
@@ -172,6 +231,12 @@ export class ShopItemForm extends Component<Props, State> {
     if (cover && typeof cover !== 'string') {
       this.setState({ cover });
     }
+  };
+
+  handleClickOnAdvancedSection = () => {
+    this.setState((currentState: State) => ({
+      openAdvancedOptions: !currentState.openAdvancedOptions,
+    }));
   };
 
   onSubmit = (ev) => {
@@ -201,6 +266,10 @@ export class ShopItemForm extends Component<Props, State> {
     data.append('featured', this.state.featured);
     data.append('sell_only_on_provision', this.state.sell_only_on_provision);
     data.append('is_deliverable', this.state.is_deliverable);
+    data.append(
+      'tags_on_purchase[]',
+      JSON.stringify(this.state.tags_on_purchase),
+    );
     this.props.createOrUpdate(data, id, {
       onSuccess: () => {
         trackFormSuccess(this.props.initial?.id);
@@ -400,6 +469,50 @@ export class ShopItemForm extends Component<Props, State> {
               variant="outlined"
             />
           </div>
+
+          <div className={classes.section} id="shop-item-form-advanced-section">
+            <ButtonBase
+              className={classes.advancedOptionsHeader}
+              onClick={this.handleClickOnAdvancedSection}
+            >
+              <SettingsIcon className={classes.settings} />
+              <Typography variant="h6">
+                {t('form.shop.item.advancedOptions.header')}
+              </Typography>
+              {this.state.openAdvancedOptions ? (
+                <ExpandLessIcon />
+              ) : (
+                <ExpandMoreIcon />
+              )}
+            </ButtonBase>
+
+            <Collapse in={this.state.openAdvancedOptions}>
+              <div className={classes.section}>
+                <Typography className={classes.title}>
+                  {t('form.shop.item.advancedOptions.tag.tagsOnAcquisition')}
+                </Typography>
+                <Typography className={classes.helperText} variant="caption">
+                  {t(
+                    'form.shop.item.advancedOptions.tag.tagsOnAcquisitionHelper',
+                  )}
+                </Typography>
+                <TagSelector
+                  closeMenuOnSelect
+                  inScrollBar
+                  isClearable
+                  allTagsWithTagGroup={this.props.tagList || []}
+                  onChange={this.onChangeTagsOnAcquisition}
+                  onDeleteTag={this.onDeleteTagsOnAcquisition}
+                  placeholder={t(
+                    'form.shop.item.advancedOptions.tag.selectTags',
+                  )}
+                  selectedTags={this.state.tags_on_purchase}
+                />
+                {this.state.hasTagsSameGroup && <TagGroupDuplicatedAlert />}
+              </div>
+            </Collapse>
+          </div>
+
           <div className={classes.buttons}>
             {this.props.loading ? (
               <CircularProgress />
@@ -502,6 +615,22 @@ const styles = (theme) => ({
   },
   paddingTop: {
     paddingTop: theme.spacing(2),
+  },
+  advancedOptionsHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: theme.spacing(2),
+  },
+  section: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+    paddingTop: theme.spacing(2),
+  },
+  title: {
+    fontWeight: 500,
+    color: '#000',
   },
 });
 

@@ -50,6 +50,8 @@ import {
   deleteSubShop,
 } from '../../libs/shop/actions/subshop';
 import ShopItemForm from '../../libs/shop/components/ShopItemForm.component';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { fetchTags } from '#libs/tag/actions';
 
 import type { ShopItem, SubShop } from '../../libs/shop/types';
 import SubShopList from './SubShopList.component';
@@ -86,6 +88,8 @@ type Props = {
   isShopItemUsedInCombo: (id: number) => void,
   archivationWarning: { [id: number]: { used_in_combo: boolean } },
   theme: Theme,
+  allTagsWithTagGroup: Array<Tag<TagGroup>>,
+  fetchTags: () => void,
 };
 
 type State = {
@@ -106,6 +110,7 @@ export class ShopItemList extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchSubShop();
     this.props.fetchShopItems();
+    this.props.fetchTags();
   }
 
   createOrUpdateShopItem = (
@@ -365,6 +370,7 @@ export class ShopItemList extends Component<Props, State> {
             loading={this.props.shopItemLoading}
             onCancel={() => this.setState({ createItemFromSubShop: null })}
             provincialTax={this.props.theme?.provincial_tax_value}
+            tagList={this.props.allTagsWithTagGroup}
           />
         </GenericResponsiveDrawer>
         <Dialog open={!!this.state.shopitemToDelete}>
@@ -427,6 +433,7 @@ export default compose(
       shopItemLoading: state.shop.shopItem.createOrUpdate.loading,
       subShops: shopSelectors.getSubShops(state),
       archivationWarning: state.shop.shopItem.combo.archivationWarning,
+      allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     }),
     {
       fetchShopItems: fetchAllShopItem,
@@ -438,6 +445,7 @@ export default compose(
       deleteSubShop,
       goToShopItem: (id: number) => push(`/shop/${id}`),
       isShopItemUsedInCombo,
+      fetchTags,
     },
   ),
   withStyles(styles),

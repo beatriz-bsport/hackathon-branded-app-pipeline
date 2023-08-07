@@ -780,6 +780,15 @@ exports.default = {
             'Select at least one payment method. If none is selected, a card payment will be offered by default.',
           label: 'Accepted payment methods',
         },
+        advancedOptions: {
+          header: 'Advanced',
+          tag: {
+            tagsOnAcquisition: 'Tag after purchase',
+            tagsOnAcquisitionHelper:
+              'Use tags to identify which member bought the item',
+            selectTags: 'Select tags',
+          },
+        },
       },
       subShop: {
         delete: {

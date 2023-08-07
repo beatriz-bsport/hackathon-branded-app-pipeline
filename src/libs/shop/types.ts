@@ -44,6 +44,7 @@ export type ShopItem = {
   available_payment_method_identifiers: number[];
   current_stock?: number;
   disabled: boolean;
+  tags_on_purchase?: Array<number>;
 };
 
 export type ShopState = {

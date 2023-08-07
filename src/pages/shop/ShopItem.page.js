@@ -38,6 +38,8 @@ import {
   createOrUpdateProvision,
 } from '../../libs/shop/actions/provision';
 import shopSelectors from '../../libs/shop/selectors';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { fetchTags } from '#libs/tag/actions';
 import type { ShopItem, Provision } from '../../libs/shop/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import themeSelectors from '../../libs/theme/selectors';
@@ -70,6 +72,8 @@ type Props = {
   classes: Object,
   isShopItemUsedInCombo: (id: number) => void,
   archivationWarning: { [id: number]: { used_in_combo: boolean } },
+  allTagsWithTagGroup: Array<Tag<TagGroup>>,
+  fetchTags: () => void,
 };
 
 type State = { editOpen: boolean, provisionFormOpen: boolean };
@@ -84,6 +88,7 @@ export class ShopItemDetail extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchShopItem(this.props.id);
     this.props.fetchProvisions(this.props.id, 1, SHOPITEM_PER_PAGE);
+    this.props.fetchTags();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -208,6 +213,7 @@ export class ShopItemDetail extends Component<Props, State> {
             initial={this.props.shopitem}
             onCancel={this.closeEditForm}
             provincialTax={this.props.theme?.provincial_tax_value}
+            tagList={this.props.allTagsWithTagGroup}
           />
         </GenericResponsiveDrawer>
         <Dialog open={this.state.provisionFormOpen}>
@@ -260,6 +266,7 @@ export default compose(
       shopitem: shopSelectors.getShopitem(state, id),
       provision: state.shop.provision,
       archivationWarning: state.shop.shopItem.combo.archivationWarning,
+      allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     }),
     {
       fetchShopItem,
@@ -270,6 +277,7 @@ export default compose(
       deleteShopItem,
       goToShopList: () => push('/shop'),
       isShopItemUsedInCombo,
+      fetchTags,
     },
   ),
   withTitle(({ shopitem }) => (shopitem ? shopitem.name : '')),

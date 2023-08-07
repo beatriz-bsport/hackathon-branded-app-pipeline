@@ -3,7 +3,7 @@
 echo "---------- Git fetching remote ----------" &&
 git fetch && 
 echo "---------- 🎨 Prettier ----------" &&
-yarn pretty &&
+yarn pretty-cache &&
 echo "---------- 👮 TypeScript ----------" && 
 npx tsc -p . &&
 echo "---------- 🧪 Tests ----------" &&

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   ADMIN_ROLE,
   CHECKIN_APP_ROLE,
@@ -6,13 +5,19 @@ import {
   REPORT_ROLE,
   RESTRICTED_STAFF_ROLE,
   STAFF_ROLE,
+  // @ts-expect-error
 } from '#libs/role/role-types.js';
 import {
   UPSELL_IDENTIFIER_CLOCK_IN,
   UPSELL_IDENTIFIER_CUSTOM_APP,
   UPSELL_PERFORMANCE_TRACKING_IDENTIFIER,
 } from '#libs/platform-billing/upsell-identifiers';
-import { FranchiseProtectedUrls, ProtectedUrls } from './types';
+import { COMPANY_REPORT_CATEGORIES_BY_GLOBAL_CATEGORY } from '#libs/reporting/constants';
+import {
+  FranchiseProtectedUrls,
+  ProtectedUrls,
+  ObjectLevelPermissions,
+} from './types';
 
 export const URLS_PERMISSIONS: Record<ProtectedUrls, string[]> = {
   // give calendar and schedule priority for redirection
@@ -154,3 +159,177 @@ export const DEFAULT_ROLES: number[] = [
 ];
 
 export const UUID_REGEX = `[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}`;
+
+export const DEFAULT_OBJECT_LEVEL_PERMISSIONS: ObjectLevelPermissions = {
+  session: {
+    activity: { allowed_actions: { create: true, edit: true, delete: true } },
+    workshop: { allowed_actions: { create: true, edit: true, delete: true } },
+    privateSlot: {
+      allowed_actions: { create: true, edit: true, delete: true },
+    },
+  },
+  member: {
+    allowed_actions: {
+      create: true,
+      readInfo: true,
+      editInfo: true,
+      delete: true,
+      search: true,
+      accessProfile: true,
+      readBalance: true,
+      communication: true,
+      manageNotification: true,
+    },
+  },
+  billing: {
+    allowed_actions: {
+      takePayment: true,
+      editBalance: true,
+      readInvoices: true,
+      createInvoice: true,
+      readPaymentLink: true,
+      cancelInvoice: true,
+      addPaymentMethod: true,
+      deletePaymentMethod: true,
+      partialRefundAsDiscount: true,
+      partialRefundAsCredit: true,
+      createManualDiscount: true,
+    },
+  },
+  reservation: {
+    activity: {
+      allowed_actions: {
+        rollcall: true,
+        addToWaitlist: true,
+        create: true,
+        delete: true,
+        removeFromWaitlist: true,
+        attendance: true,
+        editSpot: true,
+        editPerformance: true,
+      },
+    },
+    workshop: {
+      allowed_actions: {
+        rollcall: true,
+        addToWaitlist: true,
+        create: true,
+        delete: true,
+        removeFromWaitlist: true,
+        attendance: true,
+        editSpot: true,
+        editPerformance: true,
+      },
+    },
+    privateBooking: {
+      allowed_actions: {
+        create: true,
+        edit: true,
+        cancel: true,
+        editPerformance: true,
+      },
+    },
+  },
+  export: {
+    allowed_actions: {
+      planning: true,
+      invoice: true,
+      subscription: true,
+      payroll: true,
+      attendance: true,
+      smartlist: true,
+      memberDocument: true,
+      report: true,
+    },
+  },
+  planning: {
+    calendar: {
+      allowed_actions: {
+        bulkCancellation: true,
+        readCancellations: true,
+        readWeeklyOverview: true,
+      },
+    },
+    schedule: {
+      allowed_actions: {
+        createAvailability: true,
+        deleteAvailability: true,
+        readAvailabilityDetail: true,
+      },
+    },
+  },
+  report: Object.entries(COMPANY_REPORT_CATEGORIES_BY_GLOBAL_CATEGORY).reduce(
+    (acc, [globalCategory, categoryList]) => ({
+      ...acc,
+      [globalCategory]: categoryList.reduce(
+        (_acc, category) => ({
+          ..._acc,
+          [category]: {
+            allowed_actions: {
+              create: true,
+              read: true,
+              edit: true,
+              delete: true,
+            },
+          },
+        }),
+        {},
+      ),
+    }),
+    {},
+  ),
+  product: {
+    paymentPack: {
+      allowed_actions: {
+        create: true,
+        edit: true,
+        delete: true,
+        manageExtension: true,
+        manageCredit: true,
+        compatibility: true,
+      },
+    },
+    privatePass: {
+      allowed_actions: {
+        create: true,
+        edit: true,
+        delete: true,
+        manageExtension: true,
+        manageCredit: true,
+        compatibility: true,
+      },
+    },
+    contract: {
+      allowed_actions: {
+        create: true,
+        edit: true,
+        delete: true,
+        pause: true,
+        createBillingPlan: true,
+        createCustomBillingPlan: true,
+        pauseBillingPlan: true,
+        endBillingPlan: true,
+        editPassBillingPlan: true,
+        editInvoiceDateBillingPlan: true,
+        editInvoicePriceBillingPlan: true,
+        endAfterInvoiceBillingPlan: true,
+      },
+    },
+  },
+  management: {
+    activity: { allowed_actions: { create: true, edit: true, delete: true } },
+    workshop: { allowed_actions: { create: true, edit: true, delete: true } },
+    privateService: {
+      allowed_actions: { create: true, edit: true, delete: true },
+    },
+    coach: {
+      allowed_actions: {
+        create: true,
+        edit: true,
+        delete: true,
+        readPayroll: true,
+        substitution: true,
+      },
+    },
+  },
+};

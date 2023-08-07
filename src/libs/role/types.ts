@@ -128,6 +128,181 @@ export type RolePermission = {
     tutorial: boolean;
   };
 };
+
+export type ObjectLevelPermissions = {
+  session: {
+    activity: {
+      allowed_actions: { create: boolean; edit: boolean; delete: boolean };
+    };
+    workshop: {
+      allowed_actions: { create: boolean; edit: boolean; delete: boolean };
+    };
+    privateSlot: {
+      allowed_actions: { create: boolean; edit: boolean; delete: boolean };
+    };
+  };
+  member: {
+    allowed_actions: {
+      create: boolean;
+      readInfo: boolean;
+      editInfo: boolean;
+      delete: boolean;
+      search: boolean;
+      accessProfile: boolean;
+      readBalance: boolean;
+      communication: boolean;
+      manageNotification: boolean;
+    };
+  };
+  billing: {
+    allowed_actions: {
+      takePayment: boolean;
+      editBalance: boolean;
+      readInvoices: boolean;
+      createInvoice: boolean;
+      readPaymentLink: boolean;
+      cancelInvoice: boolean;
+      addPaymentMethod: boolean;
+      deletePaymentMethod: boolean;
+      partialRefundAsDiscount: boolean;
+      partialRefundAsCredit: boolean;
+      createManualDiscount: boolean;
+    };
+  };
+  reservation: {
+    activity: {
+      allowed_actions: {
+        rollcall: boolean;
+        addToWaitlist: boolean;
+        create: boolean;
+        delete: boolean;
+        removeFromWaitlist: boolean;
+        attendance: boolean;
+        editSpot: boolean;
+        editPerformance: boolean;
+      };
+    };
+    workshop: {
+      allowed_actions: {
+        rollcall: boolean;
+        addToWaitlist: boolean;
+        create: boolean;
+        delete: boolean;
+        removeFromWaitlist: boolean;
+        attendance: boolean;
+        editSpot: boolean;
+        editPerformance: boolean;
+      };
+    };
+    privateBooking: {
+      allowed_actions: {
+        create: boolean;
+        edit: boolean;
+        cancel: boolean;
+        editPerformance: boolean;
+      };
+    };
+  };
+  export: {
+    allowed_actions: {
+      planning: boolean;
+      invoice: boolean;
+      subscription: boolean;
+      payroll: boolean;
+      attendance: boolean;
+      smartlist: boolean;
+      memberDocument: boolean;
+      report: boolean;
+    };
+  };
+  planning: {
+    calendar: {
+      allowed_actions: {
+        bulkCancellation: boolean;
+        readCancellations: boolean;
+        readWeeklyOverview: boolean;
+      };
+    };
+    schedule: {
+      allowed_actions: {
+        createAvailability: boolean;
+        deleteAvailability: boolean;
+        readAvailabilityDetail: boolean;
+      };
+    };
+  };
+  report: {
+    [global_category: string]: {
+      [category: string]: {
+        allowed_actions: {
+          create: boolean;
+          read: boolean;
+          edit: boolean;
+          delete: boolean;
+        };
+      };
+    };
+  };
+  product: {
+    paymentPack: {
+      allowed_actions: {
+        create: boolean;
+        edit: boolean;
+        delete: boolean;
+        manageExtension: boolean;
+        manageCredit: boolean;
+        compatibility: boolean;
+      };
+    };
+    privatePass: {
+      allowed_actions: {
+        create: boolean;
+        edit: boolean;
+        delete: boolean;
+        manageExtension: boolean;
+        manageCredit: boolean;
+        compatibility: boolean;
+      };
+    };
+    contract: {
+      allowed_actions: {
+        create: boolean;
+        edit: boolean;
+        delete: boolean;
+        pause: boolean;
+        createBillingPlan: boolean;
+        createCustomBillingPlan: boolean;
+        pauseBillingPlan: boolean;
+        endBillingPlan: boolean;
+        editPassBillingPlan: boolean;
+        editInvoiceDateBillingPlan: boolean;
+        editInvoicePriceBillingPlan: boolean;
+        endAfterInvoiceBillingPlan: boolean;
+      };
+    };
+  };
+  management: {
+    activity: {
+      allowed_actions: { create: boolean; edit: boolean; delete: boolean };
+    };
+    workshop: {
+      allowed_actions: { create: boolean; edit: boolean; delete: boolean };
+    };
+    privateService: {
+      allowed_actions: { create: boolean; edit: boolean; delete: boolean };
+    };
+    coach: {
+      allowed_actions: {
+        create: boolean;
+        edit: boolean;
+        delete: boolean;
+        readPayroll: boolean;
+        substitution: boolean;
+      };
+    };
+  };
+};
+
 export type FranchiseRolePermission = {
   franchiseMenu: {
     franchises: boolean;
@@ -155,6 +330,7 @@ export type Role = {
   editable: boolean;
   company: number;
   permissions: RolePermission;
+  object_level_permissions: ObjectLevelPermissions;
   has_booking_override_control: boolean;
   is_franchisor?: boolean;
 };

@@ -1,3 +1,5 @@
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+
 export const GREEN_GREY_BOOLEAN_CHIPS = [
   'new_member_only',
   'plan_auto_renewal',
@@ -40,3 +42,53 @@ export const CONDITION_CHIPS = [
   'sum_margin_value',
   'stock',
 ];
+
+export const COMPANY_REPORT_CATEGORIES_BY_GLOBAL_CATEGORY = {
+  Payments: [
+    ReportCategoryEnum.BASKET,
+    ReportCategoryEnum.CASHBOOK,
+    ReportCategoryEnum.CREDIT,
+    ReportCategoryEnum.EXPENSE,
+    ReportCategoryEnum.INVOICES,
+    ReportCategoryEnum.UNPAID_INVOICES,
+    ReportCategoryEnum.PAYMENTS,
+    ReportCategoryEnum.PAYMENT_SUMUP,
+    ReportCategoryEnum.ON_SPOT_PAYMENTS,
+    ReportCategoryEnum.DISPUTE,
+    ReportCategoryEnum.PAYMENT_INSTALMENTS,
+    ReportCategoryEnum.VIDEO_PURCHASE,
+  ],
+  Club: [
+    ReportCategoryEnum.BILLING_PLAN,
+    ReportCategoryEnum.MEMBERS_PURCHASE,
+    ReportCategoryEnum.MEMBERS,
+    ReportCategoryEnum.ACTIVITIES,
+    ReportCategoryEnum.ACTIVITY_BY_ESTABLISHMENT,
+    ReportCategoryEnum.ACTIVITY_BY_COACH,
+    ReportCategoryEnum.WORKSHOP,
+    ReportCategoryEnum.OFFERS,
+    ReportCategoryEnum.SUBSCRIPTION,
+    ReportCategoryEnum.PRIVATE_SERVICE,
+  ],
+  Bookings: [
+    ReportCategoryEnum.DAY_BOOKINGS,
+    ReportCategoryEnum.FIRST_BOOKING,
+    ReportCategoryEnum.BOOKINGS,
+    ReportCategoryEnum.FIRST_ATTENDANCE,
+    ReportCategoryEnum.FIRST_PRIVATE_BOOKING,
+    ReportCategoryEnum.PRIVATE_BOOKINGS,
+    ReportCategoryEnum.UNPAID_PRIVATE_BOOKINGS,
+  ],
+  Products: [
+    ReportCategoryEnum.PRIVATE_CONSUMER_PASS_EXPIRED,
+    ReportCategoryEnum.EXPIRED_PASS,
+    ReportCategoryEnum.MEMBERSHIPS,
+    ReportCategoryEnum.PRIVATE_CONSUMER_PASS,
+    ReportCategoryEnum.UNIVERSAL_PASSES,
+    ReportCategoryEnum.DISCOUNT,
+    ReportCategoryEnum.GIFTCARD,
+    ReportCategoryEnum.CONSUMER_GIFTCARD,
+    ReportCategoryEnum.SHOP,
+    ReportCategoryEnum.VIDEO,
+  ],
+};

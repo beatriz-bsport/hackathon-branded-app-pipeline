@@ -343,7 +343,7 @@ const StripePaymentCard = forwardRef(
 
     const onSaveForLaterChange = React.useCallback(
       (ev: React.ChangeEvent<HTMLInputElement>) =>
-        setSaveForLater(ev.target.checked),
+        setSaveForLater(ev?.target?.checked ?? false),
       [],
     );
 

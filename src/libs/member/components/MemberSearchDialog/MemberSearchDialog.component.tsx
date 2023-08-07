@@ -96,7 +96,7 @@ type Props = {
   ) => void;
   createMember: (data: FormData, options?: OptionCallback) => void;
   companyCountry: string;
-  isAuthenticatingForSpecificAction?: boolean;
+  isAuthenticationRequired?: boolean;
 };
 
 const PAGE_SIZE = 5;
@@ -109,7 +109,7 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
   searchMembers,
   createMember,
   companyCountry,
-  isAuthenticatingForSpecificAction,
+  isAuthenticationRequired,
 }) => {
   const [searchText, setSearchText] = React.useState('');
 
@@ -222,7 +222,7 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
           />
         ) : (
           <>
-            {isAuthenticatingForSpecificAction && (
+            {isAuthenticationRequired && (
               <Alert className={classes.alert} severity="info">
                 {t('interface.authenticationNecessary')}
               </Alert>

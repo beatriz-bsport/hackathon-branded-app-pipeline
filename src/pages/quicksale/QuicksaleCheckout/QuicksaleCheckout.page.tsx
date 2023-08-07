@@ -444,7 +444,7 @@ const QuicksalePayment: React.FC<Props> = ({
       <MemberSearchDialog
         companyCountry={companyCountry}
         createMember={createMember}
-        isAuthenticatingForSpecificAction={someObjectsRequireAuthentication}
+        isAuthenticationRequired={someObjectsRequireAuthentication}
         onClose={closeMemberModal}
         onMemberChoose={onMemberAuthenticate}
         open={showMemberAuthenticationModal}

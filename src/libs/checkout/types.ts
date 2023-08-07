@@ -156,7 +156,7 @@ export const STEPS = {
   },
 };
 
-export type StepType = typeof STEPS[keyof typeof STEPS];
+export type StepType = (typeof STEPS)[keyof typeof STEPS];
 
 export type QuicksaleMemberUpdateResponse = {
   updated_member: boolean;

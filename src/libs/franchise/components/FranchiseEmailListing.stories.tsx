@@ -3,27 +3,34 @@ import FranchiseEmailListing, {
   OwnProps,
 } from './FranchiseEmailListing.components';
 import { FranchiseCompanyListFactory } from '../factories/FranchiseCompanyFactory';
-import   { companyEmailListFactory } from '../../email-editor/factories/EmailTemplateSummary';
+import { companyEmailListFactory } from '../../email-editor/factories/EmailTemplateSummary';
 
 import { FranchiseCompany } from '../types';
 import { EmailTemplateSummary } from '../../email-editor/types';
 
 const CustomTemplate = (args: OwnProps) => {
-  const [isGrouped, setIsGrouped] = React.useState(false)
-  const saveFilter = (grouped: boolean)=> setIsGrouped(grouped)
+  const [isGrouped, setIsGrouped] = React.useState(false);
+  const saveFilter = (grouped: boolean) => setIsGrouped(grouped);
   return (
-    <FranchiseEmailListing {...args} saveFilter={saveFilter} isGrouped={isGrouped} />
+    <FranchiseEmailListing
+      {...args}
+      saveFilter={saveFilter}
+      isGrouped={isGrouped}
+    />
   );
 };
 
 export const CompleteStateGroupBy = CustomTemplate.bind({});
 
-const companies: FranchiseCompany[] = FranchiseCompanyListFactory(5)
+const companies: FranchiseCompany[] = FranchiseCompanyListFactory(5);
 
-const emails :EmailTemplateSummary[] = companies.reduce((acc:EmailTemplateSummary[] , cpy: FranchiseCompany) => { 
-  const emailForCompany = companyEmailListFactory(cpy.id, 5)
-  return [...acc, ...emailForCompany]
-}, [])
+const emails: EmailTemplateSummary[] = companies.reduce(
+  (acc: EmailTemplateSummary[], cpy: FranchiseCompany) => {
+    const emailForCompany = companyEmailListFactory(cpy.id, 5);
+    return [...acc, ...emailForCompany];
+  },
+  [],
+);
 
 const defaultArgs: OwnProps = {
   navigateTo: () => () => {},

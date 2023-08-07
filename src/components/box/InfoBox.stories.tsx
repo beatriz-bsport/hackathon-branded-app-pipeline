@@ -1,30 +1,28 @@
-import React from 'react'
+import React from 'react';
 import InfoBox, { OwnProps } from './InfoBox.component';
 import { fakerEN as faker } from '@faker-js/faker';
 
-const CustomTemplate = (args: OwnProps) => (
-    <InfoBox {...args} />
-);
+const CustomTemplate = (args: OwnProps) => <InfoBox {...args} />;
 
 export const Contained = CustomTemplate.bind({});
 
 Contained.args = {
-  content:faker.hacker.phrase()
+  content: faker.hacker.phrase(),
 };
 
 export const Outlined = CustomTemplate.bind({});
 
 Outlined.args = {
   content: faker.hacker.phrase(),
-  variant:'outlined',
+  variant: 'outlined',
 };
 
 export default {
-    title: 'Components/Commons/InfoBox',
-    component: InfoBox,
-    parameters: {
-        docs: {
-            page: null
-        }
+  title: 'Components/Commons/InfoBox',
+  component: InfoBox,
+  parameters: {
+    docs: {
+      page: null,
     },
+  },
 };

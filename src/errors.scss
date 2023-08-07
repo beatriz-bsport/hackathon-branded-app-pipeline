@@ -11,7 +11,7 @@ body {
   right: 0;
 
   .error-screen-shadow {
-    content: " ";
+    content: ' ';
     position: absolute;
     display: block;
     top: 0;
@@ -48,7 +48,7 @@ body {
 }
 
 .btn-error {
-  border: 1px solid #AE1234;
+  border: 1px solid #ae1234;
   border-color: rgb(36, 54, 92);
   color: rgb(36, 54, 92);
   text-decoration: 'none';
@@ -56,7 +56,7 @@ body {
 
 .btn-info {
   margin-right: 24px;
-  border: 1px solid #AE1234;
+  border: 1px solid #ae1234;
   border-color: rgb(36, 54, 92);
   color: rgb(36, 54, 92);
   text-decoration: none;

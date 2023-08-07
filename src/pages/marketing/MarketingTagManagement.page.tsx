@@ -527,26 +527,27 @@ class MarketingTagManagement extends React.PureComponent<Props> {
           </div>
 
           <div className={classes.rightPanel}>
-            {this.props.selectedTag && this.props.tagKind === TAG_KIND_OFFER && (
-              <TadDetailOfferFilters
-                config={{
-                  dateStart: this.props.offer_min_date,
-                  dateEnd: this.props.offer_max_date,
-                  tagAuthorizationFilter: this.props.tagAuthorizationFilter,
-                }}
-                onSubmit={(values: {
-                  dateStart: moment.Moment;
-                  dateEnd: moment.Moment;
-                  tagAuthorizationFilter: TagAuthorizationFilter;
-                }) =>
-                  this.props.setOfferFilters(
-                    values.dateStart,
-                    values.dateEnd,
-                    parseInt(values.tagAuthorizationFilter.toString(), 10),
-                  )
-                }
-              />
-            )}
+            {this.props.selectedTag &&
+              this.props.tagKind === TAG_KIND_OFFER && (
+                <TadDetailOfferFilters
+                  config={{
+                    dateStart: this.props.offer_min_date,
+                    dateEnd: this.props.offer_max_date,
+                    tagAuthorizationFilter: this.props.tagAuthorizationFilter,
+                  }}
+                  onSubmit={(values: {
+                    dateStart: moment.Moment;
+                    dateEnd: moment.Moment;
+                    tagAuthorizationFilter: TagAuthorizationFilter;
+                  }) =>
+                    this.props.setOfferFilters(
+                      values.dateStart,
+                      values.dateEnd,
+                      parseInt(values.tagAuthorizationFilter.toString(), 10),
+                    )
+                  }
+                />
+              )}
             <TagDetailHeader tag={this.props.selectedTag} />
             <div className={classes.tagDetail}>
               {this.props.selectedTag &&

@@ -29,7 +29,7 @@ const Template: ComponentStory<typeof QuicksaleBasketPriceRecap> = (args) => {
         modifiedPrice={modifiedPrice}
         setModifiedPrice={setModifiedPrice}
       />
-    </div>  
+    </div>
   );
 };
 

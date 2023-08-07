@@ -21,13 +21,12 @@ const CustomTemplate = (args: OwnProps) => (
 
 const companies: FranchiseCompany[] = FranchiseCompanyListFactory(5);
 
-const emails: EmailTemplateSummary[] = EmailTemplateSummaryFactoryBot.EmailTemplateSummary.create(
-  5,
-);
-const emailsDetails: EmailTemplateDetail[] = EmailTemplateDetailFactoryBot.EmailTemplateDetail.create(
-  5,
-);
-const rule: FranchiseCompleteNotificationRule[] = FranchiseCompleteNotificationRuleFactoryBot.FranchiseCompleteNotificationRule.create();
+const emails: EmailTemplateSummary[] =
+  EmailTemplateSummaryFactoryBot.EmailTemplateSummary.create(5);
+const emailsDetails: EmailTemplateDetail[] =
+  EmailTemplateDetailFactoryBot.EmailTemplateDetail.create(5);
+const rule: FranchiseCompleteNotificationRule[] =
+  FranchiseCompleteNotificationRuleFactoryBot.FranchiseCompleteNotificationRule.create();
 
 export const CompleteDefaultState = CustomTemplate.bind({});
 

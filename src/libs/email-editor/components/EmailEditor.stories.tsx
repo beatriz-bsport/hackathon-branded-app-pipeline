@@ -8,10 +8,10 @@ import { FranchiseCompany } from '../../franchise/types';
 
 const CustomTemplate = (args: OwnProps) => <EmailEditor {...args} />;
 
-const email: EmailTemplateSummary = EmailTemplateSummaryFactoryBot.EmailTemplateSummary.createOne();
-const companies: FranchiseCompany[] = FranchiseCompanyFactoryBot.FranchiseCompany.create(
-  5,
-);
+const email: EmailTemplateSummary =
+  EmailTemplateSummaryFactoryBot.EmailTemplateSummary.createOne();
+const companies: FranchiseCompany[] =
+  FranchiseCompanyFactoryBot.FranchiseCompany.create(5);
 const defaultArgs: OwnProps = {
   autoSaveEnabled: false,
   emailToEdit: null,

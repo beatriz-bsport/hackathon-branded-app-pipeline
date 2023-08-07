@@ -1,11 +1,11 @@
 import React from 'react';
-import FranchiseMembersTable, { OwnProps }from './FranchiseMembersTable.components';
+import FranchiseMembersTable, {
+  OwnProps,
+} from './FranchiseMembersTable.components';
 import { FranchiseCompanyListFactory } from '../factories/FranchiseCompanyFactory';
 import { FranchiseUserFactory } from '../factories/FranchiseUserFactory';
 
-const CustomTemplate = (args: OwnProps) => (
-    <FranchiseMembersTable {...args} />
-);
+const CustomTemplate = (args: OwnProps) => <FranchiseMembersTable {...args} />;
 
 export const CompleteDefaultState = CustomTemplate.bind({});
 
@@ -15,7 +15,7 @@ const userWithCompanies = users.map((user) => ({
   ...user,
   // @ts-ignore
   companies: FranchiseCompanyListFactory(5),
-}))
+}));
 
 CompleteDefaultState.args = {
   users: userWithCompanies,
@@ -28,11 +28,11 @@ CompleteDefaultState.args = {
 };
 
 export default {
-    title: 'Library/Franchise/Members Table',
-    component: FranchiseMembersTable,
-    parameters: {
-        docs: {
-            page: null
-        }
+  title: 'Library/Franchise/Members Table',
+  component: FranchiseMembersTable,
+  parameters: {
+    docs: {
+      page: null,
     },
+  },
 };

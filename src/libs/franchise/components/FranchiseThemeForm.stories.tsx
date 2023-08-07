@@ -15,7 +15,8 @@ const RGBtoHex = (rgb: [number, number, number]) =>
 
 CompleteDefaultState.args = {
   id: franchise.id,
-  cover: "https://blog.yogimag.fr/wp-content/uploads/2016/02/studio-yoga-yogimag.jpg",
+  cover:
+    'https://blog.yogimag.fr/wp-content/uploads/2016/02/studio-yoga-yogimag.jpg',
   primaryColor: RGBtoHex(franchise.primaryRGB),
   secondaryColor: RGBtoHex(franchise.secondaryRGB),
   submitIsDisabled: false,

@@ -149,14 +149,16 @@ const MarketplaceWorkshop: React.FC<Props> = ({
           );
         })}
         {/* Should be automatic but better safe than sorry */}
-        {!offersLoading && hasMoreToLoad && filteredMetaActivities.length > 0 && (
-          <div
-            ref={currentElement}
-            className="bs-workshop-page__workshops__lists__load-more"
-          >
-            <Button onClick={onEndReach}> {t('workshop.loadMore')}</Button>
-          </div>
-        )}
+        {!offersLoading &&
+          hasMoreToLoad &&
+          filteredMetaActivities.length > 0 && (
+            <div
+              ref={currentElement}
+              className="bs-workshop-page__workshops__lists__load-more"
+            >
+              <Button onClick={onEndReach}> {t('workshop.loadMore')}</Button>
+            </div>
+          )}
       </div>
     </div>
   );

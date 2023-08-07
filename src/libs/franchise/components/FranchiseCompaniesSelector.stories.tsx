@@ -21,7 +21,7 @@ const CustomTemplate = (args: OwnProps) => {
   );
 };
 
-const companiesFactory: FranchiseCompany[] = FranchiseCompanyListFactory(5)
+const companiesFactory: FranchiseCompany[] = FranchiseCompanyListFactory(5);
 
 const companies = companiesFactory.map((company, index) => ({
   ...company,
@@ -37,7 +37,7 @@ const companyDic = companies.reduce<Record<number, FranchiseCompany>>(
 const defaultArgs: OwnProps = {
   selectedCompanies: [],
   companyDic,
-  companies:companies,
+  companies: companies,
   withAllCompaniesTag: false,
   onChange: () => {},
 };

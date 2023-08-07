@@ -7,12 +7,12 @@ import { LOCALE_LIST } from '../../input/LocaleSelector.component';
 import './style.css';
 import { useTranslation } from 'react-i18next';
 
-const options: { label: string; value: string }[] = paymentPackListFactory(20).map(
-  (paymentPack) => ({
-    label: paymentPack.name,
-    value: paymentPack.id.toString(),
-  }),
-);
+const options: { label: string; value: string }[] = paymentPackListFactory(
+  20,
+).map((paymentPack) => ({
+  label: paymentPack.name,
+  value: paymentPack.id.toString(),
+}));
 
 // @ts-expect-error
 const SelectTemplate = (args: Props) => <SelectForStorybook {...args} />;

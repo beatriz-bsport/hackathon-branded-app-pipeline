@@ -1,53 +1,64 @@
-import React from 'react'
-import { ValidationRollCallButton, Props } from "./ValidationRollCallButton.component";
+import React from 'react';
+import {
+  ValidationRollCallButton,
+  Props,
+} from './ValidationRollCallButton.component';
 
-const GenericValidationRollCallButtonTemplate = (args: Props) => <ValidationRollCallButton {...args} />;
+const GenericValidationRollCallButtonTemplate = (args: Props) => (
+  <ValidationRollCallButton {...args} />
+);
 
-export const NoNeedValidationRollCallButton = GenericValidationRollCallButtonTemplate.bind({});
+export const NoNeedValidationRollCallButton =
+  GenericValidationRollCallButtonTemplate.bind({});
 
 NoNeedValidationRollCallButton.args = {
-    nbRollCallsLeftToValidate:0
+  nbRollCallsLeftToValidate: 0,
 };
 
-export const NeedValidationRollCallButton = GenericValidationRollCallButtonTemplate.bind({});
+export const NeedValidationRollCallButton =
+  GenericValidationRollCallButtonTemplate.bind({});
 
 NeedValidationRollCallButton.args = {
-    nbRollCallsLeftToValidate:1
+  nbRollCallsLeftToValidate: 1,
 };
 
-export const NeedValidationsRollCallButton = GenericValidationRollCallButtonTemplate.bind({});
+export const NeedValidationsRollCallButton =
+  GenericValidationRollCallButtonTemplate.bind({});
 
 NeedValidationsRollCallButton.args = {
-    nbRollCallsLeftToValidate:2
+  nbRollCallsLeftToValidate: 2,
 };
 
-export const NoNeedValidationRollCallButtonOutlined = GenericValidationRollCallButtonTemplate.bind({});
+export const NoNeedValidationRollCallButtonOutlined =
+  GenericValidationRollCallButtonTemplate.bind({});
 
 NoNeedValidationRollCallButtonOutlined.args = {
-    nbRollCallsLeftToValidate:0,
-    outlined:true
+  nbRollCallsLeftToValidate: 0,
+  outlined: true,
 };
 
-export const NeedValidationRollCallButtonOutlined = GenericValidationRollCallButtonTemplate.bind({});
+export const NeedValidationRollCallButtonOutlined =
+  GenericValidationRollCallButtonTemplate.bind({});
 
 NeedValidationRollCallButtonOutlined.args = {
-    nbRollCallsLeftToValidate:1,
-    outlined:true
+  nbRollCallsLeftToValidate: 1,
+  outlined: true,
 };
 
-export const NeedValidationsRollCallButtonOutlined = GenericValidationRollCallButtonTemplate.bind({});
+export const NeedValidationsRollCallButtonOutlined =
+  GenericValidationRollCallButtonTemplate.bind({});
 
 NeedValidationsRollCallButtonOutlined.args = {
-    nbRollCallsLeftToValidate:2,
-    outlined:true
+  nbRollCallsLeftToValidate: 2,
+  outlined: true,
 };
 
 export default {
-    title:'Offer/Components/RollCall/Button', 
-    component:ValidationRollCallButton,
-    parameters: {
-        docs: {
-            page: null
-        }
-    }
+  title: 'Offer/Components/RollCall/Button',
+  component: ValidationRollCallButton,
+  parameters: {
+    docs: {
+      page: null,
+    },
+  },
 };

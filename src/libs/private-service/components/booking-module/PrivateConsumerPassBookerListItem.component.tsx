@@ -110,11 +110,12 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
           ' - '
         }`}
       </Typography>
-      {private_consumer_pass.member && private_consumer_pass.member.archived && (
-        <Typography color="secondary" variant="caption">
-          {`${'\u00A0'}(${t('member:archived')})`}
-        </Typography>
-      )}
+      {private_consumer_pass.member &&
+        private_consumer_pass.member.archived && (
+          <Typography color="secondary" variant="caption">
+            {`${'\u00A0'}(${t('member:archived')})`}
+          </Typography>
+        )}
     </div>
   );
   const renderButton = () => {
@@ -265,11 +266,13 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
         onClick={props.onClick}
         selected={!!props.selected}
       >
-        {showMember && private_consumer_pass && private_consumer_pass.member && (
-          <ListItemAvatar>
-            <Avatar src={private_consumer_pass.member.photo} />
-          </ListItemAvatar>
-        )}
+        {showMember &&
+          private_consumer_pass &&
+          private_consumer_pass.member && (
+            <ListItemAvatar>
+              <Avatar src={private_consumer_pass.member.photo} />
+            </ListItemAvatar>
+          )}
         <ListItemText
           primary={
             <div>

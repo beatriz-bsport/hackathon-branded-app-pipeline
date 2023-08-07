@@ -40,7 +40,7 @@ paymentPackCardWithDateRange.args = {
 export const paymentPackCardPricingPage = Template.bind({});
 paymentPackCardPricingPage.args = {
   paymentPack: fakepaymentPackWithDateRange,
-  variant: 'pricing_page'
+  variant: 'pricing_page',
 };
 
 export default {

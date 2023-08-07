@@ -2,7 +2,9 @@ import React from 'react';
 import FranchiseMemberMembership, {
   OwnProps,
 } from './FranchiseMemberMembership.components';
-import FactoryBot, { FranchiseCompanyListFactory } from '../factories/FranchiseCompanyFactory';
+import FactoryBot, {
+  FranchiseCompanyListFactory,
+} from '../factories/FranchiseCompanyFactory';
 
 const CustomTemplate = (args: OwnProps) => (
   <FranchiseMemberMembership {...args} />
@@ -11,7 +13,7 @@ const CustomTemplate = (args: OwnProps) => (
 export const CompleteDefaultState = CustomTemplate.bind({});
 
 // @ts-ignore
-const companies = FranchiseCompanyListFactory(5)
+const companies = FranchiseCompanyListFactory(5);
 
 CompleteDefaultState.args = {
   companies,

@@ -254,13 +254,14 @@ const OfferFormSpecificities = (props: Props) => {
               variant="outlined"
             />
 
-            {!!errors.effectif && (touched.effectif || touched.roomBlueprint) && (
-              <div>
-                <Typography color="error" variant="caption">
-                  {t(errors.effectif)}
-                </Typography>
-              </div>
-            )}
+            {!!errors.effectif &&
+              (touched.effectif || touched.roomBlueprint) && (
+                <div>
+                  <Typography color="error" variant="caption">
+                    {t(errors.effectif)}
+                  </Typography>
+                </div>
+              )}
           </div>
         </OfferFormField>
 

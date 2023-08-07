@@ -100,7 +100,7 @@ export const PaymentStripeGiropay = forwardRef(
           ) {
             setPaymentPageProcessing(false);
             // eslint-disable-next-line
-        window.alert(t('paymentPanel.actions.basketInconsistent'));
+            window.alert(t('paymentPanel.actions.basketInconsistent'));
             window.location.reload();
             return;
           }

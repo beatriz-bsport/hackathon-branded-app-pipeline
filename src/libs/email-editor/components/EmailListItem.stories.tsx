@@ -11,10 +11,10 @@ const CustomTemplate = (args: OwnProps) => <EmailListItem {...args} />;
 
 export const DefaultState = CustomTemplate.bind({});
 
-const email: EmailTemplateSummary = EmailTemplateSummaryFactoryBot.EmailTemplateSummary.createOne();
-const companies: FranchiseCompany[] = FranchiseCompanyFactoryBot.FranchiseCompany.create(
-  5,
-);
+const email: EmailTemplateSummary =
+  EmailTemplateSummaryFactoryBot.EmailTemplateSummary.createOne();
+const companies: FranchiseCompany[] =
+  FranchiseCompanyFactoryBot.FranchiseCompany.create(5);
 
 const defaultArgs: OwnProps = {
   email,

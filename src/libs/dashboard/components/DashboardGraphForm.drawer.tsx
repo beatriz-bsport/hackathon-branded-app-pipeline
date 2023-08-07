@@ -644,19 +644,20 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
                       </Typography>
                     )}
                   </NestedAlertError>
-                  {selectedGraphConsumableMetadata?.length > 0 && !isPreview && (
-                    <ButtonBase
-                      ref={buttonRef}
-                      className={classes.buttonAdd}
-                      color="primary"
-                      onClick={handleOpenMenu}
-                    >
-                      <AddIcon color="primary" />
-                      <Typography className={classes.bold}>
-                        {t('reporting:filter.form.add')?.toUpperCase()}
-                      </Typography>
-                    </ButtonBase>
-                  )}
+                  {selectedGraphConsumableMetadata?.length > 0 &&
+                    !isPreview && (
+                      <ButtonBase
+                        ref={buttonRef}
+                        className={classes.buttonAdd}
+                        color="primary"
+                        onClick={handleOpenMenu}
+                      >
+                        <AddIcon color="primary" />
+                        <Typography className={classes.bold}>
+                          {t('reporting:filter.form.add')?.toUpperCase()}
+                        </Typography>
+                      </ButtonBase>
+                    )}
                   <Menu
                     anchorEl={buttonRef.current}
                     className={classes.menu}

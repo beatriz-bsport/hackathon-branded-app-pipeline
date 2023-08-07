@@ -222,57 +222,59 @@ const OfferSummary: React.FC<Props> = (props) => {
           )}
         </div>
       </div>
-      {(!isWaitlistFull || isBookable) && onConfirm && variant === 'default' && (
-        <div className={classes.columnGap2}>
-          {!!price && (
-            <>
-              {displayTax && (
-                <div className={classes.columnGap1}>
-                  <div className={classes.price}>
-                    <Typography className={classes.grey} variant="body2">
-                      {t(`checkout:payment.taxExcluded`)}
-                    </Typography>
-                    <Typography variant="body2">
-                      {getCurrencyDisplayWithPrice(price, true, tax)}
-                    </Typography>
+      {(!isWaitlistFull || isBookable) &&
+        onConfirm &&
+        variant === 'default' && (
+          <div className={classes.columnGap2}>
+            {!!price && (
+              <>
+                {displayTax && (
+                  <div className={classes.columnGap1}>
+                    <div className={classes.price}>
+                      <Typography className={classes.grey} variant="body2">
+                        {t(`checkout:payment.taxExcluded`)}
+                      </Typography>
+                      <Typography variant="body2">
+                        {getCurrencyDisplayWithPrice(price, true, tax)}
+                      </Typography>
+                    </div>
+                    <div className={classes.price}>
+                      <Typography className={classes.grey} variant="body2">
+                        {t(`checkout:payment.tax`)}
+                      </Typography>
+                      <Typography variant="body2">
+                        {getCurrencyDisplayWithPrice(getTaxPrice(price, tax))}
+                      </Typography>
+                    </div>
                   </div>
-                  <div className={classes.price}>
-                    <Typography className={classes.grey} variant="body2">
-                      {t(`checkout:payment.tax`)}
-                    </Typography>
-                    <Typography variant="body2">
-                      {getCurrencyDisplayWithPrice(getTaxPrice(price, tax))}
-                    </Typography>
-                  </div>
+                )}
+                <div className={classes.price}>
+                  <Typography variant="h6">
+                    {t(`checkout:payment.globalTotal`)}
+                  </Typography>
+                  <Typography variant="h6">
+                    {getCurrencyDisplayWithPrice(price)}
+                  </Typography>
                 </div>
-              )}
-              <div className={classes.price}>
-                <Typography variant="h6">
-                  {t(`checkout:payment.globalTotal`)}
-                </Typography>
-                <Typography variant="h6">
-                  {getCurrencyDisplayWithPrice(price)}
-                </Typography>
-              </div>
-            </>
-          )}
-          <BookingConfirmButton
-            buttonLoading={confirmLoading}
-            disabled={
-              (offerStatus && !isBookable && !isWaitlistOpen) ||
-              disableButton ||
-              confirmLoading ||
-              loading
-            }
-            onClick={onConfirm}
-            value={
-              !offer.full
-                ? t(`booking:notification.form.submit`)
-                : t(`booking:offer.mainButton.registerWaitingList`)
-            }
-          />
-        </div>
-      )}
+              </>
+            )}
+            <BookingConfirmButton
+              buttonLoading={confirmLoading}
+              disabled={
+                (offerStatus && !isBookable && !isWaitlistOpen) ||
+                disableButton ||
+                confirmLoading ||
+                loading
+              }
+              onClick={onConfirm}
+              value={
+                !offer.full
+                  ? t(`booking:notification.form.submit`)
+                  : t(`booking:offer.mainButton.registerWaitingList`)
+              }
+            />
+          </div>
+        )}
     </div>
   );
 };

@@ -43,14 +43,15 @@ export const SubscriptionPaymentMethod = (props: Props) => {
           </Button>
         </React.Fragment>
       )}
-      {props.paymentEngine === PAYMENT_ENGINE_STRIPE && !!props.paymentMethod && (
-        <Paper>
-          <PaymentMethodListItem
-            onEdit={props.onEdit}
-            paymentMethod={props.paymentMethod}
-          />
-        </Paper>
-      )}
+      {props.paymentEngine === PAYMENT_ENGINE_STRIPE &&
+        !!props.paymentMethod && (
+          <Paper>
+            <PaymentMethodListItem
+              onEdit={props.onEdit}
+              paymentMethod={props.paymentMethod}
+            />
+          </Paper>
+        )}
       {props.paymentEngine === PAYMENT_ENGINE_STRIPE &&
         !props.paymentMethod &&
         (props.loading ? (

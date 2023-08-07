@@ -231,23 +231,24 @@ export const SubscriptionSummary = (props: Props) => {
             </Typography>
           </div>
         )}
-        {lastInvoice && !(subscription.has_ended || subscription.canceled_at) && (
-          <div className={classes.field}>
-            <Typography className={classes.scheduledStop} variant="body2">
-              {t('subscription.scheduledStop.summary', {
-                date: moment(lastInvoice.date).format('L'),
-              })}
-            </Typography>
-            <Button
-              color="error"
-              disabled={moment(lastInvoice.date).isBefore(moment())}
-              onClick={() => props.unflagPlannedInvoiceAsLast(lastInvoice.id)}
-              variant="outlined"
-            >
-              {t('form.cancel')}
-            </Button>
-          </div>
-        )}
+        {lastInvoice &&
+          !(subscription.has_ended || subscription.canceled_at) && (
+            <div className={classes.field}>
+              <Typography className={classes.scheduledStop} variant="body2">
+                {t('subscription.scheduledStop.summary', {
+                  date: moment(lastInvoice.date).format('L'),
+                })}
+              </Typography>
+              <Button
+                color="error"
+                disabled={moment(lastInvoice.date).isBefore(moment())}
+                onClick={() => props.unflagPlannedInvoiceAsLast(lastInvoice.id)}
+                variant="outlined"
+              >
+                {t('form.cancel')}
+              </Button>
+            </div>
+          )}
       </fieldset>
       <ContractTermsDialog
         closeContractTermsDialog={onCloseContractTermsDialog}

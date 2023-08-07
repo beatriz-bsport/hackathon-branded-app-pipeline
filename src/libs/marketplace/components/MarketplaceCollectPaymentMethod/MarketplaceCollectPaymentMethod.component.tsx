@@ -391,97 +391,105 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
                 {t('forms.paymentMethod.collect.content')}
               </p>
 
-              {type === MarketplacePaymentMethods.sepa && !error && !success && (
-                <div className="bs-collect-payment-method__mandate__fields__container">
-                  <input
-                    required
-                    className="bs-collect-payment-method__mandate__field"
-                    onChange={handleChangeName}
-                    placeholder={t('subscription:mandate.name')}
-                    value={billingDetails.name}
-                  />
-                  <input
-                    required
-                    className="bs-collect-payment-method__mandate__field"
-                    onChange={handleChangeEmail}
-                    placeholder={t('subscription:mandate.email')}
-                    type="email"
-                    value={billingDetails.email}
-                  />
-                </div>
-              )}
+              {type === MarketplacePaymentMethods.sepa &&
+                !error &&
+                !success && (
+                  <div className="bs-collect-payment-method__mandate__fields__container">
+                    <input
+                      required
+                      className="bs-collect-payment-method__mandate__field"
+                      onChange={handleChangeName}
+                      placeholder={t('subscription:mandate.name')}
+                      value={billingDetails.name}
+                    />
+                    <input
+                      required
+                      className="bs-collect-payment-method__mandate__field"
+                      onChange={handleChangeEmail}
+                      placeholder={t('subscription:mandate.email')}
+                      type="email"
+                      value={billingDetails.email}
+                    />
+                  </div>
+                )}
 
-              {type === MarketplacePaymentMethods.bacs && !error && !success && (
-                <div className="bs-collect-payment-method__mandate__fields__container">
-                  <input
-                    required
-                    className="bs-collect-payment-method__mandate__field"
-                    onChange={handleChangeName}
-                    placeholder={t('subscription:mandate.name')}
-                    value={billingDetails.name}
-                  />
-                  <input
-                    required
-                    className="bs-collect-payment-method__mandate__field"
-                    onChange={handleChangeEmail}
-                    placeholder={t('subscription:mandate.email')}
-                    type="email"
-                    value={billingDetails.email}
-                  />
-                  <Select
-                    fullWidth
-                    classes={{ buttonContainer: 'bs-select__button__square' }}
-                    onChange={handleChangeCountry}
-                    options={countryOptions}
-                    placeholder={t('translation:form.address.country')}
-                    renderListItem={(
-                      option: SelectOptionWithMetaData<CountryMetaData>,
-                    ) => <CountryOption option={option} />}
-                    value={billingDetails.address.country}
-                  />
-                  <input
-                    required
-                    className="bs-collect-payment-method__mandate__field"
-                    onChange={handleChangeLineOne}
-                    placeholder={t('marketing:customForm.field.address_line_1')}
-                    value={billingDetails.address.line1}
-                  />
-                  <input
-                    className="bs-collect-payment-method__mandate__field"
-                    onChange={handleChangeLineTwo}
-                    placeholder={t('marketing:customForm.field.address_line_2')}
-                    value={billingDetails.address.line2}
-                  />
-                  <input
-                    required
-                    className="bs-collect-payment-method__mandate__field"
-                    onChange={handleChangePostalCode}
-                    placeholder={t('marketing:customForm.field.zipcode')}
-                    value={billingDetails.address.postalCode}
-                  />
-                  <input
-                    required
-                    className="bs-collect-payment-method__mandate__field"
-                    onChange={handleChangeCity}
-                    placeholder={t('marketing:customForm.field.city')}
-                    value={billingDetails.address.city}
-                  />
-                  <input
-                    required
-                    className="bs-collect-payment-method__mandate__field"
-                    onChange={handleChangeSortCode}
-                    placeholder={t('subscription:mandate.sortCode')}
-                    value={billingDetails.sortCode}
-                  />
-                  <input
-                    required
-                    className="bs-collect-payment-method__mandate__field"
-                    onChange={handleChangeAccountNumber}
-                    placeholder={t('subscription:mandate.accountNumber')}
-                    value={billingDetails.accountNumber}
-                  />
-                </div>
-              )}
+              {type === MarketplacePaymentMethods.bacs &&
+                !error &&
+                !success && (
+                  <div className="bs-collect-payment-method__mandate__fields__container">
+                    <input
+                      required
+                      className="bs-collect-payment-method__mandate__field"
+                      onChange={handleChangeName}
+                      placeholder={t('subscription:mandate.name')}
+                      value={billingDetails.name}
+                    />
+                    <input
+                      required
+                      className="bs-collect-payment-method__mandate__field"
+                      onChange={handleChangeEmail}
+                      placeholder={t('subscription:mandate.email')}
+                      type="email"
+                      value={billingDetails.email}
+                    />
+                    <Select
+                      fullWidth
+                      classes={{ buttonContainer: 'bs-select__button__square' }}
+                      onChange={handleChangeCountry}
+                      options={countryOptions}
+                      placeholder={t('translation:form.address.country')}
+                      renderListItem={(
+                        option: SelectOptionWithMetaData<CountryMetaData>,
+                      ) => <CountryOption option={option} />}
+                      value={billingDetails.address.country}
+                    />
+                    <input
+                      required
+                      className="bs-collect-payment-method__mandate__field"
+                      onChange={handleChangeLineOne}
+                      placeholder={t(
+                        'marketing:customForm.field.address_line_1',
+                      )}
+                      value={billingDetails.address.line1}
+                    />
+                    <input
+                      className="bs-collect-payment-method__mandate__field"
+                      onChange={handleChangeLineTwo}
+                      placeholder={t(
+                        'marketing:customForm.field.address_line_2',
+                      )}
+                      value={billingDetails.address.line2}
+                    />
+                    <input
+                      required
+                      className="bs-collect-payment-method__mandate__field"
+                      onChange={handleChangePostalCode}
+                      placeholder={t('marketing:customForm.field.zipcode')}
+                      value={billingDetails.address.postalCode}
+                    />
+                    <input
+                      required
+                      className="bs-collect-payment-method__mandate__field"
+                      onChange={handleChangeCity}
+                      placeholder={t('marketing:customForm.field.city')}
+                      value={billingDetails.address.city}
+                    />
+                    <input
+                      required
+                      className="bs-collect-payment-method__mandate__field"
+                      onChange={handleChangeSortCode}
+                      placeholder={t('subscription:mandate.sortCode')}
+                      value={billingDetails.sortCode}
+                    />
+                    <input
+                      required
+                      className="bs-collect-payment-method__mandate__field"
+                      onChange={handleChangeAccountNumber}
+                      placeholder={t('subscription:mandate.accountNumber')}
+                      value={billingDetails.accountNumber}
+                    />
+                  </div>
+                )}
 
               {error && (
                 <div className="bs-collect-payment-method__info__container">

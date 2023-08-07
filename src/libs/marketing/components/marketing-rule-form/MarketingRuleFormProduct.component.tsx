@@ -276,54 +276,58 @@ const ProductNotificationForm = (props: Props) => {
               </div>
             )}
           </div>
-          {identifier === 'payment_pack' && verboseNotifKind === 'creditsLeft' && (
-            <>
-              <Divider className={classes.divider} />
-              <div className={classes.fieldContainer}>
-                <div className={classes.titleContainer}>
-                  <EventIcon color="action" />
-                  <Typography variant="h6">
-                    {t('notificationRule:triggeringEvent.title')}
-                  </Typography>
+          {identifier === 'payment_pack' &&
+            verboseNotifKind === 'creditsLeft' && (
+              <>
+                <Divider className={classes.divider} />
+                <div className={classes.fieldContainer}>
+                  <div className={classes.titleContainer}>
+                    <EventIcon color="action" />
+                    <Typography variant="h6">
+                      {t('notificationRule:triggeringEvent.title')}
+                    </Typography>
+                  </div>
+                  <div className={classes.choiceField}>
+                    <RadioGroupField
+                      choices={[
+                        {
+                          label: t(
+                            'notification.form.creditNotificationType.onBooking',
+                          ),
+                          value: 'onBooking',
+                        },
+                        {
+                          label: t(
+                            'notification.form.creditNotificationType.onOfferStart',
+                          ),
+                          value: 'onOfferStart',
+                        },
+                      ]}
+                      labelClass={classes.labelClass}
+                      name="creditNotificationKind"
+                    />
+                  </div>
+                  <div className={classes.inlineContainer}>
+                    <Typography variant="body2">
+                      {t('notification.form.chooseTime.first')}
+                    </Typography>
+                    <IntegerField
+                      className={classes.integerInput}
+                      name="hours"
+                    />
+                    <Typography variant="body2">
+                      {t(
+                        `notification.form.chooseTime.${
+                          creditNotificationKind === 'onBooking'
+                            ? 'secondOnBooking'
+                            : 'secondOnOfferStart'
+                        }`,
+                      )}
+                    </Typography>
+                  </div>
                 </div>
-                <div className={classes.choiceField}>
-                  <RadioGroupField
-                    choices={[
-                      {
-                        label: t(
-                          'notification.form.creditNotificationType.onBooking',
-                        ),
-                        value: 'onBooking',
-                      },
-                      {
-                        label: t(
-                          'notification.form.creditNotificationType.onOfferStart',
-                        ),
-                        value: 'onOfferStart',
-                      },
-                    ]}
-                    labelClass={classes.labelClass}
-                    name="creditNotificationKind"
-                  />
-                </div>
-                <div className={classes.inlineContainer}>
-                  <Typography variant="body2">
-                    {t('notification.form.chooseTime.first')}
-                  </Typography>
-                  <IntegerField className={classes.integerInput} name="hours" />
-                  <Typography variant="body2">
-                    {t(
-                      `notification.form.chooseTime.${
-                        creditNotificationKind === 'onBooking'
-                          ? 'secondOnBooking'
-                          : 'secondOnOfferStart'
-                      }`,
-                    )}
-                  </Typography>
-                </div>
-              </div>
-            </>
-          )}
+              </>
+            )}
           <Divider className={classes.divider} />
           <div className={classes.fieldContainer}>
             <div className={classes.titleContainer}>

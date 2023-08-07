@@ -6,14 +6,13 @@ import MockAdapter from 'axios-mock-adapter';
 
 import { parseQueryString } from '../../../http';
 import consumerReducer from '../reducers';
-import {RootState} from "../../../reducers";
+import { RootState } from '../../../reducers';
 
 const mockAxios = new MockAdapter(axios);
 
 /**
  * Setup a Store
  */
-
 
 const appReducer = combineReducers({ consumer: consumerReducer });
 

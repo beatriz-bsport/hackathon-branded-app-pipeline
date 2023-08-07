@@ -236,7 +236,13 @@ export const PartnershipSchema = Yup.object().shape({
 
 export const PartnershipFormHoc = withFormik({
   // eslint-disable-next-line
-  mapPropsToValues: ({ initial, establishmentList }: { initial: PartnershipCompany, establishmentList: Array<Establishment>}) => {
+  mapPropsToValues: ({
+    initial,
+    establishmentList,
+  }: {
+    initial: PartnershipCompany;
+    establishmentList: Array<Establishment>;
+  }) => {
     return initial
       ? {
           ...initial,

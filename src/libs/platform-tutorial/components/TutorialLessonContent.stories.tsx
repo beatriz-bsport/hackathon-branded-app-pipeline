@@ -18,9 +18,9 @@ const options = {
   completeAndGoToLesson: () => {
     alert('End section!');
   },
-  completeAndGoToMenu : () => {
+  completeAndGoToMenu: () => {
     alert('Go to menu!');
-  }
+  },
 };
 const goToPreviousLesson = (id: number) => {
   if (id !== null) {

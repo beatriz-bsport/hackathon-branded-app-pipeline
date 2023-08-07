@@ -1,48 +1,59 @@
 import React from 'react';
-import {Props, ConfirmationRollCallDialog} from './ConfirmationRollCallDialog.component';
+import {
+  Props,
+  ConfirmationRollCallDialog,
+} from './ConfirmationRollCallDialog.component';
 import { OptionCallback } from 'src/state/types';
 
-const GenericConfirmationRollCallDialogTemplate = (args: Props)=> <ConfirmationRollCallDialog {...args}/>;
+const GenericConfirmationRollCallDialogTemplate = (args: Props) => (
+  <ConfirmationRollCallDialog {...args} />
+);
 
-export const GenericConfirmationRollCallDialog = GenericConfirmationRollCallDialogTemplate.bind({});
+export const GenericConfirmationRollCallDialog =
+  GenericConfirmationRollCallDialogTemplate.bind({});
 
 GenericConfirmationRollCallDialog.args = {
-    open:true,
-    nbRollCallsLeftToValidate:1,
-    onConfirm:(options?:OptionCallback)=>{console.log("hello");
-    options?.onSuccess?.();    
-    },
-    isLoading:false
-}
+  open: true,
+  nbRollCallsLeftToValidate: 1,
+  onConfirm: (options?: OptionCallback) => {
+    console.log('hello');
+    options?.onSuccess?.();
+  },
+  isLoading: false,
+};
 
-export const GenericListConfirmationRollCallsDialog = GenericConfirmationRollCallDialogTemplate.bind({});
+export const GenericListConfirmationRollCallsDialog =
+  GenericConfirmationRollCallDialogTemplate.bind({});
 
 GenericListConfirmationRollCallsDialog.args = {
-    open:true,
-    nbRollCallsLeftToValidate:2,
-    onConfirm:(options?:OptionCallback)=>{console.log("hello");
-    options?.onSuccess?.();    
-    },
-    isLoading:false
-}
+  open: true,
+  nbRollCallsLeftToValidate: 2,
+  onConfirm: (options?: OptionCallback) => {
+    console.log('hello');
+    options?.onSuccess?.();
+  },
+  isLoading: false,
+};
 
-export const LoadingConfirmationRollCallDialog = GenericConfirmationRollCallDialogTemplate.bind({});
+export const LoadingConfirmationRollCallDialog =
+  GenericConfirmationRollCallDialogTemplate.bind({});
 
 LoadingConfirmationRollCallDialog.args = {
-    open:true,
-    nbRollCallsLeftToValidate:1,
-    onConfirm:(options?:OptionCallback)=>{console.log("hello");
+  open: true,
+  nbRollCallsLeftToValidate: 1,
+  onConfirm: (options?: OptionCallback) => {
+    console.log('hello');
     options?.onSuccess?.();
-    },
-    isLoading:true
-}
+  },
+  isLoading: true,
+};
 
 export default {
-    title:'Offer/Components/RollCall/Dialog', 
-    component:ConfirmationRollCallDialog,
-    parameters: {
-        docs: {
-            page: null
-        }
-    }
+  title: 'Offer/Components/RollCall/Dialog',
+  component: ConfirmationRollCallDialog,
+  parameters: {
+    docs: {
+      page: null,
+    },
+  },
 };

@@ -9,16 +9,16 @@ type State = {
   prevSearch: string | null;
   unlisten: () => void;
 };
-export function withRudderStackHistoryTracker<P> (
+export function withRudderStackHistoryTracker<P>(
   WrappedComponent: React.ComponentType<P>,
-)  {
-  return class extends React.Component<P,State> {
-    constructor(props:P) {
+) {
+  return class extends React.Component<P, State> {
+    constructor(props: P) {
       super(props);
       this.state = {
         prevPath: null,
         prevSearch: null,
-        unlisten : history.listen((location) => {
+        unlisten: history.listen((location) => {
           if (
             location.pathname !== this.state.prevPath ||
             location.search != this.state.prevPath
@@ -28,7 +28,7 @@ export function withRudderStackHistoryTracker<P> (
               prevSearch: location.search,
             });
           }
-        })
+        }),
       };
     }
 
@@ -42,15 +42,13 @@ export function withRudderStackHistoryTracker<P> (
         prevState.prevSearch !== this.state.prevSearch
       ) {
         const parsedQueryString = parseQueryString(this.state.prevSearch);
-        rudderStackPage(
-          parsedQueryString 
-        );
+        rudderStackPage(parsedQueryString);
       }
     }
     render() {
       return <WrappedComponent {...this.props} />;
     }
   };
-};
+}
 
 export default withRudderStackHistoryTracker;

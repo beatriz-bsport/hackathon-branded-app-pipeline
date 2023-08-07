@@ -284,29 +284,30 @@ export class DeleteOfferForm extends Component<Props, State> {
         <Typography className={classes.explainText}>
           {t('form.offer.delete.explainModalities')}
         </Typography>
-        {hasPendingReplacementRequest && !!setOpenReplacementRequestOnCancel && (
-          <Alert severity="warning">
-            <AlertTitle>
-              {t(
-                'replacement:requestsLinkedToCancelledOffers.offerHasActiveRequest.title',
-              )}
-            </AlertTitle>
+        {hasPendingReplacementRequest &&
+          !!setOpenReplacementRequestOnCancel && (
+            <Alert severity="warning">
+              <AlertTitle>
+                {t(
+                  'replacement:requestsLinkedToCancelledOffers.offerHasActiveRequest.title',
+                )}
+              </AlertTitle>
 
-            <FormControlLabel
-              control={
-                <CheckBox
-                  checked={openReplacementRequestPageOnCancel}
-                  onChange={(_, checked) =>
-                    setOpenReplacementRequestOnCancel(checked)
-                  }
-                />
-              }
-              label={t(
-                'replacement:requestsLinkedToCancelledOffers.offerHasActiveRequest.helper',
-              )}
-            />
-          </Alert>
-        )}
+              <FormControlLabel
+                control={
+                  <CheckBox
+                    checked={openReplacementRequestPageOnCancel}
+                    onChange={(_, checked) =>
+                      setOpenReplacementRequestOnCancel(checked)
+                    }
+                  />
+                }
+                label={t(
+                  'replacement:requestsLinkedToCancelledOffers.offerHasActiveRequest.helper',
+                )}
+              />
+            </Alert>
+          )}
         <Hidden xsUp>
           <div className={classes.row}>
             <Switch

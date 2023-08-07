@@ -89,44 +89,47 @@ const OfferFormEditCoachOverride = (props: Props) => {
         </Alert>
       </div>
 
-      {isCoachOverridePropagate && similarSessionsWithCoachOverride.length > 0 && (
-        <>
-          <Alert severity="warning">
-            {t('liveOfferEdit.editSubteacher.propagateToSimilarOffers.warning')}
-          </Alert>
-
-          <RadioGroup
-            className={classes.coachOverrideModeRadioGroup}
-            name="coachOverridePropagateMode"
-            onChange={handleCoachOverridePropagateMode}
-            value={coachOverridePropagateMode}
-          >
-            <FormControlLabel
-              control={<Radio />}
-              label={t(
-                'liveOfferEdit.editSubteacher.propagateToSimilarOffers.mode.offersWithSameCoachOverrideOnly',
+      {isCoachOverridePropagate &&
+        similarSessionsWithCoachOverride.length > 0 && (
+          <>
+            <Alert severity="warning">
+              {t(
+                'liveOfferEdit.editSubteacher.propagateToSimilarOffers.warning',
               )}
-              value={
-                PropagateCoachOverrideToSimilarOffers.PROPAGATE_TO_OFFERS_WITH_SAME_COACH_OVERRIDE_ONLY
-              }
-            />
-            <FormControlLabel
-              control={<Radio />}
-              label={t(
-                'liveOfferEdit.editSubteacher.propagateToSimilarOffers.mode.all',
-              )}
-              value={PropagateCoachOverrideToSimilarOffers.PROPAGATE_TO_ALL}
-            />
-          </RadioGroup>
+            </Alert>
 
-          <SimilarOffersList
-            isCoachOverrideWarning
-            coaches={coaches}
-            similarOffers={similarSessionsWithCoachOverride}
-            similarOffersLoading={similarOffersLoading}
-          />
-        </>
-      )}
+            <RadioGroup
+              className={classes.coachOverrideModeRadioGroup}
+              name="coachOverridePropagateMode"
+              onChange={handleCoachOverridePropagateMode}
+              value={coachOverridePropagateMode}
+            >
+              <FormControlLabel
+                control={<Radio />}
+                label={t(
+                  'liveOfferEdit.editSubteacher.propagateToSimilarOffers.mode.offersWithSameCoachOverrideOnly',
+                )}
+                value={
+                  PropagateCoachOverrideToSimilarOffers.PROPAGATE_TO_OFFERS_WITH_SAME_COACH_OVERRIDE_ONLY
+                }
+              />
+              <FormControlLabel
+                control={<Radio />}
+                label={t(
+                  'liveOfferEdit.editSubteacher.propagateToSimilarOffers.mode.all',
+                )}
+                value={PropagateCoachOverrideToSimilarOffers.PROPAGATE_TO_ALL}
+              />
+            </RadioGroup>
+
+            <SimilarOffersList
+              isCoachOverrideWarning
+              coaches={coaches}
+              similarOffers={similarSessionsWithCoachOverride}
+              similarOffersLoading={similarOffersLoading}
+            />
+          </>
+        )}
     </FormSection>
   );
 };

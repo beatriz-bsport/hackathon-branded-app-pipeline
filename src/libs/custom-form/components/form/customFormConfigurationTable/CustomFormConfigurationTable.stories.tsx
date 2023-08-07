@@ -3,15 +3,12 @@ import React from 'react';
 import moment from 'moment-timezone';
 import Grid from '@material-ui/core/Grid';
 import CustomFormConfigurationTable from './CustomFormConfigurationTable.form';
-import {
-  CUSTOM_FORM_FIELDS_OPTIONS,
-} from '../../../utils';
-import type { TagGroupAPI, Tag } from '../../../../tag/types'
-import type { CustomForm } from '../../../types'
-import FactoryBot from "#libs/theme/factories"
+import { CUSTOM_FORM_FIELDS_OPTIONS } from '../../../utils';
+import type { TagGroupAPI, Tag } from '../../../../tag/types';
+import type { CustomForm } from '../../../types';
+import FactoryBot from '#libs/theme/factories';
 
-const companyTheme = FactoryBot.companyTheme.createOne()
-
+const companyTheme = FactoryBot.companyTheme.createOne();
 
 interface argTypes {
   initial: CustomForm;
@@ -53,9 +50,8 @@ const fieldOptionsBuilder = () => {
   });
 };
 
-
 CompleteInitialState.args = {
-  companyTheme:companyTheme,
+  companyTheme: companyTheme,
   setNumberOfQuestionsHasChanged: () => {},
   tag_groups: [
     {
@@ -94,13 +90,12 @@ CompleteInitialState.args = {
   },
 };
 
-
 export default {
   title: 'Marketing/CustomForm',
   component: CustomFormConfigurationTable,
   parameters: {
     docs: {
-      page: null
-    }
+      page: null,
+    },
   },
 };

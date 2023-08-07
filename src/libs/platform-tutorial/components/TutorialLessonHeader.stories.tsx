@@ -13,18 +13,30 @@ const lesson3 = TutorialLessonFactory(3, 3, 1, true);
 const lesson4 = TutorialLessonFactory(4, 4, 1, false);
 
 const CustomTemplate = (args: Props) => {
-  const [selectedLesson, setSelectedLesson] = React.useState(section_completed.lessons[1])
-  const goToLesson = (sectionId: number | string, lessonId: number | string) => {
-    setSelectedLesson(section_completed.lessons[lessonId]) 
-  }
-  return(<TutorialLessonHeader {...args} selectedLesson={selectedLesson} goToLesson={goToLesson}/>)}
+  const [selectedLesson, setSelectedLesson] = React.useState(
+    section_completed.lessons[1],
+  );
+  const goToLesson = (
+    sectionId: number | string,
+    lessonId: number | string,
+  ) => {
+    setSelectedLesson(section_completed.lessons[lessonId]);
+  };
+  return (
+    <TutorialLessonHeader
+      {...args}
+      selectedLesson={selectedLesson}
+      goToLesson={goToLesson}
+    />
+  );
+};
 
 export const TutorialLessonHeaderAllCompleted = CustomTemplate.bind({});
 
 TutorialLessonHeaderAllCompleted.args = {
   section: section_completed,
   selectedLesson: section_completed.lessons[1],
-  goToLesson: () => {}
+  goToLesson: () => {},
 };
 
 export const TutorialLessonHeaderNoCompleted = CustomTemplate.bind({});

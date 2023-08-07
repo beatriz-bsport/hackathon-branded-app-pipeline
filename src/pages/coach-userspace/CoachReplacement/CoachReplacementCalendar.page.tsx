@@ -254,31 +254,32 @@ export const CoachReplacementCalendar: React.FC<Props> = (props: Props) => {
           />
         </div>
 
-        {!lateReplacementRequestStatusLoading && lateReplacementRequestStatus && (
-          <Alert classes={{ root: classes.alertOverride }} severity="info">
-            {lateReplacementRequestStatus.is_late_replacement_request_limited ? (
-              <Trans
-                i18nKey="calendar.helperTextLimited"
-                t={t}
-                values={{
-                  requestsLeft: interactiveNbLateRequestsLeft,
-                  requestsMax:
-                    lateReplacementRequestStatus.max_late_requests_per_limitation_period,
-                  dateEnd: moment(
-                    lateReplacementRequestStatus.current_limitation_period_end,
-                  ).format('L'),
+        {!lateReplacementRequestStatusLoading &&
+          lateReplacementRequestStatus && (
+            <Alert classes={{ root: classes.alertOverride }} severity="info">
+              {lateReplacementRequestStatus.is_late_replacement_request_limited ? (
+                <Trans
+                  i18nKey="calendar.helperTextLimited"
+                  t={t}
+                  values={{
+                    requestsLeft: interactiveNbLateRequestsLeft,
+                    requestsMax:
+                      lateReplacementRequestStatus.max_late_requests_per_limitation_period,
+                    dateEnd: moment(
+                      lateReplacementRequestStatus.current_limitation_period_end,
+                    ).format('L'),
+                    count:
+                      lateReplacementRequestStatus.days_before_offer_replacement_request_is_late,
+                  }}
+                />
+              ) : (
+                t('calendar.helperTextNotLimited', {
                   count:
                     lateReplacementRequestStatus.days_before_offer_replacement_request_is_late,
-                }}
-              />
-            ) : (
-              t('calendar.helperTextNotLimited', {
-                count:
-                  lateReplacementRequestStatus.days_before_offer_replacement_request_is_late,
-              })
-            )}
-          </Alert>
-        )}
+                })
+              )}
+            </Alert>
+          )}
       </div>
       <Paper className={classes.paperContainer} elevation={0}>
         <TableContainer>

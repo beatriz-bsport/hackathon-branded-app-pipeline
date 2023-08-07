@@ -12,7 +12,7 @@ const CustomTemplate = (args: Props) => {
     phone: [],
     notification: [],
   });
-  const [checkedFilters, setCheckedFilters] = React.useState([1])
+  const [checkedFilters, setCheckedFilters] = React.useState([1]);
 
   return (
     <CommunicationRecipientsModal

@@ -300,19 +300,25 @@ export class OfferCard extends Component<Props, State> {
                 </ListItem>
               </div>
             )}
-            {(offer.has_spivi_error || spiviErrorOnBooking) && offer.available && (
-              <Alert className={classes.alertSpiviContainer} severity="warning">
-                <AlertTitle>{t('offer:calendar.alertSpivi.title')}</AlertTitle>
-                <ul className={classes.list}>
-                  {offer.has_spivi_error && (
-                    <li>{t('offer:calendar.alertSpivi.textOffer')}</li>
-                  )}
-                  {spiviErrorOnBooking && (
-                    <li>{t('offer:calendar.alertSpivi.textBooking')}</li>
-                  )}
-                </ul>
-              </Alert>
-            )}
+            {(offer.has_spivi_error || spiviErrorOnBooking) &&
+              offer.available && (
+                <Alert
+                  className={classes.alertSpiviContainer}
+                  severity="warning"
+                >
+                  <AlertTitle>
+                    {t('offer:calendar.alertSpivi.title')}
+                  </AlertTitle>
+                  <ul className={classes.list}>
+                    {offer.has_spivi_error && (
+                      <li>{t('offer:calendar.alertSpivi.textOffer')}</li>
+                    )}
+                    {spiviErrorOnBooking && (
+                      <li>{t('offer:calendar.alertSpivi.textBooking')}</li>
+                    )}
+                  </ul>
+                </Alert>
+              )}
             <Divider />
             {available ? (
               <div>

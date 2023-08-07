@@ -285,58 +285,62 @@ export class Dashboard extends Component<Props> {
               text={t('noGraphToDisplay')}
             />
           )}
-        {dashboardTab && dashboardTab.graphs && dashboardTab.graphs.length > 0 && (
-          <Grid className={classes.gridRow} container="row" spacing={3}>
-            {dashboardTab.graphs
-              .filter((g) => g.ressourceIdentifier !== 'qualitativeInvoiceItem')
-              .map((graph) => {
-                const ChartComponent =
-                  graphRessources[graph.ressourceIdentifier].chartComponents[
-                    graph.chart
-                  ] || (() => null);
-                const { timeSettings } =
-                  graphRessources[graph.ressourceIdentifier];
-                return (
-                  <Grid key={graph.name} item lg={6} xs={12}>
-                    <DashboardChart
-                      coaches={coaches}
-                      filters={chartFilterByIdentifier[graph.name]}
-                      filtersComponent={
-                        graphRessources[graph.ressourceIdentifier]
-                          .filtersComponent || (() => null)
-                      }
-                      graphIdentifier={graph.name}
-                      loading={graphDataByIdentifier[graph.name].loading}
-                      onDelete={this.props.onDeleteGraphByIdentifier}
-                      onSaveGraph={this.props.onSaveGraphByIdentifier}
-                      popoverText={chartProps[graph.name].popoverText}
-                      range={
-                        timeSettings !== 'none' &&
-                        dateRangeByIdentifier[graph.name]
-                      }
-                      setChartFilters={this.props.setChartFiltersByIdentifier(
-                        graph.name,
-                      )}
-                      setDateRange={this.props.setChartDateRangeByIdentifier}
-                      timeSettings={timeSettings}
-                      title={graph.title || chartProps[graph.name].title}
-                    >
-                      <ChartComponent
-                        data={graphDataByIdentifier[graph.name].data}
-                        {...chartProps[graph.name]}
-                        schedule_timerange_begin={
-                          this.props.theme.schedule_timerange_begin
+        {dashboardTab &&
+          dashboardTab.graphs &&
+          dashboardTab.graphs.length > 0 && (
+            <Grid className={classes.gridRow} container="row" spacing={3}>
+              {dashboardTab.graphs
+                .filter(
+                  (g) => g.ressourceIdentifier !== 'qualitativeInvoiceItem',
+                )
+                .map((graph) => {
+                  const ChartComponent =
+                    graphRessources[graph.ressourceIdentifier].chartComponents[
+                      graph.chart
+                    ] || (() => null);
+                  const { timeSettings } =
+                    graphRessources[graph.ressourceIdentifier];
+                  return (
+                    <Grid key={graph.name} item lg={6} xs={12}>
+                      <DashboardChart
+                        coaches={coaches}
+                        filters={chartFilterByIdentifier[graph.name]}
+                        filtersComponent={
+                          graphRessources[graph.ressourceIdentifier]
+                            .filtersComponent || (() => null)
                         }
-                        schedule_timerange_end={
-                          this.props.theme.schedule_timerange_end
+                        graphIdentifier={graph.name}
+                        loading={graphDataByIdentifier[graph.name].loading}
+                        onDelete={this.props.onDeleteGraphByIdentifier}
+                        onSaveGraph={this.props.onSaveGraphByIdentifier}
+                        popoverText={chartProps[graph.name].popoverText}
+                        range={
+                          timeSettings !== 'none' &&
+                          dateRangeByIdentifier[graph.name]
                         }
-                      />
-                    </DashboardChart>
-                  </Grid>
-                );
-              })}
-          </Grid>
-        )}
+                        setChartFilters={this.props.setChartFiltersByIdentifier(
+                          graph.name,
+                        )}
+                        setDateRange={this.props.setChartDateRangeByIdentifier}
+                        timeSettings={timeSettings}
+                        title={graph.title || chartProps[graph.name].title}
+                      >
+                        <ChartComponent
+                          data={graphDataByIdentifier[graph.name].data}
+                          {...chartProps[graph.name]}
+                          schedule_timerange_begin={
+                            this.props.theme.schedule_timerange_begin
+                          }
+                          schedule_timerange_end={
+                            this.props.theme.schedule_timerange_end
+                          }
+                        />
+                      </DashboardChart>
+                    </Grid>
+                  );
+                })}
+            </Grid>
+          )}
 
         <Dialog open={this.props.resetDialogOpen}>
           <DialogTitle>{t('resetModal.title')}</DialogTitle>

@@ -159,6 +159,7 @@ export type ContractWithPaymentPack<
   is_usable_by_staff: boolean;
   month_billing_day: number | null;
   highlighted_as_recommended: boolean;
+  tags_on_first_billing: Array<number>;
 };
 
 export type ContractInterval = 'month' | 'week';

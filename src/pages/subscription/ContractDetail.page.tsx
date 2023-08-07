@@ -32,6 +32,8 @@ import { getAllSmartList } from '#libs/smart-list/selectors';
 import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import { getPrivatePassAvailable } from '#libs/private-service/selectors/private-pass';
 import { getPaymentComboList } from '../../libs/payment-combo/selectors';
+import { fetchTags } from '#libs/tag/actions';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
@@ -145,6 +147,7 @@ export class ContractDetailPage extends Component<Props> {
       { contract: this.props.contractId },
       { onSuccess: () => this.props.setContractPauseLoading(false) },
     );
+    this.props.fetchTags();
   }
 
   onCreateNewContractPause = () => {
@@ -391,6 +394,7 @@ export class ContractDetailPage extends Component<Props> {
               paymentComboList={this.props.paymentComboList}
               paymentPackList={this.props.paymentPackList}
               privatePassList={this.props.privatePassList}
+              tagList={this.props.allTagsWithTagGroup}
             />
           </div>
         )}
@@ -454,6 +458,7 @@ const connector = connect(
     smartLists: getAllSmartList(state),
     smartListLoading: state.smartList.loading,
     resolvedGenericTags: getResolvedGenericTags(state),
+    allTagsWithTagGroup: getAllTagsWithTagGroup(state),
   }),
   {
     fetchContractDetail: fetchContractDetailAction,
@@ -487,6 +492,7 @@ const connector = connect(
     goToSmartlist: () => push('/smart-list/'),
     getSmartLists: fetchAllSmartLists,
     fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
+    fetchTags,
   },
 );
 

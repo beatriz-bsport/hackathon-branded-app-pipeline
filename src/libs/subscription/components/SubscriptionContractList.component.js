@@ -43,6 +43,7 @@ type Props = {
   onEdit?: (data: any, options: OptionCallback) => void,
   onCreate: ?(data: any, options: OptionCallback) => void,
   onRestore?: (id: number, options: OptionCallback) => void,
+  tagList?: Array<Tag<number>>,
 };
 export const SubscriptionContractList = (props: Props) => {
   return (
@@ -125,6 +126,7 @@ export const SubscriptionContractList = (props: Props) => {
         paymentComboList={props.paymentComboList}
         paymentPackList={props.paymentPackList}
         privatePassList={props.privatePassList}
+        tagList={props.tagList}
       />
       <SubscriptionContractFormDrawer
         displayNewCheckoutFlow={props.displayNewCheckoutFlow}
@@ -146,6 +148,7 @@ export const SubscriptionContractList = (props: Props) => {
         paymentPackList={props.paymentPackList}
         privatePassList={props.privatePassList}
         processing={props.processing}
+        tagList={props.tagList}
       />
     </div>
   );

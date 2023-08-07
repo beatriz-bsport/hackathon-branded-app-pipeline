@@ -279,6 +279,19 @@ const getTranslations = async () => {
           helperText:
             'Allows your customers to quickly see which contracts are currently recommended.',
         },
+        advancedOptions: {
+          title: 'Advanced',
+          tag: {
+            tagsOnAcquisition: 'Tag after purchase',
+            tagsOnAcquisitionHelper:
+              'Use tags to identify which member has paid the first invoice',
+            selectTags: 'Select tags',
+            tagGroupDuplicated:
+              'Please note that selected items contain tags of the same category.',
+          },
+
+          selectTags: 'Select tags',
+        },
       },
       deleteForm: {
         actions: { confirm: 'Delete', cancel: 'Cancel' },

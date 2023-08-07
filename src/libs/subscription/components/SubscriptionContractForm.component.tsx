@@ -10,7 +10,8 @@ import EuroIcon from '@material-ui/icons/Euro';
 import DollarIcon from '@material-ui/icons/AttachMoney';
 import InvoiceIcon from '@material-ui/icons/Receipt';
 import KeyIcon from '@material-ui/icons/VpnKey';
-import SettingsIcon from '@material-ui/icons/Tune';
+import TuneIcon from '@material-ui/icons/Tune';
+import SettingsIcon from '@material-ui/icons/Settings';
 import Alert from '@material-ui/lab/Alert';
 import * as Yup from 'yup';
 import { FormikProps, useFormikContext, withFormik } from 'formik';
@@ -38,10 +39,14 @@ import { PaymentPack } from '#libs/payment-packs/types';
 import { PrivatePass } from '#libs/private-service/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { Tag, TagGroup } from '#libs/tag/types';
+import TagSelector from '#libs/tag/components/TagSelector.selector';
 import { OptionCallback } from '../../../state/types';
 import FormSection from '#components/forms/FormSection';
 import PopOver from '#components/Popover';
 import { CONTRACT_MAX_NB_INTERVAL_ALLOWED } from '../constants';
+import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
+import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -82,6 +87,7 @@ type FormValues = Omit<
   object_type: ObjectType;
   unusable_by_staff: boolean;
   invoicing_type: InvoicingType;
+  tags_on_first_billing?: Array<number>;
 };
 
 export type SubscriptionContractFormDrawerPropsWithoutFormik = {
@@ -97,6 +103,7 @@ export type SubscriptionContractFormDrawerPropsWithoutFormik = {
   privatePassList: PrivatePass[];
   paymentComboList: PaymentCombo[];
   displayNewCheckoutFlow: boolean;
+  tagList?: Array<Tag<TagGroup>>;
 };
 
 export type SubscriptionContractFormDrawerProps =
@@ -140,6 +147,63 @@ export function SubscriptionContractFields(
       'contract.form.nb_interval.restrictionForFixedBillingDay',
     );
 
+  const onChangeTagsOnAcquisition = React.useCallback(
+    (options: Array<{ label: string; value: number; tag: Tag<TagGroup> }>) => {
+      return setFieldValue(
+        'tags_on_first_billing',
+        options.map((item) => item.value),
+      );
+    },
+    [setFieldValue],
+  );
+
+  const onDeleteTagsOnAcquisition = React.useCallback(
+    (itemId: number) =>
+      setFieldValue(
+        'tags_on_first_billing',
+        values?.tags_on_first_billing?.filter((tagId) => tagId !== itemId),
+      ),
+    [setFieldValue, values?.tags_on_first_billing],
+  );
+
+  const allSubscriptionTagIds = React.useMemo(() => {
+    const selectedPaymentPackTags = props.paymentPackList
+      .filter((paymentPack) => paymentPack.id === values.payment_pack)
+      .map((paymentPack) => paymentPack?.tags_on_consumer_item_creation)
+      .flat();
+
+    const selectedPaymentComboTags = props.paymentComboList
+      .filter((paymentCombo) => values.payment_combo === paymentCombo.id)
+      .map((paymentCombo) => paymentCombo?.tags_on_consumer_item_creation)
+      .flat();
+
+    const selectedPrivatePassTags = props.privatePassList
+      .filter((privatePass) => values.private_pass === privatePass.id)
+      .map((privatePass) => privatePass?.tags_on_consumer_item_creation)
+      .flat();
+
+    const allPackTags = [].concat(
+      selectedPaymentPackTags,
+      selectedPaymentComboTags,
+      selectedPrivatePassTags,
+      values?.tags_on_first_billing,
+    );
+
+    return [...new Set(allPackTags)];
+  }, [
+    props.paymentPackList,
+    props.paymentComboList,
+    props.privatePassList,
+    values.payment_pack,
+    values.private_pass,
+    values.payment_combo,
+    values.tags_on_first_billing,
+  ]);
+
+  const hasItemsWithTagsSameGroup = useHasTagsSameGroup({
+    selectedTagsIds: allSubscriptionTagIds,
+    tagsWithGroup: props.tagList,
+  });
   return (
     <div>
       <FormSection
@@ -411,7 +475,7 @@ export function SubscriptionContractFields(
       </FormSection>
 
       <FormSection
-        sectionIcon={SettingsIcon}
+        sectionIcon={TuneIcon}
         sectionTitle={t('contract.form.settings.title')}
       >
         <SwitchField
@@ -432,6 +496,36 @@ export function SubscriptionContractFields(
             helperText={t('contract.form.highlightedAsRecommended.helperText')}
             label={t('contract.form.highlightedAsRecommended.label')}
             name="highlighted_as_recommended"
+          />
+        )}
+      </FormSection>
+
+      <FormSection
+        isCollapse
+        sectionIcon={SettingsIcon}
+        sectionTitle={t('contract.form.advancedOptions.title')}
+      >
+        <Typography className={classes.title}>
+          {t('contract.form.advancedOptions.tag.tagsOnAcquisition')}
+        </Typography>
+        <Typography className={classes.helperText} variant="caption">
+          {t('contract.form.advancedOptions.tag.tagsOnAcquisitionHelper')}
+        </Typography>
+        <TagSelector
+          closeMenuOnSelect
+          inScrollBar
+          isClearable
+          allTagsWithTagGroup={props.tagList || []}
+          onChange={onChangeTagsOnAcquisition}
+          onDeleteTag={onDeleteTagsOnAcquisition}
+          placeholder={t('contract.form.advancedOptions.tag.selectTags')}
+          selectedTags={values.tags_on_first_billing}
+        />
+        {hasItemsWithTagsSameGroup && (
+          <TagGroupDuplicatedAlert
+            tagGroupDuplicatedText={t(
+              'contract.form.advancedOptions.tag.tagGroupDuplicated',
+            )}
           />
         )}
       </FormSection>
@@ -485,6 +579,11 @@ const useStyles = makeStyles((theme) => ({
   monthBillingDaySelect: {
     height: theme.spacing(5),
   },
+  title: {
+    fontWeight: 500,
+    color: '#000',
+  },
+  helperText: { marginBottom: theme.spacing(2) },
 }));
 
 export const SubscriptionContractFieldsSchema = Yup.object().shape({
@@ -596,6 +695,7 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
       },
     ),
   highlighted_as_recommended: Yup.boolean(),
+  tags_on_first_billing: Yup.array().of(Yup.number().integer()),
 });
 
 function isNumber(value: unknown): value is number {
@@ -629,6 +729,7 @@ export const SubscriptionContractFormHoc = withFormik<
           ? ObjectType.paymentPack
           : ObjectType.paymentCombo,
         unusable_by_staff: !initial.is_usable_by_staff,
+        tags_on_first_billing: initial.tags_on_first_billing || [],
         invoicing_type: initial.month_billing_day
           ? InvoicingType.fixedDay
           : InvoicingType.sameDayAsSubscription,
@@ -653,6 +754,7 @@ export const SubscriptionContractFormHoc = withFormik<
       invoicing_type: InvoicingType.fixedDay,
       month_billing_day: 1,
       highlighted_as_recommended: false,
+      tags_on_first_billing: [],
     };
   },
   enableReinitialize: true,

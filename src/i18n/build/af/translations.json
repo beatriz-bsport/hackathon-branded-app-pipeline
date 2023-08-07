@@ -11919,6 +11919,16 @@
         "highlightedAsRecommended": {
           "label": "Mark as recommended",
           "helperText": "Allows your customers to quickly see which contracts are currently recommended."
+        },
+        "advancedOptions": {
+          "title": "Advanced",
+          "tag": {
+            "tagsOnAcquisition": "Tag after purchase",
+            "tagsOnAcquisitionHelper": "Use tags to identify which member has paid the first invoice",
+            "selectTags": "Select tags",
+            "tagGroupDuplicated": "Please note that selected items contain tags of the same category."
+          },
+          "selectTags": "Select tags"
         }
       },
       "deleteForm": {
@@ -13646,8 +13656,7 @@
             "tag": {
               "tagsOnAcquisition": "Tag after purchase",
               "tagsOnAcquisitionHelper": "Use tags to identify which member bought the item",
-              "selectTags": "Select tags",
-              "tagGroupDuplicated": "Please be aware that some tags belong to the same group."
+              "selectTags": "Select tags"
             }
           }
         },

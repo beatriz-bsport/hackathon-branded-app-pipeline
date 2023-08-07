@@ -9853,6 +9853,14 @@
                 "highlightedAsRecommended": {
                     "label": "Mark as recommended",
                     "helperText": "Allows your customers to quickly see which contracts are currently recommended."
+		},
+                "advancedOptions": {
+                    "header": "Advanced",
+                    "tag": {
+                        "tagsOnAcquisition": "Tags after purchase",
+                        "tagsOnAcquisitionHelper": "Use tags to mark members who have paid the first invoice of this contract.",
+                        "selectTags": "Select tags"
+                    }
                 }
             },
             "deleteForm": {

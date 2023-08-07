@@ -43,6 +43,8 @@ import { getEnabledEstablishmentBillingGroups } from '../../libs/establishment/s
 
 import withTitle from '../../hocs/with-title.hoc';
 import { withContractNotification } from '#libs/marketing/selectors';
+import { fetchTags } from '#libs/tag/actions';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
@@ -119,6 +121,7 @@ export class SubscriptionList extends React.Component<Props, State> {
         params: { company: this.props.companyId },
       });
     }
+    this.props.fetchTags();
   }
 
   onClickContract = (id: number) => {
@@ -255,6 +258,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                       paymentPackList={this.props.paymentPackList}
                       privatePassList={this.props.privatePassList}
                       selectedContract={this.props.selectedContract}
+                      tagList={this.props.allTagsWithTagGroup}
                     />
                   </Collapse>
                 </Paper>
@@ -297,6 +301,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                     paymentPackList={this.props.paymentPackList}
                     privatePassList={this.props.privatePassList}
                     selectedContract={this.props.selectedContract}
+                    tagList={this.props.allTagsWithTagGroup}
                   />
                 </Grid>
               )}
@@ -329,6 +334,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                     paymentPackList={this.props.paymentPackList}
                     privatePassList={this.props.privatePassList}
                     selectedContract={this.props.selectedContract}
+                    tagList={this.props.allTagsWithTagGroup}
                   />
                 </Grid>
               )}
@@ -366,6 +372,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                       paymentComboList={this.props.paymentComboList}
                       paymentPackList={this.props.paymentPackList}
                       privatePassList={this.props.privatePassList}
+                      tagList={this.props.allTagsWithTagGroup}
                     />
                   )}
                 </Grid>
@@ -437,6 +444,7 @@ export class SubscriptionList extends React.Component<Props, State> {
               paymentComboList={this.props.paymentComboList}
               paymentPackList={this.props.paymentPackList}
               privatePassList={this.props.privatePassList}
+              tagList={this.props.allTagsWithTagGroup}
             />
           </div>
         )}
@@ -519,6 +527,7 @@ const mapStateToProps = (state: RootState) => ({
   savedPaymentMethodList: getSavedPaymentMethodList(state),
   stripeReaders: getStripeReaders(state),
   establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
+  allTagsWithTagGroup: getAllTagsWithTagGroup(state),
 });
 
 const mapDispatchToProps = {
@@ -542,6 +551,7 @@ const mapDispatchToProps = {
   displayBackgroundDialog: displayBackgroundDialogAction,
   deletebackgroundDialog: deletebackgroundDialogAction,
   fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
+  fetchTags,
 };
 
 const withStateHandlersInit: StateHandlerInit = {

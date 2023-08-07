@@ -32,7 +32,8 @@
     "plugin:flowtype/recommended",
     "airbnb",
     "plugin:i18next/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "prettier"
   ],
   "env": {
     "browser": true,

@@ -514,7 +514,8 @@
             "subscriptions": "Subscrições",
             "combos": "Packs",
             "passes": "Passe de aulas",
-            "otherPasses": "Outros passes"
+            "otherPasses": "Outros passes",
+            "spotSelectorTitle": "Escolha o seu lugar"
         }
     },
     "coach": {
@@ -818,7 +819,9 @@
                 "totalRead": "Número de pessoas que abriram o e-mail",
                 "totalClick": "Número de cliques numa hiperligação",
                 "lastOpen": "Última abertura",
-                "deliveryRate": "Envio bem sucedido"
+                "deliveryRate": "Envio bem sucedido",
+                "exportCampaign": "Exportar a campanha",
+                "exportError": "Ocorreu um erro durante a exportação"
             },
             "automated": {
                 "eventKind": {
@@ -923,10 +926,7 @@
                 "dateEnd": "Data final",
                 "title": "Data de envio"
             },
-            "numberFilter": {
-                "severalFilters": "filtros aplicados",
-                "oneFilter": "1 filtro aplicado"
-            },
+            "numberFilter": "1 filtro aplicado",
             "choicesLabels": {
                 "0": "Email",
                 "1": "SMS",
@@ -966,7 +966,8 @@
             "channel": {
                 "title": "Canais",
                 "placeholder": "Selecionar um tipo de canal"
-            }
+            },
+            "numberFilter_plural": "{{count}} filtros aplicados"
         },
         "dialogInformation": {
             "headerStatus": "Estado",
@@ -1083,7 +1084,14 @@
                 "mute": "Silenciar",
                 "removeFavorite": "Retirar dos favoritos",
                 "addToFavorite": "Adicionar aos favoritos",
-                "markAsRead": "Marcar como não lida"
+                "markAsRead": "Marcar como não lida",
+                "noMessage": "Nenhuma mensagem",
+                "disableDialog": {
+                    "title": "Arquivar conversa",
+                    "firstContent": "Está prestes a arquivar esta conversa.",
+                    "secondContent": "Deixará de aparecer na lista de conversas, mas ainda pode ser acedido seleccionando o filtro \"Arquivado\".",
+                    "thirdContent": "Tenha em atenção que uma nova mensagem neste chat, quer seja enviada por si ou pela pessoa com quem está a falar, irá restaurar automaticamente o chat."
+                }
             },
             "loadMoreThreads": "Carregar mais mensagens",
             "kind": {
@@ -1099,12 +1107,47 @@
                 "muted": "Silenciar",
                 "disabled": "Arquivar"
             },
-            "noThread": "Sem resultados",
+            "noThread": {
+                "item": {
+                    "offer": "Clique aqui para saber mais sobre as suas sessões",
+                    "member": "Saiba mais sobre as conversas com os membros",
+                    "smartlist": "Aqui pode encontrar as conversas das suas listas inteligentes"
+                },
+                "list": "Sem resultados"
+            },
             "emptyThread": {
                 "becauseNeverUsed": "Ainda não enviou uma comunicação para este canal.",
                 "becauseOfFilters": "Nenhum resultado correspondente aos filtros."
             },
-            "filterOutCommunicationSent": "A comunicação que acabou de enviar está oculta pelos filtros ativos."
+            "filterOutCommunicationSent": "A comunicação que acabou de enviar está oculta pelos filtros ativos.",
+            "selectThread": {
+                "title": "Selecionar um chat",
+                "description": "Clique num membro, numa lista inteligente ou numa sessão para visualizar a conversa associada"
+            },
+            "panel": {
+                "member": {
+                    "files": "Documentos",
+                    "notes": "Notas",
+                    "invoices": {
+                        "noUnpaidInvoices": "Até à data",
+                        "title": "Faturas"
+                    }
+                },
+                "smartlist": {
+                    "filters": "Filtros",
+                    "memberCount": "Membros da lista inteligente",
+                    "description": "Descrição"
+                },
+                "navigation": {
+                    "member": "Ver detalhes do membro",
+                    "smartlist": "Ver detalhes da lista inteligente",
+                    "offer": "Ver pormenores da sessão"
+                },
+                "openPanel": "Visualizar os detalhes",
+                "closePanel": "Fechar os detalhes",
+                "header": "Detalhes",
+                "tags": "Etiquetas"
+            }
         },
         "generic": {
             "communication": "Comunicação",
@@ -1113,6 +1156,17 @@
         "sentStatus": {
             "fail": "Ocorreu um erro durante a transmissão",
             "processing": "A comunicação está a ser enviada"
+        },
+        "messageList": {
+            "filterOutCommunicationSent": "A comunicação que acabou de enviar está oculta pelos filtros activos.",
+            "emptyList": {
+                "becauseOfFilters": "Nenhum resultado correspondente aos filtros.",
+                "becauseNeverUsed": "Ainda não enviou uma chamada para este canal."
+            }
+        },
+        "createThread": {
+            "close": "Fechar",
+            "confirmResourceSelected": "Confirmar"
         }
     },
     "checkout": {
@@ -1207,7 +1261,8 @@
             "myInternalAccount": "O meu saldo",
             "use": "Utilizar o meu saldo",
             "label": "Montante disponível : ",
-            "confirm": "Confirmar"
+            "confirm": "Confirmar",
+            "useAsManager": "Utilizar a balança"
         },
         "historyTitle": "Histórico de compras",
         "paymentIntent": {
@@ -1878,7 +1933,7 @@
                 "content2": "Esta operação reiniciará a lista de estúdios com os quais a promoção será partilhada.",
                 "title": "Confirmar a alteração"
             },
-            "formDisclaimer": "Se, no futuro, pretender alterar esta secção para tornar esta promoção válida para mais que um passe específico, a lista de estúdios que partilharão esta promoção será reposta a zero por razões de compatibilidade.",
+            "formDisclaimer": "Se, no futuro, pretender alterar esta secção para tornar esta promoção válida para mais do que um passe específico, a lista de estúdios que partilharão esta promoção será reposta a zero por razões de compatibilidade.",
             "notEditable": "Este cupão é um cupão partilhado pela conta do franchisador. Os elementos foram definidos pela conta do franchisador e não podem ser alterados.",
             "isEmptyExplain": "Nenhum código promocional partilhado registado",
             "actions": {
@@ -1911,7 +1966,45 @@
                 "apply": "Aplicar"
             }
         },
-        "createCoupon": "Adicionar um código"
+        "createCoupon": "Adicionar um código",
+        "uniqueCodeCoupon": {
+            "form": {
+                "fileUploader": {
+                    "title": "Descarregar cupões únicos",
+                    "label": "Arrastar e largar ou clicar para selecionar o ficheiro",
+                    "sizeLimitHelper": "Ficheiro CSV (1MB máximo)",
+                    "helperText": "Carregue um ficheiro CSV com todos os códigos de oferta na primeira coluna, um código por linha, sem cabeçalho."
+                },
+                "errors": {
+                    "expirationDate": {
+                        "format": "Erro ao formatar a data",
+                        "dateBeforeNow": "A data de expiração não pode ser anterior à data atual."
+                    },
+                    "required": "Este campo é obrigatório",
+                    "positiveNumber": "O valor deve ser superior a 0",
+                    "fileUploader": {
+                        "fileTooLargeError": "O ficheiro é demasiado grande. Por favor, não exceda 1 MB.",
+                        "incorrectDataError": "O ficheiro não contém os dados corretos.",
+                        "notCsvFileError": "O tipo de ficheiro não corresponde a um ficheiro CSV."
+                    },
+                    "only_on_objects": "É necessário escolher um objeto ao qual aplicar o desconto",
+                    "applies_to": "O artigo a que se aplica o desconto deve ser um cartão de curso, um cartão de marcação, um pacote ou um artigo da loja"
+                },
+                "alertInfo": "Os cupões são códigos únicos que oferecem um desconto de 100% num produto específico para o membro. Estes códigos não são gerados pela própria plataforma, mas devem ser carregados aqui como um ficheiro CSV. Esta funcionalidade é particularmente útil se tiver feito uma parceria com uma entidade externa, como a Groupon, para realizar uma campanha promocional. Neste caso, a Groupon (ou uma entidade semelhante) gera e vende os cupões em nome do seu estúdio.",
+                "alertWarning": "Não aplicável às subscrições",
+                "couponCostForCompany": {
+                    "label": "Preço incl. IVA",
+                    "helperText": "O rendimento que recebe do parceiro de campanha por cada vale vendido. Este valor será utilizado para calcular o valor marginal da remuneração dos professores e nos relatórios. Para qualquer cálculo que não tenha em conta o valor marginal, os relatórios ignorarão este preço dado e tratarão esta promoção como um desconto de 100%."
+                },
+                "usage_per_member": {
+                    "label": "Limitar o número de cupões que um membro pode comprar",
+                    "helperText": "Limite máximo"
+                },
+                "only_on_first_checkout": {
+                    "label": "Só pode ser utilizado para compras pela primeira vez"
+                }
+            }
+        }
     },
     "expense": {
         "form": {
@@ -5073,6 +5166,12 @@
                 "staff": {
                     "_label": "Staff"
                 }
+            },
+            "member": {
+                "create": {
+                    "_label": "Criação de membros"
+                },
+                "_label": "Membro"
             }
         },
         "forms": {
@@ -10779,7 +10878,8 @@
             "bookingTemporal": "Reservas",
             "bookingQualitative": "Origem das reservas",
             "paymentTemporal": "Coleções",
-            "invoiceItemTemporal": "Soma de itens faturados"
+            "invoiceItemTemporal": "Soma de itens faturados",
+            "bookingTimeslots": "Média de funcionários"
         },
         "dataSourceIdentifiers": {
             "is_no_show": "Ausente (não compareceu)",
@@ -10879,7 +10979,8 @@
                 "graph_payments": "Pagamentos",
                 "graph_bookings": "Reservas",
                 "graph_members": "Novos membros",
-                "graph_private_bookings": "Marcação"
+                "graph_private_bookings": "Marcação",
+                "graph_dispute": "Contencioso"
             },
             "graphFamily": {
                 "week_timeslots": "Frequência diária e horária",
@@ -10924,13 +11025,13 @@
         },
         "plannedPayment": {
             "popover": "Soma de todos os pagamentos recebidos a título de subscrições",
-            "caption": "Coleção",
+            "caption": "Categorias",
             "title": "Recibos de subscrição"
         },
         "turnover": {
             "popover": "Soma de todos os pagamentos recebidos indicados nas faturas",
-            "caption": "Colecções",
-            "title": "Colecções"
+            "caption": "Categorias",
+            "title": "Categorias"
         },
         "nbOffers": "Sessões",
         "newMembers": "Novos membros",
@@ -11044,7 +11145,7 @@
             "title": "Reservas"
         },
         "billedSubscriptions": {
-            "popover": "O número de faturas ligadas a uma subscrição não foram canceladas",
+            "popover": "O número de faturas associadas a uma subscrição não foram canceladas",
             "caption": "Subscrições",
             "title": "Número de subscrições faturadas"
         },

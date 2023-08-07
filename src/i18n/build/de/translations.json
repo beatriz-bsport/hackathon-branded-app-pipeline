@@ -3656,7 +3656,7 @@
                     "isUsedInCombo": "Achtung! Dieser Kurspass wird in einem Paket verwendet, das Paket steht nicht mehr zum Verkauf zur Verfügung, wenn Sie diesen Kurspass entfernen."
                 },
                 "credits": {
-                    "bewareChange": "Wenn Du die Anzahl der Credits erhöhst, werden alle bestehenden Karten betroffen. Dasselbe gilt, wenn Du die Anzahl der Credits verringerst.",
+                    "bewareChange": "Wenn Du die Anzahl der Credits erhöhst, werden alle bestehenden Pässen betroffen. Dasselbe gilt, wenn Du die Anzahl der Credits verringerst.",
                     "helperText": "Anzahl der verfügbaren Credits",
                     "label": "Credits"
                 },
@@ -3751,7 +3751,7 @@
                     },
                     "block": {
                         "helperText": "Die Karte wird für {{nb_days}} Tage gesperrt",
-                        "label": "Sperrfrist für Karten (in Tagen):"
+                        "label": "Sperrfrist für Pässe (in Tagen):"
                     },
                     "kind": {
                         "account": "Erstelle eine Einzahlung für das betreffende Mitglied",
@@ -3922,9 +3922,9 @@
         "disabled": "Deaktiviert",
         "isNonCompatible": "unvereinbar",
         "use": "Benutzen",
-        "publicPacksTitle": "Karten zum Verkauf verfügbar",
+        "publicPacksTitle": "Pässe zum Verkauf verfügbar",
         "subscribeToOffer": "Anmelden",
-        "privatePacksTitle": "Karten nicht zum Verkauf verfügbar",
+        "privatePacksTitle": "Pässe nicht zum Verkauf verfügbar",
         "newMemberOnly": "Nur für neue Anmelder verfügbar",
         "maxNBookingsByWeek2": " Buchungen pro Woche",
         "extension": {
@@ -3970,10 +3970,10 @@
         "notificationForm": "Benachrichtigungs-Formular",
         "noPaymentPack": "Kurspässe ermöglichen es den Mitgliedern, sich für Aktivitäten anzumelden; für die Anmeldung ist ein Pass erforderlich.",
         "disabledPacks": {
-            "hide": "Archivierte Karten verbergen",
-            "show": "Archivierte Karten anzeigen"
+            "hide": "Archivierte Pässe verbergen",
+            "show": "Archivierte Pässe anzeigen"
         },
-        "disabledPacksTitle": "Archivierte Karten",
+        "disabledPacksTitle": "Archivierte Pässe",
         "filters": {
             "hasCreditNull": "Ohne Credits",
             "hasCreditLeft": "Mit Credits",
@@ -3984,7 +3984,7 @@
             "notReverted": "Rechnung nicht storniert",
             "credits": "Kredit",
             "expiration": "Gültigkeit",
-            "all": "Alle Karten",
+            "all": "Alle Pässe",
             "isValidToday": "Gültig"
         },
         "multipleBookingTooltip": "Mehrfach-Buchungen",
@@ -4015,7 +4015,7 @@
             "deleteModal": {
                 "confirm": "Bestätigen Sie",
                 "cancel": "ringförmig",
-                "content": "Sind Sie sicher, dass Sie diese Kategorie löschen möchten? Alle darin enthaltenen Artikel werden in den Bereich der unsortierten Unterrichtskarten verschoben",
+                "content": "Sind Sie sicher, dass Sie diese Kategorie löschen möchten? Alle darin enthaltenen Artikel werden in den Bereich der unsortierten Unterrichtspässen verschoben",
                 "title": "Unterdrückung"
             },
             "popover": {
@@ -4024,7 +4024,7 @@
             },
             "form": {
                 "dialog": {
-                    "helper": "Die Kategorien werden auf dem Marktplatz und in der mobilen Anwendung für zum Verkauf stehende Karten angezeigt.",
+                    "helper": "Die Kategorien werden auf dem Marktplatz und in der mobilen Anwendung für zum Verkauf stehende Pässen angezeigt.",
                     "titleEdit": "Kategorie",
                     "titleNew": "Neue Kategorie",
                     "name": "Name der Kategorie",
@@ -4037,7 +4037,7 @@
             "category": "Kategorien von Kurspässen"
         },
         "noCategory": {
-            "empty": "Keine Karten in dieser Kategorie",
+            "empty": "Keine Pässe in dieser Kategorie",
             "name": "Keine Kategorie",
             "help": "Diese Pässe werden in einer unbenannten Kategorie auf dem Marktplatz erscheinen"
         },
@@ -4252,9 +4252,9 @@
             "specification": {
                 "companySharedWithTitle": "Gemeinsam mit den Studios:"
             },
-            "pass": "Karten für Gruppenkurse",
+            "pass": "Pässe für Gruppenkurse",
             "widget": {
-                "choose": "Gemeinsame Lernkarten wählen"
+                "choose": "Wählen Sie die gewünschten Pässe für die Freigabe aus"
             }
         },
         "paymentPackTemplateInstance": {
@@ -4268,7 +4268,7 @@
                     "submit": "Freigabe deaktivieren",
                     "close": "Schließen"
                 },
-                "content": "Wenn Sie dieses Studio für die gemeinsame Nutzung der Karte deaktivieren, können alle Mitglieder, die diese Karte besitzen und sie in diesem Studio gekauft haben, sie weiterhin verwenden. Sie können sie jedoch nicht mehr in anderen Studios verwenden. Karten, die in anderen Studios gekauft wurden, können in dem deaktivierten Studio nicht mehr verwendet werden, unabhängig davon, wann sie gekauft wurden.",
+                "content": "Wenn Sie dieses Studio für die gemeinsame Nutzung des Passes deaktivieren, können alle Mitglieder, die diesen Pass besitzen und sie in diesem Studio gekauft haben, sie weiterhin verwenden. Sie können sie jedoch nicht mehr in anderen Studios verwenden. Pässe, die in anderen Studios gekauft wurden, können in dem deaktivierten Studio nicht mehr verwendet werden, unabhängig davon, wann sie gekauft wurden.",
                 "title": "Deaktivierung"
             },
             "form": {
@@ -4330,7 +4330,7 @@
         "next": "Weiter",
         "orderingAlert": {
             "button": "Seite zur Personalisierung",
-            "text": "Jede Änderung der Reihenfolge der \"Kategorien\" wirkt sich nur auf die Anzeige der Seite \"Kurskarten\" im Marketplace und in der Anwendung aus. Diese Aktualisierung wird keine anderen Abschnitte oder Kategorien beeinflussen."
+            "text": "Jede Änderung der Reihenfolge der \"Kategorien\" wirkt sich nur auf die Anzeige der Seite \"Kurspässe\" im Marketplace und in der Anwendung aus. Diese Aktualisierung wird keine anderen Abschnitte oder Kategorien beeinflussen."
         }
     },
     "alerting": {
@@ -7603,7 +7603,7 @@
                 "addVariable": "Tag hinzufügen",
                 "pushHelper": "Achtung, les Benachrichtigungen push sont à utiliser avec parcimonie. Trop de Notifications push peut amener gewisse membres à désinstaller l'application.",
                 "needPushUpsell": "Bitte aktivieren Sie das Push-Benachrichtigungs-Add-On, um diese Funktion zu nutzen",
-                "push": "Push Benachrichtigungs",
+                "push": "Push-Benachrichtigung",
                 "mail": "Mail",
                 "sendingMethod": "Methode d'envoi",
                 "sendAfterNotifications": "Gesandter les Notifications au membre après la séance Concernée par la Notification",
@@ -11809,8 +11809,8 @@
                 "bookings_plural": "Buchungen ({{number}})",
                 "giftcard": "Gutschein",
                 "giftcard_plural": "Gutscheine ({{number}})",
-                "paymentPack": "Karte",
-                "paymentPack_plural": "Karten ({{number}})",
+                "paymentPack": "KUrspass",
+                "paymentPack_plural": "Kurspässe ({{number}})",
                 "contact": "Kontakt",
                 "contact_plural": "Contact ({{number}})",
                 "basket": "Warenkorb",
@@ -11831,7 +11831,7 @@
             },
             "metaActivity": {
                 "general": "Allgemein",
-                "pack": "Kompatible Karten",
+                "pack": "Kompatible Pässe",
                 "group": "Gruppensession"
             },
             "establishment": {
@@ -14299,7 +14299,7 @@
                     "select_tag": "Tag wählen",
                     "1": "E-Mail",
                     "2": "SMS",
-                    "3": "Push-Notification",
+                    "3": "Push-Benachrichtigung",
                     "4": "Tag",
                     "5": "E-Mail-Vorlage",
                     "defaultName": "Standardmäßige Bezeichnung",
@@ -14392,7 +14392,7 @@
             "svgText": {
                 "select_event": "Wählen Sie ein Ereignis",
                 "sms": "SMS",
-                "push_notification": "Push-Notification",
+                "push_notification": "Push-Benachrichtigung",
                 "triggers": "Auslöser",
                 "marketing_actions": "Marketing-Aktionen",
                 "action_name": "{ Name der Marketing-Aktionen }",

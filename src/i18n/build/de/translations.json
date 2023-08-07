@@ -1175,7 +1175,7 @@
                 "bookings": "Meine Buchungen ",
                 "order": "Meine Bestellungen",
                 "profile": "Mein Profil",
-                "pass": "Meine Karten"
+                "pass": "Meine Pässe"
             },
             "dashboard": "Dashboard",
             "search": "Suche",
@@ -1189,14 +1189,14 @@
             "playlist": "Playlist"
         },
         "offer": {
-            "noncompatibleConsumerPaymentPacksAre": "DU besitzt die folgenden Karten, die nicht mit diesem Kurs kompatibel sind:",
+            "noncompatibleConsumerPaymentPacksAre": "DU besitzt die folgenden Pass, der nicht mit diesem Kurs kompatibel sind:",
             "broadcast_link": "Link zur Videokonferenz",
             "disabled": "storniert",
             "noConsumerPackAvailableForPurchase": "Dieses Mitglied besitzt keine kompatible Kurkarte !",
             "createBooking": "Anmelden",
             "hasntBooked": "Nicht angemeldet",
             "noCompatiblePacks": "Kein Kurspass ist mit diesem Kurs kompatibel",
-            "compatiblePacks": "Kompatible Karten",
+            "compatiblePacks": "Kompatible Pässe",
             "noPackAvailableForOfferPurchase": "Kein Kurspass ist mit diesem Kurs kompatibel !",
             "createBookingOption": "Warteliste",
             "bill": "In Rechnung stellen",
@@ -2111,7 +2111,7 @@
                     "first": "mit den Lehrkräften"
                 },
                 "payment_pack": {
-                    "first": "mit den Karten"
+                    "first": "mit den Pässen"
                 },
                 "establishment": {
                     "first": "in den Einrichtungen"
@@ -2153,7 +2153,7 @@
                     "first": "mit den Lehrkräften"
                 },
                 "payment_pack": {
-                    "first": "mit den Karten"
+                    "first": "mit den Pässen"
                 },
                 "attendance": "mit Status",
                 "level": {
@@ -4637,9 +4637,9 @@
             "sum_available_amount_non_expired": "Kreditangebote noch verfügbar",
             "sum_available_amount_expired": "Angebotene und abgelaufene Kredite",
             "sum_consumed_amount": "Angebotene Kredite",
-            "nb_expired": "Anzahl der nicht aktivierten Karten",
-            "nb_non_activated": "Anzahl der nicht aktivierten Karten",
-            "nb_activated": "Anzahl der aktivierten Karten",
+            "nb_expired": "Anzahl der nicht aktivierten Pässe",
+            "nb_non_activated": "Anzahl der nicht aktivierten Pässe",
+            "nb_activated": "Anzahl der aktivierten Pässe",
             "nb_purchase": "Anzahl der Käufe",
             "consumed_amount_gifted": "Verbrauchte Menge",
             "id": "ID",
@@ -4779,7 +4779,7 @@
             "universal_passes": "Universalpässe",
             "private_cpasses_expired": "Abgelaufene Credits (Terminpässe)",
             "expired_pass": "Abgelaufene Credits für Kurspässe",
-            "franchise_shared_pass": "Gemeinsame Kartennutzung",
+            "franchise_shared_pass": "Gemeinsame Pass-Nutzung",
             "dispute": "Streitfrage",
             "billing_plan": "Abonnement",
             "members_purchase": "Einkäufe der Mitglieder"
@@ -8544,8 +8544,8 @@
             "bookingCapabilities": {
                 "emptyConsumerPassList": "Du besitzt keine gültige Karte mit ausreichenden Credits",
                 "emptyPassList": "Keine kompatible Karte, bitte kontaktiere Dein Studio",
-                "compatiblePassTitle": "Kompatible Karten für diesen Kurs",
-                "compatibleConsumerPassTitle": "Deine gültigen Karten"
+                "compatiblePassTitle": "Kompatible Pässe für diesen Kurs",
+                "compatibleConsumerPassTitle": "Deine gültigen Pässe"
             },
             "step": {
                 "date": "Datum",
@@ -9030,7 +9030,7 @@
                 },
                 "price": {
                     "label": "Preis inkl. MwSt",
-                    "helperText": "Kartenpreis für den Kunden"
+                    "helperText": "Pass-Preis für den Kunden"
                 },
                 "name": {
                     "label": "Name",
@@ -9132,7 +9132,7 @@
             "list": {
                 "createButton": "Einen Terminpass erstellen",
                 "isEmpty": "Kein Terminpass",
-                "availableCustomer": "Zum Verkauf stehende Karten",
+                "availableCustomer": "Zum Verkauf stehende Pässe",
                 "managerOnly": "Nicht zum Verkauf verfügbar"
             },
             "validForDuration": {
@@ -9384,7 +9384,7 @@
             "notReverted": "Rechnung nicht storniert",
             "credits": "Kredit",
             "expiration": "Gültigkeit",
-            "all": "Alle Karten",
+            "all": "Alle Pässe",
             "isValidToday": "Gültig"
         },
         "recurrenceRule": {
@@ -9502,8 +9502,8 @@
         },
         "searshAppointmentPass": "Suche nach einer RDV-Karte",
         "search": "Suche nach einem Termin",
-        "categoryTitle": "Kategorien von RDV-Karten",
-        "disabledPacksTitle": "Archivierte RDV-Karten",
+        "categoryTitle": "Kategorien von RDV-Pässen",
+        "disabledPacksTitle": "Archivierte RDV-Pässe",
         "notification": {
             "listItem": {
                 "smartListInclude": "Enthaltene Listen",
@@ -9537,7 +9537,7 @@
                     "close": "Schließen",
                     "submit": "Freigabe deaktivieren"
                 },
-                "content": "Wenn Sie dieses Studio für die gemeinsame Nutzung der Karte deaktivieren, können alle Mitglieder, die diese Karte besitzen und sie in diesem Studio gekauft haben, sie weiterhin verwenden. Sie können sie jedoch nicht mehr in anderen Studios verwenden. Karten, die in anderen Studios gekauft wurden, können in dem deaktivierten Studio nicht mehr verwendet werden, unabhängig davon, wann sie gekauft wurden."
+                "content": "Wenn Sie dieses Studio für die gemeinsame Nutzung des Passes deaktivieren, können alle Mitglieder, die diesen Pass besitzen und sie in diesem Studio gekauft haben, sie weiterhin verwenden. Sie können sie jedoch nicht mehr in anderen Studios verwenden. Pässe, die in anderen Studios gekauft wurden, können in dem deaktivierten Studio nicht mehr verwendet werden, unabhängig davon, wann sie gekauft wurden."
             },
             "companyEmpty": "Kein Studio ist so konfiguriert, dass es dieser Kurspass akzeptiert",
             "actions": {
@@ -11527,9 +11527,9 @@
                     "previous": "Zurück",
                     "submit": "Gemeinsam benutzen",
                     "cancel": "Abbrechen",
-                    "noConsumerPackToLink": "Keine gemeinsam benutzbaren Karten",
+                    "noConsumerPackToLink": "Keine gemeinsam benutzbaren Pässe",
                     "linkButton": "Gemeinsam benutzen",
-                    "title": "Gemeinsame Kartenbenutzung"
+                    "title": "Gemeinsame Pass-Nutzung"
                 },
                 "unlink": {
                     "submit": "Stoppen",
@@ -11546,8 +11546,8 @@
             },
             "list": {
                 "create": "Einen Kurspass teilen",
-                "title": "Geteilte Karten",
-                "isEmpty": "Keine gemeinsame Kartenbenutzung"
+                "title": "Geteilte Pässe",
+                "isEmpty": "Keine gemeinsame Pass-Nutzung"
             }
         },
         "member": {
@@ -11598,7 +11598,7 @@
                     "title": "Ende der gemeinsamen Benutzung"
                 },
                 "create": {
-                    "noConsumerPackToLink": "Keine gemeinsam benutzbaren Karten",
+                    "noConsumerPackToLink": "Keine gemeinsam benutzbaren Pässe",
                     "linkButton": "Gemeinsam nutzen",
                     "submit": "Gemeinsam nutzen",
                     "previous": "Bisherige",
@@ -11618,7 +11618,7 @@
                 "title": "Beziehung löschen",
                 "submit": "Löschen",
                 "cancel": "Abbrechen",
-                "content": "Bitte beachte, dass diese Aktion unwiderruflich ist. Freigegebene Karten werden nicht mehr freigegeben.",
+                "content": "Bitte beachte, dass diese Aktion unwiderruflich ist. Freigegebene Pässe werden nicht mehr freigegeben.",
                 "whichUser": "Auf welches Konto möchten Sie zugreifen?"
             }
         },
@@ -12286,7 +12286,7 @@
                 "placeholder": "Einrichtung"
             },
             "level": {
-                "placeholder": "Level"
+                "placeholder": "Niveau"
             },
             "coach": {
                 "placeholder": "Lehrkraft"
@@ -12705,7 +12705,7 @@
                 "cancel": "Abbrechen"
             },
             "select": {
-                "add": "Eine Stufe hinzufügen",
+                "add": "Eine Niveau hinzufügen",
                 "title": "Niveau",
                 "placeholder": "Niveau"
             },
@@ -13120,7 +13120,7 @@
                 "popupPreview": {
                     "membershipCard": {
                         "paymentPack": "Kurspässe",
-                        "consumerPaymentPack": "Meine Karten",
+                        "consumerPaymentPack": "Meine Pässe",
                         "invoice": "Meine Rechnungen",
                         "contract": "Abonnement",
                         "paymentPackEmpty": "Keine Karte zu sehen",

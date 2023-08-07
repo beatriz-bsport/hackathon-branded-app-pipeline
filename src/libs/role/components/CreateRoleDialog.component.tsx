@@ -23,8 +23,9 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 import { Actions } from '#components/forms';
+import { DEFAULT_OBJECT_LEVEL_PERMISSIONS } from '#libs/role/constants';
 
-import { RolePermission, Role } from '../types';
+import { RolePermission, Role, ObjectLevelPermissions } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import {
   deepMerge,
@@ -51,6 +52,7 @@ type State = {
   name: string;
   description: string;
   permissions: RolePermission;
+  objectLevelPermissions: ObjectLevelPermissions;
   restrictedPathNew: string;
   hasBookingOverrideControl: boolean;
   showAdvanced: boolean;
@@ -179,6 +181,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
       name: '',
       description: '',
       permissions: defaultPermissions,
+      objectLevelPermissions: DEFAULT_OBJECT_LEVEL_PERMISSIONS,
       restrictedPathNew: '',
       showAdvanced: false,
       hasBookingOverrideControl: true,
@@ -187,13 +190,22 @@ export class CreateRoleDialog extends React.Component<Props, State> {
     if (props.role) {
       state.name = props.role.name;
       state.description = props.role.description;
+      state.hasBookingOverrideControl = props.role.has_booking_override_control;
+
       if (props.role.permissions) {
         state.permissions = deepMerge(
           cloneDeep(props.role.permissions),
           setAllValuesInObject(defaultPermissions, false),
         ) as RolePermission;
-        state.hasBookingOverrideControl =
-          props.role.has_booking_override_control;
+      }
+
+      // By default, if some keys are not found in props.role.object_level_permissions
+      // then they are initialized to true
+      if (props.role.object_level_permissions) {
+        state.objectLevelPermissions = deepMerge(
+          cloneDeep(props.role.object_level_permissions),
+          setAllValuesInObject(DEFAULT_OBJECT_LEVEL_PERMISSIONS, true),
+        ) as ObjectLevelPermissions;
       }
     }
 
@@ -204,23 +216,36 @@ export class CreateRoleDialog extends React.Component<Props, State> {
     return state;
   };
 
+  updateObjectLevelPermissions = (
+    objectLevelPermissions: ObjectLevelPermissions,
+  ) => {
+    this.setState({ objectLevelPermissions });
+  };
+
   onSubmit = (ev: any) => {
     ev.preventDefault();
 
-    const { name, description, permissions, hasBookingOverrideControl } =
-      this.state;
+    const {
+      name,
+      description,
+      permissions,
+      objectLevelPermissions,
+      hasBookingOverrideControl,
+    } = this.state;
     if (!(this.props.isFranchisor || name) || !permissions) return;
     this.props.onSubmit({
       ...this.props.role,
       name,
       description,
       permissions,
+      object_level_permissions: objectLevelPermissions,
       has_booking_override_control: hasBookingOverrideControl,
     });
     this.setState({
       name: '',
       description: '',
       permissions: defaultPermissions,
+      objectLevelPermissions: DEFAULT_OBJECT_LEVEL_PERMISSIONS,
       restrictedPathNew: '',
       hasBookingOverrideControl: true,
     });
@@ -229,13 +254,19 @@ export class CreateRoleDialog extends React.Component<Props, State> {
   onPrevious = (ev: any) => {
     ev.preventDefault();
 
-    const { name, description, permissions, hasBookingOverrideControl } =
-      this.state;
+    const {
+      name,
+      description,
+      permissions,
+      objectLevelPermissions,
+      hasBookingOverrideControl,
+    } = this.state;
     this.props.onPrevious({
       ...this.props.role,
       name,
       description,
       permissions,
+      object_level_permissions: objectLevelPermissions,
       has_booking_override_control: hasBookingOverrideControl,
     });
   };
@@ -360,6 +391,22 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                     }}
                   />
                 ))}
+            </div>
+
+            <div className={classes.checkboxesContainer}>
+              {Object.keys(this.state.objectLevelPermissions).map((key) => (
+                <RecursiveCheckBoxComponent
+                  key={key}
+                  checkBoxData={this.state.objectLevelPermissions}
+                  disabled={this.props.role && !this.props.role.editable}
+                  keysAccumulator={[key]}
+                  keysToHide={['allowed_actions']}
+                  permissions={this.state.objectLevelPermissions}
+                  rightKey={key}
+                  translationKeyPrefix="objectLevelPermissions"
+                  updatePermission={this.updateObjectLevelPermissions}
+                />
+              ))}
             </div>
 
             <div className={classes.marginTop4} />

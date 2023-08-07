@@ -356,6 +356,10 @@ const getTranslations = async () => {
             doNotSelectToAllowAllMembers: 'Leave empty to allow all members',
             helperText:
               'Use tags to make the pass only available to specific members in your MarketPlace, on your widgets, and on your mobile app. You can select to only display these passes to members with specific tags, or you can choose to not display the pass to specific tags at all. ',
+            selectTags: 'Select tags',
+            tagsOnAcquisition: 'Tag after purchase',
+            tagsOnAcquisitionHelper:
+              'Use tags to identify which member bought the pass.',
           },
           header: 'Advanced',
           appliesForPayroll: {

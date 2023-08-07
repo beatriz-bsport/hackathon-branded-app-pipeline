@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
@@ -14,6 +13,8 @@ import TagSelector from '#libs/tag/components/TagSelector.selector';
 import { PaymentPackFormValues } from '../../types';
 import { Tag, TagGroup } from '#libs/tag/types';
 import { SwitchField } from '#libs/custom-form/components/GenericFormik.input';
+import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
+import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
 
 type Props = {
   tagList: Array<Tag<TagGroup>>;
@@ -28,6 +29,32 @@ export const PaymentPackFormAdvancedOptions = (props: Props) => {
 
   const { values, setFieldValue }: FormikProps<PaymentPackFormValues> =
     useFormikContext();
+
+  const onChangeTagsOnAcquisition = React.useCallback(
+    (items: Array<{ label: string; value: number; tag: Tag<TagGroup> }>) => {
+      return setFieldValue(
+        'tags_on_consumer_item_creation',
+        items.map((item) => item.value),
+      );
+    },
+    [setFieldValue],
+  );
+
+  const onDeleteTagsOnAcquisition = React.useCallback(
+    (itemId: number) =>
+      setFieldValue(
+        'tags_on_consumer_item_creation',
+        values?.tags_on_consumer_item_creation?.filter(
+          (tagId) => tagId !== itemId,
+        ),
+      ),
+    [setFieldValue, values?.tags_on_consumer_item_creation],
+  );
+
+  const hasTagsSameGroup = useHasTagsSameGroup({
+    selectedTagsIds: values?.tags_on_consumer_item_creation,
+    tagsWithGroup: props.tagList,
+  });
   return (
     <>
       <div
@@ -79,7 +106,9 @@ export const PaymentPackFormAdvancedOptions = (props: Props) => {
                   isDisabled={disabledUniversalPassFields}
                   onChange={(
                     items: Array<{
-                      item: Tag & { label: string; value: number };
+                      label: string;
+                      value: number;
+                      tag: Tag<TagGroup>;
                     }>,
                   ) => {
                     return setFieldValue(
@@ -123,7 +152,9 @@ export const PaymentPackFormAdvancedOptions = (props: Props) => {
                   isDisabled={disabledUniversalPassFields}
                   onChange={(
                     items: Array<{
-                      item: Tag & { label: string; value: number };
+                      label: string;
+                      value: number;
+                      tag: Tag<TagGroup>;
                     }>,
                   ) => {
                     return setFieldValue(
@@ -146,6 +177,28 @@ export const PaymentPackFormAdvancedOptions = (props: Props) => {
                 />
               </div>
             </Collapse>
+          </div>
+
+          <div className={classes.section}>
+            <Typography className={classes.title}>
+              {t('form.paymentPack.advancedOptions.tag.tagsOnAcquisition')}
+            </Typography>
+            <Typography className={classes.helperText} variant="caption">
+              {t(
+                'form.paymentPack.advancedOptions.tag.tagsOnAcquisitionHelper',
+              )}
+            </Typography>
+            <TagSelector
+              closeMenuOnSelect
+              inScrollBar
+              isClearable
+              allTagsWithTagGroup={tagList || []}
+              onChange={onChangeTagsOnAcquisition}
+              onDeleteTag={onDeleteTagsOnAcquisition}
+              placeholder={t('form.paymentPack.advancedOptions.tag.selectTags')}
+              selectedTags={values.tags_on_consumer_item_creation}
+            />
+            {hasTagsSameGroup && <TagGroupDuplicatedAlert />}
           </div>
 
           <div className={classes.section}>

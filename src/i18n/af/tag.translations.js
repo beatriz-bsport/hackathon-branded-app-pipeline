@@ -135,4 +135,6 @@ exports.default = {
       title: 'Untag',
     },
   },
+  tagGroupDuplicated:
+    'Please be aware that some tags belong to the same group.',
 };

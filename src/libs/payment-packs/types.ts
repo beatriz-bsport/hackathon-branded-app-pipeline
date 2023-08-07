@@ -98,6 +98,7 @@ export type PaymentPack<LPP = number | null, PPCategories = Array<number>> = {
   notifications: Array<number>;
   whitelist_tags: Array<number>;
   blacklist_tags: Array<number>;
+  tags_on_consumer_item_creation?: Array<number>;
   template_instance: number;
   linked_private_pass: LPP;
   allow_guest_pass?: boolean;
@@ -278,6 +279,7 @@ export type PaymentPackFormValues<LPP = number> = {
   only_vod_access?: boolean;
   whitelist_tags?: Array<number>;
   blacklist_tags?: Array<number>;
+  tags_on_consumer_item_creation?: Array<number>;
   is_universal_pass: boolean;
   linked_private_pass?: LPP;
   linked_private_pass_compatibility: Array<CompatiblePrivateService>;

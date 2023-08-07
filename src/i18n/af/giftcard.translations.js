@@ -28,6 +28,15 @@ exports.default = {
       name: { label: 'Name' },
       title: 'Gift card',
       actions: { submit: 'Confirm', cancel: 'Close' },
+      advancedOptions: {
+        header: 'Advanced',
+        tag: {
+          tagsOnAcquisition: 'Tag after purchase',
+          tagsOnAcquisitionHelper:
+            'Use tags to identify which member bought the giftcard',
+          selectTags: 'Select tags',
+        },
+      },
     },
     canNotUpdateBecauseShared:
       'This gift card is a shared card by the franchisor. It has been defined by the franchisor and cannot be modified.',

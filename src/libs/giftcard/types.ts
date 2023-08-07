@@ -15,6 +15,7 @@ export type Giftcard = {
   company: number;
   amount_gifted: string; // decimal price
   is_shared_giftcard?: boolean;
+  tags_on_consumer_item_creation?: Array<number>;
 };
 
 export type GiftcardDataAPI = {
@@ -25,6 +26,7 @@ export type GiftcardDataAPI = {
   expiration_days: number | null;
   name: string;
   price: number;
+  tags_on_consumer_item_creation: Array<number>;
 };
 
 export type GiftcardTemplate = {
@@ -39,6 +41,7 @@ export type GiftcardTemplate = {
   amount_gifted: string; // decimal price
   companies: Array<number>;
   cover: string;
+  tags_on_consumer_item_creation?: Array<number>;
 };
 
 export type GiftcardRecipient = {

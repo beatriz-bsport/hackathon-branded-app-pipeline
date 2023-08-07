@@ -1,29 +1,42 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { withFormik } from 'formik';
+import { withFormik, useFormikContext } from 'formik';
+import { ButtonBase } from '@material-ui/core';
 import * as Yup from 'yup';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import Collapse from '@material-ui/core/Collapse';
-import PaymentMethodSelectorField from '#libs/payment/components/PaymentMethodSelectorField.component';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SettingsIcon from '@material-ui/icons/Settings';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import {
   TextField,
   PriceField,
   IntegerField,
   CheckboxField,
   SwitchField,
+  // @ts-ignore
 } from '#components/forms';
+// @ts-ignore
+import PaymentMethodSelectorField from '#libs/payment/components/PaymentMethodSelectorField.component';
+// @ts-ignore
 import ImageField from '#components/forms/ImageField.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { GiftcardDataAPI, Giftcard, GiftcardTemplate } from '../types';
+import { Giftcard, GiftcardTemplate } from '../types';
 import { OptionCallback } from '../../../state/types';
+import { Tag, TagGroup } from '#libs/tag/types';
+import TagSelector from '#libs/tag/components/TagSelector.selector';
+import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
+import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
 
 type Props = {
   values: any;
   initial?: Giftcard | GiftcardTemplate;
   disabledSharedGiftcardUpdate?: boolean;
+  tagList?: Array<Tag<TagGroup>>;
 };
 
 const { trackFormAdd, trackFormSuccess } =
@@ -37,6 +50,37 @@ const GiftcardForm = (props: Props) => {
     trackFormAdd(props.initial?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const { setFieldValue } = useFormikContext();
+
+  const [openAdvancedOptions, setOpenAdvancedOptions] = React.useState(false);
+
+  const hasTagsSameGroup = useHasTagsSameGroup({
+    selectedTagsIds: props.values?.tags_on_consumer_item_creation,
+    tagsWithGroup: props.tagList,
+  });
+
+  const onChangeTagsOnAcquisition = React.useCallback(
+    (items: Array<{ label: string; value: number; tag: Tag<TagGroup> }>) => {
+      return setFieldValue(
+        'tags_on_consumer_item_creation',
+        items.map((item) => item.value),
+      );
+    },
+    [setFieldValue],
+  );
+
+  const onDeleteTagsOnAcquisition = React.useCallback(
+    (itemId: number) =>
+      setFieldValue(
+        'tags_on_consumer_item_creation',
+        props.values?.tags_on_consumer_item_creation?.filter(
+          (tagId: number) => tagId !== itemId,
+        ),
+      ),
+    [props.values?.tags_on_consumer_item_creation, setFieldValue],
+  );
+
   return (
     <div className={classes.container}>
       <ImageField disabled={props.disabledSharedGiftcardUpdate} name="cover" />
@@ -95,6 +139,51 @@ const GiftcardForm = (props: Props) => {
         label={t('form.giftcard.available_payment_method_identifiers.label')}
         name="available_payment_method_identifiers"
       />
+
+      {props.tagList && (
+        <>
+          <Divider className={classes.divider} />
+
+          <div className={classes.section} id="giftcard-form-advanced-section">
+            <ButtonBase
+              className={classes.advancedOptionsHeader}
+              onClick={() => setOpenAdvancedOptions(!openAdvancedOptions)}
+            >
+              <SettingsIcon />
+              <Typography variant="h6">
+                {t('form.giftcard.advancedOptions.header')}
+              </Typography>
+              {openAdvancedOptions ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </ButtonBase>
+
+            <Collapse in={openAdvancedOptions}>
+              <div className={classes.section}>
+                <Typography className={classes.title}>
+                  {t('form.giftcard.advancedOptions.tag.tagsOnAcquisition')}
+                </Typography>
+                <Typography variant="caption">
+                  {t(
+                    'form.giftcard.advancedOptions.tag.tagsOnAcquisitionHelper',
+                  )}
+                </Typography>
+                <TagSelector
+                  closeMenuOnSelect
+                  inScrollBar
+                  isClearable
+                  allTagsWithTagGroup={props.tagList || []}
+                  onChange={onChangeTagsOnAcquisition}
+                  onDeleteTag={onDeleteTagsOnAcquisition}
+                  placeholder={t(
+                    'form.giftcard.advancedOptions.tag.selectTags',
+                  )}
+                  selectedTags={props.values.tags_on_consumer_item_creation}
+                />
+                {hasTagsSameGroup && <TagGroupDuplicatedAlert />}
+              </div>
+            </Collapse>
+          </div>
+        </>
+      )}
     </div>
   );
 };
@@ -119,6 +208,30 @@ const useStyles = makeStyles((theme: Theme) => ({
       marginBottom: theme.spacing(1),
     },
   },
+  divider: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+    marginLeft: theme.spacing(-4),
+    marginRight: theme.spacing(-4),
+    height: 2,
+    color: '#C6C6C6',
+  },
+  advancedOptionsHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: theme.spacing(2),
+  },
+  section: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+    paddingTop: theme.spacing(4),
+  },
+  title: {
+    fontWeight: 500,
+    color: '#000',
+  },
 }));
 
 export default GiftcardForm;
@@ -132,12 +245,13 @@ export const GiftcardSchema = Yup.object().shape({
   unlimited: Yup.boolean(),
   available_payment_method_identifiers: Yup.array().of(Yup.number()),
   expiration_days: Yup.number().nullable().min(1),
+  tags_on_consumer_item_creation: Yup.array().of(Yup.number().integer()),
 });
 
 type WithFormikProps = {
   onError?: () => void;
   onSuccess?: () => void;
-  onSubmit: (data: GiftcardDataAPI, options: OptionCallback) => void;
+  onSubmit: (data: FormData, options: OptionCallback) => void;
 };
 
 type MergedProps = WithFormikProps & Props;
@@ -155,12 +269,15 @@ export const GiftcardFormFieldHOC = withFormik<MergedProps, any>({
         unlimited: false,
         expiration_days: 30,
         available_payment_method_identifiers: [CB.id],
+        tags_on_consumer_item_creation: [],
       };
     }
     return {
       ...initial,
       unlimited: !initial.expiration_days,
       expiration_days: initial.expiration_days || 30,
+      tags_on_consumer_item_creation:
+        initial.tags_on_consumer_item_creation || [],
     };
   },
   validationSchema: GiftcardSchema,
@@ -201,6 +318,10 @@ export const GiftcardFormFieldHOC = withFormik<MergedProps, any>({
     formData.append(
       'available_payment_method_identifiers[]',
       JSON.stringify(values.available_payment_method_identifiers),
+    );
+    formData.append(
+      'tags_on_consumer_item_creation[]',
+      JSON.stringify(values.tags_on_consumer_item_creation),
     );
     props.onSubmit(formData, {
       onSuccess: () => {

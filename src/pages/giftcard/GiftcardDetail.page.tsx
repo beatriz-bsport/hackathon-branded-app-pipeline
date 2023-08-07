@@ -48,6 +48,8 @@ import {
 
 import BackofficeLinearProgressComponent from '../../components/navigation/BackofficeLinearProgress.component';
 import { RootState } from '../../reducers';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { fetchTags } from '#libs/tag/actions';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -99,6 +101,7 @@ const PAGE_SIZE = 15;
 export class GiftcardDetailPage extends Component<Props> {
   componentDidMount() {
     this.props.retrieveGiftcard(this.props.id);
+    this.props.fetchTags();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -177,6 +180,7 @@ export class GiftcardDetailPage extends Component<Props> {
           onClose={() => this.props.setEditIsOpen(false)}
           onSubmit={this.props.updateGiftcard}
           open={!!this.props.editIsOpen}
+          tagList={this.props.allTagsWithTagGroup}
         />
         {!!this.props.deleteIsOpen && (
           <GiftcardDeleteDialog
@@ -199,6 +203,7 @@ const connector = connect(
       state,
     ),
     giftcard: getGiftcard(state, id),
+    allTagsWithTagGroup: getAllTagsWithTagGroup(state),
   }),
   {
     retrieveGiftcard,
@@ -210,6 +215,7 @@ const connector = connect(
     goToMemberGiftcard: (consumerGiftcardId: number, memberId: number) =>
       push(`/member/${memberId}/giftcard/${consumerGiftcardId}`),
     fetchConsumerGiftcardList: fetchConsumerGiftcardListAction,
+    fetchTags,
   },
 );
 

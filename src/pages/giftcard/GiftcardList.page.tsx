@@ -52,6 +52,8 @@ import FuzeSearch from '../../components/FuzeSearch.component';
 import GiftcardList from '../../libs/giftcard/components/GiftcardList.component';
 import DividerLoader from '../../components/DividerLoader.component';
 import GiftcardBackgroundImageUploader from '../../libs/giftcard/components/GiftcardBackgroundImageUploader.component';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { fetchTags } from '#libs/tag/actions';
 
 import {
   ConsumerGiftcard,
@@ -114,6 +116,7 @@ export class GiftcardListPage extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchGiftcardList();
     this.props.fetchGiftcardBackgroundImageList(this.props.company);
+    this.props.fetchTags();
   }
 
   onShowDisabled = () =>
@@ -288,12 +291,14 @@ export class GiftcardListPage extends Component<Props, State> {
           onClose={this.props.closeForms}
           onSubmit={this.props.createOrUpdate}
           open={!!this.props.queryParams?.isCreateFormOpen}
+          tagList={this.props.allTagsWithTagGroup}
         />
         <GiftcardFormDrawer
           initial={this.props.giftcardToEdit}
           onClose={this.props.closeForms}
           onSubmit={this.props.createOrUpdate}
           open={!!this.props.giftcardToEdit}
+          tagList={this.props.allTagsWithTagGroup}
         />
         {this.props.queryParams.isBackgroundImageUploaderOpen && (
           <GiftcardBackgroundImageUploader
@@ -321,6 +326,7 @@ const connector = connect(
     company: state.theme.theme.company,
     giftcardToEdit:
       state.giftcard.giftcard.byId[parseInt(queryParams?.giftcardToEdit, 10)],
+    allTagsWithTagGroup: getAllTagsWithTagGroup(state),
   }),
   {
     fetchGiftcardList: fetchGiftcardListAction,
@@ -332,6 +338,7 @@ const connector = connect(
     restoreGiftcard,
     push: pushAction,
     makeGiftcardCopy: makeGiftcardCopyAction,
+    fetchTags,
   },
 );
 

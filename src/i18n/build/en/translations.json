@@ -17570,7 +17570,15 @@
                 },
                 "footerUnlimited": "The gift card will be sent to the recipient at {{- hour_send }}. It has no expiration date and the receiver's account balance will be topped up with {{- price }} for future purchases.",
                 "select_image": "Select your background image",
-                "hour_send": "Sending time"
+                "hour_send": "Sending time",
+                "advancedOptions": {
+                    "tag": {
+                        "tagsOnAcquisition": "Tags after purchase",
+                        "tagsOnAcquisitionHelper": "Use tags to mark members who have bought this giftcard.",
+                        "selectTags": "Select tags"
+                    },
+                    "header": "Advanced"
+                }
             },
             "previewPlaceholder": {
                 "message_content": "[Custom message]",

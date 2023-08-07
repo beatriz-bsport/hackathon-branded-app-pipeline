@@ -13,6 +13,7 @@ import { GiftcardDataAPI, Giftcard, GiftcardTemplate } from '../types';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { Tag, TagGroup } from '#libs/tag/types';
 
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -27,6 +28,7 @@ type OwnProps = {
   ) => void;
   onClose: () => void;
   initial?: Giftcard | GiftcardTemplate;
+  tagList?: Array<Tag<TagGroup>>;
 };
 type Props = OwnProps & FormikProps<GiftcardDataAPI>;
 

@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import * as Yup from 'yup';
 import { withFormik, FieldArray, useFormikContext } from 'formik';
 
+import { ButtonBase } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -15,6 +16,9 @@ import Typography from '@material-ui/core/Typography';
 import InputLabel from '@material-ui/core/InputLabel';
 import InfoIcon from '@material-ui/icons/Info';
 import Collapse from '@material-ui/core/Collapse';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SettingsIcon from '@material-ui/icons/Settings';
 import PaymentMethodSelectorField from '../../payment/components/PaymentMethodSelectorField.component';
 import { provincialTaxHelperText } from '../../theme/utils';
 import {
@@ -42,6 +46,11 @@ import { getCurrencyDisplay } from '#libs/theme/selectors';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { SwitchField } from '#libs/custom-form/components/GenericFormik.input';
+import { Tag, TagGroup } from '#libs/tag/types';
+import TagSelector from '#libs/tag/components/TagSelector.selector';
+import TagGroupDuplicatedAlert from '#libs/tag/components/TagGroupDuplicatedAlert.component';
+
+import { useHasTagsSameGroup } from '#libs/tag/components/hooks';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -58,6 +67,7 @@ type Props = {
   relatedPrivatePassList: Array<PrivatePass>;
   displayNewCheckoutFlow: boolean;
   initial: PaymentCombo;
+  tagList: Array<Tag<TagGroup>>;
 };
 
 function repeat(arr: number[], n: number) {
@@ -83,9 +93,12 @@ export const PaymentComboForm: React.FC<Props> = ({
   relatedPrivatePassList,
   initial,
   displayNewCheckoutFlow,
+  tagList,
 }) => {
   const { t } = useTranslation('paymentCombo');
   const classes = useStyles();
+
+  const [openAdvancedOptions, setOpenAdvancedOptions] = React.useState(false);
 
   React.useEffect(() => {
     trackFormAdd(initial?.id);
@@ -98,29 +111,96 @@ export const PaymentComboForm: React.FC<Props> = ({
     [values.tax, provincialTax, t],
   );
 
-  const { values: valuesFormik } = useFormikContext();
+  const { values: valuesFormik, setFieldValue } = useFormikContext();
 
-  const selectablePaymentPacks = paymentPackList
-    ? paymentPackList.filter(
-        (pp: PaymentPack) =>
-          !pp.linked_private_pass ||
-          !valuesFormik.private_pass_ids.includes(pp.linked_private_pass),
-      )
-    : [];
+  const selectablePaymentPacks = React.useMemo(
+    () =>
+      paymentPackList
+        ? paymentPackList.filter(
+            (pp: PaymentPack) =>
+              !pp.linked_private_pass ||
+              !valuesFormik.private_pass_ids.includes(pp.linked_private_pass),
+          )
+        : [],
+    [paymentPackList, valuesFormik.private_pass_ids],
+  );
 
-  const selectablePrivatePasses = privatePassList
-    ? privatePassList.filter(
-        (pp: PrivatePass) =>
-          !pp.linked_payment_pack ||
-          !valuesFormik.payment_pack_ids.includes(pp.linked_payment_pack),
-      )
-    : [];
+  const selectablePrivatePasses = React.useMemo(
+    () =>
+      privatePassList
+        ? privatePassList.filter(
+            (pp: PrivatePass) =>
+              !pp.linked_payment_pack ||
+              !valuesFormik.payment_pack_ids.includes(pp.linked_payment_pack),
+          )
+        : [],
+    [privatePassList, valuesFormik.payment_pack_ids],
+  );
 
   const isEmpty =
     !valuesFormik.payment_pack_ids.length &&
     !valuesFormik.shop_item_ids.length &&
     !valuesFormik.private_pass_ids.length;
 
+  const onChangeTagsOnAcquisition = React.useCallback(
+    (items: Array<{ label: string; value: number; tag: Tag<TagGroup> }>) => {
+      return setFieldValue(
+        'tags_on_consumer_item_creation',
+        items.map((item) => item.value),
+      );
+    },
+    [setFieldValue],
+  );
+
+  const onDeleteTagsOnAcquisition = React.useCallback(
+    (itemId: number) =>
+      setFieldValue(
+        'tags_on_consumer_item_creation',
+        values?.tags_on_consumer_item_creation?.filter(
+          (tagId) => tagId !== itemId,
+        ),
+      ),
+    [setFieldValue, values?.tags_on_consumer_item_creation],
+  );
+
+  const allPackTagIds = React.useMemo(() => {
+    const selectedPaymentPackTags = selectablePaymentPacks
+      .filter((paymentPack) => values.payment_pack_ids.includes(paymentPack.id))
+      .map((paymentPack) => paymentPack?.tags_on_consumer_item_creation)
+      .flat();
+
+    const selectedShopItemTags = shopItemList
+      .filter((shopItem) => values.shop_item_ids.includes(shopItem.id))
+      .map((shopItem) => shopItem?.tags_on_purchase)
+      .flat();
+
+    const selectedPrivatePassTags = selectablePrivatePasses
+      .filter((privatePass) => values.private_pass_ids.includes(privatePass.id))
+      .map((privatePass) => privatePass?.tags_on_consumer_item_creation)
+      .flat();
+
+    const allPackTags = [].concat(
+      selectedPaymentPackTags,
+      selectedShopItemTags,
+      selectedPrivatePassTags,
+      values?.tags_on_consumer_item_creation,
+    );
+
+    return [...new Set(allPackTags)];
+  }, [
+    selectablePaymentPacks,
+    selectablePrivatePasses,
+    shopItemList,
+    values.payment_pack_ids,
+    values.private_pass_ids,
+    values.shop_item_ids,
+    values.tags_on_consumer_item_creation,
+  ]);
+
+  const hasItemsWithTagsSameGroup = useHasTagsSameGroup({
+    selectedTagsIds: allPackTagIds,
+    tagsWithGroup: tagList,
+  });
   return (
     <div className={classes.container}>
       <TextField fullWidth required label={t('form.name.label')} name="name" />
@@ -328,6 +408,47 @@ export const PaymentComboForm: React.FC<Props> = ({
         label={t('form.new_member_only.label')}
         name="new_member_only"
       />
+
+      <div className={classes.section} id="payment-combo-form-advanced-section">
+        <ButtonBase
+          className={classes.advancedOptionsHeader}
+          onClick={() => setOpenAdvancedOptions(!openAdvancedOptions)}
+        >
+          <SettingsIcon className={classes.settings} />
+          <Typography variant="h6">
+            {t('form.advancedOptions.header')}
+          </Typography>
+          {openAdvancedOptions ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </ButtonBase>
+
+        <Collapse in={openAdvancedOptions}>
+          <div className={classes.section}>
+            <Typography className={classes.title}>
+              {t('form.advancedOptions.tag.tagsOnAcquisition')}
+            </Typography>
+            <Typography className={classes.helperText} variant="caption">
+              {t('form.advancedOptions.tag.tagsOnAcquisitionHelper')}
+            </Typography>
+            <TagSelector
+              closeMenuOnSelect
+              inScrollBar
+              isClearable
+              allTagsWithTagGroup={tagList || []}
+              onChange={onChangeTagsOnAcquisition}
+              onDeleteTag={onDeleteTagsOnAcquisition}
+              placeholder={t('form.advancedOptions.tag.selectTags')}
+              selectedTags={values.tags_on_consumer_item_creation}
+            />
+            {hasItemsWithTagsSameGroup && (
+              <TagGroupDuplicatedAlert
+                tagGroupDuplicatedText={t(
+                  'form.advancedOptions.tag.tagGroupDuplicated',
+                )}
+              />
+            )}
+          </div>
+        </Collapse>
+      </div>
     </div>
   );
 };
@@ -354,6 +475,22 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   inputLabelExpirationDate: { marginTop: theme.spacing(1), fontSize: 12 },
+  advancedOptionsHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: theme.spacing(2),
+  },
+  section: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+    paddingTop: theme.spacing(2),
+  },
+  title: {
+    fontWeight: 500,
+    color: '#000',
+  },
 }));
 
 export const PaymentComboFieldsSchema = Yup.object().shape({
@@ -373,6 +510,7 @@ export const PaymentComboFieldsSchema = Yup.object().shape({
   unusable_by_staff: Yup.boolean(),
   expiration_date: Yup.date().nullable(),
   highlighted_as_recommended: Yup.boolean(),
+  tags_on_consumer_item_creation: Yup.array().of(Yup.number().integer()),
 });
 
 export const PaymentComboFormHoc = withFormik({
@@ -386,6 +524,8 @@ export const PaymentComboFormHoc = withFormik({
         new_member_only: initial.new_member_only,
         unusable_by_staff: !initial.is_usable_by_staff,
         expiration_date_active: !!initial?.expiration_date,
+        tags_on_consumer_item_creation:
+          initial.tags_on_consumer_item_creation || [],
       };
     }
     return {
@@ -405,6 +545,7 @@ export const PaymentComboFormHoc = withFormik({
       expiration_date: null,
       expiration_date_active: false,
       highlighted_as_recommended: false,
+      tags_on_consumer_item_creation: [],
     };
   },
   validationSchema: PaymentComboFieldsSchema,

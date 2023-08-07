@@ -2687,6 +2687,15 @@
             "highlightedAsRecommended": {
                 "label": "Mark as recommended",
                 "helperText": "Allows your customers to quickly see which packs are currently recommended."
+	    },
+            "advancedOptions": {
+                "tag": {
+                    "tagsOnAcquisition": "Tags after purchase",
+                    "tagsOnAcquisitionHelper": "Use tags to mark members who have bought this pack.",
+                    "selectTags": "Select tags"
+                },
+                "header": "Advanced",
+                "tagGroupDuplicated": "Please note that selected items contain tags of the same category"
             }
         },
         "detail": {

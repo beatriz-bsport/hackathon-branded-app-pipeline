@@ -7,7 +7,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { Theme } from '@material-ui/core';
 
-export const TagGroupDuplicatedAlert: React.FC = () => {
+type TagGroupDuplicatedAlertProps = {
+  tagGroupDuplicatedText?: string;
+};
+
+export const TagGroupDuplicatedAlert: React.FC<
+  TagGroupDuplicatedAlertProps
+> = ({ tagGroupDuplicatedText }) => {
   const classes = useStyles();
   const { t } = useTranslation(['tag']);
   return (
@@ -21,7 +27,7 @@ export const TagGroupDuplicatedAlert: React.FC = () => {
         primary={
           <div>
             <Typography variant="subtitle2">
-              {t('tagGroupDuplicated')}
+              {tagGroupDuplicatedText || t('tagGroupDuplicated')}
             </Typography>
           </div>
         }

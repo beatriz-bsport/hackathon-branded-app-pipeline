@@ -28,6 +28,7 @@ export type PaymentCombo = {
   shop_items: PaymentComboItem[];
   private_passes: PaymentComboItem[];
   max_purchase_per_member: number | null;
+  tags_on_consumer_item_creation?: Array<number>;
   barcode: string;
   available_payment_method_identifier: number[];
   new_member_only: boolean;

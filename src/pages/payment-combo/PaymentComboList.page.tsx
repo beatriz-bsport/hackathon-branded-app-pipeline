@@ -18,6 +18,8 @@ import {
   createOrUpdatePaymentCombo,
   deletePaymentCombo,
 } from '#libs/payment-combo/actions';
+import { fetchTags } from '#libs/tag/actions';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import {
   getPaymentComboList,
   getPaymentComboListAvailableForSale,
@@ -63,6 +65,7 @@ export class PaymentComboListPage extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchPaymentComboList();
+    this.props.fetchTags();
   }
 
   createOrUpdate = (values: any, options: OptionCallback) =>
@@ -174,6 +177,7 @@ export class PaymentComboListPage extends React.Component<Props, State> {
             onSubmit={this.createOrUpdate}
             open={this.props.openForm}
             provincialTax={this.props.theme?.provincial_tax_value}
+            tagList={this.props.allTagsWithTagGroup}
           />
         ) : null}
       </div>
@@ -223,12 +227,14 @@ const connector = connect(
     error: state.paymentCombo.createOrUpdate.error,
     paymentComboList: getPaymentComboList(state),
     theme: themeSelectors.getTheme(state),
+    allTagsWithTagGroup: getAllTagsWithTagGroup(state),
   }),
   {
     fetchPaymentComboList,
     createOrUpdatePaymentCombo,
     deletePaymentCombo,
     goToPaymentCombo: (id: number) => push(`/combo/${id}`),
+    fetchTags,
   },
 );
 

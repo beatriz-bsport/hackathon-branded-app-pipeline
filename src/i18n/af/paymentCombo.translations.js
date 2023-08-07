@@ -55,6 +55,17 @@ exports.default = {
       helperText:
         'Allows your customers to quickly see which packs are currently recommended.',
     },
+    advancedOptions: {
+      header: 'Avancé',
+      tag: {
+        tagsOnAcquisition: 'Tags après achat',
+        tagsOnAcquisitionHelper:
+          'Utilisez les tags pour reconnaitre les membres qui possèdent le pack.',
+        selectTags: 'Sélectionnez des tags',
+        tagGroupDuplicated:
+          'Please note that selected items contain tags of the same category.',
+      },
+    },
   },
   detail: {
     containsNProducts: 'Contains {{ n }} product(s).',

@@ -27,6 +27,8 @@ import PaymentComboDeleteDialog from '#libs/payment-combo/components/PaymentComb
 import PaymentComboFormDrawerContainer from './PaymentComboFormDrawer.container';
 import { snackbarSuccess } from '#libs/snackbar/actions';
 import themeSelectors from '../../libs/theme/selectors';
+import { fetchTags } from '#libs/tag/actions';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 
 import type { PaymentCombo } from '#libs/payment-combo/types';
 
@@ -41,6 +43,7 @@ type Props = {
   paymentComboPurchaseCount: number,
   paymentComboPurchaseLoading: boolean,
   paymentComboPurchaseCount: number,
+  allTagsWithTagGroup: Array<Tag<TagGroup>>,
 
   onPaymentPackClick: (id: number) => void,
   onPrivatePassClick: (id: number) => void,
@@ -61,6 +64,7 @@ type Props = {
     },
     options?: OptionsCallback,
   ) => void,
+  fetchTags: () => void,
 
   goToInvoice: (uuid: string) => void,
   goToPaymentComboList: () => void,
@@ -91,6 +95,7 @@ export class PaymentComboDetail extends React.Component<Props> {
       page: 1,
       payment_combo: this.props.id,
     });
+    this.props.fetchTags();
   };
 
   deletePaymentCombo = () => {
@@ -171,6 +176,7 @@ export class PaymentComboDetail extends React.Component<Props> {
             }
             open={this.props.editIsOpen}
             provincialTax={this.props.theme?.provincial_tax_value}
+            tagList={this.props.allTagsWithTagGroup}
           />
         ) : null}
       </div>
@@ -200,6 +206,7 @@ export default compose(
       paymentComboPurchaseLoading: state.paymentCombo.purchase.loading,
       loading: state.paymentCombo.loading,
       paymentComboPurchaseInvoice: getInvoice(state, relatedInvoice),
+      allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     }),
     {
       fetchPaymentCombo,
@@ -213,6 +220,7 @@ export default compose(
       onPaymentPackClick: (id) => push(`/payment-pack/${id}`),
       goToInvoice: (uuid) => push(`/invoice/${uuid}`),
       goToPaymentComboList: () => push('/combo/'),
+      fetchTags,
     },
   ),
   withHandlers({

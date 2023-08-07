@@ -7,7 +7,7 @@ import { useTheme } from '@material-ui/core';
 
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import { getTextColorFromRGB } from '../../../../utils/color';
-import { getLevelColor, getLevelTrad } from '#libs/level/utils';
+import { getLevelColor, getLevelTranslation } from '#libs/level/utils';
 import './MarketplaceLevelCSSOnly.css';
 import { Level } from '#libs/level/types';
 
@@ -52,7 +52,7 @@ const MarketplaceLevelCSSOnly: React.FC<Props> = ({
       }
     >
       <div className={classNames('bs-level', className)}>
-        {getLevelTrad(customLevel.id, customLevel.name, t)}
+        {getLevelTranslation(customLevel.id, customLevel.name, t)}
       </div>
     </div>
   );

@@ -27,7 +27,7 @@ import { OfferData, AdditionalGuest } from '../types';
 import { Member, MemberMinimal } from '../../member/types';
 import AdditionalGuestForm from '#libs/booker-module/components/AdditionalGuestForm.component';
 import AdditionalGuestList from '#libs/booker-module/components/AdditionalGuestList.component';
-import { getLevelTrad } from '#libs/level/utils';
+import { getLevelTranslation } from '#libs/level/utils';
 import { SpotType } from '#libs/spot-scheduling/types';
 import { getSpotTypeMinimal } from '#libs/spot-scheduling/utils';
 
@@ -84,7 +84,7 @@ class OfferListSummary extends React.PureComponent<Props> {
   render() {
     const { classes, t, offer, offerStatus } = this.props;
 
-    const offerLevelTranslation = getLevelTrad(
+    const offerLevelTranslation = getLevelTranslation(
       Number.parseInt(this.props.offer.level),
       ' ',
       this.props.t,

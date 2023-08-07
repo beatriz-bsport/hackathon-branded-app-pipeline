@@ -12,7 +12,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import ListItemText from '@material-ui/core/ListItemText';
-import { getLevelTrad } from '#libs/level/utils';
+import { getLevelTranslation } from '#libs/level/utils';
 import { Level } from '#libs/level/types';
 import MetaActivityListItem from '../../../meta-activity/components/MetaActivityListItem.component';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
@@ -129,7 +129,7 @@ export class BookingsNumberFilter extends Component<Props, state> {
     const levelItems: LevelItem[] =
       customLevels?.map((level) => ({
         id: level.id,
-        text: getLevelTrad(level.id, level.name, t),
+        text: getLevelTranslation(level.id, level.name, t),
         disabled: !level.enabled,
       })) ?? [];
 

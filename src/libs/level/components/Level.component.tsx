@@ -10,7 +10,7 @@ import { Variant } from '@material-ui/core/styles/createTypography';
 import CloseIcon from '@material-ui/icons/Close';
 
 import { getTextColorFromRGB } from '../../../utils/color';
-import { getLevelColor, getLevelTrad } from '../utils';
+import { getLevelColor, getLevelTranslation } from '../utils';
 
 export type Props = {
   customLevel: { id: number; color: string; name: string };
@@ -57,7 +57,7 @@ export const LevelComponent: React.FC<Props> = ({
       )}
       variant={variant}
     >
-      {getLevelTrad(customLevel.id, customLevel.name, t)}
+      {getLevelTranslation(customLevel.id, customLevel.name, t)}
       {onRemove && (
         <IconButton onClick={onRemove} size="small">
           <CloseIcon className={classes.icon} />

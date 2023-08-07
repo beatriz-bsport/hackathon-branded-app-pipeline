@@ -31,7 +31,7 @@ export const LEVELS = [
   'level.noDisplay',
 ];
 
-export const getLevelTrad = (id: number, name: string, t: TFunction) => {
+export const getLevelTranslation = (id: number, name: string, t: TFunction) => {
   if (id && id <= MAX_RESERVE_ID && id >= 0) {
     return t(`translation:${LEVELS[id - 1]}`);
   }

@@ -13,7 +13,7 @@ import { Coach } from '../../../associated-coach/types';
 import { Level } from '#libs/level/types';
 import { MarketPlaceFilter } from '../../types';
 import MarketplaceFilter from '../MarketplaceFilter/MarketplaceFilter.component';
-import { getLevelColor, getLevelTrad } from '#libs/level/utils';
+import { getLevelColor, getLevelTranslation } from '#libs/level/utils';
 
 import './MarketplaceFilterCSSOnly.css';
 import { getGroupedEstablishmentOptions } from '#libs/establishment/components/EstablishmentSelector.component';
@@ -65,7 +65,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
       [
         ...customLevels.map((level) => ({
           value: level.id,
-          label: getLevelTrad(level.id, level.name, t),
+          label: getLevelTranslation(level.id, level.name, t),
           levelColor: getLevelColor(level.id, level.color, theme),
         })),
       ].sort((a, b) => a.value - b.value),

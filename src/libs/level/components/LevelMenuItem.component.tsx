@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import { Level } from '../types';
-import { getLevelColor, getLevelTrad, MAX_RESERVE_ID } from '../utils';
+import { getLevelColor, getLevelTranslation, MAX_RESERVE_ID } from '../utils';
 
 export type Props = {
   level: Level;
@@ -50,7 +50,7 @@ export const LevelMenuItem: React.FC<Props> = ({
               noWrap: true,
             }}
           >
-            {getLevelTrad(level.id, level.name, t)}
+            {getLevelTranslation(level.id, level.name, t)}
           </ListItemText>
         </div>
         {level.id > MAX_RESERVE_ID && withEdit && (

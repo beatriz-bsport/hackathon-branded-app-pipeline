@@ -26,7 +26,7 @@ import { Establishment } from '../../../establishment/types';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 import CoachListItem from '../../../associated-coach/components/CoachListItemBasic.component';
 
-import { getLevelTrad } from '#libs/level/utils';
+import { getLevelTranslation } from '#libs/level/utils';
 import { Level } from '#libs/level/types';
 
 type LevelItem = {
@@ -135,7 +135,7 @@ export class BookingsNumberFilter extends Component<Props, state> {
     const levelItems: LevelItem[] =
       customLevels?.map((level) => ({
         id: level.id,
-        text: getLevelTrad(level.id, level.name, this.props.t),
+        text: getLevelTranslation(level.id, level.name, this.props.t),
         disabled: !level.enabled,
       })) ?? [];
 

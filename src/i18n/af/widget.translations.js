@@ -185,6 +185,8 @@ exports.default = {
       option: {
         true: 'Oui',
         false: 'Non',
+        level: 'Du niveau',
+        establishment: "De l'établissement",
         activityName: "De l'activité",
         activity: "Filtres d'activités",
         workshop: "Filtres d'ateliers",

@@ -1,3 +1,4 @@
-import MarketplaceFilterCSSOnly from './MarketplaceFilter.component';
+import MarketplaceFilterCSSOnly, { Props } from './MarketplaceFilter.component';
 
+export type { Props };
 export default MarketplaceFilterCSSOnly;

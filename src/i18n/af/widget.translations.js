@@ -181,6 +181,8 @@ exports.default = {
         isWorkshop: 'Est un atelier',
         showDate: 'Afficher la date',
         withoutBookButton: 'Cacher le bouton de réservation',
+        disablePast: 'Désactiver les dates passées',
+        isInputButton: 'Version compacte',
       },
       option: {
         true: 'Oui',

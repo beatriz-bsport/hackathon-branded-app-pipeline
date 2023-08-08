@@ -92,6 +92,10 @@ import {
   MARKETPLACE_FILTER_CONFIGURATION,
   MARKETPLACE_FILTER_PREVIEW,
 } from '#libs/marketplace/components/MarketplaceFilter/custom_css_variant';
+import {
+  MARKETPLACE_DATE_PICKER_CONFIGURATION,
+  MARKETPLACE_DATE_PICKER_PREVIEW,
+} from '#libs/marketplace/components/MarketplaceDatePicker/custom_css_variant';
 
 import {
   CSSComponentPreviews,
@@ -289,6 +293,7 @@ export type SetState = (key: string) => (value: any) => void;
 export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_SEARCH_CONFIGURATION,
   MARKETPLACE_FILTER_CONFIGURATION,
+  MARKETPLACE_DATE_PICKER_CONFIGURATION,
   MARKETPLACE_OFFER_CARD_CONFIGURATION,
   MARKETPLACE_OFFER_LIST_ITEM_CONFIGURATION,
   MARKETPLACE_CALENDAR_FILTER_CONFIGURATION,
@@ -346,6 +351,7 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
   Immutable({
     search: MARKETPLACE_SEARCH_PREVIEW,
     filter: MARKETPLACE_FILTER_PREVIEW,
+    datePicker: MARKETPLACE_DATE_PICKER_PREVIEW,
     cardOffer: MARKETPLACE_OFFER_CARD_PREVIEW,
     offerListItem: MARKETPLACE_OFFER_LIST_ITEM_PREVIEW,
     calendarFilters: MARKETPLACE_CALENDAR_FILTER_PREVIEW,

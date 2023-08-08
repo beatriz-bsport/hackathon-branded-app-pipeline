@@ -21,7 +21,7 @@ import { useTranslation } from 'react-i18next';
 
 type Props = ConnectedProps<typeof connector>;
 
-const MEMBER_PER_PAGE = 15;
+const MEMBER_PER_PAGE = 10;
 
 const ClockInHistory: React.FC<Props> = ({
   usersPaginatedWithAttendanceHistory,

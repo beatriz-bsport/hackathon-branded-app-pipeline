@@ -73,12 +73,10 @@ const ClockInHistory: React.FC<Props> = ({
               onPageChange={(_, _page) => {
                 handlePageChange(_page + 1);
               }}
-              onChangeRowsPerPage={(event) => {
+              onRowsPerPageChange={(event) => {
                 handlePageSizeChange(Number.parseInt(event.target.value, 10));
               }}
-              rowsPerPageOptions={uniq(
-                [10, 50, 100, page_size].sort((a, b) => a - b),
-              )}
+              rowsPerPageOptions={[10, 25, 50].sort((a, b) => a - b)}
             />
           </TableRow>
           <TableRow>

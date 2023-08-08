@@ -9,7 +9,7 @@ import { colors } from '@bsport/common/lib/colors';
 import BlockIcon from '@material-ui/icons/Block';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { v4 as uuidv4 } from 'uuid';
-import type { Tag, TagGroup } from '../types';
+import type { Tag, TagGroup, TagGroupAPI } from '../types';
 import TagChip from './TagChip.component';
 
 const getBackgroundColor = (
@@ -212,7 +212,10 @@ type OwnProps = {
   isClearable?: boolean;
   closeMenuOnSelect?: boolean;
   selectedTags?: Array<number>;
-  allTagsWithTagGroup: Array<Tag> | Array<Tag<TagGroup>>;
+  allTagsWithTagGroup:
+    | Array<Tag>
+    | Array<Tag<TagGroup>>
+    | Array<Tag<TagGroupAPI>>;
   inScrollBar: boolean;
   menuPlacement?: 'auto' | 'top';
   noSpaceBelow?: boolean;

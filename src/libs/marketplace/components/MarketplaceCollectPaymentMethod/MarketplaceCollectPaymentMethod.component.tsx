@@ -61,14 +61,14 @@ type PaymentMethodInputProps = {
   type: MarketplacePaymentMethods;
 };
 
-type CountryMetaData = {
+export type CountryMetaData = {
   metaData: {
     locale: string;
     icon: string;
   };
 };
 
-const CountryOption: React.FC<{
+export const CountryOption: React.FC<{
   option: SelectOptionWithMetaData<CountryMetaData>;
 }> = React.memo(({ option }) => (
   <div className="bs-select__dropdown__list__item__with__indicator">

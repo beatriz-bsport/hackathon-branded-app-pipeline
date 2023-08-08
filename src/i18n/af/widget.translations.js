@@ -120,6 +120,7 @@ exports.default = {
     components: {
       search: 'Filtre de recherche',
       filter: 'Filtre unique',
+      select: 'Sélecteur',
       offerListItem: "Détails d'une séance",
       level: 'Chip de niveau',
       vodTag: 'Chip vod',
@@ -183,6 +184,7 @@ exports.default = {
         withoutBookButton: 'Cacher le bouton de réservation',
         disablePast: 'Désactiver les dates passées',
         isInputButton: 'Version compacte',
+        version: 'Version',
       },
       option: {
         true: 'Oui',
@@ -206,6 +208,8 @@ exports.default = {
         sepa_debit: 'Prélèvement SEPA',
         bacs_debit: 'Bacs Direct debit',
         sepa: 'Prélèvement SEPA',
+        passTypeFilter: 'Filtre de carte de cours',
+        subscriptionCountrySelect: 'Sélecteur de pays',
       },
     },
   },

@@ -1,5 +1,4 @@
 // @ts-nocheck
-/* eslint-disable */
 import React, { Component } from 'react';
 import memoize from 'lodash/memoize';
 import Immutable from 'seamless-immutable';
@@ -12,6 +11,7 @@ import isEqual from 'lodash/isEqual';
 import moment from 'moment-timezone';
 import { TFunction } from 'i18next';
 
+import uniq from 'lodash/uniq';
 import withQueryParams from '#hocs/with-query-params.hoc';
 import withReplaceQueryParams from '#hocs/with-replace-query-params.hoc';
 import { addItemToBasket as addItemToBasketAction } from '#libs/checkout/actions';
@@ -30,7 +30,7 @@ import {
   getOffersListByGroup as getOffersListByGroupSelector,
   getGroupData,
 } from '#libs/group-offer/selectors';
-import { isOfferInThePast } from '../../libs/marketplace/utils';
+import { isOfferInThePast, doTextSearch } from '../../libs/marketplace/utils';
 
 import {
   getAllEstablishments,
@@ -48,7 +48,6 @@ import {
   getActiveCustomLevels,
   getAllCustomLevels,
   getLevelsDetails,
-  withCustomLevel,
 } from '#libs/level/selectors';
 
 import {
@@ -84,8 +83,6 @@ import { Level } from '#libs/level/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
 import { buildUrlParams } from '../../http';
-import { doTextSearch } from '#libs/marketplace/utils';
-import uniq from 'lodash/uniq';
 
 type OwnProps = {
   companyId: number;
@@ -287,7 +284,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           ),
         );
       }
-      this.setState({ filteredEstablishments: filteredEstablishments });
+      this.setState({ filteredEstablishments });
     }
   }
 
@@ -433,96 +430,95 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     return (
       <>
         <MarketplaceActivityDialogV2
-          open={!!this.state.offerId}
-          offerId={this.state.offerId}
-          offer={this.state.offer}
+          coaches={coaches}
           companyTheme={this.props.theme}
-          metaActivities={
-            this.props.theme.show_workshops_customer
-              ? this.props.metaActivitiesWorkshops
-              : metaActivities
-          }
+          customLevels={this.props.customLevels}
           establishments={
             filters.establishment_group__in?.length
               ? this.state.filteredEstablishments
               : establishments
           }
-          coaches={coaches}
           group={this.props.group}
-          onClose={this.closeOfferDialog}
-          customLevels={this.props.customLevels}
           hideCoach={this.props.theme && this.props.theme.hideCoach}
-          onClickBook={this.goToBook}
-          onClickBookOption={this.props.goToBookOption}
-          mapContainerClassName={this.props.mapContainerClassName}
           isBookingDisabled={
             !this.state.offer?.available || isOfferInThePast(this.state?.offer)
           }
-        />
-        <MarketplaceCalendarComponent
-          onSearch={this.handleSearch}
-          onClearInput={this.handleClearSearchResult}
-          searchedOffers={this.state.offerSearchResult?.offerList}
-          offers={this.props.offers}
-          genderCount={this.props.genderCount}
-          group={this.props.group}
-          companyId={this.props.companyId}
-          showOfferFilling={this.props.theme.show_offers_filling}
-          hideCoach={this.props.theme.hideCoach}
-          showOfferGender={this.props.theme.show_booked_gender_offer}
-          setFilters={this.props.setFilters}
-          filters={filters}
-          loading={loading}
-          offersLoading={loading}
-          onClickOffer={this.openOfferDialog}
-          onClickBook={this.goToBook}
-          onClickBookOption={this.props.goToBookOption}
-          onSelectDate={this.handleDateChange}
-          selectedDate={
-            this.props.otherParams.date || moment().format('YYYY-MM-DD')
-          }
-          coaches={coaches}
-          customLevels={customLevels}
-          activeCustomLevels={activeCustomLevels}
-          establishments={
-            filters.establishment_group__in?.length
-              ? this.state.filteredEstablishments
-              : establishments
-          }
+          mapContainerClassName={this.props.mapContainerClassName}
           metaActivities={
             this.props.theme.show_workshops_customer
               ? this.props.metaActivitiesWorkshops
               : metaActivities
           }
+          offer={this.state.offer}
+          offerId={this.state.offerId}
+          onClickBook={this.goToBook}
+          onClickBookOption={this.props.goToBookOption}
+          onClose={this.closeOfferDialog}
+          open={!!this.state.offerId}
+        />
+        <MarketplaceCalendarComponent
+          activeCustomLevels={activeCustomLevels}
+          bookedOffers={this.props.bookedOffers}
+          coaches={coaches}
+          compactMode={compactMode}
+          companyId={this.props.companyId}
+          customLevels={customLevels}
+          establishmentGroupList={establishmentGroupList}
+          establishments={
+            filters.establishment_group__in?.length
+              ? this.state.filteredEstablishments
+              : establishments
+          }
+          events={this.props.events}
+          filters={filters}
           filtersOpen={this.props.otherParams.filtersOpen === 'true'}
           forceDayDisplayOnly={this.props.otherParams.onlyDay === 'true'}
-          toggleFiltersOpen={this.toggleFiltersOpen}
-          compactMode={compactMode}
-          startWeekThisWeekday={startWeekThisWeekday}
-          establishmentGroupList={establishmentGroupList}
-          showMultiLocalization={this.props.theme.enable_multi_localization}
-          bookedOffers={this.props.bookedOffers}
-          nextAvailableOffer={this.props.nextAvailableOffer}
-          goToFirstAvailableSession={this.goToFirstAvailableSession}
+          genderCount={this.props.genderCount}
           getLevel={this.props.getLevel}
-          theme={this.props.theme}
-          events={this.props.events}
+          goToFirstAvailableSession={this.goToFirstAvailableSession}
+          group={this.props.group}
           groupSessionByPeriod={this.props.groupSessionByPeriod}
+          hideCoach={this.props.theme.hideCoach}
+          loading={loading}
+          metaActivities={
+            this.props.theme.show_workshops_customer
+              ? this.props.metaActivitiesWorkshops
+              : metaActivities
+          }
+          nextAvailableOffer={this.props.nextAvailableOffer}
+          offers={this.props.offers}
+          offersLoading={loading}
+          onClearInput={this.handleClearSearchResult}
+          onClickBook={this.goToBook}
+          onClickBookOption={this.props.goToBookOption}
+          onClickOffer={this.openOfferDialog}
+          onSearch={this.handleSearch}
+          onSelectDate={this.handleDateChange}
+          searchedOffers={this.state.offerSearchResult?.offerList}
+          selectedDate={
+            this.props.otherParams.date || moment().format('YYYY-MM-DD')
+          }
+          setFilters={this.props.setFilters}
+          showMultiLocalization={this.props.theme.enable_multi_localization}
+          showOfferFilling={this.props.theme.show_offers_filling}
+          showOfferGender={this.props.theme.show_booked_gender_offer}
+          startWeekThisWeekday={startWeekThisWeekday}
+          theme={this.props.theme}
+          toggleFiltersOpen={this.toggleFiltersOpen}
           variant={this.props.variant}
         />
         {this.state.displayGroupPopup && (
           <GroupRulePopupContained
             open
-            selectedOffer={this.state.displayGroupPopup}
             onClose={this.handleCloseGroupPopup}
             onSubmit={this.handleContinueGroupPopup}
+            selectedOffer={this.state.displayGroupPopup}
           />
         )}
       </>
     );
   }
 }
-/* eslint-enable */
 
 const GroupRulePopupContained = connect((state: RootState) => ({
   getOffersListByGroup: memoize((id) =>

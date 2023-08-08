@@ -1,39 +1,39 @@
 import { ErrorAndLoading } from '../../state/types';
 
 export type EmailTemplateSummary = {
-  id: number;
+  available_for_companies?: number[];
+  available: boolean;
+  category: number;
+  company_id?: number;
   date_created?: string;
   date_modified: string;
+  id: number;
+  is_default_bsport_template: boolean;
+  ordering_in_category: number;
   subject: string;
   title: string;
-  company_id?: number;
-  available_for_companies?: number[];
-  category: number;
-  ordering_in_category: number;
-  available: boolean;
-  is_default_bsport_template: boolean;
 };
 
 export type EmailTemplateDetail = {
-  id: number;
   company_id?: number;
-  name: string;
-  html: string;
   design: any;
+  html: string;
+  id: number;
+  name: string;
 };
 
 export type EmailTemplate = {
-  id: number;
-  company_id?: number;
-  franchise_id?: number;
-  title: string;
-  subject: string;
-  html: string;
-  design: any;
-  date_modified?: string;
-  category: number;
-  ordering_in_category: number;
   available: boolean;
+  category: number;
+  company_id?: number;
+  date_modified?: string;
+  design: any;
+  franchise_id?: number;
+  html: string;
+  id: number;
+  ordering_in_category: number;
+  subject: string;
+  title: string;
 };
 
 export type EmailTemplateState = {

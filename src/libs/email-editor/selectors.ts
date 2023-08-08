@@ -18,10 +18,43 @@ export const getAllEmailTemplatesId = (state: RootState) =>
 export const getEmailTemplateSummary = (state: RootState, id: string) =>
   state.emailTemplate.byId[id];
 
+export const getEmailTemplatesDetailById = (state: RootState, id: number) =>
+  state.emailTemplate.detail.byId[id];
+
 export const getAllEmailTemplatesSummaries = createSelector(
   [getAllEmailTemplatesSummariesDict, getAllEmailTemplatesId],
   (summaryDict, IdList) =>
     IdList.map((id) => summaryDict[id]).filter((email) => email.available),
+);
+
+export const getEmailTemplateById = createSelector(
+  [getEmailTemplateSummary, getEmailTemplatesDetailById],
+  (templateSummary, templateDetails) => {
+    const {
+      id,
+      available,
+      category,
+      company_id,
+      date_modified,
+      ordering_in_category,
+      subject,
+      title,
+    } = templateSummary ?? {};
+    const { html, design } = templateDetails ?? {};
+    const template: EmailTemplate = {
+      id,
+      available,
+      category,
+      company_id,
+      date_modified,
+      ordering_in_category,
+      subject,
+      title,
+      html,
+      design,
+    };
+    return template;
+  },
 );
 
 export const getUnavailableEmailTemplatesSummaries = createSelector(

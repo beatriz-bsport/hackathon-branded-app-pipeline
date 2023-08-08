@@ -24,6 +24,7 @@ import classNames from 'classnames';
 import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 import { Actions } from '#components/forms';
 import { DEFAULT_OBJECT_LEVEL_PERMISSIONS } from '#libs/role/constants';
+import Config from '../../../config';
 
 import { RolePermission, Role, ObjectLevelPermissions } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
@@ -315,6 +316,10 @@ export class CreateRoleDialog extends React.Component<Props, State> {
 
     const name = disabled ? getRoleName(this.props.role, t) : this.state.name;
 
+    const isLocalOrDevEnv = ['local', 'dev'].includes(
+      Config.REACT_APP_SENTRY_ENVIRONMENT,
+    );
+
     const description = disabled
       ? getRoleDescription(this.props.role, t)
       : this.state.description;
@@ -381,6 +386,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                     key={key}
                     checkBoxData={this.state.permissions}
                     disabled={this.props.role && !this.props.role.editable}
+                    isLocalOrDevEnv={isLocalOrDevEnv}
                     keysAccumulator={[key]}
                     permissions={this.state.permissions}
                     rightKey={key}
@@ -393,21 +399,24 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                 ))}
             </div>
 
-            <div className={classes.checkboxesContainer}>
-              {Object.keys(this.state.objectLevelPermissions).map((key) => (
-                <RecursiveCheckBoxComponent
-                  key={key}
-                  checkBoxData={this.state.objectLevelPermissions}
-                  disabled={this.props.role && !this.props.role.editable}
-                  keysAccumulator={[key]}
-                  keysToHide={['allowed_actions']}
-                  permissions={this.state.objectLevelPermissions}
-                  rightKey={key}
-                  translationKeyPrefix="objectLevelPermissions"
-                  updatePermission={this.updateObjectLevelPermissions}
-                />
-              ))}
-            </div>
+            {isLocalOrDevEnv && (
+              <div className={classes.checkboxesContainer}>
+                {Object.keys(this.state.objectLevelPermissions).map((key) => (
+                  <RecursiveCheckBoxComponent
+                    key={key}
+                    checkBoxData={this.state.objectLevelPermissions}
+                    disabled={this.props.role && !this.props.role.editable}
+                    isLocalOrDevEnv={isLocalOrDevEnv}
+                    keysAccumulator={[key]}
+                    keysToHide={['allowed_actions']}
+                    permissions={this.state.objectLevelPermissions}
+                    rightKey={key}
+                    translationKeyPrefix="objectLevelPermissions"
+                    updatePermission={this.updateObjectLevelPermissions}
+                  />
+                ))}
+              </div>
+            )}
 
             <div className={classes.marginTop4} />
 

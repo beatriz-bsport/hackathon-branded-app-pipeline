@@ -25,6 +25,7 @@ import {
   setAllValuesInObject,
 } from '#libs/role/utils';
 import RecursiveCheckBoxComponent from '#libs/role/components/RecursiveCheckBox.component';
+import Config from '../../../config';
 
 type OwnProps = {
   onNext: (data: FranchiseRoleMasterAccountData) => void;
@@ -119,6 +120,10 @@ export class CreateRoleMasterAccountDialog extends React.Component<
   render() {
     const { t, classes } = this.props;
 
+    const isLocalOrDevEnv = ['local', 'dev'].includes(
+      Config.REACT_APP_SENTRY_ENVIRONMENT,
+    );
+
     const disabled = this.props.role && !this.props.role.editable;
 
     const name = disabled ? getRoleName(this.props.role, t) : this.state.name;
@@ -172,6 +177,7 @@ export class CreateRoleMasterAccountDialog extends React.Component<
                 key={key}
                 checkBoxData={this.state.permissions}
                 disabled={this.props.role && !this.props.role.editable}
+                isLocalOrDevEnv={isLocalOrDevEnv}
                 keysAccumulator={[key]}
                 permissions={this.state.permissions}
                 rightKey={key}

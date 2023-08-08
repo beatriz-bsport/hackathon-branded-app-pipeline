@@ -29,6 +29,7 @@ const RecursiveDeepCheckBox: React.FC<{
     permission: RolePermission | ObjectLevelPermissions,
   ) => void;
   keysToHide?: string[];
+  isLocalOrDevEnv: boolean;
 }> = ({
   translationKeyPrefix,
   checkBoxData,
@@ -38,11 +39,12 @@ const RecursiveDeepCheckBox: React.FC<{
   permissions,
   updatePermission,
   keysToHide = [],
+  isLocalOrDevEnv,
 }) => {
   const { t } = useTranslation(['role']);
   const classes = useStyles();
 
-  const [isFolded, setIsFolded] = useState(true);
+  const [isFolded, setIsFolded] = useState(!!isLocalOrDevEnv);
 
   if ([...keysAccumulator].join('.') === 'navigationMenu.search') {
     return null;
@@ -202,6 +204,7 @@ const RecursiveDeepCheckBox: React.FC<{
                   key={innerKey}
                   checkBoxData={value}
                   disabled={disabled}
+                  isLocalOrDevEnv={isLocalOrDevEnv}
                   keysAccumulator={[...keysAccumulator, innerKey]}
                   keysToHide={keysToHide}
                   permissions={permissions}

@@ -150,11 +150,11 @@ export type MarketplaceCategoryPassFilterOption = {
 export type MarketplacePassFiltersHookOptions = {
   selectedCategories?: Array<number | string>;
 
-  paymentPackByCategory?: PaymentPackCategoryWithPacks[];
+  paymentPackByCategory?: Immutable<PaymentPackCategoryWithPacks[]>;
   restrictedPaymentPackCategories?: number[];
   fuzzySearchPaymentPackResults?: number[] | null;
 
-  privatePassByCategory?: PrivatePassCategoryWithPasses[];
+  privatePassByCategory?: Immutable<PrivatePassCategoryWithPasses[]>;
   restrictedPrivatePassCategories?: number[];
   fuzzySearchPrivatePassResults?: number[] | null;
 

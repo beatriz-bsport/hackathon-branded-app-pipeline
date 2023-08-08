@@ -66,7 +66,8 @@ export const useMarketplacePassFilters = ({
   fuzzySearchPaymentComboResults,
 }: MarketplacePassFiltersHookOptions) => {
   const getFilteredPaymentPackByCategory = useCallback(() => {
-    let filteredPaymentPackByCategory = paymentPackByCategory ?? [];
+    let filteredPaymentPackByCategory =
+      paymentPackByCategory?.asMutable({ deep: true }) ?? [];
 
     // if specific categories selected in BO settings return associated categories
     if (restrictedPaymentPackCategories?.length) {
@@ -121,7 +122,8 @@ export const useMarketplacePassFilters = ({
   ]);
 
   const getFilteredPrivatePassByCategory = useCallback(() => {
-    let filteredPrivatePassByCategory = privatePassByCategory ?? [];
+    let filteredPrivatePassByCategory =
+      privatePassByCategory?.asMutable({ deep: true }) ?? [];
 
     // if specific categories selected in BO settings return associated categories
     if (restrictedPrivatePassCategories?.length) {

@@ -3545,7 +3545,7 @@
             "close": "Schließen"
         },
         "details": {
-            "pleaseSelectAPack": "Wähle eine Karte aus, um die Details zu sehen",
+            "pleaseSelectAPack": "Wähle einen Pass aus, um die Details zu sehen",
             "extensionsTitle": "Gültigkeitsverlängerungen",
             "bookingsTitle": "Verbundene Buchungen",
             "refundTitle": "Verbundene Zurückerstattung",
@@ -3553,7 +3553,7 @@
             "shareAPass": "Einen Kurspass teilen",
             "trackModifiedCreditTitle": "Vergangenen Credits-Anpassungen",
             "penaltyAccount": "Zusätzliche Abrechnung von {{account_value}} {{currencyDisplay}}",
-            "penaltyBlock": "Karte für {{nb_days}} Tage gesperrt",
+            "penaltyBlock": "Pass für {{nb_days}} Tage gesperrt",
             "penaltyTitle": "Strafe angewendet"
         },
         "notification": {
@@ -3644,15 +3644,15 @@
         "noConsumerPack": "Keine registrierten Käufe",
         "form": {
             "paymentPack": {
-                "validByDaterange": "Die Karte ist für ein bestimmtes Datum gültig",
+                "validByDaterange": "Der Pass ist für ein bestimmtes Datum gültig",
                 "delete": {
                     "thereAreConsumers": "Achtung! Einige Mitglieder haben diesen Kurspass gekauft. Wenn Du sie archivierst, können diese Mitglieder ihre verbleibenden Credits weiterhin verwenden. Du kannst sie hier manuell auf Null stellen.\n\nDer Pass wird nicht mehr in Deinem Shop für neue Käufer erscheinen.",
                     "actions": {
                         "submit": "Löschen",
                         "cancel": "Abbrechen"
                     },
-                    "title": "Archivieren der Karte:",
-                    "askConfirmation": "Vorsicht ! Diese Aktion ist unwiderruflich. Die Karte wird unsichtbar und nicht mehr zum Verkauf verfügbar werden.",
+                    "title": "Archivieren des Passes:",
+                    "askConfirmation": "Achtung ! Diese Aktion ist unwiderruflich. Der Pass wird unsichtbar und nicht mehr zum Verkauf verfügbar werden.",
                     "isUsedInCombo": "Achtung! Dieser Kurspass wird in einem Paket verwendet, das Paket steht nicht mehr zum Verkauf zur Verfügung, wenn Sie diesen Kurspass entfernen."
                 },
                 "credits": {
@@ -3720,13 +3720,13 @@
                     "on_booking": "Beginnt bei der ersten Buchung",
                     "on_attendance": "Beginnt mit der 1. Anwesenheit"
                 },
-                "timeSettingsTitle": "Gültigkeit der Karte",
+                "timeSettingsTitle": "Gültigkeit des Passes",
                 "durationMonths": {
                     "helperText": "Zusätzlich der Anzahl der Tage",
                     "label": "Gültigkeitsdauer (Monate), falls zutreffend"
                 },
                 "generalSettingsTitle": "Allgemein",
-                "validByDuration": "Karte gültig N Tage nach dem Kauf",
+                "validByDuration": "Pass gültig N Tage nach dem Kauf",
                 "durationDays": {
                     "label": "Gültigkeitsdauer (Tage), falls zutreffend",
                     "helperText": "Zeitraum in Tagen, für den die Karte nach dem Kauf gültig ist "
@@ -3750,7 +3750,7 @@
                         "label": "Einzahlungsbetrag:"
                     },
                     "block": {
-                        "helperText": "Die Karte wird für {{nb_days}} Tage gesperrt",
+                        "helperText": "Der Pass wird für {{nb_days}} Tage gesperrt",
                         "label": "Sperrfrist für Pässe (in Tagen):"
                     },
                     "kind": {
@@ -3793,7 +3793,7 @@
                 },
                 "only_vod_access": "Nur für VOD",
                 "error": {
-                    "start_date_method_type": "Geben Sie den Beginn der Gültigkeit der Karte an."
+                    "start_date_method_type": "Geben Sie den Beginn der Gültigkeit des Passes an."
                 },
                 "category": {
                     "helperText": "Name der Kategorie",
@@ -3806,7 +3806,7 @@
                         "notAllowed": "Nicht erlaubt",
                         "allowedFor": "Zugelassen für",
                         "allowed": "Autorisiert",
-                        "helperText": "Verwenden Sie Tags, um die Karte nur für eine bestimmte Gruppe von Mitgliedern auf dem Marktplatz, im Widget und in der App sichtbar zu machen. Sie können Tags auswählen, um die Karte nur für Mitglieder mit einem ausgewählten Tag sichtbar zu machen. Oder Sie können Tags auswählen, um die Karte nur für Mitglieder mit einem der ausgewählten Tags unsichtbar zu machen. ",
+                        "helperText": "Verwenden Sie Tags, um den Pass nur für eine bestimmte Gruppe von Mitgliedern auf dem Marktplatz, im Widget und in der App sichtbar zu machen. Sie können Tags auswählen, um die Karte nur für Mitglieder mit einem ausgewählten Tag sichtbar zu machen. Oder Sie können Tags auswählen, um die Karte nur für Mitglieder mit einem der ausgewählten Tags unsichtbar zu machen. ",
                         "header": "Tags"
                     },
                     "header": "Fortgeschrittene",
@@ -3817,7 +3817,7 @@
                 },
                 "universalPass": {
                     "helperText": "Universalpässe können zur Buchung von Gruppenkursen UND Terminen verwendet werden. Sobald ein Pass erstellt wurde, wird ein Zwillingspass in den Terminpässen erstellt. Die Anzahl der Guthaben auf beiden Pässe wird verknüpft. Beim Kauf einer der beiden Pässe wird die andere automatisch dem Mitglied hinzugefügt (ohne zusätzliche Kosten).",
-                    "marketplaceLabel": "Universell einsetzbare Karte. Kann für Gruppenkurse und Termine verwendet werden.",
+                    "marketplaceLabel": "Universell einsetzbarer Pass. Kann für Gruppenkurse und Termine verwendet werden.",
                     "deativatedTags": "Deaktiviert für Universalpässe",
                     "warningIsUniversalPass": "Dieser Pass ist ein Universalpass, ein Zwillingspass wurde in den RDV-Karten erstellt. Alle Felder, die auf diesem Pass geändert werden, werden auch auf dem Zwillingspass geändert (außer der Kategorie). Dasselbe gilt für Benachrichtigungen, Erweiterungen und Änderungen von Guthaben.",
                     "label": "Universalpass"
@@ -3900,7 +3900,7 @@
                 "limit_reach": "Limit der Reservierungen pro {{unit}} erreicht"
             }
         },
-        "noRestrictionOnActivityType": "Alle Aktivitäten sind mit dieser Karte vereinbar",
+        "noRestrictionOnActivityType": "Alle Aktivitäten sind mit diesem Pass vereinbar",
         "ht": "Ohne Steuer",
         "validForDuration": {
             "general": "Gültig für {{ duration_days }} Tage, {{ duration_months }} Monat(e) und {{ duration_years }} Jahr(e)",
@@ -3989,7 +3989,7 @@
         },
         "multipleBookingTooltip": "Mehrfach-Buchungen",
         "maxNBookingsByMonth2": " Buchungen pro Monat",
-        "blockedCpp": "Karte von {{-blocked_from}} nach {{-blocked_until}} gesperrt",
+        "blockedCpp": "Pass von {{-blocked_from}} nach {{-blocked_until}} gesperrt",
         "penalty": {
             "account": "Eine Anzahlung von {{account_value}} wird für {{nb_cancellations}} nicht fristgerechte Stornierungen über einen Zeitraum von {{nb_days}} Tagen erhoben.",
             "block": "{{days_blocked}} Sperrtage nach {{nb_cancellations}} nicht fristgerechten Stornierungen in einem Zeitraum von {{nb_days}} Tagen",
@@ -4024,7 +4024,7 @@
             },
             "form": {
                 "dialog": {
-                    "helper": "Die Kategorien werden auf dem Marktplatz und in der mobilen Anwendung für zum Verkauf stehende Pässen angezeigt.",
+                    "helper": "Die Kategorien werden auf dem Marktplatz und in der mobilen App für zum Verkauf stehende Pässen angezeigt.",
                     "titleEdit": "Kategorie",
                     "titleNew": "Neue Kategorie",
                     "name": "Name der Kategorie",
@@ -4073,7 +4073,7 @@
             "all": "Kompatibel mit allen"
         },
         "selector": {
-            "noAvailable": "Keine Karte, die den gewählten Verfügbarkeiten entspricht",
+            "noAvailable": "Kein Pass, der den gewählten Verfügbarkeiten entspricht",
             "noManagerOnly": "Zum Verkauf verfügbar",
             "managerOnly": "Unsichtbar für Kunden",
             "filterManagerOnly": "Alle Verfügbarkeiten",
@@ -4117,10 +4117,10 @@
         "validityTo": " unter ",
         "addPaymentPack": {
             "sumNotZero": "die endgültige Tageszahl darf nicht null sein",
-            "only_vod_access": "Die Nutzung der Karte ausschließlich auf VOD beschränken",
+            "only_vod_access": "Die Nutzung des Passes ausschließlich auf VOD beschränken",
             "vodAccessCard": "Gibt Zugang zu VOD",
             "vod": "VOD",
-            "compatibility": "Ihre Karte ist nur mit Vorstellungen kompatibel, die einer der ausgewählten Kategorien UND einem der ausgewählten Räume UND einer der ausgewählten Aktivitäten entsprechen",
+            "compatibility": "Ihr Pass ist nur mit Vorstellungen kompatibel, die einer der ausgewählten Kategorien UND einem der ausgewählten Räume UND einer der ausgewählten Aktivitäten entsprechen",
             "letBlank": "Leer lassen, um alles zu erlauben",
             "activities": "Aktivitäten",
             "room": "Einrichtungen",
@@ -4135,7 +4135,7 @@
             "maxUseDay": "Maximale Nutzungen pro Tag",
             "restriction": "Restriktionen",
             "penalityAccountHelper": "Für dieses Mitglied wird eine Anzahlung von {{penalityBlockAccount}}{{ currencyDisplay }} erhoben",
-            "penalityBlockDayHelper": "Die Karte des betroffenen Mitglieds wird für {{penalityBlockDay}} Tage gesperrt",
+            "penalityBlockDayHelper": "Der Pass des betroffenen Mitglieds wird für {{penalityBlockDay}} Tage gesperrt",
             "penalityAccountPrice": "Betrag der Anzahlung",
             "penalityBlockDay": "Sperrfrist für die Karte (in Tagen)",
             "penalityType": "Art der zu verhängenden Strafe",
@@ -4144,7 +4144,7 @@
             "penalityInfo": "Eine Strafe wird erhoben, wenn es innerhalb eines Zeitraums von {{penalityNumberCancel}} Tagen {{penalityNumberDay}} außerterminliche Stornierungen gibt",
             "penalityNumberDay": "Anzahl der Tage",
             "penalityNumberCancel": "Anzahl der Absagen",
-            "marginalContributionHelperText": "Wird verwendet, um die Vergütung von Lehrern zu berechnen. 10{{ currencyDisplay }} bedeutet, dass eine mit dieser Karte vorgenommene Buchung mit 10{{ currencyDisplay }} vergütet wird. Wenn leer oder 0{{ currencyDisplay }}, wird die Einbringung einer Karte PREIS/NB_RESERVATION",
+            "marginalContributionHelperText": "Wird verwendet, um die Vergütung von Lehrern zu berechnen. 10{{ currencyDisplay }} bedeutet, dass eine mit diesem Pass vorgenommene Buchung mit 10{{ currencyDisplay }} vergütet wird. Wenn leer oder 0{{ currencyDisplay }}, wird die Einbringung einer Karte PREIS/NB_RESERVATION",
             "marginalContribution": "Theoretischer Grenzertrag TTC",
             "expirationDateHelper": "Wenn der Kurspass innerhalb dieser Anzahl an Tagen nicht zum ersten Mal verbraucht wird, wird sie ungültig",
             "expirationDate": "Verfall, wenn keine ursprüngliche Buchung",
@@ -4153,13 +4153,13 @@
             "firstBooking": "Bei der ersten Buchung",
             "billing": "Bei der Rechnungsstellung",
             "validForDuration": {
-                "day": "Diese Karte wird für {{ duration_day }} Tage gültig sein",
-                "month": "Diese Karte ist für {{ duration_month }} Monate und {{ duration_day }} Tage gültig",
-                "year": "Diese Karte wird für {{ duration_year }} Jahre, {{ duration_month }} Monate und {{ duration_day }} Tage gültig sein",
-                "monthNoDay": "Diese Karte ist für {{ duration_month }} Monate gültig",
-                "yearNoDayNoMonth": "Diese Karte wird für {{ duration_year }} Jahre gültig sein",
-                "yearDayNoMonth": "Diese Karte wird für {{ duration_year }} Jahre und {{ duration_day }} Tage gültig sein",
-                "yearNoDay": "Diese Karte wird für {{ duration_year }} Jahre und {{ duration_month }} Monate gültig sein"
+                "day": "Dieser Pass wird für {{ duration_day }} Tage gültig sein",
+                "month": "Dieser Pass ist für {{ duration_month }} Monate und {{ duration_day }} Tage gültig",
+                "year": "Dieser Pass wird für {{ duration_year }} Jahre, {{ duration_month }} Monate und {{ duration_day }} Tage gültig sein",
+                "monthNoDay": "Dieser Pass ist für {{ duration_month }} Monate gültig",
+                "yearNoDayNoMonth": "Dieser Pass wird für {{ duration_year }} Jahre gültig sein",
+                "yearDayNoMonth": "Dieser Pass wird für {{ duration_year }} Jahre und {{ duration_day }} Tage gültig sein",
+                "yearNoDay": "Dieser Pass wird für {{ duration_year }} Jahre und {{ duration_month }} Monate gültig sein"
             },
             "yearValidityHelper": "Kommt zur Anzahl der Tage hinzu",
             "monthValidityHelper": "Kommt zur Anzahl der Tage hinzu",
@@ -4169,11 +4169,11 @@
             "endBeforeStart": "Das Enddatum muss größer als das Startdatum sein",
             "toDate": "Bis zum",
             "fromDate": "Ab dem",
-            "availabilitySlot": "Die Karte nur in einem bestimmten Datumsfenster gültig machen",
-            "availabilityGivenNumber": "Die Karte nur eine bestimmte Anzahl von Tagen gültig machen (nach dem Kaufdatum)",
+            "availabilitySlot": "Den Pass nur in einem bestimmten Datumsfenster gültig machen",
+            "availabilityGivenNumber": "Den Pass nur eine bestimmte Anzahl von Tagen gültig machen (nach dem Kaufdatum)",
             "penalityRule": "Sie können eine Strafe nur anwenden, wenn die Anzahl der Credits unbegrenzt ist",
             "penality": "Verhängung einer Strafe bei zu vielen nicht fristgerechten Stornierungen",
-            "packValidity": "Gültigkeit der Karte",
+            "packValidity": "Gültigkeit des Passes",
             "numberOfAvailableCredits": "Anzahl der verfügbaren Credits",
             "credit": "Credit",
             "unlimited": "Unbegrenzt",
@@ -4187,11 +4187,11 @@
             "requiredField": "Dieses Feld ist erforderlich",
             "creditWarning": "Si vous modifiez le nombre de crédits, toutes les cartes existantes seront affectées.",
             "migration": "Dieser Kurspass stammt aus einer Migration, einige Felder sind nicht bearbeitbar, um die Historie zu respektieren. Kompatible Aktivitäten/Kategorien bleiben bearbeitbar.",
-            "franchise": "Diese Karte ist eine Karte, die vom Franchisegeber-Konto gemeinsam genutzt wird. Einige Elemente wurden vom Franchisegeber-Konto festgelegt und können nicht geändert werden",
+            "franchise": "Dieser Pass ist eine Karte, die vom Franchisegeber-Konto gemeinsam genutzt wird. Einige Elemente wurden vom Franchisegeber-Konto festgelegt und können nicht geändert werden",
             "penalityModeFranchisor": {
                 "buyer": {
                     "explain": "Die Anzahlung von {{ price }} wird nur bei dem Franchisenehmer angewendet, bei dem die Karte ursprünglich in Rechnung gestellt wurde.",
-                    "label": "An den Franchisenehmer, der die Karte abgerechnet hat"
+                    "label": "An den Franchisenehmer, der den Pass abgerechnet hat"
                 },
                 "label": "Das Restguthaben des Mitgliedskontos wird belastet",
                 "prorata": {
@@ -4277,7 +4277,7 @@
                     "close": "Schließen"
                 },
                 "explain2": "Wenn ein Mitglied diese Karte in einem der kompatiblen Studios kauft, kann es sie auch in den anderen Studios verwenden, die Sie festgelegt haben.",
-                "explain1": "Die folgenden Studios haben diese Karte automatisch zum Verkauf zur Verfügung. Sie können weder den Preis noch die Anzahl der Guthaben ändern.",
+                "explain1": "Die folgenden Studios haben diesen Pass automatisch zum Verkauf zur Verfügung. Sie können weder den Preis noch die Anzahl der Guthaben ändern.",
                 "title": "Meine Studios konfigurieren"
             },
             "consumerPaymentPackSharedFromOtherFranchisee": "Geteilt seit Franchisenehmer",
@@ -4293,7 +4293,7 @@
             },
             "delete": {
                 "dialog": {
-                    "title": "Löschen der Karte",
+                    "title": "Pass löschen",
                     "warningText": "Achtung! Dieser Pass ist eine Universalpass, wenn du ihn löschst, wird auch sein Zwillingspass gelöscht."
                 }
             }
@@ -4308,11 +4308,11 @@
         },
         "maxoutInfo": {
             "day": "Karte beschränkt auf {{count}} maximale Nutzung pro Tag",
-            "day_plural": "Karte beschränkt auf {{count}} maximale Nutzungen pro Tag",
+            "day_plural": "Pass beschränkt auf {{count}} maximale Nutzungen pro Tag",
             "week": "Karte beschränkt auf {{count}} maximale Nutzung pro Woche",
-            "week_plural": "Karte beschränkt auf {{count}} maximale Nutzungen pro Woche",
+            "week_plural": "Pass beschränkt auf {{count}} maximale Nutzungen pro Woche",
             "month": "Karte beschränkt auf {{count}} maximale Nutzung pro Monat",
-            "month_plural": "Karte beschränkt auf {{count}} maximale Nutzungen pro Monat"
+            "month_plural": "Pass beschränkt auf {{count}} maximale Nutzungen pro Monat"
         },
         "incompatibilities": {
             "2009": "Kategorie nicht kompatibel",
@@ -7976,11 +7976,11 @@
         "memberSince": "Angemeldet am ",
         "barcode": {
             "display": "Barcode ansehen",
-            "code": "Kartencode",
+            "code": "Karten-Code",
             "none": "Keine"
         },
         "bornIn": "Geboren am ",
-        "pass_owner": "Gültige Karte",
+        "pass_owner": "Gültiger Pass",
         "subscriptionTitle": "Abonnements",
         "invoiceTitle": "Rechnungen",
         "date_joined": "Anmeldungsdatum",
@@ -10556,7 +10556,7 @@
             "300": "Kick (nicht zu oft rechtzeitig validiert)",
             "22": "Rechnungsbestätigung",
             "601": "Zu wenige Buchungen N Stunden vor Beginn des Kurses",
-            "701": "Nicht fristgerechte Stornierung: Karte gesperrt (für Mitglieder)",
+            "701": "Nicht fristgerechte Stornierung: Pass gesperrt (für Mitglieder)",
             "702": "Stornierung außerhalb der Frist: Kundenkonto wird abgebucht (Mitglied)",
             "530": "Streit über die Zahlung eines Abonnements",
             "520": "Die Zahlung eines fehlgeschlagenen Abonnements wird erneut versucht",
@@ -10571,7 +10571,7 @@
             "801": "Abgesagte Termingruppe",
             "902": "Vertretungsantrag storniert (Vertretung)",
             "602": "Automatische Stornierung von nicht ausgelasteten Sessions (Mitglieder)",
-            "703": "Abwesenheit: Karte gesperrt (Mitglied)",
+            "703": "Abwesenheit: Pass gesperrt (Mitglied)",
             "704": "Abwesenheit: Kundenkonto belastet (Mitglied)",
             "705": "Benachrichtigung über Abwesenheit",
             "901": "Vertretungslehrkraft gefunden (Lehrkraft)",
@@ -11809,7 +11809,7 @@
                 "bookings_plural": "Buchungen ({{number}})",
                 "giftcard": "Gutschein",
                 "giftcard_plural": "Gutscheine ({{number}})",
-                "paymentPack": "KUrspass",
+                "paymentPack": "Kurspass",
                 "paymentPack_plural": "Kurspässe ({{number}})",
                 "contact": "Kontakt",
                 "contact_plural": "Contact ({{number}})",
@@ -11914,7 +11914,7 @@
             "delete": {
                 "confirm": "Löschen",
                 "cancel": "Abbrechen",
-                "content": "Wenn diese Vorlage mit einer transaktionalen E-Mail-Konfiguration verknüpft ist, wird sie ebenfalls entfernt. Sind Sie sicher, dass Sie diese E-Mail-Vorlage löschen möchten? Dieser Vorgang ist endgültig",
+                "content": "Wenn diese Vorlage mit einer Transaktions-E-Mail-Konfiguration verknüpft ist, wird diese ebenfalls gelöscht. Sind Sie sicher, dass Sie diese E-Mail-Vorlage löschen möchten?",
                 "title": "Löschung des E-Mail-Vorlage"
             }
         },
@@ -14810,7 +14810,7 @@
                         "close": "Schließen",
                         "delete": "Löschen"
                     },
-                    "content": "Sind Sie sicher, dass Sie diese Karte löschen wollen? Mitglieder, die die Karte bereits erworben haben, können sie weiterhin nutzen.",
+                    "content": "Sind Sie sicher, dass Sie diesen Pass löschen wollen? Mitglieder, die diesen Pass bereits erworben haben, können sie weiterhin nutzen.",
                     "title": "Löschung"
                 }
             },
@@ -14920,7 +14920,7 @@
         "widget": "Eine Geschenkkarte auswählen",
         "giftcardTemplate": {
             "template": {
-                "deleteInstanceContent1": "Durch die Deaktivierung dieses Studios für die gemeinsame Nutzung des Gutscheins können alle Mitglieder, die diese Karte besitzen und sie von einem Mitglied erhalten haben, das die Karte in diesem Studio gekauft hat, diese weiterhin nutzen. Sie können sie jedoch nicht mehr in anderen Studios verwenden.",
+                "deleteInstanceContent1": "Durch die Deaktivierung dieses Studios für die gemeinsame Nutzung des Gutscheins können alle Mitglieder, die diese Karte besitzen und sie von einem Mitglied erhalten haben, das diese Karte in diesem Studio gekauft hat, diese weiterhin nutzen. Sie können sie jedoch nicht mehr in anderen Studios verwenden.",
                 "unlimited": "Unbegrenzt",
                 "deleteTemplateContent": "Durch die Deaktivierung eines gemeinsam genutzten Gutscheins können Mitglieder, die diese Karte besitzen, sie nur noch in dem Studio nutzen, in dem sie gekauft wurde.",
                 "deleteInstanceContent2": "Schließlich sind Gutscheine, die in anderen Studios gekauft wurden, in dem deaktivierten Studio nicht mehr verwendbar, unabhängig davon, wann sie gekauft wurden.",

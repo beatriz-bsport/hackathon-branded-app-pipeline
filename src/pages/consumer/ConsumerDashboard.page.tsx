@@ -180,11 +180,14 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
       },
       {
         onSuccess: (options) => {
-          this.props.fetchLevelList({
-            id__in: Array.from(
-              new Set(options?.results?.map((option) => option.level) ?? []),
-            ),
-          });
+          if (options?.length > 0) {
+            this.props.fetchLevelList({
+              company: this.props.companyId,
+              id__in: Array.from(
+                new Set(options?.results?.map((option) => option.level) ?? []),
+              ),
+            });
+          }
         },
       },
     );

@@ -179,6 +179,16 @@ export const subscribeStepToStep = async (
   );
 };
 
+export const modifyStepMarketingActionsConfiguration = async (
+  step_id: number,
+  list: StepMarketingActions[],
+) => {
+  return postAuth<{ result: StepMarketingActions[]; disabled: number[] }>(
+    `${API_V1_URI}/sequential_marketing/cadence_step/${step_id}/modify_marketing_actions_configuration/`,
+    list,
+  );
+};
+
 // Connected Triggers
 
 export const updateConnectedTrigger = async (

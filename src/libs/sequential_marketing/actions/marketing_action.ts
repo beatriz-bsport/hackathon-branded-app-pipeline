@@ -10,6 +10,7 @@ import {
   fetchMarketingActions as fetchMarketingActionsAPI,
   createStepMarketingAction as createStepMarketingActionAPI,
   updateStepMarketingAction as updateStepMarketingActionAPI,
+  modifyStepMarketingActionsConfiguration as modifyStepMarketingActionsConfigurationAPI,
   deleteStepMarketingAction as deleteStepMarketingActionAPI,
 } from '#libs/sequential_marketing/api';
 
@@ -83,6 +84,46 @@ export function upsertStepMarketingAtions(
     }
 
     dispatch(upsertStepMarketingActionsActions.isLoading(false));
+  };
+}
+
+export const modifyStepMarketingActionsConfigurationActions = {
+  isLoading: createAction<boolean>(
+    'CADENCE_WIP/MARKETING_ACTIONS/UPDATE_ALL_CONFIGURATION/IS_LOADING',
+  ),
+  error: createAction<Error>(
+    'CADENCE_WIP/MARKETING_ACTIONS/UPDATE_ALL_CONFIGURATION/ERROR',
+  ),
+  success: createAction<{
+    result: StepMarketingActions[];
+    disabled: number[];
+  }>('CADENCE_WIP/MARKETING_ACTIONS/UPDATE_ALL_CONFIGURATION/SUCCESS'),
+};
+
+export function modifyStepMarketingActionsConfiguration(
+  data: { list: StepMarketingActions[]; step: number },
+  options?: OptionCallback<StepMarketingActions[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(modifyStepMarketingActionsConfigurationActions.isLoading(true));
+    dispatch(modifyStepMarketingActionsConfigurationActions.error(null));
+
+    try {
+      const response = await modifyStepMarketingActionsConfigurationAPI(
+        data.step,
+        data.list,
+      );
+      dispatch(
+        modifyStepMarketingActionsConfigurationActions.success(response.data),
+      );
+      options && options.onSuccess && options.onSuccess(response.data.result);
+    } catch (err) {
+      console.error(err);
+      dispatch(modifyStepMarketingActionsConfigurationActions.error(err));
+      options && options.onError && options.onError(err);
+    }
+
+    dispatch(modifyStepMarketingActionsConfigurationActions.isLoading(false));
   };
 }
 

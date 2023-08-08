@@ -25,6 +25,7 @@ import type { StoredStep, StoredTrigger } from './types';
 import type { SmartList } from '#libs/smart-list/types';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
 import type { Tag } from '#libs/tag/types';
+import type { StepEditionBubbleProps } from '../bubbles/StepEditionBubble.component';
 
 export enum CustomNodesEnum {
   // Nodes for steps
@@ -151,6 +152,7 @@ type NodeRendererProps = {
   getTag: (id: string) => Tag;
   getEmailTemplate: (id: string) => EmailTemplateSummary;
   cadenceEditMode: boolean;
+  stepBubbleProps: Omit<StepEditionBubbleProps, 'step'>;
 };
 
 export const useNodeElementsRecorder = ({
@@ -170,6 +172,7 @@ export const useNodeElementsRecorder = ({
   getStepMarketingActions,
   getTag,
   getEmailTemplate,
+  stepBubbleProps,
 }: NodeRendererProps) => {
   const handleSelectEntryStepForSubscription = React.useCallback(
     () => enterSubscriptionMode(storedEntryStep),
@@ -309,6 +312,7 @@ export const useNodeElementsRecorder = ({
           step: stepNode,
           disabled: !cadenceEditMode,
           marketingActionList: getStepMarketingActions?.(stepNode?.id),
+          bubble: stepBubbleProps,
           onDelete: () => deleteCadenceStep(stepNode?.id),
           handleChangeInExit: () => {}, // TODO: code the changeInExit function
           addMarketingAction: () => {}, // TODO: code the newMA function

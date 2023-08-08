@@ -70,6 +70,7 @@ import {
   emailTemplateDetail,
 } from '#libs/email-editor/actions';
 import {
+  getEmailTemplateById,
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
   getEmailTemplateSummary,
@@ -298,6 +299,11 @@ export class CadenceDetailPage extends Component<Props> {
               }
               deleteCadenceStep={this.props.deleteCadenceStep}
               deleteConnectedTrigger={this.props.deleteConnectedTriggerAction}
+              emailDetailLoading={this.props.emailDetailLoading}
+              emailListLoading={this.props.emailListLoading}
+              emails={this.props.emailTemplatesList}
+              fetchEmailTemplateDetail={this.props.fetchEmailTemplateDetail}
+              getEmail={this.props.getEmail}
               getEmailTemplate={this.props.getEmailTemplate}
               getSmartlist={this.props.getSmartlist}
               getStepMarketingActions={this.props.getStepMarketingActions}
@@ -310,6 +316,7 @@ export class CadenceDetailPage extends Component<Props> {
               onClickEntryStep={this.props.onClickEntryStep}
               resetAllSelection={this.resetAllSelection}
               steps={this.props.steps}
+              tagList={this.props.allTagsWithTagGroup}
               updateCadenceStepCanvasPosition={
                 this.props.updateCadenceStepCanvasPosition
               }
@@ -701,6 +708,7 @@ const connector = connect(
     smartlistById: getSmartListDict(state),
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     emailTemplatesList: getAllEmailTemplatesSummaries(state),
+    getEmail: (id: number) => getEmailTemplateById(state, id),
     emailTemplatesDetails: getEmailTemplatesDetail(state),
     emailListLoading: state.emailTemplate.loading,
     emailDetailLoading: state.emailTemplate.detail.loading,

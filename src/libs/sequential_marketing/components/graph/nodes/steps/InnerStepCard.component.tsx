@@ -21,7 +21,7 @@ export type InnerStepCardProps = {
   disabled?: boolean;
   onDelete: () => void;
   handleChangeInExit: () => void;
-  onCardClick: () => void;
+  onCardClick: (event?: React.MouseEvent<HTMLButtonElement>) => void;
   addNextStep: () => void;
 } & InnerStepContentProps;
 
@@ -109,7 +109,7 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
 
   const onClickNewMarketingAction = useCallback(() => {
     handleDisableRipple();
-    addMarketingAction();
+    addMarketingAction?.();
   }, [addMarketingAction, handleDisableRipple]);
 
   const onClickAction = useCallback(

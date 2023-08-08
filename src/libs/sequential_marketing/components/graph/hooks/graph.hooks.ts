@@ -20,10 +20,14 @@ import type { CustomNode } from './types';
 import type { SmartList } from '#libs/smart-list/types';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
 import type { Tag } from '#libs/tag/types';
+import type { StepEditionBubbleProps } from '../bubbles/StepEditionBubble.component';
 
 export type Props = {
   cadence: Cadence;
   steps: CadenceStep[];
+  displayDisabledTriggers: boolean;
+  cadenceEditMode: boolean;
+  stepBubbleProps: Omit<StepEditionBubbleProps, 'step'>;
   updateCadenceStepCanvasPosition: (
     id: number,
     { x, y }: { x: number; y: number },
@@ -41,7 +45,6 @@ export type Props = {
     step: CadenceStep,
     connected_trigger: ConnectedTrigger,
   ) => void;
-  displayDisabledTriggers: boolean;
   resetAllSelection: () => void;
   handleSelectedStepForEdition: (stepId: number) => void;
   deleteCadenceStep: (stepId: number) => void;
@@ -54,7 +57,6 @@ export type Props = {
   getStepMarketingActions: (stepId: number) => StepMarketingActions[];
   getTag: (id: string) => Tag;
   getEmailTemplate: (id: string) => EmailTemplateSummary;
-  cadenceEditMode: boolean;
 };
 
 export const useGraph = ({
@@ -62,6 +64,7 @@ export const useGraph = ({
   cadenceEditMode,
   steps,
   displayDisabledTriggers,
+  stepBubbleProps,
   onClickEntryStep,
   updateCadenceStepCanvasPosition,
   updateConnectedTriggerPosition,
@@ -117,6 +120,7 @@ export const useGraph = ({
       getStepMarketingActions,
       getTag,
       getEmailTemplate,
+      stepBubbleProps,
     });
 
   const onNodeDragStop = React.useCallback(

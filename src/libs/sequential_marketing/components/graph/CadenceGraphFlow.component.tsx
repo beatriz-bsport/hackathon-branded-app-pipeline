@@ -21,8 +21,12 @@ import type {
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
-import type { EmailTemplateSummary } from '#libs/email-editor/types';
-import type { Tag } from '#libs/tag/types';
+import type {
+  EmailTemplateDetail,
+  EmailTemplateSummary,
+  ResolvedGenericTags,
+} from '#libs/email-editor/types';
+import type { Tag, TagGroupAPI } from '#libs/tag/types';
 import { DestinationStatus } from '#libs/sequential_marketing/constants';
 
 const rfStyle = {
@@ -67,26 +71,51 @@ type Props = {
   getStepMarketingActions: (stepId: number) => StepMarketingActions[];
   getTag: (id: string) => Tag;
   getEmailTemplate: (id: string) => EmailTemplateSummary;
+  tagList: Tag<TagGroupAPI>[];
+  submitMarketingActionForm: (data: {
+    list: StepMarketingActions[];
+    step: number;
+  }) => void;
+  updateCadenceStepName: (data: { name: string; stepId: number }) => void;
+  emailSummaryListLoading: boolean;
+  emailSummaryList: EmailTemplateSummary[];
+  emailDetailListLoading: boolean;
+  emailDetailList: Record<number, EmailTemplateDetail>;
+  fetchEmailSummaryList: () => void;
+  getEmailDetail: (id: number) => void;
+  resolvedGenericTags: ResolvedGenericTags;
+  tagCategories: { [tag_name: string]: string[] };
 };
 
 export const CadenceGraphFlow: React.FC<Props> = ({
   cadence,
-  steps,
-  cadenceMinimalConfigurationState,
   cadenceEditMode,
-  updateCadenceStepCanvasPosition,
-  updateConnectedTriggerPosition,
-  onClickEntryStep,
-  handleSelectStepForSubscription,
-  onClickConnectedTrigger,
-  resetAllSelection,
-  handleSelectedStepForEdition,
+  cadenceMinimalConfigurationState,
+  emailDetailList,
+  emailDetailListLoading,
+  emailSummaryList,
+  emailSummaryListLoading,
+  tagCategories,
+  resolvedGenericTags,
+  steps,
+  tagList,
   deleteCadenceStep,
   deleteConnectedTrigger,
+  fetchEmailSummaryList,
+  getEmailDetail,
+  getEmailTemplate,
   getSmartlist,
   getStepMarketingActions,
   getTag,
-  getEmailTemplate,
+  handleSelectedStepForEdition,
+  handleSelectStepForSubscription,
+  onClickConnectedTrigger,
+  onClickEntryStep,
+  resetAllSelection,
+  submitMarketingActionForm,
+  updateCadenceStepCanvasPosition,
+  updateCadenceStepName,
+  updateConnectedTriggerPosition,
 }) => {
   const [disabledMode, setDisabledMode] = React.useState(true);
   const [displayDisabledTriggers, setDisplayDisabledTriggers] =
@@ -112,6 +141,19 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     getStepMarketingActions,
     getTag,
     getEmailTemplate,
+    stepBubbleProps: {
+      emailDetailList,
+      emailDetailListLoading,
+      emailSummaryList,
+      emailSummaryListLoading,
+      resolvedGenericTags,
+      tagCategories,
+      tagList,
+      fetchEmailSummaryList,
+      getEmailDetail,
+      onConfirm: submitMarketingActionForm,
+      updateCadenceStepName,
+    },
   });
 
   const onNodesChange = React.useCallback(

@@ -40,7 +40,7 @@ export type StepCardProps = {
   isEmpty?: boolean;
   minHeight?: boolean;
   disableRipple?: boolean;
-  onCardClick?: () => void;
+  onCardClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
   addButtonAction?: () => void;
   addButtonLabel?: string;
   addButtonColor?: string;
@@ -101,7 +101,7 @@ const StepCard: React.FC<StepCardProps> = ({
       event.stopPropagation();
       event.preventDefault();
       setSelected(true);
-      onCardClick?.();
+      onCardClick?.(event);
     },
     [onCardClick],
   );

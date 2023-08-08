@@ -153,7 +153,6 @@
 }
 
 .bs-carousel__item__center {
-  opacity: 1 !important;
   z-index: 2;
   transform: scale(1.1);
 }
@@ -234,6 +233,10 @@
 .bs-carousel__item {
   opacity: 0.75;
   flex-basis: calc(100% / 3);
+}
+
+.bs-carousel__item__center {
+  opacity: 1 !important;
 }
 
 .bs-carousel__item--hidden {

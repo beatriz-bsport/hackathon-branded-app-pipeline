@@ -395,6 +395,7 @@ exports.default = {
       settings: {
         _label: 'Paramètres',
       },
+      tag: { _label: 'Tags' },
     },
   },
   roleDescription: {

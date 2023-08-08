@@ -144,6 +144,7 @@ export type FranchiseRolePermission = {
     widgets: boolean;
     staff: boolean;
     settings: boolean;
+    tag: boolean;
   };
 };
 

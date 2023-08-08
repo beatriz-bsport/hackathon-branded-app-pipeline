@@ -927,6 +927,7 @@
                 "title": "Data de envio"
             },
             "numberFilter": "1 filtro aplicado",
+            "numberFilter_plural": "{{count}} filtros aplicados",
             "choicesLabels": {
                 "0": "Email",
                 "1": "SMS",
@@ -966,8 +967,7 @@
             "channel": {
                 "title": "Canais",
                 "placeholder": "Selecionar um tipo de canal"
-            },
-            "numberFilter_plural": "{{count}} filtros aplicados"
+            }
         },
         "dialogInformation": {
             "headerStatus": "Estado",
@@ -8692,7 +8692,34 @@
             "offers": "{{ count }} sessões",
             "bookGroups": "Reservar um grupo de sessões",
             "showMarketplace": "Ver o calendário de ",
-            "playlist": "Playlist"
+            "playlist": "Playlist",
+            "selector": {
+                "level": {
+                    "placeholder": "Filtrar por nível"
+                },
+                "establishment": {
+                    "placeholder": "Filtrar por divisão"
+                },
+                "coach": {
+                    "placeholder": "Filtrar por professor"
+                }
+            },
+            "shop": {
+                "addToCard": "Adicionar ao cesto",
+                "noDescription": "Sem descrição",
+                "isEmpty": "Atualmente, não existem produtos disponíveis na loja."
+            },
+            "checkout": {
+                "dialog": {
+                    "goToDelivery": "Continuar",
+                    "goToPayment": "Pagar",
+                    "title": "O meu cesto",
+                    "cancel": "Voltar à loja"
+                }
+            },
+            "welcomeTo": "Bem-vindo ao ",
+            "private_service": "Apenas por marcação",
+            "buyPack": "Comprar"
         },
         "booking": {
             "waiting": "Lista de espera",
@@ -9338,7 +9365,39 @@
         "appbar": {
             "title": {
                 "paymentPackList": "Passes de aulas",
-                "paymentPackFormPage": "Criar um passe de aulas"
+                "paymentPackFormPage": "Criar um passe de aulas",
+                "metaActivityList": "Atividades",
+                "memberFormPage": "Formulário de membro",
+                "mergeMember": "Fusão de membros",
+                "dashboard": "Painel de controlo",
+                "shopManager": "A minha loja",
+                "workshopActivityList": "Workshops",
+                "coachFormPage": "Formulário do professor",
+                "invoiceFormPage": "Edição de faturas",
+                "invoiceCreatePage": "Fatura",
+                "invoiceList": "As minhas transacções",
+                "member": "Membro",
+                "marketingRule": "Estratégias de marketing",
+                "subscriptions": "Assinatura",
+                "reportingDashboard": "Relatórios",
+                "searchResults": "Pesquisar",
+                "planning": "Planeamento",
+                "allCoachPerformance": "Resumo do professor",
+                "coachList": "Professores",
+                "offerManagement": "Reservas",
+                "metaActivity": "Actividades",
+                "WorkshopActivityFormPage": "Formulário do workshop",
+                "metaActivityEditForm": "Formulário de inscrição",
+                "metaActivityFormPage": "Formulário de atividade",
+                "offerFormPage": "Criação de sessão",
+                "coachPerformance": "Desempenho dos professores",
+                "members": "Membros",
+                "establishmentList": "Salas",
+                "establishmentFormPage": "Formulário da sala",
+                "marketingDashboard": "Marketing",
+                "settings": "Parâmetros",
+                "orderList": "Permissões",
+                "orderDetail": "Detalhes da encomenda"
             }
         },
         "invoice": {
@@ -9553,7 +9612,67 @@
             "advanced": "Avançado",
             "noDisplay": "Nenhum nível apresentado",
             "intermediate": "Intermédio"
-        }
+        },
+        "dayParts": {
+            "evening": "Noite",
+            "morning": "Manhã",
+            "afternoon": "Tarde"
+        },
+        "strategy": {
+            "sessions": "sessões",
+            "sport": "Desporto",
+            "yoga": "Yoga",
+            "female": "F",
+            "gym": "Ginásio Beaulieu",
+            "strategy": "Estratégia",
+            "gender": "Género",
+            "location": "Localização",
+            "gaveUp": "Abandonado desde",
+            "membership": "Assinatura",
+            "offersWithoutMembership": "Sessão(ões) sem subscrição",
+            "crossfit": "Crossfit",
+            "none": "Não"
+        },
+        "bookingStatistics": {
+            "maintenedBookings": "{{nb}} reserva mantida",
+            "maintenedBookings_plural": "{{nb}} manutenção das reservas",
+            "weekOf": "Semana de {{date}}",
+            "offerFilteredBookingRecap": "Reunião de {{date}}",
+            "weekOverview": "A sua semana em resumo",
+            "totalBookings": "{{nb}} reserva total",
+            "totalBookings_plural": "{{nb}} reservas no total",
+            "cancelledBookings": "{{nb}} reserva cancelada",
+            "cancelledBookings_plural": "{{nb}} reservas canceladas",
+            "keys": {
+                "created": "Manutenção das reservas",
+                "cancelled": "Reservas canceladas"
+            }
+        },
+        "offerManagement": {
+            "forms": {
+                "register": {
+                    "loadingData": "Carregar dados de reserva",
+                    "passOwnedByMember": "Passe(s) propriedade do membro",
+                    "doNotConsumeCredit": "Não deduzir créditos dos membros pelo registo",
+                    "forceNotify": "Enviar um e-mail de confirmação",
+                    "bookSingleInGroup": "Inscreva-se apenas para esta sessão",
+                    "passCompatibleNotOwnedByMember": "Faturação de um novo passe",
+                    "registerToOffer": "Inscrição por sessão",
+                    "groupWarning": "Esta sessão insere-se no âmbito da {{ name }}",
+                    "bookMoreInGroup": "Inscrever-se para outras sessões de grupo"
+                }
+            }
+        },
+        "replaceCoach": "Mudar o professor",
+        "quickInvoiceVoucher": "Escolha o desconto a aplicar na faturação do passe seguinte",
+        "quickInvoiceNoVoucher": "Deixe o valor deste campo em 0 se não pretender aplicar um desconto",
+        "show_cancelled_offers": "Mostrar as sessões canceladas",
+        "countdown": {
+            "hours": "Horas",
+            "minutes": "Minutos",
+            "seconds": "Segundos"
+        },
+        "metaActivityNotificationToolTip": "As notificações são definidas para as reservas relativas a este elemento"
     },
     "offer": {
         "form": {
@@ -10128,10 +10247,25 @@
             "boughtOn": "Comprado em {{-date}}",
             "noVideoView": "Sem vista",
             "noVideoPurchase": "Nenhuma compra registada",
-            "duplicate": "Duplicar"
+            "duplicate": "Duplicar",
+            "register": {
+                "title": "Ativar a reprodução"
+            }
         },
         "playlist": {
-            "deleteVideo": "Eliminar"
+            "deleteVideo": "Eliminar",
+            "noVideo": "Nenhum vídeo nesta lista de reprodução",
+            "description": "Descrição",
+            "open": "Aberto",
+            "form": {
+                "cancel": "Cancelar",
+                "submit": "Registo"
+            },
+            "playlist": "Percursso",
+            "name": "Nome",
+            "bottomActions": {
+                "create": "Adicionar"
+            }
         },
         "details": {
             "pleaseSelectVod": "Selecionar uma compra para ver os detalhes",

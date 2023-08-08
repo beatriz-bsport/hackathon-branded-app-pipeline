@@ -43,7 +43,10 @@ import {
   snackbarError as snackbarErrorActions,
 } from '#libs/snackbar/actions';
 
-import { fetchLevelBulk as fetchLevelBulkAction } from '#libs/level/actions';
+import {
+  fetchLevelBulk as fetchLevelBulkAction,
+  resetLevels,
+} from '#libs/level/actions';
 import {
   getActiveCustomLevels,
   getAllCustomLevels,
@@ -220,6 +223,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   };
 
   componentDidMount() {
+    this.props.resetLevels();
     this.fetchData();
   }
 
@@ -568,6 +572,7 @@ const mapDispatchToProps = {
   fetchAllEstablishmentGroup,
   fetchOfferRegisteredIds: fetchOfferRegisteredIdsAction,
   fetchLevelBulk: fetchLevelBulkAction,
+  resetLevels,
 
   fetchGroupsOfferBulk: fetchGroupsOfferBulkAction,
   fetchOffersInGroupAction,

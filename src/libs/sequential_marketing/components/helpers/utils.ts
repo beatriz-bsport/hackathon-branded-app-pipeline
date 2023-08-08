@@ -88,7 +88,7 @@ const triggerIconByKind: { [key in TriggerKind]: string } = {
 /**
  * @description Dictionnary linking each MarketingAction to its corresponding icon name
  */
-const marketingActionIconDict: { [key in MarketingActions]: string } = {
+export const marketingActionIconDict: { [key in MarketingActions]: string } = {
   [MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL]: 'Mail',
   [MarketingActions.CADENCE_MARKETING_ACTION_SMS]: 'Textsms',
   [MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION]:

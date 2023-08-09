@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import './MarketplaceConsumerPaymentPackCard.css';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { compose } from 'recompose';
 import { Warning } from '@material-ui/icons';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { formatAsDate } from '../../../../utils/datetime';
@@ -101,7 +100,7 @@ const MarketplaceConsumerPaymentPackCard: React.FC<Props> = (props) => {
   );
 };
 
-export default compose<Props, Props>(
-  React.memo,
-  marketplaceCssHoc(),
-)(MarketplaceConsumerPaymentPackCard);
+export const MarketplaceConsumerPaymentPackCardForStorybook =
+  marketplaceCssHoc()(MarketplaceConsumerPaymentPackCard);
+
+export default React.memo(MarketplaceConsumerPaymentPackCard);

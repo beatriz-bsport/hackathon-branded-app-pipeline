@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import './MarketplaceFilterBuyableItemCategory.css';
 import classNames from 'classnames';
-import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import type { BuyableItemCategory } from '#libs/booker-module/types';
@@ -82,7 +81,7 @@ const MarketplaceFilterBuyableItemCategory: React.FC<Props> = (props) => {
   );
 };
 
-export default compose<Props, Props>(
-  React.memo,
-  marketplaceCssHoc(),
-)(MarketplaceFilterBuyableItemCategory);
+export const MarketplaceFilterBuyableItemCategoryForStorybook =
+  marketplaceCssHoc()(MarketplaceFilterBuyableItemCategory);
+
+export default React.memo(MarketplaceFilterBuyableItemCategory);

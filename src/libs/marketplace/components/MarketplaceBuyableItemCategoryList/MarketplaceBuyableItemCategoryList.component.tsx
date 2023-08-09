@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import { compose } from 'recompose';
 import isEqual from 'lodash/isEqual';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import './MarketplaceBuyableItemCategoryList.css';
@@ -123,7 +122,7 @@ const MarketplaceBuyableItemCategoryList: React.FC<Props> = (props) => {
   );
 };
 
-export default compose<Props, Props>(
-  React.memo,
-  marketplaceCssHoc(),
-)(MarketplaceBuyableItemCategoryList);
+export const MarketplaceBuyableItemCategoryListForStorybook =
+  marketplaceCssHoc()(MarketplaceBuyableItemCategoryList);
+
+export default React.memo(MarketplaceBuyableItemCategoryList);

@@ -1,5 +1,4 @@
 import React from 'react';
-import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { SvgIconComponent } from '@material-ui/icons';
@@ -64,7 +63,8 @@ const MarketplaceBookingBlockedReason: React.FC<Props> = (props) => {
   );
 };
 
-export default compose<Props, Props>(
-  React.memo,
-  marketplaceCssHoc(),
-)(MarketplaceBookingBlockedReason);
+export const MarketplaceBookingBlockedReasonForStorybook = marketplaceCssHoc()(
+  MarketplaceBookingBlockedReason,
+);
+
+export default React.memo(MarketplaceBookingBlockedReason);

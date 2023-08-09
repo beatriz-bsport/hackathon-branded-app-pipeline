@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import './MarketplaceSpotSelector.css';
-import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { useMediaQuery, useTheme } from '@material-ui/core';
@@ -249,7 +248,8 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
   );
 };
 
-export default compose<Props, Props>(
-  marketplaceCssHoc(),
-  React.memo,
-)(MarketplaceSpotSelector);
+export const MarketplaceSpotSelectorForStorybook = marketplaceCssHoc()(
+  MarketplaceSpotSelector,
+);
+
+export default React.memo(MarketplaceSpotSelector);

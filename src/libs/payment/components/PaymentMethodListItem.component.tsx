@@ -15,7 +15,7 @@ import type { PaymentMethod } from '../types';
 import type { OptionCallback } from '../../../state/types';
 
 type Props = {
-  paymentMethod: PaymentMethod;
+  paymentMethod?: PaymentMethod;
   selected?: boolean;
   onClick?: (id?: string) => void;
   onEdit?: (id: string) => void;
@@ -82,11 +82,11 @@ export const PaymentMethodListItem: FC<Props> = ({
     } else {
       onClick(paymentMethod.id);
     }
-  }, [onClick, paymentMethod.id, selected, withGeneralConditions]);
+  }, [onClick, paymentMethod?.id, selected, withGeneralConditions]);
 
   const onPaymentMethodEdit = React.useCallback(
     () => onEdit(paymentMethod.id),
-    [onEdit, paymentMethod.id],
+    [onEdit, paymentMethod?.id],
   );
 
   const removePaymentMethod = React.useCallback(() => {
@@ -95,7 +95,7 @@ export const PaymentMethodListItem: FC<Props> = ({
         setHasDetached && setHasDetached(paymentMethod.id);
       },
     });
-  }, [detachPaymentMethod, paymentMethod.id, setHasDetached]);
+  }, [detachPaymentMethod, paymentMethod?.id, setHasDetached]);
 
   if (!paymentMethod) {
     return null;

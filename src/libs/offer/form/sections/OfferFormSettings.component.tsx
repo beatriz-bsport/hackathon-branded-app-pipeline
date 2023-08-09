@@ -1,5 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
+import moment from 'moment-timezone';
 import Tune from '@material-ui/icons/Tune';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
@@ -7,6 +8,7 @@ import Switch from '@material-ui/core/Switch';
 import { useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
+import Alert from '@material-ui/lab/Alert';
 
 import FormSection from '#components/forms/FormSection';
 import { useOfferFormStyles } from '#libs/offer/hooks';
@@ -17,7 +19,10 @@ import NumericInput from '#components/input/NumericInput.component';
 import { OfferFormValues } from '#libs/offer/types';
 // @ts-ignore
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
-import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
+import {
+  UPSELL_IDENTIFIER_SPIVI,
+  UPSELL_URBAN_SPORTS_CLUB_IDENTIFIER,
+} from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { FeatureList } from '#libs/company/types';
 import { RoomBlueprint } from '#libs/spot-scheduling/types';
@@ -29,6 +34,7 @@ type Props = {
   isEditOffer?: boolean;
   roomBlueprints: RoomBlueprint[];
   hasActivityGroup?: boolean;
+  isWorkshop?: boolean;
 };
 
 const OfferFormSettings = (props: Props) => {
@@ -39,12 +45,21 @@ const OfferFormSettings = (props: Props) => {
     isEditOffer,
     roomBlueprints,
     hasActivityGroup,
+    isWorkshop,
   } = props;
   const classes = useOfferFormStyles();
   const { t } = useTranslation('offer');
   const { values, errors, handleChange, setFieldValue } =
     useFormikContext<OfferFormValues>();
   const { partnerMaxBookingCount, availableOnPartnership } = values;
+
+  const offerSpreadOnTwoDays = useMemo(() => {
+    const momentStart = moment(values.dateIntervalStart);
+    const momentEnd = moment(
+      moment(values.dateIntervalStart).add(values.durationMinute, 'minute'),
+    );
+    return !momentStart.isSame(momentEnd, 'day');
+  }, [values.dateIntervalStart, values.durationMinute]);
 
   const handleToggleManagerOnly = useCallback(
     (event) => {
@@ -119,6 +134,38 @@ const OfferFormSettings = (props: Props) => {
           <Typography className={classes.mediumFontWeight} variant="subtitle1">
             {t('form.section.settings.field.partnership.title')}
           </Typography>
+
+          <FeatureListProvider>
+            {(featureList: FeatureList) => {
+              const hasUscUpsell = hasUpsell(
+                featureList,
+                UPSELL_URBAN_SPORTS_CLUB_IDENTIFIER,
+              );
+
+              if (hasUscUpsell && values.availableOnPartnership && isWorkshop)
+                return (
+                  <Alert className={classes.centerAlert} severity="warning">
+                    {t(
+                      'form.section.settings.field.partnership.uscIntegrationWorkshopWarning',
+                    )}
+                  </Alert>
+                );
+
+              return (
+                <>
+                  {hasUscUpsell &&
+                    values.availableOnPartnership &&
+                    offerSpreadOnTwoDays && (
+                      <Alert className={classes.centerAlert} severity="warning">
+                        {t(
+                          'form.section.settings.field.partnership.uscIntegrationWarning',
+                        )}
+                      </Alert>
+                    )}
+                </>
+              );
+            }}
+          </FeatureListProvider>
 
           <SwitchField
             id="offer-form-available-partnership-switch"

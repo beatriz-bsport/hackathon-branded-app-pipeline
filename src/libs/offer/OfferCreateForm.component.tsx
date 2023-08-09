@@ -184,6 +184,7 @@ export const OfferCreateForm = (props: Props) => {
         <OfferFormSettings
           allowGuestMaster={allowGuestMaster}
           isOfferInGroup={isOfferInGroup}
+          isWorkshop={metaActivity?.is_workshop}
           roomBlueprints={roomBlueprints}
           showPartnership={showPartnership}
         />

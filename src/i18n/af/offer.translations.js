@@ -327,7 +327,11 @@ exports.default = {
             availableOnPartnership:
               'Sur les marketplaces (ClassPass, OneFit...)',
             partnerMaxBookingCount:
-              'Nombre maximum de réservation marketplace (OneFit uniquement)',
+              'Nombre maximum de réservation marketplace (OneFit + Urban Sports Club uniquement)',
+            uscIntegrationWarning:
+              "Votre intégration à la marketplace Urban Sports Club est active, toute séance débordant sur 2 jours ou plus n'y apparaîtra pas.",
+            uscIntegrationWorkshopWarning:
+              "Les ateliers ne sont pas compatibles avec la marketplace Urban Sports Club, cette séance n'y appraîtra pas.",
           },
           isNotifyConsumers:
             'Voulez-vous informer vos clients de cette modification ?',

@@ -330,6 +330,7 @@ export const OfferEditForm = (props: Props) => {
             allowGuestMaster={allowGuestMaster}
             hasActivityGroup={!!props.offer?.group}
             isOfferInGroup={isOfferInGroup}
+            isWorkshop={metaActivity?.is_workshop}
             roomBlueprints={roomBlueprints}
             showPartnership={showPartnership}
           />

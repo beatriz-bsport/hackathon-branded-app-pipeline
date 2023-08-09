@@ -110,6 +110,7 @@ const initialState: Immutable.Immutable<CommunicationState> =
         ]),
       ),
       unreadAnswersCountsById: {},
+      allUnreadAnswersCount: 0,
       currentThread: {
         loading: false,
         error: null,
@@ -454,24 +455,31 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       state,
       { payload }: { payload: UnreadAnswersCount[] },
     ) => {
-      return state.merge(
-        {
-          inboxThread: {
-            unreadAnswersCountsById: payload.reduce(
-              (
-                acc: { [id: number]: number },
-                unreadAnswerCount: UnreadAnswersCount,
-              ) => {
-                acc[unreadAnswerCount.communication_thread_id] =
-                  unreadAnswerCount.unread_answers_count;
-                return acc;
-              },
-              {},
-            ),
-          },
-        },
-        { deep: true },
+      const allUnreadAnswersCount = payload.reduce<number>(
+        (total, current) => total + current?.unread_answers_count ?? 0,
+        0,
       );
+
+      return state
+        .merge(
+          {
+            inboxThread: {
+              unreadAnswersCountsById: payload.reduce(
+                (
+                  acc: { [id: number]: number },
+                  unreadAnswerCount: UnreadAnswersCount,
+                ) => {
+                  acc[unreadAnswerCount.communication_thread_id] =
+                    unreadAnswerCount.unread_answers_count;
+                  return acc;
+                },
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        )
+        .setIn(['inboxThread', 'allUnreadAnswersCount'], allUnreadAnswersCount);
     },
     [fetchUnreadAnswersCountsActions.detail.toString()]: (
       state,

@@ -50,6 +50,7 @@ export type CommunicationState = {
     smartlist: GenericListReducerI;
     offer: GenericListReducerI;
     unreadAnswersCountsById: { [id: number]: number };
+    allUnreadAnswersCount: number;
     currentThread: ErrorAndLoading;
   } & ErrorAndLoading;
 };

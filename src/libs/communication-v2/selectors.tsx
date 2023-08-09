@@ -103,6 +103,8 @@ const getInboxThreadsById = (state: RootState) =>
   state.communicationV2.inboxThread.byId;
 const getUnreadAnswersCounts = (state: RootState) =>
   state.communicationV2.inboxThread.unreadAnswersCountsById;
+export const getAllUnreadAnswersCount = (state: RootState) =>
+  state.communicationV2.inboxThread.allUnreadAnswersCount;
 
 const getInboxThreadsIds = (state: RootState, threadKind: ChatThreadKinds) =>
   state.communicationV2.inboxThread[threadKind].allIds;

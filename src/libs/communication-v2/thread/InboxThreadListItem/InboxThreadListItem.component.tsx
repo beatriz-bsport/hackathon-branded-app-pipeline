@@ -96,6 +96,10 @@ const InboxThreadListItem: React.FC<Props> = ({
     [t],
   );
 
+  const unreadAnswersCount = thread?.last_communication_has_been_read
+    ? thread?.numberOfUnreadAnswers ?? 0
+    : 1;
+
   const primaryContent = () => (
     <div className={classes.inline}>
       <div className={classes.titles}>
@@ -184,7 +188,7 @@ const InboxThreadListItem: React.FC<Props> = ({
           <ThreadAvatar
             cover={thread?.cover}
             isMuted={thread?.muted}
-            numberOfUnreadAnswers={thread?.numberOfUnreadAnswers || 0}
+            numberOfUnreadAnswers={unreadAnswersCount}
             relatedObjectKind={thread?.related_object_kind}
           />
           <ListItemText

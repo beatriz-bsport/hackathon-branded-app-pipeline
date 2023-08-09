@@ -130,6 +130,11 @@ import type { StripeAccountStatus, StripeCompany } from '../libs/company/types';
 import { getCurrentLanguageIsoCode } from '../utils/language';
 import type { OptionCallback } from '../state/types';
 import { getStripeOnboardingPending } from '../libs/company/selectors';
+import {
+  fetchBatchUnreadAnswersCounts as fetchBatchUnreadAnswersCountsAction,
+  fetchInboxThreadList as fetchInboxThreadListAction,
+} from '#libs/communication-v2/actions';
+import { fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts } from '#libs/communication-v2/utils';
 
 const CompanyDetailPage = asyncComponent(() =>
   import('./settings/CompanyDetailPage.page'),
@@ -344,6 +349,15 @@ type Props = {
     params?: TutorialLessonUserStatusQueryParams,
     options?: OptionCallback<TutorialCompletion>,
   ) => void,
+  fetchInboxThreadList: (
+    params: InboxThreadListParams,
+    isThreadListReinitialized?: boolean,
+    options?: OptionCallback<CommunicationThread[]>,
+  ) => void,
+  fetchBatchUnreadAnswersCounts: (
+    params: { thread_ids: number[] },
+    options?: OptionCallback,
+  ) => void,
 };
 
 const DELAY_BETWEEN_ALERTS = 10 * 60000;
@@ -466,6 +480,18 @@ export class Backoffice extends Component<Props, State> {
     this.props.fetchSignFormUpConfiguration();
     this.props.fetchTags();
     this.props.fetchUserTutorialCompletion();
+    if (
+      this.props.fetchInboxThreadList &&
+      this.props.fetchBatchUnreadAnswersCounts
+    ) {
+      fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts(
+        'member',
+        null,
+        this.props.fetchInboxThreadList,
+        this.props.fetchBatchUnreadAnswersCounts,
+      );
+    }
+
     if (this.props.theme && this.props.theme.company) {
       this.props.fetchCompanyCustomSignUp({
         company: this.props.theme.company,
@@ -989,6 +1015,8 @@ export default compose(
       stripeAccountStatus: state.company.stripeAccountStatus.data,
     }),
     {
+      fetchBatchUnreadAnswersCounts: fetchBatchUnreadAnswersCountsAction,
+      fetchInboxThreadList: fetchInboxThreadListAction,
       retrievePlatformSubscriptionPaymentStatus:
         retrievePlatformSubscriptionPaymentStatusAction,
       retrieveStripeAccountStatus: retrieveStripeAccountStatusAction,

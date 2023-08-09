@@ -46,11 +46,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import HelpIcon from '@material-ui/icons/Help';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
+import InboxIcon from '@material-ui/icons/Inbox';
 
 import Tooltip from '@material-ui/core/Tooltip';
 import { useFullScreenWithIconDrawer } from '../../../hooks/useFullScreenWithIconDrawer';
 import Config, { useOldPermissions } from '../../../config';
 import { getTextColorFromRGB } from '../../../utils/color';
+import { getAllUnreadAnswersCount } from '#libs/communication-v2/selectors';
 
 import BillingBanner from '../BillingBanner.component';
 import StripeOnboardingBanner from '../StripeOnboardingBanner.component';
@@ -152,6 +154,7 @@ type Props = {
     count: number;
     results: UserWithRealTimeAttendance[];
   };
+  inboxUnreadAnswersCount: number;
   getStaffsAttendanceRealTime: (
     params: ClockInQueryParams,
     options?: OptionCallback,
@@ -219,11 +222,13 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   clockOut,
   getLastClockin,
   handleGoToTutorial,
+  handleGoToInbox,
   userAcknowlegdePlatformTutorial,
   nbTutorialAlerting,
   updateUserAcknowlegdeTutorial,
   shrinkResponsiveDrawer,
   setShrinkResponsiveDrawer,
+  inboxUnreadAnswersCount,
 }) => {
   const { t } = useTranslation('navigation');
 
@@ -629,6 +634,19 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                         </Grow>
                       )}
                     <Hidden xsDown>
+                      <Grid item>
+                        <IconButton onClick={handleGoToInbox}>
+                          <Tooltip title={t('navigation:backofficeMenu.inbox')}>
+                            <Badge
+                              badgeContent={inboxUnreadAnswersCount}
+                              color="error"
+                              max={99}
+                            >
+                              <InboxIcon />
+                            </Badge>
+                          </Tooltip>
+                        </IconButton>
+                      </Grid>
                       {hasUpsellIdentifier(UPSELL_IDENTIFIER_CLOCK_IN) &&
                         (permissions?.navigationMenu?.payments?.clockIn
                           ?.selfClockIn ||
@@ -1112,11 +1130,13 @@ const connector = connect(
     loading: state.cashbook.loading,
     cashBook: state.cashbook.infos,
     shrinkResponsiveDrawer: state.userPreference.shrinkResponsiveDrawer,
+    inboxUnreadAnswersCount: getAllUnreadAnswersCount(state),
   }),
   {
     handleOpenOnSpotPaymentReport: (id: number) =>
       pushRouter(`/reporting/${id}`),
     handleGoToTutorial: () => pushRouter('/tutorial'),
+    handleGoToInbox: () => pushRouter('/inbox/thread'),
     setShrinkResponsiveDrawer: setShrinkResponsiveDrawerAction,
   },
 );

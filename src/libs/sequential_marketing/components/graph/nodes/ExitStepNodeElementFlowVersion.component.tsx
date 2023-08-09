@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Handle, Position } from 'react-flow-renderer';
 
-import ExitStepNodeElement from './ExitStepNodeElement.component ';
+import ExitStepNodeElement from './ExitStepNodeElement.component';
 
 export const ExitStepNodeElementFlowVersion: React.FC = () => {
   return (

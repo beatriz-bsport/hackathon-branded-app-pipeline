@@ -19,7 +19,7 @@ import { LevelSelector } from '#libs/level/components/LevelSelector.component';
 import EstablishmentSelector from '#libs/establishment/components/EstablishmentSelector.component';
 import OfferFormSelector from '#libs/offer/form/OfferFormSelector.component';
 import SpotSchedulingHelper from '#libs/spot-scheduling/utils';
-import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook ';
+import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook';
 import OfferFormTooltip from '#libs/offer/form/OfferFormTooltip.dialog';
 // @ts-expect-error
 import MetaActivitySelector from '../../../meta-activity/components/MetaActivitySelector.component';

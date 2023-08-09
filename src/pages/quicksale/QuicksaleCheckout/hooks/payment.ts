@@ -7,7 +7,7 @@ import {
 
 import { QuicksalePaymentMethod } from '#libs/quicksale/constants';
 
-import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook ';
+import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook';
 
 import { requestClientSecret as requestClientSecretAPI } from '../../../../libs/invoice/api';
 import type { Theme } from '#libs/theme/types';

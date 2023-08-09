@@ -19,7 +19,7 @@ import {
   CadenceMarketingActionsEnum,
 } from '#libs/sequential_marketingDEPRECATED/constants';
 
-import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook ';
+import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook';
 import MarketingActionCard from './MarketingActionCard.component';
 
 type Props = {

@@ -16,7 +16,7 @@ import OfferFormSettings from '#libs/offer/form/sections/OfferFormSettings.compo
 import OfferFormTags from '#libs/offer/form/sections/OfferFormTags.component';
 import OfferFormCreationValidationSchema from '#libs/offer/form/CreationValidationSchema';
 import { useOfferFormStyles } from '#libs/offer/hooks';
-import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook ';
+import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook';
 import { getIsoWeekDay, getOfferRecurrenceDates } from '#libs/offer/utils';
 
 import { OptionCallback, OptionPaginatedCallback } from '../../state/types';

@@ -19,6 +19,7 @@ const getTimezoneListExtended = (
       moment.tz.zone('Indian/Antananarivo'),
       moment.tz.zone('America/Cayenne'),
       moment.tz.zone('Africa/Casablanca'),
+      moment.tz.zone('Africa/Tunis'),
       moment.tz.zone('Pacific/Noumea'),
     ];
   }

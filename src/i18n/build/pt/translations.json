@@ -8303,7 +8303,20 @@
             "explainMarketplace": "Os seus membros podem aceder ao marketplace (calendário, loja, VOD, etc.) online no computador, tablet ou telemóvel. Personalize a sua página aqui!",
             "addButton": "Adicionar um separador",
             "createDialog": {
-                "hidePaymentPack": "Não exibir passes de aulas"
+                "hidePaymentPack": "Não exibir passes de aulas",
+                "titleCaption": "{{max}} caracteres máx. ({{count}}/{{max}})",
+                "submit": "Validar",
+                "noComponentTypeError": "Selecionar um componente",
+                "hideFilters": "Não apresentar a barra de pesquisa e os filtros",
+                "inputTitle": "Nome do separador",
+                "noTitleError": "Introduzir um título",
+                "todayOnly": "Visão das sessões diárias",
+                "noServiceError": "Selecionar um serviço",
+                "noPlaylistError": "Selecionar uma lista de reprodução",
+                "dialogTitle": "Selecionar uma lista de reprodução",
+                "hidePrivatePass": "Não exibir passes de marcação",
+                "hidePaymentCombo": "Não expor as embalagens",
+                "cancel": "Cancelar"
             }
         },
         "active_campaign": {
@@ -8418,7 +8431,16 @@
         "companyOnboarding": {
             "error": "Não é possível alterar esta informação"
         },
-        "pageTitle": "Parâmetros"
+        "pageTitle": "Parâmetros",
+        "paymentMethods": {
+            "methodPaymentBasketHelper": "Autorizar pagamentos para o cesto de compras, liquidação de dívidas e pagamentos pendentes... apenas através de",
+            "title": "Pagamento em linha",
+            "methodPaymentSubscription": "Pagamento recorrente",
+            "methodPaymentSubscriptionHelper": "Autorizar pagamentos de assinaturas (contratos) apenas através de",
+            "methodPaymentBasket": "Pagamento único",
+            "subtitle2": "Como gestor, tem sempre acesso a todos os métodos de pagamento disponíveis.",
+            "subtitle": "Pode ativar ou desativar os métodos de pagamento utilizados pelos seus membros quando pagam em linha."
+        }
     },
     "widget": {
         "widget": {
@@ -10196,7 +10218,10 @@
     "video": {
         "video": {
             "delete": {
-                "content": "Tem a certeza de que pretende eliminar esta rota ? Esta operação é irreversível."
+                "content": "Tem a certeza de que pretende eliminar esta rota ? Esta operação é irreversível.",
+                "title": "Eliminar",
+                "confirm": "Confirmar",
+                "cancel": "Cancelar"
             },
             "form": {
                 "edit": "Alterar",
@@ -10249,8 +10274,96 @@
             "noVideoPurchase": "Nenhuma compra registada",
             "duplicate": "Duplicar",
             "register": {
-                "title": "Ativar a reprodução"
-            }
+                "title": "Ativar a reprodução",
+                "buyPass": "Comprar um passe",
+                "noPassAvailable": "Não tem um passe compatível"
+            },
+            "thumbnailList": {
+                "similarVideoTitle": "Vídeos semelhantes",
+                "count": "{{ count }} vídeos",
+                "addVideo": "Adicionar um vídeo"
+            },
+            "search": {
+                "isEmpty": "Não há vídeo :(",
+                "placeholder": "Pesquisar",
+                "cancel": "Cancelar"
+            },
+            "bottomActions": {
+                "create": "Adicionar"
+            },
+            "upload": {
+                "contentEbook": "Carregar aqui ou selecionar um ficheiro/imagem",
+                "type": {
+                    "ebook": "Ebooks",
+                    "file": "Ficheiro",
+                    "fileExplain": "Se tiver um ficheiro vídeo (mp4, avi, mov...), utilize este método para carregar o seu vídeo diretamente para os servidores da bsport.",
+                    "vimeo": "Vimeo",
+                    "youtubeExplain": "O seu vídeo já está disponível no Youtube, mas pretende rentabilizá-lo utilizando o sistema de cartões bsport.",
+                    "youtube": "Youtube",
+                    "vimeoExplain": "O seu vídeo já está disponível no Vimeo, mas pretende rentabilizá-lo utilizando o sistema de cartões bsport.",
+                    "ebookExplain": "Se tiver um ebook em formato pdf ou de imagem (png, jpg), utilize este método para carregar o seu ebook. Uma vez desbloqueado, os seus membros poderão descarregá-lo."
+                },
+                "youtubeUrlInput": "Ligação do Youtube",
+                "hours": "Horas",
+                "dropHere": "Arraste e largue um vídeo aqui ou clique para navegar no seu computador",
+                "durationLabel": "Duração do vídeo",
+                "durationInputError": "Introduza a duração do vídeo",
+                "minutes": "Minutos",
+                "title": "Carregar um vídeo",
+                "ebookTitle": "Carregar um ebook",
+                "content": "Carregue aqui ou seleccione um vídeo",
+                "submit": "Confirmar",
+                "vimeoUrlInput": "Ligação vimeo",
+                "urlInputError": "Introduzir um URL",
+                "cancel": "Cancelar"
+            },
+            "rental": {
+                "forRent": "Aluguer",
+                "valid": "Em curso",
+                "expirationDate": "Válido até {{ expiration_date }}",
+                "expiredDate": "Expirado em {{ expiration_date }}",
+                "duration_helper": "Validade do vídeo (em dias)",
+                "rental_days_helper": "O vídeo será desbloqueado após o número de dias especificado.",
+                "expired": "Concluído",
+                "label": "Vídeo para aluguer",
+                "helper": "Por predefinição, os vídeos ficam desbloqueados para sempre após a compra. Ao alugar o vídeo, este só pode ser desbloqueado durante um determinado número de dias.",
+                "duration": "Para aluguer para {{ rental_days }} dias",
+                "buyDate": "Hora da compra"
+            },
+            "lock": {
+                "buyPass": "Comprar um cartão",
+                "pleaseAuthenticated": "Não tem acesso a este ebook",
+                "accessDeniedEbook": "Não tem acesso a este ebook",
+                "useConsumerPass": "Desbloquear",
+                "accessDenied": "Não tem acesso a este vídeo"
+            },
+            "name": "Nome",
+            "status": {
+                "processing": "Em curso",
+                "submitted": "Projeto",
+                "error": "Tentar novamente",
+                "processed": "Detalhes"
+            },
+            "filter": {
+                "duration": {
+                    "all": "Qualquer duração",
+                    "explain": "Entre {{min}} e {{max}} min"
+                }
+            },
+            "showMore": "Ver mais",
+            "durationMinute": "{{ minute }} min",
+            "player": {
+                "with": "com"
+            },
+            "category": "Categoria",
+            "creditPrice": "Custo (crédito)",
+            "coverMain": {
+                "alert": "A imagem é obrigatória"
+            },
+            "description": "Descrição",
+            "level": "Nível",
+            "manager_only": "Não disponível para compra",
+            "manager_only_helper": "O vídeo não estará disponível para compra, mas será visível apenas para os gestores"
         },
         "playlist": {
             "deleteVideo": "Eliminar",
@@ -10261,7 +10374,7 @@
                 "cancel": "Cancelar",
                 "submit": "Registo"
             },
-            "playlist": "Percursso",
+            "playlist": "Percurso",
             "name": "Nome",
             "bottomActions": {
                 "create": "Adicionar"

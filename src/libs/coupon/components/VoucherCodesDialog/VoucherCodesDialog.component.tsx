@@ -64,9 +64,9 @@ const VoucherCodesDialog: React.FC<Props> = ({
   );
 
   useEffect(() => {
-    if (uniqueCodeCoupon) {
+    if (uniqueCodeCoupon?.available_unique_codes) {
       setAvailableUniqueCodes(
-        Object.keys(uniqueCodeCoupon?.available_unique_codes),
+        Object.keys(uniqueCodeCoupon.available_unique_codes),
       );
     }
   }, [uniqueCodeCoupon, uniqueCodeCoupon?.available_unique_codes]);

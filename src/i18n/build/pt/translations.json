@@ -4170,7 +4170,8 @@
         "franchise": {
             "delete": {
                 "delete": "Eliminar",
-                "content": "Tem a certeza de que pretende eliminar esta configuração? As definições seleccionadas e os modelos de e-mail voltarão aos seus valores originais."
+                "content": "Tem a certeza de que pretende eliminar esta configuração? As definições seleccionadas e os modelos de e-mail voltarão aos seus valores originais.",
+                "title": "Eliminar"
             },
             "form": {
                 "restrictedAccess": "Esta configuração é definida para os franchisados aos quais não tem acesso. Alguns campos não podem ser modificados",
@@ -4180,21 +4181,63 @@
                 "description": "O modelo escolhido será utilizado para o email transacional \"{{-name}}\" para todos os franchisados selecionados aqui.",
                 "parameters": "Parâmetros",
                 "useFor": "Utilizar para ",
-                "activate": "Ativado"
+                "activate": "Ativado",
+                "receiveCC": "Receber uma cópia da mensagem",
+                "mailSelection": "Selecionar um template",
+                "cancel": "Cancelar",
+                "error": {
+                    "name": "Preencher um nome",
+                    "email_design": "Selecionar um modelo",
+                    "selectCompanies": "Selecionar pelo menos um franchisado"
+                },
+                "save": "Registar",
+                "activateSubtitleActivate": "O email de transição está ativado e será enviado aos membros",
+                "activateSubtitleDeactivate": "O email de transição está desativado e não será enviado aos membros",
+                "receiveCarbonCopySubtitle": "Receberá uma cópia de cada mensagem eletrónica enviada"
             },
             "emptySelect": "Selecione um email transacional para ver quais os franchisados que o partilham e utilizam.",
             "addConfiguration": "Adicionar uma configuração",
-            "emptyStateConfiguration": "Crie uma configuração para forçar a utilização de modelos de emails para cada um dos seus franchisados."
+            "emptyStateConfiguration": "Crie uma configuração para forçar a utilização de modelos de emails para cada um dos seus franchisados.",
+            "card": {
+                "companies": "Franqueados",
+                "template": "Modelo",
+                "parameters": "Parâmetros",
+                "deactivated": "Desativar",
+                "carbonCopy": "Receber uma cópia da mensagem do email",
+                "activated": "Ativar"
+            }
         },
         "listItem": {
-            "modifyTransactionnalNotification": "alterar a notificação push"
+            "modifyTransactionnalNotification": "alterar a notificação push",
+            "sendTransactionnalNotification": "Enviar uma notificação push",
+            "transactionnalEmail": "Email transacional",
+            "copyCarbon": "Receber uma cópia da mensagem enviada por email",
+            "createTransactionnalNotification": "configurar a notificação push",
+            "sendTransactionnalEmail": "Enviar um email transacional",
+            "transactionnalNotification": "Notificação push",
+            "infoBoxErrorMessageLastLine": "Certifique-se de que os adiciona ao seu modelo para o poder guardar",
+            "infoBoxErrorMessageFirstLine": "Este email deve conter as seguintes variáveis:",
+            "mailToSend": "Email a enviar"
         },
         "marketingNotification": {
             "birthday": "Email de aniversário"
         },
         "triggeringEvent": {
             "title": "Ato de desencadeamento"
-        }
+        },
+        "preview": {
+            "emptyStateNotification": "Para ver a pré-visualização, configure a sua notificação push",
+            "title": "Visão geral",
+            "emptyState": "Para ver as pré-visualizações, clique numa das categorias",
+            "notification": "Push",
+            "email": "Email"
+        },
+        "franchiseOwned": "O seu franchisador está atualmente a gerir este email transacional",
+        "countElements": "{{nbr}} elementos",
+        "countNotification": "{{nbr}} notificações push ativadas",
+        "countEmail": "{{nbr}} emails transacionais ativos",
+        "configureNotif": "Configurar",
+        "goBackToMenu": "Anterior"
     },
     "paymentPack": {
         "form": {
@@ -5141,7 +5184,8 @@
             },
             "savePaymentMethod": {
                 "section": "Selecionar um método de pagamento",
-                "label": "Guardar este método de pagamento"
+                "label": "Guardar este método de pagamento",
+                "select": "Selecionar um método de pagamento"
             },
             "cancelPayment": "Anterior"
         },
@@ -5162,7 +5206,21 @@
             "3": "Passe",
             "2": "Cheque",
             "1": "Tipos",
-            "0": "Passe"
+            "0": "Passe",
+            "50": "EPS",
+            "60": "Giropay",
+            "BANCONTACT": "Bancontact",
+            "GIROPAY": "Giropay",
+            "EPS": "EPS",
+            "70": "Débito Direto",
+            "BACS_DEBIT": "Débito Direto",
+            "8": "Evento brite",
+            "6": "AMEX",
+            "20": "Bancontact",
+            "40": "iDEAL",
+            "SOFORT": "Sofort",
+            "IDEAL": "iDEAL",
+            "30": "Sofort"
         },
         "paymentComboSectionTitle": "Pack",
         "creditAccountBalance": {
@@ -5178,7 +5236,9 @@
         "bookAnOption": "Colocar-me na lista de espera",
         "bookAnotherOption": "Inscrever-me novamente na lista de espera",
         "disputeStatus": {
-            "3": "Alteração perdida"
+            "3": "Disputa perdida",
+            "2": "Disputa resolvida",
+            "1": "Disputa em procedimento"
         },
         "explainOption": "Será notificado por e-mail quando houver um lugar disponível.",
         "payment": {
@@ -9936,21 +9996,113 @@
                     "field": {
                         "waitingListMaxSize": "Lista de espera",
                         "effectif": "Equipa",
-                        "hybridEditHelper": "Está a editar uma sessão online ligada a uma sessão no local. Para alterar determinadas informações, é necessário editar na sessão do local."
+                        "hybridEditHelper": "Está a editar uma sessão online ligada a uma sessão no local. Para alterar determinadas informações, é necessário editar na sessão do local.",
+                        "hybridHelper": "Ao escolher esta opção, será criada uma sessão online com um número de participantes predefinido de {{ onlineOfferDefaultEffectif }}. Poderá editar as informações online depois de esta ter sido criada (link, número de participantes, preço, etc...)",
+                        "roomBlueprint": {
+                            "placeholder": "Selecionar um plano",
+                            "title": "Programação de lugares"
+                        },
+                        "establishment": "Localização",
+                        "broadcastLink": "Localização da videoconferência",
+                        "hybridLabel": "Esta sessão decorre no local e online.",
+                        "credits": "Créditos",
+                        "hybridManagementHelper": "Pode gerir as reservas associadas a esta sessão geminada, tanto na sala como online, clicando no ícone abaixo para abrir um novo separador de gestão.",
+                        "level": "Nível",
+                        "hybridSection": "Sessão híbrida"
                     },
                     "title": "Características",
                     "tooltip": {
                         "roomBlueprint": "Permite aos seus alunos reservar o espaço que pretendem na sala",
-                        "credits": "Número de créditos necessários para reservar"
+                        "credits": "Número de créditos necessários para reservar",
+                        "broadcastLink": "O link será gerado automaticamente para o ZOOM pela bsport"
                     }
                 },
                 "settings": {
                     "field": {
-                        "isModifyRecursively": "Gostaria de alterar sessões semelhantes de acordo com estas novas condições?"
-                    }
+                        "isModifyRecursively": "Gostaria de alterar sessões semelhantes de acordo com estas novas condições?",
+                        "isManagerOnly": "Disponível para reserva (web+app)",
+                        "allowGuestOffer": "Autorizar reserva para um convidado",
+                        "partnership": {
+                            "title": "Marketplace",
+                            "availableOnPartnership": "No marketplace (ClassPass, OneFit...)",
+                            "partnerMaxBookingCount": "Número máximo de reservas pelo marketplace (apenas para OneFit)"
+                        },
+                        "isNotifyConsumers": "Gostaria de informar os seus alunos sobre esta alteração ?",
+                        "syncOfferOnSpivi": "Enviar para Spivi"
+                    },
+                    "title": "Parâmetros"
                 },
                 "similarOffers": {
-                    "info": "As alterações das sessões podem torná-las incompatíveis com determinados passes. Após a modificação, verifique se as sessões continuarão a ser compatíveis com eventuais mudanças de local / professor."
+                    "info": "As alterações das sessões podem torná-las incompatíveis com determinados passes. Após a modificação, verifique se as sessões continuarão a ser compatíveis com eventuais mudanças de local / professor.",
+                    "selectAll": "Selecionar tudo",
+                    "unselectAll": "Desmarcar tudo",
+                    "title": "Selecione as sessão que serão modificadas"
+                },
+                "tags": {
+                    "title": "Etiquetas",
+                    "placeholder": "Deixar em branco para autorizar todos os membros",
+                    "helperText": "Utilize etiquetas para tornar a sessão reservável apenas para um grupo de membros pretendido. Pode selecionar etiquetas para tornar a sessão reservável apenas para membros com uma das etiquetas seleccionadas. Ou pode selecionar etiquetas para tornar a sessão não reservável apenas para membros com uma das etiquetas seleccionadas.",
+                    "field": {
+                        "blacklistTags": "Não-Autorizar",
+                        "whitelistTags": "Autorizar"
+                    }
+                },
+                "coach": {
+                    "field": {
+                        "coachOverride": {
+                            "title": "Substituto",
+                            "placeholder": "Selecionar um professor substituto"
+                        },
+                        "coachPaymentRule": {
+                            "title": "Regra de remuneração",
+                            "placeholder": "Selecionar uma regra"
+                        },
+                        "coach": {
+                            "title": "Professor",
+                            "placeholder": "Selecionar um professor"
+                        }
+                    },
+                    "additionalCoaches": {
+                        "title": "Professor(s) substituto(s)",
+                        "field": {
+                            "placeHolder": "Selecionar professores substitutos"
+                        }
+                    },
+                    "title": "Professor"
+                },
+                "credits": {
+                    "field": {
+                        "creditCount": "Número de créditos"
+                    },
+                    "title": "Créditos"
+                },
+                "dateTime": {
+                    "field": {
+                        "recurrence": {
+                            "placeholder": "Selecionar uma recorrência",
+                            "option": {
+                                "daily": "Diariamente",
+                                "monthly": "Mensalmente",
+                                "weekly": "Semanalmente"
+                            },
+                            "preview": "Pré-visualizar",
+                            "title": "Recorrência",
+                            "previewCount": "A sessão {{count}} será criada",
+                            "previewCount_plural": "As sessões {{count}} serão criadas"
+                        },
+                        "dateIntervalStart": "Data da aula",
+                        "dateIntervalEnd": "Data de fim",
+                        "dateIntervalStartTime": "Hora de início",
+                        "durationMinute": "Duração"
+                    },
+                    "title": "Horas e data"
+                },
+                "coachOverride": {
+                    "title": "Alterar o professor substituto",
+                    "info": "Se assinalar esta caixa, as alterações aplicadas ao professor substituto para esta sessão serão aplicadas a todas as sessões semelhantes. Caso contrário, serão aplicadas apenas a esta sessão.",
+                    "field": {
+                        "isCoachOverridePropagate": "Aplicar as alterações ao professor substituto às sessões selecionadas"
+                    }
                 }
             },
             "groupedOffer": {
@@ -9961,6 +10113,31 @@
                     "SETTINGS": "Parâmetros de alteração",
                     "INFOS": "Sessão"
                 }
+            },
+            "dialog": {
+                "createLevel": "Criar um nível",
+                "recurrencePreview": "Pré-visualizar"
+            },
+            "errors": {
+                "minZero": "O valor deve ser maior ou igual a 0",
+                "dateFormat": "Formato da data inválido",
+                "field": {
+                    "effectif": "O valor é superior ao número máximo de lugares",
+                    "partnerMaxBookingCount": "O número de lugares aqui é maior do que o número de lugares na sessão",
+                    "roomBlueprintSpivi": "Deve ser selecionado um plano de lugares para as sessões sincronizadas com o Spivi",
+                    "durationMinute": "A duração de uma sessão deve ser superior a 0 minutos",
+                    "dateIntervalEnd": "A data final não pode ser anterior à data de início",
+                    "broadcastLink": "A ligação está incorrecta. Deve começar por http:// ou https:// e não deve conter espaços",
+                    "durationMinuteSpivi": "Uma sessão de Spivi deve durar entre 20 minutos a 4 horas"
+                },
+                "positiveNumber": "O valor deve ser superior a 0",
+                "dateTooFar": "Impossível criar sessões que decorram em mais de 3 anos",
+                "minTwo": "O valor deve ser maior ou igual a 2",
+                "required": "Campo incompleto"
+            },
+            "warnings": {
+                "effectif": "Tenha em atenção que não está a introduzir um preço. Tem a certeza do valor ?",
+                "editOfferInitialCredits": "As reservas mais antigas não têm em conta a alteração dos créditos"
             }
         },
         "rollCall": {
@@ -10155,7 +10332,10 @@
         },
         "pendingReplacementRequest": "Está aberto um pedido de substituição",
         "deleteImpossibleText": "Não é possível eliminar esta sessão porque tem reservas pendentes.",
-        "deleteImpossibleTitle": "Não é possível eliminar a sessão"
+        "deleteImpossibleTitle": "Não é possível eliminar a sessão",
+        "close": "Fechar",
+        "broadcast": "Videoconferência",
+        "onSite": "No estúdio"
     },
     "spotScheduling": {
         "forms": {
@@ -11265,25 +11445,105 @@
     "ordering": {
         "category": {
             "deleteModal": {
-                "content": "Tem a certeza de que pretende eliminar esta categoria? Todos os elementos que contém serão colocados na secção sem categoria"
+                "content": "Tem a certeza de que pretende eliminar esta categoria? Todos os elementos que contém serão colocados na secção sem categoria",
+                "cancel": "Cancelar",
+                "confirm": "Confirmar",
+                "title": "Eliminar"
             },
             "popover": {
-                "delete": "Eliminar"
+                "delete": "Eliminar",
+                "edit": "Renomear"
             },
             "creationDialog": {
-                "edit": "Alterar"
-            }
-        }
+                "edit": "Alterar",
+                "create": "Criar",
+                "titleEdit": "Categoria",
+                "titleNew": "Nova categoria",
+                "name": "Nome da categoria",
+                "cancel": "Cancelar"
+            },
+            "noCategory": {
+                "name": "Nenhuma categoria"
+            },
+            "add": "Adicionar uma categoria",
+            "empty": "Esta categoria está vazia",
+            "noAvailable": "Não há itens que correspondam aos filtros selecionados",
+            "selector": "Nome da categoria"
+        },
+        "disabledItemsTitle": "Arquivo"
     },
     "order": {
         "deliveryFee": {
             "modal": {
                 "delete": {
                     "confirm": "Eliminar",
-                    "title": "Eliminar uma taxa de entrega"
+                    "title": "Eliminar uma taxa de entrega",
+                    "content": "Note-se que esta operação é definitiva e que as encomendas antigas que utilizam este encargo não serão alteradas.",
+                    "cancel": "Cancelar"
                 }
+            },
+            "name": "Nome",
+            "forms": {
+                "feeLabel": "Taxas de entrega",
+                "nameLabel": "Nome",
+                "freeThresholdLabel": "Disponível em",
+                "onSubmit": "Registar",
+                "title": "Formulário de taxas de entrega",
+                "freeThresholdHelper": "Se o valor da encomenda for superior a este montante, os custos de entrega são gratuitos",
+                "onCancel": "Cancelar",
+                "create": "Adicionar uma taxa de entrega"
+            },
+            "fee": "Taxas de entrega",
+            "free_threshold": "Disponível a partir de",
+            "offeredAboveAmount": "Oferecido após a compra de {{ free_threshold, price }}"
+        },
+        "state": {
+            "1200": "A recolher no local",
+            "700": "Pago",
+            "0": "Em espera",
+            "1100": "Cancelar",
+            "9000": "Expedido"
+        },
+        "form": {
+            "delivery": {
+                "first_name": "Nome próprio",
+                "last_name": "Apelido"
             }
-        }
+        },
+        "configuration": {
+            "deliveryFee": "Taxa de entrega",
+            "forms": {
+                "onSubmit": "Registar"
+            },
+            "noDefaultDeliveryFee": "Sem taxas de entrega",
+            "defaultDeliveryFee": "Taxas de entrega por defeito"
+        },
+        "detail": {
+            "section": {
+                "deliveryInfo": "Morada de entrega",
+                "productDetail": "Detalhes do carrinho",
+                "invoice": "Fatura associada",
+                "member": "Adquirente",
+                "title": "Estado da encomenda :"
+            }
+        },
+        "table": {
+            "state": "Estado",
+            "updated_at": "Atualizado em",
+            "actions": "Ações",
+            "name": "Adquirente",
+            "created_at": "Criado em",
+            "qty": "Quantidade"
+        },
+        "products": {
+            "nbProducts": "artigos"
+        },
+        "actions": {
+            "flagAsSent": "Expedido",
+            "flagAsOnSiteDelivery": "A recolher no local",
+            "flagAsCancelled": "Cancelar"
+        },
+        "pageTitle": "Loja"
     },
     "emailTemplate": {
         "delete": "Eliminar",
@@ -12143,6 +12403,44 @@
             "infoText": "Concluiu todos os cursos do {{name}}. Continue a melhorar completando a secção seguinte.",
             "continueButton": "Continuar",
             "title": "Parabéns!"
+        }
+    },
+    "partnership": {
+        "actions": {
+            "requestPartnership": "Ativar a integração",
+            "save": "Registar"
+        },
+        "pageTitle": "Parceria",
+        "parameters": {
+            "partnerId": "ID do parceiro: {{ company }}",
+            "pleaseChoseEstablishmentMany": "Seleccione pelo menos um estabelecimento",
+            "establishment": "Estabelecimento",
+            "allEstablishment": "Todas as salas",
+            "pleaseChoseEstablishment": "Selecionar um estabelecimento",
+            "add": "Adicionar",
+            "establishmentMergeMaster": "Fundir-se com este estabelecimento ⬇️",
+            "venueIds": "IDs do local: {{ establishmentIdList }}",
+            "establishmentMergedAs": "Fusão destes estabelecimentos",
+            "enabled": "Ativo",
+            "configurationTitle": "Configurar a integração"
+        },
+        "requestDialog": {
+            "close": "Compreendido",
+            "explain": "Solicitou a integração da bsport x Classpass. O seu gestor de conta entrará em contacto consigo para validar esta operação"
+        },
+        "configurationType": {
+            "2": {
+                "label": "Fusão de todos os estabelecimentos",
+                "helperText": "Todos os estabelecimentos aparecerão como um único estabelecimento"
+            },
+            "3": {
+                "helperText": "Agrupar estabelecimentos semelhantes por endereço",
+                "label": "Seguinte"
+            },
+            "1": {
+                "helperText": "Cada estabelecimento aparecerá como um local independente no ClassPass",
+                "label": "Estabelecimentos independentes"
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-in
 
 type InboxThreadCreatorActionProps = {
   threadType: ChatThreadKinds;
-  onNavigateToSmartlistCreation: () => void;
+  onNavigate?: () => void;
 };
 
 const createActionsRoutes = {
@@ -16,23 +16,27 @@ const createActionsRoutes = {
 };
 
 const ThreadCreatorIconAction: React.FC<InboxThreadCreatorActionProps> =
-  React.memo(({ threadType, onNavigateToSmartlistCreation }) => {
+  React.memo(({ threadType, onNavigate }) => {
     const classes = useStyles();
 
     const createActionRoute =
       threadType === ChatThreadKinds.Smartlist
         ? createActionsRoutes[threadType]
-        : '#';
+        : null;
 
-    return (
+    return createActionRoute ? (
       <Link
         className={classes.dialogActionContainer}
-        onClick={onNavigateToSmartlistCreation}
+        onClick={onNavigate}
         target="_blank"
         to={createActionRoute}
       >
         <GroupAdd />
       </Link>
+    ) : (
+      <button className={classes.dialogActionContainer} type="button">
+        <GroupAdd />
+      </button>
     );
   });
 

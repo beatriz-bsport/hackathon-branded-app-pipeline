@@ -3205,11 +3205,11 @@
         },
         "newTutorialSectionOrLesson": {
             "newLesson": {
-                "title": "Nieuwe les {{- name}}",
+                "title": "Nieuwe les ({{- name}})",
                 "content": "Toegevoegd aan: {{- name}}"
             },
             "newSection": {
-                "content": "De {{-name}} sectie is toegevoegd, dus begin nu met trainen.",
+                "content": "Er is een nieuwe sectie ({{- name}}) toegevoegd. Begin de training om meer te leren.",
                 "title": "Nieuwe Sectie"
             }
         },

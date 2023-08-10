@@ -3676,8 +3676,13 @@
                 "forms": "Formulário de adesão",
                 "invoice": "Faturação",
                 "paymentMethod": "Métodos de pagamento",
-                "company": "Entreprise",
-                "quicksale": "Área de vendas"
+                "company": "Empresa",
+                "quicksale": "Área de vendas",
+                "marketplaceSettings": "Parâmetros marketplace",
+                "broadcast": "Videoconferência",
+                "general": "Geral",
+                "widget": "Widget",
+                "quickbooks": "QuickBooks"
             },
             "myClub": "Meu Estúdio",
             "subscription": "Levantamentos",
@@ -3698,8 +3703,49 @@
             "combo": "Packs",
             "pass": "Passes de aulas",
             "consumer": {
-                "pass": "Passes de aulas"
-            }
+                "pass": "Passes de aulas",
+                "bookings": "As minhas reservas ",
+                "order": "As minhas encomendas",
+                "myAccount": "A minha conta",
+                "subscriptions": "As minhas subscrições",
+                "profile": "Meu Perfil"
+            },
+            "beta": "beta",
+            "coachPayroll": "Remuneração",
+            "refresh": "Atualizar",
+            "goBack": "Voltar",
+            "marketing_automation": "Marketing Auto",
+            "custom_form": "Formulários",
+            "reporting": "Relatórios",
+            "dashboard": "Painel Principal",
+            "payment": "Faturação",
+            "workshopActivities": "Workshops",
+            "invoice": "Faturas",
+            "digital": "Oferta digital",
+            "search": "Pesquisar",
+            "podcast": "Podcasts",
+            "product": "Produtos",
+            "schedule": "Horários",
+            "privateService": {
+                "title": "Marcações",
+                "services": "Marcações",
+                "pass": "Passes de marcação"
+            },
+            "coachPerformance": "Professores",
+            "calendar": "Calendário",
+            "message": "Marketing",
+            "member": "Membros",
+            "establishment": "Estabelecimentos",
+            "logoff": "Logout",
+            "requestTempPassword": "Autorizar o acesso",
+            "order": "Controlos",
+            "expenses": "Despesas",
+            "coaches": "Professores",
+            "sequence": "Estratégias",
+            "activity": "As minhas atividades",
+            "smart_list": "Lista inteligente",
+            "email_template": "Emails",
+            "alpha": "em desenvolvimento"
         },
         "stripeOnboardingPending": {
             "banner": "Se não tiver terminado a configuração da faturação, os pagamentos em linha podem ser desactivados."
@@ -3711,7 +3757,8 @@
                 "label": "Produtos",
                 "giftcardTemplates": "Passes de oferta",
                 "couponTemplates": "Promoções",
-                "paymentPackTemplates": "Passes de aulas"
+                "paymentPackTemplates": "Passes de aulas",
+                "privatePassTemplates": "Passe de marcação"
             },
             "widgets": "Ferramentas",
             "franchises": "Concessionários",
@@ -3771,7 +3818,9 @@
                 "bookings": "Reserva",
                 "bookings_plural": "Reservas ({{number}})",
                 "giftcard": "Passe de oferta",
-                "giftcard_plural": "Passes de oferta ({{number}})"
+                "giftcard_plural": "Passes de oferta ({{number}})",
+                "privateConsumerPass": "Passe de marcação",
+                "privateConsumerPass_plural": "Passe de marcações ({{number}})"
             },
             "coach": {
                 "calendar": "Calendário",
@@ -3790,7 +3839,8 @@
             },
             "widget": {
                 "create": "Geral",
-                "customize": "Personalização"
+                "customize": "Personalização",
+                "customizeCss": "CSS personalizado"
             },
             "replacement": {
                 "management": "Gestão",
@@ -3813,7 +3863,7 @@
             "previous": "Sessão anterior",
             "previousSession": " Estava registado como {{name}}",
             "continue": "Continuar nesta sessão",
-            "franchisor": "público",
+            "franchisor": "franchisador",
             "current": "Sessão atual",
             "restore": "Recuperar esta sessão",
             "title": " Parece estar a utilizar vários separadores em simultâneo",
@@ -3837,7 +3887,8 @@
                     "subscription_next_invoice_date": "Data da próxima fatura",
                     "subscription_recurrent_price": "Montante mensal deduzido",
                     "subscription_nb_months": "Número de meses",
-                    "subscription_payment_method": "Método de pagamento"
+                    "subscription_payment_method": "Método de pagamento",
+                    "subscription_contract_terms_link": "Link para as notas legais"
                 },
                 "name": "Subscrição"
             },
@@ -3893,7 +3944,8 @@
                     "activity": "Atividade",
                     "option_expiration_date": "Data de expiração da lista de espera",
                     "address": "Endereço",
-                    "establishment": "Sala"
+                    "establishment": "Sala",
+                    "option_payment_url": "Link de reservas"
                 },
                 "name": "Lista de espera"
             },
@@ -3925,7 +3977,8 @@
                     "date": "Hora/Data",
                     "activity": "Atividade",
                     "coach": "Professor",
-                    "establishment_practical_info": "Acesso à sala"
+                    "establishment_practical_info": "Acesso à sala",
+                    "ics_calendar_link": "Link do calendário ics"
                 }
             },
             "Company": {
@@ -3981,7 +4034,8 @@
                     "address": "Endereço",
                     "activity": "Atividade",
                     "establishment": "Sala",
-                    "establishment_practical_info": "Acesso à sala"
+                    "establishment_practical_info": "Acesso à sala",
+                    "ics_calendar_link": "Link calendário ics"
                 },
                 "name": "Marcações"
             },
@@ -4001,6 +4055,23 @@
                     "unsubscribe_link": "Anular a subscrição da newsletter"
                 },
                 "name": "Aluno"
+            },
+            "SpiviPerformance": {
+                "name": "Performance",
+                "tags": {
+                    "maximum_speed": "Velocidade máxima",
+                    "calories": "Calorias",
+                    "max_watts": "Potência máxima",
+                    "SEP": "Ponto do Ecossistema Spivi",
+                    "average_HR": "Média da frequência cardíaca",
+                    "average_RPM": "Rotações médias por minuto",
+                    "average_speed": "Velocidade média",
+                    "average_watts": "Potência média",
+                    "max_HR": "Frequência cardíaca máxima",
+                    "max_RPM": "Rotações máximas por minuto",
+                    "calories_kJ": "Calorias em K",
+                    "total_distance": "Distância percorrida"
+                }
             }
         },
         "eventType": {
@@ -4027,7 +4098,47 @@
             "902": "Pedido de substituição anulado (substituto)",
             "904": "Novo pedido de substituição (substituto)",
             "304": "Ativar o passe de oferta",
-            "515": "Passe de aulas e taxa de subscrição automaticamente desativados"
+            "515": "Passe de aulas e taxa de subscrição automaticamente desativados",
+            "302": "Validar o email do membro",
+            "801": "Grupo de marcações anulado",
+            "300": "Pontapé de saída (não validado a tempo demasiadas vezes)",
+            "305": "Alterar o email dos membros a partir do backoffice",
+            "400": "Marcação cancelada - fora de tempo (professor)",
+            "403": "Horário alterado (professor)",
+            "901": "Substituição encontrada (professor)",
+            "450": "Marcação - fora de prazo (aluno)",
+            "451": "Marcação anulada - reembolso  (aluno)",
+            "101": "Lembrete da aula online em 15 min (professores)",
+            "102": "Cancelar sessão (professores)",
+            "103": "Sessão alterada (professores)",
+            "602": "Demasiadas poucas reservas N horas antes do início da sessão (estudantes)",
+            "703": "Ausente : passe bloqueado (alunos)",
+            "704": "Ausente : conta de membro debitada (alunos)",
+            "1001": "Conta Spivi criada (alunos)",
+            "481": "Marcação anulada recorrentemente por falta de disponibilidade (alunos)",
+            "907": "Substituição encontrada (substituto)",
+            "520": "O pagamento de uma subscrição falhou, será tentado novamente",
+            "530": "Disputa sobre o pagamento de uma subscrição",
+            "903": "Foi encontrado outro substituto (substituição)",
+            "905": "Novo pedido tardio (substituto)",
+            "906": "Data de encerramento prorrogada (substituto)",
+            "29": "Lembrete da aula online em 15 min (alunos)",
+            "452": "Nova marcação (aluno)",
+            "453": "Horário alterado (aluno)",
+            "701": "Cancelamento após o prazo : passe bloqueado (alunos)",
+            "601": "Demasiadas poucas reservas N horas antes do início da sessão (professores)",
+            "702": "Cancelamento após o prazo : débito na conta do membro (alunos)",
+            "303": "Fusão de duas contas de estúdio",
+            "705": "Advertência de ausência",
+            "301": "Repor a palavra-passe de membro",
+            "401": "Marcação cancelada - reembolsada (professor)",
+            "402": "Nova marcação (professor)",
+            "480": "Marcação anulada recorrentemente por falta de disponibilidade (professor)",
+            "510": "O pagamento da subscrição falhou",
+            "1002": "Desempenho da sessão de fiação",
+            "28": "Pagamento recebido",
+            "987": "Tentativa de cobrança de pagamentos em prestações",
+            "1003": "Conta Spivi criada (professores)"
         },
         "emailDesign": {
             "placeholder": "Criado por bsport",
@@ -4046,7 +4157,8 @@
             "booking": "Reserva",
             "waiting-list": "Lista de espera",
             "giftcard": "Passes de oferta",
-            "member": "Criar uma conta de aluno"
+            "member": "Criar uma conta de aluno",
+            "performance": "Performance"
         },
         "type": {
             "sendNotification": "Enviar notificação",
@@ -4059,10 +4171,26 @@
             "delete": {
                 "delete": "Eliminar",
                 "content": "Tem a certeza de que pretende eliminar esta configuração? As definições seleccionadas e os modelos de e-mail voltarão aos seus valores originais."
-            }
+            },
+            "form": {
+                "restrictedAccess": "Esta configuração é definida para os franchisados aos quais não tem acesso. Alguns campos não podem ser modificados",
+                "pickTemplate": "Escolher um modelo",
+                "name": "Nome",
+                "title": "Configuração",
+                "description": "O modelo escolhido será utilizado para o email transacional \"{{-name}}\" para todos os franchisados selecionados aqui."
+            },
+            "emptySelect": "Selecione um email transacional para ver quais os franchisados que o partilham e utilizam.",
+            "addConfiguration": "Adicionar uma configuração",
+            "emptyStateConfiguration": "Crie uma configuração para forçar a utilização de modelos de emails para cada um dos seus franchisados."
         },
         "listItem": {
             "modifyTransactionnalNotification": "alterar a notificação push"
+        },
+        "marketingNotification": {
+            "birthday": "Email de aniversário"
+        },
+        "triggeringEvent": {
+            "title": "Ato de desencadeamento"
         }
     },
     "paymentPack": {

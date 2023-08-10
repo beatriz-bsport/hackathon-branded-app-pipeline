@@ -1,16 +1,9 @@
 import React from 'react';
 
-import { ComponentMeta } from '@storybook/react';
 import { fakerEN as faker } from '@faker-js/faker';
 import InfoIcon from '@material-ui/icons/Info';
 
-import Button from '#csscomponents/Button';
-import StatusMessageWithIcon, {
-  StatusMessageWithIconForStorybook,
-  type Props,
-} from '.';
-
-import './styles-storybook.css';
+import { StatusMessageWithIconForStorybook, Props } from '.';
 
 const baseArgs = {
   title: faker.lorem.words(5),
@@ -22,73 +15,57 @@ const StatusMessageWithIconTemplate = (args: Props) => (
   <StatusMessageWithIconForStorybook {...args} />
 );
 
-const StatusMessageActions: React.FC = () => (
-  <div className="bs-status-message-with-icon-storybook__actions-container">
-    <Button
-      classes={{
-        root: 'bs-status-message-with-icon-storybook__actions__button-cancel__container',
-        text: 'bs-status-message-with-icon-storybook__actions__button-cancel__text',
-      }}
-      onClick={() => {}}
-    >
-      {faker.lorem.word(8)}
-    </Button>
-    <Button
-      classes={{
-        root: 'bs-status-message-with-icon-storybook__actions__button-submit__container',
-        text: 'bs-status-message-with-icon-storybook__actions__button-submit__text',
-      }}
-      onClick={() => {}}
-    >
-      {faker.lorem.word(10)}
-    </Button>
-  </div>
-);
-
 export const StatusMessageLoading = StatusMessageWithIconTemplate.bind({});
 StatusMessageLoading.args = {
   ...baseArgs,
   isLoading: true,
 };
 
-export const StatusMessageAndIcon = StatusMessageWithIconTemplate.bind({});
-StatusMessageAndIcon.args = {
+export const StatusMessageWithIcon = StatusMessageWithIconTemplate.bind({});
+StatusMessageWithIcon.args = {
   ...baseArgs,
-  icon: <InfoIcon className="bs-status-message-with-icon-storybook__icon" />,
+  icon: <InfoIcon style={{ fontSize: 40 }} />,
 };
 
-export const StatusMessageAndActions = StatusMessageWithIconTemplate.bind({});
-StatusMessageAndActions.args = {
+export const StatusMessageWithActions = StatusMessageWithIconTemplate.bind({});
+StatusMessageWithActions.args = {
   ...baseArgs,
-  actions: <StatusMessageActions />,
+  actions: {
+    cancel: {
+      label: faker.lorem.word(),
+      onClick: () => {},
+    },
+    confirm: {
+      label: faker.lorem.word(),
+      onClick: () => {},
+    },
+  },
 };
 
 export const StatusMessageWithIconAndActions =
   StatusMessageWithIconTemplate.bind({});
 StatusMessageWithIconAndActions.args = {
   ...baseArgs,
-  icon: <InfoIcon className="bs-status-message-with-icon-storybook__icon" />,
-  actions: <StatusMessageActions />,
+  icon: <InfoIcon style={{ fontSize: 40 }} />,
+  actions: {
+    cancel: {
+      label: faker.lorem.word(),
+      onClick: () => {},
+    },
+    confirm: {
+      label: faker.lorem.word(),
+      onClick: () => {},
+    },
+  },
 };
 
 export default {
   title: 'Components/CssOnly/StatusMessageWithIcon',
-  component: StatusMessageWithIcon,
-  decorators: [
-    (Story) => (
-      <div
-        style={{
-          // @ts-expect-error
-          container: 'bsGenericPage / inline-size',
-        }}
-      >
-        <Story />
-      </div>
-    ),
-  ],
+  component: StatusMessageWithIconForStorybook,
   parameters: {
     docs: {
       page: null,
     },
+    layout: 'centered',
   },
-} as ComponentMeta<typeof StatusMessageWithIcon>;
+};

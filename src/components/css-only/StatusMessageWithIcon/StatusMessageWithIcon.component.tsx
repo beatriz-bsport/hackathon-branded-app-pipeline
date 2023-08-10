@@ -5,12 +5,20 @@ import { StatusMessageWithIconSkeleton } from '.';
 
 import './styles.css';
 
+type ActionButton = {
+  label: string;
+  onClick: () => void;
+};
+
 export type Props = {
   isLoading: boolean;
   title: string;
   message: string;
   icon?: React.ReactElement;
-  actions?: React.ReactElement;
+  actions?: {
+    cancel?: ActionButton;
+    confirm?: ActionButton;
+  };
 };
 
 const StatusMessageWithIcon: React.FC<Props> = ({
@@ -39,7 +47,24 @@ const StatusMessageWithIcon: React.FC<Props> = ({
 
       {!!actions && (
         <div className="bs-status-message-with-icon__actions__container">
-          {actions}
+          {!!actions?.cancel && (
+            <button
+              className="bs-status-message-with-icon__action bs-status-message-with-icon__action__cancel"
+              onClick={actions.cancel.onClick}
+              type="button"
+            >
+              {actions.cancel.label}
+            </button>
+          )}
+          {!!actions?.confirm && (
+            <button
+              className="bs-status-message-with-icon__action bs-status-message-with-icon__action__confirm"
+              onClick={actions.confirm.onClick}
+              type="button"
+            >
+              {actions.confirm.label}
+            </button>
+          )}
         </div>
       )}
     </div>

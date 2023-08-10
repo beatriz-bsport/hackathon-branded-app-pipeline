@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -11,6 +11,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { pure, compose } from 'recompose';
 
 import RedButton from '../../../components/button/RedButton.component';
+import { COUPON_DELETE_MODAL_COOLDOWN_SECONDS } from '../constants';
 
 type Props = {
   t: TFunction,
@@ -21,6 +22,21 @@ type Props = {
 
 export const CouponDeleteModal = (props: Props) => {
   const { t } = props;
+
+  const [modalCountdown, setModalCountdown] = useState(
+    COUPON_DELETE_MODAL_COOLDOWN_SECONDS,
+  );
+
+  useEffect(() => {
+    if (props.open) {
+      const intervalId = setInterval(() => {
+        setModalCountdown((seconds) => seconds - 1);
+      }, 1000);
+      return () => clearInterval(intervalId);
+    }
+    return setModalCountdown(COUPON_DELETE_MODAL_COOLDOWN_SECONDS);
+  }, [props.open]);
+
   return (
     <Dialog open={props.open}>
       <DialogTitle>{t('modal.delete.title')}</DialogTitle>
@@ -29,8 +45,10 @@ export const CouponDeleteModal = (props: Props) => {
         <Button onClick={props.onClose}>
           {t('modal.delete.actions.cancel')}
         </Button>
-        <RedButton onClick={props.onSubmit}>
-          {t('modal.delete.actions.submit')}
+        <RedButton disabled={modalCountdown > 0} onClick={props.onSubmit}>
+          {modalCountdown > 0
+            ? modalCountdown
+            : t('modal.delete.actions.submit')}
         </RedButton>
       </DialogActions>
     </Dialog>

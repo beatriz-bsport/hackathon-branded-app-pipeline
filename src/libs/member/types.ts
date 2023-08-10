@@ -218,3 +218,27 @@ export type MemberFilter = {
   id__in?: number[];
   company?: number;
 };
+
+export type MemberFormData = {
+  accept_email: boolean;
+  accept_sms: boolean;
+  address_line_1: string;
+  address_line_2: string;
+  avatar: File;
+  barcode: string;
+  birthday: string;
+  city: string;
+  country: string;
+  date_joined: string;
+  email: string;
+  emergency_contact?: string;
+  firstname: string;
+  gender: string;
+  lastname: string;
+  membership_ID: string;
+  phone: string;
+  state: string;
+  vaccination_status: string;
+  waiver: boolean;
+  zipcode: string;
+};

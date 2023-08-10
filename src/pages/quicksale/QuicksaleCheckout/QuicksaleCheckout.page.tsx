@@ -62,6 +62,7 @@ import { fetchStripeReaders as fetchStripeReadersAction } from '#libs/terminal/a
 import { getStripeReaders } from '#libs/terminal/selectors';
 import { useQuicksalePayments, useModals } from './hooks';
 import { getInstalmentForBasketList } from '#libs/instalment-payment-configuration/selectors';
+import { MemberFormData } from '#libs/member/types';
 
 type Props = {
   basketId: string;
@@ -198,7 +199,7 @@ const QuicksalePayment: React.FC<Props> = ({
   // ========== Member authentication handlers ==========
 
   const createMember = React.useCallback(
-    (data: any, options: OptionCallback) => {
+    (data: MemberFormData, options: OptionCallback) => {
       const memberData = data;
       if (!memberData.birthday) delete memberData.birthday;
 

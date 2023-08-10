@@ -8,7 +8,7 @@ import type { OptionCallback } from '../../../../state/types';
 import type { Contract } from '#libs/subscription/types';
 import { Basket, QuicksaleMemberUpdateResponse } from '#libs/checkout/types';
 import { QuicksaleCardInfo } from '#libs/quicksale/types';
-import { Member, MemberMinimal } from '#libs/member/types';
+import { Member, MemberFormData, MemberMinimal } from '#libs/member/types';
 
 const useMemberAuthentication = (
   createMemberAction: (
@@ -40,7 +40,7 @@ const useMemberAuthentication = (
   },
 ) => {
   const createMember = React.useCallback(
-    (data: any, options: OptionCallback) => {
+    (data: MemberFormData, options: OptionCallback) => {
       const memberData = data;
       if (!memberData.birthday) delete memberData.birthday;
 

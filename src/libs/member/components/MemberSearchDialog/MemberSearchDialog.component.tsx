@@ -25,7 +25,7 @@ import SearchMember from '../../../../pages/offer-management/SearchMember.compon
 // @ts-expect-error
 import MemberForm from '#libs/member/MemberForm.component';
 import { getLatest } from '#libs/member/api';
-import type { MemberMinimal } from '#libs/member/types';
+import type { MemberFormData, MemberMinimal } from '#libs/member/types';
 import type { OptionCallback } from '../../../../state/types';
 
 import useStyles from './styles';
@@ -95,7 +95,7 @@ type Props = {
     },
     options?: OptionCallback<AxiosResponse<MemberMinimal[]>>,
   ) => void;
-  createMember: (data: FormData, options?: OptionCallback) => void;
+  createMember: (data: MemberFormData, options?: OptionCallback) => void;
   companyCountry: string;
   isAuthenticationRequired?: boolean;
   elementClasses?: { [key: string]: string };
@@ -175,7 +175,7 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
   }, [selectedMemberId, onMemberValidate]);
 
   const onNewMemberCreate = React.useCallback(
-    (data: FormData, options: OptionCallback) =>
+    (data: MemberFormData, options: OptionCallback) =>
       createMember(data, {
         onSuccess: async () => {
           options?.onSuccess?.();

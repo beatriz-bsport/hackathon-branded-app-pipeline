@@ -66,4 +66,8 @@ exports.default = {
     },
     submit: 'Save',
   },
+  memberInfo: {
+    referralLink: 'Referral link',
+    nbRemainingUses: 'Number of uses remaining',
+  },
 };

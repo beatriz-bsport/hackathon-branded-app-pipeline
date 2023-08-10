@@ -168,6 +168,8 @@ exports.default = {
     notDone: "I'm not in possession of a valid COVID-19 Sanitary Pass",
     done: "I'm in possession of a valid COVID-19 Sanitary Pass",
   },
+  signedUpWithReferral:
+    "Member signed up with <1>{{ name }}</1>'s referral link",
   archive: {
     dialog: {
       actions: { confirm: 'Confirm', close: 'Close' },

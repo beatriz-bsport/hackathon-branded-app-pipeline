@@ -4681,6 +4681,7 @@
             "notDone": "Pas de pass sanitaire valide",
             "unknown": "Status pass sanitaire inconnu"
         },
+        "signedUpWithReferral": "Membre inscrit avec le lien de parrainage de <1>{{ name }}</1>",
         "archive": {
             "archivedMember": "Membre Archivé : {{name}}",
             "dialog": {
@@ -8885,6 +8886,10 @@
                 "required": "Ce champ est requis"
             },
             "submit": "Sauvegarder"
+        },
+        "memberInfo": {
+            "referralLink": "Lien de parrainage",
+            "nbRemainingUses": "Nombre d'utilisations restantes"
         }
     },
     "relationship": {

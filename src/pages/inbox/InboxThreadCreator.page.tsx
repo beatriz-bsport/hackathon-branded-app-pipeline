@@ -11,15 +11,18 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import Alert from '@material-ui/lab/Alert';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+import { AxiosResponse } from 'axios';
 import type { CommunicationThread } from '#libs/communication-v2/types';
 import { withGroup } from '#libs/group-offer/selectors';
 import { withCustomLevel } from '#libs/level/selectors';
-import MemberSearchModal from '#libs/member/components/MemberSearchModal.component';
 import type { OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';
-import { getTheme } from '#libs/theme/selectors';
+import { getTheme, getCompanyCountry } from '#libs/theme/selectors';
 import { getSearchedMembers } from '#libs/member/selectors';
-import { search as searchMembers } from '#libs/member/actions';
+import {
+  search as searchMembers,
+  createOrUpdateMember,
+} from '#libs/member/actions';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 // @ts-expect-error
 import SmartListSelector from '#libs/smart-list/components/SmartListSelector.component';
@@ -27,6 +30,9 @@ import { getAllSmartList } from '#libs/smart-list/selectors';
 // @ts-ignore @ts-expect-error
 import TimeTable from '#components/offer/TimeTable.component';
 import Calendar from '#components/offer/Calendar.component';
+// @ts-expect-error
+import { mapFormData } from '../form.utils';
+import { MemberMap } from '#libs/member/utils';
 
 import {
   fetchOffersByDay as fetchOffersByDayAction,
@@ -53,6 +59,8 @@ import { getDayOffers } from '../planning/Planning.page';
 import { useOfferHandler } from '#libs/communication-v2/hooks/useOfferHandler';
 import { useSmartlistHandler } from '#libs/communication-v2/hooks/useSmartlistHandler';
 import ThreadCreatorIconAction from '#libs/communication-v2/thread/commons/ThreadCreatorIconAction.component';
+import MemberSearchDialog from '#libs/member/components/MemberSearchDialog';
+import { MemberFormData, MemberMinimal } from '#libs/member/types';
 
 const connector = connect(
   (state: RootState) => ({
@@ -76,8 +84,14 @@ const connector = connect(
     offerLoading: state.offer.loading || state.offer.byDay.loading,
   }),
   {
-    handleSearchMembers: (text: string) =>
-      searchMembers(text, { hide_archived: true }),
+    handleSearchMembers: (
+      text: string,
+      params?: {
+        [key: string]: string | number | boolean;
+      },
+      options?: OptionCallback<AxiosResponse<MemberMinimal[]>>,
+    ) => searchMembers(text, params, options),
+    createMemberAction: createOrUpdateMember,
     fetchAllSmartLists: fetchAllSmartListsAction,
     fetchAllOffers: fetchAllOffersAction,
     fetchOffersByDayActionDisptach: fetchOffersByDayAction,
@@ -104,12 +118,9 @@ type Props = OwnProps & ConnectedProps<typeof connector>;
 
 export const InboxThreadCreator: React.FC<Props> = ({
   open,
-  loading,
   smartlistLoading,
   events,
   offers,
-  searchedMembers,
-  companyCountry,
   smartlists,
   redirectToThread,
   getOrCreateThread,
@@ -123,8 +134,9 @@ export const InboxThreadCreator: React.FC<Props> = ({
   fetchCoachBulk,
   fetchMetaActivityBulk,
   fetchEstablishmentBulk,
-  handleSearchMembers,
   offerLoading,
+  createMemberAction,
+  handleSearchMembers,
 }) => {
   const [smartlistSelected, handleSmartlistSelect] = useSmartlistHandler(
     contextSelected,
@@ -146,7 +158,7 @@ export const InboxThreadCreator: React.FC<Props> = ({
 
   const [isDisplayRefreshSmartlist, setIsDisplayRefreshSmartlist] =
     React.useState(false);
-  const [processing, setProcessing] = React.useState(false);
+  const [, setProcessing] = React.useState(false);
 
   const onResourceSelected = React.useCallback(
     (resourceId) => {
@@ -188,20 +200,36 @@ export const InboxThreadCreator: React.FC<Props> = ({
     [fetchAllSmartLists, handleHideRefreshSmartlist],
   );
 
+  const createMember = React.useCallback(
+    (data: MemberFormData, options: OptionCallback) => {
+      const memberData = data;
+      if (!memberData.birthday) delete memberData.birthday;
+
+      const formData = mapFormData(memberData, MemberMap);
+      createMemberAction(null, formData, options);
+    },
+    [createMemberAction],
+  );
+
   if (!open) return null;
 
   switch (contextSelected) {
     case ChatThreadKinds.Member:
       return (
-        <MemberSearchModal
-          asManager
+        <MemberSearchDialog
+          isDisplayCancelButton
           open
-          country={companyCountry}
-          disabled={processing}
-          handlMemberSelected={onResourceSelected}
-          loading={loading || processing}
+          companyCountry={getCompanyCountry()}
+          createMember={createMember}
+          elementClasses={{
+            submit: classes.submitButtonRadius,
+            searchBarContainer: classes.alignItems,
+            actionsContainer: classes.dialogActions,
+            addMemberButton: classes.dialogActionContainer,
+            addMemberIcon: classes.addMemberIcon,
+          }}
           onClose={onClose}
-          searchedMembers={searchedMembers}
+          onMemberChoose={onResourceSelected}
           searchMembers={handleSearchMembers}
         />
       );
@@ -219,7 +247,7 @@ export const InboxThreadCreator: React.FC<Props> = ({
                 values={[smartlistSelected]}
               />
               <ThreadCreatorIconAction
-                onNavigateToSmartlistCreation={handleDisplayRefreshSmartlist}
+                onNavigate={handleDisplayRefreshSmartlist}
                 threadType={ChatThreadKinds.Smartlist}
               />
             </div>
@@ -311,6 +339,16 @@ const useStyles = makeStyles((theme) => ({
     gap: theme.spacing(2),
     marginBottom: theme.spacing(1),
   },
+  addMemberIcon: {
+    width: 'auto',
+    height: 'auto',
+  },
+  submitButtonRadius: {
+    borderRadius: 4,
+  },
+  alignItems: {
+    alignItems: 'center',
+  },
   dialogActions: {
     borderTop: `solid ${theme.palette.grey['300']} 1px`,
   },
@@ -324,6 +362,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     color: theme.palette.common.black,
     '&:hover': {
+      background: theme.palette.grey[200],
       color: theme.palette.common.black,
     },
     '&:focus': {

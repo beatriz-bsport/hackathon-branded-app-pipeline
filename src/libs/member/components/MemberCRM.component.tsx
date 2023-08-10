@@ -11,6 +11,7 @@ import type { Tag, TagGroup } from '../../tag/types';
 import MemberFilesPanel from './MemberFilesPanel.component';
 import MemberPaymentMethodPanel from './MemberPaymentMethodPanel.component';
 import SpiviPrivacySettingsPanel from '../../spivi/components/SpiviPrivacySettingsPanel.component';
+import MemberReferralPanel from './MemberReferralPanel';
 
 type Props = {
   member: Member;
@@ -48,12 +49,18 @@ type Props = {
   companyId?: number;
   updateSpiviPrivacySettings: (memberId: number, value: boolean) => void;
   spiviPrivacySettingsLoading: boolean;
+
+  is_referral_program_activated: boolean;
+  referralLink: string | null;
+  nbRemainingReferralUses: number | null;
+  maxReferralUses: number | null;
 };
 
 export const MemberCRM: React.FC<Props> = (props) => {
   const {
     member,
     memberId,
+    companyId,
     // notes
     notes,
     deleteNote,
@@ -80,7 +87,10 @@ export const MemberCRM: React.FC<Props> = (props) => {
     paymentMethodLoading,
     detachPaymentMethodLoading,
     detachPaymentMethod,
-    companyId,
+    // referral
+    referralLink,
+    nbRemainingReferralUses,
+    maxReferralUses,
   } = props;
 
   const classes = useStyles();
@@ -174,6 +184,16 @@ export const MemberCRM: React.FC<Props> = (props) => {
             />
           </div>
         )}
+      {props.is_referral_program_activated && props.referralLink && (
+        <>
+          <div className={classes.separator} />
+          <MemberReferralPanel
+            maxReferralUses={maxReferralUses}
+            nbRemainingReferralUses={nbRemainingReferralUses}
+            referralLink={referralLink}
+          />
+        </>
+      )}
     </Paper>
   );
 };

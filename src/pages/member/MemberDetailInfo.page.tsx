@@ -9,6 +9,8 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
 
+import Config from '../../config';
+
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import TaskList from '#libs/reminder/components/TaskList.component';
@@ -142,6 +144,7 @@ import {
   getReferralMemberStatusWithMemberId,
   getTheReferralProgram,
 } from '#libs/referral/selectors';
+import { buildMemberReferralLink } from '#libs/referral/utils';
 
 type Props = RouterParamsProps &
   ConnectProps &
@@ -204,7 +207,7 @@ export class MemberDetailPage extends React.PureComponent<Props> {
         kind: MODEL_BASED_QUESTION_FAVORITE,
       });
       this.props.fetchConsumerGiftcardReceivedList();
-      this.props.fetchReferralInfo();
+      this.props.fetchReferralInformation();
     }
   };
 
@@ -411,6 +414,13 @@ export class MemberDetailPage extends React.PureComponent<Props> {
         this.props.removeFile(this.props.id, fileId),
     };
 
+    const referralLink = this.props.theme?.is_referral_program_activated
+      ? `${Config.PUBLIC_URL}${buildMemberReferralLink(
+          this.props.companyId,
+          member?.referral_uuid,
+        )}`
+      : null;
+
     if (!member || (memberLoading && member.id !== this.props.id)) {
       return <LinearProgress />;
     }
@@ -504,18 +514,26 @@ export class MemberDetailPage extends React.PureComponent<Props> {
             deleteTagGroup={this.deleteTagGroup}
             detachPaymentMethod={this.props.detachPaymentMethod}
             detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
+            is_referral_program_activated={
+              this.props.theme.is_referral_program_activated
+            }
+            maxReferralUses={this.props.referralProgram?.maximum_referral_uses}
             member={this.props.member}
             memberId={this.props.id}
             memberTags={this.props.member?.tags || []}
+            nbRemainingReferralUses={
+              this.props.referralMemberStatus?.nb_remaining_referral_uses
+            }
             notes={this.props.member?.notes || []}
             openAddPaymentMethodDialog={this.openAddPaymentMethodDialog}
-            openFileUploadDialog={this.handleOpenFileUpload}
             // Files
+            openFileUploadDialog={this.handleOpenFileUpload}
             paymentMethod={this.props.paymentMethod}
             paymentMethodLoading={this.props.paymentMethodLoading}
+            referralLink={referralLink}
             snackbarErrorMsg={this.props.snackbarErrorMsg}
-            snackbarSuccess={this.props.snackbarSuccess}
             // Payment
+            snackbarSuccess={this.props.snackbarSuccess}
             snackbarSuccessMsg={this.props.snackbarSuccessMsg}
             spiviPrivacySettingsLoading={this.props.spiviPrivacySettingsLoading}
             tagGroups={this.props.tagGroups}
@@ -746,7 +764,7 @@ const mapWithHandler1 = {
     () => {
       fetchTaskListByMember(id);
     },
-  fetchReferralInfo:
+  fetchReferralInformation:
     ({
       retrieveReferralMemberStatus,
       retrieveReferralProgram,

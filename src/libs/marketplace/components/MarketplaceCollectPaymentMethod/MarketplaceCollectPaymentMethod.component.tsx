@@ -258,12 +258,13 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
         setStripeErrorCode(null);
         setStripeDeclineCode(null);
 
-        const element =
-          type ===
-          (MarketplacePaymentMethods.card || MarketplacePaymentMethods.sepa)
-            ? // @ts-ignore
-              elements.getElement(stripePaymentMethod.type)
-            : null;
+        const element = [
+          MarketplacePaymentMethods.card,
+          MarketplacePaymentMethods.sepa,
+        ].includes(type)
+          ? // @ts-ignore
+            elements.getElement(stripePaymentMethod.type)
+          : null;
 
         const paymentSetupCardParams = {
           card: element,

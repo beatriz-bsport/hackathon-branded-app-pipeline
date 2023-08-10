@@ -134,6 +134,14 @@ import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/uti
 import { getMemberEventPath } from '#libs/member/events.utils';
 import MemberEventPanel from '#libs/member/components/MemberEventPanel.component';
 import { GenericEvent, MemberEvent } from '#libs/event/types';
+import {
+  retrieveReferralProgram as retrieveReferralProgramAction,
+  retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
+} from '#libs/referral/actions';
+import {
+  getReferralMemberStatusWithMemberId,
+  getTheReferralProgram,
+} from '#libs/referral/selectors';
 
 type Props = RouterParamsProps &
   ConnectProps &
@@ -196,6 +204,7 @@ export class MemberDetailPage extends React.PureComponent<Props> {
         kind: MODEL_BASED_QUESTION_FAVORITE,
       });
       this.props.fetchConsumerGiftcardReceivedList();
+      this.props.fetchReferralInfo();
     }
   };
 
@@ -631,6 +640,7 @@ const connector = connect(
     email_templates_details: getEmailTemplatesDetail(state),
     emailListLoading: state.emailTemplate.loading,
     emailDetailLoading: state.emailTemplate.detail.loading,
+    theme: state.theme.theme,
     companyCountry: state.theme.theme.locale.split('_')[1],
     onlinePaymentEnabled: state.theme.theme.online_payment_enabled,
     companyId: state.theme.theme.company,
@@ -656,6 +666,9 @@ const connector = connect(
     eventListLoading: getMemberEventState(state).loading,
     eventListPage: getMemberEventState(state).page,
     spiviPrivacySettingsLoading: state.member.spivi_privacy_settings.loading,
+    // Referral
+    referralProgram: getTheReferralProgram(state),
+    referralMemberStatus: getReferralMemberStatusWithMemberId(state, props.id),
   }),
   {
     fetchInvoiceList: fetchInvoiceListAction,
@@ -720,6 +733,8 @@ const connector = connect(
     fetchMemberEventList: fetchMemberEventListAction,
     goToEventDetail: (eventDetailPath: string) => routerPush(eventDetailPath),
     updateSpiviPrivacySettings: updateSpiviPrivacySettingsAction,
+    retrieveReferralProgram: retrieveReferralProgramAction,
+    retrieveReferralMemberStatus: retrieveReferralMemberStatusAction,
   },
 );
 
@@ -730,6 +745,19 @@ const mapWithHandler1 = {
     ({ fetchTaskListByMember, id }: RouterParamsProps & ConnectProps) =>
     () => {
       fetchTaskListByMember(id);
+    },
+  fetchReferralInfo:
+    ({
+      retrieveReferralMemberStatus,
+      retrieveReferralProgram,
+      theme,
+      id,
+    }: RouterParamsProps & ConnectProps) =>
+    () => {
+      retrieveReferralMemberStatus(id);
+      if (theme?.is_referral_program_activated) {
+        retrieveReferralProgram();
+      }
     },
 };
 

@@ -1653,11 +1653,16 @@
         },
         "applyGiftcard": {
             "actions": {
-                "apply": "Pagamento com passe de oferta"
+                "apply": "Pagamento com passe de oferta",
+                "confirm": "Confirmar",
+                "cancel": "Fechar"
             },
             "form": {
                 "usedGiftcard": "Passe de oferta utilizado",
-                "amountToPay": "Montante pago com o passe de oferta"
+                "amountToPay": "Montante pago com o passe de oferta",
+                "errors": {
+                    "errorAmount": "Montante inválido."
+                }
             },
             "giftcard": "Passe de oferta"
         },
@@ -1680,9 +1685,24 @@
                     "934001": "Impossível criar uma fatura sem itens associados",
                     "934000": "A fatura não tem as informações mínimas necessárias para ser criada no Quickbooks",
                     "933103": "A plataforma QuickBooks suporta várias moedas, por favor especifique o imposto a ser utilizado.",
-                    "933102": "Erro ao criar uma fatura no Quickbooks"
+                    "933102": "Erro ao criar uma fatura no Quickbooks",
+                    "933100": "Não foi possível criar o cliente associado ao membro da fatura",
+                    "933101": "Não foi possível criar o cliente associado ao membro da fatura",
+                    "931100": "Erro ao atualizar as chaves de autenticação",
+                    "931101": "Quickbooks não consegue enviar os dados",
+                    "932000": "A sua conta já não está autenticada na Bsport",
+                    "932001": "A sua conta já não está autenticada na Bsport",
+                    "932100": "Não é possível aceder às informações da sua conta Quickbooks",
+                    "933000": "O membro associado à fatura não possui as informações necessárias para ser registado no QuickBooks"
                 }
             }
+        },
+        "status": {
+            "1": "Falha",
+            "4": "Em curso",
+            "3": "Cancelado",
+            "2": "Em espera",
+            "0": "Sucesso"
         }
     },
     "consumerSpace": {
@@ -3393,6 +3413,88 @@
             "linkUser": "Ligar o utilizador",
             "goTo": "Ver membro",
             "quicksale": "Selecionar o membro"
+        },
+        "changeEmailRequest": {
+            "memberPage": {
+                "simpleEmailChange": {
+                    "error": {
+                        "delayExceeded": {
+                            "helper": "O estúdio {{- company}} enviou-lhe um pedido de confirmação para alterar o seu email de inicio de sessão. O período de validade de 7 dias deste pedido expirou.",
+                            "contactCompany": "Se desejar solicitar novamente uma alteração do email de inicio de sessão, contacte o seu estúdio.",
+                            "title": "Alterar o seu email de início de sessão"
+                        },
+                        "emailTaken": {
+                            "title": "O email de início de sessão já foi utilizado",
+                            "helper": "O estúdio {{- company}} fez um pedido para alterar o seu email de início de sessão para o seu espaço pessoal :",
+                            "contactCompany": "No entretanto, foi criada uma conta com o endereço {{ email }}. Este pedido caducou. Se o endereço de email {{ email }} lhe pertencer mas não tiver criado a conta associada, contacte diretamente o seu estúdio."
+                        },
+                        "alreadyAccepted": {
+                            "title": "Este pedido já foi validado",
+                            "helper": "Já selecionou um email para iniciar sessão na {{- company}}, a sua decisão foi tida em conta.",
+                            "contactCompany": "Se não foi você que iniciou esta alteração ou se deseja alterar a sua decisão, contacte diretamente o seu estúdio.",
+                            "currentEmail": "O seu email de início de sessão atual é : {{ email }}."
+                        },
+                        "renewed": {
+                            "helper": "Parece que o estúdio {{- company}} enviou um novo pedido para alterar o seu email de inicio de sessão. Este pedido expirou. Para encontrar o novo pedido, verifique os seus emails e o spam.",
+                            "contactCompany": "Se não encontrar este novo pedido, contacte o seu estúdio.",
+                            "title": "Alterar o seu email de início de sessão"
+                        },
+                        "alreadyDenied": {
+                            "title": "Já recusou este pedido",
+                            "contactCompany": "Se não foi você que iniciou esta alteração ou se deseja alterar a sua decisão, contacte diretamente o seu estúdio.",
+                            "helper": "Já selecionou um email de inicio de sessão na {{- company}}, a sua decisão foi tida em conta.",
+                            "currentEmail": "O seu email de início de sessão atual é : {{ email }}."
+                        }
+                    },
+                    "submit": {
+                        "deniedTitle": "Email mantido",
+                        "acceptedTitle": "Email alterado",
+                        "emailPreservedTo": "O seu email de início de sessão permanecerá {{ email }}",
+                        "emailUpatedTo": "O seu email foi alterado para o {{ email }}. Utilize o seu novo email para iniciar sessão."
+                    },
+                    "deniedRequestHelper": "Se este pedido não tiver sido feito por si ou se não pretender alterar o seu email, clique em \"manter o meu email\"",
+                    "acceptRequestHelper": "Se pretender alterar o seu email para este novo endereço de correio eletrónico, clique em \"confirmar o meu novo email\".",
+                    "multipleCompanyHelper": "O seu email é comum a todos os estúdios que utilizam a solução Bsport. Por conseguinte, será alterado para todos estes estúdios. Os seguintes estúdios serão afetados:",
+                    "title": "Alterar o seu email de início de sessão"
+                },
+                "linkAccount": {
+                    "veto": {
+                        "acceptRequestHelper": "Para aceitar a fusão de contas, aceda ao seu endereço {{ email }} e clique na hiperligação enviada.",
+                        "requestExplanation": "Apercebemo-nos que o endereço {{ email }} já está a ser utilizado por outro estúdio. O estúdio {{- company}} pediu-nos para unir a sua conta com esta outra conta. Se concordar com a fusão das duas contas, os seus novos dados de acesso (e-mail e palavra-passe) serão os da conta {{{ email }}. Poderá gerir todos os estúdios em que está registado a partir de um único endereço.",
+                        "deniedRequestHelper": "Se não pretender fundir estas contas ou se não tiver iniciado este pedido, clique em \"recusar a fusão\". Isto evitará que as contas sejam fundidas e manterá os seus dados de acesso."
+                    },
+                    "dstUser": {
+                        "deniedRequestHelper": "Se não pretender fundir estas contas ou se não tiver iniciado este pedido, clique em \"recusar fusão\". Isto impedirá que as contas sejam unidas e o utilizador não será registado na {{- company}}.",
+                        "requestingStudio": "O estúdio {{- company}} solicitou a fusão da conta {{ new_email }} com a conta {{ old_email }}.",
+                        "acceptRequestHelper": "Para aceitar a fusão de contas, clique em \"aceitar a fusão\".",
+                        "notMemberYet": "Apercebemo-nos que ainda não faz parte do estúdio {{- company}}. Se concordar em fundir as duas contas, será registado no estúdio {{- company}} e recuperará as informações e reservas da conta {{ old_email }}. Manterá os seus dados de início de sessão atuais em {{ new_email }}. Poderá gerir todos os estúdios em que está registado a partir deste email."
+                    },
+                    "submit": {
+                        "denied": {
+                            "title": "Fusão recusada",
+                            "content": "A sua conta não foi fundida com {{ new_email }}. O seu email de início de sessão continuará a ser {{ old_email}}."
+                        },
+                        "accepted": {
+                            "title": "Fusão Aceite",
+                            "content": "A sua conta foi fundida com a conta {{ old_email }}. É agora um membro do estúdio {{- company}}. Utilize o novo email para se conectar."
+                        }
+                    },
+                    "error": {
+                        "denied": {
+                            "title": "Fusão recusada",
+                            "helper": "Já optou por recusar o pedido de fusão ao estúdio {{- company}}, a sua decisão foi tida em conta."
+                        }
+                    },
+                    "title": "Unir a sua conta"
+                }
+            },
+            "dialog": {
+                "actions": {
+                    "close": "Cancelar",
+                    "confirm": "Confirmar"
+                },
+                "cancelHelperText": "Se não pretender alterar o email do membro, clique em \"cancelar\"."
+            }
         }
     },
     "metaActivity": {
@@ -11410,7 +11512,42 @@
             "bankAccountSuccess": "O seu IBAN foi validado. Pode alterar esta informação mais tarde no backoffice, nas definições da empresa.",
             "accountSuccess": "A sua conta Stripe foi criada. Pode alterar esta informação mais tarde no backoffice, nas definições da empresa.",
             "paymentMethodSuccess": "O método de pagamento indicado é válido. Pode sempre alterá-lo nas definições de subscrição da Bsport.",
-            "welcomeDescription": "Temos o prazer de o receber na sua nova plataforma. Antes de começar a sua experiência, faltam-nos algumas informações."
+            "welcomeDescription": "Temos o prazer de o receber na sua nova plataforma. Antes de começar a sua experiência, faltam-nos algumas informações.",
+            "bankAccount": {
+                "address": "Endereço",
+                "owner_address": "Endereço do proprietário",
+                "general": "Geral",
+                "fields": {
+                    "bank_account_holder": "Titular da conta",
+                    "iban": "IBAN"
+                },
+                "bank_details": "Informações bancárias"
+            },
+            "finishStep": "Já não há mais !",
+            "goToBackoffice": "Clique em \"Ir\" para ser redireccionado para o backoffice.",
+            "managerIbanExplain": "Indique a conta na qual deseja receber os montantes pagos através da Bsport",
+            "finishExplain": "A configuração está concluída e já é possível utilizar a Bsport.",
+            "welcomeTitle": "Bem-vindo à Bsport",
+            "createStripe": "Criar a sua conta stripe",
+            "stripeConfiguration": "Configurar Stripe",
+            "configureMyStripeAccount": "Configurar a minha conta Stripe",
+            "stripeStep": "Configuração stripe",
+            "ibanStep": "Dados do IBAN",
+            "cardStep": "Meios de pagamento",
+            "companyName": "Nome da empresa",
+            "companyAdress": "Morada",
+            "paymentMethodExplain": "Introduza o método de pagamento que pretende utilizar para pagar a sua subscrição da Bsport",
+            "congrats": "Felicitações !",
+            "stripeConfigurationExplain": "Será redirecionado para o formulário da stripe. Uma vez concluída esta etapa, os seus dados serão automaticamente guardados na Bsport.",
+            "redirecting": "Vamos o redirecionar para o formulário da stripe...",
+            "companyStripeName": "Conta Stripe",
+            "paymentMethodTitle": "Indique o seu método de pagamento",
+            "configureStripe": "Configurar a sua conta stripe. Isto é necessário para que os seus clientes possam efetuar as suas compras e pagamentos em linha.",
+            "infoGoingBack": "Se sair da página agora, pode voltar ao mesmo sítio quando regressar.",
+            "welcomeConfigure": "Configure a sua conta em apenas {{numberOfSteps}} clique !",
+            "welcomeConfigure_plural": "Configure a sua conta em apenas {{numberOfSteps}} passos !",
+            "configureStripeAction": "Configurar Stripe",
+            "needToConfigureStripeInfo": "É necessário adicionar um meio de pagamento para liquidar uma fatura."
         },
         "language": {
             "cs": "checo",
@@ -11495,9 +11632,105 @@
             },
             "welcome": {
                 "next": "Continuar",
-                "content": "A bsport reúne profissionais cujo objetivo é simplificar as ferramentas de IT e dar-lhe uma melhor compreensão da sua comunidade."
+                "content": "A bsport reúne profissionais cujo objetivo é simplificar as ferramentas de IT e dar-lhe uma melhor compreensão da sua comunidade.",
+                "title": "Bem-vindo !"
             }
-        }
+        },
+        "actions": {
+            "signup": {
+                "register": "Registar",
+                "noAccount": "Ainda não tem conta ?"
+            },
+            "signin": "Ligar-me",
+            "forgottenPassword": "Esqueceu-se da sua palavra-passe ?"
+        },
+        "needStripe": {
+            "stripeAccount": "Conta Stripe",
+            "info": "Se não criou a sua conta Stripe, crie a sua conta Stripe para continuar a beneficiar dos serviços Bsport.",
+            "infoDateBlocked": "Não configurou a sua conta Stripe. Configure a sua conta Stripe antes de {{ dateAccountIsBLockedFormattedLL }} para continuar a beneficiar dos serviços Bsport.",
+            "actionRegularize": "Configurar a minha conta Stripe"
+        },
+        "regularizeInvoice": {
+            "needPaymentMethodContent": {
+                "fail": "Tem uma ou mais faturas em atraso. Regularize a sua fatura para continuar a beneficiar dos serviços bsport.",
+                "dispute": "Tem uma ou mais faturas em disputa. Contacte o seu banco o mais rapidamente possível para resolver a disputa e continuar a beneficiar dos serviços bsport. Se necessário, contacte support@bsport.io."
+            },
+            "actionRegularize": {
+                "dispute": "Ver minha fatura",
+                "fail": "Regularizar a minha conta"
+            },
+            "needPaymentMethod": {
+                "fail": "Falha de pagamento",
+                "dispute": "Fatura em disputa"
+            },
+            "contactSuport": "Contactar o suporte"
+        },
+        "emailValidation": {
+            "explain": "Enviámos-lhe um email de validação, está quase !",
+            "success": "O seu email foi validado e será redireccionado dentro de alguns segundos.",
+            "hasSentAgain": "Email enviado",
+            "linkExpired": "A seu link de validação expirou",
+            "goToLogin": "Voltar a",
+            "disconnect": "Alterar conta",
+            "sendAgain": "Enviar um email de confirmação"
+        },
+        "welcome": {
+            "title": "Bem-vindo {{- companyName}} !",
+            "textExplain": "Parabéns, a sua inscrição está concluída. Pode agora começar a tirar partido da sua conta e reservar as suas primeiras sessões.",
+            "begin": "Começar"
+        },
+        "tempPassword": {
+            "copied": "Palavra-passe copiada",
+            "title": "Palavra-passe temporária",
+            "copy": "Copiar a palavra-passe para a área de transferência",
+            "explainRequest": "Peça uma palavra-passe válida por uma semana para permitir que as nossas equipas, por exemplo, se conectem à sua conta durante um período limitado. A sua palavra-passe principal não é alterada.",
+            "explain": "Esta palavra-passe é válida até {{expirationDate }}. A sua palavra-passe principal não foi alterada.",
+            "close": "Fechar",
+            "submit": "Criar"
+        },
+        "signup": {
+            "title": "Registar"
+        },
+        "emailConfirmation": {
+            "backToLogin": "Voltar à página de início de sessão",
+            "dialog": {
+                "close": "Fechar",
+                "send": "Enviar",
+                "cancel": "Cancelar",
+                "sentAgain": "Email enviado !",
+                "title": "Reenviar email de confirmação",
+                "cannotBeResent": "Se ainda não recebeu nada dentro de {{timeLeftBeforeNewSent}} minutos, tente novamente. Não se esqueça de verificar o seu spam.",
+                "canBeResent": "Antes de enviar novamente o email de confirmação, verifique o seu spam e recarregue a sua caixa de correio eletrónico. Se não tiver recebido nada, clique no botão enviar.",
+                "sentAgainExplain": "O email de confirmação acaba de ser enviado para o seu endereço eletrónico.",
+                "continue": "Continuar"
+            },
+            "clickHere": "Clique aqui",
+            "helperToSendOnceAgain": "para enviar novamente o email de confirmação",
+            "title": "O seu registo foi efectuado com sucesso",
+            "textExplain": "Acabamos de lhe enviar um email de confirmação. Para finalizar o seu registo, clique na ligação para ativar a sua conta.",
+            "notReceived": "Recebeu alguma coisa ?"
+        },
+        "forms": {
+            "password": {
+                "label": "Senha"
+            }
+        },
+        "signin": {
+            "connection": "Aceder",
+            "connect": "Iniciar sessão para continuar.",
+            "selectYourCurrentEmail": "Seleccione o seu email de ligação atual."
+        },
+        "or": " ou ",
+        "error": {
+            "authError": "Email ou palavra-passe errados",
+            "invalidEmail": "Este email não existe na nossa base de dados",
+            "invalidPassword": "Palavra-passe inválida"
+        },
+        "doubleLogin": {
+            "disconnect": "Conectar de novo",
+            "explain": "A sua sessão expirou. Iniciou sessão em duas contas diferentes ao mesmo tempo ou terminou sessão a partir de outro separador/janela ?"
+        },
+        "contactUs": "É um gestor de estúdio interessado na nossa solução?\nContacte-nos."
     },
     "datetime": {
         "form": {

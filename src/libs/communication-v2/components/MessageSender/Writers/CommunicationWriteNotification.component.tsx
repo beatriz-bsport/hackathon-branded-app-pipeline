@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Theme, makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
-import TextFieldWithChildren from '#components/input/text-field/TextFieldWithChildren.component';
+import TextFieldWithChildren from '#components/input/text-field/TextFieldWithChildren';
 
 import {
   TEXTFIELD_NOTIFICATION_TITLE,
@@ -39,12 +39,14 @@ const CommunicationWriteNotification = (props: Props) => {
   return (
     <React.Fragment>
       <TextFieldWithChildren
-        withMarginBottom
         changeValue={handleChangeTitle}
+        customOptions={{
+          margin: { bottom: true },
+          rows: { minRows: 1 },
+          focus: { onFocus: onTitleFocus },
+        }}
         inputProps={{ maxLength: MAX_LENGTH_PUSH_TITLE }}
-        minRows={1}
         name="Mail title"
-        onFocus={onTitleFocus}
         placeholder={t('sendMessage.textField.title')}
         value={notificationTitle}
       >
@@ -53,12 +55,18 @@ const CommunicationWriteNotification = (props: Props) => {
         </Typography>
       </TextFieldWithChildren>
       <TextFieldWithChildren
-        withColumnDirection
         changeValue={handleChangeContent}
+        customOptions={{
+          display: { column: true },
+          rows: {
+            minRows: isMobileSize ? 2 : 6,
+          },
+          focus: {
+            onFocus: onContentFocus,
+          },
+        }}
         inputProps={{ maxLength: MAX_LENGTH_PUSH_CONTENT }}
-        minRows={isMobileSize ? 2 : 6}
         name="Mail content"
-        onFocus={onContentFocus}
         placeholder={t('sendMessage.textField.content')}
         value={notificationContent}
       >
@@ -86,4 +94,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CommunicationWriteNotification;
+export default React.memo(CommunicationWriteNotification);

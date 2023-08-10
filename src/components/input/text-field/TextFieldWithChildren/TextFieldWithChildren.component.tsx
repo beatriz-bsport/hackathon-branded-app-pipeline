@@ -1,50 +1,43 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
-import {
-  InputBaseComponentProps,
-  makeStyles,
-  type Theme,
-} from '@material-ui/core';
+import { InputBaseComponentProps } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
+import { useCustomOptions, useStyles } from './hooks';
+import type { CustomOptions } from './types';
 
-type TextFieldWithChildrenProps = {
+type Props = {
   placeholder: string;
-  value: any;
-  minRows: number;
+  value: string | number;
   changeValue: (event: React.ChangeEvent) => void;
   name?: string;
   children?: React.ReactNode;
-  style?: React.CSSProperties;
-  withMarginBottom?: boolean;
-  withColumnDirection?: boolean;
   inputProps?: InputBaseComponentProps;
-  withFocus?: boolean;
-  onFocus?: () => void;
-  childrenFocus?: boolean;
-  childrenHover?: boolean;
-  updateFocus?: (focus: boolean) => void;
-};
+} & { customOptions: CustomOptions };
 
-const TextFieldWithChildren: React.FC<TextFieldWithChildrenProps> = ({
+const TextFieldWithChildren: React.FC<Props> = ({
   placeholder,
   name,
   value,
   children,
-  minRows,
-  style,
-  withMarginBottom,
-  withColumnDirection,
   inputProps,
-  withFocus,
-  childrenFocus,
-  childrenHover,
   changeValue,
-  onFocus,
-  updateFocus,
+  customOptions,
 }) => {
   const [focus, setFocus] = useState(false);
   const [fieldFocus, setFieldFocus] = useState(false);
   const [fieldFocusNeedReset, setFieldFocusNeedReset] = useState(false);
+
+  const {
+    textFieldStyle,
+    withFocus,
+    childrenFocus,
+    updateFocus,
+    onFocus,
+    childrenHover,
+    minRows,
+    withMarginBottom,
+    withColumnDirection,
+  } = useCustomOptions({ customOptions });
 
   const classes = useStyles({
     minRows,
@@ -104,7 +97,7 @@ const TextFieldWithChildren: React.FC<TextFieldWithChildrenProps> = ({
         onChange={changeValue}
         onFocus={handleFocus}
         placeholder={placeholder}
-        style={style}
+        style={textFieldStyle}
         value={value}
         variant="outlined"
       />
@@ -112,49 +105,5 @@ const TextFieldWithChildren: React.FC<TextFieldWithChildrenProps> = ({
     </div>
   );
 };
-
-type StylesProps = Pick<TextFieldWithChildrenProps, 'minRows'> & {
-  focus: boolean;
-};
-
-const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
-  container: {
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%',
-    border: ({ focus }) => (focus ? 'solid 2px' : 'solid 1px'),
-    marginTop: ({ focus }) => focus && '-1px',
-    marginRight: ({ focus }) => focus && '-1px',
-    marginLeft: ({ focus }) => focus && '-1px',
-    borderColor: ({ focus }) =>
-      focus ? theme.palette.primary.main : theme.palette.divider,
-    borderRadius: theme.spacing(1),
-  },
-  inputFieldOverride: {
-    paddingTop: ({ minRows }) =>
-      minRows > 1 ? theme.spacing(2) : theme.spacing(1),
-    paddingBottom: ({ minRows }) =>
-      minRows > 1 ? theme.spacing(2) : theme.spacing(1),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    '&::placeholder': {
-      color: theme.palette.grey[900],
-    },
-  },
-  textField: {
-    padding: theme.spacing(1),
-  },
-  borderStyleOverride: {
-    border: 'none',
-    padding: 0,
-  },
-  withColumnDirection: {
-    flexDirection: 'column',
-  },
-  withMarginBottom: {
-    marginBottom: ({ focus }) =>
-      focus ? theme.spacing(1) - 1 : theme.spacing(1),
-  },
-}));
 
 export default React.memo(TextFieldWithChildren);

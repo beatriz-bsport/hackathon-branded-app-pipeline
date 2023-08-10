@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { ReportProblemOutlined as WarningIcon } from '@material-ui/icons';
 import { amber, red } from '@material-ui/core/colors';
 
-import TextFieldWithChildren from '#components/input/text-field/TextFieldWithChildren.component';
+import TextFieldWithChildren from '#components/input/text-field/TextFieldWithChildren';
 import { MAX_LENGTH_SMS } from '#libs/communication-v2/constants';
 
 type Props = {
@@ -25,11 +25,17 @@ const CommunicationWriteSMS = (props: Props) => {
   return (
     <React.Fragment>
       <TextFieldWithChildren
-        withColumnDirection
         changeValue={handleChangeContent}
-        minRows={isMobileSize ? 2 : 6}
+        customOptions={{
+          display: { column: true },
+          rows: {
+            minRows: isMobileSize ? 2 : 6,
+          },
+          focus: {
+            onFocus,
+          },
+        }}
         name="Sms content"
-        onFocus={onFocus}
         placeholder={t('sendMessage.textField.content')}
         value={smsContent}
       >

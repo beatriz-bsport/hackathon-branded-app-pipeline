@@ -11,7 +11,7 @@ import {
   Edit as EditIcon,
 } from '@material-ui/icons';
 
-import TextFieldWithChildren from '#components/input/text-field/TextFieldWithChildren.component';
+import TextFieldWithChildren from '#components/input/text-field/TextFieldWithChildren';
 import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
 import {
   EmailTemplateDetail,
@@ -73,11 +73,13 @@ const CommunicationWriteEmail = (props: Props) => {
   return (
     <React.Fragment>
       <TextFieldWithChildren
-        withMarginBottom
         changeValue={handleChangeTitle}
-        minRows={1}
+        customOptions={{
+          margin: { bottom: true },
+          rows: { minRows: 1 },
+          focus: { onFocus: onTitleFocus },
+        }}
         name="Mail title"
-        onFocus={onTitleFocus}
         placeholder={t('sendMessage.textField.object')}
         value={emailTitle}
       />
@@ -95,11 +97,17 @@ const CommunicationWriteEmail = (props: Props) => {
         </EmailPreview>
       ) : (
         <TextFieldWithChildren
-          withColumnDirection
           changeValue={handleChangeContent}
-          minRows={isMobileSize ? 2 : 6}
+          customOptions={{
+            display: { column: true },
+            rows: {
+              minRows: isMobileSize ? 2 : 6,
+            },
+            focus: {
+              onFocus: onContentFocus,
+            },
+          }}
           name="Mail content"
-          onFocus={onContentFocus}
           placeholder={t('sendMessage.textField.content')}
           value={emailContent}
         >
@@ -126,7 +134,7 @@ type PreviewProps = {
   onRemoveTemplate: () => void;
 };
 
-const EmailPreview = (props: PreviewProps) => {
+const EmailPreview = React.memo((props: PreviewProps) => {
   const classes = useStyles();
   const {
     emailTemplateSelected,
@@ -166,14 +174,14 @@ const EmailPreview = (props: PreviewProps) => {
       {props.children}
     </div>
   );
-};
+});
 
 type RefreshProps = {
   openDialog: boolean;
   refreshTemplateData: () => void;
 };
 
-const RefreshDialog = (props: RefreshProps) => {
+const RefreshDialog = React.memo((props: RefreshProps) => {
   const { t } = useTranslation('communication');
   return (
     <CommunicationWrapperDialog
@@ -187,7 +195,7 @@ const RefreshDialog = (props: RefreshProps) => {
       <Typography variant="body2">{t('sendMessage.refresh')}</Typography>
     </CommunicationWrapperDialog>
   );
-};
+});
 
 const useStyles = makeStyles((theme: Theme) => ({
   mailPreviewContainer: {
@@ -221,4 +229,5 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: '20vh',
   },
 }));
-export default CommunicationWriteEmail;
+
+export default React.memo(CommunicationWriteEmail);

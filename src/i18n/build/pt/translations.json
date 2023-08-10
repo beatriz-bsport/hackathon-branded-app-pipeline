@@ -4617,7 +4617,7 @@
         },
         "paymentPackTemplate": {
             "actions": {
-                "create": "Criar um mapa partilhado"
+                "create": "Criar um passe partilhado"
             },
             "deleteForm": {
                 "actions": {
@@ -5057,7 +5057,8 @@
             },
             "selectorPlaceholder": {
                 "shopitem": "Loja",
-                "paymentPack": "Passe de aulas"
+                "paymentPack": "Passe de aulas",
+                "privatePass": "Passe Marcação"
             },
             "content": "Conteúdo",
             "actions": {
@@ -5102,12 +5103,20 @@
             "buttons": {
                 "add": "Criar um pack"
             },
-            "explainIfEmpty": "Aqui pode criar packs que podem ser comprados pelos alunos e que contêm passes de aulas, artigos de loja, etc..."
+            "explainIfEmpty": "Aqui pode criar packs que podem ser comprados pelos alunos e que contêm passes de aulas, artigos de loja, etc...",
+            "section": {
+                "availableOnline": "Disponível para venda",
+                "unavailableOnline": "Não disponível para venda"
+            }
         },
         "pageTitle": {
             "list": "Packs"
         },
-        "search": "Procurar um pack"
+        "search": "Procurar um pack",
+        "link": {
+            "copyLink": "Copiar o link à página de pagamento",
+            "copied": "Link copiado"
+        }
     },
     "payment": {
         "bankAccount": {
@@ -5121,7 +5130,31 @@
                     "label": "Titular da conta bancária"
                 },
                 "content": "Esta conta bancária será utilizada para transferir os montantes pagos ativos através do bsport.",
-                "title": "Conta bancária"
+                "title": "Conta bancária",
+                "accountNumber": {
+                    "label": "Número da conta",
+                    "placeholder": "PT00500400440532013000"
+                },
+                "institutionNumber": {
+                    "label": "Número da instituição",
+                    "placeholder": "Número da instituição"
+                },
+                "actions": {
+                    "submit": "Confirmar",
+                    "cancel": "Cancelar"
+                },
+                "branchCode": {
+                    "label": "Código"
+                },
+                "sortCode": {
+                    "placeholder": "123456",
+                    "label": "Número do banco"
+                },
+                "invalid": "IBAN inválido. Atenção : o IBAN deve corresponder a uma conta bancária domiciliada no mesmo país que a sua empresa",
+                "bankCode": {
+                    "label": "Número bancário"
+                },
+                "unknownCountry": "Operação manual para este país, contactar a bsport através de contact@bsport.io"
             }
         },
         "actions": {
@@ -5139,7 +5172,16 @@
             "2": "Cheque",
             "1": "Tipos",
             "0": "Passe",
-            "5": "Vouchers"
+            "5": "Vouchers",
+            "60": "Giropay",
+            "70": "Débito Direto",
+            "40": "iDEAL",
+            "8": "EventBrite",
+            "20": "Bancontact",
+            "50": "EPS",
+            "30": "Sofort",
+            "6": "AMEX",
+            "7": "Transferência"
         },
         "returnedAmount": "Reembolsado: ",
         "generalTermsAndConditions": {
@@ -5300,8 +5342,51 @@
         },
         "subscriptionPaymentDialog": {
             "success": {
-                "text_content_funnel": "A sua compra foi processada, clique em continuar para finalizar a sua reserva. O passe associado à sua inscrição foi adicionado à secção \"Os meus passes de aulas\". Seleccione-o para efetuar a sua reserva."
-            }
+                "text_content_funnel": "A sua compra foi processada, clique em continuar para finalizar a sua reserva. O passe associado à sua inscrição foi adicionado à secção \"Os meus passes de aulas\". Seleccione-o para efetuar a sua reserva.",
+                "title": "Felicitações !",
+                "button_text": "Continuar",
+                "recap": "Resumo",
+                "contract": "A minha subscrição",
+                "text_content": "A sua compra foi processada e pode agora encontrar os detalhes da sua subscrição na sua área de membro.",
+                "text_status": "Efetuou uma compra com sucesso !"
+            },
+            "error": {
+                "text_content": "A sua compra não pôde ser concluída, pode tentar novamente ou regressar à sua área de membro.",
+                "text_status": "Não foi possível concluir a sua compra !",
+                "button_text": "Tentar novamente",
+                "userSpace": "Espaço do membro",
+                "title": "Erro de pagamento"
+            },
+            "title": "Comprar uma subscrição"
+        },
+        "stripeBalance": {
+            "availableBalance": "Saldo disponível",
+            "dialog": {
+                "firstPart": "Na bsport utilizamos o serviço Stripe para gerir todos os seus pagamentos online. Os montantes destes pagamentos são armazenados no Stripe e depois transferidos para a sua conta (secção \"Os meus recibos\").",
+                "thirdPart": "O seu \"saldo em curso\" corresponde ao montante que será adicionado ao seu saldo disponível.",
+                "alert": "Tenha em atenção que, quando efetua um reembolso direto, este dinheiro é retirado diretamente da sua conta Stripe. Isso pode fazer com que ela fique negativa.",
+                "secondPart": "O seu \"saldo disponível\" corresponde, portanto, ao montante dos pagamentos online que ainda não lhe foi pago.",
+                "close": "Fechar"
+            },
+            "pendingBalance": "Saldo em curso",
+            "nullPendingBalanceText": "Nenhum"
+        },
+        "payout": {
+            "isEmptyWarning": "NB: algumas receitas de caixa antes de 15 de março de 2021 podem não constar da lista abaixo.",
+            "payoutIsIncludedInOther": "Esta transferência foi incluída na transferência de {{date}} com o identificador {{readable_identifier}}",
+            "seeMore": "Ver mais",
+            "status": {
+                "0": "Em espera",
+                "2": "Bem sucedido",
+                "4": "Cancelar",
+                "1": "Em curso"
+            },
+            "invoice": "Fatura {{ uuid }}",
+            "isEmpty": "Nenhuma cobrança.",
+            "paymentNb": "{{nb}} pagamentos",
+            "payoutAmountFromIncludedPayouts": "dos quais {{price}} de pagamentos anteriores",
+            "payoutIsManual": "Esta transferência foi iniciada manualmente pelas equipas da bsport para acelerar a receção dos seus fundos. Neste caso, os dados de pagamento não estão disponíveis. Contacte as nossas equipas se necessitar de mais informações.",
+            "title": "Os meus recibos"
         }
     },
     "role": {

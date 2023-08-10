@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { AxiosResponse } from 'axios';
+import classNames from 'classnames';
 
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -97,6 +98,8 @@ type Props = {
   createMember: (data: FormData, options?: OptionCallback) => void;
   companyCountry: string;
   isAuthenticationRequired?: boolean;
+  elementClasses?: { [key: string]: string };
+  isDisplayCancelButton?: boolean;
 };
 
 const PAGE_SIZE = 5;
@@ -110,6 +113,8 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
   createMember,
   companyCountry,
   isAuthenticationRequired,
+  elementClasses,
+  isDisplayCancelButton,
 }) => {
   const [searchText, setSearchText] = React.useState('');
 
@@ -150,11 +155,11 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
   );
 
   const onChange = React.useCallback(
-    (ev: React.ChangeEvent<HTMLInputElement>) => {
-      setSearchText(ev.target.value);
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchText(event.target.value);
       searchMembers(
-        ev.target.value,
-        {},
+        event.target.value,
+        { hide_archived: true },
         {
           onSuccess: (response) => setSearchResults(response.data),
         },
@@ -227,7 +232,12 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
                 {t('interface.authenticationNecessary')}
               </Alert>
             )}
-            <div className={classes.searchBarAndNewMember}>
+            <div
+              className={classNames(
+                classes.searchBarAndNewMember,
+                elementClasses?.searchBarContainer,
+              )}
+            >
               <SearchMember
                 fullWidth
                 memberHistory={[]}
@@ -236,12 +246,19 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
                 onReset={clearSearch}
                 searchedText={searchText}
               />
-
               <IconButton
-                className={classes.addMemberButton}
+                className={classNames(
+                  classes.addMemberButton,
+                  elementClasses?.addMemberButton,
+                )}
                 onClick={openMemberCreateForm}
               >
-                <PersonAdd className={classes.addMemberIcon} />
+                <PersonAdd
+                  className={classNames(
+                    classes.addMemberIcon,
+                    elementClasses?.addMemberIcon,
+                  )}
+                />
               </IconButton>
             </div>
 
@@ -279,9 +296,22 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
       </DialogContent>
 
       {!showMemberCreateForm && (
-        <DialogActions className={classes.dialogActions}>
+        <DialogActions
+          className={classNames(
+            classes.dialogActions,
+            elementClasses?.actionsContainer,
+          )}
+        >
+          {isDisplayCancelButton && onClose && (
+            <Button onClick={onClose}>
+              {t('interface.memberModal.cancel')}
+            </Button>
+          )}
           <Button
-            className={classes.confirmButton}
+            className={classNames(
+              elementClasses?.submit,
+              classes.confirmButton,
+            )}
             color="primary"
             disabled={
               !selectedMemberId || selectedMemberId === preSelectedMemberId

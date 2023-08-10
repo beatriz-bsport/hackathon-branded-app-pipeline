@@ -397,6 +397,14 @@ export class MemberDetailPage extends React.PureComponent<Props> {
     }
   };
 
+  handleRedirectToReferringMember = () => {
+    if (this.props.referralMemberStatus?.referring_member_id) {
+      this.props.routerPushURL(
+        `/member/${this.props.referralMemberStatus.referring_member_id}/info`,
+      );
+    }
+  };
+
   onMemberEventClick = (event: GenericEvent<MemberEvent>) => {
     const eventDetailPath = getMemberEventPath(event, this.props.id);
     this.props.goToEventDetail(eventDetailPath);
@@ -441,8 +449,17 @@ export class MemberDetailPage extends React.PureComponent<Props> {
             getEmailDetail={this.props.fetchEmailTemplateDetail}
             getEmails={this.props.fetchEmailTemplatesSummaries}
             handleOpenResetPasswordDialog={this.handleOpenResetPasswordDialog}
+            handleRedirectToReferringMember={
+              this.handleRedirectToReferringMember
+            }
             member={this.props.member}
             mergeMember={this.handleMergeMember}
+            referringMemberId={
+              this.props.referralMemberStatus?.referring_member_id
+            }
+            referringMemberName={
+              this.props.referralMemberStatus?.referring_member_name
+            }
             resolvedGenericTags={this.props.resolvedGenericTags}
             sendCommunication={this.props.sendCommunication}
             showVaccinationStatus={this.props.showVaccinationStatus}
@@ -753,6 +770,7 @@ const connector = connect(
     updateSpiviPrivacySettings: updateSpiviPrivacySettingsAction,
     retrieveReferralProgram: retrieveReferralProgramAction,
     retrieveReferralMemberStatus: retrieveReferralMemberStatusAction,
+    routerPushURL: routerPush,
   },
 );
 

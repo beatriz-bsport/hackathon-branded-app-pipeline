@@ -64,6 +64,7 @@ import { UPSELL_IDENTIFIER_SMS } from '#libs/platform-billing/upsell-identifiers
 import { FeatureList } from '#libs/company/types';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import { MemberSummaryCardReferralSection } from './MemberSummaryCardReferralSection.component';
 
 const SELECT_EMAIL = 1;
 const SEND_SMS = 2;
@@ -91,6 +92,9 @@ type OwnProps = {
   favoriteEstablishmentGroupList?: Array<EstablishmentGroup>;
   resolvedGenericTags: ResolvedGenericTags;
   handleOpenResetPasswordDialog: () => void;
+  referringMemberName?: string;
+  referringMemberId?: number;
+  handleRedirectToReferringMember?: () => void;
 };
 
 type Props = OwnProps & WithTranslation & WithStyles<typeof styles>;
@@ -471,6 +475,15 @@ export class MemberSummaryCard extends PureComponent<Props> {
               {this.renderBarCode()}
               {this.renderAddress()}
               {this.renderNotificationSettings()}
+              {this.props.referringMemberId &&
+                this.props.referringMemberName && (
+                  <MemberSummaryCardReferralSection
+                    handleRedirectToReferringMember={
+                      this.props.handleRedirectToReferringMember
+                    }
+                    referringMemberName={this.props.referringMemberName}
+                  />
+                )}
               {this.renderTermsAndConditions()}
               {this.renderTermsOfUse()}
             </div>

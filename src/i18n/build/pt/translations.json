@@ -5138,7 +5138,8 @@
             "4": "Cartão (manual)",
             "2": "Cheque",
             "1": "Tipos",
-            "0": "Passe"
+            "0": "Passe",
+            "5": "Vouchers"
         },
         "returnedAmount": "Reembolsado: ",
         "generalTermsAndConditions": {
@@ -5185,7 +5186,8 @@
             "savePaymentMethod": {
                 "section": "Selecionar um método de pagamento",
                 "label": "Guardar este método de pagamento",
-                "select": "Selecionar um método de pagamento"
+                "select": "Selecionar um método de pagamento",
+                "add": "Dados do pagamento"
             },
             "cancelPayment": "Anterior"
         },

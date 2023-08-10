@@ -4177,7 +4177,10 @@
                 "pickTemplate": "Escolher um modelo",
                 "name": "Nome",
                 "title": "Configuração",
-                "description": "O modelo escolhido será utilizado para o email transacional \"{{-name}}\" para todos os franchisados selecionados aqui."
+                "description": "O modelo escolhido será utilizado para o email transacional \"{{-name}}\" para todos os franchisados selecionados aqui.",
+                "parameters": "Parâmetros",
+                "useFor": "Utilizar para ",
+                "activate": "Ativado"
             },
             "emptySelect": "Selecione um email transacional para ver quais os franchisados que o partilham e utilizam.",
             "addConfiguration": "Adicionar uma configuração",

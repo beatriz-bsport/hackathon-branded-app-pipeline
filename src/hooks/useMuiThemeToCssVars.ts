@@ -1,5 +1,6 @@
 import { Theme } from '@material-ui/core';
 import { useTheme } from '@material-ui/styles';
+import chroma from 'chroma-js';
 
 export const useMuiThemeToCssVars = () => {
   const theme: Theme = useTheme();
@@ -84,14 +85,15 @@ export const useMuiThemeToCssVars = () => {
     --color-error-contrastText: ${theme.palette.error.contrastText};
     --color-error-dark: ${theme.palette.error.dark};
     --color-error-light: ${theme.palette.error.light};
-    /* adding 19 at the end of a color sets the opacity to have a background effect */
-    --color-error-background: ${theme.palette.error.main}19;
+    --color-error-background: ${chroma(theme.palette.error.main).alpha(0.1)};
+    --color-error-alert: ${chroma(theme.palette.error.main).darken(2.6)};
     --color-error-main: ${theme.palette.error.main};
     --color-info-contrastText: ${theme.palette.info.contrastText};
     --color-info-dark: ${theme.palette.info.dark};
     --color-info-light: ${theme.palette.info.light};
     --color-info-main: ${theme.palette.info.main};
-    --color-info-alert: #0D3C61;
+    --color-info-background: ${chroma(theme.palette.info.main).alpha(0.1)};
+    --color-info-alert: ${chroma(theme.palette.info.main).darken(2.6)};
     --color-primary-contrastText: ${theme.palette.primary.contrastText};
     --color-primary-dark: ${theme.palette.primary.dark};
     --color-primary-light: ${theme.palette.primary.light};
@@ -104,10 +106,16 @@ export const useMuiThemeToCssVars = () => {
     --color-success-contrastText: ${theme.palette.success.contrastText};
     --color-success-dark: ${theme.palette.success.dark};
     --color-success-light: ${theme.palette.success.light};
-    --color-success-background: ${theme.palette.success.main}19;
+    --color-success-background: ${chroma(theme.palette.success.main).alpha(
+      0.1,
+    )};
+    --color-success-alert: ${chroma(theme.palette.success.main).darken(2.6)};
     --color-success-main: ${theme.palette.success.main};
     --color-warning-light: ${theme.palette.warning.light};
-    --color-warning-background: ${theme.palette.warning.main}19;
+    --color-warning-background: ${chroma(theme.palette.warning.main).alpha(
+      0.1,
+    )};
+    --color-warning-alert: ${chroma(theme.palette.warning.main).darken(2.6)};
     --color-warning-main: ${theme.palette.warning.main};
     --color-grey-50: ${theme.palette.grey[50]};
     --color-grey-100: ${theme.palette.grey[100]};

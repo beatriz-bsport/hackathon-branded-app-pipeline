@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
@@ -11,16 +10,18 @@ import {
   LinearProgress,
   Typography,
   Button,
+  Switch,
 } from '@material-ui/core';
 
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB } from '@bsport/common/lib/master-data/payment-group';
-
+import { Alert } from '@material-ui/lab';
 import { MaterialStyleType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import PaymentMethodMultiSelector from '#libs/payment/components/PaymentMethodMultiSelector.component';
 import { updateCompanyTheme } from '#libs/theme/actions';
 import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
+import { ADDRESS_REQUIRED_COMPANY_ID } from '#libs/payment/components/payment-backend-stripe/CardBillingDetailsForm';
 
 type OwnProps = {};
 
@@ -34,6 +35,7 @@ type State = {
   payment_method_available_basket: number[];
   payment_method_available_subscription: number[];
   subscriptionError: boolean;
+  cardBillingDetailsMandatory: boolean;
 };
 
 class PaymentMethodSettings extends React.PureComponent<Props, State> {
@@ -44,18 +46,22 @@ class PaymentMethodSettings extends React.PureComponent<Props, State> {
       payment_method_available_basket: [],
       payment_method_available_subscription: [],
       subscriptionError: false,
+      cardBillingDetailsMandatory: false,
     };
 
     if (
       props.theme &&
       props.theme.payment_method_available_basket &&
-      props.theme.payment_method_available_subscription
+      props.theme.payment_method_available_subscription &&
+      props.theme.force_billing_details_on_cards
     ) {
       state.payment_method_available_basket =
         props.theme.payment_method_available_basket;
 
       state.payment_method_available_subscription =
         props.theme.payment_method_available_subscription;
+      state.cardBillingDetailsMandatory =
+        props.theme.force_billing_details_on_cards;
     }
 
     this.state = state;
@@ -123,6 +129,12 @@ class PaymentMethodSettings extends React.PureComponent<Props, State> {
     });
   };
 
+  onCardBillingDetailsMandatoryChange = () => {
+    this.setState((prevState: State) => ({
+      cardBillingDetailsMandatory: !prevState.cardBillingDetailsMandatory,
+    }));
+  };
+
   onClickSave = () => {
     this.setState((prevState: State) => ({
       subscriptionError:
@@ -140,6 +152,7 @@ class PaymentMethodSettings extends React.PureComponent<Props, State> {
           this.state.payment_method_available_basket,
         payment_method_available_subscription:
           this.state.payment_method_available_subscription,
+        force_billing_details_on_cards: this.state.cardBillingDetailsMandatory,
       },
       {
         onSuccess: () => this.props.snackbarSuccess('dashboard.save.success'),
@@ -162,6 +175,7 @@ class PaymentMethodSettings extends React.PureComponent<Props, State> {
     const {
       payment_method_available_basket,
       payment_method_available_subscription,
+      cardBillingDetailsMandatory,
     } = this.state;
 
     return (
@@ -225,6 +239,31 @@ class PaymentMethodSettings extends React.PureComponent<Props, State> {
                 )}
               </div>
             </div>
+
+            {
+              // This feature is an ongoing test for the selected companies
+              this.props.theme.company === ADDRESS_REQUIRED_COMPANY_ID && (
+                <div className={classes.threeDSecureContainer}>
+                  <Typography variant="h6">3D Secure</Typography>
+                  <div className={classes.row}>
+                    <Switch
+                      checked={cardBillingDetailsMandatory}
+                      onChange={this.onCardBillingDetailsMandatoryChange}
+                    />
+                    <Typography color="textSecondary" variant="body2">
+                      {t('paymentMethods.methodPaymentCardBillingDetails')}
+                    </Typography>
+                  </div>
+                  <div className={classes.row}>
+                    <Alert className={classes.leftIcon} severity="info">
+                      {t(
+                        'paymentMethods.methodPaymentCardBillingDetailsHelper',
+                      )}
+                    </Alert>
+                  </div>
+                </div>
+              )
+            }
           </div>
         </Paper>
 
@@ -263,6 +302,9 @@ const styles = (theme: Theme) => ({
     marginTop: theme.spacing(2),
   },
   subscriptionContainer: {
+    marginTop: theme.spacing(2),
+  },
+  threeDSecureContainer: {
     marginTop: theme.spacing(2),
   },
   saveButtonContainer: {

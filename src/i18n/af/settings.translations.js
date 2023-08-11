@@ -167,6 +167,10 @@ exports.default = {
       'Autoriser les paiements des souscriptions (contrats) uniquement via',
     methodPaymentSubscriptionError:
       'Veuillez choisir au moins une méthode de paiement',
+    methodPaymentCardBillingDetails:
+      'Demander les coordonnées de facturation pour les paiements par carte.',
+    methodPaymentCardBillingDetailsHelper:
+      'En activant cette fonctionnalité, vous réduirez le nombre de paiement par carte nécessitant le 3D Secure (validation SMS, applications bancaires, etc.).Attention, ces champs seront obligatoires.',
     save: 'Enregistrer',
   },
   billing_group: {

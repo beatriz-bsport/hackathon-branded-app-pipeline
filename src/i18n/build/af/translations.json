@@ -2307,7 +2307,12 @@
       "name": "Nom et prénom du titulaire",
       "email": "Email du titulaire",
       "address_line_1": "Adresse",
+      "address_line_2": "Complément d'adresse",
       "address_postal_code": "Code postal",
+      "phone": "Numéro de téléphone",
+      "city": "Ville",
+      "state": "État",
+      "country": "Pays",
       "contentIban": "En donnant votre IBAN et en confirmant votre paiement, vous autorisez bsport et Stripe, notre système de paiement, à envoyer les instructions de débit à votre banque en accord avec l'échéancier de paiement. Vous pouvez demander un remboursement à votre banque selon les termes de votre contrat avec cette dernière. Un remboursement doit être demandé dans les 8 semaines après le premier débit.",
       "contentBacsDebit": "En donnant vos informations bancaires et en confirmant votre paiement, vous autorisez bsport et Stripe, notre système de paiement, à envoyer les instructions de débit à votre banque en accord avec l'échéancier de paiement. Vous pouvez demander un remboursement à votre banque selon les termes de votre contrat avec cette dernière. Vous pouvez à n'importe quel moment faire la demande auprès de votre banque pour annuler le mandat Direct Debit."
     },
@@ -9261,6 +9266,8 @@
       "methodPaymentSubscription": "Paiement récurrent",
       "methodPaymentSubscriptionHelper": "Autoriser les paiements des souscriptions (contrats) uniquement via",
       "methodPaymentSubscriptionError": "Veuillez choisir au moins une méthode de paiement",
+      "methodPaymentCardBillingDetails": "Demander les coordonnées de facturation pour les paiements par carte.",
+      "methodPaymentCardBillingDetailsHelper": "En activant cette fonctionnalité, vous réduirez le nombre de paiement par carte nécessitant le 3D Secure (validation SMS, applications bancaires, etc.).Attention, ces champs seront obligatoires.",
       "save": "Enregistrer"
     },
     "billing_group": {

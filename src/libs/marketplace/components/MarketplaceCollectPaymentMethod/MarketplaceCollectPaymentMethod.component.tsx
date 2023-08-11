@@ -190,7 +190,7 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
     );
 
     useEffect(() => {
-      if (!clientSecret) {
+      if (!clientSecret && isOpen) {
         const getClientSecret = async () => {
           try {
             const clientSecretResponse = await requestSetupIntentSecret();

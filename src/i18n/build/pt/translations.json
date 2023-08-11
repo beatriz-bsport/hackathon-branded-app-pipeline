@@ -3745,7 +3745,8 @@
             "activity": "As minhas atividades",
             "smart_list": "Lista inteligente",
             "email_template": "Emails",
-            "alpha": "em desenvolvimento"
+            "alpha": "em desenvolvimento",
+            "myShop": "Loja"
         },
         "stripeOnboardingPending": {
             "banner": "Se não tiver terminado a configuração da faturação, os pagamentos em linha podem ser desactivados."
@@ -7566,16 +7567,42 @@
             },
             "form": {
                 "title": {
-                    "disable": "Eliminar uma disponibilidade"
-                }
+                    "disable": "Eliminar uma disponibilidade",
+                    "enable": "Adicionar uma disponibilidade"
+                },
+                "interval": {
+                    "explain2": "{{ date_start }} - {{ date_end }}, todos os {{ day }}",
+                    "explain1": "Alteração da disponibilidade : "
+                },
+                "actions": {
+                    "submit": "Registar",
+                    "cancel": "Cancelar"
+                },
+                "explain": "Alterar até :"
             },
-            "disableRecurrentAvailability": "Eliminar a disponibilidade recorrente"
+            "disableRecurrentAvailability": "Eliminar a disponibilidade recorrente",
+            "customEvent": {
+                "dateStart": "Data de início",
+                "dateEnd": "Data de fim"
+            },
+            "toogle": {
+                "showOfferList": "Aulas de grupo",
+                "title": "Ver os filtros",
+                "showPrivateBookings": "Marcações",
+                "hideCancelledEvents": "Ver os cancelamentos",
+                "showCustomEvents": "Marcação pessoalmente"
+            },
+            "selectCoachToModifyAvailability": "Selecionar um professor",
+            "createCustomEvent": "Criar uma marcação pessoalmente",
+            "addBooking": "Registar uma marcação",
+            "showAvailabilityDetails": "Detalhes das disponibilidades"
         },
         "privateEstablishment": {
             "delete": {
                 "submit": "Confirmar",
                 "cancel": "Cancelar",
-                "explain": "Tem a certeza de que pretende alterar o local? Sem uma sala, será considerada uma marcação ao domicílio e os alunos terão de introduzir a sua morada para completar a reserva. As reservas já efectuadas não serão afetadas."
+                "explain": "Tem a certeza de que pretende alterar o local? Sem uma sala, será considerada uma marcação ao domicílio e os alunos terão de introduzir a sua morada para completar a reserva. As reservas já efectuadas não serão afetadas.",
+                "title": "Cancelar o registo da sala"
             }
         },
         "privateBookingNotification": {
@@ -7669,14 +7696,25 @@
         },
         "privateCoach": {
             "delete": {
-                "explain": "Tem a certeza de que pretende remover a atribuição deste professor ? O professor deixará de poder aceitar reservas para este passe. As reservas efectuadas não serão afetadas."
+                "explain": "Tem a certeza de que pretende remover a atribuição deste professor ? O professor deixará de poder aceitar reservas para este passe. As reservas efectuadas não serão afetadas.",
+                "title": "Anular a subscrição de um professor",
+                "submit": "Confirmar",
+                "cancel": "Cancelar"
             }
         },
         "privateService": {
             "delete": {
                 "confirm": "Eliminar",
                 "submit": "Eliminar",
-                "explain": "Tem a certeza de que pretende eliminar esta marcação ? Esta alteração é definitiva. As reservas já efectuadas não serão afetadas."
+                "explain": "Tem a certeza de que pretende eliminar esta marcação ? Esta alteração é definitiva. As reservas já efectuadas não serão afetadas.",
+                "cancel": "Cancelar",
+                "title": "Eliminar a marcação"
+            },
+            "padBeforeBooking": {
+                "explain1": "Se estiver ativado, as reservas só podem ser feitas se o calendário estiver disponível e incluir a reserva",
+                "explain2": "Exemplo: a sala está disponível das 10h00 às 11h00, a sua marcação dura 1 hora, mas precisa de 15 minutos antes e depois da reserva.",
+                "explain4": "NÃO-ATIVO: a marcação será possível e bloqueará a sala 15 minutos antes e depois da reserva. A próxima marcação será possível a partir das 11h30.",
+                "explain3": "ATIVO: não será possível efetuar uma marcação. A sala deve estar disponível das 9h45 às 11h15. A próxima marcação só será possível a partir das 11h30."
             }
         },
         "privateBooking": {
@@ -7695,7 +7733,12 @@
                 "explainWithRestore": "Tem a certeza de que pretende cancelar esta reserva ? Pode cancelar esta operação mais tarde.",
                 "title": "Cancelar reserva",
                 "hardDeleteTitle": "Eliminar uma reserva",
-                "explain": "Tem a certeza de que pretende cancelar esta reserva ? Esta operação é irreversível."
+                "explain": "Tem a certeza de que pretende cancelar esta reserva ? Esta operação é irreversível.",
+                "explainForceRefund": "Reembolsar o crédito utilizado no passe para permitir uma nova reserva.",
+                "confirm": "Confirmar",
+                "cancel": "Cancelar",
+                "sendCancellationMail": "Notificar {{name}} do cancelamento da marcação por email",
+                "explainMoreHardDeleteReccurentBookingTitle": "Marcação recorrente"
             },
             "hardDelete": "Eliminar",
             "editTime": "Alterar",
@@ -7765,24 +7808,87 @@
                     "title": "Atribuir um professor",
                     "cancel": "Cancelar"
                 }
-            }
+            },
+            "discard": "Anular a Marcação",
+            "cancel": "Cancelar",
+            "restore": "Restaurar a marcação",
+            "isCancelledByManager": "Anular por {{cancelled_by}}",
+            "isRefunded": "Reembolsar",
+            "isCancelledDate": "Cancelar no {{-date}} às {{time}}",
+            "updateTime": {
+                "title": "Alterar marcações",
+                "explainEmail": "Será automaticamente enviado um email para informar o aluno da alteração",
+                "submit": "Registar",
+                "cancel": "Cancelar"
+            },
+            "bookings": "Marcações",
+            "updateCoach": "Selecionar um novo professor para as marcações",
+            "isCancelled": "Cancelar",
+            "isCancelledByManagerDate": "Anular em {{-date}} às {{time}} por {{cancelled_by}}"
         },
         "privateSlot": {
             "delete": {
-                "explain": "Tem a certeza de que pretende eliminar esta sessão ? As reservas anteriores não serão afectadas. Esta operação é definitiva."
+                "explain": "Tem a certeza de que pretende eliminar esta sessão ? As reservas anteriores não serão afectadas. Esta operação é definitiva.",
+                "cancel": "Cancelar",
+                "confirm": "Confirmar",
+                "title": "Eliminar a sessão"
             },
             "duration": "{{ minutes }} minutos"
         },
         "serviceGroup": {
             "delete": "Eliminar",
-            "edit": "Alterar"
+            "edit": "Alterar",
+            "isEmpty": "Nenhuma marcação associada a esta categoria",
+            "form": {
+                "actions": {
+                    "cancel": "Cancelar",
+                    "submit": "Registar"
+                },
+                "name": {
+                    "label": "Nome"
+                },
+                "title": "Categoria"
+            },
+            "selector": {
+                "placeholder": "Categoria"
+            }
         },
         "availabilitySlot": {
             "form": {
                 "resourceSelector": {
-                    "label": "Alterar para :"
+                    "label": "Alterar para :",
+                    "cancel": "Cancelar",
+                    "title": "Alterar faixa horária",
+                    "warning": "Este professor não está associado a nenhuma marcação",
+                    "submit": "Registar"
                 }
-            }
+            },
+            "specificAvailabilityForm": {
+                "switchLabel": "Acrescentar apenas para determinados estabelecimentos",
+                "info": "Por predefinição, o seu professor será apresentado como disponível em todas as suas escolas. Ao ativar esta opção, pode selecionar as escolas onde o seu professor estará disponível para esta faixa horária.",
+                "advanced": "Seguinte",
+                "infoForCoach": "Por defeito, estará disponível em todos os estabelecimentos. Ao ativar esta opção, pode selecionar os estabelecimentos em que estará disponível para esta faixa horária."
+            },
+            "detail": {
+                "availableEverywhere": "Disponível em todas as salas",
+                "dialog": {
+                    "title": "Informações sobre a disponibilidade"
+                },
+                "detailEmpty": "Não há disponibilidade na faixa horária selecionada",
+                "slotBoundaries": "De {{date_start}} a {{date_end}}",
+                "openHours": "Horários",
+                "ok": "Ok"
+            },
+            "notAssociatedWarning": "Tenha em atenção que este professor não está associado a nenhuma marcação. Para registar uma nova marcação com este professor, associe-o à marcação pretendida no separador Marcações.",
+            "private_service": "Tipo de Marcação",
+            "notAssociatedDialog": {
+                "title": "Nenhuma marcação associada",
+                "info": "A disponibilidade foi registada. No entanto, este professor não está associado a nenhuma marcação.\n        Para registar uma nova marcação com este professor, associe-o à marcação pretendida a partir do separador Marcações.",
+                "close": "Fechar",
+                "checkbox": "Não me lembrar de novo"
+            },
+            "coach": "Professor",
+            "establishment": "Localização"
         },
         "privatePassTemplateInstance": {
             "form": {
@@ -7812,7 +7918,15 @@
         "filters": {
             "credits": "Crédito",
             "expiration": "Validade",
-            "all": "Todos os passes"
+            "all": "Todos os passes",
+            "hasCreditNull": "Sem crédito",
+            "isExpired": "Expirada",
+            "hasCreditLeft": "Com crédito",
+            "notReverted": "Fatura não cancelada",
+            "reverted": "Fatura cancelada",
+            "isValidToday": "Válida",
+            "invoice": "Fatura",
+            "isActive": "Ativa"
         },
         "popup": {
             "end": "Hora de fim",
@@ -7821,7 +7935,7 @@
             "validate": "Confirmar"
         },
         "searshAppointmentPass": "Procurar um passe de marcação",
-        "search": "Procurar uma sessão",
+        "search": "Procurar uma marcação",
         "privatePassTemplate": {
             "actions": {
                 "create": "Criar um passe partilhado"
@@ -7852,7 +7966,86 @@
                 "companySharedWithTitle": "Partilhar com os outros estúdios:"
             }
         },
-        "seeAll": "Ver tudo"
+        "seeAll": "Ver tudo",
+        "resource": {
+            "unGroup": "Nenhum",
+            "allocationWarning": {
+                "establishment": "Este sala não está disponível de momento",
+                "continue": "Tem a certeza de que pretende adiar esta marcação ?",
+                "loading": "Verificar a disponibilidade de faixas horárias",
+                "showCalendar": "Ver o calendário",
+                "cancel": "Cancelar",
+                "title": "Não se encontra disponível",
+                "coach": "Este professor não está disponível neste horário",
+                "resource": "Atenção, {{ resource }} não está disponível.\n",
+                "validate": "Confirmar"
+            },
+            "form": {
+                "color": "Código da cor",
+                "actions": {
+                    "submit": "Registar",
+                    "cancel": "Cancelar"
+                }
+            },
+            "datatype": {
+                "associated_coach": "Professor",
+                "private_service": "Geral",
+                "associated_establishment": "Sala",
+                "establishment": "Sala",
+                "coach": "Professor"
+            },
+            "selector": {
+                "title": "Ver disponibilidades"
+            },
+            "groupBy": "Agrupar por"
+        },
+        "selector": {
+            "privateSlot": "Selecionar uma sessão",
+            "privateService": "Selecionar um passe de Marcações"
+        },
+        "pageTitles": {
+            "serviceList": "Apenas por marcação",
+            "calendar": "Calendário",
+            "passList": "Passe de marcações"
+        },
+        "payment": {
+            "address": {
+                "explain": "Introduza oa sua morada",
+                "save": "Registar"
+            }
+        },
+        "slotSearcher": {
+            "selectPrivateSlot": "Selecionar uma sessão",
+            "emptyDateList": "Hoje não existem vagas disponíveis",
+            "selectSession": "Escolher uma sessão",
+            "selectService": "Escolher um serviço",
+            "establishment": "Localização",
+            "previousOffer": "Uma sessão mais recente está disponível em {{- date }} : {{ hour }}",
+            "nextOffer": "Primeira vaga disponível em {{- date }} : {{ hour }}",
+            "searchFirstSlot": "Procurar a primeira vaga disponível",
+            "bookableSlots": {
+                "title": "Vagas disponíveis"
+            },
+            "search": "Procurar uma vaga",
+            "title": "Marcações",
+            "selectCoach": "Todos os professores",
+            "searchSlot": "Procurar uma vaga",
+            "emptyState": "Nenhuma disponibilidade até ao momento",
+            "coach": "Professor"
+        },
+        "marketplace": {
+            "isEmpty": "Nenhuma marcação proposta"
+        },
+        "noPrivateConsumerPass": "Ninguém tem este passe de marcação",
+        "color": {
+            "form": {
+                "cancel": "Cancelar",
+                "title": "Código da cor do professor",
+                "submit": "Registar"
+            }
+        },
+        "noPrivatePass": "Os passes de marcação de consultas permitem aos membros efetuar marcações. Defina as suas tarifas e os termos e condições aqui.",
+        "noPrivateService": "O membro pode marcar uma consulta para a faixa horária escolhida."
     },
     "relationship": {
         "private_consumer_pass_links": {
@@ -8287,7 +8480,10 @@
         },
         "modal": {
             "delete": {
-                "title": "Eliminar uma regra"
+                "title": "Eliminar uma regra",
+                "confirm": "Confirmar",
+                "content": "Ao apagar esta regra, ela será dissociada de todos os professores e sessões aos quais está atualmente atribuída",
+                "cancel": "Cancelar"
             }
         },
         "coach_payment_rules": {
@@ -8366,8 +8562,56 @@
             "base_remuneration_helper": "Este montante será sempre acrescentado ao preço da sessão/marcação",
             "taxeLongHelper": "Ajuda : Todas as percentagens são calculadas sobre o valor marginal de cada reserva, sem impostos. O imposto adicional é aplicado ao valor marginal, bem como a todas as tarifas fixas e bónus.",
             "taxeConciseHelper": "A percentagem de bónus, calculada com base no valor marginal, será deduzida do IVA aplicável.",
-            "fixedBonusbyInterval": "Adicionar um bónus fixo por intervalo"
-        }
+            "fixedBonusbyInterval": "Adicionar um bónus fixo por intervalo",
+            "coaches": "Técnicos",
+            "actions": "Ações",
+            "addNewCoachPaymentRule": "Novo parâmetro de remuneração",
+            "calculationMethod": "Método do cálculo",
+            "name": "Nome"
+        },
+        "tabs": {
+            "appointment": "Marcações",
+            "session": "Aulas de Grupo & Workshops",
+            "groupActivity": "Aulas de Grupo",
+            "workshop": "Workshops",
+            "all": "Todos as modalidades",
+            "groups": "Grupos de remunerações"
+        },
+        "calculation_methods": {
+            "bookings": "Sobre o número de reservas",
+            "margin_value": "Sobre o valor marginal de cada reserva"
+        },
+        "setPaymentRuleSetForCoachFirst": "Em primeiro lugar, atribuir uma regra de remuneração por defeito a este professor.",
+        "select": {
+            "coachPaymentRuleForPrivateService": "Marcações",
+            "placeholderOverride": "Regra por defeito do treinador",
+            "reset": "Utilizar a regra por defeito do treinador",
+            "coachPaymentRuleForSessions": "Aulas de Grupo",
+            "coachPaymentRuleForWorkshops": "Workshops",
+            "placeholder": "Selecionar uma regra de cálculo",
+            "group": "Grupo de remuneração"
+        },
+        "fabButton": {
+            "addNewForGroupActivity": "Aulas de Grupo",
+            "addNewForWorkshop": "Workshops",
+            "addNewPaymentRuleGroup": "Grupo de remuneração",
+            "addNewForSession": "Aulas de grupo & Workshops",
+            "addNewForRDV": "Marcações"
+        },
+        "common": {
+            "pick_a_month": "Escolha um mês",
+            "until": "Fim",
+            "from": "Início"
+        },
+        "calculate": "Calcular",
+        "coaches": "Professores",
+        "cancel": "Cancelar",
+        "title": "Regras do professor {{name}}",
+        "dateTitle": "Intervalo de datas",
+        "label": "Regra de remuneração",
+        "addBonus": "Adicionar uma nova regra",
+        "addNew": "Novo parâmetro de remuneração",
+        "privateSlotLabel": "Marcações"
     },
     "smartList": {
         "tag_rules": {
@@ -11623,7 +11867,20 @@
             "deleteContent": "A métrica será permanentemente eliminada.",
             "title": "Métricas",
             "form": {
-                "minMax": "O valor mínimo não pode ser inferior ao valor máximo"
+                "minMax": "O valor mínimo não pode ser inferior ao valor máximo",
+                "default_valueHelperText": "Valor base da métrica",
+                "general": "Geral",
+                "range": "O valor por defeito não se encontra entre os valores mínimo e máximo ",
+                "addMetric": "adicionar uma métrica",
+                "machine": "Identificador de máquina",
+                "minValue": "Valor mínimo",
+                "minValueHelperText": "Valor mínimo da métrica",
+                "color": "Cor",
+                "noMetric": "Não há registos de métricas",
+                "default_value": "Valor por defeito",
+                "maxValueHelperText": "Valor máximo da métrica",
+                "name": "Nome",
+                "maxValue": "Valor máximo"
             },
             "statistic": "Estatísticas"
         },
@@ -11683,7 +11940,24 @@
             "search": "Pesquisar",
             "add": "adicionar"
         },
-        "requiredField": "este campo é obrigatório"
+        "requiredField": "este campo é obrigatório",
+        "memberProgram": {
+            "actions": {
+                "create": {
+                    "error": "Erro ao atribuir o programa ao membro",
+                    "success": "Programa associado ao membro",
+                    "errorAlreadyExists": "Este membro já participou neste programa"
+                },
+                "disable": {
+                    "error": "Erro ao desagregar o programa",
+                    "success": "Programa de membros desassociados"
+                }
+            },
+            "deleteContent": "Perderá os valores das métricas do programa para este membro",
+            "infoNoMemberProgram": "Este membro não tem atualmente nenhum programa.",
+            "deleteHeader": "Querem mesmo dissociar este programa deste membro?",
+            "infoNoConsumerProgram": "Se ainda não tem um programa, contacte o seu estúdio para começar a acompanhar o seu desempenho !"
+        }
     },
     "ordering": {
         "category": {
@@ -12590,7 +12864,11 @@
                 "disputed": "Pagamento contestado",
                 "succeeded": "Pagamento efetuado com sucesso",
                 "missing_charge": "Não foi efetuada qualquer tentativa de pagamento"
-            }
+            },
+            "label": "Fatura {{ month }}/{{year}}",
+            "noInvoice": "Nenhuma fatura",
+            "sectionTitle": "Minhas faturas",
+            "bill": "Regularizar"
         }
     },
     "tutorial": {

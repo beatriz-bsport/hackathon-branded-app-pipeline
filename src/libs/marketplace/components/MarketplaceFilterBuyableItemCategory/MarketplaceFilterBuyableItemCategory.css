@@ -1,8 +1,6 @@
 .bs-marketplace-filter-buyable-item-category {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
-  margin-bottom: var(--spacing-1);
   gap: var(--spacing-2);
 }
 

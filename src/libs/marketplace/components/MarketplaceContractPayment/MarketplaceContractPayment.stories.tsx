@@ -40,6 +40,8 @@ const defaultArgs = {
   refreshSavedPaymentMethodList: () => {},
   onCancel: () => {},
   onSubmit: () => {},
+  cardBillingDetailsMandatory: true,
+  paymentMethodFetchDone: true,
 };
 
 const ContractPaymentTemplate = (args: Props) => (

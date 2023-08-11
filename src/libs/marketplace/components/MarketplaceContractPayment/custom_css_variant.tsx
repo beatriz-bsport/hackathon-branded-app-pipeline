@@ -76,6 +76,9 @@ const usePropsFromVariation = (
     requestSetupIntentSecret: () => {
       return { data: { client_secret: '' } };
     },
+    companyId: '',
+    cardBillingDetailsMandatory: true,
+    paymentMethodFetchDone: true,
   };
 };
 

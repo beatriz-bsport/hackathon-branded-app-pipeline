@@ -1,3 +1,4 @@
+import Immutable from 'seamless-immutable';
 import {
   MarketplacePaymentMethodBillingDetails,
   MarketplacePaymentMethods,
@@ -11,7 +12,7 @@ export type PaymentMethod = {
   payment_backend_identifier: number;
   additional_info: string;
   is_default: boolean;
-  billing_details: MarketplacePaymentMethodBillingDetails;
+  billing_details: Immutable.ImmutableObject<MarketplacePaymentMethodBillingDetails>;
 };
 
 export type PaymentConfigData = {

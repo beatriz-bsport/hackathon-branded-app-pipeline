@@ -9,6 +9,15 @@
   flex-direction: column;
 }
 
+.bs-contract-payment__container__scroll {
+  height: inherit;
+  overflow-y: auto;
+}
+
+.bs-contract-payment__form {
+  height: 100%;
+}
+
 .bs-contract-payment__general_conditions,
 .bs-contract-payment__pricing {
   display: flex;

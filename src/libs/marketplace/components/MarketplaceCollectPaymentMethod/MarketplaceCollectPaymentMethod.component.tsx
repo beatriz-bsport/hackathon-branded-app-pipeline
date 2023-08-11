@@ -23,6 +23,7 @@ import ErrorIcon from '@material-ui/icons/Error';
 import CheckIcon from '@material-ui/icons/Check';
 import classNames from 'classnames';
 
+import { cloneDeep } from 'lodash';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { useDialogClickAwayListener } from '../../../../hooks/useDialogClickAwayListener';
 import { getStripePkKey } from '../../../theme/selectors';
@@ -42,6 +43,8 @@ import { SelectOptionWithMetaData } from '#components/css-only/Select/Select.com
 
 import './styles.css';
 import { usePaymentMethodBillingDetails } from '#libs/marketplace/hooks';
+import MarketplaceCardBillingDetailsFormFields from './MarketplaceCardBillingDetailsFormFields.component';
+import { PaymentMethod } from '#libs/payment/types';
 
 const stripePromise = loadStripe(getStripePkKey());
 
@@ -55,6 +58,25 @@ export type Props = {
   requestSetupIntentSecret: () => { data: { client_secret: string } };
   onSuccess: (setupIntentResult: SetupIntentResult) => void;
   onCancel: () => void;
+  companyId?: string;
+  selectedSavedPaymentMethodId?: string;
+  savedPaymentMethodList: PaymentMethod[];
+  areInitialBillingDetailsNecessary: boolean;
+  setAreInitialBillingDetailsNecessary: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
+  billingDetails: MarketplacePaymentMethodBillingDetails;
+  setBillingDetails: React.Dispatch<
+    React.SetStateAction<MarketplacePaymentMethodBillingDetails>
+  >;
+  cardBillingDetailsMandatory: boolean;
+  paymentMethodFetchDone: boolean;
+  isContractLegalTermsAccepted: boolean;
+  setInitialBillingDetails: React.Dispatch<
+    React.SetStateAction<MarketplacePaymentMethodBillingDetails>
+  >;
+  initialBillingDetails: MarketplacePaymentMethodBillingDetails;
+  companyCountry?: string;
 };
 
 type PaymentMethodInputProps = {
@@ -124,6 +146,19 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
     requestSetupIntentSecret,
     onCancel,
     onSuccess,
+    companyId,
+    selectedSavedPaymentMethodId,
+    savedPaymentMethodList,
+    setAreInitialBillingDetailsNecessary,
+    areInitialBillingDetailsNecessary,
+    billingDetails,
+    setBillingDetails,
+    cardBillingDetailsMandatory,
+    setInitialBillingDetails,
+    initialBillingDetails,
+    paymentMethodFetchDone,
+    isContractLegalTermsAccepted,
+    companyCountry,
   }) => {
     const [
       isSepaDebitBillingAddressRequired,
@@ -133,24 +168,17 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
     const [stripeErrorCode, setStripeErrorCode] = useState<number>(null);
     const [stripeDeclineCode, setStripeDeclineCode] = useState<number>(null);
     const [clientSecret, setClientSecret] = useState<string>(null);
-    const [billingDetails, setBillingDetails] =
-      useState<MarketplacePaymentMethodBillingDetails>({
-        name: sepaDefaultName ?? '',
-        email: sepaDefaultEmail ?? '',
-        sortCode: '',
-        accountNumber: '',
-        address: {
-          line1: '',
-          line2: '',
-          postalCode: '',
-          city: '',
-          country: 'GB',
-        },
-      });
+
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
 
-    const { t } = useTranslation(['payment', 'stripe', 'marketing', 'login']);
+    const { t } = useTranslation([
+      'payment',
+      'stripe',
+      'marketing',
+      'login',
+      'invoice',
+    ]);
     const stripePaymentMethod: {
       element?: React.ReactElement;
       type: MarketplaceStripeElementType;
@@ -186,8 +214,68 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
           setIsSepaDebitBillingAddressRequired(false);
         }
       },
-      [],
+      [setBillingDetails],
     );
+
+    useEffect(() => {
+      // if company is inside required_company_id, then check initialBillingDetails
+      if (
+        paymentMethodFetchDone &&
+        type === MarketplacePaymentMethods.card &&
+        cardBillingDetailsMandatory
+      ) {
+        setAreInitialBillingDetailsNecessary(
+          !!initialBillingDetails?.name &&
+            !!initialBillingDetails?.address.line1 &&
+            !!initialBillingDetails?.address.postal_code &&
+            !!initialBillingDetails?.address.city &&
+            !!initialBillingDetails?.address.country,
+        );
+      }
+    }, [
+      initialBillingDetails,
+      setAreInitialBillingDetailsNecessary,
+      companyId,
+      paymentMethodFetchDone,
+      type,
+      cardBillingDetailsMandatory,
+    ]);
+
+    useEffect(() => {
+      if (
+        selectedSavedPaymentMethodId &&
+        paymentMethodFetchDone &&
+        cardBillingDetailsMandatory &&
+        type === MarketplacePaymentMethods.card
+      ) {
+        const selectedSavedPaymentMethodBillingDetails =
+          savedPaymentMethodList.find(
+            (paymentMethod) =>
+              paymentMethod.id === selectedSavedPaymentMethodId,
+          )?.billing_details;
+        setInitialBillingDetails(
+          Object.keys(selectedSavedPaymentMethodBillingDetails ?? {}).length
+            ? selectedSavedPaymentMethodBillingDetails
+            : null,
+        );
+        setBillingDetails(
+          Object.keys(selectedSavedPaymentMethodBillingDetails ?? {}).length
+            ? cloneDeep(selectedSavedPaymentMethodBillingDetails)
+            : null,
+        );
+      }
+    }, [
+      paymentMethodFetchDone,
+      selectedSavedPaymentMethodId,
+      savedPaymentMethodList,
+      setBillingDetails,
+      setInitialBillingDetails,
+      setAreInitialBillingDetailsNecessary,
+      cardBillingDetailsMandatory,
+      sepaDefaultEmail,
+      sepaDefaultName,
+      type,
+    ]);
 
     useEffect(() => {
       if (!clientSecret && isOpen) {
@@ -236,15 +324,21 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
         address: {
           line1: '',
           line2: '',
-          postalCode: '',
+          postal_code: '',
           city: '',
-          country: 'GB',
+          country: companyCountry,
         },
       });
       setError(false);
       setSuccess(false);
       onCancel && onCancel();
-    }, [onCancel, sepaDefaultEmail, sepaDefaultName]);
+    }, [
+      onCancel,
+      sepaDefaultEmail,
+      sepaDefaultName,
+      setBillingDetails,
+      companyCountry,
+    ]);
 
     const { dialogRef, modalRef } = useDialogClickAwayListener({
       onDialogClose,
@@ -268,6 +362,18 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
 
         const paymentSetupCardParams = {
           card: element,
+          billing_details: {
+            name: billingDetails.name,
+            email: billingDetails.email,
+            address: {
+              line1: billingDetails.address.line1,
+              line2: billingDetails.address.line2,
+              country: billingDetails.address.country,
+              city: billingDetails.address.city,
+              postal_code: billingDetails.address.postal_code,
+              state: billingDetails.address.state,
+            },
+          },
         };
         const paymentSetupSepaParams = {
           sepa_debit: element,
@@ -294,7 +400,7 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
               line2: billingDetails.address.line2,
               country: billingDetails.address.country,
               city: billingDetails.address.city,
-              postal_code: billingDetails.address.postalCode,
+              postal_code: billingDetails.address.postal_code,
             },
           },
           bacs_debit: {
@@ -353,7 +459,6 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
         onSuccess,
       ],
     );
-
     const countryOptions = useMemo(
       () =>
         LOCALE_LIST.map((localeContainer) => {
@@ -373,6 +478,18 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
 
     return (
       <>
+        {!areInitialBillingDetailsNecessary &&
+          !isOpen &&
+          type === MarketplacePaymentMethods.card &&
+          selectedSavedPaymentMethodId && (
+            <MarketplaceCardBillingDetailsFormFields
+              billingDetails={billingDetails}
+              countryOptions={countryOptions}
+              disabled={processing || !stripe || !isContractLegalTermsAccepted}
+              setBillingDetails={setBillingDetails}
+            />
+          )}
+
         {isOpen && (
           <form
             ref={dialogRef}
@@ -391,105 +508,109 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
                 {t('forms.paymentMethod.collect.content')}
               </p>
 
-              {type === MarketplacePaymentMethods.sepa &&
+              {type === MarketplacePaymentMethods.card &&
                 !error &&
-                !success && (
-                  <div className="bs-collect-payment-method__mandate__fields__container">
-                    <input
-                      required
-                      className="bs-collect-payment-method__mandate__field"
-                      onChange={handleChangeName}
-                      placeholder={t('subscription:mandate.name')}
-                      value={billingDetails.name}
-                    />
-                    <input
-                      required
-                      className="bs-collect-payment-method__mandate__field"
-                      onChange={handleChangeEmail}
-                      placeholder={t('subscription:mandate.email')}
-                      type="email"
-                      value={billingDetails.email}
-                    />
-                  </div>
+                !success &&
+                cardBillingDetailsMandatory && (
+                  <MarketplaceCardBillingDetailsFormFields
+                    billingDetails={billingDetails}
+                    countryOptions={countryOptions}
+                    disabled={processing || !clientSecret || !stripe}
+                    setBillingDetails={setBillingDetails}
+                  />
                 )}
 
-              {type === MarketplacePaymentMethods.bacs &&
-                !error &&
-                !success && (
-                  <div className="bs-collect-payment-method__mandate__fields__container">
-                    <input
-                      required
-                      className="bs-collect-payment-method__mandate__field"
-                      onChange={handleChangeName}
-                      placeholder={t('subscription:mandate.name')}
-                      value={billingDetails.name}
-                    />
-                    <input
-                      required
-                      className="bs-collect-payment-method__mandate__field"
-                      onChange={handleChangeEmail}
-                      placeholder={t('subscription:mandate.email')}
-                      type="email"
-                      value={billingDetails.email}
-                    />
-                    <Select
-                      fullWidth
-                      classes={{ buttonContainer: 'bs-select__button__square' }}
-                      onChange={handleChangeCountry}
-                      options={countryOptions}
-                      placeholder={t('translation:form.address.country')}
-                      renderListItem={(
-                        option: SelectOptionWithMetaData<CountryMetaData>,
-                      ) => <CountryOption option={option} />}
-                      value={billingDetails.address.country}
-                    />
-                    <input
-                      required
-                      className="bs-collect-payment-method__mandate__field"
-                      onChange={handleChangeLineOne}
-                      placeholder={t(
-                        'marketing:customForm.field.address_line_1',
-                      )}
-                      value={billingDetails.address.line1}
-                    />
-                    <input
-                      className="bs-collect-payment-method__mandate__field"
-                      onChange={handleChangeLineTwo}
-                      placeholder={t(
-                        'marketing:customForm.field.address_line_2',
-                      )}
-                      value={billingDetails.address.line2}
-                    />
-                    <input
-                      required
-                      className="bs-collect-payment-method__mandate__field"
-                      onChange={handleChangePostalCode}
-                      placeholder={t('marketing:customForm.field.zipcode')}
-                      value={billingDetails.address.postalCode}
-                    />
-                    <input
-                      required
-                      className="bs-collect-payment-method__mandate__field"
-                      onChange={handleChangeCity}
-                      placeholder={t('marketing:customForm.field.city')}
-                      value={billingDetails.address.city}
-                    />
-                    <input
-                      required
-                      className="bs-collect-payment-method__mandate__field"
-                      onChange={handleChangeSortCode}
-                      placeholder={t('subscription:mandate.sortCode')}
-                      value={billingDetails.sortCode}
-                    />
-                    <input
-                      required
-                      className="bs-collect-payment-method__mandate__field"
-                      onChange={handleChangeAccountNumber}
-                      placeholder={t('subscription:mandate.accountNumber')}
-                      value={billingDetails.accountNumber}
-                    />
-                  </div>
-                )}
+              {type === MarketplacePaymentMethods.sepa && !error && !success && (
+                <div className="bs-collect-payment-method__mandate__fields__container">
+                  <input
+                    required
+                    className="bs-collect-payment-method__mandate__field"
+                    onChange={handleChangeName}
+                    placeholder={t('subscription:mandate.name')}
+                    value={billingDetails.name}
+                  />
+                  <input
+                    required
+                    className="bs-collect-payment-method__mandate__field"
+                    onChange={handleChangeEmail}
+                    placeholder={t('subscription:mandate.email')}
+                    type="email"
+                    value={billingDetails.email}
+                  />
+                </div>
+              )}
+
+              {type === MarketplacePaymentMethods.bacs && !error && !success && (
+                <div className="bs-collect-payment-method__mandate__fields__container">
+                  <input
+                    required
+                    className="bs-collect-payment-method__mandate__field"
+                    onChange={handleChangeName}
+                    placeholder={t('subscription:mandate.name')}
+                    value={billingDetails.name}
+                  />
+                  <input
+                    required
+                    className="bs-collect-payment-method__mandate__field"
+                    onChange={handleChangeEmail}
+                    placeholder={t('subscription:mandate.email')}
+                    type="email"
+                    value={billingDetails.email}
+                  />
+                  <Select
+                    fullWidth
+                    classes={{ buttonContainer: 'bs-select__button__square' }}
+                    onChange={handleChangeCountry}
+                    options={countryOptions}
+                    placeholder={t('translation:form.address.country')}
+                    renderListItem={(
+                      option: SelectOptionWithMetaData<CountryMetaData>,
+                    ) => <CountryOption option={option} />}
+                    value={billingDetails.address.country}
+                  />
+                  <input
+                    required
+                    className="bs-collect-payment-method__mandate__field"
+                    onChange={handleChangeLineOne}
+                    placeholder={t('marketing:customForm.field.address_line_1')}
+                    value={billingDetails.address.line1}
+                  />
+                  <input
+                    className="bs-collect-payment-method__mandate__field"
+                    onChange={handleChangeLineTwo}
+                    placeholder={t('marketing:customForm.field.address_line_2')}
+                    value={billingDetails.address.line2}
+                  />
+                  <input
+                    required
+                    className="bs-collect-payment-method__mandate__field"
+                    onChange={handleChangePostalCode}
+                    placeholder={t('marketing:customForm.field.zipcode')}
+                    value={billingDetails.address.postal_code}
+                  />
+                  <input
+                    required
+                    className="bs-collect-payment-method__mandate__field"
+                    onChange={handleChangeCity}
+                    placeholder={t('marketing:customForm.field.city')}
+                    value={billingDetails.address.city}
+                  />
+                  <input
+                    required
+                    className="bs-collect-payment-method__mandate__field"
+                    onChange={handleChangeSortCode}
+                    placeholder={t('subscription:mandate.sortCode')}
+                    value={billingDetails.sortCode}
+                  />
+                  <input
+                    required
+                    className="bs-collect-payment-method__mandate__field"
+                    onChange={handleChangeAccountNumber}
+                    placeholder={t('subscription:mandate.accountNumber')}
+                    value={billingDetails.accountNumber}
+                  />
+                </div>
+              )}
 
               {error && (
                 <div className="bs-collect-payment-method__info__container">

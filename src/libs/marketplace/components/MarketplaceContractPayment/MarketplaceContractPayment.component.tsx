@@ -21,12 +21,16 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 import classNames from 'classnames';
+import { cloneDeep } from 'lodash';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { getCurrencyCode } from '#libs/theme/selectors';
+import { getCompanyCountry, getCurrencyCode } from '#libs/theme/selectors';
 import Radio from '#components/css-only/Radio';
 import MarketplaceCollectPaymentMethod from '#libs/marketplace/components/MarketplaceCollectPaymentMethod';
 import MarketplaceContractPaymentMethodList from '#libs/marketplace/components/MarketplaceContractPaymentMethodList';
-import { MarketplacePaymentMethods } from '#libs/marketplace/types';
+import {
+  MarketplacePaymentMethodBillingDetails,
+  MarketplacePaymentMethods,
+} from '#libs/marketplace/types';
 import { Contract } from '#libs/subscription/types';
 import { PaymentMethod } from '#libs/payment/types';
 import { OptionCallback } from '../../../../state/types';
@@ -37,6 +41,7 @@ import './styles.css';
 import MarketplaceContractPaymentInfos from './sections/MarketplaceContractPaymentInfos';
 import MarketplaceContractPaymentPricing from './sections/MarketplaceContractPaymentPricing.component';
 import MarketplaceContractPaymentCoupon from './sections/MarketplaceContractPaymentCoupon';
+import { updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI } from '#libs/payment/api';
 
 export type Props = {
   contract: Contract;
@@ -50,7 +55,7 @@ export type Props = {
   sepaDefaultEmail?: string;
   onlinePaymentEnabled?: boolean;
   isExcludingTax?: boolean;
-  detachPaymentMethod: (id: string, onSuccess: () => void) => void;
+  detachPaymentMethod: (id: string, options: OptionCallback) => void;
   setBillingStartDate: (value: string) => void;
   setAcceptContractLegalTerms: (checked: boolean) => void;
   onOpenContractTermsDialog: () => void;
@@ -65,6 +70,9 @@ export type Props = {
     options?: OptionCallback,
     coupon?: string,
   ) => void;
+  companyId: string;
+  cardBillingDetailsMandatory: boolean;
+  paymentMethodFetchDone: boolean;
 };
 
 const MarketplaceContractPayment: React.FC<Props> = React.memo(
@@ -88,7 +96,11 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
     refreshSavedPaymentMethodList,
     onCancelContractPayment,
     onSubmitContractPayment,
+    companyId,
+    cardBillingDetailsMandatory,
+    paymentMethodFetchDone,
   }) => {
+    const companyCountry = getCompanyCountry() || '';
     const [selectedSavedPaymentMethodId, setSelectedSavedPaymentMethodId] =
       useState<string>(null);
     const [collectPaymentMethodIsOpen, setCollectPaymentMethodIsOpen] =
@@ -98,6 +110,41 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
     const [isCouponFormOpen, setIsCouponFormOpen] = useState(false);
     const [paymentMethod, setPaymentMethod] =
       useState<MarketplacePaymentMethods | null>(null);
+    const [
+      areInitialBillingDetailsNecessary,
+      setAreInitialBillingDetailsNecessary,
+    ] = useState(true);
+    const [initialBillingDetails, setInitialBillingDetails] =
+      useState<MarketplacePaymentMethodBillingDetails>({
+        name: sepaDefaultName ?? '',
+        email: sepaDefaultEmail ?? '',
+        sortCode: '',
+        accountNumber: '',
+        address: {
+          line1: '',
+          line2: '',
+          postal_code: '',
+          city: '',
+          country: companyCountry,
+          state: '',
+        },
+      });
+
+    const [billingDetails, setBillingDetails] =
+      useState<MarketplacePaymentMethodBillingDetails>({
+        name: sepaDefaultName ?? '',
+        email: sepaDefaultEmail ?? '',
+        sortCode: '',
+        accountNumber: '',
+        address: {
+          line1: '',
+          line2: '',
+          postal_code: '',
+          city: '',
+          country: companyCountry,
+          state: '',
+        },
+      });
 
     const { t } = useTranslation([
       'common',
@@ -133,8 +180,20 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
         const selectedPaymentMethodList = savedPaymentMethodList?.filter(
           (savedPaymentMethod) => savedPaymentMethod.type === paymentMethod,
         );
+        const selectedPaymentMethodByDefault = selectedPaymentMethodList[0];
         if (selectedPaymentMethodList?.length) {
-          setSelectedSavedPaymentMethodId(selectedPaymentMethodList[0].id);
+          setSelectedSavedPaymentMethodId(selectedPaymentMethodByDefault.id);
+          if (
+            selectedPaymentMethodByDefault.type ===
+            MarketplacePaymentMethods.card
+          ) {
+            setInitialBillingDetails(
+              selectedPaymentMethodByDefault.billing_details,
+            );
+            setBillingDetails(
+              cloneDeep(selectedPaymentMethodByDefault.billing_details),
+            );
+          }
         }
       }
     }, [
@@ -143,6 +202,8 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
       paymentMethod,
       savedPaymentMethodList,
       savedPaymentMethodList?.length,
+      sepaDefaultName,
+      sepaDefaultEmail,
     ]);
 
     const handleOnSubmit: FormEventHandler<HTMLFormElement> = useCallback(
@@ -152,6 +213,23 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
           moment(),
           'month',
         );
+
+        if (
+          isDateValid &&
+          !areInitialBillingDetailsNecessary &&
+          selectedSavedPaymentMethodId &&
+          paymentMethod === MarketplacePaymentMethods.card
+        ) {
+          await updatePaymentMethodBillingDetailsAPI({
+            payment_method_id: selectedSavedPaymentMethodId,
+            billing_details: {
+              name: billingDetails.name,
+              email: billingDetails.email,
+              address: billingDetails.address,
+            },
+            company: parseInt(companyId),
+          });
+        }
 
         if (isDateValid) {
           onSubmitContractPayment(
@@ -170,6 +248,10 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
         onSubmitContractPayment,
         selectedSavedPaymentMethodId,
         voucher,
+        areInitialBillingDetailsNecessary,
+        billingDetails,
+        companyId,
+        paymentMethod,
       ],
     );
 
@@ -186,8 +268,22 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
     );
 
     const handleOpenCollectPaymentMethodDialog = useCallback(() => {
+      setBillingDetails({
+        name: sepaDefaultName ?? '',
+        email: sepaDefaultEmail ?? '',
+        sortCode: '',
+        accountNumber: '',
+        address: {
+          line1: '',
+          line2: '',
+          postal_code: '',
+          city: '',
+          country: companyCountry,
+          state: '',
+        },
+      });
       setCollectPaymentMethodIsOpen(true);
-    }, []);
+    }, [sepaDefaultEmail, sepaDefaultName, companyCountry]);
 
     const handleCloseCollectPaymentMethodDialog = useCallback(() => {
       setCollectPaymentMethodIsOpen(false);
@@ -247,7 +343,9 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
 
     const handleDetachPaymentMethod = useCallback(
       (id: string) => {
-        detachPaymentMethod(id, () => setSelectedSavedPaymentMethodId(null));
+        detachPaymentMethod(id, {
+          onSuccess: () => setSelectedSavedPaymentMethodId(null),
+        });
       },
       [detachPaymentMethod],
     );
@@ -298,12 +396,40 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
       [onlinePaymentEnabled, paymentMethod],
     );
 
+    const areBillingDetailsProvided =
+      cardBillingDetailsMandatory &&
+      paymentMethod === MarketplacePaymentMethods.card
+        ? billingDetails?.name &&
+          billingDetails?.address.line1 &&
+          billingDetails?.address.postal_code &&
+          billingDetails?.address.city &&
+          billingDetails?.address.country
+        : true;
+
+    const submitDisabled =
+      !areBillingDetailsProvided ||
+      !isContractLegalTermsAccepted ||
+      isLoading ||
+      !selectedSavedPaymentMethodId;
+
     return (
       <form
-        className={classNames('bs-contract-payment__form')}
+        className={classNames({
+          'bs-contract-payment__form':
+            !areInitialBillingDetailsNecessary && selectedSavedPaymentMethodId,
+        })}
         onSubmit={handleOnSubmit}
       >
-        <div className="bs-contract-payment__container">
+        <div
+          className={classNames(
+            {
+              'bs-contract-payment__container__scroll':
+                !areInitialBillingDetailsNecessary &&
+                selectedSavedPaymentMethodId,
+            },
+            'bs-contract-payment__container',
+          )}
+        >
           <MarketplaceContractPaymentInfos
             billingStartDate={billingStartDate}
             contractName={contract?.name}
@@ -396,24 +522,42 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
                 selectedPaymentMethod={selectedSavedPaymentMethodId}
               />
 
+              <MarketplaceCollectPaymentMethod
+                areInitialBillingDetailsNecessary={
+                  areInitialBillingDetailsNecessary
+                }
+                billingDetails={billingDetails}
+                cardBillingDetailsMandatory={cardBillingDetailsMandatory}
+                companyCountry={companyCountry}
+                companyId={companyId}
+                initialBillingDetails={initialBillingDetails}
+                isContractLegalTermsAccepted={isContractLegalTermsAccepted}
+                isOpen={collectPaymentMethodIsOpen}
+                onCancel={handleCloseCollectPaymentMethodDialog}
+                onSuccess={handleSubmitCollectPaymentMethod}
+                paymentMethodFetchDone={paymentMethodFetchDone}
+                requestSetupIntentSecret={requestSetupIntentSecret}
+                savedPaymentMethodList={savedPaymentMethodList}
+                selectedSavedPaymentMethodId={selectedSavedPaymentMethodId}
+                sepaDefaultEmail={sepaDefaultEmail}
+                sepaDefaultName={sepaDefaultName}
+                setAreInitialBillingDetailsNecessary={
+                  setAreInitialBillingDetailsNecessary
+                }
+                setBillingDetails={setBillingDetails}
+                setInitialBillingDetails={setInitialBillingDetails}
+                type={paymentMethod}
+              />
+
               <button
                 className="bs-contract-payment__payment__methods__add"
+                disabled={!isContractLegalTermsAccepted}
                 onClick={handleOpenCollectPaymentMethodDialog}
                 type="button"
               >
                 <AddIcon />
                 {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
               </button>
-
-              <MarketplaceCollectPaymentMethod
-                isOpen={collectPaymentMethodIsOpen}
-                onCancel={handleCloseCollectPaymentMethodDialog}
-                onSuccess={handleSubmitCollectPaymentMethod}
-                requestSetupIntentSecret={requestSetupIntentSecret}
-                sepaDefaultEmail={sepaDefaultEmail}
-                sepaDefaultName={sepaDefaultName}
-                type={paymentMethod}
-              />
             </div>
           )}
 
@@ -427,11 +571,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
             </button>
             <button
               className="bs-contract-payment__submit__button"
-              disabled={
-                !isContractLegalTermsAccepted ||
-                isLoading ||
-                !selectedSavedPaymentMethodId
-              }
+              disabled={submitDisabled}
               type="submit"
             >
               {isLoading ? (

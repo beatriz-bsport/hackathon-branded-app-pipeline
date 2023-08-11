@@ -8,10 +8,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { AxiosResponse } from 'axios';
+import { isEqual } from 'lodash';
 import { OptionCallback } from '../../../../state/types';
 import PaymentMethodListItem from '../PaymentMethodListItem.component';
 import CollectPaymentMethod from '../CollectPaymentMethod.component';
 import { PaymentMethod } from '../../types';
+import CardBillingDetailsForm from '../payment-backend-stripe/CardBillingDetailsForm';
+import { MarketplacePaymentMethodBillingDetails } from '#libs/marketplace/types';
 
 type Props = {
   companyId?: number;
@@ -20,22 +23,46 @@ type Props = {
   selectedSavedPaymentMethodId?: string;
   onSelect: (paymentMethodId: string) => void;
   showEmpty?: boolean | null;
-
   refreshSavedPaymentMethodList?: () => void;
-
   requestSetupIntentSecret?: () => Promise<AxiosResponse<any>>;
   paymentMethodType?: string;
   setHasDetached?: (paymentMethodId: string) => void;
   detachPaymentMethodLoading?: boolean;
   detachPaymentMethod?: (pm_id: string, options?: OptionCallback) => void;
   onlyDefault?: boolean;
-
   sepaDefaultName?: string;
   sepaDefaultEmail?: string;
   onlinePaymentEnabled?: boolean;
+  cardBillingDetailsMandatory?: boolean;
+  areInitialBillingDetailsNecessary?: boolean;
+  billingDetails?: MarketplacePaymentMethodBillingDetails;
+  setBillingDetails?: React.Dispatch<
+    React.SetStateAction<MarketplacePaymentMethodBillingDetails>
+  >;
 };
 
-export const PaymentMethodList = (props: Props) => {
+export const PaymentMethodList = ({
+  companyId,
+  disabled,
+  savedPaymentMethodList,
+  selectedSavedPaymentMethodId,
+  onSelect,
+  showEmpty,
+  refreshSavedPaymentMethodList,
+  requestSetupIntentSecret,
+  paymentMethodType,
+  setHasDetached,
+  detachPaymentMethodLoading,
+  detachPaymentMethod,
+  onlyDefault,
+  sepaDefaultName,
+  sepaDefaultEmail,
+  onlinePaymentEnabled,
+  cardBillingDetailsMandatory,
+  areInitialBillingDetailsNecessary,
+  billingDetails,
+  setBillingDetails,
+}: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['payment']);
   const theme = useTheme();
@@ -44,42 +71,54 @@ export const PaymentMethodList = (props: Props) => {
     React.useState(false);
 
   if (
-    !props.showEmpty &&
-    (!props.savedPaymentMethodList || !props.savedPaymentMethodList.length)
+    !showEmpty &&
+    (!savedPaymentMethodList || !savedPaymentMethodList.length)
   ) {
     return null;
   }
 
-  const relevantSavedPaymentMethodList = props.paymentMethodType
-    ? (props.savedPaymentMethodList || []).filter(
-        (pm) => props.paymentMethodType === pm.type,
+  const relevantSavedPaymentMethodList = paymentMethodType
+    ? (savedPaymentMethodList || []).filter(
+        (pm) => paymentMethodType === pm.type,
       )
-    : props.savedPaymentMethodList;
+    : savedPaymentMethodList;
 
   const defaultPaymentMethod = relevantSavedPaymentMethodList.find(
     (pm) => pm.is_default,
   );
 
-  const onlinePaymentEnabled = props.onlinePaymentEnabled !== false;
+  const onlinePaymentEnabledValue = onlinePaymentEnabled !== false;
 
   return (
     <div className={classes.container}>
-      {(props.onlyDefault && defaultPaymentMethod
+      {(onlyDefault && defaultPaymentMethod
         ? [defaultPaymentMethod]
         : relevantSavedPaymentMethodList
       ).map((pm) => (
-        <PaymentMethodListItem
-          key={pm.id}
-          detachPaymentMethod={props.detachPaymentMethod}
-          detachPaymentMethodLoading={props.detachPaymentMethodLoading}
-          disabled={props.disabled}
-          onClick={props.onSelect && (() => props.onSelect(pm.id))}
-          paymentMethod={pm}
-          selected={pm.id === props.selectedSavedPaymentMethodId}
-          setHasDetached={props.setHasDetached}
-        />
+        <React.Fragment key={pm.id}>
+          <PaymentMethodListItem
+            detachPaymentMethod={detachPaymentMethod}
+            detachPaymentMethodLoading={detachPaymentMethodLoading}
+            disabled={disabled}
+            onClick={onSelect && (() => onSelect(pm.id))}
+            paymentMethod={pm}
+            selected={pm.id === selectedSavedPaymentMethodId}
+            setHasDetached={setHasDetached}
+          />
+          {!areInitialBillingDetailsNecessary &&
+            cardBillingDetailsMandatory &&
+            pm.type === 'card' &&
+            pm.id === selectedSavedPaymentMethodId &&
+            !!pm.billing_details && (
+              <CardBillingDetailsForm
+                billingDetails={billingDetails}
+                disabled={disabled}
+                setBillingDetails={setBillingDetails}
+              />
+            )}
+        </React.Fragment>
       ))}
-      {!!props.requestSetupIntentSecret && onlinePaymentEnabled && (
+      {!!requestSetupIntentSecret && onlinePaymentEnabledValue && (
         <ListItem button onClick={() => setCollectPaymentMethodIsOpen(true)}>
           <ListItemIcon>
             <AddIcon />
@@ -91,14 +130,15 @@ export const PaymentMethodList = (props: Props) => {
       )}
       {collectPaymentMethodIsOpen && (
         <CollectPaymentMethod
-          companyId={props.companyId}
-          defaultEmail={props.sepaDefaultEmail}
-          defaultName={props.sepaDefaultName}
+          cardBillingDetailsMandatory={cardBillingDetailsMandatory}
+          companyId={companyId}
+          defaultEmail={sepaDefaultEmail}
+          defaultName={sepaDefaultName}
           fullScreen={isMobile}
           onClose={() => setCollectPaymentMethodIsOpen(false)}
-          paymentMethodType={props.paymentMethodType}
-          refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
-          requestSetupIntentSecret={props.requestSetupIntentSecret}
+          paymentMethodType={paymentMethodType}
+          refreshSavedPaymentMethodList={refreshSavedPaymentMethodList}
+          requestSetupIntentSecret={requestSetupIntentSecret}
         />
       )}
     </div>
@@ -119,4 +159,4 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default React.memo(PaymentMethodList);
+export default React.memo(PaymentMethodList, isEqual);

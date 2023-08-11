@@ -66,6 +66,8 @@ type Props = {
   noMargin?: boolean;
   required?: boolean;
   defaultValue?: string;
+  disabled?: boolean;
+  fullWidth?: boolean;
 };
 
 type Locale = {
@@ -413,12 +415,12 @@ export const CountrySelector = (props: Props) => {
     !!props.distinctCountry,
     !!props.hideLang,
   );
-
   return (
     <FormControl
       className={classnames(classes.formControl, {
         [classes.formControlMargin]: !props.noMargin,
       })}
+      fullWidth={props.fullWidth}
     >
       {!!props.label && (
         <InputLabel
@@ -430,6 +432,7 @@ export const CountrySelector = (props: Props) => {
       )}
       <Select
         defaultValue={props.defaultValue}
+        disabled={props.disabled}
         onChange={props.onChange}
         required={props.required}
         value={props.value}

@@ -210,23 +210,27 @@ export enum MarketplaceStripeElementType {
   card = 'card',
   sepa = 'iban',
 }
-
+export type BillingDetails = {
+  name: string;
+  email?: string;
+  phone?: string;
+  address: {
+    line1: string;
+    line2?: string;
+    city: string;
+    state?: string;
+    postal_code: string;
+    country: string;
+  };
+};
 /**
  *  @description Type for the state used by the React component
  * responsible for managing the collection of payment method information.
  */
-export type MarketplacePaymentMethodBillingDetails = {
-  name: string;
-  email: string;
+
+export type MarketplacePaymentMethodBillingDetails = BillingDetails & {
   sortCode?: string;
   accountNumber?: string;
-  address: {
-    line1: string;
-    line2?: string;
-    postalCode?: string;
-    city?: string;
-    country: string;
-  };
 };
 
 export type OfferFeature =

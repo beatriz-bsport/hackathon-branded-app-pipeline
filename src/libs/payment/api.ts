@@ -8,6 +8,7 @@ import {
   buildUrlParams,
 } from '../../http';
 import { PaymentGroup, PaymentMethod } from './types';
+import type { BillingDetails } from '#libs/marketplace/types';
 
 export const fetchPaymentMethodList = async (
   params: any = {},
@@ -16,6 +17,19 @@ export const fetchPaymentMethodList = async (
     `${API_V1_URI}/payment/payment_method/${buildUrlParams(params)}`,
   );
 };
+
+export const updatePaymentMethodBillingDetails = async (data: {
+  member?: number;
+  payment_method_id: string;
+  billing_details: BillingDetails;
+  company?: number;
+}): Promise<AxiosResponse> => {
+  return postAuth(
+    `${API_V1_URI}/payment/payment_method/modify_billing_details_payment_method/`,
+    data,
+  );
+};
+
 export const detachPaymentMethod = async (
   params: { member?: number; payment_method_id: string; company?: number } = {
     payment_method_id: '',
@@ -27,6 +41,7 @@ export const detachPaymentMethod = async (
     company: params.company,
   });
 };
+
 export const fetchOnSpotPaymentReport = async (params: any = {}) => {
   return getAuth(
     `${API_URI}/reporting/on-spot-payment/${buildUrlParams(params)}`,

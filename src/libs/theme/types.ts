@@ -110,6 +110,8 @@ export type Theme = {
   is_sequential_marketing_active: boolean;
   display_new_checkout_flow: boolean;
   is_referral_program_activated: boolean;
+  force_billing_details_on_cards: boolean;
+  payment_method_available_recurringly: number[];
 };
 
 export type ThemeState = {

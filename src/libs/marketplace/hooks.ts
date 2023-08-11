@@ -369,7 +369,7 @@ export const usePaymentMethodBillingDetails = (
 
   const handleChangePostalCode = useCallback(
     ({ target }: ChangeEvent<HTMLInputElement>) =>
-      setNewBillingDetails(target.value, 'address.postalCode'),
+      setNewBillingDetails(target.value, 'address.postal_code'),
     [setNewBillingDetails],
   );
 
@@ -396,6 +396,18 @@ export const usePaymentMethodBillingDetails = (
     [setNewBillingDetails],
   );
 
+  const handleChangePhoneNumber = useCallback(
+    ({ target }: ChangeEvent<HTMLInputElement>) =>
+      setNewBillingDetails(target.value, 'phone'),
+    [setNewBillingDetails],
+  );
+
+  const handleChangeState = useCallback(
+    ({ target }: ChangeEvent<HTMLInputElement>) =>
+      setNewBillingDetails(target.value, 'address.state'),
+    [setNewBillingDetails],
+  );
+
   return {
     setNewBillingDetails,
     handleChangeName,
@@ -407,5 +419,7 @@ export const usePaymentMethodBillingDetails = (
     handleChangeCountry,
     handleChangeSortCode,
     handleChangeAccountNumber,
+    handleChangePhoneNumber,
+    handleChangeState,
   };
 };

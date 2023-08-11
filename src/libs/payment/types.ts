@@ -1,4 +1,7 @@
-import { MarketplacePaymentMethods } from '#libs/marketplace/types';
+import {
+  MarketplacePaymentMethodBillingDetails,
+  MarketplacePaymentMethods,
+} from '#libs/marketplace/types';
 
 export type PaymentMethod = {
   type: MarketplacePaymentMethods;
@@ -8,6 +11,7 @@ export type PaymentMethod = {
   payment_backend_identifier: number;
   additional_info: string;
   is_default: boolean;
+  billing_details: MarketplacePaymentMethodBillingDetails;
 };
 
 export type PaymentConfigData = {

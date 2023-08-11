@@ -25,17 +25,14 @@ import { withTranslation, TFunction } from 'react-i18next';
 import type { FeatureList } from '#libs/company/types';
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
 import PaymentStripeTerminal from '#libs/terminal/components/PaymentStripeTerminal.component';
-import { getStripePkKey } from '../../../theme/selectors';
+import { getCompanyCountry, getStripePkKey } from '../../../theme/selectors';
 import StripeErrorCode from './StripeErrorCode.component';
-
+import type { BillingDetails } from '../../../marketplace/types';
 import { AVAILABLE_PAYMENT_METHOD_TYPE } from './helpers';
 import type { StripeReader } from '#libs/terminal/types';
 import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
-import CardBillingDetailsForm, {
-  BillingDetails,
-  ADDRESS_REQUIRED_COMPANY_ID,
-} from '../payment-backend-stripe/CardBillingDetailsForm';
+import CardBillingDetailsForm from '../payment-backend-stripe/CardBillingDetailsForm';
 
 const stripePromise = loadStripe(getStripePkKey());
 
@@ -53,8 +50,9 @@ type Props = {
   stripeReaders: StripeReader[],
   addViaTerminal?: boolean,
   labelClose?: string,
-  companyId?: number,
   defaultName?: string,
+  defaultEmail?: string,
+  cardBillingDetailsMandatory: boolean,
 };
 
 const PAYMENT_METHOD = AVAILABLE_PAYMENT_METHOD_TYPE.card;
@@ -74,9 +72,11 @@ export class CollectPaymentMethod extends React.Component<Props> {
     displayStripeTerminal: false,
     billingDetails: {
       name: this.props.defaultName || '',
+      email: this.props.defaultEmail || '',
       address: {
         line1: '',
         postal_code: '',
+        country: getCompanyCountry() || '',
       },
     },
   };
@@ -116,7 +116,7 @@ export class CollectPaymentMethod extends React.Component<Props> {
     this.props.stripe[PAYMENT_METHOD.method](this.state.clientSecret, {
       payment_method: {
         card: element,
-        ...(this.props.companyId === ADDRESS_REQUIRED_COMPANY_ID
+        ...(this.props.cardBillingDetailsMandatory
           ? { billing_details: this.state.billingDetails }
           : {}),
       },
@@ -151,11 +151,13 @@ export class CollectPaymentMethod extends React.Component<Props> {
     const { classes, fullScreen } = this.props;
     const dialogOffset = fullScreen ? '0%' : '50%';
 
-    const areBillingDetailsProvided =
-      this.props.companyId !== ADDRESS_REQUIRED_COMPANY_ID ||
-      (this.state.billingDetails.name &&
+    const areBillingDetailsProvided = this.props.cardBillingDetailsMandatory
+      ? this.state.billingDetails.name &&
         this.state.billingDetails.address.line1 &&
-        this.state.billingDetails.address.postal_code);
+        this.state.billingDetails.address.postal_code &&
+        this.state.billingDetails.address.city &&
+        this.state.billingDetails.address.country
+      : true;
 
     return (
       <Wrapper variant={this.props.variant}>
@@ -261,7 +263,7 @@ export class CollectPaymentMethod extends React.Component<Props> {
                   )}
                   {!this.state.error && !this.state.success && (
                     <form onSubmit={this.handleSubmit}>
-                      {this.props.companyId === ADDRESS_REQUIRED_COMPANY_ID && (
+                      {this.props.cardBillingDetailsMandatory && (
                         <CardBillingDetailsForm
                           billingDetails={this.state.billingDetails}
                           disabled={

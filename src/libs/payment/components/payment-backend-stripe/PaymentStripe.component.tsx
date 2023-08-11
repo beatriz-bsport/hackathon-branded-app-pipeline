@@ -391,6 +391,7 @@ const PaymentStripe: React.FC<
                 basketTotalPriceCts={basketTotalPriceCts}
                 checkItemsBasket={checkItemsBasket}
                 clientSecret={clientSecret}
+                companyCountry={companyCountry}
                 companyId={companyId}
                 createPendingBookingsIfNecessary={
                   createPendingBookingsIfNecessary

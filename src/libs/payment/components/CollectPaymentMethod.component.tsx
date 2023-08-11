@@ -53,6 +53,7 @@ export const CollectPaymentMethod = (props: Props) => {
         addViaTerminal={!!props.addViaTerminal}
         companyId={props.companyId}
         content={props.content}
+        defaultEmail={props.defaultEmail}
         defaultName={props.defaultName}
         fullScreen={props.fullScreen}
         labelClose={props.labelClose}

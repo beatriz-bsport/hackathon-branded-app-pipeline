@@ -1,6 +1,6 @@
 import React, { useImperativeHandle, forwardRef } from 'react';
 import classNames from 'classnames';
-
+import Immutable from 'seamless-immutable';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -18,14 +18,14 @@ import PaymentMethodList from '../payment-method-list/PaymentMethodList.componen
 import {
   blockPendingBasket as blockPendingBasketAPI,
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
+  updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '../../api';
 import UseInternalAccountForm from '#libs/payment/components/UseInternalAccountForm.component';
 import PopOver from '#components/Popover';
-import CardBillingDetailsForm, {
-  ADDRESS_REQUIRED_COMPANY_ID,
-} from './CardBillingDetailsForm';
 import { OptionCallback } from '../../../../state/types';
+import type { BillingDetails } from '#libs/marketplace/types';
+import CardBillingDetailsForm from './CardBillingDetailsForm';
 
 type Props = {
   memberId: number;
@@ -63,6 +63,8 @@ type Props = {
   children?: React.ReactNode;
   forceButtonDisplay?: boolean;
   hideSaveForLater?: boolean;
+  cardBillingDetailsMandatory: boolean;
+  companyCountry?: string;
 };
 
 const CARD_ELEMENT_OPTIONS = {
@@ -134,6 +136,8 @@ const StripePaymentCard = forwardRef(
       children,
       forceButtonDisplay,
       hideSaveForLater,
+      cardBillingDetailsMandatory,
+      companyCountry,
     }: Props,
     ref,
   ) => {
@@ -148,17 +152,29 @@ const StripePaymentCard = forwardRef(
     const [saveForLater, setSaveForLater] = React.useState(false);
     const [paymentMethodList, setPaymentMethodList] = React.useState([]);
     const [paymentMethodSelected, setPaymentMethodSelected] =
-      React.useState(null);
+      React.useState<string>(null);
     const [hasDetached, setHasDetached] = React.useState(null);
-    const [addPaymentMethod, setAddPaymentMethod] = React.useState(true);
+    const [addPaymentMethod, setAddPaymentMethod] = React.useState(false);
 
-    const [billingDetails, setBillingDetails] = React.useState({
+    const initialBillingDetailsValues = Immutable({
       name: userDefaultName || '',
       address: {
+        city: '',
+        country: companyCountry || '',
         line1: '',
+        line2: '',
         postal_code: '',
+        state: '',
       },
+      email: userDefaultEmail || '',
     });
+
+    const [isFetchFinished, setIsFetchFinished] = React.useState(false);
+    const [initialBillingDetails, setInitialBillingDetails] =
+      React.useState<BillingDetails>(initialBillingDetailsValues);
+    const [billingDetails, setBillingDetails] = React.useState<BillingDetails>(
+      initialBillingDetailsValues,
+    );
 
     const isNewCheckoutFlow = React.useContext(CheckoutContext);
 
@@ -173,17 +189,35 @@ const StripePaymentCard = forwardRef(
     );
 
     React.useEffect(() => {
-      fetchPaymentMethodListAPI({ member: memberId }).then((r) =>
-        setPaymentMethodList(r.data.filter((pm) => pm.type === 'card')),
-      );
+      fetchPaymentMethodListAPI({ member: memberId })
+        .then((r) => {
+          const filteredPaymentMethods = r.data.filter(
+            (pm) => pm.type === 'card',
+          );
+          setPaymentMethodList(filteredPaymentMethods);
+        })
+        .then(() => {
+          setIsFetchFinished(true);
+        })
+        .catch((err) => {
+          console.error(err);
+          setIsFetchFinished(false);
+        });
     }, [memberId, clientSecret, hasDetached]);
 
     React.useEffect(() => {
-      setAddPaymentMethod(!paymentMethodList.length);
+      isFetchFinished && setAddPaymentMethod(!paymentMethodList.length);
       if (paymentMethodList.length) {
         setPaymentMethodSelected(paymentMethodList[0].id);
+
+        const paymentMethodSelectedBillingDetails: BillingDetails =
+          paymentMethodList?.find(
+            (paymentMethod) => paymentMethod.id === paymentMethodList[0].id,
+          )?.billing_details;
+        setInitialBillingDetails(paymentMethodSelectedBillingDetails);
+        setBillingDetails(paymentMethodSelectedBillingDetails);
       }
-    }, [paymentMethodList]);
+    }, [paymentMethodList, isFetchFinished]);
 
     React.useEffect(() => {
       if (addPaymentMethod) {
@@ -192,12 +226,22 @@ const StripePaymentCard = forwardRef(
     }, [addPaymentMethod]);
 
     // Temporary test to limit the number of 3DS required for card payments for one company (id 1416)
-    const areBillingDetailsProvided =
-      companyId !== ADDRESS_REQUIRED_COMPANY_ID ||
-      paymentMethodSelected ||
-      (billingDetails.name &&
-        billingDetails.address.line1 &&
-        billingDetails.address.postal_code);
+    const areInitialBillingDetailsNecessary =
+      cardBillingDetailsMandatory && paymentMethodSelected
+        ? !!initialBillingDetails?.name &&
+          !!initialBillingDetails?.address.line1 &&
+          !!initialBillingDetails?.address.postal_code &&
+          !!initialBillingDetails?.address.city &&
+          !!initialBillingDetails?.address.country
+        : true;
+
+    const areBillingDetailsProvided = cardBillingDetailsMandatory
+      ? !!billingDetails?.name &&
+        !!billingDetails?.address.line1 &&
+        !!billingDetails?.address.postal_code &&
+        !!billingDetails?.address.city &&
+        !!billingDetails?.address.country
+      : true;
 
     const isSubmitButtonDisabled =
       loading ||
@@ -251,10 +295,19 @@ const StripePaymentCard = forwardRef(
         }
 
         try {
+          if (!areInitialBillingDetailsNecessary && paymentMethodSelected) {
+            await updatePaymentMethodBillingDetailsAPI({
+              member: memberId,
+              payment_method_id: paymentMethodSelected,
+              billing_details: billingDetails,
+              company: companyId,
+            });
+          }
+
           const result = await stripe.confirmCardPayment(clientSecret, {
             payment_method: paymentMethodSelected || {
               card: elements.getElement(CardElement),
-              ...(companyId === ADDRESS_REQUIRED_COMPANY_ID
+              ...(cardBillingDetailsMandatory
                 ? { billing_details: billingDetails }
                 : {}),
             },
@@ -317,6 +370,9 @@ const StripePaymentCard = forwardRef(
         setPaymentPageProcessing,
         stripe,
         t,
+        areInitialBillingDetailsNecessary,
+        memberId,
+        cardBillingDetailsMandatory,
       ],
     );
 
@@ -336,9 +392,16 @@ const StripePaymentCard = forwardRef(
       (id: string) => {
         if (id !== paymentMethodSelected) {
           setPaymentMethodSelected(id);
+          const paymentMethodSelectedBillingDetails: BillingDetails =
+            paymentMethodList?.find(
+              (paymentMethod) => paymentMethod.id === id,
+            )?.billing_details;
+
+          setInitialBillingDetails(paymentMethodSelectedBillingDetails);
+          setBillingDetails(paymentMethodSelectedBillingDetails);
         }
       },
-      [paymentMethodSelected],
+      [paymentMethodSelected, paymentMethodList],
     );
 
     const onSaveForLaterChange = React.useCallback(
@@ -374,15 +437,15 @@ const StripePaymentCard = forwardRef(
             }`,
           )}
         </Typography>
+        {addPaymentMethod && cardBillingDetailsMandatory && (
+          <CardBillingDetailsForm
+            billingDetails={billingDetails}
+            disabled={!stripe || !clientSecret || processing}
+            setBillingDetails={setBillingDetails}
+          />
+        )}
         {addPaymentMethod && (
           <div>
-            {companyId === ADDRESS_REQUIRED_COMPANY_ID && (
-              <CardBillingDetailsForm
-                billingDetails={billingDetails}
-                disabled={!stripe || !clientSecret || processing}
-                setBillingDetails={setBillingDetails}
-              />
-            )}
             <CardSection error={error} />
             <div
               className={classNames(
@@ -466,6 +529,11 @@ const StripePaymentCard = forwardRef(
         {!addPaymentMethod && !!paymentMethodList.length && (
           <div>
             <PaymentMethodList
+              areInitialBillingDetailsNecessary={
+                areInitialBillingDetailsNecessary
+              }
+              billingDetails={billingDetails}
+              cardBillingDetailsMandatory={cardBillingDetailsMandatory}
               companyId={companyId}
               detachPaymentMethod={detachPaymentMethod}
               detachPaymentMethodLoading={detachPaymentMethodLoading}
@@ -475,6 +543,7 @@ const StripePaymentCard = forwardRef(
               selectedSavedPaymentMethodId={paymentMethodSelected}
               sepaDefaultEmail={userDefaultEmail}
               sepaDefaultName={userDefaultName}
+              setBillingDetails={setBillingDetails}
               setHasDetached={setHasDetached}
             />
             <ButtonBase

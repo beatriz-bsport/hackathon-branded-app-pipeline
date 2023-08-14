@@ -9388,7 +9388,13 @@
                 "date": {
                     "second": "dias",
                     "first": "Carrinho abandonado"
-                }
+                },
+                "name": "Carrinhos abandonados",
+                "explanation": "Abandonou um carrinho no valor de...",
+                "third": "{{ currencyDisplay }}",
+                "between": "e",
+                "first": "Abandonou um carrinho no valor de",
+                "second": "à"
             },
             "24": {
                 "between": "e",
@@ -9396,7 +9402,14 @@
                 "pack": "Passe de aulas",
                 "shop": "Loja",
                 "explanation": "Produtos comprados A e B",
-                "workshop": "Passe de aulas especial workshop"
+                "workshop": "Passe de aulas especial workshop",
+                "private_pass": "Aulas particulares",
+                "name": "Despesas",
+                "first": "Despesa",
+                "second": "{{ currencyDisplay }} para produtos",
+                "date": {
+                    "first": "compras efetuadas"
+                }
             },
             "23": {
                 "explanation": "Reservou a primeira sessão em...",
@@ -9436,28 +9449,205 @@
             "105": {
                 "explanation": "Tem X agregados e Y passes de aulas ou passes de marcação ou reservas partilhadas",
                 "info": {
-                    "consumerPaymentPacks": "\"válido\" significa que o passe pode agora ser utilizado para reservar uma aula de grupo"
+                    "consumerPaymentPacks": "\"válido\" significa que o passe pode agora ser utilizado para reservar uma aula de grupo",
+                    "consumerPrivatePasses": "\"válido\" significa que o passe pode agora ser utilizado para reservar uma marcação"
                 },
-                "consumerPaymentPacks": "de passes de aulas"
+                "consumerPaymentPacks": "de passes de aulas",
+                "third": "o membro partilhou um número",
+                "fourth": "a relação para reservar um número",
+                "valid": "válido",
+                "date": {
+                    "first": "a relação foi estabelecida"
+                },
+                "second": "de relações que respeitam os filtros selecionados:",
+                "consumerPrivatePasses": "de passes de marcação",
+                "name": "Agregados",
+                "receiveCopyOfEmail": {
+                    "true": "também são enviados",
+                    "second": "com cópia para o membro",
+                    "first": "os emails enviados para a relação",
+                    "false": "não são enviados"
+                },
+                "acceptSms": {
+                    "first": "a relação"
+                },
+                "to": "à",
+                "between": "e",
+                "first": "Possui um número",
+                "bookings": "aulas de grupo e marcações devido a um passe partilhado pelo membro",
+                "validOrNot": "válido ou não"
             },
             "27": {
                 "info": "Os passes de aulas e os passes de marcação bloqueados também são tidos em conta",
                 "second": "passes de aulas ou passes de marcação válidos atualmente. Entre",
-                "explanation": "X número de passes de aulas o ou de passes de marcação válidos"
+                "explanation": "X número de passes de aulas o ou de passes de marcação válidos",
+                "between": "e",
+                "third": "ou",
+                "name": "Passes válidos",
+                "fourth": "(combinado)",
+                "first": "Possuí"
             },
             "19": {
                 "infoIcon": "Os passes de aulas ilimitados serão sempre incluídos",
                 "first": "um dos passes de aulas",
-                "explanation": "Adquiriu um passe de aulas A na data Y, com X créditos"
+                "explanation": "Adquiriu um passe de aulas A na data Y, com X créditos",
+                "third": "à",
+                "name": "Geral",
+                "has_not": "Não possui",
+                "second": "e",
+                "credits": {
+                    "first": "créditos:",
+                    "second": "e"
+                },
+                "date_bought": {
+                    "first": "data de compra"
+                },
+                "expiration": {
+                    "first_has_expire": "expirou",
+                    "first_will_expire": "expira"
+                },
+                "has": "Próprio"
             },
             "14": {
                 "workshop": "Passe de aulas especial workshop",
-                "pack": "Passe de aulas"
+                "pack": "Passe de aulas",
+                "explanation": "Produtos adquiridos A e B",
+                "third": "e a",
+                "first": "Despesa",
+                "fourth": "pelos produtos",
+                "combo": "Pack",
+                "private_pass": "Aulas privadas",
+                "name": "Despesas",
+                "second": "{{ currencyDisplay }} entre a",
+                "shop": "Loja",
+                "selector": "Escolher produtos"
             },
             "8": {
                 "explanation": "Possuí um passe de aulas X utilizável",
                 "first": "Possuí um passe de aulas",
-                "name": "Validade de um passe de aulas"
+                "name": "Validade de um passe de aulas",
+                "second": "utilizável (com créditos ou ilimitado e não expirado)"
+            },
+            "1": {
+                "name": "Débito",
+                "third": "{{ currencyDisplay }}",
+                "first": "O saldo do membro, menos as faturas não pagas, é de",
+                "second": " à   ",
+                "explanation": "A x {{ currencyDisplay }} na sua conta",
+                "between": "e"
+            },
+            "5": {
+                "name": "Género",
+                "men": "homens",
+                "first": "Selecionar apenas os",
+                "explanation": "É uma mulher/um homem",
+                "women": "mulheres"
+            },
+            "102": {
+                "between": "e",
+                "to": "à",
+                "hasCompleted": "Completado",
+                "hasNotCompleted": "Não completou",
+                "hasCompletedNone": "Não concluiu",
+                "none": "nenhum formulário",
+                "third": "numa percentagem",
+                "second": "de",
+                "name": "Formulários",
+                "atLeastOne": "pelo menos um formulário",
+                "all": "todos os formulários",
+                "date": {
+                    "first": "concluído pela última vez"
+                },
+                "explanation": "Formulários X preenchidos em A% na data B "
+            },
+            "103": {
+                "name": "Notificações",
+                "email": "receber notificações por email",
+                "explanation": "Aceita notificações por SMS/Email",
+                "allNeeded": "Todas as condições ativadas devem ser cumpridas",
+                "true": "Aceitar",
+                "sms": "receber notificações por SMS",
+                "oneNeeded": "Pelo menos uma das condições ativadas deve ser satisfeita",
+                "false": "Não aceita"
+            },
+            "26": {
+                "private_service": {
+                    "first": "com marcações"
+                },
+                "name": "Número de marcações",
+                "explanation": "Marcou X reservas com o professor A, no local B, com o passe de marcação C...",
+                "first": "Reservado",
+                "hour": {
+                    "second": "horas e",
+                    "first": "a partir de",
+                    "third": "horas"
+                },
+                "between": "e",
+                "establishment": {
+                    "first": "nas salas",
+                    "third": "ao domicílio",
+                    "second": "ou"
+                },
+                "date": {
+                    "first": "a decorrer"
+                },
+                "coach": {
+                    "first": "com os professores"
+                },
+                "second": "marcações",
+                "private_pass": {
+                    "first": "com os passes de marcação"
+                }
+            },
+            "104": {
+                "first": "Possuí pelo menos uma nota",
+                "name": "Notas",
+                "nonMedical": "não médica",
+                "info": "As notas médicas correspondem às que constam da secção \"Informações essenciais\" no perfil do membro",
+                "date": {
+                    "first": "que foi criada"
+                },
+                "explanation": "Tem pelo menos uma nota médica (ou não)",
+                "medicalOrNot": "médica ou não médica",
+                "medical": "médica"
+            },
+            "11": {
+                "explanation": "Tem as etiquetas A e B",
+                "name": "Etiquetas",
+                "first": "Filtrar com base nas seguintes etiquetas"
+            },
+            "25": {
+                "has_not": "Não possuí",
+                "first": "um dos passes de Marcações",
+                "second": "e",
+                "credits": {
+                    "second": "e",
+                    "first": "créditos:"
+                },
+                "date_bought": {
+                    "first": "data de compra"
+                },
+                "explanation": "Adquiriu o passe de marcação A na data Y, com X créditos",
+                "third": "à",
+                "expiration": {
+                    "first_will_expire": "expira",
+                    "first_has_expire": "expirou"
+                },
+                "name": "Passes de Marcação",
+                "has": "Possuí"
+            },
+            "101": {
+                "first": "Tem idade",
+                "between": "e",
+                "to": "à",
+                "explanation": "É menos do que/mais do que/exatamente...",
+                "second": "anos (incluídos)",
+                "name": "Idade"
+            },
+            "18": {
+                "first": "Aderiu ao estúdio   ",
+                "name": "Data da inscrição",
+                "explanation": "Aderiu ao estúdio em..."
             }
         },
         "cannotBeDeletedDialog": {
@@ -9467,12 +9657,18 @@
         "modal": {
             "delete": {
                 "confirm": "Eliminar",
-                "content": "Tem a certeza de que pretende eliminar esta lista inteligente ? Esta operação é definitiva"
-            }
+                "content": "Tem a certeza de que pretende eliminar esta lista inteligente ? Esta operação é definitiva",
+                "cancel": "Cancelar",
+                "title": "Eliminar lista inteligente"
+            },
+            "validate": "Confirmar"
         },
         "delete": "Eliminar",
         "filterCategory": {
-            "2": "Passes de aulas"
+            "2": "Passes de aulas",
+            "1": "Informações do membro",
+            "3": "Reservas",
+            "4": "Compras"
         },
         "multiSelector": {
             "activePasses": {
@@ -9493,12 +9689,127 @@
             "buyables": {
                 "textFieldPlaceholder": "Procurar uma categoria de produto",
                 "helperText": "selecionar categorias",
-                "helperSelectedText": "categorias selecionadas"
+                "helperSelectedText": "categorias selecionadas",
+                "helperAllSelectedText": "todos os produtos"
             },
             "privatePass": {
                 "warning": "Selecionar pelo menos um passe de Marcações"
+            },
+            "metaActivities": {
+                "helperAllSelectedText": "todas as atividades",
+                "helperText": "selecionar as atividades",
+                "warning": "Selecionar pelo menos uma atividade",
+                "helperSelectedText": "atividades selecionadas",
+                "textFieldPlaceholder": "Pesquisar uma atividade"
+            },
+            "establishments": {
+                "textFieldPlaceholder": "Procurar uma sala",
+                "helperAllSelectedText": "todas as salas",
+                "warning": "Selecionar pelo menos uma sala",
+                "helperText": "selecionar salas",
+                "helperSelectedText": "salas selecionadas"
+            },
+            "customForms": {
+                "textFieldPlaceholder": "Procurar um formulário",
+                "helperAllSelectedText": "todos os formulários",
+                "helperSelectedText": "formulários selecionados",
+                "warning": "Selecionar pelo menos um formulário",
+                "helperText": "selecionar formulários"
+            },
+            "coaches": {
+                "helperAllSelectedText": "todos os professores",
+                "warning": "Selecionar pelo menos um professor",
+                "helperSelectedText": "professores selecionados",
+                "textFieldPlaceholder": "Procurar professor",
+                "helperText": "selecionar professores"
+            },
+            "privateServices": {
+                "helperText": "selecionar marcações",
+                "textFieldPlaceholder": "Procurar uma marcação",
+                "warning": "Selecionar pelo menos uma marcação",
+                "helperSelectedText": "marcações selecionadas",
+                "helperAllSelectedText": "todas as marcações"
+            },
+            "level": {
+                "advanced": "avançado",
+                "select": "selecionar um nível",
+                "all": "todos os níveis",
+                "warning": "selecionar pelo menos um nível",
+                "beginner": "iniciante",
+                "intermediary": "intermédio"
             }
-        }
+        },
+        "generateHelperText": "Gerar a exportação para descarregar a lista inteligente",
+        "membersInList": "Membros da lista inteligente:",
+        "graphs": {
+            "bookings": "Reservas",
+            "expensesSegments": {
+                "title": {
+                    "first": "Despesas entre",
+                    "second": "e o"
+                },
+                "label": {
+                    "2": "Média",
+                    "3": "Último quartil",
+                    "0": "Nenhuma despesa",
+                    "1": "Primeiro quartil"
+                }
+            },
+            "bookingsSegments": {
+                "label": {
+                    "0": "Mês passado",
+                    "1": "Entre 1 a 12 meses",
+                    "2": "Mais de um ano"
+                },
+                "title": "Última reserva"
+            }
+        },
+        "mail": {
+            "send": "Enviar",
+            "sendMailTitle": "Enviar uma comunicação",
+            "sendMail": "Enviar uma comunicação",
+            "cancel": "Cancelar",
+            "noMailAvailable": "Não há um email disponível, por favor crie um",
+            "sendError": "Problema ao enviar a mensagem de correio eletrónico",
+            "sendSuccess": "Email a ser enviado"
+        },
+        "smart_list": {
+            "add": "Adicionar uma lista inteligente",
+            "list": {
+                "detailTitle": "Detalhes da lista inteligente",
+                "title": "Lista Inteligente"
+            },
+            "description": {
+                "isEmpty": "Nenhuma descrição",
+                "label": "Descrição"
+            },
+            "submit": "Registar",
+            "cancel": "Cancelar",
+            "createTitle": "Lista Inteligente",
+            "actions": {
+                "campaign": "Campanhas",
+                "configure": "Configurar"
+            },
+            "name": "Nome",
+            "detail": "Detalhes da lista inteligente"
+        },
+        "exportList": "Exportar a lista inteligente",
+        "detail": {
+            "tab": {
+                "member": "Geral",
+                "statistic": "Estatísticas",
+                "campaign": "Campanhas"
+            },
+            "statTitle": "Estatísticas"
+        },
+        "downLoadSavedExport": "Descarregar a exportação mais recente",
+        "popup": {
+            "sendPopup": "Enviar uma janela pop-up"
+        },
+        "noSmartLists": "Utilizar as listas inteligentes para filtrar, analisar e conhecer melhor os seus membros.",
+        "selectToShowPreview": "Selecionar um template",
+        "lastGenerated": "Última exportação gerada em : {{-date}} {{time}}",
+        "generateExport": "Gerar exportação"
     },
     "titles": {
         "workshopActivity": {

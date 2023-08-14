@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ConsumerPaymentPack } from './types';
-import { PaymentPackFactory } from '#libs/payment-packs/factories';
+import { PaymentPackFactory } from '#libs/payment-packs/factory';
 
 function randomInt(max: number) {
   return Math.floor(Math.random() * max);

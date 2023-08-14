@@ -1,0 +1,76 @@
+.bs-button__container {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--border-radius-1);
+  padding: 2px var(--spacing-1);
+}
+
+.bs-button-icon__container {
+  background: none;
+  padding: 0;
+}
+
+.bs-button-outlined__container {
+  border-style: solid;
+  border-width: 1px;
+  background: none;
+}
+
+.bs-button-small__container {
+  padding: 2px calc(var(--spacing-1) / 2);
+}
+
+.bs-button-large__container {
+  padding: var(--spacing-1) var(--spacing-3);
+}
+
+.bs-button-primary__container {
+  background: var(--color-primary-main);
+}
+
+.bs-button-secondary__container {
+  background: var(--color-secondary-main);
+}
+
+.bs-button__container:disabled {
+  background: var(--color-disabledBackground);
+  cursor: not-allowed;
+}
+
+.bs-button__container:disabled .bs-button__text {
+  color: var(--color-disabled);
+}
+
+.bs-button__container:disabled .bs-circular-progress__circle {
+  stroke: var(--color-disabled);
+}
+
+.bs-button__text {
+  font-family: var(--button-fontFamily);
+  font-size: var(--button-fontSize);
+  font-weight: var(--button-fontWeight);
+  letter-spacing: var(--button-letterSpacing);
+  line-height: var(--button-lineHeight);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  user-select: none;
+  text-transform: uppercase;
+}
+
+.bs-button-small__text {
+  font-size: 0.8125rem;
+}
+
+.bs-button-large__text {
+  font-size: 0.9375rem;
+}
+
+.bs-button-primary__text {
+  color: var(--color-primary-contrastText);
+}
+
+.bs-button-secondary__text {
+  color: var(--color-secondary-contrastText);
+}

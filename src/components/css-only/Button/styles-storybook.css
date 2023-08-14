@@ -1,0 +1,28 @@
+.bs-button-storybook__container {
+  border-radius: var(--border-radius-2);
+  background: var(--color-info-background);
+}
+
+.bs-button-icon-storybook__container {
+  color: var(--color-primary-contrastText);
+  border-radius: 999px;
+  background: var(--color-info-main);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bs-button-storybook__text {
+  color: var(--color-info-main);
+  font-family: var(--fontFamily);
+  font-size: var(--subtitle1-fontSize);
+  font-weight: var(--subtitle1-fontWeight);
+  letter-spacing: var(--subtitle-letterSpacing);
+  line-height: var(--subtitle1-lineHeight);
+}
+
+.bs-button-storybook__text .bs-circular-progress__circle {
+  stroke: var(--color-info-main);
+}

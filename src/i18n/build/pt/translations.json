@@ -7608,58 +7608,246 @@
         "privateBookingNotification": {
             "listItemPrimary": {
                 "notifyAllEvents": {
-                    "cancelledRefunded": "Cada cancelamento é reembolsado"
+                    "cancelledRefunded": "Cada cancelamento é reembolsado",
+                    "valid": "Em cada marcação",
+                    "cancelledNotRefunded": "Em cada cancelamento fora do prazo"
                 },
-                "cancelledRefunded": "Cancelamento reembolsado n° {{notify_booking_nb}}"
+                "cancelledRefunded": "Cancelamento reembolsado n° {{notify_booking_nb}}",
+                "valid": "Marcação n° {{notify_booking_nb}}",
+                "before": "Notificar {{hours}}h antes da marcação",
+                "cancelledNotRefunded": "Cancelamento fora de prazo nº {{notify_booking_nb}}",
+                "after": "Notificar {{hours}}h após a marcação"
             },
             "form": {
                 "help": {
                     "cancelledRefunded": {
                         "notifyAll": "Ajuda : a notificação será enviada ao aluno por cada reserva cancelada e reembolsada para este tipo de passe",
                         "default": "Ajuda: a notificação será enviada ao membro quando a reserva cancelada for reembolsada n° {{notifyNb}} ,  para este tipo de marcação"
+                    },
+                    "cancelledNotRefunded": {
+                        "default": "Nota : será enviada uma notificação ao membro quando a anulação estiver fora do prazo n° {{notifyNb}} , para este tipo de marcação",
+                        "notifyAll": "Nota : será enviada uma notificação aos membros sempre que anularem uma marcação após o prazo"
+                    },
+                    "valid": {
+                        "default": "Nota : será enviada uma notificação aos membros quando efetuarem uma marcação válida {{notifyNb}} para este tipo de marcação",
+                        "notifyAll": "Nota : será enviada uma notificação aos membros sempre que efetuarem uma marcação válida para este tipo de marcação"
                     }
                 },
                 "chooseKind": {
                     "cancelledNotRefunded": "Reserva anulada e não reembolsada (após o prazo estipulado)",
-                    "cancelledRefunded": "Reserva anulada e reembolsada"
-                }
-            }
+                    "cancelledRefunded": "Reserva anulada e reembolsada",
+                    "title": "Escolha o tipo de reserva que pretende notificar",
+                    "valid": "Reserva válida"
+                },
+                "notifyAllEvents": "Notificar o membro de cada evento",
+                "chooseTime": {
+                    "first": "Enviar um email",
+                    "second": {
+                        "before": "hora(s) antes da sessão",
+                        "after": "hora(s) após a sessão"
+                    },
+                    "title": "Parâmetros"
+                },
+                "ifKind": {
+                    "notRefunded": "Se a reserva tiver sido cancelada após o prazo",
+                    "refunded": "Se a reserva tiver sido cancelada atempadamente",
+                    "valid": "Se a reserva for válida"
+                },
+                "chooseWhen": {
+                    "beforeMail": "Enviar um email ao membro antes da marcação a que a notificação diz respeito",
+                    "afterNotification": "Enviar a notificação push para o membro após a marcação em causa na notificação",
+                    "afterNotifications": "Enviar notificações ao membro após a marcação a que a notificação diz respeito",
+                    "beforeNotification": "Enviar notificação push para o membro antes da marcação em causa",
+                    "title": "Tipo de notificação",
+                    "beforeNotifications": "Enviar notificações ao membro antes da marcação a que a notificação se refere",
+                    "afterMail": "Enviar um email ao membro após a marcação em causa na notificação"
+                },
+                "next": "Seguinte",
+                "subtitle": "Passe de marcações",
+                "intro": "Pode notificar os seus alunos antes ou depois de determinadas marcações, com base em vários critérios, como o número de reservas ou cancelamentos.",
+                "notifyNb": "Notificar o membro do evento nº :",
+                "title": "Adicionar uma notificação"
+            },
+            "tooltip": "As notificações estão ativas para este tipo de marcação"
         },
         "notification": {
             "listItem": {
                 "deleteModal": {
                     "content": "Tem a certeza de que pretende eliminar esta notificação ? Esta operação é definitiva",
-                    "confirm": "Eliminar"
-                }
-            }
+                    "confirm": "Eliminar",
+                    "cancel": "cancelar",
+                    "title": "Eliminar notificação"
+                },
+                "mail": "Email ",
+                "smartListInclude": "Listas incluídas",
+                "smartList": "Listas excluídas"
+            },
+            "addButton": "Adicionar uma notificação"
         },
         "recurrenceRule": {
             "forms": {
                 "delete": {
-                    "confirm": "Eliminar"
+                    "confirm": "Eliminar",
+                    "title": "Remarcar uma marcação recorrente",
+                    "content": "A anulação da marcação recorrente implica a anulação de todas as marcações futuras efetuadas com esta regra.",
+                    "cancel": "Cancelar"
                 },
                 "update": {
                     "confirm": "Alterar",
-                    "content": "Ao alterar a regra de recorrência modificará as marcações futuras efectuadas com a mesma."
+                    "content": "Ao alterar a regra de recorrência modificará as marcações futuras efectuadas com a mesma.",
+                    "title": "Alterar uma marcação recorrente",
+                    "cancel": "Cancelar"
                 }
+            },
+            "form": {
+                "configuration": "Reservas",
+                "override_availabilities": "Efetuar uma reserva mesmo que o professor, a sala ou a marcação não estejam disponíveis",
+                "timeGroup": "Data da sessão",
+                "notify_member": "Enviar um email de confirmação quando o membro se regista",
+                "allow_unpaid": "Autorizar as reservas não pagas (não possuí nenhum passe compatível)",
+                "title": "Programar uma recorrência"
+            },
+            "item": {
+                "allowUnpaid": "Autorizar as reservas não pagas",
+                "explain": "Todos os {{dayOfWeek}} - {{time}}, {{delayWeek}} semanas antes",
+                "startFrom": "A partir de {{ date }}"
+            },
+            "recurrentBookings": "Marcações recorrentes",
+            "createModal": {
+                "create": "Criar uma reserva recorrente"
+            },
+            "actions": {
+                "close": "Fechar",
+                "save": "Registar"
             }
         },
         "customEvent": {
             "actions": {
                 "delete": "Eliminar"
+            },
+            "form": {
+                "description": {
+                    "label": "Descrição"
+                },
+                "name": {
+                    "placeholder": "Marcações acumuladas",
+                    "label": "Nome"
+                },
+                "title": "Marcações pessoais",
+                "actions": {
+                    "cancel": "Cancelar",
+                    "submit": "Registar"
+                },
+                "color": "Código da cor",
+                "coach": {
+                    "isEmpty": "Nenhum professor"
+                }
             }
         },
         "service": {
             "form": {
                 "delete": {
                     "confirm": "Eliminar",
-                    "content": "Tem a certeza de que quer acabar com este tipo de marcação ?"
+                    "content": "Tem a certeza de que quer acabar com este tipo de marcação ?",
+                    "title": "Eliminar uma marcação",
+                    "cancel": "Cancelar"
                 },
                 "pad_before_booking": {
                     "label": "Ter em conta mesmo antes de reservar"
                 },
                 "managerOnly": {
                     "label": "Não é visível para os alunos"
+                },
+                "unpaidBooking": {
+                    "tag": {
+                        "helper": "Utilize as etiquetas para tornar a reserva sem pagamento disponível apenas para determinados membros.  Todos os membros com uma das etiquetas em \"Autorizado\" poderão efetuar reservas sem pagar. Ou todos os membros que tenham uma das etiquetas em \"Não autorizado\" não poderão efetuar reservas sem pagar.",
+                        "allowed": "Autorizado",
+                        "notAllowed": "Não Autorizado",
+                        "header": "Etiquetas",
+                        "doNotSelectToAllowAllMembers": "Deixar em branco para autorizar todos os membros"
+                    },
+                    "title": "Pagar mais tarde",
+                    "helperText": "Ao ativar esta funcionalidade, os seus membros poderão reservar esta marcação sem terem de comprar/utilizar um passe. O número de créditos para a marcação será automaticamente debitado do próximo passe compatível adquirido.",
+                    "label": "Autorizar a reserva sem o pagamento"
+                },
+                "establishmentResourceType": {
+                    "isHomeService": {
+                        "label": "Ao domicílio",
+                        "helperText": "Será solicitada uma morada para a reserva"
+                    },
+                    "isWithEstablishment": {
+                        "label": "Numa das salas",
+                        "isEmpty": "Nenhuma sala configurada !",
+                        "helperText": "As reservas só podem ser efetuadas se houver lugares livres suficientes"
+                    },
+                    "isWithoutEstablishment": {
+                        "label": "Não há pré-determinado",
+                        "helperText": "Exemplo: aulas em vídeo / aulas ao ar livre / ..."
+                    }
+                },
+                "description": {
+                    "label": "Descrição do serviço"
+                },
+                "paddingEnd": {
+                    "helperText0": "No calendário, o professor e/ou a sala voltarão a ser assinalados como disponíveis no final da marcação",
+                    "label": "Número de minutos após o fim da marcação",
+                    "helperText": "No calendário, o professor e/ou a sala voltarão a ser assinalados como disponíveis {{minutes}} minutos após o fim da marcação"
+                },
+                "establishment_consumer_attribution": {
+                    "label": "Permitir a escolha do local no ato da reserva",
+                    "helperText": "O membro vê e escolhe o local antes de efetuar a reserva. Se não estiver selecionado, o bsport tentará otimizar a ocupação das salas"
+                },
+                "use_full_establishment_capacity": {
+                    "label": "Requer a sala inteira",
+                    "helperText": "Desmarcar para autorizar várias atividades/reuniões em simultâneo na mesma sala, se a capacidade o permitir"
+                },
+                "createButton": "Adicionar um tipo de Marcação",
+                "addEstablishment": "Adicionar uma sala",
+                "coach": {
+                    "isEmpty": "Não há nenhum professor atribuído !",
+                    "label": "Professor"
+                },
+                "name": {
+                    "placeholder": "Massagem",
+                    "label": "Nome do serviço"
+                },
+                "coach_capacity_used": {
+                    "label": "Número máximo de marcações simultâneas que um professor pode gerir",
+                    "helperText": "Exemplo: um professor pode monitorizar dois alunos separadamente em duas máquinas",
+                    "alertText": "Um professor pode gerir 1, 2, 3, 4, 6 ou 12 marcações em simultâneo."
+                },
+                "title": "Marcações",
+                "color": "Código da cor",
+                "last_booking_minutes": {
+                    "label": "Antes do início da marcação, última reserva possível"
+                },
+                "paddingTitle": "Gestão da disponibilidade",
+                "paddingStart": {
+                    "label": "Número de minutos antes do início da marcação",
+                    "helperText": "No calendário, o professor e/ou a sala serão assinalados como indisponíveis {{minutes}} minutos antes do início da marcação",
+                    "helperText0": "No calendário, o professor e/ou a sala serão assinalados como indisponíveis à hora de início da marcação"
+                },
+                "resourceGroup": {
+                    "coach": "Professor",
+                    "establishment": "Local"
+                },
+                "addSlot": "Adicionar um tipo de sessão",
+                "establishment": {
+                    "label": "Sala"
+                },
+                "coach_consumer_attribution": {
+                    "label": "Permitir a escolha do professor aquando a reserva",
+                    "helperText": "O membro vê e escolhe o professor antes de efetuar a marcação. Se não estiver selecionado, terá de escolher o professor após cada marcação"
+                },
+                "addCoach": "Adicionar um professor",
+                "is_home_service": {
+                    "label": "Ao domicílio",
+                    "helperText": "Será solicitada uma morada para cada reserva"
+                },
+                "is_without_coach": "Sem um professor",
+                "actions": {
+                    "cancel": "Cancelar",
+                    "submit": "Registar"
                 }
             },
             "configuration": {
@@ -7693,6 +7881,29 @@
             },
             "navigation": {
                 "goToPrivatePass": "Passes de Marcação"
+            },
+            "parameters": {
+                "slots": {
+                    "isEmpty": "Nenhum tipo de sessão definida",
+                    "explainIsEmpty": "Definir os tipos de sessões (duração, custo)",
+                    "title": "Sessão"
+                },
+                "establishments": {
+                    "title": "Local",
+                    "is_empty": "Nenhuma sala",
+                    "is_home_service": "Ao domicílio"
+                },
+                "last_discard_minutes": {
+                    "explain": "O último cancelamento reembolsável é possível em {{ days }} dia(s) {{ hours }} hora(s) {{ minutes }} minuto(s) antes da marcação"
+                },
+                "last_booking_minutes": {
+                    "explain": "O último cancelamento reembolsável é possível antes de {{days}} dia(s) {{hours}} hora(s) {{minutes}} minuto(s) antes da marcação"
+                },
+                "description": "Descrição",
+                "coaches": {
+                    "title": "Professor",
+                    "is_empty": "Não é necessário professor"
+                }
             }
         },
         "privatePass": {
@@ -8397,7 +8608,17 @@
             "establishment": "Sala"
         },
         "openCalendar": "Ver o calendário",
-        "openSpecificAvailabilitiesCalendar": "Disponibilidades específicas"
+        "openSpecificAvailabilitiesCalendar": "Disponibilidades específicas",
+        "categoryTitle": "Categorias de passes de marcação",
+        "universalPass": {
+            "delete": {
+                "dialog": {
+                    "warningText": "Atenção ! Este passe é um passe universal, pelo que se o apagar, o seu passe gémeo também será eliminado.",
+                    "title": "Eliminar passe"
+                }
+            }
+        },
+        "disabledPacksTitle": "Passe de Marcações arquivados"
     },
     "relationship": {
         "private_consumer_pass_links": {
@@ -9256,7 +9477,8 @@
         "multiSelector": {
             "activePasses": {
                 "warning": "Selecionar pelos menos um passe",
-                "paymentPackHelperText": "sem passe de aulas"
+                "paymentPackHelperText": "sem passe de aulas",
+                "privatePassHelperText": "nenhum passe de Marcações"
             },
             "paymentPacks": {
                 "warning": "Selecionar pelos menos um passe de aulas",
@@ -9264,6 +9486,17 @@
                 "textFieldPlaceholder": "Procurar um passe de aulas",
                 "helperSelectedText": "passes de aulas selecionados",
                 "helperText": "selecionar passes de aulas"
+            },
+            "userMarketingNotifications": {
+                "warning": "Ativar pelo menos uma das duas opções"
+            },
+            "buyables": {
+                "textFieldPlaceholder": "Procurar uma categoria de produto",
+                "helperText": "selecionar categorias",
+                "helperSelectedText": "categorias selecionadas"
+            },
+            "privatePass": {
+                "warning": "Selecionar pelo menos um passe de Marcações"
             }
         }
     },
@@ -12181,12 +12414,36 @@
             "addItems": "Também pode adicionar objetos clicando no quadrado + na última posição.",
             "newSection": "Nova categoria",
             "categoryModalTitle": "Cor da categoria",
-            "categoryModalSubtitle": "Palete de cores"
+            "categoryModalSubtitle": "Palete de cores",
+            "preview": "Pré-visualizar",
+            "possibleActionsShort": "Pode realizar ações passando o rato por cima...",
+            "save": "Guardar",
+            "seeMore": "Ver mais",
+            "possibleActionsFull": "Pode realizar ações passando o rato por cima dos artigos. Pode :"
         },
         "objectCard": {
             "subtitle": {
                 "giftcard": "Passe de oferta",
-                "paymentPack": "Passe de aulas"
+                "paymentPack": "Passe de aulas",
+                "credit": "crédito",
+                "credit_plural": "créditos",
+                "privatePass": "Passe de marcação",
+                "paymentCombo": "Pack",
+                "unlimited": "Ilimitado",
+                "product": "produto",
+                "product_plural": "produtos",
+                "subscription": "Subscrição",
+                "shopProduct": "Produto"
+            },
+            "recurrence": {
+                "day": "todos os dias",
+                "day_plural": "todos os {{ recurrence_basis }} dias",
+                "month": "todos os meses",
+                "month_plural": "todos os {{ recurrence_basis }} meses",
+                "year": "todos os anos",
+                "year_plural": "todos os {{ recurrence_basis }} anos",
+                "week": "todas as semanas",
+                "week_plural": "todas as {{ recurrence_basis }} semanas"
             }
         },
         "rolePage": {
@@ -12211,7 +12468,171 @@
             "discard": "Sair sem guardar",
             "title": "As alterações não foram guardadas"
         },
-        "pageTitle": "Interface de vendas"
+        "pageTitle": "Interface de vendas",
+        "checkout": {
+            "paymentSuccess": {
+                "subTextPartialPayment": "O pagamento já foi processado e a fatura foi enviada por email. O resto do pagamento foi adiado : pode ser efetuado a partir do backoffice ou da ficha do membro.",
+                "title": "Pagamento aceite",
+                "printTicket": "Descarregar o recibo",
+                "sendByEmail": "Enviar a fatura por email",
+                "subText": "O pagamento foi processado. A fatura foi enviada por email.",
+                "subTextAnonymous": "O pagamento já foi processado."
+            },
+            "homeDelivery": "Entrega",
+            "firstName": "Apelido",
+            "lastName": "Nome",
+            "cancel": "Cancelar",
+            "validate": "Validar",
+            "emailSent": {
+                "title": "Email enviado",
+                "subText": "A fatura foi enviada para o endereço de email que introduziu.",
+                "printTicket": "Descarregar a fatura"
+            },
+            "noAnonymousInstalment": {
+                "explanation": "É impossível pagar em várias prestações se a fatura for anónima",
+                "identify": "Identificador"
+            },
+            "noPartialInstalment": {
+                "explanation": "Não é possível efetuar o pagamento em prestações se o montante total a pagar tiver sido alterado.",
+                "reset": "Reiniciar"
+            },
+            "billingDate": "Data da faturação",
+            "tax": "Taxas",
+            "priceIncludingTax": "Total",
+            "invoiceFootNote": "Nota de rodapé",
+            "deliveryFee": "Taxas de entrega",
+            "priceRecap": "Resumo",
+            "amountDue": "Total devido",
+            "partialPayment": "Recolha",
+            "leftToPay": "Resta pagar",
+            "leftDue": "Restante devido :",
+            "onSpot": "No local",
+            "unauthenticatedWarning": "Se nenhum membro estiver autenticado para esta fatura, esta será criada de forma anónima. É aconselhável atribuir um membro para facilitar o controlo das informações.",
+            "payLater": {
+                "title": "Pagamento adiado",
+                "subText": "O pagamento foi adiado : pode ser efetuado a partir do backoffice ou do perfil do membro."
+            },
+            "noAnonymousClientDebt": "Para utilizar o saldo, é necessário identificar um membro na fatura",
+            "internalCredits": "Créditos internos",
+            "priceExcludingTax": "Total antes das taxas",
+            "sendToTerminal": "Enviar para o terminal",
+            "clientDebt": "Saldo do cliente"
+        },
+        "itemList": {
+            "additionDrawer": {
+                "category": "Categoria",
+                "selectAll": "Selecionar tudo",
+                "unselectAll": "Desmarcar tudo",
+                "title": "Interface de vendas",
+                "simpleObjectsSubtitle": "Adicionar artigos",
+                "noResult": "Nenhum resultado",
+                "withoutCategory": "Sem categoria",
+                "objectGroupsSubtitle": "Adicionar um grupo de artigos",
+                "objectsAddition": "Adicionar artigos",
+                "objectType": "Tipo de artigo",
+                "tilesColor": "Cor",
+                "search": "Pesquisar",
+                "cancel": "Cancelar",
+                "add": "Adicionar"
+            },
+            "goBack": "Anterior"
+        },
+        "interface": {
+            "anonymousSale": "Venda anónima",
+            "searchAProduct": "Procurar um produto",
+            "selectItemToStart": "Clique num artigo para iniciar um carrinho",
+            "memberModal": {
+                "confirm": "Registar",
+                "cancel": "Cancelar",
+                "title": "Identificação dos membros"
+            },
+            "deleteCurrentBasket": {
+                "subText": "Tem a certeza de que pretende apagar um carrinho ativo ?",
+                "cancel": "Cancelar",
+                "delete": "Eliminar",
+                "title": "Eliminar um carrinho ativo"
+            },
+            "payLater": {
+                "title": "Adiar para mais tarde",
+                "subText": "Este carrinho já foi parcialmente pago. Ao fechá-lo, está a adiar o resto do pagamento. Pode encontrar a fatura no backoffice.",
+                "cancel": "Cancelar",
+                "payLater": "Adiar para mais tarde"
+            },
+            "cannotEdit": {
+                "payment": "Pagamento",
+                "subText": "O carrinho já não pode ser alterado, uma vez que já foi parcialmente pago.",
+                "title": "Alterações impossíveis"
+            },
+            "scannerMode": {
+                "title": "Modo scanner",
+                "subText": "Digitalize os artigos para os adicionar ao seu carrinho.",
+                "done": "Terminar"
+            },
+            "outOfStock": {
+                "title": "Mais stock",
+                "subText": "O artigo que está a tentar adicionar ao seu carrinho já não se encontra em stock na sua loja. Gostaria de o adicionar na mesma ?",
+                "addAnyway": "Adicionar na mesma"
+            },
+            "noResult": "Nenhum resultado",
+            "ongoingBaskets": {
+                "title": "Carrinhos atuais",
+                "subText": "As faturas estão pendentes, feche-as antes de desconectar."
+            },
+            "cannotAdd": {
+                "title": "Impossível adicionar",
+                "newMember": {
+                    "subText": "{{ optionalBeginning }} {{ name }} não é um novo membro."
+                },
+                "tag": {
+                    "hasTag": "{{ optionalBeginning }} {{ name }} tem a etiqueta {{ tagName }}.",
+                    "doesNotHaveTag": "{{ optionalBeginning }} {{ name }} não tem possuí a etiqueta {{ tagName }}.",
+                    "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{ name }} possuí a etiqueta {{ ownedTagName }} e não tem a etiqueta {{ notOwnedTagName }}."
+                },
+                "subTextListItem": "Infelizmente, o artigo não pôde ser acrescentado porque"
+            },
+            "authenticationRequired": {
+                "maxPurchase": {
+                    "subTextListItem": "Sujeito a um limite do número de compras",
+                    "subText": "O artigo que pretende adicionar está sujeito a um limite do número de compras."
+                },
+                "tag": {
+                    "subText": "O artigo que pretende adicionar está reservado a membros com determinadas etiquetas.",
+                    "subTextListItem": "Reservado a membros com determinadas etiquetas"
+                },
+                "subTextListItem": "O artigo que pretende adicionar é",
+                "bottomSubText": "Sem a identificação do membro, as verificações necessárias não podem ser efetuadas.",
+                "newMember": {
+                    "subTextListItem": "Reservado para novos membros",
+                    "subText": "O artigo que pretende acrescentar está reservado para os novos membros."
+                },
+                "identifyMember": "Identificar um membro",
+                "title": "Identificação necessária"
+            },
+            "resultsForString": "{{ count }} resultado para \"{{ searchText }}\"",
+            "resultsForString_plural": "{{ count }} resultados para \"{{ searchText }}\"",
+            "itemsRemovedFromBasket": {
+                "title": "Artigos retirados do carrinho",
+                "subText": "Quando um novo membro se junta a nós, alguns artigos são retirados do carrinho porque não são compatíveis com o novo membro."
+            },
+            "seller": "Vender",
+            "taxes": "Taxas",
+            "totalIncludingTax": "Total",
+            "authenticationNecessary": "A autenticação do membro é necessária para esta secção.",
+            "goBack": "Anterior",
+            "totalExcludingTax": "Total antes das taxas",
+            "payment": "Pagamento",
+            "objectAdded": {
+                "subText": "O artigo foi adicionado ao carrinho.",
+                "title": "Artigo adicionado"
+            }
+        },
+        "sectionCard": {
+            "item": "artigo",
+            "item_plural": "artigos"
+        },
+        "iconSelector": {
+            "searchPlaceholder": "Pesquisar (pesquisa em inglês)"
+        }
     },
     "performanceTracking": {
         "metric": {

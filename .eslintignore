@@ -15,4 +15,7 @@
 // packages not compiling to ES5 thus placed in src/
 **/external-modules/**
 
+**/*.test.ts
+src/**/__test__/**
+
 node_modules/

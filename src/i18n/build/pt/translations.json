@@ -8024,14 +8024,35 @@
             "nextOffer": "Primeira vaga disponível em {{- date }} : {{ hour }}",
             "searchFirstSlot": "Procurar a primeira vaga disponível",
             "bookableSlots": {
-                "title": "Vagas disponíveis"
+                "title": "Vagas disponíveis",
+                "isEmpty": "Não existem horárias disponíveis"
             },
             "search": "Procurar uma vaga",
             "title": "Marcações",
             "selectCoach": "Todos os professores",
             "searchSlot": "Procurar uma vaga",
             "emptyState": "Nenhuma disponibilidade até ao momento",
-            "coach": "Professor"
+            "coach": "Professor",
+            "nbSlot": "{{ nbSlot }} vaga",
+            "nbSlot_plural": "{{ nbSlot }} vagas",
+            "groupIdentifier": {
+                "noon": {
+                    "interval": "12h - 14h",
+                    "label": "Almoço"
+                },
+                "afternoon": {
+                    "label": "Tarde",
+                    "interval": "15 - 18h"
+                },
+                "evening": {
+                    "interval": "Depois das 18h",
+                    "label": "Fim de tarde"
+                },
+                "morning": {
+                    "label": "De manhã",
+                    "interval": "Antes das 12h"
+                }
+            }
         },
         "marketplace": {
             "isEmpty": "Nenhuma marcação proposta"
@@ -8045,7 +8066,15 @@
             }
         },
         "noPrivatePass": "Os passes de marcação de consultas permitem aos membros efetuar marcações. Defina as suas tarifas e os termos e condições aqui.",
-        "noPrivateService": "O membro pode marcar uma consulta para a faixa horária escolhida."
+        "noPrivateService": "O membro pode marcar uma consulta para a faixa horária escolhida.",
+        "slot": {
+            "parameters": {
+                "credit": "{{ credit }} crédito"
+            },
+            "form": {
+                "title": "Sessão"
+            }
+        }
     },
     "relationship": {
         "private_consumer_pass_links": {

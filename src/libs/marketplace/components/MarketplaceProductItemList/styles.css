@@ -1,0 +1,6 @@
+.bs-product-item-list {
+  padding: 0;
+  list-style-type: none;
+  display: grid;
+  gap: var(--spacing-1);
+}

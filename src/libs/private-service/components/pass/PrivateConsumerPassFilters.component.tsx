@@ -24,6 +24,7 @@ type Props = {
 
 export function PrivateConsumerPassFilters(props: Props) {
   const { t } = useTranslation(['privateService']);
+
   return (
     <FilterMenu
       emptyLabel={t('filters.all')}
@@ -67,7 +68,7 @@ export function PrivateConsumerPassFilters(props: Props) {
               onDelete: () => props.setFiltersValue({ is_valid_today: null }),
               icon: CheckCircleOutlineIcon,
               label: t('filters.isValidToday'),
-              show: props.filters.is_valid_today === true,
+              show: props.filters?.is_valid_today === true,
             },
           ],
         },
@@ -81,14 +82,14 @@ export function PrivateConsumerPassFilters(props: Props) {
               onDelete: () => props.setFiltersValue({ reverted: null }),
               icon: CancelIcon,
               label: t('filters.reverted'),
-              show: props.filters.reverted,
+              show: props.filters?.reverted,
             },
             {
               onClick: () => props.setFiltersValue({ reverted: false }),
               onDelete: () => props.setFiltersValue({ reverted: null }),
               icon: CheckSharpIcon,
               label: t('filters.notReverted'),
-              show: props.filters.reverted === false,
+              show: props.filters?.reverted === false,
             },
           ],
         },
@@ -102,14 +103,14 @@ export function PrivateConsumerPassFilters(props: Props) {
               onDelete: () => props.setFiltersValue({ has_credit_left: null }),
               icon: AttachMoneyIcon,
               label: t('filters.hasCreditLeft'),
-              show: props.filters.has_credit_left,
+              show: props.filters?.has_credit_left,
             },
             {
               onClick: () => props.setFiltersValue({ has_credit_left: false }),
               onDelete: () => props.setFiltersValue({ has_credit_left: null }),
               icon: MoneyOffIcon,
               label: t('filters.hasCreditNull'),
-              show: props.filters.has_credit_left === false,
+              show: props.filters?.has_credit_left === false,
             },
           ],
         },

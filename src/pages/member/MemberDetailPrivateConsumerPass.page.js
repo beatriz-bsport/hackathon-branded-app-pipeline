@@ -446,7 +446,8 @@ export default compose(
       () => {
         fetchManagerFilters({
           onSuccess: (payload) => {
-            setFilters(payload.filters.private_pass_filters);
+            if (payload.filters.private_pass_filters)
+              setFilters(payload.filters.private_pass_filters);
           },
         });
       },

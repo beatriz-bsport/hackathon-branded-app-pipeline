@@ -113,3 +113,21 @@ export type ConsumerPaymentPackState = ErrorAndLoading & {
     };
   };
 };
+
+export type ConsumerPaymentPackFactoryOptions = {
+  bookingId?: number;
+  usedCredits?: number;
+  availableCredits?: number;
+  startingDate?: string;
+  endingDate?: string;
+  memberId?: number;
+  paymentPackId?: number;
+  isDisabled?: boolean;
+  isReverted?: boolean;
+  srcConsumerPaymentPack?: number[];
+  dstConsumerPaymentPack?: number;
+  penaltyDisabledFrom?: string;
+  penaltyDisabledUntil?: string;
+  linkedPrivateConsumerPass?: number;
+  consumer?: Consumer;
+};

@@ -366,6 +366,8 @@ export type MaxoutData = {
 };
 
 export type PaymentPackFactoryOptions = {
+  id?: number;
+  credits?: number;
   isUnlimited?: boolean;
   validityDaterange?: {
     upper: string;

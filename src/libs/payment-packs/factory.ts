@@ -63,14 +63,18 @@ const _paymentPackOffPeakScheduleFactory = () => {
  * })
  */
 export const paymentPackFactory = (options?: PaymentPackFactoryOptions) => {
+  const getCredits = () => {
+    if (options?.isUnlimited) return null;
+    return options?.credits || faker.number.int(10);
+  };
   return {
-    id: parseInt(faker.finance.accountNumber(4), 10),
+    id: options?.id || parseInt(faker.finance.accountNumber(4), 10),
     name: generateRandomName(faker),
     description: generateRandomDescription(faker),
     price: generateRandomPrice(faker, { min: 5, max: 100 }),
     base_price: generateRandomPrice(faker, { min: 5, max: 100 }),
     tax: faker.number.int(20),
-    credits: options?.isUnlimited ? null : faker.number.int(10),
+    credits: getCredits(),
     unlimited: options?.isUnlimited ?? faker.datatype.boolean(),
     nb_consumer_payment_packs: faker.number.int(5),
     max_bookings_per_day: faker.helpers.arrayElement([

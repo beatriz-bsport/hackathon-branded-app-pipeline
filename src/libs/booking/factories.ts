@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { Booking } from '../../api/types';
-import { ConsumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
+import { consumerPaymentPackFactory } from '#libs/consumer-payment-pack/factories';
 
 function randomInt(max: number) {
   return Math.floor(Math.random() * max);
@@ -38,7 +38,7 @@ export function BookingFactory(memberId: number): Booking {
     attendance: randomBoolean(),
     attendance_date_updated: randomDate(),
     booking_status_code: 0,
-    consumer_payment_pack: ConsumerPaymentPackFactory(bookingId),
+    consumer_payment_pack: consumerPaymentPackFactory({ bookingId }),
     date: randomDate(),
     date_canceled: randomDate(),
     first_in_company: randomBoolean(),

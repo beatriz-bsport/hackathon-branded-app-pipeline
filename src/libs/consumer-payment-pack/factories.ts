@@ -1,44 +1,60 @@
-// @ts-nocheck
-import { ConsumerPaymentPack } from './types';
-import { PaymentPackFactory } from '#libs/payment-packs/factory';
+import { fakerEN as faker } from '@faker-js/faker';
+import moment from 'moment-timezone';
 
-function randomInt(max: number) {
-  return Math.floor(Math.random() * max);
-}
+import { paymentPackFactory } from '#libs/payment-packs/factory';
 
-function randomDate() {
-  const y = (1950 + randomInt(70)).toString();
-  const m = randomInt(13);
-  let mm = '';
-  if (m < 11) {
-    mm = `0${m.toString()}`;
-  } else {
-    mm = m.toString();
-  }
+import type { ConsumerPaymentPackFactoryOptions } from './types';
 
-  const d = randomInt(31) + 1;
-  let dd = '';
-  if (d < 11) {
-    dd = `0${d.toString()}`;
-  } else {
-    dd = d.toString();
-  }
-
-  return `${y}-${mm}-${dd}`;
-}
-
-export function ConsumerPaymentPackFactory(
-  bookingId: number,
-): ConsumerPaymentPack {
-  const paymentPackId = randomInt(1000);
+/**
+ * Generates a consumer payment pack with Faker. You can use the options parameter to alter properties of the returned object
+ * @param options The options given to alter properties of generated consumer payment pack
+ * @returns {ConsumerPaymentPack}
+ * @example
+ * const fakeBooking = bookingFactory()
+ * const fakeConsumerPaymentPack = consumerPaymentPackFactory({
+ *  booking: fakeBooking.id,
+ * })
+ */
+export const consumerPaymentPackFactory = (
+  options?: ConsumerPaymentPackFactoryOptions,
+) => {
+  const paymentPack = paymentPackFactory();
   return {
-    id: randomInt(1000),
-    used_credits: randomInt(10),
-    available_credits: randomInt(10),
-    bookings: [`${bookingId}`],
-    starting_date: randomDate(),
-    ending_date: randomDate(),
-    payment_pack_id: `${paymentPackId}`,
-    payment_pack: PaymentPackFactory(paymentPackId),
+    id: faker.number.int(10000),
+    used_credits: options?.usedCredits || faker.number.int(10),
+    available_credits: options?.availableCredits || faker.number.int(10),
+    payment_pack_id: options?.paymentPackId || paymentPack.id.toString(),
+    bookings: [(options?.bookingId || faker.number.int(10000)).toString()],
+    starting_date: options?.startingDate || moment().startOf('month').format(),
+    ending_date: options?.endingDate || moment().endOf('month').format(),
+    member_id: options?.memberId || faker.number.int(10000),
+    bookings_this_week: faker.number.int(10),
+    payment_pack: paymentPack,
+    disabled: options?.isDisabled || faker.datatype.boolean(),
+    reverted: options?.isReverted || faker.datatype.boolean(),
+    invoice: faker.string.uuid(),
+    src_consumer_payment_pack: options?.srcConsumerPaymentPack || [],
+    dst_consumer_payment_pack: options?.dstConsumerPaymentPack || null,
+    track_modified_credit: [[1], [2], [3]],
+    penalty_disabled_from: options?.penaltyDisabledFrom || null,
+    penalty_disabled_until: options?.penaltyDisabledUntil || null,
+    consumer_payment_pack_source: faker.number.int(10000),
+    linked_private_consumer_pass: options?.linkedPrivateConsumerPass || null,
+    consumer: options?.consumer || null,
   };
-}
+};
+
+/**
+ * Generates a list of consumer payment pack with Faker
+ * @param count The number of consumer payment pack to generate
+ * @param options The options given to alter properties of generated consumer payment packs
+ * @returns {ConsumerPaymentPack[]}
+ */
+export const consumerPaymentPackListFactory = (
+  count: number,
+  options?: ConsumerPaymentPackFactoryOptions,
+) => {
+  return faker.helpers.multiple(() => consumerPaymentPackFactory(options), {
+    count,
+  });
+};

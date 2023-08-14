@@ -7654,45 +7654,274 @@
                 "delete": {
                     "confirm": "Eliminar",
                     "content": "Tem a certeza de que quer acabar com este tipo de marcação ?"
+                },
+                "pad_before_booking": {
+                    "label": "Ter em conta mesmo antes de reservar"
+                },
+                "managerOnly": {
+                    "label": "Não é visível para os alunos"
                 }
             },
             "configuration": {
-                "changeIsAlwaysAvailable": "Alterar"
+                "changeIsAlwaysAvailable": "Alterar",
+                "totalCapacity": "Capacidade máxima : {{ capacity}}",
+                "title": "Disponibilidade",
+                "explainHasOwnAvailabilitySlots": "Clique no lápis para restringir as reservas a determinadas faixas horárias",
+                "hasFutureSlot": "Calendário de disponibilidade futura OK",
+                "noCapacity": "Capacidade da sala não configurada !",
+                "noFutureSlot": "Não foi configurada qualquer disponibilidade para {{resourceName}} ! Por favor, clique aqui.",
+                "isAlwaysAvailable": "{{ resourceName}} pode ser reservado logo que a sala e/ou os professores estejam disponíveis",
+                "explainSetToHasNotOwnAvailabilitySlots": "Pode ser reservado para qualquer horário se houver disponibilidade de professor/sala",
+                "explainSetToHasOwnAvailabilitySlots": "Reservar apenas em determinadas faixas horárias",
+                "slot": "Tipo de sessão"
+            },
+            "selector": {
+                "isEmpty": "Nenhum tipo de marcação configurada",
+                "establishment": {
+                    "label": "Sala"
+                },
+                "coach": {
+                    "label": "Professor"
+                },
+                "placeholder": "Selecionar uma marcação"
+            },
+            "detail": {
+                "tab": {
+                    "general": "Geral",
+                    "calendar": "Calendário"
+                }
+            },
+            "navigation": {
+                "goToPrivatePass": "Passes de Marcação"
             }
         },
         "privatePass": {
             "delete": {
                 "explain": "Tem a certeza de que pretende eliminar este passe ? As pessoas que ainda têm créditos continuarão a poder utilizá-los.",
                 "delete": "Eliminar",
-                "warning": "Atenção! Este passe de marcação é utilizado num pack, que deixará de estar disponível para venda se retirar este passe de aulas."
+                "warning": "Atenção! Este passe de marcação é utilizado num pack, que deixará de estar disponível para venda se retirar este passe de aulas.",
+                "cancel": "Cancelar",
+                "submit": "Confirmar",
+                "title": "Eliminar o passe"
             },
             "edit": "Alterar",
             "form": {
                 "expirationDaysBeforeFirstUse": {
-                    "helperText": "Se o passe de aula não for utilizado pela primeira vez dentro deste número de dias, perde a validade."
+                    "helperText": "Se o passe de aula não for utilizado pela primeira vez dentro deste número de dias, perde a validade.",
+                    "label": "Expira se não houver uma reserva inicial"
                 },
                 "name": {
-                    "helperText": "Nome do passe de aulas"
+                    "helperText": "Nome do passe de aulas",
+                    "label": "Nome"
                 },
                 "universalPass": {
                     "helperText": "Os passes universais podem ser utilizados para marcar aulas de grupo e marcações. Uma vez criado o passe, será criado um passe \"gémeo\" nos passes de aulas. O número de créditos dos dois cartões será associado. Quando comprar um dos dois cartões, o outro será automaticamente adicionado ao membro (sem custos adicionais).",
-                    "warningIsUniversalPass": "Este passe é um passe universal, foi criado um passe igual nos passes de aulas. Todos os campos modificados neste passe serão igualmente modificados no passe \"gémeo\" (exceto a categoria). O mesmo se aplica às notificações, extensões e modificações de crédito."
+                    "warningIsUniversalPass": "Este passe é um passe universal, foi criado um passe igual nos passes de aulas. Todos os campos modificados neste passe serão igualmente modificados no passe \"gémeo\" (exceto a categoria). O mesmo se aplica às notificações, extensões e modificações de crédito.",
+                    "label": "Passe universal",
+                    "deativatedTags": "Deficientes para passes universais"
+                },
+                "categoryTitle": {
+                    "compatibilityAppointment": "Compatibilidade para Marcações",
+                    "paymentMeans": "Métodos de pagamento",
+                    "validity": "Validade do passe",
+                    "compatibility": "Compatibilidade",
+                    "info": "Informações gerais"
+                },
+                "full_vod_access": {
+                    "label": "Dar acesso aos Vídeos de Demanda"
+                },
+                "appliesForPayroll": {
+                    "helperText": "Por defeito, as marcações são faturadas ao estúdio e incluídas no resumo e na remuneração do professor. Se desativar esta definição, as marcações associadas a este passe deixarão de aparecer no resumo do professor.",
+                    "label": "Marcações tidas em conta no cálculo da remuneração do professor"
+                },
+                "expiration_date": {
+                    "helperText": "Disponível até",
+                    "label": "Prazo de aquisição",
+                    "tooltip": "Uma vez ultrapassada a data escolhida, o passe de marcação deixará de aparecer para venda aos clientes."
+                },
+                "managerOnly": {
+                    "label": "Não é visível para os alunos"
+                },
+                "new_member_only": {
+                    "label": "Exclusivo para novos membros"
+                },
+                "category": "Nome da categoria",
+                "credits": {
+                    "label": "Número de créditos incluídos",
+                    "helperText": "Cada sessão custa um determinado número de créditos"
+                },
+                "price": {
+                    "label": "Preço incl. IVA",
+                    "helperText": "Preço do passe para o aluno"
+                },
+                "durationMonths": {
+                    "label": "Duração da validade em meses",
+                    "helperText": "Adicionado ao número de dias"
+                },
+                "durationYears": {
+                    "label": "Duração da validade em anos",
+                    "helperText": "Adicionado ao número de dias e de meses"
+                },
+                "duration": {
+                    "fullText": "Este passe será válido para ",
+                    "days": "{{ count }} dia",
+                    "days_plural": "{{ count }} dias",
+                    "months": "{{ count }} mês",
+                    "and": " e ",
+                    "valid": "Válido ",
+                    "years": "{{ count }} ano",
+                    "years_plural": "{{ count }} anos",
+                    "daysMonths": "{{ duration_months }} mês e {{ duration_days }} dias"
+                },
+                "available_payment_method_identifiers": {
+                    "warning": "Torne o seu passe visível para os alunos, para que estes possam selecionar os métodos de pagamento.",
+                    "label": "Meios de pagamentos autorizados",
+                    "helperText": "Selecionar pelo menos um método de pagamento. Se o cesto do membro contiver artigos com métodos de pagamento incompatíveis, será proposto o pagamento por passe."
+                },
+                "start_date_method": {
+                    "on_purchase": "Faturação",
+                    "on_booking": "Na 1ª reserva",
+                    "on_attendance": "Na 1º presença"
+                },
+                "tax": {
+                    "label": "IVA"
+                },
+                "selector": {
+                    "privateService": "Adicionar uma marcação compatível"
+                },
+                "durationDays": {
+                    "label": "Duração da validade em dias"
+                },
+                "startDate": "Data de início",
+                "actions": {
+                    "cancel": "Cancelar",
+                    "submit": "Registar"
+                },
+                "onBehalfOfTeacher": {
+                    "helperText": "Esta definição permite-lhe indicar que os rendimentos associados às marcações neste passe serão pagos na totalidade ao professor. Esta informação será visível nos seus relatórios de compra (CA) na coluna \"Pagamento pago na totalidade ao professor\".",
+                    "label": "Pagamento integral ao professor"
+                },
+                "start_date_method_detail": {
+                    "on_purchase": " a partir da data de aquisição",
+                    "on_booking": " a partir da 1º reserva",
+                    "on_attendance": " a partir da 1º presença"
+                },
+                "title": "Passe de marcações",
+                "franchise": "Este passe é partilhado pela conta do franchisador. Certos elementos foram definidos pela conta do franchisador e não podem ser alterados",
+                "description": {
+                    "label": "Descrição"
                 }
-            }
+            },
+            "actions": {
+                "forceRegularizeUnpaid": "Regularizar todas os pagamentos pendentes"
+            },
+            "list": {
+                "availableCustomer": "Passes disponíveis para venda",
+                "managerOnly": "Passes não disponíveis para venda",
+                "createButton": "Criar um passe de marcação",
+                "isEmpty": "Nenhum passe de Marcação"
+            },
+            "parameters": {
+                "price": "{{ price, price}}",
+                "nbCredits": "{{ credits }} crédito",
+                "nbCredits_plural": "{{ credits }} créditos",
+                "unusableByStaff": "Não é visível para o staff",
+                "tax": "IVA: {{ tax }}%",
+                "managerOnly": "Não é visível para os alunos"
+            },
+            "compatibleServices": {
+                "unusable": "Não pode ser utilizado",
+                "title": "Marcações compatíveis",
+                "add": "Adicionar",
+                "isEmpty": "Nenhuma marcação compatível"
+            },
+            "listItem": {
+                "unusableByStaff": "Não visível para o staff"
+            },
+            "ht": "Sem imposto",
+            "validForDuration": {
+                "months": "Valido {{ duration_months }} mês",
+                "years": "Válido {{ duration_years }} ano",
+                "days": "Válido {{ duration_days }} dias",
+                "general": "Válido por {{ duration_days }} dias {{ duration_months }} mês e {{ duration_years }} ano"
+            },
+            "detailTitles": {
+                "credit_quantity": "Número de créditos",
+                "paymentMeans": "Métodos de pagamento",
+                "accessibility": "Acessibilidade",
+                "validity": "Validade",
+                "vod": "Vídeos de Demanda",
+                "privateServiceCompatibility": "Marcações compatíveis"
+            },
+            "disabledTitle": "Passe de Marcações arquivados"
         },
         "privateServiceCompatibility": {
             "delete": {
                 "submit": "Eliminar",
-                "explain": "Tem a certeza que pretende alterar as regras de utilização do passe? Esta modificação é retroactiva para as compras já efectuadas."
-            }
+                "explain": "Tem a certeza que pretende alterar as regras de utilização do passe? Esta modificação é retroactiva para as compras já efectuadas.",
+                "cancel": "Cancelar",
+                "title": "Alterar Marcações compatíveis"
+            },
+            "allSlots": "Compatível para todas as sessões",
+            "none": " nenhum",
+            "excludedSlots": {
+                "submit": "Registar",
+                "cancel": "Cancelar",
+                "isEmpty": "Nenhum tipo de sessão configurada nesta marcação!",
+                "helperText": "Selecionar as sessões para as quais o passe de Marcações é compatível",
+                "title": "Sessões de {{ service }}"
+            },
+            "forSlots": "Sessões compatíveis :"
         },
         "consumerPass": {
             "extension": {
                 "delete": {
-                    "explain": "Tem a certeza de que pretende eliminar a extensão da validade ?"
-                }
+                    "explain": "Tem a certeza de que pretende eliminar a extensão da validade ?",
+                    "confirm": "Confirmar",
+                    "cancel": "Cancelar",
+                    "title": "Eliminar a extensão"
+                },
+                "create": {
+                    "note": {
+                        "label": "Notas"
+                    },
+                    "cancel": "Cancelar",
+                    "explain": {
+                        "newDate": "Nova data : ",
+                        "oldDate": "Data anterior : "
+                    },
+                    "warning": "Verificar se a nova data não faz com que esta passagem exceda um novo período fiscal. Se for esse o caso, verifique com o seu contabilista se esta operação é adequada.",
+                    "nbDays": {
+                        "label": "Número de dias adicionais"
+                    },
+                    "datePicker": {
+                        "label": "Nova data"
+                    },
+                    "submit": "Criar",
+                    "title": "Extensão de um passe"
+                },
+                "addedOn": "Adicionado em ",
+                "options": {
+                    "addNumberOfDays": "Prolongar a validade acrescentando um determinado número de dias",
+                    "selectNewEndDate": "Definir uma nova data de expiração"
+                },
+                "nbDaysAdded": "+{{nb_days}}d"
             },
-            "warningShareUniversal": "Este passe é universal, por favor partilhe o passe de aulas associado"
+            "warningShareUniversal": "Este passe é universal, por favor partilhe o passe de aulas associado",
+            "detail": {
+                "booking": "Reservas de marcação associadas",
+                "extensionsTitle": "Extensões de validade",
+                "invoice": "Fatura associada"
+            },
+            "isReverted": "Fatura cancelada",
+            "isFromDisabledShare": "Parar partilha",
+            "actions": {
+                "addExtension": "Adicionar uma extensão"
+            },
+            "current_credits": "{{ current_credits }}/{{credits}} créditos",
+            "expiresOn": "Expira em {{ date }}",
+            "isFromShare": "Partilhado a partir de outra conta",
+            "isOwnerOfShares": "Partilhado (passe principal Marcações)"
         },
         "privateCoach": {
             "delete": {
@@ -8072,9 +8301,103 @@
                 "credit": "{{ credit }} crédito"
             },
             "form": {
-                "title": "Sessão"
+                "title": "Sessão",
+                "pre_selected_choices": "Horários predefinidos",
+                "name": {
+                    "placeholder": "Sessão dupla (2h)",
+                    "label": "Nome da sessão"
+                },
+                "credit": {
+                    "label": "Número de crédito(s)",
+                    "helperText": "Número de crédito(s) necessário(s) para uma reserva"
+                },
+                "durationError": "Duração inválida (entre 10min e 1d)",
+                "people_capacity_used": {
+                    "helperText": "Se uma sala estiver configurada, este número será utilizado para atualizar a ocupação da sala",
+                    "label": "Número de pessoas"
+                },
+                "duration_minutes": {
+                    "label": "Duração",
+                    "helperText": "Adaptar os créditos necessários em função da duração"
+                },
+                "booking_interval_minutes": {
+                    "label": "Avançar : intervalo de seleção de reserva",
+                    "helperText": "Exemplo: 15 significa 15 minutos que o membro pode reservar às 12:00, 12:15, 12:30, etc... (recomendado)"
+                },
+                "cancel": "Cancelar",
+                "submit": "Registar"
             }
-        }
+        },
+        "bookerModule": {
+            "emptySlot": "Sem disponibilidade",
+            "title": "Reservar uma marcação",
+            "missingResource": {
+                "establishment": "Selecionar um local",
+                "service": "Selecionar um tipo de marcação",
+                "coach": "Selecionar o professor"
+            },
+            "isAtHome": "Aulas ao domicílio, a sua morada será solicitada aquando a reserva",
+            "address": {
+                "label": "Morada",
+                "helperText": "Introduza o seu endereço para reservar esta marcação",
+                "submit": "Confirmar"
+            },
+            "unpaidBooking": {
+                "helper": "Reserve sem pagar e compre um passe compatível mais tarde.",
+                "header": "Pagar mais tarde",
+                "dialogHelper": "Com esta opção, pode reservar a sua sessão sem a pagar de imediato. Da próxima vez que comprar um passe compatível com esta sessão, este será automaticamente debitado por {{ credits }} crédito(s).",
+                "isUnpaid": "Não pago",
+                "book": "Reservar"
+            },
+            "useCredit": "Reservar",
+            "buyPass": "{{ price, price }}",
+            "sections": {
+                "privateSlot": "Sessões",
+                "establishment": "Local",
+                "coach": "Professor"
+            },
+            "step": {
+                "configuration": "A minha marcação",
+                "privateSlot": "Sessão",
+                "billing": "Faturação",
+                "privateService": "Marcações",
+                "coach": "Professor",
+                "rule": "Marcações recorrentes",
+                "date": "Data"
+            },
+            "recurrenceRule": {
+                "label": "Programa de marcações recurrente"
+            },
+            "bookingCapabilities": {
+                "compatiblePassTitle": "Passes válidos para esta sessão",
+                "emptyPassList": "Não há passes compatíveis, contacte o seu estúdio",
+                "compatibleConsumerPassTitle": "Os seus passes válidos",
+                "emptyConsumerPassList": "Não dispõe de um passe válido com crédito suficiente"
+            },
+            "private_pass": {
+                "credits": "{{ credits }} crédito"
+            },
+            "notifyMember": {
+                "label": "Enviar um email de confirmação"
+            },
+            "error": "Impossível reservar nesta data",
+            "searchSlot": "Procurar uma vaga",
+            "confirm": "Confirmar",
+            "cancel": "Cancelar",
+            "noPrivateServiceAvailable": "Não é possível efetuar marcações",
+            "preview": {
+                "credit_cost": "{{credit_cost}} crédito"
+            },
+            "availableSlots": "Vagas disponíveis"
+        },
+        "specificAvailabilitiesCalendar": {
+            "infoBoxContent": "Está no modo de disponibilidade específico do estabelecimento. Por predefinição, os seus professores estão disponíveis em todas os estabelecimentos quando cria uma disponibilidade. Nesta página, pode definir disponibilidades específicas para determinados estabelecimentos para que o seu professor esteja disponível apenas num local. É necessário criar uma disponibilidade geral no horário do professor para criar uma disponibilidade específica.",
+            "goToRegularCalendar": "Voltar ao horários",
+            "filters": "Filtros",
+            "establishment": "Sala"
+        },
+        "openCalendar": "Ver o calendário",
+        "openSpecificAvailabilitiesCalendar": "Disponibilidades específicas"
     },
     "relationship": {
         "private_consumer_pass_links": {

@@ -930,7 +930,6 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     OffersGroup
   > = withMetaActivity(
     withCoach(withEstablishment(getOfferById)),
-    // @ts-expect-error
   )(state, props.offerId);
   const memberTagList = props.memberTagList || getMemberTagsIdsList(state);
   const authenticated = props.authenticated || state.auth.authenticated;

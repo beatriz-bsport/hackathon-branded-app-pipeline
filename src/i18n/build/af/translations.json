@@ -11374,6 +11374,14 @@
       "payment": {
         "details": "Détails de paiement",
         "tooltip": "Ce moyen de paiement sera conservé pour être facturé conformément au contrat. Ne vous inquiétez pas, vous pourrez le modifier ultérieurement à partir de votre compte."
+      },
+      "error": {
+        "title": "Une erreur est survenue",
+        "text": {
+          "registerBackground": "Votre abonnement et votre réservation n'ont pas pu être créés. Le moyen de paiement n'a pas été débité.",
+          "userRegistration": "Votre abonnement a été créé, et votre moyen de paiement sera débité sous peu. En revanche, votre réservation n'a pas pu être enregistrée."
+        },
+        "button": { "registerBackground": "Fermer", "userRegistration": "Voir mon abonnement" }
       }
     }
   },

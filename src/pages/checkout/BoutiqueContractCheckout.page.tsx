@@ -85,6 +85,7 @@ import MarketplaceContractTermsModal from '#libs/marketplace/components/Marketpl
 import { appliesToContract } from '#libs/coupon/api';
 import { computeProrataPriceForSubscription } from '#libs/subscription/utils';
 import ProcessingPaymentDialog from '#libs/subscription/components/new-checkout-flow/ProcessingPaymentDialog';
+import SubscriptionErrorDialog from '#libs/subscription/components/new-checkout-flow/SubscriptionErrorDialog';
 import MarketplaceContractCooldownModal from '#libs/marketplace/components/MarketplaceContractCooldownModal';
 import { BookerItem } from '#libs/booker-module/types';
 
@@ -130,6 +131,8 @@ type State = {
   validCoupon: { voucher: number; couponCode: string } | null;
   showCouponInput: boolean;
   selectedSavedPaymentMethodId: string | null;
+  registerBackgroundServerErrorOccured: boolean;
+  userRegistrationserverErrorOccured: boolean;
 };
 
 export class MarketplaceNewSubscriptionCheckout extends React.Component<
@@ -149,6 +152,8 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
       validCoupon: null,
       showCouponInput: true,
       selectedSavedPaymentMethodId: null,
+      registerBackgroundServerErrorOccured: false,
+      userRegistrationserverErrorOccured: false,
     };
   }
 
@@ -354,6 +359,16 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
     instalment_payment: null as null,
   });
 
+  handleCloseErrorDialog = () => {
+    if (this.state.userRegistrationserverErrorOccured) {
+      this.props.replace(`/c/${this.props.companyId}/subscription/`);
+    }
+    this.setState({
+      registerBackgroundServerErrorOccured: false,
+      userRegistrationserverErrorOccured: false,
+    });
+  };
+
   handleSubmitContractPayment = (
     _: unknown,
     payment_method_id: string,
@@ -383,6 +398,7 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
           ) => {
             this.setState({
               processing: false,
+              registerBackgroundServerErrorOccured: true,
             });
             if (
               err.response?.data?.error_code === CONTRACT_IS_ALREADY_SUBSCRIBED
@@ -393,6 +409,7 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
           onBackgroundError: () =>
             this.setState({
               processing: false,
+              registerBackgroundServerErrorOccured: true,
             }),
           onBackgroundSuccess: (taskReturnValue) => {
             try {
@@ -411,6 +428,7 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
                     onError: () =>
                       this.setState({
                         processing: false,
+                        userRegistrationserverErrorOccured: true,
                       }),
                   },
                 );
@@ -531,6 +549,19 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
             onDownloadTerms={this.props.downloadContractTerms}
           />
           <ProcessingPaymentDialog open={this.state.processing} />
+          <SubscriptionErrorDialog
+            handleAction={this.handleCloseErrorDialog}
+            open={
+              this.state.registerBackgroundServerErrorOccured ||
+              this.state.userRegistrationserverErrorOccured
+            }
+            registerBackgroundServerErrorOccured={
+              this.state.registerBackgroundServerErrorOccured
+            }
+            userRegistrationserverErrorOccured={
+              this.state.userRegistrationserverErrorOccured
+            }
+          />
           <MarketplaceContractCooldownModal
             isOpen={this.state.isContractCooldownDialogOpen}
             onDialogClose={this.handleCloseContractCooldownDialog}

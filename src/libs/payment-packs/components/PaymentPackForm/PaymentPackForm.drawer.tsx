@@ -37,6 +37,7 @@ type OwnProps = {
   clearPaymentPackToEdit?: () => void;
   closeForm?: () => void;
   provincialTax: number;
+  displayNewCheckoutFlow?: boolean;
   privateServices: Array<PrivateServiceWithSlots>;
   compatibleServicePass: Array<ServiceCompatibilityPass>;
   allowGuestMaster?: boolean;
@@ -60,6 +61,7 @@ export const PaymentPackFormDrawer = (props: Props) => {
     privateServices,
     compatibleServicePass,
     allowGuestMaster,
+    displayNewCheckoutFlow,
   } = props;
 
   return (
@@ -82,6 +84,7 @@ export const PaymentPackFormDrawer = (props: Props) => {
         closeForm={closeForm}
         compatibleServicePass={compatibleServicePass}
         creditScaleFactor={props.creditScaleFactor}
+        displayNewCheckoutFlow={displayNewCheckoutFlow}
         initial={initial}
         metaActivityList={metaActivityList}
         onCancelText={onCancelText}

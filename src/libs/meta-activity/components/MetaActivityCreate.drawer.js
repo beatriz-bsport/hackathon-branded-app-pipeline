@@ -253,6 +253,9 @@ export class MetaActivityCreateDrawer extends Component<Props> {
                     .indexOf(category.id) !== -1,
               )
         }
+        displayNewCheckoutFlow={
+          this.props.companyTheme.display_new_checkout_flow
+        }
         fetchPaymentPacksAsConsumer={this.props.fetchPaymentPacks}
         goToMetaActivity={this.props.goToMetaActivity}
         goToPaymentPackCreate={this.props.goToPaymentPackCreate}

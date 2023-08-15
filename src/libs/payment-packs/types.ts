@@ -90,6 +90,7 @@ export type PaymentPack<LPP = number | null, PPCategories = Array<number>> = {
   is_usable_by_staff: boolean;
   applies_for_payroll: boolean;
   off_peak_schedule: Record<string, string[][]>;
+  highlighted_as_recommended: boolean;
 };
 
 export type ConsumerPaymentPack = {
@@ -282,6 +283,7 @@ export type PaymentPackFormValues<LPP = number> = {
   expiration_date_active: boolean;
   off_peak_active: boolean;
   off_peak_schedule: OffPeakSchedule[];
+  highlighted_as_recommended: boolean;
 };
 
 export type OffPeakIsoWeekdays = {

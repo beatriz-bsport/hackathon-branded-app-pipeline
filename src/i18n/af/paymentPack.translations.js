@@ -506,6 +506,10 @@ exports.default = {
           'Les cartes universelles peuvent être utilisées pour réserver des cours collectifs ET des rendez-vous. Une fois la carte créée, une carte jumelle sera créée dans les cartes de rendez-vous. Le nombre de crédit des deux cartes sera lié. A l’achat de l’une des deux cartes, l’autre sera automatiquement ajoutée au membre (sans frais supplémentaire).',
         deativatedTags: 'Désactivé pour les cartes universelles',
       },
+      highlightedAsRecommended: {
+        label: 'Marquer comme recommandé',
+        helperText: "Permet à vos clients de voir d'un coup d'oeil quelles cartes de cours sont actuellement recommandées.",
+      },
     },
   },
   listItem: {

@@ -150,6 +150,7 @@ type Props = {
   provincialTax: number;
   isInDrawer: boolean;
   privateServices: PrivateServiceWithSlots[];
+  displayNewCheckoutFlow: boolean;
   compatibleServicePass: ServiceCompatibilityPass[];
   allowGuestMaster?: boolean;
 };
@@ -181,6 +182,7 @@ export const PaymentPackForm: React.FC<Props> = ({
   compatibleServicePass,
   allowGuestMaster,
   creditScaleFactor,
+  displayNewCheckoutFlow,
 }) => {
   const [disabledUniversalPassFields, setDisableUniversalPassFields] =
     React.useState<boolean>(false);
@@ -344,6 +346,7 @@ export const PaymentPackForm: React.FC<Props> = ({
                 description: null,
                 off_peak_schedule: offPeakGroupDefaultValue,
                 off_peak_active: false,
+                highlighted_as_recommended: false,
               }
         }
         onSubmit={(values, actions) => {
@@ -470,6 +473,7 @@ export const PaymentPackForm: React.FC<Props> = ({
             'expiration_date',
             'description',
             'off_peak_schedule',
+            'highlighted_as_recommended',
           ];
           const data = pick(sanitizedValues, keys);
           onSubmit(data, {
@@ -504,6 +508,7 @@ export const PaymentPackForm: React.FC<Props> = ({
               >
                 <PaymentPackFormGeneral
                   disabledUniversalPassFields={disabledUniversalPassFields}
+                  displayNewCheckoutFlow={displayNewCheckoutFlow}
                   initial={initial}
                   paymentPackCategories={paymentPackCategories}
                   provincialTax={provincialTax}
@@ -837,4 +842,5 @@ const paymentPackSchema = Yup.object().shape({
   expiration_date: Yup.date().nullable(),
   description: Yup.string().nullable(),
   off_peak_schedule: offPeakScheduleSchemaValidation,
+  highlighted_as_recommended: Yup.boolean(),
 });

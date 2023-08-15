@@ -687,6 +687,7 @@ export class PaymentPackList extends React.Component<Props, State> {
             closeForm={this.closePaymentPackFormDrawer}
             compatibleServicePass={this.props.compatibleServicePass}
             creditScaleFactor={this.props.theme.pass_credit_factor}
+            displayNewCheckoutFlow={this.props.theme.display_new_checkout_flow}
             initial={this.state.paymentPackToEdit}
             metaActivityList={metaActivities}
             onSubmit={this.props.createOrUpdatePaymentPack}

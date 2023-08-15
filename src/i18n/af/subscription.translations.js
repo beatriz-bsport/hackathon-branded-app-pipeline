@@ -515,6 +515,10 @@ exports.default = {
           'Entrez ici toutes les mentions légales nécessaires notamment concernant les procédures de remboursement.',
         label: 'Mentions légales',
       },
+      highlightedAsRecommended: {
+        label: 'Marquer comme recommandé',
+        helperText: "Permet à vos clients de voir d'un coup d'oeil quels contrats sont actuellement recommandés.",
+      },
     },
     deleteForm: {
       title: 'Suppression contrat',

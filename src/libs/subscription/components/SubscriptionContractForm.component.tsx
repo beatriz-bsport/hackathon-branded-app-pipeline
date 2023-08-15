@@ -96,6 +96,7 @@ export type SubscriptionContractFormDrawerPropsWithoutFormik = {
   paymentPackList: PaymentPack[];
   privatePassList: PrivatePass[];
   paymentComboList: PaymentCombo[];
+  displayNewCheckoutFlow: boolean;
 };
 
 export type SubscriptionContractFormDrawerProps =
@@ -425,6 +426,14 @@ export function SubscriptionContractFields(
           label={t('contract.form.unusableByStaff.label')}
           name="unusable_by_staff"
         />
+
+        {props.displayNewCheckoutFlow && (
+          <SwitchField
+            helperText={t('contract.form.highlightedAsRecommended.helperText')}
+            label={t('contract.form.highlightedAsRecommended.label')}
+            name="highlighted_as_recommended"
+          />
+        )}
       </FormSection>
     </div>
   );
@@ -586,6 +595,7 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
         );
       },
     ),
+  highlighted_as_recommended: Yup.boolean(),
 });
 
 function isNumber(value: unknown): value is number {
@@ -642,6 +652,7 @@ export const SubscriptionContractFormHoc = withFormik<
       unusable_by_staff: false,
       invoicing_type: InvoicingType.fixedDay,
       month_billing_day: 1,
+      highlighted_as_recommended: false,
     };
   },
   enableReinitialize: true,

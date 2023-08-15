@@ -183,6 +183,9 @@ export class SubscriptionList extends React.Component<Props, State> {
                     name: this.props.theme.company_name,
                   }}
                   contractList={this.state.searchResult}
+                  displayNewCheckoutFlow={
+                    this.props.theme.display_new_checkout_flow
+                  }
                   loading={this.props.contractLoading}
                   onClick={this.onClickContract}
                   onDelete={(id: number) =>
@@ -230,6 +233,9 @@ export class SubscriptionList extends React.Component<Props, State> {
                   name: this.props.theme.company_name,
                 }}
                 contractList={this.props.contractListAvailableAll}
+                displayNewCheckoutFlow={
+                  this.props.theme.display_new_checkout_flow
+                }
                 loading={this.props.contractLoading}
                 onClick={this.onClickContract}
                 onDelete={(id: number) =>
@@ -379,6 +385,7 @@ export class SubscriptionList extends React.Component<Props, State> {
           />
         ) : null}
         <SubscriptionContractFormDrawer
+          displayNewCheckoutFlow={this.props.theme.display_new_checkout_flow}
           onClose={this.props.onCloseCreate}
           onSubmit={this.props.onCreate}
           open={this.props.createContractFormOpen}

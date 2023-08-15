@@ -35,6 +35,7 @@ type Props = {
 
   onRegister: (Contract) => void,
   processing: boolean,
+  displayNewCheckoutFlow: boolean,
 
   onDelete: (id: number, options: OptionCallback) => void,
   paymentPackList: Array<PaymentPack>,
@@ -102,6 +103,7 @@ export const SubscriptionContractList = (props: Props) => {
         </div>
       )}
       <SubscriptionContractFormDrawer
+        displayNewCheckoutFlow={props.displayNewCheckoutFlow}
         initial={props.contractToEdit}
         onClose={() => {
           props.setCreateOpen(false);
@@ -125,6 +127,7 @@ export const SubscriptionContractList = (props: Props) => {
         privatePassList={props.privatePassList}
       />
       <SubscriptionContractFormDrawer
+        displayNewCheckoutFlow={props.displayNewCheckoutFlow}
         initial={props.contractToEdit}
         onClose={() => props.setContractToEdit(null)}
         onSubmit={(data, options) => {

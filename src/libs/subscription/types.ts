@@ -118,6 +118,7 @@ export type Contract = {
   contract_terms_pdf_link: string | null;
   is_usable_by_staff: boolean;
   month_billing_day: number | null;
+  highlighted_as_recommended: boolean;
 };
 
 export type ContractWithPaymentPack<
@@ -143,6 +144,7 @@ export type ContractWithPaymentPack<
   payment_combo?: PaymentComboType;
   is_usable_by_staff: boolean;
   month_billing_day: number | null;
+  highlighted_as_recommended: boolean;
 };
 
 export type ContractInterval = 'month' | 'week';

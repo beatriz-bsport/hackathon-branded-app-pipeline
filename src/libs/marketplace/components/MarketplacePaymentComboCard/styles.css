@@ -69,6 +69,15 @@
   font-size: var(--subtitle1-fontSize);
 }
 
+.bs-pack-card__title--flex {
+  display: flex;
+  align-items: center;
+}
+
+.bs-pack-card__title__chipcontainer {
+  margin-left: var(--spacing-1);
+}
+
 .bs-pack-card__description {
   text-align: left;
   font-size: var(--body2-fontSize);

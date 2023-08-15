@@ -16,6 +16,7 @@ import {
   generateRandomDescription,
   generateRandomPrice,
 } from '../../utils/factories';
+import type { PaymentComboFactoryOptions } from './types';
 
 /**
  * Generates a payment combo item with Faker
@@ -56,7 +57,7 @@ const paymentComboItemListFactory = (
  * Generates a payment combo with Faker
  * @returns {PaymentCombo}
  */
-export const paymentComboFactory = () => {
+export const paymentComboFactory = (options?: PaymentComboFactoryOptions) => {
   return {
     id: parseInt(faker.finance.accountNumber(4), 10),
     name: generateRandomName(faker),
@@ -86,6 +87,7 @@ export const paymentComboFactory = () => {
     available_payment_method_identifier: [CB.id, BACS_DEBIT.id, SEPA.id],
     new_member_only: faker.datatype.boolean(),
     is_usable_by_staff: faker.datatype.boolean(),
+    highlighted_as_recommended: options?.isHighlightedAsRecommended ?? false,
   };
 };
 
@@ -94,6 +96,9 @@ export const paymentComboFactory = () => {
  * @param count The number of payment combo to generate
  * @returns {PaymentCombo[]}
  */
-export const paymentComboListFactory = (count: number) => {
-  return faker.helpers.multiple(() => paymentComboFactory(), { count });
+export const paymentComboListFactory = (
+  count: number,
+  options?: PaymentComboFactoryOptions,
+) => {
+  return faker.helpers.multiple(() => paymentComboFactory(options), { count });
 };

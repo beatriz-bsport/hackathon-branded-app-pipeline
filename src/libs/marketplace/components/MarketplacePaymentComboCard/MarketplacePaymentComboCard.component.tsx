@@ -10,6 +10,7 @@ import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import Card, { CardSize } from '#csscomponents/Card';
+import RecommendedChip from '#components/css-only/RecommendedChip';
 import Content from '#csscomponents/Card/CardContent';
 import Grid from '#csscomponents/Grid';
 import Item, {
@@ -61,6 +62,10 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
 
   const cardVariant = variant ?? CARD_VARIANTS.MARKETPLACE;
 
+  const shouldDisplayRecommendedChip =
+    cardVariant === CARD_VARIANTS.PRICING_PAGE &&
+    paymentCombo.highlighted_as_recommended;
+
   return (
     <Card
       classes={{
@@ -91,9 +96,16 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
                 className={classNames('bs-pack-card__title', {
                   'bs-pack-card__title--small':
                     cardVariant === CARD_VARIANTS.PRICING_PAGE,
+                  'bs-pack-card__title--flex':
+                    cardVariant === CARD_VARIANTS.PRICING_PAGE,
                 })}
               >
                 {paymentCombo.name}
+                {shouldDisplayRecommendedChip && (
+                  <div className="bs-pack-card__title__chipcontainer">
+                    <RecommendedChip />
+                  </div>
+                )}
               </div>
               {cardVariant === CARD_VARIANTS.PRICING_PAGE && (
                 <div className="bs-pack-card__list--horizontal">

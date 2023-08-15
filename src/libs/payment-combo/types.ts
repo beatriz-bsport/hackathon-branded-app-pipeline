@@ -115,3 +115,7 @@ export type FetchPaymentComboPurchaseListParams = {
   page: number;
   payment_combo?: number;
 };
+
+export type PaymentComboFactoryOptions = {
+  isHighlightedAsRecommended?: boolean;
+};

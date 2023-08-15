@@ -4,6 +4,9 @@ import { paymentComboFactory } from '#libs/payment-combo/factory';
 import { MarketplacePaymentComboCardForStorybook, Props } from '.';
 
 const fakePaymentCombo = paymentComboFactory();
+const fakePaymentComboHighlightedAsRecommended = paymentComboFactory({
+  isHighlightedAsRecommended: true,
+});
 
 const PackCardTemplate = (args: Props) => (
   // @ts-expect-error
@@ -18,6 +21,12 @@ BasicPackCard.args = {
 export const PricingPagePackCard = PackCardTemplate.bind({});
 PricingPagePackCard.args = {
   paymentCombo: fakePaymentCombo,
+  variant: 'pricing_page',
+};
+
+export const PricingPagePackCardWithRecommendedChip = PackCardTemplate.bind({});
+PricingPagePackCardWithRecommendedChip.args = {
+  paymentCombo: fakePaymentComboHighlightedAsRecommended,
   variant: 'pricing_page',
 };
 

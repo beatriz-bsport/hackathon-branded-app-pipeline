@@ -270,4 +270,5 @@ export type ContractFactoryOptions = {
   isDisabled?: boolean;
   isUsableByStaff?: boolean;
   monthBillingDay?: number;
+  isHighlightedAsRecommended?: boolean;
 };

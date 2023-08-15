@@ -17,6 +17,9 @@ export default {
 } as ComponentMeta<typeof MarketplaceContractCardForStorybook>;
 
 const fakeContract = contractFactory();
+const fakeContractHighlightedAsRecommended = contractFactory({
+  isHighlightedAsRecommended: true,
+});
 
 const SubscriptionTemplate: ComponentStory<
   typeof MarketplaceContractCardForStorybook
@@ -32,5 +35,12 @@ BasicSubscriptionCard.args = {
 export const PricingPageSubscriptionCard = SubscriptionTemplate.bind({});
 PricingPageSubscriptionCard.args = {
   contract: fakeContract,
+  variant: 'pricing_page',
+};
+
+export const PricingPageSubscriptionCardWithRecommendedChip =
+  SubscriptionTemplate.bind({});
+PricingPageSubscriptionCardWithRecommendedChip.args = {
+  contract: fakeContractHighlightedAsRecommended,
   variant: 'pricing_page',
 };

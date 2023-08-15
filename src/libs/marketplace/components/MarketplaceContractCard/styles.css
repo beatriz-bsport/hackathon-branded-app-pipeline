@@ -37,6 +37,15 @@
   font-size: var(--subtitle1-fontSize);
 }
 
+.bs-contract-card__title--flex {
+  display: flex;
+  align-items: center;
+}
+
+.bs-contract-card__title__chipcontainer {
+  margin-left: var(--spacing-1);
+}
+
 .bs-paymentpack-card__seemore {
   font-size: var(--subtitle2-fontSize);
   font-family: var(--subtitle2-fontFamily);

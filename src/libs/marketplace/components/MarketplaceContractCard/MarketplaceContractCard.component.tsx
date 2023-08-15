@@ -21,6 +21,7 @@ import Item, {
 import Price from '#csscomponents/Price';
 
 import BillingInterval from '../MarketplaceBillingInterval';
+import RecommendedChip from '#components/css-only/RecommendedChip';
 
 import './styles.css';
 
@@ -80,6 +81,10 @@ const MarketplaceContractCard: React.FC<Props> = ({
 
   const descriptionText = useIsTextExpandable(showAllDescription);
 
+  const shouldDisplayRecommendedChip =
+    cardVariant === CARD_VARIANTS.PRICING_PAGE &&
+    contract.highlighted_as_recommended;
+
   return (
     <Card
       classes={{
@@ -101,12 +106,19 @@ const MarketplaceContractCard: React.FC<Props> = ({
               className={classNames('bs-contract-card__title', {
                 ' bs-contract-card__title--small':
                   cardVariant === CARD_VARIANTS.PRICING_PAGE,
+                ' bs-contract-card__title--flex':
+                  cardVariant === CARD_VARIANTS.PRICING_PAGE,
               })}
             >
               {cardVariant === CARD_VARIANTS.MARKETPLACE && (
                 <UpdateIcon className="bs-contract-card__title__icon" />
               )}
               {contract?.name}
+              {shouldDisplayRecommendedChip && (
+                <div className="bs-contract-card__title__chipcontainer">
+                  <RecommendedChip />
+                </div>
+              )}
             </div>
             {shouldDisplayFlatFee && (
               <div className="bs-contract-card__subtitle">

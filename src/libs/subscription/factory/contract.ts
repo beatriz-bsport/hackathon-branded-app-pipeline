@@ -49,6 +49,7 @@ export const contractFactory = (options?: ContractFactoryOptions) => {
     contract_terms_pdf_link: faker.internet.url(),
     is_usable_by_staff: options?.isUsableByStaff ?? faker.datatype.boolean(),
     month_billing_day: options?.monthBillingDay ?? null,
+    highlighted_as_recommended: options?.isHighlightedAsRecommended ?? false,
   };
 };
 

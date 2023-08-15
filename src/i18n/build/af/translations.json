@@ -816,7 +816,8 @@
       "minute_plural": "{{ count }} minutes"
     },
     "params": "Paramètres",
-    "ok": "OK"
+    "ok": "OK",
+    "recommended": "Recommandé"
   },
   "communication": {
     "table": { "columns": { "member": "Membre", "title": "Aperçu", "date_created": "Date", "status": "Status" } },

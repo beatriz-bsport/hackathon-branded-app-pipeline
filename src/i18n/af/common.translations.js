@@ -69,4 +69,5 @@ exports.default = {
   },
   params: 'Paramètres',
   ok: 'OK',
+  recommended: 'Recommandé'
 };

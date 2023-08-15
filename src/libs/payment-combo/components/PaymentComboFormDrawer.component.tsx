@@ -32,6 +32,7 @@ type Props = {
   handleClose: () => void;
   onSubmit: () => void;
   isSubmitting: boolean;
+  displayNewCheckoutFlow: boolean;
   initial: PaymentCombo;
 } & FormikProps<PaymentCombo>;
 

@@ -32,6 +32,7 @@ export type PaymentCombo = {
   available_payment_method_identifier: number[];
   new_member_only: boolean;
   is_usable_by_staff: boolean;
+  highlighted_as_recommended: boolean;
 };
 
 export type PaymentComboPayload = {

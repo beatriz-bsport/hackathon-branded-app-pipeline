@@ -168,6 +168,7 @@ export class PaymentComboListPage extends React.Component<Props, State> {
         />
         {this.props.openForm ? (
           <PaymentComboFormDrawerContainer
+            displayNewCheckoutFlow={this.props.theme.display_new_checkout_flow}
             handleClose={() => this.props.setOpenForm(false)}
             initial={this.props.comboInitialData}
             onSubmit={this.createOrUpdate}

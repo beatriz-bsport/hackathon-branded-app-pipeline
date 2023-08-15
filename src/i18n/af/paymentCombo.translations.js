@@ -74,6 +74,10 @@ exports.default = {
       tooltip:
         'Passée la date choisie, le pack n’apparaîtra plus à la vente pour les clients.',
     },
+    highlightedAsRecommended: {
+        label: 'Marquer comme recommandé',
+        helperText: "Permet à vos clients de voir d'un coup d'oeil quels packs sont actuellement recommandés.",
+    }
   },
   detail: {
     containsNProducts: 'Contient {{ n }} produits',

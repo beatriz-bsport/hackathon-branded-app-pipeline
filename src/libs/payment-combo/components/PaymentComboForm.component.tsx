@@ -2,6 +2,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import omit from 'lodash/omit';
+import classNames from 'classnames';
 import * as Yup from 'yup';
 import { withFormik, FieldArray, useFormikContext } from 'formik';
 
@@ -54,6 +55,7 @@ type Props = {
   values: PaymentCombo;
   privatePassListLoading: boolean;
   relatedPrivatePassList: Array<PrivatePass>;
+  displayNewCheckoutFlow: boolean;
   initial: PaymentCombo;
 };
 
@@ -79,6 +81,7 @@ export const PaymentComboForm: React.FC<Props> = ({
   privatePassListLoading,
   relatedPrivatePassList,
   initial,
+  displayNewCheckoutFlow,
 }) => {
   const { t } = useTranslation('paymentCombo');
   const classes = useStyles();
@@ -237,12 +240,27 @@ export const PaymentComboForm: React.FC<Props> = ({
           </Typography>
         )}
       </fieldset>
-      <PriceField
-        fullWidth
-        required
-        label={t('form.price.label')}
-        name="price"
-      />
+      <div className={classes.fieldset}>
+        <PriceField
+          fullWidth
+          required
+          label={t('form.price.label')}
+          name="price"
+        />
+      </div>
+
+      {displayNewCheckoutFlow && (
+        <div className={classNames(classes.fieldset, classes.container)}>
+          <SwitchField
+            label={t('form.highlightedAsRecommended.label')}
+            name="highlighted_as_recommended"
+          />
+          <Typography color="textSecondary" variant="caption">
+            {t('form.highlightedAsRecommended.helperText')}
+          </Typography>
+        </div>
+      )}
+
       <CheckboxField
         helperText={t('form.usePaymentComboTaxOnItems.helperText')}
         label={t('form.usePaymentComboTaxOnItems.label')}
@@ -350,6 +368,7 @@ export const PaymentComboFieldsSchema = Yup.object().shape({
   private_pass_ids: Yup.array().of(Yup.number()),
   unusable_by_staff: Yup.boolean(),
   expiration_date: Yup.date().nullable(),
+  highlighted_as_recommended: Yup.boolean(),
 });
 
 export const PaymentComboFormHoc = withFormik({
@@ -381,6 +400,7 @@ export const PaymentComboFormHoc = withFormik({
       unusable_by_staff: false,
       expiration_date: null,
       expiration_date_active: false,
+      highlighted_as_recommended: false,
     };
   },
   validationSchema: PaymentComboFieldsSchema,

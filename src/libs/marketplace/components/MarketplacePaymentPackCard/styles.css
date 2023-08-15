@@ -48,8 +48,17 @@
   font-size: var(--subtitle1-fontSize);
 }
 
+.bs-paymentpack-card__title--flex {
+  display: flex;
+  align-items: center;
+}
+
 .bs-paymentpack-card__title__icon {
   margin-right: var(--spacing-1);
+}
+
+.bs-paymentpack-car__title__chipcontainer {
+  margin-left: var(--spacing-1);
 }
 
 .bs-paymentpack-card__subtitle {

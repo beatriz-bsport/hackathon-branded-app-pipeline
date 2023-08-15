@@ -12,6 +12,10 @@ const fakepaymentPackWithDateRange = paymentPackFactory({
   },
 });
 
+const paymentPackHighlightedAsRecommended = paymentPackFactory({
+  isHighlightedAsRecommended: true,
+});
+
 const fakepaymentPackWithoutDateRange = paymentPackFactory();
 
 const Template = (args: Props) => {
@@ -40,6 +44,12 @@ paymentPackCardWithDateRange.args = {
 export const paymentPackCardPricingPage = Template.bind({});
 paymentPackCardPricingPage.args = {
   paymentPack: fakepaymentPackWithDateRange,
+  variant: 'pricing_page',
+};
+
+export const paymentPackCardPricingPageWithRecommendedChip = Template.bind({});
+paymentPackCardPricingPageWithRecommendedChip.args = {
+  paymentPack: paymentPackHighlightedAsRecommended,
   variant: 'pricing_page',
 };
 

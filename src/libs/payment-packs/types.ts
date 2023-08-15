@@ -384,4 +384,5 @@ export type PaymentPackFactoryOptions = {
   isUsableByStaff?: boolean;
   isAppliesForPayroll?: boolean;
   isTemplate?: boolean;
+  isHighlightedAsRecommended?: boolean;
 };

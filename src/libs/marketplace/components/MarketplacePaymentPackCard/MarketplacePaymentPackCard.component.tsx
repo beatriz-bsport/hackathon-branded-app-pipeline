@@ -19,6 +19,7 @@ import Item, {
   Justification,
 } from '#components/css-only/Grid/GridItem';
 import Price from '#components/css-only/Price';
+import RecommendedChip from '#components/css-only/RecommendedChip';
 import {
   getCurrencyDisplayWithPrice,
   getCreditFactor,
@@ -79,6 +80,10 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
 
   const descriptionText = useIsTextExpandable(showAllDescription);
 
+  const shouldDisplayRecommendedChip =
+    cardVariant === CARD_VARIANTS.PRICING_PAGE &&
+    paymentPack.highlighted_as_recommended;
+
   const onClickSeeMore = useCallback((event: React.MouseEvent) => {
     event.stopPropagation();
     setShowAllDescription(
@@ -117,6 +122,8 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
               className={classNames('bs-paymentpack-card__title', {
                 'bs-paymentpack-card__title--small':
                   cardVariant === CARD_VARIANTS.PRICING_PAGE,
+                'bs-paymentpack-card__title--flex':
+                  cardVariant === CARD_VARIANTS.PRICING_PAGE,
               })}
             >
               {!!paymentPack.linked_private_pass && (
@@ -125,6 +132,11 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
                 </ToolTip>
               )}
               {paymentPack.name}
+              {shouldDisplayRecommendedChip && (
+                <div className="bs-paymentpack-car__title__chipcontainer">
+                  <RecommendedChip />
+                </div>
+              )}
             </div>
             {!hideCredits && (
               <div className="bs-paymentpack-card__subtitle">

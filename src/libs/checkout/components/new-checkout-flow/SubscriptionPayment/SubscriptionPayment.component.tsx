@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
@@ -15,9 +16,14 @@ import AddIcon from '@material-ui/icons/Add';
 
 import InfoIcon from '@material-ui/icons/Info';
 import type { AxiosResponse } from 'axios';
+import { OptionCallback } from '../../../../../state/types';
 import Tooltip from '#components/Tooltip.component';
 import { MAP_MARKETPLACE_PAYMENT_METHOD_TO_IDENTIFIER } from '#libs/marketplace/constants';
-import { MarketplacePaymentMethods } from '#libs/marketplace/types';
+import {
+  MarketplacePaymentMethods,
+  MarketplacePaymentMethodBillingDetails,
+} from '#libs/marketplace/types';
+import { getBillingDetailsDefaultValue } from '#libs/checkout/utils';
 import { PaymentMethod } from '#libs/payment/types';
 import { getCurrencyCode } from '#libs/theme/selectors';
 import { PaymentMethodCardSelector } from '#libs/payment/components/PaymentMethodCardSelector.component';
@@ -34,14 +40,13 @@ const MAP_IDENTIFIER_TO_MARKETPLACE_PAYMENT_METHOD = Object.fromEntries(
 );
 
 export type Props = {
-  isContractLegalTermsAccepted: boolean;
   enabledPaymentMethodsIds: number[];
   enabledPaymentGroupMethodIdentifierIds: number[];
   savedPaymentMethodList: PaymentMethod[];
   sepaDefaultName?: string;
   sepaDefaultEmail?: string;
   onlinePaymentEnabled?: boolean;
-  detachPaymentMethod: (id: string, onSuccess: () => void) => void;
+  detachPaymentMethod: (id: string, options?: OptionCallback) => void;
   requestSetupIntentSecret: () => Promise<
     AxiosResponse<{ client_secret: string }>
   >;
@@ -54,7 +59,6 @@ export type Props = {
 };
 
 const MarketplaceSubscriptionPayment: React.FC<Props> = ({
-  isContractLegalTermsAccepted,
   enabledPaymentMethodsIds,
   enabledPaymentGroupMethodIdentifierIds,
   savedPaymentMethodList,
@@ -74,6 +78,11 @@ const MarketplaceSubscriptionPayment: React.FC<Props> = ({
     useState(false);
   const [paymentMethod, setPaymentMethod] =
     useState<MarketplacePaymentMethods | null>(null);
+
+  const [billingDetails, setBillingDetails] =
+    useState<MarketplacePaymentMethodBillingDetails>(
+      getBillingDetailsDefaultValue(sepaDefaultName, sepaDefaultEmail),
+    );
 
   useEffect(() => {
     /**
@@ -183,12 +192,14 @@ const MarketplaceSubscriptionPayment: React.FC<Props> = ({
 
   const shouldDisplayPaymentMethodList = useMemo(
     () =>
-      [
-        MarketplacePaymentMethods.card,
-        MarketplacePaymentMethods.sepa,
-        MarketplacePaymentMethods.bacs,
-      ].includes(paymentMethod) && !(onlinePaymentEnabled === false),
-    [onlinePaymentEnabled, paymentMethod],
+      (paymentMethodLoading ||
+        [
+          MarketplacePaymentMethods.card,
+          MarketplacePaymentMethods.sepa,
+          MarketplacePaymentMethods.bacs,
+        ].includes(paymentMethod)) &&
+      onlinePaymentEnabled !== false,
+    [onlinePaymentEnabled, paymentMethod, paymentMethodLoading],
   );
 
   const filteredSavedPaymentMethodList = useMemo(
@@ -203,7 +214,9 @@ const MarketplaceSubscriptionPayment: React.FC<Props> = ({
 
   const handleDetachPaymentMethod = useCallback(
     (id: string) => {
-      detachPaymentMethod(id, () => setSelectedSavedPaymentMethodId(null));
+      detachPaymentMethod(id, {
+        onSuccess: () => setSelectedSavedPaymentMethodId(null),
+      });
     },
     [detachPaymentMethod, setSelectedSavedPaymentMethodId],
   );
@@ -254,9 +267,10 @@ const MarketplaceSubscriptionPayment: React.FC<Props> = ({
       {shouldDisplayPaymentMethodList && (
         <div className="bs-contract-payment__payment__details">
           <MarketplaceContractPaymentMethodList
-            isContractLegalTermsAccepted={isContractLegalTermsAccepted}
+            isContractLegalTermsAccepted
             onDetachPaymentMethod={handleDetachPaymentMethod}
             onSelectPaymentMethod={handleSelectPaymentMethod}
+            paymentMethodLoading={paymentMethodLoading}
             paymentMethods={filteredSavedPaymentMethodList}
             paymentMethodType={paymentMethod}
             selectedPaymentMethod={selectedSavedPaymentMethodId}
@@ -265,7 +279,14 @@ const MarketplaceSubscriptionPayment: React.FC<Props> = ({
           {(filteredSavedPaymentMethodList?.length > 0 ||
             collectPaymentMethodIsOpen) && (
             <button
-              className="bs-contract-payment__payment__methods__add"
+              className={classNames(
+                'bs-contract-payment__payment__methods__add',
+                {
+                  'bs-contract-payment__payment_methods__add--disabled':
+                    collectPaymentMethodIsOpen,
+                },
+              )}
+              disabled={collectPaymentMethodIsOpen}
               onClick={handleOpenCollectPaymentMethod}
               type="button"
             >
@@ -275,26 +296,29 @@ const MarketplaceSubscriptionPayment: React.FC<Props> = ({
           )}
         </div>
       )}
-      {(collectPaymentMethodIsOpen ||
-        filteredSavedPaymentMethodList?.length === 0) &&
-        paymentMethod && (
-          <MarketplaceCollectPaymentMethod
-            doNotOpenInDialog
-            hideCancelButton={filteredSavedPaymentMethodList?.length === 0}
-            isOpen={
-              collectPaymentMethodIsOpen ||
-              filteredSavedPaymentMethodList?.length === 0
-            }
-            onCancel={handleCloseCollectPaymentMethodDialog}
-            onSuccess={handleSubmitCollectPaymentMethod}
-            paymentMethodLoading={paymentMethodLoading}
-            // @ts-expect-error
-            requestSetupIntentSecret={requestSetupIntentSecret}
-            sepaDefaultEmail={sepaDefaultEmail}
-            sepaDefaultName={sepaDefaultName}
-            type={paymentMethod}
-          />
-        )}
+      <MarketplaceCollectPaymentMethod
+        doNotOpenInDialog
+        // DIRTY DISABLE FOR BILLING DETAILS
+        // THIS NEEDS A PROPER REFACTOR
+        billingDetails={billingDetails}
+        cardBillingDetailsMandatory={false}
+        hideCancelButton={filteredSavedPaymentMethodList?.length === 0}
+        isOpen={
+          (collectPaymentMethodIsOpen ||
+            filteredSavedPaymentMethodList?.length === 0) &&
+          !!paymentMethod &&
+          !paymentMethodLoading
+        }
+        onCancel={handleCloseCollectPaymentMethodDialog}
+        onSuccess={handleSubmitCollectPaymentMethod}
+        paymentMethodLoading={paymentMethodLoading}
+        // @ts-expect-error
+        requestSetupIntentSecret={requestSetupIntentSecret}
+        sepaDefaultEmail={sepaDefaultEmail}
+        sepaDefaultName={sepaDefaultName}
+        setBillingDetails={setBillingDetails}
+        type={paymentMethod}
+      />
     </div>
   );
 };

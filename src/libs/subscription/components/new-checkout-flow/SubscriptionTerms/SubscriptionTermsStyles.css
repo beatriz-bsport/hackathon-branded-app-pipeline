@@ -24,7 +24,6 @@
   color: var(--color-text-secondary);
   white-space: pre-wrap;
   padding-right: var(--spacing-2);
-  transition: max-height 0.5s;
 }
 
 .bs-subscription-terms__text-content.--expanded {
@@ -48,7 +47,6 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  transition: max-height ease 0.3s;
 }
 
 .bs-subcription-terms--text-button {

@@ -28,7 +28,6 @@ import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper
 // @ts-expect-error
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import themeSelectors, { getStripePkKey } from '#libs/theme/selectors';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   detachPaymentMethod,
@@ -48,6 +47,7 @@ import {
   offerUserRegistration as offerUserRegistrationAction,
   fetchOfferById as fetchOfferByIdAction,
 } from '#libs/offer/actions';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import { invalidatePendingBooking as invalidatePendingBookingAPI } from '#libs/offer/api';
 import {
   getOfferById,
@@ -145,7 +145,7 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
     this.state = {
       processing: false,
       stripePromise: null,
-      billingStartDate: moment().format('YYYY-MM-DD'),
+      billingStartDate: moment().format(),
       isContractCooldownDialogOpen: false,
       openContractTermsDialog: false,
       isContractLegalTermsAccepted: false,
@@ -158,8 +158,8 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
   }
 
   componentDidMount() {
-    this.props.fetchPaymentMethodList();
     this.props.fetchCompanyTheme(this.props.companyId);
+    this.props.fetchPaymentMethodList();
     this.props.retrieveOfferAndFetchStatus();
 
     if (this.props.contractId) {
@@ -269,7 +269,7 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
   getCouponItem = () => ({
     quantity: 1,
     id: this.state.validCoupon.couponCode,
-    unit_price: this.state.validCoupon.voucher,
+    unit_price: Math.abs(this.state.validCoupon.voucher) * -1,
     name: this.state.validCoupon.couponCode,
     buyable_item_identifier: BUYABLE_ITEM_COUPON,
     buyable_item_id: this.state.validCoupon.couponCode,
@@ -280,84 +280,102 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
   });
 
   getPrice = () => {
-    return this.props?.contract?.month_billing_day
+    if (!this.props.contract) return null;
+
+    return this.props.contract.month_billing_day
       ? computeProrataPriceForSubscription(
           moment(),
           this.props?.contract?.month_billing_day,
           this.props?.contract?.recurrent_price.toString(),
         )
-      : this.props?.contract?.recurrent_price;
+      : this.props.contract.recurrent_price;
   };
 
-  getContractItemContent = () => ({
-    quantity: 1,
-    id: 'subscription_'.concat(this.props?.contract.id),
-    unit_price: this.getPrice(),
-    name: this.props?.contract.name,
-    buyable_item_identifier: BUYABLE_ITEM_PRIVATE_PASS,
-    buyable_item_id: 'subscription_'.concat(this.props?.contract.id),
-    editable: false,
-    clearable: false,
-    tax: this.props?.contract.tax,
-    extra_data: {},
-  });
+  getContractItemContent = () => {
+    if (!this.props.contract) return null;
 
-  getFlatFeeItem = () => ({
-    quantity: 1,
-    id: 'flatFee_'.concat(this.props?.contract.id),
-    unit_price: this.props?.contract.flat_fee,
-    name: 'Flat fee',
-    buyable_item_identifier: CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
-    buyable_item_id: 'flatFee_'.concat(this.props?.contract.id),
-    editable: false,
-    clearable: false,
-    tax: this.props?.contract.tax,
-    extra_data: {},
-  });
+    return {
+      quantity: 1,
+      id: 'subscription_'.concat(this.props.contract.id),
+      unit_price: this.getPrice(),
+      name: this.props.contract.name,
+      buyable_item_identifier: BUYABLE_ITEM_PRIVATE_PASS,
+      buyable_item_id: 'subscription_'.concat(this.props.contract.id),
+      editable: false,
+      clearable: false,
+      tax: this.props.contract.tax,
+      extra_data: {},
+    };
+  };
+
+  getFlatFeeItem = () => {
+    if (!this.props.contract) return null;
+
+    return {
+      quantity: 1,
+      id: 'flatFee_'.concat(this.props.contract.id),
+      unit_price: this.props.contract.flat_fee,
+      name: 'Flat fee',
+      buyable_item_identifier: CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
+      buyable_item_id: 'flatFee_'.concat(this.props.contract.id),
+      editable: false,
+      clearable: false,
+      tax: this.props.contract.tax,
+      extra_data: {},
+    };
+  };
 
   getCheckoutItems = () => {
+    if (!this.props.contract) return [];
+
     const checkoutItems = [];
 
     this.state.validCoupon && checkoutItems.push(this.getCouponItem());
-    this.props?.contract?.flat_fee && checkoutItems.push(this.getFlatFeeItem());
-    this.props?.contract && checkoutItems.push(this.getContractItemContent());
+    this.props.contract.flat_fee && checkoutItems.push(this.getFlatFeeItem());
+    this.props.contract && checkoutItems.push(this.getContractItemContent());
 
     return checkoutItems;
   };
 
   getTotalPrice = () => {
-    if (this.props?.contract?.month_billing_day) {
+    if (!this.props.contract) return null;
+
+    if (this.props.contract.month_billing_day) {
       const firstInvoiceProrataPrice = computeProrataPriceForSubscription(
         moment(),
-        this.props?.contract?.month_billing_day,
-        this.props?.contract.recurrent_price.toString(),
+        this.props.contract.month_billing_day,
+        this.props.contract.recurrent_price.toString(),
       );
       return Math.max(
         parseFloat(firstInvoiceProrataPrice) +
-          (parseFloat(this.props?.contract?.flat_fee) || 0) -
+          (parseFloat(this.props.contract.flat_fee) || 0) -
           (this.state.validCoupon?.voucher || 0),
         0,
       ).toFixed(2);
     }
     return (
-      parseFloat(this.props?.contract?.recurrent_price) +
-      (parseFloat(this.props?.contract?.flat_fee) || 0) -
+      parseFloat(this.props.contract.recurrent_price) +
+      (parseFloat(this.props.contract.flat_fee) || 0) -
       (this.state.validCoupon?.voucher || 0)
     ).toFixed(2);
   };
 
-  getSubscriptionPseudoBasketFromContract = () => ({
-    id: this.props.contractId,
-    is_finalized: false,
-    total_price: this.getTotalPrice(),
-    total_price_cts: parseFloat(this.getTotalPrice()) * 100,
-    checkout_items: this.getCheckoutItems(),
-    company: this.props.companyId,
-    total_price_prepaid_lines: '0',
-    total_price_prepaid_lines_cts: 0,
-    prepaid_lines: [] as PrepaidLine[],
-    instalment_payment: null as null,
-  });
+  getSubscriptionPseudoBasketFromContract = () => {
+    if (!this.props.contract) return null;
+
+    return {
+      id: this.props.contractId,
+      is_finalized: false,
+      total_price: this.getTotalPrice(),
+      total_price_cts: parseFloat(this.getTotalPrice()) * 100,
+      checkout_items: this.getCheckoutItems(),
+      company: this.props.companyId,
+      total_price_prepaid_lines: '0',
+      total_price_prepaid_lines_cts: 0,
+      prepaid_lines: [] as PrepaidLine[],
+      instalment_payment: null as null,
+    };
+  };
 
   handleCloseErrorDialog = () => {
     if (this.state.userRegistrationserverErrorOccured) {
@@ -396,15 +414,16 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
           onError: (
             err: Error & { response?: { data: { error_code: number } } },
           ) => {
-            this.setState({
-              processing: false,
-              registerBackgroundServerErrorOccured: true,
-            });
             if (
               err.response?.data?.error_code === CONTRACT_IS_ALREADY_SUBSCRIBED
             ) {
               this.setState({ isContractCooldownDialogOpen: true });
+              return;
             }
+            this.setState({
+              processing: false,
+              registerBackgroundServerErrorOccured: true,
+            });
           },
           onBackgroundError: () =>
             this.setState({
@@ -422,6 +441,17 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
             invalidatePendingBookingAPI(this.props.offer.id)
               .then(() => {
                 const { compatible_consumer_payment_pack_id } = taskReturnValue;
+
+                // If no compatible_consumer_payment_pack_id, then we cannot proceed with user_registration
+                // In this case, display the error dialog, which will handle redirection
+                if (!compatible_consumer_payment_pack_id) {
+                  this.setState({
+                    processing: false,
+                    userRegistrationserverErrorOccured: true,
+                  });
+                  return;
+                }
+
                 this.props.formatPayloadAndPerformUserRegistrationAndRedirection(
                   compatible_consumer_payment_pack_id,
                   {
@@ -430,12 +460,17 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
                         processing: false,
                         userRegistrationserverErrorOccured: true,
                       }),
+                    onSuccess: () => this.setState({ processing: false }),
                   },
                 );
               })
-              .catch((err) => console.error(err));
-
-            // this.setState({ processing: false });
+              .catch((err) => {
+                console.error(err);
+                this.setState({
+                  processing: false,
+                  userRegistrationserverErrorOccured: true,
+                });
+              });
           },
         },
         false, // noAuth
@@ -484,7 +519,6 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
             <div className="bs-contract-new-checkout__payment-method">
               <MarketplaceSubscriptionPayment
                 onlinePaymentEnabled
-                // @ts-expect-error
                 detachPaymentMethod={this.props.detachPaymentMethod}
                 enabledPaymentGroupMethodIdentifierIds={
                   this.props.theme.payment_method_available_subscription
@@ -493,6 +527,7 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
                   paymentMethodAvailableSubscription:
                     this.props.theme.payment_method_available_subscription,
                 })}
+                // @ts-expect-error
                 isContractLegalTermsAccepted={
                   this.state.isContractLegalTermsAccepted
                 }
@@ -596,7 +631,6 @@ const mapStateToProps = (
 const mapDispatchToProps = {
   replace: replaceAction,
   push: pushRouter,
-  fetchCompanyTheme: fetchCompanyThemeAction,
   fetchContractDetail,
   fetchPaymentPackBulk: fetchPaymentPackBulkAction,
   fetchPrivatePassBulk: fetchPrivatePassBulkAction,
@@ -611,6 +645,7 @@ const mapDispatchToProps = {
   fetchOfferById: fetchOfferByIdAction,
   fetchEstablishmentBulk: fetchEstablishmentBulkAction,
   fetchMetaActivityDetails: fetchMetaActivityDetailsAction,
+  fetchCompanyTheme: fetchCompanyThemeAction,
 
   fetchOfferStatus: fetchOfferStatusAction,
   retrieveOffer: retrieveOfferAction,
@@ -701,7 +736,6 @@ const handlers = {
       const data = buildDataForUserRegistration(
         offerFeature,
         fakeSelectedItem,
-        () => {},
         offer.id,
         selectedSpotId,
       );
@@ -710,7 +744,6 @@ const handlers = {
         data,
         {
           onSuccess: (responseData: any) => {
-            // this.setState({ confirmLoading: false });
             options?.onSuccess?.();
             if (data.consumer_payment_pack || !data.offers.length) {
               push(

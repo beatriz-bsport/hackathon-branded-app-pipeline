@@ -24,6 +24,11 @@
   width: fit-content;
 }
 
+.bs-contract-payment__payment_methods__add--disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
 .bs-contract-payment__payment__details-title {
   font-size: var(--h6-fontSize);
   font-weight: var(--fontWeightMedium);
@@ -48,6 +53,12 @@
 
 .bs-contract-payment__payment__details-icon-container:hover {
   background: var(--color-grey-light);
+}
+
+@media screen and (max-width: 850px) {
+  .bs-contract-payment__payment__details-icon-container {
+    display: none;
+  }
 }
 
 .bs-contract-payment__payment__details-icon {

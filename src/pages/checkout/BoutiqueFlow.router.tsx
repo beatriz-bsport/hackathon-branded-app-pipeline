@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { compose, withProps } from 'recompose';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Switch, Route } from 'react-router';
 import { RootState } from '../../reducers';
+import { fetchCompanyTheme } from '#libs/theme/actions';
 // @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 // @ts-expect-error
@@ -13,7 +14,6 @@ import { getLoginUrl } from '#libs/marketplace/routing-utils';
 
 import { fetchProfile } from '#libs/consumer-space/actions';
 import { CompanyTheme } from '#libs/theme/types';
-import { fetchCompanyTheme } from '#libs/theme/actions';
 import withThemeProvider from '#hocs/company-themifier.hoc';
 
 const MarketplaceAsManager = asyncComponent(
@@ -29,9 +29,8 @@ const BoutiqueBookerModule = asyncComponent(
 // @ts-expect-error
 const BasketPage = asyncComponent(() => import('./basket/Basket.page'));
 
-// placeholder page -> to replace by the right page once it's merged
-const NewSubscriptionPage = asyncComponent(
-  () => import('./new-checkout-flow/NewSubscription.page'),
+const BoutiqueContractCheckout = asyncComponent(
+  () => import('./BoutiqueContractCheckout.page'),
 );
 
 // for now it redirects to the classic validation page
@@ -41,15 +40,11 @@ const ValidationCheckout = asyncComponent(
 );
 
 type Props = {
-  fetchProfile: () => void;
-  fetchCompanyTheme: (id: number | string) => void;
-  authenticated: boolean;
   location: { [key: string]: string };
-  is_manager?: boolean;
   companyId: number;
   isNewCheckoutFlow: boolean;
   theme: CompanyTheme;
-};
+} & ConnectedProps<typeof connector>;
 
 const BoutiqueFlowBasketPage = withProps({ isNewCheckoutFlow: true })(
   BasketPage,
@@ -105,7 +100,7 @@ export class NewBookingFlowRouter extends React.Component<Props> {
           path="/checkout-s/:companyId"
         />
         <Route
-          component={NewSubscriptionPage}
+          component={BoutiqueContractCheckout}
           path="/contract-s/:companyId/:contractId"
         />
       </Switch>
@@ -113,20 +108,19 @@ export class NewBookingFlowRouter extends React.Component<Props> {
   }
 }
 
+const connector = connect(
+  (state: RootState) => ({
+    authenticated: state.auth.authenticated,
+    is_manager: state.auth.is_manager,
+    theme: themeSelectors.getTheme(state),
+  }),
+  { fetchProfile, fetchCompanyTheme },
+);
+
 export default compose(
   routerParamsToProps({
     companyId: 'companyId:number',
   }),
-  connect(
-    (state: RootState) => ({
-      authenticated: state.auth.authenticated,
-      is_manager: state.auth.is_manager,
-      theme: themeSelectors.getTheme(state),
-    }),
-    {
-      fetchProfile,
-      fetchCompanyTheme,
-    },
-  ),
+  connector,
   withThemeProvider,
 )(NewBookingFlowRouter);

@@ -5,9 +5,10 @@ import OfferSummary from '#libs/offer/OfferSummary';
 import SubscriptionRecap from '#libs/subscription/components/new-checkout-flow/SubscriptionRecap';
 import CouponCodeInput from '#libs/checkout/components/new-checkout-flow/CouponCodeInput.component';
 import PriceCount from '#libs/checkout/components/new-checkout-flow/PriceCount.component';
+import { CheckoutContext } from '../../../../../pages/checkout/basket/CheckoutContext';
 
 import { ContractWithPaymentPack } from '#libs/subscription/types';
-import { Offer } from '#libs/offer/types';
+import { Offer, OfferSummaryVariant } from '#libs/offer/types';
 import { Establishment } from '#libs/establishment/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { CompanyTheme } from '#libs/theme/types';
@@ -64,7 +65,7 @@ export const SubscriptionBasketSummary: React.FC<Props> = React.memo(
             metaActivity={offer?.meta_activity}
             offer={offer}
             theme={companyTheme}
-            variant="basket"
+            variant={OfferSummaryVariant.BASKET}
           />
         )}
         <div
@@ -86,14 +87,16 @@ export const SubscriptionBasketSummary: React.FC<Props> = React.memo(
             onSubmit={handleSubmitCouponCode}
           />
         )}
-        <div className="bs-subscription__pricing">
-          <PriceCount
-            basket={subscriptionPseudoBasket}
-            isDeleteButtonDisabled={false}
-            isExcludingTax={isExcludingTax}
-            onRemoveCheckoutItem={onRemoveCoupon}
-          />
-        </div>
+        <CheckoutContext.Provider value>
+          <div className="bs-subscription__pricing">
+            <PriceCount
+              basket={subscriptionPseudoBasket}
+              isDeleteButtonDisabled={false}
+              isExcludingTax={isExcludingTax}
+              onRemoveCheckoutItem={onRemoveCoupon}
+            />
+          </div>
+        </CheckoutContext.Provider>
         <div className="bs-subscription__bottom__container">
           <button
             className="bs-subscription__bottom__submit-button"

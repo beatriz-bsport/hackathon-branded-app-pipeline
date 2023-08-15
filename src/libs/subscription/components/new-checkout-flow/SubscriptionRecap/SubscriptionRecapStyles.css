@@ -9,6 +9,7 @@
   flex-direction: row;
   justify-content: space-between;
   font-size: var(--subtitle2-fontSize);
+  line-height: var(--subtitle2-lineHeight);
   font-weight: var(--fontWeightMedium);
   color: var(--color-text-primary);
 }
@@ -18,6 +19,7 @@
   flex-direction: row;
   justify-content: space-between;
   font-size: var(--caption-fontSize);
+  line-height: var(--caption-lineHeight);
   color: var(--color-text-secondary);
 }
 

@@ -53,13 +53,13 @@ import {
 } from '#libs/marketplace/utils';
 import {
   RECOMMENDED_BUYABLE_CATEGORY_ID,
+  MARKETPLACE_PATH_TAB_PASS,
   CONSUMER_PAYMENT_PACK_IDENTIFIER,
   PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER,
   PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
-  MARKETPLACE_PATH_TAB_PASS,
+  CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
 } from '#libs/marketplace/constants';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import {
   retrieveOffer as fetchOffer,
   fetchOfferStatus as fetchOfferStatusAction,
@@ -83,6 +83,7 @@ import {
 } from '#libs/consumer-payment-pack/actions';
 import { fetchCoachBulk } from '#libs/associated-coach/actions';
 import { fetchMetaActivityBulk } from '#libs/meta-activity/actions';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import {
   fetchBookingFunnelConfiguration,
   fetchMarketplaceSettings,
@@ -185,6 +186,7 @@ type State = {
     color: string;
     isWaitingListOpenMainReason: boolean;
   };
+  offerWasRetrieved: boolean;
 };
 
 type OwnProps = {
@@ -220,6 +222,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       isBookingBlocked: false,
       isWaitingList: false,
       bookingBlockedReason: null,
+      offerWasRetrieved: false,
     };
   }
 
@@ -227,6 +230,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     this.props.fetchOffer(this.props.offerId, {
       onSuccess: (offer: Offer) => {
         this.props.fetchCompanyTheme(offer.company);
+        this.setState({ offerWasRetrieved: true });
         this.props.fetchMarketplaceSettings(offer.company.toString());
         this.props.fetchCompanyConfiguration(offer.company);
         this.props.fetchBookingFunnelConfiguration(offer.company);
@@ -478,7 +482,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
     if (this.props.spotTypes && spot?.spotTypeId !== DEFAULT_SPOT_TYPE_ID) {
       prefix =
-        this.props.spotTypes?.find(
+        this.props.spotTypes?.find?.(
           (spotType) => spotType.id === spot.spotTypeId,
         ).prefix ?? '';
     }
@@ -505,11 +509,23 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
   goToSubscriptionPage = (contractId: number) => {
     this.props.push(
-      getBoutiqueContractCheckoutUrl(this.props.offer.company, contractId),
+      getBoutiqueContractCheckoutUrl(this.props.offer.company, contractId, {
+        offerId: this.props.offerId,
+        selectedSpotId: this.state.selectedSpotId,
+      }),
     );
   };
 
   onConfirm = () => {
+    // If selectedItem is a contract, directly redirect to the booking flow subscription page
+    if (
+      this.state.selectedItem?.itemIdentifier ===
+      CONTRACT_BOOKING_FUNNEL_IDENTIFIER
+    ) {
+      this.goToSubscriptionPage(this.state.selectedItem?.data.id);
+      return;
+    }
+
     this.setState({ confirmLoading: true });
 
     const offerFeature = getOfferFeature(
@@ -523,7 +539,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     const data = buildDataForUserRegistration(
       offerFeature,
       this.state.selectedItem,
-      this.goToSubscriptionPage,
       this.props.offer.id,
       this.state.selectedSpotId,
     );
@@ -605,16 +620,20 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       },
     });
 
-  getIsLoading: () => boolean = () =>
-    !this.props.offer ||
-    this.props.offerStatusLoading ||
-    this.props.consumerPaymentPackLoading ||
-    this.props.consumerPaymentPackMaxoutLoading ||
-    this.props.paymentPackLoading ||
-    this.props.paymentComboLoading ||
-    this.props.contractLoading ||
-    this.props.paymentPackCategoryLoading ||
-    this.props.bookingFunnelLoading;
+  getIsLoading: () => boolean = () => {
+    return (
+      !this.state.offerWasRetrieved ||
+      !this.props.offer ||
+      this.props.offerStatusLoading ||
+      this.props.consumerPaymentPackLoading ||
+      this.props.consumerPaymentPackMaxoutLoading ||
+      this.props.paymentPackLoading ||
+      this.props.paymentComboLoading ||
+      this.props.contractLoading ||
+      this.props.paymentPackCategoryLoading ||
+      this.props.bookingFunnelLoading
+    );
+  };
 
   setBuyableItemsAndOfferFeature = () => {
     this.getBuyableItemCategories();
@@ -928,9 +947,10 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     number,
     number,
     OffersGroup
-  > = withMetaActivity(
-    withCoach(withEstablishment(getOfferById)),
-  )(state, props.offerId);
+  > = withMetaActivity(withCoach(withEstablishment(getOfferById)))(
+    state,
+    props.offerId,
+  );
   const memberTagList = props.memberTagList || getMemberTagsIdsList(state);
   const authenticated = props.authenticated || state.auth.authenticated;
   return {

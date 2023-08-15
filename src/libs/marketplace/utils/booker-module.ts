@@ -280,7 +280,6 @@ export const getBookingBlockedReasonIcon = (icon: string) => {
 export const buildDataForUserRegistration = (
   offerFeature: OfferFeature,
   selectedItem: BookerItem,
-  goToSubscriptionPage?: (contractId: number) => void,
   offerId: number,
   selectedSpotId: number | null,
 ) => {
@@ -307,8 +306,6 @@ export const buildDataForUserRegistration = (
     selectedItemIdentifier === PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER
   ) {
     data.payment_combo = selectedItem.data.id;
-  } else if (selectedItemIdentifier === CONTRACT_BOOKING_FUNNEL_IDENTIFIER) {
-    goToSubscriptionPage(selectedItem.data.id);
   }
 
   if (offerFeature.isBookable) {

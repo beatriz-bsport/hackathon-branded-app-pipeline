@@ -501,6 +501,7 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
                 )}
 
               {type === MarketplacePaymentMethods.sepa &&
+                !paymentMethodLoading &&
                 !error &&
                 !success && (
                   <div className="bs-collect-payment-method__mandate__fields__container">
@@ -684,7 +685,7 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
                     type="submit"
                   >
                     {processing ? (
-                      <CircularProgress />
+                      <CircularProgress size="sm" />
                     ) : (
                       t('forms.paymentMethod.actions.collect')
                     )}

@@ -3,6 +3,7 @@ import { SPOT_NOT_AVAILABLE } from '@bsport/common/lib/master-data/error-codes/b
 import { BUYABLE_ITEM_FEE } from '@bsport/common/lib/master-data/buyable-items';
 import { OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK } from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined';
 import { getPrice } from '#libs/theme/utils';
+import { getCompanyCountry } from '#libs/theme/selectors';
 import { Basket, PrepaidLine } from './types';
 import {
   EXCEPTION_BOOKING_GUEST_GENERIC,
@@ -13,6 +14,7 @@ import {
   EXCEPTION_BOOKING_GUEST_REACHED_LIMIT,
   EXCEPTION_BOOKING_GUEST_NOT_ENOUGH_SPOT,
 } from './constants';
+import type { MarketplacePaymentMethodBillingDetails } from '#libs/marketplace/types';
 
 export const getBasketTotalPriceExcludingTax = (
   basket: Basket | Basket<string, PrepaidLine> | Basket<number, PrepaidLine>,
@@ -83,4 +85,24 @@ export const getBookingErrorMessage = (t: TFunction, codeError?: number) => {
     default:
       return t('validation.sections.errorExplain.generic');
   }
+};
+
+export const getBillingDetailsDefaultValue = (
+  defaultName: string,
+  defaultEmail: string,
+): MarketplacePaymentMethodBillingDetails => {
+  return {
+    name: defaultName ?? '',
+    email: defaultEmail ?? '',
+    sortCode: '',
+    accountNumber: '',
+    address: {
+      line1: '',
+      line2: '',
+      postal_code: '',
+      city: '',
+      country: getCompanyCountry() || '',
+      state: '',
+    },
+  };
 };

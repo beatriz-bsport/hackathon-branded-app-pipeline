@@ -6651,7 +6651,38 @@
             "2016": "O seu passe de aulas já não lhe permite reservar este mês",
             "2015": "O seu passe de aulas já não lhe permite reservar esta semana",
             "2014": "O seu passe de aulas já não permite efetuar reservas para este dia",
-            "2002": "Este passe de aulas só está disponível para os novos membros"
+            "2002": "Este passe de aulas só está disponível para os novos membros",
+            "2005": "Este passe não está disponível para venda",
+            "4": "A sessão não pode ser reservada",
+            "10001": "Stock insuficiente",
+            "2011": "Este passe não permite reservar sessões (apenas Vídeos de Demanda)",
+            "15002": "O artigo já está a ser adicionado ao carrinho, por favor aguarde",
+            "45005": "O passe de oferta já não está disponível para venda.",
+            "2": "A sessão já não está aberta a reservas",
+            "3": "A sessão está completa",
+            "5": "Já se inscreveu para esta sessão",
+            "7": "O desequilíbrio entre homens e mulheres é demasiado grande, reserva impossível",
+            "9": "Está a tentar marcar mais sessões futuras do que as permitidas pelo seu estabelecimento",
+            "1113": "Este pacote só está disponível para novos membros",
+            "2004": "Este passe não está disponível para venda",
+            "2006": "Este passe não é compatível com a reserva na data escolhida",
+            "2007": "Este passe não é compatível com esta sessão",
+            "2010": "Este passe não é compatível com este local",
+            "2025": "Este passe já não pode ser adquirido porque a data de validade expirou",
+            "85000": "Já está a decorrer uma reserva, pedimos que aguarde um momento",
+            "85101": "Impossível reservar, este lugar está a ser reservado por outro membro. Por favor, tente novamente e selecione outro lugar.",
+            "6": "O desequilíbrio entre homens e mulheres é demasiado grande, reserva impossível",
+            "45004": "O passe de oferta já não está disponível para venda.",
+            "generic": "Impossível de reservar",
+            "2008": "Este passe não é compatível com esta atividade",
+            "11114": "Este passe de marcação já não pode ser adquirido porque a sua data de validade expirou",
+            "1": "A sessão ainda não está aberta a reservas",
+            "1114": "Já não é possível comprar este pack",
+            "1122": "Esta embalagem já não pode ser comprada porque a sua data de validade expirou",
+            "2003": "Já não é possível comprar este passe",
+            "2012": "Este passe não é compatível com esta sessão",
+            "8001": "O lugar que escolheu já não está disponível",
+            "2009": "Este passe não é compatível com a atividade desta categoria"
         },
         "spivi": {
             "error": {
@@ -7019,7 +7050,67 @@
                 "error": {
                     "unAuthorizedEstablishmentModification": "Impossível alterar o estabelecimento de faturação, apenas os administradores têm esse direito"
                 }
-            }
+            },
+            "sendToQuickbooks": {
+                "errors": {
+                    "932100": "Não é possível aceder às informações da sua conta Quickbooks",
+                    "931101": "Quickbooks não consegue enviar-nos os seus dados",
+                    "931100": "Erro ao atualizar as chaves de autenticação",
+                    "933000": "O membro associado à fatura não possui as informações necessárias para ser registado no QuickBooks",
+                    "title": "Erro ao enviar a sua fatura",
+                    "932000": "A sua conta já não está autenticada na Bsport",
+                    "933100": "Não foi possível criar o cliente associado ao membro da fatura",
+                    "931001": "Erro ao autenticar no Quickbooks",
+                    "931004": "Não configurou a aplicação QuickBooks",
+                    "933101": "Não foi possível criar o cliente associado ao membro da fatura",
+                    "933102": "Erro ao criar uma fatura no Quickbooks",
+                    "934002": "Não é possível enviar uma fatura cancelada no QuickBooks",
+                    "934003": "Não é possível enviar uma fatura não finalizada no QuickBooks",
+                    "934004": "Não é possível enviar uma fatura não paga no QuickBooks",
+                    "934006": "Esta fatura já foi guardada no QuickBooks",
+                    "934005": "A sua fatura não pode ser enviada para o QuickBooks",
+                    "931000": "Erro ao autenticar no Quickbooks",
+                    "932001": "A sua conta já não está autenticada na Bsport",
+                    "931002": "Chaves de autenticação expiradas",
+                    "933103": "A plataforma QuickBooks suporta várias moedas, por favor especifique o imposto a ser utilizado.",
+                    "934000": "A fatura não tem as informações mínimas necessárias para ser criada no Quickbooks",
+                    "934001": "Impossível criar uma fatura sem itens associados",
+                    "931003": "Chaves de autenticação expiradas"
+                },
+                "error": "Ocorreu um erro ao transferir a sua fatura para o Quickbooks",
+                "success": "A sua fatura foi transferida para o Quickbooks"
+            },
+            "applyBalance": {
+                "success": "O seu saldo foi aplicado à fatura.",
+                "error": "Não pode utilizar o seu saldo para pagar esta fatura."
+            },
+            "update": {
+                "success": "Fatura atualizada com sucesso"
+            },
+            "revert": {
+                "errors": {
+                    "14100": "Não é possível cancelar uma fatura com pagamentos Interac.",
+                    "14102": "Não é possível reembolsar esta fatura.",
+                    "14101": "Impossível de reembolsar com uma fatura de regularização de saldos."
+                }
+            },
+            "create": {
+                "success": "Fatura registada"
+            },
+            "applyGiftcard": {
+                "error": "Impossível pagar o montante solicitado com este passe de oferta",
+                "errors": {
+                    "45000": "O código de ativação do passe não está correto.",
+                    "45003": "O passe de oferta foi desativado.",
+                    "45006": "O passe de oferta já foi ativado",
+                    "45007": "Não é possível reconhecer o membro que pretende ativar o passe.",
+                    "generic": "Não é possível ativar o passe de oferta",
+                    "45001": "Impossível pagar esta conta com este passe de oferta"
+                },
+                "success": "Pagamento do passe de oferta validado"
+            },
+            "returnPaymentLocked": "Este pagamento não pode ser reembolsado. Há dinheiro suficiente na sua conta Stripe?",
+            "error": "Erro de registo - Cancelado"
         },
         "quicksaleConfiguration": {
             "error": "Ocorreu um erro durante a cópia de segurança",
@@ -7129,6 +7220,30 @@
         },
         "giftCard": {
             "notFound": "Este cartão presente não foi encontrado. Pode ter sido arquivado."
+        },
+        "offer": {
+            "restore": {
+                "success": "Sessão recuperada",
+                "error": "Impossível de recuperar esta sessão"
+            }
+        },
+        "refreshInternalAccountPrepaidLines": {
+            "15002": "Já está a decorrer uma operação, aguarde alguns instantes"
+        },
+        "settings": {
+            "update": {
+                "error": "Não foi possível atualizar, tente novamente mais tarde",
+                "success": "Parâmetros atualizados"
+            }
+        },
+        "requestCurrentBasket": {
+            "15002": "As informações já estão a ser recuperadas"
+        },
+        "removeItem": {
+            "15002": "O artigo já está a ser retirado do carrinho, por favor aguarde"
+        },
+        "modifyBasket": {
+            "15004": "O carrinho está a ser processado, por favor tente novamente dentro de alguns minutos"
         }
     },
     "theme": {
@@ -9189,7 +9304,21 @@
     "smartList": {
         "tag_rules": {
             "activeSince": "Ativo desde {{ since }}",
-            "type_of_rule": "Tipo de regra"
+            "type_of_rule": "Tipo de regra",
+            "tag_name": "Nome da Etiqueta",
+            "asyncDialog": {
+                "title": "Atualizações de regras de Etiquetas ",
+                "message": "Após as suas alterações às regras de Etiquetas na lista inteligente {{ name }}, as etiquetas têm de ser atualizadas. Esta sincronização tem lugar de duas em duas horas."
+            },
+            "tag_on_left": "Etiquetar ao selecionar uma lista inteligente",
+            "display_tag_rules": "Mostrar as regras da Etiqueta",
+            "tag": "Etiqueta",
+            "tag_group": "Nome do grupo",
+            "tag_on_join_and_untag_on_left": "Etiqueta se estiver presente na lista inteligente",
+            "create": "Criar uma regra",
+            "associated_tag": "Etiqueta associada",
+            "tag_on_join": "Etiquetar ao entrar na lista inteligente",
+            "cancel": "Cancelar"
         },
         "filters": {
             "durations_comparators": {
@@ -9334,7 +9463,9 @@
                 "name": "Data da última sessão reservada"
             },
             "410": {
-                "name": "Isenção de responsabilidade"
+                "name": "Isenção de responsabilidade",
+                "explanation": "Tendo aceite as declarações de exoneração de responsabilidade",
+                "explain": "que aceitaram as declarações de exoneração de responsabilidade"
             },
             "400": {
                 "explanation": "Tem uma palavra-passe na bsport",
@@ -9351,7 +9482,9 @@
             "106": {
                 "explanation": "Introduziu um número de telefone",
                 "first": "um número de telefone",
-                "false": "Não preenchido"
+                "false": "Não preenchido",
+                "name": "Telemóvel",
+                "true": "A preencher"
             },
             "21": {
                 "payment_pack": {
@@ -9469,13 +9602,22 @@
                     "false": "não são enviados"
                 },
                 "acceptSms": {
-                    "first": "a relação"
+                    "first": "a relação",
+                    "false": "não aceitar",
+                    "second": "as SMS",
+                    "true": "aceitar"
                 },
                 "to": "à",
                 "between": "e",
                 "first": "Possui um número",
                 "bookings": "aulas de grupo e marcações devido a um passe partilhado pelo membro",
-                "validOrNot": "válido ou não"
+                "validOrNot": "válido ou não",
+                "acceptEmail": {
+                    "false": "não aceitar",
+                    "second": "os emails",
+                    "first": "a relação",
+                    "true": "aceitar"
+                }
             },
             "27": {
                 "info": "Os passes de aulas e os passes de marcação bloqueados também são tidos em conta",
@@ -9652,7 +9794,9 @@
         },
         "cannotBeDeletedDialog": {
             "content": "Não é possível eliminar esta lista inteligente desde que seja utilizada na sequência seguinte :",
-            "content_plural": "Não é possível apagar esta lista inteligente desde que seja utilizada nas seguintes sequências :"
+            "content_plural": "Não é possível apagar esta lista inteligente desde que seja utilizada nas seguintes sequências :",
+            "title": "Utilizado nas sequências",
+            "cancel": "Fechar"
         },
         "modal": {
             "delete": {
@@ -9809,7 +9953,23 @@
         "noSmartLists": "Utilizar as listas inteligentes para filtrar, analisar e conhecer melhor os seus membros.",
         "selectToShowPreview": "Selecionar um template",
         "lastGenerated": "Última exportação gerada em : {{-date}} {{time}}",
-        "generateExport": "Gerar exportação"
+        "generateExport": "Gerar exportação",
+        "memberBase": {
+            "options": {
+                "2": "Arquivado",
+                "0": "Não arquivado e arquivado",
+                "1": "Não arquivado"
+            },
+            "helperText": "Esta lista inteligente aplica-se a todos os membros"
+        },
+        "cadenceListDialog": {
+            "close": "Fechar",
+            "title": "Lista de sequências"
+        },
+        "cadence": {
+            "content": "Utilizado na sequência : {{ cadence_name }}",
+            "content_plural": "Utilizado em {{ count }} sequências"
+        }
     },
     "titles": {
         "workshopActivity": {

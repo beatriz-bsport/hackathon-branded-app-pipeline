@@ -84,41 +84,45 @@ const Group = ({ children, ...props }) => {
 };
 
 export const getGroupedEstablishmentOptions = (
-  establishments: Array<Establishment>,
+  establishments: Establishment[],
 ) => {
   if (!(establishments && establishments.length)) {
     return [];
   }
-  establishments.sort((e, e_) => {
-    if (e.title.toUpperCase() < e_.title.toUpperCase()) {
+  establishments.sort((establishment, establishment_) => {
+    if (
+      establishment.title.toUpperCase() < establishment_.title.toUpperCase()
+    ) {
       return -1;
     }
     return 1;
   });
-  const establishmentGroupByAddress = establishments.reduce(
-    (accumulator, establishmentItem) => {
-      const temp = accumulator.findIndex(
-        (group) =>
-          group.label.toUpperCase() ===
-          establishmentItem.location.address.toUpperCase(),
-      );
-      if (temp === -1) {
-        accumulator.push({
-          label: establishmentItem.location.address,
-          options: [
-            { value: establishmentItem.id, label: establishmentItem.title },
-          ],
-        });
-      } else {
-        accumulator[temp].options.push({
-          value: establishmentItem.id,
-          label: establishmentItem.title,
-        });
-      }
-      return accumulator;
-    },
-    [],
-  );
+  const establishmentGroupByAddress = establishments.reduce<
+    {
+      label: string;
+      options: [{ value: number; label: string }];
+    }[]
+  >((accumulator, establishmentItem) => {
+    const temp = accumulator.findIndex(
+      (group) =>
+        group.label.toUpperCase() ===
+        establishmentItem.location.address.toUpperCase(),
+    );
+    if (temp === -1) {
+      accumulator.push({
+        label: establishmentItem.location.address,
+        options: [
+          { value: establishmentItem.id, label: establishmentItem.title },
+        ],
+      });
+    } else {
+      accumulator[temp].options.push({
+        value: establishmentItem.id,
+        label: establishmentItem.title,
+      });
+    }
+    return accumulator;
+  }, []);
   return establishmentGroupByAddress;
 };
 

@@ -236,7 +236,7 @@
 }
 
 .bs-carousel__item__center {
-  opacity: 1 !important;
+  opacity: 1;
 }
 
 .bs-carousel__item--hidden {

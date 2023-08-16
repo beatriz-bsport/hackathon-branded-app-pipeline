@@ -6792,11 +6792,19 @@
         "bookingNotification": {
             "delete": {
                 "error": "Não é possível eliminar esta notificação"
+            },
+            "createOrUpdate": {
+                "success": "Notificação registada com sucesso"
             }
         },
         "privatePass": {
             "del": {
-                "error": "Não é possível eliminar este passe"
+                "error": "Não é possível eliminar este passe",
+                "success": "Passe de marcação eliminado"
+            },
+            "restore": {
+                "error": "Não é possível recuperar este passe de marcação",
+                "success": "Passe de marcações recuperado"
             }
         },
         "metaActivity": {

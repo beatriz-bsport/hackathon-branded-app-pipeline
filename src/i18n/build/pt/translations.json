@@ -6728,8 +6728,8 @@
                     "success": "Grupo de aulas eliminado"
                 },
                 "update": {
-                    "error": "Ocorreu um erro ao modificar o grupo de categorias",
-                    "success": "Grupo disciplinar modificado"
+                    "error": "Ocorreu um erro ao alterar o grupo de aulas",
+                    "success": "Grupo de aulas alterado"
                 },
                 "create": {
                     "error": "Ocorreu um erro ao criar o grupo de categorias",
@@ -6761,11 +6761,11 @@
                 "success": "Regra de notificação suprimida"
             },
             "update": {
-                "error": "Impossível alterar a regra para as notificações",
+                "error": "Não é possível alterar a regra para as notificações",
                 "success": "Regra de notificação modificada"
             },
             "customError": {
-                "3": "Impossível criar uma regra com o mesmo tempo de aparecimento"
+                "3": "Não é possível criar uma regra com o mesmo tempo de aparecimento"
             },
             "create": {
                 "error": "Não é possível criar a regra de notificação",
@@ -6786,15 +6786,22 @@
         },
         "subscriptionScheduledStop": {
             "delete": {
-                "error": "Não é possível eliminar a interrupção programada da subscrição"
+                "error": "Não é possível eliminar a interrupção programada da subscrição",
+                "success": "A fim da subscrição agendado foi eliminado"
+            },
+            "create": {
+                "error": "Não é possível agendar o fim da subscrição",
+                "success": "Agendado o fim da subscrição"
             }
         },
         "bookingNotification": {
             "delete": {
-                "error": "Não é possível eliminar esta notificação"
+                "error": "Não é possível eliminar esta notificação",
+                "success": "Notificação eliminada"
             },
             "createOrUpdate": {
-                "success": "Notificação registada com sucesso"
+                "success": "Notificação registada com sucesso",
+                "error": "Não é possível guardar esta notificação"
             }
         },
         "privatePass": {
@@ -7256,7 +7263,8 @@
         },
         "dashboard": {
             "save": {
-                "error": "Não é possível guardar as alterações"
+                "error": "Não é possível guardar as alterações",
+                "success": "As alterações foram guardadas"
             }
         },
         "signup": {
@@ -7314,6 +7322,13 @@
         },
         "link": {
             "copied": "Link copiado para a área de transferência"
+        },
+        "background": {
+            "pending": "Tratamento a decorrer, por favor aguarde",
+            "success": "Terminar",
+            "timeout": "O servidor demorou demasiado tempo a responder. Tente atualizar a página",
+            "cannotFetch": "Ocorreu um erro. Verifique a sua internet e tente atualizar a página.",
+            "error": "Ocorreu um erro, tente novamente mais tarde"
         }
     },
     "theme": {
@@ -11986,13 +12001,44 @@
             "delete": {
                 "content": {
                     "canDelete": "Tem a certeza de que pretende eliminar esta espaço ? Esta ação é irreversível. Será eliminada e substituída pelo espaço predefinido neste plano e em todos os outros aos quais foi adicionada."
-                }
+                },
+                "actions": {
+                    "confirm": "Confirmar",
+                    "cancel": "Cancelar"
+                },
+                "title": "Eliminar"
             }
         },
         "spotCreatorForm": {
             "deleted": "Espaço eliminado",
             "saved": "Espaço registado",
-            "personalizedExplain": "Pode personalizar a forma dos espaços importando as suas próprias imagens. Para o fazer, precisamos de 3 ícones diferentes. Um para indicar que o espaço está disponível e outro quando está reservado. Certifique-se de que têm o mesmo tamanho e não inclua números nos seus ícones."
+            "personalizedExplain": "Pode personalizar a forma dos espaços importando as suas próprias imagens. Para o fazer, precisamos de 3 ícones diferentes. Um para indicar que o espaço está disponível e outro quando está reservado. Certifique-se de que têm o mesmo tamanho e não inclua números nos seus ícones.",
+            "prefixError": "O prefixo deve ser uma única letra",
+            "taken": "Lugar reservado",
+            "circular": "Redondo",
+            "generalInfo": "Informações gerais",
+            "alertDefaultSpot": "Ao alterar o ponto predefinido, todos os pontos predefinidos presentes em todos os disparos serão alterados de forma idêntica",
+            "missImageFree": "Não descarregou a imagem para o lugar livre",
+            "missImageTaken": "Não descarregou a imagem para o lugar reservado",
+            "missImageSelected": "Não descarregou a imagem para o lugar selecionado",
+            "name": "Nome",
+            "nameExplain": "Nome do tipo de local",
+            "prefixExplain": "O caráter aqui indicado aparecerá como os números dos lugares",
+            "prefix": "Prefixo",
+            "predefined": "Formatos pré-definidos",
+            "square": "Quadrado",
+            "selected": "Lugar selecionado",
+            "selectedPersonalized": "{{name}} selecionado",
+            "preview": "Pré-visualizar",
+            "freePersonalized": "{{name}} disponível",
+            "title": "Plano da sala",
+            "subtitle": "Criar um tipo de local",
+            "customization": "Personalizar",
+            "personalized": "Imagens personalizadas",
+            "rectangle": "Retangular",
+            "triangle": "Triângulo",
+            "takenPersonalized": "{{name}} reservado",
+            "free": "Lugar disponível"
         },
         "searchHelper": "Ajuda: permite aos seus alunos reservar o espaço que pretendem na sala. Campos não obrigatórios",
         "spotImageDialog": {

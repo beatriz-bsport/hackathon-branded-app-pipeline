@@ -1,3 +1,14 @@
+import {
+  BUYABLE_ITEM_PASS as PASS,
+  BUYABLE_ITEM_SHOP_ITEM as SHOP_ITEM,
+  BUYABLE_ITEM_FEE as FEE,
+  BUYABLE_ITEM_PRIVATE_PASS as PRIVATE_PASS,
+  BUYABLE_ITEM_COMBO_ITEM as COMBO_ITEM,
+  BUYABLE_ITEM_COUPON as COUPON,
+  BUYABLE_ITEM_CREDIT as CREDIT,
+  BUYABLE_ITEM_GIFTCARD as GIFTCARD,
+} from '@bsport/common/lib/master-data/buyable-items';
+
 export type AddItemToBasketParams = {
   check_offer_unicity?: boolean;
 };
@@ -169,3 +180,14 @@ export type QuicksaleMemberUpdateSuccess = {
   newBasket: Basket;
   previousBasketId: string;
 };
+
+export enum BuyableItemOptions {
+  BUYABLE_ITEM_PASS = PASS,
+  BUYABLE_ITEM_SHOP_ITEM = SHOP_ITEM,
+  BUYABLE_ITEM_CREDIT = CREDIT,
+  BUYABLE_ITEM_FEE = FEE,
+  BUYABLE_ITEM_PRIVATE_PASS = PRIVATE_PASS,
+  BUYABLE_ITEM_COMBO_ITEM = COMBO_ITEM,
+  BUYABLE_ITEM_COUPON = COUPON,
+  BUYABLE_ITEM_GIFTCARD = GIFTCARD,
+}

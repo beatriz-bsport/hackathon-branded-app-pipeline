@@ -9,14 +9,14 @@ import type { Establishment } from '#libs/establishment/types';
 
 export type Props = {
   establishment: Establishment;
-  theme: Theme;
+  theme?: Theme;
   icon?: React.ReactNode;
   classes?: { [key: string]: string };
 };
 
 export const MarketplaceEstablishmentTitle: React.FC<Props> = React.memo(
   ({ establishment, theme, classes, icon }) => {
-    if (theme?.show_establishment && !!establishment) {
+    if ((!theme || theme.show_establishment) && !!establishment) {
       return (
         <div
           className={classNames({

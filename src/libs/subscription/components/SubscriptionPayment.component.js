@@ -53,6 +53,11 @@ import NumericInput from '#components/input/NumericInput.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import ButtonBaseWithTypography from '#components/button/ButtonBaseWithTypography';
 import { computeProrataPriceForSubscription } from '../utils';
+import {
+  MarketplacePaymentMethodBillingDetails,
+  MarketplacePaymentMethods,
+} from '../../marketplace/types';
+import { updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI } from '#libs/payment/api';
 
 const MANUAL_PAYMENT_METHOD_FOR_PAST_INVOICES = '0';
 const SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES = '1';
@@ -122,6 +127,7 @@ type State = {
   processingTerminal: boolean,
   requiredEstablishmentIsMissing: boolean,
   contractTermsChecked: boolean,
+  billingDetails: MarketplacePaymentMethodBillingDetails,
 };
 
 export class SubscriptionPayment extends React.Component<Props, State> {
@@ -143,6 +149,32 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       theoricalAmountValuePastInvoices: null,
       requiredEstablishmentIsMissing: false,
       contractTermsChecked: false,
+      initialBillingDetails: {
+        name: '',
+        address: {
+          city: '',
+          country: '',
+          line1: '',
+          line2: '',
+          postal_code: '',
+          state: '',
+        },
+        email: '',
+        phone: '',
+      },
+      billingDetails: {
+        name: '',
+        address: {
+          city: '',
+          country: '',
+          line1: '',
+          line2: '',
+          postal_code: '',
+          state: '',
+        },
+        email: '',
+        phone: '',
+      },
     };
   }
 
@@ -200,6 +232,12 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       this.setState({
         selectedSavedPaymentMethodId: selectedPaymentMethodList[0].id,
       });
+      this.setState({
+        billingDetails: selectedPaymentMethodList[0].billing_details,
+      });
+      this.setState({
+        initialBillingDetails: selectedPaymentMethodList[0].billing_details,
+      });
     }
   };
 
@@ -219,7 +257,10 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     return false;
   };
 
-  submit = async (pastMonth?: boolean) => {
+  submit = async (
+    pastMonth?: boolean,
+    savedBillingDetailsModified?: boolean,
+  ) => {
     if (
       this.state.amountValuePastInvoices !==
         Number(this.state.theoricalAmountValuePastInvoices) &&
@@ -238,6 +279,14 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       return;
     }
     this.setState({ lastConfirmDifferentMonth: false });
+    if (savedBillingDetailsModified) {
+      await updatePaymentMethodBillingDetailsAPI({
+        member: this.props.member?.id || this.props.memberId,
+        payment_method_id: this.state.selectedSavedPaymentMethodId,
+        billing_details: this.state.billingDetails,
+        company: this.props.companyId,
+      });
+    }
     if (this.props.paymentMethod === 'bsport:credit' || this.isZeroPrice()) {
       this.props.onSubmit(
         'bsport:credit',
@@ -359,6 +408,24 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     this.setState({ contractTermsChecked: e.target.checked });
   };
 
+  handleOnSelect = (selectedSavedPaymentMethodId: number) => {
+    this.setState({
+      selectedSavedPaymentMethodId,
+    });
+    const selectedSavedPaymentMethod = this.props.savedPaymentMethodList?.find(
+      (paymentMethod: PaymentMethod) =>
+        paymentMethod.id === selectedSavedPaymentMethodId,
+    );
+    if (selectedSavedPaymentMethod?.type === MarketplacePaymentMethods.card) {
+      this.setState({
+        billingDetails: selectedSavedPaymentMethod.billing_details,
+      });
+      this.setState({
+        initialBillingDetails: selectedSavedPaymentMethod.billing_details,
+      });
+    }
+  };
+
   render() {
     const {
       paymentMethod,
@@ -377,6 +444,24 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       showContractTermsCheckbox,
       openContractTermsDialog,
     } = this.props;
+
+    const areInitialBillingDetailsNecessary =
+      this.props.cardBillingDetailsMandatory &&
+      !!this.state.selectedSavedPaymentMethodId
+        ? !!this.state.initialBillingDetails?.name &&
+          !!this.state.initialBillingDetails?.address.line1 &&
+          !!this.state.initialBillingDetails?.address.postal_code &&
+          !!this.state.initialBillingDetails?.address.city &&
+          !!this.state.initialBillingDetails?.address.country
+        : true;
+
+    const areBillingDetailsProvided = this.props.cardBillingDetailsMandatory
+      ? !!this.state.billingDetails.name &&
+        !!this.state.billingDetails.address.line1 &&
+        !!this.state.billingDetails.address.postal_code &&
+        !!this.state.billingDetails.address.city &&
+        !!this.state.billingDetails.address.country
+      : true;
 
     return (
       <div>
@@ -591,6 +676,10 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                     isExpanded
                     onDelete
                     showEmpty
+                    areInitialBillingDetailsNecessary={
+                      areInitialBillingDetailsNecessary
+                    }
+                    billingDetails={this.state.billingDetails}
                     cardBillingDetailsMandatory={
                       this.props.cardBillingDetailsMandatory
                     }
@@ -605,11 +694,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                       this.props.disabled ||
                       this.props.onlinePaymentEnabled === false
                     }
-                    onSelect={(selectedSavedPaymentMethodId) =>
-                      this.setState({
-                        selectedSavedPaymentMethodId,
-                      })
-                    }
+                    onSelect={this.handleOnSelect}
                     paymentMethodType={paymentMethod}
                     refreshSavedPaymentMethodList={
                       this.props.refreshSavedPaymentMethodList
@@ -623,6 +708,9 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                     }
                     sepaDefaultEmail={this.props.sepaDefaultEmail}
                     sepaDefaultName={this.props.sepaDefaultName}
+                    setBillingDetails={(newBillingDetails) => {
+                      this.setState({ billingDetails: newBillingDetails });
+                    }}
                     snackbarErrorMsg={this.props.snackbarErrorMsg}
                     snackbarSuccessMsg={this.props.snackbarSuccessMsg}
                   />
@@ -776,7 +864,9 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 this.props.disabled ||
                 this.state.loading ||
                 processing ||
-                (showContractTermsCheckbox && !this.state.contractTermsChecked)
+                (showContractTermsCheckbox &&
+                  !this.state.contractTermsChecked) ||
+                !areBillingDetailsProvided
               }
               id="stripe-pay"
               onClick={() => {
@@ -787,7 +877,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                   ),
                 });
                 if (moment(this.props.date).isSameOrAfter(moment(), 'month')) {
-                  this.submit();
+                  this.submit(false, !areInitialBillingDetailsNecessary);
                 }
               }}
               variant="contained"

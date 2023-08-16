@@ -180,6 +180,9 @@ export class SubscriptionDetail extends Component<Props> {
         !!stripeRegion &&
         !!companyCountry ? (
           <SubscriptionPaymentMethodSwitcherDialog
+            cardBillingDetailsMandatory={
+              this.props.theme.force_billing_details_on_cards
+            }
             companyId={this.props.companyId}
             enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
               {

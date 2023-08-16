@@ -23,6 +23,7 @@ type Props = {
   enabledPaymentMethods: Array<number>,
   stripeReaders: StripeReader[],
   companyId?: number,
+  cardBillingDetailsMandatory: boolean,
 };
 
 export class SubscriptionPaymentMethodSwitcherDialog extends React.Component<Props> {
@@ -45,6 +46,7 @@ export class SubscriptionPaymentMethodSwitcherDialog extends React.Component<Pro
       <Dialog open={this.props.open}>
         <DialogContent>
           <SubscriptionPayment
+            cardBillingDetailsMandatory={this.props.cardBillingDetailsMandatory}
             companyId={this.props.companyId}
             enabledPaymentGroupMethodIdentifier={
               this.props.enabledPaymentGroupMethodIdentifier

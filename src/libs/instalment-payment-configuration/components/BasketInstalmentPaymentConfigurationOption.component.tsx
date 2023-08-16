@@ -83,8 +83,11 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
     if (!hasCustomfirstPayment)
       return (basketPrice / number_of_billing).toFixed(2);
     if (custom_first_instalment_type === 0)
-      return custom_first_instalment_amount.toFixed(2);
-    return ((custom_first_instalment_percent / 100) * basketPrice).toFixed(2);
+      return (custom_first_instalment_amount || 0).toFixed(2);
+    return (
+      ((custom_first_instalment_percent || 0) / 100) *
+      basketPrice
+    ).toFixed(2);
   }, [
     custom_first_instalment_amount,
     custom_first_instalment_enabled,

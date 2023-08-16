@@ -6400,7 +6400,7 @@
             }
         },
         "automatedCampaign": {
-            "170001": "Erro: Número inválido de envios por membro",
+            "170001": "Erro: Número limite inválido por membro",
             "17105": "Erro: Conteúdo obrigatório da notificação",
             "17104": "Erro: Título obrigatório da notificação",
             "17103": "Erro: Conteúdo da SMS obrigatório",
@@ -6537,7 +6537,8 @@
             }
         },
         "communicationv2": {
-            "success": "Comunicação em curso"
+            "success": "Comunicação em curso",
+            "error": "Problema ao enviar a comunicação"
         },
         "communication": {
             "error": "Problema ao enviar a mensagem de e-mail",
@@ -6559,14 +6560,19 @@
         },
         "webhook": {
             "testError": "Verificar o link",
-            "testSuccess": "Link correto"
+            "testSuccess": "Link correto",
+            "success": "Webhook registado",
+            "error": "Impossível registar o webhook"
         },
         "privateRecurrentRule": {
             "createOrUpdate": {
-                "success": "Marcação periódica bem sucedido"
+                "success": "Marcação periódica bem sucedido",
+                "locked": "Já existe uma regra de recorrência com estes parâmetros",
+                "error": "Não é possível registar marcações recorrentes"
             },
             "delete": {
-                "error": "Não é possível eliminar esta marcação"
+                "error": "Não é possível eliminar esta marcação",
+                "success": "Marcações recorrentes eliminadas"
             }
         },
         "bookerModule": {
@@ -6586,7 +6592,8 @@
                 "error": "Ocorreu um erro ao carregar passes não compatíveis"
             },
             "creditUpdate": {
-                "error": "Não é possível registar o crédito"
+                "error": "Não é possível registar o crédito",
+                "success": "Créditos atualizados"
             }
         },
         "notificationRule": {
@@ -6615,7 +6622,7 @@
             },
             "createOrUpdate": {
                 "error": "Erro de registo",
-                "success": ""
+                "success": "Informações registadas"
             },
             "merge": {
                 "explainBookingsAndPassAndInvoiceAndNotes": "Os passes de aulas, as reservas, as faturas e as notas serão transferidos",
@@ -6635,12 +6642,12 @@
             },
             "error": "Não é possível guardar o membro",
             "update": {
-                "success": "",
-                "title": ""
+                "success": "Membro alterado com sucesso",
+                "title": "Editar informações"
             },
             "create": {
-                "success": "",
-                "title": ""
+                "success": "Membro criado com sucesso",
+                "title": "Novo membro"
             }
         },
         "canNotBuyErrorCode": {
@@ -6794,22 +6801,46 @@
         },
         "metaActivity": {
             "del": {
-                "error": "Não é possível eliminar este elemento"
+                "error": "Não é possível eliminar este elemento",
+                "success": "Elemento eliminado"
+            },
+            "restore": {
+                "success": "Elemento recuperado",
+                "error": "Não é possível recuperar este elemento"
             }
         },
         "playlist": {
             "video": {
                 "del": {
-                    "error": "Não é possível eliminar o seguinte vídeo da playlist"
+                    "error": "Não é possível eliminar o seguinte vídeo da playlist",
+                    "success": "Vídeo eliminado da playlist"
+                },
+                "add": {
+                    "success": "Vídeo adicionado à playlist",
+                    "error": "Não é possível adicionar o vídeo"
                 }
             },
             "delete": {
-                "error": "Não é possível eliminar esta playlist"
+                "error": "Não é possível eliminar esta playlist",
+                "success": "Playlist eliminada"
+            },
+            "createOrUpdate": {
+                "error": "Não é possível guardar a playlist",
+                "success": "Playlist guardada com sucesso"
             }
         },
         "video": {
             "delete": {
-                "error": "Não é possível eliminar este vídeo"
+                "error": "Não é possível eliminar este vídeo",
+                "success": "Vídeo eliminado"
+            },
+            "createOrUpdate": {
+                "success": "Vídeo registado com sucesso",
+                "error": "Não é possível registar o vídeo"
+            },
+            "register": {
+                "success": "Vídeo guardado na biblioteca",
+                "error": "Não foi possível gravar este vídeo, tente novamente dentro de momentos"
             }
         },
         "memberNote": {
@@ -6971,6 +7002,12 @@
             "error": "Não é possível guardar o professor",
             "update": {
                 "success": "Professor modificado com sucesso"
+            },
+            "linkByEmail": {
+                "success": "Professor conectado com sucesso"
+            },
+            "editAccessToCoachSpace": {
+                "error": "Erro ao alterar os direitos de acesso à área de professores"
             }
         },
         "customForm": {
@@ -7025,7 +7062,22 @@
         },
         "privateBooking": {
             "updateCoach": {
-                "error": "Impossível alterar o professor"
+                "error": "Impossível alterar o professor",
+                "success": "O professor foi alterado"
+            },
+            "attachCoach": {
+                "success": "Marcação atribuída ao professor",
+                "error": "Não é possível atribuir a este professor"
+            },
+            "register": {
+                "warning": {
+                    "11106": "Já reservou neste horário"
+                },
+                "error": "Impossível reservar nesta data"
+            },
+            "restore": {
+                "error": "Não é possível recuperar a marcação, não possuí os créditos suficiente no passe.",
+                "success": "A marcação foi recuperada"
             }
         },
         "paymentRuleGroups": {
@@ -7244,6 +7296,16 @@
         },
         "modifyBasket": {
             "15004": "O carrinho está a ser processado, por favor tente novamente dentro de alguns minutos"
+        },
+        "copied": "Copiado para a área de transferência",
+        "zoom": {
+            "created": {
+                "error": "Erro na ligação da conta Zoom",
+                "success": "Zoom conectado com sucesso"
+            }
+        },
+        "link": {
+            "copied": "Link copiado para a área de transferência"
         }
     },
     "theme": {
@@ -9837,7 +9899,11 @@
                 "helperAllSelectedText": "todos os produtos"
             },
             "privatePass": {
-                "warning": "Selecionar pelo menos um passe de Marcações"
+                "warning": "Selecionar pelo menos um passe de Marcações",
+                "helperAllSelectedText": "todos os passes de marcação",
+                "textFieldPlaceholder": "Procurar um passe de marcação",
+                "helperText": "selecionar os passes de marcação",
+                "helperSelectedText": "passes de marcação selecionados"
             },
             "metaActivities": {
                 "helperAllSelectedText": "todas as atividades",
@@ -9881,7 +9947,9 @@
                 "warning": "selecionar pelo menos um nível",
                 "beginner": "iniciante",
                 "intermediary": "intermédio"
-            }
+            },
+            "selectAll": "Selecionar tudo",
+            "selectNothing": "Desmarcar tudo"
         },
         "generateHelperText": "Gerar a exportação para descarregar a lista inteligente",
         "membersInList": "Membros da lista inteligente:",
@@ -9969,7 +10037,13 @@
         "cadence": {
             "content": "Utilizado na sequência : {{ cadence_name }}",
             "content_plural": "Utilizado em {{ count }} sequências"
-        }
+        },
+        "duplicate": "Duplicar",
+        "mails": "Emails",
+        "search": "Procurar lista inteligente",
+        "description": "Descrição",
+        "edit": "Configurar",
+        "name": "Nome da lista"
     },
     "titles": {
         "workshopActivity": {
@@ -10193,23 +10267,83 @@
             "popup": {
                 "deleteModal": {
                     "content": "Tem a certeza de que pretende eliminar este pop-up ? Esta operação é definitiva",
-                    "confirm": "Eliminar"
-                }
+                    "confirm": "Eliminar",
+                    "title": "Eliminar",
+                    "cancel": "Cancelar"
+                },
+                "editPopup": {
+                    "cancel": "Cancelar",
+                    "preview": "Pré-visualizar",
+                    "submit": "Registar",
+                    "previewPopup": {
+                        "see": "Ver",
+                        "title": "Visão geral"
+                    },
+                    "title": "Pop-up de arranque",
+                    "image": "Imagem",
+                    "link": "Link de redirecionamento",
+                    "name": "Nome"
+                },
+                "updated": "Atualizar",
+                "image": "Imagem",
+                "subtitle": "Pop-up de arranque",
+                "name": "Nome",
+                "link": "Link",
+                "helperText": "O pop-up de arranque aparecerá quando os seus membros abrirem a aplicação. Permite-lhe captar a atenção dos seus membros para um evento especial (uma nova aula, uma promoção, etc.) e redireccioná-los para a página pretendida.",
+                "action": "Ação",
+                "see": "Visualizar",
+                "add": "Adicionar um pop-up"
             },
             "externalShopRedirection": {
                 "deleteModal": {
                     "content": "Tem a certeza de que pretende eliminar esta ligação ? Esta operação é definitiva",
-                    "confirm": "Eliminar"
+                    "confirm": "Eliminar",
+                    "title": "Eliminar",
+                    "cancel": "Cancelar"
                 },
                 "popupPreview": {
                     "category": {
-                        "giftcard": "Passes de oferta"
+                        "giftcard": "Passes de oferta",
+                        "contract": "Subscrições",
+                        "paymentPack": "Todos os passes",
+                        "paymentCombo": "Ofertas promocionais"
                     },
                     "membershipCard": {
                         "giftcardSubtitle": "Encontre todos os passes de oferta do seu estúdio aqui",
-                        "paymentPack": "Passes de aulas"
-                    }
-                }
+                        "paymentPack": "Passes de aulas",
+                        "consumerPaymentPackEmpty": "Nenhum passe disponível",
+                        "privateConsumerPassListEmpty": "Nenhum passe de marcação disponível",
+                        "paymentPackEmpty": "Não há passes disponíveis",
+                        "privatePassListEmpty": "Nenhum passe de marcação disponível",
+                        "mySubscription": "As minhas \nsubscrições",
+                        "contractSubtitle": "Encontre todas as subscrição disponíveis aqui",
+                        "vodSubtitle": "Saiba tudo sobre os vídeos de demanda aqui",
+                        "vod": "Aceder aos Vídeos de Demanda",
+                        "paymentPackSubtitle": "Encontre todos os seus passes aqui",
+                        "consumerPaymentPack": "Os meus passes",
+                        "invoice": "As minhas faturas",
+                        "invoiceEmpty": "Nenhuma fatura",
+                        "contractEmpty": "Nenhuma subscrição disponível à venda",
+                        "paymentComboEmpty": "Nenhuma oferta disponível",
+                        "paymentComboSubtitle": "Encontre aqui todas as promoções disponíveis",
+                        "contract": "Subscrição"
+                    },
+                    "inventory": "Inventário",
+                    "cancel": "Fechar",
+                    "ourOffers": "As nossas ofertas",
+                    "title": "Visão geral"
+                },
+                "link": "Local",
+                "popup": {
+                    "title": "Link externo",
+                    "icon": "Icone",
+                    "submit": "Registar",
+                    "name": "Nome",
+                    "link": "Ligação de redirecionamento",
+                    "cancel": "Cancelar"
+                },
+                "action": "Ações",
+                "name": "Nome"
             }
         },
         "companyOnboarding": {
@@ -10224,6 +10358,17 @@
             "methodPaymentBasket": "Pagamento único",
             "subtitle2": "Como gestor, tem sempre acesso a todos os métodos de pagamento disponíveis.",
             "subtitle": "Pode ativar ou desativar os métodos de pagamento utilizados pelos seus membros quando pagam em linha."
+        },
+        "company": {
+            "bankAccountInfo": {
+                "link": "aqui",
+                "content": "Esta é a conta em que serão creditados os pagamentos em linha através do Bsport. Para configurar o método de pagamento em que será debitada a sua subscrição Bsport, clique em"
+            },
+            "bankAccountSuccess": {
+                "title": "Alteração dos dados bancários",
+                "content": "Os seus dados bancários foram atualizados. Para ser creditado e debitado na mesma conta, pode também atualizar o método de pagamento utilizado para debitar a sua subscrição.",
+                "note": "Clique em \"Configurar\" para ser redireccionado."
+            }
         }
     },
     "widget": {
@@ -12860,14 +13005,59 @@
         "shopitem": {
             "action": {
                 "delete": "Eliminar",
-                "edit": "Alterar"
+                "edit": "Alterar",
+                "addToCard": "Adicionar ao carrinho"
+            },
+            "form": {
+                "title": "Artigo da loja"
+            },
+            "detail": {
+                "enabled": "Sim",
+                "parameters": "Parâmetros",
+                "disabled": "Não",
+                "provisionHistory": "Evolução do stock",
+                "is_deliverable": "Taxas de envio",
+                "supplier_price": "Preço fornecedor",
+                "marketplace_enabled": "Disponível no marketplace",
+                "onsite_payment_available": "Pagamento no estabelecimento",
+                "title": "Ficha do artigo"
+            },
+            "noDescription": "Nenhuma descrição",
+            "selector": {
+                "placeholder": "Procurar através de um nome ou código de barras"
             }
         },
         "dialog": {
             "delete": {
                 "explain": "Tem a certeza de que pretende eliminar este artigo da loja ? Esta operação é irreversível e deixará de ter acesso ao histórico das existências.",
-                "confirm": "Eliminar"
+                "confirm": "Eliminar",
+                "title": "Eliminar o {{shopitem.name}}",
+                "cancel": "Cancelar",
+                "warning": "Atenção ! Este artigo é utilizado num pack. O pack deixará de estar disponível para venda se retirar este artigo."
             }
+        },
+        "link": {
+            "copied": "Link copiado",
+            "copyLink": "Copiar o link para a página de pagamento"
+        },
+        "provision": {
+            "current_stock": "Stock atual :",
+            "noProvisionHistory": "Nenhum histórico de venda",
+            "form": {
+                "quantityLabel": "Unidade(s)",
+                "quantityHelperText": "Unidade a acrescentar/subtrair ao stock",
+                "cancel": "Cancelar",
+                "submit": "Registar",
+                "title": "Alterar o stock"
+            },
+            "total_sales": "Número de artigos vendidos :",
+            "action": {
+                "update": "Atualizar o stock"
+            }
+        },
+        "search": "Procurar um produto",
+        "select": {
+            "placeholder": "Artigo da loja"
         }
     },
     "quicksale": {

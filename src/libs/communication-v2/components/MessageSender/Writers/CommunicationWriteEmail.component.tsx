@@ -1,8 +1,7 @@
-// @ts-nocheck
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Theme, makeStyles, Typography } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {
@@ -25,51 +24,64 @@ import {
 } from '#libs/communication-v2/constants';
 
 type Props = {
-  children: any;
+  children: React.ReactNode;
   emailContent: string;
-  emailTemplateDetails: Record<number, EmailTemplateDetail>;
-  emailTemplateSelected: number;
+  emailTemplateDetails?: Record<number, EmailTemplateDetail>;
+  emailTemplateSelected?: number;
   emailTitle: string;
   handleChangeContent: (event: React.ChangeEvent) => void;
   handleChangeTitle: (event: React.ChangeEvent) => void;
   isMobileSize?: boolean;
-  loadingTemplateDetails: boolean;
-  onEditTemplate: () => void;
-  onFocus: (identifier: number) => void;
-  onSeeTemplate: () => void;
-  onRemoveTemplate: () => void;
-  refreshTemplateData: (templateId: number) => void;
-  resolvedGenericTags: ResolvedGenericTags;
+  loadingTemplateDetails?: boolean;
+  onEditTemplate?: () => void;
+  onFocus?: (identifier: number) => void;
+  onSeeTemplate?: () => void;
+  onRemoveTemplate?: () => void;
+  refreshTemplateData?: (templateId: number) => void;
+  resolvedGenericTags?: ResolvedGenericTags;
 };
 
-const CommunicationWriteEmail = (props: Props) => {
+const CommunicationWriteEmail: React.FC<Props> = ({
+  children,
+  handleChangeContent,
+  handleChangeTitle,
+  emailContent,
+  emailTemplateDetails,
+  emailTemplateSelected,
+  emailTitle,
+  isMobileSize,
+  loadingTemplateDetails,
+  onFocus,
+  onRemoveTemplate,
+  onEditTemplate,
+  onSeeTemplate,
+  refreshTemplateData,
+  resolvedGenericTags,
+}) => {
   const { t } = useTranslation('communication');
-  const {
-    handleChangeContent,
-    handleChangeTitle,
-    emailContent,
-    emailTemplateDetails,
-    emailTemplateSelected,
-    emailTitle,
-    isMobileSize,
-    loadingTemplateDetails,
-    onFocus,
-    onRemoveTemplate,
-    onSeeTemplate,
-    refreshTemplateData,
-    resolvedGenericTags,
-  } = props;
+
   const [showRefreshDialog, setShowRefreshDialog] = useState(false);
-  const onTitleFocus = () => onFocus(TEXTFIELD_MAIL_TITLE);
-  const onContentFocus = () => onFocus(TEXTFIELD_MAIL_CONTENT);
-  const onRefreshTemplateData = () => {
+
+  const onTitleFocus = useCallback(
+    () => onFocus?.(TEXTFIELD_MAIL_TITLE),
+    [onFocus],
+  );
+
+  const onContentFocus = useCallback(
+    () => onFocus?.(TEXTFIELD_MAIL_CONTENT),
+    [onFocus],
+  );
+
+  const onRefreshTemplateData = useCallback(() => {
     setShowRefreshDialog(false);
     refreshTemplateData(emailTemplateSelected);
-  };
-  const onEditTemplate = () => {
-    props.onEditTemplate();
+  }, [emailTemplateSelected, refreshTemplateData]);
+
+  const handleEditTemplate = useCallback(() => {
+    onEditTemplate();
     setShowRefreshDialog(true);
-  };
+  }, [onEditTemplate]);
+
   return (
     <React.Fragment>
       <TextFieldWithChildren
@@ -88,12 +100,12 @@ const CommunicationWriteEmail = (props: Props) => {
           emailTemplateDetails={emailTemplateDetails}
           emailTemplateSelected={emailTemplateSelected}
           loadingTemplateDetails={loadingTemplateDetails}
-          onEditTemplate={onEditTemplate}
+          onEditTemplate={handleEditTemplate}
           onRemoveTemplate={onRemoveTemplate}
           onSeeTemplate={onSeeTemplate}
           resolvedGenericTags={resolvedGenericTags}
         >
-          {props.children}
+          {children}
         </EmailPreview>
       ) : (
         <TextFieldWithChildren
@@ -111,7 +123,7 @@ const CommunicationWriteEmail = (props: Props) => {
           placeholder={t('sendMessage.textField.content')}
           value={emailContent}
         >
-          {props.children}
+          {children}
         </TextFieldWithChildren>
       )}
       {showRefreshDialog && (
@@ -125,18 +137,19 @@ const CommunicationWriteEmail = (props: Props) => {
 };
 
 type PreviewProps = {
-  children: any;
+  children: React.ReactNode;
   emailTemplateDetails: Record<number, EmailTemplateDetail>;
   emailTemplateSelected: number;
   loadingTemplateDetails: boolean;
   onSeeTemplate: () => void;
   onEditTemplate: () => void;
   onRemoveTemplate: () => void;
+  resolvedGenericTags?: ResolvedGenericTags;
 };
 
-const EmailPreview = React.memo((props: PreviewProps) => {
-  const classes = useStyles();
-  const {
+const EmailPreview: React.FC<PreviewProps> = React.memo(
+  ({
+    children,
     emailTemplateSelected,
     emailTemplateDetails,
     loadingTemplateDetails,
@@ -144,60 +157,66 @@ const EmailPreview = React.memo((props: PreviewProps) => {
     onEditTemplate,
     onRemoveTemplate,
     resolvedGenericTags,
-  } = props;
-  return (
-    <div className={classes.mailPreviewContainer}>
-      <div className={classes.mailPreviewSubcontainer}>
-        <div className={classes.mailPreviewButtonsContainer}>
-          <IconButton onClick={onSeeTemplate} size="small">
-            <VisibilityIcon />
-          </IconButton>
-          <IconButton onClick={onEditTemplate} size="small">
-            <EditIcon />
-          </IconButton>
-          <IconButton onClick={onRemoveTemplate} size="small">
-            <CloseIcon />
-          </IconButton>
+  }) => {
+    const classes = useStyles();
+
+    return (
+      <div className={classes.mailPreviewContainer}>
+        <div className={classes.mailPreviewSubcontainer}>
+          <div className={classes.mailPreviewButtonsContainer}>
+            <IconButton onClick={onSeeTemplate} size="small">
+              <VisibilityIcon />
+            </IconButton>
+            <IconButton onClick={onEditTemplate} size="small">
+              <EditIcon />
+            </IconButton>
+            <IconButton onClick={onRemoveTemplate} size="small">
+              <CloseIcon />
+            </IconButton>
+          </div>
+          <div className={classes.mailPreviewContent}>
+            {!loadingTemplateDetails ? (
+              <HTMLPreview
+                html={emailTemplateDetails[emailTemplateSelected]?.html}
+                resolvedGenericTags={resolvedGenericTags}
+              />
+            ) : (
+              <CircularProgress />
+            )}
+          </div>
+          <span />
         </div>
-        <div className={classes.mailPreviewContent}>
-          {!loadingTemplateDetails ? (
-            <HTMLPreview
-              html={emailTemplateDetails[emailTemplateSelected]?.html}
-              resolvedGenericTags={resolvedGenericTags}
-            />
-          ) : (
-            <CircularProgress />
-          )}
-        </div>
-        <span />
+        {children}
       </div>
-      {props.children}
-    </div>
-  );
-});
+    );
+  },
+);
 
 type RefreshProps = {
   openDialog: boolean;
   refreshTemplateData: () => void;
 };
 
-const RefreshDialog = React.memo((props: RefreshProps) => {
-  const { t } = useTranslation('communication');
-  return (
-    <CommunicationWrapperDialog
-      buttonCancelText={t('common.cancel')}
-      buttonConfirmText={t('common.refresh')}
-      fullScreen={false}
-      maxWidth="xs"
-      onConfirm={props.refreshTemplateData}
-      open={props.openDialog}
-    >
-      <Typography variant="body2">{t('sendMessage.refresh')}</Typography>
-    </CommunicationWrapperDialog>
-  );
-});
+const RefreshDialog: React.FC<RefreshProps> = React.memo(
+  ({ openDialog, refreshTemplateData }) => {
+    const { t } = useTranslation('communication');
 
-const useStyles = makeStyles((theme: Theme) => ({
+    return (
+      <CommunicationWrapperDialog
+        buttonCancelText={t('common.cancel')}
+        buttonConfirmText={t('common.refresh')}
+        fullScreen={false}
+        maxWidth="xs"
+        onConfirm={refreshTemplateData}
+        open={openDialog}
+      >
+        <Typography variant="body2">{t('sendMessage.refresh')}</Typography>
+      </CommunicationWrapperDialog>
+    );
+  },
+);
+
+const useStyles = makeStyles((theme) => ({
   mailPreviewContainer: {
     borderRadius: theme.spacing(2),
     display: 'flex',

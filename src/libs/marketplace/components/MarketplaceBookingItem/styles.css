@@ -1,0 +1,104 @@
+.bs-booking-item {
+  background-color: var(--color-background-paper);
+  container: bsBookingItem, inline-size;
+  width: 100%;
+}
+
+/* .bs-booking-item-content:{} 
+*/
+
+.bs-booking-item-grid {
+  align-items: start;
+  column-gap: var(--spacing-1);
+  row-gap: 0;
+  grid-template-columns: auto max-content max-content;
+}
+
+/* .bs-booking-item-details-date:{} 
+*/
+
+/* .bs-booking-item-details:{} 
+*/
+
+/* .bs-booking-item-chip--status-chip-mobile:{} 
+*/
+
+/* .bs-booking-item-chip--level-mobile:{} 
+*/
+
+.bs-booking-item-chip {
+  width: fit-content;
+  justify-self: end;
+}
+
+.bs-booking-item-chip--hidden {
+  display: none;
+}
+
+.bs-booking-item-status-chip__waiting-list {
+  padding: 4px 8px 4px 8px;
+  background-color: var(--color-grey-light);
+  color: var(--color-grey-dark);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--body1-letterSpacing);
+  line-height: var(--body1-lineHeight);
+  font-family: var(--fontFamily);
+}
+
+.bs-booking-item-status-chip__unpaid {
+  padding: 4px 8px 4px 8px;
+  background-color: var(--color-warning-background);
+  color: var(--color-warning-main);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--body1-letterSpacing);
+  line-height: var(--body1-lineHeight);
+  font-family: var(--fontFamily);
+}
+
+.bs-booking-item-level {
+  padding: 4px 8px 4px 8px;
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--body1-letterSpacing);
+  line-height: var(--body1-lineHeight);
+  font-family: var(--fontFamily);
+}
+
+@container bsConfirmationPage (width < 530px) {
+  .bs-booking-item {
+    width: 100%;
+  }
+
+  .bs-booking-item-grid {
+    grid-template-columns: auto;
+  }
+
+  .bs-booking-item-chip--status-chip-mobile {
+    grid-column-start: 2;
+    grid-column-end: -1;
+  }
+
+  .bs-booking-item-chip--level-mobile {
+    grid-column-start: 1;
+    grid-row-start: 3;
+    justify-self: start;
+    margin-top: var(--spacing-1);
+  }
+
+  .bs-booking-item-chip {
+    height: auto;
+  }
+
+  .bs-booking-item-details {
+    grid-column-end: 3;
+  }
+
+  .bs-booking-item-grid,
+  .bs-booking-item-details,
+  .bs-booking-item-chip--status-chip-mobile,
+  .bs-booking-item-chip--level-mobile {
+    flex-direction: row;
+  }
+}

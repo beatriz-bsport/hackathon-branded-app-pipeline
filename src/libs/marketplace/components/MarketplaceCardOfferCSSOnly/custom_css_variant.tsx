@@ -1,5 +1,7 @@
 import React from 'react';
 import moment from 'moment-timezone';
+import { fakerEN as faker } from '@faker-js/faker';
+
 import MarketPlaceCardOfferCSSOnly, {
   Props as MarketplaceOfferCardProps,
 } from './MarketPlaceCardOfferCSSOnly.component';
@@ -149,9 +151,9 @@ const usePropsFromVariation = (
     variant: variantSelected,
     isRegistered: isRegisteredSelected,
     genderCount: {
-      nb_booked_male: 10,
-      nb_booked_female: 10,
-      nb_booked_other: 10,
+      nb_booked_male: faker.number.int(10),
+      nb_booked_female: faker.number.int(10),
+      nb_booked_other: faker.number.int(10),
     },
     onClickBook: () => {},
     onClickOffer: () => {},

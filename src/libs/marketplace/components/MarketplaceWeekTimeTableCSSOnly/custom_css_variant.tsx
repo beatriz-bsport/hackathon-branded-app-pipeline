@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment-timezone';
+import { fakerEN as faker } from '@faker-js/faker';
 
 import MarketplaceWeekTimeTableCSSOnly, {
   Props as MarketplaceWeekTimeTableCSSOnlyProps,
@@ -34,9 +35,9 @@ const usePropsFromVariation = (
     variant: variantSelected,
     offers: [],
     genderCount: {
-      nb_booked_male: 10,
-      nb_booked_female: 10,
-      nb_booked_other: 10,
+      nb_booked_male: faker.number.int(10),
+      nb_booked_female: faker.number.int(10),
+      nb_booked_other: faker.number.int(10),
     },
     establishments,
     metaActivities: metaActivityList,

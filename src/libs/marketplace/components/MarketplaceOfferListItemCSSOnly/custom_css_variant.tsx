@@ -1,4 +1,6 @@
 import React from 'react';
+import { fakerEN as faker } from '@faker-js/faker';
+
 import MarketplaceOfferListItemCSSOnly, {
   Props as MarketplaceOfferListItemCSSOnlyProps,
 } from '.';
@@ -90,9 +92,9 @@ const usePropsFromVariation = (
     // @ts-expect-error
     offer: bookableOffer,
     genderCount: {
-      nb_booked_male: 10,
-      nb_booked_female: 10,
-      nb_booked_other: 10,
+      nb_booked_male: faker.number.int(10),
+      nb_booked_female: faker.number.int(10),
+      nb_booked_other: faker.number.int(10),
     },
     metaActivity,
     variant: variantSelected,

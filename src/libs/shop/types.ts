@@ -102,4 +102,5 @@ export type ShopItemFactoryOptions = {
   isUnlimitedProvisions?: boolean;
   isMarketplaceEnabled?: boolean;
   isDeliverable?: boolean;
+  isDisabled?: boolean;
 };

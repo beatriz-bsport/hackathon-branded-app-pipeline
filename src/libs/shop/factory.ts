@@ -37,6 +37,7 @@ export const shopItemFactory = (options?: ShopItemFactoryOptions) => {
     is_deliverable: options?.isDeliverable ?? faker.datatype.boolean(),
     available_payment_method_identifiers: [CB.id],
     current_stock: faker.number.int(20),
+    disabled: options?.isDisabled ?? false,
   };
 };
 

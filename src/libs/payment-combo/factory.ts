@@ -34,7 +34,7 @@ const paymentComboItemListFactory = (
       case 'shopItem':
         return shopItemFactory();
       default:
-        return {};
+        return paymentPackFactory();
     }
   };
   return faker.helpers.multiple(

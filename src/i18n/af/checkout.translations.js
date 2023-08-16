@@ -107,6 +107,13 @@ exports.default = {
       widgetContinue: 'Continuer',
       payNow: 'Payer',
       confirmPriceNull: 'Confirmer',
+      goToCalendar: 'Retour au calendrier',
+      myBookings: 'Mes réservations', 
+      retry: 'Réessayer',
+      newWorkshop: 'Nouvel atelier',
+      retryBookingSession: 'Réessayer de réserver',
+      mySubscription: 'Mon abonnement',
+      myProducts: 'Mes achats',
     },
     sections: {
       explain:
@@ -135,8 +142,36 @@ exports.default = {
           'Le studio a désactivé la fonctionnalité de réservation pour un invité pour cette carte de cours.',
         guestNotEnoughSpot:
           "Il n'y a pas assez de places pour tous vos invités.",
+        offerOnlyBookingError: "Désolé, mais malheureusement, la séance et le spot sélectionnés ne peuvent pas être réservés pour le moment. Nous vous invitons à réessayer.",
+        genericOfferError:"Nous avons rencontré un problème lors du traitement de votre réservation de séance. Veuillez réessayer ultérieurement ou réserver une séance différente.",         
       },
+      confirmationStatusTitle:{
+        errors: {
+          generic: "Oups ! Le paiement a échoué.",
+          genericOfferError: "Oups ! La réservation a échoué."
+        },
+        success: {
+          offerOnlySuccess:"Bonne séance !",
+          paymentSuccess: "Paiement confirmé !",
+          waitingList: "Vous vous êtes inscrit sur la liste d'attente",
+        }
+      },
+      confirmationStatusMessage:{
+        offerOnlySuccess:"La réservation a bien été effectuée. Vous recevrez bientôt un e-mail de confirmation avec tous les détails.",
+        offerOnlySuccess_plural: 'Les réservations ont bien été effectuées. Vous recevrez bientôt un e-mail de confirmation avec tous les détails.',
+        paymentSuccess: "Félicitations ! Votre achat est confirmé !",
+        paymentSuccess_plural:"Félicitations ! Vos achats sont confirmés !",
+        offerAndPurchaseSuccess: "Félicitations ! Vos achats et réservations sont confirmés. Vous recevrez sous peu un e-mail de confirmation contenant tous les détails."
+      },
+      alert: "Oups ! La réservation a échoué.\n Nous avons rencontré un problème lors du traitement de votre réservation de séance. Veuillez réessayer ultérieurement ou réserver une séance différente."
+
     },
+    bookingItem:{
+      bookingItemStatus:{
+        waitingList: "Liste d'attente",
+        unpaid: "Impayé"
+      }
+    }
   },
   internalAccount: {
     useMyInternalAccount: 'Utilisation de mon solde',

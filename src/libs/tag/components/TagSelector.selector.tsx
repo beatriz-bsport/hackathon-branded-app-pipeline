@@ -239,12 +239,13 @@ export function TagSelector(props: Props) {
     menuPlacement,
   } = props;
   const uuid = useRef(uuidv4());
-  const tagsOptionsSelected = selectedTags
-    ? getTagListOptions(allTagsWithTagGroup).filter(
-        (tagOption: { value: number; label: string }) =>
-          selectedTags.includes(tagOption.value),
-      )
-    : null;
+  const tagsOptionsSelected =
+    selectedTags && allTagsWithTagGroup
+      ? getTagListOptions(allTagsWithTagGroup).filter(
+          (tagOption: { value: number; label: string }) =>
+            selectedTags.includes(tagOption.value),
+        )
+      : null;
   if (inScrollBar) {
     return (
       <div id={`selector_${uuid.current}`} style={{ position: 'relative' }}>

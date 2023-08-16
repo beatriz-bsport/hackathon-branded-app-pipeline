@@ -26,7 +26,8 @@
 }
 
 .bs-circular-progress__container,
-.bs-circular-progress__container--small {
+.bs-circular-progress__container--small,
+.bs-circular-progress__container--x-small {
   animation: circular-progress-rotate 1.4s linear infinite;
 }
 

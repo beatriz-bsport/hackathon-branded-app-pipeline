@@ -52,6 +52,12 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
     partial_payment_enabled,
   } = instalmentPayment;
 
+  // TODO: FIX TYPING, custom_first_instalment_amount is a string
+  const customFirstInstalmentAmountAsNumber = Number.parseFloat(
+    // @ts-expect-error
+    custom_first_instalment_amount,
+  );
+
   let shorthandRecurrency = 'y' as ShortandMoment;
   switch (recurrency) {
     case DAILY:
@@ -83,13 +89,13 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
     if (!hasCustomfirstPayment)
       return (basketPrice / number_of_billing).toFixed(2);
     if (custom_first_instalment_type === 0)
-      return (custom_first_instalment_amount || 0).toFixed(2);
+      return (customFirstInstalmentAmountAsNumber || 0).toFixed(2);
     return (
       ((custom_first_instalment_percent || 0) / 100) *
       basketPrice
     ).toFixed(2);
   }, [
-    custom_first_instalment_amount,
+    customFirstInstalmentAmountAsNumber,
     custom_first_instalment_enabled,
     custom_first_instalment_percent,
     custom_first_instalment_type,

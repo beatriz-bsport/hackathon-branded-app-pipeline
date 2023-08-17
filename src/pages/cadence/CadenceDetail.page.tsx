@@ -27,6 +27,7 @@ import {
   upsertStepMarketingAtions as upsertStepMarketingAtionsAction,
   deleteStepMarketingAction as deleteStepMarketingActionAction,
   deleteConnectedTrigger as deleteConnectedTriggerAction,
+  modifyStepMarketingActionsConfiguration as modifyStepMarketingActionsConfigurationAction,
 } from '#libs/sequential_marketing/actions';
 
 import {
@@ -68,9 +69,9 @@ import type { Values } from '#libs/sequential_marketingDEPRECATED/components/for
 import {
   emailTemplatesSummaries,
   emailTemplateDetail,
+  emailTemplateComplete,
 } from '#libs/email-editor/actions';
 import {
-  getEmailTemplateById,
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
   getEmailTemplateSummary,
@@ -79,6 +80,14 @@ import { getAllTagsWithTagGroup, getTag } from '#libs/tag/selectors';
 
 import { NodeIdentifiersEnum } from '#libs/sequential_marketing/components/graph/hooks';
 import { HEADER_HEIGHT } from '#libs/sequential_marketing/constants/graph';
+import {
+  getResolvedGenericTags,
+  getTagCategories,
+} from '#libs/notification-rule/selectors';
+import {
+  fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
+  fetchTagList as fetchTagListAction,
+} from '#libs/notification-rule/actions';
 
 type OwnProps = {
   cadenceId: number;
@@ -110,6 +119,8 @@ export class CadenceDetailPage extends Component<Props> {
     this.props.setCadenceMinimalConfigurationState(
       this.getCadenceMinimalConfigurationState(),
     );
+    this.props.fetchTagList();
+    this.props.fetchResolvedGenericTags();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -299,11 +310,12 @@ export class CadenceDetailPage extends Component<Props> {
               }
               deleteCadenceStep={this.props.deleteCadenceStep}
               deleteConnectedTrigger={this.props.deleteConnectedTriggerAction}
-              emailDetailLoading={this.props.emailDetailLoading}
-              emailListLoading={this.props.emailListLoading}
-              emails={this.props.emailTemplatesList}
-              fetchEmailTemplateDetail={this.props.fetchEmailTemplateDetail}
-              getEmail={this.props.getEmail}
+              emailDetailList={this.props.emailDetailList}
+              emailDetailListLoading={this.props.emailDetailListLoading}
+              emailSummaryList={this.props.emailSummaryList}
+              emailSummaryListLoading={this.props.emailSummaryListLoading}
+              fetchEmailSummaryList={this.props.fetchEmailSummaryList}
+              getEmailDetail={this.props.fetchEmailDetail}
               getEmailTemplate={this.props.getEmailTemplate}
               getSmartlist={this.props.getSmartlist}
               getStepMarketingActions={this.props.getStepMarketingActions}
@@ -315,11 +327,17 @@ export class CadenceDetailPage extends Component<Props> {
               onClickConnectedTrigger={this.handleClickConnectedTrigger}
               onClickEntryStep={this.props.onClickEntryStep}
               resetAllSelection={this.resetAllSelection}
+              resolvedGenericTags={this.props.resolvedGenericTags}
               steps={this.props.steps}
+              submitMarketingActionForm={
+                this.props.updateStepMarketingActionList
+              }
+              tagCategories={this.props.tagCategories}
               tagList={this.props.allTagsWithTagGroup}
               updateCadenceStepCanvasPosition={
                 this.props.updateCadenceStepCanvasPosition
               }
+              updateCadenceStepName={this.props.updateCadenceStepName}
               updateConnectedTriggerPosition={
                 this.props.updateCadenceStepConnectedTriggerCanvasPosition
               }
@@ -450,9 +468,9 @@ const mapWithHandlers = {
 
   updateCadenceStepName:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
-    (data: { name: string }, options?: OptionCallback) => {
+    (data: { name: string; stepId: number }, options?: OptionCallback) => {
       if (props.selectedStepIdForEdition) {
-        props.updateCadenceStepAction(props.selectedStepIdForEdition, data, {
+        props.updateCadenceStepAction(data.stepId, data, {
           onSuccess: () => {
             options && options.onSuccess && options.onSuccess();
           },
@@ -615,6 +633,12 @@ const mapWithHandlers = {
       }
     },
 
+  updateStepMarketingActionList:
+    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
+    (data: { list: StepMarketingActions[]; step: number }) => {
+      props.modifyStepMarketingActionsConfigurationAction(data);
+    },
+
   deleteCadenceStep:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (stepId: number) => {
@@ -707,11 +731,6 @@ const connector = connect(
     smartlists: getAllSmartList(state),
     smartlistById: getSmartListDict(state),
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
-    emailTemplatesList: getAllEmailTemplatesSummaries(state),
-    getEmail: (id: number) => getEmailTemplateById(state, id),
-    emailTemplatesDetails: getEmailTemplatesDetail(state),
-    emailListLoading: state.emailTemplate.loading,
-    emailDetailLoading: state.emailTemplate.detail.loading,
     stepForEdition: getCadenceStep(state, selectedStepIdForEdition),
     getStepMarketingActions: (stepId: number) =>
       getStepMarketingActionsByStepId(state, stepId),
@@ -720,7 +739,15 @@ const connector = connect(
       getStepMarketingActionsUpsertLoading(state),
     getSmartlist: (id: number) => getSmartList(state, id),
     getTag: (id: string) => getTag(state, id),
+    // EMAILS
+    emailDetailList: getEmailTemplatesDetail(state),
+    emailDetailListLoading: state.emailTemplate.detail.loading,
+    emailSummaryList: getAllEmailTemplatesSummaries(state),
+    emailSummaryListLoading: state.emailTemplate.loading,
     getEmailTemplate: (id: string) => getEmailTemplateSummary(state, id),
+    // TAGS
+    resolvedGenericTags: getResolvedGenericTags(state),
+    tagCategories: getTagCategories(state),
   }),
   {
     retrieveCadenceAction,
@@ -736,14 +763,21 @@ const connector = connect(
     fetchAllSmartLists,
     updateCadenceStepCanvasPositionAction,
     updateCadenceStepConnectedTriggerCanvasPositionAction,
-    fetchEmailTemplatesSummaries: () => emailTemplatesSummaries(),
-    fetchEmailTemplateDetail: (id: number) => emailTemplateDetail(id),
     updateCadenceStepAction,
     deleteCadenceStepAction,
     fetchMarketingActionsAction,
     upsertStepMarketingAtionsAction,
     deleteStepMarketingActionAction,
     deleteConnectedTriggerAction,
+    modifyStepMarketingActionsConfigurationAction,
+    // EMAILS
+    fetchEmailTemplatesSummaries: () => emailTemplatesSummaries(),
+    fetchEmailTemplateDetail: (id: number) => emailTemplateDetail(id),
+    fetchEmailSummaryList: emailTemplatesSummaries,
+    fetchEmailDetail: emailTemplateComplete,
+    // TAGS
+    fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
+    fetchTagList: fetchTagListAction,
   },
 );
 

@@ -54,7 +54,7 @@ const BacsDebitFormSchema = Yup.object().shape({
   line1: Yup.string().required(),
   line2: Yup.string(),
   city: Yup.string().required(),
-  postalCode: Yup.string().required(),
+  postal_code: Yup.string().required(),
   sortCode: Yup.string()
     .length(6)
     .matches(/^[0-9]+$/)
@@ -71,7 +71,7 @@ export interface FormikValues {
   line1?: string;
   line2?: string;
   city?: string;
-  postalCode?: string;
+  postal_code?: string;
   sortCode?: string;
   accountNumber?: string;
 }
@@ -118,7 +118,7 @@ const BacsDebitForm = ({
         city: '',
         line1: '',
         line2: '',
-        postalCode: '',
+        postal_code: '',
       }}
       onSubmit={onSubmitCallback}
       validationSchema={BacsDebitFormSchema}
@@ -153,7 +153,7 @@ const BacsDebitForm = ({
           <TextField label={t('translation:form.address.city')} name="city" />
           <TextField
             label={t('translation:form.address.zipcode')}
-            name="postalCode"
+            name="postal_code"
           />
           <TextField
             label={t('subscription:mandate.sortCode')}
@@ -275,7 +275,7 @@ const CollectPaymentMethodBacsDebit = ({
             line2: values.line2,
             country: values.country,
             city: values.city,
-            postal_code: values.postalCode,
+            postal_code: values.postal_code,
           },
           email: values.email,
           name: values.name,

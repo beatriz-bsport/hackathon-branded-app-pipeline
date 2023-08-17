@@ -501,6 +501,7 @@ const QuicksaleInterface: React.FC<Props> = ({
       {!!stripeRegion && !!companyCountry ? (
         <SubscriptionContractRegister
           withContractTermsCheckbox
+          cardBillingDetailsMandatory={theme.force_billing_details_on_cards}
           companyId={theme.company}
           contract={contractToSubscribe}
           enabledPaymentMethods={enabledPaymentMethods ?? []}

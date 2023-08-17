@@ -26,6 +26,7 @@ type OwnProps = {
   has_no_need_for_bank_account_configuration: boolean;
   has_no_need_for_payment_method_configuration: boolean;
   onPaymentMethodSuccess: () => void;
+  cardBillingDetailsMandatory: boolean;
 };
 type Props = OwnProps;
 
@@ -41,6 +42,7 @@ export const AccountConfigurationPaymentMethodStep: React.FC<Props> = ({
   has_no_need_for_stripe_configuration,
   has_no_need_for_bank_account_configuration,
   has_no_need_for_payment_method_configuration,
+  cardBillingDetailsMandatory,
 }) => {
   const { t } = useTranslation(['login', 'common']);
   const classes = useStyles();
@@ -76,6 +78,7 @@ export const AccountConfigurationPaymentMethodStep: React.FC<Props> = ({
         {!paymentMethodRegistered && !paymentMethodLoading && (
           <div className={classes.addPaymentMethod}>
             <AddPaymentMethod
+              cardBillingDetailsMandatory={cardBillingDetailsMandatory}
               enabledPaymentMethods={[BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]}
               labelClose={t('common:previous')}
               onCancel={goPrevious}

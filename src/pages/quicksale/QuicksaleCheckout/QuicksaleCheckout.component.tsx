@@ -206,6 +206,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
             availablePaymentMethods={availablePaymentMethods}
             basket={basket}
             basketId={basket.id}
+            cardBillingDetailsMandatory={theme.force_billing_details_on_cards}
             checkItemsBasket={checkItemsBasket}
             clientSecret={clientSecret}
             detachPaymentMethodLoading={detachPaymentMethodLoading}

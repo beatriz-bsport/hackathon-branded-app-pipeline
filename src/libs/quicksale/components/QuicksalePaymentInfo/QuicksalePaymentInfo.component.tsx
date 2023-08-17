@@ -63,6 +63,7 @@ type Props = {
   openMemberAuthenticationModale?: () => void;
   hasPaymentGroupPriceBeenModified?: boolean;
   resetPaymentGroupPrice?: () => void;
+  cardBillingDetailsMandatory: boolean;
 };
 
 const QuicksalePaymentInfo: React.FC<Props> = ({
@@ -92,6 +93,7 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
   openMemberAuthenticationModale,
   hasPaymentGroupPriceBeenModified,
   resetPaymentGroupPrice,
+  cardBillingDetailsMandatory,
 }) => {
   const classes = useStyles();
 
@@ -216,6 +218,7 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
             termsAndConditionsAccepted
             basketId={basketId}
             basketTotalPriceCts={paymentGroupPriceCts}
+            cardBillingDetailsMandatory={cardBillingDetailsMandatory}
             checkItemsBasket={checkItemsBasket}
             clientSecret={clientSecret}
             customClasses={{

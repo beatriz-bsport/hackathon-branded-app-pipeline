@@ -83,6 +83,7 @@ type Props = {
   checkItemsBasket: (basketId: string) => Promise<boolean>;
   paymentProcessing: boolean;
   setPaymentProcessing: (process: boolean) => void;
+  cardBillingDetailsMandatory: boolean;
 } & ConnectedProps<typeof connector> &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
@@ -342,6 +343,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             basketTotalPricePrepaidLines={
               this.props.basket.total_price_prepaid_lines_cts
             }
+            cardBillingDetailsMandatory={this.props.cardBillingDetailsMandatory}
             checkItemsBasket={this.props.checkItemsBasket}
             clientSecret={this.state.clientSecret}
             clientSecretLoading={this.state.clientSecretLoading}
@@ -440,6 +442,8 @@ const connector = connect(
       state.checkout.basket.current.loading || state.checkout.basket.loading,
     processing: state.checkout.basket.current.updating,
     instalmentPaymentConfigurationList: getInstalmentForBasketList(state),
+    cardBillingDetailsMandatory:
+      state.theme.theme.force_billing_details_on_cards,
   }),
   {
     fetchBasket: fetchBasketAction,

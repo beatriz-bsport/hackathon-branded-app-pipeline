@@ -212,6 +212,9 @@ export class ConsumerProfile extends React.Component<Props, State> {
         {this.props.membership?.id && !!companyCountry && !!stripeRegion && (
           <PaymentModal isOpen={this.props.isAddPaymentMethodDialogOpen}>
             <AddPaymentMethod
+              cardBillingDetailsMandatory={
+                this.props.theme.force_billing_details_on_cards
+              }
               companyId={this.props.membership.company}
               disabled={false}
               enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(

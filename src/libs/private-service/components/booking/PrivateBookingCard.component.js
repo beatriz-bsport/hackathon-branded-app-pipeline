@@ -90,6 +90,7 @@ type Props = {
   isCoach: boolean,
   onlinePaymentEnabled?: boolean,
   onClose: () => void,
+  cardBillingDetailsMandatory: boolean,
 };
 
 export const PrivateBookingCard = (props: Props) => {
@@ -383,6 +384,7 @@ export const PrivateBookingCard = (props: Props) => {
               props.invoiceToBill.amount_paid_cts,
           ).toFixed(2)}
           availablePaymentMethodList={props.availablePaymentMethodList}
+          cardBillingDetailsMandatory={props.cardBillingDetailsMandatory}
           clientSecret={props.clientSecretLoading ? null : props.clientSecret}
           clientSecretLoading={props.clientSecretLoading}
           companyId={props.companyId}

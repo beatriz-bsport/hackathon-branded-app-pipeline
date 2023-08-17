@@ -491,6 +491,9 @@ export class MemberDetail extends React.Component<Props> {
         )}
         {!!stripeRegion && !!companyCountry && (
           <SubscriptionContractRegister
+            cardBillingDetailsMandatory={
+              this.props.theme.force_billing_details_on_cards
+            }
             companyId={this.props.companyId}
             contract={this.props.contractToBill}
             contractList={this.props.contractList}

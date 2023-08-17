@@ -452,6 +452,9 @@ export class BasketPage extends React.Component<Props> {
                       basketTotalPricePrepaidLines={
                         this.props.basket?.total_price_prepaid_lines_cts
                       }
+                      cardBillingDetailsMandatory={
+                        this.props.theme.force_billing_details_on_cards
+                      }
                       checkItemsBasket={this.props.checkItemsBasket}
                       clientSecret={this.state.clientSecret}
                       clientSecretLoading={this.state.clientSecretLoading}
@@ -528,6 +531,9 @@ export class BasketPage extends React.Component<Props> {
                   basket={this.props.basket}
                   basketLoading={this.props.loading || this.props.processing}
                   basketOffers={this.props.basketOffers}
+                  cardBillingDetailsMandatory={
+                    this.props.theme.force_billing_details_on_cards
+                  }
                   checkItemsBasket={this.props.checkItemsBasket}
                   clientSecret={this.state.clientSecret}
                   companyId={this.props.companyId}

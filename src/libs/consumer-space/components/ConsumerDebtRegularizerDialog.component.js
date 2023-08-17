@@ -44,6 +44,7 @@ type Props = {
   onlinePaymentEnabled?: boolean,
   companyId: number,
   stripeId: string | null,
+  cardBillingDetailsMandatory: boolean,
 };
 
 type State = {
@@ -184,6 +185,9 @@ export class ConsumerDebtRegularizerDialog extends React.Component<
                   }
                   availablePaymentMethodList={
                     this.props.availablePaymentMethodList
+                  }
+                  cardBillingDetailsMandatory={
+                    this.props.cardBillingDetailsMandatory
                   }
                   clientSecret={
                     this.state.clientSecretLoading

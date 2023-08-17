@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AxiosResponse } from 'axios';
 import PaymentMethodSwitcher from './PaymentMethodSwitcher.component';
@@ -20,6 +20,7 @@ type OwnProps = {
   onSuccess?: () => void;
   labelClose?: string;
   companyId?: number;
+  cardBillingDetailsMandatory: boolean;
 };
 type Props = OwnProps;
 export const AddPaymentMethod: React.FC<Props> = ({
@@ -37,6 +38,7 @@ export const AddPaymentMethod: React.FC<Props> = ({
   addViaTerminal,
   onSuccess,
   companyId,
+  cardBillingDetailsMandatory,
 }) => {
   const { t } = useTranslation('payment');
   const [paymentMethodTypeControlled, setPaymentMethodTypeControlled] =
@@ -55,6 +57,7 @@ export const AddPaymentMethod: React.FC<Props> = ({
 
       <CollectPaymentMethod
         addViaTerminal={!!addViaTerminal}
+        cardBillingDetailsMandatory={cardBillingDetailsMandatory}
         companyId={companyId}
         content={t('forms.paymentMethod.collect.contentAdd')}
         defaultEmail={sepaDefaultEmail}
@@ -71,4 +74,4 @@ export const AddPaymentMethod: React.FC<Props> = ({
     </>
   );
 };
-export default AddPaymentMethod;
+export default memo(AddPaymentMethod);

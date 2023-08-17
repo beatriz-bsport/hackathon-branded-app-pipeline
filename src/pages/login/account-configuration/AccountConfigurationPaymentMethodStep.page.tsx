@@ -93,6 +93,9 @@ export class AccountConfigurationPaymentMethodStepPage extends Component<Props> 
     }
     return (
       <PaymentMethodStep
+        cardBillingDetailsMandatory={
+          this.props.theme.force_billing_details_on_cards
+        }
         currency={this.props.companySetup?.currency}
         goNext={this.validatePaymentMethodStep}
         goPrevious={this.goPrevious}
@@ -129,6 +132,7 @@ const connector = connect(
     stripeCompany: state.company.stripeCompany.data,
     companySetup: state.company.setup,
     myProfile: state.member.userProfile.profile,
+    theme: state.theme.theme,
     savedPaymentMethodListLoading: state.paymentBackend.paymentMethod.loading,
     savedPaymentMethodList: getSavedPaymentMethodList(
       state,

@@ -29,6 +29,7 @@ type Props = {
   sepaDefaultEmail?: string,
   payNowInvoice: (payment_backend_id: string) => void,
   defaultCurrencyDisplay: string,
+  cardBillingDetailsMandatory: boolean,
 };
 
 export const CompanyPlatformBillingDetail = (props: Props) => {
@@ -78,6 +79,7 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
         {!!props.paymentMethodList?.length && (
           <PaymentMethodList
             onlyDefault
+            cardBillingDetailsMandatory={props.cardBillingDetailsMandatory}
             refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
             savedPaymentMethodList={props.paymentMethodList}
           />

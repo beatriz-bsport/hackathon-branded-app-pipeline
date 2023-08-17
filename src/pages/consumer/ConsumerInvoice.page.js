@@ -87,6 +87,9 @@ export class ConsumerInvoice extends React.Component<Props> {
               availablePaymentMethodList={
                 this.props.payment_method_available_basket
               }
+              cardBillingDetailsMandatory={
+                this.props.companyTheme.force_billing_details_on_cards
+              }
               companyId={this.props.companyId}
               detachPaymentMethod={this.props.detachPaymentMethod}
               detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}

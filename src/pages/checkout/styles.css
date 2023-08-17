@@ -70,7 +70,7 @@
 }
 
 .bs-contract-payment-page .bs-contract-payment__container {
-  height: fit-content;
+  height: 100%;
   width: 100%;
   max-width: 800px;
 }

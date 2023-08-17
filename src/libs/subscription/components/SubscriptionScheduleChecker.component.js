@@ -38,6 +38,7 @@ type Props = {
   companyTheme: CompanyTheme,
   stripeReaders: StripeReader[],
   companyId?: number,
+  cardBillingDetailsMandatory: boolean,
 };
 
 type State = {
@@ -109,6 +110,9 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
               <SubscriptionPayment
                 forceEstablishmentSelection
                 withEstablishment
+                cardBillingDetailsMandatory={
+                  this.props.cardBillingDetailsMandatory
+                }
                 companyId={this.props.companyId}
                 date={moment(subscriptionData.first_billing_timestamp * 1000)}
                 enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(

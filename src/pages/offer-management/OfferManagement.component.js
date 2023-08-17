@@ -772,6 +772,9 @@ export class OfferManagement extends Component<Props, State> {
             availablePaymentMethodList={
               this.props.payment_method_available_manager
             }
+            cardBillingDetailsMandatory={
+              this.props.company_theme.force_billing_details_on_cards
+            }
             className={classes.autoScroll}
             closeQuickInvoice={this.closeQuickInvoice}
             companyId={this.props.companyId}

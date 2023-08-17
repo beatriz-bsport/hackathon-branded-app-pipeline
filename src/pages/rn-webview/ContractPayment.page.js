@@ -131,6 +131,9 @@ export class ContractPayment extends React.Component<Props, State> {
       <div className={this.props.classes.container}>
         <SubscriptionPayment
           withCoupon
+          cardBillingDetailsMandatory={
+            this.props.companyTheme.force_billing_details_on_cards
+          }
           contract={this.props.contract}
           enabledPaymentGroupMethodIdentifier={
             this.props.companyTheme.payment_method_available_subscription

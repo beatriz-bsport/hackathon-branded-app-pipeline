@@ -265,6 +265,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
     },
     [addItemToBasket, basket.id],
   );
+  const companyCountry = useMemo(() => theme.locale.split('_')[1], [theme]);
 
   return (
     <div className={classes.container}>
@@ -286,8 +287,10 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
             auth={auth}
             basket={basket}
             basketLoading={basketLoading}
+            cardBillingDetailsMandatory={theme.force_billing_details_on_cards}
             checkItemsBasket={checkItemsBasket}
             clientSecret={clientSecret}
+            companyCountry={companyCountry}
             companyId={companyId}
             createPendingBookingsIfNecessary={createPendingBookingsIfNecessary}
             creditAccountBalance={creditAccountBalance}

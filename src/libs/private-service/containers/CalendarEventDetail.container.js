@@ -398,6 +398,9 @@ export class CalendarEventDetail extends React.Component<Props, State> {
           availablePaymentMethodList={
             this.props.payment_method_available_manager
           }
+          cardBillingDetailsMandatory={
+            this.props.theme.force_billing_details_on_cards
+          }
           clientSecret={this.state.clientSecret}
           clientSecretLoading={this.state.clientSecretLoading}
           companyId={this.props.companyId}

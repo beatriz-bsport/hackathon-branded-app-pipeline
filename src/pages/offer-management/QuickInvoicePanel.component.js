@@ -46,6 +46,7 @@ type Props = {
   onlinePaymentEnabled: boolean,
   enableMultiLocalization: boolean,
   stripeReaders: StripeReader[],
+  cardBillingDetailsMandatory: boolean,
 };
 
 type State = {
@@ -150,6 +151,7 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
                 this.props.invoiceToBill.amount_paid_cts,
             ).toFixed(2)}
             availablePaymentMethodList={this.props.availablePaymentMethodList}
+            cardBillingDetailsMandatory={this.props.cardBillingDetailsMandatory}
             clientSecret={
               this.state.clientSecretLoading ? null : this.state.clientSecret
             }

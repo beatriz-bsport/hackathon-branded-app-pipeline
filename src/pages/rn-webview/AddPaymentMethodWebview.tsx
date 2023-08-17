@@ -109,6 +109,9 @@ export class AddPaymentMethodWebview extends Component<Props, State> {
     return (
       <div>
         <AddPaymentMethod
+          cardBillingDetailsMandatory={
+            this.props.theme.force_billing_details_on_cards
+          }
           enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods({
             currency: this.props.theme.currency,
             companyCountry,

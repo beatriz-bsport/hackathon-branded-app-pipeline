@@ -136,6 +136,7 @@ type State = {
   billingStartDate: string;
   isDirectBuyingLink: boolean;
   isContractLegalTermsAccepted: boolean;
+  paymentMethodFetchDone: boolean;
 };
 
 export class MarketplaceSubscriptionPayment extends React.Component<
@@ -156,6 +157,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
       isContractCooldownDialogOpen: false,
       openContractTermsDialog: false,
       isContractLegalTermsAccepted: false,
+      paymentMethodFetchDone: false,
     };
   }
 
@@ -172,7 +174,12 @@ export class MarketplaceSubscriptionPayment extends React.Component<
         },
     });
 
-    this.props.fetchPaymentMethodList();
+    this.props.fetchPaymentMethodList({
+      onSuccess: () => {
+        this.setState({ paymentMethodFetchDone: true });
+      },
+    });
+
     this.props.fetchCompanyTheme(this.props.companyId);
 
     if (this.props.queryParams?.force === 'true' && this.props.contractId) {
@@ -502,6 +509,10 @@ export class MarketplaceSubscriptionPayment extends React.Component<
 
                 <MarketplaceContractPayment
                   billingStartDate={this.state.billingStartDate}
+                  cardBillingDetailsMandatory={
+                    this.props.theme.force_billing_details_on_cards
+                  }
+                  companyId={this.props.companyId}
                   contract={contract}
                   detachPaymentMethod={this.props.detachPaymentMethod}
                   enabledPaymentGroupMethodIdentifierIds={
@@ -522,6 +533,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                   onCancelContractPayment={this.handleCancelContractPayment}
                   onOpenContractTermsDialog={this.handleOpenContractTermsDialog}
                   onSubmitContractPayment={this.handleSubmitContractPayment}
+                  paymentMethodFetchDone={this.state.paymentMethodFetchDone}
                   refreshSavedPaymentMethodList={
                     this.props.fetchPaymentMethodList
                   }
@@ -631,8 +643,16 @@ export default compose<any, ownProps>(
         requestSetupIntentSecretAPI(null, companyId),
     fetchPaymentMethodList:
       ({ companyId, fetchPaymentMethodList }) =>
-      () =>
-        fetchPaymentMethodList({ company: companyId }),
+      (options?: OptionCallback) => {
+        fetchPaymentMethodList(
+          { company: companyId },
+          {
+            onSuccess: () => {
+              if (options && options.onSuccess) options.onSuccess();
+            },
+          },
+        );
+      },
   }),
   withProps(({ push, companyId }) => ({
     setSelected: (id: number) => {

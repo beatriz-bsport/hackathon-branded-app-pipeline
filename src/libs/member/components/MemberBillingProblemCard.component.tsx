@@ -70,6 +70,7 @@ type Props = {
   showPositiveBalance?: boolean;
   stripeReaders: StripeReader[];
   onlinePaymentEnabled: boolean;
+  cardBillingDetailsMandatory: boolean;
 };
 
 const PAYMENT_GROUP_STATUS_INTENT_MAX_RETRY = 100;
@@ -343,6 +344,7 @@ export const MemberBillingProblemCard = (props: Props) => {
               ? props.availablePaymentMethodList
               : [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]
           }
+          cardBillingDetailsMandatory={props.cardBillingDetailsMandatory}
           clientSecret={clientSecretLoading ? null : clientSecret}
           clientSecretError={clientSecretError}
           clientSecretLoading={clientSecretLoading}

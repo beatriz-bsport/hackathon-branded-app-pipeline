@@ -51,6 +51,7 @@ type Props = {
   memberId: ?number,
   payment_note: string,
   setPaymentNote: (string) => void,
+  cardBillingDetailsMandatory: boolean,
 };
 
 const PaymentItemForm = (props: Props) => {
@@ -75,6 +76,7 @@ const PaymentItemForm = (props: Props) => {
           <PaymentMethodList
             isExpandable
             showEmpty
+            cardBillingDetailsMandatory={props.cardBillingDetailsMandatory}
             detachPaymentMethod={props.detachPaymentMethod}
             detachPaymentMethodLoading={props.detachPaymentMethodLoading}
             memberId={props.memberId}
@@ -162,6 +164,7 @@ export const PaymentEditor = (props: {
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
   memberId: ?number,
+  cardBillingDetailsMandatory: boolean,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['payment']);
@@ -225,6 +228,7 @@ export const PaymentEditor = (props: {
         </FormControl>
       </div>
       <PaymentItemForm
+        cardBillingDetailsMandatory={props.cardBillingDetailsMandatory}
         detachPaymentMethod={props.detachPaymentMethod}
         detachPaymentMethodLoading={props.detachPaymentMethodLoading}
         memberId={props.memberId}

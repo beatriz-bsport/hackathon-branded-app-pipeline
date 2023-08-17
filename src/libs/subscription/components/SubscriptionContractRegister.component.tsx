@@ -70,6 +70,7 @@ type OwnProps = {
     options: OptionCallback,
   ) => void;
   withContractTermsCheckbox?: boolean;
+  cardBillingDetailsMandatory: boolean;
 };
 
 type Props = OwnProps & {
@@ -297,6 +298,7 @@ export const SubscriptionContractRegister = (props: Props) => {
           withCoupon
           withEstablishment
           withNote
+          cardBillingDetailsMandatory={props.cardBillingDetailsMandatory}
           companyId={props.companyId}
           contract={props.contract}
           date={props.date}

@@ -64,6 +64,8 @@ type Props = {
   applyBalanceLoading?: boolean,
   stripeReaders: StripeReader[],
   stripeId: string | null,
+  cardBillingDetailsMandatory: boolean,
+  companyId: number,
 };
 
 type State = {
@@ -145,7 +147,6 @@ export class PaymentDialog extends React.Component<Props, State> {
     const { classes, t, stripeReaders } = this.props;
 
     const availableEngineList = this.getAvailableEngineList();
-
     const dialogOffset = '50%';
     return (
       <Modal open classes={{ paper: classes.container }}>
@@ -267,7 +268,11 @@ export class PaymentDialog extends React.Component<Props, State> {
                             ),
                         })
                       }
+                      cardBillingDetailsMandatory={
+                        this.props.cardBillingDetailsMandatory
+                      }
                       clientSecret={this.props.clientSecret}
+                      companyId={this.props.companyId}
                       creditAccountBalance={this.props.creditAccountBalance}
                       detachPaymentMethod={this.props.detachPaymentMethod}
                       detachPaymentMethodLoading={

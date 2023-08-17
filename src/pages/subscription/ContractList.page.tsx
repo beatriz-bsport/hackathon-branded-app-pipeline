@@ -343,6 +343,9 @@ export class SubscriptionList extends React.Component<Props, State> {
         !!stripeRegion &&
         !!companyCountry ? (
           <SubscriptionContractRegister
+            cardBillingDetailsMandatory={
+              this.props.theme.force_billing_details_on_cards
+            }
             companyId={this.props.companyId}
             contract={this.props.selectedContractData}
             enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(

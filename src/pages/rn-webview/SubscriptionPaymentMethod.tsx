@@ -110,6 +110,9 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
     return (
       <div className={this.props.classes.container}>
         <SubscriptionPayment
+          cardBillingDetailsMandatory={
+            this.props.theme.force_billing_details_on_cards
+          }
           enabledPaymentGroupMethodIdentifier={
             this.props.theme?.payment_method_available_subscription || []
           }

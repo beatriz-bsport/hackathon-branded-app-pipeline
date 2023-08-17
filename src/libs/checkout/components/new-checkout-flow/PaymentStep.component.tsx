@@ -48,6 +48,7 @@ type PaymentStepProps = {
   termsAndConditionsAccepted: boolean;
   useInternalAccount?: (amount: number) => void;
   validateUnpaid: (options: OptionCallback) => void;
+  cardBillingDetailsMandatory: boolean;
 };
 
 export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
@@ -84,6 +85,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       termsAndConditionsAccepted,
       useInternalAccount,
       validateUnpaid,
+      cardBillingDetailsMandatory,
     },
     ref,
   ) => {
@@ -148,6 +150,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
             basketId={basket.id}
             basketTotalPriceCts={basket.total_price_cts}
             basketTotalPricePrepaidLines={basket?.total_price_prepaid_lines_cts}
+            cardBillingDetailsMandatory={cardBillingDetailsMandatory}
             checkItemsBasket={checkItemsBasket}
             clientSecret={clientSecret}
             companyId={companyId}

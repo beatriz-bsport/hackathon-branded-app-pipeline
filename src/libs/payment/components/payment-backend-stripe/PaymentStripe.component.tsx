@@ -105,6 +105,7 @@ type PaymentStripeProps = {
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
   ref?: React.Ref<any>;
   stripeId: string | null;
+  cardBillingDetailsMandatory: boolean;
 };
 
 type PaymentStripePropsNewCheckoutFlow = Omit<
@@ -185,6 +186,7 @@ const PaymentStripe: React.FC<
       paymentGroupId,
       setIsOnlinePaymentDisabled,
       stripeId,
+      cardBillingDetailsMandatory,
     },
     ref,
   ) => {
@@ -389,6 +391,7 @@ const PaymentStripe: React.FC<
                 applyBalanceToInvoice={applyBalanceToInvoice}
                 basketId={basketId}
                 basketTotalPriceCts={basketTotalPriceCts}
+                cardBillingDetailsMandatory={cardBillingDetailsMandatory}
                 checkItemsBasket={checkItemsBasket}
                 clientSecret={clientSecret}
                 companyCountry={companyCountry}

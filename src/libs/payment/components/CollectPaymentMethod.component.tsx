@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { AxiosResponse } from 'axios';
 import { SetupIntentResult } from '@stripe/stripe-js';
@@ -24,6 +24,7 @@ type Props = {
   labelClose?: string;
   fullScreen?: boolean;
   companyId?: number;
+  cardBillingDetailsMandatory: boolean;
 };
 
 export const CollectPaymentMethod = (props: Props) => {
@@ -51,6 +52,7 @@ export const CollectPaymentMethod = (props: Props) => {
     return (
       <CollectPaymentMethodCard
         addViaTerminal={!!props.addViaTerminal}
+        cardBillingDetailsMandatory={props.cardBillingDetailsMandatory}
         companyId={props.companyId}
         content={props.content}
         defaultEmail={props.defaultEmail}
@@ -100,4 +102,4 @@ export const CollectPaymentMethod = (props: Props) => {
   return null;
 };
 
-export default CollectPaymentMethod;
+export default memo(CollectPaymentMethod);

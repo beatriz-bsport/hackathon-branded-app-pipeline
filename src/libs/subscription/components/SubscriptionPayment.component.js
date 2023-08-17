@@ -108,6 +108,7 @@ type Props = {
 
   showContractTermsCheckbox?: boolean,
   openContractTermsDialog?: () => void,
+  cardBillingDetailsMandatory: boolean,
 };
 
 type State = {
@@ -590,6 +591,9 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                     isExpanded
                     onDelete
                     showEmpty
+                    cardBillingDetailsMandatory={
+                      this.props.cardBillingDetailsMandatory
+                    }
                     companyId={this.props.companyId}
                     detachPaymentMethod={this.props.detachPaymentMethod}
                     detachPaymentMethodLoading={

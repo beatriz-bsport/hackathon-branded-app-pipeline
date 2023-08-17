@@ -43,6 +43,7 @@ type Props = {
   stripeReaders: StripeReader[];
   setProcessing?: (value: boolean) => void;
   onlinePaymentEnabled?: boolean;
+  cardBillingDetailsMandatory: boolean;
 };
 
 export const PaymentMethodSelector = (props: Props) => {
@@ -65,6 +66,7 @@ export const PaymentMethodSelector = (props: Props) => {
         <PaymentMethodList
           isExpanded
           showEmpty
+          cardBillingDetailsMandatory={props.cardBillingDetailsMandatory}
           companyId={props.companyId}
           detachPaymentMethod={props.detachPaymentMethod}
           detachPaymentMethodLoading={props.detachPaymentMethodLoading}

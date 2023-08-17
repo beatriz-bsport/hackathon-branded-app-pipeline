@@ -293,6 +293,9 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
                 this.props.payment_method_available_basket
               }
               balance={this.props.membership.credit_account_balance}
+              cardBillingDetailsMandatory={
+                this.props.companyTheme.force_billing_details_on_cards
+              }
               companyId={this.props.companyTheme.company}
               creditAccountBalance={this.props.creditAccountBalance}
               detachPaymentMethod={this.props.detachPaymentMethod}

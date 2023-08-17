@@ -441,6 +441,9 @@ export class MemberDetailPage extends React.PureComponent<Props> {
                   this.props.payment_method_available_manager
                 }
                 balance={this.props.member.credit_account_balance}
+                cardBillingDetailsMandatory={
+                  this.props.companyTheme.force_billing_details_on_cards
+                }
                 companyId={this.props.companyId}
                 consumerGiftcardList={this.props.consumerGiftcardList}
                 detachPaymentMethod={this.props.detachPaymentMethod}
@@ -530,6 +533,9 @@ export class MemberDetailPage extends React.PureComponent<Props> {
               addViaTerminal={
                 stripeRegion === 'NorthAmerica' &&
                 TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
+              }
+              cardBillingDetailsMandatory={
+                this.props.companyTheme.force_billing_details_on_cards
               }
               companyId={this.props.companyTheme.company}
               disabled={false}

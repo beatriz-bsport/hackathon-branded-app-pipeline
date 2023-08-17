@@ -72,6 +72,7 @@ type BaseProps<T extends OptionTypeBase> = {
   name?: string;
   blurOnSelect?: boolean;
   placeholder?: string;
+  withoutConfirmButton?: boolean;
 } & Omit<NamedProps, 'options' | 'isMulti' | 'onChange' | 'value'>;
 
 type ItemRendererProps<T extends OptionTypeBase> = {
@@ -128,17 +129,19 @@ function MaterialUISelector<T extends OptionTypeBase>(
     name,
     blurOnSelect,
     placeholder,
+    withoutConfirmButton,
     ...restProps
   } = props;
   const classes = useStyles();
   const selectRef = useRef(null);
   const [containerRef, setContainerRef] = useState(null);
   const [displayMore, setDisplayMore] = useState(false);
-
   const handleChange = (data: T | T[], { action }: ActionMeta) => {
     if (!onChange) return;
     // needed as it conflict with formik sometine
-    selectRef.current?.select?.blur();
+    if (!withoutConfirmButton) {
+      selectRef.current?.select?.blur();
+    }
     if (Array.isArray(data)) {
       if (isMulti) {
         onChange(data);
@@ -253,11 +256,12 @@ function MaterialUISelector<T extends OptionTypeBase>(
           {...restProps}
           // Mandatory for multi selection use
           ref={selectRef}
-          closeMenuOnSelect
+          closeMenuOnSelect={!withoutConfirmButton}
           defaultNumberShown={defaultNumberShown}
           onBlur={handleBlur}
           onInputChange={onInputChange}
           selectRef={selectRef}
+          withoutConfirmButton={withoutConfirmButton}
         />
       </div>
     </SelectorContext.Provider>
@@ -295,28 +299,39 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
   const onSelect = (data: T) => {
     const indexOf = selected.findIndex((row) => row.value === data.value);
     if (indexOf !== -1) {
-      setSelected([
+      const selectedValuesWithoutIndex = [
         ...selected.slice(0, indexOf),
         ...selected.slice(indexOf + 1),
-      ]);
+      ];
+      setSelected(selectedValuesWithoutIndex);
+      if (props.selectProps.withoutConfirmButton) {
+        props.setValue(selectedValuesWithoutIndex);
+      }
       return;
     }
-    setSelected([...selected, data]);
+    const selectedValues = [...selected, data];
+    setSelected(selectedValues);
+    if (props.selectProps.withoutConfirmButton) {
+      props.setValue(selectedValues);
+    }
   };
 
   const handleGlobalSelect = () => {
     if (selected.length > 0) {
       setSelected([]);
+      props.setValue([]);
     } else {
-      setSelected(
-        displayedOption.flatMap((o) => {
-          if (o.value !== null || o.value !== undefined) {
-            return o;
-          }
+      const globalSelectedValues = displayedOption.flatMap((o) => {
+        if (o.value !== null || o.value !== undefined) {
+          return o;
+        }
 
-          return o.options;
-        }),
-      );
+        return o.options;
+      });
+      setSelected(globalSelectedValues);
+      if (props.selectProps.withoutConfirmButton) {
+        props.setValue(globalSelectedValues);
+      }
     }
   };
 
@@ -358,14 +373,16 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
               ) : (
                 <div />
               )}
-              <Button
-                className={classes.button}
-                color="primary"
-                onClick={handleSubmit}
-                onTouchEnd={handleSubmit} // for compability with phones
-              >
-                {t('selector.validate')}
-              </Button>
+              {!props.selectProps.withoutConfirmButton && (
+                <Button
+                  className={classes.button}
+                  color="primary"
+                  onClick={handleSubmit}
+                  onTouchEnd={handleSubmit} // for compability with phones
+                >
+                  {t('selector.validate')}
+                </Button>
+              )}
             </div>
           )}
         </Paper>

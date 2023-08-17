@@ -199,6 +199,7 @@ type MaterialUiMultiSelectorProps = {
   className?: string;
   defaultNumberShown?: number;
   forceError?: boolean;
+  withoutConfirmButton?: boolean;
 };
 
 type Props = BaseFieldProps & MaterialUiMultiSelectorProps;
@@ -237,6 +238,7 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
             options={props.options}
             placeholder={props.placeholder}
             value={value}
+            withoutConfirmButton={props.withoutConfirmButton}
           />
         )}
       </Field>

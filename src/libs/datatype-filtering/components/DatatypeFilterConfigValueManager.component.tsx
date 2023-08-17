@@ -612,6 +612,7 @@ const DatatypeFilterConfigValueList: React.FC<{
   return (
     <MaterialUiMultiSelectorField
       isMenuListVirtualized
+      withoutConfirmButton
       className={classes.flexOne}
       defaultNumberShown={1}
       forceError={false && error && isTouched}

@@ -19,10 +19,14 @@ import {
   CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
   PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER,
   PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
+  MIXED_ITEMS_BOOKING_FUNNEL_IDENTIFIER,
+  RECOMMENDED_BUYABLE_CATEGORY_ID,
 } from '#libs/marketplace/constants';
 import type {
   BookerItem,
+  BookerModuleBuyableItem,
   BuyableItemCategory,
+  RecommendedBuyableItem,
 } from '#libs/booker-module/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type {
@@ -97,6 +101,22 @@ export const buildBuyableItemCategories = (
   t: TFunction,
 ) => {
   const buyableItemCategories: Array<BuyableItemCategory> = [];
+
+  const recommendedItemsCategory = buildRecommendedBuyableItemCategory(
+    availableContracts,
+    availableComboPacks,
+    availablePaymentPacksWithoutCategory,
+    availablePaymentPackCategories,
+    availablePaymentPacks,
+    current_pricing_option_ordering,
+    t,
+  );
+
+  // If there are recommended items, include it in first position
+  if (recommendedItemsCategory.values.length > 0) {
+    buyableItemCategories.push(recommendedItemsCategory);
+  }
+
   current_pricing_option_ordering.forEach((option, index) => {
     if (
       option[0] === CONTRACT_BOOKING_FUNNEL_IDENTIFIER &&
@@ -159,6 +179,91 @@ export const buildBuyableItemCategories = (
     }
   });
   return buyableItemCategories;
+};
+
+export const buildRecommendedBuyableItemCategory = (
+  availableContracts: Contract[],
+  availableComboPacks: PaymentCombo[],
+  availablePaymentPacksWithoutCategory: PaymentPack[],
+  availablePaymentPackCategories: PaymentPackCategory[],
+  availablePaymentPacks: PaymentPack[],
+  current_pricing_option_ordering: PricingOptionOrdering,
+  t: TFunction,
+) => {
+  const onlyRecommended = (item: BookerModuleBuyableItem) =>
+    item.highlighted_as_recommended;
+
+  const recommendedContracts = availableContracts
+    .filter(onlyRecommended)
+    .map((contract) => ({
+      identifier: CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
+      value: contract,
+    }));
+  const recommendedComboPacks = availableComboPacks
+    .filter(onlyRecommended)
+    .map((comboPack) => ({
+      identifier: PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER,
+      value: comboPack,
+    }));
+  const recommendedPaymentPacksWithoutCategory =
+    availablePaymentPacksWithoutCategory
+      .filter(onlyRecommended)
+      .map((paymentPack) => ({
+        identifier: PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
+        value: paymentPack,
+      }));
+  const recommendedPaymentPacks = availablePaymentPacks
+    .filter(onlyRecommended)
+    .map((paymentPack) => ({
+      identifier: PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
+      value: paymentPack,
+    }));
+
+  let recommendedItems: RecommendedBuyableItem = [];
+  current_pricing_option_ordering.forEach((option) => {
+    if (
+      option[0] === CONTRACT_BOOKING_FUNNEL_IDENTIFIER &&
+      recommendedContracts.length > 0
+    ) {
+      recommendedItems = recommendedItems.concat(recommendedContracts);
+    }
+    if (
+      option[0] === PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER &&
+      recommendedComboPacks.length > 0
+    ) {
+      recommendedItems = recommendedItems.concat(recommendedComboPacks);
+    }
+    if (
+      option[0] === PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER &&
+      option[1] === null &&
+      recommendedPaymentPacksWithoutCategory.length > 0
+    ) {
+      recommendedItems = recommendedItems.concat(
+        recommendedPaymentPacksWithoutCategory,
+      );
+    }
+    const paymentPackCategory = availablePaymentPackCategories.find(
+      (category: PaymentPackCategory) => category.id === option[1],
+    );
+    if (
+      option[0] === PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER &&
+      paymentPackCategory
+    ) {
+      recommendedItems = recommendedItems.concat(
+        recommendedPaymentPacks.filter(
+          (item) => item.value.category === paymentPackCategory.id,
+        ),
+      );
+    }
+  });
+
+  return {
+    index: -1,
+    id: RECOMMENDED_BUYABLE_CATEGORY_ID,
+    identifier: MIXED_ITEMS_BOOKING_FUNNEL_IDENTIFIER,
+    name: t('newBookingModule.recommended'),
+    values: recommendedItems,
+  };
 };
 
 export const getBookingBlockedReasonIcon = (icon: string) => {

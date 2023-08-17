@@ -52,6 +52,12 @@ import {
   getBookingDisplayPrice,
   urlToMarketplace,
 } from '#libs/marketplace/utils';
+import {
+  RECOMMENDED_BUYABLE_CATEGORY_ID,
+  CONSUMER_PAYMENT_PACK_IDENTIFIER,
+  PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER,
+  PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
+} from '#libs/marketplace/constants';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
@@ -111,11 +117,6 @@ import {
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { fetchMemberTagList } from '#libs/tag/actions';
 import {
-  CONSUMER_PAYMENT_PACK_IDENTIFIER,
-  PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER,
-  PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
-} from '#libs/marketplace/constants';
-import {
   fetchSpotForBlueprint,
   fetchRoomBlueprintDetail,
   fetchAssetForBlueprint,
@@ -129,7 +130,7 @@ import MarketplaceConsumerPaymentPackCard from '#libs/marketplace/components/Mar
 import OfferSummary from '#libs/offer/OfferSummary';
 import type {
   BookerItem,
-  BuyableItem,
+  BookerModuleBuyableItem,
   BuyableItemCategory,
   BuyableItemIdentifier,
   OfferConstraint,
@@ -338,22 +339,27 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     const availablePaymentPacksWithoutCategory = availablePaymentPacks.filter(
       (paymentPack: PaymentPack) => paymentPack.category === null,
     );
-    if (this.props.bookingFunnelConfiguration) {
-      this.setState({
-        buyableItemCategories:
-          this.props.bookingFunnelConfiguration
-            ?.current_pricing_option_ordering &&
-          buildBuyableItemCategories(
-            availableContracts,
-            availableComboPacks,
-            availablePaymentPacksWithoutCategory,
-            availablePaymentPackCategories,
-            availablePaymentPacks,
-            this.props.bookingFunnelConfiguration
-              ?.current_pricing_option_ordering,
-            this.props.t,
-          ),
-      });
+    if (this.props.bookingFunnelConfiguration.current_pricing_option_ordering) {
+      const buyableItemCategories = buildBuyableItemCategories(
+        availableContracts,
+        availableComboPacks,
+        availablePaymentPacksWithoutCategory,
+        availablePaymentPackCategories,
+        availablePaymentPacks,
+        this.props.bookingFunnelConfiguration?.current_pricing_option_ordering,
+        this.props.t,
+      );
+
+      const recommendedCategory = buyableItemCategories.find(
+        (category) => category.id === RECOMMENDED_BUYABLE_CATEGORY_ID,
+      );
+
+      // If there are any recommended items, then preselect the 'Recommended' category
+      this.setState((prevState) => ({
+        buyableItemCategories,
+        selectedBuyableItemCategory:
+          recommendedCategory ?? prevState.selectedBuyableItemCategory,
+      }));
     }
   };
 
@@ -548,8 +554,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   onClickCategory = (item: BuyableItemCategory) =>
     this.setState({ selectedBuyableItemCategory: item });
 
+  onClickAll = () => this.setState({ selectedBuyableItemCategory: null });
+
   onClickBuyableItem = (
-    buyableItem: BuyableItem,
+    buyableItem: BookerModuleBuyableItem,
     itemIdentifier: BuyableItemIdentifier,
   ) =>
     this.setState({
@@ -850,11 +858,13 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                             (buyableItemCategory) => (
                               <MarketplaceBuyableItemCategoryList
                                 key={buyableItemCategory.index}
+                                excludeRecommendedItemsFromRegularCategories
                                 buyableItemCategory={buyableItemCategory}
                                 isExcludingTax={this.props.isExcludingTax}
                                 selectBuyableItem={this.onClickBuyableItem}
                                 selectedBuyableItem={
-                                  this.state.selectedItem?.data as BuyableItem
+                                  this.state.selectedItem
+                                    ?.data as BookerModuleBuyableItem
                                 }
                                 theme={this.props.theme}
                               />
@@ -866,9 +876,11 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                               this.state.selectedBuyableItemCategory
                             }
                             isExcludingTax={this.props.isExcludingTax}
+                            onClickAll={this.onClickAll}
                             selectBuyableItem={this.onClickBuyableItem}
                             selectedBuyableItem={
-                              this.state.selectedItem?.data as BuyableItem
+                              this.state.selectedItem
+                                ?.data as BookerModuleBuyableItem
                             }
                             theme={this.props.theme}
                           />

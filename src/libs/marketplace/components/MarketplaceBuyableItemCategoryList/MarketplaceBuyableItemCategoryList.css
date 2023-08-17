@@ -15,3 +15,27 @@
 .bs-marketplace-buyable-item-category__card {
   margin-bottom: var(--spacing-1);
 }
+
+.bs-marketplace-buyable-item-category__button_container {
+  margin-top: var(--spacing-3);
+  display: flex;
+  justify-content: center;
+}
+
+.bs-marketplace-buyable-item-category__button_container__button {
+  background-color: transparent;
+  font-size: var(--button-fontSize);
+  font-weight: var(--button-fontWeight);
+  letter-spacing: var(--button-letterSpacing);
+  line-height: var(--button-lineHeight);
+  color: var(--color-primary-main);
+  border: 1px solid var(--color-primary-main);
+  border-radius: var(--spacing-3);
+  padding: var(--spacing-1) var(--spacing-2);
+  font-family: var(--button-fontFamily);
+}
+
+.bs-marketplace-buyable-item-category__button_container__button:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+}

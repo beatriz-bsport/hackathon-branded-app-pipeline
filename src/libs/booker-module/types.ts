@@ -8,6 +8,7 @@ import type {
   PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER,
   CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
   CONSUMER_PAYMENT_PACK_IDENTIFIER,
+  MIXED_ITEMS_BOOKING_FUNNEL_IDENTIFIER,
 } from '#libs/marketplace/constants';
 
 export type OfferData = {
@@ -46,15 +47,21 @@ export type BuyableItemIdentifier =
 export type BuyableItemCategory = {
   index: number;
   id: string;
-  identifier: BuyableItemIdentifier;
+  identifier:
+    | BuyableItemIdentifier
+    | typeof MIXED_ITEMS_BOOKING_FUNNEL_IDENTIFIER;
   name: string;
   values:
     | Array<PaymentPack>
     | Array<PaymentCombo>
-    | Array<ContractWithPaymentPack>;
+    | Array<ContractWithPaymentPack>
+    | Array<RecommendedBuyableItem>;
 };
 
-export type BuyableItem = PaymentPack | PaymentCombo | ContractWithPaymentPack;
+export type BookerModuleBuyableItem =
+  | PaymentPack
+  | PaymentCombo
+  | ContractWithPaymentPack;
 
 export type BookerItem = {
   data:
@@ -65,4 +72,9 @@ export type BookerItem = {
   itemIdentifier:
     | BuyableItemIdentifier
     | typeof CONSUMER_PAYMENT_PACK_IDENTIFIER;
+};
+
+export type RecommendedBuyableItem = {
+  identifier: BuyableItemIdentifier;
+  value: BookerModuleBuyableItem;
 };

@@ -3,6 +3,7 @@ import './MarketplaceFilterBuyableItemCategory.css';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { RECOMMENDED_BUYABLE_CATEGORY_ID } from '#libs/marketplace/constants';
 import type { BuyableItemCategory } from '#libs/booker-module/types';
 
 type ButtonProps = {
@@ -52,8 +53,23 @@ const MarketplaceFilterBuyableItemCategory: React.FC<Props> = (props) => {
     onClickCategory(null);
   }, [onClickCategory]);
 
+  const isRecommendedCategoryInList = !!props.buyableItemCategories.find(
+    (category) => category.id === RECOMMENDED_BUYABLE_CATEGORY_ID,
+  );
+
   return (
     <div className="bs-marketplace-filter-buyable-item-category">
+      {/* If the recommended category is in the list, then display its button in first position */}
+      {isRecommendedCategoryInList && (
+        <MarketplaceFilterBuyableItemCategoryButton
+          key={props.buyableItemCategories[0].id}
+          buyableItemCategory={props.buyableItemCategories[0]}
+          onClickCategory={props.onClickCategory}
+          selectedBuyableItemCategory={props.selectedBuyableItemCategory}
+        />
+      )}
+
+      {/* Then in all cases, the 'All' button should be displayed */}
       <button
         className={classNames(
           'bs-marketplace-filter-buyable-item-category__button',
@@ -67,16 +83,20 @@ const MarketplaceFilterBuyableItemCategory: React.FC<Props> = (props) => {
       >
         {t('newBookingModule.filterAll')}
       </button>
-      {props.buyableItemCategories.map((buyableItemCategory) => {
-        return (
-          <MarketplaceFilterBuyableItemCategoryButton
-            key={buyableItemCategory.id}
-            buyableItemCategory={buyableItemCategory}
-            onClickCategory={props.onClickCategory}
-            selectedBuyableItemCategory={props.selectedBuyableItemCategory}
-          />
-        );
-      })}
+
+      {/* Finally, display buttons for the remaining categories */}
+      {props.buyableItemCategories
+        .filter((category) => category.id !== RECOMMENDED_BUYABLE_CATEGORY_ID)
+        .map((buyableItemCategory) => {
+          return (
+            <MarketplaceFilterBuyableItemCategoryButton
+              key={buyableItemCategory.id}
+              buyableItemCategory={buyableItemCategory}
+              onClickCategory={props.onClickCategory}
+              selectedBuyableItemCategory={props.selectedBuyableItemCategory}
+            />
+          );
+        })}
     </div>
   );
 };

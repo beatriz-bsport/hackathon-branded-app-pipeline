@@ -202,6 +202,7 @@ exports.default = {
     buyNewPass: 'Acheter une nouvelle carte de cours',
     myPasses: 'Ma carte de cours',
     myPasses_plural: 'Mes cartes de cours',
+    seeAllProducts: 'Voir tous les produits',
     waitingListWarning:
       "Avant de vous inscrire sur la liste d'attente, assurez-vous d'avoir acheté une carte de cours, un pack ou un contrat adéquat. Il est essentiel de disposer d'une carte de cours, d'un pack ou d'un contrat actif pour garantir votre place sur la liste d'attente.",
     backToCalendar: 'Revenir au calendrier',
@@ -249,6 +250,7 @@ exports.default = {
     combos: 'Packs',
     passes: 'Cartes de cours',
     otherPasses: 'Autres cartes de cours',
+    recommended: 'Recommandés',
     spotSelectorTitle: 'Choisissez votre place',
   },
   details: {

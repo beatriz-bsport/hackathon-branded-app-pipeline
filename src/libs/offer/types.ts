@@ -26,6 +26,8 @@ import { MetaActivity } from '../meta-activity/types';
 import { Coach } from '../associated-coach/types';
 import { OffersGroup } from '#libs/group-offer/types';
 import { OFFER_RECURRENCE } from './constants';
+import { SpotInformation } from '#libs/spot-scheduling/types';
+import { Level } from '#libs/level/types';
 
 export type OfferFilter = {
   establishments?: number[];
@@ -402,3 +404,8 @@ export enum OfferSummaryVariant {
   BASKET = 'basket',
   BOOKING = 'booking',
 }
+export type OfferWithSpotInformation = Offer_FULL & {
+  customLevel: Level;
+  spot_id?: number;
+  spot_information?: SpotInformation;
+};

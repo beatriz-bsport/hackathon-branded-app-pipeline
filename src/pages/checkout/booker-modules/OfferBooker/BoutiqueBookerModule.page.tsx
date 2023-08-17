@@ -11,7 +11,6 @@ import {
 } from 'connected-react-router';
 import {
   getOfferContraints,
-  getMainOfferNotBookableReasonWithTitle,
   getAvailablePaymentPacks,
   getAvailableConsumerPack,
   getAvailableComboPacks,
@@ -24,7 +23,6 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import moment from 'moment-timezone';
 import './BoutiqueBookerModule.css';
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import type { SvgIconComponent } from '@material-ui/icons';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import Alert from '@material-ui/lab/Alert';
 import classNames from 'classnames';
@@ -48,19 +46,19 @@ import { buildUrlParams } from '../../../../http';
 import {
   buildBuyableItemCategories,
   buildDataForUserRegistration,
-  getBookingBlockedReasonIcon,
   getBookingDisplayPrice,
   urlToMarketplace,
+  urlToMarketplaceTab,
 } from '#libs/marketplace/utils';
 import {
   RECOMMENDED_BUYABLE_CATEGORY_ID,
   CONSUMER_PAYMENT_PACK_IDENTIFIER,
   PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER,
   PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
+  MARKETPLACE_PATH_TAB_PASS,
 } from '#libs/marketplace/constants';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
-import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
 import MarketplaceFilterBuyableItemCategory from '#libs/marketplace/components/MarketplaceFilterBuyableItemCategory';
 import {
   retrieveOffer as fetchOffer,
@@ -85,7 +83,10 @@ import {
 } from '#libs/consumer-payment-pack/actions';
 import { fetchCoachBulk } from '#libs/associated-coach/actions';
 import { fetchMetaActivityBulk } from '#libs/meta-activity/actions';
-import { fetchBookingFunnelConfiguration } from '#libs/marketplace/actions';
+import {
+  fetchBookingFunnelConfiguration,
+  fetchMarketplaceSettings,
+} from '#libs/marketplace/actions';
 import { RootState } from '../../../../reducers';
 import {
   getPaymentComboForBooking,
@@ -106,7 +107,7 @@ import {
 import { fetchCompanyConfiguration } from '#libs/waiting-list/actions';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
-import type { Offer, Offer_FULL } from '#libs/offer/types';
+import { OfferSummaryVariant, type Offer } from '#libs/offer/types';
 import {
   withEstablishment,
   withCoach,
@@ -137,7 +138,7 @@ import type {
 } from '#libs/booker-module/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { Contract } from '#libs/subscription/types';
-import MarketplaceBookingBlockedReason from '#libs/marketplace/components/MarketplaceBookingBlockedReason';
+import OfferBookingWaitingList from '#libs/offer/components/OfferBookingWaitingList';
 import MarketplaceSpotSelector from '#libs/marketplace/components/MarketplaceSpotSelector';
 import type { SpotType } from '#libs/spot-scheduling/types';
 import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
@@ -146,6 +147,11 @@ import {
   getCheckoutValidationUrl,
   getSubscriptionPageUrl,
 } from '#libs/marketplace/routing-utils';
+import { MetaActivity } from '#libs/meta-activity/types';
+import { Establishment } from '#libs/establishment/types';
+import { Coach } from '#libs/associated-coach/types';
+import { OffersGroup } from '#libs/group-offer/types';
+import { consumerAppBarHOC } from '#hocs/consumer-app-bar.hoc';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
 
@@ -160,15 +166,7 @@ type State = {
   confirmLoading: boolean;
   availableConsumerPacks: (ConsumerPaymentPack<PaymentPack> & MaxoutData)[];
   buyableItemCategories: BuyableItemCategory[];
-  isBookingBlocked: boolean;
   isWaitingList: boolean;
-  bookingBlockedReason: {
-    title: string;
-    message: string;
-    TheIcon: SvgIconComponent;
-    color: string;
-    isWaitingListOpenMainReason: boolean;
-  };
 };
 
 type OwnProps = {
@@ -201,9 +199,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       confirmLoading: false,
       availableConsumerPacks: [],
       buyableItemCategories: [],
-      isBookingBlocked: false,
       isWaitingList: false,
-      bookingBlockedReason: null,
     };
   }
 
@@ -211,6 +207,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     this.props.fetchOffer(this.props.offerId, {
       onSuccess: (offer: Offer) => {
         this.props.fetchCompanyTheme(offer.company);
+        this.props.fetchMarketplaceSettings(offer.company.toString());
         this.props.fetchCompanyConfiguration(offer.company);
         this.props.fetchBookingFunnelConfiguration(offer.company);
         this.props.resetPaymentPackForBooking();
@@ -364,21 +361,12 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   componentDidUpdate(prevProps: Props) {
-    if (prevProps.offer?.company !== this.props.offer?.company) {
-      this.fetchCompatiblePaymentPacks();
-      this.fetchCompatibleComboPacks();
-      this.props.fetchContractForBookingHandler(
-        this.props.offerId,
-        this.props.offer?.company,
-      );
-      this.props.fetchAllPaymentPackCategory(this.props.offer?.company);
-    }
-
     if (
       !!this.props.bookingFunnelConfiguration &&
       this.arePropsLoading(prevProps) !== this.arePropsLoading(this.props)
-    )
+    ) {
       this.setBuyableItemsAndOfferFeature();
+    }
   }
 
   requestSetupIntentSecret = () => {
@@ -399,12 +387,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     });
   };
 
-  goBackToCalendar = () =>
-    this.props.goToCalendar({
-      date: moment(this.props.offer.date_start).format('YYYY-MM-DD'),
-    });
-
-  goBackToCalendarOrSpotSelector = () => {
+  goBackToCalendar = () => {
     if (this.state.selectedSpot) {
       this.setState({
         isSpotSelectorOpen: true,
@@ -412,7 +395,21 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         selectedSpotId: null,
       });
     } else {
-      this.props.goBack();
+      this.props.goToCalendar({
+        date: moment(this.props.offer.date_start).format('YYYY-MM-DD'),
+      });
+    }
+  };
+
+  handleRedirectToPass = () => {
+    if (this.props.theme?.company_name && this.props.theme?.company) {
+      this.props.push(
+        `${urlToMarketplaceTab(
+          this.props.theme.company_name,
+          this.props.theme.company.toString(),
+          'pass',
+        )}`,
+      );
     }
   };
 
@@ -430,15 +427,17 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     }
   };
 
-  updateSpotForOffer = (offer: number, index: number) => {
+  updateSpotForOffer = (_: number, index: number) => {
     /* This method gets the selected spot in the canvas of plan to build the spot name with the right prefix */
-    const spot = this.props.roomBlueprintsById[
-      this.props.offer.room_blueprint
-    ].canvas.elements.find((element) => element.data.index === index).data;
+    const spot =
+      this.props.roomBlueprintsById?.[
+        this.props.offer?.room_blueprint
+      ].canvas?.elements?.find((element) => element.data.index === index)
+        ?.data ?? '';
 
     let prefix = '';
 
-    if (spot.spotTypeId !== DEFAULT_SPOT_TYPE_ID) {
+    if (this.props.spotTypes && spot?.spotTypeId !== DEFAULT_SPOT_TYPE_ID) {
       prefix =
         this.props.spotTypes?.find(
           (spotType) => spotType.id === spot.spotTypeId,
@@ -581,13 +580,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   setBuyableItemsAndOfferFeature = () => {
     this.getBuyableItemCategories();
 
-    const {
-      isBookable,
-      isWaitingList,
-      isRegistered,
-      isRegisteredWaitingList,
-      blockedByTags,
-    } = getOfferFeature(
+    const { isBookable, blockedByTags } = getOfferFeature(
       // @ts-expect-error
       this.props.offer,
       this.props.offerStatusById,
@@ -595,45 +588,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.props.theme.accept_double_booking_workshop,
     );
 
-    this.setState({ isWaitingList });
-
-    let isBookingBlocked = !isBookable || blockedByTags;
-
-    const { title, message, icon, color, isWaitingListOpenMainReason } =
-      getMainOfferNotBookableReasonWithTitle(
-        // @ts-expect-error
-        this.props.offer,
-        this.props.offerStatusById[this.props.offerId],
-        {
-          isBookable,
-          isWaitingList,
-          isRegistered,
-          isRegisteredWaitingList,
-          blockedByTags,
-        },
-        this.props.t,
-      );
-
-    if (
-      isWaitingListOpenMainReason &&
-      this.props.waitingListConfiguration.check_credit
-    ) {
-      isBookingBlocked = false;
-    }
-
-    this.setState({ isBookingBlocked });
-
-    const TheIcon = getBookingBlockedReasonIcon(icon);
-
-    this.setState({
-      bookingBlockedReason: {
-        title,
-        message,
-        TheIcon,
-        color,
-        isWaitingListOpenMainReason,
-      },
-    });
+    const isBookingBlocked = !isBookable || blockedByTags;
 
     const availableConsumerPacks = this.getAvailableConsumerPack();
 
@@ -651,18 +606,41 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     }
   };
 
+  getMarketplaceSettingsPassTab = () => {
+    return !!this.props.marketplaceSettings?.config?.find(
+      (tabConfig) => tabConfig?.component_type === MARKETPLACE_PATH_TAB_PASS,
+    );
+  };
+
+  getIsWaitingListLoading = () =>
+    !this.props.offer ||
+    this.props.offerStatusLoading ||
+    this.props.waitingListConfigurationLoading ||
+    this.props.consumerPacksForBookingLoading ||
+    this.props.marketplaceSettingsLoading;
+
+  getPageTitle = () => {
+    return (this.props.consumerPacksForBooking || [])?.length > 0
+      ? this.props.t('booking:newBookingModule.reviewAndConfirm')
+      : this.props.t('booking:newBookingModule.buyPass');
+  };
+
   render() {
     const { t } = this.props;
     const loading = this.arePropsLoading(this.props);
 
-    let pageTitle = this.state.bookingBlockedReason?.title;
-    if (!this.state.isBookingBlocked) {
-      if (this.state.availableConsumerPacks.length > 0) {
-        pageTitle = this.props.t('newBookingModule.choosePass');
-      } else {
-        pageTitle = this.props.t('newBookingModule.buyPass');
-      }
-    }
+    const displayPrice = this.state.selectedItem
+      ? getBookingDisplayPrice(this.state.selectedItem)
+      : '';
+
+    const isWaitingList = this.props.offer?.full;
+
+    const isRegistered =
+      this.props.offerStatusById?.[this.props.offer?.id]?.is_registered;
+
+    const isNoPassCompatibleForBooking =
+      this.props.waitingListConfiguration?.check_credit &&
+      this.props.consumerPacksForBooking?.length === 0;
 
     if (
       this.state.isSpotSelectorOpen &&
@@ -671,210 +649,199 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       !this.props.spotForBlueprintLoading
     ) {
       return (
-        // @ts-expect-error
-        <ConsumerAppBarContainer backgroundColor="white">
-          <div className="bs-new-offer-booking-page">
-            <div className="bs-new-offer-booking__spot-selector">
-              <div className="bs-new-offer-booking__spot-selector__header">
-                <button
-                  className="bs-new-offer-booking__consumer-payment-packs__arrow"
-                  onClick={this.goBackToCalendar}
-                  type="button"
-                >
-                  <ArrowBack />
-                </button>
-                <div className="bs-new-offer-booking__spot-selector__header__text">
-                  {t('newBookingModule.spotSelectorTitle')}
-                </div>
-              </div>
-              {this.props.roomBlueprintsById[
-                this.props.offer.room_blueprint
-              ] && (
-                <MarketplaceSpotSelector
-                  assetByIdBlueprintByIdentifier={
-                    this.props.assetByIdBlueprintByIdentifier
-                  }
-                  closeSpotSelector={this.closeSpotSelector}
-                  fetchOfferStatus={this.fetchOfferStatus}
-                  fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
-                  offer={this.props.offer}
-                  offerStatusById={this.props.offerStatusById}
-                  roomBlueprintsById={this.props.roomBlueprintsById}
-                  selectedSpot={this.state.selectedSpotId}
-                  spotTypes={[DEFAULT_SPOT_TYPE as SpotType].concat(
-                    this.props.spotTypes,
-                  )}
-                  theme={this.props.theme}
-                  updateSpotForOffer={this.updateSpotForOffer}
-                />
-              )}
-            </div>
-            <div className="bs-new-offer-booking__spot-selector__confirm">
-              <button
-                className={classNames(
-                  'bs-new-offer-booking__spot-selector__confirm-button',
-                  {
-                    'bs-new-offer-booking__spot-selector__confirm-button--disabled':
-                      this.state.selectedSpotId === null,
-                  },
-                )}
-                onClick={this.closeSpotSelectorIfSpotSelected}
-                type="button"
-              >
-                {t('spotScheduling:spotSelector.confirm')}
-              </button>
-            </div>
-          </div>
-        </ConsumerAppBarContainer>
-      );
-    }
-
-    if (loading) {
-      return (
-        // @ts-expect-error
-        <ConsumerAppBarContainer backgroundColor="white">
-          <>
-            <Skeleton
-              animation="pulse"
-              height={100}
-              id="bs-new-offer-booking__skeleton"
-              width="50%"
-            />
-            <Skeleton
-              animation="pulse"
-              height={100}
-              id="bs-new-offer-booking__skeleton"
-              width="50%"
-            />
-            <Skeleton
-              animation="pulse"
-              height={100}
-              id="bs-new-offer-booking__skeleton"
-              width="50%"
-            />
-          </>
-        </ConsumerAppBarContainer>
-      );
-    }
-
-    const displayPrice = this.state.selectedItem
-      ? getBookingDisplayPrice(this.state.selectedItem)
-      : '';
-
-    return (
-      // @ts-expect-error
-      <ConsumerAppBarContainer backgroundColor="white">
         <div className="bs-new-offer-booking-page">
-          <div className="bs-new-offer-booking-with-header">
-            <div className="bs-new-offer-booking__header">
+          <div className="bs-new-offer-booking__spot-selector">
+            <div className="bs-new-offer-booking__spot-selector__header">
               <button
                 className="bs-new-offer-booking__consumer-payment-packs__arrow"
-                onClick={this.goBackToCalendarOrSpotSelector}
+                onClick={this.goBackToCalendar}
                 type="button"
               >
                 <ArrowBack />
               </button>
-              <div className="bs-new-offer-booking__consumer-payment-packs__title">
-                {pageTitle}
+              <div className="bs-new-offer-booking__spot-selector__header__text">
+                {t('newBookingModule.spotSelectorTitle')}
               </div>
             </div>
-            <div className="bs-new-offer-booking">
-              <div className="bs-new-offer-booking__cards-list">
-                {!this.state.isBookingBlocked ? (
+            {this.props.roomBlueprintsById[this.props.offer.room_blueprint] && (
+              <MarketplaceSpotSelector
+                assetByIdBlueprintByIdentifier={
+                  this.props.assetByIdBlueprintByIdentifier
+                }
+                closeSpotSelector={this.closeSpotSelector}
+                fetchOfferStatus={this.fetchOfferStatus}
+                fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+                offer={this.props.offer}
+                offerStatusById={this.props.offerStatusById}
+                roomBlueprintsById={this.props.roomBlueprintsById}
+                selectedSpot={this.state.selectedSpotId}
+                spotTypes={[DEFAULT_SPOT_TYPE as SpotType].concat(
+                  this.props.spotTypes,
+                )}
+                theme={this.props.theme}
+                updateSpotForOffer={this.updateSpotForOffer}
+              />
+            )}
+          </div>
+          <div className="bs-new-offer-booking__spot-selector__confirm">
+            <button
+              className={classNames(
+                'bs-new-offer-booking__spot-selector__confirm-button',
+                {
+                  'bs-new-offer-booking__spot-selector__confirm-button--disabled':
+                    this.state.selectedSpotId === null,
+                },
+              )}
+              onClick={this.closeSpotSelectorIfSpotSelected}
+              type="button"
+            >
+              {t('spotScheduling:spotSelector.confirm')}
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (!isWaitingList && loading) {
+      return (
+        <>
+          <Skeleton
+            animation="pulse"
+            height={100}
+            id="bs-new-offer-booking__skeleton"
+            width="50%"
+          />
+          <Skeleton
+            animation="pulse"
+            height={100}
+            id="bs-new-offer-booking__skeleton"
+            width="50%"
+          />
+          <Skeleton
+            animation="pulse"
+            height={100}
+            id="bs-new-offer-booking__skeleton"
+            width="50%"
+          />
+        </>
+      );
+    }
+
+    if (!isRegistered && isWaitingList) {
+      return (
+        <div className="bs-new-offer-booking-page">
+          <OfferBookingWaitingList
+            bookingSpotId={this.state.selectedSpot}
+            companyTheme={this.props.theme}
+            isLoading={this.getIsWaitingListLoading()}
+            isNoPassCompatibleForBooking={isNoPassCompatibleForBooking}
+            isPassTabInMarketplaceConfig={this.getMarketplaceSettingsPassTab()}
+            isWaitingListRegisterLoading={this.state.confirmLoading}
+            offer={this.props.offer}
+            offerStatusById={this.props.offerStatusById}
+            offerSummaryPrice={displayPrice}
+            offerSummaryVariant={OfferSummaryVariant.DEFAULT}
+            onRedirectToCalendar={this.goBackToCalendar}
+            onRedirectToPass={this.handleRedirectToPass}
+            onRegisterToWaitList={this.onConfirm}
+          />
+        </div>
+      );
+    }
+
+    return (
+      <div className="bs-new-offer-booking-page">
+        <div className="bs-new-offer-booking-with-header">
+          <div className="bs-new-offer-booking__header">
+            <button
+              className="bs-new-offer-booking__consumer-payment-packs__arrow"
+              onClick={this.goBackToCalendar}
+              type="button"
+            >
+              <ArrowBack />
+            </button>
+            <div className="bs-new-offer-booking__consumer-payment-packs__title">
+              {this.getPageTitle()}
+            </div>
+          </div>
+          <div className="bs-new-offer-booking">
+            <div className="bs-new-offer-booking__cards-list">
+              <>
+                {this.state.isWaitingList && (
+                  <Alert
+                    className="bs-new-offer-booking__waiting-list-warning"
+                    severity="warning"
+                  >
+                    {t('newBookingModule.waitingListWarning')}
+                  </Alert>
+                )}
+                {this.state.availableConsumerPacks.length > 0 && (
                   <>
-                    {this.state.isWaitingList && (
-                      <Alert
-                        className="bs-new-offer-booking__waiting-list-warning"
-                        severity="warning"
-                      >
-                        {t('newBookingModule.waitingListWarning')}
-                      </Alert>
-                    )}
-                    {this.state.availableConsumerPacks.length > 0 && (
-                      <>
-                        <div className="bs-new-offer-booking__consumer-payment-packs__subtitle">
-                          {t('newBookingModule.myPasses', {
-                            count: this.state.availableConsumerPacks.length,
-                          })}
-                        </div>
-                        {this.state.availableConsumerPacks.map(
-                          (
-                            consumerPaymentPack: ConsumerPaymentPack<PaymentPack> &
-                              MaxoutData,
-                          ) => {
-                            return (
-                              <MarketplaceConsumerPaymentPackCard
-                                key={consumerPaymentPack.id}
-                                consumerPaymentPack={consumerPaymentPack}
-                                isSelected={isEqual(
-                                  consumerPaymentPack,
-                                  this.state.selectedItem?.data,
-                                )}
-                                onSelectConsumerPaymentPack={
-                                  this.onSelectConsumerPaymentPack
-                                }
-                              />
-                            );
-                          },
-                        )}
-                        {!this.props.theme
-                          .hide_unnecessary_compatible_purchase_method && (
-                          <div className="bs-new-offer-booking__buyable_items__header">
-                            <button
-                              className="bs-new-offer-booking__buyable_items__header__arrow"
-                              onClick={this.onClickShowBuyableItems}
-                              type="button"
-                            >
-                              {this.state.showBuyableItems ? (
-                                <KeyboardArrowDown />
-                              ) : (
-                                <KeyboardArrowRight />
-                              )}
-                            </button>
-                            <div className="bs-new-offer-booking__buyable_items__header__title">
-                              {t('newBookingModule.buyNewPass')}
-                            </div>
-                          </div>
-                        )}
-                      </>
-                    )}
-                    {((this.state.availableConsumerPacks.length !== 0 &&
-                      !this.props.theme
-                        .hide_unnecessary_compatible_purchase_method &&
-                      this.state.showBuyableItems) ||
-                      this.state.availableConsumerPacks.length === 0) && (
-                      <>
-                        <MarketplaceFilterBuyableItemCategory
-                          buyableItemCategories={
-                            this.state.buyableItemCategories
-                          }
-                          onClickCategory={this.onClickCategory}
-                          selectedBuyableItemCategory={
-                            this.state.selectedBuyableItemCategory
-                          }
-                        />
-                        {!this.state.selectedBuyableItemCategory ? (
-                          this.state.buyableItemCategories.map(
-                            (buyableItemCategory) => (
-                              <MarketplaceBuyableItemCategoryList
-                                key={buyableItemCategory.index}
-                                excludeRecommendedItemsFromRegularCategories
-                                buyableItemCategory={buyableItemCategory}
-                                isExcludingTax={this.props.isExcludingTax}
-                                selectBuyableItem={this.onClickBuyableItem}
-                                selectedBuyableItem={
-                                  this.state.selectedItem
-                                    ?.data as BookerModuleBuyableItem
-                                }
-                                theme={this.props.theme}
-                              />
-                            ),
-                          )
-                        ) : (
-                          <MarketplaceBuyableItemCategoryList
-                            buyableItemCategory={
-                              this.state.selectedBuyableItemCategory
+                    <div className="bs-new-offer-booking__consumer-payment-packs__subtitle">
+                      {t('newBookingModule.myPasses', {
+                        count: this.state.availableConsumerPacks.length,
+                      })}
+                    </div>
+                    {this.state.availableConsumerPacks.map(
+                      (
+                        consumerPaymentPack: ConsumerPaymentPack<PaymentPack> &
+                          MaxoutData,
+                      ) => {
+                        return (
+                          <MarketplaceConsumerPaymentPackCard
+                            key={consumerPaymentPack.id}
+                            consumerPaymentPack={consumerPaymentPack}
+                            isSelected={isEqual(
+                              consumerPaymentPack,
+                              this.state.selectedItem?.data,
+                            )}
+                            onSelectConsumerPaymentPack={
+                              this.onSelectConsumerPaymentPack
                             }
+                          />
+                        );
+                      },
+                    )}
+                    {!this.props.theme
+                      .hide_unnecessary_compatible_purchase_method && (
+                      <div className="bs-new-offer-booking__buyable_items__header">
+                        <button
+                          className="bs-new-offer-booking__buyable_items__header__arrow"
+                          onClick={this.onClickShowBuyableItems}
+                          type="button"
+                        >
+                          {this.state.showBuyableItems ? (
+                            <KeyboardArrowDown />
+                          ) : (
+                            <KeyboardArrowRight />
+                          )}
+                        </button>
+                        <div className="bs-new-offer-booking__buyable_items__header__title">
+                          {t('newBookingModule.buyNewPass')}
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
+                {((this.state.availableConsumerPacks.length !== 0 &&
+                  !this.props.theme
+                    .hide_unnecessary_compatible_purchase_method &&
+                  this.state.showBuyableItems) ||
+                  this.state.availableConsumerPacks.length === 0) && (
+                  <>
+                    <MarketplaceFilterBuyableItemCategory
+                      buyableItemCategories={this.state.buyableItemCategories}
+                      onClickCategory={this.onClickCategory}
+                      selectedBuyableItemCategory={
+                        this.state.selectedBuyableItemCategory
+                      }
+                    />
+                    {!this.state.selectedBuyableItemCategory ? (
+                      this.state.buyableItemCategories.map(
+                        (buyableItemCategory) => (
+                          <MarketplaceBuyableItemCategoryList
+                            key={buyableItemCategory.index}
+                            buyableItemCategory={buyableItemCategory}
                             isExcludingTax={this.props.isExcludingTax}
                             onClickAll={this.onClickAll}
                             selectBuyableItem={this.onClickBuyableItem}
@@ -884,50 +851,60 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                             }
                             theme={this.props.theme}
                           />
-                        )}
-                      </>
+                        ),
+                      )
+                    ) : (
+                      <MarketplaceBuyableItemCategoryList
+                        buyableItemCategory={
+                          this.state.selectedBuyableItemCategory
+                        }
+                        isExcludingTax={this.props.isExcludingTax}
+                        selectBuyableItem={this.onClickBuyableItem}
+                        selectedBuyableItem={
+                          this.state.selectedItem
+                            ?.data as BookerModuleBuyableItem
+                        }
+                        theme={this.props.theme}
+                      />
                     )}
                   </>
-                ) : (
-                  <MarketplaceBookingBlockedReason
-                    bookingBlockedReason={this.state.bookingBlockedReason}
-                    goBackToCalendar={this.goBackToCalendar}
-                  />
                 )}
-              </div>
-              <div className="bs-new-offer-booking__offer-summary">
-                <OfferSummary
-                  coach={this.props.offer.coach}
-                  confirmLoading={this.state.confirmLoading}
-                  disableButton={
-                    this.state.selectedItem === null ||
-                    (this.state.isBookingBlocked &&
-                      !this.state.bookingBlockedReason
-                        .isWaitingListOpenMainReason)
-                  }
-                  establishment={this.props.offer.establishment}
-                  loading={loading}
-                  metaActivity={this.props.offer.meta_activity}
-                  offer={this.props.offer}
-                  offerStatus={this.props.offerStatusById?.[this.props.offerId]}
-                  onConfirm={this.onConfirm}
-                  price={displayPrice}
-                  spotId={this.state.selectedSpot}
-                  tax={this.props.offer.tax}
-                  theme={this.props.theme}
-                  variant="default"
-                />
-              </div>
+              </>
+            </div>
+            <div className="bs-new-offer-booking__offer-summary">
+              <OfferSummary
+                coach={this.props.offer.coach}
+                confirmLoading={this.state.confirmLoading}
+                disableButton={this.state.selectedItem === null}
+                establishment={this.props.offer.establishment}
+                loading={loading}
+                metaActivity={this.props.offer.meta_activity}
+                offer={this.props.offer}
+                offerStatus={this.props.offerStatusById?.[this.props.offerId]}
+                onConfirm={this.onConfirm}
+                price={displayPrice}
+                spotId={this.state.selectedSpot}
+                tax={this.props.offer.tax}
+                theme={this.props.theme}
+                variant={OfferSummaryVariant.DEFAULT}
+              />
             </div>
           </div>
         </div>
-      </ConsumerAppBarContainer>
+      </div>
     );
   }
 }
 
 const mapStateToProps = (state: RootState, props: OwnProps) => {
-  const offer: Offer_FULL = withMetaActivity(
+  const offer: Offer<
+    Coach,
+    Establishment,
+    MetaActivity,
+    number,
+    number,
+    OffersGroup
+  > = withMetaActivity(
     withCoach(withEstablishment(getOfferById)),
     // @ts-expect-error
   )(state, props.offerId);
@@ -968,6 +945,12 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     assetForBlueprintLoading: state.spotScheduling.assetForBlueprint.loading,
     spotForBlueprintLoading: state.spotScheduling.spotForBlueprint.loading,
     waitingListConfiguration: state.waitingList.configuration.data,
+    waitingListConfigurationLoading: state.waitingList.configuration.loading,
+    consumerPacksForBooking: state.consumerPaymentPack.forBooking.allIds,
+    consumerPacksForBookingLoading:
+      state.consumerPaymentPack.forBooking.loading,
+    marketplaceSettings: state.marketplace.settings,
+    marketplaceSettingsLoading: state.marketplace.loading,
   };
 };
 
@@ -1003,6 +986,7 @@ const mapDispatchToProps = {
   ) => void,
   replace: replaceAction,
   fetchCompanyConfiguration,
+  fetchMarketplaceSettings,
   goBack,
 };
 
@@ -1086,4 +1070,5 @@ export default compose(
   withHandlers(mapHandlers),
   withTranslation(['booking', 'spotScheduling']),
   marketplaceCssHoc(),
+  consumerAppBarHOC(),
 )(BoutiqueBookerModule);

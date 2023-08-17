@@ -6,6 +6,7 @@
   align-items: center;
   overflow-y: auto;
   overflow-x: hidden;
+  container: bsOfferBookingPage / inline-size;
 }
 
 .bs-new-offer-booking {
@@ -32,15 +33,6 @@
 
 .bs-new-offer-booking__offer-summary {
   width: 50%;
-}
-
-@media screen and (max-width: 570px) {
-  .bs-new-offer-booking__offer-summary {
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    z-index: 9999;
-  }
 }
 
 .bs-new-offer-booking__waiting-list-warning {
@@ -115,10 +107,18 @@
   width: 62vw;
 }
 
-@media screen and (max-width: 750px) {
+@container bsOfferBookingPage (width < 750px) {
+  .bs-new-offer-booking-page {
+    min-width: 100vh;
+  }
+
   .bs-new-offer-booking__spot-selector {
     width: 95vw;
   }
+}
+
+.bs-marketplace-spot-selector {
+  margin-top: var(--spacing-4);
 }
 
 .bs-new-offer-booking__spot-selector__header {
@@ -135,20 +135,16 @@
 }
 
 .bs-new-offer-booking__spot-selector__confirm {
-  background-color: white;
   border-radius: var(--spacing-1) var(--spacing-1) 0 0;
   border: 1px solid var(--color-grey-light);
   display: flex;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   padding: var(--spacing-1) var(--spacing-2);
-  position: fixed;
   bottom: 0;
-  margin: 0;
-  z-index: 9999;
 }
 
-@media screen and (min-width: 750px) {
+@container bsOfferBookingPage (width > 750px) {
   .bs-new-offer-booking__spot-selector__confirm {
     visibility: hidden;
   }

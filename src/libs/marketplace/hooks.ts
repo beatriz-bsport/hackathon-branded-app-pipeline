@@ -25,7 +25,7 @@ import {
 import { PaymentCombo } from '#libs/payment-combo/types';
 import type { Establishment } from '#libs/establishment/types';
 import type { Theme } from '#libs/theme/types';
-import { Offer } from '#libs/offer/types';
+import { Offer, OfferWithSpotInformation } from '#libs/offer/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Contract } from '#libs/subscription/types';
 
@@ -248,7 +248,7 @@ export const useMarketplacePassFlatLists = ({
 };
 
 export const useOfferHours = (
-  offer: Offer,
+  offer: Offer | OfferWithSpotInformation,
   establishment: Establishment,
   metaActivity: MetaActivity,
   theme: Theme,

@@ -33,7 +33,8 @@ export function formatAsDateWithWeekday(
   const readableDayOfTheWeek = t(
     `datetime:time.weekdayNumber.${(dayOfTheWeek + 6) % 7}`,
   );
-  switch (theme?.days_format_display) {
+  if (!theme) return `${readableDayOfTheWeek} ${formattedDate}`;
+  switch (theme.days_format_display) {
     case MarketPlaceDaysFormatDisplay.ONE_LETTER:
       return formattedDate;
     case MarketPlaceDaysFormatDisplay.THREE_LETTERS:

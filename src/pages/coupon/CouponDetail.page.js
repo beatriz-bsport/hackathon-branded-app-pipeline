@@ -271,7 +271,6 @@ export class CouponCreate extends Component<Props, State> {
       this.props.coupon.coupon_type ===
         CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE
     ) {
-      this.fetchItemsOnUpdateMode(this.props.coupon);
       this.setState({
         uniqueCodeCouponFormState: { open: true, initial: this.props.coupon },
       });

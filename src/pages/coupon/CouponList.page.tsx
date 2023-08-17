@@ -14,12 +14,6 @@ import AddIcon from '@material-ui/icons/Add';
 
 import Fuse, { FuseOptions } from 'fuse.js';
 import { CouponKind } from '@bsport/common/lib/master-data/coupon';
-import {
-  BUYABLE_ITEM_PASS,
-  BUYABLE_ITEM_SHOP_ITEM,
-  BUYABLE_ITEM_PRIVATE_PASS,
-  BUYABLE_ITEM_COMBO_ITEM,
-} from '@bsport/common/lib/master-data/buyable-items';
 import FuzeSearch from '../../components/FuzeSearch.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
@@ -268,31 +262,6 @@ export class CouponList extends React.PureComponent<Props, State> {
     });
   };
 
-  fetchItemsOnUpdateMode = (uniqueCodeCoupon: Coupon) => {
-    switch (uniqueCodeCoupon.applies_to) {
-      case BUYABLE_ITEM_PASS:
-        fetchSelectedPaymentPacks(uniqueCodeCoupon.only_on_objects);
-        break;
-      case BUYABLE_ITEM_SHOP_ITEM:
-        fetchSelectedShopItems(
-          uniqueCodeCoupon.company,
-          uniqueCodeCoupon.only_on_objects,
-        );
-        break;
-      case BUYABLE_ITEM_PRIVATE_PASS:
-        fetchSelectedPrivatePasses(uniqueCodeCoupon.only_on_objects);
-        break;
-      case BUYABLE_ITEM_COMBO_ITEM:
-        fetchSelectedPaymentCombos({
-          company: uniqueCodeCoupon.company,
-          id__in: uniqueCodeCoupon.only_on_objects,
-        });
-        break;
-      default:
-        break;
-    }
-  };
-
   onCloseFormDrawer = () =>
     this.setState({ couponFormState: { open: false, initial: null } });
 
@@ -314,7 +283,6 @@ export class CouponList extends React.PureComponent<Props, State> {
   };
 
   onEditCouponListItem = (couponSelected: Coupon) => {
-    this.fetchItemsOnUpdateMode(couponSelected);
     if (
       ['dev', 'local'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT) &&
       couponSelected.coupon_type === CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE
@@ -336,7 +304,6 @@ export class CouponList extends React.PureComponent<Props, State> {
   };
 
   onEditCouponListComponent = (couponSelected: Coupon) => {
-    this.fetchItemsOnUpdateMode(couponSelected);
     if (
       ['dev', 'local'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT) &&
       couponSelected.coupon_type === CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE

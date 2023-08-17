@@ -320,7 +320,7 @@ export const getMarketingActionChipName = ({
         case MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE:
           return (
             !!getEmailTemplate &&
-            getEmailTemplate(actionSpec?.email_design.toString())?.title
+            getEmailTemplate(actionSpec?.email_design?.toString())?.title
           );
         default:
           return null;

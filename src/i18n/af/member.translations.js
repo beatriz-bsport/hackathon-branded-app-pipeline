@@ -447,4 +447,7 @@ exports.default = {
       primaryText: 'La VOD {{- VODName }} a été achetée.',
     },
   },
+  memberTable: {
+    error: 'Une erreur est survenue'
+  }
 };

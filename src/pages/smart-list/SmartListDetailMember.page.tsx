@@ -23,6 +23,7 @@ import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';
+import { snackbarError } from '../../actions/snackbar.actions';
 import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
 import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
 // SMARTLIST
@@ -530,6 +531,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
                 }
                 goToMember={this.props.goToMember}
                 noDataText={this.props.t('member:noData')}
+                snackbarError={this.props.snackbarError}
               />
             )}
           </Collapse>
@@ -873,6 +875,9 @@ const connector = connect(
     // EXPORT
     getMemberTableBackgroundAction: getMemberTableBackground,
     fetchStoredCsvExports,
+
+    // SNACKBAR
+    snackbarError,
   },
 );
 

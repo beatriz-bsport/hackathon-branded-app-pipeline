@@ -159,6 +159,7 @@ type OwnProps = {
   interrogateMemberStatus?: (id: number) => void;
   disabledMemberId?: Array<number>;
   noDataText?: string;
+  snackbarError?: (message: string) => void;
 };
 
 type Props = OwnProps & WithTranslation & WithStyles;
@@ -169,6 +170,7 @@ type State = {
   count: number;
   tableState: { page: number };
   memberPerPage: number;
+  error: boolean;
 };
 
 export class MemberTable extends PureComponent<Props, State> {
@@ -180,10 +182,15 @@ export class MemberTable extends PureComponent<Props, State> {
       page: 0,
     },
     memberPerPage: MEMBER_PER_PAGE,
+    error: false,
   };
 
   fetchMemberPage = (page: number, force?: boolean) => {
-    if ((force || page !== this.state.tableState.page) && !this.state.loading) {
+    if (
+      (force || page !== this.state.tableState.page) &&
+      !this.state.loading &&
+      !this.state.error
+    ) {
       this.setState({ loading: true });
       this.props
         .fetch({
@@ -204,11 +211,23 @@ export class MemberTable extends PureComponent<Props, State> {
               ...prevState.tableState,
               page,
             },
+            error: false,
           }));
         })
         .catch((err) => {
           console.error(err);
-          this.setState({ loading: false });
+          this.props.snackbarError?.('smartlistGetMembers.error');
+          this.setState((prevState) => ({
+            loading: false,
+            tableState: {
+              ...prevState.tableState,
+              // set page to 1 to avoid infinite loop
+              // onTableChange is automatically triggered when tableState.page === 0
+              page: 1,
+            },
+            error: true,
+            members: [],
+          }));
         });
     }
   };
@@ -240,9 +259,14 @@ export class MemberTable extends PureComponent<Props, State> {
   render() {
     const { t } = this.props;
     const { loading } = this.state;
+
     const noMember = this.props.noDataText
       ? this.props.noDataText
       : t('noMember');
+
+    // If an error occured, display a generic error message instead of the noMember message
+    const messageNoMatch = this.state.error ? t('memberTable.error') : noMember;
+
     const options = {
       onRowClick: this.onRowClick,
       serverSide: true,
@@ -265,7 +289,7 @@ export class MemberTable extends PureComponent<Props, State> {
       },
       textLabels: {
         body: {
-          noMatch: loading ? null : noMember,
+          noMatch: loading ? null : messageNoMatch,
         },
       },
       onTableChange: (action: string, tableState: MUIDataTableState) => {

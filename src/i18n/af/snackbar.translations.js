@@ -1279,4 +1279,7 @@ exports.default = {
         "La double réservation n'est pas compatible avec l'intégration Spivi",
     },
   },
+  smartlistGetMembers: {
+    error: 'Une erreur est survenue: impossible de récupérer les membres'
+  }
 };

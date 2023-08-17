@@ -515,6 +515,9 @@ exports.default = {
         title: 'Action marketing',
         label: 'Sélectionnez une action marketing',
       },
+      step: {
+        name: 'Name',
+      },
       entryTrigger: {
         title: 'Entrée',
         addTrigger: "Ajouter un déclencheur d'entrée",

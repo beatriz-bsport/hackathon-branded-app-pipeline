@@ -3330,6 +3330,7 @@
         "changeInExit": { "title": "Sortie", "label": "Considérer le membre comme" },
         "changeInStep": { "label": "Nom de l'étape", "default": "Nom de l'étape" },
         "marketingAction": { "title": "Action marketing", "label": "Sélectionnez une action marketing" },
+        "step": { "name": "Name" },
         "entryTrigger": {
           "title": "Entrée",
           "addTrigger": "Ajouter un déclencheur d'entrée",

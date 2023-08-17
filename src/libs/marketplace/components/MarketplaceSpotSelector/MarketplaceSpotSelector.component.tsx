@@ -11,7 +11,11 @@ import {
 import type { OptionCallback } from '../../../../state/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import OfferSummary from '#libs/offer/OfferSummary';
-import type { OfferStatus, Offer_FULL } from '#libs/offer/types';
+import {
+  OfferSummaryVariant,
+  type OfferStatus,
+  type Offer_FULL,
+} from '#libs/offer/types';
 import type { CompanyTheme } from '#libs/theme/types';
 import type {
   AssetForBlueprint,
@@ -173,7 +177,7 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
           metaActivity={props.offer?.meta_activity}
           offer={props.offer}
           theme={props.theme}
-          variant="basket"
+          variant={OfferSummaryVariant.BASKET}
         />
         {!isMobile && (
           <div className="bs-marketplace-spot-selector__legend">

@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { Divider } from '@material-ui/core';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
-import { Offer } from '#libs/offer/types';
+import { Offer, OfferSummaryVariant } from '#libs/offer/types';
 import { CheckoutItem } from '#libs/checkout/types';
 import { CompanyTheme } from '#libs/theme/types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
@@ -52,7 +52,7 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
               metaActivity={offer?.meta_activity}
               offer={offer}
               theme={companyTheme}
-              variant="basket"
+              variant={OfferSummaryVariant.BASKET}
             />
           ))}
 

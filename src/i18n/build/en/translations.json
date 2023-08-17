@@ -3085,7 +3085,10 @@
         },
         "createThread": {
             "close": "Close",
-            "confirmResourceSelected": "Confirm"
+            "confirmResourceSelected": "Confirm",
+            "title": "New message",
+            "smartlistPlaceholder": "Select a smartlist",
+            "refreshSmartlist": "Click on the refresh button to see the new smartlists"
         },
         "messageList": {
             "filterOutCommunicationSent": "The communication you have just sent is hidden by the active filters.",
@@ -11150,9 +11153,11 @@
                         "isModifyRecursively": "Do you want to modify similar sessions according to these new conditions?",
                         "isNotifyConsumers": "Do you want to inform your customers of this change?",
                         "partnership": {
-                            "partnerMaxBookingCount": "Maximum number of marketplace bookings (OneFit only)",
+                            "partnerMaxBookingCount": "Maximum number of marketplace bookings (OneFit + Urban Sports Club only)",
                             "availableOnPartnership": "On marketplaces (ClassPass, OneFit...)",
-                            "title": "Marketplace"
+                            "title": "Marketplace",
+                            "uscIntegrationWarning": "Your integration to the Urban Sports Club marketplace is active, any session spanning 2 days or more will not appear.",
+                            "uscIntegrationWorkshopWarning": "Workshops are not compatible with the Urban Sports Club marketplace, so this session will not be included."
                         },
                         "allowGuestOffer": "Allow booking for a guest",
                         "isManagerOnly": "Available for booking (web+app)",
@@ -12559,7 +12564,8 @@
             "performance": "Payroll",
             "replacement": "Substitution"
         },
-        "replacement": "Substitution"
+        "replacement": "Substitution",
+        "inbox": "Inbox"
     },
     "event": {
         "list": {

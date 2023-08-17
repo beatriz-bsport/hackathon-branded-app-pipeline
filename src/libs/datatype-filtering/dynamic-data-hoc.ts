@@ -74,6 +74,7 @@ export type withDatatypeDynamicDataProps = DynamicConnectedProps & {
   handleGetDynamicDataForFilters: (
     type: DynamicFilterDataType,
     valueId: number[],
+    columnName: string,
   ) => handleGetDynamicDataForFiltersReturn;
 };
 
@@ -135,7 +136,11 @@ export default function withDatatypeDynamicData(
     withHandlers({
       handleGetDynamicDataForFilters:
         (props: DynamicConnectedProps) =>
-        (type: DynamicFilterDataType, valueId?: number[]) => {
+        (
+          type: DynamicFilterDataType,
+          valueId?: number[],
+          columnName: string,
+        ) => {
           if (
             !props.dynamicDataLoading[type] &&
             !props.dynamicDataHasBeenLoaded[type]
@@ -435,11 +440,13 @@ export default function withDatatypeDynamicData(
               return props.metaActivities.map((m) => ({
                 label: m.name,
                 value: m.id,
+                columnName,
               }));
             case ReportFilterableDataType.PAYMENT_PACK:
               return props.paymentPacks.map((p) => ({
                 label: p.name,
                 value: p.id,
+                columnName,
               }));
             case ReportFilterableDataType.PAYMENT_PACK_CATEGORY:
               return props.paymentPackCategories.map((paymentPackCategory) => ({
@@ -450,26 +457,31 @@ export default function withDatatypeDynamicData(
               return props.coaches.map((c) => ({
                 label: c.name,
                 value: c.id,
+                columnName,
               }));
             case ReportFilterableDataType.BILLING_ESTABLISHMENT:
               return props.establishments.map((e) => ({
                 label: e.location.address,
                 value: e.id,
+                columnName,
               }));
             case ReportFilterableDataType.ESTABLISHMENT:
               return props.establishments.map((e) => ({
                 label: e.title,
                 value: e.id,
+                columnName,
               }));
             case ReportFilterableDataType.PRIVATE_SERVICE:
               return props.privateServices.map((ps) => ({
                 label: ps.name,
                 value: ps.id,
+                columnName,
               }));
             case ReportFilterableDataType.PRIVATE_SLOT:
               return props.privateSlots.map((ps) => ({
                 label: ps.name,
                 value: ps.id,
+                columnName,
               }));
             case ReportFilterableDataType.PRIVATE_PASS:
               return props.privatePasses
@@ -477,54 +489,64 @@ export default function withDatatypeDynamicData(
                 .map((pp) => ({
                   label: pp.name,
                   value: pp.id,
+                  columnName,
                 }));
             case ReportFilterableDataType.PRIVATE_PASS_CATEGORY:
               return props.privatePassCategories.map((privatePassCategory) => ({
                 label: privatePassCategory.name,
                 value: privatePassCategory.id,
+                columnName,
               }));
             case ReportFilterableDataType.GIFTCARD:
               return props.giftCards.map((gc) => ({
                 label: gc.name,
                 value: gc.id,
+                columnName,
               }));
             case ReportFilterableDataType.COUPON:
               return props.coupons.map((c) => ({
                 label: c.name,
                 value: c.id,
+                columnName,
               }));
             case ReportFilterableDataType.VIDEO:
               return props.videos.map((v) => ({
                 label: v.name,
                 value: v.id,
+                columnName,
               }));
             case ReportFilterableDataType.BILLING_GROUP:
               return props.billingGroups.map((bg) => ({
                 label: bg.name,
                 value: bg.id,
+                columnName,
               }));
             case ReportFilterableDataType.CONTRACT:
               return props.contracts.map((contract) => ({
                 label: contract.name,
                 value: contract.id,
+                columnName,
               }));
             case ReportFilterableDataType.SUBSHOP:
               return (
                 props.subshops?.map((subshop) => ({
                   label: subshop.name,
                   value: subshop.id,
+                  columnName,
                 })) ?? []
               );
             case ReportFilterableDataType.STAFF:
               return props.staffs.map((staff) => ({
                 value: staff.id,
                 label: `${staff.first_name} ${staff.last_name}`,
+                columnName,
               }));
             case ReportFilterableDataType.COMPANY:
               return (
                 props.franchiseCompanies?.map((c) => ({
                   label: c.name,
                   value: c.id,
+                  columnName,
                 })) ?? []
               );
             default:

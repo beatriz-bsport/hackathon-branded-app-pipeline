@@ -50,6 +50,7 @@ type QuickReportFilterConfigFilterProps = {
   columnsDataSelectedQuickFilter: QuickFiltersColumnsData;
   isQuickFilterModalOpen: boolean;
   onClose: () => void;
+  reportCategory: string;
 };
 
 const QuickReportFilterConfigFilter: React.FC<
@@ -62,6 +63,7 @@ const QuickReportFilterConfigFilter: React.FC<
   isQuickFilterModalOpen,
   onClose,
   columnsDataSelectedQuickFilter,
+  reportCategory,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('reporting');
@@ -184,12 +186,14 @@ const QuickReportFilterConfigFilter: React.FC<
             <div className={classes.flexTwo}>
               {!!values.config.groups.length && (
                 <DatatypeFilterConfigValueManager
+                  withoutConfirmButton
                   comparator={
                     values.config.groups[0].filters_data[index].comparator
                   }
                   filterItem={selectedColumn}
                   getDataByType={getDataByType}
                   prefix={`config.groups[0].filters_data.${index}`}
+                  reportCategory={reportCategory}
                 />
               )}
             </div>

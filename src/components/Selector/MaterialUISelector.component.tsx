@@ -75,17 +75,18 @@ type BaseProps<T extends OptionTypeBase> = {
   withoutConfirmButton?: boolean;
 } & Omit<NamedProps, 'options' | 'isMulti' | 'onChange' | 'value'>;
 
-type ItemRendererProps<T extends OptionTypeBase> = {
+export type ItemRendererProps<T extends OptionTypeBase> = {
   data: T;
   isSelected: boolean;
   children: React.ReactNode;
   isDisabled: boolean;
 };
 
-type ChipsRendererProps<T extends OptionTypeBase> = {
+export type ChipsRendererProps<T extends OptionTypeBase> = {
   data: T;
   onDelete: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
+
 export type OwnProps<T extends OptionTypeBase> =
   | ({
       onChange?: (values: T[] | OptionTypeBase[]) => void;

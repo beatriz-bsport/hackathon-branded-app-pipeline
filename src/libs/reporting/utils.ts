@@ -100,6 +100,13 @@ import {
   ReportFilterableDataType,
 } from '#libs/datatype-filtering/constants';
 import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
+import {
+  GREEN_GREY_BOOLEAN_CHIPS,
+  RED_GREEN_BOOLEAN_CHIPS,
+  RED_GREEN_INVERTED_BOOLEAN_CHIPS,
+  STATUS_CHIPS,
+  CONDITION_CHIPS,
+} from './constants';
 
 export const CATEGORIES: ReportCategory[] = [
   {
@@ -871,4 +878,34 @@ export const getMultipleValuesLabel = (
     default:
       return `(${value?.length})`;
   }
+};
+
+export const isColumnChipsable = (datatype: string, reportCategory: string) => {
+  const isStatusChip = STATUS_CHIPS.includes(datatype);
+  const isBooleanGreenGreyChip = GREEN_GREY_BOOLEAN_CHIPS.includes(datatype);
+  const isBooleanRedGreenChip = RED_GREEN_BOOLEAN_CHIPS.includes(datatype);
+  const isBooleanRedGreenInvertedChip =
+    RED_GREEN_INVERTED_BOOLEAN_CHIPS.includes(datatype);
+  const isConditionChip =
+    CONDITION_CHIPS.includes(datatype) ||
+    (datatype === 'credits' && reportCategory === 'credit');
+  const isTagChip = datatype.substring(0, 4) === 'tag:';
+
+  const isChipsable =
+    isStatusChip ||
+    isBooleanGreenGreyChip ||
+    isBooleanRedGreenChip ||
+    isBooleanRedGreenInvertedChip ||
+    isConditionChip ||
+    isTagChip;
+
+  return {
+    isStatusChip,
+    isBooleanGreenGreyChip,
+    isBooleanRedGreenChip,
+    isBooleanRedGreenInvertedChip,
+    isConditionChip,
+    isTagChip,
+    isChipsable,
+  };
 };

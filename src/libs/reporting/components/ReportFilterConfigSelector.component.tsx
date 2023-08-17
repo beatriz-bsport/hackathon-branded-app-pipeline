@@ -57,6 +57,7 @@ export type Props = {
   fetchReportFilterConfigList: () => void;
   isFranchisor: boolean;
   reportQuickFilter: ReportFilterConfig;
+  reportCategory?: string;
 };
 
 type Values = {
@@ -78,6 +79,7 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
     isFranchisor,
     values,
     reportQuickFilter,
+    reportCategory,
   }) => {
     const { t } = useTranslation(['reporting']);
     const classes = useStyles();
@@ -365,6 +367,7 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
                     isQuickFilterConfigRowModalOpen
                   }
                   isQuickFilterModalOpen={isQuickFilterModalOpen}
+                  reportCategory={reportCategory}
                   selectedColumn={selectedColumn}
                   setIsQuickFilterConfigColumnModalOpen={
                     setIsQuickFilterConfigColumnModalOpen

@@ -63,6 +63,7 @@ type Props = {
   setSelectedColumn: React.Dispatch<
     React.SetStateAction<DatatypeFilterConfigItem>
   >;
+  reportCategory: string;
 };
 
 const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
@@ -81,6 +82,7 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
   setSelectedColumn,
   isQuickFilterConfigRowModalOpen,
   setIsQuickFilterConfigRowModalOpen,
+  reportCategory,
 }) => {
   const classes = useStyles();
   const [search, setSearch] = useState('');
@@ -231,6 +233,7 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
           isQuickFilterConfigRowModalOpen={isQuickFilterConfigRowModalOpen}
           isQuickFilterModalOpen={isQuickFilterModalOpen}
           onClose={handleQuickFilterConfigRowClose}
+          reportCategory={reportCategory}
           selectedColumn={selectedColumn}
         />
       )}

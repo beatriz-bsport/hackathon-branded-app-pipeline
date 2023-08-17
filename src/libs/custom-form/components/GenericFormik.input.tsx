@@ -9,6 +9,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Switch } from '@material-ui/core';
 import MaterialUISelector, {
+  itemRendererProps,
   Props as MaterialUISelectorProps,
 } from '#components/Selector/MaterialUISelector.component';
 
@@ -173,6 +174,7 @@ export const MaterialUiSingleSelectorField: React.FC<
             isDisabled={props.isDisabled}
             isMenuListVirtualized={props.isMenuListVirtualized}
             isMulti={false}
+            itemRenderer={props.itemRenderer}
             onChange={(option) => {
               props.onChange
                 ? props.onChange(option)
@@ -200,6 +202,7 @@ type MaterialUiMultiSelectorProps = {
   defaultNumberShown?: number;
   forceError?: boolean;
   withoutConfirmButton?: boolean;
+  itemRenderer?: (props: itemRendererProps) => React.ReactNode;
 };
 
 type Props = BaseFieldProps & MaterialUiMultiSelectorProps;
@@ -230,6 +233,7 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
             inScrollBar={props.inScrollBar}
             isDisabled={props.isDisabled}
             isMenuListVirtualized={props.isMenuListVirtualized}
+            itemRenderer={props.itemRenderer}
             onChange={(optionList) => {
               const valueList = optionList.map((option) => option.value);
               helpers.setValue(valueList);

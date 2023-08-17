@@ -86,6 +86,14 @@ import NestedAlertError from './NestedAlertError.component';
 import MaterialUISelectorConsumers from '#components/Selector/MaterialUISelectorConsumers.container';
 import MaterialUISelectorPayout from '#components/Selector/MaterialUISelectorPayout.container';
 import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
+import ReportChipsRenderer from '#libs/reporting/components/ReportChips/ReportChipsRenderer.component';
+
+type ItemProps = {
+  children: string;
+  data: { label: string; value: number; columnName: string };
+  isSelected: boolean;
+  isDisabled: boolean;
+};
 
 const PAYMENT_METHODS_WITHOUT_CREDIT_ACCOUNT = PAYMENT_METHODS.filter(
   (paymentMethod) => paymentMethod.id !== CREDIT_ACCOUNT.id,
@@ -100,6 +108,8 @@ const DatatypeFilterConfigValueManager: React.FC<{
     datatype: DynamicFilterDataType,
   ) => handleGetDynamicDataForFiltersReturn;
   inScrollBar?: boolean;
+  reportCategory?: string;
+  withoutConfirmButton?: boolean;
 }> = ({
   prefix,
   filterItem,
@@ -107,22 +117,35 @@ const DatatypeFilterConfigValueManager: React.FC<{
   isPreview,
   getDataByType,
   inScrollBar,
+  reportCategory,
+  withoutConfirmButton,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
-
   const booleanOptions = useMemo(
     () => [
       {
-        label: t('filter.form.isTrue'),
+        label: t('yes'),
         value: true,
+        columnName: filterItem.identifier,
       },
       {
-        label: t('filter.form.isFalse'),
+        label: t('no'),
         value: false,
+        columnName: filterItem.identifier,
       },
     ],
-    [t],
+    [t, filterItem.identifier],
+  );
+
+  const itemRenderer = useCallback(
+    (itemProps: ItemProps) => (
+      <ReportChipsRenderer
+        itemProps={itemProps}
+        reportCategory={reportCategory}
+      />
+    ),
+    [reportCategory],
   );
 
   if (filterItem.datatype === 'boolean') {
@@ -130,6 +153,7 @@ const DatatypeFilterConfigValueManager: React.FC<{
       <MaterialUiSingleSelectorField
         inScrollBar={inScrollBar}
         isDisabled={isPreview}
+        itemRenderer={!!itemRenderer && itemRenderer}
         name={`${prefix}.value`}
         options={booleanOptions}
       />
@@ -176,11 +200,14 @@ const DatatypeFilterConfigValueManager: React.FC<{
     return (
       <DatatypeFilterConfigValueList
         key={`${prefix}.value`}
+        columnName={filterItem.identifier}
         datatype={filterItem.datatype}
         getDataByType={getDataByType}
         inScrollBar={inScrollBar}
         isPreview={isPreview}
+        itemRenderer={!!itemRenderer && itemRenderer}
         name={`${prefix}.value`}
+        withoutConfirmButton={withoutConfirmButton}
       />
     );
   }
@@ -350,7 +377,19 @@ const DatatypeFilterConfigValueList: React.FC<{
     datatype: DynamicFilterDataType,
   ) => handleGetDynamicDataForFiltersReturn;
   inScrollBar: boolean;
-}> = ({ name, datatype, isPreview, getDataByType, inScrollBar }) => {
+  columnName: string;
+  itemRenderer: any;
+  withoutConfirmButton: boolean;
+}> = ({
+  name,
+  datatype,
+  isPreview,
+  getDataByType,
+  inScrollBar,
+  columnName,
+  itemRenderer,
+  withoutConfirmButton,
+}) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
   const { errors, touched } = useFormikContext();
@@ -377,7 +416,7 @@ const DatatypeFilterConfigValueList: React.FC<{
       case 'subshop':
       case 'video':
       case 'staff':
-        return getDataByType(datatype);
+        return getDataByType(datatype, [], columnName);
 
       case 'payout_status':
         return [
@@ -389,11 +428,13 @@ const DatatypeFilterConfigValueList: React.FC<{
         ].map((value) => ({
           label: t(`payment:payout.status.${value}`),
           value,
+          columnName,
         }));
       case 'invoice_status':
         return PLANNED_INVOICE_STATUS.map((status) => ({
           label: t(`invoice:status.${status.id}`),
           value: status.id,
+          columnName,
         }));
       case 'billing_plan_status':
         return [
@@ -405,20 +446,24 @@ const DatatypeFilterConfigValueList: React.FC<{
         ].map((value) => ({
           label: t(`subscription:billing_plan_status.${value}`),
           value,
+          columnName,
         }));
       case 'dispute_status':
         return [
           {
             value: DISPUTE_STATUS_PENDING,
             label: t(`payment:disputeStatus.${DISPUTE_STATUS_PENDING}`),
+            columnName,
           },
           {
             value: DISPUTE_STATUS_LOST,
             label: t(`payment:disputeStatus.${DISPUTE_STATUS_LOST}`),
+            columnName,
           },
           {
             value: DISPUTE_STATUS_WON,
             label: t(`payment:disputeStatus.${DISPUTE_STATUS_WON}`),
+            columnName,
           },
         ];
       case 'booking_status_code':
@@ -426,18 +471,22 @@ const DatatypeFilterConfigValueList: React.FC<{
           {
             value: BOOKING_STATUS_OK.id,
             label: t('booking:filters.notCancelled'),
+            columnName,
           },
           {
             value: BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
             label: t('booking:filters.managerCanceled'),
+            columnName,
           },
           {
             value: BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
             label: t('booking:filters.consumerCanceled'),
+            columnName,
           },
           {
             value: BOOKING_STATUS_CANCELLED_BY_OFFER.id,
             label: t('booking:filters.canceled'),
+            columnName,
           },
         ];
       case 'source_device':
@@ -447,30 +496,35 @@ const DatatypeFilterConfigValueList: React.FC<{
             label: t(
               `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_APP.id.toString()}`,
             ),
+            columnName,
           },
           {
             value: BOOKING_SOURCE_SAAS.id,
             label: t(
               `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_SAAS.id.toString()}`,
             ),
+            columnName,
           },
           {
             value: BOOKING_SOURCE_WEB.id,
             label: t(
               `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_WEB.id.toString()}`,
             ),
+            columnName,
           },
           {
             value: BOOKING_SOURCE_OTHER.id,
             label: t(
               `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_OTHER.id.toString()}`,
             ),
+            columnName,
           },
           {
             value: BOOKING_SOURCE_MIGRATION.id,
             label: t(
               `reporting:presetValuesByDatatype.source_device.${BOOKING_SOURCE_MIGRATION.id.toString()}`,
             ),
+            columnName,
           },
         ];
       case 'payment_engine':
@@ -478,10 +532,12 @@ const DatatypeFilterConfigValueList: React.FC<{
           {
             value: PAYMENT_ENGINE_BSPORT,
             label: t(`invoice:paymentEngine.label.${PAYMENT_ENGINE_BSPORT}`),
+            columnName,
           },
           {
             value: PAYMENT_ENGINE_STRIPE,
             label: t(`invoice:paymentEngine.label.${PAYMENT_ENGINE_STRIPE}`),
+            columnName,
           },
         ];
 
@@ -503,12 +559,14 @@ const DatatypeFilterConfigValueList: React.FC<{
         return [...PAYMENT_METHODS_WITHOUT_CREDIT_ACCOUNT].map(({ id }) => ({
           value: id ?? 0,
           label: t(`payment:method.${id}`),
+          columnName,
         }));
       case 'payment_method_with_credit_account':
         return [...PAYMENT_METHODS].map(({ id }) => {
           return {
             value: id ?? 0,
             label: t(`payment:method.${id}`),
+            columnName,
           };
         });
       case 'dow':
@@ -519,11 +577,12 @@ const DatatypeFilterConfigValueList: React.FC<{
               .isoWeekday(i + 1)
               .format('dddd'),
             value: i + 1,
+            columnName,
           }));
       default:
         return [];
     }
-  }, [getDataByType, t, datatype]);
+  }, [getDataByType, t, columnName, datatype]);
 
   if (['email', 'user'].includes(datatype)) {
     return (
@@ -612,15 +671,16 @@ const DatatypeFilterConfigValueList: React.FC<{
   return (
     <MaterialUiMultiSelectorField
       isMenuListVirtualized
-      withoutConfirmButton
       className={classes.flexOne}
       defaultNumberShown={1}
       forceError={false && error && isTouched}
       inScrollBar={inScrollBar}
       isDisabled={isPreview}
+      itemRenderer={!!itemRenderer && itemRenderer}
       name={name}
       options={[...getOptions()]}
       placeholder={t('filter.form.placeholderList')}
+      withoutConfirmButton={withoutConfirmButton}
     />
   );
 };

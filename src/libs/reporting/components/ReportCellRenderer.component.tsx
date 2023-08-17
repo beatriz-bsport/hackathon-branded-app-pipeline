@@ -4,13 +4,7 @@ import BooleanChip from '#components/chip/BooleanChip.component';
 import ReportStatusChip from './ReportChips/ReportStatusChip.component';
 import ReportConditionChip from './ReportChips/ReportConditionChip.component';
 import CustomChip from '#components/chip/CustomChip.component';
-import {
-  GREEN_GREY_BOOLEAN_CHIPS,
-  RED_GREEN_BOOLEAN_CHIPS,
-  RED_GREEN_INVERTED_BOOLEAN_CHIPS,
-  STATUS_CHIPS,
-  CONDITION_CHIPS,
-} from '../constants';
+import { isColumnChipsable } from '../utils';
 
 type ReportCellRendererProps = {
   reportCategory: string;
@@ -33,23 +27,15 @@ const ReportCellRenderer: React.FC<ReportCellRendererProps> = ({
 }) => {
   const displayedValue = formattedValue?.toString();
 
-  const isStatusChip = STATUS_CHIPS.includes(datatype);
-  const isBooleanGreenGreyChip = GREEN_GREY_BOOLEAN_CHIPS.includes(datatype);
-  const isBooleanRedGreenChip = RED_GREEN_BOOLEAN_CHIPS.includes(datatype);
-  const isBooleanRedGreenInvertedChip =
-    RED_GREEN_INVERTED_BOOLEAN_CHIPS.includes(datatype);
-  const isConditionChip =
-    CONDITION_CHIPS.includes(datatype) ||
-    (datatype === 'credits' && reportCategory === 'credit');
-  const isTagChip = datatype.substring(0, 4) === 'tag:';
-
-  const isChip =
-    isStatusChip ||
-    isBooleanGreenGreyChip ||
-    isBooleanRedGreenChip ||
-    isBooleanRedGreenInvertedChip ||
-    isConditionChip ||
-    isTagChip;
+  const {
+    isStatusChip,
+    isBooleanGreenGreyChip,
+    isBooleanRedGreenChip,
+    isBooleanRedGreenInvertedChip,
+    isConditionChip,
+    isTagChip,
+    isChipsable,
+  } = isColumnChipsable(datatype, reportCategory);
 
   let tagColor = null;
   if (isTagChip && extra_data?.color) {
@@ -64,7 +50,7 @@ const ReportCellRenderer: React.FC<ReportCellRendererProps> = ({
     // typescript didn't accept that this component's prop "value" (string | number | boolean)...
     // ...was passed to the components below that accept only one or two of the three types as their "value"
     <div>
-      {!isChip && displayedValue}
+      {!isChipsable && displayedValue}
       {isStatusChip &&
         (typeof value === 'string' || typeof value === 'number') && (
           <ReportStatusChip

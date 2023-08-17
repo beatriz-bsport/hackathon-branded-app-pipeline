@@ -346,6 +346,7 @@ const ReportGenerationForm: React.FC<Props> = ({
             onCreateReportFilterConfigs={handleCreateFilter}
             onDeleteReportFilterConfigs={deleteReportFilterConfig}
             onSelect={handleSelectFilter}
+            reportCategory={reportConfiguration.category}
             reportFilterConfigs={reportFilterConfigs}
             reportQuickFilter={quickFilter}
             selectedFilter={values.reportFilterConfigId}

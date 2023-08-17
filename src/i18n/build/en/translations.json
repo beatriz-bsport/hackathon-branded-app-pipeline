@@ -4312,7 +4312,8 @@
             "activeCoupons": "Active promotions"
         },
         "detail": {
-            "seeParameters": "Edit"
+            "seeParameters": "Edit",
+            "seeVouchers": "See the vouchers"
         },
         "card": {
             "first_buy": "Can only be used for the first purchase",
@@ -4430,7 +4431,8 @@
                 "tag": "Sub Tag",
                 "tag_group": "Master Tag"
             },
-            "title": "[Form] Promotion"
+            "title": "[Form] Promotion",
+            "alert": "A discount code can be used by a member to reduce the price of a basket. In this form, you can fully customize how the code is applied. You choose the code yourself and it's up to you to decide how to share it with your members."
         },
         "noDiscount": "This promotional code hasn't been used yet.",
         "createCoupon": "Add a promotion",
@@ -4442,7 +4444,9 @@
                 "cancel": "Cancel",
                 "submit": "Save",
                 "not_found": "This promo code is not valid.",
-                "not_applicable": "This promo code is not applicable."
+                "not_applicable": "This promo code is not applicable.",
+                "5004": "This code can only be applied to one item.",
+                "5006": "This unique code is already linked to an open basket"
             }
         },
         "message": {
@@ -4535,8 +4539,42 @@
                         "notCsvFileError": "The file type does not correspond to a CSV file."
                     },
                     "only_on_objects": "You must choose an object on which to apply the reduction",
-                    "applies_to": "The item on which the discount is to be applied must be a pass, an appointment pass, a pack or a webshop item"
+                    "applies_to": "The item on which the discount is to be applied must be a pass, an appointment pass, a pack or a webshop item",
+                    "5000": "You cannot provide a code that has already been used in another coupon.",
+                    "5001": "Some of the unique codes cannot be added as they have already been registered.",
+                    "5003": "Some unique codes are already registered in another coupon.",
+                    "5004": "This code can only be applied to one item.",
+                    "5005": "This code has already been used or is currently attached to a basket.",
+                    "5006": "This unique code is already linked to an open basket",
+                    "update_mode": "If you wish to modify the codes registered for this promotion, you can add the codes to the existing ones, or replace the existing codes"
+                },
+                "update": {
+                    "alertInfo": "There is {{count}} code registered for this promotion, you can download new codes.",
+                    "alertInfo_plural": "There are {{count}} codes registered for this promotion, you can download new codes.",
+                    "append": "Add to existing codes",
+                    "replace": "Replace existing codes",
+                    "popover": "Unused codes will be deleted, but used codes will be retained."
                 }
+            },
+            "voucherCodesDialog": {
+                "header": {
+                    "codes": "Codes",
+                    "status": "Status"
+                },
+                "selector": {
+                    "allStatus": "All status",
+                    "redeemed": "Marked as used",
+                    "pending": "Awaiting external approval",
+                    "notUsed": "Not used"
+                },
+                "checkBoxes": {
+                    "selectAll": "Select all",
+                    "unselectAll": "Unselect all"
+                },
+                "searchBar": {
+                    "placeHolder": "Search for a code"
+                },
+                "noResult": "No results"
             }
         }
     },

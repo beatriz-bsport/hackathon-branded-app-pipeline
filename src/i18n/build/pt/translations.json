@@ -3396,6 +3396,42 @@
             "member-giftcard_used": {
                 "primaryText": "O passe de oferta {{- giftcardName }} está ativado.",
                 "filter": "Passes de oferta utilizados"
+            },
+            "member-login_successful": {
+                "primaryText": "Foi registada uma ligação {{ source }} bem sucedida.",
+                "sourceApp": "da aplicação",
+                "sourceMarketplace": "do marketplace",
+                "filter": "Conexões bem sucedidas"
+            },
+            "member-tag_applied": {
+                "primaryText": "A etiqueta {{ tagName }} foi aplicada.",
+                "filter": "Etiquetas aplicadas"
+            },
+            "member-invoice_paid": {
+                "primaryText": "A fatura n°{{ invoiceUUID }} foi paga com o montante de {{ amount }}.",
+                "filter": "Faturas pagas"
+            },
+            "member-private_booking_registered": {
+                "primaryText": "{{ source }} reservou uma marcação {{- privateServiceName }} - {{- privateSlotName }} em {{- privateServiceDate }}.",
+                "filter": "Marcações",
+                "sourceManager": "O/A gestor/a {{ managerName }}"
+            },
+            "member-basket_paid": {
+                "primaryText": "Um carrinho de {{ amount }} foi pago. ",
+                "filter": "Carrinhos pagos"
+            },
+            "member-vod_bought": {
+                "filter": "Vídeos de Demanda adquiridos",
+                "primaryText": "Os VOD {{- VODName }} adquiridos."
+            },
+            "member-booking_registered": {
+                "sourceManager": "O/A gestor/a {{ managerName }}",
+                "filter": "Reservas",
+                "primaryText": "{{ source }} reservou a sessão {{- offerName }} de {{- offerDate }}."
+            },
+            "member-custom_form_filled": {
+                "primaryText": "O formulário de edição de perfil {{ formName }} foi concluído.",
+                "filter": "Formulário de perfil editado"
             }
         },
         "member": {
@@ -3484,19 +3520,64 @@
                     "error": {
                         "denied": {
                             "title": "Fusão recusada",
-                            "helper": "Já optou por recusar o pedido de fusão ao estúdio {{- company}}, a sua decisão foi tida em conta."
+                            "helper": "Já optou por recusar o pedido de fusão ao estúdio {{- company}}, a sua decisão foi tida em conta.",
+                            "contactCompany": "Se pretender solicitar novamente a fusão da sua conta, ou se não recusou o pedido de fusão, contacte diretamente o seu estúdio."
+                        },
+                        "accepted": {
+                            "helper": "O seu e-mail de início de sessão atual é : {{ email }}",
+                            "contactCompany": "Se desejar alterar a sua escolha ou se este pedido não tiver sido feito por si, contacte o seu estúdio.",
+                            "title": "Fusão aceite"
                         }
                     },
                     "title": "Unir a sua conta"
-                }
+                },
+                "actions": {
+                    "continue": "Continuar",
+                    "confirmFusion": "Aceitar a fusão",
+                    "deniedFusion": "Recusar a fusão",
+                    "cancel": "Guardar o meu email",
+                    "confirm": "Confirmar o meu novo email"
+                },
+                "generalError": {
+                    "contactCompany": "Deteta-mos um erro no pedido atual. Por razões de segurança, este pedido foi desativado. Para voltar a gerar este pedido, ou se não for o autor, contacte diretamente o seu estúdio.",
+                    "helper": "O estúdio {{- company}} fez um pedido para alterar o seu email de início de sessão para o seu espaço pessoal:",
+                    "title": "Alteração do email de ligação inválido"
+                },
+                "unAuthorizedAccess": {
+                    "helper": "Não está autenticado na conta que pode aceder a este pedido, por favor ligue-se à conta associada ao email de confirmação enviado.",
+                    "contactCompany": "Se não puder atender a este pedido, contacte diretamente o seu estúdio.",
+                    "title": "Acesso não autorizado"
+                },
+                "requestingStudio": "O estúdio {{- company}} gostaria de alterar o seu email de início de sessão para o seu espaço pessoal :"
             },
             "dialog": {
                 "actions": {
                     "close": "Cancelar",
                     "confirm": "Confirmar"
                 },
-                "cancelHelperText": "Se não pretender alterar o email do membro, clique em \"cancelar\"."
-            }
+                "cancelHelperText": "Se não pretender alterar o email do membro, clique em \"cancelar\".",
+                "expiryText": "Uma vez apresentado, o pedido de alteração expira no prazo de 7 dias",
+                "newEmail": "Novo email : {{ email }}",
+                "oldEmail": "Email anterior: {{ email }}",
+                "title": "Alteração do email",
+                "securityHelperText": "Por razões de segurança, enviar-lhe-emos um email para confirmar esta alteração.",
+                "mergeMember": {
+                    "warning": "Atenção, está a tentar fundir estes dois membros do seu estúdio :",
+                    "unchangedEmail": "Ao clicar em confirmar, o membro {{ new_email }} recuperará as faturas, reservas, saldo e compras de {{ old_email }}. O membro {{ old_email }} será eliminado. Será enviada uma mensagem pelo email para ambos os endereços para notificar os membros."
+                },
+                "titleMerge": " Agregar membro",
+                "linkMember": {
+                    "unchangedEmail": "Entretanto, {{ old_email }} manterá o seu email antigo e os membros não serão ligados.",
+                    "notIncompany": "O email {{ new_email }} pertence a um membro de outro estúdio.",
+                    "warning": "Atenção, queres ligar estes dois membros :"
+                },
+                "simpleChange": {
+                    "informativeHelperText": "Para sua informação, enviar-lhe-emos um email para o informar desta alteração.",
+                    "warning": "Atenção,  está a alterar o email de início de sessão deste membro :",
+                    "unchangedEmail": "No entretanto, ele manterá o seu antigo email."
+                }
+            },
+            "pendingValidation": "Alteração pendente: {{ email }}"
         },
         "archive": {
             "archivedMember": "",
@@ -3508,11 +3589,16 @@
                     "6": "",
                     "2": "",
                     "4": "",
-                    "3": ""
+                    "3": "",
+                    "general": "Identificámos os seguintes pontos e aconselhamo-lo a regularizar a conta deste membro antes de a arquivar:"
                 },
                 "title": "",
                 "helper_text_2": "",
-                "helper_text_1": ""
+                "helper_text_1": "",
+                "actions": {
+                    "close": "Fechar",
+                    "confirm": "Confirmar"
+                }
             }
         },
         "memberTermsAccepted": "",
@@ -3528,7 +3614,17 @@
             "confirm": "",
             "cancel": "",
             "title": ""
-        }
+        },
+        "resetPassword": {
+            "confirmation": "Instruções corretamente enviadas para {{memberEmail}}",
+            "error": "Erro ao enviar instruções de reposição da palavra-passe",
+            "dialogTitle": "Redefinir palavra-passe",
+            "button": "Repor a palavra-passe",
+            "dialogContent": "Está prestes a enviar instruções para repor a palavra-passe para {{memberEmail}}"
+        },
+        "noData": "Não existem membros nesta lista inteligente.",
+        "noMember": "De momento, não há membros para apresentar.",
+        "communication": "Comunicação"
     },
     "metaActivity": {
         "settings": {
@@ -3537,7 +3633,16 @@
             "autoDiscardHeader": "A sessão será cancelada se",
             "firstBookingMinutesUntil": "As marcações são bloqueadas antes de {{m}} a partir do início da sessão",
             "restrictionsHeader": "Restrições personalizadas",
-            "restrictions": " Restrição personalizada n.º{{ count }}"
+            "restrictions": " Restrição personalizada n.º{{ count }}",
+            "lastBookingBeforeMinutes": "Até {{m}} antes do início da sessão",
+            "firstBookingMinutesUntilHeader": "Os alunos podem reservar sessões futuras se começarem em menos de",
+            "lastDiscardBeforeMinutesFull": "Cancelamentos possíveis até {{m}} antes do início da sessão",
+            "lastBookingBeforeMinutesHeader": "Antes do início do curso, última reserva possível",
+            "conditions": "Condições",
+            "lastDiscardBeforeMinutesHeader": "Antes do início da aula, último cancelamento possível",
+            "lastBookingBeforeMinutesFull": "Últimas reservas possíveis até {{m}} antes do início da sessão",
+            "title": "Parâmetros",
+            "lastDiscardBeforeMinutes": "Até {{m}} antes do início da sessão"
         },
         "groupedOption": {
             "modal": {
@@ -3585,7 +3690,9 @@
                     "allowGuest": "Pode ser marcado para um convidado",
                     "fullBookingOnlyCaption": "Por predefinição, se os membros se registarem numa das sessões de grupo, serão automaticamente registados em todas as sessões de grupo. Ao desativar esta definição, os membros poderão registrar-se em todas ou algumas das sessões do grupo.",
                     "nameCaption": "Nome do grupo de sessões",
-                    "recurrenceUntilHelper": "Indicar a data da última sessão da última etapa."
+                    "recurrenceUntilHelper": "Indicar a data da última sessão da última etapa.",
+                    "spiviWarningHelperText": "Atenção, se as sessões estiverem ligadas ao Spivi, as suas cópias não estarão conectadas ao Spivi.",
+                    "syncOnSpivi": "Enviar para Spivi"
                 },
                 "subtitlePreview": "Previsão de periodicidade",
                 "duplicate": "Duplicar um grupo",
@@ -3639,17 +3746,22 @@
         "modal": {
             "delete": {
                 "confirm": "Eliminar",
-                "content": "Tem a certeza de que pretende eliminar esta atividade ? As sessões e as reservas não serão afectadas. Esta operação é definitiva."
+                "content": "Tem a certeza de que pretende eliminar esta atividade ? As sessões e as reservas não serão afectadas. Esta operação é definitiva.",
+                "title": "Eliminar uma atividade",
+                "cancel": "Cancelar"
             }
         },
         "forms": {
             "delete": {
                 "actions": {
-                    "confirm": "Eliminar"
+                    "confirm": "Eliminar",
+                    "cancel": "Cancelar"
                 },
                 "content": {
-                    "canDelete": "Tem a certeza de que pretende eliminar esta atividade ? As sessões e reservas anteriores não serão afectadas. Esta operação é definitiva."
-                }
+                    "canDelete": "Tem a certeza de que pretende eliminar esta atividade ? As sessões e reservas anteriores não serão afectadas. Esta operação é definitiva.",
+                    "cannotDelete": "As sessões estão programadas para o futuro, pelo que deve verificar se foram canceladas."
+                },
+                "title": "Eliminar atividade"
             },
             "create": {
                 "compatible_packs": {
@@ -3660,14 +3772,24 @@
                     "seeMore": "Ver mais"
                 },
                 "steps": {
-                    "pass_form": "Criar um passe de aulas (opcional)"
+                    "pass_form": "Criar um passe de aulas (opcional)",
+                    "offer_form": "Criação de sessões (opcional)",
+                    "activity_form": "Criação de uma atividade",
+                    "workshop_form": "Criação de um workshop",
+                    "pass_list": "Finalização"
                 }
+            },
+            "warning": {
+                "lowFirsBookingUntilWarning": "Atenção, tem de estar {{ durationFormatted }} antes do início do aula para poder efetuar a sua primeira reserva !",
+                "highLastBookingBeforeWarning": "Atenção, {{ durationFormatted }} antes do início da aula, não serão aceites mais inscrições !"
             }
         },
         "edit": "Alterar",
         "detail": {
             "tab": {
-                "pack": "Passes compatíveis"
+                "pack": "Passes compatíveis",
+                "general": "Geral",
+                "group": "Grupo de sessões"
             },
             "pack": {
                 "paymentPacks": "Passes compatíveis",
@@ -3677,7 +3799,22 @@
         },
         "navigation": {
             "goToPaymentPack": "Passes de aulas"
-        }
+        },
+        "workshopSelect": "Procurar um workshop",
+        "actions": {
+            "addActivity": "Adicionar uma atividade",
+            "search": "Procurar uma atividade"
+        },
+        "description": "Descrição",
+        "close": "Fechar",
+        "search": "Procurar um workshop",
+        "noActivities": "Uma atividade agrupa uma série de sessões (normalmente sessões de grupo) da mesma prática.",
+        "category": "Categoria",
+        "addOffers": "Adicionar sessões",
+        "metaActivity": "Atividade",
+        "offersThisDay": "Sessões para hoje :",
+        "workshop": "Workshop",
+        "name": "Nome"
     },
     "navigation": {
         "paymentMethodMissing": {
@@ -3779,7 +3916,23 @@
             "smart_list": "Lista inteligente",
             "email_template": "Emails",
             "alpha": "em desenvolvimento",
-            "myShop": "Loja"
+            "myShop": "Loja",
+            "cashBook": {
+                "expectedAmount": "É suposto ter : ",
+                "save": "Guardar",
+                "amount": "Vencedor do dia :",
+                "addAmount": "Montante a adicionar ao fundo",
+                "todayEndAmount": "Montante no final do dia",
+                "todayStartAmount": "Montante inicial do fundo",
+                "onSpotPaymentReport": "Aceder ao relatório de pagamentos",
+                "of": "De",
+                "lastUpdated": "Última modificação em",
+                "close": "Fechar",
+                "at": "à"
+            },
+            "cashBookTooltip": "",
+            "video": "Vídeo biblioteca",
+            "addMemberTooltip": "Adicionar membro"
         },
         "stripeOnboardingPending": {
             "banner": "Se não tiver terminado a configuração da faturação, os pagamentos em linha podem ser desactivados."
@@ -4340,7 +4493,7 @@
                 "noneMeansAll": "Deixar em branco para autorizar tudo",
                 "restrictionsTitle": "Restrições",
                 "establishments": "Sala",
-                "activities": "Workshop",
+                "activities": "Atividade",
                 "sports": "Categoria",
                 "actions": {
                     "create": "Registar",
@@ -4483,13 +4636,13 @@
             "delete": {
                 "confirm": "Confirmar",
                 "cancel": "Cancelar",
-                "explain": "Tem a certeza de que pretende eliminar a extensão da validade?",
+                "explain": "Tem a certeza de que pretende eliminar a extensão da validade ?",
                 "title": "Eliminar a extensão"
             },
             "addedOn": "Adicionado em ",
             "nbDaysAdded": "+{{nb_days}}"
         },
-        "search": "Procurar",
+        "search": "Procurar um passe",
         "notification": {
             "daysPast": {
                 "second": "dias",
@@ -4548,7 +4701,7 @@
             "addButton": "Adicionar uma notificação",
             "listItem": {
                 "smartListInclude": "Listas incluídas",
-                "smartList": "Listas de excluídos",
+                "smartList": "Listas excluídas",
                 "deleteModal": {
                     "content": "Tem a certeza de que pretende eliminar esta notificação? Esta operação é definitiva",
                     "confirm": "Eliminar",
@@ -5198,7 +5351,14 @@
                 "bankCode": {
                     "label": "Número bancário"
                 },
-                "unknownCountry": "Operação manual para este país, contactar a bsport através de contact@bsport.io"
+                "unknownCountry": "Operação manual para este país, contactar a bsport através de contact@bsport.io",
+                "clearingCode": {
+                    "label": "Código de compensação"
+                },
+                "transitNumber": {
+                    "label": "Número",
+                    "placeholder": "Número"
+                }
             }
         },
         "actions": {
@@ -5413,7 +5573,8 @@
                 "close": "Fechar"
             },
             "pendingBalance": "Saldo em curso",
-            "nullPendingBalanceText": "Nenhum"
+            "nullPendingBalanceText": "Nenhum",
+            "title": "Balanço Stripe"
         },
         "payout": {
             "isEmptyWarning": "NB: algumas receitas de caixa antes de 15 de março de 2021 podem não constar da lista abaixo.",
@@ -12022,7 +12183,7 @@
                 "rollCallsLeftToValidate": "{{ number }} requer validação",
                 "rollCallsLeftToValidate_plural": "{{ number }} requerem validação",
                 "validatedDate": "Válido de {{- date }} às {{ time }}",
-                "modifiedRollCall": "O convite foi modificado, pelo que é necessário validá-lo novamente",
+                "modifiedRollCall": "O convite foi alterado, pelo que é necessário validá-lo novamente",
                 "notValidatedRollCall": "O convite não está válido"
             }
         },
@@ -12065,7 +12226,7 @@
                     },
                     "warning": "As sessões semelhantes seguintes já têm outro professor substituto. O que é que gostaria de fazer?",
                     "checkboxInfo": "Se assinalar esta caixa, as alterações aplicadas ao professor substituto para esta sessão serão aplicadas a todas as sessões semelhantes. Caso contrário, serão aplicadas apenas a esta sessão.",
-                    "checkboxLabel": "Aplicar as alterações ao professor substituto às sessões seleccionadas"
+                    "checkboxLabel": "Aplicar as alterações ao professor substituto relativamente as sessões selecionadas"
                 },
                 "title": "Mudança de professor substituto"
             },
@@ -15064,6 +15225,14 @@
             "withdrawal_count_limit_exceeded": "Demasiadas despesas neste cartão, recusado.",
             "pin_try_exceeded": "Atingiu o número máximo de tentativas, tente outro método de pagamento",
             "call_issuer": "O seu cartão foi recusado por um motivo desconhecido. Por favor, contacte o seu banco"
+        }
+    },
+    "membership": {
+        "selector": {
+            "noMatchingCompany": "Nenhum resultado",
+            "placeholder": "Procurar um estúdio/sala/estabelecimento...",
+            "explainConsumer": "Com <1>bsport</2> desfrute de uma experiência única para reservar todas as suas atividades desportivas. <3/> Apenas com uma conta e uma palavra-passe !",
+            "fetchMore": "Ver mais"
         }
     }
 }

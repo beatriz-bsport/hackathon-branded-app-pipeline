@@ -3304,7 +3304,8 @@
                 "title": "Membro agregado",
                 "success": "Membros agregados",
                 "explainTags": "As etiquetas de membro eliminadas não serão transferidas",
-                "cancel": "Cancelar"
+                "cancel": "Cancelar",
+                "submit": ""
             },
             "title": "Informação do utilizador",
             "error": "Não é possível guardar o membro",
@@ -3412,7 +3413,8 @@
         "exists": {
             "linkUser": "Ligar o utilizador",
             "goTo": "Ver membro",
-            "quicksale": "Selecionar o membro"
+            "quicksale": "Selecionar o membro",
+            "merge": ""
         },
         "changeEmailRequest": {
             "memberPage": {
@@ -3495,6 +3497,37 @@
                 },
                 "cancelHelperText": "Se não pretender alterar o email do membro, clique em \"cancelar\"."
             }
+        },
+        "archive": {
+            "archivedMember": "",
+            "dialog": {
+                "warning": {
+                    "1": "",
+                    "5": "",
+                    "0": "",
+                    "6": "",
+                    "2": "",
+                    "4": "",
+                    "3": ""
+                },
+                "title": "",
+                "helper_text_2": "",
+                "helper_text_1": ""
+            }
+        },
+        "memberTermsAccepted": "",
+        "termsAndConditions": "",
+        "vaccinationStatus": {
+            "unknown": "",
+            "notDone": "",
+            "done": ""
+        },
+        "termsOfUse": "",
+        "linkDialog": {
+            "content": "",
+            "confirm": "",
+            "cancel": "",
+            "title": ""
         }
     },
     "metaActivity": {
@@ -8048,6 +8081,10 @@
                 "actions": {
                     "cancel": "Cancelar",
                     "submit": "Registar"
+                },
+                "last_discard_minutes": {
+                    "helperText": "",
+                    "label": ""
                 }
             },
             "configuration": {
@@ -10406,7 +10443,20 @@
                     "waitingList": "Lista de espera",
                     "activityName": "Atividade",
                     "false": "Não",
-                    "true": "Sim"
+                    "true": "Sim",
+                    "cancel": "",
+                    "currentWeek": "",
+                    "bacs_debit": "",
+                    "sepa": "",
+                    "coach": "",
+                    "bookable": "",
+                    "sepa_debit": "",
+                    "none": "",
+                    "nextWeek": "",
+                    "future": "",
+                    "time": "",
+                    "card": "",
+                    "past": ""
                 },
                 "title": {
                     "paymentMethodType": "Modo de pagamento",
@@ -10765,7 +10815,8 @@
             "seeCustomers": "Mostrar reservas",
             "cancellingOtherBookingInGroup": "Tenha em atenção que esta sessão é uma sessão de grupo para{{ name }}. Se o membro tiver outras marcações neste grupo, estas não serão afetadas.",
             "next": "Próximo:",
-            "confirm": "Dinheiro"
+            "confirm": "Dinheiro",
+            "pending": ""
         },
         "consumer": {
             "booking": {
@@ -11199,7 +11250,9 @@
                 "SUBSCRIPTION_CB": "Pagamento calendarizado",
                 "CB": "Cartão",
                 "OTHER": "Diversos",
-                "DISPUTE": "Conflito"
+                "DISPUTE": "Conflito",
+                "CHECK": "",
+                "CASH": ""
             },
             "noPaymentItem": "Nenhum pagamento registado",
             "stillUnpaid": "Saldo em dívida : ",
@@ -11229,7 +11282,8 @@
             "type": "Tipo",
             "paymentDate": "Data da compra",
             "object": "Descrição",
-            "status": "Dinheiro"
+            "status": "Dinheiro",
+            "paymentMethodCheck": ""
         },
         "shop": {
             "noProvisionUpdates": "Sem stock",
@@ -11240,7 +11294,8 @@
                 }
             },
             "myShop": "A minha loja",
-            "supplier_price": "Preço do fornecedor"
+            "supplier_price": "Preço do fornecedor",
+            "ht": ""
         },
         "offer": {
             "restoreModal": {
@@ -12389,14 +12444,27 @@
     "instalmentPayment": {
         "delete": "Eliminar",
         "deleteDialog": {
-            "title": "Pretende mesmo eliminar esta configuração ?"
+            "title": "Pretende mesmo eliminar esta configuração ?",
+            "content": ""
         },
         "modify": "Alterar",
         "form": {
             "compability": {
                 "pack": "Passe de aulas",
                 "allPass": "Compatível com todos os passes de aulas",
-                "selectPack": "Selecionar um passe de aulas"
+                "selectPack": "Selecionar um passe de aulas",
+                "selectGiftcard": "",
+                "shopItem": "",
+                "selectCombo": "",
+                "selectPrivatePass": "",
+                "selectShopItem": "",
+                "allPrivateBooking": "",
+                "privateBooking": "",
+                "giftcard": "",
+                "allGiftcard": "",
+                "allShopItem": "",
+                "combo": "",
+                "allCombo": ""
             },
             "partialPaymentRadio": {
                 "enabled": {
@@ -12407,15 +12475,95 @@
             },
             "customInstalmentAmount": {
                 "amountHelperText": {
-                    "percent": "Percentagem"
-                }
-            }
+                    "percent": "Percentagem",
+                    "amount": ""
+                },
+                "type": {
+                    "amount": "",
+                    "percent": ""
+                },
+                "label": ""
+            },
+            "onlyAvailableInfo": "",
+            "requiredField": "",
+            "onlyAvailable": "",
+            "frequency": {
+                "start": ""
+            },
+            "name": "",
+            "recurrency": {
+                "day": "",
+                "day_plural": "",
+                "month": "",
+                "week": "",
+                "week_plural": "",
+                "title": "",
+                "montly": "",
+                "daily": "",
+                "annual": "",
+                "weekly": "",
+                "year": "",
+                "year_plural": ""
+            },
+            "advanced": "",
+            "cancel": "",
+            "generalInfo": "",
+            "compabilityInfo": "",
+            "info": {
+                "end": "",
+                "end_plural": "",
+                "middle": "",
+                "startDay": "",
+                "startYear": "",
+                "startMonth": "",
+                "startWeek": ""
+            },
+            "feeHelperText": "",
+            "numberOfBilling": "",
+            "fee": "",
+            "create": "",
+            "add": "",
+            "minimum_amount": "",
+            "save": "",
+            "compatibility": "",
+            "minimumAmountHelperText": "",
+            "search": ""
         },
         "detail": {
             "packAvailable": "{{length}} passe de aulas compatível",
             "packAvailable_plural": "{{length}} passes de aulas compatíveis",
             "packAvailableForAll": "Todos os passes de aulas compatíveis",
-            "paymentPack": "Passes de aulas"
+            "paymentPack": "Passes de aulas",
+            "onlyWhenAllAvailable": "",
+            "giftcardAvailable": "",
+            "giftcardAvailable_plural": "",
+            "giftcard": "",
+            "title": "",
+            "shopItem": "",
+            "fee": "",
+            "seeAll": "",
+            "compatibility": "",
+            "duration": "",
+            "privatePassAvailableForAll": "",
+            "comboAvailableForAll": "",
+            "giftcardAvailableForALl": "",
+            "shopItemAvailableForALl": "",
+            "combo": "",
+            "privatePass": "",
+            "noCompability": "",
+            "whenOneAvailable": "",
+            "paymentNumber": "",
+            "paymentNumber_plural": "",
+            "privatePassAvailable": "",
+            "privatePassAvailable_plural": "",
+            "shopItemAvailable": "",
+            "shopItemAvailable_plural": "",
+            "minimumAmount": "",
+            "recurrency": "",
+            "number_of_billing": "",
+            "noConfiguration": "",
+            "comboAvailable": "",
+            "comboAvailable_plural": ""
         },
         "configurationOption": {
             "payLaterRemainder": "O restante do montante a pagar ({{remainder}}) será deduzido do seu saldo interno",
@@ -12424,28 +12572,84 @@
         "validation": {
             "amountMin": "O montante deve ser superior a 1",
             "percentRange": "A percentagem deve estar compreendida entre 1 e 100"
+        },
+        "close": "",
+        "basket": {
+            "instalmentAmount": "",
+            "instalmentAmountTitle": "",
+            "fee": ""
+        },
+        "title": "",
+        "list": {
+            "addInstalmentPayment": "",
+            "infoNoInstalmentPayment": ""
+        },
+        "action": {
+            "disable": {
+                "success": "",
+                "error": ""
+            },
+            "edit": {
+                "success": "",
+                "error": ""
+            },
+            "create": {
+                "error": "",
+                "success": ""
+            }
+        },
+        "paymentAllInOnce": "",
+        "menu": {
+            "secondary": {
+                "allFeminine": "",
+                "numberOfBilling": "",
+                "numberOfBilling_plural": "",
+                "allMasculine": ""
+            }
         }
     },
     "workshop": {
         "forms": {
             "delete": {
                 "actions": {
-                    "confirm": "Eliminar"
+                    "confirm": "Eliminar",
+                    "cancel": ""
                 },
                 "content": {
-                    "canDelete": "Tem a certeza de que pretende cancelar este seminário ? As sessões anteriores e as reservas não serão afetadas. Esta operação é definitiva."
-                }
+                    "canDelete": "Tem a certeza de que pretende cancelar este seminário ? As sessões anteriores e as reservas não serão afetadas. Esta operação é definitiva.",
+                    "cannotDelete": ""
+                },
+                "title": ""
             }
         },
         "modal": {
             "delete": {
                 "confirm": "Eliminar",
-                "content": "Tem a certeza de que pretende cancelar este seminário ? As sessões e as reservas não serão afectadas. Esta operação é definitiva."
+                "content": "Tem a certeza de que pretende cancelar este seminário ? As sessões e as reservas não serão afectadas. Esta operação é definitiva.",
+                "cancel": "",
+                "title": ""
             }
         },
         "navigation": {
             "goToPaymentPack": "Passes de aulas"
-        }
+        },
+        "search": "",
+        "noWorkshops": "",
+        "tabGroups": "",
+        "group": {
+            "pageSize": "",
+            "backToGroup": "",
+            "emptySearch": "",
+            "emptySelect": "",
+            "emptyState": ""
+        },
+        "disabledWorkshops": "",
+        "actions": {
+            "search": "",
+            "addWorkshopActivity": "",
+            "addWorkshopGroup": ""
+        },
+        "tabList": ""
     },
     "video": {
         "video": {

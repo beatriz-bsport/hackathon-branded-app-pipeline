@@ -7491,7 +7491,7 @@
                     "alert": "Preencher os dias de validade do carrinho de compras!",
                     "helperText": "Número de dias para o carrinho de compras de um aluno ficar automaticamente vazio"
                 },
-                "showGenderOffer": "Mostrar o número de homens e mulheres que reservam uma oferta",
+                "showGenderOffer": "Mostrar o número de homens e mulheres que reservam",
                 "offerBalance": "Gestão sob o equilíbrio entre homens e mulheres",
                 "errorURL": "Introduza um URL válido antes de guardar o formulário",
                 "last_name_label": {
@@ -7551,7 +7551,7 @@
                 },
                 "title": "Produtos",
                 "productsOrdering": {
-                    "reset": "Repor",
+                    "reset": "Re-instalar",
                     "description": "Organize os seus produtos de forma a estarem visíveis para os clientes quando estes reservam uma aula ou necessitam de um passe, de um pack ou de uma subscrição.",
                     "itemNumberCaption": "{{count}} item",
                     "itemNumberCaption_plural": "{{count}} itens",
@@ -7606,7 +7606,7 @@
                 "placeholder": "https://facebook.com/meu-estudio/"
             },
             "scheduleURL": {
-                "placeholder": "https://studio.com/calendar/",
+                "placeholder": "https://studio.com/calendario/",
                 "helperText": "Ligação predefinida para calendário pessoal",
                 "label": "Planeamento de URL"
             },
@@ -10107,7 +10107,9 @@
         },
         "coach": {
             "coachPerformance": "Regras do professor {{name}}",
-            "coachList": "Professores"
+            "coachList": "Professores",
+            "coachFormPage": "Formulário do Professor",
+            "allCoachPerformance": "Resumo do professor"
         },
         "expense": {
             "expenseList": "Minhas despesas"
@@ -10120,7 +10122,9 @@
         "metaActivity": {
             "metaActivityEditFormSubtitle": "Alterar atividade",
             "metaActivityFormSubtitle": "Criar uma atividade",
-            "metaActivityList": "Atividades"
+            "metaActivityList": "Atividades",
+            "metaActivityEditForm": "Formulário da Atividade",
+            "metaActivityFormPage": "Formulário da Atividade"
         },
         "member": {
             "memberFormPage": "Formulário",
@@ -10158,7 +10162,8 @@
             "paymentPackFormPage": "Formulário do passe de aulas"
         },
         "order": {
-            "orderList": "Controlos"
+            "orderList": "Controlos",
+            "orderDetail": "Detalhe"
         }
     },
     "settings": {
@@ -10647,7 +10652,20 @@
     "translation": {
         "marketplace": {
             "bookButton": {
-                "bookOption": "Lista de espera"
+                "bookOption": "Lista de espera",
+                "popOverTitle": {
+                    "isPast": "As reservas estão fechadas",
+                    "bookOption": "A sessão está completa, a lista de espera está disponível.",
+                    "notAvailable": "A sessão foi cancelada",
+                    "notBookableYet": "A sessão ainda não está aberta a reservas.",
+                    "alreadyRegistered": "Já reservou esta sessão."
+                },
+                "book": "Reservar",
+                "notAvailable": "Cancelar",
+                "notBookableYet": "Em breve",
+                "alreadyRegistered": "Reservado",
+                "full": "Completo",
+                "isPast": "Anterior"
             },
             "pass": "Passe de aulas",
             "substitute": "Substituído",
@@ -10681,7 +10699,8 @@
             "shop": {
                 "addToCard": "Adicionar ao cesto",
                 "noDescription": "Sem descrição",
-                "isEmpty": "Atualmente, não existem produtos disponíveis na loja."
+                "isEmpty": "Atualmente, não existem produtos disponíveis na loja.",
+                "tabName": "Loja"
             },
             "checkout": {
                 "dialog": {
@@ -10693,7 +10712,13 @@
             },
             "welcomeTo": "Bem-vindo ao ",
             "private_service": "Apenas por marcação",
-            "buyPack": "Comprar"
+            "buyPack": "Comprar",
+            "contract": {
+                "tabName": "Subscrição"
+            },
+            "sessionThisDay": "Sessão de hoje :",
+            "calendar": "Calendário",
+            "workshop": "Workshops"
         },
         "booking": {
             "waiting": "Lista de espera",
@@ -10739,7 +10764,8 @@
             "noBookingOnThisOffer": "De momento, não há reservas para esta sessão",
             "seeCustomers": "Mostrar reservas",
             "cancellingOtherBookingInGroup": "Tenha em atenção que esta sessão é uma sessão de grupo para{{ name }}. Se o membro tiver outras marcações neste grupo, estas não serão afetadas.",
-            "next": "Próximo:"
+            "next": "Próximo:",
+            "confirm": "Dinheiro"
         },
         "consumer": {
             "booking": {
@@ -10829,8 +10855,53 @@
             "shop": {
                 "subShop": {
                     "delete": {
-                        "error": "Nąo é possível eliminar categoria"
-                    }
+                        "error": "Nąo é possível eliminar categoria",
+                        "success": "Categoria eliminada"
+                    },
+                    "createOrUpdate": {
+                        "success": "Categoria registada com sucesso",
+                        "error": "Não é possível registar a categoria"
+                    },
+                    "nameTitle": "Nova categoria",
+                    "namePlaceholder": "Sumos de fruta"
+                },
+                "item": {
+                    "createOrUpdate": {
+                        "success": "Registar",
+                        "error": "Erro de registo"
+                    },
+                    "available_payment_method_identifiers": {
+                        "helperText": "Selecionar pelo menos um modo de pagamento. Se o carrinho do membro contiver artigos com métodos de pagamento incompatíveis, será proposto o pagamento por cartão.",
+                        "label": "Métodos de pagamento autorizados"
+                    },
+                    "unlimitedProvision": "Sem gestão de stock",
+                    "updateProvisions": {
+                        "success": "Stock atualizado",
+                        "error": "Erro ao registar ações"
+                    },
+                    "updateProvisionTitle": "Alterar o stock",
+                    "delete": {
+                        "error": "Erro ao eliminar",
+                        "success": "Elemento eliminado"
+                    },
+                    "add": "Adicionar um elemento",
+                    "subtitle": "Subtítulo",
+                    "description": "Descrição",
+                    "provisions": "Stock",
+                    "name": "Nome",
+                    "price": "Preço",
+                    "tva": "IVA",
+                    "create": "Adicionar um produto",
+                    "barcode": "Código de barras",
+                    "deleteExplain": "Atenção, esta eliminação é definitiva e nenhum cliente poderá voltar a comprar este produto.",
+                    "onsite_payment_available": "Possibilidade de efetuar o pagamento no local",
+                    "sell_only_on_provision": "Colocar para venda APENAS se houver stock disponível",
+                    "featured": "Destaque ao validar o carrinho",
+                    "is_deliverable": "Impõe taxas de entrega por defeito",
+                    "marketplace_enabled": "Disponível no marketplace",
+                    "deleteTitle": "Eliminar",
+                    "modifyProvisions": "Atualizar o stock",
+                    "updateProvisionExplain": "Introduza a contribuição para o seu inventário. Esta contribuição será adicionada ao seu stock atual"
                 }
             },
             "notesHelperText": "As notas são privadas : só aparecerão no Backoffice para os membros do staff autorizados a editá-las",
@@ -10899,7 +10970,7 @@
             "establishment": "Sala",
             "addingSessionFor": "Criação de sessão para : ",
             "level": "Nível",
-            "effectif": "Força de trabalho",
+            "effectif": "Dinheiro",
             "caracteristics": "Características",
             "credits": "N.º de créditos necessários para reservar o passe de aulas",
             "credit_price": "N.º de créditos necessários para reservar o passe de aulas",
@@ -10984,7 +11055,29 @@
                     "waiver": "tem de aceitar a declaração de exoneração de responsabilidade",
                     "accept_sms": "É necessário aceitar as notificações por SMS"
                 },
-                "barcode": "Código de barras (passe)"
+                "barcode": "Código de barras (passe)",
+                "rgpd": {
+                    "email": "Aceitar notificações por email",
+                    "sms": "Aceitar notificações por SMS"
+                },
+                "waiver": {
+                    "conditions": " de isenção de responsabilidade",
+                    "dialog": {
+                        "title": " Isenção de responsabilidade",
+                        "confirm": "Aceitar"
+                    },
+                    "iAccept": "Aceitar os termos "
+                },
+                "phone": "Telemóvel",
+                "rgpdTitle": "Modos de comunicação aceites pelo membro (promoções, marketing, etc...)",
+                "delete": {
+                    "success": "Nota eliminada",
+                    "error": "Erro ao tentar eliminar a nota"
+                },
+                "createOrUpdate": {
+                    "error": "Erro no registo da nota",
+                    "success": "Nota registada"
+                }
             },
             "title": "Nome",
             "pleaseEnterYourSMSCode": "Introduzir o código enviado por SMS",
@@ -11017,7 +11110,40 @@
             "duration_minute": "Durabilidade",
             "datePicker": {
                 "rangeError": "Impossível criar sessões que decorram em mais de 3 anos"
-            }
+            },
+            "noAvailableCredit": "Atenção, não está a introduzir um preço. Tem a certeza do valor ?",
+            "noPartnershipIntegration": "As reservas através do marketplace não estão disponíveis para o grupo de sessões",
+            "booking": {
+                "delete": {
+                    "success": "Reserva eliminada",
+                    "error": "Erro ao eliminar"
+                }
+            },
+            "address": {
+                "streetNumber": "N°",
+                "addressLine1": "Morada",
+                "addressLine2": "Completar morada",
+                "city": "Cidade",
+                "country": "País",
+                "state": "Distrito",
+                "zipcode": "Código de postal"
+            },
+            "login": {
+                "resetAgainPassword": "Pedido de reposição",
+                "tokenExpired": "Esta página expirou, solicite novamente a alteração da palavra-passe",
+                "confirmPassword": "Confirmar",
+                "password": "Palavra-passe",
+                "changePasswordTitle": "Alterar palavra-passe",
+                "passwordTooEasy": "A sua palavra-passe deve ter pelo menos 6 caracteres e incluir um número e letras",
+                "passwordMismatch": "As palavras-passe não coincidem",
+                "passwordChangedSuccess": "Palavra-passe alterada com sucesso !"
+            },
+            "partner_max_booking_count": "Número máximo de reservas através do marketplace (apenas OneFit)",
+            "signUpTitle": "Registar",
+            "warningCreditChange": "NB : As reservas mais antigas não têm em conta as alterações de créditos",
+            "warningAddEmail": "Este email já foi adicionado.",
+            "emailHelper": "Para adicionar vários emails, digite uma vírgula ou um espaço após cada email.",
+            "emailError": "O formato de email indicado é inválido."
         },
         "calendar": {
             "canDeleteWithBooking": "As reservas (anuladas) ou as listas de espera foram registadas. Esta sessão não pode ser suprimida.",
@@ -11103,7 +11229,7 @@
             "type": "Tipo",
             "paymentDate": "Data da compra",
             "object": "Descrição",
-            "status": "Dinheiro em caixa"
+            "status": "Dinheiro"
         },
         "shop": {
             "noProvisionUpdates": "Sem stock",
@@ -11153,7 +11279,8 @@
             "partner_max_booking_count": "Número máximo de reservas no marketplace (apenas OneFit)",
             "maxBookingsNb": "lugares",
             "nonAttendant": "ausente(s)",
-            "attendant": "presente(s)"
+            "attendant": "presente(s)",
+            "effectif": "Dinheiro"
         },
         "pagination": {
             "outOf": " sobre ",
@@ -11312,7 +11439,7 @@
                     "hours_before_start": "Hora(s) antes da sessão :",
                     "min_bookings_nb": "Número de reserva(s) :",
                     "emailRecipients": "Este e-mail será enviado para contas com o papel de Proprietário ou Administrador, bem como para o professor (ou professor substituto) da sessão em questão. Também pode configurar um e-mail para ser enviado aos alunos.",
-                    "explain": "Cancelar a sessão e enviar uma notificação por e-mail aos alunos se houver {{bookings_nb}} reserva(s) em menos de {{hours}}h antes do início da sessão.",
+                    "explain": "Cancelar a sessão e enviar uma notificação por email aos alunos se houver {{bookings_nb}} reserva(s) em menos de {{hours}}h antes do início da sessão.",
                     "checkbox": "Cancelar sessões demasiado cheias"
                 },
                 "create": {
@@ -11394,7 +11521,8 @@
             "consumer": {
                 "pass": "Passes de aulas",
                 "bookings": "As minhas reservas ",
-                "profile": "Meu Perfil"
+                "profile": "Meu Perfil",
+                "order": "As minhas encomendas"
             },
             "email_template": "E-mails",
             "goBack": "Voltar",
@@ -11404,7 +11532,7 @@
                 "services": "Apenas por marcação"
             },
             "video": "Biblioteca de vídeos",
-            "playlist": "Curso",
+            "playlist": "Percurso",
             "podcast": "Podcasts",
             "marketing_automation": "Marketing",
             "combo": "Packs",
@@ -11432,7 +11560,8 @@
             "settings": "Parâmetros",
             "myClub": "Meu Estúdio",
             "subscription": "Subscrições",
-            "coupon": "Promoções"
+            "coupon": "Promoções",
+            "order": "Encomendas"
         },
         "time": {
             "month": {
@@ -12373,7 +12502,7 @@
             "purchaseListTitle": "Carrinho de compras",
             "viewedOn": "Vídeo visualizado em {{-date}} às {{hour}}",
             "boughtOn": "Comprado em {{-date}}",
-            "noVideoView": "Sem vista",
+            "noVideoView": "Sem visualizações",
             "noVideoPurchase": "Nenhuma compra registada",
             "duplicate": "Duplicar",
             "register": {
@@ -12636,13 +12765,16 @@
         "contract": {
             "deleteForm": {
                 "actions": {
-                    "confirm": "Eliminar"
+                    "confirm": "Eliminar",
+                    "cancel": "Cancelar"
                 },
-                "content": "Querem mesmo eliminar este contrato ?"
+                "content": "Querem mesmo cancelar este contrato ?",
+                "title": "Cancelar contrato"
             },
             "form": {
                 "recurrent_price": {
-                    "infoBox": "Está prestes a alterar o preço da sua subscrição. Apenas o preço das novas subscrições será afetado. O preço das subscrições existentes e das renovações não será alterado (mesmo após a renovação)."
+                    "infoBox": "Está prestes a alterar o preço da sua subscrição. Apenas o preço das novas subscrições será afetado. O preço das subscrições existentes e das renovações não será alterado (mesmo após a renovação).",
+                    "label": "Pagamento recorrente"
                 },
                 "invoicing": {
                     "fixed_day": {
@@ -12704,7 +12836,17 @@
                     "privatePass": "Passe de marcação"
                 },
                 "recurrence_basis": {
-                    "label": "Repetir a cada"
+                    "label": "Repetir a cada",
+                    "intervalName": {
+                        "month": "mês",
+                        "month_plural": "meses",
+                        "day": "dia",
+                        "day_plural": "dias",
+                        "week": "semana",
+                        "week_plural": "semanas",
+                        "year": "ano",
+                        "year_plural": "anos"
+                    }
                 },
                 "title": "Formulário da subscrição",
                 "error": {
@@ -12712,6 +12854,30 @@
                 },
                 "price": {
                     "title": "Preço"
+                },
+                "description": {
+                    "placeholder": "Nova oferta exclusiva e limitada",
+                    "label": "Descrição"
+                },
+                "managerOnly": {
+                    "label": "Invisível para os alunos"
+                },
+                "flat_fee": {
+                    "label": "Taxa de inscrição",
+                    "helperText": "A taxa será adicionada à primeira fatura"
+                },
+                "contract": {
+                    "label": "Menções legais",
+                    "placeholder": "Introduzir aqui todas as informações jurídicas necessárias, nomeadamente no que se refere aos procedimentos de reembolso."
+                },
+                "autoRenewal": {
+                    "label": "Renovação tácita"
+                },
+                "settings": {
+                    "title": "Parâmetros"
+                },
+                "unusableByStaff": {
+                    "label": "Invisível para o staff"
                 }
             },
             "interval": {
@@ -12759,7 +12925,8 @@
                 "iwanttostarton": "Gostaria de começar a faturar em : ",
                 "subscribe": "Subscrever",
                 "title": "Data anterior",
-                "iAcceptContractTerms": "Aceito as <0>condições legais</0>."
+                "iAcceptContractTerms": "Aceito as <0>condições legais</0>.",
+                "acceptContractTerms": "Aceitar as <0>mentions légales</0>"
             },
             "pastDate": {
                 "valuePastInvoicesInputError": "O valor não corresponde. Por favor, tente novamente",
@@ -12804,25 +12971,90 @@
                 "changeDate": "Alterar a data",
                 "changePrice": "Alterar o preço",
                 "switchPaymentMethod": "Alterar o método de pagamento",
-                "switchPack": "Alterar o passe"
+                "switchPack": "Alterar o passe",
+                "showInvoice": "Ver a fatura",
+                "freeze": "Pausa",
+                "enableAutoRenew": "Ativar a renovação automática",
+                "stop": "Parar após esta fatura",
+                "postPone": "Adiar fatura",
+                "disableAutoRenew": "Desativar a renovação automática",
+                "advanceTime": "Avançar com a fatura"
             },
             "edit": "Alterar",
             "switchPaymentCombo": {
                 "form": {
-                    "prewarning": "Se pretender alterar futuras faturas já criadas, deve anular esta subscrição."
+                    "prewarning": "Se pretender alterar futuras faturas já criadas, deve anular esta subscrição.",
+                    "warning": "A faturação mantém-se inalterada, pelo que, se pretender aumentar/diminuir o montante mensal, deve alterar cada prestação separadamente.",
+                    "explain": "Este pack será cobrado em vez do antigo APENAS nas faturas geradas após a renovação da assinatura",
+                    "cancel": "Cancelar",
+                    "title": "Alterar o pack",
+                    "submit": "Registar"
                 }
             },
             "freeze": {
                 "form": {
-                    "explain": "O pagamento seguinte será adiado pelo mesmo número de dias, tal como os futuros passes de aulas"
+                    "explain": "O pagamento seguinte será adiado pelo mesmo número de dias, tal como os futuros passes de aulas",
+                    "title": "Pausa",
+                    "cancel": "Cancelar",
+                    "name": {
+                        "label": "Motivo",
+                        "placeholder": "Férias de outono"
+                    },
+                    "explainInvoice": "A partir de que fatura (incluíndo) pretende adiar a sua subscrição ?",
+                    "explainWarning": "Atenção, esta operação não é reversível !",
+                    "submit": "Registar",
+                    "days": {
+                        "label": "Número de dias"
+                    }
+                },
+                "disabledReasons": {
+                    "month_billing_day": "Não é possível fazer uma pausa numa subscrição faturada num dia fixo "
                 }
             },
             "switchPack": {
                 "form": {
                     "explain": "Este passe de aulas será cobrado em vez do antigo em todas as faturas futuras. As sessões marcadas com o passe antigo serão transferidas para o novo passe, mesmo que este não seja supostamente compatível.",
-                    "title": "Alterar o passe de aulas"
+                    "title": "Alterar o passe de aulas",
+                    "warning": "A faturação mantém-se inalterada, pelo que, se pretender aumentar/diminuir o montante mensal, deve alterar cada prestação separadamente.",
+                    "cancel": "Cancelar",
+                    "submit": "Registar"
                 }
-            }
+            },
+            "actionSection": "Gerar",
+            "listItem": {
+                "recurrencePriceIs": "Recorrência de {{ amount }}{{currencyDisplay}}",
+                "nextBillingDate": "Próxima fatura em {{ d }}",
+                "startingAt": "Início em {{ d }}"
+            },
+            "pauseSection": "Pausas",
+            "switchPrivatePass": {
+                "form": {
+                    "title": "Alterar o passe de marcação",
+                    "explain": "Este passe de marcação será faturado em vez do antigo a partir de agora. As sessões marcadas com o passe antigo serão transferidas para o novo, mesmo que o novo passe não seja compatível.",
+                    "warning": "A faturação mantém-se inalterada, pelo que, se pretender aumentar/diminuir o montante mensal, deve alterar cada prestação separadamente.",
+                    "cancel": "Cancelar",
+                    "submit": "Registar"
+                }
+            },
+            "invoice": {
+                "label": "Fatura {{uuid}} : {{price}}"
+            },
+            "scheduledStop": {
+                "summary": "O último pagamento programado terá a data {{-date}} e corresponderá ao último passe válido.",
+                "title": "Programar a rescisão da subscrição",
+                "notePlaceholder": "Motivo",
+                "explain": "Selecionar o último pagamento da subscrição.",
+                "listItem": "Fim programado da subscrição"
+            },
+            "list": {
+                "title": "Subscrição ativa"
+            },
+            "register": "Subscrever",
+            "buy": "Comprar",
+            "prorata": {
+                "helperOnSusscribe": "O primeiro pagamento é calculado para um montante de {{ priceWithCurrency }} e será descontado em {{-firstBillingDate}}. Os pagamentos subsequentes serão efetuados todos os {{ monthBillingDay }} do mês, no montante de {{ recurrentPrice }}"
+            },
+            "invoicesSection": "Faturas"
         },
         "pauseV2": {
             "subscriptionPause": {
@@ -12896,7 +13128,40 @@
                     "changeForbidden": "Não é possível editar uma pausa que já tenha terminado.",
                     "cancelForbidden": "Não é possível anular uma interrupção de férias cuja data de início já tenha passado.",
                     "changeContractForbidden": "Não é possível processar uma interrupção criada a nível do contrato.",
-                    "change": ""
+                    "change": "Alterar datas",
+                    "delete": "Desprogramar"
+                },
+                "actions": {
+                    "previous": "Anterior",
+                    "pause": "Pausa",
+                    "confirm": "Confirmar",
+                    "verify": "Verificar",
+                    "save": "Registar",
+                    "cancel": "Cancelar",
+                    "goBack": "Voltar a",
+                    "continue": "Continuar"
+                },
+                "listItem": {
+                    "createdAtBy": "Criado em {{- dateCreation}} por {{staffName}}",
+                    "pausedAt": "{{ days }} dias - A {{- date}}",
+                    "fromToUntil": "De {{- fromDate}} a {{- untilDate}}",
+                    "createdAt": "Criado em {{- dateCreation}}",
+                    "label": "Pausa de {{- fromDate}} a {{- untilDate}}",
+                    "isUpdated": "Pausa editada",
+                    "deletedAtBy": "Desprogramado em {{- dateDeletion}} por {{staffName}}",
+                    "deletedAt": "Desprogramado em {{- dateDeletion}}"
+                },
+                "form": {
+                    "duration": {
+                        "warning": "A data final não pode ser inferior à data de início",
+                        "start": "Data de início (inclusive)",
+                        "end": "Data de fim (inclusive)",
+                        "title": "Duração da pausa"
+                    },
+                    "reasonPlaceholder": "Motivo *"
+                },
+                "deleteDialog": {
+                    "title": "Reprogramar a pausa"
                 }
             }
         },
@@ -12977,7 +13242,11 @@
                     "cancel": "Cancelar"
                 },
                 "explain": "Apenas esta fatura será modificada",
-                "label": "Data de recolha"
+                "label": "Data de recolha",
+                "title": "Alterar futura data"
+            },
+            "list": {
+                "titleNext": "Próximos levantamentos"
             }
         },
         "notification": {
@@ -13000,8 +13269,8 @@
             "payment_combo": "Pack",
             "private_pass": "Passe de Marcação",
             "payment_pack": "Passe de aulas",
-            "firstBilling": "Primeira coleção",
-            "nbMonths": "Número de colecções",
+            "firstBilling": "Primeira fatura",
+            "nbMonths": "Número de faturas",
             "dateStart": "Primeira faturação",
             "paymentCombo": "Pack",
             "privatePass": "Passe de Marcação",
@@ -13026,22 +13295,40 @@
                 "label": "Meios de pagamento",
                 "2": "Crédito",
                 "1": "Transferência SEPA",
-                "0": "Cartão"
+                "0": "Cartão",
+                "paymentOnline": "Pagamento em linha"
             },
             "parameters": "Parâmetros",
             "autoRenew": "Renovação automática",
             "note": "Aviso",
-            "stopNote": "Aviso de cancelamento"
+            "stopNote": "Aviso de cancelamento",
+            "contractTermsAccepted": "As <0>mentions légales</0> foram aceites em {{- dateAccepted}}."
         },
         "action": {
             "stopExplain": "Os pagamentos futuros serão anulados e as facturas correspondentes serão eliminadas. Se uma reserva tiver sido registada com uma assinatura cuja fatura tenha sido anulada, esta será igualmente anulada.",
             "revertCurrentExplainHelper": "Se o pagamento for válido, será criado um crédito, que pode reembolsar ao aluno introduzindo a fatura e clicando em \"Reembolsar\". Se o pagamento falhar, a dívida será anulada.",
             "revertCurrentExplain": "Anular a última fatura registada e bloquear o passe",
-            "planStop": "Programar a rescisão da subscrição"
+            "planStop": "Programar a rescisão da subscrição",
+            "stop": "Parar"
         },
         "noContracts": "Os contratos permitem-lhe faturar aos seus membros numa base regular (mensal) um passe de aulas que é creditado de novo todos os meses/dias/anos.",
         "events": {
-            "billing_plan-update_payment_pack": "Passe de aulas alterado"
+            "billing_plan-update_payment_pack": "Passe de aulas alterado",
+            "billing_plan-update_private_pass": "Passe de marcações alterado",
+            "list": {
+                "title": "Eventos mais recentes"
+            },
+            "billing_plan-pause": "Pausa",
+            "billing_plan-pause_deleted": "Pausa cancelada",
+            "billing_plan-update_payment_combo": "Pack alterado",
+            "billing_plan-create": "Criar",
+            "billing_plan-payment_success": "Pagamento efetuado com sucesso",
+            "billing_plan-stop": "Parar",
+            "billing_plan-renew": "Renovar",
+            "billing_plan-payment_dispute": "Disputa",
+            "billing_plan-update": "Subscrição alterada",
+            "billing_plan-payment_failure": "Pagamento recusado",
+            "billing_plan-update_payment_method": "Método de pagamento alterado"
         },
         "subscriptionNotFound": {
             "explanation": "Este contrato já não existe. Escolha outro contrato ou contacte o seu gestor do estúdio.",
@@ -13053,7 +13340,112 @@
                 "title": "Já subscrito",
                 "validate": "Ok"
             }
-        }
+        },
+        "seeMore": "Ver mais",
+        "billing_plan_status": {
+            "3": "Em pausa",
+            "0": "Ainda não foi iniciada",
+            "1": "Ativo",
+            "2": "Interrompido",
+            "4": "Terminado"
+        },
+        "register": {
+            "dialog": {
+                "success": "A sua subscrição {{- name }} foi registada.",
+                "error": "Não foi possível registar a subscrição.",
+                "info": "A sua subscrição está atualmente a ser registada e informá-lo-emos quando estiver pronta."
+            }
+        },
+        "mandate": {
+            "contentBacsDebit": "Ao fornecer os seus dados bancários e confirmar o seu pagamento, autoriza a bsport, a Stripe e o nosso sistema de pagamento, a enviar instruções de débito para o seu banco, de acordo com o calendário de pagamento. O utilizador pode solicitar um reembolso ao seu banco, de acordo com os termos do seu contrato com o mesmo. Pode pedir ao seu banco que cancele o mandato de débito direto em qualquer altura.",
+            "name": "Nome e apelido do titular",
+            "email": "Email do titular",
+            "contentIban": "Ao fornecer o seu IBAN e confirmar o pagamento, autoriza a bsport, Stripe e o nosso sistema de pagamento, a enviar instruções de débito ao seu banco, de acordo com o calendário de pagamento. O utilizador pode solicitar um reembolso ao banco, de acordo com as condições do seu contrato com o mesmo. O reembolso deve ser solicitado no prazo de 8 semanas após o primeiro débito.",
+            "sortCode": "Código de ordenação",
+            "accountNumber": "Número da conta"
+        },
+        "search": "Procurar uma subscrição",
+        "status": {
+            "hasNotStartedYet": "Ainda não foi iniciado",
+            "hasStopped": "Interrompido",
+            "isPaused": "Em pausa",
+            "hasEnded": "Terminado",
+            "hasStarted": "Em processo"
+        },
+        "save": "confirmar",
+        "table": {
+            "noContent": "Nenhuma subscrição registada"
+        },
+        "notificationToolTip": "As notificações são definidas para esta subscrição",
+        "invisibleForStaffToolTip": "Invisível para o staff",
+        "addNotification": "Adicionar uma notificação",
+        "end": {
+            "noRenew": "Fim da subscrição",
+            "renew": "Renovar automáticamente"
+        },
+        "recap": {
+            "month": "mês ",
+            "willBecharged": " sera faturado ",
+            "every": " cada ",
+            "forObject": " por ",
+            "forATotalOf": "Por um total de ",
+            "includingFreeTrialOf1": " dos quais ",
+            "includingFreeTrialOf2": " não faturados ",
+            "times": " uma vez ",
+            "to": " até ",
+            "from": "A partir de "
+        },
+        "plannedInvoiceStatus": {
+            "pending": "Em atenção",
+            "canceled": "Cancelado",
+            "succeeded": "Dinheiro",
+            "reverted": "Cancelado",
+            "processing": "Pagamento em transferência",
+            "failed": "Pagamento recusado"
+        },
+        "associatedSubscriptions": "Subscrições associadas ao contrato",
+        "form": {
+            "title": "Novo pagamento recorrente",
+            "note": {
+                "label": "Nota"
+            },
+            "check": "Verificar",
+            "submit": "Fatura",
+            "cancel": "Cancelar"
+        },
+        "scheduledStop": {
+            "label": "Parar programa",
+            "unscheduleStop": "Desprogramar a paragem"
+        },
+        "schedule": {
+            "paymentMethodTitle": "Débito",
+            "provisionalTitle": "Calendário provisório"
+        },
+        "paymentMethod": {
+            "card": "Cartão",
+            "bsportCredit": "Depósito do aluno",
+            "credit": {
+                "explain": "Os membros serão faturados pelo seu depósito interno sempre que receberem uma fatura. Utilize este método de pagamento se (ainda) não tiver acesso a um método de faturação como o cartão ou a transferência IBAN. Poderá atualizar o pagamento posteriormente."
+            },
+            "bacs_debit": "BACS Débito Direto",
+            "sepa": "Débito direto SEPA"
+        },
+        "listItem": {
+            "expired": "Expirada",
+            "paused": "Em pausa",
+            "subscribedOn": "A subscrição começou em {{- date}}",
+            "canceled": "Interrompida",
+            "valid": "Válida"
+        },
+        "subscriptionStatus": {
+            "pending": "Em fase de faturação",
+            "hasEnded": "Faturação terminada",
+            "isPaused": "Em pausa",
+            "canceledOn": "Parado em "
+        },
+        "cancel": "cancelar",
+        "noAssociatedSubscription": "Nenhuma subscrição registada",
+        "copyLink": "Copiar o link para a página de pagamento"
     },
     "shop": {
         "shopitem": {
@@ -14450,6 +14842,24 @@
                 "helperText": "Cada estabelecimento aparecerá como um local independente no ClassPass",
                 "label": "Estabelecimentos independentes"
             }
+        }
+    },
+    "stripe": {
+        "decline_code": {
+            "stolen_card": "O seu cartão está identificado como roubado pelo seu banco",
+            "incorrect_pin": "Código PIN incorrecto",
+            "test_mode_live_card": "O seu cartão foi rejeitado porque está a utilizar um cartão de teste. Por favor, utilize um cartão real",
+            "lost_card": "O seu cartão foi declarado perdido pelo seu banco",
+            "generic_decline": "O banco não aceitou o pagamento",
+            "do_not_honor": "O seu banco recusou o pagamento. Contacte o seu consultor bancário para o autorizar",
+            "restricted_card": "O cartão foi recusado pelo seu banco",
+            "transaction_not_allowed": "O seu cartão foi recusado pelo banco",
+            "invalid_pin": "Código PIN incorreto",
+            "offline_pin_required": "Código PIN pedido",
+            "online_or_offline_pin_required": "Código PIN pedido",
+            "withdrawal_count_limit_exceeded": "Demasiadas despesas neste cartão, recusado.",
+            "pin_try_exceeded": "Atingiu o número máximo de tentativas, tente outro método de pagamento",
+            "call_issuer": "O seu cartão foi recusado por um motivo desconhecido. Por favor, contacte o seu banco"
         }
     }
 }

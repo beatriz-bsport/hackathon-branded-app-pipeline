@@ -241,6 +241,7 @@ class InboxThreadListPage extends PureComponent<Props> {
           onClose={this.toggleThreadCreator}
           open={!!this.props.createThreadIsOpen}
           redirectToThread={this.props.selectThread}
+          offerLoading={this.props.offerLoading}
         />
       </>
     );

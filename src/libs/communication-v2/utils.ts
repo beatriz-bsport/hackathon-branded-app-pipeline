@@ -702,7 +702,7 @@ export const getFormatedQueryParamsFromThread = memoize(
   ) => {
     switch (relatedObjectKind) {
       case ChatThreadKinds.Member:
-        return Immutable({ id__in: [relatedObjectId] });
+        return Immutable({ id__in: [relatedObjectId].join(',') });
       case ChatThreadKinds.Smartlist:
         return Immutable({ smartlist: relatedObjectId });
       case ChatThreadKinds.Offer:

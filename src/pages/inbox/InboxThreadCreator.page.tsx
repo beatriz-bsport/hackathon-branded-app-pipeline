@@ -73,6 +73,7 @@ const connector = connect(
         ),
       ),
     )(state),
+    offerLoading: state.offer.loading || state.offer.byDay.loading,
   }),
   {
     handleSearchMembers: (text: string) =>
@@ -123,6 +124,7 @@ export const InboxThreadCreator: React.FC<Props> = ({
   fetchMetaActivityBulk,
   fetchEstablishmentBulk,
   handleSearchMembers,
+  offerLoading,
 }) => {
   const [smartlistSelected, handleSmartlistSelect] = useSmartlistHandler(
     contextSelected,
@@ -262,6 +264,7 @@ export const InboxThreadCreator: React.FC<Props> = ({
               // @ts-expect-error
               onDateChange={setDate}
               showCancelledOffers={false}
+              loading={offerLoading}
             />
             <TimeTable
               displayCoachInfoOnHover
@@ -271,6 +274,7 @@ export const InboxThreadCreator: React.FC<Props> = ({
               offers={offers}
               onOfferSelected={handleOfferSelected}
               selected={offerSelected}
+              loading={offerLoading}
             />
           </div>
           <DialogActions>

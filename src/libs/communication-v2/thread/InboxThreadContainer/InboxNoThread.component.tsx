@@ -17,8 +17,6 @@ const InboxNoThread: React.FC<Props> = ({ count, contextSelected }) => {
   const classes = useStyles();
 
   return (
-    <>
-      {count ? (
         <div className={classes.noThread}>
           <ItemClickIcon color="primary" />
           <Typography
@@ -32,10 +30,6 @@ const InboxNoThread: React.FC<Props> = ({ count, contextSelected }) => {
             {t('thread.selectThread.description')}
           </Typography>
         </div>
-      ) : (
-        <InfoBox content={t(`thread.noThread.item.${contextSelected}`)} />
-      )}
-    </>
   );
 };
 

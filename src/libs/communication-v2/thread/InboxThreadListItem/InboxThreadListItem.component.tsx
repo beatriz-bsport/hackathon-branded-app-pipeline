@@ -120,7 +120,7 @@ const InboxThreadListItem: React.FC<Props> = ({
                 : 'textPrimary'
             }
             component="span"
-            variant="body2"
+            variant="caption"
           >
             {thread?.subtitle}
           </Typography>
@@ -215,7 +215,7 @@ const InboxThreadListItem: React.FC<Props> = ({
 const useStyles = makeStyles((theme: Theme) => ({
   listItem: {
     display: 'flex',
-    height: '64px',
+    height: '76px',
     padding: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(1),

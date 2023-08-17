@@ -3021,7 +3021,7 @@
             },
             "loadMoreThreads": "Load more messages",
             "noThread": {
-                "list": "No results",
+                "list": "No message yet",
                 "item": {
                     "member": "Find here the conversations with the members",
                     "smartlist": "Find here the conversations from your smartlists",

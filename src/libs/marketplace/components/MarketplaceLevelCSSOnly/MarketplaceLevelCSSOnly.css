@@ -13,3 +13,7 @@
   min-height: 24px;
   display: flex;
 }
+
+.bs-level-content {
+  margin: 0;
+}

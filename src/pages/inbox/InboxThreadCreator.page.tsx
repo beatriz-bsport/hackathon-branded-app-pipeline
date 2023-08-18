@@ -261,20 +261,20 @@ export const InboxThreadCreator: React.FC<Props> = ({
               date={date}
               events={getDayOffers(events)}
               filters={offerFilters}
+              loading={offerLoading}
               // @ts-expect-error
               onDateChange={setDate}
               showCancelledOffers={false}
-              loading={offerLoading}
             />
             <TimeTable
               displayCoachInfoOnHover
               showTags
               virtualized
               companyTheme={theme}
+              loading={offerLoading}
               offers={offers}
               onOfferSelected={handleOfferSelected}
               selected={offerSelected}
-              loading={offerLoading}
             />
           </div>
           <DialogActions>

@@ -201,10 +201,7 @@ const InboxThreadContainer: React.FC<Props> = (props) => {
       ) : (
         <>
           {!props.thread ? (
-            <InboxNoThread
-              contextSelected={props.contextSelected}
-              count={props.count}
-            />
+            <InboxNoThread />
           ) : (
             <>
               <InboxThreadContainerHeader

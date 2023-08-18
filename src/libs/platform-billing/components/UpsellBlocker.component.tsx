@@ -7,7 +7,6 @@ import { Paper, Button, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 import WelcomeIcon from '#components/icons/WelcomeIcon.component';
-import type { FeatureList } from '#libs/company/types';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { requestUpsellPackage as requestUpsellPackageAction } from '#libs/platform-billing/actions';
 

@@ -1,35 +1,26 @@
 import React, { memo } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import ItemClickIcon from '#components/icons/ItemClick.component';
-import InfoBox from '#components/box/InfoBox.component';
 
-type Props = {
-  count: number;
-  contextSelected: ChatThreadKinds;
-};
+type Props = {};
 
-const InboxNoThread: React.FC<Props> = ({ count, contextSelected }) => {
+const InboxNoThread: React.FC<Props> = () => {
   const { t } = useTranslation('communication');
   const classes = useStyles();
 
   return (
-        <div className={classes.noThread}>
-          <ItemClickIcon color="primary" />
-          <Typography
-            align="center"
-            className={classes.noThreadTitle}
-            variant="h6"
-          >
-            {t('thread.selectThread.title')}
-          </Typography>
-          <Typography align="center" variant="body1">
-            {t('thread.selectThread.description')}
-          </Typography>
-        </div>
+    <div className={classes.noThread}>
+      <ItemClickIcon color="primary" />
+      <Typography align="center" className={classes.noThreadTitle} variant="h6">
+        {t('thread.selectThread.title')}
+      </Typography>
+      <Typography align="center" variant="body1">
+        {t('thread.selectThread.description')}
+      </Typography>
+    </div>
   );
 };
 

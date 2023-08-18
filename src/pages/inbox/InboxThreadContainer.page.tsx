@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { compose } from 'recompose';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+import { connect, type ConnectedProps } from 'react-redux';
 import type { OptionCallback } from '../../state/types';
 import InboxThreadContainer from '#libs/communication-v2/thread/InboxThreadContainer/InboxThreadContainer.component';
 
@@ -8,7 +9,6 @@ import {
   needToFilterOutReceivedCommunicationSentWithActiveFilters,
   getOfferCategories,
 } from '#libs/communication-v2/utils';
-import { connect, type ConnectedProps } from 'react-redux';
 import type {
   Communication,
   InboxThreadRouterProps,

@@ -58,7 +58,6 @@ const usePropsFromVariation = (
     }),
     savedPaymentMethodList: [],
     areInitialBillingDetailsNecessary: false,
-    setAreInitialBillingDetailsNecessary: () => {},
     billingDetails: {
       name: '',
       email: '',
@@ -75,19 +74,6 @@ const usePropsFromVariation = (
     cardBillingDetailsMandatory: true,
     paymentMethodFetchDone: true,
     isContractLegalTermsAccepted: true,
-    initialBillingDetails: {
-      name: '',
-      email: '',
-      address: {
-        line1: '',
-        line2: '',
-        postal_code: '',
-        city: '',
-        country: 'GB',
-        state: '',
-      },
-    },
-    setInitialBillingDetails: () => {},
   };
 };
 

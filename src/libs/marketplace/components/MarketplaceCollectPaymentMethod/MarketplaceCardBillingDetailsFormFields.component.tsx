@@ -55,7 +55,7 @@ const MarketplaceCardBillingDetailsFormFields = ({
         renderListItem={(option: SelectOptionWithMetaData<CountryMetaData>) => (
           <CountryOption option={option} />
         )}
-        value={billingDetails.address.country}
+        value={billingDetails?.address.country || ''}
       />
       <input
         required
@@ -63,7 +63,7 @@ const MarketplaceCardBillingDetailsFormFields = ({
         disabled={disabled}
         onChange={handleChangeName}
         placeholder={t('invoice:mandate.name')}
-        value={billingDetails.name}
+        value={billingDetails?.name || ''}
       />
       <input
         required
@@ -72,7 +72,7 @@ const MarketplaceCardBillingDetailsFormFields = ({
         onChange={handleChangeEmail}
         placeholder={t('invoice:mandate.email')}
         type="email"
-        value={billingDetails.email}
+        value={billingDetails?.email || ''}
       />
       <input
         required
@@ -80,14 +80,14 @@ const MarketplaceCardBillingDetailsFormFields = ({
         disabled={disabled}
         onChange={handleChangeLineOne}
         placeholder={t('invoice:mandate.address_line_1')}
-        value={billingDetails.address.line1}
+        value={billingDetails?.address.line1 || ''}
       />
       <input
         className="bs-collect-payment-method__mandate__field"
         disabled={disabled}
         onChange={handleChangeLineTwo}
         placeholder={t('invoice:mandate.address_line_2')}
-        value={billingDetails.address.line2}
+        value={billingDetails?.address.line2 || ''}
       />
       <input
         required
@@ -95,14 +95,14 @@ const MarketplaceCardBillingDetailsFormFields = ({
         disabled={disabled}
         onChange={handleChangePostalCode}
         placeholder={t('invoice:mandate.address_postal_code')}
-        value={billingDetails.address.postal_code}
+        value={billingDetails?.address.postal_code || ''}
       />
       <input
         className="bs-collect-payment-method__mandate__field"
         disabled={disabled}
         onChange={handleChangeState}
         placeholder={t('invoice:mandate.state')}
-        value={billingDetails.address.state}
+        value={billingDetails?.address.state || ''}
       />
       <input
         required
@@ -110,7 +110,7 @@ const MarketplaceCardBillingDetailsFormFields = ({
         disabled={disabled}
         onChange={handleChangeCity}
         placeholder={t('invoice:mandate.city')}
-        value={billingDetails.address.city}
+        value={billingDetails?.address.city || ''}
       />
     </div>
   );

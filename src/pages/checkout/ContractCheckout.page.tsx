@@ -647,9 +647,7 @@ export default compose<any, ownProps>(
         fetchPaymentMethodList(
           { company: companyId },
           {
-            onSuccess: () => {
-              if (options && options.onSuccess) options.onSuccess();
-            },
+            onSuccess: () => options?.onSuccess(),
           },
         );
       },

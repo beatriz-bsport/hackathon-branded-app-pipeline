@@ -48,14 +48,14 @@ const CardBillingDetailsForm = ({
               },
             });
           }}
-          value={billingDetails.address.country}
+          value={billingDetails?.address.country || ''}
           valueKey="country"
         />
         <TextField
           fullWidth
           required
           disabled={disabled}
-          name="name"
+          label={t('mandate.name')}
           onChange={(ev) => {
             const { value } = ev.target;
             setBillingDetails({
@@ -63,15 +63,14 @@ const CardBillingDetailsForm = ({
               name: value,
             });
           }}
-          placeholder={t('mandate.name')}
-          value={billingDetails.name}
+          value={billingDetails?.name || ''}
           variant="outlined"
         />
         <TextField
           fullWidth
           required
           disabled={disabled}
-          name="line1"
+          label={t('mandate.address_line_1')}
           onChange={(ev) => {
             const { value } = ev.target;
             setBillingDetails({
@@ -82,14 +81,13 @@ const CardBillingDetailsForm = ({
               },
             });
           }}
-          placeholder={t('mandate.address_line_1')}
-          value={billingDetails.address.line1}
+          value={billingDetails?.address.line1 || ''}
           variant="outlined"
         />
         <TextField
           fullWidth
           disabled={disabled}
-          name="line2"
+          label={t('mandate.address_line_2')}
           onChange={(ev) => {
             const { value } = ev.target;
             setBillingDetails({
@@ -100,14 +98,14 @@ const CardBillingDetailsForm = ({
               },
             });
           }}
-          placeholder={t('mandate.address_line_2')}
-          value={billingDetails.address.line2}
+          value={billingDetails?.address.line2 || ''}
           variant="outlined"
         />
         <TextField
           fullWidth
+          required
           disabled={disabled}
-          name="city"
+          label={t('mandate.city')}
           onChange={(ev) => {
             const { value } = ev.target;
             setBillingDetails({
@@ -115,15 +113,14 @@ const CardBillingDetailsForm = ({
               address: { ...billingDetails.address, city: value },
             });
           }}
-          placeholder={t('mandate.city')}
-          value={billingDetails.address.city}
+          value={billingDetails?.address.city || ''}
           variant="outlined"
         />
         <TextField
           fullWidth
           required
           disabled={disabled}
-          name="postalCode"
+          label={t('mandate.address_postal_code')}
           onChange={(ev) => {
             const { value } = ev.target;
             setBillingDetails({
@@ -134,14 +131,13 @@ const CardBillingDetailsForm = ({
               },
             });
           }}
-          placeholder={t('mandate.address_postal_code')}
-          value={billingDetails.address.postal_code}
+          value={billingDetails?.address.postal_code || ''}
           variant="outlined"
         />
         <TextField
           fullWidth
           disabled={disabled}
-          name="state"
+          label={t('mandate.state')}
           onChange={(ev) => {
             const { value } = ev.target;
             setBillingDetails({
@@ -152,14 +148,13 @@ const CardBillingDetailsForm = ({
               },
             });
           }}
-          placeholder={t('mandate.state')}
-          value={billingDetails.address.state}
+          value={billingDetails?.address.state || ''}
           variant="outlined"
         />
         <TextField
           fullWidth
           disabled={disabled}
-          name="email"
+          label={t('mandate.email')}
           onChange={(ev) => {
             const { value } = ev.target;
             setBillingDetails({
@@ -167,8 +162,7 @@ const CardBillingDetailsForm = ({
               email: value,
             });
           }}
-          placeholder={t('mandate.email')}
-          value={billingDetails.email}
+          value={billingDetails?.email || ''}
           variant="outlined"
         />
       </div>

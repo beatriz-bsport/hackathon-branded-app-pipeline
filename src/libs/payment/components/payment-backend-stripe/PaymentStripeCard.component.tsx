@@ -156,24 +156,24 @@ const StripePaymentCard = forwardRef(
     const [hasDetached, setHasDetached] = React.useState(null);
     const [addPaymentMethod, setAddPaymentMethod] = React.useState(false);
 
-    const initialBillingDetailsValues = Immutable({
-      name: userDefaultName || '',
-      address: {
-        city: '',
-        country: companyCountry || '',
-        line1: '',
-        line2: '',
-        postal_code: '',
-        state: '',
-      },
-      email: userDefaultEmail || '',
-    });
+    const defaultBillingDetailsValues = React.useMemo(() => {
+      return Immutable({
+        name: userDefaultName || '',
+        address: {
+          city: '',
+          country: companyCountry || '',
+          line1: '',
+          line2: '',
+          postal_code: '',
+          state: '',
+        },
+        email: userDefaultEmail || '',
+      });
+    }, [userDefaultName, userDefaultEmail, companyCountry]);
 
     const [isFetchFinished, setIsFetchFinished] = React.useState(false);
-    const [initialBillingDetails, setInitialBillingDetails] =
-      React.useState<BillingDetails>(initialBillingDetailsValues);
     const [billingDetails, setBillingDetails] = React.useState<BillingDetails>(
-      initialBillingDetailsValues,
+      defaultBillingDetailsValues,
     );
 
     const isNewCheckoutFlow = React.useContext(CheckoutContext);
@@ -205,19 +205,60 @@ const StripePaymentCard = forwardRef(
         });
     }, [memberId, clientSecret, hasDetached]);
 
-    React.useEffect(() => {
-      isFetchFinished && setAddPaymentMethod(!paymentMethodList.length);
-      if (paymentMethodList.length) {
-        setPaymentMethodSelected(paymentMethodList[0].id);
-
-        const paymentMethodSelectedBillingDetails: BillingDetails =
-          paymentMethodList?.find(
-            (paymentMethod) => paymentMethod.id === paymentMethodList[0].id,
+    const paymentMethodSelectedBillingDetails: BillingDetails =
+      React.useMemo(() => {
+        if (paymentMethodSelected) {
+          return paymentMethodList?.find(
+            (paymentMethod) => paymentMethod.id === paymentMethodSelected,
           )?.billing_details;
-        setInitialBillingDetails(paymentMethodSelectedBillingDetails);
+        }
+        return defaultBillingDetailsValues;
+      }, [
+        paymentMethodSelected,
+        paymentMethodList,
+        defaultBillingDetailsValues,
+      ]);
+
+    // Whenever the paymentMethod changes, we change the state of the billing details
+    React.useEffect(() => {
+      if (paymentMethodSelected) {
         setBillingDetails(paymentMethodSelectedBillingDetails);
+      } else {
+        setBillingDetails(defaultBillingDetailsValues);
       }
-    }, [paymentMethodList, isFetchFinished]);
+    }, [
+      paymentMethodSelected,
+      defaultBillingDetailsValues,
+      paymentMethodSelectedBillingDetails,
+    ]);
+
+    React.useEffect(() => {
+      if (
+        paymentMethodList.length &&
+        !paymentMethodSelected &&
+        isFetchFinished &&
+        !addPaymentMethod
+      ) {
+        setPaymentMethodSelected(paymentMethodList[0].id);
+        setBillingDetails(paymentMethodSelectedBillingDetails);
+      } else if (!paymentMethodList.length && isFetchFinished) {
+        setBillingDetails(defaultBillingDetailsValues);
+        setAddPaymentMethod(true);
+      }
+    }, [
+      paymentMethodList,
+      isFetchFinished,
+      paymentMethodSelectedBillingDetails,
+      paymentMethodSelected,
+      addPaymentMethod,
+      defaultBillingDetailsValues,
+    ]);
+
+    React.useEffect(() => {
+      if (hasDetached && paymentMethodList.length) {
+        setPaymentMethodSelected(paymentMethodList[0].id);
+      }
+    }, [hasDetached, setPaymentMethodSelected, paymentMethodList]);
 
     React.useEffect(() => {
       if (addPaymentMethod) {
@@ -225,22 +266,26 @@ const StripePaymentCard = forwardRef(
       }
     }, [addPaymentMethod]);
 
+    const areSpecificBillingDetailsProvided = React.useCallback(
+      (specificBillingDetails: BillingDetails) => {
+        return (
+          !!specificBillingDetails?.name &&
+          !!specificBillingDetails?.address.line1 &&
+          !!specificBillingDetails?.address.postal_code &&
+          !!specificBillingDetails?.address.city &&
+          !!specificBillingDetails?.address.country
+        );
+      },
+      [],
+    );
     // Temporary test to limit the number of 3DS required for card payments for one company (id 1416)
     const areInitialBillingDetailsNecessary =
       cardBillingDetailsMandatory && paymentMethodSelected
-        ? !!initialBillingDetails?.name &&
-          !!initialBillingDetails?.address.line1 &&
-          !!initialBillingDetails?.address.postal_code &&
-          !!initialBillingDetails?.address.city &&
-          !!initialBillingDetails?.address.country
+        ? areSpecificBillingDetailsProvided(paymentMethodSelectedBillingDetails)
         : true;
 
     const areBillingDetailsProvided = cardBillingDetailsMandatory
-      ? !!billingDetails?.name &&
-        !!billingDetails?.address.line1 &&
-        !!billingDetails?.address.postal_code &&
-        !!billingDetails?.address.city &&
-        !!billingDetails?.address.country
+      ? areSpecificBillingDetailsProvided(billingDetails)
       : true;
 
     const isSubmitButtonDisabled =
@@ -293,7 +338,6 @@ const StripePaymentCard = forwardRef(
             return;
           }
         }
-
         try {
           if (!areInitialBillingDetailsNecessary && paymentMethodSelected) {
             await updatePaymentMethodBillingDetailsAPI({
@@ -392,16 +436,9 @@ const StripePaymentCard = forwardRef(
       (id: string) => {
         if (id !== paymentMethodSelected) {
           setPaymentMethodSelected(id);
-          const paymentMethodSelectedBillingDetails: BillingDetails =
-            paymentMethodList?.find(
-              (paymentMethod) => paymentMethod.id === id,
-            )?.billing_details;
-
-          setInitialBillingDetails(paymentMethodSelectedBillingDetails);
-          setBillingDetails(paymentMethodSelectedBillingDetails);
         }
       },
-      [paymentMethodSelected, paymentMethodList],
+      [paymentMethodSelected],
     );
 
     const onSaveForLaterChange = React.useCallback(

@@ -8,7 +8,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { AxiosResponse } from 'axios';
-import { isEqual } from 'lodash';
 import { OptionCallback } from '../../../../state/types';
 import PaymentMethodListItem from '../PaymentMethodListItem.component';
 import CollectPaymentMethod from '../CollectPaymentMethod.component';
@@ -89,6 +88,13 @@ export const PaymentMethodList = ({
 
   const onlinePaymentEnabledValue = onlinePaymentEnabled !== false;
 
+  const displayEditForm = (paymentMethod: PaymentMethod) =>
+    !areInitialBillingDetailsNecessary &&
+    cardBillingDetailsMandatory &&
+    paymentMethod.type === 'card' &&
+    paymentMethod.id === selectedSavedPaymentMethodId &&
+    !!paymentMethod.billing_details;
+
   return (
     <div className={classes.container}>
       {(onlyDefault && defaultPaymentMethod
@@ -105,17 +111,13 @@ export const PaymentMethodList = ({
             selected={pm.id === selectedSavedPaymentMethodId}
             setHasDetached={setHasDetached}
           />
-          {!areInitialBillingDetailsNecessary &&
-            cardBillingDetailsMandatory &&
-            pm.type === 'card' &&
-            pm.id === selectedSavedPaymentMethodId &&
-            !!pm.billing_details && (
-              <CardBillingDetailsForm
-                billingDetails={billingDetails}
-                disabled={disabled}
-                setBillingDetails={setBillingDetails}
-              />
-            )}
+          {displayEditForm(pm) && (
+            <CardBillingDetailsForm
+              billingDetails={billingDetails}
+              disabled={disabled}
+              setBillingDetails={setBillingDetails}
+            />
+          )}
         </React.Fragment>
       ))}
       {!!requestSetupIntentSecret && onlinePaymentEnabledValue && (
@@ -159,4 +161,4 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default React.memo(PaymentMethodList, isEqual);
+export default React.memo(PaymentMethodList);

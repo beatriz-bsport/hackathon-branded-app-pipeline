@@ -147,16 +147,22 @@ export class CollectPaymentMethod extends React.Component<Props> {
     this.setState({ billingDetails });
   };
 
+  areBillingDetailsProvided = (billingDetails: BillingDetails) => {
+    return (
+      !!billingDetails.name &&
+      !!billingDetails.address.line1 &&
+      !!billingDetails.address.postal_code &&
+      !!billingDetails.address.city &&
+      !!billingDetails.address.country
+    );
+  };
+
   render() {
     const { classes, fullScreen } = this.props;
     const dialogOffset = fullScreen ? '0%' : '50%';
 
     const areBillingDetailsProvided = this.props.cardBillingDetailsMandatory
-      ? this.state.billingDetails.name &&
-        this.state.billingDetails.address.line1 &&
-        this.state.billingDetails.address.postal_code &&
-        this.state.billingDetails.address.city &&
-        this.state.billingDetails.address.country
+      ? this.areBillingDetailsProvided(this.state.billingDetails)
       : true;
 
     return (

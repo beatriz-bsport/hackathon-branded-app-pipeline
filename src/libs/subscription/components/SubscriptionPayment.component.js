@@ -149,19 +149,6 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       theoricalAmountValuePastInvoices: null,
       requiredEstablishmentIsMissing: false,
       contractTermsChecked: false,
-      initialBillingDetails: {
-        name: '',
-        address: {
-          city: '',
-          country: '',
-          line1: '',
-          line2: '',
-          postal_code: '',
-          state: '',
-        },
-        email: '',
-        phone: '',
-      },
       billingDetails: {
         name: '',
         address: {
@@ -176,6 +163,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
         phone: '',
       },
     };
+    this.selectedSavedPaymentMethod = null;
   }
 
   componentDidMount() {
@@ -185,9 +173,22 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     this.handleSelectedPaymentMethod();
   }
 
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
     if (prevProps.contract !== this.props.contract) {
       this.deleteCoupon();
+    }
+
+    if (
+      prevState.selectedSavedPaymentMethodId !==
+      this.state.selectedSavedPaymentMethodId
+    ) {
+      this.selectedSavedPaymentMethod = this.props.savedPaymentMethodList?.find(
+        (paymentMethod: PaymentMethod) =>
+          paymentMethod.id === this.state.selectedSavedPaymentMethodId,
+      );
+      this.setState({
+        billingDetails: this.selectedSavedPaymentMethod?.billing_details,
+      });
     }
 
     if (
@@ -229,14 +230,10 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       (pm) => pm.type === this.props.paymentMethod,
     );
     if (selectedPaymentMethodList.length) {
+      this.selectedSavedPaymentMethod = { ...selectedPaymentMethodList[0] };
       this.setState({
-        selectedSavedPaymentMethodId: selectedPaymentMethodList[0].id,
-      });
-      this.setState({
-        billingDetails: selectedPaymentMethodList[0].billing_details,
-      });
-      this.setState({
-        initialBillingDetails: selectedPaymentMethodList[0].billing_details,
+        selectedSavedPaymentMethodId: this.selectedSavedPaymentMethod.id,
+        billingDetails: this.selectedSavedPaymentMethod.billing_details,
       });
     }
   };
@@ -412,19 +409,24 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     this.setState({
       selectedSavedPaymentMethodId,
     });
-    const selectedSavedPaymentMethod = this.props.savedPaymentMethodList?.find(
-      (paymentMethod: PaymentMethod) =>
-        paymentMethod.id === selectedSavedPaymentMethodId,
-    );
-    if (selectedSavedPaymentMethod?.type === MarketplacePaymentMethods.card) {
+
+    if (
+      this.selectedSavedPaymentMethod?.type === MarketplacePaymentMethods.card
+    ) {
       this.setState({
-        billingDetails: selectedSavedPaymentMethod.billing_details,
-      });
-      this.setState({
-        initialBillingDetails: selectedSavedPaymentMethod.billing_details,
+        billingDetails: this.selectedSavedPaymentMethod.billing_details,
       });
     }
   };
+
+  areBillingDetailsProvided = (
+    billingDetails: MarketplacePaymentMethodBillingDetails,
+  ) =>
+    !!billingDetails?.name &&
+    !!billingDetails?.address.line1 &&
+    !!billingDetails?.address.postal_code &&
+    !!billingDetails?.address.city &&
+    !!billingDetails?.address.country;
 
   render() {
     const {
@@ -447,20 +449,15 @@ export class SubscriptionPayment extends React.Component<Props, State> {
 
     const areInitialBillingDetailsNecessary =
       this.props.cardBillingDetailsMandatory &&
-      !!this.state.selectedSavedPaymentMethodId
-        ? !!this.state.initialBillingDetails?.name &&
-          !!this.state.initialBillingDetails?.address.line1 &&
-          !!this.state.initialBillingDetails?.address.postal_code &&
-          !!this.state.initialBillingDetails?.address.city &&
-          !!this.state.initialBillingDetails?.address.country
+      !!this.state.selectedSavedPaymentMethodId &&
+      this.selectedSavedPaymentMethod
+        ? this.areBillingDetailsProvided(
+            this.selectedSavedPaymentMethod.billing_details,
+          )
         : true;
 
     const areBillingDetailsProvided = this.props.cardBillingDetailsMandatory
-      ? !!this.state.billingDetails.name &&
-        !!this.state.billingDetails.address.line1 &&
-        !!this.state.billingDetails.address.postal_code &&
-        !!this.state.billingDetails.address.city &&
-        !!this.state.billingDetails.address.country
+      ? this.areBillingDetailsProvided(this.state.billingDetails)
       : true;
 
     return (

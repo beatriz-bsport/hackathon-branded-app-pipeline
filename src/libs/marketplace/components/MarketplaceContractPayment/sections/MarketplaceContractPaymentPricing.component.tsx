@@ -38,7 +38,7 @@ const MarketplaceContractPaymentPricing: React.FC<Props> = React.memo(
         ).toFixed(2);
       }
       return parseFloat(
-        (contract.recurrent_price - (voucher || 0)).toString(),
+        (parseInt(contract.recurrent_price, 10) - (voucher || 0)).toString(),
       ).toFixed(2);
     }, [
       contract?.month_billing_day,
@@ -55,11 +55,13 @@ const MarketplaceContractPaymentPricing: React.FC<Props> = React.memo(
           contract.recurrent_price.toString(),
         );
         return Math.max(
-          parseInt(firstInvoiceProrataPrice) - (voucher || 0),
+          parseInt(firstInvoiceProrataPrice, 10) - (voucher || 0),
           0,
         ).toFixed(2);
       }
-      return (contract.recurrent_price - (voucher || 0)).toFixed(2);
+      return (parseInt(contract.recurrent_price, 10) - (voucher || 0)).toFixed(
+        2,
+      );
     }, [
       contract?.month_billing_day,
       contract.recurrent_price,

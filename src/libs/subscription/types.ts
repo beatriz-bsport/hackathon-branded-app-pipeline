@@ -109,7 +109,7 @@ export type Contract = {
   manager_only: boolean;
   auto_renewal: boolean;
   flat_fee: string;
-  recurrent_price: number;
+  recurrent_price: string;
   nb_interval: number;
   disabled: boolean;
   interval: 'month' | 'week';
@@ -133,7 +133,7 @@ export type ContractWithPaymentPack<
   manager_only: boolean;
   auto_renewal: boolean;
   tax: string;
-  flat_fee: number;
+  flat_fee: string;
   recurrent_price: string;
   nb_interval: number;
   disabled: boolean;

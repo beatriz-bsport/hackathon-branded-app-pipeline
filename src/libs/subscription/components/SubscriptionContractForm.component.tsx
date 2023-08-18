@@ -637,7 +637,7 @@ export const SubscriptionContractFormHoc = withFormik<
     return {
       name: '',
       recurrent_price: '0',
-      flat_fee: 0,
+      flat_fee: '0',
       nb_interval: 12,
       recurrence_basis: 1,
       interval: 'month',

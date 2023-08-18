@@ -40,7 +40,10 @@ export const contractFactory = (options?: ContractFactoryOptions) => {
     manager_only: options?.isManagerOnly ?? faker.datatype.boolean(),
     auto_renewal: options?.isAutoRenewal ?? faker.datatype.boolean(),
     flat_fee: generateRandomPrice(faker, { min: 5, max: 100 }).toString(),
-    recurrent_price: generateRandomPrice(faker, { min: 5, max: 100 }),
+    recurrent_price: generateRandomPrice(faker, {
+      min: 5,
+      max: 100,
+    }).toString(),
     nb_interval: faker.number.int({ min: 6, max: 24 }),
     disabled: options?.isDisabled ?? faker.datatype.boolean(),
     interval: randomContractInterval,

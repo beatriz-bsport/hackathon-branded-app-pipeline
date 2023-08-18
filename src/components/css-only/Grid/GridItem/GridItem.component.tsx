@@ -12,7 +12,7 @@ export type Props = {
   alignment?: Alignment;
   direction?: Direction;
   justification?: Justification;
-  classes?: { [key: string]: string };
+  classes?: { [key: string]: string | boolean };
   gridArea?: string;
 };
 

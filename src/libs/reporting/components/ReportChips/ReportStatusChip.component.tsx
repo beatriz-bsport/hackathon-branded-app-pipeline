@@ -43,6 +43,7 @@ type Props = {
   extra_data?: { [key: string]: number | string };
   row_extra_data?: { [key: string]: number | string };
   chipClass?: string;
+  onDelete?: () => void;
 };
 
 type MatchType = {
@@ -119,6 +120,7 @@ export const ReportStatusChip = (props: Props) => {
     extra_data,
     row_extra_data,
     chipClass,
+    onDelete,
   } = props;
   const theme = createTheme({
     palette: {
@@ -162,6 +164,7 @@ export const ReportStatusChip = (props: Props) => {
       icon={icon}
       iconColor={iconColor}
       mainColor={textColor}
+      onDelete={onDelete}
     />
   );
 };

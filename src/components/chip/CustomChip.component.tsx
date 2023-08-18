@@ -24,6 +24,7 @@ export type CustomChipProps = {
   blackText?: boolean;
   toolTip?: boolean;
   toolTipValue?: string;
+  onDelete?: () => void;
 } & StylesProps;
 
 type ChipWrapperProps = {
@@ -118,6 +119,7 @@ export const CustomChip: React.FC<CustomChipProps> = ({
   mainColor,
   iconColor,
   maxWidth,
+  onDelete,
 }) => {
   const classes = useStyles({ iconColor, mainColor, maxWidth });
 
@@ -195,6 +197,7 @@ export const CustomChip: React.FC<CustomChipProps> = ({
             color="primary"
             icon={!!icon && <MuiIcon className={classes.icon} icon={icon} />}
             label={displayedValue}
+            onDelete={!!onDelete && onDelete}
             size="small"
             variant="default"
           />

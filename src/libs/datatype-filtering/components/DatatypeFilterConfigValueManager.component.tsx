@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 
@@ -95,11 +95,12 @@ type ItemProps = {
   isDisabled: boolean;
 };
 
-const PAYMENT_METHODS_WITHOUT_CREDIT_ACCOUNT = PAYMENT_METHODS.filter(
-  (paymentMethod) => paymentMethod.id !== CREDIT_ACCOUNT.id,
-);
+type ChipProps = {
+  data: { label: string; value: number; columnName: string };
+  onDelete: () => void;
+};
 
-const DatatypeFilterConfigValueManager: React.FC<{
+type Props = {
   comparator: AllComparator;
   prefix: string;
   filterItem: DatatypeFilterConfigItem;
@@ -110,7 +111,12 @@ const DatatypeFilterConfigValueManager: React.FC<{
   inScrollBar?: boolean;
   reportCategory?: string;
   withoutConfirmButton?: boolean;
-}> = ({
+};
+const PAYMENT_METHODS_WITHOUT_CREDIT_ACCOUNT = PAYMENT_METHODS.filter(
+  (paymentMethod) => paymentMethod.id !== CREDIT_ACCOUNT.id,
+);
+
+const DatatypeFilterConfigValueManager: React.FC<Props> = ({
   prefix,
   filterItem,
   comparator,
@@ -148,9 +154,20 @@ const DatatypeFilterConfigValueManager: React.FC<{
     [reportCategory],
   );
 
+  const chipsRenderer = useCallback(
+    (chipProps: ChipProps) => (
+      <ReportChipsRenderer
+        chipProps={chipProps}
+        reportCategory={reportCategory}
+      />
+    ),
+    [reportCategory],
+  );
+
   if (filterItem.datatype === 'boolean') {
     return (
       <MaterialUiSingleSelectorField
+        chipsRenderer={!!chipsRenderer && chipsRenderer}
         inScrollBar={inScrollBar}
         isDisabled={isPreview}
         itemRenderer={!!itemRenderer && itemRenderer}
@@ -200,6 +217,7 @@ const DatatypeFilterConfigValueManager: React.FC<{
     return (
       <DatatypeFilterConfigValueList
         key={`${prefix}.value`}
+        chipsRenderer={!!chipsRenderer && chipsRenderer}
         columnName={filterItem.identifier}
         datatype={filterItem.datatype}
         getDataByType={getDataByType}
@@ -378,7 +396,8 @@ const DatatypeFilterConfigValueList: React.FC<{
   ) => handleGetDynamicDataForFiltersReturn;
   inScrollBar: boolean;
   columnName: string;
-  itemRenderer: any;
+  itemRenderer: (itemProps: ItemProps) => React.ReactNode;
+  chipsRenderer: (itemProps: ItemProps) => React.ReactNode;
   withoutConfirmButton: boolean;
 }> = ({
   name,
@@ -389,6 +408,7 @@ const DatatypeFilterConfigValueList: React.FC<{
   columnName,
   itemRenderer,
   withoutConfirmButton,
+  chipsRenderer,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -671,6 +691,7 @@ const DatatypeFilterConfigValueList: React.FC<{
   return (
     <MaterialUiMultiSelectorField
       isMenuListVirtualized
+      chipsRenderer={!!chipsRenderer && chipsRenderer}
       className={classes.flexOne}
       defaultNumberShown={1}
       forceError={false && error && isTouched}
@@ -698,4 +719,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default DatatypeFilterConfigValueManager;
+export default memo(DatatypeFilterConfigValueManager);

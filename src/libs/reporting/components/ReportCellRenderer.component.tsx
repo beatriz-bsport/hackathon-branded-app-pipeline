@@ -13,7 +13,8 @@ type ReportCellRendererProps = {
   extra_data?: { [key: string]: number | string };
   row_extra_data?: { [key: string]: number | string };
   formattedValue: string | number;
-  chipClass: string;
+  chipClass?: string;
+  onDelete?: () => void;
 };
 
 const ReportCellRenderer: React.FC<ReportCellRendererProps> = ({
@@ -24,6 +25,7 @@ const ReportCellRenderer: React.FC<ReportCellRendererProps> = ({
   row_extra_data,
   formattedValue,
   chipClass,
+  onDelete,
 }) => {
   const displayedValue = formattedValue?.toString();
 
@@ -57,6 +59,7 @@ const ReportCellRenderer: React.FC<ReportCellRendererProps> = ({
             chipClass={chipClass}
             datatype={datatype}
             extra_data={extra_data}
+            onDelete={onDelete}
             row_extra_data={row_extra_data}
             translation={displayedValue}
             value={value}

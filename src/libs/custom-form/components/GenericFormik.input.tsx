@@ -10,6 +10,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { Switch } from '@material-ui/core';
 import MaterialUISelector, {
   itemRendererProps,
+  chipsRendererProps,
   Props as MaterialUISelectorProps,
 } from '#components/Selector/MaterialUISelector.component';
 
@@ -203,6 +204,7 @@ type MaterialUiMultiSelectorProps = {
   forceError?: boolean;
   withoutConfirmButton?: boolean;
   itemRenderer?: (props: itemRendererProps) => React.ReactNode;
+  chipsRenderer?: (props: chipsRendererProps) => React.ReactNode;
 };
 
 type Props = BaseFieldProps & MaterialUiMultiSelectorProps;
@@ -228,6 +230,7 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
         {() => (
           <MaterialUISelector
             isMulti
+            chipsRenderer={props.chipsRenderer}
             defaultNumberShown={props.defaultNumberShown}
             error={!!(meta.touched && meta.error) || props.forceError}
             inScrollBar={props.inScrollBar}

@@ -237,7 +237,7 @@
     flex-direction: column;
   }
 
-  .bs-generic-card__content__grid__item {
+  .bs-generic-card__content__grid__item--contract-checkout {
     justify-content: space-between;
   }
 

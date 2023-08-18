@@ -8,9 +8,9 @@ import useIsTextExpandable from '../../../../hooks/useIsTextExpandable';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Card, { CardSize } from '#components/css-only/Card';
-import Content from '#components/css-only/Card/CardContent';
+import CardContent from '#components/css-only/Card/CardContent';
 import Grid from '#components/css-only/Grid';
-import Item, {
+import GridItem, {
   Alignment,
   Justification,
 } from '#components/css-only/Grid/GridItem';
@@ -121,14 +121,18 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
           '--expanded-header': isExpanded,
         })}
       >
-        <Content padding>
+        <CardContent padding>
           <Grid
             classes={{
               'bs-contract-checkout__grid': 'bs-contract-checkout__grid',
             }}
           >
-            <Item
+            <GridItem
               alignment={Alignment.FLEX_START}
+              classes={{
+                'bs-generic-card__content__grid__item--contract-checkout':
+                  'bs-generic-card__content__grid__item--contract-checkout',
+              }}
               columnEnd={1}
               columnStart={1}
               justification={Justification.SPACE_BETWEEN}
@@ -158,9 +162,13 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
                   <BillingInterval contract={contract} />
                 </Price>
               </div>
-            </Item>
-            <Item
+            </GridItem>
+            <GridItem
               alignment={Alignment.FLEX_END}
+              classes={{
+                'bs-generic-card__content__grid__item--contract-checkout':
+                  'bs-generic-card__content__grid__item--contract-checkout',
+              }}
               columnEnd={2}
               columnStart={2}
               justification={Justification.SPACE_BETWEEN}
@@ -185,11 +193,11 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
                   {t('marketplace:contractCard.chooseButton')}
                 </button>
               )}
-            </Item>
+            </GridItem>
           </Grid>
-        </Content>
+        </CardContent>
       </div>
-      <Content
+      <CardContent
         classes={{
           'bs-contract-checkout__body': 'bs-contract-checkout__body',
           ...(isExpanded && {
@@ -203,10 +211,12 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
               'bs-contract-checkout__body__grid',
           }}
         >
-          <Item
+          <GridItem
             classes={{
               'bs-contract-checkout__body__item':
                 'bs-contract-checkout__body__item',
+              'bs-generic-card__content__grid__item--contract-checkout':
+                'bs-generic-card__content__grid__item--contract-checkout',
             }}
           >
             {(isContractObjectLoading || objectIncludedInContract?.name) && (
@@ -263,9 +273,9 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
                   : t('marketplace:contractCard.seeMore')}
               </button>
             )}
-          </Item>
+          </GridItem>
         </Grid>
-      </Content>
+      </CardContent>
     </Card>
   );
 };

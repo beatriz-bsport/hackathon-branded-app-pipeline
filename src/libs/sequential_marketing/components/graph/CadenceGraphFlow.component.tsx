@@ -23,6 +23,7 @@ import type {
   Cadence,
   CadenceStep,
   ConnectedTrigger,
+  GraphCanvas,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
 import type {
@@ -52,6 +53,14 @@ type Props = {
   tagCategories: { [tag_name: string]: string[] };
   smartlists: Immutable.ImmutableArray<SmartList>;
   steps: CadenceStep[];
+  changeCadenceStepInExit: (stepId: number, status: DestinationStatus) => void;
+  changeCadenceExitInStep: (
+    triggerUuid: string,
+    step: {
+      name: string;
+      canvas: GraphCanvas;
+    },
+  ) => void;
   deleteCadenceStep: (stepId: number) => void;
   deleteConnectedTrigger: (
     cadenceId: number,
@@ -111,6 +120,8 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   smartlists,
   steps,
   tagList,
+  changeCadenceExitInStep,
+  changeCadenceStepInExit,
   deleteCadenceStep,
   deleteConnectedTrigger,
   editConnectedTrigger,
@@ -143,6 +154,8 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     displayDisabledTriggers,
     smartlists,
     steps,
+    changeCadenceExitInStep,
+    changeCadenceStepInExit,
     deleteCadenceStep,
     deleteConnectedTrigger,
     editConnectedTrigger,

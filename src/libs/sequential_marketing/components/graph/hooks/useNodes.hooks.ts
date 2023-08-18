@@ -14,6 +14,7 @@ import {
   DEFAULT_X_FOR_INNERSTEP,
   DEFAULT_X_FOR_TRIGGER,
   TriggerKind,
+  DestinationStatus,
 } from '#libs/sequential_marketing/constants';
 import { getDefaultValuesComplete } from './utils';
 import { isTriggerFake } from '#libs/sequential_marketing/components/helpers/utils';
@@ -22,6 +23,7 @@ import type {
   Cadence,
   ConnectedTrigger,
   CadenceStep,
+  GraphCanvas,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
 import type { StoredStep, StoredTrigger } from './types';
@@ -139,6 +141,14 @@ type NodeRendererProps = {
   storedSteps: StoredStep[];
   storedTriggers: Immutable.ImmutableArray<StoredTrigger>;
   fakerTrigger?: StoredTrigger;
+  changeCadenceExitInStep: (
+    triggerUuid: string,
+    step: {
+      name: string;
+      canvas: GraphCanvas;
+    },
+  ) => void;
+  changeCadenceStepInExit: (stepId: number, status: DestinationStatus) => void;
   deleteCadenceStep: (stepId: number) => void;
   deleteConnectedTrigger: (
     cadenceId: number,
@@ -181,6 +191,8 @@ export const useNodeElementsRecorder = ({
   storedEntryStep,
   storedSteps,
   storedTriggers,
+  changeCadenceExitInStep,
+  changeCadenceStepInExit,
   deleteCadenceStep,
   deleteConnectedTrigger,
   editConnectedTrigger,
@@ -256,7 +268,6 @@ export const useNodeElementsRecorder = ({
           getEmailTemplate,
           getSmartlist,
           getTag,
-          handleChangeInExit: () => {}, // TODO: code the changeInExit function
           onCardClick: () => onClickEntryStep(storedEntryStep), // TODO: code the onClickEntryStep function
           onConnectToStep: onConnectToEntryStep,
         },
@@ -373,6 +384,12 @@ export const useNodeElementsRecorder = ({
     [handleOnConnectedStep],
   );
 
+  const handleChangeInExit = React.useCallback(
+    (stepNode: StoredStep) => (status: DestinationStatus) =>
+      stepNode?.id && changeCadenceStepInExit(stepNode.id, status),
+    [changeCadenceStepInExit],
+  );
+
   // The stepNodeElements consumes the storedSteps data to draw the steps
   const stepNodeElements = React.useMemo(() => {
     if (storedSteps && storedSteps.length !== 0) {
@@ -395,7 +412,6 @@ export const useNodeElementsRecorder = ({
           stepToEditId,
           endStepEdition: handleResetStepToEditId,
           onDelete: () => deleteCadenceStep(stepNode?.id),
-          handleChangeInExit: () => {}, // TODO: code the changeInExit function
           addMarketingAction: () => {}, // TODO: code the newMA function
           addNextStep: handleAddNextStepTrigger(stepNode),
           onCardClick: () => {
@@ -405,6 +421,7 @@ export const useNodeElementsRecorder = ({
           onConnectToStep: onConnectToInnerStep(stepNode),
           getTag,
           getEmailTemplate,
+          submitChangeInExit: handleChangeInExit(stepNode),
         },
       }));
     }
@@ -430,6 +447,19 @@ export const useNodeElementsRecorder = ({
     [storedTriggers],
   );
 
+  const handleChangeInStep = React.useCallback(
+    (trigger: ConnectedTrigger) => (name: string) => {
+      const canvas: GraphCanvas = {
+        position: {
+          x: (parseFloat(trigger?.canvas?.position?.x) + 400).toString(),
+          y: trigger?.canvas?.position?.y,
+        },
+      };
+      changeCadenceExitInStep(trigger?.trigger_config?.uuid, { name, canvas });
+    },
+    [changeCadenceExitInStep],
+  );
+
   // The exitNodeElements consumes the list of storedTriggersToOutside data to draw the ExitElements on the graph.
   const exitNodeElements = React.useMemo(() => {
     if (storedTriggersToOutside && storedTriggersToOutside?.length > 0) {
@@ -446,16 +476,15 @@ export const useNodeElementsRecorder = ({
             }
           : { position: { x: DEFAULT_X_FOR_EXIT, y: 0 } }),
         data: {
-          step: triggerNode?.step,
+          disabled: !cadenceEditMode,
           status: triggerNode?.trigger?.destination_config?.status,
           onDelete: () => {},
-          handleChangeInStep: () => {},
-          disabled: !cadenceEditMode,
+          submitChangeInStep: handleChangeInStep(triggerNode?.trigger),
         },
       }));
     }
     return [];
-  }, [cadenceEditMode, storedTriggersToOutside]);
+  }, [cadenceEditMode, handleChangeInStep, storedTriggersToOutside]);
 
   return { entryNode, triggerNodeElements, stepNodeElements, exitNodeElements };
 };

@@ -15,6 +15,7 @@ import type {
   ConnectedTrigger,
   CadenceStep,
   StepMarketingActions,
+  GraphCanvas,
 } from '#libs/sequential_marketing/types';
 import type { CustomNode, StoredTrigger } from './types';
 import type { SmartList } from '#libs/smart-list/types';
@@ -23,6 +24,8 @@ import type { Tag } from '#libs/tag/types';
 import type { StepEditionBubbleProps } from '#libs/sequential_marketing/components/graph/bubbles/StepEditionBubble.component';
 import type { OptionCallback } from '../../../../../state/types';
 
+import { DestinationStatus } from '#libs/sequential_marketing/constants';
+
 export type Props = {
   cadence: Cadence;
   cadenceEditMode: boolean;
@@ -30,6 +33,14 @@ export type Props = {
   stepBubbleProps: Omit<StepEditionBubbleProps, 'step'>;
   steps: CadenceStep[];
   smartlists: Immutable.ImmutableArray<SmartList>;
+  changeCadenceExitInStep: (
+    triggerUuid: string,
+    step: {
+      name: string;
+      canvas: GraphCanvas;
+    },
+  ) => void;
+  changeCadenceStepInExit: (stepId: number, status: DestinationStatus) => void;
   editConnectedTrigger: (
     data: ConnectedTrigger,
     options?: OptionCallback<ConnectedTrigger>,
@@ -76,6 +87,8 @@ export const useGraph = ({
   smartlists,
   stepBubbleProps,
   steps,
+  changeCadenceExitInStep,
+  changeCadenceStepInExit,
   deleteCadenceStep,
   deleteConnectedTrigger,
   editConnectedTrigger,
@@ -140,6 +153,8 @@ export const useGraph = ({
       storedEntryStep,
       storedSteps,
       storedTriggers,
+      changeCadenceExitInStep,
+      changeCadenceStepInExit,
       deleteCadenceStep,
       deleteConnectedTrigger,
       editConnectedTrigger,

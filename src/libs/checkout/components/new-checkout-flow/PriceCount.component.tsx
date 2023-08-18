@@ -196,6 +196,11 @@ const useStyles = makeStyles((theme) => ({
     borderWidth: '1px 1px 0 1px',
     borderColor: theme.palette.grey[100],
     padding: theme.spacing(1),
+    [theme.breakpoints.down('sm')]: {
+      boxSizing: 'content-box',
+      borderWidth: '0px',
+      padding: '0px',
+    },
   },
   subContainer: {
     display: 'flex',

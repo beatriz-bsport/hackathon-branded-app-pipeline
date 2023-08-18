@@ -1,6 +1,9 @@
 import React, { useImperativeHandle, forwardRef } from 'react';
 import classNames from 'classnames';
 import Immutable from 'seamless-immutable';
+
+import grey from '@material-ui/core/colors/grey';
+import { isWidthDown, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -27,6 +30,7 @@ import PopOver from '#components/Popover';
 import { OptionCallback } from '../../../../state/types';
 import type { BillingDetails } from '#libs/marketplace/types';
 import CardBillingDetailsForm from './CardBillingDetailsForm';
+import { useWidth } from '../../../../hooks/useWidth';
 
 type Props = {
   memberId: number;
@@ -156,6 +160,8 @@ const StripePaymentCard = forwardRef(
       React.useState<string>(null);
     const [hasDetached, setHasDetached] = React.useState(null);
     const [addPaymentMethod, setAddPaymentMethod] = React.useState(false);
+    const [isPaymentSecurityInfoDisplayed, setIsPaymentSecurityInfoDisplayed] =
+      React.useState(false);
 
     const defaultBillingDetailsValues = React.useMemo(() => {
       return Immutable({
@@ -496,6 +502,14 @@ const StripePaymentCard = forwardRef(
       [defineSelectedPaymentMethod],
     );
 
+    const OnInfoRequest = React.useCallback(
+      () => setIsPaymentSecurityInfoDisplayed(!isPaymentSecurityInfoDisplayed),
+      [isPaymentSecurityInfoDisplayed],
+    );
+
+    const width = useWidth();
+    const isMobile = isWidthDown('sm', width);
+
     return (
       <form
         className={classNames(classes.container, customClasses?.container)}
@@ -543,30 +557,36 @@ const StripePaymentCard = forwardRef(
                         customClasses?.securityInformationContainer,
                       )}
                     >
-                      <PopOver
-                        anchorOrigin={{
-                          vertical: 'bottom',
-                          horizontal: 'center',
-                        }}
-                        className={classNames(
-                          classes.securityInformationText,
-                          customClasses?.securityInformationText,
-                        )}
-                        title={t(
-                          'paymentPanel.actions.paymentSecurityInformation',
-                        )}
-                        transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'center',
-                        }}
-                      >
-                        <Info
+                      {isMobile ? (
+                        <IconButton onClick={OnInfoRequest}>
+                          <Info />
+                        </IconButton>
+                      ) : (
+                        <PopOver
+                          anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                          }}
                           className={classNames(
-                            classes.infoIcon,
-                            customClasses?.infoIcon,
+                            classes.securityInformationText,
+                            customClasses?.securityInformationText,
                           )}
-                        />
-                      </PopOver>
+                          title={t(
+                            'paymentPanel.actions.paymentSecurityInformation',
+                          )}
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                          }}
+                        >
+                          <Info
+                            className={classNames(
+                              classes.infoIcon,
+                              customClasses?.infoIcon,
+                            )}
+                          />
+                        </PopOver>
+                      )}
                     </div>
                   </>
                 )}
@@ -585,6 +605,11 @@ const StripePaymentCard = forwardRef(
                     )}
                   </Typography>
                 </ButtonBase>
+              )}
+              {isMobile && isPaymentSecurityInfoDisplayed && (
+                <div className={classes.greyContainer}>
+                  {t('paymentPanel.actions.paymentSecurityInformation')}
+                </div>
               )}
             </div>
           </div>
@@ -706,10 +731,16 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 8,
   },
   row: {
+    gridColumnStart: 1,
+    gridColumnEnd: 'span 1',
+    gridRowStart: 1,
     marginTop: theme.spacing(-1),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    [theme.breakpoints.down('xs')]: {
+      gridColumnEnd: 'span 2',
+    },
   },
   conditionRow: {
     display: 'flex',
@@ -738,12 +769,22 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
   },
   saveAndDisplay: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    display: 'grid',
+    gridTemplateColumns: 'auto auto',
+    gridTemplateRows: 'auto',
   },
   displayButton: {
-    paddingBottom: theme.spacing(2),
-    marginLeft: '50px',
+    padding: theme.spacing(1),
+    gridColumnStart: 2,
+    gridColumnEnd: 'span 1',
+    gridRowStart: 1,
+    justifyContent: 'right',
+    [theme.breakpoints.down('xs')]: {
+      gridColumnStart: 1,
+      gridColumnEnd: 'span 2',
+      gridRowStart: 3,
+      justifyContent: 'left',
+    },
   },
   securityInformationContainer: {
     display: 'flex',
@@ -764,6 +805,17 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: '14px',
   },
   infoIcon: { color: theme.palette.grey[600] },
+  greyContainer: {
+    gridColumnStart: 1,
+    gridColumnEnd: 'span 2',
+    gridRowStart: 2,
+    backgroundColor: grey[100],
+    borderRadius: theme.spacing(1.5),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
 }));
 
 export default React.memo(StripePaymentCard);

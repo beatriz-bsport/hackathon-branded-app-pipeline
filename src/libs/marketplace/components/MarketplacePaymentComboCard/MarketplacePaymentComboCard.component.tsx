@@ -109,7 +109,7 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
               </div>
               {cardVariant === CARD_VARIANTS.PRICING_PAGE && (
                 <div className="bs-pack-card__list--horizontal">
-                  {paymentCombo.payment_packs
+                  {(paymentCombo.payment_packs ?? [])
                     .concat(
                       paymentCombo.shop_items,
                       paymentCombo.private_passes,

@@ -118,9 +118,9 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
   }, [addMarketingAction, handleDisableRipple]);
 
   const onClickAction = useCallback(
-    (onClick: () => void) => () => {
+    (onClick: (anchor?: HTMLElement) => void) => (anchor?: HTMLElement) => {
       handleDisableRipple();
-      onClick?.();
+      onClick?.(anchor);
     },
     [handleDisableRipple],
   );

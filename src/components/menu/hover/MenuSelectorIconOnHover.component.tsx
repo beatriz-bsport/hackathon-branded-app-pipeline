@@ -73,12 +73,13 @@ const MenuSelectorIconOnHover: React.FC<Props> = ({
   );
 
   const handleOnClickAction = useCallback(
-    (onClick: () => void) => (event: React.MouseEvent<HTMLElement>) => {
-      event.stopPropagation();
-      event.preventDefault();
-      onClick?.();
-    },
-    [],
+    (onClick: (anchor?: HTMLElement) => void) =>
+      (event: React.MouseEvent<HTMLElement>) => {
+        event.stopPropagation();
+        event.preventDefault();
+        onClick?.(anchorEl);
+      },
+    [anchorEl],
   );
 
   return (

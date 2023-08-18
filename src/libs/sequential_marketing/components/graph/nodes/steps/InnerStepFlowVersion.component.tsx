@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Connection, Handle, Position } from 'react-flow-renderer';
-import { Popover } from '@material-ui/core';
+import Popover from '@material-ui/core/Popover';
 
 import InnerStepCard, {
   type InnerStepCardProps,
@@ -17,13 +17,16 @@ import {
   HandleTypeChoices,
 } from '#libs/sequential_marketing/constants/steps';
 import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/usePopoverBubble.hook';
+import ChangeInExitBubble from '#libs/sequential_marketing/components/graph/bubbles/ChangeInExitBubble.component';
+import { DestinationStatus } from '#libs/sequential_marketing/constants';
 
 type FlowProps = {
   data: {
-    onConnectToStep: (destination_step_id: string) => void;
     bubble: StepEditionBubbleProps;
     stepToEditId: number;
     endStepEdition: () => void;
+    onConnectToStep: (destination_step_id: string) => void;
+    submitChangeInExit: (status: DestinationStatus) => void;
   } & InnerStepCardProps;
 };
 
@@ -41,11 +44,13 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     isStepNew && setAnchorEl(stepCardRef?.current);
   }, [isStepNew, setAnchorEl]);
 
-  const handleConnect = React.useCallback(
-    (params: Connection) => data.onConnectToStep?.(params.target),
-    [data],
-  );
+  const [anchorChangeInExit, setAnchorChangeInExit] =
+    React.useState<HTMLDivElement>(null);
 
+  // ======================= STEP EDITION BUBBLE =======================
+  /**
+   * @description The handleClick function is used to open the popover step edition bubble on card click
+   */
   const handleClick = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
       data?.onCardClick?.(event);
@@ -54,10 +59,28 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     [data, setAnchorEl],
   );
 
-  const handleCloseBubble = React.useCallback(() => {
+  const handleCloseStepEditionBubble = React.useCallback(() => {
     setAnchorEl(null);
     isStepNew && data?.endStepEdition?.();
   }, [data, isStepNew, setAnchorEl]);
+  // ===================================================================
+
+  // ====================== CHANGE IN EXIT BUBBLE ======================
+  const handleOpenChangeInExitBubble = React.useCallback(
+    () => setAnchorChangeInExit(stepCardRef?.current),
+    [],
+  );
+
+  const handleCloseChangeInExitBubble = React.useCallback(
+    () => setAnchorChangeInExit(null),
+    [],
+  );
+  // ===================================================================
+
+  const handleConnect = React.useCallback(
+    (params: Connection) => data.onConnectToStep?.(params.target),
+    [data],
+  );
 
   const handleSubmitForm = React.useCallback(
     (param: { list: StepMarketingActions[]; step: number }) => {
@@ -92,7 +115,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
           disabled={data.disabled}
           getEmailTemplate={data.getEmailTemplate}
           getTag={data.getTag}
-          handleChangeInExit={data.handleChangeInExit}
+          handleChangeInExit={handleOpenChangeInExitBubble}
           isSelected={data.isSelected}
           marketingActionList={data.marketingActionList}
           onCardClick={handleClick}
@@ -110,7 +133,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
       <Popover
         anchorEl={anchorEl}
         anchorOrigin={anchorOrigin}
-        onClose={handleCloseBubble}
+        onClose={handleCloseStepEditionBubble}
         open={!!anchorEl}
         PaperProps={popoverStyle}
         transformOrigin={transformOrigin}
@@ -123,13 +146,26 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
           fetchEmailSummaryList={data.bubble.fetchEmailSummaryList}
           getEmailDetail={data.bubble.getEmailDetail}
           marketingActions={data.marketingActionList}
-          onCancel={handleCloseBubble}
+          onCancel={handleCloseStepEditionBubble}
           onConfirm={handleSubmitForm}
           resolvedGenericTags={data.bubble.resolvedGenericTags}
           step={data.step}
           tagCategories={data.bubble.tagCategories}
           tagList={data.bubble.tagList}
           updateCadenceStepName={data.bubble.updateCadenceStepName}
+        />
+      </Popover>
+      <Popover
+        anchorEl={anchorChangeInExit}
+        anchorOrigin={anchorOrigin}
+        onClose={handleCloseChangeInExitBubble}
+        open={!!anchorChangeInExit}
+        PaperProps={popoverStyle}
+        transformOrigin={transformOrigin}
+      >
+        <ChangeInExitBubble
+          onCancel={handleCloseChangeInExitBubble}
+          onConfirm={data.submitChangeInExit}
         />
       </Popover>
     </>

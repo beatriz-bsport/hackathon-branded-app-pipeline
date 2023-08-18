@@ -7,7 +7,7 @@ import { SequentialMarketingColors } from '#libs/sequential_marketing/constants'
 
 export type ChangeInStepBubbleProps = {
   onCancel?: () => void;
-  onConfirm?: () => void;
+  onConfirm?: (stepName: string) => void;
 };
 
 const ChangeInStepBubble: React.FC<ChangeInStepBubbleProps> = ({
@@ -30,13 +30,18 @@ const ChangeInStepBubble: React.FC<ChangeInStepBubbleProps> = ({
     [],
   );
 
+  const handleConfirm = useCallback(
+    () => onConfirm?.(stepName),
+    [onConfirm, stepName],
+  );
+
   return (
     <CadenceBubble
       minimalIcon
       color={SequentialMarketingColors.INNER_STEP_COLOR}
       icon="DeviceHub"
       onCancelClick={onCancel}
-      onConfirmClick={onConfirm}
+      onConfirmClick={handleConfirm}
       title={stepName}
     >
       <TextField

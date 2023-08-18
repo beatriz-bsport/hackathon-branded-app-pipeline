@@ -6,11 +6,14 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import CadenceBubble from './CadenceBubble.component';
-import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
+import {
+  DestinationStatus,
+  SequentialMarketingColors,
+} from '#libs/sequential_marketing/constants';
 
 export type ChangeInExitBubbleProps = {
   onCancel?: () => void;
-  onConfirm?: () => void;
+  onConfirm?: (status: DestinationStatus) => void;
 };
 
 const ChangeInExitBubble: React.FC<ChangeInExitBubbleProps> = ({
@@ -21,15 +24,22 @@ const ChangeInExitBubble: React.FC<ChangeInExitBubbleProps> = ({
 
   const classes = useStyles();
 
-  const [value, setValue] = useState('won');
+  const [value, setValue] = useState(DestinationStatus.WIN);
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       event.preventDefault();
-      setValue(event.target.value);
+      setValue(event.target.value as DestinationStatus);
     },
     [],
   );
+
+  const handleSubmit = useCallback(() => {
+    if (onConfirm) {
+      onConfirm(value);
+      onCancel?.();
+    }
+  }, [onCancel, onConfirm, value]);
 
   return (
     <CadenceBubble
@@ -37,7 +47,7 @@ const ChangeInExitBubble: React.FC<ChangeInExitBubbleProps> = ({
       color={SequentialMarketingColors.LOSE_COLOR}
       icon="Stop"
       onCancelClick={onCancel}
-      onConfirmClick={onConfirm}
+      onConfirmClick={handleSubmit}
       title={t('cadence.bubble.changeInExit.title')}
     >
       <div>
@@ -53,12 +63,12 @@ const ChangeInExitBubble: React.FC<ChangeInExitBubbleProps> = ({
           <FormControlLabel
             control={<Radio color="primary" />}
             label={t('cadence.cadenceCard.win')}
-            value="won"
+            value={DestinationStatus.WIN}
           />
           <FormControlLabel
             control={<Radio color="primary" />}
             label={t('cadence.cadenceCard.lost')}
-            value="lost"
+            value={DestinationStatus.FAIL}
           />
         </RadioGroup>
       </div>

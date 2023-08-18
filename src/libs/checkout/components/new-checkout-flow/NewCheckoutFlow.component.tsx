@@ -2,9 +2,13 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Immutable, { ImmutableArray } from 'seamless-immutable';
 
-import { IconButton, makeStyles, Theme } from '@material-ui/core';
+import { isWidthDown, makeStyles, Theme } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import Button from '@material-ui/core/Button';
 
 import {
   PAYMENT_ENGINE_STRIPE,
@@ -53,6 +57,7 @@ import {
 } from './submitButtonsHooks';
 import { Coupon } from '#libs/coupon/types';
 import { CouponErrorCodes } from '#libs/coupon/constants';
+import { useWidth } from '../../../../hooks/useWidth';
 
 // These checkout item types are displayed in the bill after the basket summary
 const BILL_CHECKOUT_ITEMS = [BUYABLE_ITEM_COUPON, BUYABLE_ITEM_FEE];
@@ -175,6 +180,8 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   const [isOnlinePaymentDisabled, setIsOnlinePaymentDisabled] =
     React.useState<boolean>(false);
 
+  const [isBasketDisplayed, setIsBasketDisplayed] = React.useState(false);
+
   // If the basket does not need anymore an adress, we should go to the next step directly
   React.useEffect(() => {
     if (!steps.map((step) => step.id).includes(currentStep.id))
@@ -267,6 +274,14 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   );
   const companyCountry = useMemo(() => theme.locale.split('_')[1], [theme]);
 
+  const OnBasketRequest = React.useCallback(
+    () => setIsBasketDisplayed(!isBasketDisplayed),
+    [isBasketDisplayed],
+  );
+
+  const width = useWidth();
+  const isMobile = isWidthDown('sm', width);
+
   return (
     <div className={classes.container}>
       <div className={classes.titleContainer}>
@@ -332,14 +347,27 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
             activitySummaryCheckoutItems={activitySummaryCheckoutItems}
             basketOffers={basketOffers}
             companyTheme={theme}
+            connectedToOtherComponents={
+              !isMobile || basketSummaryCheckoutItems.length > 0
+            }
           />
-          <BasketSummary
-            basketSummaryCheckoutItems={basketSummaryCheckoutItems}
-            isExcludingTax={isExcludingTax}
-            isItemEditionDisabled={isBasketModificationDisabled}
-            onAddCheckoutItem={handleAddCheckoutItem}
-            onRemoveCheckoutItem={handleRemoveCheckoutItem}
-          />
+          {(!isMobile || isBasketDisplayed) && (
+            <BasketSummary
+              basketSummaryCheckoutItems={basketSummaryCheckoutItems}
+              isExcludingTax={isExcludingTax}
+              isItemEditionDisabled={isBasketModificationDisabled}
+              onAddCheckoutItem={handleAddCheckoutItem}
+              onRemoveCheckoutItem={handleRemoveCheckoutItem}
+            />
+          )}
+          {isMobile && basketSummaryCheckoutItems.length > 0 && (
+            <Button
+              className={classes.expandContainer}
+              onClick={OnBasketRequest}
+            >
+              {isBasketDisplayed ? <ExpandLess /> : <ExpandMore />}
+            </Button>
+          )}
         </div>
         <div className={classes.validationContainer}>
           <CouponCodeInput
@@ -428,6 +456,15 @@ const useStyles = makeStyles((theme: Theme) => ({
       gridColumnEnd: 'span 2',
       gridRowStart: '3',
     },
+  },
+  expandContainer: {
+    border: `1px solid ${theme.palette.grey[100]}`,
+    borderRadius: '0 0 12px 12px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: 40,
   },
 }));
 

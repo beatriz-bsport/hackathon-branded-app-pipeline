@@ -4,7 +4,8 @@ import Immutable from 'seamless-immutable';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-import { Divider } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
+import { Theme } from '@material-ui/core';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { Offer, OfferSummaryVariant } from '#libs/offer/types';
@@ -14,17 +15,19 @@ import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import OfferSummary from '#libs/offer/OfferSummary';
 
 type ActivitiesSummaryProps = {
-  activitySummaryCheckoutItems: Array<CheckoutItem>;
-  basketOffers: Array<Offer<number, Establishment, MetaActivity>>;
+  activitySummaryCheckoutItems: CheckoutItem[];
+  basketOffers: Offer<number, Establishment, MetaActivity>[];
   companyTheme: CompanyTheme;
+  connectedToOtherComponents: boolean;
 };
 
 export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
   activitySummaryCheckoutItems,
   basketOffers,
   companyTheme,
+  connectedToOtherComponents,
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ connectedToOtherComponents });
 
   const checkoutItemsWithDetails = React.useMemo(
     () =>
@@ -79,37 +82,40 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
   );
 };
 
-const useStyles = makeStyles((theme) => ({
-  activityContainer: {
-    boxSizing: 'border-box',
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    borderColor: theme.palette.grey[100],
-    borderRadius: '12px 12px 0 0',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  subContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    margin: `${theme.spacing(1)}px ${theme.spacing(2)}px ${theme.spacing(
-      1,
-    )}px ${theme.spacing(2)}px`,
-  },
-  checkoutItemName: { fontWeight: 500 },
-  checkoutItemPriceClass: {
-    fontWeight: 500,
-    backgroundColor: theme.palette.grey[100],
-    borderRadius: theme.spacing(1),
-    padding: '2px 8px 2px 8px',
-  },
-  divider: {
-    borderColor: theme.palette.grey[100],
-    borderWidth: '1px',
-    margin: theme.spacing(1),
-  },
-}));
+const useStyles = makeStyles<Theme, { connectedToOtherComponents: boolean }>(
+  (theme: Theme) => ({
+    activityContainer: {
+      boxSizing: 'border-box',
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      borderColor: theme.palette.grey[100],
+      borderRadius: (props) =>
+        props.connectedToOtherComponents ? '12px 12px 0 0' : '12px',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    subContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      margin: `${theme.spacing(1)}px ${theme.spacing(2)}px ${theme.spacing(
+        1,
+      )}px ${theme.spacing(2)}px`,
+    },
+    checkoutItemName: { fontWeight: 500 },
+    checkoutItemPriceClass: {
+      fontWeight: 500,
+      backgroundColor: theme.palette.grey[100],
+      borderRadius: theme.spacing(1),
+      padding: '2px 8px 2px 8px',
+    },
+    divider: {
+      borderColor: theme.palette.grey[100],
+      borderWidth: '1px',
+      margin: theme.spacing(1),
+    },
+  }),
+);
 
 export default React.memo(ActivitiesSummary);

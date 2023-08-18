@@ -123,6 +123,7 @@ exports.default = {
     clockIn: 'Pointeuse horaire',
     help: 'Aide',
     cadences: 'Cadences',
+    inbox: 'Boîte de réception'
   },
   multiSession: {
     title: ' Vous semblez utiliser plusieurs onglets simultanément',

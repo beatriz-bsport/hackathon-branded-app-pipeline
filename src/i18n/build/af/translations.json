@@ -4261,7 +4261,8 @@
       "redirecting": "Vous allez être redirigé vers votre page",
       "clockIn": "Pointeuse horaire",
       "help": "Aide",
-      "cadences": "Cadences"
+      "cadences": "Cadences",
+      "inbox": "Boîte de réception"
     },
     "multiSession": {
       "title": " Vous semblez utiliser plusieurs onglets simultanément",

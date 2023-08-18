@@ -25,6 +25,16 @@ exports.default = {
     },
   },
   upsellPackage: {
+    lockDialog: {
+      // inbox
+      33: {
+        intro:
+          'Découvrez notre nouvelle interface de chat direct avec vos membres.',
+        explain:
+          'Vous retrouverez ici toutes vos discussions directes, les chat liés à vos séances, ainsi que vos campagnes smartlists. Le chat est compatible avec les SMS, emails et push notification.',
+      },
+      requestAccess: 'Demander un accès',
+    },
     billOnce: '{{ price_cts }}',
     billRecurrent: '{{ price_cts }} / mois',
     knowMore: 'En savoir +',

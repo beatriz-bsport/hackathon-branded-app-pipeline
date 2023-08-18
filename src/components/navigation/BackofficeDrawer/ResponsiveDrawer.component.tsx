@@ -429,15 +429,11 @@ const ResponsiveDrawer: React.FC<Props> = ({
           },
         ],
       },
-      ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
-        ? [
-            {
-              to: '/inbox/thread',
-              icon: ChatIcon,
-              text: 'Inbox',
-            },
-          ]
-        : []),
+      {
+        to: '/inbox/thread',
+        icon: ChatIcon,
+        text: 'Inbox',
+      },
       {
         to: '/member',
         icon: People,

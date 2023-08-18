@@ -1,8 +1,8 @@
 import React from 'react';
+import classnames from 'classnames';
 import { Route, Switch } from 'react-router';
 import { push } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';
-import classnames from 'classnames';
 import withWidth, { isWidthDown, isWidthUp } from '@material-ui/core/withWidth';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import { withStyles, createStyles, WithStyles, Theme } from '@material-ui/core';
@@ -19,6 +19,8 @@ import { getInboxThreadFromSelectedId } from '#libs/communication-v2/selectors';
 import { fetchInboxThreadFromId as fetchInboxThreadFromIdAction } from '#libs/communication-v2/actions';
 import InboxPanel from './InboxPanel.page';
 import { drawerIconsOnlyWith } from '#components/navigation/BackofficeDrawer/BackofficeDrawer.component';
+import UpsellBlocker from '#libs/platform-billing/components/UpsellBlocker.component';
+import { UPSELL_IDENTIFIER_INBOX } from '#libs/platform-billing/upsell-identifiers';
 
 const INBOX_PANEL_WIDTH = 378;
 
@@ -49,6 +51,7 @@ const styles = (theme: Theme) =>
       display: 'flex',
       flexDirection: 'row',
       height: '100%',
+      position: 'relative',
     },
     threadList: {
       height: '100%',
@@ -126,16 +129,25 @@ class InboxContainer extends React.PureComponent<Props> {
       return (
         <Switch>
           <Route exact path="/inbox/thread/:id/">
-            <InboxThreadContainer thread={thread} />
+            <>
+              <UpsellBlocker upsellIdentifier={UPSELL_IDENTIFIER_INBOX} />
+              <InboxThreadContainer thread={thread} />
+            </>
           </Route>
           <Route exact path="/inbox/thread/">
-            <InboxThreadList
-              contextSelected={contextSelected}
-              setContextSelected={setContextSelected}
-            />
+            <>
+              <UpsellBlocker upsellIdentifier={UPSELL_IDENTIFIER_INBOX} />
+              <InboxThreadList
+                contextSelected={contextSelected}
+                setContextSelected={setContextSelected}
+              />
+            </>
           </Route>
           <Route exact path="/inbox/thread/:id/detail/">
-            <InboxPanel isLoadingThread={isLoadingThread} thread={thread} />
+            <>
+              <UpsellBlocker upsellIdentifier={UPSELL_IDENTIFIER_INBOX} />
+              <InboxPanel isLoadingThread={isLoadingThread} thread={thread} />
+            </>
           </Route>
         </Switch>
       );
@@ -143,13 +155,12 @@ class InboxContainer extends React.PureComponent<Props> {
 
     return (
       <div className={classes.container}>
-        <div className={classes.threadList}>
-          <InboxThreadList
-            contextSelected={contextSelected}
-            setContextSelected={setContextSelected}
-            thread={thread}
-          />
-        </div>
+        <UpsellBlocker upsellIdentifier={UPSELL_IDENTIFIER_INBOX} />
+        <InboxThreadList
+          contextSelected={contextSelected}
+          setContextSelected={setContextSelected}
+          thread={thread}
+        />
         <Paper
           className={classnames(classes.threadContainer, {
             [classes.noThread]: !id,

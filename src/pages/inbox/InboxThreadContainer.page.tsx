@@ -8,6 +8,7 @@ import {
   needToFilterOutReceivedCommunicationSentWithActiveFilters,
   getOfferCategories,
 } from '#libs/communication-v2/utils';
+import { connect, type ConnectedProps } from 'react-redux';
 import type {
   Communication,
   InboxThreadRouterProps,
@@ -25,8 +26,15 @@ import {
 import withInboxThreadData, {
   WithInboxThreadDataProps,
 } from '#libs/communication-v2/thread/InboxThreadContainer/withInboxThread.hoc';
+import { UPSELL_IDENTIFIER_INBOX } from '#libs/platform-billing/upsell-identifiers';
 
-type Props = InboxThreadRouterProps & WithInboxThreadDataProps;
+import type { RootState } from '../../reducers';
+
+import { hasUpsell } from '#libs/platform-billing/utils';
+
+type Props = InboxThreadRouterProps &
+  WithInboxThreadDataProps &
+  ConnectedProps<typeof connector>;
 
 class InboxThreadContainerPage extends PureComponent<Props> {
   componentDidMount() {
@@ -314,6 +322,8 @@ class InboxThreadContainerPage extends PureComponent<Props> {
       }
       return filterOutNewCommunication;
     };
+    if (!hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_INBOX)) return;
+
     this.props.sendCommunication(data, memberSelectedCategories, {
       storeInCallback,
       onSuccess: (...args) => {
@@ -510,6 +520,11 @@ class InboxThreadContainerPage extends PureComponent<Props> {
   }
 }
 
-export default compose<Props, InboxThreadRouterProps>(withInboxThreadData)(
-  InboxThreadContainerPage,
-);
+const connector = connect((state: RootState) => ({
+  featureList: state.company.feature.data,
+}));
+
+export default compose<Props, InboxThreadRouterProps>(
+  withInboxThreadData,
+  connector,
+)(InboxThreadContainerPage);

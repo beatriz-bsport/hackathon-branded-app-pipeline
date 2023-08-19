@@ -4574,8 +4574,20 @@
                 "searchBar": {
                     "placeHolder": "Search for a code"
                 },
-                "noResult": "No results"
+                "noResult": "No results",
+                "close": "Close",
+                "markAsRedeemed": "Mark as used",
+                "markAsRedeemed_plural": "Mark as used",
+                "export": "Export"
             }
+        },
+        "couponFilter": {
+            "allType": "All types of promotion",
+            "title": "Promotion type"
+        },
+        "fabLabels": {
+            "discountCode": "Discount code",
+            "voucherCodes": "Vouchers"
         }
     },
     "dashboard": {
@@ -5396,10 +5408,185 @@
                 "franchises": {
                     "_label": "Franchisees"
                 },
-                "_label": "Navigation menu"
+                "_label": "Navigation menu",
+                "tag": {
+                    "_label": "Tags"
+                }
             }
         },
-        "overbookingForbidden": "The rights you have been granted as a staff member do not allow you to exceed the maximum number of reservations."
+        "overbookingForbidden": "The rights you have been granted as a staff member do not allow you to exceed the maximum number of reservations.",
+        "objectLevelPermissions": {
+            "reservation": {
+                "workshop": {
+                    "allowed_actions": {
+                        "attendance": {
+                            "_label": "Edit attendance/absences"
+                        },
+                        "removeFromWaitlist": {
+                            "_label": "Delete members from the waiting list"
+                        },
+                        "delete": {
+                            "_label": "Cancel bookings"
+                        },
+                        "create": {
+                            "_label": "Create bookings"
+                        },
+                        "addToWaitlist": {
+                            "_label": "Add members to the waiting list"
+                        },
+                        "rollcall": {
+                            "_label": "Validate roll call"
+                        }
+                    },
+                    "_label": "Workshop management"
+                },
+                "activity": {
+                    "allowed_actions": {
+                        "editPerformance": {
+                            "_label": "Edit programme performance"
+                        },
+                        "editSpot": {
+                            "_label": "Edit member spots"
+                        },
+                        "attendance": {
+                            "_label": "Edit attendance/absences"
+                        },
+                        "removeFromWaitlist": {
+                            "_label": "Delete members from the waiting list"
+                        },
+                        "delete": {
+                            "_label": "Cancel bookings"
+                        },
+                        "create": {
+                            "_label": "Create bookings"
+                        },
+                        "addToWaitlist": {
+                            "_label": "Add members to the waiting list"
+                        },
+                        "rollcall": {
+                            "_label": "Validate roll call"
+                        }
+                    },
+                    "_label": "Booking management"
+                },
+                "_label": "Booking management"
+            },
+            "billing": {
+                "allowed_actions": {
+                    "createManualDiscount": {
+                        "_label": "Apply manual discounts"
+                    },
+                    "partialRefundAsCredit": {
+                        "_label": "Convert to balance (refund)"
+                    },
+                    "partialRefundAsDiscount": {
+                        "_label": "Apply a discount (refund)"
+                    },
+                    "deletePaymentMethod": {
+                        "_label": "Delete a payment method"
+                    },
+                    "addPaymentMethod": {
+                        "_label": "Add a payment method"
+                    },
+                    "cancelInvoice": {
+                        "_label": "Cancel invoices"
+                    },
+                    "readPaymentLink": {
+                        "_label": "Generate payment links"
+                    },
+                    "createInvoice": {
+                        "_label": "Bill a member"
+                    },
+                    "readInvoices": {
+                        "_label": "See invoices"
+                    },
+                    "editBalance": {
+                        "_label": "Adjust member balance"
+                    },
+                    "takePayment": {
+                        "_label": "Cash in a member"
+                    }
+                },
+                "_label": "Transactions"
+            },
+            "member": {
+                "allowed_actions": {
+                    "manageNotification": {
+                        "_label": "Manage member notifications"
+                    },
+                    "communication": {
+                        "_label": "Contact members"
+                    },
+                    "readBalance": {
+                        "_label": "See the balance of members"
+                    },
+                    "accessProfile": {
+                        "_label": "Access to member profiles"
+                    },
+                    "search": {
+                        "_label": "Search for members"
+                    },
+                    "delete": {
+                        "_label": "Delete a member"
+                    },
+                    "editInfo": {
+                        "_label": "Edit personal data"
+                    },
+                    "readInfo": {
+                        "_label": "See personal data"
+                    },
+                    "create": {
+                        "_label": "Add a member"
+                    }
+                },
+                "_label": "Actions on members"
+            },
+            "session": {
+                "privateSlot": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Delete"
+                        },
+                        "edit": {
+                            "_label": "Edit"
+                        },
+                        "create": {
+                            "_label": "Create"
+                        }
+                    },
+                    "_label": "Appointment slots"
+                },
+                "workshop": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Delete"
+                        },
+                        "edit": {
+                            "_label": "Edit"
+                        },
+                        "create": {
+                            "_label": "Create"
+                        }
+                    },
+                    "_label": "Workshops"
+                },
+                "activity": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Delete"
+                        },
+                        "edit": {
+                            "_label": "Edit"
+                        },
+                        "create": {
+                            "_label": "Create"
+                        }
+                    },
+                    "_label": "Activities"
+                },
+                "_label": "Session management"
+            }
+        }
     },
     "theme": {
         "forms": {
@@ -9436,7 +9623,20 @@
             "last_booked_offer_pass_name": "Pass used for the last session booked",
             "last_booked_offer_meta_activity_name": "Last booked session activity",
             "last_booked_offer_date": "Last booked session date",
-            "last_booked_offer_id": "Last booked session ID"
+            "last_booked_offer_id": "Last booked session ID",
+            "referring_member_total_reward": "Reward received by the referring member",
+            "referring_member_pk": "Referring member ID",
+            "referring_member_last_name": "Referring member last name",
+            "referring_member_first_name": "Referring member first name",
+            "referring_member_email": "Referring member email",
+            "referred_member_registration_date": "Referred member registration date",
+            "referred_member_pk": "Referred member ID",
+            "referred_member_last_name": "Referred member last name",
+            "referred_member_first_name": "Referred member first name",
+            "referred_member_email": "Referred member email",
+            "referred_discount_use_date": "Date of use of the referred discount",
+            "referred_discount_applied": "Reward received by the referred member",
+            "purchased_products": "Products"
         },
         "yes": "Yes",
         "no": "No",
@@ -9540,7 +9740,8 @@
             "franchise_shared_pass": "Shared pass uses",
             "dispute": "Dispute",
             "billing_plan": "Subscription",
-            "members_purchase": "Members' purchases"
+            "members_purchase": "Members' purchases",
+            "referral_grant": "Referral"
         },
         "globalCategories": {
             "subheader": {
@@ -9804,7 +10005,8 @@
             "activityByCoach": "The activities and teachers that appear are those for which a session is planned in the selected date range.",
             "activityByEst": "The activities and establishments that appear are those for which a session is planned in the selected date range.",
             "activities": "The activities that appear are those for which a session is scheduled in the selected date range.",
-            "members": "Members are filtered on their registration date."
+            "members": "Members are filtered on their registration date.",
+            "referral_grant": "Referral links are filtered according to the registration date of the referred member"
         },
         "franchiseWarning": {
             "part2": "You can now export the report and process it in Excel afterwards. The dates indicated and the filtered view applied will be taken into account in the export.",
@@ -9861,6 +10063,7 @@
                 "Canceled",
                 "Cancelled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled"
             ]
@@ -14565,7 +14768,8 @@
                 "expand": "Expand",
                 "shrink": "Collapse"
             },
-            "replacement": "Substitution"
+            "replacement": "Substitution",
+            "inbox": "Inbox"
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",

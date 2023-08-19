@@ -913,6 +913,14 @@
         "sms": {
             "warningConsent1": "Attention ! Ce membre a désactivé la possibilité de lui envoyer des sms promotionnels. Les sms directs permettent de discuter avec vos membres de manière simple et rapide. Ils ne doivent pas servir à des fins publicitaires ou promotionnelles.",
             "warningConsent2": "Ne pas respecter cette décision de votre membre serait illégal. Bsport se détache de toutes responsabilités en cas d'utilisation abusive des sms directs."
+        },
+        "thread": {
+            "filter": {
+                "muted": "En sourdine"
+            },
+            "item": {
+                "mute": "Mettre en sourdine"
+            }
         }
     },
     "consumerSpace": {
@@ -9694,7 +9702,7 @@
         "dashboard": {
             "marketingDashboard": "Marketing",
             "reportingDashboard": "Rapports",
-            "dashboard": "dashboard"
+            "dashboard": "Dashboard"
         },
         "subscription": {
             "subscriptionCreate": "Créer une souscription",

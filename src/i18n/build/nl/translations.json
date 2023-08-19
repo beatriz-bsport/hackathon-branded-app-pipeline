@@ -2135,7 +2135,10 @@
         },
         "createThread": {
             "confirmResourceSelected": "Bevestigen",
-            "close": "Sluiten"
+            "close": "Sluiten",
+            "refreshSmartlist": "Ververs de pagina om de nieuwe Smartlists te zien",
+            "smartlistPlaceholder": "Selecteer een Smartlist",
+            "title": "Nieuw bericht"
         }
     },
     "paymentCombo": {
@@ -2779,7 +2782,15 @@
             "last_booked_offer_pass_name": "Gebruikte leskaart voor de laatste reservering",
             "last_booked_offer_meta_activity_name": "Naam van de laatste reservering",
             "last_booked_offer_date": "Datum van de laatste reservering",
-            "last_booked_offer_id": "ID van de laatste reservering"
+            "last_booked_offer_id": "ID van de laatste reservering",
+            "referring_member_last_name": "Achternaam ontvanger",
+            "referring_member_first_name": "Voornaam ontvanger",
+            "referring_member_email": "E-mailadres ontvanger",
+            "referred_member_registration_date": "Inschrijfdatum doorverwijzer",
+            "referred_member_last_name": "Achternaam doorverwijzer",
+            "referred_member_first_name": "Voornaam doorverwijzer",
+            "referred_member_email": "E-mailadres doorverwijzer",
+            "purchased_products": "Producten"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -3123,6 +3134,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Annuleren",
+                "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
@@ -4910,7 +4922,7 @@
         "downLoadSavedExport": "Vorige export downloaden",
         "lastGenerated": "Laatste export gegenereerd op: {{-date}} {{time}}",
         "generateHelperText": "Genereer de export om de smartlist te downloaden",
-        "generateExport": "Inchecken verkoopinterface"
+        "generateExport": "Genereer export"
     },
     "metaActivity": {
         "forms": {
@@ -5350,7 +5362,9 @@
                         "partnership": {
                             "partnerMaxBookingCount": "Maximaal aantal Marketplace (alleen OneFit)",
                             "availableOnPartnership": "Op marketplaces (ClassPass, OneFit...)",
-                            "title": "Marketplace"
+                            "title": "Marketplace",
+                            "uscIntegrationWorkshopWarning": "Workshops zijn niet met Urban Sports Club en worden daarom ook niet getoond.",
+                            "uscIntegrationWarning": "Je integratie met Urban Sports Club is actief. Sessies die later plaatsvinden dan 2 dagen worden niet getoond."
                         },
                         "allowGuestOffer": "De reservering voor een gast autoriseren",
                         "isManagerOnly": "Beschikbaar voor reservering (web+app)",
@@ -6756,7 +6770,8 @@
             "performance": "Payroll",
             "replacement": "Vervanging"
         },
-        "replacement": "Vervanging"
+        "replacement": "Vervanging",
+        "inbox": "Chatbox"
     },
     "event": {
         "list": {
@@ -11224,7 +11239,8 @@
             "inactiveCoupons": "Verlopen of gedeactiveerde promoties"
         },
         "detail": {
-            "seeParameters": "Bewerken"
+            "seeParameters": "Bewerken",
+            "seeVouchers": "Toon vouchers"
         },
         "noDiscount": "Deze promotiecode is nog niet gebruikt.",
         "createCoupon": "Een promotiecode toevoegen",
@@ -11252,7 +11268,9 @@
                 "submit": "Bevestigen",
                 "not_applicable": "Deze promotiecode kan niet voor deze aankoop gebruikt worden.",
                 "not_found": "Deze promotiecode is ongeldig.",
-                "apply": "Toepassen"
+                "apply": "Toepassen",
+                "5006": "Deze unieke promotiecode is al aan een openstaand winkelmandje gekoppeld",
+                "5004": "Deze promotiecode kan slechts voor één artikel worden gebruikt."
             }
         },
         "search": "Zoek een promotiecode",
@@ -11299,7 +11317,13 @@
                         "format": "Fout bij het formatteren van datum"
                     },
                     "only_on_objects": "Je moet een object kiezen waarop je de reductie wilt toepassen",
-                    "applies_to": "Het artikel waarop de korting wordt toegepast moet een cursuskaart, een afsprakenkaart, een pakket of een artikel in de winkel zijn"
+                    "applies_to": "Het artikel waarop de korting wordt toegepast moet een cursuskaart, een afsprakenkaart, een pakket of een artikel in de winkel zijn",
+                    "5006": "Deze unieke promotiecode is reeds aan een openstaand winkelmandje gekoppeld",
+                    "5005": "Deze promotiecode is reeds al gebruikt of is aan een openstaand winkelmandje gekoppeld.",
+                    "5004": "Deze promotiecode kan slechts voor één artikel worden gebruikt.",
+                    "5003": "Sommige unieke promotiecodes zijn al in gebruik.",
+                    "5001": "Sommige unieke promotiecodes kunnen niet worden toegevoegd, omdat deze al geregistreerd zijn.",
+                    "5000": "Het is niet mogelijk om een gebruikte promotiecode opnieuw toe te passen."
                 },
                 "alertInfo": "Vouchers zijn unieke codes waarmee het lid 100% korting krijgt op een specifiek product. Deze codes worden niet gegenereerd door het platform zelf, maar moeten hier worden geüpload als een CSV-bestand. Deze functie is vooral handig als je samenwerkt met een externe entiteit zoals Groupon om een promotiecampagne te voeren. In dit geval genereert en verkoopt Groupon (of een vergelijkbare entiteit) de vouchers namens je studio.",
                 "alertWarning": "Niet van toepassing op abonnementen",
@@ -11319,8 +11343,47 @@
                     "label": "Sleep of klik om het bestand te selecteren",
                     "sizeLimitHelper": "CSV-bestand (maximaal 1 MB)",
                     "helperText": "Upload een CSV-bestand met alle vouchercodes in de eerste kolom, één code per regel, zonder koptekst."
+                },
+                "update": {
+                    "popover": "Terwijl gebruikte promotiecodes bewaard zullen blijven, zullen ongebruikte promotiecodes worden verwijderd.",
+                    "replace": "Bestaande promotiecodes vervangen",
+                    "append": "Aan bestaande promotiecodes koppelen",
+                    "alertInfo": "Er is {{count}} promotiecode hieraan gekoppeld. Je kunt ook nieuwe codes downloaden.",
+                    "alertInfo_plural": "Er zijn {{count}} promotiecodes hieraan gekoppeld. Je kunt ook nieuwe codes downloaden."
+                }
+            },
+            "voucherCodesDialog": {
+                "close": "Sluiten",
+                "markAsRedeemed": "Als gebruikt markeren",
+                "markAsRedeemed_plural": "Als gebruikt markeren",
+                "export": "Exporteren",
+                "noResult": "Geen zoekresultaten",
+                "searchBar": {
+                    "placeHolder": "Een promotiecode zoeken"
+                },
+                "checkBoxes": {
+                    "unselectAll": "Deselecteer alles",
+                    "selectAll": "Selecteer alles"
+                },
+                "selector": {
+                    "notUsed": "Ongebruikt",
+                    "pending": "In afwachting van externe goedkeuring",
+                    "redeemed": "Als gebruikt markeren",
+                    "allStatus": "Alle statussen"
+                },
+                "header": {
+                    "status": "Status",
+                    "codes": "Promotiecodes"
                 }
             }
+        },
+        "couponFilter": {
+            "allType": "Alle promotietypes",
+            "title": "Promotietype"
+        },
+        "fabLabels": {
+            "discountCode": "Kortingscode",
+            "voucherCodes": "Vouchers"
         }
     },
     "stripe": {
@@ -12986,7 +13049,9 @@
             "email": "E-mailadres van de rekeninghouder",
             "name": "Volledige naam van de rekeninghouder",
             "contentBacsDebit": "Door uw bankgegevens op te geven en uw betaling te bevestigen, machtigt u bsport en Stripe, ons betalingssysteem, om debetinstructies naar uw bank te sturen in overeenstemming met het betalingsschema. U kunt bij uw bank een terugbetaling aanvragen in overeenstemming met de voorwaarden van uw contract met uw bank. U kunt uw bank te allen tijde verzoeken het incasso-mandaat te annuleren.",
-            "contentIban": "Door uw IBAN op te geven en uw betaling te bevestigen, machtigt u bsport en Stripe, ons betalingssysteem, om debetinstructies naar uw bank te sturen in overeenstemming met het betalingsschema. U kunt een terugbetaling aanvragen bij uw bank in overeenstemming met de voorwaarden van uw contract met uw bank. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd."
+            "contentIban": "Door uw IBAN op te geven en uw betaling te bevestigen, machtigt u bsport en Stripe, ons betalingssysteem, om debetinstructies naar uw bank te sturen in overeenstemming met het betalingsschema. U kunt een terugbetaling aanvragen bij uw bank in overeenstemming met de voorwaarden van uw contract met uw bank. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",
+            "address_postal_code": "Postcode",
+            "address_line_1": "Adresregel 1"
         },
         "paymentGroup": {
             "requiresAction": "De bank heeft de betaling niet geverifieerd (3DSecure).",
@@ -13558,10 +13623,1085 @@
                 "franchises": {
                     "_label": "Studio's"
                 },
-                "_label": "Navigatiemenu"
+                "_label": "Navigatiemenu",
+                "tag": {
+                    "_label": "Tags"
+                }
             }
         },
-        "overbookingForbidden": "Je medewerkersaccount kan niet het maximum aantal reserveringen overschrijden."
+        "overbookingForbidden": "Je medewerkersaccount kan niet het maximum aantal reserveringen overschrijden.",
+        "objectLevelPermissions": {
+            "management": {
+                "coach": {
+                    "allowed_actions": {
+                        "substitution": {
+                            "_label": "Vervangingen"
+                        },
+                        "readPayroll": {
+                            "_label": "Payroll inzien"
+                        },
+                        "delete": {
+                            "_label": "Verwijderen"
+                        },
+                        "edit": {
+                            "_label": "Wijzigen"
+                        },
+                        "create": {
+                            "_label": "Toevoegen"
+                        }
+                    },
+                    "_label": "Instructeursbeheer"
+                },
+                "privateService": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Verwijderen"
+                        },
+                        "edit": {
+                            "_label": "Wijzigen"
+                        },
+                        "create": {
+                            "_label": "Toevoegen"
+                        }
+                    },
+                    "_label": "Afsprakenbeheer"
+                },
+                "workshop": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Verwijderen"
+                        },
+                        "edit": {
+                            "_label": "Wijzigen"
+                        },
+                        "create": {
+                            "_label": "Toevoegen"
+                        }
+                    },
+                    "_label": "Workshopbeheer"
+                },
+                "activity": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Verwijderen"
+                        },
+                        "edit": {
+                            "_label": "Wijzigen"
+                        },
+                        "create": {
+                            "_label": "Toevoegen"
+                        }
+                    },
+                    "_label": "Activiteitenbeheer"
+                },
+                "_label": "Studiobeheer"
+            },
+            "product": {
+                "contract": {
+                    "allowed_actions": {
+                        "editInvoicePriceBillingPlan": {
+                            "_label": "Factuurprijzen wijzigen"
+                        },
+                        "editInvoiceDateBillingPlan": {
+                            "_label": "Factuurdata bewerken"
+                        },
+                        "editPassBillingPlan": {
+                            "_label": "Abonnementskaarten wijzigen"
+                        },
+                        "endBillingPlan": {
+                            "_label": "Abonnementen stopzetten"
+                        },
+                        "pauseBillingPlan": {
+                            "_label": "Abonnementen pauzeren"
+                        },
+                        "createCustomBillingPlan": {
+                            "_label": "Gepersonaliseerde abonnementen toevoegen"
+                        },
+                        "delete": {
+                            "_label": "Abonnementen verwijderen"
+                        },
+                        "edit": {
+                            "_label": "Abonnementen wijzigen"
+                        },
+                        "create": {
+                            "_label": "Abonnementen toevoegen"
+                        }
+                    },
+                    "_label": "Abonnementen"
+                },
+                "privatePass": {
+                    "allowed_actions": {
+                        "compatibility": {
+                            "_label": "Compatibiliteitbeheer"
+                        },
+                        "manageCredit": {
+                            "_label": "Creditbeheer van leden"
+                        },
+                        "manageExtension": {
+                            "_label": "Geldigheidsverlenging toevoegen"
+                        },
+                        "delete": {
+                            "_label": "Verwijderen"
+                        },
+                        "edit": {
+                            "_label": "Wijzigen"
+                        },
+                        "create": {
+                            "_label": "Toevoegen"
+                        }
+                    },
+                    "_label": "Leskaarten"
+                },
+                "paymentPack": {
+                    "allowed_actions": {
+                        "compatibility": {
+                            "_label": "Compatibiliteitsbeheer"
+                        },
+                        "manageExtension": {
+                            "_label": "Geldigheidsverlenging toevoegen"
+                        },
+                        "delete": {
+                            "_label": "Verwijderen"
+                        },
+                        "edit": {
+                            "_label": "Wijzigen"
+                        },
+                        "create": {
+                            "_label": "Toevoegen"
+                        }
+                    },
+                    "_label": "Leskaarten"
+                },
+                "_label": "Productbeheer"
+            },
+            "report": {
+                "Products": {
+                    "video": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Video's"
+                    },
+                    "shop": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Webshop"
+                    },
+                    "consumer_giftcard": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Gekochte cadeaubonnen"
+                    },
+                    "giftcard": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Cadeaubon"
+                    },
+                    "discount": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Promoties"
+                    },
+                    "universal_passes": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Universele kaarten"
+                    },
+                    "private_cpasses": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Afspraakkaarten"
+                    },
+                    "memberships": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Leskaarten"
+                    },
+                    "expired_pass": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Verlopen credits (Leskaarten)"
+                    },
+                    "private_cpasses_expired": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Verlopen credits (Afspraken)"
+                    },
+                    "_label": "Producten"
+                },
+                "Bookings": {
+                    "unpaid_private_bookings": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Onbetaalde reserveringen (Afspraken)"
+                    },
+                    "private_bookings": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Reserveringen (Afspraken)"
+                    },
+                    "first_privatebooking": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Eerste afspraak"
+                    },
+                    "first_attendance": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Eerste aanwezigheid (Groepsactiviteiten)"
+                    },
+                    "bookings": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Reserveringen (Groepsactiviteiten)"
+                    },
+                    "first_booking": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Eerste sessie (Groepsactiviteiten)"
+                    },
+                    "dayBookings": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Reserveringen per dag (Groepsactiviteiten)"
+                    },
+                    "_label": "Reserveringen"
+                },
+                "Club": {
+                    "privateService": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Afspraken"
+                    },
+                    "subscription": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Gefactureerde abonnementen"
+                    },
+                    "offers": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Sessies"
+                    },
+                    "workshop": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Workshops"
+                    },
+                    "activityByCoach": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            }
+                        },
+                        "_label": "Groepsactiviteiten en Workshops per instructeur"
+                    },
+                    "activityByEst": {
+                        "_label": "Groepsactiviteiten en Workshops per vestiging",
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        }
+                    },
+                    "activities": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Activiteiten"
+                    },
+                    "members": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Leden"
+                    },
+                    "members_purchase": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Aankopen van leden"
+                    },
+                    "billing_plan": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Abonnement"
+                    },
+                    "_label": "Studio"
+                },
+                "Payments": {
+                    "video_purchase": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Gekochte video's"
+                    },
+                    "payment_installments": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Termijnbetalingen"
+                    },
+                    "dispute": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Gedisputeerde betalingen"
+                    },
+                    "on_spot_payments": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Fysieke betalingen"
+                    },
+                    "payment_sumup": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Totaal aantal betalingen"
+                    },
+                    "payments": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Betalingen"
+                    },
+                    "unpaid_invoices": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Onbetaalde facturen"
+                    },
+                    "invoices": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijdern"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Aankopen"
+                    },
+                    "expense": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Uitgaven"
+                    },
+                    "credit": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Credits"
+                    },
+                    "cashbook": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Kasboek"
+                    },
+                    "basket": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Verwijderen"
+                            },
+                            "edit": {
+                                "_label": "Wijzigen"
+                            },
+                            "read": {
+                                "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
+                            }
+                        },
+                        "_label": "Winkelmandjes"
+                    },
+                    "_label": "Betalingen"
+                },
+                "_label": "Rapportages"
+            },
+            "planning": {
+                "schedule": {
+                    "allowed_actions": {
+                        "readAvailabilityDetail": {
+                            "_label": "Beschikbaarheid inzien"
+                        },
+                        "deleteAvailability": {
+                            "_label": "Beschikbaarheid verwijderen"
+                        },
+                        "createAvailability": {
+                            "_label": "Beschikbaarheid toevoegen"
+                        }
+                    },
+                    "_label": "Beschikbaarheid"
+                },
+                "calendar": {
+                    "allowed_actions": {
+                        "readWeeklyOverview": {
+                            "_label": "Weekoverzicht"
+                        },
+                        "readCancellations": {
+                            "_label": "Toon geannuleerde sessies"
+                        },
+                        "bulkCancellation": {
+                            "_label": "Bulkreserveringen annuleren"
+                        }
+                    },
+                    "_label": "Agenda"
+                },
+                "_label": "Agenda en beschikbaarheid"
+            },
+            "export": {
+                "allowed_actions": {
+                    "report": {
+                        "_label": "Rapportages exporten"
+                    },
+                    "memberDocument": {
+                        "_label": "Documenten exporteren"
+                    },
+                    "smartlist": {
+                        "_label": "Smartlists exporteren"
+                    },
+                    "attendance": {
+                        "_label": "Aanwezigheid en Afwezigheid exporteren"
+                    },
+                    "payroll": {
+                        "_label": "Payroll exporteren"
+                    },
+                    "subscription": {
+                        "_label": "Abonnementen exporteren"
+                    },
+                    "invoice": {
+                        "_label": "Factueren exporteren"
+                    },
+                    "planning": {
+                        "_label": "Agenda exporteren"
+                    }
+                },
+                "_label": "Exporteren"
+            },
+            "reservation": {
+                "privateBooking": {
+                    "allowed_actions": {
+                        "editPerformance": {
+                            "_label": "Prestatiemetingen wijzigen"
+                        },
+                        "cancel": {
+                            "_label": "Reserveringen annuleren"
+                        },
+                        "edit": {
+                            "_label": "Reserveringen wijzigen"
+                        },
+                        "create": {
+                            "_label": "Reserveringen toevoegen"
+                        }
+                    },
+                    "_label": "Afsprakenbeheer"
+                },
+                "workshop": {
+                    "allowed_actions": {
+                        "editPerformance": {
+                            "_label": "Prestatiemetingen wijzigen"
+                        },
+                        "editSpot": {
+                            "_label": "Gereserveerde plekken wijzigen"
+                        },
+                        "attendance": {
+                            "_label": "Aanwezigheid of Afwezigheid wijzigen"
+                        },
+                        "removeFromWaitlist": {
+                            "_label": "Leden van wachtlijsten verwijderen"
+                        },
+                        "delete": {
+                            "_label": "Reserveringen annuleren"
+                        },
+                        "create": {
+                            "_label": "Reserveringen toevoegen"
+                        },
+                        "addToWaitlist": {
+                            "_label": "Leden aan wachtlijsten toevoegen"
+                        },
+                        "rollcall": {
+                            "_label": "Aanwezigheidsregistraties beheren"
+                        }
+                    },
+                    "_label": "Workshopbeheer"
+                },
+                "activity": {
+                    "allowed_actions": {
+                        "editPerformance": {
+                            "_label": "Prestatiemetingen wijzigen"
+                        },
+                        "editSpot": {
+                            "_label": "Gereserveerde plekken wijzigen"
+                        },
+                        "attendance": {
+                            "_label": "Aanwezigheid of Afwezigheid wijzigen"
+                        },
+                        "removeFromWaitlist": {
+                            "_label": "Leden van wachtlijsten verwijderen"
+                        },
+                        "delete": {
+                            "_label": "Reserveringen annuleren"
+                        },
+                        "create": {
+                            "_label": "Reserveringen toevoegen"
+                        },
+                        "addToWaitlist": {
+                            "_label": "Leden aan wachtlijsten toevoegen"
+                        },
+                        "rollcall": {
+                            "_label": "Aanwezigheidsregistraties"
+                        }
+                    },
+                    "_label": "Groepslessen beheren"
+                },
+                "_label": "Reserveringenbeheer"
+            },
+            "billing": {
+                "allowed_actions": {
+                    "createManualDiscount": {
+                        "_label": "Handmatige kortingen toepassen"
+                    },
+                    "partialRefundAsCredit": {
+                        "_label": "Omzetten in klantsaldo (terugbetaling)"
+                    },
+                    "partialRefundAsDiscount": {
+                        "_label": "Kortingen toepassen (terugbetalingen)"
+                    },
+                    "deletePaymentMethod": {
+                        "_label": "Betaalmethodes verwijderen"
+                    },
+                    "addPaymentMethod": {
+                        "_label": "Betaalmethodes toevoegen"
+                    },
+                    "cancelInvoice": {
+                        "_label": "Facturen annuleren"
+                    },
+                    "readPaymentLink": {
+                        "_label": "Betaallinks genereren"
+                    },
+                    "createInvoice": {
+                        "_label": "Facturatie"
+                    },
+                    "readInvoices": {
+                        "_label": "Factuurtoegang"
+                    },
+                    "editBalance": {
+                        "_label": "Klantsaldo's wijzigen"
+                    },
+                    "takePayment": {
+                        "_label": "Incasseren"
+                    }
+                },
+                "_label": "Facturatie"
+            },
+            "member": {
+                "allowed_actions": {
+                    "manageNotification": {
+                        "_label": "Notificatiebeheer van leden"
+                    },
+                    "communication": {
+                        "_label": "Communiceren met leden"
+                    },
+                    "readBalance": {
+                        "_label": "Toegang tot klantsaldo's"
+                    },
+                    "accessProfile": {
+                        "_label": "Toegang tot ledenprofielen"
+                    },
+                    "search": {
+                        "_label": "Leden zoeken"
+                    },
+                    "delete": {
+                        "_label": "Leden verwijderen"
+                    },
+                    "editInfo": {
+                        "_label": "Wijzig persoonsgegevens"
+                    },
+                    "readInfo": {
+                        "_label": "Toon persoonsgegevens"
+                    },
+                    "create": {
+                        "_label": "Leden toevoegen"
+                    }
+                },
+                "_label": "Ledenacties"
+            },
+            "session": {
+                "privateSlot": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Verwijderen"
+                        },
+                        "edit": {
+                            "_label": "Wijzigen"
+                        },
+                        "create": {
+                            "_label": "Toevoegen"
+                        }
+                    }
+                },
+                "workshop": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Verwijderen"
+                        },
+                        "edit": {
+                            "_label": "Wijzigen"
+                        },
+                        "create": {
+                            "_label": "Toevoegen"
+                        }
+                    },
+                    "_label": "Workshops"
+                },
+                "activity": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Verwijderen"
+                        },
+                        "edit": {
+                            "_label": "Wijzigen"
+                        },
+                        "create": {
+                            "_label": "Toevoegen"
+                        }
+                    },
+                    "_label": "Activiteiten"
+                },
+                "_label": "Sessiebeheer"
+            }
+        }
     },
     "navigation": {
         "backofficeMenu": {
@@ -13676,7 +14816,8 @@
                 "shrink": "Inklappen"
             },
             "cadences": "Cadences",
-            "replacement": "Vervanging"
+            "replacement": "Vervanging",
+            "inbox": "Chatbox"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -13911,7 +15052,13 @@
                     "card": "Leskaart",
                     "sepa_debit": "SEPA",
                     "bacs_debit": "BACS Direct Debit",
-                    "sepa": "SEPA"
+                    "sepa": "SEPA",
+                    "subscriptionCountrySelect": "Landenselectie",
+                    "passTypeFilter": "Leskaartfilters",
+                    "workshop": "Workshopfilters",
+                    "activity": "Activiteitenfilters",
+                    "establishment": "Vestiging",
+                    "level": "Niveau"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",
@@ -13924,7 +15071,12 @@
                     "filterGroupOptions": "Gebundelde opties",
                     "isExcludingTax": "Vóór belastingen",
                     "paymentMethodType": "Betaalmethode",
-                    "isContractLegalTermsAccepted": "Abonnementsvoorwaarden geaccepteerd"
+                    "isContractLegalTermsAccepted": "Abonnementsvoorwaarden geaccepteerd",
+                    "version": "Versie",
+                    "isInputButton": "Compacte versie",
+                    "withoutBookButton": "Toon de \"Reserveer\" knop",
+                    "showDate": "Toon data",
+                    "isWorkshop": "Workshop"
                 },
                 "configurationTitle": "Variaties"
             },
@@ -13932,7 +15084,8 @@
                 "calendar": "Agenda",
                 "workshop": "Workshop",
                 "subscription": "Abonnementen",
-                "pass": "Leskaart"
+                "pass": "Leskaart",
+                "common": "Algemeen"
             },
             "components": {
                 "calendar": "Agenda",
@@ -13966,7 +15119,8 @@
                 "collectPaymentMethod": "Een betaalmethode toevoegen",
                 "paymentPackOffPeakRestrictionModal": "Pop-up met roosterbeperking (leskaart)",
                 "contractNotFound": "Waarschuwing abonnement niet gevonden",
-                "contractPayment": "Betaalmodule abonnementen"
+                "contractPayment": "Betaalmodule abonnementen",
+                "search": "Zoekfilters"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",

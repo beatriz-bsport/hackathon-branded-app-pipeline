@@ -3,7 +3,7 @@
   stage: promote
   tags:
     - light
-    - kubernetes
+    - cluster:bsport-tooling
   only:
     - dev
     - master

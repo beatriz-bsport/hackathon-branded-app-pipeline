@@ -3,7 +3,7 @@ Lint and Compile:
   stage: static-analysis
   tags:
     - high-ram
-    - kubernetes
+    - cluster:bsport-tooling
   script:
     - mv /app/node_modules .
     - yarn install --frozen-lockfile # just to be sure
@@ -23,7 +23,7 @@ Test:
   stage: static-analysis
   tags:
     - light
-    - kubernetes
+    - cluster:bsport-tooling
   script:
     - mv /app/node_modules .
     - yarn install --frozen-lockfile # just to be sure

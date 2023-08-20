@@ -4,7 +4,7 @@
   
   tags:
     - build-frontend
-    - kubernetes
+    - cluster:bsport-tooling
   retry: 
     max: 1
   variables:
@@ -21,7 +21,7 @@
     - yarn build-storybook --quiet --output-dir storybook
     - aws s3 cp ./storybook/ $S3_BUCKET/storybook/$CI_COMMIT_REF_NAME --recursive --only-show-errors
     - aws s3 cp ./public/locales/ $S3_BUCKET/storybook/$CI_COMMIT_REF_NAME/locales --recursive --only-show-errors
-    - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths /$CI_COMMIT_REF_NAME/index.html /$CI_COMMIT_REF_NAME/locales
+    - scripts/invalidate-cloudfront-storybook.sh $CLOUDFRONT_ID $CLOUDFRONT_INVALIDATION_TOKEN
 
 
 Deploy-storybook Feature Branch:

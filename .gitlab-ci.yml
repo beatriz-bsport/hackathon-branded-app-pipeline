@@ -115,18 +115,6 @@ include:
   - local: '/ci/promote.yml'
   - local: '/ci/build.yml'
 
-# deploy-production:
-#   stage: configure_and_deploy
-#   only:
-#     refs:
-#       - master
-#   script:
-#     - yarn build
-#     - $CI_PROJECT_DIR/config-env.sh production
-#     - rm build/static/js/*.js.map
-#     - aws s3 cp build/ s3://bsport-eu-backoffice-production/ --recursive  
-#     - aws cloudfront create-invalidation --distribution-id E33O54OBR3MCH9 --paths /index.html /env.js /service-worker.js /manifest.json
-
 # release on sentry:
 #   stage: build
 #   script:

@@ -1,0 +1,65 @@
+.bs-minimal-payment-pack-card {
+  background: var(--color-background-paper);
+}
+
+/* .bs-minimal-payment-pack-card-content:{} 
+*/
+
+/* .bs-minimal-payment-pack-card-grid:{} 
+*/
+
+/* .bs-minimal-payment-pack-card__title-item__name:{} 
+*/
+
+/* .bs-minimal-payment-pack-card__price-item:{} 
+*/
+
+/* .bs-minimal-payment-pack-card__price-item__price:{} 
+*/
+
+/* .bs-minimal-payment-pack-card__credit-item__credits:{} 
+*/
+
+.bs-minimal-payment-pack-card__title-item {
+  font-size: var(--subtitle1-fontSize);
+  font-weight: var(--h5-fontWeight);
+  line-height: var(--subtitle1-lineHeight);
+  letter-spacing: var(--subtitle1-letterSpacing);
+  gap: var(--spacing-1);
+}
+
+.bs-minimal-payment-pack-card__title-item__quantity {
+  color: var(--color-grey-main);
+}
+
+.bs-minimal-payment-pack-card__credit-item {
+  font-size: var(--body2-fontSize);
+  font-weight: var(--body2-fontWeight);
+  line-height: var(--body2-lineHeight);
+  letter-spacing: var(--body2-letterSpacing);
+  color: var(--color-grey-main);
+}
+
+.bs-minimal-payment-pack-card__price-item__price {
+  font-size: var(--h6-fontSize);
+  font-weight: var(--h6-fontWeight);
+  line-height: var(--h6-lineHeight);
+  letter-spacing: var(--h6-letterSpacing);
+}
+
+@container bsConfirmationPage (width < 530px) {
+  .bs-minimal-payment-pack-card__price-item,
+  .bs-minimal-payment-pack-card__title-item,
+  .bs-minimal-payment-pack-card__credit-item {
+    flex-direction: row;
+  }
+
+  .bs-minimal-payment-pack-card__price-item {
+    justify-content: flex-end;
+  }
+
+  .bs-minimal-payment-pack-card__title-item,
+  .bs-minimal-payment-pack-card__credit-item {
+    justify-content: flex-start;
+  }
+}

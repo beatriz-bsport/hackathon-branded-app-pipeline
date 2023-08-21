@@ -20,10 +20,13 @@ import {
 } from '@bsport/common/lib/master-data/communication-filters';
 
 // CONTEXT
+// TODO: use an enum to store this
 export const CONTEXT_NOTIFICATION = 201;
 export const CONTEXT_SMARTLIST = 202;
 export const CONTEXT_OFFER = 203;
 export const CONTEXT_MEMBER = 204;
+export const CONTEXT_CADENCE = 205;
+export const CONTEXT_FRANCHISE = 206;
 
 // AVATAR GROUP DISPLAY
 export const MAX_DISPLAY = 4;

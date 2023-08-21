@@ -49,6 +49,7 @@ import {
   INBOX_MUTED_MESSAGES,
   INBOX_DISABLED_MESSAGES,
   INBOX_THREAD_PAGE_SIZE,
+  CONTEXT_CADENCE,
 } from './constants';
 
 import {
@@ -502,6 +503,7 @@ const getAvailableTagsCategoriesByContext = (contextIdentifier: number) => {
     case CONTEXT_MEMBER:
     case CONTEXT_SMARTLIST:
     case CONTEXT_OFFER:
+    case CONTEXT_CADENCE:
       return ['User', 'Company'];
     default:
       return [];

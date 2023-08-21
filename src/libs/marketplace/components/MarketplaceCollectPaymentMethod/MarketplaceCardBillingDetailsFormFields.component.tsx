@@ -51,7 +51,7 @@ const MarketplaceCardBillingDetailsFormFields = ({
         classes={{ buttonContainer: 'bs-select__button__square' }}
         onChange={handleChangeCountry}
         options={countryOptions}
-        placeholder={t('translation:form.address.country')}
+        placeholder={`${t('translation:form.address.country')}\u00A0*`}
         renderListItem={(option: SelectOptionWithMetaData<CountryMetaData>) => (
           <CountryOption option={option} />
         )}
@@ -62,24 +62,15 @@ const MarketplaceCardBillingDetailsFormFields = ({
         className="bs-collect-payment-method__mandate__field"
         disabled={disabled}
         onChange={handleChangeName}
-        placeholder={t('invoice:mandate.name')}
+        placeholder={`${t('invoice:mandate.name')}\u00A0*`}
         value={billingDetails?.name || ''}
       />
       <input
         required
         className="bs-collect-payment-method__mandate__field"
         disabled={disabled}
-        onChange={handleChangeEmail}
-        placeholder={t('invoice:mandate.email')}
-        type="email"
-        value={billingDetails?.email || ''}
-      />
-      <input
-        required
-        className="bs-collect-payment-method__mandate__field"
-        disabled={disabled}
         onChange={handleChangeLineOne}
-        placeholder={t('invoice:mandate.address_line_1')}
+        placeholder={`${t('invoice:mandate.address_line_1')}\u00A0*`}
         value={billingDetails?.address.line1 || ''}
       />
       <input
@@ -94,7 +85,7 @@ const MarketplaceCardBillingDetailsFormFields = ({
         className="bs-collect-payment-method__mandate__field"
         disabled={disabled}
         onChange={handleChangePostalCode}
-        placeholder={t('invoice:mandate.address_postal_code')}
+        placeholder={`${t('invoice:mandate.address_postal_code')}\u00A0*`}
         value={billingDetails?.address.postal_code || ''}
       />
       <input
@@ -109,8 +100,16 @@ const MarketplaceCardBillingDetailsFormFields = ({
         className="bs-collect-payment-method__mandate__field"
         disabled={disabled}
         onChange={handleChangeCity}
-        placeholder={t('invoice:mandate.city')}
+        placeholder={`${t('invoice:mandate.city')}\u00A0*`}
         value={billingDetails?.address.city || ''}
+      />
+      <input
+        className="bs-collect-payment-method__mandate__field"
+        disabled={disabled}
+        onChange={handleChangeEmail}
+        placeholder={t('invoice:mandate.email')}
+        type="email"
+        value={billingDetails?.email || ''}
       />
     </div>
   );

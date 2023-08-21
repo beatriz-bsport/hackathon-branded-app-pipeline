@@ -598,6 +598,9 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 availablePaymentMethodList={
                   this.props.payment_method_available_manager
                 }
+                cardBillingDetailsMandatory={
+                  this.props.companyTheme.force_billing_details_on_cards
+                }
                 companyId={this.props.companyId}
                 enabledPaymentGroupMethodIdentifier={getBackofficeEnabledPaymentGroupMethods(
                   {

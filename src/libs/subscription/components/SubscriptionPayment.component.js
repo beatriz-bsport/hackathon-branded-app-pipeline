@@ -456,9 +456,11 @@ export class SubscriptionPayment extends React.Component<Props, State> {
           )
         : true;
 
-    const areBillingDetailsProvided = this.props.cardBillingDetailsMandatory
-      ? this.areBillingDetailsProvided(this.state.billingDetails)
-      : true;
+    const areBillingDetailsProvided =
+      this.props.cardBillingDetailsMandatory &&
+      paymentMethod.type === MarketplacePaymentMethods.card
+        ? this.areBillingDetailsProvided(this.state.billingDetails)
+        : true;
 
     return (
       <div>

@@ -1,16 +1,17 @@
-// @ts-nocheck
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import cloneDeep from 'lodash/cloneDeep';
 import PaymentMethodList from './payment-method-list/PaymentMethodList.component';
-import {
-  fromPaymentGroupIdentifierToPaymentMethodIdentifier,
-  PAYMENT_STRIPE_TERMINAL_FAKE,
-} from '../utils';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '../utils';
 import PaymentStripeTerminalWrapper from '#libs/terminal/components/PaymentStripeTerminalWrapper.component';
 import { PaymentMethod } from '../types';
 import type { StripeReader } from '#libs/terminal/types';
+import {
+  BillingDetails,
+  MarketplacePaymentMethods,
+} from '#libs/marketplace/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -28,8 +29,6 @@ type Props = {
   refreshSavedPaymentMethodList: () => void;
   paymentMethodType: string;
   loading: boolean;
-  snackbarErrorMsg: (msg: string) => void;
-  snackbarSuccessMsg: (msg: string) => void;
   sepaDefaultName: string | null;
   sepaDefaultEmail: string | null;
   companyId: number;
@@ -44,63 +43,169 @@ type Props = {
   setProcessing?: (value: boolean) => void;
   onlinePaymentEnabled?: boolean;
   cardBillingDetailsMandatory: boolean;
+  setAreBillingDetailsProvided: React.Dispatch<React.SetStateAction<boolean>>;
+  areInitialBillingDetailsNecessary: boolean;
+
+  setAreInitialBillingDetailsNecessary: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
+  billingDetails: BillingDetails;
+  setBillingDetails: React.Dispatch<React.SetStateAction<BillingDetails>>;
+  defaultBillingDetailsValues: BillingDetails;
+  readableIdentifier: string;
 };
 
-export const PaymentMethodSelector = (props: Props) => {
-  const { t } = useTranslation(['invoice']);
-  const classes = useStyles();
-  const readableIdentifier =
-    fromPaymentGroupIdentifierToPaymentMethodIdentifier(
-      props.paymentMethodType,
+export const PaymentMethodSelector: React.FC<Props> = React.memo(
+  ({
+    savedPaymentMethodList,
+    selectedSavedPaymentMethodId,
+    requestSetupIntentSecret,
+    refreshSavedPaymentMethodList,
+    paymentMethodType,
+    loading,
+    sepaDefaultName,
+    sepaDefaultEmail,
+    companyId,
+    detachPaymentMethod,
+    detachPaymentMethodLoading,
+    processing,
+    disabled,
+    selectPaymentMethod,
+    onSuccessTerminal,
+    onCancelTerminal,
+    stripeReaders,
+    setProcessing,
+    onlinePaymentEnabled,
+    cardBillingDetailsMandatory,
+    setAreBillingDetailsProvided,
+    areInitialBillingDetailsNecessary,
+    setAreInitialBillingDetailsNecessary,
+    billingDetails,
+    setBillingDetails,
+    defaultBillingDetailsValues,
+    readableIdentifier,
+  }) => {
+    const { t } = useTranslation(['invoice']);
+    const classes = useStyles();
+
+    const selectedPaymentMethodBillingDetails: BillingDetails =
+      React.useMemo(() => {
+        if (selectedSavedPaymentMethodId) {
+          return cloneDeep(
+            savedPaymentMethodList?.find(
+              (pm) => pm.id === selectedSavedPaymentMethodId,
+            )?.billing_details,
+          );
+        }
+        return defaultBillingDetailsValues;
+      }, [
+        selectedSavedPaymentMethodId,
+        savedPaymentMethodList,
+        defaultBillingDetailsValues,
+      ]);
+
+    React.useEffect(() => {
+      if (selectedSavedPaymentMethodId) {
+        setBillingDetails(selectedPaymentMethodBillingDetails);
+      } else {
+        setBillingDetails(defaultBillingDetailsValues);
+      }
+    }, [
+      selectedSavedPaymentMethodId,
+      defaultBillingDetailsValues,
+      selectedPaymentMethodBillingDetails,
+      setBillingDetails,
+    ]);
+
+    const areSpecificBillingDetailsProvided = React.useCallback(
+      (specificBillingDetails: BillingDetails) => {
+        return (
+          !!specificBillingDetails?.name &&
+          !!specificBillingDetails?.address.line1 &&
+          !!specificBillingDetails?.address.postal_code &&
+          !!specificBillingDetails?.address.city &&
+          !!specificBillingDetails?.address.country
+        );
+      },
+      [],
     );
-  return (
-    <div>
-      {readableIdentifier === 'debt' && (
-        <div className={classes.container}>
-          <Typography>
-            {t('paymentMethod.isInternalExplainFuturePayments')}
-          </Typography>
-        </div>
-      )}
-      {['card', 'sepa_debit', 'bacs_debit'].includes(readableIdentifier) && (
-        <PaymentMethodList
-          isExpanded
-          showEmpty
-          cardBillingDetailsMandatory={props.cardBillingDetailsMandatory}
-          companyId={props.companyId}
-          detachPaymentMethod={props.detachPaymentMethod}
-          detachPaymentMethodLoading={props.detachPaymentMethodLoading}
-          disabled={props.loading || props.processing || props.disabled}
-          onDelete={!!props.detachPaymentMethod}
-          onlinePaymentEnabled={props.onlinePaymentEnabled}
-          onSelect={props.selectPaymentMethod}
-          paymentMethodType={fromPaymentGroupIdentifierToPaymentMethodIdentifier(
-            props.paymentGroupMethodIdentifier,
-          )}
-          refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
-          requestSetupIntentSecret={props.requestSetupIntentSecret}
-          savedPaymentMethodList={props.savedPaymentMethodList}
-          selectedSavedPaymentMethodId={props.selectedSavedPaymentMethodId}
-          sepaDefaultEmail={props.sepaDefaultEmail}
-          sepaDefaultName={props.sepaDefaultName}
-          snackbarErrorMsg={props.snackbarErrorMsg}
-          snackbarSuccessMsg={props.snackbarSuccessMsg}
-        />
-      )}
-      {props.paymentMethodType === PAYMENT_STRIPE_TERMINAL_FAKE && (
-        <div className={classes.terminalContainer}>
-          <PaymentStripeTerminalWrapper
-            isSetupIntent
-            onCancel={props.onCancelTerminal}
-            onSuccess={props.onSuccessTerminal}
-            requestSetupIntentSecret={props.requestSetupIntentSecret}
-            setProcessing={props.setProcessing}
-            stripeReaders={props.stripeReaders}
+
+    React.useEffect(() => {
+      setAreBillingDetailsProvided(
+        cardBillingDetailsMandatory &&
+          selectedSavedPaymentMethodId &&
+          readableIdentifier === MarketplacePaymentMethods.card
+          ? areSpecificBillingDetailsProvided(billingDetails)
+          : true,
+      );
+      setAreInitialBillingDetailsNecessary(
+        cardBillingDetailsMandatory &&
+          selectedSavedPaymentMethodId &&
+          readableIdentifier === MarketplacePaymentMethods.card
+          ? areSpecificBillingDetailsProvided(
+              selectedPaymentMethodBillingDetails,
+            )
+          : true,
+      );
+    }, [
+      setAreBillingDetailsProvided,
+      selectedPaymentMethodBillingDetails,
+      selectedSavedPaymentMethodId,
+      readableIdentifier,
+      areSpecificBillingDetailsProvided,
+      cardBillingDetailsMandatory,
+      billingDetails,
+      setAreInitialBillingDetailsNecessary,
+    ]);
+
+    return (
+      <div>
+        {readableIdentifier === 'debt' && (
+          <div className={classes.container}>
+            <Typography>
+              {t('paymentMethod.isInternalExplainFuturePayments')}
+            </Typography>
+          </div>
+        )}
+        {['card', 'sepa_debit', 'bacs_debit'].includes(readableIdentifier) && (
+          <PaymentMethodList
+            showEmpty
+            areInitialBillingDetailsNecessary={
+              areInitialBillingDetailsNecessary
+            }
+            billingDetails={billingDetails}
+            cardBillingDetailsMandatory={cardBillingDetailsMandatory}
+            companyId={companyId}
+            detachPaymentMethod={detachPaymentMethod}
+            detachPaymentMethodLoading={detachPaymentMethodLoading}
+            disabled={loading || processing || disabled}
+            onlinePaymentEnabled={onlinePaymentEnabled}
+            onSelect={selectPaymentMethod}
+            paymentMethodType={readableIdentifier}
+            refreshSavedPaymentMethodList={refreshSavedPaymentMethodList}
+            requestSetupIntentSecret={requestSetupIntentSecret}
+            savedPaymentMethodList={savedPaymentMethodList}
+            selectedSavedPaymentMethodId={selectedSavedPaymentMethodId}
+            sepaDefaultEmail={sepaDefaultEmail}
+            sepaDefaultName={sepaDefaultName}
+            setBillingDetails={setBillingDetails}
           />
-        </div>
-      )}
-    </div>
-  );
-};
+        )}
+        {parseInt(paymentMethodType) === PAYMENT_STRIPE_TERMINAL_FAKE && (
+          <div className={classes.terminalContainer}>
+            <PaymentStripeTerminalWrapper
+              isSetupIntent
+              onCancel={onCancelTerminal}
+              onSuccess={onSuccessTerminal}
+              requestSetupIntentSecret={requestSetupIntentSecret}
+              setProcessing={setProcessing}
+              stripeReaders={stripeReaders}
+            />
+          </div>
+        )}
+      </div>
+    );
+  },
+);
 
 export default PaymentMethodSelector;

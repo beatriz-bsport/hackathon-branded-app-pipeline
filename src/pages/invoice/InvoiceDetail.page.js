@@ -602,6 +602,8 @@ export class InvoiceDetail extends React.Component<Props, State> {
                   this.props.companyTheme.force_billing_details_on_cards
                 }
                 companyId={this.props.companyId}
+                defaultUserEmail={this.props.invoice.member.email}
+                defaultUserName={this.props.invoice.member.name}
                 enabledPaymentGroupMethodIdentifier={getBackofficeEnabledPaymentGroupMethods(
                   {
                     currency: this.props.companyTheme.currency,

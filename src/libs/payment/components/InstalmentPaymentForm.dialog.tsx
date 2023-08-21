@@ -18,7 +18,11 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
 } from '@bsport/common/lib/master-data/payment-group';
 import { Form } from 'formik';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import Immutable from 'seamless-immutable';
+import {
+  getCompanyCountry,
+  getCurrencyDisplayWithPrice,
+} from '../../theme/selectors';
 import { Submit } from '../../../components/forms';
 import InstalmentPaymentForm, {
   InstalPaymentFormHOC,
@@ -27,8 +31,16 @@ import PaymentMethodTypeSwitcher from './PaymentMethodTypeSwitcher.component';
 import PaymentMethodSelector from './PaymentMethodSelector.component';
 import { PaymentInstalmentData, PaymentConfigData } from '../types';
 import { OptionCallback } from '../../../state/types';
-import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
+import {
+  fromPaymentGroupIdentifierToPaymentMethodIdentifier,
+  PAYMENT_STRIPE_TERMINAL_FAKE,
+} from '#libs/payment/utils';
 import type { StripeReader } from '#libs/terminal/types';
+import { updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI } from '#libs/payment/api';
+import {
+  BillingDetails,
+  MarketplacePaymentMethods,
+} from '#libs/marketplace/types';
 
 type Props = {
   enabledPaymentGroupMethodIdentifier: Array<number>;
@@ -45,6 +57,9 @@ type Props = {
   requestSetupIntentSecret: () => Promise<any>;
   onlinePaymentEnabled?: boolean;
   companyId: number;
+  cardBillingDetailsMandatory?: boolean;
+  defaultUserEmail: string;
+  defaultUserName: string;
 };
 
 const STEP_CONFIG_RECURRENCE = 0;
@@ -65,8 +80,56 @@ const InstalmentPaymentFormDialog = (props: Props) => {
     payment_method: PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
     payment_method_id: '',
   });
+  const companyCountry = getCompanyCountry();
 
-  const onSubmitSecondStep = () => {
+  const defaultBillingDetailsValues = React.useMemo(() => {
+    return Immutable({
+      name: props.defaultUserName || '',
+      address: {
+        city: '',
+        country: companyCountry || '',
+        line1: '',
+        line2: '',
+        postal_code: '',
+        state: '',
+      },
+      email: props.defaultUserEmail || '',
+    });
+  }, [props.defaultUserName, props.defaultUserEmail, companyCountry]);
+
+  const [
+    areInitialBillingDetailsNecessary,
+    setAreInitialBillingDetailsNecessary,
+  ] = React.useState(false);
+
+  const [areBillingDetailsProvided, setAreBillingDetailsProvided] =
+    React.useState(false);
+
+  const [billingDetails, setBillingDetails] = React.useState<BillingDetails>(
+    defaultBillingDetailsValues,
+  );
+
+  const readableIdentifier = React.useMemo(() => {
+    return fromPaymentGroupIdentifierToPaymentMethodIdentifier(
+      parseInt(paymentConfig.payment_method),
+    );
+  }, [paymentConfig.payment_method]);
+
+  const onSubmitSecondStep = async () => {
+    if (
+      !areInitialBillingDetailsNecessary &&
+      readableIdentifier === MarketplacePaymentMethods.card
+    ) {
+      await updatePaymentMethodBillingDetailsAPI({
+        payment_method_id: paymentConfig.payment_method_id,
+        billing_details: {
+          name: billingDetails.name,
+          email: billingDetails.email,
+          address: billingDetails.address,
+        },
+        company: parseInt(props.companyId),
+      });
+    }
     setProcessing(true);
     let updatedPaymentConfig = {};
     if (paymentConfig.payment_method === PAYMENT_STRIPE_TERMINAL_FAKE) {
@@ -90,6 +153,13 @@ const InstalmentPaymentFormDialog = (props: Props) => {
     );
   };
   const onCancelSecondStep = () => setStep(STEP_CONFIG_RECURRENCE);
+
+  const selectPaymentMethod = React.useCallback(
+    (payment_method_id) => {
+      setPaymentConfig({ ...paymentConfig, payment_method_id });
+    },
+    [paymentConfig],
+  );
 
   if (step === STEP_CONFIG_RECURRENCE) {
     return (
@@ -156,7 +226,13 @@ const InstalmentPaymentFormDialog = (props: Props) => {
           />
           <Divider />
           <PaymentMethodSelector
+            areInitialBillingDetailsNecessary={
+              areInitialBillingDetailsNecessary
+            }
+            billingDetails={billingDetails}
+            cardBillingDetailsMandatory={props.cardBillingDetailsMandatory}
             companyId={props.companyId}
+            defaultBillingDetailsValues={defaultBillingDetailsValues}
             disabled={
               processing ||
               props.loading ||
@@ -165,15 +241,18 @@ const InstalmentPaymentFormDialog = (props: Props) => {
             onCancelTerminal={onCancelSecondStep}
             onlinePaymentEnabled={props.onlinePaymentEnabled}
             onSuccessTerminal={onSubmitSecondStep}
-            paymentGroupMethodIdentifier={paymentConfig.payment_method}
             paymentMethodType={paymentConfig.payment_method}
+            readableIdentifier={readableIdentifier}
             refreshSavedPaymentMethodList={props.fetchPaymentMethodList}
             requestSetupIntentSecret={props.requestSetupIntentSecret}
             savedPaymentMethodList={props.savedPaymentMethodList}
             selectedSavedPaymentMethodId={paymentConfig.payment_method_id}
-            selectPaymentMethod={(payment_method_id) =>
-              setPaymentConfig({ ...paymentConfig, payment_method_id })
+            selectPaymentMethod={selectPaymentMethod}
+            setAreBillingDetailsProvided={setAreBillingDetailsProvided}
+            setAreInitialBillingDetailsNecessary={
+              setAreInitialBillingDetailsNecessary
             }
+            setBillingDetails={setBillingDetails}
             setProcessing={setProcessing}
             stripeReaders={props.stripeReaders}
           />
@@ -190,7 +269,8 @@ const InstalmentPaymentFormDialog = (props: Props) => {
                 props.loading ||
                 (paymentConfig.payment_method !==
                   PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT &&
-                  !paymentConfig.payment_method_id)
+                  !paymentConfig.payment_method_id) ||
+                !areBillingDetailsProvided
               }
               onClick={onSubmitSecondStep}
               variant="contained"
@@ -203,7 +283,6 @@ const InstalmentPaymentFormDialog = (props: Props) => {
       </Dialog>
     );
   }
-
   return <div />;
 };
 

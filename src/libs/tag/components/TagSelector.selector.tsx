@@ -248,7 +248,10 @@ export function TagSelector(props: Props) {
       : null;
   if (inScrollBar) {
     return (
-      <div id={`selector_${uuid.current}`} style={{ position: 'relative' }}>
+      <div
+        id={`selector_${uuid.current}`}
+        style={{ position: 'relative', width: '100%' }}
+      >
         <Select
           closeMenuOnSelect={closeMenuOnSelect}
           components={{

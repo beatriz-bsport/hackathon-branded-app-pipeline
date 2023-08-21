@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import makeStyles from '@material-ui/styles/makeStyles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Theme, useTheme } from '@material-ui/core';
+import classNames from 'classnames';
 
 import MarketplaceContractCard from '#libs/marketplace/components/MarketplaceContractCard';
 
@@ -40,7 +41,10 @@ const MarkeplaceContractListItem: React.FC<ContractListItemProps> = React.memo(
 
     return (
       <button
-        className={classes.contractButtonContainer}
+        className={classNames(
+          classes.contractButtonContainer,
+          'bs-contract-list__container',
+        )}
         onClick={handleMobileClick}
         type="button"
       >

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import { Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import classNames from 'classnames';
 
 import Analytics from '../../../components/analytics/Analytics.component';
 
@@ -87,7 +88,12 @@ export const MarketplacePaymentComboList = (props: Props) => {
       </Typography>
 
       {!!filteredPaymentComboList.length && (
-        <div className={classes.passesItemsContainer}>
+        <div
+          className={classNames(
+            classes.passesItemsContainer,
+            'bs-payment-combo-list__container',
+          )}
+        >
           {filteredPaymentComboList.map((paymentCombo) => (
             <PaymentComboCard
               key={paymentCombo.id}

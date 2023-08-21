@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { Immutable } from 'seamless-immutable';
+import classNames from 'classnames';
 
 import Analytics from '../../../components/analytics/Analytics.component';
 
@@ -129,7 +130,12 @@ export const MarketplacePrivatePassList = (props: Props) => {
                   </Typography>
                 )}
 
-                <div className={classes.passesItemsContainer}>
+                <div
+                  className={classNames(
+                    classes.passesItemsContainer,
+                    'bs-private-pass-list__container',
+                  )}
+                >
                   {category.passes.map((pass) => (
                     <PrivatePassCard
                       key={pass.id}

@@ -162,7 +162,7 @@
     "start-staging": "yarn updateTranslation && cp envs/staging-api-only public/env.js && node scripts/start.js",
     "build": "node --max_old_space_size=4000 scripts/build.js",
     "server:build": "webpack -p --progress",
-    "test": "yarn jest",
+    "test": "yarn jest --logHeapUsage",
     "compile": "npx tsc -p .",
     "lint": "eslint ./src --max-warnings=0",
     "lint-fix": "eslint ./src --fix",

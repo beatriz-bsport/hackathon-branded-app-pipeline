@@ -1,7 +1,7 @@
 import moment from 'moment-timezone';
 import { BOOKING_SOURCE_SAAS } from '@bsport/common/lib/master-data/booking_source';
 import { Offer } from '#libs/offer/types';
-import { isOfferInThePast } from '../utils';
+import { isOfferInThePast } from '#libs/marketplace/utils/offer';
 
 const offer: Offer = {
   company: 1,

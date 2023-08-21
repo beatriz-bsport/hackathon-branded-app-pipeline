@@ -52,17 +52,17 @@ class PaymentMethodSettings extends React.PureComponent<Props, State> {
     if (
       props.theme &&
       props.theme.payment_method_available_basket &&
-      props.theme.payment_method_available_subscription &&
-      props.theme.force_billing_details_on_cards
+      props.theme.payment_method_available_subscription
     ) {
       state.payment_method_available_basket =
         props.theme.payment_method_available_basket;
 
       state.payment_method_available_subscription =
         props.theme.payment_method_available_subscription;
-      state.cardBillingDetailsMandatory =
-        props.theme.force_billing_details_on_cards;
     }
+
+    state.cardBillingDetailsMandatory =
+      props.theme.force_billing_details_on_cards;
 
     this.state = state;
   }

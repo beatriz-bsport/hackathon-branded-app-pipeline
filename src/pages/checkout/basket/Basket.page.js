@@ -318,9 +318,7 @@ export class BasketPage extends React.Component<Props> {
     options: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
   ) => {
     this.props.attachCoupon(this.props.basket.id, code, {
-      onSuccess: () => {
-        this.props.refreshBasket(options);
-      },
+      onSuccess: options?.onSuccess,
       onError: () => {
         if (options && options.onError) {
           options.onError();

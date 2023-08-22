@@ -10,6 +10,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment-timezone';
 import TypographyMultiline from '../../../../components/typo/TypographyMultiline.component';
+import ObjectLevelPermissionWrapper from '../../../role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   startUpdateCoach: (coach: CoachDetailed) => void,
@@ -25,14 +26,19 @@ export const CoachInformation = (props: Props) => {
     <Paper>
       <div className={classNames(classes.flexRow, classes.expansionTitle)}>
         <Typography variant="h5">{t('common.information')}</Typography>
-        <Button
-          color="primary"
-          onClick={() => startUpdateCoach(coach)}
-          variant="contained"
+        <ObjectLevelPermissionWrapper
+          forcedBehavior="hidden"
+          requiredPermission="management.coach.allowed_actions.edit"
         >
-          <EditIcon className={classes.leftIcon} />
-          {t('common.edit')}
-        </Button>
+          <Button
+            color="primary"
+            onClick={() => startUpdateCoach(coach)}
+            variant="contained"
+          >
+            <EditIcon className={classes.leftIcon} />
+            {t('common.edit')}
+          </Button>
+        </ObjectLevelPermissionWrapper>
       </div>
 
       <div className={classes.expansionTitle}>

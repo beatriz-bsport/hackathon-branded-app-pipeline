@@ -9,6 +9,7 @@ import CoachInformation from './coach-detail/CoachInformation.component';
 import CoachPaymentRuleBanner from './coach-detail/CoachPaymentRuleBanner.component';
 import CoachSpaceConfiguration from './coach-detail/CoachSpaceConfiguration.component';
 import AssociatedCoachDisciplineGroupConfiguration from './coach-detail/AssociatedCoachDisciplineGroupConfiguration.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import type {
   CoachPaymentRule,
@@ -125,53 +126,78 @@ export const CoachDetail: React.FC<Props> = ({
           hasAccessToCoachSpace={coach?.has_access_to_coach_space}
         />
       </div>
-      <div className={classes.payroll}>
-        <Paper className={classes.paperContainer}>
-          <CoachPaymentRuleBanner
-            coach={coach}
-            coachPaymentRuleGroups={coachPaymentRuleGroups}
-            coachPaymentRulesByKind={coachPaymentRulesByKind}
-            privateServices={privateServices}
-            remunerateCoach={() => goToCoachPerformance(coach)}
-            setCoachPaymentRule={setCoachPaymentRule}
-            setCoachPaymentRuleGroup={setCoachPaymentRuleGroup}
-            setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
-            setCoachWorkshopPaymentRule={setCoachWorkshopPaymentRule}
-            updateCoachPrivateSlotsPaymentRule={
-              updateCoachPrivateSlotsPaymentRule
-            }
-          />
-        </Paper>
-      </div>
-      <div className={classes.description}>
-        <CoachInformation coach={coach} startUpdateCoach={startUpdateCoach} />
-      </div>
-      <div className={classes.remplacement}>
-        <FeatureListProvider>
-          {(featureList: FeatureList) => (
-            <>
-              {hasUpsell(featureList, UPSELL_IDENTIFIER_SUBTEACHER_TOOL) && (
-                <Paper className={classes.paperReplacement}>
-                  <AssociatedCoachDisciplineGroupConfiguration
-                    activityList={activityList}
-                    assignDisciplineGroup={assignDisciplineGroup}
-                    categoryList={categoryList}
+
+      <ObjectLevelPermissionProvider
+        requiredPermission={[
+          'management.coach.allowed_actions.readPayroll',
+          'management.coach.allowed_actions.substitution',
+        ]}
+      >
+        {([hasPayrollPermission, hasSubstitutionPermission]: boolean[]) => (
+          <>
+            {hasPayrollPermission && (
+              <div className={classes.payroll}>
+                <Paper className={classes.paperContainer}>
+                  <CoachPaymentRuleBanner
                     coach={coach}
-                    companyTheme={companyTheme}
-                    disciplineGroupList={disciplineGroupList}
-                    establishmentGroupList={establishmentGroupList}
-                    establishmentList={establishmentList}
-                    updateAssociatedCoachReplacementPreferences={
-                      updateAssociatedCoachReplacementPreferences
+                    coachPaymentRuleGroups={coachPaymentRuleGroups}
+                    coachPaymentRulesByKind={coachPaymentRulesByKind}
+                    privateServices={privateServices}
+                    remunerateCoach={() => goToCoachPerformance(coach)}
+                    setCoachPaymentRule={setCoachPaymentRule}
+                    setCoachPaymentRuleGroup={setCoachPaymentRuleGroup}
+                    setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
+                    setCoachWorkshopPaymentRule={setCoachWorkshopPaymentRule}
+                    updateCoachPrivateSlotsPaymentRule={
+                      updateCoachPrivateSlotsPaymentRule
                     }
-                    workshopList={workshopList}
                   />
                 </Paper>
-              )}
-            </>
-          )}
-        </FeatureListProvider>
-      </div>
+              </div>
+            )}
+
+            <div className={classes.description}>
+              <CoachInformation
+                coach={coach}
+                startUpdateCoach={startUpdateCoach}
+              />
+            </div>
+
+            {hasSubstitutionPermission && (
+              <div className={classes.remplacement}>
+                {' '}
+                <FeatureListProvider>
+                  {(featureList: FeatureList) => (
+                    <>
+                      {hasUpsell(
+                        featureList,
+                        UPSELL_IDENTIFIER_SUBTEACHER_TOOL,
+                      ) && (
+                        <Paper className={classes.paperReplacement}>
+                          <AssociatedCoachDisciplineGroupConfiguration
+                            activityList={activityList}
+                            assignDisciplineGroup={assignDisciplineGroup}
+                            categoryList={categoryList}
+                            coach={coach}
+                            companyTheme={companyTheme}
+                            disciplineGroupList={disciplineGroupList}
+                            establishmentGroupList={establishmentGroupList}
+                            establishmentList={establishmentList}
+                            updateAssociatedCoachReplacementPreferences={
+                              updateAssociatedCoachReplacementPreferences
+                            }
+                            workshopList={workshopList}
+                          />
+                        </Paper>
+                      )}
+                    </>
+                  )}
+                </FeatureListProvider>
+              </div>
+            )}
+          </>
+        )}
+      </ObjectLevelPermissionProvider>
     </div>
   );
 };

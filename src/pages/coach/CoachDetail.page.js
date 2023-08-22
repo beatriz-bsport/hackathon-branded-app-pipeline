@@ -46,6 +46,7 @@ import type { CoachDetailed } from '../../api/types';
 import type { CoachReplacementPreferencesData } from '../../libs/associated-coach/types';
 import { getAvailablePrivateServices } from '../../libs/private-service/selectors/private-service';
 import WidgetGeneratorDialog from '../../libs/widget/components/WidgetGeneratorDialog.component';
+import ObjectLevelPermissionProvider from '../../libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import {
   getEnabledWorkshops,
   getEnabledMetaActivities,
@@ -215,11 +216,22 @@ export class Coach extends React.Component<Props> {
           }
           workshopList={this.props.workshopList}
         />
-        <BottomActionButtons
-          onDelete={this.handleDelete}
-          onEdit={this.handleEdit}
-          onShare={this.handleShare}
-        />
+
+        <ObjectLevelPermissionProvider
+          requiredPermission={[
+            'management.coach.allowed_actions.edit',
+            'management.coach.allowed_actions.delete',
+          ]}
+        >
+          {([hasEditPermission, hasDeletePermission]) => (
+            <BottomActionButtons
+              onDelete={hasDeletePermission ? this.handleDelete : null}
+              onEdit={hasEditPermission ? this.handleEdit : null}
+              onShare={this.handleShare}
+            />
+          )}
+        </ObjectLevelPermissionProvider>
+
         <CoachDeleteModal
           checkCanDeleteCoach={canDeleteCoachAPI}
           coachToDeleteId={this.props.deleteOpen ? this.props.coach.id : null}

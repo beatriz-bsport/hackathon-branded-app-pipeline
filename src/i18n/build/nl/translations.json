@@ -1976,7 +1976,7 @@
                 "phoneOrMailMissing": "Sommige ontvangers hebben geen e-mailadres en/of telefoonnummer opgeslagen.",
                 "header": "Waarschuwing"
             },
-            "refreshMemberData": "Ververs om de wijzigingen in te zien."
+            "refreshMemberData": "Ververs om de wijzigingen te zien."
         },
         "dialogTemplate": {
             "refreshText": "Klik op verversen om de nieuwste sjablonen weer te geven.",
@@ -2790,7 +2790,12 @@
             "referred_member_last_name": "Achternaam doorverwijzer",
             "referred_member_first_name": "Voornaam doorverwijzer",
             "referred_member_email": "E-mailadres doorverwijzer",
-            "purchased_products": "Producten"
+            "purchased_products": "Producten",
+            "referring_member_total_reward": "Beloning (doorverwijzer)",
+            "referred_discount_applied": "Beloning (ontvanger)",
+            "referring_member_pk": "Lidmaatschapsnummer",
+            "referred_member_pk": "Lidmaatschapsnummer",
+            "referred_discount_use_date": "Gebruiksdatum promotiecode"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2844,7 +2849,8 @@
             "franchise_shared_pass": "Gedeeld pasgebruik",
             "dispute": "Geschil",
             "billing_plan": "Abonnement",
-            "members_purchase": "Aankopen van leden"
+            "members_purchase": "Aankopen van leden",
+            "referral_grant": "Doorverwijzer"
         },
         "globalCategories": {
             "subheader": {
@@ -3108,7 +3114,8 @@
             "activityByCoach": "De activiteiten en docenten die verschijnen zijn die waarvoor een sessie is gepland in het geselecteerde datumbereik.",
             "activityByEst": "De activiteiten en vestigingen die verschijnen zijn die waarvoor een sessie is gepland in het geselecteerde datumbereik.",
             "activities": "De activiteiten die verschijnen zijn die waarvoor een sessie is gepland in het geselecteerde datumbereik.",
-            "members": "De leden worden gefilterd op datum van inschrijving."
+            "members": "De leden worden gefilterd op datum van inschrijving.",
+            "referral_grant": "Doorverwijzingslinks worden gefilterd aan de hand van de inschrijfdatum van de ontvanger"
         },
         "franchiseWarning": {
             "part2": "U kunt het rapport nu exporteren en daarna in Excel verwerken. Bij de export wordt rekening gehouden met de aangegeven data en de toegepaste gefilterde weergave.",
@@ -5360,7 +5367,7 @@
                         "isModifyRecursively": "Wil je soortgelijke sessies wijzigen aan de aan hand van de nieuwe informatie?",
                         "isNotifyConsumers": "Wil je ingeboekte leden over deze wijzigingen informeren?",
                         "partnership": {
-                            "partnerMaxBookingCount": "Maximaal aantal Marketplace (alleen OneFit)",
+                            "partnerMaxBookingCount": "Maximaal aantal marketplace-reserveringen (alleen voor OneFit / Urban Sports CLub)",
                             "availableOnPartnership": "Op marketplaces (ClassPass, OneFit...)",
                             "title": "Marketplace",
                             "uscIntegrationWorkshopWarning": "Workshops zijn niet met Urban Sports Club en worden daarom ook niet getoond.",
@@ -10050,6 +10057,13 @@
                 "create": {
                     "error": "Fout bij het opslaan en het delen van deze promotie"
                 }
+            },
+            "errors": {
+                "5002": "Eén of meerdere van de geselecteerde promotiecodes is nog niet gebruikt"
+            },
+            "exportCodes": {
+                "error": "Het is niet mogelijk om de geselecteerde promotiecodes te exporteren",
+                "success": "Vouchers exporteren"
             }
         },
         "subscription": {
@@ -11231,7 +11245,8 @@
                 "tag": "Sub-tag",
                 "tag_group": "Hoofd-tag"
             },
-            "title": "[Formulier] Promotie"
+            "title": "[Formulier] Promotie",
+            "alert": "Leden kunnen promotiecodes gebruiken om het totaalbedrag van hun winkelmandje te verlagen. Dit formulier beheert de gebruiksvoorwaarden van de promotiecode. Je kunt zelf de instellingen bepalen en hoe je het met je leden wenst te delen."
         },
         "list": {
             "activeCoupons": "Actieve promoties",
@@ -11323,7 +11338,8 @@
                     "5004": "Deze promotiecode kan slechts voor één artikel worden gebruikt.",
                     "5003": "Sommige unieke promotiecodes zijn al in gebruik.",
                     "5001": "Sommige unieke promotiecodes kunnen niet worden toegevoegd, omdat deze al geregistreerd zijn.",
-                    "5000": "Het is niet mogelijk om een gebruikte promotiecode opnieuw toe te passen."
+                    "5000": "Het is niet mogelijk om een gebruikte promotiecode opnieuw toe te passen.",
+                    "update_mode": "Indien je promotiecodes wenst te wijzigen kun je of bestaande promotiecodes toevoegen of vervangen."
                 },
                 "alertInfo": "Vouchers zijn unieke codes waarmee het lid 100% korting krijgt op een specifiek product. Deze codes worden niet gegenereerd door het platform zelf, maar moeten hier worden geüpload als een CSV-bestand. Deze functie is vooral handig als je samenwerkt met een externe entiteit zoals Groupon om een promotiecampagne te voeren. In dit geval genereert en verkoopt Groupon (of een vergelijkbare entiteit) de vouchers namens je studio.",
                 "alertWarning": "Niet van toepassing op abonnementen",
@@ -13725,6 +13741,15 @@
                         },
                         "create": {
                             "_label": "Abonnementen toevoegen"
+                        },
+                        "endAfterInvoiceBillingPlan": {
+                            "_label": "Stopzettingen programmeren"
+                        },
+                        "createBillingPlan": {
+                            "_label": "Nieuwe abonnementen factureren"
+                        },
+                        "pause": {
+                            "_label": "Alle lopende abonnementen pauzeren"
                         }
                     },
                     "_label": "Abonnementen"
@@ -13768,6 +13793,9 @@
                         },
                         "create": {
                             "_label": "Toevoegen"
+                        },
+                        "manageCredit": {
+                            "_label": "Creditbeheer van leden"
                         }
                     },
                     "_label": "Leskaarten"
@@ -14149,6 +14177,9 @@
                             },
                             "read": {
                                 "_label": "Inzien"
+                            },
+                            "create": {
+                                "_label": "Toevoegen"
                             }
                         },
                         "_label": "Groepsactiviteiten en Workshops per instructeur"
@@ -14669,7 +14700,8 @@
                         "create": {
                             "_label": "Toevoegen"
                         }
-                    }
+                    },
+                    "_label": "Beschikbaarheid afspraken"
                 },
                 "workshop": {
                     "allowed_actions": {
@@ -15076,7 +15108,9 @@
                     "isInputButton": "Compacte versie",
                     "withoutBookButton": "Toon de \"Reserveer\" knop",
                     "showDate": "Toon data",
-                    "isWorkshop": "Workshop"
+                    "isWorkshop": "Workshop",
+                    "disablePast": "Verberg oude data",
+                    "hideCoach": "Verberg instructeursfilter"
                 },
                 "configurationTitle": "Variaties"
             },
@@ -15120,7 +15154,10 @@
                 "paymentPackOffPeakRestrictionModal": "Pop-up met roosterbeperking (leskaart)",
                 "contractNotFound": "Waarschuwing abonnement niet gevonden",
                 "contractPayment": "Betaalmodule abonnementen",
-                "search": "Zoekfilters"
+                "search": "Zoekfilters",
+                "calendarFilters": "Agendafilters (exclusief voor de lay-out)",
+                "calendarWeekTimeTable": "Koptekst agenda",
+                "select": "Selecteer"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",

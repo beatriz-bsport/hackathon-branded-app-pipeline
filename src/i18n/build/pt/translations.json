@@ -908,7 +908,7 @@
             "showNotification": "Ver a notificação"
         },
         "dialogTemplate": {
-            "refreshText": "Para ver o seu novo modelo aparecer na lista, clique no botão atualizar.",
+            "refreshText": "Para ver o novo modelo aparecer na lista, clique no botão atualizar.",
             "title": "Seleção do modelo"
         },
         "table": {
@@ -981,7 +981,7 @@
             }
         },
         "dialogRecipients": {
-            "refreshMemberData": "Para ver as suas alterações, clique no botão atualizar.",
+            "refreshMemberData": "Para ver as alterações, clique no botão atualizar.",
             "warnings": {
                 "recipientsNotAllSelected": "Nem todos os beneficiários foram seleccionados.",
                 "full": "Alguns destinatários não têm um endereço eletrónico/número de telefone e nem todos os destinatários foram seleccionados.",
@@ -1016,7 +1016,7 @@
                 "content": "Mensagem",
                 "warningLength": "{{number_sms}} serão enviadas mensagens SMS"
             },
-            "refresh": "Para ver a nova versão do seu modelo, clique no botão atualizar.",
+            "refresh": "Para ver a nova versão do modelo, clique no botão atualizar.",
             "writeCommunication": "Enviar mensagem"
         },
         "common": {
@@ -1389,7 +1389,9 @@
                 "generatePaymentLink": "Gerar uma método de pagamento",
                 "paymentLink": "Método de pagamento",
                 "payAll": "Liquidação de dívidas de membros",
-                "confirmPayment": "Confirmar o pagamento"
+                "confirmPayment": "Confirmar o pagamento",
+                "paymentSecurityInformation": "Pode registar o seu método de pagamento com segurança para futuras compras. Os dados são encriptados e armazenados de forma segura.",
+                "saveForLaterAsSEPA": "O pedido será registado como \"SEPA\""
             },
             "paymentList": {
                 "titleReverse": "Reembolso",
@@ -1413,7 +1415,7 @@
             "amountRemaining": "Ainda por pagar: {{ amount }}",
             "errorSecretExplain2": "Se o problema persistir, contactar dev+payment-intent@bsport.io",
             "errorSecretExplain1": "Este método de pagamento não está atualmente disponível.",
-            "billingMoreThanNeeded": "Se o montante cobrado for superior ao montante da fatura, o saldo do membro será acrescido da diferença.",
+            "billingMoreThanNeeded": "Se o montante cobrado for superior ao montante da fatura, o saldo do membro será acrescido na diferença",
             "amount": {
                 "label": "Montante a cobrar"
             },
@@ -1426,7 +1428,7 @@
                 "amountRemaining": "Pagamento pendente",
                 "title": "Resumo",
                 "amountDue": "Total devido",
-                "amountPaid": "Conjunto"
+                "amountPaid": "Soma"
             },
             "date": {
                 "label": "Data de recolha"
@@ -1437,7 +1439,7 @@
             }
         },
         "invoicePaymentPackTagWarningDialog": {
-            "content": "Tenha cuidado, pois está a tentar debitar um cartão a um membro que não tem os requisitos necessários para o comprar. Ainda quer faturar-lhe este item? ",
+            "content": "Atenção, está a tentar debitar um passe a um membro que não tem os requisitos necessários para o comprar. Pretende faturar este item ? ",
             "cancel": "Cancelar",
             "title": "Informação",
             "confirm": "Confirmar"
@@ -1477,11 +1479,11 @@
         "paymentMethod": {
             "title": "Meios de pagamento",
             "add": "Adicionar",
-            "inconsistent": "Método de pagamento não autorizado, por favor reconfigure. O membro pode ter pedido para desautorizar o seu método de pagamento, ou pode ter fundido dois membros, caso em que o método de pagamento já não pode ser utilizado.",
+            "inconsistent": "Método de pagamento não autorizado, por favor reconfigure. O membro pode ter pedido para não autorizar este método de pagamento ou pode ter fundido dois membros. Em ambos os casos, o método de pagamento já não pode ser utilizado.",
             "isInternalExplain": "Depósito do cliente (manual): todos os meses é criada automaticamente uma dívida na conta do membro.",
             "label": {
                 "11": "Sofort",
-                "0": "Exemplos",
+                "0": "Tipos",
                 "14": "Depósito dos membros (dívida)",
                 "15": "Cartão (manual)",
                 "16": "Caixas de débito direto",
@@ -1495,7 +1497,7 @@
                 "1": "Passe",
                 "2": "SEPA",
                 "3": "Cheque",
-                "6": "Questão"
+                "6": "Conflito"
             },
             "isInternalExplainFuturePayments": "A data de vencimento será deduzida automaticamente do depósito do cliente. Se este valor for insuficiente, será criado um depósito negativo.",
             "detach": {
@@ -1511,7 +1513,8 @@
             "select": {
                 "label": "Meios de pagamento"
             },
-            "edit": "Alterar"
+            "edit": "Alterar",
+            "manual": "Manual"
         },
         "plannedPaymentEvent": {
             "actions": {
@@ -1519,7 +1522,8 @@
                 "disable": "Configuração",
                 "enable": "Reprogramar",
                 "changeMethod": "Alterar o método de pagamento",
-                "solveInvalidPaymentAttempt": "Regularizar"
+                "solveInvalidPaymentAttempt": "Regularizar",
+                "registerNow": "Descontar"
             },
             "dialog": {
                 "invalidMandate": {
@@ -1545,14 +1549,16 @@
             "contentIban": "Ao fornecer o seu IBAN e confirmar o seu pagamento, autoriza a bsport e o Stripe, o nosso sistema de pagamento, a enviar instruções de débito ao seu banco, de acordo com o calendário de pagamentos. Pode pedir um reembolso ao seu banco nos termos do seu contrato com ele. O reembolso deve ser solicitado no prazo de 8 semanas após o primeiro débito.",
             "contentBacsDebit": "Ao fornecer os seus dados bancários e confirmar o seu pagamento, o utilizador autoriza o bsport e o Stripe a enviar instruções de débito ao seu banco, de acordo com o calendário de pagamento. Pode solicitar um reembolso ao seu banco nos termos do seu contrato com o mesmo. Pode também solicitar ao seu banco que cancele o pagamento de débito direto em qualquer altura.",
             "name": "Nome e apelido do titular",
-            "email": "Endereço eletrónico do titular"
+            "email": "Endereço eletrónico do titular",
+            "address_postal_code": "Código de Postal",
+            "address_line_1": "Morada"
         },
         "invoiceInfo": {
             "3": "Esta fatura é o resultado de uma migração. Por motivos legais, não podemos fornecer um PDF ou anulá-lo.",
             "2": "Este recibo de pagamento representa o ajuste do saldo do seu membro."
         },
         "invoiceType": {
-            "credit_payment": "Recebido",
+            "credit_payment": "Recebido (saldo ajustado)",
             "return": "Devolver fatura",
             "reversed": "Factura (cancelada)",
             "regular": "Factura",
@@ -1568,7 +1574,21 @@
         },
         "balance": {
             "updaterDialog": {
-                "title": "Ajustamento do saldo"
+                "title": "Ajustamento do saldo",
+                "actions": {
+                    "cancel": "Cancelar",
+                    "submit": "Seguinte"
+                },
+                "topup": "Saldo",
+                "debt": "Débito",
+                "explainTopup": "Um aumento de {{ amount }} {{ currencyDisplay }} será registado no saldo do membro.",
+                "explainDecaissement": "Será registado um pagamento de {{ amount }} {{ currencyDisplay }}.",
+                "withoutPaymentNote": {
+                    "warning": "Atenção: não guardamos qualquer registo desta operação. Utilizar apenas para ajustes excecionais.",
+                    "label": "Não gerar recibo"
+                },
+                "balanceValueLabel": "Montante",
+                "typeLabel": "Tipo de ajuste"
             }
         },
         "paymentGroup": {
@@ -1598,7 +1618,7 @@
                     "radio": "Pagamento no terminal",
                     "disconnect": {
                         "content": "A ligação perdeu-se. Por favor, tente novamente",
-                        "title": "Desligar"
+                        "title": "Desconectar"
                     },
                     "paymentFailed": {
                         "explain": {
@@ -1630,29 +1650,127 @@
                     }
                 },
                 "deleteDialog": {
-                    "content1": "Tem a certeza de que pretende remover o terminal de pagamento {{label}} ?"
+                    "content1": "Tem a certeza de que pretende remover o terminal de pagamento {{label}} ?",
+                    "content3": "Se desejar, pode voltar a conectar",
+                    "content2": "Deixará de aparecer nos terminais disponíveis para pagamentos.",
+                    "title": "Eliminar"
                 },
                 "connectDialog": {
                     "form": {
-                        "update": "Alterar"
+                        "update": "Alterar",
+                        "retry": "Tentar novamente",
+                        "continue": "Continuar",
+                        "connect": "Conectar",
+                        "registrationCodeHelperText": "Indique o código apresentado no seu terminal Stripe POS",
+                        "registrationCode": "Código do terminal",
+                        "readerLabel": "Nome do terminal"
+                    },
+                    "error2": "Por favor, tente novamente.",
+                    "error1": "O seu terminal de pagamento Stripe não foi conectado.",
+                    "success": "O seu terminal de pagamento Stripe foi conectado com sucesso",
+                    "loading2": "Por favor, seja paciente.",
+                    "loading1": "Estamos a tentar estabelecer a ligação com o terminal.",
+                    "mustCreateStripeLocation": "Para o primeiro registo, introduza os dados do estúdio onde o terminal será utilizado.",
+                    "title": {
+                        "edit": "Alteração",
+                        "error": "Falha ao conectar",
+                        "success": "Conexão bem sucedida",
+                        "connect": "Conectar"
                     }
-                }
+                },
+                "addCard": "Adicionar com o terminal   Stripe",
+                "addReader": "Ligar a um terminal",
+                "helperText": "Utilize um terminal de pagamento para pagar as faturas dos seus membros a partir do backoffice. Devido ao uso deste método, pode poupar tempo pois não necessita de pedir os dados bancários. Contacte o seu gestor de conta para obter mais informações.",
+                "title": "Pagamento através do terminal"
             },
             "subscription": {
                 "forms": {
                     "disable_pass_on_fail_subscription_payment": {
-                        "helperText": "Se o pagamento da subscrição não for efetuado ou for declarado contestado, os passes de aulas e de marcações relativos a esta fatura serão desativados até que a fatura seja liquidada"
+                        "helperText": "Se o pagamento da subscrição não for efetuado ou for declarado contestado, os passes de aulas e de marcações relativos a esta fatura serão desativados até que a fatura seja liquidada",
+                        "label": "Desativar passes se o pagamento falhar."
+                    },
+                    "nbRetriesSubscriptionPayments": {
+                        "helperText": "Entre 0 a 5 tentativas",
+                        "label": "Número de tentativas após um pagamento falhado"
+                    },
+                    "activateSmartRetries": {
+                        "helperText": "A bsport tentará automaticamente repetir os pagamentos das subscrições falhadas, na melhor altura possível.",
+                        "label": "Ativar Tentativas Inteligentes com os pagamentos falhados"
+                    },
+                    "revert_bookings_on_fail_subscription_payment": {
+                        "helperText": "Se o pagamento da subscrição não for efetuado ou se for declarado contestado, as reservas efetuadas com estes cartões serão anuladas (e o crédito será creditado novamente)",
+                        "warning": "Atenção, as reservas não serão recriadas se o pagamento for efetuado com êxito !",
+                        "label": "Cancelar as reservas se o pagamento não for efetuado."
+                    },
+                    "advance_sepa_billing": {
+                        "helperText": "Na grande maioria dos casos, o cliente só recebe a informação sobre a transferência 3 dias depois.",
+                        "label": "Enviar a ordem de transferência SEPA com 3 dias de antecedência para evitar atrasos que possam causar um défice de tesouraria."
                     }
-                }
-            }
+                },
+                "title": "Subscrição"
+            },
+            "nf525Button": "Descarregar",
+            "nf525Explain": "A Bsport está a seguir os procedimentos de conformidade. Pode descarregar o nosso certificado oficial aqui.",
+            "nf525": "Certificado",
+            "forms": {
+                "show_company_email_in_invoice": "Mostrar o email da sua empresa nas faturas",
+                "stripe_footer_placeholder": "Sem informações adicionais"
+            },
+            "submit_stripe_footer": "Atualizar",
+            "explainStripeFooter": "Este texto aparecerá na parte inferior das suas faturas em PDF e pode acrescentar todas as informações legais necessárias.",
+            "invoiceGeneral": "Fatura em PDF",
+            "stripe_footer": "Rodapé da fatura"
         },
         "revert": {
             "autoDebitDialog": {
-                "helper": "O seu estúdio está atualmente em vias de encerrar a sua conta Bsport.\n\nAo clicar em confirmar, a fatura será reembolsada. O seu saldo será debitado por {{refundAmount}} {{ currencyDisplay }}. No entanto, para repor o seu saldo a 0 {{ currencyDisplay }}, a diferença será automaticamente debitada diretamente da sua conta bancária indicada em Definições > Empresa.\n\nSe não quiser exceder o seu limite, pode esperar que o saldo aumente."
+                "helper": "O estúdio está atualmente em vias de encerrar a sua conta Bsport.\n\nAo clicar em confirmar, a fatura será reembolsada. O seu saldo será debitado por {{refundAmount}} {{ currencyDisplay }}. No entanto, para repor o seu saldo a 0 {{ currencyDisplay }}, a diferença será automaticamente debitada na sua conta bancária indicada em Definições > Empresa.\n\nSe não quiser exceder o seu limite, pode esperar que o saldo aumente.",
+                "title": "Saldo Stripe insuficiente"
+            },
+            "content": {
+                "explain": {
+                    "2": "Escolha o seu próprio método de reembolso. Utilize este método para um cheque / transferência manual / reembolso em numerário.",
+                    "1": "Uma nota de crédito será gerada e aumentará o saldo do cliente no mesmo valor. Utilize este método para gerar uma nota de crédito.",
+                    "0": "Os pagamentos por cartão / SEPA / etc... serão transferidos diretamente para a conta do cliente. Utilize este método para efetuar um reembolso direto na sequência de um erro."
+                },
+                "explainEmptyPayment": "Tem a certeza de que pretende cancelar esta fatura ?",
+                "label": {
+                    "2": "Reembolso manual",
+                    "1": "Reembolso a crédito (saldo)",
+                    "0": "Reembolso direto"
+                }
+            },
+            "warning": {
+                "interac": "Pelo menos um pagamento foi efetuado com um cartão Interac nesta fatura. Os reembolsos diretos não são suportados por estes cartões."
+            },
+            "blockedDialog": {
+                "helper": "O seu saldo Stripe é insuficiente para processar o reembolso. Tente novamente após alguns dias para que os pagamentos possam ser cobrados.",
+                "alert": "Atenção: com este reembolso, irá exceder o limite autorizado de {{ refundBlockingLimit }} {{currencyDisplay}}.",
+                "title": "Saldo Stripe insuficiente"
+            },
+            "dialog": {
+                "title": "Anular fatura",
+                "actions": {
+                    "confirm": "Confirmar",
+                    "cancel": "Fechar"
+                }
             }
         },
         "actions": {
-            "addFooter": "Alteração da nota de rodapé"
+            "addFooter": "Alterar a nota da fatura",
+            "addCoupon": "Adicionar um cupão",
+            "consumeBalance": "Pagar através do saldo da conta",
+            "finalize": "Finalizar (PDF)",
+            "explainPdfDraft": "A fatura ainda está em desenvolvimento e o pdf não está disponível.",
+            "downloadReceipt": "Recibo do pagamento",
+            "download": "Descarregar a fatura",
+            "equilibrate": "Saldo (sinal)",
+            "addInvoiceItem": "Adicionar à fatura",
+            "save": "Guardar",
+            "backToInvoiceItemEditor": "Comprar",
+            "goToPaymentEditor": "Pagamento",
+            "goToSubscription": "Ver a subscrição",
+            "revert": "Cancelar",
+            "invoiceReverted": "Fatura anulada"
         },
         "applyGiftcard": {
             "actions": {
@@ -1673,7 +1791,16 @@
             "buyableItemIdentifier": {
                 "11": "passe de oferta",
                 "10": "Pack",
-                "1": "Passe de aulas"
+                "1": "Passe de aulas",
+                "9": "Passe de Marcações",
+                "3": "Crédito",
+                "2": "Loja"
+            },
+            "discount": "Desconto",
+            "voucher": "Desconto: {{ voucher }}",
+            "quantity": "Quantidade",
+            "credit": {
+                "label": "Crédito"
             }
         },
         "quickbooks": {
@@ -1696,8 +1823,17 @@
                     "932000": "A sua conta já não está autenticada na Bsport",
                     "932001": "A sua conta já não está autenticada na Bsport",
                     "932100": "Não é possível aceder às informações da sua conta Quickbooks",
-                    "933000": "O membro associado à fatura não possui as informações necessárias para ser registado no QuickBooks"
+                    "933000": "O membro associado à fatura não possui as informações necessárias para ser registado no QuickBooks",
+                    "931004": "Não configurou a aplicação QuickBooks",
+                    "931003": "Chaves de autenticação expiradas",
+                    "931002": "Chaves de autenticação expiradas",
+                    "931001": "Erro ao autenticar no Quickbooks",
+                    "931000": "Erro ao autenticar no Quickbooks"
                 }
+            },
+            "invoice": {
+                "sendToQuickbooks": "Transferir a fatura para QuickBooks",
+                "onQuickbooks": "Transferido"
             }
         },
         "status": {
@@ -1706,7 +1842,67 @@
             "3": "Cancelado",
             "2": "Em espera",
             "0": "Sucesso"
-        }
+        },
+        "table": {
+            "nested": {
+                "payment": {
+                    "header": {
+                        "paymentReceived": "Estado",
+                        "date": "Data",
+                        "price": "Montante",
+                        "paymentMethod": "Método de pagamento"
+                    },
+                    "isEmpty": "Nenhum pagamento",
+                    "title": "Pagamento"
+                },
+                "invoiceItem": {
+                    "header": {
+                        "voucher": "Desconto",
+                        "priceExcTax": "Montante (excl. IVA)",
+                        "price": "Montante (incl. IVA)",
+                        "product": "Nome"
+                    },
+                    "isEmpty": "Nenhuma compra",
+                    "title": "Compras"
+                }
+            },
+            "header": {
+                "quickbooks": "QuickBooks",
+                "pdf": "PDF",
+                "invoiceType": "Tipo",
+                "missing": "Em falta",
+                "amount": "Montante de",
+                "date": "Data da fatura",
+                "id": "Identificador",
+                "member": "Membro"
+            },
+            "actions": {
+                "goToInvoice": "Ver a fatura"
+            }
+        },
+        "section": {
+            "paymentList": {
+                "total": "Total",
+                "isEmpty": "Nenhum método de pagamento registado",
+                "title": "Métodos de pagamento"
+            },
+            "invoiceItemList": {
+                "billing_establishment": "Estabelecimento da fatura",
+                "total": "Total da compra",
+                "isEmpty": "Nenhuma compra",
+                "titleReverse": "Voltar à compra",
+                "title": "Compras"
+            }
+        },
+        "returnPayment": {
+            "modal": {
+                "confirm": "Confirmar",
+                "cancel": "Cancelar",
+                "content": "O pagamento será transferido para a conta bancária do membro e o depósito do mesmo montante será acrescentado à fatura para simbolizar o pagamento.",
+                "title": "Reembolso do cliente"
+            }
+        },
+        "anonymousMember": "Membro anónimo"
     },
     "consumerSpace": {
         "debt": {
@@ -2018,7 +2214,11 @@
                     "applies_to": "O artigo a que se aplica o desconto deve ser um cartão de curso, um cartão de marcação, um pacote ou um artigo da loja",
                     "5003": "Alguns códigos são únicos já estão registados noutro cupão.",
                     "5001": "Alguns dos códigos são únicos e não podem ser adicionados porque já foram registados.",
-                    "5000": "Não é possível fornecer um código que já tenha sido utilizado noutro cupão."
+                    "5000": "Não é possível fornecer um código que já tenha sido utilizado noutro cupão.",
+                    "update_mode": "Se desejar alterar os códigos registados para esta promoção, pode acrescentar aos existentes ou substituí-los",
+                    "5006": "Este cupão único já está associado a um carrinho (aberto)",
+                    "5005": "Este código já foi utilizado ou está atualmente associado a um carrinho.",
+                    "5004": "Este cupão só pode ser aplicado a um único artigo."
                 },
                 "alertInfo": "Os cupões são códigos únicos que oferecem um desconto de 100% num produto específico para o membro. Estes códigos não são gerados pela própria plataforma, mas devem ser carregados aqui como um ficheiro CSV. Esta funcionalidade é particularmente útil se tiver feito uma parceria com uma entidade externa, como a Groupon, para realizar uma campanha promocional. Neste caso, a Groupon (ou uma entidade semelhante) gera e vende os cupões em nome do seu estúdio.",
                 "alertWarning": "Não aplicável às subscrições",
@@ -2040,7 +2240,39 @@
                     "popover": "Os códigos não utilizados serão eliminados e os códigos utilizados serão mantidos.",
                     "append": "Adicionar aos cupões existentes"
                 }
+            },
+            "voucherCodesDialog": {
+                "close": "Fechar",
+                "markAsRedeemed": "Marcar como utilizado",
+                "markAsRedeemed_plural": "Marcar como utilizados",
+                "export": "Exportar",
+                "noResult": "Nenhum resultado",
+                "searchBar": {
+                    "placeHolder": "Procurar um cupão"
+                },
+                "checkBoxes": {
+                    "unselectAll": "Desmarcar tudo",
+                    "selectAll": "Selecionar tudo"
+                },
+                "selector": {
+                    "notUsed": "Não utilizado",
+                    "pending": "Pendente de validação externa",
+                    "redeemed": "Marcado como utilizado",
+                    "allStatus": "Todos os estados"
+                },
+                "header": {
+                    "status": "Estado",
+                    "codes": "Códigos"
+                }
             }
+        },
+        "couponFilter": {
+            "allType": "Todo o tipo de promoções",
+            "title": "Tipo de promoção"
+        },
+        "fabLabels": {
+            "discountCode": "Código do desconto",
+            "voucherCodes": "Cupões"
         }
     },
     "expense": {
@@ -2077,13 +2309,13 @@
                     "october": "Outubro"
                 },
                 "from": "De",
-                "until": "Visitar",
+                "until": "Até",
                 "repeatWeek": "Todas as semanas, o",
                 "fromDate": "A partir de",
                 "ends": "Termina após",
                 "repeatMonthDay": "Todos os",
                 "day": "Dia(s)",
-                "repeatEvery": "Repetir tudo",
+                "repeatEvery": "Repetir todo(s)",
                 "repeatWeek_nb": "Todos os {{ nb }} semanas, o",
                 "repeatYear": "Todos os anos, o",
                 "repeatYear_nb": "Todos os {{ nb }} anos, o",
@@ -2101,7 +2333,7 @@
                     "thursday": "Quinta-feira",
                     "friday": "Sexta-feira"
                 },
-                "count": "Número de acertos :",
+                "count": "Número de ocorrências :",
                 "repeatMonth": "Todos os meses, o",
                 "number": "Repetições :",
                 "year": "Ano(s)"
@@ -2271,7 +2503,7 @@
         "staff": {
             "roleTabTitle": "Funções",
             "explainStaff": "Com o acesso do staff à conta principal, pode selecionar os franchisados que têm acesso às suas equipas e as ações que podem realizar nas mesmas. O acesso do staff não lhe permite ligar-se à aplicação móvel.",
-            "staffAccountTabTitle": "Relatório do staff"
+            "staffAccountTabTitle": "Contas do staff"
         },
         "login": {
             "disconnect": "Terminar sessão",
@@ -2282,7 +2514,7 @@
         "pagination": {
             "previousPage": "Página anterior",
             "nextPage": "Página seguinte",
-            "rowPerPage": "Item por página",
+            "rowPerPage": "Elemento por página",
             "outOf": "{{from}} - {{to}} sobre {{count}}"
         },
         "member": {
@@ -2327,7 +2559,7 @@
             },
             "validity": "Válido {{ duration }} dias",
             "unlimited": "Ilimitado",
-            "addBackgroundImage": "Adicionar imagens de personalizadas",
+            "addBackgroundImage": "Adicionar imagens personalizadas",
             "visibility": "Não visível"
         },
         "consumerGiftcard": {
@@ -2351,7 +2583,7 @@
                 "content": "Pode alterar os destinatários do passe de oferta. Se a mensagem do e-mail não tiver sido recebida, pode também enviar esta ligação de ativação:"
             },
             "isEmpty": "Sem passes de oferta",
-            "isFor": "Á atenção de ",
+            "isFor": "À atenção de ",
             "value": "Valor",
             "previewPlaceholder": {
                 "message_is_from": "[Nome do comprador]",
@@ -2361,7 +2593,7 @@
                 "message_is_for": "[Nome do destinatário]"
             },
             "form": {
-                "hour_send": "Tempo de envio",
+                "hour_send": "Hora do envio",
                 "message_content": {
                     "label": "Mensagem pessoal"
                 },
@@ -2448,8 +2680,8 @@
             }
         },
         "link": {
-            "copyLink": "Copiar a ligação de compra",
-            "activationLink": "Copiar a ligação de ativação"
+            "copyLink": "Copiar o link da compra",
+            "activationLink": "Copiar o link de ativação"
         },
         "delete": {
             "title": "Arquivar o passe de oferta",
@@ -2462,7 +2694,7 @@
             "detail": {
                 "availablePaymentMethods": "Métodos de pagamento disponíveis",
                 "manager_only": "Não disponível para venda online",
-                "expirationDate": "Validade antes da caducidade : {{ expiration_days }} dias"
+                "expirationDate": "Validade antes de expirar : {{ expiration_days }} dias"
             },
             "delete": {
                 "dialog": {
@@ -2640,7 +2872,7 @@
                         "title": "Eliminar item",
                         "cancel": "Cancelar",
                         "confirm": "Confirmar",
-                        "content": "O item eliminado será colocado nos arquivados e não será eliminado mais visível para os seus membros."
+                        "content": "O item eliminado será colocado nos arquivados e não será mais visível para os seus membros."
                     },
                     "add": {
                         "title": "Elemento do formulário",
@@ -2830,8 +3062,8 @@
                     "basket-additem": "Adicionar ao carrinho",
                     "basket-created": "Criar",
                     "booking-attendance": "Frequência de sessões de grupo",
-                    "booking-create": "Passe coletivo",
-                    "private_consumer_pass-create": "Passe de Marcação",
+                    "booking-create": "Aulas",
+                    "private_consumer_pass-create": "Passe de Marcações",
                     "consumer_payment_pack-create": "Passe de aulas",
                     "104": "Subscrição",
                     "103": "Faturação",
@@ -2850,8 +3082,10 @@
                     "5": "Marcações",
                     "4": "Frequência das aulas em grupo",
                     "3": "Sessões em grupo",
-                    "2": "Passe de marcação",
-                    "1": "Passe de aulas"
+                    "2": "Passe de Marcações",
+                    "1": "Passe de aulas",
+                    "private_booking-cancel": "Cancelar Marcações",
+                    "private_booking-create": "Marcações"
                 },
                 "exit": {
                     "exit_fail_label": "Perdido",
@@ -2877,12 +3111,12 @@
                     "hideControls": "Ocultar a barra de ferramentas",
                     "showMap": "Ver o minimapa",
                     "hideMap": "Ocultar o minimapa",
-                    "centerView": ""
+                    "centerView": "Centrar a vista"
                 },
                 "nodeElement": {
                     "deleteStep": "Eliminar etapa",
                     "cancelOnGoingCreation": "Cancelar criação",
-                    "deleteTrigger": "Eliminar o acionador",
+                    "deleteTrigger": "Eliminar ativador",
                     "addElement": "Adicionar um ativador",
                     "edgeLabelForNodeCreation": "Em processo de criação"
                 },
@@ -2908,7 +3142,25 @@
                 },
                 "trigger": "Acionador",
                 "exit": "Saída",
-                "start": "Entrar"
+                "start": "Entrar",
+                "delete": "Eliminar",
+                "smartlist": {
+                    "label": "Lista Inteligente"
+                },
+                "kinds": {
+                    "3": "Prazo",
+                    "2": "Evento + Lista Inteligente",
+                    "1": "Lista Inteligente",
+                    "0": "Evento"
+                },
+                "events": {
+                    "label": "Evento",
+                    "billing_plan_chip": "Subscrição",
+                    "invoice_chip": "Faturação",
+                    "basket_chip": "Carrinho",
+                    "book_chip": "Reserva",
+                    "purchase_chip": "Comprar"
+                }
             },
             "cadenceCard": {
                 "lost": "Perdido",
@@ -2946,6 +3198,37 @@
             },
             "marketingAction": {
                 "addAction": "Adicionar uma ação"
+            },
+            "steps": {
+                "actions": {
+                    "addNextStep": "Adicionar próxima etapa",
+                    "changeInExit": "Converter numa saída",
+                    "changeInStep": "Transformar numa etapa",
+                    "delete": "Eliminar"
+                }
+            },
+            "bubble": {
+                "entryTrigger": {
+                    "helperText": "Defina quando e quem entrará nesta cadência com os critérios e acionadores selecionados.",
+                    "addTrigger": "Adicionar um ativador de entrada",
+                    "title": "Entrar"
+                },
+                "marketingAction": {
+                    "label": "Selecionar uma ação de marketing",
+                    "title": "Ação de marketing"
+                },
+                "changeInStep": {
+                    "default": "Nome da etapa",
+                    "label": "Nome da etapa"
+                },
+                "changeInExit": {
+                    "label": "Considerar o membro como",
+                    "title": "Saída"
+                },
+                "previous": "Anterior",
+                "next": "Seguinte",
+                "confirm": "Guardar",
+                "cancel": "Cancelar"
             }
         },
         "notifications": {
@@ -3032,7 +3315,7 @@
         "warning": {
             "isManager": "Para aceder à perspetiva do cliente, é necessário terminar a sessão.",
             "disconnect": "Terminar sessão",
-            "backToBackoffice": ""
+            "backToBackoffice": "Gestor Interface"
         },
         "pass": {
             "search": {
@@ -3222,13 +3505,13 @@
                 }
             },
             "restrictions": "Restrições",
-            "compatibleTimeSlot": ""
+            "compatibleTimeSlot": "Criar horários compatíveis"
         },
         "packCard": {
             "comboItemList": {
                 "paymentPackItem": "{{count}} passe de aulas",
                 "paymentPackItem_plural": "{{count}} passes de aulas",
-                "privatePassItem": "{{count}} passe de marcação",
+                "privatePassItem": "{{count}} passe de marcações",
                 "privatePassItem_plural": "{{count}} passes de marcações",
                 "hiddenItem": "{{count}} outro elemento...",
                 "hiddenItem_plural": "{{count}} outros elementos..."
@@ -3322,7 +3605,7 @@
                 "success": "Membros agregados",
                 "explainTags": "As etiquetas de membro eliminadas não serão transferidas",
                 "cancel": "Cancelar",
-                "submit": ""
+                "submit": "Fundir"
             },
             "title": "Informação do utilizador",
             "error": "Não é possível guardar o membro",
@@ -3464,10 +3747,10 @@
             "existsWithEmailButNotConfirmed": "Já existe um utilizador com o endereço de e-mail {{email}} , mas o seu e-mail está a aguardar confirmação. Ao registar este utilizador, o seu e-mail será automaticamente verificado."
         },
         "exists": {
-            "linkUser": "Ligar o utilizador",
+            "linkUser": "Link do utilizador",
             "goTo": "Ver membro",
             "quicksale": "Selecionar o membro",
-            "merge": ""
+            "merge": "Fusão"
         },
         "changeEmailRequest": {
             "memberPage": {
@@ -3597,40 +3880,40 @@
             "pendingValidation": "Alteração pendente: {{ email }}"
         },
         "archive": {
-            "archivedMember": "",
+            "archivedMember": "Membro Arquivado : {{name}}",
             "dialog": {
                 "warning": {
-                    "1": "",
-                    "5": "",
-                    "0": "",
-                    "6": "",
-                    "2": "",
-                    "4": "",
-                    "3": "",
+                    "1": "Fatura(s) não paga(s)",
+                    "5": "Reserva(s) recorrente(s) registada(s)",
+                    "0": "Saldo interno negativo",
+                    "6": "Futura(s) Marcação(ões)",
+                    "2": "Subscrição atual",
+                    "4": "Reserva(s) futura(s)",
+                    "3": "Subscrição com renovação automática ativa",
                     "general": "Identificámos os seguintes pontos e aconselhamo-lo a regularizar a conta deste membro antes de a arquivar:"
                 },
-                "title": "",
-                "helper_text_2": "",
-                "helper_text_1": "",
+                "title": "Arquivar membro",
+                "helper_text_2": "Este membro deixará de aparecer na sua lista de membros.",
+                "helper_text_1": "Tem a certeza de que pretende arquivar este membro ?",
                 "actions": {
                     "close": "Fechar",
                     "confirm": "Confirmar"
                 }
             }
         },
-        "memberTermsAccepted": "",
-        "termsAndConditions": "",
+        "memberTermsAccepted": " foram aceites em {{- date}}",
+        "termsAndConditions": "Condições gerais de venda",
         "vaccinationStatus": {
-            "unknown": "",
-            "notDone": "",
-            "done": ""
+            "unknown": "Estado do cartão de saúde desconhecido",
+            "notDone": "Não tem cartão de saúde válido",
+            "done": "Cartão de saúde válido"
         },
-        "termsOfUse": "",
+        "termsOfUse": "Condições gerais de utilização",
         "linkDialog": {
-            "content": "",
-            "confirm": "",
-            "cancel": "",
-            "title": ""
+            "content": "Esta conta foi inicialmente utilizada noutro clube e será agora ligada a um novo clube.",
+            "confirm": "Eu confirmo",
+            "cancel": "Cancelar",
+            "title": "Link do utilizador existente"
         },
         "resetPassword": {
             "confirmation": "Instruções corretamente enviadas para {{memberEmail}}",
@@ -3646,7 +3929,7 @@
     "metaActivity": {
         "settings": {
             "seeRestrictions": "Ver",
-            "autoDiscard": "A sessão será cancelada se {{nb_bookings}} marcação(s) ou menos {{hours}}h antes do início da sessão",
+            "autoDiscard": "A sessão será cancelada se {{nb_bookings}} marcação(ões) ou menos {{hours}}h antes do início da sessão",
             "autoDiscardHeader": "A sessão será cancelada se",
             "firstBookingMinutesUntil": "As marcações são bloqueadas antes de {{m}} a partir do início da sessão",
             "restrictionsHeader": "Restrições personalizadas",
@@ -3689,7 +3972,7 @@
                     "back": "Anterior",
                     "allowBookingAfterStart": "Autorizar a inscrição em tempo real",
                     "preview": "Pré-visualizar",
-                    "recurrenceNumberPrefix": "Repetir tudo",
+                    "recurrenceNumberPrefix": "Repetir todos os",
                     "groupName": "Nome",
                     "subtitle": "Informações gerais",
                     "timeStart": "Data de início",
@@ -3739,7 +4022,7 @@
             "helperText": {
                 "month": "Este grupo começa em {{-day}}, o mês inteiro",
                 "month_plural": "Este grupo começa em {{-day}}, todos {{ count }} meses",
-                "day": "Este grupo repete-se o dia inteiro",
+                "day": "Este grupo repete-se todos os dias",
                 "day_plural": "Este grupo repete-se a cada {{ count }} dias",
                 "week": "Este grupo começa em {{-day}}, a semana inteira",
                 "week_plural": "Este grupo começa em {{-day}}, todas {{ count }} semanas",
@@ -3949,7 +4232,8 @@
             },
             "cashBookTooltip": "",
             "video": "Vídeo biblioteca",
-            "addMemberTooltip": "Adicionar membro"
+            "addMemberTooltip": "Adicionar membro",
+            "inbox": "Caixa de entrada"
         },
         "stripeOnboardingPending": {
             "banner": "Se não tiver terminado a configuração da faturação, os pagamentos em linha podem ser desactivados."
@@ -4339,7 +4623,7 @@
             "402": "Nova marcação (professor)",
             "480": "Marcação anulada recorrentemente por falta de disponibilidade (professor)",
             "510": "O pagamento da subscrição falhou",
-            "1002": "Desempenho da sessão de fiação",
+            "1002": "Desempenho da sessão",
             "28": "Pagamento recebido",
             "987": "Tentativa de cobrança de pagamentos em prestações",
             "1003": "Conta Spivi criada (professores)"
@@ -4451,7 +4735,7 @@
                     "label": "Aplicar uma penalidade",
                     "title": "Penalidades",
                     "deleteNoShowDialog": {
-                        "text": "Acabaram os passes ilimitados com penalizações por falta de comparência. Desactivámos a função \"chamada\", pelo que já não é necessário validar a chamada para cada passe.",
+                        "text": "Acabaram os passes ilimitados com penalizações por falta de comparência. Desativamos a função \"chamada\", pelo que já não é necessário validar a chamada para cada passe.",
                         "title": "Penalizações eliminadas"
                     },
                     "noShowDialog": {
@@ -4475,23 +4759,23 @@
                     "nb_days": "Número de dias :",
                     "nb_cancellations": "Número de cancelamentos :",
                     "explain": "Será aplicada uma penalização se houver {{nb_cancellations}} cancelamentos tardios num período de {{nb_days}} dias.",
-                    "penaltyParams": "",
-                    "cancellationsCheckbox": "",
-                    "errorNoPenaltyRule": "",
-                    "noShowPenaltyTitle": "",
-                    "noShowPenaltyAlert": "",
-                    "bothPenaltiesNumber": "",
-                    "penaltyParamsText": "",
-                    "noShowPenaltyNumber": "",
-                    "cancellationsPenaltyTitle": "",
-                    "titleCheckbox": "",
-                    "noShowCheckbox": "",
-                    "bothPenaltiesTitle": "",
+                    "penaltyParams": "Parâmetros das penalizações",
+                    "cancellationsCheckbox": "Demasiados cancelamentos fora de tempo",
+                    "errorNoPenaltyRule": "Não é possível guardar as alterações, é necessário escolher uma penalização ou desativar penalizações para continuar",
+                    "noShowPenaltyTitle": "Penalizações por falta de comparência",
+                    "noShowPenaltyAlert": "Para definir quando um membro é considerado ausente (não comparência), vá a Definições>Personalização",
+                    "bothPenaltiesNumber": "Número de cancelamentos e ausências",
+                    "penaltyParamsText": "Aplicar a mesma regra para os cancelamentos tardios e as não comparências",
+                    "noShowPenaltyNumber": "Número de ausências",
+                    "cancellationsPenaltyTitle": "Penalizações por cancelamentos tardios",
+                    "titleCheckbox": "Aplicar uma penalização por",
+                    "noShowCheckbox": "Demasiadas faltas de comparência",
+                    "bothPenaltiesTitle": "Penalizações por cancelamentos tardios e não comparência",
                     "checkbox": "Aplicar uma penalização por demasiados cancelamentos tardios",
-                    "bothPenaltiesInfo": "",
-                    "bothPenaltiesInfo_plural": "",
-                    "noShowPenaltyInfo": "",
-                    "noShowPenaltyInfo_plural": ""
+                    "bothPenaltiesInfo": "Será aplicada uma penalização se houver {{penalityNumberNoShow}} cancelamento fora de prazo ou não comparência durante um período de {{penalityNumberDay}} dias.",
+                    "bothPenaltiesInfo_plural": "Será aplicada uma penalização se houver {{penalityNumberNoShow}} cancelamentos fora de prazo ou não comparências durante um período de {{penalityNumberDay}} dias.",
+                    "noShowPenaltyInfo": "Será aplicada uma penalização se houver {{penalityNumberNoShow}} ausência (não comparência) durante um período de {{penalityNumberDay}} dias.",
+                    "noShowPenaltyInfo_plural": "Será aplicada uma penalização se houver {{penalityNumberNoShow}} ausências (não comparências) durante um período de {{{penalityNumberDay}} dias."
                 },
                 "delete": {
                     "actions": {
@@ -4499,7 +4783,7 @@
                         "cancel": "Cancelar"
                     },
                     "isUsedInCombo": "Atenção ! Este passe de aulas é utilizado num pack, que deixará de estar disponível para venda se o retirar.",
-                    "thereAreConsumers": "Atenção! Alguns membros compraram este passe. Se o apagar, continuarão a poder utilizar os créditos restantes. Pode reduzi-los manualmente para zero aqui.\n\nO passe deixará de aparecer na sua loja.",
+                    "thereAreConsumers": "Atenção! Alguns membros compraram este passe. Se o apagar, continuarão a poder utilizar os créditos restantes. Pode reduzi-los manualmente para zero aqui.\n\nO passe deixará de estar visível.",
                     "askConfirmation": "Atenção! Esta operação é definitiva. O passe deixará de ser visível e ficará indisponível para compra.",
                     "title": "Eliminar o passe:"
                 },
@@ -4683,7 +4967,7 @@
             },
             "form": {
                 "creditNotificationType": {
-                    "onOfferStart": "Fim da sessão para a qual o número de créditos reservados desceu abaixo do limiar definido em cima",
+                    "onOfferStart": "Fim da sessão para a qual o número de créditos reservados desceu abaixo do limite definido em cima",
                     "onBooking": "Reserva que coloca o número de créditos abaixo do limiar acima definido"
                 },
                 "chooseTime": {
@@ -4705,7 +4989,7 @@
                 "infoContract": "Os membros que obtiveram este passe como parte de uma subscrição só receberão notificações sobre a subscrição e não sobre o passe. Ao desativar esta opção, passam a receber ambas.",
                 "dontSendIfInContract": "Não enviar quando o passe está numa subscrição",
                 "daysPastType": "Data de expiração",
-                "daysType": "Dias de validade restantes",
+                "daysType": "Restantes dias válidos",
                 "creditType": "Créditos restantes",
                 "contractTitle": "Subscrição",
                 "typeTitle": "Tipo de notificação",
@@ -4741,7 +5025,7 @@
             }
         },
         "notificationToolTip": "As notificações são definidas para este passe",
-        "noPaymentPack": "Os passes ativos permitem aos membros inscreverem-se nos workshops. É necessário um passe para se inscrever.",
+        "noPaymentPack": "Os passes ativos permitem aos membros inscreverem-se nas atividades. É necessário um passe para se inscrever.",
         "consumerPaymentPack": {
             "maxout": {
                 "dialog_message": "Este cartão já atingiu o limite de validade de {{count}} reservas por {{unit}}. Gostaria de reservar com este passe ? ",
@@ -4888,7 +5172,8 @@
             "refundTitle": "Reembolso associado",
             "invoiceTitle": "Fatura associada",
             "shareAPass": "Partilhar um passe de aulas",
-            "pleaseSelectAPack": "Selecionar um passe para ver detalhes"
+            "pleaseSelectAPack": "Selecionar um passe para ver detalhes",
+            "penaltyAccount": "Fatura adicional de {{account_value}} {{currencyDisplay }}"
         },
         "listItem": {
             "unusableByStaff": "Oculto para o staff"
@@ -4953,14 +5238,16 @@
             "packValidity": "Validade do passe",
             "penalityModeFranchisor": {
                 "prorataNoShow": {
-                    "explain": "O depósito de {{ price }} será aplicado proporcionalmente às ausências (não comparências) registadas para cada um dos seus franchisados. Será cobrado um total de {{ price }} ao seu franchise."
+                    "explain": "O depósito de {{ price }} será aplicado proporcionalmente às ausências (não comparências) registadas para cada um dos seus franchisados. Será cobrado um total de {{ price }} ao seu franchise.",
+                    "label": "Pro rata, por franqueado, para faltas de comparência"
                 },
                 "buyer": {
                     "explain": "O depósito {{ price }} só será aplicado no franchisado onde o passe foi inicialmente faturado.",
                     "label": "O franqueado que facturou o passe"
                 },
                 "prorata": {
-                    "explain": "O depósito {{ price }} será aplicado proporcionalmente ao número de cancelamentos fora de prazo registados por cada um dos seus franchisados. Será cobrado um total de {{ price }} à sua franquia."
+                    "explain": "O depósito {{ price }} será aplicado proporcionalmente ao número de cancelamentos fora de prazo registados por cada um dos seus franchisados. Será cobrado um total de {{ price }} à sua franquia.",
+                    "label": "Pro rata, por franqueado, para cancelamentos após o prazo"
                 },
                 "label": "Aplicação do depósito"
             },
@@ -5010,7 +5297,8 @@
             "2018": "Número de créditos insuficientes",
             "2010": "Estabelecimento não compatível",
             "2009": "Categoria não compatível",
-            "2008": "Atividade não compatível"
+            "2008": "Atividade não compatível",
+            "2027": "O horário é incompatível"
         },
         "maxoutInfo": {
             "month": "Passe limitado a {{count}} utilização por mês",
@@ -5026,13 +5314,13 @@
             "restore": {
                 "dialog": {
                     "continue": "Continuar",
-                    "text": "Esta passe é universal e a cópia do passe também foi desarquivada.",
+                    "text": "Esta passe é universal e a sua cópia também foi desarquivada.",
                     "title": "Desarquivar"
                 }
             },
             "delete": {
                 "dialog": {
-                    "warningText": "Atenção! Este passe é um universal, se o eliminar a cópia do passe também será apagado.",
+                    "warningText": "Atenção ! Este passe é um passe universal, se eliminar a cópia do passe este também será eliminado.",
                     "title": "Eliminar o passe"
                 }
             }
@@ -5109,8 +5397,8 @@
             "titleManagerOnly": "Disponibilidade para venda",
             "titleCategory": "Categorias",
             "sorting": {
-                "descendingCredit": "Diminuir crédito",
-                "ascendingCredit": "Acrescentar crédito",
+                "descendingCredit": "Crédito decrescente",
+                "ascendingCredit": "Crédito crescente",
                 "descendingPrice": "Preço decrescente",
                 "ascendingPrice": "Aumento do preço",
                 "customSort": "Encomenda do membro (marketplace e aplicação)"
@@ -5175,7 +5463,7 @@
             "nbCredits": "{{credits}} crédito",
             "nbCredits_plural": "{{credits}} créditos"
         },
-        "ht": "Antes de impostos",
+        "ht": "Antes do imposto",
         "credits": "Crédito",
         "credits_plural": "Créditos",
         "unlimitedAndCalculatedMargin": " - Contribuição teórica calculada: preço / nb_reservas ",
@@ -5229,7 +5517,8 @@
         "isNonCompatible": "incompatível",
         "subscribeToOffer": "Registo",
         "orderingAlert": {
-            "text": "Qualquer alteração na ordem das \"Categorias\" apenas afetará a apresentação da página \"Passes de aulas\" do mercado e da aplicação. Esta atualização não afectará qualquer outra secção ou categoria."
+            "text": "Qualquer alteração na ordem das \"Categorias\" apenas afetará a apresentação da página \"Passes de aulas\" do mercado e da aplicação. Esta atualização não afectará qualquer outra secção ou categoria.",
+            "button": "Página de personalização"
         },
         "noShowPenalty": {
             "block": "{{days_blocked}} dias bloqueados depois de {{treshold}} ausências durante un periodo de {{time_window_days}} dias",
@@ -5239,7 +5528,12 @@
         "publicPacksTitle": "Passes disponíveis para venda",
         "only_vod_access": "Disponível exclusivamente para os Videos de Demanda",
         "privatePacksTitle": "Passes não disponíveis para venda",
-        "disabledPacksTitle": "Passes arquivados"
+        "disabledPacksTitle": "Passes arquivados",
+        "penalty": {
+            "account": "Será aplicado um depósito de {{account_value}} para {{nb_cancellations}} cancelamentos fora de prazo durante um período de {{nb_days}} dias.",
+            "block": "{{days_blocked}} dias bloqueados após {{nb_cancellations}} cancelamentos fora do prazo durante um período de {{nb_days}} dias",
+            "title": "Política de cancelamento"
+        }
     },
     "paymentCombo": {
         "parameters": {
@@ -5601,7 +5895,8 @@
                 "0": "Em espera",
                 "2": "Bem sucedido",
                 "4": "Cancelar",
-                "1": "Em curso"
+                "1": "Em curso",
+                "3": "Detido"
             },
             "invoice": "Fatura {{ uuid }}",
             "isEmpty": "Nenhuma cobrança.",
@@ -6171,9 +6466,9 @@
             "product_category": "Categoria do produto",
             "private_slot": "Tipo de sessão",
             "private_slot_name": "Sessão",
-            "private_service": "Nome",
+            "private_service": "Nome Marcações",
             "private_service_name": "Marcações",
-            "private_pass": "Passe Aulas Privadas",
+            "private_pass": "Passe de Marcações",
             "private_passcredits": "Crédito restante",
             "price_invoice_items": "Quantidade total de produtos adquiridos",
             "price": "Preço",
@@ -6203,12 +6498,12 @@
             "new_member_only": "Oferta para novos membros",
             "negative_voucher": "Desconto",
             "nb_purchase": "Número de compras",
-            "nb_planned_invoices": "Número total de recolhas",
+            "nb_planned_invoices": "Número total de recibos",
             "nb_offers": "Número de sessões",
             "nb_offers_cancelled": "Número de sessões alunadas",
             "nb_non_attendance": "Ausências",
             "nb_non_activated": "Número de passes não ativados",
-            "nb_interval": "Número de ocorrências",
+            "nb_interval": "Número de recorrências",
             "nb_invoice_items": "Número de recorrências",
             "nb_expired": "Número de passes expirados",
             "nb_canceled": "Número de cancelamentos",
@@ -6226,7 +6521,7 @@
             "member_default_billing_establishment": "Morada da fatura",
             "max_credit": "Crédito máximo",
             "marketplace_enabled": "Disponível para venda online",
-            "margin_value": "Contribuição em conflito",
+            "margin_value": "Contribuição marginal",
             "level_activity": "Nível",
             "last_view": "Última visualização",
             "last_payment_date": "Data do último pagamento",
@@ -6293,7 +6588,7 @@
             "couponName": "Promoção",
             "couponamount_off": "Desconto fixo",
             "contract_name": "Nome da subscrição",
-            "contract": "Subscrição",
+            "contract": "Contrato",
             "consumed_amount_gifted": "Montante utilizado",
             "concatenated_notes": "Notas",
             "coaches": "Professores",
@@ -6351,11 +6646,11 @@
             "payment_method_giropay": "Giropay",
             "payment_method_event_brite": "EventBrite",
             "payment_method_eps": "EPS",
-            "payment_method_dispute": "Conflito",
+            "payment_method_dispute": "Disputa",
             "payment_method_check": "Cheque",
-            "payment_method_cash": "Tipos",
+            "payment_method_cash": "Métodos",
             "payment_method_bank_transfer": "Transferência",
-            "payment_method_bancontact": "Contactless",
+            "payment_method_bancontact": "Bancontact",
             "payment_method_bacs_debit": "Débito Direto",
             "payment_method_amex": "AMEX",
             "payment_legal_identifier": "Identificador legal da fatura",
@@ -6363,11 +6658,25 @@
             "payment_date": "Data do pagamento completo",
             "payment_date_time": "Hora do pagamento",
             "payment_date_date": "Data do pagamento",
-            "payment_amount_by_payment_method": "Cobrança por meio de pagamento",
+            "payment_amount_by_payment_method": "Pagamento por método de pagamento",
             "pass": "Passe de aulas",
             "paid": "Dinheiro na caixa",
             "on_behalf_of_teacher": "Pagamento integral ao professor",
-            "note": "Nota"
+            "note": "Nota",
+            "referring_member_total_reward": "Recompensa recebida pelo membro referenciado",
+            "referring_member_pk": "ID do membro referenciado",
+            "referring_member_last_name": "Nome do membro referenciado",
+            "referring_member_first_name": "Apelido do membro referenciado",
+            "referring_member_email": "Email do membro referenciado",
+            "referred_member_registration_date": "Data da criação do membro referenciado",
+            "referred_member_pk": "ID do membro referenciado",
+            "referred_member_last_name": "Nome do membro referenciado",
+            "referred_member_first_name": "Apelido do membro referenciado",
+            "referred_member_email": "Email do membro referenciado",
+            "referred_discount_use_date": "Data da utilização do desconto pela referência",
+            "referred_discount_applied": "Desconto aplicado pelo membro referenciado",
+            "purchased_products": "Produtos",
+            "company_name": "Franqueado"
         },
         "categories": {
             "activityByCoach": "Atividades e workshops por professor",
@@ -6380,7 +6689,7 @@
             "payment_installments": "Pagamentos em prestações",
             "consumer_giftcard": "Passes de oferta comprados",
             "giftcard": "Passe de oferta",
-            "video_purchase": "Aquisição de vídeo",
+            "video_purchase": "Compra do vídeo",
             "video": "Vídeo",
             "dayBookings": "Reservas (aulas de grupo) por dia",
             "privateServiceEst": "Marcações por sala",
@@ -6395,16 +6704,16 @@
             "subscription": "Facturas de subscrição",
             "billing_plan": "Subscrição",
             "discount": "Promoções",
-            "unpaid_private_bookings": "Marcações não pagas (consultas)",
-            "private_bookings": "Reservas (marcação)",
+            "unpaid_private_bookings": "Reservas não pagas (marcações)",
+            "private_bookings": "Reservas (marcações)",
             "shop": "Loja",
-            "private_cpasses": "Passe aulas privadas",
+            "private_cpasses": "Passe de Marcações",
             "payment_sumup": "Total de pagamentos",
             "credit": "Crédito",
             "basket": "Carrinho",
             "memberships": "Passes de aulas",
             "unpaid_invoices": "Facturas não pagas",
-            "invoices": "Aquisição",
+            "invoices": "Compras",
             "products": "Produtos",
             "payments": "Pagamentos",
             "bookings": "Reservas (aulas de grupo)",
@@ -6412,7 +6721,8 @@
             "members_purchase": "Compras dos membros",
             "members": "Novos membros",
             "on_spot_payments": "Pagamentos no local",
-            "dispute": "Conflito no pagamento"
+            "dispute": "Conflito no pagamento",
+            "referral_grant": "Referência"
         },
         "header": {
             "save": "Guardar",
@@ -8004,7 +8314,7 @@
                 "showCustomEvents": "Marcação pessoalmente"
             },
             "selectCoachToModifyAvailability": "Selecionar um professor",
-            "createCustomEvent": "Criar uma marcação pessoalmente",
+            "createCustomEvent": "Criar uma Marcação manualmente",
             "addBooking": "Registar uma marcação",
             "showAvailabilityDetails": "Detalhes das disponibilidades"
         },
@@ -8261,8 +8571,8 @@
                     "submit": "Registar"
                 },
                 "last_discard_minutes": {
-                    "helperText": "",
-                    "label": ""
+                    "helperText": "Se a reserva for cancelada após o prazo, o crédito não será reembolsado",
+                    "label": "Última anulação reembolsável até"
                 }
             },
             "configuration": {
@@ -8535,7 +8845,7 @@
             },
             "warningShareUniversal": "Este passe é universal, por favor partilhe o passe de aulas associado",
             "detail": {
-                "booking": "Reservas de marcação associadas",
+                "booking": "Reservas de Marcações associadas",
                 "extensionsTitle": "Extensões de validade",
                 "invoice": "Fatura associada"
             },
@@ -8551,7 +8861,7 @@
         },
         "privateCoach": {
             "delete": {
-                "explain": "Tem a certeza de que pretende remover a atribuição deste professor ? O professor deixará de poder aceitar reservas para este passe. As reservas efectuadas não serão afetadas.",
+                "explain": "Tem a certeza de que pretende remover a atribuição deste professor ? O professor deixará de poder aceitar reservas para este passe. As reservas efetuadas não serão afetadas.",
                 "title": "Anular a subscrição de um professor",
                 "submit": "Confirmar",
                 "cancel": "Cancelar"
@@ -8992,7 +9302,7 @@
                 "date": "Data"
             },
             "recurrenceRule": {
-                "label": "Programa de marcações recurrente"
+                "label": "Programa de marcações recorrentes"
             },
             "bookingCapabilities": {
                 "compatiblePassTitle": "Passes válidos para esta sessão",
@@ -9062,8 +9372,8 @@
             },
             "list": {
                 "isEmpty": "Parar de partilhar passe",
-                "create": "Partilhar um passe privado",
-                "title": "Passes privados partilhados"
+                "create": "Partilhar um passe",
+                "title": "Passes partilhados"
             }
         },
         "consumer_payment_pack_links": {
@@ -9081,7 +9391,7 @@
                     "title": "Parar de partilhar"
                 },
                 "create": {
-                    "noConsumerPackToLink": "Sem cartões partilhados",
+                    "noConsumerPackToLink": "Sem passes partilhados",
                     "linkButton": "Partilhar",
                     "submit": "Partilhar",
                     "previous": "Anterior",
@@ -9254,7 +9564,7 @@
         },
         "lateStatus": {
             "isNotLate": "A tempo",
-            "isLate": "Em atraso"
+            "isLate": "Com atraso"
         },
         "delete": {
             "confirm": "Confirmar",
@@ -9280,7 +9590,7 @@
             "lateRequestCounterInfo_plural": "<strong>{{requestsLeft}}</strong> em <strong>{{requestsMax}}</strong> pedidos tardios restantes até {{-dateEnd}}.",
             "lateRequestTypo": "O seu pedido de substituição está atrasado. Tem {{daysBeforeOffer}} dias antes do início da atividade para efetuar o seu pedido em tempo útil.",
             "lateRequestTypo_plural": "O seus pedidos de substituição estão atrasados. Tem {{daysBeforeOffer}} dias antes do início da atividade para efetuar o seu pedido em tempo útil.",
-            "close": "Próximo",
+            "close": "Fechar",
             "requestSentDescription": "O seu pedido de substituição foi processado. Aceda ao separador \"Os meus pedidos\" para acompanhar o seu estado.",
             "requestSentDescription_plural": "Os seus pedidos de substituição foram processados. Aceda ao separador \"Os meus pedidos\" para acompanhar os seus estados.",
             "requestSent": "Pedido enviado",
@@ -9366,8 +9676,8 @@
         "calendar": {
             "helperTextNotLimited": "Todos os pedidos de substituição efectuados antes {{count}} dia da sessão serão considerados tardios.",
             "helperTextNotLimited_plural": "Todos os pedidos de substituição efectuados antes {{count}} dias da sessão serão considerados tardios.",
-            "helperTextLimited": "<strong>{{requestsLeft}}</strong> em <strong>{{requestsMax}}</strong> restantes pedidos atrasados até {{-dateEnd}}. Todos os pedidos de substituição efectuados com menos de {{count}} dia antes da sessão, serão considerados atrasados.",
-            "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> em <strong>{{requestsMax}}</strong> restantes pedidos atrasados até {{-dateEnd}}. Todos os pedidos de substituição efectuados com menos de {{count}} dias antes da sessão, serão considerados atrasados.",
+            "helperTextLimited": "<strong>{{requestsLeft}}</strong> em <strong>{{requestsMax}}</strong> restantes pedidos atrasados até {{-dateEnd}}. Todos os pedidos de substituição efetuados com menos de {{count}} dia antes da sessão, serão considerados atrasados.",
+            "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> em <strong>{{requestsMax}}</strong> restantes pedidos atrasados até {{-dateEnd}}. Todos os pedidos de substituição efetuados com menos de {{count}} dias antes da sessão, serão considerados atrasados.",
             "description": "Encontre todas as suas aulas de grupo aqui.",
             "title": "O meu calendário"
         },
@@ -9378,7 +9688,7 @@
             "title": "Os pedidos de substituição ativos estão ligados a sessões canceladas.",
             "buttonLabel": "Aberto",
             "offerHasActiveRequest": {
-                "helper": "Gostaria de ser redireccionado para a página de pedidos de substituição para cancelar pedidos antigos?",
+                "helper": "Gostaria de ser redireccionado para a página de pedidos de substituição para cancelar pedidos antigos ?",
                 "title": "Um pedido de substituição ativo está ligado a esta sessão"
             }
         },
@@ -9599,7 +9909,13 @@
         "label": "Regra de remuneração",
         "addBonus": "Adicionar uma nova regra",
         "addNew": "Novo parâmetro de remuneração",
-        "privateSlotLabel": "Marcações"
+        "privateSlotLabel": "Marcações",
+        "pricePerAdditionalBooking": "Bonús por reserva",
+        "bookingThreshold": "Limite de reserva (incl.)",
+        "actions": "Ações",
+        "only_attendant": "Restringir a contagem de marcações aos alunos presentes",
+        "calculation_method": "Método do cálculo",
+        "include_tax": "Cálculo com IVA incluído"
     },
     "smartList": {
         "tag_rules": {
@@ -12046,7 +12362,9 @@
                         "partnership": {
                             "title": "Marketplace",
                             "availableOnPartnership": "No marketplace (ClassPass, OneFit...)",
-                            "partnerMaxBookingCount": "Número máximo de reservas pelo marketplace (apenas para OneFit)"
+                            "partnerMaxBookingCount": "Número máximo de reservas pelo marketplace (apenas para o OneFit + Urban Sports Club)",
+                            "uscIntegrationWorkshopWarning": "Uma vez que os workshops não são compatíveis com o marketplace do Urban Sports Club, esta sessão não será incluída.",
+                            "uscIntegrationWarning": "A inclusão no mercado do Urban Sports Club está ativa, mas qualquer sessão com duração igual ou superior a 2 dias não aparecerá."
                         },
                         "isNotifyConsumers": "Gostaria de informar os seus alunos sobre esta alteração ?",
                         "syncOfferOnSpivi": "Enviar para Spivi"
@@ -12587,7 +12905,7 @@
         "noMoreOffers": "Não há mais sessões agendadas",
         "offers": "Calendário das sessões:",
         "noEstablishement": "Aqui pode gerir as salas, perceber a localização, preencher e consultar o calendário",
-        "pleaseSelectOne": "Seleccione um local no passe",
+        "pleaseSelectOne": "Selecionar um estabelecimento",
         "addButton": "Adicionar uma sala",
         "search": "Procurar uma sala",
         "baseEstablishment": "Habitual",
@@ -13916,7 +14234,7 @@
                 "paymentPack": "Passe de aulas",
                 "credit": "crédito",
                 "credit_plural": "créditos",
-                "privatePass": "Passe de marcação",
+                "privatePass": "Passe de Marcações",
                 "paymentCombo": "Pack",
                 "unlimited": "Ilimitado",
                 "product": "produto",

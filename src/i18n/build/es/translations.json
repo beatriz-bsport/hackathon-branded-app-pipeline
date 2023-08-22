@@ -5359,9 +5359,11 @@
                         "isModifyRecursively": "¿Desea modificar sesiones similares en función de estas nuevas condiciones?",
                         "isNotifyConsumers": "¿Quiere informar a sus clientes de este cambio?",
                         "partnership": {
-                            "partnerMaxBookingCount": "Número máximo de reservas en el marketplace (sólo OneFit)",
+                            "partnerMaxBookingCount": "Número máximo de reservas de mercado (sólo OneFit + Urban Sports Club)",
                             "availableOnPartnership": "En los marketplaces (ClassPass, OneFit...)",
-                            "title": "Marketplace"
+                            "title": "Marketplace",
+                            "uscIntegrationWorkshopWarning": "Los talleres no son compatibles con el marketplace Urban Sports Club, por lo que no se incluirá esta sesión.",
+                            "uscIntegrationWarning": "Tu integración en el marketplace Urban Sports Club está activa, cualquier sesión que dure 2 días o más no aparecerá."
                         },
                         "allowGuestOffer": "Permitir reservar para invitados",
                         "isManagerOnly": "Disponible para reservas (web+app)",
@@ -7189,7 +7191,8 @@
                 "tag": "Tag",
                 "tag_group": "Grupo"
             },
-            "title": "Bono"
+            "title": "Bono",
+            "alert": "Un código de descuento puede ser utilizado por un miembro para reducir el precio de una cesta. En este formulario, puede personalizar totalmente cómo se aplica el código. Tú mismo eliges el código y tú decides cómo compartirlo con tus miembros."
         },
         "modal": {
             "delete": {
@@ -8804,7 +8807,10 @@
         },
         "createThread": {
             "close": "Cerrar",
-            "confirmResourceSelected": "Confirmar"
+            "confirmResourceSelected": "Confirmar",
+            "title": "Nuevo mensaje",
+            "smartlistPlaceholder": "Selecciona una smartlist",
+            "refreshSmartlist": "Haz clic en el botón de actualización para ver las nuevas smartlists"
         }
     },
     "paymentCombo": {
@@ -12514,7 +12520,8 @@
                 "shrink": "Doblar"
             },
             "cadences": "Cadencias",
-            "replacement": "Sustitución"
+            "replacement": "Sustitución",
+            "inbox": "Bandeja de entrada"
         },
         "deprecatedNavigator": {
             "close": "Cerrar",

@@ -29,6 +29,7 @@ import SearchMemberInput from '../../../pages/offer-management/SearchMember.comp
 import MemberForm from '../MemberForm.component';
 import { Member } from '../types';
 import { OptionCallback } from '../../../state/types';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   open: boolean;
@@ -176,12 +177,17 @@ export const MemberSearchModal: React.FC<Props> = ({
           }}
         >
           {!!createMember && (
-            <ListItem button disabled={disabled} onClick={openCreateForm}>
-              <ListItemIcon>
-                <PersonAddIcon />
-              </ListItemIcon>
-              <ListItemText primary={t('search.createMember')} />
-            </ListItem>
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="member.allowed_actions.create"
+            >
+              <ListItem button disabled={disabled} onClick={openCreateForm}>
+                <ListItemIcon>
+                  <PersonAddIcon />
+                </ListItemIcon>
+                <ListItemText primary={t('search.createMember')} />
+              </ListItem>
+            </ObjectLevelPermissionWrapper>
           )}
           <List>
             {loading ? <LinearProgress /> : null}

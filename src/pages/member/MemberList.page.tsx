@@ -8,6 +8,7 @@ import { compose, withState } from 'recompose';
 import { createStyles, WithStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core/styles';
 import { TFunction } from 'i18next';
+import Config from '../../config';
 import { fetchMemberList } from '#libs/member/api';
 import withTitle from '../../hocs/with-title.hoc';
 import { getPermissions } from '#libs/role/selectors';
@@ -139,6 +140,9 @@ export class Members extends Component<Props, State> {
 
   render() {
     const { addMember, goToMemberPage } = this.props;
+    const useOldPermissions = // Temporary while former and new set of permissions coexist
+      Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
+      Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging';
 
     return (
       <>
@@ -150,12 +154,13 @@ export class Members extends Component<Props, State> {
               disabledMemberId={this.state.disabledMemberId}
               fetch={this.fetchMemberList}
               goToMember={goToMemberPage}
-              hideAddButton={!this.props.permissions?.member?.create}
               interrogateMemberStatus={(id: number) =>
                 this.interrogateMemberStatus(id)
               }
+              oldCreateMemberPermission={this.props.permissions?.member?.create}
               tagsExcluded={this.state.tagsExcluded}
               tagsIncluded={this.state.tagsIncluded}
+              useOldPermissions={useOldPermissions}
             />
           </Grid>
           <TagFilterForm

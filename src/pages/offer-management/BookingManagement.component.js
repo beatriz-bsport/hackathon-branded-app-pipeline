@@ -62,6 +62,7 @@ import ValidationRollCallButton from '#libs/offer/components/ValidationRollCallB
 import ValidationRollCallText from '#libs/offer/components/ValidationRollCallText.component';
 import { formatAsTime } from '../../utils/datetime';
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 const getMemberFromId = (id: number, membersList: Array<Member>) => {
   const member = membersList.find((m) => m.id === id);
@@ -366,6 +367,9 @@ export class BookingManagement extends React.PureComponent<Props, State> {
 
   render() {
     const { offer, classes, t, onProgramDetailsClick } = this.props;
+    const useOldPermissions = // Temporary while former and new set of permissions coexist
+      Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
+      Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging';
     return (
       <div className={classes.container}>
         <Dialog
@@ -544,14 +548,24 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       <PermissionContext.Consumer>
                         {(permissions) => (
                           <>
-                            {permissions?.member?.create && (
-                              <IconButton
-                                color="primary"
-                                onClick={this.props.openAddMemberModal}
-                              >
-                                <PersonAddIcon />
-                              </IconButton>
-                            )}
+                            <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.create">
+                              {(hasNewPermission) => {
+                                // Temporary while former and new set of permissions coexist
+                                const hasPermission = useOldPermissions
+                                  ? permissions?.member?.create
+                                  : hasNewPermission;
+                                return (
+                                  hasPermission && (
+                                    <IconButton
+                                      color="primary"
+                                      onClick={this.props.openAddMemberModal}
+                                    >
+                                      <PersonAddIcon />
+                                    </IconButton>
+                                  )
+                                );
+                              }}
+                            </ObjectLevelPermissionProvider>
                             <SearchMember
                               anonimize={!permissions?.member?.search}
                               memberHistory={this.props.memberHistory || []}

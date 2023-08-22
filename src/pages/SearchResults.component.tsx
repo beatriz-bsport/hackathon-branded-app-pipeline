@@ -21,6 +21,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Config from '../config';
 import {
   getSearchedMembers,
   withTags,
@@ -40,6 +41,7 @@ import { showVaccinationStatus } from '#libs/custom-form/selectors';
 import { parseQueryString } from '../http';
 import MemberMinimalListItem from '#libs/member/components/MemberMinimalListItem.component';
 import { searchArchived as searchArchivedMembers } from '#libs/member/actions';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   members: MemberMinimal[];
@@ -200,6 +202,9 @@ export class SearchResults extends React.Component<Props, State> {
     const { t, classes, member, selected } = this.props;
     const hasLoaded = member;
     const isLoadingMember = !hasLoaded && selected;
+    const useOldPermissions = // Temporary while former and new set of permissions coexist
+      Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
+      Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging';
     return (
       <Grid container>
         <Grid item className={classes.root} md={4} xs={12}>
@@ -237,14 +242,28 @@ export class SearchResults extends React.Component<Props, State> {
           )}
           <div className={classes.content}>
             <Paper className={classes.contentInner}>
-              {this.props.permissions?.member?.create && (
-                <ListItem button divider onClick={this.props.openCreateMember}>
-                  <ListItemIcon>
-                    <PersonAddIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={t('actions.addMember')} />
-                </ListItem>
-              )}
+              <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.create">
+                {(hasNewPermission) => {
+                  // Temporary while former and new set of permissions coexist
+                  const hasPermission = useOldPermissions
+                    ? this.props.permissions?.member?.create
+                    : hasNewPermission;
+                  return (
+                    hasPermission && (
+                      <ListItem
+                        button
+                        divider
+                        onClick={this.props.openCreateMember}
+                      >
+                        <ListItemIcon>
+                          <PersonAddIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={t('actions.addMember')} />
+                      </ListItem>
+                    )
+                  );
+                }}
+              </ObjectLevelPermissionProvider>
               <ResultList
                 className={selected && !isLoadingMember ? classes.hidden : ''}
                 items={this.props.members}

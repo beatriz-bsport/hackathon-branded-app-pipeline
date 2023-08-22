@@ -89,6 +89,7 @@ import type {
 } from '../../../state/types';
 
 import { setShrinkResponsiveDrawer as setShrinkResponsiveDrawerAction } from '#libs/user-preference/actions';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 export const drawerWidth = 260;
 export const drawerIconsOnlyWith = 60;
@@ -373,7 +374,10 @@ export const BackOfficeDrawer: React.FC<Props> = ({
       </Grid>
     );
   };
-  const renderContractedMenu = (forced_hide: boolean) => {
+  const renderContractedMenu = (
+    forced_hide: boolean,
+    useOldPermissions: boolean,
+  ) => {
     const isClockIn = lastClockIn?.onGoing;
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) =>
@@ -478,22 +482,34 @@ export const BackOfficeDrawer: React.FC<Props> = ({
               />
             </MenuItem>
           )}
-          {permissions?.member?.create && (
-            <MenuItem onClick={openCreateMember}>
-              <ListItemIcon>
-                <Grid item>
-                  <Tooltip
-                    title={t('navigation:backofficeMenu.addMemberTooltip')}
-                  >
-                    <PersonAddIcon />
-                  </Tooltip>
-                </Grid>
-              </ListItemIcon>
-              <ListItemText
-                primary={t('navigation:backofficeMenu.addMemberTooltip')}
-              />
-            </MenuItem>
-          )}
+          <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.create">
+            {(hasNewPermission) => {
+              // Temporary while former and new set of permissions coexist
+              const hasPermission = useOldPermissions
+                ? permissions?.member?.create
+                : hasNewPermission;
+              return (
+                hasPermission && (
+                  <MenuItem onClick={openCreateMember}>
+                    <ListItemIcon>
+                      <Grid item>
+                        <Tooltip
+                          title={t(
+                            'navigation:backofficeMenu.addMemberTooltip',
+                          )}
+                        >
+                          <PersonAddIcon />
+                        </Tooltip>
+                      </Grid>
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={t('navigation:backofficeMenu.addMemberTooltip')}
+                    />
+                  </MenuItem>
+                )
+              );
+            }}
+          </ObjectLevelPermissionProvider>
           <MenuItem onClick={openIntercomHelp}>
             <ListItemIcon>
               <Grid item>
@@ -525,6 +541,9 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   };
   const renderAppBar = (forced_hide: boolean, displayMenuIcon: boolean) => {
     const isClockIn = lastClockIn?.onGoing;
+    const useOldPermissions = // Temporary while former and new set of permissions coexist
+      Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
+      Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging';
     if (hideAppBar) {
       return null;
     }
@@ -686,19 +705,29 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                           </IconButton>
                         </Grid>
                       )}
-                      {permissions?.member?.create && (
-                        <Grid item>
-                          <IconButton onClick={openCreateMember}>
-                            <Tooltip
-                              title={t(
-                                'navigation:backofficeMenu.addMemberTooltip',
-                              )}
-                            >
-                              <PersonAddIcon />
-                            </Tooltip>
-                          </IconButton>
-                        </Grid>
-                      )}
+                      <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.create">
+                        {(hasNewPermission) => {
+                          // Temporary while former and new set of permissions coexist
+                          const hasPermission = useOldPermissions
+                            ? permissions?.member?.create
+                            : hasNewPermission;
+                          return (
+                            hasPermission && (
+                              <Grid item>
+                                <IconButton onClick={openCreateMember}>
+                                  <Tooltip
+                                    title={t(
+                                      'navigation:backofficeMenu.addMemberTooltip',
+                                    )}
+                                  >
+                                    <PersonAddIcon />
+                                  </Tooltip>
+                                </IconButton>
+                              </Grid>
+                            )
+                          );
+                        }}
+                      </ObjectLevelPermissionProvider>
                     </Hidden>
                     {permissions?.appbarButtons?.notificationCenter && (
                       <Grid item>
@@ -725,7 +754,9 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                       {renderAdditionalButtons()}
                     </Hidden>
                     <Hidden smUp>
-                      <Grid item>{renderContractedMenu(forced_hide)}</Grid>
+                      <Grid item>
+                        {renderContractedMenu(forced_hide, useOldPermissions)}
+                      </Grid>
                     </Hidden>
                   </Grid>
                 </Grid>

@@ -18,17 +18,21 @@ type Props = {
   ) => void;
   deleteMetaActivity: (metaActivityId: number) => void;
   restoreMetaActivity?: (metaActivityId: number) => void;
+  isWorkshop: boolean;
 };
 
 export default function MetaActivityList(props: Props) {
-  const { metaActivities, goToEdit, goToDetail } = props;
+  const { metaActivities, goToEdit, goToDetail, isWorkshop } = props;
+
+  const permissionPartialKey = isWorkshop ? 'workshop' : 'activity';
+
   return (
     <Paper>
       <List disablePadding>
         <ObjectLevelPermissionProviderComponent
           requiredPermission={[
-            'management.activity.allowed_actions.edit',
-            'management.activity.allowed_actions.delete',
+            `management.${permissionPartialKey}.allowed_actions.edit`,
+            `management.${permissionPartialKey}.allowed_actions.delete`,
           ]}
         >
           {([hasEditPermission, hasDeletePermission]: boolean[]) => (
@@ -45,7 +49,9 @@ export default function MetaActivityList(props: Props) {
                   goToEdit={hasEditPermission ? goToEdit : null}
                   metaActivity={ma}
                   onClick={ma.customer_enabled ? () => goToDetail(ma.id) : null}
-                  onClickCopy={props.makeActivityCopy}
+                  onClickCopy={
+                    hasEditPermission ? props.makeActivityCopy : null
+                  }
                   restoreMetaActivity={() => props.restoreMetaActivity(ma.id)}
                 />
               ))}

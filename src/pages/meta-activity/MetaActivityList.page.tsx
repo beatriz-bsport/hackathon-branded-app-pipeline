@@ -425,6 +425,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
                   deleteMetaActivity={this.props.setActivityToDelete}
                   goToDetail={this.props.goToDetail}
                   goToEdit={this.editMetaActivity}
+                  isWorkshop={false}
                   metaActivities={this.state.searchResult}
                 />
               </Collapse>
@@ -510,6 +511,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
                 deleteMetaActivity={this.props.setActivityToDelete}
                 goToDetail={this.props.goToDetail}
                 goToEdit={this.editMetaActivity}
+                isWorkshop={false}
                 makeActivityCopy={this.props.makeActivityCopy}
                 metaActivities={this.props.disabledMetaActivities}
                 restoreMetaActivity={this.restoreMetaActivity}

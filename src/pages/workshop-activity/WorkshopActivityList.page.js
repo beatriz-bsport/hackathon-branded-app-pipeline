@@ -25,6 +25,7 @@ import FuzeSearch from '../../components/FuzeSearch.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import { getEditableSCTs } from '../../libs/category/selectors';
+import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 import { redirectIfAllowed as redirectIfAllowedAction } from '../../libs/role/actions';
 
@@ -400,6 +401,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
                 }
               >
                 <MetaActivityList
+                  isWorkshop
                   deleteMetaActivity={this.props.setWorkshopToDelete}
                   goToDetail={this.props.goToDetail}
                   goToEdit={this.editMetaActivity}
@@ -410,6 +412,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
           </div>
         ) : null}
         <MetaActivityList
+          isWorkshop
           deleteMetaActivity={this.props.setWorkshopToDelete}
           goToDetail={this.props.goToDetail}
           goToEdit={this.editMetaActivity}
@@ -440,6 +443,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
             <Divider />
             <Collapse in={this.state.showDisabled}>
               <MetaActivityList
+                isWorkshop
                 deleteMetaActivity={this.props.setWorkshopToDelete}
                 goToDetail={this.props.goToDetail}
                 goToEdit={this.editMetaActivity}
@@ -468,12 +472,18 @@ export class WorkshopActivityList extends React.Component<Props, State> {
           SCTs={this.props.SCTs}
           tags={this.props.allTagsWithTagGroup}
         />
-        <BottomActionsButton
-          onCreate={() => {
-            this.props.setFormIsOpen(true);
-          }}
-          onCreateLabel={this.props.t('actions.addWorkshopActivity')}
-        />
+
+        <ObjectLevelPermissionWrapper
+          forcedBehavior="hidden"
+          requiredPermission="management.workshop.allowed_actions.create"
+        >
+          <BottomActionsButton
+            onCreate={() => {
+              this.props.setFormIsOpen(true);
+            }}
+            onCreateLabel={this.props.t('actions.addWorkshopActivity')}
+          />
+        </ObjectLevelPermissionWrapper>
         {this.props.formIsOpen ? this.renderCreateWorkshopActivity() : ''}
       </div>
     );

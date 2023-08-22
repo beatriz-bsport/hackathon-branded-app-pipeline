@@ -441,6 +441,7 @@ export class CouponForm extends React.Component<Props, State> {
               }
               return [];
             }}
+            minDate={moment()}
             onChange={(date) =>
               this.handleChange('expiration_date', false)(date)
             }

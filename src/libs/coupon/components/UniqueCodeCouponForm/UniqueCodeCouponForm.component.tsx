@@ -217,7 +217,7 @@ const formikFormWrapper = withFormik<
       name,
       is_active,
       only_on_first_checkout,
-      usage_per_member: isUsagePerMemberLimited ? null : usage_per_member,
+      usage_per_member: isUsagePerMemberLimited ? usage_per_member : null,
       applies_to,
       only_on_objects,
       expiration_date: formatedDate,

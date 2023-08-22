@@ -69,6 +69,7 @@ const UniqueCodeCouponFormDrawer: React.FC<Props> = ({
   useEffect(() => {
     if (open && !!uniqueCodeCoupon) {
       setWithExpirationDate(!!uniqueCodeCoupon.expiration_date);
+      setIsUsagePerMemberLimited(!!uniqueCodeCoupon.usage_per_member);
     }
   }, [open, uniqueCodeCoupon]);
 

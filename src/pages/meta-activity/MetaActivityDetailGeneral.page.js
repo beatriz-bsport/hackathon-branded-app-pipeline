@@ -14,6 +14,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import MetaActivityDetail from '#libs/meta-activity/components/MetaActivityDetail.component';
 import MetaActivityDeleteDialog from '#libs/meta-activity/components/MetaActivityDeleteDialog.component';
+import ObjectLevelPermissionProvider from '../../libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { deleteMetaActivity, upsert } from '#libs/meta-activity/actions';
 import { getAllSmartList } from '#libs/smart-list/selectors';
 import { fetchAllSmartLists } from '#libs/smart-list/actions';
@@ -220,11 +221,26 @@ export class MetaActivityDetailGeneral extends PureComponent<Props, State> {
           tags={this.props.tagCategories}
           updateNotification={this.props.updateMarketingNotification}
         />
-        <BottomActionButtons
-          onDelete={() => this.setState({ deleteOpen: true })}
-          onEdit={this.onEdit}
-          onShare={() => this.props.setOpenWidgetDialog(true)}
-        />
+
+        <ObjectLevelPermissionProvider
+          requiredPermission={[
+            'management.activity.allowed_actions.edit',
+            'management.activity.allowed_actions.delete',
+          ]}
+        >
+          {([hasEditPermission, hasDeletePermission]: boolean[]) => (
+            <BottomActionButtons
+              onDelete={
+                hasDeletePermission
+                  ? () => this.setState({ deleteOpen: true })
+                  : null
+              }
+              onEdit={hasEditPermission ? this.onEdit : null}
+              onShare={() => this.props.setOpenWidgetDialog(true)}
+            />
+          )}
+        </ObjectLevelPermissionProvider>
+
         <MetaActivityDeleteDialog
           canDeleteMetaActivityChecker={canDeleteMetaActivityAPI}
           deleteMetaActivity={() => {

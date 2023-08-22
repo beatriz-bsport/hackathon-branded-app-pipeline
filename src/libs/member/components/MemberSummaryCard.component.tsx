@@ -61,6 +61,7 @@ import {
 import { UPSELL_IDENTIFIER_SMS } from '#libs/platform-billing/upsell-identifiers';
 import { FeatureList } from '#libs/company/types';
 import { hasUpsell } from '#libs/platform-billing/utils';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 const SELECT_EMAIL = 1;
 const SEND_SMS = 2;
@@ -321,22 +322,29 @@ export class MemberSummaryCard extends PureComponent<Props> {
         </div>
         {member && !member.is_pos && (
           <div className={classes.icons}>
-            {mergeMember && (
-              <Button
-                color="secondary"
-                disabled={member?.archived}
-                onClick={mergeMember}
-              >
-                <Hidden xsDown>{t('common.merge')}</Hidden>
-                <MergeTypeIcon className={classes.rightIcon} />
-              </Button>
-            )}
-            {editMember && (
-              <Button color="primary" onClick={editMember}>
-                <Hidden xsDown>{t('common.edit')}</Hidden>
-                <EditIcon className={classes.rightIcon} />
-              </Button>
-            )}
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="member.allowed_actions.editInfo"
+            >
+              <>
+                {mergeMember && (
+                  <Button
+                    color="secondary"
+                    disabled={member?.archived}
+                    onClick={mergeMember}
+                  >
+                    <Hidden xsDown>{t('common.merge')}</Hidden>
+                    <MergeTypeIcon className={classes.rightIcon} />
+                  </Button>
+                )}
+                {editMember && (
+                  <Button color="primary" onClick={editMember}>
+                    <Hidden xsDown>{t('common.edit')}</Hidden>
+                    <EditIcon className={classes.rightIcon} />
+                  </Button>
+                )}
+              </>
+            </ObjectLevelPermissionWrapper>
             {goToMember && (
               <Button color="primary" onClick={goToMember}>
                 <Hidden xsDown>{t('common.show')}</Hidden>
@@ -344,10 +352,15 @@ export class MemberSummaryCard extends PureComponent<Props> {
               </Button>
             )}
             {handleOpenResetPasswordDialog && this.props.member?.email && (
-              <Button color="primary" onClick={handleOpenResetPasswordDialog}>
-                <Hidden xsDown>{t('member:resetPassword.button')}</Hidden>
-                <LockIcon className={classes.rightIcon} />
-              </Button>
+              <ObjectLevelPermissionWrapper
+                forcedBehavior="hidden"
+                requiredPermission="member.allowed_actions.editInfo"
+              >
+                <Button color="primary" onClick={handleOpenResetPasswordDialog}>
+                  <Hidden xsDown>{t('member:resetPassword.button')}</Hidden>
+                  <LockIcon className={classes.rightIcon} />
+                </Button>
+              </ObjectLevelPermissionWrapper>
             )}
           </div>
         )}

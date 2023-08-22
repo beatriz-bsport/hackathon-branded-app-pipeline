@@ -576,6 +576,7 @@ const getTranslations = async () => {
         edit: 'Edit',
         columnError:
           'Please note that the column filtered here has been removed from the report. However, the filter on this column is still applied.',
+        shortColumnError: 'The corresponding column is not displayed',
       },
     },
     datatype: {

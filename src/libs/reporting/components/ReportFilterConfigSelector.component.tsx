@@ -333,6 +333,7 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
                 {columnsDataSelectedQuickFilter.map((filterItem) => (
                   <ReportFilterChip
                     key={filterItem.identifier}
+                    columnIdentifiers={columnIdentifiers}
                     comparator={filterItem.comparator}
                     datatype={filterItem.datatype}
                     editReportFilterConfig={editReportFilterConfig}

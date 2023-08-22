@@ -1,6 +1,12 @@
-import React, { useCallback, memo } from 'react';
+import React, { useCallback, memo, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Chip, CircularProgress } from '@material-ui/core';
+import {
+  Chip,
+  CircularProgress,
+  Theme,
+  Tooltip,
+  makeStyles,
+} from '@material-ui/core';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import LocationOn from '@material-ui/icons/LocationOn';
@@ -19,6 +25,9 @@ import Star from '@material-ui/icons/Star';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
 import cloneDeep from 'lodash/cloneDeep';
+import classNames from 'classnames';
+import { Warning } from '@material-ui/icons';
+import chroma from 'chroma-js';
 import { useFormikContext } from 'formik';
 import type {
   AllComparator,
@@ -60,6 +69,7 @@ type ReportFilterChipProps = {
     type: DynamicFilterDataType,
     valueId?: number[],
   ) => handleGetDynamicDataForFiltersReturn;
+  columnIdentifiers?: string[];
 };
 
 const ReportFilterChip: React.FC<ReportFilterChipProps> = ({
@@ -75,9 +85,18 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = ({
   editReportFilterConfig,
   value,
   getDataByTypeAndId,
+  columnIdentifiers,
 }) => {
   const { t } = useTranslation('reporting');
+  const classes = useStyles();
+
   const { values, setFieldValue } = useFormikContext<ReportFilterConfig>();
+
+  const rowRef = useRef(null);
+
+  const isColumnRemoved = useMemo(() => {
+    return !columnIdentifiers?.includes(label);
+  }, [columnIdentifiers, label]);
 
   const valueLabel = () => {
     if (Array.isArray(value)) {
@@ -205,6 +224,27 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = ({
     editReportFilterConfig,
   ]);
 
+  const displayedChips = (
+    <Chip
+      key={label}
+      className={classNames({
+        [classes.columnRemoved]: isColumnRemoved && !onlyDisplay,
+        [classes.filterWithoutValues]:
+          !onlyDisplay && !isColumnRemoved && valueLabel() === '',
+      })}
+      icon={
+        isColumnRemoved && !onlyDisplay ? (
+          <Warning className={classes.columnRemoved} />
+        ) : (
+          getIcon()
+        )
+      }
+      label={`${t(`columns.${label}`)} ${!onlyDisplay ? valueLabel() : ''}`}
+      onClick={!onlyDisplay && !isColumnRemoved && handleQuickFilterEditFilter}
+      onDelete={!onlyDisplay && handleQuickFilterDeleteFilter}
+    />
+  );
+
   if (
     !onlyDisplay &&
     getSingleValueLabel(datatype, value, getDataByTypeAndId, t) === ''
@@ -213,14 +253,31 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = ({
   }
 
   return (
-    <Chip
-      key={label}
-      icon={getIcon()}
-      label={`${t(`columns.${label}`)} ${!onlyDisplay ? valueLabel() : ''}`}
-      onClick={!onlyDisplay && handleQuickFilterEditFilter}
-      onDelete={!onlyDisplay && handleQuickFilterDeleteFilter}
-    />
+    <div ref={rowRef} className={classes.column}>
+      {isColumnRemoved && !onlyDisplay ? (
+        <Tooltip title={t('filter.form.shortColumnError')}>
+          {displayedChips}
+        </Tooltip>
+      ) : (
+        displayedChips
+      )}
+    </div>
   );
 };
+
+const useStyles = makeStyles((theme: Theme) => ({
+  columnRemoved: {
+    color: theme.palette.warning.dark,
+    backgroundColor: '#FFF7EB',
+    '&:hover': {
+      backgroundColor: '#FFF7EB',
+    },
+  },
+  column: { display: 'flex', alignItems: 'center', flexDirection: 'column' },
+  filterWithoutValues: {
+    color: theme.palette.text.disabled,
+    backgroundColor: chroma('black').alpha(0.1).hex(),
+  },
+}));
 
 export default memo(ReportFilterChip);

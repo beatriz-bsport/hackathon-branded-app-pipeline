@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import PrivateServiceListItem from './PrivateServiceListItem.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   t: TFunction,
@@ -34,79 +35,112 @@ export const PrivateServiceListWithGroup = (props: Props) => {
   const { classes, t } = props;
   return (
     <div>
-      {props.privateServiceAvailableByGroup.map((g) => (
-        <div key={g.id}>
-          <div className={classes.titleRow}>
-            <Typography className={classes.sectionTitle} variant="h5">
-              {g.name}
-            </Typography>
-            <IconButton
-              color="primary"
-              onClick={(ev) => props.setMenuOpen([ev.currentTarget, g])}
-            >
-              <MoreVertIcon />
-            </IconButton>
-          </div>
-          <Divider className={classes.divider} />
-          {g.private_services.length > 0 ? (
+      <ObjectLevelPermissionProvider
+        requiredPermission={[
+          'management.privateService.allowed_actions.edit',
+          'management.privateService.allowed_actions.delete',
+        ]}
+      >
+        {([hasEditPermission, hasDeletePermission]) => (
+          <>
+            {props.privateServiceAvailableByGroup.map((g) => (
+              <div key={g.id}>
+                <div className={classes.titleRow}>
+                  <Typography className={classes.sectionTitle} variant="h5">
+                    {g.name}
+                  </Typography>
+
+                  {(hasEditPermission || hasDeletePermission) && (
+                    <IconButton
+                      color="primary"
+                      onClick={(ev) => props.setMenuOpen([ev.currentTarget, g])}
+                    >
+                      <MoreVertIcon />
+                    </IconButton>
+                  )}
+                </div>
+                <Divider className={classes.divider} />
+                {g.private_services.length > 0 ? (
+                  <Paper className={classes.serviceListPaperGroup}>
+                    {g.private_services.map((ps) => (
+                      <PrivateServiceListItem
+                        key={ps.id}
+                        onClick={props.goToPrivateService}
+                        onDelete={
+                          hasDeletePermission
+                            ? () => props.deletePrivateService(ps.id)
+                            : null
+                        }
+                        onEdit={
+                          hasEditPermission
+                            ? () => props.setOpenEditForm(ps)
+                            : null
+                        }
+                        privateService={ps}
+                      />
+                    ))}
+                  </Paper>
+                ) : (
+                  <div className={classes.rowIsEmpty}>
+                    <InfoOutlineIcon className={classes.leftIcon} />
+                    <Typography color="textSecondary">
+                      {t('serviceGroup.isEmpty')}
+                    </Typography>
+                  </div>
+                )}
+              </div>
+            ))}
             <Paper className={classes.serviceListPaperGroup}>
-              {g.private_services.map((ps) => (
+              {props.privateServiceAvailableWithoutGroup.map((ps) => (
                 <PrivateServiceListItem
                   key={ps.id}
                   onClick={props.goToPrivateService}
-                  onDelete={() => props.deletePrivateService(ps.id)}
-                  onEdit={() => props.setOpenEditForm(ps)}
+                  onDelete={
+                    hasDeletePermission
+                      ? () => props.deletePrivateService(ps.id)
+                      : null
+                  }
+                  onEdit={
+                    hasEditPermission ? () => props.setOpenEditForm(ps) : null
+                  }
                   privateService={ps}
                 />
               ))}
             </Paper>
-          ) : (
-            <div className={classes.rowIsEmpty}>
-              <InfoOutlineIcon className={classes.leftIcon} />
-              <Typography color="textSecondary">
-                {t('serviceGroup.isEmpty')}
-              </Typography>
-            </div>
-          )}
-        </div>
-      ))}
-      <Paper className={classes.serviceListPaperGroup}>
-        {props.privateServiceAvailableWithoutGroup.map((ps) => (
-          <PrivateServiceListItem
-            key={ps.id}
-            onClick={props.goToPrivateService}
-            onDelete={() => props.deletePrivateService(ps.id)}
-            onEdit={() => props.setOpenEditForm(ps)}
-            privateService={ps}
-          />
-        ))}
-      </Paper>
-      <Menu
-        anchorEl={props.menuOpen[0]}
-        onClose={() => props.setMenuOpen([null, null])}
-        open={!!props.menuOpen[0]}
-      >
-        <div className={classes.actionButtonGroup}>
-          <MenuItem
-            onClick={() => {
-              props.openServiceGroupToEdit(props.menuOpen[1]);
-              props.setMenuOpen([null, null]);
-            }}
-          >
-            <EditIcon className={classes.leftIcon} />
-            {t('serviceGroup.edit')}
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              props.deleteServiceGroup(props.menuOpen[1].id);
-              props.setMenuOpen([null, null]);
-            }}
-          >
-            <DeleteIcon className={classes.leftIcon} />
-            {t('serviceGroup.delete')}
-          </MenuItem>
-        </div>
-      </Menu>
+            <Menu
+              anchorEl={props.menuOpen[0]}
+              onClose={() => props.setMenuOpen([null, null])}
+              open={!!props.menuOpen[0]}
+            >
+              <div className={classes.actionButtonGroup}>
+                {hasEditPermission && (
+                  <MenuItem
+                    onClick={() => {
+                      props.openServiceGroupToEdit(props.menuOpen[1]);
+                      props.setMenuOpen([null, null]);
+                    }}
+                  >
+                    <EditIcon className={classes.leftIcon} />
+                    {t('serviceGroup.edit')}
+                  </MenuItem>
+                )}
+
+                {hasDeletePermission && (
+                  <MenuItem
+                    onClick={() => {
+                      props.deleteServiceGroup(props.menuOpen[1].id);
+                      props.setMenuOpen([null, null]);
+                    }}
+                  >
+                    <DeleteIcon className={classes.leftIcon} />
+                    {t('serviceGroup.delete')}
+                  </MenuItem>
+                )}
+              </div>
+            </Menu>
+          </>
+        )}
+      </ObjectLevelPermissionProvider>
     </div>
   );
 };

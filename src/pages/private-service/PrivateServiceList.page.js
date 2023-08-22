@@ -22,6 +22,8 @@ import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import PrivateServiceFormDrawer from '../../libs/private-service/components/service/PrivateServiceFormDrawer.component';
 import PrivateServiceListWithGroup from '../../libs/private-service/components/service/PrivateServiceListWithGroup.component';
 import PrivateServiceGroupFormDialog from '../../libs/private-service/components/service-group/PrivateServiceGroupFormDialog.component';
+import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionProvider from '../../libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import {
   getAvailablePrivateServicesWithoutGroup,
@@ -210,15 +212,32 @@ export class PrivateServiceList extends React.Component<Props, State> {
                   this.state.searchText !== ''
                 }
               >
-                {this.state.searchResult.map((ps) => (
-                  <PrivateServiceListItem
-                    key={ps.id}
-                    onClick={this.props.goToPrivateService}
-                    onDelete={() => this.props.deletePrivateService(ps.id)}
-                    onEdit={() => this.props.setOpenEditForm(ps)}
-                    privateService={ps}
-                  />
-                ))}
+                <ObjectLevelPermissionProvider
+                  requiredPermission={[
+                    'management.privateService.allowed_actions.edit',
+                    'management.privateService.allowed_actions.delete',
+                  ]}
+                >
+                  {([hasEditPermission, hasDeletePermission]) =>
+                    this.state.searchResult.map((ps) => (
+                      <PrivateServiceListItem
+                        key={ps.id}
+                        onClick={this.props.goToPrivateService}
+                        onDelete={
+                          hasDeletePermission
+                            ? () => this.props.deletePrivateService(ps.id)
+                            : null
+                        }
+                        onEdit={
+                          hasEditPermission
+                            ? () => this.props.setOpenEditForm(ps)
+                            : null
+                        }
+                        privateService={ps}
+                      />
+                    ))
+                  }
+                </ObjectLevelPermissionProvider>
               </Collapse>
             </Paper>
           </div>
@@ -266,15 +285,21 @@ export class PrivateServiceList extends React.Component<Props, State> {
             }
           />
         ) : null}
-        <Fab
-          className={classes.addButton}
-          color="primary"
-          onClick={this.doOpenCreateForm}
-          variant="extended"
+
+        <ObjectLevelPermissionWrapper
+          forcedBehavior="hidden"
+          requiredPermission="management.privateService.allowed_actions.create"
         >
-          <AddIcon className={classes.leftIcon} />
-          {t('service.form.createButton')}
-        </Fab>
+          <Fab
+            className={classes.addButton}
+            color="primary"
+            onClick={this.doOpenCreateForm}
+            variant="extended"
+          >
+            <AddIcon className={classes.leftIcon} />
+            {t('service.form.createButton')}
+          </Fab>
+        </ObjectLevelPermissionWrapper>
       </div>
     );
   }

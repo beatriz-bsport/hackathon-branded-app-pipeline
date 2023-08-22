@@ -27,6 +27,8 @@ import MetaActivityCreate from '#libs/meta-activity/components/MetaActivityCreat
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '#components/button/BottomActionsButton.component';
 import IsEmptyList from '#components/navigation/IsEmptyList.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import MetaActivityList from '#libs/meta-activity/components/MetaActivityList.component';
 import MetaActivityDeleteDialog from '#libs/meta-activity/components/MetaActivityDeleteDialog.component';
@@ -450,20 +452,34 @@ export class MetaActivityListPage extends React.Component<Props, State> {
           />
         )}
         {!this.props.categoryLoading && (
-          <CategoryList
-            hideTitle
-            categoryWithItems={this.props.metaActivityCategoriesWithActivities}
-            deleteCategory={this.onDeleteCategory}
-            editCategory={this.onEditCategory}
-            itemLoading={this.props.loading}
-            ListItemComponent={MetaActivityListItem}
-            onClickItem={this.props.goToDetail}
-            onDeleteItem={this.props.setActivityToDelete}
-            onDuplicateItem={this.onDuplicate}
-            onEditItem={this.editMetaActivity}
-            updateCategoryOrder={this.props.updateMetaActivityCategoryOrder}
-            updateItemOrder={this.props.editOrderMetaActivity}
-          />
+          <ObjectLevelPermissionProvider
+            requiredPermission={[
+              'management.activity.allowed_actions.edit',
+              'management.activity.allowed_actions.delete',
+            ]}
+          >
+            {([hasEditPermission, hasDeletePermission]: boolean[]) => (
+              <CategoryList
+                hideTitle
+                categoryWithItems={
+                  this.props.metaActivityCategoriesWithActivities
+                }
+                deleteCategory={this.onDeleteCategory}
+                disabledDragAndDrop={!hasDeletePermission}
+                editCategory={this.onEditCategory}
+                itemLoading={this.props.loading}
+                ListItemComponent={MetaActivityListItem}
+                onClickItem={this.props.goToDetail}
+                onDeleteItem={
+                  hasDeletePermission ? this.props.setActivityToDelete : null
+                }
+                onDuplicateItem={hasEditPermission ? this.onDuplicate : null}
+                onEditItem={hasEditPermission ? this.editMetaActivity : null}
+                updateCategoryOrder={this.props.updateMetaActivityCategoryOrder}
+                updateItemOrder={this.props.editOrderMetaActivity}
+              />
+            )}
+          </ObjectLevelPermissionProvider>
         )}
         {!!this.props.disabledMetaActivities?.length && (
           <div>
@@ -538,12 +554,17 @@ export class MetaActivityListPage extends React.Component<Props, State> {
           tags={this.props.allTagsWithTagGroup}
         />
 
-        <BottomActionButtons
-          onCreate={() => {
-            this.props.setFormIsOpen(true);
-          }}
-          onCreateLabel={this.props.t('actions.addActivity')}
-        />
+        <ObjectLevelPermissionWrapper
+          forcedBehavior="hidden"
+          requiredPermission="management.activity.allowed_actions.create"
+        >
+          <BottomActionButtons
+            onCreate={() => {
+              this.props.setFormIsOpen(true);
+            }}
+            onCreateLabel={this.props.t('actions.addActivity')}
+          />
+        </ObjectLevelPermissionWrapper>
         {this.props.formIsOpen ? this.renderCreateActivity() : ''}
       </div>
     );

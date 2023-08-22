@@ -209,7 +209,9 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
             <PaymentPackSelector
               nullCurrentValue
               disabled={isProcessing}
-              helperText={t('form.selectorPlaceholder.paymentPack')}
+              helperText={t(
+                'uniqueCodeCoupon.form.selectorPlaceholder.paymentPack',
+              )}
               onChange={handleOnChangePaymentPackSelector}
               paymentPacks={filteredPaymentPacks}
             />
@@ -242,7 +244,9 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
             <ShopItemSelector
               nullCurrentValue
               disabled={isProcessing}
-              helperText={t('form.selectorPlaceholder.shopitem')}
+              helperText={t(
+                'uniqueCodeCoupon.form.selectorPlaceholder.shopItem',
+              )}
               onChange={handleOnChangeShopItemSelector}
               shopItemList={filteredShopItems}
             />
@@ -275,7 +279,9 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
             <PrivatePassSelector
               nullCurrentValue
               disabled={isProcessing}
-              helperText={t('form.selectorPlaceholder.privatePass')}
+              helperText={t(
+                'uniqueCodeCoupon.form.selectorPlaceholder.privatePass',
+              )}
               onChange={handleOnChangePrivatePassSelector}
               privatePassList={filteredPrivatePasses}
             />
@@ -309,7 +315,9 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
             <PaymentComboSelector
               nullCurrentValue
               disabled={isProcessing}
-              helperText={t('form.selectorPlaceholder.paymentCombo')}
+              helperText={t(
+                'uniqueCodeCoupon.form.selectorPlaceholder.paymentCombo',
+              )}
               onChange={handleOnChangePaymentComboSelector}
               paymentComboList={filteredPaymentCombos}
             />

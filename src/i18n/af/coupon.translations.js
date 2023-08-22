@@ -230,6 +230,16 @@ exports.default = {
   },
   uniqueCodeCoupon: {
     form: {
+      selectorPlaceholder: {
+        privatePass:
+          "Sélectionner une carte de rendez-vous",
+        paymentPack:
+          "Sélectionner une carte de cours",
+        shopItem:
+          "Sélectionner un produit du magasin",
+        paymentCombo:
+          "Sélectionner un pack",
+      },
       alertInfo:
         "Les bons d'achat sont des codes uniques qui offrent une réduction de 100% sur un produit spécifique pour le membre. Ces codes ne sont pas générés par la plateforme elle-même, mais doivent être téléchargés ici sous forme de fichier CSV. Cette fonctionnalité est particulièrement utile si vous avez établi un partenariat avec une entité externe comme Groupon pour organiser une campagne promotionnelle. Dans ce cas, Groupon (ou une entité similaire) génère et vend les bons d'achat au nom de votre studio.",
       alertWarning: 'Non applicable aux souscriptions',

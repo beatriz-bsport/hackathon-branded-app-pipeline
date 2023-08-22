@@ -66,30 +66,28 @@ const MarketplaceBookButton: React.FC<Props> = ({
         className="bs-book-button-card__inner"
         id={isDisabled ? 'book-button__inner--disabled' : 'book-button__inner'}
       >
-        {!isRegistered && (
-          <>
-            {!offer.available && (
-              <CancelIcon className="bs-book-button-card__inner__icon__not-available" />
+        <>
+          {!offer.available && (
+            <CancelIcon className="bs-book-button-card__inner__icon__not-available" />
+          )}
+          {(offerIsInThePast || firstOfferInGroupIsInThePast) &&
+            offer.available && (
+              <AlarmOnIcon className="bs-book-button-card__inner__icon__past" />
             )}
-            {offer.available && (
-              <>
-                {(offerIsInThePast || firstOfferInGroupIsInThePast) && (
-                  <AlarmOnIcon className="bs-book-button-card__inner__icon__past" />
-                )}
-              </>
+          {offer.available &&
+            isRegistered &&
+            !(offerIsInThePast || firstOfferInGroupIsInThePast) && (
+              <DoneAllIcon className="bs-book-button-card__inner__icon__already-booked" />
             )}
-          </>
-        )}
-        {isRegistered && (
-          <DoneAllIcon className="bs-book-button-card__inner__icon__already-booked" />
-        )}
+        </>
         <div
           className={classnames('bs-book-button-card__inner__text', {
             'bs-book-button-card__inner__text--not-available': isDisabled,
             'bs-book-button-card__inner__text--disabled':
               offer.available &&
               (offerIsInThePast || firstOfferInGroupIsInThePast),
-            'bs-book-button-card__inner__text--booked': isRegistered,
+            'bs-book-button-card__inner__text--booked':
+              isRegistered && !offerIsInThePast && offer.available,
           })}
           id={
             isDisabled

@@ -42,7 +42,7 @@ export const getBookingButtonTraduction = (
     text = t('translation:marketplace.bookButton.notBookableYet');
   }
 
-  if (isRegistered) {
+  if (isRegistered && offer.available && !isOfferInThePast(offer)) {
     text = t('translation:marketplace.bookButton.alreadyRegistered');
   }
   return text;

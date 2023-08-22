@@ -1421,17 +1421,17 @@
             },
             "paymentNote": {
                 "label": "Nota",
-                "helperText": "(facultativo) número do cheque, data de levantamento..."
+                "helperText": "(facultativo) número do cheque, data dos recibos..."
             },
             "sumup": {
                 "amountBeingProcessed": "Montante processado",
                 "amountRemaining": "Pagamento pendente",
                 "title": "Resumo",
                 "amountDue": "Total devido",
-                "amountPaid": "Soma"
+                "amountPaid": "Recibo"
             },
             "date": {
-                "label": "Data de recolha"
+                "label": "Data do recibo"
             },
             "plannedPaymentEvent": {
                 "title": "Pagamento programado",
@@ -1483,7 +1483,7 @@
             "isInternalExplain": "Depósito do cliente (manual): todos os meses é criada automaticamente uma dívida na conta do membro.",
             "label": {
                 "11": "Sofort",
-                "0": "Tipos",
+                "0": "Dinheiro",
                 "14": "Depósito dos membros (dívida)",
                 "15": "Cartão (manual)",
                 "16": "Caixas de débito direto",
@@ -1579,7 +1579,7 @@
                     "cancel": "Cancelar",
                     "submit": "Seguinte"
                 },
-                "topup": "Saldo",
+                "topup": "Recibo",
                 "debt": "Débito",
                 "explainTopup": "Um aumento de {{ amount }} {{ currencyDisplay }} será registado no saldo do membro.",
                 "explainDecaissement": "Será registado um pagamento de {{ amount }} {{ currencyDisplay }}.",
@@ -5685,7 +5685,7 @@
             "9": "Conta interna (crédito)",
             "4": "Cartão (manual)",
             "2": "Cheque",
-            "1": "Tipos",
+            "1": "Dinheiro",
             "0": "Passe",
             "5": "Vouchers",
             "60": "Giropay",
@@ -5751,7 +5751,7 @@
         "method": {
             "SEPA": "SEPA",
             "CHECK": "Cheque",
-            "CASH": "Tipos",
+            "CASH": "Dinheiro",
             "CREDIT_ACCOUNT": "Crédito",
             "CB": "Cartão",
             "13": "SEPA",
@@ -5764,7 +5764,7 @@
             "4": "Cartão (manual)",
             "3": "Passe",
             "2": "Cheque",
-            "1": "Tipos",
+            "1": "Dinheiro",
             "0": "Passe",
             "50": "EPS",
             "60": "Giropay",
@@ -5786,7 +5786,7 @@
             "current": "Depósito atual"
         },
         "paymentNote": {
-            "helperText": "(opcional) número do cheque, data de levantamento...",
+            "helperText": "(opcional) número do cheque, data do recibo...",
             "label": "Nota"
         },
         "hasOneOrMoreOption": "Já está na lista de espera",
@@ -5819,7 +5819,7 @@
                     "label": "Repetir a cada"
                 },
                 "recurrence": {
-                    "explain": "O pagamento será repartido por {{ total_interval_duration }} {{ interval }} todos os {{ recurrence_basis }} {{ interval }} e irá gerar {{ nb_interval }} faturas",
+                    "explain": "O pagamento será repartido por {{ total_interval_duration }} {{ interval }} todos os {{ recurrence_basis }} {{ interval }} e irá gerar {{ nb_interval }} recibos",
                     "section": "Recorrência"
                 },
                 "interval": {
@@ -5828,7 +5828,7 @@
                 },
                 "anchor_date": {
                     "helperText": "O pagamento será cobrado durante a manhã",
-                    "label": "Primeira coleção"
+                    "label": "Primeiro recibo"
                 },
                 "nb_interval": {
                     "label": "Número de faturas"
@@ -5888,7 +5888,7 @@
             "title": "Balanço Stripe"
         },
         "payout": {
-            "isEmptyWarning": "NB: algumas receitas de caixa antes de 15 de março de 2021 podem não constar da lista abaixo.",
+            "isEmptyWarning": "NB: alguns recibos antes de 15 de março de 2021 podem não constar da lista abaixo.",
             "payoutIsIncludedInOther": "Esta transferência foi incluída na transferência de {{date}} com o identificador {{readable_identifier}}",
             "seeMore": "Ver mais",
             "status": {
@@ -5899,7 +5899,7 @@
                 "3": "Detido"
             },
             "invoice": "Fatura {{ uuid }}",
-            "isEmpty": "Nenhuma cobrança.",
+            "isEmpty": "Nenhuma recibo.",
             "paymentNb": "{{nb}} pagamentos",
             "payoutAmountFromIncludedPayouts": "dos quais {{price}} de pagamentos anteriores",
             "payoutIsManual": "Esta transferência foi iniciada manualmente pelas equipas da bsport para acelerar a receção dos seus fundos. Neste caso, os dados de pagamento não estão disponíveis. Contacte as nossas equipas se necessitar de mais informações.",
@@ -5993,7 +5993,26 @@
                 "myClub": {
                     "replacement": {
                         "_label": "Substituição"
-                    }
+                    },
+                    "programs": {
+                        "_label": "Programas"
+                    },
+                    "establishments": {
+                        "_label": "Estabelecimentos"
+                    },
+                    "teachers": {
+                        "_label": "Professores"
+                    },
+                    "appointments": {
+                        "_label": "Marcações"
+                    },
+                    "workshops": {
+                        "_label": "Workshops"
+                    },
+                    "activities": {
+                        "_label": "Atividades"
+                    },
+                    "_label": "Meu Estúdio"
                 },
                 "products": {
                     "giftcards": {
@@ -6001,7 +6020,23 @@
                     },
                     "paymentPack": {
                         "_label": "Passes de aulas"
-                    }
+                    },
+                    "contracts": {
+                        "_label": "Subscrições"
+                    },
+                    "promotions": {
+                        "_label": "Promoções"
+                    },
+                    "packs": {
+                        "_label": "Packs"
+                    },
+                    "shop": {
+                        "_label": "Loja"
+                    },
+                    "privatePass": {
+                        "_label": "Passe de Marcações"
+                    },
+                    "_label": "Produtos"
                 },
                 "tutorial": {
                     "_label": "Tutorial"
@@ -6020,6 +6055,70 @@
                 },
                 "reporting": {
                     "_label": "Relatórios"
+                },
+                "payments": {
+                    "orders": {
+                        "_label": "Ordens de pagamentos"
+                    },
+                    "directDebits": {
+                        "_label": "Débitos Diretos"
+                    },
+                    "billings": {
+                        "_label": "Faturas"
+                    },
+                    "_label": "Pagamentos",
+                    "clockIn": {
+                        "canAccessHistory": {
+                            "_label": "Aceder aos histórico dos horários"
+                        },
+                        "clockInForOther": {
+                            "_label": "Marcar entrada pelo staff"
+                        },
+                        "selfClockIn": {
+                            "_label": "Marcar presença"
+                        },
+                        "_label": "Relógio de ponto"
+                    },
+                    "teachers": {
+                        "_label": "Professores"
+                    },
+                    "installments": {
+                        "_label": "Pagamento em prestações"
+                    },
+                    "expenses": {
+                        "_label": "Despesas"
+                    }
+                },
+                "schedule": {
+                    "_label": "Horários"
+                },
+                "calendar": {
+                    "_label": "Calendário"
+                },
+                "dashboard": {
+                    "_label": "Painel Principal"
+                },
+                "_label": "Menu de pesquisa",
+                "marketing": {
+                    "tags": {
+                        "_label": "Etiquetas"
+                    },
+                    "strategies": {
+                        "_label": "Estratégias"
+                    },
+                    "notifications": {
+                        "_label": "Notificações"
+                    },
+                    "smartlists": {
+                        "_label": "Lista Inteligentes"
+                    },
+                    "customForms": {
+                        "_label": "Formulários"
+                    },
+                    "templates": {
+                        "_label": "E-mails"
+                    },
+                    "_label": "Marketing"
                 }
             },
             "franchiseMenu": {
@@ -6062,13 +6161,40 @@
                 },
                 "staff": {
                     "_label": "Staff"
+                },
+                "tag": {
+                    "_label": "Etiquetas"
                 }
             },
             "member": {
                 "create": {
                     "_label": "Criação de membros"
                 },
-                "_label": "Membro"
+                "_label": "Membro",
+                "search": {
+                    "_label": "Procurar"
+                },
+                "edit": {
+                    "_label": "Alterar"
+                },
+                "retrieve": {
+                    "_label": "Acesso às fichas de membros"
+                }
+            },
+            "offer": {
+                "edit": {
+                    "_label": "Alterar"
+                },
+                "delete": {
+                    "_label": "Cancelar"
+                },
+                "create": {
+                    "_label": "Criar"
+                },
+                "_label": "Sessões"
+            },
+            "search": {
+                "_label": "Pesquisar membros"
             }
         },
         "forms": {
@@ -6081,7 +6207,8 @@
                             "next": "Seguinte"
                         },
                         "steps": {
-                            "masterAccount": "Acesso à conta principal"
+                            "masterAccount": "Acesso à conta principal",
+                            "franchisee": "Acesso do franqueado"
                         },
                         "title": "Criar função"
                     }
@@ -6103,8 +6230,8 @@
                     "showAdvanced": "Ver mais",
                     "permissions": "Permissões",
                     "restrictedUrlPlaceholder": "ex: /membro/",
-                    "restrictedUrlExplain": "Utilize este parâmetro para definir uma lista branca de links para esta função. Apenas os links abaixo serão acessíveis ao pessoal associado a este cargo",
-                    "restrictedUrl": "Link",
+                    "restrictedUrlExplain": "Utilize este parâmetro para definir uma lista de permissões de links para esta função. Apenas os links abaixo serão acessíveis o staff associado a este cargo",
+                    "restrictedUrl": "Lista de permissões de URL",
                     "description": "Descrição",
                     "name": "Nome",
                     "title": "Criar um cargo",
@@ -6127,7 +6254,8 @@
                     "submit": "Confirmar",
                     "cancel": "Cancelar",
                     "franchisees": {
-                        "warning": "Seleccione quais os franchisados que terão acesso a esta conta pessoal. Deixe em branco para dar acesso a todos."
+                        "warning": "Seleccione quais os franchisados que terão acesso a esta conta pessoal. Deixe em branco para dar acesso a todos.",
+                        "title": "Acesso do franqueado"
                     },
                     "role": {
                         "selectRole": {
@@ -6150,7 +6278,8 @@
                     },
                     "title": "Criar uma conta staff",
                     "buttonLabel": "Adicionar um acesso"
-                }
+                },
+                "selectFranchisees": "Seleção de franchisados"
             }
         },
         "overbookingForbidden": "Os direitos atribuídos enquanto membro do pessoal não lhe permite ultrapassar o número máximo de reservas.",
@@ -6188,6 +6317,1094 @@
                 "name": "Admin",
                 "description": "Admin, o mesmo acesso que o Proprietário mas pode ser eliminado/criado"
             }
+        },
+        "objectLevelPermissions": {
+            "report": {
+                "Payments": {
+                    "cashbook": {
+                        "_label": "Livro de registos",
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        }
+                    },
+                    "video_purchase": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Comprar vídeo"
+                    },
+                    "payment_installments": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Pagamentos às prestações"
+                    },
+                    "dispute": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Disputa de pagamentos"
+                    },
+                    "on_spot_payments": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Pagamentos no local"
+                    },
+                    "payment_sumup": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Total de pagamentos"
+                    },
+                    "payments": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Pagamentos"
+                    },
+                    "unpaid_invoices": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Faturas não pagas"
+                    },
+                    "invoices": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Compras"
+                    },
+                    "expense": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Despesas"
+                    },
+                    "credit": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Crédito"
+                    },
+                    "basket": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Carrinho"
+                    },
+                    "_label": "Pagamentos"
+                },
+                "Products": {
+                    "video": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Vídeo"
+                    },
+                    "shop": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Loja"
+                    },
+                    "consumer_giftcard": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Passe Oferta comprados"
+                    },
+                    "giftcard": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Passe oferta"
+                    },
+                    "discount": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Descontos"
+                    },
+                    "universal_passes": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Passes Universais"
+                    },
+                    "private_cpasses": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Passe de Marcações"
+                    },
+                    "memberships": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Passe de aulas"
+                    },
+                    "expired_pass": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Créditos passe de aulas expirados"
+                    },
+                    "private_cpasses_expired": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Créditos para Marcações expiradas"
+                    },
+                    "_label": "Produtos"
+                },
+                "Bookings": {
+                    "unpaid_private_bookings": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Reversas não pagas (marcações)"
+                    },
+                    "private_bookings": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Reservas (marcações)"
+                    },
+                    "first_privatebooking": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Primeira Marcação"
+                    },
+                    "first_attendance": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Primeira presença"
+                    },
+                    "bookings": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Reservas (aulas de grupo)"
+                    },
+                    "first_booking": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Primeira sessão"
+                    },
+                    "dayBookings": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Reservas (aulas de grupo) por dia"
+                    },
+                    "_label": "Reservas"
+                },
+                "Club": {
+                    "privateService": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Marcações"
+                    },
+                    "subscription": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Faturas (subscrições)"
+                    },
+                    "offers": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Sessões"
+                    },
+                    "workshop": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Workshop"
+                    },
+                    "activityByCoach": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Atividades e workshops por professor"
+                    },
+                    "activityByEst": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Atividades e workshops por sala"
+                    },
+                    "activities": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Atividades"
+                    },
+                    "members": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Membros"
+                    },
+                    "members_purchase": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Compra dos membros"
+                    },
+                    "billing_plan": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        },
+                        "_label": "Subscrição"
+                    },
+                    "_label": "Estúdio"
+                },
+                "_label": "Relatórios"
+            },
+            "billing": {
+                "allowed_actions": {
+                    "takePayment": {
+                        "_label": "Aplicar desconto num membro"
+                    },
+                    "createManualDiscount": {
+                        "_label": "Aplicar descontos manuais"
+                    },
+                    "partialRefundAsCredit": {
+                        "_label": "Criar um saldo (reembolso)"
+                    },
+                    "partialRefundAsDiscount": {
+                        "_label": "Aplicar um desconto (reembolsar)"
+                    },
+                    "deletePaymentMethod": {
+                        "_label": "Eliminar um método de pagamento"
+                    },
+                    "addPaymentMethod": {
+                        "_label": "Adicionar um método de pagamento"
+                    },
+                    "cancelInvoice": {
+                        "_label": "Cancelar faturas"
+                    },
+                    "readPaymentLink": {
+                        "_label": "Gerar link para pagamentos"
+                    },
+                    "createInvoice": {
+                        "_label": "Criar fatura para um membro"
+                    },
+                    "readInvoices": {
+                        "_label": "Ver as faturas"
+                    },
+                    "editBalance": {
+                        "_label": "Ajustar o saldo dos membros"
+                    }
+                },
+                "_label": "Faturação"
+            },
+            "member": {
+                "allowed_actions": {
+                    "manageNotification": {
+                        "_label": "Gerar as notificações dos membros"
+                    },
+                    "communication": {
+                        "_label": "Comunicar com os membros"
+                    },
+                    "readBalance": {
+                        "_label": "Ver o saldo dos membros"
+                    },
+                    "accessProfile": {
+                        "_label": "Aceder ao perfil dos membros"
+                    },
+                    "search": {
+                        "_label": "Procurar membros"
+                    },
+                    "delete": {
+                        "_label": "Eliminar um membro"
+                    },
+                    "editInfo": {
+                        "_label": "Editar os dados pessoais"
+                    },
+                    "readInfo": {
+                        "_label": "Ver dados pessoais"
+                    },
+                    "create": {
+                        "_label": "Adicionar um membro"
+                    }
+                },
+                "_label": "Ações relativas aos membros"
+            },
+            "session": {
+                "privateSlot": {
+                    "allowed_actions": {
+                        "edit": {
+                            "_label": "Alterar"
+                        },
+                        "delete": {
+                            "_label": "Eliminar"
+                        },
+                        "create": {
+                            "_label": "Criar"
+                        }
+                    },
+                    "_label": "Criar marcações"
+                },
+                "workshop": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Eliminar"
+                        },
+                        "edit": {
+                            "_label": "Modificar"
+                        },
+                        "create": {
+                            "_label": "Criar"
+                        }
+                    },
+                    "_label": "Workshops"
+                },
+                "activity": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Eliminar"
+                        },
+                        "edit": {
+                            "_label": "Modificar"
+                        },
+                        "create": {
+                            "_label": "Criar"
+                        }
+                    },
+                    "_label": "Atividades"
+                },
+                "_label": "Gestão de sessões"
+            },
+            "management": {
+                "coach": {
+                    "allowed_actions": {
+                        "substitution": {
+                            "_label": "Gerir as substituições"
+                        },
+                        "readPayroll": {
+                            "_label": "Ver a remuneração"
+                        },
+                        "delete": {
+                            "_label": "Eliminar"
+                        },
+                        "edit": {
+                            "_label": "Editar"
+                        },
+                        "create": {
+                            "_label": "Criar"
+                        }
+                    },
+                    "_label": "Gestão dos professores"
+                },
+                "privateService": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Eliminar"
+                        },
+                        "edit": {
+                            "_label": "Editar"
+                        },
+                        "create": {
+                            "_label": "Criar"
+                        }
+                    },
+                    "_label": "Gestão de Marcações"
+                },
+                "workshop": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Eliminar"
+                        },
+                        "edit": {
+                            "_label": "Editar"
+                        },
+                        "create": {
+                            "_label": "Criar"
+                        }
+                    },
+                    "_label": "Gestão de workshops"
+                },
+                "activity": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Eliminar"
+                        },
+                        "edit": {
+                            "_label": "Editar"
+                        },
+                        "create": {
+                            "_label": "Criar"
+                        }
+                    },
+                    "_label": "Gestão das atividades"
+                },
+                "_label": "Gestão do estúdio"
+            },
+            "product": {
+                "contract": {
+                    "allowed_actions": {
+                        "endAfterInvoiceBillingPlan": {
+                            "_label": "Parar o programa"
+                        },
+                        "editInvoicePriceBillingPlan": {
+                            "_label": "Editar os montantes de faturação"
+                        },
+                        "editInvoiceDateBillingPlan": {
+                            "_label": "Editar as datas de faturação"
+                        },
+                        "editPassBillingPlan": {
+                            "_label": "Modificar os passes de subscrições"
+                        },
+                        "endBillingPlan": {
+                            "_label": "Terminar uma subscrição"
+                        },
+                        "pauseBillingPlan": {
+                            "_label": "Colocar em pausa uma subscrição"
+                        },
+                        "createCustomBillingPlan": {
+                            "_label": "Criar uma subscrição personalizada"
+                        },
+                        "createBillingPlan": {
+                            "_label": "Celebração de um contrato para um membro"
+                        },
+                        "pause": {
+                            "_label": "Pausa de todas as subscrições"
+                        },
+                        "delete": {
+                            "_label": "Eliminar uma subscrição"
+                        },
+                        "edit": {
+                            "_label": "Editar uma subscrição"
+                        },
+                        "create": {
+                            "_label": "Criar uma subscrição"
+                        }
+                    },
+                    "_label": "Subscrições"
+                },
+                "privatePass": {
+                    "allowed_actions": {
+                        "compatibility": {
+                            "_label": "Gerir compatibilidades"
+                        },
+                        "manageCredit": {
+                            "_label": "Gerir créditos dos membros"
+                        },
+                        "manageExtension": {
+                            "_label": "Adicionar extensões de validade"
+                        },
+                        "delete": {
+                            "_label": "Eliminar"
+                        },
+                        "edit": {
+                            "_label": "Editar"
+                        },
+                        "create": {
+                            "_label": "Criar"
+                        }
+                    },
+                    "_label": "Passe de Marcações"
+                },
+                "paymentPack": {
+                    "allowed_actions": {
+                        "compatibility": {
+                            "_label": "Gerir as compatibilidades"
+                        },
+                        "manageCredit": {
+                            "_label": "Gerir créditos dos membros"
+                        },
+                        "manageExtension": {
+                            "_label": "Adicionar extensões de validade"
+                        },
+                        "delete": {
+                            "_label": "Eliminar"
+                        },
+                        "edit": {
+                            "_label": "Editar"
+                        },
+                        "create": {
+                            "_label": "Criar"
+                        }
+                    },
+                    "_label": "Passe de aulas"
+                },
+                "_label": "Gestão de produtos"
+            },
+            "planning": {
+                "schedule": {
+                    "allowed_actions": {
+                        "readAvailabilityDetail": {
+                            "_label": "Ver detalhes da disponibilidade"
+                        },
+                        "deleteAvailability": {
+                            "_label": "Eliminar as disponibilidades"
+                        },
+                        "createAvailability": {
+                            "_label": "Ver as disponibilidades"
+                        }
+                    },
+                    "_label": "Disponibilidades"
+                },
+                "calendar": {
+                    "allowed_actions": {
+                        "readWeeklyOverview": {
+                            "_label": "Ver o resumo desta semana"
+                        },
+                        "readCancellations": {
+                            "_label": "Ver as sessões canceladas"
+                        },
+                        "bulkCancellation": {
+                            "_label": "Cancelamento de várias sessões"
+                        }
+                    },
+                    "_label": "Calendário"
+                },
+                "_label": "Calendário e disponibilidade"
+            },
+            "export": {
+                "allowed_actions": {
+                    "report": {
+                        "_label": "Exportar os relatórios"
+                    },
+                    "memberDocument": {
+                        "_label": "Exportar os documentos dos membros"
+                    },
+                    "smartlist": {
+                        "_label": "Exportar as listas inteligentes"
+                    },
+                    "attendance": {
+                        "_label": "Exportar presenças / ausências"
+                    },
+                    "payroll": {
+                        "_label": "Exportar as remunerações dos professores"
+                    },
+                    "subscription": {
+                        "_label": "Exportar subscrições"
+                    },
+                    "invoice": {
+                        "_label": "Exportar faturas"
+                    },
+                    "planning": {
+                        "_label": "Exportar calendário"
+                    }
+                },
+                "_label": "Exportações"
+            },
+            "reservation": {
+                "privateBooking": {
+                    "allowed_actions": {
+                        "editPerformance": {
+                            "_label": "Editar desempenhos dos programas"
+                        },
+                        "cancel": {
+                            "_label": "Cancelar reservas"
+                        },
+                        "edit": {
+                            "_label": "Editar reservas"
+                        },
+                        "create": {
+                            "_label": "Criar reservas"
+                        }
+                    },
+                    "_label": "Gestão de marcações"
+                },
+                "workshop": {
+                    "allowed_actions": {
+                        "editPerformance": {
+                            "_label": "Editar desempenho do programa"
+                        },
+                        "editSpot": {
+                            "_label": "Editar lugares dos membros"
+                        },
+                        "attendance": {
+                            "_label": "Editar presenças / ausências"
+                        },
+                        "removeFromWaitlist": {
+                            "_label": "Eliminar membros da lista de espera"
+                        },
+                        "delete": {
+                            "_label": "Anular reservas"
+                        },
+                        "create": {
+                            "_label": "Criar reservas"
+                        },
+                        "addToWaitlist": {
+                            "_label": "Adicionar membros à fila de espera"
+                        },
+                        "rollcall": {
+                            "_label": "Confirmar chamada"
+                        }
+                    },
+                    "_label": "Gestão dos workshops"
+                },
+                "activity": {
+                    "allowed_actions": {
+                        "editPerformance": {
+                            "_label": "Editar o desempenho do programa"
+                        },
+                        "editSpot": {
+                            "_label": "Editar lugares dos membros"
+                        },
+                        "attendance": {
+                            "_label": "Editar as presenças / ausências"
+                        },
+                        "removeFromWaitlist": {
+                            "_label": "Eliminar os membros da lista de espera"
+                        },
+                        "delete": {
+                            "_label": "Anular reservas"
+                        },
+                        "create": {
+                            "_label": "Criar as reservas"
+                        },
+                        "addToWaitlist": {
+                            "_label": "Adicionar membros à lista de espera"
+                        },
+                        "rollcall": {
+                            "_label": "Confirmar a chamada"
+                        }
+                    },
+                    "_label": "Gestão de aulas em grupo"
+                },
+                "_label": "Gestão de reservas"
+            }
         }
     },
     "reporting": {
@@ -6200,7 +7417,7 @@
             "payment_sumup": "Durante o período selecionado, é possível ver o número total de transacções para cada dia.",
             "payments": "Os pagamentos são filtrados por data de transação.",
             "expense": "As despesas são filtradas por data de vencimento.",
-            "cashbook": "Durante o período selecionado, é possível ver a evolução do capital em cada dia.",
+            "cashbook": "Durante o período selecionado, é possível ver a evolução diária do capital.",
             "shop": "Para cada um dos seus artigos, consiga perceber a variação de stock entre a data de início e a data de fim, no intervalo selecionado.",
             "consumer_giftcard": "Os passes de oferta são filtrados pela data em que foram comprados.",
             "discount": "As promoções são filtradas pela data em que foram utilizadas.",
@@ -6225,7 +7442,8 @@
             "franchise_shared_pass": "Este relatório permite-lhe analisar as reservas efectuadas com os passes partilhados durante o período selecionado. Quando um passe partilhado é adquirido num estúdio, o relatório mostra o número de marcações efectuadas com o passe noutro estúdio. O número de sessões marcadas inclui as marcações para aulas de grupo, workshops e consultas.",
             "activityByCoach": "As atividades e os professores apresentados são aqueles para os quais está agendada uma sessão no intervalo de datas selecionado.",
             "activityByEst": "As atividades e estabelecimentos apresentados são aqueles para os quais está agendada uma sessão no intervalo de datas selecionado.",
-            "activities": "As atividades que aparecem são dentro do intervalo de datas selecionado."
+            "activities": "As atividades que aparecem são dentro do intervalo de datas selecionado.",
+            "referral_grant": "Os links do patrocínio são filtrados de acordo com a data de criação do membro patrocinado"
         },
         "franchiseWarning": {
             "part1": "Devido à grande quantidade de dados, pode demorar uns minutos a gerar o relatório.",
@@ -6246,8 +7464,8 @@
                 "True": "Workshop"
             },
             "is_recurrent_booking": {
-                "True": "Corrente",
-                "False": "Não corrente"
+                "True": "Recorrente",
+                "False": "Não recorrente"
             },
             "attendance": {
                 "True": "Presente",
@@ -6321,7 +7539,7 @@
             "dispute": "Conflito",
             "check": "Cheque",
             "sepa": "SEPA",
-            "cash": "Tipos",
+            "cash": "Dinheiro",
             "bacs_debit": "Débito Direto"
         },
         "no": "Não",
@@ -6412,7 +7630,7 @@
             "total_unpaid_amount": "Montante total em dívida",
             "total_price": "Montante faturado, com IVA",
             "total_price_notax": "Montante facturado, com IVA",
-            "total_payments_made": "Número de recolhas efetuadas",
+            "total_payments_made": "Número de recibos efetuados",
             "total_payments": "Total de pagamentos",
             "total_discount": "Total com desconto",
             "total_basket": "Total do carrinho",
@@ -6658,7 +7876,7 @@
             "payment_date": "Data do pagamento completo",
             "payment_date_time": "Hora do pagamento",
             "payment_date_date": "Data do pagamento",
-            "payment_amount_by_payment_method": "Pagamento por método de pagamento",
+            "payment_amount_by_payment_method": "Recibo por método de pagamento",
             "pass": "Passe de aulas",
             "paid": "Dinheiro na caixa",
             "on_behalf_of_teacher": "Pagamento integral ao professor",
@@ -6694,7 +7912,7 @@
             "dayBookings": "Reservas (aulas de grupo) por dia",
             "privateServiceEst": "Marcações por sala",
             "privateServiceCoach": "Marcações por professor",
-            "cashbook": "Livro de caixa",
+            "cashbook": "Livro de registo",
             "privateService": "Marcações",
             "workshop": "Workshops",
             "activities": "Atividades",
@@ -6763,7 +7981,7 @@
                 "50": "EPS",
                 "40": "iDEAL",
                 "30": "Sofort",
-                "20": "Contactless",
+                "20": "Bancontact",
                 "13": "SEPA",
                 "12": "Conflito",
                 "11": "Outro",
@@ -6775,7 +7993,7 @@
                 "4": "Cartão (manual)",
                 "3": "Passe",
                 "2": "Passe",
-                "1": "Tipos",
+                "1": "Dinheiro",
                 "0": "Passe"
             },
             "booking_status_code": {
@@ -6878,7 +8096,7 @@
             },
             "switchPack": {
                 "error": "Impossível alterar o passe de aulas",
-                "success": "Passe alterado"
+                "success": "Passe de aulas alterado"
             },
             "stop": {
                 "error": "Não é possível interromper a subscrição neste momento",
@@ -6932,7 +8150,7 @@
         "smartlist": {
             "tag_rules": {
                 "limit_reached": "Impossível: Atingiu o limite para criar (10)",
-                "error": "Impossível colocar esta regra",
+                "error": "Não é possível aplicar esta regra",
                 "success": "A regra automática foi ativada"
             },
             "duplicate": {
@@ -7230,7 +8448,7 @@
                 "50020": "Este pedido de substituição foi recusado: não pode ser eliminado",
                 "500004": "Já é um substituto para esta sessão",
                 "80003": "Parâmetros em falta para os limites dos pedidos tardios.",
-                "80002": "O valor \"Número de dias de atraso da candidatura\" deve ser superior ao valor \"Número de dias de encerramento do registo\".",
+                "80002": "O valor \"Número de dias de atraso de registo\" deve ser superior ao valor \"Número de dias de encerramento do registo\".",
                 "50021": "Não é possível especificar estabelecimentos e localizações ao mesmo tempo.",
                 "50012": "O professor respondeu que não queria ser suplente nessa sessão.",
                 "50011": "Já foi atribuído um professor a este pedido.",
@@ -7468,6 +8686,13 @@
                 "create": {
                     "error": "Impossível partilhar esta promoção com este(s) estúdio(s)"
                 }
+            },
+            "errors": {
+                "5002": "Um dos códigos a assinalar como utilizado ainda não foi utilizado."
+            },
+            "exportCodes": {
+                "error": "Impossível exportar os códigos selecionados",
+                "success": "Ordens de compra corretamente exportadas"
             }
         },
         "paymentPack": {
@@ -7721,7 +8946,7 @@
         },
         "instalmentPayment": {
             "16003": "O número de recibos de caixa deve ser superior a 2 para ativar a opção \"Personalizar o primeiro montante\"",
-            "16002": "O número de talões de caixa deve ser igual a 1 para ativar a opção \"Pagamento parcial\"",
+            "16002": "O número de recibos deve ser igual a 1 para ativar a opção \"Pagamento parcial\"",
             "16001": "A percentagem do montante total deve estar compreendida entre 0 e 100",
             "16000": "O montante da primeira prestação deve ser positivo"
         },
@@ -8021,7 +9246,7 @@
                     "helperText": "Introduzir a etiqueta para o nome"
                 },
                 "showFreeSessionLabel": "Mostrar 0 sessões de crédito com a etiqueta FREE",
-                "hideSessionWithTagsNotEligible": "Não apresentar com etiquetas as sessões a que o membro não tem acesso",
+                "hideSessionWithTagsNotEligible": "Não apresentar as sessões a que o membro não tem acesso devido às etiquetas",
                 "showActivityColor": "Mostrar a cor da atividade",
                 "hideBuyablePassIfSuperfluous": "Ocultar passes de aulas, subscrições e packs que podem ser comprados no momento da reserva se o membro já tiver um passe compatível",
                 "attendanceTitle": "Presença",
@@ -8180,7 +9405,7 @@
         },
         "quickbooks": {
             "confirmDialog": {
-                "text": "Tem a certeza de que pretende autorizar a Bsport a aceder à sua candidatura?",
+                "text": "Tem a certeza de que pretende autorizar a Bsport a aceder à sua solicitação ?",
                 "title": "Conectar com QuickBooks"
             },
             "title": "QuickBooks"
@@ -10067,7 +11292,7 @@
                 "expiryDateLabel": "Data de caducidade",
                 "owns": "Com pelo menos um método de pagamento salvo",
                 "does_not_own": "Não tem um método de pagamento salvo",
-                "labelFirst": "Apenas membros do filtro",
+                "labelFirst": "Apenas para membros com filtro",
                 "title": "Método de pagamento salvo",
                 "explanation": "Filtrar por método de pagamento guardado e data de caducidade",
                 "name": "Meios de pagamento"
@@ -10695,7 +11920,8 @@
         "order": {
             "orderList": "Controlos",
             "orderDetail": "Detalhe"
-        }
+        },
+        "inbox": "Caixa de entrada"
     },
     "settings": {
         "marketplaceSettings": {
@@ -10733,7 +11959,19 @@
                 "dialogTitle": "Selecionar uma lista de reprodução",
                 "hidePrivatePass": "Não exibir passes de marcação",
                 "hidePaymentCombo": "Não expor as embalagens",
-                "cancel": "Cancelar"
+                "cancel": "Cancelar",
+                "selectPlaylist": "Selecionar uma playlist",
+                "selectVideo": "Selecionar um vídeo",
+                "selectPrivateServiceGroups": "Selecionar categorias",
+                "selectPrivateServiceTypeDetail": "As minhas marcações",
+                "selectPrivateServiceTypeList": "Todas as marcações",
+                "selectPrivateServiceType": "Tipo",
+                "selectPrivateService": "Selecionar um serviço",
+                "selectActivity": "Selecionar uma atividade",
+                "selectEstablishment": "Selecionar uma sala",
+                "selectCoach": "Selecionar um treinador",
+                "selectComponent": "Selecionar um componente",
+                "showAdvanced": "Ver mais opções"
             }
         },
         "active_campaign": {
@@ -10751,7 +11989,7 @@
             },
             "webhooks": {
                 "CONTACT_TAG": "Criar uma conta de membro na bsport quando o potencial aluno em \"ganho\" na ActiveCampaign",
-                "CLIENT_WON": "Criar uma conta de membro na bsport quando o potencial aluno tiver alcançado o estatuto de \"GANHO\" num negócio",
+                "CLIENT_WON": "Criar uma conta de membro na bsport quando o potencial aluno tiver alcançado o estatuto de \"GANHO\" numa estratégia",
                 "title": "Integrar as informações da ActiveCampaign na bsport",
                 "helpContent": "As ações abaixo ficam ativadas assim que o evento associado ocorre no ActiveCampaign.",
                 "helpTitle": "Como funciona a sincronização ?"
@@ -10791,7 +12029,7 @@
                     "confirm": "Confirmar",
                     "cancel": "cancelar",
                     "title": "Eliminar o webhook",
-                    "content": "Tem a certeza de que pretende eliminar este webhook? Esta operação é definitiva"
+                    "content": "Tem a certeza de que pretende eliminar este webhook ? Esta operação é definitiva"
                 }
             },
             "payload": "Carregar",
@@ -10902,8 +12140,15 @@
                     "cancel": "Cancelar"
                 },
                 "action": "Ações",
-                "name": "Nome"
-            }
+                "name": "Nome",
+                "icon": "Ícone",
+                "preview": "Visão geral da aplicação",
+                "updated": "Atualizar",
+                "add": "Adicionar um link",
+                "helperText": "Pode adicionar ligações externas à aplicação para redirecionar os seus clientes para o seu website ou outra plataforma. As ligações aparecerão no separador de compras da aplicação móvel.",
+                "subtitle": "Links externos"
+            },
+            "title": "Personalizar a aplicação"
         },
         "companyOnboarding": {
             "error": "Não é possível alterar esta informação"
@@ -10916,7 +12161,9 @@
             "methodPaymentSubscriptionHelper": "Autorizar pagamentos de assinaturas (contratos) apenas através de",
             "methodPaymentBasket": "Pagamento único",
             "subtitle2": "Como gestor, tem sempre acesso a todos os métodos de pagamento disponíveis.",
-            "subtitle": "Pode ativar ou desativar os métodos de pagamento utilizados pelos seus membros quando pagam em linha."
+            "subtitle": "Pode ativar ou desativar os métodos de pagamento utilizados pelos seus membros quando pagam online.",
+            "save": "Guardar",
+            "methodPaymentSubscriptionError": "Selecione pelo menos um método de pagamento"
         },
         "company": {
             "bankAccountInfo": {
@@ -10928,6 +12175,34 @@
                 "content": "Os seus dados bancários foram atualizados. Para ser creditado e debitado na mesma conta, pode também atualizar o método de pagamento utilizado para debitar a sua subscrição.",
                 "note": "Clique em \"Configurar\" para ser redireccionado."
             }
+        },
+        "quickbooks": {
+            "tax": {
+                "goToSettingsPage": "Abrir a página de configuração do QuickBooks",
+                "alertNonTaxInformation": "Nenhuma informação fiscal está sincronizada com a sua plataforma Quickbooks. Se necessário, clique em atualizar para as sincronizar",
+                "alertUnconfigured": "Não configurou uma taxa por defeito a aplicar aos produtos incluídos nas suas faturas. Esta informação é obrigatória para referenciar a taxa adequada aquando da transferência das faturas para a sua plataforma Quickbooks.",
+                "refresh": "Atualizar os meus dados do Quickbooks",
+                "usedAsTaxCode": "Utilizado como taxa de referência",
+                "taxCodeHeaderDescription": "Descrição",
+                "taxCodeHeaderName": "Nome",
+                "taxInfoTitle": "Informações das taxas QuickBooks"
+            },
+            "confirmDialog": {
+                "text": "Tem a certeza de que pretende autorizar a Bsport a aceder à sua solicitação ?",
+                "title": "Conexão Quickbooks"
+            },
+            "buttonRevoke": "Desativar Quickbooks",
+            "buttonReConnect": "Atualizar a minha ligação",
+            "buttonConnect": "Conectar com Quickbooks",
+            "explainEnable": "Transferir todas as suas faturas diretamente para o QuickBooks. As faturas serão transferidas a cada 24 horas.",
+            "submit": "Submeter",
+            "enable": "Ativar integração com o Quickbooks",
+            "title": "QuickBooks"
+        },
+        "billing_group": {
+            "header": "Grupos de faturação",
+            "helperText": "Se tiver vários estúdios pertencentes a empresas diferentes, pode agrupá-los aqui por grupo de faturação. Os grupos de faturação aparecerão nos seus relatórios, facilitando a ligação de cada fatura ao nome correto da empresa.",
+            "add": "Adicionar um grupo"
         }
     },
     "widget": {
@@ -10938,19 +12213,25 @@
                     "activityName": "Atividade",
                     "false": "Não",
                     "true": "Sim",
-                    "cancel": "",
-                    "currentWeek": "",
-                    "bacs_debit": "",
-                    "sepa": "",
-                    "coach": "",
-                    "bookable": "",
-                    "sepa_debit": "",
-                    "none": "",
-                    "nextWeek": "",
-                    "future": "",
-                    "time": "",
-                    "card": "",
-                    "past": ""
+                    "cancel": "Cancelar",
+                    "currentWeek": "Esta semana",
+                    "bacs_debit": "Débito Direto",
+                    "sepa": "Débito direto SEPA",
+                    "coach": "Professor",
+                    "bookable": "Pode ser reservado",
+                    "sepa_debit": "Débito direto SEPA",
+                    "none": "Nenhum",
+                    "nextWeek": "Próxima semana",
+                    "future": "Ainda não está aberto a reservas",
+                    "time": "Horário",
+                    "card": "Passe",
+                    "past": "Passado",
+                    "subscriptionCountrySelect": "Selecionar país",
+                    "passTypeFilter": "Filtrar por passe de aulas",
+                    "workshop": "Workshops",
+                    "activity": "Atividades",
+                    "establishment": "Estabelecimento",
+                    "level": "Nível"
                 },
                 "title": {
                     "paymentMethodType": "Modo de pagamento",
@@ -10963,7 +12244,14 @@
                     "isMobile": "Para o telemóvel",
                     "loading": "Atualmente a carregar",
                     "variant": "Destaque",
-                    "filterGroupOptions": "Opções agrupadas"
+                    "filterGroupOptions": "Opções agrupadas",
+                    "version": "Versão",
+                    "isInputButton": "Versão compacta",
+                    "disablePast": "Desativar datas passadas",
+                    "withoutBookButton": "Ocultar botão de reserva",
+                    "showDate": "Mostrar data",
+                    "isWorkshop": "É um workshop",
+                    "hideCoach": "Ocultar o filtro do professor"
                 },
                 "configurationTitle": "Variações"
             },
@@ -10999,7 +12287,11 @@
                 "vodTag": "Chip vod",
                 "level": "Ficha de nível",
                 "offerListItem": "Detalhes da sessão",
-                "filter": "Filtro simples"
+                "filter": "Filtro simples",
+                "calendarWeekTimeTable": "Cabeçalho do calendário",
+                "calendarFilters": "Filtros do calendário (apenas apresentação)",
+                "select": "Selecionado",
+                "search": "Pesquisa"
             },
             "cssEditor": {
                 "reset": "reposto",
@@ -11087,7 +12379,8 @@
                 "calendar": "Calendário",
                 "workshop": "Estúdio",
                 "pass": "Passes de aulas",
-                "subscription": "Subscrições"
+                "subscription": "Subscrições",
+                "common": "Comum"
             },
             "customCss": {
                 "yourCode": "A sua implementação complementar:",
@@ -11310,7 +12603,7 @@
             "cancellingOtherBookingInGroup": "Tenha em atenção que esta sessão é uma sessão de grupo para{{ name }}. Se o membro tiver outras marcações neste grupo, estas não serão afetadas.",
             "next": "Próximo:",
             "confirm": "Dinheiro",
-            "pending": ""
+            "pending": "Pendente"
         },
         "consumer": {
             "booking": {
@@ -11587,7 +12880,7 @@
                 "noPaymentExtraInfo": "Nenhuma informação adicional",
                 "status": "Estado",
                 "additionalInformationLabel": "Informação",
-                "additionalInformationHelper": "(opcional) data de nascimento,...",
+                "additionalInformationHelper": "(opcional) data de nascimento, data do recibo...",
                 "paid": "Pago"
             },
             "member": {
@@ -11734,7 +13027,7 @@
             "addInvoiceItem": "Adicionar à fatura",
             "addOffer": "Sessão",
             "total": "TOTAL",
-            "paymentMethodCash": "Espécies",
+            "paymentMethodCash": "Dinheiro",
             "paymentMethods": {
                 "CB_MANUAL": "Cartão (manual)",
                 "EVENT_BRITE": "EventBrite",
@@ -11746,7 +13039,7 @@
                 "OTHER": "Diversos",
                 "DISPUTE": "Conflito",
                 "CHECK": "",
-                "CASH": ""
+                "CASH": "Dinheiro"
             },
             "noPaymentItem": "Nenhum pagamento registado",
             "stillUnpaid": "Saldo em dívida : ",
@@ -11789,7 +13082,7 @@
             },
             "myShop": "A minha loja",
             "supplier_price": "Preço do fornecedor",
-            "ht": ""
+            "ht": "HT"
         },
         "offer": {
             "restoreModal": {
@@ -11953,7 +13246,7 @@
             "BANK_TRANSFER": "Transferência",
             "AMEX": "AMEX",
             "EVENT_BRITE": "EventBrite",
-            "CASH": "Espécies",
+            "CASH": "Dinheiro",
             "HOLIDAY_CHECK": "Férias",
             "CHECK": "Cheque",
             "CB_MANUAL": "Cartão (manual)",
@@ -12038,7 +13331,7 @@
                 "metaActivity": "Actividades",
                 "WorkshopActivityFormPage": "Formulário do workshop",
                 "metaActivityEditForm": "Formulário de inscrição",
-                "metaActivityFormPage": "Formulário de atividade",
+                "metaActivityFormPage": "Formulário de Atividade",
                 "offerFormPage": "Criação de sessão",
                 "coachPerformance": "Desempenho dos professores",
                 "members": "Membros",
@@ -12054,7 +13347,7 @@
             "revertExplainPacks": "Os passes de aulas e TODAS as reservas associadas serão anulados",
             "explainDateChoser": "Seleccione a data de faturação. Os pagamentos por cartão serão imediatamente levantados, independentemente da data escolhida",
             "revertExplainPayment": "Os pagamentos por cartão serão creditados no depósito do membro. Todos os outros métodos de pagamento serão removidos.",
-            "explainFinalize": "Atenção ! A partir do momento em que uma fatura é finalizada, já não pode alterá-la. Além disso, todos os pagamentos marcados como pendentes de cobrança serão considerados como tendo sido cobrados. Uma vez finalizada a fatura, pode exportá-la como ficheiro PDF",
+            "explainFinalize": "Atenção ! A partir do momento em que uma fatura é finalizada, já não pode alterá-la. Além disso, todos os pagamentos marcados como pendentes serão considerados como tendo sido cobrados. Uma vez finalizada a fatura, pode exportá-la como ficheiro PDF",
             "revert": "Cancelar a fatura",
             "choseDate": "Data da fatura",
             "revertImpossibleExplainSubscription": "Esta fatura faz parte de uma subscrição. Não é possível cancelar uma fatura descontada ligada a uma subscrição, mas é possível interromper a subscrição",
@@ -12770,8 +14063,45 @@
         "toolbar": {
             "exit": "Sair",
             "titleLabel": "Nome do plano",
-            "save": "Registo"
-        }
+            "save": "Registo",
+            "spiviHelperText": "Ver correspondência com os destaques do Spivi",
+            "spivi": "Spivi",
+            "loadExistingBlueprint": "Carregar um plano existente"
+        },
+        "saved": "Plano de lugares registado",
+        "effectifError": "O número de lugares deve ser igual ou superior ao número de pessoas que participam na sessão",
+        "search": "Encontrar um plano para a programação pontual",
+        "roomBlueprintSelectorTitle": "Escolher um plano",
+        "spotSelectorDialog": {
+            "takeSpotError": "O local que selecionou para este curso já não está disponível. Por favor, selecione um novo.",
+            "legend": "Legenda",
+            "submit": "Confirmar",
+            "cancel": "Cancelar",
+            "book": "Reservar um lugar {{prefix}}{{indexType}}",
+            "spot": "Lugar {{count}}",
+            "title": "Selecionar um lugar"
+        },
+        "spotSelector": {
+            "confirm": "Confirmar",
+            "seeAll": "Ver tudo",
+            "unavailablePersonalizedSpot": "{{ spotName }} indisponível",
+            "unavailableSpot": "Lugar não disponível",
+            "unavailable": "Não está disponível",
+            "availablePersonalizedSpot": "{{ spotName }} disponível",
+            "availableSpot": "Lugar disponível",
+            "available": "Disponível",
+            "legend": "Legenda"
+        },
+        "spiviDialog": {
+            "spiviIdentifiers": "Identificadores Spivi",
+            "bsportIdentifiers": "bsport ID",
+            "spotCorrespondence": "Correspondência entre lugares"
+        },
+        "placeCount": "{{count}} lugares",
+        "roomBlueprints": "Plano da sala",
+        "saveError": "Erro",
+        "errorAvailableOffersScheduled": "Não foi possível guardar. O plano de lugares não pode ser utilizado em sessões futuras para edição.",
+        "errorLessSpotThanEffectif": "Não é possível guardar. O plano de lugares deve conter mais espaço do que o número de pessoas na sessão a que está associado"
     },
     "establishment": {
         "spotScheduling": {
@@ -12941,7 +14271,7 @@
         "delete": "Eliminar",
         "deleteDialog": {
             "title": "Pretende mesmo eliminar esta configuração ?",
-            "content": ""
+            "content": "Apenas os pagamentos futuros serão afetados."
         },
         "modify": "Alterar",
         "form": {
@@ -12949,18 +14279,18 @@
                 "pack": "Passe de aulas",
                 "allPass": "Compatível com todos os passes de aulas",
                 "selectPack": "Selecionar um passe de aulas",
-                "selectGiftcard": "",
-                "shopItem": "",
-                "selectCombo": "",
-                "selectPrivatePass": "",
-                "selectShopItem": "",
-                "allPrivateBooking": "",
-                "privateBooking": "",
-                "giftcard": "",
-                "allGiftcard": "",
-                "allShopItem": "",
-                "combo": "",
-                "allCombo": ""
+                "selectGiftcard": "Selecionar um passe oferta",
+                "shopItem": "Produtos da loja",
+                "selectCombo": "Selecionar um pack",
+                "selectPrivatePass": "Selecionar um passe de marcações",
+                "selectShopItem": "Selecionar um produto",
+                "allPrivateBooking": "Compatível com todos os passes de marcações",
+                "privateBooking": "Passe de marcações",
+                "giftcard": "Passe oferta",
+                "allGiftcard": "Compatível com todos os passes oferta",
+                "allShopItem": "Compatível com todos os produtos da loja",
+                "combo": "Pack",
+                "allCombo": "Compatível com todos os packs"
             },
             "partialPaymentRadio": {
                 "enabled": {
@@ -12972,94 +14302,94 @@
             "customInstalmentAmount": {
                 "amountHelperText": {
                     "percent": "Percentagem",
-                    "amount": ""
+                    "amount": "Montante"
                 },
                 "type": {
-                    "amount": "",
-                    "percent": ""
+                    "amount": "Montante fixo",
+                    "percent": "Em percentagem do preço total do carrinho"
                 },
-                "label": ""
+                "label": "Personalizar um montante na primeira prestação"
             },
-            "onlyAvailableInfo": "",
-            "requiredField": "",
-            "onlyAvailable": "",
+            "onlyAvailableInfo": "Por defeito, se os artigos compatíveis com o pagamento em prestações estiverem no carrinho com artigos incompatíveis, o pagamento em prestações não será proposto. Se desativar esta função, o pagamento em prestações continuará a ser proposto, desde que exista um artigo compatível no carrinho.",
+            "requiredField": "este campo é obrigatório",
+            "onlyAvailable": "Oferta apenas quando todos os artigos do carrinho são compatíveis",
             "frequency": {
-                "start": ""
+                "start": "Repetir todos os"
             },
-            "name": "",
+            "name": "Nome",
             "recurrency": {
-                "day": "",
-                "day_plural": "",
-                "month": "",
-                "week": "",
-                "week_plural": "",
-                "title": "",
-                "montly": "",
-                "daily": "",
-                "annual": "",
-                "weekly": "",
-                "year": "",
-                "year_plural": ""
+                "day": "dia",
+                "day_plural": "dias",
+                "month": "mês",
+                "week": "semana",
+                "week_plural": "semanas",
+                "title": "Recorrência",
+                "montly": "Mensalmente",
+                "daily": "Diariamente",
+                "annual": "Anualmente",
+                "weekly": "Semanalmente",
+                "year": "ano",
+                "year_plural": "anos"
             },
-            "advanced": "",
-            "cancel": "",
-            "generalInfo": "",
-            "compabilityInfo": "",
+            "advanced": "Avançado",
+            "cancel": "Cancelar",
+            "generalInfo": "Informações gerais",
+            "compabilityInfo": "Seleccione os artigos aos quais pretende aplicar a opção de pagamento em prestações, e esta só será compatível com os mesmos. Quando comprar um dos artigos seleccionados, o pagamento em prestações será proposto.",
             "info": {
-                "end": "",
-                "end_plural": "",
-                "middle": "",
-                "startDay": "",
-                "startYear": "",
-                "startMonth": "",
-                "startWeek": ""
+                "end": " é gerado {{number_of_billing}} recibo",
+                "end_plural": " é gerado {{number_of_billing}} recibos",
+                "middle": " durante um período total de {{total}} ",
+                "startDay": "O pagamento será faturado todos os {{frequency}} dias",
+                "startYear": "O pagamento será faturado todos os {{frequency}} anos",
+                "startMonth": "O pagamento será faturado todos os {{frequency}} meses",
+                "startWeek": "O pagamento será faturado todas as {{frequency}} semanas"
             },
-            "feeHelperText": "",
-            "numberOfBilling": "",
-            "fee": "",
-            "create": "",
-            "add": "",
-            "minimum_amount": "",
-            "save": "",
-            "compatibility": "",
-            "minimumAmountHelperText": "",
-            "search": ""
+            "feeHelperText": "Taxas a pagar pelo membro para utilizar o pagamento em várias prestações; estas serão adicionadas automaticamente ao primeiro pagamento.",
+            "numberOfBilling": "Número de recibos",
+            "fee": "Taxas fixas",
+            "create": "Pagamento às prestações",
+            "add": "adicionar uma configuração",
+            "minimum_amount": "Montante mínimo do carrinho",
+            "save": "Guardar",
+            "compatibility": "Compatibilidade",
+            "minimumAmountHelperText": "Para um carrinho de valor inferior a este montante, não será proposto o pagamento em várias prestações.",
+            "search": "Pesquisar"
         },
         "detail": {
             "packAvailable": "{{length}} passe de aulas compatível",
             "packAvailable_plural": "{{length}} passes de aulas compatíveis",
             "packAvailableForAll": "Todos os passes de aulas compatíveis",
             "paymentPack": "Passes de aulas",
-            "onlyWhenAllAvailable": "",
-            "giftcardAvailable": "",
-            "giftcardAvailable_plural": "",
-            "giftcard": "",
-            "title": "",
-            "shopItem": "",
-            "fee": "",
-            "seeAll": "",
-            "compatibility": "",
-            "duration": "",
-            "privatePassAvailableForAll": "",
-            "comboAvailableForAll": "",
-            "giftcardAvailableForALl": "",
-            "shopItemAvailableForALl": "",
-            "combo": "",
-            "privatePass": "",
-            "noCompability": "",
-            "whenOneAvailable": "",
-            "paymentNumber": "",
-            "paymentNumber_plural": "",
-            "privatePassAvailable": "",
-            "privatePassAvailable_plural": "",
-            "shopItemAvailable": "",
-            "shopItemAvailable_plural": "",
-            "minimumAmount": "",
-            "recurrency": "",
-            "number_of_billing": "",
-            "noConfiguration": "",
-            "comboAvailable": "",
-            "comboAvailable_plural": ""
+            "onlyWhenAllAvailable": "Apenas disponível quando todos os artigos do carrinho são compatíveis",
+            "giftcardAvailable": "{{length}} passe oferta compatível",
+            "giftcardAvailable_plural": "{{length}} passes de oferta compatíveis",
+            "giftcard": "Passe de oferta",
+            "title": "Detalhes da configuração",
+            "shopItem": "Produtos",
+            "fee": "Taxas fixas",
+            "seeAll": "ver tudo",
+            "compatibility": "Compatibilidade",
+            "duration": "Todos os {{frequency}} {{recurrency}} para {{number_of_billing}} {{recurrency_ponderate_by_number_of_billing}}",
+            "privatePassAvailableForAll": "Todos os passes de marcações compatíveis",
+            "comboAvailableForAll": "Todos os packs compatíveis",
+            "giftcardAvailableForALl": "Todos os passes oferta compatíveis",
+            "shopItemAvailableForALl": "Todos os produtos da loja compatíveis",
+            "combo": "Packs",
+            "privatePass": "Passes de marcações",
+            "noCompability": "O seu pagamento em várias prestações não é compatível",
+            "whenOneAvailable": "Sugerido logo que um artigo do carrinho seja compatível",
+            "paymentNumber": "{{number_of_billing}} pagamento",
+            "paymentNumber_plural": "{{number_of_billing}} pagamentos",
+            "privatePassAvailable": "{{length}} passe de marcações compatíveis",
+            "privatePassAvailable_plural": "{{length}} passes de marcações compatíveis",
+            "shopItemAvailable": "{{length}} produto da loja compatível",
+            "shopItemAvailable_plural": "{{length}} produtos da loja compatíveis",
+            "minimumAmount": "Montante mínimo do carrinho",
+            "recurrency": "Recorrência",
+            "number_of_billing": "Número de pagamentos",
+            "noConfiguration": "Selecione uma configuração para ver os seus detalhes",
+            "comboAvailable": "{{length}} pack compatível",
+            "comboAvailable_plural": "{{length}} packs compatíveis"
         },
         "configurationOption": {
             "payLaterRemainder": "O restante do montante a pagar ({{remainder}}) será deduzido do seu saldo interno",
@@ -13069,38 +14399,38 @@
             "amountMin": "O montante deve ser superior a 1",
             "percentRange": "A percentagem deve estar compreendida entre 1 e 100"
         },
-        "close": "",
+        "close": "Fechar",
         "basket": {
-            "instalmentAmount": "",
-            "instalmentAmountTitle": "",
-            "fee": ""
+            "instalmentAmount": "Expiração do ",
+            "instalmentAmountTitle": "Expiração",
+            "fee": "Custos fixos : "
         },
-        "title": "",
+        "title": "Pagamento às prestações",
         "list": {
-            "addInstalmentPayment": "",
-            "infoNoInstalmentPayment": ""
+            "addInstalmentPayment": "adicionar uma configuração",
+            "infoNoInstalmentPayment": "O pagamento em prestações permite aos seus membros repartir o pagamento da sua compra ao longo de um período de tempo. Configure as suas prestações e os artigos a que se aplicam."
         },
         "action": {
             "disable": {
-                "success": "",
-                "error": ""
+                "success": "A configuração foi eliminada",
+                "error": "Erro ao eliminar a configuração"
             },
             "edit": {
-                "success": "",
-                "error": ""
+                "success": "A configuração foi alterada",
+                "error": "Erro ao alterar a configuração"
             },
             "create": {
-                "error": "",
-                "success": ""
+                "error": "Erro ao criar a configuração",
+                "success": "A configuração foi criada"
             }
         },
-        "paymentAllInOnce": "",
+        "paymentAllInOnce": "Pagar de uma só vez",
         "menu": {
             "secondary": {
-                "allFeminine": "",
-                "numberOfBilling": "",
-                "numberOfBilling_plural": "",
-                "allMasculine": ""
+                "allFeminine": "Todos os {{frequency}} ",
+                "numberOfBilling": "{{number_of_billing}} recibo",
+                "numberOfBilling_plural": "{{number_of_billing}} recibos",
+                "allMasculine": "Todos os {{frequency}} "
             }
         }
     },
@@ -13109,43 +14439,43 @@
             "delete": {
                 "actions": {
                     "confirm": "Eliminar",
-                    "cancel": ""
+                    "cancel": "Cancelar"
                 },
                 "content": {
                     "canDelete": "Tem a certeza de que pretende cancelar este seminário ? As sessões anteriores e as reservas não serão afetadas. Esta operação é definitiva.",
-                    "cannotDelete": ""
+                    "cannotDelete": "As sessões estão planeadas para o futuro, pelo que deve verificar se foram eliminadas e não apenas anuladas."
                 },
-                "title": ""
+                "title": "Eliminar um workshop"
             }
         },
         "modal": {
             "delete": {
                 "confirm": "Eliminar",
                 "content": "Tem a certeza de que pretende cancelar este seminário ? As sessões e as reservas não serão afectadas. Esta operação é definitiva.",
-                "cancel": "",
-                "title": ""
+                "cancel": "Cancelar",
+                "title": "Eliminar workshop"
             }
         },
         "navigation": {
             "goToPaymentPack": "Passes de aulas"
         },
-        "search": "",
-        "noWorkshops": "",
-        "tabGroups": "",
+        "search": "Procurar workshop",
+        "noWorkshops": "Gerir os seus workshops aqui. Um workshop é um evento cuja data é fixada antecipadamente.",
+        "tabGroups": "Grupo de sessões",
         "group": {
-            "pageSize": "",
-            "backToGroup": "",
-            "emptySearch": "",
-            "emptySelect": "",
-            "emptyState": ""
+            "pageSize": "Mostrar por:",
+            "backToGroup": "Voltar para os grupos",
+            "emptySearch": "Nenhum grupo corresponde à sua pesquisa",
+            "emptySelect": "Selecionar uma sessão",
+            "emptyState": "Com os grupos de sessões, os seus alunos podem reservar de uma só vez todas as sessões incluídas no grupo. Por exemplo, utilize grupos de sessões para criar workshops introdutórios com várias sessões. "
         },
-        "disabledWorkshops": "",
+        "disabledWorkshops": "Workshops arquivados",
         "actions": {
-            "search": "",
-            "addWorkshopActivity": "",
-            "addWorkshopGroup": ""
+            "search": "Procurar um workshop",
+            "addWorkshopActivity": "Adicionar workshop",
+            "addWorkshopGroup": "Adicionar um grupo de sessões"
         },
-        "tabList": ""
+        "tabList": "Lista de workshops"
     },
     "video": {
         "video": {
@@ -13740,10 +15070,10 @@
                 "label": "Fatura {{uuid}} : {{price}}"
             },
             "scheduledStop": {
-                "summary": "O último pagamento programado terá a data {{-date}} e corresponderá ao último passe válido.",
+                "summary": "O último recibo programado terá a data {{-date}} e corresponderá ao último passe válido.",
                 "title": "Programar a rescisão da subscrição",
                 "notePlaceholder": "Motivo",
-                "explain": "Selecionar o último pagamento da subscrição.",
+                "explain": "Selecionar o último recibo da subscrição.",
                 "listItem": "Fim programado da subscrição"
             },
             "list": {
@@ -13942,7 +15272,7 @@
                     "cancel": "Cancelar"
                 },
                 "explain": "Apenas esta fatura será modificada",
-                "label": "Data de recolha",
+                "label": "Data do recibo",
                 "title": "Alterar futura data"
             },
             "list": {
@@ -13969,15 +15299,15 @@
             "payment_combo": "Pack",
             "private_pass": "Passe de Marcação",
             "payment_pack": "Passe de aulas",
-            "firstBilling": "Primeira fatura",
-            "nbMonths": "Número de faturas",
+            "firstBilling": "Primeiro recibo",
+            "nbMonths": "Número de Recibos",
             "dateStart": "Primeira faturação",
             "paymentCombo": "Pack",
             "privatePass": "Passe de Marcação",
             "paymentPack": "Passe de aulas",
             "flat_fee": "Taxas de candidatura",
             "recurrent_price": "Pagamento recurrente",
-            "nbInterval": "Número de colecções",
+            "nbInterval": "Número de Recibos",
             "dateCreated": "Data da criação",
             "member": "Membro",
             "name": "Nome",
@@ -14310,7 +15640,7 @@
             "deliveryFee": "Taxas de entrega",
             "priceRecap": "Resumo",
             "amountDue": "Total devido",
-            "partialPayment": "Recolha",
+            "partialPayment": "Recibo",
             "leftToPay": "Resta pagar",
             "leftDue": "Restante devido :",
             "onSpot": "No local",
@@ -14710,11 +16040,11 @@
             "privateBookingTemporal": "Marcações",
             "memberTemporal": "Novos membros",
             "billingPlanTemporal": "Subscrições",
-            "subscriptionTemporalSum": "Quantidade de subscrições",
+            "subscriptionTemporalSum": "Quantidade de recibos",
             "subscriptionTemporalCount": "Número de faturas de subscrição",
             "bookingTemporal": "Reservas",
             "bookingQualitative": "Origem das reservas",
-            "paymentTemporal": "Coleções",
+            "paymentTemporal": "Recibos",
             "invoiceItemTemporal": "Soma de itens faturados",
             "bookingTimeslots": "Média de funcionários"
         },
@@ -14722,7 +16052,7 @@
             "is_no_show": "Ausente (não compareceu)",
             "dispute_status": "Estado",
             "is_unpaid": "Não pago",
-            "total_payments_made": "Número de faturas efetuadas",
+            "total_payments_made": "Número de recibos efetuados",
             "total_discount": "Redução total",
             "payout_status": "Estado de transferência",
             "payout_identifier": "Transferência",
@@ -14730,7 +16060,7 @@
             "payment_pack": "Passe de aulas",
             "private_pass": "Passe de Marcações",
             "activity": "Atividade",
-            "nb_planned_invoices": "Número total de recolhas",
+            "nb_planned_invoices": "Número total de recibos",
             "margin_value": "Contribuição marginal incl. IVA",
             "private_service_name": "Marcações",
             "price": "Preço incl. IVA",
@@ -14862,13 +16192,13 @@
         },
         "plannedPayment": {
             "popover": "Soma de todos os pagamentos recebidos a título de subscrições",
-            "caption": "Categorias",
+            "caption": "Recibo",
             "title": "Recibos de subscrição"
         },
         "turnover": {
             "popover": "Soma de todos os pagamentos recebidos indicados nas faturas",
-            "caption": "Categorias",
-            "title": "Categorias"
+            "caption": "Recibos",
+            "title": "Recibos"
         },
         "nbOffers": "Sessões",
         "newMembers": "Novos membros",
@@ -15559,7 +16889,56 @@
             "online_or_offline_pin_required": "Código PIN pedido",
             "withdrawal_count_limit_exceeded": "Demasiadas despesas neste cartão, recusado.",
             "pin_try_exceeded": "Atingiu o número máximo de tentativas, tente outro método de pagamento",
-            "call_issuer": "O seu cartão foi recusado por um motivo desconhecido. Por favor, contacte o seu banco"
+            "call_issuer": "O seu cartão foi recusado por um motivo desconhecido. Por favor, contacte o seu banco",
+            "insufficient_funds": "O seu cartão não tem fundos suficientes.",
+            "incorrect_cvc": "O código de segurança é inválido.",
+            "incorrect_number": "O número do cartão é inválido.",
+            "card_not_supported": "O seu cartão não foi reconhecido."
+        },
+        "errors": {
+            "payment_intent_authentication_failure": "O pagamento foi recusado pelo seu banco.",
+            "incorrect_cvc": "O código de segurança do cartão está incorreto.",
+            "expired_card": "O seu cartão está expirado.",
+            "card_declined": "O cartão foi recusado.",
+            "email_invalid": "O e-mail está inválido.",
+            "invalid_bank_account_account_number": "O número bancário está inválido.",
+            "invalid_bank_account": "A informação bancária está inválida.",
+            "invalid_number": "O número do cartão está inválido.",
+            "incomplete_cvc": "O código de segurança está incompleto.",
+            "invalid_expiry_year": "A data de expiração está inválida.",
+            "invalid_expiry_year_past": "A data colocada já foi expirada.",
+            "incomplete_expiry": "A data de expiração está incompleta.",
+            "incomplete_number": "O número está incompleto.",
+            "reader_error": "Ocorreu um erro. Certifique-se de que o seu dispositivo está online e ligado à mesma rede Wi-Fi que o seu telemóvel.",
+            "reader_not_found": "Ocorreu um erro. Certifique-se de que o seu dispositivo está online e ligado à mesma rede Wi-Fi que o seu telemóvel.",
+            "setup_intent_authentication_failure": "Este cartão não pode ser guardado. Por favor, tente outro método de pagamento.",
+            "discovery_too_many_readers": "Não é possível estabelecer ligação, há demasiados terminais à volta",
+            "already_connected": "Já está ligado outro terminal de pagamento",
+            "network_timeout": "Erro de rede, tente novamente dentro de alguns instantes",
+            "network_error": "Erro de rede, tente novamente dentro de alguns instantes",
+            "no_established_connection": "Sem terminal de pagamento conectado",
+            "unknown": "Erro de rede, tente novamente dentro de alguns instantes",
+            "insufficient_funds": "O seu cartão não tem fundos suficientes.",
+            "processing_error": "Ocorreu um erro ao registar o seu pagamento. Tente novamente dentro de alguns instantes.",
+            "invalid_bank_account_routing_number": "O código fornecido é inválido."
+        },
+        "error_code": {
+            "unknown": "Erro de rede, tente novamente dentro de alguns instantes",
+            "processing_error": "Ocorreu um erro ao registar o seu pagamento. Tente novamente dentro de alguns instantes.",
+            "payment_intent_payment_attempt_failed": "O pagamento foi recusado pelo seu banco.",
+            "payment_intent_authentication_failure": "O pagamento foi recusado pelo seu banco.",
+            "email_invalid": "O e-mail está inválido.",
+            "invalid_bank_account_routing_number": "O código fornecido é inválido.",
+            "invalid_bank_account_account_number": "O número da conta bancária está inválido.",
+            "setup_intent_authentication_failure": "Este cartão não pode ser guardado. Por favor, tente outro método de pagamento.",
+            "card_declined": "Cartão recusado",
+            "expired_card": "O seu cartão expirou.",
+            "invalid_number": "O número do cartão está inválido.",
+            "incomplete_cvc": "O código de segurança do seu cartão está incompleto.",
+            "invalid_expiry_year": "A data do seu cartão está inválida.",
+            "invalid_expiry_year_past": "A data de validade do seu cartão está expirada.",
+            "incomplete_expiry": "A data de expiração do cartão está incompleta.",
+            "incomplete_number": "O número do cartão está incompleto."
         }
     },
     "membership": {

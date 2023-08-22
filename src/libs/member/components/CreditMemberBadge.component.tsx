@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import { Theme } from '@material-ui/core';
 
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   credit: number;
@@ -49,40 +50,48 @@ export const CreditMemberBadge: React.FC<Props> = ({
   const creditFormatted = (credit - unpaidAmount_number)?.toFixed?.(2) ?? ' -';
 
   return (
-    <Badge
-      anchorOrigin={
-        bottomCredit
-          ? {
-              vertical: 'bottom',
-              horizontal: 'right',
+    <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.readBalance">
+      {(hasPermission) => {
+        return hasPermission ? (
+          <Badge
+            anchorOrigin={
+              bottomCredit
+                ? {
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }
+                : {
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }
             }
-          : {
-              vertical: 'top',
-              horizontal: 'right',
+            badgeContent={
+              unpaidIconOn ? (
+                <span className={classesStyle.balanceStatus}>
+                  <span className={classesStyle.receiptIcon}>
+                    <ReceiptIcon fontSize="inherit" />
+                  </span>
+                  {` ${getCurrencyDisplayWithPrice(creditFormatted)}`}
+                </span>
+              ) : (
+                `${getCurrencyDisplayWithPrice(creditFormatted)}`
+              )
             }
-      }
-      badgeContent={
-        unpaidIconOn ? (
-          <span className={classesStyle.balanceStatus}>
-            <span className={classesStyle.receiptIcon}>
-              <ReceiptIcon fontSize="inherit" />
-            </span>
-            {` ${getCurrencyDisplayWithPrice(creditFormatted)}`}
-          </span>
+            classes={{
+              ...classes,
+              badge: classnames(classes?.badge, {
+                [classesStyle.bottomCredit]: bottomCredit,
+              }),
+            }}
+            color={badgeColor}
+          >
+            {children}
+          </Badge>
         ) : (
-          `${getCurrencyDisplayWithPrice(creditFormatted)}`
-        )
-      }
-      classes={{
-        ...classes,
-        badge: classnames(classes?.badge, {
-          [classesStyle.bottomCredit]: bottomCredit,
-        }),
+          <>{children}</>
+        );
       }}
-      color={badgeColor}
-    >
-      {children}
-    </Badge>
+    </ObjectLevelPermissionProvider>
   );
 };
 

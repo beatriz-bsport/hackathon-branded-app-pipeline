@@ -96,7 +96,7 @@ const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
     width: '100%',
-    ...(isNewCheckoutFlow ? { marginLeft: '9.5px' } : {}),
+    ...(isNewCheckoutFlow ? { paddingLeft: theme.spacing(1) } : {}),
   }),
   termsAndConditions: {
     display: 'flex',

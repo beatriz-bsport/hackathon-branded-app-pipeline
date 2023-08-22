@@ -327,21 +327,21 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
             validateUnpaid={validateUnpaid}
           />
         </div>
-        <div className={classes.sumupContainer}>
-          <div className={classes.scrollableItems}>
-            <ActivitiesSummary
-              activitySummaryCheckoutItems={activitySummaryCheckoutItems}
-              basketOffers={basketOffers}
-              companyTheme={theme}
-            />
-            <BasketSummary
-              basketSummaryCheckoutItems={basketSummaryCheckoutItems}
-              isExcludingTax={isExcludingTax}
-              isItemEditionDisabled={isBasketModificationDisabled}
-              onAddCheckoutItem={handleAddCheckoutItem}
-              onRemoveCheckoutItem={handleRemoveCheckoutItem}
-            />
-          </div>
+        <div className={classes.scrollableItems}>
+          <ActivitiesSummary
+            activitySummaryCheckoutItems={activitySummaryCheckoutItems}
+            basketOffers={basketOffers}
+            companyTheme={theme}
+          />
+          <BasketSummary
+            basketSummaryCheckoutItems={basketSummaryCheckoutItems}
+            isExcludingTax={isExcludingTax}
+            isItemEditionDisabled={isBasketModificationDisabled}
+            onAddCheckoutItem={handleAddCheckoutItem}
+            onRemoveCheckoutItem={handleRemoveCheckoutItem}
+          />
+        </div>
+        <div className={classes.validationContainer}>
           <CouponCodeInput
             isBasketModificationDisabled={isBasketModificationDisabled}
             onSubmit={attachCoupon}
@@ -370,45 +370,65 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'stretch',
-    gap: theme.spacing(3),
-    width: '90%',
-    height: '46vh',
+    padding: theme.spacing(1),
   },
   titleContainer: {
     display: 'flex',
-    flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: theme.spacing(2),
   },
-  arrowIcon: { color: theme.palette.grey[600] },
-  subContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: '32px',
-  },
-  paymentContainer: { flex: 0.65 },
   title: {
     padding: theme.spacing(2),
   },
-  featureBanner: {
-    marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(1),
-    maxWidth: '90vw',
+  arrowIcon: { color: theme.palette.grey[600] },
+  subContainer: {
+    display: 'grid',
+    gridTemplateColumns: '2fr 1fr',
+    gridTemplateRows: 'auto 1fr auto',
+    columnGap: theme.spacing(3),
   },
-  paper: {
-    padding: theme.spacing(2),
+  paymentContainer: {
+    marginTop: '0',
+    gridColumnStart: '1',
+    gridColumnEnd: 'span 1',
+    gridRowStart: '1',
+    gridRowEnd: 'span 2',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: theme.spacing(3),
+      gridColumnStart: '1',
+      gridColumnEnd: 'span 2',
+      gridRowStart: '2',
+      gridRowEnd: 'span 1',
+    },
   },
-  sumupContainer: {
-    flex: 0.32,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'stretch',
-    maxHeight: '75vh',
+  scrollableItems: {
+    gridColumnStart: '2',
+    gridColumnEnd: 'span 1',
+    gridRowStart: '1',
+    overflowY: 'auto',
+    maxHeight: '600px',
+    [theme.breakpoints.down('sm')]: {
+      gridColumnStart: '1',
+      gridColumnEnd: 'span 2',
+      maxHeight: 'none',
+      overflowY: 'none',
+    },
   },
-  scrollableItems: { overflowY: 'auto', maxHeight: '600px' },
+  validationContainer: {
+    marginTop: '0',
+    gridColumnStart: '2',
+    gridColumnEnd: 'span 1',
+    gridRowStart: '2',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: theme.spacing(3),
+      gridColumnStart: '1',
+      gridColumnEnd: 'span 2',
+      gridRowStart: '3',
+    },
+  },
 }));
 
 export default NewCheckoutFlow;

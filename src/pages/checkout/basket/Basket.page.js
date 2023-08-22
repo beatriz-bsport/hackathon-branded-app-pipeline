@@ -26,6 +26,7 @@ import {
   PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group';
 import ALL_ERROR_CODES from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
+import { marketplaceCssHoc } from '../../../hocs/marketplace-css.hoc';
 import {
   addItemToBasket as addItemToBasketAction,
   attachCoupon,
@@ -582,7 +583,7 @@ export class BasketPage extends React.Component<Props> {
 const styles = (theme) => ({
   container: {
     width: '100%',
-    maxWidth: (props) => (props?.isNewCheckoutFlow ? '80vw' : 920),
+    maxWidth: (props) => (props?.isNewCheckoutFlow ? '1180px' : 920),
     height: '100%',
     display: 'flex',
     alignItems: 'center',
@@ -590,6 +591,9 @@ const styles = (theme) => ({
     flexDirection: 'column',
     paddingTop: (props) =>
       props?.isNewCheckoutFlow ? theme.spacing(4) : theme.spacing(8),
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: (props) => (props?.isNewCheckoutFlow ? 0 : theme.spacing(8)),
+    },
   },
   loader: {
     display: 'flex',
@@ -900,4 +904,5 @@ export default compose(
   withState('basketError', 'setBasketError', null),
   withState('paymentProcessing', 'setPaymentProcessing', false),
   withStyles(styles),
+  marketplaceCssHoc(),
 )(BasketPage);

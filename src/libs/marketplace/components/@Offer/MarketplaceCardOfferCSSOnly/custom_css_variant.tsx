@@ -38,6 +38,22 @@ const offerCardVariationRegistry = [
     default: { label: 'false', value: 'false' },
   },
   {
+    label: 'isBookingDisabled',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+  {
+    label: 'isOfferInThePast',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+  {
     label: 'offerStatus',
     choices: [
       {
@@ -91,6 +107,12 @@ const usePropsFromVariation = (
 
   const isRegisteredSelected =
     variationsSelected?.isRegistered?.value === 'true';
+
+  const isBookingDisabledSelected =
+    variationsSelected?.isBookingDisabled?.value === 'true';
+
+  const isOfferInThePastSelected =
+    variationsSelected?.isOfferInThePast?.value === 'true';
 
   // Let's avoid including the factory is a React.useMemo here, leading to ugly
   // changes and renders everytime a settings is changed.
@@ -146,9 +168,9 @@ const usePropsFromVariation = (
     },
     coaches: [coach],
     establishments: [establishment],
-    metaActivities: [bookableOffer.meta_activity],
-    isBookingDisabled: false,
-    isOfferPassed: false,
+    metaActivities: { [meta_activity.id]: bookableOffer.meta_activity },
+    isBookingDisabled: isBookingDisabledSelected,
+    isOfferPassed: isOfferInThePastSelected,
     getLevel: { [bookableOffer.id]: bookableOffer.level },
     variant: variantSelected,
     isRegistered: isRegisteredSelected,

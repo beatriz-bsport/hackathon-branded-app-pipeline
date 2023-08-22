@@ -160,6 +160,9 @@ const VariationConfigurationWrapper: React.FC<{
           classes.centered,
           {
             [classes.flex]: config.showAsFlex,
+            [classes.cardOfferPreview]:
+              componentId ===
+              CssComponentsVariantIdentifiers.MARKETPLACE_OFFER_CARD,
           },
         )}
         id="bs-custom-css__component__preview"
@@ -219,6 +222,10 @@ const useStyles = makeStyles((theme) => ({
   },
   fullHeight: {
     height: '100%',
+  },
+  cardOfferPreview: {
+    maxWidth: 275,
+    alignSelf: 'center',
   },
 }));
 

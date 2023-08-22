@@ -8426,7 +8426,8 @@
                 "tag": "Tag",
                 "tag_group": "Gruppe"
             },
-            "title": "Gutschein"
+            "title": "Gutschein",
+            "alert": "Ein Rabattcode kann von einem Mitglied verwendet werden, um den Preis des Warenkorbs zu verringern. In diesem Formular können Sie komplett einstellen, wie der Code angewendet wird. Sie wählen den Code selbst und entscheiden darüber, wie Sie ihn mit Ihren Mitgliedern teilen."
         },
         "list": {
             "inactiveCoupons": "Deaktivierte oder abgelaufene Werbeaktionen",
@@ -9981,7 +9982,10 @@
         },
         "createThread": {
             "close": "Schließen",
-            "confirmResourceSelected": "Bestätigen"
+            "confirmResourceSelected": "Bestätigen",
+            "title": "Neue Nachricht",
+            "smartlistPlaceholder": "Wähle eine Smartlist",
+            "refreshSmartlist": "Klicken Sie auf den Refresh Button, um die neuen Smartlists einzusehen"
         }
     },
     "consumerSpace": {
@@ -11742,7 +11746,8 @@
             "tutorial": "Tutorial",
             "tutorialInfo": "Sie finden unser Handbuch \"Erste Schritte\" auf der Registerkarte \"Tutorial\".",
             "help": "Hilfe",
-            "cadences": "Kadenz"
+            "cadences": "Kadenz",
+            "inbox": "Posteingang"
         },
         "deprecatedNavigator": {
             "close": "Schließen",
@@ -12818,9 +12823,11 @@
                         "isModifyRecursively": "Möchten Sie ähnliche Sitzungen gemäß diesen neuen Bedingungen ändern?",
                         "isNotifyConsumers": "Möchten Sie Ihre Kunden über diese Änderung informieren?",
                         "partnership": {
-                            "partnerMaxBookingCount": "Maximale Anzahl von Marketplace-Buchungen (nur OneFit)",
+                            "partnerMaxBookingCount": "Maximale Anzahl von Marketplace-Buchungen (nur OneFit + Urban Sports Club)",
                             "availableOnPartnership": "Über die Marketplaces (ClassPass, OneFit...)",
-                            "title": "Marketplace"
+                            "title": "Marketplace",
+                            "uscIntegrationWarning": "Ihre Integration mit dem Urban Sports Club Marketplace ist aktiv. Alle Sessions, die 2 oder mehr Tage lang sind, werden nicht angezeigt.",
+                            "uscIntegrationWorkshopWarning": "Workshops sind nicht mit dem Urban Sports Club Marketplace kompatibel, also wir diese Session nicht eingeschlossen."
                         },
                         "allowGuestOffer": "Buchung für einen Gast zulassen",
                         "isManagerOnly": "Verfügbar für Buchungen (Web + App)",

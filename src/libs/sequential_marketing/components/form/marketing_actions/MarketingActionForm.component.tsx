@@ -88,6 +88,11 @@ const MarketingActionForm: React.FC<Props> = ({
     updateMarketingActions(values.marketingActions);
   }, [updateMarketingActions, values.marketingActions]);
 
+  const isMarketingActionsNotEmpty = React.useMemo(
+    () => values.marketingActions && values.marketingActions.length > 0,
+    [values.marketingActions],
+  );
+
   const renderMarketingActions = React.useCallback(
     (arrayHelpers: FieldArrayRenderProps) => {
       const handleDeleteAction = (index: number) => () =>
@@ -96,9 +101,6 @@ const MarketingActionForm: React.FC<Props> = ({
       const handleSubmitAction =
         (index: number) => (data: StepMarketingActions) =>
           arrayHelpers.replace(index, data);
-
-      const isMarketingActionsNotEmpty =
-        values.marketingActions && values.marketingActions.length > 0;
 
       return (
         <div>
@@ -142,6 +144,7 @@ const MarketingActionForm: React.FC<Props> = ({
     },
     [
       classes.marketingAction,
+      isMarketingActionsNotEmpty,
       values.marketingActions,
       emailDetailList,
       emailDetailListLoading,
@@ -188,6 +191,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const withFormikWrapper = withFormik<HOCProps, FormValues>({
+  enableReinitialize: true,
   mapPropsToValues: ({ marketingActions }) => {
     return {
       marketingActions: (marketingActions || []) as StepMarketingActions[],

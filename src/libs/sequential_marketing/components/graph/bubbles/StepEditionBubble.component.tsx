@@ -84,6 +84,9 @@ const StepEditionBubble: React.FC<StepEditionBubbleProps> = ({
 }) => {
   const { t } = useTranslation('marketing');
 
+  const [previousMarketingActions, setPreviousMarketingActions] =
+    React.useState<StepMarketingActions[]>([]);
+
   const [marketingActionList, setMarketingActionList] = React.useState<
     StepMarketingActions[]
   >([]);
@@ -91,8 +94,16 @@ const StepEditionBubble: React.FC<StepEditionBubbleProps> = ({
   const [stepName, setStepName] = React.useState('');
 
   React.useEffect(() => {
-    setMarketingActionList(marketingActions || []);
-  }, [marketingActions]);
+    const marketingActionPropsUnchanged =
+      previousMarketingActions.length === marketingActions.length &&
+      previousMarketingActions.every(
+        (action, index) => action === marketingActions[index],
+      );
+    if (!marketingActionPropsUnchanged) {
+      setPreviousMarketingActions(marketingActions);
+      setMarketingActionList(marketingActions || []);
+    }
+  }, [marketingActions, previousMarketingActions]);
 
   React.useEffect(() => {
     setStepName(step?.name || t('cadence.form.cadenceStep'));

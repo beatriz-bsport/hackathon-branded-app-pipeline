@@ -10,6 +10,7 @@ import { withTranslation } from 'react-i18next';
 
 import WorkshopDeleteDialog from '#libs/meta-activity/components/WorkshopDeleteDialog.component';
 import MetaActivityDetail from '#libs/meta-activity/components/MetaActivityDetail.component';
+import ObjectLevelPermissionProvider from '../../libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import {
   getWorkshops,
@@ -223,15 +224,26 @@ export class WorkshopActivity extends Component<Props, State> {
           tags={this.props.tagCategories}
           updateNotification={this.props.updateNotification}
         />
-        <BottomActionButtons
-          onDelete={
-            workshopActivity.customer_enabled
-              ? () => this.setState({ deleteOpen: true })
-              : null
-          }
-          onEdit={this.onEdit}
-          onShare={() => this.props.setOpenWidgetDialog(true)}
-        />
+
+        <ObjectLevelPermissionProvider
+          requiredPermission={[
+            'management.workshop.allowed_actions.edit',
+            'management.workshop.allowed_actions.delete',
+          ]}
+        >
+          {([hasEditPermission, hasDeletePermission]) => (
+            <BottomActionButtons
+              onDelete={
+                hasDeletePermission && workshopActivity.customer_enabled
+                  ? () => this.setState({ deleteOpen: true })
+                  : null
+              }
+              onEdit={hasEditPermission && this.onEdit}
+              onShare={() => this.props.setOpenWidgetDialog(true)}
+            />
+          )}
+        </ObjectLevelPermissionProvider>
+
         <WorkshopDeleteDialog
           canDeleteWorkshopChecker={canDeleteWorkshopAPI}
           deleteWorkshop={() => {

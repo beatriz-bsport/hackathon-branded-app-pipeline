@@ -23,7 +23,7 @@ type Props = {
   t: TFunction,
   unevenSavedInvoices: Array<Invoice>,
   quickInvoices: Array<Invoice>,
-  createInvoice: (InvoiceData: Invoice) => void,
+  createInvoice: (InvoiceData: Invoice, options: OptionCallback) => void,
   closeQuickInvoice: (memberId: number) => void,
   availableBuyableItems: { [buyable_item_identifier: number]: BuyableItem },
   invoiceToBill: Array<Invoice>,
@@ -84,13 +84,27 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
       });
   };
 
+  handleCreateInvoiceAndOpenBillingModal = (
+    InvoiceData: Invoice,
+    options: OptionCallback,
+  ) => {
+    this.props.createInvoice(InvoiceData, {
+      onSuccess: (invoice: Invoice) => {
+        if (options && options.onSuccess) options.onSuccess?.();
+        this.props.setInvoiceToBill(invoice);
+      },
+      onError: () => {
+        if (options && options.onError) options.onError?.();
+      },
+    });
+  };
+
   render() {
     const {
       classes,
       t,
       unevenSavedInvoices,
       quickInvoices,
-      createInvoice,
       closeQuickInvoice,
       className,
     } = this.props;
@@ -106,7 +120,7 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
             <QuickInvoice
               key={`${qi.memberId}:${idx}`}
               availableBuyableItems={this.props.availableBuyableItems}
-              createInvoice={createInvoice}
+              createInvoice={this.handleCreateInvoiceAndOpenBillingModal}
               enableMultiLocalization={this.props.enableMultiLocalization}
               establishments={this.props.establishments}
               member={qi.member}

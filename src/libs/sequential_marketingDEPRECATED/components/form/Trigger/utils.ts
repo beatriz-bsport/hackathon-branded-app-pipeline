@@ -8,7 +8,7 @@ import {
   CadenceDestinationEnum,
 } from '#libs/sequential_marketingDEPRECATED/constants';
 
-export const TRIGGER_DETAULT_TIMEOUT_DAYS = 7;
+export const TRIGGER_DEFAULT_TIMEOUT_DAYS = 7;
 
 const _resolveConnectedTriggersConfigurations = ({
   connected_triggers_list,
@@ -42,7 +42,7 @@ const _resolveConnectedTriggersConfigurations = ({
   const CTTimeOutDaysValue =
     CTTimeOutList?.length >= 1
       ? CTTimeOutList[0].trigger_config.timeout
-      : TRIGGER_DETAULT_TIMEOUT_DAYS;
+      : TRIGGER_DEFAULT_TIMEOUT_DAYS;
 
   const isExitFail = !!connected_triggers_list?.find(
     (ct) =>

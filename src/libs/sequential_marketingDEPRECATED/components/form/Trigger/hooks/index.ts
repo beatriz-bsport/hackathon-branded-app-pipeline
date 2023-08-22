@@ -5,7 +5,7 @@ import { useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
 
 import { RuleBetweenEntryEvent } from '#libs/sequential_marketingDEPRECATED/constants';
-import { TRIGGER_DETAULT_TIMEOUT_DAYS } from '../utils';
+import { TRIGGER_DEFAULT_TIMEOUT_DAYS } from '../utils';
 
 import type { FormikValues } from '../components';
 import type { SmartList } from '#libs/smart-list/types';
@@ -78,7 +78,7 @@ export const useCadenceFormContext = ({
       });
     }
     setTimeOutValue(
-      values.trigger_destination_timeout_days ?? TRIGGER_DETAULT_TIMEOUT_DAYS,
+      values.trigger_destination_timeout_days ?? TRIGGER_DEFAULT_TIMEOUT_DAYS,
     );
     if (
       !values.trigger_logic_between_event_and_smartlist ||

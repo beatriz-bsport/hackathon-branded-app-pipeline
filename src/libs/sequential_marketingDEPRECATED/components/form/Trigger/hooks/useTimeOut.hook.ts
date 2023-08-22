@@ -2,11 +2,11 @@ import React from 'react';
 import { useFormikContext } from 'formik';
 import type { FormikValues } from '../components';
 
-import { TRIGGER_DETAULT_TIMEOUT_DAYS } from '../utils';
+import { TRIGGER_DEFAULT_TIMEOUT_DAYS } from '../utils';
 
 export const useTimeOutContext = () => {
   const [timeoutValue, setTimeOutValue] = React.useState(
-    TRIGGER_DETAULT_TIMEOUT_DAYS,
+    TRIGGER_DEFAULT_TIMEOUT_DAYS,
   );
 
   const { setFieldValue }: FormikValues = useFormikContext();
@@ -17,7 +17,7 @@ export const useTimeOutContext = () => {
     } else {
       setFieldValue(
         'trigger_destination_timeout_days',
-        parseFloat(event.target.value) || TRIGGER_DETAULT_TIMEOUT_DAYS,
+        parseFloat(event.target.value) || TRIGGER_DEFAULT_TIMEOUT_DAYS,
       );
     }
   };

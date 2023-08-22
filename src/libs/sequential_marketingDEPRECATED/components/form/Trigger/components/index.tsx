@@ -39,7 +39,7 @@ import type {
 import type { SmartList } from '#libs/smart-list/types';
 import type { OptionCallback } from '../../../../../../state/types';
 
-import { TRIGGER_DETAULT_TIMEOUT_DAYS } from '#libs/sequential_marketingDEPRECATED/components/form/Trigger/utils';
+import { TRIGGER_DEFAULT_TIMEOUT_DAYS } from '#libs/sequential_marketingDEPRECATED/components/form/Trigger/utils';
 import {
   CADENCE_STEPPER_ENTRY_STEP,
   CADENCE_STEPPER_WIN_STEP,
@@ -343,7 +343,7 @@ const formikFormWrapper = withFormik<ComponentProps & FormProps, Values>({
           RuleBetweenEntryEvent.AND_RULE_BETWEEN_ENTRY_EVENT,
         ...(withExit ? { is_exit_success: true, is_exit_fail: false } : {}),
         ...(withTimeout
-          ? { trigger_destination_timeout_days: TRIGGER_DETAULT_TIMEOUT_DAYS }
+          ? { trigger_destination_timeout_days: TRIGGER_DEFAULT_TIMEOUT_DAYS }
           : {}),
         noEmptyTrigger: !!noEmptyTrigger,
       };
@@ -359,7 +359,7 @@ const formikFormWrapper = withFormik<ComponentProps & FormProps, Values>({
         RuleBetweenEntryEvent.AND_RULE_BETWEEN_ENTRY_EVENT,
       ...(withExit ? { is_exit_success: true, is_exit_fail: false } : {}),
       ...(withTimeout
-        ? { trigger_destination_timeout_days: TRIGGER_DETAULT_TIMEOUT_DAYS }
+        ? { trigger_destination_timeout_days: TRIGGER_DEFAULT_TIMEOUT_DAYS }
         : {}),
       noEmptyTrigger: !!noEmptyTrigger,
     };

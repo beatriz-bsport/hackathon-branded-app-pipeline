@@ -65,3 +65,5 @@ export const TRIGGER_LEFT_HANDLE_STYLE = {
 export const TRIGGER_RIGHT_HANDLE_STYLE = {
   right: '0px',
 };
+
+export const TRIGGER_DEFAULT_TIMEOUT_DAYS = 7;

@@ -77,7 +77,7 @@ const categoryChipDict: { [key in EventsCategory]: string } = {
 /**
  * @description Dictionnary linking each cadence trigger kind to its corresponding icon name
  */
-const triggerIconByKind: { [key in TriggerKind]: string } = {
+export const triggerIconByKind: { [key in TriggerKind]: string } = {
   [TriggerKind.ONLY_EVENT_TRIGGER]: 'OfflineBolt',
   [TriggerKind.ONLY_SMARTLIST_FILTERING]: 'People',
   [TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING]: 'TriggeredPerson',

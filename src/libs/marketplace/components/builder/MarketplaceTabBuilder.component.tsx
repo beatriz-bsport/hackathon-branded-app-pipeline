@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ImmutableArray } from 'seamless-immutable';
 
 import {
   Button,
@@ -43,7 +44,7 @@ type Props = {
   coaches: Array<Coach>;
   establishments: Array<Establishment>;
   metaActivities: Array<MetaActivity>;
-  metaActivitiesWorkshop: Array<MetaActivity>;
+  metaActivitiesWorkshop: ImmutableArray<MetaActivity>;
   privateServices: Array<PrivateService>;
   playlists: Array<{ id: number; name: string }>;
   serviceGroupList: PrivateServiceGroup[];
@@ -72,15 +73,7 @@ const MarketPlaceTabBuilder: React.FC<Props> = (props) => {
   const [configErrors, setConfigError] = useState({});
 
   const classes = useStyles();
-  const { t } = useTranslation(['settings']);
-
-  useEffect(() => {
-    if (
-      Object.values(tabConfig?.[componentType] ?? {}).some((value) => value)
-    ) {
-      setShowAdvanceSettings(true);
-    }
-  }, [setShowAdvanceSettings, tabConfig, componentType]);
+  const { t } = useTranslation('settings');
 
   useEffect(() => {
     componentType && setComponentTypeError('');
@@ -98,6 +91,11 @@ const MarketPlaceTabBuilder: React.FC<Props> = (props) => {
       setShowAdvanceSettings(false);
     },
     [setComponentType, setTitle, setShowAdvanceSettings, setTabConfig, t],
+  );
+
+  const handleShowAdvancedSettings = useCallback(
+    () => setShowAdvanceSettings(true),
+    [],
   );
 
   const { onSubmit, index } = props;
@@ -166,7 +164,7 @@ const MarketPlaceTabBuilder: React.FC<Props> = (props) => {
             <div className={classes.showMoreContainer}>
               <Button
                 color="primary"
-                onClick={() => setShowAdvanceSettings(true)}
+                onClick={handleShowAdvancedSettings}
                 variant="outlined"
               >
                 {t('marketplaceSettings.createDialog.showAdvanced')}
@@ -240,4 +238,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default MarketPlaceTabBuilder;
+export default React.memo(MarketPlaceTabBuilder);

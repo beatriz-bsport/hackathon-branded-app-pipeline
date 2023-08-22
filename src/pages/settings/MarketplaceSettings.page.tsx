@@ -1,10 +1,13 @@
-// @ts-nocheck
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { ImmutableArray } from 'seamless-immutable';
 
-import { getDefaultTitleForComponent } from '../../libs/exportable-components/utils';
+import {
+  getDefaultConfigByIdentifier,
+  getDefaultTitleForComponent,
+} from '#libs/exportable-components/utils';
 
 import { RootState } from '../../reducers';
 import {
@@ -56,12 +59,8 @@ import { getPrivatePassCategories } from '#libs/private-service/selectors/privat
 
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
 import { getActiveCustomLevels } from '#libs/level/selectors';
-
-const defaultTab = {
-  componentType: 'calendar',
-  title: '',
-  config: {},
-};
+import { EXPORTABLE_COMPONENT_TYPE_CALENDAR } from '#libs/exportable-components/constants';
+import { MetaActivity } from '#libs/meta-activity/types';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
@@ -198,9 +197,20 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation('settings');
 
+  const DEFAULT_TAB = useMemo(
+    () => ({
+      componentType: EXPORTABLE_COMPONENT_TYPE_CALENDAR,
+      title: t(
+        `settings:marketplaceSettings.componentType.${EXPORTABLE_COMPONENT_TYPE_CALENDAR}`,
+      ),
+      config: getDefaultConfigByIdentifier(EXPORTABLE_COMPONENT_TYPE_CALENDAR),
+    }),
+    [t],
+  );
+
   return (
     <div className={classes.container}>
-      {loading && <LinearProgress style={{ width: '100%' }} />}
+      {loading && <LinearProgress />}
       {settings && settings.config && config && !loading && (
         <>
           <MarketplaceBuilder
@@ -235,7 +245,9 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
           giftcards={giftcards}
           index={currentTab !== null ? currentTab : config.length}
           metaActivities={metaActivities}
-          metaActivitiesWorkshop={metaActivitiesWorkshop}
+          metaActivitiesWorkshop={
+            metaActivitiesWorkshop as ImmutableArray<MetaActivity>
+          }
           onClose={() => setOpenCreation(false)}
           onSubmit={onSubmitTab}
           paymentPackCategories={paymentPackCategories}
@@ -243,7 +255,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
           privatePassCategories={privatePassCategories}
           privateServices={privateServices}
           serviceGroupList={serviceGroupList}
-          tab={currentTab !== null ? config[currentTab] : defaultTab}
+          tab={currentTab !== null ? config[currentTab] : DEFAULT_TAB}
           videos={videoList}
         />
       )}

@@ -10149,7 +10149,7 @@
       "attachToBasket": { "error": "Aucun code promo compatible trouvé" },
       "templateInstance": { "create": { "error": "Impossible de partager cette promotion avec ce(s) studio(s)" } },
       "exportCodes": { "success": "Bons d'achat correctement exportés", "error": "Impossible d'exporter les codes sélectionnés" },
-      "errors": { "5002": "Un des codes à marquer comme utilisé n'a pas encore été utilisé." }
+      "errors": { "5002": "Vous ne pouvez pas marquer comme utilisé un code qui n'est pas en attente de validation externe" }
     },
     "email": {
       "create": { "success": "Email créé", "error": "Impossible d'enregistrer l'email" },

@@ -544,7 +544,7 @@ exports.default = {
     },
     errors: {
       [CANNOT_REDEEM_CODE_BECAUSE_NOT_USED]:
-        "Un des codes à marquer comme utilisé n'a pas encore été utilisé.",
+        "Vous ne pouvez pas marquer comme utilisé un code qui n'est pas en attente de validation externe",
     },
   },
   email: {

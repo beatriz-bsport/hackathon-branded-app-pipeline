@@ -65,10 +65,11 @@ import {
 } from '#libs/platform-billing/upsell-identifiers';
 
 import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
-import { RolePermission } from '#libs/role/types';
+import { ObjectLevelPermissions, RolePermission } from '#libs/role/types';
 import ToolTip from '#components/Tooltip.component';
 import ResponsiveDrawerItem from './ResponsiveDrawerItem.component';
 
+import { hasObjectLevelPermission } from '#libs/role/permission-utils/utils';
 import { SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS } from '#libs/sequential_marketingDEPRECATED/constants';
 
 export const drawerWidth = 260;
@@ -90,6 +91,7 @@ type Props = {
     readable_identifier: string;
   }[];
   permissions: RolePermission;
+  objectLevelPermissions: ObjectLevelPermissions;
   disconnect: () => void;
   onMenuItemClick: () => void;
   nbTutorialAlerting: number;
@@ -140,6 +142,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
   featureList,
   companyId,
   permissions,
+  objectLevelPermissions,
   disconnect,
   onMenuItemClick,
   nbTutorialAlerting,
@@ -251,7 +254,11 @@ const ResponsiveDrawer: React.FC<Props> = ({
                   text: t('backofficeMenu.programs'),
                 },
               ]),
-          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_SUBTEACHER_TOOL, true)
+          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_SUBTEACHER_TOOL, true) &&
+          hasObjectLevelPermission(
+            objectLevelPermissions,
+            'management.coach.allowed_actions.substitution',
+          )
             ? [
                 {
                   to: '/replacement/management',
@@ -324,11 +331,18 @@ const ResponsiveDrawer: React.FC<Props> = ({
             icon: Payment,
             text: t('backofficeMenu.subscription'),
           },
-          {
-            to: '/coach/performance',
-            icon: PersonIcon,
-            text: t('backofficeMenu.coachPerformance'),
-          },
+          ...(hasObjectLevelPermission(
+            objectLevelPermissions,
+            'management.coach.allowed_actions.readPayroll',
+          )
+            ? [
+                {
+                  to: '/coach/performance',
+                  icon: PersonIcon,
+                  text: t('backofficeMenu.coachPerformance'),
+                },
+              ]
+            : []),
           {
             to: '/order/',
             icon: ShoppingCartIcon,
@@ -600,6 +614,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
     iconsOnly,
     permissions,
     setDrawerIconsOnly,
+    objectLevelPermissions,
     t,
   ]);
 

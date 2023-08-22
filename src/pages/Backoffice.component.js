@@ -55,7 +55,8 @@ import { fetchAssociatedCoachesList as fetchAssociatedCoaches } from '../libs/as
 // -----------------------------
 //
 //
-import { getPermissions } from '../libs/role/selectors';
+import { getPermissions, getObjectPermissions } from '../libs/role/selectors';
+import { ObjectLevelPermissions } from '../libs/role/types';
 import { parseRestrictedPath } from '../libs/role/utils';
 import { userAcknowlegdePlatformTutorial } from '#libs/platform-tutorial/selectors';
 import {
@@ -294,6 +295,7 @@ type Props = {
     upsell_identifier: number,
     readable_identifier: string,
   }>,
+  objectLevelPermissions: ObjectLevelPermissions,
 
   lastClockin: LastClockIn,
   usersPaginatedWithRoles: {
@@ -774,6 +776,7 @@ export class Backoffice extends Component<Props, State> {
                 navigateBackToFranchisor={this.props.navigateBackToFranchise}
                 nbAlerting={this.props.nbAlerting}
                 nbTutorialAlerting={this.props.nbTutorialAlerting}
+                objectLevelPermissions={this.props.objectLevelPermissions}
                 onSpotPaymentReportId={this.props.onSpotPaymentReportId}
                 onSubmit={this.props.updateCashBook}
                 openCalendar={this.props.openCalendar}
@@ -963,6 +966,7 @@ export default compose(
       onSpotPaymentReportId: state.paymentBackend.onSpotPaymentReport.id,
       is_consumer: state.auth.is_consumer && !state.auth.is_manager,
       featureList: state.company.feature.data.upsell,
+      objectLevelPermissions: getObjectPermissions(state),
 
       tempPasswordState: getTempPasswordState(state),
       roleById: state.role.role.byId,

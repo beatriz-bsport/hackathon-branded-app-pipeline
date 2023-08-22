@@ -63,7 +63,11 @@ import { windowTitleToProps } from '../../../hocs/with-title.hoc';
 import { openIntercomHelp } from '../../../intercom';
 import { DeleteAlert } from '#libs/alerting/types';
 import { TempPasswordState } from '#libs/login/types';
-import { RolePermission, Role } from '#libs/role/types';
+import type {
+  RolePermission,
+  Role,
+  ObjectLevelPermissions,
+} from '#libs/role/types';
 import { BannerContext, BannerContextValue } from '../../../hocs/banner.hoc';
 import ClockInDialog from '#libs/clock-in/components/ClockInDialog.component';
 import ResponsiveDrawer from './ResponsiveDrawer.component';
@@ -140,6 +144,7 @@ type Props = {
     upsell_identifier: number;
     readable_identifier: string;
   }>;
+  objectLevelPermissions: ObjectLevelPermissions;
   email: string;
   lastClockIn: LastClockIn;
   usersPaginatedWithRoles: {
@@ -204,6 +209,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   companyName,
   stripeOnboardingPending,
   featureList,
+  objectLevelPermissions,
   email,
   lastClockIn,
   usersPaginatedWithRoles,
@@ -832,6 +838,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                     iconsOnly={drawerIconsOnly}
                     location={location}
                     logo={logo}
+                    objectLevelPermissions={objectLevelPermissions}
                     onMenuItemClick={hideMobileDrawer}
                     permissions={permissions}
                   />
@@ -856,6 +863,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                     location={location}
                     logo={logo}
                     nbTutorialAlerting={nbTutorialAlerting}
+                    objectLevelPermissions={objectLevelPermissions}
                     onMenuItemClick={() => {}}
                     permissions={permissions}
                     setDrawerIconsOnly={setDrawerIconsOnly}
@@ -891,6 +899,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                 location={location}
                 logo={logo}
                 nbTutorialAlerting={nbTutorialAlerting}
+                objectLevelPermissions={objectLevelPermissions}
                 onMenuItemClick={hideMobileDrawer}
                 permissions={permissions}
               />

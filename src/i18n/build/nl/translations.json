@@ -3157,6 +3157,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
+                "Geannuleerd",
                 "Geannuleerd"
             ]
         },
@@ -15820,7 +15821,10 @@
                 "previous": "Terug",
                 "next": "Volgende",
                 "confirm": "Opslaan",
-                "cancel": "Annuleren"
+                "cancel": "Annuleren",
+                "step": {
+                    "name": "Naam"
+                }
             }
         }
     },

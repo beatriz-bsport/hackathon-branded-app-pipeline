@@ -31,7 +31,6 @@ export const OfferCardStastistics: React.FC<Props> = React.memo(
       male,
       other,
     } = offer;
-
     const {
       nb_bookings: nb_bookings_hybrid_session,
       nb_option: nb_option_hybrid_session,
@@ -70,7 +69,7 @@ export const OfferCardStastistics: React.FC<Props> = React.memo(
           effectif={effectif}
           female={female}
           male={male}
-          nbOptions={numberOfBookingOptionsHybridSession}
+          nbOptions={nb_option}
           numberOfBookings={numberOfBookings}
           other={other}
           showOfferGender={showOfferGender}
@@ -94,7 +93,7 @@ export const OfferCardStastistics: React.FC<Props> = React.memo(
               effectif={effectif_hybrid_session}
               female={female_hybrid_session}
               male={male_hybrid_session}
-              nbOptions={nb_option}
+              nbOptions={numberOfBookingOptionsHybridSession}
               numberOfBookings={nb_bookings_hybrid_session}
               other={other_hybrid_session}
               showOfferGender={showOfferGender}

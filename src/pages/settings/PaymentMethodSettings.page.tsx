@@ -21,7 +21,6 @@ import BackofficeLinearProgress from '#components/navigation/BackofficeLinearPro
 import PaymentMethodMultiSelector from '#libs/payment/components/PaymentMethodMultiSelector.component';
 import { updateCompanyTheme } from '#libs/theme/actions';
 import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
-import { ADDRESS_REQUIRED_COMPANY_ID } from '#libs/payment/components/payment-backend-stripe/CardBillingDetailsForm';
 
 type OwnProps = {};
 
@@ -240,30 +239,25 @@ class PaymentMethodSettings extends React.PureComponent<Props, State> {
               </div>
             </div>
 
-            {
-              // This feature is an ongoing test for the selected companies
-              this.props.theme.company === ADDRESS_REQUIRED_COMPANY_ID && (
-                <div className={classes.threeDSecureContainer}>
-                  <Typography variant="h6">3D Secure</Typography>
-                  <div className={classes.row}>
-                    <Switch
-                      checked={cardBillingDetailsMandatory}
-                      onChange={this.onCardBillingDetailsMandatoryChange}
-                    />
-                    <Typography color="textSecondary" variant="body2">
-                      {t('paymentMethods.methodPaymentCardBillingDetails')}
-                    </Typography>
-                  </div>
-                  <div className={classes.row}>
-                    <Alert className={classes.leftIcon} severity="info">
-                      {t(
-                        'paymentMethods.methodPaymentCardBillingDetailsHelper',
-                      )}
-                    </Alert>
-                  </div>
-                </div>
-              )
-            }
+            <div className={classes.threeDSecureContainer}>
+              <Typography variant="h6">
+                {t('paymentMethods.methodPaymentCardBillingDetailsTitle')}
+              </Typography>
+              <div className={classes.row}>
+                <Switch
+                  checked={cardBillingDetailsMandatory}
+                  onChange={this.onCardBillingDetailsMandatoryChange}
+                />
+                <Typography color="textSecondary" variant="body2">
+                  {t('paymentMethods.methodPaymentCardBillingDetails')}
+                </Typography>
+              </div>
+              <div className={classes.row}>
+                <Alert className={classes.leftIcon} severity="info">
+                  {t('paymentMethods.methodPaymentCardBillingDetailsHelper')}
+                </Alert>
+              </div>
+            </div>
           </div>
         </Paper>
 

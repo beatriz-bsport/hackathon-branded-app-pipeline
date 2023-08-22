@@ -167,6 +167,7 @@ exports.default = {
       'Autoriser les paiements des souscriptions (contrats) uniquement via',
     methodPaymentSubscriptionError:
       'Veuillez choisir au moins une méthode de paiement',
+    methodPaymentCardBillingDetailsTitle: 'Demander les détails complets de facturation',
     methodPaymentCardBillingDetails:
       'Demander les coordonnées de facturation pour les paiements par carte.',
     methodPaymentCardBillingDetailsHelper:

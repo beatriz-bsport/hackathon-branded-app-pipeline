@@ -3,13 +3,8 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import Config from '../../../../config';
 import CountrySelector from '#components/input/LocaleSelector.component';
 import type { BillingDetails } from '#libs/marketplace/types';
-
-// Temporary test to limit the number of 3DS required for card payments for one company (id 1416)
-export const ADDRESS_REQUIRED_COMPANY_ID =
-  Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? 6 : 1416;
 
 type PropsCardBillingDetailsForm = {
   disabled: boolean;

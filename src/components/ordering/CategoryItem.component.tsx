@@ -55,6 +55,7 @@ type Props = {
   width: string | number;
   hideTitle?: boolean;
   noCategoryHelper: string;
+  disabledDradAndDrop?: boolean;
 };
 
 const ButtonWithConfirm = withConfirm(
@@ -85,6 +86,7 @@ type ListProps = {
   orderingOverride: { [id: number]: number };
 
   ListItemComponent: ListItem;
+  disabledDradAndDrop?: boolean;
 };
 
 type ListItemProps = {
@@ -172,7 +174,7 @@ const SortableItemList = React.memo((props: ListProps) => {
           return (
             <SortableListItem
               key={item.id}
-              draggable={!props.selectorItemOrder}
+              draggable={!props.disabledDradAndDrop && !props.selectorItemOrder}
               item={item}
               ListItemComponent={props.ListItemComponent}
               onClick={props.onClick}
@@ -300,11 +302,13 @@ export const CategoryItemWithItems = React.memo((props: Props) => {
       {!props.hideTitle && (
         <div className={classes.header}>
           <div className={classes.flex}>
-            {category.id && props.isCategoryDraggable && (
-              <IconButton {...listeners} {...attributes}>
-                <DragHandleIcon />
-              </IconButton>
-            )}
+            {!props.disabledDradAndDrop &&
+              category.id &&
+              props.isCategoryDraggable && (
+                <IconButton {...listeners} {...attributes}>
+                  <DragHandleIcon />
+                </IconButton>
+              )}
             <Typography component="h2" variant="h5">
               {category
                 ? `${category.name || t('category.noCategory.name')} (${

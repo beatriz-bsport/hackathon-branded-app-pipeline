@@ -49,6 +49,7 @@ export type Props = {
 
   noCategoryHelper?: string;
 
+  disabledDragAndDrop?: boolean;
   selectorItemOrder?: Array<{ id: number; ordering_in_category: number }>;
   filteredItems?: Array<number>;
   filteredCategories?: Array<number>;
@@ -291,6 +292,7 @@ export const CategoryList = (props: Props) => {
               category={category}
               categoryIds={items.map((cat) => cat.id)}
               deleteCategory={props.deleteCategory}
+              disabledDradAndDrop={props.disabledDragAndDrop}
               editCategory={props.editCategory}
               filteredItems={props.filteredItems}
               hideTitle={props.hideTitle}

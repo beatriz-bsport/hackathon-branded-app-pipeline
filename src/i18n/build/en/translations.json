@@ -4439,7 +4439,7 @@
         "code": {
             "addCoupon": {
                 "apply": "Apply",
-                "label": "Promotional code",
+                "label": "Promo code",
                 "placeholder": "PROMOTIONAL CODE",
                 "cancel": "Cancel",
                 "submit": "Save",
@@ -6715,11 +6715,11 @@
             "tax": "VAT / Sales Taxes",
             "taxExcluded": "Subtotal (excl. VAT / Sales Tax)",
             "flat_fee": "Enrolment fee",
-            "globalTotal": "Total",
+            "globalTotal": "Total to pay now",
             "internalAccount": "My internal account balance",
             "deliveryFee": "Delivery Fee",
             "title": "Payment",
-            "totalHiddingTax": "Total"
+            "totalHiddingTax": "Total to pay now"
         }
     },
     "establishment": {

@@ -1,9 +1,12 @@
 import React from 'react';
-import ObjectPermissionWrapper from './ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionWrapper from './ObjectLevelPermissionWrapper.component';
+
+// When providing an array for argument 'requiredPermission', the user
+// must have ALL permissions in order to perform the action / see the element.
 
 const makeObjectLevelPermissionAware: (
   WrappedComponent: React.ComponentType,
-  requiredPermission: string,
+  requiredPermission: string | string[],
   forcedBehavior?: 'disabled' | 'hidden',
   disabledPropName?: string,
 ) => React.ComponentType = (
@@ -13,13 +16,13 @@ const makeObjectLevelPermissionAware: (
   disabledPropName = 'disabled',
 ) => {
   return (props: any) => (
-    <ObjectPermissionWrapper
+    <ObjectLevelPermissionWrapper
       disabledPropName={disabledPropName}
       forcedBehavior={forcedBehavior}
       requiredPermission={requiredPermission}
     >
       <WrappedComponent {...props} />
-    </ObjectPermissionWrapper>
+    </ObjectLevelPermissionWrapper>
   );
 };
 

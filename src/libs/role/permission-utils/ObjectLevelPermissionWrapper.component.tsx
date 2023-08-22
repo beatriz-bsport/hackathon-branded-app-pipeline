@@ -6,13 +6,16 @@ import { getObjectPermissions } from '#libs/role/selectors';
 import { hasObjectLevelPermission } from './utils';
 
 interface OwnProps {
-  requiredPermission: string;
+  requiredPermission: string | string[];
   forcedBehavior?: 'disabled' | 'hidden';
   disabledPropName?: string;
   children: React.ReactNode;
 }
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
+
+// When providing an array for prop 'requiredPermission', the user
+// must have ALL permissions in order to perform the action / see the element.
 
 const ObjectLevelPermissionWrapper: React.FC<Props> = ({
   objectPermissions,
@@ -21,10 +24,18 @@ const ObjectLevelPermissionWrapper: React.FC<Props> = ({
   disabledPropName = 'disabled',
   children,
 }) => {
-  const hasPermission = hasObjectLevelPermission(
-    objectPermissions,
-    requiredPermission,
-  );
+  let hasPermission: boolean;
+
+  if (Array.isArray(requiredPermission)) {
+    hasPermission = requiredPermission.every((permissionString) =>
+      hasObjectLevelPermission(objectPermissions, permissionString),
+    );
+  } else {
+    hasPermission = hasObjectLevelPermission(
+      objectPermissions,
+      requiredPermission,
+    );
+  }
 
   if (!hasPermission && forcedBehavior === 'hidden') return null;
 

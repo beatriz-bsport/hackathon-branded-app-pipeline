@@ -3221,7 +3221,7 @@
             }
         },
         "unpaidPrivateBooking": {
-            "credits_due": "{{ credits }} onbetaalde credit(s)"
+            "credits_due": "Onbetaalde credit(s): {{ credits }}"
         },
         "newTutorialSectionOrLesson": {
             "newLesson": {
@@ -5371,7 +5371,7 @@
                             "partnerMaxBookingCount": "Maximaal aantal marketplace-reserveringen (alleen voor OneFit / Urban Sports CLub)",
                             "availableOnPartnership": "Op marketplaces (ClassPass, OneFit...)",
                             "title": "Marketplace",
-                            "uscIntegrationWorkshopWarning": "Workshops zijn niet met Urban Sports Club en worden daarom ook niet getoond.",
+                            "uscIntegrationWorkshopWarning": "Workshops zijn niet compatibel met Urban Sports Club en worden daarom ook niet getoond.",
                             "uscIntegrationWarning": "Je integratie met Urban Sports Club is actief. Sessies die later plaatsvinden dan 2 dagen worden niet getoond."
                         },
                         "allowGuestOffer": "De reservering voor een gast autoriseren",
@@ -8793,7 +8793,7 @@
                 },
                 "last_discard_minutes": {
                     "label": "Selecteer tot wanneer leden kosteloos kunnen annuleren (late-cancel)",
-                    "helperText": "Bij te late annuleringen worden kredieten niet teruggestort."
+                    "helperText": "Bij te late annuleringen worden credits niet teruggestort."
                 },
                 "establishmentResourceType": {
                     "isHomeService": {

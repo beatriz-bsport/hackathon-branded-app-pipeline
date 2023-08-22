@@ -16,6 +16,7 @@ import { getAllSmartList } from '#libs/smart-list/selectors';
 import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import PrivateServiceFormDrawer from '../../libs/private-service/components/service/PrivateServiceFormDrawer.component';
 import PrivateServiceDetailPage from '../../libs/private-service/components/service/PrivateServiceDetailPage.component';
+import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 import {
   getPrivateServiceById,
@@ -251,14 +252,20 @@ export class PrivateServiceList extends React.Component<Props> {
             onSubmit={this.props.createOrUpdateServiceGroup}
           />
         )}
-        <BottomActionButtons
-          onEdit={() => {
-            this.props.fetchAssociatedCoachesList();
-            this.props.fetchEstablishments();
-            this.props.fetchAssociatedEstablishments();
-            this.props.setOpenEditForm(true);
-          }}
-        />
+
+        <ObjectLevelPermissionWrapper
+          forcedBehavior="hidden"
+          requiredPermission="management.privateService.allowed_actions.edit"
+        >
+          <BottomActionButtons
+            onEdit={() => {
+              this.props.fetchAssociatedCoachesList();
+              this.props.fetchEstablishments();
+              this.props.fetchAssociatedEstablishments();
+              this.props.setOpenEditForm(true);
+            }}
+          />
+        </ObjectLevelPermissionWrapper>
       </div>
     );
   }

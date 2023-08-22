@@ -3015,7 +3015,7 @@
             "filter": {
                 "allThreads": "All messages",
                 "hasNotBeenRead": "Unread",
-                "favorites": "Favorites",
+                "favorites": "Favourites",
                 "muted": "Mute",
                 "disabled": "Archived"
             },
@@ -10187,7 +10187,7 @@
                 "limit_reach": "The booking limit has been reached for this {{unit}}"
             }
         },
-        "notificationToolTip": "Notifications are definied for this pass",
+        "notificationToolTip": "Notifications are defined for this pass",
         "notification": {
             "0": {
                 "first": "Send this notification if there's ",
@@ -15449,7 +15449,7 @@
                 "last_name": "Last name",
                 "first_name": "First name",
                 "sign_up_question": "Sign up form questions",
-                "location": "Favorite location",
+                "location": "Favourite location",
                 "state": "State"
             },
             "title": "Forms",

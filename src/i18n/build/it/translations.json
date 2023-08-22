@@ -2028,7 +2028,7 @@
         },
         "sendMessage": {
             "writeCommunication": "Inviare un messaggio",
-            "refresh": "Per visualizzare la nuova versione del tuo modello, fai clic sul pulsante aggiorna.",
+            "refresh": "Per visualizzare la nuova versione del modello, fare clic sul pulsante Aggiorna.",
             "sendDisabled": {
                 "missingPhoneInDirectMember": "Questo utente non ha un numero di telefono",
                 "missingEmailInDirectMember": "Questo utente non ha un indirizzo email.",
@@ -2055,7 +2055,7 @@
             }
         },
         "dialogRecipients": {
-            "refreshMemberData": "Per visualizzare le modifiche, fare clic sul pulsante aggiorna.",
+            "refreshMemberData": "Per visualizzare le modifiche, fare clic sul pulsante di aggiornamento.",
             "noPhone": "numero di telefono non fornito",
             "noMail": "email non fornita",
             "warnings": {
@@ -2066,7 +2066,7 @@
             }
         },
         "dialogTemplate": {
-            "refreshText": "Per visualizzare il nuovo modello nell'elenco, fare clic sul pulsante aggiorna.",
+            "refreshText": "Per vedere il nuovo modello apparire nell'elenco, fare clic sul pulsante di aggiornamento.",
             "title": "Seleziona il modello"
         },
         "dialogInformation": {
@@ -2161,7 +2161,10 @@
         },
         "createThread": {
             "confirmResourceSelected": "Conferma",
-            "close": "Chiudi"
+            "close": "Chiudi",
+            "title": "Nuovo messaggio",
+            "smartlistPlaceholder": "Seleziona una smartlist",
+            "refreshSmartlist": "Fare clic sul pulsante di aggiornamento per visualizzare le nuove smartlist"
         }
     },
     "membership": {
@@ -3670,7 +3673,8 @@
             "toggle": {
                 "shrink": "Piega",
                 "expand": "Estendi"
-            }
+            },
+            "inbox": "Posta in arrivo"
         },
         "deprecatedNavigator": {
             "close": "Chiudi",
@@ -6114,7 +6118,9 @@
             "email": "E-mail del titolare",
             "name": "Nome e cognome del titolare",
             "contentIban": "Fornendo il tuo IBAN e confermando il pagamento, autorizzi bsport e Stripe, il nostro sistema di pagamento, a inviare istruzioni di addebito alla tua banca in conformità con il programma di pagamento. Puoi richiedere un rimborso alla tua banca secondo i termini del tuo contratto con quest'ultima. Il rimborso deve essere richiesto entro 8 settimane dal primo addebito.",
-            "contentBacsDebit": "Fornendo i tuoi dati bancari e confermando il pagamento, autorizzi bsport e Stripe, il nostro sistema di pagamento, a inviare istruzioni di addebito alla tua banca in conformità con il programma di pagamento. Puoi richiedere un rimborso alla tua banca secondo i termini del tuo contratto con quest'ultima. Puoi chiedere alla tua banca in qualsiasi momento di annullare il mandato di addebito diretto."
+            "contentBacsDebit": "Fornendo i tuoi dati bancari e confermando il pagamento, autorizzi bsport e Stripe, il nostro sistema di pagamento, a inviare istruzioni di addebito alla tua banca in conformità con il programma di pagamento. Puoi richiedere un rimborso alla tua banca secondo i termini del tuo contratto con quest'ultima. Puoi chiedere alla tua banca in qualsiasi momento di annullare il mandato di addebito diretto.",
+            "address_postal_code": "Codice postale",
+            "address_line_1": "Indirizzo"
         },
         "paymentGroup": {
             "requiresAction": "La banca non ha autenticato il pagamento (3DSecure)",
@@ -7308,7 +7314,20 @@
             "last_booked_offer_pass_name": "Pass utilizzato per l'ultima sessione prenotata",
             "last_booked_offer_meta_activity_name": "Nome dell'attività dell'ultima sessione prenotata",
             "last_booked_offer_date": "Data dell'ultima sessione prenotata",
-            "last_booked_offer_id": "ID dell'ultima sessione prenotata"
+            "last_booked_offer_id": "ID dell'ultima sessione prenotata",
+            "referring_member_total_reward": "Ricompensa ricevuta dal membro che sponsorizza",
+            "referring_member_pk": "ID del membro che sponsorizza",
+            "referring_member_last_name": "Cognome del membro che sponsorizza",
+            "referring_member_first_name": "Nome del membro che sponsorizza",
+            "referring_member_email": "Email membro sponsorizzato",
+            "referred_member_registration_date": "Data di registrazione del membro sponsorizzato",
+            "referred_member_pk": "ID membro sponsorizzato",
+            "referred_member_last_name": "Cognome del membro sponsorizzato",
+            "referred_member_first_name": "Nome del membro sponsorizzato",
+            "referred_member_email": "Email del membro sponsorizzato",
+            "referred_discount_use_date": "Data di utilizzo dello sconto sulla sponsorizzazione",
+            "referred_discount_applied": "Ricompensa ricevuta dal membro sponsorizzato",
+            "purchased_products": "Prodotti"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -7411,7 +7430,8 @@
             "dispute": "Controversia sul pagamento",
             "franchise_shared_pass": "Utilizzo di pass condivisi",
             "billing_plan": "Abbonamento",
-            "members_purchase": "Acquisti dei membri"
+            "members_purchase": "Acquisti dei membri",
+            "referral_grant": "Referral"
         },
         "globalCategories": {
             "subheader": {
@@ -7679,7 +7699,8 @@
             "activityByCoach": "Le attività e gli insegnanti visualizzati sono quelli per i quali è pianificata una sessione nell'intervallo di date selezionato.",
             "activityByEst": "Le attività e gli stabilimenti che appaiono sono quelli per i quali è programmata una sessione nell'intervallo di date selezionato.",
             "activities": "Le attività visualizzate sono quelle per le quali è pianificata una sessione nell'intervallo di date selezionato.",
-            "members": "I membri sono filtrati in base alla loro data di iscrizione."
+            "members": "I membri sono filtrati in base alla loro data di iscrizione.",
+            "referral_grant": "I link di sponsorizzazione sono filtrati in base alla data di creazione del membro sponsorizzato"
         },
         "last_invoice_status": {
             "": [
@@ -7715,7 +7736,8 @@
                 "Cancellata",
                 "Cancella",
                 "Cancella",
-                "Cancella"
+                "Cancella",
+                "Cancellato"
             ]
         },
         "payment_method_with_credit_account": {
@@ -10637,11 +10659,13 @@
                 "tag": "Tag",
                 "tag_group": "Gruppo"
             },
-            "title": "Coupon"
+            "title": "Coupon",
+            "alert": "Un codice sconto può essere utilizzato da un membro per ridurre il prezzo di un carrello. In questo modulo, potete personalizzare completamente il modo in cui il codice viene applicato. Sarete voi stessi a scegliere il codice e sarete voi a decidere come condividerlo con i vostri membri."
         },
         "noDiscount": "Nessun acquisto effettuato con il codice",
         "detail": {
-            "seeParameters": "Visualizza le impostazioni"
+            "seeParameters": "Visualizza le impostazioni",
+            "seeVouchers": "Vedi i voucher"
         },
         "createCoupon": "Aggiungi un codice",
         "code": {
@@ -10652,7 +10676,9 @@
                 "submit": "Confermare",
                 "not_found": "Questo codice promozionale non è valido.",
                 "not_applicable": "Questo codice promozionale non è applicabile.",
-                "apply": "Applica"
+                "apply": "Applica",
+                "5006": "Questo codice univoco è già collegato a un carrello aperto",
+                "5004": "Questo codice può essere applicato solo a un singolo articolo."
             }
         },
         "search": "Cerca un codice promozionale",
@@ -10699,7 +10725,14 @@
                         "incorrectDataError": "Il file non contiene i dati corretti.",
                         "notCsvFileError": "Il tipo di file non corrisponde ad un file CSV."
                     },
-                    "only_on_objects": "È necessario scegliere un oggetto su cui applicare la riduzione"
+                    "only_on_objects": "È necessario scegliere un oggetto su cui applicare la riduzione",
+                    "update_mode": "Se si desidera modificare i codici registrati per questa promozione, è possibile aggiungere i codici a quelli esistenti o sostituirli",
+                    "5006": "Questo codice univoco è già collegato a un carrello aperto",
+                    "5005": "Questo codice è già stato utilizzato o è attualmente collegato a un carrello.",
+                    "5004": "Questo codice può essere applicato solo a un singolo articolo.",
+                    "5003": "Alcuni codici univoci sono già registrati in un altro coupon.",
+                    "5001": "Alcuni codici univoci non possono essere aggiunti perché sono già stati registrati.",
+                    "5000": "Non è possibile fornire un codice che è già stato utilizzato in un altro coupon."
                 },
                 "fileUploader": {
                     "title": "Scarica i voucher una tantum",
@@ -10719,8 +10752,47 @@
                 },
                 "only_on_first_checkout": {
                     "label": "Può essere utilizzato solo per il primo acquisto"
+                },
+                "update": {
+                    "popover": "I codici non utilizzati saranno cancellati, ma quelli usati saranno conservati.",
+                    "append": "Aggiungi ai codici esistenti",
+                    "replace": "Sostituisci i codici esistenti",
+                    "alertInfo": "C'è {{count}} codice registrato per questa promozione, è possibile scaricare nuovi codici.",
+                    "alertInfo_plural": "Ci sono {{count}} codici registrati per questa promozione, è possibile scaricare nuovi codici."
+                }
+            },
+            "voucherCodesDialog": {
+                "close": "Chiudi",
+                "markAsRedeemed": "Segna come utilizzato",
+                "markAsRedeemed_plural": "Segna come utilizzati",
+                "export": "Esporta",
+                "noResult": "Nessun risultato",
+                "searchBar": {
+                    "placeHolder": "Cerca un codice"
+                },
+                "checkBoxes": {
+                    "unselectAll": "Deseleziona tutto",
+                    "selectAll": "Seleziona tutto"
+                },
+                "selector": {
+                    "notUsed": "Non utilizzato",
+                    "pending": "In attesa di una convalida esterna",
+                    "redeemed": "Segnato come utilizzato",
+                    "allStatus": "Tutti gli stati"
+                },
+                "header": {
+                    "status": "Stato",
+                    "codes": "Codici"
                 }
             }
+        },
+        "couponFilter": {
+            "allType": "Tutti i tipi di promozione",
+            "title": "Tipo di promozione"
+        },
+        "fabLabels": {
+            "discountCode": "Codice sconto",
+            "voucherCodes": "Voucher"
         }
     },
     "tag": {
@@ -13251,9 +13323,11 @@
                         "isModifyRecursively": "Vuoi modificare tutte le sessioni simili in base a queste nuove condizioni?",
                         "isNotifyConsumers": "Vuoi informare i tuoi clienti di questo cambiamento?",
                         "partnership": {
-                            "partnerMaxBookingCount": "Numero massimo di prenotazioni del marketplace (solo OneFit)",
+                            "partnerMaxBookingCount": "Numero massimo di prenotazioni dal marketplace (solo OneFit + Urban Sports Club)",
                             "availableOnPartnership": "Sui marketplace (ClassPass, OneFit...)",
-                            "title": "Marketplace"
+                            "title": "Marketplace",
+                            "uscIntegrationWorkshopWarning": "I workshop non sono compatibili con il marketplace Urban Sports Club, pertanto questa sessione non sarà inclusa.",
+                            "uscIntegrationWarning": "L'integrazione al marketplace Urban Sports Club è attiva, ma le sessioni di durata pari o superiore a 2 giorni non verranno mostrate."
                         },
                         "allowGuestOffer": "Consenti la prenotazione per un ospite",
                         "isManagerOnly": "Disponibile per la prenotazione (web+app)",
@@ -13777,10 +13851,136 @@
                 },
                 "staff": {
                     "_label": "Staff"
+                },
+                "tag": {
+                    "_label": "Tag"
                 }
             }
         },
-        "overbookingForbidden": "I diritti che ti sono stati assegnati come personale non ti consentono di superare il numero massimo di prenotazioni."
+        "overbookingForbidden": "I diritti che ti sono stati assegnati come personale non ti consentono di superare il numero massimo di prenotazioni.",
+        "objectLevelPermissions": {
+            "reservation": {
+                "activity": {
+                    "_label": "Gestione delle lezioni di gruppo"
+                },
+                "_label": "Gestione delle prenotazioni"
+            },
+            "billing": {
+                "allowed_actions": {
+                    "createManualDiscount": {
+                        "_label": "Applicare riduzioni manuali"
+                    },
+                    "partialRefundAsCredit": {
+                        "_label": "Trasforma in saldo (rimborso)"
+                    },
+                    "partialRefundAsDiscount": {
+                        "_label": "Applica uno sconto (rimborso)"
+                    },
+                    "deletePaymentMethod": {
+                        "_label": "Elimina un metodo di pagamento"
+                    },
+                    "addPaymentMethod": {
+                        "_label": "Aggiungi un metodo di pagamento"
+                    },
+                    "cancelInvoice": {
+                        "_label": "Cancella fatture"
+                    },
+                    "readPaymentLink": {
+                        "_label": "Genera link per il pagamento"
+                    },
+                    "createInvoice": {
+                        "_label": "Fatturazione di un membro"
+                    },
+                    "readInvoices": {
+                        "_label": "Visualizza le fatture"
+                    },
+                    "editBalance": {
+                        "_label": "Adegua i saldi dei membri"
+                    },
+                    "takePayment": {
+                        "_label": "Incassa da un membro"
+                    }
+                },
+                "_label": "Fatturazione"
+            },
+            "member": {
+                "allowed_actions": {
+                    "manageNotification": {
+                        "_label": "Gestione le notifiche dei membri"
+                    },
+                    "communication": {
+                        "_label": "Comunica con i membri"
+                    },
+                    "readBalance": {
+                        "_label": "Vedi il bilancio dei membri"
+                    },
+                    "accessProfile": {
+                        "_label": "Accesso al profilo dei membri"
+                    },
+                    "search": {
+                        "_label": "Cerca un membro"
+                    },
+                    "delete": {
+                        "_label": "Elimina un membro"
+                    },
+                    "editInfo": {
+                        "_label": "Edita i dati personali"
+                    },
+                    "readInfo": {
+                        "_label": "Visualizza i dati personali"
+                    },
+                    "create": {
+                        "_label": "Aggiungi un membro"
+                    }
+                },
+                "_label": "Azioni sui membri"
+            },
+            "session": {
+                "privateSlot": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Elimina"
+                        },
+                        "edit": {
+                            "_label": "Modifica"
+                        },
+                        "create": {
+                            "_label": "Crea"
+                        }
+                    },
+                    "_label": "Slot per appuntamenti"
+                },
+                "workshop": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Elimina"
+                        },
+                        "edit": {
+                            "_label": "Modifica"
+                        },
+                        "create": {
+                            "_label": "Crea"
+                        }
+                    },
+                    "_label": "Workshop"
+                },
+                "activity": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Elimina"
+                        },
+                        "edit": {
+                            "_label": "Modifica"
+                        },
+                        "create": {
+                            "_label": "Crea"
+                        }
+                    },
+                    "_label": "Attività"
+                },
+                "_label": "Gestione sessioni"
+            }
+        }
     },
     "widget": {
         "widget": {
@@ -14387,8 +14587,8 @@
                     "private_booking-cancel": "Cancellazione di un Appuntamento",
                     "private_booking-create": "Appuntamenti",
                     "booking-attendance": "Partecipazione alle lezioni di gruppo",
-                    "booking-create": "Lezione collettiva",
-                    "private_consumer_pass-create": "Pass per appuntamento",
+                    "booking-create": "Lezione di gruppo",
+                    "private_consumer_pass-create": "Pass per appuntamenti",
                     "consumer_payment_pack-create": "Pass",
                     "104": "Iscrizione",
                     "103": "Fatturazione",
@@ -14407,7 +14607,7 @@
                     "5": "Appuntamenti",
                     "4": "Partecipazione alle lezioni di gruppo",
                     "3": "Lezioni di gruppo",
-                    "2": "Pass per appuntamento",
+                    "2": "Pass per appuntamenti",
                     "1": "Pass"
                 },
                 "exit": {
@@ -14602,7 +14802,10 @@
                 "previous": "Indietro",
                 "next": "Avanti",
                 "confirm": "Salva",
-                "cancel": "Cancella"
+                "cancel": "Cancella",
+                "step": {
+                    "name": "Nome"
+                }
             }
         }
     },

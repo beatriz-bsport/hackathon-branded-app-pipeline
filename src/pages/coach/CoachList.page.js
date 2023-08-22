@@ -18,6 +18,8 @@ import Divider from '@material-ui/core/Divider';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
+import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionProvider from '../../libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import {
   deleteCoach,
@@ -161,18 +163,27 @@ export class CoachList extends React.Component<Props, State> {
                 }
               >
                 <List dense disablePadding component="nav">
-                  {this.state.searchResult.map((coach) => (
-                    <CoachListItem
-                      divider
-                      coach={coach}
-                      deleteCoach={() => this.props.setDeleteCoachId(coach.id)}
-                      onCoachSelected={
-                        !coach.disabled
-                          ? () => this.goToCoachDetailPage(coach)
-                          : null
-                      }
-                    />
-                  ))}
+                  <ObjectLevelPermissionProvider requiredPermission="management.coach.allowed_actions.delete">
+                    {(hasDeletePermission) =>
+                      this.state.searchResult.map((coach) => (
+                        <CoachListItem
+                          key={coach.id}
+                          divider
+                          coach={coach}
+                          deleteCoach={
+                            hasDeletePermission
+                              ? () => this.props.setDeleteCoachId(coach.id)
+                              : null
+                          }
+                          onCoachSelected={
+                            !coach.disabled
+                              ? () => this.goToCoachDetailPage(coach)
+                              : null
+                          }
+                        />
+                      ))
+                    }
+                  </ObjectLevelPermissionProvider>
                 </List>
               </Collapse>
             </Paper>
@@ -180,15 +191,33 @@ export class CoachList extends React.Component<Props, State> {
         )}
         <Paper>
           <List dense disablePadding component="nav">
-            {coachesList.map((coach) => (
-              <CoachListItem
-                divider
-                coach={coach}
-                deleteCoach={() => this.props.setDeleteCoachId(coach.id)}
-                onCoachSelected={() => this.goToCoachDetailPage(coach)}
-                onEditCoach={() => this.props.goToCoachEdit(coach.id)}
-              />
-            ))}
+            <ObjectLevelPermissionProvider
+              requiredPermission={[
+                'management.coach.allowed_actions.edit',
+                'management.coach.allowed_actions.delete',
+              ]}
+            >
+              {([hasEditPermission, hasDeletePermission]) =>
+                coachesList.map((coach) => (
+                  <CoachListItem
+                    key={coach.id}
+                    divider
+                    coach={coach}
+                    deleteCoach={
+                      hasDeletePermission
+                        ? () => this.props.setDeleteCoachId(coach.id)
+                        : null
+                    }
+                    onCoachSelected={() => this.goToCoachDetailPage(coach)}
+                    onEditCoach={
+                      hasEditPermission
+                        ? () => this.props.goToCoachEdit(coach.id)
+                        : null
+                    }
+                  />
+                ))
+              }
+            </ObjectLevelPermissionProvider>
           </List>
           <CoachDeleteModal
             checkCanDeleteCoach={canDeleteCoachAPI}
@@ -235,6 +264,7 @@ export class CoachList extends React.Component<Props, State> {
                 <List dense disablePadding component="nav">
                   {inactiveCoachesList.map((coach) => (
                     <CoachListItem
+                      key={coach.id}
                       divider
                       coach={coach}
                       deleteCoach={() => this.props.setDeleteCoachId(coach.id)}
@@ -248,10 +278,15 @@ export class CoachList extends React.Component<Props, State> {
           </div>
         ) : null}
 
-        <BottomActionsButton
-          onCreate={this.props.onCreate}
-          onCreateLabel={this.props.t('coach:addCoach')}
-        />
+        <ObjectLevelPermissionWrapper
+          forcedBehavior="hidden"
+          requiredPermission="management.coach.allowed_actions.create"
+        >
+          <BottomActionsButton
+            onCreate={this.props.onCreate}
+            onCreateLabel={this.props.t('coach:addCoach')}
+          />
+        </ObjectLevelPermissionWrapper>
       </div>
     );
   }

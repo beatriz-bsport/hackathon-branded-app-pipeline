@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ImmutableArray } from 'seamless-immutable';
 import { OptionCallBackWithKeyedCallbacks } from '../../../../state/types';
@@ -65,6 +65,12 @@ const UniqueCodeCouponFormDrawer: React.FC<Props> = ({
       `form.actions.errors.${CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS}`,
     ),
   };
+
+  useEffect(() => {
+    if (open && !!uniqueCodeCoupon) {
+      setWithExpirationDate(!!uniqueCodeCoupon.expiration_date);
+    }
+  }, [open, uniqueCodeCoupon]);
 
   return (
     <GenericResponsiveDrawer

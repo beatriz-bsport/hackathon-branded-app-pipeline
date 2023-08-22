@@ -78,6 +78,7 @@ const UniqueCodeCouponFormAvailability: React.FC<Props> = ({
         <FormControlLabel
           control={
             <Checkbox
+              checked={values.is_active}
               id="unique-code-coupon-form-is-active-checkbox"
               onChange={handleIsActiveChange}
             />
@@ -91,6 +92,7 @@ const UniqueCodeCouponFormAvailability: React.FC<Props> = ({
           <FormControlLabel
             control={
               <Checkbox
+                checked={withExpirationDate}
                 disabled={!values?.is_active || isProcessing}
                 id="unique-code-coupon-form-with-expiration-checkbox"
                 onChange={handleWithExpirationDate}

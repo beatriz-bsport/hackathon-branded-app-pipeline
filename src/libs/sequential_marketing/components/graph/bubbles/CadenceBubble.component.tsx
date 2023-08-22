@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import chroma from 'chroma-js';
 import { makeStyles, type Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import type { ClassNameMap } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 import BubbleCard from '#components/card/BubbleCard.component';
 import {
@@ -25,15 +27,17 @@ export type CadenceBubbleProps = {
   onCancelText?: string;
   onConfirmClick?: () => void;
   onConfirmText?: string;
+  isSubmissionForbidden?: boolean;
+  withDeleteIcon?: boolean;
 };
 
 type CadenceBubbleHeaderProps = { classes: ClassNameMap<string> } & Pick<
   CadenceBubbleProps,
-  'title' | 'icon' | 'color' | 'minimalIcon'
+  'title' | 'icon' | 'color' | 'minimalIcon' | 'onCancelClick'
 >;
 
 const CadenceBubbleHeader: React.FC<CadenceBubbleHeaderProps> = React.memo(
-  ({ title, icon, color, minimalIcon, classes }) => {
+  ({ classes, color, icon, minimalIcon, title, onCancelClick }) => {
     return (
       <div className={classes.title}>
         <div className={classes.flexIconAndText}>
@@ -71,6 +75,19 @@ const CadenceBubbleHeader: React.FC<CadenceBubbleHeaderProps> = React.memo(
               {title}
             </Typography>
           </div>
+          {onCancelClick && (
+            <IconButton
+              className={classes.deleteButton}
+              onClick={onCancelClick}
+              size="small"
+            >
+              <CustomMuiIcon
+                defaultBackGround
+                icon="Close"
+                withBackground={false}
+              />
+            </IconButton>
+          )}
         </div>
       </div>
     );
@@ -79,6 +96,7 @@ const CadenceBubbleHeader: React.FC<CadenceBubbleHeaderProps> = React.memo(
 
 const CadenceBubble: React.FC<CadenceBubbleProps> = ({
   title,
+  isSubmissionForbidden,
   icon,
   color,
   children,
@@ -88,10 +106,21 @@ const CadenceBubble: React.FC<CadenceBubbleProps> = ({
   onCancelText,
   onConfirmClick,
   onConfirmText,
+  withDeleteIcon,
 }) => {
   const { t } = useTranslation('marketing');
 
-  const classes = useStyles({ color });
+  const bottomButtonPosition = useMemo(() => {
+    if ((!onCancelClick || withDeleteIcon) && onConfirmClick) {
+      return 'flex-end';
+    }
+    if (onCancelClick && !onConfirmClick) {
+      return 'flex-start';
+    }
+    return 'space-between';
+  }, [onCancelClick, onConfirmClick, withDeleteIcon]);
+
+  const classes = useStyles({ color, bottomButtonPosition });
 
   return (
     <BubbleCard withShadow width={CADENCE_BUBBLE_WIDTH}>
@@ -101,13 +130,14 @@ const CadenceBubble: React.FC<CadenceBubbleProps> = ({
           color={color}
           icon={icon}
           minimalIcon={minimalIcon}
+          onCancelClick={withDeleteIcon ? onCancelClick : null}
           title={title}
         />
       </div>
       {!!children && children}
       {!withoutBottomActions && (
         <div className={classes.footer}>
-          {onCancelClick && (
+          {!withDeleteIcon && !!onCancelClick && (
             <Button
               className={classes.button}
               color="default"
@@ -117,10 +147,11 @@ const CadenceBubble: React.FC<CadenceBubbleProps> = ({
               {onCancelText || t('cadence.bubble.cancel')}
             </Button>
           )}
-          {onConfirmClick && (
+          {!!onConfirmClick && (
             <Button
               className={classes.button}
               color="primary"
+              disabled={isSubmissionForbidden}
               onClick={onConfirmClick}
               variant="contained"
             >
@@ -133,13 +164,13 @@ const CadenceBubble: React.FC<CadenceBubbleProps> = ({
   );
 };
 
-type StylesProps = { color: string };
+type StylesProps = { color: string; bottomButtonPosition: string };
 
 const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
   footer: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: ({ bottomButtonPosition }) => bottomButtonPosition,
     gap: theme.spacing(1),
   },
   button: {
@@ -201,6 +232,10 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
     top: '50%',
     left: '50%',
     transform: 'translate(-45%,-45%) rotate(-45deg)',
+  },
+  deleteButton: {
+    position: 'absolute',
+    right: 0,
   },
 }));
 

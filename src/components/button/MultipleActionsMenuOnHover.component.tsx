@@ -11,6 +11,7 @@ import {
   MULTIPLE_ACTION_BUTTON_MAX_SIZE,
   type Action,
 } from './MultipleActionsButton.component';
+import { TriggeredPersonIcon } from '#components/icons/TriggeredPersonIcon.component';
 
 type StylesProps = { color: string; open: boolean };
 
@@ -120,12 +121,16 @@ const MultipleActionsMenuOnHover: React.FC<MultipleActionsMenuOnHoverProps> = ({
             onContextMenu={handleRightClick}
             value={action.label}
           >
-            <CustomMuiIcon
-              defaultBackGround
-              customColor={action.customColor || customColor}
-              icon={action.icon}
-              withBackground={false}
-            />
+            {action.icon === 'TriggeredPerson' ? (
+              <TriggeredPersonIcon fill={action.customColor || customColor} />
+            ) : (
+              <CustomMuiIcon
+                defaultBackGround
+                customColor={action.customColor || customColor}
+                icon={action.icon}
+                withBackground={false}
+              />
+            )}
             <Typography className={classes.label} variant="body1">
               {action.label}
             </Typography>

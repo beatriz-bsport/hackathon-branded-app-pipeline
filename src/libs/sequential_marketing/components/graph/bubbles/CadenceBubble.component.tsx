@@ -12,6 +12,7 @@ import {
   CADENCE_BUBBLE_WIDTH,
   HEADER_ICON_SIZE,
 } from '#libs/sequential_marketing/constants/steps';
+import { TriggeredPersonIcon } from '#components/icons/TriggeredPersonIcon.component';
 
 export type CadenceBubbleProps = {
   title: string;
@@ -37,21 +38,31 @@ const CadenceBubbleHeader: React.FC<CadenceBubbleHeaderProps> = React.memo(
       <div className={classes.title}>
         <div className={classes.flexIconAndText}>
           {minimalIcon ? (
-            <CustomMuiIcon
-              defaultBackGround
-              customColor={color}
-              icon={icon}
-              withBackground={false}
-            />
-          ) : (
-            <div className={classes.losange}>
-              <div className={classes.centerAbsolute}>
+            <>
+              {icon === 'TriggeredPerson' ? (
+                <TriggeredPersonIcon fill={color} />
+              ) : (
                 <CustomMuiIcon
                   defaultBackGround
                   customColor={color}
                   icon={icon}
                   withBackground={false}
                 />
+              )}
+            </>
+          ) : (
+            <div className={classes.losange}>
+              <div className={classes.centerAbsolute}>
+                {icon === 'TriggeredPerson' ? (
+                  <TriggeredPersonIcon fill={color} />
+                ) : (
+                  <CustomMuiIcon
+                    defaultBackGround
+                    customColor={color}
+                    icon={icon}
+                    withBackground={false}
+                  />
+                )}
               </div>
             </div>
           )}

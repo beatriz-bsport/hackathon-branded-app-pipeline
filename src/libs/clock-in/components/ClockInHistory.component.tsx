@@ -32,6 +32,7 @@ import { getTextColorFromRGB } from '../../../utils/color';
 import EditClockinModal from './EditClockIn.dialog';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 import { getRoleName } from '#libs/role/utils';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   value: {
@@ -199,21 +200,27 @@ const ClockInHistoryRow: React.FC<{
         <TableCell colSpan={250} className={classes.innerTable}>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <Table>
-              <TableRow className={classes.root}>
-                <TableCell colSpan={50}>
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    className={classes.download}
-                    onClick={() => {
-                      handleExport(row.id);
-                    }}
-                  >
-                    <CloudDownloadIcon className={classes.downloadIcon} />
-                    {t('historyTable.download')}
-                  </Button>
-                </TableCell>
-              </TableRow>
+              <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.attendance">
+                {(hasPermission) =>
+                  hasPermission && (
+                    <TableRow className={classes.root}>
+                      <TableCell colSpan={50}>
+                        <Button
+                          color="primary"
+                          variant="contained"
+                          className={classes.download}
+                          onClick={() => {
+                            handleExport(row.id);
+                          }}
+                        >
+                          <CloudDownloadIcon className={classes.downloadIcon} />
+                          {t('historyTable.download')}
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  )
+                }
+              </ObjectLevelPermissionProviderComponent>
               <TableRow className={classes.root}>
                 <TableCell
                   className={classNames(

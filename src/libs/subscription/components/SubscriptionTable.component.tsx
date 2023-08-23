@@ -10,6 +10,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import { compose } from 'recompose';
 import RedButton from '../../../components/button/RedButton.component';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import { formatAsDate } from '../../../utils/datetime';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
@@ -241,20 +242,24 @@ export class SubscriptionTable extends Component<Props, State> {
       },
     };
     return (
-      <MUIDataTable
-        columns={getColumnData(
-          this.props.t,
-          !!this.props.showOnlyCore,
-          this.props.addPayment,
+      <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.subscription">
+        {(hasPermission) => (
+          <MUIDataTable
+            columns={getColumnData(
+              this.props.t,
+              !!this.props.showOnlyCore,
+              this.props.addPayment,
+            )}
+            data={
+              this.props.loading
+                ? []
+                : renderRows(this.props.subscriptionList, this.props.t)
+            }
+            options={{ ...options, print: hasPermission }}
+            title={this.props.title}
+          />
         )}
-        data={
-          this.props.loading
-            ? []
-            : renderRows(this.props.subscriptionList, this.props.t)
-        }
-        options={options}
-        title={this.props.title}
-      />
+      </ObjectLevelPermissionProviderComponent>
     );
   }
 }

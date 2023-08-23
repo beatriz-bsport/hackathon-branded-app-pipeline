@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
@@ -25,6 +24,7 @@ import {
 import type { CoachPerformanceCachedData } from '#libs/coach-payment-rules/types';
 import Tooltip from '#components/Tooltip.component';
 import type { OptionCallback } from '../../../../state/types';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   cachedDataList: Array<CoachPerformanceCachedData>;
@@ -83,6 +83,7 @@ export const CoachPerformanceCachedDataList = (props: Props) => {
                 key={`cached_data_item${index}`}
                 dense
                 alignItems="flex-start"
+                // @ts-expect-error
                 ContainerComponent={
                   props.selectedCachedTimestamp === data.timestamp
                     ? Paper
@@ -115,17 +116,23 @@ export const CoachPerformanceCachedDataList = (props: Props) => {
                       <VisibilityIcon color="primary" />
                     </IconButton>
                   </Tooltip>
-                  <Tooltip title={t('cachedData.downloadMySavedData')}>
-                    <IconButton
-                      onClick={() =>
-                        handleExcelExportation({
-                          score_timestamp: data.score,
-                        })
-                      }
-                    >
-                      <CloudDownloadIcon color="secondary" />
-                    </IconButton>
-                  </Tooltip>
+                  <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.payroll">
+                    {(hasPermission) =>
+                      hasPermission && (
+                        <Tooltip title={t('cachedData.downloadMySavedData')}>
+                          <IconButton
+                            onClick={() =>
+                              handleExcelExportation({
+                                score_timestamp: data.score,
+                              })
+                            }
+                          >
+                            <CloudDownloadIcon color="secondary" />
+                          </IconButton>
+                        </Tooltip>
+                      )
+                    }
+                  </ObjectLevelPermissionProviderComponent>
                 </ListItemSecondaryAction>
               </ListItem>
             ),

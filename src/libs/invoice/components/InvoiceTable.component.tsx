@@ -55,6 +55,7 @@ import {
 } from '../../quickbooks/utils';
 import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
 import UseConsumerGiftcardForm from '#libs/payment/components/UseConsumerGiftcardForm.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import type { OptionCallback } from '../../../state/types';
 import type { Invoice } from '#libs/invoice/types';
 import type { Member } from '#libs/member/types';
@@ -239,75 +240,78 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
           <TableCell>{t(`invoiceType.${invoiceType}`)}</TableCell>
         )}
         <TableCell>{moment(invoice.date).format('L')}</TableCell>
-        {!!props.finalizeInvoice &&
-        invoice.invoice_type !== INVOICE_TYPE_MIGRATION ? (
-          <TableCell>
-            {processing ? (
-              <CircularProgress />
-            ) : (
-              <>
-                <Menu
-                  keepMounted
-                  anchorEl={downloadMenuOpen}
-                  id="simple-menu"
-                  onClick={(e) => e.stopPropagation()}
-                  onClose={() => setDownloadMenuOpen(null)}
-                  open={Boolean(downloadMenuOpen)}
-                >
-                  <MenuItem
-                    onClick={(ev) => {
-                      ev.stopPropagation();
-                      setProcessing(true);
-                      props.finalizeInvoice(invoice.uuid, {
-                        onError: () => setProcessing(false),
-                        onSuccess: (inv: Invoice) => {
-                          setDownloadMenuOpen(null);
-                          window.open(inv.stripe_invoice_pdf, '_blank');
-                          setProcessing(false);
-                        },
-                      });
-                    }}
-                  >
-                    {t('actions.download')}
-                  </MenuItem>
-                  <MenuItem
-                    disabled={!invoice.is_v2 || !invoice.payments.length}
-                    onClick={(ev) => {
-                      ev.stopPropagation();
-                      setProcessing(true);
-                      getReceiptUrlAPI(invoice.uuid)
-                        .then((r) => {
-                          setDownloadMenuOpen(null);
-                          window.open(r.data, '_blank');
-                          setProcessing(false);
-                        })
-                        .catch((err) => {
-                          console.error(err);
-                          setProcessing(false);
-                        });
-                    }}
-                  >
-                    {t('actions.downloadReceipt')}
-                  </MenuItem>
-                </Menu>
-                <IconButton
-                  onClick={(ev) => {
-                    ev.stopPropagation();
-                    setDownloadMenuOpen(ev.currentTarget);
-                  }}
-                >
-                  {!invoice.is_v2 && !invoice.is_finalized ? (
-                    <SaveIcon />
-                  ) : (
-                    <AttachmentIcon />
-                  )}
-                </IconButton>
-              </>
-            )}
-          </TableCell>
-        ) : (
-          <TableCell />
-        )}
+        <ObjectLevelPermissionProvider requiredPermission="export.allowed_actions.invoice">
+          {(hasPermission) =>
+            !!props.finalizeInvoice &&
+            invoice.invoice_type !== INVOICE_TYPE_MIGRATION &&
+            hasPermission && (
+              <TableCell>
+                {processing ? (
+                  <CircularProgress />
+                ) : (
+                  <>
+                    <Menu
+                      keepMounted
+                      anchorEl={downloadMenuOpen}
+                      id="simple-menu"
+                      onClick={(e) => e.stopPropagation()}
+                      onClose={() => setDownloadMenuOpen(null)}
+                      open={Boolean(downloadMenuOpen)}
+                    >
+                      <MenuItem
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          setProcessing(true);
+                          props.finalizeInvoice(invoice.uuid, {
+                            onError: () => setProcessing(false),
+                            onSuccess: (inv: Invoice) => {
+                              setDownloadMenuOpen(null);
+                              window.open(inv.stripe_invoice_pdf, '_blank');
+                              setProcessing(false);
+                            },
+                          });
+                        }}
+                      >
+                        {t('actions.download')}
+                      </MenuItem>
+                      <MenuItem
+                        disabled={!invoice.is_v2 || !invoice.payments.length}
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          setProcessing(true);
+                          getReceiptUrlAPI(invoice.uuid)
+                            .then((r) => {
+                              setDownloadMenuOpen(null);
+                              window.open(r.data, '_blank');
+                              setProcessing(false);
+                            })
+                            .catch((err) => {
+                              console.error(err);
+                              setProcessing(false);
+                            });
+                        }}
+                      >
+                        {t('actions.downloadReceipt')}
+                      </MenuItem>
+                    </Menu>
+                    <IconButton
+                      onClick={(ev) => {
+                        ev.stopPropagation();
+                        setDownloadMenuOpen(ev.currentTarget);
+                      }}
+                    >
+                      {!invoice.is_v2 && !invoice.is_finalized ? (
+                        <SaveIcon />
+                      ) : (
+                        <AttachmentIcon />
+                      )}
+                    </IconButton>
+                  </>
+                )}
+              </TableCell>
+            )
+          }
+        </ObjectLevelPermissionProvider>
         {props.quickbooksIntegrated && (
           <TableCell>
             {processing && !invoice.can_be_sent_to_quickbooks ? (
@@ -609,27 +613,31 @@ export const InvoiceTable = (props: {
     <TableContainer component={props.containerComponent}>
       <Table aria-label="collapsible table">
         <TableHead>
-          <TableRow>
-            {!props.compactMode && <TableCell />}
-            {!props.hideMemberName && (
-              <TableCell>{t('table.header.member')}</TableCell>
+          <ObjectLevelPermissionProvider requiredPermission="export.allowed_actions.invoice">
+            {(hasPermission) => (
+              <TableRow>
+                {!props.compactMode && <TableCell />}
+                {!props.hideMemberName && (
+                  <TableCell>{t('table.header.member')}</TableCell>
+                )}
+                <TableCell>{t('table.header.amount')}</TableCell>
+                <TableCell>{t('table.header.missing')}</TableCell>
+                {!props.compactMode && (
+                  <TableCell>{t('table.header.id')}</TableCell>
+                )}
+                {!!props.showType && (
+                  <TableCell>{t('table.header.invoiceType')}</TableCell>
+                )}
+                <TableCell>{t('table.header.date')}</TableCell>
+                {!!props.finalizeInvoice && hasPermission && (
+                  <TableCell>{t('table.header.pdf')}</TableCell>
+                )}
+                {props.quickbooksIntegrated && (
+                  <TableCell>{t('table.header.quickbooks')}</TableCell>
+                )}
+              </TableRow>
             )}
-            <TableCell>{t('table.header.amount')}</TableCell>
-            <TableCell>{t('table.header.missing')}</TableCell>
-            {!props.compactMode && (
-              <TableCell>{t('table.header.id')}</TableCell>
-            )}
-            {!!props.showType && (
-              <TableCell>{t('table.header.invoiceType')}</TableCell>
-            )}
-            <TableCell>{t('table.header.date')}</TableCell>
-            {!!props.finalizeInvoice && (
-              <TableCell>{t('table.header.pdf')}</TableCell>
-            )}
-            {props.quickbooksIntegrated && (
-              <TableCell>{t('table.header.quickbooks')}</TableCell>
-            )}
-          </TableRow>
+          </ObjectLevelPermissionProvider>
         </TableHead>
         <TableBody>
           {!props.loading &&

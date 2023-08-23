@@ -29,6 +29,7 @@ import { getReceiptUrl as getReceiptUrlAPI } from '../api';
 import type { Establishment } from '#libs/establishment/types';
 import { OptionCallback } from '../../../state/types';
 import { Invoice } from '../types';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   paymentItemList: Array<PaymentItem>;
@@ -293,31 +294,37 @@ export const InvoiceContent = (props: Props) => {
         !!props.invoice &&
         props.invoice.invoice_type !== INVOICE_TYPE_MIGRATION && (
           <div className={classes.buttonRow}>
-            <Tooltip
-              aria-label="pdf-not-available"
-              title={
-                props.invoice.is_draft
-                  ? `${t('actions.explainPdfDraft')}`
-                  : undefined
-              }
-            >
-              <Button
-                color={props.invoice.is_draft ? undefined : 'primary'}
-                onClick={() => {
-                  if (!props.invoice.is_draft) {
-                    if (props.invoice.stripe_invoice_pdf) {
-                      window.open(props.invoice.stripe_invoice_pdf);
-                    } else {
-                      props.finalizeInvoice();
+            <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.invoice">
+              {(hasPermission) =>
+                hasPermission && (
+                  <Tooltip
+                    aria-label="pdf-not-available"
+                    title={
+                      props.invoice.is_draft
+                        ? `${t('actions.explainPdfDraft')}`
+                        : undefined
                     }
-                  }
-                }}
-                variant="contained"
-              >
-                <AttachFileIcon className={classes.iconLeft} />
-                {t('actions.download')}
-              </Button>
-            </Tooltip>
+                  >
+                    <Button
+                      color={props.invoice.is_draft ? undefined : 'primary'}
+                      onClick={() => {
+                        if (!props.invoice.is_draft) {
+                          if (props.invoice.stripe_invoice_pdf) {
+                            window.open(props.invoice.stripe_invoice_pdf);
+                          } else {
+                            props.finalizeInvoice();
+                          }
+                        }
+                      }}
+                      variant="contained"
+                    >
+                      <AttachFileIcon className={classes.iconLeft} />
+                      {t('actions.download')}
+                    </Button>
+                  </Tooltip>
+                )
+              }
+            </ObjectLevelPermissionProviderComponent>
             {!!props.invoice.payments?.length && (
               <Button
                 color="secondary"

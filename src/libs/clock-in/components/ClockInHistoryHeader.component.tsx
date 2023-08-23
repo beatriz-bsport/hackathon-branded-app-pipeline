@@ -18,6 +18,7 @@ import {
   Actions,
   defaultHandleSubmit,
 } from '#components/forms';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   values: any;
@@ -62,18 +63,24 @@ export function ClockInHistoryHeaderForm(props: Props) {
             </Button>
           </Actions>
         </Grid>
-        <Grid item>
-          <Actions>
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={() => handleExportation()}
-            >
-              {t('common.export')}
-              <CloudDownloadIcon className={classes.rightIcon} />
-            </Button>
-          </Actions>
-        </Grid>
+        <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.attendance">
+          {(hasPermission) =>
+            hasPermission && (
+              <Grid item>
+                <Actions>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={() => handleExportation()}
+                  >
+                    {t('common.export')}
+                    <CloudDownloadIcon className={classes.rightIcon} />
+                  </Button>
+                </Actions>
+              </Grid>
+            )
+          }
+        </ObjectLevelPermissionProviderComponent>
       </Grid>
     </Form>
   );

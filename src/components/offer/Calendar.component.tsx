@@ -26,6 +26,7 @@ import { Moment } from '../../i18n';
 import { DATE_FORMAT } from '../../utils/datetime';
 import { CalendarDay } from './CalendarDay.component';
 import { CalendarHeader } from './CalendarHeader.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 export const WEEKMODE = 0;
 export const MONTHMODE = 1;
@@ -212,14 +213,19 @@ class Calendar extends PureComponent<Props, State> {
             {t('menu.massDisable')}
           </MenuItem>
         )}
-        {onDownload && (
-          <MenuItem onClick={onDownload}>
-            <ListItemIcon>
-              {isDownloading ? <CircularProgress /> : <CloudDownloadIcon />}
-            </ListItemIcon>
-            {t('menu.download')}
-          </MenuItem>
-        )}
+        <ObjectLevelPermissionProvider requiredPermission="export.allowed_actions.planning">
+          {(hasPermission) =>
+            hasPermission &&
+            onDownload && (
+              <MenuItem onClick={onDownload}>
+                <ListItemIcon>
+                  {isDownloading ? <CircularProgress /> : <CloudDownloadIcon />}
+                </ListItemIcon>
+                {t('menu.download')}
+              </MenuItem>
+            )
+          }
+        </ObjectLevelPermissionProvider>
       </Menu>
     );
   };

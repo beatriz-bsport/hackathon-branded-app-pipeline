@@ -76,6 +76,7 @@ import { UpsellSumup } from '#libs/company/types';
 import { UPSELL_IDENTIFIER_CUSTOM_APP } from '#libs/platform-billing/upsell-identifiers';
 import { Cadence } from '#libs/sequential_marketingDEPRECATED/types';
 import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -368,24 +369,32 @@ export class FiltersPanel extends Component<Props, State> {
               >
                 {t('generateExport')}
               </Button>
-              <Button
-                className={classes.actionButton}
-                color="secondary"
-                disabled={!this.props.csvExportLink}
-                onClick={this.openCsvExportLink}
-                variant="contained"
-              >
-                {this.state.isSmartListExporting ? (
-                  <CircularProgress
-                    className={this.props.classes.leftIcon}
-                    color="secondary"
-                    size={25}
-                  />
-                ) : (
-                  <CloudDownloadIcon className={this.props.classes.leftIcon} />
-                )}
-                {t('exportList')}
-              </Button>
+              <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.smartlist">
+                {(hasPermission) =>
+                  hasPermission && (
+                    <Button
+                      className={classes.actionButton}
+                      color="secondary"
+                      disabled={!this.props.csvExportLink}
+                      onClick={this.openCsvExportLink}
+                      variant="contained"
+                    >
+                      {this.state.isSmartListExporting ? (
+                        <CircularProgress
+                          className={this.props.classes.leftIcon}
+                          color="secondary"
+                          size={25}
+                        />
+                      ) : (
+                        <CloudDownloadIcon
+                          className={this.props.classes.leftIcon}
+                        />
+                      )}
+                      {t('exportList')}
+                    </Button>
+                  )
+                }
+              </ObjectLevelPermissionProviderComponent>
             </div>
             <Typography>
               {this.props.csvExportLink

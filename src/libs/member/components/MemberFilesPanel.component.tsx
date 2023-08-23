@@ -18,6 +18,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import AddIcon from '@material-ui/icons/Add';
 import { formatAsDatetime } from '../../../utils/datetime';
 import { MemberUploadedFile } from '../types';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 const MAX_FILES_UPLOADED = 5;
 
@@ -81,9 +82,15 @@ export const MemberFilesPanel = (props: Props) => {
               {file.coach_has_access && <VisibilityIcon color="secondary" />}
               {!file.coach_has_access && <VisibilityOffIcon />}
             </IconButton>
-            <IconButton onClick={handleDownload(file)}>
-              <CloudDownloadIcon color="primary" />
-            </IconButton>
+            <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.memberDocument">
+              {(hasPermission) =>
+                hasPermission && (
+                  <IconButton onClick={handleDownload(file)}>
+                    <CloudDownloadIcon color="primary" />
+                  </IconButton>
+                )
+              }
+            </ObjectLevelPermissionProviderComponent>
             {onDelete && (
               <IconButton onClick={handleDelete(file.id)}>
                 <DeleteIcon />

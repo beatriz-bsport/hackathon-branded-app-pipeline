@@ -31,6 +31,7 @@ import {
 import { Submit, DateField } from '#components/forms';
 import RedButton from '#components/button/RedButton.component';
 import type { OptionCallback } from '../../../../../state/types';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type InitialValues = {
   dateStart: MomentType;
@@ -186,17 +187,22 @@ export function CoachPerformanceForm(props: Props) {
           >
             {t('calculate')}
           </Submit>
-          {!props.hideExport && (
-            <Button
-              color="secondary"
-              disabled={isSubmitting || !!props.disabled || props.loading}
-              id="button_remuneration_export"
-              onClick={() => setOpenExportDialog(true)}
-              variant="outlined"
-            >
-              {t('coachPerformance:export.buttonText')}
-            </Button>
-          )}
+          <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.payroll">
+            {(hasPermission) =>
+              hasPermission &&
+              !props.hideExport && (
+                <Button
+                  color="secondary"
+                  disabled={isSubmitting || !!props.disabled || props.loading}
+                  id="button_remuneration_export"
+                  onClick={() => setOpenExportDialog(true)}
+                  variant="outlined"
+                >
+                  {t('coachPerformance:export.buttonText')}
+                </Button>
+              )
+            }
+          </ObjectLevelPermissionProviderComponent>
         </>
       </Form>
 

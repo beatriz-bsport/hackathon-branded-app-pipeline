@@ -34,6 +34,7 @@ import {
 } from '../types';
 import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
 import { OptionCallback } from '../../../state/types';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   isSubmitting_: boolean;
@@ -309,14 +310,20 @@ const ReportGenerationForm: React.FC<Props> = ({
               </Alert>
             )}
           </div>
-          <div className={classes.buttonsContainer}>
-            <DownloadButton
-              handleExcelExportation={handleExcelExportation}
-              isSubmitting_={isSubmitting_}
-              values={values}
-            />
-            <Submit disabled={isSubmitting_}>{t('common.generate')}</Submit>
-          </div>
+          <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.report">
+            {(hasPermission) => (
+              <div className={classes.buttonsContainer}>
+                {hasPermission && (
+                  <DownloadButton
+                    handleExcelExportation={handleExcelExportation}
+                    isSubmitting_={isSubmitting_}
+                    values={values}
+                  />
+                )}
+                <Submit disabled={isSubmitting_}>{t('common.generate')}</Submit>
+              </div>
+            )}
+          </ObjectLevelPermissionProviderComponent>
         </div>
         <div className={classes.reportFilterConfig}>
           <ReportFilterConfigSelector

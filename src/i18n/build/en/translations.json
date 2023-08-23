@@ -16275,7 +16275,7 @@
                 "confirm": "Save",
                 "next": "Next",
                 "step": {
-                    "name": "Nom"
+                    "name": "Name"
                 }
             }
         }

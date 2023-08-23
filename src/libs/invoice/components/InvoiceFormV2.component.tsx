@@ -193,6 +193,8 @@ export class InvoiceForm extends React.Component<Props, State> {
           };
         });
         if (options && options.onSuccess) options.onSuccess();
+      } else if (options && options.onNotFound) {
+        options.onNotFound();
       }
     } catch (error) {
       if (error.response?.status === 499 && error.response?.data?.error_code) {

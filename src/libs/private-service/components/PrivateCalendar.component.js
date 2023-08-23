@@ -403,14 +403,10 @@ export class PrivateCalendar extends React.Component<Props, State> {
   select = (eventSlotSelected: EventSlot) => {
     if (this.props.disableAvailabilitySlotDisplay) return;
 
-    const start = moment.tz(
-      this.state.eventSlotSelected?.startStr,
-      this.props.timezone,
-    );
-    const end = moment.tz(
-      this.state.eventSlotSelected?.endStr,
-      this.props.timezone,
-    );
+    const { startStr, endStr } = eventSlotSelected;
+
+    const start = moment.tz(startStr, this.props.timezone);
+    const end = moment.tz(endStr, this.props.timezone);
 
     if (!start.isSame(end) && start.isSame(end, 'day')) {
       this.setState({
@@ -689,7 +685,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
     return <div style={{ display: 'none' }} />;
   };
 
-  render() {
+  render = () => {
     const { classes, t } = this.props;
     const { events, allDaySlot } = this.getAvailableSlotAsEvents(
       this.props.availabilitySlots,
@@ -914,7 +910,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
         )}
       </div>
     );
-  }
+  };
 }
 
 export default compose(

@@ -22,7 +22,7 @@ Test:
   image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
   stage: static-analysis
   tags:
-    - light
+    - build
     - cluster:bsport-tooling
   script:
     - mv /app/node_modules .

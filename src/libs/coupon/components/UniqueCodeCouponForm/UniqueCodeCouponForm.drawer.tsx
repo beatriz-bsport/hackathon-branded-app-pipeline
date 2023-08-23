@@ -56,13 +56,13 @@ const UniqueCodeCouponFormDrawer: React.FC<Props> = ({
 
   const errorMessages = {
     [CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS]: t(
-      `form.actions.errors.${CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS}`,
+      `uniqueCodeCoupon.form.errors.${CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS}`,
     ),
     [CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT]: t(
-      `form.actions.errors.${CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT}`,
+      `uniqueCodeCoupon.form.errors.${CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT}`,
     ),
     [CouponErrorCodes.UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT]: t(
-      `form.actions.errors.${CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS}`,
+      `uniqueCodeCoupon.form.errors.${CouponErrorCodes.COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS}`,
     ),
   };
 

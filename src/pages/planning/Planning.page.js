@@ -169,6 +169,8 @@ import RollCallDrawer from '#libs/offer/components/RollCallDrawer.component';
 import ConfirmationRollCallDialog from '#libs/offer/components/ConfirmationRollCallDialog.component';
 import OfferEditForm from '#libs/offer/OfferEditForm.component';
 
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+
 const styles = (theme) => ({
   container: {
     flex: 1,
@@ -1324,15 +1326,20 @@ export class Planning extends PureComponent<Props, State> {
               </div>
             </Grid>
           ) : (
-            <Grid item lg={6} xs={12}>
-              <BookingStatisticsCard
-                bookingStatistics={this.props.bookingStatistics}
-                loading={
-                  this.props.createdBookingStatsLoading ||
-                  this.props.cancelledBookingStatsLoading
-                }
-              />
-            </Grid>
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="planning.calendar.allowed_actions.readWeeklyOverview"
+            >
+              <Grid item lg={6} xs={12}>
+                <BookingStatisticsCard
+                  bookingStatistics={this.props.bookingStatistics}
+                  loading={
+                    this.props.createdBookingStatsLoading ||
+                    this.props.cancelledBookingStatsLoading
+                  }
+                />
+              </Grid>
+            </ObjectLevelPermissionWrapper>
           )}
           <Dialog
             aria-describedby="alert-dialog-description"

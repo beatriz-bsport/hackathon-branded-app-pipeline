@@ -28,8 +28,11 @@ import CalendarEventDetail from '../containers/CalendarEventDetail.container';
 
 import PrivateBookingBooker from '../containers/PrivateBookingBooker.container';
 
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+
 import type { ResourceData } from '../types';
 import FabPrivateCalendar from './FabPrivateCalendar.component';
+
 import { CompanyTheme } from '../../theme/types';
 import { ScheduleFilter } from '../../user-preference/types';
 
@@ -170,6 +173,7 @@ export const PrivateCalendarWithControls = (props: Props) => {
                 )}
             </div>
           </div>
+
           <Collapse in={props.expanded}>
             <div className={props.classes.expandedInnerContainer}>
               <Grid container direction="row" justify="flex-start">
@@ -213,17 +217,22 @@ export const PrivateCalendarWithControls = (props: Props) => {
                   </Grid>
                 )}
                 {!!props.showHideCancelledEventsToggle && (
-                  <Grid item md={2} sm={3} xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={!props.scheduleFilter.hideCancelledEvents}
-                          onChange={onChangeFilter('hideCancelledEvents')}
-                        />
-                      }
-                      label={props.t('calendar.toogle.hideCancelledEvents')}
-                    />
-                  </Grid>
+                  <ObjectLevelPermissionWrapper
+                    forcedBehavior="hidden"
+                    requiredPermission="planning.calendar.allowed_actions.readCancellations"
+                  >
+                    <Grid item md={2} sm={3} xs={12}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={!props.scheduleFilter.hideCancelledEvents}
+                            onChange={onChangeFilter('hideCancelledEvents')}
+                          />
+                        }
+                        label={props.t('calendar.toogle.hideCancelledEvents')}
+                      />
+                    </Grid>
+                  </ObjectLevelPermissionWrapper>
                 )}
               </Grid>
             </div>

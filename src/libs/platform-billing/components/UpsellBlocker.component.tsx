@@ -77,7 +77,7 @@ const UpsellBlocker = ({
               height={96}
               width={96}
             />
-            <Typography align="center">
+            <Typography variant="h6" align="center">
               {t(`upsellPackage.lockDialog.${upsellIdentifier}.intro`)}
             </Typography>
             <Typography align="center">

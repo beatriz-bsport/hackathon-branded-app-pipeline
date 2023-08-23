@@ -4,6 +4,7 @@ import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-in
 import { connect, type ConnectedProps } from 'react-redux';
 import type { OptionCallback } from '../../state/types';
 import InboxThreadContainer from '#libs/communication-v2/thread/InboxThreadContainer/InboxThreadContainer.component';
+import Config from '../../config';
 
 import {
   needToFilterOutReceivedCommunicationSentWithActiveFilters,
@@ -322,7 +323,11 @@ class InboxThreadContainerPage extends PureComponent<Props> {
       }
       return filterOutNewCommunication;
     };
-    if (!hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_INBOX)) return;
+    if (
+      Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+      !hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_INBOX)
+    )
+      return;
 
     this.props.sendCommunication(data, memberSelectedCategories, {
       storeInCallback,

@@ -20,6 +20,7 @@ import GreenFab from '#components/button/GreenFab.component';
 import FabWithItems from '#components/button/FabWithItems';
 import Config from '../../../config';
 import ExtendedFabBadge from '#components/ExtendedFabBadge.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type OwnProps = {
   billMember: () => void;
@@ -136,7 +137,10 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
         <PaymentIcon className={classes.leftIcon} />
         {t('paymentAction.toSubscribe')}
       </Fab>
-      <>
+      <ObjectLevelPermissionWrapper
+        forcedBehavior="hidden"
+        requiredPermission="member.allowed_actions.delete"
+      >
         {props.member && props.member.archived ? (
           <GreenFab
             className={classes.bottomButton}
@@ -154,7 +158,7 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
             <DeleteIcon />
           </RedFab>
         )}
-      </>
+      </ObjectLevelPermissionWrapper>
     </div>
   );
 };

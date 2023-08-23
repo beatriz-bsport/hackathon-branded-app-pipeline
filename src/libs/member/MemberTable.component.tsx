@@ -27,6 +27,7 @@ import type { MemberMinimal } from '#libs/member/types';
 import type { Tag } from '#libs/tag/types';
 import type { GenericPaginationResults } from '#libs/types';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 const MEMBER_PER_PAGE = 50;
 
@@ -101,15 +102,20 @@ const renderActions = (
       <VisibilityIcon />
     </IconButton>
     {interrogateMemberStatus && (
-      <IconButton
-        color="primary"
-        onClick={(e) => {
-          e.stopPropagation();
-          interrogateMemberStatus(id);
-        }}
+      <ObjectLevelPermissionWrapper
+        forcedBehavior="hidden"
+        requiredPermission="member.allowed_actions.delete"
       >
-        <DeleteIcon />
-      </IconButton>
+        <IconButton
+          color="primary"
+          onClick={(e) => {
+            e.stopPropagation();
+            interrogateMemberStatus(id);
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </ObjectLevelPermissionWrapper>
     )}
   </>
 );

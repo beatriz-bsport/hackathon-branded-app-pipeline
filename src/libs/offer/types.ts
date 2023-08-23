@@ -188,6 +188,7 @@ export type OfferStatus = {
     | typeof OFFER_WAITING_LIST_LOCKED_BY_PENDING_BOOKINGS;
   taken_spots: number[];
   blocked_by_tags: boolean;
+  is_registered: boolean;
 };
 
 export type OfferState = ErrorAndLoading & {

@@ -270,76 +270,86 @@ const AvailabilitySlotForm = withTranslation('privateService')(
             </ObjectLevelPermissionWrapper>
           )}
           {props.onEnableAvailability && props.eventSlotSelected ? (
-            <React.Fragment>
-              <ListItem button onClick={props.onEnableAvailability}>
-                <ListItemIcon color="primary">
-                  <CheckIcon className={props.classes.leftIcon} />
-                </ListItemIcon>
-                <ListItemText
-                  primary={props.t('calendar.enableAvailability')}
-                  secondary={
-                    props.onEnableAvailability
-                      ? null
-                      : props.t('calendar.selectCoachToModifyAvailability')
-                  }
-                />
-              </ListItem>
-              <ListItem
-                button
-                disabled={!props.onEnableRecurrentAvailability}
-                onClick={props.onEnableRecurrentAvailability}
-              >
-                <ListItemIcon color="primary">
-                  <RefreshIcon className={props.classes.leftIcon} />
-                </ListItemIcon>
-                <ListItemText
-                  primary={props.t('calendar.enableRecurrentAvailability')}
-                  secondary={
-                    props.onEnableRecurrentAvailability
-                      ? null
-                      : props.t('calendar.selectCoachToModifyAvailability')
-                  }
-                />
-              </ListItem>
-            </React.Fragment>
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="planning.schedule.allowed_actions.createAvailability"
+            >
+              <React.Fragment>
+                <ListItem button onClick={props.onEnableAvailability}>
+                  <ListItemIcon color="primary">
+                    <CheckIcon className={props.classes.leftIcon} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={props.t('calendar.enableAvailability')}
+                    secondary={
+                      props.onEnableAvailability
+                        ? null
+                        : props.t('calendar.selectCoachToModifyAvailability')
+                    }
+                  />
+                </ListItem>
+                <ListItem
+                  button
+                  disabled={!props.onEnableRecurrentAvailability}
+                  onClick={props.onEnableRecurrentAvailability}
+                >
+                  <ListItemIcon color="primary">
+                    <RefreshIcon className={props.classes.leftIcon} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={props.t('calendar.enableRecurrentAvailability')}
+                    secondary={
+                      props.onEnableRecurrentAvailability
+                        ? null
+                        : props.t('calendar.selectCoachToModifyAvailability')
+                    }
+                  />
+                </ListItem>
+              </React.Fragment>
+            </ObjectLevelPermissionWrapper>
           ) : null}
           {props.onDisableAvailability && props.eventSlotSelected ? (
-            <React.Fragment>
-              <ListItem
-                button
-                disabled={!props.onDisableAvailability}
-                onClick={props.onDisableAvailability}
-              >
-                <ListItemIcon>
-                  <CancelIcon className={props.classes.leftIcon} />
-                </ListItemIcon>
-                <ListItemText
-                  primary={props.t('calendar.disableAvailability')}
-                  secondary={
-                    props.onDisableAvailability
-                      ? null
-                      : props.t('calendar.selectCoachToModifyAvailability')
-                  }
-                />
-              </ListItem>
-              <ListItem
-                button
-                disabled={!props.onDisableRecurrentAvailability}
-                onClick={props.onDisableRecurrentAvailability}
-              >
-                <ListItemIcon color="primary">
-                  <RefreshIcon className={props.classes.leftIcon} />
-                </ListItemIcon>
-                <ListItemText
-                  primary={props.t('calendar.disableRecurrentAvailability')}
-                  secondary={
-                    props.onDisableRecurrentAvailability
-                      ? null
-                      : props.t('calendar.selectCoachToModifyAvailability')
-                  }
-                />
-              </ListItem>
-            </React.Fragment>
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="planning.schedule.allowed_actions.deleteAvailability"
+            >
+              <React.Fragment>
+                <ListItem
+                  button
+                  disabled={!props.onDisableAvailability}
+                  onClick={props.onDisableAvailability}
+                >
+                  <ListItemIcon>
+                    <CancelIcon className={props.classes.leftIcon} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={props.t('calendar.disableAvailability')}
+                    secondary={
+                      props.onDisableAvailability
+                        ? null
+                        : props.t('calendar.selectCoachToModifyAvailability')
+                    }
+                  />
+                </ListItem>
+                <ListItem
+                  button
+                  disabled={!props.onDisableRecurrentAvailability}
+                  onClick={props.onDisableRecurrentAvailability}
+                >
+                  <ListItemIcon color="primary">
+                    <RefreshIcon className={props.classes.leftIcon} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={props.t('calendar.disableRecurrentAvailability')}
+                    secondary={
+                      props.onDisableRecurrentAvailability
+                        ? null
+                        : props.t('calendar.selectCoachToModifyAvailability')
+                    }
+                  />
+                </ListItem>
+              </React.Fragment>
+            </ObjectLevelPermissionWrapper>
           ) : null}
           {!!props.onCreateCustomEvent && props.eventSlotSelected && (
             <React.Fragment>
@@ -356,20 +366,25 @@ const AvailabilitySlotForm = withTranslation('privateService')(
             </React.Fragment>
           )}
           {!!props.onRequestAvailabilityDetails && props.eventSlotSelected && (
-            <React.Fragment>
-              <ListItem
-                button
-                disabled={!props.onRequestAvailabilityDetails}
-                onClick={props.onRequestAvailabilityDetails}
-              >
-                <ListItemIcon>
-                  <InfoIcon className={props.classes.leftIcon} />
-                </ListItemIcon>
-                <ListItemText
-                  primary={props.t('calendar.showAvailabilityDetails')}
-                />
-              </ListItem>
-            </React.Fragment>
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="planning.schedule.allowed_actions.readAvailabilityDetail"
+            >
+              <React.Fragment>
+                <ListItem
+                  button
+                  disabled={!props.onRequestAvailabilityDetails}
+                  onClick={props.onRequestAvailabilityDetails}
+                >
+                  <ListItemIcon>
+                    <InfoIcon className={props.classes.leftIcon} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={props.t('calendar.showAvailabilityDetails')}
+                  />
+                </ListItem>
+              </React.Fragment>
+            </ObjectLevelPermissionWrapper>
           )}
         </List>
       );

@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
+import DEFAULT_PROFILE_PICTURE_URL from '../assets/constants';
 
 type Props = {
   imgLinks: Array<string | null>;
@@ -14,9 +15,7 @@ const CustomAvatarGroup: React.FC<Props> = ({ imgLinks, imgStyle }) => {
   return (
     <AvatarGroup className={classes.container} spacing="small">
       {imgLinks.map((_imgLink, idx) => {
-        const imgLink =
-          _imgLink ??
-          'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png';
+        const imgLink = _imgLink ?? DEFAULT_PROFILE_PICTURE_URL;
         return (
           <Avatar
             key={`${idx}-${imgLink}`}

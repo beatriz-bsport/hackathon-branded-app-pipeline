@@ -1,6 +1,7 @@
 import React from 'react';
 
 import SlotDetailDialog, { Props } from './SlotDetailDialog.component';
+import DEFAULT_PROFILE_PICTURE_URL from '../../../../assets/constants';
 
 const CustomTemplate = (args: Props) => <SlotDetailDialog {...args} />;
 
@@ -12,8 +13,7 @@ Dialog.args = {
       {
         resourceType: 'associated_coach',
         name: 'Uncle Ben',
-        photo:
-          'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png',
+        photo: DEFAULT_PROFILE_PICTURE_URL,
         slots: [
           {
             date_start: '2022-09-06T08:30:00+01:00',
@@ -38,8 +38,7 @@ Dialog.args = {
       {
         resourceType: 'associated_coach',
         name: 'Matt Pokora',
-        photo:
-          'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png',
+        photo: DEFAULT_PROFILE_PICTURE_URL,
         slots: [
           {
             date_start: '2022-09-06T08:30:00+01:00',
@@ -66,8 +65,7 @@ Dialog.args = {
       {
         resourceType: 'associated_establishemnt',
         name: 'Un établissement respectable',
-        photo:
-          'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png',
+        photo: DEFAULT_PROFILE_PICTURE_URL,
         slots: [
           {
             date_start: '2022-09-06T08:30:00+01:00',
@@ -89,8 +87,7 @@ Dialog.args = {
       {
         resourceType: 'associated_establishemnt',
         name: 'Un second établissement tout aussi respectable',
-        photo:
-          'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png',
+        photo: DEFAULT_PROFILE_PICTURE_URL,
         slots: [
           {
             date_start: '2022-09-06T08:30:00+01:00',
@@ -114,8 +111,7 @@ Dialog.args = {
       {
         resourceType: 'private_service',
         name: 'Séance massage à Gare du Nord',
-        photo:
-          'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png',
+        photo: DEFAULT_PROFILE_PICTURE_URL,
         slots: [
           {
             date_start: '2022-09-06T08:30:00+01:00',
@@ -137,8 +133,7 @@ Dialog.args = {
       {
         resourceType: 'private_service',
         name: 'Séance massage à Jaurès',
-        photo:
-          'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png',
+        photo: DEFAULT_PROFILE_PICTURE_URL,
         slots: [
           {
             date_start: '2022-09-06T08:30:00+01:00',

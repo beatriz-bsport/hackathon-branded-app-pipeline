@@ -1,5 +1,6 @@
 import React from 'react';
 import CanvasBaseComponent from '../BaseClasses/Base.component';
+import DEFAULT_PROFILE_PICTURE_URL from '../../../../../assets/constants';
 
 export interface CanvasTeacherProps {
   x: number;
@@ -56,8 +57,7 @@ export default class CanvasTeacherComponent extends CanvasBaseComponent<CanvasTe
                 width={avatarSize}
                 x={0}
                 xlinkHref={
-                  this.props.coach?.photo ||
-                  'https://d2r95z4j5cc9cx.cloudfront.net/gymnast-female.png'
+                  this.props.coach?.photo || DEFAULT_PROFILE_PICTURE_URL
                 }
                 y={0}
               />

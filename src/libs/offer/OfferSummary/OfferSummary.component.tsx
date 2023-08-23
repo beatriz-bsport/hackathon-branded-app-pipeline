@@ -26,13 +26,13 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
-import { DEFAULT_AVATAR } from '#libs/associated-coach/utils';
 import {
   type OfferStatus,
   type Offer_FULL,
   type Offer,
   OfferSummaryVariant,
 } from '#libs/offer/types';
+import DEFAULT_PROFILE_PICTURE_URL from '../../../assets/constants';
 import { CompanyTheme } from '#libs/theme/types';
 
 import BookingConfirmButton from '#libs/booking/components/BookingConfirmButton.component';
@@ -201,7 +201,7 @@ const OfferSummary: React.FC<Props> = ({
                 {displayCoachPicture ? (
                   <Avatar
                     className={classes.avatar}
-                    src={relevantCoach?.photo ?? DEFAULT_AVATAR}
+                    src={relevantCoach.photo || DEFAULT_PROFILE_PICTURE_URL}
                   />
                 ) : (
                   <Person className={classes.icon} />

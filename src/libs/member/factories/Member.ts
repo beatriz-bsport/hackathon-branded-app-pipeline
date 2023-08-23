@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker';
 import type { Member, MemberNote, MemberUploadedFile } from '../types';
 import FactoryBotTag from '../../tag/factory';
 import { generateRandomInt } from '../../../utils/factories';
+import DEFAULT_PROFILE_PICTURE_URL from '../../../assets/constants';
 
 const lastnames = [
   'Martin',
@@ -31,11 +32,6 @@ const firstnames = [
 ];
 
 const gender = ['M', 'F'];
-
-const photo = [
-  'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png',
-  'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-female.png',
-];
 
 function randomDate() {
   const y = (1950 + generateRandomInt(70)).toString();
@@ -137,7 +133,7 @@ export function MemberFactory(
     next_booking: randomDate(),
     previous_booking: randomDate(),
     billing_plans: null,
-    photo: photo[wichGender],
+    photo: DEFAULT_PROFILE_PICTURE_URL,
     phone_number,
     birthday: randomDate(),
     files: randomFiles(),

@@ -6,6 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import Avatar from '../Avatar.component';
 import { createUrl } from '../../utils/createUrlHandlers';
+import DEFAULT_PROFILE_PICTURE_URL from '../../assets/constants';
 
 const styles = () => ({
   input: {
@@ -25,8 +26,7 @@ type State = {
 export class AvatarUploader extends Component<Props, State> {
   state = {
     photo: null,
-    previewUrl:
-      'https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png',
+    previewUrl: DEFAULT_PROFILE_PICTURE_URL,
   };
 
   constructor(props) {

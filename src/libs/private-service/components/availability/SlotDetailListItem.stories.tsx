@@ -1,6 +1,7 @@
 import React from 'react';
 
 import SlotDetailLisItem, { Props } from './SlotDetailListItem.component';
+import DEFAULT_PROFILE_PICTURE_URL from '../../../../assets/constants';
 
 const CustomTemplate = (args: Props) => <SlotDetailLisItem {...args} />;
 
@@ -12,7 +13,7 @@ CoachListItem.args = {
   isFirst: true,
   resourceType: 'associated_coach',
   name: 'Uncle Ben',
-  photo: 'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png',
+  photo: DEFAULT_PROFILE_PICTURE_URL,
   slots: [
     {
       date_start: '2022-09-06T08:30:00+01:00',
@@ -39,7 +40,7 @@ EstablishmentListItem.args = {
   isLast: true,
   resourceType: 'associated_establishemnt',
   name: 'Un établissement respectable',
-  photo: 'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png',
+  photo: DEFAULT_PROFILE_PICTURE_URL,
   slots: [
     {
       date_start: '2022-09-06T08:30:00+01:00',
@@ -63,7 +64,7 @@ ServiceListItem.args = {
   isLast: true,
   resourceType: 'private_service',
   name: 'Séance massage à Gare du Nord',
-  photo: 'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png',
+  photo: DEFAULT_PROFILE_PICTURE_URL,
   slots: [
     {
       date_start: '2022-09-06T08:30:00+01:00',

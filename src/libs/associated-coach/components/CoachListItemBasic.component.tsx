@@ -12,7 +12,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ClearIcon from '@material-ui/icons/Clear';
 
 import type { CoachDetailed } from '../../../api/types';
-import { DEFAULT_AVATAR } from '../utils';
+import DEFAULT_PROFILE_PICTURE_URL from '../../../assets/constants';
 
 type Props = {
   coach: CoachDetailed;
@@ -39,7 +39,7 @@ export const CoachListItem: React.FC<Props> = ({
       onClick={onClick}
     >
       <ListItemAvatar>
-        <Avatar src={coach.photo || DEFAULT_AVATAR} />
+        <Avatar src={coach.photo || DEFAULT_PROFILE_PICTURE_URL} />
       </ListItemAvatar>
       <ListItemText primary={coach.name} />
       <ListItemSecondaryAction>

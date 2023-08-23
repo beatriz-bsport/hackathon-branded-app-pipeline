@@ -2,7 +2,7 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import { DEFAULT_AVATAR } from '#libs/associated-coach/utils';
+import DEFAULT_PROFILE_PICTURE_URL from '../../../../../assets/constants';
 
 import './styles.css';
 
@@ -21,7 +21,7 @@ const OfferCoachPicture: React.FC<Props> = React.memo(
           'bs-card-offer__content__coach__avatar--reverse': reverse,
           ...classes,
         })}
-        src={picture || DEFAULT_AVATAR}
+        src={picture || DEFAULT_PROFILE_PICTURE_URL}
       />
     );
   },

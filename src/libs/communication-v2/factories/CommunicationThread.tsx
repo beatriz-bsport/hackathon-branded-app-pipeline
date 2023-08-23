@@ -2,11 +2,7 @@ import { faker } from '@faker-js/faker';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { CommunicationThreadWithUnreadAnswersCount } from '#libs/communication-v2/types';
-
-const MEMBER_DEFAULT_PHOTOS = [
-  'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png',
-  'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-female.png',
-];
+import DEFAULT_PROFILE_PICTURE_URL from '../../../assets/constants';
 
 const OFFER_COVERS: Array<string> = [
   'https://assets.staging.bsport.io/activity/boxethai.jpg',
@@ -79,7 +75,7 @@ export function MemberThread(
   return {
     id: index || randomInt(1000),
     title: fakerName(),
-    cover: MEMBER_DEFAULT_PHOTOS[randomInt(2)],
+    cover: DEFAULT_PROFILE_PICTURE_URL,
     last_communication_datetime: randomDate(),
     last_communication_content: fakerTextContent(10),
     last_communication_has_been_read: randomBoolean(),

@@ -1,17 +1,13 @@
 import { faker } from '@faker-js/faker';
 
 import { generateRandomInt } from '../../utils/factories';
+import DEFAULT_PROFILE_PICTURE_URL from '../../assets/constants';
 
 import type { Coach } from './types';
 
 const gender = ['M', 'F'];
 
 const rating = '-1.00';
-
-const photo = [
-  'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png',
-  'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-female.png',
-];
 
 function randomDate() {
   const y = (1950 + generateRandomInt(70)).toString();
@@ -77,7 +73,7 @@ export function coachFactory(coach_payment_rule_group_id?: number): Coach {
     rating,
     id: generateRandomInt(1000),
     birthday: randomDate(),
-    photo: photo[wichGender],
+    photo: DEFAULT_PROFILE_PICTURE_URL,
     description: `Hello, my name is ${name}`,
     phone: `00645545${generateRandomInt(9)}`,
     email: faker.internet.email({ firstName, lastName }),

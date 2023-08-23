@@ -26,7 +26,7 @@ import ListItemResponsiveAction, {
   ActionOption,
 } from '#components/button/ListItemResponsiveAction.component';
 
-import { DEFAULT_AVATAR } from '../utils';
+import DEFAULT_PROFILE_PICTURE_URL from '../../../assets/constants';
 
 type Props = {
   coach: Coach;
@@ -172,7 +172,7 @@ export const CoachListItem: React.FC<Props> = ({
       <ListItemAvatar>
         <Avatar
           className={classes.avatar}
-          src={coach.photo || DEFAULT_AVATAR}
+          src={coach.photo || DEFAULT_PROFILE_PICTURE_URL}
         />
       </ListItemAvatar>
       <ListItemText

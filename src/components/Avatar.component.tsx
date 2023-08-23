@@ -3,8 +3,7 @@ import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-// prettier-ignore
-const DEFAULT_PROFIL_PIC = 'https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png';
+import DEFAULT_PROFILE_PICTURE_URL from '../assets/constants';
 
 type Props = {
   user: { photo: string; name: string };
@@ -39,7 +38,7 @@ export const Avatar = (props: Props) => {
         <img
           alt="user"
           height={HEIGHT}
-          src={user ? user.photo || DEFAULT_PROFIL_PIC : DEFAULT_PROFIL_PIC}
+          src={user ? user.photo || DEFAULT_PROFILE_PICTURE_URL : DEFAULT_PROFILE_PICTURE_URL}
           style={{
             borderRadius: parseInt(`${HEIGHT / 2}`, 10),
             border: 'solid #EEEEEE 2px',

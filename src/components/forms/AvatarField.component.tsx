@@ -9,6 +9,7 @@ import { Field } from 'formik';
 import { WithStyles, withStyles } from '@material-ui/core';
 import Avatar from '../Avatar.component';
 import { createUrl } from '../../utils/createUrlHandlers';
+import DEFAULT_PROFILE_PICTURE_URL from '../../assets/constants';
 
 const styles = () => ({
   input: {
@@ -65,11 +66,12 @@ export class AvatarField extends Component<Props, State> {
     );
   }
 }
-const defaultUrl =
-  'https://ssl.gstatic.com/images/branding/product/1x/avatar_circle_blue_512dp.png';
 
 function getUrl(previewUrl, value) {
-  return previewUrl || (typeof value === 'string' ? value : defaultUrl);
+  return (
+    previewUrl ||
+    (typeof value === 'string' ? value : DEFAULT_PROFILE_PICTURE_URL)
+  );
 }
 
 export default withStyles(styles)(AvatarField);

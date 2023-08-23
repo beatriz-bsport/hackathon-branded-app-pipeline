@@ -27,7 +27,7 @@ import EmptyListItem from '../LoadingListItem.component';
 import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPackTagsDialog.component';
 import ReplacementRequestPendingChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestPendingChip.component';
 import type { Offer } from '../../api/types';
-import { DEFAULT_AVATAR } from '../../libs/associated-coach/utils';
+import DEFAULT_PROFILE_PICTURE_URL from '../../assets/constants';
 import RollCallChip from '../../libs/offer/components/RollCallChip.component';
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
 import FreeOfferChip from '#libs/offer/components/FreeOfferChip.component';
@@ -270,9 +270,7 @@ export function OfferMinimalSummary(props: Props) {
                       <div>
                         <Avatar
                           src={
-                            coach_override
-                              ? coach_override.photo || DEFAULT_AVATAR
-                              : ''
+                            coach_override.photo || DEFAULT_PROFILE_PICTURE_URL
                           }
                         />
                       </div>
@@ -291,7 +289,11 @@ export function OfferMinimalSummary(props: Props) {
                         <IconButton disableRipple disabled={!!coach_override}>
                           <Avatar
                             imgProps={coach_override ? disabledAvatarProps : {}}
-                            src={coach ? coach.photo || DEFAULT_AVATAR : ''}
+                            src={
+                              coach
+                                ? coach.photo || DEFAULT_PROFILE_PICTURE_URL
+                                : ''
+                            }
                           />
                         </IconButton>
                       </div>
@@ -313,9 +315,7 @@ export function OfferMinimalSummary(props: Props) {
                     <IconButton disableRipple>
                       <Avatar
                         src={
-                          coach_override
-                            ? coach_override.photo || DEFAULT_AVATAR
-                            : ''
+                          coach_override.photo || DEFAULT_PROFILE_PICTURE_URL
                         }
                       />
                     </IconButton>

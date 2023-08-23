@@ -1,6 +1,7 @@
 import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
 import CreditMemberBadge from './CreditMemberBadge.component';
 import { Avatar } from '@material-ui/core';
+import DEFAULT_PROFILE_PICTURE_URL from '../../../assets/constants';
 
 <Meta
   title="Library/Member/CreditMemberBadge "
@@ -76,7 +77,7 @@ export const Template = (args) => <CreditMemberBadge {...args} />;
     name="Credit Member Badge"
     args={{
       children: (
-        <Avatar src="https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png" />
+        <Avatar src=DEFAULT_PROFILE_PICTURE_URL />
       ),
       credit: 1000000,
       unpaidAmount: '0',
@@ -94,7 +95,7 @@ export const Template = (args) => <CreditMemberBadge {...args} />;
     name="Credit top"
     args={{
       children: (
-        <Avatar src="https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png" />
+        <Avatar src=DEFAULT_PROFILE_PICTURE_URL />
       ),
       credit: 1000000,
       unpaidAmount: '0',
@@ -112,7 +113,7 @@ export const Template = (args) => <CreditMemberBadge {...args} />;
     name="Credit null balance"
     args={{
       children: (
-        <Avatar src="https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png" />
+        <Avatar src=DEFAULT_PROFILE_PICTURE_URL />
       ),
       credit: 1000000,
       bottomCredit: false,
@@ -130,7 +131,7 @@ export const Template = (args) => <CreditMemberBadge {...args} />;
     name="Credit negative balance"
     args={{
       children: (
-        <Avatar src="https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png" />
+        <Avatar src=DEFAULT_PROFILE_PICTURE_URL />
       ),
       credit: -1001,
       unpaidAmount: '0',
@@ -148,7 +149,7 @@ export const Template = (args) => <CreditMemberBadge {...args} />;
     name="Credit unpaid invoice positive balance"
     args={{
       children: (
-        <Avatar src="https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png" />
+        <Avatar src=DEFAULT_PROFILE_PICTURE_URL />
       ),
       credit: 1001,
       unpaidAmount: '0',
@@ -166,7 +167,7 @@ export const Template = (args) => <CreditMemberBadge {...args} />;
     name="Credit unpaid invoice negative balance"
     args={{
       children: (
-        <Avatar src="https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png" />
+        <Avatar src=DEFAULT_PROFILE_PICTURE_URL />
       ),
       credit: -1001,
       unpaidAmount: '0',

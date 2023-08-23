@@ -32,6 +32,7 @@ import type { Invoice } from '#libs/invoice/types';
 import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
 import type { OptionCallback } from '../../../state/types';
 import type { StripeReader } from '#libs/terminal/types';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   balance: number;
@@ -182,31 +183,36 @@ export const MemberBillingProblemCard = (props: Props) => {
     <Paper className={classes.accountBalanceBloc}>
       {!!(!props.asConsumer || (parsedBalance && parsedBalance < 0)) && (
         <div className={classes.padding}>
-          <div className={classes.accountBalance}>
-            <Typography variant="h6">{t('creditAccountBalance')}</Typography>
-            <div className={classes.buttonContainer}>
-              <Typography inline color={color} component="span" variant="h6">
-                {` ${getCurrencyDisplayWithPrice(balance)}`}
-              </Typography>
-              {props.memberLoading && (
-                <CircularProgress color="primary" size={24} />
-              )}
-              <Button
-                color="primary"
-                disabled={props.memberLoading}
-                onClick={() => {
-                  if (props.asConsumer) {
-                    setAmountToBill(Math.abs(parseFloat(balance)));
-                  } else {
-                    setAdjustBalanceDialogOpen(true);
-                  }
-                }}
-                variant="outlined"
-              >
-                {t(props.asConsumer ? 'regularizeBalance' : 'adjustBalance')}
-              </Button>
+          <ObjectLevelPermissionWrapper
+            forcedBehavior="hidden"
+            requiredPermission="member.allowed_actions.readBalance"
+          >
+            <div className={classes.accountBalance}>
+              <Typography variant="h6">{t('creditAccountBalance')}</Typography>
+              <div className={classes.buttonContainer}>
+                <Typography inline color={color} component="span" variant="h6">
+                  {` ${getCurrencyDisplayWithPrice(balance)}`}
+                </Typography>
+                {props.memberLoading && (
+                  <CircularProgress color="primary" size={24} />
+                )}
+                <Button
+                  color="primary"
+                  disabled={props.memberLoading}
+                  onClick={() => {
+                    if (props.asConsumer) {
+                      setAmountToBill(Math.abs(parseFloat(balance)));
+                    } else {
+                      setAdjustBalanceDialogOpen(true);
+                    }
+                  }}
+                  variant="outlined"
+                >
+                  {t(props.asConsumer ? 'regularizeBalance' : 'adjustBalance')}
+                </Button>
+              </div>
             </div>
-          </div>
+          </ObjectLevelPermissionWrapper>
 
           {false &&
             !props.asConsumer &&

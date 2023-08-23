@@ -6939,7 +6939,9 @@
             "methodPaymentSubscriptionHelper": "Select which payment method(s) you wish to enable for recurring payments (subscriptions):",
             "methodPaymentSubscription": "Recurring payments",
             "methodPaymentBasketHelper": "Select which payment method(s) you wish to enable for one time payments:",
-            "methodPaymentBasket": "Single payments"
+            "methodPaymentBasket": "Single payments",
+            "methodPaymentCardBillingDetails": "Request billing information for credit card payments.",
+            "methodPaymentCardBillingDetailsHelper": "By enabling this feature, you will reduce the number of credit card payments requiring 3D Secure (SMS validation, banking apps, etc.). Please note that these fields will be mandatory."
         },
         "billing_group": {
             "header": "Billing group",

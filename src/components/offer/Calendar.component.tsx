@@ -160,73 +160,82 @@ class Calendar extends PureComponent<Props, State> {
     } = this.props;
 
     return (
-      <Menu
-        keepMounted
-        anchorEl={this.anchorRef?.current}
-        onClose={this.handleCloseMenu}
-        open={!!this.anchorRef && this.state.isMenuOpen}
+      <ObjectLevelPermissionProvider
+        requiredPermission={[
+          'planning.calendar.allowed_actions.bulkCancellation',
+          'planning.calendar.allowed_actions.readCancellations',
+          'export.allowed_actions.planning',
+        ]}
       >
-        {!forceMonthDisplay && !hideSwitchViewButton && (
-          <MenuItem onClick={this.togleDisplayMode}>
-            {this.state.displayMode === MONTHMODE ? (
-              <>
-                <ListItemIcon>
-                  <ViewWeek />
-                </ListItemIcon>
-                {t('menu.showWeek')}
-              </>
-            ) : (
-              <>
-                <ListItemIcon>
-                  <ViewComfy />
-                </ListItemIcon>
-                {t('menu.showMonth')}
-              </>
+        {([
+          hasBulkCancellationsPermission,
+          hasReadCancellationsPermission,
+          hasExportPermission,
+        ]) => (
+          <Menu
+            keepMounted
+            anchorEl={this.anchorRef?.current}
+            onClose={this.handleCloseMenu}
+            open={!!this.anchorRef && this.state.isMenuOpen}
+          >
+            {!forceMonthDisplay && !hideSwitchViewButton && (
+              <MenuItem onClick={this.togleDisplayMode}>
+                {this.state.displayMode === MONTHMODE ? (
+                  <>
+                    <ListItemIcon>
+                      <ViewWeek />
+                    </ListItemIcon>
+                    {t('menu.showWeek')}
+                  </>
+                ) : (
+                  <>
+                    <ListItemIcon>
+                      <ViewComfy />
+                    </ListItemIcon>
+                    {t('menu.showMonth')}
+                  </>
+                )}
+              </MenuItem>
             )}
-          </MenuItem>
-        )}
-        {setShowCancelledOffers && (
-          <MenuItem onClick={this.handleToggleCancelDisplay}>
-            {showCancelledOffers ? (
-              <>
-                <ListItemIcon>
-                  <VisibilityOffIcon />
-                </ListItemIcon>
-                {t('menu.hideCancelled')}
-              </>
-            ) : (
-              <>
-                <ListItemIcon>
-                  <VisibilityIcon />
-                </ListItemIcon>
-                {t('menu.showCancelled')}
-              </>
+            {setShowCancelledOffers && hasReadCancellationsPermission && (
+              <MenuItem onClick={this.handleToggleCancelDisplay}>
+                {showCancelledOffers ? (
+                  <>
+                    <ListItemIcon>
+                      <VisibilityOffIcon />
+                    </ListItemIcon>
+                    {t('menu.hideCancelled')}
+                  </>
+                ) : (
+                  <>
+                    <ListItemIcon>
+                      <VisibilityIcon />
+                    </ListItemIcon>
+                    {t('menu.showCancelled')}
+                  </>
+                )}
+              </MenuItem>
             )}
-          </MenuItem>
-        )}
 
-        {!!onRequestMassDisable && (
-          <MenuItem onClick={this.handleMassDisable}>
-            <ListItemIcon>
-              <BlockIcon />
-            </ListItemIcon>
-            {t('menu.massDisable')}
-          </MenuItem>
-        )}
-        <ObjectLevelPermissionProvider requiredPermission="export.allowed_actions.planning">
-          {(hasPermission) =>
-            hasPermission &&
-            onDownload && (
+            {!!onRequestMassDisable && hasBulkCancellationsPermission && (
+              <MenuItem onClick={this.handleMassDisable}>
+                <ListItemIcon>
+                  <BlockIcon />
+                </ListItemIcon>
+                {t('menu.massDisable')}
+              </MenuItem>
+            )}
+            {hasExportPermission && onDownload && (
               <MenuItem onClick={onDownload}>
                 <ListItemIcon>
                   {isDownloading ? <CircularProgress /> : <CloudDownloadIcon />}
                 </ListItemIcon>
                 {t('menu.download')}
               </MenuItem>
-            )
-          }
-        </ObjectLevelPermissionProvider>
-      </Menu>
+            )}
+          </Menu>
+        )}
+      </ObjectLevelPermissionProvider>
     );
   };
 

@@ -10,7 +10,7 @@
     - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REGISTRY_ENDPOINT}
     - sleep 10 # because the docker service needs to be up'd cf https://gitlab.com/gitlab-org/charts/gitlab/-/issues/478
     - docker build --network host --build-arg TODAY=`date +%s` --build-arg ENVIRONMENT=$ENVIRONMENT --build-arg GIT_USERNAME=$GIT_USERNAME --build-arg GIT_PASSWORD=$GIT_PASSWORD --build-arg CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME -t ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME} .
-    - docker push ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME} --quiet
+    - docker push ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME}
   variables:
     DOCKER_TLS_CERTDIR: ""
     DOCKER_DRIVER: overlay2

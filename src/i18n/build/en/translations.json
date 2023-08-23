@@ -5436,6 +5436,12 @@
                         },
                         "rollcall": {
                             "_label": "Validate roll call"
+                        },
+                        "editPerformance": {
+                            "_label": "Edit program performances"
+                        },
+                        "editSpot": {
+                            "_label": "Edit member spots"
                         }
                     },
                     "_label": "Workshop management"
@@ -5469,7 +5475,24 @@
                     },
                     "_label": "Booking management"
                 },
-                "_label": "Booking management"
+                "_label": "Booking management",
+                "privateBooking": {
+                    "allowed_actions": {
+                        "editPerformance": {
+                            "_label": "Edit program performances"
+                        },
+                        "cancel": {
+                            "_label": "Cancel bookings"
+                        },
+                        "edit": {
+                            "_label": "Edit bookings"
+                        },
+                        "create": {
+                            "_label": "Create bookings"
+                        }
+                    },
+                    "_label": "Appointments management"
+                }
             },
             "billing": {
                 "allowed_actions": {
@@ -5585,6 +5608,358 @@
                     "_label": "Activities"
                 },
                 "_label": "Session management"
+            },
+            "report": {
+                "Club": {
+                    "activityByEst": {
+                        "allowed_actions": {
+                            "read": {
+                                "_label": "See"
+                            },
+                            "create": {
+                                "_label": "Create"
+                            }
+                        },
+                        "_label": "Activities and workshops by establishment"
+                    },
+                    "activities": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Delete"
+                            },
+                            "edit": {
+                                "_label": "Edit"
+                            },
+                            "read": {
+                                "_label": "See"
+                            },
+                            "create": {
+                                "_label": "Create"
+                            }
+                        },
+                        "_label": "Activities"
+                    },
+                    "members": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Delete"
+                            },
+                            "edit": {
+                                "_label": "Edit"
+                            },
+                            "read": {
+                                "_label": "See"
+                            },
+                            "create": {
+                                "_label": "Create"
+                            }
+                        },
+                        "_label": "Members"
+                    },
+                    "members_purchase": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Delete"
+                            },
+                            "edit": {
+                                "_label": "Edit"
+                            },
+                            "read": {
+                                "_label": "See"
+                            },
+                            "create": {
+                                "_label": "Create"
+                            }
+                        },
+                        "_label": "Member"
+                    },
+                    "billing_plan": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Delete"
+                            },
+                            "edit": {
+                                "_label": "Edit"
+                            },
+                            "read": {
+                                "_label": "See"
+                            },
+                            "create": {
+                                "_label": "Create"
+                            }
+                        },
+                        "_label": "Subscription"
+                    },
+                    "_label": "Studio"
+                },
+                "Payments": {
+                    "video_purchase": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Delete"
+                            },
+                            "edit": {
+                                "_label": "Edit"
+                            },
+                            "read": {
+                                "_label": "See"
+                            },
+                            "create": {
+                                "_label": "Create"
+                            }
+                        },
+                        "_label": "Video purchase"
+                    },
+                    "payment_installments": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Delete"
+                            },
+                            "edit": {
+                                "_label": "Edit"
+                            },
+                            "read": {
+                                "_label": "See"
+                            },
+                            "create": {
+                                "_label": "Create"
+                            }
+                        },
+                        "_label": "Payments in installments"
+                    },
+                    "dispute": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Delete"
+                            },
+                            "edit": {
+                                "_label": "Edit"
+                            },
+                            "read": {
+                                "_label": "See"
+                            },
+                            "create": {
+                                "_label": "Create"
+                            }
+                        },
+                        "_label": "Payment dispute"
+                    },
+                    "on_spot_payments": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Delete"
+                            },
+                            "edit": {
+                                "_label": "Edit"
+                            },
+                            "read": {
+                                "_label": "See"
+                            },
+                            "create": {
+                                "_label": "Create"
+                            }
+                        },
+                        "_label": "On-site payment"
+                    },
+                    "payment_sumup": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Delete"
+                            },
+                            "edit": {
+                                "_label": "Edit"
+                            },
+                            "read": {
+                                "_label": "See"
+                            },
+                            "create": {
+                                "_label": "Create"
+                            }
+                        },
+                        "_label": "Total payments"
+                    },
+                    "payments": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Delete"
+                            },
+                            "edit": {
+                                "_label": "Edit"
+                            },
+                            "read": {
+                                "_label": "See"
+                            },
+                            "create": {
+                                "_label": "Create"
+                            }
+                        },
+                        "_label": "Payments"
+                    },
+                    "unpaid_invoices": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Delete"
+                            },
+                            "edit": {
+                                "_label": "Edit"
+                            },
+                            "read": {
+                                "_label": "See"
+                            },
+                            "create": {
+                                "_label": "Create"
+                            }
+                        },
+                        "_label": "Unpaid invoices"
+                    },
+                    "invoices": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Delete"
+                            },
+                            "edit": {
+                                "_label": "Edit"
+                            },
+                            "read": {
+                                "_label": "See"
+                            },
+                            "create": {
+                                "_label": "Create"
+                            }
+                        },
+                        "_label": "Purchases"
+                    },
+                    "expense": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Delete"
+                            },
+                            "edit": {
+                                "_label": "Edit"
+                            },
+                            "read": {
+                                "_label": "See"
+                            },
+                            "create": {
+                                "_label": "Create"
+                            }
+                        },
+                        "_label": "Expenses"
+                    },
+                    "credit": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Delete"
+                            },
+                            "edit": {
+                                "_label": "Edit"
+                            },
+                            "read": {
+                                "_label": "See"
+                            },
+                            "create": {
+                                "_label": "Create"
+                            }
+                        },
+                        "_label": "Credit"
+                    },
+                    "cashbook": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Delete"
+                            },
+                            "edit": {
+                                "_label": "Edit"
+                            },
+                            "read": {
+                                "_label": "See"
+                            },
+                            "create": {
+                                "_label": "Create"
+                            }
+                        },
+                        "_label": "Cash book"
+                    },
+                    "basket": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Delete"
+                            },
+                            "edit": {
+                                "_label": "Edit"
+                            },
+                            "read": {
+                                "_label": "See"
+                            },
+                            "create": {
+                                "_label": "Create"
+                            }
+                        },
+                        "_label": "Basket"
+                    },
+                    "_label": "Payments"
+                },
+                "_label": "Reports"
+            },
+            "planning": {
+                "schedule": {
+                    "allowed_actions": {
+                        "readAvailabilityDetail": {
+                            "_label": "See the detail of availabilities"
+                        },
+                        "deleteAvailability": {
+                            "_label": "Delete availabilities"
+                        },
+                        "createAvailability": {
+                            "_label": "See availabilities"
+                        }
+                    },
+                    "_label": "Availabilities"
+                },
+                "calendar": {
+                    "allowed_actions": {
+                        "readWeeklyOverview": {
+                            "_label": "See this week's overview"
+                        },
+                        "readCancellations": {
+                            "_label": "See cancelled sessions"
+                        },
+                        "bulkCancellation": {
+                            "_label": "Cancel several sessions"
+                        }
+                    },
+                    "_label": "Calendar"
+                },
+                "_label": "Calendar and availabilities"
+            },
+            "export": {
+                "allowed_actions": {
+                    "report": {
+                        "_label": "Export reports"
+                    },
+                    "memberDocument": {
+                        "_label": "Export members' documents"
+                    },
+                    "smartlist": {
+                        "_label": "Export smartlists"
+                    },
+                    "attendance": {
+                        "_label": "Export attendances/absences"
+                    },
+                    "payroll": {
+                        "_label": "Export teachers' payroll"
+                    },
+                    "subscription": {
+                        "_label": "Export subscriptions"
+                    },
+                    "invoice": {
+                        "_label": "Export invoices"
+                    },
+                    "planning": {
+                        "_label": "Export the calendar"
+                    }
+                },
+                "_label": "Exports"
             }
         }
     },
@@ -10063,6 +10438,7 @@
                 "Canceled",
                 "Cancelled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled"
@@ -15897,7 +16273,10 @@
                 },
                 "cancel": "Cancel",
                 "confirm": "Save",
-                "next": "Next"
+                "next": "Next",
+                "step": {
+                    "name": "Nom"
+                }
             }
         }
     },

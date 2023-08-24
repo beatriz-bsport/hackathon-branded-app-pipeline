@@ -127,13 +127,3 @@
 .bs-grid-item-alignment-baseline {
   align-items: baseline;
 }
-
-@media only screen and (max-width: 570px) {
-  .bs-generic-card__content__grid__item {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-  }
-}

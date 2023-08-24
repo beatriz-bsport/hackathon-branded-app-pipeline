@@ -5618,6 +5618,12 @@
                             },
                             "create": {
                                 "_label": "Create"
+                            },
+                            "edit": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
                             }
                         },
                         "_label": "Activities and workshops by establishment"
@@ -5690,7 +5696,92 @@
                         },
                         "_label": "Subscription"
                     },
-                    "_label": "Studio"
+                    "_label": "Studio",
+                    "activityByCoach": {
+                        "_label": "",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            }
+                        }
+                    },
+                    "privateService": {
+                        "allowed_actions": {
+                            "read": {
+                                "_label": ""
+                            },
+                            "create": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            }
+                        },
+                        "_label": ""
+                    },
+                    "workshop": {
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": ""
+                            },
+                            "create": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            }
+                        },
+                        "_label": ""
+                    },
+                    "offers": {
+                        "_label": "",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            }
+                        }
+                    },
+                    "subscription": {
+                        "allowed_actions": {
+                            "create": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            }
+                        },
+                        "_label": ""
+                    }
                 },
                 "Payments": {
                     "video_purchase": {
@@ -5899,7 +5990,302 @@
                     },
                     "_label": "Payments"
                 },
-                "_label": "Reports"
+                "_label": "Reports",
+                "Products": {
+                    "_label": "",
+                    "private_cpasses_expired": {
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": ""
+                            },
+                            "create": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            }
+                        },
+                        "_label": ""
+                    },
+                    "private_cpasses": {
+                        "allowed_actions": {
+                            "create": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            }
+                        },
+                        "_label": ""
+                    },
+                    "universal_passes": {
+                        "allowed_actions": {
+                            "create": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            }
+                        },
+                        "_label": ""
+                    },
+                    "giftcard": {
+                        "allowed_actions": {
+                            "read": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            },
+                            "create": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            }
+                        },
+                        "_label": ""
+                    },
+                    "expired_pass": {
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            },
+                            "create": {
+                                "_label": ""
+                            }
+                        },
+                        "_label": ""
+                    },
+                    "consumer_giftcard": {
+                        "allowed_actions": {
+                            "create": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            }
+                        },
+                        "_label": ""
+                    },
+                    "memberships": {
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            },
+                            "create": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            }
+                        },
+                        "_label": ""
+                    },
+                    "discount": {
+                        "_label": "",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            }
+                        }
+                    },
+                    "shop": {
+                        "allowed_actions": {
+                            "create": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            }
+                        },
+                        "_label": ""
+                    },
+                    "video": {
+                        "_label": "",
+                        "allowed_actions": {
+                            "read": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            },
+                            "create": {
+                                "_label": ""
+                            }
+                        }
+                    }
+                },
+                "Bookings": {
+                    "first_booking": {
+                        "allowed_actions": {
+                            "create": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            }
+                        },
+                        "_label": ""
+                    },
+                    "bookings": {
+                        "allowed_actions": {
+                            "read": {
+                                "_label": ""
+                            },
+                            "create": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            }
+                        },
+                        "_label": ""
+                    },
+                    "_label": "",
+                    "dayBookings": {
+                        "allowed_actions": {
+                            "create": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            }
+                        },
+                        "_label": ""
+                    },
+                    "first_attendance": {
+                        "allowed_actions": {
+                            "create": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            }
+                        },
+                        "_label": ""
+                    },
+                    "first_privatebooking": {
+                        "allowed_actions": {
+                            "create": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            }
+                        },
+                        "_label": ""
+                    },
+                    "private_bookings": {
+                        "_label": "",
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": ""
+                            },
+                            "create": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            }
+                        }
+                    },
+                    "unpaid_private_bookings": {
+                        "allowed_actions": {
+                            "create": {
+                                "_label": ""
+                            },
+                            "read": {
+                                "_label": ""
+                            },
+                            "delete": {
+                                "_label": ""
+                            },
+                            "edit": {
+                                "_label": ""
+                            }
+                        },
+                        "_label": ""
+                    }
+                }
             },
             "planning": {
                 "schedule": {
@@ -5960,6 +6346,46 @@
                     }
                 },
                 "_label": "Exports"
+            },
+            "product": {
+                "paymentPack": {
+                    "_label": "",
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": ""
+                        },
+                        "create": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "manageExtension": {
+                            "_label": ""
+                        },
+                        "manageCredit": {
+                            "_label": ""
+                        },
+                        "compatibility": {
+                            "_label": ""
+                        }
+                    }
+                },
+                "privatePass": {
+                    "allowed_actions": {
+                        "create": {
+                            "_label": ""
+                        },
+                        "edit": {
+                            "_label": ""
+                        },
+                        "delete": {
+                            "_label": ""
+                        }
+                    },
+                    "_label": ""
+                },
+                "_label": ""
             }
         }
     },

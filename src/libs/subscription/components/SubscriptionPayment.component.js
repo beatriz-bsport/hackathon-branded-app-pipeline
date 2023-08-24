@@ -450,7 +450,8 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     const areInitialBillingDetailsNecessary =
       this.props.cardBillingDetailsMandatory &&
       !!this.state.selectedSavedPaymentMethodId &&
-      this.selectedSavedPaymentMethod
+      this.selectedSavedPaymentMethod &&
+      paymentMethod === MarketplacePaymentMethods.card
         ? this.areBillingDetailsProvided(
             this.selectedSavedPaymentMethod.billing_details,
           )
@@ -458,7 +459,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
 
     const areBillingDetailsProvided =
       this.props.cardBillingDetailsMandatory &&
-      paymentMethod.type === MarketplacePaymentMethods.card
+      paymentMethod === MarketplacePaymentMethods.card
         ? this.areBillingDetailsProvided(this.state.billingDetails)
         : true;
 

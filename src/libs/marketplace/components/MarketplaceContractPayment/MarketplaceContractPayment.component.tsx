@@ -171,7 +171,9 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
     );
 
     const areInitialBillingDetailsNecessary =
-      cardBillingDetailsMandatory && selectedSavedPaymentMethodId
+      cardBillingDetailsMandatory &&
+      selectedSavedPaymentMethodId &&
+      paymentMethod === MarketplacePaymentMethods.card
         ? areSpecificBillingDetailsProvided(selectedPaymentMethodBillingDetails)
         : true;
 

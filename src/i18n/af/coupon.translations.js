@@ -15,6 +15,7 @@ const {
   COUPON_SUBSCRIPTION_MODE_NONE,
 } = require('@bsport/common/lib/master-data/coupon-subscription-mode');
 
+const { CouponKind } = require( '@bsport/common/lib/master-data/coupon')
 const {
   COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS,
   UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT,
@@ -23,6 +24,7 @@ const {
   COUPON_UNIQUE_CODE_NOT_AVAILABLE,
   UNIQUE_CODE_LOCKED,
 } = require('../../libs/coupon/errors.ts');
+
 
 exports.default = {
   list: {
@@ -328,4 +330,8 @@ exports.default = {
     title: 'Type de promotion',
     allType: 'Tout type de promotion',
   },
+  couponType: {
+    [CouponKind.COUPON_VIA_CODE]: "Code de réduction",
+    [CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE]: "Bon d'achat à usage unique",
+  }
 };

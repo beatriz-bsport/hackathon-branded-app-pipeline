@@ -1419,7 +1419,8 @@
       }
     },
     "fabLabels": { "voucherCodes": "Bons d'achat", "discountCode": "Code de réduction" },
-    "couponFilter": { "title": "Type de promotion", "allType": "Tout type de promotion" }
+    "couponFilter": { "title": "Type de promotion", "allType": "Tout type de promotion" },
+    "couponType": { "0": "Code de réduction", "3": "Bon d'achat à usage unique" }
   },
   "dashboard": {
     "save": "Sauvegarder",
@@ -7808,6 +7809,7 @@
       "save": "Sauvegarder"
     },
     "columns": {
+      "coupon_type": "Type",
       "dispute_status": "Statut litige",
       "accept_email": "Accepte les emails",
       "accept_sms": "Accepte les SMS",
@@ -8246,7 +8248,8 @@
       "payout": "Virement",
       "staff": "Staff",
       "company": "Studio",
-      "disputeStatus": "Statut litige"
+      "disputeStatus": "Statut litige",
+      "coupon_type_excluding_referrals": "Type de promotion"
     },
     "presetValuesByDatatype": {
       "source_device": { "0": "Application", "1": "Web", "2": "Backoffice bsport", "3": "Autre", "4": "Migration de données" },

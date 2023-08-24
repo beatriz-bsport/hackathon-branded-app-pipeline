@@ -16,6 +16,8 @@ import {
   PAYOUT_STATUS_TRANSIT,
 } from '@bsport/common/lib/master-data/payout-status';
 
+import { CouponKind } from '@bsport/common/lib/master-data/coupon';
+
 import PLANNED_INVOICE_STATUS from '@bsport/common/lib/master-data/planned-invoice-status';
 
 import {
@@ -465,6 +467,20 @@ const DatatypeFilterConfigValueList: React.FC<{
           {
             value: PAYMENT_ENGINE_STRIPE,
             label: t(`invoice:paymentEngine.label.${PAYMENT_ENGINE_STRIPE}`),
+          },
+        ];
+
+      case 'coupon_type_excluding_referrals':
+        return [
+          {
+            value: CouponKind.COUPON_VIA_CODE,
+            label: t(`coupon:couponType.${CouponKind.COUPON_VIA_CODE}`),
+          },
+          {
+            value: CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE,
+            label: t(
+              `coupon:couponType.${CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE}`,
+            ),
           },
         ];
 

@@ -155,6 +155,7 @@ exports.default = {
     save: 'Sauvegarder',
   },
   columns: {
+    coupon_type: 'Type',
     dispute_status: 'Statut litige',
     accept_email: 'Accepte les emails',
     accept_sms: 'Accepte les SMS',
@@ -633,6 +634,7 @@ exports.default = {
     staff: 'Staff',
     company: 'Studio',
     disputeStatus: 'Statut litige',
+    coupon_type_excluding_referrals: 'Type de promotion'
   },
   presetValuesByDatatype: {
     source_device: {

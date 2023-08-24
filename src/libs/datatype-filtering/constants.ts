@@ -17,6 +17,7 @@ export const DATA_SOURCE_FILTERABLE_DATATYPE = [
   'coach',
   'contract',
   'coupon',
+  'coupon_type_excluding_referrals',
   'date',
   'datetime',
   'dow',
@@ -66,6 +67,7 @@ export const DATATYPE_FILTERABLE_BY_ID_IN = [
   'company',
   'contract',
   'coupon',
+  'coupon_type_excluding_referrals',
   'dow',
   'email',
   'invoice_status',
@@ -101,6 +103,7 @@ export const DATATYPE_PRESET_INTEGER_VALUE = [
   'dispute_status',
   'source_device',
   'payment_engine',
+  'coupon_type_excluding_referrals',
 ];
 
 export const DATATYPE_FILTERABLE_BY_DATE = ['datetime', 'date', 'time'];

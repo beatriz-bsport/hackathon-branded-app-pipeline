@@ -119,7 +119,11 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
                 tax={parseFloat(contract?.tax) || 0}
               >
                 <div>
-                  <BillingInterval contract={contract} />
+                  <BillingInterval
+                    flatFee={contract?.flat_fee}
+                    interval={contract?.interval}
+                    recurrenceBasis={contract?.recurrence_basis}
+                  />
                 </div>
               </Price>
 

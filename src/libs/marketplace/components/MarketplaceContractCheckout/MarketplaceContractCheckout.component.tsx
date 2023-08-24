@@ -159,7 +159,11 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
                   isExcludingTax={isExcludingTax}
                   tax={parseFloat(contract?.tax) || 0}
                 >
-                  <BillingInterval contract={contract} />
+                  <BillingInterval
+                    flatFee={contract?.flat_fee}
+                    interval={contract?.interval}
+                    recurrenceBasis={contract?.recurrence_basis}
+                  />
                 </Price>
               </div>
             </GridItem>

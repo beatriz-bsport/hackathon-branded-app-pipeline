@@ -16,7 +16,7 @@ export type Props = {
   color?: Color;
   classes?: { [key: string]: string | boolean };
   isExcludingTax: boolean;
-  tax: number;
+  tax?: number;
 };
 
 export const Price: React.FC<Props> = ({

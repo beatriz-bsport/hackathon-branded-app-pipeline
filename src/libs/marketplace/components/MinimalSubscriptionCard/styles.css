@@ -1,0 +1,160 @@
+.bs-minimal-subscription-card {
+  background: var(--color-background-paper);
+}
+
+/* .bs-minimal-subscription-card-content:{} 
+*/
+
+/* .bs-minimal-subscription-card-grid:{} 
+*/
+
+/* .bs-minimal-subscription-card__title-item__name:{} 
+*/
+
+/* .bs-minimal-subscription-card__price-item:{} 
+*/
+
+/* .bs-minimal-subscription-card__fees:{} 
+*/
+
+/* .bs-minimal-subscription-card__description-item:{} 
+*/
+
+/* .bs-minimal-subscription-card__see-more-item:{} 
+*/
+
+.bs-minimal-subscription-card__title-item {
+  font-size: var(--subtitle1-fontSize);
+  font-weight: var(--h5-fontWeight);
+  line-height: var(--subtitle1-lineHeight);
+  letter-spacing: var(--subtitle1-letterSpacing);
+}
+
+.bs-minimal-subscription-card__price {
+  font-size: var(--h6-fontSize);
+  font-weight: var(--h6-fontWeight);
+  line-height: var(--h6-lineHeight);
+  letter-spacing: var(--h6-letterSpacing);
+}
+
+.bs-minimal-subscription-card__price {
+  align-items: center;
+}
+
+.bs-minimal-subscription-card__fees-item {
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  line-height: var(--body1-lineHeight);
+  letter-spacing: var(--body1-letterSpacing);
+}
+.bs-minimal-subscription-card__fees-item--hidden {
+  display: none;
+}
+
+.bs-minimal-subscription-card__description-item {
+  font-size: var(--body2-fontSize);
+  font-weight: var(--body2-fontWeight);
+  letter-spacing: var(--body2-letterSpacing);
+  line-height: var(--body2-lineHeight);
+  color: var(--color-grey-main);
+}
+
+.bs-minimal-subscription-card__description {
+  max-height: var(--spacing-5);
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.bs-minimal-subscription-card__description--expanded {
+  max-height: 600px;
+  overflow: hidden;
+}
+
+.bs-minimal-subscription-card__description__text--expanded {
+  margin: 0;
+  padding: 0;
+  max-height: 600px;
+}
+
+.bs-minimal-subscription-card__description__text--truncated {
+  -webkit-line-clamp: 2; /* Truncate text to 2 lines */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  max-height: var(--spacing-5);
+}
+
+.bs-minimal-subscription-card__see-more-item--hidden {
+  display: none;
+}
+
+.bs-minimal-subscription-card__see-more-item__button {
+  font-size: var(--subtitle2-fontSize);
+  font-family: var(--subtitle2-fontFamily);
+  color: var(--color-grey-dark);
+  font-weight: var(--h6-fontWeight);
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.bs-minimal-subscription-card__see-more-item__text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.bs-minimal-subscription-card__planned-invoices {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-1);
+  background-color: var(--color-grey-light);
+  color: var(--color-grey-dark);
+  font-size: var(--body2-fontSize);
+  font-weight: var(--body2-fontWeight);
+  letter-spacing: var(--body2-letterSpacing);
+  line-height: var(--body2-lineHeight);
+}
+
+.bs-minimal-subscription-card__planned-invoices__text {
+  max-width: 100%;
+  text-align: center;
+  font-size: var(--body2-fontSize);
+  font-weight: var(--body2-fontWeight);
+  letter-spacing: var(--body2-letterSpacing);
+  line-height: var(--body2-lineHeight);
+  color: var(--color-grey-main);
+  padding: 0 var(--spacing-1);
+}
+
+@container bsConfirmationPage (width < 570px) {
+  .bs-minimal-subscription-card__price-item,
+  .bs-minimal-subscription-card__title-item,
+  .bs-minimal-subscription-card__see-more-item {
+    flex-direction: row;
+  }
+
+  .bs-minimal-subscription-card__price-item {
+    justify-content: flex-end;
+  }
+
+  .bs-minimal-subscription-card__title-item,
+  .bs-minimal-subscription-card__see-more-item {
+    justify-content: flex-start;
+  }
+  .bs-billing-interval {
+    margin-left: var(--spacing-1);
+  }
+  .bs-minimal-subscription-card__fees-item {
+    grid-column-end: 3;
+  }
+}
+
+@container bsConfirmationPage (width < 460px) {
+  .bs-minimal-subscription-card__price {
+    gap: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+}

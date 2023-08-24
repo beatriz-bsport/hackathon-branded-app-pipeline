@@ -244,7 +244,11 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                           isExcludingTax={isExcludingTax}
                           tax={parseFloat(contract?.tax) || 0}
                         >
-                          <BillingInterval contract={contract} />
+                          <BillingInterval
+                            flatFee={contract?.flat_fee}
+                            interval={contract?.interval}
+                            recurrenceBasis={contract?.recurrence_basis}
+                          />
                         </Price>
                         {!!contract?.flat_fee && (
                           <div className="bs-contract-card__subtitle">
@@ -283,7 +287,11 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                         isExcludingTax={isExcludingTax}
                         tax={parseFloat(contract?.tax) || 0}
                       >
-                        <BillingInterval contract={contract} />
+                        <BillingInterval
+                          flatFee={contract?.flat_fee}
+                          interval={contract?.interval}
+                          recurrenceBasis={contract?.recurrence_basis}
+                        />
                       </Price>
                       {shouldDisplayFlatFee && (
                         <div className="bs-contract-card__subtitle">

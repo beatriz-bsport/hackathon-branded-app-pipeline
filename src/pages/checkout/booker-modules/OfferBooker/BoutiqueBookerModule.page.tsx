@@ -40,7 +40,7 @@ import type {
 import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
 import {
   fetchPaymentComboForBooking,
-  fetchPaymentComboList as fetchPaymentComboListAction,
+  fetchPaymentComboFromContract as fetchPaymentComboFromContractAction,
 } from '#libs/payment-combo/actions';
 // @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
@@ -998,7 +998,7 @@ const mapDispatchToProps = {
   fetchEstablishmentBulk,
   offerUserRegistration,
   fetchPaymentComboForBooking,
-  fetchPaymentComboList: fetchPaymentComboListAction as (
+  fetchPaymentComboListFromContract: fetchPaymentComboFromContractAction as (
     params: any,
     options: OptionCallback<Array<PaymentCombo>>,
   ) => void,
@@ -1015,7 +1015,7 @@ const mapHandlers = {
     ({
       fetchContractForBooking,
       fetchPaymentPackBulk,
-      fetchPaymentComboList,
+      fetchPaymentComboListFromContract,
     }: OwnProps & ConnectedProps<typeof connector>) =>
     (offer: number, company: number) => {
       fetchContractForBooking(offer, company, {
@@ -1026,7 +1026,7 @@ const mapHandlers = {
             contractList.map((c) => c.payment_combo),
           ).filter((id) => !!id);
           if (uniqPaymentComboIds.length) {
-            fetchPaymentComboList(
+            fetchPaymentComboListFromContract(
               {
                 company,
                 id__in: uniqPaymentComboIds,

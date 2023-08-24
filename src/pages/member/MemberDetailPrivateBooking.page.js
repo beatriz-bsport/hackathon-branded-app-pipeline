@@ -64,6 +64,7 @@ import PrivateBookingDetail from '../../libs/private-service/components/booking/
 import PrivateBookingDisableDialog from '../../libs/private-service/components/booking/PrivateBookingDisableDialog.component';
 import PrivateBookingAttachCoachDialog from '../../libs/private-service/components/booking/PrivateBookingAttachCoachDialog.component';
 import RecurrenceRulePrivateBookingItem from '../../libs/private-service/components/booking/RecurrenceRulePrivateBookingItem.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 import type {
   PrivateConsumerPass,
@@ -270,18 +271,23 @@ export class MemberDetailPrivateBooking extends Component<Props> {
                 />
               </Paper>
             )}
-            <div className={classes.createRecurrentBooking}>
-              <Button
-                color="primary"
-                onClick={() => {
-                  this.props.setBookerInAdvanceDialog(true);
-                  this.props.setSelectedRecurrentRule(null);
-                }}
-                variant="outlined"
-              >
-                {this.props.t('recurrenceRule.createModal.create')}
-              </Button>
-            </div>
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="reservation.privateBooking.allowed_actions.create"
+            >
+              <div className={classes.createRecurrentBooking}>
+                <Button
+                  color="primary"
+                  onClick={() => {
+                    this.props.setBookerInAdvanceDialog(true);
+                    this.props.setSelectedRecurrentRule(null);
+                  }}
+                  variant="outlined"
+                >
+                  {this.props.t('recurrenceRule.createModal.create')}
+                </Button>
+              </div>
+            </ObjectLevelPermissionWrapper>
           </Grid>
         </Grid>
         <Grid item lg={6} xs={12}>

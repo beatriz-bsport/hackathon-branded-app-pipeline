@@ -2,6 +2,7 @@ import React from 'react';
 
 import { PerformanceTrackingMetric } from '#libs/performance-tracking/types';
 import MetricSlider from './MetricSlider.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type OwnProps = {
   value: number;
@@ -14,13 +15,18 @@ export const SliderForm = (props: Props) => {
 
   return (
     <>
-      <MetricSlider
-        metric={metric}
-        onChange={(val) => {
-          changeMemberMetricValue(val, metric?.id);
-        }}
-        value={value}
-      />
+      <ObjectLevelPermissionProvider requiredPermission="reservation.privateBooking.allowed_actions.editPerformance">
+        {(hasEditPerformancePermission: boolean) => (
+          <MetricSlider
+            hasEditPerformancePermission={hasEditPerformancePermission}
+            metric={metric}
+            onChange={(val) => {
+              changeMemberMetricValue(val, metric?.id);
+            }}
+            value={value}
+          />
+        )}
+      </ObjectLevelPermissionProvider>
     </>
   );
 };

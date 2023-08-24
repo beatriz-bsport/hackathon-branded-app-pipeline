@@ -36,6 +36,7 @@ type Props = {
   divider?: boolean;
   onEditCoach?: () => void;
   selected?: boolean;
+  hasEditPermission?: boolean;
 };
 
 type PropsSkeleton = {
@@ -102,6 +103,7 @@ export const CoachListItem: React.FC<Props> = ({
   divider,
   onEditCoach,
   selected,
+  hasEditPermission,
 }) => {
   const classes = useStyles();
 
@@ -129,7 +131,8 @@ export const CoachListItem: React.FC<Props> = ({
     () =>
       Immutable([
         !coach.disabled &&
-          onEditCoach && {
+          onEditCoach &&
+          hasEditPermission && {
             icon: EditIcon,
             label: t('common.edit'),
             color: 'primary',
@@ -147,7 +150,14 @@ export const CoachListItem: React.FC<Props> = ({
           onClick: handleClick,
         },
       ]),
-    [coach.disabled, handleClick, deleteCoach, onEditCoach, t],
+    [
+      coach.disabled,
+      hasEditPermission,
+      handleClick,
+      deleteCoach,
+      onEditCoach,
+      t,
+    ],
   ) as Immutable.ImmutableArray<ActionOption>;
 
   return (

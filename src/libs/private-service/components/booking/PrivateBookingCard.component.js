@@ -43,6 +43,8 @@ import PaymentDialog from '#libs/payment/components/PaymentDialog.component';
 import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
 import type { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
 import { getPrivateBookingStatusCodeForCalendar } from '../../../booking/utils';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   private_booking: PrivateBookingWithRelatedFields,
@@ -210,157 +212,167 @@ export const PrivateBookingCard = (props: Props) => {
   }
   return (
     <>
-      <div className={classes.container}>
-        <div className={classes.header}>
-          <div className={classes.headerLeft}>
-            {props.private_booking.booking_status_code !==
-            BOOKING_STATUS_OK.id ? (
-              <div className={classes.firstRow}>
-                <Typography color="error" variant="h6">
-                  {t(
-                    ...getPrivateBookingStatusCodeForCalendar(
-                      props.private_booking,
-                    ),
-                  )}
+      <ObjectLevelPermissionProvider requiredPermission="reservation.privateBooking.allowed_actions.edit">
+        {(hasEditPermission) => (
+          <div className={classes.container}>
+            <div className={classes.header}>
+              <div className={classes.headerLeft}>
+                {props.private_booking.booking_status_code !==
+                BOOKING_STATUS_OK.id ? (
+                  <div className={classes.firstRow}>
+                    <Typography color="error" variant="h6">
+                      {t(
+                        ...getPrivateBookingStatusCodeForCalendar(
+                          props.private_booking,
+                        ),
+                      )}
+                    </Typography>
+                    <div className={classes.chipContainer}>
+                      {props.private_booking.was_refunded ? (
+                        <Chip
+                          color="primary"
+                          label={
+                            <Typography color="white" variant="body2">
+                              {`${t('privateBooking.isRefunded')}`}
+                            </Typography>
+                          }
+                          size="small"
+                        />
+                      ) : (
+                        <RedChip
+                          color="primary"
+                          label={
+                            <Typography color="white" variant="body2">
+                              {`${t('privateBooking.notRefunded')}`}
+                            </Typography>
+                          }
+                          size="small"
+                        />
+                      )}
+                    </div>
+                  </div>
+                ) : null}
+                <Typography variant="h5">
+                  {private_booking.private_slot.name +
+                    (private_booking.first_in_company ? ' ★' : '')}
                 </Typography>
-                <div className={classes.chipContainer}>
-                  {props.private_booking.was_refunded ? (
-                    <Chip
-                      color="primary"
-                      label={
-                        <Typography color="white" variant="body2">
-                          {`${t('privateBooking.isRefunded')}`}
-                        </Typography>
-                      }
-                      size="small"
-                    />
-                  ) : (
-                    <RedChip
-                      color="primary"
-                      label={
-                        <Typography color="white" variant="body2">
-                          {`${t('privateBooking.notRefunded')}`}
-                        </Typography>
-                      }
-                      size="small"
-                    />
-                  )}
-                </div>
               </div>
-            ) : null}
-            <Typography variant="h5">
-              {private_booking.private_slot.name +
-                (private_booking.first_in_company ? ' ★' : '')}
-            </Typography>
-          </div>
-          <Hidden mdUp>
-            <IconButton onClick={props.onClose}>
-              <CloseIcon fontSize="small" />
-            </IconButton>
-          </Hidden>
-        </div>
-        {props.private_booking.is_unpaid && (
-          <ListItem dense>
-            <ListItemIcon>
-              <WarningIcon color="error" />
-            </ListItemIcon>
-            <ListItemText
-              primary={
-                <Typography color="error">
-                  {t('privateBooking.bookingIsUnpaid')}
-                </Typography>
-              }
-            />
-          </ListItem>
-        )}
-        {!!private_booking.address && (
-          <ListItem dense>
-            <ListItemIcon>
-              <LocationOnIcon />
-            </ListItemIcon>
-            <ListItemText primary={private_booking.address} />
-          </ListItem>
-        )}
-        <ListItem dense>
-          <ListItemIcon>
-            <AccessTimeIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary={`${moment(private_booking.date_start).format(
-              'HH:mm',
-            )} - ${moment(private_booking.date_end).format('HH:mm')}`}
-          />
-          <ListItemSecondaryAction>
-            {props.updateTime && (
-              <IconButton onClick={props.setUpdateTimeForm}>
-                <EditIcon color="primary" />
-              </IconButton>
-            )}
-          </ListItemSecondaryAction>
-        </ListItem>
-        <MemberMinimalListItem
-          bottomCredit
-          createMemberProgram={props.createMemberProgram}
-          fetchPerformanceTrackingData={props.fetchPerformanceTrackingData}
-          firstPrivateBooking={private_booking.first_in_company}
-          member={private_booking.member}
-          onClick={
-            props.goToMember
-              ? () => props.goToMember(private_booking.member.id)
-              : null
-          }
-          programDataLoading={props.programDataLoading}
-          programList={props.programList}
-          showVaccinationStatus={props.showVaccinationStatus}
-          updateMemberMetricValue={props.updateMemberMetricValue}
-        />
-        {private_booking.coach && !props.isCoach ? (
-          <CoachListItem
-            noEdit
-            coach={private_booking.coach}
-            onCoachSelected={() =>
-              props.goToCoachCalendar(private_booking.coach.id)
-            }
-            onEditCoach={() => props.setIsUpdateCoachFormOpen(true)}
-          />
-        ) : null}
-        {private_booking.establishment ? (
-          <EstablishmentListItem
-            establishment={private_booking.establishment}
-          />
-        ) : null}
-        {props.unpaidInvoiceList && props.unpaidInvoiceList.length ? (
-          <>
-            <Typography className={classes.bookingsHeader} variant="h6">
-              {t('member:unpaidInvoiceTitle', {
-                count: props.unpaidInvoiceList.length,
-              })}
-            </Typography>
-            <div className={classes.invoiceTable}>
-              <Divider />
-              <InvoiceTable
-                compactMode
-                hideMemberName
-                hidePagination
-                showOpenInvoiceNested
-                applyGiftcardOnInvoice={applyGiftcardOnInvoice}
-                companyId={props.companyId}
-                consumerGiftcardList={props.consumerGiftcardList}
-                invoiceList={props.unpaidInvoiceList}
-                onBill={props.setInvoiceToBill}
-                snackbarSuccess={props.snackbarSuccess}
-              />
+              <Hidden mdUp>
+                <IconButton onClick={props.onClose}>
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+              </Hidden>
             </div>
-          </>
-        ) : null}
-      </div>
+            {props.private_booking.is_unpaid && (
+              <ListItem dense>
+                <ListItemIcon>
+                  <WarningIcon color="error" />
+                </ListItemIcon>
+                <ListItemText
+                  primary={
+                    <Typography color="error">
+                      {t('privateBooking.bookingIsUnpaid')}
+                    </Typography>
+                  }
+                />
+              </ListItem>
+            )}
+            {!!private_booking.address && (
+              <ListItem dense>
+                <ListItemIcon>
+                  <LocationOnIcon />
+                </ListItemIcon>
+                <ListItemText primary={private_booking.address} />
+              </ListItem>
+            )}
+            <ListItem dense>
+              <ListItemIcon>
+                <AccessTimeIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={`${moment(private_booking.date_start).format(
+                  'HH:mm',
+                )} - ${moment(private_booking.date_end).format('HH:mm')}`}
+              />
+              <ListItemSecondaryAction>
+                {props.updateTime && hasEditPermission && (
+                  <IconButton onClick={props.setUpdateTimeForm}>
+                    <EditIcon color="primary" />
+                  </IconButton>
+                )}
+              </ListItemSecondaryAction>
+            </ListItem>
+            <MemberMinimalListItem
+              bottomCredit
+              createMemberProgram={props.createMemberProgram}
+              fetchPerformanceTrackingData={props.fetchPerformanceTrackingData}
+              firstPrivateBooking={private_booking.first_in_company}
+              member={private_booking.member}
+              onClick={
+                props.goToMember
+                  ? () => props.goToMember(private_booking.member.id)
+                  : null
+              }
+              programDataLoading={props.programDataLoading}
+              programList={props.programList}
+              showVaccinationStatus={props.showVaccinationStatus}
+              updateMemberMetricValue={props.updateMemberMetricValue}
+            />
+            {private_booking.coach && !props.isCoach ? (
+              <CoachListItem
+                noEdit
+                coach={private_booking.coach}
+                hasEditPermission={hasEditPermission}
+                onCoachSelected={() =>
+                  props.goToCoachCalendar(private_booking.coach.id)
+                }
+                onEditCoach={() => props.setIsUpdateCoachFormOpen(true)}
+              />
+            ) : null}
+            {private_booking.establishment ? (
+              <EstablishmentListItem
+                establishment={private_booking.establishment}
+              />
+            ) : null}
+            {props.unpaidInvoiceList && props.unpaidInvoiceList.length ? (
+              <>
+                <Typography className={classes.bookingsHeader} variant="h6">
+                  {t('member:unpaidInvoiceTitle', {
+                    count: props.unpaidInvoiceList.length,
+                  })}
+                </Typography>
+                <div className={classes.invoiceTable}>
+                  <Divider />
+                  <InvoiceTable
+                    compactMode
+                    hideMemberName
+                    hidePagination
+                    showOpenInvoiceNested
+                    applyGiftcardOnInvoice={applyGiftcardOnInvoice}
+                    companyId={props.companyId}
+                    consumerGiftcardList={props.consumerGiftcardList}
+                    invoiceList={props.unpaidInvoiceList}
+                    onBill={props.setInvoiceToBill}
+                    snackbarSuccess={props.snackbarSuccess}
+                  />
+                </div>
+              </>
+            ) : null}
+          </div>
+        )}
+      </ObjectLevelPermissionProvider>
 
       {props.onDelete &&
       props.private_booking.booking_status_code === BOOKING_STATUS_OK.id ? (
         <div className={classes.buttonContainer}>
-          <RedButton onClick={props.onDelete}>
-            {t('privateBooking.discard')}
-          </RedButton>
+          <ObjectLevelPermissionWrapper
+            forcedBehavior="hidden"
+            requiredPermission="reservation.privateBooking.allowed_actions.cancel"
+          >
+            <RedButton onClick={props.onDelete}>
+              {t('privateBooking.discard')}
+            </RedButton>
+          </ObjectLevelPermissionWrapper>
         </div>
       ) : (
         <div className={classes.buttonContainer}>

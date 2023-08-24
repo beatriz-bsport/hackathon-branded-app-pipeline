@@ -24,6 +24,7 @@ type OwnProps = {
   }[];
   label?: string;
   badgeValue?: number;
+  hidden?: boolean;
 };
 
 type Props = OwnProps &
@@ -68,7 +69,10 @@ class FabWithItems extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { classes, label } = this.props;
+    const { classes, label, hidden } = this.props;
+    if (hidden) {
+      return null;
+    }
     return (
       <>
         {this.state.openFab && (

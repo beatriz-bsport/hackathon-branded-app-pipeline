@@ -40,6 +40,7 @@ import moment from 'moment-timezone';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import ReplacementRequestPendingChip from '#libs/replacement-request/components/replacement-request-table/ReplacementRequestPendingChip.component';
 import SlotDetailDialog from '#libs/private-service/components/availability/SlotDetailDialog.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import {
   groupSlotsAndMerge,
   intersectSelectionWithMergedIntervals,
@@ -255,14 +256,19 @@ const AvailabilitySlotForm = withTranslation('privateService')(
     }) => {
       return (
         <List>
-          {props.onBookRequest ? (
-            <ListItem button onClick={props.onBookRequest}>
-              <ListItemIcon color="primary">
-                <PersonAddIcon className={props.classes.leftIcon} />
-              </ListItemIcon>
-              <ListItemText primary={props.t('calendar.addBooking')} />
-            </ListItem>
-          ) : null}
+          {props.onBookRequest && (
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="reservation.privateBooking.allowed_actions.create"
+            >
+              <ListItem button onClick={props.onBookRequest}>
+                <ListItemIcon color="primary">
+                  <PersonAddIcon className={props.classes.leftIcon} />
+                </ListItemIcon>
+                <ListItemText primary={props.t('calendar.addBooking')} />
+              </ListItem>
+            </ObjectLevelPermissionWrapper>
+          )}
           {props.onEnableAvailability && props.eventSlotSelected ? (
             <React.Fragment>
               <ListItem button onClick={props.onEnableAvailability}>

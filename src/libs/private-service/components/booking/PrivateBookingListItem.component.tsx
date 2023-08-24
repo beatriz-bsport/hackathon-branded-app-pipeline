@@ -15,6 +15,7 @@ import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status
 import { BookingStatusCodeText } from '../../../booking/utils';
 import { formatAsDatetime, formatAsTime } from '../../../../utils/datetime';
 import { PrivateBooking } from '#libs/private-service/types';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   divider?: boolean;
@@ -116,11 +117,16 @@ export const PrivateBookingListItem: React.FC<Props> = (props: Props) => {
           </Typography>
         </IconButton>
       )}
-      {props.onDelete ? (
-        <IconButton onClick={props.onDelete}>
-          <CancelIcon />
-        </IconButton>
-      ) : null}
+      {props.onDelete && (
+        <ObjectLevelPermissionWrapper
+          forcedBehavior="hidden"
+          requiredPermission="reservation.privateBooking.allowed_actions.cancel"
+        >
+          <IconButton onClick={props.onDelete}>
+            <CancelIcon />
+          </IconButton>
+        </ObjectLevelPermissionWrapper>
+      )}
     </ListItem>
   );
 };

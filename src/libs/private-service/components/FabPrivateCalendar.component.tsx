@@ -18,6 +18,7 @@ import {
 import DateTimeForm from '../../../components/input/DateTimeInput.component';
 import { MaterialStyleType } from '../../../utils/types';
 import FabWithItems from '../../../components/button/FabWithItems';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type OwnProps = {
   timezone: string;
@@ -91,24 +92,31 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
   render() {
     return (
       <>
-        <FabWithItems
-          items={[
-            {
-              label: this.props.t('calendar.addBooking'),
-              onClick: () => {
-                this.setDefaultDates();
-                this.setState({ privateBookerFabOpen: true });
-              },
-            },
-            this.props.createCustomEvent && {
-              label: this.props.t('calendar.createCustomEvent'),
-              onClick: () => {
-                this.setDefaultDates();
-                this.setState({ customEventOpen: true });
-              },
-            },
-          ]}
-        />
+        <ObjectLevelPermissionProvider requiredPermission="reservation.privateBooking.allowed_actions.create">
+          {(hasCreatePermission) => {
+            return (
+              <FabWithItems
+                hidden={!hasCreatePermission}
+                items={[
+                  {
+                    label: this.props.t('calendar.addBooking'),
+                    onClick: () => {
+                      this.setDefaultDates();
+                      this.setState({ privateBookerFabOpen: true });
+                    },
+                  },
+                  this.props.createCustomEvent && {
+                    label: this.props.t('calendar.createCustomEvent'),
+                    onClick: () => {
+                      this.setDefaultDates();
+                      this.setState({ customEventOpen: true });
+                    },
+                  },
+                ]}
+              />
+            );
+          }}
+        </ObjectLevelPermissionProvider>
 
         <Dialog
           fullScreen={window.innerWidth < 400}

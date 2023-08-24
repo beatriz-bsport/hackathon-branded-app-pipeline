@@ -14,6 +14,7 @@ import Avatar from '@material-ui/core/Avatar';
 
 import { RecurrenceRulePrivateBookingDeleteDialog } from './RecurrenceRulePrivateBookingConfirmDialog.component';
 import { formatAsDatetimeAdapted } from '../../../../utils/datetime';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   recurrentPrivateBooking: any,
@@ -114,18 +115,27 @@ export const RecurrenceRulePrivateBookingItem = (props: Props) => {
           </div>
         }
       />
-      <ListItemSecondaryAction>
-        {onEdit && (
-          <IconButton color="primary" onClick={onEdit}>
-            <EditIcon />
-          </IconButton>
+      <ObjectLevelPermissionProvider
+        requiredPermission={[
+          'reservation.privateBooking.allowed_actions.edit',
+          'reservation.privateBooking.allowed_actions.cancel',
+        ]}
+      >
+        {([hasEditPermission, hasCancelPermission]) => (
+          <ListItemSecondaryAction>
+            {onEdit && hasEditPermission && (
+              <IconButton color="primary" onClick={onEdit}>
+                <EditIcon />
+              </IconButton>
+            )}
+            {onDelete && hasCancelPermission && (
+              <IconButton onClick={() => setDeleteDialogOpen(true)}>
+                <CancelIcon />
+              </IconButton>
+            )}
+          </ListItemSecondaryAction>
         )}
-        {onDelete && (
-          <IconButton onClick={() => setDeleteDialogOpen(true)}>
-            <CancelIcon />
-          </IconButton>
-        )}
-      </ListItemSecondaryAction>
+      </ObjectLevelPermissionProvider>
       <RecurrenceRulePrivateBookingDeleteDialog
         onChange={() => {
           props.onDelete(recurrentPrivateBooking.id);

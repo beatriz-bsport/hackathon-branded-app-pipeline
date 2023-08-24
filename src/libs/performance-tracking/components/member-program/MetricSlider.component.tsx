@@ -9,6 +9,7 @@ type Props = {
   value: number;
   onChange: (value: number) => void;
   metric: PerformanceTrackingMetric;
+  hasEditPerformancePermission: boolean;
 };
 
 type State = {
@@ -41,6 +42,10 @@ export default class MetricSlider extends React.Component<Props, State> {
   }
 
   componentDidMount() {
+    const { hasEditPerformancePermission } = this.props;
+    if (!hasEditPerformancePermission) {
+      return;
+    }
     const box = this.box.current;
     // on press
     box.addEventListener('mousedown', this.onMoveStart);
@@ -233,7 +238,7 @@ export default class MetricSlider extends React.Component<Props, State> {
 
   render() {
     const { angle, value } = this.state;
-    const { metric } = this.props;
+    const { metric, hasEditPerformancePermission } = this.props;
 
     const pathD = this.svgGenerateArcPath(
       150,
@@ -305,13 +310,19 @@ export default class MetricSlider extends React.Component<Props, State> {
               <div className="placeholder">{metric?.name}</div>
             </div>
           </div>
-
-          <IconButton className="minus" onClick={() => this.onAddOrRemove(-1)}>
-            <Remove className="removeIcon" />
-          </IconButton>
-          <IconButton className="add" onClick={() => this.onAddOrRemove(1)}>
-            <Add className="removeIcon" />
-          </IconButton>
+          {hasEditPerformancePermission && (
+            <>
+              <IconButton
+                className="minus"
+                onClick={() => this.onAddOrRemove(-1)}
+              >
+                <Remove className="removeIcon" />
+              </IconButton>
+              <IconButton className="add" onClick={() => this.onAddOrRemove(1)}>
+                <Add className="removeIcon" />
+              </IconButton>
+            </>
+          )}
           {MachineContainer(this.props.metric?.machine_id)}
         </div>
       </>

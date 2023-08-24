@@ -1,5 +1,5 @@
 .bs-marketplace-spot-selector {
-  container-type: inline-size;
+  container: bsSpotSelector / inline-size;
 }
 
 .bs-marketplace-spot-selector__header {
@@ -7,7 +7,7 @@
   justify-content: space-around;
 }
 
-@container (max-width: 750px) {
+@container bsSpotSelector (width < 750px) {
   .bs-marketplace-spot-selector__header {
     justify-content: center;
   }
@@ -19,9 +19,9 @@
   margin-top: var(--spacing-2);
 }
 
-@container (max-width: 750px) {
+@container bsSpotSelector (width < 750px) {
   .bs-marketplace-spot-selector__legend {
-    padding-bottom: 10vh;
+    padding-bottom: var(--spacing-2);
   }
 }
 

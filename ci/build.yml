@@ -83,8 +83,8 @@ Buid Deploy Dev:
   variables:
     ENVIRONMENT: dev
     FRONTEND_URL: backoffice.dev.bsport.io
-    S3_BUCKET: s3://bsport-eu-backoffice-dev/
-    CLOUDFRONT_ID: E17M3KEJFTN7MM
+    S3_BUCKET: s3://backoffice-dev-revived/
+    CLOUDFRONT_ID: E225C9KNWFYTF5
     SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
 
 Build Deploy Alpha:

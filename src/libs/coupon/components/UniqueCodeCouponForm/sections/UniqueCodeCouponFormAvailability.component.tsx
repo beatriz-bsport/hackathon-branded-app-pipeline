@@ -121,6 +121,7 @@ const UniqueCodeCouponFormAvailability: React.FC<Props> = ({
                 initialFocusedDate={initialFocusedDate}
                 label={t('form.expiration_date.label')}
                 mask={getDatePickerMask}
+                minDate={moment()}
                 onChange={handleExpirationDateChange}
                 value={values.expiration_date}
               />

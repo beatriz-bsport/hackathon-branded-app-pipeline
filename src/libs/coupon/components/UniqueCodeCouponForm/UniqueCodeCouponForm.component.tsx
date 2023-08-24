@@ -163,7 +163,9 @@ const formikFormWrapper = withFormik<
         usage_per_member: uniqueCodeCoupon.usage_per_member,
         applies_to: uniqueCodeCoupon.applies_to,
         only_on_objects: uniqueCodeCoupon.only_on_objects,
-        expiration_date: moment(uniqueCodeCoupon.expiration_date),
+        expiration_date: uniqueCodeCoupon.expiration_date
+          ? moment(uniqueCodeCoupon.expiration_date)
+          : null,
         coupon_cost_for_company: uniqueCodeCoupon.coupon_cost_for_company,
         codes: null,
         update_mode: null,

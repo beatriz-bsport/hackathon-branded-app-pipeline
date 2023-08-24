@@ -305,6 +305,10 @@ exports.default = {
         [COUPON_UNIQUE_CODE_NOT_AVAILABLE]:
           'Ce code est déjà utilisé ou est actuellement attaché à un panier.',
         [UNIQUE_CODE_LOCKED]: 'Ce code unique est déjà lié à un panier ouvert',
+        codes:{
+          updateMode: "Vous devez choisir entre ajouter les codes aux existants ou les remplacer",
+          emptyArray: "Vous devez ajouter au moins un code",
+        }
       },
     },
     voucherCodesDialog: {

@@ -1404,7 +1404,11 @@
           },
           "only_on_objects": "Vous devez impérativement choisir un objet sur lequel appliquer la réduction",
           "applies_to": "L'objet sur lequel appliquer la réduction doit être impérativement une carte de cours, une carte de rendez-vous, un pack ou un article du magasin",
-          "update_mode": "Si vous souhaitez modifier les codes enregistrés pour cette promotion vous pouvez ajouter les codes aux existants, ou remplacer les codes existants"
+          "update_mode": "Si vous souhaitez modifier les codes enregistrés pour cette promotion vous pouvez ajouter les codes aux existants, ou remplacer les codes existants",
+          "codes": {
+            "updateMode": "Vous devez choisir entre ajouter les codes aux existants ou les remplacer",
+            "emptyArray": "Vous devez ajouter au moins un code"
+          }
         }
       },
       "voucherCodesDialog": {

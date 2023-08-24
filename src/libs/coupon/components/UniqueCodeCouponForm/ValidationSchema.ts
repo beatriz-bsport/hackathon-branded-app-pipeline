@@ -86,7 +86,7 @@ const ValidationSchema = Yup.object().shape({
     ),
   codes: Yup.array()
     .of(Yup.string())
-    .required()
+    .required('coupon:uniqueCodeCoupon.form.errors.required')
     .test(
       'is-codes-an-empty-array',
       'You must add at least one code',
@@ -112,10 +112,20 @@ export const ValidationSchemaOnUpdate = ValidationSchema.shape({
     .nullable()
     .test(
       'is-codes-an-empty-array',
-      'You must add at least one code',
+      'coupon:uniqueCodeCoupon.form.errors.codes.emptyArray',
       function isCodesAnEmptyArray(value) {
         if (this.parent.update_mode !== null)
           return !!value && value.length > 0;
+        return true;
+      },
+    )
+    .test(
+      'is-uploading-codes-without-update-mode-selected',
+      'coupon:uniqueCodeCoupon.form.errors.codes.updateMode',
+      function isUpdateModeUnselectedWhenUploadingCodes(value) {
+        if (value) {
+          return this.parent.update_mode !== null && value.length > 0;
+        }
         return true;
       },
     ),

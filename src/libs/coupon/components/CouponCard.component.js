@@ -26,7 +26,6 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { isCurrentlyActive } from '../utils';
 import TagChip from '../../tag/components/TagChip.component';
 
-import Config from '../../../config';
 import type { Coupon } from '../types';
 
 type Props = {
@@ -52,10 +51,6 @@ export const CouponCard = React.memo(
     const displayNbUses = `${t('card.uses')}: ${coupon.nb_discounts}${
       coupon.coupon_template_instance ? '' : `/${coupon.usage_total}`
     }`;
-
-    const isDevelopment = ['dev', 'local'].includes(
-      Config.REACT_APP_SENTRY_ENVIRONMENT,
-    );
 
     const isCouponViaUniqueCode =
       coupon?.coupon_type === CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE;
@@ -100,9 +95,7 @@ export const CouponCard = React.memo(
             </ListItemIcon>
             <ListItemText
               primary={
-                isCouponViaUniqueCode && isDevelopment
-                  ? numberOfUsedVouchers
-                  : displayNbUses
+                isCouponViaUniqueCode ? numberOfUsedVouchers : displayNbUses
               }
             />
           </ListItem>
@@ -193,7 +186,7 @@ export const CouponCard = React.memo(
           ) : null}
         </div>
         <div className={classes.actionButtons}>
-          {isDevelopment && isCouponViaUniqueCode && (
+          {isCouponViaUniqueCode && (
             <Button
               color="secondary"
               disabled={isLoading}

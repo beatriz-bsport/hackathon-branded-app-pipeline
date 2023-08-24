@@ -79,7 +79,6 @@ import type {
   OptionCallBackWithKeyedCallbacks,
 } from '../../state/types';
 import { WithHandlerType } from '../../utils/types';
-import Config from '../../config';
 import type {
   Coupon,
   Discount,
@@ -200,10 +199,7 @@ export class CouponCreate extends Component<Props, State> {
   };
 
   updateUniqueCodeCoupon = (data: Coupon, options?: OptionCallback) => {
-    if (
-      ['dev', 'local'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT) &&
-      this.state.uniqueCodeCouponFormState?.initial?.id
-    ) {
+    if (this.state.uniqueCodeCouponFormState?.initial?.id) {
       return this.props.updateUniqueCodeCoupon(
         this.state.uniqueCodeCouponFormState.initial.id,
         data,
@@ -266,7 +262,6 @@ export class CouponCreate extends Component<Props, State> {
         couponFormState: { open: true, initial: this.props.coupon },
       });
     } else if (
-      ['dev', 'local'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT) &&
       this.props.coupon &&
       this.props.coupon.coupon_type ===
         CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE
@@ -301,9 +296,7 @@ export class CouponCreate extends Component<Props, State> {
     if (!this.props.coupon) {
       return <CircularProgress />;
     }
-    const isDevelopment = ['dev', 'local'].includes(
-      Config.REACT_APP_SENTRY_ENVIRONMENT,
-    );
+
     return (
       <div>
         {this.props.loading ? <LinearProgress /> : null}
@@ -356,34 +349,33 @@ export class CouponCreate extends Component<Props, State> {
           tagList={this.props.tagList}
           tagsLoading={this.props.tagsLoading}
         />
-        {isDevelopment && (
-          <>
-            <UniqueCodeCouponFormDrawer
-              isLoading={this.props.loading}
-              isProcessing={this.props.createOrUpdateLoading}
-              onCancel={this.onCloseUniqueCodeCouponFormDrawer}
-              onSubmit={this.updateUniqueCodeCoupon}
-              open={this.state.uniqueCodeCouponFormState.open}
-              paymentCombos={this.props.paymentCombos}
-              paymentCombosById={this.props.allPaymentCombosById}
-              paymentPacks={this.props.paymentPacks}
-              paymentPacksById={this.props.allPaymentPacksById}
-              privatePasses={this.props.privatePasses}
-              privatePassesById={this.props.allPrivatePassesById}
-              shopItems={this.props.shopItems}
-              shopItemsById={this.props.allShopItemsById}
-              uniqueCodeCoupon={this.state.uniqueCodeCouponFormState.initial}
-            />
-            <VoucherCodesDialog
-              exportAsCsv={this.props.exportCodesAsCsv}
-              isLoading={this.props.loading}
-              isOpen={this.state.voucherCodesDialogState.open}
-              markCodeAsRedeemed={this.props.markCodesAsRedeemed}
-              onClose={this.onCloseVoucherCodesDialog}
-              uniqueCodeCoupon={this.props.coupon}
-            />
-          </>
-        )}
+
+        <>
+          <UniqueCodeCouponFormDrawer
+            isLoading={this.props.loading}
+            isProcessing={this.props.createOrUpdateLoading}
+            onCancel={this.onCloseUniqueCodeCouponFormDrawer}
+            onSubmit={this.updateUniqueCodeCoupon}
+            open={this.state.uniqueCodeCouponFormState.open}
+            paymentCombos={this.props.paymentCombos}
+            paymentCombosById={this.props.allPaymentCombosById}
+            paymentPacks={this.props.paymentPacks}
+            paymentPacksById={this.props.allPaymentPacksById}
+            privatePasses={this.props.privatePasses}
+            privatePassesById={this.props.allPrivatePassesById}
+            shopItems={this.props.shopItems}
+            shopItemsById={this.props.allShopItemsById}
+            uniqueCodeCoupon={this.state.uniqueCodeCouponFormState.initial}
+          />
+          <VoucherCodesDialog
+            exportAsCsv={this.props.exportCodesAsCsv}
+            isLoading={this.props.loading}
+            isOpen={this.state.voucherCodesDialogState.open}
+            markCodeAsRedeemed={this.props.markCodesAsRedeemed}
+            onClose={this.onCloseVoucherCodesDialog}
+            uniqueCodeCoupon={this.props.coupon}
+          />
+        </>
       </div>
     );
   }

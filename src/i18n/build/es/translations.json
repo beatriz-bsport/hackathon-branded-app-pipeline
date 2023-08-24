@@ -9884,6 +9884,12 @@
                         },
                         "editInvoiceDateBillingPlan": {
                             "_label": "Editar fechas de facturación"
+                        },
+                        "editInvoicePriceBillingPlan": {
+                            "_label": "Editar los importes de facturación"
+                        },
+                        "endAfterInvoiceBillingPlan": {
+                            "_label": "Programar la finalización"
                         }
                     },
                     "_label": "Suscripciones"
@@ -10843,6 +10849,71 @@
                         "_label": ""
                     }
                 }
+            },
+            "management": {
+                "coach": {
+                    "allowed_actions": {
+                        "substitution": {
+                            "_label": "Gestión de las sustituciones"
+                        },
+                        "readPayroll": {
+                            "_label": "Ver la remuneración"
+                        },
+                        "delete": {
+                            "_label": "Suprimir"
+                        },
+                        "edit": {
+                            "_label": "Editar"
+                        },
+                        "create": {
+                            "_label": "Crear"
+                        }
+                    },
+                    "_label": "Gestión de profesores"
+                },
+                "privateService": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Suprimir"
+                        },
+                        "edit": {
+                            "_label": "Editar"
+                        },
+                        "create": {
+                            "_label": "Crear"
+                        }
+                    },
+                    "_label": "Gestión de citas"
+                },
+                "workshop": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Suprimir"
+                        },
+                        "edit": {
+                            "_label": "Editar"
+                        },
+                        "create": {
+                            "_label": "Crear"
+                        }
+                    },
+                    "_label": "Gestión de talleres"
+                },
+                "activity": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Suprimir"
+                        },
+                        "edit": {
+                            "_label": "Editar"
+                        },
+                        "create": {
+                            "_label": "Crear"
+                        }
+                    },
+                    "_label": "Gestión de actividades"
+                },
+                "_label": "Gestión de estudios"
             }
         }
     },
@@ -11813,6 +11884,10 @@
             "createOrUpdate": {
                 "error": "Error al registrar el código promocional",
                 "success": "Código promocional guardado"
+            },
+            "exportCodes": {
+                "error": "No se pueden exportar los códigos seleccionados",
+                "success": "Pedidos exportados correctamente"
             }
         },
         "paymentRules": {
@@ -14934,7 +15009,8 @@
             "performance": "Remuneración",
             "replacement": "Sustitución"
         },
-        "replacement": "Sustitución"
+        "replacement": "Sustitución",
+        "inbox": "Bandeja de entrada"
     },
     "widget": {
         "widget": {
@@ -15038,7 +15114,13 @@
                     "sepa_debit": "Domiciliaciones SEPA",
                     "bacs_debit": "Bacs Direct debit",
                     "card": "Bono",
-                    "sepa": "Domiciliaciones SEPA"
+                    "sepa": "Domiciliaciones SEPA",
+                    "subscriptionCountrySelect": "Selector de país",
+                    "passTypeFilter": "Filtro de bonos",
+                    "workshop": "Filtros de talleres",
+                    "activity": "Filtros de actividades",
+                    "establishment": "Del establecimiento",
+                    "level": "Desde el nivel"
                 },
                 "title": {
                     "nextOffer": "Próxima sesión disponible",
@@ -15051,7 +15133,14 @@
                     "filterGroupOptions": "Opciones de agrupación",
                     "isExcludingTax": "Impuestos no incluidos",
                     "isContractLegalTermsAccepted": "Información legal de suscripción aceptada",
-                    "paymentMethodType": "Método de pago"
+                    "paymentMethodType": "Método de pago",
+                    "version": "Versión",
+                    "isInputButton": "Versión compacta",
+                    "disablePast": "Desactivar las fechas pasadas",
+                    "withoutBookButton": "Ocultar el botón de reserva",
+                    "showDate": "Mostrar fecha",
+                    "isWorkshop": "Es un taller",
+                    "hideCoach": "Ocultar el filtro de profesores"
                 },
                 "configurationTitle": "Variaciones"
             },
@@ -15059,7 +15148,8 @@
                 "calendar": "Calendario",
                 "workshop": "Taller",
                 "subscription": "Suscripciones",
-                "pass": "Bonos"
+                "pass": "Bonos",
+                "common": "Común"
             },
             "components": {
                 "calendar": "Página del calendario",
@@ -15093,7 +15183,11 @@
                 "contractPayment": "Módulo de pago por suscripción",
                 "paymentPackOffPeakRestrictionModal": "Ventana emergente de restricción de horarios (bono)",
                 "contractNotFound": "Aviso de suscripción no encontrada",
-                "collectPaymentMethod": "Añadir método de pago"
+                "collectPaymentMethod": "Añadir método de pago",
+                "calendarWeekTimeTable": "Encabezado del calendario",
+                "calendarFilters": "Filtros de calendario (sólo diseño)",
+                "select": "Selector",
+                "search": "Filtro de búsqueda"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",

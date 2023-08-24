@@ -3911,11 +3911,556 @@
                             },
                             "edit": {
                                 "_label": "Bearbeiten"
+                            },
+                            "delete": {
+                                "_label": "Löschen"
                             }
                         }
                     },
-                    "_label": ""
+                    "_label": "",
+                    "video_purchase": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Videokauf"
+                    },
+                    "payment_installments": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Ratenzahlung"
+                    },
+                    "dispute": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Zahlungsstreitigkeit"
+                    },
+                    "on_spot_payments": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Zahlungen vor Ort"
+                    }
+                },
+                "Products": {
+                    "memberships": {
+                        "_label": "Kurspässe",
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        }
+                    },
+                    "expired_pass": {
+                        "_label": "Abgelaufene Kurspass-Credits",
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        }
+                    },
+                    "video": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Video"
+                    },
+                    "shop": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Webshop"
+                    },
+                    "consumer_giftcard": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Gekaufte Geschenkkarten"
+                    },
+                    "giftcard": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Geschenkkarte"
+                    },
+                    "discount": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Aktionen"
+                    },
+                    "universal_passes": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Universalkarten"
+                    },
+                    "private_cpasses": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Terminkarte"
+                    },
+                    "private_cpasses_expired": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Abgelaufene Termin-Credits"
+                    },
+                    "_label": "Produkte"
+                },
+                "Bookings": {
+                    "unpaid_private_bookings": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Unbezahlte Reservierungen (Termin)"
+                    },
+                    "private_bookings": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Buchungen (Termine)"
+                    },
+                    "first_privatebooking": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Erster Termin"
+                    },
+                    "first_attendance": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Erste Präsenz (kollektiv)"
+                    },
+                    "bookings": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Buchungen (Gruppenkurs)"
+                    },
+                    "first_booking": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Erste Session (kollektiv)"
+                    },
+                    "dayBookings": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Buchungen (Gruppenkurs) pro Tag"
+                    },
+                    "_label": "Buchungen"
+                },
+                "Club": {
+                    "privateService": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Termin"
+                    },
+                    "subscription": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Rechnungen für Abonnements"
+                    },
+                    "offers": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Sessions"
+                    },
+                    "workshop": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Workshops"
+                    },
+                    "activityByCoach": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Aktivitäten und Workshops nach Trainer"
+                    },
+                    "activityByEst": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Aktivitäten und Workshops nach Raum"
+                    },
+                    "activities": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Aktivitäten"
+                    },
+                    "members": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Mitglieder"
+                    },
+                    "members_purchase": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Mitgliederkäufe"
+                    },
+                    "billing_plan": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "read": {
+                                "_label": "Ansehen"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        },
+                        "_label": "Mitgliedschaft"
+                    },
+                    "_label": "Studio"
                 }
+            },
+            "product": {
+                "paymentPack": {
+                    "_label": "Kurspässe"
+                },
+                "_label": "Produktmanagement"
             }
         }
     },
@@ -6960,7 +7505,7 @@
             "contentIban": "Indem Sie Ihre IBAN angeben und Ihre Zahlung bestätigen, ermächtigen Sie bsport und Stripe, unser Zahlungssystem, Abbuchungsaufträge an Ihre Bank gemäß dem Zahlungsplan zu senden. Sie können bei Ihrer Bank eine Erstattung gemäß den Bedingungen Ihres Vertrags mit Ihrer Bank beantragen. Eine Erstattung muss innerhalb von 8 Wochen nach der ersten Abbuchung beantragt werden.",
             "contentBacsDebit": "Mit der Angabe Ihrer Bankdaten und der Bestätigung Ihrer Zahlung ermächtigen Sie bsport und Stripe, unser Zahlungssystem, Abbuchungsaufträge an Ihre Bank gemäß dem Zahlungsplan zu senden. Sie können von Ihrer Bank eine Erstattung gemäß den Bedingungen Ihres Vertrags mit Ihrer Bank verlangen. Sie können Ihre Bank jederzeit bitten, das Lastschriftmandat zu widerrufen.",
             "address_postal_code": "",
-            "address_line_1": ""
+            "address_line_1": "Adresse"
         },
         "paymentGroup": {
             "requiresAction": "Die Bank hat die Zahlung nicht authentifiziert (3DSecure)",
@@ -8718,7 +9263,7 @@
     "coupon": {
         "detail": {
             "seeParameters": "Einstellungen ansehen",
-            "seeVouchers": ""
+            "seeVouchers": "Gutscheine ansehen"
         },
         "modal": {
             "delete": {
@@ -8739,8 +9284,8 @@
                 "not_found": "Dieser Gutscheincode ist ungültig.",
                 "not_applicable": "Dieser Gutscheincode ist nicht anwendbar.",
                 "apply": "Bewerben",
-                "5006": "",
-                "5004": ""
+                "5006": "Dieser einzigartige Code ist bereits mit einem offenen Warenkorb verbunden.",
+                "5004": "Dieser Code kann auf keinen einzelnen Artikel angewendet werden."
             }
         },
         "createCoupon": "Einen Rabatt hinzufügen",
@@ -8933,54 +9478,54 @@
                     },
                     "only_on_objects": "Sie müssen ein Objekt auswählen, auf das Sie die Reduzierung anwenden möchten",
                     "applies_to": "Der Artikel, auf den der Rabatt angewendet werden soll, muss ein Pass, ein Terminpass, ein Paket oder ein Webshop-Artikel sein",
-                    "5000": "",
-                    "5006": "",
-                    "5003": "",
-                    "5004": "",
-                    "5001": "",
-                    "update_mode": "",
-                    "5005": ""
+                    "5000": "Sie dürfen keinen Code angeben, der bereits in einem anderen Coupon verwendet wurde.",
+                    "5006": "Dieser einzigartige Code ist bereits mit einem offenen Warenkorb verknüpft",
+                    "5003": "Einige einzigartige Codes sind bereits in einem anderen Gutschein gespeichert.",
+                    "5004": "Dieser Code kann nur auf einen einzigen Artikel angewendet werden.",
+                    "5001": "Einige der einzigartigen Codes können nicht hinzugefügt werden, da sie bereits registriert wurden.",
+                    "update_mode": "Wenn Sie die für diese Aktion gespeicherten Codes ändern möchten, können Sie die Codes zu den bestehenden hinzufügen oder die bestehenden Codes ersetzen.",
+                    "5005": "Dieser Code wird bereits verwendet oder ist derzeit an einen Warenkorb angehängt."
                 },
                 "update": {
-                    "replace": "",
-                    "popover": "",
-                    "alertInfo": "",
-                    "alertInfo_plural": "",
-                    "append": ""
+                    "replace": "Bestehende Codes ersetzen",
+                    "popover": "Nicht verwendete Codes werden gelöscht, verwendete Codes bleiben jedoch erhalten.",
+                    "alertInfo": "Es wurde {{count}} Code für diese Aktion registriert, Sie können neue Codes herunterladen.",
+                    "alertInfo_plural": "Es wurden {{count}} Codes für diese Aktion registriert, Sie können neue Codes herunterladen.",
+                    "append": "Zu bestehenden Codes hinzufügen"
                 }
             },
             "voucherCodesDialog": {
                 "header": {
-                    "codes": "",
-                    "status": ""
+                    "codes": "Codes",
+                    "status": "Status"
                 },
                 "selector": {
-                    "pending": "",
-                    "redeemed": "",
-                    "allStatus": "",
-                    "notUsed": ""
+                    "pending": "Wartet auf externe Validierung",
+                    "redeemed": "Als verwendet markieren",
+                    "allStatus": "Alle Status",
+                    "notUsed": "Nicht verwendet"
                 },
-                "noResult": "",
-                "export": "",
+                "noResult": "Kein Ergebnis",
+                "export": "Exportieren",
                 "searchBar": {
-                    "placeHolder": ""
+                    "placeHolder": "Einen Code suchen"
                 },
-                "close": "",
+                "close": "Schließen",
                 "checkBoxes": {
-                    "unselectAll": "",
-                    "selectAll": ""
+                    "unselectAll": "Nichts ausgewählt",
+                    "selectAll": "Alles ausgewählt"
                 },
-                "markAsRedeemed": "",
-                "markAsRedeemed_plural": ""
+                "markAsRedeemed": "Als verwendet markieren",
+                "markAsRedeemed_plural": "Als verwendet markieren"
             }
         },
         "couponFilter": {
-            "allType": "",
-            "title": ""
+            "allType": "Alle Aktionstypen",
+            "title": "Aktionstyp"
         },
         "fabLabels": {
-            "discountCode": "",
-            "voucherCodes": ""
+            "discountCode": "Rabattcode",
+            "voucherCodes": "Gutscheine"
         }
     },
     "privateService": {
@@ -14352,11 +14897,11 @@
                 "contractCard": "Abo-Karte",
                 "privatePassCompatibilityModal": "Kompatibilitäts-Popup (Terminkarte)",
                 "privatePassCard": "Terminkarte",
-                "paymentPackRestrictionModal": "Popup mit Einschränkungen (Kurskarte)",
-                "paymentPackCompatibilityModal": "Kompatibilitäts-Popup (Kurskarte)",
+                "paymentPackRestrictionModal": "Popup mit Einschränkungen (Kurspass)",
+                "paymentPackCompatibilityModal": "Kompatibilitäts-Popup (Kurspass)",
                 "paymentPackCard": "Kurs-Karte",
                 "paymentComboCard": "Pass-Karte",
-                "paymentPackOffPeakRestrictionModal": "Popup zur Einschränkung von Zeitrahmen (Kurskarte)",
+                "paymentPackOffPeakRestrictionModal": "Popup zur Einschränkung von Zeitrahmen (Kurspass)",
                 "contractNotFound": "Abo-Warnung nicht gefunden",
                 "contractPayment": "Modul zur Bezahlung von Abonnements",
                 "collectPaymentMethod": "Bezahlungsmethode hinzufügen"

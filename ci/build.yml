@@ -10,7 +10,7 @@
   #       - node_modules
   tags:
     - build-frontend
-    - cluster:bsport-tooling
+    - kubernetes
   script:
     - mv /app/node_modules .
     - yarn install --frozen-lockfile # just to be sure
@@ -61,7 +61,7 @@ Buid Deploy Staging:
     FRONTEND_URL: backoffice.staging.bsport.io
     S3_BUCKET: s3://bsport-eu-backoffice-staging/
     CLOUDFRONT_ID: E3HVVKK3QMOC4B
-    SLACK_WEBHOOK_URL: "${SLACK_STAGING_WEBHOOK_URL}"
+    SLACK_WEBHOOK_URL: '${SLACK_STAGING_WEBHOOK_URL}'
 
 Buid Deploy Production:
   extends: .Build and deploy Base
@@ -73,7 +73,7 @@ Buid Deploy Production:
     FRONTEND_URL: backoffice.bsport.io
     S3_BUCKET: s3://bsport-eu-backoffice-production/
     CLOUDFRONT_ID: E321VOI5045USU
-    SLACK_WEBHOOK_URL: "${SLACK_PRODUCTION_WEBHOOK_URL}"
+    SLACK_WEBHOOK_URL: '${SLACK_PRODUCTION_WEBHOOK_URL}'
 
 Buid Deploy Dev:
   extends: .Build and deploy Base
@@ -85,7 +85,7 @@ Buid Deploy Dev:
     FRONTEND_URL: backoffice.dev.bsport.io
     S3_BUCKET: s3://backoffice-dev-revived/
     CLOUDFRONT_ID: E225C9KNWFYTF5
-    SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
+    SLACK_WEBHOOK_URL: '${SLACK_DEV_WEBHOOK_URL}'
 
 Build Deploy Alpha:
   extends: .Build and deploy Base
@@ -97,7 +97,7 @@ Build Deploy Alpha:
     FRONTEND_URL: backoffice.fb-alpha.bsport.io
     S3_BUCKET: s3://bsport-eu-backoffice-fb-alpha/
     CLOUDFRONT_ID: E26DURIBD1IZ6H
-    SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
+    SLACK_WEBHOOK_URL: '${SLACK_DEV_WEBHOOK_URL}'
 
 Build Deploy Beta:
   extends: .Build and deploy Base
@@ -110,4 +110,4 @@ Build Deploy Beta:
     FRONTEND_URL: backoffice.fb-beta.bsport.io
     S3_BUCKET: s3://bsport-eu-backoffice-fb-beta/
     CLOUDFRONT_ID: E31SNYTE4NLU27
-    SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
+    SLACK_WEBHOOK_URL: '${SLACK_DEV_WEBHOOK_URL}'

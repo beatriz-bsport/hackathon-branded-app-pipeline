@@ -1,11 +1,11 @@
 .Deploy-storybook:
   image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
   stage: static-analysis
-  
+
   tags:
     - build-frontend
-    - cluster:bsport-tooling
-  retry: 
+    - kubernetes
+  retry:
     max: 1
   variables:
     S3_BUCKET: s3://bsport-eu-docs
@@ -23,7 +23,6 @@
     - aws s3 cp ./public/locales/ $S3_BUCKET/storybook/$CI_COMMIT_REF_NAME/locales --recursive --only-show-errors
     - scripts/invalidate-cloudfront-storybook.sh $CLOUDFRONT_ID $CLOUDFRONT_INVALIDATION_TOKEN
 
-
 Deploy-storybook Feature Branch:
   extends: .Deploy-storybook
   except:
@@ -39,8 +38,6 @@ Deploy-storybook:
     - dev
     - master
     - production
-
-
 # FOR REFERENCE : same thing but with gitlab.io pages
 # --------------------------------------------------
 
@@ -60,12 +57,11 @@ Deploy-storybook:
 #     - yarn install --frozen-lockfile # just to be sure
 #     - yarn build-storybook --output-dir storybook
 
-
 # stage: deployment (here I deploy my app to specific stages or other artefacts like storybook)
-# 
+#
 # deploy-storybook:
 #   image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
-#   stage: build-deploy 
+#   stage: build-deploy
 #   tags:
 #     - light
 #     - kubernetes
@@ -76,10 +72,10 @@ Deploy-storybook:
 #   environment:
 #     name: storybook/$CI_COMMIT_REF_SLUG
 #     url: https://bsport.gitlab.io/bsport-saas/$CI_COMMIT_REF_SLUG/storybook/
-# 
+#
 #   only:
 #     - branches
-# 
+#
 # pages:
 #   stage: build-deploy
 #   needs:

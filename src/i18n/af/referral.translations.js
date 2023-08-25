@@ -69,5 +69,41 @@ exports.default = {
   memberInfo: {
     referralLink: 'Referral link',
     nbRemainingUses: 'Number of uses remaining',
+    inviteFriend: 'Invite a friend to sign up',
+    forYou: 'for you',
+    forYourFriend: 'for your friend',
+    copyLink: 'Copy my referral link',
+    seeConditions: 'See conditions',
+    warningMaxUsesReached:
+      'You have reached the maximum number of uses of your referral link',
+  },
+  conditions: {
+    title: 'Conditions of use of the referral link',
+    description: {
+      maxUses:
+        'Each member has a personal referral link that can be shared in order to obtain a reward. It can be obtained a <1>maximum number of {{ maxReferralUses }} times</1>.',
+      signUp: {
+        reduction:
+          'Using the shared link will take the new member to the registration form for them to create an account. Once this has been done, the referred member will be able to <1>benefit from a discount of {{ referredReduction }}</1> on their first basket if it meets the following conditions:<3><0>The amount of the basket is greater than {{ minBasketAmount }}</0><0>It is carried out within {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} after the referred member has registered</0></3>',
+        noReduction:
+          'Using the shared link will take the new member to the registration form for them to create an account. Once this has been done, the referred member must complete their first basket in accordance with the following conditions:<1><0>The amount of the basket is greater than {{ minBasketAmount }}</0><0>It is carried out within {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} after the referred member has registered</0></1>',
+      },
+      applicationTimeLimit: {
+        units: {
+          days: 'day',
+          days_plural: 'days',
+          weeks: 'week',
+          weeks_plural: 'weeks',
+          months: 'month',
+          months_plural: 'months',
+        },
+      },
+      reward1:
+        'If the first purchase (excluding subscriptions) is made in accordance with the terms and conditions described, the referring member will be <1>rewarded with a sum of {{ referringReward }}</1>. This may be obtained for each referred member up to a limit of {{ maxReferralUses }} times.',
+      reward2:
+        "The reward will be automatically applied to the referring member's next baskets: there are no time or amount conditions regarding the application. It can also be applied in several instalments if the amount of the basket is less than the reward.",
+      warning:
+        'Please note: the referral program only applies to new members of the studio or franchise.',
+    },
   },
 };

@@ -8889,7 +8889,36 @@
         },
         "memberInfo": {
             "referralLink": "Lien de parrainage",
-            "nbRemainingUses": "Nombre d'utilisations restantes"
+            "nbRemainingUses": "Nombre d'utilisations restantes",
+            "inviteFriend": "Invitez un proche à s'inscrire",
+            "forYou": "pour vous",
+            "forYourFriend": "pour votre proche",
+            "copyLink": "Copier mon lien de parrainage",
+            "seeConditions": "Voir les conditions",
+            "warningMaxUsesReached": "Vous avez atteint le maximum d'utilisation de votre lien de parrainage"
+        },
+        "conditions": {
+            "title": "Conditions d'utilisation du lien de parrainage",
+            "description": {
+                "maxUses": "Chaque membre possède un lien de parrainage personnel qui peut être partagé dans le but d'obtenir une récompense. Celle-ci pourra être attribuée un <1>nombre maximum de {{ maxReferralUses }} fois</1>.",
+                "signUp": {
+                    "reduction": "L'utilisation du lien partagé permet d'accéder au formulaire d'inscription pour que le nouveau membre se crée un compte. Une fois cela fait, le membre parrainé pourra <1>bénéficier d'une réduction de {{ referredReduction }}</1> sur son premier panier si celui-ci respecte les conditions suivantes :<3><0>Le montant du panier est supérieur à {{ minBasketAmount }}</0><0>Il est réalisé dans un délai de {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} après l'inscription du membre parrainé</0></3>",
+                    "noReduction": "L'utilisation du lien partagé permet d'accéder au formulaire d'inscription pour que le nouveau membre se crée un compte. Une fois cela fait, le membre parrainé devra réaliser son premier panier en respectant les conditions suivantes :<1><0>Le montant du panier est supérieur à {{ minBasketAmount }}</0><0>Il est réalisé dans un délai de {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} après l'inscription du membre parrainé</0></1>"
+                },
+                "applicationTimeLimit": {
+                    "units": {
+                        "days": "jour",
+                        "days_plural": "jours",
+                        "weeks": "semaine",
+                        "weeks_plural": "semaines",
+                        "months": "mois",
+                        "months_plural": "mois"
+                    }
+                },
+                "reward1": "Si le premier achat (hors souscription) est réalisé selon les modalités décrites, le membre parrain se verra <1>récompensé d'une somme de {{ referringReward }}</1>. Elle pourra être obtenue pour chaque membre parrainé dans la limite de {{ maxReferralUses }} fois.",
+                "reward2": "La récompense s'appliquera automatiquement sur ses prochains paniers du membre parrain : sans conditions de temps ou de montant pour l'application. Elle pourra également s'appliquer en plusieurs fois si le montant du panier est inférieur à la récompense.",
+                "warning": "Attention : le parrainage ne fonctionne que pour les nouveaux membres du studio ou de la franchise."
+            }
         }
     },
     "relationship": {

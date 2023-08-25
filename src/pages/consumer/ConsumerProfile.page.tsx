@@ -1,5 +1,4 @@
 // @ts-nocheck
-// @flow
 import React from 'react';
 import { compose, withState, withHandlers, withProps } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -10,6 +9,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { createStyles, Theme } from '@material-ui/core';
+import Config from '../../config';
 import { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
@@ -56,6 +56,18 @@ import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/p
 import PaymentModal from '#libs/payment/components/PaymentModal.component';
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 import SpiviPrivacySettingsPanel from '#libs/spivi/components/SpiviPrivacySettingsPanel.component';
+import MemberMarketplaceReferralPanel from '#libs/member/components/MemberMarketplaceReferralPanel.component';
+import {
+  retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAction,
+  retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
+} from '#libs/referral/actions';
+import {
+  getTheReferralProgram,
+  getReferralMemberStatusWithMemberId,
+  getReferralProgramsLoading,
+  getReferralMemberStatusLoading,
+} from '#libs/referral/selectors';
+import { buildMemberReferralLink } from '#libs/referral/utils';
 
 type RouterProps = {
   membership: Membership;
@@ -98,6 +110,12 @@ export class ConsumerProfile extends React.Component<Props, State> {
       company: this.props.membership.company,
     });
     this.props.fetchMyUserProfile();
+    if (this.props.theme.is_referral_program_activated) {
+      this.props.retrieveReferralProgramForCompany(
+        this.props.membership.company,
+      );
+      this.props.retrieveReferralMemberStatus(this.props.membership.id);
+    }
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -138,6 +156,13 @@ export class ConsumerProfile extends React.Component<Props, State> {
     const { classes } = this.props;
     const companyCountry = getCompanyCountry();
     const stripeRegion = getStripeRegion();
+
+    const referralLink = this.props.theme.is_referral_program_activated
+      ? `${Config.PUBLIC_URL}${buildMemberReferralLink(
+          this.props.membership.company,
+          this.props?.member?.referral_uuid,
+        )}`
+      : '';
 
     if (!this.props.membership || this.props.companyThemeLoading) {
       return (
@@ -184,7 +209,7 @@ export class ConsumerProfile extends React.Component<Props, State> {
           </div>
         </CustomFormViewDialog>
         <Grid item md={6} xs={12}>
-          <Paper className={classes.paymentContainer}>
+          <Paper className={classes.gridItemContainer}>
             <MemberPaymentMethodPanel
               detachPaymentMethod={this.props.detachPaymentMethod}
               detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
@@ -196,7 +221,7 @@ export class ConsumerProfile extends React.Component<Props, State> {
           {this.props.member?.spivi_privacy_settings_accepted !== null &&
             this.props.member?.spivi_privacy_settings_accepted !==
               undefined && (
-              <Paper className={classes.spiviPaper}>
+              <Paper className={classes.gridItemContainer}>
                 <SpiviPrivacySettingsPanel
                   member={this.props.member}
                   spiviPrivacySettingsLoading={
@@ -208,6 +233,21 @@ export class ConsumerProfile extends React.Component<Props, State> {
                 />
               </Paper>
             )}
+          {this.props.theme.is_referral_program_activated && (
+            <Paper className={classes.gridItemContainer}>
+              <MemberMarketplaceReferralPanel
+                isLoading={
+                  this.props.referralProgramLoading &&
+                  this.props.referralMemberStatusLoading
+                }
+                nbRemainingReferralUses={
+                  this.props.referralMemberStatus?.nb_remaining_referral_uses
+                }
+                referralLink={referralLink}
+                referralProgram={this.props.referralProgram}
+              />
+            </Paper>
+          )}
         </Grid>
         {this.props.membership?.id && !!companyCountry && !!stripeRegion && (
           <PaymentModal isOpen={this.props.isAddPaymentMethodDialogOpen}>
@@ -258,6 +298,13 @@ const connector = connect(
     )(state, membership?.id),
     showVaccinationStatus: showVaccinationStatus(state),
     spiviPrivacySettingsLoading: state.member.spivi_privacy_settings.loading,
+    referralProgram: getTheReferralProgram(state),
+    referralProgramLoading: getReferralProgramsLoading(state),
+    referralMemberStatus: getReferralMemberStatusWithMemberId(
+      state,
+      membership?.id,
+    ),
+    referralMemberStatusLoading: getReferralMemberStatusLoading(state),
   }),
   {
     fetchMember: fetchMemberAction,
@@ -272,6 +319,8 @@ const connector = connect(
     disconnect,
     fetchMyUserProfile,
     updateSpiviPrivacySettings: updateSpiviPrivacySettingsAction,
+    retrieveReferralProgramForCompany: retrieveReferralProgramForCompanyAction,
+    retrieveReferralMemberStatus: retrieveReferralMemberStatusAction,
   },
 );
 
@@ -310,15 +359,12 @@ const styles = (theme: Theme) =>
       flexGrow: 1,
       spacing: theme.spacing(2),
     },
-    paymentContainer: {
-      padding: theme.spacing(2),
-    },
     customFormContainer: {
       padding: theme.spacing(4),
     },
-    spiviPaper: {
+    gridItemContainer: {
       padding: theme.spacing(2),
-      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
     },
   });
 

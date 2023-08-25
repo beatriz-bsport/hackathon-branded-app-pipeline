@@ -9,14 +9,14 @@ export type ReferralProgram = {
   name: string;
   company: number;
   is_referral_program_activated: boolean;
-  minimum_basket_amount: number;
+  minimum_basket_amount: string;
   maximum_referral_uses: number;
-  amount_off_referred: number;
+  amount_off_referred: string;
   percent_off_referred: number;
   referred_voucher_type: ReferredVoucherTypeChoices;
   application_time_limit_intervals: number; // integer
   application_time_limit_unit: ReferralTimeLimitUnits; // 'days', 'weeks' or 'months'
-  amount_reward_referring: number;
+  amount_reward_referring: string;
   redirect_link?: string;
   tag_referred_member?: Tag;
 };

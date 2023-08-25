@@ -2,6 +2,7 @@ import { createAction } from 'redux-actions';
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import {
   retrieveReferralProgram as retrieveReferralProgramAPI,
+  retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAPI,
   updateReferralProgram as updateReferralProgramAPI,
   retrieveReferralMemberStatus as retrieveReferralMemberStatusAPI,
 } from './api';
@@ -22,6 +23,27 @@ export function retrieveReferralProgram(
 
     try {
       const response = await retrieveReferralProgramAPI();
+      dispatch(retrieveReferralProgramActions.success(response.data));
+      options?.onSuccess && options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(retrieveReferralProgramActions.error(err));
+      options?.onError && options.onError();
+    }
+    dispatch(retrieveReferralProgramActions.isLoading(false));
+  };
+}
+
+export function retrieveReferralProgramForCompany(
+  company_id: number,
+  options?: OptionCallback<ReferralProgram>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveReferralProgramActions.isLoading(true));
+    dispatch(retrieveReferralProgramActions.error(null));
+
+    try {
+      const response = await retrieveReferralProgramForCompanyAPI(company_id);
       dispatch(retrieveReferralProgramActions.success(response.data));
       options?.onSuccess && options.onSuccess(response.data);
     } catch (err) {

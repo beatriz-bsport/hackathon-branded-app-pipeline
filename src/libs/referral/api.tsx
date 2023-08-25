@@ -1,9 +1,16 @@
-import { getAuth, patchAuth, API_V1_URI } from '../../http';
-import { ReferralProgram, ReferralMemberStatus } from './types';
+import { getAuth, patchAuth, API_V1_URI, postAuth } from '../../http';
+import type { ReferralProgram, ReferralMemberStatus } from './types';
 
 export const retrieveReferralProgram = () => {
   return getAuth<ReferralProgram>(
     `${API_V1_URI}/referral/referral-program/me/`,
+  );
+};
+
+export const retrieveReferralProgramForCompany = (company_id: number) => {
+  return postAuth<ReferralProgram>(
+    `${API_V1_URI}/referral/referral-program/get_for_company/`,
+    { company_id },
   );
 };
 

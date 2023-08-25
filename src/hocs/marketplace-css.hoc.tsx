@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 
 import { useMuiThemeToCssVars } from '../hooks/useMuiThemeToCssVars';
 
-const MuiThemeToCssVarsHOC = (props: { children: React.ReactNode }) => {
+export const MuiThemeToCssVarsHOC = (props: { children: React.ReactNode }) => {
   const styles = useMuiThemeToCssVars();
 
   return (

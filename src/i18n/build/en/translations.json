@@ -2672,6 +2672,10 @@
                 "label": "Date limit for purchase",
                 "helperText": "Available until",
                 "tooltip": "After chosen date, the pack will not be available for sale anymore, for the customers."
+            },
+            "highlightedAsRecommended": {
+                "label": "Mark as recommended",
+                "helperText": "Allows your customers to quickly see which packs are currently recommended."
             }
         },
         "detail": {
@@ -4546,7 +4550,11 @@
                     "5004": "This code can only be applied to one item.",
                     "5005": "This code has already been used or is currently attached to a basket.",
                     "5006": "This unique code is already linked to an open basket",
-                    "update_mode": "If you wish to modify the codes registered for this promotion, you can add the codes to the existing ones, or replace the existing codes"
+                    "update_mode": "If you wish to modify the codes registered for this promotion, you can add the codes to the existing ones, or replace the existing codes",
+                    "codes": {
+                        "updateMode": "You must choose between adding the codes to the existing ones or replacing them",
+                        "emptyArray": "You must add at least one code"
+                    }
                 },
                 "update": {
                     "alertInfo": "There is {{count}} code registered for this promotion, you can download new codes.",
@@ -4554,6 +4562,12 @@
                     "append": "Add to existing codes",
                     "replace": "Replace existing codes",
                     "popover": "Unused codes will be deleted, but used codes will be retained."
+                },
+                "selectorPlaceholder": {
+                    "privatePass": "Select an appointment pass",
+                    "paymentPack": "Select a pass",
+                    "shopItem": "Select a webshop item",
+                    "paymentCombo": "Select a pack"
                 }
             },
             "voucherCodesDialog": {
@@ -4588,6 +4602,10 @@
         "fabLabels": {
             "discountCode": "Discount code",
             "voucherCodes": "Vouchers"
+        },
+        "couponType": {
+            "0": "Discount code",
+            "3": "Single-use voucher"
         }
     },
     "dashboard": {
@@ -7017,7 +7035,8 @@
         "download": "Download",
         "ok": "OK",
         "params": "Settings",
-        "back": "Back"
+        "back": "Back",
+        "recommended": "Recommended"
     },
     "workshop": {
         "search": "Search a workshop",
@@ -10557,7 +10576,8 @@
             "referred_member_email": "Referred member email",
             "referred_discount_use_date": "Date of use of the referred discount",
             "referred_discount_applied": "Reward received by the referred member",
-            "purchased_products": "Products"
+            "purchased_products": "Products",
+            "coupon_type": "Type"
         },
         "yes": "Yes",
         "no": "No",
@@ -11409,6 +11429,10 @@
                     "label": "Universal pass",
                     "helperText": "Universal passes may be used for group activities and appointments. Twin appointment passes are created for every universal pass to link the number of credits. Once one of these passes has been purchased, the other will be automatically added without any additional costs.",
                     "warningIsUniversalPass": "Twin appointment passes are automatically created for a universal pass. All fields modified here will also be edited on the twin passes, except the categories. This also applies to notifications, validity extensions, and credit changes."
+                },
+                "highlightedAsRecommended": {
+                    "label": "Mark as recommended",
+                    "helperText": "Allows your customers to quickly see which passes are currently recommended."
                 }
             }
         },
@@ -12878,6 +12902,9 @@
             "confirmation": "Instructions sent to {{memberEmail}}",
             "error": "Error while sending password reset instructions",
             "button": "Reset the password"
+        },
+        "memberTable": {
+            "error": "An error has occurred"
         }
     },
     "booking": {
@@ -13270,7 +13297,7 @@
             "myPasses": "My pass",
             "myPasses_plural": "My passes",
             "waitingListWarning": "Before registering to the waiting list, make sure that you purchased an appropriate pass, pack or subscription. It is mandatory to be in possession of an active pass, pack or suscription to be guaranteed a spot on the waiting list.",
-            "backToCalendar": "Go back to the calendar",
+            "backToCalendar": "Back to the calendar",
             "blockedReasons": {
                 "default": {
                     "title": "Booking blocked",
@@ -13294,11 +13321,11 @@
                 },
                 "waitingListLockedByPendingBookings": {
                     "title": "Other bookings in progress",
-                    "message": "Other members are currently booking, the waiting list is not available at the moment. Please try again in a few minutes to see if a spot has become available."
+                    "message": "Other people are booking, the waiting list is currently unavailable. Please try again in a few minutes to see if a place has become available."
                 },
                 "isWaitingListFull": {
-                    "title": "The waiting list is full",
-                    "message": "This session and the waiting list are full. Please try again later."
+                    "title": "Full Waitlist",
+                    "message": "This session and the waiting list are full.\nPlease try again later."
                 },
                 "isAlreadyOnWaitingList": {
                     "title": "Already on the waiting list",
@@ -13306,14 +13333,16 @@
                 },
                 "waitingListOpen": {
                     "title": "The session is full",
-                    "message": "Join the waiting list and a message will be sent to you as soon as a spot becomes available."
+                    "message": "Join the waitlist and you'll receive a message once a spot becomes available."
                 }
             },
             "subscriptions": "Subscriptions",
             "combos": "Packs",
             "passes": "Passes",
             "otherPasses": "Other passes",
-            "spotSelectorTitle": "Choose your spot"
+            "spotSelectorTitle": "Choose your spot",
+            "seeAllProducts": "See all products",
+            "recommended": "Recommended"
         }
     },
     "marketplace": {
@@ -16047,6 +16076,13 @@
             "knowMore": "More information",
             "sms": {
                 "explainBilling": "{{ price_cts }} / SMS"
+            },
+            "lockDialog": {
+                "requestAccess": "Request access",
+                "33": {
+                    "intro": "Discover our new interface of direct chat with your members.",
+                    "explain": "You'll find here all your direct discussions, chats linked to your sessions, and your smartlist campaigns. The chat is compatible with SMS, email and push notifications."
+                }
             }
         },
         "platformBillingStage": {

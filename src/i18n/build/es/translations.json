@@ -2354,7 +2354,10 @@
             "methodPaymentSubscriptionError": "Seleccione al menos un método de pago",
             "methodPaymentSubscriptionHelper": "Autorizar los pagos de las cuotas (contratos) sólo a través de",
             "methodPaymentSubscription": "Pago periódico",
-            "methodPaymentBasketHelper": "Autorizar los pagos de la cesta de la compra, la liquidación de deudas y los pagos atrasados... sólo a través de"
+            "methodPaymentBasketHelper": "Autorizar los pagos de la cesta de la compra, la liquidación de deudas y los pagos atrasados... sólo a través de",
+            "methodPaymentCardBillingDetailsTitle": "Solicitar todos los datos de facturación",
+            "methodPaymentCardBillingDetails": "Solicitar datos de facturación para pagos con tarjeta.",
+            "methodPaymentCardBillingDetailsHelper": "Al activar esta función, reducirá el número de pagos con tarjeta que requieren 3D Secure (validación por SMS, aplicaciones bancarias, etc.) Tenga en cuenta que estos campos son obligatorios."
         },
         "billing_group": {
             "header": "Grupos de facturación",
@@ -3381,8 +3384,13 @@
             "name": "Apellido y nombre",
             "contentIban": "Al facilitar su IBAN y confirmar su pago, autoriza a bsport y a Stripe, nuestro sistema de pago, a enviar instrucciones de adeudo a su banco de acuerdo con el calendario de pagos. Puede solicitar un reembolso a su banco de acuerdo con los términos de su contrato con su banco. El reembolso debe solicitarse en un plazo de 8 semanas a partir del primer cargo.",
             "contentBacsDebit": "Al facilitar sus datos bancarios y confirmar el pago, autoriza a bsport y a Stripe, nuestro sistema de pago, a enviar instrucciones de adeudo a su banco de acuerdo con el calendario de pagos. Puede solicitar un reembolso a su banco de acuerdo con los términos de su contrato con su banco. Puede solicitar a su banco que cancele la orden de domiciliación bancaria en cualquier momento.",
-            "address_postal_code": "",
-            "address_line_1": ""
+            "address_postal_code": "Código postal",
+            "address_line_1": "Dirección",
+            "address_line_2": "Dirección complementaria",
+            "phone": "Número de teléfono",
+            "city": "Ciudad",
+            "state": "Provincia",
+            "country": "País"
         },
         "paymentGroup": {
             "requiresAction": "El banco no autentificó el pago (3DSecure)",
@@ -3771,6 +3779,10 @@
                 "month_billing_day": {
                     "label2": "del mes.",
                     "label1": "Facturar todas las"
+                },
+                "highlightedAsRecommended": {
+                    "label": "Marcar como recomendado",
+                    "helperText": "Permite a sus clientes ver de un vistazo qué suscripciones se recomiendan actualmente."
                 }
             },
             "list": {
@@ -4632,19 +4644,20 @@
             "last_booked_offer_meta_activity_name": "Nombre de la actividad de la última sesión reservada",
             "last_booked_offer_date": "Fecha de la última sesión reservada",
             "last_booked_offer_id": "ID de la última sesión reservada",
-            "referred_discount_use_date": "",
-            "referred_member_last_name": "",
-            "referred_member_first_name": "",
-            "referred_member_registration_date": "",
-            "purchased_products": "",
-            "referred_discount_applied": "",
-            "referred_member_email": "",
-            "referred_member_pk": "",
-            "referring_member_email": "",
-            "referring_member_last_name": "",
-            "referring_member_total_reward": "",
-            "referring_member_pk": "",
-            "referring_member_first_name": ""
+            "referred_discount_use_date": "Fecha de utilización del descuento referido",
+            "referred_member_last_name": "Apellido del miembro referido",
+            "referred_member_first_name": "Nombre del miembro referido",
+            "referred_member_registration_date": "Fecha de inscripción del miembro referido",
+            "purchased_products": "Productos",
+            "referred_discount_applied": "Recompensa recibida por el miembro referido",
+            "referred_member_email": "Email del miembro referido",
+            "referred_member_pk": "ID del miembro referido",
+            "referring_member_email": "Email del miembro referente",
+            "referring_member_last_name": "Apellido del miembro referente",
+            "referring_member_total_reward": "Recompensa recibida por el miembro referente",
+            "referring_member_pk": "ID del miembro referente",
+            "referring_member_first_name": "Nombre del miembro referente",
+            "coupon_type": "Tipo"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -4748,7 +4761,7 @@
             "dispute": "Litigio sobre el pago",
             "billing_plan": "Suscripción",
             "members_purchase": "Compras de los miembros",
-            "referral_grant": ""
+            "referral_grant": "Referencia"
         },
         "globalCategories": {
             "subheader": {
@@ -4831,7 +4844,8 @@
             "billing_plan_status": "Estado de la suscripción",
             "payment_method_with_credit_account": "Método de pago",
             "payment_pack_category": "Categoría de bono",
-            "private_pass_category": "Categoria de tarjeta de citas"
+            "private_pass_category": "Categoria de tarjeta de citas",
+            "coupon_type_excluding_referrals": "Tipo de promoción"
         },
         "filter": {
             "form": {
@@ -5013,7 +5027,7 @@
             "activityByEst": "Las actividades y establecimientos que aparecen son aquellos para los que está prevista una sesión en el intervalo de fechas seleccionado.",
             "activities": "Las actividades que aparecen son aquellas para las que hay programada una sesión en el intervalo de fechas seleccionado.",
             "members": "Los miembros son filtrados en función de su fecha de inscripción.",
-            "referral_grant": ""
+            "referral_grant": "Los enlaces de referencia se filtran en función de la fecha de registro del miembro referido"
         },
         "franchiseWarning": {
             "part2": "Ahora puedes exportar el informe y procesarlo posteriormente en Excel. Las fechas indicadas y la vista filtrada aplicada se tendrán en cuenta en la exportación.",
@@ -5050,7 +5064,8 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelada",
-                ""
+                "",
+                "Cancelada"
             ]
         },
         "payment_method_with_credit_account": {
@@ -5870,6 +5885,9 @@
             "confirmation": "Instrucciones enviadas a {{memberEmail}}",
             "error": "Error al enviar las instrucciones de restablecimiento de contraseña",
             "button": "Restablecer la contraseña"
+        },
+        "memberTable": {
+            "error": "Se ha producido un error"
         }
     },
     "booking": {
@@ -6315,7 +6333,9 @@
             "combos": "Packs",
             "passes": "Bonos",
             "otherPasses": "Otros bonos",
-            "spotSelectorTitle": "Elige tu sitio"
+            "spotSelectorTitle": "Elige tu sitio",
+            "seeAllProducts": "Ver todos los productos",
+            "recommended": "Recomendados"
         }
     },
     "marketplace": {
@@ -7106,8 +7126,8 @@
                 "not_found": "Este código promocional no es válido.",
                 "not_applicable": "Este código promocional no es aplicable.",
                 "apply": "Solicitar",
-                "5004": "",
-                "5006": ""
+                "5004": "Este código sólo puede aplicarse a un artículo.",
+                "5006": "Este código único ya está vinculado a una cesta abierta"
             }
         },
         "createCoupon": "Añadir un código",
@@ -7243,7 +7263,7 @@
         },
         "detail": {
             "seeParameters": "Ver los parámetros",
-            "seeVouchers": ""
+            "seeVouchers": "Ver los cupones"
         },
         "list": {
             "activeCoupons": "Promociones activas",
@@ -7300,13 +7320,17 @@
                         "notCsvFileError": "El tipo de archivo no corresponde a un archivo CSV."
                     },
                     "only_on_objects": "Debe elegir un objeto sobre el que aplicar la reducción",
-                    "5001": "",
-                    "update_mode": "",
-                    "5000": "",
-                    "5006": "",
-                    "5004": "",
-                    "5003": "",
-                    "5005": ""
+                    "5001": "Algunos de los códigos únicos no pueden añadirse porque ya han sido registrados.",
+                    "update_mode": "Si desea modificar los códigos registrados para esta promoción, puede añadir los códigos a los existentes, o sustituir los códigos existentes",
+                    "5000": "No puede proporcionar un código que ya se haya utilizado en otro cupón.",
+                    "5006": "Este código único ya está vinculado a una cesta abierta",
+                    "5004": "Este código sólo puede aplicarse a un artículo.",
+                    "5003": "Algunos códigos únicos ya están registrados en otro cupón.",
+                    "5005": "Este código ya ha sido utilizado o está actualmente asociado a una cesta.",
+                    "codes": {
+                        "updateMode": "Debe elegir entre añadir los códigos a los ya existentes o sustituirlos",
+                        "emptyArray": "Debe añadir al menos un código"
+                    }
                 },
                 "alertWarning": "No aplicable a las suscripciones",
                 "usage_per_member": {
@@ -7323,45 +7347,55 @@
                     "helperText": "Cargue un archivo CSV con todos los códigos de bono en la primera columna, un código por línea, sin encabezado."
                 },
                 "update": {
-                    "popover": "",
-                    "replace": "",
-                    "append": "",
-                    "alertInfo": "",
-                    "alertInfo_plural": ""
+                    "popover": "Los códigos no utilizados se borrarán, pero los utilizados se conservarán.",
+                    "replace": "Sustituir los códigos existentes",
+                    "append": "Añadir a los códigos existentes",
+                    "alertInfo": "Hay {{count}} código registrado para esta promoción, puedes descargar nuevos códigos.",
+                    "alertInfo_plural": "Hay {{count}} códigos registrados para esta promoción, puedes descargar nuevos códigos."
+                },
+                "selectorPlaceholder": {
+                    "privatePass": "Seleccione una tarjeta de citas",
+                    "paymentPack": "Seleccione un bono",
+                    "shopItem": "Seleccione un artículo de la tienda",
+                    "paymentCombo": "Seleccione un pack"
                 }
             },
             "voucherCodesDialog": {
-                "noResult": "",
+                "noResult": "Sin resultados",
                 "searchBar": {
-                    "placeHolder": ""
+                    "placeHolder": "Buscar un código"
                 },
-                "markAsRedeemed": "",
-                "markAsRedeemed_plural": "",
+                "markAsRedeemed": "Marcar como usado",
+                "markAsRedeemed_plural": "Marcar como usados",
                 "selector": {
-                    "allStatus": "",
-                    "redeemed": "",
-                    "notUsed": "",
-                    "pending": ""
+                    "allStatus": "Todos los estatus",
+                    "redeemed": "Marcado como usado",
+                    "notUsed": "No utilizado",
+                    "pending": "En espera de aprobación externa"
                 },
                 "checkBoxes": {
-                    "selectAll": "",
-                    "unselectAll": ""
+                    "selectAll": "Seleccionar todo",
+                    "unselectAll": "Deseleccionar todo"
                 },
                 "header": {
-                    "codes": "",
-                    "status": ""
+                    "codes": "Códigos",
+                    "status": "Estatus"
                 },
-                "export": "",
-                "close": ""
+                "export": "Exportar",
+                "close": "Cerrar"
             }
         },
         "couponFilter": {
-            "title": "",
-            "allType": ""
+            "title": "Tipo de promoción",
+            "allType": "Todos los tipos de promoción"
         },
         "fabLabels": {
-            "voucherCodes": "",
-            "discountCode": ""
+            "voucherCodes": "Cupones",
+            "discountCode": "Código de descuento"
+        },
+        "couponType": {
+            "0": "Código de descuento",
+            "3": "Cupón de un solo uso"
         }
     },
     "privateService": {
@@ -8940,6 +8974,10 @@
                 "label": "Fecha límite de compra",
                 "helperText": "Disponible hasta el",
                 "tooltip": "Después de la fecha elegida, el paquete ya no estará a la venta para los clientes."
+            },
+            "highlightedAsRecommended": {
+                "label": "Marcar como recomendado",
+                "helperText": "Permite a sus clientes ver rápidamente qué packs se recomiendan actualmente."
             }
         },
         "list": {
@@ -9823,7 +9861,7 @@
                 },
                 "_label": "Menú de navegación",
                 "tag": {
-                    "_label": ""
+                    "_label": "Etiquetas"
                 }
             }
         },
@@ -9921,377 +9959,377 @@
             },
             "reservation": {
                 "activity": {
-                    "_label": "",
+                    "_label": "Gestión de actividades en grupo",
                     "allowed_actions": {
                         "rollcall": {
-                            "_label": ""
+                            "_label": "Validar el pase de lista"
                         },
                         "delete": {
-                            "_label": ""
+                            "_label": "Cancelar reservas"
                         },
                         "editSpot": {
-                            "_label": ""
+                            "_label": "Editar las plazas de los miembros"
                         },
                         "removeFromWaitlist": {
-                            "_label": ""
+                            "_label": "Eliminar miembros de la lista de espera"
                         },
                         "attendance": {
-                            "_label": ""
+                            "_label": "Editar asistencia/ausencias"
                         },
                         "create": {
-                            "_label": ""
+                            "_label": "Creación de reservas"
                         },
                         "addToWaitlist": {
-                            "_label": ""
+                            "_label": "Añadir miembros a la lista de espera"
                         },
                         "editPerformance": {
-                            "_label": ""
+                            "_label": "Edición de los rendimientos del programa"
                         }
                     }
                 },
-                "_label": "",
+                "_label": "Gestión de reservas",
                 "privateBooking": {
                     "allowed_actions": {
                         "create": {
-                            "_label": ""
+                            "_label": "Crear reservas"
                         },
                         "edit": {
-                            "_label": ""
+                            "_label": "Editar reservas"
                         },
                         "cancel": {
-                            "_label": ""
+                            "_label": "Cancelar reservas"
                         },
                         "editPerformance": {
-                            "_label": ""
+                            "_label": "Edición de los rendimientos del programa"
                         }
                     },
-                    "_label": ""
+                    "_label": "Gestión de citas"
                 },
                 "workshop": {
                     "allowed_actions": {
                         "editPerformance": {
-                            "_label": ""
+                            "_label": "Edición de los rendimientos del programa"
                         },
                         "editSpot": {
-                            "_label": ""
+                            "_label": "Editar las plazas de los miembros"
                         },
                         "attendance": {
-                            "_label": ""
+                            "_label": "Editar asistencia/ausencias"
                         },
                         "removeFromWaitlist": {
-                            "_label": ""
+                            "_label": "Eliminar miembros de la lista de espera"
                         },
                         "rollcall": {
-                            "_label": ""
+                            "_label": "Validar el pase de lista"
                         },
                         "addToWaitlist": {
-                            "_label": ""
+                            "_label": "Añadir miembros a la lista de espera"
                         },
                         "create": {
-                            "_label": ""
+                            "_label": "Crear reservas"
                         },
                         "delete": {
-                            "_label": ""
+                            "_label": "Cancelar reservas"
                         }
                     },
-                    "_label": ""
+                    "_label": "Gestión de talleres"
                 }
             },
             "billing": {
-                "_label": "",
+                "_label": "Facturación",
                 "allowed_actions": {
                     "deletePaymentMethod": {
-                        "_label": ""
+                        "_label": "Eliminar un método de pago"
                     },
                     "partialRefundAsDiscount": {
-                        "_label": ""
+                        "_label": "Aplicar un descuento (reembolso)"
                     },
                     "readPaymentLink": {
-                        "_label": ""
+                        "_label": "Generar enlaces de pago"
                     },
                     "takePayment": {
-                        "_label": ""
+                        "_label": "Cobrar a un miembro"
                     },
                     "editBalance": {
-                        "_label": ""
+                        "_label": "Ajustar los saldos de los miembros"
                     },
                     "createInvoice": {
-                        "_label": ""
+                        "_label": "Factura a un miembro"
                     },
                     "readInvoices": {
-                        "_label": ""
+                        "_label": "Ver las facturas"
                     },
                     "partialRefundAsCredit": {
-                        "_label": ""
+                        "_label": "Convertir en saldo (reembolso)"
                     },
                     "addPaymentMethod": {
-                        "_label": ""
+                        "_label": "Añadir un método de pago"
                     },
                     "createManualDiscount": {
-                        "_label": ""
+                        "_label": "Aplicar descuentos manuales"
                     },
                     "cancelInvoice": {
-                        "_label": ""
+                        "_label": "Cancelar facturas"
                     }
                 }
             },
             "planning": {
                 "schedule": {
-                    "_label": "",
+                    "_label": "Disponibilidades",
                     "allowed_actions": {
                         "createAvailability": {
-                            "_label": ""
+                            "_label": "Ver disponibilidades"
                         },
                         "deleteAvailability": {
-                            "_label": ""
+                            "_label": "Borrar disponibilidades"
                         },
                         "readAvailabilityDetail": {
-                            "_label": ""
+                            "_label": "Ver el detalle de las disponibilidades"
                         }
                     }
                 },
                 "calendar": {
-                    "_label": "",
+                    "_label": "Calendario",
                     "allowed_actions": {
                         "bulkCancellation": {
-                            "_label": ""
+                            "_label": "Cancelar varias sesiones"
                         },
                         "readWeeklyOverview": {
-                            "_label": ""
+                            "_label": "Ver el resumen de esta semana"
                         },
                         "readCancellations": {
-                            "_label": ""
+                            "_label": "Ver sesiones canceladas"
                         }
                     }
                 },
-                "_label": ""
+                "_label": "Calendario y disponibilidades"
             },
             "report": {
                 "Payments": {
                     "payment_installments": {
-                        "_label": "",
+                        "_label": "Pagos a plazos",
                         "allowed_actions": {
                             "read": {
-                                "_label": ""
+                                "_label": "Ver"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Suprimir"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Editar"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Crear"
                             }
                         }
                     },
                     "basket": {
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Crear"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "Ver"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Editar"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Suprimir"
                             }
                         },
-                        "_label": ""
+                        "_label": "Cesta"
                     },
                     "payments": {
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Crear"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Suprimir"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Editar"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "Ver"
                             }
                         },
-                        "_label": ""
+                        "_label": "Pagos"
                     },
                     "payment_sumup": {
-                        "_label": "",
+                        "_label": "Todos los pagos",
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Crear"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "Ver"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Suprimir"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Editar"
                             }
                         }
                     },
                     "dispute": {
-                        "_label": "",
+                        "_label": "Litigio sobre pagos",
                         "allowed_actions": {
                             "read": {
-                                "_label": ""
+                                "_label": "Ver"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Editar"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Suprimir"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Crear"
                             }
                         }
                     },
                     "video_purchase": {
-                        "_label": "",
+                        "_label": "Compra de vídeos",
                         "allowed_actions": {
                             "read": {
-                                "_label": ""
+                                "_label": "Ver"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Editar"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Suprimir"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Crear"
                             }
                         }
                     },
                     "cashbook": {
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Crear"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Editar"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Suprimir"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "Ver"
                             }
                         },
-                        "_label": ""
+                        "_label": "Libro de caja"
                     },
-                    "_label": "",
+                    "_label": "Pagos",
                     "credit": {
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Crear"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "Ver"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Suprimir"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Editar"
                             }
                         },
-                        "_label": ""
+                        "_label": "Crédito"
                     },
                     "expense": {
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Crear"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Suprimir"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "Ver"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Editar"
                             }
                         },
-                        "_label": ""
+                        "_label": "Gastos"
                     },
                     "on_spot_payments": {
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Crear"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "Ver"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Suprimir"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Editar"
                             }
                         },
-                        "_label": ""
+                        "_label": "Pagos in situ"
                     },
                     "unpaid_invoices": {
-                        "_label": "",
+                        "_label": "Facturas impagadas",
                         "allowed_actions": {
                             "delete": {
-                                "_label": ""
+                                "_label": "Suprimir"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Editar"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "Ver"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Crear"
                             }
                         }
                     },
                     "invoices": {
                         "allowed_actions": {
                             "read": {
-                                "_label": ""
+                                "_label": "Ver"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Suprimir"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Crear"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Editar"
                             }
                         },
-                        "_label": ""
+                        "_label": "Compras"
                     }
                 },
                 "Club": {
-                    "_label": "",
+                    "_label": "Estudio",
                     "members_purchase": {
                         "allowed_actions": {
                             "read": {
-                                "_label": ""
+                                "_label": "Ver"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Suprimir"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Crear"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Editar"
                             }
                         },
-                        "_label": ""
+                        "_label": "Compras de los miembros"
                     },
                     "offers": {
                         "allowed_actions": {
@@ -10330,19 +10368,19 @@
                     "billing_plan": {
                         "allowed_actions": {
                             "edit": {
-                                "_label": ""
+                                "_label": "Editar"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Suprimir"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Crear"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "Ver"
                             }
                         },
-                        "_label": ""
+                        "_label": "Suscripción"
                     },
                     "activityByEst": {
                         "allowed_actions": {
@@ -10415,36 +10453,36 @@
                     "members": {
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Crear"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "Ver"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Editar"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Suprimir"
                             }
                         },
-                        "_label": ""
+                        "_label": "Miembros"
                     },
                     "activities": {
                         "allowed_actions": {
                             "delete": {
-                                "_label": ""
+                                "_label": "Suprimir"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Crear"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "Ver"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Editar"
                             }
                         },
-                        "_label": ""
+                        "_label": "Actividades"
                     }
                 },
                 "Bookings": {
@@ -10742,111 +10780,111 @@
                         }
                     }
                 },
-                "_label": ""
+                "_label": "Informes"
             },
             "session": {
                 "workshop": {
-                    "_label": "",
+                    "_label": "Talleres",
                     "allowed_actions": {
                         "edit": {
-                            "_label": ""
+                            "_label": "Modificar"
                         },
                         "delete": {
-                            "_label": ""
+                            "_label": "Suprimir"
                         },
                         "create": {
-                            "_label": ""
+                            "_label": "Crear"
                         }
                     }
                 },
                 "privateSlot": {
                     "allowed_actions": {
                         "delete": {
-                            "_label": ""
+                            "_label": "Suprimir"
                         },
                         "create": {
-                            "_label": ""
+                            "_label": "Crear"
                         },
                         "edit": {
-                            "_label": ""
+                            "_label": "Modificar"
                         }
                     },
-                    "_label": ""
+                    "_label": "Plazas para citas"
                 },
-                "_label": "",
+                "_label": "Gestión de sesiones",
                 "activity": {
                     "allowed_actions": {
                         "delete": {
-                            "_label": ""
+                            "_label": "Suprimir"
                         },
                         "edit": {
-                            "_label": ""
+                            "_label": "Modificar"
                         },
                         "create": {
-                            "_label": ""
+                            "_label": "Crear"
                         }
                     },
-                    "_label": ""
+                    "_label": "Actividades"
                 }
             },
             "member": {
                 "allowed_actions": {
                     "create": {
-                        "_label": ""
+                        "_label": "Añadir un miembro"
                     },
                     "search": {
-                        "_label": ""
+                        "_label": "Buscar miembros"
                     },
                     "delete": {
-                        "_label": ""
+                        "_label": "Borrar un miembro"
                     },
                     "readInfo": {
-                        "_label": ""
+                        "_label": "Ver datos personales"
                     },
                     "editInfo": {
-                        "_label": ""
+                        "_label": "Editar datos personales"
                     },
                     "accessProfile": {
-                        "_label": ""
+                        "_label": "Acceder a los perfiles de los miembros"
                     },
                     "readBalance": {
-                        "_label": ""
+                        "_label": "Ver el saldo de los miembros"
                     },
                     "communication": {
-                        "_label": ""
+                        "_label": "Comunicación con los miembros"
                     },
                     "manageNotification": {
-                        "_label": ""
+                        "_label": "Gestionar las notificaciones de los miembros"
                     }
                 },
-                "_label": ""
+                "_label": "Acciones sobre los miembros"
             },
             "export": {
-                "_label": "",
+                "_label": "Exportaciones",
                 "allowed_actions": {
                     "report": {
-                        "_label": ""
+                        "_label": "Exportar informes"
                     },
                     "planning": {
-                        "_label": ""
+                        "_label": "Exportar calendario"
                     },
                     "memberDocument": {
-                        "_label": ""
+                        "_label": "Exportar documentos de los miembros"
                     },
                     "subscription": {
-                        "_label": ""
+                        "_label": "Exportar suscripciones"
                     },
                     "smartlist": {
-                        "_label": ""
+                        "_label": "Exportar smartlists"
                     },
                     "attendance": {
-                        "_label": ""
+                        "_label": "Exportar presencias/ausencias"
                     },
                     "payroll": {
-                        "_label": ""
+                        "_label": "Exportar la nómina de los profesores"
                     },
                     "invoice": {
-                        "_label": ""
+                        "_label": "Exportar facturas"
                     }
                 }
             },
@@ -11444,7 +11482,8 @@
         "download": "Descargar",
         "ok": "OK",
         "params": "Parámetros",
-        "back": "Volver"
+        "back": "Volver",
+        "recommended": "Recomendado"
     },
     "snackbar": {
         "invoice": {
@@ -11888,6 +11927,9 @@
             "exportCodes": {
                 "error": "No se pueden exportar los códigos seleccionados",
                 "success": "Pedidos exportados correctamente"
+            },
+            "errors": {
+                "5002": "No puede marcar como utilizado un código que no esté pendiente de validación externa."
             }
         },
         "paymentRules": {
@@ -12450,6 +12492,9 @@
                 "21001": "No se ha seleccionado ningún plano",
                 "21000": "La venta adicional Spivi no está activada."
             }
+        },
+        "smartlistGetMembers": {
+            "error": "Se ha producido un error: no se pueden recuperar los miembros"
         }
     },
     "paymentPack": {
@@ -12667,6 +12712,10 @@
                     "marketplaceLabel": "Tarjeta universal. Se puede utilizar para cursos y citas en grupo.",
                     "label": "Tarjeta universal",
                     "warningIsUniversalPass": "Este bono es un bono universal, se ha creado un bono gemelo en las tarjetas de cita. Todos los campos modificados en este bono se modificarán también en el bono gemelo (excepto la categoría). Lo mismo ocurre con las notificaciones, las prórrogas y las modificaciones de crédito."
+                },
+                "highlightedAsRecommended": {
+                    "label": "Marcar como recomendado",
+                    "helperText": "Permite a sus clientes ver rápidamente qué pases se recomiendan actualmente."
                 }
             }
         },
@@ -15229,6 +15278,13 @@
             "knowMore": "Más información",
             "sms": {
                 "explainBilling": "{{ price_cts }}"
+            },
+            "lockDialog": {
+                "33": {
+                    "intro": "Descubra nuestra nueva interfaz de chat directo con sus miembros.",
+                    "explain": "Aquí encontrarás todas tus conversaciones directas, los chats vinculados a tus sesiones y tus campañas smartlist. El chat es compatible con SMS, correo electrónico y notificaciones push."
+                },
+                "requestAccess": "Solicitar acceso"
             }
         },
         "featureRequest": {
@@ -15852,7 +15908,7 @@
                     "default": "Nombre de la etapa"
                 },
                 "step": {
-                    "name": ""
+                    "name": "Nombre"
                 }
             }
         }

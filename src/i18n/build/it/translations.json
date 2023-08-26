@@ -1746,6 +1746,10 @@
                 "label": "Data limite di acquisto",
                 "helperText": "Disponibile fino al",
                 "tooltip": "Dopo la data scelta, il pacchetto non apparirà più in vendita ai clienti."
+            },
+            "highlightedAsRecommended": {
+                "helperText": "Consente ai clienti di vedere rapidamente quali sono i pack attualmente consigliati.",
+                "label": "Contrassegna come suggerito"
             }
         },
         "detail": {
@@ -6133,7 +6137,12 @@
             "contentIban": "Fornendo il tuo IBAN e confermando il pagamento, autorizzi bsport e Stripe, il nostro sistema di pagamento, a inviare istruzioni di addebito alla tua banca in conformità con il programma di pagamento. Puoi richiedere un rimborso alla tua banca secondo i termini del tuo contratto con quest'ultima. Il rimborso deve essere richiesto entro 8 settimane dal primo addebito.",
             "contentBacsDebit": "Fornendo i tuoi dati bancari e confermando il pagamento, autorizzi bsport e Stripe, il nostro sistema di pagamento, a inviare istruzioni di addebito alla tua banca in conformità con il programma di pagamento. Puoi richiedere un rimborso alla tua banca secondo i termini del tuo contratto con quest'ultima. Puoi chiedere alla tua banca in qualsiasi momento di annullare il mandato di addebito diretto.",
             "address_postal_code": "Codice postale",
-            "address_line_1": "Indirizzo"
+            "address_line_1": "Indirizzo",
+            "address_line_2": "Indirizzo aggiuntivo",
+            "phone": "Numero di telefono",
+            "city": "Città",
+            "state": "Stato",
+            "country": "Paese"
         },
         "paymentGroup": {
             "requiresAction": "La banca non ha autenticato il pagamento (3DSecure)",
@@ -7344,7 +7353,8 @@
             "referred_member_email": "Email del membro sponsorizzato",
             "referred_discount_use_date": "Data di utilizzo dello sconto sulla sponsorizzazione",
             "referred_discount_applied": "Ricompensa ricevuta dal membro sponsorizzato",
-            "purchased_products": "Prodotti"
+            "purchased_products": "Prodotti",
+            "coupon_type": "Tipo"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -7531,7 +7541,8 @@
             "billing_plan_status": "Stato dell'abbonamento",
             "payment_method_with_credit_account": "Metodo di pagamento",
             "payment_pack_category": "Categoria di pass",
-            "private_pass_category": "Categoria di pass per appuntamenti"
+            "private_pass_category": "Categoria di pass per appuntamenti",
+            "coupon_type_excluding_referrals": "Tipo di promozione"
         },
         "presetValuesByDatatype": {
             "payment_method": {
@@ -7754,7 +7765,8 @@
                 "Cancella",
                 "Cancella",
                 "Cancella",
-                "Cancellato"
+                "Cancellato",
+                "Cencellata"
             ]
         },
         "payment_method_with_credit_account": {
@@ -8189,6 +8201,10 @@
                     "marketplaceLabel": "Carta universale. Può essere usato per corsi e appuntamenti.",
                     "label": "Carta universale",
                     "warningIsUniversalPass": "Questa mappa è una mappa universale, una mappa gemella è stata creata nelle mappe RDV. Tutti i campi modificati su questa mappa saranno modificati anche sulla mappa gemella (tranne la categoria). Lo stesso vale per le notifiche, le estensioni e le modifiche di credito."
+                },
+                "highlightedAsRecommended": {
+                    "label": "Contrassegna come suggerito",
+                    "helperText": "Consente ai clienti di vedere rapidamente quali sono i passaggi attualmente consigliati."
                 }
             }
         },
@@ -9276,6 +9292,9 @@
             "button": "Reimposta la password",
             "dialogTitle": "Reimpostazione della password",
             "dialogContent": "Stai per inviare le istruzioni per reimpostare la password a {{memberEmail}}"
+        },
+        "memberTable": {
+            "error": "Si è verificato un errore"
         }
     },
     "booking": {
@@ -9721,7 +9740,9 @@
                 "seeLess": "Vedi meno"
             },
             "filterAll": "Tutto",
-            "spotSelectorTitle": "Scegli il tuo posto"
+            "spotSelectorTitle": "Scegli il tuo posto",
+            "recommended": "Consigliati",
+            "seeAllProducts": "Vedi tutti i prodotti"
         }
     },
     "smartList": {
@@ -10749,7 +10770,11 @@
                     "5004": "Questo codice può essere applicato solo a un singolo articolo.",
                     "5003": "Alcuni codici univoci sono già registrati in un altro coupon.",
                     "5001": "Alcuni codici univoci non possono essere aggiunti perché sono già stati registrati.",
-                    "5000": "Non è possibile fornire un codice che è già stato utilizzato in un altro coupon."
+                    "5000": "Non è possibile fornire un codice che è già stato utilizzato in un altro coupon.",
+                    "codes": {
+                        "updateMode": "È necessario scegliere se aggiungere i codici a quelli esistenti o sostituirli",
+                        "emptyArray": "È necessario aggiungere almeno un codice"
+                    }
                 },
                 "fileUploader": {
                     "title": "Scarica i voucher una tantum",
@@ -10776,6 +10801,12 @@
                     "replace": "Sostituisci i codici esistenti",
                     "alertInfo": "C'è {{count}} codice registrato per questa promozione, è possibile scaricare nuovi codici.",
                     "alertInfo_plural": "Ci sono {{count}} codici registrati per questa promozione, è possibile scaricare nuovi codici."
+                },
+                "selectorPlaceholder": {
+                    "privatePass": "Seleziona un pass per appuntamenti",
+                    "paymentPack": "Seleziona un pass",
+                    "shopItem": "Seleziona un prodotto dallo store",
+                    "paymentCombo": "Seleziona un pack"
                 }
             },
             "voucherCodesDialog": {
@@ -10810,6 +10841,10 @@
         "fabLabels": {
             "discountCode": "Codice sconto",
             "voucherCodes": "Voucher"
+        },
+        "couponType": {
+            "0": "Codice sconto",
+            "3": "Voucher monouso"
         }
     },
     "tag": {
@@ -12211,7 +12246,8 @@
         },
         "params": "Parametri",
         "ok": "OK",
-        "back": "Indietro"
+        "back": "Indietro",
+        "recommended": "Consigliato"
     },
     "titles": {
         "metaActivity": {
@@ -13879,9 +13915,81 @@
         "objectLevelPermissions": {
             "reservation": {
                 "activity": {
-                    "_label": "Gestione delle lezioni di gruppo"
+                    "_label": "Gestione delle lezioni di gruppo",
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Cancella prenotazioni"
+                        },
+                        "removeFromWaitlist": {
+                            "_label": "Eliminare i membri della lista d'attesa"
+                        },
+                        "attendance": {
+                            "_label": "Modifica delle presenze / assenze"
+                        },
+                        "rollcall": {
+                            "_label": "Convalida l'appello"
+                        },
+                        "addToWaitlist": {
+                            "_label": "Aggiungi membri alla lista d'attesa"
+                        },
+                        "create": {
+                            "_label": "Crea prenotazioni"
+                        },
+                        "editSpot": {
+                            "_label": "Modifica dei posti"
+                        },
+                        "editPerformance": {
+                            "_label": "Modifica delle prestazioni del programma"
+                        }
+                    }
                 },
-                "_label": "Gestione delle prenotazioni"
+                "_label": "Gestione delle prenotazioni",
+                "workshop": {
+                    "_label": "Gestione dei workshop",
+                    "allowed_actions": {
+                        "rollcall": {
+                            "_label": "Convalida l'appello"
+                        },
+                        "addToWaitlist": {
+                            "_label": "Aggiungi membri alla list d'attesa"
+                        },
+                        "delete": {
+                            "_label": "Anulla prenotazioni"
+                        },
+                        "editPerformance": {
+                            "_label": "Modifica le performance del programma"
+                        },
+                        "removeFromWaitlist": {
+                            "_label": "Elimina i membri dalla lista d'attesa"
+                        },
+                        "attendance": {
+                            "_label": "Modifica delle presenze/assenze"
+                        },
+                        "editSpot": {
+                            "_label": "Modifica i posti dei membri"
+                        },
+                        "create": {
+                            "_label": "Crea prenotazione"
+                        }
+                    }
+                },
+                "privateBooking": {
+                    "allowed_actions": {
+                        "create": {
+                            "_label": "Creazione delle prenotazioni"
+                        },
+                        "edit": {
+                            "_label": "Modifica delle prenotazioni"
+                        },
+                        "cancel": {
+                            "_label": "Cancella prenotazioni"
+                        },
+                        "editPerformance": {
+                            "_label": "Modifica delle prestazioni del programma"
+                        }
+                    },
+                    "_label": "Gestione degli appuntamenti"
+                }
             },
             "billing": {
                 "allowed_actions": {
@@ -15133,6 +15241,13 @@
             "billOnce": "{{ price_cts }}",
             "sms": {
                 "explainBilling": "{{ price_cts }} / SMS"
+            },
+            "lockDialog": {
+                "33": {
+                    "intro": "Scoprite la nostra nuova interfaccia di chat diretta con i vostri membri.",
+                    "explain": "Qui si trovano tutte le discussioni dirette, le chat legate alle sessioni e le campagne smartlist. La chat è compatibile con SMS, e-mail e notifiche push."
+                },
+                "requestAccess": "RIchiedi accesso"
             }
         },
         "paymentMethod": {

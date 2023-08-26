@@ -235,6 +235,10 @@
                 },
                 "price": {
                     "title": "Preis"
+                },
+                "highlightedAsRecommended": {
+                    "helperText": "Ermöglicht es Ihren Kunden, auf einen Blick zu sehen, welche Verträge derzeit empfohlen werden.",
+                    "label": "Als empfohlen markieren"
                 }
             },
             "description": "Beschreibung",
@@ -3519,7 +3523,7 @@
                     "_label": "Einstellungen"
                 },
                 "tag": {
-                    "_label": ""
+                    "_label": "Tags"
                 }
             }
         },
@@ -3527,342 +3531,342 @@
         "objectLevelPermissions": {
             "session": {
                 "activity": {
-                    "_label": "",
+                    "_label": "Aktivitäten",
                     "allowed_actions": {
                         "edit": {
-                            "_label": ""
+                            "_label": "Bearbeiten"
                         },
                         "delete": {
-                            "_label": ""
+                            "_label": "Löschen"
                         },
                         "create": {
-                            "_label": ""
+                            "_label": "Erstellen"
                         }
                     }
                 },
                 "workshop": {
                     "allowed_actions": {
                         "create": {
-                            "_label": ""
+                            "_label": "Erstellen"
                         },
                         "edit": {
-                            "_label": ""
+                            "_label": "Bearbeiten"
                         },
                         "delete": {
-                            "_label": ""
+                            "_label": "Löschen"
                         }
                     },
-                    "_label": ""
+                    "_label": "Workshops"
                 },
                 "privateSlot": {
-                    "_label": "",
+                    "_label": "Termin Slots",
                     "allowed_actions": {
                         "create": {
-                            "_label": ""
+                            "_label": "Erstellen"
                         },
                         "delete": {
-                            "_label": ""
+                            "_label": "Löschen"
                         },
                         "edit": {
-                            "_label": ""
+                            "_label": "Bearbeiten"
                         }
                     }
                 },
-                "_label": ""
+                "_label": "Session Verwaltung"
             },
             "member": {
                 "allowed_actions": {
                     "create": {
-                        "_label": ""
+                        "_label": "Mitglied hinzufügen"
                     },
                     "readInfo": {
-                        "_label": ""
+                        "_label": "Persönliche Daten ansehen"
                     },
                     "delete": {
-                        "_label": ""
+                        "_label": "Mitglied löschen"
                     },
                     "accessProfile": {
-                        "_label": ""
+                        "_label": "Zugang zu Profilen der Mitglieder"
                     },
                     "readBalance": {
-                        "_label": ""
+                        "_label": "Mitgliedssaldo ansehen"
                     },
                     "manageNotification": {
-                        "_label": ""
+                        "_label": "Benachrichtigungen für Mitglieder verwalten"
                     },
                     "communication": {
-                        "_label": ""
+                        "_label": "Mitglieder kontaktieren"
                     },
                     "editInfo": {
-                        "_label": ""
+                        "_label": "Persönliche Daten bearbeiten"
                     },
                     "search": {
-                        "_label": ""
+                        "_label": "Mitglieder suchen"
                     }
                 },
-                "_label": ""
+                "_label": "Aktionen für Mitglieder"
             },
             "billing": {
                 "allowed_actions": {
                     "readInvoices": {
-                        "_label": ""
+                        "_label": "Rechnungen ansehen"
                     },
                     "readPaymentLink": {
-                        "_label": ""
+                        "_label": "Bezahlungslinks generieren"
                     },
                     "createInvoice": {
-                        "_label": ""
+                        "_label": "Einem Mitglied eine Rechnung erstellen"
                     },
                     "addPaymentMethod": {
-                        "_label": ""
+                        "_label": "Eine Zahlungsmethode hinzufügen"
                     },
                     "deletePaymentMethod": {
-                        "_label": ""
+                        "_label": "Bezahlungsmethdoe löschen"
                     },
                     "partialRefundAsDiscount": {
-                        "_label": ""
+                        "_label": "Eine Ermäßigung anwenden (Rückerstattung)"
                     },
                     "partialRefundAsCredit": {
-                        "_label": ""
+                        "_label": "In Saldo umwandeln (Rückzahlung)"
                     },
                     "createManualDiscount": {
-                        "_label": ""
+                        "_label": "Manuelle Reduzierungen anwenden"
                     },
                     "editBalance": {
-                        "_label": ""
+                        "_label": "Mitgliedssaldo anpassen"
                     },
                     "takePayment": {
-                        "_label": ""
+                        "_label": "Mitglied kassieren"
                     },
                     "cancelInvoice": {
-                        "_label": ""
+                        "_label": "Rechnungen stornieren"
                     }
                 },
-                "_label": ""
+                "_label": "Abrechnung"
             },
             "reservation": {
                 "activity": {
                     "allowed_actions": {
                         "rollcall": {
-                            "_label": ""
+                            "_label": "Namensaufruf validieren"
                         },
                         "delete": {
-                            "_label": ""
+                            "_label": "Buchungen stornieren"
                         },
                         "addToWaitlist": {
-                            "_label": ""
+                            "_label": "Mitglieder zur Warteliste hinzufügen"
                         },
                         "create": {
-                            "_label": ""
+                            "_label": "Buchungen erstellen"
                         },
                         "editSpot": {
-                            "_label": ""
+                            "_label": "Mitgliederplätze bearbeiten"
                         },
                         "attendance": {
-                            "_label": ""
+                            "_label": "Anwesenheiten/Abwesenheiten bearbeiten"
                         },
                         "editPerformance": {
-                            "_label": ""
+                            "_label": "Programmleistungen bearbeiten"
                         },
                         "removeFromWaitlist": {
-                            "_label": ""
+                            "_label": "Mitglieder von der Warteliste entfernen"
                         }
                     },
-                    "_label": ""
+                    "_label": "Verwaltung der Gruppenaktivitäten"
                 },
                 "workshop": {
-                    "_label": "",
+                    "_label": "Verwaltung der Workshops",
                     "allowed_actions": {
                         "create": {
-                            "_label": ""
+                            "_label": "Buchungen erstellen"
                         },
                         "delete": {
-                            "_label": ""
+                            "_label": "Buchungen stornieren"
                         },
                         "rollcall": {
-                            "_label": ""
+                            "_label": "Namensaufruf validieren"
                         },
                         "removeFromWaitlist": {
-                            "_label": ""
+                            "_label": "Mitglieder von der Warteliste entfernen"
                         },
                         "attendance": {
-                            "_label": ""
+                            "_label": "Anwesenheiten/Abwesenheiten bearbeiten"
                         },
                         "editPerformance": {
-                            "_label": ""
+                            "_label": "Programmleistungen bearbeiten"
                         },
                         "addToWaitlist": {
-                            "_label": ""
+                            "_label": "Mitglieder zur Warteliste hinzufügen"
                         },
                         "editSpot": {
-                            "_label": ""
+                            "_label": "Mitgliederplätze bearbeiten"
                         }
                     }
                 },
                 "privateBooking": {
-                    "_label": "",
+                    "_label": "Terminverwaltung",
                     "allowed_actions": {
                         "create": {
-                            "_label": ""
+                            "_label": "Buchungen erstellen"
                         },
                         "cancel": {
-                            "_label": ""
+                            "_label": "Buchungen stornieren"
                         },
                         "editPerformance": {
-                            "_label": ""
+                            "_label": "Programmleistungen bearbeiten"
                         },
                         "edit": {
-                            "_label": ""
+                            "_label": "Buchungen bearbeiten"
                         }
                     }
                 },
-                "_label": ""
+                "_label": "Buchungsverwaltung"
             },
             "export": {
-                "_label": "",
+                "_label": "Exporte",
                 "allowed_actions": {
                     "planning": {
-                        "_label": ""
+                        "_label": "Kalender exportieren"
                     },
                     "subscription": {
-                        "_label": ""
+                        "_label": "Abonnements exportieren"
                     },
                     "payroll": {
-                        "_label": ""
+                        "_label": "Lehrervergütung exportieren"
                     },
                     "report": {
-                        "_label": ""
+                        "_label": "Berichte exportieren"
                     },
                     "invoice": {
-                        "_label": ""
+                        "_label": "Rechnungen exportieren"
                     },
                     "attendance": {
-                        "_label": ""
+                        "_label": "Anwesenheiten/Abwesenheiten exportieren"
                     },
                     "memberDocument": {
-                        "_label": ""
+                        "_label": "Dokumente der Mitglieder exportieren"
                     },
                     "smartlist": {
-                        "_label": ""
+                        "_label": "Smartlists exportieren"
                     }
                 }
             },
             "planning": {
                 "calendar": {
-                    "_label": "",
+                    "_label": "Kalender",
                     "allowed_actions": {
                         "readWeeklyOverview": {
-                            "_label": ""
+                            "_label": "Wochenübersicht einsehen"
                         },
                         "readCancellations": {
-                            "_label": ""
+                            "_label": "Stornierte Sessions ansehen"
                         },
                         "bulkCancellation": {
-                            "_label": ""
+                            "_label": "Mehrere Sessions stornieren"
                         }
                     }
                 },
                 "schedule": {
-                    "_label": "",
+                    "_label": "Verfügbarkeiten",
                     "allowed_actions": {
                         "deleteAvailability": {
-                            "_label": ""
+                            "_label": "Verfügbarkeiten löschen"
                         },
                         "createAvailability": {
-                            "_label": ""
+                            "_label": "Verfügbarkeiten ansehen"
                         },
                         "readAvailabilityDetail": {
-                            "_label": ""
+                            "_label": "Details der Verfügbarkeiten ansehen"
                         }
                     }
                 },
-                "_label": ""
+                "_label": "Kalender und Verfügbarkeiten"
             },
             "report": {
-                "_label": "",
+                "_label": "Berichte",
                 "Payments": {
                     "basket": {
-                        "_label": "",
+                        "_label": "Warenkorb",
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Erstellen"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "Ansehen"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Bearbeiten"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Löschen"
                             }
                         }
                     },
                     "cashbook": {
                         "allowed_actions": {
                             "read": {
-                                "_label": ""
+                                "_label": "Ansehen"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Löschen"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Bearbeiten"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Erstellen"
                             }
                         },
-                        "_label": ""
+                        "_label": "Kassenbuch"
                     },
                     "credit": {
-                        "_label": "",
+                        "_label": "Credit",
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Erstellen"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "Ansehen"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Bearbeiten"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Löschen"
                             }
                         }
                     },
                     "expense": {
-                        "_label": "",
+                        "_label": "Ausgaben",
                         "allowed_actions": {
                             "read": {
-                                "_label": ""
+                                "_label": "Ansehen"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Löschen"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Erstellen"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Bearbeiten"
                             }
                         }
                     },
                     "invoices": {
-                        "_label": "",
+                        "_label": "Käufe",
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Erstellen"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Löschen"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Bearbeiten"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "Ansehen"
                             }
                         }
                     },
@@ -3878,10 +3882,10 @@
                                 "_label": "Löschen"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Erstellen"
                             }
                         },
-                        "_label": ""
+                        "_label": "Unbezahlte Rechnungen"
                     },
                     "payments": {
                         "_label": "Bezahlungen",
@@ -3917,7 +3921,7 @@
                             }
                         }
                     },
-                    "_label": "",
+                    "_label": "Zahlungen",
                     "video_purchase": {
                         "allowed_actions": {
                             "delete": {
@@ -4458,9 +4462,158 @@
             },
             "product": {
                 "paymentPack": {
-                    "_label": "Kurspässe"
+                    "_label": "Kurspässe",
+                    "allowed_actions": {
+                        "create": {
+                            "_label": "Erstellen"
+                        },
+                        "edit": {
+                            "_label": "Bearbeiten"
+                        },
+                        "delete": {
+                            "_label": "Löschen"
+                        },
+                        "manageExtension": {
+                            "_label": "Gültigkeitsverlängerungen hinzufügen"
+                        },
+                        "manageCredit": {
+                            "_label": "Mitglieder-Credits verwalten"
+                        },
+                        "compatibility": {
+                            "_label": "Kompatibilitäten verwalten"
+                        }
+                    }
                 },
-                "_label": "Produktmanagement"
+                "_label": "Produktmanagement",
+                "privatePass": {
+                    "_label": "Terminpässe",
+                    "allowed_actions": {
+                        "create": {
+                            "_label": "Erstellen"
+                        },
+                        "edit": {
+                            "_label": "Bearbeiten"
+                        },
+                        "delete": {
+                            "_label": "Löschen"
+                        },
+                        "manageCredit": {
+                            "_label": "Mitglieder-Credits verwalten"
+                        },
+                        "manageExtension": {
+                            "_label": "Gültigkeitsverlängerungen hinzufügen"
+                        },
+                        "compatibility": {
+                            "_label": "Kompatibilitäten verwalten"
+                        }
+                    }
+                },
+                "contract": {
+                    "allowed_actions": {
+                        "pause": {
+                            "_label": "Alle Abonnements eines Vertrags pausieren"
+                        },
+                        "createBillingPlan": {
+                            "_label": "Vertrag für Mitglied abschließen"
+                        },
+                        "createCustomBillingPlan": {
+                            "_label": "Benutzerdefiniertes Abonnement erstellen"
+                        },
+                        "pauseBillingPlan": {
+                            "_label": "Abonnement pausieren"
+                        },
+                        "endBillingPlan": {
+                            "_label": "Abonnement beenden"
+                        },
+                        "editPassBillingPlan": {
+                            "_label": "Pässe eines Abonnements bearbeiten"
+                        },
+                        "editInvoiceDateBillingPlan": {
+                            "_label": "Rechnungsdaten bearbeiten"
+                        },
+                        "editInvoicePriceBillingPlan": {
+                            "_label": "Rechnungsbeträge bearbeiten"
+                        },
+                        "endAfterInvoiceBillingPlan": {
+                            "_label": "Stopp programmieren"
+                        },
+                        "create": {
+                            "_label": "Vertrag erstellen"
+                        },
+                        "edit": {
+                            "_label": "Vertrag bearbeiten"
+                        },
+                        "delete": {
+                            "_label": "Vertrag löschen"
+                        }
+                    },
+                    "_label": "Anmeldungen"
+                }
+            },
+            "management": {
+                "_label": "Studioverwaltung",
+                "activity": {
+                    "_label": "Aktivitätsverwaltung",
+                    "allowed_actions": {
+                        "create": {
+                            "_label": "Erstellen"
+                        },
+                        "edit": {
+                            "_label": "Bearbeiten"
+                        },
+                        "delete": {
+                            "_label": "Löschen"
+                        }
+                    }
+                },
+                "workshop": {
+                    "_label": "Workshop-Verwaltung",
+                    "allowed_actions": {
+                        "create": {
+                            "_label": "Erstellen"
+                        },
+                        "edit": {
+                            "_label": "Bearbeiten"
+                        },
+                        "delete": {
+                            "_label": "Löschen"
+                        }
+                    }
+                },
+                "privateService": {
+                    "_label": "Terminverwaltung",
+                    "allowed_actions": {
+                        "create": {
+                            "_label": "Erstellen"
+                        },
+                        "edit": {
+                            "_label": "Bearbeiten"
+                        },
+                        "delete": {
+                            "_label": "Löschen"
+                        }
+                    }
+                },
+                "coach": {
+                    "_label": "Trainerverwaltung",
+                    "allowed_actions": {
+                        "create": {
+                            "_label": "Erstellen"
+                        },
+                        "edit": {
+                            "_label": "Bearbeiten"
+                        },
+                        "delete": {
+                            "_label": "Löschen"
+                        },
+                        "readPayroll": {
+                            "_label": "Vergütung ansehen"
+                        },
+                        "substitution": {
+                            "_label": "Vertretungen verwalten"
+                        }
+                    }
+                }
             }
         }
     },
@@ -4763,6 +4916,10 @@
                     "deativatedTags": "Deaktiviert für Universalpässe",
                     "warningIsUniversalPass": "Dieser Pass ist ein Universalpass, ein Zwillingspass wurde in den RDV-Karten erstellt. Alle Felder, die auf diesem Pass geändert werden, werden auch auf dem Zwillingspass geändert (außer der Kategorie). Dasselbe gilt für Benachrichtigungen, Erweiterungen und Änderungen von Guthaben.",
                     "label": "Universalpass"
+                },
+                "highlightedAsRecommended": {
+                    "label": "Als empfohlen markieren",
+                    "helperText": "Ermöglicht es Ihren Kunden, auf einen Blick zu sehen, welche Kurspässe derzeit empfohlen werden."
                 }
             }
         },
@@ -5667,19 +5824,20 @@
             "last_booked_offer_meta_activity_name": "Name der Aktivität der letzten gebuchten Session",
             "last_booked_offer_date": "Datum der letzten gebuchten Session",
             "last_booked_offer_id": "ID der zuletzt gebuchten Session",
-            "referred_member_last_name": "",
-            "referred_member_first_name": "",
-            "referred_discount_applied": "",
-            "purchased_products": "",
-            "referring_member_first_name": "",
-            "referred_member_pk": "",
-            "referred_member_registration_date": "",
-            "referring_member_email": "",
-            "referring_member_pk": "",
-            "referring_member_last_name": "",
-            "referred_discount_use_date": "",
-            "referred_member_email": "",
-            "referring_member_total_reward": ""
+            "referred_member_last_name": "Nachname des geworbenen Mitglieds",
+            "referred_member_first_name": "Vorname des geworbenen Mitglieds",
+            "referred_discount_applied": "Belohnung vom geworbenen Mitglied erhalten",
+            "purchased_products": "Produkte",
+            "referring_member_first_name": "Vorname des werbenden Mitglieds",
+            "referred_member_pk": "ID des geworbenen Mitglieds",
+            "referred_member_registration_date": "Erstellungsdatum des geworbenen Mitglieds",
+            "referring_member_email": "Email des werbenden Mitglieds",
+            "referring_member_pk": "ID des werbenden Mitglieds",
+            "referring_member_last_name": "Nachname des werbenden Mitglieds",
+            "referred_discount_use_date": "Datum der Nutzung des Empfehlungsrabatts",
+            "referred_member_email": "Email des geworbenen Miglieds",
+            "referring_member_total_reward": "Belohnung vom werbenden Mitglied erhalten",
+            "coupon_type": "Typ"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -5738,7 +5896,7 @@
             "dispute": "Streitfrage",
             "billing_plan": "Abonnement",
             "members_purchase": "Einkäufe der Mitglieder",
-            "referral_grant": ""
+            "referral_grant": "Empfehlung"
         },
         "globalCategories": {
             "subheader": {
@@ -5890,7 +6048,8 @@
             "disputeStatus": "Status Streitfall",
             "coupon": "Promotion",
             "payment_pack_category": "Pass-Kategorie",
-            "private_pass_category": "Terminpass-Kategorie"
+            "private_pass_category": "Terminpass-Kategorie",
+            "coupon_type_excluding_referrals": "Aktionstyp"
         },
         "presetValuesByDatatype": {
             "payment_method": {
@@ -6002,7 +6161,7 @@
             "activityByEst": "Es werden nur die Aktivitäten und Einrichtungen angezeigt, für die im ausgewählten Datumsbereich eine Session geplant ist.",
             "activities": "Es werden nur die Aktivitäten angezeigt, für die im ausgewählten Datumsbereich eine Session geplant ist.",
             "members": "Die Mitglieder werden nach ihrem Anmeldedatum gefiltert.",
-            "referral_grant": ""
+            "referral_grant": "Empfehlungslinks werden nach dem Erstellungsdatum des gesponserten Mitglieds gefiltert"
         },
         "franchiseWarning": {
             "part1": "Aufgrund der großen Datenmenge kann es einige Minuten dauern, bis der Bericht erstellt wird.",
@@ -6040,7 +6199,8 @@
                 "Stornieren",
                 "Stornieren",
                 "Stornieren",
-                ""
+                "",
+                "Abgesagt"
             ]
         }
     },
@@ -6086,6 +6246,13 @@
                 "create": {
                     "error": "Fehler beim Teilen dieses Angebots zwischen Studios"
                 }
+            },
+            "exportCodes": {
+                "error": "Ausgewählte Codes können nicht exportiert werden",
+                "success": "Gutscheine korrekt exportiert"
+            },
+            "errors": {
+                "5002": "Sie können einen Code, der nicht auf externe Validierung wartet, nicht als verwendet markieren"
             }
         },
         "paymentPack": {
@@ -7042,6 +7209,9 @@
                 "21001": "Es wurde kein Raumplan ausgewählt",
                 "21000": "Der Spivi-Upsell ist nicht aktiviert."
             }
+        },
+        "smartlistGetMembers": {
+            "error": "Es ist ein Fehler aufgetreten: Die Mitglieder können nicht abgerufen werden"
         }
     },
     "invoice": {
@@ -7504,8 +7674,13 @@
             "name": "Name und Vorname des Inhabers",
             "contentIban": "Indem Sie Ihre IBAN angeben und Ihre Zahlung bestätigen, ermächtigen Sie bsport und Stripe, unser Zahlungssystem, Abbuchungsaufträge an Ihre Bank gemäß dem Zahlungsplan zu senden. Sie können bei Ihrer Bank eine Erstattung gemäß den Bedingungen Ihres Vertrags mit Ihrer Bank beantragen. Eine Erstattung muss innerhalb von 8 Wochen nach der ersten Abbuchung beantragt werden.",
             "contentBacsDebit": "Mit der Angabe Ihrer Bankdaten und der Bestätigung Ihrer Zahlung ermächtigen Sie bsport und Stripe, unser Zahlungssystem, Abbuchungsaufträge an Ihre Bank gemäß dem Zahlungsplan zu senden. Sie können von Ihrer Bank eine Erstattung gemäß den Bedingungen Ihres Vertrags mit Ihrer Bank verlangen. Sie können Ihre Bank jederzeit bitten, das Lastschriftmandat zu widerrufen.",
-            "address_postal_code": "",
-            "address_line_1": "Adresse"
+            "address_postal_code": "Postleitzahl",
+            "address_line_1": "Adresse",
+            "address_line_2": "Ergänzung der Adresse",
+            "phone": "Telefonnummer",
+            "city": "Stadt",
+            "state": "Staat",
+            "country": "Land"
         },
         "paymentGroup": {
             "requiresAction": "Die Bank hat die Zahlung nicht authentifiziert (3DSecure)",
@@ -8798,7 +8973,9 @@
             "combos": "Pakete",
             "passes": "Kurspässe",
             "otherPasses": "Andere Kurspässe",
-            "spotSelectorTitle": "Wählen Sie Ihren Platz"
+            "spotSelectorTitle": "Wählen Sie Ihren Platz",
+            "seeAllProducts": "Alle Produkte ansehen",
+            "recommended": "Empfehlungen"
         }
     },
     "member": {
@@ -9186,6 +9363,9 @@
             "confirmation": "Anweisungen korrekt an {{memberEmail}} gesendet",
             "button": "Passwort zurücksetzen",
             "error": "Fehler beim Senden der Anweisungen zum Zurücksetzen des Passworts"
+        },
+        "memberTable": {
+            "error": "Ein Fehler ist aufgetreten"
         }
     },
     "common": {
@@ -9258,7 +9438,8 @@
         },
         "params": "Einstellungen",
         "ok": "OK",
-        "back": "Zurück"
+        "back": "Zurück",
+        "recommended": "Empfehlung"
     },
     "coupon": {
         "detail": {
@@ -9284,7 +9465,7 @@
                 "not_found": "Dieser Gutscheincode ist ungültig.",
                 "not_applicable": "Dieser Gutscheincode ist nicht anwendbar.",
                 "apply": "Bewerben",
-                "5006": "Dieser einzigartige Code ist bereits mit einem offenen Warenkorb verbunden.",
+                "5006": "Dieser einmalige Code ist bereits mit einem offenen Warenkorb verbunden.",
                 "5004": "Dieser Code kann auf keinen einzelnen Artikel angewendet werden."
             }
         },
@@ -9445,7 +9626,7 @@
         },
         "uniqueCodeCoupon": {
             "form": {
-                "alertInfo": "Gutscheine sind einzigartige Codes, die dem Mitglied einen 100%igen Rabatt auf ein bestimmtes Produkt bieten. Diese Codes werden nicht von der Plattform selbst generiert, sondern müssen hier als CSV-Datei hochgeladen werden. Diese Funktion ist besonders nützlich, wenn Sie mit einem externen Unternehmen wie Groupon eine Werbekampagne durchgeführt haben. In diesem Fall generiert und verkauft Groupon (oder ein ähnliches Unternehmen) die Gutscheine im Namen Ihres Studios.",
+                "alertInfo": "Gutscheine sind einmalige Codes, die dem Mitglied einen 100%igen Rabatt auf ein bestimmtes Produkt bieten. Diese Codes werden nicht von der Plattform selbst generiert, sondern müssen hier als CSV-Datei hochgeladen werden. Diese Funktion ist besonders nützlich, wenn Sie mit einem externen Unternehmen wie Groupon eine Werbekampagne durchgeführt haben. In diesem Fall generiert und verkauft Groupon (oder ein ähnliches Unternehmen) die Gutscheine im Namen Ihres Studios.",
                 "alertWarning": "Gilt nicht für Abonnements",
                 "couponCostForCompany": {
                     "helperText": "Die Einnahmen, die Sie vom Kampagnenpartner für jeden verkauften Gutschein erhalten. Sie werden bei der Berechnung des Grenzwerts für die Wiederbezahlung der Lehrer sowie in den Berichten verwendet. Bei allen Berechnungen, die den Grenzwert nicht berücksichtigen, wird in den Berichten dieser gegebene Preis ignoriert und diese Aktion als 100% Rabatt behandelt.",
@@ -9479,12 +9660,16 @@
                     "only_on_objects": "Sie müssen ein Objekt auswählen, auf das Sie die Reduzierung anwenden möchten",
                     "applies_to": "Der Artikel, auf den der Rabatt angewendet werden soll, muss ein Pass, ein Terminpass, ein Paket oder ein Webshop-Artikel sein",
                     "5000": "Sie dürfen keinen Code angeben, der bereits in einem anderen Coupon verwendet wurde.",
-                    "5006": "Dieser einzigartige Code ist bereits mit einem offenen Warenkorb verknüpft",
-                    "5003": "Einige einzigartige Codes sind bereits in einem anderen Gutschein gespeichert.",
+                    "5006": "Dieser einmalige Code ist bereits mit einem offenen Warenkorb verknüpft",
+                    "5003": "Einige einmalige Codes sind bereits in einem anderen Gutschein gespeichert.",
                     "5004": "Dieser Code kann nur auf einen einzigen Artikel angewendet werden.",
-                    "5001": "Einige der einzigartigen Codes können nicht hinzugefügt werden, da sie bereits registriert wurden.",
+                    "5001": "Einige der einmaligen Codes können nicht hinzugefügt werden, da sie bereits registriert wurden.",
                     "update_mode": "Wenn Sie die für diese Aktion gespeicherten Codes ändern möchten, können Sie die Codes zu den bestehenden hinzufügen oder die bestehenden Codes ersetzen.",
-                    "5005": "Dieser Code wird bereits verwendet oder ist derzeit an einen Warenkorb angehängt."
+                    "5005": "Dieser Code wird bereits verwendet oder ist derzeit an einen Warenkorb angehängt.",
+                    "codes": {
+                        "updateMode": "Sie müssen sich entscheiden, ob Sie die Codes zu den Bestehenden hinzufügen oder sie ersetzen wollen",
+                        "emptyArray": "Sie müssen mindestens einen Code hinzufügen"
+                    }
                 },
                 "update": {
                     "replace": "Bestehende Codes ersetzen",
@@ -9492,6 +9677,12 @@
                     "alertInfo": "Es wurde {{count}} Code für diese Aktion registriert, Sie können neue Codes herunterladen.",
                     "alertInfo_plural": "Es wurden {{count}} Codes für diese Aktion registriert, Sie können neue Codes herunterladen.",
                     "append": "Zu bestehenden Codes hinzufügen"
+                },
+                "selectorPlaceholder": {
+                    "privatePass": "Einen Terminpass auswählen",
+                    "paymentPack": "Einen Kurspass auswählen",
+                    "shopItem": "Einen Artikel aus dem Webshop auswählen",
+                    "paymentCombo": "Ein Paket auswählen"
                 }
             },
             "voucherCodesDialog": {
@@ -9526,6 +9717,10 @@
         "fabLabels": {
             "discountCode": "Rabattcode",
             "voucherCodes": "Gutscheine"
+        },
+        "couponType": {
+            "0": "Rabattcode",
+            "3": "Einmaliger Gutschein"
         }
     },
     "privateService": {
@@ -11434,6 +11629,10 @@
                 "label": "Frist für den Kauf",
                 "helperText": "Verfügbar bis",
                 "tooltip": "Nach Ablauf des gewählten Datums wird das Paket nicht mehr zum Verkauf für Kunden angezeigt."
+            },
+            "highlightedAsRecommended": {
+                "label": "Als empfohlen markieren",
+                "helperText": "Ermöglicht es Ihren Kunden, auf einen Blick zu sehen, welche Pakete derzeit empfohlen werden."
             }
         },
         "list": {
@@ -12142,7 +12341,8 @@
             "performance": "Bezahlung",
             "replacement": "Vertretung"
         },
-        "replacement": "Vertretung"
+        "replacement": "Vertretung",
+        "inbox": "Posteingang"
     },
     "stripe": {
         "decline_code": {
@@ -14087,7 +14287,10 @@
             "methodPaymentBasket": "Einmalzahlung",
             "subtitle2": "Als Administrator hast Du immer Zugriff auf alle verfügbaren Zahlungsmethoden.",
             "subtitle": "Du kannst die Zahlungsmethoden aus- oder abwählen, die Deinen Mitgliedern bei einer Online Zahlung zur Verfügung stehen.",
-            "title": "Onlinebezahlung"
+            "title": "Onlinebezahlung",
+            "methodPaymentCardBillingDetails": "Rechnungsdaten der Kartenzahlung beantragen.",
+            "methodPaymentCardBillingDetailsTitle": "Vollständige Rechnungsdetails anfordern",
+            "methodPaymentCardBillingDetailsHelper": "Wenn Sie diese Funktion aktivieren, reduzieren Sie die Anzahl der Kartenzahlungen, die 3D Secure erfordern (SMS-Validierung, Bankanwendungen usw.).Achtung, diese Felder sind Pflichtfelder."
         },
         "billing_group": {
             "header": "Abrechnungsgruppen",
@@ -14738,6 +14941,13 @@
             "billOnce": "{{ price_cts }}",
             "sms": {
                 "explainBilling": "{{ price_cts }} / SMS"
+            },
+            "lockDialog": {
+                "33": {
+                    "explain": "Hier finden Sie alle Ihre direkten Unterhaltungen, die mit Ihren Sitzungen verbundenen Chats sowie Ihre Smartlist-Kampagnen. Der Chat ist kompatibel mit SMS, E-Mails und Push-Benachrichtigungen.",
+                    "intro": "Entdecken Sie unser neues Interface für den direkten Chat mit Ihren Mitgliedern."
+                },
+                "requestAccess": "Zugang beantragen"
             }
         },
         "paymentMethod": {
@@ -14876,7 +15086,7 @@
                 "filter": "Einzelner Filter",
                 "offerListItem": "Details zu einer Session",
                 "level": "Level chip",
-                "workshopCard": "Workshop-Karte",
+                "workshopCard": "Workshop-Pass",
                 "filters": "Liste der Filter",
                 "bookButton": "Buchungs-Button",
                 "datePicker": "Datumswahl",
@@ -14904,13 +15114,18 @@
                 "paymentPackOffPeakRestrictionModal": "Popup zur Einschränkung von Zeitrahmen (Kurspass)",
                 "contractNotFound": "Abo-Warnung nicht gefunden",
                 "contractPayment": "Modul zur Bezahlung von Abonnements",
-                "collectPaymentMethod": "Bezahlungsmethode hinzufügen"
+                "collectPaymentMethod": "Bezahlungsmethode hinzufügen",
+                "select": "Wähler",
+                "search": "Suchfilter",
+                "calendarFilters": "Kalenderfilter (nur Seitenlayout)",
+                "calendarWeekTimeTable": "Kopfzeile des Kalenders"
             },
             "page": {
                 "calendar": "Kalender",
                 "workshop": "Workshop",
                 "subscription": "Abonnements",
-                "pass": "Kurspass"
+                "pass": "Kurspass",
+                "common": "Gemeinsam"
             },
             "cssConfig": {
                 "configurationTitle": "Variationen",
@@ -14925,7 +15140,14 @@
                     "showDayParts": "Morgens, nachmittags und abends trennen",
                     "isExcludingTax": "Vor Steuern",
                     "paymentMethodType": "Zahlungsmethode",
-                    "isContractLegalTermsAccepted": "Abo-Impressum akzeptiert"
+                    "isContractLegalTermsAccepted": "Abo-Impressum akzeptiert",
+                    "hideCoach": "Lehrerfilter ausblenden",
+                    "showDate": "Datum anzeigen",
+                    "withoutBookButton": "Reservierungsschaltfläche ausblenden",
+                    "version": "Version",
+                    "isWorkshop": "Ist ein Workshop",
+                    "disablePast": "Vergangene Daten deaktivieren",
+                    "isInputButton": "Kompakte Version"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -14944,7 +15166,13 @@
                     "sepa_debit": "SEPA-Lastschriftverfahren",
                     "sepa": "SEPA-Lastschriftverfahren",
                     "card": "Karte",
-                    "bacs_debit": "Direct-Debit"
+                    "bacs_debit": "Direct-Debit",
+                    "level": "Vom Niveau",
+                    "establishment": "Aus der Einrichtung",
+                    "workshop": "Workshop-Filter",
+                    "passTypeFilter": "Kurspass-Filter",
+                    "subscriptionCountrySelect": "Länderauswahl",
+                    "activity": "Filter für Aktivitäten"
                 }
             }
         },
@@ -15525,7 +15753,7 @@
                     "helperText": "Bitte legen Sie fest, wann und wer in diesen Rhythmus mit den ausgewählten Kriterien und Auslösern eintritt."
                 },
                 "step": {
-                    "name": ""
+                    "name": "Name"
                 }
             }
         }

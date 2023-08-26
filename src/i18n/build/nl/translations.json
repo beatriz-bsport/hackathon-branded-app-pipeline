@@ -2207,6 +2207,10 @@
                 "label": "Aankooptermijn",
                 "helperText": "Beschikbaar tot",
                 "tooltip": "Na de gekozen datum zal het pakket niet langer beschikbaar zijn voor verkoop aan klanten."
+            },
+            "highlightedAsRecommended": {
+                "label": "Als aanrader markeren",
+                "helperText": "Dit geeft klanten een overzicht van de pakketten die momenteel worden aangeraden."
             }
         },
         "list": {
@@ -2795,7 +2799,8 @@
             "referred_discount_applied": "Beloning (ontvanger)",
             "referring_member_pk": "Lidmaatschapsnummer",
             "referred_member_pk": "Lidmaatschapsnummer",
-            "referred_discount_use_date": "Gebruiksdatum promotiecode"
+            "referred_discount_use_date": "Gebruiksdatum promotiecode",
+            "coupon_type": "Type"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -3002,7 +3007,8 @@
             "billing_plan_status": "Abonnementsstatus",
             "payment_method_with_credit_account": "Betaalmethode",
             "payment_pack_category": "Cursus kaart categorie",
-            "private_pass_category": "Categorie afsprakenkaart"
+            "private_pass_category": "Categorie afsprakenkaart",
+            "coupon_type_excluding_referrals": "Promotietype"
         },
         "presetValuesByDatatype": {
             "source_device": {
@@ -3581,6 +3587,10 @@
                     "helperText": "Een universele kaart kan voor groepsactiviteiten én afspraken worden gebruikt. Iedere universele kaart heeft twee gekoppelde kaarten voor de credits. De gekoppelde kaarten worden automatisch en kosteloos toegevoegd zodra een universele kaart is aangeschaft.",
                     "marketplaceLabel": "Een universele kaart kan voor groepsactiviteiten én afspraken worden gebruikt.",
                     "label": "Universele kaart"
+                },
+                "highlightedAsRecommended": {
+                    "label": "Als aanrader markeren",
+                    "helperText": "Dit geeft klanten een overzicht van de leskaarten die momenteel worden aangeraden."
                 }
             }
         },
@@ -5915,6 +5925,9 @@
                 "filter": "Gebruikte cadeaubonnen",
                 "primaryText": "De cadeaubon {{- giftcardName }} is geactiveerd."
             }
+        },
+        "memberTable": {
+            "error": "Error"
         }
     },
     "booking": {
@@ -6360,7 +6373,9 @@
                 "seeLess": "Minder zien"
             },
             "filterAll": "Alles",
-            "spotSelectorTitle": "Kies uw plaats"
+            "spotSelectorTitle": "Kies uw plaats",
+            "seeAllProducts": "Toon alle producten",
+            "recommended": "Aanbevolen"
         }
     },
     "marketplace": {
@@ -6921,6 +6936,10 @@
                 "month_billing_day": {
                     "label2": "van de maand.",
                     "label1": "Alle facturen"
+                },
+                "highlightedAsRecommended": {
+                    "label": "Als aanrader markeren",
+                    "helperText": "Dit geeft klanten een overzicht van de abonnementen die momenteel worden aangeraden."
                 }
             },
             "registerManager": {
@@ -8100,7 +8119,10 @@
             "methodPaymentBasketHelper": "Selecteer welke betaalmethode(n) je voor eenmalige betalingen wilt accepteren:",
             "subtitle2": "Als Systeembeheerder of Eigenaar heb je altijd toegang tot alle betaalmethoden.",
             "subtitle": "Je kunt bepaalde betaalmethoden voor je leden aan- en/of uitzetten.",
-            "title": "Online betalingen"
+            "title": "Online betalingen",
+            "methodPaymentCardBillingDetails": "Verzoek alle facturen die betaald zijn met betaalkaarten in te zien.",
+            "methodPaymentCardBillingDetailsHelper": "Schakel deze optie in om het aantal betalingen die 3D Secure vereisen te verminderen. Dit omvat sms-bevestigingen, bank-apps en meer. Houd er rekening mee dat deze velden verplicht zijn.",
+            "methodPaymentCardBillingDetailsTitle": "Verzoek alle factuurgegevens in te zien"
         },
         "billing_group": {
             "header": "Groepsfacturatie",
@@ -10926,6 +10948,9 @@
                 "21003": "Spivi-sessies moeten ten minste 20 minuten en maximaal 4 uur duren.",
                 "21002": "Het geselecteerde Spot Scheduling-layout moet een Box ID hebben voor de Spivi-sessie(s)."
             }
+        },
+        "smartlistGetMembers": {
+            "error": "Error bij het herstellen van leden"
         }
     },
     "coach": {
@@ -11341,7 +11366,11 @@
                     "5003": "Sommige unieke promotiecodes zijn al in gebruik.",
                     "5001": "Sommige unieke promotiecodes kunnen niet worden toegevoegd, omdat deze al geregistreerd zijn.",
                     "5000": "Het is niet mogelijk om een gebruikte promotiecode opnieuw toe te passen.",
-                    "update_mode": "Indien je promotiecodes wenst te wijzigen kun je of bestaande promotiecodes toevoegen of vervangen."
+                    "update_mode": "Indien je promotiecodes wenst te wijzigen kun je of bestaande promotiecodes toevoegen of vervangen.",
+                    "codes": {
+                        "updateMode": "Voeg nieuwe promotiecodes toe of vervang bestaande promotiecodes",
+                        "emptyArray": "Er moet ten minste één promotiecode toegevoegd worden"
+                    }
                 },
                 "alertInfo": "Vouchers zijn unieke codes waarmee het lid 100% korting krijgt op een specifiek product. Deze codes worden niet gegenereerd door het platform zelf, maar moeten hier worden geüpload als een CSV-bestand. Deze functie is vooral handig als je samenwerkt met een externe entiteit zoals Groupon om een promotiecampagne te voeren. In dit geval genereert en verkoopt Groupon (of een vergelijkbare entiteit) de vouchers namens je studio.",
                 "alertWarning": "Niet van toepassing op abonnementen",
@@ -11368,6 +11397,12 @@
                     "append": "Aan bestaande promotiecodes koppelen",
                     "alertInfo": "Er is {{count}} promotiecode hieraan gekoppeld. Je kunt ook nieuwe codes downloaden.",
                     "alertInfo_plural": "Er zijn {{count}} promotiecodes hieraan gekoppeld. Je kunt ook nieuwe codes downloaden."
+                },
+                "selectorPlaceholder": {
+                    "privatePass": "Selecteer een afspraakkaart",
+                    "paymentPack": "Selecteer een leskaart",
+                    "shopItem": "Selecteer een product",
+                    "paymentCombo": "Selecteer een pakket"
                 }
             },
             "voucherCodesDialog": {
@@ -11402,6 +11437,10 @@
         "fabLabels": {
             "discountCode": "Kortingscode",
             "voucherCodes": "Vouchers"
+        },
+        "couponType": {
+            "0": "Kortingscode",
+            "3": "Enkele voucher"
         }
     },
     "stripe": {
@@ -11862,7 +11901,8 @@
         "download": "Download",
         "ok": "OK",
         "params": "Instellingen",
-        "back": "Terug"
+        "back": "Terug",
+        "recommended": "Aanbevolen"
     },
     "workshop": {
         "modal": {
@@ -13069,7 +13109,12 @@
             "contentBacsDebit": "Door uw bankgegevens op te geven en uw betaling te bevestigen, machtigt u bsport en Stripe, ons betalingssysteem, om debetinstructies naar uw bank te sturen in overeenstemming met het betalingsschema. U kunt bij uw bank een terugbetaling aanvragen in overeenstemming met de voorwaarden van uw contract met uw bank. U kunt uw bank te allen tijde verzoeken het incasso-mandaat te annuleren.",
             "contentIban": "Door uw IBAN op te geven en uw betaling te bevestigen, machtigt u bsport en Stripe, ons betalingssysteem, om debetinstructies naar uw bank te sturen in overeenstemming met het betalingsschema. U kunt een terugbetaling aanvragen bij uw bank in overeenstemming met de voorwaarden van uw contract met uw bank. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",
             "address_postal_code": "Postcode",
-            "address_line_1": "Adresregel 1"
+            "address_line_1": "Adresregel 1",
+            "address_line_2": "Adresregel 2",
+            "phone": "Telefoonnummer",
+            "city": "Stad",
+            "state": "Staat",
+            "country": "Land"
         },
         "paymentGroup": {
             "requiresAction": "De bank heeft de betaling niet geverifieerd (3DSecure).",
@@ -15224,6 +15269,13 @@
             "billOnce": "{{ price_cts }}",
             "sms": {
                 "explainBilling": "{{ price_cts }} per sms"
+            },
+            "lockDialog": {
+                "requestAccess": "Vraag om toegang",
+                "33": {
+                    "intro": "Ontdek de nieuwe live chatbox met leden!",
+                    "explain": "Hier staan alle gesprekken met individuele personen, maar ook gesprekken uit Sessies en Smartlists. Deze chatbox is compatibel met e-mails, sms'jes en push-notificaties."
+                }
             }
         },
         "paymentMethod": {

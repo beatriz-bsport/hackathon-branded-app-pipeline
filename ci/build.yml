@@ -10,7 +10,7 @@
   #       - node_modules
   tags:
     - build-frontend
-    - kubernetes
+    - cluster:bsport-tooling
   script:
     - mv /app/node_modules .
     - yarn install --frozen-lockfile # just to be sure

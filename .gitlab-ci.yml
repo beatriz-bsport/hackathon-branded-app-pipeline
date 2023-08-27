@@ -39,13 +39,12 @@ before_script:
 #     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
 #     GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
 
-
 .Auto Bump Version Base:
   image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:latest
   stage: bump-version
   tags:
     - light
-    - kubernetes
+    - cluster:bsport-tooling
   allow_failure: true
   only:
     - master

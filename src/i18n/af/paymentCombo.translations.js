@@ -81,6 +81,8 @@ exports.default = {
   },
   detail: {
     containsNProducts: 'Contient {{ n }} produits',
+    itemCount: '{{ count }} élément',
+    itemCount_plural: '{{ count }} éléments',
     description: 'Description',
     content: 'Contenu',
     purchases: 'Ventes',

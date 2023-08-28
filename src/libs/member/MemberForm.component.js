@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import * as Yup from 'yup';
 import debounce from 'lodash/debounce';
 import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -29,6 +30,7 @@ import {
   Actions,
   Submit,
   DateField,
+  TextFieldEnhancedLabelWithError,
 } from '../../components/forms';
 import AlertExistingUser from './AlertExistingUser.component';
 import { DATE_FORMAT } from '../../utils/datetime';
@@ -81,6 +83,10 @@ const styles = (theme) => ({
   },
   marginLeft: {
     paddingLeft: theme.spacing(1),
+  },
+  gridItem: {
+    marginTop: theme.spacing(1.5),
+    marginBottom: theme.spacing(1.5),
   },
 });
 
@@ -518,11 +524,7 @@ export function MemberForm(props: Props) {
                       required={!asManager}
                     />
                   </Grid>
-                  <Grid
-                    item
-                    style={{ marginTop: 12, marginBottom: 12 }}
-                    xs={12}
-                  >
+                  <Grid item className={classes.gridItem} xs={12}>
                     <VaccinationStatusField
                       fullWidth
                       disabled={disabled || !asManager}
@@ -531,6 +533,17 @@ export function MemberForm(props: Props) {
                       required={!asManager}
                     />
                   </Grid>
+
+                  <Grid item className={classes.gridItem} xs={12}>
+                    <TextFieldEnhancedLabelWithError
+                      fullWidth
+                      disabled={disabled || !asManager}
+                      label={t('member:officialIdNumber.label')}
+                      name="official_document_id"
+                      required={!asManager}
+                    />
+                  </Grid>
+
                   <Grid item md={12} xs={12}>
                     <FormControl>
                       <Grid item md={12} xs={12}>
@@ -734,8 +747,8 @@ export default compose(
         state: '',
         country: '',
         zipcode: '',
-
         vaccination_status: 'null',
+        official_document_id: '',
       },
     enableReinitialize: true,
 
@@ -781,5 +794,11 @@ export default compose(
         onError: () => setSubmitting(false),
       });
     },
+    validationSchema: Yup.object().shape({
+      official_document_id: Yup.string().matches(
+        /^[A-Za-z0-9]+$/,
+        'marketing:customForm.submit.errors.invalidOfficialDocumentId',
+      ),
+    }),
   }),
 )(MemberForm);

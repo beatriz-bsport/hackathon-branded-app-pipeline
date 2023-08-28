@@ -22,6 +22,7 @@ export const MemberMap = {
   accept_sms: 'accept_sms',
   waiver: 'waiver',
   vaccination_status: 'vaccination_status',
+  official_document_id: 'official_document_id',
 };
 
 export const anonymizeEmail = (email: string | null) => {

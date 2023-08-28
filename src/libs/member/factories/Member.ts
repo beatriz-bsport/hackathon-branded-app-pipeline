@@ -149,6 +149,7 @@ export function MemberFactory(
     unsubscribe_link: faker.hacker.phrase(),
     spivi_privacy_settings_accepted: randomBoolean(),
     is_pos: Math.random() < 0.25,
+    official_document_id: '123456789',
   };
 }
 

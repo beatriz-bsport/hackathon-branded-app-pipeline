@@ -289,6 +289,7 @@ exports.default = {
           'Le mot de passe doit contenir au moins 6 caratères',
         passwordConfirmationError: 'Les mots de passes ne sont pas indetiques',
         invalidEmail: 'Email invalide',
+        invalidOfficialDocumentId: "Ce champ ne peut contenir que des chiffres et des lettres",
       },
     },
     statistics: {

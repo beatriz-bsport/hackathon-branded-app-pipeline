@@ -153,7 +153,9 @@ export const paymentPackFactory = (options?: PaymentPackFactoryOptions) => {
     template_instance: options?.isTemplate
       ? parseInt(faker.finance.accountNumber(4), 10)
       : null,
-    linked_private_pass: parseInt(faker.finance.accountNumber(4), 10),
+    linked_private_pass: options?.isUniversalPass
+      ? parseInt(faker.finance.accountNumber(4), 10)
+      : null,
     allow_guest_pass: options?.isAllowGuestPass ?? faker.datatype.boolean(),
     is_universal_pass: options?.isUniversalPass ?? faker.datatype.boolean(),
     is_usable_by_staff: options?.isUsableByStaff ?? faker.datatype.boolean(),

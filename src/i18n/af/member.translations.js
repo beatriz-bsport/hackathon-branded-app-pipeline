@@ -33,7 +33,18 @@ exports.default = {
     none: 'aucun',
     code: 'Code carte',
     display: 'Afficher le code barre',
+    label: 'Code-barres'
   },
+  officialIdNumber: {
+    label: "Numéro document d'identité",
+    value: 'N°{{id}}'
+  },
+  membershipNumber: {
+    label: "Numéro d'adhérent",
+    value: 'N°{{id}}',
+  },
+
+
   memberSince: 'Inscrit le ',
   showNextBooking: 'Voir les réservations futures',
   nextBooking: 'prochaine : ',

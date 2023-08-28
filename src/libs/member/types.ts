@@ -112,6 +112,7 @@ export type Member<Tag = number, CA = number> = {
   spivi_privacy_settings_accepted: boolean;
   is_pos: boolean;
   has_bought_pack?: boolean;
+  official_document_id: string;
 };
 
 export type MemberState = ErrorAndLoading &

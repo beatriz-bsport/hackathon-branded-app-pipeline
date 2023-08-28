@@ -11,6 +11,7 @@ import Dialog from '@material-ui/core/Dialog';
 import IconButton from '@material-ui/core/IconButton';
 
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import ContactsIcon from '@material-ui/icons/Contacts';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import LockIcon from '@material-ui/icons/Lock';
 import Hidden from '@material-ui/core/Hidden';
@@ -45,6 +46,7 @@ import type { Member } from '../types';
 import EmailItem from '../../communication/components/EmailItem.component';
 import PhoneItem from '../../communication/components/PhoneItem.component';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
+import MemberSummaryInfoItem from '#libs/member/components/MemberSummaryInfoItem.component';
 import DEPRECATEDCommunicationDrawer from '../../communication/components/DEPRECATEDCommunicationDrawer.component';
 import EmergencyContactItemComponent from '../../communication/components/EmergencyContactItem.component';
 import VaccinationStatus from './VaccinationStatus.component';
@@ -110,67 +112,65 @@ export class MemberSummaryCard extends PureComponent<Props> {
         moment(member.consumer.birthday).format('MM-DD')
       : false;
 
+    const memberBirthdayValue = `${
+      member.consumer.birthday
+        ? t('member:birth.bornIn', {
+            context: member.consumer.gender,
+            date: moment(member.consumer.birthday).format('L'),
+            age,
+          })
+        : t('member:birth.unknown', {
+            context: member.consumer.gender,
+          })
+    }`;
+
     return (
-      <List dense>
-        <ListItem>
-          <TodayIcon />
-          <ListItemText
-            className={this.props.classes.listItemText}
-            primary={
-              <div className={this.props.classes.rowInfo}>
-                <div>
-                  {' '}
-                  {`${
-                    member.consumer.birthday
-                      ? t('member:birth.bornIn', {
-                          context: member.consumer.gender,
-                          date: moment(member.consumer.birthday).format('L'),
-                          age,
-                        })
-                      : t('member:birth.unknown', {
-                          context: member.consumer.gender,
-                        })
-                  }`}
-                </div>
-                <div>{isBirthday && <Cake color="secondary" />}</div>
-              </div>
-            }
-          />
-        </ListItem>
-        <ListItem>
-          <PersonOutlineIcon />
-          <ListItemText
-            className={this.props.classes.listItemText}
-            primary={`N°${member.membership_ID}`}
-          />
-        </ListItem>
-      </List>
+      <div className={this.props.classes.horizontalPadding2}>
+        <MemberSummaryInfoItem
+          icon={<TodayIcon />}
+          value={memberBirthdayValue}
+        />
+
+        <MemberSummaryInfoItem
+          icon={<ContactsIcon />}
+          label={t('member:officialIdNumber.label')}
+          value={t('member:officialIdNumber.value', {
+            id: member.official_document_id,
+          })}
+          valueExtra={isBirthday && <Cake color="secondary" fontSize="small" />}
+        />
+
+        <MemberSummaryInfoItem
+          icon={<PersonOutlineIcon />}
+          label={t('member:membershipNumber.label')}
+          value={t('member:membershipNumber.value', {
+            id: member.membership_ID,
+          })}
+        />
+      </div>
     );
   };
 
   renderBarCode = () => {
     const barcode =
       this.props.member.barcode || this.props.t('member:barcode.none');
+
     return (
-      <List dense>
-        <ListItem>
-          <ViewWeekIcon />
-          <ListItemText
-            className={this.props.classes.listItemText}
-            primary={
-              <div className={this.props.classes.rowInfo}>
-                {`${barcode}`}
-                <IconButton
-                  className={this.props.classes.visibilityIcon}
-                  onClick={() => this.setState({ displayBarcodeDialog: true })}
-                >
-                  <VisibilityIcon color="primary" />
-                </IconButton>
-              </div>
-            }
-          />
-        </ListItem>
-      </List>
+      <div className={this.props.classes.horizontalPadding2}>
+        <MemberSummaryInfoItem
+          icon={<ViewWeekIcon />}
+          label={this.props.t('member:barcode.label')}
+          value={barcode}
+          valueExtra={
+            <IconButton
+              onClick={() => this.setState({ displayBarcodeDialog: true })}
+              size="small"
+            >
+              <VisibilityIcon color="primary" />
+            </IconButton>
+          }
+        />
+      </div>
     );
   };
 
@@ -506,6 +506,10 @@ const styles = (theme: Theme) =>
     infoContainer: {
       padding: theme.spacing(2),
     },
+    horizontalPadding2: {
+      paddingLeft: theme.spacing(2),
+      paddingright: theme.spacing(2),
+    },
     consumerName: {
       marginLeft: theme.spacing(2),
       display: 'flew',
@@ -521,9 +525,6 @@ const styles = (theme: Theme) =>
     },
     regularize: {
       marginTop: theme.spacing(1),
-    },
-    visibilityIcon: {
-      marginLeft: theme.spacing(1),
     },
     accountBalanceBloc: {
       backgroundColor: '#F8F8F8',

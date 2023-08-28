@@ -1,0 +1,197 @@
+.bs-payment-pack-buyable-item {
+  border-radius: var(--border-radius-4);
+}
+
+.bs-payment-pack-buyable-item--background {
+  height: 230px;
+  background: linear-gradient(
+    120deg,
+    var(--color-secondary-background-paper) 50%,
+    var(--color-background-paper) 50%
+  );
+}
+
+.bs-payment-pack-buyable-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  container: bsPaymentPackBuyableItemContent / inline-size;
+}
+
+.bs-payment-pack-buyable-item .bs-generic-card__content__grid {
+  column-gap: var(--spacing-1);
+  row-gap: 0;
+  grid-template-columns: min-content auto auto;
+}
+
+.bs-payment-pack-buyable-item__title {
+  width: max-content;
+  max-width: 300px;
+  text-align: left;
+  font-family: var(--fontFamily);
+  font-size: var(--subtitle1-fontSize);
+  font-weight: var(--h5-fontWeight);
+  line-height: var(--subtitle1-lineHeight);
+  color: var(--color-grey-dark);
+  white-space: pre-line;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+}
+
+.bs-payment-pack-buyable-item__title__icon {
+  margin-right: var(--spacing-1);
+}
+
+.bs-payment-pack-buyable-item__description {
+  text-align: left;
+  word-break: break-word;
+  font-size: var(--body2-fontSize);
+  font-weight: var(--body2-fontWeight);
+  letter-spacing: var(--body2-letterSpacing);
+  line-height: var(--body2-lineHeight);
+  color: var(--color-grey-main);
+  margin-top: var(--spacing-1);
+  margin-bottom: var(--spacing-1);
+  white-space: pre-wrap;
+}
+
+.bs-payment-pack-buyable-item__description--short {
+  margin-bottom: calc(var(--spacing-1) / 2);
+  max-height: 40px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+}
+
+.bs-payment-pack-buyable-item__subtitle {
+  font-size: var(--body2-fontSize);
+  font-weight: var(--body2-fontWeight);
+  letter-spacing: var(--body2-letterSpacing);
+  line-height: var(--body2-lineHeight);
+  font-family: var(--body2-fontFamily);
+  color: var(--color-grey-main);
+}
+
+.bs-payment-pack-buyable-item__validity {
+  border-radius: var(--border-radius-1);
+  background-color: var(--color-grey-light);
+  color: var(--color-grey-dark);
+  font-size: var(--body2-fontSize);
+  font-family: var(--body2-fontFamily);
+  font-weight: var(--body2-fontWeight);
+  letter-spacing: var(--body2-letterSpacing);
+  line-height: var(--body2-lineHeight);
+  padding: 3px calc(var(--spacing-1) / 2);
+  text-align: right;
+  margin-top: var(--spacing-1);
+  width: fit-content;
+}
+
+.bs-payment-pack-buyable-item__price {
+  font-size: var(--h5-fontSize);
+  font-weight: 500;
+}
+
+.bs-payment-pack-buyable-item__seemore {
+  background: none;
+  margin-top: calc(var(--spacing-1) / 2);
+  padding: 2px 0 0;
+  width: fit-content;
+}
+
+.bs-payment-pack-buyable-item__seemore__text {
+  font-family: var(--body2-fontFamily);
+  font-size: var(--body2-fontSize);
+  font-weight: var(--button-fontWeight);
+  line-height: var(--body2-lineHeight);
+  letter-spacing: var(--body2-letterSpacing);
+  text-transform: inherit;
+  gap: calc(var(--spacing-1) / 2);
+}
+
+@container bsOfferBookingPage (width < 600px) {
+  .bs-payment-pack-buyable-item__seemore,
+  .bs-payment-pack-buyable-item__validity,
+  .bs-payment-pack-buyable-item__description,
+  .bs-payment-pack-buyable-item__description--short {
+    display: none;
+  }
+
+  .bs-payment-pack-buyable-content {
+    min-height: 100px;
+  }
+
+  .bs-payment-pack-buyable-content .bs-generic-card__content__grid {
+    flex: 1;
+    column-gap: 0;
+  }
+
+  .bs-payment-pack-buyable-item__credits-item {
+    grid-column-start: 1;
+    grid-row-start: 2;
+  }
+}
+
+@container bsPaymentPackBuyableItemContent (width < 450px) {
+  .bs-payment-pack-buyable-item__description-item {
+    grid-row-start: 3;
+    grid-column-start: 1;
+  }
+
+  .bs-payment-pack-buyable-item__price-item {
+    grid-row-start: 2;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    margin-top: calc(var(--spacing-1) / 2);
+    align-items: flex-start;
+  }
+
+  .bs-payment-pack-buyable-item__validity-item {
+    grid-row-start: 4;
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+
+  .bs-payment-pack-buyable-item__title-item {
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+
+  .bs-payment-pack-buyable-item__title-item
+    .bs-payment-pack-buyable-item__title {
+    width: 100%;
+  }
+
+  .bs-payment-pack-buyable-item__title-item--recommended {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+
+  .bs-payment-pack-buyable-item__title-item--recommended
+    .bs-payment-pack-buyable-item__title {
+    max-width: 80cqw;
+  }
+
+  .bs-payment-pack-buyable-item__recommended-item {
+    grid-column-start: 3;
+  }
+
+  .bs-payment-pack-buyable-item__credits-item {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    margin-top: var(--spacing-2);
+  }
+
+  .bs-payment-pack-buyable-item__seemore-item {
+    grid-row-start: 4;
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+}

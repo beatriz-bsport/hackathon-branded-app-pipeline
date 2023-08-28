@@ -1,5 +1,4 @@
 import React from 'react';
-import isEqual from 'lodash/isEqual';
 // eslint-disable-next-line
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../../../reducers';
@@ -44,4 +43,4 @@ const connector = connect(
   {},
 );
 
-export default React.memo(connector(ObjectLevelPermissionProvider), isEqual);
+export default React.memo(connector(ObjectLevelPermissionProvider));

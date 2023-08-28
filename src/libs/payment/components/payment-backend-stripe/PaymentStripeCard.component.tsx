@@ -12,6 +12,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB } from '@bsport/common/lib/master-data/payment-group';
 import { Info } from '@material-ui/icons';
+import Config from '../../../../config';
 import { CheckoutContext } from '../../../../pages/checkout/basket/CheckoutContext';
 import StripeErrorCode from './StripeErrorCode.component';
 import PaymentMethodList from '../payment-method-list/PaymentMethodList.component';
@@ -219,6 +220,42 @@ const StripePaymentCard = forwardRef(
         defaultBillingDetailsValues,
       ]);
 
+    // This is a Hail Mary attempt of saving Jab Box (80k of monthly transactions)
+    // from churning back to Zingfit because they are upset by the many 3D Secure they
+    // are getting. Note that a client saving a payment method doesn't mean that they
+    // want this payment method to be used for off-session payments so we have to think
+    // about this any way.
+    // Issue: https://gitlab.com/bsport/bsport-saas/-/issues/2101
+
+    const company_setup_intent_always_on_session = [
+      'local',
+      'dev',
+      'staging',
+    ].includes(Config.REACT_APP_SENTRY_ENVIRONMENT)
+      ? 72
+      : 1424;
+
+    const setup_future_usage = React.useMemo(() => {
+      if (
+        (saveForLater || forceSave) &&
+        companyId !== company_setup_intent_always_on_session
+      ) {
+        return 'off_session';
+      }
+      if (
+        (saveForLater || forceSave) &&
+        companyId === company_setup_intent_always_on_session
+      ) {
+        return 'on_session';
+      }
+      return null;
+    }, [
+      saveForLater,
+      forceSave,
+      companyId,
+      company_setup_intent_always_on_session,
+    ]);
+
     // Whenever the paymentMethod changes, we change the state of the billing details
     React.useEffect(() => {
       if (paymentMethodSelected) {
@@ -355,9 +392,7 @@ const StripePaymentCard = forwardRef(
                 ? { billing_details: billingDetails }
                 : {}),
             },
-            ...(saveForLater || forceSave
-              ? { setup_future_usage: 'off_session' }
-              : {}),
+            ...(setup_future_usage ? { setup_future_usage } : {}),
           });
 
           if (result.error) {

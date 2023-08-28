@@ -1,5 +1,5 @@
 .bs-payment-pack-buyable-item {
-  border-radius: var(--border-radius-4);
+  border-radius: var(--border-radius-2);
 }
 
 .bs-payment-pack-buyable-item--background {
@@ -11,7 +11,7 @@
   );
 }
 
-.bs-payment-pack-buyable-content {
+.bs-payment-pack-buyable-item__content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -154,7 +154,7 @@
 
   .bs-payment-pack-buyable-item__validity-item {
     grid-row-start: 4;
-    grid-column-start: 1;
+    grid-column-start: 2;
     grid-column-end: 4;
   }
 

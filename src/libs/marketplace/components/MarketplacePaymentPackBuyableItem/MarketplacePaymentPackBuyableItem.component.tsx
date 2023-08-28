@@ -80,7 +80,8 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
       <Content
         padding
         classes={{
-          'bs-payment-pack-buyable-content': 'bs-payment-pack-buyable-content',
+          'bs-payment-pack-buyable-item__content':
+            'bs-payment-pack-buyableitem__content',
         }}
       >
         <Grid>

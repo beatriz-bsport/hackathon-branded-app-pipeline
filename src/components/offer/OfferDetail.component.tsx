@@ -22,6 +22,7 @@ import type { OffersGroup } from '#libs/group-offer/types';
 import { ADDITIONAL_COACHES_MAX_DISPLAY } from '#libs/offer/constants';
 import type { Level } from '#libs/level/types';
 import { CustomChip } from '#components/chip/CustomChip.component';
+import { getLevelTranslation } from '#libs/level/utils';
 
 type Props = {
   offer: Offer<
@@ -63,7 +64,13 @@ const OfferDetail: React.FC<Props> = ({ offer }) => {
         <div className={classes.chipContainer}>
           {!!offer.customLevel && (
             <div className={classes.levelContainer}>
-              <CustomChip displayedValue={offer.customLevel.name} />
+              <CustomChip
+                displayedValue={getLevelTranslation(
+                  offer.customLevel.id,
+                  offer.customLevel.name,
+                  t,
+                )}
+              />
             </div>
           )}
           {isBroadcast && (

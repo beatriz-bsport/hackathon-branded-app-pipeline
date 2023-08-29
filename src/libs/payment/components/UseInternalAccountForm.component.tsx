@@ -8,11 +8,13 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
 import { makeStyles } from '@material-ui/core/styles';
+import { Theme } from '@material-ui/core';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { CheckoutContext } from '../../../pages/checkout/basket/CheckoutContext';
 import type { OptionCallback } from '../../../state/types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 // @ts-expect-error
@@ -51,7 +53,8 @@ export const UseInternalAccountForm: React.FC<Props> = ({
 }) => {
   const [open, setOpen] = React.useState(false);
   const { t } = useTranslation('checkout');
-  const classes = useStyles();
+  const isNewCheckoutFlow = React.useContext(CheckoutContext);
+  const classes = useStyles({ isNewCheckoutFlow });
   const [isUseInternalAccountProcessing, setIsUseInternalAccountProcessing] =
     React.useState(false);
 
@@ -93,7 +96,7 @@ export const UseInternalAccountForm: React.FC<Props> = ({
                 <div className={classes.outterButtonContainer}>
                   <Button
                     fullWidth
-                    className={classes.fullWidth}
+                    className={classes.UseInternalAccountButton}
                     color="primary"
                     disabled={loading || disabled}
                     onClick={() => setOpen(true)}
@@ -102,7 +105,11 @@ export const UseInternalAccountForm: React.FC<Props> = ({
                     <AccountBalanceWalletIcon className={classes.iconButton} />
                     {asManager
                       ? t('internalAccount.useAsManager')
-                      : t('internalAccount.use')}
+                      : t(
+                          isNewCheckoutFlow
+                            ? 'internalAccount.use_minimal'
+                            : 'internalAccount.use',
+                        )}
                   </Button>
                 </div>
               </div>
@@ -195,64 +202,74 @@ export const UseInternalAccountForm: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles((theme) => ({
-  creditAccountBalance: {
-    flex: 1,
-    marginRight: theme.spacing(1),
-  },
-  header: {
-    paddingBottom: theme.spacing(2),
-  },
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  iconButton: {
-    marginRight: theme.spacing(1),
-  },
-  outterButtonContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    [theme.breakpoints.down('xs')]: {
-      width: '100%',
+const useStyles = makeStyles<Theme, { isNewCheckoutFlow: boolean }>(
+  (theme: Theme) => ({
+    creditAccountBalance: {
+      flex: 1,
+      marginRight: theme.spacing(1),
     },
-  },
-  greyContainer: {
-    backgroundColor: grey[100],
-    borderRadius: theme.spacing(0.5),
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    [theme.breakpoints.down('xs')]: {
-      flexWrap: 'wrap',
+    header: {
+      paddingBottom: theme.spacing(2),
     },
-  },
-  fullWidth: {
-    [theme.breakpoints.down('xs')]: {
-      width: '100%',
+    container: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
     },
-  },
-  flexCollaspe: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-    paddingTop: theme.spacing(1),
-  },
-  flexButtons: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    paddingBottom: theme.spacing(1),
-  },
-}));
+    iconButton: {
+      marginRight: theme.spacing(1),
+    },
+    outterButtonContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      [theme.breakpoints.down('xs')]: {
+        width: (props) => (props.isNewCheckoutFlow ? 'none' : '100%'),
+      },
+    },
+    greyContainer: {
+      backgroundColor: grey[100],
+      borderRadius: theme.spacing(0.5),
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+      [theme.breakpoints.down('xs')]: {
+        flexWrap: (props) => (props.isNewCheckoutFlow ? 'none' : 'nowrap'),
+      },
+    },
+    fullWidth: {
+      [theme.breakpoints.down('xs')]: {
+        width: (props) => (props.isNewCheckoutFlow ? 'none' : '100%'),
+      },
+    },
+    UseInternalAccountButton: {
+      [theme.breakpoints.down('sm')]: {
+        borderRadius: (props) => (props.isNewCheckoutFlow ? '24px' : 'none'),
+      },
+      [theme.breakpoints.down('xs')]: {
+        width: (props) => (props.isNewCheckoutFlow ? 'none' : '100%'),
+      },
+    },
+    flexCollaspe: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      flexDirection: 'row',
+      paddingTop: theme.spacing(1),
+    },
+    flexButtons: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      flexDirection: 'row',
+      paddingBottom: theme.spacing(1),
+    },
+  }),
+);
 
 export default React.memo(UseInternalAccountForm);

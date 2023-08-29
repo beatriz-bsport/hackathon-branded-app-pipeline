@@ -36,16 +36,21 @@ IdleBuyableItem.args = {
     ...fakePaymentPack,
     description: faker.lorem.sentences(10),
   },
-  addToCart: () => {},
-  onOpenDetailDialog: () => {},
+};
+
+export const buyableItemHiddenCredits = PaymentPackBuyableItemTemplate.bind({});
+buyableItemHiddenCredits.args = {
+  paymentPack: {
+    ...fakePaymentPack,
+    description: faker.lorem.sentences(10),
+  },
+  hideCredits: true,
 };
 
 export const buyableItemUniversalPaymentPack =
   PaymentPackBuyableItemTemplate.bind({});
 buyableItemUniversalPaymentPack.args = {
   paymentPack: fakeUniversalPaymentPack,
-  addToCart: () => {},
-  onOpenDetailDialog: () => {},
 };
 
 export const buyableItemSmallDescription = PaymentPackBuyableItemTemplate.bind(
@@ -56,15 +61,11 @@ buyableItemSmallDescription.args = {
     ...fakePaymentPack,
     description: faker.lorem.words(6),
   },
-  addToCart: () => {},
-  onOpenDetailDialog: () => {},
 };
 
 export const recommendedBuyableItem = PaymentPackBuyableItemTemplate.bind({});
 recommendedBuyableItem.args = {
   paymentPack: recomendedPaymentPack,
-  addToCart: () => {},
-  onOpenDetailDialog: () => {},
 };
 
 export const SelectedBuyableItem = PaymentPackBuyableItemTemplate.bind({});
@@ -74,8 +75,6 @@ SelectedBuyableItem.args = {
     description: faker.lorem.sentences(10),
   },
   isSelected: true,
-  addToCart: () => {},
-  onOpenDetailDialog: () => {},
 };
 
 export default {

@@ -8,7 +8,7 @@ import isEqual from 'lodash/isEqual';
 import MarketplaceConsumerPaymentPackCard from '#libs/marketplace/components/MarketplaceConsumerPaymentPackCard';
 import MarketplaceFilterBuyableItemCategory from '#libs/marketplace/components/MarketplaceFilterBuyableItemCategory';
 import MarketplaceBuyableItemCategoryList from '#libs/marketplace/components/MarketplaceBuyableItemCategoryList';
-import Alert from '#csscomponents/Alert';
+import Alert, { AlertSeverity } from '#csscomponents/Alert';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { MarketplaceBookerModuleBuyableItemsSkeleton } from '.';
 
@@ -75,7 +75,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
     <div className="bs-booker-module-buyable-items__container">
       <>
         {isWaitingList && (
-          <Alert severity="warning">
+          <Alert severity={AlertSeverity.WARNING}>
             {t('booking:newBookingModule.waitingListWarning')}
           </Alert>
         )}
@@ -129,6 +129,9 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
                 <MarketplaceBuyableItemCategoryList
                   key={buyableItemCategory.index}
                   buyableItemCategory={buyableItemCategory}
+                  hideCreditsForCustomers={
+                    companyTheme.hide_credits_for_customers
+                  }
                   isExcludingTax={isExcludingTax}
                   selectBuyableItem={onClickBuyableItem}
                   selectedBuyableItem={
@@ -139,6 +142,9 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
             ) : (
               <MarketplaceBuyableItemCategoryList
                 buyableItemCategory={selectedBuyableItemCategory}
+                hideCreditsForCustomers={
+                  companyTheme.hide_credits_for_customers
+                }
                 isExcludingTax={isExcludingTax}
                 selectBuyableItem={onClickBuyableItem}
                 selectedBuyableItem={

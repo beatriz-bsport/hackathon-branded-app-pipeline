@@ -843,13 +843,15 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                             key={buyableItemCategory.index}
                             excludeRecommendedItemsFromRegularCategories
                             buyableItemCategory={buyableItemCategory}
+                            hideCreditsForCustomers={
+                              this.props.theme.hide_credits_for_customers
+                            }
                             isExcludingTax={this.props.isExcludingTax}
                             selectBuyableItem={this.onClickBuyableItem}
                             selectedBuyableItem={
                               this.state.selectedItem
                                 ?.data as BookerModuleBuyableItem
                             }
-                            theme={this.props.theme}
                           />
                         ),
                       )
@@ -858,6 +860,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                         buyableItemCategory={
                           this.state.selectedBuyableItemCategory
                         }
+                        hideCreditsForCustomers={
+                          this.props.theme.hide_credits_for_customers
+                        }
                         isExcludingTax={this.props.isExcludingTax}
                         onClickAll={this.onClickAll}
                         selectBuyableItem={this.onClickBuyableItem}
@@ -865,7 +870,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                           this.state.selectedItem
                             ?.data as BookerModuleBuyableItem
                         }
-                        theme={this.props.theme}
                       />
                     )}
                   </>

@@ -36,12 +36,14 @@ export type Props = {
   paymentPack: PaymentPack;
   isExcludingTax?: boolean;
   isSelected?: boolean;
+  hideCredits: boolean;
 };
 
 const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
   paymentPack,
   isExcludingTax,
   isSelected,
+  hideCredits,
 }) => {
   const { t } = useTranslation(['marketplace', 'booking']);
   const [showAllDescription, setShowAllDescription] = useState(false);
@@ -88,7 +90,8 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
               'bs-payment-pack-buyable-item__title-item':
                 !isRecommended && 'bs-payment-pack-buyable-item__title-item',
               'bs-payment-pack-buyable-item__title-item--recommended':
-                isRecommended && 'bs-payment-pack-buyable-item__title-item--recommended',
+                isRecommended &&
+                'bs-payment-pack-buyable-item__title-item--recommended',
             }}
             columnEnd={1}
             columnStart={1}
@@ -149,7 +152,7 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
               )}
             </Item>
           )}
-          {isMobile && (
+          {isMobile && !hideCredits && (
             <Item
               classes={{
                 'bs-payment-pack-buyable-item__credits-item':

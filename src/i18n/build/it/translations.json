@@ -332,7 +332,7 @@
                     "explainNotify": "Invia un avviso ai clienti che hanno prenotato",
                     "explainModalities": "Questa modifica è definitiva. La tua sessione non sarà più visibile ai clienti finali. Puoi ancora accedervi.",
                     "explainForceDanger": "Attenzione ! Le prenotazione saranno cancellate definitivamente. Se non hai rimborsato il credito, perderai ogni traccia del suo utilizzo. Ti preghiamo di controllare lo stato delle tue prenotazioni e delle tue tessere prima della cancellazione.",
-                    "force": "Cancellare anche se le prenotazioni sono registrate",
+                    "force": "Cancella tutte le sessioni, comprese le prenotazioni associate",
                     "advanced": "Avanzato",
                     "explainDeleteLinkedHybridSession": "Annullare le sessioni ibride (sessioni in presenza e online)"
                 },
@@ -735,7 +735,7 @@
         },
         "shop": {
             "supplier_price": "Prezzo fornitore",
-            "myShop": "Il mio negozio",
+            "myShop": "Il mio shop",
             "subShop": {
                 "delete": {
                     "explain": "Sei sicuro di voler eliminare questa categoria? Verranno eliminati anche tutti gli elementi che contiene",
@@ -755,7 +755,7 @@
             "revertExplainPayment": "I pagamenti con carta verranno rimborsati sul conto del membro. Tutti gli altri metodi di pagamento verranno eliminati.",
             "revertExplainCredits": "Addebiti / crediti sul conto del membro verranno annullati.",
             "revertExplainPacks": "I pass saranno cancellati così come TUTTE le prenotazioni associate",
-            "revertExplainShop": "Gli acquisti in negozio verranno annullati e l'inventario ripristinato.",
+            "revertExplainShop": "Gli acquisti dallo shop verranno annullati e l'inventario ripristinato.",
             "invoiceReverted": "Fattura annullata",
             "finalize": "Finalizza la fattura",
             "explainFinalize": "Attenzione! Una fattura finalizzata non può più essere modificata e tutti i pagamenti contrassegnati in attesa di incasso verranno considerati come riscossi. Una volta finalizzata la fattura, è possibile esportarla come PDF"
@@ -807,9 +807,9 @@
         },
         "booking": {
             "revertBookingExplain": {
-                "offerIsAvailable": "Sei sicuro di voler cancellare questa prenotazione? I crediti utilizzati verranno riaccreditati.",
-                "offerIsNotAvailable": "La prenotazione sarà cancellata. La sessione è già stata annullata e i crediti non verranno rimborsati se non si è verificato il \"rimborso\" con l'annullamento",
-                "offerIsAvailableChoiceRefund": "Sei sicuro di voler cancellare questa prenotazione?"
+                "offerIsAvailable": "Sei sicuro di voler eliminare questa prenotazione? I crediti utilizzati verranno riaccreditati.",
+                "offerIsNotAvailable": "La prenotazione sarà eliminata. La sessione è già stata annullata e i crediti non verranno rimborsati se non si è verificato il \"rimborso\" con l'annullamento",
+                "offerIsAvailableChoiceRefund": "Sei sicuro di voler eliminare questa prenotazione?"
             },
             "revertBookingWithInvoiceImpossibleExplain": "Questa prenotazione è già stata pagata dal membro e non può essere cancellata. Tuttavia è possibile passare la prenotazione in \"Assente\"",
             "sources": {
@@ -936,13 +936,13 @@
             "shop": {
                 "noDescription": "Nessuna descrizione",
                 "addToCard": "Aggiungi al carrello",
-                "isEmpty": "Nessun prodotto è attualmente disponibile nel negozio.",
-                "tabName": "Negozio"
+                "isEmpty": "Nessun prodotto è attualmente disponibile nello shop.",
+                "tabName": "Shop"
             },
             "checkout": {
                 "dialog": {
                     "title": "Il mio cestino",
-                    "cancel": "Ritorna al negozio",
+                    "cancel": "Ritorna allo shop",
                     "goToDelivery": "Continua",
                     "goToPayment": "Pagare"
                 }
@@ -1015,7 +1015,7 @@
                 "mergeMember": "Unisci membri",
                 "allCoachPerformance": "Riepilogo insegnante",
                 "dashboard": "Pannello di controllo",
-                "shopManager": "Il mio negozio",
+                "shopManager": "Il mio shop",
                 "coachList": "Insegnanti",
                 "WorkshopActivityFormPage": "Form del workshop",
                 "paymentPackList": "Pass",
@@ -1429,8 +1429,8 @@
         "franchiseOwned": "Il tuo franchisor sta attualmente gestendo questa e-mail transazionale",
         "franchise": {
             "delete": {
-                "delete": "Cancellare",
-                "content": "Sei sicuro di voler cancellare questa configurazione? Le impostazioni selezionate e i modelli di e-mail saranno ripristinati ai loro valori originali.",
+                "delete": "Cancella",
+                "content": "Sei sicuro di voler eliminare questa configurazione? Le impostazioni selezionate e i modelli di e-mail saranno ripristinati ai loro valori originali.",
                 "title": "Cancellazione"
             },
             "card": {
@@ -1444,11 +1444,11 @@
             "form": {
                 "error": {
                     "email_design": "Seleziona un modello",
-                    "selectCompanies": "Selezionare almeno un franchisee",
-                    "name": "Si prega di compilare un nome"
+                    "selectCompanies": "Selezionare almeno un franchise",
+                    "name": "Selezionare un nome"
                 },
-                "save": "Registra",
-                "cancel": "Cancellare",
+                "save": "Salva",
+                "cancel": "Cancella",
                 "mailSelection": "Scegliere un modello",
                 "receiveCarbonCopySubtitle": "Riceverai una copia di ogni e-mail inviata",
                 "receiveCC": "Ricevere una copia dell'e-mail",
@@ -1689,7 +1689,7 @@
                 "unavailableOnline": "Non disponibile per la vendita",
                 "availableOnline": "Disponibile alla vendita"
             },
-            "explainIfEmpty": "Crea qui pacchetti acquistabili dagli alunni che possono contenere pass, oggetti del negozio, ecc ...",
+            "explainIfEmpty": "Crea qui pacchetti acquistabili dagli alunni che possono contenere pass, oggetti dello shop, ecc ...",
             "buttons": {
                 "add": "Crea un pacchetto"
             }
@@ -1710,7 +1710,7 @@
             "selectorPlaceholder": {
                 "privatePass": "Pass per appuntamenti",
                 "paymentPack": "Pass",
-                "shopitem": "Negozio"
+                "shopitem": "Shop"
             },
             "title": "Form dei pacchetti",
             "name": {
@@ -2845,12 +2845,12 @@
                 }
             },
             "delete": {
-                "explain": "Sei sicuro di voler cancellare questa scheda? Le persone che hanno ancora dei crediti possono ancora usarli.",
+                "explain": "Sei sicuro di voler eliminare questa scheda? Le persone che hanno ancora dei crediti possono ancora usarli.",
                 "cancel": "Annulla",
                 "submit": "Conferma",
                 "title": "Cancellazione della carta",
                 "delete": "Rimuovi",
-                "warning": "Si prega di notare! Questa carta di appuntamento è utilizzata in un pacchetto, che non sarà più disponibile per la vendita se si rimuove questa carta di corso."
+                "warning": "Si prega di notare! Questo pass per appuntamenti è utilizzato in un pacchetto, che non sarà più disponibile per la vendita se si rimuove questo pass."
             },
             "list": {
                 "createButton": "Crea un appuntamento",
@@ -3210,12 +3210,12 @@
         "disabledPacksTitle": "Carte d'appuntamento archiviate",
         "notification": {
             "listItem": {
-                "smartListInclude": "Elenco degli schiavi",
-                "smartList": "Liste escluse",
+                "smartListInclude": "Smartlist inclusa(e)",
+                "smartList": "Smartlist escluse",
                 "deleteModal": {
-                    "content": "Sei sicuro di voler cancellare questa notifica? Questa operazione è definitiva",
-                    "confirm": "Eliminare",
-                    "cancel": "cancellare",
+                    "content": "Sei sicuro di voler eliminare questa notifica? Questa operazione è definitiva",
+                    "confirm": "Elimina",
+                    "cancel": "cancella",
                     "title": "Cancellazione notificazione"
                 },
                 "mail": "Email "
@@ -3281,8 +3281,8 @@
         "universalPass": {
             "delete": {
                 "dialog": {
-                    "warningText": "Si prega di notare! Questa carta è una carta universale, se la cancelli la sua carta gemella sarà anche cancellata.",
-                    "title": "Cancellazione della carta"
+                    "warningText": "Attenzione! L'eliminazione di un pass universale comporta anche l'eliminazione dei suoi pass gemelli.",
+                    "title": "Elimina il pass"
                 }
             }
         },
@@ -3325,7 +3325,7 @@
             "delete": {
                 "cancel": "Annulla",
                 "title": "Rimuovi",
-                "content": "Sei sicuro di voler cancellare questo video? Questa operazione è irreversibile.",
+                "content": "Sei sicuro di voler eliminare questo video? Questa operazione è irreversibile.",
                 "confirm": "Conferma"
             },
             "form": {
@@ -3586,7 +3586,7 @@
                 "services": "Su appuntamento",
                 "pass": "Pass per appuntamenti"
             },
-            "myShop": "Negozio",
+            "myShop": "Shop",
             "payment": "Pagamenti",
             "invoice": "Fatture",
             "video": "Videoteca",
@@ -3613,7 +3613,7 @@
                 "webhook": "Webhook",
                 "personalization": "Personalizzazione",
                 "role": "Staff",
-                "shop": "Negozio",
+                "shop": "Shop",
                 "waitingList": "Lista d'attesa",
                 "invoice": "Fatturazione",
                 "company": "Azienda",
@@ -4215,7 +4215,7 @@
             "signupShow": "Quando l'utente visualizza il form di registrazione",
             "signinShow": "Quando l'utente arriva sulla pagina di accesso",
             "paymentSuccess": "Quando l'utente ha completato il pagamento con successo",
-            "addShopItemToCart": "Quando l'utente aggiunge un prodotto dal negozio nella sua cesta",
+            "addShopItemToCart": "Quando l'utente aggiunge un prodotto dallo shop nel suo carrello",
             "addPrivatePassToCart": "Quando l'utente aggiunge un pass per appuntamento nella sua cesta",
             "addPackToCart": "Quando l'utente aggiunge un pacchetto alla sua cesta",
             "addPassToCart": "Quando l'utente aggiunge un pass alla sua cesta",
@@ -4375,7 +4375,7 @@
                 "member": "Cliente"
             }
         },
-        "pageTitle": "Negozio"
+        "pageTitle": "Shop"
     },
     "snackbar": {
         "smartlist": {
@@ -4577,7 +4577,7 @@
             },
             "delete": {
                 "success": "Eliminare relazione",
-                "error": "Impossibile cancellare questa relazione"
+                "error": "Impossibile eliminare questa relazione"
             },
             "error": {
                 "90000": "Diritti di accesso a questa relazione negati",
@@ -4656,6 +4656,13 @@
                 "create": {
                     "error": "Impossibile condividere questa promozione con questi studi"
                 }
+            },
+            "exportCodes": {
+                "success": "Ordini di acquisto esportati correttamente",
+                "error": "Impossibile esportare i codici selezionati"
+            },
+            "errors": {
+                "5002": "Non è possibile contrassegnare come usato un codice che non è in attesa di convalida esterna"
             }
         },
         "email": {
@@ -5037,7 +5044,7 @@
                 "pm_associated_to_pi": "Impossibile : Hai un abbonamento associato a questo metodo di pagamento",
                 "pm_associated_to_registered_ppe": "Impossibile : Hai un abbonamento associato a questo metodo di pagamento",
                 "pm_associated_to_protected_bp": "Impossibile : Hai un abbonamento associato a questo metodo di pagamento",
-                "last_payment_method": "Impossibile di cancellare il tuo unico metodo di pagamento",
+                "last_payment_method": "Impossibile eliminare il tuo unico metodo di pagamento",
                 "pm_deleted": "Metodo di pagamento cancellato"
             },
             "errors": {
@@ -5375,6 +5382,9 @@
                 "21001": "Nessuna programmazione dei posti è stata selezionata",
                 "21000": "L'upsell Spivi non è attivato."
             }
+        },
+        "smartlistGetMembers": {
+            "error": "Si è verificato un errore: i membri non possono essere recuperati"
         }
     },
     "settings": {
@@ -5433,7 +5443,7 @@
             "broadcast": "Video conferenza",
             "paymentRules": "Regole di retribuzione",
             "notificationRule": "Email transazionali",
-            "shop": "Negozio",
+            "shop": "Shop",
             "role": "Personale",
             "personalization": "Personalizzazione",
             "webhook": "Webhook",
@@ -5496,7 +5506,7 @@
             },
             "componentType": {
                 "playlist": "Playlist",
-                "shop": "Negozio",
+                "shop": "Shop",
                 "subscription": "Iscrizioni",
                 "vod": "VOD (Video on Demand)",
                 "pass": "Pass",
@@ -5512,7 +5522,7 @@
             "preview": "Anteprima",
             "saveButton": "Salva",
             "link": "Accedi alla piattaforma cliente (verrai disconnesso)",
-            "explainMarketplace": "I tuoi membri possono accedere alla tua piattaforma (calendario, negozio, VOD, etc.) online su computer, tablet e cellulare. Personalizza la tua pagina qui!",
+            "explainMarketplace": "I tuoi membri possono accedere alla tua piattaforma (calendario, shop, VOD, etc.) online su computer, tablet e cellulare. Personalizza la tua pagina qui!",
             "addButton": "Aggiungi una tabella"
         },
         "companyOnboarding": {
@@ -5527,7 +5537,10 @@
             "methodPaymentBasket": "Pagamento puntuale",
             "subtitle2": "Come manager, hai sempre accesso a tutti i metodi di pagamento disponibili.",
             "subtitle": "Puoi attivare o disattivare i metodi di pagamento usati dai tuoi membri quando pagano online.",
-            "title": "Pagamento online"
+            "title": "Pagamento online",
+            "methodPaymentCardBillingDetails": "Richiedere i dati di fatturazione per i pagamenti con carta.",
+            "methodPaymentCardBillingDetailsHelper": "Attivando questa funzione, ridurrete il numero di pagamenti con carta che richiedono 3D Secure (convalida SMS, applicazioni bancarie, ecc.).",
+            "methodPaymentCardBillingDetailsTitle": "Richiedi i dati di fatturazione completi"
         },
         "billing_group": {
             "header": "gruppi di fatturazione",
@@ -5575,7 +5588,7 @@
                 "see": "Vedi",
                 "deleteModal": {
                     "content": "Sei sicuro di voler eliminare questo popup? Questa operazione è definitiva",
-                    "confirm": "Cancellare",
+                    "confirm": "Cancella",
                     "cancel": "Cancella",
                     "title": "Soppressione"
                 },
@@ -5622,8 +5635,8 @@
                     "title": "Panoramica"
                 },
                 "deleteModal": {
-                    "content": "Sei sicuro di voler cancellare questo link? Questa operazione è definitiva",
-                    "confirm": "Cancellare",
+                    "content": "Sei sicuro di voler eliminare questo link? Questa operazione è definitiva",
+                    "confirm": "Cancella",
                     "cancel": "Cancella",
                     "title": "Soppressione"
                 },
@@ -5794,7 +5807,7 @@
         "invoiceItem": {
             "buyableItemIdentifier": {
                 "1": "Pass",
-                "2": "Negozio",
+                "2": "Shop",
                 "10": "Pacchetto",
                 "9": "Pass per appuntamenti",
                 "3": "Credito",
@@ -6064,7 +6077,7 @@
                 "pm_associated_to_pi": "Impossibile : Devi avere un abbonamento associato a questo metodo di pagamento",
                 "pm_associated_to_registered_ppe": "Impossibile : Devi avere un abbonamento associato a questo metodo di pagamento",
                 "pm_associated_to_protected_bp": "Impossibile : Devi avere un abbonamento associato a questo metodo di pagamento",
-                "last_payment_method": "Impossibile di cancellare il tuo unico metodo di pagamento",
+                "last_payment_method": "Impossibile eliminare l'unico metodo di pagamento",
                 "pm_deleted": "Metodo di pagamento cancellato"
             },
             "inconsistent": "Metodo di pagamento non autorizzato, per favore riconfiguralo. Il cliente potrebbe aver richiesto di de-autorizzare il suo metodo di pagamento, o potresti aver unito due membri, in entrambi i casi il metodo di pagamento non è più utilizzabile.",
@@ -6575,6 +6588,10 @@
                 "month_billing_day": {
                     "label2": "del mese.",
                     "label1": "Fattura tutto"
+                },
+                "highlightedAsRecommended": {
+                    "label": "Contrassegna come raccomandato",
+                    "helperText": "Consente ai clienti di vedere a colpo d'occhio quali sono i contratti attualmente consigliati."
                 }
             },
             "legal": "Informazioni legali",
@@ -6584,7 +6601,7 @@
                     "confirm": "Rimuovi",
                     "cancel": "Annulla"
                 },
-                "content": "Sei sicuro di voler cancellare questo contratto?",
+                "content": "Sei sicuro di voler eliminare questo contratto ?",
                 "title": "Cancellazione del contratto"
             },
             "paymentPack": "Pass associato",
@@ -6932,7 +6949,7 @@
             "common": {
                 "menu": {
                     "changeContractForbidden": "Non è possibile modificare un'interruzione a livello di contratto.",
-                    "delete": "Cancellare",
+                    "delete": "Disattiva",
                     "change": "Cambia le date",
                     "changeName": "Cambia il motivo",
                     "changeForbidden": "Non puoi modificare un'interruzione che è già terminata.",
@@ -6968,7 +6985,7 @@
                     "isUpdated": "Pausa modificata"
                 },
                 "deleteDialog": {
-                    "title": "Cancellare la pausa"
+                    "title": "Disattiva la pausa"
                 }
             },
             "subscriptionPause": {
@@ -7055,7 +7072,7 @@
             "time": "Ora",
             "adjusted_price": "Prezzo rettificato",
             "nb_interval": "Numero di ricorrenze",
-            "shop": "Negozio",
+            "shop": "Shop",
             "marketplace_enabled": "Disponibile per la vendita online",
             "description": "Descrizione",
             "product_names": "Prodotti",
@@ -7358,7 +7375,7 @@
             "button_new": "Creo il mio primo rapporto"
         },
         "product_type": {
-            "shop_item": "Negozio",
+            "shop_item": "Shop",
             "fee": "Spesa",
             "refund": "Rimborso del credito",
             "payment_pack": "Pass",
@@ -7402,7 +7419,7 @@
             "subscription": "Fatture di abbonamenti",
             "discount": "Promozioni",
             "private_bookings": "Prenotazioni (appuntamento)",
-            "shop": "Negozio",
+            "shop": "Shop",
             "private_cpasses": "Pass per appuntamenti",
             "payment_sumup": "Totale pagamenti",
             "credit": "Saldo totale cliente",
@@ -8010,7 +8027,7 @@
                     "error": "Pass: errore durante l'operazione"
                 },
                 "delete": {
-                    "thereAreConsumers": "Attenzione! I membri che hanno acquistato questo pass, se lo elimini, potranno comunque utilizzare i crediti rimanenti. Puoi ridurli manualmente a zero qui.\n\nIl pass non apparirà più nel tuo negozio per i nuovi acquirenti.",
+                    "thereAreConsumers": "Attenzione! I membri che hanno acquistato questo pass, se lo elimini, potranno comunque utilizzare i crediti rimanenti. Puoi ridurli manualmente a zero qui.\n\nIl pass non apparirà più nel tuo shop per i nuovi acquirenti.",
                     "actions": {
                         "submit": "Rimuovi",
                         "cancel": "Annulla"
@@ -8296,7 +8313,7 @@
             "listItemNbDays": "+{{nbDays}} giorni",
             "createdAt": "Aggiunto il {{date}}",
             "listItemDate": "Con scadenza tra {{ minDate }} e {{ maxDate }}",
-            "cancel": "Cancellare",
+            "cancel": "Cancella",
             "submit": "Convalidare",
             "title": "Aggiungere un'estensione a tutti i membri",
             "maxDate": "Entro e non oltre",
@@ -8326,8 +8343,8 @@
             },
             "deleteModal": {
                 "title": "Cancellazione",
-                "content": "Sei sicuro di voler cancellare questa categoria? Tutti gli elementi che contiene saranno inseriti nella sezione dei pass non categorizzati",
-                "cancel": "Cancellare",
+                "content": "Sei sicuro di voler eliminare questa categoria? Tutti gli elementi che contiene saranno inseriti nella sezione dei pass non categorizzati",
+                "cancel": "Cancella",
                 "confirm": "Confirmare"
             },
             "category": "Categorie di pass"
@@ -8590,7 +8607,7 @@
             "delete": {
                 "dialog": {
                     "warningText": "Attenzione! Questo pass è universale, se lo cancelli anche il suo pass gemello sarà cancellato.",
-                    "title": "Cancellare la carta"
+                    "title": "Elimina il pass"
                 }
             }
         },
@@ -8645,7 +8662,7 @@
         "modal": {
             "delete": {
                 "title": "Elimina attività",
-                "content": "Sei sicuro di voler cancellare questa attività? Le sessioni e le prenotazioni non verranno modificate. Questa operazione è definitiva.",
+                "content": "Sei sicuro di voler eliminare questa attività? Le sessioni e le prenotazioni non verranno modificate. Questa operazione è definitiva.",
                 "cancel": "Annulla",
                 "confirm": "Rimuovi"
             }
@@ -8687,7 +8704,7 @@
             "delete": {
                 "title": "Elimina attività",
                 "content": {
-                    "canDelete": "Sei sicuro di voler cancellare questa attività? Le sessioni e le prenotazioni precedenti non saranno modificate. Questa operazione è definitiva.",
+                    "canDelete": "Sei sicuro di voler eliminare questa attività? Le sessioni e le prenotazioni precedenti non saranno modificate. Questa operazione è definitiva.",
                     "cannotDelete": "Le sessioni sono pianificate per il futuro, verifica che siano state annullate."
                 },
                 "actions": {
@@ -9081,8 +9098,8 @@
                 "titleMerge": " Fusione di membri",
                 "title": "Cambio di e-mail",
                 "actions": {
-                    "confirm": "Confirmare",
-                    "close": "Cancellare"
+                    "confirm": "Conferma",
+                    "close": "Cancella"
                 },
                 "cancelHelperText": "Se non vuoi cambiare l'email del membro clicca su \"annulla\".",
                 "securityHelperText": "Per ragioni di sicurezza gli invieremo un'e-mail per confermare questo cambiamento.",
@@ -9315,7 +9332,7 @@
                 "unAuthorized": "Non hai i diritti necessari per iscriverti a questa sessione.",
                 "managerDialogWarningDialog": {
                     "confirm": "Confermare",
-                    "cancel": "Cancellare",
+                    "cancel": "Cancella",
                     "content": "Si prega di notare che questo membro non ha i tag necessari per essere registrato per questa sessione. Vuoi registrarlo comunque?",
                     "title": "Informazioni"
                 }
@@ -9622,7 +9639,7 @@
             "form": {
                 "actions": {
                     "addGuest": "Aggiungere un ospite",
-                    "close": "Cancellare",
+                    "close": "Cancella",
                     "submit": "Confermare",
                     "limitGuest": "(Nessuna carta dei corsi consente di aggiungere ospiti)"
                 },
@@ -9741,7 +9758,7 @@
                 "workshop": "Pass speciale per workshop",
                 "first": "Ha speso",
                 "explanation": "Prodotti acquistati: A e B",
-                "shop": "Negozio",
+                "shop": "Shop",
                 "pack": "Pass",
                 "combo": "Pacchetto",
                 "private_pass": "Lezioni private",
@@ -10030,7 +10047,7 @@
                 "between": "e",
                 "combo": "Pacchetto",
                 "pack": "Pass",
-                "shop": "Negozio",
+                "shop": "Shop",
                 "explanation": "Prodotti acquistati A e B"
             },
             "501": {
@@ -10378,7 +10395,7 @@
             "create": "Creare una regola",
             "associated_tag": "Tag associato",
             "display_tag_rules": "Mostrare le regole dei Tag",
-            "cancel": "Cancellare",
+            "cancel": "Cancella",
             "tag_name": "Nome del Tag",
             "activeSince": "Attivo dal {{ since }}",
             "tag": "Tag",
@@ -10514,9 +10531,9 @@
         "relationship": {
             "delete": {
                 "content": "Attenzione questa azione è irreversibile, le carte condivise non saranno più condivise.",
-                "cancel": "Cancellare",
-                "submit": "Eliminare",
-                "title": "Eliminare relazione",
+                "cancel": "Cancella",
+                "submit": "Elimina",
+                "title": "Elimina relazione",
                 "whichUser": "A quale account vuoi accedere?"
             }
         },
@@ -10580,7 +10597,7 @@
             "selectorPlaceholder": {
                 "privatePass": "Seleziona le carte d'appuntamento (valido su tutte le carte se nessuna è selezionata)",
                 "paymentPack": "Seleziona i pass (valido su tutte le lezioni se nessun pass è selezionato)",
-                "shopitem": "Seleziona i prodotti dal negozio (valido su tutti i prodotti se nessuno è selezionato)",
+                "shopitem": "Seleziona i prodotti dallo shop (valido su tutti i prodotti se nessuno è selezionato)",
                 "paymentCombo": "Seleziona i pacchetti (valido su tutti i prodotti se nessuno è selezionato)"
             },
             "name": {
@@ -10713,7 +10730,7 @@
         "uniqueCodeCoupon": {
             "form": {
                 "errors": {
-                    "applies_to": "L'articolo su cui applicare lo sconto deve essere un pass, un pass per appuntamenti, un pack o un articolo del negozio",
+                    "applies_to": "L'articolo su cui applicare lo sconto deve essere un pass, un pass per appuntamenti, un pack o un articolo dello shop",
                     "required": "Questo campo è obbligatorio",
                     "positiveNumber": "Il valore deve essere superiore a 0",
                     "expirationDate": {
@@ -10848,12 +10865,12 @@
         },
         "management": {
             "deleteTagGroupDialog": {
-                "text": "Sei sicuro di voler cancellare questa categoria? Anche tutti i tag della categoria saranno cancellati. ",
+                "text": "Sei sicuro di voler eliminare questa categoria? Anche tutti i tag della categoria saranno cancellati. ",
                 "title": "Categoria di cancellazione"
             },
             "deleteTagDialog": {
-                "title": "Cancellazione dei tag",
-                "text": "Sei sicuro di voler cancellare questo tag? Tutte le regole relative a questo tag saranno cancellate."
+                "title": "Eliminazione dei tag",
+                "text": "Sei sicuro di voler eliminare questo tag? Tutte le regole relative a questo tag saranno cancellate."
             },
             "createGroupDialog": {
                 "title": "Categoria",
@@ -10888,21 +10905,21 @@
             },
             "smartlistDetail": {
                 "title": "Regola di etichettatura (Smartlist)",
-                "removeTag": "Cancellare",
+                "removeTag": "Elimina",
                 "empty": "Nessuna regola di etichettatura è collegata al tag {{ tag }}",
                 "createViaSmartlist": "Accesso a Smartlists"
             },
             "addGroup": "Creare una categoria",
             "addTag": "Aggiungere un'etichetta",
             "rename": "Rinominare",
-            "delete": "Cancellare",
+            "delete": "Elimina",
             "form": {
                 "groupRename": "Categoria",
                 "tagGroupName": "Nome",
                 "tagGroupEmpty": "Nessun tag in questa categoria"
             },
-            "cancel": "Cancellare",
-            "submit": "Confirmare",
+            "cancel": "Cancella",
+            "submit": "Conferma",
             "tagColumn": {
                 "tag": "Tag",
                 "member_count": "Membri taggati",
@@ -11004,13 +11021,13 @@
         "notificationToolTip": "Le notifiche sono impostate per le prenotazioni relative a questa struttura",
         "list": {
             "section": {
-                "archived": "Struttura archiviata"
+                "archived": "Stabilimento archiviato"
             }
         },
         "spotScheduling": {
             "delete": {
                 "title": "Elimina programmazione dei posti",
-                "content": "Sei sicuro di voler cancellare questo piano di salla ? Questa operazione è irreversibile."
+                "content": "Sei sicuro di voler eliminare questa programmazione dei posti ? Questa operazione è irreversibile."
             },
             "add": "Aggiungi una programmazione dei posti",
             "subtitle": "Utilizzato per il spot scheduling. Permette ai tuoi studenti di prenotare il posto desiderato nella salla.",
@@ -11041,15 +11058,15 @@
                 "associated_localizations": "Stabilimenti associati",
                 "dialog": {
                     "title": "Posizione",
-                    "cancel": "Cancellare",
+                    "cancel": "Cancella",
                     "save": "Registrare"
                 }
             },
             "modal": {
                 "delete": {
-                    "title": "Cancellare una posizione",
-                    "content": "Questa posizione non apparirà più nei filtri disponibili nel marketplace, nel widget e nell'applicazione personalizzata.",
-                    "cancel": "Cancellare",
+                    "title": "Elimina uno stabilimento",
+                    "content": "Questo stabilimento non apparirà più nei filtri disponibili nel marketplace, nel widget e nell'applicazione personalizzata.",
+                    "cancel": "Cancella",
                     "confirm": "Eliminare"
                 }
             },
@@ -11067,9 +11084,9 @@
             },
             "modal": {
                 "delete": {
-                    "confirm": "Cancellare",
+                    "confirm": "Cancella",
                     "cancel": "Cancella",
-                    "content": "Vuoi cancellare questo gruppo di fatturazione? La cancellazione di questo gruppo sarà retroattiva, non apparirà più nei rapporti associati.",
+                    "content": "Vuoi eliminare questo gruppo di fatturazione? La cancellazione di questo gruppo sarà retroattiva, non apparirà più nei rapporti associati.",
                     "title": "Eliminare un gruppo di fatturazione"
                 }
             },
@@ -11093,7 +11110,7 @@
         "favouriteLocation": "Posizione preferita",
         "notification": {
             "modal": {
-                "content": "Sei sicuro di voler cancellare questa notifica? Questa operazione è definitiva",
+                "content": "Sei sicuro di voler eliminare questa notifica? Questa operazione è definitiva",
                 "confirm": "Eliminare",
                 "cancel": "Cancella",
                 "title": "Cancellazione della notifica"
@@ -11550,7 +11567,7 @@
         },
         "modal": {
             "delete": {
-                "content": "Sei sicuro di voler cancellare questo workshop? Le sessioni e le prenotazioni non saranno interessate. Questa operazione è definitiva.",
+                "content": "Sei sicuro di voler eliminare questo workshop? Le sessioni e le prenotazioni non saranno interessate. Questa operazione è definitiva.",
                 "cancel": "Annulla",
                 "confirm": "Rimuovi",
                 "title": "Cancellazione del workshop"
@@ -11559,7 +11576,7 @@
         "forms": {
             "delete": {
                 "content": {
-                    "canDelete": "Sei sicuro di voler cancellare questo workshop? Le sessioni e le prenotazioni non saranno interessate. Questa operazione è definitiva.",
+                    "canDelete": "Sei sicuro di voler eliminare questo workshop? Le sessioni e le prenotazioni non saranno interessate. Questa operazione è definitiva.",
                     "cannotDelete": "Le sessioni sono pianificate per il futuro, verifica che vengano eliminate e non solo annullate."
                 },
                 "actions": {
@@ -11879,7 +11896,7 @@
                 "title": "Dettagli lista d'attesa"
             },
             "empty": "Nessuna inscrizione nella lista d'attesa",
-            "delete": "Cancellare",
+            "delete": "Elimina",
             "addToBook": "Registrare",
             "listTitle": "Lista d'attesa"
         }
@@ -11922,7 +11939,7 @@
             },
             "noDescription": "Nessuna descrizione",
             "form": {
-                "title": "Articolo del negozio"
+                "title": "Articolo dello shop"
             }
         },
         "link": {
@@ -11931,7 +11948,7 @@
         },
         "dialog": {
             "delete": {
-                "explain": "Sei sicuro di voler eliminare questo articolo dal negozio? Questa operazione è irreversibile, non avrai più accesso alla cronologia dell'inventario.",
+                "explain": "Sei sicuro di voler eliminare questo articolo dallo shop? Questa operazione è irreversibile, non avrai più accesso alla cronologia dell'inventario.",
                 "title": "Rimuovi {{shopitem.name}}",
                 "cancel": "Annulla",
                 "confirm": "Rimuovi",
@@ -11940,7 +11957,7 @@
         },
         "search": "Cerca un prodotto",
         "select": {
-            "placeholder": "Articolo in negozio"
+            "placeholder": "Articolo dello shop"
         }
     },
     "paymentRules": {
@@ -12115,9 +12132,9 @@
             "modal": {
                 "delete": {
                     "content": "Eliminando questo gruppo, esso sarà dissociato da tutti gli insegnanti ai quali è attualmente assegnato",
-                    "confirm": "Confermare",
-                    "cancel": "Cancellare",
-                    "title": "Cancellare un gruppo"
+                    "confirm": "Conferma",
+                    "cancel": "Cancella",
+                    "title": "Elimina un gruppo"
                 }
             }
         },
@@ -12224,7 +12241,7 @@
             "videoList": "Videoteca"
         },
         "settings": "Impostazioni",
-        "shop": "Il mio negozio",
+        "shop": "Il mio shop",
         "offerManagement": "Prenotazioni",
         "offerFormPage": "Creazione della sessione",
         "searchResults": "Ricerca",
@@ -12257,7 +12274,7 @@
         "marketplace": {
             "marketplaceWorkshop": "Workshop",
             "marketplacePass": "Pass",
-            "marketplaceShop": "Negozio",
+            "marketplaceShop": "Shop",
             "marketplaceCalendar": "Calendario",
             "marketplaceGiftcard": "Gift card"
         },
@@ -12293,7 +12310,8 @@
             "performance": "Remunerazione",
             "replacement": "Sostituzione"
         },
-        "replacement": "Sostituzione"
+        "replacement": "Sostituzione",
+        "inbox": "Inbox"
     },
     "dashboard": {
         "thisWeek": "Questa settimana",
@@ -13194,7 +13212,7 @@
             "editSimilarOffersGroup": "Modificare la seduta nelle future ricorrenze del gruppo?"
         },
         "close": "Chiudi",
-        "deleteImpossibleText": "Non puoi cancellare questa sessione perché ha delle prenotazioni in corso.",
+        "deleteImpossibleText": "Non puoi eliminare questa sessione perché ha delle prenotazioni in corso.",
         "deleteImpossibleTitle": "Impossibile eliminare la sessione",
         "restoreOffer": "Ripristinare la sessione",
         "maximumNumberDescription": "Il numero massimo di prenotazioni {{effectif}} è già stato raggiunto e iscrivendo questo membro si supera il numero massimo di prenotazioni. Sei sicuro di voler registrare questo membro?",
@@ -13202,7 +13220,7 @@
         "warningOfferFull": "Il numero massimo di prenotazioni è già stato raggiunto",
         "levels": {
             "edit": "Modifica",
-            "delete": "Cancellare",
+            "delete": "Cancella",
             "customs": "Personalizzato",
             "select": {
                 "placeholder": "Livello",
@@ -13489,7 +13507,7 @@
             },
             "role": {
                 "delete": {
-                    "confirm": "Cancellare",
+                    "confirm": "Conferma",
                     "cancel": "Cancella",
                     "content": "Sei sicuro di voler rimuovere questo ruolo?",
                     "title": "Cancellazione del ruolo"
@@ -13979,6 +13997,899 @@
                     "_label": "Attività"
                 },
                 "_label": "Gestione sessioni"
+            },
+            "export": {
+                "_label": "Esporta",
+                "allowed_actions": {
+                    "planning": {
+                        "_label": "Esporta il calendario"
+                    },
+                    "invoice": {
+                        "_label": "Esporta le fatture"
+                    },
+                    "subscription": {
+                        "_label": "Esporta gli abbonamenti"
+                    },
+                    "attendance": {
+                        "_label": "Esporta le presenze/assenze"
+                    },
+                    "report": {
+                        "_label": "Esporta i report"
+                    },
+                    "payroll": {
+                        "_label": "Esportare la retribuzione degli insegnanti"
+                    },
+                    "smartlist": {
+                        "_label": "Esporta le smartlist"
+                    },
+                    "memberDocument": {
+                        "_label": "Esportare i documenti dei membri"
+                    }
+                }
+            },
+            "report": {
+                "_label": "Report",
+                "Payments": {
+                    "cashbook": {
+                        "allowed_actions": {
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        },
+                        "_label": "Libro cassa"
+                    },
+                    "_label": "Pagamenti",
+                    "basket": {
+                        "_label": "Carrello",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        }
+                    },
+                    "credit": {
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        },
+                        "_label": "Credito"
+                    },
+                    "expense": {
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        },
+                        "_label": "Spese"
+                    },
+                    "invoices": {
+                        "_label": "Acquisti",
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        }
+                    },
+                    "payments": {
+                        "allowed_actions": {
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            }
+                        },
+                        "_label": "Pagamenti"
+                    },
+                    "payment_sumup": {
+                        "_label": "Pagamenti totali",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        }
+                    },
+                    "on_spot_payments": {
+                        "_label": "Pagamenti in loco",
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            }
+                        }
+                    },
+                    "dispute": {
+                        "_label": "Controversia sul pagamento",
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            }
+                        }
+                    },
+                    "payment_installments": {
+                        "_label": "Pagamenti a rate",
+                        "allowed_actions": {
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        }
+                    },
+                    "video_purchase": {
+                        "_label": "Acquisto video",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        }
+                    },
+                    "unpaid_invoices": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            }
+                        },
+                        "_label": "Fatture non pagate"
+                    }
+                },
+                "Club": {
+                    "offers": {
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        },
+                        "_label": "Sessioni"
+                    },
+                    "_label": "Studio",
+                    "billing_plan": {
+                        "_label": "Abbonamento",
+                        "allowed_actions": {
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            }
+                        }
+                    },
+                    "members_purchase": {
+                        "_label": "Acquisti dei membri",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        }
+                    },
+                    "members": {
+                        "_label": "Membri",
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            }
+                        }
+                    },
+                    "activities": {
+                        "allowed_actions": {
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            }
+                        },
+                        "_label": "Attività"
+                    },
+                    "activityByEst": {
+                        "_label": "Attività e workshop per stabilimento",
+                        "allowed_actions": {
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            }
+                        }
+                    },
+                    "activityByCoach": {
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        },
+                        "_label": "Attività e laboratori per insegnante"
+                    },
+                    "workshop": {
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            }
+                        },
+                        "_label": "Workshop"
+                    },
+                    "subscription": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            }
+                        },
+                        "_label": "Fatture relative all'abbonamento"
+                    },
+                    "privateService": {
+                        "_label": "Appuntamenti",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        }
+                    }
+                },
+                "Bookings": {
+                    "dayBookings": {
+                        "_label": "Prenotazioni (lezioni di gruppo) al giorno",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        }
+                    },
+                    "first_booking": {
+                        "allowed_actions": {
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        },
+                        "_label": "Prima sessione (di gruppo)"
+                    },
+                    "bookings": {
+                        "_label": "Prenotazioni (lezioni di gruppo)",
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            }
+                        }
+                    },
+                    "first_attendance": {
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            }
+                        },
+                        "_label": "Prima presenza (gruppo)"
+                    },
+                    "first_privatebooking": {
+                        "_label": "Primo appuntamento",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            }
+                        }
+                    },
+                    "unpaid_private_bookings": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            }
+                        },
+                        "_label": "Prenotazione non pagata (appuntamenti)"
+                    },
+                    "_label": "Prenotazioni",
+                    "private_bookings": {
+                        "_label": "Prenotazioni (appuntamenti)",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            }
+                        }
+                    }
+                },
+                "Products": {
+                    "_label": "Prodotti",
+                    "private_cpasses_expired": {
+                        "_label": "Crediti per appuntamenti scaduti",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            }
+                        }
+                    },
+                    "expired_pass": {
+                        "_label": "Crediti del pass scaduti",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        }
+                    },
+                    "memberships": {
+                        "_label": "Pass",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        }
+                    },
+                    "private_cpasses": {
+                        "_label": "Pass per appuntamenti",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        }
+                    },
+                    "universal_passes": {
+                        "allowed_actions": {
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            }
+                        },
+                        "_label": "Pass Universali"
+                    },
+                    "discount": {
+                        "_label": "Promozioni",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            }
+                        }
+                    },
+                    "video": {
+                        "_label": "Video",
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            }
+                        }
+                    },
+                    "shop": {
+                        "allowed_actions": {
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            }
+                        },
+                        "_label": "Shop"
+                    },
+                    "giftcard": {
+                        "_label": "Gift card",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        }
+                    },
+                    "consumer_giftcard": {
+                        "_label": "Gift card acquistate",
+                        "allowed_actions": {
+                            "create": {
+                                "_label": "Crea"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            }
+                        }
+                    }
+                }
+            },
+            "planning": {
+                "_label": "Calendario e disponibilità",
+                "calendar": {
+                    "_label": "Calendario",
+                    "allowed_actions": {
+                        "bulkCancellation": {
+                            "_label": "Annulla di più sessioni"
+                        },
+                        "readCancellations": {
+                            "_label": "Vedi le sessioni annulate"
+                        },
+                        "readWeeklyOverview": {
+                            "_label": "Vedi la panoramica di questa settimana"
+                        }
+                    }
+                },
+                "schedule": {
+                    "_label": "Disponibilità",
+                    "allowed_actions": {
+                        "createAvailability": {
+                            "_label": "Vedi le disponibilità"
+                        },
+                        "deleteAvailability": {
+                            "_label": "Elimina disponibilità"
+                        },
+                        "readAvailabilityDetail": {
+                            "_label": "Vedi i dettagli delle disponibilità"
+                        }
+                    }
+                }
+            },
+            "product": {
+                "paymentPack": {
+                    "allowed_actions": {
+                        "manageCredit": {
+                            "_label": "Gestione dei crediti del membro"
+                        },
+                        "compatibility": {
+                            "_label": "Gestione delle compatibilità"
+                        },
+                        "create": {
+                            "_label": "Crea"
+                        },
+                        "edit": {
+                            "_label": "Modifica"
+                        },
+                        "delete": {
+                            "_label": "Elimina"
+                        },
+                        "manageExtension": {
+                            "_label": "Aggiungi un'estensione di validità"
+                        }
+                    },
+                    "_label": "Pass"
+                },
+                "privatePass": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Elimina"
+                        },
+                        "manageExtension": {
+                            "_label": "Aggiungi estensioni di validità"
+                        },
+                        "create": {
+                            "_label": "Crea"
+                        },
+                        "edit": {
+                            "_label": "Modifica"
+                        },
+                        "manageCredit": {
+                            "_label": "Gestione dei crediti dei membri"
+                        },
+                        "compatibility": {
+                            "_label": "Gestione delle compatibilità"
+                        }
+                    },
+                    "_label": "Pass per appuntamenti"
+                },
+                "contract": {
+                    "allowed_actions": {
+                        "pause": {
+                            "_label": "Mettere in pausa gli abbonamenti"
+                        },
+                        "createBillingPlan": {
+                            "_label": "Sottoscrivere un abbonamento per un membro"
+                        },
+                        "edit": {
+                            "_label": "Modificare un abbonamento"
+                        },
+                        "delete": {
+                            "_label": "Eliminare un abbonamento"
+                        },
+                        "pauseBillingPlan": {
+                            "_label": "Mettere in pausa un abbonamento"
+                        },
+                        "create": {
+                            "_label": "Creare un abbonamento"
+                        },
+                        "createCustomBillingPlan": {
+                            "_label": "Creare un abbonamento personalizzato"
+                        },
+                        "endBillingPlan": {
+                            "_label": "Terminare un abbonamento"
+                        },
+                        "editPassBillingPlan": {
+                            "_label": "Modificare i pass di un abbonamento"
+                        },
+                        "editInvoiceDateBillingPlan": {
+                            "_label": "Modificare i dati di fatturazione"
+                        },
+                        "editInvoicePriceBillingPlan": {
+                            "_label": "Modificare gli importi di fatturazione"
+                        },
+                        "endAfterInvoiceBillingPlan": {
+                            "_label": "Programmare il termine"
+                        }
+                    },
+                    "_label": "Abbonamenti"
+                },
+                "_label": "Gestione dei prodotti"
+            },
+            "management": {
+                "activity": {
+                    "_label": "Gestione delle attività",
+                    "allowed_actions": {
+                        "create": {
+                            "_label": "Crea"
+                        },
+                        "edit": {
+                            "_label": "Modifica"
+                        },
+                        "delete": {
+                            "_label": "Elimina"
+                        }
+                    }
+                },
+                "coach": {
+                    "_label": "Gestione degli insegnanti",
+                    "allowed_actions": {
+                        "create": {
+                            "_label": "Crea"
+                        },
+                        "readPayroll": {
+                            "_label": "Vedi la retribuzione"
+                        },
+                        "edit": {
+                            "_label": "Modifica"
+                        },
+                        "delete": {
+                            "_label": "Elimina"
+                        },
+                        "substitution": {
+                            "_label": "Gestione delle sostituzioni"
+                        }
+                    }
+                },
+                "_label": "Gestione dello studio",
+                "workshop": {
+                    "_label": "Gestione dei workshop",
+                    "allowed_actions": {
+                        "create": {
+                            "_label": "Crea"
+                        },
+                        "edit": {
+                            "_label": "Modifica"
+                        },
+                        "delete": {
+                            "_label": "Elimina"
+                        }
+                    }
+                },
+                "privateService": {
+                    "_label": "Gestione degli appuntamenti",
+                    "allowed_actions": {
+                        "create": {
+                            "_label": "Crea"
+                        },
+                        "edit": {
+                            "_label": "Modifica"
+                        },
+                        "delete": {
+                            "_label": "Elimina"
+                        }
+                    }
+                }
             }
         }
     },
@@ -14121,7 +15032,11 @@
                 "paymentPackOffPeakRestrictionModal": "Popup di restrizione dell'orario (pass)",
                 "contractNotFound": "Avviso di abbonamento non trovato",
                 "contractPayment": "Modulo di pagamento per l'abbonamento",
-                "collectPaymentMethod": "Aggiungere un metodo di pagamento"
+                "collectPaymentMethod": "Aggiungere un metodo di pagamento",
+                "search": "Filtri di ricerca",
+                "calendarFilters": "Filtri calendario (solo layout)",
+                "calendarWeekTimeTable": "Intestazione del calendario",
+                "select": "Selettore"
             },
             "cssConfig": {
                 "title": {
@@ -14135,7 +15050,14 @@
                     "nextOffer": "Prossima sessione disponibile",
                     "isExcludingTax": "Tasse escluse",
                     "isContractLegalTermsAccepted": "Termini e condizioni dell'abbonamento accettati",
-                    "paymentMethodType": "Metodo di pagamento"
+                    "paymentMethodType": "Metodo di pagamento",
+                    "showDate": "Mostra la data",
+                    "withoutBookButton": "Nascondi il pulsante di prenotazione",
+                    "disablePast": "Disattivare le date passate",
+                    "isInputButton": "Versione compatta",
+                    "version": "Versione",
+                    "hideCoach": "Nascondere il filtro insegnante",
+                    "isWorkshop": "È un workshop"
                 },
                 "option": {
                     "false": "No",
@@ -14154,7 +15076,13 @@
                     "card": "Pass",
                     "sepa_debit": "Addebito diretto SEPA",
                     "bacs_debit": "Bacs Direct debit",
-                    "sepa": "Addebito diretto SEPA"
+                    "sepa": "Addebito diretto SEPA",
+                    "level": "Del livello",
+                    "establishment": "Dello stabilimento",
+                    "activity": "Filtri attività",
+                    "workshop": "Filtri workshop",
+                    "passTypeFilter": "FIltri pass",
+                    "subscriptionCountrySelect": "Selettore del paese"
                 },
                 "configurationTitle": "Variazioni"
             },
@@ -14162,7 +15090,8 @@
                 "workshop": "Workshop",
                 "calendar": "Calendario",
                 "subscription": "Abbonamenti",
-                "pass": "Pass"
+                "pass": "Pass",
+                "common": "Comune"
             }
         },
         "create": "Generale",
@@ -14283,7 +15212,7 @@
             "selectNotificationRules": "Selezionare una regola per vedere i dettagli",
             "createNotification": "Formulario di notifiche",
             "next": "Seguente",
-            "cancel": "Cancellare",
+            "cancel": "Cancella",
             "editRule": "Modificare la regola",
             "deleteDialogTitle": "Rimuovere la regola",
             "removeRule": "Rimuovere la regola",
@@ -14319,8 +15248,8 @@
                 "delete": {
                     "content": "Archiviando questo form sarà messo nei tuoi form archiviati e non sarà più accessibile ai tuoi membri.",
                     "title": "Archiviare un form",
-                    "cancel": "Cancellare",
-                    "confirm": "Confirmare"
+                    "cancel": "Cancella",
+                    "confirm": "Conferma"
                 }
             },
             "field": {
@@ -14374,21 +15303,21 @@
                         "addSignature": "Aggiungere una firma",
                         "addSignatureHelper": "Puoi disegnare la tua firma qui sotto",
                         "editSignature": "Modifica della firma",
-                        "clear": "Cancellare la firma"
+                        "clear": "Cancella la firma"
                     },
                     "disable": {
-                        "cancel": "Cancellare",
-                        "confirm": "Confirmare",
+                        "cancel": "Cancella",
+                        "confirm": "Conferma",
                         "content": "Eliminando questo elemento sarà inserito negli elementi archiviati e non sarà visibile ai vostri membri.",
-                        "title": "Cancellare un elemento"
+                        "title": "Elimina un elemento"
                     },
                     "add": {
                         "title": "Elemento di forma",
                         "addField": "Aggiungere un ",
                         "select": "Seleziona un elemento",
                         "option": "Aggiungere un'opzione",
-                        "cancel": "Cancellare",
-                        "confirm": "Confirmare"
+                        "cancel": "Cancella",
+                        "confirm": "Conferma"
                     },
                     "error": {
                         "choicesLength": "Devi fare almeno 2 scelte",
@@ -14533,7 +15462,7 @@
             },
             "signUpInfoModal": {
                 "confirm": "Continua",
-                "cancel": "Cancellare",
+                "cancel": "Cancella",
                 "content": "Avete appena reso obbligatorie alcune delle domande del form di registrazione. Le domande obbligatorie sul form d'iscrizione devono essere modificabili dai tuoi membri sul loro profilo. Queste domande sono state quindi aggiunte automaticamente al form di modifica e sono visualizzate e modificabili. Vai al form di modifica per personalizzarlo.",
                 "title": "Informazioni"
             },
@@ -14687,7 +15616,7 @@
                     "cancelOnGoingCreation": "Annulla creazione",
                     "edgeLabelForNodeCreation": "In creazione",
                     "addElement": "Aggiungi un trigger",
-                    "deleteTrigger": "Cancellare l'attivazione"
+                    "deleteTrigger": "Eliminare l'attivazione"
                 },
                 "tools": {
                     "showDisabledTriggers": "Mostra trigger disattivati",
@@ -14821,8 +15750,8 @@
         "roomBlueprintSelectorTitle": "Scegliere una mappa",
         "spotSelectorDialog": {
             "takeSpotError": "Il posto che hai selezionato per questo corso non è più disponibile. Si prega di selezionarne uno nuovo.",
-            "submit": "Confermare",
-            "cancel": "Cancellare",
+            "submit": "Conferma",
+            "cancel": "Cancella",
             "spot": "Posto {{count}}",
             "title": "Scegliere un posto",
             "book": "Prenota il posto {{prefix}}{{indexType}}",
@@ -14838,8 +15767,8 @@
         },
         "spotImageDialog": {
             "actions": {
-                "submit": "Confermare",
-                "cancel": "Cancellare"
+                "submit": "Conferma",
+                "cancel": "Cancella"
             },
             "imageFormat": "Formato consigliato: .png, .jpg",
             "taken": "Riservato",
@@ -14917,7 +15846,7 @@
             "delete": {
                 "title": "Elimina",
                 "content": {
-                    "canDelete": "Sei sicuro di voler cancellare questo spot? Questa azione è irreversibile. Verrà rimosso e sostituito con lo spot predefinito su questo piano e su tutti gli altri a cui è stato aggiunto."
+                    "canDelete": "Sei sicuro di voler eliminare questo posto? Questa azione è irreversibile. Verrà rimosso e sostituito con il posto predefinito su questo piano e su tutti gli altri a cui è stato aggiunto."
                 },
                 "actions": {
                     "cancel": "Annulla",
@@ -15095,8 +16024,8 @@
                 },
                 "title": "Gift card",
                 "actions": {
-                    "submit": "Convalidare",
-                    "cancel": "Chiudere"
+                    "submit": "Convalida",
+                    "cancel": "Chiudi"
                 }
             },
             "canNotUpdateBecauseShared": "Questa gift card è condivisa dall'account franchisor. È stata definita dall'account franchisor e non può essere modificata."
@@ -15105,10 +16034,10 @@
             "delete": {
                 "dialog": {
                     "actions": {
-                        "close": "Chiudere",
-                        "delete": "Cancellare"
+                        "close": "Chiudi",
+                        "delete": "Elimina"
                     },
-                    "content": "Sei sicuro di voler cancellare questa scheda? I membri che hanno già acquistato la carta potranno ancora utilizzarla.",
+                    "content": "Sei sicuro di voler eliminare questa gift card? I membri che la hanno già acquistata potranno ancora utilizzarla.",
                     "title": "Cancellazione"
                 }
             },
@@ -15128,7 +16057,7 @@
                 "footer": "La carta sarà inviata via email il {{- date_send }} alle {{- hour_send }} agli indirizzi indicati. Sarà valido per {{ expiration_days }} giorni dopo l'invio dell'email. L'account del destinatario sarà accreditato con {{- price }} per gli acquisti futuri.",
                 "actions": {
                     "submit": "Aggiungi al carrello",
-                    "cancel": "Cancellare"
+                    "cancel": "Cancella"
                 },
                 "date_send": {
                     "label": "Data di invio dell'e-mail"
@@ -15187,10 +16116,10 @@
                 "activate": "Attivare la mia gift card",
                 "content3": "Se non hai effettuato l'accesso all'account corretto, effettua il logout per accedere all'account corretto. Se questa gift card non è per te, per favore non riscattarla.",
                 "content2": "Sarà automaticamente aggiunto come metodo di pagamento al suo carrello. Puoi trovare tutte le informazioni sulla tua gift card sul tuo profilo.",
-                "content1": "La tua gift card del valore di {{price}} è compatibile con tutti i prodotti del nostro negozio. Questa card non ha una data di scadenza, buon divertimento!",
+                "content1": "La tua gift card del valore di {{price}} è compatibile con tutti i prodotti del nostro shop. Questa card non ha una data di scadenza, buon divertimento!",
                 "subtitle": "Sembra che qualcuno ti abbia fatto una sorpresa.",
                 "title": "Qualcuno ha voluto farti qualcosa di carino!",
-                "content1withDate": "La tua gift card {{price}} è compatibile con tutti i prodotti del nostro negozio. Questa card scade {{ expiration_days }} giorni dopo l'attivazione, quindi fatti un regalo!"
+                "content1withDate": "La tua gift card {{price}} è compatibile con tutti i prodotti del nostro shop. Questa card scade {{ expiration_days }} giorni dopo l'attivazione, quindi fatti un regalo!"
             }
         },
         "list": {
@@ -15209,8 +16138,8 @@
             "validity": "Valido {{ duration }} giorni"
         },
         "delete": {
-            "submit": "Confermare",
-            "cancel": "cancellare",
+            "submit": "Conferma",
+            "cancel": "Cancella",
             "content": "Vuoi davvero archiviare questa gift card? Non sarà più fatturabile tramite il back office. Puoi riattivarla più tardi.",
             "title": "Archiviare la gift card"
         },
@@ -15263,15 +16192,15 @@
             "default": "Programma predefinito",
             "selectProgram": "Selezionare un programma",
             "detail": "Dettagli del programma",
-            "deleteHeader": "Vuoi davvero cancellare questo programma?",
+            "deleteHeader": "Vuoi davvero eliminare questo programma?",
             "infoNoProgram": "Aggiungi un programma per i tuoi membri per tracciare le loro metriche",
             "archived": "Archiviato",
             "title": "Programmi",
             "form": {
                 "addProgram": "aggiungere un programma",
-                "delete": "cancellare il programma",
-                "modify": "modificare il programma",
-                "create": "Creare un programma",
+                "delete": "elimina il programma",
+                "modify": "modifica il programma",
+                "create": "Crea un programma",
                 "generalInfo": "Informazioni generali",
                 "name": "Nome del programma",
                 "description": "Descrizione",
@@ -15308,9 +16237,9 @@
             "save": "Registra",
             "validate": "Convalidare",
             "search": "Cerca",
-            "delete": "Cancellare",
-            "add": "aggiungere",
-            "close": "chiudere"
+            "delete": "Elimina",
+            "add": "aggiungi",
+            "close": "chiudi"
         },
         "metric": {
             "deleteHeader": "Vuoi davvero rimuovere questa metrica?",
@@ -15453,11 +16382,11 @@
             "no": "non"
         },
         "dialogDeleteExpense": {
-            "all": "Cancellare tutte le spese simili (passate e future)",
+            "all": "Elimina tutte le spese simili (passate e future)",
             "confirm": "Rimuoverai permanentemente la spesa {{amount}} dalla {{date_due}}.",
-            "delete": "Cancellare",
-            "current": "Cancellare solo questa spesa",
-            "future": "Eliminare questa e simili spese future",
+            "delete": "Cancella",
+            "current": "Elimina solo questa spesa",
+            "future": "Elimina questa e simili spese future",
             "cancel": "Cancella",
             "warning": "Sei sicuro di voler tagliare questa spesa?"
         },
@@ -15477,8 +16406,8 @@
     },
     "instalmentPayment": {
         "detail": {
-            "shopItemAvailable": "{{length}} prodotti negozio compatibili",
-            "shopItemAvailable_plural": "{{length}} prodotti compatibili con il negozio",
+            "shopItemAvailable": "{{length}} prodotto dello shop compatibile",
+            "shopItemAvailable_plural": "{{length}} prodotti dello shop compatibili",
             "noConfiguration": "Seleziona una configurazione per vedere i suoi dettagli",
             "title": "Dettagli della configurazione",
             "giftcard": "Gift card",
@@ -15507,7 +16436,7 @@
             "giftcardAvailableForALl": "Tutte le gift card compatibili",
             "giftcardAvailable": "{{length}} gift card compatibile",
             "giftcardAvailable_plural": "{{length}} gift card compatibili",
-            "shopItemAvailableForALl": "Tutti i prodotti del negozio compatibili",
+            "shopItemAvailableForALl": "Tutti i prodotti dello shop compatibili",
             "onlyWhenAllAvailable": "Offerto solo quando tutti gli articoli nel carrello sono compatibili",
             "whenOneAvailable": "Proposto non appena un oggetto nel cestino è compatibile",
             "noCompability": "Il tuo pagamento a rate non è compatibile"
@@ -15543,7 +16472,7 @@
         },
         "close": "Chiudere",
         "modify": "Modifica",
-        "delete": "Cancellare",
+        "delete": "Elimina",
         "menu": {
             "secondary": {
                 "allMasculine": "Tutti i {{frequency}} ",
@@ -15609,8 +16538,8 @@
                 "allPrivateBooking": "Compatibile con tutti i pass per appuntamenti",
                 "combo": "Pacchetto",
                 "allCombo": "Compatibile con tutte le confezioni",
-                "shopItem": "Prodotti nel negozio",
-                "allShopItem": "Compatibile con tutti i prodotti del negozio",
+                "shopItem": "Prodotti nello shop",
+                "allShopItem": "Compatibile con tutti i prodotti dello shop",
                 "giftcard": "Gift card",
                 "allGiftcard": "Compatibile con tutte le gift card"
             },
@@ -15656,14 +16585,14 @@
                 "cancel": "Cancella"
             },
             "popover": {
-                "delete": "Cancellare",
-                "edit": "Rinominare"
+                "delete": "Cancella",
+                "edit": "Rinomina"
             },
             "deleteModal": {
                 "title": "Cancellazione",
                 "cancel": "Cancella",
                 "confirm": "Confermare",
-                "content": "Sei sicuro di voler cancellare questa categoria? Tutti gli articoli che contiene saranno messi nella sezione senza categoria"
+                "content": "Sei sicuro di voler eliminare questa categoria? Tutti gli articoli che contiene saranno messi nella sezione senza categoria"
             },
             "add": "Aggiungere una categoria",
             "empty": "Questa categoria è vuota",
@@ -15691,7 +16620,7 @@
         },
         "modal": {
             "delete": {
-                "content": "Attenzione, sei sicuro di voler cancellare la fascia oraria per questo personale? Questa operazione è irreversibile.",
+                "content": "Attenzione, sei sicuro di voler eliminare la fascia oraria per questo personale? Questa operazione è irreversibile.",
                 "title": "Cancellazione"
             }
         },

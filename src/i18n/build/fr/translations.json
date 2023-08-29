@@ -6995,6 +6995,15 @@
                         }
                     }
                 }
+            },
+            "product": {
+                "contract": {
+                    "allowed_actions": {
+                        "createBillingPlan": {
+                            "_label": "Souscrire un contrat pour un membre"
+                        }
+                    }
+                }
             }
         }
     },

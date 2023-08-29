@@ -5620,10 +5620,10 @@
                                 "_label": "Create"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             }
                         },
                         "_label": "Activities and workshops by establishment"
@@ -5698,89 +5698,89 @@
                     },
                     "_label": "Studio",
                     "activityByCoach": {
-                        "_label": "",
+                        "_label": "Activities and workshops by teacher",
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             }
                         }
                     },
                     "privateService": {
                         "allowed_actions": {
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             }
                         },
-                        "_label": ""
+                        "_label": "Appointments"
                     },
                     "workshop": {
                         "allowed_actions": {
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             }
                         },
-                        "_label": ""
+                        "_label": "Workshop"
                     },
                     "offers": {
-                        "_label": "",
+                        "_label": "Sessions",
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             }
                         }
                     },
                     "subscription": {
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             }
                         },
-                        "_label": ""
+                        "_label": "Subscription invoices"
                     }
                 },
                 "Payments": {
@@ -5992,174 +5992,174 @@
                 },
                 "_label": "Reports",
                 "Products": {
-                    "_label": "",
+                    "_label": "Products",
                     "private_cpasses_expired": {
                         "allowed_actions": {
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             }
                         },
-                        "_label": ""
+                        "_label": "Expired appointment credits"
                     },
                     "private_cpasses": {
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             }
                         },
-                        "_label": ""
+                        "_label": "Appointment passes"
                     },
                     "universal_passes": {
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             }
                         },
-                        "_label": ""
+                        "_label": "Universal passes"
                     },
                     "giftcard": {
                         "allowed_actions": {
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             }
                         },
-                        "_label": ""
+                        "_label": "Giftcard"
                     },
                     "expired_pass": {
                         "allowed_actions": {
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             }
                         },
-                        "_label": ""
+                        "_label": "Expired passes credits"
                     },
                     "consumer_giftcard": {
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             }
                         },
-                        "_label": ""
+                        "_label": "Purchased giftcards"
                     },
                     "memberships": {
                         "allowed_actions": {
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             }
                         },
-                        "_label": ""
+                        "_label": "Passes"
                     },
                     "discount": {
-                        "_label": "",
+                        "_label": "Discounts",
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             }
                         }
                     },
                     "shop": {
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             }
                         },
-                        "_label": ""
+                        "_label": "Shop"
                     },
                     "video": {
-                        "_label": "",
+                        "_label": "Video",
                         "allowed_actions": {
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             }
                         }
                     }
@@ -6168,122 +6168,122 @@
                     "first_booking": {
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             }
                         },
-                        "_label": ""
+                        "_label": "First (collective) session"
                     },
                     "bookings": {
                         "allowed_actions": {
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             }
                         },
-                        "_label": ""
+                        "_label": "Bookings (group sessions)"
                     },
-                    "_label": "",
+                    "_label": "Bookings",
                     "dayBookings": {
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             }
                         },
-                        "_label": ""
+                        "_label": "Bookings (group sessions) per day"
                     },
                     "first_attendance": {
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             }
                         },
-                        "_label": ""
+                        "_label": "First attendance (collective)"
                     },
                     "first_privatebooking": {
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             }
                         },
-                        "_label": ""
+                        "_label": "First appointment"
                     },
                     "private_bookings": {
-                        "_label": "",
+                        "_label": "Bookings (appointments)",
                         "allowed_actions": {
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             },
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             }
                         }
                     },
                     "unpaid_private_bookings": {
                         "allowed_actions": {
                             "create": {
-                                "_label": ""
+                                "_label": "Create"
                             },
                             "read": {
-                                "_label": ""
+                                "_label": "See"
                             },
                             "delete": {
-                                "_label": ""
+                                "_label": "Delete"
                             },
                             "edit": {
-                                "_label": ""
+                                "_label": "Edit"
                             }
                         },
-                        "_label": ""
+                        "_label": "Unpaid bookings (appointments)"
                     }
                 }
             },
@@ -6349,43 +6349,158 @@
             },
             "product": {
                 "paymentPack": {
-                    "_label": "",
+                    "_label": "Passes",
                     "allowed_actions": {
                         "delete": {
-                            "_label": ""
+                            "_label": "Delete"
                         },
                         "create": {
-                            "_label": ""
+                            "_label": "Create"
                         },
                         "edit": {
-                            "_label": ""
+                            "_label": "Edit"
                         },
                         "manageExtension": {
-                            "_label": ""
+                            "_label": "Add validity extensions"
                         },
                         "manageCredit": {
-                            "_label": ""
+                            "_label": "Manage member credits"
                         },
                         "compatibility": {
-                            "_label": ""
+                            "_label": "Manage compatibilities"
                         }
                     }
                 },
                 "privatePass": {
                     "allowed_actions": {
                         "create": {
-                            "_label": ""
+                            "_label": "Create"
                         },
                         "edit": {
-                            "_label": ""
+                            "_label": "Edit"
                         },
                         "delete": {
-                            "_label": ""
+                            "_label": "Delete"
+                        },
+                        "manageExtension": {
+                            "_label": "Add validity extensions"
+                        },
+                        "manageCredit": {
+                            "_label": "Manage members' credits"
+                        },
+                        "compatibility": {
+                            "_label": "Managing compatibilities"
                         }
                     },
-                    "_label": ""
+                    "_label": "Appointments passes"
                 },
-                "_label": ""
+                "_label": "Product management",
+                "contract": {
+                    "allowed_actions": {
+                        "createBillingPlan": {
+                            "_label": "Subscribe a contract for a member"
+                        },
+                        "pause": {
+                            "_label": "Pause all contract subscriptions"
+                        },
+                        "endBillingPlan": {
+                            "_label": "End a subscription"
+                        },
+                        "editInvoiceDateBillingPlan": {
+                            "_label": "Edit invoice dates"
+                        },
+                        "endAfterInvoiceBillingPlan": {
+                            "_label": "Program the finalization"
+                        },
+                        "createCustomBillingPlan": {
+                            "_label": "Create a personalized subscription"
+                        },
+                        "editPassBillingPlan": {
+                            "_label": "Modify the cards of a subscription"
+                        },
+                        "create": {
+                            "_label": "Create a contract"
+                        },
+                        "edit": {
+                            "_label": "Edit a contract"
+                        },
+                        "delete": {
+                            "_label": "Delete a contract"
+                        },
+                        "pauseBillingPlan": {
+                            "_label": "Pause a subscription"
+                        },
+                        "editInvoicePriceBillingPlan": {
+                            "_label": "Edit invoice amounts"
+                        }
+                    },
+                    "_label": "Subscriptions"
+                }
+            },
+            "management": {
+                "activity": {
+                    "allowed_actions": {
+                        "edit": {
+                            "_label": "Edit"
+                        },
+                        "create": {
+                            "_label": "Create"
+                        },
+                        "delete": {
+                            "_label": "Delete"
+                        }
+                    },
+                    "_label": "Activities management"
+                },
+                "workshop": {
+                    "allowed_actions": {
+                        "create": {
+                            "_label": "Create"
+                        },
+                        "delete": {
+                            "_label": "Delete"
+                        },
+                        "edit": {
+                            "_label": "Edit"
+                        }
+                    },
+                    "_label": "Workshop management"
+                },
+                "_label": "Studio management",
+                "privateService": {
+                    "allowed_actions": {
+                        "edit": {
+                            "_label": "Edit"
+                        },
+                        "create": {
+                            "_label": "Create"
+                        },
+                        "delete": {
+                            "_label": "Delete"
+                        }
+                    },
+                    "_label": "Appointment management"
+                },
+                "coach": {
+                    "allowed_actions": {
+                        "delete": {
+                            "_label": "Delete"
+                        },
+                        "create": {
+                            "_label": "Create"
+                        },
+                        "edit": {
+                            "_label": "Edit"
+                        },
+                        "readPayroll": {
+                            "_label": "See payroll"
+                        },
+                        "substitution": {
+                            "_label": "Subteacher management"
+                        }
+                    },
+                    "_label": "Teacher management"
+                }
             }
         }
     },
@@ -7928,8 +8043,9 @@
             "methodPaymentSubscription": "Recurring payments",
             "methodPaymentBasketHelper": "Select which payment method(s) you wish to enable for one time payments:",
             "methodPaymentBasket": "Single payments",
-            "methodPaymentCardBillingDetails": "Request billing information for credit card payments.",
-            "methodPaymentCardBillingDetailsHelper": "By enabling this feature, you will reduce the number of credit card payments requiring 3D Secure (SMS validation, banking apps, etc.). Please note that these fields will be mandatory."
+            "methodPaymentCardBillingDetails": "Request invoicing details for card payments.",
+            "methodPaymentCardBillingDetailsTitle": "Request full invoicing details",
+            "methodPaymentCardBillingDetailsHelper": "By activating this feature, you will reduce the number of card payments requiring 3D Secure (SMS validation, banking applications, etc.) Please note that these fields are compulsory."
         },
         "billing_group": {
             "header": "Billing group",
@@ -9586,6 +9702,10 @@
                 "month_billing_day": {
                     "label2": "of the month.",
                     "label1": "Invoice every"
+                },
+                "highlightedAsRecommended": {
+                    "label": "Mark as recommended",
+                    "helperText": "Allows your customers to quickly see which contracts are currently recommended."
                 }
             },
             "deleteForm": {
@@ -10694,7 +10814,8 @@
             "billing_plan_status": "Subscription status",
             "payment_method_with_credit_account": "Payment method",
             "private_pass_category": "Appointment pass category",
-            "payment_pack_category": "Pass category"
+            "payment_pack_category": "Pass category",
+            "coupon_type_excluding_referrals": "Type of promotion"
         },
         "presetValuesByIdentifier": {
             "gender": {
@@ -10864,6 +10985,7 @@
                 "Canceled",
                 "Cancelled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
@@ -14726,6 +14848,13 @@
             "createOrUpdate": {
                 "error": "Error when saving promotion",
                 "success": "Promotion saved"
+            },
+            "exportCodes": {
+                "success": "Vouchers were correctly exported",
+                "error": "Unable to export selected codes"
+            },
+            "errors": {
+                "5002": "You cannot mark as used a code that is not awaiting external validation"
             }
         },
         "paymentPack": {
@@ -15455,6 +15584,9 @@
                 "21001": "No room plan selected",
                 "21000": "The Spivi upsell is not activated."
             }
+        },
+        "smartlistGetMembers": {
+            "error": "An error has occurred: members cannot be retrieved"
         }
     },
     "navigation": {
@@ -16043,7 +16175,13 @@
                     "card": "Pass",
                     "sepa_debit": "SEPA direct debits",
                     "bacs_debit": "Bacs Direct debit",
-                    "sepa": "SEPA direct debits"
+                    "sepa": "SEPA direct debits",
+                    "establishment": "Of the establishment",
+                    "workshop": "Workshops filters",
+                    "activity": "Activity filters",
+                    "level": "Of the level",
+                    "passTypeFilter": "Passes filters",
+                    "subscriptionCountrySelect": "Country selector"
                 },
                 "title": {
                     "nextOffer": "Next session available",
@@ -16056,7 +16194,14 @@
                     "filterGroupOptions": "Grouped options",
                     "isExcludingTax": "Excluding tax",
                     "isContractLegalTermsAccepted": "Subscription legal information accepted",
-                    "paymentMethodType": "Payment method"
+                    "paymentMethodType": "Payment method",
+                    "disablePast": "Deactivate past dates",
+                    "withoutBookButton": "Hide the booking button",
+                    "isInputButton": "Compact version",
+                    "version": "Version",
+                    "hideCoach": "Hide the teacher filter",
+                    "isWorkshop": "Is a workshop",
+                    "showDate": "Display the date"
                 },
                 "configurationTitle": "Variations"
             },
@@ -16064,7 +16209,8 @@
                 "calendar": "Calendar",
                 "workshop": "Workshop",
                 "subscription": "Subscriptions",
-                "pass": "Passes"
+                "pass": "Passes",
+                "common": "Common"
             },
             "components": {
                 "calendar": "Calendar page",
@@ -16098,7 +16244,11 @@
                 "paymentPackOffPeakRestrictionModal": "Schedule restriction popup (pass)",
                 "contractNotFound": "Not found subscription warning",
                 "contractPayment": "Subscription payment module",
-                "collectPaymentMethod": "Add payment method"
+                "collectPaymentMethod": "Add payment method",
+                "select": "Selector",
+                "search": "Search filter",
+                "calendarFilters": "Calendar filters (layout only)",
+                "calendarWeekTimeTable": "Calendar header"
             },
             "customCss": {
                 "yourCode": "Your complementary implementation:",

@@ -147,6 +147,12 @@ global.File = MockFile;
 global.window = dom.window;
 global.document = dom.window.document;
 
+//Mock the navigator
+const fakeUserAgent =
+  'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36';
+//@ts-expect-error
+global.navigator = { userAgent: fakeUserAgent };
+
 describe('TEST extractVoucherCodesFromCSVString', () => {
   it('Returns the expectedResult if the input is a string without coma', () => {
     expect(extractVoucherCodesFromCSVString(stringWithoutComa)).toEqual(

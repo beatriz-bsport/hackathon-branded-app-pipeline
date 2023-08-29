@@ -6,6 +6,7 @@ import {
   VOUCHER_CODE_CSV_FILE_MIME_TYPE,
   VOUCHER_CODE_CSV_FILE_SIZE_LIMIT_IN_BYTES,
   VOUCHER_CODE_CHARACTERS_NUMBER_LIMIT,
+  VOUCHER_CODE_CSV_FILE_MIME_TYPE_FOR_WINDOWS_FIREFOX,
 } from './constants';
 import type { Coupon } from './types';
 
@@ -31,13 +32,29 @@ export const extractVoucherCodesFromCSVString = (csvFileAsString: string) => {
 };
 
 export const parseCSVFileToGetVoucherCodes = async (csvFile: File) => {
+  // Get browser information
+  const isFireFox = navigator?.userAgent?.indexOf('Firefox') < 0;
+
+  const isWindows = navigator?.userAgent?.includes('Windows');
+
   if (!csvFile) {
     return null;
   }
+
   if (csvFile.size > VOUCHER_CODE_CSV_FILE_SIZE_LIMIT_IN_BYTES) {
     throw new Error(UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_FILE_TOO_LARGE_ERROR);
   }
-  if (csvFile.type !== VOUCHER_CODE_CSV_FILE_MIME_TYPE) {
+
+  if (
+    isFireFox &&
+    isWindows &&
+    csvFile.type !== VOUCHER_CODE_CSV_FILE_MIME_TYPE_FOR_WINDOWS_FIREFOX
+  ) {
+    throw new Error(UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_NOT_CSV_FILE_ERROR);
+  } else if (
+    !(isFireFox && isWindows) &&
+    csvFile.type !== VOUCHER_CODE_CSV_FILE_MIME_TYPE
+  ) {
     throw new Error(UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_NOT_CSV_FILE_ERROR);
   }
   const csvAsString = await csvFile.text();

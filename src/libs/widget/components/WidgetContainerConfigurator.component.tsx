@@ -26,6 +26,8 @@ import { MaterialStyleType } from '../../../utils/types';
 import { LanguageSelect } from '../../../components/button/LanguageButton.component';
 import { getIntercomLink } from '../utils';
 
+// TODO COMMON
+const DIALOG_MODE_SEEMLESS_FLOW = 3;
 type OwnProps = {
   showFab: boolean;
   useIframe: boolean;
@@ -137,20 +139,23 @@ export const WidgetContainerConfigurator = (props: Props) => {
             <MenuItem value={DIALOG_MODE_TAB}>
               {t(`widget.dialogMode.tab`)}
             </MenuItem>
-
             {!props.useIframe && (
               <MenuItem value={DIALOG_MODE_IFRAME}>
                 {t(`widget.dialogMode.iframe`)}
               </MenuItem>
             )}
-
             <MenuItem value={DIALOG_MODE_POPUP}>
               {t(`widget.dialogMode.popup`)}
+            </MenuItem>
+            <MenuItem value={DIALOG_MODE_SEEMLESS_FLOW}>
+              {t(`widget.dialogMode.stayInContainer`)}
             </MenuItem>
           </Select>
         </FormControl>
 
-        {props.dialogMode !== DIALOG_MODE_TAB && (
+        {![DIALOG_MODE_TAB, DIALOG_MODE_SEEMLESS_FLOW].includes(
+          props.dialogMode,
+        ) && (
           <FormControl className={classes.dialogMode}>
             <InputLabel>{t('widget.dialogSizeLabel')}</InputLabel>
             <Select

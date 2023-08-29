@@ -1,5 +1,4 @@
 import React from 'react';
-
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -13,6 +12,8 @@ import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Level } from '#libs/level/types';
 import { OffersGroup } from '#libs/group-offer/types';
+import { WidgetUtils } from '#libs/widget/WidgetUtils';
+import WidgetPortalSlidingContainer from '#libs/widget/components/PortalContainer';
 
 type Props = {
   companyTheme: CompanyTheme;
@@ -43,6 +44,14 @@ export function MarketplaceActivityDialog(props: Props) {
       maxHeight: '80vh',
     },
   };
+
+  if (WidgetUtils.isWidget()) {
+    return (
+      <WidgetPortalSlidingContainer isOpen={props.open}>
+        {props.open ? <MarketplaceActivityV2 {...props} width="xs" /> : null}
+      </WidgetPortalSlidingContainer>
+    );
+  }
   return (
     <Dialog
       key={offerId}

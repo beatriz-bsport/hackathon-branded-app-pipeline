@@ -38,6 +38,7 @@ exports.default = {
       tab: 'Nouvel onglet',
       popup: 'Nouvelle fenêtre',
       iframe: 'Rester sur le site',
+      stayInContainer:"Aucune Popup"
     },
     dialogSize: {
       fullScreen: 'Plein écran',

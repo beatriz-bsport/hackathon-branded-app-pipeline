@@ -24,7 +24,11 @@ export const MuiThemeToCssVarsHOC = (props: { children: React.ReactNode }) => {
           `}
         </style>
       </Helmet>
-      <div className="bs-setup-variable" id="bs-setup-derived-variable">
+      <div
+        className="bs-setup-variable"
+        id="bs-setup-derived-variable"
+        style={{ position: 'relative', overflow: 'hidden' }}
+      >
         {props.children}
       </div>
     </>

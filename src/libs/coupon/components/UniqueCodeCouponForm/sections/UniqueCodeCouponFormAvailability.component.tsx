@@ -8,7 +8,7 @@ import {
   FormControlLabel,
   FormHelperText,
 } from '@material-ui/core';
-import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import MomentUtils from '@date-io/moment';
 import moment from 'moment-timezone';

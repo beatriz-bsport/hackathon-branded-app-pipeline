@@ -10,7 +10,7 @@ import { Alert } from '@material-ui/lab';
 import { useFormikContext } from 'formik';
 import moment from 'moment-timezone';
 import MomentUtils from '@date-io/moment';
-import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 
 import FormSection from '#components/forms/FormSection';
 import Calendar from '#components/offer/Calendar.component';

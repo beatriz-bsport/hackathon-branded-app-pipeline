@@ -9,6 +9,7 @@ import MarketplaceConsumerPaymentPackCard from '#libs/marketplace/components/Mar
 import MarketplaceFilterBuyableItemCategory from '#libs/marketplace/components/MarketplaceFilterBuyableItemCategory';
 import MarketplaceBuyableItemCategoryList from '#libs/marketplace/components/MarketplaceBuyableItemCategoryList';
 import Alert, { AlertSeverity } from '#csscomponents/Alert';
+import Button from '#components/css-only/Button';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { MarketplaceBookerModuleBuyableItemsSkeleton } from '.';
 
@@ -98,17 +99,18 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
 
             {!companyTheme.hide_unnecessary_compatible_purchase_method && (
               <div className="bs-new-offer-booking__buyable_items__header">
-                <button
-                  className="bs-new-offer-booking__buyable_items__header__arrow"
+                <Button
+                  classes={{
+                    root: 'bs-new-offer-booking__buyable_items__header__arrow',
+                  }}
                   onClick={onClickShowBuyableItems}
-                  type="button"
                 >
                   {isShowBuyableItems ? (
                     <KeyboardArrowDown />
                   ) : (
                     <KeyboardArrowRight />
                   )}
-                </button>
+                </Button>
                 <div className="bs-new-offer-booking__buyable_items__header__title">
                   {t('booking:newBookingModule.buyNewPass')}
                 </div>

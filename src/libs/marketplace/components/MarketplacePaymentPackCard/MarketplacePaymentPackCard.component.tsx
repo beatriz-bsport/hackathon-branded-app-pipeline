@@ -32,6 +32,7 @@ import {
 } from '#libs/marketplace/constants';
 import { useValidityInfoForPaymentPackCard } from '../../utils/payment-pack';
 import useIsTextExpandable from '../../../../hooks/useIsTextExpandable';
+import Button from '#components/css-only/Button';
 
 import './styles.css';
 
@@ -157,10 +158,9 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
             )}
             {descriptionText.isExpandable &&
               cardVariant === CARD_VARIANTS.PRICING_PAGE && (
-                <button
-                  className="bs-paymentpack-card__seemore"
+                <Button
+                  classes={{ root: 'bs-paymentpack-card__seemore' }}
                   onClick={onClickSeeMore}
-                  type="button"
                 >
                   {showAllDescription ? (
                     <div className="bs-paymentpack-card__seemore__row">
@@ -173,7 +173,7 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
                       {t('booking:newBookingModule.cards.seeMore')}
                     </div>
                   )}
-                </button>
+                </Button>
               )}
           </Item>
           <Item
@@ -222,16 +222,15 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
             direction={Direction.ROW}
             justification={Justification.SPACE_BETWEEN}
           >
-            <button
-              className="bs-paymentpack-card__left-button"
+            <Button
+              classes={{ root: 'bs-paymentpack-card__left-button' }}
               onClick={onOpenDetailDialog}
-              type="button"
             >
               <div className="bs-paymentpack-card__left-button__content">
                 <VisibilityIcon className="bs-paymentpack-card__left-button__icon" />
                 {t('genericCard.details.buttonContent')}
               </div>
-            </button>
+            </Button>
 
             <button
               className="bs-paymentpack-card__right-button"

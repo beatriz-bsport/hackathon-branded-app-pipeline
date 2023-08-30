@@ -6,7 +6,6 @@ import MarketplacePaymentPackBuyableItem from '#libs/marketplace/components/Mark
 import MarketplacePaymentComboBuyableItem from '#libs/marketplace/components/MarketplacePaymentComboBuyableItem';
 import MarketplaceContractBuyableItem from '#libs/marketplace/components/MarketplaceContractBuyableItem';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import './MarketplaceBuyableItemCategoryList.css';
 import {
   PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
   PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER,
@@ -14,6 +13,7 @@ import {
   MIXED_ITEMS_BOOKING_FUNNEL_IDENTIFIER,
   RECOMMENDED_BUYABLE_CATEGORY_ID,
 } from '#libs/marketplace/constants';
+
 import type {
   BookerModuleBuyableItem,
   BuyableItemCategory,
@@ -23,7 +23,22 @@ import type { PaymentPack } from '#libs/payment-packs/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { ContractWithPaymentPack } from '#libs/subscription/types';
 
-type CardProps = {
+import './styles.css';
+
+type Props = {
+  buyableItemCategory: BuyableItemCategory;
+  isExcludingTax: boolean;
+  selectedBuyableItem: BookerModuleBuyableItem;
+  excludeRecommendedItemsFromRegularCategories?: boolean;
+  hideCreditsForCustomers: boolean;
+  selectBuyableItem: (
+    buyableItem: BookerModuleBuyableItem,
+    identifier: number,
+  ) => void;
+  onClickAll?: () => void;
+};
+
+type CardProps = Omit<Props, 'buyableItemCategory' | 'selectBuyableItem'> & {
   categoryIdentifier: number;
   buyableItem: BookerModuleBuyableItem;
   selectItem: (
@@ -32,19 +47,23 @@ type CardProps = {
   ) => void;
   isExcludingTax: boolean;
   selectedBuyableItem: BookerModuleBuyableItem;
-  hideCreditsForCustomers: boolean;
 };
 
-const MarketplaceBuyableItemCard: React.FC<CardProps> = (props) => {
-  const { selectItem, buyableItem, categoryIdentifier } = props;
-
+const MarketplaceBuyableItemCard: React.FC<CardProps> = ({
+  buyableItem,
+  categoryIdentifier,
+  isExcludingTax,
+  selectedBuyableItem,
+  hideCreditsForCustomers,
+  selectItem,
+}) => {
   const onClick = useCallback(
     () => selectItem(buyableItem, categoryIdentifier),
     [selectItem, buyableItem, categoryIdentifier],
   );
 
-  switch (props.categoryIdentifier) {
-    case PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER: {
+  switch (categoryIdentifier) {
+    case PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER:
       return (
         <div
           aria-hidden="true"
@@ -52,15 +71,14 @@ const MarketplaceBuyableItemCard: React.FC<CardProps> = (props) => {
           onClick={onClick}
         >
           <MarketplacePaymentPackBuyableItem
-            hideCredits={props.hideCreditsForCustomers}
-            isExcludingTax={props.isExcludingTax}
-            isSelected={isEqual(props.selectedBuyableItem, buyableItem)}
+            hideCredits={hideCreditsForCustomers}
+            isExcludingTax={isExcludingTax}
+            isSelected={isEqual(selectedBuyableItem, buyableItem)}
             paymentPack={buyableItem as PaymentPack}
           />
         </div>
       );
-    }
-    case PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER: {
+    case PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER:
       return (
         <div
           aria-hidden="true"
@@ -68,14 +86,13 @@ const MarketplaceBuyableItemCard: React.FC<CardProps> = (props) => {
           onClick={onClick}
         >
           <MarketplacePaymentComboBuyableItem
-            isExcludingTax={props.isExcludingTax}
-            isSelected={isEqual(props.selectedBuyableItem, buyableItem)}
+            isExcludingTax={isExcludingTax}
+            isSelected={isEqual(selectedBuyableItem, buyableItem)}
             paymentCombo={buyableItem as PaymentCombo}
           />
         </div>
       );
-    }
-    case CONTRACT_BOOKING_FUNNEL_IDENTIFIER: {
+    case CONTRACT_BOOKING_FUNNEL_IDENTIFIER:
       return (
         <div
           aria-hidden="true"
@@ -84,28 +101,14 @@ const MarketplaceBuyableItemCard: React.FC<CardProps> = (props) => {
         >
           <MarketplaceContractBuyableItem
             contract={buyableItem as ContractWithPaymentPack}
-            isExcludingTax={props.isExcludingTax}
-            isSelected={isEqual(props.selectedBuyableItem, buyableItem)}
+            isExcludingTax={isExcludingTax}
+            isSelected={isEqual(selectedBuyableItem, buyableItem)}
           />
         </div>
       );
-    }
     default:
       return <div />;
   }
-};
-
-type Props = {
-  buyableItemCategory: BuyableItemCategory;
-  isExcludingTax: boolean;
-  selectedBuyableItem: BookerModuleBuyableItem;
-  hideCreditsForCustomers: boolean;
-  selectBuyableItem: (
-    buyableItem: BookerModuleBuyableItem,
-    identifier: number,
-  ) => void;
-  onClickAll?: () => void;
-  excludeRecommendedItemsFromRegularCategories?: boolean;
 };
 
 const MarketplaceBuyableItemCategoryList: React.FC<Props> = ({

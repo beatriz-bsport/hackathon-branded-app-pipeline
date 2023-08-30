@@ -665,12 +665,15 @@ const StripePaymentCard = forwardRef(
           </div>
         )}
         {allowConsumerToUseInternalAccount && !!creditAccountBalance && (
-          <UseInternalAccountForm
-            creditAccountBalance={creditAccountBalance}
-            loading={loading || processing || applyBalanceLoading}
-            onBasketSubmit={useInternalAccount}
-            onInvoiceSubmit={applyBalanceToInvoice}
-          />
+          <>
+            <div className={classes.paddingTop1} />
+            <UseInternalAccountForm
+              creditAccountBalance={creditAccountBalance}
+              loading={loading || processing || applyBalanceLoading}
+              onBasketSubmit={useInternalAccount}
+              onInvoiceSubmit={applyBalanceToInvoice}
+            />
+          </>
         )}
         {children ?? null}
         {(!isNewCheckoutFlow || forceButtonDisplay) && (
@@ -816,6 +819,9 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
+  },
+  paddingTop1: {
+    paddingTop: theme.spacing(1),
   },
 }));
 

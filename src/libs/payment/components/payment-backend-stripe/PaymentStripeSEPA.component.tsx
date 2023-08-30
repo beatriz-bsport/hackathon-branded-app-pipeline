@@ -597,12 +597,15 @@ export const PaymentStripeSEPA = forwardRef(
           </div>
         )}
         {allowConsumerToUseInternalAccount && !!creditAccountBalance && (
-          <UseInternalAccountForm
-            creditAccountBalance={creditAccountBalance}
-            loading={loading || applyBalanceLoading}
-            onBasketSubmit={useInternalAccount}
-            onInvoiceSubmit={applyBalanceToInvoice}
-          />
+          <>
+            <div className={classes.paddingTop1} />
+            <UseInternalAccountForm
+              creditAccountBalance={creditAccountBalance}
+              loading={loading || applyBalanceLoading}
+              onBasketSubmit={useInternalAccount}
+              onInvoiceSubmit={applyBalanceToInvoice}
+            />
+          </>
         )}
         {children ?? null}
         {(!isNewCheckoutFlow || forceButtonDisplay) && (
@@ -743,6 +746,9 @@ const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
     lineHeight: '14px',
   },
   infoIcon: { color: theme.palette.grey[600] },
+  paddingTop1: {
+    paddingTop: theme.spacing(1),
+  },
 }));
 
 export default React.memo(PaymentStripeSEPA);

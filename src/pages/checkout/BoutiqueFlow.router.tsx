@@ -10,7 +10,6 @@ import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import asyncComponent from '../../AsyncComponent.js';
 import { getLoginUrl } from '#libs/marketplace/routing-utils';
 
-import themeSelectors from '#libs/theme/selectors';
 import { fetchProfile } from '#libs/consumer-space/actions';
 import { CompanyTheme } from '#libs/theme/types';
 import { fetchCompanyTheme } from '#libs/theme/actions';
@@ -121,7 +120,6 @@ export default compose(
     (state: RootState) => ({
       authenticated: state.auth.authenticated,
       is_manager: state.auth.is_manager,
-      theme: themeSelectors.getTheme(state),
     }),
     {
       fetchProfile,

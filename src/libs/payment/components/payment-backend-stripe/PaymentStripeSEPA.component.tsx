@@ -499,6 +499,7 @@ export const PaymentStripeSEPA = forwardRef(
                   <>
                     <Checkbox
                       checked={saveForLater || forceSave}
+                      color="primary"
                       disabled={!!forceSave}
                       onChange={(ev) => setSaveForLater(ev.target.checked)}
                     />

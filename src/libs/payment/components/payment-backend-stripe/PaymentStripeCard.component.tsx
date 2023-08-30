@@ -543,6 +543,7 @@ const StripePaymentCard = forwardRef(
                   <>
                     <Checkbox
                       checked={saveForLater || forceSave}
+                      color="primary"
                       disabled={forceSave}
                       onChange={onSaveForLaterChange}
                     />

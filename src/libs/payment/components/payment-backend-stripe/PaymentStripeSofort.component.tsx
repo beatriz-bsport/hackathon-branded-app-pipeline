@@ -229,6 +229,7 @@ export const PaymentStripeSofort = forwardRef(
         <div className={classes.row}>
           <Checkbox
             checked={saveForLater || forceSave}
+            color="primary"
             disabled={!!forceSave}
             onChange={(ev) => setSaveForLater(ev.target.checked)}
           />

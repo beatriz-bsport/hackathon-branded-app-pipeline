@@ -232,6 +232,7 @@ export const PaymentStripeBancontact = forwardRef(
         <div className={classes.row}>
           <Checkbox
             checked={saveForLater || forceSave}
+            color="primary"
             disabled={!stripe || !clientSecret || processing || forceSave}
             onChange={(ev) => setSaveForLater(ev.target.checked)}
           />

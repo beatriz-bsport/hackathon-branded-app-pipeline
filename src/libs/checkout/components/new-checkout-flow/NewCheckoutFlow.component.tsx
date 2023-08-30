@@ -9,7 +9,7 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import Button from '@material-ui/core/Button';
-
+import Collapse from '@material-ui/core/Collapse';
 import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
@@ -351,7 +351,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
               !isMobile || basketSummaryCheckoutItems.length > 0
             }
           />
-          {(!isMobile || isBasketDisplayed) && (
+          <Collapse in={!isMobile || isBasketDisplayed}>
             <BasketSummary
               basketSummaryCheckoutItems={basketSummaryCheckoutItems}
               isExcludingTax={isExcludingTax}
@@ -359,7 +359,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
               onAddCheckoutItem={handleAddCheckoutItem}
               onRemoveCheckoutItem={handleRemoveCheckoutItem}
             />
-          )}
+          </Collapse>
           {isMobile && basketSummaryCheckoutItems.length > 0 && (
             <Button
               className={classes.expandContainer}

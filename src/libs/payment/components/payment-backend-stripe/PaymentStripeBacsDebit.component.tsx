@@ -363,6 +363,7 @@ const PaymentStripeBacsDebit = forwardRef(
               <div className={classes.row}>
                 <Checkbox
                   checked={saveForLaterBacsDebit}
+                  color="primary"
                   onChange={handleSaveForLater}
                 />
                 <Typography variant={isNewCheckoutFlow ? 'body1' : 'caption'}>

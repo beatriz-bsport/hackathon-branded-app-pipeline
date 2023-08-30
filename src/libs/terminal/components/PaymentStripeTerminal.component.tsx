@@ -627,6 +627,7 @@ export const PaymentStripeTerminal: React.FC<Props> = (props) => {
               <div className={classes.row}>
                 <Checkbox
                   checked={saveForLater}
+                  color="primary"
                   disabled={!!props.isSetupIntent}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setSaveForLater(e.target.checked)

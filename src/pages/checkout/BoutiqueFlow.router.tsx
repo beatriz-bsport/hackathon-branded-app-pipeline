@@ -8,6 +8,7 @@ import { RootState } from '../../reducers';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 // @ts-expect-error
 import asyncComponent from '../../AsyncComponent.js';
+import themeSelectors from '#libs/theme/selectors';
 import { getLoginUrl } from '#libs/marketplace/routing-utils';
 
 import { fetchProfile } from '#libs/consumer-space/actions';
@@ -120,6 +121,7 @@ export default compose(
     (state: RootState) => ({
       authenticated: state.auth.authenticated,
       is_manager: state.auth.is_manager,
+      theme: themeSelectors.getTheme(state),
     }),
     {
       fetchProfile,

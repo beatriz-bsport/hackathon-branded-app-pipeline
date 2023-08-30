@@ -1,6 +1,10 @@
 import React, { useCallback, useMemo } from 'react';
 import isEqual from 'lodash/isEqual';
 import { useTranslation } from 'react-i18next';
+
+import MarketplacePaymentPackBuyableItem from '#libs/marketplace/components/MarketplacePaymentPackBuyableItem';
+import MarketplacePaymentComboBuyableItem from '#libs/marketplace/components/MarketplacePaymentComboBuyableItem';
+import MarketplaceContractBuyableItem from '#libs/marketplace/components/MarketplaceContractBuyableItem';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import './MarketplaceBuyableItemCategoryList.css';
 import {
@@ -10,7 +14,6 @@ import {
   MIXED_ITEMS_BOOKING_FUNNEL_IDENTIFIER,
   RECOMMENDED_BUYABLE_CATEGORY_ID,
 } from '#libs/marketplace/constants';
-import MarketplacePaymentComboCard from '../MarketplacePaymentComboCard';
 import type {
   BookerModuleBuyableItem,
   BuyableItemCategory,
@@ -19,8 +22,6 @@ import type {
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { ContractWithPaymentPack } from '#libs/subscription/types';
-import MarketplaceContractCard from '../MarketplaceContractCard';
-import MarketplacePaymentPackBuyableItem from '../MarketplacePaymentPackBuyableItem';
 
 type CardProps = {
   categoryIdentifier: number;
@@ -66,7 +67,7 @@ const MarketplaceBuyableItemCard: React.FC<CardProps> = (props) => {
           className="bs-marketplace-buyable-item-category__card"
           onClick={onClick}
         >
-          <MarketplacePaymentComboCard
+          <MarketplacePaymentComboBuyableItem
             isExcludingTax={props.isExcludingTax}
             isSelected={isEqual(props.selectedBuyableItem, buyableItem)}
             paymentCombo={buyableItem as PaymentCombo}
@@ -81,7 +82,7 @@ const MarketplaceBuyableItemCard: React.FC<CardProps> = (props) => {
           className="bs-marketplace-buyable-item-category__card"
           onClick={onClick}
         >
-          <MarketplaceContractCard
+          <MarketplaceContractBuyableItem
             contract={buyableItem as ContractWithPaymentPack}
             isExcludingTax={props.isExcludingTax}
             isSelected={isEqual(props.selectedBuyableItem, buyableItem)}

@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { SvgIconComponent } from '@material-ui/icons';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { StatusMessageWithIconSkeleton } from '#components/css-only/StatusMessageWithIcon';
+
 import './MarketplaceBookingBlockedReason.css';
 
 type Props = {
@@ -13,12 +15,18 @@ type Props = {
     color: string;
     isWaitingListOpenMainReason: boolean;
   };
+  isLoading: boolean;
   goBackToCalendar: () => void;
 };
 
 const MarketplaceBookingBlockedReason: React.FC<Props> = (props) => {
   const TheIcon = props.bookingBlockedReason.TheIcon;
   const { t } = useTranslation('booking');
+
+  if (props.isLoading) {
+    return <StatusMessageWithIconSkeleton />;
+  }
+
   return (
     <div className="bs-marketplace-booking-blocked-reason">
       <div

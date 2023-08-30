@@ -664,13 +664,13 @@ const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
       2,
     )}px ${isNewCheckoutFlow ? 0 : theme.spacing(2)}px`,
   }),
-  sensitiveData: {
+  sensitiveData: (isNewCheckoutFlow) => ({
     backgroundColor: '#EFEFEF',
     padding: theme.spacing(2),
     minWidth: '30vw',
-    maxWidth: '80vw',
     width: '100%',
-  },
+    ...(isNewCheckoutFlow ? {} : { maxWidth: '80vw' }),
+  }),
   nameAndEmailContainer: (isNewCheckoutFlow) => ({
     flexDirection: 'column',
     display: 'flex',

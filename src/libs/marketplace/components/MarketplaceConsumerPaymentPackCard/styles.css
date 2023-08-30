@@ -1,44 +1,50 @@
-.bs-marketplace-consumer-payment-pack-card__container {
+.consumer-payment-pack-card__container {
   border: 2px solid var(--color-grey-light);
-  border-radius: var(--border-radius-4);
+  border-radius: var(--border-radius-2);
   display: grid;
   padding: var(--spacing-2);
-  margin-bottom: var(--spacing-1);
   background: none;
   cursor: pointer;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: calc(var(--spacing-1) / 2);
 }
 
-.bs-marketplace-consumer-payment-pack-card__container--selected {
+.consumer-payment-pack-card__container--selected {
   border-color: var(--color-primary-main);
   background-color: var(--color-primary-main-background);
 }
 
-.bs-marketplace-consumer-payment-pack-card__container--disabled {
+.consumer-payment-pack-card__container--disabled {
   background-color: var(--color-grey-50);
 }
 
-.bs-marketplace-consumer-payment-pack-card__container__subtitle {
+.consumer-payment-pack-card__container__subtitle {
   font-size: var(--subtitle1-fontSize);
   font-weight: 500;
   font-family: var(--subtitle1-fontFamily);
+  grid-area: 1/1/2/2;
 }
 
-.bs-marketplace-consumer-payment-pack-card__container__description {
+.consumer-payment-pack-card__container__description {
   font-size: var(--body2-fontSize);
   font-family: var(--body2-fontFamily);
   color: var(--color-grey-main);
 }
 
-.bs-marketplace-consumer-payment-pack-card__container__validity {
+.consumer-payment-pack-card__container__validity {
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: var(--border-radius-1);
   background-color: var(--color-grey-light);
   color: var(--color-grey-dark);
+  width: fit-content;
+  height: fit-content;
+  justify-self: flex-end;
+  grid-area: 1/2/2/3;
 }
 
-.bs-marketplace-consumer-payment-pack-card__validity__content {
+.consumer-payment-pack-card__validity__content {
   max-width: 100%;
   text-align: center;
   font-size: var(--body2-fontSize);
@@ -48,18 +54,20 @@
   padding: 0px 4px;
 }
 
-.bs-marketplace-consumer-payment-pack-card__text__disabled {
+.consumer-payment-pack-card__text__disabled {
   color: var(--color-grey-500);
 }
 
-.bs-marketplace-consumer-payment-pack-card__container__maxout {
+.consumer-payment-pack-card__container__maxout {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--spacing-1);
+  width: fit-content;
+  justify-self: flex-end;
 }
 
-.bs-marketplace-consumer-payment-pack-card__container__maxout__text {
+.consumer-payment-pack-card__container__maxout__text {
   color: var(--color-grey-dark);
   font-size: var(--body2-fontSize);
   font-weight: var(--body2-fontWeight);
@@ -67,6 +75,10 @@
   line-height: var(--body2-lineHeight);
 }
 
-.bs-marketplace-consumer-payment-pack-card__container__maxout__icon {
+.consumer-payment-pack-card__container__maxout__icon {
   color: var(--color-grey-main);
+}
+
+.consumer-payment-pack-card__credit__status {
+  grid-area: 2/1/3/2;
 }

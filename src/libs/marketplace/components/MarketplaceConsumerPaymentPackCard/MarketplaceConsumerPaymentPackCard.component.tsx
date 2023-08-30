@@ -1,17 +1,17 @@
 import React, { useCallback } from 'react';
-import './MarketplaceConsumerPaymentPackCard.css';
+
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { Warning } from '@material-ui/icons';
+import Warning from '@material-ui/icons/Warning';
+
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { formatAsDate } from '../../../../utils/datetime';
-import Item, {
-  Alignment,
-  Justification,
-} from '#components/css-only/Grid/GridItem';
-import CreditStatus from '#libs/consumer-payment-pack/components/CreditStatus.component';
+import MarketplacePaymentPackCreditStatus from '../MarketplacePaymentPackCreditStatus';
+
 import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
 import type { PaymentPack, MaxoutData } from '#libs/payment-packs/types';
+
+import './styles.css';
 
 type Props = {
   consumerPaymentPack: ConsumerPaymentPack<PaymentPack> & MaxoutData;
@@ -21,81 +21,78 @@ type Props = {
   ) => void;
 };
 
-const MarketplaceConsumerPaymentPackCard: React.FC<Props> = (props) => {
-  const { t } = useTranslation(['paymentPack']);
-  const { onSelectConsumerPaymentPack, consumerPaymentPack } = props;
+const MarketplaceConsumerPaymentPackCard: React.FC<Props> = ({
+  consumerPaymentPack,
+  isSelected,
+  onSelectConsumerPaymentPack,
+}) => {
+  const { t } = useTranslation('paymentPack');
+
   const expireDate = `${t('consumer.expiresOn')}${formatAsDate(
-    props.consumerPaymentPack.ending_date,
+    consumerPaymentPack.ending_date,
   )}`;
-  const disabled = props.consumerPaymentPack.exceedsBookingMaxout;
+
+  const disabled = consumerPaymentPack.exceedsBookingMaxout;
+
   const onClick = useCallback(
     () => onSelectConsumerPaymentPack(consumerPaymentPack),
     [onSelectConsumerPaymentPack, consumerPaymentPack],
   );
+
   return (
     <div
       aria-hidden="true"
-      className={classNames(
-        'bs-marketplace-consumer-payment-pack-card__container',
-        {
-          'bs-marketplace-consumer-payment-pack-card__container--selected':
-            props.isSelected,
-          'bs-marketplace-consumer-payment-pack-card__container--disabled':
-            disabled,
-        },
-      )}
+      className={classNames('consumer-payment-pack-card__container', {
+        'consumer-payment-pack-card__container--selected': isSelected,
+        'consumer-payment-pack-card__container--disabled': disabled,
+      })}
       onClick={!disabled && onClick}
     >
-      <Item
-        alignment={Alignment.FLEX_START}
-        columnEnd={1}
-        justification={Justification.FLEX_START}
+      <div
+        className={classNames(
+          'consumer-payment-pack-card__container__subtitle',
+          {
+            'consumer-payment-pack-card__text__disabled': disabled,
+          },
+        )}
       >
+        {consumerPaymentPack?.payment_pack?.name || ' - '}
+      </div>
+
+      <div className="consumer-payment-pack-card__credit__status">
+        <MarketplacePaymentPackCreditStatus
+          classes={{
+            'consumer-payment-pack-card__credit__status__text':
+              'consumer-payment-pack-card__credit__status__text',
+          }}
+          consumerPaymentPack={consumerPaymentPack}
+          paymentPack={consumerPaymentPack.payment_pack}
+        />
+      </div>
+
+      <div className="consumer-payment-pack-card__container__validity">
         <div
           className={classNames(
-            'bs-marketplace-consumer-payment-pack-card__container__subtitle',
+            'consumer-payment-pack-card__validity__content',
             {
-              'bs-marketplace-consumer-payment-pack-card__text__disabled':
-                disabled,
+              'consumer-payment-pack-card__text__disabled': disabled,
             },
           )}
         >
-          {props.consumerPaymentPack?.payment_pack?.name || ' - '}
+          {expireDate}
         </div>
-        <CreditStatus
-          consumerPack={props.consumerPaymentPack}
-          paymentPack={props.consumerPaymentPack.payment_pack}
-          textColor="textSecondary"
-        />
-      </Item>
-      <Item
-        alignment={Alignment.FLEX_END}
-        justification={Justification.SPACE_BETWEEN}
-      >
-        <div className="bs-marketplace-consumer-payment-pack-card__container__validity">
-          <div
-            className={classNames(
-              'bs-marketplace-consumer-payment-pack-card__validity__content',
-              {
-                'bs-marketplace-consumer-payment-pack-card__text__disabled':
-                  disabled,
-              },
-            )}
-          >
-            {expireDate}
+      </div>
+
+      {disabled && (
+        <div className="consumer-payment-pack-card__container__maxout">
+          <Warning className="consumer-payment-pack-card__container__maxout__icon" />
+          <div className="consumer-payment-pack-card__container__maxout__text">
+            {t(`maxoutInfo.${consumerPaymentPack.maxoutInfo?.period}`, {
+              count: consumerPaymentPack.maxoutInfo?.nb,
+            })}
           </div>
         </div>
-        {disabled && (
-          <div className="bs-marketplace-consumer-payment-pack-card__container__maxout">
-            <Warning className="bs-marketplace-consumer-payment-pack-card__container__maxout__icon" />
-            <div className="bs-marketplace-consumer-payment-pack-card__container__maxout__text">
-              {t(`maxoutInfo.${props.consumerPaymentPack.maxoutInfo?.period}`, {
-                count: props.consumerPaymentPack.maxoutInfo?.nb,
-              })}
-            </div>
-          </div>
-        )}
-      </Item>
+      )}
     </div>
   );
 };

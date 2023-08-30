@@ -1,5 +1,4 @@
 import React from 'react';
-
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles, Modal } from '@material-ui/core';
@@ -12,12 +11,16 @@ import {
   DIALOG_MODE_POPUP,
   DIALOG_MODE_TAB,
 } from '@bsport/common/lib/master-data/widget-dialog-mode';
+import WidgetPortalSlidingContainer from 'bsport-saas/src/libs/widget/components/PortalContainer';
 
+// TODO COMMON
+const DIALOG_MODE_SEEMLESS_FLOW = 3;
 interface OwnProps {
   url?: string;
-  dialogMode: 0 | 1 | 2;
+  dialogMode: 0 | 1 | 2 | 3;
   onClose: () => void;
   fullScreenPopup: boolean;
+  allowNoPopup?: boolean;
 }
 
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
@@ -47,6 +50,7 @@ class UserInteractionPortal extends React.PureComponent<Props> {
           : nonFullScreen
       }
     `;
+
     return window.open(this.props.url, '_blank', params);
   };
 
@@ -76,10 +80,42 @@ class UserInteractionPortal extends React.PureComponent<Props> {
   }
 
   render() {
+    const { classes } = this.props;
+    if (
+      !!this.props.url &&
+      this.props.dialogMode === DIALOG_MODE_SEEMLESS_FLOW
+    ) {
+      if (this.props.allowNoPopup) {
+        return (
+          <WidgetPortalSlidingContainer isOpen={!!this.props.url}>
+            <iframe
+              title="bsport-inner-modal"
+              className={classes.iframe}
+              src={this.props.url}
+            />
+          </WidgetPortalSlidingContainer>
+        );
+      }
+      return (
+        <Modal open={!!this.props.url} className={classes.container}>
+          <div className={classes.innerContainer}>
+            <div className={classes.topBar}>
+              <IconButton onClick={this.props.onClose}>
+                <CloseIcon fontSize="large" />
+              </IconButton>
+            </div>
+            <iframe
+              title="bsport-inner-modal"
+              className={classes.iframe}
+              src={this.props.url}
+            />
+          </div>
+        </Modal>
+      );
+    }
+
     if (!this.props.url || this.props.dialogMode !== DIALOG_MODE_IFRAME)
       return null;
-
-    const { classes } = this.props;
 
     return (
       <Modal open={!!this.props.url} className={classes.container}>

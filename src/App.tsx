@@ -113,6 +113,13 @@ const WidgetByType = {
   [EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE]: PaymentPackTemplate,
 };
 
+const WIDGET_ACCEPTING_NO_POPUP_MODE = [
+  EXPORTABLE_COMPONENT_TYPE_WORKSHOP,
+  EXPORTABLE_COMPONENT_TYPE_PASS,
+  EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION,
+  EXPORTABLE_COMPONENT_TYPE_CALENDAR,
+  EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
+];
 type OwnProps = WidgetConfig & {
   store: any,
   lang?: string,
@@ -192,7 +199,8 @@ class BsportWidget extends Component<Props> {
     }
 
     const Widget = WidgetByType[widgetType] || CalendarWidget;
-
+    // This mode will only be allowed on specific pages (meaning the pages refactored to css only)
+    const allowNoPopup = WIDGET_ACCEPTING_NO_POPUP_MODE.includes(widgetType);
     const companyId =
       this.props.companyId || (this.props.franchisor?.companies || [])[0]?.id;
 
@@ -239,6 +247,7 @@ class BsportWidget extends Component<Props> {
               dialogMode={this.props.dialog.dialogMode}
               onClose={this.props.closeUserInteractionPortal}
               fullScreenPopup={this.props.fullScreenPopup}
+              allowNoPopup={allowNoPopup}
             />
             <WidgetBridge
               companyId={companyId}

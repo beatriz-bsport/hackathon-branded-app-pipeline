@@ -233,7 +233,7 @@ const StripePaymentCard = forwardRef(
       'staging',
     ].includes(Config.REACT_APP_SENTRY_ENVIRONMENT)
       ? 72
-      : 1424;
+      : 1416;
 
     const setup_future_usage = React.useMemo(() => {
       if (

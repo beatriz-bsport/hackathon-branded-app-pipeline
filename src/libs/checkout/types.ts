@@ -191,3 +191,15 @@ export enum BuyableItemOptions {
   BUYABLE_ITEM_COUPON = COUPON,
   BUYABLE_ITEM_GIFTCARD = GIFTCARD,
 }
+
+export enum ConfirmationStatus {
+  GENERIC_ERROR = 'generic',
+  GENERIC_OFFER_ERROR = 'genericOfferError',
+  OFFER_ONLY_BOOKING_ERROR = 'offerOnlyBookingError',
+  OFFER_ONLY_SUCCESS = 'offerOnlySuccess',
+  OFFER_GENERIC_ERROR_WITH_PURCHASE = 'offerAndPurchaseGenericError',
+  OFFER_BOOKING_ERROR_WITH_PURCHASE = 'offerAndPurchaseBookingError',
+  OFFER_AND_PURCHASE_SUCCESS = 'offerAndPurchaseSuccess',
+  PURCHASE_ONLY_SUCCESS = 'purchaseOnlySuccess',
+  WAITING_LIST = 'waitingList',
+}

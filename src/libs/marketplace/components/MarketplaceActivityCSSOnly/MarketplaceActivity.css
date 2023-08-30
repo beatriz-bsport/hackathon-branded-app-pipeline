@@ -141,7 +141,6 @@
 
 .bs-activity__middle__top {
   gap: var(--spacing-2);
-  min-width: calc(min(60vw, 900px));
 }
 
 .bs-activity__middle__top__description {

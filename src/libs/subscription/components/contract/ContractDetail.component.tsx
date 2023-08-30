@@ -14,8 +14,7 @@ import PrivatePassListItem from '#libs/private-service/components/pass/PrivatePa
 import PaymentComboListItem from '#libs/payment-combo/components/PaymentComboListItem.component';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { ContractWithPaymentPack } from '../../types';
-import { getSubscriptionPageUrl } from '#libs/marketplace/routing-utils';
-import { CompanyTheme } from '#libs/theme/types';
+import { getContractCheckoutUrl } from '#libs/marketplace/routing-utils';
 
 type Props = {
   contract: ContractWithPaymentPack;
@@ -24,7 +23,6 @@ type Props = {
   company: { id: number; name: string };
   snackbarSuccess: (snackbarText: string) => void;
   goToCombo: (paymentComboId: number) => void;
-  companyTheme: CompanyTheme;
 };
 
 const ContractDetail = (props: Props) => {
@@ -111,10 +109,9 @@ const ContractDetail = (props: Props) => {
         {props.company ? (
           <div className={classes.block}>
             <CopyToClipboard
-              text={`${window.location.origin}${getSubscriptionPageUrl(
+              text={`${window.location.origin}${getContractCheckoutUrl(
                 props.company.id,
                 props.contract.id,
-                props.companyTheme?.display_new_checkout_flow,
                 { force: 'true' },
               )}`}
             >

@@ -217,16 +217,22 @@ const buildFinalUrlWithParams = (
   return finalUrl;
 };
 
-export const getSubscriptionPageUrl = (
+export const getContractCheckoutUrl = (
   companyId: number,
   contractId: number,
-  isNewCheckoutFlow: boolean,
   params?: { [key: string]: string | number },
 ) => {
-  const subscriptionUrl = isNewCheckoutFlow
-    ? `/contract-s/${companyId}/${contractId}`
-    : `/checkout/${companyId}/subscription/${contractId}`;
-  return buildFinalUrlWithParams(subscriptionUrl, params);
+  const url = `/checkout/${companyId}/subscription/${contractId}`;
+  return buildFinalUrlWithParams(url, params);
+};
+
+export const getBoutiqueContractCheckoutUrl = (
+  companyId: number,
+  contractId: number,
+  params?: { [key: string]: string | number },
+) => {
+  const url = `/contract-s/${companyId}/${contractId}`;
+  return buildFinalUrlWithParams(url, params);
 };
 
 export const getCheckoutUrl = (

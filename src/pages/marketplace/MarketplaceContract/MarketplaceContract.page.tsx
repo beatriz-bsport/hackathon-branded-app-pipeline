@@ -39,7 +39,7 @@ import {
 import { RootState } from '../../../reducers';
 import { Contract } from '#libs/subscription/types';
 import { PaymentPack } from '#libs/payment-packs/types';
-import { getSubscriptionPageUrl } from '#libs/marketplace/routing-utils';
+import { getContractCheckoutUrl } from '#libs/marketplace/routing-utils';
 
 import { CompanyTheme } from '#libs/theme/types';
 
@@ -120,13 +120,7 @@ export class MarketplaceContract extends React.Component<Props, State> {
       return;
     }
     Analytics.contractShowPayment(contract);
-    this.props.push(
-      getSubscriptionPageUrl(
-        this.props.companyId,
-        contract.id,
-        this.props.companyTheme?.display_new_checkout_flow,
-      ),
-    );
+    this.props.push(getContractCheckoutUrl(this.props.companyId, contract.id));
   };
 
   setSelectedContract = (contract: Contract) => {

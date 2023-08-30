@@ -145,7 +145,7 @@ import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
 import {
   getCheckoutUrl,
   getCheckoutValidationUrl,
-  getSubscriptionPageUrl,
+  getBoutiqueContractCheckoutUrl,
 } from '#libs/marketplace/routing-utils';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
@@ -466,7 +466,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
   goToSubscriptionPage = (contractId: number) => {
     this.props.push(
-      getSubscriptionPageUrl(this.props.offer.company, contractId, true),
+      getBoutiqueContractCheckoutUrl(this.props.offer.company, contractId),
     );
   };
 

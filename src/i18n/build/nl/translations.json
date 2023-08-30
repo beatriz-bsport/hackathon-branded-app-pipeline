@@ -6333,7 +6333,7 @@
                     "title": "Al op de wachtlijst"
                 },
                 "isWaitingListFull": {
-                    "message": "Deze sessie en de wachtlijst zijn vol. Probeer het later nog eens.",
+                    "message": "Deze sessie en de wachtlijst zijn vol. \nProbeer het later nog eens.",
                     "title": "Volledige wachtlijst"
                 },
                 "waitingListLockedByPendingBookings": {
@@ -6359,6 +6359,10 @@
                 "default": {
                     "message": "Voor deze sessie zijn geen reserveringen beschikbaar",
                     "title": "Geblokkeerde boeking"
+                },
+                "noPassAvailable": {
+                    "title": "Er zijn geen beschikbare leskaarten om weer te geven.",
+                    "message": "Er zijn geen beschikbare leskaarten voor deze wachtlijst."
                 }
             },
             "backToCalendar": "Terug naar de kalender",
@@ -6375,7 +6379,8 @@
             "filterAll": "Alles",
             "spotSelectorTitle": "Kies uw plaats",
             "seeAllProducts": "Toon alle producten",
-            "recommended": "Aanbevolen"
+            "recommended": "Aanbevolen",
+            "reviewAndConfirm": "Controleren en bevestigen"
         }
     },
     "marketplace": {
@@ -10083,7 +10088,7 @@
                 }
             },
             "errors": {
-                "5002": "Eén of meerdere van de geselecteerde promotiecodes is nog niet gebruikt"
+                "5002": "Promotiecodes die externe goedkeuring vereisen kunnen niet als gebruikt worden gemarkeerd"
             },
             "exportCodes": {
                 "error": "Het is niet mogelijk om de geselecteerde promotiecodes te exporteren",

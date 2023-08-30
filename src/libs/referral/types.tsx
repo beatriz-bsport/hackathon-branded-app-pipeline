@@ -1,3 +1,4 @@
+import { Membership } from '#libs/membership/types';
 import { Tag } from '#libs/tag/types';
 import {
   ReferralTimeLimitUnits,
@@ -28,6 +29,16 @@ export type ReferralMemberStatus = {
   referring_member_name?: string;
 };
 
+export type ReferralLinkStatus = {
+  referring_member_id: number;
+  referring_member_first_name: string;
+  company_id: number;
+  application_time_limit_intervals: number;
+  application_time_limit_unit: ReferralTimeLimitUnits;
+  is_max_referral_uses_reached: boolean;
+  redirect_link: string;
+};
+
 export type ReferralState = {
   referralProgram: {
     byId: { [id: number]: ReferralProgram };
@@ -43,4 +54,17 @@ export type ReferralState = {
     loading: boolean;
     error: Error | null;
   };
+  referralLinkStatus: {
+    byId: { [id: number]: ReferralLinkStatus };
+    loading: boolean;
+    error: Error | null;
+  };
+  referralException: {
+    registrationErrorCode: number | null;
+  };
+};
+
+export type LinkToCompanyWithReferralPayload = {
+  referral_exception_code: number;
+  member: Membership;
 };

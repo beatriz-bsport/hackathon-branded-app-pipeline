@@ -4,9 +4,16 @@ import {
   retrieveReferralProgramActions,
   updateReferralProgramActions,
   retrieveReferralMemberStatusActions,
+  retrieveReferralLinkStatusActions,
+  referralExceptionActions,
 } from './actions';
 
-import { ReferralProgram, ReferralState, ReferralMemberStatus } from './types';
+import {
+  ReferralProgram,
+  ReferralState,
+  ReferralMemberStatus,
+  ReferralLinkStatus,
+} from './types';
 
 const initialState: Immutable.Immutable<ReferralState> =
   Immutable<ReferralState>({
@@ -23,6 +30,14 @@ const initialState: Immutable.Immutable<ReferralState> =
       byId: {},
       loading: false,
       error: null,
+    },
+    referralLinkStatus: {
+      byId: {},
+      loading: false,
+      error: null,
+    },
+    referralException: {
+      registrationErrorCode: null,
     },
   });
 
@@ -67,6 +82,31 @@ export default handleActions<Immutable.Immutable<ReferralState>, any>(
       { payload }: { payload: ReferralMemberStatus },
     ) =>
       state.setIn(['referralMemberStatus', 'byId', payload.member_id], payload),
+
+    [retrieveReferralLinkStatusActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => state.setIn(['referralLinkStatus', 'loading'], payload),
+    [retrieveReferralLinkStatusActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => state.setIn(['referralLinkStatus', 'error'], payload),
+    [retrieveReferralLinkStatusActions.success.toString()]: (
+      state,
+      { payload }: { payload: ReferralLinkStatus },
+    ) =>
+      state.setIn(['referralLinkStatus', 'byId'], {
+        [payload.referring_member_id]: payload,
+      }),
+    [referralExceptionActions.setRegistrationError.toString()]: (
+      state,
+      { payload }: { payload: { errorCode: number } },
+    ) => {
+      return state.setIn(
+        ['referralException', 'registrationErrorCode'],
+        payload,
+      );
+    },
   },
   initialState,
 );

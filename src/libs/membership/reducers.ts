@@ -6,12 +6,14 @@ import {
   retrieveActions,
   setActiveActions,
   linkActions,
+  linkWithReferralActions,
   requestMemberShipValidationActions,
 } from './actions';
 
 import { requestCustomFormNotificationActions } from '../custom-form/actions';
 import { Membership, MembershipState } from './types';
 import { USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY } from '../member/utils';
+import { LinkToCompanyWithReferralPayload } from '#libs/referral/types';
 
 const initialState: Immutable.Immutable<MembershipState> =
   Immutable<MembershipState>({
@@ -98,6 +100,24 @@ export default handleActions<Immutable.Immutable<MembershipState>>(
     },
     [linkActions.success.toString()]: (state, { payload }: any) => {
       return state.setIn(['byId', payload.company], payload);
+    },
+    [linkWithReferralActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['link', 'loading'], payload);
+    },
+    [linkWithReferralActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['link', 'error'], payload);
+    },
+    [linkWithReferralActions.success.toString()]: (
+      state,
+      { payload }: { payload: LinkToCompanyWithReferralPayload },
+    ) => {
+      return state.setIn(['byId', payload.member.company.toString()], payload);
     },
     [requestMemberShipValidationActions.isLoading.toString()]: (
       state,

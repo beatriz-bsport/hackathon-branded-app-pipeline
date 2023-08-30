@@ -25,3 +25,15 @@ export const getReferralMemberStatusWithMemberId = createSelector(
 
 export const getReferralMemberStatusLoading = (state: RootState) =>
   _getState(state).referralMemberStatus.loading;
+
+export const getReferralLinkStatusByReferringMemberId = (state: RootState) =>
+  _getState(state).referralLinkStatus.byId;
+
+export const getTheReferralLinkStatus = (state: RootState) =>
+  Object.values(getReferralLinkStatusByReferringMemberId(state))[0] ?? null;
+
+export const getReferralLinkStatusLoading = (state: RootState) =>
+  _getState(state).referralLinkStatus.loading;
+
+export const getReferralRegistrationErrorCode = (state: RootState) =>
+  _getState(state).referralException.registrationErrorCode;

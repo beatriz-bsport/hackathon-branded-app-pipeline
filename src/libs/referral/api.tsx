@@ -1,5 +1,9 @@
 import { getAuth, patchAuth, API_V1_URI, postAuth } from '../../http';
-import type { ReferralProgram, ReferralMemberStatus } from './types';
+import type {
+  ReferralProgram,
+  ReferralMemberStatus,
+  ReferralLinkStatus,
+} from './types';
 
 export const retrieveReferralProgram = () => {
   return getAuth<ReferralProgram>(
@@ -24,5 +28,11 @@ export const updateReferralProgram = (data: ReferralProgram) => {
 export const retrieveReferralMemberStatus = (memberId: number) => {
   return getAuth<ReferralMemberStatus>(
     `${API_V1_URI}/referral/referral-member-status/${memberId}`,
+  );
+};
+
+export const retrieveReferralLinkStatus = (referral_uuid: string) => {
+  return getAuth<ReferralLinkStatus>(
+    `${API_V1_URI}/referral/referral-link-status/${referral_uuid}`,
   );
 };

@@ -5,8 +5,13 @@ import {
   retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAPI,
   updateReferralProgram as updateReferralProgramAPI,
   retrieveReferralMemberStatus as retrieveReferralMemberStatusAPI,
+  retrieveReferralLinkStatus as retrieveReferralLinkStatusAPI,
 } from './api';
-import { ReferralMemberStatus, ReferralProgram } from './types';
+import {
+  ReferralLinkStatus,
+  ReferralMemberStatus,
+  ReferralProgram,
+} from './types';
 
 export const retrieveReferralProgramActions = {
   isLoading: createAction<boolean>('REFERRAL_PROGRAM/RETRIEVE/IS_LOADING'),
@@ -112,3 +117,38 @@ export function retrieveReferralMemberStatus(
     dispatch(retrieveReferralMemberStatusActions.isLoading(false));
   };
 }
+
+export const retrieveReferralLinkStatusActions = {
+  isLoading: createAction<boolean>('REFERRAL_LINK_STATUS/RETRIEVE/IS_LOADING'),
+  error: createAction<Error | null>('REFERRAL_LINK_STATUS/RETRIEVE/ERROR'),
+  success: createAction<ReferralLinkStatus>(
+    'REFERRAL_LINK_STATUS/RETRIEVE/SUCCESS',
+  ),
+};
+
+export function retrieveReferralLinkStatus(
+  referral_uuid: string,
+  options?: OptionCallback<ReferralLinkStatus>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveReferralLinkStatusActions.isLoading(true));
+    dispatch(retrieveReferralLinkStatusActions.error(null));
+
+    try {
+      const response = await retrieveReferralLinkStatusAPI(referral_uuid);
+      dispatch(retrieveReferralLinkStatusActions.success(response.data));
+      options?.onSuccess && options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(retrieveReferralLinkStatusActions.error(err));
+      options?.onError && options.onError();
+    }
+    dispatch(retrieveReferralLinkStatusActions.isLoading(false));
+  };
+}
+
+export const referralExceptionActions = {
+  setRegistrationError: createAction<number>(
+    'REFERRAL_EXCEPTION/REGISTRATION/SET',
+  ),
+};

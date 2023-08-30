@@ -8,10 +8,13 @@ import {
   fetchMembershipByCompany as fetchMembershipByCompanyAPI,
   fetchMembershipByBasket as fetchMembershipByBasketAPI,
   linkMeToCompany as linkMeToCompanyAPI,
+  linkMeToCompanyWithReferral as linkMeToCompanyWithReferralAPI,
   requestMembershipValidation as requestMembershipValidationAPI,
 } from './api';
 import type { Dispatch, OptionCallback, State } from '../../state/types';
 import { Membership } from './types';
+import { LinkToCompanyWithReferralPayload } from '#libs/referral/types';
+import { referralExceptionActions } from '#libs/referral/actions';
 
 export const listAsConsumerActions = {
   success: createAction('MEMBERSHIP/LIST/SUCCESS'),
@@ -168,14 +171,36 @@ export const linkActions = {
 };
 
 export function linkMeToCompany(
-  data: { company?: number; offer?: number },
+  data: { company?: number; offer?: number; referral_uuid?: string },
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(linkActions.isLoading(true));
     try {
-      const response = await linkMeToCompanyAPI(data);
-      dispatch(linkActions.success(response.data));
+      let response = null;
+      if (data.referral_uuid) {
+        response = await linkMeToCompanyWithReferralAPI(data);
+        if (response.data?.member) {
+          dispatch(linkActions.success(response.data.member));
+          if (response.data.referral_exception_code) {
+            dispatch(
+              referralExceptionActions.setRegistrationError(
+                response.data.referral_exception_code,
+              ),
+            );
+          }
+        } else {
+          dispatch(
+            referralExceptionActions.setRegistrationError(
+              response.data.referral_exception_code,
+            ),
+          );
+          throw Error('could not link to company via this referral');
+        }
+      } else {
+        response = await linkMeToCompanyAPI(data);
+        dispatch(linkActions.success(response.data));
+      }
 
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
@@ -192,6 +217,14 @@ export function linkMeToCompany(
     dispatch(linkActions.isLoading(false));
   };
 }
+
+export const linkWithReferralActions = {
+  success: createAction<LinkToCompanyWithReferralPayload>(
+    'MEMBERSHIP/LINK_WITH_REFERRAL/SUCCESS',
+  ),
+  isLoading: createAction<boolean>('MEMBERSHIP/LINK_WITH_REFERRAL/IS_LOADING'),
+  error: createAction<Error | null>('MEMBERSHIP/LINK_WITH_REFERRAL/ERROR'),
+};
 
 export const requestMemberShipValidationActions = {
   success: createAction('MEMBERSHIP/VALIDATION/SUCCESS'),

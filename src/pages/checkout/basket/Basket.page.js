@@ -182,8 +182,11 @@ export class BasketPage extends React.Component<Props> {
 
   componentWillMount() {
     this.props.refreshBasket();
-    this.props.fetchCompanyTheme(this.props.companyId);
     this.props.fetchShopItemFeatured(this.props.companyId);
+  }
+
+  componentDidMount() {
+    this.props.fetchCompanyTheme(this.props.companyId);
   }
 
   componentDidUpdate(prevProps: Props) {

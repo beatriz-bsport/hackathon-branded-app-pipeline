@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { MuiThemeProvider } from '@material-ui/core';
 import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
 import { Redirect, Switch, Route } from 'react-router';
@@ -11,11 +10,11 @@ import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import asyncComponent from '../../AsyncComponent.js';
 import { getLoginUrl } from '#libs/marketplace/routing-utils';
 
-// @ts-expect-error
-import { getTheme } from '../../theme';
 import themeSelectors from '#libs/theme/selectors';
 import { fetchProfile } from '#libs/consumer-space/actions';
 import { CompanyTheme } from '#libs/theme/types';
+import { fetchCompanyTheme } from '#libs/theme/actions';
+import withThemeProvider from '#hocs/company-themifier.hoc';
 
 const MarketplaceAsManager = asyncComponent(
   () =>
@@ -43,6 +42,7 @@ const ValidationCheckout = asyncComponent(
 
 type Props = {
   fetchProfile: () => void;
+  fetchCompanyTheme: (id: number | string) => void;
   authenticated: boolean;
   location: { [key: string]: string };
   is_manager?: boolean;
@@ -53,6 +53,8 @@ type Props = {
 
 export class NewBookingFlowRouter extends React.Component<Props> {
   componentDidMount() {
+    !!this.props.companyId &&
+      this.props.fetchCompanyTheme(this.props.companyId);
     if (this.props.authenticated) {
       this.props.fetchProfile();
     }
@@ -86,26 +88,24 @@ export class NewBookingFlowRouter extends React.Component<Props> {
       Some pages (like the contract checkout) are wraped into the marketplaceCssHoc but don't have parent 
       that provide a theme. That's why we need to wrap the router into a MuiThemeProvider
        */
-      <MuiThemeProvider theme={getTheme(this.props.theme)}>
-        <Switch>
-          <Route
-            component={BoutiqueBookerModule}
-            path="/booker-module-s/:companyId/:offerId"
-          />
-          <Route
-            component={ValidationCheckout}
-            path="/checkout-s/:companyId/validation"
-          />
-          <Route
-            component={withProps({ isNewCheckoutFlow: true })(BasketPage)}
-            path="/checkout-s/:companyId"
-          />
-          <Route
-            component={NewSubscriptionPage}
-            path="/contract-s/:companyId/:contractId"
-          />
-        </Switch>
-      </MuiThemeProvider>
+      <Switch>
+        <Route
+          component={BoutiqueBookerModule}
+          path="/booker-module-s/:companyId/:offerId"
+        />
+        <Route
+          component={ValidationCheckout}
+          path="/checkout-s/:companyId/validation"
+        />
+        <Route
+          component={withProps({ isNewCheckoutFlow: true })(BasketPage)}
+          path="/checkout-s/:companyId"
+        />
+        <Route
+          component={NewSubscriptionPage}
+          path="/contract-s/:companyId/:contractId"
+        />
+      </Switch>
     );
   }
 }
@@ -120,6 +120,10 @@ export default compose(
       is_manager: state.auth.is_manager,
       theme: themeSelectors.getTheme(state),
     }),
-    { fetchProfile },
+    {
+      fetchProfile,
+      fetchCompanyTheme,
+    },
   ),
+  withThemeProvider,
 )(NewBookingFlowRouter);

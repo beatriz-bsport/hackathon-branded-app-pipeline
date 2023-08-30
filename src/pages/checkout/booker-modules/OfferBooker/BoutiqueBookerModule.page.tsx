@@ -841,9 +841,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                         (buyableItemCategory) => (
                           <MarketplaceBuyableItemCategoryList
                             key={buyableItemCategory.index}
+                            excludeRecommendedItemsFromRegularCategories
                             buyableItemCategory={buyableItemCategory}
                             isExcludingTax={this.props.isExcludingTax}
-                            onClickAll={this.onClickAll}
                             selectBuyableItem={this.onClickBuyableItem}
                             selectedBuyableItem={
                               this.state.selectedItem
@@ -859,6 +859,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                           this.state.selectedBuyableItemCategory
                         }
                         isExcludingTax={this.props.isExcludingTax}
+                        onClickAll={this.onClickAll}
                         selectBuyableItem={this.onClickBuyableItem}
                         selectedBuyableItem={
                           this.state.selectedItem

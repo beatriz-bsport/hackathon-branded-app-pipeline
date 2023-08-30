@@ -1434,15 +1434,15 @@
     "@babel/helper-validator-identifier" "^7.22.5"
     to-fast-properties "^2.0.0"
 
-"@bsport/common@^2.4.68":
-  version "2.4.68"
-  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-2.4.68.tgz#56215aa0c453e176be0fef8e8711e0f8d8734f4e"
-  integrity sha512-iuvTrIBwqzGSkjAFKL4e1E7oQey9CWolT9Ht5Wtl/TVNTp8drpoHQofPzx2e4oXq9YFn4/eV0Z8d6ISQIwEvIA==
+"@bsport/common@^2.5.14":
+  version "2.5.14"
+  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-2.5.14.tgz#1036cadd99cf5aa0bc9dfc43f1cd0f7327974f37"
+  integrity sha512-lTgf2x7GDK7v9217poiTekbZV+OZhq21+bdmPI0/inCFiELadQlrsa24DN8zWUuC/ajpU6+5YcUtWwAnDyXs5Q==
   dependencies:
     "@types/node" "^14.14.21"
     eslint-plugin-babel "^5.3.1"
     memoize-one "^4.0.2"
-    moment-timezone "^0.5.32"
+    moment-timezone "0.5.40"
     tslint "^6.1.3"
     typescript "^4.1.3"
 
@@ -8741,10 +8741,10 @@ mkdirp@0.5.1:
   dependencies:
     minimist "^1.2.5"
 
-moment-timezone@^0.5.32:
-  version "0.5.34"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.34.tgz#a75938f7476b88f155d3504a9343f7519d9a405c"
-  integrity sha512-3zAEHh2hKUs3EXLESx/wsgw6IQdusOT8Bxm3D9UrHPQR7zlMmzwybC8zHEM1tQ4LJwP7fcxrWr8tuBg05fFCbg==
+moment-timezone@0.5.40:
+  version "0.5.40"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.40.tgz#c148f5149fd91dd3e29bf481abc8830ecba16b89"
+  integrity sha512-tWfmNkRYmBkPJz5mr9GVDn9vRlVZOTe6yqY92rFxiOdWXbjaR0+9LwQnZGGuNR63X456NqmEkbskte8tWL5ePg==
   dependencies:
     moment ">= 2.9.0"
 

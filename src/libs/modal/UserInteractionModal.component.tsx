@@ -10,11 +10,10 @@ import {
   DIALOG_MODE_IFRAME,
   DIALOG_MODE_POPUP,
   DIALOG_MODE_TAB,
+  DIALOG_MODE_DEACTIVATED,
 } from '@bsport/common/lib/master-data/widget-dialog-mode';
 import WidgetPortalSlidingContainer from 'bsport-saas/src/libs/widget/components/PortalContainer';
 
-// TODO COMMON
-const DIALOG_MODE_SEEMLESS_FLOW = 3;
 interface OwnProps {
   url?: string;
   dialogMode: 0 | 1 | 2 | 3;
@@ -81,10 +80,7 @@ class UserInteractionPortal extends React.PureComponent<Props> {
 
   render() {
     const { classes } = this.props;
-    if (
-      !!this.props.url &&
-      this.props.dialogMode === DIALOG_MODE_SEEMLESS_FLOW
-    ) {
+    if (!!this.props.url && this.props.dialogMode === DIALOG_MODE_DEACTIVATED) {
       if (this.props.allowNoPopup) {
         return (
           <WidgetPortalSlidingContainer isOpen={!!this.props.url}>

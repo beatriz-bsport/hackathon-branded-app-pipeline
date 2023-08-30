@@ -20,14 +20,13 @@ import {
   DIALOG_MODE_POPUP,
   DIALOG_MODE_IFRAME,
   DIALOG_MODE_TAB,
+  DIALOG_MODE_DEACTIVATED,
 } from '@bsport/common/lib/master-data/widget-dialog-mode';
 
 import { MaterialStyleType } from '../../../utils/types';
 import { LanguageSelect } from '../../../components/button/LanguageButton.component';
 import { getIntercomLink } from '../utils';
 
-// TODO COMMON
-const DIALOG_MODE_SEEMLESS_FLOW = 3;
 type OwnProps = {
   showFab: boolean;
   useIframe: boolean;
@@ -147,13 +146,13 @@ export const WidgetContainerConfigurator = (props: Props) => {
             <MenuItem value={DIALOG_MODE_POPUP}>
               {t(`widget.dialogMode.popup`)}
             </MenuItem>
-            <MenuItem value={DIALOG_MODE_SEEMLESS_FLOW}>
+            <MenuItem value={DIALOG_MODE_DEACTIVATED}>
               {t(`widget.dialogMode.stayInContainer`)}
             </MenuItem>
           </Select>
         </FormControl>
 
-        {![DIALOG_MODE_TAB, DIALOG_MODE_SEEMLESS_FLOW].includes(
+        {![DIALOG_MODE_TAB, DIALOG_MODE_DEACTIVATED].includes(
           props.dialogMode,
         ) && (
           <FormControl className={classes.dialogMode}>

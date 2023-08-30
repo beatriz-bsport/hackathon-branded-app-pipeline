@@ -9,6 +9,7 @@
 .bs-button-icon__container {
   background: none;
   padding: 0;
+  border-radius: 999px;
 }
 
 .bs-button-outlined__container {

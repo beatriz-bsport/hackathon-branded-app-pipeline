@@ -51,6 +51,9 @@ type Props = {
   theme: CompanyTheme;
 };
 
+const BoutiqueFlowBasketPage = withProps({ isNewCheckoutFlow: true })(
+  BasketPage,
+);
 export class NewBookingFlowRouter extends React.Component<Props> {
   componentDidMount() {
     !!this.props.companyId &&
@@ -98,7 +101,7 @@ export class NewBookingFlowRouter extends React.Component<Props> {
           path="/checkout-s/:companyId/validation"
         />
         <Route
-          component={withProps({ isNewCheckoutFlow: true })(BasketPage)}
+          component={BoutiqueFlowBasketPage}
           path="/checkout-s/:companyId"
         />
         <Route

@@ -187,6 +187,23 @@ export class BasketPage extends React.Component<Props> {
 
   componentDidMount() {
     this.props.fetchCompanyTheme(this.props.companyId);
+    if (this.props.auth.authenticated) {
+      this.props.fetchProfile();
+    }
+    if (this.props.basket) {
+      this.props.fetchInstalmentPaymentByBasket(this.props.basket.id);
+      Analytics.showBasket(this.props.basket);
+      if (this.props.basket.total_price_cts) {
+        this.getSecret();
+      }
+    }
+    if (this.props.auth.authenticated && this.props.basket?.member) {
+      this.props.fetchMember(this.props.basket.member);
+      this.props.fetchMembership(this.props.basket.member);
+    }
+    if (this.props.companyId) {
+      this.props.fetchPaymentMethod({ company: this.props.companyId });
+    }
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -239,26 +256,6 @@ export class BasketPage extends React.Component<Props> {
         this.setState({ clientSecretLoading: false });
       });
   };
-
-  componentDidMount() {
-    if (this.props.auth.authenticated) {
-      this.props.fetchProfile();
-    }
-    if (this.props.basket) {
-      this.props.fetchInstalmentPaymentByBasket(this.props.basket.id);
-      Analytics.showBasket(this.props.basket);
-      if (this.props.basket.total_price_cts) {
-        this.getSecret();
-      }
-    }
-    if (this.props.auth.authenticated && this.props.basket?.member) {
-      this.props.fetchMember(this.props.basket.member);
-      this.props.fetchMembership(this.props.basket.member);
-    }
-    if (this.props.companyId) {
-      this.props.fetchPaymentMethod({ company: this.props.companyId });
-    }
-  }
 
   onItemExpire = () => {
     const _this = this;

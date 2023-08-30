@@ -72,4 +72,8 @@
     flex-direction: column;
     align-items: center;
   }
+  .bs-status-message-with-icon__actions__container {
+    flex-direction: column;
+    align-items: center;
+  }
 }

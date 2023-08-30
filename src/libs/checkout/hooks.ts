@@ -1,0 +1,228 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { CheckoutItem, ConfirmationStatus } from './types';
+import ConfirmationMessageIcon from './components/ConfirmationMessageIcon';
+import { OfferWithSpotInformation } from '#libs/offer/types';
+
+export const useConfirmationMessageData = (
+  offers: OfferWithSpotInformation[],
+  checkoutItems: CheckoutItem[],
+  goToCalendar: () => void,
+  goBack: () => void,
+  goToMemberProfile: () => void,
+) => {
+  const { t } = useTranslation('checkout');
+
+  const messageData = React.useMemo(() => {
+    return {
+      [ConfirmationStatus.GENERIC_ERROR]: {
+        actions: {
+          cancel: {
+            label: t('validation.actions.goToCalendar'),
+            onClick: goToCalendar,
+          },
+          confirm: {
+            label: t('validation.actions.retry'),
+            onClick: goBack,
+          },
+        },
+        icon: React.createElement(ConfirmationMessageIcon, { isError: true }),
+        message: t('validation.sections.errorExplain.generic'),
+        title: t('validation.sections.confirmationStatusTitle.errors.generic'),
+        withAlert: null,
+        withSubScriptionActions: null,
+      },
+      [ConfirmationStatus.GENERIC_OFFER_ERROR]: {
+        actions: {
+          cancel: {
+            label: t('validation.actions.goToCalendar'),
+            onClick: goToCalendar,
+          },
+          confirm: {
+            label: t('validation.actions.myBookings'),
+            onClick: goToMemberProfile,
+          },
+        },
+        icon: React.createElement(ConfirmationMessageIcon, { isError: true }),
+        message: t('validation.sections.errorExplain.genericOfferError'),
+        title: t(
+          'validation.sections.confirmationStatusTitle.errors.genericOfferError',
+        ),
+        withAlert: null,
+        withSubScriptionActions: null,
+      },
+      [ConfirmationStatus.OFFER_ONLY_BOOKING_ERROR]: {
+        actions: {
+          cancel: {
+            label: t('validation.actions.goToCalendar'),
+            onClick: goToCalendar,
+          },
+          confirm: {
+            label: t('validation.actions.retryBookingSession'),
+            onClick: goBack,
+          },
+        },
+        icon: React.createElement(ConfirmationMessageIcon, { isError: true }),
+        message: t('validation.sections.errorExplain.offerOnlyBookingError'),
+        title: t(
+          'validation.sections.confirmationStatusTitle.errors.offerOnlyBookingError',
+        ),
+        withAlert: null,
+        withSubScriptionActions: null,
+      },
+      [ConfirmationStatus.OFFER_GENERIC_ERROR_WITH_PURCHASE]: {
+        actions: {
+          cancel: {
+            label: t('validation.actions.goToCalendar'),
+            onClick: goToCalendar,
+          },
+          confirm: {
+            label: t('validation.actions.myBookings'),
+            onClick: goToMemberProfile,
+          },
+        },
+        icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
+        message: t('validation.sections.errorExplain.genericOfferError'),
+        title: t(
+          'validation.sections.confirmationStatusTitle.errorExplain.paymentSuccess',
+        ),
+        withAlert: {
+          message: t('validation.sections.alert'),
+          action: {
+            label: t('validation.actions.retryBookingSession'),
+            onClick: goToCalendar,
+          },
+        },
+        withSubScriptionActions: null,
+      },
+      [ConfirmationStatus.OFFER_BOOKING_ERROR_WITH_PURCHASE]: {
+        actions: {
+          cancel: {
+            label: t('validation.actions.goToCalendar'),
+            onClick: goToCalendar,
+          },
+          confirm: {
+            label: t('validation.actions.myBookings'),
+            onClick: goToMemberProfile,
+          },
+        },
+        icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
+        message: t('validation.sections.errorExplain.genericOfferError'),
+        title: t(
+          'validation.sections.confirmationStatusTitle.errorExplain.paymentSuccess',
+        ),
+        withAlert: {
+          message: t('validation.sections.errorExplain.offerOnlyBookingError'),
+          action: {
+            label: t('validation.actions.retryBookingSession'),
+            onClick: goToCalendar,
+          },
+        },
+        withSubScriptionActions: null,
+      },
+      [ConfirmationStatus.OFFER_AND_PURCHASE_SUCCESS]: {
+        actions: {
+          cancel: {
+            label: t('validation.actions.goToCalendar'),
+            onClick: goToCalendar,
+          },
+          confirm: {
+            label: t('validation.actions.myBookings'),
+            onClick: goToMemberProfile,
+          },
+        },
+        icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
+        message: t(
+          'validation.sections.confirmationStatusMessage.offerAndPurchaseSuccess',
+        ),
+        title: t(
+          'validation.sections.confirmationStatusTitle.success.offerOnlySuccess',
+        ),
+        withAlert: null,
+        withSubScriptionActions: {
+          cancel: {
+            label: t('validation.actions.goToCalendar'),
+            onClick: goToCalendar,
+          },
+          confirm: {
+            label: t('validation.actions.mySubscription'),
+            onClick: goToMemberProfile,
+          },
+        },
+      },
+      [ConfirmationStatus.OFFER_ONLY_SUCCESS]: {
+        actions: {
+          cancel: {
+            label: t('validation.actions.goToCalendar'),
+            onClick: goToCalendar,
+          },
+          confirm: {
+            label: t('validation.actions.myBookings'),
+            onClick: goToMemberProfile,
+          },
+        },
+        icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
+        message: t(
+          'validation.sections.confirmationStatusMessage.offerOnlySuccess',
+          { count: offers?.length },
+        ),
+        title: t(
+          'validation.sections.confirmationStatusTitle.success.offerOnlySuccess',
+        ),
+        withAlert: null,
+        withSubScriptionActions: null,
+      },
+      [ConfirmationStatus.WAITING_LIST]: {
+        actions: {
+          cancel: {
+            label: t('validation.actions.goToCalendar'),
+            onClick: goToCalendar,
+          },
+          confirm: {
+            label: t('validation.actions.myBookings'),
+            onClick: goToMemberProfile,
+          },
+        },
+        icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
+        message: t('validation.sections.explain'),
+        title: t(
+          'validation.sections.confirmationStatusTitle.success.waitingList',
+        ),
+        withAlert: null,
+        withSubScriptionActions: null,
+      },
+      [ConfirmationStatus.PURCHASE_ONLY_SUCCESS]: {
+        actions: {
+          cancel: {
+            label: t('validation.actions.goToCalendar'),
+            onClick: goToCalendar,
+          },
+          confirm: {
+            label: t('validation.actions.myBookings'),
+            onClick: goToMemberProfile,
+          },
+        },
+        icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
+        message: t(
+          'validation.sections.confirmationStatusMessage.paymentSuccess',
+          {
+            count: checkoutItems?.length,
+          },
+        ),
+        title: t(
+          'validation.sections.confirmationStatusTitle.success.paymentSuccess',
+        ),
+        withAlert: null,
+        withSubScriptionActions: null,
+      },
+    };
+  }, [
+    t,
+    goToCalendar,
+    goToMemberProfile,
+    goBack,
+    checkoutItems?.length,
+    offers?.length,
+  ]);
+  return messageData;
+};

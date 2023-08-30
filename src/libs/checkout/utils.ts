@@ -2,9 +2,13 @@ import { TFunction } from 'i18next';
 import { SPOT_NOT_AVAILABLE } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { BUYABLE_ITEM_FEE } from '@bsport/common/lib/master-data/buyable-items';
 import { OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK } from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined';
+import {
+  LOCK_ACQUISITION_FAILURE_GENERIC,
+  LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING,
+} from '@bsport/common/lib/master-data/error-codes/lock';
 import { getPrice } from '#libs/theme/utils';
 import { getCompanyCountry } from '#libs/theme/selectors';
-import { Basket, PrepaidLine } from './types';
+import { Basket, ConfirmationStatus, PrepaidLine } from './types';
 import {
   EXCEPTION_BOOKING_GUEST_GENERIC,
   EXCEPTION_BOOKING_GUEST_IS_UNAVAILABLE_IN_OFFER,
@@ -15,6 +19,8 @@ import {
   EXCEPTION_BOOKING_GUEST_NOT_ENOUGH_SPOT,
 } from './constants';
 import type { MarketplacePaymentMethodBillingDetails } from '#libs/marketplace/types';
+import { OfferWithSpotInformation } from '#libs/offer/types';
+import { Subscription } from '#libs/subscription/types';
 
 export const getBasketTotalPriceExcludingTax = (
   basket: Basket | Basket<string, PrepaidLine> | Basket<number, PrepaidLine>,
@@ -105,4 +111,47 @@ export const getBillingDetailsDefaultValue = (
       state: '',
     },
   };
+};
+
+export const getConfirmationStatus = (
+  isError: boolean,
+  codeError: number,
+  offers: OfferWithSpotInformation[],
+  basket: Basket,
+  billingPlan: Subscription,
+  offersOnWaitingList: number[],
+) => {
+  if (isError) {
+    if (!codeError) {
+      return ConfirmationStatus.GENERIC_ERROR;
+    }
+    switch (codeError) {
+      case SPOT_NOT_AVAILABLE:
+      case LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING:
+      case LOCK_ACQUISITION_FAILURE_GENERIC:
+        return ConfirmationStatus.OFFER_ONLY_BOOKING_ERROR;
+      default:
+        return ConfirmationStatus.GENERIC_OFFER_ERROR;
+    }
+  }
+  if (!!offers?.length && !basket && !billingPlan) {
+    return ConfirmationStatus.OFFER_ONLY_SUCCESS;
+  }
+  if (!!offers?.length && (!!basket || !!billingPlan)) {
+    if (!codeError) {
+      return ConfirmationStatus.OFFER_AND_PURCHASE_SUCCESS;
+    }
+    switch (codeError) {
+      case SPOT_NOT_AVAILABLE:
+      case LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING:
+      case LOCK_ACQUISITION_FAILURE_GENERIC:
+        return ConfirmationStatus.OFFER_BOOKING_ERROR_WITH_PURCHASE;
+      default:
+        return ConfirmationStatus.OFFER_GENERIC_ERROR_WITH_PURCHASE;
+    }
+  }
+  if (offersOnWaitingList?.length) {
+    return ConfirmationStatus.WAITING_LIST;
+  }
+  return ConfirmationStatus.PURCHASE_ONLY_SUCCESS;
 };

@@ -38,6 +38,7 @@ import CustomFormView from '../../libs/custom-form/components/consumer-form/Cust
 import { OptionCallback } from '../../state/types';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import themeSelectors from '../../libs/theme/selectors';
+import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 
 type StateHandlerInit = {
   submitSuccess: boolean;
@@ -112,58 +113,67 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
       !this.props.customFormWithEnabledField ||
       !this.props.theme
     ) {
-      return <LinearProgress color="primary" />;
+      return (
+        /* Wrapper used here because the user can be redirected through a custom form link here without being a member.
+           Thus no fetch are made here so props never changes and we stay inside this condition forever */
+        <MemberShipValidationWrapper companyId={this.props.companyId}>
+          <LinearProgress color="primary" />
+        </MemberShipValidationWrapper>
+      );
     }
+
     return (
-      <ConsumerAppBar>
-        <div className={classes.container}>
-          <Grid container className={classes.gridContainer}>
-            <Grid item md={6} xs={12}>
-              {this.props.customFormWithEnabledField?.disabled ||
-              this.props.customFormWithEnabledField?.is_signup ? (
-                <Paper className={classes.disabledFormPaper}>
-                  <Typography
-                    align="center"
-                    className={classes.disabledTitle}
-                    variant="h5"
-                  >
-                    {t('customForm.unaccessibleForm')}
-                  </Typography>
-                  <Button
-                    color="primary"
-                    onClick={() =>
-                      this.props.pushRouter(`/c/${this.props.companyId}`)
-                    }
-                    variant="contained"
-                  >
-                    <ArrowForwardIcon className={classes.arrowIcon} />
-                    {t('customForm.backToUserSpace')}
-                  </Button>
-                </Paper>
-              ) : (
-                <Paper className={classes.paperContainer}>
-                  <CustomFormView
-                    fieldsAreIndependent
-                    general_terms_and_conditions={
-                      this.props.theme.general_terms_of_use
-                    }
-                    initial={this.props.customFormWithEnabledField}
-                    layouts={this.props.customFormWithEnabledField?.layout}
-                    onSubmit={this.props.submitCustomForm}
-                    waiver={this.props.theme.waiver}
-                  />
-                </Paper>
-              )}
+      <MemberShipValidationWrapper companyId={this.props.companyId}>
+        <ConsumerAppBar>
+          <div className={classes.container}>
+            <Grid container className={classes.gridContainer}>
+              <Grid item md={6} xs={12}>
+                {this.props.customFormWithEnabledField?.disabled ||
+                this.props.customFormWithEnabledField?.is_signup ? (
+                  <Paper className={classes.disabledFormPaper}>
+                    <Typography
+                      align="center"
+                      className={classes.disabledTitle}
+                      variant="h5"
+                    >
+                      {t('customForm.unaccessibleForm')}
+                    </Typography>
+                    <Button
+                      color="primary"
+                      onClick={() =>
+                        this.props.pushRouter(`/c/${this.props.companyId}`)
+                      }
+                      variant="contained"
+                    >
+                      <ArrowForwardIcon className={classes.arrowIcon} />
+                      {t('customForm.backToUserSpace')}
+                    </Button>
+                  </Paper>
+                ) : (
+                  <Paper className={classes.paperContainer}>
+                    <CustomFormView
+                      fieldsAreIndependent
+                      general_terms_and_conditions={
+                        this.props.theme.general_terms_of_use
+                      }
+                      initial={this.props.customFormWithEnabledField}
+                      layouts={this.props.customFormWithEnabledField?.layout}
+                      onSubmit={this.props.submitCustomForm}
+                      waiver={this.props.theme.waiver}
+                    />
+                  </Paper>
+                )}
+              </Grid>
             </Grid>
-          </Grid>
-          <CustomFormSubmitDialog
-            goToUserSpace={() =>
-              this.props.pushRouter(`/c/${this.props.companyId}`)
-            }
-            open={this.props.submitSuccess}
-          />
-        </div>
-      </ConsumerAppBar>
+            <CustomFormSubmitDialog
+              goToUserSpace={() =>
+                this.props.pushRouter(`/c/${this.props.companyId}`)
+              }
+              open={this.props.submitSuccess}
+            />
+          </div>
+        </ConsumerAppBar>
+      </MemberShipValidationWrapper>
     );
   }
 }

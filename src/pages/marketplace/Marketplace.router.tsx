@@ -9,7 +9,6 @@ import {
   BsportRequestFromHeaderValue,
 } from '../../constants';
 import asyncComponent from '../../AsyncComponent';
-import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 import { RootState } from '../../reducers';
 import namespaces from '../../i18n/namespaces.json';
 
@@ -47,24 +46,22 @@ export class MarketplaceRouter extends React.Component<Props> {
     return (
       <Switch>
         <Route exact component={MarketplaceResolver} path="/m/:companyName" />
-        <MemberShipValidationWrapper>
-          <Switch>
-            <Route
-              component={MarketplaceCustomForm}
-              path="/m/:companyName/:companyId/form/:customFormId"
-            />
-            <Route
-              exact
-              component={Marketplace}
-              path="/m/:companyName/:companyId/"
-            />
+        <Switch>
+          <Route
+            component={MarketplaceCustomForm}
+            path="/m/:companyName/:companyId/form/:customFormId"
+          />
+          <Route
+            exact
+            component={Marketplace}
+            path="/m/:companyName/:companyId/"
+          />
 
-            <Route
-              component={Marketplace}
-              path="/m/:companyName/:companyId/:subcomponent/"
-            />
-          </Switch>
-        </MemberShipValidationWrapper>
+          <Route
+            component={Marketplace}
+            path="/m/:companyName/:companyId/:subcomponent/"
+          />
+        </Switch>
       </Switch>
     );
   }

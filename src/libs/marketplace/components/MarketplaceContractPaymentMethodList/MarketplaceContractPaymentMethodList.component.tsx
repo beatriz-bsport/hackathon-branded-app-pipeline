@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import { MarketplacePaymentMethods } from '#libs/marketplace/types';
+import CircularProgress from '#components/css-only/CircularProgress';
 import { PaymentMethod } from '#libs/payment/types';
 
 import './styles.css';
@@ -21,6 +22,7 @@ export type Props = {
   paymentMethodType: MarketplacePaymentMethods;
   onDetachPaymentMethod: (id: string) => void;
   onSelectPaymentMethod: (id: string) => void;
+  paymentMethodLoading?: boolean;
 };
 
 type ContractPaymentMethodProps = {
@@ -127,7 +129,16 @@ const MarketplaceContractPaymentMethodList: React.FC<Props> = React.memo(
     paymentMethodType,
     onDetachPaymentMethod,
     onSelectPaymentMethod,
+    paymentMethodLoading,
   }) => {
+    if (paymentMethodLoading) {
+      return (
+        <div className="bs-marketplace-contract-payment-method-list__item__loading">
+          <CircularProgress />
+        </div>
+      );
+    }
+
     return (
       <>
         {!!paymentMethods.length && (

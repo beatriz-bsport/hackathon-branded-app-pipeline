@@ -179,10 +179,10 @@ export default compose(
   ]),
   withHandlers({
     goToCheckout:
-      ({ replace, queryParams }) =>
+      ({ replace, queryParams, theme }) =>
       (companyId) =>
         replace(
-          getCheckoutUrl(companyId, false, {
+          getCheckoutUrl(companyId, theme?.display_new_checkout_flow, {
             ...(queryParams?.context ? { context: queryParams.context } : {}),
             ...(queryParams?.onValidation
               ? { onValidation: queryParams.onValidation }

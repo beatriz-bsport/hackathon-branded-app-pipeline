@@ -1,0 +1,27 @@
+.bs-confirmation-checkout-skeleton-container {
+  display: grid;
+  justify-content: center;
+  gap: var(--spacing-5);
+  padding: var(--spacing-5) 0;
+  grid-template-columns: 100%;
+  width: 80%;
+}
+.bs-confirmation-checkout-skeleton__section--message {
+  display: flex;
+  justify-content: center;
+}
+
+.bs-confirmation-checkout-skeleton__section {
+  display: flex;
+  gap: var(--spacing-1);
+  flex-direction: column;
+}
+
+@container bsconfirmationpage (width < 600px) {
+  .bs-confirmation-checkout-skeleton-container {
+    width: 100%;
+  }
+  .bs-confirmation-checkout-skeleton__section {
+    width: 100%;
+  }
+}

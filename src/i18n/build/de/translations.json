@@ -6200,7 +6200,8 @@
                 "Stornieren",
                 "Stornieren",
                 "",
-                "Abgesagt"
+                "Abgesagt",
+                "Storniert"
             ]
         }
     },
@@ -8946,7 +8947,7 @@
                 },
                 "isWaitingListFull": {
                     "title": "Warteliste voll",
-                    "message": "Diese Session und die Warteliste sind voll. Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut."
+                    "message": "Diese Session und die Warteliste sind voll. \nBitte versuchen Sie es zu einem späteren Zeitpunkt erneut."
                 },
                 "isAlreadyOnWaitingList": {
                     "title": "Bereits auf der Warteliste",
@@ -8955,6 +8956,10 @@
                 "waitingListOpen": {
                     "title": "Volle Session",
                     "message": "Treten Sie der Warteliste bei und Sie erhalten eine Nachricht, sobald ein Platz frei wird."
+                },
+                "noPassAvailable": {
+                    "title": "Keine Kurspässe verfügbar",
+                    "message": "Es sind keine Kurspässe verfügbar, um sich auf die Warteliste setzen zu lassen."
                 }
             },
             "backToCalendar": "Zurück zum Kalender",
@@ -8975,7 +8980,8 @@
             "otherPasses": "Andere Kurspässe",
             "spotSelectorTitle": "Wählen Sie Ihren Platz",
             "seeAllProducts": "Alle Produkte ansehen",
-            "recommended": "Empfehlungen"
+            "recommended": "Empfehlungen",
+            "reviewAndConfirm": "Überprüfen und Bestätigen"
         }
     },
     "member": {

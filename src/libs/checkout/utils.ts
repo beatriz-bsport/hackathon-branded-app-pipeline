@@ -6,9 +6,17 @@ import {
   LOCK_ACQUISITION_FAILURE_GENERIC,
   LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING,
 } from '@bsport/common/lib/master-data/error-codes/lock';
+import memoize from 'memoize-one';
 import { getPrice } from '#libs/theme/utils';
 import { getCompanyCountry } from '#libs/theme/selectors';
-import { Basket, ConfirmationStatus, PrepaidLine } from './types';
+import {
+  Basket,
+  ConfirmationStatus,
+  BuyableItemOptions,
+  CheckoutItem,
+  PrepaidLine,
+} from './types';
+
 import {
   EXCEPTION_BOOKING_GUEST_GENERIC,
   EXCEPTION_BOOKING_GUEST_IS_UNAVAILABLE_IN_OFFER,
@@ -155,3 +163,91 @@ export const getConfirmationStatus = (
   }
   return ConfirmationStatus.PURCHASE_ONLY_SUCCESS;
 };
+
+export const getNumberOfListToDisplay = memoize(
+  ({
+    checkoutItemsWithPaymentCombo,
+    checkoutItemsWithPaymentPack,
+    checkoutItemsWithPrivatePass,
+    checkoutItemsWithShopItem,
+  }: {
+    checkoutItemsWithPaymentCombo: CheckoutItem[];
+    checkoutItemsWithPaymentPack: CheckoutItem[];
+    checkoutItemsWithPrivatePass: CheckoutItem[];
+    checkoutItemsWithShopItem: CheckoutItem[];
+  }) => {
+    const shoudlDisplayPassList =
+      !!checkoutItemsWithPaymentPack.length ||
+      !!checkoutItemsWithPrivatePass.length;
+
+    const shouldDisplayPackList = !!checkoutItemsWithPaymentCombo.length;
+    const shouldDisplayShopItemList = !!checkoutItemsWithShopItem.length;
+    const numberOfListToDisplay = [
+      shoudlDisplayPassList,
+      shouldDisplayPackList,
+      shouldDisplayShopItemList,
+    ].filter((listToDisplay) => !!listToDisplay).length;
+
+    return {
+      shoudlDisplayPassList,
+      shouldDisplayPackList,
+      shouldDisplayShopItemList,
+      numberOfListToDisplay,
+    };
+  },
+);
+
+const emptyCheckOutItemByBuyableItemIdentifier = () => ({
+  [BuyableItemOptions.BUYABLE_ITEM_PASS]: [] as CheckoutItem[],
+  [BuyableItemOptions.BUYABLE_ITEM_COMBO_ITEM]: [] as CheckoutItem[],
+  [BuyableItemOptions.BUYABLE_ITEM_PRIVATE_PASS]: [] as CheckoutItem[],
+  [BuyableItemOptions.BUYABLE_ITEM_SHOP_ITEM]: [] as CheckoutItem[],
+  [BuyableItemOptions.BUYABLE_ITEM_COUPON]: [] as CheckoutItem[],
+  [BuyableItemOptions.BUYABLE_ITEM_CREDIT]: [] as CheckoutItem[],
+  [BuyableItemOptions.BUYABLE_ITEM_FEE]: [] as CheckoutItem[],
+  [BuyableItemOptions.BUYABLE_ITEM_GIFTCARD]: [] as CheckoutItem[],
+});
+
+export const sortCheckoutItemByBuyableItemIdentifier = memoize(
+  (checkoutItems: CheckoutItem[]) => {
+    if (!checkoutItems?.length) {
+      return emptyCheckOutItemByBuyableItemIdentifier();
+    }
+
+    const filteredCheckoutItems = checkoutItems?.filter(
+      (checkoutItem) => !!checkoutItem,
+    );
+
+    return filteredCheckoutItems.reduce((acc, currventValue) => {
+      switch (currventValue.buyable_item_identifier) {
+        case BuyableItemOptions.BUYABLE_ITEM_PASS:
+          acc[BuyableItemOptions.BUYABLE_ITEM_PASS]?.push(currventValue);
+          break;
+        case BuyableItemOptions.BUYABLE_ITEM_COMBO_ITEM:
+          acc[BuyableItemOptions.BUYABLE_ITEM_COMBO_ITEM]?.push(currventValue);
+          break;
+        case BuyableItemOptions.BUYABLE_ITEM_PRIVATE_PASS:
+          acc[BuyableItemOptions.BUYABLE_ITEM_PRIVATE_PASS].push(currventValue);
+          break;
+        case BuyableItemOptions.BUYABLE_ITEM_SHOP_ITEM:
+          acc[BuyableItemOptions.BUYABLE_ITEM_SHOP_ITEM].push(currventValue);
+          break;
+        case BuyableItemOptions.BUYABLE_ITEM_COUPON:
+          acc[BuyableItemOptions.BUYABLE_ITEM_COUPON].push(currventValue);
+          break;
+        case BuyableItemOptions.BUYABLE_ITEM_CREDIT:
+          acc[BuyableItemOptions.BUYABLE_ITEM_CREDIT].push(currventValue);
+          break;
+        case BuyableItemOptions.BUYABLE_ITEM_FEE:
+          acc[BuyableItemOptions.BUYABLE_ITEM_FEE].push(currventValue);
+          break;
+        case BuyableItemOptions.BUYABLE_ITEM_GIFTCARD:
+          acc[BuyableItemOptions.BUYABLE_ITEM_GIFTCARD].push(currventValue);
+          break;
+        default:
+          break;
+      }
+      return acc;
+    }, emptyCheckOutItemByBuyableItemIdentifier());
+  },
+);

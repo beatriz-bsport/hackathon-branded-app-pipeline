@@ -33,7 +33,7 @@ export const extractVoucherCodesFromCSVString = (csvFileAsString: string) => {
 
 export const parseCSVFileToGetVoucherCodes = async (csvFile: File) => {
   // Get browser information
-  const isFireFox = navigator?.userAgent?.indexOf('Firefox') < 0;
+  const isFireFox = navigator?.userAgent?.indexOf('Firefox') >= 0;
 
   const isWindows = navigator?.userAgent?.includes('Windows');
 

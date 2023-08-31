@@ -8,7 +8,6 @@ import isEqual from 'lodash/isEqual';
 import MarketplaceConsumerPaymentPackCard from '#libs/marketplace/components/MarketplaceConsumerPaymentPackCard';
 import MarketplaceFilterBuyableItemCategory from '#libs/marketplace/components/MarketplaceFilterBuyableItemCategory';
 import MarketplaceBuyableItemCategoryList from '#libs/marketplace/components/MarketplaceBuyableItemCategoryList';
-import Alert, { AlertSeverity } from '#csscomponents/Alert';
 import Button from '#components/css-only/Button';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { MarketplaceBookerModuleBuyableItemsSkeleton } from '.';
@@ -27,7 +26,6 @@ import './styles.css';
 
 export type Props = {
   isLoading: boolean;
-  isWaitingList: boolean;
   availableConsumerPacks: Array<ConsumerPaymentPack<PaymentPack> & MaxoutData>;
   isShowBuyableItems: boolean;
   buyableItemCategories: BuyableItemCategory[];
@@ -50,7 +48,6 @@ export type Props = {
 
 const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
   isLoading,
-  isWaitingList,
   availableConsumerPacks,
   isShowBuyableItems,
   buyableItemCategories,
@@ -76,12 +73,6 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
   return (
     <div className="bs-booker-module-buyable-items__container">
       <>
-        {isWaitingList && (
-          <Alert severity={AlertSeverity.WARNING}>
-            {t('booking:newBookingModule.waitingListWarning')}
-          </Alert>
-        )}
-
         {availableConsumerPacks?.length > 0 && (
           <>
             <div className="bs-new-offer-booking__consumer-payment-packs__subtitle">

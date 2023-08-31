@@ -20,8 +20,10 @@ import {
 import moment from 'moment-timezone';
 import './BoutiqueBookerModule.css';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { SvgIconComponent } from '@material-ui/icons';
+import Alert, { AlertSeverity } from '#csscomponents/Alert';
 // @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
 import type { WithHandlerType } from '../../../../utils/types';
@@ -824,29 +826,38 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                 isLoading={this.getIsLoading()}
               />
             ) : (
-              <MarketplaceBookerModuleBuyableItems
-                availableConsumerPacks={this.state.availableConsumerPacks}
-                buyableItemCategories={this.state.buyableItemCategories}
-                companyTheme={this.props.theme}
-                hideCreditsForCustomers={
-                  this.props.theme.hide_credits_for_customers
-                }
-                hideUnnecessaryCompatiblePurchaseMethod={
-                  this.props.theme.hide_unnecessary_compatible_purchase_method
-                }
-                isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
-                isLoading={this.getIsLoading()}
-                isShowBuyableItems={this.state.showBuyableItems}
-                isWaitingList={this.state.isWaitingList}
-                onClickBuyableItem={this.onClickBuyableItem}
-                onClickCategory={this.onClickCategory}
-                onClickShowBuyableItems={this.onClickShowBuyableItems}
-                onSelectConsumerPaymentPack={this.onSelectConsumerPaymentPack}
-                selectedBuyableItemCategory={
-                  this.state.selectedBuyableItemCategory
-                }
-                selectedItem={this.state.selectedItem}
-              />
+              <>
+                {this.state.isWaitingList && (
+                  <Alert severity={AlertSeverity.WARNING}>
+                    {t('booking:newBookingModule.waitingListWarning')}
+                  </Alert>
+                )}
+                <MarketplaceBookerModuleBuyableItems
+                  availableConsumerPacks={this.state.availableConsumerPacks}
+                  buyableItemCategories={this.state.buyableItemCategories}
+                  companyTheme={this.props.theme}
+                  hideCreditsForCustomers={
+                    this.props.theme.hide_credits_for_customers
+                  }
+                  hideUnnecessaryCompatiblePurchaseMethod={
+                    this.props.theme.hide_unnecessary_compatible_purchase_method
+                  }
+                  isExcludingTax={
+                    this.props.theme.is_tax_excluded_in_marketplace
+                  }
+                  isLoading={this.getIsLoading()}
+                  isShowBuyableItems={this.state.showBuyableItems}
+                  isWaitingList={this.state.isWaitingList}
+                  onClickBuyableItem={this.onClickBuyableItem}
+                  onClickCategory={this.onClickCategory}
+                  onClickShowBuyableItems={this.onClickShowBuyableItems}
+                  onSelectConsumerPaymentPack={this.onSelectConsumerPaymentPack}
+                  selectedBuyableItemCategory={
+                    this.state.selectedBuyableItemCategory
+                  }
+                  selectedItem={this.state.selectedItem}
+                />
+              </>
             )}
             <div className="bs-new-offer-booking__offer-summary">
               <OfferSummary

@@ -28,17 +28,17 @@ const MarketplaceContractPaymentPricing: React.FC<Props> = React.memo(
         const firstInvoiceProrataPrice = computeProrataPriceForSubscription(
           billingStartDate,
           contract?.month_billing_day,
-          contract?.recurrent_price.toString(),
+          (contract?.recurrent_price ?? 0).toString(),
         );
         return parseFloat(
           Math.max(
-            parseInt(firstInvoiceProrataPrice, 10) - (voucher || 0),
+            parseFloat(firstInvoiceProrataPrice) - (voucher || 0),
             0,
           ).toString(),
         ).toFixed(2);
       }
       return parseFloat(
-        (parseInt(contract.recurrent_price, 10) - (voucher || 0)).toString(),
+        (parseFloat(contract.recurrent_price) - (voucher || 0)).toString(),
       ).toFixed(2);
     }, [
       contract?.month_billing_day,
@@ -55,13 +55,11 @@ const MarketplaceContractPaymentPricing: React.FC<Props> = React.memo(
           contract.recurrent_price.toString(),
         );
         return Math.max(
-          parseInt(firstInvoiceProrataPrice, 10) - (voucher || 0),
+          parseFloat(firstInvoiceProrataPrice) - (voucher || 0),
           0,
         ).toFixed(2);
       }
-      return (parseInt(contract.recurrent_price, 10) - (voucher || 0)).toFixed(
-        2,
-      );
+      return (parseFloat(contract.recurrent_price) - (voucher || 0)).toFixed(2);
     }, [
       contract?.month_billing_day,
       contract.recurrent_price,
@@ -105,7 +103,9 @@ const MarketplaceContractPaymentPricing: React.FC<Props> = React.memo(
                 priceWithCurrency: getCurrencyDisplayWithPrice(contractPrice),
                 firstBillingDate: moment(billingStartDate).format('L'),
                 recurrentPrice: `${getCurrencyDisplayWithPrice(
-                  parseFloat(contract.recurrent_price.toString()).toFixed(2),
+                  parseFloat(
+                    (contract?.recurrent_price ?? 0).toString(),
+                  ).toFixed(2),
                 )}`,
                 monthBillingDay: contract.month_billing_day,
               })}
@@ -156,7 +156,7 @@ const MarketplaceContractPaymentPricing: React.FC<Props> = React.memo(
               {shouldDisplayFlatFee && (
                 <span className="bs-contract-payment__price_fee">
                   {`+${getCurrencyDisplayWithPrice(
-                    parseFloat(contract.flat_fee.toString()).toFixed(2),
+                    parseFloat((contract?.flat_fee ?? 0).toString()).toFixed(2),
                   )}`}
                 </span>
               )}

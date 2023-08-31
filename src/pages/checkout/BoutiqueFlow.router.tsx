@@ -36,7 +36,7 @@ const BoutiqueContractCheckout = asyncComponent(
 // for now it redirects to the classic validation page
 // -> to replace by the new validation page once it's merged
 const ValidationCheckout = asyncComponent(
-  () => import('./booker-modules/ValidationCheckout.page'),
+  () => import('./booker-modules/ConfirmationCheckout'),
 );
 
 type Props = {

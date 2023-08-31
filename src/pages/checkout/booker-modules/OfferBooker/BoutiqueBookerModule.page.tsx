@@ -828,6 +828,12 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                 availableConsumerPacks={this.state.availableConsumerPacks}
                 buyableItemCategories={this.state.buyableItemCategories}
                 companyTheme={this.props.theme}
+                hideCreditsForCustomers={
+                  this.props.theme.hide_credits_for_customers
+                }
+                hideUnnecessaryCompatiblePurchaseMethod={
+                  this.props.theme.hide_unnecessary_compatible_purchase_method
+                }
                 isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
                 isLoading={this.getIsLoading()}
                 isShowBuyableItems={this.state.showBuyableItems}

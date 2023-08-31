@@ -111,7 +111,6 @@ const baseArgs = {
   availableConsumerPacks: consumerPacks,
   buyableItemCategories: getBuyableItemCategories(),
   isExcludingTax: false,
-  companyTheme: { hide_unnecessary_compatible_purchase_method: false },
 };
 
 export const BuyableItemsLoading = BookerModuleBuyableItemsTemplate.bind({});

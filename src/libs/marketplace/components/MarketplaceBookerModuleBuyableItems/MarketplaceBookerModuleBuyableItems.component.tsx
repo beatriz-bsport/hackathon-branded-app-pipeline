@@ -35,6 +35,8 @@ export type Props = {
   selectedBuyableItemCategory?: BuyableItemCategory;
   isExcludingTax: boolean;
   companyTheme: CompanyTheme;
+  hideUnnecessaryCompatiblePurchaseMethod: boolean;
+  hideCreditsForCustomers: boolean;
   onSelectConsumerPaymentPack: (
     consumerPaymentPack: ConsumerPaymentPack<PaymentPack>,
   ) => void;
@@ -55,17 +57,17 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
   selectedItem,
   selectedBuyableItemCategory,
   isExcludingTax,
-  companyTheme,
+  hideCreditsForCustomers,
   onSelectConsumerPaymentPack,
   onClickShowBuyableItems,
+  hideUnnecessaryCompatiblePurchaseMethod,
   onClickCategory,
   onClickBuyableItem,
 }) => {
   const { t } = useTranslation('booking');
 
   const isDisplayBuyableItems =
-    (!companyTheme.hide_unnecessary_compatible_purchase_method &&
-      isShowBuyableItems) ||
+    (!hideUnnecessaryCompatiblePurchaseMethod && isShowBuyableItems) ||
     (availableConsumerPacks ?? [])?.length === 0;
 
   if (isLoading) {
@@ -96,7 +98,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
               />
             ))}
 
-            {!companyTheme.hide_unnecessary_compatible_purchase_method && (
+            {!hideUnnecessaryCompatiblePurchaseMethod && (
               <div className="bs-new-offer-booking__buyable_items__header">
                 <Button
                   classes={{
@@ -128,9 +130,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
               <MarketplaceBuyableItemCategoryList
                 key={buyableItemCategory.index}
                 buyableItemCategory={buyableItemCategory}
-                hideCreditsForCustomers={
-                  companyTheme.hide_credits_for_customers
-                }
+                hideCreditsForCustomers={hideCreditsForCustomers}
                 isExcludingTax={isExcludingTax}
                 selectBuyableItem={onClickBuyableItem}
                 selectedBuyableItem={
@@ -141,7 +141,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
           ) : (
             <MarketplaceBuyableItemCategoryList
               buyableItemCategory={selectedBuyableItemCategory}
-              hideCreditsForCustomers={companyTheme.hide_credits_for_customers}
+              hideCreditsForCustomers={hideCreditsForCustomers}
               isExcludingTax={isExcludingTax}
               selectBuyableItem={onClickBuyableItem}
               selectedBuyableItem={

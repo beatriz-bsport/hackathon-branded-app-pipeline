@@ -5065,6 +5065,7 @@
                 "Cancelada",
                 "Cancelada",
                 "",
+                "Cancelada",
                 "Cancelada"
             ]
         },
@@ -6312,7 +6313,7 @@
                 },
                 "isWaitingListFull": {
                     "title": "Lista de espera completa",
-                    "message": "Esta sesión y la lista de espera están completas. Vuelva a intentarlo más tarde."
+                    "message": "Esta sesión y la lista de espera están completas.\nVuelva a intentarlo más tarde."
                 },
                 "isAlreadyOnWaitingList": {
                     "title": "Ya está en lista de espera",
@@ -6325,6 +6326,10 @@
                 "isTooSoon": {
                     "title": "Disponible próximamente",
                     "message": "La inscripción está actualmente cerrada y se abrirá el {{-date}}."
+                },
+                "noPassAvailable": {
+                    "title": "No hay ningún bono disponible",
+                    "message": "No hay bonos disponibles para apuntarse a la lista de espera."
                 }
             },
             "waitingListWarning": "Antes de inscribirse en la lista de espera, asegúrese de haber adquirido el bono, pack o suscripción correspondiente. Es obligatorio estar en posesión de un bono, pack o suscripción activo para tener garantizada una plaza en la lista de espera.",
@@ -6335,7 +6340,8 @@
             "otherPasses": "Otros bonos",
             "spotSelectorTitle": "Elige tu sitio",
             "seeAllProducts": "Ver todos los productos",
-            "recommended": "Recomendados"
+            "recommended": "Recomendados",
+            "reviewAndConfirm": "Revisar y confirmar"
         }
     },
     "marketplace": {

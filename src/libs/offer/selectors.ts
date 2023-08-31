@@ -76,7 +76,7 @@ export const getSimilarsCount = (state: RootState) =>
   state.offer.similarOffers.count;
 
 export const withMetaActivity = memoize(
-  (selector: (state: RootState, offerId?: number) => any) =>
+  (selector: (state: RootState, offerId?: number | number[]) => any) =>
     createSelector(
       [selector, getMetaActivityAbstractDict, getWorkshopActivitiesDict],
       (offers, metaActivityData, workshopData) => {
@@ -101,7 +101,7 @@ export const withMetaActivity = memoize(
 );
 
 export const withEstablishment = memoize(
-  (selector: (state: RootState, offerId?: number) => any) =>
+  (selector: (state: RootState, offerId?: number | number[]) => any) =>
     createSelector(
       [selector, getAllEstablishmentsDict],
       (offers, establishmentData) => {
@@ -142,34 +142,35 @@ export const withSpecificCoach = memoize(
     }),
 );
 
-export const withCoach = memoize((selector: (state: RootState) => any) =>
-  createSelector([selector, getAllCoachesDict], (offers, coachData) => {
-    if (!offers) return null;
-    if (!Array.isArray(offers)) {
-      return {
-        ...offers,
-        coach: coachData[offers.coach] || offers.coach,
-        coach_override: offers.coach_override
-          ? coachData[offers.coach_override]
+export const withCoach = memoize(
+  (selector: (state: RootState, ids?: number[]) => any) =>
+    createSelector([selector, getAllCoachesDict], (offers, coachData) => {
+      if (!offers) return null;
+      if (!Array.isArray(offers)) {
+        return {
+          ...offers,
+          coach: coachData[offers.coach] || offers.coach,
+          coach_override: offers.coach_override
+            ? coachData[offers.coach_override]
+            : null,
+          additional_coaches:
+            offers?.additional_coaches?.map(
+              (coachId) => coachData[coachId] || coachId,
+            ) ?? [],
+        };
+      }
+      return offers.map((o) => ({
+        ...o,
+        coach: coachData[o.coach] || o.coach,
+        coach_override: o.coach_override
+          ? coachData[o.coach_override] || o.coach_override
           : null,
         additional_coaches:
-          offers?.additional_coaches?.map(
+          o?.additional_coaches?.map(
             (coachId) => coachData[coachId] || coachId,
           ) ?? [],
-      };
-    }
-    return offers.map((o) => ({
-      ...o,
-      coach: coachData[o.coach] || o.coach,
-      coach_override: o.coach_override
-        ? coachData[o.coach_override] || o.coach_override
-        : null,
-      additional_coaches:
-        o?.additional_coaches?.map(
-          (coachId) => coachData[coachId] || coachId,
-        ) ?? [],
-    }));
-  }),
+      }));
+    }),
 );
 
 export const getEventsByMetaActivity = (state: RootState) =>

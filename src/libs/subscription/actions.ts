@@ -212,7 +212,7 @@ export const stopActions = {
   success: createAction('SUBSCRIPTION/STOP/SUCCESS'),
 };
 
-export function fetch(id: number, options: OptionCallback): ThunkAction {
+export function fetch(id: number, options?: OptionCallback): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(detailActions.isLoading(true));
     dispatch(detailActions.error(null));

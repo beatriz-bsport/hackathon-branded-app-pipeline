@@ -84,6 +84,9 @@ export const getMarketplaceContractList = createSelector(
 const _getSubscriptionIds = (state) => state.subscription.list.allIds;
 const _getSubscriptionData = (state) => state.subscription.byId;
 
+export const getSubscriptionDetail = (state: RootState, id: number) =>
+  state.subscription.byId[id] ?? {};
+
 export const getSubscriptionList = createSelector(
   [_getSubscriptionIds, _getSubscriptionData],
   (ids, data) => ids.map((id) => data[id]),

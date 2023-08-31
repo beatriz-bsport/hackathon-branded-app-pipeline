@@ -7766,7 +7766,8 @@
                 "Cancella",
                 "Cancella",
                 "Cancellato",
-                "Cencellata"
+                "Cencellata",
+                "Annullata"
             ]
         },
         "payment_method_with_credit_account": {
@@ -9700,7 +9701,7 @@
                     "title": "Già in lista d'attesa"
                 },
                 "isWaitingListFull": {
-                    "message": "Questa sessione e la lista d'attesa relativa sono al completo. Si prega di riprovare più tardi.",
+                    "message": "Questa sessione e la lista d'attesa relativa sono al completo.\nSi prega di riprovare più tardi.",
                     "title": "Lista d'attesa piena"
                 },
                 "waitingListLockedByPendingBookings": {
@@ -9726,6 +9727,10 @@
                 "default": {
                     "message": "Le prenotazioni per questa sessione non sono disponibili",
                     "title": "Prenotazione bloccata"
+                },
+                "noPassAvailable": {
+                    "title": "Nessun pass disponibile",
+                    "message": "Non è possibile iscriversi alla lista d'attesa."
                 }
             },
             "backToCalendar": "Torna al calendario",
@@ -9742,7 +9747,8 @@
             "filterAll": "Tutto",
             "spotSelectorTitle": "Scegli il tuo posto",
             "recommended": "Consigliati",
-            "seeAllProducts": "Vedi tutti i prodotti"
+            "seeAllProducts": "Vedi tutti i prodotti",
+            "reviewAndConfirm": "RIvedi e conferma"
         }
     },
     "smartList": {

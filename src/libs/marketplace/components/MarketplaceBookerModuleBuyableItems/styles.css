@@ -4,6 +4,7 @@
   align-items: center;
   margin-top: var(--spacing-4);
   margin-bottom: var(--spacing-2);
+  gap: var(--spacing-1);
 }
 
 .bs-new-offer-booking__buyable_items__header__arrow {
@@ -12,8 +13,13 @@
   cursor: pointer;
   color: var(--color-grey-main);
   padding-left: 0;
+  transition-property: all;
+  transition-duration: 250ms;
+  transform: rotate(0);
 }
-
+.bs-new-offer-booking__buyable_items__header__arrow--rotate {
+  transform: rotate(90deg);
+}
 .bs-new-offer-booking__buyable_items__header__title {
   font-size: var(--h5-fontSize);
   font-family: var(--h5-fontFamily);

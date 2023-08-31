@@ -1,0 +1,8 @@
+.bs-button_base__container {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  overflow: hidden;
+  padding:0
+}

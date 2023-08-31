@@ -1,17 +1,16 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import isEqual from 'lodash/isEqual';
-
+import classNames from 'classnames';
 import MarketplaceConsumerPaymentPackCard from '#libs/marketplace/components/MarketplaceConsumerPaymentPackCard';
 import MarketplaceFilterBuyableItemCategory from '#libs/marketplace/components/MarketplaceFilterBuyableItemCategory';
 import MarketplaceBuyableItemCategoryList from '#libs/marketplace/components/MarketplaceBuyableItemCategoryList';
-import Button from '#components/css-only/Button';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { MarketplaceBookerModuleBuyableItemsSkeleton } from '.';
 import Collapse from '#components/css-only/Fabrique/Collapse';
+import ButtonBase from '#components/css-only/Fabrique/ButtonBase';
 import type { MaxoutData, PaymentPack } from '#libs/payment-packs/types';
 import type { CompanyTheme } from '#libs/theme/types';
 import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
@@ -90,23 +89,22 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
             ))}
 
             {!hideUnnecessaryCompatiblePurchaseMethod && (
-              <div className="bs-new-offer-booking__buyable_items__header">
-                <Button
-                  classes={{
-                    root: 'bs-new-offer-booking__buyable_items__header__arrow',
-                  }}
-                  onClick={onClickShowBuyableItems}
-                >
-                  {isShowBuyableItems ? (
-                    <KeyboardArrowDown />
-                  ) : (
-                    <KeyboardArrowRight />
-                  )}
-                </Button>
-                <div className="bs-new-offer-booking__buyable_items__header__title">
-                  {t('booking:newBookingModule.buyNewPass')}
+              <ButtonBase onClick={onClickShowBuyableItems}>
+                <div className="bs-new-offer-booking__buyable_items__header">
+                  <KeyboardArrowRight
+                    className={classNames(
+                      'bs-new-offer-booking__buyable_items__header__arrow',
+                      {
+                        'bs-new-offer-booking__buyable_items__header__arrow--rotate':
+                          isShowBuyableItems,
+                      },
+                    )}
+                  />
+                  <div className="bs-new-offer-booking__buyable_items__header__title">
+                    {t('booking:newBookingModule.buyNewPass')}
+                  </div>
                 </div>
-              </div>
+              </ButtonBase>
             )}
           </>
         )}

@@ -120,8 +120,9 @@ exports.default = {
         'Votre opération a bien été prise en compte. Nous vous enverrons un mail de confirmation.',
       recap: 'Récapitulatif',
       title: 'Félicitations !',
-      basket: 'Votre panier',
-      offerBooked: 'Vos séances',
+      basket: 'Mon panier',
+      offerBooked: 'Ma séance',
+      offerBooked_plural: 'Mes séances',
       offerPreBooked: "Inscription sur la liste d'attente",
       offerNotBookable: 'Inscription impossible',
       error: 'Erreur',
@@ -163,8 +164,14 @@ exports.default = {
         paymentSuccess_plural:"Félicitations ! Vos achats sont confirmés !",
         offerAndPurchaseSuccess: "Félicitations ! Vos achats et réservations sont confirmés. Vous recevrez sous peu un e-mail de confirmation contenant tous les détails."
       },
-      alert: "Oups ! La réservation a échoué.\n Nous avons rencontré un problème lors du traitement de votre réservation de séance. Veuillez réessayer ultérieurement ou réserver une séance différente."
-
+      alert: "Oups ! La réservation a échoué.\n Nous avons rencontré un problème lors du traitement de votre réservation de séance. Veuillez réessayer ultérieurement ou réserver une séance différente.",
+      myPass: 'Ma carte de cours',
+      myPass_plural: 'Mes cartes de cours',
+      myPack: 'Mon pack',
+      myPack_plural:'Mes packs',
+      mySubscription: 'Mon abonnement',
+      myProduct: 'Mon produit',
+      myProduct_plural: 'Mes produits',
     },
     bookingItem:{
       bookingItemStatus:{

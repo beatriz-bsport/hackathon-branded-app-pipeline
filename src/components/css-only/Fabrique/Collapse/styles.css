@@ -1,0 +1,7 @@
+.bs-collapse {
+  height: 0px;
+  overflow: hidden;
+  transition-timing-function: ease;
+  transition-duration: 250ms;
+  transition-property: height;
+}

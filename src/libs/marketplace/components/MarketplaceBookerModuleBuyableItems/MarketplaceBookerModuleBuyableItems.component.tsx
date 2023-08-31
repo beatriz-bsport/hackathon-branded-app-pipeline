@@ -12,7 +12,7 @@ import Alert, { AlertSeverity } from '#csscomponents/Alert';
 import Button from '#components/css-only/Button';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { MarketplaceBookerModuleBuyableItemsSkeleton } from '.';
-
+import Collapse from '#components/css-only/Fabrique/Collapse';
 import type { MaxoutData, PaymentPack } from '#libs/payment-packs/types';
 import type { CompanyTheme } from '#libs/theme/types';
 import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
@@ -71,7 +71,6 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
   if (isLoading) {
     return <MarketplaceBookerModuleBuyableItemsSkeleton />;
   }
-
   return (
     <div className="bs-booker-module-buyable-items__container">
       <>
@@ -81,14 +80,14 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
           </Alert>
         )}
 
-        {(availableConsumerPacks ?? [])?.length > 0 && (
+        {availableConsumerPacks?.length > 0 && (
           <>
             <div className="bs-new-offer-booking__consumer-payment-packs__subtitle">
               {t('booking:newBookingModule.myPasses', {
                 count: availableConsumerPacks.length,
               })}
             </div>
-            {availableConsumerPacks.map((consumerPaymentPack) => (
+            {(availableConsumerPacks || []).map((consumerPaymentPack) => (
               <MarketplaceConsumerPaymentPackCard
                 key={consumerPaymentPack.id}
                 consumerPaymentPack={consumerPaymentPack}
@@ -118,32 +117,17 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
             )}
           </>
         )}
-
-        {isDisplayBuyableItems && (
-          <>
-            <MarketplaceFilterBuyableItemCategory
-              buyableItemCategories={buyableItemCategories}
-              onClickCategory={onClickCategory}
-              selectedBuyableItemCategory={selectedBuyableItemCategory}
-            />
-            {!selectedBuyableItemCategory ? (
-              (buyableItemCategories || [])?.map((buyableItemCategory) => (
-                <MarketplaceBuyableItemCategoryList
-                  key={buyableItemCategory.index}
-                  buyableItemCategory={buyableItemCategory}
-                  hideCreditsForCustomers={
-                    companyTheme.hide_credits_for_customers
-                  }
-                  isExcludingTax={isExcludingTax}
-                  selectBuyableItem={onClickBuyableItem}
-                  selectedBuyableItem={
-                    selectedItem?.data as BookerModuleBuyableItem
-                  }
-                />
-              ))
-            ) : (
+        <Collapse isExpanded={isDisplayBuyableItems}>
+          <MarketplaceFilterBuyableItemCategory
+            buyableItemCategories={buyableItemCategories}
+            onClickCategory={onClickCategory}
+            selectedBuyableItemCategory={selectedBuyableItemCategory}
+          />
+          {!selectedBuyableItemCategory ? (
+            (buyableItemCategories || [])?.map((buyableItemCategory) => (
               <MarketplaceBuyableItemCategoryList
-                buyableItemCategory={selectedBuyableItemCategory}
+                key={buyableItemCategory.index}
+                buyableItemCategory={buyableItemCategory}
                 hideCreditsForCustomers={
                   companyTheme.hide_credits_for_customers
                 }
@@ -153,9 +137,19 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
                   selectedItem?.data as BookerModuleBuyableItem
                 }
               />
-            )}
-          </>
-        )}
+            ))
+          ) : (
+            <MarketplaceBuyableItemCategoryList
+              buyableItemCategory={selectedBuyableItemCategory}
+              hideCreditsForCustomers={companyTheme.hide_credits_for_customers}
+              isExcludingTax={isExcludingTax}
+              selectBuyableItem={onClickBuyableItem}
+              selectedBuyableItem={
+                selectedItem?.data as BookerModuleBuyableItem
+              }
+            />
+          )}
+        </Collapse>
       </>
     </div>
   );

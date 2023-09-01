@@ -7,9 +7,13 @@ import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Card, { CardSize } from '#csscomponents/Card';
-import Content from '#csscomponents/Card/CardContent';
+import CardContent from '#csscomponents/Card/CardContent';
 import Grid from '#csscomponents/Grid';
-import Item, { Alignment, Justification } from '#csscomponents/Grid/GridItem';
+import GridItem, {
+  Alignment,
+  Justification,
+  Direction,
+} from '#csscomponents/Grid/GridItem';
 import Price from '#csscomponents/Price';
 import RecommendedChip from '#components/css-only/RecommendedChip';
 import BillingInterval from '#libs/marketplace/components/MarketplaceBillingInterval';
@@ -60,7 +64,7 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
       isSelected={isSelected}
       size={CardSize.AUTO}
     >
-      <Content
+      <CardContent
         padding
         classes={{
           'bs-contract-buyable-item__content':
@@ -72,40 +76,85 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
             'bs-contract-buyable-item__grid': 'bs-contract-buyable-item__grid',
           }}
         >
-          <Item
-            classes={{
-              'bs-contract-buyable-item__title-item':
-                !isRecommended && 'bs-contract-buyable-item__title-item',
-              'bs-contract-buyable-item__title-item--recommended':
-                isRecommended &&
-                'bs-contract-buyable-item__title-item--recommended',
-            }}
+          {/* START -- FIRST ROW */}
+          <GridItem
+            alignment={Alignment.FLEX_START}
+            columnEnd={1}
             columnStart={1}
+            rowStart={1}
           >
-            <div className="bs-contract-buyable-item__title">
-              {contract?.name}
-            </div>
-          </Item>
-          {isRecommended && (
-            <Item
-              classes={{
-                'bs-contract-buyable-item__recommended__container':
-                  'bs-contract-buyable-item__recommended__container',
-              }}
-            >
-              <div className="bs-contract-buyable-item__recommended-chip__container">
+            <div className="bs-contract-buyable-item__title__container">
+              <div className="bs-contract-buyable-item__title">
+                {contract?.name}
+                <div
+                  className={classNames(
+                    'bs-contract-buyable-item__recommended-chip__container',
+                    {
+                      'bs-contract-buyable-item__recommended-chip__container--hidden':
+                        isRecommended,
+                    },
+                  )}
+                />
+              </div>
+              <div className="bs-contract-buyable-item__recommended_icon">
                 <RecommendedChip />
               </div>
-            </Item>
-          )}
-          <Item
+            </div>
+          </GridItem>
+
+          <GridItem
+            alignment={Alignment.FLEX_END}
+            columnEnd={2}
+            columnStart={2}
+            direction={Direction.ROW}
+            justification={Justification.FLEX_END}
+            rowStart={1}
+          >
+            <div className="bs-contract-buyable-item__pricing_container">
+              <Price
+                amount={contract?.recurrent_price}
+                classes={{
+                  'bs-contract-buyable-item__price':
+                    'bs-contract-buyable-item__price',
+                }}
+                formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+                isExcludingTax={isExcludingTax}
+                tax={parseFloat(contract?.tax) || 0}
+              >
+                <div>
+                  <BillingInterval contract={contract} />
+                </div>
+              </Price>
+
+              <div
+                className={classNames('bs-contract-buyable-item__flat-fee', {
+                  'bs-contract-buyable-item__flat-fee--hidden':
+                    !shouldDisplayFlatFee,
+                })}
+              >
+                {t('contractCard.fees', {
+                  fees: getCurrencyDisplayWithPrice(contract.flat_fee),
+                })}
+              </div>
+            </div>
+          </GridItem>
+
+          {/* START -- SECOND ROW : SPANNING TWO COLUMNS [CONTANING ONLY THE DESCRIPTION] */}
+
+          <GridItem
             classes={{
-              'bs-contract-buyable-item__description__container':
-                'bs-contract-buyable-item__description__container',
+              'bs-contract-buyable-item__description-item':
+                'bs-contract-buyable-item__description-item',
+              ...(contract?.description
+                ? {}
+                : {
+                    'bs-contract-buyable-item__description-item--hidden':
+                      'bs-contract-buyable-item__description-item--hidden',
+                  }),
             }}
-            columnEnd={3}
+            columnEnd={2}
             columnStart={1}
-            rowStart={3}
+            rowStart={2}
           >
             <div
               ref={descriptionText.ref}
@@ -116,15 +165,21 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
             >
               {contract?.description}
             </div>
-          </Item>
-          {descriptionText.isExpandable && (
-            <Item
-              classes={{
-                'bs-contract-buyable-item__seemore__container':
-                  'bs-contract-buyable-item__seemore__container',
-              }}
-              columnStart={1}
-              rowStart={4}
+          </GridItem>
+
+          {/* START -- THIRD ROW */}
+          <GridItem
+            alignment={Alignment.FLEX_START}
+            columnEnd={2}
+            columnStart={1}
+            justification={Justification.FLEX_END}
+            rowStart={3}
+          >
+            <div
+              className={classNames({
+                'bs-contract-buyable-item__seemore_button--hidden':
+                  !descriptionText.isExpandable,
+              })}
             >
               <Button
                 classes={{
@@ -145,59 +200,14 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
                   </>
                 )}
               </Button>
-            </Item>
-          )}
-          <Item
-            alignment={Alignment.FLEX_END}
-            classes={{
-              'bs-contract-buyable-item__prices':
-                'bs-contract-buyable-item__prices',
-            }}
-            columnStart={3}
-          >
-            <div className="bs-contract-buyable-item__price-container">
-              <Price
-                amount={contract?.recurrent_price}
-                classes={{
-                  'bs-contract-buyable-item__price':
-                    'bs-contract-buyable-item__price',
-                }}
-                formatPriceWithCurrency={getCurrencyDisplayWithPrice}
-                isExcludingTax={isExcludingTax}
-                tax={parseFloat(contract?.tax) || 0}
-              >
-                <div className="bs-contract-buyable-item__billing-interval">
-                  <BillingInterval contract={contract} />
-                </div>
-              </Price>
             </div>
-          </Item>
-          {shouldDisplayFlatFee && (
-            <Item
-              alignment={Alignment.FLEX_END}
-              classes={{
-                'bs-contract-buyable-item__flat-fee':
-                  'bs-contract-buyable-item__flat-fee',
-              }}
-              columnStart={3}
-              rowStart={2}
-            >
-              <div className="bs-contract-buyable-item__flat-fee">
-                {t('contractCard.fees', {
-                  fees: getCurrencyDisplayWithPrice(contract.flat_fee),
-                })}
-              </div>
-            </Item>
-          )}
-          <Item
+          </GridItem>
+          <GridItem
             alignment={Alignment.FLEX_END}
-            classes={{
-              'bs-contract-buyable-item__invoices':
-                'bs-contract-buyable-item__invoices',
-            }}
-            columnStart={3}
+            columnEnd={2}
+            columnStart={2}
             justification={Justification.FLEX_END}
-            rowStart={descriptionText.isExpandable ? 4 : 3}
+            rowStart={3}
           >
             {!!contract?.nb_interval && (
               <div className="bs-contract-buyable-item__planned-invoices">
@@ -208,9 +218,9 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
                 </div>
               </div>
             )}
-          </Item>
+          </GridItem>
         </Grid>
-      </Content>
+      </CardContent>
     </Card>
   );
 };

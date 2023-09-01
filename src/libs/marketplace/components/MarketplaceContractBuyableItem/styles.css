@@ -1,22 +1,25 @@
+.bs-contract-buyable-item {
+  border-radius: var(--border-radius-2);
+}
+
 .bs-contract-buyable-item__content {
   container: bsContractBuyableItemContent / inline-size;
 }
 
 .bs-contract-buyable-item__grid {
-  grid-template-columns: min-content auto auto;
-  column-gap: var(--spacing-1);
-  row-gap: 0;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: 1fr;
 }
 
 .bs-contract-buyable-item__title {
-  width: max-content;
-  max-width: 300px;
   text-align: left;
   font-family: var(--fontFamily);
   font-size: var(--subtitle1-fontSize);
   font-weight: var(--h5-fontWeight);
   line-height: var(--subtitle1-lineHeight);
   color: var(--color-grey-dark);
+}
+.bs-contract-buyable-item__title__container {
   white-space: pre-line;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -24,6 +27,11 @@
   -webkit-line-clamp: 2;
   /* autoprefixer: off */
   -webkit-box-orient: vertical;
+  align-items: top;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 100%;
 }
 
 .bs-contract-buyable-item__description {
@@ -48,6 +56,9 @@
   -webkit-box-orient: vertical;
 }
 
+.bs-contract-buyable-item__seemore_button--hidden {
+  visibility: hidden;
+}
 .bs-contract-buyable-item__seemore {
   background: none;
   margin-top: calc(var(--spacing-1) / 2);
@@ -65,18 +76,13 @@
   gap: calc(var(--spacing-1) / 2);
 }
 
-.bs-contract-buyable-item__price,
-.bs-contract-buyable-item__price .bs-billing-interval {
-  color: var(--color-grey-dark);
-  font-family: var(--h6-fontFamily);
-  font-size: var(--h5-fontSize);
-  font-weight: var(--button-fontWeight);
-  line-height: var(--body2-lineHeight);
-  letter-spacing: var(--body2-letterSpacing);
+.bs-contract-buyable-item__pricing_container {
+  height: 100%;
+  align-items: top;
 }
-
-.bs-contract-buyable-item__price .bs-billing-interval {
-  margin-left: calc(var(--spacing-1) / 2);
+.bs-contract-buyable-item__price {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .bs-contract-buyable-item__flat-fee {
@@ -86,8 +92,12 @@
   font-weight: var(--caption-fontWeight);
   line-height: var(--caption-lineHeight);
   letter-spacing: var(--caption-letterSpacing);
+  display: flex;
+  justify-content: flex-end;
 }
-
+.bs-contract-buyable-item__flat-fee--hidden {
+  display: none;
+}
 .bs-contract-buyable-item__planned-invoices {
   background: var(--color-grey-light);
   padding: calc(var(--spacing-1) / 2) var(--spacing-1);
@@ -98,65 +108,18 @@
   color: var(--color-grey-dark);
 }
 
-@container bsContractBuyableItemContent (width < 600px) {
-  .bs-contract-buyable-item__title {
-    max-width: inherit;
-    width: fit-content;
-    margin-bottom: calc(var(--spacing-1) / 2);
-  }
-
-  .bs-contract-buyable-item__title-item {
-    grid-column-start: 1;
-    grid-column-end: 4;
-  }
-
-  .bs-contract-buyable-item__title-item--recommended {
-    grid-column-start: 1;
-    grid-column-end: 3;
-  }
-
-  .bs-contract-buyable-item__description__container {
-    grid-column-start: 1;
-    grid-column-end: 4;
-  }
-
-  .bs-contract-buyable-item__prices {
-    grid-row-start: 2;
-    grid-column-start: 1;
-    align-items: flex-start;
-  }
-
-  .bs-contract-buyable-item__recommended__container {
-    grid-column-start: 3;
-    grid-column-end: 4;
-  }
-
-  .bs-contract-buyable-item__invoices {
-    grid-column-start: 2;
-    grid-column-end: 4;
-    grid-row-start: 4;
-  }
-
-  .bs-contract-buyable-item__flat-fee {
-    margin-bottom: 0;
-  }
-
-  .bs-contract-buyable-item__seemore__container {
-    grid-column-start: 1;
-    grid-column-end: 3;
-  }
+.bs-contract-buyable-item__recommended-chip__container--hidden {
+  display: none;
 }
 
-@container bsContractBuyableItemContent (width < 350px) {
-  .bs-contract-buyable-item__flat-fee {
-    grid-column-start: 2;
-    grid-column-end: 4;
-    grid-row-start: 5;
-    margin-top: calc(var(--spacing-1) / 2);
-  }
+.bs-contract-buyable-item__recommended_icon {
+  padding-left: calc(var(--spacing-1) / 2);
+}
 
-  .bs-contract-buyable-item__prices {
-    grid-column-start: 1;
-    grid-column-end: 4;
-  }
+.bs-contract-buyable-item__description-item {
+  grid-column: span 2;
+}
+
+.bs-contract-buyable-item__description-item--hidden {
+  display: none;
 }

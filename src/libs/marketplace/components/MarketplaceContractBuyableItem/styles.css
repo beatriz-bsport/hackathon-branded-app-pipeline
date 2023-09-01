@@ -123,3 +123,10 @@
 .bs-contract-buyable-item__description-item--hidden {
   display: none;
 }
+
+@container bsOfferBookingPage (width < 600px) {
+  .bs-contract-buyable-item__grid {
+    grid-template-rows: auto auto auto auto;
+    grid-template-columns: 1fr;
+  }
+}

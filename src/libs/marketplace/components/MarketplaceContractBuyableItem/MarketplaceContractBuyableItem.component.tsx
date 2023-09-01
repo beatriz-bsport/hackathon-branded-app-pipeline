@@ -64,6 +64,7 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
       isSelected={isSelected}
       size={CardSize.AUTO}
     >
+      {/* FOR DESIGN REASON I HAVE TO CHANGE THE WAY WE HANDLE GRID AND ITEMS IN CSS */}
       <CardContent
         padding
         classes={{

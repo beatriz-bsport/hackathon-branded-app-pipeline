@@ -220,7 +220,6 @@ export class ConsumerLogin extends Component<Props, State> {
               <IconButton
                 id="btn-intercom-error"
                 onClick={() => openIntercomHelp('login')}
-                type="submit"
               >
                 <HelpIcon />
               </IconButton>

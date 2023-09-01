@@ -9,6 +9,10 @@ import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+import FeatureListProvider from '../../libs/company/hocs/feature-list-provider.hoc';
+import { hasUpsell } from '../../libs/platform-billing/utils';
+import { UPSELL_IDENTIFIER_INBOX } from '../../libs/platform-billing/upsell-identifiers';
+import { FeatureList } from '../../libs/company/types';
 
 import type { CompanyTheme } from '../../libs/theme/types';
 import ThemePersonalizeForm from '../../libs/theme/components/ThemePersonalizeForm.component';
@@ -105,8 +109,10 @@ export class ThemePersonalize extends Component<Props> {
       t,
     } = this.props;
 
-    const isCommunicationPersonalizeFormDisplayed =
-      Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' || companyId === 498;
+    const getShouldDisplayCommunicationForm = (featureList: FeatureList) =>
+      Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
+      companyId === 498 ||
+      hasUpsell(featureList, UPSELL_IDENTIFIER_INBOX);
 
     return (
       <>
@@ -119,19 +125,27 @@ export class ThemePersonalize extends Component<Props> {
               theme={theme}
             />
           </Paper>
-          {isCommunicationPersonalizeFormDisplayed &&
-            !communicationProviderSettingsLoading && (
-              <Paper className={classes.paper}>
-                <CommunicationPersonalizeForm
-                  companyId={theme.company}
-                  fetchCompanyTheme={fetchCompanyTheme}
-                  is_two_way_email_activated={isTwoWayEmailActivated}
-                  updateCommunicationProviderSettingsAction={
-                    updateCommunicationProviderSettings
-                  }
-                />
-              </Paper>
+
+          <FeatureListProvider>
+            {(featureList: FeatureList) => (
+              <>
+                {!communicationProviderSettingsLoading &&
+                  getShouldDisplayCommunicationForm(featureList) && (
+                    <Paper className={classes.paper}>
+                      <CommunicationPersonalizeForm
+                        companyId={theme.company}
+                        fetchCompanyTheme={fetchCompanyTheme}
+                        is_two_way_email_activated={isTwoWayEmailActivated}
+                        updateCommunicationProviderSettingsAction={
+                          updateCommunicationProviderSettings
+                        }
+                      />
+                    </Paper>
+                  )}
+              </>
             )}
+          </FeatureListProvider>
+
           <Paper className={classes.paper}>
             <div className={classes.main}>
               <Typography className={classes.namesHeader}>

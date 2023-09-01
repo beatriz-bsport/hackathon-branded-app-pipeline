@@ -441,17 +441,16 @@ const StripePaymentCard = forwardRef(
         companyId,
         createPendingBookingsIfNecessary,
         elements,
-        forceSave,
         onError,
         onSuccess,
         paymentMethodSelected,
-        saveForLater,
         setPaymentPageProcessing,
         stripe,
         t,
         areInitialBillingDetailsNecessary,
         memberId,
         cardBillingDetailsMandatory,
+        setup_future_usage,
       ],
     );
 

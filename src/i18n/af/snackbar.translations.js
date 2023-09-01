@@ -560,6 +560,10 @@ exports.default = {
       success: 'Email supprimé',
       error: "Impossible de supprimer l'email",
     },
+    duplicate: {
+      success: 'Email dupliqué',
+      error: "Impossible de dupliquer l'email",
+    },
   },
   establishment: {
     restore: {

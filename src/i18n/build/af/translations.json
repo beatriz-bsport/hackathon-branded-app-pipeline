@@ -10167,7 +10167,8 @@
     "email": {
       "create": { "success": "Email créé", "error": "Impossible d'enregistrer l'email" },
       "update": { "success": "Email modifié", "error": "Impossible de modifier l'email" },
-      "delete": { "success": "Email supprimé", "error": "Impossible de supprimer l'email" }
+      "delete": { "success": "Email supprimé", "error": "Impossible de supprimer l'email" },
+      "duplicate": { "success": "Email dupliqué", "error": "Impossible de dupliquer l'email" }
     },
     "establishment": {
       "restore": { "success": "Salle restorée", "error": "Impossible de restaurer cette salle" },

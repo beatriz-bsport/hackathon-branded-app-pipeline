@@ -439,12 +439,13 @@ export function emailTemplateDuplicate(props: {
 
       dispatch(resetEmails());
       dispatch(emailTemplatesSummaries());
+      dispatch(snackbarSuccess('email.duplicate.success'));
       if (typeof props.options?.onSuccess === 'function') {
         props.options?.onSuccess(newTemplate.data.id);
       }
     } catch (error) {
       dispatch(emailTemplateDuplicateAction.error(error));
-      dispatch(snackbarError('email.delete.error'));
+      dispatch(snackbarError('email.duplicate.error'));
       if (typeof props.options?.onError === 'function') {
         props.options?.onError();
       }

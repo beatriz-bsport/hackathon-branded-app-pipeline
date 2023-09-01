@@ -7347,7 +7347,7 @@
                     "label": "Sólo puede utilizarse para la primera compra"
                 },
                 "fileUploader": {
-                    "title": "Descargar cupones exclusivos",
+                    "title": "Cargar cupones únicos",
                     "label": "Arrastre y suelte o haga clic para seleccionar el archivo",
                     "sizeLimitHelper": "Archivo CSV (1 MB máximo)",
                     "helperText": "Cargue un archivo CSV con todos los códigos de bono en la primera columna, un código por línea, sin encabezado."
@@ -7356,8 +7356,8 @@
                     "popover": "Los códigos no utilizados se borrarán, pero los utilizados se conservarán.",
                     "replace": "Sustituir los códigos existentes",
                     "append": "Añadir a los códigos existentes",
-                    "alertInfo": "Hay {{count}} código registrado para esta promoción, puedes descargar nuevos códigos.",
-                    "alertInfo_plural": "Hay {{count}} códigos registrados para esta promoción, puedes descargar nuevos códigos."
+                    "alertInfo": "Hay {{count}} código registrado para esta promoción, puedes subir nuevos códigos.",
+                    "alertInfo_plural": "Hay {{count}} códigos registrados para esta promoción, puedes subir nuevos códigos."
                 },
                 "selectorPlaceholder": {
                     "privatePass": "Seleccione una tarjeta de citas",

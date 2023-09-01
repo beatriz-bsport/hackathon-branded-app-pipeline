@@ -10783,7 +10783,7 @@
                     }
                 },
                 "fileUploader": {
-                    "title": "Scarica i voucher una tantum",
+                    "title": "Carica i voucher una tantum",
                     "label": "Trascina e rilascia o fai clic per selezionare il file",
                     "sizeLimitHelper": "File CSV (1Mb massimo)",
                     "helperText": "Carica un file CSV con tutti i codici dei voucher nella prima colonna, un codice per riga, senza intestazione."
@@ -10805,8 +10805,8 @@
                     "popover": "I codici non utilizzati saranno cancellati, ma quelli usati saranno conservati.",
                     "append": "Aggiungi ai codici esistenti",
                     "replace": "Sostituisci i codici esistenti",
-                    "alertInfo": "C'è {{count}} codice registrato per questa promozione, è possibile scaricare nuovi codici.",
-                    "alertInfo_plural": "Ci sono {{count}} codici registrati per questa promozione, è possibile scaricare nuovi codici."
+                    "alertInfo": "C'è {{count}} codice registrato per questa promozione, è possibile caricare nuovi codici.",
+                    "alertInfo_plural": "Ci sono {{count}} codici registrati per questa promozione, è possibile caricare nuovi codici."
                 },
                 "selectorPlaceholder": {
                     "privatePass": "Seleziona un pass per appuntamenti",

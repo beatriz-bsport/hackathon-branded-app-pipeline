@@ -13,7 +13,11 @@ import moment from 'moment-timezone';
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 
 import { useTranslation } from 'react-i18next';
-import { formatAsTime, formatMinutes } from '../../utils/datetime';
+import {
+  formatAsDateWithWeekday,
+  formatAsTime,
+  formatMinutes,
+} from '../../utils/datetime';
 
 import { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
 import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
@@ -24,8 +28,8 @@ import {
 } from '#libs/marketplace/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import type { Establishment } from '#libs/establishment/types';
-import type { Theme } from '#libs/theme/types';
-import { Offer, OfferWithSpotInformation } from '#libs/offer/types';
+import type { CompanyTheme, Theme } from '#libs/theme/types';
+import { Offer, OfferWithSpotInformation, Offer_FULL } from '#libs/offer/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Contract } from '#libs/subscription/types';
 
@@ -470,4 +474,25 @@ export const useMarketplaceFixedDialog = (
   return portalContainer
     ? ReactDOM.createPortal(DialogContainer, portalContainer)
     : DialogContainer;
+};
+
+export const useOfferFormattedDate = (
+  offer: Offer_FULL | OfferWithSpotInformation,
+  companyTheme: CompanyTheme,
+) => {
+  const { t } = useTranslation('datetime');
+  const timezoneName = offer.meta_activity?.is_broadcast
+    ? moment.tz.guess()
+    : offer.establishment?.tzname ||
+      companyTheme.timezone_name ||
+      'Europe/Paris';
+  if (offer?.date_start)
+    return formatAsDateWithWeekday(
+      offer.date_start,
+      companyTheme,
+      t,
+      'LL',
+      timezoneName,
+    );
+  return '';
 };

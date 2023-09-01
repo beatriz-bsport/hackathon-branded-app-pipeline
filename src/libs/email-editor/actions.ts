@@ -37,6 +37,7 @@ import {
   FranchisorSavedFilter,
 } from './types';
 import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
+import { ELLIPSIS, EMAIL_TITLE_BACKEND_CHARACTER_LIMIT } from './constants';
 
 export const emailTemplatesSummariesAction = {
   error: createAction('EMAIL/SUMMARIES/ERROR'),
@@ -408,10 +409,28 @@ export function emailTemplateDuplicate(props: {
     try {
       const response = await fetchEmailTemplateAPI(props.id);
 
+      const originalTitle = response.data.title;
+      const copyFlag = ` (${props.copyTranslation || 'copy'})`;
+
+      let newTitle = `${originalTitle}${copyFlag}`;
+
+      if (newTitle.length > EMAIL_TITLE_BACKEND_CHARACTER_LIMIT) {
+        // if the new title is too long, we truncate from the original title
+        // the number of characters needed so that the new title fits the limit
+        const numberOfCharactersToTruncate =
+          newTitle.length +
+          ELLIPSIS.length -
+          EMAIL_TITLE_BACKEND_CHARACTER_LIMIT;
+        newTitle = `${originalTitle.substring(
+          0,
+          originalTitle.length - numberOfCharactersToTruncate,
+        )}${ELLIPSIS}${copyFlag}`;
+      }
+
       const data = {
         design: response.data.design,
         html: response.data.html,
-        title: `${response.data.title} (${props.copyTranslation || 'copy'})`,
+        title: newTitle,
         subject: response.data.subject,
         category: response.data.category,
         available_for_companies: response.data.available_for_companies,

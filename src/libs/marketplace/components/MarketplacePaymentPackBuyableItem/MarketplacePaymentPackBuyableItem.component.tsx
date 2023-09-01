@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import Style from '@material-ui/icons/Style';
-import { useMediaQuery, useTheme } from '@material-ui/core';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import classNames from 'classnames';
@@ -10,19 +9,16 @@ import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import ToolTip from '#components/Tooltip.component';
 import Card from '#components/css-only/Card';
-import Content from '#components/css-only/Card/CardContent';
+import CardContent from '#components/css-only/Card/CardContent';
 import Grid from '#components/css-only/Grid';
-import Item, {
-  Alignment,
-  Justification,
-} from '#components/css-only/Grid/GridItem';
+import GridItem from '#components/css-only/Grid/GridItem';
 import Price from '#components/css-only/Price';
+import Collapse from '#components/css-only/Fabrique/Collapse';
 import Button from '#components/css-only/Button';
 import {
   getCurrencyDisplayWithPrice,
   getCreditFactor,
 } from '#libs/theme/selectors';
-import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import { useValidityInfoForPaymentPackCard } from '#libs/marketplace/utils/payment-pack';
 import useIsTextExpandable from '../../../../hooks/useIsTextExpandable';
 import RecommendedChip from '#components/css-only/RecommendedChip';
@@ -47,15 +43,11 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(['marketplace', 'booking']);
   const [showAllDescription, setShowAllDescription] = useState(false);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(
-    theme.breakpoints.down(MARKETPLACE_BREAKPOINT.SM),
-  );
 
   const formatedCredits = paymentPack.unlimited
     ? t('genericCard.credits.unlimited')
     : t('genericCard.credits.availableCredit', {
-        count: paymentPack.credits / getCreditFactor(),
+        count: (paymentPack?.credits ?? 0) / getCreditFactor(),
       });
 
   const descriptionText = useIsTextExpandable(showAllDescription);
@@ -77,31 +69,41 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
       isSelected={isSelected}
       size={CardSize.AUTO}
     >
-      <Content
+      <CardContent
         padding
         classes={{
           'bs-payment-pack-buyable-item__content':
             'bs-payment-pack-buyableitem__content',
         }}
       >
-        <Grid>
-          <Item
-            alignment={Alignment.FLEX_START}
+        <Grid
+          classes={{
+            'bs-payment-pack-buyable-item__content_grid':
+              'bs-payment-pack-buyableitem__content_grid',
+          }}
+        >
+          {/* START -- FIRST ROW */}
+          <GridItem
             classes={{
-              'bs-payment-pack-buyable-item__title-item':
-                !isRecommended && 'bs-payment-pack-buyable-item__title-item',
-              'bs-payment-pack-buyable-item__title-item--recommended':
-                isRecommended &&
-                'bs-payment-pack-buyable-item__title-item--recommended',
+              'bs-payment-pack-buyable-item__grid_item-title':
+                'bs-payment-pack-buyable-item__grid_item-title',
             }}
-            columnEnd={1}
-            columnStart={1}
-            justification={
-              isMobile ? Justification.SPACE_BETWEEN : Justification.FLEX_START
-            }
           >
             <div className="bs-payment-pack-buyable-item__title">
-              {!!paymentPack.linked_private_pass && (
+              <div
+                className={classNames(
+                  'bs-payment-pack-buyable-item__recommended-item',
+                  {
+                    'bs-payment-pack-buyable-item__recommended-item--hidden':
+                      !isRecommended,
+                  },
+                )}
+              >
+                <div className="bs-paymentpack-buyable-item__recommended_icon">
+                  <RecommendedChip />
+                </div>
+              </div>
+              {!!paymentPack?.linked_private_pass && (
                 <ToolTip
                   title={t(
                     'marketplace:genericCard.title.universalPassMessage',
@@ -110,70 +112,79 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
                   <Style className="bs-payment-pack-buyable-item__title__icon" />
                 </ToolTip>
               )}
-              {paymentPack.name}
+              {paymentPack?.name ?? ''}
             </div>
-          </Item>
-          {isRecommended && (
-            <Item
-              classes={{
-                'bs-payment-pack-buyable-item__recommended-item':
-                  'bs-payment-pack-buyable-item__recommended-item',
-              }}
-              columnStart={2}
-              justification={Justification.FLEX_START}
-            >
-              <div className="bs-paymentpack-car__title__chipcontainer">
-                <RecommendedChip />
-              </div>
-            </Item>
-          )}
-          {!isMobile && (
-            <Item
-              classes={{
-                'bs-payment-pack-buyable-item__description-item':
-                  'bs-payment-pack-buyable-item__description-item',
-              }}
-              columnEnd={3}
-              columnStart={1}
-              rowStart={2}
-            >
-              {paymentPack.description && (
-                <div
-                  ref={descriptionText.ref}
-                  className={classNames(
-                    'bs-payment-pack-buyable-item__description',
-                    {
-                      'bs-payment-pack-buyable-item__description--short':
-                        !showAllDescription,
-                    },
-                  )}
-                >
-                  {paymentPack.description}
-                </div>
-              )}
-            </Item>
-          )}
-          {isMobile && !hideCredits && (
-            <Item
-              classes={{
-                'bs-payment-pack-buyable-item__credits-item':
-                  'bs-payment-pack-buyable-item__credits-item',
-              }}
-              rowStart={2}
-            >
-              <div className="bs-payment-pack-buyable-item__subtitle">
+          </GridItem>
+          <GridItem
+            classes={{
+              'bs-payment-pack-buyable-item__grid_item-pricing':
+                'bs-payment-pack-buyable-item__grid_item-pricing',
+            }}
+          >
+            <div className="bs-payment-pack-buyable-item__price_container">
+              <Price
+                amount={paymentPack.price}
+                classes={{
+                  'bs-payment-pack-buyable-item__price':
+                    'bs-payment-pack-buyable-item__price',
+                }}
+                formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+                isExcludingTax={isExcludingTax}
+                tax={paymentPack.tax}
+              />
+              <div
+                className={classNames(
+                  'bs-payment-pack-buyable-item__credits_caption',
+                  {
+                    'bs-payment-pack-buyable-item__credits_caption--hidden':
+                      hideCredits,
+                  },
+                )}
+              >
                 {formatedCredits}
               </div>
-            </Item>
-          )}
-          {descriptionText.isExpandable && !isMobile && (
-            <Item
-              classes={{
-                'bs-payment-pack-buyable-item__seemore-item':
-                  'bs-payment-pack-buyable-item__seemore-item',
-              }}
-              columnStart={1}
-              rowStart={3}
+            </div>
+          </GridItem>
+          {/* START -- SECOND ROW : SPANNING TWO COLUMNS */}
+          <GridItem
+            classes={{
+              'bs-payment-pack-buyable-item__grid_item-description':
+                'bs-payment-pack-buyable-item__grid_item-description',
+              ...(paymentPack?.description
+                ? {}
+                : {
+                    'bs-payment-pack-buyable-item__grid_item-description--hidden':
+                      'bs-payment-pack-buyable-item__grid_item-description--hidden',
+                  }),
+            }}
+          >
+            <Collapse collapsedHeight={40} isExpanded={showAllDescription}>
+              <div
+                ref={descriptionText.ref}
+                className={classNames(
+                  'bs-payment-pack-buyable-item__description',
+                  {
+                    'bs-payment-pack-buyable-item__description--short':
+                      !showAllDescription,
+                  },
+                )}
+              >
+                {paymentPack?.description ?? ''}
+              </div>
+            </Collapse>
+          </GridItem>
+          {/* START -- THIRD ROW */}
+          <GridItem
+            classes={{
+              'bs-payment-pack-buyable-item__grid_item-collapse-arrow':
+                'bs-payment-pack-buyable-item__grid_item-collapse-arrow',
+            }}
+          >
+            <div
+              className={classNames({
+                'bs-payment-pack-buyable-item__seemore--hidden':
+                  !descriptionText.isExpandable,
+              })}
             >
               <Button
                 classes={{
@@ -194,44 +205,21 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
                   </>
                 )}
               </Button>
-            </Item>
-          )}
-          <Item
-            alignment={Alignment.FLEX_END}
+            </div>
+          </GridItem>
+
+          <GridItem
             classes={{
-              'bs-payment-pack-buyable-item__price-item':
-                'bs-payment-pack-buyable-item__price-item',
+              'bs-payment-pack-buyable-item__grid_item-validity':
+                'bs-payment-pack-buyable-item__grid_item-validity',
             }}
-            columnStart={3}
-            justification={Justification.SPACE_BETWEEN}
-          >
-            <Price
-              amount={paymentPack.price}
-              classes={{
-                'bs-payment-pack-buyable-item__price':
-                  'bs-payment-pack-buyable-item__price',
-              }}
-              formatPriceWithCurrency={getCurrencyDisplayWithPrice}
-              isExcludingTax={isExcludingTax}
-              tax={paymentPack.tax}
-            />
-          </Item>
-          <Item
-            alignment={Alignment.FLEX_END}
-            classes={{
-              'bs-payment-pack-buyable-item__validity-item':
-                'bs-payment-pack-buyable-item__validity-item',
-            }}
-            columnStart={3}
-            justification={Justification.FLEX_END}
-            rowStart={descriptionText.isExpandable ? 3 : 2}
           >
             <div className="bs-payment-pack-buyable-item__validity">
               {useValidityInfoForPaymentPackCard(paymentPack)}
             </div>
-          </Item>
+          </GridItem>
         </Grid>
-      </Content>
+      </CardContent>
     </Card>
   );
 };

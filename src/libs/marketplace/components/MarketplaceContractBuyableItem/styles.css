@@ -7,8 +7,44 @@
 }
 
 .bs-contract-buyable-item__grid {
-  grid-template-rows: auto auto auto;
-  grid-template-columns: 1fr;
+  display: grid;
+  grid-template:
+    'header-left header-right'
+    'middle middle'
+    'footer-left footer-right';
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.bs-contract-buyable-item__grid_item-title {
+  grid-area: header-left;
+  align-items: flex-start;
+}
+
+.bs-contract-buyable-item__grid_item-pricing {
+  grid-area: header-right;
+  align-items: flex-end;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+
+.bs-contract-buyable-item__grid_item-description {
+  grid-area: middle;
+}
+
+.bs-contract-buyable-item__grid_item-description--hidden {
+  display: none;
+}
+
+.bs-contract-buyable-item__grid_item-collapse-arrow {
+  grid-area: footer-left;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.bs-contract-buyable-item__grid_item-number_invoices {
+  grid-area: footer-right;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
 .bs-contract-buyable-item__title {
@@ -78,7 +114,6 @@
 
 .bs-contract-buyable-item__pricing_container {
   height: 100%;
-  align-items: top;
 }
 .bs-contract-buyable-item__price {
   display: flex;
@@ -116,17 +151,40 @@
   padding-left: calc(var(--spacing-1) / 2);
 }
 
-.bs-contract-buyable-item__description-item {
-  grid-column: span 2;
-}
-
-.bs-contract-buyable-item__description-item--hidden {
-  display: none;
-}
-
 @container bsOfferBookingPage (width < 600px) {
+}
+
+@container bsContractBuyableItemContent (width < 600px) {
   .bs-contract-buyable-item__grid {
-    grid-template-rows: auto auto auto auto;
-    grid-template-columns: 1fr;
+    grid-template:
+      'header header'
+      'subheader subheader'
+      'middle middle'
+      'footer-left footer-right';
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .bs-contract-buyable-item__grid_item-title {
+    grid-area: header;
+  }
+
+  .bs-contract-buyable-item__grid_item-pricing {
+    grid-area: subheader;
+  }
+
+  .bs-contract-buyable-item__grid_item-description {
+    grid-area: middle;
+  }
+
+  .bs-contract-buyable-item__grid_item-description--hidden {
+    display: none;
+  }
+
+  .bs-contract-buyable-item__grid_item-collapse-arrow {
+    grid-area: footer-left;
+  }
+
+  .bs-contract-buyable-item__grid_item-number_invoices {
+    grid-area: footer-right;
   }
 }

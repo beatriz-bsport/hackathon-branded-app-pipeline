@@ -9,11 +9,7 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Card, { CardSize } from '#csscomponents/Card';
 import CardContent from '#csscomponents/Card/CardContent';
 import Grid from '#csscomponents/Grid';
-import GridItem, {
-  Alignment,
-  Justification,
-  Direction,
-} from '#csscomponents/Grid/GridItem';
+import GridItem from '#csscomponents/Grid/GridItem';
 import Price from '#csscomponents/Price';
 import RecommendedChip from '#components/css-only/RecommendedChip';
 import BillingInterval from '#libs/marketplace/components/MarketplaceBillingInterval';
@@ -79,37 +75,36 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
         >
           {/* START -- FIRST ROW */}
           <GridItem
-            alignment={Alignment.FLEX_START}
-            columnEnd={1}
-            columnStart={1}
-            rowStart={1}
+            classes={{
+              'bs-contract-buyable-item__grid_item-title':
+                'bs-contract-buyable-item__grid_item-title',
+            }}
           >
             <div className="bs-contract-buyable-item__title__container">
               <div className="bs-contract-buyable-item__title">
                 {contract?.name}
-                <div
-                  className={classNames(
-                    'bs-contract-buyable-item__recommended-chip__container',
-                    {
-                      'bs-contract-buyable-item__recommended-chip__container--hidden':
-                        isRecommended,
-                    },
-                  )}
-                />
               </div>
-              <div className="bs-contract-buyable-item__recommended_icon">
-                <RecommendedChip />
+              <div
+                className={classNames(
+                  'bs-contract-buyable-item__recommended-chip__container',
+                  {
+                    'bs-contract-buyable-item__recommended-chip__container--hidden':
+                      isRecommended,
+                  },
+                )}
+              >
+                <div className="bs-contract-buyable-item__recommended_icon">
+                  <RecommendedChip />
+                </div>
               </div>
             </div>
           </GridItem>
 
           <GridItem
-            alignment={Alignment.FLEX_END}
-            columnEnd={2}
-            columnStart={2}
-            direction={Direction.ROW}
-            justification={Justification.FLEX_END}
-            rowStart={1}
+            classes={{
+              'bs-contract-buyable-item__grid_item-pricing':
+                'bs-contract-buyable-item__grid_item-pricing',
+            }}
           >
             <div className="bs-contract-buyable-item__pricing_container">
               <Price
@@ -144,18 +139,15 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
 
           <GridItem
             classes={{
-              'bs-contract-buyable-item__description-item':
-                'bs-contract-buyable-item__description-item',
+              'bs-contract-buyable-item__grid_item-description':
+                'bs-contract-buyable-item__grid_item-description',
               ...(contract?.description
                 ? {}
                 : {
-                    'bs-contract-buyable-item__description-item--hidden':
-                      'bs-contract-buyable-item__description-item--hidden',
+                    'bs-contract-buyable-item__grid_item-description--hidden':
+                      'bs-contract-buyable-item__grid_item-description--hidden',
                   }),
             }}
-            columnEnd={2}
-            columnStart={1}
-            rowStart={2}
           >
             <div
               ref={descriptionText.ref}
@@ -170,11 +162,10 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
 
           {/* START -- THIRD ROW */}
           <GridItem
-            alignment={Alignment.FLEX_START}
-            columnEnd={2}
-            columnStart={1}
-            justification={Justification.FLEX_END}
-            rowStart={3}
+            classes={{
+              'bs-contract-buyable-item__grid_item-collapse-arrow':
+                'bs-contract-buyable-item__grid_item-collapse-arrow',
+            }}
           >
             <div
               className={classNames({
@@ -204,11 +195,10 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
             </div>
           </GridItem>
           <GridItem
-            alignment={Alignment.FLEX_END}
-            columnEnd={2}
-            columnStart={2}
-            justification={Justification.FLEX_END}
-            rowStart={3}
+            classes={{
+              'bs-contract-buyable-item__grid_item-number_invoices':
+                'bs-contract-buyable-item__grid_item-number_invoices',
+            }}
           >
             {!!contract?.nb_interval && (
               <div className="bs-contract-buyable-item__planned-invoices">

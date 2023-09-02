@@ -23,6 +23,8 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { SvgIconComponent } from '@material-ui/icons';
+import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
+import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/waiting-list-status';
 import Alert, { AlertSeverity } from '#csscomponents/Alert';
 // @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
@@ -105,7 +107,11 @@ import {
 import { fetchCompanyConfiguration } from '#libs/waiting-list/actions';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
-import { OfferSummaryVariant, type Offer } from '#libs/offer/types';
+import {
+  OfferSummaryVariant,
+  type Offer,
+  type OfferStatus,
+} from '#libs/offer/types';
 import {
   withEstablishment,
   withCoach,
@@ -155,6 +161,7 @@ import Button, {
   ButtonVariant,
 } from '#components/css-only/Button';
 import Skeleton, { SkeletonVariant } from '#components/css-only/Skeleton';
+import BookingConfirmButtonWithOfferSummary from '#libs/booking/components/BookingConfirmButtonWithOfferSummary.component';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
 
@@ -713,6 +720,18 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.props.waitingListConfiguration?.check_credit &&
       this.props.consumerPacksForBooking?.length === 0;
 
+    const offerStatus =
+      this.props.offerStatusById?.[this.props.offerId] ?? ({} as OfferStatus);
+
+    const isBookable =
+      offerStatus?.bookable_status === OFFER_BOOKABLE_STATUS_BOOKABLE;
+    const isWaitlistOpen =
+      offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_OPEN;
+
+    const disableBookingButton =
+      this.state.selectedItem === null ||
+      (this.state.isBookingBlocked &&
+        !this.state.bookingBlockedReason.isWaitingListOpenMainReason);
     if (
       this.state.isSpotSelectorOpen &&
       !this.props.assetForBlueprintLoading &&
@@ -859,26 +878,39 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               </>
             )}
             <div className="bs-new-offer-booking__offer-summary">
-              <OfferSummary
-                coach={this.props.offer?.coach}
-                confirmLoading={this.state.confirmLoading}
-                disableButton={
-                  this.state.selectedItem === null ||
-                  (this.state.isBookingBlocked &&
-                    !this.state.bookingBlockedReason
-                      .isWaitingListOpenMainReason)
+              <BookingConfirmButtonWithOfferSummary
+                buttonLoading={this.state.confirmLoading}
+                disabled={
+                  (offerStatus && !isBookable && !isWaitlistOpen) ||
+                  disableBookingButton ||
+                  this.state.confirmLoading ||
+                  this.getIsLoading()
                 }
-                establishment={this.props.offer?.establishment}
-                loading={this.getIsLoading()}
-                metaActivity={this.props.offer?.meta_activity}
-                offer={this.props.offer}
-                offerStatus={this.props.offerStatusById?.[this.props.offerId]}
-                onConfirm={this.onConfirm}
+                displayTax={!this.props.theme?.is_tax_excluded_in_marketplace}
+                isBookable={isBookable}
+                OfferSummaryComponent={() => (
+                  <OfferSummary
+                    isBookingButtonHidden
+                    noStyledContainer
+                    coach={this.props.offer?.coach}
+                    // Must be change, these information can be fetch and display faster to reduce loadig time feelling.
+                    establishment={this.props.offer?.establishment}
+                    loading={this.getIsLoading()}
+                    metaActivity={this.props.offer?.meta_activity}
+                    offer={this.props.offer}
+                    spotId={this.state.selectedSpot}
+                    theme={this.props.theme}
+                    variant={OfferSummaryVariant.DEFAULT}
+                  />
+                )}
+                onClick={this.onConfirm}
                 price={displayPrice}
-                spotId={this.state.selectedSpot}
                 tax={this.props.offer?.tax}
-                theme={this.props.theme}
-                variant={OfferSummaryVariant.DEFAULT}
+                value={
+                  !this.props.offer?.full
+                    ? t(`booking:notification.form.submit`)
+                    : t(`booking:offer.mainButton.registerWaitingList`)
+                }
               />
             </div>
           </div>

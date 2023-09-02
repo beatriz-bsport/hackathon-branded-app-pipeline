@@ -80,6 +80,10 @@
     width: 100%;
     max-width: none;
   }
+  .bs-new-offer-booking__offer-summary {
+    position: sticky;
+    bottom: 0;
+  }
 
   .bs-new-offer-booking__spot-selector__confirm {
     display: flex;

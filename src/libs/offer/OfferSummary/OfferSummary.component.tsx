@@ -79,6 +79,7 @@ export type Props = {
   tax?: number;
   theme: CompanyTheme;
   isBookingButtonHidden?: boolean;
+  noStyledContainer?: boolean;
 };
 
 const OfferSummary: React.FC<Props> = ({
@@ -98,8 +99,9 @@ const OfferSummary: React.FC<Props> = ({
   variant,
   theme,
   isBookingButtonHidden,
+  noStyledContainer,
 }) => {
-  const classes = useStyles({ variant, offerStatus });
+  const classes = useStyles({ variant, offerStatus, noStyledContainer });
 
   const { t } = useTranslation(['datetime', 'booking', 'checkout']);
 
@@ -282,84 +284,87 @@ const OfferSummary: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles<Theme, Pick<Props, 'variant' | 'offerStatus'>>(
-  (theme) => ({
-    grid: {
-      display: 'flex',
-      flexDirection: 'column',
-      maxWidth: '374px',
-      padding: theme.spacing(2),
-      gap: theme.spacing(3),
-      justifyContent: 'flex-start',
-      backgroundColor: theme.palette.background.paper,
-      border: ({ variant }) =>
-        variant !== OfferSummaryVariant.BASKET && '2px solid #F1F3F4',
-      borderRadius: '8px',
-      [theme.breakpoints.down('xs')]: {
-        maxWidth: '100%',
-        borderRadius: 0,
-        gap: theme.spacing(1),
-      },
-    },
-    columnGap2: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: theme.spacing(2),
-      [theme.breakpoints.down('xs')]: {
-        gap: theme.spacing(1),
-      },
-    },
-    columnGap1: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: theme.spacing(1),
-      [theme.breakpoints.down('xs')]: {
-        gap: 0,
-      },
-    },
-    grey: {
-      color: '#687586',
-    },
-    waitlistChip: ({ offerStatus }) => ({
-      borderRadius: '4px',
-      color:
-        offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_FULL
-          ? theme.palette.error.dark
-          : theme.palette.grey[800],
-      backgroundColor:
-        offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_FULL
-          ? lighten(theme.palette.error.light, 0.8)
-          : theme.palette.grey[100],
-      '&>*': {
-        color: 'inherit',
-      },
-    }),
-    lineGap1: {
-      display: 'flex',
-      alignItems: 'center',
+const useStyles = makeStyles<
+  Theme,
+  Pick<Props, 'variant' | 'offerStatus' | 'noStyledContainer'>
+>((theme) => ({
+  grid: {
+    display: 'flex',
+    flexDirection: 'column',
+    maxWidth: '374px',
+    padding: theme.spacing(2),
+    gap: theme.spacing(3),
+    justifyContent: 'flex-start',
+    backgroundColor: theme.palette.background.paper,
+    border: ({ variant, noStyledContainer }) =>
+      variant !== OfferSummaryVariant.BASKET &&
+      !noStyledContainer &&
+      '2px solid #F1F3F4',
+    borderRadius: ({ noStyledContainer }) => (noStyledContainer ? 0 : '8px'),
+    [theme.breakpoints.down('xs')]: {
+      maxWidth: '100%',
+      borderRadius: 0,
       gap: theme.spacing(1),
     },
-    itemWithIcon: {
-      display: 'flex',
-      alignItems: 'center',
+  },
+  columnGap2: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
       gap: theme.spacing(1),
-      [theme.breakpoints.down('xs')]: {
-        display: 'none',
-      },
     },
-    icon: {
-      color: theme.palette.action.active,
+  },
+  columnGap1: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(1),
+    [theme.breakpoints.down('xs')]: {
+      gap: 0,
     },
-    avatar: {
-      height: 24,
-      width: 24,
-    },
-    price: {
-      display: 'flex',
-      justifyContent: 'space-between',
+  },
+  grey: {
+    color: '#687586',
+  },
+  waitlistChip: ({ offerStatus }) => ({
+    borderRadius: '4px',
+    color:
+      offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_FULL
+        ? theme.palette.error.dark
+        : theme.palette.grey[800],
+    backgroundColor:
+      offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_FULL
+        ? lighten(theme.palette.error.light, 0.8)
+        : theme.palette.grey[100],
+    '&>*': {
+      color: 'inherit',
     },
   }),
-);
+  lineGap1: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(1),
+  },
+  itemWithIcon: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(1),
+    [theme.breakpoints.down('xs')]: {
+      display: 'none',
+    },
+  },
+  icon: {
+    color: theme.palette.action.active,
+  },
+  avatar: {
+    height: 24,
+    width: 24,
+  },
+  price: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+}));
 
 export const OfferSummaryForStorybook = marketplaceCssHoc()(OfferSummary);
 

@@ -89,22 +89,24 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
             ))}
 
             {!hideUnnecessaryCompatiblePurchaseMethod && (
-              <ButtonBase onClick={onClickShowBuyableItems}>
-                <div className="bs-new-offer-booking__buyable_items__header">
-                  <KeyboardArrowRight
-                    className={classNames(
-                      'bs-new-offer-booking__buyable_items__header__arrow',
-                      {
-                        'bs-new-offer-booking__buyable_items__header__arrow--rotate':
-                          isShowBuyableItems,
-                      },
-                    )}
-                  />
-                  <div className="bs-new-offer-booking__buyable_items__header__title">
-                    {t('booking:newBookingModule.buyNewPass')}
+              <div className="bs-new-offer-booking__buyable_items__header__container">
+                <ButtonBase onClick={onClickShowBuyableItems}>
+                  <div className="bs-new-offer-booking__buyable_items__header">
+                    <KeyboardArrowRight
+                      className={classNames(
+                        'bs-new-offer-booking__buyable_items__header__arrow',
+                        {
+                          'bs-new-offer-booking__buyable_items__header__arrow--rotate':
+                            isShowBuyableItems,
+                        },
+                      )}
+                    />
+                    <div className="bs-new-offer-booking__buyable_items__header__title">
+                      {t('booking:newBookingModule.buyNewPass')}
+                    </div>
                   </div>
-                </div>
-              </ButtonBase>
+                </ButtonBase>
+              </div>
             )}
           </>
         )}

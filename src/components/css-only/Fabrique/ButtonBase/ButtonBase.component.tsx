@@ -10,19 +10,22 @@ export type Props = {
   isLoading?: boolean;
   isDisabled?: boolean;
   children: React.ReactNode;
-
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  disableRipple?: boolean;
 };
 
 const ButtonBase: React.FC<Props> = ({
   isLoading,
   isDisabled,
   children,
+  disableRipple,
   onClick,
 }) => {
   return (
     <button
-      className={classNames('bs-button_base__container')}
+      className={classNames('bs-button_base__container', {
+        ripple: !disableRipple,
+      })}
       disabled={isDisabled || isLoading}
       onClick={onClick}
       // eslint-disable-next-line react/button-has-type

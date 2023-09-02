@@ -1,9 +1,12 @@
+.bs-new-offer-booking__buyable_items__header__container {
+  padding-top: var(--spacing-4);
+  padding-bottom: var(--spacing-2);
+}
+
 .bs-new-offer-booking__buyable_items__header {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: var(--spacing-4);
-  margin-bottom: var(--spacing-2);
   gap: var(--spacing-1);
 }
 

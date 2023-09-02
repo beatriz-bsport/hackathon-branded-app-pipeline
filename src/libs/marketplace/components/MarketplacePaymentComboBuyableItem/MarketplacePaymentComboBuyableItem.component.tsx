@@ -10,10 +10,11 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import Card, { CardSize } from '#csscomponents/Card';
 import RecommendedChip from '#components/css-only/RecommendedChip';
-import Content from '#csscomponents/Card/CardContent';
+import CardContent from '#csscomponents/Card/CardContent';
 import Grid from '#csscomponents/Grid';
-import Item, { Alignment, Justification } from '#csscomponents/Grid/GridItem';
+import GridItem from '#csscomponents/Grid/GridItem';
 import Price from '#csscomponents/Price';
+import Collapse from '#components/css-only/Fabrique/Collapse';
 import useIsTextExpandable from '../../../../hooks/useIsTextExpandable';
 import Button from '#components/css-only/Button';
 import InitialPrice from '#libs/marketplace/components/MarketplacePaymentComboCard/InitialPrice';
@@ -63,6 +64,8 @@ const MarketplacePaymentComboBuyableItem: React.FC<Props> = ({
     );
   }, []);
 
+  const isRecommended = !!paymentCombo?.highlighted_as_recommended;
+
   return (
     <Card
       classes={{
@@ -73,7 +76,7 @@ const MarketplacePaymentComboBuyableItem: React.FC<Props> = ({
       onClick={onClick}
       size={CardSize.AUTO}
     >
-      <Content
+      <CardContent
         padding
         classes={{
           'bs-payment-combo-buyable-item__content':
@@ -86,43 +89,30 @@ const MarketplacePaymentComboBuyableItem: React.FC<Props> = ({
               'bs-payment-combo-buyable-item__grid',
           }}
         >
-          <Item
-            alignment={Alignment.FLEX_START}
+          {/* START -- FIRST ROW */}
+          <GridItem
             classes={{
-              'bs-payment-combo-buyable__title-item':
-                'bs-payment-combo-buyable__title-item',
+              'payment-combo-buyable-item__grid_item-title':
+                'payment-combo-buyable-item__grid_item-title',
             }}
-            columnStart={1}
-            justification={Justification.SPACE_BETWEEN}
           >
             <div className="bs-payment-combo-buyable-item__title">
+              <div
+                className={classNames(
+                  'bs-payment-combo-buyable-item__recommended-container',
+                  {
+                    'bs-payment-combo-buyable-item__recommended-item--hidden':
+                      !isRecommended,
+                  },
+                )}
+              >
+                <div className="bs-payment-combo-buyable-item__recommended_icon">
+                  <RecommendedChip />
+                </div>
+              </div>
               {paymentCombo.name}
             </div>
-          </Item>
-          {paymentCombo.highlighted_as_recommended && (
-            <Item
-              classes={{
-                'bs-payment-combo-buyable__recommended-item':
-                  'bs-payment-combo-buyable__recommended-item',
-              }}
-              columnEnd={3}
-              columnStart={2}
-              justification={Justification.FLEX_START}
-            >
-              <div className="bs-payment-combo-buyable-item__recommended-container">
-                <RecommendedChip />
-              </div>
-            </Item>
-          )}
-          <Item
-            classes={{
-              'bs-payment-combo-buyable__elements-item':
-                'bs-payment-combo-buyable__elements-item',
-            }}
-            columnEnd={3}
-            columnStart={1}
-            rowStart={2}
-          >
+
             <div className="bs-payment-combo-buyable-item__list">
               {isMobile ? (
                 <li className="bs-payment-combo-buyable-item__list__item">
@@ -141,36 +131,72 @@ const MarketplacePaymentComboBuyableItem: React.FC<Props> = ({
                 ))
               )}
             </div>
-          </Item>
-          <Item
+          </GridItem>
+
+          <GridItem
             classes={{
-              'bs-payment-combo-buyable__description-item':
-                'bs-payment-combo-buyable__description-item',
+              'payment-combo-buyable-item__grid_item-pricing':
+                'payment-combo-buyable-item__grid_item-pricing',
             }}
-            columnEnd={isMobile ? 4 : 3}
-            columnStart={1}
-            rowStart={3}
+          >
+            <div className="bs-payment-combo-buyable-item__prices-container">
+              <InitialPrice
+                isExcludingTax={isExcludingTax}
+                paymentCombo={paymentCombo}
+              />
+              <Price
+                amount={paymentCombo.price}
+                classes={{
+                  'bs-payment-combo-buyable-item__price':
+                    'bs-payment-combo-buyable-item__price',
+                }}
+                formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+                isExcludingTax={isExcludingTax}
+                tax={paymentCombo.tax}
+              />
+            </div>
+          </GridItem>
+          {/* START -- SECOND ROW : SPANNING TWO COLUMNS */}
+          <GridItem
+            classes={{
+              'payment-combo-buyable-item__grid_item-description':
+                'payment-combo-buyable-item__grid_item-description',
+              ...(paymentCombo?.description
+                ? {}
+                : {
+                    'payment-combo-buyable-item__grid_item-description--hidden':
+                      'payment-combo-buyable-item__grid_item-description--hidden',
+                  }),
+            }}
+          >
+            <Collapse collapsedHeight={40} isExpanded={showAllDescription}>
+              <div
+                ref={descriptionText.ref}
+                className={classNames(
+                  'bs-payment-combo-buyable-item__description',
+                  {
+                    'bs-payment-combo-buyable-item__description--short':
+                      !showAllDescription,
+                  },
+                )}
+              >
+                {paymentCombo?.description ?? ''}
+              </div>
+            </Collapse>
+          </GridItem>
+
+          {/* START -- THIRD ROW */}
+          <GridItem
+            classes={{
+              'payment-combo-buyable-item__grid_item-collapse-arrow':
+                'payment-combo-buyable-item__grid_item-collapse-arrow',
+            }}
           >
             <div
-              ref={descriptionText.ref}
-              className={classNames(
-                'bs-payment-combo-buyable-item__description',
-                {
-                  'bs-payment-combo-buyable-item__description--short':
-                    !showAllDescription,
-                },
-              )}
-            >
-              {paymentCombo.description}
-            </div>
-          </Item>
-          {descriptionText.isExpandable && (
-            <Item
-              classes={{
-                'bs-payment-combo-buyable__seemore-item':
-                  'bs-payment-combo-buyable__seemore-item',
-              }}
-              rowStart={4}
+              className={classNames({
+                'bs-payment-combo-buyable-item__seemore--hidden':
+                  !descriptionText.isExpandable,
+              })}
             >
               <Button
                 classes={{
@@ -191,37 +217,10 @@ const MarketplacePaymentComboBuyableItem: React.FC<Props> = ({
                   </>
                 )}
               </Button>
-            </Item>
-          )}
-          <Item
-            classes={{
-              'bs-payment-combo-buyable-item__item':
-                'bs-payment-combo-buyable-item__item',
-            }}
-            columnStart={3}
-            justification={Justification.SPACE_BETWEEN}
-            rowEnd={3}
-            rowStart={1}
-          >
-            <div className="bs-payment-combo-buyable-item__prices-container">
-              <InitialPrice
-                isExcludingTax={isExcludingTax}
-                paymentCombo={paymentCombo}
-              />
-              <Price
-                amount={paymentCombo.price}
-                classes={{
-                  'bs-payment-combo-buyable-item__price':
-                    'bs-payment-combo-buyable-item__price',
-                }}
-                formatPriceWithCurrency={getCurrencyDisplayWithPrice}
-                isExcludingTax={isExcludingTax}
-                tax={paymentCombo.tax}
-              />
             </div>
-          </Item>
+          </GridItem>
         </Grid>
-      </Content>
+      </CardContent>
     </Card>
   );
 };

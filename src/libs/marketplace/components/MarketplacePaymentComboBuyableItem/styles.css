@@ -1,11 +1,50 @@
-.bs-payment-combo-buyable-item-card .bs-payment-combo-buyable-item__grid {
-  grid-template-columns: min-content auto auto;
-  row-gap: 0;
-  column-gap: var(--spacing-1);
+.bs-payment-combo-buyable-item-card {
+  border-radius: var(--border-radius-2);
 }
 
 .bs-payment-combo-buyable-item__content {
   container: bsPaymentComboBuyableItemContent / inline-size;
+}
+
+.bs-payment-combo-buyable-item__grid {
+  grid-template:
+    'header-left header-right'
+    'middle middle'
+    'footer-left footer-right';
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 0;
+}
+
+.payment-combo-buyable-item__grid_item-title {
+  grid-area: header-left;
+  align-items: flex-start;
+}
+
+.payment-combo-buyable-item__grid_item-pricing {
+  grid-area: header-right;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+
+.payment-combo-buyable-item__grid_item-description {
+  grid-area: middle;
+}
+
+.payment-combo-buyable-item__grid_item-description--hidden {
+  display: none;
+}
+
+.payment-combo-buyable-item__grid_item-collapse-arrow {
+  grid-area: footer-left;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.payment-combo-buyable-item__grid_item-validity {
+  grid-area: footer-right;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
 .bs-payment-combo-buyable-item__title {
@@ -25,6 +64,9 @@
   -webkit-line-clamp: 2;
   /* autoprefixer: off */
   -webkit-box-orient: vertical;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
 }
 
 .bs-payment-combo-buyable-item__list {
@@ -60,10 +102,11 @@
 }
 
 .bs-payment-combo-buyable-item__description--short {
+  overflow: hidden;
+  display: -webkit-box;
   -webkit-line-clamp: 2;
   /* autoprefixer: off */
   -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .bs-payment-combo-buyable-item__seemore {
@@ -73,6 +116,9 @@
   padding: 2px 0 0;
 }
 
+.bs-payment-combo-buyable-item__seemore--hidden {
+  visibility: hidden;
+}
 .bs-payment-combo-buyable-item__seemore__text {
   font-family: var(--body2-fontFamily);
   font-size: var(--body2-fontSize);
@@ -101,43 +147,13 @@
   letter-spacing: var(--h6-letterSpacing);
 }
 
-@container bsPaymentComboBuyableItemContent (width < 450px) {
-  .bs-payment-combo-buyable-item__title {
-    width: fit-content;
-  }
+@container bsPaymentComboBuyableItemContent (width < 600px) {
+}
 
-  .bs-payment-combo-buyable__title-item {
-    grid-column-start: 1;
-    grid-column-end: 3;
-  }
+.bs-payment-combo-buyable-item__recommended-item--hidden {
+  display: none;
+}
 
-  .bs-payment-combo-buyable__recommended-item {
-    grid-column-start: 3;
-    grid-column-end: 4;
-  }
-
-  .bs-payment-combo-buyable__elements-item {
-    grid-column-start: 1;
-    grid-row-start: 3;
-  }
-
-  .bs-payment-combo-buyable__description-item {
-    grid-column-start: 1;
-    grid-row-start: 4;
-  }
-
-  .bs-payment-combo-buyable__seemore-item {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: 5;
-    justify-content: flex-end;
-  }
-
-  .bs-payment-combo-buyable-item__item {
-    margin-top: calc(var(--spacing-1) / 2);
-    grid-column-start: 3;
-    grid-column-end: 4;
-    grid-row-start: 5;
-    grid-row-end: 6;
-  }
+.bs-payment-combo-buyable-item__recommended_icon {
+  padding-right: calc(var(--spacing-1) / 2);
 }

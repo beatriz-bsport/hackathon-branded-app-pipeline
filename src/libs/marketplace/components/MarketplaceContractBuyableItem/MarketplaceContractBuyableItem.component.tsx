@@ -81,9 +81,6 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
             }}
           >
             <div className="bs-contract-buyable-item__title__container">
-              <div className="bs-contract-buyable-item__title">
-                {contract?.name}
-              </div>
               <div
                 className={classNames(
                   'bs-contract-buyable-item__recommended-chip__container',
@@ -96,6 +93,9 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
                 <div className="bs-contract-buyable-item__recommended_icon">
                   <RecommendedChip />
                 </div>
+              </div>
+              <div className="bs-contract-buyable-item__title">
+                {contract?.name}
               </div>
             </div>
           </GridItem>

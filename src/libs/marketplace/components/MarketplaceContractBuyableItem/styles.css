@@ -70,6 +70,9 @@
   height: 100%;
 }
 
+.bs-contract-buyable-item__recommended-chip__container {
+  padding-right: calc(var(--spacing-1) / 2);
+}
 .bs-contract-buyable-item__description {
   text-align: left;
   word-break: break-word;

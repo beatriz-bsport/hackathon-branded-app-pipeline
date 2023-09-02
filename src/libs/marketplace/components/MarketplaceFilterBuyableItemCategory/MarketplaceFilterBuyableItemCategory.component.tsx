@@ -1,10 +1,11 @@
 import React, { useCallback } from 'react';
-import './MarketplaceFilterBuyableItemCategory.css';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { RECOMMENDED_BUYABLE_CATEGORY_ID } from '#libs/marketplace/constants';
 import type { BuyableItemCategory } from '#libs/booker-module/types';
+
+import './styles.css';
 
 type ButtonProps = {
   onClickCategory: (item: BuyableItemCategory) => void;
@@ -25,6 +26,7 @@ const MarketplaceFilterBuyableItemCategoryButton: React.FC<ButtonProps> = (
     <button
       className={classNames(
         'bs-marketplace-filter-buyable-item-category__button',
+        'ripple',
         {
           'bs-marketplace-filter-buyable-item-category__button--selected':
             buyableItemCategory?.index ===
@@ -53,16 +55,16 @@ const MarketplaceFilterBuyableItemCategory: React.FC<Props> = (props) => {
     onClickCategory(null);
   }, [onClickCategory]);
 
-  const isRecommendedCategoryInList = !!props.buyableItemCategories.find(
-    (category) => category.id === RECOMMENDED_BUYABLE_CATEGORY_ID,
+  const isRecommendedCategoryInList = !!props.buyableItemCategories?.find(
+    (category) => category?.id === RECOMMENDED_BUYABLE_CATEGORY_ID,
   );
 
   return (
     <div className="bs-marketplace-filter-buyable-item-category">
       {/* If the recommended category is in the list, then display its button in first position */}
-      {isRecommendedCategoryInList && (
+      {!!isRecommendedCategoryInList && (
         <MarketplaceFilterBuyableItemCategoryButton
-          key={props.buyableItemCategories[0].id}
+          key="recommended_buyable_item_button"
           buyableItemCategory={props.buyableItemCategories[0]}
           onClickCategory={props.onClickCategory}
           selectedBuyableItemCategory={props.selectedBuyableItemCategory}
@@ -85,7 +87,7 @@ const MarketplaceFilterBuyableItemCategory: React.FC<Props> = (props) => {
       </button>
 
       {/* Finally, display buttons for the remaining categories */}
-      {props.buyableItemCategories
+      {(props.buyableItemCategories ?? [])
         .filter((category) => category.id !== RECOMMENDED_BUYABLE_CATEGORY_ID)
         .map((buyableItemCategory) => {
           return (

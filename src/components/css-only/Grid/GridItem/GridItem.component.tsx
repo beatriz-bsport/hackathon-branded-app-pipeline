@@ -13,6 +13,7 @@ export type Props = {
   direction?: Direction;
   justification?: Justification;
   classes?: { [key: string]: string };
+  gridArea?: string;
 };
 
 export const Item: React.FC<Props> = ({
@@ -25,6 +26,7 @@ export const Item: React.FC<Props> = ({
   direction,
   justification,
   classes,
+  gridArea,
 }) => {
   return (
     <div
@@ -41,6 +43,7 @@ export const Item: React.FC<Props> = ({
         [`bs-grid-item-justification-${justification}`]: justification,
         ...classes,
       })}
+      style={gridArea ? { gridArea } : {}}
     >
       {children}
     </div>

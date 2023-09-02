@@ -2,6 +2,22 @@
   border-radius: var(--border-radius-2);
 }
 
+@keyframes clickAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.99);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.bs-payment-combo-buyable-item-card:active {
+  animation: clickAnimation 0.5s ease;
+}
+
 .bs-payment-combo-buyable-item__content {
   container: bsPaymentComboBuyableItemContent / inline-size;
 }

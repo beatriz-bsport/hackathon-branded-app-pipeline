@@ -55,6 +55,7 @@
   line-height: var(--subtitle1-lineHeight);
   color: var(--color-grey-dark);
 }
+
 .bs-contract-buyable-item__title__container {
   white-space: pre-line;
   overflow: hidden;
@@ -81,13 +82,10 @@
   letter-spacing: var(--body2-letterSpacing);
   line-height: var(--body2-lineHeight);
   color: var(--color-grey-main);
-  margin-top: var(--spacing-1);
-  margin-bottom: calc(var(--spacing-1) / 2);
   white-space: pre-wrap;
 }
 
 .bs-contract-buyable-item__description--short {
-  max-height: 40px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;

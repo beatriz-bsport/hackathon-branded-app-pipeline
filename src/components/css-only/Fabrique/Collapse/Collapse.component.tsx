@@ -5,8 +5,13 @@ import './styles.css';
 export type Props = {
   isExpanded: boolean;
   children: React.ReactElement | React.ReactNode | React.ReactNode[];
+  collapsedHeight?: number;
 };
-export const Collapse: React.FC<Props> = ({ isExpanded, children }) => {
+export const Collapse: React.FC<Props> = ({
+  isExpanded,
+  children,
+  collapsedHeight,
+}) => {
   const ref = React.useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = React.useState(0);
 
@@ -20,7 +25,7 @@ export const Collapse: React.FC<Props> = ({ isExpanded, children }) => {
     <div
       className="bs-collapse"
       style={{
-        height: isExpanded ? contentHeight : 0,
+        height: isExpanded ? contentHeight : collapsedHeight ?? 0,
       }}
     >
       <div ref={ref} className="bs-content">

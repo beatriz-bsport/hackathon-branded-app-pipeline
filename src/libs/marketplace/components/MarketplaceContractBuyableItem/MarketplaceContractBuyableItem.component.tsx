@@ -11,6 +11,7 @@ import CardContent from '#csscomponents/Card/CardContent';
 import Grid from '#csscomponents/Grid';
 import GridItem from '#csscomponents/Grid/GridItem';
 import Price from '#csscomponents/Price';
+import Collapse from '#components/css-only/Fabrique/Collapse';
 import RecommendedChip from '#components/css-only/RecommendedChip';
 import BillingInterval from '#libs/marketplace/components/MarketplaceBillingInterval';
 import useIsTextExpandable from '../../../../hooks/useIsTextExpandable';
@@ -149,15 +150,17 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
                   }),
             }}
           >
-            <div
-              ref={descriptionText.ref}
-              className={classNames('bs-contract-buyable-item__description', {
-                'bs-contract-buyable-item__description--short':
-                  !showAllDescription,
-              })}
-            >
-              {contract?.description}
-            </div>
+            <Collapse collapsedHeight={60} isExpanded={showAllDescription}>
+              <div
+                ref={descriptionText.ref}
+                className={classNames('bs-contract-buyable-item__description', {
+                  'bs-contract-buyable-item__description--short':
+                    !showAllDescription,
+                })}
+              >
+                {contract?.description}
+              </div>
+            </Collapse>
           </GridItem>
 
           {/* START -- THIRD ROW */}

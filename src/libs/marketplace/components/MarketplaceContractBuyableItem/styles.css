@@ -13,6 +13,7 @@
     'middle middle'
     'footer-left footer-right';
   grid-template-columns: repeat(2, 1fr);
+  grid-gap: 0;
 }
 
 .bs-contract-buyable-item__grid_item-title {

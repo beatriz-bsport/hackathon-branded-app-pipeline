@@ -87,7 +87,7 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
                   'bs-contract-buyable-item__recommended-chip__container',
                   {
                     'bs-contract-buyable-item__recommended-chip__container--hidden':
-                      isRecommended,
+                      !isRecommended,
                   },
                 )}
               >

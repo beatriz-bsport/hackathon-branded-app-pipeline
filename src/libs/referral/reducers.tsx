@@ -39,7 +39,7 @@ export default handleActions<Immutable.Immutable<ReferralState>, any>(
     [retrieveReferralProgramActions.success.toString()]: (
       state,
       { payload }: { payload: ReferralProgram },
-    ) => state.setIn(['referralProgram', 'byId'], { [payload.id]: payload }),
+    ) => state.setIn(['referralProgram', 'byId', payload.id], payload),
 
     [updateReferralProgramActions.isLoading.toString()]: (
       state,
@@ -66,9 +66,7 @@ export default handleActions<Immutable.Immutable<ReferralState>, any>(
       state,
       { payload }: { payload: ReferralMemberStatus },
     ) =>
-      state.setIn(['referralMemberStatus', 'byId'], {
-        [payload.member_id]: payload,
-      }),
+      state.setIn(['referralMemberStatus', 'byId', payload.member_id], payload),
   },
   initialState,
 );

@@ -8,6 +8,7 @@ import HourglassFull from '@material-ui/icons/HourglassFull';
 import LabelOff from '@material-ui/icons/LabelOff';
 import TimerOff from '@material-ui/icons/TimerOff';
 import Update from '@material-ui/icons/Update';
+import moment from 'moment-timezone';
 import type { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
 import type {
   PaymentPackCategoryWithPacks,
@@ -37,7 +38,7 @@ import type {
   Contract,
   ContractWithPaymentPack,
 } from '#libs/subscription/types';
-
+import { computeProrataPriceForSubscription } from '#libs/subscription/utils';
 // pass page category filter - get all of the available categories
 export const getPassFilterAvailableCategories = (
   paymentPackByCategory: Immutable<PaymentPackCategoryWithPacks[]>,
@@ -345,7 +346,24 @@ export const getBookingDisplayPrice = (selectedItem: BookerItem) => {
     selectedItem.itemIdentifier === CONTRACT_BOOKING_FUNNEL_IDENTIFIER
   ) {
     const data = selectedItem.data as ContractWithPaymentPack;
-    displayPrice = (+data?.flat_fee + +data?.recurrent_price).toString();
+    if (data?.month_billing_day) {
+      const billingStartDate = moment().format('YYYY-MM-DD');
+      const firstInvoiceProrataPrice = computeProrataPriceForSubscription(
+        billingStartDate,
+        data?.month_billing_day,
+        (data?.recurrent_price ?? 0).toString(),
+      );
+      displayPrice = parseFloat(
+        (
+          Math.max(parseFloat(firstInvoiceProrataPrice), 0) +
+          parseFloat(data?.flat_fee ?? 0)
+        ).toString(),
+      )
+        .toFixed(2)
+        .toString();
+    } else {
+      displayPrice = (+data?.flat_fee + +data?.recurrent_price).toString();
+    }
   }
   return displayPrice;
 };

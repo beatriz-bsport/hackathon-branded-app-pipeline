@@ -18,6 +18,7 @@ type Props = {
   isCollapse?: boolean;
   noPadding?: boolean;
   spacing?: number;
+  noDivider?: boolean;
 };
 
 const FormSection = React.memo((props: Props) => {
@@ -32,6 +33,7 @@ const FormSection = React.memo((props: Props) => {
     isCollapse,
     noPadding,
     spacing,
+    noDivider,
   } = props;
   const classes = useStyle({ noPadding, spacing });
   const [isExpanded, setIsExpanded] = useState(false);
@@ -59,7 +61,7 @@ const FormSection = React.memo((props: Props) => {
             <Box className={classes.collapseContainer}>{children}</Box>
           </Collapse>
         </Box>
-        <Divider />
+        {!noDivider && <Divider />}
       </div>
     );
   }
@@ -78,7 +80,7 @@ const FormSection = React.memo((props: Props) => {
         )}
         {children}
       </Box>
-      <Divider />
+      {!noDivider && <Divider />}
     </div>
   );
 });

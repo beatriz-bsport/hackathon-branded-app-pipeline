@@ -7,6 +7,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Checkbox from '#components/css-only/Checkbox/';
 import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
+import Collapse from '#components/css-only/Fabrique/Collapse';
 
 import './SubscriptionTermsStyles.css';
 
@@ -42,15 +43,18 @@ export const SubscriptionTerms: React.FC<Props> = (props) => {
         {t('newCheckout.terms.title')}
       </div>
       <div className="bs-subscription-terms__collapsible-section">
-        <div
-          ref={contractTermsText.ref}
-          className={classNames('bs-subscription-terms__text-content', {
-            '--shrinked': !isTextExpanded,
-            '--expanded': isTextExpanded,
-          })}
-        >
-          {contractTerms}
-        </div>
+        <Collapse collapsedHeight={72} isExpanded={isTextExpanded}>
+          <div
+            ref={contractTermsText.ref}
+            className={classNames('bs-subscription-terms__text-content', {
+              '--shrinked': !isTextExpanded,
+              '--expanded': isTextExpanded,
+            })}
+          >
+            {contractTerms}
+          </div>
+        </Collapse>
+
         {contractTermsText.isExpandable && (
           <button
             className="bs-subcription-terms--text-button"

@@ -129,6 +129,27 @@ export const getConfirmationStatus = (
   billingPlan: Subscription,
   offersOnWaitingList: number[],
 ) => {
+  const checkoutItems =
+    basket?.checkout_items?.filter((checkoutItem) => !!checkoutItem) ?? [];
+
+  const isbasketWithPasses =
+    checkoutItems.filter(
+      (item) =>
+        item.buyable_item_identifier ===
+          BuyableItemOptions.BUYABLE_ITEM_COMBO_ITEM ||
+        item.buyable_item_identifier === BuyableItemOptions.BUYABLE_ITEM_PASS ||
+        item.buyable_item_identifier ===
+          BuyableItemOptions.BUYABLE_ITEM_PRIVATE_PASS,
+    ).length > 0;
+
+  const isBasketOnlyWithShopItem =
+    !isbasketWithPasses &&
+    checkoutItems.filter(
+      (item) =>
+        item.buyable_item_identifier ===
+        BuyableItemOptions.BUYABLE_ITEM_SHOP_ITEM,
+    ).length > 0;
+
   if (isError) {
     if (!codeError) {
       return ConfirmationStatus.GENERIC_ERROR;
@@ -160,6 +181,12 @@ export const getConfirmationStatus = (
   }
   if (offersOnWaitingList?.length) {
     return ConfirmationStatus.WAITING_LIST;
+  }
+  if (isbasketWithPasses) {
+    return ConfirmationStatus.PURCHASE_WITH_PASSES_SUCCESS;
+  }
+  if (isBasketOnlyWithShopItem) {
+    return ConfirmationStatus.PURCHASE_WITH_ITEMS_SUCCESS;
   }
   return ConfirmationStatus.PURCHASE_ONLY_SUCCESS;
 };

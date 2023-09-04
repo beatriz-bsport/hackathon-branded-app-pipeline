@@ -519,7 +519,8 @@
         "newWorkshop": "Nouvel atelier",
         "retryBookingSession": "Réessayer de réserver",
         "mySubscription": "Mon abonnement",
-        "myProducts": "Mes achats"
+        "myProducts": "Mes achats",
+        "myPasses": "Mes cartes de cours"
       },
       "sections": {
         "explain": "Votre opération a bien été prise en compte. Nous vous enverrons un mail de confirmation.",

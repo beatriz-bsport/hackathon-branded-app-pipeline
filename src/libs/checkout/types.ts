@@ -202,4 +202,6 @@ export enum ConfirmationStatus {
   OFFER_AND_PURCHASE_SUCCESS = 'offerAndPurchaseSuccess',
   PURCHASE_ONLY_SUCCESS = 'purchaseOnlySuccess',
   WAITING_LIST = 'waitingList',
+  PURCHASE_WITH_PASSES_SUCCESS = 'purchaseWithPassesSuccess',
+  PURCHASE_WITH_ITEMS_SUCCESS = 'purchaseWithItemsSuccess',
 }

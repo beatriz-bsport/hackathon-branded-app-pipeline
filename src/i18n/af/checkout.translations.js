@@ -114,6 +114,7 @@ exports.default = {
       retryBookingSession: 'Réessayer de réserver',
       mySubscription: 'Mon abonnement',
       myProducts: 'Mes achats',
+      myPasses: 'Mes cartes de cours'
     },
     sections: {
       explain:

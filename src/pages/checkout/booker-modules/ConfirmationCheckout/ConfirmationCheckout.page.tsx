@@ -95,6 +95,8 @@ type ConfirmationCheckoutProps = {
   companyId: number;
   onContinue: () => void;
   goToMarketplace: () => void;
+  goToMemberPasses: () => void;
+  goToMemberSubscriptions: () => void;
   goBack: () => void;
 };
 
@@ -310,7 +312,9 @@ export class ConfirmationCheckout extends React.PureComponent<Props> {
                 checkoutItems={checkoutItems}
                 goBack={this.props.goBack}
                 goToCalendar={this.props.goToMarketplace}
+                goToMemberPasses={this.props.goToMemberPasses}
                 goToMemberProfile={this.props.onContinue}
+                goToMemberSubscriptions={this.props.goToMemberSubscriptions}
                 isLoading={isLoading}
                 offers={offerBookedList}
                 status={confirmationStatus}
@@ -497,6 +501,46 @@ const mapWithHandlers = {
       replace(
         urlToMarketplace(companyTheme.company_name, companyId.toString()),
       );
+    },
+  goToMemberPasses:
+    ({
+      replace,
+      companyId,
+      queryParams,
+    }: {
+      replace: typeof replaceRouter;
+      companyId: number;
+      queryParams: QueryParams;
+    }) =>
+    () => {
+      if (WidgetUtils.isWidget()) {
+        WidgetUtils.paymentSuccess();
+        if (queryParams && queryParams.onValidation === 'close') {
+          window.close();
+        }
+        return;
+      }
+      replace(`/c/${companyId}/pack/`);
+    },
+  goToMemberSubscriptions:
+    ({
+      replace,
+      companyId,
+      queryParams,
+    }: {
+      replace: typeof replaceRouter;
+      companyId: number;
+      queryParams: QueryParams;
+    }) =>
+    () => {
+      if (WidgetUtils.isWidget()) {
+        WidgetUtils.paymentSuccess();
+        if (queryParams && queryParams.onValidation === 'close') {
+          window.close();
+        }
+        return;
+      }
+      replace(`/c/${companyId}/subscription/`);
     },
 };
 

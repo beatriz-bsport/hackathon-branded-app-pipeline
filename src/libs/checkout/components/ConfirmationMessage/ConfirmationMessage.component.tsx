@@ -19,6 +19,8 @@ export type Props = {
   billingPlan: Subscription;
   goToCalendar?: () => void;
   goToMemberProfile?: () => void;
+  goToMemberPasses?: () => void;
+  goToMemberSubscriptions?: () => void;
   goBack?: () => void;
 };
 
@@ -43,6 +45,8 @@ const ConfirmationMessage: React.FC<Props> = ({
   goBack,
   goToCalendar,
   goToMemberProfile,
+  goToMemberPasses,
+  goToMemberSubscriptions,
   offers,
   checkoutItems,
   billingPlan,
@@ -53,6 +57,8 @@ const ConfirmationMessage: React.FC<Props> = ({
     goToCalendar,
     goBack,
     goToMemberProfile,
+    goToMemberPasses,
+    goToMemberSubscriptions,
   );
 
   if (!messageData || !status) return null;

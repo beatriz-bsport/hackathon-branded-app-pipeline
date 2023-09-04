@@ -10,6 +10,8 @@ export const useConfirmationMessageData = (
   goToCalendar: () => void,
   goBack: () => void,
   goToMemberProfile: () => void,
+  goToMemberPasses: () => void,
+  goToMemberSubscriptions: () => void,
 ) => {
   const { t } = useTranslation('checkout');
 
@@ -146,7 +148,7 @@ export const useConfirmationMessageData = (
           },
           confirm: {
             label: t('validation.actions.mySubscription'),
-            onClick: goToMemberProfile,
+            onClick: goToMemberSubscriptions,
           },
         },
       },
@@ -215,6 +217,54 @@ export const useConfirmationMessageData = (
         withAlert: null,
         withSubScriptionActions: null,
       },
+      [ConfirmationStatus.PURCHASE_WITH_PASSES_SUCCESS]: {
+        actions: {
+          cancel: {
+            label: t('validation.actions.goToCalendar'),
+            onClick: goToCalendar,
+          },
+          confirm: {
+            label: t('validation.actions.myPasses'),
+            onClick: goToMemberPasses,
+          },
+        },
+        icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
+        message: t(
+          'validation.sections.confirmationStatusMessage.paymentSuccess',
+          {
+            count: checkoutItems?.length,
+          },
+        ),
+        title: t(
+          'validation.sections.confirmationStatusTitle.success.paymentSuccess',
+        ),
+        withAlert: null,
+        withSubScriptionActions: null,
+      },
+      [ConfirmationStatus.PURCHASE_WITH_ITEMS_SUCCESS]: {
+        actions: {
+          cancel: {
+            label: t('validation.actions.goToCalendar'),
+            onClick: goToCalendar,
+          },
+          confirm: {
+            label: t('validation.actions.myProducts'),
+            onClick: goToMemberProfile,
+          },
+        },
+        icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
+        message: t(
+          'validation.sections.confirmationStatusMessage.paymentSuccess',
+          {
+            count: checkoutItems?.length,
+          },
+        ),
+        title: t(
+          'validation.sections.confirmationStatusTitle.success.paymentSuccess',
+        ),
+        withAlert: null,
+        withSubScriptionActions: null,
+      },
     };
   }, [
     t,
@@ -223,6 +273,8 @@ export const useConfirmationMessageData = (
     goBack,
     checkoutItems?.length,
     offers?.length,
+    goToMemberPasses,
+    goToMemberSubscriptions,
   ]);
   return messageData;
 };

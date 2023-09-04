@@ -152,6 +152,7 @@ const defaultPermissions: RolePermission = {
       subscription: true,
       mobilePersonalization: true,
       quicksale: true,
+      referral: true,
     },
     tutorial: true,
   },

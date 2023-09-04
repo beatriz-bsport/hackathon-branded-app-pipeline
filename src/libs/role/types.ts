@@ -478,6 +478,7 @@ export type ProtectedUrls =
   | '/settings/platform-billing'
   | '/settings/quickbooks'
   | '/settings/quicksale'
+  | '/settings/referral'
   | '/settings/role'
   | '/settings/shop'
   | '/settings/waiting-list'

@@ -92,6 +92,7 @@ export const URLS_PERMISSIONS: Record<ProtectedUrls, string[]> = {
   '/settings/platform-billing': ['navigationMenu.settings.subscription'],
   '/settings/quickbooks': ['navigationMenu.settings.quickBooks'],
   '/settings/quicksale': ['navigationMenu.settings.quicksale'],
+  '/settings/referral': ['navigationMenu.settings.referral'],
   '/settings/role': ['navigationMenu.settings.staffs'],
   '/settings/shop': ['navigationMenu.settings.webShop'],
   '/settings/waiting-list': ['navigationMenu.settings.waitingList'],

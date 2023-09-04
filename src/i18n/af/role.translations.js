@@ -162,6 +162,7 @@ exports.default = {
         mobilePersonalization: { _label: 'Branded app' },
         coachUserspace: { _label: 'Teacher View' },
         quicksale: { _label: 'Quick sales interface' },
+        referral: { _label: 'Referral program' },
       },
       reporting: { _label: 'Reporting' },
       member: { _label: 'Members' },

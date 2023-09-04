@@ -10063,6 +10063,9 @@
                     },
                     "quicksale": {
                         "_label": "Interface de vente rapide"
+                    },
+                    "referral": {
+                        "_label": "Parrainage"
                     }
                 },
                 "tutorial": {

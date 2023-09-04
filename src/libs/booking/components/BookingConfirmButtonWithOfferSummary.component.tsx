@@ -77,7 +77,7 @@ const BookingConfirmButtonWithOfferSummary: React.FC<Props> = ({
   displayTax,
   tax,
 }) => {
-  const isMobile = useMediaQuery('@media (max-width:750px)');
+  const isMobile = useMediaQuery('@media (max-width:950px)');
   const classes = useStyles({ isMobile });
   // Very specific to be inline with css BoutiqueBookerModule.css
   const { t } = useTranslation(['datetime', 'booking', 'checkout']);
@@ -168,7 +168,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '0px',
     display: 'flex',
     flexDirection: 'column',
-    '@media (max-width:750px)': {
+    '@media (max-width:950px)': {
       border: 'none',
       borderTop: '4px solid #F1F3F4',
     },

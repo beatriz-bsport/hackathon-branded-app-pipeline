@@ -1,16 +1,11 @@
 .bs-marketplace-spot-selector {
   container: bsSpotSelector / inline-size;
+  padding: 0 var(--spacing-2);
 }
 
 .bs-marketplace-spot-selector__header {
   display: flex;
-  justify-content: space-around;
-}
-
-@container bsSpotSelector (width < 750px) {
-  .bs-marketplace-spot-selector__header {
-    justify-content: flex-start;
-  }
+  justify-content: space-between;
 }
 
 .bs-marketplace-spot-selector__legend {

@@ -760,8 +760,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     ) {
       return (
         <div className="bs-new-offer-booking-page">
-          <div className="bs-new-offer-booking__spot-selector">
-            <div className="bs-new-offer-booking__spot-selector__header">
+          <div className="bs-new-offer-booking__spot-selector__container">
+            <div className="bs-new-offer-booking__spot-selector__go-back-container">
               <Button
                 classes={{
                   root: 'bs-new-offer-booking__consumer-payment-packs__arrow',
@@ -775,25 +775,29 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                 {t('newBookingModule.spotSelectorTitle')}
               </div>
             </div>
-            {this.props.roomBlueprintsById[this.props.offer.room_blueprint] && (
-              <MarketplaceSpotSelector
-                assetByIdBlueprintByIdentifier={
-                  this.props.assetByIdBlueprintByIdentifier
-                }
-                closeSpotSelector={this.closeSpotSelector}
-                fetchOfferStatus={this.fetchOfferStatus}
-                fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
-                offer={this.props.offer}
-                offerStatusById={this.props.offerStatusById}
-                roomBlueprintsById={this.props.roomBlueprintsById}
-                selectedSpot={this.state.selectedSpotId}
-                spotTypes={[DEFAULT_SPOT_TYPE as SpotType].concat(
-                  this.props.spotTypes,
-                )}
-                theme={this.props.theme}
-                updateSpotForOffer={this.updateSpotForOffer}
-              />
-            )}
+            <div className="bs-new-offer-booking__spot-selector__blueprint">
+              {this.props.roomBlueprintsById[
+                this.props.offer.room_blueprint
+              ] && (
+                <MarketplaceSpotSelector
+                  assetByIdBlueprintByIdentifier={
+                    this.props.assetByIdBlueprintByIdentifier
+                  }
+                  closeSpotSelector={this.closeSpotSelector}
+                  fetchOfferStatus={this.fetchOfferStatus}
+                  fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+                  offer={this.props.offer}
+                  offerStatusById={this.props.offerStatusById}
+                  roomBlueprintsById={this.props.roomBlueprintsById}
+                  selectedSpot={this.state.selectedSpotId}
+                  spotTypes={[DEFAULT_SPOT_TYPE as SpotType].concat(
+                    this.props.spotTypes,
+                  )}
+                  theme={this.props.theme}
+                  updateSpotForOffer={this.updateSpotForOffer}
+                />
+              )}
+            </div>
           </div>
           <div className="bs-new-offer-booking__spot-selector__confirm">
             <Button
@@ -836,28 +840,27 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
     return (
       <div className="bs-new-offer-booking-page">
-        <div className="bs-new-offer-booking-with-header">
-          {this.getIsLoading() ? (
-            <Skeleton
-              className="bs-new-offer-booking__header--loading"
-              variant={SkeletonVariant.RECTANGLE}
-            />
-          ) : (
-            <div className="bs-new-offer-booking__header">
-              <Button
-                classes={{
-                  root: 'bs-new-offer-booking__consumer-payment-packs__arrow',
-                }}
-                onClick={this.goBackToCalendar}
-                variant={ButtonVariant.ICON}
-              >
-                <ArrowBack />
-              </Button>
-              <div className="bs-new-offer-booking__consumer-payment-packs__title">
-                {this.getPageTitle()}
-              </div>
-            </div>
-          )}
+        <div className="bs-new-offer-booking-page__pricing_container">
+          <div className="bs-new-offer-booking-header">
+            {this.getIsLoading() ? (
+              <Skeleton
+                className="bs-new-offer-booking__header--loading"
+                variant={SkeletonVariant.RECTANGLE}
+              />
+            ) : (
+              <>
+                <Button
+                  onClick={this.goBackToCalendar}
+                  variant={ButtonVariant.ICON}
+                >
+                  <ArrowBack />
+                </Button>
+                <div className="bs-new-offer-booking__consumer-payment-packs__title">
+                  {this.getPageTitle()}
+                </div>
+              </>
+            )}
+          </div>
           <div className="bs-new-offer-booking">
             {this.state.isBookingBlocked && !isWaitingList ? (
               <MarketplaceBookingBlockedReason
@@ -898,42 +901,42 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                 />
               </>
             )}
-            <div className="bs-new-offer-booking__offer-summary">
-              <BookingConfirmButtonWithOfferSummary
-                buttonLoading={this.state.confirmLoading}
-                disabled={
-                  (offerStatus && !isBookable && !isWaitlistOpen) ||
-                  disableBookingButton ||
-                  this.state.confirmLoading ||
-                  this.getIsLoading()
-                }
-                displayTax={!this.props.theme?.is_tax_excluded_in_marketplace}
-                isBookable={isBookable}
-                OfferSummaryComponent={() => (
-                  <OfferSummary
-                    isBookingButtonHidden
-                    noStyledContainer
-                    coach={this.props.offer?.coach}
-                    // Must be change, these information can be fetch and display faster to reduce loadig time feelling.
-                    establishment={this.props.offer?.establishment}
-                    loading={this.getIsLoading()}
-                    metaActivity={this.props.offer?.meta_activity}
-                    offer={this.props.offer}
-                    spotId={this.state.selectedSpot}
-                    theme={this.props.theme}
-                    variant={OfferSummaryVariant.DEFAULT}
-                  />
-                )}
-                onClick={this.onConfirm}
-                price={displayPrice}
-                tax={this.props.offer?.tax}
-                value={
-                  !this.props.offer?.full
-                    ? t(`booking:notification.form.submit`)
-                    : t(`booking:offer.mainButton.registerWaitingList`)
-                }
-              />
-            </div>
+          </div>
+          <div className="bs-new-offer-booking__offer-summary">
+            <BookingConfirmButtonWithOfferSummary
+              buttonLoading={this.state.confirmLoading}
+              disabled={
+                (offerStatus && !isBookable && !isWaitlistOpen) ||
+                disableBookingButton ||
+                this.state.confirmLoading ||
+                this.getIsLoading()
+              }
+              displayTax={!this.props.theme?.is_tax_excluded_in_marketplace}
+              isBookable={isBookable}
+              OfferSummaryComponent={() => (
+                <OfferSummary
+                  isBookingButtonHidden
+                  noStyledContainer
+                  coach={this.props.offer?.coach}
+                  // Must be change, these information can be fetch and display faster to reduce loadig time feelling.
+                  establishment={this.props.offer?.establishment}
+                  loading={this.getIsLoading()}
+                  metaActivity={this.props.offer?.meta_activity}
+                  offer={this.props.offer}
+                  spotId={this.state.selectedSpot}
+                  theme={this.props.theme}
+                  variant={OfferSummaryVariant.DEFAULT}
+                />
+              )}
+              onClick={this.onConfirm}
+              price={displayPrice}
+              tax={this.props.offer?.tax}
+              value={
+                !this.props.offer?.full
+                  ? t(`booking:notification.form.submit`)
+                  : t(`booking:offer.mainButton.registerWaitingList`)
+              }
+            />
           </div>
         </div>
       </div>

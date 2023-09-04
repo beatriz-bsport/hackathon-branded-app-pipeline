@@ -5632,7 +5632,7 @@
         "regularizeBalance": "Regularizar",
         "file": {
             "drop_file": "Arrastrar y sueltar o hagar clic para añadir un documento",
-            "name": "Apellido",
+            "name": "Nombre",
             "cancel": "Cancelar",
             "upload_file": "Añadir un documento",
             "nofileSaved": "Ningún documento registrado",
@@ -9213,7 +9213,7 @@
                 },
                 "acceptDoubleBookingMetaActivity": "Aceptar la doble reserva de actividades",
                 "showFreeSessionLabel": "Indique las sesiones con 0 créditos con la etiqueta GRATUITO",
-                "acceptDoubleBookingWorkshop": "Aceptar reservas dobles para los",
+                "acceptDoubleBookingWorkshop": "Aceptar reservas dobles para los talleres",
                 "hideBookButton": {
                     "switchLabel": "Ocultar el botón \"{{-bookButtonTranslation}}",
                     "dialogDescription": "Al ocultar el botón \"{{-bookButtonTranslation}}\", puede hacer clic en el pase para reservar la sesión."

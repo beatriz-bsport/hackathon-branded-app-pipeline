@@ -1,5 +1,5 @@
 import React from 'react';
-
+import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import { Theme, lighten, makeStyles } from '@material-ui/core';
@@ -192,7 +192,12 @@ const OfferSummary: React.FC<Props> = ({
           {relevantCoach &&
             !theme?.hideCoach &&
             variant !== OfferSummaryVariant.BASKET && (
-              <div className={classes.itemWithIcon}>
+              <div
+                className={classNames(classes.itemWithIcon, {
+                  [classes.hiddenOnMobile]:
+                    variant !== OfferSummaryVariant.DEFAULT,
+                })}
+              >
                 {displayCoachPicture ? (
                   <Avatar
                     className={classes.avatar}
@@ -206,14 +211,24 @@ const OfferSummary: React.FC<Props> = ({
             )}
 
           {spotId !== undefined && variant === OfferSummaryVariant.DEFAULT && (
-            <div className={classes.itemWithIcon}>
+            <div
+              className={classNames(classes.itemWithIcon, {
+                [classes.hiddenOnMobile]:
+                  variant !== OfferSummaryVariant.DEFAULT,
+              })}
+            >
               <Adjust className={classes.icon} />
               <Typography>{`${t(`booking:place`)} ${spotId}`}</Typography>
             </div>
           )}
 
           {offer && variant === OfferSummaryVariant.DEFAULT && (
-            <div className={classes.itemWithIcon}>
+            <div
+              className={classNames(classes.itemWithIcon, {
+                [classes.hiddenOnMobile]:
+                  variant !== OfferSummaryVariant.DEFAULT,
+              })}
+            >
               <CreditCard className={classes.icon} />
               <Typography>
                 {offer?.credit_price > 1
@@ -349,6 +364,8 @@ const useStyles = makeStyles<
     display: 'flex',
     alignItems: 'center',
     gap: theme.spacing(1),
+  },
+  hiddenOnMobile: {
     [theme.breakpoints.down('xs')]: {
       display: 'none',
     },

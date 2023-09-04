@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import './MarketplaceSpotSelector.css';
+import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { useMediaQuery, useTheme } from '@material-ui/core';
@@ -28,6 +28,8 @@ import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import SpotSelector from '#libs/spot-scheduling/component/SpotSelector/SpotSelector.component';
 import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
 import { CanvasElement } from '#libs/spot-scheduling/CanvasSvg/tools/BaseClasses/Base.tool';
+
+import './styles.css';
 
 const SPOT_LEGEND_ICON_SIZE = 40;
 
@@ -171,7 +173,11 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
 
   return (
     <div className="bs-marketplace-spot-selector">
-      <div className="bs-marketplace-spot-selector__header">
+      <div
+        className={classNames('bs-marketplace-spot-selector__header', {
+          'bs-marketplace-spot-selector__header--mobile': isMobile,
+        })}
+      >
         <OfferSummary
           establishment={props.offer?.establishment}
           metaActivity={props.offer?.meta_activity}
@@ -240,7 +246,12 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
         </TransformWrapper>
       )}
       {isMobile && (
-        <div className="bs-marketplace-spot-selector__legend">
+        <div
+          className={classNames(
+            'bs-marketplace-spot-selector__legend',
+            'bs-marketplace-spot-selector__legend--mobile',
+          )}
+        >
           <div className="bs-marketplace-spot-selector__legend-text">
             {t('spotSelector.legend')}
           </div>

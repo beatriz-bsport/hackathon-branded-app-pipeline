@@ -9,7 +9,7 @@
 
 @container bsSpotSelector (width < 750px) {
   .bs-marketplace-spot-selector__header {
-    justify-content: center;
+    justify-content: flex-start;
   }
 }
 
@@ -17,6 +17,10 @@
   display: flex;
   flex-direction: column;
   margin-top: var(--spacing-2);
+}
+
+.bs-marketplace-spot-selector__legend--mobile {
+  padding-left: var(--spacing-2);
 }
 
 @container bsSpotSelector (width < 750px) {

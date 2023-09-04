@@ -160,6 +160,7 @@ import MarketplaceBookerModuleBuyableItems from '#libs/marketplace/components/Ma
 import Button, {
   ButtonColor,
   ButtonVariant,
+  ButtonSize,
 } from '#components/css-only/Button';
 import Skeleton, { SkeletonVariant } from '#components/css-only/Skeleton';
 import BookingConfirmButtonWithOfferSummary from '#libs/booking/components/BookingConfirmButtonWithOfferSummary.component';
@@ -802,6 +803,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               color={ButtonColor.PRIMARY}
               isDisabled={this.state.selectedSpotId === null}
               onClick={this.closeSpotSelectorIfSpotSelected}
+              size={ButtonSize.LARGE}
             >
               {t('spotScheduling:spotSelector.confirm')}
             </Button>

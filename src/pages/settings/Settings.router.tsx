@@ -25,6 +25,7 @@ import NotificationRulePage from './NotificationRule.page';
 import NotificationRuleDetailPage from './NotificationRuleDetail.page';
 import PartnershipPage from './Partnership.page';
 import ActiveCampaignPage from './ActiveCampaignPage.page';
+import EditReferralProgramSettingsPage from './EditReferralProgramSettingsPage.page';
 import CompanyOnboardingSettingPage from './CompanyOnboardingSetting.page';
 import PlatformBillingSettingPage from './PlatformBillingSetting.page';
 import PaymentMethodSettings from './PaymentMethodSettings.page';
@@ -122,6 +123,11 @@ export const Settings = () => {
         exact
         component={ActiveCampaignPage}
         path="/settings/active-campaign"
+      />
+      <Route
+        exact
+        component={EditReferralProgramSettingsPage}
+        path="/settings/referral"
       />
       <Route
         exact

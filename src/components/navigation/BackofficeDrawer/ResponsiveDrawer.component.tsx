@@ -574,6 +574,11 @@ const ResponsiveDrawer: React.FC<Props> = ({
             text: t('backofficeMenu.settings.active_campaign'),
           },
           {
+            to: '/settings/referral',
+            dense: true,
+            text: t('backofficeMenu.settings.referral'),
+          },
+          {
             to: '/settings/platform-billing',
             dense: true,
             text: t('backofficeMenu.settings.platform_billing'),

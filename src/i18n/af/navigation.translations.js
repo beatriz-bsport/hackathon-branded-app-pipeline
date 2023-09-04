@@ -28,6 +28,7 @@ exports.default = {
       mobilePersonalization: 'Branded app',
       coachUserspace: 'Teacher view',
       quicksale: 'Sales interface',
+      referral: 'Referral',
     },
     pass: 'Passes',
     goBack: 'Back',

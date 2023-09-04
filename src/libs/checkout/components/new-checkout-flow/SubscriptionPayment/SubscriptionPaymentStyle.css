@@ -51,6 +51,10 @@
   align-items: center;
 }
 
+.bs-contract-payment__payment__display-none {
+  display: none;
+}
+
 .bs-contract-payment__payment__details-icon-container:hover {
   background: var(--color-grey-light);
 }

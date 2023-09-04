@@ -1,13 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import './ProcessingPaymentDialogStyles.css';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import CircularProgress from '#components/css-only/CircularProgress';
+import { useMarketplaceFixedDialog } from '#libs/marketplace/hooks';
 
 export type Props = {
   open: boolean;
 };
+
+export const ProcessingPaymentDialogPortal: React.FC<Props> = React.memo(
+  (props) => {
+    const [pageContainerClass, setPageContainerClass] = useState<string>(null);
+
+    useEffect(() => {
+      setPageContainerClass('bs-boutique-contract-checkout-page');
+      return () => {
+        setPageContainerClass(null);
+      };
+    }, []);
+
+    const portalContainer = useMarketplaceFixedDialog(
+      <ProcessingPaymentDialog {...props} />,
+      pageContainerClass,
+    );
+
+    return portalContainer;
+  },
+);
 
 export const ProcessingPaymentDialog: React.FC<Props> = (props) => {
   const { open } = props;

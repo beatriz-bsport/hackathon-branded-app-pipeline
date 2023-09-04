@@ -9,13 +9,14 @@ import { Stripe, loadStripe } from '@stripe/stripe-js';
 import moment from 'moment-timezone';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withRouter } from 'react-router-dom';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import {
   BUYABLE_ITEM_COUPON,
   BUYABLE_ITEM_PRIVATE_PASS,
 } from '@bsport/common/lib/master-data/buyable-items';
 import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription';
 import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import { consumerAppBarHOC } from '#hocs/consumer-app-bar.hoc';
 import {
   CONSUMER_PAYMENT_PACK_IDENTIFIER,
@@ -37,6 +38,7 @@ import withQueryParams from '../../hocs/with-query-params.hoc';
 import { WithHandlerType } from '../../utils/types';
 // @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
+import Button, { ButtonVariant } from '#components/css-only/Button';
 
 import type { Contract } from '#libs/subscription/types';
 import { getSavedPaymentMethodList } from '#libs/payment/selectors';
@@ -84,10 +86,11 @@ import { PrepaidLine } from '#libs/checkout/types';
 import MarketplaceContractTermsModal from '#libs/marketplace/components/MarketplaceContractTermsModal';
 import { appliesToContract } from '#libs/coupon/api';
 import { computeProrataPriceForSubscription } from '#libs/subscription/utils';
-import ProcessingPaymentDialog from '#libs/subscription/components/new-checkout-flow/ProcessingPaymentDialog';
+import { ProcessingPaymentDialogPortal } from '#libs/subscription/components/new-checkout-flow/ProcessingPaymentDialog';
 import SubscriptionErrorDialog from '#libs/subscription/components/new-checkout-flow/SubscriptionErrorDialog';
 import MarketplaceContractCooldownModal from '#libs/marketplace/components/MarketplaceContractCooldownModal';
 import { BookerItem } from '#libs/booker-module/types';
+import { getOfferBookerUrl } from '#libs/marketplace/routing-utils';
 
 type RouterProps = {
   companyId: number;
@@ -119,7 +122,8 @@ type Props = OwnProps &
   ConnectedProps &
   RouterProps &
   WithProps &
-  HandlersProps;
+  HandlersProps &
+  WithTranslation;
 
 type State = {
   processing: boolean;
@@ -514,93 +518,119 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
 
     return (
       <MemberShipValidationWrapper companyId={this.props.companyId}>
-        <div className="bs-contract-new-checkout__container__page">
-          <div className="bs-contract-new-checkout__container">
-            <div className="bs-contract-new-checkout__payment-method">
-              <MarketplaceSubscriptionPayment
-                onlinePaymentEnabled
-                detachPaymentMethod={this.props.detachPaymentMethod}
-                enabledPaymentGroupMethodIdentifierIds={
-                  this.props.theme.payment_method_available_subscription
-                }
-                enabledPaymentMethodsIds={getMarketplaceEnabledPaymentMethods({
-                  paymentMethodAvailableSubscription:
-                    this.props.theme.payment_method_available_subscription,
-                })}
-                // @ts-expect-error
-                isContractLegalTermsAccepted={
-                  this.state.isContractLegalTermsAccepted
-                }
-                paymentMethodLoading={this.props.paymentMethodLoading}
-                refreshSavedPaymentMethodList={
-                  this.props.fetchPaymentMethodList
-                }
-                requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-                savedPaymentMethodList={this.props.savedPaymentMethodList}
-                selectedSavedPaymentMethodId={
-                  this.state.selectedSavedPaymentMethodId
-                }
-                sepaDefaultEmail={this.props.auth.username}
-                sepaDefaultName={this.props.auth.name}
-                setSelectedSavedPaymentMethodId={
-                  this.setSelectedSavedPaymentMethodId
-                }
-              />
-              <SubscriptionTerms
-                contractTerms={this.props.contract?.contract}
-                handleAcceptContract={this.handleAcceptContract}
-                isContractLegalTermsAccepted={
-                  this.state.isContractLegalTermsAccepted
-                }
-                onOpenContractTermsDialog={this.handleOpenContractTermsDialog}
-              />
+        <div className="bs-boutique-contract-checkout-page">
+          <div className="bs-contract-new-checkout__container__page">
+            <div className="bs-contract-new-checkout__container">
+              <div className="bs-contract-new-checkout__container__navigation__go-back">
+                <Button
+                  classes={{
+                    root: 'bs-contract-new-checkout__container__navigation__arrow',
+                  }}
+                  onClick={this.props.goBackToPricingPage}
+                  variant={ButtonVariant.ICON}
+                >
+                  <ArrowBack />
+                </Button>
+                <div className="bs-contract-new-checkout__container__navigation__title">
+                  {this.props.t('newCheckout.title')}
+                </div>
+              </div>
+
+              <div className="bs-contract-new-checkout__container__columns">
+                <div className="bs-contract-new-checkout__payment-method">
+                  <MarketplaceSubscriptionPayment
+                    onlinePaymentEnabled
+                    detachPaymentMethod={this.props.detachPaymentMethod}
+                    enabledPaymentGroupMethodIdentifierIds={
+                      this.props.theme.payment_method_available_subscription
+                    }
+                    enabledPaymentMethodsIds={getMarketplaceEnabledPaymentMethods(
+                      {
+                        paymentMethodAvailableSubscription:
+                          this.props.theme
+                            .payment_method_available_subscription,
+                      },
+                    )}
+                    // @ts-expect-error
+                    isContractLegalTermsAccepted={
+                      this.state.isContractLegalTermsAccepted
+                    }
+                    paymentMethodLoading={this.props.paymentMethodLoading}
+                    refreshSavedPaymentMethodList={
+                      this.props.fetchPaymentMethodList
+                    }
+                    requestSetupIntentSecret={
+                      this.props.requestSetupIntentSecret
+                    }
+                    savedPaymentMethodList={this.props.savedPaymentMethodList}
+                    selectedSavedPaymentMethodId={
+                      this.state.selectedSavedPaymentMethodId
+                    }
+                    sepaDefaultEmail={this.props.auth.username}
+                    sepaDefaultName={this.props.auth.name}
+                    setSelectedSavedPaymentMethodId={
+                      this.setSelectedSavedPaymentMethodId
+                    }
+                  />
+                  <SubscriptionTerms
+                    contractTerms={this.props.contract?.contract}
+                    handleAcceptContract={this.handleAcceptContract}
+                    isContractLegalTermsAccepted={
+                      this.state.isContractLegalTermsAccepted
+                    }
+                    onOpenContractTermsDialog={
+                      this.handleOpenContractTermsDialog
+                    }
+                  />
+                </div>
+                <div className="bs-contract-new-checkout__basket-summary">
+                  <SubscriptionBasketSummary
+                    companyTheme={this.props.theme}
+                    contract={this.props.contract}
+                    handlePayNow={this.handlePayNow}
+                    handleSubmitCouponCode={this.handleApplyCoupon}
+                    isExcludingTax={this.getIsTaxExcluded()}
+                    isPayButtonDisabled={
+                      !this.state.isContractLegalTermsAccepted ||
+                      !this.state.selectedSavedPaymentMethodId
+                    }
+                    offer={this.props.offer}
+                    onRemoveCoupon={this.handleRemoveCoupon}
+                    showCouponInput={this.state.showCouponInput}
+                    // @ts-expect-error
+                    subscriptionPseudoBasket={this.getSubscriptionPseudoBasketFromContract()}
+                  />
+                </div>
+              </div>
             </div>
-            <div className="bs-contract-new-checkout__basket-summary">
-              <SubscriptionBasketSummary
-                companyTheme={this.props.theme}
-                contract={this.props.contract}
-                handlePayNow={this.handlePayNow}
-                handleSubmitCouponCode={this.handleApplyCoupon}
-                isExcludingTax={this.getIsTaxExcluded()}
-                isPayButtonDisabled={
-                  !this.state.isContractLegalTermsAccepted ||
-                  !this.state.selectedSavedPaymentMethodId
-                }
-                offer={this.props.offer}
-                onRemoveCoupon={this.handleRemoveCoupon}
-                showCouponInput={this.state.showCouponInput}
-                // @ts-expect-error
-                subscriptionPseudoBasket={this.getSubscriptionPseudoBasketFromContract()}
-              />
-            </div>
+            <MarketplaceContractTermsModal
+              contractTerms={this.props.contract?.contract}
+              isContractTermsDownloadLoading={
+                this.props.contractTermsDownloadLoading
+              }
+              isOpen={this.state.openContractTermsDialog}
+              onDialogClose={this.handleCloseContractTermsDialog}
+              onDownloadTerms={this.props.downloadContractTerms}
+            />
+            <ProcessingPaymentDialogPortal open={this.state.processing} />
+            <SubscriptionErrorDialog
+              handleAction={this.handleCloseErrorDialog}
+              open={
+                this.state.registerBackgroundServerErrorOccured ||
+                this.state.userRegistrationserverErrorOccured
+              }
+              registerBackgroundServerErrorOccured={
+                this.state.registerBackgroundServerErrorOccured
+              }
+              userRegistrationserverErrorOccured={
+                this.state.userRegistrationserverErrorOccured
+              }
+            />
+            <MarketplaceContractCooldownModal
+              isOpen={this.state.isContractCooldownDialogOpen}
+              onDialogClose={this.handleCloseContractCooldownDialog}
+            />
           </div>
-          <MarketplaceContractTermsModal
-            contractTerms={this.props.contract?.contract}
-            isContractTermsDownloadLoading={
-              this.props.contractTermsDownloadLoading
-            }
-            isOpen={this.state.openContractTermsDialog}
-            onDialogClose={this.handleCloseContractTermsDialog}
-            onDownloadTerms={this.props.downloadContractTerms}
-          />
-          <ProcessingPaymentDialog open={this.state.processing} />
-          <SubscriptionErrorDialog
-            handleAction={this.handleCloseErrorDialog}
-            open={
-              this.state.registerBackgroundServerErrorOccured ||
-              this.state.userRegistrationserverErrorOccured
-            }
-            registerBackgroundServerErrorOccured={
-              this.state.registerBackgroundServerErrorOccured
-            }
-            userRegistrationserverErrorOccured={
-              this.state.userRegistrationserverErrorOccured
-            }
-          />
-          <MarketplaceContractCooldownModal
-            isOpen={this.state.isContractCooldownDialogOpen}
-            onDialogClose={this.handleCloseContractCooldownDialog}
-          />
         </div>
       </MemberShipValidationWrapper>
     );
@@ -763,6 +793,11 @@ const handlers = {
         },
         { check_offer_unicity: true },
       );
+    },
+  goBackToPricingPage:
+    ({ push, companyId, offerId }: RouterProps & ConnectedProps & WithProps) =>
+    () => {
+      push(getOfferBookerUrl(companyId, offerId, true));
     },
 };
 

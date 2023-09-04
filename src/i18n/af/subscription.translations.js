@@ -802,6 +802,7 @@ exports.default = {
       "Ce contrat n'existe plus. Veuillez choisir un autre contrat ou contacter le gérant de votre studio.",
   },
   newCheckout: {
+    title: 'Abonnement',
     processingPaymentModal: {
       title: 'Paiement en cours',
       text: 'Veuillez patienter le temps que le paiment soit effectué. Ne quittez pas et ne rechargez pas cette page.',

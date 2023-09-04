@@ -246,6 +246,9 @@ const MarketplaceSubscriptionPayment: React.FC<Props> = ({
         enabledPaymentGroupMethodIdentifierIds?.length > 1) && (
         <div>
           <PaymentMethodCardSelector
+            customClasses={{
+              title: 'bs-contract-payment__payment__display-none',
+            }}
             paymentMethodChoices={paymentMethodChoices}
             paymentMethodSelected={
               // @ts-expect-error
@@ -257,7 +260,6 @@ const MarketplaceSubscriptionPayment: React.FC<Props> = ({
       )}
       <div className="bs-contract-payment__payment__details-title">
         {t('subscription:newCheckout.payment.details')}
-
         <Tooltip title={t('subscription:newCheckout.payment.tooltip')}>
           <div className="bs-contract-payment__payment__details-icon-container">
             <InfoIcon className="bs-contract-payment__payment__details-icon" />

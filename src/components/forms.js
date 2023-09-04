@@ -2,7 +2,7 @@
 
 import omit from 'lodash/omit';
 
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { Field, ErrorMessage, useField } from 'formik';
 
@@ -29,7 +29,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import AddIcon from '@material-ui/icons/Add';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import moment from 'moment-timezone';
-import makeStyles from '@material-ui/styles/makeStyles';
+import { makeStyles } from '@material-ui/core';
 
 import * as Yup from 'yup';
 
@@ -37,8 +37,10 @@ import MuiTextField from '@material-ui/core/TextField';
 import MuiButton from '@material-ui/core/Button';
 import MuiFormControl from '@material-ui/core/FormControl';
 import InputAdornment from '@material-ui/core/InputAdornment';
-
 import PhoneInput from 'react-phone-number-input';
+import TagSelector from '../libs/tag/components/TagSelector.selector';
+import type { Tag } from '../libs/tag/types';
+
 import { getCurrencyDisplay } from '../libs/theme/selectors';
 import i18n, { Moment } from '../i18n';
 import DelayedTextField from './DelayedTextField.component';
@@ -1351,6 +1353,12 @@ const selectFieldStyles = (theme) => ({
   },
 });
 
+const useSelectFieldStyles = makeStyles((theme) => ({
+  field: {
+    marginBottom: theme.spacing(1),
+  },
+}));
+
 export const SelectFieldWithEnhancedLabeLError = withStyles(selectFieldStyles)(
   (props: Props) => {
     const { classes, shrink } = props;
@@ -1374,6 +1382,84 @@ export const SelectFieldWithEnhancedLabeLError = withStyles(selectFieldStyles)(
                   props.label
                 )
               }
+            />
+          );
+        }}
+      </Field>
+    );
+  },
+);
+
+export const TagSelectorFieldMulti: React.FC<Props> = React.memo(
+  (props: Props) => {
+    const { shrink, name, selectedTags } = props;
+    const classes = useSelectFieldStyles();
+    const onTagSelectorChange = useCallback(
+      (setFieldValue: () => void) =>
+        (items: Array<{ item: Tag & { label: string, value: number } }>) => {
+          return setFieldValue(
+            name,
+            items.map((item) => item.value),
+          );
+        },
+      [name],
+    );
+    const onTagDelete = useCallback(
+      (setFieldValue: () => void) => (itemId: number) =>
+        setFieldValue(
+          name,
+          selectedTags.filter((tagId) => tagId !== itemId),
+        ),
+      [name, selectedTags],
+    );
+    return (
+      <Field {...props}>
+        {({ field, meta: { touched, error }, form: { setFieldValue } }) => {
+          return (
+            <TagSelector
+              className={classes.field}
+              shrink={shrink}
+              {...field}
+              {...omit(props, ['field'])}
+              error={!!(touched && error)}
+              onChange={onTagSelectorChange(setFieldValue)}
+              onDeleteTag={onTagDelete(setFieldValue)}
+            />
+          );
+        }}
+      </Field>
+    );
+  },
+);
+
+export const TagSelectorFieldNoMulti: React.FC<Props> = React.memo(
+  (props: Props) => {
+    const { shrink, name } = props;
+    const classes = useSelectFieldStyles();
+    const onTagSelectorChange = useCallback(
+      (setFieldValue: () => void) =>
+        (item: Tag & { label: string, value: number }) => {
+          return setFieldValue(name, item.value);
+        },
+      [name],
+    );
+    const onTagDelete = useCallback(
+      (setFieldValue: () => void) => () => setFieldValue(name, null),
+      [name],
+    );
+    return (
+      <Field {...props}>
+        {({ field, meta: { touched, error }, form: { setFieldValue } }) => {
+          return (
+            <TagSelector
+              noMulti
+              className={classes.field}
+              shrink={shrink}
+              {...field}
+              {...omit(props, ['field'])}
+              error={!!(touched && error)}
+              onChange={onTagSelectorChange(setFieldValue)}
+              onDeleteTag={onTagDelete(setFieldValue)}
             />
           );
         }}

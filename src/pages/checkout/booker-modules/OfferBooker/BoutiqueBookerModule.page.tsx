@@ -726,6 +726,11 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
   render() {
     const { t } = this.props;
+    const offerSummaryLoading =
+      !this.props.offer ||
+      !this.props.offer?.coach ||
+      !this.props.offer?.establishment ||
+      !this.props.offer?.meta_activity;
 
     const displayPrice = this.state.selectedItem
       ? getBookingDisplayPrice(this.state.selectedItem)
@@ -918,9 +923,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                   isBookingButtonHidden
                   noStyledContainer
                   coach={this.props.offer?.coach}
-                  // Must be change, these information can be fetch and display faster to reduce loadig time feelling.
                   establishment={this.props.offer?.establishment}
-                  loading={this.getIsLoading()}
+                  loading={offerSummaryLoading}
                   metaActivity={this.props.offer?.meta_activity}
                   offer={this.props.offer}
                   spotId={this.state.selectedSpot}

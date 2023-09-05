@@ -26,6 +26,10 @@ import { buildDataForUserRegistration } from '#libs/marketplace/utils';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
 import { RootState } from '../../reducers';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
+import {
+  getCheckoutValidationUrl,
+  getOfferBookerUrl,
+} from '#libs/marketplace/routing-utils';
 // @ts-expect-error
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import themeSelectors, { getStripePkKey } from '#libs/theme/selectors';
@@ -91,7 +95,6 @@ import { ProcessingPaymentDialogPortal } from '#libs/subscription/components/new
 import SubscriptionErrorDialog from '#libs/subscription/components/new-checkout-flow/SubscriptionErrorDialog';
 import MarketplaceContractCooldownModal from '#libs/marketplace/components/MarketplaceContractCooldownModal';
 import { BookerItem } from '#libs/booker-module/types';
-import { getOfferBookerUrl } from '#libs/marketplace/routing-utils';
 
 type RouterProps = {
   companyId: number;
@@ -107,6 +110,8 @@ type WithProps = {
   offerId: number;
   selectedSpotId: number | null;
 };
+
+type RedirectionHandlersProps = WithHandlerType<typeof redirectionHandlers>;
 
 type HandlersProps = WithHandlerType<typeof stripeHandlers> &
   WithHandlerType<typeof handlers>;
@@ -124,6 +129,7 @@ type Props = OwnProps &
   RouterProps &
   WithProps &
   HandlersProps &
+  RedirectionHandlersProps &
   WithTranslation;
 
 type State = {
@@ -227,12 +233,6 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
     } catch (err) {
       options.onError && options.onError();
     }
-  };
-
-  goToValidationPage = (success: boolean) => {
-    this.props.push(
-      `/checkout/${this.props.companyId}/subscription/${this.props.contractId}/validation?success=${success}`,
-    );
   };
 
   getIsTaxExcluded = () => {
@@ -397,100 +397,84 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
     payment_method_id: string,
     _isPaymentMethodForPastInvoicesSaved: boolean,
     _paymentMethodPastInvoicesId: number,
-    options: OptionCallback,
     coupon?: string,
   ) => {
     Analytics.contractShowPayment(this.props.contractId);
     this.setState({ processing: true });
-    try {
-      const first_billing_timestamp = moment(
-        this.state.billingStartDate,
-      ).unix();
-      this.props.registerContractBackground(
-        this.props.contractId,
-        {
-          payment_method_id,
-          first_billing_timestamp,
-          coupon,
-          with_prorata: !!this.props?.contract?.month_billing_day,
-          offer_id: this.props.offerId,
+    const first_billing_timestamp = moment(this.state.billingStartDate).unix();
+    this.props.registerContractBackground(
+      this.props.contractId,
+      {
+        payment_method_id,
+        first_billing_timestamp,
+        coupon,
+        with_prorata: !!this.props?.contract?.month_billing_day,
+        offer_id: this.props.offerId,
+      },
+      {
+        onError: (
+          err: Error & { response?: { data: { error_code: number } } },
+        ) => {
+          if (
+            err.response?.data?.error_code === CONTRACT_IS_ALREADY_SUBSCRIBED
+          ) {
+            this.setState({ isContractCooldownDialogOpen: true });
+            return;
+          }
+          this.setState({
+            processing: false,
+            registerBackgroundServerErrorOccured: true,
+          });
         },
-        {
-          onError: (
-            err: Error & { response?: { data: { error_code: number } } },
-          ) => {
-            if (
-              err.response?.data?.error_code === CONTRACT_IS_ALREADY_SUBSCRIBED
-            ) {
-              this.setState({ isContractCooldownDialogOpen: true });
-              return;
-            }
-            this.setState({
-              processing: false,
-              registerBackgroundServerErrorOccured: true,
-            });
-          },
-          onBackgroundError: () =>
-            this.setState({
-              processing: false,
-              registerBackgroundServerErrorOccured: true,
-            }),
-          onBackgroundSuccess: (taskReturnValue) => {
-            try {
-              Analytics.contractPaymentSuccess(this.props?.contract);
-            } catch (err) {
+        onBackgroundError: () =>
+          this.setState({
+            processing: false,
+            registerBackgroundServerErrorOccured: true,
+          }),
+        onBackgroundSuccess: (taskReturnValue) => {
+          try {
+            Analytics.contractPaymentSuccess(this.props?.contract);
+          } catch (err) {
+            console.error(err);
+          }
+
+          // First we invalidate the pending booking
+          invalidatePendingBookingAPI(this.props.offer.id)
+            .then(() => {
+              const { compatible_consumer_payment_pack_id, billing_plan } =
+                taskReturnValue;
+
+              // If no compatible_consumer_payment_pack_id, then we cannot proceed with user_registration
+              // In this case, we directly redirect to the confirmation page
+              if (!compatible_consumer_payment_pack_id) {
+                this.setState({ processing: false });
+                this.props.goToConfirmationPage(billing_plan.id);
+                return;
+              }
+
+              this.props.formatPayloadAndPerformUserRegistrationAndRedirection(
+                compatible_consumer_payment_pack_id,
+                billing_plan.id,
+                {
+                  onError: () => this.setState({ processing: false }),
+                  onSuccess: () => this.setState({ processing: false }),
+                },
+              );
+            })
+            .catch((err) => {
               console.error(err);
-            }
-
-            // First we invalidate the pending booking
-            invalidatePendingBookingAPI(this.props.offer.id)
-              .then(() => {
-                const { compatible_consumer_payment_pack_id } = taskReturnValue;
-
-                // If no compatible_consumer_payment_pack_id, then we cannot proceed with user_registration
-                // In this case, display the error dialog, which will handle redirection
-                if (!compatible_consumer_payment_pack_id) {
-                  this.setState({
-                    processing: false,
-                    userRegistrationserverErrorOccured: true,
-                  });
-                  return;
-                }
-
-                this.props.formatPayloadAndPerformUserRegistrationAndRedirection(
-                  compatible_consumer_payment_pack_id,
-                  {
-                    onError: () =>
-                      this.setState({
-                        processing: false,
-                        userRegistrationserverErrorOccured: true,
-                      }),
-                    onSuccess: () => this.setState({ processing: false }),
-                  },
-                );
-              })
-              .catch((err) => {
-                console.error(err);
-                this.setState({
-                  processing: false,
-                  userRegistrationserverErrorOccured: true,
-                });
+              this.setState({
+                processing: false,
               });
-          },
+
+              const { billing_plan } = taskReturnValue;
+              this.props.goToConfirmationPage(billing_plan.id);
+            });
         },
-        false, // noAuth
-        true, // hide snackbars
-      );
-    } catch (err) {
-      console.error(err);
-      this.goToValidationPage(false);
-      if (options && options.onError) {
-        options.onError(err);
-      }
-    }
-    if (options && options.onSuccess) {
-      options.onSuccess();
-    }
+      },
+      false, // noAuth
+      true, // hide snackbars
+    );
   };
 
   handlePayNow = () => {
@@ -499,13 +483,12 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
       this.state.selectedSavedPaymentMethodId,
       null,
       null,
-      {},
       this.state.validCoupon?.couponCode ?? null,
     );
   };
 
   handleCloseContractCooldownDialog = () => {
-    this.setState({ isContractCooldownDialogOpen: false });
+    this.setState({ isContractCooldownDialogOpen: false, processing: false });
   };
 
   render() {
@@ -700,6 +683,21 @@ const stripeHandlers = {
       fetchPaymentMethodList({ company: companyId }),
 };
 
+const redirectionHandlers = {
+  goToConfirmationPage:
+    ({ push, companyId }: RouterProps & ConnectedProps) =>
+    (billingPlanId: number, user_registration_response: unknown = null) => {
+      const validationUrl = getCheckoutValidationUrl(companyId, true, {
+        billingPlanId,
+        user_registration_response: encodeURIComponent(
+          JSON.stringify(user_registration_response),
+        ),
+      });
+
+      push(validationUrl);
+    },
+};
+
 const handlers = {
   detachPaymentMethod:
     ({
@@ -751,11 +749,14 @@ const handlers = {
       offerStatusById,
       theme,
       offerUserRegistration,
-      push,
-      companyId,
       selectedSpotId,
-    }: RouterProps & ConnectedProps & WithProps) =>
-    (consumerPaymentPackId: number, options?: OptionCallback) => {
+      goToConfirmationPage,
+    }: RouterProps & RedirectionHandlersProps & ConnectedProps & WithProps) =>
+    (
+      consumerPaymentPackId: number,
+      billingPlanid: number,
+      options?: OptionCallback,
+    ) => {
       const fakeSelectedItem = {
         data: {
           id: consumerPaymentPackId,
@@ -782,21 +783,12 @@ const handlers = {
         {
           onSuccess: (responseData: any) => {
             options?.onSuccess?.();
-            if (data.consumer_payment_pack || !data.offers.length) {
-              push(
-                `/checkout/${companyId}/validation?basket=null&user_registration_response=${encodeURIComponent(
-                  JSON.stringify(responseData),
-                )}`,
-              );
-            } else {
-              push(
-                `/checkout/${companyId}/?user_registration_response=${encodeURIComponent(
-                  JSON.stringify(responseData),
-                )}`,
-              );
-            }
+            goToConfirmationPage(billingPlanid, responseData);
           },
-          onError: options?.onError,
+          onError: () => {
+            options?.onError?.();
+            goToConfirmationPage(billingPlanid);
+          },
         },
         { check_offer_unicity: true },
       );
@@ -823,6 +815,7 @@ export default compose<any, OwnProps>(
   connect(mapStateToProps, mapDispatchToProps),
   withTranslation(['subscription']),
   withHandlers(stripeHandlers),
+  withHandlers(redirectionHandlers),
   withRouter,
   // @ts-expect-error
   withHandlers(handlers),

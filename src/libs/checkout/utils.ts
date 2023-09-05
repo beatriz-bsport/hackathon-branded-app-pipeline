@@ -143,12 +143,18 @@ export const getConfirmationStatus = (
     ).length > 0;
 
   const isBasketOnlyWithShopItem =
-    !isbasketWithPasses &&
     checkoutItems.filter(
       (item) =>
         item.buyable_item_identifier ===
         BuyableItemOptions.BUYABLE_ITEM_SHOP_ITEM,
-    ).length > 0;
+    ).length === checkoutItems.length;
+
+  const isBasketOnlyWithGiftcard =
+    checkoutItems.filter(
+      (item) =>
+        item.buyable_item_identifier ===
+        BuyableItemOptions.BUYABLE_ITEM_GIFTCARD,
+    ).length === checkoutItems.length;
 
   if (isError) {
     if (!codeError) {
@@ -188,6 +194,9 @@ export const getConfirmationStatus = (
   if (isBasketOnlyWithShopItem) {
     return ConfirmationStatus.PURCHASE_WITH_ITEMS_SUCCESS;
   }
+  if (isBasketOnlyWithGiftcard) {
+    return ConfirmationStatus.PURCHASE_WITH_GIFTCARDS_SUCCESS;
+  }
   return ConfirmationStatus.PURCHASE_ONLY_SUCCESS;
 };
 
@@ -197,11 +206,13 @@ export const getNumberOfListToDisplay = memoize(
     checkoutItemsWithPaymentPack,
     checkoutItemsWithPrivatePass,
     checkoutItemsWithShopItem,
+    checkoutItemsWithGiftcard,
   }: {
     checkoutItemsWithPaymentCombo: CheckoutItem[];
     checkoutItemsWithPaymentPack: CheckoutItem[];
     checkoutItemsWithPrivatePass: CheckoutItem[];
     checkoutItemsWithShopItem: CheckoutItem[];
+    checkoutItemsWithGiftcard: CheckoutItem[];
   }) => {
     const shoudlDisplayPassList =
       !!checkoutItemsWithPaymentPack.length ||
@@ -209,16 +220,20 @@ export const getNumberOfListToDisplay = memoize(
 
     const shouldDisplayPackList = !!checkoutItemsWithPaymentCombo.length;
     const shouldDisplayShopItemList = !!checkoutItemsWithShopItem.length;
+    const shouldDisplayGiftcardList = !!checkoutItemsWithGiftcard.length;
+
     const numberOfListToDisplay = [
       shoudlDisplayPassList,
       shouldDisplayPackList,
       shouldDisplayShopItemList,
+      shouldDisplayGiftcardList,
     ].filter((listToDisplay) => !!listToDisplay).length;
 
     return {
       shoudlDisplayPassList,
       shouldDisplayPackList,
       shouldDisplayShopItemList,
+      shouldDisplayGiftcardList,
       numberOfListToDisplay,
     };
   },

@@ -204,4 +204,5 @@ export enum ConfirmationStatus {
   WAITING_LIST = 'waitingList',
   PURCHASE_WITH_PASSES_SUCCESS = 'purchaseWithPassesSuccess',
   PURCHASE_WITH_ITEMS_SUCCESS = 'purchaseWithItemsSuccess',
+  PURCHASE_WITH_GIFTCARDS_SUCCESS = 'purchaseWithGiftcardsSuccess',
 }

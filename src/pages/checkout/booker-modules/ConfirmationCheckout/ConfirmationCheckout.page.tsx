@@ -269,16 +269,21 @@ export class ConfirmationCheckout extends React.PureComponent<Props> {
     const checkoutItemsWithShopItem =
       sortedCheckoutItems?.[BuyableItemOptions.BUYABLE_ITEM_SHOP_ITEM] ?? [];
 
+    const checkoutItemsWithGiftcard =
+      sortedCheckoutItems?.[BuyableItemOptions.BUYABLE_ITEM_GIFTCARD] ?? [];
+
     const {
       shoudlDisplayPassList,
       shouldDisplayPackList,
       shouldDisplayShopItemList,
+      shouldDisplayGiftcardList,
       numberOfListToDisplay,
     } = getNumberOfListToDisplay({
       checkoutItemsWithPaymentCombo,
       checkoutItemsWithPaymentPack,
       checkoutItemsWithPrivatePass,
       checkoutItemsWithShopItem,
+      checkoutItemsWithGiftcard,
     });
 
     const isTwoColumnsDisplay = numberOfListToDisplay !== 1;
@@ -447,6 +452,26 @@ export class ConfirmationCheckout extends React.PureComponent<Props> {
                 <MarketplaceProductItemList
                   isLoading={isLoading}
                   items={checkoutItemsWithShopItem}
+                />
+              </div>
+
+              <div
+                className={classNames(
+                  'bs-confirmation-checkout-product-list__giftcard-list__container',
+                  {
+                    'bs-confirmation-checkout-product-list__giftcard-list__container--hidden':
+                      !shouldDisplayGiftcardList,
+                  },
+                )}
+              >
+                <h5 className="bs-confirmation-checkout-product-list__giftcard-list__title">
+                  {t('validation.sections.myGiftcard', {
+                    count: checkoutItemsWithGiftcard?.length,
+                  })}
+                </h5>
+                <MarketplaceProductItemList
+                  isLoading={isLoading}
+                  items={checkoutItemsWithGiftcard}
                 />
               </div>
             </div>

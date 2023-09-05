@@ -41,6 +41,9 @@ h5 {
 /* .bs-confirmation-checkout-product-list__webshop-list__container{}
 */
 
+/* .bs-confirmation-checkout-product-list__giftcard-list__container{}
+*/
+
 .bs-confirmation-checkout-booking-list__container--hidden {
   display: none;
 }
@@ -89,6 +92,10 @@ h5 {
   display: none;
 }
 
+.bs-confirmation-checkout-product-list__giftcard-list__container--hidden {
+  display: none;
+}
+
 @container bsConfirmationPage (width < 920px) {
   .bs-confirmation-checkout-container--with-padding {
     width: 90%;
@@ -102,7 +109,8 @@ h5 {
   }
   .bs-confirmation-checkout-product-list__pass-list__container,
   .bs-confirmation-checkout-product-list__pack-list__container,
-  .bs-confirmation-checkout-product-list__webshop-list__container {
+  .bs-confirmation-checkout-product-list__webshop-list__container,
+  .bs-confirmation-checkout-product-list__giftcard-list__container {
     grid-column-start: 1;
     grid-column-end: 3;
   }

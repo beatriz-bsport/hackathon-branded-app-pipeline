@@ -265,6 +265,30 @@ export const useConfirmationMessageData = (
         withAlert: null,
         withSubScriptionActions: null,
       },
+      [ConfirmationStatus.PURCHASE_WITH_GIFTCARDS_SUCCESS]: {
+        actions: {
+          cancel: {
+            label: t('validation.actions.goToCalendar'),
+            onClick: goToCalendar,
+          },
+          confirm: {
+            label: t('validation.actions.myGiftcards'),
+            onClick: goToMemberProfile,
+          },
+        },
+        icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
+        message: t(
+          'validation.sections.confirmationStatusMessage.paymentSuccess',
+          {
+            count: checkoutItems?.length,
+          },
+        ),
+        title: t(
+          'validation.sections.confirmationStatusTitle.success.paymentSuccess',
+        ),
+        withAlert: null,
+        withSubScriptionActions: null,
+      },
     };
   }, [
     t,

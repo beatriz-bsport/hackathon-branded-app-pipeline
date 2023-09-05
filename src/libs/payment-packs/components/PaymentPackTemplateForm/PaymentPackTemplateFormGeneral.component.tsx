@@ -38,6 +38,7 @@ import {
   PENALTY_MODE_FRANCHISOR_PRORATA,
   PENALTY_MODE_FRANCHISOR_BUYER,
 } from '../../constants';
+import { ALMOST_100 } from '../../../../constants';
 
 type Props = {
   initial?: PaymentPackTemplate;
@@ -144,11 +145,11 @@ export const PaymentPackFormGeneral = (props: Props) => {
           fullWidth
           required
           InputProps={{
-            inputProps: { min: 0, max: 100, step: 0.005 },
+            inputProps: { min: 0, max: ALMOST_100, step: 0.005 },
             startAdornment: <InputAdornment position="start">%</InputAdornment>,
           }}
           label={t('form.paymentPack.tax.label')}
-          max={100}
+          max={ALMOST_100}
           name="tax"
           type="number"
         />

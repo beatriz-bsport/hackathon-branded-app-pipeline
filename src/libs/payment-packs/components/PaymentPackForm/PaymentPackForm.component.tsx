@@ -50,6 +50,7 @@ import type {
   PrivatePass,
   ServiceCompatibilityPass,
 } from '#libs/private-service/types';
+import { ALMOST_100 } from '../../../../constants';
 
 const validityDict = {
   [START_ON_PURCHASE]: 'billing',
@@ -623,7 +624,7 @@ const paymentPackSchema = Yup.object().shape({
   tax: Yup.number()
     .required('paymentPack:addPaymentPack.requiredField')
     .min(0)
-    .max(100),
+    .max(ALMOST_100),
   credit_number: Yup.string().required(
     'paymentPack:addPaymentPack.requiredField',
   ),

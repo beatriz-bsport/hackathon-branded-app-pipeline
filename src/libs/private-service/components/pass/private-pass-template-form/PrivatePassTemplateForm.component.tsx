@@ -37,6 +37,7 @@ import { PrivatePassWithCompatibility } from '../../../types';
 import { getValidityInfo } from '../../../utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { ALMOST_100 } from '../../../../../constants';
 
 const {
   trackFormAdd,
@@ -122,11 +123,11 @@ export const PrivatePassTemplateForm = (props: Props) => {
             required
             className={classes.taxField}
             InputProps={{
-              inputProps: { min: 0, max: 100, step: 0.005 },
+              inputProps: { min: 0, max: ALMOST_100, step: 0.005 },
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
             label={t('privatePass.form.tax.label')}
-            max={100}
+            max={ALMOST_100}
             name="tax"
             type="number"
           />
@@ -344,7 +345,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const PrivatePassSchema = Yup.object().shape({
   name: Yup.string().required(),
   description: Yup.string().nullable(),
-  tax: Yup.number().required().min(0).max(100),
+  tax: Yup.number().required().min(0).max(ALMOST_100),
   price: Yup.number().required(),
   manager_only: Yup.boolean().required(),
   duration_days: Yup.number().required().integer().min(0),

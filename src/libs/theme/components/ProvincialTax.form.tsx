@@ -19,6 +19,7 @@ import { Info } from '@material-ui/icons';
 import classNames from 'classnames';
 import { OptionCallback } from '../../../state/types';
 import { TextFieldEnhancedLabelWithError } from '../../../components/forms';
+import { ALMOST_100 } from '../../../constants';
 
 type OwnProps = {
   submit: (
@@ -78,7 +79,7 @@ export const ProvincialTaxForm = (props: Props) => {
                     fullWidth
                     helperText=" "
                     InputProps={{
-                      inputProps: { min: 0, max: 100, step: 0.001 },
+                      inputProps: { min: 0, max: ALMOST_100, step: 0.001 },
                       endAdornment: (
                         <InputAdornment position="end">%</InputAdornment>
                       ),
@@ -149,5 +150,5 @@ const useStyles = makeStyles<Theme>((theme) => ({
 export default ProvincialTaxForm;
 const provincialTaxSchema = Yup.object().shape({
   name: Yup.string().required('common:requiredField'),
-  value: Yup.number().required('common:requiredField'),
+  value: Yup.number().required('common:requiredField').max(ALMOST_100),
 });

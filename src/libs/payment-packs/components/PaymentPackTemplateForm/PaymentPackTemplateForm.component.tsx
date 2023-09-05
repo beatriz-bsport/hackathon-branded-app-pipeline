@@ -24,6 +24,7 @@ import {
   formatOffPeakScheduleOnEdit,
 } from '#libs/payment-packs/utils';
 import { offPeakScheduleSchemaValidation } from '../PaymentPackForm/PaymentPackForm.component';
+import { ALMOST_100 } from '../../../../constants';
 
 export const VALID_BY_DURATION = 'VALID_BY_DURATION';
 export const VALID_BY_DATERANGE = 'VALID_BY_DATERANGE';
@@ -78,7 +79,7 @@ const PaymentPackTemplateSchema = Yup.object().shape({
   tax: Yup.number()
     .required('paymentPack:addPaymentPack.requiredField')
     .min(0)
-    .max(100),
+    .max(ALMOST_100),
   credit_number: Yup.string().required(
     'paymentPack:addPaymentPack.requiredField',
   ),

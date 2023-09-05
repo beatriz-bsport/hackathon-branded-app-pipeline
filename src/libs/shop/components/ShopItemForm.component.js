@@ -24,6 +24,7 @@ import PaymentMethodSelectorInput from '../../payment/components/PaymentMethodSe
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import type { OptionCallback } from '../../../state/types';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { ALMOST_100 } from '../../../constants';
 
 const {
   trackFormAdd,
@@ -281,13 +282,13 @@ export class ShopItemForm extends Component<Props, State> {
                 fullWidth
                 required
                 InputProps={{
-                  inputProps: { min: 0, max: 100, step: 0.005 },
+                  inputProps: { min: 0, max: ALMOST_100, step: 0.005 },
                   endAdornment: (
                     <InputAdornment position="end">%</InputAdornment>
                   ),
                 }}
                 label={t('form.shop.item.tva')}
-                max={100}
+                max={ALMOST_100}
                 onChange={this.handleField('tva')}
                 value={tva}
                 variant="outlined"

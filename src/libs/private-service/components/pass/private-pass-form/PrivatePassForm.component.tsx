@@ -76,6 +76,7 @@ import { Establishment } from '#libs/establishment/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { ALMOST_100 } from '../../../../../constants';
 
 import ToolTip from '#components/Tooltip.component';
 
@@ -301,11 +302,11 @@ export const PrivatePassForm = (props: Props) => {
             helperText={provincialTaxText}
             id="private-pass-tax-field"
             InputProps={{
-              inputProps: { min: 0, max: 100, step: 0.005 },
+              inputProps: { min: 0, max: ALMOST_100, step: 0.005 },
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
             label={t('privatePass.form.tax.label')}
-            max={100}
+            max={ALMOST_100}
             name="tax"
             type="number"
           />
@@ -874,7 +875,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const PrivatePassSchema = Yup.object().shape({
   name: Yup.string().required(),
-  tax: Yup.number().required().min(0).max(100),
+  tax: Yup.number().required().min(0).max(ALMOST_100),
   category: Yup.number().nullable(true),
   price: Yup.number().required(),
   manager_only: Yup.boolean().required(),

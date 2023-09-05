@@ -8,10 +8,11 @@ import {
   REACT_APP_TEST_URI,
 } from '../common.utils';
 import { pickUpDate } from '../datepicker.utils';
+import { ALMOST_100 } from '../../../src/constants'
 
 const pass_name = 'Test Payment Pack';
 const pass_price = generateNumber(300);
-const pass_tax = generateNumber(100);
+const pass_tax = generateNumber(ALMOST_100);
 const pass_credits = generateNumber(1000);
 let pass_lower_date = null;
 let pass_upper_date = null;
@@ -71,7 +72,7 @@ context('Manager - PaymentPack', () => {
     expect(pass_price).to.be.within(0, 1000);
     cy.get('[name=price]').type(pass_price);
     // fill pass tax value field
-    expect(pass_tax).to.be.within(0, 100);
+    expect(pass_tax).to.be.within(0, ALMOST_100);
     cy.get('[name=tax]').type(pass_tax);
     // fill up pass credits field
     expect(pass_credits).to.be.within(0, 1000);

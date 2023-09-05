@@ -25,6 +25,7 @@ import {
   DateField,
 } from '../../../components/forms';
 import ToolTip from '#components/Tooltip.component';
+import { ALMOST_100 } from '../../../constants';
 
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
@@ -358,7 +359,7 @@ export const PaymentComboFieldsSchema = Yup.object().shape({
   max_purchase_per_member: Yup.number().min(0).nullable(),
   price: Yup.number().min(0),
   use_payment_combo_tax_on_items: Yup.boolean(),
-  tax: Yup.number().min(0).max(100).default(0),
+  tax: Yup.number().min(0).max(ALMOST_100).default(0),
   manager_only: Yup.boolean(),
   new_member_only: Yup.boolean(),
   available_payment_method_identifiers: Yup.array()

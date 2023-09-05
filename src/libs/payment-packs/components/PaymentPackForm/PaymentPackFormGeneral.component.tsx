@@ -39,6 +39,7 @@ import {
 import { provincialTaxHelperText } from '#libs/theme/utils';
 import type { PrivatePass } from '#libs/private-service/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { ALMOST_100 } from '../../../../constants';
 
 type Props = {
   paymentPackCategories: Array<PaymentPackCategory>;
@@ -194,11 +195,11 @@ export const PaymentPackFormGeneral = (props: Props) => {
             helperText={provincialTaxText}
             id="paymentpack-form-vat-input"
             InputProps={{
-              inputProps: { min: 0, max: 100, step: 0.005 },
+              inputProps: { min: 0, max: ALMOST_100, step: 0.005 },
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
             label={t('form.paymentPack.tax.label')}
-            max={100}
+            max={ALMOST_100}
             name="tax"
             type="number"
           />

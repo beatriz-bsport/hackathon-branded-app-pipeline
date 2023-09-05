@@ -31,3 +31,7 @@ export const DATE_PICKER_MASK = [
   /\d/,
   /\d/,
 ];
+/**
+ * @description In order to avoid 6-digits numbers for all taxes, we limit the number of digits to 5.
+ */
+export const ALMOST_100 = 99.999;

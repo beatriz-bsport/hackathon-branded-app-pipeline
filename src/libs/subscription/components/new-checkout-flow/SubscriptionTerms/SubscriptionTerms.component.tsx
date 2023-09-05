@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 
 import classNames from 'classnames';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Checkbox from '#components/css-only/Checkbox/';
@@ -61,17 +60,16 @@ export const SubscriptionTerms: React.FC<Props> = (props) => {
             onClick={handleShowMoreDescription}
             type="button"
           >
-            {isTextExpanded ? (
-              <>
-                <KeyboardArrowUpIcon />
-                {t('newCheckout.terms.seeLess')}
-              </>
-            ) : (
-              <>
-                <KeyboardArrowDownIcon />
-                {t('newCheckout.terms.seeMore')}
-              </>
-            )}
+            <>
+              <KeyboardArrowDownIcon
+                className={classNames('bs-subscription-terms__arrow', {
+                  'bs-subscription-terms__arrow--rotate': isTextExpanded,
+                })}
+              />
+              {isTextExpanded
+                ? t('newCheckout.terms.seeLess')
+                : t('newCheckout.terms.seeMore')}
+            </>
           </button>
         )}
       </div>

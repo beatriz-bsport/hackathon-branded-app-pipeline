@@ -81,3 +81,13 @@
   line-height: var(--body1-lineHeight);
   padding: 0;
 }
+
+.bs-subscription-terms__arrow {
+  transition-property: all;
+  transition-duration: 250ms;
+  transform: rotate(0);
+}
+
+.bs-subscription-terms__arrow--rotate {
+  transform: rotate(-180deg);
+}

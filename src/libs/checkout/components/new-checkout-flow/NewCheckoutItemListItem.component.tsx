@@ -5,7 +5,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { ItemQuantity } from './ItemQuantity.component';
-import { CheckoutItem, OnRemoveCheckoutItemData } from '#libs/checkout/types';
+import {
+  BuyableItemOptions,
+  CheckoutItem,
+  OnRemoveCheckoutItemData,
+} from '#libs/checkout/types';
 
 type NewCheckoutItemListItemProps = {
   checkoutItem: CheckoutItem;
@@ -25,6 +29,13 @@ export const NewCheckoutItemListItem: React.FC<
   onRemoveItem,
 }) => {
   const classes = useStyles();
+
+  // Cannot increase quantity for giftcard checkout items, because each giftcard item requires
+  // information about the recipient
+  const isAddingItemPossible =
+    !checkoutItem.sub_items?.length &&
+    checkoutItem.buyable_item_identifier !==
+      BuyableItemOptions.BUYABLE_ITEM_GIFTCARD;
 
   const handleAddOneItem = React.useCallback(() => {
     onAddOneItem(checkoutItem);
@@ -64,7 +75,7 @@ export const NewCheckoutItemListItem: React.FC<
       </div>
       <div className={classes.subContainer}>
         <ItemQuantity
-          isAddingItemPossible={!checkoutItem.sub_items?.length}
+          isAddingItemPossible={isAddingItemPossible}
           isItemEditionDisabled={isItemEditionDisabled}
           itemQuantity={checkoutItem.quantity}
           onAddOneItem={handleAddOneItem}

@@ -520,6 +520,7 @@
         "retryBookingSession": "Réessayer de réserver",
         "mySubscription": "Mon abonnement",
         "myProducts": "Mes achats",
+        "myGiftcards": "Mes cartes cadeaux",
         "myPasses": "Mes cartes de cours"
       },
       "sections": {
@@ -566,7 +567,9 @@
         "myPack_plural": "Mes packs",
         "mySubscription": "Mon abonnement",
         "myProduct": "Mon produit",
-        "myProduct_plural": "Mes produits"
+        "myProduct_plural": "Mes produits",
+        "myGiftcard": "Ma carte cadeau",
+        "myGiftcard_plural": "Mes cartes cadeaux"
       },
       "bookingItem": { "bookingItemStatus": { "waitingList": "Liste d'attente", "unpaid": "Impayé" } }
     },

@@ -114,6 +114,7 @@ exports.default = {
       retryBookingSession: 'Réessayer de réserver',
       mySubscription: 'Mon abonnement',
       myProducts: 'Mes achats',
+      myGiftcards: 'Mes cartes cadeaux',
       myPasses: 'Mes cartes de cours'
     },
     sections: {
@@ -173,6 +174,8 @@ exports.default = {
       mySubscription: 'Mon abonnement',
       myProduct: 'Mon produit',
       myProduct_plural: 'Mes produits',
+      myGiftcard: 'Ma carte cadeau',
+      myGiftcard_plural: 'Mes cartes cadeaux',
     },
     bookingItem:{
       bookingItemStatus:{

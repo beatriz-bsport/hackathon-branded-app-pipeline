@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { Coach } from '../../associated-coach/types';
 import { Establishment, EstablishmentGroup } from '../../establishment/types';
@@ -39,7 +40,15 @@ type Props = {
   customLevels: Level[];
 };
 
+const useStyles = makeStyles(() => ({
+  root: {
+    width: '100%',
+  },
+}));
+
 export const ExportableComponentConfigurator = (props: Props) => {
+  const classes = useStyles();
+
   let errors = '';
   if (props.errors && props.errors[props.componentType]) {
     errors = props.errors[props.componentType];
@@ -50,28 +59,32 @@ export const ExportableComponentConfigurator = (props: Props) => {
   if (!SettingForm) return null;
 
   return (
-    <SettingForm
-      showCompactMode
-      coaches={props.coaches}
-      config={props.config[props.componentType]}
-      customLevels={props.customLevels}
-      errors={errors}
-      establishmentGroupList={props.establishmentGroupList}
-      establishments={props.establishments}
-      giftcards={props.giftcards}
-      metaActivities={props.metaActivities}
-      metaActivitiesWorkshop={props.metaActivitiesWorkshop}
-      onChange={(config: any) =>
-        props.onChange({ ...props.config, [props.componentType]: config })
-      }
-      paymentPackCategories={props.paymentPackCategories}
-      paymentPackTemplateListAvailable={props.paymentPackTemplateListAvailable}
-      playlists={props.playlists}
-      privatePassCategories={props.privatePassCategories}
-      privateServices={props.privateServices}
-      serviceGroupList={props.serviceGroupList}
-      videos={props.videos}
-    />
+    <div className={classes.root}>
+      <SettingForm
+        showCompactMode
+        coaches={props.coaches}
+        config={props.config[props.componentType]}
+        customLevels={props.customLevels}
+        errors={errors}
+        establishmentGroupList={props.establishmentGroupList}
+        establishments={props.establishments}
+        giftcards={props.giftcards}
+        metaActivities={props.metaActivities}
+        metaActivitiesWorkshop={props.metaActivitiesWorkshop}
+        onChange={(config: any) =>
+          props.onChange({ ...props.config, [props.componentType]: config })
+        }
+        paymentPackCategories={props.paymentPackCategories}
+        paymentPackTemplateListAvailable={
+          props.paymentPackTemplateListAvailable
+        }
+        playlists={props.playlists}
+        privatePassCategories={props.privatePassCategories}
+        privateServices={props.privateServices}
+        serviceGroupList={props.serviceGroupList}
+        videos={props.videos}
+      />
+    </div>
   );
 };
 

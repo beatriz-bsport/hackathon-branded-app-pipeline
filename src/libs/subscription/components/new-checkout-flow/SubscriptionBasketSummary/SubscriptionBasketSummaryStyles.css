@@ -8,10 +8,6 @@
   border: 1px solid var(--color-grey-light);
 }
 
-.bs-subscription__pricing {
-  width: 100%;
-}
-
 .bs-subscription__recap-with-offer {
   padding: 0 var(--spacing-2) var(--spacing-2) var(--spacing-2);
   width: 100%;
@@ -20,61 +16,4 @@
 .bs-subscription__recap {
   padding: var(--spacing-2);
   width: 100%;
-}
-
-.bs-subscription__bottom__container {
-  display: flex;
-  flex-direction: column;
-  padding: 0 var(--spacing-2) var(--spacing-2) var(--spacing-2);
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  gap: var(--spacing-2);
-}
-
-.bs-subscription__bottom__submit-button {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: var(--spacing-1) var(--spacing-2);
-  border-radius: var(--spacing-3);
-  border: none;
-  background-color: var(--color-primary-main);
-  color: var(--color-primary-contrastText);
-  width: 100%;
-  text-transform: uppercase;
-  font-size: var(--body1-fontSize);
-  font-weight: var(--fontWeightMedium);
-  cursor: pointer;
-  transition: all ease 0.3s;
-  max-width: 300px;
-}
-
-.bs-subscription__bottom__submit-button:hover {
-  background-color: var(--color-primary-dark);
-}
-
-.bs-subscription__bottom__submit-button:disabled {
-  background-color: var(--color-grey-light);
-  color: #bdbdbd;
-}
-
-.bs-subscription__bottom__info-text {
-  font-size: 10px;
-  color: var(--color-text-secondary);
-  font-weight: var(--fontWeightMedium);
-}
-
-@media screen and (max-width: 850px) {
-  .bs-subscription__bottom__container {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 1px solid var(--color-grey-300);
-    width: 100%;
-    padding-top: var(--spacing-1);
-  }
 }

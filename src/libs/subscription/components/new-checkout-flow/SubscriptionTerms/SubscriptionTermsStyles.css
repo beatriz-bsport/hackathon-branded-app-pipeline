@@ -81,7 +81,3 @@
   line-height: var(--body1-lineHeight);
   padding: 0;
 }
-
-.bs-subscription-terms-accept-container {
-  margin-bottom: 20vh;
-}

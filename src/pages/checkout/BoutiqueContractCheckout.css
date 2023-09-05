@@ -20,15 +20,31 @@
   gap: var(--spacing-2);
 }
 
+.bs-contract-new-checkout__container__grid {
+  width: 100%;
+  display: grid;
+  grid-gap: 0px var(--spacing-2);
+  grid-template:
+    'header header'
+    'payment offer-summary'
+    'payment contract-billing'
+    'payment x';
+  grid-template-columns: 774px 374px;
+  grid-template-rows: auto auto auto;
+}
+
 .bs-contract-new-checkout__payment-method {
   display: flex;
   flex-direction: column;
-  width: 774px;
-  gap: var(--spacing-2);
+  grid-area: payment;
 }
 
 .bs-contract-new-checkout__basket-summary {
-  width: 374px;
+  grid-area: offer-summary;
+}
+
+.bs-contract-new-checkout__billing-info {
+  grid-area: contract-billing;
 }
 
 .bs-contract-new-checkout__container__navigation__arrow {
@@ -42,6 +58,7 @@
 }
 
 .bs-contract-new-checkout__container__navigation__go-back {
+  grid-area: header;
   display: grid;
   -ms-flex-align: center;
   align-items: center;
@@ -68,6 +85,10 @@
     gap: var(--spacing-3);
   }
 
+  .bs-contract-new-checkout__container__grid {
+    grid-template-columns: 65% 35%;
+  }
+
   .bs-contract-new-checkout__payment-method {
     max-width: 100%;
     flex-shrink: 2;
@@ -80,13 +101,17 @@
 }
 
 @media screen and (max-width: 850px) {
-  .bs-contract-new-checkout__container__columns {
-    flex-direction: column-reverse;
-    align-items: center;
-  }
-
   .bs-contract-new-checkout__container {
     max-width: 100%;
+  }
+
+  .bs-contract-new-checkout__container__grid {
+    grid-gap: var(--spacing-2) 0px;
+    grid-template:
+      'header'
+      'offer-summary'
+      'payment'
+      'contract-billing';
   }
 
   .bs-contract-new-checkout__payment-method {
@@ -96,5 +121,15 @@
   .bs-contract-new-checkout__basket-summary {
     max-width: 100%;
     width: 100%;
+  }
+
+  .bs-contract-new-checkout__container__grid {
+    grid-template-columns: 100%;
+    grid-template:
+      'header'
+      'offer-summary'
+      'payment'
+      'contract-billing';
+    margin-bottom: 20vh;
   }
 }

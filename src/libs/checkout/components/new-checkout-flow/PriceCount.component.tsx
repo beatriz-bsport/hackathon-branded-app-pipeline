@@ -28,6 +28,7 @@ export type PriceCountProps = {
   onRemoveCheckoutItem: (onRemoveItemdata: OnRemoveCheckoutItemData) => void;
   onRemoveInternalAccountPrepaidLine?: () => void;
   prepaidLines?: Array<PrepaidLine>;
+  hideTotal?: boolean;
 };
 
 export const PriceCount: React.FC<PriceCountProps> = ({
@@ -37,6 +38,7 @@ export const PriceCount: React.FC<PriceCountProps> = ({
   onRemoveCheckoutItem,
   onRemoveInternalAccountPrepaidLine,
   prepaidLines,
+  hideTotal,
 }) => {
   const { t } = useTranslation('checkout');
   const classes = useStyles();
@@ -189,17 +191,19 @@ export const PriceCount: React.FC<PriceCountProps> = ({
           <Divider className={classes.divider} variant="middle" />
         </>
       )}
-      <div className={classes.totalPriceContainer}>
-        <Typography className={classes.totalPriceText} variant="subtitle1">
-          {isExcludingTax ? t('payment.total') : t('payment.totalHiddingTax')}
-        </Typography>
-        <Typography className={classes.totalPriceText} variant="subtitle1">
-          {`${getCurrencyDisplayWithPrice(
-            parseFloat(basket.total_price) -
-              parseFloat(basket.total_price_prepaid_lines),
-          )}`}
-        </Typography>
-      </div>
+      {!hideTotal && (
+        <div className={classes.totalPriceContainer}>
+          <Typography className={classes.totalPriceText} variant="subtitle1">
+            {isExcludingTax ? t('payment.total') : t('payment.totalHiddingTax')}
+          </Typography>
+          <Typography className={classes.totalPriceText} variant="subtitle1">
+            {`${getCurrencyDisplayWithPrice(
+              parseFloat(basket.total_price) -
+                parseFloat(basket.total_price_prepaid_lines),
+            )}`}
+          </Typography>
+        </div>
+      )}
     </div>
   );
 };

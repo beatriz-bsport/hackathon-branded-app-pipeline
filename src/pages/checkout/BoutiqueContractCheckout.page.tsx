@@ -80,6 +80,7 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import MarketplaceSubscriptionPayment from '#libs/checkout/components/new-checkout-flow/SubscriptionPayment';
 import SubscriptionTerms from '#libs/subscription/components/new-checkout-flow/SubscriptionTerms';
 import SubscriptionBasketSummary from '#libs/subscription/components/new-checkout-flow/SubscriptionBasketSummary';
+import SubscriptionBillingInfo from '#libs/subscription/components/new-checkout-flow/SubscriptionBillingInfo';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
 import { fetchMetaActivityDetails as fetchMetaActivityDetailsAction } from '#libs/meta-activity/actions';
 import { PrepaidLine } from '#libs/checkout/types';
@@ -521,22 +522,22 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
         <div className="bs-boutique-contract-checkout-page">
           <div className="bs-contract-new-checkout__container__page">
             <div className="bs-contract-new-checkout__container">
-              <div className="bs-contract-new-checkout__container__navigation__go-back">
-                <Button
-                  classes={{
-                    root: 'bs-contract-new-checkout__container__navigation__arrow',
-                  }}
-                  onClick={this.props.goBackToPricingPage}
-                  variant={ButtonVariant.ICON}
-                >
-                  <ArrowBack />
-                </Button>
-                <div className="bs-contract-new-checkout__container__navigation__title">
-                  {this.props.t('newCheckout.title')}
+              <div className="bs-contract-new-checkout__container__grid">
+                <div className="bs-contract-new-checkout__container__navigation__go-back">
+                  <Button
+                    classes={{
+                      root: 'bs-contract-new-checkout__container__navigation__arrow',
+                    }}
+                    onClick={this.props.goBackToPricingPage}
+                    variant={ButtonVariant.ICON}
+                  >
+                    <ArrowBack />
+                  </Button>
+                  <div className="bs-contract-new-checkout__container__navigation__title">
+                    {this.props.t('newCheckout.title')}
+                  </div>
                 </div>
-              </div>
 
-              <div className="bs-contract-new-checkout__container__columns">
                 <div className="bs-contract-new-checkout__payment-method">
                   <MarketplaceSubscriptionPayment
                     onlinePaymentEnabled
@@ -583,10 +584,18 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
                     }
                   />
                 </div>
+
                 <div className="bs-contract-new-checkout__basket-summary">
                   <SubscriptionBasketSummary
                     companyTheme={this.props.theme}
                     contract={this.props.contract}
+                    isExcludingTax={this.getIsTaxExcluded()}
+                    offer={this.props.offer}
+                  />
+                </div>
+
+                <div className="bs-contract-new-checkout__billing-info">
+                  <SubscriptionBillingInfo
                     handlePayNow={this.handlePayNow}
                     handleSubmitCouponCode={this.handleApplyCoupon}
                     isExcludingTax={this.getIsTaxExcluded()}
@@ -594,8 +603,6 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
                       !this.state.isContractLegalTermsAccepted ||
                       !this.state.selectedSavedPaymentMethodId
                     }
-                    offer={this.props.offer}
-                    onRemoveCoupon={this.handleRemoveCoupon}
                     showCouponInput={this.state.showCouponInput}
                     // @ts-expect-error
                     subscriptionPseudoBasket={this.getSubscriptionPseudoBasketFromContract()}

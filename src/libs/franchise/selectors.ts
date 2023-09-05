@@ -162,6 +162,14 @@ export const getFranchiseCompanies = (state: RootState) => {
 export const getAllowedFranchiseCompanies = (state: RootState) =>
   getFranchiseCompanies(state).filter((c: FranchiseCompany) => c.isAllowed);
 
+export const getAllFranchiseCompanies = (state: RootState) => {
+  if (getState(state).companies?.allIds) {
+    const companies = getState(state).companies?.allIds;
+    return withAllowed(companies, [], getFranchiseCompanyById(state));
+  }
+  return [];
+};
+
 export const _getCompanyGroupById = (state: RootState) =>
   getState(state).companyGroup.byId;
 

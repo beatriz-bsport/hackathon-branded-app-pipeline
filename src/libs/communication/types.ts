@@ -31,6 +31,8 @@ export type Recipient = {
   sms_extra_segments_billed: boolean;
   sms_error_code?: number | null;
   sms_message_sid: string;
+  has_been_read: boolean;
+  is_answer: boolean;
 };
 
 export type Campaign = {

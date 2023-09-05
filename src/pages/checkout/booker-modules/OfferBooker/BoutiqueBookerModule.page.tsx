@@ -1109,6 +1109,15 @@ const mapHandlers = {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(
+  // TODO : What is happening exactly, without this translation domains
+  // loaded the full page has a double loading the time it retrieves them
+  withTranslation([
+    'booking',
+    'spotScheduling',
+    'common',
+    'paymentPack',
+    'marketplace',
+  ]),
   routerParamsToProps({
     companyId: 'companyId:number',
     offerId: 'offerId:number',
@@ -1116,7 +1125,6 @@ export default compose(
   withQueryParams([['fromWorkshop'], 'queryParams']),
   connector,
   withHandlers(mapHandlers),
-  withTranslation(['booking', 'spotScheduling']),
   marketplaceCssHoc(),
   consumerAppBarHOC(),
 )(BoutiqueBookerModule);

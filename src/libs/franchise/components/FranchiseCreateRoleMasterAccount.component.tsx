@@ -54,8 +54,11 @@ const defaultPermissions: FranchiseRolePermission = {
       giftcardTemplates: true,
       couponTemplates: true,
     },
-    emailTemplates: true,
-    tag: true,
+    marketing: {
+      campaigns: true,
+      emailTemplates: true,
+      tags: true,
+    },
     notificationRules: true,
     reporting: true,
     widgets: true,

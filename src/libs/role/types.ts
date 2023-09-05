@@ -507,6 +507,8 @@ export type FranchiseProtectedUrls =
   | '/f/franchises'
   | '/f/members'
   | '/f/coupon-template'
+  | '/f/marketing/campaigns'
+  | '/f/marketing/tags'
   | '/f/email-template'
   | '/f/settings/notification-rule'
   | '/f/payment-pack-template'

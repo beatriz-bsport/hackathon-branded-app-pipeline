@@ -8,6 +8,20 @@ const FranchiseTagManagement = asyncComponent(
   () => import('./FranchiseTagManagement.page'),
 );
 
+const CommunicationSentGroupConfigList = asyncComponent(
+  () =>
+    import(
+      './communication-sent-group-config/CommunicationSentGroupConfigList.page'
+    ),
+);
+
+const CommunicationSentGroupConfigDetail = asyncComponent(
+  () =>
+    import(
+      './communication-sent-group-config/CommunicationSentGroupConfigDetail.page'
+    ),
+);
+
 export const MarketingRouter = () => {
   return (
     <Switch>
@@ -16,6 +30,18 @@ export const MarketingRouter = () => {
         path="/f/marketing/tags/:selectedTagId"
       />
       <Route component={FranchiseTagManagement} path="/f/marketing/tags" />
+      <Route
+        component={CommunicationSentGroupConfigDetail}
+        path="/f/marketing/campaign/:campaignId/:tab/"
+      />
+      <Route
+        component={CommunicationSentGroupConfigList}
+        path="/f/marketing/campaign/:campaignId"
+      />
+      <Route
+        component={CommunicationSentGroupConfigList}
+        path="/f/marketing/campaign"
+      />
     </Switch>
   );
 };

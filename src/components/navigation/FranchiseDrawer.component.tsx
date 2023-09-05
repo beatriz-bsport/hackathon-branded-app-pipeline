@@ -54,6 +54,7 @@ import StarIcon from '@material-ui/icons/Star';
 import Email from '@material-ui/icons/Email';
 import Settings from '@material-ui/icons/Settings';
 import DescriptionIcon from '@material-ui/icons/Description';
+import Send from '@material-ui/icons/Send';
 
 import { colors } from '@bsport/common/lib/colors';
 import { getCurrencyDisplay } from '../../libs/theme/selectors';
@@ -572,13 +573,26 @@ const getNavigationItems = (props: {
     },
     {
       icon: Email,
-      to: '/f/email-template',
-      text: 'franchiseMenu.emailTemplates',
-    },
-    {
-      icon: Label,
-      to: '/f/marketing/tags',
-      text: 'franchiseMenu.tag',
+      text: 'franchiseMenu.marketing',
+      type: 'nested',
+      nestedItems: [
+        'divider',
+        {
+          icon: Email,
+          to: '/f/email-template',
+          text: 'franchiseMenu.marketing.emailTemplates',
+        },
+        {
+          icon: Label,
+          to: '/f/marketing/tags',
+          text: 'franchiseMenu.marketing.tags',
+        },
+        {
+          icon: Send,
+          to: '/f/marketing/campaign',
+          text: 'franchiseMenu.marketing.campaigns',
+        },
+      ],
     },
     {
       to: '/f/settings/notification-rule',

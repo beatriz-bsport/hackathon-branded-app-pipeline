@@ -149,6 +149,8 @@ export const FRANCHISE_URLS_PERMISSIONS: Record<
   '/f/franchises': ['franchiseMenu.franchises'],
   '/f/members': ['franchiseMenu.members'],
   '/f/coupon-template': ['franchiseMenu.products.couponTemplates'],
+  '/f/marketing/campaigns': ['franchiseMenu.marketing.campaigns'],
+  '/f/marketing/tags': ['franchiseMenu.marketing.tags'],
   '/f/email-template': ['franchiseMenu.marketing.emailTemplates'],
   '/f/settings/notification-rule': ['franchiseMenu.notificationRules'],
   '/f/payment-pack-template': ['franchiseMenu.products.paymentPacksTemplates'],

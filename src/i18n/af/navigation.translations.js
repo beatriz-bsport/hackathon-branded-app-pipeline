@@ -134,9 +134,12 @@ exports.default = {
     staff: 'Staff',
     widgets: 'Widget',
     notificationRules: 'Transactional notifications',
-    marketing: { label: 'Marketing' },
-    campaign: 'Campagnes',
-    emailTemplates: 'Emails',
+    marketing: {
+      label: 'Marketing',
+      campaigns: 'Campaigns',
+      emailTemplates: 'Emails',
+      tags: 'Tags',
+    },
     products: {
       couponTemplates: 'Promotions',
       privatePassTemplates: 'Appointment passes',
@@ -144,7 +147,6 @@ exports.default = {
       label: 'Products',
       giftcardTemplates: 'Gift cards',
     },
-    tag: 'Tags',
   },
   multiSession: {
     previousSession: ' You were connected as: {{name}}',
@@ -235,6 +237,10 @@ exports.default = {
       links: 'External links',
       popups: 'Startup pop-up',
       customize: 'Personalisation',
+    },
+    communicationSentGroupConfig: {
+      general: 'General',
+      campaigns: 'Campaigns',
     },
   },
 };

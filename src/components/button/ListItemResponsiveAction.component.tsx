@@ -14,7 +14,7 @@ export type ActionOption = {
   onClick?: () => void;
   label: string;
   color?: 'primary' | 'secondary' | 'inherit';
-  icon: any;
+  icon?: any;
   disabled?: boolean;
 };
 

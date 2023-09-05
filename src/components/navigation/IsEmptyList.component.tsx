@@ -14,7 +14,7 @@ type Props = {
   onCreate: () => void;
   text: string;
   button?: string;
-  onCreateLabel: string;
+  onCreateLabel?: string;
   filledIcon?: boolean;
   hideEmptyText?: boolean;
   hideBottomActions?: boolean;

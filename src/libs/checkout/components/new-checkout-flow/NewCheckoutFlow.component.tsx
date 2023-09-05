@@ -302,6 +302,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
             }
             auth={auth}
             basket={basket}
+            basketHasOffers={!noOfferInCheckoutItems}
             basketLoading={basketLoading}
             cardBillingDetailsMandatory={theme.force_billing_details_on_cards}
             checkItemsBasket={checkItemsBasket}

@@ -8,13 +8,23 @@ import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 
 type BasketNullPriceProps = {
   areTermsAndConditionsAccepted?: boolean;
+  basketHasOffers: boolean;
 };
 
 export const BasketNullPrice: React.FC<BasketNullPriceProps> = ({
   areTermsAndConditionsAccepted,
+  basketHasOffers,
 }) => {
   const { t } = useTranslation('checkout');
   const classes = useStyles();
+
+  const acceptTermsAndFinalizeTransKey = basketHasOffers
+    ? 'myBasket.acceptTermsAndFinalize'
+    : 'myBasket.noBooking.acceptTermsAndFinalize';
+
+  const checkAndFinalizeTransKey = basketHasOffers
+    ? 'myBasket.checkAndFinalize'
+    : 'myBasket.noBooking.checkAndFinalize';
 
   return (
     <div className={classes.basketNullPriceContainer}>
@@ -26,8 +36,8 @@ export const BasketNullPrice: React.FC<BasketNullPriceProps> = ({
       </Typography>
       <Typography className={classes.subtitle} variant="body1">
         {areTermsAndConditionsAccepted
-          ? t('myBasket.checkAndFinalize')
-          : t('myBasket.acceptTermsAndFinalize')}
+          ? t(checkAndFinalizeTransKey)
+          : t(acceptTermsAndFinalizeTransKey)}
       </Typography>
     </div>
   );

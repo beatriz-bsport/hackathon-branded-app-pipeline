@@ -65,6 +65,7 @@ type CheckoutStepsProps = {
   useInternalAccount?: (amount: number) => void;
   validateUnpaid: (options: OptionCallback) => void;
   cardBillingDetailsMandatory: boolean;
+  basketHasOffers: boolean;
 };
 
 export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
@@ -106,6 +107,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       useInternalAccount,
       validateUnpaid,
       cardBillingDetailsMandatory,
+      basketHasOffers,
     },
     ref,
   ) => {
@@ -164,6 +166,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
                   allowConsumerToUseInternalAccount
                 }
                 basket={basket}
+                basketHasOffers={basketHasOffers}
                 cardBillingDetailsMandatory={cardBillingDetailsMandatory}
                 checkItemsBasket={checkItemsBasket}
                 clientSecret={clientSecret}
@@ -246,6 +249,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       useInternalAccount,
       validateUnpaid,
       cardBillingDetailsMandatory,
+      basketHasOffers,
     ]);
 
     return (

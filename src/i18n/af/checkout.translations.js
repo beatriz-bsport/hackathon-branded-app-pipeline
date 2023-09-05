@@ -79,6 +79,13 @@ exports.default = {
       'Veuillez vérifier votre panier et finaliser votre réservation',
     acceptTermsAndFinalize:
       'Veuillez accepter les conditions générales et finaliser votre réservation',
+    noBooking: {
+    checkAndFinalize:
+      'Veuillez vérifier votre panier',
+    acceptTermsAndFinalize:
+      'Veuillez accepter les conditions générales et finaliser votre panier',
+
+    }
   },
   payLater: {
     submit: 'Payer sur place',

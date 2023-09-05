@@ -49,6 +49,7 @@ type PaymentStepProps = {
   useInternalAccount?: (amount: number) => void;
   validateUnpaid: (options: OptionCallback) => void;
   cardBillingDetailsMandatory: boolean;
+  basketHasOffers: boolean;
 };
 
 export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
@@ -86,6 +87,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       useInternalAccount,
       validateUnpaid,
       cardBillingDetailsMandatory,
+      basketHasOffers,
     },
     ref,
   ) => {
@@ -136,6 +138,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       return (
         <BasketNullPrice
           areTermsAndConditionsAccepted={termsAndConditionsAccepted}
+          basketHasOffers={basketHasOffers}
         />
       );
 

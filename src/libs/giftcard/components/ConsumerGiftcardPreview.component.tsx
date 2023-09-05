@@ -11,12 +11,14 @@ type Props = {
   consumerGiftcard: ConsumerGiftcardPersonnalizationElements;
   companyCover: string;
   giftcard: Giftcard | null;
+  valueIsPlaceholderString?: boolean;
 };
 
 const ConsumerGiftcardPreview = (props: Props) => {
   const { t } = useTranslation(['giftcard']);
   const classes = useStyles(props);
-  const { consumerGiftcard, companyCover, giftcard } = props;
+  const { consumerGiftcard, companyCover, giftcard, valueIsPlaceholderString } =
+    props;
   const { name, message_is_from, message_is_for, message_content } =
     consumerGiftcard;
 
@@ -49,9 +51,11 @@ const ConsumerGiftcardPreview = (props: Props) => {
             </div>
             {!!giftcard && (
               <Typography color="primary">
-                {getCurrencyDisplayWithPrice(
-                  giftcard.price ? giftcard.price : giftcard.amount_gifted,
-                )}
+                {valueIsPlaceholderString
+                  ? giftcard.price || giftcard.amount_gifted
+                  : getCurrencyDisplayWithPrice(
+                      giftcard.price || giftcard.amount_gifted,
+                    )}
               </Typography>
             )}
           </div>

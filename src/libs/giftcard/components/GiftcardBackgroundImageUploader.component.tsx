@@ -67,6 +67,7 @@ export const GiftcardBackgroundImageUploader = (props: Props) => {
           <div className={classes.spacing} />
         )}
         <ConsumerGiftcardPreview
+          valueIsPlaceholderString
           companyCover={props.companyCover}
           consumerGiftcard={{
             name: t('consumerGiftcard.previewPlaceholder.name'),

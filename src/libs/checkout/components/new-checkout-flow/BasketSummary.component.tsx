@@ -1,7 +1,9 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Divider } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { NewCheckoutItemListItem } from './NewCheckoutItemListItem.component';
 import {
   CheckoutItem,
@@ -18,6 +20,7 @@ type BasketSummaryProps = {
     handleAddCheckoutItemData: HandleAddCheckoutItemData,
   ) => void;
   onRemoveCheckoutItem: (onRemoveItemdata: OnRemoveCheckoutItemData) => void;
+  displayBasketTitle?: boolean;
 };
 
 export const BasketSummary: React.FC<BasketSummaryProps> = ({
@@ -26,8 +29,10 @@ export const BasketSummary: React.FC<BasketSummaryProps> = ({
   isItemEditionDisabled,
   onAddCheckoutItem,
   onRemoveCheckoutItem,
+  displayBasketTitle,
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ displayBasketTitle });
+  const { t } = useTranslation('checkout');
 
   const onAddOneItem = React.useCallback(
     (checkoutItem: CheckoutItem) => {
@@ -45,6 +50,12 @@ export const BasketSummary: React.FC<BasketSummaryProps> = ({
 
   return (
     <>
+      {displayBasketTitle && (
+        <div className={classes.basketTitle}>
+          <Typography variant="h6">{t('myBasket.title')}</Typography>
+        </div>
+      )}
+
       {!!basketSummaryCheckoutItems.length && (
         <div className={classes.basketContainer}>
           {basketSummaryCheckoutItems?.map((checkoutItem, index) => (
@@ -76,21 +87,33 @@ export const BasketSummary: React.FC<BasketSummaryProps> = ({
   );
 };
 
-const useStyles = makeStyles((theme) => ({
-  basketContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: theme.spacing(1),
-    boxSizing: 'border-box',
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    borderColor: theme.palette.grey[100],
-  },
-  divider: {
-    borderColor: theme.palette.grey[100],
-    borderWidth: '1px',
-    margin: theme.spacing(1),
-  },
-}));
+const useStyles = makeStyles<Theme, { displayBasketTitle: boolean }>(
+  (theme) => ({
+    basketTitle: {
+      borderColor: theme.palette.grey[100],
+      borderWidth: '1px',
+      borderStyle: 'solid',
+      borderRadius: '12px 12px 0 0',
+      borderBottom: 'none',
+      paddingTop: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
+    },
+    basketContainer: ({ displayBasketTitle }) => ({
+      display: 'flex',
+      flexDirection: 'column',
+      padding: theme.spacing(1),
+      boxSizing: 'border-box',
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      borderColor: theme.palette.grey[100],
+      ...(displayBasketTitle ? { borderTop: null } : {}),
+    }),
+    divider: {
+      borderColor: theme.palette.grey[100],
+      borderWidth: '1px',
+      margin: theme.spacing(1),
+    },
+  }),
+);
 
 export default React.memo(BasketSummary);

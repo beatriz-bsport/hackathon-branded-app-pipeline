@@ -279,6 +279,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
     [isBasketDisplayed],
   );
 
+  const noOfferInCheckoutItems = basketOffers?.length === 0;
   const width = useWidth();
   const isMobile = isWidthDown('sm', width);
 
@@ -354,6 +355,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
           <Collapse in={!isMobile || isBasketDisplayed}>
             <BasketSummary
               basketSummaryCheckoutItems={basketSummaryCheckoutItems}
+              displayBasketTitle={noOfferInCheckoutItems}
               isExcludingTax={isExcludingTax}
               isItemEditionDisabled={isBasketModificationDisabled}
               onAddCheckoutItem={handleAddCheckoutItem}

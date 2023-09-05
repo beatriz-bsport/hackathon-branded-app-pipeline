@@ -44,6 +44,8 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
     [activitySummaryCheckoutItems, basketOffers],
   );
 
+  if (activitySummaryCheckoutItems.length === 0) return null;
+
   return (
     <div className={classes.activityContainer}>
       {checkoutItemsWithDetails?.map((checkoutItem, index) => (

@@ -9,12 +9,16 @@ import {
   fetchPushNotificationAvailableMember as fetchPushNotificationAvailableMemberAPI,
   fetchRecipientListExport as fetchRecipientListExportAPI,
   fetchRecipientListExportLink as fetchRecipientListExportLinkAPI,
-} from './api';
+} from '../api';
 
-import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import type {
+  Dispatch,
+  ThunkAction,
+  OptionCallback,
+} from '../../../state/types';
 
-import { snackbarSuccess, snackbarError } from '../snackbar/actions';
-import { monitorBackgroundTask } from '../background-task/actions';
+import { snackbarSuccess, snackbarError } from '../../snackbar/actions';
+import { monitorBackgroundTask } from '../../background-task/actions';
 
 export const membersMailAction = {
   error: createAction('MEMBERS/SEND-MAIL/ERROR'),

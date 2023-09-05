@@ -14,7 +14,7 @@ import checkoutReducers from '#libs/checkout/reducers';
 import ClockinReducer from '#libs/clock-in/reducers';
 import CoachPaymentRuleReducer from '#libs/coach-payment-rules/reducers';
 import coachReducers from '#libs/associated-coach/reducers';
-import communicationReducers from '#libs/communication/reducers';
+import communicationReducers from '#libs/communication/reducers/reducers';
 import communicationV2Reducers from '#libs/communication-v2/reducers';
 import company from '#libs/company/reducers';
 import consumerPaymentPackReducers from '#libs/consumer-payment-pack/reducers';
@@ -82,6 +82,7 @@ import CadenceWIPReducers from '#libs/sequential_marketing/reducers';
 import exportableComponentsReducers from '#libs/exportable-components/reducers';
 import quicksaleReducers from '#libs/quicksale/reducers';
 import referralReducers from '#libs/referral/reducers';
+import communicationSentGroupConfigReducers from '#libs/communication/reducers/communication-sent-group-config-reducers';
 
 import { AlertingState } from '#libs/alerting/types';
 import { BackgroundDialogState } from '#libs/background-dialog/types';
@@ -107,7 +108,10 @@ import { FranchiseState } from '#libs/franchise/types';
 import { GiftcardState } from '#libs/giftcard/types';
 import { GroupOfferState } from '#libs/group-offer/types';
 import { InstalmentPaymentState } from '#libs/instalment-payment-configuration/types';
-import { MailState } from '#libs/communication/types';
+import {
+  MailState,
+  CommunicationSentGroupConfigState,
+} from '#libs/communication/types';
 import { MarketingNotificationState } from '#libs/marketing/types';
 import { MarketplaceSettingState } from '#libs/marketplace/types';
 import { MembershipState } from '#libs/membership/types';
@@ -167,6 +171,7 @@ const rootReducer = (history: any) =>
     stats: statsReducers,
     coach: coachReducers,
     member: memberReducer,
+    communicationSentGroupConfig: communicationSentGroupConfigReducers,
     paymentPack,
     consumerPaymentPack: consumerPaymentPackReducers,
     category: categoryReducers,
@@ -261,6 +266,7 @@ export type RootState = {
   event: EventState;
   expense: ExpenseState;
   franchise: FranchiseState;
+  communicationSentGroupConfig: CommunicationSentGroupConfigState;
   groupOffer: GroupOfferState;
   giftcard: GiftcardState;
   instalmentPayment: InstalmentPaymentState;

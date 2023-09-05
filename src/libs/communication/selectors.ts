@@ -1,7 +1,12 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
+import Immutable from 'seamless-immutable';
 import { _getAutomatedCampaignById } from '#libs/smart-list/selectors';
-import { Campaign } from '#libs/communication/types';
+import {
+  Campaign,
+  CommunicationSentGroupConfig,
+  CommunicationSentGroup,
+} from '#libs/communication/types';
 import { RootState } from '../../reducers';
 
 const getData = (state: RootState) => state.communication.campaign.byId;
@@ -87,3 +92,68 @@ export const withAutomatedCampaign = memoize(
       },
     ),
 );
+
+const _getCommunicationSentGroupConfigState = (state: RootState) =>
+  state.communicationSentGroupConfig;
+export const getCommunicationSentGroupConfigConfigById = (state: RootState) =>
+  _getCommunicationSentGroupConfigState(state).communicationSentGroupConfig
+    .byId;
+
+export const getCommunicationSentGroupConfigAllIds = (
+  state: RootState,
+): number[] =>
+  _getCommunicationSentGroupConfigState(state).communicationSentGroupConfig
+    .allIds;
+
+export const getCommunicationSentGroupById = (state: RootState) =>
+  _getCommunicationSentGroupConfigState(state).communicationSentGroup.byId;
+
+export const getCommunicationSentGroupAllIds = (state: RootState) =>
+  _getCommunicationSentGroupConfigState(state).communicationSentGroup.allIds;
+
+export const getAllCommunicationSentGroupConfigs = createSelector(
+  [
+    getCommunicationSentGroupConfigConfigById,
+    getCommunicationSentGroupConfigAllIds,
+  ],
+  (communicationSentGroupConfig, idList) => {
+    return Immutable(
+      idList.map((id: number) => communicationSentGroupConfig[id]),
+    );
+  },
+);
+
+const getCommunicationGroupRecipientData = (state: RootState) =>
+  _getCommunicationSentGroupConfigState(state).recipient.byId;
+
+const getRecipientByCommunicationSentGroupIds = (state: RootState) =>
+  _getCommunicationSentGroupConfigState(state).recipient.allIds;
+
+export const getRecipientListByCommunicationSentGroup = createSelector(
+  [getCommunicationGroupRecipientData, getRecipientByCommunicationSentGroupIds],
+  (data, ids) => ids.map((id: number) => data[id]),
+);
+export const getCommunicationSentGroupConfig = (
+  state: RootState,
+  id: number,
+): CommunicationSentGroupConfig => {
+  return _getCommunicationSentGroupConfigState(state)
+    .communicationSentGroupConfig.byId[id];
+};
+
+export const getCommunicationSentGroup = (
+  state: RootState,
+  id: number,
+): CommunicationSentGroup =>
+  _getCommunicationSentGroupConfigState(state).communicationSentGroup.byId[id];
+
+export const getAllCommunicationSentGroup = createSelector(
+  [getCommunicationSentGroupById, getCommunicationSentGroupAllIds],
+  (communicationSentGroup, idList) => {
+    return Immutable(idList.map((id: number) => communicationSentGroup[id]));
+  },
+);
+
+export const getCommunicationSentGroupReport = (state: RootState) =>
+  _getCommunicationSentGroupConfigState(state).communicationSentGroup.report
+    .data;

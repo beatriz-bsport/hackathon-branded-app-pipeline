@@ -14,9 +14,9 @@ import {
   marketingNotificationCampaignDetailActions,
   pushNotificationRecipientBulkActions,
   fetchRecipientListExportLinkActions,
-} from './actions';
+} from '../actions';
 
-import type { MailState } from './types';
+import type { MailState } from '../types';
 
 const initialState: MailState = Immutable({
   recipient: {

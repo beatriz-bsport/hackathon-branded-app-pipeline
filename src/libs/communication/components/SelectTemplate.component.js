@@ -38,6 +38,7 @@ type Props = {
   selectedMail: number,
   title: string,
   resolvedGenericTags: ResolvedGenericTags,
+  fromFranchisor?: boolean,
 };
 
 export class SelectTemplate extends Component<Props> {
@@ -117,7 +118,9 @@ export class SelectTemplate extends Component<Props> {
                 color="secondary"
                 onClick={() => {
                   this.props.onCancel();
-                  const url = '/email-template/create';
+                  const url = this.props.fromFranchisor
+                    ? '/f/email-template/create'
+                    : '/email-template/create';
                   const win = window.open(url);
                   win.focus();
                   this.props.onChangeTemplate(null);

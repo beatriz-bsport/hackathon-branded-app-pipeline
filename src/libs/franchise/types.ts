@@ -39,6 +39,7 @@ export type Franchise = {
   secondaryRGB: [number, number, number];
   marketing_email?: string;
   sync_members_across_companies: boolean;
+  marketing_custom_domain: string | null;
 };
 
 export type CompanyGroup = {

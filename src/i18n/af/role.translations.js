@@ -245,7 +245,16 @@ const getTranslations = async () => {
         widgets: { _label: 'Widgets' },
         reporting: { _label: 'Reports' },
         notificationRules: { _label: 'Transactional notifications ' },
-        emailTemplates: { _label: 'Emails' },
+        marketing: {
+          _label: 'Marketing',
+          emailTemplates: {
+            _label: 'Emails',
+          },
+          campaigns: {
+            _label: 'Campaigns',
+          },
+          tags: { _label: 'Tags' },
+        },
         products: {
           couponTemplates: { _label: 'Promotions' },
           privatePassTemplates: { _label: 'Appointment pass' },
@@ -256,7 +265,6 @@ const getTranslations = async () => {
         members: { _label: 'Members' },
         franchises: { _label: 'Franchisees' },
         _label: 'Navigation menu',
-        tag: { _label: 'Tags' },
       },
     },
     overbookingForbidden:

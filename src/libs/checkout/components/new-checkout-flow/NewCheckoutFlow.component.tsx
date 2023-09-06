@@ -48,6 +48,7 @@ import CheckoutButtons from './CheckoutButtons.component';
 import type { Offer } from '#libs/offer/types';
 import type { Establishment } from '#libs/establishment/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
+import EmptyBasket from '#libs/checkout/components/new-checkout-flow/EmptyBasket';
 
 import {
   useHandleSubmitButtonsCallbacks,
@@ -110,6 +111,7 @@ type NewCheckoutFlowProps = {
   theme: CompanyTheme;
   useInternalAccount?: (amount: number) => void;
   validateUnpaid: (options: OptionCallback) => void;
+  goToMarketplace: () => void;
 };
 
 export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
@@ -145,6 +147,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   theme,
   useInternalAccount,
   validateUnpaid,
+  goToMarketplace,
 }) => {
   const { t } = useTranslation('checkout');
   const classes = useStyles();
@@ -282,6 +285,14 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   const noOfferInCheckoutItems = basketOffers?.length === 0;
   const width = useWidth();
   const isMobile = isWidthDown('sm', width);
+
+  if (!basketLoading && basket?.checkout_items?.length === 0) {
+    return (
+      <div className={classes.container}>
+        <EmptyBasket goToMarketplace={goToMarketplace} />
+      </div>
+    );
+  }
 
   return (
     <div className={classes.container}>

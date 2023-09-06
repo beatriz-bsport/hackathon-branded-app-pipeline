@@ -84,8 +84,12 @@ exports.default = {
       'Veuillez vérifier votre panier',
     acceptTermsAndFinalize:
       'Veuillez accepter les conditions générales et finaliser votre panier',
-
-    }
+    },
+    newCheckout: {
+      isEmpty: 'Votre panier est vide!',
+      isEmptyDescription: 'Poursuivez votre exploration de la marketplace!',
+    },
+    goToMarketplace: 'Voir la marketplace',
   },
   payLater: {
     submit: 'Payer sur place',

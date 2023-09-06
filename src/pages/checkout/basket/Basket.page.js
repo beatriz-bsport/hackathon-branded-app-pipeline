@@ -99,7 +99,8 @@ import { CheckoutContext } from './CheckoutContext';
 import {
   getCheckoutValidationUrl,
   getUserSpaceUrl,
-} from '#libs/marketplace/routing-utils';
+  getMarketplaceRoute,
+} from '../../../libs/marketplace/routing-utils';
 import { CouponErrorCodes } from '#libs/coupon/constants';
 
 type Props = {
@@ -171,6 +172,7 @@ type Props = {
   basketOffers: Array<Offer<number, Establishment, MetaActivity>>,
   isNewCheckoutFlow?: boolean,
   fetchInstalmentPaymentByBasket: (basketId: string) => void,
+  goToMarketplace: () => void,
 };
 
 export class BasketPage extends React.Component<Props> {
@@ -545,6 +547,7 @@ export class BasketPage extends React.Component<Props> {
                     this.props.detachPaymentMethodLoading
                   }
                   goBack={this.props.goBack}
+                  goToMarketplace={this.props.goToMarketplace}
                   instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
                     (ipc) => ipc.basketId === this.props.basket?.id,
                   )}
@@ -655,6 +658,7 @@ export default compose(
       removeItemFromBasket: removeItemFromBasketAction,
       goBack,
       replace: replaceRouter,
+      push: pushRouter,
       fetchCurrentBasket: fetchCurrentBasketAction,
       fetchInstalmentPaymentByBasket: fetchInstalmentPaymentByBasketAction,
       patchCurrentBasket,
@@ -899,6 +903,11 @@ export default compose(
             if (options && options.onError) options.onError();
           },
         });
+      },
+    goToMarketplace:
+      ({ companyId, theme, push }) =>
+      () => {
+        push(getMarketplaceRoute(theme.company_name, companyId));
       },
   }),
   withState('basketError', 'setBasketError', null),

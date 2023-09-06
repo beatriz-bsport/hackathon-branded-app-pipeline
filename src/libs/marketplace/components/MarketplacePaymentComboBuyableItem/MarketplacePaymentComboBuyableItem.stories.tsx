@@ -8,7 +8,10 @@ import MarketplacePaymentComboBuyableItem, {
   Props,
 } from '.';
 
-const fakePaymentCombo = paymentComboFactory();
+const fakePaymentCombo = paymentComboFactory({
+  isHighlightedAsRecommended: true,
+});
+
 const fakeHighlightedPaymentCombo = paymentComboFactory({
   isHighlightedAsRecommended: true,
 });

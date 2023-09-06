@@ -106,9 +106,9 @@
 }
 
 .bs-contract-buyable-item__description--short {
+  /* autoprefixer: off */
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  /* autoprefixer: off */
   display: -webkit-box;
   overflow: hidden;
 }
@@ -181,7 +181,7 @@
 }
 
 .bs-contract-buyable-item__recommended_icon {
-  padding-right: calc(var(--spacing-1) / 2);
+  padding-left: calc(var(--spacing-1) / 2);
 }
 
 @container bsOfferBookingPage (width < 600px) {

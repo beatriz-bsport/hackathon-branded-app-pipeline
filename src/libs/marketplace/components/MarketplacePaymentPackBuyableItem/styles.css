@@ -185,5 +185,5 @@
 }
 
 .bs-payment-pack-buyable-item__recommended_icon {
-  padding-right: calc(var(--spacing-1) / 2);
+  padding-left: calc(var(--spacing-1) / 2);
 }

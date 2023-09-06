@@ -69,8 +69,8 @@ const MarketplacePaymentComboBuyableItem: React.FC<Props> = ({
   return (
     <Card
       classes={{
-        'bs-payment-combo-buyable-item-card':
-          'bs-payment-combo-buyable-item-card',
+        'bs-payment-combo-buyable-item__card':
+          'bs-payment-combo-buyable-item__card',
       }}
       isSelected={isSelected}
       onClick={onClick}
@@ -79,17 +79,17 @@ const MarketplacePaymentComboBuyableItem: React.FC<Props> = ({
       <CardContent
         padding
         classes={{
-          'bs-payment-combo-buyable-item__content':
-            'bs-payment-combo-buyable-item__content',
+          'bs-payment-combo-buyable-item__card__content':
+            'bs-payment-combo-buyable-item__card__content',
         }}
       >
         <Grid
           classes={{
-            'bs-payment-combo-buyable-item__grid':
-              'bs-payment-combo-buyable-item__grid',
+            'bs-payment-combo-buyable-item__card_content_grid':
+              'bs-payment-combo-buyable-item__card_content_grid',
           }}
         >
-          {/* START -- FIRST ROW */}
+          {/* START -- FIRST ROW / NAME ROW */}
           <GridItem
             classes={{
               'payment-combo-buyable-item__grid_item-title':
@@ -97,22 +97,27 @@ const MarketplacePaymentComboBuyableItem: React.FC<Props> = ({
             }}
           >
             <div className="bs-payment-combo-buyable-item__title">
-              <div
-                className={classNames(
-                  'bs-payment-combo-buyable-item__recommended-container',
-                  {
-                    'bs-payment-combo-buyable-item__recommended-item--hidden':
-                      !isRecommended,
-                  },
-                )}
-              >
-                <div className="bs-payment-combo-buyable-item__recommended_icon">
-                  <RecommendedChip />
-                </div>
-              </div>
-              {paymentCombo.name}
+              {paymentCombo?.name ?? ''}
             </div>
+            <div
+              className={classNames({
+                'bs-payment-combo-buyable-item__recommended_icon_container--hidden':
+                  !isRecommended,
+              })}
+            >
+              <div className="bs-payment-combo-buyable-item__recommended_icon">
+                <RecommendedChip />
+              </div>
+            </div>
+          </GridItem>
 
+          {/* START -- SECOND ROW / ITEMS ROW */}
+          <GridItem
+            classes={{
+              'payment-combo-buyable-item__grid_item-combo_items':
+                'payment-combo-buyable-item__grid_item-combo_items',
+            }}
+          >
             <div className="bs-payment-combo-buyable-item__list">
               {isMobile ? (
                 <li className="bs-payment-combo-buyable-item__list__item">
@@ -123,23 +128,24 @@ const MarketplacePaymentComboBuyableItem: React.FC<Props> = ({
               ) : (
                 paymentComboItems.map((item) => (
                   <li
-                    key={item.id}
+                    key={`combo_items_${item.id}`}
                     className="bs-payment-combo-buyable-item__list__item"
                   >
-                    {item.name}
+                    {item?.name ?? ''}
                   </li>
                 ))
               )}
             </div>
           </GridItem>
 
+          {/* START -- THIRD ROW / PRICING ROW */}
           <GridItem
             classes={{
               'payment-combo-buyable-item__grid_item-pricing':
                 'payment-combo-buyable-item__grid_item-pricing',
             }}
           >
-            <div className="bs-payment-combo-buyable-item__prices-container">
+            <div className="bs-payment-combo-buyable-item__pricing_container">
               <InitialPrice
                 isExcludingTax={isExcludingTax}
                 paymentCombo={paymentCombo}
@@ -156,7 +162,9 @@ const MarketplacePaymentComboBuyableItem: React.FC<Props> = ({
               />
             </div>
           </GridItem>
-          {/* START -- SECOND ROW : SPANNING TWO COLUMNS */}
+
+          {/* START -- FOURTH ROW / DESCRIPTION ROW */}
+
           <GridItem
             classes={{
               'payment-combo-buyable-item__grid_item-description':
@@ -185,23 +193,23 @@ const MarketplacePaymentComboBuyableItem: React.FC<Props> = ({
             </Collapse>
           </GridItem>
 
-          {/* START -- THIRD ROW */}
+          {/* START -- FIFTHROW / SEE MORE ROW */}
           <GridItem
             classes={{
-              'payment-combo-buyable-item__grid_item-collapse-arrow':
-                'payment-combo-buyable-item__grid_item-collapse-arrow',
+              'payment-combo-buyable-item__grid_item-collapse-footer':
+                'payment-combo-buyable-item__grid_item-collapse-footer',
             }}
           >
             <div
               className={classNames({
-                'bs-payment-combo-buyable-item__seemore--hidden':
+                'bs-payment-combo-buyable-item__seemore_button--hidden':
                   !descriptionText.isExpandable,
               })}
             >
               <Button
                 classes={{
-                  root: 'bs-payment-combo-buyable-item__seemore',
-                  text: 'bs-payment-combo-buyable-item__seemore__text',
+                  root: 'bs-payment-combo-buyable-item__seemore_button',
+                  text: 'bs-payment-combo-buyable-item__seemore_button__text',
                 }}
                 onClick={onClickSeeMore}
               >

@@ -68,6 +68,7 @@ exports.default = {
     title: {
       universalPassMessage:
         'Carte universelle, utilisable pour les cours collectifs et les rendez-vous',
+      autoRenewal : 'Renouvellement automatique'
     },
     credits: {
       availableCredit: '{{count}} crédit',

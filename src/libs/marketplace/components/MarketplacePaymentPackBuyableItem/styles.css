@@ -151,7 +151,7 @@
 
 .bs-payment-pack-buyable-item__price {
   font-size: var(--h5-fontSize);
-  font-weight: 500;
+  font-weight: var(--fontWeightMedium);
 }
 
 .bs-payment-pack-buyable-item__seemore_button {

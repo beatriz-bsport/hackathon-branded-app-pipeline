@@ -8,9 +8,13 @@ import MarketplaceContractBuyableItem, {
   Props,
 } from '.';
 
-const fakeContract = contractFactory();
+const fakeContract = contractFactory({
+  isHighlightedAsRecommended: true,
+  isAutoRenewal: true,
+});
 const fakeRecommendedContract = contractFactory({
   isHighlightedAsRecommended: true,
+  isAutoRenewal: true,
 });
 
 const SubscriptionTemplate: ComponentStory<

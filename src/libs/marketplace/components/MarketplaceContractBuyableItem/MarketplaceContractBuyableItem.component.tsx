@@ -4,8 +4,9 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
-
+import UpdateIcon from '@material-ui/icons/Update';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import ToolTip from '#components/Tooltip.component';
 import Card, { CardSize } from '#csscomponents/Card';
 import CardContent from '#csscomponents/Card/CardContent';
 import Grid from '#csscomponents/Grid';
@@ -39,9 +40,6 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
   const [showAllDescription, setShowAllDescription] = useState(false);
   const { t } = useTranslation(['marketplace', 'booking']);
 
-  const shouldDisplayFlatFee =
-    !!contract?.flat_fee && parseFloat(contract?.flat_fee.toString()) > 0;
-
   const onClickSeeMore = useCallback((event: React.MouseEvent) => {
     event.stopPropagation();
     setShowAllDescription(
@@ -56,7 +54,7 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
   return (
     <Card
       classes={{
-        'bs-contract-buyable-item': 'bs-contract-buyable-item',
+        'bs-contract-buyable-item__card': 'bs-contract-buyable-item__card',
       }}
       isSelected={isSelected}
       size={CardSize.AUTO}
@@ -65,41 +63,63 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
       <CardContent
         padding
         classes={{
-          'bs-contract-buyable-item__content':
-            'bs-contract-buyable-item__content',
+          'bs-contract-buyable-item__card__content':
+            'bs-contract-buyable-item__card__content',
         }}
       >
         <Grid
           classes={{
-            'bs-contract-buyable-item__grid': 'bs-contract-buyable-item__grid',
+            'bs-contract-buyable-item__card_content_grid':
+              'bs-contract-buyable-item__card_content_grid',
           }}
         >
-          {/* START -- FIRST ROW */}
+          {/* START -- FIRST ROW / NAME ROW */}
+
           <GridItem
             classes={{
               'bs-contract-buyable-item__grid_item-title':
                 'bs-contract-buyable-item__grid_item-title',
             }}
           >
-            <div className="bs-contract-buyable-item__title__container">
-              <div
-                className={classNames(
-                  'bs-contract-buyable-item__recommended-chip__container',
-                  {
-                    'bs-contract-buyable-item__recommended-chip__container--hidden':
-                      !isRecommended,
-                  },
-                )}
-              >
-                <div className="bs-contract-buyable-item__recommended_icon">
-                  <RecommendedChip />
-                </div>
-              </div>
-              <div className="bs-contract-buyable-item__title">
-                {contract?.name}
+            <div className="bs-contract-buyable-item__title">
+              {contract?.auto_renewal && (
+                <ToolTip title={t('marketplace:genericCard.title.autoRenewal')}>
+                  <UpdateIcon
+                    className="bs-contract-buyable-item_title__icon"
+                    fontSize="small"
+                  />
+                </ToolTip>
+              )}
+              {contract?.name ?? ''}
+            </div>
+            <div
+              className={classNames({
+                'bs-contract-buyable-item__recommended_icon_container--hidden':
+                  !isRecommended,
+              })}
+            >
+              <div className="bs-contract-buyable-item__recommended_icon">
+                <RecommendedChip />
               </div>
             </div>
           </GridItem>
+
+          {/* START -- SECOND ROW / FEE ROW */}
+
+          <GridItem
+            classes={{
+              'bs-contract-buyable-item__grid_item-fees':
+                'bs-contract-buyable-item__grid_item-fees',
+            }}
+          >
+            <div className="bs-contract-buyable-item__flat-fee">
+              {t('contractCard.fees', {
+                fees: getCurrencyDisplayWithPrice(contract.flat_fee),
+              })}
+            </div>
+          </GridItem>
+
+          {/* START -- THIRD ROW / BILLING ROW */}
 
           <GridItem
             classes={{
@@ -126,21 +146,10 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
                   />
                 </div>
               </Price>
-
-              <div
-                className={classNames('bs-contract-buyable-item__flat-fee', {
-                  'bs-contract-buyable-item__flat-fee--hidden':
-                    !shouldDisplayFlatFee,
-                })}
-              >
-                {t('contractCard.fees', {
-                  fees: getCurrencyDisplayWithPrice(contract.flat_fee),
-                })}
-              </div>
             </div>
           </GridItem>
 
-          {/* START -- SECOND ROW : SPANNING TWO COLUMNS [CONTANING ONLY THE DESCRIPTION] */}
+          {/* START -- FOURTH ROW / DESCRIPTION ROW */}
 
           <GridItem
             classes={{
@@ -154,7 +163,7 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
                   }),
             }}
           >
-            <Collapse collapsedHeight={60} isExpanded={showAllDescription}>
+            <Collapse collapsedHeight={40} isExpanded={showAllDescription}>
               <div
                 ref={descriptionText.ref}
                 className={classNames('bs-contract-buyable-item__description', {
@@ -162,16 +171,17 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
                     !showAllDescription,
                 })}
               >
-                {contract?.description}
+                {contract?.description ?? ''}
               </div>
             </Collapse>
           </GridItem>
 
-          {/* START -- THIRD ROW */}
+          {/* START -- FIFTHROW / SEE MORE & NUMBER OF BILLING ROW */}
+
           <GridItem
             classes={{
-              'bs-contract-buyable-item__grid_item-collapse-arrow':
-                'bs-contract-buyable-item__grid_item-collapse-arrow',
+              'bs-contract-buyable-item__grid_item-footer':
+                'bs-contract-buyable-item__grid_item-footer',
             }}
           >
             <div
@@ -182,8 +192,8 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
             >
               <Button
                 classes={{
-                  root: 'bs-contract-buyable-item__seemore',
-                  text: 'bs-contract-buyable-item__seemore__text',
+                  root: 'bs-contract-buyable-item__seemore_button',
+                  text: 'bs-contract-buyable-item__seemore_button__text',
                 }}
                 onClick={onClickSeeMore}
               >
@@ -200,20 +210,11 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
                 )}
               </Button>
             </div>
-          </GridItem>
-          <GridItem
-            classes={{
-              'bs-contract-buyable-item__grid_item-number_invoices':
-                'bs-contract-buyable-item__grid_item-number_invoices',
-            }}
-          >
             {!!contract?.nb_interval && (
-              <div className="bs-contract-buyable-item__planned-invoices">
-                <div className="bs-contract-buyable-item__planned-invoices__content">
-                  {t('contractCard.invoice', {
-                    count: contract.nb_interval,
-                  })}
-                </div>
+              <div className="bs-contract-buyable-item__number_of_invoices">
+                {t('contractCard.invoice', {
+                  count: contract.nb_interval,
+                })}
               </div>
             )}
           </GridItem>

@@ -82,7 +82,7 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
               'bs-payment-pack-buyableitem__content_grid',
           }}
         >
-          {/* START -- FIRST ROW */}
+          {/* START -- FIRST ROW / NAME ROW */}
           <GridItem
             classes={{
               'bs-payment-pack-buyable-item__grid_item-title':
@@ -90,31 +90,52 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
             }}
           >
             <div className="bs-payment-pack-buyable-item__title">
-              <div
-                className={classNames(
-                  'bs-payment-pack-buyable-item__recommended-item',
-                  {
-                    'bs-payment-pack-buyable-item__recommended-item--hidden':
-                      !isRecommended,
-                  },
-                )}
-              >
-                <div className="bs-paymentpack-buyable-item__recommended_icon">
-                  <RecommendedChip />
-                </div>
-              </div>
               {!!paymentPack?.linked_private_pass && (
                 <ToolTip
                   title={t(
                     'marketplace:genericCard.title.universalPassMessage',
                   )}
                 >
-                  <Style className="bs-payment-pack-buyable-item__title__icon" />
+                  <Style
+                    className="bs-payment-pack-buyable-item__title__icon"
+                    fontSize="small"
+                  />
                 </ToolTip>
               )}
               {paymentPack?.name ?? ''}
             </div>
+            <div
+              className={classNames(
+                'bs-payment-pack-buyable-item__recommended-item',
+                {
+                  'bs-payment-pack-buyable-item__recommended-item--hidden':
+                    !isRecommended,
+                },
+              )}
+            >
+              <div className="bs-paymentpack-buyable-item__recommended_icon">
+                <RecommendedChip />
+              </div>
+            </div>
           </GridItem>
+          {/* START -- SECOND ROW / CREDIT ROW */}
+          <GridItem
+            classes={{
+              'bs-payment-pack-buyable-item__grid_item-credits':
+                'bs-payment-pack-buyable-item__grid_item-credits',
+              ...(hideCredits
+                ? {
+                    'bs-payment-pack-buyable-item__grid_item-credits--hidden':
+                      'bs-payment-pack-buyable-item__grid_item-credits--hidden',
+                  }
+                : {}),
+            }}
+          >
+            <div className="bs-payment-pack-buyable-item__credits_caption">
+              {formatedCredits}
+            </div>
+          </GridItem>
+          {/* START -- THIRD ROW / PRICE ROW */}
           <GridItem
             classes={{
               'bs-payment-pack-buyable-item__grid_item-pricing':
@@ -132,20 +153,9 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
                 isExcludingTax={isExcludingTax}
                 tax={paymentPack.tax}
               />
-              <div
-                className={classNames(
-                  'bs-payment-pack-buyable-item__credits_caption',
-                  {
-                    'bs-payment-pack-buyable-item__credits_caption--hidden':
-                      hideCredits,
-                  },
-                )}
-              >
-                {formatedCredits}
-              </div>
             </div>
           </GridItem>
-          {/* START -- SECOND ROW : SPANNING TWO COLUMNS */}
+          {/* START -- FOURTH ROW / DESCRIPTION ROW */}
           <GridItem
             classes={{
               'bs-payment-pack-buyable-item__grid_item-description':
@@ -173,11 +183,11 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
               </div>
             </Collapse>
           </GridItem>
-          {/* START -- THIRD ROW */}
+          {/* START -- FIFTHROW / SEE MORE & VALIDITY ROW */}
           <GridItem
             classes={{
-              'bs-payment-pack-buyable-item__grid_item-collapse-arrow':
-                'bs-payment-pack-buyable-item__grid_item-collapse-arrow',
+              'bs-payment-pack-buyable-item__grid_item-footer':
+                'bs-payment-pack-buyable-item__grid_item-footer',
             }}
           >
             <div
@@ -206,14 +216,6 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
                 )}
               </Button>
             </div>
-          </GridItem>
-
-          <GridItem
-            classes={{
-              'bs-payment-pack-buyable-item__grid_item-validity':
-                'bs-payment-pack-buyable-item__grid_item-validity',
-            }}
-          >
             <div className="bs-payment-pack-buyable-item__validity">
               {useValidityInfoForPaymentPackCard(paymentPack)}
             </div>

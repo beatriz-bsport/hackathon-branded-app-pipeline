@@ -11,8 +11,9 @@ import MarketplacePaymentPackBuyableItem, {
 } from '.';
 
 const fakePaymentPack = paymentPackFactory({
-  isUniversalPass: false,
+  isUniversalPass: true,
   isUnlimited: false,
+  isHighlightedAsRecommended: true,
 });
 
 const fakeUniversalPaymentPack = paymentPackFactory({

@@ -51,12 +51,13 @@ export const CheckoutButtons: React.FC<CheckoutButtonsProps> = ({
             <Button
               key={button.id}
               className={classes.submitButton}
+              color="primary"
               disabled={
                 submitButtonsDisabledState[button.id] ||
                 submitButtonsProcessingState[button.id]
               }
               onClick={handleSubmitButtonsCallbacks[button.id]}
-              variant="outlined"
+              variant={button.variant as 'text' | 'outlined' | 'contained'}
             >
               {submitButtonsProcessingState[button.id] && (
                 <CircularProgress
@@ -196,19 +197,6 @@ const useStyles = makeStyles((theme: Theme) => {
         2,
       )}px`,
       borderRadius: theme.spacing(3),
-      borderColor: theme.palette.primary.main,
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.primary.contrastText,
-      '&:disabled': {
-        background: theme.palette.grey[100],
-        borderColor: theme.palette.grey[100],
-        color: theme.palette.grey[400],
-      },
-      '&:hover': {
-        background: theme.palette.grey[100],
-        borderColor: theme.palette.grey[100],
-        color: theme.palette.grey[400],
-      },
       [theme.breakpoints.down('sm')]: {
         margin: ` 0 0 ${theme.spacing(2)}px 0`,
       },

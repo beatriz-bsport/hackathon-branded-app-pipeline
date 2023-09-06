@@ -148,10 +148,22 @@ export type GeneratedObject = {
 };
 
 export const SUBMIT_BUTTONS = {
-  NEXT_BUTTON: { id: 0, textPath: 'forms.delivery.actions.submit' },
-  PAY_NOW_BUTTON: { id: 1, textPath: 'validation.actions.payNow' },
-  PAY_LATER_BUTTON: { id: 2, textPath: 'payLater.submit' },
-  CONFIRM_BUTTON: { id: 3, textPath: 'validation.actions.confirmPriceNull' },
+  NEXT_BUTTON: {
+    id: 0,
+    textPath: 'forms.delivery.actions.submit',
+    variant: 'contained',
+  },
+  PAY_NOW_BUTTON: {
+    id: 1,
+    textPath: 'validation.actions.payNow',
+    variant: 'contained',
+  },
+  PAY_LATER_BUTTON: { id: 2, textPath: 'payLater.submit', variant: 'outlined' },
+  CONFIRM_BUTTON: {
+    id: 3,
+    textPath: 'validation.actions.confirmPriceNull',
+    variant: 'contained',
+  },
 };
 
 export const STEPS = {

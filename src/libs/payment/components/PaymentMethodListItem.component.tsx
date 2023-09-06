@@ -59,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   checked: {},
+  nolistStyle: { listStyleType: 'none' },
 }));
 
 export const PaymentMethodListItem: FC<Props> = ({
@@ -105,6 +106,7 @@ export const PaymentMethodListItem: FC<Props> = ({
     <ListItem
       // @ts-expect-error
       button={!!onClick}
+      classes={{ container: classes.nolistStyle }}
       className={`${classes.listItem} ${
         selected ? classes.selectedBorder : null
       }`}

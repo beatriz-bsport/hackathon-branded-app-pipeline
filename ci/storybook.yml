@@ -4,7 +4,7 @@
 
   tags:
     - build-frontend
-    - kubernetes
+    - cluster:bsport-tooling
   retry:
     max: 1
   variables:

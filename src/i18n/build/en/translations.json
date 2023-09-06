@@ -2683,7 +2683,9 @@
             "description": "Description",
             "content": "Content",
             "purchases": "Purchases",
-            "emptyContent": "This pack doesn't contain any products to display."
+            "emptyContent": "This pack doesn't contain any products to display.",
+            "itemCount": "{{ count }} item",
+            "itemCount_plural": "{{ count }} items"
         },
         "delete": {
             "title": "Delete pack",
@@ -7587,7 +7589,8 @@
                 "offerNotBookable": "Unable to register",
                 "offerPreBooked": "You've joined the waitlist for",
                 "offerBooked": "My booking",
-                "basket": "Your basket",
+                "offerBooked_plural": "My bookings",
+                "basket": "My basket",
                 "title": "Congratulations!",
                 "errorExplain": {
                     "generic": "The operation could not be performed. We invite you to try again.",
@@ -7597,11 +7600,41 @@
                     "guestSettings": "Inviting guests isn't available.",
                     "guestOffer": "The studio has disabled the booking for a guest feature for this session.",
                     "guestPass": "The studio has disabled the booking for a guest feature for this pass.",
-                    "guestNotEnoughSpot": "There is not enough capacity for all your guests."
+                    "guestNotEnoughSpot": "There is not enough capacity for all your guests.",
+                    "genericOfferError": "We have encountered a problem when processing your session booking. Please try again later or book a different session.",
+                    "offerOnlyBookingError": "Sorry, but the selected session and spot cannot be booked at the moment. Please try again."
                 },
                 "error": "Error",
                 "recap": "Summary",
-                "explain": "Your purchase has been processed. Shortly, you'll also receive a confirmation email."
+                "explain": "Your purchase has been processed. Shortly, you'll also receive a confirmation email.",
+                "myGiftcard": "My giftcard",
+                "myGiftcard_plural": "My giftcards",
+                "myProduct": "My product",
+                "myProduct_plural": "My products",
+                "mySubscription": "My subscription",
+                "myPack": "My pack",
+                "myPack_plural": "My packs",
+                "myPass": "My pass",
+                "myPass_plural": "My passes",
+                "alert": "Oops! The booking failed.\nWe've had a problem processing your session booking. Please try again later or book a different session.",
+                "confirmationStatusMessage": {
+                    "offerAndPurchaseSuccess": "Congratulations! Your purchases and bookings have been confirmed. You will shortly receive a confirmation e-mail with all the details.",
+                    "paymentSuccess": "Congratulations! Your purchase has been confirmed!",
+                    "paymentSuccess_plural": "Congratulations! Your purchases are confirmed!",
+                    "offerOnlySuccess": "The booking has been made. You will soon receive a confirmation e-mail with all the details.",
+                    "offerOnlySuccess_plural": "The bookings have been made. You will soon receive a confirmation e-mail with all the details."
+                },
+                "confirmationStatusTitle": {
+                    "success": {
+                        "waitingList": "You have registered on the waiting list",
+                        "paymentSuccess": "Payment confirmed!",
+                        "offerOnlySuccess": "Enjoy the session!"
+                    },
+                    "errors": {
+                        "genericOfferError": "Oops! The booking failed.",
+                        "generic": "Oops! Payment failed."
+                    }
+                }
             },
             "actions": {
                 "back": "Go back",
@@ -7609,7 +7642,22 @@
                 "widgetContinue": "Next",
                 "member": "My account",
                 "payNow": "Pay now",
-                "confirmPriceNull": "Confirm"
+                "confirmPriceNull": "Confirm",
+                "myPasses": "My passes",
+                "myGiftcards": "My giftcards",
+                "myProducts": "My products",
+                "mySubscription": "My subscription",
+                "retryBookingSession": "Try to book again",
+                "newWorkshop": "New workshop",
+                "retry": "Try again",
+                "myBookings": "My bookings",
+                "goToCalendar": "Back to calendar"
+            },
+            "bookingItem": {
+                "bookingItemStatus": {
+                    "unpaid": "Unpaid",
+                    "waitingList": "Waiting list"
+                }
             }
         },
         "expire_in": "Expires in ",
@@ -7655,7 +7703,8 @@
             "internalAccount": "My internal account balance",
             "deliveryFee": "Delivery Fee",
             "title": "Payment",
-            "totalHiddingTax": "Total to pay now"
+            "totalHiddingTax": "Total to pay now",
+            "flatFeeSubscription": "application fee"
         }
     },
     "establishment": {
@@ -8599,7 +8648,8 @@
                     "collect": "Save",
                     "close": "Close",
                     "displayPaymentMethod": "Display my payment methods",
-                    "selectPaymentMethod": "Select your payment method"
+                    "selectPaymentMethod": "Select your payment method",
+                    "cancel": "Cancel"
                 },
                 "collect": {
                     "content": "This payment method will be saved in your account to be invoiced in accordance with the contract.",
@@ -10286,6 +10336,58 @@
         "subscriptionNotFound": {
             "explanation": "This subscription no longer exists. Please choose another one or contact your studio manager.",
             "title": "Subscription not found"
+        },
+        "newCheckout": {
+            "error": {
+                "button": {
+                    "userRegistration": "See my subscription",
+                    "registerBackground": "Close"
+                },
+                "text": {
+                    "userRegistration": "Your subscription has been created and your payment method will be debited shortly. However, your booking could not be registered.",
+                    "registerBackground": "Your subscription and booking could not be created. The payment method has not been debited."
+                },
+                "title": "An error has occurred"
+            },
+            "payment": {
+                "tooltip": "This payment method will be retained for billing in accordance with the contract. Don't worry, you can change it later from your account.",
+                "details": "Payment details"
+            },
+            "subscriptionBasketSummary": {
+                "message": "You can view your subscription on your member profile",
+                "payNow": "Pay now"
+            },
+            "terms": {
+                "acceptTerms": "I accept the <0>legal terms</0>.",
+                "seeLess": "See less",
+                "seeMore": "See more",
+                "title": "Terms of contract"
+            },
+            "subscriptionSummary": {
+                "billingInterval": {
+                    "day": "Every day",
+                    "day_plural": "Every {{ count }} days",
+                    "year": "Every year",
+                    "year_plural": "Every {{ count }} years",
+                    "week": "Every week",
+                    "week_plural": "Every {{ count }} weeks",
+                    "month": "Every month",
+                    "month_plural": "Every {{ count }} months"
+                },
+                "prorataPriceText": "{{proratedPrice}} due the {{-today}}, then {{recurrentPrice}} each {{monthBillingDay}} day of the month.",
+                "item": "{{count}} item",
+                "item_plural": "{{count}} items",
+                "unlimited": "Unlimited",
+                "credit": "{{count}} credit",
+                "credit_plural": "{{count}} credits",
+                "startDate": "Start date"
+            },
+            "processingPaymentModal": {
+                "timeEstimation": "This can take up to a minute",
+                "text": "Please wait for the payment to be processed. Do not leave or reload this page.",
+                "title": "Payment in progress"
+            },
+            "title": "Subscription"
         }
     },
     "reporting": {
@@ -11006,6 +11108,7 @@
                 "Canceled",
                 "Cancelled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
@@ -14858,6 +14961,10 @@
             "create": {
                 "error": "Unable to save email",
                 "success": "Email created"
+            },
+            "duplicate": {
+                "error": "Unable to duplicate email",
+                "success": "Duplicate email"
             }
         },
         "coupon": {

@@ -9,7 +9,7 @@
 .bs-new-offer-booking-page__pricing_container {
   display: grid;
   grid-template:
-    'header-left headar-right'
+    'header-left header-right'
     'main-left main-right';
   grid-template-columns: calc(1180px * 0.66) auto;
   grid-template-rows: 5vh calc(90vh - 5vh);

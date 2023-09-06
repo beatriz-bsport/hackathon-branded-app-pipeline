@@ -173,11 +173,7 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
 
   return (
     <div className="bs-marketplace-spot-selector">
-      <div
-        className={classNames('bs-marketplace-spot-selector__header', {
-          'bs-marketplace-spot-selector__header--mobile': isMobile,
-        })}
-      >
+      <div className="bs-marketplace-spot-selector__header">
         <OfferSummary
           establishment={props.offer?.establishment}
           metaActivity={props.offer?.meta_activity}

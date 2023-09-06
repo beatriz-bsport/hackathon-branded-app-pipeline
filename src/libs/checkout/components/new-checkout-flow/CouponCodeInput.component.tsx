@@ -88,11 +88,13 @@ const CouponCodeInput: React.FC<CouponCodeInputProps> = ({
         className={classes.textField}
         colorsOverride={colorsOverride}
         endAdornment={
-          <InputAdornment position="end">
-            <IconButton onClick={handleClearCouponCode}>
-              {couponCode && <ClearIcon />}
-            </IconButton>
-          </InputAdornment>
+          couponCode && (
+            <InputAdornment position="end">
+              <IconButton onClick={handleClearCouponCode}>
+                <ClearIcon />
+              </IconButton>
+            </InputAdornment>
+          )
         }
         error={error !== ErrorType.EMPTY}
         helperText={

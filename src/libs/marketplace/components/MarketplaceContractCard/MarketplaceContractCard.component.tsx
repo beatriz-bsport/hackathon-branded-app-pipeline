@@ -88,9 +88,9 @@ const MarketplaceContractCard: React.FC<Props> = ({
           </Item>
           <Item
             alignment={Alignment.FLEX_END}
+            columnEnd={2}
             justification={Justification.FLEX_START}
             rowStart={1}
-            columnEnd={2}
           >
             {!!contract?.nb_interval && (
               <div className="bs-contract-card__planned-invoices">
@@ -103,62 +103,70 @@ const MarketplaceContractCard: React.FC<Props> = ({
             )}
           </Item>
           <Item
-            rowStart={1}
-            columnStart={1}
-            justification={Justification.FLEX_END}
             alignment={Alignment.FLEX_END}
             classes={{
               'bs-contract-card__price-item': 'bs-contract-card__price-item',
             }}
+            columnStart={1}
+            justification={Justification.FLEX_END}
+            rowStart={1}
           >
             <div className="bs-contract-card__price-container">
               <Price
-                isExcludingTax={isExcludingTax}
-                tax={parseFloat(contract?.tax) || 0}
                 amount={contract?.recurrent_price}
-                formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                 classes={{
                   'bs-contract-card__price': 'bs-contract-card__price',
                 }}
+                formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+                isExcludingTax={isExcludingTax}
+                tax={parseFloat(contract?.tax) || 0}
               >
                 <div className="bs-contract-card__billing-interval--desktop">
-                  <BillingInterval contract={contract} />
+                  <BillingInterval
+                    flatFee={contract?.flat_fee}
+                    interval={contract?.interval}
+                    recurrenceBasis={contract?.recurrence_basis}
+                  />
                 </div>
                 <div className="bs-contract-card__billing-interval--mobile">
-                  <BillingInterval contract={contract} />
+                  <BillingInterval
+                    flatFee={contract?.flat_fee}
+                    interval={contract?.interval}
+                    recurrenceBasis={contract?.recurrence_basis}
+                  />
                 </div>
               </Price>
             </div>
           </Item>
           <Item
-            rowStart={2}
-            columnStart={1}
-            justification={Justification.FLEX_START}
             alignment={Alignment.FLEX_END}
             classes={{
               'bs-contract-card__price-icon': 'bs-contract-card__price-icon',
             }}
+            columnStart={1}
+            justification={Justification.FLEX_START}
+            rowStart={2}
           >
             <button
-              type="button"
               className="bs-contract-card__price-icon"
               onClick={handleAddToCart}
+              type="button"
             >
               <ShoppingCartIcon />
             </button>
           </Item>
         </Grid>
         <Item
-          justification={Justification.SPACE_BETWEEN}
-          direction={Direction.ROW}
           classes={{
             'bs-contract-card__footer': 'bs-contract-card__footer',
           }}
+          direction={Direction.ROW}
+          justification={Justification.SPACE_BETWEEN}
         >
           <button
-            type="button"
             className="bs-contract-card__left-button"
             onClick={handleOpenDetailDialog}
+            type="button"
           >
             <div className="bs-contract-card__left-button__content">
               <VisibilityIcon className="bs-contract-card__left-button__icon" />
@@ -167,9 +175,9 @@ const MarketplaceContractCard: React.FC<Props> = ({
           </button>
 
           <button
-            type="button"
             className="bs-contract-card__right-button"
             onClick={handleAddToCart}
+            type="button"
           >
             {t('contractCard.registerButton')}
           </button>

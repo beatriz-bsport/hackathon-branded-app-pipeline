@@ -1,14 +1,11 @@
 .bs-paymentpack-card {
-  border-radius: var(--border-radius-4);
-}
-
-.bs-paymentpack-card--background {
-  height: 230px;
   background: linear-gradient(
     120deg,
     var(--color-secondary-background-paper) 50%,
     var(--color-background-paper) 50%
   );
+  border-radius: var(--border-radius-4);
+  height: 230px;
 }
 
 .bs-pass-card-content {
@@ -44,21 +41,8 @@
   -webkit-box-orient: vertical;
 }
 
-.bs-paymentpack-card__title--small {
-  font-size: var(--subtitle1-fontSize);
-}
-
-.bs-paymentpack-card__title--flex {
-  display: flex;
-  align-items: center;
-}
-
 .bs-paymentpack-card__title__icon {
   margin-right: var(--spacing-1);
-}
-
-.bs-paymentpack-car__title__chipcontainer {
-  margin-left: var(--spacing-1);
 }
 
 .bs-paymentpack-card__subtitle {
@@ -74,6 +58,7 @@
 }
 
 .bs-paymentpack-card__description {
+  max-height: 40px;
   text-align: left;
   word-break: break-word;
   font-size: var(--body2-fontSize);
@@ -83,16 +68,12 @@
   color: var(--color-grey-main);
   margin-top: var(--spacing-1);
   margin-bottom: var(--spacing-2);
-  white-space: pre-wrap;
-}
-
-.bs-paymentpack-card__description--short {
-  max-height: 40px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   /* autoprefixer: off */
   -webkit-box-orient: vertical;
+  white-space: pre-wrap;
 }
 
 .bs-paymentpack-card__validity {
@@ -106,10 +87,8 @@
   font-weight: var(--body2-fontWeight);
   letter-spacing: var(--body2-letterSpacing);
   line-height: var(--body2-lineHeight);
-}
-
-.bs-paymentpack-card__validity--margin {
-  margin-bottom: var(--spacing-1);
+  width: min-content;
+  min-width: 60%;
 }
 
 .bs-paymentpack-card__validity__content {
@@ -120,11 +99,6 @@
   letter-spacing: var(--body2-letterSpacing);
   line-height: var(--body2-lineHeight);
   padding: 0px 4px;
-}
-
-.bs-paymentpack-card__price--small {
-  font-size: var(--h5-fontSize);
-  font-weight: 500;
 }
 
 .bs-paymentpack-card__price-container {
@@ -191,10 +165,9 @@
   background: var(--color-primary-dark);
 }
 
-@container bsPassPage (width < 750px) {
+@media screen and (max-width: 749px) {
   .bs-paymentpack-card__title {
     -webkit-line-clamp: 3;
-    font-size: var(--h6-fontSize);
   }
 
   .bs-paymentpack-card__description {
@@ -218,7 +191,11 @@
     margin-bottom: 0;
   }
 
-  .bs-paymentpack-card {
+  .bs-pass-card {
     height: 160px;
+  }
+
+  .bs-pass-card__title {
+    font-size: var(--h6-fontSize);
   }
 }

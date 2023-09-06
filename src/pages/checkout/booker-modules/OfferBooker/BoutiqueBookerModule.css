@@ -134,10 +134,11 @@
   }
 
   .bs-new-offer-booking__offer-summary {
-    position: fixed;
+    position: sticky;
     bottom: 0;
     width: 100vw;
     padding: 0;
+    grid-area: unset;
   }
   .bs-new-offer-booking__spot-selector__container {
     display: grid;

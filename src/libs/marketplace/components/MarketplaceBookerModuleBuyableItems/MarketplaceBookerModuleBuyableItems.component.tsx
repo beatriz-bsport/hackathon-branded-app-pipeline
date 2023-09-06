@@ -120,6 +120,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
             (buyableItemCategories || [])?.map((buyableItemCategory) => (
               <MarketplaceBuyableItemCategoryList
                 key={buyableItemCategory.index}
+                excludeRecommendedItemsFromRegularCategories
                 buyableItemCategory={buyableItemCategory}
                 hideCreditsForCustomers={hideCreditsForCustomers}
                 isExcludingTax={isExcludingTax}

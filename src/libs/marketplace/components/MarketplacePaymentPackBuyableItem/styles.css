@@ -156,8 +156,8 @@
 
 .bs-payment-pack-buyable-item__seemore_button {
   background: none;
-  padding-top: calc(var(--spacing-1) * 1);
   padding: 2px 0 0;
+  padding-top: var(--spacing-1);
   width: fit-content;
   z-index: 100;
 }

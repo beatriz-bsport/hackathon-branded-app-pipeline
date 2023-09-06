@@ -9,9 +9,9 @@ import { useMediaQuery, useTheme } from '@material-ui/core';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import ToolTip from '#components/Tooltip.component';
 import Card from '#components/css-only/Card';
-import Content from '#components/css-only/Card/CardContent';
+import CardContent from '#components/css-only/Card/CardContent';
 import Grid from '#components/css-only/Grid';
-import Item, {
+import GridItem, {
   Alignment,
   Direction,
   Justification,
@@ -25,7 +25,7 @@ import type { PaymentPack } from '#libs/payment-packs/types';
 import { CardSize } from '#components/css-only/Card/types';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import { useValidityInfoForPaymentPackCard } from '../../utils/payment-pack';
-
+import Button from '#components/css-only/Button';
 import './styles.css';
 
 export type Props = {
@@ -64,20 +64,20 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
   );
 
   return (
-    <Card size={CardSize.AUTO} classes={{ 'bs-pass-card': 'bs-pass-card' }}>
-      <Content
+    <Card classes={{ 'bs-pass-card': 'bs-pass-card' }} size={CardSize.AUTO}>
+      <CardContent
         padding
         classes={{ 'bs-pass-card-content': 'bs-pass-card-content' }}
       >
         <Grid
           classes={{ 'bs-paymentpack-card__grid': 'bs-paymentpack-card__grid' }}
         >
-          <Item
+          <GridItem
             alignment={Alignment.FLEX_START}
+            columnEnd={1}
             justification={
               isMobile ? Justification.SPACE_BETWEEN : Justification.FLEX_START
             }
-            columnEnd={1}
           >
             <div className="bs-paymentpack-card__title">
               {!!paymentPack.linked_private_pass && (
@@ -97,8 +97,8 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
                 {paymentPack.description}
               </div>
             )}
-          </Item>
-          <Item
+          </GridItem>
+          <GridItem
             alignment={Alignment.FLEX_END}
             justification={Justification.SPACE_BETWEEN}
           >
@@ -108,48 +108,45 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
               </div>
             </div>
             <Price
-              tax={paymentPack.tax}
-              isExcludingTax={isExcludingTax}
               amount={paymentPack.price}
               formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+              isExcludingTax={isExcludingTax}
+              tax={paymentPack.tax}
             >
-              <button
-                type="button"
-                className="bs-pass-card__price-icon"
+              <Button
+                classes={{ root: 'bs-pass-card__price-icon' }}
                 onClick={handleAddToCart}
               >
                 <ShoppingCartIcon />
-              </button>
+              </Button>
             </Price>
-          </Item>
+          </GridItem>
         </Grid>
-        <Item
-          justification={Justification.SPACE_BETWEEN}
-          direction={Direction.ROW}
+        <GridItem
           classes={{
             'bs-paymentpack-card__footer': 'bs-paymentpack-card__footer',
           }}
+          direction={Direction.ROW}
+          justification={Justification.SPACE_BETWEEN}
         >
-          <button
-            type="button"
-            className="bs-paymentpack-card__left-button"
+          <Button
+            classes={{ root: 'bs-paymentpack-card__left-button' }}
             onClick={onOpenDetailDialog}
           >
             <div className="bs-paymentpack-card__left-button__content">
               <VisibilityIcon className="bs-paymentpack-card__left-button__icon" />
               {t('genericCard.details.buttonContent')}
             </div>
-          </button>
+          </Button>
 
-          <button
-            type="button"
-            className="bs-paymentpack-card__right-button"
+          <Button
+            classes={{ root: 'bs-paymentpack-card__right-button' }}
             onClick={addToCart}
           >
             {t('genericCard.addButton.buttonContent')}
-          </button>
-        </Item>
-      </Content>
+          </Button>
+        </GridItem>
+      </CardContent>
     </Card>
   );
 };

@@ -289,9 +289,9 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
 
     return this.props.contract.month_billing_day
       ? computeProrataPriceForSubscription(
-          moment(),
+          moment().format('YYYY-MM-DD'),
           this.props?.contract?.month_billing_day,
-          this.props?.contract?.recurrent_price.toString(),
+          (this.props?.contract?.recurrent_price ?? 0).toString(),
         )
       : this.props.contract.recurrent_price;
   };
@@ -347,7 +347,7 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
 
     if (this.props.contract.month_billing_day) {
       const firstInvoiceProrataPrice = computeProrataPriceForSubscription(
-        moment(),
+        moment().format('YYYY-MM-DD'),
         this.props.contract.month_billing_day,
         this.props.contract.recurrent_price.toString(),
       );

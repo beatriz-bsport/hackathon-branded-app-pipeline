@@ -33,7 +33,7 @@ export const ContractRecap: React.FC<Props> = (props) => {
 
   const getProratedPrice = useCallback(() => {
     const firstInvoiceProrataPrice = computeProrataPriceForSubscription(
-      moment(),
+      moment().format('YYYY-MM-DD'),
       month_billing_day,
       recurrent_price.toString(),
     );

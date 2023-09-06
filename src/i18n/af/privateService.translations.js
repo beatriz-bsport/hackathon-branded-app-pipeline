@@ -8,6 +8,21 @@ const {
 
 exports.default = {
   seeAll: 'Tout voir',
+  forms: {
+    delete: {
+      content: {
+        canDelete:
+        'Êtes-vous sûr de vouloir supprimer ce RDV ? Cette modification est définitive. Les réservations déjà enregistrées ne seront pas affectées.',
+      },
+      title: 'Suppression du rendez-vous',
+      actions: {
+        cancel: 'Annuler',
+        confirm: 'Supprimer',
+      },
+      cancel: 'Annuler',
+      confirm: 'Supprimer',
+    }
+  },
   privatePassTemplateInstance: {
     privatePassSharedFromFranchisor: 'Carte franchise',
     privateConsumerPassSharedFromOtherFranchisee: 'Partagé depuis franchisé',
@@ -360,7 +375,7 @@ exports.default = {
       title: 'Suppression du rendez-vous',
       explain:
         'Êtes-vous sûr de vouloir supprimer ce RDV ? Cette modification est définitive. Les réservations déjà enregistrées ne seront pas affectées.',
-      cancel: 'Annuler',
+        cancel: 'Annuler',
       submit: 'Supprimer',
       confirm: 'Supprimer',
     },

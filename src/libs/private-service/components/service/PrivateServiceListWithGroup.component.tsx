@@ -18,7 +18,7 @@ import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLev
 import type {
   PrivateService,
   PrivateServiceGroupWithService,
-} from '../../types';
+} from '#libs/private-service/types';
 
 type Props = {
   openServiceGroupToEdit: (
@@ -147,7 +147,6 @@ export const PrivateServiceListWithGroup: React.FC<Props> = ({
                       (privateService) => (
                         <PrivateServiceListItem
                           key={privateService.id}
-                          hideSecondary={false}
                           onClick={goToPrivateService}
                           onDelete={handleDeletePrivateService(
                             hasDeletePermission,
@@ -176,7 +175,6 @@ export const PrivateServiceListWithGroup: React.FC<Props> = ({
               {privateServiceAvailableWithoutGroup.map((privateService) => (
                 <PrivateServiceListItem
                   key={privateService.id}
-                  hideSecondary={false}
                   onClick={goToPrivateService}
                   onDelete={handleDeletePrivateService(
                     hasDeletePermission,

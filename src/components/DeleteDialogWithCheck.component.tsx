@@ -30,10 +30,13 @@ export class DeleteDialogWithCheck extends Component<
   Props & WithTranslation,
   State
 > {
-  state = {
-    loading: false,
-    canDeleteObject: false,
-  };
+  constructor(props: Props & WithTranslation) {
+    super(props);
+    this.state = {
+      loading: false,
+      canDeleteObject: !this.props.checkCanDeleteObjectAPI,
+    };
+  }
 
   componentDidUpdate(prevProps: Props) {
     if (
@@ -119,4 +122,5 @@ export default withTranslation([
   'establishment',
   'metaActivity',
   'workshop',
+  'privateService',
 ])(DeleteDialogWithCheck);

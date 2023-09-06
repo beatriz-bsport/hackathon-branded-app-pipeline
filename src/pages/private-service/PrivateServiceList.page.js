@@ -22,6 +22,7 @@ import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import PrivateServiceFormDrawer from '../../libs/private-service/components/service/PrivateServiceFormDrawer.component';
 import PrivateServiceListWithGroup from '../../libs/private-service/components/service/PrivateServiceListWithGroup.component';
 import PrivateServiceGroupFormDialog from '../../libs/private-service/components/service-group/PrivateServiceGroupFormDialog.component';
+import PrivateServiceDeleteDialog from '../../libs/private-service/components/service/PrivateServiceDeleteDialog.component';
 import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import ObjectLevelPermissionProvider from '../../libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
@@ -92,6 +93,8 @@ type Props = {
   privateServiceAvailableByGroup: Array<PrivateGroupWithService>,
 
   openCreateForm: boolean,
+  openDeleteServiceModal?: number,
+  setOpenDeleteServiceModal: (number) => void,
   loading: boolean,
   setOpenCreateForm: (boolean) => void,
   t: TFunction,
@@ -155,6 +158,8 @@ export class PrivateServiceList extends React.Component<Props, State> {
       },
     });
   };
+
+  closeDeleteServiceModal = () => this.props.setOpenDeleteServiceModal(null);
 
   changeSearch = (fuse) => (ev) => {
     this.setState({
@@ -225,7 +230,7 @@ export class PrivateServiceList extends React.Component<Props, State> {
                         onClick={this.props.goToPrivateService}
                         onDelete={
                           hasDeletePermission
-                            ? () => this.props.deletePrivateService(ps.id)
+                            ? () => this.props.setOpenDeleteServiceModal(ps.id)
                             : null
                         }
                         onEdit={
@@ -244,7 +249,7 @@ export class PrivateServiceList extends React.Component<Props, State> {
         )}
 
         <PrivateServiceListWithGroup
-          deletePrivateService={this.props.deletePrivateService}
+          deletePrivateService={this.props.setOpenDeleteServiceModal}
           deleteServiceGroup={this.props.deleteServiceGroup}
           goToPrivateService={this.props.goToPrivateService}
           openServiceGroupToEdit={this.props.openServiceGroupToEdit}
@@ -300,6 +305,13 @@ export class PrivateServiceList extends React.Component<Props, State> {
             {t('service.form.createButton')}
           </Fab>
         </ObjectLevelPermissionWrapper>
+        {this.props.openDeleteServiceModal && (
+          <PrivateServiceDeleteDialog
+            deletePrivateService={this.props.deletePrivateService}
+            onClose={this.closeDeleteServiceModal}
+            privateServiceToDeleteId={this.props.openDeleteServiceModal}
+          />
+        )}
       </div>
     );
   }
@@ -398,6 +410,7 @@ export default compose(
   ),
   withState('openCreateForm', 'setOpenCreateForm', false),
   withState('openEditForm', 'setOpenEditForm', null),
+  withState('openDeleteServiceModal', 'setOpenDeleteServiceModal', null),
   withStateHandlers(
     { serviceGroupToEdit: null, serviceGroupCreateOpen: false },
     {

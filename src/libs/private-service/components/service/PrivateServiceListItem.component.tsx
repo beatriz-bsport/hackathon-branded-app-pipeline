@@ -33,7 +33,7 @@ type Props = {
   onEdit: () => void;
   dense?: boolean;
   selected?: boolean;
-  hideSecondary: boolean;
+  hideSecondary?: boolean;
   onDelete: () => void;
   compatibilityByService?: ServiceCompatibilityPass;
   excluded_slots?: number[];

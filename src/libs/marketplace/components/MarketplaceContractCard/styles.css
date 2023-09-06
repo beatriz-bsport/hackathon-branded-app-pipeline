@@ -1,9 +1,4 @@
 .bs-contract-card {
-  border-radius: var(--border-radius-4);
-  z-index: 0;
-}
-
-.bs-contract-card--background {
   background: linear-gradient(
       120deg,
       var(--color-secondary-background-paper-transparent) 55%,
@@ -31,37 +26,12 @@
   color: var(--color-grey-dark);
   margin-bottom: var(--spacing-1);
   white-space: pre-line;
-}
-
-.bs-contract-card__title--small {
-  font-size: var(--subtitle1-fontSize);
-}
-
-.bs-contract-card__title--flex {
-  display: flex;
-  align-items: center;
-}
-
-.bs-contract-card__title__chipcontainer {
-  margin-left: var(--spacing-1);
-}
-
-.bs-paymentpack-card__seemore {
-  font-size: var(--subtitle2-fontSize);
-  font-family: var(--subtitle2-fontFamily);
-  color: var(--color-grey-dark);
-  font-weight: 500;
-  border: none;
-  background: none;
-  cursor: pointer;
-  padding: 0;
-  margin-bottom: var(--spacing-1);
-}
-
-.bs-paymentpack-card__seemore__row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
 }
 
 .bs-contract-card__title__icon {
@@ -86,6 +56,7 @@
 
 .bs-contract-card__description {
   text-align: left;
+  max-height: 60px;
   width: 80%;
   font-size: var(--body2-fontSize);
   font-weight: var(--body2-fontWeight);
@@ -94,10 +65,6 @@
   color: var(--color-grey-main);
   margin-top: var(--spacing-1);
   margin-bottom: var(--spacing-2);
-}
-
-.bs-contract-card__description--short {
-  max-height: 60px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -146,12 +113,6 @@
   flex-direction: column;
   align-items: flex-end;
   margin-bottom: var(--spacing-1);
-}
-
-.bs-contract-card__price--small {
-  font-size: var(--h5-fontSize);
-  font-weight: 500;
-  margin-top: var(--spacing-1);
 }
 
 .bs-contract-card__billing-interval--desktop {
@@ -214,7 +175,7 @@
   background: var(--color-primary-dark);
 }
 
-@container bsContractPage (width < 750px) {
+@media screen and (max-width: 749px) {
   .bs-contract-card {
     height: 160px;
   }
@@ -274,7 +235,7 @@
   }
 }
 
-@container bsContractPage (width < 390px) {
+@media screen and (max-width: 390px) {
   .bs-contract-card__billing-interval--mobile {
     width: 100px;
   }

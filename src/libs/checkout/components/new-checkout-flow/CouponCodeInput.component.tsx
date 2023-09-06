@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles, useTheme } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import { OptionCallBackWithKeyedCallbacks } from '../../../../state/types';
@@ -83,7 +83,11 @@ const CouponCodeInput: React.FC<CouponCodeInputProps> = ({
   );
 
   return (
-    <div className={classes.couponInputContainer}>
+    <div
+      className={classNames(classes.couponInputContainer, {
+        [classes.couponInputContainerError]: error !== ErrorType.EMPTY,
+      })}
+    >
       <TextFieldWithCustomColors
         className={classes.textField}
         colorsOverride={colorsOverride}
@@ -114,15 +118,7 @@ const CouponCodeInput: React.FC<CouponCodeInputProps> = ({
         }
         onClick={handleApplyCouponCode}
       >
-        {couponProcessing ? (
-          <CircularProgress
-            color="inherit"
-            size={24}
-            style={{ marginRight: 8 }}
-          />
-        ) : (
-          t('code.addCoupon.submit')
-        )}
+        {t('code.addCoupon.submit')}
       </Button>
     </div>
   );
@@ -160,6 +156,9 @@ const useStyles = makeStyles((theme) => ({
       boxSizing: 'content-box',
       borderWidth: '0px',
     },
+  },
+  couponInputContainerError: {
+    alignItems: 'baseline',
   },
   textField: { flex: 1 },
 }));

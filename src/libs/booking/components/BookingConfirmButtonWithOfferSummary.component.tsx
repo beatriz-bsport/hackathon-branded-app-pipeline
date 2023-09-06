@@ -170,7 +170,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     '@media (max-width:950px)': {
       border: 'none',
-      borderTop: '4px solid #F1F3F4',
+      borderTop: '2px solid #F1F3F4',
     },
   },
   buttonContainer: {

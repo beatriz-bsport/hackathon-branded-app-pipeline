@@ -64,7 +64,8 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
   return (
     <Card
       classes={{
-        'bs-payment-pack-buyable-item': 'bs-payment-pack-buyable-item',
+        'bs-payment-pack-buyable-item__card':
+          'bs-payment-pack-buyable-item__card',
       }}
       isSelected={isSelected}
       size={CardSize.AUTO}
@@ -72,14 +73,14 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
       <CardContent
         padding
         classes={{
-          'bs-payment-pack-buyable-item__content':
-            'bs-payment-pack-buyableitem__content',
+          'bs-payment-pack-buyable-item__card_content':
+            'bs-payment-pack-buyable-item__card_content',
         }}
       >
         <Grid
           classes={{
-            'bs-payment-pack-buyable-item__content_grid':
-              'bs-payment-pack-buyableitem__content_grid',
+            'bs-payment-pack-buyable-item__card_content_grid':
+              'bs-payment-pack-buyable-item__card_content_grid',
           }}
         >
           {/* START -- FIRST ROW / NAME ROW */}
@@ -105,15 +106,12 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
               {paymentPack?.name ?? ''}
             </div>
             <div
-              className={classNames(
-                'bs-payment-pack-buyable-item__recommended-item',
-                {
-                  'bs-payment-pack-buyable-item__recommended-item--hidden':
-                    !isRecommended,
-                },
-              )}
+              className={classNames({
+                'bs-payment-pack-buyable-item__recommended_icon_container--hidden':
+                  !isRecommended,
+              })}
             >
-              <div className="bs-paymentpack-buyable-item__recommended_icon">
+              <div className="bs-payment-pack-buyable-item__recommended_icon">
                 <RecommendedChip />
               </div>
             </div>
@@ -192,14 +190,14 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
           >
             <div
               className={classNames({
-                'bs-payment-pack-buyable-item__seemore--hidden':
+                'bs-payment-pack-buyable-item__seemore_button--hidden':
                   !descriptionText.isExpandable,
               })}
             >
               <Button
                 classes={{
-                  root: 'bs-payment-pack-buyable-item__seemore',
-                  text: 'bs-payment-pack-buyable-item__seemore__text',
+                  root: 'bs-payment-pack-buyable-item__seemore_button',
+                  text: 'bs-payment-pack-buyable-item__seemore_button__text',
                 }}
                 onClick={onClickSeeMore}
               >

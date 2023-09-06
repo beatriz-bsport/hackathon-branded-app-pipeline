@@ -54,6 +54,12 @@ export type PrivateServiceGroup = {
   private_services: number[];
 };
 
+export type PrivateServiceGroupWithService = {
+  id: number;
+  name: string;
+  private_services: PrivateService[];
+};
+
 export type PrivateService<C = number, E = number, S = number> = {
   id: number;
   name: string;

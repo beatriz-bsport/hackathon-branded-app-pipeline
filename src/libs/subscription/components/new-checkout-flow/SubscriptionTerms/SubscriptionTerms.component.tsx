@@ -47,6 +47,7 @@ export const SubscriptionTerms: React.FC<Props> = (props) => {
             ref={contractTermsText.ref}
             className={classNames('bs-subscription-terms__text-content', {
               '--shrinked': !isTextExpanded,
+              '--gradient': contractTermsText.isExpandable && !isTextExpanded,
               '--expanded': isTextExpanded,
             })}
           >

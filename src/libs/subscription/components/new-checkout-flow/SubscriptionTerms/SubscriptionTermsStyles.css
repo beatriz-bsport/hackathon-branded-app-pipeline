@@ -39,6 +39,9 @@
   /* autoprefixer: off */
   -webkit-box-orient: vertical;
   white-space: pre-wrap;
+}
+
+.bs-subscription-terms__text-content.--gradient {
   background: linear-gradient(
     to bottom,
     var(--color-text-secondary) 40%,

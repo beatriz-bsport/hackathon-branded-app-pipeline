@@ -1,7 +1,7 @@
 import React from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
-import { withStyles, Modal } from '@material-ui/core';
+import { withStyles, Modal, createStyles } from '@material-ui/core';
 
 import { compose } from 'recompose';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
@@ -132,63 +132,66 @@ class UserInteractionPortal extends React.PureComponent<Props> {
   }
 }
 
-const styles = () => ({
-  container: {
-    display: 'flex',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 2147483647,
-    position: 'fixed',
-    width: '100vw',
-    minHeight: '100vh -webkit-fill-available',
-    /* mobile viewport bug fix */
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(0,0,0,.2)',
-    overflow: 'hidden',
-  },
-  innerContainer: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'column',
-    width: '100%',
-    height: '100%',
-    overflow: 'hidden',
-    backgroundColor: 'white',
-    boxShadow: '3px 10px 44px 9px rgba(0,0,0,0.17)',
-    borderRadius: 12,
-    '@media (min-width: 600px)': {
-      maxHeight: (props: any) =>
-        props.fullScreenPopup ? window.innerHeight : window.innerHeight * 0.75,
-      maxWidth: (props: any) =>
-        props.fullScreenPopup ? window.innerWidth : window.innerWidth * 0.75,
+const styles = () =>
+  createStyles({
+    container: {
+      display: 'flex',
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 2147483647,
+      position: 'fixed',
+      width: '100vw',
+      minHeight: '100vh -webkit-fill-available',
+      /* mobile viewport bug fix */
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      backgroundColor: 'rgba(0,0,0,.2)',
+      overflow: 'hidden',
     },
-  },
-  topBar: {
-    display: 'flex',
-    backgroundColor: 'white',
-    padding: 8,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    borderRadius: 12,
-    '@media (max-width: 600px), (max-height: 600px)': {
-      maxHeight: 25,
+    innerContainer: {
+      display: 'flex',
+      flex: 1,
+      flexDirection: 'column',
+      width: '100%',
+      height: '100%',
+      overflow: 'hidden',
+      backgroundColor: 'white',
+      boxShadow: '3px 10px 44px 9px rgba(0,0,0,0.17)',
+      borderRadius: 12,
+      '@media (min-width: 600px)': {
+        maxHeight: (props: any) =>
+          props.fullScreenPopup
+            ? window.innerHeight
+            : window.innerHeight * 0.75,
+        maxWidth: (props: any) =>
+          props.fullScreenPopup ? window.innerWidth : window.innerWidth * 0.75,
+      },
     },
-  },
-  iframe: {
-    borderTopWidth: 0,
-    borderRightWidth: 0,
-    borderBottomWidth: 0,
-    borderLeftWidth: 0,
-    borderRadius: 12,
+    topBar: {
+      display: 'flex',
+      backgroundColor: 'white',
+      padding: 8,
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      borderRadius: 12,
+      '@media (max-width: 600px), (max-height: 600px)': {
+        maxHeight: 25,
+      },
+    },
+    iframe: {
+      borderTopWidth: 0,
+      borderRightWidth: 0,
+      borderBottomWidth: 0,
+      borderLeftWidth: 0,
+      borderRadius: 12,
 
-    height: '100%',
-    width: '100%',
-  },
-});
+      height: '100%',
+      width: '100%',
+    },
+  });
 
 export default compose<any, OwnProps>(withStyles(styles))(
   UserInteractionPortal,

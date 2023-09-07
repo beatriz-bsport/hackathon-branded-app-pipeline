@@ -5,7 +5,7 @@
 }
 
 .bs-marketplace-buyable-item-category__title {
-  margin-top: var(--spacing-1);
+  padding-top: var(--spacing-2);
   font-family: var(--h6-fontFamily);
   font-size: var(--h5-fontSize);
   font-weight: var(--h6-fontWeight);

@@ -108,11 +108,7 @@ import {
 import { fetchCompanyConfiguration } from '#libs/waiting-list/actions';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
-import {
-  OfferSummaryVariant,
-  type Offer,
-  type OfferStatus,
-} from '#libs/offer/types';
+import { type Offer, type OfferStatus } from '#libs/offer/types';
 import {
   withEstablishment,
   withCoach,
@@ -131,7 +127,6 @@ import {
   getSpotTypesOfCompany,
   getAssetByBlueprintByIdentifier,
 } from '#libs/spot-scheduling/selector';
-import OfferSummary from '#libs/offer/OfferSummary';
 import type {
   BookerItem,
   BookerModuleBuyableItem,
@@ -166,6 +161,7 @@ import Skeleton, { SkeletonVariant } from '#components/css-only/Skeleton';
 import BookingConfirmButtonWithOfferSummary from '#libs/booking/components/BookingConfirmButtonWithOfferSummary.component';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
+import BookerModuleOfferSummary from '#libs/marketplace/components/@Offer/BookerModuleOfferSummary';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
 
@@ -838,7 +834,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
             offer={this.props.offer}
             offerStatusById={this.props.offerStatusById}
             offerSummaryPrice={displayPrice}
-            offerSummaryVariant={OfferSummaryVariant.DEFAULT}
             onRedirectToCalendar={this.goBackToCalendar}
             onRedirectToPass={this.handleRedirectToPass}
             onRegisterToWaitList={this.onConfirm}
@@ -923,17 +918,19 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               displayTax={this.props.theme?.is_tax_excluded_in_marketplace}
               isBookable={isBookable}
               OfferSummaryComponent={() => (
-                <OfferSummary
+                <BookerModuleOfferSummary
                   isBookingButtonHidden
                   noStyledContainer
+                  showCredits
+                  showEstablishmentAddress
                   coach={this.props.offer?.coach}
+                  // Must be change, these information can be fetch and display faster to reduce loadig time feelling.
+                  companyTheme={this.props.theme}
                   establishment={this.props.offer?.establishment}
                   loading={offerSummaryLoading}
                   metaActivity={this.props.offer?.meta_activity}
                   offer={this.props.offer}
                   spotId={this.state.selectedSpot}
-                  theme={this.props.theme}
-                  variant={OfferSummaryVariant.DEFAULT}
                 />
               )}
               onClick={this.onConfirm}

@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Skeleton from '@material-ui/lab/Skeleton';
 
-import OfferSummary from '#libs/offer/OfferSummary';
 import StatusMessageWithIcon from '#csscomponents/StatusMessageWithIcon';
 import {
   useOfferWaitingListStatus,
@@ -13,16 +12,13 @@ import {
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import OfferBookingWaitingListStatusIcon from '../OfferBookingWaitingListStatusIcon';
 
-import {
-  OfferSummaryVariant,
-  type Offer,
-  type OfferStatus,
-} from '#libs/offer/types';
+import type { Offer, OfferStatus } from '#libs/offer/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { CompanyTheme } from '#libs/theme/types';
 import { OffersGroup } from '#libs/group-offer/types';
+import BookerModuleOfferSummary from '#libs/marketplace/components/@Offer/BookerModuleOfferSummary';
 
 import './styles.css';
 
@@ -35,7 +31,6 @@ export type Props = {
   companyTheme: CompanyTheme;
   isNoPassCompatibleForBooking: boolean;
   isWaitingListRegisterLoading: boolean;
-  offerSummaryVariant: OfferSummaryVariant;
   offerSummaryPrice: string;
   bookingSpotId?: string;
   isPassTabInMarketplaceConfig: boolean;
@@ -51,7 +46,6 @@ const OfferBookingWaitingList: React.FC<Props> = ({
   companyTheme,
   isNoPassCompatibleForBooking,
   isWaitingListRegisterLoading,
-  offerSummaryVariant,
   offerSummaryPrice,
   bookingSpotId,
   isPassTabInMarketplaceConfig,
@@ -134,8 +128,9 @@ const OfferBookingWaitingList: React.FC<Props> = ({
         </div>
 
         <div className="bs-offer-booking-waiting-list__summary__container">
-          <OfferSummary
+          <BookerModuleOfferSummary
             coach={offer.coach}
+            companyTheme={companyTheme}
             confirmLoading={isWaitingListRegisterLoading}
             establishment={offer.establishment}
             isBookingButtonHidden={isBookingButtonHidden}
@@ -147,8 +142,6 @@ const OfferBookingWaitingList: React.FC<Props> = ({
             price={offerSummaryPrice}
             spotId={bookingSpotId}
             tax={offer.tax}
-            theme={companyTheme}
-            variant={offerSummaryVariant}
           />
         </div>
       </div>

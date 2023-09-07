@@ -10,12 +10,7 @@ import {
 } from 'react-zoom-pan-pinch';
 import type { OptionCallback } from '../../../../../state/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import OfferSummary from '#libs/offer/OfferSummary';
-import {
-  OfferSummaryVariant,
-  type OfferStatus,
-  type Offer_FULL,
-} from '#libs/offer/types';
+import { type OfferStatus, type Offer_FULL } from '#libs/offer/types';
 import type { CompanyTheme } from '#libs/theme/types';
 import type {
   AssetForBlueprint,
@@ -28,6 +23,7 @@ import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import SpotSelector from '#libs/spot-scheduling/component/SpotSelector/SpotSelector.component';
 import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
 import { CanvasElement } from '#libs/spot-scheduling/CanvasSvg/tools/BaseClasses/Base.tool';
+import BookerModuleOfferSummary from '#libs/marketplace/components/@Offer/BookerModuleOfferSummary';
 
 import './styles.css';
 
@@ -174,12 +170,11 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
   return (
     <div className="bs-marketplace-spot-selector">
       <div className="bs-marketplace-spot-selector__header">
-        <OfferSummary
+        <BookerModuleOfferSummary
+          companyTheme={props.theme}
           establishment={props.offer?.establishment}
           metaActivity={props.offer?.meta_activity}
           offer={props.offer}
-          theme={props.theme}
-          variant={OfferSummaryVariant.BASKET}
         />
         {!isMobile && (
           <div className="bs-marketplace-spot-selector__legend">

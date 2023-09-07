@@ -871,7 +871,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
             )}
           </div>
           <div className="bs-new-offer-booking">
-            {this.state.isBookingBlocked && !isWaitingList ? (
+            {this.state.isBookingBlocked && !this.getIsLoading() ? (
               <MarketplaceBookingBlockedReason
                 bookingBlockedReason={this.state.bookingBlockedReason}
                 goBackToCalendar={this.goBackToCalendar}

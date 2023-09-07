@@ -1,9 +1,14 @@
 /* .bs-booking-item-details__content:{} 
 */
 
+.bs-booking-item-details-title--hidden {
+  display: none;
+}
+
 .bs-booking-item-details__grid {
   grid-template-columns: auto;
   grid-template-rows: auto max-content max-content max-content;
+  gap: 0;
 }
 
 .bs-booking-item-details-date {
@@ -27,6 +32,7 @@
   letter-spacing: var(--body1-letterSpacing);
   height: fit-content;
   flex-direction: row;
+  margin-top: var(--spacing-1);
 }
 
 .bs-booking-item-details__element-with-icon--hidden {
@@ -64,5 +70,19 @@
 }
 
 .bs-booking-item-details-spot__text {
+  margin: 0;
+}
+
+.bs-booking-item-details-credits {
+  display: flex;
+  gap: var(--spacing-1);
+  align-items: center;
+}
+
+.bs-booking-item-details-credits__icon {
+  color: var(--color-grey-main);
+}
+
+.bs-booking-item-details-credits__text {
   margin: 0;
 }

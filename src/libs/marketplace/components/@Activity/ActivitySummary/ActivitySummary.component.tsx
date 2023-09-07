@@ -2,6 +2,7 @@ import React from 'react';
 import RoomIcon from '@material-ui/icons/Room';
 import AdjustIcon from '@material-ui/icons/Adjust';
 
+import { CreditCard } from '@material-ui/icons';
 import type { Coach } from '#libs/associated-coach/types';
 import type { Establishment } from '#libs/establishment/types';
 import CardContent from '#components/css-only/Card/CardContent';
@@ -17,12 +18,14 @@ import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoac
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 export type Props = {
-  title: string;
+  title?: string;
   establishment?: Establishment;
   coach?: Coach;
   hideCoach: boolean;
   companyTheme: CompanyTheme;
   spotName?: string;
+  credits?: string;
+  showEstablishmentAddress?: boolean;
 };
 
 const ActivitySummary: React.FC<Props> = ({
@@ -32,6 +35,8 @@ const ActivitySummary: React.FC<Props> = ({
   hideCoach,
   companyTheme,
   spotName,
+  credits,
+  showEstablishmentAddress,
 }) => {
   return (
     <CardContent
@@ -46,7 +51,8 @@ const ActivitySummary: React.FC<Props> = ({
       >
         <GridItem
           classes={{
-            'bs-booking-item-details-title': 'bs-booking-item-details-title',
+            'bs-booking-item-details-title': true,
+            'bs-booking-item-details-title--hidden': !title,
           }}
           direction={Direction.ROW}
           justification={Justification.FLEX_START}
@@ -56,14 +62,9 @@ const ActivitySummary: React.FC<Props> = ({
         </GridItem>
         <GridItem
           classes={{
-            'bs-booking-item-details__element-with-icon':
-              'bs-booking-item-details__element-with-icon',
-            ...(establishment
-              ? {}
-              : {
-                  'bs-booking-item-details__element-with-icon--hidden':
-                    'bs-booking-item-details__element-with-icon--hidden',
-                }),
+            'bs-booking-item-details__element-with-icon': true,
+            'bs-booking-item-details__element-with-icon--hidden':
+              !establishment,
           }}
           direction={Direction.ROW}
           justification={Justification.FLEX_START}
@@ -78,18 +79,14 @@ const ActivitySummary: React.FC<Props> = ({
             icon={
               <RoomIcon className="bs-booking-item-details-establishment__icon" />
             }
+            showEstablishmentAddress={showEstablishmentAddress}
           />
         </GridItem>
         <GridItem
           classes={{
-            'bs-booking-item-details__element-with-icon':
-              'bs-booking-item-details__element-with-icon',
-            ...(coach && !hideCoach
-              ? {}
-              : {
-                  'bs-booking-item-details__element-with-icon--hidden':
-                    'bs-booking-item-details__element-with-icon--hidden',
-                }),
+            'bs-booking-item-details__element-with-icon': true,
+            'bs-booking-item-details__element-with-icon--hidden':
+              !coach || hideCoach,
           }}
           direction={Direction.ROW}
           justification={Justification.FLEX_START}
@@ -110,14 +107,8 @@ const ActivitySummary: React.FC<Props> = ({
         </GridItem>
         <GridItem
           classes={{
-            'bs-booking-item-details__element-with-icon':
-              'bs-booking-item-details__element-with-icon',
-            ...(spotName
-              ? {}
-              : {
-                  'bs-booking-item-details__element-with-icon--hidden':
-                    'bs-booking-item-details__element-with-icon--hidden',
-                }),
+            'bs-booking-item-details__element-with-icon': true,
+            'bs-booking-item-details__element-with-icon--hidden': !spotName,
           }}
           direction={Direction.ROW}
           justification={Justification.FLEX_START}
@@ -126,6 +117,20 @@ const ActivitySummary: React.FC<Props> = ({
           <div className="bs-booking-item-details-spot">
             <AdjustIcon className="bs-booking-item-details-spot__icon" />
             <p className="bs-booking-item-details-spot__text">{spotName}</p>
+          </div>
+        </GridItem>
+        <GridItem
+          classes={{
+            'bs-booking-item-details__element-with-icon': true,
+            'bs-booking-item-details__element-with-icon--hidden': !credits,
+          }}
+          direction={Direction.ROW}
+          justification={Justification.FLEX_START}
+          rowStart={5}
+        >
+          <div className="bs-booking-item-details-credits">
+            <CreditCard className="bs-booking-item-details-credits__icon" />
+            <p className="bs-booking-item-details-credits__text">{credits}</p>
           </div>
         </GridItem>
       </Grid>

@@ -38,4 +38,5 @@ Default.args = {
   establishment: fakeEstablishment,
   hideCoach: false,
   spotName: 'Spot T6',
+  credits: '6 crédits',
 };

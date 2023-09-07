@@ -12,11 +12,15 @@ export type Props = {
   theme?: Theme;
   icon?: React.ReactNode;
   classes?: { [key: string]: string };
+  showEstablishmentAddress?: boolean;
 };
 
 export const MarketplaceEstablishmentTitle: React.FC<Props> = React.memo(
-  ({ establishment, theme, classes, icon }) => {
+  ({ establishment, theme, classes, icon, showEstablishmentAddress }) => {
     if ((!theme || theme.show_establishment) && !!establishment) {
+      const establishmentInformation = showEstablishmentAddress
+        ? `${establishment?.title} - ${establishment?.location?.address}`
+        : `${establishment?.title}`;
       return (
         <div
           className={classNames({
@@ -24,7 +28,7 @@ export const MarketplaceEstablishmentTitle: React.FC<Props> = React.memo(
           })}
         >
           {icon && <span className="bs-establishment-title__icon">{icon}</span>}
-          {establishment.title}
+          {establishmentInformation}
         </div>
       );
     }

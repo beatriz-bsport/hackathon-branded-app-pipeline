@@ -21,6 +21,7 @@ type BasketSummaryProps = {
   ) => void;
   onRemoveCheckoutItem: (onRemoveItemdata: OnRemoveCheckoutItemData) => void;
   displayBasketTitle?: boolean;
+  noPriceBackground?: boolean;
 };
 
 export const BasketSummary: React.FC<BasketSummaryProps> = ({
@@ -30,6 +31,7 @@ export const BasketSummary: React.FC<BasketSummaryProps> = ({
   onAddCheckoutItem,
   onRemoveCheckoutItem,
   displayBasketTitle,
+  noPriceBackground,
 }) => {
   const classes = useStyles({ displayBasketTitle });
   const { t } = useTranslation('checkout');
@@ -69,6 +71,7 @@ export const BasketSummary: React.FC<BasketSummaryProps> = ({
                   checkoutItem.tax,
                 )}
                 isItemEditionDisabled={isItemEditionDisabled}
+                noPriceBackground={noPriceBackground}
                 onAddOneItem={onAddOneItem}
                 onRemoveItem={onRemoveCheckoutItem}
               />

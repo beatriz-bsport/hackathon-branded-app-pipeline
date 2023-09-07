@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { ItemQuantity } from './ItemQuantity.component';
@@ -17,6 +17,7 @@ type NewCheckoutItemListItemProps = {
   isItemEditionDisabled: boolean;
   onAddOneItem: (checkoutItem: CheckoutItem) => void;
   onRemoveItem: (onRemoveItemdata: OnRemoveCheckoutItemData) => void;
+  noPriceBackground?: boolean;
 };
 
 export const NewCheckoutItemListItem: React.FC<
@@ -27,8 +28,9 @@ export const NewCheckoutItemListItem: React.FC<
   isItemEditionDisabled,
   onAddOneItem,
   onRemoveItem,
+  noPriceBackground,
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ noPriceBackground });
 
   // Cannot increase quantity for giftcard checkout items, because each giftcard item requires
   // information about the recipient
@@ -92,29 +94,32 @@ export const NewCheckoutItemListItem: React.FC<
   );
 };
 
-const useStyles = makeStyles((theme) => ({
-  checkoutItemContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'stretch',
-    padding: theme.spacing(1),
-    gap: theme.spacing(1),
-  },
-  checkoutItemName: { fontWeight: 500 },
-  checkoutItemPriceClass: {
-    fontWeight: 500,
-    backgroundColor: theme.palette.grey[100],
-    borderRadius: theme.spacing(1),
-    padding: `2px ${theme.spacing(1)}px 2px ${theme.spacing(1)}px`,
-  },
-  deleteIcon: { color: theme.palette.grey[600] },
-  subContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  removeIconButton: { padding: '0' },
-}));
+const useStyles = makeStyles<Theme, { noPriceBackground?: boolean }>(
+  (theme) => ({
+    checkoutItemContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'stretch',
+      padding: theme.spacing(1),
+      gap: theme.spacing(1),
+    },
+    checkoutItemName: { fontWeight: 500 },
+    checkoutItemPriceClass: {
+      fontWeight: 500,
+      backgroundColor: ({ noPriceBackground }) =>
+        noPriceBackground ? 'unset' : theme.palette.grey[100],
+      borderRadius: theme.spacing(1),
+      padding: `2px ${theme.spacing(1)}px 2px ${theme.spacing(1)}px`,
+    },
+    deleteIcon: { color: theme.palette.grey[600] },
+    subContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    removeIconButton: { padding: '0' },
+  }),
+);
 
 export default React.memo(NewCheckoutItemListItem);

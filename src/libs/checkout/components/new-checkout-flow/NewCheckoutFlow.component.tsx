@@ -373,6 +373,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
           />
           <Collapse in={!isMobile || isBasketDisplayed}>
             <BasketSummary
+              noPriceBackground
               basketSummaryCheckoutItems={basketSummaryCheckoutItems}
               displayBasketTitle={noOfferInCheckoutItems}
               isExcludingTax={isExcludingTax}

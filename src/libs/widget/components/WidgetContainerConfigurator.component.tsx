@@ -16,6 +16,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Tooltip from '@material-ui/core/Tooltip';
 import Collapse from '@material-ui/core/Collapse';
+import Typography from '@material-ui/core/Typography';
 import {
   DIALOG_MODE_POPUP,
   DIALOG_MODE_IFRAME,
@@ -146,8 +147,14 @@ export const WidgetContainerConfigurator = (props: Props) => {
             <MenuItem value={DIALOG_MODE_POPUP}>
               {t(`widget.dialogMode.popup`)}
             </MenuItem>
-            <MenuItem value={DIALOG_MODE_DEACTIVATED}>
+            <MenuItem
+              className={classes.flexItem}
+              value={DIALOG_MODE_DEACTIVATED}
+            >
               {t(`widget.dialogMode.stayInContainer`)}
+              <Typography color="primary" variant="caption">
+                {t(`widget.dialogMode.stayInContainerBetaTag`)}
+              </Typography>
             </MenuItem>
           </Select>
         </FormControl>
@@ -231,6 +238,12 @@ const styles = (theme: Theme) => ({
   },
   iframeSettings: {
     paddingLeft: theme.spacing(2),
+  },
+  flexItem: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: theme.spacing(1),
   },
 });
 

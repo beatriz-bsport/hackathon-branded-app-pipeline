@@ -38,7 +38,8 @@ exports.default = {
       tab: 'Nouvel onglet',
       popup: 'Nouvelle fenêtre',
       iframe: 'Rester sur le site',
-      stayInContainer:"Aucune Popup"
+      stayInContainer: "Aucune Popup",
+      stayInContainerBetaTag :"(beta)"
     },
     dialogSize: {
       fullScreen: 'Plein écran',

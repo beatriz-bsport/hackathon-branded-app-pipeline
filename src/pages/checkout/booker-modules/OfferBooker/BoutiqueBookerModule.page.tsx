@@ -164,6 +164,8 @@ import Button, {
 } from '#components/css-only/Button';
 import Skeleton, { SkeletonVariant } from '#components/css-only/Skeleton';
 import BookingConfirmButtonWithOfferSummary from '#libs/booking/components/BookingConfirmButtonWithOfferSummary.component';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
+import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
 
@@ -228,6 +230,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   }
 
   componentDidMount() {
+    !!this.props.companyId &&
+      this.props.retrieveCompanyCssConfiguration(this.props.companyId);
     this.props.fetchOffer(this.props.offerId, {
       onSuccess: (offer: Offer) => {
         this.props.fetchCompanyTheme(offer.company);
@@ -1004,6 +1008,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
       state.consumerPaymentPack.forBooking.loading,
     marketplaceSettings: state.marketplace.settings,
     marketplaceSettingsLoading: state.marketplace.loading,
+    customConfiguration: state.exportableComponents.customCss,
   };
 };
 
@@ -1041,6 +1046,7 @@ const mapDispatchToProps = {
   fetchCompanyConfiguration,
   fetchMarketplaceSettings,
   goBack,
+  retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
 };
 
 const mapHandlers = {
@@ -1131,5 +1137,6 @@ export default compose(
   connector,
   withHandlers(mapHandlers),
   marketplaceCssHoc(),
+  WithCustomCssProvider,
   consumerAppBarHOC(),
 )(BoutiqueBookerModule);

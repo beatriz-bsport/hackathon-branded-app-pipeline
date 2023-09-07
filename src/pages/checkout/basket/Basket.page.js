@@ -104,6 +104,8 @@ import {
   getMarketplaceRoute,
 } from '../../../libs/marketplace/routing-utils';
 import { CouponErrorCodes } from '#libs/coupon/constants';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
+import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 
 type Props = {
   basket: ?Basket,
@@ -175,6 +177,7 @@ type Props = {
   isNewCheckoutFlow?: boolean,
   fetchInstalmentPaymentByBasket: (basketId: string) => void,
   goToMarketplace: () => void,
+  retrieveCompanyCssConfiguration: (companyid: number) => void,
 };
 
 export class BasketPage extends React.Component<Props> {
@@ -188,6 +191,7 @@ export class BasketPage extends React.Component<Props> {
   componentWillMount() {
     this.props.refreshBasket();
     this.props.fetchShopItemFeatured(this.props.companyId);
+    this.props.retrieveCompanyCssConfiguration(this.props.companyId);
   }
 
   componentDidMount() {
@@ -655,6 +659,7 @@ export default compose(
       basketOffers: withMetaActivity(
         withEstablishment((state_) => getBasketOfferList(state_)),
       )(state),
+      customConfiguration: state.exportableComponents.customCss,
     }),
     {
       disconnect: authActions.disconnect,
@@ -686,6 +691,7 @@ export default compose(
       fetchOfferBulk: fetchOfferBulkAction,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+      retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
     },
   ),
   withHandlers({
@@ -921,4 +927,6 @@ export default compose(
   withState('paymentProcessing', 'setPaymentProcessing', false),
   withStyles(styles),
   marketplaceCssHoc(),
+
+  WithCustomCssProvider,
 )(BasketPage);

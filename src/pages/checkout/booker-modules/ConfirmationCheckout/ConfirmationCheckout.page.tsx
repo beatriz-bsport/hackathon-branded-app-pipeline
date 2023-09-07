@@ -67,6 +67,8 @@ import { Subscription } from '#libs/subscription/types';
 
 import ConfirmationMessage from '#libs/checkout/components/ConfirmationMessage';
 import { ConfirmationCheckoutSkeleton } from '.';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
+import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 
 type UserRegistrationResponse = {
   offer_on_waiting_list: number[];
@@ -107,6 +109,7 @@ type Props = ConfirmationCheckoutProps &
 
 export class ConfirmationCheckout extends React.PureComponent<Props> {
   componentDidMount() {
+    this.props.retrieveCompanyCssConfiguration(this.props.companyId);
     if (this.props.queryParams.user_registration_response) {
       this.fetchOfferData();
     }
@@ -636,6 +639,7 @@ const mapStateToProps = (
   billingPlan:
     queryParams.billingPlanId &&
     getSubscriptionDetail(state, queryParams.billingPlanId),
+  customConfiguration: state.exportableComponents.customCss,
 });
 
 const mapDispatchToProps = {
@@ -650,6 +654,7 @@ const mapDispatchToProps = {
   fetchLevelList: fetchLevelListAction,
   replace: replaceRouter,
   goBack,
+  retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -716,5 +721,6 @@ export default compose<any, ConfirmationCheckoutProps>(
   ),
   connector,
   withHandlers(mapWithHandlers),
+  WithCustomCssProvider,
   marketplaceCssHoc(),
 )(ConfirmationCheckout);

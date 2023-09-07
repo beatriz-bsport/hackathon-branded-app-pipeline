@@ -16,6 +16,7 @@ const DEFAULT_CONFIG = {
   // @ts-ignore
   udpated_at: null,
   components_css: {},
+  apply_on_marketplace: false,
 };
 
 const initialState: Immutable.Immutable<ExportableComponentsState> =

@@ -95,6 +95,8 @@ import { ProcessingPaymentDialogPortal } from '#libs/subscription/components/new
 import SubscriptionErrorDialog from '#libs/subscription/components/new-checkout-flow/SubscriptionErrorDialog';
 import MarketplaceContractCooldownModal from '#libs/marketplace/components/MarketplaceContractCooldownModal';
 import { BookerItem } from '#libs/booker-module/types';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
+import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 
 type RouterProps = {
   companyId: number;
@@ -169,6 +171,7 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
   }
 
   componentDidMount() {
+    this.props.retrieveCompanyCssConfiguration(this.props.companyId);
     this.props.fetchCompanyTheme(this.props.companyId);
     this.props.fetchPaymentMethodList();
     this.props.retrieveOfferAndFetchStatus();
@@ -646,6 +649,7 @@ const mapStateToProps = (
 
   offerStatusById: state.offer.offerStatus.byId,
   paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
+  customConfiguration: state.exportableComponents.customCss,
 });
 
 const mapDispatchToProps = {
@@ -670,6 +674,7 @@ const mapDispatchToProps = {
   fetchOfferStatus: fetchOfferStatusAction,
   retrieveOffer: retrieveOfferAction,
   offerUserRegistration: offerUserRegistrationAction,
+  retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
 };
 
 const stripeHandlers = {
@@ -820,5 +825,6 @@ export default compose<any, OwnProps>(
   // @ts-expect-error
   withHandlers(handlers),
   marketplaceCssHoc(),
+  WithCustomCssProvider,
   consumerAppBarHOC(),
 )(MarketplaceNewSubscriptionCheckout);

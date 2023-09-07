@@ -26,7 +26,7 @@ const renderRows = (recipientList, t, goToMember, setShowLinkOpened) => {
 const getColumnData = (t) => {
   return [
     {
-      name: 'email',
+      name: 'recipient_raw_address',
       label: t('recipient.table.columns.email'),
       options: {
         sort: true,
@@ -65,7 +65,7 @@ const getColumnData = (t) => {
 
 const renderRow = (recipient, t, goToMemberPage, setShowLinkOpened) => {
   return {
-    email: recipient.email,
+    recipient_raw_address: recipient.email,
     read_count: recipient.read_count,
     last_read: recipient.last_read
       ? formatAsDatetimeAdapted(recipient.last_read, 'LLLL')

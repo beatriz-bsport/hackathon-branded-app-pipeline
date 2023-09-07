@@ -113,6 +113,15 @@ export class Root extends Component<Props> {
      */
     if (query.context && query.context === 'widget') {
       WidgetUtils.setWidgetContext();
+      if (
+        query.dialogMode &&
+        ['string', 'number'].includes(typeof query.dialogMode)
+      ) {
+        /**
+         * injected by the widget
+         */
+        WidgetUtils.setDialogMode(parseInt(query.dialogMode));
+      }
     }
   }
 

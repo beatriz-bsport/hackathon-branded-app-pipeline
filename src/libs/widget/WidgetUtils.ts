@@ -1,15 +1,52 @@
 // @ts-nocheck
+import {
+  DIALOG_MODE_POPUP,
+  DIALOG_MODE_IFRAME,
+  DIALOG_MODE_TAB,
+  DIALOG_MODE_DEACTIVATED,
+} from '@bsport/common/lib/master-data/widget-dialog-mode';
 import { WidgetMessageType } from './types';
 
 export class WidgetUtils {
   static setWidgetContext() {
-    // @ts-ignore
     window.env.APP_CONTEXT = 'widget';
   }
 
   static isWidget() {
-    // @ts-ignore
     return window && window.env && window.env.APP_CONTEXT === 'widget';
+  }
+
+  static setDialogMode(dialogMode: number) {
+    window.env = {
+      ...(window.env || {}),
+      WIDGET_DIALOG_MODE: dialogMode,
+    };
+  }
+
+  static getDialogMode() {
+    return window?.env?.WIDGET_DIALOG_MODE ?? null;
+  }
+
+  static handleGoBackNavigation() {
+    // 0 DIALOG_MODE_TAB : This mode opens a new tab. We are losing the context on the widget.
+    // 1 DIALOG_MODE_IFRAME : we should close
+    // 2 DIALOG_MODE_POPUP : This mode actually opens a new windows and cannot be properly handled.
+    // 3 DIALOG_MODE_DEACTIVATED : This mode open a portal contains within the current widget, this portal must be closed.
+    const dialogMode = this.getDialogMode();
+    if (this.isWidget()) {
+      switch (dialogMode) {
+        case DIALOG_MODE_IFRAME:
+        case DIALOG_MODE_DEACTIVATED:
+          this.closeModal();
+          break;
+        case DIALOG_MODE_POPUP:
+        case DIALOG_MODE_TAB:
+          window.close();
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   private static postMessage(data: any) {

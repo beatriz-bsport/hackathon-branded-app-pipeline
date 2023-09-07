@@ -54,6 +54,8 @@ import {
   withEstablishment,
 } from '../../../libs/offer/selectors';
 
+import { WidgetUtils } from '../../../libs/widget/WidgetUtils';
+
 import themeSelectors from '../../../libs/theme/selectors';
 import { fetchCompanyTheme } from '../../../libs/theme/actions';
 import { fetchOfferBulk as fetchOfferBulkAction } from '../../../libs/offer/actions';
@@ -316,6 +318,11 @@ export class BasketPage extends React.Component<Props> {
     this.props.goBack();
   };
 
+  handleGoBack = () => {
+    WidgetUtils.handleGoBackNavigation();
+    this.props.goBack();
+  };
+
   attachCoupon = (
     code: string,
     options: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
@@ -546,7 +553,7 @@ export class BasketPage extends React.Component<Props> {
                   detachPaymentMethodLoading={
                     this.props.detachPaymentMethodLoading
                   }
-                  goBack={this.props.goBack}
+                  goBack={this.handleGoBack}
                   goToMarketplace={this.props.goToMarketplace}
                   instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
                     (ipc) => ipc.basketId === this.props.basket?.id,

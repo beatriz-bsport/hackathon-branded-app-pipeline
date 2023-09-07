@@ -235,6 +235,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props> {
     const {
       t,
       offerBookedList,
+      offerPreBookedList,
       basket,
       billingPlan,
       companyTheme,
@@ -244,8 +245,10 @@ export class ConfirmationCheckout extends React.PureComponent<Props> {
       paymentComboById,
     } = this.props;
 
+    const offers = [...(offerBookedList ?? []), ...(offerPreBookedList ?? [])];
+
     const sortedOfferList = sortByDate(
-      offerBookedList,
+      offers,
       'date_start',
     ) as OfferWithSpotInformation[];
 
@@ -298,6 +301,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props> {
       billingPlan,
       this.props.offerPreBookedIdList,
     );
+
     const isLoading = this.isLoading();
 
     if (isLoading) {
@@ -321,7 +325,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props> {
                 goToMemberProfile={this.props.onContinue}
                 goToMemberSubscriptions={this.props.goToMemberSubscriptions}
                 isLoading={isLoading}
-                offers={offerBookedList}
+                offers={offers}
                 status={confirmationStatus}
               />
             </div>

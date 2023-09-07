@@ -1045,6 +1045,24 @@ const getTranslations = async () => {
         },
       },
     },
+    communicationSentGroupConfig: {
+      create: {
+        success: 'Campaign created successfully',
+        error: 'Unable to create the campaign',
+      },
+      update: {
+        success: 'Campagne mise à jour avec succès',
+        error: 'Unable to save the campaign',
+      },
+      delete: {
+        success: 'Campaign deleted',
+        error: 'Unable to delete the campaign',
+      },
+      duplicate: {
+        success: 'Campagne duplicated',
+        error: 'Unable to duplicate the campaign',
+      },
+    },
     automatedCampaign: {
       [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN]: 'There was an error',
       [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_LIMIT_FOR_SMARTLIST_REACHED]:

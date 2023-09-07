@@ -2,6 +2,7 @@
   "alerting",
   "authentication",
   "booking",
+  "campaign",
   "category",
   "checkout",
   "clockIn",

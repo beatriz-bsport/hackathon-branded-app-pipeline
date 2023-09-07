@@ -134,6 +134,8 @@ exports.default = {
     staff: 'Staff',
     widgets: 'Widget',
     notificationRules: 'Transactional notifications',
+    marketing: { label: 'Marketing' },
+    campaign: 'Campagnes',
     emailTemplates: 'Emails',
     products: {
       couponTemplates: 'Promotions',

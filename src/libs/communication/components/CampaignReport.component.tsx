@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react';
-import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -16,11 +15,16 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 // @ts-expect-error
 import RecipientTable from './RecipientTable.component';
-import type { Campaign, Report, Recipient } from '../types';
+import type {
+  Campaign,
+  Report,
+  Recipient,
+  CommunicationSentGroup,
+} from '../types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
-import { OptionCallback } from '../../../state/types';
+import type { OptionCallback } from '../../../state/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   statBanner: {
@@ -100,7 +104,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 type CampaignStatisticsProps = {
-  campaign: Campaign;
+  campaign: Campaign | CommunicationSentGroup;
   report: Report;
   onShowMail: () => void;
   generateExportLink: (options?: OptionCallback<string>) => void;
@@ -112,13 +116,12 @@ const CampaignStatistics = (props: CampaignStatisticsProps) => {
   const { t } = useTranslation(['communication']);
 
   const [isSmartListExporting, setIsSmartListExporting] = useState(false);
-
   const handleExportReport = useCallback(() => {
     setIsSmartListExporting(true);
     generateExportLink({
       onSuccess: (campaignXlsxExportLink) => {
-        window.open(campaignXlsxExportLink);
         setIsSmartListExporting(false);
+        window.open(campaignXlsxExportLink);
       },
       onError: () => {
         setIsSmartListExporting(false);
@@ -248,20 +251,26 @@ const CampaignClick = (props: CampaignClickProps) => {
 };
 
 type Props = {
-  campaign: Campaign;
+  campaign: Campaign | CommunicationSentGroup;
   report: Report;
   fetchRecipientList: (page: number, params: any) => void;
   recipientList: Array<Recipient>;
   recipientState: Object;
   goBack: () => void;
-  goToMember: (id: number) => void;
+  goToMember?: (id: number) => void;
   resolvedGenericTags: ResolvedGenericTags;
   generateExportLink: (options?: OptionCallback<string>) => void;
 };
+
 export const CampaignReport = (props: Props) => {
   const [showMail, setShowMail] = React.useState<string | null>(null);
   const { t } = useTranslation('communication');
   const classes = useStyles();
+
+  const displayMailTemplate = React.useCallback(
+    () => setShowMail(props.campaign.data.body),
+    [setShowMail, props.campaign],
+  );
   return (
     <div>
       <div className={classes.titleRow}>
@@ -278,7 +287,7 @@ export const CampaignReport = (props: Props) => {
           <CampaignStatistics
             campaign={props.campaign}
             generateExportLink={props.generateExportLink}
-            onShowMail={() => setShowMail(props.campaign.data.body)}
+            onShowMail={displayMailTemplate}
             report={props.report}
           />
           <CampaignClick report={props.report} />
@@ -306,4 +315,4 @@ export const CampaignReport = (props: Props) => {
   );
 };
 
-export default compose<any, Props>(CampaignReport);
+export default React.memo(CampaignReport);

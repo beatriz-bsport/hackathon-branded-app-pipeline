@@ -1,18 +1,20 @@
 // @ts-nocheck
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Alert from '@material-ui/lab/Alert/Alert';
 import { makeStyles, Theme } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
+import { ImmutableArray } from 'seamless-immutable';
 import CampaignListItem from './CampaignListItem.component';
 import type { Campaign, Recipient } from '../types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
+import { CommunicationSentGroup } from '#libs/communication/types';
 
 type Props = {
   loading: boolean;
-  campaignList: [Campaign, Recipient][];
+  campaignList: ImmutableArray<CommunicationSentGroup | Campaign, Recipient>;
   fetchMore: () => void;
   onClickReport: (campaign_uuid: string) => void;
   resolvedGenericTags: ResolvedGenericTags;
@@ -29,15 +31,20 @@ export const CampaignList: React.FC<Props> = ({
   const classes = useStyles();
   const [showEmail, setShowEmail] = useState(null);
 
+  const handleOnClickReport = useCallback(
+    (campaign) => () => onClickReport(campaign.uuid ?? campaign.id),
+    [onClickReport],
+  );
+
   return (
     <div className={classes.container}>
-      {campaignList.map(([c, r]) => (
+      {campaignList.map(([campaignItem, recipient]) => (
         <CampaignListItem
-          key={c.uuid}
-          campaign={c}
-          onClickReport={() => onClickReport(c.uuid)}
+          key={campaignItem.uuid}
+          campaign={campaignItem}
+          onClickReport={handleOnClickReport(campaignItem)}
           onClickShow={setShowEmail}
-          singleRecipientData={r}
+          singleRecipientData={recipient}
         />
       ))}
       <div className={classes.buttonContainer}>
@@ -90,4 +97,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CampaignList;
+export default React.memo(CampaignList);

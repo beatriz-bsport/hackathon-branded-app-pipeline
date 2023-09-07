@@ -86,7 +86,7 @@ type Props = {
   fetchRecipientList: (page: number) => void,
   recipientState: Object,
   recipientList: Array<Recipient>,
-  goToMember: (id: number) => void,
+  goToMember?: (id: number) => void,
   setShowLinkOpened: (data: { [link: string]: number }) => void,
   showLinkOpened: { [link: string]: number },
 };
@@ -107,7 +107,10 @@ export class RecipientTable extends React.Component<Props> {
   };
 
   onRowClick = (rowData, { rowIndex }) => {
-    this.props.goToMember(this.props.recipientList[rowIndex].member);
+    // We don't want to go to member for franchise campaigns
+    if (this.props.goToMember) {
+      this.props.goToMember(this.props.recipientList[rowIndex].member);
+    }
   };
 
   render() {

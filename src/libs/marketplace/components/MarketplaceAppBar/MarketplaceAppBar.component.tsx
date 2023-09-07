@@ -53,8 +53,8 @@ type Props = {
   settings?: MarketplaceSettings;
   theme?: any;
   photo?: string;
-  franchisor: Franchise | null;
-  onCompanySelected: (company: Company) => void;
+  franchisor?: Franchise | null;
+  onCompanySelected?: (company: Company) => void;
 };
 
 export const MarketplaceAppBar: React.FC<Props> = ({

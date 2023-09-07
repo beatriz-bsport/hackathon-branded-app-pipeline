@@ -252,7 +252,7 @@ export const useMarketplacePassFlatLists = ({
 };
 
 export const useOfferHours = (
-  offer: Offer | OfferWithSpotInformation,
+  offer: Offer | OfferWithSpotInformation | Offer_FULL,
   establishment: Establishment,
   metaActivity: MetaActivity,
   theme: Theme,
@@ -481,7 +481,7 @@ export const useOfferFormattedDate = (
   companyTheme: CompanyTheme,
 ) => {
   const { t } = useTranslation('datetime');
-  const timezoneName = offer.meta_activity?.is_broadcast
+  const timezoneName = offer?.meta_activity?.is_broadcast
     ? moment.tz.guess()
     : offer.establishment?.tzname ||
       companyTheme.timezone_name ||

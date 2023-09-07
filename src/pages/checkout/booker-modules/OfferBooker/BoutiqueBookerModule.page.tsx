@@ -916,7 +916,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                 this.state.confirmLoading ||
                 this.getIsLoading()
               }
-              displayTax={!this.props.theme?.is_tax_excluded_in_marketplace}
+              displayTax={this.props.theme?.is_tax_excluded_in_marketplace}
               isBookable={isBookable}
               OfferSummaryComponent={() => (
                 <OfferSummary
@@ -934,7 +934,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               )}
               onClick={this.onConfirm}
               price={displayPrice}
-              tax={this.props.offer?.tax}
+              // @ts-expect-error
+              tax={this.state.selectedItem?.data?.tax}
               value={
                 !this.props.offer?.full
                   ? t(`booking:notification.form.submit`)

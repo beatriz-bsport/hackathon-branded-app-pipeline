@@ -131,7 +131,10 @@ type Props = OwnProps &
   typeof mapDispatchToProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
-window.env = { ...(window.env || {}), APP_CONTEXT: 'widget' };
+window.env = {
+  ...(window.env || {}),
+  APP_CONTEXT: 'widget',
+};
 
 class BsportWidget extends Component<Props> {
   componentDidMount() {
@@ -165,7 +168,9 @@ class BsportWidget extends Component<Props> {
   }
 
   onWindowOpen = (url: string) => {
-    const uri = URI(url).addQuery('context', 'widget');
+    const uri = URI(url)
+      .addQuery('context', 'widget')
+      .addQuery('dialogMode', this.props.dialogMode);
     this.props.openUserInteractionPortal({
       url: uri.toString(),
       dialogMode: this.props.dialogMode,

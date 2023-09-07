@@ -11,12 +11,12 @@ export type Props = {
   formatPriceWithCurrency: (
     price: number | string,
     isExcludingTax?: boolean,
-    tax?: number,
+    tax?: number | string,
   ) => string;
   color?: Color;
   classes?: { [key: string]: string | boolean };
   isExcludingTax: boolean;
-  tax?: number;
+  tax?: number | string;
 };
 
 export const Price: React.FC<Props> = ({

@@ -6,7 +6,7 @@ import './styles.css';
 
 export type Props = {
   label?: string;
-  classes?: { [key: string]: string };
+  classes?: { [key: string]: string | boolean };
   icon?: React.ReactNode;
 };
 

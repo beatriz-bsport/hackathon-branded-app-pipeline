@@ -180,6 +180,10 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
 
   const [currentStep, setCurrentStep] = React.useState<StepType>(steps[0]);
 
+  const [lastSubmitButtonClicked, setLastSubmitButtonClicked] = React.useState<
+    number | null
+  >(null);
+
   const [isOnlinePaymentDisabled, setIsOnlinePaymentDisabled] =
     React.useState<boolean>(false);
 
@@ -210,6 +214,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   // Definition of the activated/disabled state of each button
   const submitButtonsDisabledState = useSubmitButtonsDisabledState({
     basketLoading,
+    paymentProcessing,
     currentStepId: currentStep.id,
     isOnlinePaymentDisabled,
     termsAndConditionsAccepted,
@@ -227,11 +232,13 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   // button will be filled with a Circular Progress an disabled
   const submitButtonsProcessingState = useSubmitButtonsProcessingState({
     paymentProcessing,
+    lastSubmitButtonClicked,
   });
 
   // Definition of the callbacks called on click for each button
   const handleSubmitButtonsCallbacks = useHandleSubmitButtonsCallbacks({
     checkoutStepsRef,
+    setLastSubmitButtonClicked,
   });
 
   // In the basket summary we don't want to display the checkout items already in the bill

@@ -10,6 +10,7 @@ export type UseSubmitButtonsDisplayableStateProps = {
 
 export type UseSubmitButtonsDisabledStateProps = {
   currentStepId: number;
+  paymentProcessing: boolean;
   basketLoading: boolean;
   isOnlinePaymentDisabled: boolean;
   termsAndConditionsAccepted: boolean;
@@ -17,10 +18,14 @@ export type UseSubmitButtonsDisabledStateProps = {
 
 export type UseSubmitButtonsProcessingStateProps = {
   paymentProcessing: boolean;
+  lastSubmitButtonClicked: number | null;
 };
 
 export type UseHandleSubmitButtonsCallbacksProps = {
   checkoutStepsRef: React.MutableRefObject<any>;
+  setLastSubmitButtonClicked: React.Dispatch<
+    React.SetStateAction<null | number>
+  >;
 };
 
 export const useSubmitButtonsDisplayableState = ({
@@ -72,6 +77,7 @@ export const useSubmitButtonsDisplayableState = ({
 
 export const useSubmitButtonsDisabledState = ({
   basketLoading,
+  paymentProcessing,
   currentStepId,
   isOnlinePaymentDisabled,
   termsAndConditionsAccepted,
@@ -89,6 +95,7 @@ export const useSubmitButtonsDisabledState = ({
         case SUBMIT_BUTTONS.PAY_NOW_BUTTON.id:
           if (
             basketLoading ||
+            paymentProcessing ||
             isOnlinePaymentDisabled ||
             !termsAndConditionsAccepted
           )
@@ -96,7 +103,7 @@ export const useSubmitButtonsDisabledState = ({
           break;
         case SUBMIT_BUTTONS.PAY_LATER_BUTTON.id:
         case SUBMIT_BUTTONS.CONFIRM_BUTTON.id:
-          if (basketLoading || !termsAndConditionsAccepted)
+          if (basketLoading || paymentProcessing || !termsAndConditionsAccepted)
             submitButtonsDisabled[button.id] = true;
           break;
         default:
@@ -109,10 +116,12 @@ export const useSubmitButtonsDisabledState = ({
     currentStepId,
     isOnlinePaymentDisabled,
     termsAndConditionsAccepted,
+    paymentProcessing,
   ]);
 
 export const useSubmitButtonsProcessingState = ({
   paymentProcessing,
+  lastSubmitButtonClicked,
 }: UseSubmitButtonsProcessingStateProps): { [key: number]: boolean } =>
   useMemo(() => {
     const submitButtonsProcessing: { [key: number]: boolean } = {};
@@ -125,17 +134,20 @@ export const useSubmitButtonsProcessingState = ({
         case SUBMIT_BUTTONS.PAY_NOW_BUTTON.id:
         case SUBMIT_BUTTONS.PAY_LATER_BUTTON.id:
         case SUBMIT_BUTTONS.CONFIRM_BUTTON.id:
-          if (paymentProcessing) submitButtonsProcessing[button.id] = true;
+          if (paymentProcessing)
+            submitButtonsProcessing[button.id] =
+              button.id === lastSubmitButtonClicked;
           break;
         default:
           break;
       }
     });
     return submitButtonsProcessing;
-  }, [paymentProcessing]);
+  }, [paymentProcessing, lastSubmitButtonClicked]);
 
 export const useHandleSubmitButtonsCallbacks = ({
   checkoutStepsRef,
+  setLastSubmitButtonClicked,
 }: UseHandleSubmitButtonsCallbacksProps): {
   [key: number]: (event: React.MouseEvent<any>) => Promise<void>;
 } =>
@@ -156,11 +168,13 @@ export const useHandleSubmitButtonsCallbacks = ({
             event: React.FormEvent<HTMLFormElement>,
           ) => {
             checkoutStepsRef.current.onSubmit(event);
+            setLastSubmitButtonClicked(button.id);
           };
           break;
         case SUBMIT_BUTTONS.PAY_LATER_BUTTON.id:
           submitButtonsCallbacks[button.id] = async () => {
             checkoutStepsRef.current.onPayLaterSubmit();
+            setLastSubmitButtonClicked(button.id);
           };
           break;
         default:
@@ -168,4 +182,4 @@ export const useHandleSubmitButtonsCallbacks = ({
       }
     });
     return submitButtonsCallbacks;
-  }, [checkoutStepsRef]);
+  }, [checkoutStepsRef, setLastSubmitButtonClicked]);

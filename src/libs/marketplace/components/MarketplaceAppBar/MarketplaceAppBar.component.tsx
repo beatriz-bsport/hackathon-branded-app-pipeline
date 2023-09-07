@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
@@ -7,20 +6,26 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
+import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
+import IconButton from '@material-ui/core/IconButton';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import { getTextColorFromRGB } from '../../../../utils/color';
 
-import { Basket } from '#libs/checkout/types';
-import { Member } from '#libs/member/types';
-import { MarketplaceSettings } from '#libs/marketplace/types';
-
+import type { Basket } from '#libs/checkout/types';
+import type { Member } from '#libs/member/types';
+import type { MarketplaceSettings } from '#libs/marketplace/types';
+import type { Franchise } from '#libs/franchise/types';
+import type { Company } from '#libs/company/types';
 import AppBarMenu from './AppBarMenu.component';
 import AppBarLogo from './AppBarLogo.component';
 import AppBarBasket from './AppBarBasket.component';
 import AppBarProfile from './AppBarProfile.component';
 import AppBarProfileMenu from './AppBarProfileMenu.component';
+import WidgetUtils from '#libs/widget/WidgetUtils';
+import ToolTip from '#components/Tooltip.component';
 
 type Props = {
-  auth?: Object;
+  auth?: any;
   logo?: string;
 
   currentBasket?: Basket;
@@ -48,6 +53,8 @@ type Props = {
   settings?: MarketplaceSettings;
   theme?: any;
   photo?: string;
+  franchisor: Franchise | null;
+  onCompanySelected: (company: Company) => void;
 };
 
 export const MarketplaceAppBar: React.FC<Props> = ({
@@ -81,6 +88,13 @@ export const MarketplaceAppBar: React.FC<Props> = ({
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement>(null);
+
+  const displayWidgetGoBack =
+    isWidget && WidgetUtils.getDialogMode() === DIALOG_MODE_DEACTIVATED;
+
+  const handleWidgetGoBackNavigation = () => {
+    WidgetUtils.handleGoBackNavigation();
+  };
 
   const handleProfileMenuOpen = (event: React.SyntheticEvent<HTMLElement>) => {
     if (auth.authenticated) {
@@ -121,7 +135,15 @@ export const MarketplaceAppBar: React.FC<Props> = ({
             title={theme.company_name}
             websiteURL={websiteURL}
           />
+          {displayWidgetGoBack && (
+            <ToolTip title={t('consumerSpace:navigation.goBack')}>
+              <IconButton onClick={handleWidgetGoBackNavigation}>
+                <ArrowBack />
+              </IconButton>
+            </ToolTip>
+          )}
         </div>
+
         {withNavigation && (
           <AppBarMenu
             handleTabChange={handleTabChange}
@@ -233,4 +255,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default MarketplaceAppBar;
+export default React.memo(MarketplaceAppBar);

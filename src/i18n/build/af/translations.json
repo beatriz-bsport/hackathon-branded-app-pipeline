@@ -1196,7 +1196,8 @@
       "logoff": "Déconnecter",
       "changeMembership": "Changer de club",
       "pick_a_language": "Sélectionner une langue",
-      "automaticLanguage": "Détection langage automatique"
+      "automaticLanguage": "Détection langage automatique",
+      "goBack": "Retour"
     },
     "subscription": { "isEmpty": "Vous n'avez aucun abonnement en cours" },
     "myVideos": { "title": "Mes vidéos", "gotToVOD": "Voir toutes les vidéos" },

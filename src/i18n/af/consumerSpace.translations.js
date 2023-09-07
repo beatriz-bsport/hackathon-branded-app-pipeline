@@ -4,6 +4,7 @@ exports.default = {
     profile: 'Accéder à mon profil',
     logout: 'Déconnexion',
     login: 'Connexion',
+
   },
   navigation: {
     relationConnectedAs: 'Connecté en tant que : {{name}}',
@@ -22,6 +23,7 @@ exports.default = {
     changeMembership: 'Changer de club',
     pick_a_language: 'Sélectionner une langue',
     automaticLanguage: 'Détection langage automatique',
+    goBack :'Retour',
   },
   subscription: {
     isEmpty: "Vous n'avez aucun abonnement en cours",

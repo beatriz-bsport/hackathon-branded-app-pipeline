@@ -826,6 +826,58 @@
         "subscriptionNotFound": {
             "explanation": "Dieses Abonnement existiert nicht mehr. Bitte wählen Sie ein anderes oder kontaktieren Sie Ihren Studioleiter.",
             "title": "Vertrag nicht gefunden"
+        },
+        "newCheckout": {
+            "error": {
+                "button": {
+                    "userRegistration": "Mein Abonnement ansehen",
+                    "registerBackground": "Schließen"
+                },
+                "text": {
+                    "userRegistration": "Ihr Abonnement wurde erstellt und Ihr Zahlungsmittel wird in Kürze belastet. Ihre Buchung konnte jedoch nicht gespeichert werden.",
+                    "registerBackground": "Ihr Abonnement und Ihre Buchung konnten nicht erstellt werden. Das Zahlungsmittel wurde nicht belastet."
+                },
+                "title": "Ein Fehler ist aufgetreten"
+            },
+            "payment": {
+                "tooltip": "Dieses Zahlungsmittel wird beibehalten, um vertragsgemäß in Rechnung gestellt zu werden. Machen Sie sich keine Sorgen, Sie können es später über Ihr Konto ändern.",
+                "details": "Zahlungsdetails"
+            },
+            "subscriptionBasketSummary": {
+                "message": "Sie können Ihr Abonnement auf Ihrer Profilseite sehen",
+                "payNow": "Jetzt bezahlen"
+            },
+            "terms": {
+                "acceptTerms": "Ich akzeptiere die <0>rechtlichen Hinweise</0>.",
+                "seeLess": "Weniger ansehen",
+                "seeMore": "Mehr ansehen",
+                "title": "Vertragsbedingungen"
+            },
+            "subscriptionSummary": {
+                "billingInterval": {
+                    "day": "jeden Tag",
+                    "day_plural": "alle {{ count }} Tage",
+                    "year": "jedes Jahr",
+                    "year_plural": "alle {{ count }} Jahre",
+                    "week": "jede Woche",
+                    "week_plural": "alle {{ count }} Wochen",
+                    "month": "jeden Monat",
+                    "month_plural": "alle {{count}} Monate"
+                },
+                "prorataPriceText": "{{proratedPrice}} fällig am {{-today}} und dann {{recurrentPrice}} an jedem {{monthBillingDay}} des Monats.",
+                "item": "{{count}} Element",
+                "item_plural": "{{count}} Elemente",
+                "unlimited": "Unbegrenzt",
+                "credit": "{{count}} Kredit",
+                "credit_plural": "{{count}} Kredite",
+                "startDate": "Startdatum"
+            },
+            "processingPaymentModal": {
+                "timeEstimation": "Dies kann bis zu einer Minute dauern",
+                "text": "Bitte warten Sie, bis die Zahlung erfolgt ist. Verlassen Sie diese Seite nicht und laden Sie sie nicht neu.",
+                "title": "Laufende Zahlung"
+            },
+            "title": "Abonnement"
         }
     },
     "translation": {
@@ -6201,6 +6253,7 @@
                 "Stornieren",
                 "",
                 "Abgesagt",
+                "Storniert",
                 "Storniert"
             ]
         }
@@ -6533,6 +6586,10 @@
             "create": {
                 "error": "Diese E-Mail kann nicht gespeichert werden",
                 "success": "Erstellte E-Mail"
+            },
+            "duplicate": {
+                "error": "E-Mail kann nicht dupliziert werden",
+                "success": "Duplizierte E-Mail"
             }
         },
         "activity": {
@@ -7800,7 +7857,8 @@
                     "collect": "Speichern",
                     "close": "Schließen",
                     "displayPaymentMethod": "Meine Zahlungsarten anzeigen",
-                    "selectPaymentMethod": "Wählen Sie Ihre Zahlungsmethode"
+                    "selectPaymentMethod": "Wählen Sie Ihre Zahlungsmethode",
+                    "cancel": "Stornieren"
                 },
                 "collect": {
                     "content": "Diese Zahlungsmethode wird in Deinem Konto hinterlegt und vertragsgemäß in Rechnung gestellt.",
@@ -11251,7 +11309,8 @@
             "statistic": "Statistiken",
             "connectedAs": "Anmelden als",
             "backToRelationMasterSpace": "zu meinem Konto zurückkehren",
-            "relationConnectedAs": "Angemeldet als : {{name}}"
+            "relationConnectedAs": "Angemeldet als : {{name}}",
+            "goBack": "Zurück"
         },
         "pack": {
             "titlePrivatePack": "Terminpass",
@@ -11669,7 +11728,9 @@
             "content": "Inhalt",
             "containsNProducts": "Enthält {{ n }} Produkte",
             "description": "Beschreibung",
-            "purchases": "Verkäufe"
+            "purchases": "Verkäufe",
+            "itemCount": "{{ count }} Element",
+            "itemCount_plural": "{{ count }} Elemente"
         },
         "edit": "Ändern",
         "search": "Suche nach einem Paket",
@@ -13669,7 +13730,8 @@
                 "day_plural": "{{count}} Tage"
             },
             "title": {
-                "universalPassMessage": "Universalpässe, könn für Gruppenaktivitäten und Termine verwendet werden"
+                "universalPassMessage": "Universalpässe, könn für Gruppenaktivitäten und Termine verwendet werden",
+                "autoRenewal": "Automatische Verlängerung"
             }
         },
         "packCard": {
@@ -14665,12 +14727,14 @@
             "checkAndFinalize": "Bitte überprüfen Sie Ihren Warenkorb und schließen Sie Ihre Buchung ab",
             "almostDone": "Fast geschafft",
             "newCheckout": {
-                "isEmpty": "Ihr Warenkorb ist leer!"
+                "isEmpty": "Ihr Warenkorb ist leer!",
+                "isEmptyDescription": "Erkunden Sie den Marketplace weiter!"
             },
             "noBooking": {
                 "acceptTermsAndFinalize": "Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen und schließen Sie Ihren Warenkorb ab",
                 "checkAndFinalize": "Bitte überprüfen Sie Ihren Warenkorb"
-            }
+            },
+            "goToMarketplace": "Marketplace ansehen"
         },
         "forms": {
             "delivery": {
@@ -14705,8 +14769,9 @@
             "sections": {
                 "offerPreBooked": "Aufnahme in die Warteliste",
                 "title": "Herzlichen Glückwunsch!",
-                "basket": "Ihr Korb",
-                "offerBooked": "Ihre Sessions",
+                "basket": "Mein Warenkorb",
+                "offerBooked": "Meine Session",
+                "offerBooked_plural": "Meine Sessions",
                 "offerNotBookable": "Keine Registrierung",
                 "errorExplain": {
                     "generic": "Die Operation konnte nicht durchgeführt werden. Wir bitten Sie, es noch einmal zu versuchen.",
@@ -14716,11 +14781,41 @@
                     "guestPass": "Das Studio hat die Buchungsfunktion für einen Gast für dieser Kurspass deaktiviert.",
                     "guestNotEnoughSpot": "Es gibt nicht genug Plätze für alle Ihre Gäste.",
                     "guestReachedLimit": "Sie haben bereits das Limit für die Buchung eines Gastes im aktuellen Zeitraum erreicht. Es ist nicht mehr möglich, weitere zu buchen.",
-                    "guestSettings": "Das Studio hat die Buchungsfunktion für einen Gast deaktiviert."
+                    "guestSettings": "Das Studio hat die Buchungsfunktion für einen Gast deaktiviert.",
+                    "genericOfferError": "Wir sind auf ein Problem bei der Verarbeitung Ihrer Sessionbuchung gestoßen. Bitte versuchen Sie es zu einem späteren Zeitpunkt noch einmal oder buchen Sie eine andere Session.",
+                    "offerOnlyBookingError": "Leider können die ausgewählte Sitzung und der ausgewählte Spot derzeit nicht gebucht werden. Wir bitten Sie, es noch einmal zu versuchen."
                 },
                 "error": "Fehler",
                 "recap": "Zusammenfassung",
-                "explain": "Ihre Transaktion wurde berücksichtigt. Wir schicken Ihnen eine Bestätigungsmail."
+                "explain": "Ihre Transaktion wurde berücksichtigt. Wir schicken Ihnen eine Bestätigungsmail.",
+                "myGiftcard": "Meine Geschenkkarte",
+                "myGiftcard_plural": "Meine Geschenkkarten",
+                "myProduct": "Mein Produkt",
+                "myProduct_plural": "Meine Produkte",
+                "mySubscription": "Mein Abonnemnet",
+                "myPack": "Mein Paket",
+                "myPack_plural": "Meine Pakete",
+                "myPass": "Mein Kurspass",
+                "myPass_plural": "Meine Kurspässe",
+                "alert": "Ups! Die Buchung ist fehlgeschlagen.\n Wir sind bei der Verarbeitung Ihrer Sessionbuchung auf ein Problem gestoßen. Bitte versuchen Sie es zu einem späteren Zeitpunkt noch einmal oder buchen Sie eine andere Session.",
+                "confirmationStatusMessage": {
+                    "offerAndPurchaseSuccess": "Herzlichen Glückwunsch! Ihre Einkäufe und Buchungen sind bestätigt. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details.",
+                    "paymentSuccess": "Herzlichen Glückwunsch! Ihr Kauf wurde bestätigt!",
+                    "paymentSuccess_plural": "Herzlichen Glückwunsch! Ihre Einkäufe wurden bestätigt!",
+                    "offerOnlySuccess": "Die Buchung wurde erfolgreich durchgeführt. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details.",
+                    "offerOnlySuccess_plural": "Die Buchungen wurden erfolgreich durchgeführt. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details."
+                },
+                "confirmationStatusTitle": {
+                    "success": {
+                        "waitingList": "Sie haben sich auf die Warteliste gesetzt",
+                        "paymentSuccess": "Zahlung bestätigt!",
+                        "offerOnlySuccess": "Viel Spaß bei der Session!"
+                    },
+                    "errors": {
+                        "genericOfferError": "Hoppla! Die Buchung ist fehlgeschlagen.",
+                        "generic": "Hoppla! Die Zahlung ist fehlgeschlagen."
+                    }
+                }
             },
             "actions": {
                 "continue": "Meinen Einkauf fortsetzen",
@@ -14728,7 +14823,22 @@
                 "widgetContinue": "Weiter",
                 "member": "Mitgliederbereich",
                 "confirmPriceNull": "Bestätigen",
-                "payNow": "Bezahlen"
+                "payNow": "Bezahlen",
+                "myPasses": "Meine Kurskarten",
+                "myGiftcards": "Meine Gutscheine",
+                "myProducts": "Meine Käufe",
+                "mySubscription": "Mein Abonnement",
+                "retryBookingSession": "Erneut versuchen zu buchen",
+                "newWorkshop": "Neuer Workshop",
+                "retry": "Erneut versuchen",
+                "myBookings": "Meine Buchungen",
+                "goToCalendar": "Zum Kalender zurückkehren"
+            },
+            "bookingItem": {
+                "bookingItemStatus": {
+                    "unpaid": "Unbezahlt",
+                    "waitingList": "Warteliste"
+                }
             }
         },
         "expire_in": "Läuft ab in ",
@@ -15015,7 +15125,9 @@
             "dialogMode": {
                 "iframe": "Auf der Seite bleiben",
                 "popup": "Neues Fenster",
-                "tab": "Neuer Tab"
+                "tab": "Neuer Tab",
+                "stayInContainerBetaTag": "(beta)",
+                "stayInContainer": "Kein Popup"
             },
             "dialogModeLabel": "Art des Popups (Login, Zahlung, Reservierung)",
             "showFabLabel": "Floating-Taste für die Kundenschnittstelle",

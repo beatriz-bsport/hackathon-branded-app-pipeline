@@ -2452,7 +2452,8 @@
             "statistic": "Statistics",
             "connectedAs": "Login as",
             "backToRelationMasterSpace": "Return to my account",
-            "relationConnectedAs": "You're currently connected as: {{name}}"
+            "relationConnectedAs": "You're currently connected as: {{name}}",
+            "goBack": "Back"
         },
         "pack": {
             "titlePaymentPack": "Group activities",
@@ -4419,7 +4420,7 @@
             },
             "actions": {
                 "cancel": "Cancel",
-                "submit": "Save"
+                "submit": "Apply"
             },
             "subscription_mode": {
                 "3": "Not applicable",
@@ -4448,7 +4449,7 @@
                 "label": "Promo code",
                 "placeholder": "PROMOTIONAL CODE",
                 "cancel": "Cancel",
-                "submit": "Save",
+                "submit": "Apply",
                 "not_found": "This promo code is not valid.",
                 "not_applicable": "This promo code is not applicable.",
                 "5004": "This code can only be applied to one item.",
@@ -7713,7 +7714,7 @@
             "deliveryFee": "Delivery Fee",
             "title": "Payment",
             "totalHiddingTax": "Total to pay now",
-            "flatFeeSubscription": "application fee"
+            "flatFeeSubscription": "Application fee"
         }
     },
     "establishment": {
@@ -11124,6 +11125,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -13444,7 +13446,7 @@
                 },
                 "isAlreadyOnWaitingList": {
                     "title": "Already on the waiting list",
-                    "message": "If you are on the waiting list, we will send you an email as soon as a spot becomes available."
+                    "message": "If you're on the waiting list, we'll let you know by email when a place becomes available."
                 },
                 "waitingListOpen": {
                     "title": "The session is full",
@@ -16258,7 +16260,9 @@
             "dialogMode": {
                 "iframe": "Popup on my website",
                 "popup": "Open a new window",
-                "tab": "Open a new tab"
+                "tab": "Open a new tab",
+                "stayInContainerBetaTag": "(beta)",
+                "stayInContainer": "No Popup"
             },
             "dialogModeLabel": "Popup type",
             "widgetPreviewError": "Please finish the settings",

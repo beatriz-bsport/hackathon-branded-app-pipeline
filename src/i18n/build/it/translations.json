@@ -1527,7 +1527,8 @@
             "statistic": "Statistiche",
             "connectedAs": "Accedi come",
             "relationConnectedAs": "Registrato come: {{name}}",
-            "backToRelationMasterSpace": "torna al mio account"
+            "backToRelationMasterSpace": "torna al mio account",
+            "goBack": "Indietro"
         },
         "debt": {
             "regularize": "Regolarizza",
@@ -7826,7 +7827,8 @@
                 "Cancellato",
                 "Cencellata",
                 "Annullata",
-                "Cancella"
+                "Cancella",
+                "Cancellato"
             ]
         },
         "payment_method_with_credit_account": {
@@ -15150,7 +15152,9 @@
             "dialogMode": {
                 "tab": "Nuova scheda",
                 "popup": "Nuova finestra",
-                "iframe": "Rimanere sul sito"
+                "iframe": "Rimanere sul sito",
+                "stayInContainerBetaTag": "(beta)",
+                "stayInContainer": "No Popup"
             },
             "linkToConfig": "Collegamento a questa configurazione",
             "showFabLabel": "Pulsante Bsport EasyConnect",

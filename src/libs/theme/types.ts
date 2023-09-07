@@ -112,6 +112,7 @@ export type Theme = {
   is_referral_program_activated: boolean;
   force_billing_details_on_cards: boolean;
   payment_method_available_recurringly: number[];
+  display_bubble_background: boolean;
 };
 
 export type ThemeState = {

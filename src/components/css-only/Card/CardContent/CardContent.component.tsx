@@ -5,7 +5,7 @@ import classNames from 'classnames';
 export type Props = {
   children: React.ReactNode;
   padding?: boolean;
-  classes?: { [key: string]: string };
+  classes?: { [key: string]: string | boolean };
 };
 
 export const CardContent: React.FC<Props> = ({

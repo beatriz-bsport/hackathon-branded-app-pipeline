@@ -12,13 +12,12 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  height: calc(100vh - var(--spacing-6));
   background-color: var(--color-background);
   container: bsContractCheckoutPage / inline-size;
 }
 
-.bs-contract-checkout__direct__link__container {
-  container: bsContractCheckoutPage / inline-size;
+.bs-contract-checkout--fixed-height-layout {
+  height: calc(100vh - var(--spacing-6));
 }
 
 .bs-contract-payment-page__carousel__container {
@@ -126,7 +125,7 @@
 }
 
 @container bsContractCheckoutPage (width < 750px) {
-  .bs-contract-checkout__direct__link__container .bs-contract-details__card {
+  .bs-contract-checkout__container .bs-contract-details__card {
     margin: 0;
   }
 

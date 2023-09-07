@@ -6,7 +6,6 @@ import { compose } from 'recompose';
 import { push as pushFunc } from 'connected-react-router';
 import { Redirect, Route, Switch } from 'react-router';
 
-import Config from '../../config';
 // @ts-ignore
 import asyncComponent from '../../AsyncComponent';
 // @ts-ignore
@@ -32,9 +31,7 @@ type Props = {
 const tabsData = Immutable([
   { label: 'tab.widget.create', value: 'create' },
   { label: 'tab.widget.customize', value: 'customize' },
-  ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
-    ? [{ label: 'tab.widget.customizeCss', value: 'customize-css' }]
-    : []),
+  { label: 'tab.widget.customizeCss', value: 'customize-css' },
 ]);
 
 const SettingsWidget: React.FC<Props> = ({

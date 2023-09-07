@@ -23,9 +23,10 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
 } from '@bsport/common/lib/master-data/custom-form';
 import chroma from 'chroma-js';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import { getTheme } from '../../theme';
 import { fetchCompanyTheme } from '#libs/theme/actions';
-
+import ApplyCustomCssStyles from '#libs/widget/components/ApplyCustomCssStyles.component';
 import Login from '#libs/login/components/Login.component';
 import MarketplaceAppBar from '#libs/marketplace/components/MarketplaceAppBar';
 import Analytics from '#components/analytics/Analytics.component';
@@ -197,6 +198,7 @@ export class MarketPlace extends Component<Props, State> {
   };
 
   fetchData = () => {
+    this.props.retrieveCompanyCssConfiguration(this.props.companyId);
     this.props.fetchCompanyTheme(this.props.companyId, {
       onSuccess: (theme) => {
         if (theme.franchisor) this.props.retrieveFranchise(theme.franchisor);
@@ -492,6 +494,12 @@ export class MarketPlace extends Component<Props, State> {
             theme={this.props.theme}
             username={(this.props.auth && this.props.auth.username) || ''}
           />
+          {!!this.props.customConfiguration &&
+            !!this.props.customConfiguration.apply_on_marketplace && (
+              <ApplyCustomCssStyles
+                customConfiguration={this.props.customConfiguration}
+              />
+            )}
           <div className={classes.container}>
             <MarketplaceAppBar
               withNavigation
@@ -735,6 +743,7 @@ export default compose(
       checkEmailExistsLoading: state.auth.emailExists.loading,
       emailExists: state.auth.emailExists.exists,
       signUpCustomForm: getSignUpCustomFormWithEnabledField(state),
+      customConfiguration: state.exportableComponents.customCss,
     }),
     {
       // General information
@@ -770,6 +779,7 @@ export default compose(
       retrieveFranchise,
       // navigation
       replace,
+      retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
     },
   ),
   connect((state: RootState, { theme }) => ({

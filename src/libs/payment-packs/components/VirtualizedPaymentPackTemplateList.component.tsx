@@ -112,7 +112,7 @@ const PaymentPackTemplateList = (props: {
       <VirtualizedVariableList
         itemCount={searchedList?.length || 0}
         itemSize={HEIGHT_ITEM}
-        minItemsDisplaid={3}
+        minItemsDisplaid={5}
         renderRow={(index) => {
           const ppt = searchedList[index];
           return (

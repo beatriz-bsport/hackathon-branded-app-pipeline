@@ -140,7 +140,7 @@ export class FranchisePaymentPackTemplateListPage extends Component<
               </div>
               <Divider className={classes.divider} />
               <Collapse in={this.state.showAvailable}>
-                <Paper style={{ height: '80vh' }}>
+                <Paper>
                   <VirtualizedPaymentPackTemplateList
                     divider
                     onClick={this.props.goToTemplateDetail}
@@ -175,7 +175,7 @@ export class FranchisePaymentPackTemplateListPage extends Component<
           )}
           {this.state.showManagerOnly && (
             <Collapse in={this.state.showManagerOnly}>
-              <Paper style={{ height: '100vh' }}>
+              <Paper>
                 <VirtualizedPaymentPackTemplateList
                   onClick={this.props.goToTemplateDetail}
                   onDelete={this.props.openDeleteDialog}

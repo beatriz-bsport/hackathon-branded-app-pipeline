@@ -2153,7 +2153,9 @@
             "purchases": "Verkopen",
             "content": "Inhoud",
             "description": "Beschrijving",
-            "containsNProducts": "Bevat {{n}} product(en)"
+            "containsNProducts": "Bevat {{n}} product(en)",
+            "itemCount": "{{ count }} element",
+            "itemCount_plural": "{{ count }} elementen"
         },
         "form": {
             "available_payment_method_identifiers": {
@@ -3147,6 +3149,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Annuleren",
+                "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
@@ -6450,7 +6453,8 @@
                 "validDay_plural": "Geldig voor {{ count }} dagen"
             },
             "title": {
-                "universalPassMessage": "Een universele kaart van zowel voor groepsactiviteiten en afspraken worden gebruikt."
+                "universalPassMessage": "Een universele kaart van zowel voor groepsactiviteiten en afspraken worden gebruikt.",
+                "autoRenewal": "Automatische verlenging"
             },
             "addButton": {
                 "buttonContent": "Toevoegen"
@@ -7634,6 +7638,58 @@
         "subscriptionNotFound": {
             "explanation": "Dit abonnement is niet meer beschikbaar. Selecteer een ander abonnement of contacteer de onderneming.",
             "title": "Er zijn geen zoekresultaten voor dit abonnement."
+        },
+        "newCheckout": {
+            "error": {
+                "button": {
+                    "userRegistration": "Bekijk mijn abonnement",
+                    "registerBackground": "Sluiten"
+                },
+                "text": {
+                    "userRegistration": "Je abonnement is aangemaakt en je betaalmethode zal binnenkort worden afgeschreven. Je boeking is echter nog niet geregistreerd.",
+                    "registerBackground": "Je inschrijving en boeking konden niet worden aangemaakt. De betaalmethode is niet gedebiteerd."
+                },
+                "title": "Er is een fout opgetreden"
+            },
+            "payment": {
+                "tooltip": "Deze betaalmethode wordt gebruikt voor facturering in overeenstemming met het contract. Maak je geen zorgen, je kunt dit later via je account wijzigen.",
+                "details": "Betalingsgegevens"
+            },
+            "subscriptionBasketSummary": {
+                "message": "Je kunt je abonnement bekijken op je profielpagina",
+                "payNow": "Nu betalen"
+            },
+            "terms": {
+                "acceptTerms": "Ik accepteer de <0>wettelijke voorwaarden</0>.",
+                "seeLess": "Minder zien",
+                "seeMore": "Meer zien",
+                "title": "Contractvoorwaarden"
+            },
+            "subscriptionSummary": {
+                "billingInterval": {
+                    "day": "elke dag",
+                    "day_plural": "elke {{ count }} dag",
+                    "year": "elk jaar",
+                    "year_plural": "elke {{ count }} jaar",
+                    "week": "elke week",
+                    "week_plural": "elke {{ count }} week",
+                    "month": "elke maand",
+                    "month_plural": "elke {{ count }} maand"
+                },
+                "prorataPriceText": "{{proratedPrice}} verschuldigd op {{-today}}, daarna {{recurrentPrice}}} elke {{monthBillingDay}}} van de maand.",
+                "item": "{{count}} element",
+                "item_plural": "{{count}} elementen",
+                "unlimited": "Onbeperkt",
+                "credit": "{{count}} credit",
+                "credit_plural": "{{count}} credits",
+                "startDate": "Startdatum"
+            },
+            "processingPaymentModal": {
+                "timeEstimation": "Dit kan tot een minuut duren",
+                "text": "Wacht tot de betaling is verwerkt. Verlaat of herlaad deze pagina niet.",
+                "title": "Betaling in uitvoering"
+            },
+            "title": "Abonnement"
         }
     },
     "coachPerformance": {
@@ -9748,7 +9804,8 @@
                     "collect": "Opslaan",
                     "close": "Sluiten",
                     "displayPaymentMethod": "Toon mijn betaalmethoden",
-                    "selectPaymentMethod": "Selecteer je gewenste betaalmethode"
+                    "selectPaymentMethod": "Selecteer je gewenste betaalmethode",
+                    "cancel": "Annuleer"
                 },
                 "collect": {
                     "content": "Deze betaalmethode wordt in je account conform de overeenkomst toegevoegd.",
@@ -10259,6 +10316,10 @@
             "delete": {
                 "success": "E-mail verwijderd",
                 "error": "Kan e-mail niet verwijderen"
+            },
+            "duplicate": {
+                "error": "Kan e-mail niet dupliceren",
+                "success": "Dubbele e-mail"
             }
         },
         "establishment": {
@@ -12569,7 +12630,16 @@
             "totalQuantity": "Inhoud: {{ qty }} product(en)",
             "acceptTermsAndFinalize": "Accepteer de voorwaarden om je reservering te voltooien",
             "checkAndFinalize": "Controleer je winkelmandje en voltooi je betaling",
-            "almostDone": "Laatste stap"
+            "almostDone": "Laatste stap",
+            "goToMarketplace": "Op de markt",
+            "newCheckout": {
+                "isEmptyDescription": "Ga door met het verkennen van de markt!",
+                "isEmpty": "Je mandje is leeg!"
+            },
+            "noBooking": {
+                "acceptTermsAndFinalize": "Accepteer de algemene voorwaarden en vul uw mandje in",
+                "checkAndFinalize": "Controleer uw winkelmandje"
+            }
         },
         "paymentIntent": {
             "isProcessing": "Laden..."
@@ -12583,6 +12653,7 @@
         "validation": {
             "sections": {
                 "offerBooked": "Mijn reservering",
+                "offerBooked_plural": "Mijn reserveringen",
                 "offerNotBookable": "Het is niet mogelijk om je aan te melden voor",
                 "offerPreBooked": "Je staat op de wachtlijst voor",
                 "basket": "Mijn winkelmandje",
@@ -12597,9 +12668,39 @@
                     "guestSettings": "Het uitnodigen van gasten is niet beschikbaar.",
                     "guestOffer": "Het uitnodigen van gasten is niet beschikbaar voor deze sessie.",
                     "guestPass": "Het uitnodigen van gasten is niet beschikbaar voor deze kaart.",
-                    "guestNotEnoughSpot": "Er is niet genoeg capaciteit voor al uw gasten."
+                    "guestNotEnoughSpot": "Er is niet genoeg capaciteit voor al uw gasten.",
+                    "genericOfferError": "Er is een probleem opgetreden bij het verwerken van uw boeking. Probeer het later nog eens of boek een andere sessie.",
+                    "offerOnlyBookingError": "Sorry, maar de geselecteerde sessie en plek kunnen momenteel niet worden geboekt. Probeer het opnieuw."
                 },
-                "explain": "Zo dadelijk ontvang je ook een bevestigingsmail."
+                "explain": "Zo dadelijk ontvang je ook een bevestigingsmail.",
+                "myGiftcard": "Mijn cadeaukaart",
+                "myGiftcard_plural": "Mijn cadeaukaarten",
+                "myProduct": "Mijn product",
+                "myProduct_plural": "Mijn producten",
+                "mySubscription": "Mijn abonnement",
+                "myPack": "Mijn pakket",
+                "myPack_plural": "Mijn pakketten",
+                "myPass": "Mijn cursuskaart",
+                "myPass_plural": "Mijn cursuskaarten",
+                "alert": "Oeps! De boeking is mislukt.\n Er is een probleem opgetreden bij het verwerken van uw boeking. Probeer het later nog eens of boek een andere sessie.",
+                "confirmationStatusMessage": {
+                    "offerAndPurchaseSuccess": "Gefeliciteerd met uw aankoop! Je aankopen en boekingen zijn bevestigd. Je ontvangt binnenkort een bevestigingsmail met alle details.",
+                    "paymentSuccess": "Gefeliciteerd met uw aankoop! Uw aankoop is bevestigd!",
+                    "paymentSuccess_plural": "Gefeliciteerd met uw aankopen! Uw aankopen zijn bevestigd!",
+                    "offerOnlySuccess": "De boeking is gemaakt. Je ontvangt binnenkort een bevestigingsmail met alle details.",
+                    "offerOnlySuccess_plural": "De boekingen zijn gemaakt. Je ontvangt binnenkort een bevestigingsmail met alle details."
+                },
+                "confirmationStatusTitle": {
+                    "success": {
+                        "waitingList": "U staat op de wachtlijst",
+                        "paymentSuccess": "Betaling bevestigd!",
+                        "offerOnlySuccess": "Geniet van de sessie!"
+                    },
+                    "errors": {
+                        "genericOfferError": "Oeps! De boeking is mislukt.",
+                        "generic": "Oeps! Betaling mislukt."
+                    }
+                }
             },
             "actions": {
                 "back": "Terug",
@@ -12607,7 +12708,22 @@
                 "widgetContinue": "Verder",
                 "member": "Mijn profiel",
                 "confirmPriceNull": "Bevestigen",
-                "payNow": "Afrekenen"
+                "payNow": "Afrekenen",
+                "myPasses": "Mijn cursuskaarten",
+                "myGiftcards": "Mijn cadeaubonnen",
+                "myProducts": "Mijn aankopen",
+                "mySubscription": "Mijn abonnement",
+                "retryBookingSession": "Probeer opnieuw te boeken",
+                "newWorkshop": "Nieuwe workshop",
+                "retry": "Probeer het opnieuw",
+                "myBookings": "Mijn boekingen",
+                "goToCalendar": "Terug naar de kalender"
+            },
+            "bookingItem": {
+                "bookingItemStatus": {
+                    "unpaid": "Onbetaald",
+                    "waitingList": "Wachtlijst"
+                }
             }
         },
         "historyTitle": "Geschiedenis",
@@ -12651,7 +12767,8 @@
             "internalAccount": "Interne rekening (Wallet)",
             "totalHiddingTax": "Totaal",
             "deliveryFee": "Bezorgkosten",
-            "title": "Betaling"
+            "title": "Betaling",
+            "flatFeeSubscription": "Aanvraagkosten"
         }
     },
     "invoice": {

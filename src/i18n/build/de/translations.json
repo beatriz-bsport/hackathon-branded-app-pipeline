@@ -14663,7 +14663,14 @@
             "totalQuantity": "Enthält: {{ qty }} Produkt(e)",
             "acceptTermsAndFinalize": "Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen und schließen Sie Ihre Buchung ab",
             "checkAndFinalize": "Bitte überprüfen Sie Ihren Warenkorb und schließen Sie Ihre Buchung ab",
-            "almostDone": "Fast geschafft"
+            "almostDone": "Fast geschafft",
+            "newCheckout": {
+                "isEmpty": "Ihr Warenkorb ist leer!"
+            },
+            "noBooking": {
+                "acceptTermsAndFinalize": "Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen und schließen Sie Ihren Warenkorb ab",
+                "checkAndFinalize": "Bitte überprüfen Sie Ihren Warenkorb"
+            }
         },
         "forms": {
             "delivery": {
@@ -14766,7 +14773,8 @@
             "internalAccount": "Internes Konto",
             "totalHiddingTax": "Gesamt",
             "deliveryFee": "Versandkosten",
-            "title": "Bezahlung"
+            "title": "Bezahlung",
+            "flatFeeSubscription": "Anmeldegebühren"
         }
     },
     "tag": {

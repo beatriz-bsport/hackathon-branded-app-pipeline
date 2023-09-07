@@ -7577,7 +7577,16 @@
             "totalQuantity": "Contains: {{ qty }} product(s)",
             "checkAndFinalize": "Please check your basket and finalize your booking",
             "acceptTermsAndFinalize": "Please accept the general terms and conditions and finalize your booking",
-            "almostDone": "Almost done"
+            "almostDone": "Almost done",
+            "goToMarketplace": "See the marketplace",
+            "newCheckout": {
+                "isEmptyDescription": "Continue your exploration of the marketplace!",
+                "isEmpty": "Your basket is empty!"
+            },
+            "noBooking": {
+                "acceptTermsAndFinalize": "Please accept the terms and conditions and complete your basket",
+                "checkAndFinalize": "Please check your basket"
+            }
         },
         "payLater": {
             "submit": "Pay later",
@@ -11114,6 +11123,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -13540,7 +13550,8 @@
                 "availableCredit_plural": "{{count}} credits"
             },
             "title": {
-                "universalPassMessage": "Universal card, can be used for group activities and appointments"
+                "universalPassMessage": "Universal card, can be used for group activities and appointments",
+                "autoRenewal": "Automatic renewal"
             }
         },
         "genericCardDetails": {

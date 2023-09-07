@@ -8,7 +8,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import type { Dispatch } from '../../../state/types';
-import themeSelectors from '#libs/theme/selectors';
+import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
 import { parseQueryString } from '../../../http';
 import { requestLogin, disconnect } from '../../../actions/auth.actions';
 import { fetchCompanyTheme } from '#libs/theme/actions';
@@ -252,7 +252,7 @@ const mapStateToProps = (
   is_premium: state.theme.theme.is_premium,
   franchisor: !!franchisorId && getFranchisor(state),
   franchiseThemeLoading: !!franchisorId && getFranchiseThemeLoading(state),
-  simplifyUI: !!membership && state.theme.theme.display_new_checkout_flow,
+  simplifyUI: !!membership && getIsUISimplified(state),
   // membershipThemeLoading: !!membership && getThemeLoading(state),
 });
 

@@ -16,6 +16,7 @@ import {
 import type { RootState } from '../../../reducers';
 import './EmailConfirmationStyles.css';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { getIsUISimplified } from '#libs/theme/selectors';
 
 type Props = {
   sendEmailForConfirmation: (companyId: number, options: any) => void;
@@ -73,7 +74,7 @@ export default compose(
         state.auth.emailConfirmation.last_time_sent_email_confirmation,
       email: state.auth.username,
       companyId: state.theme.theme.company,
-      simplifyUI: state.theme.theme.display_new_checkout_flow,
+      simplifyUI: getIsUISimplified(state),
       isAuthenticated: state.auth.authenticated,
     }),
     {

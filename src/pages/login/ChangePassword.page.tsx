@@ -12,7 +12,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
 import { withProps, compose } from 'recompose';
 import { RootState } from '../../reducers';
-import themeSelectors from '#libs/theme/selectors';
+import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
 import { parseQueryString, buildUrlParams } from '../../http';
 
 import LoginBase from '../../components/navigation/LoginBase.component';
@@ -224,8 +224,7 @@ const mapStateToProps = (
   { membership }: { membership: number | null },
 ) => ({
   theme: !!membership && themeSelectors.getTheme(state),
-  simplifyUI:
-    !!membership && themeSelectors.getTheme(state)?.display_new_checkout_flow,
+  simplifyUI: !!membership && getIsUISimplified(state),
 });
 
 function mapDispatchToProps(dispatch: Dispatch) {

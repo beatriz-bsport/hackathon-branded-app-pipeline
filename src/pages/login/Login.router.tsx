@@ -16,7 +16,7 @@ import { parseQueryString } from '../../http';
 import { fetchCompanyTheme } from '#libs/theme/actions';
 // @ts-expect-error
 import { disconnect } from '../../actions/auth.actions';
-import themeSelectors from '#libs/theme/selectors';
+import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
 // import themeSelectors, { getThemeLoading } from '#libs/theme/selectors';
 // @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
@@ -253,7 +253,7 @@ export default compose<any, Props>(
       company: state.theme.theme.company_name,
       franchiseTheme: !!franchisor && getFranchisor(state),
       franchiseThemeLoading: !!franchisor && getFranchiseThemeLoading(state),
-      simplifyUI: !!membership && state.theme.theme?.display_new_checkout_flow,
+      simplifyUI: !!membership && getIsUISimplified(state),
       // membershipThemeLoading: !!membership && getThemeLoading(state),
     }),
     {

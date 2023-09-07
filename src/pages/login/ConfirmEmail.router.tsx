@@ -12,7 +12,7 @@ import useSaasRouterTracker from '../../hooks/useSaasRouterTracker';
 import asyncComponent from '../../AsyncComponent';
 // @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
-import themeSelectors from '#libs/theme/selectors';
+import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import LoginBackground from '#libs/login/components/LoginBackground.component';
 // @ts-expect-error
@@ -104,8 +104,7 @@ export const ConfirmEmailRouter: React.FC<Props> = ({
 const connector = connect(
   (state: RootState, companyId: number) => ({
     theme: themeSelectors.getTheme(state),
-    simplifyUI:
-      !!companyId && themeSelectors.getTheme(state)?.display_new_checkout_flow,
+    simplifyUI: !!companyId && getIsUISimplified(state),
   }),
   {
     fetchCompanyTheme: fetchCompanyThemeAction,

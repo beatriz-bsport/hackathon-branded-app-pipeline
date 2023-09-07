@@ -15,6 +15,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { parseQueryString, buildUrlParams } from '../../../http';
 
 import { resetPassword } from '../../../actions/auth.actions';
+import { getIsUISimplified } from '../../../libs/theme/selectors';
 
 type Props = {
   resetPassword: (
@@ -231,7 +232,7 @@ export default compose(
         loading: state.auth.resetPassword.loading,
         last_password_reset_request:
           state.auth.resetPassword.last_password_reset_request,
-        simplifyUI: !!membership && state.theme.theme.display_new_checkout_flow,
+        simplifyUI: !!membership && getIsUISimplified(state),
       };
     },
     { resetPassword },

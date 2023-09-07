@@ -13,7 +13,7 @@ import {
 } from '@bsport/common/lib/master-data/custom-form';
 
 import type { Dispatch, OptionCallback } from '../../../state/types';
-import themeSelectors from '#libs/theme/selectors';
+import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
 import { buildUrlParams, parseQueryString } from '../../../http';
 import { requestLogin } from '../../../actions/auth.actions';
 
@@ -209,8 +209,7 @@ const mapStateToProps = (
   { membership }: { membership: string },
 ) => ({
   theme: !!membership && themeSelectors.getTheme(state),
-  simplifyUI:
-    !!membership && themeSelectors.getTheme(state)?.display_new_checkout_flow,
+  simplifyUI: !!membership && getIsUISimplified(state),
   authenticated: state.auth.authenticated,
   signUpCustomForm: getSignUpCustomFormWithEnabledField(state),
 });

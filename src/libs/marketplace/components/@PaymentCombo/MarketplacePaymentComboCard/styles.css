@@ -1,14 +1,11 @@
 .bs-pack-card {
-  border-radius: var(--border-radius-4);
-}
-
-.bs-pack-card--background {
-  height: 260px;
   background: linear-gradient(
     90deg,
     var(--color-secondary-background-paper) 58%,
     var(--color-background-paper) 42%
   );
+  border-radius: var(--border-radius-4);
+  height: 260px;
 }
 
 .bs-pack-card .bs-generic-card__content {
@@ -65,19 +62,6 @@
   -webkit-box-orient: vertical;
 }
 
-.bs-pack-card__title--small {
-  font-size: var(--subtitle1-fontSize);
-}
-
-.bs-pack-card__title--flex {
-  display: flex;
-  align-items: center;
-}
-
-.bs-pack-card__title__chipcontainer {
-  margin-left: var(--spacing-1);
-}
-
 .bs-pack-card__description {
   text-align: left;
   font-size: var(--body2-fontSize);
@@ -97,28 +81,6 @@
   word-break: break-word;
 }
 
-.bs-pack-card__description--2-lines {
-  -webkit-line-clamp: 2;
-}
-
-.bs-pack-card__seemore {
-  font-size: var(--subtitle2-fontSize);
-  font-family: var(--subtitle2-fontFamily);
-  color: var(--color-grey-dark);
-  font-weight: 500;
-  border: none;
-  background: none;
-  cursor: pointer;
-  padding: 0;
-  margin-bottom: var(--spacing-1);
-}
-
-.bs-pack-card__seemore__row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
 .bs-pack-card__list {
   margin-block-start: 0;
   padding-inline-start: var(--spacing-3);
@@ -130,18 +92,6 @@
   font-weight: var(--h5-fontWeight);
   letter-spacing: var(--subtitle1-letterSpacing);
   line-height: var(--subtitle1-lineHeight);
-}
-
-.bs-pack-card__list--horizontal {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-bottom: var(--spacing-1);
-}
-
-.bs-pack-card__list--horizontal__item {
-  list-style-type: unset;
-  margin-right: var(--spacing-3);
 }
 
 .bs-pack-card__prices-container {
@@ -207,11 +157,6 @@
 .bs-pack-card__footer__button__right:hover,
 .bs-pack-card__footer__button__right:focus {
   background: var(--color-primary-dark);
-}
-
-.bs-pack-card__price--small {
-  font-size: var(--h5-fontSize);
-  font-weight: 500;
 }
 
 @container bsPassPage (width > 750px) {

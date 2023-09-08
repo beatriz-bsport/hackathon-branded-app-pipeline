@@ -112,6 +112,7 @@ export class PaymentPackCard extends Component<Props, State> {
   renderEditDeleteButtons = (
     hasEditPermission: boolean,
     hasDeletePermission: boolean,
+    hasManageCreditPermission: boolean,
   ) => {
     const { pack, classes, t } = this.props;
     if (pack.disabled) {
@@ -127,7 +128,8 @@ export class PaymentPackCard extends Component<Props, State> {
       <div className={classes.buttonContainer}>
         {!!this.props.onScaleCredit &&
           !pack.linked_private_pass &&
-          hasEditPermission && (
+          hasEditPermission &&
+          hasManageCreditPermission && (
             <Button
               className={`${classes.multiDivButton} ${classes.buttonAlign}`}
               color="primary"
@@ -164,6 +166,7 @@ export class PaymentPackCard extends Component<Props, State> {
   renderTitleAndPrice = (
     hasEditPermission: boolean,
     hasDeletePermission: boolean,
+    hasManageCreditPermission: boolean,
   ) => {
     const { pack, t, onlyPublic, classes } = this.props;
 
@@ -187,6 +190,7 @@ export class PaymentPackCard extends Component<Props, State> {
             {this.renderEditDeleteButtons(
               hasEditPermission,
               hasDeletePermission,
+              hasManageCreditPermission,
             )}
           </div>
         )}
@@ -197,6 +201,7 @@ export class PaymentPackCard extends Component<Props, State> {
   renderCardHeader = (
     hasEditPermission: boolean,
     hasDeletePermission: boolean,
+    hasManageCreditPermission: boolean,
   ) => {
     const { pack, t, onlyPublic, classes, paymentPackCategory, isManager } =
       this.props;
@@ -235,6 +240,7 @@ export class PaymentPackCard extends Component<Props, State> {
                   {this.renderTitleAndPrice(
                     hasEditPermission,
                     hasDeletePermission,
+                    hasManageCreditPermission,
                   )}
                 </div>
               </Grid>
@@ -276,7 +282,11 @@ export class PaymentPackCard extends Component<Props, State> {
         <Hidden xsDown>
           <Grid item sm={5}>
             <div className={classes.columnLeft}>
-              {this.renderTitleAndPrice(hasEditPermission, hasDeletePermission)}
+              {this.renderTitleAndPrice(
+                hasEditPermission,
+                hasDeletePermission,
+                hasManageCreditPermission,
+              )}
             </div>
           </Grid>
         </Hidden>
@@ -447,7 +457,11 @@ export class PaymentPackCard extends Component<Props, State> {
     return null;
   };
 
-  getPackInfo = (hasEditPermission: boolean, hasDeletePermission: boolean) => {
+  getPackInfo = (
+    hasEditPermission: boolean,
+    hasDeletePermission: boolean,
+    hasManageCreditPermission: boolean,
+  ) => {
     const { pack, t, classes, isManager } = this.props;
     const { categories, establishments, metaActivities } = pack;
     const accessibility = this.renderAccessibilityInfo();
@@ -476,7 +490,11 @@ export class PaymentPackCard extends Component<Props, State> {
           </div>
         ) : null}
 
-        {this.renderCardHeader(hasEditPermission, hasDeletePermission)}
+        {this.renderCardHeader(
+          hasEditPermission,
+          hasDeletePermission,
+          hasManageCreditPermission,
+        )}
         <div className={classes.detailInfo}>
           <div className={classes.detailCategory}>
             <DateRangeIcon className={classes.leftIcon} />
@@ -654,9 +672,14 @@ export class PaymentPackCard extends Component<Props, State> {
         requiredPermission={[
           'product.paymentPack.allowed_actions.edit',
           'product.paymentPack.allowed_actions.delete',
+          'product.paymentPack.allowed_actions.manageCredit',
         ]}
       >
-        {([hasEditPermission, hasDeletePermission]: boolean[]) => (
+        {([
+          hasEditPermission,
+          hasDeletePermission,
+          hasManageCreditPermission,
+        ]: boolean[]) => (
           <Paper
             className={[
               classes.paper,
@@ -664,7 +687,11 @@ export class PaymentPackCard extends Component<Props, State> {
             ].join(' ')}
           >
             <div className={classes.horizontalBlock}>
-              {this.getPackInfo(hasEditPermission, hasDeletePermission)}
+              {this.getPackInfo(
+                hasEditPermission,
+                hasDeletePermission,
+                hasManageCreditPermission,
+              )}
             </div>
 
             <PaymentPackScaleCreditDialog

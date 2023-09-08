@@ -18,6 +18,8 @@ import VodVideoAnalytics from './VodVideoAnalytics.component';
 import InvoiceListItem from '../../invoice/InvoiceListItem.component';
 import { Invoice } from '../../invoice/types';
 import { formatAsTime } from '../../../utils/datetime';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils.ts';
 
 type Props = {
   classes: Object;
@@ -93,163 +95,167 @@ export class VideoDetail extends Component<Props, State> {
     const { classes, t } = this.props;
     const selectedVideoPurchase = this.getSelectedVideoPurchase();
     return (
-      <React.Fragment>
-        {this.props.loading && <LinearProgress />}
-        {this.props.analytics ? (
-          <div className={classes.detailContainer}>
-            <Typography component="h2" variant="h5">
-              {t('details.title')}
-            </Typography>
-            <VodVideoAnalytics
-              data={this.props.analytics.data}
-              loading={this.props.analytics.loading || !selectedVideoPurchase}
-              videoDateCreated={selectedVideoPurchase?.video?.date_created}
-            />
-          </div>
-        ) : null}
-        {selectedVideoPurchase?.video?.rental_days > 0 && (
-          <div className={classes.detailContainer}>
-            <div className={classes.rental}>
-              <div className={classes.rentalContainer}>
-                <PlayCircleOutlineIcon />
-                <Typography className={classes.rentText}>
-                  {t('video.rental.forRent')}
+      <ObjectLevelPermissionProviderComponent requiredPermission="product.paymentPack.allowed_actions.manageCredit">
+        {(hasManageCreditPermission: boolean) => (
+          <React.Fragment>
+            {this.props.loading && <LinearProgress />}
+            {this.props.analytics ? (
+              <div className={classes.detailContainer}>
+                <Typography component="h2" variant="h5">
+                  {t('details.title')}
+                </Typography>
+                <VodVideoAnalytics
+                  data={this.props.analytics.data}
+                  loading={
+                    this.props.analytics.loading || !selectedVideoPurchase
+                  }
+                  videoDateCreated={selectedVideoPurchase?.video?.date_created}
+                />
+              </div>
+            ) : null}
+            {selectedVideoPurchase?.video?.rental_days > 0 && (
+              <div className={classes.detailContainer}>
+                <div className={classes.rental}>
+                  <div className={classes.rentalContainer}>
+                    <PlayCircleOutlineIcon />
+                    <Typography className={classes.rentText}>
+                      {t('video.rental.forRent')}
+                    </Typography>
+                  </div>
+                  {this.props.relatedVideoPurchaseList?.length && (
+                    <div className={classes.rental}>
+                      <IconButton
+                        disabled={this.state.currentPage === 1}
+                        onClick={() => this.onPageChange(-1)}
+                        size="small"
+                      >
+                        <NavigateBeforeIcon fontSize="small" />
+                      </IconButton>
+                      <Typography className={classes.rentText} variant="body2">
+                        {`${this.state.currentPage}/${this.props.relatedVideoPurchaseList.length}`}
+                      </Typography>
+                      <IconButton
+                        className={classes.rentText}
+                        disabled={
+                          this.state.currentPage ===
+                          this.props.relatedVideoPurchaseList.length
+                        }
+                        onClick={() => this.onPageChange(1)}
+                        size="small"
+                      >
+                        <NavigateNextIcon fontSize="small" />
+                      </IconButton>
+                    </div>
+                  )}
+                </div>
+                <Typography
+                  className={classes.marginTop}
+                  color="textSecondary"
+                  variant="body2"
+                >
+                  {`${moment(selectedVideoPurchase.date_created).format(
+                    'L',
+                  )} -> ${moment(selectedVideoPurchase.date_created)
+                    .add(selectedVideoPurchase.video.rental_days, 'days')
+                    .format('L')}`}
+                </Typography>
+                <Typography
+                  color={!selectedVideoPurchase.available ? 'error' : 'primary'}
+                >
+                  {!selectedVideoPurchase.available
+                    ? t('video.rental.expired')
+                    : t('video.rental.valid')}
+                </Typography>
+                <Typography color="textSecondary" variant="body2">
+                  {`${t('video.rental.buyDate')} : ${formatAsTime(
+                    selectedVideoPurchase.date_created,
+                  )}`}
                 </Typography>
               </div>
-              {this.props.relatedVideoPurchaseList?.length && (
-                <div className={classes.rental}>
-                  <IconButton
-                    disabled={this.state.currentPage === 1}
-                    onClick={() => this.onPageChange(-1)}
-                    size="small"
-                  >
-                    <NavigateBeforeIcon fontSize="small" />
-                  </IconButton>
-                  <Typography className={classes.rentText} variant="body2">
-                    {`${this.state.currentPage}/${this.props.relatedVideoPurchaseList.length}`}
-                  </Typography>
-                  <IconButton
-                    className={classes.rentText}
-                    disabled={
-                      this.state.currentPage ===
-                      this.props.relatedVideoPurchaseList.length
+            )}
+            {this.props.invoice ? (
+              <div className={classes.detailContainer}>
+                <Typography component="h3" variant="h6">
+                  {this.props.t('details.invoiceTitle')}
+                </Typography>
+                <Paper className={this.props.classes.paper}>
+                  <InvoiceListItem
+                    invoice={this.props.invoice}
+                    onClick={() =>
+                      this.props.onInvoiceClick(this.props.invoice.uuid)
                     }
-                    onClick={() => this.onPageChange(1)}
-                    size="small"
-                  >
-                    <NavigateNextIcon fontSize="small" />
-                  </IconButton>
-                </div>
-              )}
-            </div>
-            <Typography
-              className={classes.marginTop}
-              color="textSecondary"
-              variant="body2"
-            >
-              {`${moment(selectedVideoPurchase.date_created).format(
-                'L',
-              )} -> ${moment(selectedVideoPurchase.date_created)
-                .add(selectedVideoPurchase.video.rental_days, 'days')
-                .format('L')}`}
-            </Typography>
-            <Typography
-              color={!selectedVideoPurchase.available ? 'error' : 'primary'}
-            >
-              {!selectedVideoPurchase.available
-                ? t('video.rental.expired')
-                : t('video.rental.valid')}
-            </Typography>
-            <Typography color="textSecondary" variant="body2">
-              {`${t('video.rental.buyDate')} : ${formatAsTime(
-                selectedVideoPurchase.date_created,
-              )}`}
-            </Typography>
-          </div>
-        )}
-        {this.props.invoice ? (
-          <div className={classes.detailContainer}>
-            <Typography component="h3" variant="h6">
-              {this.props.t('details.invoiceTitle')}
-            </Typography>
-            <Paper className={this.props.classes.paper}>
-              <InvoiceListItem
-                invoice={this.props.invoice}
-                onClick={() =>
-                  this.props.onInvoiceClick(this.props.invoice.uuid)
-                }
-              />
-            </Paper>
-          </div>
-        ) : null}
+                  />
+                </Paper>
+              </div>
+            ) : null}
 
-        {selectedVideoPurchase?.consumer_payment_pack && (
-          <div className={classes.detailContainer}>
-            <Typography component="h3" variant="h6">
-              {t('details.consumerPaymentPackTitle')}
-            </Typography>
-            <Paper className={classes.paperContainer}>
-              <ConsumerPackRowItem
-                hideConsumer
-                consumerPack={selectedVideoPurchase.consumer_payment_pack}
-                decrementCredit={() =>
-                  this.props.decrementCredit(
-                    selectedVideoPurchase.consumer_payment_pack.id,
-                  )
-                }
-                incrementCredit={() =>
-                  this.props.incrementCredit(
-                    selectedVideoPurchase.consumer_payment_pack.id,
-                  )
-                }
-                onClick={() =>
-                  this.props.onConsumerPassSelected(
-                    selectedVideoPurchase.consumer_payment_pack.id,
-                  )
-                }
-                paymentPack={
-                  selectedVideoPurchase.consumer_payment_pack
-                    ? selectedVideoPurchase.consumer_payment_pack.payment_pack
-                    : null
-                }
-              />
-            </Paper>
-          </div>
+            {selectedVideoPurchase?.consumer_payment_pack && (
+              <div className={classes.detailContainer}>
+                <Typography component="h3" variant="h6">
+                  {t('details.consumerPaymentPackTitle')}
+                </Typography>
+                <Paper className={classes.paperContainer}>
+                  <ConsumerPackRowItem
+                    hideConsumer
+                    consumerPack={selectedVideoPurchase.consumer_payment_pack}
+                    decrementCredit={
+                      hasPaymentPackManagementPermission(
+                        selectedVideoPurchase.consumer_payment_pack
+                          ?.payment_pack,
+                        hasManageCreditPermission,
+                      ) && this.props.decrementCredit
+                    }
+                    incrementCredit={
+                      hasPaymentPackManagementPermission(
+                        selectedVideoPurchase.consumer_payment_pack
+                          ?.payment_pack,
+                        hasManageCreditPermission,
+                      ) && this.props.incrementCredit
+                    }
+                    onClick={() =>
+                      this.props.onConsumerPassSelected(
+                        selectedVideoPurchase.consumer_payment_pack.id,
+                      )
+                    }
+                    paymentPack={
+                      selectedVideoPurchase.consumer_payment_pack
+                        ? selectedVideoPurchase.consumer_payment_pack
+                            .payment_pack
+                        : null
+                    }
+                  />
+                </Paper>
+              </div>
+            )}
+            {selectedVideoPurchase?.private_consumer_pass && (
+              <div className={classes.detailContainer}>
+                <Typography component="h3" variant="h6">
+                  {t('details.consumerPaymentPackTitle')}
+                </Typography>
+                <Paper className={classes.paperContainer}>
+                  <ConsumerPackRowItem
+                    hideConsumer
+                    consumerPack={selectedVideoPurchase.private_consumer_pass}
+                    decrementCredit={this.props.decrementCredit}
+                    incrementCredit={this.props.incrementCredit}
+                    onClick={() =>
+                      this.props.onPrivatePassSelected(
+                        selectedVideoPurchase.private_consumer_pass.id,
+                      )
+                    }
+                    paymentPack={
+                      selectedVideoPurchase.private_consumer_pass
+                        ? selectedVideoPurchase.private_consumer_pass
+                            .private_pass
+                        : null
+                    }
+                  />
+                </Paper>
+              </div>
+            )}
+          </React.Fragment>
         )}
-        {selectedVideoPurchase?.private_consumer_pass && (
-          <div className={classes.detailContainer}>
-            <Typography component="h3" variant="h6">
-              {t('details.consumerPaymentPackTitle')}
-            </Typography>
-            <Paper className={classes.paperContainer}>
-              <ConsumerPackRowItem
-                hideConsumer
-                consumerPack={selectedVideoPurchase.private_consumer_pass}
-                decrementCredit={() =>
-                  this.props.decrementPrivatePassCredit(
-                    selectedVideoPurchase.private_consumer_pass.id,
-                  )
-                }
-                incrementCredit={() =>
-                  this.props.incrementPrivatePassCredit(
-                    selectedVideoPurchase.private_consumer_pass.id,
-                  )
-                }
-                onClick={() =>
-                  this.props.onPrivatePassSelected(
-                    selectedVideoPurchase.private_consumer_pass.id,
-                  )
-                }
-                paymentPack={
-                  selectedVideoPurchase.private_consumer_pass
-                    ? selectedVideoPurchase.private_consumer_pass.private_pass
-                    : null
-                }
-              />
-            </Paper>
-          </div>
-        )}
-      </React.Fragment>
+      </ObjectLevelPermissionProviderComponent>
     );
   }
 }

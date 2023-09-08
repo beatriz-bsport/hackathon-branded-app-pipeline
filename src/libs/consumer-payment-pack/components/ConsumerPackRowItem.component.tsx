@@ -58,8 +58,8 @@ type Props = {
   unblock?: (id: number) => void;
 
   onClick?: () => void;
-  incrementCredit: (id: number) => void;
-  decrementCredit: (id: number) => void;
+  incrementCredit?: (id: number) => void;
+  decrementCredit?: (id: number) => void;
   onBook?: (id: number) => void;
 
   isNonCompatible?: boolean;
@@ -347,7 +347,12 @@ export class ConsumerPackRowItem extends Component<Props, State> {
     */
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+        }}
+      >
         {updating ? (
           <CircularProgress size={24} />
         ) : (

@@ -13,12 +13,14 @@ import ConsumerPackRowItem from '../../consumer-payment-pack/components/Consumer
 import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
 
 import type { Booking } from '../types';
+import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
 import { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
 import { BookingSource, getStaffName } from '../utils';
 import {
   BOOKING_CREATED_BY_STAFF,
   BOOKING_CANCELLED_BY_STAFF,
 } from '#libs/booking/components/constants';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   classes: Object,
@@ -59,90 +61,110 @@ export class BookingDetail extends Component<Props> {
     }
 
     return (
-      <div>
-        <Typography component="h2" variant="h5">
-          {t('details.title')}
-        </Typography>
-        <Paper className={classes.paperContainer}>
-          <div className={classes.parametersContainer}>
-            <div className={classes.parameter}>
-              <Typography inline>{t('parameters.registeredOn')}:</Typography>
-              <Typography inline>{formatAsDatetime(booking.date)}</Typography>
-            </div>
+      <ObjectLevelPermissionProvider requiredPermission="product.paymentPack.allowed_actions.manageCredit">
+        {(hasManageCreditPermission: boolean) => (
+          <div>
+            <Typography component="h2" variant="h5">
+              {t('details.title')}
+            </Typography>
+            <Paper className={classes.paperContainer}>
+              <div className={classes.parametersContainer}>
+                <div className={classes.parameter}>
+                  <Typography inline>
+                    {t('parameters.registeredOn')}:
+                  </Typography>
+                  <Typography inline>
+                    {formatAsDatetime(booking.date)}
+                  </Typography>
+                </div>
 
-            {!!created_by && (
-              <div className={classes.parameter}>
-                <Typography inline>{t('parameters.by')}:</Typography>
-                <Typography inline>{getStaffName(created_by)}</Typography>
-              </div>
-            )}
+                {!!created_by && (
+                  <div className={classes.parameter}>
+                    <Typography inline>{t('parameters.by')}:</Typography>
+                    <Typography inline>{getStaffName(created_by)}</Typography>
+                  </div>
+                )}
 
-            <div className={classes.parameter}>
-              <Typography inline>{`${t('parameters.source')}: `}</Typography>
-              <BookingSource source={booking.source} t={this.props.t} />
-            </div>
-            {booking.date_canceled && (
-              <div className={classes.parameter}>
-                <Typography inline>{t('parameters.cancelledOn')}:</Typography>
-                <Typography inline>
-                  {formatAsDatetime(booking.date_canceled)}
-                </Typography>
+                <div className={classes.parameter}>
+                  <Typography inline>{`${t(
+                    'parameters.source',
+                  )}: `}</Typography>
+                  <BookingSource source={booking.source} t={this.props.t} />
+                </div>
+                {booking.date_canceled && (
+                  <div className={classes.parameter}>
+                    <Typography inline>
+                      {t('parameters.cancelledOn')}:
+                    </Typography>
+                    <Typography inline>
+                      {formatAsDatetime(booking.date_canceled)}
+                    </Typography>
+                  </div>
+                )}
+                {!!cancelled_by && (
+                  <div className={classes.parameter}>
+                    <Typography inline>{t('parameters.by')}:</Typography>
+                    <Typography inline>{getStaffName(cancelled_by)}</Typography>
+                  </div>
+                )}
+                {booking.is_no_show && (
+                  <div className={classes.parameter}>
+                    <Typography inline>{t('parameters.noShow')}:</Typography>
+                    <Typography inline>
+                      {formatAsDatetime(booking.date_no_show_registered)}
+                    </Typography>
+                  </div>
+                )}
               </div>
-            )}
-            {!!cancelled_by && (
-              <div className={classes.parameter}>
-                <Typography inline>{t('parameters.by')}:</Typography>
-                <Typography inline>{getStaffName(cancelled_by)}</Typography>
-              </div>
-            )}
-            {booking.is_no_show && (
-              <div className={classes.parameter}>
-                <Typography inline>{t('parameters.noShow')}:</Typography>
-                <Typography inline>
-                  {formatAsDatetime(booking.date_no_show_registered)}
-                </Typography>
-              </div>
-            )}
+            </Paper>
+            <Typography component="h3" variant="h6">
+              {`${t('details.offerTitle')}`}
+            </Typography>
+            <Paper className={classes.paperContainer}>
+              <OfferMinimalSummary
+                loading={this.props.offerLoading}
+                offer={this.props.offer}
+                overrideClickAction={() =>
+                  this.props.onOfferClick(this.props.offer.id)
+                }
+              />
+            </Paper>
+            <Typography component="h3" variant="h6">
+              {t('details.consumerPaymentPackTitle')}
+            </Typography>
+            {booking.consumer_payment_pack ? (
+              <Paper className={classes.paperContainer}>
+                <ConsumerPackRowItem
+                  hideConsumer
+                  consumerPack={booking.consumer_payment_pack}
+                  decrementCredit={
+                    hasPaymentPackManagementPermission(
+                      booking.consumer_payment_pack?.payment_pack,
+                      hasManageCreditPermission,
+                    ) && this.props.decrementCredit
+                  }
+                  incrementCredit={
+                    hasPaymentPackManagementPermission(
+                      booking.consumer_payment_pack?.payment_pack,
+                      hasManageCreditPermission,
+                    ) && this.props.incrementCredit
+                  }
+                  onClick={() =>
+                    this.props.onConsumerPassSelected(
+                      booking.consumer_payment_pack,
+                    )
+                  }
+                  paymentPack={
+                    booking.consumer_payment_pack
+                      ? booking.consumer_payment_pack.payment_pack
+                      : null
+                  }
+                />
+              </Paper>
+            ) : null}
           </div>
-        </Paper>
-        <Typography component="h3" variant="h6">
-          {`${t('details.offerTitle')}`}
-        </Typography>
-        <Paper className={classes.paperContainer}>
-          <OfferMinimalSummary
-            loading={this.props.offerLoading}
-            offer={this.props.offer}
-            overrideClickAction={() =>
-              this.props.onOfferClick(this.props.offer.id)
-            }
-          />
-        </Paper>
-        <Typography component="h3" variant="h6">
-          {t('details.consumerPaymentPackTitle')}
-        </Typography>
-        {booking.consumer_payment_pack ? (
-          <Paper className={classes.paperContainer}>
-            <ConsumerPackRowItem
-              hideConsumer
-              consumerPack={booking.consumer_payment_pack}
-              decrementCredit={() =>
-                this.props.decrementCredit(booking.consumer_payment_pack.id)
-              }
-              incrementCredit={() =>
-                this.props.incrementCredit(booking.consumer_payment_pack.id)
-              }
-              onClick={() =>
-                this.props.onConsumerPassSelected(booking.consumer_payment_pack)
-              }
-              paymentPack={
-                booking.consumer_payment_pack
-                  ? booking.consumer_payment_pack.payment_pack
-                  : null
-              }
-            />
-          </Paper>
-        ) : null}
-      </div>
+        )}
+      </ObjectLevelPermissionProvider>
     );
   }
 }

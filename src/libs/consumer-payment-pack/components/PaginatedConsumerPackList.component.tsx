@@ -13,6 +13,8 @@ import type { ConsumerPaymentPack } from '../types';
 import type { PaymentPack } from '../../payment-packs/types';
 import { WithIsSharedActive } from '../../relationship/types';
 import { MaterialStyleType } from '../../../utils/types';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
 
 type OwnProps = {
   paymentPack: PaymentPack;
@@ -35,45 +37,68 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
-export const PaginatedConsumerPackList = (props: Props) => (
-  <PaginatedListBase
-    itemPerPage={props.itemPerPage}
-    items={props.items}
-    listProps={{ disablePadding: 'true', dense: 'true' }}
-    loading={props.loading}
-    nbItems={props.nbItems}
-    onPageRequested={(page: number, pageSize: number) =>
-      props.onPageRequested(page, pageSize)
-    }
-    page={props.page}
-    renderEmpty={() => (
-      <div>
-        <Typography
-          className={props.classes.emptyContainer}
-          color="textSecondary"
-          variant="caption"
-        >
-          {props.t('noConsumerPack')}
-        </Typography>
-        <Divider />
-      </div>
-    )}
-    renderItem={(cpp: WithIsSharedActive<ConsumerPaymentPack<PaymentPack>>) => (
-      <ConsumerPackRowItem
-        key={cpp.id}
-        consumerPack={cpp}
-        decrementCredit={props.decrementCredit}
-        disabled={
-          props.allowedFranchisees?.length &&
-          !props.allowedFranchisees.includes(cpp.payment_pack?.company)
-        }
-        incrementCredit={props.incrementCredit}
-        onClick={props.onClick ? () => props.onClick(cpp) : null}
-        paymentPack={props.paymentPack || cpp.payment_pack || null}
-        updating={(props.consumerPacksUpdatingById || {})[cpp?.id] ?? false}
-      />
-    )}
-  />
+export const PaginatedConsumerPackList: React.FC<Props> = React.memo(
+  (props) => (
+    <ObjectLevelPermissionProviderComponent requiredPermission="product.paymentPack.allowed_actions.manageCredit">
+      {(hasManageCreditPermission: boolean) => (
+        <PaginatedListBase
+          itemPerPage={props.itemPerPage}
+          items={props.items}
+          listProps={{ disablePadding: 'true', dense: 'true' }}
+          loading={props.loading}
+          nbItems={props.nbItems}
+          onPageRequested={(page: number, pageSize: number) =>
+            props.onPageRequested(page, pageSize)
+          }
+          page={props.page}
+          renderEmpty={() => (
+            <div>
+              <Typography
+                className={props.classes.emptyContainer}
+                color="textSecondary"
+                variant="caption"
+              >
+                {props.t('noConsumerPack')}
+              </Typography>
+              <Divider />
+            </div>
+          )}
+          renderItem={(
+            cpp: WithIsSharedActive<ConsumerPaymentPack<PaymentPack>>,
+          ) => {
+            const paymentPack = props.paymentPack || cpp.payment_pack || null;
+            return (
+              <ConsumerPackRowItem
+                key={cpp.id}
+                consumerPack={cpp}
+                decrementCredit={
+                  hasPaymentPackManagementPermission(
+                    paymentPack,
+                    hasManageCreditPermission,
+                  ) && props.decrementCredit
+                }
+                disabled={
+                  props.allowedFranchisees?.length &&
+                  !props.allowedFranchisees.includes(cpp.payment_pack?.company)
+                }
+                incrementCredit={
+                  hasPaymentPackManagementPermission(
+                    paymentPack,
+                    hasManageCreditPermission,
+                  ) && props.incrementCredit
+                }
+                onClick={props.onClick ? () => props.onClick(cpp) : null}
+                paymentPack={paymentPack}
+                updating={
+                  (props.consumerPacksUpdatingById || {})[cpp?.id] ?? false
+                }
+              />
+            );
+          }}
+        />
+      )}
+    </ObjectLevelPermissionProviderComponent>
+  ),
 );
 
 const styles = (theme: Theme) => ({

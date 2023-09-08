@@ -30,6 +30,7 @@ import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsive
 import BookingModuleRegisterMethodChoice from './BookingModuleRegisterMethodChoice.component';
 import BookingModuleOfferChoice from './BookingModuleOfferChoice.component';
 import BookerModuleWarningTagDialog from './BookerModuleWarningTagDialog.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 import {
   ConsumerPaymentPack,
@@ -289,20 +290,25 @@ export class BookerModuleManager extends PureComponent<Props> {
               )}
               <Divider />
               <div>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={this.props.keep_credits}
-                      onChange={(ev) =>
-                        this.props.setKeepCredits(ev.target.checked)
-                      }
-                      value="checkedG"
-                    />
-                  }
-                  label={this.props.t(
-                    'offerManagement.forms.register.doNotConsumeCredit',
-                  )}
-                />
+                <ObjectLevelPermissionWrapper
+                  forcedBehavior="hidden"
+                  requiredPermission="product.paymentPack.allowed_actions.manageCredit"
+                >
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={this.props.keep_credits}
+                        onChange={(ev) =>
+                          this.props.setKeepCredits(ev.target.checked)
+                        }
+                        value="checkedG"
+                      />
+                    }
+                    label={this.props.t(
+                      'offerManagement.forms.register.doNotConsumeCredit',
+                    )}
+                  />
+                </ObjectLevelPermissionWrapper>
                 <FormControlLabel
                   control={
                     <Checkbox

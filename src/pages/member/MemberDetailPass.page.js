@@ -90,6 +90,7 @@ import { withIsSharedActive } from '../../libs/relationship/selectors';
 import { WithIsSharedActive } from '../../libs/relationship/types';
 
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
 
 type Props = {
   member: ?Member,
@@ -147,7 +148,10 @@ type Props = {
   refundConsumerPaymentPack: (id: number, data: any) => void,
 
   consumerPassId: ?number,
-  retrieveConsumerPackBulk: (cpps: Array<number>, opt: OptionCallback) => void,
+  retrieveConsumerPackBulk: (
+    consumerPaymentPacks: Array<number>,
+    opt: OptionCallback,
+  ) => void,
   resetConsumerPackByMemberAction: () => void,
 
   passExtensionsLoading: boolean,
@@ -280,14 +284,16 @@ export class MemberDetailPass extends Component<Props, State> {
         page_size: CONSUMER_PAYMENT_PACK_PAGE_SIZE,
         filters: this.props.filters,
         options: {
-          onSuccess: (cppList) => {
+          onSuccess: (consumerPaymentPackList) => {
             this.props.fetchPaymentPackBulk(
-              cppList.map((cpp) => cpp.payment_pack),
+              consumerPaymentPackList.map(
+                (consumerPaymentPack) => consumerPaymentPack.payment_pack,
+              ),
             );
             this.props.fetchConsumerPaymentPackLinks(
               flatten(
-                cppList.map((cpp) =>
-                  cpp.src_consumer_payment_pack.map((id) => id),
+                consumerPaymentPackList.map((consumerPaymentPack) =>
+                  consumerPaymentPack.src_consumer_payment_pack.map((id) => id),
                 ),
               ),
             );
@@ -379,8 +385,16 @@ export class MemberDetailPass extends Component<Props, State> {
       this.props.refundLoading ||
       this.props.userFiltersLoading;
     return (
-      <ObjectLevelPermissionProviderComponent requiredPermission="product.paymentPack.allowed_actions.manageExtension">
-        {(hasManageExtensionPermission: boolean) => (
+      <ObjectLevelPermissionProviderComponent
+        requiredPermission={[
+          'product.paymentPack.allowed_actions.manageExtension',
+          'product.paymentPack.allowed_actions.manageCredit',
+        ]}
+      >
+        {([
+          hasManageExtensionPermission,
+          hasManageCreditPermission,
+        ]: boolean[]) => (
           <Grid container direction="row" spacing={2}>
             <Grid item lg={6} xs={12}>
               <Dialog
@@ -440,30 +454,43 @@ export class MemberDetailPass extends Component<Props, State> {
                     }
                     page={this.props.consumerPackCurrentPage}
                     renderCustomPageFirst={!!this.props.consumerPassId}
-                    renderItem={(cpp) => (
+                    renderItem={(consumerPaymentPack) => (
                       <ConsumerPackRowItem
-                        key={cpp.id}
+                        key={consumerPaymentPack.id}
                         hideConsumer
-                        consumerPack={cpp}
-                        decrementCredit={() =>
-                          this.props.decrementCredit(cpp.id)
+                        consumerPack={consumerPaymentPack}
+                        decrementCredit={
+                          hasPaymentPackManagementPermission(
+                            consumerPaymentPack?.payment_pack,
+                            hasManageCreditPermission,
+                          ) && this.props.decrementCredit
                         }
-                        incrementCredit={() =>
-                          this.props.incrementCredit(cpp.id)
+                        incrementCredit={
+                          hasPaymentPackManagementPermission(
+                            consumerPaymentPack?.payment_pack,
+                            hasManageCreditPermission,
+                          ) && this.props.incrementCredit
                         }
                         onClick={() =>
-                          this.props.onSelectConsumerPass(this.props.id, cpp.id)
+                          this.props.onSelectConsumerPass(
+                            this.props.id,
+                            consumerPaymentPack.id,
+                          )
                         }
-                        paymentPack={cpp.payment_pack}
+                        paymentPack={consumerPaymentPack.payment_pack}
                         selected={
                           this.props.selectedConsumerPass &&
-                          this.props.selectedConsumerPass.id === cpp.id
+                          this.props.selectedConsumerPass.id ===
+                            consumerPaymentPack.id
                         }
                         timezone={this.props.timezone}
-                        unblock={() => this.props.unblock(cpp.id)}
+                        unblock={() =>
+                          this.props.unblock(consumerPaymentPack.id)
+                        }
                         updating={
-                          this.props.consumerPaymentPacksLoadingById[cpp.id] ??
-                          false
+                          this.props.consumerPaymentPacksLoadingById[
+                            consumerPaymentPack.id
+                          ] ?? false
                         }
                       />
                     )}
@@ -803,12 +830,16 @@ export default compose(
           page_size: pageSize,
           filters,
           options: {
-            onSuccess: (cppList) => {
-              fetchPaymentPackBulk(cppList.map((cpp) => cpp.payment_pack));
+            onSuccess: (consumerPaymentPackList) => {
+              fetchPaymentPackBulk(
+                consumerPaymentPackList.map(
+                  (consumerPaymentPack) => consumerPaymentPack.payment_pack,
+                ),
+              );
               fetchConsumerPaymentPackLinks(
                 flatten(
-                  cppList.map((cpp) =>
-                    cpp.src_consumer_payment_pack.map((i) => i),
+                  consumerPaymentPackList.map((consumerPaymentPack) =>
+                    consumerPaymentPack.src_consumer_payment_pack.map((i) => i),
                   ),
                 ),
               );

@@ -498,5 +498,28 @@ export const formatOffPeakScheduleOnEdit = (
   return formattedOffPeakScheduleOnEdit;
 };
 
+/**
+ * Checks if a user has permission to manage payment packs (credits).
+ *
+ * - If the payment pass is limited, the user must have the permission to manage the credits.
+ * - If the payment_pack.unlimited is null or undefined, the user has no permission.
+ *
+ * @param paymentPack - The payment pack.
+ * @param hasManageCreditPermission - Indicates if the user has permission to manage the credits.
+ * @returns A boolean value indicating if the user has payment pack management permission.
+ */
+export const hasPaymentPackManagementPermission = (
+  paymentPack: PaymentPack,
+  hasManageCreditPermission: boolean,
+): boolean => {
+  if (paymentPack?.unlimited) {
+    return true;
+  }
+  if (paymentPack?.unlimited === false) {
+    return hasManageCreditPermission;
+  }
+  return false;
+};
+
 export const CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING = 0;
 export const CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_OFFER_START = 1;

@@ -89,6 +89,8 @@ import { showVaccinationStatus } from '../../libs/custom-form/selectors';
 import { withIsSharedActive } from '../../libs/relationship/selectors';
 import { WithIsSharedActive } from '../../libs/relationship/types';
 
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+
 type Props = {
   member: ?Member,
   id: number,
@@ -367,6 +369,8 @@ export class MemberDetailPass extends Component<Props, State> {
     this.setState({ statusChangedDialogIsOpen: false });
   };
 
+  handleCreateExtension = () => this.props.setOpenCreateExtension(true);
+
   render() {
     const dataLoading =
       this.props.consumerPackLoading ||
@@ -375,208 +379,225 @@ export class MemberDetailPass extends Component<Props, State> {
       this.props.refundLoading ||
       this.props.userFiltersLoading;
     return (
-      <Grid container direction="row" spacing={2}>
-        <Grid item lg={6} xs={12}>
-          <Dialog maxWidth="sm" open={this.state.noShowChipMessageDialogIsOpen}>
-            <DialogContent>
-              {this.props.t('booking:noShowChip.message')}
-            </DialogContent>
-            <DialogActions>
-              <Button
-                className={this.props.classes.grey}
-                onClick={this.closeNoShowChipMessageDialog}
+      <ObjectLevelPermissionProviderComponent requiredPermission="product.paymentPack.allowed_actions.manageExtension">
+        {(hasManageExtensionPermission: boolean) => (
+          <Grid container direction="row" spacing={2}>
+            <Grid item lg={6} xs={12}>
+              <Dialog
+                maxWidth="sm"
+                open={this.state.noShowChipMessageDialogIsOpen}
               >
-                {this.props.t('common:close')}
-              </Button>
-            </DialogActions>
-          </Dialog>
-          <Dialog open={this.state.statusChangedDialogIsOpen}>
-            <DialogTitle>
-              <Typography className={this.props.classes.bold} variant="h6">
-                {this.props.t('offer:rollCall.warningIcon.stateChangedTitle')}
-              </Typography>
-            </DialogTitle>
-            <DialogContent>
-              {this.props.t('offer:rollCall.warningIcon.stateChanged')}
-            </DialogContent>
-            <DialogActions>
-              <Button
-                className={this.props.classes.grey}
-                onClick={this.closeStatusChangedDialog}
-              >
-                {this.props.t('common:close')}
-              </Button>
-            </DialogActions>
-          </Dialog>
-          <Paper>
-            <ConsumerPaymentPackFilters
-              filters={!dataLoading && this.props.filters}
-              open={this.props.open}
-              setFiltersValue={this.props.setFilterValue}
-              setOpenValue={this.props.setOpenValue}
-            />
-            <Divider />
-            {!this.props.userFiltersLoading && (
-              <PaginatedListBase
-                additionalFilters={this.props.filters}
-                itemPerPage={CONSUMER_PAYMENT_PACK_PAGE_SIZE}
-                items={this.props.consumerPacks}
-                listProps={{ disablePadding: true }}
-                loading={this.props.consumerPackLoading}
-                nbItems={this.props.consumerPackCount}
-                onPageRequested={(page, pageSize) =>
-                  this.props.fetchConsumerPackList(page, pageSize)
-                }
-                page={this.props.consumerPackCurrentPage}
-                renderCustomPageFirst={!!this.props.consumerPassId}
-                renderItem={(cpp) => (
-                  <ConsumerPackRowItem
-                    key={cpp.id}
-                    hideConsumer
-                    consumerPack={cpp}
-                    decrementCredit={() => this.props.decrementCredit(cpp.id)}
-                    incrementCredit={() => this.props.incrementCredit(cpp.id)}
-                    onClick={() =>
-                      this.props.onSelectConsumerPass(this.props.id, cpp.id)
+                <DialogContent>
+                  {this.props.t('booking:noShowChip.message')}
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    className={this.props.classes.grey}
+                    onClick={this.closeNoShowChipMessageDialog}
+                  >
+                    {this.props.t('common:close')}
+                  </Button>
+                </DialogActions>
+              </Dialog>
+              <Dialog open={this.state.statusChangedDialogIsOpen}>
+                <DialogTitle>
+                  <Typography className={this.props.classes.bold} variant="h6">
+                    {this.props.t(
+                      'offer:rollCall.warningIcon.stateChangedTitle',
+                    )}
+                  </Typography>
+                </DialogTitle>
+                <DialogContent>
+                  {this.props.t('offer:rollCall.warningIcon.stateChanged')}
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    className={this.props.classes.grey}
+                    onClick={this.closeStatusChangedDialog}
+                  >
+                    {this.props.t('common:close')}
+                  </Button>
+                </DialogActions>
+              </Dialog>
+              <Paper>
+                <ConsumerPaymentPackFilters
+                  filters={!dataLoading && this.props.filters}
+                  open={this.props.open}
+                  setFiltersValue={this.props.setFilterValue}
+                  setOpenValue={this.props.setOpenValue}
+                />
+                <Divider />
+                {!this.props.userFiltersLoading && (
+                  <PaginatedListBase
+                    additionalFilters={this.props.filters}
+                    itemPerPage={CONSUMER_PAYMENT_PACK_PAGE_SIZE}
+                    items={this.props.consumerPacks}
+                    listProps={{ disablePadding: true }}
+                    loading={this.props.consumerPackLoading}
+                    nbItems={this.props.consumerPackCount}
+                    onPageRequested={(page, pageSize) =>
+                      this.props.fetchConsumerPackList(page, pageSize)
                     }
-                    paymentPack={cpp.payment_pack}
-                    selected={
-                      this.props.selectedConsumerPass &&
-                      this.props.selectedConsumerPass.id === cpp.id
-                    }
-                    timezone={this.props.timezone}
-                    unblock={() => this.props.unblock(cpp.id)}
-                    updating={
-                      this.props.consumerPaymentPacksLoadingById[cpp.id] ??
-                      false
-                    }
+                    page={this.props.consumerPackCurrentPage}
+                    renderCustomPageFirst={!!this.props.consumerPassId}
+                    renderItem={(cpp) => (
+                      <ConsumerPackRowItem
+                        key={cpp.id}
+                        hideConsumer
+                        consumerPack={cpp}
+                        decrementCredit={() =>
+                          this.props.decrementCredit(cpp.id)
+                        }
+                        incrementCredit={() =>
+                          this.props.incrementCredit(cpp.id)
+                        }
+                        onClick={() =>
+                          this.props.onSelectConsumerPass(this.props.id, cpp.id)
+                        }
+                        paymentPack={cpp.payment_pack}
+                        selected={
+                          this.props.selectedConsumerPass &&
+                          this.props.selectedConsumerPass.id === cpp.id
+                        }
+                        timezone={this.props.timezone}
+                        unblock={() => this.props.unblock(cpp.id)}
+                        updating={
+                          this.props.consumerPaymentPacksLoadingById[cpp.id] ??
+                          false
+                        }
+                      />
+                    )}
                   />
                 )}
-              />
-            )}
-          </Paper>
-          {this.props.consumerPacks.length ? (
-            <div className={this.props.classes.shareButtonContainer}>
-              <Button
-                color="primary"
-                onClick={() => this.props.goToRelationship(this.props.id)}
-                variant="outlined"
-              >
-                {this.props.t('details.shareAPass')}
-              </Button>
-            </div>
-          ) : null}
-        </Grid>
-        <Grid item lg={6} xs={12}>
-          {this.props.selectedConsumerPass &&
-          this.props.selectedConsumerPass.payment_pack ? (
-            <ConsumerPackDetail
-              bookingCount={this.props.bookingCount}
-              bookingLoading={this.props.bookingLoading}
-              bookings={this.props.bookings}
-              confirmBookingAttendance={this.props.confirmBookingAttendance}
-              consumerPack={this.props.selectedConsumerPass}
-              consumerPaymentPackCreditRefundList={
-                this.props.consumerPaymentPackCreditRefundList
-              }
-              currentBookingPage={this.props.bookingCurrentPage}
-              deleteExtension={(id) => {
-                this.props.deleteExtension(id, {
-                  onSuccess: () =>
-                    this.props.refreshConsumerPack(
-                      this.props.selectedConsumerPass.id,
-                    ),
-                });
+              </Paper>
+              {this.props.consumerPacks.length ? (
+                <div className={this.props.classes.shareButtonContainer}>
+                  <Button
+                    color="primary"
+                    onClick={() => this.props.goToRelationship(this.props.id)}
+                    variant="outlined"
+                  >
+                    {this.props.t('details.shareAPass')}
+                  </Button>
+                </div>
+              ) : null}
+            </Grid>
+            <Grid item lg={6} xs={12}>
+              {this.props.selectedConsumerPass &&
+              this.props.selectedConsumerPass.payment_pack ? (
+                <ConsumerPackDetail
+                  bookingCount={this.props.bookingCount}
+                  bookingLoading={this.props.bookingLoading}
+                  bookings={this.props.bookings}
+                  confirmBookingAttendance={this.props.confirmBookingAttendance}
+                  consumerPack={this.props.selectedConsumerPass}
+                  consumerPaymentPackCreditRefundList={
+                    this.props.consumerPaymentPackCreditRefundList
+                  }
+                  currentBookingPage={this.props.bookingCurrentPage}
+                  deleteExtension={(id) => {
+                    this.props.deleteExtension(id, {
+                      onSuccess: () =>
+                        this.props.refreshConsumerPack(
+                          this.props.selectedConsumerPass.id,
+                        ),
+                    });
+                  }}
+                  discardBookingAttendance={this.props.discardBookingAttendance}
+                  extensions={this.props.passExtensions}
+                  extensionsLoading={this.props.passExtensionsLoading}
+                  handleRevert={(bookingToRevert) =>
+                    this.setState({ bookingToRevert })
+                  }
+                  invoice={this.props.consumerPackInvoice}
+                  isRollCallMandatory={this.props.theme.is_roll_call_mandatory}
+                  member={this.props.member}
+                  onBookingClick={this.goToBooking}
+                  onBookingRequested={(page, page_size) =>
+                    this.fetchBookings(page, page_size)
+                  }
+                  onClickNoShowChip={this.openNoShowChipMessageDialog}
+                  onClickWarningIcon={this.openStatusChangedDialog}
+                  onCreateExtension={
+                    hasManageExtensionPermission &&
+                    this.props.selectedConsumerPass?.payment_pack &&
+                    !this.props.selectedConsumerPass
+                      .consumer_payment_pack_source &&
+                    this.handleCreateExtension
+                  }
+                  onInvoiceClick={this.props.goToInvoice}
+                  onPageRequested={(page, pageSize) =>
+                    this.props.fetchConsumerPaymentPackPenalty(
+                      this.props.consumerPassId,
+                      page,
+                      pageSize,
+                    )
+                  }
+                  passExtenxionDeleteLoading={
+                    this.props.passExtenxionDeleteLoading
+                  }
+                  paymentPack={this.props.selectedConsumerPass.payment_pack}
+                  penalties={this.props.consumerPackPenalties}
+                  penaltyPageSize={PENALTY_PAGE_SIZE}
+                  requestRefund={this.props.requestRefund}
+                  showVaccinationStatus={this.props.showVaccinationStatus}
+                  timezone={this.props.timezone}
+                />
+              ) : (
+                <ClickOnConsumerPack classes={this.props.classes} />
+              )}
+            </Grid>
+            <ConsumerPaymentPackExtensionFormDialog
+              consumerPaymentPack={this.props.selectedConsumerPass}
+              onClose={() => this.props.setOpenCreateExtension(false)}
+              onSubmit={(data) => {
+                this.props.createExtension(
+                  {
+                    ...data,
+                    consumer_payment_pack: this.props.selectedConsumerPass.id,
+                  },
+                  {
+                    onSuccess: () => {
+                      this.props.refreshConsumerPack(
+                        this.props.selectedConsumerPass.id,
+                      );
+                      this.props.setOpenCreateExtension(false);
+                    },
+                  },
+                );
               }}
-              discardBookingAttendance={this.props.discardBookingAttendance}
-              extensions={this.props.passExtensions}
-              extensionsLoading={this.props.passExtensionsLoading}
-              handleRevert={(bookingToRevert) =>
-                this.setState({ bookingToRevert })
-              }
-              invoice={this.props.consumerPackInvoice}
-              isRollCallMandatory={this.props.theme.is_roll_call_mandatory}
-              member={this.props.member}
-              onBookingClick={this.goToBooking}
-              onBookingRequested={(page, page_size) =>
-                this.fetchBookings(page, page_size)
-              }
-              onClickNoShowChip={this.openNoShowChipMessageDialog}
-              onClickWarningIcon={this.openStatusChangedDialog}
-              onCreateExtension={
-                this.props.selectedConsumerPass?.payment_pack &&
-                !this.props.selectedConsumerPass.consumer_payment_pack_source &&
-                (() => this.props.setOpenCreateExtension(true))
-              }
-              onInvoiceClick={this.props.goToInvoice}
-              onPageRequested={(page, pageSize) =>
-                this.props.fetchConsumerPaymentPackPenalty(
-                  this.props.consumerPassId,
-                  page,
-                  pageSize,
-                )
-              }
-              passExtenxionDeleteLoading={this.props.passExtenxionDeleteLoading}
-              paymentPack={this.props.selectedConsumerPass.payment_pack}
-              penalties={this.props.consumerPackPenalties}
-              penaltyPageSize={PENALTY_PAGE_SIZE}
-              requestRefund={this.props.requestRefund}
-              showVaccinationStatus={this.props.showVaccinationStatus}
+              open={this.props.openCreateExtension}
+              processing={this.props.passExtensionCreationLoading}
               timezone={this.props.timezone}
             />
-          ) : (
-            <ClickOnConsumerPack classes={this.props.classes} />
-          )}
-        </Grid>
-        <ConsumerPaymentPackExtensionFormDialog
-          consumerPaymentPack={this.props.selectedConsumerPass}
-          onClose={() => this.props.setOpenCreateExtension(false)}
-          onSubmit={(data) => {
-            this.props.createExtension(
-              {
-                ...data,
-                consumer_payment_pack: this.props.selectedConsumerPass.id,
-              },
-              {
-                onSuccess: () => {
-                  this.props.refreshConsumerPack(
-                    this.props.selectedConsumerPass.id,
-                  );
-                  this.props.setOpenCreateExtension(false);
-                },
-              },
-            );
-          }}
-          open={this.props.openCreateExtension}
-          processing={this.props.passExtensionCreationLoading}
-          timezone={this.props.timezone}
-        />
-        <RevertBookingDialog
-          offerIsAvailable
-          bookingToRevert={this.state.bookingToRevert}
-          closeRevertBookingDialog={() =>
-            this.setState({ bookingToRevert: null })
-          }
-          handleBookingDeletion={(data, options) => {
-            this.props.deleteBooking(
-              this.state.bookingToRevert.id,
-              data,
-              options,
-            );
-            this.setState({ bookingToRevert: null });
-          }}
-        />
-        {!!this.props.consumerPaymentPackToRefund && (
-          <RefundConsumerPaymentPackDialog
-            open
-            consumerPaymentPack={this.props.consumerPaymentPackToRefund}
-            loading={this.props.refundLoading}
-            onClose={this.props.closeRefund}
-            onSubmit={this.props.refundConsumerPaymentPack}
-            showCreditRefund={this.props.showCreditRefund}
-          />
+            <RevertBookingDialog
+              offerIsAvailable
+              bookingToRevert={this.state.bookingToRevert}
+              closeRevertBookingDialog={() =>
+                this.setState({ bookingToRevert: null })
+              }
+              handleBookingDeletion={(data, options) => {
+                this.props.deleteBooking(
+                  this.state.bookingToRevert.id,
+                  data,
+                  options,
+                );
+                this.setState({ bookingToRevert: null });
+              }}
+            />
+            {!!this.props.consumerPaymentPackToRefund && (
+              <RefundConsumerPaymentPackDialog
+                open
+                consumerPaymentPack={this.props.consumerPaymentPackToRefund}
+                loading={this.props.refundLoading}
+                onClose={this.props.closeRefund}
+                onSubmit={this.props.refundConsumerPaymentPack}
+                showCreditRefund={this.props.showCreditRefund}
+              />
+            )}
+          </Grid>
         )}
-      </Grid>
+      </ObjectLevelPermissionProviderComponent>
     );
   }
 }

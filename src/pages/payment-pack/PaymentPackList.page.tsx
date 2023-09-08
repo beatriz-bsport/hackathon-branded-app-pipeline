@@ -109,6 +109,7 @@ import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/
 import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/actions';
 import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
 import DeleteNoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/DeleteNoShowPenaltyDialog.component';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 const {
   trackFormAdd,
@@ -505,203 +506,217 @@ export class PaymentPackList extends React.Component<Props, State> {
           onClose={this.closeDeleteNoShowPenaltyDialog}
           open={this.props.openDeleteNoShowPenaltyDialog}
         />
-        <div className={classes.container}>
-          <div className={classes.buttonRow}>
-            {this.props.enabledPacks?.length && (
-              <div style={{ flex: 1 }}>
-                <FuzeSearch
-                  changeSearch={this.changeSearch}
-                  clearSearch={this.clearSearch}
-                  items={[...this.props.enabledPacks]}
-                  placeholder={t('search')}
-                  searchFields={['name']}
-                  searchResult={this.state.searchResult}
-                  searchText={this.state.searchText}
-                />
-              </div>
-            )}
-            <Button
-              className={classes.buttonAdd}
-              color="primary"
-              onClick={() => {
-                this.props.setSelectedCategory(null);
-                this.props.setShowCategoryDialog(true);
-                trackFormAdd();
-              }}
-              variant="outlined"
-            >
-              <AddIcon color="primary" />
-              {t('category.add')}
-            </Button>
-          </div>
-          <Paper
-            className={
-              this.state.searchResult.length > 0 && this.state.searchText !== ''
-                ? classes.searchPaperDisplayed
-                : classes.searchPaperHidden
-            }
-          >
-            <Collapse
-              in={
-                this.state.searchResult.length > 0 &&
-                this.state.searchText !== ''
-              }
-            >
-              <Paper>
-                <List disablePadding>
-                  {this.state.searchResult.map((pack) => (
-                    <PaymentPackListItem
-                      key={pack.id}
-                      divider
-                      creditScaleFactor={this.props.theme.pass_credit_factor}
-                      onClick={
-                        !pack.disabled
-                          ? () => this.props.goToPack(pack.id)
-                          : null
-                      }
-                      onDelete={() => this.requestDelete(pack)}
-                      onEdit={() => this.requestEdit(pack)}
-                      onRestore={() => this.restorePaymentPack(pack.id)}
-                      pack={pack}
+        <ObjectLevelPermissionProviderComponent requiredPermission="product.paymentPack.allowed_actions.create">
+          {(hasCreatePermission: boolean) => (
+            <div className={classes.container}>
+              <div className={classes.buttonRow}>
+                {this.props.enabledPacks?.length && (
+                  <div style={{ flex: 1 }}>
+                    <FuzeSearch
+                      changeSearch={this.changeSearch}
+                      clearSearch={this.clearSearch}
+                      items={[...this.props.enabledPacks]}
+                      placeholder={t('search')}
+                      searchFields={['name']}
+                      searchResult={this.state.searchResult}
+                      searchText={this.state.searchText}
                     />
-                  ))}
-                </List>
-              </Paper>
-            </Collapse>
-          </Paper>
-          <PaymentPackFilterAndSortHeader
-            categoryFilterOnchange={this.categoryFilterOnchange}
-            categoryOptions={this.categoryOptions()}
-            categoryValue={this.state.selectedCategories}
-            managerOnlyOnChange={this.managerOnlyOnChange}
-            managerOnlyValue={this.state.selectedDisponibility}
-            sortOnChange={this.sortOnChange}
-            sortValue={this.state.selectedSortOption}
-          />
-
-          {this.state.showAlert && (
-            <Alert
-              action={
-                <Button onClick={this.props.goToSettings}>
-                  {t('orderingAlert.button')}
-                </Button>
-              }
-              className={classes.alertInfo}
-              severity="warning"
-            >
-              <Typography>{t('orderingAlert.text')}</Typography>
-            </Alert>
-          )}
-
-          <PaymentPackCategoryList
-            deletePaymentPackCategory={this.props.deletePaymentPackCategory}
-            filteredCategories={this.state.selectedCategories}
-            filterManagerOnly={this.state.selectedDisponibility}
-            onClick={this.props.goToPack}
-            onDelete={this.requestDelete}
-            onEdit={this.requestEdit}
-            onRestore={this.restorePaymentPack}
-            paymentPackByCategory={this.props.paymentPackByCategory}
-            paymentPackOrder={this.state.paymentPackOrderByCategory}
-            setSelectedCategory={this.props.setSelectedCategory}
-            showCategoryEditDialog={() =>
-              this.props.setShowCategoryDialog(true)
-            }
-            updateCategory={this.updateCategoryOrder}
-            updatePack={this.props.updatePackOrder}
-          />
-          <div className={classes.container}>
-            <div className={this.props.classes.buttonTitle}>
-              <Typography className={classes.titleContainer} variant="h5">
-                {`${t('disabledPacksTitle')}`}
-              </Typography>
-
-              <IconButton onClick={this.onShowDisabled}>
-                {this.state.showDisabled ? (
-                  <ExpandLessIcon />
-                ) : (
-                  <ExpandMoreIcon />
+                  </div>
                 )}
-              </IconButton>
-            </div>
-            {this.state.disabledLoading ? (
-              <LinearProgress className={classes.divider} />
-            ) : (
-              <Divider className={classes.divider} />
-            )}
-            <Collapse
-              unmountOnExit
-              className={classes.collapse}
-              in={this.state.showDisabled}
-            >
-              {this.renderPackList(this.props.disabledPacks)}
-            </Collapse>
-          </div>
+                {hasCreatePermission && (
+                  <Button
+                    className={classes.buttonAdd}
+                    color="primary"
+                    onClick={() => {
+                      this.props.setSelectedCategory(null);
+                      this.props.setShowCategoryDialog(true);
+                      trackFormAdd();
+                    }}
+                    variant="outlined"
+                  >
+                    <AddIcon color="primary" />
+                    {t('category.add')}
+                  </Button>
+                )}
+              </div>
+              <Paper
+                className={
+                  this.state.searchResult.length > 0 &&
+                  this.state.searchText !== ''
+                    ? classes.searchPaperDisplayed
+                    : classes.searchPaperHidden
+                }
+              >
+                <Collapse
+                  in={
+                    this.state.searchResult.length > 0 &&
+                    this.state.searchText !== ''
+                  }
+                >
+                  <Paper>
+                    <List disablePadding>
+                      {this.state.searchResult.map((pack) => (
+                        <PaymentPackListItem
+                          key={pack.id}
+                          divider
+                          creditScaleFactor={
+                            this.props.theme.pass_credit_factor
+                          }
+                          onClick={
+                            !pack.disabled
+                              ? () => this.props.goToPack(pack.id)
+                              : null
+                          }
+                          onDelete={() => this.requestDelete(pack)}
+                          onEdit={() => this.requestEdit(pack)}
+                          onRestore={() => this.restorePaymentPack(pack.id)}
+                          pack={pack}
+                        />
+                      ))}
+                    </List>
+                  </Paper>
+                </Collapse>
+              </Paper>
+              <PaymentPackFilterAndSortHeader
+                categoryFilterOnchange={this.categoryFilterOnchange}
+                categoryOptions={this.categoryOptions()}
+                categoryValue={this.state.selectedCategories}
+                managerOnlyOnChange={this.managerOnlyOnChange}
+                managerOnlyValue={this.state.selectedDisponibility}
+                sortOnChange={this.sortOnChange}
+                sortValue={this.state.selectedSortOption}
+              />
 
-          <PaymentPackDeleteDialog
-            consumerPackSummary={
-              this.state.paymentPackToDelete ? (
-                <PaginatedConsumerPackList
-                  consumerPacksUpdatingById={
-                    this.props.consumerPacks.updatingById
+              {this.state.showAlert && (
+                <Alert
+                  action={
+                    <Button onClick={this.props.goToSettings}>
+                      {t('orderingAlert.button')}
+                    </Button>
                   }
-                  decrementCredit={decrementCredit}
-                  incrementCredit={incrementCredit}
-                  itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
-                  items={this.props.consumerPacks.items}
-                  loading={this.props.consumerPacks.loading}
-                  nbItems={this.props.consumerPacks.count}
-                  onPageRequested={(page: number, pageSize: number) =>
-                    this.props.fetchConsumerPacks(
-                      this.state.paymentPackToDelete.id,
-                      page,
-                      pageSize,
-                    )
-                  }
-                  page={this.props.consumerPacks.page}
-                  paymentPack={this.state.paymentPackToDelete}
+                  className={classes.alertInfo}
+                  severity="warning"
+                >
+                  <Typography>{t('orderingAlert.text')}</Typography>
+                </Alert>
+              )}
+
+              <PaymentPackCategoryList
+                deletePaymentPackCategory={this.props.deletePaymentPackCategory}
+                filteredCategories={this.state.selectedCategories}
+                filterManagerOnly={this.state.selectedDisponibility}
+                onClick={this.props.goToPack}
+                onDelete={this.requestDelete}
+                onEdit={this.requestEdit}
+                onRestore={this.restorePaymentPack}
+                paymentPackByCategory={this.props.paymentPackByCategory}
+                paymentPackOrder={this.state.paymentPackOrderByCategory}
+                setSelectedCategory={this.props.setSelectedCategory}
+                showCategoryEditDialog={() =>
+                  this.props.setShowCategoryDialog(true)
+                }
+                updateCategory={this.updateCategoryOrder}
+                updatePack={this.props.updatePackOrder}
+              />
+              <div className={classes.container}>
+                <div className={this.props.classes.buttonTitle}>
+                  <Typography className={classes.titleContainer} variant="h5">
+                    {`${t('disabledPacksTitle')}`}
+                  </Typography>
+
+                  <IconButton onClick={this.onShowDisabled}>
+                    {this.state.showDisabled ? (
+                      <ExpandLessIcon />
+                    ) : (
+                      <ExpandMoreIcon />
+                    )}
+                  </IconButton>
+                </div>
+                {this.state.disabledLoading ? (
+                  <LinearProgress className={classes.divider} />
+                ) : (
+                  <Divider className={classes.divider} />
+                )}
+                <Collapse
+                  unmountOnExit
+                  className={classes.collapse}
+                  in={this.state.showDisabled}
+                >
+                  {this.renderPackList(this.props.disabledPacks)}
+                </Collapse>
+              </div>
+
+              <PaymentPackDeleteDialog
+                consumerPackSummary={
+                  this.state.paymentPackToDelete ? (
+                    <PaginatedConsumerPackList
+                      consumerPacksUpdatingById={
+                        this.props.consumerPacks.updatingById
+                      }
+                      decrementCredit={decrementCredit}
+                      incrementCredit={incrementCredit}
+                      itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
+                      items={this.props.consumerPacks.items}
+                      loading={this.props.consumerPacks.loading}
+                      nbItems={this.props.consumerPacks.count}
+                      onPageRequested={(page: number, pageSize: number) =>
+                        this.props.fetchConsumerPacks(
+                          this.state.paymentPackToDelete.id,
+                          page,
+                          pageSize,
+                        )
+                      }
+                      page={this.props.consumerPacks.page}
+                      paymentPack={this.state.paymentPackToDelete}
+                    />
+                  ) : null
+                }
+                isUsedInCombo={
+                  this.props.archivationWarning[
+                    this.state.paymentPackToDelete?.id
+                  ]?.used_in_combo || false
+                }
+                onCancel={this.cancelDelete}
+                onDelete={() =>
+                  this.deletePaymentPack(this.state.paymentPackToDelete.id)
+                }
+                open={!!this.state.paymentPackToDelete}
+                pack={this.state.paymentPackToDelete}
+              />
+              <PaymentPackFormDrawer
+                allowGuestMaster={
+                  this.props.theme.allow_guest &&
+                  this.props.theme.allow_guest_activatable
+                }
+                availableEstablishmentList={availableEstablishmentList}
+                categoryList={paymentPackCategoryList}
+                clearPaymentPackToEdit={() =>
+                  this.setState({ paymentPackToEdit: null })
+                }
+                closeForm={this.closePaymentPackFormDrawer}
+                compatibleServicePass={this.props.compatibleServicePass}
+                creditScaleFactor={this.props.theme.pass_credit_factor}
+                displayNewCheckoutFlow={
+                  this.props.theme.display_new_checkout_flow
+                }
+                initial={this.state.paymentPackToEdit}
+                metaActivityList={metaActivities}
+                onSubmit={this.props.createOrUpdatePaymentPack}
+                open={this.props.openPaymentPackFormDialog}
+                paymentPackCategories={paymentPackCategories}
+                privateServices={this.props.privateServices}
+                provincialTax={this.props.theme?.provincial_tax_value}
+                tagList={allTagsWithTagGroup}
+              />
+              {hasCreatePermission && (
+                <BottomActionsButton
+                  onCreate={this.onCreate}
+                  onCreateLabel={this.props.t('addButton')}
                 />
-              ) : null
-            }
-            isUsedInCombo={
-              this.props.archivationWarning[this.state.paymentPackToDelete?.id]
-                ?.used_in_combo || false
-            }
-            onCancel={this.cancelDelete}
-            onDelete={() =>
-              this.deletePaymentPack(this.state.paymentPackToDelete.id)
-            }
-            open={!!this.state.paymentPackToDelete}
-            pack={this.state.paymentPackToDelete}
-          />
-          <PaymentPackFormDrawer
-            allowGuestMaster={
-              this.props.theme.allow_guest &&
-              this.props.theme.allow_guest_activatable
-            }
-            availableEstablishmentList={availableEstablishmentList}
-            categoryList={paymentPackCategoryList}
-            clearPaymentPackToEdit={() =>
-              this.setState({ paymentPackToEdit: null })
-            }
-            closeForm={this.closePaymentPackFormDrawer}
-            compatibleServicePass={this.props.compatibleServicePass}
-            creditScaleFactor={this.props.theme.pass_credit_factor}
-            displayNewCheckoutFlow={this.props.theme.display_new_checkout_flow}
-            initial={this.state.paymentPackToEdit}
-            metaActivityList={metaActivities}
-            onSubmit={this.props.createOrUpdatePaymentPack}
-            open={this.props.openPaymentPackFormDialog}
-            paymentPackCategories={paymentPackCategories}
-            privateServices={this.props.privateServices}
-            provincialTax={this.props.theme?.provincial_tax_value}
-            tagList={allTagsWithTagGroup}
-          />
-          <BottomActionsButton
-            onCreate={this.onCreate}
-            onCreateLabel={this.props.t('addButton')}
-          />
-        </div>
+              )}
+            </div>
+          )}
+        </ObjectLevelPermissionProviderComponent>
         {(this.props.selectedCategory || this.props.showCategoryDialog) && (
           <PaymentPackCategoryCreationDialog
             compatibleServicePass={this.props.compatibleServicePass}

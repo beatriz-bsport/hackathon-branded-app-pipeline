@@ -264,10 +264,11 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
           )
     } | ${t(
       `booking:notification.form.listItemPrimary.${
-        hours > 0 ? 'after' : 'before'
+        hours > 0 ? 'hour_after' : 'hour_before'
       }`,
       {
         hours: Math.abs(hours),
+        count: Math.abs(hours),
       },
     )}`;
   };
@@ -349,10 +350,11 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
               )
         } | ${t(
           `booking:notification.form.listItemPrimary.${
-            hours > 0 ? 'after' : 'before'
+            hours > 0 ? 'hour_after' : 'hour_before'
           }`,
           {
             hours: Math.abs(hours),
+            count: Math.abs(hours),
           },
         )}`}
       </Typography>

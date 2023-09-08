@@ -13192,8 +13192,10 @@
                     "refunded": "Refunded cancellations: {{notify_booking_nb}}",
                     "absence": "Absence: {{notify_booking_nb}}",
                     "attendance": "Attendance: {{notify_booking_nb}}",
-                    "after": "This notification will be sent {{hours}} hour(s) after the end of the session.",
-                    "before": "This notification will be sent {{hours}} hour(s) before the start of the session.",
+                    "hour_after": "This notification will be sent {{hours}} hour after the end of the session.",
+                    "hour_after_plural": "This notification will be sent {{hours}} hours after the end of the session.",
+                    "hour_before": "This notification will be sent {{hours}} hour before the start of the session.",
+                    "hour_before_plural": "This notification will be sent {{hours}} hours before the start of the session.",
                     "notifyAllEvents": {
                         "notRefunded": "For every late cancellation",
                         "refunded": "For every refunded cancellation",

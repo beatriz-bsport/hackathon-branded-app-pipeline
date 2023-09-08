@@ -12,7 +12,7 @@ import {
   DIALOG_MODE_TAB,
   DIALOG_MODE_DEACTIVATED,
 } from '@bsport/common/lib/master-data/widget-dialog-mode';
-import WidgetPortalSlidingContainer from 'bsport-saas/src/libs/widget/components/PortalContainer/PortalContainer.component';
+import WidgetPortalSlidingContainer from '../../components/PortalContainer';
 
 interface OwnProps {
   url?: string;

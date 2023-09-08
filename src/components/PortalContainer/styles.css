@@ -1,0 +1,35 @@
+.sliding-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.sliding-container-content {
+  background-color: white;
+  height: 100%;
+
+  width: 100%;
+  transition: transform 0.3s ease-in-out;
+}
+
+.sliding-container-enter {
+  transform: translateX(100%);
+}
+
+.sliding-container-enter-active {
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.sliding-container-exit {
+  transform: translateX(0);
+}
+
+.sliding-container-exit-active {
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}

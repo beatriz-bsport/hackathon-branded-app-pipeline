@@ -3161,7 +3161,8 @@
         "tag_name": "Tag",
         "choice_warning": "Toutes les options enregistrées lors de la sauvegarde du formulaire ne seront plus modifiables. Vous pourrez tout de même les supprimer ou en ajouter de nouvelles.",
         "waiver": "Décharge de responsabilité",
-        "isMandatoryOnSignUp": "La question est obligatoire à l'inscription"
+        "isMandatoryOnSignUp": "La question est obligatoire à l'inscription",
+        "official_document_id": "Numéro d'identité"
       },
       "customFormField": {
         "modal": {

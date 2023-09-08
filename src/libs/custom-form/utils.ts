@@ -29,6 +29,7 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS,
   CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
   CUSTOM_FORM_FIELD_SIGN_UP_WAIVER,
+  CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID,
   CUSTOM_FORM_FIELD_LOCATION_OPTION,
 } from '@bsport/common/lib/master-data/custom-form';
 import type {
@@ -66,6 +67,7 @@ export const ALL_CUSTOM_FORM_SIGNUP_KIND_LIST = [
   CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
   CUSTOM_FORM_FIELD_SIGN_UP_WAIVER,
   CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS,
+  CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID,
 ];
 
 export const CUSTOM_FORM_FIELDS_OPTIONS = [
@@ -113,6 +115,10 @@ export const CUSTOM_FORM_FIELD_SIGNUP_QUESTIONS_CHOICES = [
   {
     label: 'general_terms_and_conditions',
     value: CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
+  },
+  {
+    label: 'official_document_id',
+    value: CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID,
   },
 ];
 
@@ -265,6 +271,8 @@ export const insertUserProfileDataToAnswer = (
         return 2;
       }
       return 0;
+    case CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID:
+      return UserProfileData?.official_document_id;
     case CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS:
       return true;
     case CUSTOM_FORM_FIELD_SIGN_UP_WAIVER:
@@ -316,6 +324,8 @@ export const insertMemberProfileDataToAnswer = (
       return memberProfileData?.accept_email;
     case CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_SMS:
       return memberProfileData?.accept_sms;
+    case CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID:
+      return memberProfileData?.official_document_id;
     case CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS:
       if (memberProfileData?.vaccination_status === true) {
         return 1;
@@ -357,6 +367,8 @@ export const getCustomFormFieldMaxLength = (kind?: number) => {
       return 150;
     case CUSTOM_FORM_FIELD_SIGN_UP_EMAIL:
       return 1000;
+    case CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID:
+      return 64;
     default:
       return MAX_LENGTH_FOR_SHORT_ANSWER;
   }

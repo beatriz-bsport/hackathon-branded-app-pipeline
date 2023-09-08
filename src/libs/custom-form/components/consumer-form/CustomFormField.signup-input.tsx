@@ -38,6 +38,7 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS,
   CUSTOM_FORM_FIELD_SIGN_UP_WAIVER,
   CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
+  CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID,
 } from '@bsport/common/lib/master-data/custom-form';
 
 import {
@@ -119,6 +120,7 @@ export const CustomFormConsumerInput = (props: Props) => {
     case CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_1:
     case CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_2:
     case CUSTOM_FORM_FIELD_SIGN_UP_EMERGENCY_CONTACT:
+    case CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID:
       return (
         <div className={classes.textField}>
           <TextFieldEnhancedLabelWithError

@@ -14,6 +14,7 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_WAIVER,
   CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
   CUSTOM_FORM_FIELD_LOCATION_OPTION,
+  CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID,
 } from '@bsport/common/lib/master-data/custom-form';
 import CustomFormConsumerInput from './CustomFormField.input';
 import { CUSTOM_FORM_FIELDS_WITH_CHOICES } from '../../utils';
@@ -145,6 +146,13 @@ const ValidationSchema = Yup.object().shape({
           then: Yup.string().matches(
             /^([A-z0-9-_]|\.)+@[A-z0-9-_.]+(\.[A-z]+)+$/,
             'marketing:customForm.submit.errors.invalidEmail',
+          ),
+        })
+        .when('signup_question_kind', {
+          is: CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID,
+          then: Yup.string().matches(
+            /^[A-Za-z0-9]+$/,
+            'marketing:customForm.submit.errors.invalidOfficialDocumentId',
           ),
         }),
       custom_form_field_tag_rule: Yup.array().of(

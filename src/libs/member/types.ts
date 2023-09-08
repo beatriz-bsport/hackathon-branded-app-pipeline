@@ -34,6 +34,7 @@ export type UserProfile = {
     zipcode: string;
   };
   vaccination_status: boolean | null;
+  official_document_id: string;
 };
 
 export type MemberNote = {

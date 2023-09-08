@@ -108,6 +108,7 @@ describe('Utils: Custom form', () => {
       '117': 'general_terms_and_conditions',
       '118': 'waiver',
       '119': 'state',
+      '120': 'official_document_id',
     });
   });
 

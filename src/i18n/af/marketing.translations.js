@@ -240,6 +240,7 @@ exports.default = {
       waiver: 'Décharge de responsabilité',
       general_terms_and_conditions: "Conditions générales d'utilisation",
       isMandatoryOnSignUp: "La question est obligatoire à l'inscription",
+      official_document_id: "Numéro d'identité"
     },
     customFormField: {
       modal: {

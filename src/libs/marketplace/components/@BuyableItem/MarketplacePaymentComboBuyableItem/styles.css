@@ -139,6 +139,10 @@
   z-index: 100;
 }
 
+.bs-payment-combo-buyable-item__seemore_button:hover {
+  background: none;
+}
+
 .bs-payment-combo-buyable-item__seemore_button--hidden {
   visibility: hidden;
 }

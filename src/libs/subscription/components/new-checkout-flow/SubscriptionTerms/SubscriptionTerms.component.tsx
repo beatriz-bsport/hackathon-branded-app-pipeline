@@ -9,6 +9,7 @@ import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 import Collapse from '#components/css-only/Fabrique/Collapse';
 
 import './SubscriptionTermsStyles.css';
+import Button from '#components/css-only/Fabrique/Button';
 
 export type Props = {
   contractTerms: string;
@@ -56,10 +57,9 @@ export const SubscriptionTerms: React.FC<Props> = (props) => {
         </Collapse>
 
         {contractTermsText.isExpandable && (
-          <button
-            className="bs-subcription-terms--text-button"
+          <Button
+            classes={{ root: 'bs-subcription-terms--text-button' }}
             onClick={handleShowMoreDescription}
-            type="button"
           >
             <>
               <KeyboardArrowDownIcon
@@ -71,7 +71,7 @@ export const SubscriptionTerms: React.FC<Props> = (props) => {
                 ? t('newCheckout.terms.seeLess')
                 : t('newCheckout.terms.seeMore')}
             </>
-          </button>
+          </Button>
         )}
       </div>
       <div className="bs-subscription-terms-accept-container">
@@ -81,13 +81,14 @@ export const SubscriptionTerms: React.FC<Props> = (props) => {
           label={
             <Trans
               components={[
-                <button
-                  className="bs-subscription-terms__accept__label__button"
+                <Button
+                  classes={{
+                    root: 'bs-subscription-terms__accept__label__button',
+                  }}
                   onClick={onOpenContractTermsDialog}
-                  type="button"
                 >
                   .
-                </button>,
+                </Button>,
               ]}
               i18nKey="newCheckout.terms.acceptTerms"
               t={t}

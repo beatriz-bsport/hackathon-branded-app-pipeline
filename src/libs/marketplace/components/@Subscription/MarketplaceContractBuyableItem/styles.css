@@ -121,6 +121,10 @@
   z-index: 100;
 }
 
+.bs-contract-buyable-item__seemore_button:hover {
+  background: none;
+}
+
 .bs-contract-buyable-item__seemore_button--hidden {
   visibility: hidden;
 }

@@ -25,6 +25,7 @@ import { PaymentPack } from '#libs/payment-packs/types';
 import { PrivatePass } from '#libs/private-service/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import { Contract } from '#libs/subscription/types';
+import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
 
 export type Props = {
   hideChooseButton?: boolean;
@@ -188,14 +189,16 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
                 )}
               </div>
               {!hideChooseButton && (
-                <button
-                  className="bs-contract-checkout__right-button"
-                  disabled={isExpanded}
+                <Button
+                  classes={{
+                    root: 'bs-contract-checkout__right-button',
+                  }}
+                  color={ButtonColor.PRIMARY}
+                  isDisabled={isExpanded}
                   onClick={handleChooseContract}
-                  type="button"
                 >
                   {t('marketplace:contractCard.chooseButton')}
-                </button>
+                </Button>
               )}
             </GridItem>
           </Grid>

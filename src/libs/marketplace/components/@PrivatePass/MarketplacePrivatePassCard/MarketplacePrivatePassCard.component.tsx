@@ -27,6 +27,7 @@ import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 
 import { useValidityInfoForPrivatePassCard } from '#libs/marketplace/utils/private-pass';
 import './styles.css';
+import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
 
 export type Props = {
   privatePass: PrivatePass;
@@ -107,13 +108,14 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
               isExcludingTax={isExcludingTax}
               tax={privatePass.tax}
             >
-              <button
-                className="bs-pass-card__price-icon"
+              <Button
+                classes={{
+                  root: 'bs-pass-card__price-icon',
+                }}
                 onClick={handleAddToCart}
-                type="button"
               >
                 <ShoppingCartIcon />
-              </button>
+              </Button>
             </Price>
           </Item>
         </Grid>
@@ -122,24 +124,26 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
           direction={Direction.ROW}
           justification={Justification.SPACE_BETWEEN}
         >
-          <button
-            className="bs-pass-card__left-button"
+          <Button
+            classes={{
+              root: 'bs-pass-card__left-button',
+              text: 'bs-pass-card__left-button__content',
+            }}
             onClick={onOpenDetailDialog}
-            type="button"
           >
-            <div className="bs-pass-card__left-button__content">
-              <VisibilityIcon className="bs-pass-card__left-button__icon" />
-              {t('genericCard.details.buttonContent')}
-            </div>
-          </button>
+            <VisibilityIcon className="bs-pass-card__left-button__icon" />
+            {t('genericCard.details.buttonContent')}
+          </Button>
 
-          <button
-            className="bs-pass-card__right-button"
+          <Button
+            classes={{
+              root: 'bs-pass-card__right-button',
+            }}
+            color={ButtonColor.PRIMARY}
             onClick={addToCart}
-            type="button"
           >
             {t('genericCard.addButton.buttonContent')}
-          </button>
+          </Button>
         </Item>
       </Content>
     </Card>

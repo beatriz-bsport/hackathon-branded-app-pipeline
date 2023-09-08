@@ -24,6 +24,7 @@ import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 
 import type { PaymentCombo } from '#libs/payment-combo/types';
+import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
 
 export type Props = {
   paymentCombo: PaymentCombo;
@@ -175,20 +176,23 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
                     rowStart={4}
                   >
                     <div className="bs-combo-details-dialog__buttons">
-                      <button
-                        className="bs-combo-details-dialog__buttons__cancel"
+                      <Button
+                        classes={{
+                          root: 'bs-combo-details-dialog__buttons__cancel',
+                        }}
                         onClick={onDialogClose}
-                        type="button"
                       >
                         {t('common:cancel')}
-                      </button>
-                      <button
-                        className="bs-combo-details-dialog__buttons__add-to-cart"
+                      </Button>
+                      <Button
+                        classes={{
+                          root: 'bs-combo-details-dialog__buttons__add-to-cart',
+                        }}
+                        color={ButtonColor.PRIMARY}
                         onClick={onAddToCart}
-                        type="button"
                       >
                         {t('genericCard.addButton.buttonContent')}
-                      </button>
+                      </Button>
                     </div>
                   </Item>
                 </Grid>

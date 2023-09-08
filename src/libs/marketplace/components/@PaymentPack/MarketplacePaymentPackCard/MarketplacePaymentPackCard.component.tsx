@@ -25,7 +25,7 @@ import type { PaymentPack } from '#libs/payment-packs/types';
 import { CardSize } from '#components/css-only/Card/types';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import { useValidityInfoForPaymentPackCard } from '../../../utils/payment-pack';
-import Button from '#components/css-only/Fabrique/Button';
+import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
 import './styles.css';
 
 export type Props = {
@@ -114,7 +114,7 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
               tax={paymentPack.tax}
             >
               <Button
-                classes={{ root: 'bs-pass-card__price-icon' }}
+                classes={{ root: 'bs-paymentpack-card__price-icon' }}
                 onClick={handleAddToCart}
               >
                 <ShoppingCartIcon />
@@ -130,17 +130,19 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
           justification={Justification.SPACE_BETWEEN}
         >
           <Button
-            classes={{ root: 'bs-paymentpack-card__left-button' }}
+            classes={{
+              root: 'bs-paymentpack-card__left-button',
+              text: 'bs-paymentpack-card__left-button__content',
+            }}
             onClick={onOpenDetailDialog}
           >
-            <div className="bs-paymentpack-card__left-button__content">
-              <VisibilityIcon className="bs-paymentpack-card__left-button__icon" />
-              {t('genericCard.details.buttonContent')}
-            </div>
+            <VisibilityIcon className="bs-paymentpack-card__left-button__icon" />
+            {t('genericCard.details.buttonContent')}
           </Button>
 
           <Button
             classes={{ root: 'bs-paymentpack-card__right-button' }}
+            color={ButtonColor.PRIMARY}
             onClick={addToCart}
           >
             {t('genericCard.addButton.buttonContent')}

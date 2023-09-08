@@ -20,6 +20,7 @@ import PaymentPackDetailList from '#marketplacecomponents/@PaymentPack/Marketpla
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 
 import { PaymentPack } from '#libs/payment-packs/types';
+import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
 
 export type Props = {
   paymentPack: PaymentPack;
@@ -166,20 +167,23 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                       rowStart={4}
                     >
                       <div className="bs-pack-details-dialog__buttons">
-                        <button
-                          className="bs-pack-details-dialog__buttons__cancel"
+                        <Button
+                          classes={{
+                            root: 'bs-pack-details-dialog__buttons__cancel',
+                          }}
                           onClick={onDialogClose}
-                          type="button"
                         >
                           {t('common:cancel')}
-                        </button>
-                        <button
-                          className="bs-pack-details-dialog__buttons__add-to-cart"
+                        </Button>
+                        <Button
+                          classes={{
+                            root: 'bs-pack-details-dialog__buttons__add-to-cart',
+                          }}
+                          color={ButtonColor.PRIMARY}
                           onClick={handleAddToCart}
-                          type="button"
                         >
                           {t('genericCard.addButton.buttonContent')}
-                        </button>
+                        </Button>
                       </div>
                     </Item>
                   </Grid>

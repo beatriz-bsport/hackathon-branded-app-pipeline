@@ -24,6 +24,7 @@ import './styles.css';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
 import type { Contract } from '#libs/subscription/types';
+import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
 
 export type Props = {
   isExcludingTax: boolean;
@@ -147,13 +148,14 @@ const MarketplaceContractCard: React.FC<Props> = ({
             justification={Justification.FLEX_START}
             rowStart={2}
           >
-            <button
-              className="bs-contract-card__price-icon"
+            <Button
+              classes={{
+                root: 'bs-contract-card__price-icon',
+              }}
               onClick={handleAddToCart}
-              type="button"
             >
               <ShoppingCartIcon />
-            </button>
+            </Button>
           </Item>
         </Grid>
         <Item
@@ -163,24 +165,24 @@ const MarketplaceContractCard: React.FC<Props> = ({
           direction={Direction.ROW}
           justification={Justification.SPACE_BETWEEN}
         >
-          <button
-            className="bs-contract-card__left-button"
+          <Button
+            classes={{
+              root: 'bs-contract-card__left-button',
+              text: 'bs-contract-card__left-button__content',
+            }}
             onClick={handleOpenDetailDialog}
-            type="button"
           >
-            <div className="bs-contract-card__left-button__content">
-              <VisibilityIcon className="bs-contract-card__left-button__icon" />
-              {t('genericCard.details.buttonContent')}
-            </div>
-          </button>
+            <VisibilityIcon className="bs-contract-card__left-button__icon" />
+            {t('genericCard.details.buttonContent')}
+          </Button>
 
-          <button
-            className="bs-contract-card__right-button"
+          <Button
+            classes={{ root: 'bs-contract-card__right-button' }}
+            color={ButtonColor.PRIMARY}
             onClick={handleAddToCart}
-            type="button"
           >
             {t('contractCard.registerButton')}
-          </button>
+          </Button>
         </Item>
       </Content>
     </Card>

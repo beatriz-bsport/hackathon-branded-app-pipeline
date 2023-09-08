@@ -17,6 +17,7 @@ import Price, { Color } from '#components/css-only/Price';
 import PrivatePassDetailsList from './DetailList/PrivatePassDetailList.component';
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 import { PrivatePass } from '#libs/private-service/types';
+import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
 
 export type Props = {
   privatePass: PrivatePass;
@@ -147,20 +148,23 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
                     rowStart={4}
                   >
                     <div className="bs-pass-details-dialog__buttons">
-                      <button
-                        className="bs-pass-details-dialog__buttons__cancel"
+                      <Button
+                        classes={{
+                          root: 'bs-pass-details-dialog__buttons__cancel',
+                        }}
                         onClick={onDialogClose}
-                        type="button"
                       >
                         {t('common:cancel')}
-                      </button>
-                      <button
-                        className="bs-pass-details-dialog__buttons__add-to-cart"
+                      </Button>
+                      <Button
+                        classes={{
+                          root: 'bs-pass-details-dialog__buttons__add-to-cart',
+                        }}
+                        color={ButtonColor.PRIMARY}
                         onClick={handleAddToCart}
-                        type="button"
                       >
                         {t('genericCard.addButton.buttonContent')}
-                      </button>
+                      </Button>
                     </div>
                   </Item>
                 </Grid>

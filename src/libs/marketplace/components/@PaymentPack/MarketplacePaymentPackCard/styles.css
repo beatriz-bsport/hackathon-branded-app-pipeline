@@ -113,24 +113,12 @@
 }
 
 .bs-paymentpack-card__left-button {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: var(--spacing-15);
-  background: none;
-  border: none;
-  align-items: flex-start;
-  cursor: pointer;
-  text-transform: uppercase;
-  padding: 0;
+  border-radius: var(--border-radius-10);
 }
 
 .bs-paymentpack-card__left-button__content {
-  display: flex;
-  align-items: center;
   color: var(--color-primary-main);
-  font-size: var(--body2-fontSize);
-  font-weight: var(--button-fontWeight);
+  margin-right: var(--spacing-1);
 }
 
 .bs-paymentpack-card__left-button__icon {
@@ -138,26 +126,16 @@
 }
 
 .bs-paymentpack-card__right-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-primary-main);
   border-radius: var(--border-radius-10);
-  border: none;
-  color: var(--color-primary-contrastText);
-  padding: 8px 16px;
-  font-size: var(--button-fontSize);
-  font-weight: var(--button-fontWeight);
-  font-family: var(--button-fontFamily);
-  letter-spacing: var(--button-letterSpacing);
-  cursor: pointer;
-  text-transform: uppercase;
-  height: 36px;
-  white-space: nowrap;
+  padding: var(--spacing-1) var(--spacing-2);
 }
 
 .bs-pass-card__footer {
   align-items: center;
+}
+
+.bs-paymentpack-card__left-button:hover {
+  background: var(--color-hover);
 }
 
 .bs-paymentpack-card__right-button:hover,
@@ -182,6 +160,10 @@
   .bs-paymentpack-card__price-icon {
     display: flex;
     margin-left: var(--spacing-2);
+  }
+
+  .bs-paymentpack-card__price-icon:hover {
+    color: var(--color-primary-dark);
   }
 
   .bs-paymentpack-card__grid {

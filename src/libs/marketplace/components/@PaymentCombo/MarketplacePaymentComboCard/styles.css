@@ -108,28 +108,23 @@
   padding: 0;
 }
 
+.bs-pack-card__price__icon:hover {
+  background: none;
+  color: var(--color-primary-dark);
+}
+
 .bs-pack-card__footer {
   padding: var(--spacing-1);
   padding-top: 0;
 }
 
 .bs-pack-card__footer__button__left {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: var(--spacing-15);
-  background: none;
-  align-items: flex-start;
-  border: none;
-  cursor: pointer;
-  text-transform: uppercase;
+  border-radius: var(--border-radius-10);
 }
 
 .bs-pack-card__footer__left__button__content {
-  display: flex;
-  align-items: center;
   color: var(--color-primary-main);
-  font-size: var(--body2-fontSize);
+  margin-right: var(--spacing-1);
 }
 
 .bs-pack-card__button__icon {
@@ -137,21 +132,8 @@
 }
 
 .bs-pack-card__footer__button__right {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-primary-main);
   border-radius: var(--border-radius-10);
-  border: none;
-  color: var(--color-primary-contrastText);
   padding: var(--spacing-1) var(--spacing-2);
-  font-size: var(--button-fontSize);
-  font-weight: var(--button-fontWeight);
-  font-family: var(--button-fontFamily);
-  letter-spacing: var(--button-letterSpacing);
-  cursor: pointer;
-  text-transform: uppercase;
-  white-space: nowrap;
 }
 
 .bs-pack-card__footer__button__right:hover,

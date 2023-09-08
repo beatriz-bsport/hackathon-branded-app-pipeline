@@ -89,14 +89,11 @@
   border-bottom-right-radius: var(--border-radius-2);
 }
 
+.bs-pass-details-dialog__buttons {
+  display: flex;
+}
+
 .bs-pass-details-dialog__buttons button {
-  border: none;
-  font-size: var(--button-fontSize);
-  font-weight: var(--button-fontWeight);
-  font-family: var(--button-fontFamily);
-  letter-spacing: var(--button-letterSpacing);
-  text-transform: uppercase;
-  cursor: pointer;
   transition: background-color var(--duration-shortest) var(--easing-easeInOut);
   padding: var(--spacing-1) var(--spacing-2);
   border-radius: var(--border-radius-10);
@@ -106,21 +103,6 @@
   color: var(--color-primary-main);
   margin-right: var(--spacing-2);
   background: none;
-}
-
-.bs-pass-details-dialog__buttons__add-to-cart {
-  color: #fff;
-  background: var(--color-primary-main);
-}
-
-.bs-pass-details-dialog__buttons__cancel:hover,
-.bs-pass-details-dialog__buttons__cancel:focus {
-  background: var(--color-hover);
-}
-
-.bs-pass-details-dialog__buttons__add-to-cart:hover,
-.bs-pass-details-dialog__buttons__add-to-cart:focus {
-  background: var(--color-primary-dark);
 }
 
 .mobile {

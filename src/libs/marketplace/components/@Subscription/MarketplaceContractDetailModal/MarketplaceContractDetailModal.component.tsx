@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
-import './styles.css';
-
 import StarIcon from '@material-ui/icons/Star';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import ReplayIcon from '@material-ui/icons/Replay';
@@ -32,6 +30,9 @@ import type { Contract } from '#libs/subscription/types';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import { PrivatePass } from '#libs/private-service/types';
+import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
+
+import './styles.css';
 
 export type Props = {
   isExcludingTax: boolean;
@@ -395,20 +396,23 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                       rowStart={4}
                     >
                       <div className="bs-contract-details-dialog__footer__buttons">
-                        <button
-                          className="bs-contract-details-dialog__buttons__cancel"
+                        <Button
+                          classes={{
+                            root: 'bs-contract-details-dialog__buttons__cancel',
+                          }}
                           onClick={handleDialogClose}
-                          type="button"
                         >
                           {t('common:cancel')}
-                        </button>
-                        <button
-                          className="bs-contract-details-dialog__buttons__add-to-cart"
+                        </Button>
+                        <Button
+                          classes={{
+                            root: 'bs-contract-details-dialog__buttons__add-to-cart',
+                          }}
+                          color={ButtonColor.PRIMARY}
                           onClick={handleAddToCart}
-                          type="button"
                         >
                           {t('paymentCombo.addToCart')}
-                        </button>
+                        </Button>
                       </div>
                     </Item>
                   </Grid>

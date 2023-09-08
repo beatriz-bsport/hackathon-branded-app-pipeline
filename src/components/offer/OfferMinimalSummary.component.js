@@ -452,6 +452,7 @@ export function OfferMinimalSummary(props: Props) {
               >
                 <RollCallChip
                   isValidated={!offer.roll_call_needs_validation}
+                  lastValidatedRollCallDate={offer.date_roll_call_last_modified}
                   onClick={props.openRollCallDrawer}
                 />
               </div>

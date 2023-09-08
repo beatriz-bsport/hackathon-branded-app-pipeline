@@ -14,7 +14,7 @@
   }
 }
 
-.bs-contract-buyable-item:active {
+.bs-contract-buyable-item__card:active {
   animation: clickAnimation 0.5s ease;
 }
 

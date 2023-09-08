@@ -9,6 +9,22 @@
   row-gap: calc(var(--spacing-1) / 2);
 }
 
+@keyframes clickAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.99);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.consumer-payment-pack-card__container:active {
+  animation: clickAnimation 0.5s ease;
+}
+
 .consumer-payment-pack-card__container--selected {
   border-color: var(--color-primary-main);
   background-color: var(--color-primary-main-background);

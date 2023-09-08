@@ -106,7 +106,7 @@ Build Deploy Alpha:
     ENVIRONMENT: alpha
     FRONTEND_URL: backoffice.fb-alpha.bsport.io
     S3_BUCKET: s3://bsport-backoffice-assets-alpha/
-    CLOUDFRONT_ID: E26DURIBD1IZ6H
+    CLOUDFRONT_ID: E106NMX51HMUZR
     SLACK_WEBHOOK_URL: '${SLACK_DEV_WEBHOOK_URL}'
     CLOUDFRONT_INVALIDATION_LAMBDA_URL: 'https://uc7e26gvpwrprl5hubmfe4zeou0zyqyu.lambda-url.eu-west-3.on.aws/'
   tags:
@@ -122,7 +122,7 @@ Build Deploy Beta:
     ENVIRONMENT: beta
     FRONTEND_URL: backoffice.fb-beta.bsport.io
     S3_BUCKET: s3://bsport-backoffice-assets-beta/
-    CLOUDFRONT_ID: E31SNYTE4NLU27
+    CLOUDFRONT_ID: E2QPTVAZWMZ5F5
     SLACK_WEBHOOK_URL: '${SLACK_DEV_WEBHOOK_URL}'
     CLOUDFRONT_INVALIDATION_LAMBDA_URL: 'https://uc7e26gvpwrprl5hubmfe4zeou0zyqyu.lambda-url.eu-west-3.on.aws/'
   tags:

@@ -155,6 +155,14 @@ exports.default = {
           'This notification will be sent {{hours}} hour before the start of the session.',
         hour_before_plural:
           'This notification will be sent {{hours}} hours before the start of the session.',
+        day_before:
+          'This notification will be sent {{days}} day before the start of the session.',
+        day_before_plural:
+          'This notification will be sent {{days}} days before the start of the session.',
+        day_after:
+          'This notification will be sent {{days}} day after the start of the session.',
+        day_after_plural:
+          'This notification will be sent {{days}} days after the start of the session.',
         notifyAllEvents: {
           notRefunded: 'For every late cancellation',
           refunded: 'For every refunded cancellation',

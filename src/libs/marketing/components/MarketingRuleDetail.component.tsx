@@ -213,7 +213,7 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
   };
 
   getPrimaryText = (notif: MarketingNotification) => {
-    const { notify_booking_nb, kind, hours } = notif.event_rules;
+    const { notify_booking_nb, kind, hours, days } = notif.event_rules;
     const { t } = this.props;
 
     if (notif.event_rules.payment_pack_id !== undefined) {
@@ -262,19 +262,31 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
               notify_booking_nb,
             },
           )
-    } | ${t(
-      `booking:notification.form.listItemPrimary.${
-        hours > 0 ? 'hour_after' : 'hour_before'
-      }`,
-      {
-        hours: Math.abs(hours),
-        count: Math.abs(hours),
-      },
-    )}`;
+    } | ${
+      hours
+        ? t(
+            `booking:notification.form.listItemPrimary.${
+              hours > 0 ? 'hour_after' : 'hour_before'
+            }`,
+            {
+              hours: Math.abs(hours),
+              count: Math.abs(hours),
+            },
+          )
+        : t(
+            `booking:notification.form.listItemPrimary.${
+              days > 0 ? 'day_after' : 'day_before'
+            }`,
+            {
+              days: Math.abs(days),
+              count: Math.abs(days),
+            },
+          )
+    }`;
   };
 
   renderPrimaryText = (notif: MarketingNotification) => {
-    const { notify_booking_nb, kind, hours } = notif.event_rules;
+    const { notify_booking_nb, kind, hours, days } = notif.event_rules;
     const { t } = this.props;
 
     if (notif.event_rules.payment_pack_id !== undefined) {
@@ -348,15 +360,27 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
                   notify_booking_nb,
                 },
               )
-        } | ${t(
-          `booking:notification.form.listItemPrimary.${
-            hours > 0 ? 'hour_after' : 'hour_before'
-          }`,
-          {
-            hours: Math.abs(hours),
-            count: Math.abs(hours),
-          },
-        )}`}
+        } |  ${
+          hours
+            ? t(
+                `booking:notification.form.listItemPrimary.${
+                  hours > 0 ? 'hour_after' : 'hour_before'
+                }`,
+                {
+                  hours: Math.abs(hours),
+                  count: Math.abs(hours),
+                },
+              )
+            : t(
+                `booking:notification.form.listItemPrimary.${
+                  days > 0 ? 'day_after' : 'day_before'
+                }`,
+                {
+                  days: Math.abs(days),
+                  count: Math.abs(days),
+                },
+              )
+        }`}
       </Typography>
     );
   };

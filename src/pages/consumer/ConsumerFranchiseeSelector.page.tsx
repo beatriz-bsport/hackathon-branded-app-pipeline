@@ -171,24 +171,36 @@ const mapWithHandlers = {
   goToNextPage:
     (props: OwnProps & ConnectedProps) =>
     (companyId: number, companyName: string) => {
-      props.fetchCompanyTheme(companyId, {
-        onSuccess: (theme) => {
-          if (props.next) {
-            props.pushRouter(
-              getCheckoutUrl(
-                companyId,
-                props.getCompanyThemeLoading
-                  ? false
-                  : theme.display_new_checkout_flow,
-                null,
-                props.next,
-              ),
-            );
-          } else {
-            props.pushRouter(getMarketplaceRoute(companyName, companyId));
-          }
-        },
-      });
+      if (WidgetUtils.isWidget()) {
+        // OLD WORKING REDIRECTION commit : 69faa5e00263ba2519510fc182f43a11b5d79122
+        if (props.next) {
+          props.pushRouter(`/checkout/${companyId}/${props.next}`);
+        } else {
+          props.pushRouter(
+            `/m/${encodeURIComponent(companyName)}/${companyId}`,
+          );
+        }
+      } else {
+        // Not working on widget
+        props.fetchCompanyTheme(companyId, {
+          onSuccess: (theme) => {
+            if (props.next) {
+              props.pushRouter(
+                getCheckoutUrl(
+                  companyId,
+                  props.getCompanyThemeLoading
+                    ? false
+                    : theme.display_new_checkout_flow,
+                  null,
+                  props.next,
+                ),
+              );
+            } else {
+              props.pushRouter(getMarketplaceRoute(companyName, companyId));
+            }
+          },
+        });
+      }
     },
 };
 

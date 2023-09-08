@@ -333,25 +333,33 @@ export class PaymentPackList extends React.Component<Props, State> {
     this.setState({ searchText: '', searchResult: [] });
   };
 
-  renderPackList = (packs: Array<PaymentPack>) => (
-    <Paper>
-      <List disablePadding>
-        {packs.map((pack) => (
-          <PaymentPackListItem
-            key={pack.id}
-            disabled
-            divider
-            creditScaleFactor={this.props.theme.pass_credit_factor}
-            onClick={!pack.disabled ? () => this.props.goToPack(pack.id) : null}
-            onDelete={() => this.requestDelete(pack)}
-            onEdit={() => this.requestEdit(pack)}
-            onRestore={() => this.restorePaymentPack(pack.id)}
-            pack={pack}
-          />
-        ))}
-      </List>
-    </Paper>
-  );
+  handleRestorePack = (canEdit: boolean, pack: PaymentPack) =>
+    canEdit ? () => this.restorePaymentPack(pack.id) : null;
+
+  renderArchivedPackList = (
+    packs: Array<PaymentPack>,
+    hasEditPermission: boolean,
+  ) => {
+    return (
+      <Paper>
+        <List disablePadding>
+          {packs.map((pack) => (
+            <PaymentPackListItem
+              key={pack.id}
+              disabled
+              divider
+              creditScaleFactor={this.props.theme.pass_credit_factor}
+              onClick={
+                pack.disabled ? null : () => this.props.goToPack(pack.id)
+              }
+              onRestore={this.handleRestorePack(hasEditPermission, pack)}
+              pack={pack}
+            />
+          ))}
+        </List>
+      </Paper>
+    );
+  };
 
   onShowDisabled = () => {
     this.setState((prevState: State) => {
@@ -506,8 +514,13 @@ export class PaymentPackList extends React.Component<Props, State> {
           onClose={this.closeDeleteNoShowPenaltyDialog}
           open={this.props.openDeleteNoShowPenaltyDialog}
         />
-        <ObjectLevelPermissionProviderComponent requiredPermission="product.paymentPack.allowed_actions.create">
-          {(hasCreatePermission: boolean) => (
+        <ObjectLevelPermissionProviderComponent
+          requiredPermission={[
+            'product.paymentPack.allowed_actions.create',
+            'product.paymentPack.allowed_actions.edit',
+          ]}
+        >
+          {([hasCreatePermission, hasEditPermission]: boolean[]) => (
             <div className={classes.container}>
               <div className={classes.buttonRow}>
                 {this.props.enabledPacks?.length && (
@@ -568,8 +581,13 @@ export class PaymentPackList extends React.Component<Props, State> {
                               : null
                           }
                           onDelete={() => this.requestDelete(pack)}
-                          onEdit={() => this.requestEdit(pack)}
-                          onRestore={() => this.restorePaymentPack(pack.id)}
+                          onEdit={
+                            hasEditPermission && (() => this.requestEdit(pack))
+                          }
+                          onRestore={
+                            hasEditPermission &&
+                            (() => this.restorePaymentPack(pack.id))
+                          }
                           pack={pack}
                         />
                       ))}
@@ -600,15 +618,15 @@ export class PaymentPackList extends React.Component<Props, State> {
                   <Typography>{t('orderingAlert.text')}</Typography>
                 </Alert>
               )}
-
               <PaymentPackCategoryList
                 deletePaymentPackCategory={this.props.deletePaymentPackCategory}
                 filteredCategories={this.state.selectedCategories}
                 filterManagerOnly={this.state.selectedDisponibility}
+                itemsDraggable={hasEditPermission}
                 onClick={this.props.goToPack}
                 onDelete={this.requestDelete}
-                onEdit={this.requestEdit}
-                onRestore={this.restorePaymentPack}
+                onEdit={hasEditPermission && this.requestEdit}
+                onRestore={hasEditPermission && this.restorePaymentPack}
                 paymentPackByCategory={this.props.paymentPackByCategory}
                 paymentPackOrder={this.state.paymentPackOrderByCategory}
                 setSelectedCategory={this.props.setSelectedCategory}
@@ -642,7 +660,10 @@ export class PaymentPackList extends React.Component<Props, State> {
                   className={classes.collapse}
                   in={this.state.showDisabled}
                 >
-                  {this.renderPackList(this.props.disabledPacks)}
+                  {this.renderArchivedPackList(
+                    this.props.disabledPacks,
+                    hasEditPermission,
+                  )}
                 </Collapse>
               </div>
 

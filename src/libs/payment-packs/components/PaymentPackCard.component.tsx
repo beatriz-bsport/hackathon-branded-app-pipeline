@@ -44,6 +44,7 @@ import {
 } from '../constants';
 import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
 import OffPeakDisplayByDay from './OffPeakDisplayByDay.component';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type OwnProps = {
   onlyPublic?: boolean;
@@ -108,7 +109,7 @@ export class PaymentPackCard extends Component<Props, State> {
     );
   };
 
-  renderEditDeleteButtons = () => {
+  renderEditDeleteButtons = (hasEditPermission: boolean) => {
     const { pack, classes, t } = this.props;
     if (pack.disabled) {
       return (
@@ -121,25 +122,29 @@ export class PaymentPackCard extends Component<Props, State> {
     }
     return (
       <div className={classes.buttonContainer}>
-        {!!this.props.onScaleCredit && !pack.linked_private_pass && (
+        {!!this.props.onScaleCredit &&
+          !pack.linked_private_pass &&
+          hasEditPermission && (
+            <Button
+              className={`${classes.multiDivButton} ${classes.buttonAlign}`}
+              color="primary"
+              disabled={!!pack.linked_private_pass}
+              id="button_pass_multdiv"
+              onClick={this.props.toogleScaleMenuOpen}
+            >
+              <Hidden xsDown>{t('actions.scaleCredit')}</Hidden>
+            </Button>
+          )}
+        {hasEditPermission && (
           <Button
-            className={`${classes.multiDivButton} ${classes.buttonAlign}`}
+            className={`${classes.buttonWidth} ${classes.buttonAlign}`}
             color="primary"
-            disabled={!!pack.linked_private_pass}
-            id="button_pass_multdiv"
-            onClick={this.props.toogleScaleMenuOpen}
+            id="button_pass_modify"
+            onClick={this.onEditPaymentPack}
           >
-            <Hidden xsDown>{t('actions.scaleCredit')}</Hidden>
+            <Hidden xsDown>{t('actions.edit')}</Hidden>
           </Button>
         )}
-        <Button
-          className={`${classes.buttonWidth} ${classes.buttonAlign}`}
-          color="primary"
-          id="button_pass_modify"
-          onClick={this.onEditPaymentPack}
-        >
-          <Hidden xsDown>{t('actions.edit')}</Hidden>
-        </Button>
         {!!this.props.onDeleteButtonClick && (
           <RedButton
             className={`${classes.buttonWidth} ${classes.buttonAlign}`}
@@ -153,7 +158,7 @@ export class PaymentPackCard extends Component<Props, State> {
     );
   };
 
-  renderTitleAndPrice = () => {
+  renderTitleAndPrice = (hasEditPermission: boolean) => {
     const { pack, t, onlyPublic, classes } = this.props;
 
     return (
@@ -173,14 +178,14 @@ export class PaymentPackCard extends Component<Props, State> {
         )}
         {!onlyPublic && (
           <div className={classes.buttonBlock}>
-            {this.renderEditDeleteButtons()}
+            {this.renderEditDeleteButtons(hasEditPermission)}
           </div>
         )}
       </React.Fragment>
     );
   };
 
-  renderCardHeader = () => {
+  renderCardHeader = (hasEditPermission: boolean) => {
     const { pack, t, onlyPublic, classes, paymentPackCategory, isManager } =
       this.props;
     const { name, description } = pack;
@@ -215,7 +220,7 @@ export class PaymentPackCard extends Component<Props, State> {
             <Hidden smUp>
               <Grid item>
                 <div className={classes.marginTop}>
-                  {this.renderTitleAndPrice()}
+                  {this.renderTitleAndPrice(hasEditPermission)}
                 </div>
               </Grid>
             </Hidden>
@@ -256,7 +261,7 @@ export class PaymentPackCard extends Component<Props, State> {
         <Hidden xsDown>
           <Grid item sm={5}>
             <div className={classes.columnLeft}>
-              {this.renderTitleAndPrice()}
+              {this.renderTitleAndPrice(hasEditPermission)}
             </div>
           </Grid>
         </Hidden>
@@ -427,7 +432,7 @@ export class PaymentPackCard extends Component<Props, State> {
     return null;
   };
 
-  getPackInfo = () => {
+  getPackInfo = (hasEditPermission: boolean) => {
     const { pack, t, classes, isManager } = this.props;
     const { categories, establishments, metaActivities } = pack;
     const accessibility = this.renderAccessibilityInfo();
@@ -456,7 +461,7 @@ export class PaymentPackCard extends Component<Props, State> {
           </div>
         ) : null}
 
-        {this.renderCardHeader()}
+        {this.renderCardHeader(hasEditPermission)}
         <div className={classes.detailInfo}>
           <div className={classes.detailCategory}>
             <DateRangeIcon className={classes.leftIcon} />
@@ -630,39 +635,43 @@ export class PaymentPackCard extends Component<Props, State> {
       blacklist_tags,
     } = pack;
     return (
-      <Paper
-        className={[
-          classes.paper,
-          pack.disabled ? classes.disabled : null,
-        ].join(' ')}
-      >
-        <div className={classes.horizontalBlock}>{this.getPackInfo()}</div>
+      <ObjectLevelPermissionProviderComponent requiredPermission="product.paymentPack.allowed_actions.edit">
+        {(hasEditPermission: boolean) => (
+          <Paper
+            className={[
+              classes.paper,
+              pack.disabled ? classes.disabled : null,
+            ].join(' ')}
+          >
+            <div className={classes.horizontalBlock}>{this.getPackInfo(hasEditPermission)}</div>
 
-        <PaymentPackScaleCreditDialog
-          loading={this.props.scaleCreditLoading}
-          onClose={this.props.toogleScaleMenuOpen}
-          onSubmit={(data) =>
-            this.props.onScaleCredit(this.props.pack.id, data)
-          }
-          open={this.props.scaleMenuOpen}
-        />
-        <PaymentPackCompatibilityDialog
-          activities={metaActivities}
-          categories={categories}
-          establishments={establishments}
-          isManager={isManager}
-          onClose={() => this.setState({ compatibilityDialogOpen: false })}
-          onModify={this.onEditPaymentPack}
-          open={this.state.compatibilityDialogOpen}
-        />
-        <PaymentPackTagsDialog
-          blacklistTags={blacklist_tags}
-          onClose={() => this.setState({ tagsDialogOpen: false })}
-          onModify={this.onEditPaymentPack}
-          open={this.state.tagsDialogOpen}
-          whitelistTags={whitelist_tags}
-        />
-      </Paper>
+            <PaymentPackScaleCreditDialog
+              loading={this.props.scaleCreditLoading}
+              onClose={this.props.toogleScaleMenuOpen}
+              onSubmit={(data) =>
+                this.props.onScaleCredit(this.props.pack.id, data)
+              }
+              open={this.props.scaleMenuOpen}
+            />
+            <PaymentPackCompatibilityDialog
+              activities={metaActivities}
+              categories={categories}
+              establishments={establishments}
+              isManager={isManager}
+              onClose={() => this.setState({ compatibilityDialogOpen: false })}
+              onModify={this.onEditPaymentPack}
+              open={this.state.compatibilityDialogOpen}
+            />
+            <PaymentPackTagsDialog
+              blacklistTags={blacklist_tags}
+              onClose={() => this.setState({ tagsDialogOpen: false })}
+              onModify={this.onEditPaymentPack}
+              open={this.state.tagsDialogOpen}
+              whitelistTags={whitelist_tags}
+            />
+          </Paper>
+        )}
+      </ObjectLevelPermissionProviderComponent>
     );
   }
 }

@@ -35,12 +35,14 @@ import type {
 import { MaterialStyleType } from '../../../../utils/types';
 import withConfirm from '../../../../hocs/with-confirm.hoc';
 import { ManagerOnly } from '../PaymentPackFilterAndSortHeader.component';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type OwnProps = {
   onEdit: (pp: PaymentPack) => void;
   onDelete: (pp: PaymentPack) => void;
   onClick: (ppId: number) => void;
   onRestore: (ppId: number) => void;
+  itemsDraggable: boolean;
   paymentPackCategory: PaymentPackCategoryWithPacks;
   setSelectedCategory?: (category: PaymentPackCategory) => void;
   showCategoryEditDialog?: () => void;
@@ -75,6 +77,7 @@ type PackListProps = MaterialStyleType<ReturnType<typeof styles>> & {
   onDelete: (pp: PaymentPack) => void;
   onClick: (ppId: number) => void;
   onRestore: (ppId: number) => void;
+  itemsDraggable: boolean;
   paymentPackCategory: PaymentPackCategoryWithPacks;
   orderingOverride?: any;
   filterManagerOnly: ManagerOnly;
@@ -184,6 +187,7 @@ const SortablePaymentPackList = React.memo((props: PackListProps) => {
                 key={pack.id}
                 classes={props.classes}
                 draggable={
+                  props.itemsDraggable &&
                   !props.paymentPackOrder &&
                   props.filterManagerOnly === ManagerOnly.showAll
                 }
@@ -306,16 +310,18 @@ export const PaymentPackCategoryItemWithPaymentPack = React.memo(
           }}
         >
           <List dense>
-            <MenuItem
-              button
-              onClick={() => {
-                props.showCategoryEditDialog();
-                setAnchorEl(null);
-              }}
-            >
-              <EditIcon className={classes.popoverIcon} />
-              <Typography>{t('category.popover.edit')}</Typography>
-            </MenuItem>
+            {props.onEdit && (
+              <MenuItem
+                button
+                onClick={() => {
+                  props.showCategoryEditDialog();
+                  setAnchorEl(null);
+                }}
+              >
+                <EditIcon className={classes.popoverIcon} />
+                <Typography>{t('category.popover.edit')}</Typography>
+              </MenuItem>
+            )}
             <ButtonWithConfirm
               button
               onClick={() => {
@@ -331,11 +337,13 @@ export const PaymentPackCategoryItemWithPaymentPack = React.memo(
 
         <div className={classes.header}>
           <div className={classes.flex}>
-            {paymentPackCategory.id && !props.isCategoryFiltered && (
-              <IconButton {...listeners} {...attributes}>
-                <DragHandleIcon />
-              </IconButton>
-            )}
+            {props.onEdit &&
+              paymentPackCategory.id &&
+              !props.isCategoryFiltered && (
+                <IconButton {...listeners} {...attributes}>
+                  <DragHandleIcon />
+                </IconButton>
+              )}
             <Typography component="h2" variant="h5">
               {paymentPackCategory
                 ? `${paymentPackCategory.name || t('noCategory.name')} (${

@@ -41,6 +41,7 @@ type OwnProps = {
   onDelete: (pp: PaymentPack) => void;
   onClick: (ppId: number) => void;
   onRestore: (ppId: number) => void;
+  itemsDraggable: boolean;
   updatePack: (
     objs: Array<{ id: number; ordering_in_category: number }>,
     options?: OptionCallback,
@@ -268,6 +269,7 @@ export const PaymentPackListByCategory = memo((props: Props) => {
               filterManagerOnly={props.filterManagerOnly}
               isCategoryDragging={isCategoryDragging}
               isCategoryFiltered={!!props.filteredCategories.length}
+              itemsDraggable={props.itemsDraggable}
               onClick={props.onClick}
               onDelete={props.onDelete}
               onEdit={props.onEdit}

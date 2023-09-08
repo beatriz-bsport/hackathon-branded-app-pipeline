@@ -109,7 +109,10 @@ export class PaymentPackCard extends Component<Props, State> {
     );
   };
 
-  renderEditDeleteButtons = (hasEditPermission: boolean) => {
+  renderEditDeleteButtons = (
+    hasEditPermission: boolean,
+    hasDeletePermission: boolean,
+  ) => {
     const { pack, classes, t } = this.props;
     if (pack.disabled) {
       return (
@@ -145,7 +148,7 @@ export class PaymentPackCard extends Component<Props, State> {
             <Hidden xsDown>{t('actions.edit')}</Hidden>
           </Button>
         )}
-        {!!this.props.onDeleteButtonClick && (
+        {hasDeletePermission && !!this.props.onDeleteButtonClick && (
           <RedButton
             className={`${classes.buttonWidth} ${classes.buttonAlign}`}
             id="button_pass_delete"
@@ -158,7 +161,10 @@ export class PaymentPackCard extends Component<Props, State> {
     );
   };
 
-  renderTitleAndPrice = (hasEditPermission: boolean) => {
+  renderTitleAndPrice = (
+    hasEditPermission: boolean,
+    hasDeletePermission: boolean,
+  ) => {
     const { pack, t, onlyPublic, classes } = this.props;
 
     return (
@@ -178,14 +184,20 @@ export class PaymentPackCard extends Component<Props, State> {
         )}
         {!onlyPublic && (
           <div className={classes.buttonBlock}>
-            {this.renderEditDeleteButtons(hasEditPermission)}
+            {this.renderEditDeleteButtons(
+              hasEditPermission,
+              hasDeletePermission,
+            )}
           </div>
         )}
       </React.Fragment>
     );
   };
 
-  renderCardHeader = (hasEditPermission: boolean) => {
+  renderCardHeader = (
+    hasEditPermission: boolean,
+    hasDeletePermission: boolean,
+  ) => {
     const { pack, t, onlyPublic, classes, paymentPackCategory, isManager } =
       this.props;
     const { name, description } = pack;
@@ -220,7 +232,10 @@ export class PaymentPackCard extends Component<Props, State> {
             <Hidden smUp>
               <Grid item>
                 <div className={classes.marginTop}>
-                  {this.renderTitleAndPrice(hasEditPermission)}
+                  {this.renderTitleAndPrice(
+                    hasEditPermission,
+                    hasDeletePermission,
+                  )}
                 </div>
               </Grid>
             </Hidden>
@@ -261,7 +276,7 @@ export class PaymentPackCard extends Component<Props, State> {
         <Hidden xsDown>
           <Grid item sm={5}>
             <div className={classes.columnLeft}>
-              {this.renderTitleAndPrice(hasEditPermission)}
+              {this.renderTitleAndPrice(hasEditPermission, hasDeletePermission)}
             </div>
           </Grid>
         </Hidden>
@@ -432,7 +447,7 @@ export class PaymentPackCard extends Component<Props, State> {
     return null;
   };
 
-  getPackInfo = (hasEditPermission: boolean) => {
+  getPackInfo = (hasEditPermission: boolean, hasDeletePermission: boolean) => {
     const { pack, t, classes, isManager } = this.props;
     const { categories, establishments, metaActivities } = pack;
     const accessibility = this.renderAccessibilityInfo();
@@ -461,7 +476,7 @@ export class PaymentPackCard extends Component<Props, State> {
           </div>
         ) : null}
 
-        {this.renderCardHeader(hasEditPermission)}
+        {this.renderCardHeader(hasEditPermission, hasDeletePermission)}
         <div className={classes.detailInfo}>
           <div className={classes.detailCategory}>
             <DateRangeIcon className={classes.leftIcon} />
@@ -635,15 +650,22 @@ export class PaymentPackCard extends Component<Props, State> {
       blacklist_tags,
     } = pack;
     return (
-      <ObjectLevelPermissionProviderComponent requiredPermission="product.paymentPack.allowed_actions.edit">
-        {(hasEditPermission: boolean) => (
+      <ObjectLevelPermissionProviderComponent
+        requiredPermission={[
+          'product.paymentPack.allowed_actions.edit',
+          'product.paymentPack.allowed_actions.delete',
+        ]}
+      >
+        {([hasEditPermission, hasDeletePermission]: boolean[]) => (
           <Paper
             className={[
               classes.paper,
               pack.disabled ? classes.disabled : null,
             ].join(' ')}
           >
-            <div className={classes.horizontalBlock}>{this.getPackInfo(hasEditPermission)}</div>
+            <div className={classes.horizontalBlock}>
+              {this.getPackInfo(hasEditPermission, hasDeletePermission)}
+            </div>
 
             <PaymentPackScaleCreditDialog
               loading={this.props.scaleCreditLoading}

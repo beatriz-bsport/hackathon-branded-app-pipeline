@@ -518,9 +518,14 @@ export class PaymentPackList extends React.Component<Props, State> {
           requiredPermission={[
             'product.paymentPack.allowed_actions.create',
             'product.paymentPack.allowed_actions.edit',
+            'product.paymentPack.allowed_actions.delete',
           ]}
         >
-          {([hasCreatePermission, hasEditPermission]: boolean[]) => (
+          {([
+            hasCreatePermission,
+            hasEditPermission,
+            hasDeletePermission,
+          ]: boolean[]) => (
             <div className={classes.container}>
               <div className={classes.buttonRow}>
                 {this.props.enabledPacks?.length && (
@@ -580,7 +585,10 @@ export class PaymentPackList extends React.Component<Props, State> {
                               ? () => this.props.goToPack(pack.id)
                               : null
                           }
-                          onDelete={() => this.requestDelete(pack)}
+                          onDelete={
+                            hasDeletePermission &&
+                            (() => this.requestDelete(pack))
+                          }
                           onEdit={
                             hasEditPermission && (() => this.requestEdit(pack))
                           }
@@ -624,7 +632,7 @@ export class PaymentPackList extends React.Component<Props, State> {
                 filterManagerOnly={this.state.selectedDisponibility}
                 itemsDraggable={hasEditPermission}
                 onClick={this.props.goToPack}
-                onDelete={this.requestDelete}
+                onDelete={hasDeletePermission && this.requestDelete}
                 onEdit={hasEditPermission && this.requestEdit}
                 onRestore={hasEditPermission && this.restorePaymentPack}
                 paymentPackByCategory={this.props.paymentPackByCategory}

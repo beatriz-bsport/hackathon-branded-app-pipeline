@@ -35,13 +35,12 @@ import type {
 import { MaterialStyleType } from '../../../../utils/types';
 import withConfirm from '../../../../hocs/with-confirm.hoc';
 import { ManagerOnly } from '../PaymentPackFilterAndSortHeader.component';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type OwnProps = {
-  onEdit: (pp: PaymentPack) => void;
-  onDelete: (pp: PaymentPack) => void;
+  onEdit?: (pp: PaymentPack) => void;
+  onDelete?: (pp: PaymentPack) => void;
   onClick: (ppId: number) => void;
-  onRestore: (ppId: number) => void;
+  onRestore?: (ppId: number) => void;
   itemsDraggable: boolean;
   paymentPackCategory: PaymentPackCategoryWithPacks;
   setSelectedCategory?: (category: PaymentPackCategory) => void;
@@ -86,10 +85,10 @@ type PackListProps = MaterialStyleType<ReturnType<typeof styles>> & {
 };
 
 type PackListItemProps = MaterialStyleType<ReturnType<typeof styles>> & {
-  onEdit: () => void;
-  onDelete: () => void;
+  onEdit?: () => void;
+  onDelete?: () => void;
   onClick: () => void;
-  onRestore: () => void;
+  onRestore?: () => void;
   pack: PaymentPack;
   sortedItems: Array<PaymentPack>;
   draggable: boolean;
@@ -322,16 +321,18 @@ export const PaymentPackCategoryItemWithPaymentPack = React.memo(
                 <Typography>{t('category.popover.edit')}</Typography>
               </MenuItem>
             )}
-            <ButtonWithConfirm
-              button
-              onClick={() => {
-                props.deletePaymentPackCategory(paymentPackCategory);
-                setAnchorEl(null);
-              }}
-            >
-              <DeleteIcon className={classes.popoverIcon} />
-              <Typography>{t('category.popover.delete')}</Typography>
-            </ButtonWithConfirm>
+            {props.onDelete && (
+              <ButtonWithConfirm
+                button
+                onClick={() => {
+                  props.deletePaymentPackCategory(paymentPackCategory);
+                  setAnchorEl(null);
+                }}
+              >
+                <DeleteIcon className={classes.popoverIcon} />
+                <Typography>{t('category.popover.delete')}</Typography>
+              </ButtonWithConfirm>
+            )}
           </List>
         </Popover>
 
@@ -354,13 +355,15 @@ export const PaymentPackCategoryItemWithPaymentPack = React.memo(
           </div>
           <div className={classes.titleActions}>
             {paymentPackCategory.id ? (
-              <IconButton
-                aria-haspopup="true"
-                aria-owns={anchorEl ? 'category-popover' : undefined}
-                onClick={(event) => handlePopover(event, paymentPackCategory)}
-              >
-                <MoreVertIcon />
-              </IconButton>
+              (props.onEdit || props.onDelete) && (
+                <IconButton
+                  aria-haspopup="true"
+                  aria-owns={anchorEl ? 'category-popover' : undefined}
+                  onClick={(event) => handlePopover(event, paymentPackCategory)}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+              )
             ) : (
               <Tooltip title={t('noCategory.help')}>
                 <IconButton>

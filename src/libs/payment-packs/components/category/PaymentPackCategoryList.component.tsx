@@ -37,10 +37,10 @@ type OwnProps = {
   filterManagerOnly: ManagerOnly;
   filteredCategories: Array<number>;
   paymentPackByCategory: Array<PaymentPackCategoryWithPacks>;
-  onEdit: (pp: PaymentPack) => void;
-  onDelete: (pp: PaymentPack) => void;
+  onEdit?: (pp: PaymentPack) => void;
+  onDelete?: (pp: PaymentPack) => void;
   onClick: (ppId: number) => void;
-  onRestore: (ppId: number) => void;
+  onRestore?: (ppId: number) => void;
   itemsDraggable: boolean;
   updatePack: (
     objs: Array<{ id: number; ordering_in_category: number }>,

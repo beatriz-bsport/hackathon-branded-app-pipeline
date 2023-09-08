@@ -4,6 +4,7 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { StatusMessageWithIconSkeleton } from '.';
 
 import './styles.css';
+import Button, { ButtonColor, ButtonVariant } from '../Fabrique/Button';
 
 type ActionButton = {
   label: string;
@@ -48,22 +49,26 @@ const StatusMessageWithIcon: React.FC<Props> = ({
       {!!actions && (
         <div className="bs-status-message-with-icon__actions__container">
           {!!actions?.cancel && (
-            <button
-              className="bs-status-message-with-icon__action bs-status-message-with-icon__action__cancel"
+            <Button
+              classes={{
+                root: 'bs-status-message-with-icon__action',
+              }}
               onClick={actions.cancel.onClick}
-              type="button"
+              variant={ButtonVariant.OUTLINED}
             >
               {actions.cancel.label}
-            </button>
+            </Button>
           )}
           {!!actions?.confirm && (
-            <button
-              className="bs-status-message-with-icon__action bs-status-message-with-icon__action__confirm"
+            <Button
+              classes={{
+                root: 'bs-status-message-with-icon__action',
+              }}
+              color={ButtonColor.PRIMARY}
               onClick={actions.confirm.onClick}
-              type="button"
             >
               {actions.confirm.label}
-            </button>
+            </Button>
           )}
         </div>
       )}

@@ -6,6 +6,7 @@ import StarIcon from '@material-ui/icons/Star';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import ReplayIcon from '@material-ui/icons/Replay';
 
+import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
 import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
@@ -31,6 +32,7 @@ import { PaymentPack } from '#libs/payment-packs/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import { PrivatePass } from '#libs/private-service/types';
 import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
+import Collapse from '#components/css-only/Fabrique/Collapse';
 
 import './styles.css';
 
@@ -322,50 +324,80 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                           'bs-contract-details-dialog__item',
                       }}
                     >
-                      <div
-                        ref={descriptionText.ref}
-                        className={classNames(
-                          'bs-contract-details-dialog__body__text',
-                          { '--hide': !showMoreDescription },
-                        )}
+                      <Collapse
+                        collapsedHeight={40}
+                        isExpanded={showMoreDescription}
                       >
-                        {contract?.description}
-                      </div>
-                      {descriptionText.isExpandable && (
-                        <button
-                          className="bs-contract-details-dialog__body__button"
-                          onClick={handleShowMoreDescription}
-                          type="button"
+                        <div
+                          ref={descriptionText.ref}
+                          className={classNames(
+                            'bs-contract-details-dialog__body__text',
+                            { '--hide': !showMoreDescription },
+                          )}
                         >
-                          {showMoreDescription
-                            ? t('contractCard.seeLess')
-                            : t('contractCard.seeMore')}
-                        </button>
+                          {contract?.description}
+                        </div>
+                      </Collapse>
+                      {descriptionText.isExpandable && (
+                        <Button
+                          disableRipple
+                          classes={{
+                            root: 'bs-contract-details-dialog__body__button',
+                          }}
+                          onClick={handleShowMoreDescription}
+                        >
+                          {showMoreDescription ? (
+                            <>
+                              <KeyboardArrowUp />
+                              {t('contractCard.seeLess')}
+                            </>
+                          ) : (
+                            <>
+                              <KeyboardArrowDown />
+                              {t('contractCard.seeMore')}
+                            </>
+                          )}
+                        </Button>
                       )}
                       <div>
                         <h4 className="bs-contract-card__subtitle --legal">
                           {t('contractCard.legalContract')}
                         </h4>
-                        <div
-                          ref={legalContractText.ref}
-                          className={classNames(
-                            'bs-contract-details-dialog__body__text',
-                            { '--hide': !showMoreLegalContract },
-                          )}
+                        <Collapse
+                          collapsedHeight={40}
+                          isExpanded={showMoreLegalContract}
                         >
-                          {contract?.contract}
-                        </div>
+                          <div
+                            ref={legalContractText.ref}
+                            className={classNames(
+                              'bs-contract-details-dialog__body__text',
+                              { '--hide': !showMoreLegalContract },
+                            )}
+                          >
+                            {contract?.contract}
+                          </div>
+                        </Collapse>
                       </div>
                       {legalContractText.isExpandable && (
-                        <button
-                          className="bs-contract-details-dialog__body__button"
+                        <Button
+                          disableRipple
+                          classes={{
+                            root: 'bs-contract-details-dialog__body__button',
+                          }}
                           onClick={handleShowMoreLegalContract}
-                          type="button"
                         >
-                          {showMoreLegalContract
-                            ? t('contractCard.seeLess')
-                            : t('contractCard.seeMore')}
-                        </button>
+                          {showMoreLegalContract ? (
+                            <>
+                              <KeyboardArrowUp />
+                              {t('contractCard.seeLess')}
+                            </>
+                          ) : (
+                            <>
+                              <KeyboardArrowDown />
+                              {t('contractCard.seeMore')}
+                            </>
+                          )}
+                        </Button>
                       )}
                     </Item>
                   </Grid>

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import UpdateIcon from '@material-ui/icons/Update';
 
 import classNames from 'classnames';
+import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
 import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
@@ -26,6 +27,7 @@ import { PrivatePass } from '#libs/private-service/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import { Contract } from '#libs/subscription/types';
 import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
+import Collapse from '#components/css-only/Fabrique/Collapse';
 
 export type Props = {
   hideChooseButton?: boolean;
@@ -237,48 +239,72 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
                 )}
               </div>
             )}
-            <div
-              ref={descriptionText.ref}
-              className={classNames('bs-contract-checkout__body__text', {
-                '--hide': !showMoreDescription,
-              })}
-            >
-              {contract?.description}
-            </div>
-            {descriptionText.isExpandable && (
-              <button
-                className="bs-contract-checkout__body__button"
-                onClick={handleShowMoreDescription}
-                type="button"
+            <Collapse collapsedHeight={45} isExpanded={showMoreDescription}>
+              <div
+                ref={descriptionText.ref}
+                className={classNames('bs-contract-checkout__body__text', {
+                  '--hide': !showMoreDescription,
+                })}
               >
-                {showMoreDescription
-                  ? t('marketplace:contractCard.seeLess')
-                  : t('marketplace:contractCard.seeMore')}
-              </button>
+                {contract?.description}
+              </div>
+            </Collapse>
+            {descriptionText.isExpandable && (
+              <Button
+                disableRipple
+                classes={{
+                  root: 'bs-contract-checkout__body__button',
+                }}
+                onClick={handleShowMoreDescription}
+              >
+                {showMoreDescription ? (
+                  <>
+                    <KeyboardArrowUp />
+                    {t('marketplace:contractCard.seeLess')}
+                  </>
+                ) : (
+                  <>
+                    <KeyboardArrowDown />
+                    {t('marketplace:contractCard.seeMore')}
+                  </>
+                )}
+              </Button>
             )}
             <div>
               <h4 className="bs-contract-checkout__subtitle --legal">
                 {t('marketplace:contractCard.legalContract')}
               </h4>
-              <div
-                ref={legalContractText.ref}
-                className={classNames('bs-contract-checkout__body__text', {
-                  '--hide': !showMoreLegalContract,
-                })}
-              >
-                {contract?.contract}
-              </div>
+              <Collapse collapsedHeight={45} isExpanded={showMoreLegalContract}>
+                <div
+                  ref={legalContractText.ref}
+                  className={classNames('bs-contract-checkout__body__text', {
+                    '--hide': !showMoreLegalContract,
+                  })}
+                >
+                  {contract?.contract}
+                </div>
+              </Collapse>
             </div>
             {legalContractText.isExpandable && (
-              <button
-                className="bs-contract-checkout__body__button"
+              <Button
+                disableRipple
+                classes={{
+                  root: 'bs-contract-checkout__body__button',
+                }}
                 onClick={handleShowMoreLegal}
-                type="button"
               >
-                {showMoreLegalContract
-                  ? t('marketplace:contractCard.seeLess')
-                  : t('marketplace:contractCard.seeMore')}
-              </button>
+                {showMoreLegalContract ? (
+                  <>
+                    <KeyboardArrowUp />
+                    {t('marketplace:contractCard.seeLess')}
+                  </>
+                ) : (
+                  <>
+                    <KeyboardArrowDown />
+                    {t('marketplace:contractCard.seeMore')}
+                  </>
+                )}
+              </Button>
             )}
           </GridItem>
         </Grid>

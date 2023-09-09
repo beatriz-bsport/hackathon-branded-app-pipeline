@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { CheckoutItem } from '#libs/checkout/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
-import MinimalPaymentComboCard from '../MinimalPaymentComboCard';
+import MinimalPaymentComboCard from '../../MinimalPaymentComboCard';
 
 export type Props = {
   items: CheckoutItem[];

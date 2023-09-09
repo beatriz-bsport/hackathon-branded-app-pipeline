@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import type { CheckoutItem } from '#libs/checkout/types';
 import type { PrivatePass } from '#libs/private-service/types';
-import MinimalPrivatePassCard from '../MinimalPrivatePassCard';
+import MinimalPrivatePassCard from '#libs/marketplace/components/MinimalPrivatePassCard';
 
 export type Props = {
   items: CheckoutItem[];

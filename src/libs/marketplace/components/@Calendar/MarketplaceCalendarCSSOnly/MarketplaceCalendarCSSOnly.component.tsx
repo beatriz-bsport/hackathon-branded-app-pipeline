@@ -8,18 +8,18 @@ import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import EventBusyIcon from '@material-ui/icons/EventBusy';
 import { pure } from 'recompose';
 import MarketplaceWeekTimetableV2 from '../MarketplaceWeekTimeTableCSSOnly/MarketplaceWeekTimeTableCSSOnly.component';
-import MarketplaceFilterComponent from '../MarketplaceFilterCSSOnly/MarketplaceFilterCSSOnly.component';
+import MarketplaceFilterComponent from '../../@RessourceFilter/MarketplaceFilterCSSOnly/MarketplaceFilterCSSOnly.component';
 import type {
   Establishment,
   EstablishmentGroup,
-} from '../../../establishment/types';
+} from '../../../../establishment/types';
 import './MarketplaceCalendarCSSOnly.css';
 import { Level } from '#libs/level/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Offer } from '#libs/offer/types';
 import { Theme } from '#libs/theme/types';
-import MarketplaceDatePicker from '../MarketplaceDatePicker';
-import { formatAsTime } from '../../../../utils/datetime';
+import MarketplaceDatePicker from '../../MarketplaceDatePicker';
+import { formatAsTime } from '../../../../../utils/datetime';
 import { Coach } from '#libs/associated-coach/types';
 
 const LoadingIndicator = () => (

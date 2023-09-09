@@ -7,18 +7,18 @@ import { withTheme } from '@material-ui/styles';
 import {
   Establishment,
   EstablishmentGroup,
-} from '../../../establishment/types';
-import { MetaActivity } from '../../../meta-activity/types';
-import { Coach } from '../../../associated-coach/types';
+} from '../../../../establishment/types';
+import { MetaActivity } from '../../../../meta-activity/types';
+import { Coach } from '../../../../associated-coach/types';
 import { Level } from '#libs/level/types';
-import { MarketPlaceFilter } from '../../types';
+import { MarketPlaceFilter } from '../../../types';
 import MarketplaceFilter from '../MarketplaceFilter/MarketplaceFilter.component';
 import { getLevelColor, getLevelTranslation } from '#libs/level/utils';
 
 import './MarketplaceFilterCSSOnly.css';
 import { getGroupedEstablishmentOptions } from '#libs/establishment/components/EstablishmentSelector.component';
 import { Theme } from '#libs/theme/types';
-import MarketplaceCalendarSearch from '#libs/marketplace/components/MarketplaceCalendarSearchCSSOnly/MarketplaceCalendarSearchCSSOnly.component';
+import MarketplaceCalendarSearch from '#libs/marketplace/components/@Calendar/MarketplaceCalendarSearchCSSOnly/MarketplaceCalendarSearchCSSOnly.component';
 
 export type Props = {
   coaches: Coach[];

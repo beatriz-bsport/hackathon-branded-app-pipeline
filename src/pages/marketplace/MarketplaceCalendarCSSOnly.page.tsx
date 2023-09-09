@@ -15,7 +15,7 @@ import uniq from 'lodash/uniq';
 import withQueryParams from '#hocs/with-query-params.hoc';
 import withReplaceQueryParams from '#hocs/with-replace-query-params.hoc';
 import { addItemToBasket as addItemToBasketAction } from '#libs/checkout/actions';
-import MarketplaceCalendarComponent from '#libs/marketplace/components/MarketplaceCalendarCSSOnly/MarketplaceCalendarCSSOnly.component';
+import MarketplaceCalendarComponent from '#libs/marketplace/components/@Calendar/MarketplaceCalendarCSSOnly/MarketplaceCalendarCSSOnly.component';
 import MarketplaceActivityDialogV2 from '#libs/marketplace/components/@Activity/MarketplaceActivityDialogCSSOnly/MarketplaceActivityDialogCSSOnly.component';
 import { getCurrentBasket } from '#libs/checkout/selectors';
 

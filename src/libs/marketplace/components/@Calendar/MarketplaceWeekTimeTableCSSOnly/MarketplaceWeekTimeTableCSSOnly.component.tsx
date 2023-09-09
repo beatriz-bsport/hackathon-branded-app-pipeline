@@ -17,18 +17,18 @@ import {
   DATE_FORMAT,
   formatAsDateWithWeekday,
   formatWeekDay,
-} from '../../../../utils/datetime';
-import { Moment } from '../../../../i18n';
-import MarketPlaceCardOfferV2 from '../@Offer/MarketplaceCardOfferCSSOnly';
+} from '../../../../../utils/datetime';
+import { Moment } from '../../../../../i18n';
+import MarketPlaceCardOfferV2 from '../../@Offer/MarketplaceCardOfferCSSOnly';
 import './MarketplaceWeekTimeTableCSSOnly.css';
-import MarketPlaceOfferListItemComponent from '../@Offer/MarketplaceOfferListItemCSSOnly';
+import MarketPlaceOfferListItemComponent from '../../@Offer/MarketplaceOfferListItemCSSOnly';
 import { Offer_FULL, Offer } from '#libs/offer/types';
 import { Level } from '#libs/level/types';
 import { Theme } from '#libs/theme/types';
 import {
   isOfferInThePast,
   firstOfferInGroupLocksBookingBecauseInPast,
-} from '../../utils';
+} from '../../../utils';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';

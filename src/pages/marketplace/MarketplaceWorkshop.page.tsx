@@ -51,7 +51,7 @@ import {
   getGroupByIdCurried,
   getOffersListByGroup as getOffersListByGroupSelector,
 } from '#libs/group-offer/selectors';
-import MarketplaceFilters from '#libs/marketplace/components/MarketplaceFilterCSSOnly';
+import MarketplaceFilters from '#libs/marketplace/components/@RessourceFilter/MarketplaceFilterCSSOnly';
 import { RootState } from '../../reducers';
 import themeSelectors from '#libs/theme/selectors';
 

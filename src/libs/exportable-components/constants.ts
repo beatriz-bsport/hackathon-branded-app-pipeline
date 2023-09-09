@@ -75,7 +75,7 @@ import {
 import {
   MARKETPLACE_CALENDAR_FILTER_CONFIGURATION,
   MARKETPLACE_CALENDAR_FILTER_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceFilterCSSOnly/custom_css_variant';
+} from '#libs/marketplace/components/@RessourceFilter/MarketplaceFilterCSSOnly/custom_css_variant';
 import {
   MARKETPLACE_OFFER_LIST_ITEM_CONFIGURATION,
   MARKETPLACE_OFFER_LIST_ITEM_PREVIEW,
@@ -83,7 +83,7 @@ import {
 import {
   MARKETPLACE_WEEK_TIME_TABLE_CONFIGURATION,
   MARKETPLACE_WEEK_TIME_TABLE_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceWeekTimeTableCSSOnly/custom_css_variant';
+} from '#libs/marketplace/components/@Calendar/MarketplaceWeekTimeTableCSSOnly/custom_css_variant';
 import {
   MARKETPLACE_SEARCH_CONFIGURATION,
   MARKETPLACE_SEARCH_PREVIEW,
@@ -91,7 +91,7 @@ import {
 import {
   MARKETPLACE_FILTER_CONFIGURATION,
   MARKETPLACE_FILTER_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceFilter/custom_css_variant';
+} from '#libs/marketplace/components/@RessourceFilter/MarketplaceFilter/custom_css_variant';
 import {
   MARKETPLACE_DATE_PICKER_CONFIGURATION,
   MARKETPLACE_DATE_PICKER_PREVIEW,

@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import CircularProgress from '#components/css-only/CircularProgress';
-import { useDialogClickAwayListener } from '../../../../hooks/useDialogClickAwayListener';
+import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 import { MARKETPLACE_COUPON_FORM_ERRORS as COUPON_FORM_ERRORS } from '#libs/marketplace/constants';
 
-import { OptionCallback } from '../../../../state/types';
+import { OptionCallback } from '../../../../../state/types';
 import './styles.css';
 
 type CouponFormValues = {

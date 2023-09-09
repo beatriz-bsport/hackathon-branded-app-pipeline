@@ -4,14 +4,22 @@
     "@babel/preset-react",
     "@babel/preset-typescript",
   ],
-  "plugins": ["transform-flow-strip-types",
-    ["babel-plugin-module-resolver", {
-      "alias": {
-        "#libs": "./src/libs",
-        "#components": "./src/components",
-        "#csscomponents":"./src/components/css-only",
-        "#hocs": "./src/hocs",
+  "plugins": [
+    "transform-flow-strip-types",
+    [
+      "babel-plugin-module-resolver",
+      {
+        "alias": {
+          "#libs": "./src/libs",
+          "#components": "./src/components",
+          "#marketplacecomponents": "./src/libs/marketplace/components",
+          "#csscomponents": "./src/components/css-only",
+          "#hocs": "./src/hocs",
+          "#hooks": "./src/hooks",
+          "#utils": "./src/utils",
+          "#Fabrique": "./src/components/css-only/Fabrique",
+        }
       }
-    }]
+    ]
   ]
 }

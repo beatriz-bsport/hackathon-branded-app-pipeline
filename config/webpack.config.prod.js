@@ -126,9 +126,18 @@ module.exports = {
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
       '#libs': path.resolve(__dirname, '../src/libs'),
+      '#marketplacecomponents': path.resolve(
+        '../src/libs/marketplace/components',
+      ),
       '#hocs': path.resolve(__dirname, '../src/hocs'),
+      '#hooks': path.resolve(__dirname, '../src/hooks'),
       '#components': path.resolve(__dirname, '../src/components'),
       '#csscomponents': path.resolve(__dirname, '../src/components/css-only'),
+      '#utils': path.resolve(__dirname, '../src/utils'),
+      '#Fabrique': path.resolve(
+        __dirname,
+        '../src/components/css-only/Fabrique',
+      ),
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).

@@ -13,9 +13,13 @@
       "eslint-import-resolver-custom-alias": {
         "alias": {
           "#libs": "./src/libs",
+          "#marketplacecomponents": "./src/libs/marketplace/components",
           "#components": "./src/components",
           "#hocs": "./src/hocs",
+          "#hooks": "./src/hooks",
           "#csscomponents": "./src/components/css-only",
+          "#utils": "./src/utils",
+          "#Fabrique": "./src/components/css-only/Fabrique",
         },
         "extensions": [
           ".js",

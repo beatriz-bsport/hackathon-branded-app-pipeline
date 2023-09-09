@@ -14,7 +14,7 @@ import { OffersGroup } from '#libs/group-offer/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
 import { Offer } from '#libs/offer/types';
-import useIsVisibleOnScreen from '../../../../hooks/useIsVisibleOnScreen';
+import useIsVisibleOnScreen from '../../../../../hooks/useIsVisibleOnScreen';
 import { Level } from '#libs/level/types';
 
 import './MarketplaceWorkshop.css';

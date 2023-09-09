@@ -20,7 +20,7 @@ import {
   MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
 } from '#libs/marketplace/constants';
 import MarketplaceCoachInfos from '#libs/marketplace/components/@Coach/MarketplaceCoachInfos';
-import MarketplaceEstablishmentTitle from '#libs/marketplace/components/MarketplaceEstablishmentTitle';
+import MarketplaceEstablishmentTitle from '#libs/marketplace/components/@Establishment/MarketplaceEstablishmentTitle';
 import { Theme } from '#libs/theme/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { OffersGroup } from '#libs/group-offer/types';

@@ -26,7 +26,7 @@ import {
 } from '../../../utils';
 import './MarketplaceGroupOfferListItem.css';
 import MarketplaceCoachInfos from '#libs/marketplace/components/@Coach/MarketplaceCoachInfos';
-import MarketplaceEstablishmentTitle from '#libs/marketplace/components/MarketplaceEstablishmentTitle';
+import MarketplaceEstablishmentTitle from '#libs/marketplace/components/@Establishment/MarketplaceEstablishmentTitle';
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 
 export type Props = {

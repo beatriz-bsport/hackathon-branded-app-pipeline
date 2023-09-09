@@ -10,7 +10,7 @@ import GridItem, {
   Direction,
   Justification,
 } from '#components/css-only/Grid/GridItem';
-import MarketplaceEstablishmentTitle from '../../MarketplaceEstablishmentTitle';
+import MarketplaceEstablishmentTitle from '../../@Establishment/MarketplaceEstablishmentTitle';
 import './styles.css';
 import { CompanyTheme } from '#libs/theme/types';
 import MarketplaceCoachInfos from '../../@Coach/MarketplaceCoachInfos';

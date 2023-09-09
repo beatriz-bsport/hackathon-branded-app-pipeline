@@ -34,7 +34,7 @@ import { Level } from '#libs/level/types';
 
 import './MarketplaceOfferListItemCSSOnly.css';
 import MarketplaceCoachInfos from '#libs/marketplace/components/@Coach/MarketplaceCoachInfos';
-import MarketplaceEstablishmentTitle from '#libs/marketplace/components/MarketplaceEstablishmentTitle';
+import MarketplaceEstablishmentTitle from '#libs/marketplace/components/@Establishment/MarketplaceEstablishmentTitle';
 import FreeOfferChip from '#csscomponents/FreeOfferChip';
 
 import PopOver from '#components/Popover';

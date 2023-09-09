@@ -24,7 +24,7 @@ import { useOfferHours } from '#libs/marketplace/hooks';
 import MarketplaceBookButton from '#libs/marketplace/components/@Booking/MarketplaceBookButton';
 import { MetaActivity } from '#libs/meta-activity/types';
 import MarketPlaceLevel from '#libs/marketplace/components/@Offer/MarketplaceLevelCSSOnly';
-import MarketplaceBroadcast from '#libs/marketplace/components/MarketplaceBroadcastCSSOnly';
+import MarketplaceBroadcast from '#libs/marketplace/components/@Broadcast/MarketplaceBroadcastCSSOnly';
 import MarketplaceCalendarVariant from '#libs/marketplace/types';
 import {
   AVAILABLE_BOOKING_ELEMENTS_IDS,

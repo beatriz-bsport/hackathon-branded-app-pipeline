@@ -19,7 +19,7 @@ import { formatMinutes } from '../../../../../utils/datetime';
 import { Offer } from '#libs/offer/types';
 import MarketplaceLevel from '../../@Offer/MarketplaceLevelCSSOnly/MarketplaceLevelCSSOnly.component';
 import MarketplaceBookButtonForDialog from '../../MarketplaceBookButton/MarketplaceBookButtonForDialog.component';
-import MarketplaceBroadcast from '../../MarketplaceBroadcastCSSOnly/MarketplaceBroadcastCSSOnly.component';
+import MarketplaceBroadcast from '../../@Broadcast/MarketplaceBroadcastCSSOnly/MarketplaceBroadcastCSSOnly.component';
 import { useOfferHours } from '../../../hooks';
 import { Level } from '#libs/level/types';
 import { Theme as CompanyTheme } from '#libs/theme/types';

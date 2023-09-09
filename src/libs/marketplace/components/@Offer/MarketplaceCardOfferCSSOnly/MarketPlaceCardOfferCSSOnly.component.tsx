@@ -11,7 +11,7 @@ import FemaleIcon from '../../../../../components/icons/FemaleIcon.component';
 import MarketplaceBookButton from '#libs/marketplace/components/@Booking/MarketplaceBookButton';
 import MarketplaceLevel from '../MarketplaceLevelCSSOnly';
 import { Offer } from '#libs/offer/types';
-import MarketplaceBroadcast from '../../MarketplaceBroadcastCSSOnly';
+import MarketplaceBroadcast from '../../@Broadcast/MarketplaceBroadcastCSSOnly';
 import { useOfferHours } from '../../../hooks';
 import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';

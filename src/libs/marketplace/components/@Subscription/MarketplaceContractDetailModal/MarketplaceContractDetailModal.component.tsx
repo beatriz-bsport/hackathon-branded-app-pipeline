@@ -8,8 +8,8 @@ import StarIcon from '@material-ui/icons/Star';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import ReplayIcon from '@material-ui/icons/Replay';
 
-import useIsTextExpandable from '../../../../hooks/useIsTextExpandable';
-import { useDialogClickAwayListener } from '../../../../hooks/useDialogClickAwayListener';
+import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
+import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { useMarketplaceFixedDialog } from '#libs/marketplace/hooks';
 

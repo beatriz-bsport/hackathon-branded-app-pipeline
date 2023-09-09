@@ -31,19 +31,19 @@ import {
 import {
   MARKETPLACE_CONTRACT_CARD_CONFIGURATION,
   MARKETPLACE_CONTRACT_CARD_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceContractCard/custom_css_variant';
+} from '#libs/marketplace/components/@Subscription/MarketplaceContractCard/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_CHECKOUT_CONFIGURATION,
   MARKETPLACE_CONTRACT_CHECKOUT_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceContractCheckout/custom_css_variant';
+} from '#libs/marketplace/components/@Subscription/MarketplaceContractCheckout/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_DETAIL_CONFIGURATION,
   MARKETPLACE_CONTRACT_DETAIL_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceContractDetail/custom_css_variant';
+} from '#libs/marketplace/components/@Subscription/MarketplaceContractDetail/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_DETAIL_MODAL_CONFIGURATION,
   MARKETPLACE_CONTRACT_DETAIL_MODAL_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceContractDetailModal/custom_css_variant';
+} from '#libs/marketplace/components/@Subscription/MarketplaceContractDetailModal/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_TERMS_MODAL_CONFIGURATION,
   MARKETPLACE_CONTRACT_TERMS_MODAL_PREVIEW,
@@ -51,7 +51,7 @@ import {
 import {
   MARKETPLACE_CONTRACT_COOLDOWN_MODAL_CONFIGURATION,
   MARKETPLACE_CONTRACT_COOLDOWN_MODAL_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceContractCooldownModal/custom_css_variant';
+} from '#libs/marketplace/components/@Subscription/MarketplaceContractCooldownModal/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_COUPON_FORM_MODAL_CONFIGURATION,
   MARKETPLACE_CONTRACT_COUPON_FORM_MODAL_PREVIEW,
@@ -63,7 +63,7 @@ import {
 import {
   MARKETPLACE_CONTRACT_NOT_FOUND_CONFIGURATION,
   MARKETPLACE_CONTRACT_NOT_FOUND_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceContractNotFound/custom_css_variant';
+} from '#libs/marketplace/components/@Subscription/MarketplaceContractNotFound/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_PAYMENT_CONFIGURATION,
   MARKETPLACE_CONTRACT_PAYMENT_PREVIEW,

@@ -68,14 +68,14 @@ import {
   getSubscriptionValidationUrl,
 } from '#libs/marketplace/routing-utils';
 import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
-import MarketplaceContractCheckout from '#libs/marketplace/components/MarketplaceContractCheckout';
+import MarketplaceContractCheckout from '#libs/marketplace/components/@Subscription/MarketplaceContractCheckout';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import MarketplaceContractDetail from '#libs/marketplace/components/MarketplaceContractDetail';
+import MarketplaceContractDetail from '#libs/marketplace/components/@Subscription/MarketplaceContractDetail';
 import MarketplaceContractTermsModal from '#libs/marketplace/components/MarketplaceContractTermsModal';
-import MarketplaceContractCooldownModal from '#libs/marketplace/components/MarketplaceContractCooldownModal';
+import MarketplaceContractCooldownModal from '#libs/marketplace/components/@Subscription/MarketplaceContractCooldownModal';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import Carousel from '#components/css-only/Carousel';
-import MarketplaceContractNotFound from '#libs/marketplace/components/MarketplaceContractNotFound';
+import MarketplaceContractNotFound from '#libs/marketplace/components/@Subscription/MarketplaceContractNotFound';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 
 import './styles.css';

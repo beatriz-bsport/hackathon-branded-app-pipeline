@@ -93,7 +93,7 @@ import { appliesToContract } from '#libs/coupon/api';
 import { computeProrataPriceForSubscription } from '#libs/subscription/utils';
 import { ProcessingPaymentDialogPortal } from '#libs/subscription/components/new-checkout-flow/ProcessingPaymentDialog';
 import SubscriptionErrorDialog from '#libs/subscription/components/new-checkout-flow/SubscriptionErrorDialog';
-import MarketplaceContractCooldownModal from '#libs/marketplace/components/MarketplaceContractCooldownModal';
+import MarketplaceContractCooldownModal from '#libs/marketplace/components/@Subscription/MarketplaceContractCooldownModal';
 import { BookerItem } from '#libs/booker-module/types';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';

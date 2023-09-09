@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import MarketplacePaymentPackBuyableItem from '#libs/marketplace/components/MarketplacePaymentPackBuyableItem';
 import MarketplacePaymentComboBuyableItem from '#libs/marketplace/components/MarketplacePaymentComboBuyableItem';
-import MarketplaceContractBuyableItem from '#libs/marketplace/components/MarketplaceContractBuyableItem';
+import MarketplaceContractBuyableItem from '#libs/marketplace/components/@Subscription/MarketplaceContractBuyableItem';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import {
   PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import UpdateIcon from '@material-ui/icons/Update';
 
 import classNames from 'classnames';
-import useIsTextExpandable from '../../../../hooks/useIsTextExpandable';
+import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Card, { CardSize } from '#components/css-only/Card';

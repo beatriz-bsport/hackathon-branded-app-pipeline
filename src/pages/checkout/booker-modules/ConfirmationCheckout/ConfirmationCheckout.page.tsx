@@ -62,7 +62,7 @@ import MarketplaceCheckoutItemsWithPaymentPackList from '#libs/marketplace/compo
 import MarketplaceCheckoutItemsWithPrivatePassList from '#libs/marketplace/components/MarketplaceCheckoutItemsWithPrivatePassList';
 import MarketplaceCheckoutItemsWithPaymentComboList from '#libs/marketplace/components/MarketplaceCheckoutItemsWithPaymentComboList';
 import MarketplaceProductItemList from '#libs/marketplace/components/MarketplaceProductItemList';
-import MinimalSubscriptionCard from '#libs/marketplace/components/MinimalSubscriptionCard';
+import MinimalSubscriptionCard from '#libs/marketplace/components/@Subscription/MinimalSubscriptionCard';
 import { Subscription } from '#libs/subscription/types';
 
 import ConfirmationMessage from '#libs/checkout/components/ConfirmationMessage';

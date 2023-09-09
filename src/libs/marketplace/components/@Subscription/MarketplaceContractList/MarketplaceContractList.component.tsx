@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core';
 
-import MarketplaceContractCard from '#libs/marketplace/components/MarketplaceContractCard';
+import MarketplaceContractCard from '#libs/marketplace/components/@Subscription/MarketplaceContractCard';
 
 import { Contract } from '#libs/subscription/types';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';

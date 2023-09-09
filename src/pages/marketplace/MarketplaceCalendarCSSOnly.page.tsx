@@ -81,7 +81,7 @@ import { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';
 import { Offer, OfferFilterData, Offer_FULL } from '#libs/offer/types';
 import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
-import GroupRulePopup from '#libs/marketplace/components/GroupRulePopup.dialog';
+import GroupRulePopup from '#libs/marketplace/components/@Offer/GroupRulePopup.dialog';
 import { Level } from '#libs/level/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';

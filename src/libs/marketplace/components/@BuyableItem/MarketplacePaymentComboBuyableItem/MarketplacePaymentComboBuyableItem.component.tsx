@@ -15,7 +15,7 @@ import Grid from '#csscomponents/Grid';
 import GridItem from '#csscomponents/Grid/GridItem';
 import Price from '#csscomponents/Price';
 import Collapse from '#components/css-only/Fabrique/Collapse';
-import useIsTextExpandable from '../../../../hooks/useIsTextExpandable';
+import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 import Button from '#components/css-only/Button';
 import InitialPrice from '#libs/marketplace/components/MarketplacePaymentComboCard/InitialPrice';
 

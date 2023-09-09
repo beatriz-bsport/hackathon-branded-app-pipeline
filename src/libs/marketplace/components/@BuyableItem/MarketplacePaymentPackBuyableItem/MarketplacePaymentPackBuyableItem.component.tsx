@@ -20,7 +20,7 @@ import {
   getCreditFactor,
 } from '#libs/theme/selectors';
 import { useValidityInfoForPaymentPackCard } from '#libs/marketplace/utils/payment-pack';
-import useIsTextExpandable from '../../../../hooks/useIsTextExpandable';
+import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 import RecommendedChip from '#components/css-only/RecommendedChip';
 
 import type { PaymentPack } from '#libs/payment-packs/types';

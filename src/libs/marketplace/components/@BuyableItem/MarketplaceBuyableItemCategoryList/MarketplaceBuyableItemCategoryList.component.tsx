@@ -2,8 +2,8 @@ import React, { useCallback, useMemo } from 'react';
 import isEqual from 'lodash/isEqual';
 import { useTranslation } from 'react-i18next';
 
-import MarketplacePaymentPackBuyableItem from '#libs/marketplace/components/MarketplacePaymentPackBuyableItem';
-import MarketplacePaymentComboBuyableItem from '#libs/marketplace/components/MarketplacePaymentComboBuyableItem';
+import MarketplacePaymentPackBuyableItem from '#libs/marketplace/components/@BuyableItem/MarketplacePaymentPackBuyableItem';
+import MarketplacePaymentComboBuyableItem from '#libs/marketplace/components/@BuyableItem/MarketplacePaymentComboBuyableItem';
 import MarketplaceContractBuyableItem from '#libs/marketplace/components/@Subscription/MarketplaceContractBuyableItem';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import {

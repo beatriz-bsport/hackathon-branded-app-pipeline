@@ -8,7 +8,7 @@ import {
   TransformComponent,
   ReactZoomPanPinchRef,
 } from 'react-zoom-pan-pinch';
-import type { OptionCallback } from '../../../../state/types';
+import type { OptionCallback } from '../../../../../state/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import OfferSummary from '#libs/offer/OfferSummary';
 import {

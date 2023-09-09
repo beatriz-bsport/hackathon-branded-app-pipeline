@@ -121,7 +121,8 @@
             "statistic": "Statistieken",
             "connectedAs": "Inloggen als",
             "backToRelationMasterSpace": "Terug naar mijn account",
-            "relationConnectedAs": "Je bent momenteel als \"{{name}}\" verbonden."
+            "relationConnectedAs": "Je bent momenteel als \"{{name}}\" verbonden.",
+            "goBack": "Retour"
         },
         "unsubscriber": {
             "success": "Je bent uitgeschreven.",
@@ -3149,6 +3150,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Annuleren",
+                "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
@@ -15178,7 +15180,9 @@
             "dialogMode": {
                 "iframe": "Op mijn website blijven",
                 "popup": "Nieuw venster openen",
-                "tab": "Nieuw tabblad openen"
+                "tab": "Nieuw tabblad openen",
+                "stayInContainerBetaTag": "(beta)",
+                "stayInContainer": "Geen pop-up"
             },
             "dialogModeLabel": "Type",
             "showFabLabel": "EasyConnect-knop toevoegen",

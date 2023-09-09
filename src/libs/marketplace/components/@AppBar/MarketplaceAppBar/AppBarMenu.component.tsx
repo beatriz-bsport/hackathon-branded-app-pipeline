@@ -11,7 +11,7 @@ import classNames from 'classnames';
 import { MarketplaceSettings } from '#libs/marketplace/types';
 import { EXPORTABLE_COMPONENT_TYPE_VOD } from '#libs/exportable-components/constants';
 import { getDefaultTitleForComponent } from '#libs/exportable-components/utils';
-import Config from '../../../../config';
+import Config from '../../../../../config';
 
 type MenuProps = {
   hideAppBar?: boolean;

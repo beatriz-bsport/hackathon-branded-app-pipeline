@@ -6,7 +6,7 @@ import { push } from 'connected-react-router';
 import { compose, withHandlers } from 'recompose';
 import { navigateBackToMasterRelation as navigateBackToMasterRelationAction } from '../../actions/auth.actions';
 import { auth as authActions } from '../../actions';
-import MarketplaceAppBar from '#libs/marketplace/components/MarketplaceAppBar';
+import MarketplaceAppBar from '#libs/marketplace/components/@AppBar/MarketplaceAppBar';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 
 import Analytics from '../../components/analytics/Analytics.component';

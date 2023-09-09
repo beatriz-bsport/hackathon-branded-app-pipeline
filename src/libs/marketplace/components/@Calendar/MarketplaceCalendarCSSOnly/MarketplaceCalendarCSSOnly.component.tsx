@@ -18,7 +18,7 @@ import { Level } from '#libs/level/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Offer } from '#libs/offer/types';
 import { Theme } from '#libs/theme/types';
-import MarketplaceDatePicker from '../../MarketplaceDatePicker';
+import MarketplaceDatePicker from '#libs/marketplace/components/@Date/MarketplaceDatePicker';
 import { formatAsTime } from '../../../../../utils/datetime';
 import { Coach } from '#libs/associated-coach/types';
 

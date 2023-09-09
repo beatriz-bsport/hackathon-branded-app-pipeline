@@ -22,7 +22,7 @@ import {
   DATE_FORMAT,
   formatAsDate,
   formatAsTitle,
-} from '../../../../utils/datetime';
+} from '../../../../../utils/datetime';
 
 export type Props = {
   dateSelected: string;

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import isEqual from 'lodash/isEqual';
 import classNames from 'classnames';
-import MarketplaceConsumerPaymentPackCard from '#libs/marketplace/components/MarketplaceConsumerPaymentPackCard';
+import MarketplaceConsumerPaymentPackCard from '#libs/marketplace/components/@ConsumerPaymentPack/MarketplaceConsumerPaymentPackCard';
 import MarketplaceFilterBuyableItemCategory from '#libs/marketplace/components/@BuyableItem/MarketplaceFilterBuyableItemCategory';
 import MarketplaceBuyableItemCategoryList from '#libs/marketplace/components/@BuyableItem/MarketplaceBuyableItemCategoryList';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';

@@ -142,7 +142,7 @@ import type {
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { Contract } from '#libs/subscription/types';
 import OfferBookingWaitingList from '#libs/offer/components/OfferBookingWaitingList';
-import MarketplaceBookingBlockedReason from '#libs/marketplace/components/MarketplaceBookingBlockedReason';
+import MarketplaceBookingBlockedReason from '#libs/marketplace/components/@Booking/MarketplaceBookingBlockedReason';
 import MarketplaceSpotSelector from '#libs/marketplace/components/MarketplaceSpotSelector';
 import type { SpotType } from '#libs/spot-scheduling/types';
 import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';

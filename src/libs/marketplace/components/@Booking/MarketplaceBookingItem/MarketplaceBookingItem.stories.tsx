@@ -7,7 +7,7 @@ import MarketplaceBookingItem, {
   type Props,
   MarketplaceBookingItemForStorybook,
 } from '.';
-import { generateRandomName } from '../../../../utils/factories';
+import { generateRandomName } from '../../../../../utils/factories';
 import { CompanyTheme } from '#libs/theme/types';
 import { Establishment } from '#libs/establishment/types';
 import themeFactoryBot from '#libs/theme/factories';

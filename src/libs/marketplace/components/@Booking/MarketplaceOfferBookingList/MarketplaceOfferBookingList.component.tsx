@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
-import MarketplaceOfferBookingItem from '../MarketplaceOfferBookingItem';
+import MarketplaceOfferBookingItem from '#libs/marketplace/components/@Booking/MarketplaceOfferBookingItem';
 
 import type { OfferWithSpotInformation } from '#libs/offer/types';
 import type { CompanyTheme } from '#libs/theme/types';

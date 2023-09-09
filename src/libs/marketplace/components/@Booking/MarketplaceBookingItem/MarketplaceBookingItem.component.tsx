@@ -12,11 +12,11 @@ import GridItem, {
   Direction,
   Justification,
 } from '#components/css-only/Grid/GridItem';
-import ActivitySummary from './ActivitySummary';
+import ActivitySummary from '../../@Activity/ActivitySummary';
 import { CompanyTheme } from '#libs/theme/types';
 import Chip from '#components/css-only/Chip';
 import './styles.css';
-import MarketplaceLevelCSSOnly from '../MarketplaceLevelCSSOnly';
+import MarketplaceLevelCSSOnly from '../../MarketplaceLevelCSSOnly';
 
 export type Props = {
   date: string;

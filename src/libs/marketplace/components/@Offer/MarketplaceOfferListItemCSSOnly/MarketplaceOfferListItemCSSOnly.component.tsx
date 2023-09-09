@@ -33,7 +33,7 @@ import {
 import { Level } from '#libs/level/types';
 
 import './MarketplaceOfferListItemCSSOnly.css';
-import MarketplaceCoachInfos from '#libs/marketplace/components/MarketplaceCoachInfos';
+import MarketplaceCoachInfos from '#libs/marketplace/components/@Coach/MarketplaceCoachInfos';
 import MarketplaceEstablishmentTitle from '#libs/marketplace/components/MarketplaceEstablishmentTitle';
 import FreeOfferChip from '#csscomponents/FreeOfferChip';
 

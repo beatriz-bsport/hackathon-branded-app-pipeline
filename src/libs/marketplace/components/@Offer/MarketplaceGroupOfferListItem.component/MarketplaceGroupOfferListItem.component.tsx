@@ -25,7 +25,7 @@ import {
   getPositionOfOfferInTheList,
 } from '../../../utils';
 import './MarketplaceGroupOfferListItem.css';
-import MarketplaceCoachInfos from '#libs/marketplace/components/MarketplaceCoachInfos';
+import MarketplaceCoachInfos from '#libs/marketplace/components/@Coach/MarketplaceCoachInfos';
 import MarketplaceEstablishmentTitle from '#libs/marketplace/components/MarketplaceEstablishmentTitle';
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 

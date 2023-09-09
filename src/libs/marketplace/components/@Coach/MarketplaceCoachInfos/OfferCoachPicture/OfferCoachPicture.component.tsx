@@ -2,7 +2,7 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import DEFAULT_PROFILE_PICTURE_URL from '../../../../../assets/constants';
+import DEFAULT_PROFILE_PICTURE_URL from '../../../../../../assets/constants';
 
 import './styles.css';
 

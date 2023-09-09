@@ -13,7 +13,7 @@ import GridItem, {
 import MarketplaceEstablishmentTitle from '../../MarketplaceEstablishmentTitle';
 import './styles.css';
 import { CompanyTheme } from '#libs/theme/types';
-import MarketplaceCoachInfos from '../../MarketplaceCoachInfos';
+import MarketplaceCoachInfos from '../../@Coach/MarketplaceCoachInfos';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 export type Props = {

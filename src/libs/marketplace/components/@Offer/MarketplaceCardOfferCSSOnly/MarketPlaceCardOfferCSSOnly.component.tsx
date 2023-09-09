@@ -19,7 +19,7 @@ import {
   AVAILABLE_BOOKING_ELEMENTS_IDS,
   MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
 } from '#libs/marketplace/constants';
-import MarketplaceCoachInfos from '#libs/marketplace/components/MarketplaceCoachInfos';
+import MarketplaceCoachInfos from '#libs/marketplace/components/@Coach/MarketplaceCoachInfos';
 import MarketplaceEstablishmentTitle from '#libs/marketplace/components/MarketplaceEstablishmentTitle';
 import { Theme } from '#libs/theme/types';
 import { MetaActivity } from '#libs/meta-activity/types';

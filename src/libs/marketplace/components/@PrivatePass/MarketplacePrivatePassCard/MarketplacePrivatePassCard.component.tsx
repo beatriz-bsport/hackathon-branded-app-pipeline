@@ -25,7 +25,7 @@ import type { PrivatePass } from '#libs/private-service/types';
 import { CardSize } from '#components/css-only/Card/types';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 
-import { useValidityInfoForPrivatePassCard } from '../../utils/private-pass';
+import { useValidityInfoForPrivatePassCard } from '#libs/marketplace/utils/private-pass';
 import './styles.css';
 
 export type Props = {

@@ -17,7 +17,7 @@ import GridItem, {
 import Price from '#components/css-only/Price';
 import './styles.css';
 import { PrivatePass } from '#libs/private-service/types';
-import MinimalCardSkeleton from '../MinimalCardSkeleton';
+import MinimalCardSkeleton from '#libs/marketplace/components/MinimalCardSkeleton';
 
 export type Props = {
   privatePass: PrivatePass;

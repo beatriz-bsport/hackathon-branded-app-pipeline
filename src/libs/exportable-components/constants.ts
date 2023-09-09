@@ -27,7 +27,7 @@ import {
 import {
   MARKETPLACE_PRIVATE_PASS_COMPATIBILITY_MODAL_CONFIGURATION,
   MARKETPLACE_PRIVATE_PASS_COMPATIBILITY_MODAL_PREVIEW,
-} from '#libs/marketplace/components/MarketplacePrivatePassCompatibilityModal/custom_css_variant';
+} from '#libs/marketplace/components/@PrivatePass/MarketplacePrivatePassCompatibilityModal/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_CARD_CONFIGURATION,
   MARKETPLACE_CONTRACT_CARD_PREVIEW,

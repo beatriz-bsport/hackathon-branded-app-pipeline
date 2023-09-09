@@ -61,7 +61,7 @@ import { getPaymenComboDataDict } from '#libs/payment-combo/selectors';
 import MarketplaceCheckoutItemsWithPaymentPackList from '#libs/marketplace/components/MarketplaceCheckoutItemsWithPaymentPackList';
 import MarketplaceCheckoutItemsWithPrivatePassList from '#libs/marketplace/components/MarketplaceCheckoutItemsWithPrivatePassList';
 import MarketplaceCheckoutItemsWithPaymentComboList from '#libs/marketplace/components/@CheckoutItem/MarketplaceCheckoutItemsWithPaymentComboList';
-import MarketplaceProductItemList from '#libs/marketplace/components/MarketplaceProductItemList';
+import MarketplaceProductItemList from '#libs/marketplace/components/@CheckoutItem/MarketplaceProductItemList';
 import MinimalSubscriptionCard from '#libs/marketplace/components/@Subscription/MinimalSubscriptionCard';
 import { Subscription } from '#libs/subscription/types';
 

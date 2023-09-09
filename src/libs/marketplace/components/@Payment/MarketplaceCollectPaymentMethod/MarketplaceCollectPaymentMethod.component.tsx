@@ -25,10 +25,10 @@ import classNames from 'classnames';
 
 import { cloneDeep } from 'lodash';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { useDialogClickAwayListener } from '../../../../hooks/useDialogClickAwayListener';
-import { getStripePkKey } from '../../../theme/selectors';
+import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
+import { getStripePkKey } from '../../../../theme/selectors';
 // @ts-ignore
-import { AVAILABLE_PAYMENT_METHOD_TYPE } from '../../../payment/components/payment-backend-stripe-deprecated/helpers';
+import { AVAILABLE_PAYMENT_METHOD_TYPE } from '../../../../payment/components/payment-backend-stripe-deprecated/helpers';
 import CircularProgress from '#csscomponents/CircularProgress';
 import Select from '#components/css-only/Select';
 import { LOCALE_LIST } from '#components/input/LocaleSelector.component';

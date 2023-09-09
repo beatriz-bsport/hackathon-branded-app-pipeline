@@ -25,15 +25,15 @@ import { cloneDeep } from 'lodash';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { getCompanyCountry, getCurrencyCode } from '#libs/theme/selectors';
 import Radio from '#components/css-only/Radio';
-import MarketplaceCollectPaymentMethod from '#libs/marketplace/components/MarketplaceCollectPaymentMethod';
-import MarketplaceContractPaymentMethodList from '#libs/marketplace/components/MarketplaceContractPaymentMethodList';
+import MarketplaceCollectPaymentMethod from '#libs/marketplace/components/@Payment/MarketplaceCollectPaymentMethod';
+import MarketplaceContractPaymentMethodList from '#libs/marketplace/components/@Payment/MarketplaceContractPaymentMethodList';
 import {
   MarketplacePaymentMethodBillingDetails,
   MarketplacePaymentMethods,
 } from '#libs/marketplace/types';
 import { Contract } from '#libs/subscription/types';
 import { PaymentMethod } from '#libs/payment/types';
-import { OptionCallback } from '../../../../state/types';
+import { OptionCallback } from '../../../../../state/types';
 import { appliesToContract } from '#libs/coupon/api';
 import CircularProgress from '#components/css-only/CircularProgress';
 

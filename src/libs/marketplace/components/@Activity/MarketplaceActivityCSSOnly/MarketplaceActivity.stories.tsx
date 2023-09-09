@@ -1,8 +1,8 @@
 // @ts-nocheck
 import React from 'react';
-import { useMuiThemeToCssVars } from '../../../../hooks/useMuiThemeToCssVars';
+import { useMuiThemeToCssVars } from '../../../../../hooks/useMuiThemeToCssVars';
 import MarketplaceActivityV2 from './MarketplaceActivityCSSOnly.component';
-import bsportTheme from '../../../../../.storybook/bsport-theme';
+import bsportTheme from '../../../../../../.storybook/bsport-theme';
 import { useTheme } from '@material-ui/core';
 import { any } from 'prop-types';
 

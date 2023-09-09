@@ -17,7 +17,7 @@ import INSTAGRAM_PNG from '../../../../../public/images/instagram.png';
 import FACEBOOK_PNG from '../../../../../public/images/facebook.png';
 import { formatMinutes } from '../../../../../utils/datetime';
 import { Offer } from '#libs/offer/types';
-import MarketplaceLevel from '../../MarketplaceLevelCSSOnly/MarketplaceLevelCSSOnly.component';
+import MarketplaceLevel from '../../@Offer/MarketplaceLevelCSSOnly/MarketplaceLevelCSSOnly.component';
 import MarketplaceBookButtonForDialog from '../../MarketplaceBookButton/MarketplaceBookButtonForDialog.component';
 import MarketplaceBroadcast from '../../MarketplaceBroadcastCSSOnly/MarketplaceBroadcastCSSOnly.component';
 import { useOfferHours } from '../../../hooks';

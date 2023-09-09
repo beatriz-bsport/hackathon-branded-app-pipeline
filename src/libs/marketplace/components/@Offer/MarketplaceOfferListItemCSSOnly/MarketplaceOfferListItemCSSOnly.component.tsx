@@ -10,7 +10,7 @@ import RoomIcon from '@material-ui/icons/Room';
 
 import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
-import { formatAsDateWithWeekday } from '../../../../utils/datetime';
+import { formatAsDateWithWeekday } from '../../../../../utils/datetime';
 import MaleIcon from '#components/icons/MaleIcon.component';
 import FemaleIcon from '#components/icons/FemaleIcon.component';
 
@@ -23,7 +23,7 @@ import { useOfferHours } from '#libs/marketplace/hooks';
 
 import MarketplaceBookButton from '#libs/marketplace/components/@Booking/MarketplaceBookButton';
 import { MetaActivity } from '#libs/meta-activity/types';
-import MarketPlaceLevel from '#libs/marketplace/components/MarketplaceLevelCSSOnly';
+import MarketPlaceLevel from '#libs/marketplace/components/@Offer/MarketplaceLevelCSSOnly';
 import MarketplaceBroadcast from '#libs/marketplace/components/MarketplaceBroadcastCSSOnly';
 import MarketplaceCalendarVariant from '#libs/marketplace/types';
 import {

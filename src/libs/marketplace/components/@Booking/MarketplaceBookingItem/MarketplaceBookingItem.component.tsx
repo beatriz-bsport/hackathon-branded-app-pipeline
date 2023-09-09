@@ -16,7 +16,7 @@ import ActivitySummary from '../../@Activity/ActivitySummary';
 import { CompanyTheme } from '#libs/theme/types';
 import Chip from '#components/css-only/Chip';
 import './styles.css';
-import MarketplaceLevelCSSOnly from '../../MarketplaceLevelCSSOnly';
+import MarketplaceLevelCSSOnly from '../../@Offer/MarketplaceLevelCSSOnly';
 
 export type Props = {
   date: string;

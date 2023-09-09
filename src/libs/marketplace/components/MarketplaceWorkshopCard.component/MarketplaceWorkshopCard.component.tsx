@@ -6,7 +6,7 @@ import { Button } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import CardMedia from '@material-ui/core/CardMedia';
 
-import MarketplaceOfferListItem from '../MarketplaceOfferListItemCSSOnly';
+import MarketplaceOfferListItem from '../@Offer/MarketplaceOfferListItemCSSOnly';
 import { formatMinutes } from '../../../../utils/datetime';
 import { MetaActivity } from '#libs/meta-activity/types';
 import type { OffersGroup } from '#libs/group-offer/types';
@@ -16,7 +16,7 @@ import { Offer } from '#libs/offer/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
 import { Level } from '#libs/level/types';
-import MarketplaceGroupOfferListItem from '../MarketplaceGroupOfferListItem.component/MarketplaceGroupOfferListItem.component';
+import MarketplaceGroupOfferListItem from '../@Offer/MarketplaceGroupOfferListItem.component/MarketplaceGroupOfferListItem.component';
 
 import './MarketplaceWorkshopCard.css';
 import { isOfferInThePast } from '#libs/marketplace/utils';

@@ -16,14 +16,14 @@ import { Establishment } from '#libs/establishment/types';
 
 import { MetaActivity } from '#libs/meta-activity/types';
 import { OffersGroup } from '#libs/group-offer/types';
-import MarketPlaceLevel from '#libs/marketplace/components/MarketplaceLevelCSSOnly';
+import MarketPlaceLevel from '#libs/marketplace/components/@Offer/MarketplaceLevelCSSOnly';
 import { Level } from '#libs/level/types';
 import MarketplaceOfferListItem from '../MarketplaceOfferListItemCSSOnly';
 import {
   getBookingButtonTraduction,
   isOfferInThePast,
   getPositionOfOfferInTheList,
-} from '../../utils';
+} from '../../../utils';
 import './MarketplaceGroupOfferListItem.css';
 import MarketplaceCoachInfos from '#libs/marketplace/components/MarketplaceCoachInfos';
 import MarketplaceEstablishmentTitle from '#libs/marketplace/components/MarketplaceEstablishmentTitle';

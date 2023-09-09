@@ -3,7 +3,7 @@ import Immutable from 'seamless-immutable';
 import {
   MARKETPLACE_OFFER_CARD_CONFIGURATION,
   MARKETPLACE_OFFER_CARD_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceCardOfferCSSOnly';
+} from '#libs/marketplace/components/@Offer/MarketplaceCardOfferCSSOnly';
 import {
   MARKETPLACE_PAYMENT_COMBO_CARD_CONFIGURATION,
   MARKETPLACE_PAYMENT_COMBO_CARD_PREVIEW,
@@ -79,7 +79,7 @@ import {
 import {
   MARKETPLACE_OFFER_LIST_ITEM_CONFIGURATION,
   MARKETPLACE_OFFER_LIST_ITEM_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceOfferListItemCSSOnly/custom_css_variant';
+} from '#libs/marketplace/components/@Offer/MarketplaceOfferListItemCSSOnly/custom_css_variant';
 import {
   MARKETPLACE_WEEK_TIME_TABLE_CONFIGURATION,
   MARKETPLACE_WEEK_TIME_TABLE_PREVIEW,

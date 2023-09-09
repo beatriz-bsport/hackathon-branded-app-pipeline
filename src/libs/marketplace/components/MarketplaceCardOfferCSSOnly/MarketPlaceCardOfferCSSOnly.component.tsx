@@ -8,7 +8,7 @@ import { ArrowLeft } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import MaleIcon from '../../../../components/icons/MaleIcon.component';
 import FemaleIcon from '../../../../components/icons/FemaleIcon.component';
-import MarketplaceBookButton from '../MarketplaceBookButton';
+import MarketplaceBookButton from '#libs/marketplace/components/@Booking/MarketplaceBookButton';
 import MarketplaceLevel from '../MarketplaceLevelCSSOnly';
 import { Offer } from '#libs/offer/types';
 import MarketplaceBroadcast from '../MarketplaceBroadcastCSSOnly';

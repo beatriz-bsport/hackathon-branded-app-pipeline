@@ -21,7 +21,7 @@ import { Establishment } from '#libs/establishment/types';
 
 import { useOfferHours } from '#libs/marketplace/hooks';
 
-import MarketplaceBookButton from '#libs/marketplace/components/MarketplaceBookButton';
+import MarketplaceBookButton from '#libs/marketplace/components/@Booking/MarketplaceBookButton';
 import { MetaActivity } from '#libs/meta-activity/types';
 import MarketPlaceLevel from '#libs/marketplace/components/MarketplaceLevelCSSOnly';
 import MarketplaceBroadcast from '#libs/marketplace/components/MarketplaceBroadcastCSSOnly';

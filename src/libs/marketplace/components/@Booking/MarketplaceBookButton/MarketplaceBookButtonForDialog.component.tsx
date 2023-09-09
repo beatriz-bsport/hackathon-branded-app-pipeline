@@ -8,7 +8,7 @@ import {
   isOfferInThePast,
   getBookingButtonTraduction,
   firstOfferInGroupLocksBookingBecauseInPast,
-} from '../../utils';
+} from '../../../utils';
 import { Offer_FULL } from '#libs/offer/types';
 import './MarketplaceBookButtonForDialog.css';
 import { OffersGroup } from '#libs/group-offer/types';

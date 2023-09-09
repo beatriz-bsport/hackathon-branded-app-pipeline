@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import MarketplacePaymentPackDetailsModal from '#libs/marketplace/components/MarketplacePaymentPackDetailModal';
-import MarketplacePaymentPackRestrictionModal from '#libs/marketplace/components/MarketplacePaymentPackRestrictionModal';
-import MarketplacePaymentPackOffPeakRestrictionModal from '#libs/marketplace/components/MarketplacePaymentPackOffPeakRestrictionModal';
+import MarketplacePaymentPackRestrictionModal from '#libs/marketplace/components/@PaymentPack/MarketplacePaymentPackRestrictionModal';
+import MarketplacePaymentPackOffPeakRestrictionModal from '#libs/marketplace/components/@PaymentPack/MarketplacePaymentPackOffPeakRestrictionModal';
 import MarketplacePaymentPackCompatibilityModal from '#libs/marketplace/components/MarketplacePaymentPackCompatibilityModal';
 import MarketplacePrivatePassDetailsModal from '#libs/marketplace/components/MarketplacePrivatePassDetailsModal';
 import MarketplacePrivatePassCompatibilityModal from '#libs/marketplace/components/MarketplacePrivatePassCompatibilityModal';

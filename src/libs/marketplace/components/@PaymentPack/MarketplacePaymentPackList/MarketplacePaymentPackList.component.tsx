@@ -5,9 +5,9 @@ import { useMediaQuery, useTheme } from '@material-ui/core';
 import { Immutable } from 'seamless-immutable';
 
 // @ts-expect-error
-import Analytics from '../../../../components/analytics/Analytics.component';
+import Analytics from '../../../../../components/analytics/Analytics.component';
 
-import MarketplacePaymentPackCard from '#libs/marketplace/components/MarketplacePaymentPackCard';
+import MarketplacePaymentPackCard from '#libs/marketplace/components/@PaymentPack/MarketplacePaymentPackCard';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import { useMarketplacePassFilters } from '#libs/marketplace/hooks';
 

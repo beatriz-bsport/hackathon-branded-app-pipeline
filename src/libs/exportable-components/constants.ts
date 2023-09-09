@@ -11,7 +11,7 @@ import {
 import {
   MARKETPLACE_PAYMENT_PACK_CARD_CONFIGURATION,
   MARKETPLACE_PAYMENT_PACK_CARD_PREVIEW,
-} from '#libs/marketplace/components/MarketplacePaymentPackCard/custom_css_variant';
+} from '#libs/marketplace/components/@PaymentPack/MarketplacePaymentPackCard/custom_css_variant';
 import {
   MARKETPLACE_PAYMENT_PACK_COMPATIBILITY_MODAL_CONFIGURATION,
   MARKETPLACE_PAYMENT_PACK_COMPATIBILITY_MODAL_PREVIEW,
@@ -19,7 +19,7 @@ import {
 import {
   MARKETPLACE_PAYMENT_PACK_RESTRICTION_MODAL_CONFIGURATION,
   MARKETPLACE_PAYMENT_PACK_RESTRICTION_MODAL_PREVIEW,
-} from '#libs/marketplace/components/MarketplacePaymentPackRestrictionModal/custom_css_variant';
+} from '#libs/marketplace/components/@PaymentPack/MarketplacePaymentPackRestrictionModal/custom_css_variant';
 import {
   MARKETPLACE_PRIVATE_PASS_CARD_CONFIGURATION,
   MARKETPLACE_PRIVATE_PASS_CARD_PREVIEW,
@@ -59,7 +59,7 @@ import {
 import {
   MARKETPLACE_PAYMENT_PACK_OFFPEAK_RESTRICTION_MODAL_CONFIGURATION,
   MARKETPLACE_PAYMENT_PACK_OFFPEAK_RESTRICTION_MODAL_PREVIEW,
-} from '#libs/marketplace/components/MarketplacePaymentPackOffPeakRestrictionModal/custom_css_variant';
+} from '#libs/marketplace/components/@PaymentPack/MarketplacePaymentPackOffPeakRestrictionModal/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_NOT_FOUND_CONFIGURATION,
   MARKETPLACE_CONTRACT_NOT_FOUND_PREVIEW,

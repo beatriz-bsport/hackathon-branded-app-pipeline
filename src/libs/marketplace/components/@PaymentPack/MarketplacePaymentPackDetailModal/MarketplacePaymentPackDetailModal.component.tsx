@@ -15,9 +15,9 @@ import Item, {
 } from '#components/css-only/Grid/GridItem';
 import Price, { Color } from '#components/css-only/Price';
 
-import PaymentPackDetailList from './DetailList/PaymentPackDetailList.component';
+import PaymentPackDetailList from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackDetailModal/DetailList/PaymentPackDetailList.component';
 
-import { useDialogClickAwayListener } from '../../../../hooks/useDialogClickAwayListener';
+import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 
 import { PaymentPack } from '#libs/payment-packs/types';
 

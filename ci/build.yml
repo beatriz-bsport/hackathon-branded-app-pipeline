@@ -30,8 +30,8 @@ Build Deploy Dev:
   variables:
     ENVIRONMENT: dev
     SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
-    S3BUCKETNAME: bsport-eu-cdn-dev
-    CLOUDFRONT_ID: ESH8WNSF9KT1H
+    S3BUCKETNAME: bsport-widget-assets-dev
+    CLOUDFRONT_ID: E250Q872DC5CN7
     CDN_DOMAIN: cdn.dev.bsport.io
 
 

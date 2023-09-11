@@ -291,6 +291,7 @@ export const DEFAULT_OBJECT_LEVEL_PERMISSIONS: ObjectLevelPermissions = {
         manageExtension: true,
         manageCredit: true,
         compatibility: true,
+        block: true,
       },
     },
     privatePass: {

@@ -252,6 +252,7 @@ export type ObjectLevelPermissions = {
         manageExtension: boolean;
         manageCredit: boolean;
         compatibility: boolean;
+        block: boolean;
       };
     };
     privatePass: {

@@ -768,6 +768,7 @@ exports.default = {
           manageExtension: { _label: 'Add validity extensions' },
           manageCredit: { _label: 'Manage member credits' },
           compatibility: { _label: 'Manage compatibilities' },
+          block: { _label: "Block a member's pass" },
         },
       },
       privatePass: {

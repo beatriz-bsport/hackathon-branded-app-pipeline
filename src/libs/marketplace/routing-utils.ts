@@ -265,14 +265,11 @@ export const getCheckoutValidationUrl = (
   companyId: number,
   isNewCheckoutFlow: boolean,
   params?: { [key: string]: string | number },
-  next?: string,
 ) => {
   const validationUrl = isNewCheckoutFlow
     ? `/checkout-s/${companyId}/validation`
     : `/checkout/${companyId}/validation`;
-  if (next) {
-    return `${buildFinalUrlWithParams(validationUrl, params)}${next}`;
-  }
+
   return buildFinalUrlWithParams(validationUrl, params);
 };
 

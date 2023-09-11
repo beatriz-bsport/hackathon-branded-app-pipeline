@@ -21,7 +21,7 @@ import RestrictionList from './RestrictionList';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
-import { useDialogClickAwayListener } from '../../../../hooks/useDialogClickAwayListener';
+import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 
 import type { PaymentCombo } from '#libs/payment-combo/types';
 

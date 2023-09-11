@@ -21,7 +21,7 @@ import Item, {
 import Price from '#csscomponents/Price';
 import InitialPrice from './InitialPrice';
 import PaymentComboItemList from './PaymentComboItemList';
-import useIsTextExpandable from '../../../../hooks/useIsTextExpandable';
+import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 
 import './styles.css';
 

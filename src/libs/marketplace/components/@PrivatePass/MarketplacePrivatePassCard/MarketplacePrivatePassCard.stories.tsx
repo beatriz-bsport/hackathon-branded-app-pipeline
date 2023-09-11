@@ -5,7 +5,7 @@ import { MarketplacePrivatePassCardForStorybook } from '.';
 import type { Props } from '.';
 
 import { privatePassFactory } from '#libs/private-service/factory';
-import { generateRandomDescription } from '../../../../utils/factories';
+import { generateRandomDescription } from '../../../../../utils/factories';
 
 const fakePrivatePass = privatePassFactory();
 

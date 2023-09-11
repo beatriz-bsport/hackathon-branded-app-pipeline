@@ -15,7 +15,7 @@ import Item, {
 } from '#components/css-only/Grid/GridItem';
 import Price, { Color } from '#components/css-only/Price';
 import PrivatePassDetailsList from './DetailList/PrivatePassDetailList.component';
-import { useDialogClickAwayListener } from '../../../../hooks/useDialogClickAwayListener';
+import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 import { PrivatePass } from '#libs/private-service/types';
 
 export type Props = {

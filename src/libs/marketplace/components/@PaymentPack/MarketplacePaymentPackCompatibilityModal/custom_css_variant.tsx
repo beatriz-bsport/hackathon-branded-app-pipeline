@@ -12,7 +12,7 @@ import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
 } from '#libs/exportable-components/types';
-import { generateRandomInt } from '../../../../utils/factories';
+import { generateRandomInt } from '../../../../../utils/factories';
 
 const fakeCategories = factory_scts(generateRandomInt(5));
 const fakeMetaActivities = meta_activity_factory(generateRandomInt(5));

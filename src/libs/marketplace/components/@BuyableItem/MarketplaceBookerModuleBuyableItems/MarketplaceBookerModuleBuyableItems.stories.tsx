@@ -4,7 +4,7 @@ import { fakerEN as faker } from '@faker-js/faker';
 
 import { MarketplaceBookerModuleBuyableItemsForStorybook, Props } from '.';
 import { consumerPaymentPackListFactory } from '#libs/consumer-payment-pack/factories';
-import { generateRandomName } from '../../../../utils/factories';
+import { generateRandomName } from '../../../../../utils/factories';
 
 import type {
   BookerItem,

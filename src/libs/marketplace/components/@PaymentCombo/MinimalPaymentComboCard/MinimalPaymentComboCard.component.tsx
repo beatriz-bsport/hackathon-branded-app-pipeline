@@ -15,7 +15,7 @@ import './styles.css';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import PaymentComboItemList from '../MarketplacePaymentComboCard/PaymentComboItemList';
 import InitialPrice from '../MarketplacePaymentComboCard/InitialPrice';
-import MinimalCardSkeleton from '../MinimalCardSkeleton';
+import MinimalCardSkeleton from '#marketplacecomponents/MinimalCardSkeleton';
 
 export type Props = {
   paymentCombo: PaymentCombo;

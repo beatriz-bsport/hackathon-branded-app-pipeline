@@ -1,11 +1,10 @@
-// @ts-nocheck
 import React from 'react';
 import {
   MarketplacePaymentPackCompatibilityModalForStorybook,
   Props,
 } from './index';
 
-import { generateRandomInt } from '../../../../utils/factories';
+import { generateRandomInt } from '../../../../../utils/factories';
 import { factory_scts } from '#libs/category/factory';
 import { meta_activity_factory } from '#libs/meta-activity/factory';
 import { establishment_factory } from '#libs/establishment/factory';
@@ -15,6 +14,7 @@ const fakeMetaActivities = meta_activity_factory(generateRandomInt(5));
 const fakeEstablishments = establishment_factory(generateRandomInt(5));
 
 const Template = (args: Props) => {
+  // @ts-expect-error
   return <MarketplacePaymentPackCompatibilityModalForStorybook {...args} />;
 };
 

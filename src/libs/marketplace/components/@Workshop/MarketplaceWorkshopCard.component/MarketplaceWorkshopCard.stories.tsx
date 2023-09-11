@@ -4,7 +4,7 @@ import MarketPlaceWorkshopCard, {
   Props,
 } from './MarketplaceWorkshopCard.component';
 import { coachFactory } from '#libs/associated-coach/factories';
-import { defaultThemeParams } from '../../../../theme';
+import { defaultThemeParams } from '../../../../../theme';
 
 import './MarketplaceWorkshopCard.css';
 // TODO Create clean Factory : https://gitlab.com/bsport/bsport-saas/-/issues/1277

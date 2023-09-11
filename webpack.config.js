@@ -129,13 +129,13 @@ const defaultConfig = {
         './node_modules/bsport-saas/src/components/css-only',
       ),
       '#marketplacecomponents': path.resolve(
-        '../src/libs/marketplace/components',
+        './node_modules/bsport-saas/src/libs/marketplace/components',
       ),
-      '#hooks': path.resolve(__dirname, '../src/hooks'),
-      '#utils': path.resolve(__dirname, '../src/utils'),
+      '#hooks': path.resolve(__dirname, './node_modules/bsport-saas/src/hooks'),
+      '#utils': path.resolve(__dirname, './node_modules/bsport-saas/src/utils'),
       '#Fabrique': path.resolve(
         __dirname,
-        '../src/components/css-only/Fabrique',
+        './node_modules/bsport-saas/src/components/css-only/Fabrique',
       ),
     },
   },

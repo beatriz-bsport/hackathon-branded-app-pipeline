@@ -19,7 +19,7 @@ import InvoiceListItem from '../../invoice/InvoiceListItem.component';
 import { Invoice } from '../../invoice/types';
 import { formatAsTime } from '../../../utils/datetime';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils.ts';
+import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
 
 type Props = {
   classes: Object;
@@ -95,8 +95,13 @@ export class VideoDetail extends Component<Props, State> {
     const { classes, t } = this.props;
     const selectedVideoPurchase = this.getSelectedVideoPurchase();
     return (
-      <ObjectLevelPermissionProviderComponent requiredPermission="product.paymentPack.allowed_actions.manageCredit">
-        {(hasManageCreditPermission: boolean) => (
+      <ObjectLevelPermissionProviderComponent
+        requiredPermission={[
+          'product.paymentPack.allowed_actions.manageCredit',
+          'product.paymentPack.allowed_actions.block',
+        ]}
+      >
+        {([hasManageCreditPermission, hasBlockPermission]: boolean[]) => (
           <React.Fragment>
             {this.props.loading && <LinearProgress />}
             {this.props.analytics ? (
@@ -203,6 +208,7 @@ export class VideoDetail extends Component<Props, State> {
                         selectedVideoPurchase.consumer_payment_pack
                           ?.payment_pack,
                         hasManageCreditPermission,
+                        hasBlockPermission,
                       ) && this.props.decrementCredit
                     }
                     incrementCredit={
@@ -210,6 +216,7 @@ export class VideoDetail extends Component<Props, State> {
                         selectedVideoPurchase.consumer_payment_pack
                           ?.payment_pack,
                         hasManageCreditPermission,
+                        hasBlockPermission,
                       ) && this.props.incrementCredit
                     }
                     onClick={() =>

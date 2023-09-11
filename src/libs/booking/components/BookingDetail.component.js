@@ -61,8 +61,13 @@ export class BookingDetail extends Component<Props> {
     }
 
     return (
-      <ObjectLevelPermissionProvider requiredPermission="product.paymentPack.allowed_actions.manageCredit">
-        {(hasManageCreditPermission: boolean) => (
+      <ObjectLevelPermissionProvider
+        requiredPermission={[
+          'product.paymentPack.allowed_actions.manageCredit',
+          'product.paymentPack.allowed_actions.block',
+        ]}
+      >
+        {([hasManageCreditPermission, hasBlockPermission]: boolean[]) => (
           <div>
             <Typography component="h2" variant="h5">
               {t('details.title')}
@@ -141,12 +146,14 @@ export class BookingDetail extends Component<Props> {
                     hasPaymentPackManagementPermission(
                       booking.consumer_payment_pack?.payment_pack,
                       hasManageCreditPermission,
+                      hasBlockPermission,
                     ) && this.props.decrementCredit
                   }
                   incrementCredit={
                     hasPaymentPackManagementPermission(
                       booking.consumer_payment_pack?.payment_pack,
                       hasManageCreditPermission,
+                      hasBlockPermission,
                     ) && this.props.incrementCredit
                   }
                   onClick={() =>

@@ -499,21 +499,24 @@ export const formatOffPeakScheduleOnEdit = (
 };
 
 /**
- * Checks if a user has permission to manage payment packs (credits).
+ * Checks if a user has permission to manage payment packs (credits or block).
  *
- * - If the payment pass is limited, the user must have the permission to manage the credits.
- * - If the payment_pack.unlimited is null or undefined, the user has no permission.
+ * - If the payment pass is unlimited, the user must have the permission to block the payment pack.
+ * - Otherwise, the user must have the permission to manage the credits.
+ * - Finally, if the payment_pack.unlimited is null or undefined, the user has no permission.
  *
  * @param paymentPack - The payment pack.
  * @param hasManageCreditPermission - Indicates if the user has permission to manage the credits.
+ * @param hasBlockPermission - Indicates if the user has permission to block payment packs.
  * @returns A boolean value indicating if the user has payment pack management permission.
  */
 export const hasPaymentPackManagementPermission = (
   paymentPack: PaymentPack,
   hasManageCreditPermission: boolean,
+  hasBlockPermission: boolean,
 ): boolean => {
   if (paymentPack?.unlimited) {
-    return true;
+    return hasBlockPermission;
   }
   if (paymentPack?.unlimited === false) {
     return hasManageCreditPermission;

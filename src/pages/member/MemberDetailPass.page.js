@@ -79,6 +79,7 @@ import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/Con
 import ConsumerPackDetail from '../../libs/consumer-payment-pack/components/ConsumerPackDetail.component';
 import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
 import ConsumerPaymentPackFilters from '../../libs/payment-packs/components/ConsumerPaymentPackFilters.component';
+import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
 
 import type { Member } from '../../libs/member/types';
 import type { ConsumerPaymentPack } from '../../libs/payment-packs/types';
@@ -90,7 +91,6 @@ import { withIsSharedActive } from '../../libs/relationship/selectors';
 import { WithIsSharedActive } from '../../libs/relationship/types';
 
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
 
 type Props = {
   member: ?Member,
@@ -389,11 +389,13 @@ export class MemberDetailPass extends Component<Props, State> {
         requiredPermission={[
           'product.paymentPack.allowed_actions.manageExtension',
           'product.paymentPack.allowed_actions.manageCredit',
+          'product.paymentPack.allowed_actions.block',
         ]}
       >
         {([
           hasManageExtensionPermission,
           hasManageCreditPermission,
+          hasBlockPermission,
         ]: boolean[]) => (
           <Grid container direction="row" spacing={2}>
             <Grid item lg={6} xs={12}>
@@ -463,12 +465,14 @@ export class MemberDetailPass extends Component<Props, State> {
                           hasPaymentPackManagementPermission(
                             consumerPaymentPack?.payment_pack,
                             hasManageCreditPermission,
+                            hasBlockPermission,
                           ) && this.props.decrementCredit
                         }
                         incrementCredit={
                           hasPaymentPackManagementPermission(
                             consumerPaymentPack?.payment_pack,
                             hasManageCreditPermission,
+                            hasBlockPermission,
                           ) && this.props.incrementCredit
                         }
                         onClick={() =>

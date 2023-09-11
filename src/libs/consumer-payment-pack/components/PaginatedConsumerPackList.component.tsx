@@ -39,8 +39,13 @@ type Props = OwnProps &
 
 export const PaginatedConsumerPackList: React.FC<Props> = React.memo(
   (props) => (
-    <ObjectLevelPermissionProviderComponent requiredPermission="product.paymentPack.allowed_actions.manageCredit">
-      {(hasManageCreditPermission: boolean) => (
+    <ObjectLevelPermissionProviderComponent
+      requiredPermission={[
+        'product.paymentPack.allowed_actions.manageCredit',
+        'product.paymentPack.allowed_actions.block',
+      ]}
+    >
+      {([hasManageCreditPermission, hasBlockPermission]: boolean[]) => (
         <PaginatedListBase
           itemPerPage={props.itemPerPage}
           items={props.items}
@@ -75,6 +80,7 @@ export const PaginatedConsumerPackList: React.FC<Props> = React.memo(
                   hasPaymentPackManagementPermission(
                     paymentPack,
                     hasManageCreditPermission,
+                    hasBlockPermission,
                   ) && props.decrementCredit
                 }
                 disabled={
@@ -85,6 +91,7 @@ export const PaginatedConsumerPackList: React.FC<Props> = React.memo(
                   hasPaymentPackManagementPermission(
                     paymentPack,
                     hasManageCreditPermission,
+                    hasBlockPermission,
                   ) && props.incrementCredit
                 }
                 onClick={props.onClick ? () => props.onClick(cpp) : null}

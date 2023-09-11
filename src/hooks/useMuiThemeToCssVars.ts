@@ -203,6 +203,9 @@ export const useMuiThemeToCssVars = () => {
     --spacing-1: ${theme.spacing(1)}px;
   `;
 
+  // Inside the 'id' section, we define styles that will be applied to the 'div' element with the id 'bs-setup-derived-variable'.
+  // 'position:relative' is utilized to establish a new stacking context, enabling absolute positioning of DOM elements within this context.
+  // Additionally, the 'div' has a hidden overflow, preventing its direct content from being scrollable (although its child components can still be configured to be scrollable).
   const id = `
     --body1-fontFamily: var(--fontFamily);
     --body2-fontFamily: var(--fontFamily);
@@ -243,6 +246,8 @@ export const useMuiThemeToCssVars = () => {
     font-family: var(--fontFamily);
     width: 100%;
     background-color: var(--color-background);
+    position: relative;
+    overflow: hidden;
   `;
 
   return {

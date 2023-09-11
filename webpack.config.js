@@ -128,6 +128,15 @@ const defaultConfig = {
         __dirname,
         './node_modules/bsport-saas/src/components/css-only',
       ),
+      '#marketplacecomponents': path.resolve(
+        '../src/libs/marketplace/components',
+      ),
+      '#hooks': path.resolve(__dirname, '../src/hooks'),
+      '#utils': path.resolve(__dirname, '../src/utils'),
+      '#Fabrique': path.resolve(
+        __dirname,
+        '../src/components/css-only/Fabrique',
+      ),
     },
   },
 };

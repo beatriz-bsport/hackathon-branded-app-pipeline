@@ -98,6 +98,7 @@ import {
 import PrivatePassDeleteDialog from '#libs/private-service/components/pass/PrivatePassDeleteDialog.component';
 import UniversalPassRestoreDialog from '#libs/universal-pass/components/UniversalPassRestoreDialog.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 const {
   trackFormAdd,
@@ -388,216 +389,228 @@ export class PrivatePassList extends React.Component<Props, State> {
       );
     }
     return (
-      <div>
-        {!!this.props.loading && <BackofficeLinearProgress />}
-        <div className={classes.search}>
-          <div className={classes.buttonRow}>
-            <div style={{ flex: 1 }}>
-              <FuzeSearch
-                changeSearch={this.changeSearch}
-                clearSearch={this.clearSearch}
-                items={this.props.privatePassListCustomerEnabled}
-                placeholder={t('searshAppointmentPass')}
-                searchFields={['name']}
-                searchResult={this.state.searchResult}
-                searchText={this.state.searchText}
+      <ObjectLevelPermissionProviderComponent requiredPermission="product.privatePass.allowed_actions.create">
+        {(hasCreatePermission: boolean) => (
+          <div>
+            {!!this.props.loading && <BackofficeLinearProgress />}
+            <div className={classes.search}>
+              <div className={classes.buttonRow}>
+                <div style={{ flex: 1 }}>
+                  <FuzeSearch
+                    changeSearch={this.changeSearch}
+                    clearSearch={this.clearSearch}
+                    items={this.props.privatePassListCustomerEnabled}
+                    placeholder={t('searshAppointmentPass')}
+                    searchFields={['name']}
+                    searchResult={this.state.searchResult}
+                    searchText={this.state.searchText}
+                  />
+                </div>
+                {hasCreatePermission && (
+                  <Button
+                    color="primary"
+                    onClick={() => {
+                      this.props.setShowCategoryDialog(true);
+                      trackFormAdd();
+                    }}
+                    variant="outlined"
+                  >
+                    <AddIcon color="primary" />
+                    {t('paymentPack:category.add')}
+                  </Button>
+                )}
+              </div>
+            </div>
+            <Paper
+              className={
+                this.state.searchResult.length > 0 &&
+                this.state.searchText !== ''
+                  ? classes.searchPaperDisplayed
+                  : classes.searchPaperHidden
+              }
+            >
+              <Collapse
+                in={
+                  this.state.searchResult.length > 0 &&
+                  this.state.searchText !== ''
+                }
+              >
+                <List disablePadding>
+                  {this.state.searchResult
+                    .filter((pp) => !pp.manager_only)
+                    .map((pass) => (
+                      <PrivatePassListItem
+                        key={pass.id}
+                        divider
+                        onClick={() => {
+                          this.props.goToPass(pass.id);
+                        }}
+                        onDelete={() => this.openDeletePassDialog(pass.id)}
+                        onEdit={() => {
+                          this.openFormAndUploadCompatibilityInfo(pass);
+                        }}
+                        pass={pass}
+                        updatePrivatePass={this.props.createOrUpdatePrivatePass}
+                      />
+                    ))}
+                </List>
+              </Collapse>
+            </Paper>
+            <PaymentPackFilterAndSortHeader
+              categoryFilterOnchange={this.categoryFilterOnchange}
+              categoryOptions={this.categoryOptions()}
+              categoryValue={this.state.selectedCategories}
+              managerOnlyOnChange={this.managerOnlyOnChange}
+              managerOnlyValue={this.state.selectedDisponibility}
+              sortOnChange={this.sortOnChange}
+              sortValue={this.state.selectedSortOption}
+            />
+            <div className={this.props.classes.leftPanel}>
+              {!this.props.privatePassList.length && !this.props.loading && (
+                <Typography variant="caption">
+                  {this.props.t('privatePass.list.isEmpty')}
+                </Typography>
+              )}
+              <PrivatePassCategoryList
+                deletePrivatePassCategory={this.props.deletePrivatePassCategory}
+                filteredCategories={this.state.selectedCategories}
+                filterManagerOnly={this.state.selectedDisponibility}
+                goToPass={this.props.goToPass}
+                onEditPass={(pass) => {
+                  this.openFormAndUploadCompatibilityInfo(pass);
+                }}
+                privatePassCategoryById={this.props.privatePassByCategory}
+                privatePassOrder={this.state.privatePassOrderByCategory}
+                setOpenDeletePassDialog={this.openDeletePassDialog}
+                setSelectedCategory={this.props.setSelectedCategory}
+                showCategoryEditDialog={() =>
+                  this.props.setShowCategoryDialog(true)
+                }
+                updateCategoryOrder={this.props.updatePrivatePassCategoryOrder}
+                updatePassOrder={this.props.editOrderPrivatePass}
               />
             </div>
-            <Button
-              color="primary"
-              onClick={() => {
-                this.props.setShowCategoryDialog(true);
-                trackFormAdd();
-              }}
-              variant="outlined"
-            >
-              <AddIcon color="primary" />
-              {t('paymentPack:category.add')}
-            </Button>
-          </div>
-        </div>
-        <Paper
-          className={
-            this.state.searchResult.length > 0 && this.state.searchText !== ''
-              ? classes.searchPaperDisplayed
-              : classes.searchPaperHidden
-          }
-        >
-          <Collapse
-            in={
-              this.state.searchResult.length > 0 && this.state.searchText !== ''
-            }
-          >
-            <List disablePadding>
-              {this.state.searchResult
-                .filter((pp) => !pp.manager_only)
-                .map((pass) => (
-                  <PrivatePassListItem
-                    key={pass.id}
-                    divider
-                    onClick={() => {
-                      this.props.goToPass(pass.id);
-                    }}
-                    onDelete={() => this.openDeletePassDialog(pass.id)}
-                    onEdit={() => {
-                      this.openFormAndUploadCompatibilityInfo(pass);
-                    }}
-                    pass={pass}
-                    updatePrivatePass={this.props.createOrUpdatePrivatePass}
-                  />
-                ))}
-            </List>
-          </Collapse>
-        </Paper>
-        <PaymentPackFilterAndSortHeader
-          categoryFilterOnchange={this.categoryFilterOnchange}
-          categoryOptions={this.categoryOptions()}
-          categoryValue={this.state.selectedCategories}
-          managerOnlyOnChange={this.managerOnlyOnChange}
-          managerOnlyValue={this.state.selectedDisponibility}
-          sortOnChange={this.sortOnChange}
-          sortValue={this.state.selectedSortOption}
-        />
-        <div className={this.props.classes.leftPanel}>
-          {!this.props.privatePassList.length && !this.props.loading && (
-            <Typography variant="caption">
-              {this.props.t('privatePass.list.isEmpty')}
-            </Typography>
-          )}
-          <PrivatePassCategoryList
-            deletePrivatePassCategory={this.props.deletePrivatePassCategory}
-            filteredCategories={this.state.selectedCategories}
-            filterManagerOnly={this.state.selectedDisponibility}
-            goToPass={this.props.goToPass}
-            onEditPass={(pass) => {
-              this.openFormAndUploadCompatibilityInfo(pass);
-            }}
-            privatePassCategoryById={this.props.privatePassByCategory}
-            privatePassOrder={this.state.privatePassOrderByCategory}
-            setOpenDeletePassDialog={this.openDeletePassDialog}
-            setSelectedCategory={this.props.setSelectedCategory}
-            showCategoryEditDialog={() =>
-              this.props.setShowCategoryDialog(true)
-            }
-            updateCategoryOrder={this.props.updatePrivatePassCategoryOrder}
-            updatePassOrder={this.props.editOrderPrivatePass}
-          />
-        </div>
-        {this.props.disabledPrivatePassList?.length ? (
-          <div className={classes.disbabledList}>
-            <div className={classes.buttonTitle}>
-              <Typography className={classes.sectionTitle} variant="h5">
-                {`${t('disabledPacksTitle')} (${
-                  (this.props.disabledPrivatePassList || []).length
-                })`}
-              </Typography>
+            {this.props.disabledPrivatePassList?.length ? (
+              <div className={classes.disbabledList}>
+                <div className={classes.buttonTitle}>
+                  <Typography className={classes.sectionTitle} variant="h5">
+                    {`${t('disabledPacksTitle')} (${
+                      (this.props.disabledPrivatePassList || []).length
+                    })`}
+                  </Typography>
 
-              <IconButton onClick={this.onShowDisabled}>
-                {this.props.showDisabled ? (
-                  <ExpandLessIcon />
-                ) : (
-                  <ExpandMoreIcon />
+                  <IconButton onClick={this.onShowDisabled}>
+                    {this.props.showDisabled ? (
+                      <ExpandLessIcon />
+                    ) : (
+                      <ExpandMoreIcon />
+                    )}
+                  </IconButton>
+                </div>
+                <Divider className={classes.divider} />
+                <Collapse
+                  unmountOnExit
+                  className={classes.collapse}
+                  in={this.props.showDisabled}
+                >
+                  <List disablePadding>
+                    {this.props.disabledPrivatePassList.map(
+                      (pass: PrivatePass) => (
+                        <PrivatePassListItem
+                          key={pass.id}
+                          disabled
+                          divider
+                          onRestore={() => this.restorePrivatePass(pass.id)}
+                          pass={pass}
+                        />
+                      ),
+                    )}
+                  </List>
+                </Collapse>
+              </div>
+            ) : null}
+            <GenericResponsiveDrawer
+              onClose={() => this.props.closePrivatePassForm()}
+              open={
+                (this.props.openEditForm || this.props.openCreateForm) &&
+                !this.props.compatibleServicePassLoading
+              }
+              subtitle={this.props.selectedPrivatePass?.name}
+              title={this.props.t('privatePass.form.title')}
+              trackingObjectId={this.props.selectedPrivatePass?.id}
+              trackingObjectIdentifier={
+                SegmentAnalyticsFormObjectIdentifier.PrivatePass
+              }
+            >
+              <PrivatePassForm
+                categoryList={paymentPackCategoryList}
+                compatibleServicePass={this.props.compatibleServicePass}
+                creditScaleFactor={this.props.theme.pass_credit_factor}
+                establishmentList={establishmentList}
+                initial={getFormInitial(
+                  this.props.selectedPrivatePass,
+                  this.props.compatibleServicePass,
                 )}
-              </IconButton>
-            </div>
-            <Divider className={classes.divider} />
-            <Collapse
-              unmountOnExit
-              className={classes.collapse}
-              in={this.props.showDisabled}
-            >
-              <List disablePadding>
-                {this.props.disabledPrivatePassList.map((pass: PrivatePass) => (
-                  <PrivatePassListItem
-                    key={pass.id}
-                    disabled
-                    divider
-                    onRestore={() => this.restorePrivatePass(pass.id)}
-                    pass={pass}
-                  />
-                ))}
-              </List>
-            </Collapse>
-          </div>
-        ) : null}
-        <GenericResponsiveDrawer
-          onClose={() => this.props.closePrivatePassForm()}
-          open={
-            (this.props.openEditForm || this.props.openCreateForm) &&
-            !this.props.compatibleServicePassLoading
-          }
-          subtitle={this.props.selectedPrivatePass?.name}
-          title={this.props.t('privatePass.form.title')}
-          trackingObjectId={this.props.selectedPrivatePass?.id}
-          trackingObjectIdentifier={
-            SegmentAnalyticsFormObjectIdentifier.PrivatePass
-          }
-        >
-          <PrivatePassForm
-            categoryList={paymentPackCategoryList}
-            compatibleServicePass={this.props.compatibleServicePass}
-            creditScaleFactor={this.props.theme.pass_credit_factor}
-            establishmentList={establishmentList}
-            initial={getFormInitial(
-              this.props.selectedPrivatePass,
-              this.props.compatibleServicePass,
-            )}
-            metaActivityList={metaActivities}
-            onCancel={(ev: { stopPropagation: () => void }) => {
-              ev.stopPropagation();
-              this.props.closePrivatePassForm();
-            }}
-            onSubmit={this.props.createOrUpdatePrivatePass}
-            privatePassCategories={this.props.privatePassCategories}
-            privateServices={this.props.privateServices}
-            provincialTax={this.props.theme?.provincial_tax_value}
-          />
-        </GenericResponsiveDrawer>
-        <PrivatePassDeleteDialog
-          onCancel={() => this.props.setOpenDeletePassDialog(null)}
-          onConfirm={() =>
-            this.props.deletePrivatePass(this.props.openDeletePassDialog)
-          }
-          open={!!this.props.openDeletePassDialog}
-          pass={passSelectedForDelete}
-          usedInCombo={
-            this.props.archivationWarning[this.props.openDeletePassDialog]
-              ?.used_in_combo
-          }
-        />
+                metaActivityList={metaActivities}
+                onCancel={(ev: { stopPropagation: () => void }) => {
+                  ev.stopPropagation();
+                  this.props.closePrivatePassForm();
+                }}
+                onSubmit={this.props.createOrUpdatePrivatePass}
+                privatePassCategories={this.props.privatePassCategories}
+                privateServices={this.props.privateServices}
+                provincialTax={this.props.theme?.provincial_tax_value}
+              />
+            </GenericResponsiveDrawer>
+            <PrivatePassDeleteDialog
+              onCancel={() => this.props.setOpenDeletePassDialog(null)}
+              onConfirm={() =>
+                this.props.deletePrivatePass(this.props.openDeletePassDialog)
+              }
+              open={!!this.props.openDeletePassDialog}
+              pass={passSelectedForDelete}
+              usedInCombo={
+                this.props.archivationWarning[this.props.openDeletePassDialog]
+                  ?.used_in_combo
+              }
+            />
 
-        <Fab
-          className={this.props.classes.addButton}
-          color="primary"
-          onClick={() => this.props.setOpenCreateForm(true)}
-          variant="extended"
-        >
-          <AddIcon className={this.props.classes.leftIcon} />
-          {this.props.t('privatePass.list.createButton')}
-        </Fab>
-        {this.props.showCategoryDialog && (
-          <PrivatePassCategoryCreationDialog
-            handleClose={() => {
-              this.props.closePrivatePassCategoryForm();
-              trackFormCancel(this.props.selectedCategory?.id);
-            }}
-            onSubmit={this.props.upsertPrivatePassCategory}
-            open={this.props.showCategoryDialog}
-            privatePassCategorySelected={this.props.selectedCategory}
-            trackIntent={() =>
-              trackFormSubmitIntent(this.props.selectedCategory?.id)
-            }
-          />
+            {hasCreatePermission && (
+              <Fab
+                className={this.props.classes.addButton}
+                color="primary"
+                onClick={() => this.props.setOpenCreateForm(true)}
+                variant="extended"
+              >
+                <AddIcon className={this.props.classes.leftIcon} />
+                {this.props.t('privatePass.list.createButton')}
+              </Fab>
+            )}
+            {this.props.showCategoryDialog && (
+              <PrivatePassCategoryCreationDialog
+                handleClose={() => {
+                  this.props.closePrivatePassCategoryForm();
+                  trackFormCancel(this.props.selectedCategory?.id);
+                }}
+                onSubmit={this.props.upsertPrivatePassCategory}
+                open={this.props.showCategoryDialog}
+                privatePassCategorySelected={this.props.selectedCategory}
+                trackIntent={() =>
+                  trackFormSubmitIntent(this.props.selectedCategory?.id)
+                }
+              />
+            )}
+            {this.props.openRestoreUniversalPassDialog && (
+              <UniversalPassRestoreDialog
+                open
+                onConfirm={() =>
+                  this.props.setOpenRestoreUniversalPassdialog(false)
+                }
+              />
+            )}
+          </div>
         )}
-        {this.props.openRestoreUniversalPassDialog && (
-          <UniversalPassRestoreDialog
-            open
-            onConfirm={() =>
-              this.props.setOpenRestoreUniversalPassdialog(false)
-            }
-          />
-        )}
-      </div>
+      </ObjectLevelPermissionProviderComponent>
     );
   }
 }

@@ -52,16 +52,27 @@ type Props = {
   ) => void;
 
   selectedService: PrivateService;
-  setSelectedService: (ps: PrivateService) => void;
+  setSelectedService: (privateService: PrivateService) => void;
   openDeleteCompatibilityDialog: number | null;
   setOpenDeleteCompatibilityDialog: (id: number | null) => void;
 };
 
-export const PrivatePassCompatibleServiceList: React.FC<Props> = (props) => {
+export const PrivatePassCompatibleServiceList: React.FC<Props> = ({
+  pass,
+  privateServices,
+  compatibleServicePass,
+  isManager,
+  deleteCompatibleServicePass,
+  createCompatibleServicePass,
+  updateCompatibleServicePass,
+  selectedService,
+  setSelectedService,
+  openDeleteCompatibilityDialog,
+  setOpenDeleteCompatibilityDialog,
+}) => {
   const { t } = useTranslation(['privateService']);
   const classes = useStyles();
 
-  const { pass, privateServices, compatibleServicePass, isManager } = props;
   return (
     <Paper className={classes.paper}>
       <div className={classes.horizontalBlock}>
@@ -75,25 +86,29 @@ export const PrivatePassCompatibleServiceList: React.FC<Props> = (props) => {
 
           <List>
             {pass.private_services
-              .filter((ps: PrivateService) => !!ps)
-              .filter((ps: PrivateService) => ps.available)
-              .map((ps: PrivateService) => (
+              .filter((privateService: PrivateService) => !!privateService)
+              .filter(
+                (privateService: PrivateService) => privateService.available,
+              )
+              .map((privateService: PrivateService) => (
                 <PrivateServiceListItem
-                  key={ps.id}
+                  key={privateService.id}
                   hideSecondary
                   compatibilityByService={
                     compatibleServicePass &&
                     compatibleServicePass.find(
-                      (c) => c.private_service.id === ps.id,
+                      (c) => c.private_service.id === privateService.id,
                     )
                   }
-                  onDelete={() => props.setOpenDeleteCompatibilityDialog(ps.id)}
+                  onDelete={() =>
+                    setOpenDeleteCompatibilityDialog(privateService.id)
+                  }
                   onEdit={
-                    compatibleServicePass && props.updateCompatibleServicePass
-                      ? () => props.setSelectedService(ps)
+                    compatibleServicePass && updateCompatibleServicePass
+                      ? () => setSelectedService(privateService)
                       : null
                   }
-                  privateService={ps}
+                  privateService={privateService}
                 />
               ))}
 
@@ -125,44 +140,45 @@ export const PrivatePassCompatibleServiceList: React.FC<Props> = (props) => {
               <div className={classes.privateServiceSelector}>
                 <PrivateServiceSelector
                   onChange={(data: number) =>
-                    props.createCompatibleServicePass(props.pass.id, data)
+                    createCompatibleServicePass(pass.id, data)
                   }
                   placeholder={t('privatePass.form.selector.privateService')}
                   privateServices={privateServices
-                    .filter((ps) =>
-                      filterPrivateService(ps, compatibleServicePass, false),
+                    .filter((privateService) =>
+                      filterPrivateService(
+                        privateService,
+                        compatibleServicePass,
+                        false,
+                      ),
                     )
-                    .filter((ps) => ps.available)}
+                    .filter((privateService) => privateService.available)}
                 />
               </div>
 
-              <Dialog
-                open={!!props.selectedService && !!props.compatibleServicePass}
-              >
+              <Dialog open={!!selectedService && !!compatibleServicePass}>
                 <DialogTitle>
                   {t('privateServiceCompatibility.excludedSlots.title', {
-                    service:
-                      props.selectedService && props.selectedService.name,
+                    service: selectedService && selectedService.name,
                   })}
                 </DialogTitle>
                 <DialogContent>
                   <PrivateSlotCompatibleServiceForm
                     compatiblePassByService={
-                      props.compatibleServicePass &&
-                      props.compatibleServicePass.find(
+                      compatibleServicePass &&
+                      compatibleServicePass.find(
                         (c) =>
-                          props.selectedService &&
-                          c.private_service.id === props.selectedService.id,
+                          selectedService &&
+                          c.private_service.id === selectedService.id,
                       )
                     }
-                    onCancel={() => props.setSelectedService(null)}
+                    onCancel={() => setSelectedService(null)}
                     onSubmit={(data: { excluded_slot_ids: number[] }) =>
-                      props.updateCompatibleServicePass(
-                        props.pass.id,
-                        props.selectedService.id,
+                      updateCompatibleServicePass(
+                        pass.id,
+                        selectedService.id,
                         data,
                         {
-                          onSuccess: () => props.setSelectedService(null),
+                          onSuccess: () => setSelectedService(null),
                         },
                       )
                     }
@@ -170,7 +186,7 @@ export const PrivatePassCompatibleServiceList: React.FC<Props> = (props) => {
                 </DialogContent>
               </Dialog>
 
-              <Dialog open={!!props.openDeleteCompatibilityDialog}>
+              <Dialog open={!!openDeleteCompatibilityDialog}>
                 <DialogTitle>
                   {t('privateServiceCompatibility.delete.title')}
                 </DialogTitle>
@@ -180,18 +196,18 @@ export const PrivatePassCompatibleServiceList: React.FC<Props> = (props) => {
                 <DialogActions>
                   <Button
                     onClick={() => {
-                      props.setOpenDeleteCompatibilityDialog(null);
+                      setOpenDeleteCompatibilityDialog(null);
                     }}
                   >
                     {t('privateServiceCompatibility.delete.cancel')}
                   </Button>
                   <Button
                     onClick={() => {
-                      props.deleteCompatibleServicePass(
-                        props.pass.id,
-                        props.openDeleteCompatibilityDialog,
+                      deleteCompatibleServicePass(
+                        pass.id,
+                        openDeleteCompatibilityDialog,
                       );
-                      props.setOpenDeleteCompatibilityDialog(null);
+                      setOpenDeleteCompatibilityDialog(null);
                     }}
                   >
                     {t('privateServiceCompatibility.delete.submit')}

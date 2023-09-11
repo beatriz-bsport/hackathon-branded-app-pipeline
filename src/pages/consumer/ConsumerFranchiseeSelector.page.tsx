@@ -1,5 +1,4 @@
 // @ts-nocheck
-// @flow
 
 import React, { Component } from 'react';
 import { compose, withHandlers, withProps, withState } from 'recompose';
@@ -30,10 +29,7 @@ import {
   getFranchisor,
 } from '#libs/franchise/selectors';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import {
-  getCheckoutUrl,
-  getMarketplaceRoute,
-} from '#libs/marketplace/routing-utils';
+import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
 import { getThemeLoading } from '#libs/theme/selectors';
 
 type OwnProps = {
@@ -171,35 +167,10 @@ const mapWithHandlers = {
   goToNextPage:
     (props: OwnProps & ConnectedProps) =>
     (companyId: number, companyName: string) => {
-      if (WidgetUtils.isWidget()) {
-        // OLD WORKING REDIRECTION commit : 69faa5e00263ba2519510fc182f43a11b5d79122
-        if (props.next) {
-          props.pushRouter(`/checkout/${companyId}/${props.next}`);
-        } else {
-          props.pushRouter(
-            `/m/${encodeURIComponent(companyName)}/${companyId}`,
-          );
-        }
+      if (props.next) {
+        props.pushRouter(`/checkout/${companyId}/${props.next}`);
       } else {
-        // Not working on widget
-        props.fetchCompanyTheme(companyId, {
-          onSuccess: (theme) => {
-            if (props.next) {
-              props.pushRouter(
-                getCheckoutUrl(
-                  companyId,
-                  props.getCompanyThemeLoading
-                    ? false
-                    : theme.display_new_checkout_flow,
-                  null,
-                  props.next,
-                ),
-              );
-            } else {
-              props.pushRouter(getMarketplaceRoute(companyName, companyId));
-            }
-          },
-        });
+        props.pushRouter(getMarketplaceRoute(companyName, companyId));
       }
     },
 };

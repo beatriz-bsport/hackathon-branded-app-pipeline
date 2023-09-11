@@ -9,6 +9,7 @@ Build Deploy Staging:
     CLOUDFRONT_ID: E2NQSHB4DJBRY8
     SLACK_WEBHOOK_URL: "${SLACK_STAGING_WEBHOOK_URL}"
     CDN_DOMAIN: cdn.staging.bsport.io
+    INVALIDATION_LAMBDA_URL: https://6pmc3n3l2yo5krr4v3jq6qud6i0fwkqj.lambda-url.eu-west-3.on.aws/
 
 Build Deploy Production:
   extends: .Build and deploy Base
@@ -21,6 +22,7 @@ Build Deploy Production:
     CLOUDFRONT_ID: E3PVSAXDFQZX1T 
     SLACK_WEBHOOK_URL: "${SLACK_PRODUCTION_WEBHOOK_URL}"
     CDN_DOMAIN: cdn.bsport.io
+    INVALIDATION_LAMBDA_URL: https://6pmc3n3l2yo5krr4v3jq6qud6i0fwkqj.lambda-url.eu-west-3.on.aws/
  
 Build Deploy Dev:
   extends: .Build and deploy Base
@@ -33,6 +35,7 @@ Build Deploy Dev:
     S3BUCKETNAME: bsport-widget-assets-dev
     CLOUDFRONT_ID: E250Q872DC5CN7
     CDN_DOMAIN: cdn.dev.bsport.io
+    INVALIDATION_LAMBDA_URL: https://6pmc3n3l2yo5krr4v3jq6qud6i0fwkqj.lambda-url.eu-west-3.on.aws/
 
 
 .Build and deploy Base:

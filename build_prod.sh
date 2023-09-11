@@ -37,12 +37,10 @@ aws s3 cp ./widget.js s3://$S3DESTINATION/widget.js \
   --content-type application/javascript \
   --acl public-read
 
-aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths /scripts/widget.js
-
 curl --get \
    --data-urlencode paths='["/scripts/widget.js"]' \
    --data-urlencode distribution_id=${CLOUDFRONT_ID} \
    --data-urlencode token=${CLOUDFRONT_INVALIDATION_TOKEN} \
-   https://6pmc3n3l2yo5krr4v3jq6qud6i0fwkqj.lambda-url.eu-west-3.on.aws/
+   ${INVALIDATION_LAMBDA_URL}
 
 cd -

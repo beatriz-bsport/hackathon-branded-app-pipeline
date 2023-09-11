@@ -33,7 +33,7 @@ Build Deploy Dev:
     ENVIRONMENT: dev
     SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
     S3BUCKETNAME: bsport-widget-assets-dev
-    CLOUDFRONT_ID: E250Q872DC5CN7
+    CLOUDFRONT_ID: E2YERBKPKQC7FE
     CDN_DOMAIN: cdn.dev.bsport.io
     INVALIDATION_LAMBDA_URL: https://6pmc3n3l2yo5krr4v3jq6qud6i0fwkqj.lambda-url.eu-west-3.on.aws/
 

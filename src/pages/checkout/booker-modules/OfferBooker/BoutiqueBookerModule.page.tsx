@@ -142,8 +142,8 @@ import type {
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { Contract } from '#libs/subscription/types';
 import OfferBookingWaitingList from '#libs/offer/components/OfferBookingWaitingList';
-import MarketplaceBookingBlockedReason from '#libs/marketplace/components/@Booking/MarketplaceBookingBlockedReason';
-import MarketplaceSpotSelector from '#libs/marketplace/components/MarketplaceSpotSelector';
+import MarketplaceBookingBlockedReason from '#marketplacecomponents/@Booking/MarketplaceBookingBlockedReason';
+import MarketplaceSpotSelector from '#marketplacecomponents/@SpotScheduling/MarketplaceSpotSelector';
 import type { SpotType } from '#libs/spot-scheduling/types';
 import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
 import {
@@ -156,7 +156,7 @@ import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
 import { OffersGroup } from '#libs/group-offer/types';
 import { consumerAppBarHOC } from '#hocs/consumer-app-bar.hoc';
-import MarketplaceBookerModuleBuyableItems from '#libs/marketplace/components/MarketplaceBookerModuleBuyableItems';
+import MarketplaceBookerModuleBuyableItems from '#marketplacecomponents/@BuyableItem/MarketplaceBookerModuleBuyableItems';
 import Button, {
   ButtonColor,
   ButtonVariant,

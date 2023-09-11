@@ -88,12 +88,12 @@ import SubscriptionBillingInfo from '#libs/subscription/components/new-checkout-
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
 import { fetchMetaActivityDetails as fetchMetaActivityDetailsAction } from '#libs/meta-activity/actions';
 import { PrepaidLine } from '#libs/checkout/types';
-import MarketplaceContractTermsModal from '#libs/marketplace/components/MarketplaceContractTermsModal';
+import MarketplaceContractTermsModal from '#marketplacecomponents/@Subscription/MarketplaceContractTermsModal';
 import { appliesToContract } from '#libs/coupon/api';
 import { computeProrataPriceForSubscription } from '#libs/subscription/utils';
 import { ProcessingPaymentDialogPortal } from '#libs/subscription/components/new-checkout-flow/ProcessingPaymentDialog';
 import SubscriptionErrorDialog from '#libs/subscription/components/new-checkout-flow/SubscriptionErrorDialog';
-import MarketplaceContractCooldownModal from '#libs/marketplace/components/@Subscription/MarketplaceContractCooldownModal';
+import MarketplaceContractCooldownModal from '#marketplacecomponents/@Subscription/MarketplaceContractCooldownModal';
 import { BookerItem } from '#libs/booker-module/types';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';

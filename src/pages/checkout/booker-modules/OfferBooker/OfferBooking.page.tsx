@@ -114,7 +114,7 @@ import { MemberMinimal } from '#libs/member/types';
 
 import OfferSpotSelector from './OfferSpotSelector';
 import BookButton from '#libs/booker-module/components/BookButton.components';
-import GroupOfferRedirectToFirstOfferDialog from '#libs/marketplace/components/@Offer/GroupOfferRedirectToFirstOffer.dialog';
+import GroupOfferRedirectToFirstOfferDialog from '#marketplacecomponents/@Offer/GroupOfferRedirectToFirstOffer.dialog';
 
 import { REDIRECTED_TO_FIRST_OFFER_TO_BE_BOOKED } from '#libs/group-offer/constants';
 import {

@@ -27,8 +27,8 @@ import { getBillingDetailsDefaultValue } from '#libs/checkout/utils';
 import { PaymentMethod } from '#libs/payment/types';
 import { getCurrencyCode } from '#libs/theme/selectors';
 import { PaymentMethodCardSelector } from '#libs/payment/components/PaymentMethodCardSelector.component';
-import MarketplaceContractPaymentMethodList from '#libs/marketplace/components/MarketplaceContractPaymentMethodList';
-import MarketplaceCollectPaymentMethod from '#libs/marketplace/components/MarketplaceCollectPaymentMethod';
+import MarketplaceContractPaymentMethodList from '#marketplacecomponents/@Payment/MarketplaceContractPaymentMethodList';
+import MarketplaceCollectPaymentMethod from '#marketplacecomponents/@Payment/MarketplaceCollectPaymentMethod';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import './SubscriptionPaymentStyle.css';

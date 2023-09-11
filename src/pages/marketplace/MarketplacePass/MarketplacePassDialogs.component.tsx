@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import MarketplacePaymentPackDetailsModal from '#libs/marketplace/components/MarketplacePaymentPackDetailModal';
-import MarketplacePaymentPackRestrictionModal from '#libs/marketplace/components/@PaymentPack/MarketplacePaymentPackRestrictionModal';
-import MarketplacePaymentPackOffPeakRestrictionModal from '#libs/marketplace/components/@PaymentPack/MarketplacePaymentPackOffPeakRestrictionModal';
-import MarketplacePaymentPackCompatibilityModal from '#libs/marketplace/components/MarketplacePaymentPackCompatibilityModal';
-import MarketplacePrivatePassDetailsModal from '#libs/marketplace/components/MarketplacePrivatePassDetailsModal';
-import MarketplacePrivatePassCompatibilityModal from '#libs/marketplace/components/@PrivatePass/MarketplacePrivatePassCompatibilityModal';
-import MarketplacePaymentComboDetailsModal from '#libs/marketplace/components/MarketplacePaymentComboDetailModal';
+import MarketplacePaymentPackDetailsModal from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackDetailModal';
+import MarketplacePaymentPackRestrictionModal from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackRestrictionModal';
+import MarketplacePaymentPackOffPeakRestrictionModal from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackOffPeakRestrictionModal';
+import MarketplacePaymentPackCompatibilityModal from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackCompatibilityModal';
+import MarketplacePrivatePassDetailsModal from '#marketplacecomponents/@PrivatePass/MarketplacePrivatePassDetailsModal';
+import MarketplacePrivatePassCompatibilityModal from '#marketplacecomponents/@PrivatePass/MarketplacePrivatePassCompatibilityModal';
+import MarketplacePaymentComboDetailsModal from '#marketplacecomponents/@PaymentCombo/MarketplacePaymentComboDetailModal';
 import { useMarketplaceFixedDialog } from '#libs/marketplace/hooks';
 
 import {

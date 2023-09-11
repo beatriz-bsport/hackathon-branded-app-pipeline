@@ -14,7 +14,7 @@ import { CompanyTheme } from '#libs/theme/types';
 import {
   CountryMetaData,
   CountryOption,
-} from '#libs/marketplace/components/MarketplaceCollectPaymentMethod/MarketplaceCollectPaymentMethod.component';
+} from '#marketplacecomponents/@Payment/MarketplaceCollectPaymentMethod';
 import { SelectOptionWithMetaData } from './Select.component';
 import { LOCALE_LIST } from '#components/input/LocaleSelector.component';
 

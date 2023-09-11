@@ -17,7 +17,7 @@ import { PaymentCombo } from '#libs/payment-combo/types';
 import { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
 import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
 import Select from '#components/css-only/Select';
-import MarketplaceFilter from '#libs/marketplace/components/@RessourceFilter/MarketplaceFilter/MarketplaceFilter.component';
+import MarketplaceFilter from '#marketplacecomponents/@RessourceFilter/MarketplaceFilter/MarketplaceFilter.component';
 
 import './styles.css';
 

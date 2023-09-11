@@ -6,7 +6,7 @@ import Warning from '@material-ui/icons/Warning';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { formatAsDate } from '../../../../../utils/datetime';
-import MarketplacePaymentPackCreditStatus from '#libs/marketplace/components/@PaymentPack/MarketplacePaymentPackCreditStatus';
+import MarketplacePaymentPackCreditStatus from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackCreditStatus';
 
 import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
 import type { PaymentPack, MaxoutData } from '#libs/payment-packs/types';

@@ -1,8 +1,8 @@
 import React from 'react';
 import { StatusMessageWithIconSkeleton } from '#components/css-only/StatusMessageWithIcon';
 import Skeleton, { SkeletonVariant } from '#components/css-only/Skeleton';
-import { MarketplaceOfferBookingItemSkeleton } from '#libs/marketplace/components/@Booking/MarketplaceOfferBookingItem';
-import MinimalCardSkeleton from '#libs/marketplace/components/MinimalCardSkeleton';
+import { MarketplaceOfferBookingItemSkeleton } from '#marketplacecomponents/@Booking/MarketplaceOfferBookingItem';
+import MinimalCardSkeleton from '#marketplacecomponents/MinimalCardSkeleton';
 
 import './styles-skeleton.css';
 

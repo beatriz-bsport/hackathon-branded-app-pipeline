@@ -51,7 +51,7 @@ import {
   getGroupByIdCurried,
   getOffersListByGroup as getOffersListByGroupSelector,
 } from '#libs/group-offer/selectors';
-import MarketplaceFilters from '#libs/marketplace/components/@RessourceFilter/MarketplaceFilterCSSOnly';
+import MarketplaceFilters from '#marketplacecomponents/@RessourceFilter/MarketplaceFilterCSSOnly';
 import { RootState } from '../../reducers';
 import themeSelectors from '#libs/theme/selectors';
 
@@ -61,7 +61,7 @@ import {
 } from '#libs/level/actions';
 import { getActiveCustomLevels, getLevelsDetails } from '#libs/level/selectors';
 
-import MarketplaceWorkshop from '#libs/marketplace/components/MarketplaceWorkshop.component';
+import MarketplaceWorkshop from '#marketplacecomponents/@Workshop/MarketplaceWorkshop.component';
 import Analytics from '#components/analytics/Analytics.component';
 import { DATE_FORMAT, sortByDate } from '../../utils/datetime';
 import withTitle from '#hocs/with-title.hoc';

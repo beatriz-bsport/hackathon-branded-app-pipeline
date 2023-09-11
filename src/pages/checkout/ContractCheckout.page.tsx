@@ -68,14 +68,14 @@ import {
   getSubscriptionValidationUrl,
 } from '#libs/marketplace/routing-utils';
 import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
-import MarketplaceContractCheckout from '#libs/marketplace/components/@Subscription/MarketplaceContractCheckout';
+import MarketplaceContractCheckout from '#marketplacecomponents/@Subscription/MarketplaceContractCheckout';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import MarketplaceContractDetail from '#libs/marketplace/components/@Subscription/MarketplaceContractDetail';
-import MarketplaceContractTermsModal from '#libs/marketplace/components/MarketplaceContractTermsModal';
-import MarketplaceContractCooldownModal from '#libs/marketplace/components/@Subscription/MarketplaceContractCooldownModal';
+import MarketplaceContractDetail from '#marketplacecomponents/@Subscription/MarketplaceContractDetail';
+import MarketplaceContractTermsModal from '#marketplacecomponents/@Subscription/MarketplaceContractTermsModal';
+import MarketplaceContractCooldownModal from '#marketplacecomponents/@Subscription/MarketplaceContractCooldownModal';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import Carousel from '#components/css-only/Carousel';
-import MarketplaceContractNotFound from '#libs/marketplace/components/@Subscription/MarketplaceContractNotFound';
+import MarketplaceContractNotFound from '#marketplacecomponents/@Subscription/MarketplaceContractNotFound';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 
 import './styles.css';
@@ -85,7 +85,7 @@ const {
 } = require('@bsport/common/lib/master-data/error-codes/subscription');
 
 const MarketplaceContractPayment = asyncComponent(
-  () => import('#libs/marketplace/components/MarketplaceContractPayment'),
+  () => import('#marketplacecomponents/@Payment/MarketplaceContractPayment'),
 );
 
 type ownProps = {

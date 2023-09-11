@@ -22,8 +22,8 @@ import themeSelector from '#libs/theme/selectors';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
-import MarketplacePaymentPackList from '#libs/marketplace/components/MarketplacePaymentPackList';
-import MarketplacePrivatePassList from '#libs/marketplace/components/MarketplacePrivatePassList';
+import MarketplacePaymentPackList from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackList';
+import MarketplacePrivatePassList from '#marketplacecomponents/@PrivatePass/MarketplacePrivatePassList';
 
 // @ts-ignore
 import withQueryParams from '#hocs/with-query-params.hoc';
@@ -68,12 +68,12 @@ import { PaymentPack } from '#libs/payment-packs/types';
 import { PrivatePass } from '#libs/private-service/types';
 import Carousel from '#components/css-only/Carousel';
 import { PaymentCombo } from '#libs/payment-combo/types';
-import MarketplacePaymentComboCard from '#libs/marketplace/components/MarketplacePaymentComboCard';
+import MarketplacePaymentComboCard from '#marketplacecomponents/@PaymentCombo/MarketplacePaymentComboCard';
 import {
   BaseAdditionalData,
   SearchItemData,
 } from '#components/css-only/Search/Search.component';
-import MarketplacePaymentComboList from '#libs/marketplace/components/MarketplacePaymentComboList';
+import MarketplacePaymentComboList from '#marketplacecomponents/@PaymentCombo/MarketplacePaymentComboList';
 import MarketplacePassFilters from './MarketplacePassFilters';
 import {
   getParsedPassRestrictedCategories,

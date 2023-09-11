@@ -18,7 +18,7 @@ import { getLevelColor, getLevelTranslation } from '#libs/level/utils';
 import './MarketplaceFilterCSSOnly.css';
 import { getGroupedEstablishmentOptions } from '#libs/establishment/components/EstablishmentSelector.component';
 import { Theme } from '#libs/theme/types';
-import MarketplaceCalendarSearch from '#libs/marketplace/components/@Calendar/MarketplaceCalendarSearchCSSOnly/MarketplaceCalendarSearchCSSOnly.component';
+import MarketplaceCalendarSearch from '#marketplacecomponents/@Calendar/MarketplaceCalendarSearchCSSOnly/MarketplaceCalendarSearchCSSOnly.component';
 
 export type Props = {
   coaches: Coach[];

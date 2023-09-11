@@ -10,10 +10,10 @@ import GridItem, {
   Direction,
   Justification,
 } from '#components/css-only/Grid/GridItem';
-import MarketplaceEstablishmentTitle from '../../@Establishment/MarketplaceEstablishmentTitle';
+import MarketplaceEstablishmentTitle from '#marketplacecomponents/@Establishment/MarketplaceEstablishmentTitle';
 import './styles.css';
 import { CompanyTheme } from '#libs/theme/types';
-import MarketplaceCoachInfos from '../../@Coach/MarketplaceCoachInfos';
+import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoachInfos';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 export type Props = {

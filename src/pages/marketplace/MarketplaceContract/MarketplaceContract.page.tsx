@@ -26,8 +26,8 @@ import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { marketplaceCssHoc } from '../../../hocs/marketplace-css.hoc';
 import MarketplaceContractFilters from './MarketplaceContractFilters';
-import MarketplaceContractList from '#libs/marketplace/components/@Subscription/MarketplaceContractList';
-import { MarketplaceContractDetailModalPortal } from '#libs/marketplace/components/@Subscription/MarketplaceContractDetailModal';
+import MarketplaceContractList from '#marketplacecomponents/@Subscription/MarketplaceContractList';
+import { MarketplaceContractDetailModalPortal } from '#marketplacecomponents/@Subscription/MarketplaceContractDetailModal';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 
 import './styles.css';

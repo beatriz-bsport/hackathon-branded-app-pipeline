@@ -25,8 +25,8 @@ import { cloneDeep } from 'lodash';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { getCompanyCountry, getCurrencyCode } from '#libs/theme/selectors';
 import Radio from '#components/css-only/Radio';
-import MarketplaceCollectPaymentMethod from '#libs/marketplace/components/@Payment/MarketplaceCollectPaymentMethod';
-import MarketplaceContractPaymentMethodList from '#libs/marketplace/components/@Payment/MarketplaceContractPaymentMethodList';
+import MarketplaceCollectPaymentMethod from '#marketplacecomponents/@Payment/MarketplaceCollectPaymentMethod';
+import MarketplaceContractPaymentMethodList from '#marketplacecomponents/@Payment/MarketplaceContractPaymentMethodList';
 import {
   MarketplacePaymentMethodBillingDetails,
   MarketplacePaymentMethods,

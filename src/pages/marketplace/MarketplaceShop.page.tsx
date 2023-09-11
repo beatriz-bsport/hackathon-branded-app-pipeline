@@ -7,7 +7,7 @@ import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 
 import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-items';
-import MarketplaceShopComponent from '#libs/marketplace/components/MarketplaceShop.component';
+import MarketplaceShopComponent from '#marketplacecomponents/MarketplaceShop.component';
 
 import { fetchAllSubShop } from '#libs/shop/actions/subshop';
 import { fetchShopItemAsConsumer } from '#libs/shop/actions/shopitem';

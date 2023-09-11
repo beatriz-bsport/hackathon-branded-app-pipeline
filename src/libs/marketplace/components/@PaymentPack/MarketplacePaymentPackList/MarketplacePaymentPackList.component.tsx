@@ -7,7 +7,7 @@ import { Immutable } from 'seamless-immutable';
 // @ts-expect-error
 import Analytics from '../../../../../components/analytics/Analytics.component';
 
-import MarketplacePaymentPackCard from '#libs/marketplace/components/@PaymentPack/MarketplacePaymentPackCard';
+import MarketplacePaymentPackCard from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackCard';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import { useMarketplacePassFilters } from '#libs/marketplace/hooks';
 

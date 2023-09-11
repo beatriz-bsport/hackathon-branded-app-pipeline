@@ -3,87 +3,87 @@ import Immutable from 'seamless-immutable';
 import {
   MARKETPLACE_OFFER_CARD_CONFIGURATION,
   MARKETPLACE_OFFER_CARD_PREVIEW,
-} from '#libs/marketplace/components/@Offer/MarketplaceCardOfferCSSOnly';
+} from '#marketplacecomponents/@Offer/MarketplaceCardOfferCSSOnly';
 import {
   MARKETPLACE_PAYMENT_COMBO_CARD_CONFIGURATION,
   MARKETPLACE_PAYMENT_COMBO_CARD_PREVIEW,
-} from '#libs/marketplace/components/MarketplacePaymentComboCard/custom_css_variant';
+} from '#marketplacecomponents/@PaymentCombo/MarketplacePaymentComboCard/custom_css_variant';
 import {
   MARKETPLACE_PAYMENT_PACK_CARD_CONFIGURATION,
   MARKETPLACE_PAYMENT_PACK_CARD_PREVIEW,
-} from '#libs/marketplace/components/@PaymentPack/MarketplacePaymentPackCard/custom_css_variant';
+} from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackCard/custom_css_variant';
 import {
   MARKETPLACE_PAYMENT_PACK_COMPATIBILITY_MODAL_CONFIGURATION,
   MARKETPLACE_PAYMENT_PACK_COMPATIBILITY_MODAL_PREVIEW,
-} from '#libs/marketplace/components/MarketplacePaymentPackCompatibilityModal/custom_css_variant';
+} from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackCompatibilityModal/custom_css_variant';
 import {
   MARKETPLACE_PAYMENT_PACK_RESTRICTION_MODAL_CONFIGURATION,
   MARKETPLACE_PAYMENT_PACK_RESTRICTION_MODAL_PREVIEW,
-} from '#libs/marketplace/components/@PaymentPack/MarketplacePaymentPackRestrictionModal/custom_css_variant';
+} from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackRestrictionModal/custom_css_variant';
 import {
   MARKETPLACE_PRIVATE_PASS_CARD_CONFIGURATION,
   MARKETPLACE_PRIVATE_PASS_CARD_PREVIEW,
-} from '#libs/marketplace/components/MarketplacePrivatePassCard/custom_css_variant';
+} from '#marketplacecomponents/@PrivatePass/MarketplacePrivatePassCard/custom_css_variant';
 import {
   MARKETPLACE_PRIVATE_PASS_COMPATIBILITY_MODAL_CONFIGURATION,
   MARKETPLACE_PRIVATE_PASS_COMPATIBILITY_MODAL_PREVIEW,
-} from '#libs/marketplace/components/@PrivatePass/MarketplacePrivatePassCompatibilityModal/custom_css_variant';
+} from '#marketplacecomponents/@PrivatePass/MarketplacePrivatePassCompatibilityModal/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_CARD_CONFIGURATION,
   MARKETPLACE_CONTRACT_CARD_PREVIEW,
-} from '#libs/marketplace/components/@Subscription/MarketplaceContractCard/custom_css_variant';
+} from '#marketplacecomponents/@Subscription/MarketplaceContractCard/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_CHECKOUT_CONFIGURATION,
   MARKETPLACE_CONTRACT_CHECKOUT_PREVIEW,
-} from '#libs/marketplace/components/@Subscription/MarketplaceContractCheckout/custom_css_variant';
+} from '#marketplacecomponents/@Subscription/MarketplaceContractCheckout/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_DETAIL_CONFIGURATION,
   MARKETPLACE_CONTRACT_DETAIL_PREVIEW,
-} from '#libs/marketplace/components/@Subscription/MarketplaceContractDetail/custom_css_variant';
+} from '#marketplacecomponents/@Subscription/MarketplaceContractDetail/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_DETAIL_MODAL_CONFIGURATION,
   MARKETPLACE_CONTRACT_DETAIL_MODAL_PREVIEW,
-} from '#libs/marketplace/components/@Subscription/MarketplaceContractDetailModal/custom_css_variant';
+} from '#marketplacecomponents/@Subscription/MarketplaceContractDetailModal/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_TERMS_MODAL_CONFIGURATION,
   MARKETPLACE_CONTRACT_TERMS_MODAL_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceContractTermsModal/custom_css_variant';
+} from '#marketplacecomponents/@Subscription/MarketplaceContractTermsModal/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_COOLDOWN_MODAL_CONFIGURATION,
   MARKETPLACE_CONTRACT_COOLDOWN_MODAL_PREVIEW,
-} from '#libs/marketplace/components/@Subscription/MarketplaceContractCooldownModal/custom_css_variant';
+} from '#marketplacecomponents/@Subscription/MarketplaceContractCooldownModal/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_COUPON_FORM_MODAL_CONFIGURATION,
   MARKETPLACE_CONTRACT_COUPON_FORM_MODAL_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceCouponFormModal/custom_css_variant';
+} from '#marketplacecomponents/@Coupon/MarketplaceCouponFormModal/custom_css_variant';
 import {
   MARKETPLACE_PAYMENT_PACK_OFFPEAK_RESTRICTION_MODAL_CONFIGURATION,
   MARKETPLACE_PAYMENT_PACK_OFFPEAK_RESTRICTION_MODAL_PREVIEW,
-} from '#libs/marketplace/components/@PaymentPack/MarketplacePaymentPackOffPeakRestrictionModal/custom_css_variant';
+} from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackOffPeakRestrictionModal/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_NOT_FOUND_CONFIGURATION,
   MARKETPLACE_CONTRACT_NOT_FOUND_PREVIEW,
-} from '#libs/marketplace/components/@Subscription/MarketplaceContractNotFound/custom_css_variant';
+} from '#marketplacecomponents/@Subscription/MarketplaceContractNotFound/custom_css_variant';
 import {
   MARKETPLACE_CONTRACT_PAYMENT_CONFIGURATION,
   MARKETPLACE_CONTRACT_PAYMENT_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceContractPayment/custom_css_variant';
+} from '#marketplacecomponents/@Payment/MarketplaceContractPayment/custom_css_variant';
 import {
   MARKETPLACE_COLLECT_PAYMENT_METHOD_CONFIGURATION,
   MARKETPLACE_COLLECT_PAYMENT_METHOD_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceCollectPaymentMethod/custom_css_variant';
+} from '#marketplacecomponents/@Payment/MarketplaceCollectPaymentMethod/custom_css_variant';
 import {
   MARKETPLACE_CALENDAR_FILTER_CONFIGURATION,
   MARKETPLACE_CALENDAR_FILTER_PREVIEW,
-} from '#libs/marketplace/components/@RessourceFilter/MarketplaceFilterCSSOnly/custom_css_variant';
+} from '#marketplacecomponents/@RessourceFilter/MarketplaceFilterCSSOnly/custom_css_variant';
 import {
   MARKETPLACE_OFFER_LIST_ITEM_CONFIGURATION,
   MARKETPLACE_OFFER_LIST_ITEM_PREVIEW,
-} from '#libs/marketplace/components/@Offer/MarketplaceOfferListItemCSSOnly/custom_css_variant';
+} from '#marketplacecomponents/@Offer/MarketplaceOfferListItemCSSOnly/custom_css_variant';
 import {
   MARKETPLACE_WEEK_TIME_TABLE_CONFIGURATION,
   MARKETPLACE_WEEK_TIME_TABLE_PREVIEW,
-} from '#libs/marketplace/components/@Calendar/MarketplaceWeekTimeTableCSSOnly/custom_css_variant';
+} from '#marketplacecomponents/@Calendar/MarketplaceWeekTimeTableCSSOnly/custom_css_variant';
 import {
   MARKETPLACE_SEARCH_CONFIGURATION,
   MARKETPLACE_SEARCH_PREVIEW,
@@ -91,11 +91,11 @@ import {
 import {
   MARKETPLACE_FILTER_CONFIGURATION,
   MARKETPLACE_FILTER_PREVIEW,
-} from '#libs/marketplace/components/@RessourceFilter/MarketplaceFilter/custom_css_variant';
+} from '#marketplacecomponents/@RessourceFilter/MarketplaceFilter/custom_css_variant';
 import {
   MARKETPLACE_DATE_PICKER_CONFIGURATION,
   MARKETPLACE_DATE_PICKER_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceDatePicker/custom_css_variant';
+} from '#marketplacecomponents/@Date/MarketplaceDatePicker/custom_css_variant';
 import {
   MARKETPLACE_SELECT_CONFIGURATION,
   MARKETPLACE_SELECT_PREVIEW,
@@ -110,55 +110,55 @@ import {
 /* import {
   MARKETPLACE_GROUP_OFFER_LIST_ITEM_CONFIGURATION,
   MARKETPLACE_GROUP_OFFER_LIST_ITEM_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceGroupOfferListItem.component';
+} from '#marketplacecomponents/MarketplaceGroupOfferListItem.component';
 import {
   MARKETPLACE_WORKSHOP_CARD_CONFIGURATION,
   MARKETPLACE_WORKSHOP_CARD_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceWorkshopCard.component';
+} from '#marketplacecomponents/MarketplaceWorkshopCard.component';
 import {
   MARKETPLACE_FILTER_CONFIGURATION,
   MARKETPLACE_FILTER_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceFilterCSSOnly';
+} from '#marketplacecomponents/MarketplaceFilterCSSOnly';
 import {
   MARKETPLACE_FILTERS_CONFIGURATION,
   MARKETPLACE_FILTERS_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceFiltersCSSOnly';
+} from '#marketplacecomponents/MarketplaceFiltersCSSOnly';
 import {
   MARKETPLACE_BOOK_BUTTON_CONFIGURATION,
   MARKETPLACE_BOOK_BUTTON_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceBookButtonCSSOnly';
+} from '#marketplacecomponents/MarketplaceBookButtonCSSOnly';
 import {
   MARKETPLACE_DATE_PICKER_CONFIGURATION,
   MARKETPLACE_DATE_PICKER_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceDatePicker';
+} from '#marketplacecomponents/MarketplaceDatePicker';
 import {
   MARKETPLACE_ACTIVITY_CONFIGURATION,
   MARKETPLACE_ACTIVITY_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceActivityCSSOnly';
+} from '#marketplacecomponents/MarketplaceActivityCSSOnly';
 import {
   MARKETPLACE_CALENDAR_CONFIGURATION,
   MARKETPLACE_CALENDAR_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceCalendarCSSOnly';
+} from '#marketplacecomponents/MarketplaceCalendarCSSOnly';
 import {
   MARKETPLACE_TIME_TABLE_CONFIGURATION,
   MARKETPLACE_TIME_TABLE_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceWeekTimeTableCSSOnly';
+} from '#marketplacecomponents/MarketplaceWeekTimeTableCSSOnly';
 import {
   MARKETPLACE_OFFER_LIST_ITEM_CONFIGURATION,
   MARKETPLACE_OFFER_LIST_ITEM_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceOfferListItemCSSOnly';
+} from '#marketplacecomponents/MarketplaceOfferListItemCSSOnly';
 import {
   MARKETPLACE_LEVEL_CONFIGURATION,
   MARKETPLACE_LEVEL_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceLevelCSSOnly';
+} from '#marketplacecomponents/MarketplaceLevelCSSOnly';
 import {
   MARKETPLACE_BROADCAST_CONFIGURATION,
   MARKETPLACE_BROADCAST_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceBroadcastCSSOnly';
+} from '#marketplacecomponents/MarketplaceBroadcastCSSOnly';
 import {
   MARKETPLACE_WORKSHOP_CONFIGURATION,
   MARKETPLACE_WORKSHOP_PREVIEW,
-} from '#libs/marketplace/components/MarketplaceWorkshop.component';
+} from '#marketplacecomponents/MarketplaceWorkshop.component';
 */
 
 export const EXPORTABLE_COMPONENT_TYPE_VOD = 'vod';

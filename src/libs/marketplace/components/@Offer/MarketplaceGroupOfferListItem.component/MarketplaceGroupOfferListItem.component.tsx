@@ -16,7 +16,7 @@ import { Establishment } from '#libs/establishment/types';
 
 import { MetaActivity } from '#libs/meta-activity/types';
 import { OffersGroup } from '#libs/group-offer/types';
-import MarketPlaceLevel from '#libs/marketplace/components/@Offer/MarketplaceLevelCSSOnly';
+import MarketPlaceLevel from '#marketplacecomponents/@Offer/MarketplaceLevelCSSOnly';
 import { Level } from '#libs/level/types';
 import MarketplaceOfferListItem from '../MarketplaceOfferListItemCSSOnly';
 import {
@@ -25,8 +25,8 @@ import {
   getPositionOfOfferInTheList,
 } from '../../../utils';
 import './MarketplaceGroupOfferListItem.css';
-import MarketplaceCoachInfos from '#libs/marketplace/components/@Coach/MarketplaceCoachInfos';
-import MarketplaceEstablishmentTitle from '#libs/marketplace/components/@Establishment/MarketplaceEstablishmentTitle';
+import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoachInfos';
+import MarketplaceEstablishmentTitle from '#marketplacecomponents/@Establishment/MarketplaceEstablishmentTitle';
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 
 export type Props = {

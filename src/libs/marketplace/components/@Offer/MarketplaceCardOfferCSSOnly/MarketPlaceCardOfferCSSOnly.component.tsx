@@ -8,10 +8,10 @@ import { ArrowLeft } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import MaleIcon from '../../../../../components/icons/MaleIcon.component';
 import FemaleIcon from '../../../../../components/icons/FemaleIcon.component';
-import MarketplaceBookButton from '#libs/marketplace/components/@Booking/MarketplaceBookButton';
+import MarketplaceBookButton from '#marketplacecomponents/@Booking/MarketplaceBookButton';
 import MarketplaceLevel from '../MarketplaceLevelCSSOnly';
 import { Offer } from '#libs/offer/types';
-import MarketplaceBroadcast from '../../@Broadcast/MarketplaceBroadcastCSSOnly';
+import MarketplaceBroadcast from '#marketplacecomponents/@Broadcast/MarketplaceBroadcastCSSOnly';
 import { useOfferHours } from '../../../hooks';
 import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
@@ -19,8 +19,8 @@ import {
   AVAILABLE_BOOKING_ELEMENTS_IDS,
   MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
 } from '#libs/marketplace/constants';
-import MarketplaceCoachInfos from '#libs/marketplace/components/@Coach/MarketplaceCoachInfos';
-import MarketplaceEstablishmentTitle from '#libs/marketplace/components/@Establishment/MarketplaceEstablishmentTitle';
+import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoachInfos';
+import MarketplaceEstablishmentTitle from '#marketplacecomponents/@Establishment/MarketplaceEstablishmentTitle';
 import { Theme } from '#libs/theme/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { OffersGroup } from '#libs/group-offer/types';

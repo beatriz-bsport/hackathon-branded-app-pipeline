@@ -21,10 +21,10 @@ import { Establishment } from '#libs/establishment/types';
 
 import { useOfferHours } from '#libs/marketplace/hooks';
 
-import MarketplaceBookButton from '#libs/marketplace/components/@Booking/MarketplaceBookButton';
+import MarketplaceBookButton from '#marketplacecomponents/@Booking/MarketplaceBookButton';
 import { MetaActivity } from '#libs/meta-activity/types';
-import MarketPlaceLevel from '#libs/marketplace/components/@Offer/MarketplaceLevelCSSOnly';
-import MarketplaceBroadcast from '#libs/marketplace/components/@Broadcast/MarketplaceBroadcastCSSOnly';
+import MarketPlaceLevel from '#marketplacecomponents/@Offer/MarketplaceLevelCSSOnly';
+import MarketplaceBroadcast from '#marketplacecomponents/@Broadcast/MarketplaceBroadcastCSSOnly';
 import MarketplaceCalendarVariant from '#libs/marketplace/types';
 import {
   AVAILABLE_BOOKING_ELEMENTS_IDS,
@@ -33,8 +33,8 @@ import {
 import { Level } from '#libs/level/types';
 
 import './MarketplaceOfferListItemCSSOnly.css';
-import MarketplaceCoachInfos from '#libs/marketplace/components/@Coach/MarketplaceCoachInfos';
-import MarketplaceEstablishmentTitle from '#libs/marketplace/components/@Establishment/MarketplaceEstablishmentTitle';
+import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoachInfos';
+import MarketplaceEstablishmentTitle from '#marketplacecomponents/@Establishment/MarketplaceEstablishmentTitle';
 import FreeOfferChip from '#csscomponents/FreeOfferChip';
 
 import PopOver from '#components/Popover';

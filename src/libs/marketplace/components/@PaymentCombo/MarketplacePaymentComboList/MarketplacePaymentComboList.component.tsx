@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 
 // @ts-expect-error
-import Analytics from '../../../../components/analytics/Analytics.component';
-import MarketplacePaymentComboCard from '#libs/marketplace/components/MarketplacePaymentComboCard';
+import Analytics from '../../../../../components/analytics/Analytics.component';
+import MarketplacePaymentComboCard from '#marketplacecomponents/@PaymentCombo/MarketplacePaymentComboCard';
 import { useMarketplacePassFilters } from '#libs/marketplace/hooks';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 

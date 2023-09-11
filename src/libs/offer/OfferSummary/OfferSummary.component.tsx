@@ -36,7 +36,7 @@ import DEFAULT_PROFILE_PICTURE_URL from '../../../assets/constants';
 import { CompanyTheme } from '#libs/theme/types';
 
 import BookingConfirmButton from '#libs/booking/components/BookingConfirmButton.component';
-import MarketplaceBroadcastCSSOnly from '#libs/marketplace/components/@Broadcast/MarketplaceBroadcastCSSOnly';
+import MarketplaceBroadcastCSSOnly from '#marketplacecomponents/@Broadcast/MarketplaceBroadcastCSSOnly';
 import { OfferSummarySkeleton } from '.';
 
 export type Props = {

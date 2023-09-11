@@ -47,7 +47,7 @@ import type { RootState } from '../../../../reducers';
 import { BuyableItemOptions, type Basket } from '#libs/checkout/types';
 
 import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
-import MarketplaceOfferBookingList from '#libs/marketplace/components/MarketplaceOfferBookingList';
+import MarketplaceOfferBookingList from '#marketplacecomponents/@Booking/MarketplaceOfferBookingList';
 
 import './styles.css';
 import {
@@ -58,11 +58,11 @@ import {
 import { getPaymentPackById } from '#libs/payment-packs/selectors';
 import { getPrivatePassById } from '#libs/private-service/selectors/private-pass';
 import { getPaymenComboDataDict } from '#libs/payment-combo/selectors';
-import MarketplaceCheckoutItemsWithPaymentPackList from '#libs/marketplace/components/MarketplaceCheckoutItemsWithPaymentPackList';
-import MarketplaceCheckoutItemsWithPrivatePassList from '#libs/marketplace/components/MarketplaceCheckoutItemsWithPrivatePassList';
-import MarketplaceCheckoutItemsWithPaymentComboList from '#libs/marketplace/components/@CheckoutItem/MarketplaceCheckoutItemsWithPaymentComboList';
-import MarketplaceProductItemList from '#libs/marketplace/components/@CheckoutItem/MarketplaceProductItemList';
-import MinimalSubscriptionCard from '#libs/marketplace/components/@Subscription/MinimalSubscriptionCard';
+import MarketplaceCheckoutItemsWithPaymentPackList from '#marketplacecomponents/@CheckoutItem/MarketplaceCheckoutItemsWithPaymentPackList';
+import MarketplaceCheckoutItemsWithPrivatePassList from '#marketplacecomponents/@CheckoutItem/MarketplaceCheckoutItemsWithPrivatePassList';
+import MarketplaceCheckoutItemsWithPaymentComboList from '#marketplacecomponents/@CheckoutItem/MarketplaceCheckoutItemsWithPaymentComboList';
+import MarketplaceProductItemList from '#marketplacecomponents/@CheckoutItem/MarketplaceProductItemList';
+import MinimalSubscriptionCard from '#marketplacecomponents/@Subscription/MinimalSubscriptionCard';
 import { Subscription } from '#libs/subscription/types';
 
 import ConfirmationMessage from '#libs/checkout/components/ConfirmationMessage';

@@ -5,7 +5,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import MarketplaceCouponFormModal from '#libs/marketplace/components/@Coupon/MarketplaceCouponFormModal';
+import MarketplaceCouponFormModal from '#marketplacecomponents/@Coupon/MarketplaceCouponFormModal';
 
 import { OptionCallback } from '../../../../../../state/types';
 

@@ -63,4 +63,6 @@ exports.default = {
   params: 'Settings',
   back: 'Back',
   recommended: 'Recommended',
+  day: 'day',
+  day_plural: 'days',
 };

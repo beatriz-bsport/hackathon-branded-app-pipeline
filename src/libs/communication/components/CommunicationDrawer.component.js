@@ -13,6 +13,9 @@ import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import Radio from '@material-ui/core/Radio';
+import RepeatIcon from '@material-ui/icons/Repeat';
+import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
@@ -91,6 +94,8 @@ type State = {
   notificationTitle: string,
   notificationContent: string,
   page_size: number,
+  resendCount: number,
+  resendDelay: number,
 };
 const MEMBER_PAGE_SIZE = 5;
 
@@ -108,6 +113,8 @@ export class CommunicationDrawer extends Component<Props, State> {
       notificationTitle: '',
       notificationContent: '',
       page_size: props.page_size || MEMBER_PAGE_SIZE,
+      resendCount: 0,
+      resendDelay: 0,
     };
   }
 
@@ -131,6 +138,17 @@ export class CommunicationDrawer extends Component<Props, State> {
       });
     }
   }
+
+  getInputChangeHandler =
+    (inputName: string, minValue: number, maxValue: number) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      let sanitizedValue = event.target.value;
+      if (Number.isNaN(parseInt(sanitizedValue))) sanitizedValue = 0;
+      sanitizedValue = Math.max(minValue, sanitizedValue);
+      sanitizedValue = Math.min(maxValue, sanitizedValue);
+
+      this.setState({ [inputName]: sanitizedValue });
+    };
 
   handleToggle = (_value: string) => () => {
     const value = parseInt(_value, 10);
@@ -328,10 +346,17 @@ export class CommunicationDrawer extends Component<Props, State> {
     this.setState({ openRefreshDialog: true });
   };
 
-  checkValidity = () => {
+  checkErrors = () => {
+    let resendConfigurationIsValid = true;
+    if (this.state.resendCount + this.state.resendDelay > 0) {
+      resendConfigurationIsValid =
+        this.state.resendCount > 0 && this.state.resendDelay > 0;
+    }
+
     switch (this.state.actionType) {
       case WRITE_EMAIL:
         return (
+          !resendConfigurationIsValid ||
           this.state.mailContent === '' ||
           this.state.mailTitle === '' ||
           !(
@@ -349,6 +374,7 @@ export class CommunicationDrawer extends Component<Props, State> {
         );
       case SELECT_EMAIL:
         return (
+          !resendConfigurationIsValid ||
           !this.state.selectedTemplate ||
           this.state.mailTitle === '' ||
           !(
@@ -383,6 +409,8 @@ export class CommunicationDrawer extends Component<Props, State> {
           member_blacklist: this.state.unCheckedMembers.email,
           subject: this.state.mailTitle,
           body: this.state.mailContent,
+          resend_count: this.state.resendCount,
+          resend_delay: this.state.resendDelay,
         });
         break;
       case SEND_SMS:
@@ -396,6 +424,8 @@ export class CommunicationDrawer extends Component<Props, State> {
           member_blacklist: this.state.unCheckedMembers.email,
           email_template: this.state.selectedTemplate,
           subject: this.state.mailTitle,
+          resend_count: this.state.resendCount,
+          resend_delay: this.state.resendDelay,
         });
         break;
       case SEND_PUSH_NOTIFICATION:
@@ -449,6 +479,7 @@ export class CommunicationDrawer extends Component<Props, State> {
       fetchPreviousPage,
       t,
       resolvedGenericTags,
+      classes,
     } = this.props;
 
     return (
@@ -572,6 +603,59 @@ export class CommunicationDrawer extends Component<Props, State> {
                   }}
                 />
               )}
+
+              {[WRITE_EMAIL, SELECT_EMAIL].includes(this.state.actionType) && (
+                <div className={classes.resendSectionContainer}>
+                  <div className={classes.sectionTitle}>
+                    <RepeatIcon className={classes.sectionTitleIcon} />
+                    <Typography variant="h6">
+                      {t('resendSection.title')}
+                    </Typography>
+                  </div>
+                  <div className={classes.inputContainer}>
+                    <TextField
+                      fullWidth
+                      helperText={t('resendSection.resendCount.helperText')}
+                      inputProps={{ min: 0, max: 5 }}
+                      label={t('resendSection.resendCount.label')}
+                      onChange={this.getInputChangeHandler('resendCount', 0, 5)}
+                      type="number"
+                      value={this.state.resendCount}
+                    />
+                  </div>
+
+                  <div className={classes.inputContainer}>
+                    <TextField
+                      fullWidth
+                      helperText={t('resendSection.resendDelay.helperText')}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment
+                            className={classes.adornment}
+                            position="end"
+                          >
+                            <Typography>
+                              {t('common:day', {
+                                count: this.state.resendDelay,
+                              })}
+                            </Typography>
+                          </InputAdornment>
+                        ),
+                        inputProps: { min: 0, max: 180 },
+                      }}
+                      label={t('resendSection.resendDelay.label')}
+                      onChange={this.getInputChangeHandler(
+                        'resendDelay',
+                        0,
+                        180,
+                      )}
+                      type="number"
+                      value={this.state.resendDelay}
+                    />
+                  </div>
+                </div>
+              )}
+
               <DialogActions>
                 <Button
                   color="secondary"
@@ -584,7 +668,7 @@ export class CommunicationDrawer extends Component<Props, State> {
                 </Button>
                 <Button
                   color="primary"
-                  disabled={this.checkValidity()}
+                  disabled={this.checkErrors()}
                   type="submit"
                   variant="outlined"
                 >
@@ -622,9 +706,43 @@ const styles = (theme) => ({
   center: {
     textAlign: 'center',
   },
+  sectionTitleContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: theme.spacing(5),
+    width: '100%',
+  },
+  sectionTitle: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(1),
+  },
+  sectionTitleIcon: {
+    color: theme.palette.text.secondary,
+  },
+  arrowUpIcon: {
+    transform: 'rotate(0)',
+    transition: 'all ease 0.3s',
+  },
+  rotate: {
+    transform: 'rotate(-180deg)',
+  },
+  adornment: {
+    paddingLeft: theme.spacing(1),
+    color: theme.palette.text.secondary,
+  },
+  inputContainer: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+  },
+  resendSectionContainer: {
+    marginTop: theme.spacing(4),
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+  },
 });
 
 export default compose(
-  withTranslation(['communication']),
+  withTranslation(['communication', 'common']),
   withStyles(styles),
 )(CommunicationDrawer);

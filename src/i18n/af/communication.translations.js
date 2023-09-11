@@ -305,6 +305,18 @@ exports.default = {
     },
     writeCommunication: 'Send a message',
   },
+  resendSection: {
+    title: 'Resends',
+    resendCount: {
+      label: 'Number of automatic resends',
+      helperText:
+        'The email will be resent to all recipients who did not open it. Maximum value: 5',
+    },
+    resendDelay: {
+      label: 'Delay before resending',
+      helperText: 'Maximum value: 180',
+    },
+  },
   generic: { history: 'History', communication: 'Communication' },
   thread: {
     item: {

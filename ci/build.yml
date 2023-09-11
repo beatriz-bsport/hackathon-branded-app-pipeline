@@ -35,7 +35,7 @@ Build Deploy Dev:
     S3BUCKETNAME: bsport-widget-assets-dev
     CLOUDFRONT_ID: E2YERBKPKQC7FE
     CDN_DOMAIN: cdn.dev.bsport.io
-    INVALIDATION_LAMBDA_URL: https://6pmc3n3l2yo5krr4v3jq6qud6i0fwkqj.lambda-url.eu-west-3.on.aws/
+    INVALIDATION_LAMBDA_URL: https://uc7e26gvpwrprl5hubmfe4zeou0zyqyu.lambda-url.eu-west-3.on.aws/
 
 
 .Build and deploy Base:

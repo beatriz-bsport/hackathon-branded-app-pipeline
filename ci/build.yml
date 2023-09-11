@@ -40,7 +40,7 @@ Build Deploy Dev:
   stage: build-deploy 
   tags:
     - high-ram
-    - kubernetes
+    - cluster:bsport-tooling
   only:
     refs:
       - dev

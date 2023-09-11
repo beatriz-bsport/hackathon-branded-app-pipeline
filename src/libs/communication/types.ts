@@ -59,6 +59,8 @@ export type Report = {
   delivery_count: number;
   last_open?: string;
   top_links: { [key: string]: number };
+  resent_on: string[];
+  planned_resends: string[];
 };
 
 export type MailState = {

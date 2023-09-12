@@ -246,8 +246,13 @@ export class PrivatePassDetails extends Component<Props> {
       : null;
     if (!this.props.privatePass) return <BackofficeLinearProgress />;
     return (
-      <ObjectLevelPermissionProviderComponent requiredPermission="product.privatePass.allowed_actions.edit">
-        {(hasEditPermission: boolean) => (
+      <ObjectLevelPermissionProviderComponent
+        requiredPermission={[
+          'product.privatePass.allowed_actions.edit',
+          'product.privatePass.allowed_actions.compatibility',
+        ]}
+      >
+        {([hasEditPermission, hasCompatibilityPermission]: boolean[]) => (
           <Grid container alignItems="stretch" spacing={3}>
             <Grid item className={classes.privatePassDetail} md={6} xs={12}>
               {privatePass && (
@@ -269,6 +274,7 @@ export class PrivatePassDetails extends Component<Props> {
                   <div className={classes.compatiblePSCard}>
                     <PrivatePassCompatibleServiceList
                       isManager
+                      canEdit={hasCompatibilityPermission}
                       compatibleServicePass={this.props.compatibleServicePass}
                       createCompatibleServicePass={
                         this.props.createCompatibleServicePass

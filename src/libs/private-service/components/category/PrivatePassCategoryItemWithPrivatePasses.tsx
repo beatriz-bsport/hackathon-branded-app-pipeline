@@ -33,9 +33,9 @@ import { ManagerOnly } from '../../../payment-packs/components/PaymentPackFilter
 import withConfirm from '../../../../hocs/with-confirm.hoc';
 
 type Props = {
-  onEdit?: (pp: PrivatePass) => void;
-  onDelete: (ppId: number) => void;
-  onClick: (ppId: number) => void;
+  onEdit?: (privatePass: PrivatePass) => void;
+  onDelete: (privatePassId: number) => void;
+  onClick: (privatePassId: number) => void;
   privatePassCategory: PrivatePassCategoryWithPasses;
   setSelectedCategory: (category: PrivatePassCategory) => void;
   showCategoryEditDialog: () => void;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { compose, withState } from 'recompose';
 import { useTranslation } from 'react-i18next';
 
@@ -34,6 +34,7 @@ type Props = {
   privateServices: Array<PrivateServiceWithSlots>;
   compatibleServicePass: Array<ServiceCompatibilityPass>;
   isManager: boolean;
+  canEdit: boolean;
 
   deleteCompatibleServicePass?: (
     privatePassId: number,
@@ -61,6 +62,7 @@ export const PrivatePassCompatibleServiceList: React.FC<Props> = ({
   pass,
   privateServices,
   compatibleServicePass,
+  canEdit,
   isManager,
   deleteCompatibleServicePass,
   createCompatibleServicePass,
@@ -72,6 +74,18 @@ export const PrivatePassCompatibleServiceList: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(['privateService']);
   const classes = useStyles();
+
+  const handleDelete = useCallback(
+    (privateService: PrivateService) => () =>
+      setOpenDeleteCompatibilityDialog(privateService.id),
+    [setOpenDeleteCompatibilityDialog],
+  );
+
+  const handleEdit = useCallback(
+    (privateService: PrivateService) => () =>
+      setSelectedService(privateService),
+    [setSelectedService],
+  );
 
   return (
     <Paper className={classes.paper}>
@@ -100,13 +114,12 @@ export const PrivatePassCompatibleServiceList: React.FC<Props> = ({
                       (c) => c.private_service.id === privateService.id,
                     )
                   }
-                  onDelete={() =>
-                    setOpenDeleteCompatibilityDialog(privateService.id)
-                  }
+                  onDelete={canEdit && handleDelete(privateService)}
                   onEdit={
-                    compatibleServicePass && updateCompatibleServicePass
-                      ? () => setSelectedService(privateService)
-                      : null
+                    canEdit &&
+                    compatibleServicePass &&
+                    updateCompatibleServicePass &&
+                    handleEdit(privateService)
                   }
                   privateService={privateService}
                 />

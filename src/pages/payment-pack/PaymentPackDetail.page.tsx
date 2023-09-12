@@ -148,6 +148,7 @@ import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/ac
 
 import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
 import DeleteNoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/DeleteNoShowPenaltyDialog.component';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type OwnProps = {
   id: number;
@@ -343,234 +344,246 @@ export class PaymentPackDetail extends Component<Props, State> {
       ? this.props.paymentPackCategoryById[pack.category]
       : {};
     return (
-      <Grid container alignItems="stretch" spacing={3}>
-        <Grid item className={classes.paymentPackContainer} md={6} xs={12}>
-          <NoShowPenaltyDialog
-            goToSettings={this.props.goToSettings}
-            onClose={this.closeNoShowPenaltyDialog}
-            open={this.props.openNoShowPenaltyDialog}
-          />
-          <DeleteNoShowPenaltyDialog
-            onClose={this.closeDeleteNoShowPenaltyDialog}
-            open={this.props.openDeleteNoShowPenaltyDialog}
-          />
-          <PaymentPackCard
-            isManager
-            creditScaleFactor={this.props.theme.pass_credit_factor}
-            loadingMassExtension={this.props.loadingMassExtension}
-            onDeleteButtonClick={
-              pack.template_instance ? null : () => this.requestDelete(pack)
-            }
-            onEditButtonClick={() => this.requestEdit(pack)}
-            onScaleCredit={
-              !!this.props.pack &&
-              !this.props.pack.template_instance &&
-              this.props.scaleCredit
-            }
-            pack={pack}
-            paymentPackCategory={paymentPackCategory?.name}
-            scaleCreditLoading={this.props.scaleCreditLoading}
-            snackbarSuccess={this.props.snackbarSuccess}
-          />
-          {pack?.linked_private_pass && (
-            <div className={classes.compatiblePSCard}>
-              <PrivatePassCompatibleServiceList
+      <ObjectLevelPermissionProviderComponent requiredPermission="product.privatePass.allowed_actions.compatibility">
+        {(hasCompatibilityPermission: boolean) => (
+          <Grid container alignItems="stretch" spacing={3}>
+            <Grid item className={classes.paymentPackContainer} md={6} xs={12}>
+              <NoShowPenaltyDialog
+                goToSettings={this.props.goToSettings}
+                onClose={this.closeNoShowPenaltyDialog}
+                open={this.props.openNoShowPenaltyDialog}
+              />
+              <DeleteNoShowPenaltyDialog
+                onClose={this.closeDeleteNoShowPenaltyDialog}
+                open={this.props.openDeleteNoShowPenaltyDialog}
+              />
+              <PaymentPackCard
                 isManager
-                compatibleServicePass={this.props.compatibleServicePass}
-                createCompatibleServicePass={
-                  this.props.createCompatibleServicePass
+                creditScaleFactor={this.props.theme.pass_credit_factor}
+                loadingMassExtension={this.props.loadingMassExtension}
+                onDeleteButtonClick={
+                  pack.template_instance ? null : () => this.requestDelete(pack)
                 }
-                deleteCompatibleServicePass={
-                  this.props.deleteCompatibleServicePass
+                onEditButtonClick={() => this.requestEdit(pack)}
+                onScaleCredit={
+                  !!this.props.pack &&
+                  !this.props.pack.template_instance &&
+                  this.props.scaleCredit
                 }
-                pass={this.props.linkedPrivatePass}
-                privateServices={this.props.privateServices}
-                updateCompatibleServicePass={
-                  this.props.updateCompatibleServicePass
-                }
+                pack={pack}
+                paymentPackCategory={paymentPackCategory?.name}
+                scaleCreditLoading={this.props.scaleCreditLoading}
+                snackbarSuccess={this.props.snackbarSuccess}
               />
-            </div>
-          )}
-          <MarketingRuleListItemPaymentPack
-            is_expired
-            createNotification={this.createNotification}
-            deleteNotification={this.props.deleteMarketingNotification}
-            emailDetailLoading={this.props.emailDetailLoading}
-            emailDetails={this.props.email_templates_details}
-            emailListLoading={this.props.emailListLoading}
-            emails={this.props.email_templates_list}
-            getEmailDetail={this.props.fetchEmailTemplateDetail}
-            getEmails={this.props.fetchEmailTemplatesSummaries}
-            getSmartLists={this.props.getSmartLists}
-            goToSmartlist={this.props.goToSmartlist}
-            notifications={notifications}
-            pack={pack}
-            resolvedGenericTags={this.props.resolvedGenericTags}
-            smartListLoading={this.props.smartListLoading}
-            smartLists={this.props.smartLists}
-            tags={this.props.tagCategories}
-            updateNotification={this.props.updateMarketingNotification}
-          />
-        </Grid>
-        <Grid item md={6} xs={12}>
-          <Paper>
-            <ConsumerPaymentPackFilters
-              filters={this.props.filters}
-              open={this.props.open}
-              setFiltersValue={this.props.setFilterValue}
-              setOpenValue={this.props.setOpenValue}
-              t={this.props.t}
-            />
-            <Divider />
-            <PaginatedConsumerPackList
-              consumerPacksUpdatingById={this.props.consumerPacks.updatingById}
-              decrementCredit={this.props.decrementCredit}
-              incrementCredit={this.props.incrementCredit}
-              itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
-              items={this.props.consumerPacks.items}
-              loading={this.props.consumerPacks.loading}
-              nbItems={this.props.consumerPacks.count}
-              onClick={(cpp: any) => {
-                this.props.goToConsumerPackDetail(cpp.member_id, cpp.id);
-              }}
-              onPageRequested={(page: number, pageSize: number) =>
-                this.props.fetchConsumerPacksList(page, pageSize)
-              }
-              page={this.props.consumerPacks.page}
-              paymentPack={this.props.pack}
-            />
-          </Paper>
-
-          <div className={classes.massExtensionContainer}>
-            {!!(
-              this.props.massExtension.items &&
-              this.props.massExtension.items.length
-            ) && (
-              <React.Fragment>
-                <Typography variant="h5">
-                  {this.props.t('paymentPack:section.massExtension')}
-                </Typography>
-                <Divider className={this.props.classes.divider} />
-                <PaymentPackMassExtensionList
-                  firstLoadDone={this.props.massExtension.firstLoadDone}
-                  itemPerPage={PAYMENT_PACK_MASS_EXTENSION_PAGINATION_SIZE}
-                  items={this.props.massExtension.items}
-                  loading={this.props.massExtension.loading}
-                  nbItems={this.props.massExtension.count}
-                  onDelete={this.onDeleteMassExtension}
-                  onPageRequested={(page, page_size) => {
-                    this.props.fetchMassExtensionList({
-                      paymentPack: this.props.id,
-                      page,
-                      page_size,
-                    });
-                  }}
-                  page={this.props.massExtension.page}
+              {pack?.linked_private_pass && (
+                <div className={classes.compatiblePSCard}>
+                  <PrivatePassCompatibleServiceList
+                    isManager
+                    canEdit={hasCompatibilityPermission}
+                    compatibleServicePass={this.props.compatibleServicePass}
+                    createCompatibleServicePass={
+                      this.props.createCompatibleServicePass
+                    }
+                    deleteCompatibleServicePass={
+                      this.props.deleteCompatibleServicePass
+                    }
+                    pass={this.props.linkedPrivatePass}
+                    privateServices={this.props.privateServices}
+                    updateCompatibleServicePass={
+                      this.props.updateCompatibleServicePass
+                    }
+                  />
+                </div>
+              )}
+              <MarketingRuleListItemPaymentPack
+                is_expired
+                createNotification={this.createNotification}
+                deleteNotification={this.props.deleteMarketingNotification}
+                emailDetailLoading={this.props.emailDetailLoading}
+                emailDetails={this.props.email_templates_details}
+                emailListLoading={this.props.emailListLoading}
+                emails={this.props.email_templates_list}
+                getEmailDetail={this.props.fetchEmailTemplateDetail}
+                getEmails={this.props.fetchEmailTemplatesSummaries}
+                getSmartLists={this.props.getSmartLists}
+                goToSmartlist={this.props.goToSmartlist}
+                notifications={notifications}
+                pack={pack}
+                resolvedGenericTags={this.props.resolvedGenericTags}
+                smartListLoading={this.props.smartListLoading}
+                smartLists={this.props.smartLists}
+                tags={this.props.tagCategories}
+                updateNotification={this.props.updateMarketingNotification}
+              />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <Paper>
+                <ConsumerPaymentPackFilters
+                  filters={this.props.filters}
+                  open={this.props.open}
+                  setFiltersValue={this.props.setFilterValue}
+                  setOpenValue={this.props.setOpenValue}
+                  t={this.props.t}
                 />
-              </React.Fragment>
-            )}
-          </div>
-        </Grid>
+                <Divider />
+                <PaginatedConsumerPackList
+                  consumerPacksUpdatingById={
+                    this.props.consumerPacks.updatingById
+                  }
+                  decrementCredit={this.props.decrementCredit}
+                  incrementCredit={this.props.incrementCredit}
+                  itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
+                  items={this.props.consumerPacks.items}
+                  loading={this.props.consumerPacks.loading}
+                  nbItems={this.props.consumerPacks.count}
+                  onClick={(cpp: any) => {
+                    this.props.goToConsumerPackDetail(cpp.member_id, cpp.id);
+                  }}
+                  onPageRequested={(page: number, pageSize: number) =>
+                    this.props.fetchConsumerPacksList(page, pageSize)
+                  }
+                  page={this.props.consumerPacks.page}
+                  paymentPack={this.props.pack}
+                />
+              </Paper>
 
-        <PaymentPackDeleteDialog
-          consumerPackSummary={
-            this.state.paymentPackToDeleteId ? (
-              <PaginatedConsumerPackList
-                consumerPacksUpdatingById={
-                  this.props.consumerPacks.updatingById
-                }
-                decrementCredit={this.props.decrementCredit}
-                incrementCredit={this.props.incrementCredit}
-                itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
-                items={this.props.consumerPacks.items}
-                loading={this.props.consumerPacks.loading}
-                nbItems={this.props.consumerPacks.count}
-                onClick={(cpp: any) => {
-                  this.props.goToConsumerPackDetail(cpp.member_id, cpp.id);
-                }}
-                onPageRequested={(page: number, pageSize: number) =>
-                  this.props.fetchConsumerPacksList(page, pageSize)
-                }
-                page={this.props.consumerPacks.page}
-                paymentPack={this.props.pack}
-              />
-            ) : null
-          }
-          isUsedInCombo={
-            this.props.archivationWarning[this.state.paymentPackToDeleteId]
-              ?.used_in_combo || false
-          }
-          onCancel={this.cancelDelete}
-          onDelete={() =>
-            this.deletePaymentPack(this.state.paymentPackToDeleteId)
-          }
-          open={!!this.state.paymentPackToDeleteId}
-          pack={this.props.pack}
-        />
-        <PaymentPackMassExtensionDialog
-          onClose={() => this.props.setOpenMassExtensionDialog(false)}
-          onSubmit={this.createMassExtension}
-          open={this.props.openMassExtensionDialog}
-        />
-        <PaymentPackFormDrawer
-          allowGuestMaster={
-            this.props.theme?.allow_guest &&
-            this.props.theme?.allow_guest_activatable
-          }
-          availableEstablishmentList={availableEstablishmentList}
-          categoryList={[...categoryList]
-            .filter(
-              (category) =>
-                metaActivities.map((a) => a.SCT).indexOf(category.id) !== -1,
-            )
-            .concat(this.props.videoCategories)
-            .filter(
-              (value, index, arr) =>
-                arr.findIndex((sct) => sct.id === value.id) === index,
-            )}
-          clearPaymentPackToEdit={() =>
-            this.setState({ paymentPackToEdit: null })
-          }
-          closeForm={this.closePaymentPackFormDrawer}
-          compatibleServicePass={this.props.compatibleServicePass}
-          creditScaleFactor={this.props.theme.pass_credit_factor}
-          displayNewCheckoutFlow={this.props.theme.display_new_checkout_flow}
-          initial={{
-            ...this.state.paymentPackToEdit,
-            establishments:
-              this.state.paymentPackToEdit?.establishments?.map(
-                (establishment) => establishment.id,
-              ) ?? [],
-            metaActivities:
-              this.state.paymentPackToEdit?.metaActivities?.map(
-                (metaActivitie) => metaActivitie?.id,
-              ) ?? [],
-            blacklist_tags:
-              this.state.paymentPackToEdit?.blacklist_tags?.map(
-                (tag) => tag.id,
-              ) ?? [],
-            whitelist_tags:
-              this.state.paymentPackToEdit?.whitelist_tags?.map(
-                (tag) => tag.id,
-              ) ?? [],
-          }}
-          metaActivityList={[...metaActivities]}
-          onSubmit={this.props.createOrUpdatePaymentPack}
-          open={this.props.openPaymentPackFormDialog}
-          paymentPackCategories={paymentPackCategories}
-          privateServices={this.props.privateServices}
-          provincialTax={this.props.theme?.provincial_tax_value}
-          tagList={allTagsWithTagGroup ? [...allTagsWithTagGroup] : []}
-        />
-        {!!this.props.pack &&
-          !this.props.pack.template_instance &&
-          !this.props.loadingMassExtension && (
-            <BottomActionButtons
-              onCreate={() => this.props.setOpenMassExtensionDialog(true)}
-              onCreateLabel={this.props.t('paymentPack:massExtension.title')}
+              <div className={classes.massExtensionContainer}>
+                {!!(
+                  this.props.massExtension.items &&
+                  this.props.massExtension.items.length
+                ) && (
+                  <React.Fragment>
+                    <Typography variant="h5">
+                      {this.props.t('paymentPack:section.massExtension')}
+                    </Typography>
+                    <Divider className={this.props.classes.divider} />
+                    <PaymentPackMassExtensionList
+                      firstLoadDone={this.props.massExtension.firstLoadDone}
+                      itemPerPage={PAYMENT_PACK_MASS_EXTENSION_PAGINATION_SIZE}
+                      items={this.props.massExtension.items}
+                      loading={this.props.massExtension.loading}
+                      nbItems={this.props.massExtension.count}
+                      onDelete={this.onDeleteMassExtension}
+                      onPageRequested={(page, page_size) => {
+                        this.props.fetchMassExtensionList({
+                          paymentPack: this.props.id,
+                          page,
+                          page_size,
+                        });
+                      }}
+                      page={this.props.massExtension.page}
+                    />
+                  </React.Fragment>
+                )}
+              </div>
+            </Grid>
+
+            <PaymentPackDeleteDialog
+              consumerPackSummary={
+                this.state.paymentPackToDeleteId ? (
+                  <PaginatedConsumerPackList
+                    consumerPacksUpdatingById={
+                      this.props.consumerPacks.updatingById
+                    }
+                    decrementCredit={this.props.decrementCredit}
+                    incrementCredit={this.props.incrementCredit}
+                    itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
+                    items={this.props.consumerPacks.items}
+                    loading={this.props.consumerPacks.loading}
+                    nbItems={this.props.consumerPacks.count}
+                    onClick={(cpp: any) => {
+                      this.props.goToConsumerPackDetail(cpp.member_id, cpp.id);
+                    }}
+                    onPageRequested={(page: number, pageSize: number) =>
+                      this.props.fetchConsumerPacksList(page, pageSize)
+                    }
+                    page={this.props.consumerPacks.page}
+                    paymentPack={this.props.pack}
+                  />
+                ) : null
+              }
+              isUsedInCombo={
+                this.props.archivationWarning[this.state.paymentPackToDeleteId]
+                  ?.used_in_combo || false
+              }
+              onCancel={this.cancelDelete}
+              onDelete={() =>
+                this.deletePaymentPack(this.state.paymentPackToDeleteId)
+              }
+              open={!!this.state.paymentPackToDeleteId}
+              pack={this.props.pack}
             />
-          )}
-      </Grid>
+            <PaymentPackMassExtensionDialog
+              onClose={() => this.props.setOpenMassExtensionDialog(false)}
+              onSubmit={this.createMassExtension}
+              open={this.props.openMassExtensionDialog}
+            />
+            <PaymentPackFormDrawer
+              allowGuestMaster={
+                this.props.theme?.allow_guest &&
+                this.props.theme?.allow_guest_activatable
+              }
+              availableEstablishmentList={availableEstablishmentList}
+              categoryList={[...categoryList]
+                .filter(
+                  (category) =>
+                    metaActivities.map((a) => a.SCT).indexOf(category.id) !==
+                    -1,
+                )
+                .concat(this.props.videoCategories)
+                .filter(
+                  (value, index, arr) =>
+                    arr.findIndex((sct) => sct.id === value.id) === index,
+                )}
+              clearPaymentPackToEdit={() =>
+                this.setState({ paymentPackToEdit: null })
+              }
+              closeForm={this.closePaymentPackFormDrawer}
+              compatibleServicePass={this.props.compatibleServicePass}
+              creditScaleFactor={this.props.theme.pass_credit_factor}
+              displayNewCheckoutFlow={
+                this.props.theme.display_new_checkout_flow
+              }
+              initial={{
+                ...this.state.paymentPackToEdit,
+                establishments:
+                  this.state.paymentPackToEdit?.establishments?.map(
+                    (establishment) => establishment.id,
+                  ) ?? [],
+                metaActivities:
+                  this.state.paymentPackToEdit?.metaActivities?.map(
+                    (metaActivitie) => metaActivitie?.id,
+                  ) ?? [],
+                blacklist_tags:
+                  this.state.paymentPackToEdit?.blacklist_tags?.map(
+                    (tag) => tag.id,
+                  ) ?? [],
+                whitelist_tags:
+                  this.state.paymentPackToEdit?.whitelist_tags?.map(
+                    (tag) => tag.id,
+                  ) ?? [],
+              }}
+              metaActivityList={[...metaActivities]}
+              onSubmit={this.props.createOrUpdatePaymentPack}
+              open={this.props.openPaymentPackFormDialog}
+              paymentPackCategories={paymentPackCategories}
+              privateServices={this.props.privateServices}
+              provincialTax={this.props.theme?.provincial_tax_value}
+              tagList={allTagsWithTagGroup ? [...allTagsWithTagGroup] : []}
+            />
+            {!!this.props.pack &&
+              !this.props.pack.template_instance &&
+              !this.props.loadingMassExtension && (
+                <BottomActionButtons
+                  onCreate={() => this.props.setOpenMassExtensionDialog(true)}
+                  onCreateLabel={this.props.t(
+                    'paymentPack:massExtension.title',
+                  )}
+                />
+              )}
+          </Grid>
+        )}
+      </ObjectLevelPermissionProviderComponent>
     );
   }
 }

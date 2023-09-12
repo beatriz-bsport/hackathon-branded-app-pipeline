@@ -157,7 +157,8 @@ exports.default = {
       contractNotFound: "Avertissement d'abonnement non trouvé",
       contractPayment: "Module de paiement d'abonnement",
       collectPaymentMethod: 'Ajout de méthode de paiement',
-      activityCard:"Detail de l'activité",
+      activityCard: "Detail de l'activité",
+      activityCardDialog:"Detail de l'activité (modale)",
     },
     page: {
       common: 'Commun',

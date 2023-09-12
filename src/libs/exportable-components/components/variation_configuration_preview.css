@@ -4,6 +4,16 @@ In order to maintain the integrity of the source CSS files
 these overrides will be overwritten within this file.
 */
 
+/* --- MUI THINGS --- 
+We need to brutally override some things from MUI.
+*/
+[class*='MuiBackdrop'] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  position: relative !important;
+}
+
 /* MarketPlaceContractCooldownModal */
 .bs-custom-css__component__preview .bs-contract-cooldown-dialog__backdrop {
   position: relative;
@@ -55,4 +65,10 @@ these overrides will be overwritten within this file.
 .bs-custom-css__component__preview
   .bs-collect-payment-method__dialog__backdrop {
   position: relative;
+}
+
+/*MarketPlaceActivityDialog */
+
+.bs-custom-css__component__preview #bs-activity--dialog {
+  position: relative !important;
 }

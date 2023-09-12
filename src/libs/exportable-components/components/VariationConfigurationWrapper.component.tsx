@@ -160,6 +160,7 @@ const VariationConfigurationWrapper: React.FC<{
             [classes.flex]: config.showAsFlex,
           },
         )}
+        id="bs-custom-css__component__preview"
       >
         {/* Here injecting the new props to the children */}
         <div

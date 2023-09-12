@@ -16,7 +16,7 @@ import WidgetPortalSlidingContainer from '#libs/widget/components/PortalContaine
 
 import './MarketplaceActivityDialogCSSOnly.css';
 
-type Props = {
+export type Props = {
   companyTheme: CompanyTheme;
   open: boolean;
   metaActivities: { [key: number]: MetaActivity };
@@ -31,10 +31,12 @@ type Props = {
   hideCoach: boolean;
   width: string;
   group: { [key: number]: OffersGroup };
+  // Ugly Props we should not change component for this feature
+  isCustomCssPreview?: boolean;
 };
 
 export function MarketplaceActivityDialog(props: Props) {
-  const { onClose, offer } = props;
+  const { onClose, offer, isCustomCssPreview } = props;
   const paperProps = {
     style: {
       margin: '10px',
@@ -50,17 +52,20 @@ export function MarketplaceActivityDialog(props: Props) {
       </WidgetPortalSlidingContainer>
     );
   }
+
   return (
     <Dialog
       key={`marketplace_activity_dialog_${offer?.id}`}
       disablePortal
+      disableEnforceFocus={isCustomCssPreview}
+      id="bs-activity--dialog"
       maxWidth="md"
       onClose={onClose}
       open={props.open}
       PaperProps={paperProps}
       scroll="paper"
     >
-      <DialogContent id="bs-activity--dialog">
+      <DialogContent id="bs-activity--dialog__content">
         {props.open ? <MarketplaceActivityV2 {...props} /> : null}
       </DialogContent>
     </Dialog>

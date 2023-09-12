@@ -107,6 +107,11 @@ import {
 } from '#marketplacecomponents/@Activity/MarketplaceActivityCSSOnly';
 
 import {
+  MARKETPLACE_ACTIVITY_DIALOG_CONFIGURATION,
+  MARKETPLACE_ACTIVITY_DIALOG_PREVIEW,
+} from '#marketplacecomponents/@Activity/MarketplaceActivityDialogCSSOnly';
+
+import {
   CSSComponentPreviews,
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -326,6 +331,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_COLLECT_PAYMENT_METHOD_CONFIGURATION,
   MARKETPLACE_WEEK_TIME_TABLE_CONFIGURATION,
   MARKETPLACE_ACTIVITY_CONFIGURATION,
+  MARKETPLACE_ACTIVITY_DIALOG_CONFIGURATION,
 
   /*
   MARKETPLACE_FILTER_CONFIGURATION,
@@ -390,6 +396,7 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
     contractPayment: MARKETPLACE_CONTRACT_PAYMENT_PREVIEW,
     collectPaymentMethod: MARKETPLACE_COLLECT_PAYMENT_METHOD_PREVIEW,
     activityCard: MARKETPLACE_ACTIVITY_PREVIEW,
+    activityCardDialog: MARKETPLACE_ACTIVITY_DIALOG_PREVIEW,
   });
 
 export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =

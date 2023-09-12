@@ -10,7 +10,7 @@
   #       - node_modules
   tags:
     - build-frontend
-    - cluster:bsport-tooling
+    - kubernetes
   script:
     - mv /app/node_modules .
     - yarn install --frozen-lockfile # just to be sure
@@ -28,7 +28,7 @@
     - export SENTRY_NO_PROGRESS_BAR=1
     - ./scripts/prepare-sentry-release.sh $VERSION_SHA $FRONTEND_URL
     - rm ./build/static/js/*.js.map
-    - aws s3 cp ./build/ $S3_BUCKET --recursive --only-show-errors
+    - aws s3 cp ./build/ $S3_BUCKET --recursive --only-show-errors --acl public-read
     - scripts/invalidate-cloudfront.sh $CLOUDFRONT_ID $CLOUDFRONT_INVALIDATION_TOKEN
     - scripts/prepare-sentry-deploy.sh $VERSION_SHA $ENVIRONMENT
     - echo "SUCCESS" > .job_status

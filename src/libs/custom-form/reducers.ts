@@ -427,7 +427,7 @@ export default handleActions(
       state,
       { payload },
     ) => {
-      return state.setIn(['signUp', 'loading'], payload);
+      return state.setIn(['signUp', 'error'], payload);
     },
     [fetchCompanyCustomSignUpActions.success.toString()]: (
       state,

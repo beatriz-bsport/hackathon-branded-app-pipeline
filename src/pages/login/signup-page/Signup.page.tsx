@@ -25,7 +25,10 @@ import {
   submitSignUpCustomForm,
 } from '#libs/custom-form/actions';
 import CustomFormView from '#libs/custom-form/components/consumer-form/CustomFormView.form';
-import { getSignUpCustomFormWithEnabledField } from '#libs/custom-form/selectors';
+import {
+  getSignUpCustomFormWithEnabledField,
+  getSignUpCustomFormLoading,
+} from '#libs/custom-form/selectors';
 import type { RootState } from '../../../reducers';
 import { WithHandlerType } from '../../../utils/types';
 import {
@@ -124,6 +127,7 @@ export class SignupPage extends Component<Props> {
       theme,
       next,
       simplifyUI,
+      signUpCustomFormLoading,
     } = this.props;
 
     if (authenticated) {
@@ -132,7 +136,9 @@ export class SignupPage extends Component<Props> {
       }
       return <Redirect to="/" />;
     }
-
+    if (signUpCustomFormLoading) {
+      return null;
+    }
     const containerClass = WidgetUtils.isWidget()
       ? 'bs-signup-container--widget'
       : 'bs-signup-container--default';
@@ -145,7 +151,7 @@ export class SignupPage extends Component<Props> {
             simplifyUI={simplifyUI}
             title={t('signup.title')}
           />
-          {signUpCustomForm && (
+          {signUpCustomForm && signUpCustomForm.layout && (
             <div className="bs-signup-container__custom-form">
               <CustomFormView
                 general_terms_and_conditions={theme.general_terms_of_use}
@@ -212,6 +218,7 @@ const mapStateToProps = (
   simplifyUI: !!membership && getIsUISimplified(state),
   authenticated: state.auth.authenticated,
   signUpCustomForm: getSignUpCustomFormWithEnabledField(state),
+  signUpCustomFormLoading: getSignUpCustomFormLoading(state),
 });
 const withStateHandlersInit = {
   loginInformations: { email: '', password: '' },

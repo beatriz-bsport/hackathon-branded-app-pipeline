@@ -69,6 +69,8 @@ export const getFavoriteEstablishmentGroupList = createSelector(
 
 export const getSignUpCustomForm = (state: RootState) =>
   state.customForm.signUp.form;
+export const getSignUpCustomFormLoading = (state: RootState) =>
+  state.customForm.signUp.loading;
 export const getMemberCustomForm = (state: RootState) =>
   state.customForm.memberForm.form;
 

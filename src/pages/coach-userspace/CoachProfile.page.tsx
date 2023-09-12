@@ -75,7 +75,9 @@ export class CoachProfile extends Component<Props, State> {
     if (meAsAssociatedCoach?.has_access_to_coach_space)
       return (
         <div className={classes.container}>
-          <LoginBackgroundComponent company />
+          {this.props.theme?.display_bubble_background && (
+            <LoginBackgroundComponent company />
+          )}
           <ConsumerCoachSpaceSelector
             disconnect={this.props.disconnect}
             goToCoachSpace={this.handleGoToCoachSpace}
@@ -84,7 +86,9 @@ export class CoachProfile extends Component<Props, State> {
         </div>
       );
 
-    return <LoginBackgroundComponent />;
+    return this.props.theme?.display_bubble_background ? (
+      <LoginBackgroundComponent />
+    ) : null;
   }
 }
 

@@ -89,8 +89,16 @@ export function SubscriptionComponent(props: Props) {
   };
 
   return (
-    <ObjectLevelPermissionProviderComponent requiredPermission="product.contract.allowed_actions.pauseBillingPlan">
-      {(hasPauseBillingPlanPermission: boolean) => (
+    <ObjectLevelPermissionProviderComponent
+      requiredPermission={[
+        'product.contract.allowed_actions.pauseBillingPlan',
+        'product.contract.allowed_actions.endBillingPlan',
+      ]}
+    >
+      {([
+        hasPauseBillingPlanPermission,
+        hasEndBillingPlanPermission,
+      ]: boolean[]) => (
         <div>
           <Grid container direction="row" spacing={3}>
             <Grid item md={6} xs={12}>
@@ -141,7 +149,9 @@ export function SubscriptionComponent(props: Props) {
                 requestPause={
                   hasPauseBillingPlanPermission && props.requestPause
                 }
-                requestScheduledStop={props.requestScheduledStop}
+                requestScheduledStop={
+                  hasEndBillingPlanPermission && props.requestScheduledStop
+                }
                 subscription={props.subscription}
                 updateEventList={updateEventListOnEventSuccess}
               />

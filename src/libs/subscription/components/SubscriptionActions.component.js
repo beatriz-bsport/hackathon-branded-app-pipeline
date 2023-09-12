@@ -30,7 +30,7 @@ type Props = {
   requestPaymentMethodSwitch: () => void,
   requestPaymentPackSwitch: () => void,
   requestStop: () => void,
-  requestScheduledStop: () => void,
+  requestScheduledStop?: () => void,
 };
 
 export const SubscriptionActions = (props: Props) => {
@@ -105,19 +105,21 @@ export const SubscriptionActions = (props: Props) => {
           </RedButton>
         </div>
         <div className={props.classes.row}>
-          <RedButton
-            className={props.classes.button}
-            disabled={
-              props.subscription.has_ended ||
-              props.subscription.canceled_at ||
-              scheduledStop
-            }
-            onClick={props.requestScheduledStop}
-            variant="outlined"
-          >
-            <EventBusyIcon className={props.classes.leftIcon} />
-            {props.t('action.planStop')}
-          </RedButton>
+          {props.requestScheduledStop && (
+            <RedButton
+              className={props.classes.button}
+              disabled={
+                props.subscription.has_ended ||
+                props.subscription.canceled_at ||
+                scheduledStop
+              }
+              onClick={props.requestScheduledStop}
+              variant="outlined"
+            >
+              <EventBusyIcon className={props.classes.leftIcon} />
+              {props.t('action.planStop')}
+            </RedButton>
+          )}
         </div>
       </div>
     </div>

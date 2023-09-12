@@ -151,21 +151,23 @@ export const PrivatePassCompatibleServiceList: React.FC<Props> = ({
           {isManager && (
             <>
               <div className={classes.privateServiceSelector}>
-                <PrivateServiceSelector
-                  onChange={(data: number) =>
-                    createCompatibleServicePass(pass.id, data)
-                  }
-                  placeholder={t('privatePass.form.selector.privateService')}
-                  privateServices={privateServices
-                    .filter((privateService) =>
-                      filterPrivateService(
-                        privateService,
-                        compatibleServicePass,
-                        false,
-                      ),
-                    )
-                    .filter((privateService) => privateService.available)}
-                />
+                {canEdit && (
+                  <PrivateServiceSelector
+                    onChange={(data: number) =>
+                      createCompatibleServicePass(pass.id, data)
+                    }
+                    placeholder={t('privatePass.form.selector.privateService')}
+                    privateServices={privateServices
+                      .filter((privateService) =>
+                        filterPrivateService(
+                          privateService,
+                          compatibleServicePass,
+                          false,
+                        ),
+                      )
+                      .filter((privateService) => privateService.available)}
+                  />
+                )}
               </div>
 
               <Dialog open={!!selectedService && !!compatibleServicePass}>

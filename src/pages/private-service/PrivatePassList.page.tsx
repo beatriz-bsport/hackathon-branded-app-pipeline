@@ -342,6 +342,9 @@ export class PrivatePassList extends React.Component<Props, State> {
   getRestorePrivatePassHandler = (pass: PrivatePass) => () =>
     this.restorePrivatePass(pass.id);
 
+  getDeletePassHandler = (pass: PrivatePass) => () =>
+    this.openDeletePassDialog(pass.id);
+
   render() {
     const { classes, t, establishmentList, metaActivities, categoryList } =
       this.props;
@@ -402,9 +405,14 @@ export class PrivatePassList extends React.Component<Props, State> {
         requiredPermission={[
           'product.privatePass.allowed_actions.create',
           'product.privatePass.allowed_actions.edit',
+          'product.privatePass.allowed_actions.delete',
         ]}
       >
-        {([hasCreatePermission, hasEditPermission]: boolean[]) => (
+        {([
+          hasCreatePermission,
+          hasEditPermission,
+          hasDeletePermission,
+        ]: boolean[]) => (
           <div>
             {!!this.props.loading && <BackofficeLinearProgress />}
             <div className={classes.search}>
@@ -460,7 +468,9 @@ export class PrivatePassList extends React.Component<Props, State> {
                         onClick={() => {
                           this.props.goToPass(pass.id);
                         }}
-                        onDelete={() => this.openDeletePassDialog(pass.id)}
+                        onDelete={
+                          hasDeletePermission && this.getDeletePassHandler(pass)
+                        }
                         onEdit={
                           hasEditPermission && this.getOpenEditFormHandler(pass)
                         }
@@ -495,7 +505,9 @@ export class PrivatePassList extends React.Component<Props, State> {
                 onEditPass={hasEditPermission && this.OpenEditForm}
                 privatePassCategoryById={this.props.privatePassByCategory}
                 privatePassOrder={this.state.privatePassOrderByCategory}
-                setOpenDeletePassDialog={this.openDeletePassDialog}
+                setOpenDeletePassDialog={
+                  hasDeletePermission && this.openDeletePassDialog
+                }
                 setSelectedCategory={this.props.setSelectedCategory}
                 showCategoryEditDialog={() =>
                   this.props.setShowCategoryDialog(true)

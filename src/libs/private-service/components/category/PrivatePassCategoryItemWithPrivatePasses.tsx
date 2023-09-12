@@ -34,7 +34,7 @@ import withConfirm from '../../../../hocs/with-confirm.hoc';
 
 type Props = {
   onEdit?: (privatePass: PrivatePass) => void;
-  onDelete: (privatePassId: number) => void;
+  onDelete?: (privatePassId: number) => void;
   onClick: (privatePassId: number) => void;
   privatePassCategory: PrivatePassCategoryWithPasses;
   setSelectedCategory: (category: PrivatePassCategory) => void;
@@ -64,7 +64,7 @@ const ButtonWithConfirm = withConfirm(
 
 type PackListProps = {
   onEdit?: (pp: PrivatePass) => void;
-  onDelete: (ppId: number) => void;
+  onDelete?: (ppId: number) => void;
   onClick: (ppId: number) => void;
   itemsDraggable?: boolean;
   privatePassCategory: PrivatePassCategoryWithPasses;
@@ -76,7 +76,7 @@ type PackListProps = {
 
 type PackListItemProps = {
   onEdit?: () => void;
-  onDelete: () => void;
+  onDelete?: () => void;
   onClick: () => void;
   ppass: PrivatePass;
   sortedItems: Array<PrivatePass>;
@@ -301,18 +301,20 @@ export const PrivatePassCategoryItemWithPrivatePass = React.memo(
                 </Typography>
               </MenuItem>
             )}
-            <ButtonWithConfirm
-              button
-              onClick={() => {
-                props.deletePrivatePassCategory(privatePassCategory);
-                setAnchorEl(null);
-              }}
-            >
-              <DeleteIcon className={classes.popoverIcon} />
-              <Typography>
-                {t('paymentPack:category.popover.delete')}
-              </Typography>
-            </ButtonWithConfirm>
+            {props.onDelete && (
+              <ButtonWithConfirm
+                button
+                onClick={() => {
+                  props.deletePrivatePassCategory(privatePassCategory);
+                  setAnchorEl(null);
+                }}
+              >
+                <DeleteIcon className={classes.popoverIcon} />
+                <Typography>
+                  {t('paymentPack:category.popover.delete')}
+                </Typography>
+              </ButtonWithConfirm>
+            )}
           </List>
         </Popover>
 
@@ -335,13 +337,15 @@ export const PrivatePassCategoryItemWithPrivatePass = React.memo(
           </div>
           <div className={classes.titleActions}>
             {privatePassCategory.id ? (
-              <IconButton
-                aria-haspopup="true"
-                aria-owns={anchorEl ? 'category-popover' : undefined}
-                onClick={(event) => handlePopover(event, privatePassCategory)}
-              >
-                <MoreVertIcon />
-              </IconButton>
+              (props.onEdit || props.onDelete) && (
+                <IconButton
+                  aria-haspopup="true"
+                  aria-owns={anchorEl ? 'category-popover' : undefined}
+                  onClick={(event) => handlePopover(event, privatePassCategory)}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+              )
             ) : (
               <Tooltip title={t('paymentPack:noCategory.help')}>
                 <IconButton>

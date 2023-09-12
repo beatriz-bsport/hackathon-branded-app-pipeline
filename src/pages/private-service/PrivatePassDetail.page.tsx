@@ -236,6 +236,11 @@ export class PrivatePassDetails extends Component<Props> {
 
   openEditForm = () => this.props.setOpenEditForm(true);
 
+  getDeletePrivatePassHandler = (privatePass: PrivatePass) => () => {
+    this.props.isPrivatePassUsedInCombo(privatePass.id);
+    this.props.setOpenDeletePassDialog(privatePass.id);
+  };
+
   render() {
     const { classes, t, privatePass, privatePassCategories } = this.props;
 
@@ -250,9 +255,14 @@ export class PrivatePassDetails extends Component<Props> {
         requiredPermission={[
           'product.privatePass.allowed_actions.edit',
           'product.privatePass.allowed_actions.compatibility',
+          'product.privatePass.allowed_actions.delete',
         ]}
       >
-        {([hasEditPermission, hasCompatibilityPermission]: boolean[]) => (
+        {([
+          hasEditPermission,
+          hasCompatibilityPermission,
+          hasDeletePermission,
+        ]: boolean[]) => (
           <Grid container alignItems="stretch" spacing={3}>
             <Grid item className={classes.privatePassDetail} md={6} xs={12}>
               {privatePass && (
@@ -260,11 +270,9 @@ export class PrivatePassDetails extends Component<Props> {
                   <PrivatePassCard
                     isManager
                     onDeleteButtonClick={
-                      !this.props.privatePass?.template_instance &&
-                      (() => {
-                        this.props.isPrivatePassUsedInCombo(privatePass.id);
-                        this.props.setOpenDeletePassDialog(privatePass.id);
-                      })
+                      hasDeletePermission &&
+                      !privatePass?.template_instance &&
+                      this.getDeletePrivatePassHandler(privatePass)
                     }
                     onEditButtonClick={hasEditPermission && this.openEditForm}
                     pass={privatePass}
@@ -314,11 +322,9 @@ export class PrivatePassDetails extends Component<Props> {
             </Grid>
             <BottomActionsButton
               onDelete={
+                hasDeletePermission &&
                 !this.props.privatePass?.template_instance &&
-                (() => {
-                  this.props.isPrivatePassUsedInCombo(privatePass.id);
-                  this.props.setOpenDeletePassDialog(this.props.id);
-                })
+                this.getDeletePrivatePassHandler(privatePass)
               }
               onEdit={hasEditPermission && this.openEditForm}
             />

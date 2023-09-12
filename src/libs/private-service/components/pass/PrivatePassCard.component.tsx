@@ -40,7 +40,7 @@ type Props = {
 
   snackbarSuccess: (text: string) => void;
   onEditButtonClick?: () => void;
-  onDeleteButtonClick: () => void;
+  onDeleteButtonClick?: () => void;
 
   isManager?: boolean;
 };

@@ -222,8 +222,13 @@ export class ContractDetailPage extends Component<Props> {
     }
     const { classes, t } = this.props;
     return (
-      <ObjectLevelPermissionProvider requiredPermission="product.contract.allowed_actions.edit">
-        {(hasEditPermission: boolean) => (
+      <ObjectLevelPermissionProvider
+        requiredPermission={[
+          'product.contract.allowed_actions.edit',
+          'product.contract.allowed_actions.delete',
+        ]}
+      >
+        {([hasEditPermission, hasDeletePermission]: boolean[]) => (
           <div className={classes.pageContainer}>
             <Grid container alignItems="stretch" spacing={3}>
               <Grid item className={classes.detailContainer} md={6} xs={12}>
@@ -351,7 +356,7 @@ export class ContractDetailPage extends Component<Props> {
               </Grid>
               <BottomActionsButtonCustom
                 buttonsProperties={this.getBottomActionsProperties(t)}
-                onDelete={this.openDeleteContractModal}
+                onDelete={hasDeletePermission && this.openDeleteContractModal}
                 onEdit={hasEditPermission && this.onContractEdit}
               />
               <ContractDeleteDialog

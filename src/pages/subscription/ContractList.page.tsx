@@ -154,6 +154,11 @@ export class SubscriptionList extends React.Component<Props, State> {
     });
   };
 
+  handleDeleteContract = (id: number) =>
+    this.props.deleteContract(id, {
+      onSuccess: this.props.fetchContractList,
+    });
+
   render() {
     const stripeRegion = getStripeRegion();
     const companyCountry = getCompanyCountry();
@@ -163,9 +168,14 @@ export class SubscriptionList extends React.Component<Props, State> {
         requiredPermission={[
           'product.contract.allowed_actions.create',
           'product.contract.allowed_actions.edit',
+          'product.contract.allowed_actions.delete',
         ]}
       >
-        {([hasCreatePermission, hasEditPermission]: boolean[]) => (
+        {([
+          hasCreatePermission,
+          hasEditPermission,
+          hasDeletePermission,
+        ]: boolean[]) => (
           <div className={this.props.classes.container}>
             {this.props.contractListAvailableAll?.length === 0 &&
             this.props.contractListManagerOnly?.length === 0 &&
@@ -214,10 +224,8 @@ export class SubscriptionList extends React.Component<Props, State> {
                       }
                       loading={this.props.contractLoading}
                       onClick={this.onClickContract}
-                      onDelete={(id: number) =>
-                        this.props.deleteContract(id, {
-                          onSuccess: this.props.fetchContractList,
-                        })
+                      onDelete={
+                        hasDeletePermission && this.handleDeleteContract
                       }
                       onEdit={hasEditPermission && this.handleEditContract}
                       onRegister={this.props.openContractRegister}
@@ -255,11 +263,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                     }
                     loading={this.props.contractLoading}
                     onClick={this.onClickContract}
-                    onDelete={(id: number) =>
-                      this.props.deleteContract(id, {
-                        onSuccess: this.props.fetchContractList,
-                      })
-                    }
+                    onDelete={hasDeletePermission && this.handleDeleteContract}
                     onEdit={hasEditPermission && this.handleEditContract}
                     onRegister={this.props.openContractRegister}
                     paymentComboList={this.props.paymentComboList}
@@ -286,11 +290,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                     contractList={this.props.contractListManagerOnly}
                     loading={this.props.contractLoading}
                     onClick={this.onClickContract}
-                    onDelete={(id: number) =>
-                      this.props.deleteContract(id, {
-                        onSuccess: this.props.fetchContractList,
-                      })
-                    }
+                    onDelete={hasDeletePermission && this.handleDeleteContract}
                     onEdit={hasEditPermission && this.handleEditContract}
                     onRegister={this.props.openContractRegister}
                     paymentComboList={this.props.paymentComboList}

@@ -6,7 +6,6 @@ FactoryBot.define('MetaActivity', {
   id: 1,
   name: faker.lorem.word(),
   SCT: 1,
-  description: faker.lorem.sentence(),
   coach: 1,
   establishment: 1,
   default_price: 10,
@@ -16,6 +15,8 @@ FactoryBot.define('MetaActivity', {
   default_duration_minutes: 60,
   customer_enabled: false,
   first_booking_minutes_until: 259200,
+  description: faker.lorem.paragraphs(5),
+  cover_main: faker.image.urlLoremFlickr({ category: 'sports' }),
 });
 
 export default FactoryBot;

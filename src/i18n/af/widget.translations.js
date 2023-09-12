@@ -157,6 +157,7 @@ exports.default = {
       contractNotFound: "Avertissement d'abonnement non trouvé",
       contractPayment: "Module de paiement d'abonnement",
       collectPaymentMethod: 'Ajout de méthode de paiement',
+      activityCard:"Detail de l'activité",
     },
     page: {
       common: 'Commun',
@@ -212,6 +213,8 @@ exports.default = {
         sepa: 'Prélèvement SEPA',
         passTypeFilter: 'Filtre de carte de cours',
         subscriptionCountrySelect: 'Sélecteur de pays',
+        mobile: 'Petit écran',
+        desktop : 'Ecran large',
       },
     },
   },

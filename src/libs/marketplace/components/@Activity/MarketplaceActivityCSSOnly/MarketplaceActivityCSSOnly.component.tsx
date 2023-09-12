@@ -32,7 +32,7 @@ import { Coach } from '#libs/associated-coach/types';
 import { OffersGroup } from '#libs/group-offer/types';
 import FreeOfferChip from '#csscomponents/FreeOfferChip';
 
-type Props = {
+export type Props = {
   offer: Offer;
   metaActivities: { [key: number]: MetaActivity };
   establishments: Array<Establishment>;

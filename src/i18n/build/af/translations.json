@@ -13389,7 +13389,8 @@
         "contractCouponFormModal": "Popup de code promo d'abonnement",
         "contractNotFound": "Avertissement d'abonnement non trouvé",
         "contractPayment": "Module de paiement d'abonnement",
-        "collectPaymentMethod": "Ajout de méthode de paiement"
+        "collectPaymentMethod": "Ajout de méthode de paiement",
+        "activityCard": "Detail de l'activité"
       },
       "page": {
         "common": "Commun",
@@ -13443,7 +13444,9 @@
           "bacs_debit": "Bacs Direct debit",
           "sepa": "Prélèvement SEPA",
           "passTypeFilter": "Filtre de carte de cours",
-          "subscriptionCountrySelect": "Sélecteur de pays"
+          "subscriptionCountrySelect": "Sélecteur de pays",
+          "mobile": "Petit écran",
+          "desktop": "Ecran large"
         }
       }
     }

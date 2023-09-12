@@ -102,6 +102,11 @@ import {
 } from '#components/css-only/Select/custom_css_variant';
 
 import {
+  MARKETPLACE_ACTIVITY_CONFIGURATION,
+  MARKETPLACE_ACTIVITY_PREVIEW,
+} from '#marketplacecomponents/@Activity/MarketplaceActivityCSSOnly';
+
+import {
   CSSComponentPreviews,
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -320,6 +325,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_CONTRACT_PAYMENT_CONFIGURATION,
   MARKETPLACE_COLLECT_PAYMENT_METHOD_CONFIGURATION,
   MARKETPLACE_WEEK_TIME_TABLE_CONFIGURATION,
+  MARKETPLACE_ACTIVITY_CONFIGURATION,
 
   /*
   MARKETPLACE_FILTER_CONFIGURATION,
@@ -383,6 +389,7 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
     contractNotFound: MARKETPLACE_CONTRACT_NOT_FOUND_PREVIEW,
     contractPayment: MARKETPLACE_CONTRACT_PAYMENT_PREVIEW,
     collectPaymentMethod: MARKETPLACE_COLLECT_PAYMENT_METHOD_PREVIEW,
+    activityCard: MARKETPLACE_ACTIVITY_PREVIEW,
   });
 
 export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =

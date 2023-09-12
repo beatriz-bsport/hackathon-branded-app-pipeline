@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 
 import moment, { Moment } from 'moment-timezone';
 import IconButton from '@material-ui/core/IconButton';
@@ -118,10 +118,26 @@ const Status: FC<{
   }
 };
 
-const StopItem = (props: { unscheduleStop: () => void }) => {
+const StopItem: FC<{ unscheduleStop: () => void }> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation(['subscription']);
+
   const [menuAnchor, setMenuAnchor] = React.useState(null);
+
+  const { unscheduleStop } = props;
+
+  const handleOpenMenu = useCallback(
+    (ev) => setMenuAnchor(ev.currentTarget),
+    [setMenuAnchor],
+  );
+  const handleCloseMenu = useCallback(
+    () => setMenuAnchor(null),
+    [setMenuAnchor],
+  );
+  const handleUnscheduleStop = useCallback(() => {
+    setMenuAnchor(null);
+    unscheduleStop();
+  }, [setMenuAnchor, unscheduleStop]);
 
   return (
     <React.Fragment>
@@ -132,25 +148,13 @@ const StopItem = (props: { unscheduleStop: () => void }) => {
           <Typography>{t('scheduledStop.label')}</Typography>
         </div>
         <div className={classes.expandedLink} />
-        <IconButton
-          color="secondary"
-          onClick={(ev) => setMenuAnchor(ev.currentTarget)}
-        >
+        <IconButton color="secondary" onClick={handleOpenMenu}>
           <EditIcon />
         </IconButton>
       </div>
       <div className={classes.endLine} />
-      <Menu
-        anchorEl={menuAnchor}
-        onClose={() => setMenuAnchor(null)}
-        open={!!menuAnchor}
-      >
-        <MenuItem
-          onClick={() => {
-            setMenuAnchor(null);
-            props.unscheduleStop();
-          }}
-        >
+      <Menu anchorEl={menuAnchor} onClose={handleCloseMenu} open={!!menuAnchor}>
+        <MenuItem onClick={handleUnscheduleStop}>
           <ListItemIcon>
             <RefreshIcon fontSize="small" />
           </ListItemIcon>
@@ -163,14 +167,33 @@ const StopItem = (props: { unscheduleStop: () => void }) => {
   );
 };
 
-const EndItem = (props: {
+const EndItem: FC<{
   subscription: Subscription;
   toogleAutoRenew: ({ auto_renewal }: { auto_renewal: boolean }) => void;
-}) => {
+}> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation(['subscription']);
+
   const [menuAnchor, setMenuAnchor] = React.useState(null);
+
   const isAutoRenew = props.subscription.auto_renewal;
+  const { toogleAutoRenew } = props;
+
+  const handleOpenMenu = useCallback(
+    (ev) => setMenuAnchor(ev.currentTarget),
+    [setMenuAnchor],
+  );
+  const handleCloseMenu = useCallback(
+    () => setMenuAnchor(null),
+    [setMenuAnchor],
+  );
+  const handleAutoRenewalChange = useCallback(() => {
+    toogleAutoRenew({
+      auto_renewal: !isAutoRenew,
+    });
+    setMenuAnchor(null);
+  }, [isAutoRenew, toogleAutoRenew, setMenuAnchor]);
+
   return (
     <React.Fragment>
       <div className={classes.listItem}>
@@ -186,26 +209,12 @@ const EndItem = (props: {
           </Typography>
         </div>
         <div className={classes.expandedLink} />
-        <IconButton
-          color="secondary"
-          onClick={(ev) => setMenuAnchor(ev.currentTarget)}
-        >
+        <IconButton color="secondary" onClick={handleOpenMenu}>
           <EditIcon />
         </IconButton>
       </div>
-      <Menu
-        anchorEl={menuAnchor}
-        onClose={() => setMenuAnchor(null)}
-        open={!!menuAnchor}
-      >
-        <MenuItem
-          onClick={() => {
-            props.toogleAutoRenew({
-              auto_renewal: !isAutoRenew,
-            });
-            setMenuAnchor(null);
-          }}
-        >
+      <Menu anchorEl={menuAnchor} onClose={handleCloseMenu} open={!!menuAnchor}>
+        <MenuItem onClick={handleAutoRenewalChange}>
           <ListItemIcon>
             <RefreshIcon fontSize="small" />
           </ListItemIcon>
@@ -231,6 +240,9 @@ type PlannedInvoiceEditMenuProps = {
   onRequestDateChange: (plannedInvoice: PlannedInvoice) => void;
   onRequestScheduledStop: (plannedInvoiceId?: number) => void;
   disableDateModification: boolean;
+  hasEditInvoiceDateBPPermission: boolean;
+  hasEditInvoicePriceBPPermission: boolean;
+  hasEndAfterInvoiceBPPermission: boolean;
 };
 
 const PlannedInvoiceEditMenu = ({
@@ -244,6 +256,9 @@ const PlannedInvoiceEditMenu = ({
   onRequestDateChange,
   onRequestScheduledStop,
   disableDateModification,
+  hasEditInvoiceDateBPPermission,
+  hasEditInvoicePriceBPPermission,
+  hasEndAfterInvoiceBPPermission,
 }: PlannedInvoiceEditMenuProps) => {
   const { t } = useTranslation(['subscription']);
   const isPast =
@@ -264,6 +279,34 @@ const PlannedInvoiceEditMenu = ({
     setIsOpenRequestScheduledStopDialog,
   ] = React.useState<boolean>(false);
 
+  const dateModificationIsDisabled = React.useMemo(
+    () => isPast || disableActions || disableDateModification,
+    [isPast, disableActions, disableDateModification],
+  );
+  const priceModificationIsDisabled = React.useMemo(
+    () => isPast || disableActions,
+    [isPast, disableActions],
+  );
+  const scheduledStopIsDisabled = React.useMemo(
+    () =>
+      disableActions ||
+      moment(plannedInvoice.date).isBefore(moment().add(-31, 'days')),
+    [disableActions, plannedInvoice.date],
+  );
+
+  const handleSeeInvoice = React.useCallback(
+    () => goToInvoice(plannedInvoice.uuid),
+    [goToInvoice, plannedInvoice],
+  );
+  const handleEditDate = React.useCallback(
+    () => onRequestDateChange(plannedInvoice),
+    [onRequestDateChange, plannedInvoice],
+  );
+  const handleEditPrice = React.useCallback(
+    () => onRequestPriceChange(plannedInvoice),
+    [onRequestPriceChange, plannedInvoice],
+  );
+
   const handleRequestScheduledStop = React.useCallback(() => {
     setIsOpenRequestScheduledStopDialog(true);
   }, []);
@@ -279,7 +322,7 @@ const PlannedInvoiceEditMenu = ({
   return (
     <>
       <Menu anchorEl={anchor} onClose={onClose} open={open}>
-        <MenuItem onClick={() => goToInvoice(plannedInvoice.uuid)}>
+        <MenuItem onClick={handleSeeInvoice}>
           <ListItemIcon>
             <ArrowForwardIcon fontSize="small" />
           </ListItemIcon>
@@ -287,42 +330,45 @@ const PlannedInvoiceEditMenu = ({
             {t('subscription.actions.showInvoice')}
           </Typography>
         </MenuItem>
-        <MenuItem
-          disabled={isPast || disableActions || disableDateModification}
-          onClick={() => onRequestDateChange(plannedInvoice)}
-        >
-          <ListItemIcon>
-            <TodayIcon fontSize="small" />
-          </ListItemIcon>
-          <Typography variant="inherit">
-            {t('subscription.actions.changeDate')}
-          </Typography>
-        </MenuItem>
-        <MenuItem
-          disabled={isPast || disableActions}
-          onClick={() => onRequestPriceChange(plannedInvoice)}
-        >
-          <ListItemIcon>
-            <EuroSymbolIcon fontSize="small" />
-          </ListItemIcon>
-          <Typography variant="inherit">
-            {t('subscription.actions.changePrice')}
-          </Typography>
-        </MenuItem>
-        <MenuItem
-          disabled={
-            disableActions ||
-            moment(plannedInvoice.date).isBefore(moment().add(-31, 'days'))
-          }
-          onClick={handleRequestScheduledStop}
-        >
-          <ListItemIcon>
-            <StopIcon fontSize="small" />
-          </ListItemIcon>
-          <Typography variant="inherit">
-            {t('subscription.actions.stop')}
-          </Typography>
-        </MenuItem>
+        {hasEditInvoiceDateBPPermission && (
+          <MenuItem
+            disabled={dateModificationIsDisabled}
+            onClick={handleEditDate}
+          >
+            <ListItemIcon>
+              <TodayIcon fontSize="small" />
+            </ListItemIcon>
+            <Typography variant="inherit">
+              {t('subscription.actions.changeDate')}
+            </Typography>
+          </MenuItem>
+        )}
+        {hasEditInvoicePriceBPPermission && (
+          <MenuItem
+            disabled={priceModificationIsDisabled}
+            onClick={handleEditPrice}
+          >
+            <ListItemIcon>
+              <EuroSymbolIcon fontSize="small" />
+            </ListItemIcon>
+            <Typography variant="inherit">
+              {t('subscription.actions.changePrice')}
+            </Typography>
+          </MenuItem>
+        )}
+        {hasEndAfterInvoiceBPPermission && (
+          <MenuItem
+            disabled={scheduledStopIsDisabled}
+            onClick={handleRequestScheduledStop}
+          >
+            <ListItemIcon>
+              <StopIcon fontSize="small" />
+            </ListItemIcon>
+            <Typography variant="inherit">
+              {t('subscription.actions.stop')}
+            </Typography>
+          </MenuItem>
+        )}
       </Menu>
       {isOpenRequestScheduledStopDialog && (
         <Dialog open={isOpenRequestScheduledStopDialog}>
@@ -362,6 +408,9 @@ const PlannedInvoiceItem = (props: {
   onRequestPriceChange: (plannedInvoice: PlannedInvoice) => void;
   onRequestDateChange: (plannedInvoice: PlannedInvoice) => void;
   onRequestScheduledStop: (plannedInvoiceId?: number, stopNote: string) => void;
+  hasEditInvoiceDateBPPermission: boolean;
+  hasEditInvoicePriceBPPermission: boolean;
+  hasEndAfterInvoiceBPPermission: boolean;
 }) => {
   const { plannedInvoice } = props;
   const classes = useStyles();
@@ -421,6 +470,9 @@ const PlannedInvoiceItem = (props: {
         disableActions={props.disableActions}
         disableDateModification={props.disableDateModification}
         goToInvoice={props.onClickInvoice}
+        hasEditInvoiceDateBPPermission={props.hasEditInvoiceDateBPPermission}
+        hasEditInvoicePriceBPPermission={props.hasEditInvoicePriceBPPermission}
+        hasEndAfterInvoiceBPPermission={props.hasEndAfterInvoiceBPPermission}
         onClose={() => setMenuAnchor(null)}
         onRequestDateChange={props.onRequestDateChange}
         onRequestPriceChange={props.onRequestPriceChange}
@@ -460,6 +512,9 @@ type Props = {
     options: OptionCallback,
   ) => void;
   updateEventList: () => void;
+  hasEditInvoiceDateBPPermission: boolean;
+  hasEditInvoicePriceBPPermission: boolean;
+  hasEndAfterInvoiceBPPermission: boolean;
 };
 
 export function PlannedInvoiceListDetail(props: Props) {
@@ -548,6 +603,15 @@ export function PlannedInvoiceListDetail(props: Props) {
                   }
                   disableDateModification={
                     !!props.subscription.month_billing_day
+                  }
+                  hasEditInvoiceDateBPPermission={
+                    props.hasEditInvoiceDateBPPermission
+                  }
+                  hasEditInvoicePriceBPPermission={
+                    props.hasEditInvoicePriceBPPermission
+                  }
+                  hasEndAfterInvoiceBPPermission={
+                    props.hasEndAfterInvoiceBPPermission
                   }
                   onClickInvoice={props.onClickInvoice}
                   onRequestDateChange={setPlannedInvoiceToUpdateDate}

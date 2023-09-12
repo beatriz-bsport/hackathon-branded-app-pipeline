@@ -94,12 +94,18 @@ export function SubscriptionComponent(props: Props) {
         'product.contract.allowed_actions.pauseBillingPlan',
         'product.contract.allowed_actions.endBillingPlan',
         'product.contract.allowed_actions.editPassBillingPlan',
+        'product.contract.allowed_actions.editInvoiceDateBillingPlan',
+        'product.contract.allowed_actions.editInvoicePriceBillingPlan',
+        'product.contract.allowed_actions.endAfterInvoiceBillingPlan',
       ]}
     >
       {([
         hasPauseBillingPlanPermission,
         hasEndBillingPlanPermission,
         hasEditPassBillingPlanPermission,
+        hasEditInvoiceDateBPPermission,
+        hasEditInvoicePriceBPPermission,
+        hasEndAfterInvoiceBPPermission,
       ]: boolean[]) => (
         <div>
           <Grid container direction="row" spacing={3}>
@@ -110,6 +116,11 @@ export function SubscriptionComponent(props: Props) {
               <Divider className={classes.divider} />
               <PlannedInvoiceListDetail
                 cancelPause={props.cancelPause}
+                hasEditInvoiceDateBPPermission={hasEditInvoiceDateBPPermission}
+                hasEditInvoicePriceBPPermission={
+                  hasEditInvoicePriceBPPermission
+                }
+                hasEndAfterInvoiceBPPermission={hasEndAfterInvoiceBPPermission}
                 onClickInvoice={props.goToInvoice}
                 onRequestScheduledStop={props.requestScheduledStop}
                 pauseList={props.subscription.pauses}

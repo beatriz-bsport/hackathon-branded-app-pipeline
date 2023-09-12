@@ -3994,11 +3994,7 @@
         "sourceManager": "The manager {{ managerName }}",
         "filter": "Bookings"
       },
-      "member-booking_canceled": {
-        "primaryText": "The booking for {{- name }} the {{- date_start }} was canceled.",
-        "filter": "Booking cancelations"
-      },
-      "member-private_booking_canceled": {
+      "undefined": {
         "primaryText": "The appointment for {{- private_service_name}} - {{- private_slot_name }} the {{- date_start }} was canceled.",
         "filter": "Appointment cancelations"
       },

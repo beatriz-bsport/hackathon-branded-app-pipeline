@@ -14,6 +14,7 @@ import SubscriptionSchedule from './SubscriptionSchedule.component';
 import SubscriptionPauseListItem from './pause/PauseV1ListItem.component';
 import SubscriptionActions from './SubscriptionActions.component';
 import type { Subscription, PlannedInvoice } from '../types';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import { COMPANY_EVENTS } from '../event.utils';
 
@@ -52,70 +53,80 @@ export function SubscriptionComponent(props: Props) {
     return null;
   }
   return (
-    <div>
-      <Grid container direction="row" spacing={3}>
-        <Grid item md={6} xs={12}>
-          <Typography component="h3" variant="h5">
-            {props.t('subscription.invoicesSection')}
-          </Typography>
-          <Divider className={props.classes.divider} />
-          <Paper>
-            <SubscriptionSchedule
-              onPlannedInvoiceClick={props.goToInvoice}
-              requestUpdatePrice={props.requestUpdatePrice}
-              scheduledInvoices={props.subscription.planned_invoices}
-              subscriptionHasEnded={
-                props.subscription.has_ended || props.subscription.canceled_at
-              }
-            />
-          </Paper>
-          <div className={props.classes.divider} />
-          <Paper>
-            <EventPanel
-              eventList={props.eventList}
-              eventSpec={COMPANY_EVENTS}
-              extraFetchParams={{ billing_plan: props.subscription.id }}
-              fetchEventList={props.fetchSubscriptionEventList}
-              loading={props.eventLoading}
-              page={props.eventPage}
-            />
-          </Paper>
-        </Grid>
-        <Grid item md={6} xs={12}>
-          <div className={props.classes.block}>
-            <SubscriptionSummary
-              goToMember={props.goToMember}
-              goToSubscribe={props.goToSubscribe}
-              loading={props.loading}
-              requestPaymentMethodSwitch={props.requestPaymentMethodSwitch}
-              requestPaymentPackSwitch={props.requestPaymentPackSwitch}
-              subscription={props.subscription}
-              unflagPlannedInvoiceAsLast={props.unflagPlannedInvoiceAsLast}
-              updateRenewal={props.updateSubscriptionRenewal}
-            />
-          </div>
-          <SubscriptionActions
-            requestFreeze={props.requestFreeze}
-            requestPaymentMethodSwitch={props.requestPaymentMethodSwitch}
-            requestPaymentPackSwitch={props.requestPaymentPackSwitch}
-            requestScheduledStop={props.requestScheduledStop}
-            requestStop={props.requestStop}
-            subscription={props.subscription}
-          />
+    <ObjectLevelPermissionProviderComponent requiredPermission="product.contract.allowed_actions.pauseBillingPlan">
+      {(hasPauseBillingPlanPermission: boolean) => (
+        <div>
+          <Grid container direction="row" spacing={3}>
+            <Grid item md={6} xs={12}>
+              <Typography component="h3" variant="h5">
+                {props.t('subscription.invoicesSection')}
+              </Typography>
+              <Divider className={props.classes.divider} />
+              <Paper>
+                <SubscriptionSchedule
+                  onPlannedInvoiceClick={props.goToInvoice}
+                  requestUpdatePrice={props.requestUpdatePrice}
+                  scheduledInvoices={props.subscription.planned_invoices}
+                  subscriptionHasEnded={
+                    props.subscription.has_ended ||
+                    props.subscription.canceled_at
+                  }
+                />
+              </Paper>
+              <div className={props.classes.divider} />
+              <Paper>
+                <EventPanel
+                  eventList={props.eventList}
+                  eventSpec={COMPANY_EVENTS}
+                  extraFetchParams={{ billing_plan: props.subscription.id }}
+                  fetchEventList={props.fetchSubscriptionEventList}
+                  loading={props.eventLoading}
+                  page={props.eventPage}
+                />
+              </Paper>
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <div className={props.classes.block}>
+                <SubscriptionSummary
+                  goToMember={props.goToMember}
+                  goToSubscribe={props.goToSubscribe}
+                  loading={props.loading}
+                  requestPaymentMethodSwitch={props.requestPaymentMethodSwitch}
+                  requestPaymentPackSwitch={props.requestPaymentPackSwitch}
+                  subscription={props.subscription}
+                  unflagPlannedInvoiceAsLast={props.unflagPlannedInvoiceAsLast}
+                  updateRenewal={props.updateSubscriptionRenewal}
+                />
+              </div>
+              <SubscriptionActions
+                requestFreeze={
+                  hasPauseBillingPlanPermission && props.requestFreeze
+                }
+                requestPaymentMethodSwitch={props.requestPaymentMethodSwitch}
+                requestPaymentPackSwitch={props.requestPaymentPackSwitch}
+                requestScheduledStop={props.requestScheduledStop}
+                requestStop={props.requestStop}
+                subscription={props.subscription}
+              />
 
-          {props.subscription.pauses.length ? (
-            <Typography variant="h6">
-              {props.t('subscription.pauseSection')}
-            </Typography>
-          ) : null}
-          <Paper className={props.classes.block}>
-            {props.subscription.pauses.map((p) => (
-              <SubscriptionPauseListItem key={p.id} pause={p} />
-            ))}
-          </Paper>
-        </Grid>
-      </Grid>
-    </div>
+              {props.subscription.pauses.length ? (
+                <Typography variant="h6">
+                  {props.t('subscription.pauseSection')}
+                </Typography>
+              ) : null}
+              <Paper className={props.classes.block}>
+                {props.subscription.pauses.map((subscriptionPause) => (
+                  <SubscriptionPauseListItem
+                    key={subscriptionPause.id}
+                    pause={subscriptionPause}
+                  />
+                ))}
+              </Paper>
+            </Grid>
+          </Grid>
+        </div>
+      )}
+    </ObjectLevelPermissionProviderComponent>
   );
 }
 

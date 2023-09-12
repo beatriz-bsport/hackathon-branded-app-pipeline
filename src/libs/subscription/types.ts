@@ -189,6 +189,15 @@ export type PauseRequestData = {
   action_pack_kind?: number;
 };
 
+export type PauseRequestResults = {
+  pause?: {
+    pause_id: number;
+    from_date: string;
+    until_date: string;
+  };
+  subscription: Subscription;
+};
+
 export type PauseBadRequestResults = {
   from_date?: string;
   days?: string;

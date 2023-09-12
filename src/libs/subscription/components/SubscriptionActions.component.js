@@ -26,7 +26,7 @@ type Props = {
 
   subscription: Subscription,
 
-  requestFreeze: () => void,
+  requestFreeze?: () => void,
   requestPaymentMethodSwitch: () => void,
   requestPaymentPackSwitch: () => void,
   requestStop: () => void,
@@ -58,20 +58,22 @@ export const SubscriptionActions = (props: Props) => {
               {props.t('subscription.actions.switchPack')}
             </Button>
           )}
-          <Button
-            className={props.classes.button}
-            color="primary"
-            disabled={
-              !props.requestFreeze ||
-              props.subscription.has_ended ||
-              props.subscription.canceled_at
-            }
-            onClick={props.requestFreeze}
-            variant="outlined"
-          >
-            <AlarmAddIcon className={props.classes.leftIcon} />
-            {props.t('subscription.actions.freeze')}
-          </Button>
+          {props.requestFreeze && (
+            <Button
+              className={props.classes.button}
+              color="primary"
+              disabled={
+                !props.requestFreeze ||
+                props.subscription.has_ended ||
+                props.subscription.canceled_at
+              }
+              onClick={props.requestFreeze}
+              variant="outlined"
+            >
+              <AlarmAddIcon className={props.classes.leftIcon} />
+              {props.t('subscription.actions.freeze')}
+            </Button>
+          )}
         </div>
         <div className={props.classes.row}>
           <Button

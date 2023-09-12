@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
@@ -11,11 +11,14 @@ import PopOver from '#components/Popover';
 import { OptionCallback } from '../../../state/types';
 import RedButton from '../../../components/button/RedButton.component';
 import PauseFormDialog from './pause/PauseFormDialog.component';
-import { PauseRequestData, Subscription } from '../types';
+import { PauseRequestData, PauseRequestResults, Subscription } from '../types';
 
 type Props = {
   subscription: Subscription;
-  requestPause: (data: PauseRequestData, options: OptionCallback<any>) => void;
+  requestPause?: (
+    data: PauseRequestData,
+    options: OptionCallback<PauseRequestResults>,
+  ) => void;
   requestScheduledStop?: (plannedInvoiceId: number) => void;
   updateEventList: () => void;
 };
@@ -28,6 +31,10 @@ export const SubscriptionActionsV2: FC<Props> = (props) => {
     (invoice) => invoice.is_last_invoice_before_scheduled_stop,
   );
   const closePauseForm = () => setRequestPause(null);
+  const handlePauseRequest = useCallback(
+    () => setRequestPause(true),
+    [setRequestPause],
+  );
   return (
     <div>
       <Typography component="h3" variant="h5">
@@ -39,21 +46,23 @@ export const SubscriptionActionsV2: FC<Props> = (props) => {
           hide={!props.subscription.month_billing_day}
           title={t('subscription.freeze.disabledReasons.month_billing_day')}
         >
-          <Button
-            className={classes.button}
-            color="primary"
-            disabled={
-              !props.requestPause ||
-              props.subscription.has_ended ||
-              !!props.subscription.canceled_at ||
-              !!props.subscription.month_billing_day
-            }
-            onClick={() => setRequestPause(true)}
-            variant="outlined"
-          >
-            <AlarmAddIcon className={classes.leftIcon} />
-            {t('subscription.actions.freeze')}
-          </Button>
+          {props.requestPause && (
+            <Button
+              className={classes.button}
+              color="primary"
+              disabled={
+                !props.requestPause ||
+                props.subscription.has_ended ||
+                !!props.subscription.canceled_at ||
+                !!props.subscription.month_billing_day
+              }
+              onClick={handlePauseRequest}
+              variant="outlined"
+            >
+              <AlarmAddIcon className={classes.leftIcon} />
+              {t('subscription.actions.freeze')}
+            </Button>
+          )}
         </PopOver>
       </div>
       {!!requestPause && (

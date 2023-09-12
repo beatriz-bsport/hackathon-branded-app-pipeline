@@ -93,11 +93,13 @@ export function SubscriptionComponent(props: Props) {
       requiredPermission={[
         'product.contract.allowed_actions.pauseBillingPlan',
         'product.contract.allowed_actions.endBillingPlan',
+        'product.contract.allowed_actions.editPassBillingPlan',
       ]}
     >
       {([
         hasPauseBillingPlanPermission,
         hasEndBillingPlanPermission,
+        hasEditPassBillingPlanPermission,
       ]: boolean[]) => (
         <div>
           <Grid container direction="row" spacing={3}>
@@ -125,6 +127,7 @@ export function SubscriptionComponent(props: Props) {
             <Grid item md={6} xs={12}>
               <div className={classes.block}>
                 <SubscriptionSummary
+                  canEditPassBillingPlan={hasEditPassBillingPlanPermission}
                   downloadContractTerms={props.downloadContractTerms}
                   goToMember={props.goToMember}
                   goToSubscribe={props.goToSubscribe}

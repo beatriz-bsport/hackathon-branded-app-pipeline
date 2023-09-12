@@ -21,6 +21,7 @@ import ButtonBaseWithTypography from '#components/button/ButtonBaseWithTypograph
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
+  canEditPassBillingPlan: boolean;
   subscription: Subscription<PrivatePass, PaymentPack, PaymentCombo>;
   updateRenewal: (params: { auto_renewal: boolean }) => void;
   requestPaymentPackSwitch: () => void;
@@ -132,13 +133,15 @@ export const SubscriptionSummary = (props: Props) => {
               {t('parameters.payment_pack')}
             </Typography>
             <div className={classes.rowRight}>
-              <IconButton
-                color="primary"
-                disabled={!subscription.editable}
-                onClick={props.requestPaymentPackSwitch}
-              >
-                <EditIcon />
-              </IconButton>
+              {props.canEditPassBillingPlan && (
+                <IconButton
+                  color="primary"
+                  disabled={!subscription.editable}
+                  onClick={props.requestPaymentPackSwitch}
+                >
+                  <EditIcon />
+                </IconButton>
+              )}
               <Typography variant="body2">
                 {subscription.payment_pack
                   ? subscription.payment_pack.name
@@ -153,13 +156,15 @@ export const SubscriptionSummary = (props: Props) => {
               {t('parameters.private_pass')}
             </Typography>
             <div className={classes.rowRight}>
-              <IconButton
-                color="primary"
-                disabled={!subscription.editable}
-                onClick={props.requestPrivatePassSwitch}
-              >
-                <EditIcon />
-              </IconButton>
+              {props.canEditPassBillingPlan && (
+                <IconButton
+                  color="primary"
+                  disabled={!subscription.editable}
+                  onClick={props.requestPrivatePassSwitch}
+                >
+                  <EditIcon />
+                </IconButton>
+              )}
               <Typography variant="body2">
                 {subscription.private_pass
                   ? subscription.private_pass.name
@@ -174,13 +179,15 @@ export const SubscriptionSummary = (props: Props) => {
               {t('parameters.payment_combo')}
             </Typography>
             <div className={classes.rowRight}>
-              <IconButton
-                color="primary"
-                disabled={!subscription.editable}
-                onClick={props.requestPaymentComboSwitch}
-              >
-                <EditIcon />
-              </IconButton>
+              {props.canEditPassBillingPlan && (
+                <IconButton
+                  color="primary"
+                  disabled={!subscription.editable}
+                  onClick={props.requestPaymentComboSwitch}
+                >
+                  <EditIcon />
+                </IconButton>
+              )}
               <Typography variant="body2">
                 {subscription.payment_combo
                   ? subscription.payment_combo.name

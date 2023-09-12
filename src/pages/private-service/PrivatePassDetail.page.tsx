@@ -257,6 +257,7 @@ export class PrivatePassDetails extends Component<Props> {
           'product.privatePass.allowed_actions.compatibility',
           'product.privatePass.allowed_actions.delete',
           'product.privatePass.allowed_actions.manageExtension',
+          'product.privatePass.allowed_actions.manageCredit',
         ]}
       >
         {([
@@ -264,6 +265,7 @@ export class PrivatePassDetails extends Component<Props> {
           hasCompatibilityPermission,
           hasDeletePermission,
           hasManageExtensionPermission,
+          hasManageCreditPermission,
         ]: boolean[]) => (
           <Grid container alignItems="stretch" spacing={3}>
             <Grid item className={classes.privatePassDetail} md={6} xs={12}>
@@ -342,14 +344,6 @@ export class PrivatePassDetails extends Component<Props> {
                 <Divider />
                 <PaginatedConsumerPrivatePass
                   consumerPrivatePassUpdating={this.props.consumerPass.updating}
-                  decrementCredit={
-                    this.props.privatePass?.template_instance &&
-                    this.props.decrementCredit
-                  }
-                  incrementCredit={
-                    this.props.privatePass?.template_instance &&
-                    this.props.incrementCredit
-                  }
                   itemPerPage={CONSUMER_PrivatePass_PAGINATION_SIZE}
                   items={this.props.consumerPass.items}
                   loading={this.props.consumerPass.loading}
@@ -369,6 +363,7 @@ export class PrivatePassDetails extends Component<Props> {
                   page={this.props.consumerPass.page}
                   privatePass={this.props.privatePass}
                   updatePrivateConsumerPassCredits={
+                    hasManageCreditPermission &&
                     this.props.updatePrivateConsumerPassCredits
                   }
                 />

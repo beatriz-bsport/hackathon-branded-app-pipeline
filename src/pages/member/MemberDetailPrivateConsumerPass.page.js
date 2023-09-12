@@ -204,8 +204,16 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
       this.props.privateBookingsLoading ||
       this.props.userFiltersLoading;
     return (
-      <ObjectLevelPermissionProviderComponent requiredPermission="product.privatePass.allowed_actions.manageExtension">
-        {(hasManageExtensionPermission: boolean) => (
+      <ObjectLevelPermissionProviderComponent
+        requiredPermission={[
+          'product.privatePass.allowed_actions.manageExtension',
+          'product.privatePass.allowed_actions.manageCredit',
+        ]}
+      >
+        {([
+          hasManageExtensionPermission,
+          hasManageCreditPermission,
+        ]: boolean[]) => (
           <Grid container direction="row" spacing={3}>
             <Grid item lg={6} xs={12}>
               <Paper>
@@ -246,6 +254,7 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
                         )
                       }
                       onUpdateCredit={
+                        hasManageCreditPermission &&
                         this.props.updatePrivateConsumerPassCredits
                       }
                       private_consumer_pass={pcp}

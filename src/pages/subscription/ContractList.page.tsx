@@ -45,6 +45,7 @@ import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/se
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 import SubscriptionContractList from '../../libs/subscription/components/SubscriptionContractList.component';
 import SubscriptionContractFormDrawer from '../../libs/subscription/components/SubscriptionContractFormDrawer.component';
+import { FormValues } from '../../libs/subscription/components/SubscriptionContractForm.component';
 import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
 import { fetchMarketingNotificationList } from '#libs/marketing/actions';
 import { search as searchMembers } from '../../libs/member/actions';
@@ -136,13 +137,35 @@ export class SubscriptionList extends React.Component<Props, State> {
     this.setState({ searchText: '', searchResult: [] });
   };
 
+  handleEditContract = (data: FormValues, options: OptionCallback<void>) => {
+    this.props.createOrUpdateContract(data, {
+      onSuccess: () => {
+        this.props.fetchContractList();
+        if (options.onSuccess) {
+          options.onSuccess();
+        }
+      },
+    });
+  };
+
+  handleRestoreContract = (id: number) => {
+    this.props.restoreContract(id, {
+      onSuccess: () => this.props.fetchContractList(),
+    });
+  };
+
   render() {
     const stripeRegion = getStripeRegion();
     const companyCountry = getCompanyCountry();
 
     return (
-      <ObjectLevelPermissionProviderComponent requiredPermission="product.contract.allowed_actions.create">
-        {(hasCreatePermission: boolean) => (
+      <ObjectLevelPermissionProviderComponent
+        requiredPermission={[
+          'product.contract.allowed_actions.create',
+          'product.contract.allowed_actions.edit',
+        ]}
+      >
+        {([hasCreatePermission, hasEditPermission]: boolean[]) => (
           <div className={this.props.classes.container}>
             {this.props.contractListAvailableAll?.length === 0 &&
             this.props.contractListManagerOnly?.length === 0 &&
@@ -196,16 +219,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                           onSuccess: this.props.fetchContractList,
                         })
                       }
-                      onEdit={(data: any, options: OptionCallback<void>) => {
-                        this.props.createOrUpdateContract(data, {
-                          onSuccess: () => {
-                            this.props.fetchContractList();
-                            if (options && options.onSuccess) {
-                              options.onSuccess();
-                            }
-                          },
-                        });
-                      }}
+                      onEdit={hasEditPermission && this.handleEditContract}
                       onRegister={this.props.openContractRegister}
                       paymentComboList={this.props.paymentComboList}
                       paymentPackList={this.props.paymentPackList}
@@ -246,16 +260,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                         onSuccess: this.props.fetchContractList,
                       })
                     }
-                    onEdit={(data: any, options: OptionCallback<void>) => {
-                      this.props.createOrUpdateContract(data, {
-                        onSuccess: () => {
-                          this.props.fetchContractList();
-                          if (options && options.onSuccess) {
-                            options.onSuccess();
-                          }
-                        },
-                      });
-                    }}
+                    onEdit={hasEditPermission && this.handleEditContract}
                     onRegister={this.props.openContractRegister}
                     paymentComboList={this.props.paymentComboList}
                     paymentPackList={this.props.paymentPackList}
@@ -286,16 +291,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                         onSuccess: this.props.fetchContractList,
                       })
                     }
-                    onEdit={(data: any, options: OptionCallback<void>) => {
-                      this.props.createOrUpdateContract(data, {
-                        onSuccess: () => {
-                          this.props.fetchContractList();
-                          if (options && options.onSuccess) {
-                            options.onSuccess();
-                          }
-                        },
-                      });
-                    }}
+                    onEdit={hasEditPermission && this.handleEditContract}
                     onRegister={this.props.openContractRegister}
                     paymentComboList={this.props.paymentComboList}
                     paymentPackList={this.props.paymentPackList}
@@ -332,11 +328,9 @@ export class SubscriptionList extends React.Component<Props, State> {
                       divider
                       contractList={this.props.inactiveContracts}
                       loading={this.props.contractLoading}
-                      onRestore={(id: number) => {
-                        this.props.restoreContract(id, {
-                          onSuccess: () => this.props.fetchContractList(),
-                        });
-                      }}
+                      onRestore={
+                        hasEditPermission && this.handleRestoreContract
+                      }
                       paymentComboList={this.props.paymentComboList}
                       paymentPackList={this.props.paymentPackList}
                       privatePassList={this.props.privatePassList}

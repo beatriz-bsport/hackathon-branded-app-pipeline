@@ -40,9 +40,9 @@ type Props = {
   onDelete: (id: number, options: OptionCallback) => void,
   paymentPackList: Array<PaymentPack>,
   privatePassList: Array<PrivatePass>,
-  onEdit: ?(data: any, options: OptionCallback) => void,
+  onEdit?: (data: any, options: OptionCallback) => void,
   onCreate: ?(data: any, options: OptionCallback) => void,
-  onRestore: (id: number, options: OptionCallback) => void,
+  onRestore?: (id: number, options: OptionCallback) => void,
 };
 export const SubscriptionContractList = (props: Props) => {
   return (

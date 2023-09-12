@@ -89,6 +89,7 @@ import MarketingRuleFormContract from '#libs/marketing/components/marketing-rule
 import MarketingRuleListItemContract from '#libs/marketing/components/marketing-rule-list-item/MarketingRuleListItemContract.component';
 import ContractPauseFormDialog from '#libs/subscription/components/contract/ContractPauseFormDialog.component';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type OwnProps = {
   contractId: number;
@@ -221,152 +222,164 @@ export class ContractDetailPage extends Component<Props> {
     }
     const { classes, t } = this.props;
     return (
-      <div className={classes.pageContainer}>
-        <Grid container alignItems="stretch" spacing={3}>
-          <Grid item className={classes.detailContainer} md={6} xs={12}>
-            <ContractDetail
-              company={this.getCompany(this.props.theme)}
-              companyTheme={this.props.theme}
-              contract={this.props.contract}
-              goToCombo={this.props.goToCombo}
-              goToPack={this.props.goToPaymentPackDetail}
-              goToPrivatePass={this.props.goToPrivatePass}
-              snackbarSuccess={this.props.snackbarSuccess}
-            />
-            <MarketingRuleListItemContract
-              deleteNotification={this.props.deleteMarketingNotification}
-              deleteNotificationModalOpen={
-                this.props.deleteNotificationModalOpen
-              }
-              emails={this.props.email_templates_list}
-              notifications={this.props.notifications}
-              selectedNotification={this.props.selectedNotification}
-              setContractNotificationFormOpen={
-                this.props.setContractNotificationFormOpen
-              }
-              setDeleteNotificationModalOpen={
-                this.props.setDeleteNotificationModalOpen
-              }
-              setSelectedNotification={this.props.setSelectedNotification}
-              smartLists={this.props.smartLists}
-              updateNotification={this.props.updateMarketingNotification}
-            />
+      <ObjectLevelPermissionProvider requiredPermission="product.contract.allowed_actions.edit">
+        {(hasEditPermission: boolean) => (
+          <div className={classes.pageContainer}>
+            <Grid container alignItems="stretch" spacing={3}>
+              <Grid item className={classes.detailContainer} md={6} xs={12}>
+                <ContractDetail
+                  company={this.getCompany(this.props.theme)}
+                  companyTheme={this.props.theme}
+                  contract={this.props.contract}
+                  goToCombo={this.props.goToCombo}
+                  goToPack={this.props.goToPaymentPackDetail}
+                  goToPrivatePass={this.props.goToPrivatePass}
+                  snackbarSuccess={this.props.snackbarSuccess}
+                />
+                <MarketingRuleListItemContract
+                  deleteNotification={this.props.deleteMarketingNotification}
+                  deleteNotificationModalOpen={
+                    this.props.deleteNotificationModalOpen
+                  }
+                  emails={this.props.email_templates_list}
+                  notifications={this.props.notifications}
+                  selectedNotification={this.props.selectedNotification}
+                  setContractNotificationFormOpen={
+                    this.props.setContractNotificationFormOpen
+                  }
+                  setDeleteNotificationModalOpen={
+                    this.props.setDeleteNotificationModalOpen
+                  }
+                  setSelectedNotification={this.props.setSelectedNotification}
+                  smartLists={this.props.smartLists}
+                  updateNotification={this.props.updateMarketingNotification}
+                />
 
-            <div className={classes.notificationButtonContainer}>
-              <Button
-                color="primary"
-                onClick={this.openContractNotificationForm}
-                variant="outlined"
-              >
-                {t('addNotification')}
-              </Button>
-            </div>
-            {this.props.contractNotificationFormOpen && (
-              <MarketingRuleFormContract
-                emailDetailLoading={this.props.emailDetailLoading}
-                emailDetails={this.props.email_templates_details}
-                emailListLoading={this.props.emailListLoading}
-                emails={this.props.email_templates_list}
-                getEmailDetail={this.props.fetchEmailTemplateDetail}
-                getEmails={this.props.fetchEmailTemplatesSummaries}
-                getSmartLists={this.props.getSmartLists}
-                goToSmartlist={this.props.goToSmartlist}
-                id={this.props.contractId}
-                initial={this.props.selectedNotification}
-                onCancel={this.props.closeForm}
-                onSubmit={this.props.submitNotificationForm}
-                resolvedGenericTags={this.props.resolvedGenericTags}
-                smartListLoading={this.props.smartListLoading}
-                smartLists={this.props.smartLists}
-                tags={getMergeTags(this.props.tagCategories, t)}
-              />
-            )}
-          </Grid>
-          <Grid item md={6} xs={12}>
-            <Typography className={classes.title} variant="h6">
-              {t('associatedSubscriptions')}
-            </Typography>
-            <Paper>
-              <PaginatedSubscriptionList
-                itemPerPage={SUBSCRIPTION_PAGINATION_SIZE}
-                items={this.props.subscriptions.items}
-                loading={this.props.subscriptions.loading}
-                nbItems={this.props.subscriptions.count}
-                onClick={this.props.goToSubscription}
-                onPageRequested={this.onSubscriptionListPageRequested}
-                page={this.props.page}
-              />
-            </Paper>
-            {this.props.contractPauseLoading ? (
-              <div className={classes.loadingContainer}>
-                <CircularProgress />
-              </div>
-            ) : (
-              <div className={classes.pauseContainer}>
-                {!!this.props.contractPauseList.length && (
-                  <Typography variant="h5">
-                    {t('pauseV2.contractPause.title')}
-                  </Typography>
+                <div className={classes.notificationButtonContainer}>
+                  <Button
+                    color="primary"
+                    onClick={this.openContractNotificationForm}
+                    variant="outlined"
+                  >
+                    {t('addNotification')}
+                  </Button>
+                </div>
+                {this.props.contractNotificationFormOpen && (
+                  <MarketingRuleFormContract
+                    emailDetailLoading={this.props.emailDetailLoading}
+                    emailDetails={this.props.email_templates_details}
+                    emailListLoading={this.props.emailListLoading}
+                    emails={this.props.email_templates_list}
+                    getEmailDetail={this.props.fetchEmailTemplateDetail}
+                    getEmails={this.props.fetchEmailTemplatesSummaries}
+                    getSmartLists={this.props.getSmartLists}
+                    goToSmartlist={this.props.goToSmartlist}
+                    id={this.props.contractId}
+                    initial={this.props.selectedNotification}
+                    onCancel={this.props.closeForm}
+                    onSubmit={this.props.submitNotificationForm}
+                    resolvedGenericTags={this.props.resolvedGenericTags}
+                    smartListLoading={this.props.smartListLoading}
+                    smartLists={this.props.smartLists}
+                    tags={getMergeTags(this.props.tagCategories, t)}
+                  />
                 )}
-                {this.props.contractPauseList.map(
-                  (cp: ContractPauseDetails) => (
-                    <div key={cp.id} className={classes.pauseItemContainer}>
-                      <ContractPauseListItemDetail
-                        contractPause={cp}
-                        fetchMembersBySubscription={
-                          this.props.fetchMembersBySubscription
-                        }
-                        fetchSubscriptionBulk={this.props.fetchSubscriptionBulk}
-                        goToSubscription={this.props.goToSubscription}
-                        onDeletePause={this.deleteContractPauseFunction(cp)}
-                        onUpdatePause={this.updateContractPauseFunction(cp)}
-                        onUpdatePauseName={this.props.updateContractPauseName}
-                      />
-                    </div>
-                  ),
+              </Grid>
+              <Grid item md={6} xs={12}>
+                <Typography className={classes.title} variant="h6">
+                  {t('associatedSubscriptions')}
+                </Typography>
+                <Paper>
+                  <PaginatedSubscriptionList
+                    itemPerPage={SUBSCRIPTION_PAGINATION_SIZE}
+                    items={this.props.subscriptions.items}
+                    loading={this.props.subscriptions.loading}
+                    nbItems={this.props.subscriptions.count}
+                    onClick={this.props.goToSubscription}
+                    onPageRequested={this.onSubscriptionListPageRequested}
+                    page={this.props.page}
+                  />
+                </Paper>
+                {this.props.contractPauseLoading ? (
+                  <div className={classes.loadingContainer}>
+                    <CircularProgress />
+                  </div>
+                ) : (
+                  <div className={classes.pauseContainer}>
+                    {!!this.props.contractPauseList.length && (
+                      <Typography variant="h5">
+                        {t('pauseV2.contractPause.title')}
+                      </Typography>
+                    )}
+                    {this.props.contractPauseList.map(
+                      (cp: ContractPauseDetails) => (
+                        <div key={cp.id} className={classes.pauseItemContainer}>
+                          <ContractPauseListItemDetail
+                            contractPause={cp}
+                            fetchMembersBySubscription={
+                              this.props.fetchMembersBySubscription
+                            }
+                            fetchSubscriptionBulk={
+                              this.props.fetchSubscriptionBulk
+                            }
+                            goToSubscription={this.props.goToSubscription}
+                            onDeletePause={this.deleteContractPauseFunction(cp)}
+                            onUpdatePause={this.updateContractPauseFunction(cp)}
+                            onUpdatePauseName={
+                              this.props.updateContractPauseName
+                            }
+                          />
+                        </div>
+                      ),
+                    )}
+                  </div>
                 )}
-              </div>
-            )}
-            {this.props.contractPauseFormOpen && (
-              <ContractPauseFormDialog
-                closeForm={this.closeContractPauseForm}
-                contractId={this.props.contractId}
-                contractPauseBeingEdited={this.props.contractPauseToUpdate}
-                fetchMembersBySubscription={
-                  this.props.fetchMembersBySubscription
+                {this.props.contractPauseFormOpen && (
+                  <ContractPauseFormDialog
+                    closeForm={this.closeContractPauseForm}
+                    contractId={this.props.contractId}
+                    contractPauseBeingEdited={this.props.contractPauseToUpdate}
+                    fetchMembersBySubscription={
+                      this.props.fetchMembersBySubscription
+                    }
+                    fetchSubscriptionBulk={this.props.fetchSubscriptionBulk}
+                    onSubmit={this.props.createOrUpdateContractPause}
+                    openForm={this.props.contractPauseFormOpen}
+                    subscriptionData={this.props.subscriptionData}
+                  />
+                )}
+              </Grid>
+              <BottomActionsButtonCustom
+                buttonsProperties={this.getBottomActionsProperties(t)}
+                onDelete={this.openDeleteContractModal}
+                onEdit={hasEditPermission && this.onContractEdit}
+              />
+              <ContractDeleteDialog
+                contractToDeleteId={
+                  this.props.deleteContractModalOpen
+                    ? this.props.contract.id
+                    : null
                 }
-                fetchSubscriptionBulk={this.props.fetchSubscriptionBulk}
-                onSubmit={this.props.createOrUpdateContractPause}
-                openForm={this.props.contractPauseFormOpen}
-                subscriptionData={this.props.subscriptionData}
+                deleteContract={this.deleteContract}
+                onClose={this.closeDeleteContractModal}
               />
-            )}
-          </Grid>
-          <BottomActionsButtonCustom
-            buttonsProperties={this.getBottomActionsProperties(t)}
-            onDelete={this.openDeleteContractModal}
-            onEdit={this.onContractEdit}
-          />
-          <ContractDeleteDialog
-            contractToDeleteId={
-              this.props.deleteContractModalOpen ? this.props.contract.id : null
-            }
-            deleteContract={this.deleteContract}
-            onClose={this.closeDeleteContractModal}
-          />
-        </Grid>
+            </Grid>
 
-        <SubscriptionContractFormDrawer
-          displayNewCheckoutFlow={this.props.theme.display_new_checkout_flow}
-          initial={this.props.contract}
-          onClose={this.closeContractFormDrawer}
-          onSubmit={this.submitContractForm}
-          open={!!this.props.contractToEdit}
-          paymentComboList={this.props.paymentComboList}
-          paymentPackList={this.props.paymentPackList}
-          privatePassList={this.props.privatePassList}
-        />
-      </div>
+            <SubscriptionContractFormDrawer
+              displayNewCheckoutFlow={
+                this.props.theme.display_new_checkout_flow
+              }
+              initial={this.props.contract}
+              onClose={this.closeContractFormDrawer}
+              onSubmit={this.submitContractForm}
+              open={!!this.props.contractToEdit}
+              paymentComboList={this.props.paymentComboList}
+              paymentPackList={this.props.paymentPackList}
+              privatePassList={this.props.privatePassList}
+            />
+          </div>
+        )}
+      </ObjectLevelPermissionProvider>
     );
   }
 }

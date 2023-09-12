@@ -89,6 +89,7 @@ import {
   DISPLAY_SUCCESS,
   ACTION_MODE_REDIRECT,
 } from '#libs/background-dialog/types';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 export class SubscriptionList extends React.Component<Props, State> {
   state = {
@@ -140,260 +141,278 @@ export class SubscriptionList extends React.Component<Props, State> {
     const companyCountry = getCompanyCountry();
 
     return (
-      <div className={this.props.classes.container}>
-        {this.props.contractListAvailableAll?.length === 0 &&
-        this.props.contractListManagerOnly?.length === 0 &&
-        !this.props.contractLoading ? (
-          <IsEmptyList
-            button={this.props.t('subscription:contract.actions.create')}
-            onCreate={this.props.onRequestCreate}
-            text={this.props.t('noContracts')}
-          />
-        ) : (
-          <div className={this.props.classes.search}>
-            <FuzeSearch
-              changeSearch={this.changeSearch}
-              clearSearch={this.clearSearch}
-              items={this.props.contractListAvailableAll}
-              placeholder={this.props.t('search')}
-              searchFields={['name']}
-              searchResult={this.state.searchResult}
-              searchText={this.state.searchText}
-            />
+      <ObjectLevelPermissionProviderComponent requiredPermission="product.contract.allowed_actions.create">
+        {(hasCreatePermission: boolean) => (
+          <div className={this.props.classes.container}>
+            {this.props.contractListAvailableAll?.length === 0 &&
+            this.props.contractListManagerOnly?.length === 0 &&
+            !this.props.contractLoading ? (
+              <IsEmptyList
+                button={this.props.t('subscription:contract.actions.create')}
+                onCreate={this.props.onRequestCreate}
+                text={this.props.t('noContracts')}
+              />
+            ) : (
+              <div className={this.props.classes.search}>
+                <FuzeSearch
+                  changeSearch={this.changeSearch}
+                  clearSearch={this.clearSearch}
+                  items={this.props.contractListAvailableAll}
+                  placeholder={this.props.t('search')}
+                  searchFields={['name']}
+                  searchResult={this.state.searchResult}
+                  searchText={this.state.searchText}
+                />
 
-            <Paper
-              className={
-                this.state.searchResult.length > 0 &&
-                this.state.searchText !== ''
-                  ? this.props.classes.searchPaperDisplayed
-                  : this.props.classes.searchPaperHidden
-              }
-            >
-              <Collapse
-                in={
-                  this.state.searchResult.length > 0 &&
-                  this.state.searchText !== ''
-                }
-              >
-                <SubscriptionContractList
-                  dense
-                  divider
-                  company={{
-                    id: this.props.theme.company,
-                    name: this.props.theme.company_name,
-                  }}
-                  contractList={this.state.searchResult}
-                  displayNewCheckoutFlow={
-                    this.props.theme.display_new_checkout_flow
+                <Paper
+                  className={
+                    this.state.searchResult.length > 0 &&
+                    this.state.searchText !== ''
+                      ? this.props.classes.searchPaperDisplayed
+                      : this.props.classes.searchPaperHidden
                   }
-                  loading={this.props.contractLoading}
-                  onClick={this.onClickContract}
-                  onDelete={(id: number) =>
-                    this.props.deleteContract(id, {
-                      onSuccess: this.props.fetchContractList,
-                    })
-                  }
-                  onEdit={(data: any, options: OptionCallback<void>) => {
-                    this.props.createOrUpdateContract(data, {
-                      onSuccess: () => {
-                        this.props.fetchContractList();
-                        if (options && options.onSuccess) {
-                          options.onSuccess();
-                        }
-                      },
-                    });
-                  }}
-                  onRegister={this.props.openContractRegister}
-                  paymentComboList={this.props.paymentComboList}
-                  paymentPackList={this.props.paymentPackList}
-                  privatePassList={this.props.privatePassList}
-                  selectedContract={this.props.selectedContract}
-                />
-              </Collapse>
-            </Paper>
-          </div>
-        )}
-        <Grid container spacing={2}>
-          {!!this.props.contractListAvailableAll?.length && (
-            <Grid item lg={6} xs={12}>
-              <Typography
-                className={this.props.classes.sectionTitle}
-                variant="h5"
-              >
-                {this.props.t(
-                  'subscription:contract.list.titleCustomerAvailable',
-                )}
-              </Typography>
-              <Divider className={this.props.classes.divider} />
-              <SubscriptionContractList
-                dense
-                divider
-                company={{
-                  id: this.props.theme.company,
-                  name: this.props.theme.company_name,
-                }}
-                contractList={this.props.contractListAvailableAll}
-                displayNewCheckoutFlow={
-                  this.props.theme.display_new_checkout_flow
-                }
-                loading={this.props.contractLoading}
-                onClick={this.onClickContract}
-                onDelete={(id: number) =>
-                  this.props.deleteContract(id, {
-                    onSuccess: this.props.fetchContractList,
-                  })
-                }
-                onEdit={(data: any, options: OptionCallback<void>) => {
-                  this.props.createOrUpdateContract(data, {
-                    onSuccess: () => {
-                      this.props.fetchContractList();
-                      if (options && options.onSuccess) {
-                        options.onSuccess();
-                      }
-                    },
-                  });
-                }}
-                onRegister={this.props.openContractRegister}
-                paymentComboList={this.props.paymentComboList}
-                paymentPackList={this.props.paymentPackList}
-                privatePassList={this.props.privatePassList}
-                selectedContract={this.props.selectedContract}
-              />
-            </Grid>
-          )}
-          {!!this.props.contractListManagerOnly?.length && (
-            <Grid item lg={6} xs={12}>
-              <Typography
-                className={this.props.classes.sectionTitle}
-                variant="h5"
-              >
-                {this.props.t('subscription:contract.list.titleManagerOnly')}
-              </Typography>
-              <Divider className={this.props.classes.divider} />
-              <SubscriptionContractList
-                dense
-                divider
-                contractList={this.props.contractListManagerOnly}
-                loading={this.props.contractLoading}
-                onClick={this.onClickContract}
-                onDelete={(id: number) =>
-                  this.props.deleteContract(id, {
-                    onSuccess: this.props.fetchContractList,
-                  })
-                }
-                onEdit={(data: any, options: OptionCallback<void>) => {
-                  this.props.createOrUpdateContract(data, {
-                    onSuccess: () => {
-                      this.props.fetchContractList();
-                      if (options && options.onSuccess) {
-                        options.onSuccess();
-                      }
-                    },
-                  });
-                }}
-                onRegister={this.props.openContractRegister}
-                paymentComboList={this.props.paymentComboList}
-                paymentPackList={this.props.paymentPackList}
-                privatePassList={this.props.privatePassList}
-                selectedContract={this.props.selectedContract}
-              />
-            </Grid>
-          )}
-          {!!this.props.inactiveContracts?.length && (
-            <Grid item lg={6} xs={12}>
-              <ButtonBase
-                onClick={() =>
-                  this.props.setShowDisabled(!this.props.showDisabled)
-                }
-              >
-                <Typography
-                  className={this.props.classes.sectionTitle}
-                  variant="h5"
                 >
-                  {`${this.props.t(
-                    'subscription:contract.list.titleInactive',
-                  )} (${this.props.inactiveContracts?.length})`}
-                </Typography>
-                {this.props.showDisabled ? (
-                  <ExpandLessIcon />
-                ) : (
-                  <ExpandMoreIcon />
-                )}
-              </ButtonBase>
-              <Divider className={this.props.classes.divider} />
-              {this.props.showDisabled && (
-                <SubscriptionContractList
-                  dense
-                  divider
-                  contractList={this.props.inactiveContracts}
-                  loading={this.props.contractLoading}
-                  onRestore={(id: number) => {
-                    this.props.restoreContract(id, {
-                      onSuccess: () => this.props.fetchContractList(),
-                    });
-                  }}
-                  paymentComboList={this.props.paymentComboList}
-                  paymentPackList={this.props.paymentPackList}
-                  privatePassList={this.props.privatePassList}
-                />
+                  <Collapse
+                    in={
+                      this.state.searchResult.length > 0 &&
+                      this.state.searchText !== ''
+                    }
+                  >
+                    <SubscriptionContractList
+                      dense
+                      divider
+                      company={{
+                        id: this.props.theme.company,
+                        name: this.props.theme.company_name,
+                      }}
+                      contractList={this.state.searchResult}
+                      displayNewCheckoutFlow={
+                        this.props.theme.display_new_checkout_flow
+                      }
+                      loading={this.props.contractLoading}
+                      onClick={this.onClickContract}
+                      onDelete={(id: number) =>
+                        this.props.deleteContract(id, {
+                          onSuccess: this.props.fetchContractList,
+                        })
+                      }
+                      onEdit={(data: any, options: OptionCallback<void>) => {
+                        this.props.createOrUpdateContract(data, {
+                          onSuccess: () => {
+                            this.props.fetchContractList();
+                            if (options && options.onSuccess) {
+                              options.onSuccess();
+                            }
+                          },
+                        });
+                      }}
+                      onRegister={this.props.openContractRegister}
+                      paymentComboList={this.props.paymentComboList}
+                      paymentPackList={this.props.paymentPackList}
+                      privatePassList={this.props.privatePassList}
+                      selectedContract={this.props.selectedContract}
+                    />
+                  </Collapse>
+                </Paper>
+              </div>
+            )}
+            <Grid container spacing={2}>
+              {!!this.props.contractListAvailableAll?.length && (
+                <Grid item lg={6} xs={12}>
+                  <Typography
+                    className={this.props.classes.sectionTitle}
+                    variant="h5"
+                  >
+                    {this.props.t(
+                      'subscription:contract.list.titleCustomerAvailable',
+                    )}
+                  </Typography>
+                  <Divider className={this.props.classes.divider} />
+                  <SubscriptionContractList
+                    dense
+                    divider
+                    company={{
+                      id: this.props.theme.company,
+                      name: this.props.theme.company_name,
+                    }}
+                    contractList={this.props.contractListAvailableAll}
+                    displayNewCheckoutFlow={
+                      this.props.theme.display_new_checkout_flow
+                    }
+                    loading={this.props.contractLoading}
+                    onClick={this.onClickContract}
+                    onDelete={(id: number) =>
+                      this.props.deleteContract(id, {
+                        onSuccess: this.props.fetchContractList,
+                      })
+                    }
+                    onEdit={(data: any, options: OptionCallback<void>) => {
+                      this.props.createOrUpdateContract(data, {
+                        onSuccess: () => {
+                          this.props.fetchContractList();
+                          if (options && options.onSuccess) {
+                            options.onSuccess();
+                          }
+                        },
+                      });
+                    }}
+                    onRegister={this.props.openContractRegister}
+                    paymentComboList={this.props.paymentComboList}
+                    paymentPackList={this.props.paymentPackList}
+                    privatePassList={this.props.privatePassList}
+                    selectedContract={this.props.selectedContract}
+                  />
+                </Grid>
+              )}
+              {!!this.props.contractListManagerOnly?.length && (
+                <Grid item lg={6} xs={12}>
+                  <Typography
+                    className={this.props.classes.sectionTitle}
+                    variant="h5"
+                  >
+                    {this.props.t(
+                      'subscription:contract.list.titleManagerOnly',
+                    )}
+                  </Typography>
+                  <Divider className={this.props.classes.divider} />
+                  <SubscriptionContractList
+                    dense
+                    divider
+                    contractList={this.props.contractListManagerOnly}
+                    loading={this.props.contractLoading}
+                    onClick={this.onClickContract}
+                    onDelete={(id: number) =>
+                      this.props.deleteContract(id, {
+                        onSuccess: this.props.fetchContractList,
+                      })
+                    }
+                    onEdit={(data: any, options: OptionCallback<void>) => {
+                      this.props.createOrUpdateContract(data, {
+                        onSuccess: () => {
+                          this.props.fetchContractList();
+                          if (options && options.onSuccess) {
+                            options.onSuccess();
+                          }
+                        },
+                      });
+                    }}
+                    onRegister={this.props.openContractRegister}
+                    paymentComboList={this.props.paymentComboList}
+                    paymentPackList={this.props.paymentPackList}
+                    privatePassList={this.props.privatePassList}
+                    selectedContract={this.props.selectedContract}
+                  />
+                </Grid>
+              )}
+              {!!this.props.inactiveContracts?.length && (
+                <Grid item lg={6} xs={12}>
+                  <ButtonBase
+                    onClick={() =>
+                      this.props.setShowDisabled(!this.props.showDisabled)
+                    }
+                  >
+                    <Typography
+                      className={this.props.classes.sectionTitle}
+                      variant="h5"
+                    >
+                      {`${this.props.t(
+                        'subscription:contract.list.titleInactive',
+                      )} (${this.props.inactiveContracts?.length})`}
+                    </Typography>
+                    {this.props.showDisabled ? (
+                      <ExpandLessIcon />
+                    ) : (
+                      <ExpandMoreIcon />
+                    )}
+                  </ButtonBase>
+                  <Divider className={this.props.classes.divider} />
+                  {this.props.showDisabled && (
+                    <SubscriptionContractList
+                      dense
+                      divider
+                      contractList={this.props.inactiveContracts}
+                      loading={this.props.contractLoading}
+                      onRestore={(id: number) => {
+                        this.props.restoreContract(id, {
+                          onSuccess: () => this.props.fetchContractList(),
+                        });
+                      }}
+                      paymentComboList={this.props.paymentComboList}
+                      paymentPackList={this.props.paymentPackList}
+                      privatePassList={this.props.privatePassList}
+                    />
+                  )}
+                </Grid>
               )}
             </Grid>
-          )}
-        </Grid>
-        <BottomActionsButton
-          onCreate={this.props.onRequestCreate}
-          onCreateLabel={this.props.t('subscription:contract.actions.create')}
-        />
-        {this.props.contractRegisterOpen &&
-        this.props.selectedContract &&
-        !!stripeRegion &&
-        !!companyCountry ? (
-          <SubscriptionContractRegister
-            cardBillingDetailsMandatory={
-              this.props.theme.force_billing_details_on_cards
-            }
-            companyId={this.props.companyId}
-            contract={this.props.selectedContractData}
-            enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
-              {
-                currency: this.props.theme.currency,
-                companyCountry,
-                withCredit: true,
-                withTerminal: true,
-                stripeRegion,
-              },
+            {hasCreatePermission && (
+              <BottomActionsButton
+                onCreate={this.props.onRequestCreate}
+                onCreateLabel={this.props.t(
+                  'subscription:contract.actions.create',
+                )}
+              />
             )}
-            enableMultiLocalization={this.props.theme.enable_multi_localization}
-            establishments={this.props.establishmentList}
-            generalTermsAndConditions={
-              this.props.theme.general_terms_and_conditions
-            }
-            member={this.props.memberToBill}
-            onChangeMember={this.props.setMemberToBill}
-            onClose={this.props.closeContractRegister}
-            onlinePaymentEnabled={this.props.theme.online_payment_enabled}
-            open={this.props.contractRegisterOpen}
-            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
-            registerContractBackground={this.props.registerContractBackground}
-            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-            savedPaymentMethodList={this.props.savedPaymentMethodList}
-            searchedMembers={this.props.searchedMembers}
-            searchLoading={this.props.searchMemberLoading}
-            searchMembers={this.props.searchMembers}
-            stripeReaders={this.props.stripeReaders || []}
-            waiver={this.props.theme.waiver}
-          />
-        ) : null}
-        <SubscriptionContractFormDrawer
-          displayNewCheckoutFlow={this.props.theme.display_new_checkout_flow}
-          onClose={this.props.onCloseCreate}
-          onSubmit={this.props.onCreate}
-          open={this.props.createContractFormOpen}
-          paymentComboList={this.props.paymentComboList}
-          paymentPackList={this.props.paymentPackList}
-          privatePassList={this.props.privatePassList}
-        />
-      </div>
+            {this.props.contractRegisterOpen &&
+            this.props.selectedContract &&
+            !!stripeRegion &&
+            !!companyCountry ? (
+              <SubscriptionContractRegister
+                cardBillingDetailsMandatory={
+                  this.props.theme.force_billing_details_on_cards
+                }
+                companyId={this.props.companyId}
+                contract={this.props.selectedContractData}
+                enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
+                  {
+                    currency: this.props.theme.currency,
+                    companyCountry,
+                    withCredit: true,
+                    withTerminal: true,
+                    stripeRegion,
+                  },
+                )}
+                enableMultiLocalization={
+                  this.props.theme.enable_multi_localization
+                }
+                establishments={this.props.establishmentList}
+                generalTermsAndConditions={
+                  this.props.theme.general_terms_and_conditions
+                }
+                member={this.props.memberToBill}
+                onChangeMember={this.props.setMemberToBill}
+                onClose={this.props.closeContractRegister}
+                onlinePaymentEnabled={this.props.theme.online_payment_enabled}
+                open={this.props.contractRegisterOpen}
+                refreshSavedPaymentMethodList={
+                  this.props.fetchPaymentMethodList
+                }
+                registerContractBackground={
+                  this.props.registerContractBackground
+                }
+                requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+                savedPaymentMethodList={this.props.savedPaymentMethodList}
+                searchedMembers={this.props.searchedMembers}
+                searchLoading={this.props.searchMemberLoading}
+                searchMembers={this.props.searchMembers}
+                stripeReaders={this.props.stripeReaders || []}
+                waiver={this.props.theme.waiver}
+              />
+            ) : null}
+            <SubscriptionContractFormDrawer
+              displayNewCheckoutFlow={
+                this.props.theme.display_new_checkout_flow
+              }
+              onClose={this.props.onCloseCreate}
+              onSubmit={this.props.onCreate}
+              open={this.props.createContractFormOpen}
+              paymentComboList={this.props.paymentComboList}
+              paymentPackList={this.props.paymentPackList}
+              privatePassList={this.props.privatePassList}
+            />
+          </div>
+        )}
+      </ObjectLevelPermissionProviderComponent>
     );
   }
 }

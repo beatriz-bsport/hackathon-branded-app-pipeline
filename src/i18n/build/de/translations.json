@@ -2410,7 +2410,7 @@
                 "first": "Verfügt über",
                 "explanation": "Besitzt X gültige Kurspässe oder Terminpässe",
                 "second": "heute gültige Kurs- oder Terminpässe. Unter",
-                "info": "Blockierte Kurs- und Terminpässe werden ebenfalls berücksichtigt.",
+                "info": "Blockierte Kurs- und Terminpässe werden ebenfalls berücksichtigt",
                 "fourth": "(zusammengefasst)"
             },
             "103": {
@@ -9738,8 +9738,8 @@
                 "update": {
                     "replace": "Bestehende Codes ersetzen",
                     "popover": "Nicht verwendete Codes werden gelöscht, verwendete Codes bleiben jedoch erhalten.",
-                    "alertInfo": "Es wurde {{count}} Code für diese Aktion registriert, Sie können neue Codes herunterladen.",
-                    "alertInfo_plural": "Es wurden {{count}} Codes für diese Aktion registriert, Sie können neue Codes herunterladen.",
+                    "alertInfo": "Es wurde {{count}} Code für diese Aktion registriert, Sie können neue Codes hochladen.",
+                    "alertInfo_plural": "Es wurden {{count}} Codes für diese Aktion registriert, Sie können neue Codes hochladen.",
                     "append": "Zu bestehenden Codes hinzufügen"
                 },
                 "selectorPlaceholder": {

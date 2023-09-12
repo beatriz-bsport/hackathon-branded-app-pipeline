@@ -11,7 +11,7 @@ import ExtendedFabBadge from '#components/ExtendedFabBadge.component';
 import PopOver from '#components/Popover';
 
 type OwnProps = {
-  buttonsProperties: ButtonProperties[];
+  buttonsProperties?: ButtonProperties[];
   minWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 };
 

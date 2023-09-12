@@ -226,9 +226,14 @@ export class ContractDetailPage extends Component<Props> {
         requiredPermission={[
           'product.contract.allowed_actions.edit',
           'product.contract.allowed_actions.delete',
+          'product.contract.allowed_actions.pause',
         ]}
       >
-        {([hasEditPermission, hasDeletePermission]: boolean[]) => (
+        {([
+          hasEditPermission,
+          hasDeletePermission,
+          hasPausePermission,
+        ]: boolean[]) => (
           <div className={classes.pageContainer}>
             <Grid container alignItems="stretch" spacing={3}>
               <Grid item className={classes.detailContainer} md={6} xs={12}>
@@ -355,7 +360,9 @@ export class ContractDetailPage extends Component<Props> {
                 )}
               </Grid>
               <BottomActionsButtonCustom
-                buttonsProperties={this.getBottomActionsProperties(t)}
+                buttonsProperties={
+                  hasPausePermission ? this.getBottomActionsProperties(t) : null
+                }
                 onDelete={hasDeletePermission && this.openDeleteContractModal}
                 onEdit={hasEditPermission && this.onContractEdit}
               />

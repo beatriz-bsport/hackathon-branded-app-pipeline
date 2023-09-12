@@ -333,6 +333,15 @@ export class PrivatePassList extends React.Component<Props, State> {
     this.props.setOpenDeletePassDialog(passId);
   };
 
+  OpenEditForm = (privatePass: PrivatePass) =>
+    this.openFormAndUploadCompatibilityInfo(privatePass);
+
+  getOpenEditFormHandler = (privatePass: PrivatePass) => () =>
+    this.openFormAndUploadCompatibilityInfo(privatePass);
+
+  getRestorePrivatePassHandler = (pass: PrivatePass) => () =>
+    this.restorePrivatePass(pass.id);
+
   render() {
     const { classes, t, establishmentList, metaActivities, categoryList } =
       this.props;
@@ -389,8 +398,13 @@ export class PrivatePassList extends React.Component<Props, State> {
       );
     }
     return (
-      <ObjectLevelPermissionProviderComponent requiredPermission="product.privatePass.allowed_actions.create">
-        {(hasCreatePermission: boolean) => (
+      <ObjectLevelPermissionProviderComponent
+        requiredPermission={[
+          'product.privatePass.allowed_actions.create',
+          'product.privatePass.allowed_actions.edit',
+        ]}
+      >
+        {([hasCreatePermission, hasEditPermission]: boolean[]) => (
           <div>
             {!!this.props.loading && <BackofficeLinearProgress />}
             <div className={classes.search}>
@@ -442,13 +456,14 @@ export class PrivatePassList extends React.Component<Props, State> {
                       <PrivatePassListItem
                         key={pass.id}
                         divider
+                        draggable={hasEditPermission}
                         onClick={() => {
                           this.props.goToPass(pass.id);
                         }}
                         onDelete={() => this.openDeletePassDialog(pass.id)}
-                        onEdit={() => {
-                          this.openFormAndUploadCompatibilityInfo(pass);
-                        }}
+                        onEdit={
+                          hasEditPermission && this.getOpenEditFormHandler(pass)
+                        }
                         pass={pass}
                         updatePrivatePass={this.props.createOrUpdatePrivatePass}
                       />
@@ -476,9 +491,8 @@ export class PrivatePassList extends React.Component<Props, State> {
                 filteredCategories={this.state.selectedCategories}
                 filterManagerOnly={this.state.selectedDisponibility}
                 goToPass={this.props.goToPass}
-                onEditPass={(pass) => {
-                  this.openFormAndUploadCompatibilityInfo(pass);
-                }}
+                itemsDraggable={hasEditPermission}
+                onEditPass={hasEditPermission && this.OpenEditForm}
                 privatePassCategoryById={this.props.privatePassByCategory}
                 privatePassOrder={this.state.privatePassOrderByCategory}
                 setOpenDeletePassDialog={this.openDeletePassDialog}
@@ -520,7 +534,10 @@ export class PrivatePassList extends React.Component<Props, State> {
                           key={pass.id}
                           disabled
                           divider
-                          onRestore={() => this.restorePrivatePass(pass.id)}
+                          onRestore={
+                            hasEditPermission &&
+                            this.getRestorePrivatePassHandler(pass)
+                          }
                           pass={pass}
                         />
                       ),

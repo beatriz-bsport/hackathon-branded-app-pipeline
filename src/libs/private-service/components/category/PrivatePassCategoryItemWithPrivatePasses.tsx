@@ -33,7 +33,7 @@ import { ManagerOnly } from '../../../payment-packs/components/PaymentPackFilter
 import withConfirm from '../../../../hocs/with-confirm.hoc';
 
 type Props = {
-  onEdit: (pp: PrivatePass) => void;
+  onEdit?: (pp: PrivatePass) => void;
   onDelete: (ppId: number) => void;
   onClick: (ppId: number) => void;
   privatePassCategory: PrivatePassCategoryWithPasses;
@@ -63,9 +63,10 @@ const ButtonWithConfirm = withConfirm(
 );
 
 type PackListProps = {
-  onEdit: (pp: PrivatePass) => void;
+  onEdit?: (pp: PrivatePass) => void;
   onDelete: (ppId: number) => void;
   onClick: (ppId: number) => void;
+  itemsDraggable?: boolean;
   privatePassCategory: PrivatePassCategoryWithPasses;
   orderingOverride?: any;
   filterManagerOnly: ManagerOnly;
@@ -74,7 +75,7 @@ type PackListProps = {
 };
 
 type PackListItemProps = {
-  onEdit: () => void;
+  onEdit?: () => void;
   onDelete: () => void;
   onClick: () => void;
   ppass: PrivatePass;
@@ -167,6 +168,7 @@ const SortablePrivatePassList = React.memo((props: PackListProps) => {
             <SortablePrivatePassListItem
               key={ppass.id}
               draggable={
+                props.itemsDraggable &&
                 !props.privatePassOrder &&
                 props.filterManagerOnly === ManagerOnly.showAll
               }
@@ -285,16 +287,20 @@ export const PrivatePassCategoryItemWithPrivatePass = React.memo(
           }}
         >
           <List dense>
-            <MenuItem
-              button
-              onClick={() => {
-                props.showCategoryEditDialog();
-                setAnchorEl(null);
-              }}
-            >
-              <EditIcon className={classes.popoverIcon} />
-              <Typography>{t('paymentPack:category.popover.edit')}</Typography>
-            </MenuItem>
+            {props.onEdit && (
+              <MenuItem
+                button
+                onClick={() => {
+                  props.showCategoryEditDialog();
+                  setAnchorEl(null);
+                }}
+              >
+                <EditIcon className={classes.popoverIcon} />
+                <Typography>
+                  {t('paymentPack:category.popover.edit')}
+                </Typography>
+              </MenuItem>
+            )}
             <ButtonWithConfirm
               button
               onClick={() => {
@@ -312,11 +318,13 @@ export const PrivatePassCategoryItemWithPrivatePass = React.memo(
 
         <div className={classes.header}>
           <div className={classes.flex}>
-            {privatePassCategory.id && !props.isCategoryFiltered && (
-              <IconButton {...listeners} {...attributes}>
-                <DragHandleIcon />
-              </IconButton>
-            )}
+            {props.onEdit &&
+              privatePassCategory.id &&
+              !props.isCategoryFiltered && (
+                <IconButton {...listeners} {...attributes}>
+                  <DragHandleIcon />
+                </IconButton>
+              )}
             <Typography component="h2" variant="h5">
               {privatePassCategory
                 ? `${

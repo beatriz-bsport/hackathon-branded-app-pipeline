@@ -39,7 +39,7 @@ type Props = {
   privatePassCategory: PrivatePassCategory;
 
   snackbarSuccess: (text: string) => void;
-  onEditButtonClick: () => void;
+  onEditButtonClick?: () => void;
   onDeleteButtonClick: () => void;
 
   isManager?: boolean;
@@ -161,14 +161,16 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
               {isManager && (
                 <div className={classes.buttonBlock}>
                   <div className={classes.buttonContainer}>
-                    <Button
-                      className={`${classes.buttonWidth} ${classes.buttonAlign}`}
-                      color="primary"
-                      id="button_pass_modify"
-                      onClick={props.onEditButtonClick}
-                    >
-                      <Hidden xsDown>{t('privatePass.edit')}</Hidden>
-                    </Button>
+                    {props.onEditButtonClick && (
+                      <Button
+                        className={`${classes.buttonWidth} ${classes.buttonAlign}`}
+                        color="primary"
+                        id="button_pass_modify"
+                        onClick={props.onEditButtonClick}
+                      >
+                        <Hidden xsDown>{t('privatePass.edit')}</Hidden>
+                      </Button>
+                    )}
                     {!!props.onDeleteButtonClick && (
                       <RedButton
                         className={`${classes.buttonWidth} ${classes.buttonAlign}`}

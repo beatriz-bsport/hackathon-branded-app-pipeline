@@ -38,6 +38,7 @@ type Props = {
   ) => void;
   privatePassCategoryById: Array<PrivatePassCategoryWithPasses>;
   onEditPass: (pass: PrivatePass) => void;
+  itemsDraggable: boolean;
   setSelectedCategory: (cat: PrivatePassCategory) => void;
   showCategoryEditDialog: () => void;
   deletePrivatePassCategory: (category: PrivatePassCategory) => void;
@@ -256,6 +257,7 @@ export const PrivatePassCategoryList = (props: Props) => {
               filterManagerOnly={props.filterManagerOnly}
               isCategoryDragging={isCategoryDragging}
               isCategoryFiltered={!!props.filteredCategories.length}
+              itemsDraggable={props.itemsDraggable}
               onClick={props.goToPass}
               onDelete={props.setOpenDeletePassDialog}
               onEdit={props.onEditPass}

@@ -5,7 +5,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 
 import MarketplaceActivityV2 from '../MarketplaceActivityCSSOnly';
 import { Offer } from '#libs/offer/types';
-import './MarketplaceActivityDialogCSSOnly.css';
 import { Theme as CompanyTheme } from '#libs/theme/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
@@ -15,6 +14,8 @@ import { OffersGroup } from '#libs/group-offer/types';
 import { WidgetUtils } from '#libs/widget/WidgetUtils';
 import WidgetPortalSlidingContainer from '#libs/widget/components/PortalContainer';
 
+import './MarketplaceActivityDialogCSSOnly.css';
+
 type Props = {
   companyTheme: CompanyTheme;
   open: boolean;
@@ -23,11 +24,8 @@ type Props = {
   coaches: Array<Coach>;
   customLevels: Array<Level>;
   offer: Offer;
-  classes: { [className: string]: string };
   onClose: () => void;
-  offerId: number;
   mapContainerClassName?: string;
-  fullScreen: boolean;
   onClickBook: (offer: Offer) => void;
   onClickBookOption: (offer: Offer) => void;
   hideCoach: boolean;
@@ -36,11 +34,11 @@ type Props = {
 };
 
 export function MarketplaceActivityDialog(props: Props) {
-  const { onClose, offerId, fullScreen } = props;
+  const { onClose, offer } = props;
   const paperProps = {
     style: {
       margin: '10px',
-      borderRadius: fullScreen ? '0px' : '12px',
+      borderRadius: '12px',
       maxHeight: '80vh',
     },
   };
@@ -54,7 +52,7 @@ export function MarketplaceActivityDialog(props: Props) {
   }
   return (
     <Dialog
-      key={offerId}
+      key={`marketplace_activity_dialog_${offer?.id}`}
       disablePortal
       maxWidth="md"
       onClose={onClose}

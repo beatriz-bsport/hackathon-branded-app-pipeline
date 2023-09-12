@@ -454,7 +454,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
               : metaActivities
           }
           offer={this.state.offer}
-          offerId={this.state.offerId}
           onClickBook={this.goToBook}
           onClickBookOption={this.props.goToBookOption}
           onClose={this.closeOfferDialog}

@@ -34,6 +34,7 @@ import type { Member } from '../../member/types';
 import type { PaymentMethod } from '../../payment/types';
 import type { OptionCallback } from '../../../state/types';
 import { PLANNED_INVOICE_TIME_CONFIGURATION } from '../constants';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type OwnProps = {
   member: Member | null;
@@ -205,16 +206,22 @@ export const SubscriptionContractRegister = (props: Props) => {
   }
   if (!props.contract) {
     return (
-      <ContractPickerDialog
-        classes={props.classes}
-        contractList={props.contractList}
-        contractLoading={props.contractLoading}
-        goToCustomSubscriptionForm={props.goToCustomSubscriptionForm}
-        onChangeContract={props.onChangeContract}
-        onClose={props.onClose}
-        open={props.open}
-        t={t}
-      />
+      <ObjectLevelPermissionProviderComponent requiredPermission="product.contract.allowed_actions.createCustomBillingPlan">
+        {(hasCreateCustomPlanPermission: boolean) => (
+          <ContractPickerDialog
+            classes={props.classes}
+            contractList={props.contractList}
+            contractLoading={props.contractLoading}
+            goToCustomSubscriptionForm={
+              hasCreateCustomPlanPermission && props.goToCustomSubscriptionForm
+            }
+            onChangeContract={props.onChangeContract}
+            onClose={props.onClose}
+            open={props.open}
+            t={t}
+          />
+        )}
+      </ObjectLevelPermissionProviderComponent>
     );
   }
 

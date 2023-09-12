@@ -20,11 +20,11 @@ import GreenFab from '#components/button/GreenFab.component';
 import FabWithItems from '#components/button/FabWithItems';
 import Config from '../../../config';
 import ExtendedFabBadge from '#components/ExtendedFabBadge.component';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type OwnProps = {
   billMember: () => void;
-  subscribeMember: () => void;
+  subscribeMember?: () => void;
   interrogateMemberStatus: () => void;
   unArchiveMember: () => void;
   member: Member;
@@ -41,125 +41,140 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
 
   if (speedDialogMode) {
     return (
-      <FabWithItems
-        badgeValue={props.numberOfUnreadAnswers}
-        items={
-          Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
-          Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
-          Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
-          props.companyId === 498
-            ? [
-                {
-                  label: t('communication'),
-                  onClick: props.openCommunicationDrawer,
-                  badgeValue: props.numberOfUnreadAnswers,
-                },
-                {
-                  label: t('paymentAction.toBill'),
-                  onClick: () => props.billMember(),
-                },
-                {
-                  label: t('paymentAction.toSubscribe'),
-                  onClick: () => props.subscribeMember(),
-                },
-                props.member?.archived
-                  ? {
-                      label: t('restoreMember'),
-                      onClick: () => props.unArchiveMember(),
-                    }
-                  : {
-                      label: t('archiveMember'),
-                      onClick: () => props.interrogateMemberStatus(),
+      <ObjectLevelPermissionProvider requiredPermission="product.contract.allowed_actions.createBillingPlan">
+        {(hasCreateBillingPlanPermission: boolean) => (
+          <FabWithItems
+            badgeValue={props.numberOfUnreadAnswers}
+            items={
+              Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
+              Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
+              Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
+              props.companyId === 498
+                ? [
+                    {
+                      label: t('communication'),
+                      onClick: props.openCommunicationDrawer,
+                      badgeValue: props.numberOfUnreadAnswers,
                     },
-              ]
-            : [
-                {
-                  label: t('paymentAction.toBill'),
-                  onClick: () => props.billMember(),
-                },
-                {
-                  label: t('paymentAction.toSubscribe'),
-                  onClick: () => props.subscribeMember(),
-                },
-                props.member?.archived
-                  ? {
-                      label: t('restoreMember'),
-                      onClick: () => props.unArchiveMember(),
-                    }
-                  : {
-                      label: t('archiveMember'),
-                      onClick: () => props.interrogateMemberStatus(),
+                    {
+                      label: t('paymentAction.toBill'),
+                      onClick: () => props.billMember(),
                     },
-              ]
-        }
-        label={t('actions')}
-      />
+                    hasCreateBillingPlanPermission && {
+                      label: t('paymentAction.toSubscribe'),
+                      onClick: () => props.subscribeMember(),
+                    },
+                    props.member?.archived
+                      ? {
+                          label: t('restoreMember'),
+                          onClick: () => props.unArchiveMember(),
+                        }
+                      : {
+                          label: t('archiveMember'),
+                          onClick: () => props.interrogateMemberStatus(),
+                        },
+                  ]
+                : [
+                    {
+                      label: t('paymentAction.toBill'),
+                      onClick: () => props.billMember(),
+                    },
+                    hasCreateBillingPlanPermission && {
+                      label: t('paymentAction.toSubscribe'),
+                      onClick: () => props.subscribeMember(),
+                    },
+                    props.member?.archived
+                      ? {
+                          label: t('restoreMember'),
+                          onClick: () => props.unArchiveMember(),
+                        }
+                      : {
+                          label: t('archiveMember'),
+                          onClick: () => props.interrogateMemberStatus(),
+                        },
+                  ]
+            }
+            label={t('actions')}
+          />
+        )}
+      </ObjectLevelPermissionProvider>
     );
   }
   return (
-    <div className={classes.bottomButtonContainer}>
-      {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
-        Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
-        Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
-        props.companyId === 498) && (
-        <Fab
-          className={classes.bottomButton}
-          color="secondary"
-          onClick={props.openCommunicationDrawer}
-          variant="extended"
-        >
-          <ExtendedFabBadge badgeValue={props.numberOfUnreadAnswers} />
-          <Send className={classes.leftIcon} />
-          {t('communication')}
-        </Fab>
-      )}
-      <Fab
-        className={classes.bottomButton}
-        color="primary"
-        onClick={props.billMember}
-        variant="extended"
-      >
-        <>
-          {getCurrencyDisplay() === '€' ? (
-            <EuroSymbolIcon className={classes.leftIcon} />
-          ) : (
-            <AttachMoneyIcon className={classes.leftIcon} />
+    <ObjectLevelPermissionProvider
+      requiredPermission={[
+        'product.contract.allowed_actions.createBillingPlan',
+        'member.allowed_actions.delete',
+      ]}
+    >
+      {([
+        hasCreateBillingPlanPermission,
+        hasDeleteMemberPermission,
+      ]: boolean[]) => (
+        <div className={classes.bottomButtonContainer}>
+          {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
+            Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
+            Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
+            props.companyId === 498) && (
+            <Fab
+              className={classes.bottomButton}
+              color="secondary"
+              onClick={props.openCommunicationDrawer}
+              variant="extended"
+            >
+              <ExtendedFabBadge badgeValue={props.numberOfUnreadAnswers} />
+              <Send className={classes.leftIcon} />
+              {t('communication')}
+            </Fab>
           )}
-          {t('paymentAction.toBill')}
-        </>
-      </Fab>
-      <Fab
-        className={classes.bottomButton}
-        color="secondary"
-        onClick={props.subscribeMember}
-        variant="extended"
-      >
-        <PaymentIcon className={classes.leftIcon} />
-        {t('paymentAction.toSubscribe')}
-      </Fab>
-      <ObjectLevelPermissionWrapper
-        forcedBehavior="hidden"
-        requiredPermission="member.allowed_actions.delete"
-      >
-        {props.member && props.member.archived ? (
-          <GreenFab
+          <Fab
             className={classes.bottomButton}
-            onClick={props.unArchiveMember}
+            color="primary"
+            onClick={props.billMember}
             variant="extended"
           >
-            <RestoreFromTrashIcon className={classes.leftIcon} />
-            {t('restoreMember')}
-          </GreenFab>
-        ) : (
-          <RedFab
-            className={classes.bottomButton}
-            onClick={props.interrogateMemberStatus}
-          >
-            <DeleteIcon />
-          </RedFab>
-        )}
-      </ObjectLevelPermissionWrapper>
-    </div>
+            <>
+              {getCurrencyDisplay() === '€' ? (
+                <EuroSymbolIcon className={classes.leftIcon} />
+              ) : (
+                <AttachMoneyIcon className={classes.leftIcon} />
+              )}
+              {t('paymentAction.toBill')}
+            </>
+          </Fab>
+          {hasCreateBillingPlanPermission && (
+            <Fab
+              className={classes.bottomButton}
+              color="secondary"
+              onClick={props.subscribeMember}
+              variant="extended"
+            >
+              <PaymentIcon className={classes.leftIcon} />
+              {t('paymentAction.toSubscribe')}
+            </Fab>
+          )}
+          {hasDeleteMemberPermission &&
+          props.member &&
+          props.member.archived ? (
+            <GreenFab
+              className={classes.bottomButton}
+              onClick={props.unArchiveMember}
+              variant="extended"
+            >
+              <RestoreFromTrashIcon className={classes.leftIcon} />
+              {t('restoreMember')}
+            </GreenFab>
+          ) : (
+            <RedFab
+              className={classes.bottomButton}
+              onClick={props.interrogateMemberStatus}
+            >
+              <DeleteIcon />
+            </RedFab>
+          )}
+        </div>
+      )}
+    </ObjectLevelPermissionProvider>
   );
 };
 export default compose<any, OwnProps>()(MemberActions);

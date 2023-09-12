@@ -33,7 +33,7 @@ type Props = {
   selectedContract: ?number,
   onClick: (id: number) => void,
 
-  onRegister: (Contract) => void,
+  onRegister?: (Contract) => void,
   processing: boolean,
   displayNewCheckoutFlow: boolean,
 

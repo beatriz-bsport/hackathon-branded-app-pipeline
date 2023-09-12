@@ -45,7 +45,7 @@ import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/se
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 import SubscriptionContractList from '../../libs/subscription/components/SubscriptionContractList.component';
 import SubscriptionContractFormDrawer from '../../libs/subscription/components/SubscriptionContractFormDrawer.component';
-import { FormValues } from '../../libs/subscription/components/SubscriptionContractForm.component';
+import { FormValues as SubscriptionContractFormValues } from '../../libs/subscription/components/SubscriptionContractForm.component';
 import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
 import { fetchMarketingNotificationList } from '#libs/marketing/actions';
 import { search as searchMembers } from '../../libs/member/actions';
@@ -137,11 +137,14 @@ export class SubscriptionList extends React.Component<Props, State> {
     this.setState({ searchText: '', searchResult: [] });
   };
 
-  handleEditContract = (data: FormValues, options: OptionCallback<void>) => {
+  handleEditContract = (
+    data: SubscriptionContractFormValues,
+    options?: OptionCallback<void>,
+  ) => {
     this.props.createOrUpdateContract(data, {
       onSuccess: () => {
         this.props.fetchContractList();
-        if (options.onSuccess) {
+        if (options && options.onSuccess) {
           options.onSuccess();
         }
       },
@@ -169,12 +172,14 @@ export class SubscriptionList extends React.Component<Props, State> {
           'product.contract.allowed_actions.create',
           'product.contract.allowed_actions.edit',
           'product.contract.allowed_actions.delete',
+          'product.contract.allowed_actions.createBillingPlan',
         ]}
       >
         {([
           hasCreatePermission,
           hasEditPermission,
           hasDeletePermission,
+          hasCreateBillingPlanPermission,
         ]: boolean[]) => (
           <div className={this.props.classes.container}>
             {this.props.contractListAvailableAll?.length === 0 &&
@@ -228,7 +233,10 @@ export class SubscriptionList extends React.Component<Props, State> {
                         hasDeletePermission && this.handleDeleteContract
                       }
                       onEdit={hasEditPermission && this.handleEditContract}
-                      onRegister={this.props.openContractRegister}
+                      onRegister={
+                        hasCreateBillingPlanPermission &&
+                        this.props.openContractRegister
+                      }
                       paymentComboList={this.props.paymentComboList}
                       paymentPackList={this.props.paymentPackList}
                       privatePassList={this.props.privatePassList}
@@ -265,7 +273,10 @@ export class SubscriptionList extends React.Component<Props, State> {
                     onClick={this.onClickContract}
                     onDelete={hasDeletePermission && this.handleDeleteContract}
                     onEdit={hasEditPermission && this.handleEditContract}
-                    onRegister={this.props.openContractRegister}
+                    onRegister={
+                      hasCreateBillingPlanPermission &&
+                      this.props.openContractRegister
+                    }
                     paymentComboList={this.props.paymentComboList}
                     paymentPackList={this.props.paymentPackList}
                     privatePassList={this.props.privatePassList}
@@ -292,7 +303,10 @@ export class SubscriptionList extends React.Component<Props, State> {
                     onClick={this.onClickContract}
                     onDelete={hasDeletePermission && this.handleDeleteContract}
                     onEdit={hasEditPermission && this.handleEditContract}
-                    onRegister={this.props.openContractRegister}
+                    onRegister={
+                      hasCreateBillingPlanPermission &&
+                      this.props.openContractRegister
+                    }
                     paymentComboList={this.props.paymentComboList}
                     paymentPackList={this.props.paymentPackList}
                     privatePassList={this.props.privatePassList}

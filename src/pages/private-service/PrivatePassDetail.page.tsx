@@ -256,12 +256,14 @@ export class PrivatePassDetails extends Component<Props> {
           'product.privatePass.allowed_actions.edit',
           'product.privatePass.allowed_actions.compatibility',
           'product.privatePass.allowed_actions.delete',
+          'product.privatePass.allowed_actions.manageExtension',
         ]}
       >
         {([
           hasEditPermission,
           hasCompatibilityPermission,
           hasDeletePermission,
+          hasManageExtensionPermission,
         ]: boolean[]) => (
           <Grid container alignItems="stretch" spacing={3}>
             <Grid item className={classes.privatePassDetail} md={6} xs={12}>
@@ -402,19 +404,20 @@ export class PrivatePassDetails extends Component<Props> {
                 )}
                 {!this.props.privatePass?.template_instance && (
                   <div className={classes.buttonContainerCenter}>
-                    {this.props.loadingMassExtension ? (
-                      <CircularProgress />
-                    ) : (
-                      <Button
-                        color="primary"
-                        onClick={() =>
-                          this.props.setOpenMassExtensionDialog(true)
-                        }
-                        variant="outlined"
-                      >
-                        {this.props.t('paymentPack:massExtension.title')}
-                      </Button>
-                    )}
+                    {hasManageExtensionPermission &&
+                      (this.props.loadingMassExtension ? (
+                        <CircularProgress />
+                      ) : (
+                        <Button
+                          color="primary"
+                          onClick={() =>
+                            this.props.setOpenMassExtensionDialog(true)
+                          }
+                          variant="outlined"
+                        >
+                          {this.props.t('paymentPack:massExtension.title')}
+                        </Button>
+                      ))}
                   </div>
                 )}
               </div>

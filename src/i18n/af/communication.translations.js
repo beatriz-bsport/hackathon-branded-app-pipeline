@@ -146,6 +146,15 @@ exports.default = {
       form: {
         frequenceHelper:
           'This message will be sent upon {{ max }} {{ event_kind }} to each member in this Smartlist. After {{ max }} {{ event_kind }}, members will no longer receive the message. Use "Advanced" to edit these settings.',
+
+        limitSection: 'Limit',
+
+        maxCommunicationSentHelperText: {
+          [SEND_COMMUNICATION_ON_JOIN]:
+            "By default, the message is sent only upon each member's first entry from the smartlist. You can adjust the setting to allow for subsequent messages upon the member's second or third entry.",
+          [SEND_COMMUNICATION_ON_LEFT]:
+            "By default, the message is sent only upon each member's first exit from the smartlist. You can adjust the setting to allow for subsequent messages upon the member's second or third exit.",
+        },
         subtitles: {
           create: {
             leftSmartList:
@@ -161,8 +170,7 @@ exports.default = {
           },
         },
         max_communications_sent_per_member_limit: 'Maximum value: {{ max }}',
-        max_communications_sent_per_member:
-          'Maximum number of messages per member',
+        max_communications_sent_per_member: 'Number of times the rule applies',
         advancedSection: 'Advanced',
         submit: 'Confirm',
       },

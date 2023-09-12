@@ -1,5 +1,4 @@
-// @ts-nocheck
-import React from 'react';
+import React, { useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import * as Yup from 'yup';
 import Button from '@material-ui/core/Button';
@@ -18,13 +17,16 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Radio from '@material-ui/core/Radio';
 import { withFormik, Form, FormikProps, useFormikContext } from 'formik';
-import SettingsIcon from '@material-ui/icons/Settings';
 import Collapse from '@material-ui/core/Collapse';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import Divider from '@material-ui/core/Divider';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import RepeatIcon from '@material-ui/icons/Repeat';
 import Alert from '@material-ui/lab/Alert';
 import { SEND_COMMUNICATION_ON_JOIN } from '@bsport/common/lib/master-data/smart-list';
+import classNames from 'classnames';
 import { AutomatedCampaign } from '#libs/smart-list/types';
 import Config from '../../../../config';
 import {
@@ -33,13 +35,18 @@ import {
   MAX_LENGTH_AUTOMATIC_SMS,
 } from '#libs/communication-v2/constants';
 import WriteNotification from '#libs/communication/components/WriteNotification.component';
+// @ts-expect-error
 import WriteSMS from '#libs/communication/components/WriteSMS.component';
+// @ts-expect-error
 import WriteEmail from '#libs/communication/components/WriteEmail.component';
+// @ts-expect-error
 import SelectTemplate from '#libs/communication/components/SelectTemplate.component';
+// @ts-expect-error
 import FeatureListProvider from '../../../company/hocs/feature-list-provider.hoc';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { Submit } from '#components/forms';
+// @ts-expect-error
+import { Submit, TextField } from '#components/forms';
 import NumericInput from '#components/input/NumericInput.component';
 import type { FeatureList } from '#libs/company/types';
 import type { OptionCallback } from '../../../../state/types';
@@ -103,8 +110,11 @@ const useFormikHandlers = () => {
       email_kind: null,
     });
 
-  const handleChangeMaxCommunicationPerMember = (event) =>
-    setFieldValue('max_communications_sent_per_member', event.target.value);
+  const handleChangeMaxCommunicationPerMember = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) =>
+      setFieldValue('max_communications_sent_per_member', event.target.value),
+    [setFieldValue],
+  );
 
   return {
     handleSwitchToWrittenKindEmail,
@@ -136,11 +146,22 @@ export const AutomatedCommunicationDrawer: React.FC<
   alreadyConfiguredCommunicationKind,
   resolvedGenericTags,
 }) => {
-  const { t } = useTranslation('communication');
+  const { t } = useTranslation(['communication', 'common']);
   const classes = useStyles();
   const [openRefreshDialog, setOpenRefreshDialog] = React.useState(false);
   const [openedAdvancedSection, setOpenedAdvancedSection] =
     React.useState(false);
+
+  const handleChangeTemplate = useCallback(
+    (id: number) => {
+      setFieldValue('email_design', id);
+      setFieldValue(
+        'title',
+        emails.find((email) => email.id === id)?.subject ?? '',
+      );
+    },
+    [setFieldValue, emails],
+  );
 
   const handleClose = () => {
     resetForm();
@@ -312,97 +333,155 @@ export const AutomatedCommunicationDrawer: React.FC<
             )}
           </FeatureListProvider>
         </div>
-        {values.communication_kind === COMMUNICATION_KIND_EMAIL &&
-          values.email_kind === TEMPLATE_EMAIL_KIND && (
-            <SelectTemplate
-              emailDetailLoading={emailDetailLoading}
-              emailDetails={emailDetails}
-              emailListLoading={emailListLoading}
-              emails={emails}
-              getEmailDetail={getEmailDetail}
-              getEmails={getEmails}
-              mailDefaultTitle={mailDefaultTitle}
-              onCancel={onCancel}
-              onChangeTemplate={(id: number) => {
-                setFieldValue('email_design', id);
-                setFieldValue(
-                  'title',
-                  emails.find((email) => email.id === id)?.subject ?? '',
-                );
-              }}
-              onChangeTitle={handleTitleChange}
-              resolvedGenericTags={resolvedGenericTags}
-              selectedMail={values.email_design}
-              title={values.title}
-            />
-          )}
-        {values.communication_kind === COMMUNICATION_KIND_EMAIL &&
-          values.email_kind === WRITTEN_EMAIL_KIND && (
-            <WriteEmail
-              mailContent={values.text}
+        <div className={classes.contentEdition}>
+          {values.communication_kind === COMMUNICATION_KIND_EMAIL &&
+            values.email_kind === TEMPLATE_EMAIL_KIND && (
+              <SelectTemplate
+                emailDetailLoading={emailDetailLoading}
+                emailDetails={emailDetails}
+                emailListLoading={emailListLoading}
+                emails={emails}
+                getEmailDetail={getEmailDetail}
+                getEmails={getEmails}
+                mailDefaultTitle={mailDefaultTitle}
+                onCancel={onCancel}
+                onChangeTemplate={handleChangeTemplate}
+                onChangeTitle={handleTitleChange}
+                resolvedGenericTags={resolvedGenericTags}
+                selectedMail={values.email_design}
+                title={values.title}
+              />
+            )}
+          {values.communication_kind === COMMUNICATION_KIND_EMAIL &&
+            values.email_kind === WRITTEN_EMAIL_KIND && (
+              <WriteEmail
+                mailContent={values.text}
+                onChangeContent={handleTextChange}
+                onChangeTitle={handleTitleChange}
+                title={values.title}
+              />
+            )}
+          {values.communication_kind === COMMUNICATION_KIND_SMS && (
+            <WriteSMS
+              hideSmsCount
+              contentLengthError={!!errors?.text}
+              maxLengthContent={MAX_LENGTH_AUTOMATIC_SMS}
               onChangeContent={handleTextChange}
-              onChangeTitle={handleTitleChange}
-              title={values.title}
+              smsContent={values.text}
             />
           )}
-        {values.communication_kind === COMMUNICATION_KIND_SMS && (
-          <WriteSMS
-            hideSmsCount
-            contentLengthError={!!errors?.text}
-            maxLengthContent={MAX_LENGTH_AUTOMATIC_SMS}
-            onChangeContent={handleTextChange}
-            smsContent={values.text}
-          />
-        )}
-        {values.communication_kind === COMMUNICATION_KIND_PUSH_NOTIFICATION && (
-          <WriteNotification
-            notificationContent={values.text}
-            notificationTitle={values.title}
-            onNotificationContentChange={handleTextChange}
-            onNotificationTitleChange={handleTitleChange}
-          />
-        )}
-        <div className={classes.avancedSection}>
-          <ButtonBase
-            disableRipple
-            className={classes.flexHeader}
-            onClick={handleOpenCloseAdvancedSection}
-          >
-            <div className={classes.headerWithIcon}>
-              <SettingsIcon className={classes.leftIcon} />
-              <Typography variant="h6">
-                {t('campaign.automated.form.advancedSection')}
-              </Typography>
-            </div>
-            <>
-              {openedAdvancedSection ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-            </>
-          </ButtonBase>
-          <Collapse in={openedAdvancedSection}>
-            <NumericInput
-              fullWidth
-              required
-              helperText={t(
-                'campaign.automated.form.max_communications_sent_per_member_limit',
-                { max: 3 },
-              )}
-              InputProps={{
-                inputProps: { step: 1, min: 0 },
-              }}
-              label={t(
-                'campaign.automated.form.max_communications_sent_per_member',
-              )}
-              onChange={handleChangeMaxCommunicationPerMember}
-              value={values.max_communications_sent_per_member}
+          {values.communication_kind ===
+            COMMUNICATION_KIND_PUSH_NOTIFICATION && (
+            <WriteNotification
+              notificationContent={values.text}
+              notificationTitle={values.title}
+              onNotificationContentChange={handleTextChange}
+              onNotificationTitleChange={handleTitleChange}
             />
-          </Collapse>
+          )}
         </div>
-        <Alert className={classes.alert} severity="info" variant="outlined">
-          {t('campaign.automated.form.frequenceHelper', {
-            event_kind: t(`campaign.automated.eventKind.${values.event_kind}`),
-            max: values.max_communications_sent_per_member,
-          })}
-        </Alert>
+
+        <Divider variant="fullWidth" />
+
+        <div className={classes.avancedSection}>
+          <div className={classes.headerWithIcon}>
+            <RemoveCircleIcon className={classes.leftIcon} />
+            <Typography variant="h6">
+              {t('campaign.automated.form.limitSection')}
+            </Typography>
+          </div>
+          <NumericInput
+            fullWidth
+            required
+            helperText={t(
+              'campaign.automated.form.max_communications_sent_per_member_limit',
+              { max: 3 },
+            )}
+            InputProps={{
+              inputProps: { step: 1, min: 0 },
+            }}
+            label={t(
+              'campaign.automated.form.max_communications_sent_per_member',
+            )}
+            onChange={handleChangeMaxCommunicationPerMember}
+            value={values.max_communications_sent_per_member}
+          />
+          <Alert className={classes.alert} severity="info" variant="outlined">
+            {t(
+              `campaign.automated.form.maxCommunicationSentHelperText.${values.event_kind}`,
+            )}
+          </Alert>
+        </div>
+
+        <Divider variant="fullWidth" />
+
+        {values.communication_kind === COMMUNICATION_KIND_EMAIL && (
+          <>
+            <div className={classes.avancedSection}>
+              <ButtonBase
+                disableRipple
+                className={classes.flexHeader}
+                onClick={handleOpenCloseAdvancedSection}
+              >
+                <div className={classes.collapseTitle}>
+                  <RepeatIcon className={classes.leftIcon} />
+                  <Typography variant="h6">
+                    {t('campaign.automated.form.advancedSection')}
+                  </Typography>
+                </div>
+                <>
+                  <ExpandMoreIcon
+                    className={classNames(classes.expandIcon, {
+                      [classes.rotate]: openedAdvancedSection,
+                    })}
+                  />
+                </>
+              </ButtonBase>
+              <Collapse in={openedAdvancedSection}>
+                <div className={classes.inputContainer}>
+                  <TextField
+                    castAsNumber
+                    fullWidth
+                    helperText={t('resendSection.resendCount.helperText')}
+                    inputProps={{ min: 0, max: 5 }}
+                    label={t('resendSection.resendCount.label')}
+                    name="resend_count"
+                    type="number"
+                  />
+                </div>
+
+                <div className={classes.inputContainer}>
+                  <TextField
+                    castAsNumber
+                    fullWidth
+                    helperText={t('resendSection.resendDelay.helperText')}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment
+                          className={classes.adornment}
+                          position="end"
+                        >
+                          <Typography>
+                            {t('common:day', {
+                              count: values.resend_delay,
+                            })}
+                          </Typography>
+                        </InputAdornment>
+                      ),
+                      inputProps: { min: 0, max: 180 },
+                    }}
+                    label={t('resendSection.resendDelay.label')}
+                    name="resend_delay"
+                    type="number"
+                  />
+                </div>
+              </Collapse>
+            </div>
+
+            <Divider />
+          </>
+        )}
+
         <div className={classes.buttonContainer}>
           <Button onClick={handleClose}>
             {t('translation:common.cancel')}
@@ -444,6 +523,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
   buttonContainer: {
+    marginTop: theme.spacing(1),
     padding: theme.spacing(2),
     display: 'flex',
     justifyContent: 'flex-end',
@@ -454,6 +534,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     gap: theme.spacing(2),
+    alignItems: 'center',
   },
   leftIcon: {
     marginRight: theme.spacing(2),
@@ -465,12 +546,36 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     paddingBottom: theme.spacing(2),
   },
+  collapseTitle: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
   avancedSection: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
   },
   alert: {
     alignItems: 'center',
+    marginTop: theme.spacing(3),
+  },
+  expandIcon: {
+    transform: 'rotate(0)',
+    transition: 'all ease 0.3s',
+  },
+  rotate: {
+    transform: 'rotate(180deg)',
+  },
+  contentEdition: {
+    marginBottom: theme.spacing(3),
+  },
+  adornment: {
+    paddingLeft: theme.spacing(1),
+    color: theme.palette.text.secondary,
+  },
+  inputContainer: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
   },
 }));
 
@@ -483,6 +588,8 @@ type Values = {
   title: string | null;
   max_communications_sent_per_member: number;
   email_kind: number | null;
+  resend_count: number;
+  resend_delay: number;
 };
 
 const AutomatedCampaignValidationSchema = Yup.object().shape({
@@ -519,6 +626,38 @@ const AutomatedCampaignValidationSchema = Yup.object().shape({
     },
   ),
   max_communications_sent_per_member: Yup.number().required().max(3),
+  resend_count: Yup.number()
+    .min(0)
+    .max(5)
+    .test(
+      'check_resend_count_validity',
+      '',
+      function checkResendCountValidity(item) {
+        if (
+          this.parent.communication_kind === COMMUNICATION_KIND_EMAIL &&
+          item + this.parent.resend_delay > 0
+        ) {
+          return item > 0 && this.parent.resend_delay > 0;
+        }
+        return true;
+      },
+    ),
+  resend_delay: Yup.number()
+    .min(0)
+    .max(180)
+    .test(
+      'check_resend_delay_validity',
+      '',
+      function checkResendDelayValidity(item) {
+        if (
+          this.parent.communication_kind === COMMUNICATION_KIND_EMAIL &&
+          item + this.parent.resend_count > 0
+        ) {
+          return item > 0 && this.parent.resend_count > 0;
+        }
+        return true;
+      },
+    ),
 });
 
 const formikFormWrapper = withFormik<Props, Values>({
@@ -536,6 +675,8 @@ const formikFormWrapper = withFormik<Props, Values>({
         email_kind: initial?.email_design
           ? TEMPLATE_EMAIL_KIND
           : WRITTEN_EMAIL_KIND,
+        resend_count: initial.resend_count,
+        resend_delay: initial.resend_delay,
       };
     }
     return {
@@ -547,12 +688,22 @@ const formikFormWrapper = withFormik<Props, Values>({
       title: '',
       max_communications_sent_per_member: 1,
       email_kind: WRITTEN_EMAIL_KIND,
+      resend_count: 0,
+      resend_delay: 0,
     };
   },
   enableReinitialize: true,
   validationSchema: AutomatedCampaignValidationSchema,
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
-    onSubmit(values, {
+    const valuesToSubmit =
+      values.communication_kind === COMMUNICATION_KIND_EMAIL
+        ? values
+        : {
+            ...values,
+            resend_count: 0,
+            resend_delay: 0,
+          };
+    onSubmit(valuesToSubmit, {
       onSuccess: () => setSubmitting(false),
       onError: () => setSubmitting(false),
     });

@@ -70,6 +70,8 @@ export type AutomatedCampaign<C = number, SM = number, ED = number> = {
   disabled: boolean;
   date_created: string;
   max_communications_sent_per_member: number;
+  resend_count: number;
+  resend_delay: number;
 };
 
 export type CadencesUsingSmartlistSuccess = {

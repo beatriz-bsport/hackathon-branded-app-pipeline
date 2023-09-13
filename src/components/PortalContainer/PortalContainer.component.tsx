@@ -12,6 +12,14 @@ export const SlidingContainer: React.FC<SlidingContainerProps> = ({
   children,
 }) => {
   const nodeRef = React.useRef(null);
+  React.useEffect(() => {
+    isOpen &&
+      nodeRef?.current?.scrollIntoView({
+        block: 'start',
+        inline: 'nearest',
+        behavior: 'smooth',
+      });
+  }, [isOpen]);
   return (
     <CSSTransition
       unmountOnExit

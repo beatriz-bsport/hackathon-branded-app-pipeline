@@ -8,9 +8,6 @@
   #       - "$YARN_CACHE_DIR"
   #       - "$CYPRESS_CACHE_FOLDER/node_modules"
   #       - node_modules
-  tags:
-    - build-frontend
-    - kubernetes
   script:
     - mv /app/node_modules .
     - yarn install --frozen-lockfile # just to be sure
@@ -28,8 +25,8 @@
     - export SENTRY_NO_PROGRESS_BAR=1
     - ./scripts/prepare-sentry-release.sh $VERSION_SHA $FRONTEND_URL
     - rm ./build/static/js/*.js.map
-    - aws s3 cp ./build/ $S3_BUCKET --recursive --only-show-errors --acl public-read
-    - scripts/invalidate-cloudfront.sh $CLOUDFRONT_ID $CLOUDFRONT_INVALIDATION_TOKEN
+    - aws s3 cp ./build/ $S3_BUCKET --recursive --only-show-errors $ACL_PARAM
+    - scripts/invalidate-cloudfront.sh $CLOUDFRONT_ID $CLOUDFRONT_INVALIDATION_TOKEN $CLOUDFRONT_INVALIDATION_LAMBDA_URL
     - scripts/prepare-sentry-deploy.sh $VERSION_SHA $ENVIRONMENT
     - echo "SUCCESS" > .job_status
     - cat .job_status
@@ -59,9 +56,13 @@ Buid Deploy Staging:
   variables:
     ENVIRONMENT: staging
     FRONTEND_URL: backoffice.staging.bsport.io
-    S3_BUCKET: s3://bsport-eu-backoffice-staging/
+    S3_BUCKET: s3://backoffice-staging-sandbox
     CLOUDFRONT_ID: E3HVVKK3QMOC4B
     SLACK_WEBHOOK_URL: '${SLACK_STAGING_WEBHOOK_URL}'
+    CLOUDFRONT_INVALIDATION_LAMBDA_URL: 'https://m4ptvmggmplbez5dwa7gkew4xa0bxjvd.lambda-url.eu-west-3.on.aws/'
+  tags:
+    - build-frontend
+    - cluster:bsport-tooling
 
 Buid Deploy Production:
   extends: .Build and deploy Base
@@ -74,6 +75,11 @@ Buid Deploy Production:
     S3_BUCKET: s3://bsport-eu-backoffice-production/
     CLOUDFRONT_ID: E321VOI5045USU
     SLACK_WEBHOOK_URL: '${SLACK_PRODUCTION_WEBHOOK_URL}'
+    CLOUDFRONT_INVALIDATION_LAMBDA_URL: 'https://6pmc3n3l2yo5krr4v3jq6qud6i0fwkqj.lambda-url.eu-west-3.on.aws/'
+    ACL_PARAM: '--acl public-read'
+  tags:
+    - build-frontend
+    - kubernetes
 
 Buid Deploy Dev:
   extends: .Build and deploy Base
@@ -86,6 +92,10 @@ Buid Deploy Dev:
     S3_BUCKET: s3://backoffice-dev-revived/
     CLOUDFRONT_ID: E225C9KNWFYTF5
     SLACK_WEBHOOK_URL: '${SLACK_DEV_WEBHOOK_URL}'
+    CLOUDFRONT_INVALIDATION_LAMBDA_URL: 'https://uc7e26gvpwrprl5hubmfe4zeou0zyqyu.lambda-url.eu-west-3.on.aws/'
+  tags:
+    - build-frontend
+    - cluster:bsport-tooling
 
 Build Deploy Alpha:
   extends: .Build and deploy Base
@@ -98,6 +108,10 @@ Build Deploy Alpha:
     S3_BUCKET: s3://bsport-eu-backoffice-fb-alpha/
     CLOUDFRONT_ID: E26DURIBD1IZ6H
     SLACK_WEBHOOK_URL: '${SLACK_DEV_WEBHOOK_URL}'
+    CLOUDFRONT_INVALIDATION_LAMBDA_URL: 'https://uc7e26gvpwrprl5hubmfe4zeou0zyqyu.lambda-url.eu-west-3.on.aws/'
+  tags:
+    - build-frontend
+    - cluster:bsport-tooling
 
 Build Deploy Beta:
   extends: .Build and deploy Base
@@ -111,3 +125,7 @@ Build Deploy Beta:
     S3_BUCKET: s3://bsport-eu-backoffice-fb-beta/
     CLOUDFRONT_ID: E31SNYTE4NLU27
     SLACK_WEBHOOK_URL: '${SLACK_DEV_WEBHOOK_URL}'
+    CLOUDFRONT_INVALIDATION_LAMBDA_URL: 'https://uc7e26gvpwrprl5hubmfe4zeou0zyqyu.lambda-url.eu-west-3.on.aws/'
+  tags:
+    - build-frontend
+    - cluster:bsport-tooling

@@ -10,6 +10,7 @@
   variables:
     S3_BUCKET: s3://bsport-eu-docs
     CLOUDFRONT_ID: E2TQR3C50EPHHV
+    CLOUDFRONT_INVALIDATION_LAMBDA_URL: 'https://6pmc3n3l2yo5krr4v3jq6qud6i0fwkqj.lambda-url.eu-west-3.on.aws/'
   script:
     - mv /app/node_modules/ .
     - echo "env.PUBLIC_URL = 'https://docs.infra.bsport.io/storybook/${CI_COMMIT_REF_NAME}'" >> ./envs/storybook

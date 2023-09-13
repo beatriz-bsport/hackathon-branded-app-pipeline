@@ -18,7 +18,7 @@ import './MarketplaceBookButton.css';
 import { OffersGroup } from '#libs/group-offer/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 
-type Props = {
+export type Props = {
   offer: Offer;
   group: OffersGroup;
   className?: string;

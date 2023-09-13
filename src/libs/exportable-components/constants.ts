@@ -112,6 +112,10 @@ import {
 } from '#marketplacecomponents/@Activity/MarketplaceActivityDialogCSSOnly';
 
 import {
+  MARKETPLACE_BOOKING_BUTTON_CONFIGURATION,
+  MARKETPLACE_BOOKING_BUTTON_PREVIEW,
+} from '#marketplacecomponents/@Booking/MarketplaceBookButton';
+import {
   CSSComponentPreviews,
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -332,6 +336,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_WEEK_TIME_TABLE_CONFIGURATION,
   MARKETPLACE_ACTIVITY_CONFIGURATION,
   MARKETPLACE_ACTIVITY_DIALOG_CONFIGURATION,
+  MARKETPLACE_BOOKING_BUTTON_CONFIGURATION,
 
   /*
   MARKETPLACE_FILTER_CONFIGURATION,
@@ -397,6 +402,7 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
     collectPaymentMethod: MARKETPLACE_COLLECT_PAYMENT_METHOD_PREVIEW,
     activityCard: MARKETPLACE_ACTIVITY_PREVIEW,
     activityCardDialog: MARKETPLACE_ACTIVITY_DIALOG_PREVIEW,
+    bookingButton: MARKETPLACE_BOOKING_BUTTON_PREVIEW,
   });
 
 export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =

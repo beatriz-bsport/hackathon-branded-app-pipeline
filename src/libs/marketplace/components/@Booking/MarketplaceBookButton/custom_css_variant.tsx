@@ -1,0 +1,135 @@
+import React from 'react';
+
+import moment from 'moment-timezone';
+import MarketplaceBookButton, { Props as MarketplaceBookButtonProps } from '.';
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceBookButtonCss from '!!raw-loader!./MarketplaceBookButton.css';
+import {
+  MarketplaceCSSComponentConfig,
+  MarketplacePage,
+  VariationConfigurationChoice,
+} from '#libs/exportable-components/types';
+import { CompanyTheme } from '#libs/theme/types';
+import { offerFactory } from '#libs/offer/factories';
+import { Offer } from '#libs/offer/types';
+import { OffersGroup } from '#libs/group-offer/types';
+
+const marketplaceBookingButtonVariationRegistry = [
+  {
+    label: 'isRegistered',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+  {
+    label: 'isOfferInThePast',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+  {
+    label: 'isOfferFull',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+  {
+    label: 'isOfferAvailable',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'true', value: 'true' },
+  },
+  {
+    label: 'isOfferNotAvailableYet',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+  {
+    label: 'isHidden',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+];
+
+const offer = offerFactory({
+  withLevel: true,
+  withCoach: true,
+  withEstablishment: true,
+  withMetaActivity: true,
+  offerStatus: 'bookable',
+});
+
+const usePropsFromVariation = (
+  variationsSelected: Record<string, VariationConfigurationChoice>,
+): MarketplaceBookButtonProps => {
+  const isRegistered = variationsSelected?.isRegistered?.value === 'true';
+  const isHidden = variationsSelected?.isHidden?.value === 'true';
+  const isOfferInThePast =
+    variationsSelected?.isOfferInThePast?.value === 'true';
+
+  const isOfferFull = variationsSelected?.isOfferFull?.value === 'true';
+  const isOfferAvailable =
+    variationsSelected?.isOfferAvailable?.value === 'true';
+
+  const isOfferNotAvailableYet =
+    variationsSelected?.isOfferNotAvailableYet?.value === 'true';
+
+  const metaActivity = offer.meta_activity;
+
+  const metaActivityOverride = {
+    ...metaActivity,
+    ...(isOfferNotAvailableYet ? { first_booking_minutes_until: 1 } : {}),
+  };
+  const group = {} as OffersGroup;
+
+  const dateStart = isOfferInThePast
+    ? moment().subtract(7, 'month')
+    : offer.date_start;
+  return {
+    offer: {
+      ...offer,
+      date_start: dateStart,
+      meta_activity: offer.meta_activity.id,
+      full: isOfferFull,
+      available: isOfferAvailable,
+      coach: offer.coach.id,
+      establishment: offer.establishment.id,
+    } as Offer,
+    isRegistered,
+    isHidden,
+    metaActivity: metaActivityOverride,
+    group,
+  };
+};
+
+export const MARKETPLACE_BOOKING_BUTTON_CONFIGURATION: MarketplaceCSSComponentConfig =
+  {
+    label: 'bookingButton',
+    css: MarketplaceBookButtonCss,
+    pages: [MarketplacePage.CALENDAR, MarketplacePage.WORKSHIP],
+    defaultState: {},
+    variations: marketplaceBookingButtonVariationRegistry,
+  };
+
+export const MARKETPLACE_BOOKING_BUTTON_PREVIEW: React.FC<{
+  theme: CompanyTheme;
+  variationsSelected: Record<string, VariationConfigurationChoice>;
+}> = React.memo(({ variationsSelected }) => {
+  const componentProps = usePropsFromVariation(variationsSelected);
+  return <MarketplaceBookButton {...componentProps} />;
+});

@@ -158,7 +158,8 @@ exports.default = {
       contractPayment: "Module de paiement d'abonnement",
       collectPaymentMethod: 'Ajout de méthode de paiement',
       activityCard: "Detail de l'activité",
-      activityCardDialog:"Detail de l'activité (modale)",
+      activityCardDialog: "Detail de l'activité (modale)",
+      bookingButton:"Bouton de réservation",
     },
     page: {
       common: 'Commun',
@@ -189,6 +190,11 @@ exports.default = {
         disablePast: 'Désactiver les dates passées',
         isInputButton: 'Version compacte',
         version: 'Version',
+        isHidden: 'Caché',
+        isOfferInThePast: 'La séance est passée',
+        isOfferFull: 'La séance est complète',
+        isOfferAvailable: 'La séance est disponible',
+        isOfferNotAvailableYet:"La séance n'est pas encore réservable" 
       },
       option: {
         true: 'Oui',

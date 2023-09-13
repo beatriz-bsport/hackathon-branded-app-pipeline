@@ -291,6 +291,7 @@ exports.default = {
       notification: 'Push notification',
       sms: 'SMS',
       mail: 'Email',
+      autoResend: 'Auto-resends',
     },
     refresh:
       'To see the new version of your template, please click on the refresh button.',
@@ -314,7 +315,8 @@ exports.default = {
     writeCommunication: 'Send a message',
   },
   resendSection: {
-    title: 'Resends',
+    dialogTitle: 'Relances automatiques des emails non ouverts',
+    title: 'Auto resend unread emails',
     resendCount: {
       label: 'Number of automatic resends',
       helperText:

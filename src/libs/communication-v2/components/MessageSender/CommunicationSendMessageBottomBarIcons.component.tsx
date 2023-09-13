@@ -25,6 +25,7 @@ import {
   Send as SendIcon,
   People as PeopleIcon,
 } from '@material-ui/icons';
+import RepeatIcon from '@material-ui/icons/Repeat';
 
 // @ts-ignore
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
@@ -43,6 +44,7 @@ import {
   WRITE_PUSH_NOTIFICATION,
   CAN_SEND_MESSAGE,
   MAX_DISPLAY,
+  CONTEXT_SMARTLIST,
 } from '#libs/communication-v2/constants';
 import {
   UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
@@ -64,24 +66,27 @@ type Props = {
   setActionType: (actionType: number) => void;
   tags: Record<string, Array<string>>;
   validity: number;
+  contextIdentifier?: number;
+  openResendConfigDialog?: () => void;
 };
 
-const BottomBarIcons = (props: Props) => {
-  const {
-    actionType,
-    directMember,
-    fullScreen,
-    handleSelectTemplate,
-    handleSelectRecipients,
-    memberList,
-    memberListLoading,
-    onBaliseItemClick,
-    selectedRecipientsCount,
-    sendMessage,
-    setActionType,
-    tags,
-    validity,
-  } = props;
+const BottomBarIcons: React.FC<Props> = ({
+  actionType,
+  directMember,
+  fullScreen,
+  handleSelectTemplate,
+  handleSelectRecipients,
+  memberList,
+  memberListLoading,
+  onBaliseItemClick,
+  selectedRecipientsCount,
+  sendMessage,
+  setActionType,
+  tags,
+  validity,
+  contextIdentifier,
+  openResendConfigDialog,
+}) => {
   const { t } = useTranslation('communication');
   const classes = useStyles();
   const [menuAnchorEl, setMenuAnchorEl] = useState(null);
@@ -163,6 +168,20 @@ const BottomBarIcons = (props: Props) => {
               <BaliseIcon />
             </IconButton>
           </Tooltip>
+
+          {contextIdentifier === CONTEXT_SMARTLIST &&
+            actionType === WRITE_EMAIL &&
+            openResendConfigDialog && (
+              <Tooltip
+                placement="top"
+                title={t('sendMessage.icons.autoResend')}
+              >
+                <IconButton onClick={openResendConfigDialog}>
+                  <RepeatIcon />
+                </IconButton>
+              </Tooltip>
+            )}
+
           <NestedList
             forTagsSelector
             anchorElMenu={menuBalisesAnchorEl}
@@ -208,6 +227,21 @@ const BottomBarIcons = (props: Props) => {
                 {t('sendMessage.icons.balise')}
               </Typography>
             </MenuItem>
+
+            {contextIdentifier === CONTEXT_SMARTLIST &&
+              actionType === WRITE_EMAIL &&
+              openResendConfigDialog && (
+                <MenuItem
+                  className={classes.mobileMenuItem}
+                  onClick={openResendConfigDialog}
+                >
+                  <RepeatIcon className={classes.mobileIcon} />
+                  <Typography variant="caption">
+                    {t('sendMessage.icons.autoResend')}
+                  </Typography>
+                </MenuItem>
+              )}
+
             <NestedList
               forTagsSelector
               anchorElMenu={menuBalisesAnchorEl}

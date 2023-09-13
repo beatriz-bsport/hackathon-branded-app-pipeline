@@ -13,6 +13,7 @@ import CommunicationWriteNotification from './Writers/CommunicationWriteNotifica
 import CommunicationWriteSMS from './Writers/CommunicationWriteSMS.component';
 import BottomBarIcons from './CommunicationSendMessageBottomBarIcons.component';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
+import AutoResendConfigDialog from '#libs/communication-v2/components/AutoResendConfigDialog';
 
 import { Member, MemberMinimal } from '#libs/member/types';
 import {
@@ -112,6 +113,9 @@ type State = {
     notification: number[];
   };
   validity: number;
+  autoResendConfigDialogOpen: boolean;
+  resendCount: number;
+  resendDelay: number;
 };
 
 export class CommunicationSendMessageContainer extends React.PureComponent<
@@ -144,12 +148,24 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
         notification: [],
       },
       selectedMemberDetailListLoading: false,
+      autoResendConfigDialogOpen: false,
+      resendCount: 0,
+      resendDelay: 0,
     };
   }
 
   componentDidMount() {
     this.getSelectedMembersDetailsAllKinds();
   }
+
+  openResendConfigDialog = () =>
+    this.setState({ autoResendConfigDialogOpen: true });
+
+  closeResendConfigDialog = () =>
+    this.setState({ autoResendConfigDialogOpen: false });
+
+  setResendConfig = (data: { resendCount: number; resendDelay: number }) =>
+    this.setState(data, this.closeResendConfigDialog);
 
   checkValidity = () => {
     const countSelectedRecipients = this.getSelectedRecipientsCount();
@@ -398,6 +414,10 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
 
   sendMessage = () => {
     let content;
+    let autoResendConfiguration = {
+      resend_delay: 0,
+      resend_count: 0,
+    };
     switch (this.props.communicationKind) {
       case WRITE_EMAIL:
         if (this.state.mailTemplateSelected) {
@@ -411,6 +431,10 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
             body: this.state.mailContent,
           };
         }
+        autoResendConfiguration = {
+          resend_count: this.state.resendCount,
+          resend_delay: this.state.resendDelay,
+        };
         break;
       case WRITE_SMS:
         content = {
@@ -431,6 +455,7 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
     }
     this.sendMessageWithFlushEditAndRefreshCallback({
       ...content,
+      ...autoResendConfiguration,
       member_blacklist: this.getRecipientBlacklist(),
     });
   };
@@ -572,6 +597,7 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
     return (
       <BottomBarIcons
         actionType={this.props.communicationKind}
+        contextIdentifier={this.props.contextIdentifier}
         directMember={this.props.directMember}
         fullScreen={this.props.fullScreen}
         handleSelectRecipients={onSelectRecipients}
@@ -579,6 +605,7 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
         memberList={selectedMemberDetailList}
         memberListLoading={this.state.selectedMemberDetailListLoading}
         onBaliseItemClick={this.onBaliseItemClick}
+        openResendConfigDialog={this.openResendConfigDialog}
         selectedRecipientsCount={this.getSelectedRecipientsCount()}
         sendMessage={this.sendMessage}
         setActionType={setActionType}
@@ -650,28 +677,40 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
         ?.html;
 
     return (
-      <Paper className={this.props.classes.mainContainer}>
-        {this.props.communicationKind === WRITE_EMAIL &&
-          this.renderWriteEmail()}
-        {this.props.communicationKind === WRITE_SMS && this.renderWriteSms()}
-        {this.props.communicationKind === WRITE_PUSH_NOTIFICATION &&
-          this.renderWriteNotification()}
-        {this.renderRecipientSelector()}
-        {this.state.openTemplateSelector &&
-          this.props.communicationKind === WRITE_EMAIL &&
-          this.renderEmailTemplateSelector()}
-        {this.state.openTemplateVisualizer &&
-          this.props.communicationKind === WRITE_EMAIL &&
-          !!html && (
-            <HTMLPreviewDialog
-              html={html}
-              onClose={this.onCloseHTMLPreviewDialog}
-              open={this.state.openTemplateVisualizer}
-              resolvedGenericTags={this.props.resolvedGenericTags}
-              title={this.state.mailTitle}
-            />
-          )}
-      </Paper>
+      <>
+        <Paper className={this.props.classes.mainContainer}>
+          {this.props.communicationKind === WRITE_EMAIL &&
+            this.renderWriteEmail()}
+          {this.props.communicationKind === WRITE_SMS && this.renderWriteSms()}
+          {this.props.communicationKind === WRITE_PUSH_NOTIFICATION &&
+            this.renderWriteNotification()}
+          {this.renderRecipientSelector()}
+          {this.state.openTemplateSelector &&
+            this.props.communicationKind === WRITE_EMAIL &&
+            this.renderEmailTemplateSelector()}
+          {this.state.openTemplateVisualizer &&
+            this.props.communicationKind === WRITE_EMAIL &&
+            !!html && (
+              <HTMLPreviewDialog
+                html={html}
+                onClose={this.onCloseHTMLPreviewDialog}
+                open={this.state.openTemplateVisualizer}
+                resolvedGenericTags={this.props.resolvedGenericTags}
+                title={this.state.mailTitle}
+              />
+            )}
+        </Paper>
+
+        <AutoResendConfigDialog
+          handleClose={this.closeResendConfigDialog}
+          handleSubmit={this.setResendConfig}
+          initial={{
+            resendCount: this.state.resendCount,
+            resendDelay: this.state.resendDelay,
+          }}
+          open={this.state.autoResendConfigDialogOpen}
+        />
+      </>
     );
   }
 }

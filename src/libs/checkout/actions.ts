@@ -325,6 +325,7 @@ export function attachCoupon(
   basketId: string,
   code: string,
   options?: OptionCallBackWithKeyedCallbacks<Basket>,
+  hideSnackbar?: boolean,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(currentBasket.isUpdating(true));
@@ -353,7 +354,9 @@ export function attachCoupon(
         options.onError();
       }
       dispatch(currentBasket.error(error));
-      dispatch(snackbarError('coupon:message.attachToBasket.error'));
+      if (!hideSnackbar) {
+        dispatch(snackbarError('coupon:message.attachToBasket.error'));
+      }
     }
 
     dispatch(currentBasket.isUpdating(false));

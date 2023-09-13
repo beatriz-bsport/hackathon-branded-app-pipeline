@@ -130,6 +130,7 @@ type Props = {
     basketId: string,
     code: string,
     options?: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
+    hideSnackBar?: boolean,
   ) => void,
 
   shopItemList: Array<ShopItem>,
@@ -331,28 +332,33 @@ export class BasketPage extends React.Component<Props> {
     code: string,
     options: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
   ) => {
-    this.props.attachCoupon(this.props.basket.id, code, {
-      onSuccess: options?.onSuccess,
-      onError: () => {
-        if (options && options.onError) {
-          options.onError();
-        }
-      },
-      [CouponErrorCodes.COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS]:
-        () => {
-          if (
-            options &&
-            options[
-              CouponErrorCodes
-                .COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS
-            ]
-          )
-            options[
-              CouponErrorCodes
-                .COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS
-            ]();
+    this.props.attachCoupon(
+      this.props.basket.id,
+      code,
+      {
+        onSuccess: options?.onSuccess,
+        onError: () => {
+          if (options?.onError) {
+            options.onError();
+          }
         },
-    });
+        [CouponErrorCodes.COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS]:
+          () => {
+            if (
+              options &&
+              options[
+                CouponErrorCodes
+                  .COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS
+              ]
+            )
+              options[
+                CouponErrorCodes
+                  .COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS
+              ]();
+          },
+      },
+      this.props.isNewCheckoutFlow,
+    );
   };
 
   setTermsAndConditionsAccepted = (termsAndConditionsAccepted) =>

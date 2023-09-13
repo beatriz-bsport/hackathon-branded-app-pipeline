@@ -115,6 +115,11 @@ import {
   MARKETPLACE_BOOKING_BUTTON_CONFIGURATION,
   MARKETPLACE_BOOKING_BUTTON_PREVIEW,
 } from '#marketplacecomponents/@Booking/MarketplaceBookButton';
+
+import {
+  MARKETPLACE_BOOKING_BLOCKED_CONFIGURATION,
+  MARKETPLACE_BOOKING_BLOCKED_PREVIEW,
+} from '#marketplacecomponents/@Booking/MarketplaceBookingBlockedReason';
 import {
   CSSComponentPreviews,
   MarketplaceCSSComponentConfig,
@@ -337,6 +342,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_ACTIVITY_CONFIGURATION,
   MARKETPLACE_ACTIVITY_DIALOG_CONFIGURATION,
   MARKETPLACE_BOOKING_BUTTON_CONFIGURATION,
+  MARKETPLACE_BOOKING_BLOCKED_CONFIGURATION,
 
   /*
   MARKETPLACE_FILTER_CONFIGURATION,
@@ -403,6 +409,7 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
     activityCard: MARKETPLACE_ACTIVITY_PREVIEW,
     activityCardDialog: MARKETPLACE_ACTIVITY_DIALOG_PREVIEW,
     bookingButton: MARKETPLACE_BOOKING_BUTTON_PREVIEW,
+    bookingBlockedReason: MARKETPLACE_BOOKING_BLOCKED_PREVIEW,
   });
 
 export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =

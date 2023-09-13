@@ -7,7 +7,7 @@ import { StatusMessageWithIconSkeleton } from '#components/css-only/StatusMessag
 
 import './MarketplaceBookingBlockedReason.css';
 
-type Props = {
+export type Props = {
   bookingBlockedReason: {
     title: string;
     message: string;

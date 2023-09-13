@@ -159,7 +159,8 @@ exports.default = {
       collectPaymentMethod: 'Ajout de méthode de paiement',
       activityCard: "Detail de l'activité",
       activityCardDialog: "Detail de l'activité (modale)",
-      bookingButton:"Bouton de réservation",
+      bookingButton: "Bouton de réservation",
+      bookingBlockedReason:"Réservation impossible",
     },
     page: {
       common: 'Commun',
@@ -194,7 +195,8 @@ exports.default = {
         isOfferInThePast: 'La séance est passée',
         isOfferFull: 'La séance est complète',
         isOfferAvailable: 'La séance est disponible',
-        isOfferNotAvailableYet:"La séance n'est pas encore réservable" 
+        isOfferNotAvailableYet:"La séance n'est pas encore réservable", 
+        blockedReasonStatus:"Raison du blocage de la réservation",
       },
       option: {
         true: 'Oui',
@@ -222,6 +224,15 @@ exports.default = {
         subscriptionCountrySelect: 'Sélecteur de pays',
         mobile: 'Petit écran',
         desktop : 'Ecran large',
+        blockedByTags: 'Droits insuffisants',
+        isAlreadyRegistered: 'Séance déjà réservée',
+        isOfferNotAvailableYet: 'Bientôt disponible',
+        isTooLate: 'Délai dépassé',
+        isWaitingListBlockedByPendingBookings: 'Autres réservations en cours',
+        isWaitingListFull: "Liste d'attente pleine",
+        isAlreadyInWaitingList: "Déjà sur liste d'attente",
+        isWaitingListOpen:"Séance pleine",
+        
       },
     },
   },

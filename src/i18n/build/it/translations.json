@@ -3950,9 +3950,9 @@
                 "calendarPersonalizationTitle": "Configurazione del calendario",
                 "basket_expiration_days": {
                     "alert": "Compila i giorni di scadenza del carrello!",
-                    "placeholder": "Giorni prima della scadenza",
-                    "helperText": "Numero di giorni prima del quale il carrello di un cliente viene svuotato automaticamente",
-                    "label": "Scadenza del pacchetto d'acquisto"
+                    "placeholder": "Giorni",
+                    "helperText": "Numero di giorni prima che il carrello di un cliente venga svuotato automaticamente",
+                    "label": "Scadenza del carrello"
                 },
                 "cancelledOffersManager": "Per impostazione predefinita mostra le sessioni annullate sul calendario del manager",
                 "showGenderOffer": "Visualizza il numero di uomini e donne che prenotano un'offerta",

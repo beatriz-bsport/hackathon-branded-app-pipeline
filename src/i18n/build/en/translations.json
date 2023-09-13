@@ -13409,7 +13409,7 @@
                 "seeMore": "View more"
             },
             "choosePass": "Choose a pass",
-            "buyPass": "Buy a pass",
+            "buyPass": "Buy a new pass",
             "buyNewPass": "Buy a new pass",
             "myPasses": "My pass",
             "myPasses_plural": "My passes",
@@ -13430,11 +13430,11 @@
                 },
                 "isTooSoon": {
                     "title": "Available soon",
-                    "message": "Bookings are closed for the moment and will be open on the {{-date}}."
+                    "message": "Booking is currently closed and will open on {{-date}}."
                 },
                 "isTooLate": {
-                    "title": "Deadline expired",
-                    "message": "Sorry, but the booking period for this session is over."
+                    "title": "Bookings closed",
+                    "message": "Sorry, but the booking window for this session has closed."
                 },
                 "waitingListLockedByPendingBookings": {
                     "title": "Other bookings in progress",

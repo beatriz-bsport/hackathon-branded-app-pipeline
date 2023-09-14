@@ -3,5 +3,6 @@ import ProcessingPaymentDialog, {
   ProcessingPaymentDialogPortal,
 } from './ProcessingPaymentDialog.component';
 
-export { ProcessingPaymentDialogPortal, type Props };
+export type { Props };
+export { ProcessingPaymentDialogPortal };
 export default ProcessingPaymentDialog;

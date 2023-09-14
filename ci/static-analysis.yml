@@ -12,7 +12,7 @@ Lint and Compile:
     - echo "Type checking all files"
     - yarn compile
     - echo "Lint checking all files"
-    - yarn lint
+    - NODE_OPTIONS=--max-old-space-size=7000 yarn lint
 
   except:
     - master

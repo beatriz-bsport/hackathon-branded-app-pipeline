@@ -11141,6 +11141,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -16361,7 +16362,17 @@
                     "activity": "Activity filters",
                     "level": "Of the level",
                     "passTypeFilter": "Passes filters",
-                    "subscriptionCountrySelect": "Country selector"
+                    "subscriptionCountrySelect": "Country selector",
+                    "isWaitingListOpen": "Session is full",
+                    "isAlreadyInWaitingList": "Already on waiting list",
+                    "isWaitingListFull": "The waiting list is full",
+                    "isWaitingListBlockedByPendingBookings": "Other current bookings",
+                    "isTooLate": "Time limit exceeded",
+                    "isOfferNotAvailableYet": "Available soon",
+                    "isAlreadyRegistered": "Session already booked",
+                    "blockedByTags": "Insufficient rights",
+                    "desktop": "Wide screen",
+                    "mobile": "Small screen"
                 },
                 "title": {
                     "nextOffer": "Next session available",
@@ -16381,7 +16392,13 @@
                     "version": "Version",
                     "hideCoach": "Hide the teacher filter",
                     "isWorkshop": "Is a workshop",
-                    "showDate": "Display the date"
+                    "showDate": "Display the date",
+                    "isOfferFull": "The session is full",
+                    "blockedReasonStatus": "Reason for blocking the booking",
+                    "isOfferNotAvailableYet": "The session is not yet bookable",
+                    "isOfferAvailable": "The session is available",
+                    "isOfferInThePast": "The session is over",
+                    "isHidden": "Hidden"
                 },
                 "configurationTitle": "Variations"
             },
@@ -16428,7 +16445,11 @@
                 "select": "Selector",
                 "search": "Search filter",
                 "calendarFilters": "Calendar filters (layout only)",
-                "calendarWeekTimeTable": "Calendar header"
+                "calendarWeekTimeTable": "Calendar header",
+                "bookingBlockedReason": "Booking is not possible",
+                "bookingButton": "Booking button",
+                "activityCardDialog": "Activity details (pop in)",
+                "activityCard": "Activity details"
             },
             "customCss": {
                 "yourCode": "Your complementary implementation:",

@@ -17,6 +17,13 @@ const ButtonTemplate = (args: Props) => (
   <ButtonForStorybook {...args}>{faker.lorem.word(10)}</ButtonForStorybook>
 );
 
+const ButtonTextWithIconTemplate = (args: Props) => (
+  // @ts-expect-error
+  <ButtonForStorybook {...args}>
+    {faker.lorem.word(10)} <AddIcon />
+  </ButtonForStorybook>
+);
+
 const ButtonIconTemplate = (args: Props) => {
   return (
     // @ts-expect-error
@@ -59,12 +66,17 @@ ButtonStyled.args = {
   },
 };
 
+export const ButtonTextWithIcon = ButtonTextWithIconTemplate.bind({});
+ButtonTextWithIcon.args = {
+  ...baseArgs,
+};
+
 export const ButtonIcon = ButtonIconTemplate.bind({});
 ButtonIcon.args = {
   ...baseArgs,
   variant: 'icon',
   classes: {
-    root: 'bs-button-icon-storybook__container',
+    // root: 'bs-button-icon-storybook__container',
   },
 };
 
@@ -112,6 +124,12 @@ export default {
       control: {
         type: 'select',
         options: [ButtonVariant.ICON, ButtonVariant.OUTLINED],
+      },
+    },
+    size: {
+      control: {
+        type: 'select',
+        options: [ButtonSize.SMALL, ButtonSize.MEDIUM, ButtonSize.LARGE],
       },
     },
     onClick: {

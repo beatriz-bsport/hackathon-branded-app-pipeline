@@ -15,8 +15,38 @@
 }
 
 .bs-button-icon__container {
-  padding: 0;
+  background: none;
   border-radius: 999px;
+  padding: calc(var(--spacing-1) * 1.5);
+  height: var(--button-icon-height);
+}
+
+.bs-button-icon__container.bs-button-small__container {
+  width: 36px;
+  height: 36px;
+}
+
+.bs-button-icon__container.bs-button-large__container {
+  padding: calc(var(--spacing-1) * 1.5);
+  width: 56px;
+  height: 56px;
+}
+
+.bs-button-icon__container.bs-button-small__container .bs-button-small__text {
+  font-size: 1.125rem;
+}
+
+.bs-button-icon__container.bs-button-large__container .bs-button-large__text {
+  font-size: 2.1875rem;
+}
+
+.bs-button-icon__container.bs-button-small__container
+  .bs-button-small__text
+  .MuiSvgIcon-root,
+.bs-button-icon__container.bs-button-large__container
+  .bs-button-large__text
+  .MuiSvgIcon-root {
+  font-size: inherit;
 }
 
 .bs-button-outlined__container {
@@ -67,8 +97,7 @@
   font-weight: var(--button-fontWeight);
   letter-spacing: var(--button-letterSpacing);
   line-height: var(--button-lineHeight);
-  display: inline-flex;
-  align-items: center;
+  display: flex;
   gap: var(--spacing-1);
   user-select: none;
   text-transform: uppercase;

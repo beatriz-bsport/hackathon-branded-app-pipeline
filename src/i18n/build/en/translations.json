@@ -4175,7 +4175,21 @@
             "infoBoxContent": "You are in the availability mode specific to an establishment. By default your teachers are available in all establishments when you create an availability. On this page you can define specific availabilities for certain establishments to make your teacher available only in these establishments. It is necessary to create a general availability on your teacher's schedule to create a specific availability.",
             "goToRegularCalendar": "Back to the schedule"
         },
-        "openSpecificAvailabilitiesCalendar": "Specific availabilities"
+        "openSpecificAvailabilitiesCalendar": "Specific availabilities",
+        "forms": {
+            "delete": {
+                "confirm": "Delete",
+                "cancel": "Cancel",
+                "actions": {
+                    "confirm": "Delete",
+                    "cancel": "Cancel"
+                },
+                "title": "Delete appointment",
+                "content": {
+                    "canDelete": "Are you sure you want to delete this appointment? This change is definitive. Bookings already made will not be affected."
+                }
+            }
+        }
     },
     "relationship": {
         "member": {
@@ -11126,6 +11140,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -16454,7 +16469,7 @@
                 "lastName": "Last name",
                 "firstName": "First name",
                 "email": "Email address",
-                "title": "Sign up for our newsletter down below to receive relevant updates."
+                "title": "Sign up for our newsletter below to receive relevant updates."
             }
         },
         "notifications": {

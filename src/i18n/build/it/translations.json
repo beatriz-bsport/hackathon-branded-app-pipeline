@@ -3299,6 +3299,20 @@
             "infoBoxContent": "Sei nella modalità di disponibilità specifica di una struttura. Per impostazione predefinita, i tuoi insegnanti sono disponibili in tutte le strutture quando crei una disponibilità. In questa pagina, imposta la disponibilità specifica per determinate strutture per rendere disponibile il tuo insegnante solo in queste strutture. È necessario creare una disponibilità generale sull'orario del tuo insegnante per creare una disponibilità specifica.",
             "filters": "Filtri",
             "establishment": "Stabilimento"
+        },
+        "forms": {
+            "delete": {
+                "confirm": "Elimina",
+                "cancel": "Cancella",
+                "actions": {
+                    "confirm": "Elimina",
+                    "cancel": "Cancella"
+                },
+                "title": "Elimina un appuntamento",
+                "content": {
+                    "canDelete": "Sei sicuro di voler cancellare questo appuntamento? Questa modifica è definitiva. Le prenotazioni già effettuate non saranno interessate."
+                }
+            }
         }
     },
     "video": {
@@ -7828,7 +7842,8 @@
                 "Cencellata",
                 "Annullata",
                 "Cancella",
-                "Cancellato"
+                "Cancellato",
+                "Cancella"
             ]
         },
         "payment_method_with_credit_account": {

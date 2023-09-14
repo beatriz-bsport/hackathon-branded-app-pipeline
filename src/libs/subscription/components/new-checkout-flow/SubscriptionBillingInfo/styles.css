@@ -24,8 +24,10 @@
   color: var(--color-primary-contrastText);
   width: 100%;
   text-transform: uppercase;
-  font-size: var(--body1-fontSize);
-  font-weight: var(--fontWeightMedium);
+  font-family: var(--button-fontFamily);
+  font-size: var(--button-fontSize);
+  font-weight: var(--button-fontWeight);
+  line-height: var(--button-lineHeight);
   cursor: pointer;
   transition: all ease 0.3s;
   max-width: 300px;

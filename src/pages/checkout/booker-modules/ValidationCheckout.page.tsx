@@ -14,14 +14,15 @@ import Typography from '@material-ui/core/Typography';
 import { createStyles, Theme, withStyles } from '@material-ui/core/styles';
 import WarningIcon from '@material-ui/icons/Warning';
 import { Clear, HourglassFull, ShoppingBasket, Star } from '@material-ui/icons';
+import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 import { RootState } from '../../../reducers';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
-import themeSelectors from '../../../libs/theme/selectors';
+import themeSelectors from '#libs/theme/selectors';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-import { fetchBasket } from '../../../libs/checkout/actions';
-import { getBasket } from '../../../libs/checkout/selectors';
-import CheckoutItemListItem from '../../../libs/checkout/components/CheckoutItemListItem.component';
-import { Offer_FULL } from '../../../libs/offer/types';
+import { fetchBasket } from '#libs/checkout/actions';
+import { getBasket } from '#libs/checkout/selectors';
+import CheckoutItemListItem from '#libs/checkout/components/CheckoutItemListItem.component';
+import { Offer_FULL } from '#libs/offer/types';
 import { withExtraDataFromQueryParams } from '#libs/booker-module/utils';
 import withTheme from '#hocs/company-themifier.hoc';
 import {
@@ -29,22 +30,28 @@ import {
   withMetaActivity,
   withCoach,
   withEstablishment,
-} from '../../../libs/offer/selectors';
-import { fetchOfferBulk } from '../../../libs/offer/actions';
-import { fetchMetaActivityBulk } from '../../../libs/meta-activity/actions';
-import { fetchCoachBulk } from '../../../libs/associated-coach/actions';
-import { fetchEstablishmentBulk } from '../../../libs/establishment/actions';
+  getOfferStatusWaitingListPositionById,
+} from '#libs/offer/selectors';
+import {
+  fetchOfferBulk,
+  fetchOfferWaitingListPositionList as fetchOfferWaitingListPositionListAction,
+} from '#libs/offer/actions';
+import { fetchMetaActivityBulk } from '#libs/meta-activity/actions';
+import { fetchCoachBulk } from '#libs/associated-coach/actions';
+import { fetchEstablishmentBulk } from '#libs/establishment/actions';
+import { getWaitingListConfigurationData } from '#libs/waiting-list/selectors';
 
-import OfferBookableItem from '../../../libs/booker-module/components/OfferBookableItem.component';
-import { urlToMarketplace } from '../../../libs/marketplace/utils';
+import OfferBookableItem from '#libs/booker-module/components/OfferBookableItem.component';
+import { urlToMarketplace } from '#libs/marketplace/utils';
 
 import ConsumerAppBarContainer from '../ConsumerAppBar.container';
-import WidgetUtils from '../../../libs/widget/WidgetUtils';
+import WidgetUtils from '#libs/widget/WidgetUtils';
 import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
 import ErrorIcon from '#components/icons/ErrorIcon.component';
 import { sortByDate } from '../../../utils/datetime';
-import { getBookingErrorMessage } from '../../../libs/checkout/utils';
+import { getBookingErrorMessage } from '#libs/checkout/utils';
+import { fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction } from '#libs/waiting-list/actions';
 
 type OwnProps = {
   queryParams: any;
@@ -93,6 +100,10 @@ export class ValidationCheckout extends React.Component<Props> {
           ]);
           this.props.fetchMetaActivityBulk(
             offerList.map((o) => o.meta_activity),
+          );
+          this.props.fetchCompanyWaitlistConfiguration(this.props.companyId);
+          this.props.fetchOfferWaitingListPositionList(
+            this.props.offerPreBookedIdList,
           );
         },
       },
@@ -258,9 +269,20 @@ export class ValidationCheckout extends React.Component<Props> {
                           ).map((o) => (
                             <OfferBookableItem
                               key={o.id}
+                              displayPositionInWaitingList={
+                                this.props.waitingListConfiguration
+                                  ?.display_member_position &&
+                                this.props.waitingListConfiguration?.dynamic ===
+                                  WAITING_LIST_DYNAMIC_ORDERED
+                              }
                               hideCoach={this.props.hideCoach}
                               offer={o}
                               offerSpotInformation={o.spot_information}
+                              waitingListPosition={
+                                this.props.offerStatusWaitinListPositionById[
+                                  o.id
+                                ]?.waiting_list_position
+                              }
                             />
                           ))}
                         </div>
@@ -511,6 +533,7 @@ const connector = connect(
     fetchOfferBulk,
     replace: replaceRouter,
     goBack,
+    fetchOfferWaitingListPositionList: fetchOfferWaitingListPositionListAction,
   },
 );
 
@@ -530,9 +553,14 @@ export default compose<any, OwnProps>(
         queryParams?.basket && queryParams.basket !== 'null'
           ? getBasket(state, queryParams.basket)
           : null,
+      waitingListConfiguration: getWaitingListConfigurationData(state),
+      offerStatusWaitinListPositionById:
+        getOfferStatusWaitingListPositionById(state),
     }),
     {
       fetchBasket,
+      fetchCompanyWaitlistConfiguration:
+        fetchCompanyWaitlistConfigurationAction,
     },
   ),
   withProps(({ queryParams }) => {

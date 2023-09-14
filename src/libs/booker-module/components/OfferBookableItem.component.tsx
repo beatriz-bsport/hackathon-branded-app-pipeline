@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
@@ -32,6 +32,7 @@ import type { Coach } from '#libs/associated-coach/types';
 import type { Establishment } from '#libs/establishment/types';
 import { SpotInformation } from '#libs/spot-scheduling/types';
 import PlaceNumber from '#libs/spot-scheduling/component/PlaceNumber.component';
+import CustomChip from '#components/chip/CustomChip.component';
 
 const OfferStatus = ({ offerStatus }: { offerStatus: OfferStatusType }) => {
   let statusColor = 'green';
@@ -105,6 +106,8 @@ type OfferBookableItemProps = {
   hideCoach: boolean;
   offerSpot?: number | undefined;
   offerSpotInformation?: SpotInformation;
+  displayPositionInWaitingList?: boolean;
+  waitingListPosition?: { member_position: number; waiting_list_size: number };
 };
 export const OfferBookableItem = (props: OfferBookableItemProps) => {
   const classes = useStyles();
@@ -120,6 +123,8 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
 
   const onClick =
     !props.disabled && (() => props.onAdd && props.onAdd(props.offer));
+
+  const theme = useTheme();
 
   return (
     <>
@@ -147,9 +152,9 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
               'LL',
               props.offer.timezone_name,
             )}, 
-            ${moment(props.offer.date_start)
-              .tz(props.offer.timezone_name)
-              .format('dddd')}`}
+              ${moment(props.offer.date_start)
+                .tz(props.offer.timezone_name)
+                .format('dddd')}`}
           </Typography>
           {props.offerSpot && (
             <PlaceNumber
@@ -181,6 +186,12 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
             )}
           </div>
         </div>
+        {props.displayPositionInWaitingList && props.waitingListPosition && (
+          <CustomChip
+            displayedValue={`${props.waitingListPosition.member_position}/${props.waitingListPosition.waiting_list_size}`}
+            mainColor={theme.palette.primary.main}
+          />
+        )}
       </ButtonBase>
       {props.isRegistered && (
         <div className={classes.hasRegisteredContainer}>

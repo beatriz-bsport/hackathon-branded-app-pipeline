@@ -1,5 +1,6 @@
 import React from 'react';
 import HourglassFullIcon from '@material-ui/icons/HourglassFull';
+import PersonAdd from '@material-ui/icons/PersonAdd';
 import { useTranslation } from 'react-i18next';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { Establishment } from '#libs/establishment/types';
@@ -9,6 +10,7 @@ import Card, { CardSize } from '#components/css-only/Card';
 import CardContent from '#components/css-only/Card/CardContent';
 import Grid from '#components/css-only/Grid';
 import GridItem, {
+  Alignment,
   Direction,
   Justification,
 } from '#components/css-only/Grid/GridItem';
@@ -16,6 +18,8 @@ import ActivitySummary from '#marketplacecomponents/@Activity/ActivitySummary';
 import { CompanyTheme } from '#libs/theme/types';
 import Chip from '#components/css-only/Chip';
 import MarketplaceLevelCSSOnly from '#marketplacecomponents/@Offer/MarketplaceLevelCSSOnly';
+import Button, { ButtonVariant } from '#Fabrique/Button';
+import Tooltip from '#Fabrique/Tooltip';
 
 import './styles.css';
 
@@ -29,6 +33,11 @@ export type Props = {
   isWaitingList?: boolean;
   spotName?: string;
   companyTheme: CompanyTheme;
+  shouldDisplayAddGuestButton?: boolean;
+  addGuestTooltipText?: string;
+  isAddGuestDisabled?: boolean;
+  onAddGuestClick?: () => void;
+  onAddGuestModalCancel?: () => void;
 };
 
 const MarketplaceBookingItem: React.FC<Props> = ({
@@ -41,6 +50,10 @@ const MarketplaceBookingItem: React.FC<Props> = ({
   isWaitingList,
   spotName,
   companyTheme,
+  shouldDisplayAddGuestButton,
+  addGuestTooltipText,
+  isAddGuestDisabled,
+  onAddGuestClick,
 }) => {
   const { t } = useTranslation('checkout');
   const hasStatusChip = isWaitingList;
@@ -135,6 +148,36 @@ const MarketplaceBookingItem: React.FC<Props> = ({
               customLevel={level}
             />
           </GridItem>
+          {shouldDisplayAddGuestButton && (
+            <GridItem
+              alignment={Alignment.FLEX_END}
+              classes={{
+                'bs-booking-item-add-guest': true,
+              }}
+              columnEnd={3}
+              columnStart={3}
+              direction={Direction.ROW}
+              justification={Justification.FLEX_END}
+              rowStart={2}
+            >
+              <Tooltip
+                id="bs-booking-item-add-guest-tooltip"
+                text={addGuestTooltipText}
+              >
+                <Button
+                  classes={{
+                    root: 'bs-booking-item-add-guest__button__container',
+                    text: 'bs-booking-item-add-guest__button__text',
+                  }}
+                  isDisabled={isAddGuestDisabled}
+                  onClick={onAddGuestClick}
+                  variant={ButtonVariant.ICON}
+                >
+                  <PersonAdd />
+                </Button>
+              </Tooltip>
+            </GridItem>
+          )}
         </Grid>
       </CardContent>
     </Card>

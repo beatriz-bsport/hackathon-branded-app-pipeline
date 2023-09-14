@@ -4,8 +4,8 @@ import { fakerEN as faker } from '@faker-js/faker';
 import { ComponentStory, Meta } from '@storybook/react';
 
 import MarketplaceBookingItem, {
-  type Props,
   MarketplaceBookingItemForStorybook,
+  type Props,
 } from '.';
 import { generateRandomName } from '../../../../../utils/factories';
 import { CompanyTheme } from '#libs/theme/types';
@@ -18,6 +18,8 @@ import { levelFactory } from '#libs/level/factories';
 import { Level } from '#libs/level/types';
 
 import './styles.storybook.css';
+import i18n from 'i18next';
+import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 
 const fakeCompanyTheme: CompanyTheme = themeFactoryBot.companyTheme.createOne();
 
@@ -33,19 +35,17 @@ export default {
   component: MarketplaceBookingItem,
   decorators: [
     (Story) => (
-      <div className="bs-booking-item__container">
+      <div className="bs-booking-item-storybook__container">
         <Story />
       </div>
     ),
   ],
-} as Meta<typeof MarketplaceBookingItemForStorybook>;
+} as Meta<typeof MarketplaceBookingItem>;
 
 const Template: ComponentStory<typeof MarketplaceBookingItem> = (
   args: Props,
-) => (
   // @ts-expect-error
-  <MarketplaceBookingItemForStorybook {...args} />
-);
+) => <MarketplaceBookingItemForStorybook {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -80,4 +80,21 @@ Unconvenient.args = {
     'This is a super long title for an offer, just to test the behavior of the card',
   isWaitingList: false,
   level: fakeLevel,
+};
+
+export const WithAddGuestButton = Template.bind({});
+WithAddGuestButton.args = {
+  date: 'Wed 02 Aug • 09:30 AM - 10:30 AM',
+  title: generateRandomName(faker),
+  coach: fakeCoach,
+  theme: fakeCompanyTheme,
+  establishment: fakeEstablishment,
+  hideCoach: false,
+  spotName: 'Spot T6',
+  isWaitingList: false,
+  level: fakeLevel,
+  shouldDisplayAddGuestButton: true,
+  addGuestTooltipText: i18n.t(
+    `booking:offer.bookingForAGuest.bookingStatus.${OFFER_BOOKABLE_STATUS_BOOKABLE}`,
+  ),
 };

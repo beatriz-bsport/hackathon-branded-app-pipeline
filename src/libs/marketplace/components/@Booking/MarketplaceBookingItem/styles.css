@@ -26,6 +26,10 @@
 /* .bs-booking-item-chip--level-mobile:{} 
 */
 
+.bs-booking-item-add-guest {
+  height: 100%;
+}
+
 .bs-booking-item-chip {
   width: fit-content;
   justify-self: end;
@@ -67,6 +71,14 @@
   font-family: var(--fontFamily);
 }
 
+.bs-booking-item-add-guest__button__container {
+  border-radius: var(--border-radius-2);
+}
+
+.bs-booking-item-add-guest__button__text {
+  color: var(--color-grey-main);
+}
+
 @container bsConfirmationPage (width < 530px) {
   .bs-booking-item {
     width: 100%;
@@ -101,5 +113,10 @@
   .bs-booking-item-chip--status-chip-mobile,
   .bs-booking-item-chip--level-mobile {
     flex-direction: row;
+  }
+
+  .bs-booking-item-add-guest {
+    grid-row-start: 3;
+    grid-column-start: 2;
   }
 }

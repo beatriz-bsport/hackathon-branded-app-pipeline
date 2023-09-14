@@ -65,6 +65,9 @@ exports.default = {
       label:
         'Ensure the customer has one valid pass compatible with the session, with enough credit',
     },
+    display_member_position: {
+      label: 'Display the position in the waiting list',
+    },
   },
   explainWaitingListConf:
     'Example: a member that joined the waitlist for a session that starts in 3 hours has {{nbMinutesBeforeBookingOptionExpire}} minute(s) to complete their booking before they lose their priority spot on the waitlist.',

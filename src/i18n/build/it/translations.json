@@ -12001,6 +12001,9 @@
             "check_credit": {
                 "label": "Verificare che il cliente sia in possesso di un pass compatibile con l'offerta e sufficientemente accreditato",
                 "helper": "Un cliente non può essere aggiunto a una lista di attesa fino a quando non dispone di un pass compatibile con l'offerta in questione e di un credito sufficiente per effettuare la prenotazione"
+            },
+            "display_member_position": {
+                "label": "Mostrare la posizione nella lista di attesa"
             }
         },
         "switchToDisable": "Riattiva la lista di attesa",

@@ -33,3 +33,6 @@ export const getBookingOptionListForMember = createSelector(
   [_getData, _getForMemberIds],
   (data, ids) => ids.map((id) => data[id]),
 );
+
+export const getWaitingListConfigurationData = (state: RootState) =>
+  state.waitingList.configuration.data;

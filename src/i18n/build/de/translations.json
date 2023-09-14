@@ -46,6 +46,9 @@
             "check_credit": {
                 "label": "Vergewissern Sie sich, dass der Kunde einen gültigen, mit der Session kompatiblen Pass mit ausreichend Guthaben besitzt",
                 "helper": "Ein Kunde kann nur dann auf die Warteliste gesetzt werden, wenn er einen mit der Session kompatiblen Pass mit ausreichendem Guthaben besitzt"
+            },
+            "display_member_position": {
+                "label": "Die Position in der Warteliste anzeigen"
             }
         },
         "explainWaitingListConf": "Z.B : Es sind noch drei Stunden bis zum Kursbeginn, der Schüler hat {{ nbMinutesBeforeBookingOptionExpire }} Minuten um seine Reservierung zu bestätigen, bevor er seinen Platz verlässt.",

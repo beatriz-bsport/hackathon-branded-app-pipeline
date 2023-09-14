@@ -77,7 +77,9 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
       propsConfig.last_delay_before_auto_consume ===
         stateConfig.last_delay_before_auto_consume &&
       propsConfig.is_option_blocking === stateConfig.is_option_blocking &&
-      propsConfig.check_credit === stateConfig.check_credit
+      propsConfig.check_credit === stateConfig.check_credit &&
+      propsConfig.display_member_position ===
+        stateConfig.display_member_position
     );
   };
 
@@ -88,7 +90,7 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
 
   renderUnorderedForm = () => {
     return (
-      <div className={this.props.classes.row}>
+      <div className={this.props.classes.singleRow}>
         <InfoOutlineIcon className={this.props.classes.leftIcon} />
         <Typography color="textSecondary">
           {this.props.t(
@@ -133,6 +135,13 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
         example_computed_delay_two: exampleComputedDelayTwo,
       },
     );
+  };
+
+  handleDisplayPositionChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const isDisplayPositionChecked = event.target.checked;
+    this.handleChange('display_member_position')(isDisplayPositionChecked);
   };
 
   renderOrderedForm = () => {
@@ -283,6 +292,19 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
             />
           </div>
         </fieldset>
+        <div className={classes.field}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={this.state.configuration.display_member_position}
+                color="primary"
+                onChange={this.handleDisplayPositionChange}
+                value={this.state.configuration.display_member_position}
+              />
+            }
+            label={t('form.display_member_position.label')}
+          />
+        </div>
       </div>
     );
   };
@@ -434,6 +456,12 @@ const styles = (theme) => ({
     alignItems: 'center',
     marginBottom: theme.spacing(3),
   },
+  singleRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing(2),
+  },
   leftIcon: {
     marginRight: theme.spacing(1),
   },
@@ -441,7 +469,9 @@ const styles = (theme) => ({
     backgroundColor: '#F3F3F3',
     borderRadius: theme.spacing(2),
     border: '1px solid #F3F3F3',
-    padding: theme.spacing(2),
+    padding: `${theme.spacing(2)}px ${theme.spacing(2)}px 0px ${theme.spacing(
+      2,
+    )}px`,
     width: '100%',
   },
   alert: {

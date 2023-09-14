@@ -11469,6 +11469,9 @@
             "check_credit": {
                 "label": "Asegúrese de que el cliente dispone de un pase válido compatible con la sesión, con crédito suficiente",
                 "helper": "Un cliente no podrá inscribirse en una lista de espera a menos que disponga de un pase compatible con la sesión, y con crédito suficiente"
+            },
+            "display_member_position": {
+                "label": "Mostrar la posición en la lista de espera"
             }
         },
         "nbConvertible": "{{nbConvertible}} en espera de confirmación",

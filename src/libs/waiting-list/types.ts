@@ -22,6 +22,7 @@ export type WaitingListConfiguration = {
   check_credit: boolean;
   no_notification_utc_interval_hour_start: number;
   no_notification_utc_interval_hour_end: number;
+  display_member_position: boolean;
 };
 
 export type WaitingListBookingOption = {

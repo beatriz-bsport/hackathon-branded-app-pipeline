@@ -13386,6 +13386,9 @@
             "check_credit": {
                 "label": "Controleren of de klant een cursuskaart heeft die compatibel is met het aanbod en voldoende krediet heeft",
                 "helper": "Klanten kunnen pas aan een wachtrij worden toegevoegd als zij een cursuskaart hebben die compatibel is met de betreffende aanbieding en voldoende krediet hebben om de boeking te maken"
+            },
+            "display_member_position": {
+                "label": "De positie in de wachtrij weergeven"
             }
         },
         "explainWaitingListConf": "Voorbeeld: een lid die op de wachtlijst staat voor een sessie die over 3 uur begint heeft nog {{nbMinutesBeforeBookingOptionExpire}} minuten om de reservering te bevestigen voordat zij hun voorrangsplaats op de wachtlijst verliezen.",

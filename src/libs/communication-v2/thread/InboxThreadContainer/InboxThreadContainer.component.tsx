@@ -32,6 +32,7 @@ import type {
 import type { Theme } from '#libs/theme/types';
 import InboxNoThread from '#libs/communication-v2/thread/InboxThreadContainer/InboxNoThread.component';
 import InboxThreadSenderContainer from '#libs/communication-v2/thread/InboxThreadContainer/InboxThreadSenderContainer.component';
+import Config from '../../../../config';
 
 export type Props = {
   // --- Inbox Thread ---
@@ -192,6 +193,10 @@ const InboxThreadContainer: React.FC<Props> = (props) => {
     props.communicationKindBeingWritten === COMMUNICATION_KIND_EMAIL &&
     !props.theme.is_two_way_email_activated;
 
+  const hideAutoResend =
+    Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+    props.theme.company !== 498;
+
   return (
     <>
       {props.isThreadLoading ? (
@@ -283,6 +288,7 @@ const InboxThreadContainer: React.FC<Props> = (props) => {
                   props.communicationKindBeingWritten
                 }
                 contextMember={props.contextMember}
+                contextSelected={props.contextSelected}
                 countAvailableRecipientsTotal={
                   props.countAvailableRecipientsTotal
                 }
@@ -300,6 +306,7 @@ const InboxThreadContainer: React.FC<Props> = (props) => {
                   props.fetchPaginatedAvailableRecipientMemberList
                 }
                 handleShowMessageWriter={props.handleShowMessageWriter}
+                hideAutoResend={hideAutoResend}
                 loadingEmailTemplateDetailList={
                   props.loadingEmailTemplateDetailList
                 }

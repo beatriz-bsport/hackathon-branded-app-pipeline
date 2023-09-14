@@ -78,6 +78,7 @@ type Props = {
   mailDefaultTitle?: string;
   alreadyConfiguredCommunicationKind: number[];
   resolvedGenericTags: ResolvedGenericTags;
+  hideAutoResend?: boolean;
 };
 
 type FormikValues = FormikProps<AutomatedCampaign & { email_kind: number }>;
@@ -145,6 +146,7 @@ export const AutomatedCommunicationDrawer: React.FC<
   isValid,
   alreadyConfiguredCommunicationKind,
   resolvedGenericTags,
+  hideAutoResend,
 }) => {
   const { t } = useTranslation(['communication', 'common']);
   const classes = useStyles();
@@ -415,72 +417,73 @@ export const AutomatedCommunicationDrawer: React.FC<
 
         <Divider variant="fullWidth" />
 
-        {values.communication_kind === COMMUNICATION_KIND_EMAIL && (
-          <>
-            <div className={classes.avancedSection}>
-              <ButtonBase
-                disableRipple
-                className={classes.flexHeader}
-                onClick={handleOpenCloseAdvancedSection}
-              >
-                <div className={classes.collapseTitle}>
-                  <RepeatIcon className={classes.leftIcon} />
-                  <Typography variant="h6">
-                    {t('campaign.automated.form.advancedSection')}
-                  </Typography>
-                </div>
-                <>
-                  <ExpandMoreIcon
-                    className={classNames(classes.expandIcon, {
-                      [classes.rotate]: openedAdvancedSection,
-                    })}
-                  />
-                </>
-              </ButtonBase>
-              <Collapse in={openedAdvancedSection}>
-                <div className={classes.inputContainer}>
-                  <TextField
-                    castAsNumber
-                    fullWidth
-                    helperText={t('resendSection.resendCount.helperText')}
-                    inputProps={{ min: 0, max: 5 }}
-                    label={t('resendSection.resendCount.label')}
-                    name="resend_count"
-                    type="number"
-                  />
-                </div>
+        {!hideAutoResend &&
+          values.communication_kind === COMMUNICATION_KIND_EMAIL && (
+            <>
+              <div className={classes.avancedSection}>
+                <ButtonBase
+                  disableRipple
+                  className={classes.flexHeader}
+                  onClick={handleOpenCloseAdvancedSection}
+                >
+                  <div className={classes.collapseTitle}>
+                    <RepeatIcon className={classes.leftIcon} />
+                    <Typography variant="h6">
+                      {t('campaign.automated.form.advancedSection')}
+                    </Typography>
+                  </div>
+                  <>
+                    <ExpandMoreIcon
+                      className={classNames(classes.expandIcon, {
+                        [classes.rotate]: openedAdvancedSection,
+                      })}
+                    />
+                  </>
+                </ButtonBase>
+                <Collapse in={openedAdvancedSection}>
+                  <div className={classes.inputContainer}>
+                    <TextField
+                      castAsNumber
+                      fullWidth
+                      helperText={t('resendSection.resendCount.helperText')}
+                      inputProps={{ min: 0, max: 5 }}
+                      label={t('resendSection.resendCount.label')}
+                      name="resend_count"
+                      type="number"
+                    />
+                  </div>
 
-                <div className={classes.inputContainer}>
-                  <TextField
-                    castAsNumber
-                    fullWidth
-                    helperText={t('resendSection.resendDelay.helperText')}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment
-                          className={classes.adornment}
-                          position="end"
-                        >
-                          <Typography>
-                            {t('common:day', {
-                              count: values.resend_delay,
-                            })}
-                          </Typography>
-                        </InputAdornment>
-                      ),
-                      inputProps: { min: 0, max: 180 },
-                    }}
-                    label={t('resendSection.resendDelay.label')}
-                    name="resend_delay"
-                    type="number"
-                  />
-                </div>
-              </Collapse>
-            </div>
+                  <div className={classes.inputContainer}>
+                    <TextField
+                      castAsNumber
+                      fullWidth
+                      helperText={t('resendSection.resendDelay.helperText')}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment
+                            className={classes.adornment}
+                            position="end"
+                          >
+                            <Typography>
+                              {t('common:day', {
+                                count: values.resend_delay,
+                              })}
+                            </Typography>
+                          </InputAdornment>
+                        ),
+                        inputProps: { min: 0, max: 180 },
+                      }}
+                      label={t('resendSection.resendDelay.label')}
+                      name="resend_delay"
+                      type="number"
+                    />
+                  </div>
+                </Collapse>
+              </div>
 
-            <Divider />
-          </>
-        )}
+              <Divider />
+            </>
+          )}
 
         <div className={classes.buttonContainer}>
           <Button onClick={handleClose}>

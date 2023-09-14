@@ -79,6 +79,9 @@ type Props = {
   tagCategories: {
     [tag_name: string]: string[];
   };
+
+  // --- Misc ---
+  hideAutoResend?: boolean;
 };
 
 const InboxThreadSenderContainer: React.FC<Props> = ({
@@ -106,6 +109,7 @@ const InboxThreadSenderContainer: React.FC<Props> = ({
   resolvedGenericTags,
   tagCategories,
   contextSelected,
+  hideAutoResend,
 }) => {
   const { t } = useTranslation('communication');
   const classes = useStyles();
@@ -156,6 +160,7 @@ const InboxThreadSenderContainer: React.FC<Props> = ({
             fetchPaginatedAvailableRecipientMemberList
           }
           getEmailDetail={fetchEmailDetail}
+          hideAutoResend={hideAutoResend}
           loadingPaginatedMemberList={loadingRecipientsModalMemberList}
           loadingTemplateDetailList={loadingEmailTemplateDetailList}
           loadingTemplateSummaryList={loadingEmailTemplateSummaryList}

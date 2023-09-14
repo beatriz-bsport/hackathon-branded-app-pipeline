@@ -85,6 +85,7 @@ type OwnProps = {
   resetPaginatedAvailableRecipientMemberList: (options: OptionCallback) => void;
   resolvedGenericTags: ResolvedGenericTags;
   tagCategories: { [tag_name: string]: string[] };
+  hideAutoResend?: boolean;
 };
 
 export type Props = OwnProps & WithTranslation & WithStyles;
@@ -605,7 +606,9 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
         memberList={selectedMemberDetailList}
         memberListLoading={this.state.selectedMemberDetailListLoading}
         onBaliseItemClick={this.onBaliseItemClick}
-        openResendConfigDialog={this.openResendConfigDialog}
+        openResendConfigDialog={
+          !this.props.hideAutoResend && this.openResendConfigDialog
+        }
         selectedRecipientsCount={this.getSelectedRecipientsCount()}
         sendMessage={this.sendMessage}
         setActionType={setActionType}

@@ -77,6 +77,7 @@ type Props = {
   countWithEmail: number | null,
   countTotal: number | null,
   resolvedGenericTags: ResolvedGenericTags,
+  hideAutoResend?: boolean,
 };
 
 type State = {
@@ -480,6 +481,7 @@ export class CommunicationDrawer extends Component<Props, State> {
       t,
       resolvedGenericTags,
       classes,
+      hideAutoResend,
     } = this.props;
 
     return (
@@ -604,57 +606,64 @@ export class CommunicationDrawer extends Component<Props, State> {
                 />
               )}
 
-              {[WRITE_EMAIL, SELECT_EMAIL].includes(this.state.actionType) && (
-                <div className={classes.resendSectionContainer}>
-                  <div className={classes.sectionTitle}>
-                    <RepeatIcon className={classes.sectionTitleIcon} />
-                    <Typography variant="h6">
-                      {t('resendSection.title')}
-                    </Typography>
-                  </div>
-                  <div className={classes.inputContainer}>
-                    <TextField
-                      fullWidth
-                      helperText={t('resendSection.resendCount.helperText')}
-                      inputProps={{ min: 0, max: 5 }}
-                      label={t('resendSection.resendCount.label')}
-                      onChange={this.getInputChangeHandler('resendCount', 0, 5)}
-                      type="number"
-                      value={this.state.resendCount}
-                    />
-                  </div>
+              {!hideAutoResend &&
+                [(WRITE_EMAIL, SELECT_EMAIL)].includes(
+                  this.state.actionType,
+                ) && (
+                  <div className={classes.resendSectionContainer}>
+                    <div className={classes.sectionTitle}>
+                      <RepeatIcon className={classes.sectionTitleIcon} />
+                      <Typography variant="h6">
+                        {t('resendSection.title')}
+                      </Typography>
+                    </div>
+                    <div className={classes.inputContainer}>
+                      <TextField
+                        fullWidth
+                        helperText={t('resendSection.resendCount.helperText')}
+                        inputProps={{ min: 0, max: 5 }}
+                        label={t('resendSection.resendCount.label')}
+                        onChange={this.getInputChangeHandler(
+                          'resendCount',
+                          0,
+                          5,
+                        )}
+                        type="number"
+                        value={this.state.resendCount}
+                      />
+                    </div>
 
-                  <div className={classes.inputContainer}>
-                    <TextField
-                      fullWidth
-                      helperText={t('resendSection.resendDelay.helperText')}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment
-                            className={classes.adornment}
-                            position="end"
-                          >
-                            <Typography>
-                              {t('common:day', {
-                                count: this.state.resendDelay,
-                              })}
-                            </Typography>
-                          </InputAdornment>
-                        ),
-                        inputProps: { min: 0, max: 180 },
-                      }}
-                      label={t('resendSection.resendDelay.label')}
-                      onChange={this.getInputChangeHandler(
-                        'resendDelay',
-                        0,
-                        180,
-                      )}
-                      type="number"
-                      value={this.state.resendDelay}
-                    />
+                    <div className={classes.inputContainer}>
+                      <TextField
+                        fullWidth
+                        helperText={t('resendSection.resendDelay.helperText')}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment
+                              className={classes.adornment}
+                              position="end"
+                            >
+                              <Typography>
+                                {t('common:day', {
+                                  count: this.state.resendDelay,
+                                })}
+                              </Typography>
+                            </InputAdornment>
+                          ),
+                          inputProps: { min: 0, max: 180 },
+                        }}
+                        label={t('resendSection.resendDelay.label')}
+                        onChange={this.getInputChangeHandler(
+                          'resendDelay',
+                          0,
+                          180,
+                        )}
+                        type="number"
+                        value={this.state.resendDelay}
+                      />
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
               <DialogActions>
                 <Button

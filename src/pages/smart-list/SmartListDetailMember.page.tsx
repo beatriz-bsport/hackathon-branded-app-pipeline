@@ -387,6 +387,10 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     );
   };
 
+  getHideAutoResend = () =>
+    Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+    this.props.companyId !== 498;
+
   render() {
     if (!this.props.smartlist_filters) {
       return <LinearProgress />;
@@ -549,6 +553,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           genericTags={this.props.genericTags}
           getEmailDetail={this.props.fetchEmailTemplateDetail}
           getEmails={this.props.fetchEmailTemplatesSummaries}
+          hideAutoResend={this.getHideAutoResend()}
           initial={this.props.selected_smartlist_autmated_campaign}
           onCancel={this.handleCancelAutomateCampaignForm}
           onSubmit={this.props.createOrUpdateAutomatedCampaign}
@@ -582,6 +587,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           genericTags={this.props.genericTags}
           getEmailDetail={this.props.fetchEmailTemplateDetail}
           getEmails={this.props.fetchEmailTemplatesSummaries}
+          hideAutoResend={this.getHideAutoResend()}
           initMembers={(page: number, page_size: number) =>
             this.fetchPaginatedMembers(page, page_size)
           }

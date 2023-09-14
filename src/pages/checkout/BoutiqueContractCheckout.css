@@ -47,24 +47,17 @@
   grid-area: contract-billing;
 }
 
-.bs-contract-new-checkout__container__navigation__arrow {
-  width: 24px;
-  height: 24px;
-  line-height: 1;
-}
-
-.bs-contract-new-checkout__container__navigation__arrow:hover {
-  background: rgba(0, 0, 0, 0.04);
-}
-
 .bs-contract-new-checkout__container__navigation__go-back {
   grid-area: header;
-  display: grid;
+  display: flex;
   -ms-flex-align: center;
   align-items: center;
-  grid-template-columns: 24px 1fr;
   gap: var(--spacing-2);
   margin-bottom: var(--spacing-2);
+}
+
+.bs-contract-new-checkout__container__navigation__arrow-icon {
+  color: var(--color-grey-600);
 }
 
 .bs-contract-new-checkout__container__navigation__title {

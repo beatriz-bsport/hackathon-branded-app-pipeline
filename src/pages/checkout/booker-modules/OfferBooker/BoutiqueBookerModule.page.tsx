@@ -775,7 +775,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                 onClick={this.goBackToCalendar}
                 variant={ButtonVariant.ICON}
               >
-                <ArrowBack />
+                <ArrowBack className="bs-new-offer-booking__consumer-payment-packs__arrow-icon" />
               </Button>
               <div className="bs-new-offer-booking__spot-selector__header__text">
                 {t('newBookingModule.spotSelectorTitle')}
@@ -858,7 +858,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                   onClick={this.goBackToCalendar}
                   variant={ButtonVariant.ICON}
                 >
-                  <ArrowBack />
+                  <ArrowBack className="bs-new-offer-booking__consumer-payment-packs__arrow-icon" />
                 </Button>
                 <div className="bs-new-offer-booking__consumer-payment-packs__title">
                   {this.getPageTitle()}

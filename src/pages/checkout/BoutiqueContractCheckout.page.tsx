@@ -517,7 +517,7 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
                     onClick={this.props.goBackToPricingPage}
                     variant={ButtonVariant.ICON}
                   >
-                    <ArrowBack />
+                    <ArrowBack className="bs-contract-new-checkout__container__navigation__arrow-icon" />
                   </Button>
                   <div className="bs-contract-new-checkout__container__navigation__title">
                     {this.props.t('newCheckout.title')}

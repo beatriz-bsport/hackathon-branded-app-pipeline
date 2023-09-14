@@ -99,8 +99,8 @@
   height: 30px;
 }
 
-.bs-new-offer-booking__consumer-payment-packs__arrow:hover {
-  background: rgba(0, 0, 0, 0.04);
+.bs-new-offer-booking__consumer-payment-packs__arrow-icon {
+  color: var(--color-grey-main);
 }
 
 .bs-new-offer-booking__consumer-payment-packs__title,

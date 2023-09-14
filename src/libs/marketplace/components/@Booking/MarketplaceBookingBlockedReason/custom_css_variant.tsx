@@ -179,7 +179,7 @@ export const MARKETPLACE_BOOKING_BLOCKED_CONFIGURATION: MarketplaceCSSComponentC
   {
     label: 'bookingBlockedReason',
     css: MarketplaceBookingBlockedReasonCss,
-    pages: [MarketplacePage.CALENDAR, MarketplacePage.WORKSHIP],
+    pages: [MarketplacePage.CALENDAR, MarketplacePage.WORKSHOP],
     defaultState: {},
     variations: bookingBlockedReasonVariationRegistry,
   };

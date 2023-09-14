@@ -121,7 +121,7 @@ export const MARKETPLACE_BOOKING_BUTTON_CONFIGURATION: MarketplaceCSSComponentCo
   {
     label: 'bookingButton',
     css: MarketplaceBookButtonCss,
-    pages: [MarketplacePage.CALENDAR, MarketplacePage.WORKSHIP],
+    pages: [MarketplacePage.CALENDAR, MarketplacePage.WORKSHOP],
     defaultState: {},
     variations: marketplaceBookingButtonVariationRegistry,
   };

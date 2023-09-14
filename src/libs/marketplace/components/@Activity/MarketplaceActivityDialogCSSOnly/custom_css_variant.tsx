@@ -80,7 +80,7 @@ export const MARKETPLACE_ACTIVITY_DIALOG_CONFIGURATION: MarketplaceCSSComponentC
   {
     label: 'activityCardDialog',
     css: MarketplaceActivityDialogCSSOnlyCss,
-    pages: [MarketplacePage.CALENDAR, MarketplacePage.WORKSHIP],
+    pages: [MarketplacePage.CALENDAR, MarketplacePage.WORKSHOP],
     defaultState: {},
     variations: activityVariationRegistry,
   };

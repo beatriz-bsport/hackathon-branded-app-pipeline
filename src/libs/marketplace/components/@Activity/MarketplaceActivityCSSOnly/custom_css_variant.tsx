@@ -79,7 +79,7 @@ export const MARKETPLACE_ACTIVITY_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
     label: 'activityCard',
     css: MarketplaceActivityCSSOnlyCss,
-    pages: [MarketplacePage.CALENDAR, MarketplacePage.WORKSHIP],
+    pages: [MarketplacePage.CALENDAR, MarketplacePage.WORKSHOP],
     defaultState: {},
     variations: activityVariationRegistry,
   };

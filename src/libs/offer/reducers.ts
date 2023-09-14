@@ -37,6 +37,7 @@ import {
   setStoredOffersInGroupsDataActions,
   postRollCallActions,
   postRollCallBulkActions,
+  offerStatusWaitingListPositionActions,
 } from './actions';
 import { OfferState } from './types';
 import {
@@ -130,6 +131,11 @@ const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
   },
   lastFetched: null,
   offerStatus: {
+    byId: {},
+    error: null,
+    loading: false,
+  },
+  offerStatusWaitinglistPosition: {
     byId: {},
     error: null,
     loading: false,
@@ -481,6 +487,47 @@ export default handleActions<Immutable.Immutable<OfferState>>(
           offerStatus: {
             byId: payload.reduce((acc, ps) => {
               acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      );
+    },
+
+    [offerStatusWaitingListPositionActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['offerStatusWaitinglistPosition', 'loading'],
+        payload,
+      );
+    },
+    [offerStatusWaitingListPositionActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['offerStatusWaitinglistPosition', 'error'], payload);
+    },
+    [offerStatusWaitingListPositionActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['offerStatusWaitinglistPosition', 'byId', payload.id],
+        payload,
+      );
+    },
+    [offerStatusWaitingListPositionActions.list.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.merge(
+        {
+          offerStatusWaitinglistPosition: {
+            byId: payload.reduce((acc, offerPositionDetails) => {
+              acc[offerPositionDetails.id] = offerPositionDetails;
               return acc;
             }, {}),
           },

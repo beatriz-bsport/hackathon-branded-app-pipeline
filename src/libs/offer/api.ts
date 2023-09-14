@@ -13,7 +13,10 @@ import type {
   OfferEdit,
   OfferFilterData,
   UserRegistrationParams,
+  OfferStatusWaitingListPosition,
 } from './types';
+
+import { PaginatedResponse } from '../../state/types';
 
 export async function createOffers(data: OfferCreate) {
   return postAuth(`${API_V1_URI}/offer/create_similar_offers/`, data);
@@ -77,6 +80,29 @@ export async function fetchOfferStatusList(
 ) {
   return getAuth(
     `${API_V1_URI}/offer/bookable_status_list/${buildUrlParams({
+      id__in,
+      ...params,
+    })}`,
+  );
+}
+
+export async function fetchOfferWaitingListPosition(
+  offerId: number,
+  params: { [key: string]: number | string | boolean } = {},
+) {
+  return getAuth<OfferStatusWaitingListPosition>(
+    `${API_V1_URI}/offer/${offerId}/waiting_list_position/${buildUrlParams(
+      params,
+    )}`,
+  );
+}
+
+export async function fetchOfferWaitingListPositionList(
+  id__in: number[],
+  params: { [key: string]: number | string | boolean } = {},
+) {
+  return getAuth<PaginatedResponse<OfferStatusWaitingListPosition>>(
+    `${API_V1_URI}/offer/waiting_list_position_list/${buildUrlParams({
       id__in,
       ...params,
     })}`,

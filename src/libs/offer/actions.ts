@@ -43,6 +43,8 @@ import {
   listOffersWithRefusedReplacementRequestIds as listOffersWithRefusedReplacementRequestIdsAPI,
   postRollCallOffer as postRollCallOfferAPI,
   postRollCallBulk as postRollCallBulkAPI,
+  fetchOfferWaitingListPosition as fetchOfferWaitingListPositionAPI,
+  fetchOfferWaitingListPositionList as fetchOfferWaitingListPositionListAPI,
 } from './api';
 import { monitorBackgroundTask } from '../background-task/actions';
 import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
@@ -57,6 +59,7 @@ import {
   OfferCreate,
   OfferEdit,
   UserRegistrationParams,
+  OfferStatusWaitingListPosition,
 } from './types';
 
 export const similarOffers = {
@@ -1457,5 +1460,70 @@ export function postRollCallBulk(
       if (options && options.onError) options.onError(error);
     }
     dispatch(postRollCallBulkActions.isLoading(false));
+  };
+}
+
+export const offerStatusWaitingListPositionActions = {
+  isLoading: createAction<boolean>('OFFER/WAITING_LIST_POSITION/IS_LOADING'),
+  error: createAction<Error | null>('OFFER/WAITING_LIST_POSITION/ERROR'),
+  success: createAction<OfferStatusWaitingListPosition>(
+    'OFFER/WAITING_LIST_POSITION/SUCCESS',
+  ),
+  list: createAction<OfferStatusWaitingListPosition[]>(
+    'OFFER/WAITING_LIST_POSITION/LIST',
+  ),
+};
+
+export function fetchOfferWaitingListPosition(
+  id: number,
+  params: { [key: string]: number | string | boolean } = {},
+  options?: OptionCallback<OfferStatus>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(offerStatusWaitingListPositionActions.error(null));
+    dispatch(offerStatusWaitingListPositionActions.isLoading(true));
+
+    try {
+      const response = await fetchOfferWaitingListPositionAPI(id, params);
+      const data = { ...response.data, id };
+      dispatch(offerStatusWaitingListPositionActions.success(data));
+      options?.onSuccess?.(data);
+    } catch (error) {
+      dispatch(offerStatusWaitingListPositionActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(offerStatusWaitingListPositionActions.isLoading(false));
+  };
+}
+
+export function fetchOfferWaitingListPositionList(
+  ids: number[],
+  params: { [key: string]: number | string | boolean } = {},
+  options?: OptionCallback<OfferStatus[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(offerStatusWaitingListPositionActions.error(null));
+    dispatch(offerStatusWaitingListPositionActions.isLoading(true));
+    const uniq_ids = uniq((ids ?? []).filter((id) => !!id));
+    if (uniq_ids.length === 0) {
+      return;
+    }
+    try {
+      const response = await fetchOfferWaitingListPositionListAPI(
+        uniq_ids,
+        params,
+      );
+
+      dispatch(
+        offerStatusWaitingListPositionActions.list(response.data.results),
+      );
+      options && options.onSuccess && options.onSuccess(response.data.results);
+    } catch (error) {
+      console.error(error);
+      dispatch(offerStatusWaitingListPositionActions.error(error));
+      options && options.onError && options.onError(error);
+    }
+
+    dispatch(offerStatusWaitingListPositionActions.isLoading(false));
   };
 }

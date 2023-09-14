@@ -469,3 +469,26 @@ export const getOfferHasRefusedReplacementRequest =
   (state: RootState) =>
   (offerId: number): boolean =>
     state.offer?.hasRefusedReplacementRequest?.byOfferId[offerId] ?? false;
+
+export const getOfferstatusWaitingListState = (state: RootState) =>
+  state.offer.offerStatusWaitinglistPosition;
+
+export const getOfferStatusWaitingListPositionById = (state: RootState) =>
+  getOfferstatusWaitingListState(state).byId;
+
+export const getOfferId = (_: RootState, id: number) => id;
+export const getOfferIds = (_: RootState, ids: number[]) => ids;
+
+export const getOfferStatusWaitingListPosition = createSelector(
+  [getOfferStatusWaitingListPositionById, getOfferId],
+  (offerStatusWaitingListpositionById, offerId) => {
+    return offerStatusWaitingListpositionById[offerId] ?? {};
+  },
+);
+
+export const getOfferStatusWaitingListPositionList = createSelector(
+  [getOfferStatusWaitingListPositionById, getOfferIds],
+  (offerStatusWaitingListpositionById, offerIds) => {
+    return offerIds.map((id) => offerStatusWaitingListpositionById[id] ?? {});
+  },
+);

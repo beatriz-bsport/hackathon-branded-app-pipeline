@@ -193,6 +193,14 @@ export type OfferStatus = {
   is_registered: boolean;
 };
 
+export type OfferStatusWaitingListPosition = {
+  id: number;
+  waiting_list_position: {
+    member_position: number;
+    waiting_list_size: number;
+  };
+};
+
 export type OfferState = ErrorAndLoading & {
   create: ErrorAndLoading;
   edit: ErrorAndLoading;
@@ -246,6 +254,9 @@ export type OfferState = ErrorAndLoading & {
   };
   offerStatus: ErrorAndLoading & {
     byId: { [key: string]: OfferStatus };
+  };
+  offerStatusWaitinglistPosition: ErrorAndLoading & {
+    byId: { [key: string]: OfferStatusWaitingListPosition };
   };
   registered: ErrorAndLoading & {
     allIds: number[];

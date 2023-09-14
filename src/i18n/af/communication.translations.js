@@ -122,6 +122,8 @@ exports.default = {
       noTopLink: 'No clicks',
       exportError: 'An error occurred while exporting',
       exportCampaign: 'Export campaign',
+      resentOn: 'Resent on:',
+      plannedResends: 'Atuo-resends planned on:',
     },
     showMail: 'Show email',
     kind: {

@@ -919,7 +919,9 @@
         "recipientList": "Details of the recipients",
         "noTopLink": "No clicks",
         "exportError": "An error occurred while exporting",
-        "exportCampaign": "Export campaign"
+        "exportCampaign": "Export campaign",
+        "resentOn": "Resent on:",
+        "plannedResends": "Atuo-resends planned on:"
       },
       "showMail": "Show email",
       "kind": { "0": "Email", "1": "SMS", "2": "Push notification" },

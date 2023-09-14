@@ -42,7 +42,7 @@ import withQueryParams from '../../hocs/with-query-params.hoc';
 import { WithHandlerType } from '../../utils/types';
 // @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
-import Button, { ButtonVariant } from '#components/css-only/Button';
+import Button, { ButtonVariant } from '#components/css-only/Fabrique/Button';
 
 import type { Contract } from '#libs/subscription/types';
 import { getSavedPaymentMethodList } from '#libs/payment/selectors';

@@ -25,7 +25,7 @@ import type { PaymentPack } from '#libs/payment-packs/types';
 import { CardSize } from '#components/css-only/Card/types';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import { useValidityInfoForPaymentPackCard } from '../../../utils/payment-pack';
-import Button from '#components/css-only/Button';
+import Button from '#components/css-only/Fabrique/Button';
 import './styles.css';
 
 export type Props = {

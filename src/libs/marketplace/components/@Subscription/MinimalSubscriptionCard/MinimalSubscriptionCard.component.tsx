@@ -20,7 +20,7 @@ import type { Subscription } from '#libs/subscription/types';
 import './styles.css';
 import MinimalCardSkeleton from '../../MinimalCardSkeleton';
 import Collapse from '#components/css-only/Fabrique/Collapse';
-import Button from '#components/css-only/Button';
+import Button from '#components/css-only/Fabrique/Button';
 
 export type Props = {
   subscription: Subscription;

@@ -201,6 +201,7 @@ export const useMuiThemeToCssVars = () => {
     /* spacing */
     --spacing-0: 0px;
     --spacing-1: ${theme.spacing(1)}px;
+    --button-height: 2.25rem;
   `;
 
   // Inside the 'id' section, we define styles that will be applied to the 'div' element with the id 'bs-setup-derived-variable'.

@@ -14,7 +14,7 @@ import Grid from '#components/css-only/Grid';
 import GridItem from '#components/css-only/Grid/GridItem';
 import Price from '#components/css-only/Price';
 import Collapse from '#components/css-only/Fabrique/Collapse';
-import Button from '#components/css-only/Button';
+import Button from '#components/css-only/Fabrique/Button';
 import {
   getCurrencyDisplayWithPrice,
   getCreditFactor,

@@ -17,7 +17,7 @@ import RecommendedChip from '#components/css-only/RecommendedChip';
 import BillingInterval from '#marketplacecomponents/@Subscription/MarketplaceBillingInterval';
 import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import Button from '#components/css-only/Button';
+import Button from '#components/css-only/Fabrique/Button';
 
 import './styles.css';
 

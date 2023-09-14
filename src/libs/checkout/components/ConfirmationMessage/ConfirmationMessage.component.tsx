@@ -5,7 +5,7 @@ import StatusMessageWithIcon from '#components/css-only/StatusMessageWithIcon';
 import { OfferWithSpotInformation } from '#libs/offer/types';
 import { Subscription } from '#libs/subscription/types';
 import Alert, { AlertSeverity } from '#components/css-only/Alert';
-import Button, { ButtonSize } from '#components/css-only/Button';
+import Button, { ButtonSize } from '#components/css-only/Fabrique/Button';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import './styles.css';

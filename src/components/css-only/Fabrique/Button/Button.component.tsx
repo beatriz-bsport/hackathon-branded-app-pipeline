@@ -6,6 +6,7 @@ import CircularProgress from '#csscomponents/CircularProgress';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { ButtonColor, ButtonSize, ButtonType, ButtonVariant } from '.';
 
+import ButtonBase from '../ButtonBase/ButtonBase.component';
 import './styles.css';
 
 export type Props = {
@@ -17,7 +18,8 @@ export type Props = {
   variant?: ButtonVariant;
   size?: ButtonSize;
   color?: ButtonColor;
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  disableRipple?: boolean;
 };
 
 const Button: React.FC<Props> = ({
@@ -30,10 +32,11 @@ const Button: React.FC<Props> = ({
   size,
   color,
   onClick,
+  disableRipple,
 }) => {
   return (
-    <button
-      className={classNames(
+    <ButtonBase
+      classes={classNames(
         'bs-button__container',
         {
           'bs-button-icon__container': variant === ButtonVariant.ICON,
@@ -45,11 +48,13 @@ const Button: React.FC<Props> = ({
         },
         classes?.root,
       )}
-      disabled={isDisabled || isLoading}
+      disableRipple={disableRipple}
+      isDisabled={isDisabled || isLoading}
+      isLoading={isLoading}
       onClick={onClick}
       // https://github.com/jsx-eslint/eslint-plugin-react/issues/1555
       // eslint-disable-next-line react/button-has-type
-      type={type || ButtonType.BUTTON}
+      type={type}
     >
       <span
         className={classNames(
@@ -66,7 +71,7 @@ const Button: React.FC<Props> = ({
         {isLoading && variant === ButtonVariant.ICON ? null : children}
         {isLoading && <CircularProgress size="xs" />}
       </span>
-    </button>
+    </ButtonBase>
   );
 };
 

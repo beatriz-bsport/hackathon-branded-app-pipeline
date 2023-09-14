@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
-import { ButtonType } from '#components/css-only/Button';
+import { ButtonType } from '../Button';
 import './styles.css';
 
 export type Props = {

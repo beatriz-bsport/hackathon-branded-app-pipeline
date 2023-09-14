@@ -156,7 +156,7 @@ import Button, {
   ButtonColor,
   ButtonVariant,
   ButtonSize,
-} from '#components/css-only/Button';
+} from '#components/css-only/Fabrique/Button';
 import Skeleton, { SkeletonVariant } from '#components/css-only/Skeleton';
 import BookingConfirmButtonWithOfferSummary from '#libs/booking/components/BookingConfirmButtonWithOfferSummary.component';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';

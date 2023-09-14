@@ -1,0 +1,116 @@
+.bs-booking-add-guest-modal__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bs-booking-add-guest-modal__container {
+  max-width: 450px;
+  box-shadow: 0px calc(var(--spacing-1) / 2) 15px 0px #0000001a;
+  background: #fff;
+  padding: var(--spacing-3);
+  gap: var(--spacing-2);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 100%;
+  border-radius: inherit;
+}
+
+.bs-booking-add-guest-modal__form {
+  display: flex;
+  padding: var(--spacing-1);
+  width: 100%;
+  max-height: 100%;
+  border-radius: var(--border-radius-2);
+  justify-content: center;
+}
+
+.bs-booking-add-guest-modal-warning__container {
+  max-width: inherit;
+  width: min-content;
+}
+
+.bs-booking-add-guest-modal__icon {
+  display: flex;
+  width: 110px;
+  height: 110px;
+  border-radius: 999px;
+  align-items: center;
+  color: var(--color-primary-main);
+  justify-content: center;
+}
+
+.bs-booking-add-guest-modal__icon svg {
+  font-size: 64px;
+}
+
+.bs-booking-add-guest-modal-initial__icon {
+  background: var(--color-primary-main-background);
+}
+
+.bs-booking-add-guest-modal-warning__icon svg {
+  color: var(--color-warning-main);
+}
+
+.bs-booking-add-guest-modal-warning__icon {
+  background: var(--color-warning-background);
+}
+
+.bs-booking-add-guest-modal__guest-count {
+  display: flex;
+  justify-content: center;
+  font-family: var(--body1-fontFamily);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  line-height: var(--body1-lineHeight);
+  color: var(--color-grey-main);
+  text-align: center;
+}
+
+.bs-booking-add-guest-modal__actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-1);
+}
+
+.bs-booking-add-guest-modal__actions__cancel,
+.bs-booking-add-guest-modal__actions__submit {
+  border-radius: var(--border-radius-6);
+  padding: 6px var(--spacing-2);
+  width: max-content;
+}
+
+.bs-booking-add-guest-modal__actions__cancel {
+  background: none;
+  color: var(--color-grey-dark);
+}
+
+@container bsConfirmationPage (width < 500px) {
+  .bs-booking-add-guest-modal-warning__container {
+    width: 100%;
+  }
+
+  .bs-booking-add-guest-modal__form {
+    padding: var(--spacing-2);
+  }
+
+  .bs-booking-add-guest-modal-warning__actions {
+    flex-direction: column;
+  }
+
+  .bs-booking-add-guest-modal__actions__cancel,
+  .bs-booking-add-guest-modal__actions__submit {
+    width: inherit;
+    height: fit-content;
+  }
+}

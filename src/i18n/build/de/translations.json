@@ -6254,6 +6254,7 @@
                 "",
                 "Abgesagt",
                 "Storniert",
+                "Storniert",
                 "Storniert"
             ]
         }
@@ -10857,7 +10858,21 @@
                 }
             }
         },
-        "openSpecificAvailabilitiesCalendar": "Spezifische Verfügbarkeiten"
+        "openSpecificAvailabilitiesCalendar": "Spezifische Verfügbarkeiten",
+        "forms": {
+            "delete": {
+                "confirm": "Löschen",
+                "actions": {
+                    "cancel": "Abbrechen",
+                    "confirm": "Löschen"
+                },
+                "cancel": "Abbrechen",
+                "title": "Termin löschen",
+                "content": {
+                    "canDelete": "Sind Sie sicher, dass Sie diesen Termin löschen wollen? Diese Änderung ist endgültig. Bereits gespeicherte Buchungen sind davon nicht betroffen."
+                }
+            }
+        }
     },
     "communication": {
         "recipient": {
@@ -15244,7 +15259,11 @@
                 "select": "Wähler",
                 "search": "Suchfilter",
                 "calendarFilters": "Kalenderfilter (nur Seitenlayout)",
-                "calendarWeekTimeTable": "Kopfzeile des Kalenders"
+                "calendarWeekTimeTable": "Kopfzeile des Kalenders",
+                "bookingBlockedReason": "Buchung nicht möglich",
+                "bookingButton": "Buchungs-Button",
+                "activityCardDialog": "Detail der Aktivität (modal)",
+                "activityCard": "Details der Aktivität"
             },
             "page": {
                 "calendar": "Kalender",
@@ -15273,7 +15292,13 @@
                     "version": "Version",
                     "isWorkshop": "Ist ein Workshop",
                     "disablePast": "Vergangene Daten deaktivieren",
-                    "isInputButton": "Kompakte Version"
+                    "isInputButton": "Kompakte Version",
+                    "blockedReasonStatus": "Grund für die Buchungssperre",
+                    "isOfferNotAvailableYet": "Die Session ist noch nicht buchbar",
+                    "isOfferAvailable": "Die Session ist verfügbar",
+                    "isOfferFull": "Die Session ist voll",
+                    "isOfferInThePast": "Die Session ist vorbei",
+                    "isHidden": "Versteckt"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -15298,7 +15323,17 @@
                     "workshop": "Workshop-Filter",
                     "passTypeFilter": "Kurspass-Filter",
                     "subscriptionCountrySelect": "Länderauswahl",
-                    "activity": "Filter für Aktivitäten"
+                    "activity": "Filter für Aktivitäten",
+                    "isWaitingListOpen": "Session voll",
+                    "isAlreadyInWaitingList": "Bereits auf der Warteliste",
+                    "isWaitingListFull": "Warteliste voll",
+                    "isWaitingListBlockedByPendingBookings": "Weitere laufende Buchungen",
+                    "isTooLate": "Frist abgelaufen",
+                    "isOfferNotAvailableYet": "Bald verfügbar",
+                    "isAlreadyRegistered": "Session bereits gebucht",
+                    "blockedByTags": "Unzureichende Rechte",
+                    "desktop": "Großer Bildschirm",
+                    "mobile": "Kleiner Bildschirm"
                 }
             }
         },

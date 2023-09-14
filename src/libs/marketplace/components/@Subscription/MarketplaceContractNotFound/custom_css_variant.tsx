@@ -3,6 +3,7 @@ import MarketplaceContractNotFound from '.';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceContractNotFoundCss from '!!raw-loader!./styles.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -12,7 +13,7 @@ import { CompanyTheme } from '#libs/theme/types';
 
 export const MARKETPLACE_CONTRACT_NOT_FOUND_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'contractNotFound',
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_CONTRACT_NOT_FOUND,
     css: MarketplaceContractNotFoundCss,
     pages: [MarketplacePage.SUBSCRIPTION],
     defaultState: {},

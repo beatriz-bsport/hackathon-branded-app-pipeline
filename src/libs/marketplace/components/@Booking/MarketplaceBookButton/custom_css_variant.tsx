@@ -5,6 +5,7 @@ import MarketplaceBookButton, { Props as MarketplaceBookButtonProps } from '.';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceBookButtonCss from '!!raw-loader!./MarketplaceBookButton.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -119,7 +120,7 @@ const usePropsFromVariation = (
 
 export const MARKETPLACE_BOOKING_BUTTON_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'bookingButton',
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_BOOKING_BUTTON,
     css: MarketplaceBookButtonCss,
     pages: [MarketplacePage.CALENDAR, MarketplacePage.WORKSHOP],
     defaultState: {},

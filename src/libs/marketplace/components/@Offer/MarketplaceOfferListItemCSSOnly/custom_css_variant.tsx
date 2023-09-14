@@ -7,6 +7,7 @@ import MarketplaceOfferListItemCSSOnly, {
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import OfferListItemCss from '!!raw-loader!./MarketplaceOfferListItemCSSOnly.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -116,7 +117,7 @@ const usePropsFromVariation = (
 
 export const MARKETPLACE_OFFER_LIST_ITEM_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'offerListItem',
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_OFFER_LIST_ITEM,
     css: OfferListItemCss,
     pages: [MarketplacePage.CALENDAR],
     defaultState: {},

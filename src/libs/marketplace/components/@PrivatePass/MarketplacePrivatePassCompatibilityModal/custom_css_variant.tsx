@@ -6,6 +6,8 @@ import MarketplacePrivatePassCompatibilityModal, {
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplacePrivatePassCompatibilityModalCss from '!!raw-loader!./styles.css';
 import { privateServiceListFactory } from '#libs/private-service/factory';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -26,7 +28,8 @@ const usePropsFromVariation =
 
 export const MARKETPLACE_PRIVATE_PASS_COMPATIBILITY_MODAL_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'privatePassCompatibilityModal',
+    label:
+      CssComponentsVariantIdentifiers.MARKETPLACE_PRIVATE_PASS_COMPATIBILITY_MODAL,
     css: MarketplacePrivatePassCompatibilityModalCss,
     pages: [MarketplacePage.PASS],
     defaultState: {},

@@ -8,6 +8,7 @@ import MarketplaceWeekTimeTableCSSOnly, {
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import WeekTimeTableCss from '!!raw-loader!./MarketplaceWeekTimeTableCSSOnly.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -66,7 +67,7 @@ const usePropsFromVariation = (
 
 export const MARKETPLACE_WEEK_TIME_TABLE_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'calendarWeekTimeTable',
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_WEEK_TIME_TABLE,
     css: WeekTimeTableCss,
     pages: [MarketplacePage.CALENDAR],
     defaultState: {},

@@ -5,6 +5,8 @@ import MarketplacePrivatePassCard, {
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplacePrivatePassCardCss from '!!raw-loader!./styles.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -43,7 +45,7 @@ const usePropsFromVariation = (
 
 export const MARKETPLACE_PRIVATE_PASS_CARD_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'privatePassCard',
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_PRIVATE_PASS_CARD,
     css: MarketplacePrivatePassCardCss,
     pages: [MarketplacePage.PASS],
     defaultState: {},

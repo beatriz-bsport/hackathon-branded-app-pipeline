@@ -5,6 +5,7 @@ import MarketplaceContractCard, {
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceContractCardCss from '!!raw-loader!./styles.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -43,7 +44,7 @@ const usePropsFromVariation = (
 
 export const MARKETPLACE_CONTRACT_CARD_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'contractCard',
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_CONTRACT_CARD,
     css: MarketplaceContractCardCss,
     pages: [MarketplacePage.SUBSCRIPTION],
     defaultState: {},

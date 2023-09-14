@@ -5,6 +5,8 @@
 import { FC } from 'react';
 import { ErrorAndLoading } from '#libs/types';
 
+import { CssComponentsVariantIdentifiers } from './constants';
+
 export type MarketplaceCommonFilter = {
   coaches?: number[];
   establishments?: number[];
@@ -85,7 +87,6 @@ export type MarketplaceSettingState = {
   error?: Error;
   settings: MarketplaceSettings;
 };
-
 export enum MarketplacePage {
   COMMON = 'common', // made for common components across marketplace
   CALENDAR = 'calendar',
@@ -106,7 +107,7 @@ export type VariantionConfiguration = {
 };
 
 export type MarketplaceCSSComponentConfig = {
-  label: string;
+  label: CssComponentsVariantIdentifiers;
   css: string;
   pages: MarketplacePage[];
   showAsFlex?: boolean;
@@ -125,31 +126,10 @@ export type ExportableComponentsState = {
   customCss: MarketplaceCSSConfiguration;
 } & ErrorAndLoading;
 
-export type CSSComponentsById =
-  | 'cardOffer'
-  | 'paymentComboCard'
-  | 'paymentPackCard'
-  | 'paymentPackCompatibilityModal'
-  | 'paymentPackRestrictionModal'
-  | 'privatePassCard'
-  | 'privatePassCompatibilityModal'
-  | 'contractCard'
-  | 'contractCheckout'
-  | 'contractDetail'
-  | 'contractDetailModal'
-  | 'contractTermsModal'
-  | 'contractCooldownModal'
-  | 'contractCouponFormModal'
-  | 'paymentPackOffPeakRestrictionModal';
+export type CssComponentsVariantIdentifiersValues =
+  (typeof CssComponentsVariantIdentifiers)[keyof typeof CssComponentsVariantIdentifiers];
 
-export type CSSModalComponentById =
-  | 'paymentPackCompatibilityModal'
-  | 'paymentPackRestrictionModal'
-  | 'privatePassCompatibilityModal'
-  | 'contractDetailModal'
-  | 'contractTermsModal'
-  | 'contractCooldownModal'
-  | 'contractCouponFormModal'
-  | 'paymentPackOffPeakRestrictionModal';
-
-export type CSSComponentPreviews = Record<CSSComponentsById, FC<unknown>>;
+export type CSSComponentPreviews = Record<
+  CssComponentsVariantIdentifiersValues,
+  FC<unknown>
+>;

@@ -8,6 +8,8 @@ import MarketplaceBookingBlockedReason, {
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceBookingBlockedReasonCss from '!!raw-loader!./MarketplaceBookingBlockedReason.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -177,7 +179,7 @@ const usePropsFromVariation = (
 
 export const MARKETPLACE_BOOKING_BLOCKED_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'bookingBlockedReason',
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_BOOKING_BLOCKED,
     css: MarketplaceBookingBlockedReasonCss,
     pages: [MarketplacePage.CALENDAR, MarketplacePage.WORKSHOP],
     defaultState: {},

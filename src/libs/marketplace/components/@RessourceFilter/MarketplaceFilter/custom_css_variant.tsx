@@ -5,6 +5,7 @@ import MarketplaceFilter, { Props as MarketplaceFilterProps } from '.';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceFilterCss from '!!raw-loader!./MarketplaceFilter.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -82,7 +83,7 @@ const usePropsFromVariation = (
 };
 
 export const MARKETPLACE_FILTER_CONFIGURATION: MarketplaceCSSComponentConfig = {
-  label: 'filter',
+  label: CssComponentsVariantIdentifiers.MARKETPLACE_FILTER,
   css: MarketplaceFilterCss,
   pages: [MarketplacePage.COMMON],
   defaultState: {},

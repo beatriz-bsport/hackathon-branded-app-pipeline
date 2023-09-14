@@ -8,6 +8,8 @@ import MarketplacePaymentPackCompatibilityModalCss from '!!raw-loader!./styles.c
 import { factory_scts } from '#libs/category/factory';
 import { meta_activity_factory } from '#libs/meta-activity/factory';
 import { establishment_factory } from '#libs/establishment/factory';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -31,7 +33,8 @@ const usePropsFromVariation =
 
 export const MARKETPLACE_PAYMENT_PACK_COMPATIBILITY_MODAL_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'paymentPackCompatibilityModal',
+    label:
+      CssComponentsVariantIdentifiers.MARKETPLACE_PAYMENT_PACK_COMPATIBILITY_MODAL,
     css: MarketplacePaymentPackCompatibilityModalCss,
     pages: [MarketplacePage.PASS],
     defaultState: {},

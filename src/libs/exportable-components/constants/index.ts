@@ -15,11 +15,7 @@ import {
   EXPORTABLE_COMPONENTS,
 } from './widget_builder';
 
-import {
-  CSS_COMPONENTS_BY_ID,
-  CSS_COMPONENT_PAGES,
-  CSS_COMPONENTS,
-} from './custom_css_variant';
+import { CssComponentsVariantIdentifiers } from './custom_css_variant';
 
 export {
   EXPORTABLE_COMPONENT_TYPE_VOD,
@@ -36,6 +32,5 @@ export {
   EXPORTABLE_COMPONENT_TYPE_GIFTCARD,
   EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE,
   EXPORTABLE_COMPONENTS,
+  CssComponentsVariantIdentifiers,
 };
-
-export { CSS_COMPONENTS_BY_ID, CSS_COMPONENT_PAGES, CSS_COMPONENTS };

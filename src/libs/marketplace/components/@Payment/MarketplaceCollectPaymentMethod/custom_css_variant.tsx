@@ -6,6 +6,7 @@ import {
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceCollectPaymentMethodCss from '!!raw-loader!./styles.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -79,7 +80,7 @@ const usePropsFromVariation = (
 
 export const MARKETPLACE_COLLECT_PAYMENT_METHOD_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'collectPaymentMethod',
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_COLLECT_PAYMENT_METHOD,
     css: MarketplaceCollectPaymentMethodCss,
     pages: [MarketplacePage.SUBSCRIPTION],
     defaultState: {},

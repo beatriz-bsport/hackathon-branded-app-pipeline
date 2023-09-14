@@ -5,6 +5,7 @@ import MarketplaceContractDetail, {
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceContractDetailCss from '!!raw-loader!./styles.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -57,7 +58,7 @@ const usePropsFromVariation = (
 
 export const MARKETPLACE_CONTRACT_DETAIL_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'contractDetail',
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_CONTRACT_DETAIL,
     css: MarketplaceContractDetailCss,
     pages: [MarketplacePage.SUBSCRIPTION],
     defaultState: {},

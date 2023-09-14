@@ -16,9 +16,11 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 import { getCssComponentByLabel } from '../utils';
 import {
-  CSSComponentsById,
+  CssComponentsVariantIdentifiersValues,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
+
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 /*  Wrapper that dynamically passes different props based on the current state.
  * This wrapper is utilized to display the appropriate React component (children) sourced from the configurations.
  * It is also responsible for managing the state/variant in which the user wants to view the displayed component.
@@ -29,7 +31,7 @@ import {
 import './variation_configuration_preview.css';
 
 const VariationConfigurationWrapper: React.FC<{
-  componentId: CSSComponentsById;
+  componentId: CssComponentsVariantIdentifiersValues;
   // By default React.FC interface interpolates the children as a React.ReactNode
   children: React.ReactElement<any, string | React.JSXElementConstructor<any>>;
 }> = ({ componentId, children }) => {
@@ -82,21 +84,21 @@ const VariationConfigurationWrapper: React.FC<{
 
   const isSelectedComponentModal = useMemo(() => {
     switch (componentId) {
-      case 'contractDetailModal':
+      case CssComponentsVariantIdentifiers.MARKETPLACE_CONTRACT_DETAIL_MODAL:
         return true;
-      case 'contractTermsModal':
+      case CssComponentsVariantIdentifiers.MARKETPLACE_CONTRACT_TERMS_MODAL:
         return true;
-      case 'contractCooldownModal':
+      case CssComponentsVariantIdentifiers.MARKETPLACE_CONTRACT_COOLDOWN_MODAL:
         return true;
-      case 'contractCouponFormModal':
+      case CssComponentsVariantIdentifiers.MARKETPLACE_CONTRACT_COUPON_FORM_MODAL:
         return true;
-      case 'paymentPackCompatibilityModal':
+      case CssComponentsVariantIdentifiers.MARKETPLACE_PAYMENT_PACK_COMPATIBILITY_MODAL:
         return true;
-      case 'paymentPackRestrictionModal':
+      case CssComponentsVariantIdentifiers.MARKETPLACE_PAYMENT_PACK_RESTRICTION_MODAL:
         return true;
-      case 'privatePassCompatibilityModal':
+      case CssComponentsVariantIdentifiers.MARKETPLACE_PRIVATE_PASS_COMPATIBILITY_MODAL:
         return true;
-      case 'paymentPackOffPeakRestrictionModal':
+      case CssComponentsVariantIdentifiers.MARKETPLACE_PAYMENT_PACK_OFFPEAK_RESTRICTION_MODAL:
         return true;
       default:
         return false;

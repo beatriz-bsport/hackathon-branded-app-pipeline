@@ -9,15 +9,18 @@ import { Typography } from '@material-ui/core';
 import { CompanyTheme } from '#libs/theme/types';
 import { getCssComponentByLabel } from '../utils';
 import ApplyCustomCssStyles from '#libs/widget/components/ApplyCustomCssStyles.component';
-import { CSSComponentsById, MarketplaceCSSConfiguration } from '../types';
+import {
+  CssComponentsVariantIdentifiersValues,
+  MarketplaceCSSConfiguration,
+} from '../types';
 import ComponentPreview from './ComponentPreview.component';
-import { CSS_COMPONENTS_BY_ID } from '../constants';
+import { CSS_COMPONENTS_BY_ID } from '#libs/exportable-components/custom_css_variants';
 
 const CssEditorPreview: React.FC<{
   code: string;
   theme: CompanyTheme;
   customConfiguration: MarketplaceCSSConfiguration;
-  componentId: CSSComponentsById;
+  componentId: CssComponentsVariantIdentifiersValues;
 }> = ({ code, theme, componentId, customConfiguration }) => {
   const classes = useStyles();
   const { t } = useTranslation('widget');

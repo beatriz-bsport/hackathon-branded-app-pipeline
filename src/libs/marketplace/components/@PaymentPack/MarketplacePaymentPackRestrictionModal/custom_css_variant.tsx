@@ -5,6 +5,8 @@ import MarketplacePaymentPackRestrictionModal, {
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplacePaymentPackRestrictionModalCss from '!!raw-loader!./styles.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -25,7 +27,8 @@ const usePropsFromVariation =
 
 export const MARKETPLACE_PAYMENT_PACK_RESTRICTION_MODAL_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'paymentPackRestrictionModal',
+    label:
+      CssComponentsVariantIdentifiers.MARKETPLACE_PAYMENT_PACK_RESTRICTION_MODAL,
     css: MarketplacePaymentPackRestrictionModalCss,
     pages: [MarketplacePage.PASS],
     defaultState: {},

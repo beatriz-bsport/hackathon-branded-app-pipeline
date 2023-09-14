@@ -11,7 +11,7 @@ import { RootState } from '../../reducers';
 import { getCssComponentByLabel } from '#libs/exportable-components/utils';
 import CssEditorSelector from '#libs/exportable-components/components/CssEditorSelector.component';
 import {
-  CSSComponentsById,
+  CssComponentsVariantIdentifiersValues,
   MarketplacePage,
 } from '#libs/exportable-components/types';
 import {
@@ -25,7 +25,7 @@ import { getCustomCssConfiguration } from '#libs/exportable-components/selectors
 import ApplyCustomTheme from '#libs/exportable-components/ApplyCustomTheme.component';
 
 type Props = ConnectedProps<typeof connector> & {
-  componentId: CSSComponentsById;
+  componentId: CssComponentsVariantIdentifiersValues;
   page: MarketplacePage;
 };
 

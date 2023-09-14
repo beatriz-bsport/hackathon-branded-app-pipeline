@@ -4,6 +4,7 @@ import Search, { Props as SearchProps } from '.';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import SearchCss from '!!raw-loader!./style.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -41,7 +42,7 @@ const usePropsFromVariation = (): Omit<SearchProps, 'data'> => {
 };
 
 export const MARKETPLACE_SEARCH_CONFIGURATION: MarketplaceCSSComponentConfig = {
-  label: 'search',
+  label: CssComponentsVariantIdentifiers.MARKETPLACE_SEARCH,
   css: SearchCss,
   pages: [MarketplacePage.COMMON],
   defaultState: {},

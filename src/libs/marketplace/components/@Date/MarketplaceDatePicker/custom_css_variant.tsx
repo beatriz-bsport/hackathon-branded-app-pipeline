@@ -5,6 +5,8 @@ import MarketplaceDatePicker, { Props as MarketplaceDatePickerProps } from '.';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceDatePickerCss from '!!raw-loader!./MarketplaceDatePicker.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -49,7 +51,7 @@ const usePropsFromVariation = (
 
 export const MARKETPLACE_DATE_PICKER_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'datePicker',
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_DATE_PICKER,
     css: MarketplaceDatePickerCss,
     pages: [MarketplacePage.COMMON],
     defaultState: {},

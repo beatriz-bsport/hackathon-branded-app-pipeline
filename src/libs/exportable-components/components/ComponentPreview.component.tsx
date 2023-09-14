@@ -6,13 +6,13 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { CompanyTheme } from '#libs/theme/types';
 import VariationConfigurationWrapper from './VariationConfigurationWrapper.component';
 
-import { CSSComponentsById } from '#libs/exportable-components/types';
+import { CssComponentsVariantIdentifiersValues } from '#libs/exportable-components/types';
 
 type Props = {
   component: (
     props: any,
   ) => React.ReactElement<any, string | React.JSXElementConstructor<any>>;
-  componentId: CSSComponentsById;
+  componentId: CssComponentsVariantIdentifiersValues;
   theme: CompanyTheme;
   defaultState: any;
 };

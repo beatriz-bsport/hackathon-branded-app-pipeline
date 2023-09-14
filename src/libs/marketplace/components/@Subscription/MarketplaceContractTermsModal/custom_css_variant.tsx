@@ -5,6 +5,7 @@ import MarketplaceContractTermsModal, {
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceContractTermsModalCss from '!!raw-loader!./styles.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -26,7 +27,7 @@ const usePropsFromVariation = (): MarketplaceContractTermsModalProps => {
 
 export const MARKETPLACE_CONTRACT_TERMS_MODAL_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'contractTermsModal',
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_CONTRACT_TERMS_MODAL,
     css: MarketplaceContractTermsModalCss,
     pages: [MarketplacePage.SUBSCRIPTION],
     defaultState: {},

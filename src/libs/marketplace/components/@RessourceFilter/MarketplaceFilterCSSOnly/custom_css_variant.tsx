@@ -5,6 +5,7 @@ import MarketplaceFilterCSSOnly, {
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceFilterCss from '!!raw-loader!./MarketplaceFilterCSSOnly.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -88,7 +89,7 @@ const usePropsFromVariation = (
 
 export const MARKETPLACE_CALENDAR_FILTER_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'calendarFilters',
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_CALENDAR_FILTER,
     css: MarketplaceFilterCss,
     pages: [MarketplacePage.CALENDAR],
     defaultState: {},

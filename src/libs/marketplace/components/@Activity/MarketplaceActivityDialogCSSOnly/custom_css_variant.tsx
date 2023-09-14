@@ -14,6 +14,7 @@ import {
 import { CompanyTheme } from '#libs/theme/types';
 import { offerFactory } from '#libs/offer/factories';
 import { Offer } from '#libs/offer/types';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 
 const activityVariationRegistry = [
   {
@@ -78,7 +79,7 @@ const usePropsFromVariation = (
 
 export const MARKETPLACE_ACTIVITY_DIALOG_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'activityCardDialog',
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_ACTIVITY_DIALOG,
     css: MarketplaceActivityDialogCSSOnlyCss,
     pages: [MarketplacePage.CALENDAR, MarketplacePage.WORKSHOP],
     defaultState: {},

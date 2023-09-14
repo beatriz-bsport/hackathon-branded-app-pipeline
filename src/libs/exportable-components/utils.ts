@@ -3,8 +3,9 @@ import {
   EXPORTABLE_COMPONENTS,
   EXPORTABLE_COMPONENT_TYPE_PLAYLIST,
   EXPORTABLE_COMPONENT_TYPE_PRIVATE_SERVICE,
-  CSS_COMPONENTS,
 } from './constants';
+
+import { CSS_COMPONENTS } from '#libs/exportable-components/custom_css_variants';
 import EXPORTABLE_COMPONENT_SETTINGS_BY_TYPE from './components/settings';
 
 import { MarketplacePage, VariantionConfiguration } from './types';

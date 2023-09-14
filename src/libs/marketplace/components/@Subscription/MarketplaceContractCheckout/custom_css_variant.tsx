@@ -5,6 +5,7 @@ import MarketplaceContractCheckout, {
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceContractCheckoutCss from '!!raw-loader!./styles.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -59,7 +60,7 @@ const usePropsFromVariation = (
 
 export const MARKETPLACE_CONTRACT_CHECKOUT_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'contractCheckout',
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_CONTRACT_CHECKOUT,
     css: MarketplaceContractCheckoutCss,
     pages: [MarketplacePage.SUBSCRIPTION],
     defaultState: {},

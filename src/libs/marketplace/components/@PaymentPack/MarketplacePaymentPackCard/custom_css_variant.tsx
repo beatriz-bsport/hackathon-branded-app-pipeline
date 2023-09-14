@@ -5,6 +5,8 @@ import MarketplacePaymentPackCard, {
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplacePaymentPackCardCss from '!!raw-loader!./styles.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -43,7 +45,7 @@ const usePropsFromVariation = (
 
 export const MARKETPLACE_PAYMENT_PACK_CARD_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'paymentPackCard',
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_PAYMENT_PACK_CARD,
     css: MarketplacePaymentPackCardCss,
     pages: [MarketplacePage.PASS],
     defaultState: {},

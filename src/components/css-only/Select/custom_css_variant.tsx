@@ -5,6 +5,8 @@ import Select, { Props as SelectProps } from '.';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceSelectCss from '!!raw-loader!./style.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -55,7 +57,7 @@ const usePropsFromVariation = (
 };
 
 export const MARKETPLACE_SELECT_CONFIGURATION: MarketplaceCSSComponentConfig = {
-  label: 'select',
+  label: CssComponentsVariantIdentifiers.MARKETPLACE_SELECT,
   css: MarketplaceSelectCss,
   pages: [MarketplacePage.COMMON],
   defaultState: {},

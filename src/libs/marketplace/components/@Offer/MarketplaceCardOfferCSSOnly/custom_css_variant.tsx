@@ -8,6 +8,8 @@ import MarketPlaceCardOfferCSSOnly, {
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplaceCardOfferCss from '!!raw-loader!./MarketplaceCardOfferCSSOnly.css';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -162,7 +164,7 @@ const usePropsFromVariation = (
 
 export const MARKETPLACE_OFFER_CARD_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'cardOffer',
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_OFFER_CARD,
     css: MarketplaceCardOfferCss,
     pages: [MarketplacePage.CALENDAR],
     defaultState: {},

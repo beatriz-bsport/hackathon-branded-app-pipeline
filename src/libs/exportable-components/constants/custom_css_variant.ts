@@ -1,131 +1,3 @@
-import Immutable from 'seamless-immutable';
-
-import {
-  MARKETPLACE_OFFER_CARD_CONFIGURATION,
-  MARKETPLACE_OFFER_CARD_PREVIEW,
-} from '#marketplacecomponents/@Offer/MarketplaceCardOfferCSSOnly';
-import {
-  MARKETPLACE_PAYMENT_COMBO_CARD_CONFIGURATION,
-  MARKETPLACE_PAYMENT_COMBO_CARD_PREVIEW,
-} from '#marketplacecomponents/@PaymentCombo/MarketplacePaymentComboCard/custom_css_variant';
-import {
-  MARKETPLACE_PAYMENT_PACK_CARD_CONFIGURATION,
-  MARKETPLACE_PAYMENT_PACK_CARD_PREVIEW,
-} from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackCard/custom_css_variant';
-import {
-  MARKETPLACE_PAYMENT_PACK_COMPATIBILITY_MODAL_CONFIGURATION,
-  MARKETPLACE_PAYMENT_PACK_COMPATIBILITY_MODAL_PREVIEW,
-} from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackCompatibilityModal/custom_css_variant';
-import {
-  MARKETPLACE_PAYMENT_PACK_RESTRICTION_MODAL_CONFIGURATION,
-  MARKETPLACE_PAYMENT_PACK_RESTRICTION_MODAL_PREVIEW,
-} from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackRestrictionModal/custom_css_variant';
-import {
-  MARKETPLACE_PRIVATE_PASS_CARD_CONFIGURATION,
-  MARKETPLACE_PRIVATE_PASS_CARD_PREVIEW,
-} from '#marketplacecomponents/@PrivatePass/MarketplacePrivatePassCard/custom_css_variant';
-import {
-  MARKETPLACE_PRIVATE_PASS_COMPATIBILITY_MODAL_CONFIGURATION,
-  MARKETPLACE_PRIVATE_PASS_COMPATIBILITY_MODAL_PREVIEW,
-} from '#marketplacecomponents/@PrivatePass/MarketplacePrivatePassCompatibilityModal/custom_css_variant';
-import {
-  MARKETPLACE_CONTRACT_CARD_CONFIGURATION,
-  MARKETPLACE_CONTRACT_CARD_PREVIEW,
-} from '#marketplacecomponents/@Subscription/MarketplaceContractCard/custom_css_variant';
-import {
-  MARKETPLACE_CONTRACT_CHECKOUT_CONFIGURATION,
-  MARKETPLACE_CONTRACT_CHECKOUT_PREVIEW,
-} from '#marketplacecomponents/@Subscription/MarketplaceContractCheckout/custom_css_variant';
-import {
-  MARKETPLACE_CONTRACT_DETAIL_CONFIGURATION,
-  MARKETPLACE_CONTRACT_DETAIL_PREVIEW,
-} from '#marketplacecomponents/@Subscription/MarketplaceContractDetail/custom_css_variant';
-import {
-  MARKETPLACE_CONTRACT_DETAIL_MODAL_CONFIGURATION,
-  MARKETPLACE_CONTRACT_DETAIL_MODAL_PREVIEW,
-} from '#marketplacecomponents/@Subscription/MarketplaceContractDetailModal/custom_css_variant';
-import {
-  MARKETPLACE_CONTRACT_TERMS_MODAL_CONFIGURATION,
-  MARKETPLACE_CONTRACT_TERMS_MODAL_PREVIEW,
-} from '#marketplacecomponents/@Subscription/MarketplaceContractTermsModal/custom_css_variant';
-import {
-  MARKETPLACE_CONTRACT_COOLDOWN_MODAL_CONFIGURATION,
-  MARKETPLACE_CONTRACT_COOLDOWN_MODAL_PREVIEW,
-} from '#marketplacecomponents/@Subscription/MarketplaceContractCooldownModal/custom_css_variant';
-import {
-  MARKETPLACE_CONTRACT_COUPON_FORM_MODAL_CONFIGURATION,
-  MARKETPLACE_CONTRACT_COUPON_FORM_MODAL_PREVIEW,
-} from '#marketplacecomponents/@Coupon/MarketplaceCouponFormModal/custom_css_variant';
-import {
-  MARKETPLACE_PAYMENT_PACK_OFFPEAK_RESTRICTION_MODAL_CONFIGURATION,
-  MARKETPLACE_PAYMENT_PACK_OFFPEAK_RESTRICTION_MODAL_PREVIEW,
-} from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackOffPeakRestrictionModal/custom_css_variant';
-import {
-  MARKETPLACE_CONTRACT_NOT_FOUND_CONFIGURATION,
-  MARKETPLACE_CONTRACT_NOT_FOUND_PREVIEW,
-} from '#marketplacecomponents/@Subscription/MarketplaceContractNotFound/custom_css_variant';
-import {
-  MARKETPLACE_CONTRACT_PAYMENT_CONFIGURATION,
-  MARKETPLACE_CONTRACT_PAYMENT_PREVIEW,
-} from '#marketplacecomponents/@Payment/MarketplaceContractPayment/custom_css_variant';
-import {
-  MARKETPLACE_COLLECT_PAYMENT_METHOD_CONFIGURATION,
-  MARKETPLACE_COLLECT_PAYMENT_METHOD_PREVIEW,
-} from '#marketplacecomponents/@Payment/MarketplaceCollectPaymentMethod/custom_css_variant';
-import {
-  MARKETPLACE_CALENDAR_FILTER_CONFIGURATION,
-  MARKETPLACE_CALENDAR_FILTER_PREVIEW,
-} from '#marketplacecomponents/@RessourceFilter/MarketplaceFilterCSSOnly/custom_css_variant';
-import {
-  MARKETPLACE_OFFER_LIST_ITEM_CONFIGURATION,
-  MARKETPLACE_OFFER_LIST_ITEM_PREVIEW,
-} from '#marketplacecomponents/@Offer/MarketplaceOfferListItemCSSOnly/custom_css_variant';
-import {
-  MARKETPLACE_WEEK_TIME_TABLE_CONFIGURATION,
-  MARKETPLACE_WEEK_TIME_TABLE_PREVIEW,
-} from '#marketplacecomponents/@Calendar/MarketplaceWeekTimeTableCSSOnly/custom_css_variant';
-import {
-  MARKETPLACE_SEARCH_CONFIGURATION,
-  MARKETPLACE_SEARCH_PREVIEW,
-} from '#components/css-only/Search/custom_css_variant';
-import {
-  MARKETPLACE_FILTER_CONFIGURATION,
-  MARKETPLACE_FILTER_PREVIEW,
-} from '#marketplacecomponents/@RessourceFilter/MarketplaceFilter/custom_css_variant';
-import {
-  MARKETPLACE_DATE_PICKER_CONFIGURATION,
-  MARKETPLACE_DATE_PICKER_PREVIEW,
-} from '#marketplacecomponents/@Date/MarketplaceDatePicker/custom_css_variant';
-import {
-  MARKETPLACE_SELECT_CONFIGURATION,
-  MARKETPLACE_SELECT_PREVIEW,
-} from '#components/css-only/Select/custom_css_variant';
-
-import {
-  MARKETPLACE_ACTIVITY_CONFIGURATION,
-  MARKETPLACE_ACTIVITY_PREVIEW,
-} from '#marketplacecomponents/@Activity/MarketplaceActivityCSSOnly';
-
-import {
-  MARKETPLACE_ACTIVITY_DIALOG_CONFIGURATION,
-  MARKETPLACE_ACTIVITY_DIALOG_PREVIEW,
-} from '#marketplacecomponents/@Activity/MarketplaceActivityDialogCSSOnly';
-
-import {
-  MARKETPLACE_BOOKING_BUTTON_CONFIGURATION,
-  MARKETPLACE_BOOKING_BUTTON_PREVIEW,
-} from '#marketplacecomponents/@Booking/MarketplaceBookButton';
-
-import {
-  MARKETPLACE_BOOKING_BLOCKED_CONFIGURATION,
-  MARKETPLACE_BOOKING_BLOCKED_PREVIEW,
-} from '#marketplacecomponents/@Booking/MarketplaceBookingBlockedReason';
-import {
-  CSSComponentPreviews,
-  MarketplaceCSSComponentConfig,
-  MarketplacePage,
-} from '#libs/exportable-components/types';
-
 /* TEMPLATE
 
 {
@@ -141,37 +13,6 @@ import {
    },
  }
 */
-export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
-  MARKETPLACE_SEARCH_CONFIGURATION,
-  MARKETPLACE_FILTER_CONFIGURATION,
-  MARKETPLACE_DATE_PICKER_CONFIGURATION,
-  MARKETPLACE_SELECT_CONFIGURATION,
-  MARKETPLACE_OFFER_CARD_CONFIGURATION,
-  MARKETPLACE_OFFER_LIST_ITEM_CONFIGURATION,
-  MARKETPLACE_CALENDAR_FILTER_CONFIGURATION,
-  MARKETPLACE_PAYMENT_COMBO_CARD_CONFIGURATION,
-  MARKETPLACE_PAYMENT_PACK_CARD_CONFIGURATION,
-  MARKETPLACE_PAYMENT_PACK_COMPATIBILITY_MODAL_CONFIGURATION,
-  MARKETPLACE_PAYMENT_PACK_RESTRICTION_MODAL_CONFIGURATION,
-  MARKETPLACE_PAYMENT_PACK_OFFPEAK_RESTRICTION_MODAL_CONFIGURATION,
-  MARKETPLACE_PRIVATE_PASS_CARD_CONFIGURATION,
-  MARKETPLACE_PRIVATE_PASS_COMPATIBILITY_MODAL_CONFIGURATION,
-  MARKETPLACE_CONTRACT_CARD_CONFIGURATION,
-  MARKETPLACE_CONTRACT_CHECKOUT_CONFIGURATION,
-  MARKETPLACE_CONTRACT_DETAIL_CONFIGURATION,
-  MARKETPLACE_CONTRACT_DETAIL_MODAL_CONFIGURATION,
-  MARKETPLACE_CONTRACT_TERMS_MODAL_CONFIGURATION,
-  MARKETPLACE_CONTRACT_COOLDOWN_MODAL_CONFIGURATION,
-  MARKETPLACE_CONTRACT_COUPON_FORM_MODAL_CONFIGURATION,
-  MARKETPLACE_CONTRACT_NOT_FOUND_CONFIGURATION,
-  MARKETPLACE_CONTRACT_PAYMENT_CONFIGURATION,
-  MARKETPLACE_COLLECT_PAYMENT_METHOD_CONFIGURATION,
-  MARKETPLACE_WEEK_TIME_TABLE_CONFIGURATION,
-  MARKETPLACE_ACTIVITY_CONFIGURATION,
-  MARKETPLACE_ACTIVITY_DIALOG_CONFIGURATION,
-  MARKETPLACE_BOOKING_BUTTON_CONFIGURATION,
-  MARKETPLACE_BOOKING_BLOCKED_CONFIGURATION,
-];
 
 /*
 We are using another object for the render to avoid importing unnecessary module
@@ -187,44 +28,34 @@ Template
      <MarketplaceFilters {...variations} />
    );
 */
-export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
-  Immutable({
-    search: MARKETPLACE_SEARCH_PREVIEW,
-    filter: MARKETPLACE_FILTER_PREVIEW,
-    datePicker: MARKETPLACE_DATE_PICKER_PREVIEW,
-    select: MARKETPLACE_SELECT_PREVIEW,
-    cardOffer: MARKETPLACE_OFFER_CARD_PREVIEW,
-    offerListItem: MARKETPLACE_OFFER_LIST_ITEM_PREVIEW,
-    calendarFilters: MARKETPLACE_CALENDAR_FILTER_PREVIEW,
-    calendarWeekTimeTable: MARKETPLACE_WEEK_TIME_TABLE_PREVIEW,
-    paymentComboCard: MARKETPLACE_PAYMENT_COMBO_CARD_PREVIEW,
-    paymentPackCard: MARKETPLACE_PAYMENT_PACK_CARD_PREVIEW,
-    paymentPackCompatibilityModal:
-      MARKETPLACE_PAYMENT_PACK_COMPATIBILITY_MODAL_PREVIEW,
-    paymentPackRestrictionModal:
-      MARKETPLACE_PAYMENT_PACK_RESTRICTION_MODAL_PREVIEW,
-    paymentPackOffPeakRestrictionModal:
-      MARKETPLACE_PAYMENT_PACK_OFFPEAK_RESTRICTION_MODAL_PREVIEW,
-    privatePassCard: MARKETPLACE_PRIVATE_PASS_CARD_PREVIEW,
-    privatePassCompatibilityModal:
-      MARKETPLACE_PRIVATE_PASS_COMPATIBILITY_MODAL_PREVIEW,
-    contractCard: MARKETPLACE_CONTRACT_CARD_PREVIEW,
-    contractCheckout: MARKETPLACE_CONTRACT_CHECKOUT_PREVIEW,
-    contractDetail: MARKETPLACE_CONTRACT_DETAIL_PREVIEW,
-    contractDetailModal: MARKETPLACE_CONTRACT_DETAIL_MODAL_PREVIEW,
-    contractTermsModal: MARKETPLACE_CONTRACT_TERMS_MODAL_PREVIEW,
-    contractCooldownModal: MARKETPLACE_CONTRACT_COOLDOWN_MODAL_PREVIEW,
-    contractCouponFormModal: MARKETPLACE_CONTRACT_COUPON_FORM_MODAL_PREVIEW,
-    contractNotFound: MARKETPLACE_CONTRACT_NOT_FOUND_PREVIEW,
-    contractPayment: MARKETPLACE_CONTRACT_PAYMENT_PREVIEW,
-    collectPaymentMethod: MARKETPLACE_COLLECT_PAYMENT_METHOD_PREVIEW,
-    activityCard: MARKETPLACE_ACTIVITY_PREVIEW,
-    activityCardDialog: MARKETPLACE_ACTIVITY_DIALOG_PREVIEW,
-    bookingButton: MARKETPLACE_BOOKING_BUTTON_PREVIEW,
-    bookingBlockedReason: MARKETPLACE_BOOKING_BLOCKED_PREVIEW,
-  });
-
-export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =
-  Immutable(Array.from(new Set(CSS_COMPONENTS.flatMap((c) => c.pages))));
-
-export default CSS_COMPONENTS;
+export enum CssComponentsVariantIdentifiers {
+  MARKETPLACE_ACTIVITY = 'marketplace_activity_summary',
+  MARKETPLACE_ACTIVITY_DIALOG = 'marketplace_activity_summary_dialog',
+  MARKETPLACE_BOOKING_BLOCKED = 'marketplace_booking_blocked_reason',
+  MARKETPLACE_BOOKING_BUTTON = 'marketplace_booking_button',
+  MARKETPLACE_CALENDAR_FILTER = 'marketplace_calendar_filter',
+  MARKETPLACE_COLLECT_PAYMENT_METHOD = 'marketplace_collect_payment_method',
+  MARKETPLACE_CONTRACT_CARD = 'marketplace_contract_card',
+  MARKETPLACE_CONTRACT_CHECKOUT = 'marketplace_contract_checkout',
+  MARKETPLACE_CONTRACT_COOLDOWN_MODAL = 'marketplace_contract_cooldown_modal',
+  MARKETPLACE_CONTRACT_COUPON_FORM_MODAL = 'marketplace_coupon_form_modal',
+  MARKETPLACE_CONTRACT_DETAIL = 'marketplace_contract_detail',
+  MARKETPLACE_CONTRACT_DETAIL_MODAL = 'marketplace_contract_detail_modal',
+  MARKETPLACE_CONTRACT_NOT_FOUND = 'marketplace_contract_not_found_modal',
+  MARKETPLACE_CONTRACT_PAYMENT = 'marketplace_contract_payment',
+  MARKETPLACE_CONTRACT_TERMS_MODAL = 'marketplace_contract_terms_modal',
+  MARKETPLACE_DATE_PICKER = 'marketplace_date_picker',
+  MARKETPLACE_FILTER = 'marketplace_filter',
+  MARKETPLACE_OFFER_CARD = 'marketplace_offer_card',
+  MARKETPLACE_OFFER_LIST_ITEM = 'marketplace_offer_list_item',
+  MARKETPLACE_PAYMENT_COMBO_CARD = 'marketplace_payment_combo_card',
+  MARKETPLACE_PAYMENT_PACK_CARD = 'marketplace_payment_pack_card',
+  MARKETPLACE_PAYMENT_PACK_COMPATIBILITY_MODAL = 'marketplace_payment_pack_compatibility_modal',
+  MARKETPLACE_PAYMENT_PACK_OFFPEAK_RESTRICTION_MODAL = 'marketplace_payment_pack_offpeack_restriction_modal',
+  MARKETPLACE_PAYMENT_PACK_RESTRICTION_MODAL = 'marketplace_payment_pack_restriction_modal',
+  MARKETPLACE_PRIVATE_PASS_CARD = 'marketplace_private_pass_card',
+  MARKETPLACE_PRIVATE_PASS_COMPATIBILITY_MODAL = 'marketplace_private_pass_compatibility_modal',
+  MARKETPLACE_SEARCH = 'marketplace_search',
+  MARKETPLACE_SELECT = 'marketplace_select',
+  MARKETPLACE_WEEK_TIME_TABLE = 'marketplace_week_time_table',
+}

@@ -11,6 +11,7 @@ import {
   MarketplacePage,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import { CompanyTheme } from '#libs/theme/types';
 import { offerFactory } from '#libs/offer/factories';
 import { Offer } from '#libs/offer/types';
@@ -77,7 +78,7 @@ const usePropsFromVariation = (
 
 export const MARKETPLACE_ACTIVITY_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: 'activityCard',
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_ACTIVITY,
     css: MarketplaceActivityCSSOnlyCss,
     pages: [MarketplacePage.CALENDAR, MarketplacePage.WORKSHOP],
     defaultState: {},

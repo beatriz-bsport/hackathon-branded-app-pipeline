@@ -18,6 +18,7 @@ import {
   COMMUNICATION_SRC_OR_DST_RECEIVED,
   COMMUNICATION_CHANNEL_CADENCE,
 } from '@bsport/common/lib/master-data/communication-filters';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 
 // CONTEXT
 // TODO: use an enum to store this
@@ -131,3 +132,9 @@ export const INBOX_UNREAD_MESSAGES = 1;
 export const INBOX_FAVORITE_MESSAGES = 2;
 export const INBOX_MUTED_MESSAGES = 3;
 export const INBOX_DISABLED_MESSAGES = 4;
+
+export const MAP_THREAD_KIND_TO_CONTEXT_IDENTIFIER = {
+  [ChatThreadKinds.Member]: CONTEXT_MEMBER,
+  [ChatThreadKinds.Offer]: CONTEXT_OFFER,
+  [ChatThreadKinds.Smartlist]: CONTEXT_SMARTLIST,
+};

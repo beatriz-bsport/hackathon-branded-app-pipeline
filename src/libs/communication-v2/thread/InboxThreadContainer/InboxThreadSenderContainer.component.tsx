@@ -10,7 +10,10 @@ import { useTranslation } from 'react-i18next';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 
 import CommunicationSendMessageContainer from '#libs/communication-v2/components/MessageSender/CommunicationSendMessageContainer.component';
-import { PAGINATION_SIZE_RECIPIENTS } from '#libs/communication-v2/constants';
+import {
+  PAGINATION_SIZE_RECIPIENTS,
+  MAP_THREAD_KIND_TO_CONTEXT_IDENTIFIER,
+} from '#libs/communication-v2/constants';
 import type {
   Communication,
   CommunicationThread,
@@ -28,6 +31,7 @@ import type {
 type Props = {
   // --- Inbox Thread ---
   thread?: CommunicationThread;
+  contextSelected?: ChatThreadKinds;
 
   // --- Send Message ---
   communicationKindBeingWritten: number;
@@ -101,6 +105,7 @@ const InboxThreadSenderContainer: React.FC<Props> = ({
   loadingEmailTemplateSummaryList,
   resolvedGenericTags,
   tagCategories,
+  contextSelected,
 }) => {
   const { t } = useTranslation('communication');
   const classes = useStyles();
@@ -134,6 +139,9 @@ const InboxThreadSenderContainer: React.FC<Props> = ({
         <CommunicationSendMessageContainer
           allMemberCategoryList={allMemberCategoryList}
           communicationKind={communicationKindBeingWritten}
+          contextIdentifier={
+            MAP_THREAD_KIND_TO_CONTEXT_IDENTIFIER[contextSelected]
+          }
           countAvailableRecipientsTotal={countAvailableRecipientsTotal}
           countAvailableRecipientsWithEmail={countAvailableRecipientsWithEmail}
           countAvailableRecipientsWithPhone={countAvailableRecipientsWithPhone}

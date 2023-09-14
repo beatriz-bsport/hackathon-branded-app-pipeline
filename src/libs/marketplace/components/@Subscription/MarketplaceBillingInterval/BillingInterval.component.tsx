@@ -21,29 +21,30 @@ const BillingInterval: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('marketplace');
 
-  const formatedInterval =
+  const translatedBillingInterval =
     (interval &&
       t(`contractCard.billingInterval.${interval}`, {
         count: recurrenceBasis,
       })) ??
     '';
 
+  const prefix = recurrenceBasis > 1 ? '' : '/';
+
   if (withFees) {
-    const fees = getCurrencyDisplayWithPrice(flatFee);
+    const fees = getCurrencyDisplayWithPrice(flatFee ?? '0');
+
+    const feesSuffix = ` +\u00A0${fees}`;
 
     return (
       <div className="bs-billing-interval">
-        {!!interval &&
-          (recurrenceBasis > 1
-            ? `${interval} +\u00A0${fees}`
-            : `/ ${interval} +\u00A0${fees}`)}
+        {`${prefix}${translatedBillingInterval}${feesSuffix}`}
       </div>
     );
   }
 
   return (
     <div className="bs-billing-interval">
-      {!!formatedInterval && (recurrenceBasis > 1 ? interval : `/${interval}`)}
+      {`${prefix}${translatedBillingInterval}`}
     </div>
   );
 };

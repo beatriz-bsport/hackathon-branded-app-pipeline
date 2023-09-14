@@ -7843,6 +7843,7 @@
                 "Annullata",
                 "Cancella",
                 "Cancellato",
+                "Cancella",
                 "Cancella"
             ]
         },
@@ -15286,7 +15287,11 @@
                 "search": "Filtri di ricerca",
                 "calendarFilters": "Filtri calendario (solo layout)",
                 "calendarWeekTimeTable": "Intestazione del calendario",
-                "select": "Selettore"
+                "select": "Selettore",
+                "bookingBlockedReason": "Impossibile prenotare",
+                "bookingButton": "Pulsante per la prenotazione",
+                "activityCard": "Dettagli attività",
+                "activityCardDialog": "Dettagli attività (modale)"
             },
             "cssConfig": {
                 "title": {
@@ -15307,7 +15312,13 @@
                     "isInputButton": "Versione compatta",
                     "version": "Versione",
                     "hideCoach": "Nascondere il filtro insegnante",
-                    "isWorkshop": "È un workshop"
+                    "isWorkshop": "È un workshop",
+                    "blockedReasonStatus": "Motivo del blocco della prenotazione",
+                    "isOfferNotAvailableYet": "La sessione non è ancora disponibile",
+                    "isOfferAvailable": "La sessione è disponibile",
+                    "isOfferFull": "La sessione è al completo",
+                    "isOfferInThePast": "La sessione è terminata",
+                    "isHidden": "Nascosto"
                 },
                 "option": {
                     "false": "No",
@@ -15332,7 +15343,17 @@
                     "activity": "Filtri attività",
                     "workshop": "Filtri workshop",
                     "passTypeFilter": "FIltri pass",
-                    "subscriptionCountrySelect": "Selettore del paese"
+                    "subscriptionCountrySelect": "Selettore del paese",
+                    "isWaitingListOpen": "Sessione completa",
+                    "isAlreadyInWaitingList": "Già in lista d'attesa",
+                    "isWaitingListFull": "Lista di attesa piena",
+                    "isWaitingListBlockedByPendingBookings": "Altre prenotazioni in corso",
+                    "isTooLate": "Limite di tempo superato",
+                    "isOfferNotAvailableYet": "Disponibile a breve",
+                    "isAlreadyRegistered": "Sessione già prenotata",
+                    "blockedByTags": "Diritti insufficienti",
+                    "desktop": "Schermo largo",
+                    "mobile": "Schermo piccolo"
                 },
                 "configurationTitle": "Variazioni"
             },

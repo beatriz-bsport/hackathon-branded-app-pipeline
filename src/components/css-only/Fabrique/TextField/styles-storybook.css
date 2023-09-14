@@ -1,0 +1,8 @@
+.bs-text-field-storybook-story__container {
+  padding: var(--spacing-2) 0;
+}
+
+.bs-text-field-storybook__container {
+  border-radius: var(--border-radius-3);
+  border: 2px solid var(--color-primary-main);
+}

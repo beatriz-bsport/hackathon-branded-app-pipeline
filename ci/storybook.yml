@@ -22,7 +22,7 @@
     - NODE_OPTIONS=--max-old-space-size=5000 yarn build-storybook --quiet --output-dir storybook
     - aws s3 cp ./storybook/ $S3_BUCKET/storybook/$CI_COMMIT_REF_NAME --recursive --only-show-errors --acl public-read
     - aws s3 cp ./public/locales/ $S3_BUCKET/storybook/$CI_COMMIT_REF_NAME/locales --recursive --only-show-errors --acl public-read
-    - scripts/invalidate-cloudfront-storybook.sh $CLOUDFRONT_ID $CLOUDFRONT_INVALIDATION_TOKEN
+    - scripts/invalidate-cloudfront-storybook.sh $CLOUDFRONT_ID $CLOUDFRONT_INVALIDATION_TOKEN $CLOUDFRONT_INVALIDATION_LAMBDA_URL
 
 Deploy-storybook Feature Branch:
   extends: .Deploy-storybook

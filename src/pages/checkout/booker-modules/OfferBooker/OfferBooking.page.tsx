@@ -29,6 +29,7 @@ import {
   getCanIBook,
 } from '@bsport/common/lib/master-data/available-payment';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
+import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 import withQueryParams from '#hocs/with-query-params.hoc';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import { WithHandlerType, MaterialStyleType } from '../../../../utils/types';
@@ -50,6 +51,7 @@ import {
   getOffersListByGroup,
   withBookableStatus,
   getBookingGuestNumberLeft,
+  getOfferStatusWaitingListPositionById,
 } from '#libs/offer/selectors';
 import {
   getGroupOffersIdsToBeBooked,
@@ -68,6 +70,7 @@ import {
   fetchBookingGuestNumber as fetchBookingGuestNumberAction,
   fetchOfferBulk as fetchOfferBulkAction,
   setStoredOffersInGroups as setStoredOffersInGroupsAction,
+  fetchOfferWaitingListPosition as fetchOfferWaitingListPositionAction,
 } from '#libs/offer/actions';
 import {
   snackbarError as snackbarErrorAction,
@@ -83,6 +86,7 @@ import {
   getSpotTypesOfCompany,
   getAssetByBlueprintByIdentifier,
 } from '#libs/spot-scheduling/selector';
+import { getWaitingListConfigurationData } from '#libs/waiting-list/selectors';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { fetchMetaActivityBulk } from '#libs/meta-activity/actions';
@@ -121,6 +125,7 @@ import {
   getCheckoutUrl,
   getCheckoutValidationUrl,
 } from '#libs/marketplace/routing-utils';
+import { fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction } from '#libs/waiting-list/actions';
 
 type OwnProps = { id: number; redirectedToFirstOfferToBeBooked: boolean };
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
@@ -185,31 +190,33 @@ class OfferBooking extends React.PureComponent<Props, State> {
 
   fetchData = () => {
     this.props.fetchOffer(this.props.id, {
-      onSuccess: (o) => {
-        this.props.fetchMetaActivityBulk([o.meta_activity]);
-        this.props.fetchMyRelatedMemberList(o.company);
-        this.props.fetchCompanyTheme(o.company);
-        this.props.fetchBookingGuestNumber(o.id);
+      onSuccess: (offer) => {
+        this.props.fetchMetaActivityBulk([offer.meta_activity]);
+        this.props.fetchMyRelatedMemberList(offer.company);
+        this.props.fetchCompanyTheme(offer.company);
+        this.props.fetchBookingGuestNumber(offer.id);
+        this.props.fetchCompanyWaitlistConfiguration(offer.company);
+        this.props.fetchOfferWaitingListPosition(offer.id);
 
-        if (o.group !== null) {
-          this.props.getGroupOfferBookableStatus(o.group);
-          this.props.fetchGroup(o.group, {
+        if (offer.group !== null) {
+          this.props.getGroupOfferBookableStatus(offer.group);
+          this.props.fetchGroup(offer.group, {
             onSuccess: (group) => {
               if (!group.full_booking_only) {
                 this.props.fetchOfferStatusList(group.offers, {
                   page_size: group.offers.length,
                 });
-                this.props.fetchOffersInGroup(o.group, {
+                this.props.fetchOffersInGroup(offer.group, {
                   onSuccess: (offers) => {
                     this.props.fetchOffersRelatedObjects(offers);
                   },
                 });
               } else {
-                this.props.listGroupOfferOffersIdsToBeBooked(o.group, {
+                this.props.listGroupOfferOffersIdsToBeBooked(offer.group, {
                   onSuccess: (ids) => {
                     this.props.fetchOfferBulk(ids, {
                       onSuccess: (offers) => {
-                        this.props.setStoredOffersInGroups(o.group, ids);
+                        this.props.setStoredOffersInGroups(offer.group, ids);
                         this.props.fetchOffersRelatedObjects(offers);
                       },
                     });
@@ -222,10 +229,10 @@ class OfferBooking extends React.PureComponent<Props, State> {
           return;
         }
 
-        this.props.fetchEstablishmentBulk([o.establishment]);
-        this.props.fetchCoachBulk([o.coach, o.coach_override]);
+        this.props.fetchEstablishmentBulk([offer.establishment]);
+        this.props.fetchCoachBulk([offer.coach, offer.coach_override]);
         this.props.fetchOfferStatus(
-          o.id,
+          offer.id,
           {},
           {
             onSuccess: this.updateOfferConstraints,
@@ -233,9 +240,11 @@ class OfferBooking extends React.PureComponent<Props, State> {
         );
         this.fetchSimilarOffers();
 
-        if (o && !!o.room_blueprint) {
-          this.props.fetchRoomBlueprintDetail(o.room_blueprint);
-          this.props.fetchAssetForBlueprint({ blueprint: o.room_blueprint });
+        if (offer && !!offer.room_blueprint) {
+          this.props.fetchRoomBlueprintDetail(offer.room_blueprint);
+          this.props.fetchAssetForBlueprint({
+            blueprint: offer.room_blueprint,
+          });
         }
       },
     });
@@ -889,6 +898,12 @@ class OfferBooking extends React.PureComponent<Props, State> {
                 {this.showBookingButton() && (
                   <div className={classes.bookingButtonContainer}>
                     <BookButton
+                      displayPositionInWaitingList={
+                        this.props.waitingListConfiguration
+                          ?.display_member_position &&
+                        this.props.waitingListConfiguration?.dynamic ===
+                          WAITING_LIST_DYNAMIC_ORDERED
+                      }
                       is_tax_excluded_in_marketplace={
                         this.props.theme.is_tax_excluded_in_marketplace
                       }
@@ -908,6 +923,11 @@ class OfferBooking extends React.PureComponent<Props, State> {
                         this.state.selectedPack?.paymentPack?.tax ||
                         this.state.selectedPack?.paymentPackCombo
                           ?.tax_calculation
+                      }
+                      waitingListPosition={
+                        this.props.offerStatusWaitingListPositionById?.[
+                          this.props.id
+                        ]?.waiting_list_position
                       }
                     />
                   </div>
@@ -1166,6 +1186,9 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
       offer?.group?.id,
     ),
     groupLoading: state.groupOffer.loading,
+    waitingListConfiguration: getWaitingListConfigurationData(state),
+    offerStatusWaitingListPositionById:
+      getOfferStatusWaitingListPositionById(state),
   };
 };
 
@@ -1176,6 +1199,7 @@ const mapDispatchToProps = {
   fetchMyRelatedMemberList,
   fetchMetaActivityBulk,
   offerUserRegistration,
+  fetchCompanyWaitlistConfiguration: fetchCompanyWaitlistConfigurationAction,
   push: pushAction,
   replace: repalceAction,
   fetchSimilarOffers,
@@ -1199,6 +1223,7 @@ const mapDispatchToProps = {
   fetchOfferBulk: fetchOfferBulkAction,
   setStoredOffersInGroups: setStoredOffersInGroupsAction,
   resetOffersToBeBookedByGroup: resetOffersToBeBookedByGroupAction,
+  fetchOfferWaitingListPosition: fetchOfferWaitingListPositionAction,
 };
 
 const mapWithHandlers = {

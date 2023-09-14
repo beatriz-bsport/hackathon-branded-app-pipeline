@@ -14,6 +14,8 @@ type OwnProps = {
   tax: number;
   selectedPackId: number;
   is_tax_excluded_in_marketplace: boolean;
+  displayPositionInWaitingList: boolean;
+  waitingListPosition: { member_position: number; waiting_list_size: number };
   onClickBook: () => void;
 };
 
@@ -52,6 +54,8 @@ class BookButton extends React.PureComponent<Props, State> {
       price,
       is_tax_excluded_in_marketplace,
       tax,
+      waitingListPosition,
+      displayPositionInWaitingList,
     } = this.props;
     const { animation } = this.state;
     const display_price = getCurrencyDisplayWithPrice(
@@ -59,6 +63,11 @@ class BookButton extends React.PureComponent<Props, State> {
       is_tax_excluded_in_marketplace,
       tax,
     );
+    const registerToWaitingListSuffix =
+      displayPositionInWaitingList && waitingListPosition
+        ? ` - ${waitingListPosition.member_position}/${waitingListPosition.waiting_list_size}`
+        : '';
+
     return (
       <>
         <Button
@@ -77,7 +86,9 @@ class BookButton extends React.PureComponent<Props, State> {
             <div className="waitingListButtonContent">
               <HourglassEmpty className="iconLeft" />
               <Typography display="block" variant="button">
-                {t('offer.mainButton.registerWaitingList')}
+                {`${t(
+                  'offer.mainButton.registerWaitingList',
+                )}${registerToWaitingListSuffix}`}
               </Typography>
             </div>
           ) : (

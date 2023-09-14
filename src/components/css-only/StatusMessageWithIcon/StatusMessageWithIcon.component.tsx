@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { StatusMessageWithIconSkeleton } from '.';
@@ -13,7 +14,11 @@ type ActionButton = {
 };
 
 export type Props = {
-  isLoading: boolean;
+  classes?: {
+    title?: string;
+    message?: string;
+  };
+  isLoading?: boolean;
   title: string;
   message: string;
   icon?: React.ReactElement;
@@ -24,6 +29,7 @@ export type Props = {
 };
 
 const StatusMessageWithIcon: React.FC<Props> = ({
+  classes,
   isLoading,
   title,
   message,
@@ -43,8 +49,22 @@ const StatusMessageWithIcon: React.FC<Props> = ({
       )}
 
       <div className="bs-status-message-with-icon__text__container">
-        <div className="bs-status-message-with-icon__title">{title}</div>
-        <div className="bs-status-message-with-icon__message">{message}</div>
+        <div
+          className={classNames(
+            'bs-status-message-with-icon__title',
+            classes?.title,
+          )}
+        >
+          {title}
+        </div>
+        <div
+          className={classNames(
+            'bs-status-message-with-icon__message',
+            classes?.message,
+          )}
+        >
+          {message}
+        </div>
       </div>
 
       {!!actions && (

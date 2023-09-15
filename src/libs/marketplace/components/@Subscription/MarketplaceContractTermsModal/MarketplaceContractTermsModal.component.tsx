@@ -10,6 +10,7 @@ import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickA
 import CircularProgress from '#components/css-only/CircularProgress';
 
 import './styles.css';
+import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
 
 export type Props = {
   contractTerms: string;
@@ -55,29 +56,32 @@ const MarketplaceContractTermsModal: React.FC<Props> = ({
             <p className="bs-contract-terms-dialog__text">{contractTerms}</p>
 
             <div className="bs-contract-terms-dialog__actions">
-              <button
-                className="bs-contract-terms-dialog__button bs-contract-terms-dialog__cancel"
+              <Button
+                classes={{
+                  root: 'bs-contract-terms-dialog__button bs-contract-terms-dialog__cancel',
+                }}
                 onClick={onDialogClose}
-                type="button"
               >
                 {t('common:close')}
-              </button>
-              <button
-                className={classNames('bs-contract-terms-dialog__button', {
-                  'bs-contract-terms-dialog__download--disabled':
-                    isContractTermsDownloadLoading,
-                  'bs-contract-terms-dialog__download':
-                    !isContractTermsDownloadLoading,
-                })}
-                disabled={isContractTermsDownloadLoading}
+              </Button>
+              <Button
+                classes={{
+                  root: classNames('bs-contract-terms-dialog__button', {
+                    'bs-contract-terms-dialog__download--disabled':
+                      isContractTermsDownloadLoading,
+                    'bs-contract-terms-dialog__download':
+                      !isContractTermsDownloadLoading,
+                  }),
+                }}
+                color={ButtonColor.PRIMARY}
+                isDisabled={isContractTermsDownloadLoading}
                 onClick={handleDownloadTerms}
-                type="button"
               >
                 {t('common:download')}
                 {isContractTermsDownloadLoading && (
                   <CircularProgress size="xs" />
                 )}
-              </button>
+              </Button>
             </div>
           </div>
         </div>

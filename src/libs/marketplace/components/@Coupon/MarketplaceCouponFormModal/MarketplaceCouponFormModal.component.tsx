@@ -10,6 +10,7 @@ import { MARKETPLACE_COUPON_FORM_ERRORS as COUPON_FORM_ERRORS } from '#libs/mark
 
 import { OptionCallback } from '../../../../../state/types';
 import './styles.css';
+import Button, { ButtonType } from '#components/css-only/Fabrique/Button';
 
 type CouponFormValues = {
   code: string;
@@ -93,22 +94,23 @@ const MarketplaceCouponFormModal: React.FC<Props> = ({
                 )}
 
                 <div className="bs-coupon-form__actions">
-                  <button
-                    className="bs-coupon-form__button"
+                  <Button
+                    classes={{ root: 'bs-coupon-form__button' }}
                     onClick={handleOnCancel}
-                    type="button"
                   >
                     {t('common:cancel')}
-                  </button>
+                  </Button>
                   {isLoading ? (
                     <CircularProgress />
                   ) : (
-                    <button
-                      className="bs-coupon-form__button bs-coupon-form__submit"
-                      type="submit"
+                    <Button
+                      classes={{
+                        root: 'bs-coupon-form__button bs-coupon-form__submit',
+                      }}
+                      type={ButtonType.SUBMIT}
                     >
                       {t('common:saveRecord')}
-                    </button>
+                    </Button>
                   )}
                 </div>
               </Form>

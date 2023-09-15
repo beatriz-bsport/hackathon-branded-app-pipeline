@@ -64,14 +64,17 @@
   gap: var(--spacing-3);
 }
 
-.bs-marketplace-contract-payment-method-list__item__radio,
-.bs-marketplace-contract-payment-method-list__item__delete {
+.bs-marketplace-contract-payment-method-list__item__radio {
   cursor: pointer;
   background: none;
   border: none;
   margin: 0;
   padding: 0;
   outline: none;
+}
+
+.bs-marketplace-contract-payment-method-list__item__delete {
+  padding: var(--spacing-1);
 }
 
 .bs-marketplace-contract-payment-method-list__item__loading {

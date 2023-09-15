@@ -14,6 +14,7 @@ import CircularProgress from '#components/css-only/CircularProgress';
 import { PaymentMethod } from '#libs/payment/types';
 
 import './styles.css';
+import Button, { ButtonVariant } from '#components/css-only/Fabrique/Button';
 
 export type Props = {
   isContractLegalTermsAccepted: boolean;
@@ -109,13 +110,15 @@ const ContractPaymentMethod: React.FC<ContractPaymentMethodProps> = React.memo(
           </div>
         </div>
 
-        <button
-          className="bs-marketplace-contract-payment-method-list__item__delete"
+        <Button
+          classes={{
+            root: 'bs-marketplace-contract-payment-method-list__item__delete',
+          }}
           onClick={handleDetachPaymentMethod}
-          type="button"
+          variant={ButtonVariant.ICON}
         >
           <DeleteIcon />
-        </button>
+        </Button>
       </button>
     );
   },

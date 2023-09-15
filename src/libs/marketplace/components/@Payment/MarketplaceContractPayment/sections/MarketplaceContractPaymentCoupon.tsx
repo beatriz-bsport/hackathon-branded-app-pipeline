@@ -10,6 +10,7 @@ import MarketplaceCouponFormModal from '#marketplacecomponents/@Coupon/Marketpla
 import { OptionCallback } from '../../../../../../state/types';
 
 import '../styles.css';
+import Button from '#components/css-only/Fabrique/Button';
 
 export type Props = {
   voucher: number | null;
@@ -43,14 +44,13 @@ const MarketplaceContractPaymentCoupon: React.FC<Props> = React.memo(
     return (
       <>
         {!voucher && (
-          <button
-            className="bs-contract-payment__pricing__promo__button"
-            disabled={isLoading || !isContractLegalTermsAccepted}
+          <Button
+            classes={{ root: 'bs-contract-payment__pricing__promo__button' }}
+            isDisabled={isLoading || !isContractLegalTermsAccepted}
             onClick={onOpenCouponForm}
-            type="button"
           >
             {t('coupon:code.addCoupon.label')}
-          </button>
+          </Button>
         )}
 
         {!!voucher && (
@@ -60,13 +60,12 @@ const MarketplaceContractPaymentCoupon: React.FC<Props> = React.memo(
                 (voucher || 0).toFixed(2),
               )}`}
             </span>
-            <button
-              className="bs-contract-payment__coupon__delete"
+            <Button
+              classes={{ root: 'bs-contract-payment__coupon__delete' }}
               onClick={onDeleteCoupon}
-              type="button"
             >
               <DeleteIcon fontSize="small" />
-            </button>
+            </Button>
           </div>
         )}
 

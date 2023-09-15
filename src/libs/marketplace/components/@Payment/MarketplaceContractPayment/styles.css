@@ -239,12 +239,21 @@
   width: fit-content;
 }
 
+.bs-contract-payment__payment__methods__add:disabled {
+  background: none;
+}
+
 .bs-contract-payment__pricing__promo__button:disabled {
   color: var(--color-disabled);
+  background: none;
 }
 
 .bs-contract-payment__cancel__button {
   color: var(--color-grey-main);
+}
+
+.bs-contract-payment__cancel__button:hover {
+  background: var(--color-hover);
 }
 
 .bs-contract-payment__pricing__promo__button {
@@ -260,7 +269,7 @@
 .bs-contract-payment__submit__button {
   align-items: center;
   background: var(--color-primary-main);
-  color: var(--color-secondary-contrastText);
+  color: var(--color-primary-contrastText);
 }
 
 .bs-contract-payment__submit__button:hover {

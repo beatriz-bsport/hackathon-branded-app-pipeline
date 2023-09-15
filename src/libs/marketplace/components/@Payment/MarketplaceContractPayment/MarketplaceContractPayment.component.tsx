@@ -42,6 +42,7 @@ import MarketplaceContractPaymentInfos from './sections/MarketplaceContractPayme
 import MarketplaceContractPaymentPricing from './sections/MarketplaceContractPaymentPricing.component';
 import MarketplaceContractPaymentCoupon from './sections/MarketplaceContractPaymentCoupon';
 import { updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI } from '#libs/payment/api';
+import Button, { ButtonType } from '#components/css-only/Fabrique/Button';
 
 export type Props = {
   contract: Contract;
@@ -551,37 +552,35 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
                 type={paymentMethod}
               />
 
-              <button
-                className="bs-contract-payment__payment__methods__add"
-                disabled={!isContractLegalTermsAccepted}
+              <Button
+                classes={{ root: 'bs-contract-payment__payment__methods__add' }}
+                isDisabled={!isContractLegalTermsAccepted}
                 onClick={handleOpenCollectPaymentMethodDialog}
-                type="button"
               >
                 <AddIcon />
                 {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
-              </button>
+              </Button>
             </div>
           )}
 
           <div className="bs-contract-payment__actions">
-            <button
-              className="bs-contract-payment__cancel__button"
+            <Button
+              classes={{ root: 'bs-contract-payment__cancel__button' }}
               onClick={onCancelContractPayment}
-              type="button"
             >
               {t('common:cancel')}
-            </button>
-            <button
-              className="bs-contract-payment__submit__button"
-              disabled={submitDisabled}
-              type="submit"
+            </Button>
+            <Button
+              classes={{ root: 'bs-contract-payment__submit__button' }}
+              isDisabled={submitDisabled}
+              type={ButtonType.SUBMIT}
             >
               {isLoading ? (
                 <CircularProgress contrastStrokeColor size="sm" />
               ) : (
                 t('checkout:myBasket.actions.checkoutBasket')
               )}
-            </button>
+            </Button>
           </div>
         </div>
       </form>

@@ -45,6 +45,7 @@ import './styles.css';
 import { usePaymentMethodBillingDetails } from '#libs/marketplace/hooks';
 import MarketplaceCardBillingDetailsFormFields from './MarketplaceCardBillingDetailsFormFields.component';
 import { PaymentMethod } from '#libs/payment/types';
+import Button, { ButtonType } from '#components/css-only/Fabrique/Button';
 
 const stripePromise = loadStripe(getStripePkKey());
 
@@ -653,43 +654,48 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
                 )}
               <div className="bs-collect-payment-method__dialog__actions">
                 {!hideCancelButton && (
-                  <button
-                    className="bs-collect-payment-method__cancel__button"
+                  <Button
+                    classes={{
+                      root: 'bs-collect-payment-method__cancel__button',
+                    }}
                     onClick={onDialogClose}
-                    type="button"
                   >
                     {doNotOpenInDialog
                       ? t('forms.paymentMethod.actions.cancel')
                       : t('forms.paymentMethod.actions.close')}
-                  </button>
+                  </Button>
                 )}
                 {!!error && (
-                  <button
-                    className="bs-collect-payment-method__try__again__button"
+                  <Button
+                    classes={{
+                      root: 'bs-collect-payment-method__try__again__button',
+                    }}
                     onClick={handleRetry}
-                    type="submit"
+                    type={ButtonType.SUBMIT}
                   >
                     {t('forms.paymentMethod.actions.retry')}
-                  </button>
+                  </Button>
                 )}
                 {!error && !success && (
-                  <button
-                    className={classNames(
-                      'bs-collect-payment-method__submit__button',
-                      {
-                        'bs-collect-payment-method__button--disabled':
-                          processing,
-                      },
-                    )}
-                    disabled={processing}
-                    type="submit"
+                  <Button
+                    classes={{
+                      root: classNames(
+                        'bs-collect-payment-method__submit__button',
+                        {
+                          'bs-collect-payment-method__button--disabled':
+                            processing,
+                        },
+                      ),
+                    }}
+                    isDisabled={processing}
+                    type={ButtonType.SUBMIT}
                   >
                     {processing ? (
                       <CircularProgress size="sm" />
                     ) : (
                       t('forms.paymentMethod.actions.collect')
                     )}
-                  </button>
+                  </Button>
                 )}
               </div>
             </div>

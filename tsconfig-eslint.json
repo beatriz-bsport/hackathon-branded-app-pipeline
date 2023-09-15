@@ -21,6 +21,7 @@
         "#components/*": ["./src/components/*"],
         "#hocs/*": ["./src/hocs/*"],
         "#csscomponents/*": ["./src/components/css-only/*"],
+        "#Fabrique/*": ["./src/components/css-only/Fabrique/*"],
       
       },
     },

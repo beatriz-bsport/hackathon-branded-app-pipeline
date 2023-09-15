@@ -52,8 +52,8 @@
       "#utils/*": [
         "./src/utils/*"
       ],
-      "#Frabique/*": [
-        "./src/components/css-only/Frabique*"
+      "#Fabrique/*": [
+        "./src/components/css-only/Fabrique/*"
       ],
     },
   },

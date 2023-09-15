@@ -94,6 +94,7 @@ export enum MarketplacePage {
   PASS = 'pass',
   SUBSCRIPTION = 'subscription',
   BASKET = 'basket',
+  BOOKING_PAGE = 'bookingPage',
 }
 
 export type VariationConfigurationChoice = {

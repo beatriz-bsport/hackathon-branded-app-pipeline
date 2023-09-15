@@ -1,269 +1,254 @@
 exports.default = {
-  calendar: {
-    title: 'Mon calendrier',
-    description: "Retrouvez ici l'ensemble de vos cours collectifs.",
-    helperTextLimited:
-      "<strong>{{requestsLeft}}</strong> sur <strong>{{requestsMax}}</strong> demandes tardives restantes jusqu'au {{-dateEnd}}. Toutes les demandes de remplacement faites à moins de {{count}} jour de la séance seront considérées comme tardives.",
-    helperTextLimited_plural:
-      "<strong>{{requestsLeft}}</strong> sur <strong>{{requestsMax}}</strong> demandes tardives restantes jusqu'au {{-dateEnd}}. Toutes les demandes de remplacement faites à moins de {{count}} jours de la séance seront considérées comme tardives.",
-    helperTextNotLimited:
-      'Toutes les demandes de remplacement faites à moins de {{count}} jour de la séance seront considérées comme tardives.',
-    helperTextNotLimited_plural:
-      'Toutes les demandes de remplacement faites à moins de {{count}} jours de la séance seront considérées comme tardives.',
-  },
-  requests: {
-    title: 'Mes demandes',
-    description: 'Retrouvez ici toutes vos demandes de remplacement.',
-    cancel: 'Annuler',
-  },
-  confirmations: {
-    title: 'Confirmations',
-    description:
-      'Vous avez été ajouté comme professeur remplaçant sur les cours suivants.',
-  },
-  marketplace: {
-    title: 'Marketplace',
-    description:
-      "Les cours suivants ont besoin d'un professeur remplaçant. Êtes-vous disponible ?",
-    filters: 'Filtres',
-    until: "Jusqu'au {{-date}}",
-  },
-  unavailableReplacement: {
-    alreadyPassed: 'Ce cours est passé',
-    replacing: 'Vous êtes remplaçant sur ce cours',
-    alreadyAskedFor: 'Une demande est déjà en cours',
-    tooEarly: 'Les remplacements ne sont pas encore disponibles',
-    noLateRequestsLeft:
-      'Vous ne pouvez plus créer de nouvelles demandes de remplacement tardives',
-    refusedByManager: 'Votre demande de remplacement a été refusée',
-  },
   header: {
-    date: 'Date et heure',
-    name: 'Nom de la classe',
-    level: 'Niveau',
-    location: 'Lieu',
-    establishment_group: 'Localisation',
+    establishment_group: 'Location',
+    location: 'Establishment',
+    class: 'Session',
+    registrations: 'Registrations',
+    request: 'Request',
+    availability: 'Available',
+    closing_date: 'Closing date',
+    teacher_override: 'Substitute teacher',
+    teacher: 'Teacher',
+    status: 'Status',
+    reason: 'Reason',
     action: 'Action',
-    reason: 'Raison',
-    status: 'Statut',
-    teacher: 'Professeur',
-    teacher_override: 'Professeur remplaçant',
-    closing_date: 'Date de clôture',
-    availability: 'Disponible',
-    request: 'Demande',
-    registrations: 'Inscriptions',
-    class: 'Classe',
-  },
-  requestTableTitles: {
-    pending: 'En cours',
-    replacementFound: 'Remplaçant trouvé',
-    deniedRequests: 'Demande refusée',
-  },
-  managerTableTitles: {
-    pendingRequests: 'Demandes en cours',
-    replacementHistory: 'Historique des remplacements',
-  },
-  coachAnswer: {
-    yes: 'Oui',
-    ratherNo: 'Ne préfère pas',
-    no: 'Non',
-  },
-  noListItem: {
-    replacementRequest: 'Aucun élément',
-    calendar: 'Aucun cours programmé sur ces dates',
-  },
-  replacementStatus: {
-    description: {
-      description: 'Les statuts permettent de savoir où en est votre demande.',
-      pendingForApproval: "attente d'une action de la part du manager.",
-      approvedButNoReplacementPropositions: "en attente d'inscriptions.",
-      approvedWithReplacementPropositions: 'inscriptions en cours.',
-      offerCancelled: 'cours annulé.',
-    },
-    pendingForApproval: 'Attente de validation',
-    deniedByManager: 'Refusée',
-    approvedButNoReplacementPropositions: 'Ouverte',
-    approvedWithReplacementPropositions: 'En cours',
-    teacherFound: 'Remplacée',
-    offerCancelled: 'Annulée',
+    level: 'Level',
+    name: 'Name of the session',
+    date: 'Date and time',
   },
   askForReplacement: {
-    title: 'Demander un remplacement',
-    label: "Raison de l'absence",
-    cancel: 'Annuler',
-    submit: 'Soumettre',
-    requestSent: 'Demande envoyée',
-    requestSent_plural: 'Demandes envoyées',
-    requestSentDescription:
-      'Votre demande de remplacement a bien été prise en compte. Rendez-vous dans l\'onglet "Mes demandes" pour suivre son évolution.',
-    requestSentDescription_plural:
-      'Vos demandes de remplacement ont bien été prises en compte. Rendez-vous dans l\'onglet "Mes demandes" pour suivre leur évolution.',
-    close: 'Fermer',
-    lateRequestTypo:
-      'Attention, votre demande de remplacement est tardive. Vous disposez de {{daysBeforeOffer}} jours avant le début du cours pour effectuer votre demande dans les temps.',
-    lateRequestTypo_plural:
-      'Attention, certaines de vos demandes de remplacement sont tardives. Vous disposez de {{daysBeforeOffer}} jours avant le début du cours pour effectuer votre demande dans les temps.',
     lateRequestCounterInfo:
-      "<strong>{{requestsLeft}}</strong> sur <strong>{{requestsMax}}</strong> demande tardive restante jusqu'au {{-dateEnd}}.",
+      '<strong>{{requestsLeft}}</strong> on <strong>{{requestsMax}}</strong> remaining late request until {{-dateEnd}}.',
     lateRequestCounterInfo_plural:
-      "<strong>{{requestsLeft}}</strong> sur <strong>{{requestsMax}}</strong> demandes tardives restantes jusqu'au {{-dateEnd}}.",
+      '<strong>{{requestsLeft}}</strong> on <strong>{{requestsMax}}</strong> remaining late requests until {{-dateEnd}}.',
     lateRequestInfo:
-      'La demande sera bien enregistré, assurez-vous cependant de contacter directement votre studio pour les prévenir au plus vite.',
+      'The request will be registered, but be sure to contact your studio directly to notify them as soon as possible.',
     lateRequestInfo_plural:
-      'Les demandes seront bien enregistrées, assurez-vous cependant de contacter directement votre studio pour les prévenir au plus vite.',
-  },
-  askForClosingDateExtension: {
-    title: 'Date de clôture',
-    description:
-      "Les inscriptions sont closes pour cette demande depuis le {{closing_date}}. S'il n'y a pas assez de réponses à cette demande, vous pouvez encore décaler la date de clôture.",
-    closing_date: 'Date de clôture',
-    new_closing_date:
-      'La nouvelle date de clôture sera le {{closing_date}} à {{time}}',
-    cancel: 'Annuler',
-    submit: 'Valider',
-    requestSent: 'Demande envoyée',
+      'The requests will be registered, but be sure to contact your studio directly to notify them as soon as possible.',
+    lateRequestTypo:
+      'Please note, your request for a replacement is late. You have {{daysBeforeOffer}} days before the start of the session to make your request in time.',
+    lateRequestTypo_plural:
+      'Please note that some of your replacement requests are late. You have {{daysBeforeOffer}} days before the start of the session to make your request in time.',
+    close: 'Close',
     requestSentDescription:
-      "L'extension a bien été ajoutée à la demande de remplacement.",
-    close: 'Fermer',
+      'Your replacement request has been taken into account. Go to the "My requests" tab to follow its evolution.',
+    requestSentDescription_plural:
+      'Your replacement requests have been taken into account. Go to the "My requests" tab to follow their evolution.',
+    requestSent: 'Request sent',
+    requestSent_plural: 'Requests sent',
+    submit: 'Submit',
+    cancel: 'Cancel',
+    label: 'Reason for absence',
+    title: 'Request a substitution',
   },
-  delete: {
-    title: 'Annuler la demande',
-    description: 'Êtes-vous sûr de vouloir annuler cette demande ?',
-    cancel: 'Annuler',
-    confirm: 'Confirmer',
-  },
-  lateStatus: {
-    isLate: 'En retard',
-    isNotLate: 'Dans les temps',
-  },
-  registrationsStatus: {
-    areClosed: 'Fermées',
-    areNotClosed: 'Ouvertes',
-  },
-  coachAnswers: {
-    header: {
-      teacher: 'Professeur',
-      answer: 'Réponse',
-      action: 'Action',
-    },
-    closing_date: 'Date de clôture',
-    reason: 'Raison de la demande',
-    attribute: 'Attribuer',
-    close: 'Fermer',
-    noAnswers: 'Aucune réponse pour le moment',
-    confirmation: {
-      title: 'Attribuer un professeur',
-      description:
-        'Êtes-vous sûr de vouloir inscrire {{coach_override}} comme professeur remplaçant sur le cours de {{coach}} ?',
-      cancel: 'Annuler',
-      confirm: 'Confirmer',
-    },
-    success: {
-      requestSent: 'Professeur attribué',
-      description:
-        'Le professeur a bien été remplacé. {{coach}} assurera le cours du {{-date}} à {{time}}',
-      close: 'Fermer',
-    },
-    refuse: {
-      description: 'Êtes-vous sûr de vouloir refuser cette demande ?',
-      cancel: 'Fermer',
-      confirm: 'Confirmer',
-    },
-  },
-  selects: {
-    lateStatus: 'Statut de la demande',
-    closedStatus: 'Statut des inscriptions',
-    category: 'Catégorie',
-    offerCancelled: 'Séances annulées',
-  },
-  disciplineGroup: {
-    add: 'Ajouter un groupe',
-    title: 'Groupes de disciplines',
-    activities: 'Activités ({{number}})',
-    workshops: 'Ateliers ({{number}})',
-    categories: 'Catégories ({{number}})',
-    coaches: '{{count}} Professeur',
-    coaches_plural: '{{count}} Professeurs',
-    delete: {
-      title: 'Supprimer',
-      description:
-        'Êtes-vous sûr de vouloir supprimer le groupe de disciplines {{name}} ?',
-      cancel: 'Annuler',
-      confirm: 'Confirmer',
-    },
-    all: 'Tout',
-    form: {
-      name: 'Nom',
-      nameHelperText: 'Nom du groupe de discipline',
-      required: 'Ce champ est requis',
-      groupTypes: 'Type de cours / catégories',
-      activities: 'Activités',
-      pickActivity: 'Choisir une activité',
-      allActivities: 'Enseigne toutes les activités',
-      workshops: 'Ateliers',
-      pickWorkshop: 'Choisir un atelier',
-      allWorkshops: 'Enseigne tous les ateliers',
-      categories: 'Catégories',
-      pickCategory: 'Choisir une catégorie',
-      allCategories: 'Enseigne toutes les catégories',
-      establishments: 'Établissements',
-      locations: 'Localisations',
-      pickEstablishment: 'Laissez vide pour tout sélectionner',
-      allEstablishments: 'Tous les établissements',
-      coaches: 'Professeurs associés',
-      close: 'Annuler',
-      submit: 'Enregistrer',
-      coachRequired: 'Veuillez sélectionner au moins un professeur',
-      establishmentSelectorError:
-        'Vous ne pouvez pas spécifier des établissements et des localisations en même temps',
-    },
-  },
-  compatibleCoaches: {
-    title: 'Professeurs disponibles par discipline',
-    compatibleCoaches: '{{count}} professeur compatible',
-    compatibleCoaches_plural: '{{count}} professeurs compatibles',
-    nextSlot: 'Prochaine séance le {{date}} - {{hour}}',
-    activities: 'Activités',
-    workshops: 'Ateliers',
-    categories: 'Catégories',
-  },
-  coachEdit: {
-    title: 'Remplacement',
-    description:
-      "Indiquez quels cours sont enseignés par votre professeur. Si une demande de remplacement est effectuée dans l'un de ces cours, ce professeur sera notifié par mail. Si rien n'est sélectionné, ce professeur ne sera pas notifié.",
-    disciplineGroup: 'Groupe de disciplines',
-    customRules: 'Personnaliser les règles',
-    activities: 'Activités',
-    pickActivity: 'Choisir une activité',
-    allActivities: 'Enseigne toutes les activités',
-    workshops: 'Ateliers',
-    pickWorkshop: 'Choisir un atelier',
-    allWorkshops: 'Enseigne tous les ateliers',
-    categories: 'Catégories',
-    pickCategory: 'Choisir une catégorie',
-    allCategories: 'Enseigne toutes les catégories',
-    establishments: 'Établissements',
-    locations: 'Localisations',
-    pickEstablishment: 'Laissez vide pour tout sélectionner',
-    allEstablishments: 'Tous les établissements',
+  calendar: {
+    helperTextLimited:
+      '<strong>{{requestsLeft}}</strong> on <strong>{{requestsMax}}</strong> remaining late requests until {{-dateEnd}}. All requests for substitutions made within {{count}} day before the start of the session will be considered late.',
+    helperTextLimited_plural:
+      '<strong>{{requestsLeft}}</strong> on <strong>{{requestsMax}}</strong> remaining late requests until {{-dateEnd}}. All requests for substitutions made within {{count}} days before the start of the session will be considered late.',
+    helperTextNotLimited:
+      'All requests for substitutions made within {{count}} day before the start of the session will be considered late.',
+    helperTextNotLimited_plural:
+      'All requests for substitutions made within {{count}} days before the start of the session will be considered late.',
+    description: 'Find here all your group activities.',
+    title: 'My schedule',
   },
   tooltip: {
-    seeAnswers: 'Voir la liste des remplaçants',
-    offerCancelled: 'Cette séance est annulée',
+    seeAnswers: 'See the list of substitutes',
+    offerCancelled: 'This session has been cancelled',
+  },
+  coachEdit: {
+    allCategories: 'Teaches all categories',
+    pickCategory: 'Choose a category',
+    categories: 'Categories',
+    allWorkshops: 'Teaches all workshops',
+    pickWorkshop: 'Choose a workshop',
+    workshops: 'Workshops',
+    allActivities: 'Teaches all activities',
+    pickActivity: 'Choose an activity',
+    activities: 'Activities',
+    customRules: 'Customize the rules',
+    disciplineGroup: 'Discipline groups',
+    description:
+      'Indicate which sessions are taught by your teacher. If a substitution request is made in one of these session, that teacher will be notified by email. If nothing is selected, this teacher will not be notified.',
+    title: 'Substitution',
+    allEstablishments: 'All establishments',
+    pickEstablishment: 'Leave blank to select all',
+    locations: 'Locations',
+    establishments: 'Establishments',
+  },
+  compatibleCoaches: {
+    categories: 'Categories',
+    workshops: 'Workshops',
+    activities: 'Activities',
+    nextSlot: 'Next session on {{date}} - {{hour}}',
+    compatibleCoaches: '{{count}} compatible teacher',
+    compatibleCoaches_plural: '{{count}} compatible teachers',
+    title: 'Available teachers by discipline',
+  },
+  disciplineGroup: {
+    form: {
+      coachRequired: 'Please select at least one teacher',
+      submit: 'Save',
+      close: 'Cancel',
+      coaches: 'Associated teachers',
+      allCategories: 'Teaches all categories',
+      pickCategory: 'Choose a category',
+      categories: 'Categories',
+      allWorkshops: 'Teaches all workshops',
+      pickWorkshop: 'Choose a workshop',
+      workshops: 'Workshops',
+      allActivities: 'Teaches all activities',
+      pickActivity: 'Choose an activity',
+      activities: 'Activities',
+      groupTypes: 'Type of sessions / categories',
+      required: 'This field is required',
+      nameHelperText: 'Name of the discipline group',
+      name: 'Name',
+      establishments: 'Establishments',
+      locations: 'Locations',
+      establishmentSelectorError:
+        'You cannot specify establishments and locations at the same time',
+      allEstablishments: 'All establishments',
+      pickEstablishment: 'Leave blank to select all',
+    },
+    all: 'All',
+    delete: {
+      confirm: 'Confirm',
+      cancel: 'Cancel',
+      description:
+        'Are you sure you want to delete the {{name}} discipline group?',
+      title: 'Delete',
+    },
+    coaches: '{{count}} Teacher',
+    coaches_plural: '{{count}} Teachers',
+    categories: 'Categories ({{number}})',
+    workshops: 'Workshops ({{number}})',
+    activities: 'Activities ({{number}})',
+    title: 'Discipline groups',
+    add: 'Add a group',
+  },
+  selects: {
+    category: 'Category',
+    closedStatus: 'Status of registrations',
+    lateStatus: 'Status of the request',
+    offerCancelled: 'Cancelled sessions',
+  },
+  coachAnswers: {
+    refuse: {
+      confirm: 'Confirm',
+      cancel: 'Close',
+      description: 'Are you sure you want to deny this request?',
+    },
+    success: {
+      close: 'Close',
+      description:
+        'The teacher has been replaced. {{coach}} will be taking the session from {{-date}} to {{time}}',
+      requestSent: 'Teacher assigned',
+    },
+    confirmation: {
+      confirm: 'Confirm',
+      cancel: 'Cancel',
+      description:
+        "Are you sure you want to register {{coach_override}} as a substitute teacher on {{coach}}'s session?",
+      title: 'Assign a teacher',
+    },
+    noAnswers: 'No answer at the moment',
+    close: 'Close',
+    attribute: 'Assign',
+    reason: 'Reason for the request',
+    closing_date: 'Closing date',
+    header: { action: 'Action', answer: 'Answer', teacher: 'Teacher' },
+  },
+  registrationsStatus: { areNotClosed: 'Open', areClosed: 'Closed' },
+  lateStatus: { isNotLate: 'In time', isLate: 'Late' },
+  delete: {
+    confirm: 'Confirm',
+    cancel: 'Cancel',
+    description: 'Are you sure you want to cancel this request?',
+    title: 'Cancel the request',
+  },
+  askForClosingDateExtension: {
+    close: 'Close',
+    requestSentDescription:
+      'The extension was added to the substitution request.',
+    requestSent: 'Request sent',
+    submit: 'Confirm',
+    cancel: 'Cancel',
+    new_closing_date:
+      'The new closing date will be {{closing_date}} at {{time}}',
+    closing_date: 'Closing date',
+    description:
+      'Registration for this application closed on {{closing_date}}. If there are not enough replies to this request, you can still postpone the closing date.',
+    title: 'Closing date',
+  },
+  replacementStatus: {
+    teacherFound: 'Replaced',
+    approvedWithReplacementPropositions: 'Pending',
+    approvedButNoReplacementPropositions: 'Open',
+    deniedByManager: 'Refused',
+    pendingForApproval: 'Waiting for approval',
+    description: {
+      approvedWithReplacementPropositions: 'pending registration.',
+      approvedButNoReplacementPropositions: 'waiting for registrations.',
+      pendingForApproval: 'waiting for the manager to take action.',
+      description: 'The statutes allow you to know the status of your request.',
+      offerCancelled: 'session cancelled.',
+    },
+    offerCancelled: 'Cancelled',
+  },
+  noListItem: {
+    calendar: 'No sessions are scheduled on these dates',
+    replacementRequest: 'No element',
+  },
+  coachAnswer: { no: 'No', ratherNo: 'Do not prefer', yes: 'Yes' },
+  managerTableTitles: {
+    replacementHistory: 'Substitution history',
+    pendingRequests: 'Pending requests',
+  },
+  requestTableTitles: {
+    deniedRequests: 'Request denied',
+    replacementFound: 'Substitute found',
+    pending: 'Pending',
+  },
+  unavailableReplacement: {
+    refusedByManager: 'Your substitution request has been denied',
+    noLateRequestsLeft:
+      'You can no longer create new late substitution requests',
+    tooEarly: 'Substitutions are not yet available',
+    alreadyAskedFor: 'A request is already in progress',
+    replacing: 'You are a substitute on this session',
+    alreadyPassed: 'This session has passed',
+  },
+  marketplace: {
+    until: 'Until {{-date}}',
+    filters: 'Filters',
+    description:
+      'The following sessions need a substitute teacher. Are you available?',
+    title: 'Marketplace',
+  },
+  confirmations: {
+    description:
+      'You have been added as a substitute teacher for the following sessions.',
+    title: 'Confirmations',
+  },
+  requests: {
+    cancel: 'Cancel',
+    description: 'Find all your substitution requests here.',
+    title: 'My requests',
   },
   requestsLinkedToCancelledOffers: {
-    offerHasActiveRequest: {
-      title: 'Une demande de remplacement active est liée à cette séance',
-      helper:
-        "Voulez vous être redirigé sur la page des demandes de remplacements afin d'annuler les demandes obsolètes ?",
-    },
-    buttonLabel: 'Ouvrir',
-    title:
-      'Des demandes de remplacement actives sont liées à des séances annulées.',
-    description:
-      'Afin de voir ces séances, veuillez activer le filtre <strong>{{switchLabel}}</strong> ci-dessus',
+    cancelledOffersModeTitle: 'Cancelled sessions mode',
     filterHelper:
-      "Si cette alerte persiste et qu'aucune séance n'apparait en mode <strong>{{switchLabel}}</strong>, nous conseillons de désactiver les filtres et d'élargir la plage de dates.",
-    cancelledOffersModeTitle: 'Mode séances annulées',
+      'We advise deactivating the filters and widening the date range if this alert persists and no session appears in <strong>{{switchLabel}}</strong> mode.',
+    description:
+      'In order to see these sessions, please activate the filter <strong>{{switchLabel}}</strong> above',
+    title: 'Active substitution requests are linked to cancelled sessions.',
+    buttonLabel: 'Open',
+    offerHasActiveRequest: {
+      helper:
+        'Do you want to be redirected to the substitution requests page to cancel obsolete requests?',
+      title: 'An active substitution request is linked to this session',
+    },
   },
 };

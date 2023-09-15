@@ -17,7 +17,7 @@ const generateChunkJSONTranslations = () => {
   dirList.map((dirName) => {
     console.log(`- ${dirName}`);
     let tr = {};
-    if (dirName === 'fr') {
+    if (dirName === 'en') {
       tr = jsonMerger.mergeFiles([
         path.join(
           path.dirname(fs.realpathSync(__filename)),
@@ -25,7 +25,7 @@ const generateChunkJSONTranslations = () => {
         ),
         path.join(
           path.dirname(fs.realpathSync(__filename)),
-          '../build/fr/translations.json',
+          '../build/en/translations.json',
         ),
       ]);
     } else {

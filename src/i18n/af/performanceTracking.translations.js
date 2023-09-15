@@ -1,104 +1,99 @@
 exports.default = {
-  requiredField: 'ce champ est requis',
-  form: {
-    cancel: 'Annuler',
-    save: 'Enregistrer',
-    validate: 'Valider',
-    search: 'Rechercher',
-    delete: 'Supprimer',
-    add: 'ajouter',
-    close: 'fermer',
+  metric: {
+    form: {
+      range: "The default isn't between the minimum nor the maximum value. ",
+      color: 'Color',
+      maxValueHelperText: 'Define the maximum value of this metric.',
+      maxValue: 'Maximum value',
+      minValueHelperText: 'Define the minimum value of this metric.',
+      minValue: 'Minimum value',
+      default_valueHelperText: 'Please define the base value of this metric.',
+      default_value: 'Default value',
+      machine: 'Machine ID',
+      name: 'Name',
+      general: 'General',
+      noMetric: 'There are no metrics to display.',
+      addMetric: 'Add a metric',
+      minMax: "The minimum value can't be greater than the maximum value.",
+    },
+    title: 'Metrics',
+    statistic: 'Statistics',
+    deleteContent: 'This metric will permanently be deleted.',
+    deleteHeader: 'Are you sure that you want to delete this metric?',
   },
   program: {
+    detail: 'Program details',
+    member: { name: 'Name', title: 'Members', addDate: 'Starting date' },
+    form: {
+      default: 'Define a default program for all new newly enrolled members.',
+      color: 'Color',
+      description: 'Description',
+      name: 'Name of the program',
+      generalInfo: 'General',
+      create: 'Add a program',
+      modify: 'Edit program',
+      delete: 'Delete program',
+      addProgram: 'Add a program',
+      update: 'Edit program',
+    },
+    title: 'Programs',
+    archived: 'Archived programs',
+    infoNoProgram:
+      "Add a program that tracks your members' performance metrics.",
+    deleteContent:
+      "This program will no longer be visible to members that had previously added it. You can retrieve it from the 'Archived' section.",
+    deleteHeader: 'Are you sure that you want to delete this program?',
+    infoSelectProgram: 'Select a program for a more detailed overview.',
+    selectProgram: 'Select a program',
+    default: 'Default program',
+    titleForConsumer: 'My programs',
     actions: {
-      update: {
-        success: 'Programme modifié',
-        error: 'Erreur lors de la modification du program',
-      },
-      create: {
-        success: 'Programme créé',
-        error: 'Erreur lors de la création du program',
+      disable: {
+        error: 'Error when archiving program',
+        success: 'Program has been archived',
       },
       enable: {
-        success: 'Programme restauré',
-        error: 'Erreur lors de la restauration du programme',
+        error: 'Error when restoring program',
+        success: 'Program has been restored',
       },
-      disable: {
-        success: 'Programme archivé',
-        error: "Erreur lors de l'archivation du programme",
+      create: {
+        error: 'Error when adding program',
+        success: 'Program has been added',
       },
-    },
-    titleForConsumer: 'Mes programmes',
-    default: 'Programme par défaut',
-    selectProgram: 'Sélectionner un programme',
-    detail: 'Détails du programme',
-    infoSelectProgram: 'Sélectionnez un programme pour voir ses détails',
-    deleteHeader: 'Voulez-vous vraiment supprimer ce programme ?',
-    deleteContent:
-      "Ce programme n'apparaitra plus sur les membres à qui il a été ajouté. Vous pourrez le récupérer dans la section 'Archivés'.",
-    infoNoProgram:
-      'Ajoutez un programme à vos membres pour suivre l’évolution de leurs métriques',
-    archived: 'Archivés',
-    title: 'Programmes',
-    form: {
-      addProgram: 'ajouter  un programme',
-      delete: 'supprimer le programme',
-      modify: 'modifier le programme',
-      update: 'Modifier le programme',
-      create: 'Créer un programme',
-      generalInfo: 'Informations générales',
-      name: 'Nom du programme',
-      description: 'Description',
-      color: 'Couleur',
-      default:
-        'Définir comme programme par défaut pour tous les nouveaux inscrits',
-    },
-    member: {
-      addDate: 'Date d’inscription',
-      title: 'Membres',
-      name: 'Nom',
-    },
-  },
-  metric: {
-    deleteHeader: 'Voulez-vous vraiment supprimer cette métrique ?',
-    deleteContent: 'La métrique sera supprimée définitivement.',
-    statistic: 'Statistiques',
-    title: 'Métriques',
-    form: {
-      minMax: 'La valeur minimale ne peut être suppérieur à la valeur maximale',
-      range:
-        "La valeur par défaut n'est pas entre la valeur minimale et maximale ",
-      addMetric: 'ajouter une métrique',
-      noMetric: 'Aucune métrique enregistrée',
-      general: 'Général',
-      name: 'Nom',
-      machine: 'Identifiant machine',
-      default_value: 'Valeur par défaut',
-      default_valueHelperText: 'Valeur de base de la métrique',
-      minValue: 'Valeur minimale',
-      minValueHelperText: 'Valeur minimum de la métrique',
-      maxValue: 'Valeur maximale',
-      maxValueHelperText: 'Valeur maximum de la métrique',
-      color: 'Couleur',
+      update: {
+        error: 'Error when modifying program',
+        success: 'Program has been modified',
+      },
     },
   },
   memberProgram: {
+    deleteContent: "All this members' performance metrics will be lost.",
+    deleteHeader: 'Are you sure that you want to unlink this member?',
+    infoNoConsumerProgram:
+      'Contact the studio to enable your performance tracking and to get started with programs.',
+    infoNoMemberProgram:
+      'There are no members linked to this program to display.',
     actions: {
-      disable: {
-        success: 'Programme dissocié du membre',
-        error: 'Erreur lors de la dissociation du program',
-      },
       create: {
-        success: 'Programme associé au membre',
-        error: "Erreur lors de l'assocation du program au membre",
-        errorAlreadyExists: 'Ce membre a déjà été associé à ce programme',
+        error: 'Error when linking this program to this member',
+        success: 'Program has been linked to this member',
+        errorAlreadyExists:
+          'This member has already been associated with this program.',
+      },
+      disable: {
+        error: 'Error when unlinking program',
+        success: 'Program has been successfully dissociated from this member',
       },
     },
-    infoNoMemberProgram: 'Ce membre ne possède aucun programme pour le moment.',
-    infoNoConsumerProgram:
-      'Vous n’avez pas encore de programme, contactez votre studio pour commencer à suivre vos performances !',
-    deleteHeader: 'Voulez-vous vraiment dissocier ce programme de ce membre?',
-    deleteContent:
-      'Vous perdrez les valeurs des métriques du programme pour ce membre',
   },
+  form: {
+    close: 'Close',
+    add: 'Add',
+    delete: 'Delete',
+    search: 'Search',
+    validate: 'Confirm',
+    save: 'Save',
+    cancel: 'Cancel',
+  },
+  requiredField: 'This field is mandatory.',
 };

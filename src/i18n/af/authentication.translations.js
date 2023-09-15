@@ -1,19 +1,18 @@
 exports.default = {
   resetPassword: {
-    title: 'Récupération de mot de passe',
-    noEmail: "Cet email n'est pas enregistré",
-    explain1: "Quel était l'email du compte ?",
-    explain2: 'Nous vous enverrons des instructions de récupération',
-    hasProblem: 'Vous rencontrez un problème pour réinitialiser ?',
-    contactUs: 'Contactez nous via ',
-
+    title: 'Reset password',
+    noEmail: "This email doesn't exist in our member data base.",
+    explain1: 'Which email do you use to log in?',
+    explain2: "We'll send you the password reset instructions shortly.",
     emailHasBeenSent:
-      'Un email a été envoyé à {{email}} pour récupérer votre mot de passe',
+      'We\'ve sent a message to "{{email}}" to reset your password.',
     actions: {
-      cancel: 'Annuler',
+      cancel: 'Cancel',
       reset: 'OK',
-      confirm: 'Confimer',
-      backToLogin: 'Retour',
+      backToLogin: 'Back',
+      confirm: 'Confirm',
     },
+    contactUs: 'Contact us via ',
+    hasProblem: 'Are you experiencing issues resetting your password?',
   },
 };

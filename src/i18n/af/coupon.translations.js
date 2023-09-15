@@ -15,7 +15,7 @@ const {
   COUPON_SUBSCRIPTION_MODE_NONE,
 } = require('@bsport/common/lib/master-data/coupon-subscription-mode');
 
-const { CouponKind } = require( '@bsport/common/lib/master-data/coupon')
+const { CouponKind } = require('@bsport/common/lib/master-data/coupon');
 const {
   COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS,
   UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT,
@@ -25,327 +25,297 @@ const {
   UNIQUE_CODE_LOCKED,
 } = require('../../libs/coupon/errors.ts');
 
-
 exports.default = {
   list: {
-    isEmpty: 'Aucun code promotionnel enregistré',
-    inactiveCoupons: 'Promotions désactivées ou expirées',
-    activeCoupons: 'Promotions actives',
+    isEmpty: 'There are no promotions to display.',
+    inactiveCoupons: 'Inactive or expired promotions',
+    activeCoupons: 'Active promotions',
   },
-  detail: {
-    seeParameters: 'Voir les paramètres',
-    seeVouchers: "Voir les bons d'achat",
-  },
+  detail: { seeParameters: 'Edit', seeVouchers: 'See the vouchers' },
   card: {
-    allowedFor: 'Autorisé pour',
-    unallowedFor: 'Non-Autorisé pour',
-    first_buy: 'Utilisable sur le premier achat seulement',
-    expiration: "Date d'expiration",
-    no_expiration: "Pas de date d'expiration",
-    validity: 'Validité:',
-    cumulable: 'Cumulable',
-    no_cumulable: 'Non cumulable',
-    uses: 'Utilisations',
-    member_uses: 'utilisations par membre',
-    member_use: 'utilisation par membre',
-    limitation: 'Limité à',
+    first_buy: 'Can only be used for the first purchase',
+    expiration: 'Expiration date',
+    no_expiration: 'No expiration date',
+    validity: 'Validity:',
+    cumulable: 'Cumulative',
+    no_cumulable: 'Not cumulative',
+    uses: 'Uses',
+    member_uses: 'uses per member.',
+    member_use: 'use per member.',
+    limitation: 'Limited to',
+    blacklist_tags:
+      '[Blacklist] Not available for members with specific tag(s):',
     whitelist_tags:
-      'Disponible uniquement pour les membres ayant certains tags',
-    blacklist_tags: 'Indisponible pour les membres ayant certains tags',
-  },
-  noDiscount: 'Aucun achat effectué avec le code',
-  modal: {
-    delete: {
-      title: 'Suppression',
-      content:
-        "Êtes-vous sûr de vouloir supprimer ce code promotionnel ? Vous n'aurez plus accès à l'historique d'utilisation. Cette opération est définitive.",
-      actions: {
-        cancel: 'Annuler',
-        submit: 'Supprimer',
-      },
-    },
+      '[Whitelist} Only available to members with specific tag(s):',
+    allowedFor: 'Allowed for',
+    unallowedFor: 'Not allowed for',
   },
   form: {
-    title: 'Coupon',
-    alert:
-      "Un code de réduction peut être utilisé par un membre pour réduire le prix d'un panier. Dans ce formulaire, vous pouvez entièrement personnaliser les modalités d'application du code. Vous choisissez vous-même le code et c'est à vous de décider comment le partager avec vos membres.",
     selectorPlaceholder: {
       privatePass:
-        "Sélectionner des cartes de rendez-vous (valables sur toutes les cartes si aucune n'est sélectionnée)",
+        'Select appointment passes (will apply to all appointment passes if none has been selected)',
       paymentPack:
-        "Sélectionner des cartes de cours (valable sur toutes les cartes de cours si aucune n'est sélectionnée)",
+        'Select passes (will apply to all passes if none has been selected)',
       shopitem:
-        "Sélectionner des produits du magasin (valable sur tous les produits si aucun n'est sélectionné)",
-      paymentCombo:
-        "Sélectionner des packs (valable sur tous les produits si aucun n'est sélectionné)",
+        'Select webshop products (will apply to all webshop products if none has been selected)',
+      paymentCombo: 'Select packs (valid on all products if none is selected)',
     },
     section: {
-      subscription: 'Souscription (contrat)',
-      general: 'Général',
-      availability: 'Disponibilité',
-      usability: 'Utilisation',
-      voucherConfig: 'Réduction',
-      applies_to: 'Paramètres',
-      advanced: 'Avancé',
+      general: 'General',
+      availability: 'Availability',
+      usability: 'Usability',
+      voucherConfig: 'Discount',
+      applies_to: 'Settings',
+      advanced: 'Advanced',
+      subscription: 'Subscriptions',
+      blacklist_tags: 'Not allowed',
+      whitelist_tags: 'Allowed',
       tags: 'Tags',
       tagInfo:
-        'Utilisez les tags pour rendre le coupon utilisable uniquement par un groupe de membre souhaité sur la marketplace, le widget et l’application. Vous pouvez sélectionner des tags pour rendre le coupon utilisable seulement par les membres possédants un des tags choisis. Ou bien vous pouvez sélectionner des tags pour rendre le coupon inutilisable seulement par les membres possédants un des tags sélectionnés. ',
-      whitelist_tags: 'Autorisé',
-      blacklist_tags: 'Non - Autorisé',
+        'Use tags to make the promo code usable only by a selected group of members on the marketplace, widget and app. You can select tags to make the promo code usable only by members with one of the chosen tags. Or you can select tags to make the promo code unusable only by members with one of the selected tags. ',
     },
-    name: {
-      label: 'Nom',
-    },
+    name: { label: 'Name' },
     code: {
       label: 'Code',
-      helperText: 'Le code que vous transmettrez aux clients concernés',
+      helperText: 'Your members will need to use this exact promotional code.',
       helperTextFranchise:
-        "Le code que vous transmettrez aux clients concernés. Assurez-vous que le code n'existe pas déjà dans vos différents studios.",
+        'Your members will need to use this exact promotional code. Please revise if any of the studios have already applied this promotion.',
     },
-    voucher_type: {
-      percent: 'En pourcentage',
-      amount: 'En valeur',
-    },
-    subscription_mode: {
-      [COUPON_SUBSCRIPTION_MODE_NONE]: 'Non utilisable',
-      [COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE]: 'Toutes les facturations',
-      [COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE]: 'Uniquement premier mois',
-      [COUPON_SUBSCRIPTION_MODE_ALL_INVOICES]:
-        'Uniquement premier cycle de facturation (avant renouvellement)',
-    },
-    percent_off: {
-      label: 'Pourcentage de réduction',
-    },
-    amount_off: {
-      label: 'Montant de la réduction',
-    },
+    voucher_type: { percent: 'Percentage', amount: 'Amount' },
+    percent_off: { label: 'Percentage' },
+    amount_off: { label: 'Amount' },
     is_active: {
-      label: 'Actif',
-      helperText: "Un code non-actif n'est pas utilisable par les clients",
+      label: 'Active',
+      helperText: "Members can't use inactive codes.",
     },
-    with_expiration_date: {
-      label: "Avec date d'expiration",
-    },
+    with_expiration_date: { label: 'Add expiration date' },
     expiration_date: {
-      clear_date: 'Aucune expiration',
-      cancel: 'Annuler',
-      label: "Date d'expiration",
+      clear_date: "Doesn't expire",
+      cancel: 'Cancel',
+      label: 'Expiration date',
     },
-    usage_per_member: {
-      label: "Limite d'utilisation par client",
-    },
-    usage_total: {
-      label: "Limite d'utilisation tous membres confondus",
-    },
+    usage_per_member: { label: 'Limit the uses per member' },
+    usage_total: { label: 'Total number of members that can use the code' },
     only_on_first_checkout: {
-      label: 'Premier achat seulement',
+      label: 'This promotional code can only be used for the 1st purchase',
     },
     combinable: {
-      label: "Utilisable avec d'autres codes",
+      label: 'Can be used in combination with other promotional codes',
     },
-    minimum_amount: {
-      label: "Montant minimum d'achat",
-    },
+    minimum_amount: { label: 'Minimum value of customer basket' },
     applies_to: {
       choices: {
-        [BUYABLE_ITEM_PASS]: 'Carte de cours',
-        [BUYABLE_ITEM_SHOP_ITEM]: 'Magasin',
-        [BUYABLE_ITEM_FEE]: 'Frais de livraison',
         all: 'Ensemble du panier',
-        [BUYABLE_ITEM_PRIVATE_PASS]: 'Carte RDV',
-        [BUYABLE_ITEM_COMBO_ITEM]: 'Pack',
-        [null]: 'Ensemble du panier',
+        [BUYABLE_ITEM_PASS]: 'Passes',
+        [BUYABLE_ITEM_SHOP_ITEM]: 'Webshop',
+        [BUYABLE_ITEM_FEE]: 'Delivery fee',
+        [BUYABLE_ITEM_PRIVATE_PASS]: 'Appointment passes',
+        [BUYABLE_ITEM_COMBO_ITEM]: 'Packs',
+        [null]: 'Applies to the entire basket',
       },
       choicesFranchise: {
-        [BUYABLE_ITEM_PASS]: 'Cartes de cours partagées',
-        [BUYABLE_ITEM_PRIVATE_PASS]: 'Cartes de RDV partagées',
+        [BUYABLE_ITEM_PASS]: 'Shared passes',
+        [BUYABLE_ITEM_PRIVATE_PASS]: 'Shared appointment passes',
       },
     },
-    actions: {
-      cancel: 'Annuler',
-      submit: 'Valider',
+    actions: { cancel: 'Cancel', submit: 'Apply' },
+    subscription_mode: {
+      [COUPON_SUBSCRIPTION_MODE_NONE]: 'Not applicable',
+      [COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE]: 'Apply to all billings',
+      [COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE]:
+        'Only apply to the first billing',
+      [COUPON_SUBSCRIPTION_MODE_ALL_INVOICES]:
+        'Apply to all billings before the automatic renewal',
     },
     tag: {
-      tag_group: 'Groupe',
-      tag: 'Tag',
       select: {
-        tag_group: 'Choisissez un groupe de tags',
-        tag: 'Sélectionnez un tag',
-        empty_tag_list: 'Auncun tag sélectionné',
-        error: 'Un même tag ne peut pas être présent dans les deux listes',
+        error: "The same Sub Tags can't be present in both lists",
+        empty_tag_list: 'No Sub Tag has been selected',
+        tag: 'Select a Main Tag',
+        tag_group: 'Select a Main Tag',
       },
+      tag: 'Sub Tag',
+      tag_group: 'Master Tag',
     },
+    title: '[Form] Promotion',
+    alert:
+      "A discount code can be used by a member to reduce the price of a basket. In this form, you can fully customize how the code is applied. You choose the code yourself and it's up to you to decide how to share it with your members.",
   },
-  createCoupon: 'Ajouter un code',
+  noDiscount: "This promotional code hasn't been used yet.",
+  createCoupon: 'Add a promotion',
   code: {
     addCoupon: {
-      apply: 'Appliquer',
-      submit: 'Valider',
-      cancel: 'annuler',
-      label: 'Code promo',
-      placeholder: 'SPECIAL_RENTREE',
-      not_applicable: "Ce code promo n'est pas applicable.",
-      not_found: "Ce code promo n'est pas valide.",
       [COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS]:
-        'Ce code ne peut être appliqué que sur un seul article.',
-      [UNIQUE_CODE_LOCKED]: 'Ce code unique est déjà lié à un panier ouvert',
+        'This code can only be applied to one item.',
+      [UNIQUE_CODE_LOCKED]:
+        'This unique code is already linked to an open basket',
+      apply: 'Apply',
+      label: 'Promo code',
+      placeholder: 'PROMOTIONAL CODE',
+      cancel: 'Cancel',
+      submit: 'Apply',
+      not_found: 'This promo code is not valid.',
+      not_applicable: 'This promo code is not applicable.',
     },
   },
-  search: 'Rechercher un code promo',
-  reverted: 'Facture annulée',
+  message: {
+    delete: {
+      error: 'Impossible to delete this coupon',
+      success: 'Coupon delete',
+    },
+    update: {
+      error: 'Impossible to edit this coupon',
+      success: 'Coupon updated successfully',
+    },
+    create: {
+      error: 'Impossible to create this coupon',
+      success: 'Coupon save successfully',
+    },
+    attachToBasket: { error: 'No compatible coupon found' },
+  },
+  modal: {
+    delete: {
+      actions: { submit: 'Delete', cancel: 'Cancel' },
+      content:
+        'Are you sure you want to delete this promotion? You will lose access to its usage history. This action cannot be reverted.',
+      title: 'Delete',
+    },
+  },
+  search: 'Search a promotion',
+  reverted: 'Invoice cancelled',
   couponTemplate: {
     formDisclaimer:
-      'Si dans le futur, vous souhaitez modifier cette section pour rendre cette promotion applicable sur une ou plusieurs cartes de cours/RDV en particulier, la liste des studios qui partageront cette promotion sera remise à zéro pour des questions de compatibilité.',
+      'The availability for all studios will be reset if you change the products on which this promotion will be applicable to.',
     warningDialog: {
-      title: 'Confirmer la modification',
-      content1:
-        'Attention, vous souhaitez modifier des paramètres d’application de la promotion partagée sur certaines cartes de cours ou de RDV.',
       content2:
-        'Cette opération va réinitialiser la liste des studios avec lesquels la promotion sera partagée.',
+        'This will reinitialise the list of studios in which this promotion will be shared.',
+      content1:
+        "Please revise the modifications that you're about to process for this shared promotion on the selected passes and appointment passes.",
       content3:
-        'Vous pourrez de nouveau choisir les studios qui partageront cette promotion.',
+        'Please select in which studio(s) this promotion will be shared.',
+      title: 'Confirm edits',
     },
-    actions: {
-      create: 'Ajouter un code partagé',
-    },
-    isEmptyExplain: 'Aucun code promotionnel partagé enregistré',
     notEditable:
-      'Ce coupon est un coupon partagé par le compte franchiseur. Les éléments ont été définis par le compte franchiseur et ne sont pas modifiables.',
+      "The promotion is shared through the Master Account. Certain settings have been predefined by said Master Account and can't be modified.",
+    isEmptyExplain: 'There are no promotions to display.',
+    actions: { create: 'Add a promotion' },
   },
   couponTemplateInstance: {
     create: {
-      title: 'Configurer mes studios',
-      explain1:
-        'Les studios suivants seront compatibles avec les produits sélectionnés dans votre coupon.',
+      title: 'Availability',
       explain2:
-        "Si un membre applique un code promo dans l'un des studios compatibles, il pourra également l'utiliser dans les autres studios que vous avez défini.",
-    },
-    delete: {
-      title: 'Stopper le partage',
+        'Members may use this promotion at any of the compatible studios.',
       explain1:
-        'Êtes-vous sûr de vouloir stopper le partage du code promotionnel pour {{name}} ?',
-      explain2: "Vous pourrez l'ajouter de nouveau par la suite.",
+        'The following studios will automatically offer this promotion for the selected product(s).',
     },
-    companyEmpty: "Aucun studio n'est configuré pour accepter cette promotion",
+    companyEmpty: 'There are no studios offering this promotion to display.',
+    delete: {
+      explain2: 'It can be readded later if necessary.',
+      explain1:
+        'Are you sure that you want to edit the availability for this promotion ({{name}})?',
+      title: 'Stop sharing',
+    },
   },
   uniqueCodeCoupon: {
     form: {
-      selectorPlaceholder: {
-        privatePass:
-          "Sélectionner une carte de rendez-vous",
-        paymentPack:
-          "Sélectionner une carte de cours",
-        shopItem:
-          "Sélectionner un produit du magasin",
-        paymentCombo:
-          "Sélectionner un pack",
-      },
       alertInfo:
-        "Les bons d'achat sont des codes uniques qui offrent une réduction de 100% sur un produit spécifique pour le membre. Ces codes ne sont pas générés par la plateforme elle-même, mais doivent être téléchargés ici sous forme de fichier CSV. Cette fonctionnalité est particulièrement utile si vous avez établi un partenariat avec une entité externe comme Groupon pour organiser une campagne promotionnelle. Dans ce cas, Groupon (ou une entité similaire) génère et vend les bons d'achat au nom de votre studio.",
-      alertWarning: 'Non applicable aux souscriptions',
+        "Vouchers are unique codes that offer a 100% discount on a specific product for the member. These codes are not generated by the platform itself, but must be uploaded here as a CSV file. This feature is particularly useful if you've partnered with an external entity like Groupon to run a promotional campaign. In this case, Groupon (or a similar entity) generates and sells the vouchers on behalf of your studio.",
+      alertWarning: 'Does not apply to subscriptions',
       couponCostForCompany: {
-        label: 'Prix TTC',
+        label: 'Price incl. VAT',
         helperText:
-          "Les revenus que vous obtenez du partenaire de la campagne pour chaque bon d'achat vendu. Ils seront utilisés lors du calcul de la valeur marginale pour la rénumération des professeurs ainsi que dans les rapports. Pour tout calcul ne tenant pas compte de la valeur marginale, les rapports ignoreront ce prix donné et traiteront cette promotion comme une remise de 100%.",
+          'The revenue you receive from the campaign partner for each voucher sold. They will be used to calculate the marginal value for teacher remuneration as well as for reports. For any calculation not taking marginal value into account, reports will ignore this given price and treat this promotion as a 100% discount.',
       },
       usage_per_member: {
-        label: "Limiter le nombre de bons d'achat qu'un membre peut acheter",
-        helperText: 'Limite maximale',
+        label: 'Limit the number of vouchers a member can purchase',
+        helperText: 'Maximum limit',
       },
       only_on_first_checkout: {
-        label: 'Ne peut être utilisé que pour le premier achat',
+        label: 'Can only be used for the first purchase',
       },
       fileUploader: {
-        title: "Télécharger des bons d'achat uniques",
-        label: 'Glisser/Déposer ou cliquer pour sélectionner le fichier',
-        sizeLimitHelper: 'Fichier CSV (1Mo maximum)',
+        title: 'Upload unique vouchers',
+        label: 'Drag and drop or click to select file',
+        sizeLimitHelper: 'CSV file (1MB maximum)',
         helperText:
-          "Veuillez télécharger un fichier CSV avec tous les codes de bons d'achat dans la première colonne, un code par ligne, sans en-tête.",
-      },
-      update: {
-        alertInfo:
-          'Il y a {{count}} code enregistré pour cette promotion, vous pouvez télécharger de nouveaux codes.',
-        alertInfo_plural:
-          'Il y a {{count}} codes enregistrés pour cette promotion, vous pouvez télécharger de nouveaux codes.',
-        append: 'Ajouter aux codes existants',
-        replace: 'Remplacer les codes existants',
-        popover:
-          'Les codes non utilisés seront supprimés, mais les codes utilisés seront conservés.',
+          'Please upload a CSV file with all voucher codes in the first column, one code per line, without header.',
       },
       errors: {
-        required: 'Ce champ est requis',
-        positiveNumber: 'La valeur doit être supérieure à 0',
+        [COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS]:
+          'You cannot provide a code that has already been used in another coupon.',
+        [UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT]:
+          'Some of the unique codes cannot be added as they have already been registered.',
+        [UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT]:
+          'Some unique codes are already registered in another coupon.',
+        [COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS]:
+          'This code can only be applied to one item.',
+        [COUPON_UNIQUE_CODE_NOT_AVAILABLE]:
+          'This code has already been used or is currently attached to a basket.',
+        [UNIQUE_CODE_LOCKED]:
+          'This unique code is already linked to an open basket',
+        required: 'This field is mandatory',
+        positiveNumber: 'Value must be greater than 0',
         expirationDate: {
           dateBeforeNow:
-            "La date d'expiration ne peut pas être antérieure à la date actuelle.",
-          format: 'Erreur lors du formatage de la date',
+            'The expiration date can not be earlier than the current date.',
+          format: 'Error while formatting the date',
         },
         fileUploader: {
           fileTooLargeError:
-            'Le fichier est trop volumineux. Veuillez ne pas dépasser 1 Mo.',
-          incorrectDataError:
-            'Le fichier ne contient pas de données correctes.',
-          notCsvFileError:
-            'Le type de fichier ne correspond pas à un fichier CSV.',
+            'The file is too large. Please do not exceed 1 MB.',
+          incorrectDataError: 'The file does not contain the correct data.',
+          notCsvFileError: 'The file type does not correspond to a CSV file.',
         },
         only_on_objects:
-          'Vous devez impérativement choisir un objet sur lequel appliquer la réduction',
+          'You must choose an object on which to apply the reduction',
         applies_to:
-          "L'objet sur lequel appliquer la réduction doit être impérativement une carte de cours, une carte de rendez-vous, un pack ou un article du magasin",
+          'The item on which the discount is to be applied must be a pass, an appointment pass, a pack or a webshop item',
         update_mode:
-          'Si vous souhaitez modifier les codes enregistrés pour cette promotion vous pouvez ajouter les codes aux existants, ou remplacer les codes existants',
-        [COUPON_CODES_CONFLICTING_WITH_OTHER_COUPONS]:
-          'Vous ne pouvez pas fournir de code déjà utilisé dans un autre coupon.',
-        [UNIQUE_CODES_CANNOT_BE_APPENDED_BECAUSE_CONFLICT]:
-          'Certains des codes uniques ne peuvent pas être ajoutés car ils ont déjà été enregistrés.',
-        [UNIQUE_CODES_CANNOT_BE_REPLACED_BECAUSE_CONFLICT]:
-          'Certains codes uniques sont déjà enregistrés dans un autre coupon.',
-        [COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS]:
-          'Ce code ne peut être appliqué que sur un seul article.',
-        [COUPON_UNIQUE_CODE_NOT_AVAILABLE]:
-          'Ce code est déjà utilisé ou est actuellement attaché à un panier.',
-        [UNIQUE_CODE_LOCKED]: 'Ce code unique est déjà lié à un panier ouvert',
-        codes:{
-          updateMode: "Vous devez choisir entre ajouter les codes aux existants ou les remplacer",
-          emptyArray: "Vous devez ajouter au moins un code",
-        }
+          'If you wish to modify the codes registered for this promotion, you can add the codes to the existing ones, or replace the existing codes',
+        codes: {
+          updateMode:
+            'You must choose between adding the codes to the existing ones or replacing them',
+          emptyArray: 'You must add at least one code',
+        },
+      },
+      update: {
+        alertInfo:
+          'There is {{count}} code registered for this promotion, you can upload new codes.',
+        alertInfo_plural:
+          'There are {{count}} codes registered for this promotion, you can upload new codes.',
+        append: 'Add to existing codes',
+        replace: 'Replace existing codes',
+        popover:
+          'Unused codes will be deleted, but used codes will be retained.',
+      },
+      selectorPlaceholder: {
+        privatePass: 'Select an appointment pass',
+        paymentPack: 'Select a pass',
+        shopItem: 'Select a webshop item',
+        paymentCombo: 'Select a pack',
       },
     },
     voucherCodesDialog: {
-      header: {
-        codes: 'Codes',
-        status: 'Statut',
-      },
+      header: { codes: 'Codes', status: 'Status' },
       selector: {
-        allStatus: 'Tous les statuts',
-        redeemed: 'Marqué comme utilisé',
-        pending: 'En attente de validation externe',
-        notUsed: 'Non utilisé',
+        allStatus: 'All status',
+        redeemed: 'Marked as used',
+        pending: 'Awaiting external approval',
+        notUsed: 'Not used',
       },
-      checkBoxes: {
-        selectAll: 'Tout sélectionner',
-        unselectAll: 'Tout désélectionner',
-      },
-      searchBar: {
-        placeHolder: 'Chercher un code',
-      },
-      noResult: 'Aucun résultat',
-      export: 'Exporter',
-      markAsRedeemed: 'Marquer comme utilisé',
-      markAsRedeemed_plural: 'Marquer comme utilisés',
-      close: 'Fermer',
+      checkBoxes: { selectAll: 'Select all', unselectAll: 'Unselect all' },
+      searchBar: { placeHolder: 'Search for a code' },
+      noResult: 'No results',
+      close: 'Close',
+      markAsRedeemed: 'Mark as used',
+      markAsRedeemed_plural: 'Mark as used',
+      export: 'Export',
     },
   },
-  fabLabels: {
-    voucherCodes: "Bons d'achat",
-    discountCode: 'Code de réduction',
-  },
-  couponFilter: {
-    title: 'Type de promotion',
-    allType: 'Tout type de promotion',
-  },
+  couponFilter: { allType: 'All types of promotion', title: 'Promotion type' },
+  fabLabels: { discountCode: 'Discount code', voucherCodes: 'Vouchers' },
   couponType: {
-    [CouponKind.COUPON_VIA_CODE]: "Code de réduction",
-    [CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE]: "Bon d'achat à usage unique",
-  }
+    [CouponKind.COUPON_VIA_CODE]: 'Discount code',
+    [CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE]: 'Single-use voucher',
+  },
 };

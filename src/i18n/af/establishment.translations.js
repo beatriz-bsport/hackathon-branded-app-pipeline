@@ -1,177 +1,150 @@
 exports.default = {
-  marketing: { notification: 'Notifications' },
-  notification: {
-    modal: {
-      title: 'Suppression notification',
-      cancel: 'Annuler',
-      confirm: 'Supprimer',
-      content:
-        'Etes vous sûr de vouloir supprimer cette notification ? Cette opération est définitive',
-    },
-  },
-  list: {
-    section: {
-      archived: 'Salles archivées',
-    },
-  },
-  detail: {
-    tab: {
-      general: 'Général',
-      calendar: 'Calendrier',
-    },
-  },
-  establishment: 'Établissement',
-  description: 'Description',
-  localisation: 'Localisation',
-  favouriteLocation: 'Localisation préférée',
-  room: 'Salle',
-  roomRequired: 'Salle *',
-  roomRequiredIsMissing:
-    "Vous n'avez pas sélectionné d'établissement de facturation.",
-  capacity: {
-    label: 'Capacité de la salle',
-    placeholder: null,
-    explain: 'Capacité: {{ capacity }} place',
-    explain_plural: 'Capacité: {{ capacity }} places',
-    helperText:
-      'Utilisé uniquement pour calculer la disponibilité pour les rendez-vous',
-  },
-  baseEstablishment: 'Habituel',
-  overrider: 'Remplacement',
-  establishment_override: 'Salle de remplacement',
-  search: 'Rechercher une salle',
-  addButton: 'Ajouter une salle',
-  pleaseSelectOne: 'Veuillez sélectionner un club sur la carte',
-  noEstablishement:
-    'Gérez ici vos salles, leur localisation, leur remplissage et consultez le calendrier',
-  offers: 'Calendrier des séances:',
-  noMoreOffers: 'Plus aucune séance de prévue',
-  pleaseFill: 'Veuillez renseigner une salle',
-  practical_info: {
-    label: "Information d'accès",
-    placeholder: 'Code 1234 porte de droite',
-    helperText: "Cette information ne sera affichée qu'à la réservation",
-  },
-  form: {
-    new: {
-      title: 'Titre',
-    },
-  },
-  card: {
-    update: 'Modifier',
-  },
+  establishment: 'Establishment',
+  baseEstablishment: 'Default',
+  overrider: 'Substitute',
+  establishment_override: 'Substitute establishment',
+  search: 'Search an establishment',
+  pleaseSelectOne: 'Please select a club in the map to show its details',
+  offers: 'Sessions calendar:',
+  pleaseFill: 'Please enter an establishment',
+  noMoreOffers: 'No more sessions planned',
+  addButton: 'Add an establishment',
+  goBackToList: 'Back to establishments',
   update: {
     imageUploaderRequireEditMessage:
-      "Une fois votre salle créée, vous aurez la possibilité d'ajouter des images supplémentaires.",
+      "Once you've added your establishment, you'll be able to add additional images.",
   },
+  capacity: {
+    label: 'Maximum capacity',
+    placeholder: ' ',
+    helperText:
+      "This number will only be used to manage this establishment's availability for appointments.",
+    explain: 'Capacity: {{capacity}} slot',
+    explain_plural: 'Capacity: {{capacity}} slots',
+  },
+  practical_info: {
+    label: 'Access information',
+    placeholder: 'Code 1234 first door on the left',
+    helperText: 'This information will be displayed after the booking.',
+  },
+  form: { new: { title: 'Title' } },
+  card: { update: 'Update' },
   forms: {
-    edit: 'Modifier',
+    error: 'Unable to save establishment',
+    create: { success: 'Establishment added', title: 'New establishment' },
+    update: {
+      success: 'Establishment details updated',
+      title: 'Update establishment',
+    },
     delete: {
-      title: "Suppression d'une salle",
-      actions: {
-        cancel: 'annuler',
-        confirm: 'Supprimer',
+      message: {
+        error: 'Impossible to delete this establishment',
+        success: 'Establishment deleted',
       },
       content: {
-        canDelete:
-          'Êtes-vous sûr de vouloir supprimer cette salle ? Cette opération est irréversible. Les séances et réservations passées ne seront pas affectées',
         cannotDelete:
-          "Impossible de supprimer cette salle, des séances sont prévues dans le futur. Vérifiez qu'elles ont bien été annulées puis supprimées",
+          "This establishment can't be deleted, because you haven't cancelled and deleted the upcoming sessions that are linked to this establishment.",
+        canDelete:
+          "Are you sure you that want to delete this establishment? Existing sessions and past bookings won't be modified. This action can't be undone.",
       },
+      actions: { confirm: 'Delete', cancel: 'cancel' },
+      title: 'Delete an establishment',
     },
-    create: {
-      title: 'Nouvelle salle',
-    },
-    update: {
-      title: 'Édition des informations',
-    },
+    edit: 'Edit',
   },
-  location: {
-    search_address: 'Rechercher une adresse',
-    address: 'Adresse',
-    address_line_1: 'Adresse ligne 1',
-    address_line_2: 'Adresse ligne 2',
-    city: 'Ville',
-    state: 'État',
-    zip_code: 'Code Postal',
-    country: 'Pays',
-  },
+  detail: { tab: { calendar: 'Schedule', general: 'General' } },
+  noEstablishement:
+    'Manage here your rooms, their location, their occupancy and consult the calendar',
   notificationToolTip:
-    'Des notifications sont définies pour les réservations concernant cette salle',
-  spotScheduling: {
-    title: 'Plan de salle',
-    subtitle:
-      'Utilisé pour le spot scheduling. Permet à vos élèves de réserver l’emplacement qu’ils souhaitent dans la salle.',
-    add: 'Ajouter un plan de salle',
-    delete: {
-      title: 'Suppression plan de salle',
-      content:
-        'Êtes-vous sûr de vouloir supprimer ce plan de salle ? Cette opération est irréversible.',
-    },
-    placeCount: '{{count}} places',
-    untitled: 'Sans titre',
+    'Some notifications are set for bookings regarding this item',
+  list: { section: { archived: 'Archived establishments' } },
+  location: {
+    country: 'Country',
+    zip_code: 'Postal code',
+    city: 'City',
+    address_line_2: 'Address line 2',
+    address_line_1: 'Address line 1',
+    address: 'Address',
+    search_address: 'Search an address',
+    state: 'State',
   },
-  group: {
-    groupButton: 'Grouper les établissements',
-    addLocalisation: 'Ajouter une localisation',
-    name: ' Nom',
-    actions: 'Actions',
-    noGroupHelper:
-      'Les localisations permettent de regrouper plusieurs adresses entre elles. Si vous possèdez plusieurs studios dans différentes villes vous pouvez regrouper les studios de la même ville dans une localisation. Sur la marketplace, le widget  et l’application personnalisée vos élèves pourront sélectionner la localisation qui les intéresse le plus pour ne voir que les cours proches de chez eux.',
-    form: {
-      name: 'Nom',
-      associated_localizations: 'Salles associées',
-      dialog: {
-        title: 'Localisation',
-        cancel: 'Annuler',
-        save: 'Enregistrer',
-      },
+  spotScheduling: {
+    untitled: 'Untitled',
+    placeCount: '{{count}} places',
+    delete: {
+      content:
+        "Are you sure you want to delete this Spot Scheduling layout? This action can't be undone.",
+      title: 'Delete Spot Scheduling configuration',
     },
+    add: 'Add a layout',
+    subtitle:
+      'Add a custom seating plan to your establishment to allow members book their specific spot for your sessions.',
+    title: 'Spot Scheduling',
+  },
+  localisation: 'Location',
+  room: 'Establishment',
+  group: {
+    name: ' Name',
+    noGroupHelper:
+      'Locations allow you to group several addresses together. If you have several studios in different cities, you can group the studios in the same city into one location. On the marketplace, the widget and the personalized application your students will be able to select the location they are most interested in to see only the classes near their home.',
     modal: {
       delete: {
-        title: 'Supprimer une localisation',
         content:
-          "Cette localisation n'appraitra plus dans les filtres disponibles sur la marketplace, le widget et l'application personnalisée.",
-        cancel: 'Annuler',
-        confirm: 'Supprimer',
+          'This establishment will no longer appear in the available filters on the marketplace, the widget, and the branded mobile app.',
+        cancel: 'Cancel',
+        title: 'Delete a location',
+        confirm: 'Delete',
       },
     },
-    table: {
-      actions: 'Actions',
-      establishment: 'Etablissements',
-      name: 'Nom',
+    groupButton: 'Group establishments',
+    addLocalisation: 'Add a location',
+    actions: 'Action',
+    form: {
+      name: 'Name',
+      associated_localizations: 'Associated establishments',
+      dialog: { title: 'Location', cancel: 'Cancel', save: 'Save' },
     },
+    table: { actions: 'Action', establishment: 'Establishments', name: 'Name' },
   },
   billing_group: {
-    name: ' Nom',
-    actions: 'Actions',
-    form: {
-      name: 'Nom',
-      associated_localizations: 'Salles associées',
-      dialog: {
-        title: 'Groupe de facturation',
-        cancel: 'Annuler',
-        save: 'Enregistrer',
-      },
-      error: {
-        groupShouldContainsOneRoom: 'Veuillez sélectionner au moins une salle',
-        groupShouldHaveName:
-          'Vous devez donner un nom à ce groupe de facturation',
-      },
+    table: {
+      name: 'Name',
+      establishment: 'Establishments',
+      actions: 'Actions',
     },
     modal: {
       delete: {
-        title: "Suppression d'un groupe de facturation",
+        confirm: 'Delete',
+        cancel: 'Cancel',
         content:
-          "Voulez-vous supprimer ce groupe de facturation ? La suppression de ce groupe sera retro-active, il n'apparaitra plus dans les rapports associés.",
-        cancel: 'Annuler',
-        confirm: 'Supprimer',
+          'Are you sure that you want to delete this billing group? This action will be processed retroactively and will no longer appear in associated reports.',
+        title: 'Delete a billing group',
       },
     },
-    table: {
-      actions: 'Actions',
-      establishment: 'Etablissements',
-      name: 'Nom',
+    form: {
+      error: {
+        groupShouldContainsOneRoom: 'Please select at least one establishment',
+        groupShouldHaveName: 'You must give a name to this billing group',
+      },
+      dialog: { save: 'Save', cancel: 'Cancel', title: 'Billing group' },
+      associated_localizations: 'Associated establishments',
+      name: 'Name',
+    },
+    actions: 'Actions',
+    name: ' Name',
+  },
+  description: 'Description',
+  favouriteLocation: 'Preferred location',
+  notification: {
+    modal: {
+      content:
+        "Are you sure that you want to delete this notification? This action can't be undone.",
+      confirm: 'Delete',
+      cancel: 'Cancel',
+      title: 'Delete notification',
     },
   },
+  marketing: { notification: 'Notifications' },
+  roomRequiredIsMissing: 'You have not selected a billing establishment.',
+  roomRequired: 'Room *',
 };

@@ -1,212 +1,210 @@
-// @flow
-
 exports.default = {
-  simulate: 'Simuler',
-  search: 'Chercher une régle de rémunération (facultatif)',
-  pageTitle: 'Règles de rémunération',
-  rules: 'Règles',
-  paymentRules: 'Règles de rémunération',
-  add: 'Ajouter',
-  save: 'Enregistrer',
-  name: 'Nom',
-  base_price: 'Base',
-  base_percent: 'Pourcentage de la valeur',
-  include_tax: 'Calcul TTC',
-  calculation_method: 'Méthode de calcul',
-  only_attendant: 'Restreindre le décompte de réservation aux élèves présents',
+  rules: 'Rules',
+  add: 'Add',
+  save: 'Save',
+  name: 'Name',
+  base_price: 'Flat base',
+  base_percent: 'Percentage of value',
+  include_tax: 'Incl. VAT / Sales Tax',
+  calculation_method: 'Calculation method',
+  only_attendant: 'Count only attendants',
   actions: 'Actions',
-  bookingThreshold: 'Seuil de réservations (inclu)',
-  pricePerAdditionalBooking: 'Bonus par réservation',
-  addBonus: 'Ajouter une nouvelle règle',
-  cancel: 'Annuler',
-  addNew: 'Nouveau paramétrage de rémunération',
+  bookingThreshold: 'Threshold (included)',
+  pricePerAdditionalBooking: 'Bonus per booking',
+  addBonus: 'Add rule',
+  cancel: 'Cancel',
+  addNew: 'New payment configuration',
   select: {
-    placeholder: 'Choississez une règle de calcul',
-    placeholderOverride: 'Règle par défaut du coach',
-    reset: 'Utiliser la règle par défaut du coach',
-    coachPaymentRuleForSessions: 'Cours collectifs',
-    coachPaymentRuleForWorkshops: 'Ateliers',
-    coachPaymentRuleForPrivateService: 'Rendez-vous',
-    group: 'Groupe de rémunération',
+    placeholder: 'Select a payment configuration',
+    placeholderOverride: "Coach's Default Payroll Rule",
+    coachPaymentRuleForPrivateService: 'Appointments',
+    coachPaymentRuleForSessions: 'Group activities',
+    reset: "Use the teacher's default payroll rule",
+    group: 'Payroll group',
+    coachPaymentRuleForWorkshops: 'Workshops',
   },
-  fabButton: {
-    addNewForSession: 'Cours collectifs & Ateliers',
-    addNewForGroupActivity: 'Cours collectifs',
-    addNewForWorkshop: 'Ateliers',
-    addNewForRDV: 'Rendez-vous',
-    addNewPaymentRuleGroup: 'Groupe de rémunération',
+  common: { from: 'From', until: 'Until', pick_a_month: 'Select a month' },
+  calculate: 'Calculate',
+  title: 'Teacher payment for {{name}}',
+  label: 'Payroll rule',
+  update: {
+    success: 'Payment configuration updated',
+    error: 'Error during update',
   },
-  tabs: {
-    session: 'Cours Collectifs & Ateliers',
-    groupActivity: 'Cours Collectifs',
-    workshop: 'Ateliers',
-    appointment: 'Rendez-vous',
-    all: 'Tous les cours',
-    groups: 'Groupes de rémunérations',
-  },
-  common: {
-    from: 'Début',
-    until: 'Fin',
-    pick_a_month: 'Choisissez un Mois',
-  },
-  calculate: 'Calculer',
-  title: 'Règlement du professeur {{name}}',
-  privateSlotLabel: 'Rendez-vous',
-  label: 'Règle de rémunération',
-  dateTitle: 'Plage de dates',
-  coaches: 'Professeurs',
+  dateTitle: 'Period',
+  coaches: 'Teachers',
   setPaymentRuleSetForCoachFirst:
-    "Attribuez tout d'abord une régle de rémunération par défaut à ce professeur.",
+    'Please associate this payroll rule to at least one teacher.',
   modal: {
     delete: {
-      title: 'Supprimer une règle',
-      cancel: 'Annuler',
-      confirm: 'Confirmer',
+      title: 'Delete a rule',
+      cancel: 'Cancel',
+      confirm: 'Confirm',
       content:
-        'En supprimant cette règle, celle-ci sera dissociée de tous les professeurs et sessions auxquelles elle est actuellement attribuée',
+        "If you remove this payroll rule, it'll be removed from all associated sessions and teachers.",
     },
   },
   calculation_methods: {
-    bookings: 'Sur le nombre de réservations',
-    margin_value: 'Sur la valeur marginale de chaque réservation',
+    bookings: 'On bookings number',
+    margin_value: 'On the marginal value of each booking',
   },
+  create: { error: 'Error during creation', success: 'Rate added' },
+  delete: { error: 'Error during deletion', success: 'Rate removed' },
+  pageTitle: 'Payroll',
   coach_payment_rules: {
-    addNewCoachPaymentRule: 'Nouveau paramétrage de rémunération',
-    name: 'Nom',
-    coaches: 'Coaches',
-    actions: 'Actions',
-    calculationMethod: 'Méthode de calcul',
-    forConfirmedBookings: 'Pour les élèves présents',
-    forCancelledBookings: 'Pour les annulations hors délai et absences',
-    set_base_remuneration: 'Définir une base de rémunération fixe',
-    base_remuneration: 'Base fixe',
-    base_remuneration_helper:
-      'Ce montant sera toujours ajouté à la rémunération de la séance / RDV',
-    percentage_base:
-      'Ajouter un pourcentage de la valeur marginale des réservations',
-    addRemunerationOnCancellation:
-      "Rémunérer le professeur en cas d'annulation hors délai ou absence",
-    differentRemunerationForCancellation:
-      'Appliquer des règles bonus différentes pour le décompte des élèves absents ou annulation hors-délai ',
-    remunerationLimits: 'Rémunérations limites',
-    min_remuneration: 'Minimum',
-    max_remuneration: 'Maximum',
-    taxe_rate: 'Exclure la TVA du calcul de la valeur marginale (pourcentage)',
-    add_taxe_rate: 'Taxe à ajouter',
-    taxeConciseHelper:
-      'Le bonus en pourcentage, calculé à partir de la valeur marginale, sera retranché de la TVA en vigueur.',
-    taxeLongHelper:
-      'Aide : Tous les pourcentages sont calculés sur la valeur marginale de chaque réservation hors taxe. La taxe ajoutée s’applique sur la valeur marginale ainsi que l’ensemble des fixes et des bonus.',
-    cancellationBaseHelper:
-      'Aide : En cochant cette case le coach ne percevera pas de rémunération supplémentaire sur la valeur marginale des réservations annulées',
-    fixedBonusbyInterval: 'Ajouter un bonus fixe par intervalle',
-    bonusForEachReservationInInterval:
-      "Ajouter un bonus pour chaque réservation de l'intervalle",
-    excludePaymentPack: {
-      title: 'Exclure les réservations de certaines cartes',
-      warning:
-        "Si vous avez déjà exclu des cartes de cours de la rémunération avec le paramètre 'Sessions prises en compte dans le calcul de la rémunération du professeur', vous n'avez pas besoin de les repréciser ici.",
-    },
-    paymentPackPlaceHolder: 'Selectionner des cartes de cours',
-    Bonuses: {
-      bonus: 'Bonus',
-      addBonus: 'AJOUTER UNE REGLE DE BONUS',
-      from: 'De',
-      to: 'à',
-      bookingsThresholds: 'Réservations (bornes incluses)',
-      forEachBooking: 'pour chaque réservation',
-      forInterval: "pour tout l'intervalle",
-      bonus_rules: 'Règles de bonus',
+    Simulator: {
+      student_did_not_attend: 'Absentees',
+      student_attended: 'Attendees',
+      total_payment: 'Final payment',
+      marginValue: 'Marginal value',
+      forCancelledBookings: 'Number of absentees',
+      forConfirmedBookings: 'Number of students',
+      forEachBooking: 'per booking',
+      cancellations: 'absentees or late cancellations',
+      and: 'And',
+      students: 'students',
+      for: 'For',
+      resultTitle: 'Results',
+      title: 'Simulation',
+      bonus: 'Total bonus',
+      which: 'Earnings',
+      helper: 'Check if these settings meet your expectations.',
+      marginalValueOfReservation: 'Marginal value per booking',
+      numberOfCancellations: 'Number of absentees/late-cancellations',
+      numberOfStudent: 'Number of members',
     },
     Errors: {
-      nameRequired: 'Le nom est un champ obligatoire.',
-      invalidMinimum:
-        'La rémunération minimale doit être supérieure ou égale à la base fixe',
-      invalidMaximum:
-        'La rémunération maximale doit être supérieure à la rémunération minimale',
-      invalidBonusAmount: 'Le bonus doit être supérieur ou égal à 0.1.',
-      invalidLowerInterval:
-        "L'intervalle supérieur doit être supérieur à l'intervalle inférieur.",
-      invalideIntervals:
-        "L'intersection d'intervalles pour les bonus de même nature n'est pas autorisée.",
-      invalideUpperInterval: "L'intervalle supérieur doit être un nombre.",
-      baseRemunerationRequired:
-        "La rémunération de base est un champ obligatoire si vous avez coché la case 'Base-Fixe' ci-dessus.",
-      baseRemunerationTypeError:
-        'La rémunération de base doit être un nombre positif.',
-      percentagebaseRemunerationRequired:
-        'La rémunération par pourcentage est un champ obligatoire si vous avez coché la case ci-dessus.',
-      percentagebaseRemunerationTypeError:
-        'La rémunération par pourcentage doit être un nombre compris entre 0 et 100.',
-      taxeRateRequired:
-        "La taxe est un champ obligatoire si vous avez coché la case 'Calcul TTC' ci-dessus.",
-      taxeRateTypeError: 'La taxe doit être un nombre compris entre 0 et 100.',
       lowerIntervalTypeError:
-        "L'interval inférieur doit être un nombre inférieur ou égale à 1",
+        'The lower interval must be a number less than or equal to 1',
+      taxeRateTypeError:
+        'The VAT / Sales Tax rate has to be a number between 0 and 100.',
+      taxeRateRequired:
+        'This field is mandatory if you\'ve selected the "Calculate VAT / Sales Tax" option.',
+      percentagebaseRemunerationRequired:
+        'This field is mandatory if you have ticked the "Percentage" box.',
+      baseRemunerationTypeError: 'The fixed amount must be a positive number.',
+      invalideUpperInterval: 'The upper interval must be a number.',
+      invalidLowerInterval:
+        'The superior interval must be higher than the inferior interval.',
+      invalidBonusAmount: 'The bonus must be greater than or equal to 0.1.',
+      nameRequired: 'This field is mandatory.',
+      invalideIntervals:
+        'The intersection of intervals for bonuses of the same type is not allowed.',
+      invalidMaximum:
+        'The maximum remuneration must be higher than the minimum remuneration',
+      invalidMinimum:
+        'The minimum remuneration must be equal to or higher than the fixed amount',
       invalidCancelledBookingRules:
-        'Si vous souhaitez appliquer des bonus différents pour les élèves absents vous devez définir au moins un bonus ou une base par pourcentage dans la section ci-dessous.',
-      oneRuleRequired:
-        'Vous devez définir au moins une régle de rémunération pour créer un groupe',
-      invalidPrivateSlot: 'Un rendez-vous doit être sélectionné',
-      invalidCoachPaymentRule:
-        'Une régle de rémunération doit être sélectionnée',
-      uniqueRuleForPrivateSlot:
-        'Ce rendez-vous est plusieurs fois dans la liste',
+        'If you want to apply different bonuses for absent students you must define at least one bonus or a percentage basis in the section below.',
+      percentagebaseRemunerationTypeError:
+        'Percentage pay must be a number between 0 and 100.',
+      baseRemunerationRequired:
+        "This is a mandatory field if you have ticked the 'Fixed amount' box above.",
       privateSlotAlreadySelected:
-        'Une règle de rémunération est déjà définie pour ce rendez-vous',
+        'A remuneration rule is already defined for this appointment',
+      uniqueRuleForPrivateSlot:
+        'This appointment appears several times in the list',
+      invalidCoachPaymentRule: 'Select a payroll rule',
+      invalidPrivateSlot: 'Select an appointment',
+      oneRuleRequired:
+        'You must select at least one payroll rule to create a group.',
     },
-    Simulator: {
-      title: 'Simulateur de rémunérations',
-      resultTitle: 'Résultat de votre simulation (rémunération du professeur)',
-      helper:
-        'Aide : Vérifier ici que votre règle de rémunération correspond à vos attentes',
-      for: 'Pour',
-      students: 'élèves',
-      and: 'Et',
-      cancellations: 'absences ou annulations hors délai',
-      which: 'Qui rapporte',
-      forEachBooking: 'pour chaque réservation',
-      forConfirmedBookings: "Nombre d'élèves",
-      forCancelledBookings: "Nombre d'abscence",
-      marginValue: 'Valeur marginale',
-      bonus: 'Total des bonus',
-      total_payment: 'Paiement final',
-      student_attended: 'Elève présent',
-      student_did_not_attend: 'Elève absent',
-      numberOfStudent: "Nombre d'élèves",
-      numberOfCancellations: "Nombre d'absences ou d'annulations hors délai",
-      marginalValueOfReservation: "Valeur marginale d'une réservation",
+    Bonuses: {
+      bonus_rules: 'Bonus rules',
+      forEachBooking: 'per booking',
+      to: 'To',
+      from: 'From',
+      addBonus: 'ADD A BONUS RULE',
+      bonus: 'Bonus',
+      bookingsThresholds: 'Bookings (including threshold limits)',
+      forInterval: 'for the whole range',
     },
+    paymentPackPlaceHolder: 'Select passes',
+    excludePaymentPack: {
+      warning:
+        "If you have already excluded passes from the payroll with the 'Sessions taken into account when calculating the teacher's payroll' parameter, you do not need to specify them again here.",
+      title: 'Exclude bookings for certain passes',
+    },
+    bonusForEachReservationInInterval:
+      'Add a bonus for each individual booking in this range',
+    fixedBonusbyInterval: 'Add a bonus for the whole range',
+    cancellationBaseHelper:
+      'By ticking this box the teacher will not receive any bonus payment on the marginal value of cancelled bookings.',
+    taxeLongHelper:
+      'All percentages are calculated on the marginal value of each booking excluding VAT / Sales Tax. The added VAT / Sales Tax applies to the marginal value as well as all fixed rates and bonuses.',
+    taxeConciseHelper:
+      'All bonuses calculated on a percentage of the marginal value, and will discount your local VAT / Sales Tax rate.',
+    add_taxe_rate: 'Additional VAT / Sales Tax',
+    taxe_rate:
+      'Exclude your local VAT / Sales Tax from the computation of the marginal value.',
+    max_remuneration: 'Maximum',
+    min_remuneration: 'Minimum',
+    remunerationLimits: 'Limit',
+    differentRemunerationForCancellation:
+      'Apply different payroll rules for absentees and late-cancellations ',
+    addRemunerationOnCancellation:
+      'Compensate teachers for absentees and late-cancellations',
+    percentage_base: 'Add a percentage of the margin value of the bookings',
+    base_remuneration: 'Fixed amount',
+    forCancelledBookings: 'Absentees and late cancellations',
+    forConfirmedBookings: 'Attendees',
+    calculationMethod: 'Calculation method',
+    actions: 'Actions',
+    coaches: 'Teachers',
+    name: 'Name',
+    addNewCoachPaymentRule: 'New payment rule',
+    base_remuneration_helper:
+      'Teachers will always receive this as compensation for their session.',
+    set_base_remuneration: 'Add a fixed rate per session',
   },
+  tabs: {
+    all: 'All activities',
+    appointment: 'Appointments',
+    session: 'Group activities & Workshops',
+    groups: 'Payroll group',
+    workshop: 'Workshops',
+    groupActivity: 'Group classes',
+  },
+  fabButton: {
+    addNewForRDV: 'Appointments',
+    addNewForSession: 'Group activities & Workshops',
+    addNewPaymentRuleGroup: 'Payroll group',
+    addNewForWorkshop: 'Workshops',
+    addNewForGroupActivity: 'Group classes',
+  },
+  paymentRules: 'Payment rules',
   coach_payment_rule_groups: {
-    modal: {
-      delete: {
-        title: 'Supprimer un groupe',
-        cancel: 'Annuler',
-        confirm: 'Confirmer',
-        content:
-          'En supprimant ce groupe, celui-ci sera dissocié de tous les professeurs auxquels il est actuellement attribué',
-      },
-    },
-    dissociate: 'Personnaliser les règles',
-    dialogTitle: 'Groupe de rémunération',
-    private_service: 'Rendez-vous',
-    session: 'Cours Collectifs',
-    workshop: 'Ateliers',
     subtitle: {
       helper:
-        'Vous pouvez grouper ensemble vos règles de rémunérations pour les activités, ateliers et rendez-vous. En ajoutant un professeur à un groupe, l’ensemble des règles de rémunération du groupe viennent s’appliquer automatiquement au professeur. Tout changement sur le groupe viendra aussi se faire sur tous les professeurs du groupe.',
-      default: 'Rémunérations par défaut',
-      specfic_private_slot: 'Rémunération spécifique pour un rendez-vous',
-      coaches: 'Professeurs associés',
+        "You can group together your compensation rules for activities, workshops and appointments. By adding a teacher to a group, all of the group's compensation rules automatically apply to the teacher. Any change to the group will also be made to all the teachers in the group.",
+      coaches: 'Associated teachers',
+      specfic_private_slot: 'Appointments',
+      default: 'Default',
+    },
+    workshop: 'Workshops',
+    session: 'Group activities',
+    private_service: 'Appointments',
+    dialogTitle: 'Payroll group',
+    dissociate: 'Custom payroll',
+    modal: {
+      delete: {
+        content:
+          'By deleting this group, it will be dissociated from all the teachers to which it is currently assigned',
+        confirm: 'Confirm',
+        cancel: 'Cancel',
+        title: 'Delete a group',
+      },
     },
     fields: {
-      addPrivateSlot: 'Ajouter une régle',
-      coach_payment_rule: 'Régle de rémunération',
-      private_service_name: 'Nom de la séance',
-      activity: 'Activités',
-      workshop: 'Ateliers',
-      private_service: 'Rendez-vous',
+      private_service: 'Appointments',
+      workshop: 'Workshops',
+      activity: 'Group activities',
+      private_service_name: 'Appointment',
+      coach_payment_rule: 'Payroll rule',
+      addPrivateSlot: 'Add a payroll rule',
     },
   },
+  search: '(Optional) Apply a payroll rule',
+  simulate: 'Simulate',
+  privateSlotLabel: 'Appointments',
 };

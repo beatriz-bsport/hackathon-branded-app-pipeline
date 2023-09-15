@@ -7,1200 +7,1028 @@ const {
 } = require('@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought');
 
 exports.default = {
-  seeAll: 'Tout voir',
-  forms: {
-    delete: {
-      content: {
-        canDelete:
-        'Êtes-vous sûr de vouloir supprimer ce RDV ? Cette modification est définitive. Les réservations déjà enregistrées ne seront pas affectées.',
-      },
-      title: 'Suppression du rendez-vous',
-      actions: {
-        cancel: 'Annuler',
-        confirm: 'Supprimer',
-      },
-      cancel: 'Annuler',
-      confirm: 'Supprimer',
-    }
-  },
-  privatePassTemplateInstance: {
-    privatePassSharedFromFranchisor: 'Carte franchise',
-    privateConsumerPassSharedFromOtherFranchisee: 'Partagé depuis franchisé',
-    form: {
-      title: 'Configurer mes studios',
-      explain1:
-        'Les studios suivant auront automatiquement cette carte disponible à la vente. Ils ne pourront pas en modifier le prix ni le nombre de crédit.',
-      explain2:
-        "Si un membre achète cette carte dans l'un des studios compatible, il pourra également l'utiliser dans les autres studios que vous avez défini.",
-      actions: {
-        close: 'Fermer',
-        submit: 'Enregistrer',
-      },
-    },
-    deleteForm: {
-      title: 'Désactivation',
-      content:
-        "En désactivant ce studio du partage de la carte, tous les membres possédant cette carte et l'ayant acheté dans ce studio pourront toujours l'utiliser. En revanche ils ne pourront plus l'utiliser dans les autres studios. Enfin, les cartes ayant achetées dans les autres studios ne seront plus utilisable dans le studio désactivé, quelle que soit la date d'achat.",
-      actions: {
-        close: 'Fermer',
-        submit: 'Désactiver le partage',
-      },
-    },
-    companyEmpty:
-      "Aucun studio n'est configuré pour accepter cette carte de cours",
-    actions: {
-      addCompany: 'Ajouter un studio',
-    },
-  },
-  privatePassTemplate: {
-    specification: {
-      companySharedWithTitle: 'Partagée avec les studios:',
-    },
-    isEmptyExplain:
-      "Les cartes de cours partagées sont disponibles dans les studios de votre choix, et permettent à vos membres d'utiliser indifféremment leurs crédits dans les studios que vous aurez choisi.",
-    section: {
-      titleAvailable: 'Disponible à la vente',
-      titleManagerOnly: 'Indisponible à la vente',
-    },
-    form: {
-      title: 'Carte de cours partagée',
-      close: 'Fermer',
-      submit: 'Valider',
-      actions: {
-        close: 'Fermer',
-        submit: 'Enregistrer',
-      },
-    },
-    deleteForm: {
-      title: 'Désactivation',
-      content:
-        "En désactivant une carte partagée, les membres possédant cette carte ne pourront plus l'utiliser que dans le studio dans lequel il l'ont acheté.",
-      actions: {
-        close: 'Fermer',
-        submit: 'Désactiver le partage',
-      },
-    },
-    actions: {
-      create: 'Créer une carte partagée',
-    },
-  },
-  search: 'Rechercher un rendez-vous',
-  searshAppointmentPass: 'Rechercher une carte RDV',
-  marketplace: {
-    isEmpty: 'Aucun RDV proposé',
-  },
-  popup: {
-    validate: 'Valider',
-    button: 'Horaires',
-    begin: 'Heure de début',
-    end: 'Heure de fin',
-  },
-  filters: {
-    all: 'Toutes les cartes',
-    expiration: 'Validité',
-    credits: 'Crédit',
-    notReverted: 'Facture non-annulée',
-    reverted: 'Facture annulée',
-    invoice: 'Facture',
-    isExpired: 'Expirée',
-    isActive: 'Active',
-    isValidToday: 'Valide',
-    hasCreditLeft: 'Avec crédit',
-    hasCreditNull: 'Sans crédit',
-  },
-  noPrivateConsumerPass: "Personne n'a cette carte de rendez-vous",
-  noPrivatePass:
-    'Les cartes RDV permettent aux membres de prendre RDV, définissez ici vos tarifs et modalités.',
-  noPrivateService:
-    'Un rendez-vous est réservable sur le créneau que vous avez choisi, par le membre.',
   serviceGroup: {
-    delete: 'Supprimer',
-    edit: 'Modifier',
-    isEmpty: 'Aucun RDV associé à cette catégorie',
-    selector: {
-      placeholder: 'Catégorie',
-    },
+    delete: 'Delete',
+    edit: 'Edit',
+    isEmpty:
+      'No appointments have been associated to this category to display.',
+    selector: { placeholder: 'Category' },
     form: {
-      title: 'Catégorie',
-      name: {
-        label: 'Nom',
-      },
-      actions: {
-        cancel: 'Annuler',
-        submit: 'Enregistrer',
-      },
+      title: 'Category',
+      name: { label: 'Name' },
+      actions: { cancel: 'Cancel', submit: 'Save' },
     },
   },
   availabilitySlot: {
-    coach: 'Professeur',
-    establishment: 'Lieu',
-    private_service: 'Type de Rendez-vous',
     form: {
       resourceSelector: {
-        title: 'Modification créneau horaire',
-        label: 'Modifier pour :',
-        cancel: 'Annuler',
-        submit: 'Enregistrer',
-        warning: "Ce(tte) professeur(e) n'est associé(e) à aucun rendez-vous",
+        title: 'Edit slot',
+        label: 'Edit:',
+        cancel: 'Cancel',
+        submit: 'Save',
+        warning: 'This teacher is associated to no appointment',
       },
+    },
+    private_service: 'Appointment type',
+    establishment: 'Establishment',
+    coach: 'Teacher',
+    detail: {
+      detailEmpty: 'No availability on the selected slot',
+      dialog: { title: 'Availability details' },
+      openHours: 'Schedules',
+      availableEverywhere: 'Available in all establishments',
+      slotBoundaries: 'From {{date_start}} to {{date_end}}',
+      ok: 'OK',
+    },
+    specificAvailabilityForm: {
+      advanced: 'Advanced',
+      infoForCoach:
+        'By default you will be available in all the establishments. By activating this option you will be able to select in which establishments you will be available for this time slot.',
+      info: 'By default, your teacher will be indicated as available in all your establishments. By activating this option you will be able to select in which establishments your teacher will be available for this time slot.',
+      switchLabel: 'Add for certain establishments only',
     },
     notAssociatedDialog: {
-      title: 'Aucun RDV associé',
-      info: `La disponibilité a bien été enregistrée. En revanche, ce professeur n'est associé à aucun RDV.
-        Pour pouvoir enregister un nouveau RDV avec ce professeur, associez le au RDV souhaité depuis l'onglet RDV.`,
-      checkbox: 'Ne plus me le rappeler',
-      close: 'Fermer',
+      close: 'Close',
+      checkbox: "Don't remind me again",
+      info: 'The availability has been saved. However, this teacher is not associated with any appointment.\nIn order to link a new appointment with this teacher, associate him/her with the desired appointment from the Appointments tab.',
+      title: 'No associated appointments',
     },
-    notAssociatedWarning: `Attention, ce professeur n'est associé à aucun RDV. Pour pouvoir enregistrer un nouveau RDV avec ce professeur, associez le au RDV souhaité depuis l'onglet RDV.`,
-    specificAvailabilityForm: {
-      switchLabel: 'Ajouter pour certains établissements seulement',
-      info: "Par défaut votre professeur sera indiqué comme disponible dans l'ensemble de vos établissements. En activant cette option vous pourrez sélectionner dans quels établissements votre professeur sera disponible pour ce créneau horaire.",
-      infoForCoach:
-        "Par défaut vous serez disponible dans l'ensemble des établissements. En activant cette option vous pourrez sélectionner dans quels établissements vous serez disponible pour ce créneau horaire.",
-      advanced: 'Avancé',
-    },
-    detail: {
-      ok: 'Ok',
-      slotBoundaries: 'De {{date_start}} à {{date_end}}',
-      availableEverywhere: 'Disponible dans toutes les salles',
-      openHours: 'Horaires',
-      dialog: {
-        title: 'Détails des disponibilités',
-      },
-      detailEmpty: 'Pas de disponibilité sur le créneau sélectionné',
-    },
+    notAssociatedWarning:
+      'Attention, this teacher is not associated with any appointment. To link a new appointment with this teacher, associate him/her with the desired appointment from the Appointments tab.',
   },
   resource: {
-    allocationWarning: {
-      loading: 'Vérification de la disponibilité du créneau',
-      title: 'Créneau non disponible',
-      resource:
-        "Attention, {{ resource }} n'est pas disponible sur ce créneau.\n",
-      continue: 'Êtes-vous sûr de vouloir déplacer ce rendez-vous ?',
-      coach: "Ce professeur n'est pas disponible sur cet horaire",
-      establishment: "Cette salle n'est pas disponible à cet horaire",
-      showCalendar: 'Voir le calendrier',
-      validate: 'Valider',
-      cancel: 'Annuler',
-    },
-    selector: {
-      title: 'Voir les disponibilités',
-    },
     form: {
-      color: 'Code couleur',
-      actions: {
-        cancel: 'Annuler',
-        submit: 'Enregistrer',
-      },
+      color: 'Color code',
+      actions: { cancel: 'Cancel', submit: 'Save' },
     },
-    groupBy: 'Grouper par',
-    unGroup: 'Aucun',
-
+    groupBy: 'Group by',
+    unGroup: 'None',
     datatype: {
-      establishment: 'Salle',
-      coach: 'Professeur',
-      associated_establishment: 'Salle',
-      associated_coach: 'Professeur',
-      private_service: 'Général',
+      establishment: 'Establishments',
+      coach: 'Teachers',
+      associated_establishment: 'Establishments',
+      associated_coach: 'Teachers',
+      private_service: 'General',
+    },
+    selector: { title: 'Filter by availability' },
+    allocationWarning: {
+      showCalendar: 'See the calendar',
+      establishment: "This establishment isn't available at this time slot.",
+      coach: "This teacher isn't available at this time slot.",
+      title: "There's no availability to display.",
+      loading: 'Verifying availability',
+      resource: "Attention! {{ resource }} isn't availably at this moment.\n",
+      continue: 'Are you sure that you want to move this appointment?',
+      validate: 'Confirm',
+      cancel: 'Cancel',
     },
   },
   pageTitles: {
-    passList: 'Cartes de rendez-vous',
-    serviceList: 'Sur rendez-vous',
-    calendar: 'Calendrier',
+    passList: 'Appointment passes',
+    serviceList: 'Appointments',
+    calendar: 'Calendar',
   },
   color: {
-    form: {
-      title: 'Code couleur du professeur',
-      cancel: 'Annuler',
-      submit: 'Enregistrer',
-    },
+    form: { title: "Teacher's color code", cancel: 'Cancel', submit: 'Save' },
   },
   payment: {
-    address: {
-      explain: 'Entrez votre adresse pour le cours à domicile',
-      save: 'Enregistrer',
-    },
+    address: { explain: 'Add an address for at home sessions.', save: 'Save' },
   },
   privateSlot: {
-    duration: '{{ minutes }} minutes',
     delete: {
-      title: 'Suppression de la séance',
+      title: 'Delete session',
       explain:
-        'Êtes-vous sûr de vouloir supprimer cette séance ? Les réservations passées ne seront pas affectées. Cette opération est définitive.',
-      cancel: 'Annuler',
-      confirm: 'Confirmer',
+        "Are you sure that you want to delete this appointment? Past bookings will not be deleted. This action can't be undone.",
+      cancel: 'Cancel',
+      confirm: 'Confirm',
     },
+    duration: '{{ minutes }} min.',
   },
   privateBooking: {
-    bookings: 'Rendez-vous',
-    editTime: 'Modifier',
-    updateTime: {
-      title: 'Modification rendez-vous',
-      explainEmail:
-        "Un email sera automatiquement envoyé à l'élève pour le prévenir",
-      submit: 'Enregistrer',
-      cancel: 'Annuler',
-    },
-    updateCoach: 'Choisissez un nouveau professeur pour ce rendez-vous',
-    cancel: 'Annuler',
-    discard: 'Annuler le RDV',
-    hardDelete: 'Supprimer',
-    restore: 'Restaurer le RDV',
-    isCancelled: 'Annulé',
-    isCancelledDate: 'Annulé le {{-date}} à {{time}}',
-    isCancelledByManager: 'Annulé par {{cancelled_by}}',
-    isCancelledByManagerDate:
-      'Annulé le {{-date}} à {{time}} par {{cancelled_by}}',
-    isRefunded: 'Remboursé',
-    notRefunded: 'Non-Remboursé',
-    isUnpaid: 'Impayé',
-    bookingIsUnpaid: 'Réservation impayée',
-    attachCoach: {
-      title: 'Attribution au professeur',
-      explain:
-        "Choisissez un professeur pour lui attribuer ce RDV et l'ajouter à son calendrier",
-      actions: {
-        cancel: 'Annuler',
-        title: 'Attribuer un professeur',
-      },
-    },
+    cancel: 'Cancel',
+    hardDelete: 'Delete',
+    isCancelled: 'Cancelled',
     detail: {
-      title: 'Réservation',
-      registeredOn: 'Réservé le ',
-      cancelledOn: 'Annulé le ',
-      cancelledByRecurrenceOn: 'Annulation réservation récurrente le ',
-      by: 'Par',
-      source: 'Canal de réservation ',
-      historyTitle: 'Historique',
-      emptyHistory: 'Aucun historique',
-      initialDateTime: 'Date et heure initiale',
-      canal: 'Canal',
-      coachModified: 'Modification',
-      dateModified: 'Modification',
-      restored: 'Restauration',
-      cancelled: 'Annulation',
-      cancelledByRecurrence: 'Annulation réservation récurrente',
-      coachModifiedBy: 'Modifié par',
-      dateModifiedBy: 'Modifié par',
-      restoredBy: 'Restauré par',
-      cancelledBy: 'Annulé par',
-      cancelledByRecurrenceBy: 'Annulé par',
-      slotTitle: 'Séance',
-      passTitle: 'Carte de cours',
-      wasRefunded: 'Crédit remboursé sur la carte de cours',
-      wasRefundedYes: 'Oui',
-      wasRefundedNo: 'Non',
-      address: 'Adresse',
-      coach: 'Professeur',
-      attachCoach: 'Attribuer à un professeur',
+      title: 'Booking',
+      registeredOn: 'Booked on ',
+      source: 'Booked via ',
+      slotTitle: 'Session',
+      passTitle: 'Appointment pass',
+      wasRefunded: 'The credit(s) will be refunded to the pass.',
+      wasRefundedYes: 'Yes',
+      wasRefundedNo: 'No',
+      address: 'Address',
+      attachCoach: 'Assign a teacher',
+      coach: 'Teacher',
+      cancelledOn: 'Cancelled on ',
       unpaidBooking:
-        'Le client a utilisé l’option pour payer plus tard. {{ credits}} crédit(s) seront automatiquement débités lors du prochain achat d’une carte compatible avec le RDV.',
+        'The member selected the option to pay later. The {{ credits}} credit(s) for this unpaid booking will be debited from the first purchased appointment pass.',
+      cancelledByRecurrenceBy: 'Cancelled by',
+      cancelledBy: 'Cancelled by',
+      restoredBy: 'Restored by',
+      dateModifiedBy: 'Edited by',
+      coachModifiedBy: 'Edited by',
+      cancelledByRecurrence: 'Recurring booking cancellation',
+      cancelled: 'Cancellation',
+      restored: 'Restore',
+      dateModified: 'Edit',
+      coachModified: 'Edit',
+      canal: 'Channel',
+      initialDateTime: 'Initial time and date',
+      emptyHistory: "There's no history to display.",
+      historyTitle: 'History',
+      by: 'By',
+      cancelledByRecurrenceOn: 'Recurring booking cancelled on ',
     },
     managerAdd: {
-      title: 'Nouvelle réservation',
-      address: 'Adresse',
-      coachSelector: {
-        label: 'Professeur',
-      },
-      pleaseSelectCoachAndSlot:
-        "Sélectionnez tout d'abord le professeur et la séance",
-      cancel: 'Annuler',
-      compatiblePrivatePass: 'Facturer une carte de RDV',
-      compatiblePrivateConsumerPass: 'Cartes de RDV possédées :',
-      nonCompatiblePrivateConsumerPass:
-        'Cartes de RDV possédées non compatibles :',
-      noUncompatiblePassToDisplay: 'Aucune carte de RDV non compatible',
+      title: 'New booking',
+      address: 'Address',
+      coachSelector: { label: 'Teacher' },
+      pleaseSelectCoachAndSlot: 'Firstly select a teacher and a time slot.',
+      cancel: 'Cancel',
+      compatiblePrivatePass: 'Quick Billing',
+      compatiblePrivateConsumerPass: 'Available appointment passes',
+      emptyPrivateConsumerPass: "This member doesn't own any appointment pass.",
+      emptyPrivatePass:
+        'There are no compatible appointment passes to display.',
+      privateConsumerPassNeedRefresh: 'Refresh',
       incompatibilities: {
-        privateService:
-          'Carte configurée comme incompatible avec le RDV en question :',
         [PRIVATE_PASS_CAN_NOT_BOOK_SERVICE_NOT_COMPATIBLE]:
-          'RDV non compatible',
+          'Non compatible appointment',
         [PRIVATE_PASS_CAN_NOT_BOOK_ENOUGH_CREDIT]:
-          'Nombre de crédits insuffisant',
+          'Insufficient number of credits',
         [PRIVATE_PASS_CAN_NOT_BOOK_LATER_FIRST_BOOKING]:
-          'La carte commence à la première réservation, le ',
-        [PRIVATE_PASS_CAN_NOT_BOOK_HAS_EXPIRED]: 'La carte est expirée',
+          'The pass starts with the first booking, the ',
+        [PRIVATE_PASS_CAN_NOT_BOOK_HAS_EXPIRED]: 'The pass is expired',
         [PRIVATE_PASS_CAN_NOT_BOOK_DATES_NOT_COMPATIBLE]:
-          'Les dates sont incompatibles',
-        close: 'Fermer',
+          'The dates are incompatible',
+        close: 'Close',
+        privateService:
+          'Pass configured as incompatible with the appointment in question:',
       },
-      emptyPrivateConsumerPass: 'Aucune carte compatible possédée',
-      emptyPrivatePass: 'Aucune carte de RDV compatible',
-      privateConsumerPassNeedRefresh: 'Rafraîchir la liste',
+      noUncompatiblePassToDisplay: 'No appointment pass not compatible',
+      nonCompatiblePrivateConsumerPass:
+        'Not compatible owned appointment passes:',
     },
     delete: {
-      consumer: {
-        title: 'Annulation réservation',
-        cancel: 'Annuler',
-        confirm: 'Confirmer',
-        content: {
-          discardable:
-            'Êtes-vous sûr de vouloir annuler ce rendez-vous ? Vos crédits seront de nouveau disponibles.',
-          notDiscardable:
-            'Êtes-vous sûr de vouloir annuler ce rendez-vous ? Vous êtes hors-délai, vos crédits ne seront pas recrédités.',
-        },
-      },
-      title: 'Annulation réservation',
-      hardDeleteTitle: "Suppression d'une réservation",
+      title: 'Cancel booking',
       explain:
-        'Êtes- vous sûr de vouloir annuler cette réservation ? Cette opération est irréversible.',
-      explainWithRestore:
-        'Êtes- vous sûr de vouloir annuler cette réservation ? Vous pourrez annuler cette opération plus tard.',
+        "Are you sure that you want to cancel this booking? This action can't be undone.",
       explainHardDelete:
-        "Cette réservation a déjà été annulée, la supprimer la fera disparaitre du calendrier totalement et vous perdrez l'historique. Elle sera remboursée si elle ne l'a pas été précédemment. Cette opération est irréversible.",
-      explainMoreHardDeleteReccurentBookingTitle: 'Rendez-vous récurrent',
-      explainMoreHardDeleteReccurentBooking:
-        "Cette réservation est liée à une règle de rendez-vous récurrents. Si vous supprimez cette réservation le système cherchera à la créer de nouveau. Si vous ne souhaitez pas que cette réservation soit re-générée veuillez ne pas la supprimer et laisser son status en tant qu'annulée.",
+        "This booking has already been cancelled. By deleting it, it'll also disappear from your calendar. The credit(s) will be refunded to the passes, if this hasn't been done already. This action can't be undone.",
       explainForceRefund:
-        'Rembourser le crédit utilisé sur la carte pour permettre une nouvelle réservation.',
-      sendCancellationMail:
-        "Prévenir {{name}} de l'annulation du rendez-vous par mail",
-      cancel: 'Annuler',
-      confirm: 'Confirmer',
+        'Refund the used credits to the pass and allow a new booking.',
+      cancel: 'Cancel',
+      confirm: 'Confirm',
+      consumer: {
+        content: {
+          notDiscardable:
+            "Are you sure that you want to cancel this appointment? Your credit(s) won't be refunded, because you're cancelling too late.",
+          discardable:
+            'Are you sure that you want to cancel this appointment? Your credit(s) will be refunded.',
+        },
+        confirm: 'Confirm',
+        cancel: 'Cancel',
+        title: 'Cancel appointment',
+      },
+      sendCancellationMail: 'Send {{name}} a cancellation email.',
+      explainWithRestore:
+        'Are you sure you want to cancel this booking? You can undo this later.',
+      explainMoreHardDeleteReccurentBooking:
+        'This booking is associated to a rule for recurring appointments. Deleting the booking will cause the system to regenerate it to match the rule\'s criteria. Avoid this regeneration by leaving the status on "Cancelled".',
+      hardDeleteTitle: 'Delete session',
+      explainMoreHardDeleteReccurentBookingTitle: 'Recurring appointment',
     },
+    discard: 'Cancel appointment',
+    updateTime: {
+      cancel: 'Cancel',
+      submit: 'Save',
+      explainEmail:
+        'Members will automatically receive a notification of this.',
+      title: 'Edit appointment',
+    },
+    editTime: 'Edit',
+    attachCoach: {
+      actions: { title: 'Assign a teacher', cancel: 'Cancel' },
+      explain: 'Choose a teacher to assign this appointment to their calendar.',
+      title: 'Assigned to the teacher',
+    },
+    updateCoach: 'Choose a new teacher for this appointment',
+    isCancelledDate: 'Cancelled on {{-date}} at {{time}}.',
+    restore: 'Restore the appointment',
+    bookings: 'Appointments',
+    notRefunded: 'Not refunded',
+    isRefunded: 'Refunded',
+    isUnpaid: 'Outstanding payment',
+    bookingIsUnpaid: 'Unpaid booking',
+    isCancelledByManagerDate:
+      'Cancelled on {{-date}} at {{time}} by {{cancelled_by}}',
+    isCancelledByManager: 'Cancelled by {{cancelled_by}}',
   },
   privateService: {
+    delete: {
+      title: 'Delete appointment',
+      explain:
+        "Are you sure that you want to delete this appointment? Past booking won't be affected. This action can't be undone.",
+      cancel: 'Cancel',
+      submit: 'Delete',
+      confirm: 'Delete',
+    },
     padBeforeBooking: {
-      explain1:
-        'Si activé, les réservations ne pourront être effectuées que si le calendrier est disponible en incluant la réservation',
       explain2:
-        'Exemple: la salle est disponible de 10h à 11h, votre RDV dure 1h, mais nécessite 15min avant et après la réservation.',
-      explain3:
-        "ACTIVÉ: le RDV ne sera pas possible. Il faut que la salle soit disponible de 9h45 à 11h15. Le prochain RDV ne sera possible qu'à partir de 11h30.",
+        'Example: the establishment is available from 10 AM to 11 AM and your appointment lasts 60 minutes, however, a 15 minute blocker is required beforehand and afterwards for cleaning or maintenance.',
       explain4:
-        'NON-ACTIVÉ: le RDV sera possible et bloquera la salle 15 min avant et après la réservation. Le prochain RDV sera possible à partir de 11h30.',
-    },
-    delete: {
-      title: 'Suppression du rendez-vous',
-      explain:
-        'Êtes-vous sûr de vouloir supprimer ce RDV ? Cette modification est définitive. Les réservations déjà enregistrées ne seront pas affectées.',
-        cancel: 'Annuler',
-      submit: 'Supprimer',
-      confirm: 'Supprimer',
-    },
-  },
-  privateCoach: {
-    delete: {
-      title: 'Désinscription du professeur',
-      explain:
-        "Êtes-vous sûr de vouloir supprimer l'affectation de ce professeur ? Il ne pourra plus prendre de réservation sur ce RDV. Les réservations enregistrées ne seront pas affectées.",
-      cancel: 'Annuler',
-      submit: 'Confirmer',
-    },
-  },
-  privateEstablishment: {
-    delete: {
-      title: 'Désinscription de la salle',
-      explain:
-        'Êtes-vous sûr de vouloir modifier le lieu de ce RDV ? Sans salle il sera considéré comme un RDV à domicile et les élèves devront rentrer leur adresse pour terminer la réservation. Les réservations déjà enregistrées ne seront pas affectées.',
-      cancel: 'Annuler',
-      submit: 'Confirmer',
+        'NON-ACTIVE: the appointment will be possible and will block the room 15 min before and after the reservation. The next appointment will be possible from 11:30 am.',
+      explain3:
+        'ACTIVE: Appointment will not be possible. The room must be available from 9:45 to 11:15. The next appointment will not be possible until 11:30 am.',
+      explain1:
+        'If activated, bookings can only be made if the calendar is available including the booking',
     },
   },
   calendar: {
-    header: {
-      threeDaysView: '3 jours',
-      dateSelector: 'Sélecteur de date',
-    },
-    enableAvailability: 'Ajouter une disponibilité ce jour',
-    disableAvailability: 'Supprimer la disponibilité',
-    enableRecurrentAvailability: 'Ajouter une disponibilité récurrente',
-    disableRecurrentAvailability: 'Supprimer une disponibilité récurrente',
-    createCustomEvent: 'Créer un RDV perso',
-    selectCoachToModifyAvailability: 'Sélectionnez un professeur',
-    addBooking: 'Enregistrer un rendez-vous',
-    showAvailabilityDetails: 'Détails des disponibilités',
-
-    customEvent: {
-      dateStart: 'Date de début',
-      dateEnd: 'Date de fin',
-    },
-
+    enableAvailability: 'Add availability',
+    disableAvailability: 'Remove availability',
+    enableRecurrentAvailability: 'Add recurrent availability',
+    disableRecurrentAvailability: 'Remove recurrent availability',
+    selectCoachToModifyAvailability: 'Select a teacher',
+    addBooking: 'Book an appointment',
     toogle: {
-      showOfferList: 'Cours collectifs',
-      showPrivateBookings: 'Rendez-vous',
-      showCustomEvents: 'RDV perso',
-      hideCancelledEvents: 'Afficher les annulations',
-      title: 'Afficher les filtres',
+      showOfferList: 'Group activities & Workshops',
+      showPrivateBookings: 'Appointments',
+      showCustomEvents: 'Tasks / Personal appointments',
+      hideCancelledEvents: 'Show cancellations',
+      title: 'Filter by activity',
     },
-
     form: {
-      title: {
-        enable: 'Ajouter une disponibilité',
-        disable: 'Supprimer une disponibilité',
-      },
-      explain: "Modification jusqu'au :",
+      title: { enable: 'Add availability', disable: 'Cancel availability' },
+      explain: 'Add until:',
       interval: {
-        explain1: 'Modification de la disponibilité : ',
-        explain2: '{{ date_start }} - {{ date_end }}, tous les {{ day }}',
+        explain1: 'Availability: ',
+        explain2: 'Every {{ day }} from {{ date_start }} to {{ date_end }}',
       },
-      actions: {
-        cancel: 'Annuler',
-        submit: 'Enregistrer',
-      },
+      actions: { cancel: 'Cancel', submit: 'Save' },
     },
+    header: { threeDaysView: '3 Days', dateSelector: 'Date picker' },
+    createCustomEvent: 'Add a task / personal appointment',
+    customEvent: { dateEnd: 'End date', dateStart: 'Start date' },
+    showAvailabilityDetails: 'Availability details',
   },
-  selector: {
-    privateService: 'Sélectionnez votre RDV',
-    privateSlot: 'Sélectionnez votre séance',
-  },
+  selector: { privateService: 'Select an appointment', privateSlot: 'Session' },
   slotSearcher: {
-    title: 'Rendez-vous',
-    searchSlot: 'Rechercher un créneau',
-    selectPrivateSlot: 'Sélectionner une séance',
-    search: 'Rechercher un créneau',
-    selectSession: 'Choisissez votre session',
-    selectService: 'Choisissez un service',
-    selectCoach: 'Tous les professeurs',
-    coach: 'Professeur',
-    establishment: 'Lieu',
-    emptyState: 'Aucune disponibilité pour le moment',
-    previousOffer:
-      'Une séance plus récente est disponible le {{- date }} : {{ hour }}',
-    nextOffer: 'Premier créneau disponible le {{- date }} : {{ hour }}',
-    emptyDateList: 'Aucun créneau disponible ce jour',
-    searchFirstSlot: 'Rechercher le premier créneaux disponible',
-    bookableSlots: {
-      title: 'Créneaux disponibles',
-      isEmpty: 'Aucun créneau disponible',
-    },
-    nbSlot: '{{ nbSlot }} créneau',
-    nbSlot_plural: '{{ nbSlot }} créneaux',
+    title: 'Appointment',
+    searchSlot: 'Slot',
+    selectPrivateSlot: 'Session',
+    search: 'Slot',
+    selectCoach: 'All teachers',
+    emptyDateList: "There's no availability to display for today.",
+    bookableSlots: { title: 'Available slots', isEmpty: 'No availability' },
     groupIdentifier: {
-      morning: {
-        label: 'Matin',
-        interval: 'Avant 12h',
-      },
-      noon: {
-        label: 'Déjeuner',
-        interval: '12h - 14h',
-      },
-      afternoon: {
-        label: 'Après-midi',
-        interval: '15h - 18h',
-      },
-      evening: {
-        label: "Fin d'après midi",
-        interval: 'Après 18h',
-      },
+      evening: { interval: 'After 6 PM', label: 'Evening' },
+      afternoon: { interval: '3 PM - 6 PM', label: 'Afternoon' },
+      noon: { interval: '12 PM - 2 PM', label: 'Noon' },
+      morning: { interval: 'Before 12 PM', label: 'Morning' },
     },
+    nbSlot: '{{ nbSlot }} slot',
+    nbSlot_plural: '{{ nbSlot }} slots',
+    establishment: 'Establishment',
+    coach: 'Teacher',
+    selectService: 'Choose a service',
+    selectSession: 'Slot',
+    emptyState: "There's no availability to display at this moment.",
+    previousOffer: 'Available session: {{- date }} at {{ hour }}',
+    nextOffer: 'First availability: {{- date }} at {{ hour }}',
+    searchFirstSlot: 'Search the first available moment',
   },
   slot: {
-    parameters: {
-      credit: '{{ credit }} crédit',
-    },
+    parameters: { credit: '{{ credit }} credit(s)' },
     form: {
-      title: 'Séance',
+      title: 'Session',
       name: {
-        label: 'Nom de la séance',
-        placeholder: 'Séance double (2h)',
+        label: 'Name of the session',
+        placeholder: 'Double session (120 min.)',
       },
-      booking_interval_minutes: {
-        label: 'Avancé : intervalle de choix de réservation',
-        helperText:
-          'Ex: 15 signifie 15 minutes que le membre peut réserver à 12h, 12h15, 12h30, etc... (recommandé)',
-      },
-      durationError: 'Durée invalide (entre 10min et 1j)',
       people_capacity_used: {
-        label: 'Nombre de personnes',
+        label: 'Number of people',
         helperText:
-          'Si une salle est configurée, ce nombre sera utilisé pour mettre à jour son remplissage',
+          'This number will be used to manage the availability of the establishment(s).',
       },
       credit: {
-        label: 'Nombre de crédit(s)',
-        helperText: 'Nombre de crédit(s) nécessaire(s) pour une réservation',
+        label: 'Credit(s)',
+        helperText:
+          'Select the number of required credits to book an appointment.',
       },
       duration_minutes: {
-        label: 'Durée',
-        helperText: 'Adapter les crédits nécessaires en fonction de la durée',
+        label: 'Duration',
+        helperText:
+          'Configure the amount of required credits to the duration of the session.',
       },
-      cancel: 'Annuler',
-      submit: 'Enregistrer',
-      pre_selected_choices: 'Durées prédéfinies',
+      cancel: 'Cancel',
+      submit: 'Save',
+      booking_interval_minutes: {
+        helperText:
+          '(Recommended) Example: by inserting 15, it means that members can book for 12:00, 12:15. 12:50, etc.',
+        label: 'Advanced: booking interval',
+      },
+      pre_selected_choices: 'Predefined durations',
+      durationError: 'The duration must be between 10 min. and 1 day',
     },
   },
   bookerModule: {
     address: {
-      label: 'Adresse',
-      submit: 'Valider',
-      helperText: 'Entrez votre adresse pour pouvoir réserver ce rendez-vous',
+      label: 'Address',
+      helperText: 'Enter your address to book this appointment.',
+      submit: 'Confirm',
     },
-    availableSlots: 'Créneaux disponibles',
-    emptySlot: 'Aucune disponibilité',
+    availableSlots: 'Available slots',
+    emptySlot: 'There are no available slots',
     missingResource: {
-      service: 'Veuillez sélectionner un type de rendez-vous',
-      coach: 'Veuillez sélectionner le professeur',
-      establishment: 'Veuillez sélectionner le lieu',
+      service: 'Select an appointment to see the availability.',
+      coach: 'Select a teacher',
+      establishment: 'Select an establishment',
     },
-
-    cancel: 'Annuler',
-    confirm: 'Confirmer',
-    title: 'Réservation RDV',
-    error: 'Impossible de réserver sur cette date',
-    searchSlot: 'Rechercher un créneau',
-    noPrivateServiceAvailable: 'Aucun RDV proposé',
-    isAtHome:
-      'Cours à domicile, votre adresse vous sera demandée lors de la réservation',
+    cancel: 'Cancel',
+    title: 'Book an appointment',
+    error: 'Unable to book on this date',
+    searchSlot: 'Slot',
+    noPrivateServiceAvailable: 'There are no appointments to display.',
+    isAtHome: 'An address is required for this appointment.',
     bookingCapabilities: {
-      compatibleConsumerPassTitle: 'Vos cartes valables',
+      compatibleConsumerPassTitle: 'My passes',
       emptyConsumerPassList:
-        'Vous ne possédez pas de cartes valable avec suffisamment de crédit',
-      compatiblePassTitle: 'Cartes valables sur cette séance',
-      emptyPassList: 'Aucune carte compatible, veuillez contacter votre club',
+        'Please purchase a valid pass to complete the booking.',
+      compatiblePassTitle: 'Compatible passes',
+      emptyPassList:
+        'There are no compatible passes to display. Please contact the studio directly.',
     },
-    unpaidBooking: {
-      book: 'Réserver',
-      helper: 'Réserver sans payer et acheter plus tard une carte compatible.',
-      header: 'Payer plus tard',
-      dialogHelper:
-        'Avec cette option réservez votre séance sans la payer tout de suite. Lors de votre prochain achat d’une carte compatible avec cette séance, celle-ci sera automatiquement débitée de {{ credits }} crédit(s).',
-      isUnpaid: 'Impayé',
-    },
-    useCredit: 'Réserver',
-    private_pass: {
-      credits: '{{ credits }} crédit',
-    },
+    useCredit: 'Book',
+    private_pass: { credits: '{{ credits }} credit(s)' },
     buyPass: '{{ price, price }}',
-    notifyMember: {
-      label: 'Envoyer un email de confirmation',
-    },
-    preview: {
-      credit_cost: '{{credit_cost}} crédit',
-    },
+    preview: { credit_cost: '{{credit_cost}} credit(s)' },
     sections: {
-      establishment: 'Lieu',
-      privateSlot: 'Séances',
-      coach: 'Professeur',
+      establishment: 'Establishment',
+      privateSlot: 'Sessions',
+      coach: 'Teacher',
     },
     step: {
-      configuration: 'Mon rendez-vous',
-      billing: 'Facturation',
-      privateService: 'Rendez-vous',
-      privateSlot: 'Séance',
-      coach: 'Professeur',
+      configuration: 'My appointments',
+      billing: 'Billing',
+      privateService: 'Appointments',
+      privateSlot: 'Session',
+      coach: 'Teacher',
       date: 'Date',
-      rule: 'Rendez-vous récurrents',
+      rule: 'Recurring appointments',
     },
-    recurrenceRule: {
-      label: 'Programmez un RDV récurrent',
+    notifyMember: { label: 'Send a confirmation email' },
+    recurrenceRule: { label: 'Schedule a recurring appointment' },
+    confirm: 'Confirm',
+    unpaidBooking: {
+      book: 'Book',
+      helper:
+        'Complete the booking and purchase an appointment pass at a later stage.',
+      header: 'Pay later',
+      dialogHelper:
+        "Use this option to complete a booking without any direct payment involved. The required {{ credits }} credit(s) will be automatically deducted from an appointment pass that'll purchased at a future date.",
+      isUnpaid: 'Outstanding payment',
     },
   },
   consumerPass: {
-    extension: {
-      nbDaysAdded: '+{{nb_days}}j',
-      addedOn: 'Ajouté le ',
-      delete: {
-        title: "Suppression de l'extension",
-        explain: "Êtes-vous sûr de vouloir supprimer l'extension de validité ?",
-        cancel: 'Annuler',
-        confirm: 'Confirmer',
-      },
-      create: {
-        title: "Extension d'une carte",
-        cancel: 'Annuler',
-        submit: 'Créer',
-        explain: {
-          oldDate: 'Ancienne date : ',
-          newDate: 'Nouvelle date : ',
-        },
-        warning:
-          "Vérifiez que la nouvelle date ne fait pas dépasser ce pass sur une nouvelle période fiscale. Si c'est le cas, vérifiez avec votre comptable la pertinence de cette opération.",
-        note: {
-          label: 'Notes',
-        },
-        nbDays: {
-          label: 'Nombre de jours additionnels',
-        },
-        datePicker: {
-          label: 'Nouvelle date',
-        },
-      },
-      options: {
-        addNumberOfDays:
-          'Étendre la validité en ajoutant un certain nombre de jours',
-        selectNewEndDate: 'Définir une nouvelle date de fin de validité',
-      },
-    },
-    actions: {
-      addExtension: 'Ajouter une extension',
-    },
-    expiresOn: 'Expire le {{ date }}',
-    current_credits: '{{ current_credits }}/{{credits}} crédits',
-    isReverted: 'Facture annulée',
+    current_credits: '{{ current_credits }} / {{credits}} credit(s)',
+    isReverted: 'Cancelled invoice',
     detail: {
-      invoice: 'Facture liée',
-      booking: 'Réservations RDV liées',
-      extensionsTitle: 'Extensions de validité',
+      invoice: 'Associated invoice',
+      booking: 'Associated appointments',
+      extensionsTitle: 'Extend the validity',
     },
-    isFromShare: 'Partagé depuis un autre compte',
-    isOwnerOfShares: 'Partagé (carte RDV maître)',
-    isFromDisabledShare: 'Partage arrété',
+    expiresOn: 'Expiration date: {{date}}',
+    actions: { addExtension: 'Extend the validity' },
+    extension: {
+      create: {
+        nbDays: { label: 'Number of extra days' },
+        note: { label: 'Notes' },
+        warning:
+          'Attention! Check if the new date is in the same fiscal year as the old date. If not, please consult your accountant if this will be processed correctly.',
+        explain: { newDate: 'New: ', oldDate: 'Original: ' },
+        submit: 'Add',
+        cancel: 'Cancel',
+        title: '[Form] Extend validity',
+        datePicker: { label: 'New date' },
+      },
+      delete: {
+        confirm: 'Confirm',
+        cancel: 'Cancel',
+        explain:
+          'Are you sure that you want to delete the extension of this validity?',
+        title: 'Delete the extension of the validity',
+      },
+      addedOn: 'Added on: ',
+      nbDaysAdded: '+{{nb_days}} day(s)',
+      options: {
+        selectNewEndDate: 'Set a new end of validity date',
+        addNumberOfDays: 'Extend the validity by adding a number of days',
+      },
+    },
+    isFromDisabledShare: 'Sharing has been disabled',
+    isOwnerOfShares: 'Shared (Master Appointment Pass)',
+    isFromShare: 'This pass is shared with another account.',
     warningShareUniversal:
-      'Cette carte est universelle, veuillez partager la carte de cours associée',
+      'Please share the associated pass instead of the universal pass',
   },
   privateServiceCompatibility: {
-    allSlots: 'Compatible pour toutes les séances',
-    forSlots: 'Les séances compatibles :',
-    none: ' aucune',
     delete: {
-      title: 'Modification RDV compatibles',
+      title: 'Compatible appointments after modification:',
       explain:
-        "Êtes-vous sûr de vouloir modifier les règles d'utilisation du pass ? Cette modification est rétro-active pour les achats déjà effectués.",
-      cancel: 'Annuler',
-      submit: 'Supprimer',
+        'Are you sure that you want to change the usage rules of this pass? This change will affect all purchases.',
+      cancel: 'Cancel',
+      submit: 'Delete',
     },
     excludedSlots: {
-      title: 'Séances du {{ service }}',
-      submit: 'Enregistrer',
-      isEmpty: 'Aucun type de séance configuré dans ce RDV!',
-      cancel: 'Annuler',
-      helperText:
-        'Sélectionnez les sessions pour lesquelles la carte RDV est compatible',
+      helperText: 'Select the compatible appointments of the appointment pass.',
+      cancel: 'Cancel',
+      submit: 'Save',
+      title: 'Sessions: {{ service }}',
+      isEmpty: 'There are no sessions to display for this appointment.',
     },
+    forSlots: 'Compatible sessions:',
+    allSlots: 'Compatible with all sessions',
+    none: ' None',
   },
   privatePass: {
-    actions: {
-      forceRegularizeUnpaid: 'Régulariser tous les impayés',
-    },
-    edit: 'Modifier',
-    ht: 'Hors taxe',
-    validForDuration: {
-      days: 'Valide {{ duration_days }} jours',
-      months: 'Valide {{ duration_months }} mois',
-      years: 'Valide {{ duration_years }} an',
-      general:
-        'Valide {{ duration_days }} jours {{ duration_months }} mois et {{ duration_years }} an',
-    },
     delete: {
-      delete: 'Supprimer',
-      title: 'Suppression de la carte',
+      title: 'Delete pass',
       explain:
-        'Êtes-vous sûr de vouloir supprimer cette carte ? Les personnes possédant encore des crédits pourront toujours les utiliser.',
+        'Are you sure that you want to delete this pass? Members with valid passes and credits will still be able to use them.',
+      cancel: 'Cancel',
+      submit: 'Confirm',
+      delete: 'Delete',
       warning:
-        'Attention ! Cette carte de rdv est utilisée dans un pack, celui-ci ne sera plus disponible à la vente si vous supprimez cette carte de cours.',
-      cancel: 'Annuler',
-      submit: 'Confirmer',
+        "Attention! Deleting this appointment pass will also make it unavailable for purchase for the packs it's used for.",
     },
     list: {
-      createButton: 'Créer une carte RDV',
-      isEmpty: 'Aucune carte RDV',
-      availableCustomer: 'Cartes disponibles à la vente',
-      managerOnly: 'Cartes non disponibles à la vente',
+      createButton: 'Add an appointment pass',
+      isEmpty: 'There are no appointment passes to display.',
+      availableCustomer: 'Available appointment passes',
+      managerOnly: 'Unavailable appointment passes',
     },
     parameters: {
-      nbCredits: '{{ credits }} crédit',
-      nbCredits_plural: '{{ credits }} crédits',
+      nbCredits: '{{ credits }} credit',
+      nbCredits_plural: '{{ credits }} credits',
       price: '{{ price, price}}',
-      tax: 'TVA: {{ tax }}%',
-      managerOnly: 'Invisible pour les clients',
-      unusableByStaff: 'Invisible pour le staff',
+      tax: 'VAT / Sales Tax: {{ tax }}%',
+      managerOnly: 'Unavailable for purchase',
+      unusableByStaff: 'Invisible for the staff',
     },
     compatibleServices: {
-      title: 'RDV compatibles',
-      add: 'Ajouter',
-      isEmpty: 'Aucun rendez-vous compatible',
-      unusable: 'Inutilisable',
-    },
-    detailTitles: {
-      credit_quantity: 'Nombre de crédits',
-      validity: 'Validité',
-      accessibility: 'Accessibilité',
-      vod: 'VOD',
-      privateServiceCompatibility: 'Rendez-vous compatibles',
-      paymentMeans: 'Moyens de paiement',
+      title: 'Compatible appointments',
+      add: 'Add',
+      isEmpty:
+        "This appointment pass can't be used for any appointment, because its compatibility hasn't been configured correctly.",
+      unusable: 'Unusable',
     },
     form: {
-      universalPass: {
-        warningIsUniversalPass:
-          'Cette carte est une carte universelle, une carte jumelle a été créée dans les cartes de cours. Tous les champs modifiés sur cette carte seront aussi modifiés sur la carte jumelle (sauf la catégorie). Il en est de même pour les notifications, extensions et modifications des crédits.',
-        label: 'Carte universelle',
-        helperText:
-          'Les cartes universelles peuvent être utilisées pour réserver des cours collectifs ET des rendez-vous. Une fois la carte créée, une carte jumelle sera créée dans les cartes de cours. Le nombre de crédit des deux cartes sera lié. A l’achat de l’une des deux cartes, l’autre sera automatiquement ajoutée au membre (sans frais supplémentaire).',
-        deativatedTags: 'Désactivé pour les cartes universelles',
-      },
-      title: 'Carte de rendez-vous',
-      franchise:
-        'Cette carte est une carte partagée par le compte franchiseur. Certains éléments ont été définis par le compte franchiseur et ne sont pas modifiables',
-      categoryTitle: {
-        info: 'Informations générales',
-        paymentMeans: 'Moyens de paiement',
-        validity: 'Validité de la carte',
-        compatibility: 'Compatibilité',
-        compatibilityAppointment: 'Compatibilité RDV',
-      },
-      full_vod_access: {
-        label: 'Donne accès à la VOD',
-      },
-      managerOnly: {
-        label: 'Invisible pour les clients',
-      },
-      new_member_only: {
-        label: 'Uniquement pour les nouveaux clients',
-      },
-      name: {
-        label: 'Nom',
-        helperText: 'Nom de la carte de cours',
-      },
-      category: 'Nom de la catégorie',
+      title: '[Form] Appointment pass',
+      managerOnly: { label: 'Unavailable for purchase' },
+      name: { label: 'Name', helperText: 'Name of the appointment pass' },
       credits: {
-        label: 'Nombre de crédits inclus',
-        helperText: 'Chaque séance coûte un certain nombre de crédits',
+        label: 'Number of credits',
+        helperText: 'Indicate the number of included credits.',
       },
       price: {
-        label: 'Prix TTC',
-        helperText: 'Prix de la carte pour le client',
+        label: 'Price (incl. VAT / Sales Tax)',
+        helperText: 'This is the selling price for members.',
       },
-      tax: {
-        label: 'TVA',
-      },
-      durationDays: {
-        label: 'Durée de validité en jours',
-      },
-      durationMonths: {
-        label: 'Durée de validité en mois',
-        helperText: "S'ajoute au nombre de jours",
+      tax: { label: 'VAT / Sales tax' },
+      actions: { submit: 'Save', cancel: 'Cancel' },
+      available_payment_method_identifiers: {
+        helperText:
+          'Select at least one payment method. If none is selected, a card payment will be offered by default.',
+        label: 'Accepted payment methods',
+        warning:
+          'Accepted payment methods can be assigned, once the appointment pass has been made available to members.',
       },
       durationYears: {
-        label: 'Durée de validité en années',
-        helperText: "S'ajoute au nombre de jours et de mois",
+        helperText: 'Will be added to the number of days and months.',
+        label: 'Validity (in years)',
+      },
+      durationMonths: {
+        helperText: 'Will be added to the number of days.',
+        label: 'Validity (in months)',
+      },
+      durationDays: {
+        helperText: 'Validity of this pass (in days) ',
+        label: 'Validity (in days)',
+      },
+      full_vod_access: { label: 'Activate access to Video On Demand' },
+      expirationDaysBeforeFirstUse: {
+        helperText:
+          'The appointment pass will automatically expire if no booking has been made in X amount of days.',
+        label: 'Automatic expiration date:',
+      },
+      start_date_method: {
+        on_attendance: 'Valid from the 1st attendance',
+        on_booking: 'Valid from the 1st booking',
+        on_purchase: 'Valid from the billing date',
+      },
+      new_member_only: { label: 'Only available for new members' },
+      start_date_method_detail: {
+        on_purchase: ' from the date of purchase',
+        on_attendance: ' from the 1st attendance',
+        on_booking: ' from the 1st booking',
       },
       duration: {
-        fullText: 'Cette carte sera valide pendant ',
-        valid: 'Valide ',
-        days: '{{ count }} jour',
-        days_plural: '{{ count }} jours',
-        months: '{{ count }} mois',
-        daysMonths: '{{ duration_months }} mois et {{ duration_days }} jours',
-        years: '{{ count }} an',
-        years_plural: '{{ count }} ans',
-        and: ' et ',
+        daysMonths:
+          '{{ duration_months }} month(s) and {{ duration_days }} year(s)',
+        and: ' and ',
+        years: '{{ count }} year',
+        years_plural: '{{ count }} years',
+        months: '{{ count }} month(s)',
+        days: '{{ count }} day',
+        days_plural: '{{ count }} days',
+        valid: 'Valid for ',
+        fullText: 'This appointment pass will be valid for ',
       },
-      available_payment_method_identifiers: {
-        label: 'Moyens de paiement autorisés',
+      startDate: 'Start date',
+      category: 'Category name',
+      categoryTitle: {
+        compatibility: 'Compatibility',
+        validity: 'Validity',
+        paymentMeans: 'Payment method',
+        info: 'General',
+        compatibilityAppointment: 'Compatibility for appointments',
+      },
+      selector: { privateService: 'Add compatible appointments' },
+      franchise:
+        "The appointment pass is shared through the Master Account. Certain settings have been predefined by said Master Account and can't be modified.",
+      universalPass: {
+        deativatedTags: 'Deactivate for universal passes',
         helperText:
-          'Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement par carte sera proposé.',
-        warning:
-          'Rendez votre carte visible pour les clients pour pouvoir sélectionner les moyens de paiement.',
-      },
-      startDate: 'Date de début',
-      start_date_method: {
-        on_purchase: 'À la facturation',
-        on_booking: 'À la 1ère réservation',
-        on_attendance: 'À la 1ère présence',
-      },
-      start_date_method_detail: {
-        on_purchase: " à partir de la date d'achat",
-        on_booking: ' à partir de la première réservation',
-        on_attendance: ' à partir de la première présence',
-      },
-      expirationDaysBeforeFirstUse: {
-        label: 'Expiration si aucune réservation initiale',
-        helperText:
-          "Si la carte de cours n'est pas consommée une première fois pendant ce nombre de jours, elle sera rendue invalide.",
-      },
-      actions: {
-        submit: 'Enregistrer',
-        cancel: 'Annuler',
-      },
-      selector: {
-        privateService: 'Ajouter un rendez-vous compatible',
-      },
-      appliesForPayroll: {
-        label:
-          'Rendez-vous pris en compte dans le calcul de la rémunération du professeur',
-        helperText:
-          "Par défaut, les rendez-vous sont facturés au studio et comptabilisés dans le récapitulatif et la rémunération du professeur. En désactivant ce paramètre, les rendez-vous associés à cette carte n'apparaîtront plus dans le récapitulatif du professeur.",
+          'Universal passes may be used for group activities and appointments. Twin passes are created for every universal pass to link the number of credits. Once one of these passes has been purchased, the other will be automatically added without any additional costs.',
+        label: 'Universal pass',
+        warningIsUniversalPass:
+          'Twin passes are automatically created for a universal pass. All fields modified here will also be edited on the twin passes, except the categories. This also applies to notifications, validity extensions, and credit changes.',
       },
       onBehalfOfTeacher: {
-        label: 'Paiement entièrement reversé au professeur',
         helperText:
-          "Ce paramètre permet d'indiquer que les revenus associés aux rendez-vous de cette carte reviendront entièrement au professeur. Cette information sera visible dans vos rapports d'achat (CA) colonne 'Paiement entièrement reversé au professeur'.",
+          "This setting allows you to indicate that the income associated with appointments on this pass will be paid in full to the teacher. This information will be visible in your purchase reports (CA) in the 'Payment paid entirely to the teacher' column.",
+        label: 'Full payment to the teacher',
+      },
+      appliesForPayroll: {
+        helperText:
+          "By default, appointments are billed to the studio and included in the teacher's summary and payroll. If you deactivate this setting, the appointments associated with this pass will no longer appear in the teacher's summary.",
+        label:
+          "Appointments taken into account when calculating the teacher's payroll",
       },
       expiration_date: {
-        label: "Date limite d'achat",
-        helperText: 'Disponible jusqu’au',
+        helperText: 'Available until',
+        label: 'Date limit for purchase',
         tooltip:
-          'Passée la date choisie, la carte de rendez-vous n’apparaîtra plus à la vente pour les clients.',
+          'After chosen date, the pack will not be available for sale anymore, for the customers.',
       },
-      description: {
-        label: 'Description',
-      },
+      description: { label: 'Description' },
     },
-    disabledTitle: 'Cartes de RDV archivées',
-    listItem: {
-      unusableByStaff: 'Invisible pour le staff',
+    validForDuration: {
+      general:
+        'This appointment pass is valid for {{ duration_days }} day(s), {{ duration_months }} month(s), and {{ duration_years }} year(s).',
+      years: 'Valid for {{ duration_years }} year(s)',
+      months: 'Valid for {{ duration_months }} month(s)',
+      days: 'Valid for {{ duration_days }} day(s)',
     },
-  },
-  openCalendar: 'Voir le calendrier',
-  openSpecificAvailabilitiesCalendar: 'Disponibilités spécifiques',
-  specificAvailabilitiesCalendar: {
-    goToRegularCalendar: "Retour à l'emploi du temps",
-    infoBoxContent:
-      "Vous êtes dans le mode disponibilités spécifiques à un établissement. Par défaut vos professeurs sont disponibles dans tous les établissements quand vous créez une disponibilité. Sur cette page définissez des disponibilités spécifiques à certains établissements pour rendre votre professeur disponible uniquement dans ces établissements. Il est nécessaire de créer une disponibilité générale sur l'emploi du temps de votre professeur pour créer une disponibilité spécifique.",
-    filters: 'Filtres',
-    establishment: 'Salle',
+    edit: 'Edit',
+    disabledTitle: 'Archived appointment passes',
+    detailTitles: {
+      paymentMeans: 'Payment method',
+      privateServiceCompatibility: 'Compatible appointments',
+      vod: 'Video On Demand',
+      accessibility: 'Accessibility',
+      validity: 'Validity',
+      credit_quantity: 'Credits',
+    },
+    ht: 'Excl. VAT / Sales Tax',
+    actions: { forceRegularizeUnpaid: 'Regularise all outstanding payments' },
+    listItem: { unusableByStaff: 'Invisible for the staff' },
   },
   service: {
-    navigation: {
-      goToPrivatePass: 'Cartes RDV',
-    },
     selector: {
-      placeholder: 'Sélectionnez un rendez-vous',
-      isEmpty: 'Aucun type de rendez-vous configuré',
-      coach: {
-        label: 'Professeur',
-      },
-      establishment: {
-        label: 'Salle',
-      },
+      placeholder: 'Select an appointment',
+      isEmpty: 'There is no appointment category to be displayed.',
+      coach: { label: 'Teacher' },
+      establishment: { label: 'Establishment' },
     },
-    detail: {
-      tab: {
-        general: 'Général',
-        calendar: 'Calendrier',
-      },
-    },
+    detail: { tab: { general: 'General', calendar: 'Schedule' } },
     configuration: {
-      slot: 'Type de séance',
-
+      slot: 'Sessions',
       explainSetToHasNotOwnAvailabilitySlots:
-        'Réservable sur tout créneau horaire si prof/salle disponibles',
+        'The availabilities of all correctly configured teachers and establishments are automatically managed.',
       explainSetToHasOwnAvailabilitySlots:
-        'Reservable sur certains créneaux seulement',
+        'Can only be booked in certain time slots',
       explainHasOwnAvailabilitySlots:
-        'Cliquez sur le crayon pour limiter les réservations à certaines plages horaires',
-      hasFutureSlot: 'Calendrier des disponibilités futures OK',
-      noCapacity: 'Capacité de la salle non-configurée !',
-      totalCapacity: 'Capacité maximale : {{ capacity}}',
+        'Click on the pencil to limit the reservations to certain time slots',
+      hasFutureSlot: 'The availabilities have been set up correctly.',
+      noCapacity: "This establishment doesn't have a maximum capacity.",
+      totalCapacity: 'Maximum capacity: {{ capacity}} member(s)',
       noFutureSlot:
-        "Vous n'avez configuré aucune disponibilité pour {{resourceName}} ! Cliquez ici.",
-      title: 'Disponibilités horaires',
+        "Click here to correctly configure {{resourceName}}'s availability.",
+      title: 'Availability',
       isAlwaysAvailable:
-        '{{ resourceName}} est réservable dès que la salle et/ou les profs sont disponibles',
-      changeIsAlwaysAvailable: 'Modifier',
+        '{{resourceName}} can be booked, once the establishment(s) and/or teacher(s) are available.',
+      changeIsAlwaysAvailable: 'Edit',
     },
     form: {
-      pad_before_booking: {
-        label: 'Prendre en compte avant même la réservation',
-      },
-      managerOnly: {
-        label: 'Invisible pour les clients',
-      },
-      last_discard_minutes: {
-        label: "Dernière annulation remboursable jusqu'à",
-        helperText:
-          'Si la réservation est annulée hors délai le crédit ne sera pas remboursé',
-      },
-      last_booking_minutes: {
-        label: 'Avant le début du rendez-vous, dernière réservation possible',
-      },
       establishmentResourceType: {
         isHomeService: {
-          label: 'A domicile',
-          helperText: 'Une adresse sera demandé à chaque réservation',
+          label: 'At home',
+          helperText: 'An address will be requested for every booking.',
         },
         isWithoutEstablishment: {
-          label: 'Sans lieu pré-déterminé',
-          helperText: 'Ex: cours en visio / en extérieur / ...',
+          label: 'No predetermined establishment',
+          helperText: 'For your outdoor activities, livestreams, etc.',
         },
         isWithEstablishment: {
-          isEmpty: 'Aucune salle configurée !',
-          label: "Dans l'une de vos salles",
+          isEmpty: 'No establishment has been configured.',
+          label: 'In one or more of your establishments',
           helperText:
-            'La réservation ne sera possible que si la salle dispose de suffisamment de places libres',
+            'Bookings will only be possible is there are enough available slots.',
         },
       },
-      paddingTitle: 'Gestion des disponibilités',
-      paddingStart: {
-        label: 'Nombre de minutes avant le début du RDV',
-        helperText:
-          'Sur le calendrier, le professeur et/ou la salle seront marqués comme non disponibles {{minutes}} minutes avant le début du RDV',
-        helperText0:
-          "Sur le calendrier, le professeur et/ou la salle seront marqués comme non disponibles à l'heure de début du RDV",
-      },
-      paddingEnd: {
-        label: 'Nombre de minutes après la fin du RDV',
-        helperText:
-          'Sur le calendrier, le professeur et/ou la salle seront de nouveau marqués comme disponibles {{minutes}} minutes après la fin du RDV',
-        helperText0:
-          "Sur le calendrier, le professeur et/ou la salle seront de nouveau marqués comme disponibles à l'heure de fin du RDV",
-      },
-      resourceGroup: {
-        establishment: 'Lieu',
-        coach: 'Professeur',
-      },
+      resourceGroup: { establishment: 'Establishment', coach: 'Teacher' },
       coach_consumer_attribution: {
-        label: 'Permettre le choix du professeur lors de la réservation',
+        label: 'Allow members to choose their teacher',
         helperText:
-          'Le membre voit et choisit le professeur avant la réservation. Si décoché, vous devrez choisir le professeur après chaque prise de RDV',
+          "Members will see and have the ability to choose the teacher during the booking process. If unchecked, you'll have to assign a teacher after each appointment has been booked.",
       },
       establishment_consumer_attribution: {
-        label: 'Permettre le choix du lieu lors de la réservation',
+        label: 'Allow members to choose the establishment',
         helperText:
-          "Le membre voit et choisit le lieu avant la réservation, si décoché bsport essaiera d'optimiser le remplissage des salles",
+          "Members will see and can choose an establishment during the booking process. If unchecked, we'll automatically optimize the filling of the establishments.",
       },
       delete: {
-        title: 'Suppression du rendez-vous',
+        title: 'Delete appointment',
         content:
-          'Êtes-vous certain de vouloir supprimer ce type de rendez-vous ?',
-        cancel: 'Annuler',
-        confirm: 'Supprimer',
+          'Are you sure that you want to delete this type of appointment?',
+        cancel: 'Cancel',
+        confirm: 'Delete',
       },
       coach_capacity_used: {
-        label: "Nb maximum de RDV simultanés qu'un professeur peut gérer",
+        label:
+          'This is the maximum number of appointments that a teacher can attend to simultaneously.',
         helperText:
-          'Ex: un professeur peut surveiller deux élèves séparément sur deux machines',
+          'Example: a teacher can monitor two students separately on two machines',
         alertText:
-          'Un professeur peut gérer simultanément 1, 2, 3, 4, 6 ou 12 rendez-vous.',
+          'A teacher can manage 1, 2, 3, 4, 6 or 12 appointments simultaneously.',
       },
-      color: 'Code couleur',
+      color: 'Color code',
       use_full_establishment_capacity: {
-        label: 'Nécessite toute la salle',
+        label: 'Requires the entire establishment',
         helperText:
-          'Décochez pour autoriser simultanément plusieurs activités / rdv dans la même salle si la capacité le permet',
+          'Uncheck to allow multiple activities/appointments in the same room simultaneously if the capacity allows it',
       },
-      title: 'Rendez-vous',
-      createButton: 'Ajouter un type de Rendez-vous',
-      addCoach: 'Ajouter un professeur',
-      addEstablishment: 'Ajouter une salle',
-      addSlot: 'Ajouter un type séance',
-
+      title: 'Appointments',
+      createButton: 'Add an appointment',
+      addCoach: 'Add a teacher',
+      addEstablishment: 'Add an establishment',
+      addSlot: 'Add a session',
       is_home_service: {
-        label: 'A domicile',
-        helperText: 'Une adresse sera demandée à chaque réservation',
+        label: 'At home',
+        helperText: 'An address will be requested for every booking.',
       },
-      is_without_coach: 'Sans professeur',
-
-      name: {
-        label: 'Nom du service',
-        placeholder: 'Massage',
+      is_without_coach: "Don't assign any teacher to this appointment",
+      name: { label: 'Name of the service', placeholder: 'Massage' },
+      coach: { label: 'Teacher', isEmpty: 'There are no teachers to display.' },
+      establishment: { label: 'Establishment' },
+      description: { label: 'Description' },
+      actions: { cancel: 'Cancel', submit: 'Save' },
+      last_discard_minutes: {
+        helperText: "Credits won't be refunded for late-cancellations.",
+        label:
+          'Select until when members can cancel for free (late cancellations)',
       },
-      coach: {
-        label: 'Professeur',
-        isEmpty: 'Aucun professeur configuré !',
+      managerOnly: { label: 'Unavailable for purchase' },
+      last_booking_minutes: {
+        label:
+          'Select until when members can book before the start of the appointment',
       },
-      establishment: {
-        label: 'Salle',
-      },
-      description: {
-        label: 'Description du service',
-      },
-      actions: {
-        cancel: 'Annuler',
-        submit: 'Enregistrer',
-      },
-      unpaidBooking: {
-        title: 'Payer plus tard',
-        label: 'Autoriser la réservation sans payer',
+      paddingEnd: {
+        helperText0:
+          'The teacher(s) and/or the establishment(s) will be shown as available after the end of the appointment.',
         helperText:
-          'En activant cette fonctionnalité vos membres pourront réserver ce rendez-vous sans avoir à acheter/utiliser une carte. Le nombre de crédits du rendez-vous sera automatiquement débité de la prochaine carte compatible achetée.',
-        tag: {
-          header: 'Tags',
-          helper:
-            'Utilisez les tags pour rendre accessible la réservation sans payer seulement à certain membre.  Tous les membres possèdant un des tags dans “Autorisé” pourront réserver sans payer. Ou bien tous les membres possèdant un des tags dans “Non-autorisé” ne pourront pas réserver sans payer.',
-          allowed: 'Autorisé',
-          notAllowed: 'Non-autorisé',
-          doNotSelectToAllowAllMembers:
-            'Laisser vide pour autoriser à tous les membres',
-        },
+          'The teacher(s) and/or the establishment(s) will be shown as unavailable for {{minutes}} after the end of the appointment.',
+        label: 'Buffer (in minutes) after the end of the appointment',
       },
+      paddingStart: {
+        helperText0:
+          'The teacher(s) and/or the establishment(s) will be shown as unavailable at the start of the appointment.',
+        helperText:
+          'The teacher(s) and/or the establishment(s) will be shown as unavailable {{minutes}} before the start of the appointment.',
+        label: 'Buffer (in minutes) before the start of the appointment',
+      },
+      paddingTitle: 'Availability',
+      unpaidBooking: {
+        title: 'Pay later',
+        tag: {
+          helper:
+            'Use Tag Management to make certain reservations only available to specific segments of your member data base. All members tagged as "Approved" may complete an unpaid booking, while those tagged as "Refused" won\'t be able to.',
+          header: 'Tags',
+          allowed: 'Approved',
+          notAllowed: 'Refused',
+          doNotSelectToAllowAllMembers:
+            'Leave this field empty to make it available to all members.',
+        },
+        label: 'Accept unpaid bookings',
+        helperText:
+          'Activate this feature to allow members to complete bookings without any direct payments. The used credit(s) will be automatically deducted from any future appointment pass bought by the members.',
+      },
+      pad_before_booking: { label: 'Activate retroactively for this booking' },
     },
     parameters: {
       description: 'Description',
-      coaches: {
-        title: 'Professeur',
-        is_empty: "Aucun professeur n'est requis",
+      coaches: { title: 'Teacher', is_empty: 'Teachers are optional.' },
+      establishments: {
+        title: 'Establishment',
+        is_empty: 'No establishment is available.',
+        is_home_service: 'At home',
+      },
+      slots: {
+        title: 'Session',
+        isEmpty: 'Start by adding a session.',
+        explainIsEmpty:
+          'Configure your appointments (e.g. name, duration, cost, etc.).',
       },
       last_discard_minutes: {
         explain:
-          'La dernière annulation remboursable est possible {{ days }} jour(s) {{ hours }} heure(s) {{ minutes }} minute(s) avant le rendez-vous',
+          'Cancellations will be refunded up to {{ days }} day(s), {{ hours }} hours(s), and {{ minutes }} minute(s) before the start of the appointment.',
       },
       last_booking_minutes: {
         explain:
-          'Dernière réservation possible {{days}} jour(s) {{hours}} heure(s) {{minutes}} minute(s) avant le rendez-vous',
-      },
-      establishments: {
-        title: 'Lieu',
-        is_empty: 'Aucune salle',
-        is_home_service: 'A domicile',
-      },
-      slots: {
-        title: 'Séance',
-        isEmpty: 'Aucune type de séance définie',
-        explainIsEmpty: 'Définissez des types de séances (durée, coût)',
+          'Members can book up to {{days}} day(s), {{hours}} hour(s), and {{ minutes }} minute(s) before the start of the appointment.',
       },
     },
+    navigation: { goToPrivatePass: 'Appointment passes' },
   },
+  privateEstablishment: {
+    delete: {
+      submit: 'Confirm',
+      cancel: 'Cancel',
+      explain:
+        "Are you sure that you want to change the establishment of this appointment? Without any establishments, this'll be considered as an at home appointment and members will be asked to share their address to complete their booking. Past bookings won't be affected.",
+      title: 'Remove the establishment',
+    },
+  },
+  privateCoach: {
+    delete: {
+      submit: 'Confirm',
+      cancel: 'Cancel',
+      explain:
+        "Are you sure that you want to unsubscribe this teacher? They won't be able to get booked in for appointments, but current appointments won't be affected.",
+      title: 'Unsubscribe the teacher',
+    },
+  },
+  openCalendar: 'Show the calendar',
+  noPrivateService:
+    'In this module, you can add, manage, edit, and remove all your appointments.',
+  noPrivatePass:
+    "Members can use appointment passes to book in appointments (e.g. personal training, duos, room rental, massages, etc.). Reminder: don't forget to correctly set up the compatibility of all your appointment passes.",
   customEvent: {
-    actions: {
-      delete: 'Supprimer',
-    },
     form: {
-      title: 'RDV perso',
-      name: {
-        label: 'Nom',
-        placeholder: 'RDV banque',
-      },
-      color: 'Code couleur',
-      coach: {
-        isEmpty: 'Aucun professeur',
-      },
+      actions: { submit: 'Save', cancel: 'Cancel' },
       description: {
+        placeholder: 'Ask for Mr Smith at 1 Oxford Street.',
         label: 'Description',
-        placeholder: 'Demander M. Charles au 1 Champs Elysées',
       },
-      actions: {
-        cancel: 'Annuler',
-        submit: 'Enregistrer',
-      },
+      coach: { isEmpty: 'No teacher has been assigned.' },
+      color: 'Color code',
+      name: { placeholder: 'Dentist appointment', label: 'Name' },
+      title: 'Personal appointment',
     },
+    actions: { delete: 'Delete' },
   },
-  privateBookingNotification: {
-    form: {
-      title: 'Ajouter une notification',
-      subtitle: 'Carte de rendez-vous',
-      intro:
-        "Vous pouvez prévenir vos clients avant ou après certains RDV, en fonction de différents critères comme le nombre de réservations ou d'annulations.",
-      chooseKind: {
-        title: 'Choisissez le type de réservation que vous voulez notifier',
-        valid: 'Réservation valide',
-        cancelledRefunded: 'Réservation annulée et remboursée',
-        cancelledNotRefunded:
-          'Réservation annulée et non remboursée (hors délai)',
-      },
-      ifKind: {
-        valid: 'Si la réservation est valide',
-        refunded: 'Si la réservation a été annulée dans les temps',
-        notRefunded: 'Si la réservation a été annulée hors-délai',
-      },
-      notifyNb: "Notifier le membre lors de l'évènement n° :",
-      notifyAllEvents: 'Notifier le membre à chaque évènement',
-      help: {
-        valid: {
-          default:
-            'Aide : la notification sera envoyée au membre lors de sa réservation valide n° {{notifyNb}} pour ce type de RDV',
-          notifyAll:
-            'Aide : la notification sera envoyée au membre à chacune des ses réservations valides pour ce type de RDV',
-        },
-        cancelledRefunded: {
-          default:
-            'Aide : la notification sera envoyée au membre lors de sa réservation annulée remboursée n° {{notifyNb}} pour ce type de RDV',
-          notifyAll:
-            'Aide : la notification sera envoyée au membre à chacune des ses réservations annulées remboursées pour ce type de RDV',
-        },
-        cancelledNotRefunded: {
-          default:
-            'Aide : la notification sera envoyée au membre lors de son annulation hors délai n° {{notifyNb}} pour ce type de RDV',
-          notifyAll:
-            'Aide : la notification sera envoyée au membre à chacune des ses annulations hors délai pour ce type de RDV',
-        },
-      },
-      chooseWhen: {
-        title: 'Type de notification',
-        beforeMail:
-          'Envoyer le mail au membre avant le RDV concerné par la notification',
-        beforeNotifications:
-          'Envoyer les notifications au membre avant le RDV concerné par la notification',
-        beforeNotification:
-          'Envoyer la notification push au membre avant le RDV concerné par la notification',
-        afterMail:
-          'Envoyer le mail au membre après le RDV concerné par la notification',
-        afterNotifications:
-          'Envoyer les notifications au membre après le RDV concerné par la notification',
-        afterNotification:
-          'Envoyer la notification push au membre après le RDV concerné par la notification',
-      },
-      chooseTime: {
-        title: 'Paramètres',
-        first: 'Envoyer un mail',
-        second: {
-          before: 'heure(s) avant la séance',
-          after: 'heure(s) après la séance',
-        },
-      },
-      next: 'Suivant',
-    },
-    listItemPrimary: {
-      before: 'Notification {{hours}}h avant le RDV',
-      after: 'Notification {{hours}}h après le RDV',
-      valid: 'RDV n° {{notify_booking_nb}}',
-      cancelledNotRefunded: 'Annulation hors délai n° {{notify_booking_nb}}',
-      cancelledRefunded: 'Annulation remboursée n° {{notify_booking_nb}}',
-      notifyAllEvents: {
-        valid: 'À chaque RDV',
-        cancelledRefunded: 'À chaque annulation remboursée',
-        cancelledNotRefunded: 'À chaque annulation hors délai',
-      },
-    },
-    tooltip: 'Des notifications sont actives pour ce type de RDV',
+  noPrivateConsumerPass:
+    'There are no members with this appointment pass to display.',
+  filters: {
+    hasCreditNull: 'Without credit',
+    hasCreditLeft: 'With credit',
+    isActive: 'Active',
+    isExpired: 'Expired',
+    invoice: 'Invoice',
+    reverted: 'Cancelled invoice',
+    notReverted: 'Non-cancelled invoice',
+    credits: 'Credit(s)',
+    expiration: 'Validity',
+    all: 'All passes',
+    isValidToday: 'Valid',
   },
   recurrenceRule: {
-    recurrentBookings: 'Rendez-vous récurrents',
-    createModal: {
-      create: 'Créer une réservation récurrente',
-    },
-    actions: {
-      close: 'Fermer',
-      save: 'Enregistrer',
-    },
-    form: {
-      title: 'Programmer une récurrence',
-      configuration: 'Réservations',
-      timeGroup: 'Date de la séance',
-      allow_unpaid:
-        'Autoriser les réservations impayées (aucune carte compatible possédée)',
-      notify_member:
-        "Envoyer un mail de confirmation lors de l'inscription du membre",
-      override_availabilities:
-        'Faire la réservation même si le professeur, la salle ou le rendez-vous ne sont pas disponibles',
+    item: {
+      explain: 'Every {{dayOfWeek}} at {{time}} - {{delayWeek}} week(s) before',
+      startFrom: 'From: {{ date }}',
+      allowUnpaid: 'Authorizes unpaid reservations',
     },
     forms: {
-      delete: {
-        title: 'Déprogrammer un RDV récurrent',
-        content:
-          "Déprogrammer le RDV récurrent entrainera l'annulation des RDV futurs enregistrés via cette règle.",
-        cancel: 'Annuler',
-        confirm: 'Supprimer',
-      },
       update: {
-        title: 'Modification RDV récurrent',
+        confirm: 'Edit',
+        cancel: 'Cancel',
         content:
-          'Modifier la règle de récurrence entrainera la modification des RDV futurs effectués via cette règle.',
-        cancel: 'Annuler',
-        confirm: 'Modifier',
+          "Editing this recurring appointment will affect all future appointments that've been made with this rule",
+        title: 'Edit recurring appointment',
+      },
+      delete: {
+        confirm: 'Delete',
+        cancel: 'Cancel',
+        content:
+          "Deleting recurring appointments will result in the cancellation of future appointments that've been made via this rule.",
+        title: 'Delete a recurring appointment',
       },
     },
-    item: {
-      startFrom: 'A partir du {{ date }}',
-      allowUnpaid: 'Autorise les réservations en impayé',
-      explain:
-        'Tous les {{dayOfWeek}} - {{time}}, {{delayWeek}} semaines avant',
+    form: {
+      notify_member: 'Send a confirmation email',
+      timeGroup: 'Date of the session',
+      configuration: 'Bookings',
+      title: '[Form] Recurring appointment',
+      override_availabilities:
+        'Complete the booking even though the appointment, the establishment or the teacher is unavailable',
+      allow_unpaid: 'Authorize unpaid reservations (no compatible card owned)',
+    },
+    actions: { save: 'Save', close: 'Close' },
+    createModal: { create: 'Add a recurrent appointment' },
+    recurrentBookings: 'Recurring appointments',
+  },
+  privateBookingNotification: {
+    tooltip: 'There are active notifications for this appointment.',
+    listItemPrimary: {
+      notifyAllEvents: {
+        cancelledNotRefunded: 'For each late cancellation',
+        cancelledRefunded: 'For each refunded cancellation',
+        valid: 'For each appointment',
+      },
+      cancelledRefunded:
+        'Number of refunded cancellations: {{notify_booking_nb}}',
+      cancelledNotRefunded:
+        'Number of late cancellations: {{notify_booking_nb}}',
+      valid: 'Booking number: {{notify_booking_nb}}',
+      after:
+        'Send this notification {{hours}}h after the end of the appointment.',
+      before:
+        'Send this notification {{hours}}h before the start of the appointment.',
+    },
+    form: {
+      next: 'Next',
+      chooseTime: {
+        second: {
+          after: 'hour(s) after the end of the session',
+          before: 'hour(s) before the start of the session.',
+        },
+        first: 'Send this notification',
+        title: 'Settings',
+      },
+      chooseWhen: {
+        after: 'Send this notification after the end of the appointment',
+        before: 'Send this notification before the start of the appointment',
+        title: 'Event',
+        afterNotification:
+          'Send the push notification before the start of the appointment',
+        afterNotifications:
+          'Send notifications after the end of the appointment',
+        afterMail: 'Send this notification after the end of the appointment',
+        beforeNotification:
+          'Send the push notification before the start of the appointment',
+        beforeNotifications:
+          'Send notifications before the start of the appointment',
+        beforeMail: 'Send this email before the start of the session',
+      },
+      help: {
+        cancelledNotRefunded: {
+          notifyAll:
+            'Members will receive this notification every time they cancel too late for this appointment.',
+          default:
+            "Members will receive this notification, once they've cancelled this appointment {{notifyNb}} times too late.",
+        },
+        cancelledRefunded: {
+          notifyAll:
+            'Members receive this notification every time their cancellation for this appointment gets refunded.',
+          default:
+            'Members receive this notification, once they have {{notifyNb}} refunded cancellations for this appointment.',
+        },
+        valid: {
+          notifyAll:
+            'Members receive this notification every time they book this appointment.',
+          default:
+            'Members receive this notification once they booked {{notifyNb}} valid appointments.',
+        },
+      },
+      notifyAllEvents: 'Send this notification to every booking',
+      notifyNb: 'Send a notification for booking number:',
+      chooseKind: {
+        cancelledNotRefunded: 'Late cancellations',
+        cancelledRefunded: 'Cancelled and refunded bookings',
+        valid: 'Maintained bookings',
+        title: 'Event',
+      },
+      intro:
+        'You can automatically send notifications before and/or after your appointments (e.g. for bookings, cancellations, etc.)',
+      title: 'Add a notification',
+      ifKind: {
+        notRefunded: 'When the appointment has been cancelled too late',
+        refunded: 'When the appointment has been cancelled on time',
+        valid: 'Valid appointments',
+      },
+      subtitle: 'Appointment pass',
     },
   },
-  disabledPacksTitle: 'Cartes RDV archivées',
-  categoryTitle: 'Catégories de cartes de RDV',
+  marketplace: { isEmpty: 'There are no appointments to display.' },
+  search: 'Search an appointment',
+  popup: {
+    begin: 'Start time',
+    end: 'End time',
+    button: 'Schedule',
+    validate: 'Save',
+  },
+  searshAppointmentPass: 'Search an appointment pass',
+  categoryTitle: 'Categories of appointment passes',
+  disabledPacksTitle: 'Archived appointment passes',
   notification: {
-    addButton: 'Ajouter une notification',
+    addButton: 'Add a notification',
     listItem: {
-      mail: 'Mail ',
+      mail: 'Email ',
       deleteModal: {
-        title: 'Suppression notification',
-        cancel: 'annuler',
-        confirm: 'Supprimer',
+        title: 'Delete a notification',
+        cancel: 'Cancel',
+        confirm: 'Delete',
         content:
-          'Etes vous sûr de vouloir supprimer cette notification ? Cette opération est définitive',
+          "Are you sure that you want to delete this notification? This action can't be undone.",
       },
-      smartList: 'Listes exclues',
-      smartListInclude: 'Listes incluses',
+      smartList: 'Excluded Smartlist(s)',
+      smartListInclude: 'Included Smartlist(s)',
     },
   },
+  privatePassTemplateInstance: {
+    deleteForm: {
+      content:
+        "Members that've bought a pass at this studio will still be able to use this pass at other compatible studios, even after this specific studio has been deactivated. Other shared passes will no longer be useable at the deactivated studio.",
+      actions: { submit: 'Disable sharing', close: 'Close' },
+      title: 'Deactivation',
+    },
+    form: {
+      explain2:
+        'Members that have bought this pass may use the pass at any of the compatible studios.',
+      actions: { submit: 'Save', close: 'Close' },
+      explain1:
+        "The following studios will automatically offer this pass, but won't be able to modify the price or the number of credits.",
+      title: 'Availability',
+    },
+    privateConsumerPassSharedFromOtherFranchisee: 'Shared from a franchisee',
+    actions: { addCompany: 'Add a studio' },
+    companyEmpty: 'There are no studios offering this pass to display.',
+    privatePassSharedFromFranchisor: 'Master Account Pass',
+  },
+  privatePassTemplate: {
+    actions: { create: 'Add a shared pass' },
+    deleteForm: {
+      actions: { submit: 'Disable sharing', close: 'Close' },
+      content:
+        'Members will still be able to use a pass, of which the sharing has been deactivated, at the studio of purchase.',
+      title: 'Deactivation',
+    },
+    form: {
+      actions: { submit: 'Save', close: 'Close' },
+      submit: 'Confirm',
+      close: 'Close',
+      title: '[Form] Shared appointment pass',
+    },
+    section: {
+      titleManagerOnly: 'Not available for purchase',
+      titleAvailable: 'Available for purchase',
+    },
+    isEmptyExplain:
+      'Members can purchase and use this pass at any of the associated studios.',
+    specification: {
+      companySharedWithTitle: 'Shared with the following studios:',
+    },
+  },
+  seeAll: 'Show all',
   universalPass: {
     delete: {
       dialog: {
-        title: 'Suppresion de la carte',
         warningText:
-          'Attention ! Cette carte est une carte universelle, si vous la supprimez sa carte jumelle sera elle aussi supprimée.',
+          'Attention! Deleting a universal pass will also delete its twin passes.',
+        title: 'Delete',
+      },
+    },
+  },
+  specificAvailabilitiesCalendar: {
+    establishment: 'Establishment',
+    filters: 'Filters',
+    infoBoxContent:
+      "You are in the availability mode specific to an establishment. By default your teachers are available in all establishments when you create an availability. On this page you can define specific availabilities for certain establishments to make your teacher available only in these establishments. It is necessary to create a general availability on your teacher's schedule to create a specific availability.",
+    goToRegularCalendar: 'Back to the schedule',
+  },
+  openSpecificAvailabilitiesCalendar: 'Specific availabilities',
+  forms: {
+    delete: {
+      confirm: 'Delete',
+      cancel: 'Cancel',
+      actions: { confirm: 'Delete', cancel: 'Cancel' },
+      title: 'Delete appointment',
+      content: {
+        canDelete:
+          'Are you sure you want to delete this appointment? This change is definitive. Bookings already made will not be affected.',
       },
     },
   },

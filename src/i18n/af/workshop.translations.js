@@ -1,48 +1,43 @@
 exports.default = {
-  search: 'Chercher un atelier',
-  actions: {
-    addWorkshopActivity: 'Ajouter un atelier',
-    search: 'Rechercher un atelier',
-    addWorkshopGroup: 'Ajouter un groupe de séance',
-  },
-  group: {
-    emptySelect: 'Séléctionnez une séance',
-    backToGroup: 'Retourner au groupes',
-    pageSize: 'Afficher par:',
-    emptySearch: 'Aucun groupe ne correspond à votre recherche',
-    emptyState:
-      'Avec les groupes de séances vos élèves pourront réserver d’un seul coup toutes les séances comprises dans le groupe. Par exemple, utilisez les groupes de séances pour créer des ateliers d’initiations avec plusieurs séances. ',
-  },
-  noWorkshops:
-    "Gérez ici vos ateliers, un atelier est un évènement dont la date est fixée à l'avance.",
-  navigation: {
-    goToPaymentPack: 'Cartes de cours',
-  },
+  search: 'Search a workshop',
   modal: {
     delete: {
-      title: "Suppression de l'atelier",
+      title: 'Delete workshop',
       content:
-        'Êtes-vous sûr de vouloir supprimer cet atelier ? Les séances et réservations ne seront pas affectées. Cette opération est définitive.',
-      cancel: 'Annuler',
-      confirm: 'Supprimer',
+        "Are you sure that you want to delete this workshop? Your bookings and sessions won't be affected. This action can't be undone.",
+      cancel: 'Cancel',
+      confirm: 'Delete',
     },
   },
   forms: {
     delete: {
-      title: "Suppression de l'atelier",
+      actions: { confirm: 'Delete', cancel: 'Cancel' },
       content: {
-        canDelete:
-          'Êtes-vous sûr de vouloir supprimer cet atelier ? Les séances et réservations passées ne seront pas affectées. Cette opération est définitive.',
         cannotDelete:
-          "Des séances sont prévues dans le futur, vérifiez qu'elles sont bien supprimées et pas seulement annulées.",
+          'Upcoming sessions have been planned for this activity. Check if these have all been cancelled and deleted already.',
+        canDelete:
+          "Are you sure that you want to delete this workshop? Your bookings and sessions won't be affected. This action can't be undone.",
       },
-      actions: {
-        cancel: 'Annuler',
-        confirm: 'Supprimer',
-      },
+      title: 'Delete workshop',
     },
   },
-  disabledWorkshops: 'Ateliers archivés',
-  tabList: 'Liste des ateliers',
-  tabGroups: 'Séances groupées',
+  navigation: { goToPaymentPack: 'Passes' },
+  actions: {
+    search: 'Search a workshop',
+    addWorkshopActivity: 'Add a workshop',
+    addWorkshopGroup: 'Add an event',
+  },
+  noWorkshops:
+    'Workshops are events which you can add, edit, delete, and manage in this tab.',
+  disabledWorkshops: 'Archived workshops',
+  tabGroups: 'Grouped sessions',
+  tabList: 'Workshops',
+  group: {
+    emptyState:
+      'With session groups your students can book all the sessions included in the group at once. For example, use the session groups to create introductory workshops with several sessions. ',
+    emptySearch: 'There are no search results to display.',
+    pageSize: 'Display by:',
+    backToGroup: 'Back to groups',
+    emptySelect: 'Select a workshop or event to display more information.',
+  },
 };

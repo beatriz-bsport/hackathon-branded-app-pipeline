@@ -1,202 +1,164 @@
 exports.default = {
-  delete: {
-    title: 'Archiver la carte cadeau',
-    content:
-      'Voules-vous vraiment archiver cette carte cadeau ? Elle ne sera plus facturable via le backoffice. Vous pourrez la réactiver plus tard.',
-    cancel: 'Annuler',
-    submit: 'Confirmer',
-  },
-  list: {
-    validity: 'Valable {{ duration }} jours',
-    unlimited: 'Illimitée',
-    explainIfEmpty:
-      "Les cartes cadeaux permettent à vos membres d'offrir à leurs invités un montant à dépenser dans votre studio.",
-    visibility: 'Non visible',
-    activeTitle: 'Disponible à la vente',
-    unavailableForSaleTitle: 'Indisponible à la vente',
-    archivedTitle: 'Archivé',
-    isEmpty: 'Aucune carte cadeau disponible',
-    addBackgroundImage: 'Ajouter des images de personnalisation',
-    actions: {
-      create: 'Créer une carte cadeau',
-      goToGiftcard: 'Voir toutes les cartes cadeaux',
-    },
-  },
-  consumerGiftcard: {
-    activation: {
-      title: 'Quelqu’un a voulu vous faire plaisir !',
-      subtitle: 'Il semblerait que quelqu’un vous ait fait une surprise.',
-      content1:
-        'Votre carte cadeaux d’une valeur de {{price}} est compatible avec l’ensemble des produits de notre magasin. Cette carte n’a pas de date limite d’utilisation, faites vous plaisir !',
-      content1withDate:
-        'Votre carte cadeaux d’une valeur de {{price}} est compatible avec l’ensemble des produits de notre magasin. Cette carte expire {{ expiration_days }} jours après activation, faites vous plaisir !',
-      content2:
-        'Elle viendra automatiquement s’ajouter comme moyen de paiement dans votre panier. Vous pouvez retrouver toutes les informations de votre carte cadeau sur votre profil.',
-      content3:
-        'Si vous n’êtes pas connecté au bon compte, merci de vous déconnecter pour vous connecter au bon compte. Si cette carte cadeau ne vous est pas destinée, merci de ne pas la valider.',
-
-      activate: 'Activer ma carte cadeau',
-      alreadyActivated:
-        'Cette carte cadeau a déjà été utilisée par un autre utilisateur',
-    },
-    invitationForm: {
-      activationCodeLink:
-        "Le mail d'invitation a été envoyé et ne peut plus être modifié, si celui-ci n'est pas arrivé au bon destinataire vous pouvez transmettre ce lien d'activation pour offrir la carte cadeau : ",
-      title: "Envoyer un email d'invitation",
-      content:
-        "Vous pouvez modifier les destinataires de la carte cadeau. Attention, un seul pourra l'utiliser. Si l'email n'a pas été reçu vous pouvez aussi transmettre ce lien d'activation :",
-      actions: {
-        close: 'Fermer',
-        submit: 'Envoyer',
-      },
-    },
-    list: {
-      myPurchases: 'Carte cadeaux achetées',
-      myGifted: 'Cartes cadeaux reçues',
-    },
-    linkedInvoice: 'Facture liée',
-    isEmpty: 'Aucune carte cadeau',
-    isFor: "A l'attention de ",
-    isFrom: 'De la part de ',
-    value: 'Valeur',
-    invitedOn: 'Envoyée le {{- d }}',
-    willInviteOn: 'Invitation à envoyer le {{- d }}',
-    expiresOn: 'Expire le {{- d }}',
-    notAttributedYet: 'Non validée',
-    sendTo: "Renvoyer l'invitation",
-    previewPlaceholder: {
-      name: '[Nom de la carte]',
-      message_is_from: '[Nom acheteur]',
-      message_is_for: '[Nom destinataire]',
-      message_content: '[Message personnalisé]',
-      giftcard_amount: '[Montant carte]',
-    },
-    form: {
-      name: {
-        label: 'Nom de la carte',
-      },
-      message_is_for: {
-        label: "A l'attention de ",
-      },
-      message_is_from: {
-        label: 'De la part de ',
-      },
-      message_content: { label: 'Message personnel' },
-      recipients: {
-        label: 'Email du destinataire',
-      },
-      select_image: 'Sélectionnez votre image de fond',
-      date_send: {
-        label: 'Date d’envoi de l’email',
-      },
-      hour_send: "Heure d'envoi",
-      actions: {
-        submit: 'Ajouter au panier',
-        cancel: 'Annuler',
-      },
-      footer:
-        'La carte sera envoyée par mail le {{- date_send }} à {{- hour_send }} aux adresses indiquées. Elle sera valide pendant {{ expiration_days }} jours après l’envoi du mail. Le compte du destinataire sera crédité de {{- price }} pour les prochains achats.',
-      footerUnlimited:
-        "La carte sera envoyée par mail le {{- date_send }} à {{- hour_send }} aux adresses indiquées. Elle ne contient pas de date d'expiration. Le compte du destinataire sera crédité de {{- price }} pour les prochains achats.",
-    },
-  },
-  link: {
-    copyLink: "Copier le lien d'achat",
-    activationLink: "Copier le lien d'activation",
-  },
-  giftcard: {
-    configurationTitle: 'Carte cadeau',
-    detail: {
-      expirationDate: 'Validité avant expiration : {{ expiration_days }} jours',
-      availablePaymentMethods: 'Moyens de paiement disponibles',
-      manager_only: 'Indisponible à la vente en ligne',
-    },
-    delete: {
-      dialog: {
-        title: 'Suppression',
-        content:
-          "Êtes-vous sûr de vouloir supprimer cette carte ? Les membres ayant déjà acheté la carte pourront continuer à s'en servir.",
-        actions: {
-          delete: 'Supprimer',
-          close: 'Fermer',
-        },
-      },
+  backgroundImage: {
+    dialog: {
+      explain:
+        'Add custom images to allow your members to make their gift cards more personal. During the creation of the gift card, members will be able to choose a background image.',
+      actions: { close: 'Close' },
+      title: 'Custom images',
     },
   },
   form: {
     giftcard: {
-      actions: {
-        cancel: 'Fermer',
-        submit: 'Valider',
-      },
-      title: 'Carte cadeau',
-      name: {
-        label: 'Nom',
-      },
-      available_payment_method_identifiers: {
-        helperText: '',
-        label: 'Moyens de paiement disponibles',
-      },
-      description: {
-        label: 'Description',
-      },
-      section: {
-        parameters: {
-          title: 'Paramètres',
-        },
+      manager_only: { label: 'Unavailable for purchase' },
+      unlimited: { label: 'Unlimited' },
+      expiration_days: {
+        helperText:
+          'The validity of the gift card starts on the sending date of the invitation.',
+        label: 'Validity in days',
       },
       price: {
-        label: 'Prix de vente',
-        helperText: 'Définira la valeur de la carte offerte',
+        helperText: 'This will define the value of the gift card.',
+        label: 'Selling price',
       },
-      expiration_days: {
-        label: 'Durée de validité en jours',
-        helperText:
-          'La validité de la carte commence à la date d’envoi de l’email carte cadeau',
+      section: { parameters: { title: 'Settings' } },
+      description: { label: 'Description' },
+      available_payment_method_identifiers: {
+        label: 'Available payment methods',
+        helperText: ' ',
       },
-      unlimited: {
-        label: 'Illimité',
-      },
-      manager_only: {
-        label: 'Invisible pour les clients',
-      },
+      name: { label: 'Name' },
+      title: 'Gift card',
+      actions: { submit: 'Confirm', cancel: 'Close' },
     },
     canNotUpdateBecauseShared:
-      "Cette carte cadeau est une carte partagée par le compte franchiseur. Elle a été définie par le compte franchiseur et n'est pas modifiable.",
+      'This gift card is a shared card by the franchisor. It has been defined by the franchisor and cannot be modified.',
   },
-  backgroundImage: {
-    dialog: {
-      title: 'Images de personnalisation',
-      actions: {
-        close: 'Fermer',
+  giftcard: {
+    delete: {
+      dialog: {
+        actions: { close: 'Close', delete: 'Delete' },
+        content:
+          'Are you sure that you want to delete this gift card? Members that previously purchased it, will still be able to use it.',
+        title: 'Delete',
       },
-      explain:
-        'Ajouter des images pour permettre à vos membres de personnaliser leur carte cadeau. Pendant la création de leur carte vos membres pourront choisir une image de fond sur la carte cadeau.',
+    },
+    detail: {
+      availablePaymentMethods: 'Available payment methods',
+      expirationDate:
+        'Validity before expiration: {{ expiration_days }} day(s)',
+      manager_only: 'Unavailable gift cards',
+    },
+    configurationTitle: 'Gift card',
+  },
+  link: {
+    copyLink: 'Copy the direct link to the gift card',
+    activationLink: 'Copy activation link',
+  },
+  consumerGiftcard: {
+    form: {
+      footer:
+        "The gift card will be sent to the recipient at {{- hour_send }}. It'll be valid for {{ expiration_days }} day(s) after sending this message and the recipient's account will be topped up with {{- price }}.",
+      actions: { submit: 'Add to basket', cancel: 'Cancel' },
+      date_send: { label: 'Date of sending the email' },
+      recipients: { label: "Recipient's email" },
+      message_content: { label: 'Custom message' },
+      message_is_from: { label: 'From ' },
+      message_is_for: { label: 'To the attention of ' },
+      name: { label: "Gift card's name" },
+      footerUnlimited:
+        "The gift card will be sent to the recipient at {{- hour_send }}. It has no expiration date and the receiver's account balance will be topped up with {{- price }} for future purchases.",
+      select_image: 'Select your background image',
+      hour_send: 'Sending time',
+    },
+    previewPlaceholder: {
+      message_content: '[Custom message]',
+      message_is_for: "[Recipient's name]",
+      message_is_from: "[Buyer's name]",
+      name: '[Gift card name]',
+      giftcard_amount: '[Amount of the giftcard]',
+    },
+    sendTo: 'Resend the invitation',
+    notAttributedYet: 'Not validated',
+    expiresOn: 'Expires on {{- d }}',
+    willInviteOn: 'Invitation will be sent on {{- d }}',
+    invitedOn: 'Sent on {{- d }}',
+    value: 'Value',
+    isFrom: 'From ',
+    isFor: 'For the attention of ',
+    isEmpty: 'There are no gift cards to display.',
+    linkedInvoice: 'Associated invoice',
+    list: {
+      myGifted: 'Received gift cards',
+      myPurchases: 'Purchased gift cards',
+    },
+    invitationForm: {
+      actions: { submit: 'Send', close: 'Close' },
+      content:
+        'You can change the recipient of the gift card. Attention: it can only be used by 1 user. You can also send this activation link:',
+      title: 'Send an invitation email',
+      activationCodeLink:
+        "The invitation email has been sent and can no longer be edited. If the correct recipient didn't receive the message, you can send this link: ",
+    },
+    activation: {
+      alreadyActivated: 'This gift card has already been used.',
+      activate: 'Activate my gift card',
+      content3:
+        "If you've logged in with the incorrect account, we're kindly requesting you to not validate this gift card if it isn't intended for you. Please reconnect with the correct account.",
+      content2:
+        'The gift card will automatically be added as a payment method to your basket. All gift card related information is stored in your profile.',
+      content1:
+        "Your gift card of {{price}} is compatible with all of our store's products and has no expiration date. Enjoy!",
+      subtitle: 'Looks like someone wanted to surprise you.',
+      title: "You've received a gift!",
+      content1withDate:
+        'Your {{price}} gift card can be used for any of our products. Please bear in mind that your gift card expires in {{ expiration_days }} day(s) after activation. Enjoy!',
     },
   },
-  search: 'Rechercher une carte cadeau',
-  widget: 'Choisir des cartes cadeaux',
+  list: {
+    isEmpty: 'There are no gift cards to display.',
+    archivedTitle: 'Archived gift cards',
+    unavailableForSaleTitle: 'Unavailable gift cards',
+    activeTitle: 'Available gift cards',
+    explainIfEmpty:
+      "Gift cards allow your members to share offers with their guests and to increase your studio's potential reach.",
+    actions: { create: 'Add a gift card', goToGiftcard: 'See all gift cards' },
+    addBackgroundImage: 'Add an image',
+    visibility: 'Unavailable',
+    unlimited: 'Unlimited',
+    validity: 'Valid for {{ duration }} day(s)',
+  },
+  delete: {
+    submit: 'Confirm',
+    cancel: 'Cancel',
+    content:
+      "Are you sure that you want to archive this gift card? It won't appear on your Back Office anymore, but you can reactivate it in the future.",
+    title: 'Archive this gift card',
+  },
+  search: 'Search a gift card',
+  widget: 'Choose gift cards',
   giftcardTemplate: {
-    giftcard: 'Carte cadeau',
-    sharedCard: 'Partagée depuis un autre franchisé',
-    listPage: {
-      emptyLabel: 'Aucune carte cadeau partagée enregistrée',
-      addButton: 'Créer une carte cadeau partagée',
-      fuzzyPlaceholder: 'Rechercher une carte cadeau',
-    },
     template: {
-      deleteTemplateContent:
-        "En désactivant une carte cadeau partagée, les membres possédant cette carte ne pourront plus l'utiliser que dans le studio dans lequel elle a été achetée.",
-      deleteInstanceContent1:
-        "En désactivant ce studio du partage de la carte cadeau, tous les membres possédant cette carte et l'ayant reçue d'un membre qui a acheté la carte dans ce studio pourront toujours l'utiliser. En revanche ils ne pourront plus l'utiliser dans les autres studios.",
+      withoutTax: 'Excl. VAT / Sales Tax',
+      unlimited: 'Unlimited',
+      validityDetail: 'Validity before expiration : {{count}} day',
+      validityDetail_plural: 'Validity before expiration : {{count}} days',
+      validity: 'Valid {{count}} day',
+      validity_plural: 'Valid {{count}} days',
+      deleteDialogContent:
+        'By deactivating a shared gift card, members with that pass will only be able to use it in the studio where it was purchased.',
       deleteInstanceContent2:
-        "Enfin, les cartes ayant été achetées dans les autres studios ne seront plus utilisables dans le studio désactivé, quelle que soit la date d'achat.",
-      validity: 'Valable {{count}} jour',
-      validity_plural: 'Valable {{count}} jours',
-      validityDetail: 'Validité avant expiration : {{count}} jour',
-      validityDetail_plural: 'Validité avant expiration : {{count}} jours',
-      unlimited: 'Illimitée',
-      withoutTax: 'Hors taxe',
+        'Finally, gift cards that were purchased in other studios will no longer be usable in the deactivated studio, regardless of when they were purchased.',
+      deleteInstanceContent1:
+        'By deactivating this studio from sharing the gift card, all members who have this card and have received it from a member who purchased the card in this studio will still be able to use it. However, they will not be able to use it in other studios.',
+      deleteTemplateContent:
+        'By deactivating a shared gift card, members with that card will only be able to use it in the studio where it was purchased.',
     },
+    listPage: {
+      fuzzyPlaceholder: 'Search a gift card',
+      addButton: 'Create a shared gift card',
+      emptyLabel: 'No shared gift card registered',
+    },
+    sharedCard: 'Shared from another franchisee',
+    giftcard: 'Gift card',
   },
 };

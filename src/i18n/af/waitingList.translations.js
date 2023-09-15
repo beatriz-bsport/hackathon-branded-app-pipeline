@@ -4,95 +4,94 @@ const {
 } = require('@bsport/common/lib/master-data/waiting-list-dynamic');
 
 exports.default = {
-  switchToEnable: "Réactiver la liste d'attente",
-  switchToDisable: "Désactiver la liste d'attente",
-  nbPending: '{{ nbPending }} sur liste',
-  nbConvertible: '{{ nbConvertible }} en attente de confirmation',
+  switchToEnable: 'Reactivate waitlist',
+  switchToDisable: 'Deactivate waitlist',
+  nbPending: '{{ nbPending }} members have joined the waitlist',
+  nbConvertible: '{{ nbConvertible }} pending booking confirmation(s)',
   form: {
-    last_delay_before_auto_consume: {
-      label: 'Auto inscrire uniquement si la séance a lieu dans moins de ',
-      helper:
-        "Si la séance a lieu trop rapidement dans le futur, le membre ne sera pas inscrit même s'il possède une carte de cours valide",
-    },
-    dynamic: {
-      label: "Gestion des priorité de la liste d'attente",
-      [WAITING_LIST_DYNAMIC_UNORDERED]: {
-        label: 'Premier arrivé premier servi',
-        explain:
-          "La liste d'attente n'est pas ordonnée. Lorsqu'une place est disponible toutes les personnes sur liste reçoivent au même moment un email les invitant à s'inscrire.",
-      },
-      [WAITING_LIST_DYNAMIC_ORDERED]: {
-        label: 'Chacun son tour',
-        settingsDelay: 'Délai entre les relances',
-        explain:
-          "Lorsqu'un membre s'inscrit, une place dans la liste d'attente lui est accordée. Lorsqu'une place est disponible le premier inscrit sur liste peut s'inscrire, les autres attendent leur tour",
-        overallExplainSimple:
-          'Si une place se libère, l’élève dispose de {{ autokick_delay }} relances espacées de {{ dumb_delay_minutes }} minutes pour s’inscrire avant de laisser sa place à l’élève suivant.',
-        overallExplainSmart:
-          "Si une place se libère, l’élève dispose de {{ autokick_delay }} relances espacées de {{ smart_delay_percentage }}% du temps restant avant le début de la séance pour s’inscrire. Par exemple, s'il reste {{ example_hours_before }}h avant la séance, il dispose de {{ example_computed_delay_one }} minutes pour s’inscrire puis de {{ example_computed_delay_two }} minutes après la première relance, et ainsi de suite, avant de laisser sa place à l’élève suivant.",
-      },
-    },
-    autokick_delay: {
-      label: "Retrait automatique de la liste d'attente",
-      helper:
-        "Nombre de relances avant lequel le membre est automatiquement retiré de la liste d'attente si aucune action de sa part",
-    },
-    is_option_blocking: {
-      label:
-        "Les places laissées disponibles sont réservées exclusivement aux personnes en liste d'attente.",
-      helper:
-        "Tant qu'un membre est sur liste d'attente, une place est bloquée pour lui en attendant qu'il s'inscrive.",
-    },
-    auto_consume_pack: {
-      label:
-        "Automatiquement débiter une carte de cours et inscrire le membre lorsqu'une place se libère.",
-      helper:
-        "Si le membre possède une carte de cours valide lorsqu'une place se libère, il est automatiquement inscrit et sa carte débitée. La carte expirant le plus tôt, et avec le moins de crédit disponible, est utilisée en priorité.",
-    },
     dumb_delay_minutes: {
-      label: 'Gestion simple',
+      label: 'Simple waitlist',
+      helper:
+        'A member has X minutes to book before they lose their priority spot on the waitlist.',
     },
     smart_delay_percentage: {
-      label: 'Gestion intelligente',
+      label: 'Intelligent waitlist',
       helper:
-        "Si une place se libère, l'élève dispose d'un temps proportionnel au temps restant avant la séance.",
+        'A member has X minutes, which equals a Y percentage of the remaining time, before the session begins to complete the booking.',
     },
-    submit: 'Enregistrer',
-    auto_cancellation_type: {
-      title: "Gestion de la liste d'attente",
+    submit: 'Save',
+    auto_cancellation_type: { title: 'Waitlist management' },
+    auto_consume_pack: {
+      helper:
+        'A member that joined the waitlist will be automatically booked in once a spot becomes available. The system will automatically deduct the credits from passes that expire the soonest.',
+      label:
+        'Automatically book in a member from the waitlist once a spot becomes available and the deduct the credit(s) from a valid pass',
+    },
+    is_option_blocking: {
+      helper:
+        'A spot will be saved for members that joined the waitlist until they book.',
+      label: 'Save openings exclusively for members that joined the waitlist',
+    },
+    autokick_delay: {
+      helper:
+        "This is the number of notifications a member on a waitlist will receive before they're automatically removed if no response is registered.",
+      label: 'Automatic waitlist removal',
+    },
+    dynamic: {
+      [WAITING_LIST_DYNAMIC_UNORDERED]: {
+        explain:
+          'This is an unsorted and unranked waitlist. All members that joined this waitlist will be informed simultaneously once a spot becomes available.',
+        label: 'First come, first served',
+      },
+      [WAITING_LIST_DYNAMIC_ORDERED]: {
+        explain:
+          'Each member that joins the waitlist will be ranked. The first person will be notified automatically once a spot becomes available.',
+        settingsDelay: 'Time between recalls',
+        label: 'One by one',
+        overallExplainSmart:
+          'If a spot becomes available, the student has {{ autokick_delay }} reminders spaced at {{ smart_delay_percentage }}% of the time remaining before the session starts to register. For example, if there are {{ example_hours_before }} hours left before the session, the student has {{ example_computed_delay_one }} minutes to register, and then {{ example_computed_delay_two }} minutes after the first retry, and so on, before the next student is allowed to register.',
+        overallExplainSimple:
+          'If a spot becomes available, the student has {{ autokick_delay }} reminders spaced {{ dumb_delay_minutes }} minutes apart to book before giving their spot to the next student.',
+      },
+      label: 'Select your waitlist priority management',
+    },
+    last_delay_before_auto_consume: {
+      label:
+        'Do not accept bookings automatically if a session takes place in less than ',
+      helper:
+        'If the session takes place too soon in the future, the member will not be booked in even if they have a valid pass',
     },
     check_credit: {
-      label:
-        "Vérifier que le client a une carte de cours compatible avec l'offre et suffisamment créditée",
       helper:
-        "Un client ne pourra être ajouté à une file d'attente tant qu'il ne dispose pas d'une carte de cours compatible avec l'offre concernée et étant suffisamment créditée pour effectuer la réservation",
+        'A client will not be able to be added to a waiting list unless he has a pass compatible with the session, and with enough credit',
+      label:
+        'Ensure the customer has one valid pass compatible with the session, with enough credit',
     },
   },
   explainWaitingListConf:
-    "ex: Il reste 3h avant la séance, l'élève dispose de {{ nbMinutesBeforeBookingOptionExpire }} minutes pour valider sa réservation avant de laisser sa place.",
+    'Example: a member that joined the waitlist for a session that starts in 3 hours has {{nbMinutesBeforeBookingOptionExpire}} minute(s) to complete their booking before they lose their priority spot on the waitlist.',
   dialog: {
     delete: {
-      title: "Suppression de la liste d'attente",
+      title: 'Remove from waitlist',
       content:
-        "Êtes-vous sûr de vouloir supprimer ce membre de la liste d'attente ? Il sera notifié par email.",
+        'Are you sure that you want to remove this member from the waitlist? The member will also be notified of this.',
+      cancel: 'Cancel',
+      confirm: 'Delete',
+      sendEmail: 'Send a message of the removal',
       contentV2:
-        "Êtes-vous sûr de vouloir supprimer ce membre de la liste d'attente ?",
-      sendEmail: 'Envoyer un mail de désinscription',
-      cancel: 'Annuler',
-      confirm: 'Supprimer',
+        'Are you sure you want to remove this member from the waitlist?',
     },
   },
   member: {
-    listTitle: "Liste d'attente",
-    addToBook: 'Inscrire',
-    delete: 'Supprimer',
-    empty: "Aucune inscription en liste d'attente",
-
     detail: {
-      title: "Détails liste d'attente",
-      registeredOn: 'Inscrit le',
-      registrationSource: "Canal d'inscription",
-      offerTitle: 'Séance liée',
+      offerTitle: 'Associated session',
+      registrationSource: 'Booking channel',
+      registeredOn: 'Joined on',
+      title: 'Details',
     },
+    empty: 'There are no waitlists to display.',
+    delete: 'Delete',
+    addToBook: 'Join',
+    listTitle: 'Waitlist',
   },
 };

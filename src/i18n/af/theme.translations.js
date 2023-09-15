@@ -5,491 +5,499 @@ const {
 } = require('@bsport/common/lib/master-data/replacement');
 
 exports.default = {
-  pageTitles: {
-    broadcast: 'Visioconférence',
-    personalization: 'Personnalisation',
-    theme: 'Général',
-  },
-  provincialTax: {
-    helperText:
-      'La TVA est inférieure ou égale à la taxe provinciale indiquée. Sur les factures on indiquera seulement cette taxe sans faire la distinction entre taxe fédérale et provinciale.',
-  },
-  taxDisplay: {
-    checkbox: 'Afficher le montant hors taxes des produits',
-    title: 'Affichage des prix',
-    info: 'En activant cette fonctionnalité, tous les prix sur la marketplace, le widget et l’application seront indiqués hors taxes.',
-  },
   forms: {
-    allowGuest: {
-      title: 'Autoriser la réservation pour invité',
-      frequencies: {
-        week: 'Semaine',
-        month: 'Mois',
-        year: 'Année',
-        text: ' fois par ',
-        placeholder: 'Frequence',
-      },
-      dialog: {
-        dialogTitle: 'Attention',
-        dialogContent:
-          'Attention, si vous désactivez cette option, il ne sera plus possible pour vos membres de réserver pour un invité.',
-        dialogButtonCancel: 'Annuler',
-        dialogButtonConfirm: 'Confirmer',
-      },
-    },
-    provincialTax: {
-      title: 'Taxe provinciale',
-      info: 'Renseignez ici le nom et la valeur de votre taxe provinciale. Sur l’ensemble des produits de la plateforme indiquez la taxe totale appliquée (taxe fédérale + taxe provinciale). La taxe fédérale et la taxe provinciale seront indiquées sur les factures de vos clients.',
-      taxName: 'Nom de la taxe',
-      taxValue: 'Valeur de la taxe',
-      taxHelperText: 'Apparaitra sur les factures',
-    },
     themePersonalization: {
-      bookingTitle: 'Réservation',
-      attendanceTitle: 'Présence',
-      calendarPersonalizationTitle: 'Configuration du calendrier',
-      coach_can_edit_attendance:
-        "Dans l'application mobile, le professeur peut modifier modifier les présences/absences",
-      consumerRegularizeDebt: 'Le client peut régulariser son acompte en ligne',
-      goToReports: 'Page des rapports',
-      allowConsumerToUseInternalAccount:
-        'Le client peut utiliser son acompte interne pour payer ses factures ou son panier',
-      internalAccountWarningTitle: 'Attention aux soldes clients actuels.',
-      internalAccountWarning1:
-        "Nous conseillons fortement de créer un rapport des soldes clients avant d'activer cette fonctionnalité.",
-      internalAccountWarning2:
-        "Pour créer un rapport des soldes clients, rendez-vous vous dans l'onglet 'Rapports', puis sélectionnez 'Crédits' dans la catégorie 'Payments' lors de la création du nouveau rapport.",
-      internalAccountNotusableOnContract:
-        "Ce moyen de paiement n'est pas utilisable pour les contrats",
-      internalAccount: 'Solde Client',
-      maxFutureBooking: {
-        label:
-          'Limiter le nombre maximum de réservations prévues dans le futur par client',
-        numberCheck: {
-          placeholder: 'Nombre maximum',
-          helperText:
-            'Vos membres ne pourront pas avoir plus de ce nombre de réservations dans le futur',
-        },
-      },
-      schedule: {
-        title: "Configuration de l'emploi du temps",
-        begin: 'Heure de début',
-        end: 'Heure de fin',
-        alert:
-          "L'heure de début de l'emploi du temps doit être plus tôt que l'heure de fin",
-      },
-      hideCoach: 'Cacher les infos professeurs sur les interfaces client',
-      acceptDoubleBookingMetaActivity:
-        'Accepter la double réservation pour les activités',
-      acceptDoubleBookingWorkshop:
-        'Accepter la double réservation pour les ateliers',
-      doubleBookingDisabledWithSpivi:
-        "La double réservation n'est pas compatible avec l'intégration Spivi",
-      hiddenFromMarketplace: "Apparaître sur l'application bsport",
-      hideBuyablePassIfSuperfluous:
-        'Cacher les cartes de cours, abonnements et packs achetables au moment de la réservation si le membre possède déjà une carte compatible',
-      cancelledOffersCustomer:
-        'Afficher les séances annulées sur le calendrier client',
-      hideMemberForCoach:
-        'Cacher les informations de contact clients dans le calendrier professeur',
-      cancelledOffersManager:
-        'Par défaut afficher les séances annulées sur le calendrier manager',
-      workshopsCustomer: 'Afficher les ateliers sur le calendrier client',
-      calendar: {
-        title:
-          'Introduisez votre propre code CSS pour personnaliser votre calendrier',
-        bookButton: {
-          placeholder: 'Entrer le code CSS',
-          label: 'Bouton "réserver"',
-          helperText: 'Changer le style du bouton "réserver"',
-        },
-        columns: {
-          placeholder: 'Entrer le code CSS',
-          label: 'Colonnes',
-          helperText: 'Changer le style des colonnes',
-        },
-        offerCard: {
-          placeholder: 'Entrer le code CSS',
-
-          label: 'Cartes de cours',
-          helperText: 'Changer le style des cartes de cours',
-        },
-        police: {
-          placeholder: 'Entrer le code CSS',
-
-          label: 'Police',
-          helperText: 'Changer le style de la police',
-        },
-      },
-      default_attendance: {
-        present: 'Membre présent',
-        missing: 'Membre absent',
-        title: "Statut par défaut d'une réservation faite par le client",
-      },
-      default_booking_ordering: {
-        date: 'Trier par date de réservation la plus récente',
-        firstname: 'Trier par ordre alphabétique des prénoms',
-        lastname: 'Trier par ordre alphabétique des noms',
-        title:
-          "Choisir l'ordre de tri par défaut des réservations sur la page d'une activité",
-      },
       names_label_info:
-        "Modifier le label des champs Nom et Prénom dans les formulaires d'inscription",
+        "Edit the fields 'First name' and 'Last name' on your sign up form",
       first_name_label: {
-        placeholder: 'Label pour le prénom',
-        label: 'Label pour le prénom',
-        helperText: 'Entrez le label pour le prénom',
+        placeholder: 'First name label',
+        label: 'First name label',
+        helperText: 'Fill in the first name label',
       },
       last_name_label: {
-        placeholder: 'Label pour le nom',
-        label: 'Label pour le nom',
-        helperText: 'Entrez le label pour le nom',
+        placeholder: 'Last name label',
+        label: 'Last name label',
+        helperText: 'Fill in the last name label',
       },
       offersFilling:
-        'Afficher le remplissage des cours sur le calendrier client',
+        'Show the number of bookings and remaining spots on the calendar of your members',
+      default_booking_ordering: {
+        title: 'Choose the default sorting order of your bookings',
+        lastname: 'Sort by: last name',
+        firstname: 'Sort by: first name',
+        date: 'Sort by: most recent',
+      },
+      default_attendance: {
+        title: 'Default status when a member books',
+        missing: 'Absent',
+        present: 'Present',
+      },
+      calendar: {
+        police: {
+          helperText: 'Change the style of the font',
+          label: 'Font',
+          placeholder: 'Enter CSS code',
+        },
+        offerCard: {
+          helperText: 'Change the style of the passes',
+          label: 'Passes',
+          placeholder: 'Enter CSS code',
+        },
+        columns: {
+          helperText: 'Change the style of the column',
+          label: 'Columns',
+          placeholder: 'Enter CSS code',
+        },
+        bookButton: {
+          helperText: 'Change the style of the "book" button',
+          label: '"Book" button',
+          placeholder: 'Enter CSS code',
+        },
+        title: 'Add your own CSS to further personalize your calendar',
+      },
+      consumerRegularizeDebt:
+        'Allow members to regularize their outstanding debts with online payments',
+      acceptDoubleBooking: 'Accept double bookings',
+      workshopsCustomer: 'Show workshops on the calendar of your members',
+      cancelledOffersCustomer:
+        'Show cancelled sessions on the calendar of your members',
+      calendarPersonalizationTitle: 'Calendar',
       basket_expiration_days: {
-        label: "Expiration du panier d'achat",
+        alert: 'Add the amount of days before abandoned baskets gets emptied.',
+        placeholder: 'Days',
         helperText:
-          "Nombre de jours avant lequel le panier d'un client est automatiquement vidé",
-        placeholder: 'Jours avant expiration',
-        alert: "Remplissez les jours d'expiration du panier!",
+          'This is the number of days before an abandoned basket is automatically emptied.',
+        label: 'Basket expiration date',
       },
-      showGenderOffer:
-        "Afficher le nombre d'hommes et de femmes qui réservent une offre",
-      offerBalance: "Mise en place d'un contrôle de l'équilibre FEMME/HOMME",
-      signup: {
-        title: 'Inscription',
-        label: "Confirmation de l'email à l'inscription",
-        helperText:
-          "Lors de l'inscription, vos membres recevront un email pour confirmer leur adresse email, leur compte ne sera pas activé tant que cet email n'aura pas été confirmé",
-        urlRedirection: 'URL de redirection',
-        urlError: 'Veuillez rentrer un url valide',
-        urlHelperText:
-          'Le membre sera redirigé vers ce lien après avoir confirmé son email. Si non renseigné, il sera redirigé vers son profil sur la marketplace.',
-      },
-
+      cancelledOffersManager:
+        'By default show cancelled sessions on the manager calendar',
       checkBalance: {
-        checkbox:
-          'Limiter le déséquilibre FEMME/HOMME des réservations (danse...)',
-        numberCheck: {
-          placeholder:
-            'Contrôler le déséquilibre FEMME/HOMME lorsque le nombre de réservation dépasse',
-          helperText:
-            'Lorsque plus de {{ number }} personnes réservent une séance, toute réservation supplémentaire ne sera acceptée que si le déséquilbire FEMME/HOMME est inférieur à la valeur suivante.',
-        },
         shiftRatio: {
-          placeholder: 'Déséquilibre FEMME/HOMME maximum autorisé',
-          helperText:
-            'Limiter le déséquilibre FEMME/HOMME à {{ gender_max_shift_for_booking }} personnes',
           explain:
-            'Si plus de {{ numberCheck }} réservations sont enregistrées sur une séance, aucune réservation ne sera autorisée qui crée un déséquilibre FEMME/HOMME supérieur à {{ gender_max_shift_for_booking }} personnes.',
+            'If more than {{numberCheck}} reservations are recorded on a session, no reservation will be authorized which creates a WOMEN / MEN imbalance greater than {{gender_max_shift_for_booking}} people.',
+          helperText:
+            'Limit the WOMEN / MEN imbalance to {{gender_max_shift_for_booking}} people',
+          placeholder: 'Maximum authorized WOMAN / MEN imbalance',
         },
+        numberCheck: {
+          helperText:
+            'When more than {{number}} people book a session, any additional reservation will only be accepted if the WOMEN / MEN imbalance is less than the following value.',
+          placeholder:
+            'Check the WOMEN / MEN imbalance when the number of reservations exceeds',
+        },
+        checkbox: 'Automatically manage the male-female ratio per session',
+      },
+      offerBalance: 'Gender ratio',
+      showGenderOffer: 'Show the amount of men and women that booked a session',
+      hideCoach: "Hide teachers' info on the calendar for members",
+      maxFutureBooking: {
+        numberCheck: {
+          helperText:
+            'This will be the maximum amount of future bookings per member.',
+          placeholder: 'Maximum',
+        },
+        label: 'Limit the amount of future bookings per member',
+      },
+      hiddenFromMarketplace:
+        'Activate this to display your studio on the general BSPORT app',
+      schedule: {
+        alert: "The schedule's start time must be earlier than the end time",
+        end: 'End time',
+        begin: 'Start time',
+        title: 'Schedule',
+      },
+      coach_can_edit_attendance:
+        "Allow teachers to modify members' present/absent status in the mobile app",
+      internalAccountWarning1:
+        "We highly recommend to create a report for members' internal account balances before enabling this feature.",
+      internalAccountWarningTitle:
+        "Take member's current internal account balances into consideration.",
+      allowConsumerToUseInternalAccount:
+        'Allow members to use their internal account credit to complete payments for their basket and/or outstanding invoices',
+      goToReports: 'Reporting',
+      internalAccount: 'Client internal account balance',
+      internalAccountNotusableOnContract:
+        "This payment method can't be used for subscriptions.",
+      internalAccountWarning2:
+        'Go to Reporting > Add a report > Scroll down to "Payments" > Select "Credits" > Select all columns > and click "Save".',
+      errorURL: 'Please enter a valid URL before saving the form',
+      bookingTitle: 'Bookings',
+      attendanceTitle: 'Attendance',
+      hideBuyablePassIfSuperfluous:
+        'Hide passes, subscriptions, and packs in the booking funnel if the member already owns a compatible product',
+      hideSessionWithTagsNotEligible:
+        'Do not display sessions that the member does not have access to with tags',
+      hideMemberForCoach:
+        'Hide customer contact information in the teacher calendar',
+      signup: {
+        urlHelperText:
+          'The member will be redirected to this link after confirming their email. If not, they will be redirected to their profile on the marketplace.',
+        urlError: 'Please enter a valid url',
+        urlRedirection: 'Redirection URL',
+        helperText:
+          'Upon registration, your members will receive an email to confirm their email address, their account will not be activated until this email has been confirmed',
+        label: 'Confirmation email at registration',
+        title: 'Registration',
       },
       coachUserspace: {
-        description:
-          "Personnaliser l'espace professeur sur le web. Attention, les paramètres ici n'affectent pas l'espace professeur de l'application.",
-        access: 'Accès',
-        enable: "Activer l'espace professeur par défaut",
-        enableDescription:
-          "En activant cette fonctionnalité, tous vos nouveaux professeurs auront l'accès activé par défaut",
-        restrictions: 'Restrictions',
-        restrictionsDescription:
-          'Indiquez à quels onglets vos professeurs auront accès',
-        enableSchedule: 'Emploi du temps',
-        enableRemuneration: 'Rémunération',
-        enableReplacement: 'Remplacement',
-        replacementSettings: 'Paramètres remplacements',
-        daysBeforeRequestIsLate: {
-          placeholder: 'Nombre de jours',
-          helperText: 'Demande en retard',
-          description:
-            'Les demandes de remplacement faites moins de {{count}} jour avant le début du cours seront indiquées comme en retard.',
-          description_plural:
-            'Les demandes de remplacement faites moins de {{count}} jours avant le début du cours seront indiquées comme en retard.',
+        errors: { restrictionToggles: 'Please select at least one option' },
+        requestLimitationPeriods: {
+          placeholder: 'Select a period',
+          year: 'Years',
+          month: 'Months',
+          week: 'Weeks',
         },
-        daysBeforeReplacementClosing: {
-          placeholder: 'Nombre de jours',
-          helperText: 'Fermeture demandes de remplacements',
-          description:
-            'Les demandes de remplacements faites à partir de {{count}} jour avant le début du cours seront indiquées comme en retard.',
-          description_plural:
-            'Les demandes de remplacements faites à partir de {{count}} jours avant le début du cours seront indiquées comme en retard.',
-          every: 'Tou(te)s les',
-          interval: 'Intervalle',
-        },
-        daysBeforeReplacementClosingAcceptance: {
-          placeholder: 'Nombre de jours',
-          helperText: 'Clôture des inscriptions au remplacement',
-          description:
-            "Vos professeurs ne pourront plus accepter d'être remplaçants sur un cours {{count}} jour avant le début du cours.",
-          description_plural:
-            "Vos professeurs ne pourront plus accepter d'être remplaçants sur un cours {{count}} jours avant le début du cours.",
-        },
-        isLateReplacementRequestLimited: 'Limite de demandes en retard',
         maxNbRequestPerPeriod: {
-          helperText: 'Nombre maximum de demandes en retard',
           recap: {
             [LATE_REQUEST_LIMITATION_PERIOD_TYPE_WEEK]:
-              "Toutes les {{nbPeriods}} semaines vos professeurs pourront faire au maximum {{nbRequests}} demandes en retard. Une fois ce nombre dépassé, ils ne pourront plus faire de demandes en retard jusqu'à la fin de la période.",
+              'Every {{nbPeriods}} week your teachers will be able to make at most {{nbRequests}} late requests. Once this number is exceeded, they will not be able to make any more late requests until the end of the period.',
             [LATE_REQUEST_LIMITATION_PERIOD_TYPE_MONTH]:
-              "Tous les {{nbPeriods}} mois vos professeurs pourront faire au maximum {{nbRequests}} demandes en retard. Une fois ce nombre dépassé, ils ne pourront plus faire de demandes en retard jusqu'à la fin de la période.",
+              'Every {{nbPeriods}} month your teachers will be able to make at most {{nbRequests}} late requests. Once this number is exceeded, they will not be able to make any more late requests until the end of the period.',
             [LATE_REQUEST_LIMITATION_PERIOD_TYPE_YEAR]:
-              "Tous les {{nbPeriods}} ans vos professeurs pourront faire au maximum {{nbRequests}} demandes en retard. Une fois ce nombre dépassé, ils ne pourront plus faire de demandes en retard jusqu'à la fin de la période.",
+              'Every {{nbPeriods}} year your teachers will be able to make at most {{nbRequests}} late requests. Once this number is exceeded, they will not be able to make any more late requests until the end of the period.',
           },
+          helperText: 'Maximum number of late requests',
         },
-        requestLimitationPeriods: {
-          week: 'Semaines',
-          month: 'Mois',
-          year: 'Ans',
-          placeholder: 'Sélectionner une période',
+        isLateReplacementRequestLimited: 'Limit of late requests',
+        daysBeforeReplacementClosingAcceptance: {
+          description:
+            'Your teachers will no longer be able to accept substitutions on a session {{count}} day before the course begins.',
+          description_plural:
+            'Your teachers will no longer be able to accept substitutions on a session {{count}} days before the course begins.',
+          helperText: 'Closing of registrations at substitution',
+          placeholder: 'Number of days',
         },
-        errors: {
-          restrictionToggles: 'Veuillez sélectionner au moins une option',
+        daysBeforeReplacementClosing: {
+          interval: 'Interval',
+          every: 'Every',
+          description:
+            'Substitution requests made {{count}} day or more before the start of the session will be indicated as late.',
+          description_plural:
+            'Substitution requests made {{count}} days or more before the start of the session will be indicated as late.',
+          helperText: 'Closing requests for substitutions',
+          placeholder: 'Number of days',
         },
+        daysBeforeRequestIsLate: {
+          description:
+            'Substitution requests made less than {{count}} day before the beginning of the session will be indicated as late.',
+          description_plural:
+            'Substitution requests made less than {{count}} days before the beginning of the session will be indicated as late.',
+          helperText: 'Late request',
+          placeholder: 'Number of days',
+        },
+        replacementSettings: 'Substitution settings',
+        enableReplacement: 'Substitution',
+        enableRemuneration: 'Payroll',
+        enableSchedule: 'Schedule',
+        restrictionsDescription:
+          'Indicate which tabs your teachers will have access to',
+        restrictions: 'Restrictions',
+        enableDescription:
+          'By enabling this feature, all your new teachers will have the access enabled by default',
+        enable: 'Enable the teacher view by default',
+        access: 'Access',
+        description:
+          "Customize the teacher view on the web. Please note that the settings here do not affect the teacher's view of the application.",
       },
-      errorURL:
-        'Veuillez saisir une URL valide avant de sauvegarder le formulaire',
-      hideSessionWithTagsNotEligible:
-        "Ne pas afficher les séances auxquelles le membre n'a pas accès avec les tags",
       noShow: {
-        title: 'Absence (no-show)',
-        alert:
-          'Ces paramètres ne s’appliquent que pour les pénalités sur les absences (no-show) sur les cartes illimitées. Pour déclencher les décomptes suivants, vous devez impérativement valider l’appel pour chacun des cours.',
-        daysBeforeNoShow:
-          'Considérer le membre comme (no-show) <0/> <1/> après l’appel sur les séances où il est indiqué comme absent.',
-        daysBeforeNoShowHelpText:
-          'Ce paramètre permet d’appliquer des pénalités sur les absences des membres possédant une carte illimitée.',
-        sendMail:
-          'Envoyer un email <0/> <1/> après l’appel pour prévenir le membre qu’il sera considéré comme no show si il est indiqué comme absent.',
-        sendMailHelpText:
-          'Pour activer/ desactiver l’email merci de vous rendre dans Paramètres> Emails transactionnels> Pénalité> Notification d’absence',
-        error:
-          'L’email de notification d’absence ne peut pas être envoyé après que le membre soit considéré comme no show.',
         errorValidatedTime:
-          'Le temps écoulé avant de considérer un membre comme no-show doit être supérieur à 0',
+          "The time elapsed before a member's booking is considered a no-show must be greater than 0",
         errorEmailTime:
-          'Le temps écoulé avant d’envoyer le mail pour prévenir le membre qu’il sera no-show doit être supérieur à 0',
+          'The time elapsed before sending the email to warn the member that his/her booking will be considered as a no-show must be greater than 0',
         notAvailable:
-          'La gestion des absences (no-show) n’est pas disponible. Pour l’activer vous devez d’abord créer une carte de cours illimitée avec des pénalités sur les absences (no show).',
+          'No-show management is not available. To activate it you must first create an unlimited pass with no-show penalties.',
+        error:
+          'The absence notification email cannot be sent after the member is considered a no show.',
+        sendMailHelpText:
+          'To enable/disable the email please go to Settings> Transactional notifications> Penalty> Notification of absence',
+        sendMail:
+          'Send an email <0/> <1/> after the roll call to notify the member that they will be considered a no show if they are listed as absent.',
+        daysBeforeNoShowHelpText:
+          'This setting allows you to apply penalties on the no shows of members with an unlimited pass.',
+        daysBeforeNoShow:
+          'Consider the member as (no-show) <0/> <1/> after the roll call on sessions where they are listed as absent.',
+        alert:
+          'These settings only apply to no-show penalties on unlimited passes. To trigger the following counts, you must call the roll for each session.',
+        title: 'No show',
       },
-      coachDisplayOptions: {
-        label: "Options d'affichage des infos du professeur",
-        showCoachFullNameWithPicture: 'Nom complet et photo',
-        onlyShowCoachFirstName: 'Prénom du professeur uniquement',
-        showCoachFullNameWithoutPicture: 'Nom complet sans photo',
-        showCoachFirstNameWithPicture: 'Prénom et photo',
-      },
-      showEstablishment: 'Afficher l’établissement',
-      showLevel: 'Afficher le niveau',
-      sessionDatesDisplayOptions: {
-        label: "Options d'affichage des horaires",
-        showEndingTime: 'Afficher l’heure de fin',
-        showDuration: 'Afficher la durée',
-        onlyShowStartingTime: "Afficher uniquement l'heure de début",
-      },
-      showActivityColor: "Afficher la couleur de l'activité",
       daysFormatSelector: {
-        label: 'Format d’affichage du jour',
-        fullWord: 'Mot entier',
-        threeLetters: '3 lettres',
-        oneLetter: '1 lettre',
+        oneLetter: '1 letter',
+        threeLetters: '3 letters',
+        fullWord: 'Whole word',
+        label: 'Display format of the day',
+      },
+      showActivityColor: 'Display the colour of the activity',
+      sessionDatesDisplayOptions: {
+        onlyShowStartingTime: 'Display start time only',
+        showDuration: 'Display duration',
+        showEndingTime: 'Display end time',
+        label: 'Schedule display options',
+      },
+      showLevel: 'Display the level',
+      showEstablishment: 'Display the establishment',
+      coachDisplayOptions: {
+        showCoachFirstNameWithPicture: 'First name and photo',
+        showCoachFullNameWithoutPicture: 'Full name without photo',
+        onlyShowCoachFirstName: "Teacher's first name only",
+        showCoachFullNameWithPicture: 'Full name and photo',
+        label: 'Display options for teacher information',
       },
       showFreeSessionLabel:
-        'Indiquer les sessions à 0 crédit avec le label GRATUIT',
+        'Indicate sessions with 0 credits with the label FREE',
+      acceptDoubleBookingWorkshop: 'Accept double booking for workshops',
+      acceptDoubleBookingMetaActivity: 'Accept double booking for activities',
       hideBookButton: {
-        switchLabel: 'Cacher le bouton "{{-bookButtonTranslation}}"',
+        switchLabel: 'Hide the "{{-bookButtonTranslation}}" button',
         dialogDescription:
-          'En cachant le bouton "{{-bookButtonTranslation}}", la carte devient cliquable pour réserver la séance.',
+          'By hiding the "{{-bookButtonTranslation}}" button, you can click on the pass to book the session.',
       },
+      doubleBookingDisabledWithSpivi:
+        'Double booking not compatible with Spivi integration',
     },
     cover: {
       label: 'Logo',
-      helperText: 'Privilégiez les png avec fond transparent',
+      helperText:
+        'Upload here your logo with a transparent background (use a .PNG file).',
     },
     primary_color: {
-      label: 'Couleur principale',
-      helperText: 'Privilégiez une couleur, évitez le monochrome',
+      label: 'Primary color',
+      helperText: 'Choose a theme color (avoid a monochrome setup).',
     },
     secondary_color: {
-      label: 'Couleur secondaire',
-      helperText: 'Couleur complémentaire du thème',
+      label: 'Secondary color',
+      helperText: 'Choose a complementary theme color.',
+    },
+    default_booking_ordering: {
+      date: 'Sort by most recent booking date',
+      firstname: 'Sort by first name',
+      lastname: 'Sort by last name',
+      title: 'Select bookings sort on offer page',
+    },
+    default_attendance: {
+      present: 'Member present',
+      missing: 'Member missing',
+      title: 'Default status for a booking made by a member',
     },
     websiteURL: {
-      label: 'URL website',
-      helperText: 'Utilisée si le client clique sur votre logo notamment',
-      errorText: "L'URL entrée n'est pas valide",
+      label: 'Website',
+      helperText: 'Use this field to add the link to your own website.',
       placeholder: 'https://studio.com/',
+      errorText: 'This URL is invalid',
     },
     scheduleURL: {
-      label: 'URL planning',
-      helperText: 'Lien par défaut de votre calendrier',
-      placeholder: 'https://studio.com/calendar/',
-    },
-    facebookURL: {
-      label: 'URL Facebook',
-      helperText: 'Votre page Facebook',
-      placeholder: 'https://facebook.com/mon-studio/',
-    },
-    ios_app_url: {
-      label: "URL de l'application iOS",
-      helperText: 'Votre application iOS',
-      placeholder: 'https://apps.apple.com/fr/app/id1356621554',
-    },
-    android_app_url: {
-      label: "URL de l'application Android",
-      helperText: 'Votre application Android',
-      placeholder: 'https://play.google.com/store/apps/details?id=com.bsport',
-    },
-    general_terms_and_conditions: {
-      label: 'Conditions générales de vente',
-      helperText: 'Doivent être acceptées pour tout paiement',
-      placeholder:
-        "J'atteste posséder un certificat médical et l'apporterai à mon studio",
-    },
-    general_terms_of_use: {
-      label: "Conditions générales d'utilisation",
-      helperText: 'Doivent être acceptées pour toute inscription',
-      placeholder: "J'atteste avoir plus de 13 ans",
-    },
-    waiver: {
-      label: 'Décharge de responsabilité',
-      helperText: 'Doivent être acceptées pour toute inscription',
-      placeholder: "J'atteste avoir plus de 13 ans",
-    },
-    gtmId: {
-      placeholder: 'GTM-XXXXXX',
-      label: 'Google Tag ID',
-    },
-    facebookPixelId: {
-      placeholder: 'ID',
-      label: 'Facebook Pixel Id',
-    },
-    extra_info: {
-      label: 'Informations du studio',
+      label: 'Link to your schedule',
+      helperText: 'Use this field for your schedule.',
+      placeholder: 'https://studio.com/schedule/',
     },
     instagramURL: {
-      label: 'URL Instagram',
-      helperText: 'Votre page Instagram',
-      placeholder: 'https://instagram.com/mon-studio/',
+      label: 'Instagram',
+      helperText: 'Use this field to add your Instagram.',
+      placeholder: 'https://instagram.com/my-studio/',
+    },
+    gtmId: { placeholder: 'GTM-XXXXXX', label: '[ID] Google Tag Management' },
+    facebookURL: {
+      label: 'Facebook',
+      helperText: 'Use this field to add your Facebook page.',
+      placeholder: 'https://facebook.com/my-studio/',
+    },
+    submit: 'Save',
+    general_terms_and_conditions: {
+      placeholder:
+        "I certify that I'm in possession of a valid medical certificate.",
+      helperText: 'These must be accepted for all payments.',
+      label: 'General Terms & Conditions',
+    },
+    android_app_url: {
+      placeholder: 'https://play.google.com/store/apps/details?id=com.bsport',
+      helperText:
+        'Use this field to add the link to your Android app (Google Play Store).',
+      label: 'Android',
+    },
+    ios_app_url: {
+      placeholder: 'https://apps.apple.com/us/app/id1356621554',
+      helperText:
+        'Use this field to add the link to your iOS app (Apple App Store).',
+      label: 'iOS',
+    },
+    general_terms_of_use: {
+      placeholder: "I certify that I'm over the age of 13.",
+      helperText: 'These must be accepted for all sign up.',
+      label: 'General Terms of Use',
+    },
+    facebookPixelId: { placeholder: 'ID', label: '[ID] Facebook Pixel' },
+    waiver: {
+      placeholder: "I certify that I'm over the age of 13.",
+      helperText: 'All members must accept this during their sign up.',
+      label: 'Liability Waiver',
+    },
+    provincialTax: {
+      taxHelperText: 'Will appear on invoices',
+      taxValue: 'Value of the tax',
+      taxName: 'Name of the tax',
+      info: "Enter the name and value of your Provincial Tax here. On all the products of the platform indicate the total tax applied (Federal Tax + Provincial Tax). The Federal and Provincial Tax will be indicated on your customers' invoices.",
+      title: 'Provincial Tax',
+    },
+    acceptGuest: 'Allow booking for a guest',
+    allowGuest: {
+      title: 'Allow the booking for a guest feature',
+      frequencies: {
+        week: 'Week',
+        month: 'Month',
+        year: 'Year',
+        text: ' times by ',
+        placeholder: 'Frequency',
+      },
+      dialog: {
+        dialogTitle: 'Warning',
+        dialogContent:
+          'Please note that if you deactivate this option, it will no longer be possible for your members to reserve for a guest.',
+        dialogButtonCancel: 'Cancel',
+        dialogButtonConfirm: 'Confirm',
+      },
+    },
+    extra_info: { label: 'Studio information' },
+    warningColorBrightness: {
+      save: 'Save',
+      cancel: 'Cancel',
+      text: 'One of the colours selected is very light and may be difficult to see',
+      title: 'Warning',
+      example: 'Example',
     },
     productsThemePersonalization: {
-      title: 'Produits',
       credits: {
-        subTitle: 'Crédits',
-        label: 'Cacher les crédits',
         description:
-          "Active ou désactive l'affichage des crédits des cartes pour les clients",
+          'Activate or deactivate the display of pass credits for customers',
+        label: 'Hide credits',
+        subTitle: 'Credits',
       },
+      title: 'Products',
       productsOrdering: {
-        subTitle: 'Ordre des produits',
-        label: 'Ordre personalisé',
-        reset: 'Réinitialiser',
+        itemNumberCaption: '{{count}} product',
+        itemNumberCaption_plural: '{{count}} products',
         description:
-          "Ordonnez vos produits afin d'assurer leur visibilité pour vos clients lorsqu'ils réservent une activité et qu'ils ont besoin d'une carte de cours, d'un pack ou d'un abonnement.",
-        itemNumberCaption: '{{count}} produit',
-        itemNumberCaption_plural: '{{count}} produits',
+          'Organize your products so that they are visible to your customers when they book an activity and need passes, packs or subscriptions.',
+        reset: 'Reset',
+        label: 'Customised order',
+        subTitle: 'Product order',
       },
-    },
-    submit: 'Sauvegarder',
-    warningColorBrightness: {
-      example: 'Exemple',
-      title: 'Attention',
-      text: "Une des couleurs sélectionnées est très claire et risque d'être difficilement visible",
-      cancel: 'Annuler',
-      save: 'Sauvegarder',
     },
   },
+  general_terms_and_conditions: {
+    label: 'General terms and conditions',
+    helperText: 'Must be accepted for all payment and subscription',
+    placeholder:
+      'I certify being allowed by my doctor to practice this activity.',
+  },
+  pageTitles: {
+    theme: 'General',
+    personalization: 'Personalization',
+    broadcast: 'Livestream',
+  },
   analytics: {
-    showAnalyticsInformation: 'Afficher les événements trackés',
-    eventDesc: `Description de l'événement`,
-    gtmEvent: `GTM Event Name`,
-    fbPixelEvent: `FB Pixel Event Name`,
-    cancel: 'Annuler',
-    showBasket: `Lorsque l'utilisateur affiche son panier`,
-    showPass: `Lorsque l'utilisateur affiche une carte de cours`,
-    addPassToCart: `Lorsque l'utilisateur ajoute une carte de cours à son panier`,
-    addPackToCart: `Lorsque l'utilisateur ajoute un pack à son panier`,
-    addPrivatePassToCart: `Lorsque l'utilisateur ajoute une carte de RDV à son panier`,
-    addShopItemToCart: `Lorsque l'utilisateur ajoute un élément du magasin à son panier`,
-    paymentSuccess: `Lorsque l'utilisateur a réussi son paiement`,
-    signinShow: `Lorsque l'utilisateur arrive sur la page de login`,
-    signupShow: `Lorsque l'utilisateur affiche le formulaire d'inscription`,
-    signupSuccess: `Lorsque l'utilisateur a créé un compte`,
-    sessionShow: `Lorsque l'utilisateur selectionne une séance`,
-    contractPaymentSuccess: `Lorsque l'utilisateur s'est abonné`,
-    contractShow: `Lorsque l'utilisateur affiche un abonnement`,
-    contractPaymentShow: `Lorsque l'utilisateur est sur la page de paiement d'un abonnement`,
-    workshopClick: `Lorsque l'utilisateur selectionne une date d'un atelier`,
+    showAnalyticsInformation: 'Show retargeting events',
+    eventDesc: 'Events',
+    gtmEvent: 'Google Tag Management',
+    fbPixelEvent: 'Facebook Pixel',
+    cancel: 'Cancel',
+    showBasket: 'When a user open their basket',
+    showPass: 'When a user clicks on a pass',
+    addPassToCart: 'When a user adds a pass to their basket',
+    addPackToCart: 'When a user adds a pack to their basket',
+    addPrivatePassToCart:
+      'When a user adds an appointment pass to their basket',
+    addShopItemToCart: 'When a user adds a webshop item to their basket',
+    paymentSuccess: 'When a user successfully completed their payment',
+    signinShow: 'When a user opens the login page',
+    signupShow: 'When a user clicks on the sign up form',
+    signupSuccess: 'When a user created an account',
+    sessionShow: 'When a user clicks on a session',
+    contractPaymentSuccess: 'When a user signed up for a subscription',
+    contractShow: 'When a user clicks on a subscription',
+    contractPaymentShow:
+      'When a user is on the payment page for a subscription',
+    workshopClick: 'When a user selects a date for a workshop',
+  },
+  signUpForm: {
+    error: 'Error when saving form',
+    success: 'Form has been saved',
+    save: 'Save',
+    editable: 'Editable',
+    required: 'Obligatory',
+    show: 'Display',
+    label: 'Label',
+    field_identifier: 'Fields',
+    account_modification: 'Editing an account',
+    account_creation: 'Creating an account',
+    title: '[Form] Sign up',
+    fields: {
+      waiver: 'Liability Waiver',
+      general_terms_and_conditions_accepted: 'General Terms & Conditions',
+      cgu: 'General Terms of Use',
+      accept_sms:
+        'I agree to be notified by SMS for commercial purposes (promotions, special offers ...)',
+      accept_email:
+        'I agree to be notified by email for commercial purposes (promotions, special offers ...)',
+      sms_notification:
+        'I agree to be notified by SMS for commercial purposes (promotions, special offers ...)',
+      email_notification:
+        'I agree to be notified by email for commercial purposes (promotions, special offers ...)',
+      emergency_contact: 'Emergency contact',
+      profile_picture: 'Profile picture',
+      zipcode: 'Postal code',
+      zip_code: 'Postal code',
+      country: 'Country',
+      city: 'City',
+      additionnal_address_info: 'Additional address info',
+      address: 'Address',
+      birthdate: 'Date of birth',
+      phone: 'Telephone',
+      main_phone: 'Telephone',
+      gender: 'Sex',
+      email: 'Email',
+      last_name: 'Last name',
+      first_name: 'First name',
+      photo: 'Profile picture',
+      address_line_2: 'Address line 2',
+      address_line_1: 'Address line 1',
+      birthday: 'Date of birth',
+      vaccination_status: 'COVID-19 Sanitary Pass Status',
+    },
+    customQuestionDialog: {
+      confirm: 'Add a form',
+      cancel: 'Cancel',
+      content:
+        'You can add custom questions to your sign up form by creating a completely new form in Marketing > Forms. You may add any new questions and select the notification rule "new members".',
+      title: 'Custom questions',
+    },
+    addQuestions: 'Add a question',
+    additionalCustomForm: 'Additional forms',
   },
   zoom: {
     confirmDialog: {
-      title: 'Intégration ZOOM',
-      text: 'Si vous avez déjà renseigné des liens de visioconférences manuellement sur vos séances, ils seront supprimés pour être remplacés par des liens zoom générés automatiquement. Les meetings déjà créés sur le calendrier ZOOM devront être supprimés à la main, ils seront remplacés par des meetings créés automatiquement.',
-    },
-  },
-  signUpForm: {
-    fields: {
-      first_name: 'Prénom',
-      last_name: 'Nom',
-      email: 'Email',
-      gender: 'Genre',
-      main_phone: 'Téléphone Principal',
-      phone: 'Téléphone Principal',
-      birthdate: 'Date de naissance',
-      birthday: 'Date de naissance',
-      address: 'Adresse',
-      address_line_1: 'Adresse',
-      address_line_2: "Complément d'adresse",
-      additionnal_address_info: "Complément d'adresse",
-      city: 'Ville',
-      country: 'Pays',
-      zip_code: 'Code Postal',
-      zipcode: 'Code Postal',
-      profile_picture: 'Photo de Profil',
-      photo: 'Photo de Profil',
-      emergency_contact: "Contact d'urgence",
-      email_notification: 'Accepte les notifications par email',
-      sms_notification: 'Accepte les notifications par SMS',
-      accept_email: 'Accepte les notifications par email',
-      vaccination_status: 'Status pass sanitaire COVID-19',
-      accept_sms: 'Accepte les notifications par SMS',
-      cgu: "Conditions Générales d'Utilisation",
-      general_terms_and_conditions_accepted:
-        "Conditions Générales d'Utilisation",
-      waiver: 'Décharge de responsabilité',
-    },
-    title: 'Formulaire membre',
-    account_creation: "Création d'un compte",
-    account_modification: "Edition d'un compte",
-    field_identifier: 'Champs',
-    label: 'Label',
-    show: 'Afficher',
-    required: 'Obligatoire',
-    editable: 'Modifiable',
-    save: 'Sauvegarder',
-    success: 'Configuration sauvegardée',
-    error: 'Un problème est survenue',
-    additionalCustomForm: 'Formulaires supplémentaires',
-    addQuestions: 'Ajouter des questions',
-    customQuestionDialog: {
-      title: 'Questions personnalisées',
-      content:
-        "Pour ajouter de nouvelles questions au formulaire d’inscription vous pouvez créer un nouveau formulaire dans l’onglet Marketing > Formulaires. Ajouter vos questions puis attachez ce formulaire au formulaire d’inscription en sélectionnant la condition 'Cibler les nouveaux membres'.",
-      cancel: 'Annuler',
-      confirm: 'Créer un formulaire',
+      text: 'If you have already entered video conferencing links manually on your sessions, they will be deleted and be replaced by automatically generated zoom links. Meetings already created on the ZOOM calendar must be manually deleted, they will be replaced by meetings created automatically.',
+      title: 'Zoom integration',
     },
   },
   quickbooks: {
-    title: 'QuickBooks',
     confirmDialog: {
-      title: 'QuickBooks Connection',
-      text: 'Etes-vous sur de vouloir vous autoriser Bsport à accéder à votre application ?',
+      title: 'QuickBooks connection',
+      text: 'Are you sure that you want to allow BSPORT to access your application?',
     },
+    title: 'QuickBooks',
   },
   marketingEmail: {
-    label: 'Email de suivi',
-    placeholder: 'Email',
     caption:
-      'Les copies des emails transactionnels seront envoyés à cette adresse si le paramètre est activé',
+      'Copies of the transactional emails will be sent to this email address if the settings have been activated accordingly.',
+    placeholder: 'Email',
+    label: 'Follow up email',
+  },
+  provincialTax: {
+    helperText:
+      'The VAT / Sales Tax is less than or equal to the indicated Provincial Tax. On invoices, only this tax will be indicated without distinguishing between Federal and Provincial Tax.',
+  },
+  taxDisplay: {
+    info: 'Activate this option to only display prices excluding VAT / Sales Tax on the Widgets, MarketPlace, and Mobile App.',
+    title: 'Pricing display',
+    checkbox: "Display products' tax-free amounts",
   },
 };

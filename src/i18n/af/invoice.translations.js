@@ -44,100 +44,392 @@ const {
 } = require('@bsport/common/lib/master-data/payment-group');
 
 exports.default = {
-  paymentGroup: {
-    validateRequiresAction: 'Confirmer le moyen de paiement',
-    requiresAction: "La banque n'a pas authentifié le paiement (3DSecure)",
+  returnPayment: {
+    modal: {
+      title: 'Client refund',
+      content:
+        'The payment will be refunded on the bank account, a credit will be added on the invoice to reflect the refunded payment.',
+      cancel: 'Cancel',
+      confirm: 'Refund',
+    },
   },
-  invoiceInfo: {
-    [INVOICE_TYPE_MIGRATION]:
-      "Cette facture est issue d'une migration. Nous ne sommes pas en mesure de fournir un PDF ni de l'annuler pour des raisons légales.",
-    [INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER]:
-      "Ce reçu de paiement représente l'ajustement de solde de votre membre.",
+  configuration: {
+    stripe_footer: 'Invoice footer',
+    explainStripeFooter:
+      'This text will appear at the bottom of the invoices edited in PDF, please add any legal relevant information.',
+    submit_stripe_footer: 'Update',
+    forms: {
+      stripe_footer_placeholder: 'No additional legal information',
+      show_company_email_in_invoice:
+        'Display the company email address on all invoices',
+    },
+    nf525Button: 'Download',
+    nf525Explain:
+      'BSPORT Solutions follows the NF525 compliance procedures. Download our official certificate.',
+    nf525: 'NF525 Certification',
+    subscription: {
+      forms: {
+        revert_bookings_on_fail_subscription_payment: {
+          label:
+            'Cancel associated bookings for subscriptions when payments fail',
+          warning:
+            "Attention! Previously cancelled bookings resulting from a failed payment won't be recreated if a later payment was successful.",
+          helperText:
+            'The system will automatically refund the credits and cancel associated bookings for blocked passes for subscriptions whose payments have failed or have been disputed.',
+        },
+        disable_pass_on_fail_subscription_payment: {
+          label: 'Deactivate subscriptions when payments fail',
+          helperText:
+            'The system will automatically block passes from subscriptions whose payments have failed or have been disputed until the outstanding amount has been paid.',
+        },
+        nbRetriesSubscriptionPayments: {
+          helperText: 'Between 0 and 5 attempts',
+          label: 'Number of attempts after a failed payment',
+        },
+        activateSmartRetries: {
+          label: 'Enable Smart Retries for failed payments',
+          helperText:
+            'The system will automatically retry failed payments at the best time.',
+        },
+        advance_sepa_billing: {
+          helperText:
+            'Most customers receive the SEPA payment orders 3 days later.',
+          label:
+            'Send the SEPA payment order 3 days in advance to compensate any delays in the Banking Networks, which may delay your cash flow.',
+        },
+      },
+      title: 'Subscription',
+    },
+    invoiceGeneral: 'Invoice PDF',
+    stripeTerminal: {
+      title: 'Payment terminals',
+      connectDialog: {
+        title: {
+          edit: 'Modifications',
+          connect: 'Connect',
+          success: 'Successfully connected',
+          error: 'Connection failed',
+        },
+        success: 'Your Stripe Terminal has succesfully connected',
+        mustCreateStripeLocation:
+          'For your first registration, please fill in the information of the studio where the terminal will be used.',
+        loading1: 'We are trying to establish a connection with your terminal.',
+        loading2: 'Please wait',
+        form: {
+          readerLabel: 'Name of the terminal',
+          registrationCode: 'Terminal code',
+          registrationCodeHelperText:
+            'Enter the code displayed on your Stripe POS terminal',
+          connect: 'Connect',
+          continue: 'Continue',
+          retry: 'Retry',
+          update: 'Modify',
+        },
+        error1: 'Your Stripe Terminal has not been connected.',
+        error2: 'Retry',
+      },
+      paymentDialog: {
+        minAmountInfo:
+          'The minimum purchase amount for using the terminal is {{amountString}}.',
+        paymentSuccess: {
+          content: {
+            payment: 'The payment has been processed.',
+            wait: 'The payment is being processed.',
+          },
+          title: {
+            payment: 'Payment accepted',
+            setupAndPlan: 'Payment saved',
+            setupOnly: 'Payment method saved',
+          },
+        },
+        paymentFailed: {
+          title: {
+            setupIntent: 'Operation failed',
+            paymentIntent: 'Payment failed',
+          },
+          content: {
+            paymentIntent: 'The payment was not processed.',
+            setupIntent: 'The payment method has not been saved.',
+          },
+          explain: { label: 'Reason for failure :' },
+          interac: {
+            content:
+              'Interac cards cannot be used for recurring payments or saved. Please use an alternative payment method.',
+            title: 'Incompatible payment method',
+          },
+        },
+        radio: 'Payment Terminal',
+        amountToPay: 'Amount due',
+        connectAndPay: 'Send to terminal',
+        connectionSuccess: {
+          payment:
+            'The connection with the terminal has been made. The amount to be paid should now be displayed.',
+          intent:
+            'The connection with the terminal has been made. The customer should be able to present their card.',
+          processing: 'Your application is being processed',
+          cancel: {
+            title: 'Cancellation',
+            cancelExplain1: 'Are you sure you want to cancel the operation?',
+            cancelExplain2:
+              "You will be redirected to payment terminal's choice.",
+            error: 'An error occurred during cancellation.',
+          },
+        },
+        disconnect: {
+          title: 'Disconnect',
+          content: 'The connection has been lost. Please try again',
+        },
+      },
+      helperText:
+        'Use terminals to directly complete transactions from the Back Office and to save time on cutting out all the manual work for physical payments. Please contact your Account Manager for more information.',
+      addCard: 'Add Stripe terminal',
+      deleteDialog: {
+        title: 'Delete',
+        content1:
+          'Are you sure that you want to remove this payment terminal ({{label}})?',
+        content2: 'This terminal will no langer appear for physical payments.',
+        content3: 'Reconnect',
+      },
+      addReader: 'Connect a terminal',
+    },
   },
-  invoiceType: {
-    regular: 'Facture',
-    migration: 'Migration',
-    credit_payment: 'Reçu (régul. solde)',
-    return: 'Facture de retour',
-    reversed: 'Facture (annulée)',
-  },
-  creditAccountBalance: { current: 'Solde actuel' },
-  mandate: {
-    name: 'Nom et prénom du titulaire',
-    email: 'Email du titulaire',
-    address_line_1: 'Adresse',
-    address_line_2: "Complément d'adresse",
-    address_postal_code: 'Code postal',
-    phone: 'Numéro de téléphone',
-    city: 'Ville',
-    state: 'État',
-    country: 'Pays',
-    contentIban:
-      "En donnant votre IBAN et en confirmant votre paiement, vous autorisez bsport et Stripe, notre système de paiement, à envoyer les instructions de débit à votre banque en accord avec l'échéancier de paiement. Vous pouvez demander un remboursement à votre banque selon les termes de votre contrat avec cette dernière. Un remboursement doit être demandé dans les 8 semaines après le premier débit.",
-    contentBacsDebit:
-      "En donnant vos informations bancaires et en confirmant votre paiement, vous autorisez bsport et Stripe, notre système de paiement, à envoyer les instructions de débit à votre banque en accord avec l'échéancier de paiement. Vous pouvez demander un remboursement à votre banque selon les termes de votre contrat avec cette dernière. Vous pouvez à n'importe quel moment faire la demande auprès de votre banque pour annuler le mandat Direct Debit.",
+  actions: {
+    equilibrate: 'Regularize (deposit)',
+    download: 'Download invoice (PDF)',
+    addInvoiceItem: 'Add to invoice',
+    save: 'Save',
+    backToInvoiceItemEditor: 'Purchase',
+    goToPaymentEditor: 'Payment',
+    goToSubscription: 'Show subscription',
+    revert: 'Cancel',
+    invoiceReverted: 'Invoice cancelled',
+    finalize: 'Finalize (PDF)',
+    consumeBalance: 'Pay via balance',
+    explainPdfDraft: 'The invoice is still a draft, pdf is not available.',
+    addFooter: "Edit this invoice's footnote",
+    addCoupon: 'Add promo code',
+    downloadReceipt: 'Payment receipt',
   },
   invoice: {
-    title: 'Facture {{ uuid }}',
-    titleRevert: 'Avoir {{ uuid }}',
-    titleReverted: 'Facture (annulée) {{ uuid }}',
-    titleReceipt: 'Reçu {{ uuid }}',
-    editor: {
-      title: 'Edition de la facture',
-      sumup: 'Récapitulatif',
-      save: 'Émettre la facture',
-    },
+    editor: { title: 'Invoicing', save: 'Issue invoice', sumup: 'Overview' },
+    title: 'Invoice {{ uuid }}',
     header: {
-      date: 'Date : {{ date }}',
-      author: 'Créé par : {{ name }}',
-      clientAuthor: 'Client',
-      sourceInvoice: 'Annule la facture',
-      noEstablishment: 'Aucun Établissement',
-      reverseInvoice: 'Remboursé via ',
       source: {
-        label: 'Canal : {{ source }}',
         [SOURCE_APP]: 'App',
         [SOURCE_WEB]: 'Web',
         [SOURCE_SAAS]: 'Backoffice',
-        [SOURCE_OTHER]: 'Autre',
+        [SOURCE_OTHER]: 'Other',
+        label: 'Channel : {{ source }}',
+      },
+      clientAuthor: 'Customer',
+      author: 'Created by : {{ name }}',
+      date: 'Date: {{ date }}',
+      reverseInvoice: 'Refunded via ',
+      sourceInvoice: 'Cancel invoice',
+      noEstablishment: 'No establishment has been associated to this invoice',
+    },
+    titleRevert: 'Credit {{ uuid }}',
+    titleReceipt: 'Payment receipt {{ uuid }}',
+    titleReverted: 'Invoice (reverted) {{uuid}}',
+  },
+  creditAccountBalance: { current: 'Current balance' },
+  uneditableMessage: {
+    invoiceFinalizedThusNotEditable:
+      'Invoice was finalized and is not editable anymore',
+    invoiceFromSubscriptionThusNotEditable:
+      'This invoice is part of a subscription and is therefore not editable, please modify the subscription directly',
+    invoiceRevertedThusNotEditable:
+      'Invoice was cancelled and is not editable anymore',
+  },
+  section: {
+    paymentList: {
+      total: 'Total payment',
+      isEmpty: 'No payment method is registered',
+      title: 'Payment methods',
+    },
+    invoiceItemList: {
+      total: 'Total',
+      isEmpty: 'Please start by adding products to this invoice.',
+      title: 'Purchases',
+      titleReverse: 'Purchase breakdown',
+      billing_establishment: 'Billing establishment*',
+    },
+  },
+  invoiceItem: {
+    voucher: 'Discount: €{{ voucher }}',
+    quantity: 'Quantity',
+    credit: { label: 'Credit' },
+    buyableItemIdentifier: {
+      [BUYABLE_ITEM_PASS]: 'Passes',
+      [BUYABLE_ITEM_SHOP_ITEM]: 'Webshop',
+      [BUYABLE_ITEM_PRIVATE_PASS]: 'Appointment passes',
+      [BUYABLE_ITEM_COMBO_ITEM]: 'Packs',
+      [BUYABLE_ITEM_GIFTCARD]: 'Gift cards',
+      [BUYABLE_ITEM_CREDIT]: 'Credit',
+    },
+    discount: 'Discount',
+  },
+  invoiceInfoDialog: {
+    actions: { close: 'Close', show: 'See invoice' },
+    explain:
+      "One or more payments are not passed correctly, the member's deposit reflects the failure of the payment",
+  },
+  revert: {
+    content: {
+      explain: {
+        [REVERSE_ON_PAYMENT_METHOD]:
+          "Card payments / SEPA / etc... will be paid directly to the customer's account. Use this method to make a direct refund following an error.",
+        [REVERSE_ON_DEBT]:
+          'A credit note will be generated and will increase the customer balance accordingly. Use this method to generate a credit note.',
+        [REVERSE_ON_NEW_PAYMENT_METHOD]:
+          'Choose the reimbursement method yourself. Use this method for a check / manual transfer / cash refund.',
+      },
+      label: {
+        [REVERSE_ON_PAYMENT_METHOD]: 'Direct refund',
+        [REVERSE_ON_DEBT]: 'Refund on internal account',
+        [REVERSE_ON_NEW_PAYMENT_METHOD]: 'Manual refund',
+      },
+      explainEmptyPayment: 'Are you sure you want to cancel this invoice?',
+    },
+    dialog: {
+      actions: { confirm: 'Confirm', cancel: 'Close' },
+      title: 'Invoice cancellation',
+    },
+    warning: {
+      interac:
+        'At least one payment has been made with an Interac card on this invoice. Direct refunds are not supported for Interac cards.',
+    },
+    blockedDialog: {
+      helper:
+        'Your Stripe balance is insufficient to process the refund. Please try again after a few days so that payments can be collected.',
+      alert:
+        'Be careful, with this refund you will exceed the authorized overdraft limit of {{refundBlockingLimit }} {{currencyDisplay}}.',
+      title: 'Insufficient Stripe balance',
+    },
+    autoDebitDialog: {
+      helper:
+        "Your studio is currently in the process of closing your Bsport account.\n\nBy clicking on confirm, the invoice will be refunded. Your Stripe balance will be debited by {{refundAmount}} {{ currencyDisplay }}. However, to reset your Stripe balance to 0 {{ currencyDisplay }} you will be automatically debited for the difference directly from your bank account indicated in Settings > Company.\n\nIf you don't want to exceed your overdraft limit, you can wait for your Stripe balance to rise again.",
+      title: 'Insufficient Stripe balance',
+    },
+  },
+  table: {
+    nested: {
+      payment: {
+        header: {
+          paymentReceived: 'Status',
+          date: 'Date',
+          price: 'Amount',
+          paymentMethod: 'Payment method',
+        },
+        isEmpty: 'No payment',
+        title: 'Payment',
+      },
+      invoiceItem: {
+        header: {
+          product: 'Name',
+          voucher: 'Discount',
+          priceExcTax: 'Total (excl. VAT / Sales Tax)',
+          price: 'Total (incl. VAT / Sales Tax)',
+        },
+        isEmpty: 'Please start by adding products to this invoice.',
+        title: 'Purchases',
+      },
+    },
+    header: {
+      pdf: 'PDF',
+      missing: 'Amount due',
+      amount: 'Total cost',
+      date: 'Billing date',
+      id: 'Identifier',
+      member: 'Member',
+      invoiceType: 'Type',
+      quickbooks: 'QuickBooks',
+    },
+    actions: { goToInvoice: 'See invoice' },
+  },
+  balance: {
+    updaterDialog: {
+      actions: { cancel: 'Cancel', submit: 'Next' },
+      debt: 'Deduct',
+      explainTopup:
+        "The member's account balance will be increased by: {{ currencyDisplay }}{{ amount }}.",
+      explainDecaissement:
+        "The member's balance will be decreased by: {{ currencyDisplay }}{{ amount }}.",
+      balanceValueLabel: 'Amount',
+      title: 'Balance adjustment',
+      typeLabel: 'Adjustment type',
+      topup: 'Add',
+      withoutPaymentNote: {
+        warning:
+          "Attention: only use this option when absolutely necessary. This action won't be registered in your account.",
+        label: "Don't generate an invoice",
       },
     },
   },
-  anonymousMember: 'Membre anonyme',
-  paymentEngine: {
-    label: {
-      [PAYMENT_ENGINE_STRIPE]: 'Paiement en ligne',
-      [PAYMENT_ENGINE_BSPORT]: 'Paiement manuel',
+  paymentPanel: {
+    fields: {
+      country: { placeholder: 'France', label: "Accountholder's country" },
+      email: { label: "Accountholder's email", placeholder: 'john@doe.com' },
+      accountHolderName: { placeholder: 'John Doe', label: 'Accountholder' },
+    },
+    paymentList: {
+      isEmpty: 'There is no registered payment to display.',
+      titleReverse: 'Refund',
+      title: 'Payments',
+    },
+    actions: {
+      saveForLaterAsSEPA: 'The mandate will be registered as "SEPA"',
+      saveForLater: 'Save this payment method',
+      paymentSecurityInformation:
+        'You can securely store your preferred payment details for future purchases, your information will be encrypted and stored securely',
+      showInvoice: 'See invoice',
+      confirmPayment: 'Confirm payment',
+      payAll: 'Settle customer debt',
+      cancel: 'Cancel',
+      revert: 'Cancel',
+      pay: 'Pay invoice',
+      bill: 'Take payment',
+      basketInconsistent:
+        'Your cart has been modified, please refresh your page before validating your payment.\n You have not been charged.',
+      billByInstalment: 'Instalments',
+      paymentLink: 'Payment link',
+      generatePaymentLink: 'Generate a payment link',
+    },
+    sumup: {
+      amountRemaining: 'Outstanding amount',
+      amountDue: 'Total due',
+      title: 'Overview',
+      amountPaid: 'Paid',
+      amountBeingProcessed: 'Amount in process',
+    },
+    date: { label: 'Payment date' },
+    paymentNote: { helperText: '(Optional) Payment reference', label: 'Note' },
+    amount: { label: 'Amount to charge' },
+    amountRemaining: 'Outstanding amount: {{ amount }}',
+    billingMoreThanNeeded:
+      'If you charge more than the amount of the invoice, the difference in cost will be added to the client account balance',
+    errorSecretExplain2:
+      'If the issue is not resolved please contact us at dev+payment-intent@bsport.io',
+    errorSecretExplain1: 'This payment method is not available at the moment',
+    plannedPaymentEvent: {
+      title: 'Planned payment',
+      title_plural: 'Planned payments',
     },
   },
   paymentMethod: {
-    title: 'Moyen de paiement',
-    inconsistent:
-      "Moyen de paiement dé-autorisé, veuillez le reconfigurer. Le client peut avoir demandé à désautoriser son moyen de paiement, ou vous avez fusionné deux membres, dans les deux cas le moyen de paiement n'est plus utilisable.",
-    edit: 'Modifier',
-    add: 'Ajouter',
-    copyLink: "Copier le lien d'ajout d'un moyen de paiement",
-    addPaymentMethod: 'Ajouter un moyen de paiement',
-    none: 'Aucun moyen de paiement sauvergardé',
-    isInternalExplain:
-      'Acompte client (manuel): tous les mois une dette est automatiquement créée dans le compte du membre.',
-    isInternalExplainFuturePayments:
-      "L'échéance sera prélevée automatiquement sur l'acompte client. Si celui-ci n'est pas suffisant, un acompte négatif sera créé.",
-    select: {
-      label: 'Moyen de paiement',
-    },
     label: {
       [PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT]: 'Bacs Direct Debit',
-      [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]: 'Carte',
-      [PAYMENT_GROUP_METHOD_IDENTIFIER_CB_MANUAL]: 'Carte (manuel)',
-      [PAYMENT_GROUP_METHOD_IDENTIFIER_CHECK]: 'Chèque',
-      [PAYMENT_GROUP_METHOD_IDENTIFIER_HOLIDAY_CHECK]: 'Chèque vacances',
-      [PAYMENT_GROUP_METHOD_IDENTIFIER_CASH]: 'Espèces',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]: 'Card',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_CB_MANUAL]:
+        'Card (manual - card machine)',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_CHECK]: 'Check',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_HOLIDAY_CHECK]: 'Vacation check',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_CASH]: 'Cash',
       [PAYMENT_GROUP_METHOD_IDENTIFIER_AMEX]: 'AMEX',
-      [PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT]: 'Acompte client (dette)',
-      [PAYMENT_GROUP_METHOD_IDENTIFIER_DISPUTE]: 'Litige',
-      [PAYMENT_GROUP_METHOD_IDENTIFIER_TRANSFER]: 'Virement',
-      [PAYMENT_GROUP_METHOD_IDENTIFIER_OTHER]: 'Divers',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT]: 'Client credit balance (debit)',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_DISPUTE]: 'Dispute',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_TRANSFER]: 'Transfer',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_OTHER]: 'Other',
       [PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA]: 'SEPA',
       [PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT]: 'Bancontact',
       [PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL]: 'iDEAL',
@@ -145,491 +437,159 @@ exports.default = {
       [PAYMENT_GROUP_METHOD_IDENTIFIER_EPS]: 'EPS',
       [PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY]: 'Giropay',
     },
-    manual: 'Manuel',
+    select: { label: 'Payment method' },
+    isInternalExplain:
+      'The account balance will be automatically charged if no payment method has been added.',
+    add: 'Add',
+    edit: 'Edit',
+    title: 'Payment method',
+    none: 'There are no saved payment methods to display.',
     detach: {
-      pm_deleted: 'Moyen de paiement supprimé',
-      last_payment_method:
-        'Impossible de supprimer votre unique moyen de paiement',
+      pm_deleted: 'Deleted payment method',
       pm_associated_to_protected_bp:
-        'Impossible : Vous avez une souscription associée à ce moyen de paiement',
-      pm_associated_to_registered_ppe:
-        'Impossible : Vous avez une souscription associée à ce moyen de paiement',
+        'Impossible: You have a subscription associated with this payment method',
+      last_payment_method: 'You must have at least one payment method',
       pm_associated_to_pi:
-        'Impossible : Vous avez une souscription associée à ce moyen de paiement',
+        'Impossible: You have a subscription associated with this payment method',
+      pm_associated_to_registered_ppe:
+        'Impossible: You have a subscription associated with this payment method',
     },
+    inconsistent:
+      "This payment method has been invalidated. It's possible that the member has requested to deactivate this payment method or that this profile has been merged with another profile. Either way, this payment method is no longer usable.",
+    isInternalExplainFuturePayments:
+      'The due date will be deducted automatically from the account balance. If this is not sufficient, a negative account will be created.',
+    addPaymentMethod: 'Add a payment method',
+    copyLink: 'Copy the link to add a payment method',
+    manual: 'Manual',
+  },
+  paymentEngine: {
+    label: {
+      [PAYMENT_ENGINE_STRIPE]: 'Online payment',
+      [PAYMENT_ENGINE_BSPORT]: 'Manual payment',
+    },
+  },
+  invoiceType: {
+    reversed: 'Invoice (reverted)',
+    return: 'Refunded invoice',
+    credit_payment: 'Receipt (balance adjustment)',
+    migration: 'Migration',
+    regular: 'Invoice',
+  },
+  invoiceInfo: {
+    [INVOICE_TYPE_MIGRATION]:
+      'This invoice is the result of a migration. We are unable to provide a PDF or cancel it for legal reasons.',
+    [INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER]:
+      "This payment receipt represents your member's balance adjustment.",
   },
   plannedPaymentEvent: {
     actions: {
-      registerNow: 'Encaisser maintenant',
-      disable: 'Déprogrammer',
-      enable: 'Reprogrammer',
-      edit: 'Modifier',
-      changeMethod: 'Modifier la méthode de paiement',
-      solveInvalidPaymentAttempt: 'Régulariser',
+      edit: 'Edit',
+      delete: 'Cancel',
+      registerNow: 'Take payment now',
+      enable: 'Activate',
+      disable: 'Deactivate',
+      changeMethod: 'Change the payment method',
+      solveInvalidPaymentAttempt: 'Regularise',
     },
-    nextRetryDate: 'Le paiement sera retenté le {{ d }}',
-    lockedToday:
-      "Le paiement est prévu aujourd'hui, vous ne pouvez plus le modifier",
-    registerNowInitialData: 'Paiement initialement prévu le {{-date}}',
-    unrecoverableError: 'Erreur lors du paiement.',
+    nextRetryDate: 'The payment will be retried on {{ d }}',
+    lockedToday: 'The payment is scheduled today, you can no longer change it',
+    registerNowInitialData: 'Payment originally due on {{-date}}',
     dialog: {
       invalidMandate: {
-        title: 'Mandat de prélèvement expiré ou invalide!',
+        confirm: 'Next',
+        cancel: 'Cancel',
         explainSituation:
-          "Le mandat associé à cette méthode de paiement a expiré. Cela peut être dû à de multiples raisons, un nombre de paiements en échec trop élevé, une décision unilatérale de la banque, etc. La méthode de paiement n'est désormais plus utilisable il va vous falloir en enregistrer une nouvelle",
-        cancel: 'Annuler',
-        confirm: 'Suivant',
+          'The mandate associated with this payment method has expired. This can be due to a number of reasons: too many failed payments, a unilateral decision by the bank, etc. The payment method can no longer be used and you will have to register a new one.',
+        title: 'Expired or invalid direct debit mandate!',
       },
     },
+    unrecoverableError: 'Error during payment.',
   },
-  paymentPanel: {
-    amountRemaining: 'Reste à payer: {{ amount }}',
-    errorSecretExplain1: 'Ce mode de paiement est indisponible pour le moment',
-    errorSecretExplain2:
-      'Si le problème persiste, contactez dev+payment-intent@bsport.io',
-    billingMoreThanNeeded:
-      'En encaissant plus que le montant de la facture, le solde du membre sera augmenté de la différence',
-    amount: {
-      label: 'Montant à encaisser',
-    },
-    paymentNote: {
-      label: 'Note',
-      helperText: "(optionnel) numéro du chèque, date d'encaissement...",
-    },
-    date: {
-      label: "Date d'encaissement",
-    },
-    sumup: {
-      title: 'Récapitulatif',
-      amountDue: 'Total dû',
-      amountPaid: 'Encaissement',
-      amountBeingProcessed: 'Montant en cours de traitement',
-      amountRemaining: 'Reste à payer',
-    },
-    actions: {
-      bill: 'Encaisser',
-      pay: 'Régler cette facture',
-      revert: 'Annuler',
-      cancel: 'Annuler',
-      payAll: 'Régler la dette client',
-      confirmPayment: 'Confirmer le paiement',
-      showInvoice: 'Voir la facture',
-      saveForLater: 'Sauvegarder ce moyen de paiement',
-      saveForLaterAsSEPA: 'Le mandat sera enregistré en tant que "SEPA"',
-      paymentSecurityInformation:
-        'Vous pouvez enregistrer en toute securité votre moyen de paiement pour vos prochains achats, vos données seront chiffrées et stockées en sécurité.',
-      billByInstalment: 'Paiement échelonné',
-      basketInconsistent:
-        "Votre panier a été modifié, veuillez rafraichir votre page avant de valider votre paiement.\n Vous n'avez pas été débité.",
-      generatePaymentLink: 'Générer un lien de paiement',
-      paymentLink: 'Lien de paiement',
-    },
-    paymentList: {
-      title: 'Paiements',
-      titleReverse: 'Remboursement',
-      isEmpty: 'Aucun paiement',
-    },
-    plannedPaymentEvent: {
-      title: 'Paiement planifié',
-      title_plural: 'Paiements planifiés',
-    },
-    fields: {
-      accountHolderName: {
-        label: 'Titulaire du compte',
-        placeholder: 'Marie Dupont',
-      },
-      email: {
-        label: 'Email du titulaire du compte',
-        placeholder: 'marie@dupont.fr',
-      },
-      country: {
-        label: 'Pays du compte bancaire',
-        placeholder: 'France',
-      },
-    },
+  mandate: {
+    content:
+      'By completing this payment and by using your IBAN, you authorize BSPORT Solution and Stripe (our payment processor) to start billing you for all payments. You can request refunds through your bank and should be done within 8 weeks of the first payment.',
+    email: 'Email address',
+    name: "Account holder's full name",
+    address_line_1: 'Address line 1',
+    address_line_2: 'Address line 2',
+    address_postal_code: 'Postal code',
+    phone: 'Phone number',
+    city: 'City',
+    state: 'State',
+    country: 'Country',
+    contentBacsDebit:
+      'By providing your bank details and confirming your payment, you authorise bsport and Stripe, our payment system, to send debit instructions to your bank in accordance with the payment schedule. You may request a refund from your bank in accordance with the terms of your contract with your bank. You can request your bank to cancel the Direct Debit mandate at any time.',
+    contentIban:
+      'By providing your IBAN and confirming your payment, you authorise bsport and Stripe, our payment system, to send debit instructions to your bank in accordance with the payment schedule. You may request a refund from your bank in accordance with the terms of your contract with your bank. A refund must be requested within 8 weeks of the first debit.',
   },
-  invoiceInfoDialog: {
-    explain:
-      "Un ou plusieurs paiements ne sont pas passés correctement, l'acompte du membre reflète l'echec du paiement",
-    actions: {
-      show: 'Voir la facture',
-      close: 'Fermer',
-    },
+  paymentGroup: {
+    requiresAction: 'The bank did not authenticate payment (3DSecure)',
+    validateRequiresAction: 'Confirm payment method',
   },
   invoicePaymentPackTagWarningDialog: {
-    title: 'Information',
+    confirm: 'Confirm',
+    cancel: 'Cancel',
     content:
-      'Attention, vous tentez de facturer une carte à un membre qui ne dispose pas des tags nécessaires à son achat. Voulez vous quand même lui facturer cet élément  ? ',
-    cancel: 'Annuler',
-    confirm: 'Confirmer',
-  },
-  invoiceFuturePaymentsDialog: {
-    applyForAllFuturePayments:
-      'Appliquer aux échéances futures de cette facture',
-  },
-  uneditableMessage: {
-    invoiceRevertedThusNotEditable:
-      "La facture a été annulée et n'est plus modifiable",
-    invoiceFromSubscriptionThusNotEditable:
-      "Cette facture fait partie d'une souscription et n'est donc pas éditable, veuillez modifier directement la souscription",
-    invoiceFinalizedThusNotEditable:
-      "La facture a été finalisée et n'est donc plus modifiable",
-  },
-  balance: {
-    updaterDialog: {
-      title: 'Ajustement de solde',
-      typeLabel: "Type d'ajustement",
-      balanceValueLabel: 'Montant',
-      withoutPaymentNote: {
-        label: 'Ne pas générer de reçu',
-        warning:
-          'Attention: nous ne garderons aucune trace de cette opération. À utiliser uniquement pour des ajustements exceptionnels.',
-      },
-      explainDecaissement:
-        'Un décaissement de {{ amount }} {{ currencyDisplay }} sera enregistré.',
-      explainTopup:
-        'Une augmentation de {{ amount }} {{ currencyDisplay }} sera enregistré au solde du membre.',
-      debt: 'Décaissement',
-      topup: 'Encaissement',
-      actions: {
-        submit: 'Suivant',
-        cancel: 'Annuler',
-      },
-    },
-  },
-  actions: {
-    invoiceReverted: 'Facture annulée',
-    revert: 'Annuler',
-    addFooter: 'Modifier la note de bas de facture',
-    goToSubscription: 'Voir la souscription',
-    goToPaymentEditor: 'Paiement',
-    backToInvoiceItemEditor: 'Achat',
-    save: 'Enregistrer',
-    addInvoiceItem: 'Ajouter à la facture',
-    equilibrate: 'Equilibrer (acompte)',
-    download: 'Télécharger la facture',
-    downloadReceipt: 'Reçu de paiement',
-    explainPdfDraft:
-      "La facture est encore à l'état de brouillon, le pdf n'est pas disponible.",
-    finalize: 'Finaliser (PDF)',
-    consumeBalance: 'Payer via solde',
-    addCoupon: 'Ajouter un code promo',
-  },
-  returnPayment: {
-    modal: {
-      title: 'Remboursement client',
-      content:
-        'Le paiement sera reversé sur le compte BANCAIRE du client, un acompte du même montant sera ajoutée à la facture pour symboliser le paiement.',
-      cancel: 'Annuler',
-      confirm: 'Rembourser',
-    },
-  },
-  configuration: {
-    stripe_footer: 'Bas de page facture',
-    invoiceGeneral: 'Facture PDF',
-    subscription: {
-      title: 'Souscription',
-      forms: {
-        advance_sepa_billing: {
-          label:
-            "Envoyer l'ordre de virement SEPA 3 jours en avance, pour pallier aux délais du réseau bancaire pouvant provoquer un retard de trésorerie.",
-          helperText:
-            "Dans la très grande majorité des cas, le client ne reçoit l'information de virement que 3 jours plus tard.",
-        },
-        revert_bookings_on_fail_subscription_payment: {
-          label: 'Annuler les réservations si le paiement échoue.',
-          warning:
-            'Attention, les réservations ne seront pas recréées si le paiement réussit !',
-          helperText:
-            'Si le paiement de la souscription échoue ou est déclaré comme litigieux, les réservations réalisées avec ces cartes seront annulées (et le crédit recrédité)',
-        },
-        disable_pass_on_fail_subscription_payment: {
-          label: 'Désactiver les cartes si le paiement échoue.',
-          helperText:
-            "Si le paiement de la souscription échoue ou est déclaré comme litigieux, les cartes de cours et de RDV de cette facture seront désactivées jusqu'à ce que la facture soit encaissée",
-        },
-        activateSmartRetries: {
-          label: 'Activer Smart Retries sur les échecs de paiement',
-          helperText:
-            'bsport réessaiera automatiquement les paiements échoués des souscriptions, au meilleur moment.',
-        },
-        nbRetriesSubscriptionPayments: {
-          label: 'Nombres de tentatives après un échec de paiement',
-          helperText: 'Entre 0 et 5 tentatives',
-        },
-      },
-    },
-    explainStripeFooter:
-      'Ce texte apparaitra en bas de vos factures éditées en PDF, ajoutez toute mention légale nécessaire.',
-    submit_stripe_footer: 'Mettre à jour',
-    forms: {
-      stripe_footer_placeholder: 'Aucune mention supplémentaire',
-      show_company_email_in_invoice:
-        "Afficher l'email de contact de votre entreprise sur les factures",
-    },
-    nf525: 'Certification',
-    nf525Explain:
-      'Bsport suit les procédures de mise en conformité NF525, vous pouvez ici télécharger notre attestation officielle.',
-    nf525Button: 'Télécharger',
-    stripeTerminal: {
-      title: 'Paiement par terminal',
-      helperText:
-        'Utilisez un terminal de paiement pour payer les factures de vos clients depuis le backoffice. Grâce au terminal, gagnez du temps en encaissant vos clients sans avoir à leur demander leurs coordonnées bancaires. Merci de contacter votre chargé de compte pour en savoir plus.',
-      addReader: 'Connecter un terminal',
-      addCard: 'Ajouter avec le terminal  Stripe',
-      deleteDialog: {
-        title: 'Suppression',
-        content1:
-          'Êtes-vous sûr de vouloir supprimer le terminal de paiement {{label}} ?',
-        content2:
-          "Il n'apparaîtra plus dans les terminaux disponibles lors des paiements.",
-        content3: 'Vous pourrez le connecter de nouveau si vous le souhaitez',
-      },
-      connectDialog: {
-        title: {
-          connect: 'Connexion',
-          success: 'Connexion réussie',
-          error: 'Echec de connexion',
-          edit: 'Modification',
-        },
-        mustCreateStripeLocation:
-          'Pour votre premier enregistrement, veuillez renseigner les informations du studio dans lequel le terminal sera utilisé.',
-        loading1: "Nous tentons d'établir une connexion avec votre terminal.",
-        loading2: 'Merci de patienter.',
-        form: {
-          readerLabel: 'Nom du terminal',
-          registrationCode: 'Code du terminal',
-          registrationCodeHelperText:
-            'Indiquer le code affiché sur votre TPE Stripe',
-          connect: 'Connecter',
-          continue: 'Continuer',
-          retry: 'Réessayer',
-          update: 'Modifier',
-        },
-        success: 'Votre terminal de paiement Stripe a bien été connecté',
-        error1: "Votre terminal de paiement Stripe n'a pas été connecté.",
-        error2: 'Veuillez réessayer.',
-      },
-      paymentDialog: {
-        radio: 'Terminal de paiement',
-        amountToPay: 'Montant à payer',
-        connectAndPay: 'Envoyer sur le terminal',
-        minAmountInfo:
-          "Le paiement par terminal de paiement n'est pas disponible pour un montant inférieur à {{amountString}}.",
-        connectionSuccess: {
-          payment:
-            'La connexion avec le terminal a été effectuée. Le montant à payer devrait être affiché désormais.',
-          intent:
-            'La connexion avec le terminal a été effectuée. Le client devrait être en mesure de présenter sa carte.',
-          processing: 'Votre demande est en cours de traitement',
-          cancel: {
-            title: 'Annulation',
-            cancelExplain1: "Êtes-vous sûr de vouloir annuler l'opération ?",
-            cancelExplain2:
-              'Vous serez redirigé vers le choix du terminal de paiement.',
-            error: "Une erreur est survenue lors de l'annulation.",
-          },
-        },
-        paymentSuccess: {
-          title: {
-            payment: 'Paiement accepté',
-            setupAndPlan: 'Paiement enregistré',
-            setupOnly: 'Méthode de paiement enregistrée',
-          },
-          content: {
-            payment: 'Le paiement a bien été pris en compte.',
-            wait: 'Encore un petit instant, nous traitons vos données.',
-          },
-        },
-        paymentFailed: {
-          interac: {
-            title: 'Moyen de paiement incompatible',
-            content:
-              "Les cartes Interac ne peuvent pas être utilisées pour des paiements récurrents, ni être sauvegardées. Merci d'utiliser un autre moyen de paiement.",
-          },
-          title: {
-            paymentIntent: 'Echec de paiement',
-            setupIntent: "Echec de l'opération",
-          },
-          content: {
-            paymentIntent: "Le paiement n'a pas été pris en compte.",
-            setupIntent: "La méthode de paiement n'a pas été sauvegardée.",
-          },
-          explain: {
-            label: "Raison de l'échec :",
-          },
-        },
-        disconnect: {
-          title: 'Déconnexion',
-          content: 'La connexion a été perdue. Veuillez réessayer',
-        },
-      },
-    },
-  },
-  invoiceItem: {
-    buyableItemIdentifier: {
-      [BUYABLE_ITEM_PASS]: 'Carte de cours',
-      [BUYABLE_ITEM_SHOP_ITEM]: 'Magasin',
-      [BUYABLE_ITEM_PRIVATE_PASS]: 'Carte RDV',
-      [BUYABLE_ITEM_COMBO_ITEM]: 'Pack',
-      [BUYABLE_ITEM_GIFTCARD]: 'carte cadeau',
-      [BUYABLE_ITEM_CREDIT]: 'Crédit',
-    },
-    credit: {
-      label: 'Crédit',
-    },
-    quantity: 'Quantité',
-    voucher: 'Réduction: {{ voucher }}',
-    discount: 'Réduction',
-  },
-  section: {
-    invoiceItemList: {
-      title: 'Achats',
-      titleReverse: 'Retour achat',
-      isEmpty: 'Aucun achat',
-      total: 'Total achat',
-      billing_establishment: 'Établissement de facturation',
-    },
-    paymentList: {
-      title: 'Moyens de paiement',
-      isEmpty: 'Aucun moyen de paiement enregistré',
-      total: 'Total paiement',
-    },
-  },
-  table: {
-    actions: {
-      goToInvoice: 'Voir la facture',
-    },
-    header: {
-      member: 'Membre',
-      id: 'Identifiant',
-      date: 'Date de facturation',
-      amount: 'Montant dû',
-      missing: 'Restant dû',
-      invoiceType: 'Type',
-      pdf: 'PDF',
-      quickbooks: 'QuickBooks',
-    },
-    nested: {
-      invoiceItem: {
-        title: 'Achats',
-        isEmpty: 'Aucun achat',
-        header: {
-          product: 'Nom',
-          price: 'Montant TTC',
-          priceExcTax: 'Montant HT',
-          voucher: 'Dont réduction',
-        },
-      },
-      payment: {
-        title: 'Paiement',
-        isEmpty: 'Aucun paiement',
-        header: {
-          paymentMethod: 'Méthode de paiement',
-          price: 'Montant',
-          date: 'Date',
-          paymentReceived: 'Statut',
-        },
-      },
-    },
-  },
-  revert: {
-    dialog: {
-      actions: {
-        cancel: 'Fermer',
-        confirm: 'Confirmer',
-      },
-      title: 'Annulation facture',
-    },
-    autoDebitDialog: {
-      title: 'Solde Stripe insuffisant',
-      helper: `Votre studio est actuellement en procédure de clôture de compte Bsport.\n\nEn cliquant sur confirmer, la facture sera bien remboursée. Votre solde Stripe sera prélevé de {{refundAmount}} {{ currencyDisplay }}. Cependant pour remettre votre solde Stripe à 0 {{ currencyDisplay }} vous serez automatiquement débité de la différence directement sur votre compte bancaire indiqué dans Paramètres > Entreprise.\n\nSi vous ne souhaitez pas dépasser vote limite de découvert, vous pouvez attendre que votre solde Stripe remonte.`,
-    },
-    blockedDialog: {
-      title: 'Solde Stripe insuffisant',
-      alert:
-        'Attention, avec ce remboursement vous allez dépasser la limite de découvert autorisée de {{ refundBlockingLimit }} {{currencyDisplay}}.',
-      helper:
-        'Votre solde Stripe est insuffisant pour pouvoir procéder au remboursement. Merci de réessayer après quelques jours afin que des paiements soient encaissés.',
-    },
-    warning: {
-      interac:
-        'Au moins un paiement a été effectué avec une carte Interac sur cette facture. Les remboursements directs ne sont pas supportés pour les cartes Interac.',
-    },
-    content: {
-      label: {
-        [REVERSE_ON_PAYMENT_METHOD]: 'Remboursement direct',
-        [REVERSE_ON_DEBT]: 'Remboursement en avoir (solde)',
-        [REVERSE_ON_NEW_PAYMENT_METHOD]: 'Remboursement manuel',
-      },
-      explainEmptyPayment: 'Êtes vous sûr de vouloir annuler cette facture ?',
-      explain: {
-        [REVERSE_ON_PAYMENT_METHOD]:
-          'Les paiements carte / SEPA / etc... seront reversés directement sur le compte du client. Utilisez cette méthode pour opérer un remboursement direct suite à une erreur.',
-        [REVERSE_ON_DEBT]:
-          "Un avoir sera généré et incrémentera d'autant le solde client. Utilisez cette méthode pour générer un avoir.",
-        [REVERSE_ON_NEW_PAYMENT_METHOD]:
-          'Choisissez vous-même le moyen de remboursement. Utilisez cette méthode pour un remboursement chèque / virement manuel / espèces.',
-      },
-    },
+      "Attention: you're about to bill a pass to a member that doesn't possess the necessary tags. Are you sure that you want to continue with this billing anyway? ",
+    title: 'Information',
   },
   quickbooks: {
-    invoice: {
-      onQuickbooks: 'Transférée',
-      sendToQuickbooks: 'Transférer la facture sur QuickBooks',
-    },
     send: {
       errors: {
-        title: "Erreur lors de l'envoi de votre facture",
-        931000: "Erreur lors de l'authentification à Quickbooks",
-        931001: "Erreur lors de l'authentification à Quickbooks",
-        931002: "Clefs d'authentifications expirées",
-        931003: "Clefs d'authentifications expirées",
-        931004: "Vous n'avez pas configuré votre application QuickBooks",
-        931100: "Erreur lors de la mise à jour des clefs d'authentifications",
-        931101: 'Quickbooks ne parvient pas à nous transmettre vos données',
-        932000: "Votre compte n'est plus authentifié sur Bsport",
-        932001: "Votre compte n'est plus authentifié sur Bsport",
-        932100:
-          "Impossible d'accéder aux informations de votre compte Quickbooks",
+        931000: 'Error authenticating to QuickBooks',
+        931001: 'Error authenticating to QuickBooks',
+        931002: 'Authentication keys have expired',
+        931003: 'Authentication keys have expired',
+        931004: "You've not set up your QuickBooks application",
+        931100: 'Error while updating authentication keys',
+        931101: "QuickBooks can't send us your data",
+        932000: 'Your account is no longer authenticated on BSPORT',
+        932001: 'Your account is no longer authenticated on BSPORT',
+        932100: 'Error while accessing your QuickBooks information',
         933000:
-          'Le membre associé à la facture ne possède pas les informations nécessaires pour être enregistrer sur QuickBooks',
-        933100: 'Impossible de créer le client associé au membre de la facture',
-        933101: 'Impossible de créer le client associé au membre de la facture',
-        933102: 'Erreur lors de la création de la facture sur Quickbooks',
+          "The member associated to this invoice doesn't have the required information to be registered with QuickBooks",
+        933100: 'Error while associating the member to the invoice',
+        933101: 'Error while associating the member to the invoice',
+        933102: 'Error when creating the invoice on QuickBooks',
         933103:
-          'Votre plateforme QuickBooks supporte plusieures devises, veuillez préciser la taxe à utiliser.',
-        934000:
-          'La facture ne possède pas les informations minimales pour être créée sur Quickbooks',
-        934001: 'Impossible de créer une facture sans items associés',
-        934002: "Impossible d'envoyer une facture annulée sur QuickBooks",
-        934003: "Imposible d'envoyer une facture non finalisée sur QuickBooks",
-        934004: "Impossible d'envoyer une facture impayée sur QuickBooks",
-        934005: 'Votre facture ne peux pas être envoyée sur QuickBooks',
-        934006: 'Cette facture est déjà enregistrée sur QuickBooks',
+          'Your QuickBooks platform supports multiple currencies, please specify which tax to use.',
+        934000: 'This invoice lacks information to be created on QuickBooks',
+        934001: 'Error while creating invoice without associated items',
+        934002: 'Error while sending a canceled an invoice to QuickBooks',
+        934003: 'Error while sending an incomplete invoice to QuickBooks',
+        934004: 'Error while sending an unpaid invoice to QuickBooks',
+        934005: "Your invoice can't be sent to QuickBooks",
+        934006: 'This invoice has already been saved to QuickBooks',
+        title: 'Error while sending your invoice',
       },
+    },
+    invoice: {
+      sendToQuickbooks: 'Transfer invoice to QuickBooks',
+      onQuickbooks: 'Transferred',
     },
   },
   applyGiftcard: {
-    giftcard: 'Carte cadeau',
-    form: {
-      amountToPay: 'Montant payé en carte cadeau',
-      usedGiftcard: 'Carte cadeau utilisée',
-      errors: {
-        errorAmount: 'Montant invalide.',
-      },
-    },
     actions: {
-      apply: 'Paiement carte cadeau',
-      cancel: 'Fermer',
-      confirm: 'Valider',
+      confirm: 'Confirm',
+      cancel: 'Close',
+      apply: 'Payment by gift card',
     },
+    form: {
+      errors: { errorAmount: 'Invalid amount.' },
+      usedGiftcard: 'Used gift card',
+      amountToPay: 'Amount paid by gift card',
+    },
+    giftcard: 'Gift card',
+  },
+  invoiceFuturePaymentsDialog: {
+    applyForAllFuturePayments: 'Apply to future installments of this invoice',
   },
   status: {
-    [PLANNED_INVOICE_STATUS.SUCCEEDED.id]: 'Réussi',
-    [PLANNED_INVOICE_STATUS.FAILED.id]: 'Echec',
-    [PLANNED_INVOICE_STATUS.PENDING.id]: 'En attente',
-    [PLANNED_INVOICE_STATUS.PROCESSING.id]: 'En cours',
-    [PLANNED_INVOICE_STATUS.CANCELED.id]: 'Annulé',
+    [PLANNED_INVOICE_STATUS.SUCCEEDED.id]: 'Successful',
+    [PLANNED_INVOICE_STATUS.FAILED.id]: 'Failed',
+    [PLANNED_INVOICE_STATUS.PENDING.id]: 'Pending',
+    [PLANNED_INVOICE_STATUS.PROCESSING.id]: 'In progress',
+    [PLANNED_INVOICE_STATUS.CANCELED.id]: 'Cancelled',
   },
+  anonymousMember: 'Anonymous member',
 };

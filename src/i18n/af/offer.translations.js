@@ -1,402 +1,367 @@
 exports.default = {
-  broadcast: 'Visioconférence',
-  onSite: 'Au studio',
-  deleteImpossibleTitle: 'Impossible de supprimer la séance',
-  deleteImpossibleText:
-    "Vous ne pouvez pas supprimer cette séance parce qu'elle a des réservations en cours.",
-  close: 'Fermer',
   video: {
     cantOpenLink:
-      'Le lien vers conférence semble erroné, veuillez contacter votre club {{ contact_email }}',
+      'Broadcast link seems to be broken, please contact your club {{ contact_email }}',
+    startingSoon: 'Your session is starting in {{ minutesLeft }} minutes',
     redirectLink:
-      "Si vous n'êtes pas automatiquement redirigé, utiliser ce lien :",
-    startingSoon: 'Votre séance démarre dans {{ minutesLeft }} minutes',
-    hasEnded: 'Cette séance est terminée',
+      'If you are not automatically redirected, please use this link:',
+    hasEnded: 'This session has ended',
     isAutoRefresh:
-      'Vous serez redirigé automatiquement sur la visioconférence 15 minutes avant le début du cours',
-    loadingSoon: 'En cours de chargement...',
-    activateVideo: 'Lancer la diffusion',
+      'You will be redirected to the video 10 min before the start of the class',
+    loadingSoon: 'Loading...',
+    activateVideo: 'Connect to the livestream',
   },
-  recurrenceIndex: 'Groupe n°{{ index }} de la récurrence',
-  disabled: 'Annulée',
-  credit_price: ' Crédit',
-  isFree: 'Gratuit',
+  disabled: 'Cancelled',
+  credit_price: ' Credit(s)',
   booking: {
-    confirmed: 'Confirmé(s)',
-    fillRate: 'Taux de remplissage',
-    waiting: "Liste d'attente",
-    comesFromMigration: "Cette séance provient d'une migration",
+    confirmed: 'Bookings',
+    fillRate: 'Occupancy rate',
+    waiting: 'Waitlist',
+    comesFromMigration: 'This session comes from a migration',
   },
-  extraordinaryEstablishment: '(lieu temporaire)',
-  substitute: 'Remplaçant',
-  pendingReplacementRequest: 'Une demande de remplacement est ouverte',
+  extraordinaryEstablishment: '(temporary establishments)',
+  substitute: 'Substitute',
   calendar: {
-    modifyOffer: 'Modifier',
-    deleteOffer: 'Annuler',
-    filter: 'Filtrer',
-    today: "Aujourd'hui",
+    modifyOffer: 'Edit',
+    deleteOffer: 'Cancel',
+    filter: 'Filter',
+    today: 'Today',
     alertSpivi: {
-      title: 'Problème de connexion avec Spivi',
+      textBooking: "One or more reservations do not meet Spivi's conditions.",
       textOffer:
-        "La séance ne remplit pas les conditions de Spivi, par conséquent elle n'a pas pu être synchronisée.",
-      textBooking:
-        'Une ou plusieurs réservations ne répondent pas aux conditions de Spivi.',
+        "The session didn't meet Spivi's requirements, so it couldn't be synchronized.",
+      title: 'Connection problem with Spivi',
     },
   },
-  manageOffer: 'Gérer mes réservations',
-  restoreOffer: 'Restaurer la séance',
+  manageOffer: 'Manage bookings',
   forms: {
-    old_date: 'Ancien horaire :',
-    new_date: 'Nouvel horaire :',
-    delete: {
-      buttonHardDelete: 'Supprimer',
-    },
+    old_date: 'Original:',
+    new_date: 'New:',
+    delete: { buttonHardDelete: 'Delete' },
   },
   card: {
-    copyLink: 'Copier le lien vers la page de réservation',
-    copied: 'Lien copié',
+    copyLink: 'Copy the direct link to the booking page',
+    copied: 'Link copied',
   },
   offerManagement: {
     bookingOrder: {
-      date: 'Trier par date',
-      lastname: 'Trier par nom',
-      firstname: 'Trier par prénom',
+      date: 'Sort by: most recent',
+      lastname: 'Sort by: last name',
+      firstname: 'Sort by: first name',
     },
     unevenQuickInvoices:
-      'Des factures sans aucun mode de paiement sont ouvertes sur cette page. Voulez-vous vraiment quitter ?',
-  },
-  menu: {
-    showMonth: 'Vision mois',
-    showWeek: 'Vision semaine',
-    showCancelled: 'Voir les annulations',
-    hideCancelled: 'Masquer les annulations',
-    massDisable: 'Annulation groupée',
-    download: 'Récapitulatif',
+      'There are open invoices without any payment methods on this page. Are you sure that you want to quit?',
   },
   massDisabler: {
-    success: 'Annulation confirmée',
-    offers: 'Séances non annulables',
-    warningOfferGroupTitle: 'Séances non annulées',
-    warningOfferGroup:
-      "Attention les séances suivantes n'ont pas pu être annulées car elle font partie d'un groupe de séance. Pour les annuler merci d'annuler le groupe correspondant.",
-    confirmationExplain: `Veuillez écrire ci-dessous en lettre capitale "JE CONFIRME".`,
-    iConfirm: 'JE CONFIRME',
-    successInfo:
-      'La suppression de toutes les séances entre le {{start_date}} et le {{end_date}} a bien été prise en compte.',
-    confirm: 'Confirmer',
-    confirmInfo:
-      "Vous êtes sur le point d'annuler toutes les séances comprises entre le {{start_date}} et le {{end_date}} (inclus). Soit {{number_of_deleted_offer}} séance annulée.",
-    confirmInfo_plural:
-      "Vous êtes sur le point d'annuler toutes les séances comprises entre le {{start_date}} et le {{end_date}} (inclus). Soit {{number_of_deleted_offer}} séances annulées.",
-    sure: 'Êtes vous sûr de vouloir valider cette action ?',
-    startDateLabel: 'Date de début (inclus)',
-    endDateLabel: 'Date de fin (inclus)',
-    info: 'Sélectionner les dates entre lesquelles vous souhaitez annuler toutes les séances. Les dates sélectionnées sont incluses.',
-    warning: 'ATTENTION cette opération est irréversible',
-    title: 'Annulation groupée',
+    actions: { submit: 'Confirm', cancel: 'Cancel', continue: 'Continue' },
+    explainLoading: 'Please wait',
+    explainWarning: 'BE CAREFUL this operation is irreversible.',
     explain:
-      "Sélectionnez l'intervalle de date sur lequel vous souhaitez annuler vos séances. Les membres ayant réservé seront prévenus par email et leur crédits automatiquement remboursés sur la carte de cours correspondante.",
-    explainWarning: 'ATTENTION cette opération est irréversible.',
-    explainLoading: 'Veuillez patienter',
+      'Select the date interval over which you wish to cancel your sessions. Members who have booked will be notified by email and their credits automatically refunded to the corresponding pass',
+    title: 'Grouped cancellation',
+    secondWarningConfirm: 'Are you sure you want to continue?',
     secondWarning:
-      "En cliquant sur 'CONFIRMER' toutes les séances dans l’intervalle de dates seront définitivement annulées. Vous ne pourrez plus revenir en arrière.",
-    secondWarningConfirm: 'Voulez-vous vraiment continuer ?',
-    actions: {
-      cancel: 'Annuler',
-      submit: 'Confirmer',
-      continue: 'Continuer',
-    },
+      "By clicking on 'CONFIRM', the sessions included in the interval selected will be canceled and you won't be able to go back.",
+    warning: "This action can't be undone.",
+    info: 'Select the dates of the sessions that you wish to cancel.',
+    endDateLabel: 'End date',
+    startDateLabel: 'Start date',
+    sure: 'Are you sure that you want to validate this action?',
+    confirmInfo:
+      "You're about to cancel all {{number_of_deleted_offer}} session(s) between {{start_date}} and {{end_date}}.",
+    confirmInfo_plural:
+      "You're about to cancel all {{number_of_deleted_offer}} session(s) between {{start_date}} and {{end_date}}.",
+    confirm: 'Save',
+    iConfirm: 'I CONFIRM',
+    confirmationExplain:
+      'Please write "I CONFIRM" in capital letters to confirm.',
+    success: 'Cancellation confirmed',
+    successInfo:
+      'The deletion of all sessions between {{start_date}} and {{end_date}} has been taken into account.',
+    warningOfferGroup:
+      "These sessions can't be deleted, because they're associated to an event. Cancel, if necessary, the corresponding event.",
+    warningOfferGroupTitle: 'Valid sessions',
+    offers: 'Non-cancellable sessions',
   },
-  bookingList: 'Réservations',
-  bookingListEmpty: 'Aucune réservation',
+  bookingListEmpty: 'There are no bookings to display.',
+  bookingList: 'Bookings',
   liveOfferEdit: {
-    editSimilarOffers:
-      'Voulez-vous modifier les séances similaires selon ces nouvelles conditions ?',
-    editSimilarOffersGroup:
-      'Modifier la séance dans les récurrences futures du groupe ?',
-    selectEdit: 'Sélectionnez les séances qui seront modifiées',
-    selectAll: 'Tout sélectionner',
-    unselectAll: 'Tout désélectionner',
-    deleteSimilarOffers: 'Voulez-vous supprimer les séances similaires ?',
-    deleteSimilarOffersGroups:
-      'Voulez-vous supprimer les récurrences futures du groupe',
-    selectDelete: 'Sélectionnez les séances qui seront supprimées',
-    cancelSimilarOffers: 'Voulez-vous annuler les séances similaires ?',
-    cancelSimilarOffersGroup:
-      'Annuler la séance dans les autres récurrences du groupe ?',
-    selectCancel: 'Sélectionnez les séances qui seront annulées',
+    unselectAll: 'Unselect all',
+    selectAll: 'Select all',
+    select: 'Select the sessions that will be modified',
+    editSimilarOffers: 'Select the sessions that will be modified',
     noSimilarOffer:
-      'Aucune séance similaire trouvée. Seule cette séance sera affectée.',
+      'No similar sessions found. Only this session will be affected.',
+    selectCancel: 'Select the sessions that will be cancelled',
+    cancelSimilarOffers: 'Cancel similar sessions',
+    selectDelete: 'Select the sessions that will be deleted',
+    deleteSimilarOffers: 'Would you like to delete similar sessions?',
+    selectEdit: 'Select the sessions that will be modified',
+    cancelSimilarOffersGroup: 'Cancel other sessions associated to this event',
+    deleteSimilarOffersGroups:
+      'Do you want to delete future recurrences of the group',
+    editSimilarOffersGroup: "Also edit this event's future sessions",
     editSubteacher: {
-      title: 'Changement professeur remplaçant',
       propagateToSimilarOffers: {
-        checkboxLabel:
-          'Appliquer les changements sur le professeur remplaçant aux séances sélectionnées',
-        checkboxInfo:
-          'En cochant cette case les changements appliqués au professeur remplaçant de cette séance seront appliqués à toutes les séances similaires. Sinon ils ne seront appliqués qu’à cette séance.',
-        warning:
-          'Les séances similaires suivantes possèdent déjà un autre professeur remplaçant. Que souhaitez vous faire ?',
         mode: {
+          all: 'Spread the changes related to the substitute teacher over these sessions',
           offersWithSameCoachOverrideOnly:
-            'Conserver le remplaçant actuel sur ces séances',
-          all: 'Propager les changements liés au professeur remplaçant sur ces séances',
+            'Keep the current substitute on these sessions',
         },
+        warning:
+          'The following similar sessions already have another substitute teacher. What would you like to do?',
+        checkboxInfo:
+          'By checking this box, the changes applied to the substitute teacher of this session will be applied to all similar sessions. Otherwise they will only be applied to this session.',
+        checkboxLabel:
+          'Apply the changes on the substitute teacher to the selected sessions',
       },
+      title: 'Change of substitute teacher',
     },
   },
-  allCoaches: '{{count}} professeurs',
-  additionalCoaches: '{{count}} professeur supplémentaire',
-  additionalCoaches_plural: '{{count}} professeurs supplémentaires',
-  warningOfferFull: 'Le nombre maximum de réservations a déjà été atteint',
-  maximumNumber: 'Nombre maximum de réservations',
+  menu: {
+    download: 'Export',
+    massDisable: 'Grouped cancellation',
+    hideCancelled: 'Hide cancellations',
+    showCancelled: 'Show cancellations',
+    showWeek: 'Week view',
+    showMonth: 'Monthly view',
+  },
+  close: 'Close',
+  deleteImpossibleText:
+    "This session can't be deleted as it has pending bookings.",
+  deleteImpossibleTitle: "This session can't be deleted",
+  restoreOffer: 'Restore session',
   maximumNumberDescription:
-    "Le nombre maximum de {{effectif}} réservations a déjà été atteint.En inscrivant ce membre vous dépasserez l'effectif initialement prévu. Etes vous sûr de vouloir inscrire ce membre ?",
+    'The maximum number of bookings ({{effectif}}) has been reached. Are you sure that you want to book in this member? This action will override the initial maximum number of bookings.',
+  maximumNumber: 'Maximum number of bookings',
+  warningOfferFull: 'The maximum number of bookings has been reached.',
   tagManagementInfo:
-    '{{authorized}} tag(s) autorisé(s), {{unauthorized}} tag(s) non-autorisé(s)',
+    '{{authorized}} tag(s) authorized, {{unauthorized}} tag(s) not authorized',
   levels: {
     modal: {
-      title: 'Modifier le niveau',
-      name: 'Nom',
-      nameCaption: '{{max}} caractères max ({{count}}/{{max}})',
-      color: 'Code couleur',
-      cancel: 'Annuler',
-      submit: 'Sauvegarder',
+      title: 'Custom levels',
+      name: 'Name',
+      nameCaption: '{{max}} characters max ({{count}}/{{max}})',
+      color: 'Colour code',
+      cancel: 'Cancel',
+      submit: 'Save',
     },
     deleteModal: {
-      title: 'Suppression',
-      content: 'Êtes vous sûr de vouloir supprimer ce niveau ?',
+      title: 'Deleting',
+      content: 'Are you sure you want to remove this level?',
       content2:
-        'Les séances ayant déjà ce niveau le conserveront mais il ne pourra plus être ajouté aux futures séances.',
+        "Sessions that are already associated to this level won't be modified. Future sessions will be edited.",
     },
-    select: {
-      add: 'Ajouter un niveau',
-      title: 'Niveau',
-      placeholder: 'Niveau',
-    },
-    customs: 'Personnalisés',
-    delete: 'Supprimer',
-    edit: 'Modifier',
+    select: { add: 'Add a level', title: 'Level', placeholder: 'Level' },
+    customs: 'Custom',
+    delete: 'Delete',
+    edit: 'Edit',
   },
+  recurrenceIndex: 'Recurrence: {{ index }}',
+  pendingReplacementRequest: 'A request for substitution is open',
   rollCall: {
-    warningText: {
-      notValidatedRollCall: 'L’appel n’a pas été validé',
-      modifiedRollCall:
-        'L’appel a été modifié, vous devez de nouveau le valider',
-      validatedDate: 'Validé le {{- date }} à {{ time }}',
-      rollCallsLeftToValidate: '{{ number }} appel nécessite une validation',
-      rollCallsLeftToValidate_plural:
-        '{{ number }} appels nécessitent une validation',
-      noRollCallLeft: 'Tous les appels ont été validés',
-      lastValidatedRollCall: 'Dernier appel validé le {{- date }} {{ time }}',
-    },
-    warningIcon: {
-      stateChangedTitle: 'Statut non validé',
-      stateChanged: "Le statut a été changé mais n'a pas été validé",
-    },
-    button: {
-      validationRollCallZero: 'Valider l’appel',
-      validationRollCall: 'Valider l’appel',
-      validationRollCall_plural: 'Valider tous les appels',
-    },
-    dialog: {
-      validationRollCall: 'Valider l’appel',
-      confirmationRollCall:
-        'Attention, les membres marqués comme absents et titulaires d’une carte illimitée sujette aux pénalités seront sanctionnés. Etes-vous sûr de vouloir confirmer l’appel ?',
-      confirmationRollCall_plural:
-        'Vous allez valider l’appel pour l’ensemble des séances du jour. Attention, les membres marqués comme absents et titulaires d’une carte illimitée sujette aux pénalités seront sanctionnés. Etes-vous sûr de vouloir confirmer tous les appels ?',
-      validatedRollCall: 'Appel validé',
-      validatedRollCall_plural: 'Appels validés',
-      savedRollCall: 'L’appel a bien été enregistré.',
-      savedRollCall_plural: 'Les appels ont bien été enregistrés.',
+    drawer: {
+      listMembers: 'List of registered members',
+      info: 'Validating the roll call triggers the countdown for no-show penalties.',
+      rollCall: 'Roll call',
     },
     chip: {
-      validatedRollCall: 'Appel validé le {{- date }} {{ time }}',
-      notValidatedRollCall: 'Appel non validé',
+      notValidatedRollCall: 'Roll call not validated',
+      validatedRollCall: 'Roll call validated on {{- date }} {{ time }}',
     },
-    drawer: {
-      rollCall: 'Appel',
-      info: 'Valider l’appel permet de déclencher le décompte pour les pénalités des absences (no-show).',
-      listMembers: 'Liste des membres inscrits',
+    dialog: {
+      savedRollCall: 'The call has been saved.',
+      savedRollCall_plural: 'The calls have been saved.',
+      validatedRollCall: 'Validated call',
+      validatedRollCall_plural: 'Validated calls',
+      confirmationRollCall:
+        'Please note that members marked as absent and holding an unlimited pass subject to penalties will be penalized. Are you sure you want to confirm the call?',
+      confirmationRollCall_plural:
+        'You are about to validate the call for all the sessions of the day. Please note that members marked as absent and holding an unlimited pass subject to penalties will be penalized. Are you sure you want to confirm all calls?',
+      validationRollCall: 'Validate the call',
+    },
+    button: {
+      validationRollCall: 'Validate the call',
+      validationRollCall_plural: 'Validate all calls',
+      validationRollCallZero: 'Validate the roll call',
+    },
+    warningIcon: {
+      stateChanged: 'The status has been changed but not validated',
+      stateChangedTitle: 'Unvalidated status',
+    },
+    warningText: {
+      lastValidatedRollCall:
+        'Last validated roll call on {{- date }} {{ time }}',
+      noRollCallLeft: 'All roll calls were validated',
+      rollCallsLeftToValidate: '{{ number }} roll call requires validation',
+      rollCallsLeftToValidate_plural:
+        '{{ number }} roll calls require validation',
+      validatedDate: 'Validated on {{- date }} at {{ time }}',
+      modifiedRollCall:
+        'The roll call has been modified, you must validate it again',
+      notValidatedRollCall: 'The roll call was not validated',
     },
     filter: {
-      validated: 'Appel validé',
-      notValidated: 'Appel non validé',
-      placeholder: 'Statut de l’appel',
+      placeholder: 'Roll call status',
+      notValidated: 'Roll call not validated',
+      validated: 'Validated roll call',
     },
   },
   form: {
-    stepper: {
-      step: {
-        INFOS: 'Séance',
-        SETTINGS: 'Paramètres de modification',
+    warnings: {
+      editOfferInitialCredits:
+        'Older bookings do not take into account changes in credits',
+      effectif:
+        'Be careful, you are not entering a price. Are you sure of the value?',
+    },
+    errors: {
+      field: {
+        dateIntervalEnd: 'The end date cannot be before the start date',
+        durationMinute:
+          'The duration of a session must be greater than 0 minutes',
+        broadcastLink:
+          'The link is wrong. It should start with http:// or https:// and not contain any spaces',
+        partnerMaxBookingCount:
+          'The number of places here is greater than the number of places in the session',
+        effectif: 'The value is higher than the maximum number of places',
+        roomBlueprintSpivi:
+          'A room plan must be selected for sessions synchronized with Spivi',
+        durationMinuteSpivi:
+          'A session on Spivi should last between 20 minutes and 4 hours',
+      },
+      dateTooFar:
+        'Impossible to create sessions taking place in more than 3 years',
+      dateFormat: 'Invalid date format',
+      minTwo: 'The value must be greater than or equal to 2',
+      minZero: 'The value must be greater than or equal to 0',
+      positiveNumber: 'The value must be greater than 0',
+      required: 'Incomplete field',
+    },
+    dialog: { createLevel: 'Create a level', recurrencePreview: 'Preview' },
+    section: {
+      coachOverride: {
+        info: 'If you tick this box, the changes applied to the substitution teacher in this session will be applied to all similar sessions. Otherwise, they will only be applied to this session.',
+        field: {
+          isCoachOverridePropagate:
+            'Apply the substitution teacher changes to the selected sessions',
+        },
+        title: 'Change of substitute teacher',
+      },
+      similarOffers: {
+        info: 'Changes to sessions may make them incompatible with some passes. After the change please take the time to check that they will remain compatible with any changes in establishment / teacher.',
+        unselectAll: 'Deselect all',
+        selectAll: 'Select all',
+        title: 'Select the sessions that will be modified',
+      },
+      tags: {
+        placeholder: 'Leave blank to allow all members',
+        field: { blacklistTags: 'Not allowed', whitelistTags: 'Allowed' },
+        helperText:
+          'Use tags to make the session bookable only to a desired group of members. You select tags to make the session bookable only to members with one of the selected tags. Or you can select tags to make the session unbookable only to members with one of the selected tags.',
+        title: 'Tags',
+      },
+      settings: {
+        field: {
+          isModifyRecursively:
+            'Do you want to modify similar sessions according to these new conditions?',
+          isNotifyConsumers:
+            'Do you want to inform your customers of this change?',
+          partnership: {
+            partnerMaxBookingCount:
+              'Maximum number of marketplace bookings (OneFit + Urban Sports Club only)',
+            availableOnPartnership: 'On marketplaces (ClassPass, OneFit...)',
+            title: 'Marketplace',
+            uscIntegrationWarning:
+              'Your integration to the Urban Sports Club marketplace is active, any session spanning 2 days or more will not appear.',
+            uscIntegrationWorkshopWarning:
+              'Workshops are not compatible with the Urban Sports Club marketplace, so this session will not be included.',
+          },
+          allowGuestOffer: 'Allow booking for a guest',
+          isManagerOnly: 'Available for booking (web+app)',
+          syncOfferOnSpivi: 'Send to Spivi',
+        },
+        title: 'Settings',
+      },
+      coach: {
+        field: {
+          coachPaymentRule: {
+            placeholder: 'Select a rule',
+            title: 'Payroll rule',
+          },
+          coachOverride: {
+            placeholder: 'Select a substitute',
+            title: 'Substitute',
+          },
+          coach: { placeholder: 'Select a teacher', title: 'Teacher' },
+        },
+        title: 'Teacher',
+        additionalCoaches: {
+          field: { placeHolder: 'Select additional teachers' },
+          title: 'Additional teacher(s)',
+        },
+      },
+      dateTime: {
+        field: {
+          recurrence: {
+            previewCount: '{{count}} session will be created',
+            previewCount_plural: '{{count}} sessions will be created',
+            preview: 'Preview',
+            option: { monthly: 'Monthly', weekly: 'Weekly', daily: 'Daily' },
+            placeholder: 'Select a recurrence',
+            title: 'Recurrence',
+          },
+          dateIntervalEnd: 'End date',
+          dateIntervalStart: 'Date of the class',
+          durationMinute: 'Duration',
+          dateIntervalStartTime: 'Start time',
+        },
+        title: 'Time and date',
+      },
+      credits: {
+        field: { creditCount: 'Number of credits' },
+        title: 'Credits',
+      },
+      specificities: {
+        tooltip: {
+          roomBlueprint:
+            'Allows your students to book the spot they want in the room',
+          credits: 'Number of pass credits required for booking',
+          broadcastLink:
+            'The link will be generated automatically for ZOOM by bsport',
+        },
+        field: {
+          roomBlueprint: {
+            placeholder: 'Select a plan',
+            title: 'Spot scheduling',
+          },
+          broadcastLink: 'Link to the livestream',
+          establishment: 'Establishment',
+          credits: 'Credits',
+          level: 'Level',
+          waitingListMaxSize: 'Waiting list',
+          effectif: 'Available slots',
+          hybridManagementHelper:
+            'You can manage the bookings associated with this twinned session, both in the room and online, by clicking on the icon below to open a new management tab.',
+          hybridEditHelper:
+            'You are editing an online session linked to an on-site session. In order to modify some information you need to edit the on-site session.',
+          hybridHelper:
+            'By choosing this option an online session will be created with a default membership of {{ onlineOfferDefaultEffectif }}. You will be able to edit the information of the online offer after it has been created (Broadcast link, membership, price, etc.)',
+          hybridLabel: 'This session is both on site and online.',
+          hybridSection: 'Hybrid session',
+        },
+        title: 'Characteristics',
       },
     },
     groupedOffer: {
       warning:
-        'Attention cette séance fait partie du groupe de séances {{ name }}',
+        'Be careful this session is part of the  group of sessions {{ name }}',
     },
-    section: {
-      specificities: {
-        title: 'Caractéristiques',
-        field: {
-          effectif: 'Effectif',
-          waitingListMaxSize: "Liste d'attente",
-          level: 'Niveau',
-          credits: 'Crédits',
-          establishment: 'Lieu',
-          broadcastLink: 'Lien de la visioconférence',
-          hybridSection: 'Séance hybride',
-          hybridLabel: 'Cette séance est à la fois en salle et en ligne.',
-          hybridHelper:
-            "En choisissant cette option une séance en ligne sera créée avec un effectif pour defaut de {{ onlineOfferDefaultEffectif }}. Vous pourrez éditer les informations de l'offre en ligne après création (Lien de diffusion, effectif, prix, etc...)",
-          hybridEditHelper:
-            'Vous éditez une session en ligne liée à une session sur place. Afin de modifier certaines informations vous devez éditier la séance sur place.',
-          hybridManagementHelper:
-            "Vous pouvez gérer les réservations associées à cette séance jumelée, à la fois en salle et en ligne, en cliquant sur l'icône ci-après pour ouvrir un nouvel onglet de gestion.",
-          roomBlueprint: {
-            title: 'Spot scheduling',
-            placeholder: 'Sélectionner un plan',
-          },
-        },
-        tooltip: {
-          broadcastLink:
-            'Le lien sera généré automatiquement pour ZOOM par bsport',
-          credits:
-            'Nombre de crédits de carte de cours nécessaires pour réserver',
-          roomBlueprint:
-            "Permet à vos élèves de réserver l'emplacement qu'ils souhaitent dans la salle",
-        },
-      },
-      credits: {
-        title: 'Crédits',
-        field: {
-          creditCount: 'Nombre de crédits',
-        },
-      },
-      dateTime: {
-        title: 'Horaires et date',
-        field: {
-          dateIntervalStartTime: 'Heure de début',
-          durationMinute: 'Durée',
-          dateIntervalStart: 'Date du cours',
-          dateIntervalEnd: 'Date de fin',
-          recurrence: {
-            title: 'Récurrence',
-            placeholder: 'Sélectionner une récurrence',
-            option: {
-              daily: 'Quotidien',
-              weekly: 'Hebdomadaire',
-              monthly: 'Mensuel',
-            },
-            preview: 'Prévisualiser',
-            previewCount: '{{count}} séance va être créée',
-            previewCount_plural: '{{count}} séances vont être créées',
-          },
-        },
-      },
-      coach: {
-        title: 'Professeur',
-        field: {
-          coach: {
-            title: 'Professeur',
-            placeholder: 'Sélectionner un professeur',
-          },
-          coachOverride: {
-            title: 'Remplaçant',
-            placeholder: 'Sélectionner professeur remplaçant',
-          },
-          coachPaymentRule: {
-            title: 'Règle de rémunération',
-            placeholder: 'Sélectionner une règle',
-          },
-        },
-        additionalCoaches: {
-          title: 'Professeur(s) supplémentaire(s)',
-          field: {
-            placeHolder: 'Sélectionner des professeurs supplémentaires',
-          },
-        },
-      },
-      settings: {
-        title: 'Paramètres',
-        field: {
-          isManagerOnly: 'Disponible à la réservation (web+app)',
-          allowGuestOffer: 'Autoriser la réservation pour un invité',
-          partnership: {
-            title: 'Marketplace',
-            availableOnPartnership:
-              'Sur les marketplaces (ClassPass, OneFit...)',
-            partnerMaxBookingCount:
-              'Nombre maximum de réservation marketplace (OneFit + Urban Sports Club uniquement)',
-            uscIntegrationWarning:
-              "Votre intégration à la marketplace Urban Sports Club est active, toute séance débordant sur 2 jours ou plus n'y apparaîtra pas.",
-            uscIntegrationWorkshopWarning:
-              "Les ateliers ne sont pas compatibles avec la marketplace Urban Sports Club, cette séance n'y appraîtra pas.",
-          },
-          isNotifyConsumers:
-            'Voulez-vous informer vos clients de cette modification ?',
-          isModifyRecursively:
-            'Voulez-vous modifier les séances similaires selon ces nouvelles conditions ?',
-          syncOfferOnSpivi: 'Envoyer sur Spivi',
-        },
-      },
-      tags: {
-        title: 'Tags',
-        helperText:
-          'Utilisez les tags pour rendre la séance réservable uniquement à un groupe de membres souhaité. Vous sélectionnez des tags pour rendre la séance réservable seulement aux membres possédant un des tags choisis. Ou bien vous pouvez sélectionner des tags pour rendre la séance non réservable seulement aux membres possédant un des tags sélectionnés.',
-        field: {
-          whitelistTags: 'Autorisé',
-          blacklistTags: 'Non-Autorisé',
-        },
-        placeholder: 'Laisser vide pour autoriser tous les membres',
-      },
-      similarOffers: {
-        title: 'Sélectionnez les séances qui seront modifiées',
-        selectAll: 'Tout sélectionner',
-        unselectAll: 'Tout désélectionner',
-        info: "Les changements sur les séances risquent de les rendre incompatibles avec certaines cartes de cours. Après la modification veuillez prendre le temps de vérifier qu'ils resteront compatibles avec les éventuels changements de lieu / professeur.",
-      },
-      coachOverride: {
-        title: 'Changement professeur remplaçant',
-        field: {
-          isCoachOverridePropagate:
-            'Appliquer les changements sur le professeur remplaçant aux séances sélectionnées',
-        },
-        info: 'En cochant cette case les changements appliqués au professeur remplaçant de cette séance seront appliqués à toutes les séances similaires. Sinon ils ne seront appliqués qu’à cette séance.',
-      },
-    },
-    dialog: {
-      recurrencePreview: 'Prévisualisation',
-      createLevel: 'Créer un niveau',
-    },
-    errors: {
-      required: 'Champ incomplet',
-      positiveNumber: 'La valeur doit être supérieure à 0',
-      minZero: 'La valeur doit être supérieure ou égale à 0',
-      minTwo: 'La valeur doit être supérieure ou égale à 2',
-      dateFormat: 'Format de date invalide',
-      dateTooFar:
-        'Impossible de créer des séances ayant lieu dans plus de 3 ans',
-      field: {
-        effectif: 'La valeur est supérieure au nombre maximum de places',
-        partnerMaxBookingCount:
-          'Le nombre de places ici est supérieur au nombre de places dans la séance',
-        broadcastLink:
-          "Le lien est erroné. Il doit commencer par http:// ou https:// et ne pas contenir d'espacement",
-        durationMinute: "La durée d'une seance doit être supérieure à 0 minute",
-        durationMinuteSpivi:
-          "La durée d'une séance sur Spivi doit être comprise entre 20 minutes et 4 heures",
-        dateIntervalEnd:
-          'La date de fin ne peut pas être avant la date de début',
-        roomBlueprintSpivi:
-          'Un plan de salle doit être sélectionné pour les séances synchronisées avec Spivi',
-      },
-    },
-    warnings: {
-      effectif:
-        "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?",
-      editOfferInitialCredits:
-        'Les réservations anciennes ne prennent pas en compte les modifications des crédits',
-    },
+    stepper: { step: { SETTINGS: 'Modification settings', INFOS: 'Session' } },
   },
+  isFree: 'Free',
+  onSite: 'At the studio',
+  broadcast: 'Videoconferencing',
+  additionalCoaches: '{{count}} additional teacher',
+  additionalCoaches_plural: '{{count}} additional teachers',
+  allCoaches: '{{count}} teachers',
 };

@@ -1,61 +1,49 @@
 exports.default = {
-  select: {
-    placeholder: 'Article magasin',
-  },
+  select: { placeholder: 'Shop product' },
   link: {
-    copyLink: 'Copier le lien vers la page de paiement',
-    copied: 'Lien copié',
+    copyLink: 'Copy the direct link to the payment page',
+    copied: 'Link copied',
   },
-  search: 'Rechercher un produit',
+  search: 'Search a product',
   dialog: {
     delete: {
-      title: 'Suppression de {{shopitem.name}}',
-      cancel: 'Annuler',
-      confirm: 'Supprimer',
-      warning:
-        'Attention ! Ce produit est utilisé dans un pack, ce pack ne sera plus disponible à la vente si vous supprimez ce produit.',
+      title: 'Deletion: {{shopitem.name}}',
+      cancel: 'Cancel',
+      confirm: 'Delete',
       explain:
-        "Êtes-vous sûr de vouloir supprimer cet élément du magasin ? Cette opération est irréversible, vous n'aurez plus accès à l'historique des stocks.",
+        "Are you sure that you want to delete this product from your webshop? This action can't be undone.",
+      warning:
+        "Attention! Deleting this product will also make it unavailable for purchase for the packs it's used for.",
     },
   },
   provision: {
-    total_sales: "Nombre d'articles vendus :",
-    current_stock: 'Stock actuel :',
-    noProvisionHistory: 'Aucun historique de vente',
+    total_sales: 'Total sales',
+    current_stock: 'Current stock',
+    noProvisionHistory: 'No sale history',
     form: {
-      title: 'Modification du stock',
-      quantityLabel: 'Unité(s)',
-      quantityHelperText: 'Unité à ajouter/soustraire du stock',
-      cancel: 'Annuler',
-      submit: 'Enregistrer',
+      title: 'Update provision',
+      quantityLabel: 'Unit(s)',
+      quantityHelperText: 'Units to add/remove to provision',
+      cancel: 'Cancel',
+      submit: 'Save',
     },
-    action: {
-      update: 'Actualiser le stock',
-    },
+    action: { update: 'Update inventory' },
   },
   shopitem: {
-    form: {
-      title: 'Article magasin',
-    },
-    noDescription: 'Aucune description',
-    selector: {
-      placeholder: 'Rechercher par nom ou code-barre',
-    },
+    noDescription: "There's no description to display.",
+    selector: { placeholder: 'Search by name or barcode' },
     detail: {
-      enabled: 'Oui',
-      disabled: 'Non',
-      title: 'Fiche produit',
-      provisionHistory: 'Evolution du stock',
-      parameters: 'Paramètres',
-      supplier_price: 'Prix fournisseur',
-      marketplace_enabled: 'Disponible marketplace Web',
-      is_deliverable: 'Frais de livraison',
-      onsite_payment_available: 'Paiement sur place',
+      enabled: 'Yes',
+      disabled: 'No',
+      title: 'Product',
+      provisionHistory: 'Inventory',
+      parameters: 'Settings',
+      supplier_price: 'Supplier price',
+      marketplace_enabled: 'Available on the webshop',
+      is_deliverable: 'No Click&Collect available',
+      onsite_payment_available: 'Enable in-studio payments',
     },
-    action: {
-      edit: 'Modifier',
-      addToCard: 'Ajouter au panier',
-      delete: 'Supprimer',
-    },
+    action: { edit: 'Edit', addToCard: 'Add to cart', delete: 'Delete' },
+    form: { title: 'Webshop product' },
   },
 };

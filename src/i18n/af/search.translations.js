@@ -1,18 +1,12 @@
 exports.default = {
-  input: 'Rechercher...',
-  go_back: 'Retourner aux résultats',
-  noResult: 'Aucun résultat',
+  input: 'Search...',
+  go_back: 'Return to results',
+  noResult: 'No matches',
   member: {
-    sessions: {
-      title: 'Séances',
-    },
-    packs: {
-      title: 'Cartes de cours',
-    },
-    archived: 'Membres archivés',
-    closeMemberMatch: 'Recherchez-vous ce membre ?',
+    sessions: { title: 'Sessions' },
+    packs: { title: 'Passes' },
+    closeMemberMatch: 'Are you looking for this member?',
+    archived: 'Archived members',
   },
-  actions: {
-    addMember: 'Ajouter un membre',
-  },
+  actions: { addMember: 'Add a member' },
 };

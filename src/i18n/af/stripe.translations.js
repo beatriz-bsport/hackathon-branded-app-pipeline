@@ -1,93 +1,83 @@
 exports.default = {
   errors: {
-    // Validation errors
-    incomplete_number: 'Le numéro de carte est incomplet.',
-    incomplete_expiry: "La date d'expiration de votre carte est incomplète.",
-    invalid_expiry_year_past: "La date d'expiration de votre carte est passée.",
-    invalid_expiry_year: "La date d'expiration de votre carte est invalide.",
-    incomplete_cvc: 'Le code de sécurité de votre carte est incomplet.',
-    invalid_number: 'Le numéro de votre carte est invalide.',
-    invalid_bank_account: 'Le compte bancaire fourni est invalide.',
-    invalid_bank_account_account_number:
-      'Le numéro de compte bancaire est invalide.',
-    invalid_bank_account_routing_number: 'Le sort code fourni est invalide.',
-    email_invalid: "L'adresse mail est invalide.",
-    // Payment errors
-    card_declined: 'Votre carte a été refusée.',
-    expired_card: 'Votre carte a expirée.',
-    incorrect_cvc: 'Le code de sécurite de votre carte est incorrect.',
-    payment_intent_authentication_failure:
-      'Le paiement a été refusé par votre banque.',
+    incomplete_number: 'Your card number is incomplete.',
+    incomplete_expiry: "Your card's expiration date is incomplete.",
+    invalid_expiry_year_past: 'Your card has expired.',
+    invalid_expiry_year: "Your card's expiration year is invalid.",
+    incomplete_cvc: "Your card's security code is incomplete.",
+    invalid_number: "Your card's number is invalid.",
+    card_declined: 'Your card was declined.',
+    expired_card: 'Your card has expired.',
+    incorrect_cvc: "Your card's security code is incorrect.",
     processing_error:
-      "Une erreur a eu lieu lors de l'enregistrement de votre paiement. Veuillez réessayer d'ici quelques instants.",
-    // Reason
-    insufficient_funds: 'Votre carte ne dispose pas des fonds suffisants.',
-    unknown: 'Erreur réseau, veuillez réessayer dans quelques instants',
-    // Stripe terminal codes
-    no_established_connection: 'Aucun terminal de paiement connecté',
-    network_error: 'Erreur réseau, veuillez réessayer dans quelques instants',
-    network_timeout: 'Erreur réseau, veuillez réessayer dans quelques instants',
-    already_connected: 'Un autre terminal de paiement est déjà connecté',
-    discovery_too_many_readers:
-      'Impossible de se connecter, trop de terminaux aux alentours',
+      'An error occurred while processing your card. Try again later.',
+    insufficient_funds: 'Your card has insufficient funds.',
+    payment_intent_authentication_failure: 'Your bank refused the payment.',
+    unknown: 'A network error occurred. Try again later.',
+    lost_card: null,
+    stolen_card: null,
+    no_established_connection: 'There are no connected terminals to display.',
+    network_error: 'Network error, please try again in a few moments',
+    network_timeout: 'Network error, please try again in a few moments',
+    already_connected: 'Another payment terminal is already connected',
+    discovery_too_many_readers: 'Unable to connect, too many terminals around',
     setup_intent_authentication_failure:
-      'Impossible de sauvegarder cette carte. Veuillez essayer un autre moyen de paiement.',
-    reader_not_found:
-      'Une erreur est survenue. Assurez-vous que votre terminal est bien en ligne, et connecté au même réseau wifi que votre appareil.',
+      'Unable to save this card. Please try another payment method.',
+    none: ' ',
     reader_error:
-      'Une erreur est survenue. Assurez-vous que votre terminal est bien en ligne, et connecté au même réseau wifi que votre appareil.',
-    none: '',
+      'An error has occurred. Make sure your terminal is online and connected to the same wifi network as your device.',
+    reader_not_found:
+      'An error has occurred. Make sure your terminal is online and connected to the same wifi network as your device.',
+    invalid_bank_account: 'The bank account provided is invalid.',
+    invalid_bank_account_account_number: 'The bank account number is invalid.',
+    invalid_bank_account_routing_number: 'The sort code provided is invalid.',
+    email_invalid: 'The email address is invalid.',
   },
   error_code: {
-    none: '',
-    // Validation errors
-    incomplete_number: 'Le numéro de carte est incomplet.',
-    incomplete_expiry: "La date d'expiration de votre carte est incomplète.",
-    invalid_expiry_year_past: "La date d'expiration de votre carte est passée.",
-    invalid_expiry_year: "La date d'expiration de votre carte est invalide.",
-    incomplete_cvc: 'Le code de sécurité de votre carte est incomplet.',
-    invalid_number: 'Le numéro de votre carte est invalide.',
-    expired_card: 'Votre carte a expirée.',
-    card_declined: 'Carte refusée',
-    setup_intent_authentication_failure:
-      'Impossible de sauvegarder cette carte. Veuillez essayer un autre moyen de paiement.',
-    invalid_bank_account_account_number:
-      'Le numéro de compte bancaire est invalide.',
-    invalid_bank_account_routing_number: 'Le sort code fourni est invalide.',
-    email_invalid: "L'adresse mail est invalide.",
-    // Payment errors
-    payment_intent_authentication_failure:
-      'Le paiement a été refusé par votre banque.',
-    payment_intent_payment_attempt_failed:
-      'Le paiement a été refusé par votre banque.',
+    none: ' ',
+    incomplete_number: 'Your card number is incomplete.',
+    incomplete_expiry: "Your card's expiration date is incomplete.",
+    invalid_expiry_year_past: 'Your card is no longer valid.',
+    invalid_expiry_year: "Your card's expiration date is invalid.",
+    incomplete_cvc: 'Your security code is incomplete.',
+    invalid_number: "Your card's number is invalid.",
+    expired_card: 'Your card has expired.',
+    card_declined: 'Card declined',
+    payment_intent_authentication_failure: 'Your bank refused the payment.',
+    payment_intent_payment_attempt_failed: 'Your bank refused the payment.',
     processing_error:
-      "Une erreur a eu lieu lors de l'enregistrement de votre paiement. Veuillez réessayer d'ici quelques instants.",
-    // Reason
-    unknown: 'Erreur réseau, veuillez réessayer dans quelques instants',
+      'An occurred while processing your payment. Try again later.',
+    unknown: 'A network error occurred. Try again later.',
+    setup_intent_authentication_failure:
+      'This card cannot be saved. Please try another payment method.',
+    invalid_bank_account_account_number: 'The bank account number is invalid.',
+    invalid_bank_account_routing_number: 'The sort code provided is invalid.',
+    email_invalid: 'The email address is invalid.',
   },
   decline_code: {
-    none: '',
-    card_not_supported: "Votre carte n'est pas reconnue.",
-    incorrect_number: 'Le numéro de carte est invalide.',
-    incorrect_cvc: 'Le code de sécurité est invalide.',
-    insufficient_funds: 'Votre carte ne dispose pas des fonds suffisants.',
-    restricted_card: 'Votre carte a été refusée par votre banque',
-    stolen_card: 'Votre carte a été marquée comme volée par votre banque',
-    lost_card: 'Votre carte a été déclarée comme perdue par votre banque',
-    transaction_not_allowed: 'Votre carte a été refusée par votre banque',
-    generic_decline: "La banque n'a pas accepté le paiement",
+    none: ' ',
+    card_not_supported: "Your card couldn't be recognized.",
+    incorrect_number: "Your card's number is invalid.",
+    incorrect_cvc: 'Your security code is invalid.',
+    insufficient_funds: 'Your card has insufficient funds.',
+    restricted_card: 'Your bank refused your card.',
+    stolen_card: 'Your bank has marked your card as stolen.',
+    transaction_not_allowed: 'Your bank refused your transaction.',
+    generic_decline: 'Your bank has refused your payment.',
+    withdrawal_count_limit_exceeded:
+      'Your bank declined your card, as you exceeded your withdrawal limit.',
     do_not_honor:
-      "Votre banque a refusé le paiement, veuillez contacter votre conseiller bancaire pour l'autoriser",
-    withdrawal_count_limit_exceeded: 'Trop de débit sur cette carte, refusée.',
-    incorrect_pin: 'Code pin incorrect',
-    invalid_pin: 'Code pin incorrect',
-    offline_pin_required: 'Code pin requis',
-    online_or_offline_pin_required: 'Code pin requis',
+      'Your bank refused your payment. Contact your bank to authorize the payment.',
+    incorrect_pin: 'Wrong pin code',
+    invalid_pin: 'Wrong pin code',
+    offline_pin_required: 'Required pin code',
+    online_or_offline_pin_required: 'Required pin code',
     pin_try_exceeded:
-      'Nombre de tentatives max atteint. Essayez un autre moyen de payement',
+      'Max number of attempts reached. Try another payment method',
     call_issuer:
-      'Votre carte a été refusée pour une raison inconnue. Veuillez contacter votre banque',
+      'Your card has been declined for an unknown reason. Please contact your bank',
+    lost_card: 'Your card has been reported lost by your bank',
     test_mode_live_card:
-      'Votre carte a été refusée car vous utilisez une carte de test. Veuillez utiliser une carte réelle',
+      'Your card has been rejected because you are using a test card. Please use a real card',
   },
 };

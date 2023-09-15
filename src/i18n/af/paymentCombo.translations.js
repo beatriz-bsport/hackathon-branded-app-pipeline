@@ -1,102 +1,78 @@
 exports.default = {
-  search: 'Rechercher un pack',
-  pageTitle: {
-    list: 'Packs',
-  },
+  pageTitle: { list: 'Packs' },
   link: {
-    copied: 'Lien copié',
-    copyLink: 'Copier le lien vers la page de paiement',
+    copied: 'Copied',
+    copyLink: 'Copy the direct link to the payment page',
   },
   list: {
     section: {
-      unavailableOnline: 'Non disponible à la vente',
-      availableOnline: 'Disponible à la vente',
+      unavailableOnline: 'Unavailable packs',
+      availableOnline: 'Available packs',
     },
     explainIfEmpty:
-      'Créer ici des packs achetables par les élèves pouvant contenir des cartes de cours, des objets du magasin, etc...',
-    buttons: {
-      add: 'Créer un pack',
-    },
+      'In this module, you can manage all your packs. In packs, you can combine of products from your webshop, passes, and/or appointment passes.',
+    buttons: { add: 'Add a pack' },
   },
   form: {
-    title: 'Formulaire pack',
-    error: {
-      atLeastOneThing: 'Vous devez ajouter au moins un élément dans votre pack',
-    },
-    maxPurchasePerMember: {
-      label: 'Achat maximum par membre',
-      helperText: 'Laisser vide pour ne pas imposer de limite',
-    },
-    name: {
-      label: 'Nom',
-    },
-    description: {
-      label: 'Description',
-    },
-    price: {
-      label: 'Prix',
-    },
-    tax: {
-      label: 'TVA',
-    },
-    usePaymentComboTaxOnItems: {
-      label: "Appliquer une TVA générale à l'ensemble du pack",
-      helperText:
-        "Par défaut, la taxe appliquée à chaque objet est celle indiquée sur l'objet. En sélectionnant cette option, vous pourrez appliquer une taxe générale sur le pack.",
-    },
-    manager_only: {
-      label: 'Invisible pour les clients',
-    },
-    unusableByStaff: {
-      label: 'Invisible pour le staff',
-    },
-    new_member_only: {
-      label: 'Uniquement pour les nouveaux clients',
-    },
-    actions: {
-      submit: 'Enregistrer',
-      cancel: 'Annuler',
-    },
-    content: 'Contenu',
+    title: '[Form] Pack',
+    name: { label: 'Name' },
+    description: { label: 'Description' },
+    price: { label: 'Price' },
+    tax: { label: 'VAT / Sales tax' },
+    manager_only: { label: 'Unavailable for purchase' },
+    actions: { submit: 'Save', cancel: 'Cancel' },
+    content: 'Content',
     selectorPlaceholder: {
-      privatePass: 'Carte RDV',
-      paymentPack: 'Carte cours collectif',
-      shopitem: 'Magasin',
+      privatePass: 'Appointment passes',
+      paymentPack: 'Passes',
+      shopitem: 'Webshop',
     },
     available_payment_method_identifiers: {
-      label: 'Moyens de paiement autorisés',
       helperText:
-        'Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement par carte sera proposé.',
+        'Select at least one payment method. If none is selected, a card payment will be offered by default.',
+      label: 'Accepted payment methods',
     },
+    new_member_only: { label: 'Only available for new members' },
+    maxPurchasePerMember: {
+      helperText: 'Leave this field blank to not impose any limits.',
+      label: 'Maximum number of purchases per member',
+    },
+    usePaymentComboTaxOnItems: {
+      label: 'Apply a general VAT / Sales Tax rate on this pack',
+      helperText:
+        'By default, a unique VAT / Sales Tax rate will be applied per product. Activate this option to apply a general VAT / Sales Tax rate.',
+    },
+    error: { atLeastOneThing: 'You must add at least one item to your pack' },
+    unusableByStaff: { label: 'Invisible for the staff' },
     expiration_date: {
-      label: "Date limite d'achat",
-      helperText: 'Disponible jusqu’au',
+      label: 'Date limit for purchase',
+      helperText: 'Available until',
       tooltip:
-        'Passée la date choisie, le pack n’apparaîtra plus à la vente pour les clients.',
+        'After chosen date, the pack will not be available for sale anymore, for the customers.',
     },
     highlightedAsRecommended: {
-        label: 'Marquer comme recommandé',
-        helperText: "Permet à vos clients de voir d'un coup d'oeil quels packs sont actuellement recommandés.",
-    }
+      label: 'Mark as recommended',
+      helperText:
+        'Allows your customers to quickly see which packs are currently recommended.',
+    },
   },
   detail: {
-    containsNProducts: 'Contient {{ n }} produits',
-    itemCount: '{{ count }} élément',
-    itemCount_plural: '{{ count }} éléments',
+    containsNProducts: 'Contains {{ n }} product(s).',
     description: 'Description',
-    content: 'Contenu',
-    purchases: 'Ventes',
-    emptyContent: 'Ce pack ne contient rien !',
+    content: 'Content',
+    purchases: 'Purchases',
+    emptyContent: "This pack doesn't contain any products to display.",
+    itemCount: '{{ count }} item',
+    itemCount_plural: '{{ count }} items',
   },
-  edit: 'Modifier',
   delete: {
-    title: 'Suppression du pack',
+    title: 'Delete pack',
     content:
-      'Voulez-vous vraiment supprimer ce pack ? Cette opération est irréversible, les achats déjà effectués et les paniers en cours ne seront pas affectés.',
-    cancel: 'Annuler',
-    submit: 'Supprimer',
+      "Are you sure that you want to delete this pack? This action can't be undone. Current and previous purchases, as well as active baskets, won't be modified.",
+    cancel: 'Cancel',
+    submit: 'Delete',
   },
-  parameters: {
-    unusableByStaff: 'Invisible pour le staff',
-  },
+  edit: 'Edit',
+  search: 'Search a pack',
+  parameters: { unusableByStaff: 'Invisible for the staff' },
 };

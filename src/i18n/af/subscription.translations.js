@@ -24,834 +24,904 @@ const {
 } = require('@bsport/common/lib/master-data/events');
 
 exports.default = {
-  search: 'Rechercher un contrat',
-  seeMore: 'Voir plus',
-  register: {
-    dialog: {
-      success: 'Votre abonnement {{- name }} a bien été enregistré.',
-      error: "Impossible d'enregistrer l'abonnement.",
-      info: "Votre abonnement est en cours d'enregistrement, nous vous préviendrons lorsqu'il sera prêt.",
-    },
-  },
-  status: {
-    hasStarted: 'En cours',
-    hasNotStartedYet: 'Pas encore commencé',
-    hasStopped: 'Stoppé',
-    isPaused: 'En pause',
-    hasEnded: 'Terminé',
-  },
-  billing_plan_status: {
-    [BILLING_PLAN_STATUS_STARTED]: 'En cours',
-    [BILLING_PLAN_STATUS_NOT_STARTED]: 'Pas encore commencé',
-    [BILLING_PLAN_STATUS_STOPPED]: 'Stoppé',
-    [BILLING_PLAN_STATUS_PAUSED]: 'En pause',
-    [BILLING_PLAN_STATUS_ENDED]: 'Terminé',
-  },
-  notificationToolTip: 'Des notifications sont définies pour cet abonnement',
-  invisibleForStaffToolTip: 'Invisible pour le staff',
   events: {
-    list: {
-      title: 'Derniers évènements',
-    },
-    [BILLING_PLAN_EVENTS.pause]: 'Pause',
-    [BILLING_PLAN_EVENTS.pause_deleted]: 'Pause annulée',
-    [BILLING_PLAN_EVENTS.create]: 'Création',
-    [BILLING_PLAN_EVENTS.stop]: 'Arrêt',
-    [BILLING_PLAN_EVENTS.renew]: 'Renouvellement',
-    [BILLING_PLAN_EVENTS.payment_dispute]: 'Litige',
-    [BILLING_PLAN_EVENTS.payment_success]: 'Paiement réussi',
-    [BILLING_PLAN_EVENTS.payment_failure]: 'Paiement refusé',
-    [BILLING_PLAN_EVENTS.update_payment_method]: 'Méthode de paiement modifiée',
-    [BILLING_PLAN_EVENTS.update_payment_pack]: 'Carte de cours modifiée',
-    [BILLING_PLAN_EVENTS.update_private_pass]: 'Carte de rendez-vous modifiée',
-    [BILLING_PLAN_EVENTS.update_payment_combo]: 'Pack modifié',
-    [BILLING_PLAN_EVENTS.update]: 'Abonnement modifié',
+    list: { title: 'Last events' },
+    [BILLING_PLAN_EVENTS.pause]: 'Paused payments',
+    [BILLING_PLAN_EVENTS.pause_deleted]: 'Pause cancelled',
+    [BILLING_PLAN_EVENTS.create]: 'Create',
+    [BILLING_PLAN_EVENTS.stop]: 'Stopped payments',
+    [BILLING_PLAN_EVENTS.renew]: 'Automatic renewals',
+    [BILLING_PLAN_EVENTS.payment_dispute]: 'Payment: disputed',
+    [BILLING_PLAN_EVENTS.payment_success]: 'Payment: successful',
+    [BILLING_PLAN_EVENTS.payment_failure]: 'Payment: refused',
+    [BILLING_PLAN_EVENTS.update_payment_method]: 'Payment method updated',
+    [BILLING_PLAN_EVENTS.update_payment_pack]: 'Modified passes',
+    [BILLING_PLAN_EVENTS.update_private_pass]: 'Modified appointment passes',
+    [BILLING_PLAN_EVENTS.update_payment_combo]: 'Modified packs',
+    [BILLING_PLAN_EVENTS.update]: 'Subscription modified',
   },
-  cancel: 'annuler',
-  save: 'valider',
-  addNotification: 'Ajouter une notification',
-  table: {
-    noContent: 'Aucune souscription enregistrée',
-  },
-  noContracts:
-    'Les contrats vous permettront de facturer régulièrement (mensuellement) vos membres pour une carte de cours recréditée tous les mois/jours/années.',
+  table: { noContent: 'There are no subscribers to display.' },
   subscription: {
-    list: {
-      title: 'Souscription en cours',
+    list: { title: 'Current subscriptions' },
+    actions: {
+      switchPaymentMethod: 'Change the payment method',
+      switchPack: 'Edit pass',
+      freeze: 'Pause',
+      advanceTime: 'Advance the invoice',
+      postPone: 'Postpone the invoice',
+      changeDate: 'Edit date',
+      showInvoice: 'See invoice',
+      changePrice: 'Edit price',
+      stop: 'Stop after this invoice',
+      disableAutoRenew: 'Deactivate automatic renewals',
+      enableAutoRenew: 'Activate auto-renew',
     },
-    actionSection: 'Gérer',
-    listItem: {
-      startingAt: 'Débute le {{ d }}',
-      nextBillingDate: 'Prochaine facturation le {{ d }}',
-      recurrencePriceIs: 'Récurrence de {{ amount }}{{currencyDisplay}}',
+    freeze: {
+      form: {
+        submit: 'Save',
+        cancel: 'Cancel',
+        explainWarning: "Attention: this action can't be undone.",
+        explain:
+          'Indicate the number of days that the next and future payments will be postponed with.',
+        days: { label: 'Number of days' },
+        name: { placeholder: 'Bank holidays', label: 'Note' },
+        title: 'Paused',
+        explainInvoice:
+          "Select from which invoice you'd like to pause this subscription:",
+      },
+      disabledReasons: {
+        month_billing_day: "It's not possible to pause a fixed day contract ",
+      },
     },
-    invoicesSection: 'Factures',
-    pauseSection: 'Pauses',
     switchPack: {
       form: {
-        title: 'Changement de carte de cours',
-        explain:
-          "Cette carte de cours sera facturée à la place de l'ancienne sur toutes les prochaines factures. Les séances réservées avec l'ancienne carte seront transférées sur la nouvelle même si celle-ci n'est pas censée être compatible.",
+        submit: 'Save',
+        cancel: 'Cancel',
         warning:
-          'La facturation restera la même, si vous souhaitez augmenter/diminuer le montant mensuel, modifiez chaque mensualité séparément.',
-        cancel: 'Annuler',
-        submit: 'Enregistrer',
+          'Billing will stay the same, if you want to increase/decrease monthly amount, modify each invoice separately.',
+        explain:
+          'This pass will be replaced on all future invoices and sessions from the previous pass will also be transferred.',
+        title: 'Pass modification',
+      },
+    },
+    pauseSection: 'Pauses',
+    invoicesSection: 'Invoices',
+    actionSection: 'Manage',
+    delete: 'Delete',
+    register: 'Subscribe',
+    edit: 'Edit',
+    buy: 'Purchase',
+    scheduledStop: {
+      title: 'Cancel this subscription',
+      explain: 'Choose the last payment for the subscription.',
+      listItem: 'Stop this subscription',
+      summary:
+        'The last payment will be processed on {{-date}}, which corresponds to the last valid pass.',
+      notePlaceholder: 'Reason',
+    },
+    invoice: { label: 'Invoice {{uuid}} : {{price}}' },
+    listItem: {
+      nextBillingDate: 'Upcoming billing date: {{ d }}',
+      startingAt: 'Start date: {{ d }}',
+      recurrencePriceIs: 'Recurring payment: {{currencyDisplay}}{{amount }}',
+    },
+    switchPaymentCombo: {
+      form: {
+        submit: 'Save',
+        cancel: 'Cancel',
+        warning:
+          'The billing will remain the same. Modify each invoice separately if you wish you increase/decrease the monthly amount.',
+        prewarning: 'Cancel the subscription to modify all future invoices.',
+        explain:
+          'The new pack will replace the previous pack on all invoices after the automatic renewal of the subscription.',
+        title: 'Pack has been updated',
       },
     },
     switchPrivatePass: {
       form: {
-        title: 'Changement de carte de rendez-vous',
-        explain:
-          "Cette carte de rendez-vous sera facturée à la place de l'ancienne sur toutes les prochaines factures. Les séances réservées avec l'ancienne carte seront transférées sur la nouvelle même si celle-ci n'est pas censée être compatible.",
+        submit: 'Save',
+        cancel: 'Cancel',
         warning:
-          'La facturation restera la même, si vous souhaitez augmenter/diminuer le montant mensuel, modifiez chaque mensualité séparément.',
-        cancel: 'Annuler',
-        submit: 'Enregistrer',
-      },
-    },
-    switchPaymentCombo: {
-      form: {
-        title: 'Changement du pack',
+          'The billing will remain the same. Modify each invoice separately if you wish you increase/decrease the monthly amount.',
         explain:
-          "Ce pack sera facturé à la place de l'ancien UNIQUEMENT sur les factures générées après le renouvellement de la souscription",
-        prewarning:
-          'Si vous souhaitez modifier les factures futures déjà créées, vous devez annuler cette souscription.',
-        warning:
-          'La facturation restera la même, si vous souhaitez augmenter/diminuer le montant mensuel, modifiez chaque mensualité séparément.',
-        cancel: 'Annuler',
-        submit: 'Enregistrer',
+          'This appointment pass will be replaced on all future invoices and sessions from the previous appointment pass will also be transferred.',
+        title: 'Appointment pass has been updated',
       },
-    },
-    edit: 'Modifier',
-    register: "S'abonner",
-    delete: 'Supprimer',
-    buy: 'Acheter',
-    invoice: {
-      label: 'Facture {{uuid}} : {{price}}',
-    },
-    freeze: {
-      form: {
-        title: 'Mise en pause',
-        name: {
-          label: 'Raison',
-          placeholder: 'Vacances de toussaint',
-        },
-        days: {
-          label: 'Nombre de jours',
-        },
-        explainInvoice:
-          'A partir de quelle facture (inclue) voulez-vous repousser la souscription ?',
-        explain:
-          "Le prochain paiement sera retardé d'autant de jours, de même pour les cartes de cours futures",
-        explainWarning: "Attention cette opération n'est pas reversible !",
-        cancel: 'Annuler',
-        submit: 'Enregistrer',
-      },
-      disabledReasons: {
-        month_billing_day:
-          'Impossible de mettre en pause un contrat facturé à jour fixe ',
-      },
-    },
-    scheduledStop: {
-      title: "Programmer l'arrêt de la souscription",
-      notePlaceholder: 'Raison',
-      explain: 'Choisissez le dernier encaissement de la souscription.',
-      listItem: 'Arrêt programmé de la souscription',
-      summary:
-        'Le dernier encaissement programmé sera daté du {{-date}}, il correspondera à la dernière carte valide.',
-    },
-    actions: {
-      freeze: 'Mettre en pause',
-      switchPack: 'Modifier la carte de cours',
-      switchPaymentMethod: 'Modifier la méthode paiement',
-      enableAutoRenew: 'Activer le renouvellement automatique',
-      disableAutoRenew: 'Désactiver le renouvellement automatique',
-      stop: 'Stopper après cette facture',
-      changePrice: 'Modifier le prix',
-      showInvoice: 'Voir la facture',
-      changeDate: 'Modifier la date',
-      postPone: 'Repousser la facture',
-      advanceTime: 'Avancer cette facture',
     },
     prorata: {
       helperOnSusscribe:
-        'Le premier paiement est calculé au prorata pour un montant de {{ priceWithCurrency }} et sera encaissé à la date du {{-firstBillingDate}}. Les paiements suivants se feront tous les {{ monthBillingDay }} du mois, et seront d’un montant de {{ recurrentPrice }}',
+        'The first payment is pro-rated at {{ priceWithCurrency }} and will be collected on {{-firstBillingDate}}. Subsequent payments will be made on every {{ monthBillingDay }} of the month, in the amount of {{ recurrentPrice }}',
     },
-  },
-  end: {
-    noRenew: 'Fin de la souscription',
-    renew: 'Renouvellement automatique',
-  },
-  plannedInvoice: {
-    list: {
-      titleNext: 'Prochains prélèvements',
-    },
-    dateUpdater: {
-      title: 'Modification date future',
-      label: "Date d'encaissement",
-      explain: 'Seule cette future facture sera modifiée',
-      actions: {
-        cancel: 'Annuler',
-        submit: 'Enregistrer',
-      },
-    },
-    priceUpdater: {
-      title: 'Modification montant futur',
-      price: 'Nouveau montant',
-      updateAll:
-        'Mettre à jour tous les futurs actuellement planifiés (avant renouvellement)',
-      updateRecurrentPrice:
-        'Appliquer ce changement pour les paiements générés après renouvellement',
-      explain: 'Seule cette future facture sera modifiée',
-      cancel: 'Annuler',
-      submit: 'Enregistrer',
-      nonNullFlatFees:
-        "Cette souscription comporte actuellement des frais de dossier d'un montant de {{ flatFeesAmount }} {{ currencyDisplay }}. Ces frais de dossier ne seront pas pris en compte lors de la mise à jour du prix.",
-      nonNullDiscount:
-        'Cette souscription comporte actuellement un coupon. Ce coupon ne sera pas pris en compte lors de la mise à jour du prix.',
-    },
-  },
-  notificationForm: {
-    title: 'Règle de notifications',
-    subtitle: 'Abonnement',
-    warning:
-      "Prévenez vos clients lorsque leur abonnement a un changement d'état : fin de l'abonnement, début de l'abonnement.",
-    typeSection: {
-      title: 'État à notifier',
-      contractStart: "Début de l'abonnement",
-      contractEnd: "Fin de l'abonnement",
-    },
-    triggeringEvent: {
-      title: 'Événement déclencheur',
-      contractCreation: "Création de l'abonnement",
-      firstBilling: 'Première facture',
-    },
-    notificationType: {
-      title: 'Type de notification',
-      day: 'Jour',
-      day_plural: 'Jours',
-      hour: 'Heure',
-      hour_plural: 'Heures',
-      before: 'Avant',
-      after: 'Après',
-      afterSubcriptionCreation: 'Après la création de l’abonnement.',
-      firstBilling: "La première facture de l'abonnement.",
-      contractEnd: "La fin de l'abonnement.",
-      warningDayFirst:
-        'Le nombre de jours indiqué est par rapport à la date de la première facture à minuit',
-      warningHourFirst:
-        "Le nombre d'heures indiqué est par rapport à la date de la première facture à minuit",
-      warningDayLast:
-        'Le nombre de jours indiqué est par rapport à la date de la dernière facture à minuit',
-      warningHourLast:
-        "Le nombre d'heures indiqué est par rapport à la date de la dernière facture à minuit",
-    },
-    smartLists: {
-      smartListSelection: 'Choisir des listes (optionnel)',
-      warning:
-        'En ne sélectionnant aucune smartlist vous risquez de notifier des membres qui ont déjà acheté une autre carte de cours',
-      advanced: 'Avancé',
-      smartListHelper:
-        "Ne pas envoyer de mail si le membre appartient à l'une des listes suivantes",
-      smartListHelperInclude:
-        "Envoyer un mail uniquement si le membre appartient à l'une des listes suivantes",
-      createSmartList: 'Créer une smartlist',
-    },
-    sendingMethod: {
-      title: "Méthode d'envoi",
-      email: 'Mail',
-      notificationPush: 'Notification push',
-    },
-    emailNotification: {
-      parameters: 'Paramètres du mail',
-      emailToSend: 'Mail à envoyer',
-    },
-    notificationPush: {
-      warning:
-        'Attention, les notifications push sont à utiliser avec parcimonie. Trop de notifications push peut amener certains membres à désinstaller l’application.',
-      parameters: 'Paramètres de la notification',
-      title: 'Titre',
-      content: 'Contenu',
-      addTag: 'Ajouter une balise',
-    },
-    buttons: {
-      cancel: 'Annuler',
-      submit: 'Valider',
-    },
-  },
-  notification: {
-    title: 'Notifier {{count}} {{periodScale}} {{notificationKind}}',
-    creation: 'Après la création',
-    beforefirstBilling: 'Avant la première facture',
-    afterfirstBilling: 'Après la première facture',
-    beforeSubscriptionEnd: 'Avant la fin de l’abonnement',
-    afterSubscriptionEnd: 'Après la fin de l’abonnement',
-    days: 'Jour',
-    days_plural: 'Jours',
-    hours: 'Heure',
-    hours_plural: 'Heures',
-  },
-  contractNotification: {
-    creation: 'À la création de l’abonnement',
-    firstBilling: 'À la première facture',
   },
   contract: {
-    item: {
-      identifier: 'Abonnement',
-      recurrentPriceLabel: '{{ recurrent_price  }}{{ currencyDisplay }}',
-      intervalLabel: {
-        month: 'Tous les mois',
-        month_plural: 'Tous les {{ count }} mois',
-        week: 'Toutes les semaines',
-        week_plural: 'Toutes les {{ count }} semaines',
-        day: 'Tous les jours',
-        day_plural: 'Tous les {{ count }} jours',
-        year: 'Tous les ans',
-        year_plural: 'Tous les {{ count }} ans',
-      },
-    },
-    yes: 'Oui',
-    no: 'Non',
     registerManager: {
-      title: 'Paiement récurrent',
+      title: 'Recurring payment',
       explainChoseContract:
-        'Sélectionnez un contrat, ce dernier sera facturé mensuellement au membre',
-      explainCustomSubscriptionForm:
-        'Non je souhaite définir une souscription personnalisée',
-      actions: {
-        cancel: 'Annuler',
-      },
+        "Select a subscription that'll be billed on a monthly basis",
+      actions: { cancel: 'Cancel' },
+      explainCustomSubscriptionForm: 'Add a custom subscription',
     },
-    paymentPack: 'Carte de cours associée',
-    privatePass: 'Carte RDV associée',
-    paymentCombo: 'Pack associé',
-    duration: '{{month}} factures',
-    monthBillingDay: 'Facturé tous les {{ month_billing_day }} du mois',
-    billingFrequency: 'Fréquence de facturation',
     description: 'Description',
-    legal: 'Mentions légales',
+    legal: 'Terms',
     actions: {
-      create: 'Ajouter un contrat',
-      iAcceptCondition: "J'accepte les conditions ci-dessus",
-      iAcceptGeneralCondition: " J'accepte les mentions légales",
-      iAcceptContractTerms: "J'accepte les <0>mentions légales</0>.",
-      acceptContractTerms: 'Accepter les <0>mentions légales</0>',
-      iwanttostarton: 'Je souhaite débuter la facturation le : ',
-      subscribe: "M'abonner",
-      title: 'Date passée',
+      iAcceptCondition: 'I accept the terms.',
+      iwanttostarton: 'Preferred starting date of this subscription: ',
+      subscribe: 'Subscribe',
+      create: 'Add a subscription',
+      iAcceptGeneralCondition: ' I accept the terms.',
       alertPastDateSameMonth:
-        "Attention, vous avez choisi une date passée, si l'abonnement contient une carte, la validité de celle-ci commencera à la date sélectionnée. Dans le cas d'une validité d'un mois, votre membre perdra {{lostDays}} jours de validité.",
+        'Please note that you have chosen a past date, if the subscription includes a pass, the validity of the pass will start on the selected date. In the case of a one month validity, your member will lose {{lostDays}} days of validity.',
+      title: 'Past date',
+      iAcceptContractTerms: 'I accept the <0>terms</0>.',
+      acceptContractTerms: 'Agree to the <0>terms and conditions</0>',
     },
-    pastDate: {
-      title: 'Date passée',
-      alertSameMonth:
-        "Attention, vous avez choisi une date passée, si l'abonnement contient une carte, la validité de celle-ci commencera à la date sélectionnée. Dans le cas d'une validité d'un mois, votre membre perdra {{lostDays}} jours de validité.",
-      alertDifferentMonth:
-        "Attention, vous avez choisi une date dans un mois passé. Votre membre risque d'avoir une ou plusieurs cartes facturées qui seront déjà expirées.",
-      alertDifferentMonthConfirmAsk:
-        'Vous êtes sur le point de facturer {{valuePastInvoicesPrice}} à votre membre. Pour confirmer cette action, tapez {{valuePastInvoices}}',
-      alertDifferentMonthInput: 'Valeur factures passées',
-      valuePastInvoicesInputError:
-        'La valeur ne correspond pas. Veuillez réessayer',
-      futureInvoicesPayment: 'Paiement des factures futures',
-      payment: {
-        registeredMethodPayment: 'Débiter sur le moyen de paiement enregistré',
-        pastInvoicesPayment: 'Paiement des factures passées',
-        manualPayment: 'Paiement manuel',
-        registeredInfo:
-          'Toutes les factures futures et passées seront débitées sous 24h sur le moyen de paiement indiqué sur la souscription.',
-        manualInfo:
-          'Les factures passées seront indiquées comme payées manuellement et les prochaines factures seront débitées sur le moyen de paiement rentré par le membre.',
-      },
-      validate: 'Confirmer',
-      cancel: 'Annuler',
-    },
-
+    duration: '{{month}} bills',
     list: {
-      title: 'Contrats',
-      titleCustomerAvailable: 'Contrats disponibles à la vente',
-      titleManagerOnly: 'Contrats non-disponibles à la vente',
-      isEmpty: 'Aucun contrat disponible',
-      addButton: 'Définir un contrat',
-      register: 'Abonner un membre',
-      titleInactive: 'Contrats archivés',
-    },
-    interval: {
-      month: 'mois',
-      month_plural: 'mois',
-      year: 'année',
-      year_plural: 'années',
-      day: 'jour',
-      day_plural: 'jours',
-      week: 'semaine',
-      week_plural: 'semaines',
-    },
-    frequency: {
-      month: 'mensuelle',
-      week: 'hebdomadaire',
+      title: 'Subscriptions',
+      isEmpty: 'No contract',
+      addButton: 'Add a subscription',
+      register: 'Subscribe a member',
+      titleManagerOnly: 'Unavailable subcriptions',
+      titleCustomerAvailable: 'Available subscriptions',
+      titleInactive: 'Archived subscriptions',
     },
     form: {
-      title: 'Formulaire contrat',
-      general_info: {
-        title: 'Informations générales',
-      },
-      name: {
-        label: 'Nom du contrat',
-      },
-      error: {
-        missingObject: 'Ce champ est obligatoire',
-      },
-      object_type: {
-        label: "Type d'abonnement",
-        privatePass: 'Carte RDV',
-        paymentPack: 'Carte de cours',
-        paymentCombo: 'Pack',
-      },
-      price: {
-        title: 'Prix',
-      },
-      invoicing: {
-        title: 'Facturation',
-        invoice: 'facture',
-        invoice_plural: 'factures',
-        same_day_as_subscription: {
-          label: "Facturer le même jour que la date d'achat de la souscription",
-          explain:
-            "Le jour de facturation dépendra du jour d'achat de l'abonnement.",
-          recurrence_explain: {
-            day: 'La souscription sera facturée tous les jours sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
-            day_plural:
-              'La souscription sera facturée tous les {{ recurrence_basis }} jours sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
-            week: 'La souscription sera facturée toutes les semaines sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
-            week_plural:
-              'La souscription sera facturée toutes les {{ recurrence_basis }} semaines sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
-            month:
-              'La souscription sera facturée tous les mois sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
-            month_plural:
-              'La souscription sera facturée tous les {{ recurrence_basis }} mois sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
-            year: 'La souscription sera facturée tous les ans sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
-            year_plural:
-              'La souscription sera facturée tous les {{ recurrence_basis }} ans sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.',
-          },
-        },
-        fixed_day: {
-          label: 'Facturer à un jour fixe',
-          explain:
-            'Chaque facture sera facturée au jour choisi. Le premier paiement est calculé au prorata si besoin.',
-          recurrence_explain: {
-            month:
-              'La souscription sera facturée tous les {{ month_billing_day }} du mois sur une durée totale de {{ nb_interval }} mois et génèrera {{ nb_interval }} {{ invoice }}. Le premier paiement est calculé au prorata si besoin.',
-          },
-          end_of_month_explain:
-            'Si un mois ne comporte pas de {{ month_billing_day }}, la facture sera éditée le dernier jour du mois.',
-          modification_not_apply_to_past:
-            'Vous êtes sur le point de modifier le jour de facturation de votre souscription. Seules les nouvelles souscriptions créées seront impactées. Les souscriptions en cours et les souscriptions avec renouvellement déjà existantes ne changeront pas (même après renouvellement)',
-        },
-        invoicing_type_readonly:
-          'Il est impossible de changer le type de facturation',
-      },
-      month_billing_day: {
-        label1: 'Facturer tous les',
-        label2: 'du mois.',
-      },
+      title: '[Form] Subscription',
+      name: { label: 'Name' },
       nb_interval: {
-        label: 'Nombre de facturations',
-        error: 'Le nombre de facturations ne doit pas dépasser 90',
-        errorForFixedBillingDay:
-          'Le nombre de facturations ne doit pas dépasser 12',
+        label: 'Number of bills',
+        helperText: 'Minimum is 2 months',
+        error: 'The number of billings should not exceed 90',
+        errorForFixedBillingDay: 'The number of billings should not exceed 12',
         restrictionForFixedBillingDay:
-          'Le nombre de facturations doit être compris entre 2 et 12 pour une facturation à un jour fixe',
+          'The number of billings must be between 2 and 12 for fixed-day billing',
       },
-      interval: {
-        label: 'Récurrence',
-        helperText: 'Fréquence de génération des factures / cartes',
-      },
-      recurrence: {
-        section: 'Récurrence',
-        explain:
-          'La souscription sera facturée tous les {{ recurrence_basis }} {{ interval }} sur une durée totale de {{ total_interval_duration }} {{ interval }} et génèrera {{ nb_interval }} factures',
-      },
-      recurrence_basis: {
-        label: 'Répéter tous les',
-        helperText: '',
-        intervalName: {
-          year: 'an',
-          year_plural: 'ans',
-          month: 'mois',
-          month_plural: 'mois',
-          day: 'jour',
-          day_plural: 'jours',
-          week: 'semaine',
-          week_plural: 'semaines',
-        },
-      },
+      managerOnly: { label: 'Unavailable for purchase' },
+      autoRenewal: { label: 'Activate the automatic renewal' },
       recurrent_price: {
-        label: 'Paiement récurrent',
+        label: 'Recurring payment',
         infoBox:
-          'Vous êtes sur le point de modifier le prix de votre souscription. Seul le prix des nouvelles souscriptions créées sera impacté. Le prix des souscriptions en cours et des souscriptions avec renouvellement déjà existantes ne changera pas (même après renouvellement).',
-      },
-      description: {
-        placeholder: 'Nouvelle offre exclusive limitée',
-        label: 'Description',
-      },
-      settings: {
-        title: 'Paramètres',
-      },
-      managerOnly: {
-        label: 'Invisible pour les clients',
-      },
-      autoRenewal: {
-        label: 'Renouvellement tacite',
-      },
-      unusableByStaff: {
-        label: 'Invisible pour le staff',
-      },
-      flat_fee: {
-        label: "Frais d'engagement/dossier",
-        helperText: 'Ce frais sera ajouté à la première facture',
+          'You are about to change your subscription price. Only the price of newly created subscriptions will be affected. The price of existing subscriptions and renewal subscriptions will not change (even after renewal).',
       },
       contract: {
+        label: 'Terms',
         placeholder:
-          'Entrez ici toutes les mentions légales nécessaires notamment concernant les procédures de remboursement.',
-        label: 'Mentions légales',
+          'Enter here all legal terms and conditions (refund etc...).',
       },
+      flat_fee: {
+        helperText: 'The joining fee will be added to the first invoice.',
+        label: 'Joining fee',
+      },
+      description: {
+        label: 'Description',
+        placeholder: 'Annual VIP subscription',
+      },
+      object_type: {
+        paymentPack: 'Passes',
+        privatePass: 'Appointment passes',
+        label: 'Content',
+        paymentCombo: 'Packs',
+      },
+      error: { missingObject: 'This field is required' },
+      recurrence_basis: {
+        intervalName: {
+          week: 'week',
+          week_plural: 'weeks',
+          day: 'day',
+          day_plural: 'days',
+          month: 'month',
+          month_plural: 'months',
+          year: 'year',
+          year_plural: 'years',
+        },
+        label: 'Repeat every',
+        helperText: ' ',
+      },
+      recurrence: {
+        explain:
+          'This subscription will be billed evert {{ recurrence_basis }}{{ interval }}, has a total duration of {{ total_interval_duration }}{{ interval }}, and members will be invoiced {{ nb_interval }} times in total.',
+        section: 'Frequency',
+      },
+      interval: {
+        label: 'BIlling',
+        helperText: 'How often will clients be charged?',
+      },
+      settings: { title: 'Settings' },
+      invoicing: {
+        invoicing_type_readonly:
+          'It is not possible to change the billing type',
+        fixed_day: {
+          explain:
+            'Each invoice will be invoiced on the chosen day. The first payment is pro-rated if necessary.',
+          label: 'Invoice on a fixed day',
+          modification_not_apply_to_past:
+            'You are about to change the billing day of your subscription. Only new subscriptions created will be affected. Existing subscriptions and subscriptions with renewals will not change (even after renewal)',
+          end_of_month_explain:
+            'If a month does not have a {{ month_billing_day }}, the invoice will be issued on the last day of the month.',
+          recurrence_explain: {
+            month:
+              'The subscription will be invoiced every {{ month_billing_day }} of the month for a total duration of {{ nb_interval }} months and will generate {{ nb_interval }} {{ invoice }}. The first payment is pro-rated if necessary.',
+          },
+        },
+        same_day_as_subscription: {
+          recurrence_explain: {
+            year: 'The subscription will be invoiced every year for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of the subscription.',
+            year_plural:
+              'The subscription will be invoiced every {{ recurrence_basis }} years for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of the subscription.',
+            month:
+              'The subscription will be invoiced every month for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of the subscription.',
+            month_plural:
+              'The subscription will be invoiced every {{ recurrence_basis }} months for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of the subscription.',
+            day: 'The subscription will be invoiced every day for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of the subscription.',
+            day_plural:
+              'The subscription will be invoiced every {{ recurrence_basis }} days for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of their subscription.',
+            week: 'The subscription will be invoiced every week for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of the subscription.',
+            week_plural:
+              'The subscription will be invoiced every {{ recurrence_basis }} weeks for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of their subscription.',
+          },
+          explain:
+            'The billing day will depend on the day of purchase of the subscription.',
+          label:
+            'Invoice on the same day as the purchase date of the subscription',
+        },
+        invoice: 'bill',
+        invoice_plural: 'bills',
+        title: 'Billing',
+      },
+      price: { title: 'Price' },
+      general_info: { title: 'General information' },
+      unusableByStaff: { label: 'Invisible for the staff' },
+      month_billing_day: { label2: 'of the month.', label1: 'Invoice every' },
       highlightedAsRecommended: {
-        label: 'Marquer comme recommandé',
-        helperText: "Permet à vos clients de voir d'un coup d'oeil quels contrats sont actuellement recommandés.",
+        label: 'Mark as recommended',
+        helperText:
+          'Allows your customers to quickly see which contracts are currently recommended.',
       },
     },
     deleteForm: {
-      title: 'Suppression contrat',
-      content: 'Voulez-vous vraiment supprimer ce contrat ?',
-      actions: {
-        cancel: 'Annuler',
-        confirm: 'Supprimer',
-      },
+      actions: { confirm: 'Delete', cancel: 'Cancel' },
+      content: 'Do you really want to delete the contract ?',
+      title: 'Delete the contract',
     },
+    paymentPack: 'Associated pass',
+    no: 'No',
+    yes: 'Yes',
+    privatePass: 'Associated appointment pass',
+    interval: {
+      week: 'week',
+      week_plural: 'weeks',
+      day: 'day',
+      day_plural: 'days',
+      year: 'year',
+      year_plural: 'years',
+      month: 'month',
+      month_plural: 'months',
+    },
+    item: {
+      intervalLabel: {
+        year: 'Yearly',
+        year_plural: 'Every {{ count }} years',
+        day: 'Daily',
+        day_plural: 'Every {{ count }} days',
+        week: 'Weekly',
+        week_plural: 'Every {{ count }} weeks',
+        month: 'Monthly',
+        month_plural: 'Every {{ count }} months',
+      },
+      recurrentPriceLabel: '{{ currencyDisplay }}{{ recurrent_price  }}',
+      identifier: 'Subscription',
+    },
+    frequency: { week: 'weekly', month: 'monthly' },
+    billingFrequency: 'Billing frequency',
+    paymentCombo: 'Associated pack',
+    pastDate: {
+      cancel: 'Cancel',
+      validate: 'Confirm',
+      payment: {
+        manualInfo:
+          'Past invoices will be indicated as manually paid and future invoices will be debited to the payment method entered by the member.',
+        registeredInfo:
+          'All future and past invoices will be debited within 24 hours to the payment method indicated on the subscription.',
+        manualPayment: 'Manual payment',
+        pastInvoicesPayment: 'Payment of past invoices',
+        registeredMethodPayment: 'Debit to the registered payment method',
+      },
+      futureInvoicesPayment: 'Payment of future invoices',
+      valuePastInvoicesInputError:
+        'The value does not correspond. Please try again',
+      alertDifferentMonthInput: 'Value of past invoices',
+      alertDifferentMonthConfirmAsk:
+        'You are about to charge {{valuePastInvoicesPrice}} to your member. To confirm this action type {{valuePastInvoices}}',
+      alertDifferentMonth:
+        'Please note that you have chosen a date in a past month. Your member may have one or more passes billed that have already expired.',
+      alertSameMonth:
+        'Please note that you have chosen a past date, if the subscription includes a pass, the validity of the pass will start on the selected date. In the case of a one month validity, your member will lose {{lostDays}} days of validity.',
+      title: 'Past date',
+    },
+    monthBillingDay: 'Invoiced every {{ month_billing_day }} of the month',
   },
   recap: {
-    willBecharged: ' sera facturé ',
-    every: ' chaque ',
-    month: 'mois ',
-    times: ' fois ',
-    forObject: ' pour ',
-    from: 'A partir du ',
-    to: " jusqu'au ",
-    forATotalOf: 'Pour un total de ',
-    includingFreeTrialOf1: ' dont ',
-    includingFreeTrialOf2: ' non-facturés ',
+    willBecharged: ' will be charged ',
+    every: ' every ',
+    month: 'month ',
+    times: ' times ',
+    forObject: ' for ',
+    from: 'From ',
+    to: ' until ',
+    forATotalOf: 'For a total of ',
+    includingFreeTrialOf1: ' including ',
+    includingFreeTrialOf2: ' not billed ',
   },
   form: {
-    check: 'Vérifier',
-    submit: 'Facturer',
-    title: 'Nouveau paiement récurrent',
-    cancel: 'Annuler',
-    note: {
-      label: 'Note',
-    },
+    check: 'Check',
+    submit: 'Pay now',
+    title: 'New recurring invoice',
+    cancel: 'Discard',
+    note: { label: 'Note' },
   },
   plannedInvoiceStatus: {
-    pending: 'En attente',
-    canceled: 'Annulé',
-    processing: 'Paiement en cours de transfert',
-    failed: 'Paiement refusé',
-    succeeded: 'Encaissé',
-    reverted: 'Annulé',
+    pending: 'Pending',
+    canceled: 'Discarded',
+    failed: 'Payment: refused',
+    succeeded: 'Billed',
+    processing: 'Payment processing',
+    reverted: 'Cancelled',
   },
   subscriptionStatus: {
-    pending: 'En cours de facturation',
-    canceledOn: 'Stoppée le ',
-    hasEnded: 'Facturation terminée',
-    isPaused: 'En pause',
-  },
-  scheduledStop: {
-    label: 'Arrêt programmé',
-    unscheduleStop: "Déprogrammer l'arrêt",
+    pending: 'Processing',
+    canceledOn: 'Discarded on ',
+    hasEnded: 'Billing finished',
+    isPaused: 'Paused',
   },
   action: {
-    stop: 'Arrêter',
-    planStop: "Programmer l'arrêt de la souscription",
-    revertCurrentExplain:
-      'Annuler la dernière facture enregistrée et bloquer la carte de cours',
-    revertCurrentExplainHelper:
-      'Si le paiement est valide, un crédit sera créé, vous pouvez le rembourser au client en entrant dans la facture et en cliquant "Rembourser". Si le paiement avait échoué, la dette sera annulée.',
+    stop: 'Stop',
     stopExplain:
-      'Les prochains paiements seront annulés et les factures correspondantes seront supprimées. Si une réservation a été enregistrée avec un abonnement dont la facture a été annulée, elle sera également annulée.',
+      'Future payments, invoices, and bookings will be discarded deleted.',
+    revertCurrentExplain: 'Cancel the last invoice and block the pass',
+    revertCurrentExplainHelper:
+      'If the payment was valid, a credit will be attributed to the customer, you can also enter the invoice and click refund on the payment. If the payment was failed, the debt will be cancelled.',
+    planStop: 'Terminate',
   },
   parameters: {
-    note: 'Note',
-    stopNote: "Note d'annulation",
-    autoRenew: 'Renouvellement automatique',
-    parameters: 'Paramètres',
+    parameters: 'Settings',
+    autoRenew: 'Activate the automatic renewal',
+    subscribeAgain: 'Resubscribe',
+    voucher: 'Promotion',
+    trial_nb: 'Number of free invoices',
+    recurrent_voucher: 'Discount on each invoice',
+    name: 'Name',
+    member: 'Member',
+    dateCreated: 'Date of creation',
+    nbInterval: 'Number of billings',
+    recurrent_price: 'Recurring payment',
+    paymentPack: 'Pass',
+    nbMonths: 'Number of billings',
+    dateStart: 'First billing',
+    firstBilling: 'First billing',
+    payment_pack: 'Passes',
+    flat_fee: 'Joining fee',
+    status: 'Status',
     payment_method: {
-      label: 'Moyen de paiement',
-      paymentOnline: 'Paiement en ligne',
-      [BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT]: 'A crédit',
-      [BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]: 'Carte',
-      [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]: 'Virement SEPA',
+      [BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT]: 'Internal account balance',
+      [BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]: 'Card',
+      [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]: 'SEPA Transfer',
+      label: 'Payment method',
+      paymentOnline: 'Online payment',
     },
+    private_pass: 'Appointment pass',
+    privatePass: 'Appointment pass',
+    note: 'Note',
     payment_method_group: {
-      [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]: 'Carte',
-      14: 'Credit',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]: 'Card',
       [PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA]: 'SEPA',
+      14: 'Internal account',
     },
-    status: 'Statut',
-    subscribeAgain: 'Souscrire à nouveau',
-    voucher: 'Offre spéciale',
-    trial_nb: 'Nombre de facturations offertes',
-    recurrent_voucher: 'Réduction sur chaque facture',
-    name: 'Nom',
-    member: 'Membre',
-    dateCreated: 'Date de création',
-    nbInterval: "Nombre d'encaissements",
-    recurrent_price: 'Paiement récurrent',
-    flat_fee: 'Frais de dossier',
-    paymentPack: 'Carte de cours',
-    privatePass: 'Carte RDV',
     paymentCombo: 'Pack',
-    nbMonths: "Nombre d'encaissements",
-    dateStart: 'Première facturation',
-    firstBilling: 'Premier encaissement',
-    payment_pack: 'Carte de cours',
-    private_pass: 'Carte RDV',
     payment_combo: 'Pack',
     contractTermsAccepted:
-      'Les <0>mentions légales</0> ont été acceptées le {{- dateAccepted}}.',
+      '<0>Terms</0> have been accepted on the {{- dateAccepted}}.',
+    stopNote: 'Cancellation note',
   },
   schedule: {
-    provisionalTitle: 'Echéancier prévisionnel',
-    paymentMethodTitle: 'Méthode de débit',
+    provisionalTitle: 'Provisional schedule',
+    paymentMethodTitle: 'Payment method',
   },
   paymentMethod: {
-    sepa: 'Prélèvement SEPA',
-    card: 'Carte',
-    bacs_debit: 'BACS Direct Debit',
-    bsportCredit: 'Acompte client',
+    sepa: 'SEPA Direct Debit',
+    card: 'Card',
     credit: {
       explain:
-        "Le membre sera facturé sur son acompte interne chaque facture. Utilisez cette méthode de paiement si vous n'avez pas (encore) accès à une méthode facturation telle que la carte ou le virement IBAN. Vous pourrez mettre à jour le paiement à posteriori.",
+        "Use this payment method to bill members if there is no direct payment method available, such as a card or IBAN. The member's internal account balance will be billed and this payment method can be changed later on.",
     },
+    bsportCredit: 'Credit account',
+    bacs_debit: 'Bacs Direct Debit',
   },
   mandate: {
-    name: 'Nom et prénom du titulaire',
-    email: 'Email du titulaire',
+    name: 'Full name',
+    email: 'Email',
+    content:
+      'By providing your IBAN and confirming this payment, you are authorizing bsport.io and Stripe, our payment service provider, to send instructions to your bank to debit your account and your bank to debit your account in accordance with those instructions. You are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited.',
     contentIban:
-      "En donnant votre IBAN et en confirmant votre paiement, vous autorisez bsport et Stripe, notre système de paiement, à envoyer les instructions de débit à votre banque en accord avec l'échéancier de paiement. Vous pouvez demander un remboursement à votre banque selon les termes de votre contrat avec cette dernière. Un remboursement doit être demandé dans les 8 semaines après le premier débit.",
+      'By providing your IBAN and confirming your payment, you authorise bsport and Stripe, our payment system, to send debit instructions to your bank in accordance with the payment schedule. You may request a refund from your bank in accordance with the terms of your contract with your bank. A refund must be requested within 8 weeks of the first debit.',
     contentBacsDebit:
-      "En donnant vos informations bancaires et en confirmant votre paiement, vous autorisez bsport et Stripe, notre système de paiement, à envoyer les instructions de débit à votre banque en accord avec l'échéancier de paiement. Vous pouvez demander un remboursement à votre banque selon les termes de votre contrat avec cette dernière. Vous pouvez à n'importe quel moment faire la demande auprès de votre banque pour annuler le mandat Direct Debit.",
-    accountNumber: 'Numéro de compte',
+      'By providing your bank details and confirming your payment, you authorise bsport and Stripe, our payment system, to send debit instructions to your bank in accordance with the payment schedule. You may request a refund from your bank in accordance with the terms of your contract with your bank. You can request your bank to cancel the Direct Debit mandate at any time.',
+    accountNumber: 'Account number',
     sortCode: 'Sort code',
   },
-  associatedSubscriptions: 'Souscriptions associées à ce contrat',
-  noAssociatedSubscription: 'Aucune souscription enregistrée',
-  listItem: {
-    subscribedOn: 'Souscription débutée le {{- date}}',
-    canceled: 'Stoppée',
-    expired: 'Expirée',
-    paused: 'En pause',
-    valid: 'Valide',
+  plannedInvoice: {
+    priceUpdater: {
+      submit: 'Save',
+      cancel: 'Cancel',
+      explain: 'Only this invoice will be modified',
+      price: 'New amount',
+      title: 'Payment modification',
+      updateAll: 'Update all futures debits up until the automatic renewal',
+      updateRecurrentPrice:
+        'Apply changes to all the payments after the automatic renewal',
+      nonNullDiscount:
+        'This subscription currently includes a coupon. This coupon will not be taken into account when the price is updated.',
+      nonNullFlatFees:
+        'This subscription currently includes an administration fee of {{ flatFeesAmount }} {{ currencyDisplay }}. This handling fee will not be taken into account when the price is updated.',
+    },
+    list: { titleNext: 'Upcoming withdrawals' },
+    dateUpdater: {
+      title: 'Edit future invoice(s)',
+      label: 'Payment date',
+      actions: { submit: 'Save', cancel: 'Cancel' },
+      explain: 'Only this future invoice will be modified',
+    },
   },
-  copyLink: 'Copier le lien vers la page de paiement',
-  pauseV2: {
-    common: {
-      actions: {
-        cancel: 'Annuler',
-        confirm: 'Confirmer',
-        pause: 'Mettre en pause',
-        verify: 'Vérifier',
-        previous: 'Précédent',
-        goBack: 'Retour',
-        save: 'Enregistrer',
-        continue: 'Continuer',
+  pause: {
+    pausedInterval: '{{start}} → {{ end }} : {{ days }} days',
+    pausedAt: '{{days}} day(s) - {{date}}',
+    actions: { delete: 'Cancel pause' },
+    secondaryLabel: ' : {{ note }}',
+    label: 'Pause from {{- fromDate}} to {{- untilDate}}',
+    createdAt: 'Paused at ',
+    dialogs: {
+      success: {
+        content:
+          'The {{subscriptionName}} subscription of {{subscriberName}} has been paused from {{- dateStart}} to {{- dateEnd}} included.',
+        continue: 'Continue',
+        title: 'Pausing the subscription',
       },
       form: {
-        reasonPlaceholder: 'Raison *',
+        confirm: 'Save',
+        information2:
+          'The expiry date of the pass will be extended by the number of days of the pause and the pass will remain valid during the pause.',
+        information:
+          'Subscriptions will be paused from {{- dateStart}} to {{- dateEnd}} included. Their next billing will be postponed by {{count}} days, as well as all future billings.',
+        information_plural:
+          'Subscriptions will be paused from {{- dateStart}} to {{- dateEnd}} included. Their next billing will be delayed by {{count}} days, as well as all future billings.',
         duration: {
-          title: 'Durée de la pause',
-          start: 'Date de début (incluse)',
-          end: 'Date de fin (incluse)',
-          warning:
-            'La date de fin ne peut pas être inférieure à la date de début',
+          warning: 'The end date cannot be earlier than the start date',
+          end: 'End date (included)',
+          start: 'Start date (included)',
+          title: 'Duration of the pause',
         },
+        causePlaceholder: 'Reason *',
+        titleEdition: 'Change the pause',
+        titleCreation: 'Paused',
       },
-      deleteDialog: {
-        title: 'Déprogrammer la pause',
+      fail: {
+        comeback: 'Back',
+        contentUnknownError:
+          'An unforeseen error has occurred. We apologise for any inconvenience caused.',
+        contentCanNotCreateAPauseInThePast:
+          'The pause cannot start in the past.',
+        contentCanNotEditPauseEndBeforeToday:
+          'The new start date for the break cannot be set before today.',
+        contentCanNotEditPauseStartWhenHasStarted:
+          'The start date of the pause cannot be changed once it has begun.',
+        contentSubscriptionWillEndBeforePause:
+          'The subscription cannot be paused during this period as it will have ended before.',
+        contentCanNotCancelPause:
+          'As the pause has already started or has already passed, it cannot be cancelled.',
+        contentInvalidTimedelta: 'The pause should last at least one day.',
+        contentOverlapPause:
+          'The {{subscriptionName}} subscription of {{subscriberName}} could not be paused because a pause is already scheduled from {{- dateStart}} to {{- dateEnd}}.',
+        contentIncomingBill:
+          'The {{subscriptionName}} subscription of {{subscriberName}} could not be paused because an invoice in the pause interval will be billed within 24 hours or has a payment in progress. Please change the start date of the break.',
+        title: 'Pause Failed',
       },
-      listItem: {
-        fromToUntil: 'Du {{- fromDate}} au {{- untilDate}}',
-        createdAtBy: 'Créée le {{- dateCreation}} par {{staffName}}',
-        createdAt: 'Créée le {{- dateCreation}}',
-        deletedAtBy: 'Déprogrammée le {{- dateDeletion}} par {{staffName}}',
-        deletedAt: 'Déprogrammée le {{- dateDeletion}}',
-        pausedAt: '{{ days }} jours - Le {{- date}}',
-        label: 'Pause du {{- fromDate}} au {{- untilDate}}',
-        isUpdated: 'Pause éditée',
+      delete: {
+        content: 'Are you sure you want to deprogram this pause?',
+        title: 'Cancel the pause',
       },
-      menu: {
-        delete: 'Déprogrammer',
-        change: 'Changer les dates',
-        changeName: 'Changer la raison',
-        changeContractForbidden:
-          "Vous ne pouvez pas éditer une pause créée à l'échelle du contrat.",
-        changeForbidden: 'Vous ne pouvez pas éditer une pause déjà finie.',
-        cancelForbidden:
-          'Vous ne pouvez pas annuler une pause dont la date de début est déjà passée.',
+      common: { confirm: 'Confirm', cancel: 'Cancel' },
+    },
+    eventItems: {
+      pauseDeleted: 'Reason for previous pause: {{pause_name}}',
+      pauseCreatedThenDeleted: 'This pause has been deleted or modified.',
+      pauseCreated:
+        'From {{- dateStart}} to {{- dateEnd}} - Created on {{- dateCreation}} by {{staffName}}',
+    },
+    menu: { change: 'Change the dates', delete: 'Deactivate' },
+  },
+  messages: {
+    youSubscribed: {
+      success: 'You have successfully subscribed',
+      error: 'Error while subscribing',
+    },
+    updatePrice: {
+      error: 'Impossible to update this amount',
+      success: 'Amount updated',
+    },
+    freeze: {
+      error: 'Impossible to pause this subscription',
+      alreadyPaused: 'Impossible to pause a subscription already paused',
+      success: 'Subscription paused',
+    },
+  },
+  save: 'save',
+  cancel: 'cancel',
+  noContracts:
+    'In this module, you can add subscriptions to automatically bill your members on a daily, weekly, monthly, or yearly basis.',
+  copyLink: 'Copy the direct link to the payment page',
+  listItem: {
+    valid: 'Valid',
+    paused: 'Paused',
+    expired: 'Expired',
+    canceled: 'Stopped',
+    subscribedOn: 'Subscription started on {{- date}}',
+  },
+  noAssociatedSubscription: 'There are no saved subscriptions to display.',
+  associatedSubscriptions: 'Subscribed members',
+  register: {
+    dialog: {
+      success:
+        'Your subscription {{- name }} has been registered successfully.',
+      error: 'Impossible to register the subscription, please retry later.',
+      info: 'Your subscription is being registered, we will inform you when it is ready.',
+    },
+  },
+  status: {
+    hasEnded: 'Ended',
+    hasStopped: 'Paused',
+    hasNotStartedYet: 'Inactive',
+    hasStarted: 'Active',
+    isPaused: 'Paused',
+  },
+  scheduledStop: { label: 'Terminated', unscheduleStop: 'Unschedule the stop' },
+  end: { renew: 'Auto-renew', noRenew: 'End the subscription' },
+  contractPause: {
+    form: {
+      dateFilter: {
+        label:
+          'Only pause the subscriptions with invoices that are charged between two dates',
+      },
+      invalidBillingPlan:
+        'The following subscriptions cannot be paused automatically',
+      explainImpossible:
+        'If a payment is in progress, or expected within 24h, the subscription cannot be paused automatically',
+      validBillingPlan: 'The following subscriptions will be paused',
+      untilDate: { label: 'and the ' },
+      fromDate: { label: 'Billed between the ' },
+      advanced: 'Advanced',
+      days: {
+        helperText: 'Number of days the subscriptions will be paused',
+        label: 'Number of days',
+      },
+      name: { label: 'Note', placeholder: 'Studio closed Bank Holiday' },
+      warning: 'Warning, on certain subscriptions, pausing cannot be undone',
+      title: 'Pause all subscriptions',
+      paymentPackActions: {
+        disableTillNextInvoice:
+          'Deactivate the billed pack until the next billing',
+        extendTillNextInvoice:
+          'Extend the validity of the invoiced pass until the next invoice',
+        doNotChange: 'Do not change the pass that was billed',
+        title: 'Settings',
+      },
+    },
+    actions: {
+      verify: 'Verify',
+      add: 'Pause',
+      submit: 'Put on pause',
+      cancel: 'Cancel',
+      previous: 'Previous',
+    },
+    section: {
+      error: 'Error when pausing {{count}} subscription automatically',
+      error_plural: 'Error when pausing {{count}} subscriptions automatically',
+      success: '{{count}} paused subscription',
+      success_plural: '{{count}} paused subscriptions',
+    },
+    createdAt: 'Created {{at}}',
+    title: 'Pause all subscriptions',
+    fromUntil: 'Only if invoiced between {{from}} and {{until}} included',
+  },
+  seeMore: 'Show more',
+  search: 'Search a subscription',
+  notificationToolTip: 'Notifications are set for this subscription',
+  addNotification: 'Add a notification',
+  notificationForm: {
+    title: 'Notification rules',
+    subtitle: 'Subscription',
+    typeSection: {
+      title: 'Status to be notified',
+      contractStart: 'Start of subscription',
+      contractEnd: 'End of subscription',
+    },
+    triggeringEvent: {
+      title: 'Triggering event',
+      contractCreation: 'Subscription creation',
+      firstBilling: 'First invoice',
+    },
+    notificationType: {
+      title: 'Type of notification',
+      sendNotification: 'Send the notification',
+      day: 'Day',
+      day_plural: 'Days',
+      hour: 'Hour',
+      hour_plural: 'Hours',
+      before: 'Before',
+      after: 'After',
+      afterSubcriptionCreation: 'After creation of the subscription.',
+      firstBilling: 'The first invoice of the subscription.',
+      warningDayFirst:
+        'The number of days indicated is in relation to the date of the first invoice at midnight',
+      warningDayLast:
+        'The number of days indicated is in relation to the date of the last invoice at midnight',
+      warningHourLast:
+        'The number of hours indicated is in relation to the date of the last invoice at midnight',
+      contractEnd: 'End of subscription.',
+      warningHourFirst:
+        'The number of hours indicated is in relation to the date of the first invoice at midnight',
+    },
+    sendingMethod: {
+      title: 'Sending method',
+      notificationPush: 'Push notification',
+      email: 'Email',
+    },
+    emailNotification: {
+      parameters: 'Email settings',
+      emailToSend: 'Email to send',
+    },
+    notificationPush: {
+      parameters: 'Notification settings',
+      title: 'Title',
+      content: 'Content',
+      addTag: 'Add a variable',
+      warning:
+        'Be careful, push notifications should be used sparingly. Too many push notifications can lead some members to uninstall the application.',
+    },
+    buttons: { cancel: 'Cancel', submit: 'Save' },
+    warning:
+      'Notify your members when their subscription has a change of status : end of subscription, start of subscription.',
+    smartLists: {
+      createSmartList: 'Add a Smartlist',
+      smartListHelperInclude:
+        'Only send the notification if the member is present in one of the following Smartlists',
+      smartListHelper:
+        "Don't send the notification if the member is present in one of the following Smartlists",
+      advanced: 'Advanced',
+      warning:
+        "By selecting no Smartlist at all, you might notify members who've already bought another pass.",
+      smartListSelection: '(Optional) Select Smartlist(s)',
+    },
+  },
+  notification: {
+    title: 'Notify {{count}} {{periodScale}} {{notificationKind}}',
+    creation: 'After creation',
+    beforefirstBilling: 'Before the first invoice',
+    afterfirstBilling: 'After the first invoice',
+    afterSubscriptionEnd: 'After the end of the subscription',
+    days: 'Day',
+    days_plural: 'Days',
+    hours: 'Hour',
+    hours_plural: 'Hours',
+    beforeSubscriptionEnd: 'Before the end of the subscription',
+  },
+  contractNotification: {
+    creation: 'At the creation of the subscription',
+    firstBilling: 'At the first invoice',
+  },
+  pauseV2: {
+    subscriptionPause: {
+      eventItems: {
+        pauseDeleted: 'Reason for previous pause: {{pause_name}}',
+        pauseCreatedThenDeleted: 'This pause has been deleted or modified.',
+      },
+      deleteDialogContent: 'Are you sure you want to deprogram this pause?',
+      form: {
+        failureStep: {
+          contentUnknownError:
+            'An unforeseen error has occurred. We apologise for any inconvenience caused.',
+          contentSubscriptionHasNotStarted:
+            'The pause was not completed because the pause date range is before the start of the subscription.',
+          contentCanNotCreateAPauseInThePast:
+            'The pause cannot start in the past.',
+          contentCanNotEditPauseEndBeforeToday:
+            'The new start date for the break cannot be set before today.',
+          contentCanNotEditPauseStartWhenHasStarted:
+            'The start date of the pause cannot be changed once it has begun.',
+          contentSubscriptionWillEndBeforePause:
+            'The subscription cannot be paused over this period because it will have ended earlier or its renewal has not yet been executed at this time.',
+          contentCanNotCancelPause:
+            'As the pause has already started or has already passed, it cannot be cancelled.',
+          contentInvalidTimedelta: 'The pause should last at least one day.',
+          contentOverlapPause:
+            'The {{- subscriptionName}} subscription of {{subscriberName}} could not be paused because a pause is already scheduled from {{- fromDate}} to {{- untilDate}}.',
+          contentIncomingBill:
+            'The {{- subscriptionName}} subscription of {{subscriberName}} could not be paused because an invoice in the pause interval will be billed within 24 hours or has a payment in progress. Please change the start date of the break.',
+          title: 'Pause Failed',
+        },
+        successStep: {
+          content:
+            'The {{- subscriptionName}} subscription of {{subscriberName}} has been paused from {{- fromDate}} to {{- untilDate}} included.',
+          title: 'Pausing the subscription',
+        },
+        initStep: {
+          information2:
+            'The expiry date of the pass will be extended by the number of days of the pause and the pass will remain valid during the pause.',
+          information1:
+            'The subscription will be paused from {{- fromDate}} to {{- untilDate}} included. The next billing following the pause will be shifted by {{count}} day, as well as all future billings.',
+          information1_plural:
+            'The subscription will be paused from {{- fromDate}} to {{- untilDate}} included. The next billing following the pause will be shifted by {{count}} days, as well as all future billings.',
+          titleUpdate: 'Change the pause',
+          titleCreation: 'Paused',
+        },
       },
     },
     contractPause: {
-      title: 'Pauses globales',
+      sections: {
+        error: '{{count}} subscription could not be paused automatically',
+        error_plural:
+          '{{count}} subscriptions could not be paused automatically',
+        success: '{{count}} subscription paused',
+        success_plural: '{{count}} subscriptions paused',
+      },
+      updateNameDialogTitle: 'Change of reason for pause',
+      deleteDialogContent:
+        'Are you sure you want to cancel this pause for all subscriptions?',
       form: {
-        firstStep: {
-          titleCreation: 'Mise en pause globale',
-          titleUpdate: 'Modifier la mise en pause globale',
-          information1:
-            'Les abonnements seront mis en pause du {{- fromDate}} au {{- untilDate}} inclus. Leur prochaine facturation sera décalée de {{count}} jour, de même pour toutes les facturations et cartes futures.',
-          information1_plural:
-            'Les abonnements seront mis en pause du {{- fromDate}} au {{- untilDate}} inclus. Leur prochaine facturation sera décalée de {{count}} jours, de même pour toutes les facturations et cartes futures.',
-          information2:
-            "La date d'expiration de la carte sera repoussée du nombre de jour de la pause et la carte restera valide pendant celle-ci.",
+        thirdStep: {
+          successExplanation:
+            '{{ count }} subscription has been paused from {{- fromDate}} to {{- untilDate}} included.',
+          successExplanation_plural:
+            '{{ count }} subscriptions have been paused from {{- fromDate}} to {{- untilDate}} included.',
+          title: 'Global pause of the subscription',
         },
         secondStep: {
-          title: 'Vérification',
-          sectionSuccess: 'Souscriptions mises en pause',
-          sectionFailure: 'Échec de mise en pause ',
-          noCompatibleSubscriptions:
-            'Aucune souscription ne peut être mise en pause.',
           incompatibleSubscriptions:
-            "Les souscriptions suivantes n'ont pas pu être mises en pause pour une des raisons suivantes : un paiement compris dans l'intervalle de pause est prévu dans les 24h, un paiement d'une facture future est en cours, la période choisie chevauche une autre pause déjà prévue, l'abonnement n'a pas encore commencé.",
+            'The following subscriptions could not be paused for one of the following reasons: a payment within the pause interval is due within 24 hours, a payment for a future invoice is in progress, the selected period overlaps with another already scheduled pause, the subscription has not yet started.',
+          noCompatibleSubscriptions: 'No subscription can be paused.',
+          sectionFailure: 'Pause Failed ',
+          sectionSuccess: 'Subscription freezed',
+          title: 'Verification',
         },
-        thirdStep: {
-          title: "Mise en pause globale de l'abonnement",
-          successExplanation:
-            '{{ count }} abonnement a bien été mis en pause du {{- fromDate}} au {{- untilDate}} inclus.',
-          successExplanation_plural:
-            '{{ count }} abonnements ont bien été mis en pause du {{- fromDate}} au {{- untilDate}} inclus.',
-        },
-      },
-      deleteDialogContent:
-        "Êtes-vous sûr de vouloir déprogrammer cette pause pour l'ensemble des souscriptions ?",
-      updateNameDialogTitle: 'Modification de la raison de la pause',
-      sections: {
-        success: '{{count}} souscription mise en pause',
-        success_plural: '{{count}} souscriptions mises en pause',
-        error:
-          "{{count}} souscription n'a pas pu être mise en pause automatiquement",
-        error_plural:
-          "{{count}} souscriptions n'ont pas pu être mises en pause automatiquement",
-      },
-    },
-    subscriptionPause: {
-      form: {
-        initStep: {
-          titleCreation: 'Mise en pause',
-          titleUpdate: 'Modifier la mise en pause',
-          information1:
-            "L'abonnement sera mis en pause du {{- fromDate}} au {{- untilDate}} inclus. La prochaine facturation suite à la pause sera décalée de {{count}} jour, de même pour toutes les facturations futures.",
-          information1_plural:
-            "L'abonnement sera mis en pause du {{- fromDate}} au {{- untilDate}} inclus. La prochaine facturation suite à la pause sera sera décalée de {{count}} jours, de même pour toutes les facturations futures.",
+        firstStep: {
           information2:
-            "La date d'expiration de la carte sera repoussée du nombre de jours de la pause et la carte restera valide pendant celle-ci.",
-        },
-        successStep: {
-          title: "Mise en pause de l'abonnement",
-          content:
-            "L'abonnement {{- subscriptionName}} de {{subscriberName}} a bien été mis en pause du {{- fromDate}} au {{- untilDate}} inclus.",
-        },
-        failureStep: {
-          title: 'Échec de mise en pause',
-          contentIncomingBill:
-            "L'abonnement {{- subscriptionName}} de {{subscriberName}} n'a pas pu être mis en pause car une facture dans l'interval de pause va être facturée dans les 24h, ou une facture future est en cours de paiment. Merci de changer la date de début de la pause.",
-          contentOverlapPause:
-            "L'abonnement {{- subscriptionName}} de {{subscriberName}} n'a pas pu être mis en pause car une pause est déjà prévue du {{- fromDate}} au {{- untilDate}}.",
-          contentInvalidTimedelta: 'La pause doit au moins durer une journée.',
-          contentCanNotCancelPause:
-            'La pause ayant déjà commencé ou étant déjà passée, elle ne peut pas être annulée.',
-          contentSubscriptionWillEndBeforePause:
-            "La subscription ne peut être mise en pause sur cette période car celle-ci aura pris fin avant ou son renouvellement n'a pas encore été exécuté à l'heure actuelle.",
-          contentCanNotEditPauseStartWhenHasStarted:
-            'La date de début de la pause ne peut être changée dès lors que celle-ci a commencé.',
-          contentCanNotEditPauseEndBeforeToday:
-            "La nouvelle date de début de la pause ne peut être placée avant aujourd'hui.",
-          contentCanNotCreateAPauseInThePast:
-            'La pause ne peut commencer dans le passé.',
-          contentSubscriptionHasNotStarted:
-            "La mise en pause n'a pas été effectuée car l'intervalle de dates de la pause se situe avant le début de la souscription.",
-          contentUnknownError:
-            'Une erreur imprévue est survenue. Veuillez nous excuser pour la gêne occasionnée.',
+            'The expiry date of the pass will be extended by the number of days of the pause and the pass will remain valid during the pause.',
+          information1:
+            'Subscriptions will be paused from {{- fromDate}} to {{- untilDate}} included. Their next billing will be delayed by {{count}} day, as well as all future billings and passes.',
+          information1_plural:
+            'Subscriptions will be paused from {{- fromDate}} to {{- untilDate}} included. Their next billing will be delayed by {{count}} days, as well as all future billings and passes.',
+          titleUpdate: 'Change the global pause',
+          titleCreation: 'Pause all subscriptions',
         },
       },
-      deleteDialogContent:
-        'Êtes-vous sûr de vouloir déprogrammer cette pause ?',
-      eventItems: {
-        pauseCreatedThenDeleted: 'Cette pause a été supprimée ou modifiée.',
-        pauseDeleted: "Raison de l'ancienne pause : {{pause_name}}",
+      title: 'Pause all subscriptions',
+    },
+    common: {
+      menu: {
+        cancelForbidden:
+          'You cannot cancel a pause whose start date has already passed.',
+        changeForbidden: 'You cannot edit a pause that has already ended.',
+        changeContractForbidden:
+          'You cannot edit a pause created at subscription level.',
+        changeName: 'Change the reason',
+        change: 'Change the dates',
+        delete: 'Deactivate',
+      },
+      listItem: {
+        isUpdated: 'Edited pause',
+        label: 'Pause from {{- fromDate}} to {{- untilDate}}',
+        pausedAt: '{{ days }} days - On {{- date}}',
+        deletedAt: 'Cancelled on {{- dateDeletion}}',
+        deletedAtBy: 'Cancelled on {{- dateDeletion}} by {{staffName}}',
+        createdAt: 'Created on {{- dateCreation}}',
+        createdAtBy: 'Created on {{- dateCreation}} by {{staffName}}',
+        fromToUntil: 'Pause from {{- fromDate}} to {{- untilDate}}',
+      },
+      deleteDialog: { title: 'Cancel the pause' },
+      form: {
+        duration: {
+          warning: 'The end date cannot be earlier than the start date',
+          end: 'End date (included)',
+          start: 'Start date (included)',
+          title: 'Duration of the pause',
+        },
+        reasonPlaceholder: 'Reason *',
+      },
+      actions: {
+        continue: 'Continue',
+        save: 'Save',
+        goBack: 'Back',
+        previous: 'Previous',
+        verify: 'Check',
+        pause: 'Pause this subscription',
+        confirm: 'Confirm',
+        cancel: 'Cancel',
       },
     },
   },
+  billing_plan_status: {
+    [BILLING_PLAN_STATUS_STARTED]: 'In progress',
+    [BILLING_PLAN_STATUS_NOT_STARTED]: 'Not yet started',
+    [BILLING_PLAN_STATUS_STOPPED]: 'Stopped',
+    [BILLING_PLAN_STATUS_PAUSED]: 'Paused',
+    [BILLING_PLAN_STATUS_ENDED]: 'Finished',
+  },
+  invisibleForStaffToolTip: 'Invisible for the staff',
   alreadySubscribed: {
     dialog: {
-      validate: 'Ok',
+      title: 'Already subscribed',
       content:
-        "Vous avez déjà acheté cet abonnement récemment. Si vous ne le voyez pas encore, veuillez attendre quelques minutes. Toutefois, si vous souhaitez l'acheter à nouveau, attendez quelques minutes et réessayez.",
-      title: 'Déjà abonné',
+        "You have already purchased this subscription recently. If you don't see it yet, please wait a few minutes. However, if you wish to purchase it again, please wait a few minutes and try again.",
+      validate: 'Ok',
     },
   },
   subscriptionNotFound: {
-    title: 'Contrat introuvable',
     explanation:
-      "Ce contrat n'existe plus. Veuillez choisir un autre contrat ou contacter le gérant de votre studio.",
+      'This subscription no longer exists. Please choose another one or contact your studio manager.',
+    title: 'Subscription not found',
   },
   newCheckout: {
-    title: 'Abonnement',
-    processingPaymentModal: {
-      title: 'Paiement en cours',
-      text: 'Veuillez patienter le temps que le paiment soit effectué. Ne quittez pas et ne rechargez pas cette page.',
-      timeEstimation: "Cela peut prendre jusqu'à une minute",
-    },
-    subscriptionSummary: {
-      startDate: 'Date de début',
-      credit: '{{count}} crédit',
-      credit_plural: '{{count}} crédits',
-      unlimited: 'Illimité',
-      item: '{{count}} élément',
-      item_plural: '{{count}} éléments',
-      prorataPriceText:
-        '{{proratedPrice}} dûs le {{-today}}, puis {{recurrentPrice}} chaque {{monthBillingDay}} du mois.',
-      billingInterval: {
-        month: 'chaque mois',
-        month_plural: 'tous les {{ count }} mois',
-        week: 'chaque semaine',
-        week_plural: 'toutes les {{ count }} semaines',
-        year: 'chaque année',
-        year_plural: 'tous les {{ count }} ans',
-        day: 'chaque jour',
-        day_plural: 'tous les {{ count }} jours',
+    error: {
+      button: {
+        userRegistration: 'See my subscription',
+        registerBackground: 'Close',
       },
-    },
-    terms: {
-      title: 'Termes du contrat',
-      seeMore: 'Voir plus',
-      seeLess: 'Voir moins',
-      acceptTerms: "J'accepte les <0>mentions légales</0>.",
-    },
-    subscriptionBasketSummary: {
-      payNow: 'Payer maintenant',
-      message: 'Vous pourrez voir votre abonnement sur la page de votre profil',
+      text: {
+        userRegistration:
+          'Your subscription has been created and your payment method will be debited shortly. However, your booking could not be registered.',
+        registerBackground:
+          'Your subscription and booking could not be created. The payment method has not been debited.',
+      },
+      title: 'An error has occurred',
     },
     payment: {
-      details: 'Détails de paiement',
-      tooltip: 'Ce moyen de paiement sera conservé pour être facturé conformément au contrat. Ne vous inquiétez pas, vous pourrez le modifier ultérieurement à partir de votre compte.'
+      tooltip:
+        "This payment method will be retained for billing in accordance with the contract. Don't worry, you can change it later from your account.",
+      details: 'Payment details',
     },
-    error: {
-      title: 'Une erreur est survenue',
-      text: {
-        registerBackground: "Votre abonnement et votre réservation n'ont pas pu être créés. Le moyen de paiement n'a pas été débité.",
-        userRegistration: "Votre abonnement a été créé, et votre moyen de paiement sera débité sous peu. En revanche, votre réservation n'a pas pu être enregistrée."
+    subscriptionBasketSummary: {
+      message: 'You can view your subscription on your member profile',
+      payNow: 'Pay now',
+    },
+    terms: {
+      acceptTerms: 'I accept the <0>legal terms</0>.',
+      seeLess: 'See less',
+      seeMore: 'See more',
+      title: 'Terms of contract',
+    },
+    subscriptionSummary: {
+      billingInterval: {
+        day: 'Every day',
+        day_plural: 'Every {{ count }} days',
+        year: 'Every year',
+        year_plural: 'Every {{ count }} years',
+        week: 'Every week',
+        week_plural: 'Every {{ count }} weeks',
+        month: 'Every month',
+        month_plural: 'Every {{ count }} months',
       },
-      button: {
-        registerBackground: "Fermer",
-        userRegistration: "Voir mon abonnement"
-      }
-    }
+      prorataPriceText:
+        '{{proratedPrice}} due the {{-today}}, then {{recurrentPrice}} each {{monthBillingDay}} day of the month.',
+      item: '{{count}} item',
+      item_plural: '{{count}} items',
+      unlimited: 'Unlimited',
+      credit: '{{count}} credit',
+      credit_plural: '{{count}} credits',
+      startDate: 'Start date',
+    },
+    processingPaymentModal: {
+      timeEstimation: 'This can take up to a minute',
+      text: 'Please wait for the payment to be processed. Do not leave or reload this page.',
+      title: 'Payment in progress',
+    },
+    title: 'Subscription',
   },
 };

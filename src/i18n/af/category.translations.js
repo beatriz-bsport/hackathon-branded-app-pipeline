@@ -1,8 +1,3 @@
 exports.default = {
-  sct: {
-    selector: {
-      placeholder: 'Rechercher une catégorie',
-      label: 'Catégorie',
-    },
-  },
+  sct: { selector: { placeholder: 'Category', label: 'Category' } },
 };

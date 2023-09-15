@@ -1,29 +1,23 @@
 exports.default = {
-  list: {
-    title: {
-      latestEvents: 'Dernier évènements',
-    },
-  },
+  list: { title: { latestEvents: 'Recent events' } },
   member: {
     register: {
-      name: 'Nouveau membre',
-      description:
-        "Est déclenché lorsqu'un nouveau membre pour le club est ajouté sur bsport",
+      name: 'New member',
+      description: 'Is triggered when a new member is added on bsport',
     },
   },
   booking: {
     register: {
-      name: 'Nouvelle réservation',
-      description:
-        "Est déclenché lorsqu'une nouvelle réservation est enregistrée",
+      name: 'New bookings',
+      description: 'Is triggered when a new booking is made by a manager',
     },
   },
   booking_option: {
     cancel: {
-      name: "Annulation de place en liste d'attente",
+      name: 'Booking option canceled',
       description:
-        "Est déclenché lorque le membre ou un manager annule la place sur liste d'attente",
+        'Is triggered when a booking option is canceled by manager or member',
     },
   },
-  noEvent: { description: "Description de l'évènement" },
+  noEvent: { description: 'Event source description' },
 };

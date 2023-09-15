@@ -1,63 +1,62 @@
 exports.default = {
-  menu: {
-    helpButton: "Trouver de l'aide",
-  },
-  lessonList: {
-    start: 'Commencer',
-    share: 'Partager',
-    shareLesson: 'Partager la leçon',
-    new: 'Nouveau',
-    addOn: 'Add-on',
-    missingUpsell:
-      'Vous ne disposez pas de cette fonctionnalité, merci de contacter votre chargé de compte.',
-  },
-  sectionList: {
-    shareSection: 'Partager la section',
-    new: 'Nouveau',
-    addOn: 'Add-on',
-    missingUpsell:
-      'Vous ne disposez pas de certaines fonctionnalités de cette section. Merci de contacter votre chargé de compte.',
-  },
-  menuHeader: {
-    title: 'Bienvenue sur notre guide de démarrage.',
-    infoText:
-      'Apprenez à vous servir de toutes les fonctionnalités de base sur Bsport grâce à nos différents cours.',
-  },
-  lessonHeader: {
-    backToList: 'Retour à la liste',
-    addOn: 'Add-on',
-    warning:
-      'Cette fonctionnalité est un add-on. Vous ne disposez pas de cette fonctionnalité, merci de contacter votre chargé de compte.',
-  },
-  welcomeDialog: {
-    title: 'Bienvenue sur Bsport !',
-    infoText:
-      'Bienvenue sur votre nouvelle plateforme de gestion. Apprenons ensemble à découvrir toutes les fonctionnalités de Bsport pour lancer votre studio dans les meilleures conditions.',
-    rejectButton: 'Je souhaite apprendre par moi même',
-    approveButton: 'C’est parti !',
-  },
-  shareDialog: {
-    title: 'Partager',
-    infoTextSection:
-      "Partager tous les cours de la section {{name}} avec les membres de votre staff qui n'ont pas d'accès à l'onglet des tutoriels. Ils ne pourront naviguer qu'à l'intérieur de cette section.",
-    infoTextLesson:
-      "Partager le cours {{name}} avec les membres de votre staff qui n'ont pas d'accès à l'onglet des tutoriels. Ils ne pourront naviguer qu'à l'intérieur de ce cours.",
-    continueButton: 'Continuer',
-  },
-  sectionFinishDialog: {
-    title: 'Félicitations !',
-    infoText: `Vous avez terminé tous les cours de la section {{name}}. Continuez de vous améliorer en complétant la section suivante.`,
-    continueButton: 'Continuer',
+  lessonContent: {
+    finish: 'End the section',
+    nextLesson: 'Next',
+    previousLesson: 'Previous',
   },
   allFinishDialog: {
-    title: 'Terminé !',
+    continueButton: 'Continue',
     infoText:
-      "Bien joué vous avez terminé tous les cours proposés par Bsport. Vous connaissez désormais la plateforme comme votre poche ! Vous savez utiliser toutes les fonctionnalités de base, bien d'autres vous attendent pour vous aider à développer au mieux votre activité.",
-    continueButton: 'Continuer',
+      'Well done you have completed all the lessons offered by Bsport. You now know the platform like the back of your hand! You know how to use all the basic features, many others are waiting for you to help you develop your activity.',
+    title: 'Finished!',
   },
-  lessonContent: {
-    previousLesson: 'Précédent',
-    nextLesson: 'Suivant',
-    finish: 'Terminer la section',
+  sectionFinishDialog: {
+    continueButton: 'Continue',
+    infoText:
+      'You have completed all the lessons in {{name}} section. Continue to improve by completing the next section.',
+    title: 'Congratulations !',
   },
+  shareDialog: {
+    continueButton: 'Continue',
+    infoTextLesson:
+      'Share the {{name}} lesson with your staff members who do not have access to the tutorials tab. They will only be able to navigate within this lesson.',
+    infoTextSection:
+      'Share all the lessons in the {{name}} section with your staff members who do not have access to the tutorials tab. They will only be able to navigate within this section.',
+    title: 'Share',
+  },
+  welcomeDialog: {
+    approveButton: "Let's get started!",
+    rejectButton: 'I want to learn on my own',
+    infoText:
+      "Welcome to your new management platform. Let's learn together to discover all the features of Bsport to launch your studio in the best conditions.",
+    title: 'Welcome to Bsport!',
+  },
+  lessonHeader: {
+    warning:
+      'Please contact your Account Manager to learn more and activate this additional service.',
+    addOn: 'Add-on',
+    backToList: 'Back to the list',
+  },
+  menuHeader: {
+    infoText:
+      'Learn how to use all the basic features of Bsport with our different lessons.',
+    title: 'Welcome to our Getting Started Guide.',
+  },
+  sectionList: {
+    missingUpsell:
+      'Some of the features in this section are not available to you, please contact your account manager for more information.',
+    addOn: 'Add-on',
+    new: 'New',
+    shareSection: 'Share the section',
+  },
+  lessonList: {
+    addOn: 'Add-on',
+    new: 'New',
+    shareLesson: 'Share the lesson',
+    share: 'Share',
+    start: 'Start',
+    missingUpsell:
+      'You do not have this feature, please contact your account manager for more information.',
+  },
+  menu: { helpButton: 'FAQ' },
 };

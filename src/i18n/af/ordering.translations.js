@@ -1,31 +1,27 @@
 exports.default = {
   category: {
-    noCategory: {
-      name: 'Sans catégorie',
-    },
+    noCategory: { name: 'No category' },
     creationDialog: {
-      name: 'Nom de la catégorie',
-      titleEdit: 'Catégorie',
-      titleNew: 'Nouvelle catégorie',
-      edit: 'Modifier',
-      create: 'Créer',
-      cancel: 'Annuler',
+      name: 'Category name',
+      titleEdit: 'Category',
+      titleNew: 'New category',
+      edit: 'Edit',
+      create: 'Add',
+      cancel: 'Cancel',
     },
-    popover: {
-      delete: 'Supprimer',
-      edit: 'Renommer',
-    },
+    popover: { delete: 'Delete', edit: 'Rename' },
     deleteModal: {
-      title: 'Suppression',
-      cancel: 'Annuler',
-      confirm: 'Confirmer',
+      title: 'Deletion',
+      cancel: 'Cancel',
+      confirm: 'Confirm',
       content:
-        "Êtes-vous sûr de vouloir supprimer cette catégorie ? Tous les éléments qu'elle contient seront placés dans la section sans catégorie",
+        'Are you sure that you want to delete this category? All items will be moved to the no category section',
     },
-    add: 'Ajouter une catégorie',
-    empty: 'Cette catégorie est vide',
-    noAvailable: 'Aucun élément correspondant aux filtres choisis',
-    selector: 'Nom de la catégorie',
+    add: 'Add a category',
+    empty: 'This category is empty.',
+    noAvailable:
+      'There are no matching items for the selected filters to display.',
+    selector: 'Category name',
   },
   disabledItemsTitle: 'Archive',
 };

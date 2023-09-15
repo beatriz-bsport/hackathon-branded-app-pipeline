@@ -15,913 +15,852 @@ const {
 } = require('@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought');
 
 exports.default = {
-  paymentPackTemplateInstance: {
-    paymentPackSharedFromFranchisor: 'Carte franchise',
-    consumerPaymentPackSharedFromOtherFranchisee: 'Partagé depuis franchisé',
-    form: {
-      title: 'Configurer mes studios',
-      explain1:
-        'Les studios suivant auront automatiquement cette carte disponible à la vente. Ils ne pourront pas en modifier le prix ni le nombre de crédit.',
-      explain2:
-        "Si un membre achète cette carte dans l'un des studios compatible, il pourra également l'utiliser dans les autres studios que vous avez défini.",
-      actions: {
-        close: 'Fermer',
-        submit: 'Enregistrer',
-      },
-    },
-    deleteForm: {
-      title: 'Désactivation',
-      content:
-        "En désactivant ce studio du partage de la carte, tous les membres possédant cette carte et l'ayant acheté dans ce studio pourront toujours l'utiliser. En revanche ils ne pourront plus l'utiliser dans les autres studios. Enfin, les cartes ayant achetées dans les autres studios ne seront plus utilisable dans le studio désactivé, quelle que soit la date d'achat.",
-      actions: {
-        close: 'Fermer',
-        submit: 'Désactiver le partage',
-      },
-    },
-    companyEmpty:
-      "Aucun studio n'est configuré pour accepter cette carte de cours",
-    actions: {
-      addCompany: 'Ajouter un studio',
-      buy: 'Acheter',
-    },
-  },
-  paymentPackTemplate: {
-    pass: 'Cartes de cours collectifs',
-    widget: {
-      choose: 'Choisir des cartes de cours partagées',
-    },
-    specification: {
-      companySharedWithTitle: 'Partagée avec les studios',
-    },
-    isEmptyExplain:
-      "Les cartes de cours partagées sont disponibles dans les studios de votre choix, et permettent à vos membres d'utiliser indifféremment leurs crédits dans les studios que vous aurez choisi.",
-    section: {
-      titleAvailable: 'Disponible à la vente',
-      titleManagerOnly: 'Indisponible à la vente',
-    },
-    form: {
-      title: 'Carte de cours partagée',
-      close: 'Fermer',
-      submit: 'Valider',
-      actions: {
-        close: 'Fermer',
-        submit: 'Enregistrer',
-      },
-    },
-    deleteForm: {
-      title: 'Désactivation',
-      content:
-        "En désactivant une carte partagée, les membres possédant cette carte ne pourront plus l'utiliser que dans le studio dans lequel il l'ont acheté.",
-      actions: {
-        close: 'Fermer',
-        submit: 'Désactiver le partage',
-      },
-    },
-    actions: {
-      create: 'Créer une carte partagée',
-    },
-  },
-  filters: {
-    all: 'Toutes les cartes',
-    expiration: 'Validité',
-    credits: 'Crédit',
-    notReverted: 'Facture non-annulée',
-    reverted: 'Facture annulée',
-    invoice: 'Facture',
-    isExpired: 'Expirée',
-    isActive: 'Active',
-    isValidToday: 'Valide',
-    hasCreditLeft: 'Avec crédit',
-    hasCreditNull: 'Sans crédit',
-  },
-  multipleBookingTooltip: 'Réservations multiples',
-  section: {
-    massExtension: 'Extensions',
-  },
-  actions: {
-    massExtension: 'Ajouter une extension',
-    edit: 'Modifier',
-    delete: 'Supprimer',
-    scaleCredit: 'Mult/div les crédits',
-    close: 'Fermer',
-  },
-  scaleCredit: {
-    title: 'Modification du total de crédit',
-    explain:
-      "Vous pouvez multiplier les crédit de la carte (3/7 x2 devient 6/14) ou les diviser cas d'erreur (3/7 ÷2 devient 1/3) : arrondi à l'inférieur.",
-    parameterLegend: 'Paramètres',
-    scaleDown: 'Diviser',
-    scaleUp: 'Multiplier',
-    factor: {
-      label: 'Facteur',
-    },
-    actions: {
-      cancel: 'Annuler',
-      submit: 'Enregistrer',
-    },
-  },
   consumerPaymentPack: {
-    addExtension: 'Ajouter une extension',
-    refund: {
-      title: 'Remboursement',
-      blockUnlimited: 'Bloquer la carte',
-      price: {
-        label: 'Montant à recréditer',
-      },
-      description: '{{ credits }} crédit - {{ note }}',
-      description_plural: '{{ credits }} crédits - {{ note }}',
-      note: {
-        label: 'Note',
-      },
-      credits: {
-        label: 'Crédit à déduire',
-      },
-      explain:
-        "Choisissez le nombre de crédit à rembourser ainsi que la valeur totale qui sera créditée sur l'acompte du membre",
-      warningFirst:
-        'Attention, cette opération est irréversible (génération facture).',
-      warningSecond:
-        'Si vous souhaitez rembourser le client par virement avec le moyen de paiement utilisé annulez la facturation et ne le remboursez pas en crédit !',
-      actions: {
-        cancel: 'Annuler',
-        submit: 'Enregistrer',
-      },
-    },
+    addExtension: 'Extend validity',
     details: {
       actions: {
-        refund: 'Transformation acompte',
-        applyVoucher: 'Appliquer réduction',
+        refund: 'Transform in credit',
+        applyVoucher: 'Apply a discount',
       },
+    },
+    refund: {
+      actions: { submit: 'Save', cancel: 'Cancel' },
+      warning:
+        'Please note, this operation is irreversible (invoice generation).',
+      explain:
+        "Choose the number of credits to be reimbursed as well as the total value that will be credited on the member's deposit",
+      credits: { label: 'Credit to deduct' },
+      note: { label: 'Note' },
+      description: '{{credits}} credit - {{note}}',
+      description_plural: '{{credits}} credits - {{note}}',
+      price: { label: 'Amount to be credited back' },
+      title: 'Refund',
+      warningSecond:
+        'If you wish to reimburse the client via transfer with the payment method used cancel the billing and do not reimburse him/her in credit !',
+      warningFirst:
+        'Warning, this operation is irreversible (invoice generation).',
+      blockUnlimited: 'Block pass',
     },
     maxout: {
-      limit_reach: 'Limite de réservations par {{unit}} atteinte',
-      days: 'jour',
-      weeks: 'semaine',
-      months: 'mois',
-      dialogTitle: 'Limite de réservation atteinte',
       dialog_message:
-        'Attention cette carte a déjà atteint sa limite de {{count}} réservation(s) par {{unit}}. Voulez vous tout de même réserver avec cette carte ? ',
+        'Please note that this pass has already reached its limit of {{count}} booking(s) by {{unit}}. Do you still want to book with this pass? ',
+      dialogTitle: 'Reservation limit reached',
+      months: 'month',
+      weeks: 'week',
+      days: 'day',
+      limit_reach: 'The booking limit has been reached for this {{unit}}',
     },
   },
-  noPaymentPack:
-    "Les cartes de cours permettent aux membres de s'inscrire aux activités, il est nécessaire de posséder une carte pour s'inscrire.",
-  notificationToolTip: 'Des notifications sont définies pour cette carte',
+  notificationToolTip: 'Notifications are defined for this pass',
   notification: {
-    listItem: {
-      mail: 'Mail ',
-      deleteModal: {
-        title: 'Suppression notification',
-        cancel: 'annuler',
-        confirm: 'Supprimer',
-        content:
-          'Etes vous sûr de vouloir supprimer cette notification ? Cette opération est définitive',
-      },
-      smartList: 'Listes exclues',
-      smartListInclude: 'Listes incluses',
-    },
-    addButton: 'Ajouter une notification',
-    form: {
-      noMailAvailable: 'Aucun mail disponible, pensez à en créer un',
-      selectToShowPreview: 'Sélectionnez un mail pour avoir son aperçu',
-      mailSettings: 'Paramètres du mail',
-      mailTitle: 'Mail à envoyer',
-      pushTitle: 'Paramètres de la notification',
-      typeTitle: 'Type de notification',
-      contractTitle: 'Abonnement',
-      creditType: 'Crédits restants',
-      daysType: 'Jours de validité restants',
-      daysPastType: 'Jours de péremption',
-      dontSendIfInContract:
-        'Ne pas envoyer quand la carte est dans un abonnement',
-      infoContract:
-        "Les membres qui ont obtenu cette carte dans un abonnement ne recevront que les notifications sur l'abonnement et pas celles de la carte. En désactivant cette option ils recevront les deux.",
-      mailSelection: 'Choisir un mail',
-      smartListSelection: 'Choisir des listes (optionnel)',
-      showMail: 'Voir le mail',
-      settingTitle: 'Paramètres',
-      hideMail: 'Cacher le mail',
-      submit: 'Valider',
-      cancel: 'Annuler',
-      createSmartList: 'Créer une smartlist',
-      warning:
-        'En ne sélectionnant aucune smartlist vous risquez de notifier des membres qui ont déjà acheté une autre carte de cours',
-      smartListHelper:
-        "Ne pas envoyer de mail si le membre appartient à l'une des listes suivantes",
-      smartListHelperInclude:
-        "Envoyer un mail uniquement si le membre appartient à l'une des listes suivantes",
-      chooseTime: {
-        first: 'Envoyer un mail',
-        secondOnBooking: 'heure(s) après la réservation',
-        secondOnOfferStart: 'heure(s) après la séance',
-      },
-      creditNotificationType: {
-        onBooking:
-          'Réservation faisant passer le nombre de crédits sous le seuil défini ci-dessus',
-        onOfferStart:
-          'Fin de la séance dont la réservation avait fait passer le nombre de crédits sous le seuil défini ci-dessus',
-      },
-    },
     [PAYMENT_PACK_NOTIFICATION_DAY_LEFT]: {
-      first: "Notifier lorsqu'il reste ",
-      second: 'jours de validité sur la carte',
+      first: "Send this notification if there's ",
+      second: 'days of validity remaining on the pass',
     },
     [PAYMENT_PACK_NOTIFICATION_DAY_PAST]: {
-      first: 'Notifier lorsque la carte est expirée depuis ',
-      second: 'jours',
+      first: 'Send this notification when the pass has expired for ',
+      second: 'day(s)',
     },
     [PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT]: {
-      first: "Notifier lorsqu'il reste",
-      second: 'crédits',
+      first: "Send this notification if there's",
+      second: 'credit(s) remaining on the pass',
     },
-    creditsLeft: {
-      first: "Notifier lorsqu'il reste",
-      second: 'crédits',
+    listItem: {
+      mail: 'Email ',
+      deleteModal: {
+        title: 'Delete notification',
+        cancel: 'Cancel',
+        confirm: 'Delete',
+        content:
+          "Are you sure that you want to delete this notification? This action can't be undone.",
+      },
+      smartList: 'Excluded Smartlist(s)',
+      smartListInclude: 'Included Smartlist(s)',
     },
-    creditsLeftLabel: "Notifier lorsqu'il reste {{count}} crédit",
-    creditsLeftLabel_plural: "Notifier lorsqu'il reste {{credit}} crédits",
-    creditsLeftOnBooking: '{{hours}}h après la réservation',
-    creditsLeftOnOfferStart: '{{hours}}h après la séance',
-    daysLeftLabel:
-      "Notifier lorsqu'il reste {{day}} jour de validité sur la carte",
-    daysLeftLabel_plural:
-      "Notifier lorsqu'il reste {{day}} jours de validité sur la carte",
-    daysPastLabel: 'Notifier lorsque la carte est expirée depuis {{day}} jour',
-    daysPastLabel_plural:
-      'Notifier lorsque la carte est expirée depuis {{day}} jours',
-    daysLeft: {
-      first: "Notifier lorsqu'il reste",
-      second: 'jours',
+    addButton: 'Add a notification',
+    form: {
+      noMailAvailable: 'There are no email templates to display.',
+      selectToShowPreview: 'Select an email to see a preview of it.',
+      mailTitle: 'Select the email template that will be sent',
+      typeTitle: 'Trigger',
+      creditType: 'Remaining credits',
+      daysType: 'Remaining validity',
+      daysPastType: 'Expiration',
+      mailSelection: 'Select an email template',
+      smartListSelection: '(Optional) Select Smartlist(s)',
+      showMail: 'Show email',
+      settingTitle: 'Settings',
+      hideMail: 'Hide email',
+      submit: 'Confirm',
+      cancel: 'Cancel',
+      createSmartList: 'Add a Smartlist',
+      warning:
+        "By selecting no Smartlist at all, you might notify members who've already made a recent purchase!",
+      smartListHelper:
+        "Don't send the notification if the member is present in one of the following Smartlists",
+      smartListHelperInclude:
+        'Only send the notification if the member is present in one of the following Smartlists',
+      pushTitle: 'Settings',
+      mailSettings: 'Content',
+      chooseTime: {
+        secondOnOfferStart: 'hour(s) after the end of the session',
+        secondOnBooking: 'hour(s) after the booking',
+        first: 'Send a notification',
+      },
+      creditNotificationType: {
+        onOfferStart: 'Send the notification after the end of the session',
+        onBooking: 'Send the notification after completing the booking',
+      },
+      contractTitle: 'Subscription',
+      infoContract:
+        'Members who got this pass as part of a subscription will only receive notifications about the subscription and not about the card. By deactivating this option they will receive both.',
+      dontSendIfInContract:
+        'Do not send when the pass is part of a subscription',
     },
     daysPast: {
-      first: 'Notifier lorsque la carte est expirée depuis',
-      second: 'jours',
+      second: 'day(s).',
+      first: 'Send this message when this pass has expired for',
     },
+    daysLeft: {
+      second: 'remaining day(s) of validity left',
+      first: 'Send this notification when this pass has',
+    },
+    creditsLeft: {
+      second: 'credit(s) remaining',
+      first: "Send a notification when there's",
+    },
+    daysPastLabel:
+      'This notification will be sent when the pass has expired for {{day}} day.',
+    daysPastLabel_plural:
+      'This notification will be sent when the pass has expired for {{day}} days.',
+    daysLeftLabel:
+      'This notification will be sent when the pass expires in {{day}} day.',
+    daysLeftLabel_plural:
+      'This notification will be sent when the pass expires in {{day}} days.',
+    creditsLeftLabel:
+      'This notification will be sent when the pass has {{count}} remaining credit.',
+    creditsLeftLabel_plural:
+      'This notification will be sent when the pass has {{credit}} remaining credits.',
+    creditsLeftOnOfferStart: '{{hours}} hour(s) after the end of the session',
+    creditsLeftOnBooking: '{{hours}} hour(s) after completing a booking',
   },
-  search: 'Rechercher une carte',
+  search: 'Search a pass',
   extension: {
-    nbDaysAdded: '+{{nb_days}}j',
-    addedOn: 'Ajouté le ',
+    nbDaysAdded: '+{{nb_days}}d',
+    addedOn: 'Added on ',
     delete: {
-      title: "Suppression de l'extension",
-      explain: "Êtes-vous sûr de vouloir supprimer l'extension de validité ?",
-      cancel: 'Annuler',
-      confirm: 'Confirmer',
+      title: 'Delete validity extension',
+      explain: 'Are you sure you want to delete this validity extension ?',
+      cancel: 'Cancel',
+      confirm: 'Confirm',
     },
     create: {
-      title: "Extension d'une carte",
-      cancel: 'Annuler',
-      submit: 'Créer',
-      explain: {
-        oldDate: 'Ancienne date : ',
-        newDate: 'Nouvelle date : ',
-      },
+      title: 'Pass extension',
+      cancel: 'Cancel',
+      submit: 'Create',
+      note: { label: 'Notes' },
+      explain: { oldDate: 'Original: ', newDate: 'New date: ' },
       warning:
-        "Vérifiez que la nouvelle date ne fait pas dépasser ce pass sur une nouvelle période fiscale. Si c'est le cas, vérifiez avec votre comptable la pertinence de cette opération.",
-      note: {
-        label: 'Notes',
-      },
-      nbDays: {
-        label: 'Nombre de jours additionnels',
-      },
-      datePicker: {
-        label: 'Nouvelle date',
-      },
+        'Please check that the new date is included in the same fiscal year as the old one. If not, please check with your accounting this operation is correct.',
+      nbDays: { label: 'Nb of additional days' },
+      datePicker: { label: 'New date' },
     },
     options: {
-      addNumberOfDays:
-        'Étendre la validité en ajoutant un certain nombre de jours',
-      selectNewEndDate: 'Définir une nouvelle date de fin de validité',
+      selectNewEndDate: 'Set a new end of validity date',
+      addNumberOfDays: 'Extend the validity by adding a number of days',
     },
   },
   form: {
     paymentPack: {
-      from: 'A partir du ',
-      notEditable:
-        "Cette carte de cours est issue d'une migration, certains champs ne sont pas modifiable pour respecter l'historique. Les activités/catégories compatibles restent modifiables.",
-      until: "Jusqu'au ",
-
-      name: {
-        label: 'Nom',
-        helperText: 'Nom de la carte de cours',
-      },
-      full_vod_access: 'Donne accès à la VOD tant que valable dans le temps',
-      only_vod_access: 'Uniquement pour la VOD',
-      tax: {
-        label: 'TVA',
-      },
-      priceIncludingTax: {
-        helperText: 'Prix pour le client pour la carte',
-        label: 'Prix TTC',
-      },
-      unlimited: 'Crédits illimités',
-      theoricalMarginValue: {
-        label: 'Apport marginal théorique TTC (carte illimité seulement)',
-        helperText:
-          "Utilisée pour calculer la rémunération des professeurs, 10{{currency}} signifie qu'une réservation faite avec cette carte est rémunérée 10{{currency}}. Si vide ou 0{{currency}} l'apport d'une carte sera PRIX/NB_RESERVATION",
+      from: 'From ',
+      until: 'Until ',
+      newMemberOnly: 'Only available for new customers',
+      onsitePaymentAvailable: 'Enable in-studio payments',
+      managerOnly: 'Unavailable for purchase',
+      tax: { label: 'VAT / Sales tax' },
+      startOnFirstUse: 'The validity starts on the day of the first booking',
+      name: { label: 'Name', helperText: 'Name for the payment pack' },
+      price: {
+        label: 'Pric incl. taxes',
+        helperText: 'Price for user for the whole pack',
       },
       credits: {
-        label: 'Crédit',
-        helperText: 'Nombre de crédits disponibles',
+        label: 'Credit(s)',
+        helperText:
+          'This is the amount of the included credits for this pass. Leave blank to make it unlimited.',
         bewareChange:
-          'Si vous augmentez le nb de crédit, toutes les cartes existantes seront affectées. Idem si vous diminuez le nombre de crédits.',
-      },
-      maxBookingPerMonth: {
-        label: 'Utilisation max par mois',
-        helperText: 'Laisser vide pour ne pas imposer de limite',
+          'Attention: modifying the credits will affect all previous purchases as well.',
       },
       maxBookingPerWeek: {
-        label: 'Utilisation max par semaine',
-        helperText: 'Laisser vide pour ne pas imposer de limite',
+        helperText: 'Leave this field empty to not set up any restrictions.',
+        label: 'Maximum usage per week',
       },
-      maxBookingPerDay: {
-        label: 'Utilisation max par jour',
-        helperText: 'Laisser vide pour ne pas imposer de limite',
-      },
-      maxPurchasePerMember: {
-        label: 'Achat maximum par membre',
-        helperText: 'Laisser vide pour ne pas imposer de limite',
-      },
-      newMemberOnly: 'Uniquement pour les nouveaux clients',
-      onsitePaymentAvailable: 'Possibilité de payer sur place',
-      startOnFirstUse:
-        'Le décompte de validité débute le jour de la première réservation',
-      startOnFirstUseHelper:
-        'Sinon le décompte début le jour de facturation du pass',
-      expirationDaysBeforeFirstUse: {
-        label: 'Expiration si aucune réservation initiale',
+      unlimited: 'Unlimited',
+      theoricalMarginValue: {
+        label:
+          'Theoretical Margin Value per Booking (only applies to unlimited passes)',
         helperText:
-          "Si la carte de cours n'est pas consommé une première fois pendant ce nb de jour, il est rendu invalide",
+          'This is used to calculate the payroll of the teachers. Example: {{currency}}10 for 1 booking means that the teacher will be paid {{currency}}10.  When left empty, the marginal value will be calculated as PRICE / NUMBER OF BOOKINGS.',
       },
-      managerOnly: 'Invisible pour les clients',
+      expirationDaysBeforeFirstUse: {
+        label:
+          'Amount of days in which the pass expires if no booking is made:',
+        helperText:
+          'Amount of days in which the pass expires if no booking is made:',
+      },
       helper: {
         starting_date:
-          'Début de validité du pass, laisser vide pour le rendre valable immédiatement',
+          'Start of the validity of the pass. Leave blank to make it available at once.',
         ending_date:
-          "Fin de validité du pass, laisser vide pour qu'il reste toujours actif",
+          'End of the validity of the pass. Leave blank to make it unlimited.',
       },
       start_date_method: {
-        on_purchase: 'Débute à la facturation',
-        on_booking: 'Débute à la 1ère réservation',
-        on_attendance: 'Débute à la 1ère présence',
+        on_purchase: 'Valid from the billing date',
+        on_booking: 'Valid from the 1st booking',
+        on_attendance: 'Valid from the 1st attendance',
       },
-      timeSettingsTitle: 'Validité de la carte',
-      generalSettingsTitle: 'Général',
-      validByDuration: 'Carte valide N jours après achat',
-      validByDaterange: 'Carte valide sur un créneau de date précis',
+      timeSettingsTitle: 'Validity',
+      generalSettingsTitle: 'General',
+      validByDuration: 'This pass is valid for X amount of days after purchase',
+      validByDaterange: 'This pass is valid between X and Y',
       durationDays: {
-        label: 'Durée de validité (jours) si applicable',
+        label: 'Validity period (in days)',
         helperText:
-          'Période en jours pour laquelle la carte sera valide après achat ',
+          'Numbers of days for which the pass will stay active after purchase ',
       },
       durationMonths: {
-        label: 'Durée de validité (mois) si applicable',
-        helperText: "S'ajoute au nombre de jours",
+        label: 'Additional duration (in months)',
+        helperText: 'This will be added to the number of days',
       },
       durationYears: {
-        label: 'Durée de validité (années) si applicable',
-        helperText: "S'ajoute au nombre de jours et de mois",
+        label: 'Additional duration (in years)',
+        helperText: 'This will be added to the number of days and months',
       },
-      actions: {
-        skip: 'Passer',
-        cancel: 'Annuler',
-        edit: 'Modifier',
-        create: 'Enregistrer',
-      },
-      sports: 'Catégorie',
-      activities: 'Activité',
-      establishments: 'Salle',
       restrictionsTitle: 'Restrictions',
-      noneMeansAll: 'Laisser vide pour tout autoriser',
+      noneMeansAll: 'Leave this field empty to implement no restrictions',
       update: {
-        success: 'Carte de cours: opération effectuée avec succès',
-        error: "Carte de cours: erreur lors de l'opération",
+        success: 'Pass: operation succeeded',
+        error: 'Pass: operation failed',
       },
+      actions: { skip: 'Skip', edit: 'Edit', create: 'Save', cancel: 'Cancel' },
+      sports: 'Category',
+      activities: 'Activity',
+      establishments: 'Establishment',
       delete: {
-        title: 'Suppression de la carte:',
+        title: 'Delete pass:',
         askConfirmation:
-          "Attention ! Cette opération est définitive. La carte ne sera plus visible et deviendra indisponible à l'achat.",
+          "Attention: this action can't be undone. The pass won't be visible anymore and it'll become unavailable for purchase.",
         thereAreConsumers:
-          "Attention ! Des membres ont acheté cette carte de cours, si vous le supprimez ces derniers pourront toujours utiliser leurs crédits restants. Vous pouvez les réduire manuellement à zéro ici.\n\nLa carte n'apparaitra plus dans votre magasin pour les nouveaux acheteurs.",
+          "Attention: it's possible that members have already bought this pass. Members will continue to be able to use their credits. If you'd like to entirely delete or block the use of this pass right now, we recommend that you reduce the amount of credits the pass includes to 0. Furthermore, the pass will no longer appear for sale.",
+        actions: { cancel: 'Cancel', submit: 'Delete' },
         isUsedInCombo:
-          'Attention ! Cette carte de cours est utilisée dans un pack, celui-ci ne sera plus disponible à la vente si vous supprimez cette carte de cours.',
-        actions: {
-          cancel: 'Annuler',
-          submit: 'Supprimer',
-        },
+          "Attention! Deleting this pass will also make it unavailable for purchase for the packs it's used for.",
+      },
+      priceIncludingTax: {
+        label: 'Price (including VAT / Sales Tax)',
+        helperText: 'This is selling price.',
+      },
+      startOnFirstUseHelper: 'Otherwise it starts on the billing date',
+      notEditable:
+        'This pass originates from a previously completed data migration. Some fields may not editable to preserve the data. Compatible activities/categories can still be modified.',
+      maxPurchasePerMember: {
+        helperText: 'Leave this field empty to not set up any restrictions.',
+        label: 'Maximum purchase per member',
+      },
+      maxBookingPerDay: {
+        helperText: 'Leave this field empty to not set up any restrictions.',
+        label: 'Maximum usage per day',
+      },
+      full_vod_access: 'Provides access to Video On Demand (if available)',
+      maxBookingPerMonth: {
+        helperText: 'Leave this field empty to not set up any restrictions.',
+        label: 'Maximum usage per month',
       },
       penalty: {
-        title: 'Pénalités',
-        label: 'Appliquer une pénalité',
-        helperText:
-          "Appliquer des pénalités en cas d'absence ou d'annulations hors délais trop nombreuses",
-        titleCheckbox: 'Appliquer une pénalité pour',
-        cancellationsCheckbox: 'Les annulations hors délai trop nombreuses',
-        noShowCheckbox: 'Les absences (no show) trop nombreuses',
-        errorNoPenaltyRule:
-          'Impossible d’enregistrer vos modifications, vous devez choisir une pénalité ou désactiver les pénalités pour pouvoir continuer',
-        cancellationsPenaltyTitle: 'Pénalités annulations hors délai',
-        noShowPenaltyTitle: 'Pénalités absences (no show)',
-        bothPenaltiesTitle:
-          'Pénalités annulations hors délai et absences (no show)',
-        penaltyParams: 'Paramètres des pénalités',
-        penaltyParamsText:
-          'Appliquer le même décompte pour les annulations hors délai et les absences (no show)',
-        noShowPenaltyAlert:
-          'Pour définir quand un membre est considéré comme absent (no show) merci de vous rendre dans Paramètres>Personnalisation',
-        noShowPenaltyNumber: "Nombre d'absences (no show)",
-        noShowPenaltyInfo:
-          'Une pénalité sera appliquée s’il y a {{penalityNumberNoShow}} absence (no show) sur une période de {{penalityNumberDay}} jours',
-        noShowPenaltyInfo_plural:
-          'Une pénalité sera appliquée s’il y a {{penalityNumberNoShow}} absences (no show) sur une période de {{penalityNumberDay}} jours',
-        bothPenaltiesNumber: "Nombre d'annulations et d'absences (no show)",
-        bothPenaltiesInfo:
-          'Une pénalité sera appliquée s’il y a {{penalityNumberNoShow}} annulations hors délai ou absence (no show) sur une période de {{penalityNumberDay}} jours',
-        bothPenaltiesInfo_plural:
-          'Une pénalité sera appliquée s’il y a {{penalityNumberNoShow}} annulations hors délai ou absences (no show) sur une période de {{penalityNumberDay}} jours',
-        checkbox:
-          "Appliquer une pénalité en cas d'annulations hors délai trop nombreuses",
-        explain:
-          'Une pénalité sera appliquée s’il y a {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours',
-        nb_cancellations: "Nombre d'annulations :",
-        nb_days: 'Nombre de jours :',
-        kind: {
-          label: 'Sélectionnez le type de pénalité à appliquer',
-          block: 'Bloquer temporairement la carte de cours',
-          account: 'Créer un acompte pour le membre concerné',
+        account: {
+          helperText: 'A charge of {{value}} will be applied for this member',
+          label: 'Penalty fine:',
         },
         block: {
-          label: 'Période de bloquage de la carte (en jours) :',
-          helperText: 'La carte sera bloquée pendant {{nb_days}} jours',
+          helperText: 'The pass will be blocked for {{nb_days}} days',
+          label: 'Duration of the blocking period (in days):',
         },
-        account: {
-          label: "Montant de l'acompte :",
-          helperText: 'Un accompte de {{value}} sera appliqué pour ce membre',
+        kind: {
+          account: 'Apply a fine',
+          block: 'Temporarily block the pass',
+          label: 'Select the type of penalty to apply',
+        },
+        nb_days: 'Number of days:',
+        nb_cancellations: 'Number of late cancellations:',
+        explain:
+          'A penalty will be applied if there are {{nb_cancellations}} late cancellations over a period of {{nb_days}} days',
+        checkbox: 'Apply a penalty in the event of too many late cancellations',
+        title: 'Penalties',
+        deleteNoShowDialog: {
+          text: 'No more unlimited passes with no-show penalties. We have disabled the "roll call" feature, so you no longer have to call the roll for each session.',
+          title: 'Penalties removed',
         },
         noShowDialog: {
-          title: 'Pénalités sur les no show',
-          text: 'Vous venez de créer des pénalités sur les absences (no-show).  Nous venons d’activer la fonctionnalité “appel”, vous devez désormais faire l’appel pour chacun des cours afin d’activer les pénalités.',
           alert:
-            'Vous pouvez  paramétrer les conditions de no show dans les paramètres de personnalisation.',
+            'You can set the no show conditions in the customization settings.',
+          text: 'You have just created no-show penalties.  We have activated the "roll call" feature, you must now call the roll for each session to activate the penalties.',
+          title: 'Penalties on no shows',
         },
-        deleteNoShowDialog: {
-          title: 'Pénalités supprimées',
-          text: 'Plus aucune carte illimitée ne contient de pénalités sur les absences (no-show). Nous avons désactivé la fonctionnalité “appel”, vous ne devez donc plus valider l’appel pour chacun des cours.',
-        },
+        bothPenaltiesInfo:
+          'A penalty will be applied if there is {{penalityNumberNoShow}} late cancelation or no show within a {{penalityNumberDay}} days period',
+        bothPenaltiesInfo_plural:
+          'A penalty will be applied if there are {{penalityNumberNoShow}} late cancelations or no shows within a {{penalityNumberDay}} days period',
+        bothPenaltiesNumber: 'Number of cancellations and no-shows',
+        noShowPenaltyInfo:
+          'A penalty will be applied if there is {{penalityNumberNoShow}} no show within a {{penalityNumberDay}} days period',
+        noShowPenaltyInfo_plural:
+          'A penalty will be applied if there are {{penalityNumberNoShow}} no shows within a {{penalityNumberDay}} days period',
+        noShowPenaltyNumber: 'Number of no shows',
+        noShowPenaltyAlert:
+          'To define when a member is considered absent (no show) please go to Settings>Personalization',
+        penaltyParamsText:
+          'Apply the same count for late cancellations and no shows',
+        penaltyParams: 'Penalty settings',
+        bothPenaltiesTitle: 'Penalties for late cancellations and no shows',
+        noShowPenaltyTitle: 'No show penalties',
+        cancellationsPenaltyTitle: 'Penalties for late cancellations',
+        errorNoPenaltyRule:
+          'Unable to save your changes, you must choose a penalty or disable penalties to continue',
+        noShowCheckbox: 'Too many no shows',
+        cancellationsCheckbox: 'Too many late cancelations',
+        titleCheckbox: 'Apply a penalty for',
+        helperText:
+          'Apply penalties for too many no-shows or late cancelations',
+        label: 'Apply a penalty',
       },
-      category: {
-        label: 'Catégorie (facultatif)',
-        helperText: 'Nom de la catégorie',
-      },
+      only_vod_access: 'Only for Video On Demand',
       error: {
         start_date_method_type:
-          'Veuillez indiquer le début de validité de la carte.',
+          'Please indicate the beginning of validity of the pass.',
+      },
+      category: {
+        label: '(Optional) Category',
+        helperText: 'Name of the category',
       },
       advancedOptions: {
-        header: 'Avancé',
         tag: {
+          notAllowedFor: 'Refused for',
+          notAllowed: 'Refused',
+          allowedFor: 'Approved for',
+          allowed: 'Approved',
           header: 'Tags',
+          doNotSelectToAllowAllMembers: 'Leave empty to allow all members',
           helperText:
-            'Utilisez les tags pour rendre la carte visible uniquement à un groupe de membre souhaité sur la marketplace, le widget et l’application. Vous pouvez sélectionner des tags pour rendre la carte visible seulement aux membres possédants un des tags choisis. Ou bien vous pouvez sélectionnez des tags pour rendre la carte invisible seulement aux membres possèdants un des tags sélectionnés. ',
-          allowed: 'Autorisé',
-          allowedFor: 'Autorisé pour',
-          notAllowed: 'Non-Autorisé',
-          notAllowedFor: 'Non-autorisé pour',
-          doNotSelectToAllowAllMembers:
-            'Laisser vide pour autoriser à tous les membres',
+            'Use tags to make the pass only available to specific members in your MarketPlace, on your widgets, and on your mobile app. You can select to only display these passes to members with specific tags, or you can choose to not display the pass to specific tags at all. ',
         },
+        header: 'Advanced',
         appliesForPayroll: {
-          label:
-            'Sessions prises en compte dans le calcul de la rémunération du professeur',
           helperText:
-            "Par défaut, les sessions sont facturées au studio et comptabilisées dans le récapitulatif et la rémunération du professeur par le studio. En désactivant ce paramètre, les sessions associées à cette carte n'apparaîtront plus dans le récapitulatif du professeur.",
+            "By default, sessions are billed to the studio and included in the teacher's payroll and remuneration by the studio. By deactivating this setting, sessions associated with this pass will no longer appear in the teacher's payroll.",
+          label:
+            "Sessions taken into account in calculating the teacher's remuneration",
         },
       },
       universalPass: {
-        warningIsUniversalPass:
-          'Cette carte est une carte universelle, une carte jumelle a été créée dans les cartes de RDV. Tous les champs modifiés sur cette carte seront aussi modifiés sur la carte jumelle (sauf la catégorie). Il en est de même pour les notifications, extensions et modifications des crédits.',
-        label: 'Carte universelle',
+        deativatedTags: 'Deactivated for universal passes',
         marketplaceLabel:
-          'Carte universelle. Utilisable pour les cours collectifs et rendez-vous.',
+          'A universal pass may be used for group activities and appointments.',
+        label: 'Universal pass',
         helperText:
-          'Les cartes universelles peuvent être utilisées pour réserver des cours collectifs ET des rendez-vous. Une fois la carte créée, une carte jumelle sera créée dans les cartes de rendez-vous. Le nombre de crédit des deux cartes sera lié. A l’achat de l’une des deux cartes, l’autre sera automatiquement ajoutée au membre (sans frais supplémentaire).',
-        deativatedTags: 'Désactivé pour les cartes universelles',
+          'Universal passes may be used for group activities and appointments. Twin appointment passes are created for every universal pass to link the number of credits. Once one of these passes has been purchased, the other will be automatically added without any additional costs.',
+        warningIsUniversalPass:
+          'Twin appointment passes are automatically created for a universal pass. All fields modified here will also be edited on the twin passes, except the categories. This also applies to notifications, validity extensions, and credit changes.',
       },
       highlightedAsRecommended: {
-        label: 'Marquer comme recommandé',
-        helperText: "Permet à vos clients de voir d'un coup d'oeil quelles cartes de cours sont actuellement recommandées.",
+        label: 'Mark as recommended',
+        helperText:
+          'Allows your customers to quickly see which passes are currently recommended.',
       },
     },
-  },
-  listItem: {
-    unusableByStaff: 'Invisible pour le staff',
   },
   details: {
-    pleaseSelectAPack: 'Sélectionnez une carte pour voir le détails',
-    shareAPass: 'Partager une carte de cours',
-    invoiceTitle: 'Facture associée',
-    refundTitle: 'Remboursement associé',
-    bookingsTitle: 'Réservations associées',
-    extensionsTitle: 'Extensions de validité',
-    trackModifiedCreditTitle: 'Historique des crédits modifiés',
-    penaltyTitle: 'Pénalités appliquées',
-    penaltyBlock: 'Carte bloquée pendant {{nb_days}} jours',
+    pleaseSelectAPack: 'Select a pass for a more detailed overview.',
+    shareAPass: 'Share a pass',
+    invoiceTitle: 'Associated invoice',
+    bookingsTitle: 'Associated bookings',
+    extensionsTitle: 'Validity extension',
+    refundTitle: 'Associated reimbursement',
+    trackModifiedCreditTitle: 'History',
     penaltyAccount:
-      'Facturation supplémentaire de {{account_value}} {{currencyDisplay }}',
+      'Additional billing of {{account_value}} {{currencyDisplay }}',
+    penaltyBlock: 'This pass is blocked for {{nb_days}} day(s).',
+    penaltyTitle: 'Penalties applied',
   },
-  penalty: {
-    title: "Politique d'annulation",
-    block:
-      '{{days_blocked}} jours de blocage après {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours',
-    account:
-      'Un acompte de {{account_value}} sera appliqué pour {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours.',
+  newMemberOnly: 'Only available for new members (with no payments)',
+  publicPacksTitle: 'Available passes',
+  privatePacksTitle: 'Unavailable passes',
+  subscribeToOffer: 'Register',
+  use: 'Use',
+  isNonCompatible: 'non-compatible',
+  createOrUpdate: {
+    success: 'Pass successfully saved',
+    fail: 'Error: pass would not be saved',
   },
-  noShowPenalty: {
-    block:
-      '{{days_blocked}} jours de blocage après {{treshold}} absences sur une période de {{time_window_days}} jours',
-    account:
-      'Un acompte de {{amount}} sera appliqué pour {{treshold}} absences sur une période de {{time_window_days}} jours.',
-  },
-  newMemberOnly: 'Disponible uniquement pour les nouveaux inscrits',
-  only_vod_access: 'Disponible uniquement pour la VOD',
-  publicPacksTitle: 'Cartes disponibles à la vente',
-  privatePacksTitle: 'Cartes non disponibles à la vente',
-  disabledPacksTitle: 'Cartes archivées',
-  subscribeToOffer: 'Inscrire',
-  use: 'Utiliser',
-  isNonCompatible: 'incompatible',
-  paymentPackDisabled: {
-    success: 'Carte de cours supprimée',
-    error: 'Impossible de supprimer',
-  },
-  addPaymentPack: {
-    penalityModeFranchisor: {
-      label: "Application de l'acompte",
-      prorata: {
-        label: 'Au prorata, par franchisé, des annulations hors-délai',
-        explain:
-          "L'acompte de {{ price }} sera appliqué au prorata des annulations hors-délai enregistrées chez chacun de vos franchisés. Un total de {{ price }} sera facturé sur votre franchise.",
-      },
-      prorataNoShow: {
-        label: 'Au prorata, par franchisé, des absences (no show)',
-        explain:
-          "L'acompte de {{ price }} sera appliqué au prorata des absences (no show) enregistrées chez chacun de vos franchisés. Un total de {{ price }} sera facturé sur votre franchise.",
-      },
-      buyer: {
-        label: 'Au franchisé qui a facturé la carte',
-        explain:
-          "L'acompte de {{ price }} sera appliqué uniquement chez le franchisé dans lequel la carte a été initialement facturé.",
-      },
-    },
-    requiredField: 'Ce champ est requis',
-    startAfterEnd: 'L’heure de début doit être inférieure à l’heure de fin',
-    atLeastOneDay: 'Au moins un jour doit être choisi',
-    minusZero: 'ce champ ne peut ếtre égal à 0',
-    paymentPack: 'Carte de cours',
-    generalInfo: 'Informations générales',
-    name: 'Nom',
-    namePaymentPack: 'Nom de la carte de cours',
-    description: 'Description',
-    numberOfCredit: 'Nombre de crédits',
-    limited: 'Limité',
-    unlimited: 'Illimité',
-    credit: 'Crédit',
-    numberOfAvailableCredits: 'Nombre de crédits disponible',
-    packValidity: 'Validité de la carte',
-    penality:
-      'Appliquer une pénalite en cas d’annulations hors délai trop nombreuses',
-    penalityRule:
-      'Vous pouvez appliquer une pénalité uniquement si le nombre de crédits est illimité',
-    availabilityGivenNumber:
-      'Rendre la carte valide uniquement un certain nombre de jours (après la date d’achat)',
-    availabilitySlot:
-      'Rendre la carte valide uniquement sur un créneau de dates',
-    fromDate: 'À partir du',
-    toDate: 'Jusqu’au',
-    endBeforeStart: 'La date de fin ne peut être supérieur à la date de début',
-    dayValidity: 'Durée de validité en jours',
-    monthValidity: 'Durée de validité en mois',
-    yearValidity: 'Durée de validité en années',
-    monthValidityHelper: 'S’ajoute au nombre de jours',
-    yearValidityHelper: 'S’ajoute au nombre de jours et de mois',
-    validForDuration: {
-      year: 'Cette carte sera valide pendant {{ duration_year }} ans, {{ duration_month }} mois et {{ duration_day }} jours',
-      yearNoDay:
-        'Cette carte sera valide pendant {{ duration_year }} ans et {{ duration_month }} mois',
-      yearDayNoMonth:
-        'Cette carte sera valide pendant {{ duration_year }} ans et {{ duration_day }} jours',
-      yearNoDayNoMonth:
-        'Cette carte sera valide pendant {{ duration_year }} ans',
-      month:
-        'Cette carte sera valide pendant {{ duration_month }} mois et {{ duration_day }} jours',
-      monthNoDay: 'Cette carte sera valide pendant {{ duration_month }} mois',
-      day: 'Cette carte sera valide pendant {{ duration_day }} jours',
-    },
-    franchise:
-      'Cette carte est une carte partagée par le compte franchiseur. Certains éléments ont été définis par le compte franchiseur et ne sont pas modifiables',
-    migration:
-      "Cette carte de cours est issue d'une migration, certains champs ne sont pas modifiable pour respecter l'historique. Les activités/catégories compatibles restent modifiables.",
-    creditWarning:
-      'Si vous modifiez le nombre de crédits, toutes les cartes existantes seront affectées.',
-    billing: 'À la facturation',
-    firstBooking: 'À la première réservation',
-    attendance: 'À la première présence',
-    beginningDate: 'Date de début',
-    expirationDate: 'Expiration si aucune réservation initiale',
-    expirationDateHelper:
-      "Si la carte de cours n'est pas consommée une première fois pendant ce nombre de jour, elle est rendue invalide",
-    marginalContribution: 'Apport marginal théorique TTC',
-    marginalContributionHelperText:
-      'Utilisé pour calculer la rémunération des professeurs. 10{{ currencyDisplay }} signifie qu’une réservation faite avec cette carte est rémunérée 10{{ currencyDisplay }}. Si vide ou 0{{ currencyDisplay }} l’apport d’une carte sera PRIX/NB_RESERVATION',
-    penalityNumberCancel: 'Nombre d’annulations',
-    penalityNumberDay: 'Nombre de jours',
-    penalityInfo:
-      'Une pénalité sera appliquée s’il y a {{penalityNumberCancel}} annulation hors délai sur une période de {{penalityNumberDay}} jours',
-    penalityBlock: 'Bloquer temporairement la carte de cours',
-    penalityAccount: 'Créer un acompte pour le membre concerné',
-    penalityType: 'Type de pénalité à appliquer',
-    penalityBlockDay: 'Période de blocage de la carte (en jours)',
-    penalityAccountPrice: 'Montant de l’acompte',
-    penalityBlockDayHelper:
-      'La carte du membre concerné sera bloquée pendant {{penalityBlockDay}} jours',
-    penalityAccountHelper:
-      'Un acompte de {{penalityBlockAccount}}{{ currencyDisplay }} sera appliqué pour ce membre',
-    restriction: 'Restrictions',
-    maxUseDay: 'Utilisations maximum par jour',
-    maxUseHelper: 'Laisser vide pour ne pas imposer de limite',
-    maxUseWeek: 'Utilisations maximum par semaine',
-    maxUseMonth: 'Utilisations maximum par mois',
-    maxUseMember: 'Achat maximum par membre',
-    newClientOnly: 'Uniquement pour les nouveaux clients',
-    notForSell: 'Invisible pour les clients',
-    inShopPayment: 'Possibilité de payer sur place',
-    unusableByStaff: 'Invisible pour le staff',
-    categories: 'Catégories',
-    room: 'Salles',
-    activities: 'Activités',
-    letBlank: 'Laisser vide pour tout autoriser',
-    compatibility:
-      'Votre carte sera compatible uniquement avec les séances correspondantes à l’une des catégories sélectionnées ET l’une des salles sélectionnées ET l’une des activités sélectionnées',
-    vod: 'VOD',
-    vodAccessCard: 'Donne l’accès à la VOD',
-    only_vod_access:
-      'Restreindre l’utilisation de la carte à de la VOD uniquement',
-    sumNotZero: 'le nombre de jour final ne peut être nul',
-    allowGuest: 'Compatible avec la réservation pour un invité',
-    expiration_date: {
-      label: "Date limite d'achat",
-      helperText: 'Disponible jusqu’au',
-      tooltip:
-        'Passée la date choisie, la carte n’apparaîtra plus à la vente pour les clients.',
-    },
-    offPeak: {
-      label: 'Réservations possibles sur certains créneaux horaires',
-      choice: { timeSlot: 'Créneaux horaires', allDay: 'Toute la journée' },
-      addTimeSlot: 'Ajouter un créneau horaire',
-      addGroupTimeSlot: 'Ajouter un groupe de créneaux horaires',
-    },
-  },
-  disabled: 'Désactivé',
-  disableConsumer: 'Bloquer',
-  enableConsumer: 'Débloquer',
-  maxNBookingsByWeek1: "Jusqu'à ",
-  maxNBookingsByWeek2: ' réservations par semaine',
-  maxNBookingsByMonth2: ' réservations par mois',
-  validity: 'Valide du ',
-  validityTo: ' au ',
+  disableConsumer: 'Block',
+  enableConsumer: 'Unblock',
+  credit: { updated: 'Changes saved' },
   consumer: {
-    isFromShare: 'Partagé depuis un autre compte',
-    isOwnerOfShares: 'Partagé (carte de cours maître)',
-    isFromDisabledShare: 'Partage arrété',
-    expiresOn: 'Expire le ',
-    bookingsThisWeek: 'réservation(s) cette semaine',
+    isFromShare: 'Shared from another account',
+    isOwnerOfShares: 'Shared (Master Pass)',
+    isFromDisabledShare: 'Sharing stopped',
+    expiresOn: 'Expires on ',
+    bookingsThisWeek: 'réservations cette semaine',
   },
-  validForDuration: {
-    valid: 'Valide ',
-    validFor: 'pendant ',
-    days: '{{ count }} jour',
-    days_plural: '{{ count }} jours',
-    months: '{{ count }} mois',
-    daysMonths: '{{ duration_months }} mois et {{ duration_days }} jours',
-    years: '{{ count }} an',
-    years_plural: '{{ count }} ans',
-    purchase: 'à partir de la date de facturation',
-    booking: 'à partir de la première réservation',
-    attendance: 'à partir de la première présence',
-    and: ' et ',
-  },
-  validForNdays1: 'Valide ',
-  validForNdays2: ' jours après achat',
-  validFrom: 'Valide du ',
-  validTo: ' au ',
-  bookingsLeftThisWeek: 'Réservation max par semaine',
-  // eslint-disable-next-line
-  addButton: 'Créer une carte',
-  noPaymentPackSubscribed: 'Aucun abonnement',
-  // eslint-disable-next-line
-  validUntil: "Valide jusqu'au",
-  expirationDate: 'Expire au',
-  never: 'Jamais',
-  unlimitedCredits: 'Illimité',
-  unlimitedPlural: 'Illimités',
-  unlimitedAndMargin: ' - Apport marginal théorique de ',
-  unlimitedAndCalculatedMargin:
-    ' - Apport marginal théorique calculé : prix / nb_réservations ',
-  credits: 'Crédit',
-  credits_plural: 'Crédits',
-  ht: 'Hors taxe',
-  specifications: {
-    nbCredits: '{{credits}} crédit',
-    nbCredits_plural: '{{credits}} crédits',
-    unlimitedCredits: 'Illimité',
-  },
-  availableOnFollowingSports: 'Catégories éligibles : ',
-  availableOnFollowingEstablishments: 'Salles éligibles : ',
-  anySport: 'Toute catégorie',
-  availableOnFollowingActivities: 'Activités éligibles : ',
-  anyActivity: 'Toute activité',
-  boughtConsumerPaymentPacks: 'Abonnés',
+  maxNBookingsByWeek1: 'Max ',
+  maxNBookingsByWeek2: ' bookings per week',
+  validity: 'Valid from ',
+  validForNdays1: 'Valid for ',
+  validForNdays2: ' day(s) after purchase',
+  validFrom: 'Valid from ',
+  validTo: ' to ',
+  bookingsLeftThisWeek: 'Max bookings per week',
+  addButton: 'Add a pass',
+  noPaymentPackSubscribed: 'No pass subscribed',
+  validUntil: 'Valid until',
+  expirationDate: 'Expiration date',
+  never: 'Never',
+  unlimitedCredits: 'Unlimited',
+  credits: 'Credit',
+  credits_plural: 'Credits',
+  availableOnFollowingSports: 'Available on following categories: ',
+  availableOnFollowingEstablishments: 'Available on following establishments: ',
+  anySport: 'Any category',
+  availableOnFollowingActivities: 'Available on following activities: ',
+  anyActivity: 'Any activity',
+  boughtConsumerPaymentPacks: 'Subscribers',
   noRestrictionOnActivityType:
-    'Toutes les activités sont compatibles avec cette carte',
-  credit: {
-    updated: 'Crédits mis à jour',
-  },
-  noConsumerPack: 'Aucun achat enregistré',
-  reverted: 'Facture annulée',
+    'All categories, activities, and establishments are compatible with this pass.',
+  disabled: 'Disabled',
+  noConsumerPack: 'There are no members with this pass to display.',
+  reverted: 'Invoice reverted',
   link: {
-    copied: 'Lien copié',
-    copyLink: 'Copier le lien vers la page de paiement',
+    copied: 'Link copied',
+    copyLink: 'Copy the direct link to the payment page',
   },
-  notificationForm: 'Formulaire notification',
+  actions: {
+    delete: 'Delete',
+    edit: 'Edit',
+    scaleCredit: 'Mult / div credits',
+    massExtension: 'Extend validity',
+    close: 'Close',
+  },
+  specifications: {
+    price: '{{ price, price }}',
+    unlimitedCredits: 'Unlimited',
+    nbCredits: '{{credits}} credit',
+    nbCredits_plural: '{{credits}} credits',
+  },
+  ht: 'Excl. VAT / Sales Tax',
+  validForDuration: {
+    general:
+      'Valid for {{ duration_days }} day(s), {{ duration_months }} month(s), and/or {{ duration_years }} year(s).',
+    years: '{{ count }} year',
+    years_plural: '{{ count }} years',
+    months: '{{ count }} month(s)',
+    days: '{{ count }} day',
+    days_plural: '{{ count }} days',
+    and: ' and ',
+    attendance: 'Valid from the 1st attendance',
+    booking: 'Valid from the 1st booking',
+    purchase: 'Valid from the billing date',
+    daysMonths: '{{ duration_months }} month(s) and {{ duration_days }} day(s)',
+    valid: 'Validity: ',
+    validFor: 'for ',
+  },
+  paymentPackDisabled: {
+    error: 'Impossible to delete',
+    success: 'Pass deleted',
+  },
+  scaleCredit: {
+    actions: { submit: 'Save', cancel: 'Cancel' },
+    factor: { label: 'Scale factor' },
+    scaleUp: 'Multiply',
+    scaleDown: 'Divide',
+    parameterLegend: 'Settings',
+    explain:
+      'You can multiply the credit on the card (3/7 x2 becomes 6/14) or divide them in case of error (3/7 ÷ 2 becomes 1/3): rounded down.',
+    title: '[Form] Changing credits',
+  },
+  notificationForm: 'Notification form',
+  noPaymentPack:
+    'Members need a valid pass to book your group activities and workshops.',
   disabledPacks: {
-    show: 'Afficher les cartes archivées',
-    hide: 'Masquer les cartes archivées',
+    hide: 'Hide archived passes',
+    show: 'See the archived passes',
   },
-  blockedCpp: 'Carte bloquée du {{-blocked_from}} au {{-blocked_until}}',
+  disabledPacksTitle: 'Archived passes',
+  filters: {
+    hasCreditNull: 'Without credits',
+    hasCreditLeft: 'With credits',
+    isActive: 'Active',
+    isExpired: 'Expired',
+    invoice: 'Invoices',
+    reverted: 'Cancelled invoices',
+    notReverted: 'Valid invoices',
+    credits: 'Credits',
+    expiration: 'Validity',
+    all: 'All passes',
+    isValidToday: 'Valid',
+  },
+  multipleBookingTooltip: 'Multiple bookings',
+  maxNBookingsByMonth2: ' bookings per month',
+  blockedCpp: 'Card blocked from {{-blocked_from}} to {{-blocked_until}}',
+  penalty: {
+    account:
+      'A penalty of {{account_value}} will be applied if {{nb_cancellations}} late cancellation(s) are registered within {{nb_days}} day(s).',
+    block:
+      'This pass will be blocked for {{days_blocked}} day(s) if {{nb_cancellations}} late cancellation(s) are registered within {{nb_days}} day(s).',
+    title: 'Cancellation policy',
+  },
+  only_vod_access: 'Only for Video On Demand',
   massExtension: {
+    listItemNbDays: '+{{nbDays}} days',
+    createdAt: 'Added the {{date}}',
+    listItemDate: 'Expiring between the {{ minDate }} and the {{ maxDate }}',
+    cancel: 'Cancel',
+    submit: 'Validate',
+    title: 'Extend the validity for all members',
+    maxDate: 'The latest the',
+    minDate: 'The soonest the',
+    dateHelpText: 'Only extend the passes expiring between the',
     helpText:
-      'Vous pouvez ici étendre toutes les cartes de cours de vos membres. Cette opération est réversible.',
-    dateHelpText: "N'étendre que les cartes de cours expirant entre le",
-    minDate: 'Au plus tôt le',
-    maxDate: 'Au plus tard le',
-    title: 'Ajouter une extension à tous les membres',
-    submit: 'Valider',
-    cancel: 'Annuler',
-    listItemDate: 'Expirant entre le {{ minDate }} et le {{ maxDate }}',
-    createdAt: 'Ajouté le {{date}}',
-    listItemNbDays: '+{{nbDays}} jours',
+      'You are about to extend all the validity of your members passes. Beware, this operation can not be reverted.',
   },
-  detailTitles: {
-    credit_quantity: 'Nombre de crédits',
-    validity: 'Validité',
-    compatibility: 'Compatibilité',
-    compatibilityPaymentPack: 'Compatibilité cours collectifs',
-    accessibility: 'Accessibilité',
-    tags: 'Tags',
-    restrictions: 'Restrictions',
-    vod: 'VOD',
-    universalPass: 'Carte universelle',
-    offPeak: 'Créneaux horaires',
-  },
-  cardDetails: {
-    maxBookingPerMonth: 'Utilisations maximum par mois : ',
-    maxBookingPerWeek: 'Utilisations maximum par semaine : ',
-    maxBookingPerDay: 'Utilisations maximum par jour : ',
-    maxPurchasePerMember: "Nombre d'achats maximum : ",
-    packBlocking1: ' jours de blocages après ',
-    packBlocking2: ' annulations hors-délais sur une semaine',
-    universalPass: 'Compatible avec les cours collectifs et RDV.',
-  },
-  selector: {
-    sorting: {
-      customSort: 'Ordre côté client (marketplace et app)',
-      ascendingPrice: 'Prix croissant',
-      descendingPrice: 'Prix décroissant',
-      ascendingCredit: 'Crédit croissant',
-      descendingCredit: 'Crédit décroissant',
-    },
-    titleCategory: 'Catégories',
-    titleManagerOnly: 'Disponibilité à la vente',
-    titleSort: 'Trier',
-    filterCategory: 'Toutes les catégories',
-    filterManagerOnly: 'Toutes les disponibilités',
-    managerOnly: 'Invisible pour les clients',
-    noManagerOnly: 'Disponible à la vente',
-    unusableByStaff: 'Invisible pour le staff',
-    noAvailable: 'Aucune carte correspondant aux disponibilités choisies',
-  },
+  section: { massExtension: 'Extension' },
   category: {
-    category: 'Catégories de cartes de cours',
-    add: 'Ajouter une categorie',
+    add: 'Add a category',
+    popover: { delete: 'Delete', edit: 'Rename' },
+    deleteModal: {
+      title: 'Deletion',
+      content:
+        'Are you sure you want to delete this category? All items in it will be placed in the uncategorized course cards section',
+      cancel: 'Cancel',
+      confirm: 'Confirm',
+    },
     form: {
       dialog: {
-        name: 'Nom de la catégorie',
-        titleNew: 'Nouvelle catégorie',
-        titleEdit: 'Catégorie',
+        name: 'Name of the category',
+        titleNew: 'New category',
+        titleEdit: 'Category',
         helper:
-          'Les catégories apparaitront sur la marketplace et l’application mobile pour les cartes disponibles à la vente.',
-        cancel: 'Annuler',
-        create: 'Créer',
-        update: 'Renommer',
+          'The categories will appear on the marketplace and the mobile application for cards available for sale.',
+        update: 'Rename',
+        create: 'Add',
+        cancel: 'Cancel',
       },
     },
-    popover: {
-      edit: 'Renommer',
-      delete: 'Supprimer',
-    },
-    deleteModal: {
-      title: 'Suppression',
-      content:
-        "Êtes-vous sûr de vouloir supprimer cette catégorie ? Tous les éléments qu'elle contient seront placés dans la section des cartes de cours non catégorisées",
-      cancel: 'Annuler',
-      confirm: 'Confirmer',
-    },
+    category: 'Pass categories',
   },
   noCategory: {
-    help: 'Ces passes apparaîtront dans une catégorie sans nom sur la marketplace',
-    name: 'Sans catégorie',
-    empty: 'Aucune carte dans cette catégorie',
+    help: 'These passes will appear in an unnamed category on the marketplace.',
+    name: 'No category',
+    empty: 'There are no passes associated with this category to display.',
   },
-  compatibility: {
-    all: 'Compatible avec tout',
-    compatible: 'Compatible avec ',
-    categories: '{{ count }} catégorie',
-    categories_plural: '{{ count }} catégories',
-    activities: '{{ count }} activité',
-    activities_plural: '{{ count }} activités',
-    establishments: '{{ count }} salle',
-    establishments_plural: '{{ count }} salles',
-    and: ' et ',
+  paymentPackTemplate: {
+    specification: {
+      companySharedWithTitle: 'Shared with the following studios:',
+    },
+    actions: { create: 'Add a shared pass' },
+    deleteForm: {
+      actions: { submit: 'Disable sharing', close: 'Close' },
+      content:
+        'Members will still be able to use a pass, of which the sharing has been deactivated, at the studio of purchase.',
+      title: 'Deactivation',
+    },
+    form: {
+      actions: { submit: 'Save', close: 'Close' },
+      submit: 'Save',
+      close: 'Close',
+      title: '[Form] Shared pass',
+    },
+    section: {
+      titleManagerOnly: 'Not available for purchase',
+      titleAvailable: 'Available for purchase',
+    },
+    isEmptyExplain:
+      'Members can purchase and use this pass at any of the associated studios.',
+    widget: { choose: 'Select the desired passes for sharing' },
+    pass: 'Passes',
   },
-  seeAll: 'Tout voir',
-  full_vod: 'Valable pour la VOD',
-  tags: {
-    whiteList: '{{ count }} tag autorisé',
-    whiteList_plural: '{{ count }} tags autorisés',
-    blackList: '{{ count }} tag non-autorisé',
-    blackList_plural: '{{ count }} tags non-autorisés',
+  paymentPackTemplateInstance: {
+    actions: { addCompany: 'Add a studio', buy: 'Purchase' },
+    companyEmpty: 'No studios have been configured with this pass',
+    deleteForm: {
+      actions: { submit: 'Disable sharing', close: 'Close' },
+      content:
+        "Members that've bought a pass at this studio will still be able to use this pass at other compatible studios, even after this specific studio has been deactivated. Other shared passes will no longer be useable at the deactivated studio.",
+      title: 'Deactivation',
+    },
+    form: {
+      actions: { submit: 'Save', close: 'Close' },
+      explain2:
+        'Members that have bought this pass may use the pass at any of the compatible studios.',
+      explain1:
+        "The following studios will automatically offer this pass, but won't be able to modify the price or the number of credits.",
+      title: 'Availability',
+    },
+    consumerPaymentPackSharedFromOtherFranchisee: 'Shared with a studio',
+    paymentPackSharedFromFranchisor: 'Master Account Pass',
   },
+  selector: {
+    noAvailable: 'There are no compatible passes to display.',
+    noManagerOnly: 'Available for purchase',
+    managerOnly: 'Invisible to customers',
+    filterManagerOnly: 'All availabilities',
+    filterCategory: 'All categories',
+    titleSort: 'Sort',
+    titleManagerOnly: 'Available for purchase',
+    titleCategory: 'Categories',
+    sorting: {
+      descendingCredit: 'Credits: descending',
+      ascendingCredit: 'Credits: ascending',
+      descendingPrice: 'Price: descending',
+      ascendingPrice: 'Price: ascending',
+      customSort: 'Additional orders (MarketPlace and App)',
+    },
+    unusableByStaff: 'Invisible for the staff',
+  },
+  noUnauthorizedTag: 'There are no refused tags to display.',
+  noAuthorizedTag: 'There are no authorized tags to display.',
+  blackList: 'Refused tags',
+  whiteList: 'Approved tags',
+  activities: 'Activities',
+  categories: 'Categories',
+  establishments: 'Establishments',
   accessibility: {
-    newMembers: 'Uniquement pour les nouveaux clients',
-    managerOnly: 'Invisible à la vente',
-    onsitePayment: 'Paiement sur place autorisé',
+    onsitePayment: 'Enable in-studio payments',
+    managerOnly: 'Unavailable for purchase',
+    newMembers: 'Only available for new customers',
   },
-  establishments: 'Salles',
-  categories: 'Catégories',
-  activities: 'Activités',
-  whiteList: 'Tags autorisés',
-  blackList: 'Tags non autorisés',
-  noAuthorizedTag: 'Aucun tag autorisé',
-  noUnauthorizedTag: 'Aucun tag non autorisé',
-  universalPass: {
-    delete: {
-      dialog: {
-        title: 'Suppresion de la carte',
-        warningText:
-          'Attention ! Cette carte est une carte universelle, si vous la supprimez sa carte jumelle sera elle aussi supprimée.',
+  tags: {
+    blackList: '{{ count }} refused tag',
+    blackList_plural: '{{ count }} refused tags',
+    whiteList: '{{ count }} approved tag',
+    whiteList_plural: '{{ count }} approved tags',
+  },
+  full_vod: 'Provides access to Video On Demand',
+  seeAll: 'Show all',
+  compatibility: {
+    and: ' and ',
+    establishments: '{{ count }} establishment',
+    establishments_plural: '{{ count }} establishments',
+    activities: '{{ count }} activity',
+    activities_plural: '{{ count }} activities',
+    categories: '{{ count }} categorie',
+    categories_plural: '{{ count }} categories',
+    compatible: 'Compatible with ',
+    all: 'This pass is compatible with all categories, activities, and establishments.',
+  },
+  cardDetails: {
+    packBlocking2: ' late cancellation(s) within a week',
+    packBlocking1: ' day(s) blocked after ',
+    maxPurchasePerMember: 'Maximum number of purchases: ',
+    maxBookingPerDay: 'Maximum usage per day: ',
+    maxBookingPerWeek: 'Maximum usage per week: ',
+    maxBookingPerMonth: 'Maximum usage per month: ',
+    universalPass:
+      'Universal passes may be used for group activities and appointments.',
+  },
+  detailTitles: {
+    vod: 'Video On Demand',
+    restrictions: 'Restrictions',
+    tags: 'Tags',
+    accessibility: 'Accessibility',
+    compatibility: 'Compatibility',
+    validity: 'Validity',
+    credit_quantity: 'Credits',
+    universalPass: 'Universal pass',
+    compatibilityPaymentPack: 'Compatibility for group activities',
+    offPeak: 'Time slots',
+  },
+  unlimitedAndCalculatedMargin:
+    ' The marginal value per booking is calculate as PRICE / NUMBER Of BOOKINGS ',
+  unlimitedAndMargin: ' The marginal value per booking is ',
+  validityTo: ' until ',
+  unlimitedPlural: 'Unlimited',
+  addPaymentPack: {
+    sumNotZero: "The final number of days can't be 0",
+    only_vod_access: 'Restrict usage to Video On Demand',
+    vodAccessCard: 'Enable access to Video On Demand',
+    vod: 'Video On Demand',
+    compatibility:
+      'This pass will only be compatible with the selected sessions, activities, categories, and/or establishments.',
+    letBlank: 'Leave this field empty to implement no restrictions',
+    activities: 'Activities',
+    room: 'Establishments',
+    categories: 'Categories',
+    inShopPayment: 'Enable on-site payments',
+    notForSell: 'Invisible to customers',
+    newClientOnly: 'Only available to new members',
+    maxUseMember: 'Maximum purchases per member',
+    maxUseMonth: 'Maximum usage per month',
+    maxUseWeek: 'Maximum usage per week',
+    maxUseHelper: 'Leave blank to not set a limit',
+    maxUseDay: 'Maximum usage per day',
+    restriction: 'Restrictions',
+    penalityAccountHelper:
+      "Members' account balance will be charged {{ currencyDisplay }}{{penalityBlockAccount}}.",
+    penalityBlockDayHelper:
+      "Members' passes will be blocked for {{penalityBlockDay}} day(s).",
+    penalityAccountPrice: 'Amount to charge',
+    penalityBlockDay: 'Blocking period (in days)',
+    penalityType: 'Penalty settings',
+    penalityAccount: "Charge the member's account balance",
+    penalityBlock: 'Temporarily block the pass',
+    penalityInfo:
+      'A penalty will be applied if {{penalityNumberCancel}} late cancellation(s) are registered within {{penalityNumberDay}} day(s).',
+    penalityNumberDay: 'Number of days',
+    penalityNumberCancel: 'Number of cancellations',
+    marginalContributionHelperText:
+      'This is used to calculate the payroll of the teachers. Example: {{ currencyDisplay }}10 for 1 booking means that the teacher will be paid {{ currencyDisplay }}10.  When left empty, the marginal value will be calculated as PRICE / NUMBER OF BOOKINGS.',
+    marginalContribution: 'Theoretical marginal value incl. VAT',
+    expirationDateHelper:
+      "If the pass hasn't been used during this set number of days, it'll automatically expire.",
+    expirationDate:
+      'Amount of days in which the pass expires if no booking is made',
+    beginningDate: 'Start date',
+    attendance: 'Valid from the 1st attendance',
+    firstBooking: 'Valid from the 1st booking',
+    billing: 'Valid from the billing date',
+    validForDuration: {
+      day: 'This pass will be available for {{ duration_day }} day(s).',
+      month:
+        'This pass will be available for {{ duration_day }} day(s) and {{ duration_month }} month(s).',
+      year: 'This pass will be valid for {{ duration_day }} day(s), {{ duration_month }} month(s), and {{ duration_year }} year(s).',
+      monthNoDay: 'This pass will be valid for {{ duration_month }} month(s).',
+      yearNoDayNoMonth:
+        'This pass will be valid for {{ duration_year }} year(s).',
+      yearDayNoMonth:
+        'This pass will be valid for {{ duration_day }} day(s) and {{ duration_year }} year(s).',
+      yearNoDay:
+        'This pass will be valid for {{ duration_month }} month(s) and {{ duration_year }} year(s).',
+    },
+    yearValidityHelper: 'This will be added to the number of days and months',
+    monthValidityHelper: 'This will be added to the number of days',
+    yearValidity: 'Validity (in years)',
+    monthValidity: 'Validity (in months)',
+    dayValidity: 'Validity (in days)',
+    endBeforeStart: 'The end date must be greater than the start date',
+    toDate: 'Until',
+    fromDate: 'From',
+    availabilitySlot: 'Make this pass valid during a certain time period',
+    availabilityGivenNumber:
+      'Make this pass valid for a set number of days after the purchase date',
+    penalityRule: 'This penalty can only be applied to unlimited passes',
+    penality: 'Apply a penalty for too many late cancellations',
+    packValidity: 'Validity',
+    numberOfAvailableCredits: 'Number of available credits',
+    credit: 'Credit',
+    unlimited: 'Unlimited',
+    limited: 'Limited',
+    numberOfCredit: 'Number of credits',
+    namePaymentPack: 'Name of the pass',
+    name: 'Name',
+    generalInfo: 'General',
+    paymentPack: 'Pass',
+    minusZero: "This field can't be 0",
+    requiredField: 'This field is mandatory',
+    creditWarning:
+      'Attention: all passes will be edited if the number of credits is changed.',
+    migration:
+      'This pass originates from a previously completed data migration. Some fields may not editable to preserve the data. Compatible activities/categories can still be modified.',
+    franchise:
+      "The pass is shared through the Master Account. Certain settings have been predefined by said Master Account and can't be modified.",
+    allowGuest: 'Compatible with the booking for a guest feature',
+    penalityModeFranchisor: {
+      buyer: {
+        explain:
+          'The member account balance will be charged with {{ price }} only on the franchisee in which the pass has been purchased.',
+        label: 'On the franchisee who invoiced the pass',
+      },
+      prorata: {
+        explain:
+          'The member account balance will be charged with {{ price }} in proportion to the late cancelations registered in each franchisee. A total amount of {{ price }} will be charged on the franchise level.',
+        label: 'In proportion to late cancelations in each franchisee',
+      },
+      label: 'Member account balance will be charged',
+      prorataNoShow: {
+        explain:
+          'The {{ price }} fine will be applied pro rata to the no-shows recorded for each of your franchisees. A total of {{ price }} will be charged.',
+        label: 'Pro rata, per franchisee, of no shows',
       },
     },
+    unusableByStaff: 'Invisible for the staff',
+    expiration_date: {
+      label: 'Date limit for purchase',
+      helperText: 'Available until',
+      tooltip:
+        'After chosen date, the pack will not be available for sale anymore, for the customers.',
+    },
+    description: 'Description',
+    offPeak: {
+      label: 'Limit bookings to certain time slots',
+      addGroupTimeSlot: 'Add a group of time slots',
+      addTimeSlot: 'Add a time slot',
+      choice: { allDay: 'All day', timeSlot: 'Time slots' },
+    },
+    atLeastOneDay: 'At least one day must be selected',
+    startAfterEnd: 'Start time must be less than end time',
+  },
+  universalPass: {
     restore: {
       dialog: {
-        title: 'Désarchiver',
-        text: 'Cette carte est une carte universelle, sa carte jumelle a elle aussi été désarchivée.',
-        continue: 'Continuer',
+        continue: 'Continue',
+        text: "This universal pass' twin passes have also been unarchived.",
+        title: 'Unarchive',
+      },
+    },
+    delete: {
+      dialog: {
+        warningText:
+          'Attention! Deleting a universal pass will also delete its twin passes.',
+        title: 'Delete pass',
       },
     },
   },
-  next: 'Suivant',
-  previous: 'Précédent',
+  previous: 'Previous',
+  next: 'Next',
   maxoutInfo: {
-    day: 'Carte limitée à {{count}} utilisation maximum par jour',
-    day_plural: 'Carte limitée à {{count}} utilisations maximum par jour',
-    week: 'Carte limitée à {{count}} utilisation maximum par semaine',
-    week_plural: 'Carte limitée à {{count}} utilisations maximum par semaine',
-    month: 'Carte limitée à {{count}} utilisation maximum par mois',
-    month_plural: 'Carte limitée à {{count}} utilisations maximum par mois',
+    month: 'This pass can be used {{count}} time per month',
+    month_plural: 'This pass can be used {{count}} times per month',
+    week: 'This pass can be used {{count}} time per week',
+    week_plural: 'This pass can be used {{count}} times per week',
+    day: 'This pass can be used {{count}} time per day',
+    day_plural: 'This pass can be used {{count}} times per day',
   },
   incompatibilities: {
-    paymentPack:
-      "Carte configurée comme incompatible avec l'activité en question :",
     [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_ACTIVITY_INCOMPATIBLE]:
-      'Activité non compatible',
-    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_SCT_INCOMPATIBLE]:
-      'Catégorie non compatible',
+      'Incompatible activity',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_SCT_INCOMPATIBLE]: 'Incompatible category',
     [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_ESTABLISHMENT_INCOMPATIBLE]:
-      'Etablissement non compatible',
-    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_ENOUGH_CREDIT]:
-      'Nombre de crédits insuffisant',
-    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_DISABLED]: 'La carte est bloquée',
+      'Incompatible establishment',
+    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_ENOUGH_CREDIT]: 'Insufficient credits',
+    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_DISABLED]: 'The pass is blocked',
     [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_DATES_NOT_COMPATIBLE]:
-      'Les dates sont incompatibles',
-    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_HAS_EXPIRED]: 'La carte est expirée',
+      'The dates are incompatible',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_HAS_EXPIRED]: 'The pass has expired',
     [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_LATER_FIRST_BOOKING]:
-      'La carte commence à la première réservation, le ',
+      'The pass starts at the first booking, le ',
     [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_LATER_FIRST_ATTENDANCE]:
-      'La carte commence à la première présence, le ',
+      'The pass starts at the first attendance, le ',
     [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_INCOMPATIBLE_WITH_OFF_PEAK_SCHEDULE]:
-      'Le créneau horaire est incompatible',
+      'Time slot is incompatible',
+    paymentPack: 'Pass set as incompatible with this activity:',
+  },
+  listItem: { unusableByStaff: 'Invisible for the staff' },
+  noShowPenalty: {
+    block:
+      '{{days_blocked}} days blocked after {{treshold}} no shows over a period of {{time_window_days}} days.',
+    account:
+      'A {{amount}} fine will be applied for {{treshold}} no shows over a period of {{time_window_days}} days.',
   },
   orderingAlert: {
-    text: `Toute modification de l'ordre des "Catégories" affectera seulement l'affichage de la page "Cartes de cours" de la marketplace et de l'application. Cette mise à jour n'affectera aucune autre section ou catégorie.`,
-    button: 'Page de personnalisation',
+    button: 'Customisation page',
+    text: 'Any change to the order of the "Categories" will only affect the display of the "Passes" page of the marketplace and the application. This update will not affect any other section or category.',
   },
 };

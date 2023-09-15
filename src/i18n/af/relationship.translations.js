@@ -1,115 +1,131 @@
 exports.default = {
-  connectedAs: {
-    title: 'Me connecter en tant que',
-    info: 'Connectez vous au compte de l’une de vos relations.',
-    wichUser: 'A quel compte souhaitez-vous accéder ?',
-    selectRelation: 'Sélectionner une relation',
-  },
-  relationship: {
-    delete: {
-      content:
-        'Attention cette action est irréversible, les cartes partagées ne seront plus partagées.',
-      cancel: 'Annuler',
-      submit: 'Supprimer',
-      title: 'Suppression relation',
-      whichUser: 'A quel compte souhaitez-vous accéder ?',
-    },
-  },
   member: {
-    item: {
-      edit: 'Modifier',
-      delete: 'Supprimer',
-    },
+    item: { edit: 'Edit', delete: 'Delete' },
     list: {
-      title: 'Relations',
-      isEmpty: "Aucune relation n'a encore été créée",
+      title: 'Relationship',
+      isEmpty: 'There are no relationships to display.',
       pleaseSelectOne:
-        'Sélectionnez une relation pour voir les cartes de cours partagées',
-      actions: {
-        create: 'Ajouter une relation',
-      },
+        'Select a relationship to see more details and to see which passes are shared.',
+      actions: { create: 'Add a relationship' },
     },
     form: {
-      confirm: 'Confirmer',
-      autorization: 'Autoriser {{name_1}} à accèder au compte de {{name_2}}',
+      is: ' is the ',
+      src_name: { placeholder: 'Mother' },
+      dst_name: { placeholder: 'Son' },
+      title: '[Form] Relationship',
+      cancel: 'Cancel',
+      submit: 'Save',
+      shareEmail:
+        'Always send a copy of the emails intended for the relationship',
+      parentalLink: 'Relationship',
+      email: 'Email copy',
+      access: 'Account Access',
       accountInfo:
-        'L’accès au compte permet au membre d’accéder au compte de sa relation depuis son propre compte.',
-      access: 'Accès au compte',
-      email: 'Copie d’email',
-      parentalLink: 'Lien de parenté',
-      is: ' est ',
-      shareEmail: 'Toujours envoyer une copie email',
-      src_name: {
-        placeholder: 'Mère',
-      },
-      dst_name: {
-        placeholder: 'Fils',
-      },
-      title: 'Relation',
-      cancel: 'Annuler',
-      submit: 'Enregistrer',
+        'Sharing account access allows members to access other accounts to which they are connected to as a relationship.',
+      autorization: 'Allow "{{name_1}}" to access the account of "{{name_2}}".',
+      confirm: 'Confirm',
+    },
+    messages: {
+      edit: { success: 'Relationship modified' },
+      create: { success: 'Relationship saved' },
+      createOrUpdate: { error: 'Impossible to save relationship' },
     },
   },
   consumer_payment_pack_links: {
     list: {
-      title: 'Cartes partagées',
-      create: 'Partager une carte de cours',
-      isEmpty: 'Aucun partage de carte',
+      title: 'Shared passes',
+      create: 'Share a pass',
+      isEmpty: 'There are no shared passes to display.',
     },
     form: {
       create: {
-        title: 'Partage de carte',
+        title: 'Share a pass',
         explain:
-          "Cette carte de cours sera partagée entre les deux membres, les crédits sont utilisables par l'un ou par l'autre.",
-        cancel: 'Annuler',
-        previous: 'Précédent',
-        submit: 'Partager',
-        linkButton: 'Partager',
-        noConsumerPackToLink: 'Aucune carte partageable',
-      },
-      unlink: {
-        title: 'Arrêt du partage',
-        explain: 'Le partage sera arrété. La carte maître reste valable',
-        submit: 'Arrêter',
-        cancel: 'Annuler',
+          "This pass is shared with multiple accounts. Every associated account can use this pass' credits.",
+        cancel: 'Cancel',
+        previous: 'Previous',
+        submit: 'Share',
+        noConsumerPackToLink:
+          'There are no passes that can be shared to display.',
+        linkButton: 'Share',
       },
       relink: {
-        title: 'Partager de nouveau',
-        explain: 'Le partage sera de nouveau activé.',
-        submit: 'Partager',
-        cancel: 'Annuler',
+        title: 'Start sharing again',
+        explain:
+          'The sharing of the pass will be reinstated between the members.',
+        submit: 'Share',
+        cancel: 'Cancel',
+      },
+      unlink: {
+        title: 'Stop sharing',
+        explain:
+          'The sharing will be stopped, but the Master Pass will remain usable.',
+        submit: 'Stop',
+        cancel: 'Cancel',
+      },
+    },
+    messages: {
+      create: {
+        success: 'Pass shared',
+        error: 'Impossible to share this pass',
+      },
+      unlink: {
+        success: 'Sharing stopped',
+        error: 'Impossible to delete this sharing',
+      },
+      relink: {
+        success: 'Pass shared',
+        error: 'Impossible to share this pass',
       },
     },
   },
   private_consumer_pass_links: {
-    list: {
-      title: 'Cartes RDV partagées',
-      create: 'Partager une carte RDV',
-      isEmpty: 'Aucun partage de carte RDV',
-    },
     form: {
-      create: {
-        title: 'Partage de carte RDV',
-        explain:
-          "Cette carte RDV sera partagée entre les deux membres, les crédits sont utilisables par l'un ou par l'autre.",
-        cancel: 'Annuler',
-        previous: 'Précédent',
-        submit: 'Partager',
-        linkButton: 'Partager',
-        noConsumerPackToLink: 'Aucune carte partageable',
+      relink: {
+        cancel: 'Cancel',
+        submit: 'Share',
+        explain: 'Sharing will be started again between the members.',
+        title: 'Start sharing again',
       },
       unlink: {
-        title: 'Arrêt du partage',
-        explain: 'Le partage sera arrété. La carte RDV maître reste valable',
-        submit: 'Arrêter',
-        cancel: 'Annuler',
+        cancel: 'Cancel',
+        submit: 'Stop',
+        explain:
+          'The sharing will be stopped, but the Master Pass will remain usable.',
+        title: 'Stop sharing',
       },
-      relink: {
-        title: 'Partager de nouveau',
-        explain: 'Le partage sera de nouveau activé.',
-        submit: 'Partager',
-        cancel: 'Annuler',
+      create: {
+        noConsumerPackToLink:
+          'There are no appointment passes that can be shared to display.',
+        linkButton: 'Share',
+        submit: 'Share',
+        previous: 'Previous',
+        cancel: 'Cancel',
+        explain:
+          "This appointment pass is shared with multiple accounts. Every associated account can use this appointment pass' credits.",
+        title: 'Share appointment pass',
       },
     },
+    list: {
+      isEmpty: 'There are no shared appointment passes to display.',
+      create: 'Share an appointment pass',
+      title: 'Shared appointment passes',
+    },
+  },
+  relationship: {
+    delete: {
+      title: 'Delete this relationship',
+      submit: 'Delete',
+      cancel: 'Cancel',
+      content:
+        "Are you sure that you want to remove this relationship? Shared passes will be disabled immediately. This action can't be undone.",
+      whichUser: 'Choose an account:',
+    },
+  },
+  connectedAs: {
+    title: 'Login as',
+    selectRelation: 'Select a person',
+    info: 'Log into one of your connected accounts.',
+    wichUser: 'Choose an account:',
   },
 };

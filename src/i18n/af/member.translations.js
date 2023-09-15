@@ -1,464 +1,432 @@
 const { MEMBER_EVENTS } = require('@bsport/common/lib/master-data/events');
 
 exports.default = {
-  search: {
-    createMember: 'Ajouter un membre',
-    cancel: 'Fermer',
-  },
-  // eslint-disable-next-line
-  name: 'Nom',
-  unpaidInvoiceTitle: 'Facture impayée',
-  unpaidInvoiceTitle_plural: 'Factures impayées',
-  adjustBalance: 'Ajuster le solde',
-  restoreMember: 'Restaurer',
-  archiveMember: 'Archiver',
-  actions: 'Actions',
-  archived: 'Archivé',
-  accountBalance: 'Solde',
-  table: {
-    show: 'Voir',
-  },
-  date_joined: "Date d'inscription",
-  invoiceTitle: 'Factures',
-  subscriptionTitle: 'Souscriptions',
-  offers_joined: 'Nb séances inscrit(e)',
-  pass_owner: 'Carte valide',
-  birth: {
-    bornIn: 'Né le {{-date}} - {{age}} ans',
-    bornIn_F: 'Née le {{-date}} - {{age}} ans',
-    unknown: 'Né le -',
-    unknown_F: 'Née le -',
-  },
-  barcode: {
-    none: 'aucun',
-    code: 'Code carte',
-    display: 'Afficher le code barre',
-    label: 'Code-barres'
-  },
-  officialIdNumber: {
-    label: "Numéro document d'identité",
-    value: 'N°{{id}}'
-  },
-  membershipNumber: {
-    label: "Numéro d'adhérent",
-    value: 'N°{{id}}',
-  },
-
-
-  memberSince: 'Inscrit le ',
-  showNextBooking: 'Voir les réservations futures',
-  nextBooking: 'prochaine : ',
-  showPreviousBooking: 'Voir les réservations passées',
-  pastBooking: 'dernière : ',
-  engagement: 'Engagement',
-  addMember: 'Ajouter une fiche de membre',
-  memberList: 'Liste des membres',
+  date_joined: 'Sign up date',
+  invoiceTitle: 'Invoices',
+  subscriptionTitle: 'Subscriptions',
+  offers_joined: 'Activities joined',
+  pass_owner: 'Not valid',
+  bornIn: 'Birthday ',
+  memberSince: 'Sign up date ',
+  showNextBooking: 'Show next bookings',
+  nextBooking: 'next: ',
+  noNoteSaved: 'No note saved yet',
+  showPreviousBooking: 'Show past bookings',
+  previousBooking: 'previous: ',
+  engagement: 'Commitment',
+  addMember: 'Add a member',
+  showNotes: 'Show notes',
+  creditAccountBalance: 'Client account balance',
+  showPaymentPack: 'Show pass',
+  showInvoices: 'Show invoices',
+  showSubscriptions: 'Show subscriptions',
+  memberList: 'Overview',
   note: {
-    noNoteSaved: 'Aucune note enregistrée',
-    addNote: 'Ajouter une note',
-    myNotes: 'Mes notes',
-    healthNotes: 'Informations essentielles',
-    is_medical: 'Note essentielle',
+    addNote: 'Add a note',
+    myNotes: 'Notes',
+    healthNotes: 'Alerts',
+    noNoteSaved: 'There are no saved notes to display.',
+    is_medical: 'Essential note',
   },
   file: {
-    addButtonBlocked: 'Supprimez des documents pour en ajouter de nouveaux',
-    deletion: 'Suppression',
-    imported: 'Document importé !',
-    title: 'Mes documents',
-    deleteFileMessage: 'Etes vous sûr de vouloir supprimer ce document ?',
-    confirm: 'Confirmer',
-    add: 'Ajouter un document',
-    submit: 'Ajouter',
-    nofileSaved: 'Aucun document enregistré',
-    upload_file: 'Ajouter un document',
-    cancel: 'Annuler',
-    name: 'Nom',
-    drop_file: 'Glisser et déposer ou cliquer pour ajouter un document',
+    addButtonBlocked: 'Delete files to add new ones',
+    imported: 'The document has been successfully uploaded.',
+    deletion: 'Deletion',
+    title: 'Documents',
+    deleteFileMessage: 'Are you sure that you want to delete this file?',
+    confirm: 'Confirm',
+    submit: 'Add',
+    add: 'Add a document',
+    nofileSaved: 'There are no saved files to display.',
+    upload_file: 'Upload file',
+    cancel: 'Cancel',
+    name: 'Name',
+    drop_file: 'Click here to add a document.',
   },
-  regularizeBalance: 'Régulariser',
-  applyBalanceToUnpaidInvoices: 'Appliquer le solde aux impayés',
-  cashoutBalance: 'Décaisser',
-  creditAccountBalance: 'Solde client',
-  showPaymentPack: 'Voir les cartes de cours',
-  showInvoices: 'Voir les factures',
-  showSubscriptions: 'Voir les souscriptions',
   relation: {
     pleaseSelectRelation:
-      'Sélectionnez une relation pour voir les carte de cours partagées',
+      'Select a relationship to see more details about the shared passes.',
   },
   menu: {
-    programs: 'Programmes',
-    info: 'Général',
-    relation: 'Relations',
-    bookings: 'Réservations',
-    giftcard: 'Carte cadeau',
-    paymentPack: 'Cartes de cours',
-    invoices: 'Factures et Souscriptions',
+    info: 'General',
+    bookings: 'Bookings',
+    relations: 'Relationships',
+    paymentPack: 'Passes',
+    invoices: 'Invoices & Subscriptions',
+    payment: 'Billing',
     contact: 'Contact',
-    payment: 'Facturation',
-    privateBooking: 'Rendez-vous',
-    privateConsumerPass: 'Cartes RDV',
-    vod: 'VOD',
-    form: 'Formulaires',
+    privateBooking: 'Appointments',
+    privateConsumerPass: 'Appointments passes',
+    relation: 'Relationships',
+    vod: 'Video On Demand',
+    form: 'Forms',
+    giftcard: 'Gift card',
+    programs: 'Programs',
     basket: 'Basket',
   },
   row: {
-    headers: {
-      actions: 'Actions',
-      newsletter_email: 'Accepte les emails',
-    },
-    yes: 'Oui',
-    no: 'Non',
-    update: 'Modifier',
+    headers: { actions: 'Actions', newsletter_email: 'Accept emails' },
+    update: 'Edit',
+    no: 'No',
+    yes: 'Yes',
   },
-  paymentAction: {
-    toBill: 'Facturer',
-    toSubscribe: 'Souscrire',
-  },
-  merge: 'Fusionner',
+  regularizeBalance: 'Complete payment',
+  cashoutBalance: 'Cashout balance',
+  merge: 'Merge',
   forms: {
-    title: 'Informations utilisateur',
-    needInformationValidation: {
-      welcome: 'Bonjour {{firstname}}',
-      subtitle: {
-        notMemberYet:
-          'Il semblerait que ce soit la première fois que vous vous connectez à ce studio',
-        memberOfCompany: 'Dites nous en plus sur vous.',
-      },
-      legend: {
-        notMemberYet:
-          'Souhaitez vous transmettre vos informations pour vous y inscrire ? ',
-        memberOfCompany:
-          'Pour continuer votre navigation veuillez compléter les informations requises ci-dessous',
-      },
-      button: {
-        notMemberYet: 'Transmettre les informations',
-        memberOfCompany: 'Compléter mes informations',
-      },
-    },
     merge: {
-      success: 'Membres fusionnés',
-      seeMemberPage: ' Voir la page du membre',
-
-      error: 'Impossible de fusionner les membres',
-
-      srcMember: 'Membre à fusionner (supprimé)',
-      dstMember: 'Membre à conserver',
-      title: 'Fusion membre',
-      explainCredit: "L'acompte interne du membre sera transféré",
+      seeMemberPage: ' See member page',
+      success: 'Members merged',
+      error: 'Impossible to merge members',
+      srcMember: 'This account will be merged and deleted',
+      dstMember: 'This account will be saved',
+      title: 'Merge members',
+      explainCredit: 'The internal credit balance will be transferred',
       explainBookingsAndPassAndInvoiceAndNotes:
-        'Les cartes de cours, réservations, factures et notes seront transférés.',
-      explainTags: 'Les tags du membre supprimés ne seront pas transférés',
+        'Bookings, passes, notes and invoices will be transfered.',
+      explainTags: 'Tags from the deleted member will not be transferred',
+      cancel: 'Cancel',
+      submit: 'Merge',
       emailWillBeSend:
-        'Un email sera envoyé aux deux adresses pour prévenir les membres.',
-      cancel: 'Annuler',
-      submit: 'Fusionner',
+        'A message will be sent to both email addresses to notify the members.',
     },
-    error: 'Impossible de sauvegarder le membre',
-    phone: {
-      error: 'Numéro de téléphone invalide',
+    error: 'Unable to save member',
+    create: { success: 'Member added', title: 'New member' },
+    update: { success: 'Member details updated', title: 'Update member' },
+    phone: { error: 'Invalid phone number' },
+    needInformationValidation: {
+      button: { memberOfCompany: 'Complete', notMemberYet: 'Submit' },
+      legend: {
+        memberOfCompany:
+          'Please complete the required information to continue browsing.',
+        notMemberYet:
+          'Have you completed this information correctly and would you like to complete the sign up process? ',
+      },
+      subtitle: {
+        memberOfCompany: 'Please complete the following form.',
+        notMemberYet:
+          'Looks like this will be your first time visiting our studio.',
+      },
+      welcome: 'Hello {{firstname}}',
     },
-    create: {
-      title: 'Nouveau membre',
-      success: 'Membre créé avec succès',
-    },
-    update: {
-      title: 'Edition des informations',
-      success: 'Membre modifié avec succès',
-    },
+    title: '[Form] Sign up',
     newMemberOnlyHelperText:
-      "Un membre est considéré comme nouveau tant qu'il n'a pas fait d'achat supérieur à 0 {{ currency }} sur la plateforme. Attention, tout achat d'un objet payant avec une réduction de 100% sur son prix fera perdre le statut 'Nouveau membre'.",
+      'A member is considered "new" as long as they have not made a purchase greater than {{ currency }}0. Please note that any purchase of a paid item with a 100% reduction in price will result in the loss of the \'New Member\' status.',
   },
   user: {
-    existsWithEmail:
-      "Un utilisateur avec l'adresse email {{email}} existe déjà.",
+    existsWithEmail: 'A user with the email address {{email}} already exists.',
     existsWithPhone:
-      'Un utilisateur avec le numéro de téléphone {{phonenumber}} existe déjà.',
-    existsWithEmailButNotConfirmed:
-      "Un utilisateur avec l'adresse email {{email}} existe déjà, mais son email est en attente de confirmation. En enregistrant ce utilisateur, son email sera automatiquement vérifié.",
+      'A user with the phone number {{phonenumber}} already exists.',
     existsWithPhoneButNotConfirmed:
-      'Un utilisateur avec le numéro de téléphone {{phonenumber}} existe déjà, mais son email ({{email}}) est en attente de confirmation. En enregistrant cet utilisateur, son email sera automatiquement vérifié.',
+      'A user with phone number {{phonenumber}} already exists, but the email address ({{email}}) still needs to be confirmed. By registering this user, the email address will be automatically verified.',
+    existsWithEmailButNotConfirmed:
+      'A user with the email address {{email}} already exists, but still needs to be confirmed. By registering this user, the email address will be automatically verified.',
   },
   member: {
-    existsWithEmail: "Un membre avec l'adresse email {{email}} existe déjà.",
+    existsWithEmail: 'A member with email address {{email}} already exists.',
     existsWithPhone:
-      'Un membre avec le numéro de téléphone {{phonenumber}} existe déjà.',
-    existsWithEmailButNotConfirmed:
-      "Un membre avec l'adresse email {{email}} existe déjà, mais son email est en attente de confirmation. En enregistrant ce membre, son email sera automatiquement vérifié.",
+      'A member with phone number {{phonenumber}} already exists.',
     existsWithPhoneButNotConfirmed:
-      'Un membre avec le numéro de téléphone {{phonenumber}} existe déjà, mais son email ({{email}}) est en attente de confirmation. En enregistrant ce membre, son email sera automatiquement vérifié.',
+      'A user with phone number {{phonenumber}} already exists, but the email address ({{email}}) still needs to be confirmed. By registering this user, the email address will be automatically verified.',
+    existsWithEmailButNotConfirmed:
+      'A user with the email address {{email}} already exists, but still needs to be confirmed. By registering this user, the email address will be automatically verified.',
   },
   exists: {
-    goTo: 'Voir le membre',
-    linkUser: "Lier l'utilisateur",
-    merge: 'Fusionner',
-    quicksale: 'Sélectionner ce membre',
+    goTo: 'See member',
+    linkUser: 'Link user',
+    merge: 'Merge',
+    quicksale: 'Select this member',
   },
+  link: { success: 'Member linked' },
   linkDialog: {
-    title: 'Lier un utilisateur existant',
+    title: 'Linking account',
     content:
-      'Ce compte a initialement été utilisé dans un autre club, il sera désormais connecté à un nouveau club.',
-    cancel: 'Annuler',
-    confirm: 'Je confirme',
+      "This account was initially created with another studio. Now it'll be connected to the currently selected studio.",
+    cancel: 'Cancel',
+    confirm: 'I confirm',
   },
-  termsAndConditions: 'Les conditions générales de vente',
-  termsOfUse: "Les conditions générales d'utilisation",
-  memberTermsAccepted: ' ont été acceptées le {{- date}}',
+  paymentAction: { toSubscribe: 'Subscribe', toBill: 'Bill' },
+  pastBooking: 'last: ',
+  table: { show: 'Show' },
+  name: 'Name',
+  barcode: {
+    display: 'Show bar code',
+    code: 'Bar code',
+    none: 'none',
+    label: 'Barcode',
+  },
+  birth: {
+    unknown_F: 'Born on -',
+    unknown: 'Born on -',
+    bornIn_F: 'Born on {{-date}} ({{age}})',
+    bornIn: 'Born on {{-date}} - {{age}} years old',
+  },
+  search: { cancel: 'Close', createMember: 'Add a member' },
+  memberTermsAccepted: ' were accepted on {{- date}}.',
+  termsAndConditions: 'The General Terms & Conditions',
+  applyBalanceToUnpaidInvoices:
+    "Use the member's account balance to regularize unpaid invoices",
+  adjustBalance: 'Adjust balance',
+  unpaidInvoiceTitle: 'Unpaid invoice',
+  unpaidInvoiceTitle_plural: 'Unpaid invoices',
   vaccinationStatus: {
-    done: 'Pass sanitaire valide',
-    notDone: 'Pas de pass sanitaire valide',
-    unknown: 'Status pass sanitaire inconnu',
+    unknown: 'Unknown status for the COVID-19 Sanitary Pass',
+    notDone: "I'm not in possession of a valid COVID-19 Sanitary Pass",
+    done: "I'm in possession of a valid COVID-19 Sanitary Pass",
   },
   archive: {
-    archivedMember: 'Membre Archivé : {{name}}',
     dialog: {
-      title: 'Archiver un membre',
-      helper_text_1: 'Êtes-vous sûr de vouloir archiver ce membre ?',
-      helper_text_2:
-        "Ce membre n'apparaitra plus dans la liste de vos membres.",
+      actions: { confirm: 'Confirm', close: 'Close' },
       warning: {
+        0: 'Negative internal account balance',
+        1: 'Unpaid invoice(s)',
+        2: 'Current subscription',
+        3: 'Subscriptions with automatic renewals',
+        4: 'Future bookings',
+        5: 'Recurring bookings',
+        6: 'Scheduled appointments',
         general:
-          'Nous avons identifié les points ci-dessous, nous vous conseillons de régulariser le compte de ce client avant archivage:',
-        0: 'Solde interne négatif',
-        1: 'Facture(s) impayée(s)',
-        2: 'Abonnement en cours',
-        3: 'Abonnement avec renouvelement automatique en cours',
-        4: 'Réservation(s) prévue(s) dans le future',
-        5: 'Réservation(s) récurrente(s) enregistrée(s)',
-        6: 'Rendez-vous prévu(s)',
+          "Based on the following criteria, we advise that you regularize your member's internal account balance before the member is archived:",
       },
-      actions: {
-        close: 'Fermer',
-        confirm: 'Confirmer',
-      },
+      helper_text_2: 'This member will no longer appear in your database.',
+      helper_text_1: 'Are you sure that you want to archive this member?',
+      title: 'Archive a member',
     },
+    archivedMember: 'Archived member: {{name}}',
   },
-  noData: "Il n'y a aucun membre dans cette smartlist.",
-  noMember: "Il n'y a aucun membre à afficher pour le moment.",
+  archived: 'Archived',
+  restoreMember: 'Restore',
+  termsOfUse: 'The Terms of Use',
+  noMember: 'There are no members to display.',
+  noData: 'There are no members to members to display in this Smartlist.',
   changeEmailRequest: {
-    pendingValidation: 'Changement en attente: {{ email }}',
-    dialog: {
-      title: "Changement d'email",
-      titleMerge: ' Fusion de membre',
-      simpleChange: {
-        warning:
-          "Attention, vous allez modifié l'email de connexion de ce membre :",
-        unchangedEmail: 'En attendant il conservera son ancien email.',
-        informativeHelperText:
-          "A titre informatif nous allons lui envoyer un email pour l'informer ce changement.",
-      },
-      linkMember: {
-        warning: 'Attention, vous cherchez à lier ces deux membres :',
-        unchangedEmail:
-          'En attendant {{ old_email }} conservera son ancien email et les membres ne seront pas liés.',
-        notIncompany:
-          "L'email {{ new_email }} appartient à un membre d'un autre studio.",
-      },
-      mergeMember: {
-        warning:
-          'Attention, vous cherchez à fusionner ces deux membres de votre studio :',
-        unchangedEmail:
-          'En cliquant sur confirmer le membre {{ new_email }} récupérera les factures, réservations, solde et achats de {{ old_email }}. Le membre {{ old_email }} sera effacé. Un email sera envoyé aux deux adresses pour prévenir les membres.',
-      },
-      oldEmail: 'Ancienne adresse : {{ email }}',
-      newEmail: 'Nouvelle adresse : {{ email }}',
-      expiryText:
-        'Après son envoi, la demande de changement expirera sous 7 jours',
-      securityHelperText:
-        'Par mesure de sécurité nous allons lui envoyer un email pour confirmer ce changement.',
-      cancelHelperText:
-        'Si vous ne souhaitez pas changer l\'email du membre cliquer sur "annuler".',
-      actions: {
-        close: 'Annuler',
-        confirm: 'Confirmer',
-      },
-    },
     memberPage: {
       simpleEmailChange: {
-        title: 'Changement de votre email de connexion',
-        acceptRequestHelper:
-          'Si vous souhaitez effectivement changer votre adresse par cette nouvelle addrese email, merci de cliquer sur "confirmer ma nouvelle adresse".',
-        deniedRequestHelper:
-          'Si cette demande de provient pas de vous ou que vous ne souhaitez pas changer votre adresse, merci de cliquer sur "garder mon adresse"',
-        multipleCompanyHelper:
-          "Votre adrese email est commune à l'ensemble des studios utilisant la solution Bsport. Elle sera donc changée pour tous ces studios. Les studios impactés seront les suivants:",
-        submit: {
-          acceptedTitle: 'Adresse de connexion modifiée',
-          deniedTitle: 'Adresse de connexion conservée',
-          emailUpatedTo:
-            'Votre adresse de connexion a bien été changée par {{ email }}. Utilisez cette adresse comme nouvelle identifiant de connexion.',
-          emailPreservedTo: 'Votre adresse de connexion restera {{ email }}',
-        },
         error: {
-          alreadyAccepted: {
-            title: 'Vous avez déjà validée cette demande',
-            helper:
-              'Vous avez déjà sélectionné un email de connexion chez {{- company}}, votre décision a été prise en compte.',
-            contactCompany:
-              "Si vous n'êtes pas à l'origine de ce changement ou que vous souhaitez changer votre décision, merci de contacter directement votre studio.",
-            currentEmail: 'Votre email de connexion actuel est : {{ email }}.',
-          },
-          alreadyDenied: {
-            title: 'Vous avez déjà refusée cette demande',
-            helper:
-              'Vous avez déjà sélectionné un email de connexion chez {{- company}}, votre décision a été prise en compte.',
-            contactCompany:
-              "Si vous n'êtes pas à l'origine de ce changement ou que vous souhaitez changer votre décision, merci de contacter directement votre studio.",
-            currentEmail: 'Votre email de connexion actuel est : {{ email }}.',
-          },
-          renewed: {
-            title: 'Changement de votre email de connexion',
-            helper:
-              "Il semblerait que le studio {{- company}} vous ait envoyé une demande de changement d'adresse de connexion plus récente. Cette ancienne demande est caduc. Pour trouver la nouvelle demande merci de vérifier vos emails et vos spams.",
-            contactCompany:
-              'Si vous ne trouvez pas cette nouvelle demande, veuillez contacter votre studio.',
-          },
           delayExceeded: {
-            title: 'Change de votre email de connexion',
-            helper:
-              "Le studio {{- company}} vous avait envoyé une demande de confirmation de changement d'email de connexion. La durée de validité de 7 jours de cette demande est expirée.",
             contactCompany:
-              "Si vous souhaitez demander de nouveau un changement d'adresse de connexion merci de contacter votre studio.",
+              'Please contact the studio directly to change your login email address again.',
+            helper:
+              '{{- company }} had sent you a validation email to confirm the request to change your login email address. These requests are valid for 7 days and has now been expired.',
+            title: 'Changing your login email address',
           },
           emailTaken: {
-            title: 'Email de connexion déjà pris',
-            helper:
-              'Le studio {{- company}} avait fait une demande pour changer votre email de connexion à votre espace personnel:',
             contactCompany:
-              "Cependant un compte utilisant l'adresse {{ email }} a été crée entre-temps. Cette demande est désormais caduc. Si l'adresse email {{ email }} vous appartient mais que vous n'êtes pas à l'origine de la création du compte associé, merci de contacter directement votre studio.",
+              'An account using "{{ email }}" as login email address has already been created. Please contact the studio directly for assistance, should this email address belong to you but if you didn\'t create any account with this email address.',
+            helper:
+              '{{- company }} requested to change the login email address of your account:',
+            title: 'This email address is already in use.',
           },
-        },
-      },
-      linkAccount: {
-        title: 'Fusion de votre compte',
-        veto: {
-          requestExplanation:
-            'Nous avons détecté que l’adresse {{ email }} est déjà utilisée dans un autre studio. Le studio {{- company}} a fait la demande de fusionner votre compte avec cet autre compte. Si vous acceptez de fusionner les deux comptes, vos nouveaux identifiants de connexion (email et mot de passe) seront ceux du compte {{ email }}. Vous pourrez gérer l’ensemble des studios dans lesquels vous êtes inscrit depuis une seule adresse.',
-          acceptRequestHelper:
-            'Pour accepter la fusion des comptes merci de vous rendre sur votre adresse {{ email }} et de cliquer sur le lien dans l’email que nous vous avons envoyé.',
-          deniedRequestHelper:
-            'Si vous ne souhaitez pas fusionner ces comptes ou que vous n’êtes pas à l’origine de cette demande merci de cliquer sur “refuser la fusion”. Cela empêchera la fusion des comptes et vous conserverez vos données de connexion.',
-        },
-        dstUser: {
-          requestingStudio:
-            'Le studio {{- company}} a fait la demande de fusionner votre compte {{ new_email }} avec le compte {{ old_email }}.',
-          notMemberYet:
-            'Nous avons détecté que vous ne faisiez pas encore parti du studio {{- company}}. Si vous acceptez de fusionner les deux comptes, vous serez inscrit au studio {{- company}} et récuperez les informations et réservations du compte {{ old_email }}. Vous conserverez vos identifiants de connexion actuels sur l’adresse {{ new_email }}. Vous pourrez gérer l’ensemble des studios dans lesquels vous êtes inscrit depuis cette adresse.',
-          acceptRequestHelper:
-            'Pour accepter la fusion des comptes merci de cliquer sur “accepter la fusion”.',
-          deniedRequestHelper:
-            'Si vous ne souhaitez pas fusionner ces comptes ou que vous n’êtes pas à l’origine de cette demande merci de cliquer sur “refuser la fusion”. Cela empêchera la fusion des comptes et vous ne serez pas inscrit chez {{- company}}.',
+          renewed: {
+            contactCompany:
+              "Please contact your studio directly if you didn't receive or can't find the most recent request validation email.",
+            helper:
+              'Recently, {{- company }} had sent you a validation email to change your login email address. Please check your inbox and spam for the latest request, as this one is now invalid.',
+            title: 'Changing your login email address',
+          },
+          alreadyDenied: {
+            currentEmail: 'Current login email address: "{{ email }}"',
+            contactCompany:
+              "Please contact your studio directly if you didn't initiate the request to change your login email address.",
+            title: "You've already rejected this request.",
+            helper:
+              'You have already selected a login email at {{- company }}, your decision has been taken into account.',
+          },
+          alreadyAccepted: {
+            currentEmail: 'Current login email address: "{{ email }}"',
+            contactCompany:
+              "Please contact your studio directly if you didn't initiate the request to change your login email address.",
+            title: "You've already validates this request.",
+            helper:
+              'You already selected a login mail in {{- company }}, your decision has been taken into account.',
+          },
         },
         submit: {
-          accepted: {
-            title: 'Fusion Acceptée',
-            content:
-              "Votre compte a bien été fusionné avec le compte {{ old_email }}. Vous êtes désormais membre du studio {{- company}}. Utilisez l'adresse {{ new_email }} pour vous connecter à votre compte.",
-          },
-          denied: {
-            title: 'Fusion refusée',
-            content:
-              'Votre compte n’a pas été fusionné avec {{ new_email }}. Votre adresse de connexion restera {{ old_email}}.',
-          },
+          emailPreservedTo:
+            'Your current email address to log in will remain "{{ email }}".',
+          emailUpatedTo:
+            'Your email address to log in has been changed to "{{ email }}".',
+          deniedTitle: 'Email address remains the same',
+          acceptedTitle: 'Email address has been changed',
         },
-        error: {
-          denied: {
-            title: 'Fusion refusée',
-            helper:
-              'Vous avez déjà fait le choix de refuser la demande de fusion au studio {{- company}}, votre décision a été prise en compte.',
-            contactCompany:
-              "Si vous souhaitez demander de nouveau une fusion de votre compte ou si vous n'avez pas refusé la demande de fusion, merci de contacter directement votre studio.",
-          },
-          accepted: {
-            title: 'Fusion acceptée',
-            helper: 'Votre email de connexion actuel est : {{ email }}',
-            contactCompany:
-              'Si vous souhaitez changer votre choix ou si cette demande ne provenait pas de vous, merci de contacter votre studio.',
-          },
-        },
-      },
-      actions: {
-        confirm: 'Confirmer ma nouvelle adresse',
-        cancel: 'Garder mon adresse',
-        deniedFusion: 'Refuser la fusion',
-        confirmFusion: 'Accepter la fusion',
-        continue: 'Continuer',
-      },
-      requestingStudio:
-        'Le studio {{- company}} souhaite changer votre email de connexion à votre espace personnel :',
-      generalError: {
-        title: 'Changement de mail de connexion invalide',
-        helper:
-          'Le studio {{- company}} avait fait une demande pour changer votre email de connexion à votre espace personnel:',
-        contactCompany:
-          "Cependant nous avons détecté une erreur dans la demande actuelle, par mesure de sécurité cette demande est désormais désactivée. Pour regénérer cette demande, ou si vous n'êtes pas à l'origine de cette dernière, veuillez contacter directement votre studio.",
+        multipleCompanyHelper:
+          "This email address is used for all your accounts associated with studios using BSPORT Solution, meaning that the changes will be applied with every studio that you've signed up with that's affiliated with our software solution. Your login will be changed with the following studios:",
+        deniedRequestHelper:
+          'Select "Use current email address" if you don\'t wish to process any changes.',
+        acceptRequestHelper:
+          'Click on "Confirm my new email address" to process the email change request.',
+        title: 'Changing your login email address',
       },
       unAuthorizedAccess: {
-        title: 'Accès non-autorisé',
-        helper:
-          "Vous n'êtes pas authentifé au compte pouvant accéder à cette demande, veuillez vous connecter au compte associé à l'email de confirmation envoyé.",
         contactCompany:
-          'Si vous ne parvenez pas à accéder à cette demande, merci de contacter directment votre studio.',
+          "Please contact the studio directly if you're unable to complete this request.",
+        title: 'Unauthorized access',
+        helper:
+          'You are not logged in to the account that can access this application, please log in to the account associated with the confirmation email sent.',
+      },
+      generalError: {
+        contactCompany:
+          "An error with the current request has been detected. This request has been disabled as a security measure. Please contact the studio directly to renew this process of if you're not the initiator of this reques.",
+        helper:
+          '{{- company }} requested to change the login email address of your account:',
+        title: 'Change an invalid login email address',
+      },
+      requestingStudio:
+        '{{- company }} requested to change the login email address of your account:',
+      actions: {
+        continue: 'Continue',
+        confirmFusion: 'Accept account merger',
+        deniedFusion: 'Refuse account merger',
+        cancel: 'Use my current email address',
+        confirm: 'Confirm my new email address',
+      },
+      linkAccount: {
+        error: {
+          accepted: {
+            contactCompany:
+              "Please contact the studio directly if you wish to merge your accounts or if you didn't initiate this request.",
+            helper: 'Current login email address: "{{ email }}"',
+            title: 'Merger has been accepted',
+          },
+          denied: {
+            contactCompany:
+              'Please contact the studio directly if you wish to merge your accounts again.',
+            helper:
+              "You've already rejected the merger request from {{- company }}.",
+            title: 'Merger has been rejected',
+          },
+        },
+        submit: {
+          denied: {
+            content:
+              'Your account hasn\'t been merged with "{{ new_email }}". Use your current login details associated with "{{ old_email}}" for your account.',
+            title: 'Merger has been rejected',
+          },
+          accept: {
+            content:
+              'Your account has been successfully merged with "{{ old_email }}". You\'ve been registered with {{- company }} and you can use the login details associated with "{{ new_email }}" from now on.',
+            title: 'Merger has been accepted',
+          },
+          accepted: {
+            title: 'Merger has been accepted',
+            content:
+              'Your account has been successfully merged with "{{ old_email }}". You\'ve been registered with {{- company }} and you can use the login details associated with "{{ new_email }}" from now on.',
+          },
+        },
+        dstUser: {
+          deniedRequestHelper:
+            "Please select \"Refuse account merger\" if you don't wish to process this request or if you're not the initiator. This won't merge your accounts and you won't be registered with {{- company }}.",
+          acceptRequestHelper:
+            'Click on "Accept account merger" to merge your accounts.',
+          notMemberYet:
+            'You don\'t have an account yet with {{- company }}. Merging the accounts will result in all information from your previous email address ("{{ old_email }}") being transferred to your new email address ("{{ new_email }}"). You can use these login details for any studio.',
+          requestingStudio:
+            '{{- company }} requested to merge your old login email address ("{{ old_email }}") with your new login email address ("{{ new_email }}").',
+        },
+        veto: {
+          deniedRequestHelper:
+            "Please go to your account and click on \"Refuse the merger\" if you don't wish to merge the accounts or if you didn't initiate this request. You can keep using your current login details and you'll prevent the merger of the accounts.",
+          acceptRequestHelper:
+            'Please log in with {{ email }} to confirm the merging of your accounts.',
+          requestExplanation:
+            'This email address "{{ email }}" is already is use at another studio. {{- company }} has requested your account with this existing account. By merging the two accounts, you can use the login details (email and password) of the account associated with the account of {{ email }}. You can use these login details for any studio using our software solution.',
+        },
+        title: 'Merging accounts',
       },
     },
+    dialog: {
+      newEmail: 'New email address: "{{ email }}"',
+      oldEmail: 'Previous email address: "{{ email }}"',
+      actions: { confirm: 'Confirm', close: 'Cancel' },
+      cancelHelperText:
+        'Click "Cancel" to stop the process for the email change.',
+      securityHelperText:
+        'A confirmation email will be sent for security reasons to this address.',
+      expiryText: 'The request will be processed within 7 days after sending.',
+      mergeMember: {
+        unchangedEmail:
+          'Once confirmed, all invoices, bookings, balances, and purchases from the previous email address ("{{ old_email }}") will be transferred to the new email address ("{{ new_email }}"). The previous email address ("{{ old_email }}") will be deleted and both email addresses will be notified with an email.',
+        warning: 'Warning, you try to link these members of your studio:',
+      },
+      linkMember: {
+        notIncompany:
+          'The new email address ("{{ new_email }}") belongs to a member of another studio.',
+        unchangedEmail:
+          'The previous email address ("{{ old_email }}") will be kept in the meantime.',
+        warning: 'Warning, you try to link these members:',
+      },
+      simpleChange: {
+        unchangedEmail: 'The previous email will be kept in the meantime.',
+        warning: "Attention! You've changed the login email of:",
+        informativeHelperText: 'A notification of the changes will be sent.',
+      },
+      titleMerge: ' Merge member accounts',
+      title: 'Changing email address',
+    },
+    pendingValidation:
+      'The request to change the email address "{{ email }}" is currently pending validation.',
   },
+  actions: 'Actions',
+  archiveMember: 'Archive',
+  accountBalance: 'Balance',
   communication: 'Communication',
-  resetPassword: {
-    dialogTitle: 'Réinitialisation de mot de passe',
-    dialogContent:
-      "Vous êtes sur le point d'envoyer les instructions de réinitialisation de mot de passe à {{memberEmail}}",
-    confirmation: 'Instructions correctement envoyées à {{memberEmail}}',
-    error:
-      "Erreur lors de l'envoi des instructions de réinitialisation de mot de passe",
-    button: 'Réinitialiser le mot de passe',
-  },
   events: {
     [MEMBER_EVENTS.basket_paid]: {
-      filter: 'Paniers payés',
-      primaryText: 'Un panier de {{ amount }} a été payé. ',
+      filter: 'Basket paid',
+      primaryText: 'Un basket of {{amount}} has been paid. ',
     },
     [MEMBER_EVENTS.booking_registered]: {
-      filter: 'Réservations',
       primaryText:
-        '{{ source }} a réservé la séance {{- offerName }} du {{- offerDate }}.',
-      sourceManager: 'Le manager {{ managerName }}',
+        '{{ source }} has booked session {{- offerName }} the {{- offerDate }}.',
+      sourceManager: 'The manager {{ managerName }}',
+      filter: 'Bookings',
     },
     [MEMBER_EVENTS.custom_form_filled]: {
-      filter: 'Formulaire de profil édité',
-      primaryText:
-        "Le formulaire d'édition de profil {{ formName }} a été rempli.",
+      filter: 'Profile form edited',
+      primaryText: 'Profile edit form {{ formName }} has been filled.',
     },
     [MEMBER_EVENTS.giftcard_used]: {
-      filter: 'Cartes cadeaux utilisées',
-      primaryText: 'La carte cadeau {{- giftcardName }} a été activée.',
+      filter: 'Giftcards used',
+      primaryText: 'Giftcard {{- giftcardName }} has been activated.',
     },
     [MEMBER_EVENTS.invoice_paid]: {
-      filter: 'Factures payées',
+      filter: 'Invoices paid',
       primaryText:
-        'La facture n°{{ invoiceUUID }} a été payée à hauteur de {{ amount }}.',
+        'Invoice n°{{ invoiceUUID }} has been paid for {{ amount }}.',
     },
     [MEMBER_EVENTS.login_successful]: {
-      filter: 'Connexions réussies',
-      primaryText: 'Une connexion réussie {{ source }} a été enregistrée.',
-      sourceApp: "depuis l'application",
-      sourceMarketplace: 'depuis la marketplace',
+      filter: 'Logins successul',
+      primaryText: 'A successful login {{ source }} has been registered.',
+      sourceApp: 'from the mobile app',
+      sourceMarketplace: 'from the web marketplace',
     },
     [MEMBER_EVENTS.private_booking_registered]: {
-      filter: 'Rendez-vous',
       primaryText:
-        '{{ source }} a réservé le rendez-vous {{- privateServiceName }} - {{- privateSlotName }} du {{- privateServiceDate }}.',
-      sourceManager: 'Le manager {{ managerName }}',
+        '{{ source }} has booked appointment {{- privateServiceName }} - {{- privateSlotName }} for {{- privateServiceDate }}.',
+      filter: 'Appointment',
+      sourceManager: 'The manager {{ managerName }}',
     },
     [MEMBER_EVENTS.tag_applied]: {
-      filter: 'Tags appliqués',
-      primaryText: 'Le tag {{ tagName }} a été appliqué.',
+      filter: 'Tags applied',
+      primaryText: 'The tag {{ tagName }} has been applied.',
     },
     [MEMBER_EVENTS.vod_bought]: {
-      filter: 'VOD achetées',
-      primaryText: 'La VOD {{- VODName }} a été achetée.',
+      filter: 'VOD bought',
+      primaryText: 'The VOD {{- VODName }} has been bought.',
     },
   },
-  memberTable: {
-    error: 'Une erreur est survenue'
-  }
+  resetPassword: {
+    dialogTitle: 'Reset password',
+    dialogContent:
+      'You are going to send password reset instruction to {{memberEmail}}',
+    confirmation: 'Instructions sent to {{memberEmail}}',
+    error: 'Error while sending password reset instructions',
+    button: 'Reset the password',
+  },
+  memberTable: { error: 'An error has occurred' },
+  membershipNumber: { value: 'Number {{id}}', label: 'Membership number' },
+  officialIdNumber: {
+    value: 'Number {{id}}',
+    label: 'Identity document number',
+  },
 };

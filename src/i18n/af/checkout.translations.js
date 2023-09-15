@@ -1,207 +1,187 @@
 const { BASKET_EVENTS } = require('@bsport/common/lib/master-data/events');
 
 exports.default = {
-  payment: {
-    title: 'Paiement',
-    flat_fee: 'Frais de dossier',
-    deliveryFee: 'Frais de livraison',
-    flatFeeSubscription: 'Frais de dossier',
-    taxExcluded: 'Sous-total HT',
-    tax: 'Taxes',
-    total: 'Total TTC',
-    globalTotal: 'Total',
-    totalHiddingTax: 'Total',
-    internalAccount: 'Compte interne',
-  },
-  events: {
-    [BASKET_EVENTS.created]: 'Panier créé',
-    [BASKET_EVENTS.finalize]: 'Panier finalisé/payé',
-    [BASKET_EVENTS.additem]: 'Ajout au panier',
-    [BASKET_EVENTS.removeitem]: 'Retrait du panier',
-    [BASKET_EVENTS.automaticclean]: 'Nettoyage automatique du panier',
-  },
-  eventHistory: {
-    sectionTitle: 'Evènements',
-    pleaseSelectABasket: "Sélectionnez un panier pour voir l'historique",
-  },
-  historyTitle: 'Historique des paniers',
-  paymentIntent: {
-    isProcessing: 'Veuillez patientez',
-  },
+  paymentIntent: { isProcessing: 'Processing...' },
   forms: {
     delivery: {
-      first_name: 'Prénom',
-      last_name: 'Nom',
-      actions: {
-        submit: 'Suivant',
-        cancel: 'Précédent',
-      },
+      first_name: 'First name',
+      last_name: 'Last name',
+      actions: { submit: 'Next', cancel: 'Back' },
     },
   },
   autoAdd: {
-    paymentPack: {
-      locked: "Ce produit n'est pas disponible.",
-    },
-    privatePass: {
-      error: "Cette carte de rendez-vous n'est pas disponible",
-    },
-    paymentCombo: {
-      locked: "Ce pack n'est pas disponible",
-    },
+    paymentPack: { locked: 'This product is not available for purchase.' },
+    privatePass: { error: 'This pass for appointments is not available' },
+    paymentCombo: { locked: 'This pack is not available for purchase' },
   },
   myBasket: {
-    checkingPaymentStatus:
-      'Veuillez patienter, nous vérifions le status de votre paiement',
-    finalize: {
-      steps: {
-        address: 'Adresse',
-        payment: 'Facturation',
-      },
-    },
-    title: 'Mon panier',
-    isEmpty: 'Votre panier est vide',
-    isFinalized: 'Votre panier a été validé',
-    featured: 'Nous vous recommandons',
+    finalize: { steps: { address: 'Address', payment: 'Billing' } },
+    title: 'My basket',
+    isEmpty: 'Your basket is empty.',
+    featured: 'Featured',
     error: {
       invalidBasket:
-        "Votre panier contenait des éléments qui ne sont plus disponibles à la vente. Aucun paiement n'a été enregistré",
+        'Your basket contained items which are no longer available. No payment has been processed.',
       inconsistentBasket:
-        "Votre panier a été modifié, veuillez rafraichir votre page avant de valider votre paiement.\nVous n'avez pas été débité.",
+        'Your basket has been modified, please refresh your page before validating your payment.\nYou have not been charged.',
     },
-    totalQuantity: 'Contient {{ qty }} éléments',
     actions: {
-      closeBasket: 'Continuer mes achats',
-      checkoutBasket: 'Payer',
-      payZero: 'Valider mon panier',
+      closeBasket: 'Continue shopping',
+      checkoutBasket: 'Purchase',
+      payZero: 'Confirm basket',
     },
-    almostDone: 'Dernière étape',
-    checkAndFinalize:
-      'Veuillez vérifier votre panier et finaliser votre réservation',
+    isFinalized: 'Your basket has been validated.',
+    checkingPaymentStatus: 'Your payment status is being reviewed.',
+    totalQuantity: 'Contains: {{ qty }} product(s)',
+    checkAndFinalize: 'Please check your basket and finalize your booking',
     acceptTermsAndFinalize:
-      'Veuillez accepter les conditions générales et finaliser votre réservation',
-    noBooking: {
-    checkAndFinalize:
-      'Veuillez vérifier votre panier',
-    acceptTermsAndFinalize:
-      'Veuillez accepter les conditions générales et finaliser votre panier',
-    },
+      'Please accept the general terms and conditions and finalize your booking',
+    almostDone: 'Almost done',
+    goToMarketplace: 'See the marketplace',
     newCheckout: {
-      isEmpty: 'Votre panier est vide!',
-      isEmptyDescription: 'Poursuivez votre exploration de la marketplace!',
+      isEmptyDescription: 'Continue your exploration of the marketplace!',
+      isEmpty: 'Your basket is empty!',
     },
-    goToMarketplace: 'Voir la marketplace',
+    noBooking: {
+      acceptTermsAndFinalize:
+        'Please accept the terms and conditions and complete your basket',
+      checkAndFinalize: 'Please check your basket',
+    },
   },
   payLater: {
-    submit: 'Payer sur place',
+    submit: 'Pay later',
     explain:
-      'Votre moyen de paiement vous sera demandé sur place avant votre séance. Avant cela, la facture sera considérée comme impayée.',
+      'Your payment method will be asked in studio before your session starts. Until then, your invoice is considered as unpaid.',
   },
-  or: 'ou',
-  expire_in: 'Expire dans ',
-  bookerMethod: {
-    emptyMethod:
-      "Aucune carte n'est compatible avec cette vidéo, veuillez contacter votre studio",
-    actions: {
-      bookVod: 'Débloquer la vidéo',
-    },
-    section: {
-      consumerPass: 'Mes cartes',
-      pass: 'Cartes disponibles',
-      combo: 'Packs',
-    },
-  },
+  or: 'or',
   validation: {
-    actions: {
-      continue: 'Continuer mes achats',
-      member: 'Espace Membre',
-      back: 'Précédent',
-      widgetContinue: 'Continuer',
-      payNow: 'Payer',
-      confirmPriceNull: 'Confirmer',
-      goToCalendar: 'Retour au calendrier',
-      myBookings: 'Mes réservations', 
-      retry: 'Réessayer',
-      newWorkshop: 'Nouvel atelier',
-      retryBookingSession: 'Réessayer de réserver',
-      mySubscription: 'Mon abonnement',
-      myProducts: 'Mes achats',
-      myGiftcards: 'Mes cartes cadeaux',
-      myPasses: 'Mes cartes de cours'
-    },
     sections: {
-      explain:
-        'Votre opération a bien été prise en compte. Nous vous enverrons un mail de confirmation.',
-      recap: 'Récapitulatif',
-      title: 'Félicitations !',
-      basket: 'Mon panier',
-      offerBooked: 'Ma séance',
-      offerBooked_plural: 'Mes séances',
-      offerPreBooked: "Inscription sur la liste d'attente",
-      offerNotBookable: 'Inscription impossible',
-      error: 'Erreur',
+      offerNotBookable: 'Unable to register',
+      offerPreBooked: "You've joined the waitlist for",
+      offerBooked: 'My booking',
+      offerBooked_plural: 'My bookings',
+      basket: 'My basket',
+      title: 'Congratulations!',
       errorExplain: {
         generic:
-          "L'opération n'a pas pu être effectuée. Nous vous invitons à réessayer.",
-        guestGeneric:
-          'Un problème est survenu avec la réservation pour un invité.',
+          'The operation could not be performed. We invite you to try again.',
+        guestGeneric: 'A problem occurred with the reservation for a guest.',
         guestOvercomeLimit:
-          "Le nombre d'invités ajoutés pour cette réservation dépasse le nombre autorisé.",
+          'The number of guests added for this reservation exceeds the allowed number.',
         guestReachedLimit:
-          "Vous avez déjà atteint la limite de réservation pour un invité sur la période en cours. Il n'est plus possible d'en faire.",
-        guestSettings:
-          'Le studio a désactivé la fonctionnalité de réservation pour un invité.',
+          'You have already reached the reservation limit for one guest for the current period. It is not possible to make any more.',
+        guestSettings: "Inviting guests isn't available.",
         guestOffer:
-          'Le studio a désactivé la fonctionnalité de réservation pour un invité pour cette session.',
+          'The studio has disabled the booking for a guest feature for this session.',
         guestPass:
-          'Le studio a désactivé la fonctionnalité de réservation pour un invité pour cette carte de cours.',
-        guestNotEnoughSpot:
-          "Il n'y a pas assez de places pour tous vos invités.",
-        offerOnlyBookingError: "Désolé, mais malheureusement, la séance et le spot sélectionnés ne peuvent pas être réservés pour le moment. Nous vous invitons à réessayer.",
-        genericOfferError:"Nous avons rencontré un problème lors du traitement de votre réservation de séance. Veuillez réessayer ultérieurement ou réserver une séance différente.",         
+          'The studio has disabled the booking for a guest feature for this pass.',
+        guestNotEnoughSpot: 'There is not enough capacity for all your guests.',
+        genericOfferError:
+          'We have encountered a problem when processing your session booking. Please try again later or book a different session.',
+        offerOnlyBookingError:
+          'Sorry, but the selected session and spot cannot be booked at the moment. Please try again.',
       },
-      confirmationStatusTitle:{
-        errors: {
-          generic: "Oups ! Le paiement a échoué.",
-          genericOfferError: "Oups ! La réservation a échoué."
-        },
+      error: 'Error',
+      recap: 'Summary',
+      explain:
+        "Your purchase has been processed. Shortly, you'll also receive a confirmation email.",
+      myGiftcard: 'My giftcard',
+      myGiftcard_plural: 'My giftcards',
+      myProduct: 'My product',
+      myProduct_plural: 'My products',
+      mySubscription: 'My subscription',
+      myPack: 'My pack',
+      myPack_plural: 'My packs',
+      myPass: 'My pass',
+      myPass_plural: 'My passes',
+      alert:
+        "Oops! The booking failed.\nWe've had a problem processing your session booking. Please try again later or book a different session.",
+      confirmationStatusMessage: {
+        offerAndPurchaseSuccess:
+          'Congratulations! Your purchases and bookings have been confirmed. You will shortly receive a confirmation e-mail with all the details.',
+        paymentSuccess: 'Congratulations! Your purchase has been confirmed!',
+        paymentSuccess_plural: 'Congratulations! Your purchases are confirmed!',
+        offerOnlySuccess:
+          'The booking has been made. You will soon receive a confirmation e-mail with all the details.',
+        offerOnlySuccess_plural:
+          'The bookings have been made. You will soon receive a confirmation e-mail with all the details.',
+      },
+      confirmationStatusTitle: {
         success: {
-          offerOnlySuccess:"Bonne séance !",
-          paymentSuccess: "Paiement confirmé !",
-          waitingList: "Vous vous êtes inscrit sur la liste d'attente",
-        }
+          waitingList: 'You have registered on the waiting list',
+          paymentSuccess: 'Payment confirmed!',
+          offerOnlySuccess: 'Enjoy the session!',
+        },
+        errors: {
+          genericOfferError: 'Oops! The booking failed.',
+          generic: 'Oops! Payment failed.',
+        },
       },
-      confirmationStatusMessage:{
-        offerOnlySuccess:"La réservation a bien été effectuée. Vous recevrez bientôt un e-mail de confirmation avec tous les détails.",
-        offerOnlySuccess_plural: 'Les réservations ont bien été effectuées. Vous recevrez bientôt un e-mail de confirmation avec tous les détails.',
-        paymentSuccess: "Félicitations ! Votre achat est confirmé !",
-        paymentSuccess_plural:"Félicitations ! Vos achats sont confirmés !",
-        offerAndPurchaseSuccess: "Félicitations ! Vos achats et réservations sont confirmés. Vous recevrez sous peu un e-mail de confirmation contenant tous les détails."
-      },
-      alert: "Oups ! La réservation a échoué.\n Nous avons rencontré un problème lors du traitement de votre réservation de séance. Veuillez réessayer ultérieurement ou réserver une séance différente.",
-      myPass: 'Ma carte de cours',
-      myPass_plural: 'Mes cartes de cours',
-      myPack: 'Mon pack',
-      myPack_plural:'Mes packs',
-      mySubscription: 'Mon abonnement',
-      myProduct: 'Mon produit',
-      myProduct_plural: 'Mes produits',
-      myGiftcard: 'Ma carte cadeau',
-      myGiftcard_plural: 'Mes cartes cadeaux',
     },
-    bookingItem:{
-      bookingItemStatus:{
-        waitingList: "Liste d'attente",
-        unpaid: "Impayé"
-      }
-    }
+    actions: {
+      back: 'Go back',
+      continue: 'Continue shopping',
+      widgetContinue: 'Next',
+      member: 'My account',
+      payNow: 'Pay now',
+      confirmPriceNull: 'Confirm',
+      myPasses: 'My passes',
+      myGiftcards: 'My giftcards',
+      myProducts: 'My products',
+      mySubscription: 'My subscription',
+      retryBookingSession: 'Try to book again',
+      newWorkshop: 'New workshop',
+      retry: 'Try again',
+      myBookings: 'My bookings',
+      goToCalendar: 'Back to calendar',
+    },
+    bookingItem: {
+      bookingItemStatus: { unpaid: 'Unpaid', waitingList: 'Waiting list' },
+    },
+  },
+  expire_in: 'Expires in ',
+  events: {
+    [BASKET_EVENTS.created]: 'Basket created',
+    [BASKET_EVENTS.finalize]: 'Finalized/paid cart',
+    [BASKET_EVENTS.additem]: 'Add to cart',
+    [BASKET_EVENTS.removeitem]: 'Remove from basket',
+    [BASKET_EVENTS.automaticclean]: 'Automatically clear basket',
+  },
+  eventHistory: {
+    sectionTitle: 'Events',
+    pleaseSelectABasket: 'Select a basket to see the history',
+  },
+  historyTitle: 'History',
+  bookerMethod: {
+    section: {
+      combo: 'Packs',
+      pass: 'Available passes',
+      consumerPass: 'My passes',
+    },
+    actions: { bookVod: 'Unblock video' },
+    emptyMethod:
+      "The studio hasn't created any compatible passes with this video.",
   },
   internalAccount: {
-    useMyInternalAccount: 'Utilisation de mon solde',
-    myInternalAccount: 'Mon solde',
-    use: 'Utiliser mon solde',
-    useAsManager: 'Utiliser le solde',
-    label: 'Montant disponible : ',
-    cancel: 'Annuler',
-    confirm: 'Confirmer',
+    confirm: 'Confirm',
+    cancel: 'Cancel',
+    label: 'Available amount: ',
+    use: 'Use my internal account balance',
+    use_minimal: 'Use',
+    myInternalAccount: 'My internal account balance',
+    useMyInternalAccount: 'Use my internal account credit',
+    useAsManager: 'Use the internal account credit',
+  },
+  payment: {
+    total: 'Total (incl. VAT / Sales Tax)',
+    tax: 'VAT / Sales Taxes',
+    taxExcluded: 'Subtotal (excl. VAT / Sales Tax)',
+    flat_fee: 'Enrolment fee',
+    globalTotal: 'Total to pay now',
+    internalAccount: 'My internal account balance',
+    deliveryFee: 'Delivery Fee',
+    title: 'Payment',
+    totalHiddingTax: 'Total to pay now',
+    flatFeeSubscription: 'Application fee',
   },
 };

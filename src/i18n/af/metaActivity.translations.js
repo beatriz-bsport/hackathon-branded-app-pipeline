@@ -1,224 +1,213 @@
 exports.default = {
-  metaActivity: 'Activité',
-  edit: 'Modifier',
-  close: 'Fermer',
-  workshop: 'Atelier',
-  search: 'Chercher une activité',
-  workshopSelect: 'Chercher un atelier',
-  noActivities:
-    'Gérez ici vos activités, une activité permet de regrouper un ensemble de séances (généralement collectives) de la même pratique.',
-  actions: {
-    addActivity: 'Ajouter une activité',
-    search: 'Rechercher une activité',
-  },
-  navigation: {
-    goToPaymentPack: 'Cartes de cours',
-  },
+  metaActivity: 'Activity',
+  search: 'Search a group activity',
   forms: {
-    warning: {
-      highLastBookingBeforeWarning:
-        'Attention, {{ durationFormatted }} avant le début du cours, plus aucune réservation ne sera possible !',
-      lowFirsBookingUntilWarning:
-        "Attention, il faut attendre d'être {{ durationFormatted }} avant le début du cours avant de pouvoir faire la toute première réservation !",
-    },
     create: {
       compatible_packs: {
-        seeMore: 'Voir plus',
-        createPass: 'Créer une carte de cours',
-        goToActivity: "Aller à l'activité",
-        passHelperText:
-          "Les cartes de cours suivantes sont compatibles avec l'activité créée:",
+        seeMore: 'See more',
+        createPass: 'Add a pass',
+        goToActivity: 'Go to activity',
+        passHelperText: 'These passes are available for the created activity:',
         noCompatiblePass:
-          'Aucune carte de cours compatible avec cette activité, pensez à en créer un',
+          'No pass available for this activity, remind to create one',
       },
       steps: {
-        activity_form: "Création de l'activité",
-        pass_form: "Création d'une carte de cours (optionnel)",
-        pass_list: 'Finalisation',
-        offer_form: 'Création des séances (optionnel)',
-        workshop_form: "Création de l'atelier",
+        activity_form: 'Activity creation',
+        pass_form: '(Optional) Add a pass',
+        pass_list: 'Finalization',
+        offer_form: '(Optional) Add sessions',
+        workshop_form: 'Add a workshop',
       },
     },
     delete: {
-      title: "Suppression de l'activité",
+      actions: { confirm: 'Delete', cancel: 'Cancel' },
       content: {
-        canDelete:
-          'Êtes-vous sûr de vouloir supprimer cette activité ? Les séances et réservations passées ne seront pas affectées. Cette opération est définitive.',
         cannotDelete:
-          "Des séances sont prévues dans le futur, vérifiez qu'elles ont bien été annulées.",
+          'There are upcoming sessions planned for this activity. Check if they have been cancelled.',
+        canDelete:
+          "Are you sure that you want to delete this activity? The sessions and past bookings won't be modified. This action can't be undone.",
       },
-      actions: {
-        cancel: 'Annuler',
-        confirm: 'Supprimer',
-      },
+      title: 'Delete an activity',
+    },
+    warning: {
+      highLastBookingBeforeWarning:
+        'Please note that {{ durationFormatted }} before the start of the session, no more reservations will be possible!',
+      lowFirsBookingUntilWarning:
+        'Please note that you must wait until {{ durationFormatted }} before the start of the session in order to make the very first booking!',
     },
   },
   detail: {
     pack: {
-      noCompatiblePass: 'Aucune carte de cours compatible',
-      consumerPacks: 'Carte de cours possédées par les membres',
-      paymentPacks: 'Carte compatibles',
+      noCompatiblePass: 'No Compatible pass',
+      consumerPacks: 'Bought by',
+      paymentPacks: 'Compatible passes',
     },
     tab: {
-      general: 'Général',
-      pack: 'Cartes compatibles',
-      group: 'Séances groupées',
+      general: 'General',
+      pack: 'Compatible passes',
+      group: 'Grouped sessions',
     },
   },
-
-  name: 'Nom',
-  category: 'Catégorie',
-  addOffers: 'Ajouter des séances',
-  offersThisDay: 'Séances ce jour :',
+  name: 'Name',
+  category: 'Sport',
+  addOffers: 'Add sessions',
+  offersThisDay: "Today's sessions:",
   description: 'Description',
+  settings: {
+    title: 'Settings',
+    lastBookingBeforeMinutes:
+      'Members can book up to {{m}} before the start of the session.',
+    lastDiscardBeforeMinutes:
+      'Members can cancel free of charge up to {{m}} before the start of the session.',
+    firstBookingMinutesUntil:
+      'Members can book sessions for up to {{m}} in the future.',
+    conditions: 'Cancellation policy',
+    autoDiscard:
+      'The session will be cancelled if there are {{nb_bookings}} booking(s) or less {{hours}}h before the start of the session.',
+    firstBookingMinutesUntilHeader: 'Opening of booking window',
+    lastDiscardBeforeMinutesHeader: 'Cancellation policy',
+    seeRestrictions: 'See',
+    restrictions: ' Custom restriction: {{ count }}',
+    restrictionsHeader: 'Custom restrictions',
+    autoDiscardHeader: 'The session will be cancelled if',
+    lastBookingBeforeMinutesHeader:
+      'Last possibility of booking before the start of the session',
+    lastDiscardBeforeMinutesFull:
+      'Cancellations possible until {{m}} before the start of the session',
+    lastBookingBeforeMinutesFull:
+      'Last bookings possible until {{m}} before the start of the session',
+  },
   modal: {
     delete: {
-      title: "Suppression de l'activité",
+      title: 'Delete activity',
       content:
-        'Êtes-vous sûr de vouloir supprimer cette activité ? Les séances et réservations ne seront pas affectées. Cette opération est définitive.',
-      cancel: 'Annuler',
-      confirm: 'Supprimer',
+        'Are you sure you want to delete this activity ? Booking and sessions will not be altered. This operation is not revertable.',
+      cancel: 'Cancel',
+      confirm: 'Delete',
     },
   },
-
-  settings: {
-    conditions: 'Conditions',
-    title: 'Paramètres',
-    lastBookingBeforeMinutesHeader:
-      'Avant le début du cours, dernière réservation possible',
-    lastBookingBeforeMinutes: "Jusqu'à {{m}} avant le début de la séance",
-    lastBookingBeforeMinutesFull:
-      "Dernières réservations possibles jusqu'à {{m}} avant le début de la séance",
-    lastDiscardBeforeMinutesHeader:
-      'Avant le début du cours, dernière annulation possible',
-    lastDiscardBeforeMinutes: "Jusqu'à {{m}} avant le début de la séance",
-    lastDiscardBeforeMinutesFull:
-      "Annulations possibles jusqu'à {{m}} avant le début de la séance",
-    firstBookingMinutesUntilHeader:
-      'Les élèves peuvent réserver les séances futures si elles débutent dans moins de',
-    firstBookingMinutesUntil:
-      'Les réservations sont bloquées avant {{m}} du début de la séance',
-    autoDiscardHeader: 'La séance sera annulée si',
-    autoDiscard:
-      'La séance sera annulée si il y a {{nb_bookings}} réservation(s) ou moins {{hours}}h avant le début de la séance',
-    restrictionsHeader: 'Restrictions personnalisées',
-    restrictions: ' Restriction personnalisée n°{{ count }}',
-    seeRestrictions: 'Voir',
+  packsAvailable: 'Pass available for this activity :',
+  reviews: 'Customer reviews: ',
+  navigation: { goToPaymentPack: 'Passes' },
+  actions: {
+    search: 'Search an activity',
+    addActivity: 'Add a group activity',
   },
-  packsAvailable: 'Eligible aux pass :',
-
-  reviews: 'Avis clients: ',
-  disabledMetaActivities: 'Activités archivées',
+  noActivities:
+    'This module allows you to add, manage, edit, or delete all your group activities.',
+  disabledMetaActivities: 'Archived group activities',
+  workshop: 'Workshop',
   groupedOption: {
     modal: {
-      title: 'Séances groupées',
-      subtitleMetaActivitySelect: 'Création d’un groupe de séances',
-      subtitlePreview: 'Prévisualisation de la récurrence',
-      duplicate: 'Dupliquer un groupe',
       form: {
-        subtitle: 'Informations générales',
-        subtitleOffers: 'Ajout de séances',
-        addOffers: 'Ajouter une séance',
-        subtitleSettings: 'Paramètres',
-        subtitleRecurrence: 'Récurrence',
-        name: 'Nom',
-        fullBookingOnly: 'Inscription à toutes les séances du groupe',
-        fullBookingOnlyCaption:
-          "Par défaut vos membres seront inscrits automatiquement à l'ensemble des séances du groupe s'ils s'inscrivent à l'une des séances de celui-ci. En désactivant ce paramètre, vos membres auront la liberté de s'inscrire à tout ou partie des séances du groupe.",
-        allowBookingAfterStart: "Autoriser l'inscription en cours de route",
-        allowBookingAfterStartCaption:
-          "Par défaut si un groupe de séance a déjà commencé vos membres ne pourront plus s'y inscrire. En activant cette fonctionnalité vos membres pourront tout de même s'inscrire aux séances restantes.",
-        marketPlaceAvailable: 'Disponible à la réservation (web+app)',
-        withRecurrence: 'Activer la récurrence',
-        nameCaption: 'Nom du groupe de séance',
-        timeStartHelper:
-          'Sélectionnez la date de la première séance de la copie du groupe. Les autres séances du groupe seront copiées et décalées en fonction de cette date.',
-        timeStart: 'Date de début',
-        recurrenceCount: 'Nombre de répétitions',
-        recurrenceUntil: 'Répéter jusqu’au',
-        recurrenceUntilHelper:
-          "Merci d'indiquer la date de la dernière séance du dernier cycle.",
-        recurrenceUntilHelper2:
-          'Les groupes avec une dernière séance après cette date ne seront pas créé.',
-        preview: 'Prévisualiser',
-        recurrenceNumberPrefix: 'Répéter toutes les',
-        recurrence: 'Récurrence',
-        daily: 'Tous les jours',
-        groupName: 'Nom',
-        uncreatedGroupsTitle: 'Groupes non créés',
-        creationError: 'Création impossible',
-        next: 'Suivant',
-        required: 'Au minimun un groupe est nécessaire',
-        copyRecurrence: 'Dupliquer aussi les récurrences futures du groupe',
-        delete: {
-          title: 'Suppresion',
-          applyRecursive: 'Annuler les autres groupes similaires',
-          selectGroup: 'Annuler les autres groupes similaires',
-          selectHeader: 'Sélectionnez les groupes qui seront modifiées',
-          firstSession: 'Première seance le {{-day}}',
-          missingOffer: 'Aucue offre dans le groupe',
-          content:
-            "Attention, en supprimant ce groupe toutes les séances à l'intérieur de celui-ci seront annulées. Les élèves inscrits verront leurs réservations annulées. Cette opération est définitive",
-        },
-        save: 'sauvegarder',
-        back: 'Précédent',
-        submit: 'Valider',
+        recurrenceNumberPrefix: 'Repeat every',
         impossibleState:
-          'Les paramêtres saisis ne permettent pas de génerer un groupe',
-        allowGuest: 'Compatible avec la réservation pour un invité',
+          'The parameters entered do not allow the generation of a group',
+        submit: 'Validate',
+        back: 'Previous',
+        save: 'save',
+        delete: {
+          content:
+            "Deleting this event will result in the cancellation of all enrolled members' bookings. This action can't be undone.",
+          missingOffer: 'No offers in the group',
+          firstSession: 'The first upcoming session is on: {{-day}}',
+          selectHeader: 'Select the groups that will be modified',
+          selectGroup: 'Cancel other similar groups',
+          applyRecursive: 'Cancel other similar groups',
+          title: 'Suppression',
+        },
+        copyRecurrence: 'Also duplicate future group recurrences',
+        required: 'At least one group is needed',
+        next: 'Next',
+        groupName: 'Name',
+        daily: 'Every day',
+        recurrence: 'Recurrence',
+        timeStart: 'Starting date',
+        preview: 'Preview',
+        recurrenceUntilHelper2:
+          "It's not possible to add sessions after this date.",
+        recurrenceUntilHelper: 'Please indicate the end date of this event.',
+        timeStartHelper:
+          "Select the date of this event's first sessions. All future sessions will be associated to the event according to this date.",
+        recurrenceUntil: 'Repeat until',
+        nameCaption: 'Event name',
+        recurrenceCount: 'Number of repetitions',
+        withRecurrence: 'Enable recurrence',
+        marketPlaceAvailable: 'Available for booking (web+app)',
+        allowBookingAfterStartCaption:
+          "By default, it's not possible for members to enrol for events that have already started. Activate this option to allow enrolments for the remaining sessions.",
+        allowBookingAfterStart: 'Allow enrolment on the way',
+        fullBookingOnlyCaption:
+          "By default, your members will be automatically enrolled for all sessions in this group when booking one of the sessions in the group. Deactivate this option to allow your members to select separately for which sessions they'd like to enroll for.",
+        fullBookingOnly: 'Book all the sessions in the group at once',
+        name: 'Name',
+        subtitleRecurrence: 'Recurrence',
+        subtitleSettings: 'Settings',
+        addOffers: 'Add sessions',
+        subtitleOffers: 'Sessions',
+        subtitle: 'General',
+        allowGuest: 'Compatible with the booking for a guest feature',
         allowGuestUnavailable:
-          "Cette fonctionnalité n'est pas disponible sur les séances groupées.",
+          "This feature isn't available for grouped sessions.",
+        creationError: 'Impossible to create',
+        uncreatedGroupsTitle: 'Groups not created',
+        syncOnSpivi: 'Send to Spivi',
         spiviWarningHelperText:
-          'Attention, si des séances sont liées à Spivi, leurs copies ne seront pas liées à Spivi.',
-        syncOnSpivi: 'Envoyer sur Spivi',
+          'Please note that if sessions are linked to Spivi, their copies will not be linked to Spivi.',
       },
-    },
-    errors: {
-      offers_length: `Vous n'avez créé qu'une seule séance. Pour pouvoir créer un groupe de séances, 
-      ajoutez au moins deux séances. Si vous souhaitez créer une séance unique, vous pouvez le faire directement depuis
-      l'atelier en question ou l'onglet calendrier.`,
-    },
-    intervalLabel: {
-      month: 'Tous les mois',
-      month_plural: 'Tous les {{ count }} mois',
-      week: 'Toutes les semaines',
-      week_plural: 'Toutes les {{ count }} semaines',
-      day: 'Tous les jours',
-      day_plural: 'Tous les {{ count }} jours',
-      year: 'Tous les ans',
-      year_plural: 'Tous les {{ count }} ans',
-      until: {
-        month: "Tous les mois jusqu'au {{-until}} ",
-        month_plural: "Tous les {{ count }} mois jusqu'au {{-until}} ",
-        week: "Toutes les semaines jusqu'au {{-until}} ",
-        week_plural: "Toutes les {{ count }} semaines jusqu'au {{-until}} ",
-        day: "Tous les jours jusqu'au {{-until}} ",
-        day_plural: "Tous les {{ count }} jours jusqu'au {{-until}} ",
-        year: "Tous les ans jusqu'au {{-until}} ",
-        year_plural: "Tous les {{ count }} ans jusqu'au {{-until}} ",
-      },
-    },
-    last: 'dernier',
-    helperText: {
-      month: 'Ce groupe commence le {{-day}}, tous les mois',
-      month_plural: 'Ce groupe commence le {{-day}}, tous les {{ count }} mois',
-      week: 'Ce groupe commence le {{-day}}, toutes les semaines',
-      week_plural:
-        'Ce groupe commence le {{-day}}, toutes les {{ count }} semaines',
-      day: 'Ce groupe est répété tous les jours',
-      day_plural: 'Ce groupe commence est répété tous les {{ count }} jours',
-      year: 'Ce groupe commence {{-day}}, de {{-mont}} tous les ans',
-      year_plural:
-        'Ce groupe commence {{-day}}, de {{-month}} tous les {{ count }} ans',
+      duplicate: 'Duplicate a group',
+      subtitlePreview: 'Preview of the recurrence',
+      subtitleMetaActivitySelect: 'Configuration',
+      title: 'Grouped sessions',
     },
     offerDescription:
-      '{{ count }} séances du {{- firstSession }} au {{- lastSession }}',
+      '{{ count }} session(s) from {{- firstSession }} until {{- lastSession }}',
+    helperText: {
+      year: 'This event starts every year on: {{-day}} {{-mont}}',
+      year_plural:
+        'This event starts every year on: {{-day}} {{-month}} for {{ count }} year(s)',
+      day: 'This group is rehearsed every day',
+      day_plural: 'This group is repeated every {{ count }} day',
+      week: 'This group starts on {{-day}} ,every week',
+      week_plural: 'This group starts on {{-day}} every {{ count }} week',
+      month: 'This event starts every month on: {{-day}}',
+      month_plural:
+        'This event starts every month on: {{-day}} for {{ count }} month(s)',
+    },
+    last: 'last',
+    intervalLabel: {
+      until: {
+        year: 'Every year until {{-until}} ',
+        year_plural: 'Every {{ count }} year(s) until {{-until}} ',
+        day: 'Every day until {{-until}} ',
+        day_plural: 'Every {{ count }} day until {{-until}} ',
+        week: 'Every week until {{-until}} ',
+        week_plural: 'Every {{ count }} week until {{-until}} ',
+        month: 'Every month until {{-until}} ',
+        month_plural: 'Every month from {{ count }} until {{-until}} ',
+      },
+      year: 'Every year',
+      year_plural: 'Every {{ count }} year',
+      day: 'Every day',
+      day_plural: 'Every {{ count }} day',
+      week: 'Every week',
+      week_plural: 'Every {{ count }} week',
+      month: 'Every month',
+      month_plural: 'Every {{ count }} month',
+    },
     warning: {
-      uncreatedGroups: `Attention, certains groupes ne seront pas créés.
-        Vous pouvez les trouver dans la section "Groupes non créés" en bas de cette liste`,
-      groupsWithOutOfTheRangeOffers: `Les groupes de séances ci-dessous ne seront pas créés car
-        ils comportent des séances qui ont lieu dans plus de 3 ans`,
+      groupsWithOutOfTheRangeOffers:
+        'The session groups below will not be created because they include sessions that are more than 3 years away',
+      uncreatedGroups:
+        'Please note that some groups will not be created. \nYou can find them in the section "Groups not created" at the bottom of this list',
+    },
+    errors: {
+      offers_length:
+        'You have created only one session. In order to create a group of sessions, add at least two sessions. If you want to create a single session, you can do it directly from the workshop in question or the calendar tab.',
     },
   },
-  cancelledOffers: '{{count}} annulations',
+  cancelledOffers: '{{count}} cancellations',
+  workshopSelect: 'Search for a workshop',
+  close: 'Close',
+  edit: 'Edit',
 };

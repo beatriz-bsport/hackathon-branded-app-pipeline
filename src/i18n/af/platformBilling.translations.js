@@ -1,74 +1,65 @@
 exports.default = {
-  platformInvoice: {
-    label: 'Facture {{ month }}/{{year}}',
-    sectionTitle: 'Mes factures',
-    noInvoice: 'Aucune facture',
-    bill: 'Régulariser',
-    status: {
-      missing_charge: 'Aucun paiement tenté',
-      succeeded: 'Paiement réussi',
-      disputed: 'Paiement contesté',
-      processing: 'Paiement en cours',
-      failed: 'Paiement échoué',
+  paymentMethod: {
+    actions: { createCard: 'Add a card', createSepa: 'Add IBAN' },
+    sectionTitle: 'Payment method',
+    info: {
+      link: 'here',
+      content:
+        'Your Bsport subscription will be charged to the payment method indicated below. To configure the account on which the online payments via Bsport will be credited, click',
     },
   },
-  paymentMethod: {
-    sectionTitle: 'Moyen de paiement',
-    actions: {
-      createSepa: 'Ajouter un IBAN',
-      createCard: 'Ajouter une carte',
+  platformInvoice: {
+    noInvoice: 'There are no invoices to display.',
+    sectionTitle: 'My invoices',
+    label: 'Invoice {{month}} / {{year}}',
+    status: {
+      failed: 'Payment: failed',
+      processing: 'Payment: in progress',
+      disputed: 'Payment: disputed',
+      succeeded: 'Payment: successful',
+      missing_charge: "There's no attempted payment to display.",
     },
-    info: {
-      content:
-        'Votre abonnement Bsport sera débité sur le moyen de paiement indiqué ci dessous. Pour configurer le compte sur lequel les paiements en ligne via Bsport seront crédités, cliquez',
-      link: 'ici',
-    },
+    bill: 'Complete payment',
   },
   upsellPackage: {
-    lockDialog: {
-      // inbox
-      33: {
-        intro:
-          'Découvrez notre nouvelle interface de chat direct avec vos membres.',
-        explain:
-          'Vous retrouverez ici toutes vos discussions directes, les chat liés à vos séances, ainsi que vos campagnes smartlists. Le chat est compatible avec les SMS, emails et push notification.',
-      },
-      requestAccess: 'Demander un accès',
-    },
     billOnce: '{{ price_cts }}',
-    billRecurrent: '{{ price_cts }} / mois',
-    knowMore: 'En savoir +',
-    myAddonTitle: 'Mes Add-ons',
-    otherAddonTitle: 'Add-ons disponibles',
-    vod: {
-      explainBilling: '  +1 {{currencyDisplay }} /client actif',
-    },
-    sms: {
-      explainBilling: '{{ price_cts }} / SMS',
-    },
-  },
-  platformBillingGroup: {
-    myGroup: 'Mon forfait',
-    soonAvailable: 'Bientôt disponible !',
-  },
-  platformBillingPlan: {
-    max_coach: {
-      label: "Jusqu'à {{ max_coach }} professeurs",
-      help: 'Un professeur est décompté à partir de 8 séances mensuelles',
-    },
-    max_establishment: {
-      label: "Jusqu'à {{ max_establishment }} établissements",
-      help: 'Un établissement est décompté à partir de 8 séances mensuelles',
+    vod: { explainBilling: '  +{{currencyDisplay }}1 / active client' },
+    billRecurrent: '{{ price_cts }} / month',
+    otherAddonTitle: 'Available Add-Ons',
+    myAddonTitle: 'My Add-Ons',
+    knowMore: 'More information',
+    sms: { explainBilling: '{{ price_cts }} / SMS' },
+    lockDialog: {
+      33: {
+        intro: 'Discover our new interface of direct chat with your members.',
+        explain:
+          "You'll find here all your direct discussions, chats linked to your sessions, and your smartlist campaigns. The chat is compatible with SMS, email and push notifications.",
+      },
+      requestAccess: 'Request access',
     },
   },
   platformBillingStage: {
-    monthlyPrice: '{{ price }} / mois',
-    maxBooking: "Jusqu'à {{ max_booking_per_month }} réservations / mois",
+    monthlyPrice: '{{ price }} / month',
+    maxBooking: 'Up to {{ max_booking_per_month }} reservations / month',
   },
   featureRequest: {
-    title: 'Add-on',
+    close: 'Close',
     content:
-      "Nous avons bien noté votre intérêt, merci pour votre intérêt ! Votre chargé de compte bsport vous recontactera très vite avec plus d'informations.",
-    close: 'Fermer',
+      'Your interest has been noted, thank you for your interest! Your account manager will be in touch with you very soon with more information.',
+    title: 'Add-on',
+  },
+  platformBillingPlan: {
+    max_establishment: {
+      label: 'Up to {{ max_establishment }} establishments',
+      help: 'An establishment is considered as active starting from 8 monthly sessions',
+    },
+    max_coach: {
+      label: 'Up to {{ max_coach }} teachers',
+      help: 'A teacher is considered as active starting from 8 monthly sessions',
+    },
+  },
+  platformBillingGroup: {
+    soonAvailable: 'Available Soon !',
+    myGroup: 'My subscription',
   },
 };

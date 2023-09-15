@@ -11,5 +11,3 @@ flow
 # Ignore files
 **/*.mdx
 **/*.md
-src/i18n/**/*.translations.js
-src/i18n/**/translations.json

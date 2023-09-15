@@ -1,188 +1,174 @@
-// @flow
-
 exports.default = {
-  playlist: {
-    noVideo: 'Aucune vidéo dans cette playlist',
-    name: 'Nom',
-    description: 'Description',
-    deleteVideo: 'Supprimer',
-    open: 'Ouvrir',
-    form: {
-      cancel: 'Annuler',
-      submit: 'Enregistrer',
-    },
-    playlist: 'Parcours',
-    bottomActions: {
-      create: 'Ajouter',
-    },
-  },
   video: {
-    register: {
-      title: 'Activer la lecture',
-      buyPass: 'Acheter un pass',
-      noPassAvailable: 'Vous ne possédez pas de pass compatible',
-    },
-    rental: {
-      label: 'Vidéo en location',
-      helper:
-        'Par défaut les vidéos sont débloquées à vie une fois achetées. En mettant la vidéo en location elle ne sera débloquable que pendant un certain nombre de jours.',
-      duration_helper: 'Validité de la vidéo (en jours)',
-      duration: 'En location pour {{ rental_days }} jours',
-      rental_days_helper: 'La vidéo sera débloquée le nombre de jours indiqué.',
-      forRent: 'Location',
-      valid: 'En cours',
-      expired: 'Terminé',
-      expirationDate: "Valide jusqu'au {{ expiration_date }}",
-      expiredDate: 'Expirée depuis le {{ expiration_date }}',
-      buyDate: "Heure d'achat",
-    },
-    creditPrice: 'Coût (crédit)',
-    lock: {
-      accessDenied: "Vous n'avez pas accès à cette vidéo",
-      accessDeniedEbook: "Vous n'avez pas accès à cet ebook",
-      pleaseAuthenticated:
-        'Vous devez vous connecter pour accéder à cette vidéo',
-      useConsumerPass: 'Débloquer',
-      buyPass: 'Acheter une carte',
-    },
-    filter: {
-      duration: {
-        all: 'Toute durée',
-        explain: 'Entre {{min}} et {{max}} min',
+    form: {
+      coach: { isEmpty: 'No teacher' },
+      title: 'Video form',
+      submit: 'Save',
+      cancel: 'Cancel',
+      edit: 'Edit',
+      creditPrice: {
+        label: 'Price (in credits)',
+        helperText:
+          'Leave at 0 if you want the video to be accessible to all your members',
       },
-    },
-    showMore: 'Voir plus',
-    durationMinute: '{{ minute }} min',
-    player: {
-      with: 'avec',
-    },
-    thumbnailList: {
-      addVideo: 'Ajouter une vidéo',
-      count: '{{ count }} vidéos',
-      similarVideoTitle: 'Vidéos similaires',
-    },
-    search: {
-      placeholder: 'Rechercher',
-      cancel: 'Annuler',
-      isEmpty: 'Aucune vidéo :(',
-    },
-    bottomActions: {
-      create: 'Ajouter',
-    },
-    coverMain: {
-      alert: "L'image est obligatoire",
-    },
-    name: 'Nom',
-    category: 'Catégorie',
-    description: 'Description',
-    level: 'Niveau',
-    manager_only: "Non disponible à l'achat",
-    manager_only_helper:
-      "La vidéo ne sera pas disponible à l'achat, elle sera visible par les managers uniquement",
-    status: {
-      submitted: 'Brouillon',
-      processing: 'En cours',
-      error: 'Réessayer',
-      processed: 'Détail',
-    },
-    delete: {
-      title: 'Suppression',
-      content:
-        'Êtes-vous sûr de vouloir supprimer ce parcours ? Cette opération est irréversible.',
-      confirm: 'Confirmer',
-      cancel: 'Annuler',
+      video_label: 'Video',
+      video_source: {
+        change_popup_text:
+          'Please note that the current video/file will be deleted. Members who purchased the old file will now have the new one.',
+        change_popup_title: 'Change file',
+        edit_button: 'Change file',
+        uploaded_video: 'Uploaded file',
+        youtube_video: 'YouTube video',
+        title: 'File',
+        vimeo_video: 'Vimeo video',
+        ebook: 'eBook',
+      },
+      confirm: {
+        button: 'Confirm',
+        unlimitedToRent:
+          'This video will become a rental video instead of a permanent video. All members that (previously) unlocked it will lose access to it, should the validity period have been expired. Are you sure that you want to continue?',
+        rentToUnlimited:
+          'This video will become a permanent video instead of a rental video. All members that (previously) unlocked it will be able to watch it. Are you sure that you want to continue?',
+        title: 'Availability',
+      },
     },
     upload: {
-      title: 'Uploader une vidéo',
-      ebookTitle: 'Uploader un ebook',
-      content: 'Déposez ici ou sélectionnez une vidéo',
-      contentEbook: 'Déposez ici ou sélectionnez un fichier/image',
-      dropHere:
-        'Glissez-déposez ici une vidéo ou cliquez pour parcourir votre ordinateur',
-      cancel: 'Annuler',
-      submit: 'Valider',
+      cancel: 'Cancel',
+      dropHere: 'Click here to add a video.',
+      content: 'Drop here or select a video',
+      title: 'Upload a video',
+      urlInputError: 'Please enter the URL',
+      urlInputLabel: 'Youtube link',
       type: {
-        file: 'Fichier',
+        url: 'YouTube',
+        file: 'File',
+        urlExplain:
+          'If you have a video Youtube and want to limit to monetize it via bsport.',
         fileExplain:
-          'Vous disposez du fichier video (mp4, avi, mov...), utilisez cette méthode pour uploader votre vidéo directement sur les serveurs de bsport.',
-        youtube: 'Youtube',
-        vimeo: 'Vimeo',
+          'If you have a video file (mp4,avi,mov...), please use this to upload directly your video on our servers.',
         youtubeExplain:
-          'Votre vidéo est déjà disponible sur Youtube mais vous souhaitez la monétiser via le système de cartes de bsport.',
+          'You have a Youtube video and want to monetize it via bsport.',
         vimeoExplain:
-          'Votre vidéo est déjà disponible sur Vimeo mais vous souhaitez la monétiser via le système de cartes de bsport.',
-        ebook: 'Ebooks',
+          'You have a Vimeo video and want to monetize it via bsport.',
+        vimeo: 'Vimeo',
+        youtube: 'Youtube',
         ebookExplain:
-          'Vous disposez d’un ebook en format pdf ou image (png, jpg), utilisez cette méthode pour uploader votre ebook. Une fois débloqué vos membres pourront le télécharger.',
+          'Upload an eBook (PDF, JPG, or PNG) to make it available for download for your members.',
+        ebook: 'eBooks',
       },
-      youtubeUrlInput: 'Lien youtube',
-      vimeoUrlInput: 'Lien vimeo',
-      urlInputError: 'Veuillez saisir une url',
-      durationLabel: 'Durée de la video',
-      durationInputError: 'Veuillez saisir la durée de la vidéo',
-      hours: 'Heures',
+      submit: 'Save',
       minutes: 'Minutes',
+      hours: 'Hours',
+      durationInputError: "Please enter the video's duration",
+      durationLabel: 'Duration',
+      vimeoUrlInput: 'Link to Vimeo',
+      youtubeUrlInput: 'Link to YouTube',
+      contentEbook: 'Click here to upload a file or an image.',
+      ebookTitle: 'Upload an eBook',
     },
-    form: {
-      edit: 'Modifier',
-      cancel: 'Annuler',
-      submit: 'Enregistrer',
-      title: 'Edition vidéo',
-      coach: {
-        isEmpty: 'Aucun professeur',
-      },
-      creditPrice: {
-        label: 'Coût en crédit',
-        helperText:
-          'Laissé à zéro pour que la vidéo soit accessible à tous vos adhérents',
-      },
-      video_source: {
-        title: 'Vidéo',
-        youtube_video: 'Vidéo Youtube',
-        vimeo_video: 'Vidéo Vimeo',
-        uploaded_video: 'Fichier uploadé',
-        ebook: 'Ebook',
-        edit_button: 'Changer la vidéo',
-        change_popup_title: 'Changer la vidéo',
-        change_popup_text:
-          "Attention la vidéo actuelle sera supprimée. Les membres ayant acheté l'ancienne vidéo disposeront désormais de la nouvelle.",
-      },
-      video_label: 'Vidéo',
-      confirm: {
-        title: 'Validation',
-        rentToUnlimited:
-          'Vous venez de changer une vidéo en location en une vidéo en illimitée. Tous les membres qui ont déjà débloqué la vidéo (en cours ou expirée) la conserveront à vie. Êtes-vous sûr de vouloir changer ce paramètre ?',
-        unlimitedToRent:
-          'Vous venez de changer une vidéo illimitée en une vidéo en location. Les membres qui disposent actuellement de la vidéo perdront l’accès à celle-ci si la période de validitée indiquée est terminée. Êtes-vous sûr de vouloir changer ce paramètre ?',
-        button: 'Confirmer',
+    delete: {
+      cancel: 'Cancel',
+      confirm: 'Confirm',
+      content:
+        "Are you sure you want to remove this video? This action can't be undone.",
+      title: 'Deletion',
+    },
+    status: {
+      processed: 'Statistics',
+      error: 'Retry',
+      processing: 'Processing',
+      submitted: 'Draft',
+    },
+    level: 'Level',
+    description: 'Description',
+    category: 'Category',
+    name: 'Title',
+    bottomActions: { create: 'Add' },
+    search: {
+      isEmpty: 'There are no videos to display.',
+      cancel: 'Cancel',
+      placeholder: 'Search',
+    },
+    thumbnailList: {
+      similarVideoTitle: 'Recommended videos',
+      count: '{{count}} videos',
+      addVideo: 'Add a video',
+    },
+    player: { with: 'with' },
+    durationMinute: '{{minute}} min',
+    showMore: 'See more',
+    filter: {
+      duration: {
+        explain: 'Between {{min}} and {{max}} min',
+        all: 'Any duration',
       },
     },
-    duplicate: 'Dupliquer',
-    noVideoPurchase: 'Aucun achat enregistré',
-    noVideoView: 'Aucune vue',
-    boughtOn: 'Achat effectué le {{-date}}',
-    viewedOn: 'Vidéo vue le {{-date}} à {{hour}}',
-    purchaseListTitle: 'Liste des achats',
-    viewsListTitle: 'Liste des vues',
+    lock: {
+      pleaseAuthenticated: 'You must login to access this video',
+      accessDenied: 'Please click on the button below to watch this video.',
+      buyPass: 'Purchase a pass',
+      useConsumerPass: 'Unlock access',
+      accessDeniedEbook: "You don't have access to this eBook.",
+    },
+    creditPrice: 'Price (in credits)',
+    register: {
+      buyPass: 'Purchase a pass',
+      title: 'Play this video',
+      noPassAvailable: "You don't own a compatible pass yet.",
+    },
     analytics: {
-      views: '{{nb_views}} visionnages',
-      viewTitle: 'Visionnage',
-      dateCreated: 'Mise en ligne',
+      uploaded: 'Video put online the {{date}}',
+      distinctViewers: 'Unique views',
+      viewsLastWeek: 'Last 7 days',
       totalViews: 'Total',
-      viewsLastWeek: '7 derniers jours',
-      distinctViewers: 'Vues uniques',
-      uploaded: 'Video mise en ligne le {{date}}',
+      dateCreated: 'Put online',
+      viewTitle: 'Viewing',
+      views: '{{nb_views}} views',
     },
-    download: 'Télécharger',
+    viewsListTitle: 'List of views',
+    purchaseListTitle: 'List of purchases',
+    viewedOn: 'Viewed on: {{-date}} at {{hour}}',
+    boughtOn: 'Purchase made on the {{-date}}',
+    noVideoView: 'No views',
+    noVideoPurchase: 'No purchase recorded',
+    coverMain: { alert: 'The picture is mandatory' },
+    manager_only_helper:
+      'The video will not be available for purchase, it will be visible only to managers',
+    manager_only: 'Unavailable for purchase',
+    duplicate: 'Duplicate',
+    rental: {
+      forRent: 'Video rental',
+      expired: 'Expired',
+      valid: 'Valid',
+      buyDate: 'Purchase time',
+      expiredDate: 'Expired since {{ expiration_date }}',
+      expirationDate: 'Valid until {{ expiration_date }}',
+      rental_days_helper: 'The video will be unlocked for X amount of days.',
+      duration: 'For rent for {{ rental_days }} day(s).',
+      duration_helper: 'Video availability (in days)',
+      helper:
+        'Videos are unlocked in perpetuity by default. Renting a video will unlock it for a certain number of days.',
+      label: 'Video rental',
+    },
     ebook: {
-      downloadHelper:
-        'Vous avez débloqué votre ebook, pour le consulter merci de cliquer sur le bouton {{button}}',
+      downloadHelper: '{{button}} Click the button to consult your eBook.',
     },
+    download: 'Download',
+  },
+  playlist: {
+    bottomActions: { create: 'Add' },
+    form: { submit: 'Save', cancel: 'Cancel' },
+    open: 'Open',
+    deleteVideo: 'Remove',
+    description: 'Description',
+    name: 'Title',
+    noVideo: 'No video in this playlist',
+    playlist: 'Playlist',
   },
   details: {
-    title: 'Détails de la vidéo',
-    consumerPaymentPackTitle: 'Carte de cours utilisée',
-    invoiceTitle: 'Facture associée',
-    pleaseSelectVod: 'Sélectionnez un achat pour voir les détails',
+    pleaseSelectVod: 'Select a purchase for a more detailed overview.',
+    invoiceTitle: 'Associated invoice',
+    consumerPaymentPackTitle: 'Used pass',
+    title: 'Details of the video',
   },
 };

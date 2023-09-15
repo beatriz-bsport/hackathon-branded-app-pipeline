@@ -6,40 +6,31 @@ const { TASK_STATUS_UNSTARTED, TASK_STATUS_FINISHED, TASK_STATUS_CANCELLED } =
 exports.default = {
   task: {
     sectionTitle: {
-      pending: 'Tâches en cours',
-      future: 'Tâches planifiées',
-      past: 'Tâches archivés',
+      pending: 'Pending tasks',
+      future: 'Planned tasks',
+      past: 'Archived tasks',
     },
     status: {
-      [TASK_STATUS_UNSTARTED]: 'En cours',
-      [TASK_STATUS_FINISHED]: 'Terminé',
-      [TASK_STATUS_CANCELLED]: 'Annulé',
+      [TASK_STATUS_UNSTARTED]: 'Pending',
+      [TASK_STATUS_FINISHED]: 'Finished',
+      [TASK_STATUS_CANCELLED]: 'Cancelled',
     },
-    owners: 'Attribué à ',
-    author: 'Auteur',
+    owners: 'Assigned to ',
+    author: 'Author',
     actions: {
-      addTask: 'Planifier une tâche',
-      finish: 'Terminer',
-      restart: 'Recommencer',
-      cancel: 'Archiver',
+      addTask: 'Add a task',
+      finish: 'Finish',
+      restart: 'Restart',
+      cancel: 'Archive',
     },
     form: {
-      title: 'Tâche',
-      close: 'Annuler',
-      submit: 'Valider',
-      description: {
-        label: 'Message',
-      },
-      name: {
-        label: 'Titre',
-      },
-
-      date_due: {
-        label: 'Date de rappel',
-      },
-      task_owner: {
-        helperText: 'Staff à notifier',
-      },
+      title: 'Task',
+      close: 'Cancel',
+      submit: 'Confirm',
+      description: { label: 'Message' },
+      name: { label: 'Title' },
+      date_due: { label: 'Reminder date' },
+      task_owner: { helperText: "Staff that'll be notified" },
     },
   },
 };

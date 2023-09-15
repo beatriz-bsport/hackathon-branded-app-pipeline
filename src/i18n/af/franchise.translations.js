@@ -1,115 +1,103 @@
 exports.default = {
-  companyGroup: {
-    explain:
-      "Les catégories servent à grouper vos licences sous une appellation commune (e.g: Studios Paris) et sera affiché notamment dans l'application mobile",
-    actions: {
-      add: 'Ajouter une catégorie',
-      submit: 'Valider',
-      cancel: 'Annuler',
-    },
-    name: {
-      label: 'Nom',
-    },
-  },
-  membersList: {
-    name: 'Nom',
-    franchised: 'Franchisés',
-    actions: 'Actions',
-    see: 'Voir',
-    pageTitle: 'Membres',
-  },
-  pagination: {
-    previousPage: 'Page précedente',
-    nextPage: 'Page suivante',
-    rowPerPage: 'Element par page',
-    outOf: '{{from}} - {{to}} sur {{count}}',
+  companies: {
+    pageTitle: 'Studios',
+    navigateToCompany: 'Connect to Sub Account',
+    membersEmptyState: 'This studio has no members to display.',
+    establishmentEmptyState: 'This studio has no establishments to display.',
+    establishment: 'Establishments',
+    members: 'Members',
+    emptySelect: 'Select a studio to see more information.',
+    searchPlaceholder: 'Search a studio',
   },
   member: {
-    franchises: 'Franchises',
-    isVaccinated: 'Pass sanitaire valide',
-    seeMembership: 'voir la fiche membre',
-    pageTitle: 'Membre',
+    pageTitle: 'Member',
+    seeMembership: 'Show member information',
+    isVaccinated: "I'm in possession of a valid COVID-19 Sanitary Pass",
+    franchises: 'Studios',
   },
-  companies: {
-    pageTitle: 'Franchisés',
-    searchPlaceholder: 'Rechercher un franchisé',
-    emptySelect: 'Sélectionner une franchise pour en voir le détail.',
-    members: 'Membres',
-    establishment: 'Etablissements',
-    establishmentEmptyState: 'Aucun établissement dans cette compagnie',
-    membersEmptyState: 'Aucun membre dans cette compagnie',
-    navigateToCompany: 'Connexion au compte franchisé',
+  pagination: {
+    outOf: '{{from}} - {{to}} out of {{count}}',
+    rowPerPage: 'Elements per page',
+    nextPage: 'Next page',
+    previousPage: 'Previous page',
   },
-  staff: {
-    staffAccountTabTitle: 'Comptes staff',
-    explainStaff:
-      "Avec l'accès staff du master account, sélectionnez à quels franchisés ont accès vos staffs et quelles actions ils peuvent effectuer dans ceux-ci. L'accès staff ne permet pas de se connecter à l'application mobile.",
-    roleTabTitle: 'Rôles',
+  membersList: {
+    pageTitle: 'Members',
+    see: 'Show',
+    actions: 'Actions',
+    franchised: 'Studios',
+    name: 'Name',
   },
   emails: {
-    emptyStateTitle: 'Aperçu du mail',
-    emptyStateDescription: 'Sélectionner un template',
-    franchiseEmails: 'Mes templates',
-    create: 'Créer un modèle',
-    companiesEmails: 'Templates franchisés',
+    chooseGroup: 'Select a group',
+    copy: 'copy',
+    groupByPlaceholder: 'Group by',
+    franchised: 'Studio',
+    groupBy: 'Group by',
     pageTitle: 'Template',
-    groupBy: 'Grouper par',
-    franchised: 'Franchisé',
-    groupByPlaceholder: 'Grouper par',
-    copy: 'copie',
-    chooseGroup: 'Choisir un groupe',
-    searchPlaceholder: 'Rechercher un template',
+    companiesEmails: '[Master Account] Email templates',
+    create: 'Add a template',
+    franchiseEmails: 'Templates',
+    emptyStateDescription: 'Select an email to see a preview of it.',
+    emptyStateTitle: 'Preview',
+    searchPlaceholder: 'Search a template',
   },
   login: {
-    disconnect: 'Me déconnecter',
-    previous: 'Retour',
-    connect: 'Me connecter',
-    signUp: "M'inscrire",
+    signUp: 'Sign up',
+    connect: 'Log in',
+    previous: 'Previous',
+    disconnect: 'Logout',
+  },
+  companyGroup: {
+    explain:
+      'Categories are used to group multiple licences under a common name, such as "Greater London", and will be used for display on your branded Mobile Application.',
+    actions: { add: 'Add a category', submit: 'Confirm', cancel: 'Cancel' },
+    name: { label: 'Name' },
+  },
+  staff: {
+    roleTabTitle: 'Roles',
+    explainStaff:
+      'With the staff access of the master account, select which franchisees have access to your staffs and which actions they can perform in them. The staff access does not allow to connect to the mobile application.',
+    staffAccountTabTitle: 'Staff accounts',
   },
   genericProduct: {
-    dialogs: {
-      deleteTemplate: {
-        title: 'Désactivation',
+    list: {
+      visibility: 'Unavailable for purchase',
+      shortMenu: {
+        restore: 'Restore',
+        edit: 'Edit',
+        delete: 'Delete',
+        goTo: 'Detail',
       },
-      selectCompanies: {
-        title: 'Configurer mes studios',
-        content1:
-          'Les studios suivants auront automatiquement cette carte disponible à la vente. Ils ne pourront pas en modifier le prix.',
-        content2:
-          "Les membres qui recevront cette carte pourront l'utiliser dans l'ensemble des studios compatibles.",
-        allCompaniesShared:
-          'Vous avez déjà partagé cette carte avec tous les studios franchisés auxquels vous avez accès.',
-      },
-      deleteTemplateInstance: {
-        title: 'Stopper le partage',
-        buttonValidate: 'Désactiver le partage',
-      },
+      fuzzySearch: 'Search a card',
+      titleInactive: 'Unavailable for purchase',
+      titleActive: 'Available for purchase',
     },
     templateCard: {
-      buttons: {
-        update: 'Modifier',
-        delete: 'Supprimer',
-      },
       shareTemplate: {
-        categoryName: 'Partagée avec les studios',
-        emptyCompanyList:
-          "Aucun studio n'est configuré pour accepter cette carte",
-        addCompany: 'Ajouter un studio',
-        seeAll: 'Voir tous',
-        closeDialog: 'Fermer',
+        closeDialog: 'Close',
+        seeAll: 'See all',
+        addCompany: 'Add a studio',
+        emptyCompanyList: 'No studios have been configured with this card',
+        categoryName: 'Shared with the following studios',
       },
+      buttons: { delete: 'Delete', update: 'Edit' },
     },
-    list: {
-      titleActive: 'Disponible à la vente',
-      titleInactive: 'Indisponible à la vente',
-      fuzzySearch: 'Rechercher une carte',
-      shortMenu: {
-        goTo: 'Detail',
-        delete: 'Supprimer',
-        edit: 'Modifier',
-        restore: 'Restaurer',
+    dialogs: {
+      deleteTemplateInstance: {
+        buttonValidate: 'Disable sharing',
+        title: 'Stop sharing',
       },
-      visibility: 'Invisible pour les clients',
+      selectCompanies: {
+        allCompaniesShared:
+          'You have already shared this card with all the franchised studios to which you have access.',
+        content2:
+          'Members who receive this card will be able to use it at all compatible studios.',
+        content1:
+          "The following studios will automatically offer this card, but won't be able to modify the price or the number of credits.",
+        title: 'Configure my studios',
+      },
+      deleteTemplate: { title: 'Deactivation' },
     },
   },
 };

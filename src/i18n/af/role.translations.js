@@ -10,1029 +10,846 @@ const {
 } = require('../../libs/role/role-types');
 
 exports.default = {
-  pageTitle: 'Staff',
-  userRoles: 'Comptes Staff',
-  permissions: 'Rôles disponibles',
-  explainStaffDo:
-    'Un accès staff permet de se connecter à https://backoffice.bsport.io via ordinateur ou mobile',
-  explainStaffDoNot:
-    "Un accès staff ne permet pas de se connecter à l'application mobile (professeur et élèves uniquement)",
-  overbookingForbidden:
-    'Les droits qui vous ont été attribués en temps que staff ne vous permettent pas de dépasser le nombre maximum de réservations.',
+  userRoles: 'Staff accounts',
+  permissions: 'Roles and permissions',
   forms: {
     user: {
       create: {
-        buttonLabel: 'Ajouter un accès',
-        title: 'Création de compte staff',
-        generalInfo: {
-          title: 'Informations générales',
-          email: {
-            label: 'Email',
-          },
-          firstName: {
-            label: 'Prénom',
-          },
-          lastName: {
-            label: 'Nom',
-          },
-        },
+        buttonLabel: 'Add staff',
+        title: '[Form] Add staff',
+        email: { label: 'Email' },
         role: {
-          title: 'Rôles',
-          selectRole: {
-            label: 'Sélectionner un rôle',
-            topLabel: 'Role',
-          },
+          label: 'Role',
+          selectRole: { topLabel: 'Role', label: 'Select a role' },
+          title: 'Roles',
         },
+        cancel: 'Cancel',
+        submit: 'Save',
+        firstName: { label: 'First name' },
+        lastName: { label: 'Last name' },
+        register: 'Save',
         franchisees: {
-          title: 'Accès franchisés',
           warning:
-            "Sélectionnez à quels franchisés aura accès ce compte staff. Laissez vide pour donner accès à l'ensemble des franchisés.",
+            'Select which franchisees will have access to this staff account. Leave empty to give access to all franchisees.',
+          title: 'Franchisees access',
         },
-        cancel: 'Annuler',
-        submit: 'Valider',
-        register: 'Enregister',
+        generalInfo: {
+          lastName: { label: 'Name' },
+          firstName: { label: 'First name' },
+          email: { label: 'Email' },
+          title: 'General information',
+        },
       },
       delete: {
-        title: 'Suppression compte staff',
-        content: 'Êtes-vous sûr de vouloir supprimer ce compte ?',
-        cancel: 'Annuler',
-        confirm: 'Supprimer',
+        title: 'Delete staff',
+        content: 'Are you sure that you want to delete this staff account?',
+        cancel: 'Cancel',
+        confirm: 'Delete',
       },
-      selectCoach: 'Selectionner les professeurs',
-      selectFranchisees: 'Sélectionner des franchisés',
+      snackbar: {
+        success: 'Access rights modified',
+        error: 'Impossible to modify access rights',
+        errorEmail:
+          'This email is already used for a teacher or member account',
+      },
+      selectCoach: 'Select teachers',
+      ifEmptySelectAll: 'Leave empty to select all',
+      selectFranchisees: 'Select studios',
       selectFranchiseesDisabled:
         'This setting is only for custom role (not Admin or Owner)',
-      ifEmptySelectAll: 'Laisser vide pout tout sélectionner',
-      commissionHeader: 'Taux de commission',
+      commissionHeader: 'Commission rate',
     },
     role: {
-      create: {
-        buttonCreate: 'Ajouter un rôle  ',
-        title: 'Création de rôle',
-        name: 'Nom',
-        description: 'Description',
-        restrictedUrl: 'URL Whitelist',
-        restrictedUrlExplain:
-          "Utilisez ce paramètre pour définir une whitelist d'URLs pour ce rôle. Seules les URLs listées ci-dessous seront accessibles par le staff associé à ce rôle",
-        restrictedUrlPlaceholder: 'ex: /member/',
-        permissions: 'Permissions',
-        showAdvanced: 'Voir plus',
-        authorizeManagerAction: "Donner au staff le contrôle d'un manager",
-        authorizeManagerExplain:
-          "Le staff portant ce rôle pourra forcer les actions comme le manager : forcer la réservation d'une séance dans une salle indisponible, forcer la réservation avec un professeur indisponible, dépasser le nombre maximal de membres inscrits à une séance.",
-      },
       delete: {
-        title: 'Suppression rôle',
-        content: 'Êtes-vous sûr de vouloir supprimer ce rôle ?',
-        cancel: 'Annuler',
-        confirm: 'Supprimer',
+        confirm: 'Confirm',
+        cancel: 'Cancel',
+        content: 'Are you sure that you want to delete this role?',
+        title: 'Delete role',
       },
-      failDelete: {
-        title: 'Suppression rôle impossible',
-        content:
-          'Un staff possède encore ce rôle, vous ne pouvez pas le supprimer.',
-        close: 'Fermer',
+      create: {
+        showAdvanced: 'Show more',
+        permissions: 'Permissions',
+        description: 'Description',
+        name: 'Name',
+        title: '[Form] Role',
+        buttonCreate: 'Add role  ',
+        restrictedUrl: 'Restricted URLs',
+        restrictedUrlPlaceholder: 'Example: /member/',
+        restrictedUrlExplain:
+          'Use this option to Whitelist the URLs and access for people associated to this Role.',
+        authorizeManagerExplain:
+          'The staff with this role will be able to force actions like the manager : force the booking of a session in an unavailable establishment, force the booking with an unavailable teacher, exceed the maximum number of members registered to a session.',
+        authorizeManagerAction: 'Give staff the control of a manager',
       },
       franchise: {
         create: {
-          title: 'Création de rôle',
+          buttons: { close: 'Close', previous: 'Previous', next: 'Next' },
           steps: {
-            masterAccount: 'Accès Master account',
-            franchisee: 'Accès franchisé',
+            franchisee: 'Franchisee access',
+            masterAccount: 'Master account access',
           },
-          buttons: {
-            next: 'Suivant',
-            previous: 'Précédent',
-            close: 'Fermer',
-          },
+          title: 'Role creation',
         },
       },
+      failDelete: {
+        close: 'Close',
+        content: 'A staff still has this role, you cannot delete it.',
+        title: 'Role deletion not possible',
+      },
+    },
+  },
+  explainStaffDoNot:
+    'Attention: only teachers and members can log in to the mobile app.',
+  explainStaffDo:
+    'Your staff can log in on their mobile, computer, or tablet via https://backoffice.bsport.io.',
+  pageTitle: 'Staff',
+  roleDescription: {
+    [CHECKIN_APP_ROLE]: {
+      description:
+        'Use this Role, if you wish that members check-in themselves via your tablet. Contact your Account Manager at BSPORT for more information.',
+      name: 'Check-in | Tablet',
+    },
+    [RESTRICTED_STAFF_ROLE]: {
+      description:
+        'With Check-in | Limited, your Staff will only be able to check-in members.',
+      name: 'Check-in | Limited',
+    },
+    [ADMIN_ROLE]: {
+      description:
+        'Admins have the same permissions as the Owner, but can be added/removed.',
+      name: 'Admin',
+    },
+    [STAFF_ROLE]: {
+      description:
+        'With Check-in | Wide, staff can edit sessions (time, substitute, cancel, etc.), view your member data base, and check in members.',
+      name: 'Check-in | Wide',
+    },
+    [OWNER_ROLE]: {
+      name: 'Owner',
+      description:
+        'The Owner always has access to all functionalities, can supersede without any restrictions, and can add Staff accounts.',
+    },
+    [REPORT_ROLE]: {
+      name: 'Reporting',
+      description:
+        'This will only provide access to Reporting, which may be useful for your accountants.',
+    },
+    [RoleType.USER_ROLE_QUICKSALE]: {
+      description: 'Access to quick sales interface only',
+      name: 'Checkin sales interface',
     },
   },
   rolePermissions: {
-    appbarButtons: {
-      _label: 'Actions appbar',
-      ledger: {
-        _label: 'Livret de caisse',
-      },
-      notificationCenter: {
-        _label: 'Centre de notification',
-      },
-      communicationAlerts: {
-        _label: 'Notification de messages',
-      },
-    },
-
-    search: {
-      _label: 'Recherche membre',
-    },
-    offer: {
-      _label: 'Séances',
-      create: {
-        _label: 'Création',
-      },
-      delete: {
-        _label: 'Annulation',
-      },
-      edit: {
-        _label: 'Modification',
-      },
-    },
     member: {
-      _label: 'Membre',
-      create: {
-        _label: 'Création de membre',
-      },
-      retrieve: {
-        _label: 'Accès fiche membre',
-      },
-      edit: {
-        _label: 'Modification',
-      },
-      search: {
-        _label: 'Recherche',
-      },
+      retrieve: { _label: 'Access to member profiles' },
+      search: { _label: 'Search members' },
+      edit: { _label: 'Edit' },
+      create: { _label: 'Adding members' },
+      _label: 'Member database',
+    },
+    appbarActions: {
+      _helper:
+        'For adding member profiles, processing in-studio payments, etc.',
+      _label: 'AppBar actions',
     },
     navigationMenu: {
-      _label: 'Menu de navigation',
-      dashboard: {
-        _label: 'Dashboard',
+      settings: {
+        _label: 'Settings',
+        generals: { _label: 'General' },
+        marketplace: { _label: 'Marketplace settings' },
+        widgets: { _label: 'Widgets' },
+        staffs: { _label: 'Staff' },
+        personalization: { _label: 'Personalization' },
+        memberForms: { _label: 'Member forms' },
+        liveStreaming: { _label: 'Live streaming integration' },
+        transactionnalEmail: { _label: 'Transactional notifications' },
+        teacherPayrollRules: { _label: 'Payroll rules' },
+        paymentMethods: { _label: 'Payment method' },
+        company: { _label: 'Company' },
+        billing: { _label: 'Billing' },
+        waitingList: { _label: 'Waitlist' },
+        webShop: { _label: 'Shop' },
+        webHook: { _label: 'Webhook' },
+        partnership: { _label: 'Partnership' },
+        quickBooks: { _label: 'QuickBooks' },
+        activeCampaign: { _label: 'ActiveCampaign' },
+        subscription: { _label: 'Bsport subscription' },
+        mobilePersonalization: { _label: 'Branded app' },
+        coachUserspace: { _label: 'Teacher View' },
+        quicksale: { _label: 'Quick sales interface' },
       },
-      calendar: {
-        _label: 'Calendrier',
-      },
-      schedule: {
-        _label: 'Emploi du temps',
-      },
-      myClub: {
-        _label: 'Mon Club',
-        activities: {
-          _label: 'Activités',
-        },
-        workshops: {
-          _label: 'Ateliers',
-        },
-        appointments: {
-          _label: 'Rendez vous',
-        },
-        teachers: {
-          _label: 'Professeurs',
-        },
-        establishments: {
-          _label: 'Etablissements',
-        },
-        programs: {
-          _label: 'Programmes',
-        },
-        replacement: {
-          _label: 'Remplacement',
-        },
-      },
-      products: {
-        _label: 'Produits',
-        paymentPack: {
-          _label: 'Cartes de cours',
-        },
-        privatePass: {
-          _label: 'Cartes RDV',
-        },
-        shop: {
-          _label: 'Magasin',
-        },
-        packs: {
-          _label: 'Packs',
-        },
-        giftcards: {
-          _label: 'Cartes de cadeaux',
-        },
-        promotions: {
-          _label: 'Promotions',
-        },
-        contracts: {
-          _label: 'Contrats',
-        },
-      },
-      payments: {
-        _label: 'Paiements',
-        billings: {
-          _label: 'Factures',
-        },
-        directDebits: {
-          _label: 'Prélèvements',
-        },
-        orders: {
-          _label: 'Commandes',
-        },
-        expenses: {
-          _label: 'Dépenses',
-        },
-        installments: {
-          _label: 'Payment en plusieurs fois',
-        },
-        teachers: {
-          _label: 'Professeurs',
-        },
-        clockIn: {
-          _label: 'Pointeuse horaire',
-          selfClockIn: {
-            _label: 'Pointer pour soi même',
-          },
-          clockInForOther: {
-            _label: 'Pointer pour un autre staff',
-          },
-          canAccessHistory: {
-            _label: "Accéder à l'historique des horaires",
-          },
-        },
+      reporting: { _label: 'Reporting' },
+      member: { _label: 'Members' },
+      digitalOffer: {
+        _label: 'Digital offer',
+        videos: { _label: 'Videos & eBooks' },
+        playlists: { _label: 'Playlist' },
       },
       marketing: {
         _label: 'Marketing',
-        templates: {
-          _label: 'Emails',
-        },
-        customForms: {
-          _label: 'Formulaires',
-        },
-        smartlists: {
-          _label: 'Smartlists',
-        },
-        notifications: {
-          _label: 'Notifications',
-        },
-        strategies: {
-          _label: 'Stratégies',
-        },
-        tags: {
-          _label: 'Tags',
-        },
+        templates: { _label: 'Emails' },
+        customForms: { _label: 'Forms' },
+        smartlists: { _label: 'Smartlists' },
+        notifications: { _label: 'Notifications' },
+        strategies: { _label: 'Strategies' },
+        tags: { _label: 'Tags' },
       },
-      digitalOffer: {
-        _label: 'Offre digitale',
-        videos: {
-          _label: 'Bibliothèques vidéo',
+      payments: {
+        _label: 'Transactions',
+        billings: { _label: 'Invoices' },
+        directDebits: { _label: 'Direct debits' },
+        orders: { _label: 'Orders' },
+        expenses: { _label: 'Expenses' },
+        installments: { _label: 'Instalments' },
+        teachers: { _label: 'Teachers' },
+        clockIn: {
+          _label: 'Attendance',
+          selfClockIn: { _label: 'Punch (autonomous)' },
+          clockInForOther: { _label: 'Punch (for another staff member)' },
+          canAccessHistory: { _label: 'Access time clock history' },
         },
-        playlists: {
-          _label: 'Playlist',
-        },
-      },
-      member: {
-        _label: 'Membre',
-      },
-      reporting: {
-        _label: 'Rapports',
-      },
-      settings: {
-        _label: 'Paramètres',
-        generals: {
-          _label: 'Général',
-        },
-        marketplace: {
-          _label: 'Paramètres marketplace',
-        },
-        widgets: {
-          _label: 'Widget',
-        },
-        staffs: {
-          _label: 'Staff',
-        },
-        personalization: {
-          _label: 'Personnalisation',
-        },
-        mobilePersonalization: {
-          _label: 'Personnalisation app',
-        },
-        coachUserspace: {
-          _label: 'Espace professeur',
-        },
-        memberForms: {
-          _label: 'Formulaire membre',
-        },
-        liveStreaming: {
-          _label: 'Visioconférence',
-        },
-        transactionnalEmail: {
-          _label: 'Emails transactionnels',
-        },
-        teacherPayrollRules: {
-          _label: 'Règles de rémunération',
-        },
-        paymentMethods: {
-          _label: 'Moyen de paiement',
-        },
-        company: {
-          _label: 'Entreprise',
-        },
-        billing: {
-          _label: 'Facturation',
-        },
-        waitingList: {
-          _label: "Liste d'attente",
-        },
-        webShop: {
-          _label: 'Magasin',
-        },
-        webHook: {
-          _label: 'Webhook',
-        },
-        partnership: {
-          _label: 'Partenariat',
-        },
-        quickBooks: {
-          _label: 'QuickBooks',
-        },
-        activeCampaign: {
-          _label: 'ActiveCampaign',
-        },
-        subscription: {
-          _label: 'Abonnement bsport',
-        },
-        quicksale: {
-          _label: 'Interface de vente rapide',
-        },
-      },
-      tutorial: {
-        _label: 'Tutoriel',
-      },
-    },
-    franchiseMenu: {
-      _label: 'Menu de navigation',
-      franchises: {
-        _label: 'Franchisés',
-      },
-      members: {
-        _label: 'Membres',
       },
       products: {
-        _label: 'Produits',
-        paymentPackTemplates: {
-          _label: 'Carte de cours',
-        },
-        privatePassTemplates: {
-          _label: 'Carte de RDV',
-        },
-        couponTemplates: {
-          _label: 'Promotions',
-        },
-        giftcardTemplates: {
-          _label: 'Carte cadeau',
-        },
+        _label: 'Products',
+        paymentPack: { _label: 'Passes' },
+        privatePass: { _label: 'Appointment passes' },
+        shop: { _label: 'Webshop' },
+        packs: { _label: 'Packs' },
+        giftcards: { _label: 'Gift cards' },
+        promotions: { _label: 'Promotions' },
+        contracts: { _label: 'Subscriptions' },
       },
-      emailTemplates: {
-        _label: 'Emails',
+      myClub: {
+        _label: 'My studio',
+        activities: { _label: 'Group activities' },
+        workshops: { _label: 'Workshops' },
+        appointments: { _label: 'Appointments' },
+        teachers: { _label: 'Teachers' },
+        establishments: { _label: 'Establishments' },
+        programs: { _label: 'Programs' },
+        replacement: { _label: 'Substitution' },
       },
-      notificationRules: {
-        _label: 'Emails transactionnels ',
+      schedule: { _label: 'Schedule' },
+      calendar: { _label: 'Calendar' },
+      dashboard: { _label: 'Dashboard' },
+      search: { _helper: 'Mobile only', _label: 'Search members' },
+      _label: 'Navigation menu',
+      tutorial: { _label: 'Tutorials' },
+    },
+    offer: {
+      edit: { _label: 'Edit' },
+      delete: { _label: 'Cancel' },
+      create: { _label: 'Add' },
+      _label: 'Sessions',
+    },
+    search: { _label: 'Search members' },
+    appbarButtons: {
+      notificationCenter: { _label: 'Notifications & Alerts' },
+      ledger: { _label: 'Ledger' },
+      _label: 'AppBar actions',
+      communicationAlerts: { _label: 'Message notification' },
+    },
+    franchiseMenu: {
+      settings: { _label: 'Settings' },
+      staff: { _label: 'Staff' },
+      widgets: { _label: 'Widgets' },
+      reporting: { _label: 'Reports' },
+      notificationRules: { _label: 'Transactional notifications ' },
+      emailTemplates: { _label: 'Emails' },
+      products: {
+        couponTemplates: { _label: 'Promotions' },
+        privatePassTemplates: { _label: 'Appointment pass' },
+        paymentPackTemplates: { _label: 'Pass' },
+        _label: 'Products',
+        giftcardTemplates: { _label: 'Gift card' },
       },
-      reporting: {
-        _label: 'Rapports',
-      },
-      widgets: {
-        _label: 'Widgets',
-      },
-      staff: {
-        _label: 'Staff',
-      },
-      settings: {
-        _label: 'Paramètres',
-      },
+      members: { _label: 'Members' },
+      franchises: { _label: 'Franchisees' },
+      _label: 'Navigation menu',
       tag: { _label: 'Tags' },
     },
   },
-  roleDescription: {
-    [CHECKIN_APP_ROLE]: {
-      name: 'Checkin tablette',
-      description:
-        // eslint-disable-next-line
-        "Compte pour application d'auto-checkin (contactez votre chargé de compte bsport)",
-    },
-    [RESTRICTED_STAFF_ROLE]: {
-      name: 'Checkin restreint',
-      description: 'Accès seulement au checkin.',
-    },
-
-    [ADMIN_ROLE]: {
-      name: 'Admin',
-      description:
-        // eslint-disable-next-line
-        'Admin, même accès que Owner mais peut être supprimé/créé',
-    },
-
-    [STAFF_ROLE]: {
-      name: 'Checkin étendu',
-      description:
-        'Accès à la gestion de la séance (modification et annulation), aux membres, et au checkin.',
-    },
-
-    [OWNER_ROLE]: {
-      description:
-        'Accès admin, aucune restriction, peut créer des comptes staff',
-      name: 'Owner',
-    },
-    [REPORT_ROLE]: {
-      description:
-        'Accès uniquements aux rapports, utile pour vos comptables par exemple',
-      name: 'Rapports',
-    },
-    [RoleType.USER_ROLE_QUICKSALE]: {
-      description: "Accès uniquement à l'interface de vente rapide",
-      name: 'Checkin interface de vente',
-    },
-  },
+  overbookingForbidden:
+    'The rights you have been granted as a staff member do not allow you to exceed the maximum number of reservations.',
   objectLevelPermissions: {
-    session: {
-      _label: 'Gestion des séances',
-      activity: {
-        _label: 'Activités',
-        allowed_actions: {
-          create: { _label: 'Créer' },
-          edit: { _label: 'Modifier' },
-          delete: { _label: 'Supprimer' },
-        },
-      },
+    reservation: {
       workshop: {
-        _label: 'Ateliers',
         allowed_actions: {
-          create: { _label: 'Créer' },
-          edit: { _label: 'Modifier' },
-          delete: { _label: 'Supprimer' },
+          attendance: { _label: 'Edit attendance/absences' },
+          removeFromWaitlist: {
+            _label: 'Delete members from the waiting list',
+          },
+          delete: { _label: 'Cancel bookings' },
+          create: { _label: 'Create bookings' },
+          addToWaitlist: { _label: 'Add members to the waiting list' },
+          rollcall: { _label: 'Validate roll call' },
+          editPerformance: { _label: 'Edit program performances' },
+          editSpot: { _label: 'Edit member spots' },
         },
+        _label: 'Workshop management',
       },
-      privateSlot: {
-        _label: 'Créneaux de rendez-vous',
+      activity: {
         allowed_actions: {
-          create: { _label: 'Créer' },
-          edit: { _label: 'Modifier' },
-          delete: { _label: 'Supprimer' },
+          editPerformance: { _label: 'Edit programme performance' },
+          editSpot: { _label: 'Edit member spots' },
+          attendance: { _label: 'Edit attendance/absences' },
+          removeFromWaitlist: {
+            _label: 'Delete members from the waiting list',
+          },
+          delete: { _label: 'Cancel bookings' },
+          create: { _label: 'Create bookings' },
+          addToWaitlist: { _label: 'Add members to the waiting list' },
+          rollcall: { _label: 'Validate roll call' },
         },
+        _label: 'Booking management',
       },
-    },
-    member: {
-      _label: 'Actions sur les membres',
-      allowed_actions: {
-        create: { _label: 'Ajouter un member' },
-        readInfo: { _label: 'Voir les données personnelles' },
-        editInfo: { _label: 'Editer les données personnelles' },
-        delete: { _label: 'Supprimer un membre' },
-        search: { _label: 'Rechercher des membres' },
-        accessProfile: { _label: 'Accéder au profil des membres' },
-        readBalance: { _label: 'Voir le solde des membres' },
-        communication: { _label: 'Communiquer avec les membres' },
-        manageNotification: { _label: 'Gérer les notications des membres' },
+      _label: 'Booking management',
+      privateBooking: {
+        allowed_actions: {
+          editPerformance: { _label: 'Edit program performances' },
+          cancel: { _label: 'Cancel bookings' },
+          edit: { _label: 'Edit bookings' },
+          create: { _label: 'Create bookings' },
+        },
+        _label: 'Appointments management',
       },
     },
     billing: {
-      _label: 'Facturation',
       allowed_actions: {
-        takePayment: { _label: 'Encaisser un membre' },
-        editBalance: { _label: 'Ajuster le solde des membres' },
-        readInvoices: { _label: 'Voir les factures' },
-        createInvoice: { _label: 'Facturer un membre' },
-        readPaymentLink: { _label: 'Générer des liens de paiement' },
-        cancelInvoice: { _label: 'Annuler des factures' },
-        addPaymentMethod: { _label: 'Ajouter une méthode de paiement' },
-        deletePaymentMethod: { _label: 'Supprimer une méthode de paiement' },
-        partialRefundAsDiscount: {
-          _label: 'Appliquer une réduction (remboursement)',
-        },
-        partialRefundAsCredit: {
-          _label: 'Transformer en solde (remboursement)',
-        },
-        createManualDiscount: { _label: 'Appliquer des réductions manuelles' },
+        createManualDiscount: { _label: 'Apply manual discounts' },
+        partialRefundAsCredit: { _label: 'Convert to balance (refund)' },
+        partialRefundAsDiscount: { _label: 'Apply a discount (refund)' },
+        deletePaymentMethod: { _label: 'Delete a payment method' },
+        addPaymentMethod: { _label: 'Add a payment method' },
+        cancelInvoice: { _label: 'Cancel invoices' },
+        readPaymentLink: { _label: 'Generate payment links' },
+        createInvoice: { _label: 'Bill a member' },
+        readInvoices: { _label: 'See invoices' },
+        editBalance: { _label: 'Adjust member balance' },
+        takePayment: { _label: 'Cash in a member' },
       },
+      _label: 'Transactions',
     },
-    reservation: {
-      _label: 'Gestion des réservations',
-      activity: {
-        _label: 'Gestion des cours collectifs',
+    member: {
+      allowed_actions: {
+        manageNotification: { _label: 'Manage member notifications' },
+        communication: { _label: 'Contact members' },
+        readBalance: { _label: 'See the balance of members' },
+        accessProfile: { _label: 'Access to member profiles' },
+        search: { _label: 'Search for members' },
+        delete: { _label: 'Delete a member' },
+        editInfo: { _label: 'Edit personal data' },
+        readInfo: { _label: 'See personal data' },
+        create: { _label: 'Add a member' },
+      },
+      _label: 'Actions on members',
+    },
+    session: {
+      privateSlot: {
         allowed_actions: {
-          rollcall: { _label: "Valider l'appel" },
-          addToWaitlist: {
-            _label: "Ajouter des membres dans la file d'attente",
-          },
-          create: { _label: 'Créer des réservations' },
-          delete: { _label: 'Annuler des réservations' },
-          removeFromWaitlist: {
-            _label: "Supprimer des membres de la file d'attente",
-          },
-          attendance: { _label: 'Editer les présences / absences' },
-          editSpot: { _label: 'Editer les spots des membres' },
-          editPerformance: { _label: 'Editer les performances du programme' },
+          delete: { _label: 'Delete' },
+          edit: { _label: 'Edit' },
+          create: { _label: 'Create' },
         },
+        _label: 'Appointment slots',
       },
       workshop: {
-        _label: 'Gestion des ateliers',
         allowed_actions: {
-          rollcall: { _label: "Valider l'appel" },
-          addToWaitlist: {
-            _label: "Ajouter des membres dans la file d'attente",
-          },
-          create: { _label: 'Créer des réservations' },
-          delete: { _label: 'Annuler des réservations' },
-          removeFromWaitlist: {
-            _label: "Supprimer des membres de la file d'attente",
-          },
-          attendance: { _label: 'Editer les présences / absences' },
-          editSpot: { _label: 'Editer les spots des membres' },
-          editPerformance: { _label: 'Editer les performances du programme' },
+          delete: { _label: 'Delete' },
+          edit: { _label: 'Edit' },
+          create: { _label: 'Create' },
         },
+        _label: 'Workshops',
       },
-      privateBooking: {
-        _label: 'Gestion des rendez-vous',
+      activity: {
         allowed_actions: {
-          create: { _label: 'Créer des réservations' },
-          edit: { _label: 'Editer des réservations' },
-          cancel: { _label: 'Annuler des réesrvations' },
-          editPerformance: { _label: 'Editer les performances du programme' },
+          delete: { _label: 'Delete' },
+          edit: { _label: 'Edit' },
+          create: { _label: 'Create' },
         },
+        _label: 'Activities',
       },
-    },
-    export: {
-      _label: 'Exports',
-      allowed_actions: {
-        planning: { _label: 'Exporter le calendrier' },
-        invoice: { _label: 'Exporter des factures' },
-        subscription: { _label: 'Exporter des abonnements' },
-        payroll: { _label: 'Exporter les rémunérations des professeurs' },
-        attendance: { _label: 'Exporter les présences / absences' },
-        smartlist: { _label: 'Exporter les smartlists' },
-        memberDocument: { _label: 'Exporter les documents des membres' },
-        report: { _label: 'Exporter les rapports' },
-      },
-    },
-    planning: {
-      _label: 'Calendrier et disponibilités',
-      calendar: {
-        _label: 'Calendrier',
-        allowed_actions: {
-          bulkCancellation: { _label: 'Annuler plusieurs séances' },
-          readCancellations: { _label: 'Voir les séances annulées' },
-          readWeeklyOverview: { _label: "Voir l'aperçu de la semaine" },
-        },
-      },
-      schedule: {
-        _label: 'Disponibilités',
-        allowed_actions: {
-          createAvailability: { _label: 'Voir les disponibilités' },
-          deleteAvailability: { _label: 'Supprimer les disponibilités' },
-          readAvailabilityDetail: {
-            _label: 'Voir le détail des disponibilités',
-          },
-        },
-      },
+      _label: 'Session management',
     },
     report: {
-      _label: 'Rapports',
-      Payments: {
-        _label: 'Paiements',
-        basket: {
-          _label: 'Panier',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        cashbook: {
-          _label: 'Livret de caisse',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        credit: {
-          _label: 'Crédit',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        expense: {
-          _label: 'Dépenses',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        invoices: {
-          _label: 'Achats',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        unpaid_invoices: {
-          _label: 'Factures impayées',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        payments: {
-          _label: 'Paiements',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        payment_sumup: {
-          _label: 'Totaux paiements',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        on_spot_payments: {
-          _label: 'Paiements sur place',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        dispute: {
-          _label: 'Litige de paiements',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        payment_installments: {
-          _label: 'Paiements en plusieurs fois',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        video_purchase: {
-          _label: 'Achat vidéo',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-      },
       Club: {
-        _label: 'Studio',
-        billing_plan: {
-          _label: 'Souscription',
+        activityByEst: {
           allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
+            edit: { _label: 'Edit' },
+            delete: { _label: 'Delete' },
           },
-        },
-        members_purchase: {
-          _label: 'Achats des membres',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        members: {
-          _label: 'Membres',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
+          _label: 'Activities and workshops by establishment',
         },
         activities: {
-          _label: 'Activités',
           allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
           },
+          _label: 'Activities',
         },
-        activityByEst: {
-          _label: 'Activités et ateliers par salle',
+        members: {
           allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
           },
+          _label: 'Members',
         },
+        members_purchase: {
+          allowed_actions: {
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
+          },
+          _label: 'Member',
+        },
+        billing_plan: {
+          allowed_actions: {
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
+          },
+          _label: 'Subscription',
+        },
+        _label: 'Studio',
         activityByCoach: {
-          _label: 'Activités et ateliers par professeur',
+          _label: 'Activities and workshops by teacher',
           allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        workshop: {
-          _label: 'Atelier',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        offers: {
-          _label: 'Séances',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        subscription: {
-          _label: 'Factures souscriptions',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
+            create: { _label: 'Create' },
+            read: { _label: 'See' },
+            edit: { _label: 'Edit' },
+            delete: { _label: 'Delete' },
           },
         },
         privateService: {
-          _label: 'Rendez-vous',
           allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+          },
+          _label: 'Appointments',
+        },
+        workshop: {
+          allowed_actions: {
+            edit: { _label: 'Edit' },
+            create: { _label: 'Create' },
+            delete: { _label: 'Delete' },
+            read: { _label: 'See' },
+          },
+          _label: 'Workshop',
+        },
+        offers: {
+          _label: 'Sessions',
+          allowed_actions: {
+            create: { _label: 'Create' },
+            read: { _label: 'See' },
+            edit: { _label: 'Edit' },
+            delete: { _label: 'Delete' },
+          },
+        },
+        subscription: {
+          allowed_actions: {
+            create: { _label: 'Create' },
+            read: { _label: 'See' },
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+          },
+          _label: 'Subscription invoices',
+        },
+      },
+      Payments: {
+        video_purchase: {
+          allowed_actions: {
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
+          },
+          _label: 'Video purchase',
+        },
+        payment_installments: {
+          allowed_actions: {
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
+          },
+          _label: 'Payments in installments',
+        },
+        dispute: {
+          allowed_actions: {
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
+          },
+          _label: 'Payment dispute',
+        },
+        on_spot_payments: {
+          allowed_actions: {
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
+          },
+          _label: 'On-site payment',
+        },
+        payment_sumup: {
+          allowed_actions: {
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
+          },
+          _label: 'Total payments',
+        },
+        payments: {
+          allowed_actions: {
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
+          },
+          _label: 'Payments',
+        },
+        unpaid_invoices: {
+          allowed_actions: {
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
+          },
+          _label: 'Unpaid invoices',
+        },
+        invoices: {
+          allowed_actions: {
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
+          },
+          _label: 'Purchases',
+        },
+        expense: {
+          allowed_actions: {
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
+          },
+          _label: 'Expenses',
+        },
+        credit: {
+          allowed_actions: {
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
+          },
+          _label: 'Credit',
+        },
+        cashbook: {
+          allowed_actions: {
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
+          },
+          _label: 'Cash book',
+        },
+        basket: {
+          allowed_actions: {
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
+          },
+          _label: 'Basket',
+        },
+        _label: 'Payments',
+      },
+      _label: 'Reports',
+      Products: {
+        _label: 'Products',
+        private_cpasses_expired: {
+          allowed_actions: {
+            edit: { _label: 'Edit' },
+            create: { _label: 'Create' },
+            read: { _label: 'See' },
+            delete: { _label: 'Delete' },
+          },
+          _label: 'Expired appointment credits',
+        },
+        private_cpasses: {
+          allowed_actions: {
+            create: { _label: 'Create' },
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+          },
+          _label: 'Appointment passes',
+        },
+        universal_passes: {
+          allowed_actions: {
+            create: { _label: 'Create' },
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+          },
+          _label: 'Universal passes',
+        },
+        giftcard: {
+          allowed_actions: {
+            read: { _label: 'See' },
+            delete: { _label: 'Delete' },
+            create: { _label: 'Create' },
+            edit: { _label: 'Edit' },
+          },
+          _label: 'Giftcard',
+        },
+        expired_pass: {
+          allowed_actions: {
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            delete: { _label: 'Delete' },
+            create: { _label: 'Create' },
+          },
+          _label: 'Expired passes credits',
+        },
+        consumer_giftcard: {
+          allowed_actions: {
+            create: { _label: 'Create' },
+            read: { _label: 'See' },
+            edit: { _label: 'Edit' },
+            delete: { _label: 'Delete' },
+          },
+          _label: 'Purchased giftcards',
+        },
+        memberships: {
+          allowed_actions: {
+            edit: { _label: 'Edit' },
+            delete: { _label: 'Delete' },
+            create: { _label: 'Create' },
+            read: { _label: 'See' },
+          },
+          _label: 'Passes',
+        },
+        discount: {
+          _label: 'Discounts',
+          allowed_actions: {
+            create: { _label: 'Create' },
+            delete: { _label: 'Delete' },
+            read: { _label: 'See' },
+            edit: { _label: 'Edit' },
+          },
+        },
+        shop: {
+          allowed_actions: {
+            create: { _label: 'Create' },
+            read: { _label: 'See' },
+            edit: { _label: 'Edit' },
+            delete: { _label: 'Delete' },
+          },
+          _label: 'Shop',
+        },
+        video: {
+          _label: 'Video',
+          allowed_actions: {
+            read: { _label: 'See' },
+            edit: { _label: 'Edit' },
+            delete: { _label: 'Delete' },
+            create: { _label: 'Create' },
           },
         },
       },
       Bookings: {
-        _label: 'Réservations',
-        dayBookings: {
-          _label: 'Réservations (cours collectif) par jour',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
         first_booking: {
-          _label: 'Première séance (collectif)',
           allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
+            create: { _label: 'Create' },
+            read: { _label: 'See' },
+            edit: { _label: 'Edit' },
+            delete: { _label: 'Delete' },
           },
+          _label: 'First (collective) session',
         },
         bookings: {
-          _label: 'Réservations (cours collectif)',
           allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
+            read: { _label: 'See' },
+            create: { _label: 'Create' },
+            edit: { _label: 'Edit' },
+            delete: { _label: 'Delete' },
           },
+          _label: 'Bookings (group sessions)',
+        },
+        _label: 'Bookings',
+        dayBookings: {
+          allowed_actions: {
+            create: { _label: 'Create' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            delete: { _label: 'Delete' },
+          },
+          _label: 'Bookings (group sessions) per day',
         },
         first_attendance: {
-          _label: 'Première présence (collectif)',
           allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
+            create: { _label: 'Create' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
+            delete: { _label: 'Delete' },
           },
+          _label: 'First attendance (collective)',
         },
         first_privatebooking: {
-          _label: 'Premier RDV',
           allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
+            create: { _label: 'Create' },
+            read: { _label: 'See' },
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
           },
+          _label: 'First appointment',
         },
         private_bookings: {
-          _label: 'Réservations (rendez-vous)',
+          _label: 'Bookings (appointments)',
           allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
+            delete: { _label: 'Delete' },
+            create: { _label: 'Create' },
+            edit: { _label: 'Edit' },
+            read: { _label: 'See' },
           },
         },
         unpaid_private_bookings: {
-          _label: 'Réservations Impayées (rendez-vous)',
           allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
+            create: { _label: 'Create' },
+            read: { _label: 'See' },
+            delete: { _label: 'Delete' },
+            edit: { _label: 'Edit' },
           },
-        },
-      },
-      Products: {
-        _label: 'Produits',
-        private_cpasses_expired: {
-          _label: 'Crédits RDV expirés',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        expired_pass: {
-          _label: 'Crédits carte de cours expirés',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        memberships: {
-          _label: 'Cartes de cours',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        private_cpasses: {
-          _label: 'Carte RDV',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        universal_passes: {
-          _label: 'Cartes Universelles',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        discount: {
-          _label: 'Promotions',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        giftcard: {
-          _label: 'Carte cadeau',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        consumer_giftcard: {
-          _label: 'Cartes cadeaux achetées',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        shop: {
-          _label: 'Magasin',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
-        },
-        video: {
-          _label: 'Vidéo',
-          allowed_actions: {
-            create: { _label: 'Créer' },
-            read: { _label: 'Voir' },
-            edit: { _label: 'Éditer' },
-            delete: { _label: 'Supprimer' },
-          },
+          _label: 'Unpaid bookings (appointments)',
         },
       },
     },
-    product: {
-      _label: 'Gestion des produits',
-      paymentPack: {
-        _label: 'Cartes de cours',
+    planning: {
+      schedule: {
         allowed_actions: {
-          create: { _label: 'Créer' },
-          edit: { _label: 'Editer' },
-          delete: { _label: 'Supprimer' },
-          manageExtension: { _label: 'Ajouter des extensions de validité' },
-          manageCredit: { _label: 'Gérer les crédits des membres' },
-          compatibility: { _label: 'Gérer les compatibilités' },
+          readAvailabilityDetail: {
+            _label: 'See the detail of availabilities',
+          },
+          deleteAvailability: { _label: 'Delete availabilities' },
+          createAvailability: { _label: 'See availabilities' },
+        },
+        _label: 'Availabilities',
+      },
+      calendar: {
+        allowed_actions: {
+          readWeeklyOverview: { _label: "See this week's overview" },
+          readCancellations: { _label: 'See cancelled sessions' },
+          bulkCancellation: { _label: 'Cancel several sessions' },
+        },
+        _label: 'Calendar',
+      },
+      _label: 'Calendar and availabilities',
+    },
+    export: {
+      allowed_actions: {
+        report: { _label: 'Export reports' },
+        memberDocument: { _label: "Export members' documents" },
+        smartlist: { _label: 'Export smartlists' },
+        attendance: { _label: 'Export attendances/absences' },
+        payroll: { _label: "Export teachers' payroll" },
+        subscription: { _label: 'Export subscriptions' },
+        invoice: { _label: 'Export invoices' },
+        planning: { _label: 'Export the calendar' },
+      },
+      _label: 'Exports',
+    },
+    product: {
+      paymentPack: {
+        _label: 'Passes',
+        allowed_actions: {
+          delete: { _label: 'Delete' },
+          create: { _label: 'Create' },
+          edit: { _label: 'Edit' },
+          manageExtension: { _label: 'Add validity extensions' },
+          manageCredit: { _label: 'Manage member credits' },
+          compatibility: { _label: 'Manage compatibilities' },
         },
       },
       privatePass: {
-        _label: 'Cartes de RDV',
         allowed_actions: {
-          create: { _label: 'Créer' },
-          edit: { _label: 'Editer' },
-          delete: { _label: 'Supprimer' },
-          manageExtension: { _label: 'Ajouter des extensions de validité' },
-          manageCredit: { _label: 'Gérer les crédits des membres' },
-          compatibility: { _label: 'Gérer les compatibilités' },
+          create: { _label: 'Create' },
+          edit: { _label: 'Edit' },
+          delete: { _label: 'Delete' },
+          manageExtension: { _label: 'Add validity extensions' },
+          manageCredit: { _label: "Manage members' credits" },
+          compatibility: { _label: 'Managing compatibilities' },
         },
+        _label: 'Appointments passes',
       },
+      _label: 'Product management',
       contract: {
-        _label: 'Souscriptions',
         allowed_actions: {
-          create: { _label: 'Créer un contrat' },
-          edit: { _label: 'Éditer un contrat' },
-          delete: { _label: 'Supprimer un contrat' },
-          pause: {
-            _label: "Mettre en pause toutes les souscriptions d'un contrat",
-          },
-          createBillingPlan: { _label: 'Souscrire un contrat pour une membre' },
+          createBillingPlan: { _label: 'Subscribe a contract for a member' },
+          pause: { _label: 'Pause all contract subscriptions' },
+          endBillingPlan: { _label: 'End a subscription' },
+          editInvoiceDateBillingPlan: { _label: 'Edit invoice dates' },
+          endAfterInvoiceBillingPlan: { _label: 'Program the finalization' },
           createCustomBillingPlan: {
-            _label: 'Créer une souscription personnalisée',
+            _label: 'Create a personalized subscription',
           },
-          pauseBillingPlan: { _label: 'Mettre une souscription en pause' },
-          endBillingPlan: { _label: 'Mettre fin à une souscription' },
-          editPassBillingPlan: {
-            _label: "Modifier les cartes d'une souscription",
-          },
-          editInvoiceDateBillingPlan: {
-            _label: 'Éditer les dates de facturation',
-          },
-          editInvoicePriceBillingPlan: {
-            _label: 'Éditer les montants de facturation',
-          },
-          endAfterInvoiceBillingPlan: { _label: "Programmer l'arrêt" },
+          editPassBillingPlan: { _label: 'Modify the cards of a subscription' },
+          create: { _label: 'Create a contract' },
+          edit: { _label: 'Edit a contract' },
+          delete: { _label: 'Delete a contract' },
+          pauseBillingPlan: { _label: 'Pause a subscription' },
+          editInvoicePriceBillingPlan: { _label: 'Edit invoice amounts' },
         },
+        _label: 'Subscriptions',
       },
     },
     management: {
-      _label: 'Gestion du studio',
       activity: {
-        _label: 'Gestion des activités',
         allowed_actions: {
-          create: { _label: 'Créer' },
-          edit: { _label: 'Éditer' },
-          delete: { _label: 'Supprimer' },
+          edit: { _label: 'Edit' },
+          create: { _label: 'Create' },
+          delete: { _label: 'Delete' },
         },
+        _label: 'Activities management',
       },
       workshop: {
-        _label: 'Gestion des ateliers',
         allowed_actions: {
-          create: { _label: 'Créer' },
-          edit: { _label: 'Éditer' },
-          delete: { _label: 'Supprimer' },
+          create: { _label: 'Create' },
+          delete: { _label: 'Delete' },
+          edit: { _label: 'Edit' },
         },
+        _label: 'Workshop management',
       },
+      _label: 'Studio management',
       privateService: {
-        _label: 'Gestion des RDV',
         allowed_actions: {
-          create: { _label: 'Créer' },
-          edit: { _label: 'Éditer' },
-          delete: { _label: 'Supprimer' },
+          edit: { _label: 'Edit' },
+          create: { _label: 'Create' },
+          delete: { _label: 'Delete' },
         },
+        _label: 'Appointment management',
       },
       coach: {
-        _label: 'Gestion des professeurs',
         allowed_actions: {
-          create: { _label: 'Créer' },
-          edit: { _label: 'Éditer' },
-          delete: { _label: 'Supprimer' },
-          readPayroll: { _label: 'Voir la rémunération' },
-          substitution: { _label: 'Gérer les remplacements' },
+          delete: { _label: 'Delete' },
+          create: { _label: 'Create' },
+          edit: { _label: 'Edit' },
+          readPayroll: { _label: 'See payroll' },
+          substitution: { _label: 'Subteacher management' },
         },
+        _label: 'Teacher management',
       },
     },
   },

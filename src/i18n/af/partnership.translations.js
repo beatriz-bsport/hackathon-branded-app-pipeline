@@ -5,44 +5,42 @@ const {
 } = require('../../libs/partnership/utils.tsx');
 
 exports.default = {
-  configurationType: {
-    [SIMPLE_MULTIPLE_MODE]: {
-      label: 'Etablissements indépendants',
-      helperText:
-        'Chaque établissement apparaitra comme un lieu indépendant sur ClassPass',
-    },
-    [OVERRIDE_MODE]: {
-      label: 'Fusionner tous les établissements',
-      helperText:
-        'Tous les établissements apparaitront comme un seul et unique établissement',
-    },
-    [MULTIPLE_MERGE_MODE]: {
-      label: 'Avancé',
-      helperText: 'Grouper les établissements similaires par adresse',
-    },
-  },
-  pageTitle: 'Partenariat',
   parameters: {
-    establishmentMergeMaster: 'Fusionner dans cet établissement ⬇️',
-    establishmentMergedAs: 'Fusionner ces établissements',
-    partnerId: 'PartnerID: {{ company }}',
-    venueIds: 'VenueIDs: {{ establishmentIdList }}',
-    enabled: 'Actif',
-    allEstablishment: 'Toutes les salles',
-    pleaseChoseEstablishment: 'Veuillez sélectionnez un établissement',
-    pleaseChoseEstablishmentMany:
-      'Veuillez sélectionnez au moins un établissement',
-    establishment: 'Etablissement',
-    configurationTitle: 'Configurez votre intégration',
-    add: 'Ajouter',
+    companyId: 'Your Partner ID is: {{ company }}',
+    establishmentId: 'Your venue IDs are: {{ establishmentIdList }}',
+    enabled: 'Enabled',
+    allEstablishment: 'All establishments',
+    add: 'Add',
+    configurationTitle: 'Configure your integration',
+    establishment: 'Establishment',
+    pleaseChoseEstablishmentMany: 'Please select at least one establishment.',
+    pleaseChoseEstablishment: 'Please select an establishment.',
+    venueIds: 'Venue IDs: {{ establishmentIdList }}',
+    partnerId: 'Partner ID: {{ company }}',
+    establishmentMergedAs: 'Merge these establishments',
+    establishmentMergeMaster: 'Merge into this establishment:',
   },
   requestDialog: {
     explain:
-      "Vous avez demandé l'intégration bsport X classpass, votre chargé de compte va vous contacter pour valider cette opération",
-    close: 'Bien compris',
+      "You've requested the ClassPass integration with BSPORT. Your Account Manager will shortly contact you to validate this request.",
+    close: 'OK',
   },
-  actions: {
-    save: 'Enregistrer',
-    requestPartnership: "Activer l'intégration",
+  actions: { save: 'Save', requestPartnership: 'Enable the integration' },
+  pageTitle: 'Partnership',
+  configurationType: {
+    [SIMPLE_MULTIPLE_MODE]: {
+      helperText:
+        'Each location will appear as an independent location on ClassPass.',
+      label: 'Independent establishments',
+    },
+    [OVERRIDE_MODE]: {
+      helperText:
+        'All merged establishments will appear as a single establishment.',
+      label: 'Merge all establishments',
+    },
+    [MULTIPLE_MERGE_MODE]: {
+      helperText: 'Group similar establishments by address.',
+      label: 'Advanced',
+    },
   },
 };

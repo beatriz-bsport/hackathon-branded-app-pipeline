@@ -15,496 +15,462 @@ const {
 const ERROR_CODES = require('@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought');
 
 exports.default = {
-  attendanceUpdatedOn: 'Mis à jour le {{- d }} à {{- t }}',
-  actions: {
-    bill: 'Facturer',
-    unregister: 'Désinscrire',
-  },
-  guest: {
-    form: {
-      email: {
-        label: 'Email',
-      },
-      firstname: {
-        label: 'Prénom',
-      },
-      lastname: {
-        label: 'Nom',
-      },
-      actions: {
-        submit: 'Valider',
-        close: 'Annuler',
-        addGuest: 'Ajouter un invité',
-        limitGuest: "(Aucune carte de cours ne permet d'ajouter des invités)",
-      },
-    },
-  },
-  performanceTracking: {
-    stat: 'Statistiques',
-  },
-  recurrenceRule: {
-    showMore: 'Afficher plus ({{count}})',
-    showLess: 'Afficher moins',
-    notify: "Envoyer un mail de confirmation lors de l'inscription du membre",
-    notifyIfCanceled: "Envoyer un mail d'annulation des réservations",
-    blockedBookings:
-      "Vos élèves peuvent réserver jusqu'à {{days}} jours avant le début des séances de cette activité, par conséquent nous vous recommandons de programmer la récurrence sur une durée plus longue pour éviter le surchargement.",
-    deleteModal: {
-      confirm: 'Supprimer',
-      cancel: 'Annuler',
-      content:
-        "Supprimer la règle de récurrence entrainera l'annulation des réservations futures effectuées via cette règle.",
-      title: 'Suppression règle de récurrence',
-      success: 'La réservation récurrente a bien été supprimée',
-    },
-    editModal: {
-      success: 'La réservation récurrente a bien été modifié',
-    },
-    createModal: {
-      success: 'La réservation récurrente a bien été crée.',
-      info: 'Impossible de recréer une réservation récurrente qui éxiste déja',
-      create: 'Créer une réservation récurrente',
-    },
-    recurrentBookings: 'Réservations récurrentes',
-    needConsumerPack:
-      'Ce membre ne possède aucune carte de cours compatible, impossible de programmer une récurrence',
-    item: {
-      explain:
-        'Tous les {{dayOfWeek}} - {{hour}}:{{minute}}, {{delayWeek}} semaines avant',
-    },
-    recurrentRuleBooking: 'Réservation récurrente',
-    form: {
-      title: 'Programmer une récurrence',
-      startFromDate: {
-        label: 'Début de la récurrence le ',
-      },
-      timeGroup: 'Date de la séance',
-      at: ' à ',
-      dayOfWeek: {
-        label: 'Jour de la semaine',
-      },
-      hour: {
-        label: 'heure',
-      },
-      minute: {
-        label: 'minute',
-      },
-      metaActivity: {
-        label: 'Activité',
-        helperText: 'Activité',
-      },
-      groupWarning:
-        'Attention il n’est pas possible de créer une récurrence de réservation sur des groupes de séances',
-      delayWeek: {
-        label: 'Nombre de semaines',
-        helperText:
-          'Indique combien de semaine en avance le membre sera inscrit',
-      },
-    },
-    actions: {
-      close: 'Fermer',
-      save: 'Enregistrer',
-    },
-    explain:
-      "Le membre sera toujours inscrit {{ delayWeek }} semaines en avance aux cours du {{ dayOfWeek}} à {{hour}}:{{minute}}. Il ne sera inscrit que s'il possède une carte de cours valide.",
-  },
-  filters: {
-    all: 'Toutes les réservations',
-    present: 'Présent',
-    absent: 'Absent',
-    canceled: 'Séance annulée',
-    managerCanceled: 'Annulation  manager',
-    consumerCanceled: 'Annulation client',
-    notCancelled: 'Non-annulé',
-    cancel: 'Annulation',
-    attendance: 'Présence',
-    time: 'Réservations dans le temps',
-    futureBooking: 'Réservations futures',
-    pastBooking: 'Réservations passées',
-    refunded: 'Remboursement',
-    isRefunded: 'Remboursée',
-    notRefunded: 'Non remboursée',
-    recurrentBooking: 'Réservation récurrente',
-    withRecurrentBookings: 'Réservations récurrentes',
-    withoutRecurrentBookings: 'Réservations non récurrentes',
-    paid: 'Paiement',
-    isPaid: 'Réservations payées',
-    isUnpaid: 'Réservations impayées',
-    coach: 'Professeur',
-    pickCoach: 'Rechercher un professeur...',
-  },
   bookingModule: {
-    hasRegistered: 'Vous êtes inscrit à cette séance',
-    isLoading: 'Recherche des séances...',
-    book: {
-      unknowError: 'Impossible de réserver, veuillez réessayer dans un moment',
-    },
-    recurrent: {
-      title: 'Séances futures',
-      bookMultiple: 'Reserver',
-      backToRegistererChoice: 'Retour',
-    },
     section: {
-      consumerPacks: 'Mes cartes de cours',
-      contracts: 'Abonnements',
-      paymentPacks: "J'achète une carte de cours",
-      paymentCombos: 'Offres promotionnelles',
-      contract: "Je m'abonne",
+      consumerPacks: 'My passes',
+      contracts: 'Subscriptions',
+      paymentPacks: 'Available passes',
+      paymentCombos: 'Packs',
+      contract: 'Available subscriptions',
     },
     option: {
-      waitingListOpen:
-        "La séance est pleine, vous pouvez toutefois vous inscrire en liste d'attente. Nous vous préviendrons par email lorsqu'une place se libèrera",
       isAlreadyOnWaitingList:
-        "Vous êtes inscrit en liste d'attente, nous vous préviendrons par email lorsqu'une place sera disponible.",
-      isAlreadyRegistered:
-        'La séance est complète, félicitations vous êtes bien inscrit !',
+        "You've joined the waitlist. We'll let you know when a spot becomes available.",
       isFull:
-        "La séance est complète, vous pouvez vous inscrire en liste d'attente, vous serez prévenu par email lorsqu'une place se libèrera.",
-      registerOption: "M'inscrire en liste d'attente",
+        "This session is full. Join the waitlist and we'll let you know when a spot becomes available.",
+      registerOption: 'Join waitlist',
+      isAlreadyRegistered:
+        'Congrats, your booking has been completed. The session is now full.',
+      waitingListOpen:
+        "This session is full. Join the waitlist and you'll receive a message once a spot becomes available.",
       waitingListLockedByPendingBookings:
-        "D'autres personnes sont en train de réserver, l'inscription sur la liste d'attente est actuellement indisponible. Veuillez réessayer dans quelques minutes pour vérifier si une place s'est libérée.",
+        'Other people are booking, the waiting list is currently unavailable. Please try again in a few minutes to see if a place has become available.',
     },
     offer: {
-      isDisabled: 'La séance a été malheureusement été annulée.',
-      isTooLate: 'Les inscriptions sont closes.',
-      isAlreadyRegistered: 'Vous êtes déjà inscrit à cette séance',
-      isTooSoon:
-        'Les inscriptions sont fermées pour le moment et ouvriront le {{-date}}.',
-      isWaitingListFull:
-        "La séance est complète la liste d'attente est pleine.",
+      isDisabled: 'This session has been cancelled.',
+      isTooLate: 'Bookings are closed.',
+      isWaitingListFull: 'This session and the waitlist are full.',
+      isTooSoon: 'Bookings open on {{-date}}.',
+      isAlreadyRegistered: "You've already booked this session.",
       blockedByTags:
-        'Vous n’avez pas les droits nécessaires pour vous inscrire à cette séance.',
+        "It's not possible to book this session without the correct tags.",
     },
     messages: {
-      offerLocked: 'Vous ne pouvez pas réserver cette séance',
-      femaleUnavailable:
-        "La séance n'est plus disponible à la réservation pour les femmes.",
+      offerLocked: 'Error when booking',
       maleUnavailable:
-        "La séance n'est plus disponible à la réservation pour les hommes.",
+        'The session is no longer available for reservation for men.',
+      femaleUnavailable:
+        'The session is no longer available for reservation for women.',
     },
+    hasRegistered: "You've already booked this session.",
+    recurrent: {
+      backToRegistererChoice: 'Back',
+      bookMultiple: 'Book',
+      title: 'Upcoming sessions',
+    },
+    isLoading: 'Looking for sessions...',
+    book: { unknowError: 'Error while booking - try again later' },
     tags: {
-      managerDialogWarningDialog: {
-        title: 'Information',
-        content:
-          'Attention, ce membre ne dispose pas des tags nécessaires pour être inscrit à cette séance. Voulez vous quand même l’inscrire ?',
-        cancel: 'Annuler',
-        confirm: 'Confirmer',
-      },
       unAuthorized:
-        'Vous n’avez pas les droits nécessaires pour vous inscrire à cette séance.',
-    },
-  },
-  newBookingModule: {
-    reviewAndConfirm: 'Revoir et confirmer',
-    filterAll: 'Tout',
-    cards: { seeLess: 'Voir moins', seeMore: 'Voir plus' },
-    choosePass: 'Choisir une carte de cours',
-    buyPass: 'Acheter une carte de cours',
-    buyNewPass: 'Acheter une nouvelle carte de cours',
-    myPasses: 'Ma carte de cours',
-    myPasses_plural: 'Mes cartes de cours',
-    seeAllProducts: 'Voir tous les produits',
-    waitingListWarning:
-      "Avant de vous inscrire sur la liste d'attente, assurez-vous d'avoir acheté une carte de cours, un pack ou un contrat adéquat. Il est essentiel de disposer d'une carte de cours, d'un pack ou d'un contrat actif pour garantir votre place sur la liste d'attente.",
-    backToCalendar: 'Revenir au calendrier',
-    blockedReasons: {
-      default: {
-        title: 'Réservation bloquée',
-        message: `La réservation de cette séance n'est pas disponible`,
-      },
-      blockedByTags: {
-        title: 'Droits insuffisants',
-        message: `Désolé, mais cette séance n'est actuellement pas disponible à la réservation. Elle a été restreinte à un groupe spécifique de membres.`,
-      },
-      isAlreadyRegistered: {
-        title: 'Séance déjà réservée',
-        message: 'Vous êtes déjà inscrit à cette séance.',
-      },
-      isTooSoon: {
-        title: 'Bientôt disponible',
-        message:
-          'Les inscriptions sont fermées pour le moment et ouvriront le {{-date}}.',
-      },
-      isTooLate: {
-        title: 'Délai dépassé',
-        message:
-          'Désolé, mais la période de réservation pour cette séance est terminée.',
-      },
-      waitingListLockedByPendingBookings: {
-        title: 'Autres réservations en cours',
-        message: `D'autres personnes réservent actuellement, la liste d'attente n'est pas disponible pour le moment. Veuillez réessayer dans quelques minutes pour voir si une place est devenue disponible.`,
-      },
-      isWaitingListFull: {
-        title: `Liste d'attente pleine`,
-        message: `Cette séance et la liste d'attente sont complètes.\nVeuillez réessayer ultérieurement.`,
-      },
-      isAlreadyOnWaitingList: {
-        title: `Déjà sur liste d'attente`,
-        message: `Si vous êtes sur la liste d'attente, nous vous informerons par e-mail dès qu'une place se libère.`,
-      },
-      waitingListOpen: {
-        title: 'Séance pleine',
-        message: `Rejoignez la liste d'attente et vous recevrez un message dès qu'une place se libère.`,
-      },
-      noPassAvailable: {
-        title: 'Aucune carte de cours disponible',
-        message:
-          "Aucune carte de cours n'est disponible pour s'inscrire sur la liste d'attente.",
+        "It's not possible to book this session without the correct tags.",
+      managerDialogWarningDialog: {
+        confirm: 'Confirm',
+        cancel: 'Cancel',
+        title: 'Info',
+        content:
+          "Please note that this member doesn't have the required tags for this session. Do you want to book them in anyway?",
       },
     },
-    subscriptions: 'Contrats',
-    combos: 'Packs',
-    passes: 'Cartes de cours',
-    otherPasses: 'Autres cartes de cours',
-    recommended: 'Recommandés',
-    spotSelectorTitle: 'Choisissez votre place',
   },
   details: {
-    pleaseSelectABooking: 'Sélectionnez une réservation pour voir le détails',
-    title: 'Détails réservation',
-    offerTitle: 'Séance liée',
-    consumerPaymentPackTitle: 'Carte de cours utilisée',
+    pleaseSelectABooking: 'Select a booking to display further details.',
+    title: 'Details',
+    offerTitle: 'Associated session',
+    consumerPaymentPackTitle: 'Used pass',
   },
   parameters: {
-    registeredOn: 'Réservé le ',
-    cancelledOn: 'Annulé le ',
-    by: 'Par',
-    source: 'Canal de réservation',
+    registeredOn: 'Booked on ',
+    source: 'Booked via',
+    cancelledOn: 'Cancelled on: ',
+    by: 'By',
     noShow: 'No-show ',
   },
   source: {
     web: 'Web',
-    app: 'Application mobile',
+    app: 'Mobile app',
     saas: 'Backoffice',
-    other: 'Autre',
+    other: 'Other',
     migration: 'Migration',
   },
-  customerView: {
-    wasRefunded: 'Remboursé',
-    cancelled: 'Annulé',
-  },
-  attend: 'Présent',
+  customerView: { wasRefunded: 'Refunded', cancelled: 'Cancelled' },
+  attend: 'Present',
   doNotAttend: 'Absent',
-  loading: 'Chargement',
-  wasRefunded: 'Remboursé',
-  unlimited: 'Illimité',
-  creditConsumed: '{{credit_consumed}} crédit',
-  creditConsumed_plural: '{{credit_consumed}} crédits',
-  place: 'Place',
-  asGuest: 'Invité',
-  noSpotAttributed: 'Aucune place attribuée',
-  changeSpot: 'Changer la place',
-  setSpot: 'Attribuer une place',
-
+  loading: 'Loading',
+  wasRefunded: 'Refunded',
   statusCode: {
-    cancelledByAnonymousManager: 'Annulation manager',
-    cancelledByAnonymousManagerDate:
-      'Annulation manager le {{-date}} à {{time}}',
-    cancelledByManager: 'Annulation manager par {{cancelled_by}}',
+    cancelledByManager: 'Cancelled by manager ({{cancelled_by}})',
+    cancelledByConsumer: 'Cancelled by customer',
+    cancelledByOffer: 'Session cancelled',
+    cancelledByOfferDate: 'Cancelled by the studio on {{-date}} at {{time}}.',
+    cancelledByConsumerDate:
+      'Cancelled by customer on the {{-date}} at {{time}}',
     cancelledByManagerDate:
-      'Annulation manager le {{-date}} à {{time}} par {{cancelled_by}}',
-    cancelledByConsumer: 'Annulation client',
-    cancelledByConsumerDate: 'Annulation client le {{-date}} à {{time}}',
-    cancelledByOffer: 'Séance annulée par le club',
-    cancelledByOfferDate: 'Séance annulée par le club le {{-date}} à {{time}}',
+      'Cancelled by manager on the {{-date}} at {{time}} by {{cancelled_by}}',
+    cancelledByAnonymousManagerDate:
+      'Cancelled by the studio on {{-date}} at {{time}}',
+    cancelledByAnonymousManager: 'Cancelled by the studio',
   },
+  filters: {
+    notRefunded: 'Not refunded',
+    isRefunded: 'Refunded',
+    refunded: 'Refund',
+    pastBooking: 'Past bookings',
+    futureBooking: 'Future bookings',
+    time: 'Bookings over time',
+    attendance: 'Attendance',
+    cancel: 'Cancellation',
+    consumerCanceled: 'Cancelled by member',
+    managerCanceled: 'Cancelled by studio',
+    canceled: 'Session cancelled',
+    absent: 'Absent',
+    present: 'Present',
+    all: 'All bookings',
+    withoutRecurrentBookings: 'Single bookings',
+    withRecurrentBookings: 'Recurrent bookings',
+    recurrentBooking: 'Recurrent booking',
+    notCancelled: 'Not cancelled',
+    isUnpaid: 'Unpaid bookings',
+    isPaid: 'Paid bookings',
+    paid: 'Payment',
+    coach: 'Teacher',
+    pickCoach: 'Search a teacher...',
+  },
+  creditConsumed: '{{ credit_consumed }} credit',
+  creditConsumed_plural: '{{credit_consumed}} credits',
+  actions: { unregister: 'Unregister', bill: 'Bill' },
   notification: {
-    title: 'Notification',
-    addNotification: 'Ajouter une notification',
     form: {
-      title: 'Formulaire de notification',
-      explain:
-        "Vous pouvez prévenir vos clients avant ou après certaines séances, en fonction de différents critères comme le nombre de présences, d'absences ou encore d'annulations.",
-      typeTitle: 'Type de notification',
-      settingTitle: 'Paramètres',
-      eventNb: "Notifier le membre lors de l'évènement n° :",
-      notifyAllEvents: 'Notifier le membre à chaque évènement',
-      sendBeforeMail:
-        'Envoyer le mail au membre avant la séance concernée par la notification',
-      sendBeforeNotification:
-        'Envoyer la notification push au membre avant la séance concernée par la notification',
-      sendBeforeNotifications:
-        'Envoyer les notifications au membre avant la séance concernée par la notification',
-      sendAfterMail:
-        'Envoyer le mail au membre après la séance concernée par la notification',
-      sendAfterNotification:
-        'Envoyer la notification push au membre après la séance concernée par la notification',
-      sendAfterNotifications:
-        'Envoyer les notifications au membre après la séance concernée par la notification',
-      chooseTime: {
-        first: 'Envoyer un mail',
-        second_before: 'heure(s) avant la séance',
-        second_before_days: 'jour(s) avant la séance',
-        second_after: 'heure(s) après la séance',
-        second_after_days: 'heure(s) après la séance',
+      listItemPrimary: {
+        cancelledDeprecated: 'Cancellation: {{notify_booking_nb}}',
+        bookingDeprecated: 'Booking: {{notify_booking_nb}}',
+        notRefunded: 'Late cancellations: {{notify_booking_nb}}',
+        refunded: 'Refunded cancellations: {{notify_booking_nb}}',
+        absence: 'Absence: {{notify_booking_nb}}',
+        attendance: 'Attendance: {{notify_booking_nb}}',
+        after:
+          'This notification will be sent {{hours}} hour(s) after the end of the session.',
+        before:
+          'This notification will be sent {{hours}} hour(s) before the start of the session.',
+        notifyAllEvents: {
+          notRefunded: 'For every late cancellation',
+          refunded: 'For every refunded cancellation',
+          absence: 'For every absence',
+          attendance: 'For every attendance',
+        },
+        birthday: 'Send on birthdays',
       },
-      chooseStatus: {
-        title: 'Choisissez le type de réservation que vous voulez notifier',
-        valid: 'Réservation valide',
-        cancelled: 'Réservation annulée par le client',
+      cancel: 'Cancel',
+      next: 'Next',
+      submit: 'Confirm',
+      help: {
+        notRefunded:
+          'a member registered {{notify_booking_nb}} late cancellation(s).',
+        refunded: 'has registered {{notify_booking_nb}} late cancellation(s).',
+        absence: 'Absence: {{notify_booking_nb}}',
+        attendance: 'a member booked {{notify_booking_nb}} time(s).',
+        text: 'This notification will be sent to relevant members when',
+        allEvents: {
+          notRefunded:
+            'This notification will be sent every time a member late cancels.',
+          refunded:
+            'This notification will be sent after every refunded cancellation.',
+          absence:
+            'This notification will be sent every time a member is absent.',
+          attendance:
+            'This notification will be sent every time a member is present.',
+        },
       },
       chooseKind: {
-        title: 'Évènement déclenchant la notification',
-        attendance: 'Présence du membre à une séance',
-        absence: 'Absence du membre à une séance',
-        refunded: 'Annulation remboursée',
-        notRefunded: 'Annulation hors délai',
+        notRefunded: 'Late cancellations',
+        refunded: 'Refunded cancellations',
+        absence: 'Absence',
+        attendance: 'Presence',
+        title: 'Trigger',
       },
+      chooseStatus: {
+        cancelled: 'Cancellations (from members)',
+        valid: 'Bookings',
+        title: 'Event',
+      },
+      chooseTime: {
+        second_after: 'hour(s) after the end of the session.',
+        second_before: 'hour(s) before the start of the session.',
+        first: 'Send this notification',
+        second_after_days: 'hour(s) after the end of the session',
+        second_before_days: 'day(s) before the start of the session',
+      },
+      sendAfterMail: 'Send this notification after the session has ended',
+      sendBeforeMail: 'Send this notification before the start of the session',
+      eventNb: 'Select which booking triggers this notification:',
+      settingTitle: 'Settings',
+      typeTitle: 'Trigger',
+      explain:
+        'Add an automatic notification to contact relevant member based on the following criteria.',
+      title: '[Form] Notification',
+      notifyAllEvents:
+        'Send this notification for every booking or cancellation',
       ifKind: {
-        attendance: 'Si le membre est présent',
-        absence: 'Si le membre est absent',
-        refunded: 'Si la réservation a été annulée dans les temps',
-        notRefunded: 'Si la réservation a été annulée hors-délai',
+        attendance: 'Presence',
+        notRefunded: 'Late cancellations',
+        refunded: 'Timely cancellations',
+        absence: 'Absence',
       },
-      // bookingNumber: 'Réservation N°{{notify_booking_nb}}',
-      bookingNumberAll: 'Toutes les réservations',
-      bookingNumberFirst: '1ère réservation',
-      bookingNumberSecond: '2ème réservation',
-      bookingNumberThird: '3ème réservation',
-      bookingNumberN: '{{notify_booking_nb}}ème réservation',
-      smartListSelection: 'Choisir des listes (optionnel)',
-      warning:
-        'En ne sélectionnant aucune smartlist vous risquez de notifier des membres qui ont déjà acheté une autre carte de cours',
-      advanced: 'Avancé',
-      smartListHelper:
-        "Ne pas envoyer de mail si le membre appartient à l'une des listes suivantes",
-      smartListHelperInclude:
-        "Envoyer un mail uniquement si le membre appartient à l'une des listes suivantes",
-      createSmartList: 'Créer une smartlist',
-      help: {
-        text: 'Aide : la notification sera envoyée au membre lors de',
-        attendance: 'sa présence n° {{notify_booking_nb}}',
-        absence: 'son absence n° {{notify_booking_nb}}',
-        refunded: 'son annulation remboursée n° {{notify_booking_nb}}',
-        notRefunded: 'son annulation hors délai n° {{notify_booking_nb}}',
-        allEvents: {
-          attendance:
-            'Aide : la notification sera envoyée au membre à chacune de ses présences',
-          absence:
-            'Aide : la notification sera envoyée au membre à chacune de ses absences',
-          refunded:
-            'Aide : la notification sera envoyée au membre à chacune de ses annulations remboursées',
-          notRefunded:
-            'Aide : la notification sera envoyée au membre à chacune de ses annulations hors délai',
-        },
-      },
-      submit: 'Valider',
-      next: 'suivant',
-      cancel: 'Annuler',
-      listItemPrimary: {
-        before: 'Notification {{hours}}h avant la séance',
-        after: 'Notification {{hours}}h après la séance',
-        attendance: 'Présence n° {{notify_booking_nb}}',
-        absence: 'Absence n° {{notify_booking_nb}}',
-        refunded: 'Annulation remboursée n° {{notify_booking_nb}}',
-        notRefunded: 'Annulation hors délai n° {{notify_booking_nb}}',
-        bookingDeprecated: 'Réservation n° {{notify_booking_nb}}',
-        cancelledDeprecated: 'Annulation n° {{notify_booking_nb}}',
-        notifyAllEvents: {
-          attendance: 'À chaque présence',
-          absence: 'À chaque absence',
-          refunded: 'À chaque annulation remboursée',
-          notRefunded: 'À chaque annulation hors délai',
-        },
-        birthday: "Envoyer à la date d'anniversaire",
-      },
-      sendingMethod: 'Méthode d’envoi',
-      mail: 'Mail',
-      push: 'Notification push',
-      needPushUpsell:
-        "Vous n'avez pas souscrit à l'add-on de notification push",
+      bookingNumber: 'All bookings',
+      bookingNumber_plural: '1st booking',
+      bookingNumber_n: 'Booking nº{{notify_booking_nb}}',
+      bookingNumberFirst: 'Booking: 1',
+      bookingNumberSecond: 'Booking: 2',
+      bookingNumberThird: 'Booking: 3',
+      bookingNumberN: 'Booking: {{notify_booking_nb}}',
+      bookingNumberAll: 'Every booking',
+      addVariable: 'Add a variable',
       pushHelper:
-        'Attention, les notifications push sont à utiliser avec parcimonie. Trop de notifications push peut amener certains membres à désinstaller l’application.',
-      addVariable: 'Ajouter une balise',
+        'Use push notifications sparingly, as spamming members may lead to people deleting your app.',
+      needPushUpsell:
+        'Please activate the push notification Add On to use this feature.',
+      push: 'Push notification',
+      mail: 'Email',
+      sendingMethod: 'Channel',
+      sendAfterNotifications:
+        'Send these notifications after the session has ended',
+      sendAfterNotification:
+        'Send this push notification after the session has ended',
+      sendBeforeNotifications:
+        'Send these notifications before the start of the session',
+      sendBeforeNotification:
+        'Send this push notification before the start of the session',
+      createSmartList: 'Add a Smartlist',
+      smartListHelperInclude:
+        'Send an email only if the member belongs to one of the following lists',
+      smartListHelper:
+        'Do not send mail if the member belongs to one of the following lists',
+      advanced: 'Advanced',
+      warning:
+        'By not selecting any smartlist you might notify members who have already purchased another pass',
+      smartListSelection: '(Optional) Select Smartlist(s)',
     },
+    addNotification: 'Add a notification',
+    title: 'Notification',
   },
-  memberGraph: {
-    title: 'Récapitulatif des réservations',
-    label: 'Réservations',
+  recurrenceRule: {
+    actions: { save: 'Save', close: 'Close' },
+    form: {
+      delayWeek: {
+        helperText:
+          'Indicate how many weeks in advance the member will be enrolled (8 weeks maximum)',
+        label: 'Number of weeks',
+      },
+      metaActivity: { helperText: 'Activity', label: 'Activity' },
+      minute: { label: 'minute' },
+      hour: { label: 'hour' },
+      dayOfWeek: { label: 'Day of the week' },
+      at: ' at ',
+      timeGroup: 'Date of the session',
+      title: '[Form] Recurring booking',
+      startFromDate: { label: 'Start the recurrent booking the ' },
+      groupWarning:
+        "Please note that it's not possible to add recurrent bookings for events.",
+    },
+    recurrentRuleBooking: 'Recurrent booking',
+    item: {
+      explain:
+        'Every {{dayOfWeek}} at {{hour}}:{{minute}} - Week: {{delayWeek}}',
+    },
+    needConsumerPack:
+      'This member does not have a compatible class pass, it is impossible to schedule a recurrence',
+    recurrentBookings: 'Recurrent bookings',
+    deleteModal: {
+      content:
+        'Deleting the recurrence rule will result in the cancelation of future reservations that used this rule.',
+      title: 'Delete recurrence rule',
+      cancel: 'Cancel',
+      confirm: 'Delete',
+      success: 'The recurrent booking has been deleted',
+    },
+    explain:
+      'The member will always be registered {{ delayWeek }} weeks in advance of class on {{ dayOfWeek}} at {{hour}}:{{minute}}. They will only be registered if they possess a valid pass.',
+    editModal: { success: 'The recurrent booking has been modified' },
+    createModal: {
+      success: 'The recurrent booking has been created.',
+      info: 'Cannot recreate a recurrent booking that already exists',
+      create: 'Add a recurrent booking',
+    },
+    blockedBookings:
+      'Your students can book up to {{days}} days before the start of the sessions for this activity, therefore we recommend that you schedule the recurrence over a longer period to avoid overcrowding.',
+    notifyIfCanceled: 'Send a booking cancellation email',
+    notify: 'Send a confirmation email when booking the member',
+    showLess: 'Show less',
+    showMore: 'Show more ({{count}})',
   },
+  memberGraph: { label: 'Reservations', title: 'Summary of reservations' },
   offer: {
-    similarOffer: {
-      title: 'Réserver plus de séances',
-      empty: 'Aucune séance trouvée',
-      showMore: 'Voir plus',
-      selectAll: 'Tout sélectionner',
-    },
-    offerStatus: {
-      book: 'Inscription',
-      waiting_list: "Liste d'attente",
-      bookable_status: {
-        [OFFER_BOOKABLE_STATUS_BOOKABLE]: 'Inscriptions ouvertes',
-        [OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON]: 'Inscriptions fermées',
-        [OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE]: 'Inscriptions terminées',
-        [OFFER_BOOKABLE_STATUS_LOCKED]: 'Séance indisponible',
-        [ERROR_CODES.OFFER_BOOKABLE_STATUS_TOO_MANY_IN_FUTURE]:
-          'Vous essayez de réserver plus de séances futures que ce qui est permis par votre club',
-      },
-      waiting_list_status: {
-        [OFFER_WAITING_LIST_STATUS_OPEN]: "Liste d'attente",
-        [OFFER_WAITING_LIST_LOCKED_BY_PENDING_BOOKINGS]: "Liste d'attente",
-        [OFFER_WAITING_LIST_STATUS_FULL]: "Liste d'attente pleine",
-        [OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED]: 'Inscrit sur liste',
-        [OFFER_WAITING_LIST_STATUS_CONVERTIBLE]: 'Réservation disponible!',
-        [ERROR_CODES.OFFER_BOOKABLE_STATUS_TOO_MANY_IN_FUTURE]:
-          'Vous essayez de réserver plus de séances futures que ce qui est permis par votre club',
-        [ERROR_CODES.OFFER_WAITING_LIST_STATUS_FULL]: "Liste d'attente pleine",
-        [ERROR_CODES.OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED]:
-          'Déjà inscrit sur liste',
-        [ERROR_CODES.OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON]:
-          'Inscriptions fermées',
-        [ERROR_CODES.OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE]:
-          'Inscription terminées',
-        [ERROR_CODES.OFFER_BOOKABLE_STATUS_FULL]: 'Séance pleine',
-        [ERROR_CODES.OFFER_BOOKABLE_STATUS_LOCKED]: 'Inscriptions fermées',
-        [ERROR_CODES.OFFER_BOOKABLE_STATUS_ALREADY_BOOKED]: 'Déjà inscrit',
-        [ERROR_CODES.OFFER_BOOKABLE_STATUS_TOO_MANY_MALE]:
-          'Ratio homme/femme déséquilibré',
-        [ERROR_CODES.OFFER_BOOKABLE_STATUS_TOO_MANY_FEMALE]:
-          'Ratio homme/femme déséquilibré',
-      },
-      blockedByTags: 'Inscription non autorisée',
-    },
-    packTitle: 'Mon moyen de réservation',
-    noPackAvailable: 'Aucune carte de cours compatible avec cette séance !',
-    noPackAvailable_plural:
-      'Aucune carte de cours compatible avec ce groupe de séances en même temps. Vous devrez réserver en plusieurs fois.',
-    addSession: 'Ajouter une séance',
-    bookingsTitle: 'Je réserve',
-    bookingsTitleFor: 'Je réserve pour {{name}}',
-    bookingForMe: 'moi',
-    bookingForAGuest: {
-      addGuest: 'Ajouter un invité',
-      warningCustomLeveledSession:
-        'Cette séance possède un niveau personnalisé. Assurez-vous que la personne que vous invitez possède le niveau attendu.',
-      warningLeveledSession:
-        'Cette séance est réservée aux personnes avec le niveau : {{level}}. Assurez-vous que la personne que vous invitez possède le niveau attendu.',
-      addGuestLimit: "Vous avez atteint la limite d'invitations pour",
-      addGuestNumberLeftSeveral:
-        'Vous pouvez inviter encore {{number}} personnes sur',
-      addGuestNumberLeftOne: 'Vous pouvez inviter encore 1 personne sur',
-      frequencyWeekly: 'cette semaine.',
-      frequencyMonthly: 'ce mois-ci.',
-      frequencyYearly: "l'année en cours.",
-      frequencyGeneric: 'la période en cours.',
-    },
+    showMore: 'See more',
     mainButton: {
-      book: 'Reserver',
-      registerWaitingList: "M'inscrire sur liste d'attente",
-      numberOfBook: '{{count}} inscription',
-      numberOfBook_plural: '{{count}} inscriptions',
+      registerWaitingList: 'Join waitlist',
+      book: 'Book',
+      numberOfBook: '{{count}} booking',
+      numberOfBook_plural: '{{count}} bookings',
     },
-    showMore: 'Voir plus',
+    bookingsTitle: 'Overview',
+    addSession: 'Add sessions',
+    noPackAvailable: 'There is no compatible pass to display for this session.',
+    noPackAvailable_plural:
+      'There is no compatible pass to display for these sessions. Please book these sessions separately.',
+    packTitle: 'My booking method',
+    offerStatus: {
+      waiting_list_status: {
+        [OFFER_WAITING_LIST_STATUS_OPEN]: 'Waitlist',
+        [OFFER_WAITING_LIST_LOCKED_BY_PENDING_BOOKINGS]: 'Waiting list',
+        [OFFER_WAITING_LIST_STATUS_FULL]: 'Closed',
+        [OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED]: 'Closed',
+        [OFFER_WAITING_LIST_STATUS_CONVERTIBLE]: 'Full',
+        [ERROR_CODES.OFFER_BOOKABLE_STATUS_TOO_MANY_IN_FUTURE]:
+          "It's not allowed to exceed the maximum amount of future bookings",
+        [ERROR_CODES.OFFER_WAITING_LIST_STATUS_FULL]: 'Waitlist: full',
+        [ERROR_CODES.OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED]:
+          'Waitlist: joined',
+        [ERROR_CODES.OFFER_BOOKABLE_STATUS_LOCKED]: 'Closed',
+        [ERROR_CODES.OFFER_BOOKABLE_STATUS_ALREADY_BOOKED]:
+          'Already registered',
+        [ERROR_CODES.OFFER_BOOKABLE_STATUS_TOO_MANY_MALE]:
+          'Unbalanced male / female ratio',
+        [ERROR_CODES.OFFER_BOOKABLE_STATUS_TOO_MANY_FEMALE]:
+          'Unbalanced male / female ratio',
+        // This is broken, keys were overriden, check the diff
+      },
+      bookable_status: {
+        [OFFER_BOOKABLE_STATUS_BOOKABLE]: 'Bookings open',
+        [OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON]: 'Bookings closed',
+        [OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE]: 'Bookings closed',
+        [OFFER_BOOKABLE_STATUS_LOCKED]: 'Session unavailable',
+        [ERROR_CODES.OFFER_BOOKABLE_STATUS_TOO_MANY_IN_FUTURE]:
+          "It's not allowed to exceed the maximum amount of future bookings",
+      },
+      waiting_list: 'Waitlist',
+      book: 'Sign up',
+      blockedByTags: 'Invalid tags',
+    },
+    similarOffer: {
+      showMore: 'See more',
+      empty: 'There are no other sessions to display.',
+      title: 'Book more sessions',
+      selectAll: 'Select all',
+    },
+    bookingForMe: 'Myself',
+    bookingsTitleFor: 'Booking for {{name}}',
+    bookingForAGuest: {
+      addGuest: 'Add a guest',
+      warningLeveledSession:
+        'This session is reserved for people with the following level: {{level}}. Make sure the person you invite has the expected level.',
+      addGuestLimit: 'You have reached the invitation limit for',
+      addGuestNumberLeftSeveral: 'You can still invite {{number}} people for',
+      addGuestNumberLeftOne: 'You can invite 1 more person on',
+      frequencyWeekly: 'this week.',
+      frequencyMonthly: 'this month.',
+      frequencyYearly: 'this year.',
+      frequencyGeneric: 'this period.',
+      warningCustomLeveledSession:
+        "This session has a custom level. Please ensure that your guest(s) meet this session's requirements.",
+    },
   },
+  setSpot: 'Assign a spot',
+  changeSpot: 'Change your spot',
+  noSpotAttributed: 'Please allocate a spot',
+  placeNumber: 'Place {{count}}',
+  performanceTracking: { stat: 'Statistics' },
+  attendanceUpdatedOn: 'Updated on {{- d }} at {{- t }}',
+  guest: {
+    form: {
+      firstname: { label: 'First name' },
+      email: { label: 'Email' },
+      actions: {
+        addGuest: 'Add guest',
+        close: 'Go back',
+        submit: 'Confirm',
+        limitGuest: '(None of the available passes can be used to add guests)',
+      },
+      lastname: { label: 'Last name' },
+    },
+  },
+  asGuest: 'Guest',
+  unlimited: 'Unlimited',
+  place: 'Spot',
   noShowChip: {
+    message: 'The member was noted absent after the session',
     title: 'no-show',
-    message: 'Le membre a été noté absent après la séance',
   },
+  warning: 'Warning',
   spivi: {
-    error: 'Problème de connexion avec Spivi',
-    connectionImpossible: 'Connexion à Spivi impossible',
     errorText:
-      "Le membre ne remplit pas les conditions de Spivi, par conséquent la réservation n'a pas été faite sur Spivi.",
+      "The member does not meet Spivi's requirements, so the booking was not made on Spivi.",
+    connectionImpossible: 'Unable to connect to Spivi',
+    error: 'Connection problem with Spivi',
   },
-  warning: 'Attention',
+  newBookingModule: {
+    filterAll: 'All',
+    cards: { seeLess: 'View less', seeMore: 'View more' },
+    choosePass: 'Choose a pass',
+    buyPass: 'Buy a new pass',
+    buyNewPass: 'Buy a new pass',
+    myPasses: 'My pass',
+    myPasses_plural: 'My passes',
+    waitingListWarning:
+      'Before registering to the waiting list, make sure that you purchased an appropriate pass, pack or subscription. It is mandatory to be in possession of an active pass, pack or suscription to be guaranteed a spot on the waiting list.',
+    backToCalendar: 'Back to the calendar',
+    blockedReasons: {
+      default: {
+        title: 'Booking blocked',
+        message: 'This session is not open to bookings',
+      },
+      blockedByTags: {
+        title: 'Insufficient rights',
+        message:
+          'Sorry, but this session is not open to bookings right now. Bookings were restrained to a specific group of members.',
+      },
+      isAlreadyRegistered: {
+        title: 'Session already booked',
+        message: 'You already registered to this session.',
+      },
+      isTooSoon: {
+        title: 'Available soon',
+        message: 'Booking is currently closed and will open on {{-date}}.',
+      },
+      isTooLate: {
+        title: 'Bookings closed',
+        message: 'Sorry, but the booking window for this session has closed.',
+      },
+      waitingListLockedByPendingBookings: {
+        title: 'Other bookings in progress',
+        message:
+          'Other people are booking, the waiting list is currently unavailable. Please try again in a few minutes to see if a place has become available.',
+      },
+      isWaitingListFull: {
+        title: 'Full Waitlist',
+        message:
+          'This session and the waiting list are full.\nPlease try again later.',
+      },
+      isAlreadyOnWaitingList: {
+        title: 'Already on the waiting list',
+        message:
+          "If you're on the waiting list, we'll let you know by email when a place becomes available.",
+      },
+      waitingListOpen: {
+        title: 'The session is full',
+        message:
+          "Join the waitlist and you'll receive a message once a spot becomes available.",
+      },
+      noPassAvailable: {
+        title: 'No pass available',
+        message: 'No passes are available to join the waiting list.',
+      },
+    },
+    subscriptions: 'Subscriptions',
+    combos: 'Packs',
+    passes: 'Passes',
+    otherPasses: 'Other passes',
+    spotSelectorTitle: 'Choose your spot',
+    seeAllProducts: 'See all products',
+    recommended: 'Recommended',
+    reviewAndConfirm: 'Review and confirm',
+  },
 };

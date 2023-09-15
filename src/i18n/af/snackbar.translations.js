@@ -141,1149 +141,1025 @@ const {
 } = require('../../libs/coupon/errors.ts');
 
 exports.default = {
-  canNotBuyErrorCode: {
-    generic: 'Impossible de réserver',
-    [OFFER_WAITING_LIST_STATUS_FULL]: "La liste d'attente est pleine",
-    [OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED]:
-      "Vous êtes déjà inscrit en liste d'attente",
-    [OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON]:
-      "La séance n'est pas encore ouverte aux réservations",
-    [OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE]:
-      "La séance n'est plus ouverte aux réservations",
-    [OFFER_BOOKABLE_STATUS_FULL]: 'La séance est pleine',
-    [OFFER_BOOKABLE_STATUS_LOCKED]: "La séance n'est pas réservable",
-    [OFFER_BOOKABLE_STATUS_ALREADY_BOOKED]:
-      'Vous êtes déjà inscrit à cette séance',
-    [OFFER_BOOKABLE_STATUS_TOO_MANY_MALE]:
-      'Le déséquilibre homme/femme est trop important, réservation impossible',
-    [OFFER_BOOKABLE_STATUS_TOO_MANY_FEMALE]:
-      'Le déséquilibre homme/femme est trop important, réservation impossible',
-    [OFFER_BOOKABLE_STATUS_TOO_MANY_IN_FUTURE]:
-      'Vous essayez de réserver plus de séances futures que ce qui est permis par votre club',
-    [SPOT_NOT_AVAILABLE]: "Le spot que vous avez choisi n'est plus disponible",
-    [PAYMENT_COMBO_CANT_BE_BOUGHT_HAS_REACHED_MAX_PURCHASE]:
-      'Vous ne pouvez plus acheter ce pack',
-    [PAYMENT_COMBO_CANT_BE_BOUGHT_NEW_ONLY_ONLY]:
-      "Ce pack n'est disponible que pour les nouveaux membres",
-    [PAYMENT_COMBO_CANT_BE_BOUGHT_DATE_EXPIRED]:
-      "Ce pack ne peut plus être acheté car sa date d'expiration est dépassée",
-    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_DATE_EXPIRED]:
-      "Cette carte ne peut plus être achetée car sa date d'expiration est dépassée",
-    [PRIVATE_PASS_CAN_NOT_BE_BOUGHT_DATE_EXPIRED]:
-      "Cette carte de rendez-vous ne peut plus être achetée car sa date d'expiration est dépassée",
-    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_NEW_MEMBER_ONLY]:
-      "Cette carte de cours n'est disponible que pour les nouveaux membres",
-    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_MAX_PURCHASE_REACHED]:
-      'Vous ne pouvez plus racheter ce pass',
-    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_MANAGER_ONLY]:
-      "Ce pass n'est pas disponible à la vente",
-    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_DISABLED]:
-      "Ce pass n'est pas disponible à la vente",
-    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_VALIDITY_DATERANGE]:
-      "Ce pass n'est pas compatible pour une réservation à la date choisie",
-    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_INCOMPATIBLE_WITH_OFFER]:
-      "Ce pass n'est pas compatible avec cette séance",
-    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_ACTIVITY_INCOMPATIBLE]:
-      "Ce pass n'est pas compatible avec cette activité",
-    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_SCT_INCOMPATIBLE]:
-      "Ce pass n'est pas compatible avec cette catégorie d'activité",
-    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_ESTABLISHMENT_INCOMPATIBLE]:
-      "Ce pass n'est pas compatible avec ce lieu",
-    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_VOD_ONLY]:
-      'Ce pass ne permet pas de réserver des séance (VOD seulement)',
-    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_BAD_COMPANY]:
-      "Ce pass n'est pas compatible avec cette séance",
-    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_DAY]:
-      'Votre carte de cours ne permet plus de réserver pour ce jour',
-    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_WEEK]:
-      'Votre carte de cours ne permet plus de réserver cette semaine',
-    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_MONTH]:
-      'Votre carte de cours ne permet plus de réserver ce mois',
-    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_YEAR]:
-      'Votre carte de cours ne permet plus de réserver cette année',
-    [GIFTCARD_CAN_NOT_BE_BOUGHT_DISABLED]:
-      "La carte cadeau n'est plus disponible à la vente.",
-    [GIFTCARD_CAN_NOT_BE_BOUGHT_MANAGER_ONLY]:
-      "La carte cadeau n'est plus disponible à la vente.",
-    [SHOP_ITEM_CAN_NOT_BE_BOUGHT_NOT_ENOUGH_STOCK]: 'Stock insuffisant',
-    [LOCK_ACQUISITION_FAILURE_GENERIC]:
-      'Une réservation est déjà en cours, veuillez patienter quelques instants',
-    [LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING]:
-      'Impossible de réserver. Ce spot est en cours de réservation par un autre membre. Veuillez réessayer en choisissant un autre spot.',
-    [BASKET_LOCK_ACQUISITION_FAILURE]:
-      "L'objet est déjà en train d'être ajouté au panier, veuillez patienter",
-    [OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK]:
-      "Aucune carte de cours ne vous permet de vous ajouter à la file d'attente pour cette offre",
+  communication: {
+    error: 'Error while sending email',
+    success: 'Mail being sent',
   },
-  requestCurrentBasket: {
-    [BASKET_LOCK_ACQUISITION_FAILURE]:
-      'La récupération des informations du panier est déjà en cours',
+  order: { success: 'Your payment has been successfully registered' },
+  booking: {
+    register: { success: 'Booking saved' },
+    delete: { error: "Sessions that have already started can't be cancelled." },
   },
-  refreshInternalAccountPrepaidLines: {
-    [BASKET_LOCK_ACQUISITION_FAILURE]:
-      'Une opération est déjà en cours, veuillez patienter quelques instants',
-  },
-  removeItem: {
-    [BASKET_LOCK_ACQUISITION_FAILURE]:
-      "L'objet est déjà en train d'être retiré du panier, veuillez patienter",
-  },
-  modifyBasket: {
-    [BASKET_PROCESSING_PAYMENT_EXCEPTION]:
-      "Le panier est en cours de traitement, veuillez recommencer d'ici quelques minutes",
-  },
-  offer: {
-    restore: {
-      success: 'Séance restaurée',
-      error: 'Impossible de restaurer cette séance',
-    },
-  },
-  settings: {
-    update: {
-      success: 'Paramètres mis à jour',
-      error: 'Impossible de mettre à jour, veuillez réessayer plus tard',
-    },
-  },
-  invoice: {
-    returnPaymentLocked:
-      'Impossible de rembourser ce paiement, votre compte Stripe est-il assez approvisionné ?',
-    update: {
-      success: 'Facture mise à jour avec succès',
-    },
-    create: {
-      success: 'Facture enregistrée',
-    },
-    error: "Erreur lors de l'enregistrement - Annulé",
-    billingEstablishment: {
-      error: {
-        unAuthorizedEstablishmentModification:
-          "Impossible de modifier l'établissement de facturation, seuls les administrateurs en possèdent le droit de modification",
-      },
-    },
-    sendToQuickbooks: {
-      success: 'Votre facture a été transférée sur Quickbooks',
-      error:
-        'Une erreur est survenue pendant le transfère de votre facture sur Quickbooks',
-      errors: {
-        title: "Erreur lors de l'envoi de votre facture",
-        931000: "Erreur lors de l'authentification à Quickbooks",
-        931001: "Erreur lors de l'authentification à Quickbooks",
-        931002: "Clefs d'authentifications expirées",
-        931003: "Clefs d'authentifications expirées",
-        931004: "Vous n'avez pas configuré votre application QuickBooks",
-        931100: "Erreur lors de la mise à jour des clefs d'authentifications",
-        931101: 'Quickbooks ne parvient pas à nous transmettre vos données',
-        932000: "Votre compte n'est plus authentifié sur Bsport",
-        932001: "Votre compte n'est plus authentifié sur Bsport",
-        932100:
-          "Impossible d'accéder aux informations de votre compte Quickbooks",
-        933000:
-          'Le membre associé à la facture ne possède pas les informations nécessaires pour être enregistrer sur QuickBooks',
-        933100: 'Impossible de créer le client associé au membre de la facture',
-        933101: 'Impossible de créer le client associé au membre de la facture',
-        933102: 'Erreur lors de la création de la facture sur Quickbooks',
-        933103:
-          'Votre plateforme QuickBooks supporte plusieures devises, veuillez préciser la taxe à utiliser.',
-        934000:
-          'La facture ne possède pas les informations minimales pour être créée sur Quickbooks',
-        934001: 'Impossible de créer une facture sans items associés',
-        934002: "Impossible d'envoyer une facture annulée sur QuickBooks",
-        934003: "Imposible d'envoyer une facture non finalisée sur QuickBooks",
-        934004: "Impossible d'envoyer une facture impayée sur QuickBooks",
-        934005: 'Votre facture ne peux pas être envoyée sur QuickBooks',
-        934006: 'Cette facture est déjà enregistrée sur QuickBooks',
-      },
-    },
-    revert: {
-      errors: {
-        [INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE]:
-          "Impossible d'annuler une facture avec des paiements Interac.",
-        [INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER]:
-          "Impossible de rembourser en avoir une facture d'ajustement de solde.",
-        [CANNOT_REFUND_INVOICE_EXCEPTION_ERROR_CODE]:
-          'Impossible de rembourser cette facture.',
-      },
-    },
-    applyBalance: {
-      success: 'Le montant de votre solde a été appliqué à la facture.',
-      error: "Impossible d'utiliser votre solde pour régler cette facture.",
-    },
-    applyGiftcard: {
-      success: 'Paiement par carte cadeau validé',
-      error: 'Impossible de payer le montant demandé avec cette carte cadeau',
-      errors: {
-        [INVOICE_PAYMENT_BY_GIFTCARD_ERROR]:
-          'Impossible de régler cette facture avec cette carte cadeau',
-        [GIFTCARD_ACTIVATION_CODE_ERROR_CODE]:
-          "Le code d'activation de la carte n'est pas le bon.",
-        [GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_DISABLED]:
-          'La carte cadeau a été désactivée.',
-        [GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_ALREADY_ACTIVATED]:
-          'La carte cadeau a déjà été activée',
-        [GIFTCARD_ACTIVATION_FAIL_WHEN_MISSING_RECIPIENT_MEMBER]:
-          'Impossible de reconnaître le membre qui souhaite activer la carte.',
-        generic: "Impossible d'activer la carte cadeau",
-      },
-    },
-  },
-  zoom: {
-    created: {
-      success: 'Compte Zoom lié avec succès',
-      error: 'Erreur lors du lien du compte Zoom',
-    },
-  },
-  copied: 'Copié dans le presse-papier',
-  link: {
-    copied: 'Lien copié dans le presse-papier',
-  },
-  coach: {
-    editAccessToCoachSpace: {
-      error:
-        "Erreur lors de la modification des droits d'accès à l'espace professeur",
-    },
-    linkByEmail: {
-      success: 'Professeur lié avec succès',
-    },
-    error: 'Impossible de sauvegarder le professeur',
-    errors: {
-      [COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER]:
-        "L'email indiqué est déjà lié à un compte staff.",
-      [COACH_EMAIL_ADDRESS_EXISTS]:
-        'Un membre existe déjà avec cet email. Pour les relier, utiliser la popup précédente.',
-      [COACH_CREATE_EMAIL_ADDRESS_IS_FRANCHISOR_USER]:
-        "L'email indiqué est déjà lié à un compte staff franchise.",
-    },
-    create: {
-      success: 'Professeur créé avec succès',
-    },
-    update: {
-      success: 'Professeur modifié avec succès',
-    },
-    delete: {
-      success: 'Professeur supprimé',
-      error: 'Impossible de supprimer le professeur',
-    },
-    restore: {
-      success: 'Professeur restauré avec succès',
-      error: 'Impossible de restaurer le professeur',
-    },
-  },
-  relationship: {
-    error: {
-      90002: "Le membre n'est pas défini",
-      90001: 'Requête invalide',
-      90003: 'Token invalide',
-      90000: "Droits d'accès à cette relation refusés",
-    },
-    edit: {
-      success: 'Relation modifiée',
-    },
-    create: {
-      success: 'Relation enregistrée',
-    },
-    delete: {
-      success: 'Relation supprimée',
-      error: 'Impossible de supprimer cette relation',
-    },
-    createOrUpdate: {
-      error: "Impossible d'enregistrer la relation",
-    },
-    consumer_payment_pack_links: {
-      create: {
-        success: 'Carte partagée',
-        error: {
-          generic: 'Impossible de partager cette carte',
-          [DST_CONSUMER_PAYMENT_PACK_CANNOT_BE_SHARED_AGAIN]:
-            'Cette carte est partagée depuis un autre compte',
-        },
-      },
-      unlink: {
-        success: 'Partage supprimé',
-        error: 'Impossible de supprimer ce partage',
-      },
-      relink: {
-        success: 'Partage enregistré',
-        error: 'Impossible de partager cette carte',
-      },
-    },
-    private_consumer_pass_links: {
-      create: {
-        success: 'Carte RDV partagée',
-        error: {
-          generic: 'Impossible de partager cette carte RDV',
-          [DST_PRIVATE_CONSUMER_PASS_CANNOT_BE_SHARED_AGAIN]:
-            'Cette carte RDV est partagée depuis un autre compte',
-        },
-      },
-      unlink: {
-        success: 'Partage supprimé',
-        error: 'Impossible de supprimer ce partage',
-      },
-      relink: {
-        success: 'Partage enregistré',
-        error: 'Impossible de partager cette carte RDV',
-      },
-    },
-  },
-  paymentRules: {
-    update: {
-      success: 'Règle par défaut modifiée',
-      error: 'Erreur lors de la modification',
-    },
-    create: {
-      error: 'Erreur lors de la création',
-      success: 'Règle ajoutée',
-    },
-    delete: {
-      error: 'Erreur lors de la suppression',
-      success: 'Règle supprimée',
-    },
-  },
-  paymentRuleGroups: {
-    update: {
-      success: 'Groupe modifié avec succes',
-      error: {
-        generic: 'Erreur lors de la modification',
-        coachWithPaymentGroup:
-          "Imposible de modifier les règles de rémunération d'un coach inclu dans un groupe",
-      },
-    },
-    create: {
-      error: 'Erreur lors de la création',
-      success: 'Groupe ajouté',
-    },
-    delete: {
-      error: 'Erreur lors de la suppression',
-      success: 'Groupe supprimé',
-    },
-  },
-  paymentPack: {
-    paymentPackDisabled: {
-      success: 'Carte de cours désactivée',
-      error: 'Impossible de désactiver la carte',
-    },
-    paymentPackEnabled: {
-      success: 'Carte de cours restaurée',
-      error: 'Impossible de restaurer la carte',
-    },
-    credit: {
-      updated: 'Crédits mis à jour',
-      error: "Erreur lors de l'enregistrement",
-    },
-    createOrUpdate: {
-      success: 'Carte de cours enregistrée',
-      fail: "Erreur lors de l'enregistrement de la carte",
-    },
-    category: {
-      update: {
-        success: 'Categorie modifiée avec succès',
-        error: 'Impossible de modifier la catégorie',
-      },
-      create: {
-        success: 'Nouvelle catégorie créée avec succès',
-        error: 'Impossible de créer cette catégorie',
-      },
-      delete: {
-        success: 'Catégorie supprimée',
-        error: 'Impossible de supprimer la catégorie',
-      },
-    },
-  },
-  paymentMethod: {
-    errors: {
-      [PAYMENT_METHOD_NOT_DETACHABLE_PAYMENT_GROUP_ERROR_CODE]:
-        'Impossible de supprimer cette méthode paiement, veuillez réessayer un peu plus tard',
-      [PAYMENT_METHOD_NOT_DETACHABLE_ERROR_CODE]:
-        'Impossible de supprimer cette méthode paiement, veuillez réessayer un peu plus tard',
-      [PAYMENT_METHOD_NOT_DETACHABLE_PLANNED_PAYMENT_EVENT_ERROR_CODE]:
-        'Des paiements futurs sont programmés avec ce moyen de paiement',
-      [PAYMENT_METHOD_NOT_DETACHABLE_BILLING_PLAN_ERROR_CODE]:
-        'Une souscription est programmée avec ce moyen de paiement',
-      [PAYMENT_METHOD_NOT_DETACHABLE_FUTURE_PAYMENT_ERROR_CODE]:
-        'Des paiements futurs sont programmés avec ce moyen de paiement',
-    },
-    detach: {
-      pm_deleted: 'Moyen de paiement supprimé',
-      last_payment_method:
-        'Impossible de supprimer votre unique moyen de paiement',
-      pm_associated_to_protected_bp:
-        'Impossible : Vous avez une souscription associée à ce moyen de paiement',
-      pm_associated_to_registered_ppe:
-        'Impossible : Vous avez une souscription associée à ce moyen de paiement',
-      pm_associated_to_pi:
-        'Impossible : Vous avez une souscription associée à ce moyen de paiement',
-    },
-  },
-  coupon: {
-    delete: {
-      error: 'Impossible de supprimer cette promotion',
-      success: 'Code promotionel supprimé',
-    },
-    update: {
-      error: 'Impossible de modifier ce code',
-      success: 'Code promotionnel modifié',
-    },
-    create: {
-      error: 'Impossible de créer ce code',
-      success: 'Code promotionnel enregistré',
-    },
-    createOrUpdate: {
-      success: 'Code promotionnel enregistré',
-      error: "Erreur lors de l'enregistrement du code promotionnel",
-    },
-    attachToBasket: {
-      error: 'Aucun code promo compatible trouvé',
-    },
-    templateInstance: {
-      create: {
-        error: 'Impossible de partager cette promotion avec ce(s) studio(s)',
-      },
-    },
-    exportCodes: {
-      success: "Bons d'achat correctement exportés",
-      error: "Impossible d'exporter les codes sélectionnés",
-    },
-    errors: {
-      [CANNOT_REDEEM_CODE_BECAUSE_NOT_USED]:
-        "Vous ne pouvez pas marquer comme utilisé un code qui n'est pas en attente de validation externe",
-    },
-  },
-  email: {
-    create: {
-      success: 'Email créé',
-      error: "Impossible d'enregistrer l'email",
-    },
-    update: {
-      success: 'Email modifié',
-      error: "Impossible de modifier l'email",
-    },
-    delete: {
-      success: 'Email supprimé',
-      error: "Impossible de supprimer l'email",
-    },
-    duplicate: {
-      success: 'Email dupliqué',
-      error: "Impossible de dupliquer l'email",
-    },
-  },
-  establishment: {
-    restore: {
-      success: 'Salle restorée',
-      error: 'Impossible de restaurer cette salle',
-    },
-    delete: {
-      success: 'Salle supprimée',
-      error: 'Impossible de supprimer cette salle',
-    },
-    error: 'Impossible de sauvegarder la salle',
-    create: {
-      success: 'Salle créée avec succès',
-    },
-    update: {
-      success: 'Salle modifiée avec succès',
-    },
-  },
-  establishmentGroup: {
-    create: {
-      success: 'La nouvelle localisation a été créée',
-      error: 'Impossible de créer la localisation',
-    },
-    update: {
-      success: 'Localisation modifiée',
-      error: 'Impossible de modifier la localisation',
-    },
-    delete: {
-      success: 'Localisation supprimée',
-      error: 'Impossible de supprimer la localisation',
-    },
-  },
-  establishmentBillingGroup: {
-    create: {
-      success: 'Le nouveau groupe de facturation  a été créé',
-      error: 'Impossible de créer le groupe de facturation',
-    },
-    update: {
-      success: 'Groupe de facturation modifié',
-      error: 'Impossible de modifier le groupe de facturation',
-    },
-    delete: {
-      success: 'Groupe de facturation supprimé',
-      error: 'Impossible de supprimer le groupe de facturation',
-    },
-  },
-  giftCard: {
-    notFound: `Cette carte cadeau n'a pas été trouvée, il est possible qu'elle ait été archivée.`,
-  },
-  memberNote: {
-    delete: {
-      success: 'Note supprimée',
-      error: 'Impossible de supprimer la note',
-    },
-  },
-  member: {
-    link: {
-      success: 'Compte lié avec succès',
-    },
-    merge: {
-      success: 'Membres fusionnés',
-      seeMemberPage: ' Voir la page du membre',
-
-      error: 'Impossible de fusionner les membres',
-
-      srcMember: 'Membre à fusionner (supprimé)',
-      dstMember: 'Membre à conserver',
-      title: 'Fusion membre',
-      explainCredit: "L'acompte interne du membre sera transféré",
-      explainBookingsAndPassAndInvoiceAndNotes:
-        'Les cartes de cours, réservations, factures et notes seront transférés.',
-      explainTags: 'Les tags du membre supprimés ne seront pas transférés',
-      cancel: 'Annuler',
-      submit: 'Fusionner',
-    },
-    error: 'Impossible de sauvegarder le membre',
-    create: {
-      title: 'Nouveau membre',
-      success: 'Membre créé avec succès',
-    },
-    update: {
-      title: 'Edition des informations',
-      success: 'Membre modifié avec succès',
-    },
-    createOrUpdate: {
-      success: 'Informations enregistrées',
-      error: "Erreur lors de l'enregistrement",
-    },
-    changeEmailRequest: {
-      create: {
-        success: "Email de confirmation de changement d'email envoyé",
-        error: "Impossible créer la demande de changement d'email",
-      },
-    },
-  },
-  activity: {
-    create: {
-      success: 'Activité sauvegardée',
-      error: "Impossible de sauvegarder l'activité",
-    },
-    update: {
-      success: 'Activité mise à jour',
-      error: "Impossible de mettre à jour l'activité",
-    },
-  },
-  notificationRule: {
-    createOrUpdate: {
-      success: 'Modifié avec succès',
-      error: "Impossible d'enregistrer",
-      errorLackRequiredVariables: "Ce template n'a pas pu être enregistré",
-    },
-  },
-  role: {
-    update: {
-      success: 'Autorisations modifiées',
-      successCommission: 'Le taux de commission a bien été modifié',
-    },
-    error: {
-      generic: 'Impossible de modifier cette autorisation',
-      errorEmail:
-        'Cet email est déjà utilisé pour un compte élève ou professeur',
-      errorCommission:
-        'La valeur que vous avez saisie doit être entre 0 et 100',
-    },
-    noMasterControl: {
-      overbookingNotAllowed:
-        'Vous ne pouvez pas dépasser le nombre maximum de réservations.',
-      overbookingNotAllowedInWaitingList:
-        "Vous ne pouvez pas dépasser la capacité maximale de la liste d'attente.",
-      overrideEstablishmentNotAllowed:
-        'Vous ne pouvez pas forcer le rendez-vous dans cette salle.',
-      overrideCoachNotAllowed:
-        'Vous ne pouvez pas forcer le rendez-vous avec ce professeur.',
-      changeDateEstablishmentUnaivalable:
-        "Impossible de réserver sur cette date : la salle n'est pas libre.",
-      changeDateCoachUnaivalable:
-        "Impossible de réserver sur cette date : le professeur n'est pas libre.",
-    },
-  },
-  shop: {
-    subShop: {
-      createOrUpdate: {
-        success: 'Catégorie enregistrée avec succès',
-        error: "Impossible d'enregsitrer la catégorie",
-      },
-      delete: {
-        success: 'Catégorie supprimée',
-        error: 'Impossible de supprimer la catégorie',
-      },
-    },
-    item: {
-      notFound: `Ce produit n'a pas été trouvé, il est possible qu'il ait été archivé.`,
-      updateProvisions: {
-        success: 'Stock mis à jour',
-        error: "Erreur lors de l'enregistrement du stock",
-      },
-      duplicate: {
-        success: 'Produit dupliqué avec succès',
-        error: 'Impossible de dupliquer le produit',
-      },
-      createOrUpdate: {
-        success: 'Enregistré',
-        error: "Erreur lors de l'enregistrement",
-      },
-      delete: {
-        success: 'Elément supprimé',
-        error: 'Erreur lors de la suppression',
-      },
-    },
-  },
-  smartlist: {
-    create: {
-      success: 'Smartlist créée avec succès',
-      error: "Impossible d'enregistrer la smartlist",
-    },
-    update: {
-      success: 'Smartlist mise à jour avec succès',
-      error: "Impossible d'enregistrer la smartlist",
-    },
-    delete: {
-      success: 'Smartlist supprimée',
-      error: 'Impossible de supprimer la smartlist',
-    },
-    duplicate: {
-      success: 'Smartlist dupliquée',
-      error: 'Impossible de dupliquer la smarlist',
-    },
-    tag_rules: {
-      success: 'La règle automatique a été lancée',
-      error: "Impossible d'appliquer cette règle",
-      limit_reached:
-        'Impossible : Vous avez atteint la limite de création (10)',
-    },
-  },
-  automatedCampaign: {
-    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN]: 'Une erreur est servenue',
-    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_LIMIT_FOR_SMARTLIST_REACHED]:
-      "Erreur: Nombre limite d'envois par membre invalide",
-    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_EMAIL_WITH_NO_TITLE]:
-      'Erreur: Titre obligatoire',
-    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_EMAIL_WITH_NO_BODY]:
-      "Erreur: Contenu de l'email obligatoire",
-    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_SMS_WITH_NO_BODY]:
-      'Erreur: Contenu du SMS obligatoire',
-    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_PUSH_NOTIFICATION_WITH_NO_TITLE]:
-      'Erreur: Titre de notification obligatoire',
-    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_PUSH_NOTIFICATION_WITH_NO_BODY]:
-      'Erreur: Contenu de la notification obligatoire',
+  login: { passwordChangedSuccess: 'Password successfully modified!' },
+  webhook: {
+    testError: 'You must verify the URL',
+    testSuccess: 'Correct URL',
+    error: 'Impossible to subscribe the webhook',
+    success: 'Webhook subscribed',
   },
   subscription: {
-    switchPaymentMethod: {
-      success: 'Méthode de paiement mise à jour',
-      error: 'Impossible de modifier la méthode de paiement',
-    },
-    stop: {
-      success: 'La souscription a été arrétée',
-      warning:
-        "Impossible d'arrêter pour le moment, un paiement est-il en cours de transfert ?",
-      error: "Impossible d'arrêter la souscription pour le moment",
-    },
-    switchPack: {
-      success: 'Carte de cours modifiée',
-      error: 'Impossible de modifier la carte de cours',
-    },
-    switchPrivatePass: {
-      success: 'Carte de rendez-vous modifiée',
-      error: 'Impossible de modifier la carte de rendez-vous',
-    },
-    switchPaymentCombo: {
-      success: 'Pack modifié',
-      error: 'Impossible de modifier le pack',
-    },
-    switchItemsErrors: {
-      paymentPack: {
-        [BILLING_PLAN_EXCEPTION_BLOCKING_SWITCHING_CONTENT_WITH_TEMPLATE_INSTANCE]:
-          "Impossible : Le changement de carte de cours partagée entre franchisés n'est pas autorisé",
-      },
-      privatePass: {
-        [BILLING_PLAN_EXCEPTION_BLOCKING_SWITCHING_CONTENT_WITH_TEMPLATE_INSTANCE]:
-          "Impossible : Le changement de carte de rendez-vous partagée entre franchisés n'est pas autorisé",
-      },
-      paymentCombo: {
-        [BILLING_PLAN_EXCEPTION_BLOCKING_SWITCHING_CONTENT_WITH_TEMPLATE_INSTANCE]:
-          "Impossible : Le changement de pack partagé entre franchisés n'est pas autorisé",
-      },
-    },
-    freeze: {
-      success: 'Souscription mise en pause',
-      locked:
-        'Impossible de mettre en pause pour le moment, un paiement est-il en attente ?',
-      error: 'Impossible de mettre en pause cette souscription',
-      deleteFail: 'Impossible de supprimer une pause déjà commencée.',
-      deleteSuccess: 'La pause a bien été supprimée',
-    },
     register: {
-      success: 'Abonnement enregistré avec succès',
-      error: "Impossible d'enregistrer l'abonnement",
-    },
-    updatePrice: {
-      success: 'Montant mis à jour',
-      error: 'Impossible de modifier ce montant',
+      success: 'Subscription registered successfully',
+      error: 'Impossible to register the subscription',
     },
     youSubscribed: {
-      error: "Erreur lors de l'abonnement",
-      success: 'Vous êtes désormais abonné',
+      success: 'You have successfully subscribed',
+      error: 'Error while subscribing',
+    },
+    updatePrice: {
+      error: 'Impossible to update this amount',
+      success: 'Amount updated',
+    },
+    freeze: {
+      error: 'Impossible to pause this subscription',
+      alreadyPaused: 'Impossible to pause a subscription already paused',
+      success: 'Subscription freezed',
+      locked: 'Impossible to pause for now, is a payment processing ?',
+      deleteSuccess: 'The pause has been removed',
+      deleteFail:
+        'It is not possible to delete a pause that has already started.',
+    },
+    switchPack: {
+      error: "Can't change the pass",
+      success: 'Pass has been updated',
+    },
+    switchPaymentMethod: {
+      error: 'Impossible to change payment method',
+      success: 'Payment method updated',
+    },
+    stop: {
+      error: 'Impossible to stop for now',
+      warning: 'Impossible to stop for now, is a payment processing ?',
+      success: 'Subscription cancelled',
     },
     contract: {
       restore: {
-        success: 'Contrat restauré avec succès',
-        error: 'Impossible de restaurer le contrat',
+        success: 'This subscription has been restored successfully',
+        error: 'Error while restoring subscription',
       },
     },
     billNow: {
       errors: {
         [PENDING_PAYMENT_INTENT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION]:
-          'Un paiment est déjà en cours de validation, revenez plus tard pour enregistrer un nouveau paiement.',
+          'Your payment is in process of validation. Return later to register a new payment.',
+      },
+    },
+    switchPaymentCombo: {
+      error: 'Unable to modify the pack',
+      success: 'Pack has been modified',
+    },
+    switchPrivatePass: {
+      error: 'Unable to modify the appointment pass',
+      success: 'Appointment pass has been modified',
+    },
+    switchItemsErrors: {
+      paymentCombo: {
+        [BILLING_PLAN_EXCEPTION_BLOCKING_SWITCHING_CONTENT_WITH_TEMPLATE_INSTANCE]:
+          'Impossible: Changing the shared pack between franchisees is not allowed',
+      },
+      privatePass: {
+        [BILLING_PLAN_EXCEPTION_BLOCKING_SWITCHING_CONTENT_WITH_TEMPLATE_INSTANCE]:
+          'Impossible: Changing the shared appointment pass between franchisees is not allowed',
+      },
+      paymentPack: {
+        [BILLING_PLAN_EXCEPTION_BLOCKING_SWITCHING_CONTENT_WITH_TEMPLATE_INSTANCE]:
+          'Impossible: Changing a shared pass between franchisees is not allowed',
       },
     },
   },
-  webhook: {
-    success: 'Webhook enregistré',
-    error: "Impossible d'enregistrer le webhook",
-    testSuccess: 'Url correcte',
-    testError: "Veuillez vérifier l'url",
-  },
-  login: {
-    passwordChangedSuccess: 'Mot de passe modifié avec succès !',
-  },
-  booking: {
-    register: {
-      success: 'Réservation enregistrée',
-    },
+  smartlist: {
     delete: {
-      error: 'Vous ne pouvez pas annuler une séance qui a déjà commencée.',
+      error: 'Unable to delete smartlist',
+      success: 'Smartlist deleted',
+    },
+    update: {
+      error: 'Unable to save smartlist',
+      success: 'Smartlist successfully updated',
+    },
+    create: {
+      error: 'Unable to save smartlist',
+      success: 'Smartlist successfully created',
+    },
+    duplicate: {
+      error: 'Unable to duplicate smarlist',
+      success: 'Smartlist duplicated',
+    },
+    tag_rules: {
+      limit_reached: 'Impossible: You have reached the creation limit (10)',
+      error: 'Unable to apply this rule',
+      success: 'The automatic rule has been launched',
     },
   },
-  order: {
-    success: 'Votre paiement a bien été enregistré',
-  },
-  communication: {
-    success: "Mail en cours d'envoi",
-    error: "Problème lors de l'envoi du mail",
-  },
-  communicationv2: {
-    success: "Communication en cours d'envoi",
-    error: "Problème lors de l'envoi de la communication",
-  },
-  privateBooking: {
-    register: {
-      warning: {
-        [PRIVATE_SLOT_ALREADY_BOOKED]: 'Vous avez déjà réservé ce créneau',
+  shop: {
+    item: {
+      delete: { error: 'Error while deleting', success: 'Item deleted' },
+      createOrUpdate: { error: 'Error while saving', success: 'Saved' },
+      updateProvisions: {
+        error: 'Error while saving provision',
+        success: 'Provision updated',
       },
-      error: 'Impossible de réserver sur cette date',
+      duplicate: {
+        error: 'It is impossible to duplicate the product',
+        success: 'Product succesfully duplicated',
+      },
+      notFound: 'This product has not been found. It may have been archived.',
     },
-    attachCoach: {
-      success: 'RDV attribué au professeur',
-      error: "Impossible d'attribuer au professeur",
+    subShop: {
+      delete: {
+        error: 'Impossible to delete the category',
+        success: 'Category deleted',
+      },
+      createOrUpdate: {
+        error: 'Impossible to save the category',
+        success: 'Category successfully saved',
+      },
     },
-    updateCoach: {
-      success: 'Le professeur a été modifié',
-      error: 'Impossible de modifier le professeur',
+  },
+  role: {
+    error: {
+      errorEmail: 'This email is already used for a teacher or member account',
+      generic: 'Cannot change this permission',
+      errorCommission: 'The value you entered must be between 0 and 100',
+    },
+    update: {
+      success: 'Modified permissions',
+      successCommission: 'The commission rate has been modified',
+    },
+    noMasterControl: {
+      overrideCoachNotAllowed:
+        'You cannot force an appointment with this teacher.',
+      changeDateCoachUnaivalable:
+        'Impossible to book on this date: the teacher is not available.',
+      changeDateEstablishmentUnaivalable:
+        'Impossible to book on this date: the establishment is not available.',
+      overrideEstablishmentNotAllowed:
+        'You cannot force an appointment in this establishment.',
+      overbookingNotAllowedInWaitingList:
+        'You cannot exceed the maximum capacity of the waiting list.',
+      overbookingNotAllowed:
+        'You cannot exceed the maximum number of reservations.',
+    },
+  },
+  notificationRule: {
+    createOrUpdate: {
+      error: 'Impossible to save',
+      success: 'Successfully saved',
+      errorLackRequiredVariables: 'This template could not be registered',
+    },
+  },
+  activity: {
+    update: {
+      error: 'Impossible to update activity',
+      success: 'Activity updated',
+    },
+    create: { error: 'Impossible to save activity', success: 'Activity saved' },
+  },
+  member: {
+    link: { success: 'Member linked' },
+    update: { success: 'Member modified', title: 'Change informations' },
+    create: { success: 'Member creation successful', title: 'New member' },
+    error: 'Impossible to save member',
+    merge: {
+      submit: 'Merge',
+      cancel: 'Cancel',
+      explainTags: 'Member tags will not be transferred',
+      explainBookingsAndPassAndInvoiceAndNotes:
+        'Passes, booking, bills, and notes will be transferred.',
+      explainCredit: 'Internal account of the member will be transferred',
+      title: 'Merge',
+      dstMember: "We'll keep this account",
+      srcMember: 'Member to merge',
+      error: 'Impossible to merge members',
+      seeMemberPage: ' See member page',
+      success: 'Members merged',
+    },
+    createOrUpdate: {
+      error: 'Error while saving',
+      success: 'Your modification has been successfully saved',
+    },
+    changeEmailRequest: {
+      create: {
+        error: 'Unable to complete the email change request',
+        success: 'Validation email has been sent',
+      },
+    },
+  },
+  establishment: {
+    update: { success: 'Establishment details updated' },
+    create: { success: 'Establishment successfully created' },
+    error: 'Unable to save establishment',
+    delete: {
+      error: 'Impossible to delete this establishment',
+      success: 'Establishment deleted',
     },
     restore: {
-      success: 'Le rendez-vous a été restauré',
+      error: 'Unable to restore this establishment',
+      success: 'Restored establishment',
+    },
+  },
+  email: {
+    delete: { error: 'Unable to delete email', success: 'Email deleted' },
+    update: { error: 'Unable to edit email', success: 'Email modified' },
+    create: { error: 'Unable to save email', success: 'Email created' },
+    duplicate: {
+      error: 'Unable to duplicate email',
+      success: 'Duplicate email',
+    },
+  },
+  coupon: {
+    attachToBasket: { error: 'Invalid promotional code' },
+    create: {
+      success: 'Registered promotional code',
+      error: 'Impossible to create this coupon',
+    },
+    update: {
+      success: 'Promotional code changed',
+      error: 'Impossible to edit this coupon',
+    },
+    delete: {
+      success: 'Promotional code deleted',
+      error: 'Impossible to delete this coupon',
+    },
+    templateInstance: {
+      create: { error: 'Error when sharing this promotion between studios' },
+    },
+    createOrUpdate: {
+      error: 'Error when saving promotion',
+      success: 'Promotion saved',
+    },
+    exportCodes: {
+      success: 'Vouchers were correctly exported',
+      error: 'Unable to export selected codes',
+    },
+    errors: {
+      [CANNOT_REDEEM_CODE_BECAUSE_NOT_USED]:
+        'You cannot mark as used a code that is not awaiting external validation',
+    },
+  },
+  paymentPack: {
+    createOrUpdate: {
+      fail: 'Error while saving pass',
+      success: 'Pass successfully saved',
+    },
+    credit: { error: 'Error while saving', updated: 'Changes saved' },
+    paymentPackDisabled: {
+      error: 'Impossible to disable pass',
+      success: 'Pass disabled',
+    },
+    paymentPackEnabled: {
+      error: 'Unable to restore the pass',
+      success: 'Pass restored',
+    },
+    category: {
+      update: {
+        success: 'Category successfully modified',
+        error: 'Impossible to modify the category',
+      },
+      create: {
+        success: 'New category successfully created',
+        error: 'Unable to create this category',
+      },
+      delete: {
+        success: 'Category deleted',
+        error: 'Unable to delete the category',
+      },
+    },
+  },
+  paymentRules: {
+    delete: { success: 'Rule deleted', error: 'Error wile deleting' },
+    create: { success: 'Rule added', error: 'Error during creation' },
+    update: { error: 'Error during update', success: 'Default rule changed' },
+  },
+  relationship: {
+    consumer_payment_pack_links: {
+      relink: {
+        error: 'Impossible to share this pass',
+        success: 'Pass shared',
+      },
+      unlink: {
+        error: 'Impossible to delete this sharing',
+        success: 'Sharing stopped',
+      },
+      create: {
+        error: {
+          [DST_CONSUMER_PAYMENT_PACK_CANNOT_BE_SHARED_AGAIN]:
+            'This pass is shared from another account',
+          generic: 'Impossible to share this pass',
+        },
+        success: 'Pass shared',
+      },
+    },
+    createOrUpdate: { error: 'Impossible to save relationship' },
+    create: { success: 'Relationship saved' },
+    edit: { success: 'Relationship modified' },
+    private_consumer_pass_links: {
+      relink: { error: 'Cannot share this pass', success: 'Pass shared' },
+      unlink: {
+        error: 'Impossible to delete this sharing',
+        success: 'Sharing stopped',
+      },
+      create: {
+        error: {
+          [DST_PRIVATE_CONSUMER_PASS_CANNOT_BE_SHARED_AGAIN]:
+            'This appointment pass is shared from another account',
+          generic: 'Impossible to share this appointment pass',
+        },
+        success: 'Shared appointment pass',
+      },
+    },
+    delete: {
+      error: 'Impossible to delete the relationship',
+      success: 'Relationship deleted',
+    },
+    error: {
+      90000: 'Account acces rights have been denied',
+      90001: 'Invalid request',
+      90002: 'Invalid member',
+      90003: 'Invalid token',
+    },
+  },
+  coach: {
+    delete: {
+      error: 'Unable to delete the teacher',
+      success: 'Teacher deleted',
+    },
+    update: { success: 'Teacher successfully updated' },
+    create: { success: 'Teacher successfully created' },
+    error_email_exists:
+      'A member already exists with this email. To link them, use the previous modal.',
+    error: 'Unable to save teacher',
+    linkByEmail: { success: 'Teacher successfully linked' },
+    restore: {
+      error: 'Unable to restore the teacher',
+      success: 'Teacher successfully restored',
+    },
+    editAccessToCoachSpace: {
+      error: "Error when editing Teacher View's access and rights",
+    },
+    errors: {
+      [COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER]:
+        'The email indicated is already linked to a staff account.',
+      [COACH_EMAIL_ADDRESS_EXISTS]:
+        'A member already exists with this email. To link them, use the previous popup.',
+      [COACH_CREATE_EMAIL_ADDRESS_IS_FRANCHISOR_USER]:
+        'The email indicated is already linked to a staff franchise account.',
+    },
+  },
+  link: { copied: 'Link copied to clipboard' },
+  invoice: {
+    error: 'Error while saving - Cancelled',
+    create: { success: 'Invoice saved' },
+    update: { success: 'Invoice updated' },
+    returnPaymentLocked:
+      'Unable to refund this payment, is there enough money in your Stripe account?',
+    billingEstablishment: {
+      error: {
+        unAuthorizedEstablishmentModification:
+          'Only Admins can modify billing groups',
+      },
+    },
+    sendToQuickbooks: {
+      errors: {
+        931000: 'Error authenticating to QuickBooks',
+        931001: 'Error authenticating to QuickBooks',
+        931002: 'Authentication keys have expired',
+        931003: 'Authentication keys have expired',
+        931004: "You've not set up your QuickBooks application",
+        931100: 'Error while updating authentication keys',
+        931101: 'QuickBooks is having errors sending us your data',
+        932000: 'Your account is no longer authenticated on BSPORT',
+        932001: 'Your account is no longer authenticated on BSPORT',
+        932100: 'Error while accessing your QuickBooks information',
+        933000:
+          "The member associated to this invoice doesn't have the required information to be registered with QuickBooks",
+        933100: 'Error while associating the member to the invoice',
+        933101: 'Error while associating the member to the invoice',
+        933102: 'Error when creating the invoice on QuickBooks',
+        933103:
+          'Your QuickBooks platform supports multiple currencies, please specify which tax to use.',
+        934000: 'The invoice lacks information to be created on QuickBooks',
+        934001: 'Error while creating invoice without associated items',
+        934002: 'Error while sending a canceled an invoice to QuickBooks',
+        934003: 'Error while sending an incomplete invoice to QuickBooks',
+        934004: 'Error while sending an unpaid invoice to QuickBooks',
+        934005: "Your invoice can't be sent to QuickBooks",
+        934006: 'This invoice has already been saved to QuickBooks',
+        title: 'Error while sending your invoice',
+      },
+      error: 'Error while transferring your invoice to QuickBooks',
+      success: 'Your invoice has been transferred to QuickBooks',
+    },
+    applyGiftcard: {
+      errors: {
+        [INVOICE_PAYMENT_BY_GIFTCARD_ERROR]:
+          'Error when validating this payment by gift card',
+        [GIFTCARD_ACTIVATION_CODE_ERROR_CODE]: 'The activation code is wrong.',
+        [GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_DISABLED]:
+          'The giftcard was disabled.',
+        [GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_ALREADY_ACTIVATED]:
+          'The giftcard has already been activated',
+        [GIFTCARD_ACTIVATION_FAIL_WHEN_MISSING_RECIPIENT_MEMBER]:
+          'Impossible to find the member who wants to activate the giftcard.',
+        generic: 'Unable to activate the gift card',
+      },
+      error: 'Error when validating this payment by gift card',
+      success: 'The gift card payment has been validated',
+    },
+    applyBalance: {
       error:
-        "Impossible de restaurer le rendez-vous, il n'y a pas assez de crédits sur cette carte de rendez-vous.",
+        'Error when applying your internal account balance to this invoice.',
+      success: 'Your internal account credit has been applied to this invoice.',
+    },
+    revert: {
+      errors: {
+        [INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE]:
+          'You cannot cancel an invoice with Interac payments.',
+        [INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER]:
+          'You cannot refund a balance adjustment invoice with a credit note.',
+        [CANNOT_REFUND_INVOICE_EXCEPTION_ERROR_CODE]:
+          'It is impossible to reimburse this invoice.',
+      },
     },
   },
   privateConsumerPass: {
     creditUpdate: {
-      success: 'Crédits mis à jour',
-      error: "Impossible d'enregistrer le crédit",
-    },
-    nonCompatible: {
-      error:
-        'Une erreur est survenue lors du chargement des passes non compatibles',
+      error: 'Impossible to save the account',
+      success: 'Changes saved',
     },
     incompatibilitiesReasons: {
-      error:
-        "Une erreur est survenue lors du chargement des raisons d'incompatibilités du pass",
+      error: 'An error occurred while loading the pass incompatibility reasons',
     },
-  },
-  consumerPass: {
-    success: 'Votre achat a bien été enregistré !',
-  },
-  bookerModule: {
-    pass: {
-      changed: 'La carte de cours pour réserver a du être modifiée',
-      nothingAvailable:
-        'Aucun pass ne permet de réserver en même temps ces séances',
-    },
-  },
-  privateRecurrentRule: {
-    createOrUpdate: {
-      success: 'Rendez-vous récurrent enregistré avec succès',
-      error: "Impossible d'enregistrer le rendez-vous récurrent",
-      locked: 'Une règle de récurrence existe déjà avec ces paramètres',
-    },
-    delete: {
-      success: 'Rendez-vous récurrent supprimé',
-      error: 'Impossible de supprimer le rendez-vous récurrent',
+    nonCompatible: {
+      error: 'An error occurred while loading non-compatible passes',
     },
   },
   video: {
     createOrUpdate: {
-      success: 'Vidéo enregistrée avec succès',
-      error: "Impossible d'enregistrer la vidéo",
+      success: 'Video successfully saved',
+      error: 'It is impossible to save this video',
     },
     delete: {
-      success: 'Vidéo supprimée',
-      error: 'Impossible de supprimer la vidéo',
+      error: 'It is impossible to delete the video',
+      success: 'Video deleted',
     },
     register: {
-      success: 'Vidéo enregistrée dans votre bibliothèque',
-      error: "Impossible d'enregister cette vidéo, réessayez dans un moment",
+      error: 'Unable to save this video, try again in a moment',
+      success: 'Video saved in your library',
+    },
+  },
+  privateBooking: {
+    attachCoach: {
+      error: 'It is impossible to assign to the teacher',
+      success: 'Appointment assigned to the teacher',
+    },
+    updateCoach: {
+      error: 'It is impossible to edit the teacher',
+      success: 'The teacher has been edited',
+    },
+    restore: {
+      error:
+        "The appointment can't be restored, as the associated appointment pass has too few credits",
+      success: 'The appointment has been restored',
+    },
+    register: {
+      error: 'Error while booking for this date',
+      warning: {
+        [PRIVATE_SLOT_ALREADY_BOOKED]: "You've recently booked this already",
+      },
     },
   },
   playlist: {
-    createOrUpdate: {
-      success: 'Playlist enregistrée avec succès',
-      error: "Impossible d'enregistrer la playlist",
+    video: {
+      del: {
+        error: 'It is impossible to remove the video from the playlist',
+        success: 'Video removed from the playlist',
+      },
+      add: {
+        error: 'It is impossible to add the video',
+        success: 'Video added to the playlist',
+      },
     },
     delete: {
-      success: 'Playlist supprimée',
-      error: 'Impossible de supprimer la playlist',
+      error: 'It is impossible to delete the playlist',
+      success: 'Playlist deleted',
     },
-    video: {
-      add: {
-        success: 'Vidéo ajoutée à la playlist',
-        error: "Impossible d'ajouter la vidéo",
-      },
-      del: {
-        success: 'Vidéo supprimée de la playlist',
-        error: 'Impossible de supprimer la vidéo de la playlist',
-      },
-    },
-  },
-  metaActivity: {
-    restore: {
-      success: 'Élément restauré',
-      error: 'Impossible de restaurer cet élément',
-    },
-    del: {
-      success: 'Élément supprimé',
-      error: 'Impossible de supprimer cet élément',
+    createOrUpdate: {
+      error: 'It is impossible to save the playlist',
+      success: 'Playlist successfully saved',
     },
   },
   privatePass: {
-    restore: {
-      success: 'Carte de RDV restaurée',
-      error: 'Impossible de restaurer cette carte de RDV',
-    },
     del: {
-      success: 'Carte de RDV supprimée',
-      error: 'Impossible de supprimer cette carte de RDV',
+      error: 'Unable to delete this appointment pass',
+      success: 'Appointment pass has been deleted',
+    },
+    restore: {
+      error: 'Unable to restore appointment pass',
+      success: 'Appointment pass has been restored',
+    },
+  },
+  metaActivity: {
+    del: { error: 'Unable to delete this item', success: 'Item deleted' },
+    restore: { error: 'Unable to restore this item', success: 'Item restored' },
+  },
+  memberNote: {
+    delete: {
+      success: 'Note deleted',
+      error: 'It is impossible to delete the note',
     },
   },
   bookingNotification: {
-    createOrUpdate: {
-      success: 'Notification enregistrée avec succès',
-      error: "Impossible d'enregistrer la notification",
-    },
     delete: {
-      success: 'Notification supprimée',
-      error: 'Impossible de supprimer la notification',
+      error: 'Unable to delete notification',
+      success: 'Notification deleted',
+    },
+    createOrUpdate: {
+      error: 'Unable to save notification',
+      success: 'Notification saved successfully',
     },
   },
   background: {
-    pending: 'Traitement en cours, veuillez patienter',
-    success: 'Terminé',
-    error: 'Une erreur est survenue, réessayez plus tard',
-    timeout:
-      'Le serveur a mis trop longtemps à répondre. Essayez de rafraîchir la page',
     cannotFetch:
-      'Une erreur est survenue. Vérifiez votre connexion et essayez de rafraîchir la page',
+      'An error has occurred. Check your connection and try refreshing the page',
+    timeout: 'The server took too long to respond. Try refreshing the page',
+    error: 'An error has occurred, try again later',
+    success: 'Completed',
+    pending: 'Processing changes...',
+  },
+  offer: {
+    restore: {
+      error: 'Not possible to restore session',
+      success: 'Session restored',
+    },
   },
   subscriptionScheduledStop: {
     create: {
-      success: 'Arrêt de la souscription programmé',
-      error: "Impossible de programmer l'arrêt de la souscription",
+      success: 'Scheduled termination of subscription',
+      error: 'Error when terminating this subscription',
     },
     delete: {
-      success: "L'arrêt programmé de la souscription a été supprimé",
-      error: "Impossible de supprimer l'arrêt programmé de la souscription",
+      success:
+        'The scheduled termination of this subscription has been removed',
+      error:
+        'Error when removing the scheduled termination of this subscription',
     },
   },
   dashboard: {
     save: {
-      success: 'Les modifications ont été enregistrées',
-      error: "Impossible d'enregistrer les modifications",
+      error: 'Unable to save changes',
+      success: 'The changes have been saved',
     },
   },
+  privateRecurrentRule: {
+    delete: {
+      error: 'Impossible to delete this recurring appointment',
+      success: 'Recurring appointment deleted',
+    },
+    createOrUpdate: {
+      success: 'Recurring appointment successfully saved',
+      error: 'Impossible to save this recurring appointment',
+      locked: 'Recurring appointment rule already exists with these settings',
+    },
+  },
+  zoom: {
+    created: {
+      success: 'Zoom account successfully linked',
+      error: 'Error while linking the Zoom account',
+    },
+  },
+  consumerPass: { success: 'Your purchase has been successfully saved !' },
+  copied: 'Copied to the clipboard',
   contractPause: {
     create: {
-      error:
-        'Impossible de mettre en pause pour le moment, veuillez réessayer plus tard',
-    },
-    delete: {
-      error: 'Impossible de supprimer la pause pour le moment.',
+      error: 'Error while pausing this subscription - try again later',
     },
     updateName: {
-      success: 'Le nom de la pause a bien été modifié',
-      error: "Le nom de la pause n'a pas pu être modifié",
+      error: 'The name of the pause could not be changed',
+      success: 'The name of the pause has been changed',
+    },
+    delete: { error: 'Impossible to remove the pause at the moment.' },
+  },
+  bookerModule: {
+    pass: {
+      nothingAvailable:
+        'No pass allows you to book these sessions at the same time',
+      changed: "We've selected the correct pass to complete your booking",
+    },
+  },
+  settings: {
+    update: {
+      success: 'The settings have been updated',
+      error: 'Unable to update, please try again later',
+    },
+  },
+  paymentMethod: {
+    detach: {
+      pm_deleted: 'Payment method removed',
+      pm_associated_to_pi:
+        'Impossible: You have a subscription associated with this payment method',
+      pm_associated_to_registered_ppe:
+        'Impossible: You have a subscription associated with this payment method',
+      pm_associated_to_protected_bp:
+        'Impossible: You have a subscription associated with this payment method',
+      last_payment_method: 'Unable to delete your only payment method',
+    },
+    errors: {
+      [PAYMENT_METHOD_NOT_DETACHABLE_PAYMENT_GROUP_ERROR_CODE]:
+        'Error when deleting payment method',
+      [PAYMENT_METHOD_NOT_DETACHABLE_ERROR_CODE]:
+        'Error when deleting payment method',
+      [PAYMENT_METHOD_NOT_DETACHABLE_PLANNED_PAYMENT_EVENT_ERROR_CODE]:
+        'This payment method will be used for future payments',
+      [PAYMENT_METHOD_NOT_DETACHABLE_BILLING_PLAN_ERROR_CODE]:
+        "There's a subscription connected to this payment method",
+      [PAYMENT_METHOD_NOT_DETACHABLE_FUTURE_PAYMENT_ERROR_CODE]:
+        'This payment method will be used for future payments',
     },
   },
   signup: {
-    emailAlreadyExists: 'Cet email est déjà utilisé',
     failedCreation:
-      "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes",
-    changeWorkspaceError:
-      'Une erreur est survenue dans le changement de compte',
+      'Unable to create your account at the moment, please try again in a few minutes',
+    emailAlreadyExists: 'This email is already in use',
+    changeWorkspaceError: 'An error occurred while changing the account',
+  },
+  paymentRuleGroups: {
+    delete: { success: 'Group deleted', error: 'Error while deleting' },
+    create: { success: 'Group added', error: 'Error during creation' },
+    update: {
+      error: {
+        coachWithPaymentGroup:
+          'Cannot modify the payment rules of a coach included in a group',
+        generic: 'Error during modification',
+      },
+      success: 'Group successfully modified',
+    },
+  },
+  canNotBuyErrorCode: {
+    [OFFER_WAITING_LIST_STATUS_FULL]: 'The waitlist is full',
+    [OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED]:
+      "You've already joined this waitlist",
+    [OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON]:
+      'Bookings are still closed for this session',
+    [OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE]:
+      'Bookings are still closed for this session',
+    [OFFER_BOOKABLE_STATUS_FULL]: 'The session is full',
+    [OFFER_BOOKABLE_STATUS_LOCKED]: "The session can't be booked",
+    [OFFER_BOOKABLE_STATUS_ALREADY_BOOKED]:
+      "You've already booked this session",
+    [OFFER_BOOKABLE_STATUS_TOO_MANY_MALE]:
+      "You can't book this session, because the male/female ratio is too uneven",
+    [OFFER_BOOKABLE_STATUS_TOO_MANY_FEMALE]:
+      "You can't book this session, because the male/female ratio is too uneven",
+    [OFFER_BOOKABLE_STATUS_TOO_MANY_IN_FUTURE]:
+      "It's not allowed to exceed the maximum amount of future bookings",
+    [SPOT_NOT_AVAILABLE]: 'Your chosen spot is no longer available',
+    [PAYMENT_COMBO_CANT_BE_BOUGHT_HAS_REACHED_MAX_PURCHASE]:
+      'This pack is no longer available for purchase',
+    [PAYMENT_COMBO_CANT_BE_BOUGHT_NEW_ONLY_ONLY]:
+      'This pack is only available for new members',
+    [PAYMENT_COMBO_CANT_BE_BOUGHT_DATE_EXPIRED]:
+      'This pass can not be bought anymore as its expiration date has been reached',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_DATE_EXPIRED]:
+      'This pass can not be bought anymore as its expiration date has been reached',
+    [PRIVATE_PASS_CAN_NOT_BE_BOUGHT_DATE_EXPIRED]:
+      'This appointment pass can not be bought anymore as its expiration date has been reached',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_NEW_MEMBER_ONLY]:
+      'This pass is only available for new members',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_MAX_PURCHASE_REACHED]:
+      'This pass is no longer available for purchase',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_MANAGER_ONLY]:
+      'This pass is not available for purchase',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_DISABLED]:
+      'This pass is not available for purchase',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_VALIDITY_DATERANGE]:
+      'This pass is not compatible for a booking on the chosen date',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_INCOMPATIBLE_WITH_OFFER]:
+      'This pass is not compatible with this session',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_ACTIVITY_INCOMPATIBLE]:
+      'This pass is not compatible with this activity',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_SCT_INCOMPATIBLE]:
+      "This pass is not compatible with this activity's category",
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_ESTABLISHMENT_INCOMPATIBLE]:
+      'This pass is not compatible with this establishment',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_VOD_ONLY]:
+      'This pass can only be used for Video On Demand (i.e. not for in-studio activities)',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_BAD_COMPANY]:
+      'This pass is not compatible with this session',
+    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_DAY]:
+      "You've reached the maximum number of bookings for this day",
+    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_WEEK]:
+      "You've reached the maximum number of bookings for this week",
+    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_MONTH]:
+      "You've reached the maximum number of bookings for this month",
+    [CONSUMER_PAYMENT_PACK_CAN_NOT_BOOK_MAXOUT_YEAR]:
+      "You've reached the maximum number of bookings for this year",
+    [GIFTCARD_CAN_NOT_BE_BOUGHT_DISABLED]:
+      'The giftcard is not not available for purchase anymore.',
+    [GIFTCARD_CAN_NOT_BE_BOUGHT_MANAGER_ONLY]:
+      'The giftcard is not available for purchase anymore.',
+    [SHOP_ITEM_CAN_NOT_BE_BOUGHT_NOT_ENOUGH_STOCK]: 'Insufficient stock',
+    [LOCK_ACQUISITION_FAILURE_GENERIC]:
+      'A booking is already in progress, please wait a few moments',
+    [LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING]:
+      'Impossible to book. This spot is being booked by another member. Please try again by choosing another spot.',
+    [BASKET_LOCK_ACQUISITION_FAILURE]:
+      'The item is already being added to the basket, please wait',
+    [OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK]:
+      'There is no pass available to be able to register to the waiting-list',
+
+    generic: 'Error while booking',
+    undefined: 'Your pass has been completely used up for this year',
   },
   customForm: {
     update: {
-      success: 'Formulaire modifié',
-      error: 'Impossible de modifier le formulaire',
+      success: 'Form has been modified',
+      error: 'Error when modifying form',
     },
     create: {
-      success: 'Formulaire créé',
-      error: 'Impossible de créer la formulaire',
+      success: 'Form has been created',
+      error: 'Error when creating form',
     },
     duplicate: {
-      success: 'Formulaire dupliqué',
-      error: 'Impossible de dupliquer le formulaire',
+      success: 'Form has been duplicated',
+      error: 'Error when duplicating form',
     },
     disable: {
-      success: 'Formulaire archivé',
-      error: "Impossible d'archiver le formulaire",
+      success: 'Form has been archived',
+      error: 'Error when archiving form',
     },
     restore: {
-      success: 'Formulaire restauré',
-      error: 'Impossible de restaurer le formulaire',
+      success: 'Form has been restored',
+      error: 'Error when restoring form',
     },
     customFormField: {
       disable: {
-        success: 'Elément  archivé',
-        error: "Impossible d'archiver l'élément",
+        success: 'Field has been archived',
+        error: 'Error when archiving field',
       },
       restore: {
-        success: 'Element restauré',
-        error: "Impossible de restaurer l'élément",
+        success: 'Field has been restored',
+        error: 'Error when restoring field',
       },
     },
     upsert: {
-      errors: {
-        84006:
-          "Vous devez définir une décharge de responsabilité dans Paramètres > Général pour pourvoir ajouter la question 'Décharge de responsabilité'.",
-      },
+      errors: { 84006: 'Define your liability waiver in Settings > General.' },
     },
     signupViaCustomForm: {
-      success: 'Inscription validée',
-      error: "Erreur lors de l'inscription, veuillez réessayer",
       errors: {
         [ERROR_CUSTOM_FORM_ANSWER_IS_MANDATORY]:
-          "Des champs obligatoires n'ont pas été remplis",
+          'The mandatory fields must be completed',
         [ERROR_CUSTOM_FORM_ANSWER_SIGN_UP_EMAIL_ALREADY_EXISTS]:
-          'Cet email est déjà utilisé',
+          'This email is already in use.',
         [ERROR_CUSTOM_FORM_ANSWER_SIGN_UP_GENDER_IS_INVALID]:
-          "Le sexe spécifié n'est pas valide",
+          "This specific gender isn't valid",
         [ERROR_CUSTOM_FORM_ANSWER_SIGN_UP_PHONE_NUMBER_IS_INVALID]:
-          "Le numéro de téléphone n'est pas valide",
+          "This phone number isn't valid",
       },
+      error: 'Error when enrolling',
+      success: "You've successfully enrolled!",
     },
-    customFormStepper: {
-      error: "Impossible d'enregistrer les réponses.",
+    customFormStepper: { error: 'Error while saving responses.' },
+  },
+  establishmentGroup: {
+    create: {
+      success: 'The new location has been created',
+      error: 'Unable to create the location',
+    },
+    update: {
+      success: 'Modified location',
+      error: 'Unable to change location',
+    },
+    delete: {
+      success: 'Deleted location',
+      error: 'Error while deleting establishment',
+    },
+  },
+  establishmentBillingGroup: {
+    delete: {
+      error: 'Error while deleting billing group',
+      success: 'Billing group has been deleted',
+    },
+    update: {
+      error: 'Error while modifying billing group',
+      success: 'Billing group has been successfully modified',
+    },
+    create: {
+      error: 'Error while adding billing group',
+      success: 'The new billing group has been added',
     },
   },
   customFormDisplayRule: {
-    create: {
-      success: 'Règle de notification créée',
-      error: 'Impossible de créer la règle de notificaiton',
+    delete: {
+      error: 'Unable to delete the notification rule',
+      success: 'Notification rule has been deleted',
     },
     update: {
-      success: 'Règle de notification modifiée',
-      error: 'Impossible de modifier la règle de notification',
+      error: 'Error while editing notification rule',
+      success: 'Notification rule has been edited',
     },
-    delete: {
-      success: 'Règle de notification supprimée',
-      error: 'Impossible de supprimer la règle de notification',
+    create: {
+      error: 'Unable to create the notification rule',
+      success: 'Notification rule created',
     },
     customError: {
-      3: "Impossible de créer une règle avec le même temps d'apparition",
+      3: 'Error while adding another notification rule at the same time',
+    },
+  },
+  quickbooks: {
+    revoke: {
+      error: 'Unable to connect your QuickBooks account',
+      success: 'Your Quickbooks account has been disconnected',
+    },
+    create: {
+      error: 'Unable to connect your QuickBooks account',
+      success: 'Your Quickbooks account is now authenticated',
     },
   },
   platformBilling: {
     payNowInvoice: {
-      success: 'Paiement réussi',
-      error: 'Paiement refusé',
-    },
-  },
-  quickbooks: {
-    create: {
-      success: 'Votre compte Quickbooks est maintenant authentifié',
-      error: 'Impossible de connecter votre compte quickbooks',
-    },
-    revoke: {
-      success: 'Votre compte Quickbooks est déconnecté',
-      error: 'Impossible de déonnecter votre compte Quickbooks',
+      error: 'Payment: refused',
+      success: 'Payment: successful',
     },
   },
   clientSecret: {
     errors: {
       [PENDING_PAYMENT_INTENT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION]:
-        'Un paiment est déjà en cours de validation, revenez plus tard pour enregistrer un nouveau paiement.',
+        'Your payment is in process of validation. Return later to register a new payment.',
     },
   },
   companyTheme: {
-    provincialTax: {
-      success: 'Taxe provinciale enregistrée',
-      error: "Erreur d'enregistrement de la tax provinciale",
-      customError: {
-        80001: "La taxe provinciale n'est pas disponible dans votre pays",
-      },
-    },
     update: {
-      success: 'Modifications enregistrées',
-      error: 'Impossible de sauvegarder les modifications',
+      error: 'Error when saving changes',
+      success: 'Changes have been saved',
+    },
+    provincialTax: {
+      customError: { 80001: 'Provincial Tax is not available in your country' },
+      error: 'Provincial tax registration error',
+      success: 'Registered Provincial Tax',
     },
   },
-
-  clockIn: {
-    errors: {
-      96002: 'Impossible, cet utilisateur a déjà un pointage en cours',
-    },
-  },
+  clockIn: { errors: { 96002: 'This user is already clocked-in' } },
   plannedPayment: {
-    registerNow: {
-      success: 'Paiement enregistré',
-      error: "Impossible d'enregistrer le paiement",
-    },
+    registerNow: { error: 'Unable to save payment', success: 'Saved payment' },
   },
   marketplace: {
     update: {
-      error:
-        'Une erreur est survenue. Veuillez vérifier les paramètres demandés.',
+      error: 'An error has occurred. Please check the requested settings.',
       stripeTerminal: {
         deleteReader: {
-          success: 'Terminal de paiement supprimé',
-          error: 'Impossible de supprimer ce terminal de paiement',
+          success: 'Payment terminal deleted',
+          error: 'Unable to delete this payment terminal',
         },
       },
     },
   },
+  automatedCampaign: {
+    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN]: 'There was an error',
+    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_LIMIT_FOR_SMARTLIST_REACHED]:
+      'Invalid of maximum submissions per member',
+    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_EMAIL_WITH_NO_TITLE]:
+      'A title is required',
+    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_EMAIL_WITH_NO_BODY]:
+      'Email content is required',
+    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_SMS_WITH_NO_BODY]:
+      'SMS content is required',
+    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_PUSH_NOTIFICATION_WITH_NO_TITLE]:
+      'A notification title is required',
+    [EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_PUSH_NOTIFICATION_WITH_NO_BODY]:
+      'A push notification content is required',
+  },
+  communicationv2: {
+    error: 'Problem when sending the communication',
+    success: 'Communication being sent',
+  },
   replacement: {
-    disciplineGroup: {
-      create: {
-        success: 'Groupe de disciplines créé',
-        error:
-          'Une erreur est survenue lors de la création du groupe de disciplines',
-      },
-      update: {
-        success: 'Groupe de disciplines modifié',
-        error:
-          'Une erreur est survenue lors de la modification du groupe de disciplines',
-      },
-      delete: {
-        success: 'Groupe de disciplines supprimé',
-        error: 'Impossible de supprimer ce groupe de disciplines',
-      },
-    },
-    assignDisciplineGroup: {
-      success: 'Le groupe de disciplines du professeur a été mis à jour',
-    },
-    updateCoachReplacementPreferences: {
-      success: 'Règles sauvegardées',
-      error: 'Impossible de sauvegarder les règles',
-    },
-    cancelReplacementRequest: {
-      success: 'La demande de remplacement a été supprimée.',
-      error: 'Une erreur est survenue lors de la suppression de la demande.',
-    },
     errors: {
       [REPLACEMENT_REQUEST_COACH_HAS_REACHED_MAX_NB_LATE_REQUEST]:
-        "Impossible de créer ces demandes de remplacement: vous n'avez pas assez de demandes en retard restantes.",
+        "Impossible to create these substitution requests: you don't have enough overdue requests left.",
       [REPLACEMENT_REQUEST_CANNOT_POSTPONE_CLOSING_DATE_AFTER_OFFER_DATE_START]:
-        'La date de clotûre ne peut pas être déplacée après la date de la séance.',
+        'The closing date cannot be postponed after the session date.',
       [REPLACEMENT_REQUEST_CANNOT_BE_REFUSED_IF_TEACHER_ALREADY_FOUND]:
-        'Vous en pouvez pas refuser cette demande car un professeur a déjà été attribué.',
+        'You cannot deny this request because a teacher has already been assigned.',
       [REPLACEMENT_REQUEST_CANNOT_BE_CANCELLED_IF_TEACHER_ALREADY_FOUND]:
-        'Vous en pouvez pas annuler cette demande car un professeur a déjà été attribué.',
+        'You cannot cancel this request because a teacher has already been assigned.',
       [REPLACEMENT_REQUEST_CANNOT_ATTRIBUTE_TEACHER_IF_TEACHER_ALREADY_FOUND]:
-        'Un professeur a déjà été attribué pour cette demande.',
+        'A teacher has already been assigned to this request.',
       [REPLACEMENT_REQUEST_CANNOT_ATTRIBUTE_TEACHER_IF_ANSWERED_NO]:
-        "Ce professeur a répondu qu'il ne souhaitait pas être remplaçant sur cette séance.",
+        'This teacher replied that he did not wish to be a substitute for this session.',
       [REPLACEMENT_REQUEST_COACH_ANSWER_CANT_BE_CREATED_IF_REQUEST_IS_CLOSED]:
-        'Vous ne pouvez plus répondre à cette demande de remplacement.',
+        'You can no longer answer this substitution request.',
       [REPLACEMENT_REQUEST_COACH_ANSWER_COACH_CANT_ANSWER_ON_HIS_OWN_REPLACEMENT_REQUEST]:
-        'Vous ne pouvez pas répondre à votre propre demande de remplacement',
+        'You cannot answer your own substitution request',
       [REPLACEMENT_REQUEST_DATES_EXCEPTION]:
-        "La valeur 'Nombre de jours demande en retard' doit être supérieure à la valeur 'Nombre de jours clôture des inscriptions.",
+        "The value 'Number of days request late' must be greater than the value 'Number of days registration closed'.",
       [REPLACEMENT_REQUEST_LIMITATION_EXCEPTION]:
-        'Paramètres manquants pour les limites de demandes en retard.',
+        'Missing settings for overdue request limits.',
       [CANNOT_REQUEST_REPLACEMENT_OFFER_NOT_AVAILABLE]:
-        'Cette séance est déjà passée',
+        'This session has already passed',
       [CANNOT_REQUEST_REPLACEMENT_ALREADY_REQUESTED]:
-        'Une demande de remplacement existe déjà',
+        'A request for substitution already exists',
       [CANNOT_REQUEST_REPLACEMENT_COACH_OVERRIDE]:
-        'Vous êtes déjà remplaçant sur cette séance',
+        'You are already a substitute on this session',
       [REPLACEMENT_REQUEST_CANNOT_BE_CANCELLED_IF_MANAGER_REFUSED]:
-        'Cette demande de remplacement a été refusée: impossible de la supprimer',
+        'This substitution request has been denied: impossible to delete it',
       [REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME]:
-        'Vous ne pouvez pas spécifier des établissements et des localisations en même temps.',
+        'You cannot specify establihments and locations at the same time.',
+    },
+    cancelReplacementRequest: {
+      error: 'An error occurred while deleting the request.',
+      success: 'The substitution request has been deleted.',
+    },
+    updateCoachReplacementPreferences: {
+      error: 'Impossible to save rules',
+      success: 'Rules saved',
+    },
+    assignDisciplineGroup: {
+      success: "The teacher's discipline group has been updated",
+    },
+    disciplineGroup: {
+      delete: {
+        error: 'Impossible to delete this discipline group',
+        success: 'Discipline group deleted',
+      },
+      create: {
+        success: 'Discipline groups created',
+        error: 'An error occurred while creating the discipline group',
+      },
+      update: {
+        success: 'Discipline group modified',
+        error: 'An error occurred while editing the discipline group',
+      },
     },
   },
   accessDenied: {
     general: {
-      title: 'Accès refusé',
-      message: "Vous ne pouvez pas accéder à l'espace demandé",
+      message: 'You cannot access the requested area',
+      title: 'Access denied',
     },
   },
   communicationProviderSettings: {
-    update: {
-      success: 'Modifications enregistrées',
-      error: 'Impossible de sauvegarder les modifications',
-    },
+    update: { error: 'Unable to save changes', success: 'Registered changes' },
+  },
+  requestCurrentBasket: {
+    [BASKET_LOCK_ACQUISITION_FAILURE]:
+      'The recovery of the basket information is already in progress',
+  },
+  refreshInternalAccountPrepaidLines: {
+    [BASKET_LOCK_ACQUISITION_FAILURE]:
+      'An operation is already in progress, please wait a few moments',
+  },
+  removeItem: {
+    [BASKET_LOCK_ACQUISITION_FAILURE]:
+      'The item is already being removed from the basket, please wait',
+  },
+  smartListPopup: {
+    send: { error: 'An error has occurred while sending your pop-up.' },
   },
   instalmentPayment: {
     [CUSTOM_INSTALMENT_FIRST_INSTALMENT_AMOUNT_ERROR]:
-      'Le montant de la première échance doit être positif',
+      'The amount of the first instalment payment needs to be greater than zero',
     [CUSTOM_INSTALMENT_FIRST_INSTALMENT_PERCENT_ERROR]:
-      'Le pourcentage du montant total doit être compris entre 0 et 100',
+      'The percentage of the total amount must be set between 0 and 100',
     [INSTALMENT_PARTIAL_PAYMENT_REQUIRES_ONLY_ONE_BILLING_ERROR]:
-      "Le nombre d'encaissements doit être égal à 1 pour activer l'option 'Payer partiellement'",
+      'The number of instalment payments must be equal to 1 to enable the option "Partial payment"',
     [INSTALMENT_CUSTOM_FIRST_INSTALMENT_REQUIRES_AT_LEAST_TWO_BILLINGS_ERROR]:
-      "Le nombre d'encaissements doit être supérieur à 2 pour activer l'option 'Personnaliser le premier montant'",
-  },
-  smartListPopup: {
-    send: {
-      error: "Une erreur est survenue lors de l'envoi de votre pop-up.",
-    },
+      'The number of instalment payments must be greater than 2 to enable the option "Customize the first amount"',
   },
   cadence: {
     create: {
-      error: 'Une erreur est servenue lors de la création de la cadence',
-      success: 'Une nouvelle cadence a été créée',
+      error: 'An error occurred when creating the cadence',
+      success: 'A new cadence has been created',
     },
     update: {
-      error: "Une erreur est servenue lors de l'édition de la cadence",
-      success: 'Votre cadence a été mise à jour',
+      error: 'An error occurred when editing the cadence',
+      success: 'Your cadence has been updated',
     },
   },
+  giftCard: {
+    notFound: 'This giftcard has not been found. It may have been archived.',
+  },
+  modifyBasket: {
+    [BASKET_PROCESSING_PAYMENT_EXCEPTION]:
+      'The basket is being processed. Please try again in a few minutes.',
+  },
   quicksaleConfiguration: {
-    updated: 'Configuration sauvegardée',
-    error: 'Une erreur est survenue lors de la sauvegarde',
+    error: 'An error has occurred during save',
+    updated: 'Configuration saved',
   },
   spivi: {
     error: {
       [SPIVI_UPSELL_NOT_ACTIVATED_EXCEPTION]:
-        "L'upsell Spivi n'est pas activé.",
-      [NO_ROOM_PLAN_SELECTED_EXCEPTION]:
-        "Aucun plan de salle n'a été sélectionné",
+        'The Spivi upsell is not activated.',
+      [NO_ROOM_PLAN_SELECTED_EXCEPTION]: 'No room plan selected',
       [NO_SPIVI_BOX_ID_FOR_ROOM_PLAN_EXCEPTION]:
-        'Le plan de salle sélectionné doit avoir un Box ID pour que la séance soit liée à Spivi',
+        'The selected room plan must have a Box ID for the session to be linked to Spivi',
       [SPIVI_EVENT_DURATION_EXCEPTION]:
-        'Les séances liées à Spivi doivent avoir une durée comprise entre 20min et 4h',
+        'Spivi sessions should last between 20 minutes and 4 hours',
       [SPIVI_DOUBLE_BOOKING_ACTIVATION_EXCEPTION]:
-        "La double réservation n'est pas compatible avec l'intégration Spivi",
+        'Double booking not compatible with Spivi integration',
     },
   },
   smartlistGetMembers: {
-    error: 'Une erreur est survenue: impossible de récupérer les membres'
-  }
+    error: 'An error has occurred: members cannot be retrieved',
+  },
 };

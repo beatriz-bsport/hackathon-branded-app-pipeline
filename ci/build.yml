@@ -4,12 +4,12 @@ Build Deploy Staging:
     refs:
       - master
   variables:
-    S3BUCKETNAME: bsport-eu-cdn-staging
+    S3BUCKETNAME: cdn-staging-sandbox
     ENVIRONMENT: staging
-    CLOUDFRONT_ID: E2NQSHB4DJBRY8
+    CLOUDFRONT_ID: E1ZLJRXTF8O188
     SLACK_WEBHOOK_URL: "${SLACK_STAGING_WEBHOOK_URL}"
     CDN_DOMAIN: cdn.staging.bsport.io
-    INVALIDATION_LAMBDA_URL: https://6pmc3n3l2yo5krr4v3jq6qud6i0fwkqj.lambda-url.eu-west-3.on.aws/
+    INVALIDATION_LAMBDA_URL: https://m4ptvmggmplbez5dwa7gkew4xa0bxjvd.lambda-url.eu-west-3.on.aws/
 
 Build Deploy Production:
   extends: .Build and deploy Base

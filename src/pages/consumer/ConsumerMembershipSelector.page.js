@@ -47,7 +47,7 @@ export class ConsumerMembershipSelector extends React.Component<Props, State> {
 
   componentWillMount() {
     this.props.fetchMembershipListAsConsumer(
-      { page_size: 5 },
+      { page_size: 30 },
       {
         onSuccess: () => this.setState({ loading: false }),
       },

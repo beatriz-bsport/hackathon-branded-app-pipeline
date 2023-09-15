@@ -201,7 +201,7 @@ export const MembershipSelector = (props: Props) => {
             <div className={props.classes.buttonContainer}>
               <Button
                 color="primary"
-                onClick={() => props.fetchMoreMembership(5)}
+                onClick={() => props.fetchMoreMembership(30)}
                 variant="outlined"
               >
                 {t('selector.fetchMore')}

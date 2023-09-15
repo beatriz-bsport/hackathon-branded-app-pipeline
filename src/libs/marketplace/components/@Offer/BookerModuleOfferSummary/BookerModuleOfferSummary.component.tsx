@@ -15,7 +15,6 @@ import GridItem, {
   Justification,
 } from '#components/css-only/Grid/GridItem';
 import { CardSize } from '#components/css-only/Card/types';
-import './styles.css';
 import type { Coach } from '#libs/associated-coach/types';
 import type { Establishment } from '#libs/establishment/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
@@ -29,6 +28,8 @@ import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { getTaxPrice } from '#libs/theme/utils';
 import Button, { ButtonColor } from '#components/css-only/Button';
 import { BookerModuleOfferSummarySkeleton } from '.';
+
+import './styles.css';
 
 export type Props = {
   coach?: Coach;
@@ -114,7 +115,7 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
       credit_consumed: offer?.credit_price,
     });
 
-  const taxes = getTaxPrice(price ?? 0, tax ?? 0);
+  const taxes = getTaxPrice(price, tax);
 
   if (loading) {
     return <BookerModuleOfferSummarySkeleton />;
@@ -168,9 +169,8 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
             classes={{
               'bs-booker-module-offer-summary-item': true,
               'bs-booker-module-offer-summary-item__status-chips': true,
-              'bs-booker-module-offer-summary-item__status-chips--hidden': !(
-                metaActivity?.is_broadcast || waitlistExists
-              ),
+              'bs-booker-module-offer-summary-item__status-chips--hidden':
+                !metaActivity?.is_broadcast && !waitlistExists,
             }}
             direction={Direction.ROW}
             justification={Justification.FLEX_START}
@@ -201,7 +201,7 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
                     }),
 
                 'bs-booker-module-offer-summary-item__status-chips__waitlist--hidden':
-                  waitlistExists && offer.full,
+                  !waitlistExists && !offer.full,
               }}
               icon={<HourglassFull fontSize="medium" />}
               label={

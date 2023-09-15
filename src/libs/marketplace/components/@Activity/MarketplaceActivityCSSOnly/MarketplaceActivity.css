@@ -319,12 +319,10 @@ li {
 }
 
 .bs-activity__bottom__content__closeButton {
-  padding-left: var(--spacing-2);
-  padding-right: var(--spacing-2);
+  border-radius: var(--border-radius-10);
   color: var(--color-primary-main);
-  border-radius: var(--border-radius-5);
-  padding-top: calc(var(--spacing-1) / 2);
-  padding-bottom: calc(var(--spacing-1) / 2);
+  margin-right: var(--spacing-2);
+  padding: var(--spacing-1) var(--spacing-2);
 }
 
 @media (max-device-width: 570px) {

@@ -13,6 +13,7 @@ import { Offer_FULL } from '#libs/offer/types';
 import './MarketplaceBookButtonForDialog.css';
 import { OffersGroup } from '#libs/group-offer/types';
 import { MetaActivity } from '#libs/meta-activity/types';
+import Button from '#components/css-only/Fabrique/Button';
 
 type Props = {
   offer: Offer_FULL;
@@ -46,11 +47,10 @@ const MarketplaceBookButtonForDialog: React.FC<Props> = ({
     [group, offer],
   );
   return (
-    <button
-      className="bs-book-button"
-      disabled={isDisabled}
+    <Button
+      classes={{ root: 'bs-book-button' }}
+      isDisabled={isDisabled}
       onClick={onClick}
-      type="button"
     >
       {isRegistered && (
         <DoneAllIcon className="bs-book-button__inner__icon__already-booked" />
@@ -58,7 +58,7 @@ const MarketplaceBookButtonForDialog: React.FC<Props> = ({
       <div className="bs-book-button__inner__text">
         {getBookingButtonTraduction(offer, metaActivity, isRegistered, t)}
       </div>
-    </button>
+    </Button>
   );
 };
 

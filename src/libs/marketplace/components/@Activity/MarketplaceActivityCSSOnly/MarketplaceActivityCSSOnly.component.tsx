@@ -5,7 +5,6 @@ import moment from 'moment-timezone';
 
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import { Avatar, Icon } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import IconButton from '@material-ui/core/IconButton';
@@ -31,6 +30,7 @@ import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
 import { OffersGroup } from '#libs/group-offer/types';
 import FreeOfferChip from '#csscomponents/FreeOfferChip';
+import Button from '#components/css-only/Fabrique/Button';
 
 export type Props = {
   offer: Offer;
@@ -389,7 +389,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
       <div className="bs-activity__bottom">
         <div className="bs-activity__bottom__content">
           <Button
-            className="bs-activity__bottom__content__closeButton"
+            classes={{ root: 'bs-activity__bottom__content__closeButton' }}
             onClick={props.onClose}
           >
             {t('marketplace:calendar.close')}

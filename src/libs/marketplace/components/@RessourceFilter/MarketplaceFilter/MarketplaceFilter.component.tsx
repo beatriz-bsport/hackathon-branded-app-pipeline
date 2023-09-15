@@ -19,6 +19,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 import './MarketplaceFilter.css';
+import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
 
 type Option = { value: number | string; label: string };
 export type Props = {
@@ -234,22 +235,27 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
                   })}
                 </div>
                 <div className="bs-marketplace-filter__menu__buttons">
-                  <button
-                    className="bs-marketplace-filter__menu__buttons__select"
+                  <Button
+                    classes={{
+                      root: 'bs-marketplace-filter__menu__buttons__select',
+                      text: 'bs-marketplace-filter__menu__buttons__select--text',
+                    }}
                     onClick={handleSelectAll}
-                    type="button"
                   >
                     {selected?.length > 0
                       ? t('selector.unselectAll')
                       : t('selector.selectAll')}
-                  </button>
-                  <button
-                    className="bs-marketplace-filter__menu__buttons__confirm"
+                  </Button>
+                  <Button
+                    classes={{
+                      root: 'bs-marketplace-filter__menu__buttons__confirm',
+                      text: 'bs-marketplace-filter__menu__buttons__confirm--text',
+                    }}
+                    color={ButtonColor.PRIMARY}
                     onClick={handleValidate}
-                    type="button"
                   >
                     {t('selector.validate')}
-                  </button>
+                  </Button>
                 </div>
               </div>
             </ClickAwayListener>

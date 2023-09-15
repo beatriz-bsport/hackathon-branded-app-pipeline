@@ -247,7 +247,9 @@ export const PaymentPackFormGeneral = (props: Props) => {
               setFieldValue('credit_number', value);
             }}
           >
-            <FormLabel>{t('addPaymentPack.numberOfCredit')}</FormLabel>
+            <FormLabel className={classes.radioGroupLabel}>
+              {t('addPaymentPack.numberOfCredit')}
+            </FormLabel>
             {CREDIT_NUMBER_CHOICE.map(({ value, label: l }) => (
               <div key={value}>
                 <FormControlLabel
@@ -673,6 +675,9 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
   marginTop: {
     marginTop: theme.spacing(2),
+  },
+  radioGroupLabel: {
+    lineHeight: theme.spacing(3),
   },
   penaltyContainer: { padding: theme.spacing(1) },
   alert: {

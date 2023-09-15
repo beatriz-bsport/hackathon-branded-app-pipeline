@@ -139,6 +139,7 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
         classes={{
           'bs-booker-module-offer-summary-content': true,
         }}
+        padding={!noStyledContainer}
       >
         <Grid
           classes={{

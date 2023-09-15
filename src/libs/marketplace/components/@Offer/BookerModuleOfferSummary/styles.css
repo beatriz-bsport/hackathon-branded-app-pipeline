@@ -1,5 +1,6 @@
 .bs-booker-module-offer-summary-card {
   background-color: var(--color-background-paper);
+  height: fit-content;
 }
 
 .bs-booker-module-offer-summary-card--no-style {

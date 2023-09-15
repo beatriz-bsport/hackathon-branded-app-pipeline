@@ -26,7 +26,7 @@ import ActivitySummary from '#marketplacecomponents/@Activity/ActivitySummary';
 import Price from '#components/css-only/Price';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { getTaxPrice } from '#libs/theme/utils';
-import Button, { ButtonColor } from '#components/css-only/Button';
+import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
 import { BookerModuleOfferSummarySkeleton } from '.';
 
 import './styles.css';
@@ -329,10 +329,7 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
           >
             <Button
               classes={{
-                root: isButtonDisabled
-                  ? 'bs-booker-module-offer-summary-item__button--disabled'
-                  : 'bs-booker-module-offer-summary-item__button',
-                text: 'bs-booker-module-offer-summary-item__button__text',
+                root: 'bs-booker-module-offer-summary-item__button',
               }}
               color={ButtonColor.PRIMARY}
               isDisabled={isButtonDisabled}

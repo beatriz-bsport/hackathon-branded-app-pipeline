@@ -148,26 +148,8 @@
 
 .bs-booker-module-offer-summary-item__button {
   width: 100%;
-  padding: 6px var(--spacing-2);
-  border-radius: var(--border-radius-8);
-}
-
-.bs-booker-module-offer-summary-item__button--disabled {
-  width: 100%;
-  padding: 6px var(--spacing-2);
-  border-radius: var(--border-radius-8);
-}
-
-.bs-booker-module-offer-summary-item__button:hover {
-  background: var(--color-primary-dark);
-}
-
-.bs-booker-module-offer-summary-item__button__text {
-  font-size: var(--button-fontSize);
-  font-weight: var(--button-fontWeight);
-  letter-spacing: var(--button-letterSpacing);
-  line-height: var(--button-lineHeight);
-  font-family: var(--fontFamily);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--border-radius-10);
 }
 
 .bs-booker-module-offer-summary-item__button--hidden {

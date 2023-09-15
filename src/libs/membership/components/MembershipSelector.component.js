@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { compose, withState, withProps } from 'recompose';
+import { compose, withState, withProps, withHandlers } from 'recompose';
 
 import { useTranslation, Trans, TFunction } from 'react-i18next';
 import Hidden from '@material-ui/core/Hidden';
@@ -87,7 +87,12 @@ const MembershipSelectorBaseComposed = compose(
       setSearchResult(fuse.search(ev.target.value));
     },
   })),
-  withProps(({ changeSearch }) => ({ clearSearch: () => changeSearch('') })),
+  withHandlers(({ setSearchText, setSearchResult, membershipList }) => ({
+    clearSearch: () => {
+      setSearchText('');
+      setSearchResult(membershipList);
+    },
+  })),
 )(MembershipSelectorBase);
 
 class CompanySelectorBase extends React.Component<{

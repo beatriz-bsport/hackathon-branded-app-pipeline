@@ -5524,8 +5524,8 @@
                 "selectVideo": "Scegliere un video",
                 "todayOnly": "Mostra solo le sessioni di oggi",
                 "hidePaymentCombo": "Non mostrare i pacchetti",
-                "hidePrivatePass": "Non mostrare le carte del corso",
-                "hidePaymentPack": "Non mostrare le carte del corso",
+                "hidePrivatePass": "Non mostrare i Pass per appuntamenti",
+                "hidePaymentPack": "Non mostrare i Pass",
                 "titleCaption": "{{max}} caratteri max ({{count}}/{{max}})",
                 "hideFilters": "Non mostrare barra di ricerca e filtri"
             },
@@ -7844,7 +7844,8 @@
                 "Cancella",
                 "Cancellato",
                 "Cancella",
-                "Cancella"
+                "Cancella",
+                "Cancellata"
             ]
         },
         "payment_method_with_credit_account": {
@@ -9069,7 +9070,8 @@
         "barcode": {
             "none": "nessuno",
             "code": "Codice a barre",
-            "display": "Mostra il codice a barre"
+            "display": "Mostra il codice a barre",
+            "label": "Codice a barre"
         },
         "nextBooking": "prossimo: ",
         "note": {
@@ -9373,6 +9375,14 @@
         },
         "memberTable": {
             "error": "Si è verificato un errore"
+        },
+        "membershipNumber": {
+            "value": "N°{{id}}",
+            "label": "Numero membro"
+        },
+        "officialIdNumber": {
+            "value": "N°{{id}}",
+            "label": "Numero documento di identità"
         }
     },
     "booking": {
@@ -15291,7 +15301,36 @@
                 "bookingBlockedReason": "Impossibile prenotare",
                 "bookingButton": "Pulsante per la prenotazione",
                 "activityCard": "Dettagli attività",
-                "activityCardDialog": "Dettagli attività (modale)"
+                "activityCardDialog": "Dettagli attività (modale)",
+                "marketplace_booking_blocked_reason": "Impossibile prenotare",
+                "marketplace_booking_button": "Pulsante di prenotazione",
+                "marketplace_activity_summary_dialog": "Dettagli attività (popup)",
+                "marketplace_activity_summary": "Dettagli dell'attività",
+                "marketplace_collect_payment_method": "Aggiungi un metodo di pagamento",
+                "marketplace_contract_payment": "Modulo di pagamento per l'abbonamento",
+                "marketplace_contract_not_found_modal": "Avviso di abbonamento non trovato",
+                "marketplace_coupon_form_modal": "Popup del codice promozionale dell'abbonamento",
+                "marketplace_contract_cooldown_modal": "Popup di avviso per l'acquisto di un abbonamento",
+                "marketplace_contract_terms_modal": "Popup di avviso legale per l'abbonamento",
+                "marketplace_contract_detail": "Dettagli dell'abbonamento",
+                "marketplace_contract_detail_modal": "Popup dei dettagli dell'abbonamento",
+                "marketplace_contract_checkout": "Scheda abbonamento (pagamento)",
+                "marketplace_contract_card": "Scheda abbonamenti",
+                "marketplace_private_pass_compatibility_modal": "Popup di compatibilità (Pass per appuntamenti)",
+                "marketplace_private_pass_card": "Scheda Pass appuntamenti",
+                "marketplace_payment_pack_offpeack_restriction_modal": "Popup di restrizione dell'orario (Pass)",
+                "marketplace_payment_pack_restriction_modal": "Popup delle restrizioni (Pass)",
+                "marketplace_payment_pack_compatibility_modal": "Popup di compatibilità (Pass)",
+                "marketplace_payment_pack_card": "Scheda Pass",
+                "marketplace_payment_combo_card": "Scheda Pack",
+                "marketplace_date_picker": "Seleziona data",
+                "marketplace_offer_card": "Dettagli della sessione (vista calendario)",
+                "marketplace_week_time_table": "Titolo calendario",
+                "marketplace_calendar_filter": "Filtri calendario (solo layout)",
+                "marketplace_offer_list_item": "Dettagli della sessione (visualizzazione elenco)",
+                "marketplace_select": "Selettore (singolo)",
+                "marketplace_filter": "Multi selezione",
+                "marketplace_search": "Filtro di ricerca"
             },
             "cssConfig": {
                 "title": {
@@ -15573,7 +15612,8 @@
                 "first_name": "Nome",
                 "sign_up_question": "Domanda sul form di registrazione",
                 "location": "Posizione preferita",
-                "state": "Stato"
+                "state": "Stato",
+                "official_document_id": "Numero documento di identità"
             },
             "customFormField": {
                 "modal": {
@@ -15671,7 +15711,8 @@
                     "requiredFile": "Si prega di allegare un file",
                     "invalidEmail": "Email non valida",
                     "passwordConfirmationError": "Le password non sono indefinite",
-                    "passwordMinimumRequirementsError": "La password deve contenere almeno 6 caratteri"
+                    "passwordMinimumRequirementsError": "La password deve contenere almeno 6 caratteri",
+                    "invalidOfficialDocumentId": "Questo campo può contenere solo numeri e lettere"
                 }
             },
             "displayRule": {
@@ -16134,8 +16175,8 @@
         },
         "errorAvailableOffersScheduled": "Impossibile salvare. La programmazione dei posti non deve essere utilizzato in sessioni future per la modifica.",
         "spiviDialog": {
-            "spiviIdentifiers": "Login Spivi",
-            "bsportIdentifiers": "Login bsport",
+            "spiviIdentifiers": "ID Spivi",
+            "bsportIdentifiers": "ID bsport",
             "spotCorrespondence": "Posti corrispondenti"
         },
         "spotSelector": {

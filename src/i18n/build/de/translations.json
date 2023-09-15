@@ -3310,7 +3310,7 @@
                         "_label": "ActiveCampaign"
                     },
                     "subscription": {
-                        "_label": "Bsport Mitgliedschaft"
+                        "_label": "Bsport Abonnement"
                     },
                     "marketplace": {
                         "_label": "Einstellungen Marketplace"
@@ -4507,7 +4507,7 @@
                                 "_label": "Erstellen"
                             }
                         },
-                        "_label": "Mitgliedschaft"
+                        "_label": "Abonnement"
                     },
                     "_label": "Studio"
                 }
@@ -6253,6 +6253,7 @@
                 "Stornieren",
                 "",
                 "Abgesagt",
+                "Storniert",
                 "Storniert",
                 "Storniert",
                 "Storniert"
@@ -9179,7 +9180,8 @@
         "barcode": {
             "display": "Barcode ansehen",
             "code": "Karten-Code",
-            "none": "Keine"
+            "none": "Keine",
+            "label": "Barcode"
         },
         "bornIn": "Geboren am ",
         "pass_owner": "Gültiger Pass",
@@ -9431,6 +9433,14 @@
         },
         "memberTable": {
             "error": "Ein Fehler ist aufgetreten"
+        },
+        "membershipNumber": {
+            "value": "Nr.{{id}}",
+            "label": "Mitgliedsnummer"
+        },
+        "officialIdNumber": {
+            "value": "Nr.{{id}}",
+            "label": "Nummer des Ausweisdokuments"
         }
     },
     "common": {
@@ -12779,7 +12789,7 @@
             "payout_identifier": "Überweisung",
             "payout_status": "Status der Überweisungs",
             "total_discount": "Ermäßigung insgesamt",
-            "plan_status": "Status der Mitgliedschaft",
+            "plan_status": "Status des Abonnements",
             "establishment": "Niederlassung",
             "nb_planned_invoices": "Anzahl der Zahlungseingänge gesamt",
             "margin_value": "Grenzertrag (inkl. MwSt.)",
@@ -12806,7 +12816,7 @@
             "billingPlanTemporal": "Anmeldungen",
             "memberTemporal": "Neumitglieder",
             "privateBookingTemporal": "Termine",
-            "subscriptionTemporalSum": "Mitgliedschaftszahlungen",
+            "subscriptionTemporalSum": "Abonnementzahlungen",
             "invoiceItemTemporal": "Summe der in Rechnung gestellten Posten"
         },
         "placeholderEmptyValues": {
@@ -14807,7 +14817,7 @@
                 "myGiftcard_plural": "Meine Geschenkkarten",
                 "myProduct": "Mein Produkt",
                 "myProduct_plural": "Meine Produkte",
-                "mySubscription": "Mein Abonnemnet",
+                "mySubscription": "Mein Abonnement",
                 "myPack": "Mein Paket",
                 "myPack_plural": "Meine Pakete",
                 "myPass": "Mein Kurspass",
@@ -15263,7 +15273,36 @@
                 "bookingBlockedReason": "Buchung nicht möglich",
                 "bookingButton": "Buchungs-Button",
                 "activityCardDialog": "Detail der Aktivität (modal)",
-                "activityCard": "Details der Aktivität"
+                "activityCard": "Details der Aktivität",
+                "marketplace_booking_blocked_reason": "Reservierung nicht möglich",
+                "marketplace_booking_button": "Schaltfläche für die Reservierung",
+                "marketplace_activity_summary_dialog": "Detail der Aktivität (modal)",
+                "marketplace_activity_summary": "Detail der Aktivität",
+                "marketplace_collect_payment_method": "Hinzufügen von Zahlungsmethoden",
+                "marketplace_contract_payment": "Modul zur Bezahlung von Abonnements",
+                "marketplace_contract_not_found_modal": "Abonnementwarnung nicht gefunden",
+                "marketplace_coupon_form_modal": "Popup für ein Abonnement-Gutscheincode",
+                "marketplace_contract_cooldown_modal": "Popup mit der Warnung, ein Abonnement zu kaufen",
+                "marketplace_contract_terms_modal": "Popup des Abonnement-Rechtshinweises",
+                "marketplace_contract_detail": "Abonnement-Detail",
+                "marketplace_contract_detail_modal": "Popup mit Details zum Abonnement",
+                "marketplace_contract_checkout": "Abonnement-Kartei (Zahlung)",
+                "marketplace_contract_card": "Membership-Kartei",
+                "marketplace_private_pass_compatibility_modal": "Kompatibilitäts-Popup (Terminkarte)",
+                "marketplace_private_pass_card": "Termin-Kartei",
+                "marketplace_payment_pack_offpeack_restriction_modal": "Popup zur Einschränkung von Zeitrahmen (Kurskarte)",
+                "marketplace_payment_pack_restriction_modal": "Popup mit Einschränkungen (Kurskarte)",
+                "marketplace_payment_pack_compatibility_modal": "Kompatibilitäts-Popup (Kurskarte)",
+                "marketplace_payment_pack_card": "Kurskarte-Kartei",
+                "marketplace_payment_combo_card": "Pack-Kartei",
+                "marketplace_date_picker": "Datumswahl",
+                "marketplace_offer_card": "Sessiondetails (Kalenderansicht)",
+                "marketplace_week_time_table": "Kopfzeile des Kalenders",
+                "marketplace_calendar_filter": "Kalenderfilter (nur Seitenlayout)",
+                "marketplace_offer_list_item": "Sessiondetails (Listenansicht)",
+                "marketplace_select": "Selektor (einzeln)",
+                "marketplace_filter": "Mehrfachauswahl",
+                "marketplace_search": "Suchfilter"
             },
             "page": {
                 "calendar": "Kalender",
@@ -15444,7 +15483,8 @@
                     "requiredField": "Obligatorisch",
                     "invalidEmail": "Ungültige E-Mail",
                     "passwordConfirmationError": "Passwörter sind nicht undefiniert",
-                    "passwordMinimumRequirementsError": "Das Passwort muss mindestens 6 Zeichen enthalten"
+                    "passwordMinimumRequirementsError": "Das Passwort muss mindestens 6 Zeichen enthalten",
+                    "invalidOfficialDocumentId": "Dieses Feld darf nur Zahlen und Buchstaben enthalten"
                 },
                 "dialog": {
                     "confirmButton": "folgen",
@@ -15527,7 +15567,8 @@
                 "first_name": "Vornamen",
                 "sign_up_question": "Frage zum Anmeldeformular",
                 "location": "Bevorzugte Lokalisierung",
-                "state": "Bundesland"
+                "state": "Bundesland",
+                "official_document_id": "Identitätsnummer"
             },
             "tab": {
                 "statistics": "Statistik",

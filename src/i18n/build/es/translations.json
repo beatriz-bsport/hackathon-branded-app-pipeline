@@ -16154,8 +16154,8 @@
         },
         "errorAvailableOffersScheduled": "No se puede guardar. Esta disposición no puede editarse, ya que se utiliza en futuras sesiones.",
         "spiviDialog": {
-            "spiviIdentifiers": "Identificadores de acceso a Spivi",
-            "bsportIdentifiers": "Identificadores de acceso a bsport",
+            "spiviIdentifiers": "Identificadores Spivi",
+            "bsportIdentifiers": "Identificadores bsport",
             "spotCorrespondence": "Posiciones correspondientes"
         },
         "spotSelector": {

@@ -11142,6 +11142,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -12802,7 +12803,8 @@
         "barcode": {
             "display": "Show bar code",
             "code": "Bar code",
-            "none": "none"
+            "none": "none",
+            "label": "Barcode"
         },
         "birth": {
             "unknown_F": "Born on -",
@@ -13038,6 +13040,14 @@
         },
         "memberTable": {
             "error": "An error has occurred"
+        },
+        "membershipNumber": {
+            "value": "Number {{id}}",
+            "label": "Membership number"
+        },
+        "officialIdNumber": {
+            "value": "Number {{id}}",
+            "label": "Identity document number"
         }
     },
     "booking": {
@@ -16449,7 +16459,36 @@
                 "bookingBlockedReason": "Booking is not possible",
                 "bookingButton": "Booking button",
                 "activityCardDialog": "Activity details (pop in)",
-                "activityCard": "Activity details"
+                "activityCard": "Activity details",
+                "marketplace_booking_blocked_reason": "Booking not possible",
+                "marketplace_booking_button": "Book button",
+                "marketplace_activity_summary_dialog": "Activity details (pop-up)",
+                "marketplace_activity_summary": "Activity details",
+                "marketplace_collect_payment_method": "Addition of payment method",
+                "marketplace_contract_payment": "Subscription payment module",
+                "marketplace_contract_not_found_modal": "Subscription warning not found",
+                "marketplace_coupon_form_modal": "Subscription promo code pop-up",
+                "marketplace_contract_cooldown_modal": "Subscription purchase warning pop-up",
+                "marketplace_contract_terms_modal": "Subscription legal notice pop-up",
+                "marketplace_contract_detail": "Subscription details",
+                "marketplace_contract_detail_modal": "Subscription details pop-up",
+                "marketplace_contract_checkout": "Subscription card (payment)",
+                "marketplace_contract_card": "Subscription card",
+                "marketplace_private_pass_card": "Appointment pass card",
+                "marketplace_private_pass_compatibility_modal": "Compatibility pop-up (appointment pass)",
+                "marketplace_payment_pack_offpeack_restriction_modal": "Time slot restriction pop-up (pass)",
+                "marketplace_payment_pack_restriction_modal": "Restrictions pop-up (pass)",
+                "marketplace_payment_pack_compatibility_modal": "Compatibility pop-up (pass)",
+                "marketplace_payment_pack_card": "Pass card",
+                "marketplace_payment_combo_card": "Pack card",
+                "marketplace_date_picker": "Date picker",
+                "marketplace_offer_card": "Session details (calendar view)",
+                "marketplace_week_time_table": "Calendar header",
+                "marketplace_calendar_filter": "Calendar filters (layout only)",
+                "marketplace_offer_list_item": "Session details (list display)",
+                "marketplace_select": "Selector (single)",
+                "marketplace_filter": "Multiple selector",
+                "marketplace_search": "Search filter"
             },
             "customCss": {
                 "yourCode": "Your complementary implementation:",
@@ -16603,7 +16642,8 @@
                 "first_name": "First name",
                 "sign_up_question": "Sign up form questions",
                 "location": "Favourite location",
-                "state": "State"
+                "state": "State",
+                "official_document_id": "Identity number"
             },
             "title": "Forms",
             "CustomFormLink": "Direct link to this form",
@@ -16695,7 +16735,8 @@
                     "requiredFile": "Add a document",
                     "passwordConfirmationError": "These passwords don't match",
                     "invalidEmail": "Invalid email",
-                    "passwordMinimumRequirementsError": "Your password must contain at least 6 characters."
+                    "passwordMinimumRequirementsError": "Your password must contain at least 6 characters.",
+                    "invalidOfficialDocumentId": "This field can only contain numbers and letters"
                 }
             },
             "statistics": {
@@ -17175,8 +17216,8 @@
         },
         "errorAvailableOffersScheduled": "Cannot be saved. This layout cannot be edited since it is used in future sessions.",
         "spiviDialog": {
-            "spiviIdentifiers": "Spivi logins",
-            "bsportIdentifiers": "bsport logins",
+            "spiviIdentifiers": "Spivi IDs",
+            "bsportIdentifiers": "bsport IDs",
             "spotCorrespondence": "Corresponding spots"
         },
         "spotSelector": {

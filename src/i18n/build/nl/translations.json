@@ -3171,6 +3171,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
+                "Geannuleerd",
                 "Geannuleerd"
             ]
         },
@@ -5666,7 +5667,8 @@
         "barcode": {
             "none": "geen",
             "code": "Streepjescode",
-            "display": "Toon streepjescode"
+            "display": "Toon streepjescode",
+            "label": "Streepjescode"
         },
         "memberSince": "Lid sinds ",
         "showNextBooking": "Zie toekomstige reserveringen",
@@ -5934,6 +5936,14 @@
         },
         "memberTable": {
             "error": "Error"
+        },
+        "membershipNumber": {
+            "value": "ID: {{id}}",
+            "label": "Lidmaatschapsnummer"
+        },
+        "officialIdNumber": {
+            "value": "ID: {{id}}",
+            "label": "Identiteitsbewijsnummer"
         }
     },
     "booking": {
@@ -9388,7 +9398,21 @@
             "goToRegularCalendar": "Terug naar Rooster",
             "infoBoxContent": "Je hebt nu de optie om je beschikbaarheid per vestiging beheren. Standaard wordt de beschikbaarheid van instructeurs op alle vestigingen toegepast. Op deze pagina kun je de specifieke beschikbaarheid per vestiging beheren. Het blijft een vereiste om een algemene beschikbaarheid per instructeur aan te maken, voordat een rooster per vestiging aangemaakt kan worden."
         },
-        "openSpecificAvailabilitiesCalendar": "Beschikbaarheid"
+        "openSpecificAvailabilitiesCalendar": "Beschikbaarheid",
+        "forms": {
+            "delete": {
+                "confirm": "Verwijderen",
+                "cancel": "Annuleren",
+                "actions": {
+                    "confirm": "Verwijderen",
+                    "cancel": "Annuleren"
+                },
+                "title": "Afspraak verwijderen",
+                "content": {
+                    "canDelete": "Weet je zeker dat je deze afspraak wilt verwijderen? Deze actie is definitief. Bestaande reserveringen worden niet verwijderd."
+                }
+            }
+        }
     },
     "datetime": {
         "form": {
@@ -15264,7 +15288,17 @@
                     "workshop": "Workshopfilters",
                     "activity": "Activiteitenfilters",
                     "establishment": "Vestiging",
-                    "level": "Niveau"
+                    "level": "Niveau",
+                    "isWaitingListOpen": "Vol",
+                    "isAlreadyInWaitingList": "Op wachtlijst",
+                    "isWaitingListFull": "Volle wachtlijst",
+                    "isWaitingListBlockedByPendingBookings": "Andere reserveringen",
+                    "isTooLate": "Tijdslimiet overschreden",
+                    "isOfferNotAvailableYet": "Binnenkort beschikbaar",
+                    "isAlreadyRegistered": "Gereserveerd",
+                    "desktop": "Groot scherm",
+                    "mobile": "Klein scherm",
+                    "blockedByTags": "Onvoldoende rechten"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",
@@ -15284,7 +15318,13 @@
                     "showDate": "Toon data",
                     "isWorkshop": "Workshop",
                     "disablePast": "Verberg oude data",
-                    "hideCoach": "Verberg instructeursfilter"
+                    "hideCoach": "Verberg instructeursfilter",
+                    "blockedReasonStatus": "Reden",
+                    "isOfferNotAvailableYet": "Binnenkort beschikbaar",
+                    "isOfferAvailable": "Beschikbaar",
+                    "isOfferFull": "Vol",
+                    "isOfferInThePast": "Afgelopen",
+                    "isHidden": "Verborgen"
                 },
                 "configurationTitle": "Variaties"
             },
@@ -15331,7 +15371,36 @@
                 "search": "Zoekfilters",
                 "calendarFilters": "Agendafilters (exclusief voor de lay-out)",
                 "calendarWeekTimeTable": "Koptekst agenda",
-                "select": "Selecteer"
+                "select": "Selecteer",
+                "marketplace_booking_blocked_reason": "Reservering niet mogelijk",
+                "marketplace_booking_button": "Reserveerknop",
+                "marketplace_private_pass_card": "Afsprakenkaart",
+                "marketplace_payment_pack_card": "Leskaart",
+                "marketplace_date_picker": "Datumselectie",
+                "marketplace_offer_card": "Sessie (agendaweergave)",
+                "marketplace_week_time_table": "Agenda (kop)",
+                "marketplace_calendar_filter": "Agendafilters (layout)",
+                "marketplace_offer_list_item": "Sessies (lijstweergave)",
+                "marketplace_filter": "Selectie",
+                "marketplace_search": "Zoekfilter",
+                "marketplace_activity_summary_dialog": "Activiteitendetails (modaal)",
+                "marketplace_activity_summary": "Activiteit details",
+                "marketplace_collect_payment_method": "Een betaalmethode toevoegen",
+                "marketplace_contract_payment": "Betaalmodule abonnementen",
+                "marketplace_contract_not_found_modal": "Waarschuwing abonnement niet gevonden",
+                "marketplace_coupon_form_modal": "Abonnement promo code popup",
+                "marketplace_contract_cooldown_modal": "Waarschuwingspop-up voor aankoop abonnement",
+                "marketplace_contract_terms_modal": "Pop-up wettelijke kennisgeving inschrijving",
+                "marketplace_contract_detail": "Inschrijvingsgegevens",
+                "marketplace_contract_detail_modal": "Pop-up abonnementsgegevens",
+                "marketplace_contract_checkout": "Abonnement (betaling)",
+                "marketplace_contract_card": "Abonnementskaart",
+                "marketplace_private_pass_compatibility_modal": "Compatibiliteit popup (afspraakkaart)",
+                "marketplace_payment_pack_offpeack_restriction_modal": "Pop-up met roosterbeperking (cursuskaart)",
+                "marketplace_payment_pack_restriction_modal": "Pop-up met beperkingen (cursuskaart)",
+                "marketplace_payment_pack_compatibility_modal": "Compatibiliteit popup (cursuskaart)",
+                "marketplace_payment_combo_card": "Pakketkaart",
+                "marketplace_select": "Keuzeschakelaar (single)"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -15568,7 +15637,8 @@
                 "last_name": "Achternaam",
                 "first_name": "Voornaam",
                 "location": "Favoriete vestiging",
-                "state": "Staat"
+                "state": "Staat",
+                "official_document_id": "Identificatienummer"
             },
             "customFormField": {
                 "modal": {
@@ -15608,7 +15678,8 @@
                     "requiredFile": "Een bestand toevoegen",
                     "passwordConfirmationError": "Deze wachtwoorden komen niet overeen",
                     "invalidEmail": "Ongeldig e-mailadres",
-                    "passwordMinimumRequirementsError": "Je wachtwoord moet minimaal 6 tekens bevatten."
+                    "passwordMinimumRequirementsError": "Je wachtwoord moet minimaal 6 tekens bevatten.",
+                    "invalidOfficialDocumentId": "Dit veld mag alleen letters en cijfers bevatten."
                 },
                 "date_submitted": "Datum",
                 "dialog": {

@@ -18,6 +18,7 @@ export type Props = {
     title?: string;
     message?: string;
   };
+  id?: string;
   isLoading?: boolean;
   title: string;
   message: string;
@@ -30,6 +31,7 @@ export type Props = {
 
 const StatusMessageWithIcon: React.FC<Props> = ({
   classes,
+  id,
   isLoading,
   title,
   message,
@@ -41,7 +43,7 @@ const StatusMessageWithIcon: React.FC<Props> = ({
   }
 
   return (
-    <div className="bs-status-message-with-icon__container">
+    <div className="bs-status-message-with-icon__container" id={id}>
       {!!icon && (
         <div className="bs-status-message-with-icon__icon__container">
           {icon}

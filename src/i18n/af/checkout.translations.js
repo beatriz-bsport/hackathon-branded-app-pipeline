@@ -103,6 +103,8 @@ exports.default = {
         paymentSuccess_plural: 'Congratulations! Your purchases are confirmed!',
         offerOnlySuccess:
           'The booking has been made. You will soon receive a confirmation e-mail with all the details.',
+        offerOnlyGuestSuccess:
+          'The booking has been made. You and your guest will shortly receive a confirmation e-mail with all the details.',
         offerOnlySuccess_plural:
           'The bookings have been made. You will soon receive a confirmation e-mail with all the details.',
       },
@@ -111,6 +113,7 @@ exports.default = {
           waitingList: 'You have registered on the waiting list',
           paymentSuccess: 'Payment confirmed!',
           offerOnlySuccess: 'Enjoy the session!',
+          offerOnlyGuestSuccess: 'Enjoy the session with your guest!',
         },
         errors: {
           genericOfferError: 'Oops! The booking failed.',

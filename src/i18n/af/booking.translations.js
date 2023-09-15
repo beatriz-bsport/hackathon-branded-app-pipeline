@@ -10,6 +10,7 @@ const {
   OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON,
   OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE,
   OFFER_BOOKABLE_STATUS_LOCKED,
+  OFFER_BOOKABLE_STATUS_FULL,
 } = require('@bsport/common/lib/master-data/bookable-status');
 
 const ERROR_CODES = require('@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought');
@@ -367,6 +368,7 @@ exports.default = {
     },
     bookingForMe: 'Myself',
     bookingsTitleFor: 'Booking for {{name}}',
+    bookingFor: 'Booking for',
     bookingForAGuest: {
       addGuest: 'Add a guest',
       warningLeveledSession:
@@ -378,8 +380,30 @@ exports.default = {
       frequencyMonthly: 'this month.',
       frequencyYearly: 'this year.',
       frequencyGeneric: 'this period.',
+      addGuestNumberLeftWeek: 'You can invite 1 more person this week.',
+      addGuestNumberLeftWeek_plural:
+        'You can still invite {{count}} people this week.',
+      addGuestNumberLeftMonth: 'You can invite 1 more person this month.',
+      addGuestNumberLeftMonth_plural:
+        'You can still invite {{count}} people this month.',
+      addGuestNumberLeftYear: 'You can invite 1 more person this year.',
+      addGuestNumberLeftYear_plural:
+        'You can still invite {{count}} people this year.',
+      addGuestNumberLeftGeneric: 'You can invite 1 more person this period.',
+      addGuestNumberLeftGeneric_plural:
+        'You can still invite {{count}} people this period.',
       warningCustomLeveledSession:
         "This session has a custom level. Please ensure that your guest(s) meet this session's requirements.",
+      bookingStatus: {
+        [OFFER_BOOKABLE_STATUS_BOOKABLE]: 'Invite a friend',
+        [OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON]:
+          'The session is not yet open to bookings',
+        [OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE]:
+          'The session is closed to bookings',
+        [OFFER_BOOKABLE_STATUS_FULL]: 'The session is full',
+        [OFFER_BOOKABLE_STATUS_LOCKED]: 'The session is closed to bookings',
+        guestNotAllowed: 'The session is not open to guests',
+      },
     },
   },
   setSpot: 'Assign a spot',
@@ -389,6 +413,24 @@ exports.default = {
   attendanceUpdatedOn: 'Updated on {{- d }} at {{- t }}',
   guest: {
     form: {
+      dialog: {
+        title: 'Invite a guest',
+        description:
+          'Bringing a friend or companion along to share the experience? Simply fill in the name and email of your guest, and we will make sure they receive all the necessary details.',
+        emailWarning: {
+          title: 'No email entered',
+          description:
+            "You haven't provided an email address for your guest. As a result, they won't receive information about this session. Are you sure?",
+          actions: {
+            continueWithoutEmail: 'Continue without email',
+            saveAndContinue: 'Save and continue',
+          },
+        },
+      },
+      errors: {
+        requiredField: 'Please fill in this field',
+        email: 'Please enter a valid email address',
+      },
       firstname: { label: 'First name' },
       email: { label: 'Email' },
       actions: {

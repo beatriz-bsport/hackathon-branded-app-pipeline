@@ -349,6 +349,7 @@
       },
       "bookingForMe": "Myself",
       "bookingsTitleFor": "Booking for {{name}}",
+      "bookingFor": "Booking for",
       "bookingForAGuest": {
         "addGuest": "Add a guest",
         "warningLeveledSession": "This session is reserved for people with the following level: {{level}}. Make sure the person you invite has the expected level.",
@@ -359,7 +360,23 @@
         "frequencyMonthly": "this month.",
         "frequencyYearly": "this year.",
         "frequencyGeneric": "this period.",
-        "warningCustomLeveledSession": "This session has a custom level. Please ensure that your guest(s) meet this session's requirements."
+        "addGuestNumberLeftWeek": "You can invite 1 more person this week.",
+        "addGuestNumberLeftWeek_plural": "You can still invite {{count}} people this week.",
+        "addGuestNumberLeftMonth": "You can invite 1 more person this month.",
+        "addGuestNumberLeftMonth_plural": "You can still invite {{count}} people this month.",
+        "addGuestNumberLeftYear": "You can invite 1 more person this year.",
+        "addGuestNumberLeftYear_plural": "You can still invite {{count}} people this year.",
+        "addGuestNumberLeftGeneric": "You can invite 1 more person this period.",
+        "addGuestNumberLeftGeneric_plural": "You can still invite {{count}} people this period.",
+        "warningCustomLeveledSession": "This session has a custom level. Please ensure that your guest(s) meet this session's requirements.",
+        "bookingStatus": {
+          "0": "Invite a friend",
+          "1": "The session is not yet open to bookings",
+          "2": "The session is closed to bookings",
+          "3": "The session is full",
+          "4": "The session is closed to bookings",
+          "guestNotAllowed": "The session is not open to guests"
+        }
       }
     },
     "setSpot": "Assign a spot",
@@ -369,6 +386,16 @@
     "attendanceUpdatedOn": "Updated on {{- d }} at {{- t }}",
     "guest": {
       "form": {
+        "dialog": {
+          "title": "Invite a guest",
+          "description": "Bringing a friend or companion along to share the experience? Simply fill in the name and email of your guest, and we will make sure they receive all the necessary details.",
+          "emailWarning": {
+            "title": "No email entered",
+            "description": "You haven't provided an email address for your guest. As a result, they won't receive information about this session. Are you sure?",
+            "actions": { "continueWithoutEmail": "Continue without email", "saveAndContinue": "Save and continue" }
+          }
+        },
+        "errors": { "requiredField": "Please fill in this field", "email": "Please enter a valid email address" },
         "firstname": { "label": "First name" },
         "email": { "label": "Email" },
         "actions": {
@@ -514,13 +541,15 @@
           "paymentSuccess": "Congratulations! Your purchase has been confirmed!",
           "paymentSuccess_plural": "Congratulations! Your purchases are confirmed!",
           "offerOnlySuccess": "The booking has been made. You will soon receive a confirmation e-mail with all the details.",
+          "offerOnlyGuestSuccess": "The booking has been made. You and your guest will shortly receive a confirmation e-mail with all the details.",
           "offerOnlySuccess_plural": "The bookings have been made. You will soon receive a confirmation e-mail with all the details."
         },
         "confirmationStatusTitle": {
           "success": {
             "waitingList": "You have registered on the waiting list",
             "paymentSuccess": "Payment confirmed!",
-            "offerOnlySuccess": "Enjoy the session!"
+            "offerOnlySuccess": "Enjoy the session!",
+            "offerOnlyGuestSuccess": "Enjoy the session with your guest!"
           },
           "errors": { "genericOfferError": "Oops! The booking failed.", "generic": "Oops! Payment failed." }
         }

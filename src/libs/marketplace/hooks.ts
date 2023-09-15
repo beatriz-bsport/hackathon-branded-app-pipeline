@@ -259,7 +259,7 @@ export const useOfferHours = (
 ) => {
   const { t } = useTranslation(['datetime']);
   const memoizedOfferHours = useMemo(() => {
-    if (offer.date_start && establishment?.tzname) {
+    if (offer?.date_start && establishment?.tzname) {
       const tz = metaActivity?.is_broadcast
         ? moment.tz.guess()
         : establishment?.tzname;
@@ -288,7 +288,7 @@ export const useOfferHours = (
       }
     }
 
-    if (offer.date_start) {
+    if (offer?.date_start) {
       const tz = metaActivity?.is_broadcast
         ? moment.tz.guess()
         : theme?.timezone_name || moment.tz.guess();
@@ -319,7 +319,7 @@ export const useOfferHours = (
     }
     return '';
   }, [
-    offer.date_start,
+    offer?.date_start,
     offer?.duration_minute,
     establishment?.tzname,
     metaActivity?.is_broadcast,
@@ -483,8 +483,8 @@ export const useOfferFormattedDate = (
   const { t } = useTranslation('datetime');
   const timezoneName = offer?.meta_activity?.is_broadcast
     ? moment.tz.guess()
-    : offer.establishment?.tzname ||
-      companyTheme.timezone_name ||
+    : offer?.establishment?.tzname ||
+      companyTheme?.timezone_name ||
       'Europe/Paris';
   if (offer?.date_start)
     return formatAsDateWithWeekday(

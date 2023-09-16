@@ -2,9 +2,9 @@ if (!window.runtime) window.runtime = {};
 if (!window.runtime.env) window.runtime.env = {};
 
 window.runtime.env.ENVIRONMENT_LABEL = 'staging';
-window.runtime.env.REACT_APP_BASE_URI = 'https://api.staging.sandbox.bsport.io';
+window.runtime.env.REACT_APP_BASE_URI = 'https://api.staging.bsport.io';
 window.runtime.env.REACT_APP_API_URI =
-  'https://api.staging.sandbox.bsport.io/api-v0';
+  'https://api.staging.bsport.io/api-v0';
 window.runtime.env.REACT_APP_STRIPE_PK_KEY = 'pk_test_lFB5CxcyTCaQcS00MiE1ebEO';
 window.runtime.env.REACT_APP_GOOGLE_MAPS_API_KEY = 'NA';
 window.runtime.env.REACT_APP_SENTRY_DSN = '';
@@ -16,9 +16,9 @@ if (!window.runtimeBsport) window.runtimeBsport = {};
 if (!window.runtimeBsport.env) window.runtimeBsport.env = {};
 
 window.runtimeBsport.env.REACT_APP_BASE_URI =
-  'https://api.staging.sandbox.bsport.io';
+  'https://api.staging.bsport.io';
 window.runtimeBsport.env.REACT_APP_API_URI =
-  'https://api.staging.sandbox.bsport.io/api-v0';
+  'https://api.staging.bsport.io/api-v0';
 window.runtimeBsport.env.REACT_APP_STRIPE_PK_KEY =
   'pk_test_lFB5CxcyTCaQcS00MiE1ebEO';
 window.runtimeBsport.env.REACT_APP_GOOGLE_MAPS_API_KEY = 'NA';

@@ -224,7 +224,9 @@ class BsportWidget extends Component<Props> {
                 : getTheme(this.props.theme)
             }
           >
-            <ApplyCustomTheme styles={this.props.theme.widget_theme} />
+            <ApplyCustomTheme
+              styles={styles || this.props.theme.widget_theme}
+            />
             {!!this.props.customConfiguration && (
               <ApplyCustomCssStyles
                 customConfiguration={this.props.customConfiguration}

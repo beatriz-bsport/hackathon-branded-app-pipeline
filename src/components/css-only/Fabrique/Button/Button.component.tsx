@@ -51,7 +51,7 @@ const Button: React.FC<Props> = ({
         },
         classes?.root,
       )}
-      disableRipple={disableRipple}
+      disableRipple={disableRipple || isDisabled}
       isDisabled={isDisabled || isLoading}
       isLoading={isLoading}
       onClick={onClick}

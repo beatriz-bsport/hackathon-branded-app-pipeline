@@ -104,6 +104,7 @@ import {
   deleteOffer as deleteOfferAPI,
 } from '../../offer/api';
 import CheckPermission from '../../role/components/CheckPermission.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { fetchAllCoachPaymentRules } from '../../coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '../../coach-payment-rules/selectors';
 import type { CoachPaymentRule } from '../../coach-payment-rules/types';
@@ -119,6 +120,7 @@ import type { Theme as CompanyTheme } from '#libs/theme/types';
 import type { OptionCallback } from '../../../state/types';
 import type { Invoice } from '#libs/invoice/types';
 import type { PaymentMethod } from '#libs/payment/types';
+import { getDeletePermission, getEditPermission } from '#libs/offer/utils';
 import { requestClientSecret as requestClientSecretAPI } from '#libs/invoice/api';
 import { getProgramList } from '#libs/performance-tracking/selector';
 import {
@@ -156,6 +158,7 @@ import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import type { Tag, TagGroup } from '#libs/tag/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { ZoomApp } from '../../zoom-app/types';
+import { useOldPermissions } from '../../../config';
 
 type Props = {
   offerId: number,
@@ -469,51 +472,102 @@ export class CalendarEventDetail extends React.Component<Props, State> {
     }
     if (offer) {
       return (
-        <div>
-          <OfferMinimalSummary
-            getHasPendingReplacementRequest={
-              this.props.getHasPendingReplacementRequest
-            }
-            isCoach={this.props.isCoach}
-            offer={offer}
-          />
-          {offer.available ? (
-            <div className={classes.buttonRow}>
-              <CheckPermission requiredPermissions="offer.edit">
-                <Button color="primary" onClick={this.props.openOfferEditModal}>
-                  <EditIcon className={classes.iconLeft} />
-                  <Hidden xsDown>{t('calendar.modifyOffer')}</Hidden>
-                </Button>
-              </CheckPermission>
-              <CheckPermission requiredPermissions="offer.delete">
-                <RedButton onClick={this.props.openOfferDeleteModal}>
-                  <DeleteIcon className={classes.iconLeft} />
-                  <Hidden xsDown>{t('calendar.deleteOffer')}</Hidden>
-                </RedButton>
-              </CheckPermission>
-            </div>
-          ) : null}
-          {!this.props.isCoach && (
-            <Link style={{ textDecoration: 'none' }} to={`/offer/${offer.id}`}>
-              <Button
-                className={classes.manageButton}
-                color="primary"
+        <ObjectLevelPermissionProvider
+          requiredPermission={[
+            'session.activity.allowed_actions.edit',
+            'session.activity.allowed_actions.delete',
+            'session.workshop.allowed_actions.edit',
+            'session.workshop.allowed_actions.delete',
+          ]}
+        >
+          {([
+            hasEditActivityPermission,
+            hasDeleteActivityPermission,
+            hasEditWorkshopPermission,
+            hasDeleteWorkshopPermission,
+          ]: boolean[]) => (
+            <div>
+              <OfferMinimalSummary
+                getHasPendingReplacementRequest={
+                  this.props.getHasPendingReplacementRequest
+                }
+                isCoach={this.props.isCoach}
+                offer={offer}
+              />
+              {offer.available ? (
+                <div className={classes.buttonRow}>
+                  {useOldPermissions ? (
+                    <CheckPermission requiredPermissions="offer.edit">
+                      <Button
+                        color="primary"
+                        onClick={this.props.openOfferEditModal}
+                      >
+                        <EditIcon className={classes.iconLeft} />
+                        <Hidden xsDown>{t('calendar.modifyOffer')}</Hidden>
+                      </Button>
+                    </CheckPermission>
+                  ) : (
+                    getEditPermission(
+                      offer,
+                      hasEditActivityPermission,
+                      hasEditWorkshopPermission,
+                    ) && (
+                      <Button
+                        color="primary"
+                        onClick={this.props.openOfferEditModal}
+                      >
+                        <EditIcon className={classes.iconLeft} />
+                        <Hidden xsDown>{t('calendar.modifyOffer')}</Hidden>
+                      </Button>
+                    )
+                  )}
+                  {useOldPermissions ? (
+                    <CheckPermission requiredPermissions="offer.delete">
+                      <RedButton onClick={this.props.openOfferDeleteModal}>
+                        <DeleteIcon className={classes.iconLeft} />
+                        <Hidden xsDown>{t('calendar.deleteOffer')}</Hidden>
+                      </RedButton>
+                    </CheckPermission>
+                  ) : (
+                    getDeletePermission(
+                      offer,
+                      hasDeleteActivityPermission,
+                      hasDeleteWorkshopPermission,
+                    ) && (
+                      <RedButton onClick={this.props.openOfferDeleteModal}>
+                        <DeleteIcon className={classes.iconLeft} />
+                        <Hidden xsDown>{t('calendar.deleteOffer')}</Hidden>
+                      </RedButton>
+                    )
+                  )}
+                </div>
+              ) : null}
+              {!this.props.isCoach && (
+                <Link
+                  style={{ textDecoration: 'none' }}
+                  to={`/offer/${offer.id}`}
+                >
+                  <Button
+                    className={classes.manageButton}
+                    color="primary"
+                    variant="contained"
+                  >
+                    {t('manageOffer')}
+                  </Button>
+                </Link>
+              )}
+              {/* {offer.available ? null : (
+              <RedButton
+                onClick={this.props.openOfferDeleteModal}
                 variant="contained"
+                className={classes.manageButton}
               >
-                {t('manageOffer')}
-              </Button>
-            </Link>
+                {t('forms.delete.buttonHardDelete')}
+              </RedButton>
+            )} */}
+            </div>
           )}
-          {/* {offer.available ? null : (
-            <RedButton
-              onClick={this.props.openOfferDeleteModal}
-              variant="contained"
-              className={classes.manageButton}
-            >
-              {t('forms.delete.buttonHardDelete')}
-            </RedButton>
-          )} */}
-        </div>
+        </ObjectLevelPermissionProvider>
       );
     }
     return null;

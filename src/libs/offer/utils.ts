@@ -1,5 +1,10 @@
 import moment, { Moment, MomentInput } from 'moment-timezone';
-import { Offer, OfferFormRecurrenceWeekDay, OfferFormValues } from './types';
+import {
+  Offer,
+  OfferFormRecurrenceWeekDay,
+  OfferFormValues,
+  Offer_FULL,
+} from './types';
 import { OFFER_RECURRENCE } from './constants';
 
 export function isDateTooFar(date: MomentInput) {
@@ -92,4 +97,32 @@ export function _generateRecurrenceDates(
   }
 
   return dates;
+}
+
+export function getEditPermission(
+  offer: Offer_FULL,
+  hasEditActivityPermission: boolean,
+  hasEditWorkshopPermission: boolean,
+) {
+  if (offer.meta_activity.is_workshop) {
+    return hasEditWorkshopPermission;
+  }
+  if (offer.meta_activity.is_workshop === false) {
+    return hasEditActivityPermission;
+  }
+  return false;
+}
+
+export function getDeletePermission(
+  offer: Offer_FULL,
+  hasDeleteActivityPermission: boolean,
+  hasDeleteWorkshopPermission: boolean,
+) {
+  if (offer.meta_activity.is_workshop) {
+    return hasDeleteWorkshopPermission;
+  }
+  if (offer.meta_activity.is_workshop === false) {
+    return hasDeleteActivityPermission;
+  }
+  return false;
 }

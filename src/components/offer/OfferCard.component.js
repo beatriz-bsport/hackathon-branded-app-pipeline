@@ -34,6 +34,8 @@ import RedButton from '../button/RedButton.component';
 import type { Offer } from '../../api/types';
 import { PermissionContext } from '../../context';
 import CheckPermission from '../../libs/role/components/CheckPermission.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { getDeletePermission, getEditPermission } from '#libs/offer/utils';
 import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPackTagsDialog.component';
 import FreeOfferChip from '#libs/offer/components/FreeOfferChip.component';
 
@@ -43,6 +45,7 @@ import OfferCardStastiticsContainer from '../../libs/offer/components/OfferCardS
 import OfferDetail from './OfferDetail.component';
 
 import type { Theme as CompanyTheme } from '#libs/theme/types';
+import { useOldPermissions } from '../../config';
 
 type Props = {
   t: TFunction,
@@ -215,196 +218,252 @@ export class OfferCard extends Component<Props, State> {
 
     if (offer) {
       return (
-        <div style={{ width: '100%' }}>
-          <PaymentPackTagsDialog
-            blacklistTags={offer.blacklist_tags}
-            onClose={() => this.setState({ tagManagementDialog: false })}
-            onModify={() => {
-              this.setState({ tagManagementDialog: false });
-              this.props.onModifyTags(offer);
-            }}
-            open={this.state.tagManagementDialog}
-            whitelistTags={offer.whitelist_tags}
-          />
-          <Paper square className={available ? null : classes.disabledPaper}>
-            {noHeader ? null : this.getHeader()}
-            <OfferCardStastiticsContainer
-              bookings={this.props.bookings}
-              linkedHybridSession={this.props.linkedHybridSession}
-              offer={this.props.offer}
-              showOfferGender={this.props.showOfferGender}
-            />
-            {offer?.source === BOOKING_SOURCE_MIGRATION.id && (
-              <ListItem className={classes.migrationAlertListItem}>
-                <Alert severity="info">
-                  {t('offer:booking.comesFromMigration')}
-                </Alert>
-              </ListItem>
-            )}
-            <div className={classes.offerDetailContainer}>
-              <OfferDetail offer={offer} />
-            </div>
+        <ObjectLevelPermissionProvider
+          requiredPermission={[
+            'session.activity.allowed_actions.edit',
+            'session.activity.allowed_actions.delete',
+            'session.workshop.allowed_actions.edit',
+            'session.workshop.allowed_actions.delete',
+          ]}
+        >
+          {([
+            hasEditActivityPermission,
+            hasDeleteActivityPermission,
+            hasEditWorkshopPermission,
+            hasDeleteWorkshopPermission,
+          ]: boolean[]) => (
+            <div style={{ width: '100%' }}>
+              <PaymentPackTagsDialog
+                blacklistTags={offer.blacklist_tags}
+                onClose={() => this.setState({ tagManagementDialog: false })}
+                onModify={() => {
+                  this.setState({ tagManagementDialog: false });
+                  this.props.onModifyTags(offer);
+                }}
+                open={this.state.tagManagementDialog}
+                whitelistTags={offer.whitelist_tags}
+              />
+              <Paper
+                square
+                className={available ? null : classes.disabledPaper}
+              >
+                {noHeader ? null : this.getHeader()}
+                <OfferCardStastiticsContainer
+                  bookings={this.props.bookings}
+                  linkedHybridSession={this.props.linkedHybridSession}
+                  offer={this.props.offer}
+                  showOfferGender={this.props.showOfferGender}
+                />
+                {offer?.source === BOOKING_SOURCE_MIGRATION.id && (
+                  <ListItem className={classes.migrationAlertListItem}>
+                    <Alert severity="info">
+                      {t('offer:booking.comesFromMigration')}
+                    </Alert>
+                  </ListItem>
+                )}
+                <div className={classes.offerDetailContainer}>
+                  <OfferDetail offer={offer} />
+                </div>
 
-            {offer?.group &&
-              Object.keys(offer.group?.recurrence_rule ?? {}).length > 0 && (
-                <>
-                  <div className={classes.row}>
+                {offer?.group &&
+                  Object.keys(offer.group?.recurrence_rule ?? {}).length >
+                    0 && (
+                    <>
+                      <div className={classes.row}>
+                        <ListItem>
+                          <ListItemIcon>
+                            <DateRangeIcon />
+                          </ListItemIcon>
+                          <ListItemText
+                            primary={t('offer:recurrenceIndex', {
+                              index: offer.group?.recurrence_index + 1 ?? 1,
+                            })}
+                          />
+                        </ListItem>
+                      </div>
+                      <div className={classes.row}>
+                        <ListItem>
+                          <ListItemIcon>
+                            <RefreshIcon />
+                          </ListItemIcon>
+                          <ListItemText
+                            primary={getRecurrenceTrad(
+                              offer.group?.recurrence_rule,
+                              t,
+                            )}
+                          />
+                        </ListItem>
+                      </div>
+                    </>
+                  )}
+
+                {(offer?.whitelist_tags?.length > 0 ||
+                  offer?.blacklist_tags?.length > 0) && (
+                  <div>
                     <ListItem>
                       <ListItemIcon>
-                        <DateRangeIcon />
+                        <LabelIcon />
                       </ListItemIcon>
                       <ListItemText
-                        primary={t('offer:recurrenceIndex', {
-                          index: offer.group?.recurrence_index + 1 ?? 1,
+                        primary={t('offer:tagManagementInfo', {
+                          authorized: offer.whitelist_tags?.length || 0,
+                          unauthorized: offer.blacklist_tags?.length || 0,
                         })}
                       />
+                      <IconButton
+                        disableRipple
+                        onClick={() => {
+                          this.setState({ tagManagementDialog: true });
+                        }}
+                      >
+                        <VisibilityIcon color="primary" />
+                      </IconButton>
                     </ListItem>
                   </div>
-                  <div className={classes.row}>
-                    <ListItem>
-                      <ListItemIcon>
-                        <RefreshIcon />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={getRecurrenceTrad(
-                          offer.group?.recurrence_rule,
-                          t,
+                )}
+                {(offer.has_spivi_error || spiviErrorOnBooking) &&
+                  offer.available && (
+                    <Alert
+                      className={classes.alertSpiviContainer}
+                      severity="warning"
+                    >
+                      <AlertTitle>
+                        {t('offer:calendar.alertSpivi.title')}
+                      </AlertTitle>
+                      <ul className={classes.list}>
+                        {offer.has_spivi_error && (
+                          <li>{t('offer:calendar.alertSpivi.textOffer')}</li>
                         )}
-                      />
-                    </ListItem>
+                        {spiviErrorOnBooking && (
+                          <li>{t('offer:calendar.alertSpivi.textBooking')}</li>
+                        )}
+                      </ul>
+                    </Alert>
+                  )}
+                <Divider />
+                {available ? (
+                  <div>
+                    <div className={this.props.classes.bottomBlock}>
+                      <div className={this.props.classes.buttonContainer}>
+                        {useOldPermissions ? (
+                          <CheckPermission requiredPermissions="offer.edit">
+                            <div className={this.props.classes.button}>
+                              <Button
+                                color="primary"
+                                onClick={onEditButtonClick}
+                              >
+                                <EditIcon className={classes.iconLeft} />
+                                <Hidden xsDown>
+                                  {t('offer:calendar.modifyOffer')}
+                                </Hidden>
+                              </Button>
+                            </div>
+                          </CheckPermission>
+                        ) : (
+                          getEditPermission(
+                            offer,
+                            hasEditActivityPermission,
+                            hasEditWorkshopPermission,
+                          ) && (
+                            <Button color="primary" onClick={onEditButtonClick}>
+                              <EditIcon className={classes.iconLeft} />
+                              <Hidden xsDown>
+                                {t('offer:calendar.modifyOffer')}
+                              </Hidden>
+                            </Button>
+                          )
+                        )}
+
+                        {useOldPermissions ? (
+                          <CheckPermission requiredPermissions="offer.delete">
+                            <div className={this.props.classes.button}>
+                              <RedButton onClick={onDeleteButtonClick}>
+                                <DeleteIcon className={classes.iconLeft} />
+                                <Hidden xsDown>
+                                  {t('offer:calendar.deleteOffer')}
+                                </Hidden>
+                              </RedButton>
+                            </div>
+                          </CheckPermission>
+                        ) : (
+                          getDeletePermission(
+                            offer,
+                            hasDeleteActivityPermission,
+                            hasDeleteWorkshopPermission,
+                          ) && (
+                            <RedButton onClick={onDeleteButtonClick}>
+                              <DeleteIcon className={classes.iconLeft} />
+                              <Hidden xsDown>
+                                {t('offer:calendar.deleteOffer')}
+                              </Hidden>
+                            </RedButton>
+                          )
+                        )}
+                      </div>
+                      {offer.id && this.props.companyId ? (
+                        <div className={this.props.classes.buttonContainer}>
+                          <CopyToClipboard
+                            text={`${window.location.origin}/customer/payment/offer/${offer.id}?membership=${this.props.companyId}`}
+                          >
+                            <ButtonBase
+                              className={classes.link}
+                              onClick={() =>
+                                this.props.snackbarSuccess('link.copied')
+                              }
+                            >
+                              <LinkIcon />
+                              <Hidden xsDown>
+                                <Typography
+                                  align="left"
+                                  className={classes.linkTypo}
+                                  variant="caption"
+                                >
+                                  {t('offer:card.copyLink')}
+                                </Typography>
+                              </Hidden>
+                            </ButtonBase>
+                          </CopyToClipboard>
+                        </div>
+                      ) : null}
+                    </div>
+                    {this.renderBookingList()}
                   </div>
+                ) : null}
+              </Paper>
+              <Link
+                style={{ textDecoration: 'none' }}
+                to={`/offer/${offer.id}`}
+              >
+                <Button
+                  className={classes.manageButton}
+                  color="primary"
+                  variant="contained"
+                >
+                  {t('offer:manageOffer')}
+                </Button>
+              </Link>
+              {!available && (
+                <>
+                  <Button
+                    className={classes.manageButton}
+                    color="secondary"
+                    onClick={this.props.onRestoreButtonClick}
+                    variant="contained"
+                  >
+                    {t('offer:restoreOffer')}
+                  </Button>
+                  <RedButton
+                    className={classes.manageButton}
+                    onClick={onDeleteButtonClick}
+                    variant="contained"
+                  >
+                    {t('offer:forms.delete.buttonHardDelete')}
+                  </RedButton>
                 </>
               )}
-
-            {(offer?.whitelist_tags?.length > 0 ||
-              offer?.blacklist_tags?.length > 0) && (
-              <div>
-                <ListItem>
-                  <ListItemIcon>
-                    <LabelIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={t('offer:tagManagementInfo', {
-                      authorized: offer.whitelist_tags?.length || 0,
-                      unauthorized: offer.blacklist_tags?.length || 0,
-                    })}
-                  />
-                  <IconButton
-                    disableRipple
-                    onClick={() => {
-                      this.setState({ tagManagementDialog: true });
-                    }}
-                  >
-                    <VisibilityIcon color="primary" />
-                  </IconButton>
-                </ListItem>
-              </div>
-            )}
-            {(offer.has_spivi_error || spiviErrorOnBooking) &&
-              offer.available && (
-                <Alert
-                  className={classes.alertSpiviContainer}
-                  severity="warning"
-                >
-                  <AlertTitle>
-                    {t('offer:calendar.alertSpivi.title')}
-                  </AlertTitle>
-                  <ul className={classes.list}>
-                    {offer.has_spivi_error && (
-                      <li>{t('offer:calendar.alertSpivi.textOffer')}</li>
-                    )}
-                    {spiviErrorOnBooking && (
-                      <li>{t('offer:calendar.alertSpivi.textBooking')}</li>
-                    )}
-                  </ul>
-                </Alert>
-              )}
-            <Divider />
-            {available ? (
-              <div>
-                <div className={this.props.classes.bottomBlock}>
-                  <div className={this.props.classes.buttonContainer}>
-                    <CheckPermission requiredPermissions="offer.edit">
-                      <div className={this.props.classes.button}>
-                        <Button color="primary" onClick={onEditButtonClick}>
-                          <EditIcon className={classes.iconLeft} />
-                          <Hidden xsDown>
-                            {t('offer:calendar.modifyOffer')}
-                          </Hidden>
-                        </Button>
-                      </div>
-                    </CheckPermission>
-
-                    <CheckPermission requiredPermissions="offer.delete">
-                      <div className={this.props.classes.button}>
-                        <RedButton onClick={onDeleteButtonClick}>
-                          <DeleteIcon className={classes.iconLeft} />
-                          <Hidden xsDown>
-                            {t('offer:calendar.deleteOffer')}
-                          </Hidden>
-                        </RedButton>
-                      </div>
-                    </CheckPermission>
-                  </div>
-                  {offer.id && this.props.companyId ? (
-                    <div className={this.props.classes.buttonContainer}>
-                      <CopyToClipboard
-                        text={`${window.location.origin}/customer/payment/offer/${offer.id}?membership=${this.props.companyId}`}
-                      >
-                        <ButtonBase
-                          className={classes.link}
-                          onClick={() =>
-                            this.props.snackbarSuccess('link.copied')
-                          }
-                        >
-                          <LinkIcon />
-                          <Hidden xsDown>
-                            <Typography
-                              align="left"
-                              className={classes.linkTypo}
-                              variant="caption"
-                            >
-                              {t('offer:card.copyLink')}
-                            </Typography>
-                          </Hidden>
-                        </ButtonBase>
-                      </CopyToClipboard>
-                    </div>
-                  ) : null}
-                </div>
-                {this.renderBookingList()}
-              </div>
-            ) : null}
-          </Paper>
-          <Link style={{ textDecoration: 'none' }} to={`/offer/${offer.id}`}>
-            <Button
-              className={classes.manageButton}
-              color="primary"
-              variant="contained"
-            >
-              {t('offer:manageOffer')}
-            </Button>
-          </Link>
-          {!available && (
-            <>
-              <Button
-                className={classes.manageButton}
-                color="secondary"
-                onClick={this.props.onRestoreButtonClick}
-                variant="contained"
-              >
-                {t('offer:restoreOffer')}
-              </Button>
-              <RedButton
-                className={classes.manageButton}
-                onClick={onDeleteButtonClick}
-                variant="contained"
-              >
-                {t('offer:forms.delete.buttonHardDelete')}
-              </RedButton>
-            </>
+            </div>
           )}
-        </div>
+        </ObjectLevelPermissionProvider>
       );
     }
     return null;

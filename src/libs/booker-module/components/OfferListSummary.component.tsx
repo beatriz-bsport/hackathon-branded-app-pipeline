@@ -20,7 +20,11 @@ import moment from 'moment-timezone';
 import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { MaterialStyleType } from '../../../utils/types';
-import { Offer_FULL, OfferStatus } from '../../offer/types';
+import {
+  Offer_FULL,
+  OfferStatus,
+  BOOKING_FOR_GUEST_FREQUENCY,
+} from '#libs/offer/types';
 import OfferBookableItem from './OfferBookableItem.component';
 import DividerLinearGradient from '../../../components/DividerLinearGradient.component';
 import { OfferData, AdditionalGuest } from '../types';
@@ -63,18 +67,14 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
-const BOOKING_FOR_GUEST_EVERY_WEEK = 'every_week';
-const BOOKING_FOR_GUEST_EVERY_MONTH = 'every_month';
-const BOOKING_FOR_GUEST_EVERY_YEAR = 'every_year';
-
 class OfferListSummary extends React.PureComponent<Props> {
   getFrequencyTraduction() {
     switch (this.props.frequencyBookingGuest) {
-      case BOOKING_FOR_GUEST_EVERY_WEEK:
+      case BOOKING_FOR_GUEST_FREQUENCY.WEEK:
         return this.props.t('booking:offer.bookingForAGuest.frequencyWeekly');
-      case BOOKING_FOR_GUEST_EVERY_MONTH:
+      case BOOKING_FOR_GUEST_FREQUENCY.MONTH:
         return this.props.t('booking:offer.bookingForAGuest.frequencyMonthly');
-      case BOOKING_FOR_GUEST_EVERY_YEAR:
+      case BOOKING_FOR_GUEST_FREQUENCY.YEAR:
         return this.props.t('booking:offer.bookingForAGuest.frequencyYearly');
       default:
         return this.props.t('booking:offer.bookingForAGuest.frequencyGeneric');

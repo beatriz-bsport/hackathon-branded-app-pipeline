@@ -420,3 +420,9 @@ export type OfferWithSpotInformation = Offer_FULL & {
   spot_id?: number;
   spot_information?: SpotInformation;
 };
+
+export enum BOOKING_FOR_GUEST_FREQUENCY {
+  WEEK = 'every_week',
+  MONTH = 'every_month',
+  YEAR = 'every_year',
+}

@@ -49,7 +49,7 @@ import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 
 import Tooltip from '@material-ui/core/Tooltip';
 import { useFullScreenWithIconDrawer } from '../../../hooks/useFullScreenWithIconDrawer';
-import Config from '../../../config';
+import Config, { useOldPermissions } from '../../../config';
 import { getTextColorFromRGB } from '../../../utils/color';
 
 import BillingBanner from '../BillingBanner.component';
@@ -380,10 +380,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
       </Grid>
     );
   };
-  const renderContractedMenu = (
-    forced_hide: boolean,
-    useOldPermissions: boolean,
-  ) => {
+  const renderContractedMenu = (forced_hide: boolean) => {
     const isClockIn = lastClockIn?.onGoing;
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) =>
@@ -547,9 +544,6 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   };
   const renderAppBar = (forced_hide: boolean, displayMenuIcon: boolean) => {
     const isClockIn = lastClockIn?.onGoing;
-    const useOldPermissions = // Temporary while former and new set of permissions coexist
-      Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
-      Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging';
     if (hideAppBar) {
       return null;
     }
@@ -760,9 +754,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                       {renderAdditionalButtons()}
                     </Hidden>
                     <Hidden smUp>
-                      <Grid item>
-                        {renderContractedMenu(forced_hide, useOldPermissions)}
-                      </Grid>
+                      <Grid item>{renderContractedMenu(forced_hide)}</Grid>
                     </Hidden>
                   </Grid>
                 </Grid>

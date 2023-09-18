@@ -21,7 +21,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Config from '../config';
+import { useOldPermissions } from '../config';
 import {
   getSearchedMembers,
   withTags,
@@ -202,9 +202,6 @@ export class SearchResults extends React.Component<Props, State> {
     const { t, classes, member, selected } = this.props;
     const hasLoaded = member;
     const isLoadingMember = !hasLoaded && selected;
-    const useOldPermissions = // Temporary while former and new set of permissions coexist
-      Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
-      Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging';
     return (
       <Grid container>
         <Grid item className={classes.root} md={4} xs={12}>

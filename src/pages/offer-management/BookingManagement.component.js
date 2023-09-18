@@ -57,7 +57,7 @@ import { Tag, TagGroup } from '#libs/tag/types';
 import { OptionCallback } from '../../state/types';
 import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
 import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
-import Config from '../../config';
+import Config, { useOldPermissions } from '../../config';
 import ValidationRollCallButton from '#libs/offer/components/ValidationRollCallButton.component';
 import ValidationRollCallText from '#libs/offer/components/ValidationRollCallText.component';
 import { formatAsTime } from '../../utils/datetime';
@@ -372,9 +372,6 @@ export class BookingManagement extends React.PureComponent<Props, State> {
 
   render() {
     const { offer, classes, t, onProgramDetailsClick } = this.props;
-    const useOldPermissions = // Temporary while former and new set of permissions coexist
-      Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
-      Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging';
     return (
       <div className={classes.container}>
         <Dialog

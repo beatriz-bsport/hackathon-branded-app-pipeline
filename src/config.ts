@@ -58,3 +58,10 @@ export function setConfigValue(name: keyof ConfigType, value: string) {
 if (Config.NODE_ENV === 'production') {
   // checkConfigValue('REACT_APP_SENTRY_DSN', true);
 }
+
+// This is a temporary flag to allow us to test the new permissions system,
+// while it is still in development.
+// Use it everywhere there is a conflict between the old and new permissions system.
+export const useOldPermissions =
+  Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
+  Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging';

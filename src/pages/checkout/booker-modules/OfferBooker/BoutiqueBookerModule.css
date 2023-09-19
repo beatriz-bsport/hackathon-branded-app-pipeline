@@ -89,7 +89,7 @@
 }
 
 .bs-new-offer-booking__spot-selector__confirm-button {
-  border-radius: var(--spacing-3);
+  border-radius: var(--border-radius-4);
   flex: 1;
 }
 

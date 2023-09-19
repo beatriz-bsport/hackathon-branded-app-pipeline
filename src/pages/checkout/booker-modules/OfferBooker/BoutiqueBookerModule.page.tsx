@@ -18,7 +18,6 @@ import {
   getMainOfferNotBookableReasonWithTitle,
 } from '@bsport/common/lib/master-data/available-payment';
 import moment from 'moment-timezone';
-import './BoutiqueBookerModule.css';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -162,6 +161,8 @@ import BookingConfirmButtonWithOfferSummary from '#libs/booking/components/Booki
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 import BookerModuleOfferSummary from '#libs/marketplace/components/@Offer/BookerModuleOfferSummary';
+
+import './BoutiqueBookerModule.css';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
 

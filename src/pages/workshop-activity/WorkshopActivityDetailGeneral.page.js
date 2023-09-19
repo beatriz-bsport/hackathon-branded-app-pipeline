@@ -194,44 +194,49 @@ export class WorkshopActivity extends Component<Props, State> {
         }
       : null;
     return (
-      <div className={this.props.classes.container}>
-        {this.props.loading ? <LinearProgress /> : null}
-        <MetaActivityDetail
-          activities={this.props.id}
-          createNotification={this.props.createNotification}
-          deleteNotification={this.props.deleteNotification}
-          emailDetailLoading={this.props.emailDetailLoading}
-          emailDetails={this.props.email_templates_details}
-          emailListLoading={this.props.emailListLoading}
-          emails={this.props.email_templates_list}
-          events={this.props.events}
-          fetchOffersByDay={this.props.fetchOffersByDay}
-          getEmailDetail={this.props.fetchEmailTemplateDetail}
-          getEmails={this.props.fetchEmailTemplatesSummaries}
-          getSmartLists={this.props.getSmartLists}
-          goToOffer={this.props.goToOffer}
-          goToSmartlist={this.props.goToSmartlist}
-          metaActivity={workshopActivity}
-          notifications={this.props.notifications}
-          offers={this.props.offers.filter(
-            (o) => o.meta_activity === this.props.id,
-          )}
-          offersLoading={this.props.offersLoading}
-          onEdit={this.onEdit}
-          openCreateOfferForm={this.openCreateOfferForm}
-          resolvedGenericTags={this.props.resolvedGenericTags}
-          smartLists={this.props.smartLists}
-          tags={this.props.tagCategories}
-          updateNotification={this.props.updateNotification}
-        />
-
-        <ObjectLevelPermissionProvider
-          requiredPermission={[
-            'management.workshop.allowed_actions.edit',
-            'management.workshop.allowed_actions.delete',
-          ]}
-        >
-          {([hasEditPermission, hasDeletePermission]) => (
+      <ObjectLevelPermissionProvider
+        requiredPermission={[
+          'management.workshop.allowed_actions.edit',
+          'management.workshop.allowed_actions.delete',
+          'session.workshop.allowed_actions.create',
+        ]}
+      >
+        {([
+          hasEditPermission,
+          hasDeletePermission,
+          hasAddSessionPermission,
+        ]) => (
+          <div className={this.props.classes.container}>
+            {this.props.loading ? <LinearProgress /> : null}
+            <MetaActivityDetail
+              activities={this.props.id}
+              canAddOffer={hasAddSessionPermission}
+              createNotification={this.props.createNotification}
+              deleteNotification={this.props.deleteNotification}
+              emailDetailLoading={this.props.emailDetailLoading}
+              emailDetails={this.props.email_templates_details}
+              emailListLoading={this.props.emailListLoading}
+              emails={this.props.email_templates_list}
+              events={this.props.events}
+              fetchOffersByDay={this.props.fetchOffersByDay}
+              getEmailDetail={this.props.fetchEmailTemplateDetail}
+              getEmails={this.props.fetchEmailTemplatesSummaries}
+              getSmartLists={this.props.getSmartLists}
+              goToOffer={this.props.goToOffer}
+              goToSmartlist={this.props.goToSmartlist}
+              metaActivity={workshopActivity}
+              notifications={this.props.notifications}
+              offers={this.props.offers.filter(
+                (o) => o.meta_activity === this.props.id,
+              )}
+              offersLoading={this.props.offersLoading}
+              onEdit={this.onEdit}
+              openCreateOfferForm={this.openCreateOfferForm}
+              resolvedGenericTags={this.props.resolvedGenericTags}
+              smartLists={this.props.smartLists}
+              tags={this.props.tagCategories}
+              updateNotification={this.props.updateNotification}
+            />
             <BottomActionButtons
               onDelete={
                 hasDeletePermission && workshopActivity.customer_enabled
@@ -241,42 +246,42 @@ export class WorkshopActivity extends Component<Props, State> {
               onEdit={hasEditPermission && this.onEdit}
               onShare={() => this.props.setOpenWidgetDialog(true)}
             />
-          )}
-        </ObjectLevelPermissionProvider>
 
-        <WorkshopDeleteDialog
-          canDeleteWorkshopChecker={canDeleteWorkshopAPI}
-          deleteWorkshop={() => {
-            this.props.deleteWorkshop(this.props.id, {
-              onSuccess: this.props.goToList,
-            });
-          }}
-          onClose={() => this.setState({ deleteOpen: false })}
-          workshopId={this.state.deleteOpen ? this.props.id : null}
-        />
+            <WorkshopDeleteDialog
+              canDeleteWorkshopChecker={canDeleteWorkshopAPI}
+              deleteWorkshop={() => {
+                this.props.deleteWorkshop(this.props.id, {
+                  onSuccess: this.props.goToList,
+                });
+              }}
+              onClose={() => this.setState({ deleteOpen: false })}
+              workshopId={this.state.deleteOpen ? this.props.id : null}
+            />
 
-        <WidgetGeneratorDialog
-          componentType="workshop"
-          config={{
-            workshop: {
-              metaActivities: [this.props.id],
-            },
-          }}
-          onClose={() => this.props.setOpenWidgetDialog(false)}
-          open={this.props.openWidgetDialog}
-        />
-        <MetaActivityEditDrawer
-          initial={{
-            ...initialData,
-            images: (workshopActivity || {}).images || [],
-          }}
-          onCancel={this.onCancelEdit}
-          onSubmit={this.props.onSubmit}
-          open={this.props.openEditDrawer}
-          SCTs={SCTs}
-          tags={this.props.allTagsWithTagGroup}
-        />
-      </div>
+            <WidgetGeneratorDialog
+              componentType="workshop"
+              config={{
+                workshop: {
+                  metaActivities: [this.props.id],
+                },
+              }}
+              onClose={() => this.props.setOpenWidgetDialog(false)}
+              open={this.props.openWidgetDialog}
+            />
+            <MetaActivityEditDrawer
+              initial={{
+                ...initialData,
+                images: (workshopActivity || {}).images || [],
+              }}
+              onCancel={this.onCancelEdit}
+              onSubmit={this.props.onSubmit}
+              open={this.props.openEditDrawer}
+              SCTs={SCTs}
+              tags={this.props.allTagsWithTagGroup}
+            />
+          </div>
+        )}
+      </ObjectLevelPermissionProvider>
     );
   }
 }

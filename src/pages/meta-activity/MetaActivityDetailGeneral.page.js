@@ -191,44 +191,50 @@ export class MetaActivityDetailGeneral extends PureComponent<Props, State> {
         }
       : null;
     return (
-      <div className={this.props.classes.container}>
-        {this.props.loading ? <LinearProgress /> : null}
-        <MetaActivityDetail
-          coverImages={this.props.metaActivityImages}
-          createNotification={this.props.createNotification}
-          deleteNotification={this.props.deleteMarketingNotification}
-          emailDetailLoading={this.props.emailDetailLoading}
-          emailDetails={this.props.email_templates_details}
-          emailListLoading={this.props.emailListLoading}
-          emails={this.props.email_templates_list}
-          events={this.props.events}
-          fetchOffersByDay={this.props.fetchOffersByDay}
-          getEmailDetail={this.props.fetchEmailTemplateDetail}
-          getEmails={this.props.fetchEmailTemplatesSummaries}
-          getSmartLists={this.props.getSmartLists}
-          goToOffer={this.props.goToOffer}
-          goToSmartlist={this.props.goToSmartlist}
-          metaActivity={metaActivity}
-          notifications={this.props.notifications}
-          offers={this.props.offers.filter(
-            (o) => o.meta_activity === this.props.id,
-          )}
-          offersLoading={this.props.offersLoading}
-          onEdit={this.onEdit}
-          openCreateOfferForm={this.openCreateOfferForm}
-          resolvedGenericTags={this.props.resolvedGenericTags}
-          smartLists={this.props.smartLists}
-          tags={this.props.tagCategories}
-          updateNotification={this.props.updateMarketingNotification}
-        />
+      <ObjectLevelPermissionProvider
+        requiredPermission={[
+          'management.activity.allowed_actions.edit',
+          'management.activity.allowed_actions.delete',
+          'session.activity.allowed_actions.create',
+        ]}
+      >
+        {([
+          hasEditPermission,
+          hasDeletePermission,
+          hasAddSessionPermission,
+        ]: boolean[]) => (
+          <div className={this.props.classes.container}>
+            {this.props.loading ? <LinearProgress /> : null}
+            <MetaActivityDetail
+              canAddOffer={hasAddSessionPermission}
+              coverImages={this.props.metaActivityImages}
+              createNotification={this.props.createNotification}
+              deleteNotification={this.props.deleteMarketingNotification}
+              emailDetailLoading={this.props.emailDetailLoading}
+              emailDetails={this.props.email_templates_details}
+              emailListLoading={this.props.emailListLoading}
+              emails={this.props.email_templates_list}
+              events={this.props.events}
+              fetchOffersByDay={this.props.fetchOffersByDay}
+              getEmailDetail={this.props.fetchEmailTemplateDetail}
+              getEmails={this.props.fetchEmailTemplatesSummaries}
+              getSmartLists={this.props.getSmartLists}
+              goToOffer={this.props.goToOffer}
+              goToSmartlist={this.props.goToSmartlist}
+              metaActivity={metaActivity}
+              notifications={this.props.notifications}
+              offers={this.props.offers.filter(
+                (o) => o.meta_activity === this.props.id,
+              )}
+              offersLoading={this.props.offersLoading}
+              onEdit={this.onEdit}
+              openCreateOfferForm={this.openCreateOfferForm}
+              resolvedGenericTags={this.props.resolvedGenericTags}
+              smartLists={this.props.smartLists}
+              tags={this.props.tagCategories}
+              updateNotification={this.props.updateMarketingNotification}
+            />
 
-        <ObjectLevelPermissionProvider
-          requiredPermission={[
-            'management.activity.allowed_actions.edit',
-            'management.activity.allowed_actions.delete',
-          ]}
-        >
-          {([hasEditPermission, hasDeletePermission]: boolean[]) => (
             <BottomActionButtons
               onDelete={
                 hasDeletePermission
@@ -238,42 +244,42 @@ export class MetaActivityDetailGeneral extends PureComponent<Props, State> {
               onEdit={hasEditPermission ? this.onEdit : null}
               onShare={() => this.props.setOpenWidgetDialog(true)}
             />
-          )}
-        </ObjectLevelPermissionProvider>
 
-        <MetaActivityDeleteDialog
-          canDeleteMetaActivityChecker={canDeleteMetaActivityAPI}
-          deleteMetaActivity={() => {
-            this.props.deleteMetaActivity(this.props.id, {
-              onSuccess: this.props.goToList,
-            });
-          }}
-          metaActivityId={this.state.deleteOpen ? this.props.id : null}
-          onClose={() => this.setState({ deleteOpen: false })}
-        />
+            <MetaActivityDeleteDialog
+              canDeleteMetaActivityChecker={canDeleteMetaActivityAPI}
+              deleteMetaActivity={() => {
+                this.props.deleteMetaActivity(this.props.id, {
+                  onSuccess: this.props.goToList,
+                });
+              }}
+              metaActivityId={this.state.deleteOpen ? this.props.id : null}
+              onClose={() => this.setState({ deleteOpen: false })}
+            />
 
-        <WidgetGeneratorDialog
-          componentType="calendar"
-          config={{
-            calendar: {
-              metaActivities: [this.props.id],
-            },
-          }}
-          onClose={() => this.props.setOpenWidgetDialog(false)}
-          open={this.props.openWidgetDialog}
-        />
-        <MetaActivityEditDrawer
-          initial={{
-            ...initialData,
-            images: (metaActivity || {}).images || [],
-          }}
-          onCancel={this.onCancelEdit}
-          onSubmit={this.props.onSubmit}
-          open={this.props.openEditDrawer}
-          SCTs={SCTs}
-          tags={this.props.allTagsWithTagGroup}
-        />
-      </div>
+            <WidgetGeneratorDialog
+              componentType="calendar"
+              config={{
+                calendar: {
+                  metaActivities: [this.props.id],
+                },
+              }}
+              onClose={() => this.props.setOpenWidgetDialog(false)}
+              open={this.props.openWidgetDialog}
+            />
+            <MetaActivityEditDrawer
+              initial={{
+                ...initialData,
+                images: (metaActivity || {}).images || [],
+              }}
+              onCancel={this.onCancelEdit}
+              onSubmit={this.props.onSubmit}
+              open={this.props.openEditDrawer}
+              SCTs={SCTs}
+              tags={this.props.allTagsWithTagGroup}
+            />
+          </div>
+        )}
+      </ObjectLevelPermissionProvider>
     );
   }
 }

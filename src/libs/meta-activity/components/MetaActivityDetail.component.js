@@ -30,6 +30,7 @@ type Props = {
   openCreateOfferForm: () => void,
   offersLoading: boolean,
   goToOffer: (Offer) => void,
+  canCreateOffer: boolean,
 
   getEmails: () => void,
   emails: Array<any>,
@@ -107,17 +108,19 @@ export const MetaActivityDetail = (props: Props) => {
             onOfferSelected={props.goToOffer}
           />
         </Paper>
-        <div className={classes.addOfferButton}>
-          <Fab
-            aria-label="Add"
-            color="primary"
-            onClick={props.openCreateOfferForm}
-            variant="extended"
-          >
-            <AddIcon className={classes.leftIcon} />
-            {t('addOffers')}
-          </Fab>
-        </div>
+        {props.canCreateOffer && (
+          <div className={classes.addOfferButton}>
+            <Fab
+              aria-label="Add"
+              color="primary"
+              onClick={props.openCreateOfferForm}
+              variant="extended"
+            >
+              <AddIcon className={classes.leftIcon} />
+              {t('addOffers')}
+            </Fab>
+          </div>
+        )}
       </Grid>
     </Grid>
   );

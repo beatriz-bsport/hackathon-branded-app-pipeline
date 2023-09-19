@@ -110,9 +110,7 @@ exports.default = {
       helperText: 'select appointments',
     },
     level: {
-      allLevels: 'all levels',
       beginner: 'beginner',
-      intermediate: 'intermediate',
       advanced: 'advanced',
       select: 'select a level',
       warning: 'Select at least one level',
@@ -183,7 +181,6 @@ exports.default = {
     sendError: 'Error while sending email',
   },
   smart_list: {
-    card: { description: 'Description' },
     actions: { configure: 'Configure', campaign: 'Campaigns' },
     list: { title: 'Smartlists', detailTitle: 'Smartlist details' },
     name: 'Name',
@@ -571,30 +568,11 @@ exports.default = {
     add: 'Add',
     before: 'before',
     after: 'after',
-    classic_comparators: {
-      1: 'lower (⩽)',
-      2: 'greater (⩾)',
-      3: 'strictly lower',
-      4: 'strictly greater',
-      5: 'equal',
-    },
     durations_comparators: {
       [LTE_COMPARATOR]: 'less than (⩽)',
       [GTE_COMPARATOR]: 'more than (⩾)',
       [E_COMPARATOR]: 'exactly',
       [BETWEEN_COMPARATOR]: 'between two',
-    },
-    undefined: {
-      name: 'Purchase date and credits per pass',
-      infoIcon: 'Unlimited passes are not filtered on credit',
-      first: 'Has bought pass',
-      second: 'between',
-      third: 'and',
-      fourth: 'and has',
-      fifth: 'credits on it',
-      info: 'Blocked passes and blocked appointment passes are also taken into account',
-      between: 'and',
-      explanation: 'Has X number of valid passes or appointment passes',
     },
     all: 'All',
     isEmpty:

@@ -13,9 +13,6 @@ exports.default = {
   pleaseFill: 'Please enter a teacher',
   emptyDescription: "There's no description available.",
   selector: {
-    coach: {
-      label: 'Teacher',
-    },
     label: 'Teacher',
     disabled: 'Archived teachers',
     enabled: 'Active teachers',
@@ -40,14 +37,12 @@ exports.default = {
     update: 'Edit',
   },
   forms: {
-    error: 'Unable to save coach',
     error_email_exists:
       'A teacher with this email address already exists, please use the new teacher form',
     linkByEmail: {
       cancel: 'Cancel',
       submit: 'Confirm',
       title: "Teacher's email address",
-      success: 'Teacher successfully linked',
       emailLabel: 'Email',
       explain:
         "If this email already exists in our database, we'll automatically create the teacher's account.",
@@ -66,8 +61,6 @@ exports.default = {
       },
     },
     delete: {
-      success: 'Teacher deleted',
-      error: 'Impossible to delete this teacher',
       content: {
         cannotDelete:
           'This teacher is booked in for upcoming sessions and can therefore not be deleted!',

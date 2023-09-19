@@ -51,18 +51,11 @@ exports.default = {
   filterByDateTitle: 'Filter by: date',
   detailsGraphTitle: 'Details',
   current_day: 'Last 24 hours',
-  popover: {
-    bookingsWeektimeSlot: 'Average number of sessions per time slot',
-    billedSubscriptions:
-      'Number of invoices linked to a non-cancelled subscription',
-    turnover: 'Sum of all payments received on invoices',
-  },
   billedSubscriptions: {
     title: 'Number of invoiced subscriptions',
     caption: 'Subscriptions',
     popover: 'The number of invoices linked to a non-canceled subscription',
   },
-  turnoverTitle: 'Revenue',
   bookingsWeektimeSlot: {
     popover: 'Average number of sessions per time slot',
     title: 'Average',
@@ -74,11 +67,6 @@ exports.default = {
   noData: 'There is no data to display.',
   bookingSource: {
     title: 'Sources of the bookings',
-    app: 'Application',
-    web: 'Web',
-    saas: 'Backoffice bsport',
-    other: 'Other',
-    migration: 'Data migration',
   },
   plannedPayment: {
     title: 'Turnover of the subscriptions',
@@ -87,14 +75,6 @@ exports.default = {
   },
   invoiceItems: {
     title: 'Sales by product type',
-    contentType: {
-      1: 'Passes',
-      2: 'Shop products',
-      6: 'Shipping costs',
-      7: 'Promotion',
-      9: 'Appointment pass',
-      10: 'Packs',
-    },
   },
   invoiceItemDropdown: {
     contentType: {
@@ -255,7 +235,6 @@ exports.default = {
     franchisor_commission_amount: 'Franchise fees inc. tax',
     total_price_notax: 'Total amount exc. tax',
     total_price: 'Total amount inc. tax',
-    invoice_date_created: 'Date invoice issued',
     author: 'Author',
     invoiceitem_pk: 'Number of items billed',
     staff_commission_amount: 'Staff commission fees incl. VAT',

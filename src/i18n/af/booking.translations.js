@@ -215,9 +215,6 @@ exports.default = {
         refunded: 'Timely cancellations',
         absence: 'Absence',
       },
-      bookingNumber: 'All bookings',
-      bookingNumber_plural: '1st booking',
-      bookingNumber_n: 'Booking nº{{notify_booking_nb}}',
       bookingNumberFirst: 'Booking: 1',
       bookingNumberSecond: 'Booking: 2',
       bookingNumberThird: 'Booking: 3',
@@ -376,7 +373,6 @@ exports.default = {
   setSpot: 'Assign a spot',
   changeSpot: 'Change your spot',
   noSpotAttributed: 'Please allocate a spot',
-  placeNumber: 'Place {{count}}',
   performanceTracking: { stat: 'Statistics' },
   attendanceUpdatedOn: 'Updated on {{- d }} at {{- t }}',
   guest: {

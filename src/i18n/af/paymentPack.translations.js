@@ -25,8 +25,6 @@ exports.default = {
     },
     refund: {
       actions: { submit: 'Save', cancel: 'Cancel' },
-      warning:
-        'Please note, this operation is irreversible (invoice generation).',
       explain:
         "Choose the number of credits to be reimbursed as well as the total value that will be credited on the member's deposit",
       credits: { label: 'Credit to deduct' },
@@ -180,10 +178,6 @@ exports.default = {
       tax: { label: 'VAT / Sales tax' },
       startOnFirstUse: 'The validity starts on the day of the first booking',
       name: { label: 'Name', helperText: 'Name for the payment pack' },
-      price: {
-        label: 'Pric incl. taxes',
-        helperText: 'Price for user for the whole pack',
-      },
       credits: {
         label: 'Credit(s)',
         helperText:
@@ -397,10 +391,6 @@ exports.default = {
   subscribeToOffer: 'Register',
   use: 'Use',
   isNonCompatible: 'non-compatible',
-  createOrUpdate: {
-    success: 'Pass successfully saved',
-    fail: 'Error: pass would not be saved',
-  },
   disableConsumer: 'Block',
   enableConsumer: 'Unblock',
   credit: { updated: 'Changes saved' },
@@ -450,15 +440,12 @@ exports.default = {
     close: 'Close',
   },
   specifications: {
-    price: '{{ price, price }}',
     unlimitedCredits: 'Unlimited',
     nbCredits: '{{credits}} credit',
     nbCredits_plural: '{{credits}} credits',
   },
   ht: 'Excl. VAT / Sales Tax',
   validForDuration: {
-    general:
-      'Valid for {{ duration_days }} day(s), {{ duration_months }} month(s), and/or {{ duration_years }} year(s).',
     years: '{{ count }} year',
     years_plural: '{{ count }} years',
     months: '{{ count }} month(s)',

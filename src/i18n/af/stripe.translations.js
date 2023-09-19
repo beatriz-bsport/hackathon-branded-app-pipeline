@@ -14,8 +14,6 @@ exports.default = {
     insufficient_funds: 'Your card has insufficient funds.',
     payment_intent_authentication_failure: 'Your bank refused the payment.',
     unknown: 'A network error occurred. Try again later.',
-    lost_card: null,
-    stolen_card: null,
     no_established_connection: 'There are no connected terminals to display.',
     network_error: 'Network error, please try again in a few moments',
     network_timeout: 'Network error, please try again in a few moments',
@@ -23,7 +21,6 @@ exports.default = {
     discovery_too_many_readers: 'Unable to connect, too many terminals around',
     setup_intent_authentication_failure:
       'Unable to save this card. Please try another payment method.',
-    none: ' ',
     reader_error:
       'An error has occurred. Make sure your terminal is online and connected to the same wifi network as your device.',
     reader_not_found:
@@ -34,7 +31,6 @@ exports.default = {
     email_invalid: 'The email address is invalid.',
   },
   error_code: {
-    none: ' ',
     incomplete_number: 'Your card number is incomplete.',
     incomplete_expiry: "Your card's expiration date is incomplete.",
     invalid_expiry_year_past: 'Your card is no longer valid.',
@@ -55,7 +51,6 @@ exports.default = {
     email_invalid: 'The email address is invalid.',
   },
   decline_code: {
-    none: ' ',
     card_not_supported: "Your card couldn't be recognized.",
     incorrect_number: "Your card's number is invalid.",
     incorrect_cvc: 'Your security code is invalid.',

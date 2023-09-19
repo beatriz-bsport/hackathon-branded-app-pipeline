@@ -6,16 +6,12 @@ exports.default = {
   subscriptionTitle: 'Subscriptions',
   offers_joined: 'Activities joined',
   pass_owner: 'Not valid',
-  bornIn: 'Birthday ',
   memberSince: 'Sign up date ',
   showNextBooking: 'Show next bookings',
   nextBooking: 'next: ',
-  noNoteSaved: 'No note saved yet',
   showPreviousBooking: 'Show past bookings',
-  previousBooking: 'previous: ',
   engagement: 'Commitment',
   addMember: 'Add a member',
-  showNotes: 'Show notes',
   creditAccountBalance: 'Client account balance',
   showPaymentPack: 'Show pass',
   showInvoices: 'Show invoices',
@@ -50,7 +46,6 @@ exports.default = {
   menu: {
     info: 'General',
     bookings: 'Bookings',
-    relations: 'Relationships',
     paymentPack: 'Passes',
     invoices: 'Invoices & Subscriptions',
     payment: 'Billing',
@@ -137,7 +132,6 @@ exports.default = {
     merge: 'Merge',
     quicksale: 'Select this member',
   },
-  link: { success: 'Member linked' },
   linkDialog: {
     title: 'Linking account',
     content:
@@ -301,11 +295,6 @@ exports.default = {
             content:
               'Your account hasn\'t been merged with "{{ new_email }}". Use your current login details associated with "{{ old_email}}" for your account.',
             title: 'Merger has been rejected',
-          },
-          accept: {
-            content:
-              'Your account has been successfully merged with "{{ old_email }}". You\'ve been registered with {{- company }} and you can use the login details associated with "{{ new_email }}" from now on.',
-            title: 'Merger has been accepted',
           },
           accepted: {
             title: 'Merger has been accepted',

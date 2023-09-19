@@ -484,7 +484,6 @@ exports.default = {
   plannedPaymentEvent: {
     actions: {
       edit: 'Edit',
-      delete: 'Cancel',
       registerNow: 'Take payment now',
       enable: 'Activate',
       disable: 'Deactivate',
@@ -506,8 +505,6 @@ exports.default = {
     unrecoverableError: 'Error during payment.',
   },
   mandate: {
-    content:
-      'By completing this payment and by using your IBAN, you authorize BSPORT Solution and Stripe (our payment processor) to start billing you for all payments. You can request refunds through your bank and should be done within 8 weeks of the first payment.',
     email: 'Email address',
     name: "Account holder's full name",
     address_line_1: 'Address line 1',

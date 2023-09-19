@@ -72,7 +72,6 @@ exports.default = {
     member: 'Member registration',
     offer: 'Sessions',
     booking: 'Bookings',
-    waitingList: 'Waiting-list',
     subscription: 'Subscriptions',
     'waiting-list': 'Waitlists',
     private_booking: 'Appointments',
@@ -393,12 +392,6 @@ exports.default = {
     [NOTIFICATION_SPIVI_PERFORMANCE]: 'Spinning session performance',
     [NOTIFICATION_SPIVI_COACH_ACCOUNT_CREATED]:
       'Spivi account created (for teachers)',
-  },
-  messages: {
-    createOrUpdate: {
-      success: 'Successfully saved',
-      error: 'Impossible to save',
-    },
   },
   pageTitle: 'Transactional notifications',
   caption: {

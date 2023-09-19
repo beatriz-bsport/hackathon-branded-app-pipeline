@@ -129,8 +129,6 @@ exports.default = {
     members: 'Members',
     franchises: 'Studios',
     reporting: 'Reports',
-    paymentPack: 'Passes',
-    widget: 'Widgets',
     settings: 'Settings',
     staff: 'Staff',
     widgets: 'Widget',

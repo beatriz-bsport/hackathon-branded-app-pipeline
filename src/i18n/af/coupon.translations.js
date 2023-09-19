@@ -158,21 +158,6 @@ exports.default = {
       not_applicable: 'This promo code is not applicable.',
     },
   },
-  message: {
-    delete: {
-      error: 'Impossible to delete this coupon',
-      success: 'Coupon delete',
-    },
-    update: {
-      error: 'Impossible to edit this coupon',
-      success: 'Coupon updated successfully',
-    },
-    create: {
-      error: 'Impossible to create this coupon',
-      success: 'Coupon save successfully',
-    },
-    attachToBasket: { error: 'No compatible coupon found' },
-  },
   modal: {
     delete: {
       actions: { submit: 'Delete', cancel: 'Cancel' },

@@ -55,7 +55,6 @@ exports.default = {
   seeAll: 'See all',
   franchiseEmails: '[Master Account] Email Templates',
   companieEmails: 'Templates',
-  bsportTemplateEmail: 'Bsport Templates',
   infoBsportTemplateEmails:
     'If you want to send communications or edit the templates in this section, it is necessary to create a copy of the desired template. Then select the copy of the email when sending a communication.',
   bsportTemplateEmails: 'Bsport Templates',

@@ -514,7 +514,6 @@ exports.default = {
         label: 'Validity (in months)',
       },
       durationDays: {
-        helperText: 'Validity of this pass (in days) ',
         label: 'Validity (in days)',
       },
       full_vod_access: { label: 'Activate access to Video On Demand' },
@@ -879,8 +878,6 @@ exports.default = {
         title: 'Settings',
       },
       chooseWhen: {
-        after: 'Send this notification after the end of the appointment',
-        before: 'Send this notification before the start of the appointment',
         title: 'Event',
         afterNotification:
           'Send the push notification before the start of the appointment',

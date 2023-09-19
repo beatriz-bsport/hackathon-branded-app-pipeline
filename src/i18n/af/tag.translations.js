@@ -96,7 +96,6 @@ exports.default = {
       smartlist_count: 'Tag Rules',
       member_count: 'Tagged members',
       tag: 'Sub Tag',
-      coupon_count: ' ',
       offer_count: 'Linked sessions',
     },
     submit: 'Confirm',

@@ -170,7 +170,6 @@ exports.default = {
       name: { label: 'Name' },
       nb_interval: {
         label: 'Number of bills',
-        helperText: 'Minimum is 2 months',
         error: 'The number of billings should not exceed 90',
         errorForFixedBillingDay: 'The number of billings should not exceed 12',
         restrictionForFixedBillingDay:
@@ -215,7 +214,6 @@ exports.default = {
           year_plural: 'years',
         },
         label: 'Repeat every',
-        helperText: ' ',
       },
       recurrence: {
         explain:
@@ -439,8 +437,6 @@ exports.default = {
   mandate: {
     name: 'Full name',
     email: 'Email',
-    content:
-      'By providing your IBAN and confirming this payment, you are authorizing bsport.io and Stripe, our payment service provider, to send instructions to your bank to debit your account and your bank to debit your account in accordance with those instructions. You are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited.',
     contentIban:
       'By providing your IBAN and confirming your payment, you authorise bsport and Stripe, our payment system, to send debit instructions to your bank in accordance with the payment schedule. You may request a refund from your bank in accordance with the terms of your contract with your bank. A refund must be requested within 8 weeks of the first debit.',
     contentBacsDebit:
@@ -469,88 +465,6 @@ exports.default = {
       label: 'Payment date',
       actions: { submit: 'Save', cancel: 'Cancel' },
       explain: 'Only this future invoice will be modified',
-    },
-  },
-  pause: {
-    pausedInterval: '{{start}} → {{ end }} : {{ days }} days',
-    pausedAt: '{{days}} day(s) - {{date}}',
-    actions: { delete: 'Cancel pause' },
-    secondaryLabel: ' : {{ note }}',
-    label: 'Pause from {{- fromDate}} to {{- untilDate}}',
-    createdAt: 'Paused at ',
-    dialogs: {
-      success: {
-        content:
-          'The {{subscriptionName}} subscription of {{subscriberName}} has been paused from {{- dateStart}} to {{- dateEnd}} included.',
-        continue: 'Continue',
-        title: 'Pausing the subscription',
-      },
-      form: {
-        confirm: 'Save',
-        information2:
-          'The expiry date of the pass will be extended by the number of days of the pause and the pass will remain valid during the pause.',
-        information:
-          'Subscriptions will be paused from {{- dateStart}} to {{- dateEnd}} included. Their next billing will be postponed by {{count}} days, as well as all future billings.',
-        information_plural:
-          'Subscriptions will be paused from {{- dateStart}} to {{- dateEnd}} included. Their next billing will be delayed by {{count}} days, as well as all future billings.',
-        duration: {
-          warning: 'The end date cannot be earlier than the start date',
-          end: 'End date (included)',
-          start: 'Start date (included)',
-          title: 'Duration of the pause',
-        },
-        causePlaceholder: 'Reason *',
-        titleEdition: 'Change the pause',
-        titleCreation: 'Paused',
-      },
-      fail: {
-        comeback: 'Back',
-        contentUnknownError:
-          'An unforeseen error has occurred. We apologise for any inconvenience caused.',
-        contentCanNotCreateAPauseInThePast:
-          'The pause cannot start in the past.',
-        contentCanNotEditPauseEndBeforeToday:
-          'The new start date for the break cannot be set before today.',
-        contentCanNotEditPauseStartWhenHasStarted:
-          'The start date of the pause cannot be changed once it has begun.',
-        contentSubscriptionWillEndBeforePause:
-          'The subscription cannot be paused during this period as it will have ended before.',
-        contentCanNotCancelPause:
-          'As the pause has already started or has already passed, it cannot be cancelled.',
-        contentInvalidTimedelta: 'The pause should last at least one day.',
-        contentOverlapPause:
-          'The {{subscriptionName}} subscription of {{subscriberName}} could not be paused because a pause is already scheduled from {{- dateStart}} to {{- dateEnd}}.',
-        contentIncomingBill:
-          'The {{subscriptionName}} subscription of {{subscriberName}} could not be paused because an invoice in the pause interval will be billed within 24 hours or has a payment in progress. Please change the start date of the break.',
-        title: 'Pause Failed',
-      },
-      delete: {
-        content: 'Are you sure you want to deprogram this pause?',
-        title: 'Cancel the pause',
-      },
-      common: { confirm: 'Confirm', cancel: 'Cancel' },
-    },
-    eventItems: {
-      pauseDeleted: 'Reason for previous pause: {{pause_name}}',
-      pauseCreatedThenDeleted: 'This pause has been deleted or modified.',
-      pauseCreated:
-        'From {{- dateStart}} to {{- dateEnd}} - Created on {{- dateCreation}} by {{staffName}}',
-    },
-    menu: { change: 'Change the dates', delete: 'Deactivate' },
-  },
-  messages: {
-    youSubscribed: {
-      success: 'You have successfully subscribed',
-      error: 'Error while subscribing',
-    },
-    updatePrice: {
-      error: 'Impossible to update this amount',
-      success: 'Amount updated',
-    },
-    freeze: {
-      error: 'Impossible to pause this subscription',
-      alreadyPaused: 'Impossible to pause a subscription already paused',
-      success: 'Subscription paused',
     },
   },
   save: 'save',
@@ -584,53 +498,6 @@ exports.default = {
   },
   scheduledStop: { label: 'Terminated', unscheduleStop: 'Unschedule the stop' },
   end: { renew: 'Auto-renew', noRenew: 'End the subscription' },
-  contractPause: {
-    form: {
-      dateFilter: {
-        label:
-          'Only pause the subscriptions with invoices that are charged between two dates',
-      },
-      invalidBillingPlan:
-        'The following subscriptions cannot be paused automatically',
-      explainImpossible:
-        'If a payment is in progress, or expected within 24h, the subscription cannot be paused automatically',
-      validBillingPlan: 'The following subscriptions will be paused',
-      untilDate: { label: 'and the ' },
-      fromDate: { label: 'Billed between the ' },
-      advanced: 'Advanced',
-      days: {
-        helperText: 'Number of days the subscriptions will be paused',
-        label: 'Number of days',
-      },
-      name: { label: 'Note', placeholder: 'Studio closed Bank Holiday' },
-      warning: 'Warning, on certain subscriptions, pausing cannot be undone',
-      title: 'Pause all subscriptions',
-      paymentPackActions: {
-        disableTillNextInvoice:
-          'Deactivate the billed pack until the next billing',
-        extendTillNextInvoice:
-          'Extend the validity of the invoiced pass until the next invoice',
-        doNotChange: 'Do not change the pass that was billed',
-        title: 'Settings',
-      },
-    },
-    actions: {
-      verify: 'Verify',
-      add: 'Pause',
-      submit: 'Put on pause',
-      cancel: 'Cancel',
-      previous: 'Previous',
-    },
-    section: {
-      error: 'Error when pausing {{count}} subscription automatically',
-      error_plural: 'Error when pausing {{count}} subscriptions automatically',
-      success: '{{count}} paused subscription',
-      success_plural: '{{count}} paused subscriptions',
-    },
-    createdAt: 'Created {{at}}',
-    title: 'Pause all subscriptions',
-    fromUntil: 'Only if invoiced between {{from}} and {{until}} included',
-  },
   seeMore: 'Show more',
   search: 'Search a subscription',
   notificationToolTip: 'Notifications are set for this subscription',
@@ -650,7 +517,6 @@ exports.default = {
     },
     notificationType: {
       title: 'Type of notification',
-      sendNotification: 'Send the notification',
       day: 'Day',
       day_plural: 'Days',
       hour: 'Hour',

@@ -13,7 +13,6 @@ exports.default = {
     cancelled_bookings: 'Cancelled bookings',
     confirmed_bookings: 'Attendees',
     unpaid_private_booking: 'Unpaid appointments.',
-    nb_private_bookings: ' ',
     coachName: 'Teacher',
     total_on_appointments: 'Remuneration (Appointments)',
     total_on_sessions: 'Remuneration (Group activities & Workshops)',
@@ -24,7 +23,6 @@ exports.default = {
     marginValue: 'Marginal value',
   },
   table: {
-    download: 'Download',
     downloadAll: 'Export payroll',
     downloadPDF: 'Download (PDF)',
     downloadCSV: 'Download (CSV)',
@@ -46,7 +44,6 @@ exports.default = {
   performance: {
     table: {
       header: {
-        confirmedBookings: ' ',
         nbSessions: 'Number of group activities',
         coachName: 'Teacher',
       },

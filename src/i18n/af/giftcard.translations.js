@@ -24,7 +24,6 @@ exports.default = {
       description: { label: 'Description' },
       available_payment_method_identifiers: {
         label: 'Available payment methods',
-        helperText: ' ',
       },
       name: { label: 'Name' },
       title: 'Gift card',
@@ -144,8 +143,6 @@ exports.default = {
       validityDetail_plural: 'Validity before expiration : {{count}} days',
       validity: 'Valid {{count}} day',
       validity_plural: 'Valid {{count}} days',
-      deleteDialogContent:
-        'By deactivating a shared gift card, members with that pass will only be able to use it in the studio where it was purchased.',
       deleteInstanceContent2:
         'Finally, gift cards that were purchased in other studios will no longer be usable in the deactivated studio, regardless of when they were purchased.',
       deleteInstanceContent1:

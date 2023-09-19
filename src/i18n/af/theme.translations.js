@@ -57,7 +57,6 @@ exports.default = {
       },
       consumerRegularizeDebt:
         'Allow members to regularize their outstanding debts with online payments',
-      acceptDoubleBooking: 'Accept double bookings',
       workshopsCustomer: 'Show workshops on the calendar of your members',
       cancelledOffersCustomer:
         'Show cancelled sessions on the calendar of your members',
@@ -267,17 +266,6 @@ exports.default = {
       label: 'Secondary color',
       helperText: 'Choose a complementary theme color.',
     },
-    default_booking_ordering: {
-      date: 'Sort by most recent booking date',
-      firstname: 'Sort by first name',
-      lastname: 'Sort by last name',
-      title: 'Select bookings sort on offer page',
-    },
-    default_attendance: {
-      present: 'Member present',
-      missing: 'Member missing',
-      title: 'Default status for a booking made by a member',
-    },
     websiteURL: {
       label: 'Website',
       helperText: 'Use this field to add the link to your own website.',
@@ -337,7 +325,6 @@ exports.default = {
       info: "Enter the name and value of your Provincial Tax here. On all the products of the platform indicate the total tax applied (Federal Tax + Provincial Tax). The Federal and Provincial Tax will be indicated on your customers' invoices.",
       title: 'Provincial Tax',
     },
-    acceptGuest: 'Allow booking for a guest',
     allowGuest: {
       title: 'Allow the booking for a guest feature',
       frequencies: {
@@ -381,12 +368,6 @@ exports.default = {
         subTitle: 'Product order',
       },
     },
-  },
-  general_terms_and_conditions: {
-    label: 'General terms and conditions',
-    helperText: 'Must be accepted for all payment and subscription',
-    placeholder:
-      'I certify being allowed by my doctor to practice this activity.',
   },
   pageTitles: {
     theme: 'General',

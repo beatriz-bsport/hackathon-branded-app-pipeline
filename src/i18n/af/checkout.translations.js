@@ -167,7 +167,6 @@ exports.default = {
     cancel: 'Cancel',
     label: 'Available amount: ',
     use: 'Use my internal account balance',
-    use_minimal: 'Use',
     myInternalAccount: 'My internal account balance',
     useMyInternalAccount: 'Use my internal account credit',
     useAsManager: 'Use the internal account credit',

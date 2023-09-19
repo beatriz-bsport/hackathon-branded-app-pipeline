@@ -13,7 +13,6 @@ exports.default = {
   },
   invoice: {
     invoiceEdit: 'Invoice',
-    invoiceCreatePage: 'Create Invoice',
     invoiceList: 'Invoices',
     invoiceCreate: 'Bill',
   },
@@ -25,7 +24,6 @@ exports.default = {
   },
   order: { orderList: 'Orders', orderDetail: 'Order' },
   metaActivity: {
-    metaActivity: 'Activities',
     metaActivityEditForm: '[Form] Group activity',
     metaActivityList: 'Activities',
     metaActivityFormPage: '[Form] Group activity',
@@ -34,7 +32,6 @@ exports.default = {
   },
   coupon: {
     couponCreate: 'Create coupon',
-    couponDetail: '{{name}}',
     couponEdit: 'Coupon form',
     couponList: 'Promotions',
   },
@@ -79,9 +76,7 @@ exports.default = {
   planning: 'Calendar',
   settings: 'Settings',
   shop: 'Webshop',
-  coachList: 'Teachers',
   offerManagement: 'Bookings',
-  metaActivityFormPage: 'Activity form',
   offerFormPage: 'Add sessions',
   searchResults: 'Search',
   privateService: { serviceList: 'Appointments' },

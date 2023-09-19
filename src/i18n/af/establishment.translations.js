@@ -9,14 +9,12 @@ exports.default = {
   pleaseFill: 'Please enter an establishment',
   noMoreOffers: 'No more sessions planned',
   addButton: 'Add an establishment',
-  goBackToList: 'Back to establishments',
   update: {
     imageUploaderRequireEditMessage:
       "Once you've added your establishment, you'll be able to add additional images.",
   },
   capacity: {
     label: 'Maximum capacity',
-    placeholder: ' ',
     helperText:
       "This number will only be used to manage this establishment's availability for appointments.",
     explain: 'Capacity: {{capacity}} slot',
@@ -30,17 +28,11 @@ exports.default = {
   form: { new: { title: 'Title' } },
   card: { update: 'Update' },
   forms: {
-    error: 'Unable to save establishment',
-    create: { success: 'Establishment added', title: 'New establishment' },
+    create: { title: 'New establishment' },
     update: {
-      success: 'Establishment details updated',
       title: 'Update establishment',
     },
     delete: {
-      message: {
-        error: 'Impossible to delete this establishment',
-        success: 'Establishment deleted',
-      },
       content: {
         cannotDelete:
           "This establishment can't be deleted, because you haven't cancelled and deleted the upcoming sessions that are linked to this establishment.",

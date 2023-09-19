@@ -83,16 +83,6 @@ exports.default = {
     },
   },
   genericCardDetails: {
-    packCard: {
-      comboItemList: {
-        hiddenItem: '{{count}} other element',
-        hiddenItem_plural: '{{count}} other elements',
-        privatePassItem: '{{count}} appointment pass',
-        privatePassItem_plural: '{{count}} appointment passes',
-        paymentPackItem: '{{count}} pass',
-        paymentPackItem_plural: '{{count}} passes',
-      },
-    },
     includedElements: {
       see: 'See',
       penalty: {
@@ -195,22 +185,6 @@ exports.default = {
       hiddenItem: '{{count}} other element...',
       hiddenItem_plural: '{{count}} other elements...',
     },
-  },
-  subscriptionCard: {
-    billingInterval: {
-      year: 'year',
-      year_plural: 'Every {{ count }} years',
-      month: 'month',
-      month_plural: 'Every {{ count }} months',
-      week: 'week',
-      week_plural: 'Every {{ count }} weeks',
-      day: 'day',
-      day_plural: 'Every {{ count }} days',
-    },
-    fees: 'Joining fee : {{ fees }}',
-    invoice: '{{ count }} invoice',
-    invoice_plural: '{{ count }} invoices',
-    registerButton: 'Subscribe',
   },
   packCardDetail: { comboItemList: { content: 'Content' } },
   contractCard: {

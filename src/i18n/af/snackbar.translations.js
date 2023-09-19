@@ -172,7 +172,6 @@ exports.default = {
     },
     freeze: {
       error: 'Impossible to pause this subscription',
-      alreadyPaused: 'Impossible to pause a subscription already paused',
       success: 'Subscription freezed',
       locked: 'Impossible to pause for now, is a payment processing ?',
       deleteSuccess: 'The pause has been removed',
@@ -485,8 +484,6 @@ exports.default = {
     },
     update: { success: 'Teacher successfully updated' },
     create: { success: 'Teacher successfully created' },
-    error_email_exists:
-      'A member already exists with this email. To link them, use the previous modal.',
     error: 'Unable to save teacher',
     linkByEmail: { success: 'Teacher successfully linked' },
     restore: {
@@ -868,7 +865,6 @@ exports.default = {
       'There is no pass available to be able to register to the waiting-list',
 
     generic: 'Error while booking',
-    undefined: 'Your pass has been completely used up for this year',
   },
   customForm: {
     update: {

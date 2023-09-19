@@ -229,9 +229,6 @@
           "refunded": "Timely cancellations",
           "absence": "Absence"
         },
-        "bookingNumber": "All bookings",
-        "bookingNumber_plural": "1st booking",
-        "bookingNumber_n": "Booking nº{{notify_booking_nb}}",
         "bookingNumberFirst": "Booking: 1",
         "bookingNumberSecond": "Booking: 2",
         "bookingNumberThird": "Booking: 3",
@@ -362,7 +359,6 @@
     "setSpot": "Assign a spot",
     "changeSpot": "Change your spot",
     "noSpotAttributed": "Please allocate a spot",
-    "placeNumber": "Place {{count}}",
     "performanceTracking": { "stat": "Statistics" },
     "attendanceUpdatedOn": "Updated on {{- d }} at {{- t }}",
     "guest": {
@@ -562,7 +558,6 @@
       "cancel": "Cancel",
       "label": "Available amount: ",
       "use": "Use my internal account balance",
-      "use_minimal": "Use",
       "myInternalAccount": "My internal account balance",
       "useMyInternalAccount": "Use my internal account credit",
       "useAsManager": "Use the internal account credit"
@@ -653,12 +648,7 @@
     "description": "Description",
     "pleaseFill": "Please enter a teacher",
     "emptyDescription": "There's no description available.",
-    "selector": {
-      "coach": { "label": "Teacher" },
-      "label": "Teacher",
-      "disabled": "Archived teachers",
-      "enabled": "Active teachers"
-    },
+    "selector": { "label": "Teacher", "disabled": "Archived teachers", "enabled": "Active teachers" },
     "performance": {
       "title": "Teacher performance",
       "coachName": "Teacher",
@@ -677,13 +667,11 @@
     "selfNoActivity": "You are not managing any activity.",
     "card": { "update": "Edit" },
     "forms": {
-      "error": "Unable to save coach",
       "error_email_exists": "A teacher with this email address already exists, please use the new teacher form",
       "linkByEmail": {
         "cancel": "Cancel",
         "submit": "Confirm",
         "title": "Teacher's email address",
-        "success": "Teacher successfully linked",
         "emailLabel": "Email",
         "explain": "If this email already exists in our database, we'll automatically create the teacher's account.",
         "emailPlaceHolder": "teacher@bsport.io"
@@ -697,8 +685,6 @@
         }
       },
       "delete": {
-        "success": "Teacher deleted",
-        "error": "Impossible to delete this teacher",
         "content": {
           "cannotDelete": "This teacher is booked in for upcoming sessions and can therefore not be deleted!",
           "canDelete": "Are you sure you want to delete this teacher ? You will not have access to his previous performance. You will still be able to add him again with his email."
@@ -745,7 +731,6 @@
       "cancelled_bookings": "Cancelled bookings",
       "confirmed_bookings": "Attendees",
       "unpaid_private_booking": "Unpaid appointments.",
-      "nb_private_bookings": " ",
       "coachName": "Teacher",
       "total_on_appointments": "Remuneration (Appointments)",
       "total_on_sessions": "Remuneration (Group activities & Workshops)",
@@ -755,12 +740,7 @@
       "netGain": "Net gain",
       "marginValue": "Marginal value"
     },
-    "table": {
-      "download": "Download",
-      "downloadAll": "Export payroll",
-      "downloadPDF": "Download (PDF)",
-      "downloadCSV": "Download (CSV)"
-    },
+    "table": { "downloadAll": "Export payroll", "downloadPDF": "Download (PDF)", "downloadCSV": "Download (CSV)" },
     "addBonus": "Add a rule",
     "dateTitle": "Date range",
     "remuneration": "Remuneration",
@@ -773,9 +753,7 @@
     "fixedPriceForAdditionalBookingHelper": "Flat amount per each session with enough bookings",
     "fixedPriceForAdditionalBookingLabel": "Flat per session",
     "checkboxIncludeABonus": "Include a performance bonus",
-    "performance": {
-      "table": { "header": { "confirmedBookings": " ", "nbSessions": "Number of group activities", "coachName": "Teacher" } }
-    },
+    "performance": { "table": { "header": { "nbSessions": "Number of group activities", "coachName": "Teacher" } } },
     "cachedData": {
       "leavePreviewMode": "Exit Preview Mode",
       "previewModeTitle": "Preview Mode",
@@ -881,7 +859,6 @@
     "mail": {
       "title": "Subject of the message",
       "content": "Content of the email",
-      "missing": "Missing email",
       "success": "Your message has been sent.",
       "error": "Error when sending this message",
       "refreshText": "Refresh the page to see your edits.",
@@ -1076,14 +1053,8 @@
       },
       "writeCommunication": "Send a message"
     },
-    "communication": "Communications",
     "generic": { "history": "History", "communication": "Communication" },
     "thread": {
-      "emptyThread": {
-        "becauseNeverUsed": "You have not yet sent any communication on this channel.",
-        "becauseOfFilters": "No results matching the filters."
-      },
-      "filterOutCommunicationSent": "The communication you just sent is hidden by the active filters.",
       "item": {
         "year": "{{count}} year",
         "year_plural": "{{count}} years",
@@ -1373,12 +1344,6 @@
         "not_applicable": "This promo code is not applicable."
       }
     },
-    "message": {
-      "delete": { "error": "Impossible to delete this coupon", "success": "Coupon delete" },
-      "update": { "error": "Impossible to edit this coupon", "success": "Coupon updated successfully" },
-      "create": { "error": "Impossible to create this coupon", "success": "Coupon save successfully" },
-      "attachToBasket": { "error": "No compatible coupon found" }
-    },
     "modal": {
       "delete": {
         "actions": { "submit": "Delete", "cancel": "Cancel" },
@@ -1507,44 +1472,21 @@
     "filterByDateTitle": "Filter by: date",
     "detailsGraphTitle": "Details",
     "current_day": "Last 24 hours",
-    "popover": {
-      "bookingsWeektimeSlot": "Average number of sessions per time slot",
-      "billedSubscriptions": "Number of invoices linked to a non-cancelled subscription",
-      "turnover": "Sum of all payments received on invoices"
-    },
     "billedSubscriptions": {
       "title": "Number of invoiced subscriptions",
       "caption": "Subscriptions",
       "popover": "The number of invoices linked to a non-canceled subscription"
     },
-    "turnoverTitle": "Revenue",
     "bookingsWeektimeSlot": { "popover": "Average number of sessions per time slot", "title": "Average" },
     "dateFilter": { "customSelect": "Select a data range", "quickSelect": "Quick select" },
     "noData": "There is no data to display.",
-    "bookingSource": {
-      "title": "Sources of the bookings",
-      "app": "Application",
-      "web": "Web",
-      "saas": "Backoffice bsport",
-      "other": "Other",
-      "migration": "Data migration"
-    },
+    "bookingSource": { "title": "Sources of the bookings" },
     "plannedPayment": {
       "title": "Turnover of the subscriptions",
       "caption": "Turnover",
       "popover": "Total sum of all payments received over subscriptions"
     },
-    "invoiceItems": {
-      "title": "Sales by product type",
-      "contentType": {
-        "1": "Passes",
-        "2": "Shop products",
-        "6": "Shipping costs",
-        "7": "Promotion",
-        "9": "Appointment pass",
-        "10": "Packs"
-      }
-    },
+    "invoiceItems": { "title": "Sales by product type" },
     "invoiceItemDropdown": {
       "contentType": {
         "1": "Passes",
@@ -1688,7 +1630,6 @@
       "franchisor_commission_amount": "Franchise fees inc. tax",
       "total_price_notax": "Total amount exc. tax",
       "total_price": "Total amount inc. tax",
-      "invoice_date_created": "Date invoice issued",
       "author": "Author",
       "invoiceitem_pk": "Number of items billed",
       "staff_commission_amount": "Staff commission fees incl. VAT",
@@ -1904,7 +1845,6 @@
     "seeAll": "See all",
     "franchiseEmails": "[Master Account] Email Templates",
     "companieEmails": "Templates",
-    "bsportTemplateEmail": "Bsport Templates",
     "infoBsportTemplateEmails": "If you want to send communications or edit the templates in this section, it is necessary to create a copy of the desired template. Then select the copy of the email when sending a communication.",
     "bsportTemplateEmails": "Bsport Templates"
   },
@@ -1919,13 +1859,11 @@
     "pleaseFill": "Please enter an establishment",
     "noMoreOffers": "No more sessions planned",
     "addButton": "Add an establishment",
-    "goBackToList": "Back to establishments",
     "update": {
       "imageUploaderRequireEditMessage": "Once you've added your establishment, you'll be able to add additional images."
     },
     "capacity": {
       "label": "Maximum capacity",
-      "placeholder": " ",
       "helperText": "This number will only be used to manage this establishment's availability for appointments.",
       "explain": "Capacity: {{capacity}} slot",
       "explain_plural": "Capacity: {{capacity}} slots"
@@ -1938,11 +1876,9 @@
     "form": { "new": { "title": "Title" } },
     "card": { "update": "Update" },
     "forms": {
-      "error": "Unable to save establishment",
-      "create": { "success": "Establishment added", "title": "New establishment" },
-      "update": { "success": "Establishment details updated", "title": "Update establishment" },
+      "create": { "title": "New establishment" },
+      "update": { "title": "Update establishment" },
       "delete": {
-        "message": { "error": "Impossible to delete this establishment", "success": "Establishment deleted" },
         "content": {
           "cannotDelete": "This establishment can't be deleted, because you haven't cancelled and deleted the upcoming sessions that are linked to this establishment.",
           "canDelete": "Are you sure you that want to delete this establishment? Existing sessions and past bookings won't be modified. This action can't be undone."
@@ -2273,7 +2209,7 @@
         "price": { "helperText": "This will define the value of the gift card.", "label": "Selling price" },
         "section": { "parameters": { "title": "Settings" } },
         "description": { "label": "Description" },
-        "available_payment_method_identifiers": { "label": "Available payment methods", "helperText": " " },
+        "available_payment_method_identifiers": { "label": "Available payment methods" },
         "name": { "label": "Name" },
         "title": "Gift card",
         "actions": { "submit": "Confirm", "cancel": "Close" }
@@ -2373,7 +2309,6 @@
         "validityDetail_plural": "Validity before expiration : {{count}} days",
         "validity": "Valid {{count}} day",
         "validity_plural": "Valid {{count}} days",
-        "deleteDialogContent": "By deactivating a shared gift card, members with that pass will only be able to use it in the studio where it was purchased.",
         "deleteInstanceContent2": "Finally, gift cards that were purchased in other studios will no longer be usable in the deactivated studio, regardless of when they were purchased.",
         "deleteInstanceContent1": "By deactivating this studio from sharing the gift card, all members who have this card and have received it from a member who purchased the card in this studio will still be able to use it. However, they will not be able to use it in other studios.",
         "deleteTemplateContent": "By deactivating a shared gift card, members with that card will only be able to use it in the studio where it was purchased."
@@ -2724,7 +2659,6 @@
     "plannedPaymentEvent": {
       "actions": {
         "edit": "Edit",
-        "delete": "Cancel",
         "registerNow": "Take payment now",
         "enable": "Activate",
         "disable": "Deactivate",
@@ -2745,7 +2679,6 @@
       "unrecoverableError": "Error during payment."
     },
     "mandate": {
-      "content": "By completing this payment and by using your IBAN, you authorize BSPORT Solution and Stripe (our payment processor) to start billing you for all payments. You can request refunds through your bank and should be done within 8 weeks of the first payment.",
       "email": "Email address",
       "name": "Account holder's full name",
       "address_line_1": "Address line 1",
@@ -3602,16 +3535,6 @@
       }
     },
     "genericCardDetails": {
-      "packCard": {
-        "comboItemList": {
-          "hiddenItem": "{{count}} other element",
-          "hiddenItem_plural": "{{count}} other elements",
-          "privatePassItem": "{{count}} appointment pass",
-          "privatePassItem_plural": "{{count}} appointment passes",
-          "paymentPackItem": "{{count}} pass",
-          "paymentPackItem_plural": "{{count}} passes"
-        }
-      },
       "includedElements": {
         "see": "See",
         "penalty": {
@@ -3703,22 +3626,6 @@
         "hiddenItem_plural": "{{count}} other elements..."
       }
     },
-    "subscriptionCard": {
-      "billingInterval": {
-        "year": "year",
-        "year_plural": "Every {{ count }} years",
-        "month": "month",
-        "month_plural": "Every {{ count }} months",
-        "week": "week",
-        "week_plural": "Every {{ count }} weeks",
-        "day": "day",
-        "day_plural": "Every {{ count }} days"
-      },
-      "fees": "Joining fee : {{ fees }}",
-      "invoice": "{{ count }} invoice",
-      "invoice_plural": "{{ count }} invoices",
-      "registerButton": "Subscribe"
-    },
     "packCardDetail": { "comboItemList": { "content": "Content" } },
     "contractCard": {
       "autoRenewal": "Automatic renewal",
@@ -3760,16 +3667,12 @@
     "subscriptionTitle": "Subscriptions",
     "offers_joined": "Activities joined",
     "pass_owner": "Not valid",
-    "bornIn": "Birthday ",
     "memberSince": "Sign up date ",
     "showNextBooking": "Show next bookings",
     "nextBooking": "next: ",
-    "noNoteSaved": "No note saved yet",
     "showPreviousBooking": "Show past bookings",
-    "previousBooking": "previous: ",
     "engagement": "Commitment",
     "addMember": "Add a member",
-    "showNotes": "Show notes",
     "creditAccountBalance": "Client account balance",
     "showPaymentPack": "Show pass",
     "showInvoices": "Show invoices",
@@ -3801,7 +3704,6 @@
     "menu": {
       "info": "General",
       "bookings": "Bookings",
-      "relations": "Relationships",
       "paymentPack": "Passes",
       "invoices": "Invoices & Subscriptions",
       "payment": "Billing",
@@ -3871,7 +3773,6 @@
       "existsWithEmailButNotConfirmed": "A user with the email address {{email}} already exists, but still needs to be confirmed. By registering this user, the email address will be automatically verified."
     },
     "exists": { "goTo": "See member", "linkUser": "Link user", "merge": "Merge", "quicksale": "Select this member" },
-    "link": { "success": "Member linked" },
     "linkDialog": {
       "title": "Linking account",
       "content": "This account was initially created with another studio. Now it'll be connected to the currently selected studio.",
@@ -4003,10 +3904,6 @@
             "denied": {
               "content": "Your account hasn't been merged with \"{{ new_email }}\". Use your current login details associated with \"{{ old_email}}\" for your account.",
               "title": "Merger has been rejected"
-            },
-            "accept": {
-              "content": "Your account has been successfully merged with \"{{ old_email }}\". You've been registered with {{- company }} and you can use the login details associated with \"{{ new_email }}\" from now on.",
-              "title": "Merger has been accepted"
             },
             "accepted": {
               "title": "Merger has been accepted",
@@ -4398,8 +4295,6 @@
       "members": "Members",
       "franchises": "Studios",
       "reporting": "Reports",
-      "paymentPack": "Passes",
-      "widget": "Widgets",
       "settings": "Settings",
       "staff": "Staff",
       "widgets": "Widget",
@@ -4475,7 +4370,6 @@
       "member": "Member registration",
       "offer": "Sessions",
       "booking": "Bookings",
-      "waitingList": "Waiting-list",
       "subscription": "Subscriptions",
       "waiting-list": "Waitlists",
       "private_booking": "Appointments",
@@ -4746,7 +4640,6 @@
       "1002": "Spinning session performance",
       "1003": "Spivi account created (for teachers)"
     },
-    "messages": { "createOrUpdate": { "success": "Successfully saved", "error": "Impossible to save" } },
     "pageTitle": "Transactional notifications",
     "caption": {
       "emailDesign": "Transactional email template",
@@ -4895,7 +4788,6 @@
     "liveOfferEdit": {
       "unselectAll": "Unselect all",
       "selectAll": "Select all",
-      "select": "Select the sessions that will be modified",
       "editSimilarOffers": "Select the sessions that will be modified",
       "noSimilarOffer": "No similar sessions found. Only this session will be affected.",
       "selectCancel": "Select the sessions that will be cancelled",
@@ -5195,8 +5087,6 @@
   },
   "partnership": {
     "parameters": {
-      "companyId": "Your Partner ID is: {{ company }}",
-      "establishmentId": "Your venue IDs are: {{ establishmentIdList }}",
       "enabled": "Enabled",
       "allEstablishment": "All establishments",
       "add": "Add",
@@ -5267,7 +5157,6 @@
       "CASH": "Cash",
       "BACS_DEBIT": "Bacs Direct Debit"
     },
-    "order": { "success": "Your payment has been successfully registered" },
     "forms": {
       "cancelPayment": "Previous",
       "credit": {
@@ -5338,13 +5227,13 @@
     "bankAccount": {
       "form": {
         "actions": { "submit": "Confirm", "cancel": "Cancel" },
-        "accountNumber": { "placeholder": "GB89370400440532013000", "label": "Account number", "eurSpecific": " (IBAN)" },
+        "accountNumber": { "placeholder": "GB89370400440532013000", "label": "Account number" },
         "invalid": "IBAN invalid. Please note: the IBAN must correspond to a bank account domiciled in the same country as your company",
         "accountHolderName": { "placeholder": "Tom Smith", "label": "Bank account owner" },
         "content": "This bank account will be used to transfer the amounts paid online to you via bsport.",
         "title": "Bank account",
         "unknownCountry": "Manual operation for this country, please contact bsport via contact@bsport.io",
-        "routingNumber": { "usdSpecific": " (ACH Routing Number)", "placeholder": "000001", "label": "Routing Number" },
+        "routingNumber": { "placeholder": "000001", "label": "Routing Number" },
         "clearingCode": { "label": "Clearing Code" },
         "branchCode": { "label": "Branch Code" },
         "transitNumber": { "label": "Transit Number", "placeholder": "Transit Number" },
@@ -5380,7 +5269,6 @@
             "year": "year",
             "year_plural": "years"
           },
-          "helperText": " ",
           "label": "Repeat every"
         },
         "recurrence": {
@@ -5506,7 +5394,6 @@
       "details": { "actions": { "refund": "Transform in credit", "applyVoucher": "Apply a discount" } },
       "refund": {
         "actions": { "submit": "Save", "cancel": "Cancel" },
-        "warning": "Please note, this operation is irreversible (invoice generation).",
         "explain": "Choose the number of credits to be reimbursed as well as the total value that will be credited on the member's deposit",
         "credits": { "label": "Credit to deduct" },
         "note": { "label": "Note" },
@@ -5625,7 +5512,6 @@
         "tax": { "label": "VAT / Sales tax" },
         "startOnFirstUse": "The validity starts on the day of the first booking",
         "name": { "label": "Name", "helperText": "Name for the payment pack" },
-        "price": { "label": "Pric incl. taxes", "helperText": "Price for user for the whole pack" },
         "credits": {
           "label": "Credit(s)",
           "helperText": "This is the amount of the included credits for this pass. Leave blank to make it unlimited.",
@@ -5781,7 +5667,6 @@
     "subscribeToOffer": "Register",
     "use": "Use",
     "isNonCompatible": "non-compatible",
-    "createOrUpdate": { "success": "Pass successfully saved", "fail": "Error: pass would not be saved" },
     "disableConsumer": "Block",
     "enableConsumer": "Unblock",
     "credit": { "updated": "Changes saved" },
@@ -5826,15 +5711,9 @@
       "massExtension": "Extend validity",
       "close": "Close"
     },
-    "specifications": {
-      "price": "{{ price, price }}",
-      "unlimitedCredits": "Unlimited",
-      "nbCredits": "{{credits}} credit",
-      "nbCredits_plural": "{{credits}} credits"
-    },
+    "specifications": { "unlimitedCredits": "Unlimited", "nbCredits": "{{credits}} credit", "nbCredits_plural": "{{credits}} credits" },
     "ht": "Excl. VAT / Sales Tax",
     "validForDuration": {
-      "general": "Valid for {{ duration_days }} day(s), {{ duration_months }} month(s), and/or {{ duration_years }} year(s).",
       "years": "{{ count }} year",
       "years_plural": "{{ count }} years",
       "months": "{{ count }} month(s)",
@@ -6216,7 +6095,6 @@
     "calculate": "Calculate",
     "title": "Teacher payment for {{name}}",
     "label": "Payroll rule",
-    "update": { "success": "Payment configuration updated", "error": "Error during update" },
     "dateTitle": "Period",
     "coaches": "Teachers",
     "setPaymentRuleSetForCoachFirst": "Please associate this payroll rule to at least one teacher.",
@@ -6229,8 +6107,6 @@
       }
     },
     "calculation_methods": { "bookings": "On bookings number", "margin_value": "On the marginal value of each booking" },
-    "create": { "error": "Error during creation", "success": "Rate added" },
-    "delete": { "error": "Error during deletion", "success": "Rate removed" },
     "pageTitle": "Payroll",
     "coach_payment_rules": {
       "Simulator": {
@@ -6922,7 +6798,7 @@
         },
         "durationYears": { "helperText": "Will be added to the number of days and months.", "label": "Validity (in years)" },
         "durationMonths": { "helperText": "Will be added to the number of days.", "label": "Validity (in months)" },
-        "durationDays": { "helperText": "Validity of this pass (in days) ", "label": "Validity (in days)" },
+        "durationDays": { "label": "Validity (in days)" },
         "full_vod_access": { "label": "Activate access to Video On Demand" },
         "expirationDaysBeforeFirstUse": {
           "helperText": "The appointment pass will automatically expire if no booking has been made in X amount of days.",
@@ -7220,8 +7096,6 @@
           "title": "Settings"
         },
         "chooseWhen": {
-          "after": "Send this notification after the end of the appointment",
-          "before": "Send this notification before the start of the appointment",
           "title": "Event",
           "afterNotification": "Send the push notification before the start of the appointment",
           "afterNotifications": "Send notifications after the end of the appointment",
@@ -7578,11 +7452,6 @@
         "accountInfo": "Sharing account access allows members to access other accounts to which they are connected to as a relationship.",
         "autorization": "Allow \"{{name_1}}\" to access the account of \"{{name_2}}\".",
         "confirm": "Confirm"
-      },
-      "messages": {
-        "edit": { "success": "Relationship modified" },
-        "create": { "success": "Relationship saved" },
-        "createOrUpdate": { "error": "Impossible to save relationship" }
       }
     },
     "consumer_payment_pack_links": {
@@ -7609,11 +7478,6 @@
           "submit": "Stop",
           "cancel": "Cancel"
         }
-      },
-      "messages": {
-        "create": { "success": "Pass shared", "error": "Impossible to share this pass" },
-        "unlink": { "success": "Sharing stopped", "error": "Impossible to delete this sharing" },
-        "relink": { "success": "Pass shared", "error": "Impossible to share this pass" }
       }
     },
     "private_consumer_pass_links": {
@@ -7983,7 +7847,6 @@
       "total_basket": "Basket total",
       "products": "Contents of the basket",
       "time": "Hour",
-      "billing_date_start": "First billing date",
       "billing_date_start_annotated": "First billing date",
       "payment_status": "Payment status",
       "adjusted_price": "Adjusted price",
@@ -8223,7 +8086,6 @@
       "name": "Name",
       "description": "Description",
       "category": "Category",
-      "columms": "Columns",
       "save": "Save",
       "cancel": "Cancel",
       "columns": "Columns"
@@ -8494,12 +8356,9 @@
         "create": {
           "buttonLabel": "Add staff",
           "title": "[Form] Add staff",
-          "email": { "label": "Email" },
-          "role": { "label": "Role", "selectRole": { "topLabel": "Role", "label": "Select a role" }, "title": "Roles" },
+          "role": { "selectRole": { "topLabel": "Role", "label": "Select a role" }, "title": "Roles" },
           "cancel": "Cancel",
           "submit": "Save",
-          "firstName": { "label": "First name" },
-          "lastName": { "label": "Last name" },
           "register": "Save",
           "franchisees": {
             "warning": "Select which franchisees will have access to this staff account. Leave empty to give access to all franchisees.",
@@ -8517,11 +8376,6 @@
           "content": "Are you sure that you want to delete this staff account?",
           "cancel": "Cancel",
           "confirm": "Delete"
-        },
-        "snackbar": {
-          "success": "Access rights modified",
-          "error": "Impossible to modify access rights",
-          "errorEmail": "This email is already used for a teacher or member account"
         },
         "selectCoach": "Select teachers",
         "ifEmptySelectAll": "Leave empty to select all",
@@ -8598,7 +8452,6 @@
         "create": { "_label": "Adding members" },
         "_label": "Member database"
       },
-      "appbarActions": { "_helper": "For adding member profiles, processing in-studio payments, etc.", "_label": "AppBar actions" },
       "navigationMenu": {
         "settings": {
           "_label": "Settings",
@@ -8679,7 +8532,6 @@
         "schedule": { "_label": "Schedule" },
         "calendar": { "_label": "Calendar" },
         "dashboard": { "_label": "Dashboard" },
-        "search": { "_helper": "Mobile only", "_label": "Search members" },
         "_label": "Navigation menu",
         "tutorial": { "_label": "Tutorials" }
       },
@@ -9333,12 +9185,9 @@
       "coachUserspace": "Teacher View"
     },
     "webhook": {
-      "messages": { "form": { "success": "Webhook subscribed", "error": "Impossible to subscribe the webhook" } },
       "cancel": "cancel",
       "submit": "Confirm",
       "createTitle": "Form webhook",
-      "testSuccess": "Correct Url",
-      "testError": "Please verify url",
       "add": "Add a webhook",
       "test": "Test",
       "event": "Event",
@@ -9692,9 +9541,7 @@
         "helperText": "select appointments"
       },
       "level": {
-        "allLevels": "all levels",
         "beginner": "beginner",
-        "intermediate": "intermediate",
         "advanced": "advanced",
         "select": "select a level",
         "warning": "Select at least one level",
@@ -9750,7 +9597,6 @@
       "sendError": "Error while sending email"
     },
     "smart_list": {
-      "card": { "description": "Description" },
       "actions": { "configure": "Configure", "campaign": "Campaigns" },
       "list": { "title": "Smartlists", "detailTitle": "Smartlist details" },
       "name": "Name",
@@ -10062,20 +9908,7 @@
       "add": "Add",
       "before": "before",
       "after": "after",
-      "classic_comparators": { "1": "lower (⩽)", "2": "greater (⩾)", "3": "strictly lower", "4": "strictly greater", "5": "equal" },
       "durations_comparators": { "1": "less than (⩽)", "2": "more than (⩾)", "5": "exactly", "6": "between two" },
-      "undefined": {
-        "name": "Purchase date and credits per pass",
-        "infoIcon": "Unlimited passes are not filtered on credit",
-        "first": "Has bought pass",
-        "second": "between",
-        "third": "and",
-        "fourth": "and has",
-        "fifth": "credits on it",
-        "info": "Blocked passes and blocked appointment passes are also taken into account",
-        "between": "and",
-        "explanation": "Has X number of valid passes or appointment passes"
-      },
       "all": "All",
       "isEmpty": "This Smartlist displays your entire member database, as no filters have been added as of now.",
       "comparators": { "1": "less than (⩽)", "2": "more than (⩾)", "5": "equal to", "6": "between two" },
@@ -10138,7 +9971,6 @@
       "updatePrice": { "error": "Impossible to update this amount", "success": "Amount updated" },
       "freeze": {
         "error": "Impossible to pause this subscription",
-        "alreadyPaused": "Impossible to pause a subscription already paused",
         "success": "Subscription freezed",
         "locked": "Impossible to pause for now, is a payment processing ?",
         "deleteSuccess": "The pause has been removed",
@@ -10314,7 +10146,6 @@
       "delete": { "error": "Unable to delete the teacher", "success": "Teacher deleted" },
       "update": { "success": "Teacher successfully updated" },
       "create": { "success": "Teacher successfully created" },
-      "error_email_exists": "A member already exists with this email. To link them, use the previous modal.",
       "error": "Unable to save teacher",
       "linkByEmail": { "success": "Teacher successfully linked" },
       "restore": { "error": "Unable to restore the teacher", "success": "Teacher successfully restored" },
@@ -10538,8 +10369,7 @@
       "45005": "The giftcard is not available for purchase anymore.",
       "85000": "A booking is already in progress, please wait a few moments",
       "85101": "Impossible to book. This spot is being booked by another member. Please try again by choosing another spot.",
-      "generic": "Error while booking",
-      "undefined": "Your pass has been completely used up for this year"
+      "generic": "Error while booking"
     },
     "customForm": {
       "update": { "success": "Form has been modified", "error": "Error when modifying form" },
@@ -10823,15 +10653,12 @@
       "insufficient_funds": "Your card has insufficient funds.",
       "payment_intent_authentication_failure": "Your bank refused the payment.",
       "unknown": "A network error occurred. Try again later.",
-      "lost_card": null,
-      "stolen_card": null,
       "no_established_connection": "There are no connected terminals to display.",
       "network_error": "Network error, please try again in a few moments",
       "network_timeout": "Network error, please try again in a few moments",
       "already_connected": "Another payment terminal is already connected",
       "discovery_too_many_readers": "Unable to connect, too many terminals around",
       "setup_intent_authentication_failure": "Unable to save this card. Please try another payment method.",
-      "none": " ",
       "reader_error": "An error has occurred. Make sure your terminal is online and connected to the same wifi network as your device.",
       "reader_not_found": "An error has occurred. Make sure your terminal is online and connected to the same wifi network as your device.",
       "invalid_bank_account": "The bank account provided is invalid.",
@@ -10840,7 +10667,6 @@
       "email_invalid": "The email address is invalid."
     },
     "error_code": {
-      "none": " ",
       "incomplete_number": "Your card number is incomplete.",
       "incomplete_expiry": "Your card's expiration date is incomplete.",
       "invalid_expiry_year_past": "Your card is no longer valid.",
@@ -10859,7 +10685,6 @@
       "email_invalid": "The email address is invalid."
     },
     "decline_code": {
-      "none": " ",
       "card_not_supported": "Your card couldn't be recognized.",
       "incorrect_number": "Your card's number is invalid.",
       "incorrect_cvc": "Your security code is invalid.",
@@ -11013,7 +10838,6 @@
         "name": { "label": "Name" },
         "nb_interval": {
           "label": "Number of bills",
-          "helperText": "Minimum is 2 months",
           "error": "The number of billings should not exceed 90",
           "errorForFixedBillingDay": "The number of billings should not exceed 12",
           "restrictionForFixedBillingDay": "The number of billings must be between 2 and 12 for fixed-day billing"
@@ -11040,8 +10864,7 @@
             "year": "year",
             "year_plural": "years"
           },
-          "label": "Repeat every",
-          "helperText": " "
+          "label": "Repeat every"
         },
         "recurrence": {
           "explain": "This subscription will be billed evert {{ recurrence_basis }}{{ interval }}, has a total duration of {{ total_interval_duration }}{{ interval }}, and members will be invoiced {{ nb_interval }} times in total.",
@@ -11226,7 +11049,6 @@
     "mandate": {
       "name": "Full name",
       "email": "Email",
-      "content": "By providing your IBAN and confirming this payment, you are authorizing bsport.io and Stripe, our payment service provider, to send instructions to your bank to debit your account and your bank to debit your account in accordance with those instructions. You are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited.",
       "contentIban": "By providing your IBAN and confirming your payment, you authorise bsport and Stripe, our payment system, to send debit instructions to your bank in accordance with the payment schedule. You may request a refund from your bank in accordance with the terms of your contract with your bank. A refund must be requested within 8 weeks of the first debit.",
       "contentBacsDebit": "By providing your bank details and confirming your payment, you authorise bsport and Stripe, our payment system, to send debit instructions to your bank in accordance with the payment schedule. You may request a refund from your bank in accordance with the terms of your contract with your bank. You can request your bank to cancel the Direct Debit mandate at any time.",
       "accountNumber": "Account number",
@@ -11250,66 +11072,6 @@
         "label": "Payment date",
         "actions": { "submit": "Save", "cancel": "Cancel" },
         "explain": "Only this future invoice will be modified"
-      }
-    },
-    "pause": {
-      "pausedInterval": "{{start}} → {{ end }} : {{ days }} days",
-      "pausedAt": "{{days}} day(s) - {{date}}",
-      "actions": { "delete": "Cancel pause" },
-      "secondaryLabel": " : {{ note }}",
-      "label": "Pause from {{- fromDate}} to {{- untilDate}}",
-      "createdAt": "Paused at ",
-      "dialogs": {
-        "success": {
-          "content": "The {{subscriptionName}} subscription of {{subscriberName}} has been paused from {{- dateStart}} to {{- dateEnd}} included.",
-          "continue": "Continue",
-          "title": "Pausing the subscription"
-        },
-        "form": {
-          "confirm": "Save",
-          "information2": "The expiry date of the pass will be extended by the number of days of the pause and the pass will remain valid during the pause.",
-          "information": "Subscriptions will be paused from {{- dateStart}} to {{- dateEnd}} included. Their next billing will be postponed by {{count}} days, as well as all future billings.",
-          "information_plural": "Subscriptions will be paused from {{- dateStart}} to {{- dateEnd}} included. Their next billing will be delayed by {{count}} days, as well as all future billings.",
-          "duration": {
-            "warning": "The end date cannot be earlier than the start date",
-            "end": "End date (included)",
-            "start": "Start date (included)",
-            "title": "Duration of the pause"
-          },
-          "causePlaceholder": "Reason *",
-          "titleEdition": "Change the pause",
-          "titleCreation": "Paused"
-        },
-        "fail": {
-          "comeback": "Back",
-          "contentUnknownError": "An unforeseen error has occurred. We apologise for any inconvenience caused.",
-          "contentCanNotCreateAPauseInThePast": "The pause cannot start in the past.",
-          "contentCanNotEditPauseEndBeforeToday": "The new start date for the break cannot be set before today.",
-          "contentCanNotEditPauseStartWhenHasStarted": "The start date of the pause cannot be changed once it has begun.",
-          "contentSubscriptionWillEndBeforePause": "The subscription cannot be paused during this period as it will have ended before.",
-          "contentCanNotCancelPause": "As the pause has already started or has already passed, it cannot be cancelled.",
-          "contentInvalidTimedelta": "The pause should last at least one day.",
-          "contentOverlapPause": "The {{subscriptionName}} subscription of {{subscriberName}} could not be paused because a pause is already scheduled from {{- dateStart}} to {{- dateEnd}}.",
-          "contentIncomingBill": "The {{subscriptionName}} subscription of {{subscriberName}} could not be paused because an invoice in the pause interval will be billed within 24 hours or has a payment in progress. Please change the start date of the break.",
-          "title": "Pause Failed"
-        },
-        "delete": { "content": "Are you sure you want to deprogram this pause?", "title": "Cancel the pause" },
-        "common": { "confirm": "Confirm", "cancel": "Cancel" }
-      },
-      "eventItems": {
-        "pauseDeleted": "Reason for previous pause: {{pause_name}}",
-        "pauseCreatedThenDeleted": "This pause has been deleted or modified.",
-        "pauseCreated": "From {{- dateStart}} to {{- dateEnd}} - Created on {{- dateCreation}} by {{staffName}}"
-      },
-      "menu": { "change": "Change the dates", "delete": "Deactivate" }
-    },
-    "messages": {
-      "youSubscribed": { "success": "You have successfully subscribed", "error": "Error while subscribing" },
-      "updatePrice": { "error": "Impossible to update this amount", "success": "Amount updated" },
-      "freeze": {
-        "error": "Impossible to pause this subscription",
-        "alreadyPaused": "Impossible to pause a subscription already paused",
-        "success": "Subscription paused"
       }
     },
     "save": "save",
@@ -11341,37 +11103,6 @@
     },
     "scheduledStop": { "label": "Terminated", "unscheduleStop": "Unschedule the stop" },
     "end": { "renew": "Auto-renew", "noRenew": "End the subscription" },
-    "contractPause": {
-      "form": {
-        "dateFilter": { "label": "Only pause the subscriptions with invoices that are charged between two dates" },
-        "invalidBillingPlan": "The following subscriptions cannot be paused automatically",
-        "explainImpossible": "If a payment is in progress, or expected within 24h, the subscription cannot be paused automatically",
-        "validBillingPlan": "The following subscriptions will be paused",
-        "untilDate": { "label": "and the " },
-        "fromDate": { "label": "Billed between the " },
-        "advanced": "Advanced",
-        "days": { "helperText": "Number of days the subscriptions will be paused", "label": "Number of days" },
-        "name": { "label": "Note", "placeholder": "Studio closed Bank Holiday" },
-        "warning": "Warning, on certain subscriptions, pausing cannot be undone",
-        "title": "Pause all subscriptions",
-        "paymentPackActions": {
-          "disableTillNextInvoice": "Deactivate the billed pack until the next billing",
-          "extendTillNextInvoice": "Extend the validity of the invoiced pass until the next invoice",
-          "doNotChange": "Do not change the pass that was billed",
-          "title": "Settings"
-        }
-      },
-      "actions": { "verify": "Verify", "add": "Pause", "submit": "Put on pause", "cancel": "Cancel", "previous": "Previous" },
-      "section": {
-        "error": "Error when pausing {{count}} subscription automatically",
-        "error_plural": "Error when pausing {{count}} subscriptions automatically",
-        "success": "{{count}} paused subscription",
-        "success_plural": "{{count}} paused subscriptions"
-      },
-      "createdAt": "Created {{at}}",
-      "title": "Pause all subscriptions",
-      "fromUntil": "Only if invoiced between {{from}} and {{until}} included"
-    },
     "seeMore": "Show more",
     "search": "Search a subscription",
     "notificationToolTip": "Notifications are set for this subscription",
@@ -11387,7 +11118,6 @@
       "triggeringEvent": { "title": "Triggering event", "contractCreation": "Subscription creation", "firstBilling": "First invoice" },
       "notificationType": {
         "title": "Type of notification",
-        "sendNotification": "Send the notification",
         "day": "Day",
         "day_plural": "Days",
         "hour": "Hour",
@@ -11695,7 +11425,6 @@
         "smartlist_count": "Tag Rules",
         "member_count": "Tagged members",
         "tag": "Sub Tag",
-        "coupon_count": " ",
         "offer_count": "Linked sessions"
       },
       "submit": "Confirm",
@@ -11766,7 +11495,6 @@
           "title": "Add your own CSS to further personalize your calendar"
         },
         "consumerRegularizeDebt": "Allow members to regularize their outstanding debts with online payments",
-        "acceptDoubleBooking": "Accept double bookings",
         "workshopsCustomer": "Show workshops on the calendar of your members",
         "cancelledOffersCustomer": "Show cancelled sessions on the calendar of your members",
         "calendarPersonalizationTitle": "Calendar",
@@ -11914,17 +11642,6 @@
       "cover": { "label": "Logo", "helperText": "Upload here your logo with a transparent background (use a .PNG file)." },
       "primary_color": { "label": "Primary color", "helperText": "Choose a theme color (avoid a monochrome setup)." },
       "secondary_color": { "label": "Secondary color", "helperText": "Choose a complementary theme color." },
-      "default_booking_ordering": {
-        "date": "Sort by most recent booking date",
-        "firstname": "Sort by first name",
-        "lastname": "Sort by last name",
-        "title": "Select bookings sort on offer page"
-      },
-      "default_attendance": {
-        "present": "Member present",
-        "missing": "Member missing",
-        "title": "Default status for a booking made by a member"
-      },
       "websiteURL": {
         "label": "Website",
         "helperText": "Use this field to add the link to your own website.",
@@ -11981,7 +11698,6 @@
         "info": "Enter the name and value of your Provincial Tax here. On all the products of the platform indicate the total tax applied (Federal Tax + Provincial Tax). The Federal and Provincial Tax will be indicated on your customers' invoices.",
         "title": "Provincial Tax"
       },
-      "acceptGuest": "Allow booking for a guest",
       "allowGuest": {
         "title": "Allow the booking for a guest feature",
         "frequencies": { "week": "Week", "month": "Month", "year": "Year", "text": " times by ", "placeholder": "Frequency" },
@@ -12016,11 +11732,6 @@
           "subTitle": "Product order"
         }
       }
-    },
-    "general_terms_and_conditions": {
-      "label": "General terms and conditions",
-      "helperText": "Must be accepted for all payment and subscription",
-      "placeholder": "I certify being allowed by my doctor to practice this activity."
     },
     "pageTitles": { "theme": "General", "personalization": "Personalization", "broadcast": "Livestream" },
     "analytics": {
@@ -12134,12 +11845,7 @@
       "memberFormPage": "Member Form",
       "memberForm": "Add a member"
     },
-    "invoice": {
-      "invoiceEdit": "Invoice",
-      "invoiceCreatePage": "Create Invoice",
-      "invoiceList": "Invoices",
-      "invoiceCreate": "Bill"
-    },
+    "invoice": { "invoiceEdit": "Invoice", "invoiceList": "Invoices", "invoiceCreate": "Bill" },
     "coach": {
       "coachList": "Teachers",
       "coachPerformance": "Payroll: {{name}}",
@@ -12148,19 +11854,13 @@
     },
     "order": { "orderList": "Orders", "orderDetail": "Order" },
     "metaActivity": {
-      "metaActivity": "Activities",
       "metaActivityEditForm": "[Form] Group activity",
       "metaActivityList": "Activities",
       "metaActivityFormPage": "[Form] Group activity",
       "metaActivityEditFormSubtitle": "Edit a group activity",
       "metaActivityFormSubtitle": "Add a group activity"
     },
-    "coupon": {
-      "couponCreate": "Create coupon",
-      "couponDetail": "{{name}}",
-      "couponEdit": "Coupon form",
-      "couponList": "Promotions"
-    },
+    "coupon": { "couponCreate": "Create coupon", "couponEdit": "Coupon form", "couponList": "Promotions" },
     "establishment": {
       "establishmentList": "Establishments",
       "establishmentFormPage": "[Form] Establishment",
@@ -12192,9 +11892,7 @@
     "planning": "Calendar",
     "settings": "Settings",
     "shop": "Webshop",
-    "coachList": "Teachers",
     "offerManagement": "Bookings",
-    "metaActivityFormPage": "Activity form",
     "offerFormPage": "Add sessions",
     "searchResults": "Search",
     "privateService": { "serviceList": "Appointments" },
@@ -12205,738 +11903,6 @@
     "inbox": "Inbox"
   },
   "translation": {
-    "translation": {
-      "merge": "Merge",
-      "activityCreated": "Activity added",
-      "activityUpdated": "Activity updated",
-      "bookingConfirmed": "Booking confirmed",
-      "button": { "login": "Log in" },
-      "private_service": "Private lesson",
-      "report": { "delete": "Report deletion" },
-      "companies": {
-        "owner_address": "Owner Address",
-        "address": "Address",
-        "bank_details": "Bank details",
-        "general": "General",
-        "fields": { "iban": "IBAN", "bank_account_holder": "Bank account holder" }
-      },
-      "errors": {
-        "end_before_start": "End date must be after start date",
-        "start_after_end": "Start date must be before end date"
-      },
-      "error": { "connectionError": "Connection error" },
-      "hi": "Hi",
-      "pageTitle": { "myAccount": "My account" },
-      "paymentMethod": {
-        "CB": "Credit card",
-        "CHECK": "Check",
-        "HOLDAY_CHECK": "Other",
-        "CASH": "Cash",
-        "CB_MANUAL": "Credit card (manual)",
-        "EVENT_BRITE": "EventBrite",
-        "AMEX": "AMEX",
-        "BANK_TRANSFER": "Bank transfer",
-        "CREDIT_ACCOUNT": "Credit account",
-        "SUBSCRIPTION_CB": "Automatic credit card debit",
-        "OTHER": "Other"
-      },
-      "common": {
-        "isRefreshing": "Your interface will be ready in an instant",
-        "copySuffix": " (Copy)",
-        "items": "items",
-        "level": "Level",
-        "activePass": "active pass",
-        "invoices": "Invoices",
-        "download": "Download",
-        "description": "Description",
-        "hourSmall": "h",
-        "daySmall": "d",
-        "minuteSmall": "min",
-        "export": "Export",
-        "generate": "Generate",
-        "tax": "Tax",
-        "skip": "Skip",
-        "uploadOneImage": {
-          "new": "Drag and drop or click here to add your image",
-          "edit": "Drag and drop or click here to change the image"
-        },
-        "buy": "Buy",
-        "establishments": "Locations",
-        "notes": "Notes",
-        "add": "Add",
-        "loading": "Loading...",
-        "show": "Show",
-        "previous": "Previous",
-        "firstname": "Firstname",
-        "delete": "Delete",
-        "lastname": "Lastname",
-        "save": "Save",
-        "saveAndAdd": "Save and add another",
-        "booking": "Booking",
-        "from": "From",
-        "until": "Until",
-        "paymentMethod": "Payment method",
-        "activity": "Activity",
-        "datetime": "Session",
-        "paymentPack": "Pass",
-        "amount": "Amount",
-        "continue": "Continue",
-        "credit_s": "Credit(s)",
-        "NA": "Not specified",
-        "price": "price",
-        "priceIncludingTax": "Price tax incl.",
-        "sports": "Category",
-        "credits": "Credits",
-        "create": "Create",
-        "or": "or",
-        "cancel": "Cancel",
-        "confirm": "Confirm",
-        "name": "Name",
-        "status": "Status",
-        "ok": "ok",
-        "seeMore": "Show",
-        "coach": "Coach",
-        "coaches": "Coaches",
-        "company": "Company",
-        "sport": "Category",
-        "filterBy": "Filter by: ",
-        "edit": "Edit",
-        "merge": "Merge",
-        "activities": "Activities",
-        "email": "Email",
-        "show_more": "Show more",
-        "showDetails": "Show details",
-        "yes": "Yes",
-        "no": "No",
-        "sort": "Sort",
-        "contact": "Contact",
-        "members": "My users",
-        "transactions": "My transactions",
-        "selected": "Selected",
-        "pass": "Pass",
-        "booking_s": "Booking(s)",
-        "date": "Date",
-        "nothing": "None",
-        "bookings": "Bookings",
-        "places": "Places",
-        "male": "male",
-        "female": "female",
-        "otherGender": "Other"
-      },
-      "marketing": {
-        "dashboard": "Dashboard",
-        "conversionRate": "Conversion rate",
-        "sales": "Sales",
-        "averageBuy": "Average basket",
-        "totalBuy": "Total CA",
-        "action": "Action",
-        "SMSSent": "SMS sent",
-        "EmailSent": "Emails sent",
-        "notificationsSent": "Notifications sent",
-        "clientsReached": "Clients reached",
-        "criterias": "Criterias",
-        "strategy": "Strategy : ",
-        "estimatedTarget": "Customer share receiving alerts",
-        "message": "Message",
-        "after": "After ",
-        "offersMatching": " similar sessions",
-        "promoTitle": "Promo code",
-        "promo": "Promotional offer ",
-        "noPromo": "None"
-      },
-      "offer": {
-        "attendant": "attendant",
-        "nonAttendant": "did not attend",
-        "maxBookingsNb": "slots",
-        "effectif": "Number of customer (max)",
-        "sizeOfWaitingList": "Size of waiting list",
-        "offersPendingChange": "Sessions pending change:",
-        "offersPendingDelete": "Sessions pending removal:",
-        "noncompatibleConsumerPaymentPacksAre": "Owns the following NON compatible pass :",
-        "noPackAvailableForOfferPurchase": "No compatible pass found for this member!",
-        "noConsumerPackAvailableForPurchase": "No pass available for this session !",
-        "backToCalendar": "Back",
-        "previousOffer": "Previous session",
-        "nextOffer": "Next session",
-        "compatiblePacks": "Pass compatible",
-        "noCompatiblePacks": "There is no pass compatible with this session",
-        "substitute": "Substitute",
-        "disabled": "cancelled",
-        "extraordinaryEstablishment": "(temporary location)",
-        "addInvoice": "Create a bill",
-        "myBookings": "Bookings",
-        "hasntBooked": "Not registered",
-        "hasBooked": "Registered",
-        "createBooking": "Register",
-        "bill": "Bill",
-        "use": "Use",
-        "createBookingOption": "Add on waiting-list",
-        "reCreateBooking": "Register again",
-        "noQuickInvoiceOpened": "No invoice open",
-        "myOpenedInvoices": "Quick invoices",
-        "manageOffer": "Manage my bookings"
-      },
-      "pagination": { "rowPerPage": "Rows per page", "outOf": " of " },
-      "invoice": {
-        "reverted": "Reverted",
-        "choseDateTitle": "Billing date",
-        "revert": "Revert",
-        "invoiceReverted": "Invoice reverted",
-        "finalize": "Finalize the invoice",
-        "choseDate": "Invoice date",
-        "revertExplainPayment": "Credit/debit card payments will be transfered to the credit account of the member. All other payments will be canceled.",
-        "revertExplainCredits": "Credit and debit on member account will be reverted.",
-        "revertExplainPacks": "All pass will will be canceled with ALL their bookings.",
-        "revertExplainShop": "Purchase made on the store will be canceled and provisions reinitialized",
-        "explainDateChoser": "Please choose the date registered for the billing. Credit/debit card will be charged immediately independantly of the chosen date.",
-        "revertImpossibleExplainSubscription": "This invoice is part of a subscription plan, if you want to revert it you need to stop the subscription. You can not revert an already billed invoice linked to a subscription",
-        "explainFinalize": "Beware ! A finalized invoice is not editable anymore, moreover every payment will be considered as checked-out. Once finalized the invoice will be exportable so you can download it as PDF.",
-        "forms": {
-          "update": "Invoice successfully updated",
-          "create": "Invoice created - member credited",
-          "error": "Error while creating invoice"
-        }
-      },
-      "shop": {
-        "myShop": "My shop",
-        "supplier_price": "Supplier price",
-        "ht": "excl tax",
-        "noProvisionUpdates": "No provision",
-        "subShop": {
-          "delete": {
-            "explain": "Are you sure ? All the items contained in this category will also be deleted.",
-            "title": "Delete"
-          }
-        }
-      },
-      "form": {
-        "waiting_list_max_size": "Waiting list max size",
-        "address": {
-          "streetNumber": "N°",
-          "addressLine1": "Address",
-          "addressLine2": "Additional info",
-          "city": "City",
-          "country": "Country",
-          "zipcode": "Zipcode"
-        },
-        "login": {
-          "changePasswordTitle": "Change password",
-          "password": "Password",
-          "confirmPassword": "Confirm",
-          "passwordTooEasy": "Your password should have at least 6 characters, a letter and a number.",
-          "passwordChangedSuccess": "Password reset successfull !",
-          "passwordMismatch": "Password confirmation mismatch",
-          "error": { "invalidEmail": "This email does not exist in our database", "invalidPassword": "Password is invalid" }
-        },
-        "shop": {
-          "subShop": {
-            "nameTitle": "New category",
-            "namePlaceholder": "Juices",
-            "createOrUpdate": { "success": "Catégory successfully saved", "error": "Impossible to save category" },
-            "delete": { "success": "Category deleted", "error": "Error while deleting category" }
-          },
-          "item": {
-            "onsite_payment_available": "On-site payment available",
-            "sell_only_on_provision": "Sell only if there are some provision",
-            "featured": "Feature the product on the checkout screen",
-            "is_deliverable": "Include delivery fees",
-            "create": "Add an item",
-            "unlimitedProvision": "No provision management",
-            "marketplace_enabled": "Available on web marketplace",
-            "barcode": "Barcode",
-            "updateProvisions": { "success": "Provisions updated", "error": "Error while updating provisions" },
-            "deleteTitle": "Delete",
-            "deleteExplain": "Be careful! This deletion is not revertable, all provisions wil be deleted and your customers will not be able to buy this item anymore",
-            "modifyProvisions": "Update provisions",
-            "updateProvisionExplain": "Enter the inventory update. It will be added to your current provisions.",
-            "updateProvisionTitle": "Inventory update",
-            "createOrUpdate": { "success": "Saved", "error": "Error while saving" },
-            "delete": { "success": "Deleted", "error": "Error while deleting" },
-            "add": "Add an item",
-            "subtitle": "Subtitle",
-            "description": "Description",
-            "provisions": "Provisions",
-            "name": "Name",
-            "price": "Price",
-            "tva": "Tax"
-          }
-        },
-        "booking": { "delete": { "success": "Booking deleted", "error": "Error while deleting booking" } },
-        "member": {
-          "createOrUpdate": { "error": "Not could not be saved", "success": "Note saved" },
-          "rgpd": { "email": "Accept email notifications", "sms": "Accept SMS notifications" },
-          "delete": { "error": "Error while deleting note", "success": "Note deleted" },
-          "phone": "Phone number",
-          "rgpdTitle": "Communication accepted by the member (alert cancellation, modification, etc...)",
-          "birthdayYear": "Year of birth",
-          "referenceNumber": "Membership ID",
-          "referenceNumberHelper": "(optionnal) if empty an ID will be automaticcaly assigned"
-        },
-        "metaActivity": { "cantAddSameName": "An activity with the same name already exists !" },
-        "signup": {
-          "typePhone": "Cellphone",
-          "confirmPasswordLabel": "Confirm",
-          "confirmPassword": "Password",
-          "rgpdTitle": "Which way do you prefer for the coach to contact you about change in timeline, cancelling session... ?",
-          "communication": { "email": "via email", "sms": "via SMS" },
-          "signupButton": "Signup",
-          "iAcceptPrivacyPolicy": "I accept ",
-          "privacyPolicy": "the terms of use and the privacy policy"
-        },
-        "quickInvoice": { "totalPurchase": "Purchases", "totalPayment": "Payments", "paymentDue": "Payment remaining" },
-        "invoice": {
-          "titleUnevenInvoice": "Uneven invoice",
-          "explainUnevenInvoice": "You are billing your customer {{totalInvoiceItems}} while you are registering only {{totalPayments}} as customer payments. His credit account balance will be updated accordingly.",
-          "dateStartPaymentPack": "Pass starting date",
-          "backToInvoiceItemList": "Back to invoice listing",
-          "title": "Register a payment",
-          "paymentLabel": "Register a payment",
-          "offerHelper": "This session will be add to the account",
-          "paymentPackHelper": "This pass will be added to the account",
-          "noPayedObject": "None",
-          "objectTypeLabel": "Chose the object to be credited",
-          "activityHelper": "Chose the activity then the session"
-        },
-        "payment": {
-          "payment": "Payment",
-          "invoiceRevertedThusNotEditable": "Invoice was reverted and is not editable",
-          "credit": "Credit",
-          "topUp": "Top-up credit",
-          "invoiceFinalizedThusNotEditable": "Invoice was finalized and can not be edited anymore",
-          "actions": "Actions",
-          "status": "Status",
-          "paid": "Paid",
-          "unpaid": "Pending",
-          "noPaymentExtraInfo": "No additional information provided",
-          "additionalInformationLabel": "Information",
-          "additionalInformationHelper": "(optional) check reference, date..."
-        },
-        "offer": {
-          "levelChangeWarning": "If you modify the level, this modification will impact all future sessions. Any modification on price on this form will also be executed on future offers (change in day of the week / price / ...).",
-          "coachChangeWarning": "If you modify the coach, this modification will impact all future sessions. If this is not what you want consider using \"substitute coach\" for that. Any modification on price on this form will also be executed on future offers (change in day of the week / price / ...).",
-          "establishmentChangeWarning": "If you modify the establishment, this modification will impact all future sessions. If this is not what you want consider using \"substitute coach\" for that. Any modification on price on this form will also be executed on future offers (change in day of the week / price / ...).",
-          "substituteCoachLabel": "Substitute",
-          "coachLabel": "Coach",
-          "establishmentLabel": "Establishment",
-          "substituteEstablishmentLabel": "Establishement (exceptional)",
-          "warningPackonEdit": "These change may need you to check the pass, they may not stay compatible with the new sessions.\nThe following packs were compatible with this offer, after application of the change please review them carefully.",
-          "deleteTitle": "Delete session",
-          "cancelTitle": "Cancel session",
-          "changeDate": "Modify date / time",
-          "changeCoach": "Change the coach",
-          "changeEstablishment": "Change location",
-          "broadcast_link": { "error": "URL seems wrong. It should starts with http:// ou https:// and have no space" },
-          "explainRecursiveOfferDelete": "Would you like to delete ALL the similar sessions ?",
-          "explainRecursiveOfferEdit": "Would you like to modify ALL the similar sessions to match the new conditions ?",
-          "explainNotificationOnEdit": "Do you want to notify your customers for this change ?",
-          "delete": {
-            "buttonHardDelete": "Delete",
-            "explainHardDelete": "Remove offer from list ? You will not be able to access this session anymore. If the session contains bookings, it will not be deleted. Be careful !",
-            "explainCreditBack": "Send back all credits used for booking",
-            "explainNotify": "Send an alert to every client with a booking",
-            "explainModalities": "This operation is not revertable. This session will be hidden to all new customer. You will still be able to accces the session details and bookings."
-          }
-        },
-        "title": "Title",
-        "specific_info": "Information",
-        "pleaseEnterYourSMSCode": "Please enter the code sent by SMS",
-        "code": "Code",
-        "SMSSignInTitle": "Signin via SMS",
-        "signInPhoneInstruction": "Please enter your phone number, a validation code will be sent via SMS",
-        "signUpTitle": "Sign Up",
-        "password": "Password",
-        "default_waiting_list_max_size": "Size of the waiting list",
-        "credit_price": "Nb of pass credit needed to book",
-        "generateOffers": "Create sessions",
-        "offersWillBeGenerated": "sessions will be generated",
-        "offerWillBeGenerated": "session will be generated",
-        "recurrence": "Recurrence",
-        "notRecurrent": "Once",
-        "weekly": "Weekly",
-        "monthly": "Monthly",
-        "timeSettings": "Timetable",
-        "firstSessionOn": "First session on",
-        "firstSessionAt": "at",
-        "lastSession": "Last session",
-        "duration_minute": "Duration",
-        "priceCategory": "Billing",
-        "credits": "Credit (price)",
-        "price": "Price",
-        "caracteristics": "Caracteristics",
-        "effectif": "Mx nb of customers",
-        "level": "Level",
-        "addingSessionFor": "Session form for: ",
-        "establishment": "Establishment",
-        "coach": "Coach",
-        "newMember": "New Member",
-        "newCoach": "New Coach",
-        "firstname": "Firstname",
-        "lastname": "Lastname",
-        "gender": "Gender",
-        "birthdayYear": "Year of birth",
-        "birthday": "Day of birth",
-        "clearDate": "Clear",
-        "phone": "Phone number",
-        "email": "Email address",
-        "description": "Description",
-        "send": "Send",
-        "discard": "Discard",
-        "name": "Name",
-        "SCT": "Category",
-        "default_price": "Default price",
-        "default_credits": "Price (credits)",
-        "default_last_booking_minutes": "Last booking before",
-        "default_last_discard_minutes": "Last booking discard until",
-        "default_duration_minutes": "Duration of session",
-        "newMetaActivity": "New activity",
-        "zeroMinute": "0 min",
-        "quarterHour": "15 min",
-        "twentyMinutes": "2O min",
-        "halfHour": "30 min",
-        "halfAndQuarterHour": "45 min",
-        "oneHour": "1h",
-        "oneHourAndHalf": "1h30",
-        "twoHour": "2h",
-        "threeHour": "3h",
-        "fourHour": "4h",
-        "sixHour": "6h",
-        "eightHour": "8h",
-        "twelveHour": "12h",
-        "oneDay": "1 day",
-        "twoDays": "2 days",
-        "oneWeek": "1 week",
-        "tenDays": "10 days",
-        "twoWeeks": "2 weeks",
-        "oneMonth": "1 month",
-        "never": "Never"
-      },
-      "navigation": {
-        "combo": "Packs",
-        "requestTempPassword": "Authorize remote",
-        "sequence": "Strategies",
-        "order": "Orders",
-        "alpha": "in development",
-        "privateService": { "title": "Private lesson", "calendar": "Schedule", "services": "Lesson", "pass": "Pass" },
-        "coachPerformance": "Coach",
-        "beta": "beta",
-        "consumer": { "pass": "Pass", "bookings": "My bookings", "profile": "Profile", "order": "Orders" },
-        "reporting": "Reporting",
-        "search": "Search",
-        "dashboard": "Dashboard",
-        "workshopActivities": "Workshops",
-        "activity": "My activities",
-        "calendar": "Calendar",
-        "message": "Marketing",
-        "establishment": "Establishments",
-        "member": "Members",
-        "payment": "Payments",
-        "logoff": "Sign out",
-        "goBack": "Go back",
-        "pass": "Pass",
-        "settings": "Settings",
-        "myClub": "My Club",
-        "subscription": "Subscription",
-        "coupon": "Coupon"
-      },
-      "consumer": {
-        "myPaymentPacks": "My pass",
-        "myPrivatePass": "My private lesson pass",
-        "company": "Club",
-        "help": {
-          "areYouSureCancelBookingOption": "Are you really cancelling your option ?",
-          "explainCancelBookingOption": "After the cancellation, if you take another option for this session, your place on the waiting-list will be reset."
-        },
-        "booking": {
-          "myPrivateBooking": "Private lessons",
-          "cancelBooking": "Cancel booking",
-          "discardBookingTitle": "Discard booking",
-          "discardPossibleExplain": "Do you really want to discard your booking ? Your credits will be available for another booking.",
-          "discardImpossibleExplain": "Are your sure you want to discard your booking ? You are canceliing too late for the club thus your credits will not be available again and will be lost",
-          "confirmBooking": "Confirm",
-          "waitingSlot": "Waiting a slot",
-          "myFutureBookings": "My next bookings",
-          "myPastBookings": "My past bookings",
-          "myOptions": "Bookings on waiting list",
-          "noBookingOptions": "You have no booking on waiting list",
-          "noFutureBookings": "No future session",
-          "noPastBookings": "No past booking",
-          "cancelOption": "Discard"
-        }
-      },
-      "payment": {
-        "products": "item(s)",
-        "bookWithUnlimitedPack": "Book",
-        "privatePass": "Pass private lesson",
-        "paymentCombo": "Pack",
-        "noCreditLeft": "Not enough credit left",
-        "noBookingsLeftOnPack": "Pass exhausted for this week",
-        "yourBasket": "Your basket",
-        "return": "Refund",
-        "availablePaymentPacks": " pass compatible",
-        "payWithNCredits1": "Book (",
-        "payWithNCredits2": "credit",
-        "pay": "Pay",
-        "type": "Type",
-        "amount": "Amount",
-        "fullyPaid": "Status",
-        "consumer": "Client",
-        "paymentDate": "Payment date",
-        "object": "Description",
-        "addInvoiceItem": "Charge",
-        "addOffer": "Session",
-        "addPaymentPack": "Pass",
-        "updateInvoiceVoucher": "Edit voucher",
-        "voucher": "voucher",
-        "total": "TOTAL",
-        "paymentMethodStripe": "Debit card",
-        "paymentMethodCheck": "Check",
-        "paymentMethodCash": "Cash",
-        "invoice": "Invoice",
-        "paymentMethod": "Payment methods",
-        "creditAccountBalance": "Current accout balance: ",
-        "paymentMethods": {
-          "CB": "Credit card",
-          "CHECK": "Check",
-          "HOLDAY_CHECK": "Other",
-          "CASH": "Cash",
-          "CB_MANUAL": "Credit card (manual)",
-          "EVENT_BRITE": "EventBrite",
-          "AMEX": "AMEX",
-          "BANK_TRANSFER": "Bank transfer",
-          "CREDIT_ACCOUNT": "Credit account",
-          "SUBSCRIPTION_CB": "Automatic credit card debit",
-          "OTHER": "Other"
-        },
-        "paymentItemsListTitle": "Registered payments",
-        "noPaymentItem": "No payment registered",
-        "addThisPaymentItem": "Add this payment",
-        "status": "Cashed-out",
-        "isRecurring": "Divide payment in time",
-        "intervalMonth": "Monthly",
-        "intervalWeek": "Weekly",
-        "billingAnchor": "First payment date",
-        "nbInterval": "Number of payments",
-        "intervalType": "Frequency",
-        "stillUnpaid": "Still unpaid: ",
-        "stripePaymentWillBeCashedOutOnInvoiceValidation": "Payment will be cashed-out on invoice creation",
-        "createInvoice": "Save invoice",
-        "toBill": "Add invoice"
-      },
-      "paginatedList": { "isEmpty": "No data to display" },
-      "login": {
-        "welcome": "Welcome !",
-        "signUpConsumer": "Create an account ?",
-        "invalidPhone": "Unknown phone number",
-        "choseYourUserspace": "I am",
-        "loginAsPro": "A club manager",
-        "loginAsConsumer": "An athlete",
-        "noAccount": "No account ? Create one !",
-        "password": "Password",
-        "authError": "Email and password mismatch",
-        "forgottenPassword": "Forgotten password"
-      },
-      "workshopActivity": {
-        "lastBookingBeforeMinutes": "Last booking is possible until",
-        "lastDiscardBeforeMinutes": "Last discard booking is possible until",
-        "imageUploaderRequireEditMessage": "Once you have created your workshop you will be able to add additional images.",
-        "addWorkshopActivity": "Create a workshop",
-        "forms": {
-          "create": { "success": "Workshop created", "error": "Impossible to save workshop" },
-          "update": { "success": "Workshop updated", "error": "Impossible to update workshop" }
-        }
-      },
-      "activity": {
-        "nextSlotAt": "Next session: ",
-        "explainImage": "Recommanded: 1920x1080 jpeg (fullHD)",
-        "settings": "Parameters",
-        "sizeOfWaitingList": "Size of waiting list",
-        "lastBookingBeforeMinutes": "Last booking is possible until",
-        "lastDiscardBeforeMinutes": "Last discard booking is possible until",
-        "addActivity": "Add an activity",
-        "is_broadcast": "Live streaming session",
-        "category": "Category",
-        "addOffers": "Add sessions",
-        "name": "Title",
-        "color": "Color code",
-        "noNextSlot": "No more session planned",
-        "grossVolume": "Gross volume",
-        "totalCustomers": "Total bookings",
-        "fillrate": "Average fillrate",
-        "description": "Description",
-        "offersThisDay": "Activities this day:",
-        "noOfferThisDay": "No activity this day, please select another date",
-        "orNcredits1": "(or ",
-        "orNcredits2": " credits)",
-        "packsAvailable": "Pass available for this activity :",
-        "reviews": "Customer reviews: ",
-        "forms": { "create": { "success": "Activity successfully created", "error": "Could not save the activity" } },
-        "update": {
-          "imageUploaderRequireEditMessage": "Once you have created your activity you will be able to add additional images."
-        },
-        "create": { "success": "Activity successfully created" }
-      },
-      "booking": {
-        "wasRefunded": "Refunded",
-        "success": "Booking saved",
-        "revertBookingTitle": "Delete boking",
-        "revertBookingExplain": {
-          "offerIsAvailable": "Are you sure you want to delete this booking ? Used credits will be given back to your member",
-          "offerIsNotAvailable": "Are you sure you want to delete this booking ? This booking will not be refund."
-        },
-        "revertBookingWithInvoiceImpossibleExplain": "This booking has already been chased-out and can not be deleted. You can still change its attendance status.",
-        "attend": "Attend",
-        "doNotAttend": "Absent",
-        "discard": "Discard",
-        "onWaitingList": "Waiting list",
-        "onHold": "On hold",
-        "add": "Register",
-        "waitingUserConfirmation": "Waiting user confirmation",
-        "confirm": "Checkout payment",
-        "validated": "Payment confirmed",
-        "pending": "Not cashed-out",
-        "cancelled": "Cancelled",
-        "cancelBooking": "Cancel",
-        "noBookingOnThisOffer": "There is no booking on this session yet",
-        "last": "Last:",
-        "next": "Next:",
-        "fillRate": "Filled",
-        "waiting": "on waiting list",
-        "confirmed": "Confirmed",
-        "free": "slots available",
-        "seeCustomers": "Show all bookings",
-        "nb_booking": "Nb bookings",
-        "status": { "null": "waiting-list", "true": "validated", "false": "canceled" },
-        "source": "Source",
-        "sources": { "MOB": "Mobile", "WEB": "Web", "MAN": "Manuel" },
-        "lastBooking": "Last booking"
-      },
-      "level": {
-        "all": "All level",
-        "beginner": "Beginner",
-        "intermediate": "Intermediate",
-        "intermediary": "Intermediate",
-        "advanced": "Advanced"
-      },
-      "calendar": {
-        "modifyOffer": "Edit",
-        "deleteOffer": "Cancel",
-        "showMonth": "Show month",
-        "pleaseSelectOffer": "Select a session to show the bookings"
-      },
-      "time": {
-        "weekday": {
-          "sunday": "Sunday",
-          "monday": "Monday",
-          "tuesday": "Tuesday",
-          "wednesday": "Wednesday",
-          "thursday": "Thursday",
-          "friday": "Friday",
-          "satursday": "Satursday"
-        },
-        "monthShort": {
-          "january": "Jan",
-          "february": "Feb",
-          "march": "Mar",
-          "april": "Apr",
-          "may": "May",
-          "june": "Jun",
-          "july": "Jul",
-          "august": "Aug",
-          "september": "Sep",
-          "october": "Oct",
-          "november": "Nov",
-          "december": "Dec"
-        },
-        "month": {
-          "january": "January",
-          "february": "February",
-          "march": "March",
-          "april": "April",
-          "may": "May",
-          "june": "June",
-          "july": "July",
-          "august": "August",
-          "september": "September",
-          "october": "October",
-          "november": "November",
-          "december": "December"
-        }
-      },
-      "marketplace": {
-        "substitute": "Substitute",
-        "substituted": "Can not attend",
-        "backToCalendar": "Back to calendar",
-        "privatePassListTitle": "Pass",
-        "passListTitle": "Private lessons pass",
-        "workshop": "Workshops",
-        "showMarketplace": "Show calendar of ",
-        "noSessionToday": "No session",
-        "bookButton": { "book": "Book", "bookOption": "Waiting list", "notAvailable": "Canceled", "isPast": "Past" },
-        "sessionThisDay": "Sessions this day: ",
-        "calendar": "Planning",
-        "private_service": "Private sessions",
-        "shop": {
-          "tabName": "Shop",
-          "noDescription": "No description",
-          "addToCard": "Add to cart",
-          "isEmpty": "There are no product available at this moment."
-        },
-        "welcomeTo": "Welcome to ",
-        "checkout": {
-          "dialog": { "title": "My Cart", "cancel": "Back to shop", "goToDelivery": "Continue", "goToPayment": "Pay" }
-        },
-        "pass": "Pass",
-        "buyPack": "Buy"
-      },
-      "offerManagement": {
-        "forms": {
-          "register": {
-            "registerToOffer": "Book a class",
-            "passOwnedByMember": "Pass owned by member",
-            "passCompatibleNotOwnedByMember": "Billing a new pass",
-            "forceNotify": "Send a confirmation email"
-          }
-        }
-      },
-      "appbar": {
-        "title": {
-          "planning": "Planning",
-          "allCoachPerformance": "Coaches payment",
-          "dashboard": "Dashboard",
-          "shopManager": "My Shop",
-          "coachList": "Coach",
-          "offerManagement": "Bookings",
-          "metaActivity": "Activities",
-          "metaActivityEditForm": "Edit Activity",
-          "metaActivityList": "Activities",
-          "workshopActivityList": "Workshops",
-          "WorkshopActivityFormPage": "Workshop form",
-          "metaActivityFormPage": "Activity form",
-          "offerFormPage": "Add offers",
-          "coachPerformance": "Coach Perforamce",
-          "coachFormPage": "Coach Form",
-          "invoiceFormPage": "Edit Invoice",
-          "invoiceCreatePage": "Create Invoice",
-          "invoiceList": "My transactions",
-          "paymentPackFormPage": "Pass Form",
-          "paymentPackList": "Subscriptions",
-          "members": "Members",
-          "member": "Member",
-          "memberFormPage": "Member Form",
-          "establishmentList": "Establishements",
-          "establishmentFormPage": "Establishment Form",
-          "marketingRule": "Marketing strategy",
-          "marketingDashboard": "Marketing",
-          "reportingDashboard": "Reporting",
-          "searchResults": "Search",
-          "settings": "Settings",
-          "orderList": "Orders",
-          "orderDetail": "Order"
-        }
-      },
-      "countdown": { "hours": "Hours", "minutes": "Minutes", "seconds": "Seconds" },
-      "dayParts": { "morning": "Morning", "afternoon": "Afternoon", "evning": "Evening" }
-    },
     "dayParts": { "evening": "Evening", "afternoon": "Afternoon", "morning": "Morning" },
     "countdown": { "seconds": "Seconds", "minutes": "Minutes", "hours": "Hours" },
     "appbar": {
@@ -13129,7 +12095,6 @@
         "offerIsAvailableChoiceRefund": "Are you sure you that want to delete this booking?"
       },
       "revertBookingTitle": "Cancel booking",
-      "success": "Booking saved",
       "wasRefunded": "Credit refunded",
       "cancelledFromWaitingList": "Removed from the waitlist",
       "notifyRevert": "Send a cancellation email",
@@ -13170,10 +12135,6 @@
       "settings": "Settings",
       "nextSlotAt": "The first upcoming session is on: ",
       "explainImage": "Recommended: 1920 x 1090 JPGs (Full HD).",
-      "forms": {
-        "update": { "error": "Impossible to update activity", "success": "Activity udpated" },
-        "create": { "error": "Impossible to save activity", "success": "Activity saved" }
-      },
       "firstBookingMinutesUntil": "Future sessions can be booked if they start in less than ",
       "altCoverMain": "Description of the image for the visually impaired",
       "autoDiscard": "Automatic cancellation",
@@ -13285,11 +12246,6 @@
       "noBookingsLeftOnPackInMonth": "This pass can't be used for this month anymore."
     },
     "invoice": {
-      "forms": {
-        "error": "Error while saving - Cancelled",
-        "create": { "success": "Invoice saved" },
-        "update": { "success": "Invoice successfully updated" }
-      },
       "explainFinalize": "Attention: a finalized invoice can't be modified. Once an invoice has been fiinalized, you'll be able to download it as a PDF.",
       "finalize": "Finalize the invoice",
       "invoiceReverted": "Cancelled invoice",
@@ -13818,7 +12774,6 @@
       "description": "Description",
       "download": "Download",
       "invoices": "Invoices",
-      "activePass": "active pass",
       "level": "Level",
       "skip": "Skip",
       "items": "elements",
@@ -13981,11 +12936,8 @@
         "content": "Drop here or select a video",
         "title": "Upload a video",
         "urlInputError": "Please enter the URL",
-        "urlInputLabel": "Youtube link",
         "type": {
-          "url": "YouTube",
           "file": "File",
-          "urlExplain": "If you have a video Youtube and want to limit to monetize it via bsport.",
           "fileExplain": "If you have a video file (mp4,avi,mov...), please use this to upload directly your video on our servers.",
           "youtubeExplain": "You have a Youtube video and want to monetize it via bsport.",
           "vimeoExplain": "You have a Vimeo video and want to monetize it via bsport.",
@@ -14093,10 +13045,7 @@
     "nbPending": "{{ nbPending }} members have joined the waitlist",
     "nbConvertible": "{{ nbConvertible }} pending booking confirmation(s)",
     "form": {
-      "dumb_delay_minutes": {
-        "label": "Simple waitlist",
-        "helper": "A member has X minutes to book before they lose their priority spot on the waitlist."
-      },
+      "dumb_delay_minutes": { "label": "Simple waitlist" },
       "smart_delay_percentage": {
         "label": "Intelligent waitlist",
         "helper": "A member has X minutes, which equals a Y percentage of the remaining time, before the session begins to complete the booking."
@@ -14311,42 +13260,13 @@
         "timeTable": "Calendar component",
         "workshopPage": "Workshop page",
         "activity": "Activity details popup",
-        "datePicker": "Date selector",
         "bookButton": "Book button",
         "filters": "Filter list",
         "workshopCard": "Workshop card",
         "groupOfferListItem": "Details of grouped session",
-        "cardOffer": "Session details (calendar display)",
         "workshopsComponent": "Workshop details",
         "vodTag": "VOD chip",
         "level": "Level chip",
-        "offerListItem": "Session details",
-        "filter": "Single filter",
-        "contractCouponFormModal": "Subscription promo code popup",
-        "contractCooldownModal": "Subscription purchase warning popup",
-        "contractTermsModal": "Subscription legal notice popup",
-        "contractDetail": "Subscription details",
-        "contractDetailModal": "Subscription details popup",
-        "contractCheckout": "Subscription card (payment)",
-        "contractCard": "Subscription card",
-        "privatePassCompatibilityModal": "Compatibility popup (appointment pass)",
-        "privatePassCard": "Appointment pass card",
-        "paymentPackRestrictionModal": "Restrictions popup (pass)",
-        "paymentPackCompatibilityModal": "Compatibility popup (pass)",
-        "paymentPackCard": "Pass card",
-        "paymentComboCard": "Pack card",
-        "paymentPackOffPeakRestrictionModal": "Schedule restriction popup (pass)",
-        "contractNotFound": "Not found subscription warning",
-        "contractPayment": "Subscription payment module",
-        "collectPaymentMethod": "Add payment method",
-        "select": "Selector",
-        "search": "Search filter",
-        "calendarFilters": "Calendar filters (layout only)",
-        "calendarWeekTimeTable": "Calendar header",
-        "bookingBlockedReason": "Booking is not possible",
-        "bookingButton": "Booking button",
-        "activityCardDialog": "Activity details (pop in)",
-        "activityCard": "Activity details",
         "marketplace_booking_blocked_reason": "Booking not possible",
         "marketplace_booking_button": "Book button",
         "marketplace_activity_summary_dialog": "Activity details (pop-up)",

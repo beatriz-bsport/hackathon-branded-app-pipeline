@@ -17,17 +17,9 @@ exports.default = {
     coachUserspace: 'Teacher View',
   },
   webhook: {
-    messages: {
-      form: {
-        success: 'Webhook subscribed',
-        error: 'Impossible to subscribe the webhook',
-      },
-    },
     cancel: 'cancel',
     submit: 'Confirm',
     createTitle: 'Form webhook',
-    testSuccess: 'Correct Url',
-    testError: 'Please verify url',
     add: 'Add a webhook',
     test: 'Test',
     event: 'Event',

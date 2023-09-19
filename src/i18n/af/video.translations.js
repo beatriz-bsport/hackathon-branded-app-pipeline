@@ -38,12 +38,8 @@ exports.default = {
       content: 'Drop here or select a video',
       title: 'Upload a video',
       urlInputError: 'Please enter the URL',
-      urlInputLabel: 'Youtube link',
       type: {
-        url: 'YouTube',
         file: 'File',
-        urlExplain:
-          'If you have a video Youtube and want to limit to monetize it via bsport.',
         fileExplain:
           'If you have a video file (mp4,avi,mov...), please use this to upload directly your video on our servers.',
         youtubeExplain:

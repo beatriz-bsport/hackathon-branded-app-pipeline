@@ -88,7 +88,6 @@ exports.default = {
   liveOfferEdit: {
     unselectAll: 'Unselect all',
     selectAll: 'Select all',
-    select: 'Select the sessions that will be modified',
     editSimilarOffers: 'Select the sessions that will be modified',
     noSimilarOffer:
       'No similar sessions found. Only this session will be affected.',

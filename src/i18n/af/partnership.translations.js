@@ -6,8 +6,6 @@ const {
 
 exports.default = {
   parameters: {
-    companyId: 'Your Partner ID is: {{ company }}',
-    establishmentId: 'Your venue IDs are: {{ establishmentIdList }}',
     enabled: 'Enabled',
     allEstablishment: 'All establishments',
     add: 'Add',

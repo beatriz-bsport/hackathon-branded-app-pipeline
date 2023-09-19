@@ -27,10 +27,6 @@ exports.default = {
   calculate: 'Calculate',
   title: 'Teacher payment for {{name}}',
   label: 'Payroll rule',
-  update: {
-    success: 'Payment configuration updated',
-    error: 'Error during update',
-  },
   dateTitle: 'Period',
   coaches: 'Teachers',
   setPaymentRuleSetForCoachFirst:
@@ -48,8 +44,6 @@ exports.default = {
     bookings: 'On bookings number',
     margin_value: 'On the marginal value of each booking',
   },
-  create: { error: 'Error during creation', success: 'Rate added' },
-  delete: { error: 'Error during deletion', success: 'Rate removed' },
   pageTitle: 'Payroll',
   coach_payment_rules: {
     Simulator: {

@@ -25,11 +25,6 @@ exports.default = {
       autorization: 'Allow "{{name_1}}" to access the account of "{{name_2}}".',
       confirm: 'Confirm',
     },
-    messages: {
-      edit: { success: 'Relationship modified' },
-      create: { success: 'Relationship saved' },
-      createOrUpdate: { error: 'Impossible to save relationship' },
-    },
   },
   consumer_payment_pack_links: {
     list: {
@@ -62,20 +57,6 @@ exports.default = {
           'The sharing will be stopped, but the Master Pass will remain usable.',
         submit: 'Stop',
         cancel: 'Cancel',
-      },
-    },
-    messages: {
-      create: {
-        success: 'Pass shared',
-        error: 'Impossible to share this pass',
-      },
-      unlink: {
-        success: 'Sharing stopped',
-        error: 'Impossible to delete this sharing',
-      },
-      relink: {
-        success: 'Pass shared',
-        error: 'Impossible to share this pass',
       },
     },
   },

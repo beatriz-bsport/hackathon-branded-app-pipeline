@@ -73,7 +73,6 @@ exports.default = {
     CASH: 'Cash',
     BACS_DEBIT: 'Bacs Direct Debit',
   },
-  order: { success: 'Your payment has been successfully registered' },
   forms: {
     cancelPayment: 'Previous',
     credit: {
@@ -158,7 +157,6 @@ exports.default = {
       accountNumber: {
         placeholder: 'GB89370400440532013000',
         label: 'Account number',
-        eurSpecific: ' (IBAN)',
       },
       invalid:
         'IBAN invalid. Please note: the IBAN must correspond to a bank account domiciled in the same country as your company',
@@ -172,7 +170,6 @@ exports.default = {
       unknownCountry:
         'Manual operation for this country, please contact bsport via contact@bsport.io',
       routingNumber: {
-        usdSpecific: ' (ACH Routing Number)',
         placeholder: '000001',
         label: 'Routing Number',
       },
@@ -224,7 +221,6 @@ exports.default = {
           year: 'year',
           year_plural: 'years',
         },
-        helperText: ' ',
         label: 'Repeat every',
       },
       recurrence: {

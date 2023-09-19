@@ -11,8 +11,6 @@ exports.default = {
   form: {
     dumb_delay_minutes: {
       label: 'Simple waitlist',
-      helper:
-        'A member has X minutes to book before they lose their priority spot on the waitlist.',
     },
     smart_delay_percentage: {
       label: 'Intelligent waitlist',

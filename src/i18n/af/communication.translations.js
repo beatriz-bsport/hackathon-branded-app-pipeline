@@ -53,7 +53,6 @@ exports.default = {
   mail: {
     title: 'Subject of the message',
     content: 'Content of the email',
-    missing: 'Missing email',
     success: 'Your message has been sent.',
     error: 'Error when sending this message',
     refreshText: 'Refresh the page to see your edits.',
@@ -304,16 +303,8 @@ exports.default = {
     },
     writeCommunication: 'Send a message',
   },
-  communication: 'Communications',
   generic: { history: 'History', communication: 'Communication' },
   thread: {
-    emptyThread: {
-      becauseNeverUsed:
-        'You have not yet sent any communication on this channel.',
-      becauseOfFilters: 'No results matching the filters.',
-    },
-    filterOutCommunicationSent:
-      'The communication you just sent is hidden by the active filters.',
     item: {
       year: '{{count}} year',
       year_plural: '{{count}} years',

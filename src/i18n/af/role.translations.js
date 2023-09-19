@@ -17,16 +17,12 @@ exports.default = {
       create: {
         buttonLabel: 'Add staff',
         title: '[Form] Add staff',
-        email: { label: 'Email' },
         role: {
-          label: 'Role',
           selectRole: { topLabel: 'Role', label: 'Select a role' },
           title: 'Roles',
         },
         cancel: 'Cancel',
         submit: 'Save',
-        firstName: { label: 'First name' },
-        lastName: { label: 'Last name' },
         register: 'Save',
         franchisees: {
           warning:
@@ -45,12 +41,6 @@ exports.default = {
         content: 'Are you sure that you want to delete this staff account?',
         cancel: 'Cancel',
         confirm: 'Delete',
-      },
-      snackbar: {
-        success: 'Access rights modified',
-        error: 'Impossible to modify access rights',
-        errorEmail:
-          'This email is already used for a teacher or member account',
       },
       selectCoach: 'Select teachers',
       ifEmptySelectAll: 'Leave empty to select all',
@@ -147,11 +137,6 @@ exports.default = {
       create: { _label: 'Adding members' },
       _label: 'Member database',
     },
-    appbarActions: {
-      _helper:
-        'For adding member profiles, processing in-studio payments, etc.',
-      _label: 'AppBar actions',
-    },
     navigationMenu: {
       settings: {
         _label: 'Settings',
@@ -232,7 +217,6 @@ exports.default = {
       schedule: { _label: 'Schedule' },
       calendar: { _label: 'Calendar' },
       dashboard: { _label: 'Dashboard' },
-      search: { _helper: 'Mobile only', _label: 'Search members' },
       _label: 'Navigation menu',
       tutorial: { _label: 'Tutorials' },
     },

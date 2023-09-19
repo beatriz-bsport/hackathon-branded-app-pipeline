@@ -27,7 +27,6 @@ import MetaActivityCreate from '#libs/meta-activity/components/MetaActivityCreat
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '#components/button/BottomActionsButton.component';
 import IsEmptyList from '#components/navigation/IsEmptyList.component';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import MetaActivityList from '#libs/meta-activity/components/MetaActivityList.component';
@@ -271,7 +270,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
     });
   };
 
-  renderCreateActivity = () => {
+  renderCreateActivity = (hasAddSessionPermission: boolean) => {
     return (
       <MetaActivityCreate
         activeCustomLevels={this.props.activeCustomLevels}
@@ -315,6 +314,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
         roomBlueprints={this.props.roomBlueprints}
         SCTs={this.props.SCTs}
         showPartnership={this.props.showPartnership}
+        skipOfferStep={!hasAddSessionPermission}
         updateLevel={this.props.updateLevel}
         upsertedMetaActivity={this.props.upsertedMetaActivity}
         upsertMetaActivity={this.props.upsertMetaActivity}
@@ -373,202 +373,219 @@ export class MetaActivityListPage extends React.Component<Props, State> {
     }
 
     return (
-      <div className={classes.container}>
-        {this.props.loading || this.props.notificationLoading ? (
-          <LinearProgress />
-        ) : null}
-        <NoShowPenaltyDialog
-          goToSettings={this.props.goToSettings}
-          onClose={this.closeNoShowPenaltyDialog}
-          open={this.props.openNoShowPenaltyDialog}
-        />
-        {this.props.enabledMetaActivities.length > 0 && (
-          <div className={classes.search}>
-            <div className={classes.header}>
-              <div className={classes.searchField}>
-                <FuzeSearch
-                  changeSearch={this.changeSearch}
-                  clearSearch={this.clearSearch}
-                  items={this.props.enabledMetaActivities}
-                  placeholder={t('actions.search')}
-                  searchFields={['name', 'description']}
-                  searchResult={this.state.searchResult}
-                  searchText={this.state.searchText}
-                />
-              </div>
-              <Hidden smDown>
-                <Button
-                  color="primary"
-                  onClick={this.props.goToPaymentPack}
-                  startIcon={<ArrowForwardIcon className={classes.leftIcon} />}
-                  variant="outlined"
+      <ObjectLevelPermissionProvider
+        requiredPermission={[
+          'management.activity.allowed_actions.create',
+          'session.activity.allowed_actions.create',
+        ]}
+      >
+        {([hasCreatePermission, hasAddSessionPermission]: boolean[]) => (
+          <div className={classes.container}>
+            {this.props.loading || this.props.notificationLoading ? (
+              <LinearProgress />
+            ) : null}
+            <NoShowPenaltyDialog
+              goToSettings={this.props.goToSettings}
+              onClose={this.closeNoShowPenaltyDialog}
+              open={this.props.openNoShowPenaltyDialog}
+            />
+            {this.props.enabledMetaActivities.length > 0 && (
+              <div className={classes.search}>
+                <div className={classes.header}>
+                  <div className={classes.searchField}>
+                    <FuzeSearch
+                      changeSearch={this.changeSearch}
+                      clearSearch={this.clearSearch}
+                      items={this.props.enabledMetaActivities}
+                      placeholder={t('actions.search')}
+                      searchFields={['name', 'description']}
+                      searchResult={this.state.searchResult}
+                      searchText={this.state.searchText}
+                    />
+                  </div>
+                  <Hidden smDown>
+                    <Button
+                      color="primary"
+                      onClick={this.props.goToPaymentPack}
+                      startIcon={
+                        <ArrowForwardIcon className={classes.leftIcon} />
+                      }
+                      variant="outlined"
+                    >
+                      {t('navigation.goToPaymentPack')}
+                    </Button>
+                  </Hidden>
+                </div>
+                <Paper
+                  className={
+                    this.state.searchResult.length > 0 &&
+                    this.state.searchText !== ''
+                      ? classes.searchPaperDisplayed
+                      : null
+                  }
                 >
-                  {t('navigation.goToPaymentPack')}
-                </Button>
-              </Hidden>
-            </div>
-            <Paper
-              className={
-                this.state.searchResult.length > 0 &&
-                this.state.searchText !== ''
-                  ? classes.searchPaperDisplayed
-                  : null
-              }
-            >
-              <Collapse
-                in={
-                  this.state.searchResult.length > 0 &&
-                  this.state.searchText !== ''
-                }
-              >
-                <MetaActivityList
-                  deleteMetaActivity={this.props.setActivityToDelete}
-                  goToDetail={this.props.goToDetail}
-                  goToEdit={this.editMetaActivity}
-                  isWorkshop={false}
-                  metaActivities={this.state.searchResult}
-                />
-              </Collapse>
-            </Paper>
-          </div>
-        )}
-        {/*
+                  <Collapse
+                    in={
+                      this.state.searchResult.length > 0 &&
+                      this.state.searchText !== ''
+                    }
+                  >
+                    <MetaActivityList
+                      deleteMetaActivity={this.props.setActivityToDelete}
+                      goToDetail={this.props.goToDetail}
+                      goToEdit={this.editMetaActivity}
+                      isWorkshop={false}
+                      metaActivities={this.state.searchResult}
+                    />
+                  </Collapse>
+                </Paper>
+              </div>
+            )}
+            {/*
         <AddCategoryButton
           setShowCategoryDialog={(showCategoryDialog: boolean) =>
             this.setState({ showCategoryDialog })
           }
           />
           */}
-        {this.state.showCategoryDialog && (
-          <CategoryCreationEditDialog
-            categorySelected={this.state.selectedCategory}
-            onClose={() =>
-              this.setState({
-                showCategoryDialog: false,
-                selectedCategory: null,
-              })
-            }
-            onSubmit={this.props.upsertMetaActivityCategory}
-            open={this.state.showCategoryDialog}
-          />
-        )}
-        {!this.props.categoryLoading && (
-          <ObjectLevelPermissionProvider
-            requiredPermission={[
-              'management.activity.allowed_actions.edit',
-              'management.activity.allowed_actions.delete',
-            ]}
-          >
-            {([hasEditPermission, hasDeletePermission]: boolean[]) => (
-              <CategoryList
-                hideTitle
-                categoryWithItems={
-                  this.props.metaActivityCategoriesWithActivities
+            {this.state.showCategoryDialog && (
+              <CategoryCreationEditDialog
+                categorySelected={this.state.selectedCategory}
+                onClose={() =>
+                  this.setState({
+                    showCategoryDialog: false,
+                    selectedCategory: null,
+                  })
                 }
-                deleteCategory={this.onDeleteCategory}
-                disabledDragAndDrop={!hasDeletePermission}
-                editCategory={this.onEditCategory}
-                itemLoading={this.props.loading}
-                ListItemComponent={MetaActivityListItem}
-                onClickItem={this.props.goToDetail}
-                onDeleteItem={
-                  hasDeletePermission ? this.props.setActivityToDelete : null
-                }
-                onDuplicateItem={hasEditPermission ? this.onDuplicate : null}
-                onEditItem={hasEditPermission ? this.editMetaActivity : null}
-                updateCategoryOrder={this.props.updateMetaActivityCategoryOrder}
-                updateItemOrder={this.props.editOrderMetaActivity}
+                onSubmit={this.props.upsertMetaActivityCategory}
+                open={this.state.showCategoryDialog}
               />
             )}
-          </ObjectLevelPermissionProvider>
-        )}
-        {!!this.props.disabledMetaActivities?.length && (
-          <div>
-            <ButtonBase
-              className={this.props.classes.buttonTitle}
-              onClick={this.onShowDisabled}
-            >
-              <Typography variant="h5">
-                {`${t('metaActivity:disabledMetaActivities')} (${
-                  this.props.disabledMetaActivitiesPagination?.count ||
-                  (this.props.disabledMetaActivities || []).length
-                })`}
-              </Typography>
-
-              {this.state.showDisabled ? (
-                <ExpandLessIcon />
-              ) : (
-                <ExpandMoreIcon />
-              )}
-            </ButtonBase>
-            <Divider />
-            <Collapse
-              unmountOnExit
-              className={classes.collapse}
-              in={this.state.showDisabled}
-            >
-              <MetaActivityList
-                deleteMetaActivity={this.props.setActivityToDelete}
-                goToDetail={this.props.goToDetail}
-                goToEdit={this.editMetaActivity}
-                isWorkshop={false}
-                makeActivityCopy={this.props.makeActivityCopy}
-                metaActivities={this.props.disabledMetaActivities}
-                restoreMetaActivity={this.restoreMetaActivity}
-              />
-              {!!this.props.disabledMetaActivitiesPagination?.nextPage &&
-                !!this.props.disabledMetaActivitiesPagination
-                  ?.remainingCount && (
-                  <div className={classes.showMoreContainer}>
-                    <Button
-                      color="primary"
-                      onClick={this.fetchMoreDisabledMetaActivities}
-                      variant="outlined"
-                    >
-                      {this.props.t('common:showMore', {
-                        count:
-                          this.props.disabledMetaActivitiesPagination
-                            .remainingCount,
-                      })}
-                    </Button>
-                  </div>
+            {!this.props.categoryLoading && (
+              <ObjectLevelPermissionProvider
+                requiredPermission={[
+                  'management.activity.allowed_actions.edit',
+                  'management.activity.allowed_actions.delete',
+                ]}
+              >
+                {([hasEditPermission, hasDeletePermission]: boolean[]) => (
+                  <CategoryList
+                    hideTitle
+                    categoryWithItems={
+                      this.props.metaActivityCategoriesWithActivities
+                    }
+                    deleteCategory={this.onDeleteCategory}
+                    disabledDragAndDrop={!hasDeletePermission}
+                    editCategory={this.onEditCategory}
+                    itemLoading={this.props.loading}
+                    ListItemComponent={MetaActivityListItem}
+                    onClickItem={this.props.goToDetail}
+                    onDeleteItem={
+                      hasDeletePermission
+                        ? this.props.setActivityToDelete
+                        : null
+                    }
+                    onDuplicateItem={
+                      hasEditPermission ? this.onDuplicate : null
+                    }
+                    onEditItem={
+                      hasEditPermission ? this.editMetaActivity : null
+                    }
+                    updateCategoryOrder={
+                      this.props.updateMetaActivityCategoryOrder
+                    }
+                    updateItemOrder={this.props.editOrderMetaActivity}
+                  />
                 )}
-            </Collapse>
+              </ObjectLevelPermissionProvider>
+            )}
+            {!!this.props.disabledMetaActivities?.length && (
+              <div>
+                <ButtonBase
+                  className={this.props.classes.buttonTitle}
+                  onClick={this.onShowDisabled}
+                >
+                  <Typography variant="h5">
+                    {`${t('metaActivity:disabledMetaActivities')} (${
+                      this.props.disabledMetaActivitiesPagination?.count ||
+                      (this.props.disabledMetaActivities || []).length
+                    })`}
+                  </Typography>
+
+                  {this.state.showDisabled ? (
+                    <ExpandLessIcon />
+                  ) : (
+                    <ExpandMoreIcon />
+                  )}
+                </ButtonBase>
+                <Divider />
+                <Collapse
+                  unmountOnExit
+                  className={classes.collapse}
+                  in={this.state.showDisabled}
+                >
+                  <MetaActivityList
+                    deleteMetaActivity={this.props.setActivityToDelete}
+                    goToDetail={this.props.goToDetail}
+                    goToEdit={this.editMetaActivity}
+                    isWorkshop={false}
+                    makeActivityCopy={this.props.makeActivityCopy}
+                    metaActivities={this.props.disabledMetaActivities}
+                    restoreMetaActivity={this.restoreMetaActivity}
+                  />
+                  {!!this.props.disabledMetaActivitiesPagination?.nextPage &&
+                    !!this.props.disabledMetaActivitiesPagination
+                      ?.remainingCount && (
+                      <div className={classes.showMoreContainer}>
+                        <Button
+                          color="primary"
+                          onClick={this.fetchMoreDisabledMetaActivities}
+                          variant="outlined"
+                        >
+                          {this.props.t('common:showMore', {
+                            count:
+                              this.props.disabledMetaActivitiesPagination
+                                .remainingCount,
+                          })}
+                        </Button>
+                      </div>
+                    )}
+                </Collapse>
+              </div>
+            )}
+
+            <MetaActivityDeleteDialog
+              canDeleteMetaActivityChecker={canDeleteMetaActivityAPI}
+              deleteMetaActivity={this.props.deleteMetaActivity}
+              metaActivityId={this.props.activityToDelete}
+              onClose={() => this.props.setActivityToDelete(null)}
+            />
+
+            <MetaActivityEditDrawer
+              initial={{
+                ...this.getSelectedMetaActivityInitialData(),
+                images: (selectedMetaActivity || {}).images || [],
+              }}
+              onCancel={this.onCancelEdit}
+              onSubmit={this.props.onSubmit}
+              open={!!this.props.selectedMetaActivity}
+              SCTs={this.props.SCTs}
+              tags={this.props.allTagsWithTagGroup}
+            />
+
+            {hasCreatePermission && (
+              <BottomActionButtons
+                onCreate={() => {
+                  this.props.setFormIsOpen(true);
+                }}
+                onCreateLabel={this.props.t('actions.addActivity')}
+              />
+            )}
+            {this.props.formIsOpen &&
+              this.renderCreateActivity(hasAddSessionPermission)}
           </div>
         )}
-
-        <MetaActivityDeleteDialog
-          canDeleteMetaActivityChecker={canDeleteMetaActivityAPI}
-          deleteMetaActivity={this.props.deleteMetaActivity}
-          metaActivityId={this.props.activityToDelete}
-          onClose={() => this.props.setActivityToDelete(null)}
-        />
-
-        <MetaActivityEditDrawer
-          initial={{
-            ...this.getSelectedMetaActivityInitialData(),
-            images: (selectedMetaActivity || {}).images || [],
-          }}
-          onCancel={this.onCancelEdit}
-          onSubmit={this.props.onSubmit}
-          open={!!this.props.selectedMetaActivity}
-          SCTs={this.props.SCTs}
-          tags={this.props.allTagsWithTagGroup}
-        />
-
-        <ObjectLevelPermissionWrapper
-          forcedBehavior="hidden"
-          requiredPermission="management.activity.allowed_actions.create"
-        >
-          <BottomActionButtons
-            onCreate={() => {
-              this.props.setFormIsOpen(true);
-            }}
-            onCreateLabel={this.props.t('actions.addActivity')}
-          />
-        </ObjectLevelPermissionWrapper>
-        {this.props.formIsOpen ? this.renderCreateActivity() : ''}
-      </div>
+      </ObjectLevelPermissionProvider>
     );
   }
 }

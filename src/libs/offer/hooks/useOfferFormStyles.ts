@@ -238,6 +238,20 @@ const useOfferFormStyles = (
     centerAlert: {
       alignItems: 'center',
     },
+    forbiddenStepContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      flexDirection: 'column',
+      width: '100%',
+      padding: '0 10%',
+      '& > *': {
+        width: '100%',
+      },
+    },
+    alert: {
+      alignItems: 'center',
+    },
   }));
 
   const classes = useStyles();

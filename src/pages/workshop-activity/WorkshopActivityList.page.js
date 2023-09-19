@@ -25,7 +25,7 @@ import FuzeSearch from '../../components/FuzeSearch.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import { getEditableSCTs } from '../../libs/category/selectors';
-import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionProvider from '../../libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import { redirectIfAllowed as redirectIfAllowedAction } from '../../libs/role/actions';
 
@@ -247,7 +247,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
     this.props.setFormIsOpen(false);
   };
 
-  renderCreateWorkshopActivity = () => {
+  renderCreateWorkshopActivity = (hasAddSessionPermission: boolean) => {
     return (
       <MetaActivityCreate
         // goToPaymentPack: (id: number) => push(`/payment-pack/${id}`)
@@ -293,6 +293,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
         roomBlueprints={this.props.roomBlueprints}
         SCTs={this.props.SCTs}
         showPartnership={this.props.showPartnership}
+        skipOfferStep={!hasAddSessionPermission}
         updateLevel={this.props.updateLevel}
         upsertedWorkshop={this.props.upsertedWorkshop}
         upsertMetaActivity={this.props.upsertMetaActivity}
@@ -352,140 +353,147 @@ export class WorkshopActivityList extends React.Component<Props, State> {
       );
     }
     return (
-      <div className={classes.container}>
-        {this.props.loading || this.props.notificationLoading ? (
-          <LinearProgress />
-        ) : null}
-        <NoShowPenaltyDialog
-          goToSettings={this.props.goToSettings}
-          onClose={this.closeNoShowPenaltyDialog}
-          open={this.props.openNoShowPenaltyDialog}
-        />
-        {this.props.workshopActivities.length > 0 ? (
-          <div className={this.props.classes.search}>
-            <div className={classes.header}>
-              <div className={classes.searchField}>
-                <FuzeSearch
-                  changeSearch={this.changeSearch}
-                  clearSearch={this.clearSearch}
-                  items={this.props.workshopActivities}
-                  placeholder={t('actions.search')}
-                  searchFields={['name', 'description']}
-                  searchResult={this.state.searchResult}
-                  searchText={this.state.searchText}
-                />
-              </div>
-              <Hidden smDown>
-                <Button
-                  color="primary"
-                  onClick={this.props.goToPaymentPack}
-                  variant="outlined"
+      <ObjectLevelPermissionProvider
+        requiredPermission={[
+          'management.workshop.allowed_actions.create',
+          'session.workshop.allowed_actions.create',
+        ]}
+      >
+        {([hasCreatePermission, hasAddSessionPermission]: boolean[]) => (
+          <div className={classes.container}>
+            {this.props.loading || this.props.notificationLoading ? (
+              <LinearProgress />
+            ) : null}
+            <NoShowPenaltyDialog
+              goToSettings={this.props.goToSettings}
+              onClose={this.closeNoShowPenaltyDialog}
+              open={this.props.openNoShowPenaltyDialog}
+            />
+            {this.props.workshopActivities.length > 0 ? (
+              <div className={this.props.classes.search}>
+                <div className={classes.header}>
+                  <div className={classes.searchField}>
+                    <FuzeSearch
+                      changeSearch={this.changeSearch}
+                      clearSearch={this.clearSearch}
+                      items={this.props.workshopActivities}
+                      placeholder={t('actions.search')}
+                      searchFields={['name', 'description']}
+                      searchResult={this.state.searchResult}
+                      searchText={this.state.searchText}
+                    />
+                  </div>
+                  <Hidden smDown>
+                    <Button
+                      color="primary"
+                      onClick={this.props.goToPaymentPack}
+                      variant="outlined"
+                    >
+                      <ArrowForwardIcon className={classes.leftIcon} />
+                      {t('navigation.goToPaymentPack')}
+                    </Button>
+                  </Hidden>
+                </div>
+                <Paper
+                  className={
+                    this.state.searchResult.length > 0 &&
+                    this.state.searchText !== ''
+                      ? this.props.classes.searchPaperDisplayed
+                      : this.props.classes.searchPaperHiden
+                  }
                 >
-                  <ArrowForwardIcon className={classes.leftIcon} />
-                  {t('navigation.goToPaymentPack')}
-                </Button>
-              </Hidden>
-            </div>
-            <Paper
-              className={
-                this.state.searchResult.length > 0 &&
-                this.state.searchText !== ''
-                  ? this.props.classes.searchPaperDisplayed
-                  : this.props.classes.searchPaperHiden
-              }
-            >
-              <Collapse
-                in={
-                  this.state.searchResult.length > 0 &&
-                  this.state.searchText !== ''
-                }
-              >
-                <MetaActivityList
-                  isWorkshop
-                  deleteMetaActivity={this.props.setWorkshopToDelete}
-                  goToDetail={this.props.goToDetail}
-                  goToEdit={this.editMetaActivity}
-                  metaActivities={this.state.searchResult}
-                />
-              </Collapse>
-            </Paper>
-          </div>
-        ) : null}
-        <MetaActivityList
-          isWorkshop
-          deleteMetaActivity={this.props.setWorkshopToDelete}
-          goToDetail={this.props.goToDetail}
-          goToEdit={this.editMetaActivity}
-          makeActivityCopy={this.props.makeActivityCopy}
-          metaActivities={this.props.workshopActivities}
-        />
-        {(this.props.disabledWorkshopActivities || []).length ? (
-          <div>
-            <ButtonBase
-              className={this.props.classes.buttonTitle}
-              onClick={this.onShowDisabled}
-            >
-              <Typography
-                className={this.props.classes.titleContainer}
-                variant="h5"
-              >
-                {`${t('disabledWorkshops')} (${
-                  (this.props.disabledWorkshopActivities || []).length
-                })`}
-              </Typography>
+                  <Collapse
+                    in={
+                      this.state.searchResult.length > 0 &&
+                      this.state.searchText !== ''
+                    }
+                  >
+                    <MetaActivityList
+                      isWorkshop
+                      deleteMetaActivity={this.props.setWorkshopToDelete}
+                      goToDetail={this.props.goToDetail}
+                      goToEdit={this.editMetaActivity}
+                      metaActivities={this.state.searchResult}
+                    />
+                  </Collapse>
+                </Paper>
+              </div>
+            ) : null}
+            <MetaActivityList
+              isWorkshop
+              deleteMetaActivity={this.props.setWorkshopToDelete}
+              goToDetail={this.props.goToDetail}
+              goToEdit={this.editMetaActivity}
+              makeActivityCopy={this.props.makeActivityCopy}
+              metaActivities={this.props.workshopActivities}
+            />
+            {(this.props.disabledWorkshopActivities || []).length ? (
+              <div>
+                <ButtonBase
+                  className={this.props.classes.buttonTitle}
+                  onClick={this.onShowDisabled}
+                >
+                  <Typography
+                    className={this.props.classes.titleContainer}
+                    variant="h5"
+                  >
+                    {`${t('disabledWorkshops')} (${
+                      (this.props.disabledWorkshopActivities || []).length
+                    })`}
+                  </Typography>
 
-              {this.state.showDisabled ? (
-                <ExpandLessIcon />
-              ) : (
-                <ExpandMoreIcon />
-              )}
-            </ButtonBase>
-            <Divider />
-            <Collapse in={this.state.showDisabled}>
-              <MetaActivityList
-                isWorkshop
-                deleteMetaActivity={this.props.setWorkshopToDelete}
-                goToDetail={this.props.goToDetail}
-                goToEdit={this.editMetaActivity}
-                makeActivityCopy={this.props.makeActivityCopy}
-                metaActivities={this.props.disabledWorkshopActivities}
-                restoreMetaActivity={this.restoreMetaActivity}
+                  {this.state.showDisabled ? (
+                    <ExpandLessIcon />
+                  ) : (
+                    <ExpandMoreIcon />
+                  )}
+                </ButtonBase>
+                <Divider />
+                <Collapse in={this.state.showDisabled}>
+                  <MetaActivityList
+                    isWorkshop
+                    deleteMetaActivity={this.props.setWorkshopToDelete}
+                    goToDetail={this.props.goToDetail}
+                    goToEdit={this.editMetaActivity}
+                    makeActivityCopy={this.props.makeActivityCopy}
+                    metaActivities={this.props.disabledWorkshopActivities}
+                    restoreMetaActivity={this.restoreMetaActivity}
+                  />
+                </Collapse>
+              </div>
+            ) : null}
+            <WorkshopDeleteDialog
+              canDeleteWorkshopChecker={canDeleteMetaActivityAPI}
+              deleteWorkshop={this.props.deleteWorkshop}
+              onClose={() => this.props.setWorkshopToDelete(null)}
+              workshopId={this.props.workshopToDelete}
+            />
+            <MetaActivityEditDrawer
+              isWorkshop
+              initial={{
+                ...this.getSelectedMetaActivityInitialData(),
+                images: (selectedMetaActivity || {}).images || [],
+              }}
+              onCancel={this.onCancelEdit}
+              onSubmit={this.props.onSubmit}
+              open={!!this.props.selectedMetaActivity}
+              SCTs={this.props.SCTs}
+              tags={this.props.allTagsWithTagGroup}
+            />
+
+            {hasCreatePermission && (
+              <BottomActionsButton
+                onCreate={() => {
+                  this.props.setFormIsOpen(true);
+                }}
+                onCreateLabel={this.props.t('actions.addWorkshopActivity')}
               />
-            </Collapse>
+            )}
+            {this.props.formIsOpen &&
+              this.renderCreateWorkshopActivity(hasAddSessionPermission)}
           </div>
-        ) : null}
-        <WorkshopDeleteDialog
-          canDeleteWorkshopChecker={canDeleteMetaActivityAPI}
-          deleteWorkshop={this.props.deleteWorkshop}
-          onClose={() => this.props.setWorkshopToDelete(null)}
-          workshopId={this.props.workshopToDelete}
-        />
-        <MetaActivityEditDrawer
-          isWorkshop
-          initial={{
-            ...this.getSelectedMetaActivityInitialData(),
-            images: (selectedMetaActivity || {}).images || [],
-          }}
-          onCancel={this.onCancelEdit}
-          onSubmit={this.props.onSubmit}
-          open={!!this.props.selectedMetaActivity}
-          SCTs={this.props.SCTs}
-          tags={this.props.allTagsWithTagGroup}
-        />
-
-        <ObjectLevelPermissionWrapper
-          forcedBehavior="hidden"
-          requiredPermission="management.workshop.allowed_actions.create"
-        >
-          <BottomActionsButton
-            onCreate={() => {
-              this.props.setFormIsOpen(true);
-            }}
-            onCreateLabel={this.props.t('actions.addWorkshopActivity')}
-          />
-        </ObjectLevelPermissionWrapper>
-        {this.props.formIsOpen ? this.renderCreateWorkshopActivity() : ''}
-      </div>
+        )}
+      </ObjectLevelPermissionProvider>
     );
   }
 }

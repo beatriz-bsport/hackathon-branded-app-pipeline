@@ -237,6 +237,8 @@ exports.default = {
       required: 'Incomplete field',
     },
     dialog: { createLevel: 'Create a level', recurrencePreview: 'Preview' },
+    forbidden:
+      'You do not have permission to add sessions to this activity. Please contact your manager to obtain the necessary rights.',
     section: {
       coachOverride: {
         info: 'If you tick this box, the changes applied to the substitution teacher in this session will be applied to all similar sessions. Otherwise, they will only be applied to this session.',

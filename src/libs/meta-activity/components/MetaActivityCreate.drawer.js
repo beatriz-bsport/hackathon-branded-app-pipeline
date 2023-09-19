@@ -70,6 +70,7 @@ type Props = {
   createPaymentPack: (data: any, options: OptionCallback) => void,
   categoryList: any,
   showPartnership: boolean,
+  skipOfferStep: boolean,
 
   activeCustomLevels: Level[],
   allCustomLevels: Level[],
@@ -213,6 +214,7 @@ export class MetaActivityCreateDrawer extends Component<Props> {
       deleteLevel={this.props.deleteLevel}
       error={this.props.offerHadError}
       fetchLevelList={this.handleFetchLevel}
+      isForbidden={this.props.skipOfferStep}
       metaActivity={
         this.props.isWorkshop
           ? this.props.upsertedWorkshop
@@ -278,6 +280,23 @@ export class MetaActivityCreateDrawer extends Component<Props> {
     );
   };
 
+  /**
+   * Renders a stepper form based on the provided permissions.
+   *
+   * @returns The rendered stepper form or null.
+   */
+  renderStepper(kind: 'top' | 'bottom' = 'top') {
+    if (kind === 'bottom') {
+      if (this.props.step === STEP_PASS) {
+        return null;
+      }
+      if (this.props.step === STEP_OFFER && this.props.skipOfferStep) {
+        return null;
+      }
+    }
+    return <StepperForm activeStep={this.props.step} />;
+  }
+
   render() {
     if (this.props.loading) {
       return <LinearProgress />;
@@ -311,14 +330,12 @@ export class MetaActivityCreateDrawer extends Component<Props> {
             : this.props.t('titles:metaActivity.metaActivityFormPage')
         }
       >
-        <StepperForm activeStep={this.props.step} />
+        {this.renderStepper()}
         {this.props.step.id === STEP_ACTIVITY.id &&
           this.renderMetaActivityStep()}
         {this.props.step.id === STEP_OFFER.id && this.renderOfferStep()}
         {this.props.step.id === STEP_PASS.id && this.renderPaymentPackStep()}
-        {this.props.step === STEP_PASS ? null : (
-          <StepperForm activeStep={this.props.step} />
-        )}
+        {this.renderStepper('bottom')}
       </GenericResponsiveDrawer>
     );
   }

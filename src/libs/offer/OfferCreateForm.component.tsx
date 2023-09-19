@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { FC, useCallback, useEffect, useMemo } from 'react';
 
 import Button from '@material-ui/core/Button';
+import Alert from '@material-ui/lab/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withFormik, useFormikContext, FormikProps, Form } from 'formik';
 import moment, { Moment } from 'moment-timezone';
@@ -51,6 +52,7 @@ type ComponentProps = {
   isLoading?: boolean;
   hideBanner?: boolean;
   onCancelText?: string;
+  isForbidden?: boolean;
   fetchLevelList?: (
     params?: LevelFilterSet,
     options?: OptionPaginatedCallback<Level>,
@@ -75,6 +77,26 @@ type FormProps = {
 };
 
 type Props = ComponentProps & FormikProps<OfferFormValues>;
+
+const ForbiddenLayout: FC<{
+  buttonsContainerClassName: string;
+  alertClassName: string;
+  className: string;
+  nextText: string;
+  onCancel: () => void;
+  warningText: string;
+}> = React.memo((props) => (
+  <div className={props.className}>
+    <Alert className={props.alertClassName} severity="warning">
+      {props.warningText}
+    </Alert>
+    <div className={props.buttonsContainerClassName}>
+      <Button color="primary" onClick={props.onCancel}>
+        {props.nextText}
+      </Button>
+    </div>
+  </div>
+));
 
 export const OfferCreateForm = (props: Props) => {
   const {
@@ -143,6 +165,18 @@ export const OfferCreateForm = (props: Props) => {
     );
   }
 
+  if (props?.isForbidden) {
+    return (
+      <ForbiddenLayout
+        alertClassName={classes.alert}
+        buttonsContainerClassName={classes.buttonsContainer}
+        className={classes.forbiddenStepContainer}
+        nextText={t('next')}
+        onCancel={onCancel}
+        warningText={t('offer:form.forbidden')}
+      />
+    );
+  }
   return (
     <Form noValidate data-testid="offer-form" onSubmit={handleSubmit}>
       <OfferFormRecurrencePreview timezone={timezone} />

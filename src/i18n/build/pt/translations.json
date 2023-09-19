@@ -1249,6 +1249,7 @@
                     "guestNotEnoughSpot": "Não há lugares suficientes para todos os vossos convidados."
                 },
                 "offerBooked": "As suas sessões",
+                "offerBooked_plural": "",
                 "offerPreBooked": "Inscrever-me na lista de espera",
                 "offerNotBookable": "Não é possível registar-se",
                 "error": "Erro",

@@ -178,6 +178,7 @@ exports.default = {
         notifications: { _label: 'Notifications' },
         strategies: { _label: 'Strategies' },
         tags: { _label: 'Tags' },
+        cadence: { _label: 'Cadence' },
       },
       payments: {
         _label: 'Transactions',

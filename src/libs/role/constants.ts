@@ -25,6 +25,7 @@ export const URLS_PERMISSIONS: Record<ProtectedUrls, string[]> = {
   '/schedule': ['navigationMenu.schedule'],
   '/activity': ['navigationMenu.myClub.activities'],
   '/activity/add': ['navigationMenu.myClub.activities'],
+  '/cadence': ['navigationMenu.marketing.cadence'],
   '/clock-in/history': ['navigationMenu.payments.clockIn.canAccessHistory'],
   '/clock-in/real-time': ['navigationMenu.payments.clockIn.clockInForOther'],
   '/coach': ['navigationMenu.myClub.teachers'],

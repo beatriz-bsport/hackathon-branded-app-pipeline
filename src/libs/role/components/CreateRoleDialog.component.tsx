@@ -120,6 +120,7 @@ const defaultPermissions: RolePermission = {
       notifications: true,
       tags: true,
       strategies: true,
+      cadence: true,
     },
     digitalOffer: {
       videos: true,

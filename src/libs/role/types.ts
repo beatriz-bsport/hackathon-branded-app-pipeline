@@ -434,6 +434,7 @@ export type ProtectedUrls =
   | '/establishment/room'
   | '/expense'
   | '/giftcard'
+  | '/inbox/thread'
   | '/instalment-payment'
   | '/invoice'
   | '/invoice/bill-member'

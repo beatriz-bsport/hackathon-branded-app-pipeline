@@ -126,6 +126,7 @@ const defaultPermissions: RolePermission = {
       videos: true,
       playlists: true,
     },
+    inbox: true,
     member: true,
     reporting: true,
     settings: {

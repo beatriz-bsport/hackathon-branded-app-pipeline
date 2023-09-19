@@ -170,6 +170,7 @@ exports.default = {
         videos: { _label: 'Videos & eBooks' },
         playlists: { _label: 'Playlist' },
       },
+      inbox: { _label: 'Inbox' },
       marketing: {
         _label: 'Marketing',
         templates: { _label: 'Emails' },

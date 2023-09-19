@@ -158,7 +158,7 @@ export const MetaActivityCard = (props: Props) => {
             ) : null}
           </div>
           <div>
-            <TypographyMultiline color="textSecondary" variant="">
+            <TypographyMultiline color="textSecondary">
               {metaActivity.description}
             </TypographyMultiline>
           </div>

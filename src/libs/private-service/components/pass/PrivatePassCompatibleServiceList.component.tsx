@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose, withState } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +17,7 @@ import DoneAllIcon from '@material-ui/icons/DoneAll';
 import ReportProblemIcon from '@material-ui/icons/ReportProblem';
 
 import { PrivateServiceListItem } from '../service/PrivateServiceListItem.component';
+// @ts-expect-error
 import { PrivateSlotCompatibleServiceForm } from '../slot/PrivateSlotCompatibleServiceForm.component';
 import { PrivateServiceSelector } from '../service/PrivateServiceSelector.component';
 import { filterPrivateService } from '../../utils';
@@ -36,16 +36,16 @@ type Props = {
   isManager: boolean;
 
   deleteCompatibleServicePass?: (
-    passId: number,
+    privatePassId: number,
     privateServiceId: number,
   ) => void;
   createCompatibleServicePass?: (
-    passId: number,
+    privatePassId: number,
     privateServiceId: number,
     options?: { onSuccess?: () => void; onError?: () => void },
   ) => void;
   updateCompatibleServicePass?: (
-    passId: number,
+    privatePassId: number,
     serviceId: number,
     data: any,
     options?: { onSuccess?: () => void; onError?: () => void },
@@ -81,7 +81,6 @@ export const PrivatePassCompatibleServiceList: React.FC<Props> = (props) => {
                 <PrivateServiceListItem
                   key={ps.id}
                   hideSecondary
-                  classes={classes}
                   compatibilityByService={
                     compatibleServicePass &&
                     compatibleServicePass.find(
@@ -95,7 +94,6 @@ export const PrivatePassCompatibleServiceList: React.FC<Props> = (props) => {
                       : null
                   }
                   privateService={ps}
-                  t={t}
                 />
               ))}
 

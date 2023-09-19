@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useTranslation } from 'react-i18next';
 import MenuItem from '@material-ui/core/MenuItem';
 import { TFunction } from 'i18next';
@@ -30,6 +29,7 @@ import {
 } from '../../types';
 import PrivatePassListItem from '../pass/PrivatePassListItem.component';
 import { ManagerOnly } from '../../../payment-packs/components/PaymentPackFilterAndSortHeader.component';
+// @ts-expect-error
 import withConfirm from '../../../../hocs/with-confirm.hoc';
 
 type Props = {
@@ -104,7 +104,6 @@ const SortablePrivatePassListItem = React.memo((props: PackListItemProps) => {
         key={ppass.id}
         divider
         attributes={attributes}
-        disabled={false}
         draggable={props.draggable}
         listeners={listeners}
         onClick={props.onClick}

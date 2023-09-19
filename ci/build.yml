@@ -79,7 +79,7 @@ Buid Deploy Production:
     ACL_PARAM: '--acl public-read'
   tags:
     - build-frontend
-    - kubernetes
+    - cluster:bsport-tooling
 
 Buid Deploy Dev:
   extends: .Build and deploy Base

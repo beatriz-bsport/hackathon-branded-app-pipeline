@@ -18,6 +18,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 
 import PrivateSlotForm from './PrivateSlotForm.component';
 import PrivateSlotListItem from './PrivateSlotListItem.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import type { PrivateService } from '../../types';
 
@@ -46,105 +47,129 @@ type Props = {
   classes: Object,
 };
 
-export const EditablePrivateSlotList = (props: Props) => {
+export const PrivateSlotEditableList: React.FC<Props> = (props) => {
   const slots = props.privateService.slots.filter((s) => s.available);
+  const { deletePrivateSlot, setEditSlotForm } = props;
+
   return (
-    <div className={props.classes.container}>
-      <div className={props.classes.titleRow}>
-        <AccessTimeIcon className={props.classes.leftIcon} fontSize="large" />
-        <Typography variant="h4">
-          {props.t('service.configuration.slot')}
-        </Typography>
-      </div>
-      <List>
-        <Paper>
-          {slots.length === 0 ? (
-            <div className={props.classes.row}>
-              <WarningIcon className={props.classes.leftIcon} color="error" />
-              <div className={props.classes.columnLeft}>
-                <Typography>
-                  {props.t('service.parameters.slots.isEmpty')}
-                </Typography>
-                <Typography color="error">
-                  {props.t('service.parameters.slots.explainIsEmpty')}
-                </Typography>
-              </div>
-            </div>
-          ) : null}
-          {slots.map((s) => {
-            if (s && s.id) {
-              return (
-                <PrivateSlotListItem
-                  key={s.id}
-                  divider
-                  onDelete={() => props.deletePrivateSlot(s.id)}
-                  onEdit={() => props.setEditSlotForm(s)}
-                  slot={s}
-                />
-              );
-            }
-            return <CircularProgress key={s} />;
-          })}
-        </Paper>
-      </List>
-      <Button
-        className={props.classes.button}
-        color="primary"
-        onClick={() => props.setOpenSlotForm(true)}
-        variant="contained"
-      >
-        <AddIcon className={props.classes.leftIcon} />
-        {props.t('service.form.addSlot')}
-      </Button>
-      <Dialog open={!!props.editSlotForm}>
-        <DialogContent>
-          <PrivateSlotForm
-            initial={props.editSlotForm}
-            onCancel={() => props.setEditSlotForm(null)}
-            onSubmit={(data, options) => {
-              props.updatePrivateSlot(
-                props.privateService.id,
-                {
-                  ...data,
-                  private_service: props.privateService.id,
-                },
-                props.editSlotForm.id,
-                {
-                  onSuccess: () => {
-                    props.setEditSlotForm(null);
-                    options?.onSuccess();
-                  },
-                  onError: () => {
-                    options?.onError();
-                  },
-                },
-              );
-            }}
-          />
-        </DialogContent>
-      </Dialog>
-      <Dialog open={props.openSlotForm}>
-        <DialogContent>
-          <PrivateSlotForm
-            onCancel={() => props.setOpenSlotForm(false)}
-            onSubmit={(data, options) =>
-              props.createPrivateSlot(
-                props.privateService.id,
-                {
-                  ...data,
-                  private_service: props.privateService.id,
-                },
-                null,
-                {
-                  onSuccess: () => props.setOpenSlotForm(false),
-                  onError: () => options.onError && options.onError(),
-                },
-              )
-            }
-          />
-        </DialogContent>
-      </Dialog>
-    </div>
+    <ObjectLevelPermissionProvider
+      requiredPermission={[
+        'session.privateSlot.allowed_actions.create',
+        'session.privateSlot.allowed_actions.edit',
+        'session.privateSlot.allowed_actions.delete',
+      ]}
+    >
+      {([
+        hasCreatePermission,
+        hasEditPermission,
+        hasDeletePermission,
+      ]: boolean[]) => (
+        <div className={props.classes.container}>
+          <div className={props.classes.titleRow}>
+            <AccessTimeIcon
+              className={props.classes.leftIcon}
+              fontSize="large"
+            />
+            <Typography variant="h4">
+              {props.t('service.configuration.slot')}
+            </Typography>
+          </div>
+          <List>
+            <Paper>
+              {slots.length === 0 ? (
+                <div className={props.classes.row}>
+                  <WarningIcon
+                    className={props.classes.leftIcon}
+                    color="error"
+                  />
+                  <div className={props.classes.columnLeft}>
+                    <Typography>
+                      {props.t('service.parameters.slots.isEmpty')}
+                    </Typography>
+                    <Typography color="error">
+                      {props.t('service.parameters.slots.explainIsEmpty')}
+                    </Typography>
+                  </div>
+                </div>
+              ) : null}
+              {slots.map((slot) => {
+                if (slot && slot.id) {
+                  return (
+                    <PrivateSlotListItem
+                      key={slot.id}
+                      divider
+                      onDelete={hasDeletePermission && deletePrivateSlot}
+                      onEdit={hasEditPermission && setEditSlotForm}
+                      slot={slot}
+                    />
+                  );
+                }
+                return <CircularProgress key={slot} />;
+              })}
+            </Paper>
+          </List>
+          {hasCreatePermission && (
+            <Button
+              className={props.classes.button}
+              color="primary"
+              onClick={() => props.setOpenSlotForm(true)}
+              variant="contained"
+            >
+              <AddIcon className={props.classes.leftIcon} />
+              {props.t('service.form.addSlot')}
+            </Button>
+          )}
+          <Dialog open={!!props.editSlotForm}>
+            <DialogContent>
+              <PrivateSlotForm
+                initial={props.editSlotForm}
+                onCancel={() => props.setEditSlotForm(null)}
+                onSubmit={(data, options) => {
+                  props.updatePrivateSlot(
+                    props.privateService.id,
+                    {
+                      ...data,
+                      private_service: props.privateService.id,
+                    },
+                    props.editSlotForm.id,
+                    {
+                      onSuccess: () => {
+                        props.setEditSlotForm(null);
+                        options?.onSuccess();
+                      },
+                      onError: () => {
+                        options?.onError();
+                      },
+                    },
+                  );
+                }}
+              />
+            </DialogContent>
+          </Dialog>
+          <Dialog open={props.openSlotForm}>
+            <DialogContent>
+              <PrivateSlotForm
+                onCancel={() => props.setOpenSlotForm(false)}
+                onSubmit={(data, options) =>
+                  props.createPrivateSlot(
+                    props.privateService.id,
+                    {
+                      ...data,
+                      private_service: props.privateService.id,
+                    },
+                    null,
+                    {
+                      onSuccess: () => props.setOpenSlotForm(false),
+                      onError: () => options.onError && options.onError(),
+                    },
+                  )
+                }
+              />
+            </DialogContent>
+          </Dialog>
+        </div>
+      )}
+    </ObjectLevelPermissionProvider>
   );
 };
 
@@ -184,4 +209,4 @@ export default compose(
   withStyles(styles),
   withState('openSlotForm', 'setOpenSlotForm', false),
   withState('editSlotForm', 'setEditSlotForm', null),
-)(EditablePrivateSlotList);
+)(PrivateSlotEditableList);

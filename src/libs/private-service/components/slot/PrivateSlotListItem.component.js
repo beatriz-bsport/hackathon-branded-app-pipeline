@@ -15,8 +15,8 @@ import { getCreditFactor } from '#libs/theme/selectors';
 import type { PrivateSlot } from '../../types';
 
 type Props = {
-  onDelete: () => void,
-  onEdit: () => void,
+  onDelete?: (slotId: number) => void,
+  onEdit?: (slot: PrivateSlot | null) => void,
   onClick: ?() => void,
   slot: PrivateSlot,
   t: TFunction,
@@ -39,33 +39,48 @@ const DeleteButtonWithConfirm = withConfirm(DeleteButton, 'onClick', {
   ),
 });
 
-export const PrivateSlotListItem = (props: Props) => {
+export const PrivateSlotListItem: React.FC<Props> = ({
+  onDelete,
+  onEdit,
+  onClick,
+  slot,
+  t,
+  divider,
+  hideCredits,
+}) => {
+  const handleDeleteSlot = React.useCallback(() => {
+    if (onDelete && slot?.id) {
+      onDelete(slot.id);
+    }
+  }, [onDelete, slot]);
+  const handleEditSlot = React.useCallback(() => {
+    if (onEdit && slot) {
+      onEdit(slot);
+    }
+  }, [onEdit, slot]);
+
   return (
-    <ListItem
-      button={!!props.onClick}
-      divider={props.divider}
-      onClick={props.onClick}
-    >
+    <ListItem button={!!onClick} divider={divider} onClick={onClick}>
       <ListItemText
-        primary={props.slot.name}
-        secondary={`${formatMinutes(props.slot.duration_minutes, props.t)}${
-          props.hideCredits
+        primary={slot.name}
+        secondary={`${formatMinutes(slot.duration_minutes, t)}${
+          hideCredits
             ? ''
             : ' - '.concat(
-                props.t('privateService:slot.parameters.credit', {
-                  credit: props.slot.credit / getCreditFactor(),
+                t('privateService:slot.parameters.credit', {
+                  credit: slot.credit / getCreditFactor(),
                 }),
               )
         }`}
       />
       <ListItemSecondaryAction>
-        {props.onEdit ? (
-          <IconButton color="primary" onClick={props.onEdit}>
+        {onEdit ? (
+          <IconButton color="primary" onClick={handleEditSlot}>
             <EditIcon />
           </IconButton>
         ) : null}
-        {props.onDelete ? (
-          <DeleteButtonWithConfirm onClick={props.onDelete} />
+        {onDelete ? (
+          <DeleteButtonWithConfirm onClick={handleDeleteSlot} />
         ) : null}
       </ListItemSecondaryAction>
     </ListItem>

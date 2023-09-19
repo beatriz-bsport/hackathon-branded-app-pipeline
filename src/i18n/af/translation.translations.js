@@ -208,6 +208,7 @@ exports.default = {
     cancellingBookingInGroup: 'Cancel multiple sessions',
     cancellingOtherBookingInGroup:
       "This session is associated to an event ({{ name }}). Other bookings associated to this event won't be edited.",
+    waitingListPosition: 'On waiting list {{ position }}/{{ size }}',
   },
   workshopActivity: {
     forms: {

@@ -65,6 +65,7 @@ import {
   discardBookingOption as discardBookingOptionAction,
   registerToWaitingList as registerToWaitingListAction_,
   fetchByOffer as fetchBookingOptionByOfferAction,
+  fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction,
 } from '#libs/waiting-list/actions';
 import {
   getOfferBookingListWithConsumerPack,
@@ -129,6 +130,7 @@ import { RootState } from '../../reducers';
 import { Booking } from '#libs/booking/types';
 import { fetchSignFormUpConfiguration } from '#libs/sign-up-form/actions';
 import { getSignUpFormConfigurationDict } from '#libs/sign-up-form/selectors';
+import { getWaitingListConfigurationData } from '#libs/waiting-list/selectors';
 import {
   fetchMemberProgram as fetchMemberProgramAction,
   fetchProgram as fetchProgramAction,
@@ -237,6 +239,7 @@ export default compose(
       activityGroups: getGroupListCount(state),
       spotTypes: getSpotTypesOfCompany(state),
       stripeReaders: getStripeReaders(state),
+      waitingListConfiguration: getWaitingListConfigurationData(state),
 
       // unread answers
       numberOfUnreadAnswers: state.communicationV2.unreadAnswers.count,
@@ -335,6 +338,10 @@ export default compose(
 
       fetchSpotForBlueprint: fetchSpotForBlueprintAction,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
+
+      // waitinglist config
+      fetchCompanyWaitlistConfiguration:
+        fetchCompanyWaitlistConfigurationAction,
 
       // communication v2
       getUnreadAnswersCountAction,

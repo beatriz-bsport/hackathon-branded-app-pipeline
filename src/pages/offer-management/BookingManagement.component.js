@@ -141,6 +141,7 @@ type Props = {
   numberOfUnreadAnswers: number,
   onRollCallButtonClick: () => void,
   isRollCallMandatory: boolean,
+  displayPositionInWaitingList: boolean,
 };
 
 type State = {
@@ -763,33 +764,40 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                   />
                 ) : null}
                 <List disablePadding>
-                  {this.props.bookingOptionsPending.map((bo) => (
-                    <BookingOptionForManager
-                      disabled={moment(this.props.offer.date_start).isBefore(
-                        moment(),
-                      )}
-                      member={this.props.members.find(
-                        (m) => m.id === bo.member,
-                      )}
-                      onClickRegister={(e) => {
-                        e.stopPropagation();
-                        const member = getMemberFromId(
-                          bo.member,
-                          this.props.members,
-                        );
-                        this.props.registerOption(bo.id, {
-                          name: member.name,
-                          photo: member.photo,
-                          id: bo.member,
-                        });
-                      }}
-                      onDiscard={(e) => {
-                        e.stopPropagation();
-                        this.props.discardOption(bo.id);
-                      }}
-                      option={bo}
-                    />
-                  ))}
+                  {this.props.bookingOptionsPending.map(
+                    (bookingOption, index) => (
+                      <BookingOptionForManager
+                        disabled={moment(this.props.offer.date_start).isBefore(
+                          moment(),
+                        )}
+                        displayPositionInWaitingList={
+                          this.props.displayPositionInWaitingList
+                        }
+                        member={this.props.members.find(
+                          (m) => m.id === bookingOption.member,
+                        )}
+                        onClickRegister={(e) => {
+                          e.stopPropagation();
+                          const member = getMemberFromId(
+                            bookingOption.member,
+                            this.props.members,
+                          );
+                          this.props.registerOption(bookingOption.id, {
+                            name: member.name,
+                            photo: member.photo,
+                            id: bookingOption.member,
+                          });
+                        }}
+                        onDiscard={(e) => {
+                          e.stopPropagation();
+                          this.props.discardOption(bookingOption.id);
+                        }}
+                        option={bookingOption}
+                        waitingListPosition={index + 1}
+                        waitingListSize={this.props.offer?.nb_option}
+                      />
+                    ),
+                  )}
                 </List>
                 {!!this.props.recurrenceRuleBookingList.length && (
                   <div>
@@ -979,4 +987,4 @@ export default compose(
     'common',
     'booking',
   ]),
-)(BookingManagement);
+)(React.memo(BookingManagement));

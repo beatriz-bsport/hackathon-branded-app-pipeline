@@ -27,6 +27,9 @@ type Props = {
   classes: any,
   onClickRegister: () => void,
   disabled: boolean,
+  waitingListPosition: number,
+  waitingListSize: number,
+  displayPositionInWaitingList: Boolean,
 };
 
 export class BookingOptionForManager extends Component<Props> {
@@ -78,6 +81,24 @@ export class BookingOptionForManager extends Component<Props> {
     win.focus();
   };
 
+  getSecondaryTextToDisplay = () => {
+    const {
+      t,
+      option,
+      waitingListPosition,
+      waitingListSize,
+      displayPositionInWaitingList,
+    } = this.props;
+
+    if (option.is_convertible) return t('booking.waitingUserConfirmation');
+    if (displayPositionInWaitingList)
+      return t('booking.waitingListPosition', {
+        position: waitingListPosition,
+        size: waitingListSize,
+      });
+    return t('booking.onWaitingList');
+  };
+
   render() {
     const { option, t, classes, onClickRegister } = this.props;
     if (option.cancelled) {
@@ -96,6 +117,7 @@ export class BookingOptionForManager extends Component<Props> {
         </ListItem>
       );
     }
+
     return (
       <ListItem button disableRipple divider onClick={this.handleListItemClick}>
         <div className={classes.outerRow}>
@@ -103,11 +125,7 @@ export class BookingOptionForManager extends Component<Props> {
             {this.getAvatar()}
             <ListItemText
               primary={this.getHeading()}
-              secondary={
-                option.is_convertible
-                  ? t('booking.waitingUserConfirmation')
-                  : t('booking.onWaitingList')
-              }
+              secondary={this.getSecondaryTextToDisplay()}
             />
           </div>
         </div>
@@ -151,4 +169,4 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   withTranslation(),
-)(BookingOptionForManager);
+)(React.memo(BookingOptionForManager));

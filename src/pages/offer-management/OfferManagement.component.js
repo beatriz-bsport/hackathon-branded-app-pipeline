@@ -13,6 +13,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 import { mapFormData } from '../form.utils';
 
 import QuickInvoicePanel from './QuickInvoicePanel.component';
@@ -36,6 +37,7 @@ import type {
 import type { Booking, BookingOption } from '#libs/booking/types';
 import type { Member } from '#libs/member/types';
 import type { Invoice } from '#libs/invoice/types';
+import type { WaitingListConfiguration } from '#libs/waiting-list/type';
 import { Offer, OfferStatus } from '#libs/offer/types';
 import { AssetForBlueprint, RoomBlueprint } from '#libs/spot-scheduling/types';
 import OfferManagementRoomBlueprint from './OfferManagementRoomBlueprint.component';
@@ -243,6 +245,8 @@ type Props = {
   getUnreadAnswersCountAction: (params: CommunicationContext) => void,
   numberOfUnreadAnswers: number,
   fetchBookingsByOffer: (offerId: number) => void,
+  fetchCompanyWaitlistConfiguration: (companyId: number) => void,
+  waitingListConfiguration: WaitingListConfiguration,
 };
 
 type State = {
@@ -285,6 +289,9 @@ export class OfferManagement extends Component<Props, State> {
     });
     this.props.fetchStripeReaders();
     this.props.getUnreadAnswersCountAction(params);
+    this.props.fetchCompanyWaitlistConfiguration(
+      this.props.company_theme.company,
+    );
   }
 
   fetchOfferAndData = () => {
@@ -697,6 +704,11 @@ export class OfferManagement extends Component<Props, State> {
             createMemberProgram={this.props.createMemberProgram}
             discardBookingAttendance={this.props.discardBookingAttendance}
             discardOption={this.props.setOptionToDiscardWithDialog}
+            displayPositionInWaitingList={
+              this.props.waitingListConfiguration?.display_member_position &&
+              this.props.waitingListConfiguration?.dynamic ===
+                WAITING_LIST_DYNAMIC_ORDERED
+            }
             fetchBookingsByConsumerPack={this.props.fetchBookingsByConsumerPack}
             fetchPerformanceTrackingData={
               this.props.fetchPerformanceTrackingData

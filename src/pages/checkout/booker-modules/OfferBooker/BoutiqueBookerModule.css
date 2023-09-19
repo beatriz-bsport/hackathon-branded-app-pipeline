@@ -13,17 +13,19 @@
     'main-left main-right';
   grid-template-columns: calc(1180px * 0.66) auto;
   grid-template-rows: 5vh calc(90vh - 5vh);
-  gap: var(--spacing-4);
+  column-gap: var(--spacing-4);
+  row-gap: var(--spacing-1);
+  margin: var(--spacing-4) 0;
 }
 
 .bs-new-offer-booking-header {
   grid-area: header-left;
   display: flex;
+  height: fit-content;
   flex-direction: row;
   gap: var(--spacing-2);
   width: 100%;
   align-items: center;
-  padding: var(--spacing-4) 0;
 }
 
 .bs-new-offer-booking {
@@ -122,10 +124,12 @@
   .bs-new-offer-booking-header {
     padding-left: var(--spacing-2);
   }
-  .bs-new-offer-booking {
+  .bs-new-offer-booking,
+  .bs-offer-booking-waiting-list__status__container {
     padding-left: var(--spacing-2);
   }
-  .bs-new-offer-booking__offer-summary {
+  .bs-new-offer-booking__offer-summary,
+  .bs-offer-booking-waiting-list__summary__container {
     padding-right: var(--spacing-2);
   }
 }

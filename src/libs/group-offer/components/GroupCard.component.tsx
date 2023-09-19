@@ -29,9 +29,9 @@ type Props = {
   metaActivity: MetaActivity;
   offers: Offer[];
   offerSelected?: number;
-  onEdit: (group: OffersGroup<Offer>) => void;
-  onCopy: (group: OffersGroup<Offer>) => void;
-  onDelete: (group: OffersGroup<Offer>) => void;
+  onEdit?: (group: OffersGroup<Offer>) => void;
+  onCopy?: (group: OffersGroup<Offer>) => void;
+  onDelete?: (group: OffersGroup<Offer>) => void;
   onSelect: (id: number) => void;
 };
 
@@ -87,15 +87,21 @@ export const GroupCard: React.FC<Props> = ({
         <div className={classes.topRow}>
           <Typography>{group.name}</Typography>
           <div>
-            <IconButton color="primary" onClick={handleEdit}>
-              <EditIcon />
-            </IconButton>
-            <IconButton color="primary" onClick={handleCopy}>
-              <FileCopyIcon />
-            </IconButton>
-            <IconButton onClick={handleDelete}>
-              <DeleteIcon />
-            </IconButton>
+            {onEdit && (
+              <IconButton color="primary" onClick={handleEdit}>
+                <EditIcon />
+              </IconButton>
+            )}
+            {onCopy && (
+              <IconButton color="primary" onClick={handleCopy}>
+                <FileCopyIcon />
+              </IconButton>
+            )}
+            {onDelete && (
+              <IconButton onClick={handleDelete}>
+                <DeleteIcon />
+              </IconButton>
+            )}
           </div>
         </div>
         <div className={classes.bottomRow}>

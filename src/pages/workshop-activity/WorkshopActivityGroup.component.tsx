@@ -45,6 +45,7 @@ import usePagination from '../../hooks/usePagination';
 import { OffersGroup, OffersGroupFilter } from '#libs/group-offer/types';
 import { workshopActivityGroupConnector } from './WorkshopActivityGroup.page';
 import OfferEditForm from '#libs/offer/OfferEditForm.component';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 const PAGE_SIZE_OPTIONS = [5, 10, 25, 50];
 
@@ -465,336 +466,366 @@ const WorkshopActivityGroup: React.FC<Props> = ({
   const _metaActivities = metaActivity ? [metaActivity] : metaActivities;
 
   return (
-    <div className={classes.container}>
-      <div style={pageHeight ? { maxHeight: pageHeight } : {}}>
-        <Grid container spacing={3}>
-          {isWidthDown('md', width) && selectedOffer && (
-            <Button
-              className={classes.button}
-              onClick={resetOffer}
-              size="small"
-            >
-              <KeyboardArrowLeft />
-              {t('workshop:group.backToGroup')}
-            </Button>
-          )}
-
-          {(isWidthUp('lg', width) || !selectedOffer) && !!hideEmptyState && (
-            <Grid item lg={6} xs={12}>
-              <MetaActivityGroupsFilter
-                filter={filter}
-                isLoading={metaActivityLoading}
-                metaActivities={[..._metaActivities]}
-                onChange={(_filter) => {
-                  setWorkshopGroupFilter(_filter);
-                  resetPage();
-                }}
-                withoutMetaActivity={!!metaActivityId}
-              />
-              <div className={classes.pageSizeSelect}>
-                <Typography color="textSecondary">
-                  {t('workshop:group.pageSize')}
-                </Typography>
-                <Select
-                  onChange={(
-                    ev: React.ChangeEvent<{
-                      value: number;
-                    }>,
-                  ) => {
-                    handleSetPageSize(ev.target.value);
-                  }}
-                  value={pageSize}
+    <ObjectLevelPermissionProviderComponent
+      requiredPermission={[
+        'session.workshop.allowed_actions.create',
+        'session.workshop.allowed_actions.edit',
+        'session.workshop.allowed_actions.delete',
+      ]}
+    >
+      {([
+        hasAddSessionPermission,
+        hasEditSessionPermission,
+        hasDeleteSessionPermission,
+      ]: boolean[]) => (
+        <div className={classes.container}>
+          <div style={pageHeight ? { maxHeight: pageHeight } : {}}>
+            <Grid container spacing={3}>
+              {isWidthDown('md', width) && selectedOffer && (
+                <Button
+                  className={classes.button}
+                  onClick={resetOffer}
+                  size="small"
                 >
-                  {PAGE_SIZE_OPTIONS.map((ps) => (
-                    <MenuItem key={ps} value={ps}>
-                      {ps}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </div>
-              {groupListLoading && <LinearProgress />}
-              {!groupListLoading && (
-                <>
-                  {groupListCount === 0 && (
-                    <Typography
-                      className={classes.emptyState}
-                      color="textSecondary"
-                    >
-                      {t('workshop:group.emptySearch')}
-                    </Typography>
-                  )}
-                  <div className={classes.list}>
-                    {groupList.map((group) => (
-                      <GroupCard
-                        key={group.id}
-                        group={group}
-                        metaActivity={_metaActivities.find(
-                          (m) => m.id === group.meta_activity,
-                        )}
-                        offers={getOffersListByGroup(group.id)}
-                        offerSelected={selectedOffer?.id}
-                        onCopy={handleOpenDuplicateGroupModal}
-                        onDelete={handleOpenDeleteGroupModal}
-                        onEdit={handleOpenEditGroupModal}
-                        onSelect={handleSelectOffer}
-                      />
-                    ))}
-                  </div>
-                </>
+                  <KeyboardArrowLeft />
+                  {t('workshop:group.backToGroup')}
+                </Button>
               )}
 
-              {Math.ceil(groupListCount / pageSize) > 1 && (
-                <div className={classes.pagination}>
-                  <Pagination
-                    count={Math.ceil(groupListCount / pageSize)}
-                    onChange={(_, _page) => {
-                      handleSetPage(_page);
-                    }}
-                    page={page}
-                    shape="round"
-                  />
-                </div>
+              {(isWidthUp('lg', width) || !selectedOffer) &&
+                !!hideEmptyState && (
+                  <Grid item lg={6} xs={12}>
+                    <MetaActivityGroupsFilter
+                      filter={filter}
+                      isLoading={metaActivityLoading}
+                      metaActivities={[..._metaActivities]}
+                      onChange={(_filter) => {
+                        setWorkshopGroupFilter(_filter);
+                        resetPage();
+                      }}
+                      withoutMetaActivity={!!metaActivityId}
+                    />
+                    <div className={classes.pageSizeSelect}>
+                      <Typography color="textSecondary">
+                        {t('workshop:group.pageSize')}
+                      </Typography>
+                      <Select
+                        onChange={(
+                          ev: React.ChangeEvent<{
+                            value: number;
+                          }>,
+                        ) => {
+                          handleSetPageSize(ev.target.value);
+                        }}
+                        value={pageSize}
+                      >
+                        {PAGE_SIZE_OPTIONS.map((ps) => (
+                          <MenuItem key={ps} value={ps}>
+                            {ps}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </div>
+                    {groupListLoading && <LinearProgress />}
+                    {!groupListLoading && (
+                      <>
+                        {groupListCount === 0 && (
+                          <Typography
+                            className={classes.emptyState}
+                            color="textSecondary"
+                          >
+                            {t('workshop:group.emptySearch')}
+                          </Typography>
+                        )}
+                        <div className={classes.list}>
+                          {groupList.map((group) => (
+                            <GroupCard
+                              key={group.id}
+                              group={group}
+                              metaActivity={_metaActivities.find(
+                                (m) => m.id === group.meta_activity,
+                              )}
+                              offers={getOffersListByGroup(group.id)}
+                              offerSelected={selectedOffer?.id}
+                              onCopy={
+                                hasEditSessionPermission &&
+                                hasAddSessionPermission &&
+                                handleOpenDuplicateGroupModal
+                              }
+                              onDelete={
+                                hasDeleteSessionPermission &&
+                                handleOpenDeleteGroupModal
+                              }
+                              onEdit={
+                                hasEditSessionPermission &&
+                                handleOpenEditGroupModal
+                              }
+                              onSelect={handleSelectOffer}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
+
+                    {Math.ceil(groupListCount / pageSize) > 1 && (
+                      <div className={classes.pagination}>
+                        <Pagination
+                          count={Math.ceil(groupListCount / pageSize)}
+                          onChange={(_, _page) => {
+                            handleSetPage(_page);
+                          }}
+                          page={page}
+                          shape="round"
+                        />
+                      </div>
+                    )}
+                  </Grid>
+                )}
+              {!!hideEmptyState && (
+                <Grid item lg={6} xs={12}>
+                  {selectedOffer ? (
+                    <div className={classes.offerCard}>
+                      <OfferCard
+                        bookings={bookings}
+                        bookingsLoading={bookingsLoading || !bookings}
+                        companyId={companyId}
+                        creditScaleFactor={theme.pass_credit_factor}
+                        goToOfferManagement={navigateToOffer}
+                        members={members}
+                        membersLoading={membersLoading || !members}
+                        offer={selectedOffer}
+                        onDeleteButtonClick={handleOpenOfferDeleteModal}
+                        onEditButtonClick={handleOpenOfferEditModal}
+                        onModifyTags={handleOpenOfferEditModal}
+                        onRestoreButtonClick={handleOpenOfferRestoreModal}
+                        showOfferGender={theme?.show_booked_gender_offer}
+                        showVaccinationStatus={showVaccinationStatus}
+                        snackbarSuccess={snackbarSuccess}
+                      />
+                    </div>
+                  ) : (
+                    <div className={classes.emptySelect}>
+                      <InfoIcon className={classes.info} color="disabled" />
+                      <div>
+                        <Typography color="textSecondary" variant="body1">
+                          {t('workshop:group.emptySelect')}
+                        </Typography>
+                      </div>
+                    </div>
+                  )}
+                </Grid>
               )}
             </Grid>
-          )}
-          {!!hideEmptyState && (
-            <Grid item lg={6} xs={12}>
-              {selectedOffer ? (
-                <div className={classes.offerCard}>
-                  <OfferCard
-                    bookings={bookings}
-                    bookingsLoading={bookingsLoading || !bookings}
-                    companyId={companyId}
-                    creditScaleFactor={theme.pass_credit_factor}
-                    goToOfferManagement={navigateToOffer}
-                    members={members}
-                    membersLoading={membersLoading || !members}
-                    offer={selectedOffer}
-                    onDeleteButtonClick={handleOpenOfferDeleteModal}
-                    onEditButtonClick={handleOpenOfferEditModal}
-                    onModifyTags={handleOpenOfferEditModal}
-                    onRestoreButtonClick={handleOpenOfferRestoreModal}
-                    showOfferGender={theme?.show_booked_gender_offer}
-                    showVaccinationStatus={showVaccinationStatus}
-                    snackbarSuccess={snackbarSuccess}
-                  />
-                </div>
-              ) : (
-                <div className={classes.emptySelect}>
-                  <InfoIcon className={classes.info} color="disabled" />
-                  <div>
-                    <Typography color="textSecondary" variant="body1">
-                      {t('workshop:group.emptySelect')}
-                    </Typography>
-                  </div>
-                </div>
-              )}
-            </Grid>
-          )}
-        </Grid>
-        <IsEmptyList
-          button={t('workshop:actions.addWorkshopGroup')}
-          hideEmptyText={hideEmptyState}
-          onCreate={handleOpenCreateModal}
-          onCreateLabel={t('workshop:actions.addWorkshopGroup')}
-          text={t('workshop:group.emptyState')}
-        />
-        {/* Groups Modal */}
-        <GroupedOfferCreateForm
-          allEstablishments={allEstablishments}
-          allRoomBlueprints={allRoomBlueprints}
-          availableEstablishments={availableEstablishments}
-          availableRoomBlueprints={availableRoomBlueprints}
-          coaches={coaches}
-          coachPaymentRulesByKind={coachPaymentRulesByKind}
-          createGroupOffers={handleCreateGroup}
-          createLevel={createLevel}
-          creditScaleFactor={theme.pass_credit_factor}
-          customLevels={customLevels}
-          deleteLevel={deleteLevel}
-          fetchLevelList={handleFetchLevel}
-          fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
-          generatePreview={generateGroupOffersPreview}
-          groupPreview={groupPreview}
-          metaActivities={[..._metaActivities]}
-          metaActivity={metaActivity}
-          metaActivityLoading={metaActivityLoading}
-          onClose={handleCloseCreateModal}
-          open={openCreateModal}
-          resetPreview={resetPreview}
-          tagList={allTagsWithTagGroup}
-          theme={theme}
-          updateLevel={updateLevel}
-          zoomAppDetail={zoomAppDetail}
-        />
-        <GroupedOfferEditDrawer
-          allEstablishments={allEstablishments}
-          allRoomBlueprints={allRoomBlueprints}
-          availableEstablishments={availableEstablishments}
-          availableRoomBlueprints={availableRoomBlueprints}
-          coaches={coaches}
-          coachPaymentRulesByKind={coachPaymentRulesByKind}
-          createLevel={createLevel}
-          creditScaleFactor={theme.pass_credit_factor}
-          customLevels={customLevels}
-          deleteLevel={deleteLevel}
-          fetchLevelList={handleFetchLevel}
-          fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
-          group={editingGroup}
-          metaActivity={_metaActivities.find(
-            (o) => o.id === editingGroup?.meta_activity,
-          )}
-          onClose={handleCloseEditGroupModal}
-          onSubmit={handleEditGroup}
-          open={!!editingGroup}
-          tagList={allTagsWithTagGroup}
-          theme={theme}
-          updateLevel={updateLevel}
-          zoomAppDetail={zoomAppDetail}
-        />
-        {deletingGroup && (
-          <GroupedOfferDeleteDialog
-            fetchOfferBulk={fetchOfferBulk}
-            fetchSimilar={fetchSimilarGroupOffers}
-            getOffersListByGroup={getOffersListByGroup}
-            group={deletingGroup}
-            onCancel={handleCloseDeleteGroupModal}
-            onSubmit={handleDeleteGroup}
-            open={!!deletingGroup}
-            processing={false}
-            similarLoading={similarLoading}
-            similars={[...(similarGroups ?? [])]}
-          />
-        )}
-        {!!duplicatingGroup && (
-          <GroupedOfferDuplicate
-            createGroupOffers={handleCreateGroup}
-            generatePreview={generateGroupOffersPreview}
-            group={duplicatingGroup}
-            groupPreview={groupPreview}
-            metaActivity={_metaActivities.find(
-              (o) => o.id === duplicatingGroup?.meta_activity,
+            {hasAddSessionPermission && (
+              <IsEmptyList
+                button={t('workshop:actions.addWorkshopGroup')}
+                hideEmptyText={hideEmptyState}
+                onCreate={handleOpenCreateModal}
+                onCreateLabel={t('workshop:actions.addWorkshopGroup')}
+                text={t('workshop:group.emptyState')}
+              />
             )}
-            onClose={handleCloseDuplicateGroupModal}
-            open={!!duplicatingGroup}
-            resetPreview={resetPreview}
-          />
-        )}
-        {/* OFFERS MODAL */}
-        {editOfferModalOpen && (
-          <GenericResponsiveDrawer
-            withoutHeaderContainer
-            withoutPadding
-            onClose={handleCloseEditModal}
-            open={editOfferModalOpen}
-            subtitle={t('translation:common.offerEdition')}
-            title={t('translation:common.offers')}
-          >
-            <OfferEditForm
-              editableCoachPaymentRule
-              isOfferInGroup
-              activeCustomLevels={customLevels}
-              allCustomLevels={allCustomLevels}
+            {/* Groups Modal */}
+            <GroupedOfferCreateForm
               allEstablishments={allEstablishments}
               allRoomBlueprints={allRoomBlueprints}
               availableEstablishments={availableEstablishments}
+              availableRoomBlueprints={availableRoomBlueprints}
+              coaches={coaches}
+              coachPaymentRulesByKind={coachPaymentRulesByKind}
+              createGroupOffers={handleCreateGroup}
+              createLevel={createLevel}
+              creditScaleFactor={theme.pass_credit_factor}
+              customLevels={customLevels}
+              deleteLevel={deleteLevel}
+              fetchLevelList={handleFetchLevel}
+              fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
+              generatePreview={generateGroupOffersPreview}
+              groupPreview={groupPreview}
+              metaActivities={[..._metaActivities]}
+              metaActivity={metaActivity}
+              metaActivityLoading={metaActivityLoading}
+              onClose={handleCloseCreateModal}
+              open={openCreateModal}
+              resetPreview={resetPreview}
+              tagList={allTagsWithTagGroup}
+              theme={theme}
+              updateLevel={updateLevel}
+              zoomAppDetail={zoomAppDetail}
+            />
+            <GroupedOfferEditDrawer
+              allEstablishments={allEstablishments}
+              allRoomBlueprints={allRoomBlueprints}
+              availableEstablishments={availableEstablishments}
+              availableRoomBlueprints={availableRoomBlueprints}
               coaches={coaches}
               coachPaymentRulesByKind={coachPaymentRulesByKind}
               createLevel={createLevel}
               creditScaleFactor={theme.pass_credit_factor}
+              customLevels={customLevels}
               deleteLevel={deleteLevel}
               fetchLevelList={handleFetchLevel}
-              fetchSimilarOffers={fetchSimilarOffers}
-              isLoading={
-                coachesLoading ||
-                metaActivityLoading ||
-                establishmentsLoading ||
-                similarOfferLoading
-              }
-              isWherebyIntegrationEnabled={
-                theme?.is_whereby_integration_enabled &&
-                theme?.is_whereby_integration_allowed
-              }
-              offer={selectedOffer}
-              onCancel={handleCloseEditModal}
-              onSubmit={onEditOffer}
-              processing={editOfferProcessing}
-              roomBlueprints={availableRoomBlueprints}
-              showPartnership={theme.has_partnership}
-              similarOffers={similarOffers}
+              fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
+              group={editingGroup}
+              metaActivity={_metaActivities.find(
+                (o) => o.id === editingGroup?.meta_activity,
+              )}
+              onClose={handleCloseEditGroupModal}
+              onSubmit={handleEditGroup}
+              open={!!editingGroup}
               tagList={allTagsWithTagGroup}
+              theme={theme}
               updateLevel={updateLevel}
               zoomAppDetail={zoomAppDetail}
             />
-          </GenericResponsiveDrawer>
-        )}
-        {deleteOfferModalOpen && (
-          <Dialog onClose={handleCloseDeleteModal} open={deleteOfferModalOpen}>
-            <DialogContent>
-              <DeleteOfferForm
-                fetchSimilarOffers={() => {
-                  fetchSimilarOffers(selectedOfferId);
-                }}
-                offer={selectedOffer}
-                offerWasCancelled={!selectedOffer.available}
-                onCancel={handleCloseDeleteModal}
-                onCancelOffer={handleCancelOffer}
-                onHardDelete={handleDeleteOffer}
+            {deletingGroup && (
+              <GroupedOfferDeleteDialog
+                fetchOfferBulk={fetchOfferBulk}
+                fetchSimilar={fetchSimilarGroupOffers}
+                getOffersListByGroup={getOffersListByGroup}
+                group={deletingGroup}
+                onCancel={handleCloseDeleteGroupModal}
+                onSubmit={handleDeleteGroup}
+                open={!!deletingGroup}
                 processing={false}
-                setOpenDeleteDialog={handleOpenOfferDeleteImpossibleModal}
-                similarOfferLoading={similarOfferLoading}
-                similarOffers={similarOffers}
+                similarLoading={similarLoading}
+                similars={[...(similarGroups ?? [])]}
               />
-            </DialogContent>
-          </Dialog>
-        )}
-        {deleteImpossibleModalOpen && (
-          <Dialog
-            aria-describedby="alert-dialog-description"
-            aria-labelledby="alert-dialog-title"
-            onClose={handleCloseDeleteImpossibleModal}
-            open={deleteImpossibleModalOpen}
-          >
-            <DialogTitle id="alert-dialog-title">
-              {t('offer:deleteImpossibleTitle')}
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                {t('offer:deleteImpossibleText')}
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                color="primary"
-                onClick={handleCloseDeleteImpossibleModal}
+            )}
+            {!!duplicatingGroup && (
+              <GroupedOfferDuplicate
+                createGroupOffers={handleCreateGroup}
+                generatePreview={generateGroupOffersPreview}
+                group={duplicatingGroup}
+                groupPreview={groupPreview}
+                metaActivity={_metaActivities.find(
+                  (o) => o.id === duplicatingGroup?.meta_activity,
+                )}
+                onClose={handleCloseDuplicateGroupModal}
+                open={!!duplicatingGroup}
+                resetPreview={resetPreview}
+              />
+            )}
+            {/* OFFERS MODAL */}
+            {editOfferModalOpen && (
+              <GenericResponsiveDrawer
+                withoutHeaderContainer
+                withoutPadding
+                onClose={handleCloseEditModal}
+                open={editOfferModalOpen}
+                subtitle={t('translation:common.offerEdition')}
+                title={t('translation:common.offers')}
               >
-                {t('offer:close')}
-              </Button>
-            </DialogActions>
-          </Dialog>
-        )}
-        {restoreModalOpen && (
-          <Dialog open={restoreModalOpen}>
-            <DialogTitle>
-              <Typography variant="h6">
-                {t('offer.restoreModal.title')}
-              </Typography>
-            </DialogTitle>
-            <DialogContent>
-              <Typography>{t('offer.restoreModal.explain')}</Typography>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCloseRestoreModal}>
-                {t('common.cancel')}
-              </Button>
-              <Button color="primary" onClick={handleRestoreOffer}>
-                {t('common.confirm')}
-              </Button>
-            </DialogActions>
-          </Dialog>
-        )}
-      </div>
-    </div>
+                <OfferEditForm
+                  editableCoachPaymentRule
+                  isOfferInGroup
+                  activeCustomLevels={customLevels}
+                  allCustomLevels={allCustomLevels}
+                  allEstablishments={allEstablishments}
+                  allRoomBlueprints={allRoomBlueprints}
+                  availableEstablishments={availableEstablishments}
+                  coaches={coaches}
+                  coachPaymentRulesByKind={coachPaymentRulesByKind}
+                  createLevel={createLevel}
+                  creditScaleFactor={theme.pass_credit_factor}
+                  deleteLevel={deleteLevel}
+                  fetchLevelList={handleFetchLevel}
+                  fetchSimilarOffers={fetchSimilarOffers}
+                  isLoading={
+                    coachesLoading ||
+                    metaActivityLoading ||
+                    establishmentsLoading ||
+                    similarOfferLoading
+                  }
+                  isWherebyIntegrationEnabled={
+                    theme?.is_whereby_integration_enabled &&
+                    theme?.is_whereby_integration_allowed
+                  }
+                  offer={selectedOffer}
+                  onCancel={handleCloseEditModal}
+                  onSubmit={onEditOffer}
+                  processing={editOfferProcessing}
+                  roomBlueprints={availableRoomBlueprints}
+                  showPartnership={theme.has_partnership}
+                  similarOffers={similarOffers}
+                  tagList={allTagsWithTagGroup}
+                  updateLevel={updateLevel}
+                  zoomAppDetail={zoomAppDetail}
+                />
+              </GenericResponsiveDrawer>
+            )}
+            {deleteOfferModalOpen && (
+              <Dialog
+                onClose={handleCloseDeleteModal}
+                open={deleteOfferModalOpen}
+              >
+                <DialogContent>
+                  <DeleteOfferForm
+                    fetchSimilarOffers={() => {
+                      fetchSimilarOffers(selectedOfferId);
+                    }}
+                    offer={selectedOffer}
+                    offerWasCancelled={!selectedOffer.available}
+                    onCancel={handleCloseDeleteModal}
+                    onCancelOffer={handleCancelOffer}
+                    onHardDelete={handleDeleteOffer}
+                    processing={false}
+                    setOpenDeleteDialog={handleOpenOfferDeleteImpossibleModal}
+                    similarOfferLoading={similarOfferLoading}
+                    similarOffers={similarOffers}
+                  />
+                </DialogContent>
+              </Dialog>
+            )}
+            {deleteImpossibleModalOpen && (
+              <Dialog
+                aria-describedby="alert-dialog-description"
+                aria-labelledby="alert-dialog-title"
+                onClose={handleCloseDeleteImpossibleModal}
+                open={deleteImpossibleModalOpen}
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {t('offer:deleteImpossibleTitle')}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    {t('offer:deleteImpossibleText')}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    color="primary"
+                    onClick={handleCloseDeleteImpossibleModal}
+                  >
+                    {t('offer:close')}
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            )}
+            {restoreModalOpen && (
+              <Dialog open={restoreModalOpen}>
+                <DialogTitle>
+                  <Typography variant="h6">
+                    {t('offer.restoreModal.title')}
+                  </Typography>
+                </DialogTitle>
+                <DialogContent>
+                  <Typography>{t('offer.restoreModal.explain')}</Typography>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseRestoreModal}>
+                    {t('common.cancel')}
+                  </Button>
+                  <Button color="primary" onClick={handleRestoreOffer}>
+                    {t('common.confirm')}
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            )}
+          </div>
+        </div>
+      )}
+    </ObjectLevelPermissionProviderComponent>
   );
 };
 

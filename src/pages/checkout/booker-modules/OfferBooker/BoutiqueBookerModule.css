@@ -31,6 +31,25 @@
   overflow: auto;
   height: 100%;
   padding-bottom: var(--spacing-6);
+  padding-right: var(--spacing-1);
+}
+
+.bs-new-offer-booking::-webkit-scrollbar {
+  width: var(--spacing-1);
+  background-color: #fff;
+  border-top-right-radius: var(--border-radius-2);
+}
+
+.bs-new-offer-booking::-webkit-scrollbar-thumb {
+  border-radius: var(--border-radius-1);
+  background-color: #bdbdbd;
+}
+
+.bs-new-offer-booking::-webkit-scrollbar-track {
+  width: var(--spacing-1);
+  margin: var(--spacing-1);
+  border-radius: var(--border-radius-1);
+  background-color: #eeeeee;
 }
 
 .bs-new-offer-booking__offer-summary {

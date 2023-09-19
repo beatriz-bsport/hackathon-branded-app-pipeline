@@ -169,7 +169,8 @@ import RollCallDrawer from '#libs/offer/components/RollCallDrawer.component';
 import ConfirmationRollCallDialog from '#libs/offer/components/ConfirmationRollCallDialog.component';
 import OfferEditForm from '#libs/offer/OfferEditForm.component';
 
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { useOldPermissions } from '../../config';
 
 const styles = (theme) => ({
   container: {
@@ -1179,98 +1180,138 @@ export class Planning extends PureComponent<Props, State> {
     const events_ = getDayOffers(events);
 
     return (
-      <div className={classes.container}>
-        <OfferSearchBar
-          activitiesLoading={this.props.activitiesLoading}
-          allEstablishments={this.props.allEstablishments}
-          coaches={this.props.coaches}
-          coachesLoading={this.props.coachesLoading}
-          coachesSelectedInRole={this.props.coachesSelectedInRole}
-          establishmentGroupList={this.props.establishmentGroupList}
-          establishmentsLoading={this.props.establishmentsLoading}
-          filterVerification={this.props.filterVerification}
-          metaActivities={this.props.metaActivities}
-          offerFilters={this.props.offerFilters}
-          selectRollCallFilter={this.selectRollCallFilter}
-          setCalendarFilter={this.setCalendarFilter}
-          theme={this.props.theme}
-        />
-        <Grid container className={classes.innerContainer} spacing={3}>
-          {isWidthDown('md', width) && selectedOffer
-            ? this.renderGoBackButton()
-            : null}
-          {isWidthUp('lg', width) || !selectedOffer ? (
-            <Grid item className={classes.panel} lg={6} xs={12}>
-              <CheckPermission requiredPermissions="navigation,calendar">
-                <Button
-                  color="primary"
-                  onClick={this.props.pushToSchedule}
-                  style={{ width: '100%', margin: 8 }}
-                  variant="contained"
-                >
-                  {this.props.t('openSchedule')}
-                  <ArrowForwardIcon style={{ marginLeft: 8 }} />
-                </Button>
-              </CheckPermission>
-              <Paper
-                style={{
-                  width: '100%',
-                  flex: 1,
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                <PermissionContext.Consumer>
-                  {(permission) => (
-                    <Calendar
-                      showDayName
-                      date={this.props.date}
-                      events={events_}
-                      filters={this.props.offerFilters}
-                      onDateChange={this.loadDayData}
-                      onDownload={this.onDownload}
-                      onRequestMassDisable={
-                        permission.offer.delete &&
-                        this.props.setMassDisablerStartDate
+      <ObjectLevelPermissionProvider
+        requiredPermission={[
+          'session.activity.allowed_actions.delete',
+          'session.workshop.allowed_actions.delete',
+          'planning.calendar.allowed_actions.readWeeklyOverview',
+        ]}
+      >
+        {([
+          hasDeleteActivityPermission,
+          hasDeleteWorkshopPermission,
+          hasReadWeeklyOverviewPermission,
+        ]: boolean[]) => (
+          <div className={classes.container}>
+            <OfferSearchBar
+              activitiesLoading={this.props.activitiesLoading}
+              allEstablishments={this.props.allEstablishments}
+              coaches={this.props.coaches}
+              coachesLoading={this.props.coachesLoading}
+              coachesSelectedInRole={this.props.coachesSelectedInRole}
+              establishmentGroupList={this.props.establishmentGroupList}
+              establishmentsLoading={this.props.establishmentsLoading}
+              filterVerification={this.props.filterVerification}
+              metaActivities={this.props.metaActivities}
+              offerFilters={this.props.offerFilters}
+              selectRollCallFilter={this.selectRollCallFilter}
+              setCalendarFilter={this.setCalendarFilter}
+              theme={this.props.theme}
+            />
+            <Grid container className={classes.innerContainer} spacing={3}>
+              {isWidthDown('md', width) && selectedOffer
+                ? this.renderGoBackButton()
+                : null}
+              {isWidthUp('lg', width) || !selectedOffer ? (
+                <Grid item className={classes.panel} lg={6} xs={12}>
+                  <CheckPermission requiredPermissions="navigation,calendar">
+                    <Button
+                      color="primary"
+                      onClick={this.props.pushToSchedule}
+                      style={{ width: '100%', margin: 8 }}
+                      variant="contained"
+                    >
+                      {this.props.t('openSchedule')}
+                      <ArrowForwardIcon style={{ marginLeft: 8 }} />
+                    </Button>
+                  </CheckPermission>
+                  <Paper
+                    style={{
+                      width: '100%',
+                      flex: 1,
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    {useOldPermissions ? (
+                      <PermissionContext.Consumer>
+                        {(permission) => (
+                          <Calendar
+                            showDayName
+                            date={this.props.date}
+                            events={events_}
+                            filters={this.props.offerFilters}
+                            onDateChange={this.loadDayData}
+                            onDownload={this.onDownload}
+                            onRequestMassDisable={
+                              permission.offer.delete &&
+                              this.props.setMassDisablerStartDate
+                            }
+                            setShowCancelledOffers={
+                              this.props.setShowCancelledOffers
+                            }
+                            showCancelledOffers={
+                              this.props.offerFilters.available === undefined
+                                ? this.props.theme.show_cancelled_offers_manager
+                                : !this.props.offerFilters.available
+                            }
+                          />
+                        )}
+                      </PermissionContext.Consumer>
+                    ) : (
+                      <Calendar
+                        showDayName
+                        date={this.props.date}
+                        events={events_}
+                        filters={this.props.offerFilters}
+                        onDateChange={this.loadDayData}
+                        onDownload={this.onDownload}
+                        onRequestMassDisable={
+                          hasDeleteActivityPermission &&
+                          hasDeleteWorkshopPermission &&
+                          this.props.setMassDisablerStartDate
+                        }
+                        setShowCancelledOffers={
+                          this.props.setShowCancelledOffers
+                        }
+                        showCancelledOffers={
+                          this.props.offerFilters.available === undefined
+                            ? this.props.theme.show_cancelled_offers_manager
+                            : !this.props.offerFilters.available
+                        }
+                      />
+                    )}
+                    <TimeTable
+                      displayCoachInfoOnHover
+                      showTags
+                      virtualized
+                      className={classes.offerList}
+                      companyTheme={this.props.theme}
+                      getHasPendingReplacementRequest={
+                        this.props.getHasPendingReplacementRequest
                       }
-                      setShowCancelledOffers={this.props.setShowCancelledOffers}
-                      showCancelledOffers={
-                        this.props.offerFilters.available === undefined
-                          ? this.props.theme.show_cancelled_offers_manager
-                          : !this.props.offerFilters.available
+                      isRollCallMandatory={
+                        this.props.theme.is_roll_call_mandatory
                       }
+                      loading={
+                        offerByDayLoading ||
+                        (timetableLoading && (offers || []).length === 0)
+                      }
+                      offers={offers}
+                      onModifyTags={this.onModifyTags}
+                      onOfferSelected={this.selectOffer}
+                      openConfirmationRollCallDialog={
+                        this.openConfirmationRollCallDialog
+                      }
+                      openRollCallDrawer={this.openRollCallDrawer}
+                      selected={selectedOffer ? selectedOffer.id : null}
                     />
-                  )}
-                </PermissionContext.Consumer>
-                <TimeTable
-                  displayCoachInfoOnHover
-                  showTags
-                  virtualized
-                  className={classes.offerList}
-                  companyTheme={this.props.theme}
-                  getHasPendingReplacementRequest={
-                    this.props.getHasPendingReplacementRequest
-                  }
-                  isRollCallMandatory={this.props.theme.is_roll_call_mandatory}
-                  loading={
-                    offerByDayLoading ||
-                    (timetableLoading && (offers || []).length === 0)
-                  }
-                  offers={offers}
-                  onModifyTags={this.onModifyTags}
-                  onOfferSelected={this.selectOffer}
-                  openConfirmationRollCallDialog={
-                    this.openConfirmationRollCallDialog
-                  }
-                  openRollCallDrawer={this.openRollCallDrawer}
-                  selected={selectedOffer ? selectedOffer.id : null}
-                />
-              </Paper>
-              <CheckPermission requiredPermissions="offer.create">
-                {this.renderAddOffersButton()}
-              </CheckPermission>
-              {/* Removed Bloating the ui  */}
-              {/* {!this.props.selectedOffer ? (
+                  </Paper>
+                  <CheckPermission requiredPermissions="offer.create">
+                    {this.renderAddOffersButton()}
+                  </CheckPermission>
+                  {/* Removed Bloating the ui  */}
+                  {/* {!this.props.selectedOffer ? (
                 <div className={this.props.classes.noOfferMessage}>
                   {this.renderNoOfferSelected()}
                 </div>
@@ -1290,113 +1331,121 @@ export class Planning extends PureComponent<Props, State> {
                   />
                 </div>
               )} */}
-            </Grid>
-          ) : (
-            <Typography />
-          )}
-          {selectedOffer ? (
-            <Grid item lg={6} xs={12}>
-              <div>
-                <OfferCard
-                  bookings={this.props.bookings}
-                  bookingsLoading={
-                    this.props.bookingsLoading || !this.props.bookings
-                  }
-                  companyId={this.props.companyId}
-                  companyTheme={this.props.theme}
-                  creditScaleFactor={this.props.theme.pass_credit_factor}
-                  goToOfferManagement={this.props.goToOfferManagement}
-                  linkedHybridSession={hybridOfferLinkedToSelectedOffer}
-                  members={this.props.members}
-                  membersLoading={
-                    this.props.membersLoading || !this.props.members
-                  }
-                  offer={selectedOffer}
-                  onDeleteButtonClick={this.openDeleteModal}
-                  onEditButtonClick={this.openEditModal}
-                  onModifyTags={this.onModifyTags}
-                  onRestoreButtonClick={this.openRestoreModal}
-                  showOfferGender={
-                    this.props.theme &&
-                    this.props.theme.show_booked_gender_offer
-                  }
-                  showVaccinationStatus={this.props.showVaccinationStatus}
-                  snackbarSuccess={this.props.snackbarSuccess}
-                />
-              </div>
-            </Grid>
-          ) : (
-            <ObjectLevelPermissionWrapper
-              forcedBehavior="hidden"
-              requiredPermission="planning.calendar.allowed_actions.readWeeklyOverview"
-            >
-              <Grid item lg={6} xs={12}>
-                <BookingStatisticsCard
-                  bookingStatistics={this.props.bookingStatistics}
-                  loading={
-                    this.props.createdBookingStatsLoading ||
-                    this.props.cancelledBookingStatsLoading
-                  }
-                />
-              </Grid>
-            </ObjectLevelPermissionWrapper>
-          )}
-          <Dialog
-            aria-describedby="alert-dialog-description"
-            aria-labelledby="alert-dialog-title"
-            onClose={() => this.props.setOpenDeleteDialog(false)}
-            open={this.props.openDeleteDialog}
-          >
-            <DialogTitle id="alert-dialog-title">
-              {this.props.t('offer:deleteImpossibleTitle')}
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                {this.props.t('offer:deleteImpossibleText')}
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                color="primary"
-                onClick={() => this.props.setOpenDeleteDialog(false)}
+                </Grid>
+              ) : (
+                <Typography />
+              )}
+              {selectedOffer ? (
+                <Grid item lg={6} xs={12}>
+                  <div>
+                    <OfferCard
+                      bookings={this.props.bookings}
+                      bookingsLoading={
+                        this.props.bookingsLoading || !this.props.bookings
+                      }
+                      companyId={this.props.companyId}
+                      companyTheme={this.props.theme}
+                      creditScaleFactor={this.props.theme.pass_credit_factor}
+                      goToOfferManagement={this.props.goToOfferManagement}
+                      linkedHybridSession={hybridOfferLinkedToSelectedOffer}
+                      members={this.props.members}
+                      membersLoading={
+                        this.props.membersLoading || !this.props.members
+                      }
+                      offer={selectedOffer}
+                      onDeleteButtonClick={this.openDeleteModal}
+                      onEditButtonClick={this.openEditModal}
+                      onModifyTags={this.onModifyTags}
+                      onRestoreButtonClick={this.openRestoreModal}
+                      showOfferGender={
+                        this.props.theme &&
+                        this.props.theme.show_booked_gender_offer
+                      }
+                      showVaccinationStatus={this.props.showVaccinationStatus}
+                      snackbarSuccess={this.props.snackbarSuccess}
+                    />
+                  </div>
+                </Grid>
+              ) : (
+                hasReadWeeklyOverviewPermission && (
+                  <Grid item lg={6} xs={12}>
+                    <BookingStatisticsCard
+                      bookingStatistics={this.props.bookingStatistics}
+                      loading={
+                        this.props.createdBookingStatsLoading ||
+                        this.props.cancelledBookingStatsLoading
+                      }
+                    />
+                  </Grid>
+                )
+              )}
+              <Dialog
+                aria-describedby="alert-dialog-description"
+                aria-labelledby="alert-dialog-title"
+                onClose={() => this.props.setOpenDeleteDialog(false)}
+                open={this.props.openDeleteDialog}
               >
-                {this.props.t('offer:close')}
-              </Button>
-            </DialogActions>
-          </Dialog>
-          {this.renderEditModal()}
-          {this.renderDeleteModal()}
-          {this.renderCreateModal()}
-          {this.renderRestoreModal()}
-          {this.renderRollCallDrawer()}
-          {this.renderConfirmationRollCallDialog()}
-          {!!this.props.massDisablerStartDate && (
-            <MassDisablerDialog
-              massDisabledOfferInGroup={this.props.massDisabledOfferInGroup}
-              numberOfMassDisabledOffer={this.props.numberOfMassDisabledOffer}
-              numberOfMassDisabledOfferLoading={
-                this.props.numberOfMassDisabledOfferLoading
-              }
-              onClose={() => this.props.setMassDisablerStartDate(null)}
-              onSubmit={(params) =>
-                this.props.disableMassOffers(params, this.props.offerFilters, {
-                  onSuccess: () => {
-                    this.fetchData();
-                  },
-                })
-              }
-              retrieveNumberOfDeletedOffer={({ start, end }) => {
-                this.props.retrieveNumberOfMassDisabledOffer({ start, end });
-                this.props.retrieveNumberOfMassDisabledOfferInGroup({
-                  start,
-                  end,
-                });
-              }}
-              startDate={this.props.massDisablerStartDate}
-            />
-          )}
-        </Grid>
-      </div>
+                <DialogTitle id="alert-dialog-title">
+                  {this.props.t('offer:deleteImpossibleTitle')}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    {this.props.t('offer:deleteImpossibleText')}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    color="primary"
+                    onClick={() => this.props.setOpenDeleteDialog(false)}
+                  >
+                    {this.props.t('offer:close')}
+                  </Button>
+                </DialogActions>
+              </Dialog>
+              {this.renderEditModal()}
+              {this.renderDeleteModal()}
+              {this.renderCreateModal()}
+              {this.renderRestoreModal()}
+              {this.renderRollCallDrawer()}
+              {this.renderConfirmationRollCallDialog()}
+              {!!this.props.massDisablerStartDate && (
+                <MassDisablerDialog
+                  massDisabledOfferInGroup={this.props.massDisabledOfferInGroup}
+                  numberOfMassDisabledOffer={
+                    this.props.numberOfMassDisabledOffer
+                  }
+                  numberOfMassDisabledOfferLoading={
+                    this.props.numberOfMassDisabledOfferLoading
+                  }
+                  onClose={() => this.props.setMassDisablerStartDate(null)}
+                  onSubmit={(params) =>
+                    this.props.disableMassOffers(
+                      params,
+                      this.props.offerFilters,
+                      {
+                        onSuccess: () => {
+                          this.fetchData();
+                        },
+                      },
+                    )
+                  }
+                  retrieveNumberOfDeletedOffer={({ start, end }) => {
+                    this.props.retrieveNumberOfMassDisabledOffer({
+                      start,
+                      end,
+                    });
+                    this.props.retrieveNumberOfMassDisabledOfferInGroup({
+                      start,
+                      end,
+                    });
+                  }}
+                  startDate={this.props.massDisablerStartDate}
+                />
+              )}
+            </Grid>
+          </div>
+        )}
+      </ObjectLevelPermissionProvider>
     );
   }
 }

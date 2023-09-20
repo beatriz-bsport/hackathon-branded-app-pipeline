@@ -28,14 +28,12 @@ const ALERTING_NOT_IN_GENERAL_COUNT = [UNREAD_COMMUNICATION.alert_kind];
 
 const countAlerting = createSelector(getState, (alertingState) => {
   let count = 0;
-  for (const k in alertingState.items_by_kind) {
-    if (
-      !ALERTING_NOT_IN_GENERAL_COUNT.includes(parseInt(k)) &&
-      Object.prototype.hasOwnProperty.call(alertingState.items_by_kind, k)
-    ) {
-      count += alertingState.items_by_kind[k].count || 0;
+  Object.entries(alertingState.items_by_kind).forEach(([alertKind, data]) => {
+    if (!ALERTING_NOT_IN_GENERAL_COUNT.includes(parseInt(alertKind))) {
+      count += data.count || 0;
     }
-  }
+  });
+
   return count;
 });
 

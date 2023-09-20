@@ -94,7 +94,6 @@
   flex-wrap: wrap;
   column-gap: var(--spacing-2);
   row-gap: 2px;
-  margin-bottom: var(--spacing-1);
 }
 
 .bs-payment-combo-buyable-item__list__item {

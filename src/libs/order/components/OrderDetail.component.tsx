@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -229,4 +228,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default OrderDetail;
+export default React.memo(OrderDetail);

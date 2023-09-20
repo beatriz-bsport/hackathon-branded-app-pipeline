@@ -90,8 +90,8 @@ type OwnProps = {
 
   showVaccinationStatus: boolean;
   favoriteEstablishmentGroupList?: Array<EstablishmentGroup>;
-  resolvedGenericTags: ResolvedGenericTags;
-  handleOpenResetPasswordDialog: () => void;
+  resolvedGenericTags?: ResolvedGenericTags;
+  handleOpenResetPasswordDialog?: () => void;
   referringMemberName?: string;
   referringMemberId?: number;
   handleRedirectToReferringMember?: () => void;

@@ -6257,7 +6257,12 @@
                 "Storniert",
                 "Storniert",
                 "Storniert"
-            ]
+            ],
+            "4": "Wird bearbeitet",
+            "3": "Abgebrochen",
+            "2": "Ausstehend",
+            "1": "Fehlgeschlagen",
+            "0": "Erfolgreich"
         }
     },
     "snackbar": {
@@ -9715,7 +9720,7 @@
                     "label": "Kann nur für den ersten Kauf genutzt werden"
                 },
                 "fileUploader": {
-                    "title": "Einmalige Gutscheine herunterladen",
+                    "title": "Einmalige Gutscheine hochladen",
                     "label": "Drag & Drop oder Anklicken, um die Datei auszuwählen",
                     "sizeLimitHelper": "CSV-Datei (maximal 1MB)",
                     "helperText": "Bitte laden Sie eine CSV-Datei mit allen Gutscheincodes in der ersten Spalte hoch, einen Code pro Zeile, ohne Kopfzeile."

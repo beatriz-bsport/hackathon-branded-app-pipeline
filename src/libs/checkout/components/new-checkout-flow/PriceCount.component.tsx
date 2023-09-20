@@ -57,7 +57,9 @@ export const PriceCount: React.FC<PriceCountProps> = ({
       basket.checkout_items?.find(
         (checkoutItem) =>
           checkoutItem.buyable_item_identifier ===
-          CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
+            CONTRACT_BOOKING_FUNNEL_IDENTIFIER &&
+          // If the fee is free we don't want it to be displayed
+          parseFloat(String(checkoutItem.unit_price)) > 0,
       ),
     [basket.checkout_items],
   );

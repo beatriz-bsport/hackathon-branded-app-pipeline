@@ -6,7 +6,7 @@ import { Button } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import CardMedia from '@material-ui/core/CardMedia';
 
-import MarketplaceOfferListItem from '#marketplacecomponents/@Offer/MarketplaceGroupOfferListItem.component';
+import MarketplaceOfferListItem from '#marketplacecomponents/@Offer/MarketplaceOfferListItemCSSOnly';
 import { formatMinutes } from '../../../../../utils/datetime';
 import { MetaActivity } from '#libs/meta-activity/types';
 import type { OffersGroup } from '#libs/group-offer/types';

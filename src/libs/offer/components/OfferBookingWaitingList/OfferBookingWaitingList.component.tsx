@@ -67,9 +67,8 @@ const OfferBookingWaitingList: React.FC<Props> = ({
     isWaitingListLockedByPendingBookings,
   } = useOfferWaitingListStatus(offerStatusById && offerStatusById[offer?.id]);
 
-  const isDisplayButtons = !isWaitlistOpen || isNoPassCompatibleForBooking;
-
   const isDisplayBuyPassButton =
+    !isWaitlistOpen &&
     !isWaitlistFull &&
     !isWaitlistAlreadyBooked &&
     !isWaitingListLockedByPendingBookings;
@@ -107,19 +106,17 @@ const OfferBookingWaitingList: React.FC<Props> = ({
       <div className="bs-offer-booking-waiting-list__status__summary__container">
         <div className="bs-offer-booking-waiting-list__status__container">
           <StatusMessageWithIcon
-            actions={
-              isDisplayButtons && {
-                cancel: {
-                  label: t('booking:newBookingModule.backToCalendar'),
-                  onClick: onRedirectToCalendar,
+            actions={{
+              cancel: {
+                label: t('booking:newBookingModule.backToCalendar'),
+                onClick: onRedirectToCalendar,
+              },
+              confirm: isDisplayBuyPassButton &&
+                isPassTabInMarketplaceConfig && {
+                  label: t('booking:newBookingModule.buyPass'),
+                  onClick: onRedirectToPass,
                 },
-                confirm: isDisplayBuyPassButton &&
-                  isPassTabInMarketplaceConfig && {
-                    label: t('booking:newBookingModule.buyPass'),
-                    onClick: onRedirectToPass,
-                  },
-              }
-            }
+            }}
             icon={<OfferBookingWaitingListStatusIcon isError={isErrorIcon} />}
             isLoading={isLoading}
             message={message}

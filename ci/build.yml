@@ -57,7 +57,7 @@ Buid Deploy Staging:
     ENVIRONMENT: staging
     FRONTEND_URL: backoffice.staging.bsport.io
     S3_BUCKET: s3://backoffice-staging-sandbox
-    CLOUDFRONT_ID: E3HVVKK3QMOC4B
+    CLOUDFRONT_ID: EPNH7BAGZLI8K
     SLACK_WEBHOOK_URL: '${SLACK_STAGING_WEBHOOK_URL}'
     CLOUDFRONT_INVALIDATION_LAMBDA_URL: 'https://m4ptvmggmplbez5dwa7gkew4xa0bxjvd.lambda-url.eu-west-3.on.aws/'
   tags:

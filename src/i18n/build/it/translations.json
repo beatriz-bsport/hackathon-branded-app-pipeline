@@ -1833,7 +1833,9 @@
                 "topLinks": "Link più cliccati",
                 "recipientList": "Dettagli per destinatario",
                 "exportError": "Si è verificato un errore durante l'esportazione",
-                "exportCampaign": "Esporta la strategia"
+                "exportCampaign": "Esporta la strategia",
+                "plannedResends": "Reinvio automatico pianificato per il:",
+                "resentOn": "Invia di nuovo il:"
             },
             "recipientCount": "Destinatario: {{total_recipients}}",
             "clickCount": "Click",
@@ -1860,10 +1862,15 @@
                         }
                     },
                     "max_communications_sent_per_member_limit": "Valore massimo : {{ max }}",
-                    "max_communications_sent_per_member": "Numero massimo di invii per membro",
+                    "max_communications_sent_per_member": "Numero di volte in cui si applica la regola",
                     "advancedSection": "Avanzato",
                     "submit": "Confermare",
-                    "frequenceHelper": "Questo messaggio verrà inviato il {{ max }} {{ event_kind }} a ciascun membro di questa Smartlist. Dopo {{ max }} {{ event_kind }}, i membri non riceveranno più il messaggio. Usa \"Avanzate\" per modificare queste impostazioni."
+                    "frequenceHelper": "Questo messaggio verrà inviato il {{ max }} {{ event_kind }} a ciascun membro di questa Smartlist. Dopo {{ max }} {{ event_kind }}, i membri non riceveranno più il messaggio. Usa \"Avanzate\" per modificare queste impostazioni.",
+                    "maxCommunicationSentHelperText": {
+                        "1": "Per impostazione predefinita, il messaggio viene inviato solo la prima volta che un utente esce dalla smartlist. È possibile modificare l'impostazione per consentire l'invio di messaggi successivi alla seconda o terza uscita del membro.",
+                        "0": "Per impostazione predefinita, il messaggio viene inviato solo la prima volta che un membro è inserito nella smartlist. È possibile modificare l'impostazione per consentire l'invio di messaggi successivi al secondo o al terzo inserimento del membro."
+                    },
+                    "limitSection": "Limite"
                 },
                 "activeSince": "Attivo da {{-date}}",
                 "eventKind": {
@@ -2059,7 +2066,8 @@
                 "balise": "Tag",
                 "notification": "Notifica push",
                 "sms": "SMS",
-                "mail": "Email"
+                "mail": "Email",
+                "autoResend": "Reinvio automatico"
             }
         },
         "dialogRecipients": {
@@ -2173,6 +2181,18 @@
             "title": "Nuovo messaggio",
             "smartlistPlaceholder": "Seleziona una smartlist",
             "refreshSmartlist": "Fare clic sul pulsante di aggiornamento per visualizzare le nuove smartlist"
+        },
+        "resendSection": {
+            "resendDelay": {
+                "helperText": "Valore massimo: 180",
+                "label": "Ritardo prima del reinvio"
+            },
+            "resendCount": {
+                "helperText": "L'e-mail verrà reinviata a tutti i destinatari che non l'hanno aperta. Valore massimo: 5",
+                "label": "Numero di reinvii automatici"
+            },
+            "title": "Reinvio automatico delle e-mail non lette",
+            "dialogTitle": "Reinvio automatico delle e-mail non lette"
         }
     },
     "membership": {
@@ -7847,7 +7867,12 @@
                 "Cancella",
                 "Cancella",
                 "Cancellata"
-            ]
+            ],
+            "4": "In elaborazione",
+            "3": "Canellato",
+            "2": "In attesa",
+            "1": "Fallito",
+            "0": "Riuscito"
         },
         "payment_method_with_credit_account": {
             "13": "SEPA",
@@ -12345,7 +12370,9 @@
         "params": "Parametri",
         "ok": "OK",
         "back": "Indietro",
-        "recommended": "Consigliato"
+        "recommended": "Consigliato",
+        "day": "giorno",
+        "day_plural": "giorni"
     },
     "titles": {
         "metaActivity": {

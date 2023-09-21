@@ -1814,7 +1814,9 @@
                 "recipientList": "Details",
                 "noTopLink": "Er is nog geen informatie om weer te geven.",
                 "exportError": "Fout bij het exporteren van de gegevens",
-                "exportCampaign": "Campagne exporteren"
+                "exportCampaign": "Campagne exporteren",
+                "plannedResends": "Atuo-resends gepland op:",
+                "resentOn": "herzonden op:"
             },
             "recipientCount": "Ontvanger(s): {{total_recipients}}",
             "kind": {
@@ -1849,9 +1851,14 @@
                         }
                     },
                     "max_communications_sent_per_member_limit": "Maximum: {{ max }}",
-                    "max_communications_sent_per_member": "Maximaal aantal berichten per lid",
+                    "max_communications_sent_per_member": "Aantal keren dat de regel van toepassing is",
                     "advancedSection": "Geavanceerd",
-                    "submit": "Bevestigen"
+                    "submit": "Bevestigen",
+                    "maxCommunicationSentHelperText": {
+                        "1": "Standaard wordt het bericht alleen verzonden wanneer elk lid de smartlist voor de eerste keer verlaat. Je kunt de instelling aanpassen om volgende berichten toe te staan wanneer het lid de smartlist voor de tweede of derde keer verlaat.",
+                        "0": "Standaard wordt het bericht alleen verzonden bij de eerste invoer van elk lid op de smartlist. Je kunt de instelling aanpassen om volgende berichten toe te staan bij de tweede of derde invoer van het lid."
+                    },
+                    "limitSection": "Limiet"
                 },
                 "activeSince": "Actief sinds: {{-date}}",
                 "eventKind": {
@@ -2008,7 +2015,8 @@
                 "balise": "Tags",
                 "notification": "Push-notificatie",
                 "sms": "Sms'je",
-                "mail": "E-mail"
+                "mail": "E-mail",
+                "autoResend": "Automatisch opnieuw verzenden"
             },
             "writeCommunication": "Een bericht versturen"
         },
@@ -2141,6 +2149,18 @@
             "refreshSmartlist": "Ververs de pagina om de nieuwe Smartlists te zien",
             "smartlistPlaceholder": "Selecteer een Smartlist",
             "title": "Nieuw bericht"
+        },
+        "resendSection": {
+            "resendDelay": {
+                "helperText": "Maximale waarde: 180",
+                "label": "Vertraging voor opnieuw verzenden"
+            },
+            "resendCount": {
+                "helperText": "De e-mail wordt opnieuw verzonden naar alle ontvangers die de e-mail niet hebben geopend. Maximale waarde: 5",
+                "label": "Aantal automatische herverzendingen"
+            },
+            "title": "Automatisch opnieuw verzenden van ongelezen e-mails",
+            "dialogTitle": "Ongelezen e-mail automatisch opnieuw versturen"
         }
     },
     "paymentCombo": {
@@ -3174,7 +3194,12 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd"
-            ]
+            ],
+            "4": "Verwerken",
+            "3": "Geannuleerd",
+            "2": "In behandeling",
+            "1": "Gefaald",
+            "0": "Geslaagd"
         },
         "payment_method_with_credit_account": {
             "13": "SEPA",
@@ -11996,7 +12021,9 @@
         "ok": "OK",
         "params": "Instellingen",
         "back": "Terug",
-        "recommended": "Aanbevolen"
+        "recommended": "Aanbevolen",
+        "day": "dag",
+        "day_plural": "dagen"
     },
     "workshop": {
         "modal": {

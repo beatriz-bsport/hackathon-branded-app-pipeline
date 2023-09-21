@@ -9523,7 +9523,9 @@
         "params": "Einstellungen",
         "ok": "OK",
         "back": "Zurück",
-        "recommended": "Empfehlung"
+        "recommended": "Empfehlung",
+        "day": "Tag",
+        "day_plural": "Tage"
     },
     "coupon": {
         "detail": {
@@ -10939,7 +10941,9 @@
                 "totalRead": "Number of people who opened the mail",
                 "lastOpen": "Letzte Öffnung",
                 "exportError": "Beim Export ist ein Fehler aufgetreten",
-                "exportCampaign": "Kampagne exportieren"
+                "exportCampaign": "Kampagne exportieren",
+                "plannedResends": "Auto-Rücksendungen geplant am:",
+                "resentOn": "Zurückgeschickt am :"
             },
             "clickCount": "Klicks",
             "recipientCount": "Empfänger : {{ total_recipients }}",
@@ -10972,10 +10976,15 @@
                         }
                     },
                     "max_communications_sent_per_member_limit": "Maximaler Wert : {{ max }}",
-                    "max_communications_sent_per_member": "Maximale Anzahl an Sendungen pro Mitglied",
+                    "max_communications_sent_per_member": "Anzahl der Fälle, in denen die Regel gilt",
                     "advancedSection": "Fortgeschrittene",
                     "submit": "Bestätigen",
-                    "frequenceHelper": "Diese Benachrichtigung wird für {{ max }} {{ event_kind }} der Smartlist für jedes Mitglied gesendet. Nach {{ max }} {{ event_kind }} der Smartlist für das gleiche Mitglied erhält es diese Benachrichtigung nicht mehr. Sie können diese Einstellung unter 'Erweitert' ändern."
+                    "frequenceHelper": "Diese Benachrichtigung wird für {{ max }} {{ event_kind }} der Smartlist für jedes Mitglied gesendet. Nach {{ max }} {{ event_kind }} der Smartlist für das gleiche Mitglied erhält es diese Benachrichtigung nicht mehr. Sie können diese Einstellung unter 'Erweitert' ändern.",
+                    "maxCommunicationSentHelperText": {
+                        "1": "Standardmäßig wird die Nachricht nur beim ersten Verlassen der Smartlist durch ein Mitglied gesendet. Sie können die Einstellung so anpassen, dass beim zweiten oder dritten Verlassen der Smartlist durch das Mitglied weitere Nachrichten gesendet werden.",
+                        "0": "Standardmäßig wird die Nachricht nur beim ersten Eintrag eines Mitglieds in die Smartlist gesendet. Sie können die Einstellung so anpassen, dass beim zweiten oder dritten Eintrag des Mitglieds weitere Nachrichten gesendet werden können."
+                    },
+                    "limitSection": "Limit"
                 },
                 "activeSince": "Aktiv seit dem {{-date}}",
                 "create": "Erstellung ",
@@ -11170,7 +11179,8 @@
                 "balise": "Tags",
                 "notification": "Push-Benachrichtigung",
                 "sms": "SMS",
-                "mail": "E-Mail"
+                "mail": "E-Mail",
+                "autoResend": "Automatische Rücksendung"
             }
         },
         "dialogRecipients": {
@@ -11288,6 +11298,18 @@
             "title": "Neue Nachricht",
             "smartlistPlaceholder": "Wähle eine Smartlist",
             "refreshSmartlist": "Klicken Sie auf den Refresh Button, um die neuen Smartlists einzusehen"
+        },
+        "resendSection": {
+            "resendDelay": {
+                "helperText": "Maximalwert: 180",
+                "label": "Verzögerung vor erneutem Versand"
+            },
+            "resendCount": {
+                "helperText": "Die E-Mail wird an alle Empfänger, die sie nicht geöffnet haben, erneut gesendet. Maximalwert: 5",
+                "label": "Anzahl der automatischen Neuversendungen"
+            },
+            "title": "Ungelesene E-Mails automatisch erneut senden",
+            "dialogTitle": "Ungelesene E-Mails automatisch erneut senden"
         }
     },
     "consumerSpace": {

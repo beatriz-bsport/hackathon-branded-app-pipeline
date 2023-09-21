@@ -5122,7 +5122,12 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelada"
-            ]
+            ],
+            "4": "Procesando",
+            "3": "Cancelado",
+            "2": "Pendiente",
+            "1": "Fracaso",
+            "0": "Exito"
         },
         "payment_method_with_credit_account": {
             "13": "SEPA",
@@ -5704,7 +5709,8 @@
         "barcode": {
             "display": "Mostrar código de barras",
             "code": "Código tarjeta",
-            "none": "Ninguno"
+            "none": "Ninguno",
+            "label": "Código de barras"
         },
         "birth": {
             "unknown_F": "Nacido el -",
@@ -5944,6 +5950,14 @@
         },
         "memberTable": {
             "error": "Se ha producido un error"
+        },
+        "officialIdNumber": {
+            "label": "Número del documento de identidad",
+            "value": "Número {{id}}"
+        },
+        "membershipNumber": {
+            "label": "Numéro de membership",
+            "value": "Número {{id}}"
         }
     },
     "booking": {
@@ -7123,7 +7137,8 @@
             "statistic": "Estadísticas",
             "relationConnectedAs": "Conectado como : {{name}}",
             "backToRelationMasterSpace": "volver a mi cuenta",
-            "connectedAs": "Iniciar sesión como"
+            "connectedAs": "Iniciar sesión como",
+            "goBack": "Atrás"
         },
         "actions": {
             "goToCalendar": "Ver el calendario completo",
@@ -8530,7 +8545,21 @@
             "infoBoxContent": "Te encuentras en el modo de disponibilidad específico del establecimiento. Por defecto, tus profesores están disponibles en todos los establecimientos cuando creas una disponibilidad. En esta página puede definir disponibilidades específicas para ciertos establecimientos para que tu profesor esté disponible sólo en estos establecimientos. Es necesario crear una disponibilidad general en el horario de tu profesor para crear una disponibilidad específica.",
             "goToRegularCalendar": "Volver al horario"
         },
-        "openSpecificAvailabilitiesCalendar": "Disponibilidades específicas"
+        "openSpecificAvailabilitiesCalendar": "Disponibilidades específicas",
+        "forms": {
+            "delete": {
+                "content": {
+                    "canDelete": "¿Está seguro de que desea suprimir esta cita? Este cambio es definitivo. Las reservas ya realizadas no se verán afectadas."
+                },
+                "title": "Borrar cita previa",
+                "actions": {
+                    "cancel": "Cancelar",
+                    "confirm": "Borrar"
+                },
+                "cancel": "Cancelar",
+                "confirm": "Borrar"
+            }
+        }
     },
     "reminder": {
         "task": {
@@ -8611,7 +8640,9 @@
                 "topLinks": "Enlaces más visitados",
                 "totalClick": "Número de personas que han hecho clic en un enlace",
                 "exportError": "Se ha producido un error al exportar",
-                "exportCampaign": "Exportar campaña"
+                "exportCampaign": "Exportar campaña",
+                "plannedResends": "Renvío automático planeado para el:",
+                "resentOn": "Enviado de nuevo el:"
             },
             "list": {
                 "showMore": "Ver más",
@@ -8655,9 +8686,14 @@
                         }
                     },
                     "max_communications_sent_per_member_limit": "Valor máximo : {{ max }}",
-                    "max_communications_sent_per_member": "Número máximo de envíos por miembros",
+                    "max_communications_sent_per_member": "Cantidad de veces que se aplica la norma",
                     "advancedSection": "Avanzado",
-                    "submit": "Confirmar"
+                    "submit": "Confirmar",
+                    "maxCommunicationSentHelperText": {
+                        "1": "Por defecto, el mensaje sólo se envía cuando el usuario sale por primera vez de la smartlist. Puede ajustar la configuración para permitir mensajes posteriores a la segunda o tercera salida del miembro.",
+                        "0": "Por defecto, el mensaje sólo se envía cuando el usuario entra por primera vez en la lista. Puede ajustar la configuración para permitir mensajes posteriores a la segunda o tercera entrada del miembro."
+                    },
+                    "limitSection": "Límite"
                 },
                 "activeSince": "Activo desde el {{-date}}",
                 "eventKind": {
@@ -8823,7 +8859,8 @@
                 "template": "Plantilla de email",
                 "notification": "Notificación push",
                 "sms": "SMS",
-                "mail": "Email"
+                "mail": "Email",
+                "autoResend": "Renvío automático"
             },
             "refresh": "Para ver la nueva versión de tu plantilla, haz clic en el botón de actualización.",
             "sendDisabled": {
@@ -8974,6 +9011,18 @@
             "title": "Nuevo mensaje",
             "smartlistPlaceholder": "Selecciona una smartlist",
             "refreshSmartlist": "Haz clic en el botón de actualización para ver las nuevas smartlists"
+        },
+        "resendSection": {
+            "resendDelay": {
+                "helperText": "Valor maximo: 180",
+                "label": "Duración antes de reenviar"
+            },
+            "resendCount": {
+                "helperText": "El correo electrónico se reenviará a todos los destinatarios que no lo hayan abierto. Valor máximo: 5",
+                "label": "Cantidad de reenvíos automáticos"
+            },
+            "title": "Reenvío automático de los correos no leídos",
+            "dialogTitle": "Renvío automático de los correos no leídos"
         }
     },
     "paymentCombo": {
@@ -11606,7 +11655,9 @@
         "ok": "OK",
         "params": "Parámetros",
         "back": "Volver",
-        "recommended": "Recomendado"
+        "recommended": "Recomendado",
+        "day": "día",
+        "day_plural": "días"
     },
     "snackbar": {
         "invoice": {
@@ -15214,7 +15265,9 @@
             "dialogMode": {
                 "tab": "Nueva pestaña",
                 "popup": "Nueva ventana",
-                "iframe": "Permanecer en la web"
+                "iframe": "Permanecer en la web",
+                "stayInContainer": "Ningún Popup",
+                "stayInContainerBetaTag": "(beta)"
             },
             "dialogModeLabel": "Tipo de popup (inicio de sesión, pago, reservas)",
             "showFabLabel": "Botón de acción flotante de la interfaz del cliente",
@@ -15296,7 +15349,17 @@
                     "workshop": "Filtros de talleres",
                     "activity": "Filtros de actividades",
                     "establishment": "Del establecimiento",
-                    "level": "Desde el nivel"
+                    "level": "Desde el nivel",
+                    "mobile": "Pantalla pequeña",
+                    "desktop": "Pantalla grande",
+                    "blockedByTags": "Derechos insuficientes",
+                    "isAlreadyRegistered": "Sesión ya reservada",
+                    "isOfferNotAvailableYet": "Disponible pronto",
+                    "isTooLate": "Plazo superado",
+                    "isWaitingListBlockedByPendingBookings": "Otras reservas hechas",
+                    "isWaitingListFull": "La lista de espera está llena",
+                    "isAlreadyInWaitingList": "Ya en lista de espera",
+                    "isWaitingListOpen": "Sesión llena"
                 },
                 "title": {
                     "nextOffer": "Próxima sesión disponible",
@@ -15316,7 +15379,13 @@
                     "withoutBookButton": "Ocultar el botón de reserva",
                     "showDate": "Mostrar fecha",
                     "isWorkshop": "Es un taller",
-                    "hideCoach": "Ocultar el filtro de profesores"
+                    "hideCoach": "Ocultar el filtro de profesores",
+                    "isHidden": "Escondido",
+                    "isOfferInThePast": "La sesión se acabó",
+                    "isOfferAvailable": "La sesión está disponible",
+                    "isOfferNotAvailableYet": "La sesión ya no se puede reservar",
+                    "blockedReasonStatus": "Motivo para bloquear la reserva",
+                    "isOfferFull": "La sesión está llena"
                 },
                 "configurationTitle": "Variaciones"
             },
@@ -15363,7 +15432,36 @@
                 "calendarWeekTimeTable": "Encabezado del calendario",
                 "calendarFilters": "Filtros de calendario (sólo diseño)",
                 "select": "Selector",
-                "search": "Filtro de búsqueda"
+                "search": "Filtro de búsqueda",
+                "marketplace_search": "Filtro de busqueda",
+                "marketplace_filter": "Selector multiple",
+                "marketplace_select": "Selector (único)",
+                "marketplace_offer_list_item": "Detalles de la sesión (vista lista)",
+                "marketplace_calendar_filter": "Filtros del calendario (sólo diseño)",
+                "marketplace_week_time_table": "Cabecera del calendario",
+                "marketplace_offer_card": "Detalles de la sesión (vista del calendario)",
+                "marketplace_date_picker": "Selector de fecha",
+                "marketplace_payment_combo_card": "Pack",
+                "marketplace_payment_pack_card": "Bono",
+                "marketplace_payment_pack_compatibility_modal": "Pop-up de compatibilidad (bono)",
+                "marketplace_payment_pack_restriction_modal": "Pop-up de restricciones (bono)",
+                "marketplace_payment_pack_offpeack_restriction_modal": "Pop-up de restricción horaria (bono)",
+                "marketplace_private_pass_compatibility_modal": "Compatibilidad pop-up (tarjeta de cita)",
+                "marketplace_private_pass_card": "Tarjeta de cita",
+                "marketplace_contract_card": "Tarjeta de la cuota",
+                "marketplace_contract_checkout": "Tarjeta de la cuota (pago)",
+                "marketplace_contract_detail_modal": "Detalles de la cuota pop-up",
+                "marketplace_contract_detail": "Detalles de la cuota",
+                "marketplace_contract_terms_modal": "Notas legales de la cuota pup-up",
+                "marketplace_contract_cooldown_modal": "Aviso de compra de cuota pop-up",
+                "marketplace_coupon_form_modal": "Código promocional de cuota pop-up",
+                "marketplace_contract_not_found_modal": "Aviso la cuota no se ha encontrado",
+                "marketplace_contract_payment": "Módulo de pago de suscripción",
+                "marketplace_collect_payment_method": "Agregar el método de pago",
+                "marketplace_activity_summary": "Detalles de actividad",
+                "marketplace_activity_summary_dialog": "Detalles de actividad (pop-up)",
+                "marketplace_booking_button": "Botón de reserva",
+                "marketplace_booking_blocked_reason": "Reserva imposible"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",
@@ -15587,7 +15685,8 @@
                 "first_name": "Nombre",
                 "sign_up_question": "Pregunta en el formulario de inscripción",
                 "location": "Ubicación preferida",
-                "state": "Estado"
+                "state": "Estado",
+                "official_document_id": "Numéro de identidad"
             },
             "tab": {
                 "general": "Contenido",
@@ -15652,7 +15751,8 @@
                     "requiredField": "Obligatorio",
                     "invalidEmail": "Correo electrónico no válido",
                     "passwordConfirmationError": "Las contraseñas no son indefinidas",
-                    "passwordMinimumRequirementsError": "La contraseña debe contener al menos 6 caracteres"
+                    "passwordMinimumRequirementsError": "La contraseña debe contener al menos 6 caracteres",
+                    "invalidOfficialDocumentId": "Este campo sólo puede contener números y letras"
                 }
             },
             "statistics": {

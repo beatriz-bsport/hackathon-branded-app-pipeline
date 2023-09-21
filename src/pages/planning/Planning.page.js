@@ -788,7 +788,10 @@ export class Planning extends PureComponent<Props, State> {
     return null;
   };
 
-  renderCreateModal = () => {
+  renderCreateModal = (
+    canCreateActivitySessions: boolean,
+    canCreateWorkshopSessions: boolean,
+  ) => {
     const {
       metaActivities,
       coaches,
@@ -797,6 +800,11 @@ export class Planning extends PureComponent<Props, State> {
       classes,
     } = this.props;
     const { createOfferModalOpened } = this.state;
+    const metaActivitiesFiltered = metaActivities.filter((metaActivity) =>
+      metaActivity.is_workshop
+        ? canCreateWorkshopSessions
+        : canCreateActivitySessions,
+    );
     return (
       <GenericResponsiveDrawer
         withoutHeaderContainer
@@ -822,7 +830,7 @@ export class Planning extends PureComponent<Props, State> {
             establishmentsLoading={this.props.establishmentsLoading}
             fetchLevelList={this.handleFetchLevel}
             is_whereby_integration_enabled={this.getIsWherebyIntegrationEnabled()}
-            metaActivities={metaActivities}
+            metaActivities={metaActivitiesFiltered}
             onCancel={this.closeCreateOffersModal}
             onSubmit={this.createOffers}
             processing={this.props.creatingOffers}
@@ -1184,12 +1192,16 @@ export class Planning extends PureComponent<Props, State> {
         requiredPermission={[
           'session.activity.allowed_actions.delete',
           'session.workshop.allowed_actions.delete',
+          'session.activity.allowed_actions.create',
+          'session.workshop.allowed_actions.create',
           'planning.calendar.allowed_actions.readWeeklyOverview',
         ]}
       >
         {([
           hasDeleteActivityPermission,
           hasDeleteWorkshopPermission,
+          hasCreateActivityPermission,
+          hasCreateWorkshopPermission,
           hasReadWeeklyOverviewPermission,
         ]: boolean[]) => (
           <div className={classes.container}>
@@ -1404,7 +1416,10 @@ export class Planning extends PureComponent<Props, State> {
               </Dialog>
               {this.renderEditModal()}
               {this.renderDeleteModal()}
-              {this.renderCreateModal()}
+              {this.renderCreateModal(
+                hasCreateActivityPermission,
+                hasCreateWorkshopPermission,
+              )}
               {this.renderRestoreModal()}
               {this.renderRollCallDrawer()}
               {this.renderConfirmationRollCallDialog()}

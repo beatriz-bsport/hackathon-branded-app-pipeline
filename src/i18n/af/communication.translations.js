@@ -315,7 +315,7 @@ exports.default = {
     writeCommunication: 'Send a message',
   },
   resendSection: {
-    dialogTitle: 'Relances automatiques des emails non ouverts',
+    dialogTitle: 'Auto-resend unread email',
     title: 'Auto resend unread emails',
     resendCount: {
       label: 'Number of automatic resends',

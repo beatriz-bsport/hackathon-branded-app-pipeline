@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
@@ -14,9 +13,13 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';
 import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import InvoiceListItem from '#libs/invoice/InvoiceListItem.component';
+// @ts-expect-error
 import BookingItemForManagerV2 from '#libs/booking/components/BookingItemForManagerV2.component';
+// @ts-expect-error
 import PaginatedListBase from '#components/PaginatedListBase.component';
+// @ts-expect-error
 import ConsumerPaymentPackExtensionListItem from './ConsumerPaymentPackExtensionListItem.component';
+// @ts-expect-error
 import ConsumerPaymentPackCreditRefundListItem from './ConsumerPaymentPackCreditRefundListItem.component';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 
@@ -40,7 +43,7 @@ type Props = {
   paymentPack: PaymentPack;
   bookingLoading: boolean;
   onBookingClick: (b: Booking) => void;
-  handleRevert: (id: number) => void;
+  handleRevert: (booking: Booking) => void;
   discardBookingAttendance: (id: number) => void;
   confirmBookingAttendance: (id: number) => void;
   invoice: Invoice;
@@ -75,9 +78,10 @@ type Props = {
   onClickWarningIcon: () => void;
 };
 
-export const ConsumerPaymentPackDetail = (props: Props) => {
+export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
   const { t } = useTranslation('paymentPack');
   const classes = useStyles();
+
   return (
     <div>
       {props.invoice ? (
@@ -192,7 +196,7 @@ export const ConsumerPaymentPackDetail = (props: Props) => {
               nbItems={props.penalties.count}
               onPageRequested={props.onPageRequested}
               page={props.penalties.page}
-              renderItem={(penalty) => (
+              renderItem={(penalty: ConsumerPaymentPackPenalty) => (
                 <ListItem key={penalty.id} dense divider>
                   <ListItemText
                     primary={
@@ -239,7 +243,7 @@ export const ConsumerPaymentPackDetail = (props: Props) => {
                 </ListItemIcon>
                 <ListItemText
                   primary={`${formatAsDatetime(
-                    modifiedCredit[0] * 1000,
+                    moment(modifiedCredit[0] * 1000).format(),
                     props.timezone,
                   )}`}
                 />
@@ -316,4 +320,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default ConsumerPaymentPackDetail;
+export default React.memo(ConsumerPaymentPackDetail);

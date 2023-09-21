@@ -50,6 +50,8 @@ export type ConsumerPaymentPackPenalty = {
   id: number;
   date_created: string;
   penalty_kind: number;
+  days_blocked: number;
+  account_value: string;
 };
 
 export type PaymentPackMassExtension = {

@@ -61,6 +61,7 @@ export type Booking<Offer = number, Member = number, PP = number> = {
   is_no_show: boolean;
   date_no_show_registered: string;
   roll_call_attendance: boolean;
+  date_roll_call_last_modified: string;
 };
 
 export type BookingOption<O = Offer> = {

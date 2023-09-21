@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { OfferWithSpotInformation } from '#libs/offer/types';
 import { CompanyTheme } from '#libs/theme/types';
 import MarketplaceBookingItem from '../MarketplaceBookingItem';
@@ -20,6 +21,7 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
   isLoading,
 }) => {
   const formattedDate = useOfferFormattedDate(offer, companyTheme);
+  const { t } = useTranslation('booking');
 
   const offerHours = useOfferHours(
     offer,
@@ -43,7 +45,9 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
       hideCoach={hideCoach}
       isWaitingList={offer.full}
       level={offer.customLevel}
-      spotName={offer.spot_information?.name}
+      spotName={`${t('place')} ${offer.spot_information?.prefix}${
+        offer.spot_information?.indexType
+      }`}
       title={offer.meta_activity?.name}
     />
   );

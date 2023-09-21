@@ -1815,7 +1815,7 @@
                 "noTopLink": "Er is nog geen informatie om weer te geven.",
                 "exportError": "Fout bij het exporteren van de gegevens",
                 "exportCampaign": "Campagne exporteren",
-                "plannedResends": "Atuo-resends gepland op:",
+                "plannedResends": "Automatische herverzendingen gepland op:",
                 "resentOn": "herzonden op:"
             },
             "recipientCount": "Ontvanger(s): {{total_recipients}}",

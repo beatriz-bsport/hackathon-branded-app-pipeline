@@ -2776,7 +2776,8 @@
                 "recipientList": "Details of the recipients",
                 "noTopLink": "No clicks",
                 "exportError": "An error occurred while exporting",
-                "exportCampaign": "Export campaign"
+                "exportCampaign": "Export campaign",
+                "plannedResends": "Auto-resends planned on:"
             },
             "showMail": "Show email",
             "kind": {
@@ -2813,7 +2814,12 @@
                     "max_communications_sent_per_member_limit": "Maximum value: {{ max }}",
                     "max_communications_sent_per_member": "Maximum number of messages per member",
                     "advancedSection": "Advanced",
-                    "submit": "Confirm"
+                    "submit": "Confirm",
+                    "maxCommunicationSentHelperText": {
+                        "1": "",
+                        "0": ""
+                    },
+                    "limitSection": "Limite"
                 },
                 "activeSince": "Active since: {{-date}}",
                 "eventKind": {
@@ -2952,7 +2958,8 @@
                 "template": "Email template",
                 "notification": "Push notification",
                 "sms": "SMS",
-                "mail": "Email"
+                "mail": "Email",
+                "autoResend": ""
             },
             "refresh": "To see the new version of your template, please click on the refresh button.",
             "sendDisabled": {
@@ -3103,6 +3110,9 @@
                 "becauseOfFilters": "No results matching filters.",
                 "becauseNeverUsed": "You have not yet sent any communication on this channel."
             }
+        },
+        "resendSection": {
+            "dialogTitle": "Automatic resends on unopened emails"
         }
     },
     "privateService": {

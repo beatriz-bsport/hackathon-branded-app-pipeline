@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import { useTranslation } from 'react-i18next';
@@ -9,11 +8,14 @@ import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
+// @ts-expect-error
 import PaginatedListStateful from '#components/PaginatedListStateful.component';
 import PrivateBookingListItem from '../booking/PrivateBookingListItem.component';
 import PrivateBookingDisableDialog from '../booking/PrivateBookingDisableDialog.component';
+// @ts-expect-error
 import PrivateConsumerPassExtensionListItem from './PrivateConsumerPassExtensionListItem.component';
 import InvoiceListItem from '#libs/invoice/InvoiceListItem.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { OptionCallback } from '../../../../state/types';
 import {
   PrivateBooking,
@@ -48,64 +50,71 @@ type Props = {
   forceRegularizeUnpaid?: (options: OptionCallback) => void;
 };
 
-export const PrivateConsumerPassDetail = (props: Props) => {
+export const PrivateConsumerPassDetail: React.FC<Props> = (props) => {
   const [regularizeProcessing, setRegularizeProcessing] = React.useState(false);
   const [privateBookingToDelete, setPrivateBookingToDelete] =
     React.useState<PrivateBooking | null>(null);
   const { t } = useTranslation('privateService');
   const classes = useStyles();
+
   return (
     <div>
-      {props.invoice ? (
-        <div className={classes.section}>
-          <Typography
-            className={classes.sectionTitle}
-            component="h2"
-            variant="h5"
-          >
-            {t('consumerPass.detail.invoice')}
-          </Typography>
-          <Paper>
-            <InvoiceListItem
-              invoice={props.invoice}
-              onClick={() => props.onInvoiceClick(props.invoice.uuid)}
-            />
-          </Paper>
-        </div>
-      ) : null}
-      {!!props.extensionsLoading && <LinearProgress />}
-      {props.extensions && props.extensions.length ? (
-        <div className={classes.section}>
-          <Typography
-            className={classes.sectionTitle}
-            component="h2"
-            variant="h5"
-          >
-            {t('consumerPass.detail.extensionsTitle')}
-          </Typography>
-          <Paper>
-            {!!props.privateConsumerPassExtensionDeleteLoading && (
-              <LinearProgress />
+      <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.readInvoices">
+        {(hasReadInvoicePermission: boolean) => (
+          <>
+            {hasReadInvoicePermission && props.invoice && (
+              <div className={classes.section}>
+                <Typography
+                  className={classes.sectionTitle}
+                  component="h2"
+                  variant="h5"
+                >
+                  {t('consumerPass.detail.invoice')}
+                </Typography>
+                <Paper>
+                  <InvoiceListItem
+                    invoice={props.invoice}
+                    onClick={() => props.onInvoiceClick(props.invoice.uuid)}
+                  />
+                </Paper>
+              </div>
             )}
-            <List disablePadding>
-              {props.extensions.map((ex) => (
-                <PrivateConsumerPassExtensionListItem
-                  key={ex.id}
-                  divider
-                  extension={ex}
-                  onDelete={
-                    props.private_consumer_pass &&
-                    !props.private_consumer_pass.dst_private_consumer_pass
-                      .length
-                      ? () => props.deleteExtension(ex.id)
-                      : null
-                  }
-                />
-              ))}
-            </List>
-          </Paper>
-        </div>
-      ) : null}
+            {!!props.extensionsLoading && <LinearProgress />}
+            {props.extensions && props.extensions.length ? (
+              <div className={classes.section}>
+                <Typography
+                  className={classes.sectionTitle}
+                  component="h2"
+                  variant="h5"
+                >
+                  {t('consumerPass.detail.extensionsTitle')}
+                </Typography>
+                <Paper>
+                  {!!props.privateConsumerPassExtensionDeleteLoading && (
+                    <LinearProgress />
+                  )}
+                  <List disablePadding>
+                    {props.extensions.map((ex) => (
+                      <PrivateConsumerPassExtensionListItem
+                        key={ex.id}
+                        divider
+                        extension={ex}
+                        onDelete={
+                          props.private_consumer_pass &&
+                          !props.private_consumer_pass.dst_private_consumer_pass
+                            .length
+                            ? () => props.deleteExtension(ex.id)
+                            : null
+                        }
+                      />
+                    ))}
+                  </List>
+                </Paper>
+              </div>
+            ) : null}
+          </>
+        )}
+      </ObjectLevelPermissionProvider>
       {props.onCreateExtension &&
         !!props.private_consumer_pass &&
         !props.private_consumer_pass?.private_pass?.template_instance && (
@@ -228,4 +237,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default PrivateConsumerPassDetail;
+export default React.memo(PrivateConsumerPassDetail);

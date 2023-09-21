@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -6,11 +6,9 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
-import { pure } from 'recompose';
-
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import CompanyChip from '../../../components/franchise/CompanyChip.component';
 import type { Discount } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
@@ -19,29 +17,52 @@ import { FranchiseCompany } from '#libs/franchise/types';
 type Props = {
   discount: Discount;
   disabled?: boolean;
-  goToInvoice: (uuid: string) => void;
+  goToInvoice?: (uuid: string) => void;
   goToBillingPlan: (id: number) => void;
   divider?: boolean;
   company?: FranchiseCompany;
 };
 
-export const DiscountListItem = (props: Props) => {
+export const DiscountListItem: React.FC<Props> = ({
+  discount,
+  disabled,
+  goToInvoice,
+  goToBillingPlan,
+  divider,
+  company,
+}) => {
   const { t } = useTranslation('member');
   const classes = useStyles();
+
+  const { invoice, source_invoice, billing_plan } = discount;
+
+  const hideSecondaryAction = !goToInvoice && !!(invoice || source_invoice);
+
+  const secondaryActionHandler = useCallback(() => {
+    if (invoice && goToInvoice) {
+      return goToInvoice(invoice);
+    }
+    if (billing_plan) {
+      return goToBillingPlan(billing_plan);
+    }
+    if (source_invoice && goToInvoice) return goToInvoice(source_invoice);
+    return null;
+  }, [invoice, source_invoice, billing_plan, goToBillingPlan, goToInvoice]);
+
   return (
-    <ListItem disabled={!!props.disabled} divider={!!props.divider}>
+    <ListItem disabled={!!disabled} divider={!!divider}>
       <ListItemText
         primary={
           <div className={classes.flex}>
-            <Typography>{props.discount.name}</Typography>
-            {props.company && (
+            <Typography>{discount.name}</Typography>
+            {company && (
               <CompanyChip
                 className={classes.chip}
-                company={props.company}
+                company={company}
                 size="small"
               />
             )}
-            {props.discount?.memberArchived && (
+            {discount?.memberArchived && (
               <Typography color="secondary" variant="caption">
                 {`${'\u00A0'}(${t('archived')})`}
               </Typography>
@@ -50,8 +71,8 @@ export const DiscountListItem = (props: Props) => {
         }
         secondary={
           <div className={classes.flex}>
-            {getCurrencyDisplayWithPrice(props.discount.voucher)}
-            {props.discount.reverted && (
+            {getCurrencyDisplayWithPrice(discount.voucher)}
+            {discount.reverted && (
               <Typography color="error" variant="caption">
                 {`${'\u00A0'}(${t('coupon:reverted')})`}
               </Typography>
@@ -59,29 +80,18 @@ export const DiscountListItem = (props: Props) => {
           </div>
         }
       />
-      <ListItemSecondaryAction>
-        <IconButton
-          disabled={!!props.disabled}
-          onClick={() => {
-            if (props.discount.invoice) {
-              return props.goToInvoice(props.discount.invoice);
-            }
-            if (props.discount.billing_plan) {
-              return props.goToBillingPlan(props.discount.billing_plan);
-            }
-            if (props.discount.source_invoice)
-              return props.goToInvoice(props.discount.source_invoice);
-            return null;
-          }}
-        >
-          <ArrowForwardIcon />
-        </IconButton>
-      </ListItemSecondaryAction>
+      {!hideSecondaryAction && (
+        <ListItemSecondaryAction>
+          <IconButton disabled={!!disabled} onClick={secondaryActionHandler}>
+            <ArrowForwardIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      )}
     </ListItem>
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   flex: {
     display: 'flex',
     alignItems: 'center',
@@ -91,4 +101,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default pure(DiscountListItem);
+export default React.memo(DiscountListItem);

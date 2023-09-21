@@ -19,6 +19,7 @@ import {
   getMemberDetail,
   getMemberArchiveStatus,
 } from '../../libs/member/selectors';
+import { getObjectPermissions } from '../../libs/role/selectors';
 import { getProgramList } from '#libs/performance-tracking/selector';
 import {
   fetchCountObjects as fetchCountObjectsAction,
@@ -72,6 +73,8 @@ import CommunicationDrawer from '#libs/communication-v2/components/Communication
 import { CONTEXT_MEMBER } from '#libs/communication-v2/constants';
 import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#libs/communication-v2/actions';
 import type { CommunicationContext } from '#libs/communication-v2/types';
+import { ObjectLevelPermissions } from '../../libs/role/types';
+import { hasObjectLevelPermission } from '../../libs/role/permission-utils/utils';
 
 import {
   ACTION_MODE_REDIRECT,
@@ -184,6 +187,7 @@ type Props = {
   numberOfUnreadAnswers: number,
   getUnreadAnswersCountAction: (params: CommunicationContext) => void,
   pageHeight: number,
+  objectLevelPermissions: ObjectLevelPermissions,
 };
 
 const getTabsData = (
@@ -196,7 +200,8 @@ const getTabsData = (
   private_consumer_pass: number,
   form: number,
   performance_tracking: number,
-  is_member_pos?: boolean,
+  is_member_pos: boolean,
+  objectLevelPermissions: ObjectLevelPermissions,
 ) => {
   const tabsData = !is_member_pos
     ? [
@@ -216,11 +221,18 @@ const getTabsData = (
           value: 'pass',
           count: pass,
         },
-        {
-          label: 'tab.member.payment',
-          value: 'payment',
-          count: payment,
-        },
+        ...(hasObjectLevelPermission(
+          objectLevelPermissions,
+          'billing.allowed_actions.readInvoices',
+        )
+          ? [
+              {
+                label: 'tab.member.payment',
+                value: 'payment',
+                count: payment,
+              },
+            ]
+          : []),
         { label: 'tab.member.contact', value: 'contact' },
         {
           label: 'tab.member.relation',
@@ -371,6 +383,7 @@ export class MemberDetail extends React.Component<Props> {
       this.props.customFormFilledList?.length,
       this.props.programList?.length,
       this.props.member?.is_pos,
+      this.props.objectLevelPermissions,
     );
 
     return (
@@ -580,6 +593,7 @@ export default compose(
       memberToArchive: getMemberDetail(state, id),
       stripeReaders: getStripeReaders(state),
       numberOfUnreadAnswers: state.communicationV2.unreadAnswers.count,
+      objectLevelPermissions: getObjectPermissions(state),
     }),
     {
       billMember: (id) => pushRouter(`/invoice/bill-member/${id}/`),

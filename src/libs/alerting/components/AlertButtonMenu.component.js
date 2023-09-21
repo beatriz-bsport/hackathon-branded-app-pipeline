@@ -16,6 +16,7 @@ import { useDispatch } from 'react-redux';
 
 import type { DeleteAlert } from '../types';
 import AlertList from './AlertList.component';
+import ObjectLevelPermissionProvider from '../../role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   setDialogOpen: (Object) => void,
@@ -73,17 +74,22 @@ export default function AlertButtonMenu(props: Props) {
               }}
             >
               <Paper square className={classes.menuContainer}>
-                <AlertList
-                  deleteAlert={props.deleteAlert}
-                  onClose={() => setDialogOpen(null)}
-                  pushRouter={(path) => {
-                    setDialogOpen(null);
-                    pushRouter(path);
-                  }}
-                  showMore={props.showMore}
-                  totalCount={nbAlerting}
-                  withCommunicationAlerts={!!props.withCommunicationAlerts}
-                />
+                <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.readInvoices">
+                  {(hasReadInvoicePermission) => (
+                    <AlertList
+                      deleteAlert={props.deleteAlert}
+                      hasReadInvoicePermission={hasReadInvoicePermission}
+                      onClose={() => setDialogOpen(null)}
+                      pushRouter={(path) => {
+                        setDialogOpen(null);
+                        pushRouter(path);
+                      }}
+                      showMore={props.showMore}
+                      totalCount={nbAlerting}
+                      withCommunicationAlerts={!!props.withCommunicationAlerts}
+                    />
+                  )}
+                </ObjectLevelPermissionProvider>
               </Paper>
             </ClickAwayListener>
           </Fade>

@@ -261,37 +261,42 @@ export const MemberBillingProblemCard = (props: Props) => {
             </div>
           )}
           <Divider className={classes.divider} />
-          <div className={classes.invoiceContainer}>
-            <div className={classes.unpaidAmountHeader}>
-              <Typography className={classes.padding} variant="h6">
-                {t('unpaidInvoiceTitle', { count: unpaidInvoiceList.length })}
-              </Typography>
-              <Typography color="error" component="span" variant="h6">
-                {` ${getCurrencyDisplayWithPrice(
-                  props.member.total_unpaid_amount,
-                )}`}
-              </Typography>
+          <ObjectLevelPermissionWrapper
+            forcedBehavior="hidden"
+            requiredPermission="billing.allowed_actions.readInvoices"
+          >
+            <div className={classes.invoiceContainer}>
+              <div className={classes.unpaidAmountHeader}>
+                <Typography className={classes.padding} variant="h6">
+                  {t('unpaidInvoiceTitle', { count: unpaidInvoiceList.length })}
+                </Typography>
+                <Typography color="error" component="span" variant="h6">
+                  {` ${getCurrencyDisplayWithPrice(
+                    props.member.total_unpaid_amount,
+                  )}`}
+                </Typography>
+              </div>
+              <InvoiceTable
+                compactMode
+                hideMemberName
+                hidePagination
+                showOpenInvoiceNested
+                applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
+                asConsumer={props.asConsumer}
+                companyId={props.companyId}
+                consumerGiftcardList={props.consumerGiftcardList}
+                invoiceList={unpaidInvoiceList}
+                loading={props.invoiceLoading}
+                onBill={
+                  props.asConsumer && props.onlinePaymentEnabled === false
+                    ? null
+                    : setInvoiceToBill
+                }
+                onClickInvoice={props.goToInvoice}
+                snackbarSuccess={props.snackbarSuccessMsg}
+              />
             </div>
-            <InvoiceTable
-              compactMode
-              hideMemberName
-              hidePagination
-              showOpenInvoiceNested
-              applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
-              asConsumer={props.asConsumer}
-              companyId={props.companyId}
-              consumerGiftcardList={props.consumerGiftcardList}
-              invoiceList={unpaidInvoiceList}
-              loading={props.invoiceLoading}
-              onBill={
-                props.asConsumer && props.onlinePaymentEnabled === false
-                  ? null
-                  : setInvoiceToBill
-              }
-              onClickInvoice={props.goToInvoice}
-              snackbarSuccess={props.snackbarSuccessMsg}
-            />
-          </div>
+          </ObjectLevelPermissionWrapper>
         </React.Fragment>
       )}
       {!!unpaidInvoiceList &&

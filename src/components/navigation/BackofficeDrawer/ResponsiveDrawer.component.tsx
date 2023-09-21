@@ -327,11 +327,18 @@ const ResponsiveDrawer: React.FC<Props> = ({
         defaultTo: '/invoice',
         nestedItems: [
           { type: 'divider' },
-          {
-            to: '/invoice',
-            icon: ReceiptIcon,
-            text: t('backofficeMenu.invoice'),
-          },
+          ...(hasObjectLevelPermission(
+            objectLevelPermissions,
+            'billing.allowed_actions.readInvoices',
+          )
+            ? [
+                {
+                  to: '/invoice',
+                  icon: ReceiptIcon,
+                  text: t('backofficeMenu.invoice'),
+                },
+              ]
+            : []),
           {
             to: '/subscription',
             icon: Payment,

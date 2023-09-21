@@ -21,6 +21,7 @@ import PaginatedListBase from '#components/PaginatedListBase.component';
 import ConsumerPaymentPackExtensionListItem from './ConsumerPaymentPackExtensionListItem.component';
 // @ts-expect-error
 import ConsumerPaymentPackCreditRefundListItem from './ConsumerPaymentPackCreditRefundListItem.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 
 import type {
@@ -84,66 +85,76 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
 
   return (
     <div>
-      {props.invoice ? (
-        <React.Fragment>
-          <Typography component="h2" variant="h5">
-            {t('details.invoiceTitle')}
-          </Typography>
-          <Paper className={classes.paper}>
-            <InvoiceListItem
-              invoice={props.invoice}
-              onClick={() => props.onInvoiceClick(props.invoice.uuid)}
-            />
-          </Paper>
-          {props.consumerPaymentPackCreditRefundList &&
-            props.consumerPaymentPackCreditRefundList.length > 0 && (
-              <div>
+      <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.readInvoices">
+        {(hasReadInvoicePermission: boolean) => (
+          <>
+            {hasReadInvoicePermission && props.invoice && (
+              <React.Fragment>
                 <Typography component="h2" variant="h5">
-                  {t('details.refundTitle')}
+                  {t('details.invoiceTitle')}
                 </Typography>
                 <Paper className={classes.paper}>
-                  {props.consumerPaymentPackCreditRefundList.map((cr) => (
-                    <ConsumerPaymentPackCreditRefundListItem
-                      key={cr.id}
-                      dense
-                      divider
-                      creditRefund={cr}
-                      onClick={() => props.onInvoiceClick(cr.invoice)}
-                    />
-                  ))}
+                  <InvoiceListItem
+                    invoice={props.invoice}
+                    onClick={() => props.onInvoiceClick(props.invoice.uuid)}
+                  />
                 </Paper>
-              </div>
+                {props.consumerPaymentPackCreditRefundList &&
+                  props.consumerPaymentPackCreditRefundList.length > 0 && (
+                    <div>
+                      <Typography component="h2" variant="h5">
+                        {t('details.refundTitle')}
+                      </Typography>
+                      <Paper className={classes.paper}>
+                        {props.consumerPaymentPackCreditRefundList.map((cr) => (
+                          <ConsumerPaymentPackCreditRefundListItem
+                            key={cr.id}
+                            dense
+                            divider
+                            creditRefund={cr}
+                            onClick={() => props.onInvoiceClick(cr.invoice)}
+                          />
+                        ))}
+                      </Paper>
+                    </div>
+                  )}
+                {!props.consumerPack.linked_private_consumer_pass && (
+                  <div className={classes.rightButton}>
+                    <Button
+                      color="primary"
+                      disabled={
+                        props.consumerPack.disabled ||
+                        (!props.consumerPack.payment_pack.unlimited &&
+                          !props.consumerPack.available_credits)
+                      }
+                      onClick={() =>
+                        props.requestRefund(props.consumerPack, false)
+                      }
+                      variant="contained"
+                    >
+                      {t('consumerPaymentPack.details.actions.applyVoucher')}
+                    </Button>
+                    <Button
+                      color="primary"
+                      disabled={
+                        props.consumerPack.disabled ||
+                        (!props.consumerPack.payment_pack.unlimited &&
+                          !props.consumerPack.available_credits)
+                      }
+                      onClick={() =>
+                        props.requestRefund(props.consumerPack, true)
+                      }
+                      variant="contained"
+                    >
+                      {t('consumerPaymentPack.details.actions.refund')}
+                    </Button>
+                  </div>
+                )}
+              </React.Fragment>
             )}
-          {!props.consumerPack.linked_private_consumer_pass && (
-            <div className={classes.rightButton}>
-              <Button
-                color="primary"
-                disabled={
-                  props.consumerPack.disabled ||
-                  (!props.consumerPack.payment_pack.unlimited &&
-                    !props.consumerPack.available_credits)
-                }
-                onClick={() => props.requestRefund(props.consumerPack, false)}
-                variant="contained"
-              >
-                {t('consumerPaymentPack.details.actions.applyVoucher')}
-              </Button>
-              <Button
-                color="primary"
-                disabled={
-                  props.consumerPack.disabled ||
-                  (!props.consumerPack.payment_pack.unlimited &&
-                    !props.consumerPack.available_credits)
-                }
-                onClick={() => props.requestRefund(props.consumerPack, true)}
-                variant="contained"
-              >
-                {t('consumerPaymentPack.details.actions.refund')}
-              </Button>
-            </div>
-          )}
-        </React.Fragment>
-      ) : null}
+          </>
+        )}
+      </ObjectLevelPermissionProvider>
       <Typography component="h2" variant="h5">
         {t('details.bookingsTitle')}
       </Typography>

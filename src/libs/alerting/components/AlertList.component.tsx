@@ -8,7 +8,10 @@ import Divider from '@material-ui/core/Divider';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { UNREAD_COMMUNICATION } from '@bsport/common/lib/master-data/alerting_kind';
+import {
+  UNREAD_COMMUNICATION,
+  UNEVEN_INVOICE_ALERT,
+} from '@bsport/common/lib/master-data/alerting_kind';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { RootState } from '../../../reducers';
@@ -25,30 +28,37 @@ type Props = {
   totalCount: number;
   showMore: (alert_kind: number) => void;
   withCommunicationAlerts: boolean;
+  hasReadInvoicePermission: boolean;
 };
 
-export function AlertList(props: Props) {
-  const {
-    alertings,
-    withCommunicationAlerts,
-    onClose,
-    totalCount,
-    pushRouter,
-    deleteAlert,
-    showMore,
-  } = props;
+export const AlertList: React.FC<Props> = ({
+  alertings,
+  withCommunicationAlerts,
+  onClose,
+  totalCount,
+  pushRouter,
+  deleteAlert,
+  showMore,
+  hasReadInvoicePermission,
+}) => {
   const { t } = useTranslation('alerting');
   const classes = useStyles();
   const filteredAlertGroups = React.useMemo(() => {
-    if (!withCommunicationAlerts) {
-      return alertings.filter(
-        (ag) =>
-          (ag.results || []).length &&
-          ag.alert_kind !== UNREAD_COMMUNICATION.alert_kind.toString(),
-      );
-    }
-    return alertings.filter((ag) => (ag.results || []).length);
-  }, [alertings, withCommunicationAlerts]);
+    return alertings.filter((alertingGroup) => {
+      if (
+        (!withCommunicationAlerts &&
+          alertingGroup.alert_kind ===
+            UNREAD_COMMUNICATION.alert_kind.toString()) ||
+        (!hasReadInvoicePermission &&
+          alertingGroup.alert_kind ===
+            UNEVEN_INVOICE_ALERT.alert_kind.toString())
+      ) {
+        return false;
+      }
+
+      return alertingGroup.results?.length;
+    });
+  }, [alertings, withCommunicationAlerts, hasReadInvoicePermission]);
 
   return (
     <List
@@ -88,7 +98,7 @@ export function AlertList(props: Props) {
       )}
     </List>
   );
-}
+};
 
 const useStyles = makeStyles((theme: Theme) => ({
   title: {

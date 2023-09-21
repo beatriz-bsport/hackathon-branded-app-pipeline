@@ -212,8 +212,13 @@ export const PrivateBookingCard = (props: Props) => {
   }
   return (
     <>
-      <ObjectLevelPermissionProvider requiredPermission="reservation.privateBooking.allowed_actions.edit">
-        {(hasEditPermission) => (
+      <ObjectLevelPermissionProvider
+        requiredPermission={[
+          'reservation.privateBooking.allowed_actions.edit',
+          'billing.allowed_actions.readInvoices',
+        ]}
+      >
+        {([hasEditPrivateBookingPermission, hasReadInvoicePermission]) => (
           <div className={classes.container}>
             <div className={classes.header}>
               <div className={classes.headerLeft}>
@@ -295,7 +300,7 @@ export const PrivateBookingCard = (props: Props) => {
                 )} - ${moment(private_booking.date_end).format('HH:mm')}`}
               />
               <ListItemSecondaryAction>
-                {props.updateTime && hasEditPermission && (
+                {props.updateTime && hasEditPrivateBookingPermission && (
                   <IconButton onClick={props.setUpdateTimeForm}>
                     <EditIcon color="primary" />
                   </IconButton>
@@ -322,7 +327,7 @@ export const PrivateBookingCard = (props: Props) => {
               <CoachListItem
                 noEdit
                 coach={private_booking.coach}
-                hasEditPermission={hasEditPermission}
+                hasEditPermission={hasEditPrivateBookingPermission}
                 onCoachSelected={() =>
                   props.goToCoachCalendar(private_booking.coach.id)
                 }
@@ -334,7 +339,9 @@ export const PrivateBookingCard = (props: Props) => {
                 establishment={private_booking.establishment}
               />
             ) : null}
-            {props.unpaidInvoiceList && props.unpaidInvoiceList.length ? (
+            {hasReadInvoicePermission &&
+            props.unpaidInvoiceList &&
+            props.unpaidInvoiceList.length ? (
               <>
                 <Typography className={classes.bookingsHeader} variant="h6">
                   {t('member:unpaidInvoiceTitle', {

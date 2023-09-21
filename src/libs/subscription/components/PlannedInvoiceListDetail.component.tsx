@@ -52,6 +52,7 @@ import { OptionCallback } from '../../../state/types';
 import PauseDetailListItem from './pause/PauseDetailListItem.component';
 import PauseFormDialog from './pause/PauseFormDialog.component';
 import { getInvoiceIdentifier } from '#libs/invoice/utils';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 const Status: FC<{
   disabled?: boolean;
@@ -231,7 +232,7 @@ const EndItem: FC<{
 
 type PlannedInvoiceEditMenuProps = {
   plannedInvoice: PlannedInvoice;
-  goToInvoice: (uuid: string) => void;
+  goToInvoice?: (uuid: string) => void;
   disableActions?: boolean;
   onClose: () => void;
   anchor: any;
@@ -326,14 +327,16 @@ const PlannedInvoiceEditMenu: FC<PlannedInvoiceEditMenuProps> = React.memo(
     return (
       <>
         <Menu anchorEl={anchor} onClose={onClose} open={open}>
-          <MenuItem onClick={handleSeeInvoice}>
-            <ListItemIcon>
-              <ArrowForwardIcon fontSize="small" />
-            </ListItemIcon>
-            <Typography variant="inherit">
-              {t('subscription.actions.showInvoice')}
-            </Typography>
-          </MenuItem>
+          {goToInvoice && (
+            <MenuItem onClick={handleSeeInvoice}>
+              <ListItemIcon>
+                <ArrowForwardIcon fontSize="small" />
+              </ListItemIcon>
+              <Typography variant="inherit">
+                {t('subscription.actions.showInvoice')}
+              </Typography>
+            </MenuItem>
+          )}
           {hasEditInvoiceDateBPPermission && (
             <MenuItem
               disabled={dateModificationIsDisabled}
@@ -411,7 +414,7 @@ const PlannedInvoiceEditMenu: FC<PlannedInvoiceEditMenuProps> = React.memo(
 const PlannedInvoiceItem = React.memo(
   (props: {
     plannedInvoice: PlannedInvoice;
-    onClickInvoice: (uuid: string) => void;
+    onClickInvoice?: (uuid: string) => void;
     disableActions: boolean;
     disableDateModification: boolean;
     onRequestPriceChange: (plannedInvoice: PlannedInvoice) => void;
@@ -444,9 +447,9 @@ const PlannedInvoiceItem = React.memo(
           <div className={classes.smallLinkH} />
           <ButtonBase
             className={classes.listItemBody}
-            disableRipple={props.disableActions}
+            disableRipple={props.disableActions || !props.onClickInvoice}
             onClick={() => {
-              if (!props.disableActions) {
+              if (!props.disableActions && props.onClickInvoice) {
                 props.onClickInvoice(plannedInvoice.uuid);
               }
             }}
@@ -586,69 +589,79 @@ export const PlannedInvoiceListDetail: React.FC<Props> = (props) => {
 
   return (
     <div className={classes.container}>
-      {plannedInvoiceListWithRelatedPauseList.map(
-        (plannedInvoiceWithPauses) => {
-          const pl = plannedInvoiceWithPauses.plannedInvoice;
-          const relatedPauses = plannedInvoiceWithPauses.relatedPauses;
-          fullDisable = fullDisable || pl.is_last_invoice_before_scheduled_stop;
-          return (
-            <React.Fragment>
-              {relatedPauses.map((pause: SubscriptionPause) => (
-                <PauseDetailListItem
-                  key={pause.id}
-                  dateEndIsPast={
-                    moment(pause.until_date).diff(
-                      moment().format('YYYY-MM-DD'),
-                      'days',
-                    ) < 0
-                  }
-                  dateStartIsPast={
-                    moment(pause.from_date).diff(
-                      moment().format('YYYY-MM-DD'),
-                      'days',
-                    ) < 0
-                  }
-                  deletePause={props.cancelPause}
-                  pause={pause}
-                  updateEventList={props.updateEventList}
-                  updatePause={() => setPauseToUpdate(pause)}
-                />
-              ))}
-              <div key={pl.id} className={classes.innerContainer}>
-                <PlannedInvoiceItem
-                  disableActions={
-                    fullDisable && !pl.is_last_invoice_before_scheduled_stop
-                  }
-                  disableDateModification={
-                    !!props.subscription.month_billing_day
-                  }
-                  hasEditInvoiceDateBPPermission={
-                    props.hasEditInvoiceDateBPPermission
-                  }
-                  hasEditInvoicePriceBPPermission={
-                    props.hasEditInvoicePriceBPPermission
-                  }
-                  hasEndAfterInvoiceBPPermission={
-                    props.hasEndAfterInvoiceBPPermission
-                  }
-                  onClickInvoice={props.onClickInvoice}
-                  onRequestDateChange={setPlannedInvoiceToUpdateDate}
-                  onRequestPriceChange={setPlannedInvoiceToUpdatePrice}
-                  onRequestScheduledStop={props.onRequestScheduledStop}
-                  plannedInvoice={pl}
-                />
-                {pl.is_last_invoice_before_scheduled_stop && (
-                  <StopItem
-                    unscheduleStop={() =>
-                      props.unflagPlannedInvoiceAsLast(pl.id)
-                    }
-                  />
-                )}
-              </div>
-            </React.Fragment>
-          );
-        },
-      )}
+      <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.readInvoices">
+        {(hasReadInvoicePermission: boolean) => (
+          <>
+            {plannedInvoiceListWithRelatedPauseList.map(
+              (plannedInvoiceWithPauses) => {
+                const pl = plannedInvoiceWithPauses.plannedInvoice;
+                const relatedPauses = plannedInvoiceWithPauses.relatedPauses;
+                fullDisable =
+                  fullDisable || pl.is_last_invoice_before_scheduled_stop;
+                return (
+                  <React.Fragment>
+                    {relatedPauses.map((pause: SubscriptionPause) => (
+                      <PauseDetailListItem
+                        key={pause.id}
+                        dateEndIsPast={
+                          moment(pause.until_date).diff(
+                            moment().format('YYYY-MM-DD'),
+                            'days',
+                          ) < 0
+                        }
+                        dateStartIsPast={
+                          moment(pause.from_date).diff(
+                            moment().format('YYYY-MM-DD'),
+                            'days',
+                          ) < 0
+                        }
+                        deletePause={props.cancelPause}
+                        pause={pause}
+                        updateEventList={props.updateEventList}
+                        updatePause={() => setPauseToUpdate(pause)}
+                      />
+                    ))}
+                    <div key={pl.id} className={classes.innerContainer}>
+                      <PlannedInvoiceItem
+                        disableActions={
+                          fullDisable &&
+                          !pl.is_last_invoice_before_scheduled_stop
+                        }
+                        disableDateModification={
+                          !!props.subscription.month_billing_day
+                        }
+                        hasEditInvoiceDateBPPermission={
+                          props.hasEditInvoiceDateBPPermission
+                        }
+                        hasEditInvoicePriceBPPermission={
+                          props.hasEditInvoicePriceBPPermission
+                        }
+                        hasEndAfterInvoiceBPPermission={
+                          props.hasEndAfterInvoiceBPPermission
+                        }
+                        onClickInvoice={
+                          hasReadInvoicePermission && props.onClickInvoice
+                        }
+                        onRequestDateChange={setPlannedInvoiceToUpdateDate}
+                        onRequestPriceChange={setPlannedInvoiceToUpdatePrice}
+                        onRequestScheduledStop={props.onRequestScheduledStop}
+                        plannedInvoice={pl}
+                      />
+                      {pl.is_last_invoice_before_scheduled_stop && (
+                        <StopItem
+                          unscheduleStop={() =>
+                            props.unflagPlannedInvoiceAsLast(pl.id)
+                          }
+                        />
+                      )}
+                    </div>
+                  </React.Fragment>
+                );
+              },
+            )}
+          </>
+        )}
+      </ObjectLevelPermissionProvider>
       {pausesWithoutRelatedPlannedInvoicesBeforeEnd.length > 0 &&
         pausesWithoutRelatedPlannedInvoicesBeforeEnd.map((pause) => (
           <PauseDetailListItem

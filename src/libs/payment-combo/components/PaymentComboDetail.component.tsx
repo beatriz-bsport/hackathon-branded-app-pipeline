@@ -10,6 +10,7 @@ import PaginatedListBase from '#components/PaginatedListBase.component';
 // @ts-expect-error
 import PaymentComboCard from '#libs/payment-combo/components/PaymentComboCard.component';
 import PaymentComboPurchaseListItem from './PaymentComboPurchaseListItem.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import type { PaymentCombo, PaymentComboPurchase } from '../types';
 
@@ -68,49 +69,57 @@ export const PaymentComboDetail: React.FC<Props> = ({
     [fetchPaymentComboPurchaseList],
   );
 
-  const renderItem = useCallback(
-    (item: PaymentComboPurchase<PaymentCombo>) => (
-      <PaymentComboPurchaseListItem
-        key={item.id}
-        divider
-        onClick={goToInvoiceUsingPaymentComboPurchaseId}
-        paymentComboPurchase={item}
-      />
-    ),
+  const getItemRenderer = useCallback(
+    (hasReadInvoicePermission: boolean) =>
+      (item: PaymentComboPurchase<PaymentCombo>) =>
+        (
+          <PaymentComboPurchaseListItem
+            key={item.id}
+            divider
+            onClick={
+              hasReadInvoicePermission && goToInvoiceUsingPaymentComboPurchaseId
+            }
+            paymentComboPurchase={item}
+          />
+        ),
     [goToInvoiceUsingPaymentComboPurchaseId],
   );
 
   return (
-    <Grid container spacing={2}>
-      <Grid item md={6} xs={12}>
-        <PaymentComboCard
-          onPaymentPackClick={onPaymentPackClick}
-          onPrivatePassClick={onPrivatePassClick}
-          onShopItemClick={onShopItemClick}
-          paymentCombo={paymentCombo}
-          snackbarSuccess={snackbarSuccess}
-        />
-      </Grid>
-      <Grid item md={6} xs={12}>
-        <div className={classes.centerRight}>
-          <Typography align="right" variant="h5">
-            {t('detail.purchases')}
-          </Typography>
-        </div>
-        <Paper>
-          <PaginatedListBase
-            itemPerPage={15}
-            items={paymentComboPurchaseList}
-            listProps={{ disablePadding: true }}
-            loading={paymentComboPurchaseLoading}
-            nbItems={paymentComboPurchaseCount}
-            onPageRequested={onPageRequestedHandler}
-            page={page}
-            renderItem={renderItem}
-          />
-        </Paper>
-      </Grid>
-    </Grid>
+    <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.readInvoices">
+      {(hasReadInvoicePermission: boolean) => (
+        <Grid container spacing={2}>
+          <Grid item md={6} xs={12}>
+            <PaymentComboCard
+              onPaymentPackClick={onPaymentPackClick}
+              onPrivatePassClick={onPrivatePassClick}
+              onShopItemClick={onShopItemClick}
+              paymentCombo={paymentCombo}
+              snackbarSuccess={snackbarSuccess}
+            />
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <div className={classes.centerRight}>
+              <Typography align="right" variant="h5">
+                {t('detail.purchases')}
+              </Typography>
+            </div>
+            <Paper>
+              <PaginatedListBase
+                itemPerPage={15}
+                items={paymentComboPurchaseList}
+                listProps={{ disablePadding: true }}
+                loading={paymentComboPurchaseLoading}
+                nbItems={paymentComboPurchaseCount}
+                onPageRequested={onPageRequestedHandler}
+                page={page}
+                renderItem={getItemRenderer(hasReadInvoicePermission)}
+              />
+            </Paper>
+          </Grid>
+        </Grid>
+      )}
+    </ObjectLevelPermissionProvider>
   );
 };
 

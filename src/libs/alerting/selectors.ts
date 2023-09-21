@@ -2,8 +2,11 @@ import Immutable from 'seamless-immutable';
 import { createSelector } from 'reselect';
 import {
   NEW_TUTORIAL_SECTION_OR_LESSON,
+  UNEVEN_INVOICE_ALERT,
   UNREAD_COMMUNICATION,
 } from '@bsport/common/lib/master-data/alerting_kind';
+import { getObjectPermissions } from '#libs/role/selectors';
+import { hasObjectLevelPermission } from '#libs/role/permission-utils/utils';
 import type { AlertingState } from './types';
 import type { RootState } from '../../reducers';
 import { AlertKind } from './constants';
@@ -25,17 +28,31 @@ const countTutorialAlerting = createSelector(getState, (alertingState) => {
 });
 
 const ALERTING_NOT_IN_GENERAL_COUNT = [UNREAD_COMMUNICATION.alert_kind];
+const ALERTING_GENERAL_COUNT_PERMISSIONS_REQUIRED = {
+  [UNEVEN_INVOICE_ALERT.alert_kind]: 'billing.allowed_actions.readInvoices',
+};
 
-const countAlerting = createSelector(getState, (alertingState) => {
-  let count = 0;
-  Object.entries(alertingState.items_by_kind).forEach(([alertKind, data]) => {
-    if (!ALERTING_NOT_IN_GENERAL_COUNT.includes(parseInt(alertKind))) {
-      count += data.count || 0;
-    }
-  });
+const countAlerting = createSelector(
+  [getState, getObjectPermissions],
+  (alertingState, objectLevelPermissions) => {
+    let count = 0;
 
-  return count;
-});
+    Object.entries(alertingState.items_by_kind).forEach(([alertKind, data]) => {
+      const requiredPermission =
+        ALERTING_GENERAL_COUNT_PERMISSIONS_REQUIRED[parseInt(alertKind)];
+
+      if (
+        !ALERTING_NOT_IN_GENERAL_COUNT.includes(parseInt(alertKind)) &&
+        (!requiredPermission ||
+          hasObjectLevelPermission(objectLevelPermissions, requiredPermission))
+      ) {
+        count += data.count || 0;
+      }
+    });
+
+    return count;
+  },
+);
 
 const countAlertingForKind = createSelector(
   [getState, (_: RootState, kind: number) => kind],

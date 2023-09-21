@@ -11,6 +11,7 @@ import DiscountListItem from './DiscountListItem.component';
 import CouponCard from './CouponCard.component';
 // @ts-expect-error
 import PaginatedListBase from '#components/PaginatedListBase.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import type { Discount, Coupon, FetchDiscountParams } from '#libs/coupon/types';
 
 type Props = {
@@ -55,15 +56,16 @@ const CouponDetail: React.FC<Props> = ({
   const { t } = useTranslation('coupon');
   const classes = useStyles();
 
-  const renderDiscountListItem = useCallback(
-    (discount: Discount) => (
-      <DiscountListItem
-        divider
-        discount={discount}
-        goToBillingPlan={goToBillingPlan}
-        goToInvoice={goToInvoice}
-      />
-    ),
+  const getListItemRenderer = useCallback(
+    (hasReadInvoicePermission: boolean) => (discount: Discount) =>
+      (
+        <DiscountListItem
+          divider
+          discount={discount}
+          goToBillingPlan={goToBillingPlan}
+          goToInvoice={hasReadInvoicePermission && goToInvoice}
+        />
+      ),
     [goToBillingPlan, goToInvoice],
   );
 
@@ -91,35 +93,39 @@ const CouponDetail: React.FC<Props> = ({
   );
 
   return (
-    <div>
-      <Grid container>
-        <Grid item className={classes.paperContainer} md={6} xs={12}>
-          <Paper>
-            <CouponCard
-              coupon={coupon}
-              goToEdit={goToEdit}
-              isLoading={isLoading}
-              openVoucherCodesDialog={openVoucherCodesDialog}
-            />
-          </Paper>
-        </Grid>
-        <Grid item className={classes.paperContainer} md={6} xs={12}>
-          <Paper>
-            <PaginatedListBase
-              itemPerPage={itemPerPage}
-              items={discounts.items}
-              listProps={{ dense: true }}
-              loading={discountLoading}
-              nbItems={discounts.count}
-              onPageRequested={onPageRequestedHandler}
-              page={discounts.page}
-              renderEmpty={renderEmpty}
-              renderItem={renderDiscountListItem}
-            />
-          </Paper>
-        </Grid>
-      </Grid>
-    </div>
+    <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.readInvoices">
+      {(hasReadInvoicePermission: boolean) => (
+        <div>
+          <Grid container>
+            <Grid item className={classes.paperContainer} md={6} xs={12}>
+              <Paper>
+                <CouponCard
+                  coupon={coupon}
+                  goToEdit={goToEdit}
+                  isLoading={isLoading}
+                  openVoucherCodesDialog={openVoucherCodesDialog}
+                />
+              </Paper>
+            </Grid>
+            <Grid item className={classes.paperContainer} md={6} xs={12}>
+              <Paper>
+                <PaginatedListBase
+                  itemPerPage={itemPerPage}
+                  items={discounts.items}
+                  listProps={{ dense: true }}
+                  loading={discountLoading}
+                  nbItems={discounts.count}
+                  onPageRequested={onPageRequestedHandler}
+                  page={discounts.page}
+                  renderEmpty={renderEmpty}
+                  renderItem={getListItemRenderer(hasReadInvoicePermission)}
+                />
+              </Paper>
+            </Grid>
+          </Grid>
+        </div>
+      )}
+    </ObjectLevelPermissionProvider>
   );
 };
 

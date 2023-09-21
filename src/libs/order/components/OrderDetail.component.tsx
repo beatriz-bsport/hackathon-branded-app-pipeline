@@ -24,6 +24,7 @@ import MemberSummaryCard from '#libs/member/components/MemberSummaryCard.compone
 import ProductLine from './ProductLine.component';
 import DeliveryInfo from './DeliveryInfo.component';
 import InvoiceSummary from '#libs/invoice/InvoiceListItem.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 import { OrderWithProducts, Product } from '#libs/order/types';
 import { Invoice } from '#libs/invoice/types';
@@ -170,16 +171,23 @@ export const OrderDetail: React.FC<Props> = ({
           </Paper>
         </Grid>
         <Grid item sm={6} xs={12}>
-          <Typography
-            className={classes.sectionTitle}
-            component="h2"
-            variant="h5"
+          <ObjectLevelPermissionWrapper
+            forcedBehavior="hidden"
+            requiredPermission="billing.allowed_actions.readInvoices"
           >
-            {t('detail.section.invoice')}
-          </Typography>
-          <Paper>
-            <InvoiceSummary invoice={invoice} onClick={onInvoiceClick} />
-          </Paper>
+            <>
+              <Typography
+                className={classes.sectionTitle}
+                component="h2"
+                variant="h5"
+              >
+                {t('detail.section.invoice')}
+              </Typography>
+              <Paper>
+                <InvoiceSummary invoice={invoice} onClick={onInvoiceClick} />
+              </Paper>
+            </>
+          </ObjectLevelPermissionWrapper>
           <Typography
             className={classes.sectionTitle}
             component="h2"

@@ -202,12 +202,12 @@
   width: var(--spacing-1);
   margin: var(--spacing-2);
   border-radius: var(--border-radius-1);
-  background-color: #eeeeee;
+  background-color: var(--color-scrollbar-track);
 }
 
 .bs-contract-checkout__body__grid::-webkit-scrollbar-thumb {
   border-radius: var(--border-radius-1);
-  background-color: #bdbdbd;
+  background-color: var(--color-scrollbar-thumb);
 }
 
 .bs-contract-checkout__right-button:disabled {

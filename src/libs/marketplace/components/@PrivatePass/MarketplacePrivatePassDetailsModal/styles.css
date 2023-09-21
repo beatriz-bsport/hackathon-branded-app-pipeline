@@ -118,13 +118,13 @@
 .bs-pass-details-dialog__container::-webkit-scrollbar-track {
   width: var(--spacing-1);
   margin: var(--spacing-1);
-  border-radius: 4px;
-  background-color: #eeeeee;
+  border-radius: var(--border-radius-1);
+  background-color: var(--color-scrollbar-track);
 }
 
 .bs-pass-details-dialog__container::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: #bdbdbd;
+  border-radius: var(--border-radius-1);
+  background-color: var(--color-scrollbar-thumb);
 }
 
 @media screen and (max-width: 570px) {

@@ -140,6 +140,8 @@ export const useMuiThemeToCssVars = () => {
     --color-text-hint: ${theme.palette.text.hint};
     --color-text-primary: ${theme.palette.text.primary};
     --color-text-secondary: ${theme.palette.text.secondary};
+    --color-scrollbar-track: #eeeeee;
+    --color-scrollbar-thumb: #bdbdbd;
     /* breakpoints */
     --breakpoints-xs: ${theme.breakpoints.values.xs};
     --breakpoints-sm: ${theme.breakpoints.values.sm};

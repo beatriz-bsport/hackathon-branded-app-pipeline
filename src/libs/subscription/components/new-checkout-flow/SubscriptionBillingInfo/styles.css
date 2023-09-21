@@ -52,7 +52,7 @@
 
 .bs-subscription__bottom__submit-button:disabled {
   background-color: var(--color-grey-light);
-  color: #bdbdbd;
+  color: var(--color-scrollbar-thumb);
 }
 
 .bs-subscription__bottom__info-text {

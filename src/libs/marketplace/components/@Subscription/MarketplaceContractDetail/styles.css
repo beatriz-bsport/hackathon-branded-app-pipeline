@@ -209,13 +209,13 @@
 .bs-contract-details__body::-webkit-scrollbar-track {
   width: var(--spacing-1);
   margin: var(--spacing-1);
-  border-radius: 4px;
-  background-color: #eeeeee;
+  border-radius: var(--border-radius-1);
+  background-color: var(--color-scrollbar-track);
 }
 
 .bs-contract-details__body::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: #bdbdbd;
+  border-radius: var(--border-radius-1);
+  background-color: var(--color-scrollbar-thumb);
 }
 
 @container bsContractCheckoutPage (width < 750px) {

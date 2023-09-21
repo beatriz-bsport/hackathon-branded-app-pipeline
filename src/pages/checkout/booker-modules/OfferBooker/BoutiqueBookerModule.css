@@ -44,14 +44,14 @@
 
 .bs-new-offer-booking::-webkit-scrollbar-thumb {
   border-radius: var(--border-radius-1);
-  background-color: #bdbdbd;
+  background-color: var(--color-scrollbar-thumb);
 }
 
 .bs-new-offer-booking::-webkit-scrollbar-track {
   width: var(--spacing-1);
   margin: var(--spacing-1);
   border-radius: var(--border-radius-1);
-  background-color: #eeeeee;
+  background-color: var(--color-scrollbar-track);
 }
 
 .bs-new-offer-booking__offer-summary {

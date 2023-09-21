@@ -202,7 +202,8 @@ const styles = (theme) => ({
     borderRadius: 12,
   },
   main: {
-    display: 'grid',
+    display: 'flex',
+    flexDirection: 'column',
     gap: theme.spacing(4),
   },
   namesHeader: {

@@ -61,7 +61,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(2),
-    minWidth: 700,
   },
   namesSubHeader: {
     fontSize: 16,

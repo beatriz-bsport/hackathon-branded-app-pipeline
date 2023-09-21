@@ -829,15 +829,14 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
 
 const useStyles = makeStyles((theme: Theme) => ({
   main: {
-    display: 'grid',
+    display: 'flex',
+    flexDirection: 'column',
     gap: theme.spacing(4),
-    gridTemplateColumns: 'repeat(auto-fill, minmax(700px, 1fr) ) ',
   },
   section: {
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(2),
-    minWidth: 700,
   },
   namesHeader: {
     fontSize: 20,

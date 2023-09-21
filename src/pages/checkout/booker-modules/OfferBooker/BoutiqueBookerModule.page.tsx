@@ -895,6 +895,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                   }
                   isLoading={this.getIsLoading()}
                   isShowBuyableItems={this.state.showBuyableItems}
+                  onClickAll={this.onClickAll}
                   onClickBuyableItem={this.onClickBuyableItem}
                   onClickCategory={this.onClickCategory}
                   onClickShowBuyableItems={this.onClickShowBuyableItems}

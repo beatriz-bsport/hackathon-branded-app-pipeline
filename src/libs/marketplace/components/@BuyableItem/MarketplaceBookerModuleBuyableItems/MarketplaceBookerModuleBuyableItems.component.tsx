@@ -43,6 +43,7 @@ export type Props = {
     buyableItem: BookerModuleBuyableItem,
     itemIdentifier: BuyableItemIdentifier,
   ) => void;
+  onClickAll?: () => void;
 };
 
 const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
@@ -59,6 +60,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
   hideUnnecessaryCompatiblePurchaseMethod,
   onClickCategory,
   onClickBuyableItem,
+  onClickAll,
 }) => {
   const { t } = useTranslation('booking');
 
@@ -135,6 +137,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
               buyableItemCategory={selectedBuyableItemCategory}
               hideCreditsForCustomers={hideCreditsForCustomers}
               isExcludingTax={isExcludingTax}
+              onClickAll={onClickAll}
               selectBuyableItem={onClickBuyableItem}
               selectedBuyableItem={
                 selectedItem?.data as BookerModuleBuyableItem

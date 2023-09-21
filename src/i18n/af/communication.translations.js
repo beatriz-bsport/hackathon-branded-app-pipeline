@@ -123,7 +123,7 @@ exports.default = {
       exportError: 'An error occurred while exporting',
       exportCampaign: 'Export campaign',
       resentOn: 'Resent on:',
-      plannedResends: 'Atuo-resends planned on:',
+      plannedResends: 'Auto-resends planned on:',
     },
     showMail: 'Show email',
     kind: {

@@ -7,11 +7,16 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
 import BookingOptionConsumerItem from '../../waiting-list/components/BookingOptionConsumerItem.component';
+import { OfferStatusWaitingListPosition } from '#libs/offer/types';
 
 type Props = {
   t: TFunction,
   classes: Object,
   bookingOptionList: Array<BookingOption>,
+  displayPositionInWaitingList: boolean,
+  offerStatusWaitinListPositionById: {
+    [key: number]: OfferStatusWaitingListPosition,
+  },
   confirmBookingOption: (offerId: number, bookingOptionId: number) => void,
   cancelBookingOption: (optionId: number) => void,
 };
@@ -30,14 +35,26 @@ export class ConsumerDashboardBookingOptionPanel extends React.PureComponent<Pro
               {this.props.t('dashboard.optionTitle')}
             </Typography>
             <Divider className={this.props.classes.divider} />
-            {this.props.bookingOptionList.map((bo) => (
+            {this.props.bookingOptionList.map((bookingOption) => (
               <BookingOptionConsumerItem
-                bookingOption={bo}
+                key={bookingOption.id}
+                bookingOption={bookingOption}
                 cancelBookingOption={() =>
-                  this.props.cancelBookingOption(bo.id)
+                  this.props.cancelBookingOption(bookingOption.id)
                 }
                 confirmBookingOption={() =>
-                  this.props.confirmBookingOption(bo.offer.id, bo.id)
+                  this.props.confirmBookingOption(
+                    bookingOption.offer.id,
+                    bookingOption.id,
+                  )
+                }
+                displayPositionInWaitingList={
+                  this.props.displayPositionInWaitingList
+                }
+                waitingListPosition={
+                  this.props.offerStatusWaitinListPositionById?.[
+                    bookingOption.offer.id
+                  ]?.waiting_list_position
                 }
               />
             ))}

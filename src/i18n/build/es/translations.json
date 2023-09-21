@@ -657,7 +657,8 @@
                 "willBeRefund": "La sesión del {{-day}} se volverá a acreditar",
                 "discardAllGroup": "Todas las reservas del grupos serán canceladas.",
                 "discardGroupImpossibleExplain": "Cancelas demasiado tarde y no te volverá a acreditar la tarjeta del curso (condiciones del club).",
-                "discardGroup2": "Te le darás de baja automáticamente de todas las sesiones no pasadas del grupo."
+                "discardGroup2": "Te le darás de baja automáticamente de todas las sesiones no pasadas del grupo.",
+                "waintingListPositionLabel": "Posición :"
             },
             "myPrivatePass": "Mis tarjetas de cita"
         },

@@ -12633,7 +12633,8 @@
                 "cancelOption": "Cancelar",
                 "myPastBookings": "As minhas reservas anteriores",
                 "noFutureBookings": "Não estão previstas reservas",
-                "myFutureBookings": "Próximas sessões"
+                "myFutureBookings": "Próximas sessões",
+                "waintingListPositionLabel": "Posição :"
             },
             "help": {
                 "explainCancelBookingOption": "Se optar novamente por esta sessão, o seu lugar na lista de espera será reposto.",

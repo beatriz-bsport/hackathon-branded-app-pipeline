@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { push as pushRouter } from 'connected-react-router';
 import TodayIcon from '@material-ui/icons/Today';
+import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 
 import { Theme } from '@material-ui/core/styles';
 import flatten from 'lodash/flatten';
@@ -28,6 +29,10 @@ import { getFavoriteEstablishment } from '#libs/establishment/selectors';
 import { getFavoriteMetaActivity } from '#libs/meta-activity/selectors';
 import { retrieveGroupOffer } from '#libs/group-offer/selectors';
 import { getMemberTagsIdsList } from '#libs/tag/selectors';
+import {
+  getWaitingListConfigurationData,
+  getBookingOptionConsumerList,
+} from '#libs/waiting-list/selectors';
 
 import { buildUrlParams } from '../../http';
 import {
@@ -50,7 +55,10 @@ import {
   cancelBooking as cancelBookingAction,
   fetchSimilarFuturBookingInGroup as fetchSimilarFuturBookingInGroupAction,
 } from '#libs/booking/actions';
-import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
+import {
+  fetchOfferBulk as fetchOfferBulkAction,
+  fetchOfferWaitingListPositionList as fetchOfferWaitingListPositionListAction,
+} from '#libs/offer/actions';
 import {
   fetchEstablishmentFavorite,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
@@ -64,12 +72,15 @@ import {
   resetGroupOffer as resetGroupOfferAction,
   fetchGroupOffer as fetchGroupOfferAction,
 } from '#libs/group-offer/actions';
-import { getBookingOptionConsumerList } from '#libs/waiting-list/selectors';
 import {
   fetchBookingOptionAsConsumer,
   discardBookingOption as cancelBookingOptionAction,
+  fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction,
 } from '#libs/waiting-list/actions';
-import { withCoach } from '#libs/offer/selectors';
+import {
+  withCoach,
+  getOfferStatusWaitingListPositionById,
+} from '#libs/offer/selectors';
 import {
   fetchPrivateConsumerPassList,
   disablePrivateBooking,
@@ -159,6 +170,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
     this.props.fetchMembership(this.props.membership.id);
     this.fetchBookingOption();
     this.props.fetchMemberTagList(this.props.membership.company);
+    this.props.fetchCompanyWaitlistConfiguration(this.props.membership.company);
   }
 
   refreshDebtStatus = () => {
@@ -180,6 +192,9 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
       },
       {
         onSuccess: (options) => {
+          this.props.fetchOfferWaitingListPositionList(
+            options.map((option) => option.offer.id),
+          );
           if (options?.length > 0) {
             this.props.fetchLevelList({
               company: this.props.companyId,
@@ -341,6 +356,14 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
               bookingOptionList={this.props.bookingOptionList}
               cancelBookingOption={this.props.setOptionToCancel}
               confirmBookingOption={this.props.confirmBookingOption}
+              displayPositionInWaitingList={
+                this.props.waitingListConfiguration?.dynamic ===
+                  WAITING_LIST_DYNAMIC_ORDERED &&
+                this.props.waitingListConfiguration?.display_member_position
+              }
+              offerStatusWaitinListPositionById={
+                this.props.offerStatusWaitinListPositionById
+              }
             />
             <ConsumerDashboardPassPanel
               consumerPackList={this.props.consumerPackList}
@@ -465,6 +488,9 @@ const mapStateToProps = (state: RootState, props) => ({
   memberTags: getMemberTagsIdsList(state),
   group: retrieveGroupOffer(state),
   spotTypes: getSpotTypesOfCompany(state),
+  waitingListConfiguration: getWaitingListConfigurationData(state),
+  offerStatusWaitinListPositionById:
+    getOfferStatusWaitingListPositionById(state),
 });
 
 const mapDispatchToProps = {
@@ -520,6 +546,8 @@ const mapDispatchToProps = {
   fetchGroupOffer: fetchGroupOfferAction,
   fetchMemberTagList,
   fetchSpotForBlueprint: fetchSpotForBlueprintAction,
+  fetchCompanyWaitlistConfiguration: fetchCompanyWaitlistConfigurationAction,
+  fetchOfferWaitingListPositionList: fetchOfferWaitingListPositionListAction,
 };
 
 type StateHandlerInit = {

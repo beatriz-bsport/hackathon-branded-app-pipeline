@@ -3,6 +3,7 @@ import {
   WAITING_LIST_AUTO_CANCELLATION_SMART,
 } from '@bsport/common/lib/master-data/waiting-list-auto-cancellation';
 import type { ErrorAndLoading } from '../types';
+import type { Offer } from '../offer/types';
 
 export enum WaitingListAutoCancellation {
   dumb = WAITING_LIST_AUTO_CANCELLATION_DUMB.id,
@@ -31,7 +32,7 @@ export type WaitingListBookingOption = {
   is_convertible: boolean;
   date: string;
   consumer: number;
-  offer: number;
+  offer: Offer;
   cancelled: boolean;
   booking?: number;
   member: number;

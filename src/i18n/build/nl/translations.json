@@ -911,7 +911,8 @@
                 "discardAllGroup": "Reserveringen van dit evenement worden geannuleerd.",
                 "discardGroup3": "Contacteer de studio, indien je wenst om slechts één sessie te annuleren.",
                 "discardGroup2": "Je wordt automatisch afgemeld van alle toekomstige sessies die aan dit evenement gekoppeld zijn.",
-                "discardGroup1": "Deze reservering is onderdeel van \"{{ group }}\"."
+                "discardGroup1": "Deze reservering is onderdeel van \"{{ group }}\".",
+                "waintingListPositionLabel": "Positie :"
             },
             "help": {
                 "explainCancelBookingOption": "Deze verwijdering is definitief. Je zult ook je plaats op deze wachtlijst verliezen.",

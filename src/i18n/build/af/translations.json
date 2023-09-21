@@ -12341,7 +12341,8 @@
         "discardAllGroup": "All bookings for this event will be cancelled.",
         "discardGroup3": "Contact the studio if you wish to cancel a single session.",
         "discardGroup1": "This booking is part of \"{{ group }}\".",
-        "discardGroup2": "You'll be automatically unsubscribed from all future sessions that are associated to this event."
+        "discardGroup2": "You'll be automatically unsubscribed from all future sessions that are associated to this event.",
+        "waintingListPositionLabel": "Position :"
       },
       "help": {
         "explainCancelBookingOption": "Deleting this can't be undone. You'll also lose your priority spot on the waitlist.",

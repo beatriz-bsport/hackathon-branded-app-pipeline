@@ -1307,6 +1307,7 @@
         "consumer": {
             "booking": {
                 "cancelOption": "Cancel",
+                "waintingListPositionLabel": "Position :",
                 "noPastBookings": "There are no previous bookings to display.",
                 "noFutureBookings": "There are no upcoming bookings to display.",
                 "noBookingOptions": "There are no waitlists to display.",

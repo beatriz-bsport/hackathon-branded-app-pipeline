@@ -469,6 +469,7 @@ exports.default = {
       discardGroup1: 'This booking is part of "{{ group }}".',
       discardGroup2:
         "You'll be automatically unsubscribed from all future sessions that are associated to this event.",
+      waintingListPositionLabel: 'Position :',
     },
     help: {
       explainCancelBookingOption:

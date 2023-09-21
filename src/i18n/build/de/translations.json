@@ -1742,7 +1742,8 @@
                 "discardGroup1": "Diese Buchung ist Teil der Gruppensession {{ group }}.",
                 "discardGroup2": "Sie werden automatisch von allen noch nicht stattgefundenen Sessions dieser Gruppe abgemeldet.",
                 "discardGroup3": "Wenn Sie nur eine Session dieser Gruppe absagen möchten, wenden Sie sich bitte an Ihr Studio.",
-                "discardGroupPossibleExplain": "Ihre Credits werden wieder verfügbar sein."
+                "discardGroupPossibleExplain": "Ihre Credits werden wieder verfügbar sein.",
+                "waintingListPositionLabel": "Position :"
             },
             "help": {
                 "explainCancelBookingOption": "Die Löschung ist unwiderruflich. Wenn Du wieder diese Option für diesen Kurs wählst, wird Dein Platz in der Warteliste zurückgesetzt.",

@@ -613,7 +613,8 @@
                 "willNotBeRefund": "Crediti non rimborsati",
                 "discardGroup1": "Questa prenotazione fa parte del gruppo di sessioni {{ group }}.",
                 "discardGroup3": "Se desideri annullare solo una sessione del gruppo, contatta il tuo studio.",
-                "discardGroupPossibleExplain": "I tuoi crediti saranno nuovamente utilizzabili."
+                "discardGroupPossibleExplain": "I tuoi crediti saranno nuovamente utilizzabili.",
+                "waintingListPositionLabel": "Posizione :"
             }
         },
         "navigation": {

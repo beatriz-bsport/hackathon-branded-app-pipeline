@@ -15579,7 +15579,8 @@
                 "discardGroup1": "Cette réservation fait partie du groupe de séance {{ group }}.",
                 "discardGroup2": "Vous serez désinscrit automatiquement de l’ensemble des séances non passées du groupe.",
                 "discardGroup3": "Si vous souhaitez annuler seulement une séance du groupe, merci de contacter votre studio.",
-                "discardGroupPossibleExplain": "Vos crédits seront de nouveau utilisable."
+                "discardGroupPossibleExplain": "Vos crédits seront de nouveau utilisable.",
+                "waintingListPositionLabel": "Position :"
             }
         },
         "navigation": {

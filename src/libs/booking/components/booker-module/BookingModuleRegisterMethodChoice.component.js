@@ -26,6 +26,7 @@ import PriceInput from '../../../../components/input/PriceInput.component';
 import PercentInput from '../../../../components/input/PercentInput.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
 import ConsumerPackRowItem from '../../../consumer-payment-pack/components/ConsumerPackRowItem.component';
+import ObjectLevelPermissionWrapper from '../../../role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 import { PaymentPack } from '../../../payment-packs/types';
 import {
@@ -309,62 +310,75 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
           </div>
         </Collapse>
       </div>
-      <ButtonBase
-        className={classes.nonCompatibleCollapsable}
-        disabled={hasNoCompatiblePasses}
-        onClick={() =>
-          setOpenBuyableCompatiblePassesCollapse(
-            !openBuyableCompatiblePassesCollapse,
-          )
-        }
+      <ObjectLevelPermissionWrapper
+        forcedBehavior="hidden"
+        requiredPermission="billing.allowed_actions.createInvoice"
       >
-        <Typography component="h4" styles={{ textAlign: 'start' }} variant="h6">
-          {t('offerManagement.forms.register.passCompatibleNotOwnedByMember')}
-        </Typography>
-        {openBuyableCompatiblePassesCollapse ? (
-          <ExpandLessIcon />
-        ) : (
-          <ExpandMoreIcon />
-        )}
-      </ButtonBase>
-      <Collapse in={openBuyableCompatiblePassesCollapse}>
-        {!props.compatiblePacks.length ? (
-          <Alert
-            className={classNames(classes.alert, classes.paddingTop2)}
-            severity="warning"
+        <>
+          <ButtonBase
+            className={classes.nonCompatibleCollapsable}
+            disabled={hasNoCompatiblePasses}
+            onClick={() =>
+              setOpenBuyableCompatiblePassesCollapse(
+                !openBuyableCompatiblePassesCollapse,
+              )
+            }
           >
-            {t('offer.noPackAvailableForOfferPurchase')}
-          </Alert>
-        ) : (
-          <List>
-            {props.compatiblePacks
-              .filter((pack) => !pack.disabled)
-              .map((pack) => (
-                <PaymentPackListItem
-                  key={pack.id}
-                  divider
-                  hidePacksNumber
-                  isFlexContainerOnMobile
-                  showDuration
-                  onBookMultiple={
-                    props.disableMultiBooking
-                      ? undefined
-                      : () => props.onBookMultiple({ paymentPack: pack })
-                  }
-                  onBookOne={() => {
-                    handlePackSelect(pack);
-                    if (props.offer.is_full) {
-                      setOpenConfirmation(true);
-                    } else {
-                      setVoucherDialogOpen(true);
-                    }
-                  }}
-                  pack={pack}
-                />
-              ))}
-          </List>
-        )}
-      </Collapse>
+            <Typography
+              component="h4"
+              styles={{ textAlign: 'start' }}
+              variant="h6"
+            >
+              {t(
+                'offerManagement.forms.register.passCompatibleNotOwnedByMember',
+              )}
+            </Typography>
+            {openBuyableCompatiblePassesCollapse ? (
+              <ExpandLessIcon />
+            ) : (
+              <ExpandMoreIcon />
+            )}
+          </ButtonBase>
+          <Collapse in={openBuyableCompatiblePassesCollapse}>
+            {!props.compatiblePacks.length ? (
+              <Alert
+                className={classNames(classes.alert, classes.paddingTop2)}
+                severity="warning"
+              >
+                {t('offer.noPackAvailableForOfferPurchase')}
+              </Alert>
+            ) : (
+              <List>
+                {props.compatiblePacks
+                  .filter((pack) => !pack.disabled)
+                  .map((pack) => (
+                    <PaymentPackListItem
+                      key={pack.id}
+                      divider
+                      hidePacksNumber
+                      isFlexContainerOnMobile
+                      showDuration
+                      onBookMultiple={
+                        props.disableMultiBooking
+                          ? undefined
+                          : () => props.onBookMultiple({ paymentPack: pack })
+                      }
+                      onBookOne={() => {
+                        handlePackSelect(pack);
+                        if (props.offer.is_full) {
+                          setOpenConfirmation(true);
+                        } else {
+                          setVoucherDialogOpen(true);
+                        }
+                      }}
+                      pack={pack}
+                    />
+                  ))}
+              </List>
+            )}
+          </Collapse>
+        </>
+      </ObjectLevelPermissionWrapper>
       <ModalConfirm
         handleCancel={() => {
           setVoucherDialogOpen(false);

@@ -173,6 +173,7 @@ export class SubscriptionList extends React.Component<Props, State> {
           'product.contract.allowed_actions.edit',
           'product.contract.allowed_actions.delete',
           'product.contract.allowed_actions.createBillingPlan',
+          'billing.allowed_actions.createInvoice',
         ]}
       >
         {([
@@ -180,6 +181,7 @@ export class SubscriptionList extends React.Component<Props, State> {
           hasEditPermission,
           hasDeletePermission,
           hasCreateBillingPlanPermission,
+          hasCreateInvoicePermission,
         ]: boolean[]) => (
           <div className={this.props.classes.container}>
             {this.props.contractListAvailableAll?.length === 0 &&
@@ -235,6 +237,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                       onEdit={hasEditPermission && this.handleEditContract}
                       onRegister={
                         hasCreateBillingPlanPermission &&
+                        hasCreateInvoicePermission &&
                         this.props.openContractRegister
                       }
                       paymentComboList={this.props.paymentComboList}
@@ -275,6 +278,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                     onEdit={hasEditPermission && this.handleEditContract}
                     onRegister={
                       hasCreateBillingPlanPermission &&
+                      hasCreateInvoicePermission &&
                       this.props.openContractRegister
                     }
                     paymentComboList={this.props.paymentComboList}
@@ -305,6 +309,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                     onEdit={hasEditPermission && this.handleEditContract}
                     onRegister={
                       hasCreateBillingPlanPermission &&
+                      hasCreateInvoicePermission &&
                       this.props.openContractRegister
                     }
                     paymentComboList={this.props.paymentComboList}

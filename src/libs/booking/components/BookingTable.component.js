@@ -7,6 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import ObjectLevelPermissionProvider from '../../role/permission-utils/ObjectLevelPermissionProvider.component';
 import type { Booking } from '#libs/booking/types';
 
 import BookingItemForManagerV2 from '#libs/booking/components/BookingItemForManagerV2.component';
@@ -90,44 +91,53 @@ export class BookingTable extends PureComponent<Props> {
       .map((b) => members.find((m) => m.id === b.member));
 
     return (
-      <List dense disablePadding>
-        {[
-          ...bookings.filter((b) => b.booking_status_code === 0),
-          ...bookings.filter((b) => b.booking_status_code !== 0),
-        ].map((b) => (
-          <BookingItemForManagerV2
-            key={b.id}
-            displayNoShowChip
-            booking={b}
-            bookings={bookings}
-            confirmBookingAttendance={() => confirmBookingAttendance(b.id)}
-            dateRollCallLastModified={this.props.dateRollCallLastModified}
-            discardBookingAttendance={() => discardBookingAttendance(b.id)}
-            handleRevert={() => {
-              handleRevert(b);
-              this.props.refresh();
-            }}
-            heading={heading}
-            isRollCallMandatory={this.props.isRollCallMandatory}
-            member={this.props.members.find((m) => m.id === b.member)}
-            membersWithStatusOk={membersWithStatusOk}
-            newTab={newTab}
-            noShowChipMessage={this.props.t('booking:noShowChip.message')}
-            onClickChangeSpot={onClickChangeSpot}
-            onClickNoShowChip={this.props.onClickNoShowChip}
-            onClickWarningIcon={this.props.onClickWarningIcon}
-            onProgramDetailsClick={onProgramDetailsClick}
-            onQuickInvoiceClick={() => onQuickInvoiceClick(b.member)}
-            programList={this.props.programList}
-            redirectToMember={redirectToMember}
-            redirectToOffer={redirectToOffer}
-            showQuickInvoiceButton={showQuickInvoiceButton}
-            showRevertBookingButton={showRevertBookingButton}
-            showVaccinationStatus={this.props.showVaccinationStatus}
-            spotSchedulingEnabled={this.props.spotSchedulingEnabled}
-          />
-        ))}
-      </List>
+      <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.createInvoice">
+        {(hasCreateInvoicePermission) => (
+          <List dense disablePadding>
+            {[
+              ...bookings.filter((b) => b.booking_status_code === 0),
+              ...bookings.filter((b) => b.booking_status_code !== 0),
+            ].map((b) => (
+              <BookingItemForManagerV2
+                key={b.id}
+                displayNoShowChip
+                booking={b}
+                bookings={bookings}
+                confirmBookingAttendance={() => confirmBookingAttendance(b.id)}
+                dateRollCallLastModified={this.props.dateRollCallLastModified}
+                discardBookingAttendance={() => discardBookingAttendance(b.id)}
+                handleRevert={() => {
+                  handleRevert(b);
+                  this.props.refresh();
+                }}
+                heading={heading}
+                isRollCallMandatory={this.props.isRollCallMandatory}
+                member={this.props.members.find((m) => m.id === b.member)}
+                membersWithStatusOk={membersWithStatusOk}
+                newTab={newTab}
+                noShowChipMessage={this.props.t('booking:noShowChip.message')}
+                onClickChangeSpot={onClickChangeSpot}
+                onClickNoShowChip={this.props.onClickNoShowChip}
+                onClickWarningIcon={this.props.onClickWarningIcon}
+                onProgramDetailsClick={onProgramDetailsClick}
+                onQuickInvoiceClick={
+                  hasCreateInvoicePermission &&
+                  (() => onQuickInvoiceClick(b.member))
+                }
+                programList={this.props.programList}
+                redirectToMember={redirectToMember}
+                redirectToOffer={redirectToOffer}
+                showQuickInvoiceButton={
+                  hasCreateInvoicePermission && showQuickInvoiceButton
+                }
+                showRevertBookingButton={showRevertBookingButton}
+                showVaccinationStatus={this.props.showVaccinationStatus}
+                spotSchedulingEnabled={this.props.spotSchedulingEnabled}
+              />
+            ))}
+          </List>
+        )}
+      </ObjectLevelPermissionProvider>
     );
   }
 }

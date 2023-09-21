@@ -25,6 +25,7 @@ import type {
 import { OptionCallback } from '../../../state/types';
 import { MaterialStyleType } from '../../../utils/types';
 import UnPrivateConsumerPassBookerListItem from '#libs/private-service/components/booking-module/UnpaidPrivateConsumerPassBookerListItem.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type OwnProps = {
   registerPrivateBooking: (
@@ -231,32 +232,39 @@ export const PrivatePassCapabilities = (props: Props) => {
           </div>
         </Collapse>
       </div>
-      <Typography className={classes.sectionTitle} variant="h5">
-        {t('privateBooking.managerAdd.compatiblePrivatePass')}
-      </Typography>
-      <Divider className={classes.divider} />
-      <List disablePadding>
-        {props.compatiblePrivatePass.length ? (
-          <Paper>
-            {props.compatiblePrivatePass.map((privatePass: PrivatePass) => (
-              <PrivatePassBookerListItem
-                key={privatePass.id}
-                divider
-                onClick={() => {
-                  props.billMemberPrivatePass(privatePass.id);
-                  setNeedRefresh(true);
-                }}
-                private_pass={privatePass}
-              />
-            ))}
-          </Paper>
-        ) : null}
-      </List>
-      {props.compatiblePrivatePass.length === 0 ? (
-        <Typography color="textSecondary">
-          {t('privateBooking.managerAdd.emptyPrivatePass')}
-        </Typography>
-      ) : null}
+      <ObjectLevelPermissionWrapper
+        forcedBehavior="hidden"
+        requiredPermission="billing.allowed_actions.createInvoice"
+      >
+        <>
+          <Typography className={classes.sectionTitle} variant="h5">
+            {t('privateBooking.managerAdd.compatiblePrivatePass')}
+          </Typography>
+          <Divider className={classes.divider} />
+          <List disablePadding>
+            {props.compatiblePrivatePass.length ? (
+              <Paper>
+                {props.compatiblePrivatePass.map((privatePass: PrivatePass) => (
+                  <PrivatePassBookerListItem
+                    key={privatePass.id}
+                    divider
+                    onClick={() => {
+                      props.billMemberPrivatePass(privatePass.id);
+                      setNeedRefresh(true);
+                    }}
+                    private_pass={privatePass}
+                  />
+                ))}
+              </Paper>
+            ) : null}
+          </List>
+          {props.compatiblePrivatePass.length === 0 ? (
+            <Typography color="textSecondary">
+              {t('privateBooking.managerAdd.emptyPrivatePass')}
+            </Typography>
+          ) : null}
+        </>
+      </ObjectLevelPermissionWrapper>
     </div>
   );
 };

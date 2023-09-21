@@ -41,8 +41,16 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
 
   if (speedDialogMode) {
     return (
-      <ObjectLevelPermissionProvider requiredPermission="product.contract.allowed_actions.createBillingPlan">
-        {(hasCreateBillingPlanPermission: boolean) => (
+      <ObjectLevelPermissionProvider
+        requiredPermission={[
+          'product.contract.allowed_actions.createBillingPlan',
+          'billing.allowed_actions.createInvoice',
+        ]}
+      >
+        {([
+          hasCreateBillingPlanPermission,
+          hasCreateInvoicePermission,
+        ]: boolean[]) => (
           <FabWithItems
             badgeValue={props.numberOfUnreadAnswers}
             items={
@@ -56,14 +64,15 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
                       onClick: props.openCommunicationDrawer,
                       badgeValue: props.numberOfUnreadAnswers,
                     },
-                    {
+                    hasCreateInvoicePermission && {
                       label: t('paymentAction.toBill'),
                       onClick: () => props.billMember(),
                     },
-                    hasCreateBillingPlanPermission && {
-                      label: t('paymentAction.toSubscribe'),
-                      onClick: () => props.subscribeMember(),
-                    },
+                    hasCreateBillingPlanPermission &&
+                      hasCreateInvoicePermission && {
+                        label: t('paymentAction.toSubscribe'),
+                        onClick: () => props.subscribeMember(),
+                      },
                     props.member?.archived
                       ? {
                           label: t('restoreMember'),
@@ -75,14 +84,15 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
                         },
                   ]
                 : [
-                    {
+                    hasCreateInvoicePermission && {
                       label: t('paymentAction.toBill'),
                       onClick: () => props.billMember(),
                     },
-                    hasCreateBillingPlanPermission && {
-                      label: t('paymentAction.toSubscribe'),
-                      onClick: () => props.subscribeMember(),
-                    },
+                    hasCreateBillingPlanPermission &&
+                      hasCreateInvoicePermission && {
+                        label: t('paymentAction.toSubscribe'),
+                        onClick: () => props.subscribeMember(),
+                      },
                     props.member?.archived
                       ? {
                           label: t('restoreMember'),
@@ -105,11 +115,13 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
       requiredPermission={[
         'product.contract.allowed_actions.createBillingPlan',
         'member.allowed_actions.delete',
+        'billing.allowed_actions.createInvoice',
       ]}
     >
       {([
         hasCreateBillingPlanPermission,
         hasDeleteMemberPermission,
+        hasCreateInvoicePermission,
       ]: boolean[]) => (
         <div className={classes.bottomButtonContainer}>
           {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
@@ -127,22 +139,24 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
               {t('communication')}
             </Fab>
           )}
-          <Fab
-            className={classes.bottomButton}
-            color="primary"
-            onClick={props.billMember}
-            variant="extended"
-          >
-            <>
-              {getCurrencyDisplay() === '€' ? (
-                <EuroSymbolIcon className={classes.leftIcon} />
-              ) : (
-                <AttachMoneyIcon className={classes.leftIcon} />
-              )}
-              {t('paymentAction.toBill')}
-            </>
-          </Fab>
-          {hasCreateBillingPlanPermission && (
+          {hasCreateInvoicePermission && (
+            <Fab
+              className={classes.bottomButton}
+              color="primary"
+              onClick={props.billMember}
+              variant="extended"
+            >
+              <>
+                {getCurrencyDisplay() === '€' ? (
+                  <EuroSymbolIcon className={classes.leftIcon} />
+                ) : (
+                  <AttachMoneyIcon className={classes.leftIcon} />
+                )}
+                {t('paymentAction.toBill')}
+              </>
+            </Fab>
+          )}
+          {hasCreateBillingPlanPermission && hasCreateInvoicePermission && (
             <Fab
               className={classes.bottomButton}
               color="secondary"

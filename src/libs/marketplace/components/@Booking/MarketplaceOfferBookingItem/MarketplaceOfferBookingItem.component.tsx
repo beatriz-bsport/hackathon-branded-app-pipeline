@@ -45,9 +45,12 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
       hideCoach={hideCoach}
       isWaitingList={offer.full}
       level={offer.customLevel}
-      spotName={`${t('place')} ${offer.spot_information?.prefix}${
-        offer.spot_information?.indexType
-      }`}
+      spotName={
+        offer?.spot_information &&
+        `${t('place')} ${offer.spot_information?.prefix}${
+          offer.spot_information?.indexType
+        }`
+      }
       title={offer.meta_activity?.name}
     />
   );

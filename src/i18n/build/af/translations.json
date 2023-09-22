@@ -4028,11 +4028,7 @@
         "sourceManager": "The manager {{ managerName }}",
         "filter": "Bookings"
       },
-      "member-booking_canceled": {
-        "primaryText": "The booking for {{- name }} the {{- date_start }} was canceled.",
-        "filter": "Booking cancelations"
-      },
-      "member-private_booking_canceled": {
+      "undefined": {
         "primaryText": "The appointment for {{- private_service_name}} - {{- private_slot_name }} the {{- date_start }} was canceled.",
         "filter": "Appointment cancelations"
       },
@@ -4859,7 +4855,9 @@
       "successInfo": "The deletion of all sessions between {{start_date}} and {{end_date}} has been taken into account.",
       "warningOfferGroup": "These sessions can't be deleted, because they're associated to an event. Cancel, if necessary, the corresponding event.",
       "warningOfferGroupTitle": "Valid sessions",
-      "offers": "Non-cancellable sessions"
+      "offers": "Non-cancellable sessions",
+      "workshopOnly": "Since you don't have the permission to cancel group activity sessions, this action will only cancel workshop sessions.",
+      "activityOnly": "Since you don't have the permission to cancel workshop sessions, this action will only cancel group activity sessions."
     },
     "bookingListEmpty": "There are no bookings to display.",
     "bookingList": "Bookings",

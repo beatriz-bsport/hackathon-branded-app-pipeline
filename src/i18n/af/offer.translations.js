@@ -82,6 +82,10 @@ exports.default = {
       "These sessions can't be deleted, because they're associated to an event. Cancel, if necessary, the corresponding event.",
     warningOfferGroupTitle: 'Valid sessions',
     offers: 'Non-cancellable sessions',
+    workshopOnly:
+      "Since you don't have the permission to cancel group activity sessions, this action will only cancel workshop sessions.",
+    activityOnly:
+      "Since you don't have the permission to cancel workshop sessions, this action will only cancel group activity sessions.",
   },
   bookingListEmpty: 'There are no bookings to display.',
   bookingList: 'Bookings',

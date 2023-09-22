@@ -220,6 +220,7 @@ export async function fetchBookedGender(params: any) {
 export async function fetchNumberOfMassDisabledOfferAPI(params: {
   start: string;
   end: string;
+  is_workshop?: boolean;
 }) {
   return getAuth(
     `${API_V1_URI}/offer/number_of_mass_disable_offer/${buildUrlParams(

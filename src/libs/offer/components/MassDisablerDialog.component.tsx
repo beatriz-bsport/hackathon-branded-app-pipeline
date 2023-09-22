@@ -50,6 +50,7 @@ type OwnProps = {
   numberOfMassDisabledOffer: number;
   massDisabledOfferInGroup: Offer[];
   numberOfMassDisabledOfferLoading: boolean;
+  isWorkshop?: boolean;
 };
 type Props = OwnProps;
 
@@ -115,6 +116,16 @@ export const MassDisablerDialog = (props: Props) => {
                     {t('massDisabler.info')}
                   </Typography>
                 </div>
+                {props?.isWorkshop !== undefined && (
+                  <div className={classes.iconAndInfo}>
+                    <Warning color="error" />
+                    <Typography className={classes.infoRed} color="error">
+                      {props.isWorkshop
+                        ? t('massDisabler.workshopOnly')
+                        : t('massDisabler.activityOnly')}
+                    </Typography>
+                  </div>
+                )}
                 <div className={classes.iconAndInfo}>
                   <Warning color="error" />
                   <Typography className={classes.infoRed} color="error">
@@ -322,12 +333,14 @@ const useStyles = makeStyles<Theme>((theme) => ({
     backgroundColor: '#E8E8E8',
     borderRadius: '5px',
     padding: theme.spacing(1),
+    width: '100%',
   },
   infoRed: {
     fontWeight: 500,
     backgroundColor: '#F0E6E6',
     borderRadius: '5px',
     padding: theme.spacing(1),
+    width: '100%',
   },
   iconAndInfo: { display: 'flex', gap: theme.spacing(1), alignItems: 'center' },
   container: {

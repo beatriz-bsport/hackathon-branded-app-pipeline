@@ -690,14 +690,18 @@ export const numberOfMassDisabledOfferRetrieveActions = {
 };
 
 export function retrieveNumberOfMassDisabledOfferAction(
-  params?: { start: string; end: string },
+  params?: { start: string; end: string; options?: { is_workshop?: boolean } },
   options?: OptionCallback<{ number_of_mass_disabled_offer: number }>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(numberOfMassDisabledOfferRetrieveActions.isLoading(true));
     dispatch(numberOfMassDisabledOfferRetrieveActions.error(null));
     try {
-      const response = await fetchNumberOfMassDisabledOfferAPI(params);
+      const response = await fetchNumberOfMassDisabledOfferAPI({
+        start: params.start,
+        end: params.end,
+        ...params?.options,
+      });
       dispatch(numberOfMassDisabledOfferRetrieveActions.success(response.data));
       options?.onSuccess && options.onSuccess(response.data);
     } catch (error) {
@@ -717,7 +721,7 @@ export const numberOfMassDisabledOfferInGroupActions = {
 };
 
 export function retrieveNumberOfMassDisabledOfferInGroup(
-  params?: { start: string; end: string },
+  params?: { start: string; end: string; options?: { is_workshop?: boolean } },
   options?: OptionCallback<{ number_of_mass_disabled_offer: number }>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
@@ -731,6 +735,7 @@ export function retrieveNumberOfMassDisabledOfferInGroup(
         max_date: params.end,
         with_group: true,
         available: true,
+        ...params?.options,
       });
       dispatch(
         numberOfMassDisabledOfferInGroupActions.success(response.data.results),

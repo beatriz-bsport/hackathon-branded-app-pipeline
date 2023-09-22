@@ -23,6 +23,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
 import {
   getAssetByBlueprintByIdentifier,
   getSpotTypesOfCompany,
@@ -69,9 +70,14 @@ import {
 import {
   fetchOfferById as fetchOfferByIdAction,
   fetchOfferStatus as fetchOfferStatusAction,
+  fetchOfferWaitingListPositionList as fetchOfferWaitingListPositionListAction,
 } from '#libs/offer/actions';
 
-import { getDetailedOffer, withEstablishment } from '#libs/offer/selectors';
+import {
+  getDetailedOffer,
+  withEstablishment,
+  getOfferStatusWaitingListPositionById,
+} from '#libs/offer/selectors';
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
 import { withCustomLevel } from '#libs/level/selectors';
 
@@ -94,8 +100,18 @@ import {
   fetchGroupOffer as fetchGroupOfferAction,
   fetchGroupsOfferList as fetchGroupsOfferListAction,
 } from '#libs/group-offer/actions';
+import {
+  fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction,
+  discardBookingOption as discardBookingOptionAction,
+  fetchBookingOptionForMember,
+} from '#libs/waiting-list/actions';
 import { getEnabledMetaActivities } from '#libs/meta-activity/selectors';
 import { withGroup, getGroupListCount } from '#libs/group-offer/selectors';
+
+import {
+  getWaitingListConfigurationData,
+  getBookingOptionListForMember,
+} from '#libs/waiting-list/selectors';
 
 import { Member } from '#libs/member/types';
 import { PaymentPack } from '#libs/payment-packs/types';
@@ -130,11 +146,6 @@ import { Theme } from '#libs/theme/types';
 import AsyncSpotSelector, {
   asyncSelectSpotForBlueprint,
 } from '#libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
-import {
-  discardBookingOption as discardBookingOptionAction,
-  fetchBookingOptionForMember,
-} from '#libs/waiting-list/actions';
-import { getBookingOptionListForMember } from '#libs/waiting-list/selectors';
 import type { Offer } from '../../api/types';
 import { BookingOptionWithActivity, Booking } from '#libs/booking/types';
 import WaitingListDetail from '#libs/waiting-list/components/WaitingListDetail.component';
@@ -147,6 +158,9 @@ import {
   getProgramList,
   getMemberProgramIdsList,
 } from '#libs/performance-tracking/selector';
+
+import type { WaitingListConfiguration } from '#libs/waiting-list/type';
+import { OfferStatusWaitingListPosition } from '#libs/offer/types';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
 
@@ -259,6 +273,13 @@ type Props = {
     program: number,
     member: number,
   }) => void,
+
+  fetchCompanyWaitlistConfiguration: (companyId: number) => void,
+  waitingListConfiguration: WaitingListConfiguration,
+  fetchOfferWaitingListPositionList: (bookingOptionsIds: number[]) => void,
+  offerStatusWaitingListPositionById: {
+    [key: number]: OfferStatusWaitingListPosition,
+  },
 };
 
 type State = {
@@ -295,6 +316,7 @@ export class MemberDetailBooking extends Component<Props, State> {
     this.props.fetchLevelList({
       company: this.props.theme.company,
     });
+    this.props.fetchCompanyWaitlistConfiguration(this.props.theme.company);
   }
 
   hasNext = () => {
@@ -525,6 +547,7 @@ export class MemberDetailBooking extends Component<Props, State> {
       this.props.consumerPackLoading ||
       this.props.recurrentBookingLoading ||
       this.props.userFiltersLoading;
+
     return (
       <Grid container direction="row" spacing={3}>
         <Grid
@@ -618,10 +641,18 @@ export class MemberDetailBooking extends Component<Props, State> {
           </Dialog>
           <Grid item style={{ width: '100%' }}>
             <PaginatedBookingOptionList
+              displayWaitingListPosition={
+                this.props.waitingListConfiguration?.display_member_position &&
+                this.props.waitingListConfiguration?.dynamic ===
+                  WAITING_LIST_DYNAMIC_ORDERED
+              }
               itemPerPage={5}
               items={this.props.bookingOptionList}
               loading={this.props.bookingOptionListLoading}
               nbItems={this.props.bookingOptionCount}
+              offerStatusWaitingListPositionById={
+                this.props.offerStatusWaitingListPositionById
+              }
               onClick={(bo) => {
                 this.props.setSelectedBookingOption(
                   this.props.selectedBookingOption &&
@@ -633,11 +664,24 @@ export class MemberDetailBooking extends Component<Props, State> {
               onClickDiscard={(bo) => this.props.setDiscardBookingOption(bo.id)}
               onClickRegister={(bo) => this.props.goToOffer(bo.offer.id)}
               onPageRequested={(page) => {
-                this.props.fetchBookingOptionForMember({
-                  member: this.props.id,
-                  page,
-                  page_size: 5,
-                });
+                this.props.fetchBookingOptionForMember(
+                  {
+                    member: this.props.id,
+                    page,
+                    page_size: 5,
+                  },
+                  {
+                    onSuccess: ({ results: bookingOptionList }) => {
+                      this.props.fetchOfferWaitingListPositionList(
+                        bookingOptionList.map(
+                          (bookingOption: BookingOptionWithActivity) =>
+                            bookingOption.offer.id,
+                        ),
+                        { memberId: this.props.id },
+                      );
+                    },
+                  },
+                );
               }}
               page={this.props.bookingOptionPage}
               selectedBookingOption={this.props.selectedBookingOption}
@@ -997,6 +1041,9 @@ export default compose(
       spotTypes: getSpotTypesOfCompany(state),
       memberProgramIdsList: getMemberProgramIdsList(state),
       programList: getProgramList(state),
+      waitingListConfiguration: getWaitingListConfigurationData(state),
+      offerStatusWaitingListPositionById:
+        getOfferStatusWaitingListPositionById(state),
     }),
     {
       fetchMemberBookings: fetchBookingsByMemberAction,
@@ -1020,6 +1067,10 @@ export default compose(
       discardBookingAttendance: discardBookingAttendanceAction,
       confirmBookingAttendance: confirmBookingAttendanceAction,
       fetchBookingStatistics: fetchBookingStatisticsAction,
+      fetchCompanyWaitlistConfiguration:
+        fetchCompanyWaitlistConfigurationAction,
+      fetchOfferWaitingListPositionList:
+        fetchOfferWaitingListPositionListAction,
       fetchManagerFilters: fetchManagerFiltersSettings,
       updateManagerFilters: updateManagerFiltersSettings,
 

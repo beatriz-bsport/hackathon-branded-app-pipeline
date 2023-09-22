@@ -94,5 +94,6 @@ exports.default = {
     delete: 'Delete',
     addToBook: 'Join',
     listTitle: 'Waitlist',
+    waitingListPosition: 'Waiting list position {{ position }}/{{ size }}',
   },
 };

@@ -10,6 +10,7 @@ import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import { BookingOptionWithActivity } from '../../booking/types';
 import { MaterialStyleType } from '../../../utils/types';
 import BookingOptionItem from './BookingOptionItem.component';
+import type { OfferStatusWaitingListPosition } from '#libs/offer/types';
 
 type OwnProps = {
   onClick: (bookingOption: BookingOptionWithActivity) => void;
@@ -22,6 +23,10 @@ type OwnProps = {
   itemPerPage: number;
   onPageRequested: (page: number, pageSize: number) => void;
   selectedBookingOption?: BookingOptionWithActivity;
+  displayWaitingListPosition: boolean;
+  offerStatusWaitingListPositionById: {
+    [key: number]: OfferStatusWaitingListPosition;
+  };
 };
 
 type Props = OwnProps &
@@ -54,13 +59,18 @@ const PaginatedBookingOptionList = (props: Props) => {
             </Typography>
           </div>
         )}
-        renderItem={(bo: BookingOptionWithActivity) => (
+        renderItem={(bookingOption: BookingOptionWithActivity) => (
           <BookingOptionItem
-            bookingOption={bo}
-            onClick={() => props.onClick(bo)}
-            onClickDiscard={() => props.onClickDiscard(bo)}
-            onClickRegister={() => props.onClickRegister(bo)}
+            bookingOption={bookingOption}
+            displayWaitingListPosition={props.displayWaitingListPosition}
+            onClick={() => props.onClick(bookingOption)}
+            onClickDiscard={() => props.onClickDiscard(bookingOption)}
+            onClickRegister={() => props.onClickRegister(bookingOption)}
             selectedBookingOption={props.selectedBookingOption}
+            waitingListPosition={
+              props.offerStatusWaitingListPositionById?.[bookingOption.offer.id]
+                ?.waiting_list_position
+            }
           />
         )}
       />

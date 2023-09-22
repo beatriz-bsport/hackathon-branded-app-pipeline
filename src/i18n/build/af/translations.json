@@ -13282,7 +13282,8 @@
       "empty": "There are no waitlists to display.",
       "delete": "Delete",
       "addToBook": "Join",
-      "listTitle": "Waitlist"
+      "listTitle": "Waitlist",
+      "waitingListPosition": "Waiting list position {{ position }}/{{ size }}"
     }
   },
   "widget": {

@@ -20,6 +20,8 @@ interface OwnProps {
   onClickRegister: (bookingOption: BookingOptionWithActivity) => void;
   onClickDiscard: (bookingOption: BookingOptionWithActivity) => void;
   selectedBookingOption?: BookingOptionWithActivity;
+  displayWaitingListPosition: boolean;
+  waitingListPosition: { member_position: number; waiting_list_size: number };
 }
 
 type Props = OwnProps &
@@ -28,7 +30,14 @@ type Props = OwnProps &
 
 class BookingOptionItem extends React.PureComponent<Props> {
   render() {
-    const { classes, t, bookingOption, selectedBookingOption } = this.props;
+    const {
+      classes,
+      t,
+      bookingOption,
+      selectedBookingOption,
+      displayWaitingListPosition,
+      waitingListPosition,
+    } = this.props;
 
     const expired = moment(bookingOption.offer.date_start).isBefore(moment());
 
@@ -42,10 +51,21 @@ class BookingOptionItem extends React.PureComponent<Props> {
       >
         <ListItemText
           primary={bookingOption.offer.activity.name}
-          secondary={formatAsDatetimeAdapted(
-            bookingOption.offer.date_start,
-            'LLL',
-          )}
+          secondary={
+            <div>
+              <div>
+                {formatAsDatetimeAdapted(bookingOption.offer.date_start, 'LLL')}
+              </div>
+              {displayWaitingListPosition && waitingListPosition && (
+                <div>
+                  {t('member.waitingListPosition', {
+                    position: waitingListPosition.member_position,
+                    size: waitingListPosition.waiting_list_size,
+                  })}
+                </div>
+              )}
+            </div>
+          }
         />
 
         {!expired && (

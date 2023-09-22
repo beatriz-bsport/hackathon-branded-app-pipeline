@@ -252,6 +252,8 @@ exports.default = {
       },
       doubleBookingDisabledWithSpivi:
         'Double booking not compatible with Spivi integration',
+      showPastSessionsCalendar:
+        'Show past sessions on the calendar of your members',
     },
     cover: {
       label: 'Logo',

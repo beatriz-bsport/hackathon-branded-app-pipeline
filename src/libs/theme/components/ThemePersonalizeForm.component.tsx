@@ -94,6 +94,7 @@ interface FormikValues {
   days_format_display: MarketPlaceDaysFormatDisplay;
   show_free_session_label: boolean;
   hide_book_button: boolean;
+  show_past_sessions_calendar: boolean;
 }
 type Props = {
   theme: CompanyTheme;
@@ -596,6 +597,10 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             name="show_cancelled_offers_customer"
           />
           <SwitchField
+            label={t('forms.themePersonalization.showPastSessionsCalendar')}
+            name="show_past_sessions_calendar"
+          />
+          <SwitchField
             label={t('forms.themePersonalization.hideCoach')}
             name="hideCoach"
           />
@@ -1035,6 +1040,7 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
   days_format_display: Yup.number().required(),
   show_free_session_label: Yup.boolean().required(),
   hide_book_button: Yup.boolean().required(),
+  show_past_sessions_calendar: Yup.boolean().required(),
 });
 
 const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
@@ -1125,6 +1131,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         days_format_display: theme.days_format_display,
         show_free_session_label: theme.show_free_session_label,
         hide_book_button: theme.hide_book_button,
+        show_past_sessions_calendar: theme.show_past_sessions_calendar,
       };
     }
     return {
@@ -1166,6 +1173,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       days_format_display: MarketPlaceDaysFormatDisplay.DEFAULT,
       show_free_session_label: false,
       hide_book_button: false,
+      show_past_sessions_calendar: true,
     };
   },
   validationSchema: ThemePersonalizeFormSchema,
@@ -1209,6 +1217,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'days_format_display',
       'show_free_session_label',
       'hide_book_button',
+      'show_past_sessions_calendar',
     ];
     keys.forEach((key) => {
       if (key === 'show_studio_on_general_app') {

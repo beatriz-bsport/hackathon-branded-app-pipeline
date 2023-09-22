@@ -183,26 +183,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
     this.props.fetchMetaActivityBulk(this.props.filters.activity__in || []);
 
-    this.props.fetchNextAvailableOffer(
-      {
-        company: this.props.companyId,
-        ...this.props.filters,
-        ...optionalParams,
-      },
-      {
-        onSuccess: (result: Offer) => {
-          if (
-            // only redirect in list mode otherwise the user will be lost
-            this.props.compactMode &&
-            moment(this.props.otherParams.date)
-              .startOf('week')
-              .isBefore(moment(result?.date_start).startOf('week'))
-          ) {
-            this.props.setOtherParams('date')(result?.date_start);
-          }
-        },
-      },
-    );
+    this.props.fetchNextAvailableOffer({
+      company: this.props.companyId,
+      ...this.props.filters,
+      ...optionalParams,
+    });
     this.props.fetchOfferList({
       company: this.props.companyId,
       min_date,
@@ -213,6 +198,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       ...this.props.filters,
       ...optionalParams,
       with_tags: true,
+      only_future_strict: !this.props.theme.show_past_sessions_calendar,
     });
 
     this.props.fetchAllEstablishmentGroup(this.props.companyId);
@@ -588,34 +574,40 @@ const mapWithHandlers = {
       available?: boolean;
       filters: OfferFilterData;
     }) => {
-      props.fetchOfferList(params, {
-        onSuccess: (offerList: any) => {
-          props.fetchEstablishmentBulk([
-            ...offerList.map((o: any) => o.establishment),
-            ...offerList.map((o: any) => o.establishment_override),
-          ]);
-          props.fetchAssociatedCoachBulkFromCoachIds(
-            [
-              ...offerList.map((o: any) => o.coach),
-              ...offerList.map((o: any) => o.coach_override),
-              ...offerList.flatMap((o: any) => o.additional_coaches),
-            ],
-            props.companyId,
-          );
-
-          props.fetchMetaActivityBulk([
-            ...offerList.map((o: any) => o.meta_activity),
-          ]);
-
-          props.fetchGroupsOfferBulk(
-            Array.from(new Set(offerList.map((o) => o.group))),
-          );
-          props.fetchLevelBulk({
-            company: props.companyId,
-            id__in: uniq([...offerList.map((o: any) => o.custom_level)]),
-          });
+      props.fetchOfferList(
+        {
+          ...params,
+          only_future_strict: !props.theme.show_past_sessions_calendar,
         },
-      });
+        {
+          onSuccess: (offerList: any) => {
+            props.fetchEstablishmentBulk([
+              ...offerList.map((o: any) => o.establishment),
+              ...offerList.map((o: any) => o.establishment_override),
+            ]);
+            props.fetchAssociatedCoachBulkFromCoachIds(
+              [
+                ...offerList.map((o: any) => o.coach),
+                ...offerList.map((o: any) => o.coach_override),
+                ...offerList.flatMap((o: any) => o.additional_coaches),
+              ],
+              props.companyId,
+            );
+
+            props.fetchMetaActivityBulk([
+              ...offerList.map((o: any) => o.meta_activity),
+            ]);
+
+            props.fetchGroupsOfferBulk(
+              Array.from(new Set(offerList.map((o) => o.group))),
+            );
+            props.fetchLevelBulk({
+              company: props.companyId,
+              id__in: uniq([...offerList.map((o: any) => o.custom_level)]),
+            });
+          },
+        },
+      );
       if (props.theme && props.theme.show_booked_gender_offer) {
         props.fetchBookedGender(params);
       }

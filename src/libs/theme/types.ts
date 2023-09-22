@@ -113,6 +113,7 @@ export type Theme = {
   force_billing_details_on_cards: boolean;
   payment_method_available_recurringly: number[];
   display_bubble_background: boolean;
+  show_past_sessions_calendar: boolean;
 };
 
 export type ThemeState = {

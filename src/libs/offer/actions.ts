@@ -424,6 +424,7 @@ export function fetchMarketplaceOfferList(
     filters: OfferFilterData | OfferFilter;
     is_workshop?: boolean;
     available?: boolean;
+    only_future_strict?: boolean;
   },
   options?: OptionCallback,
 ) {

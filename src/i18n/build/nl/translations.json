@@ -1816,7 +1816,7 @@
                 "exportError": "Fout bij het exporteren van de gegevens",
                 "exportCampaign": "Campagne exporteren",
                 "plannedResends": "Automatische herverzendingen gepland op:",
-                "resentOn": "herzonden op:"
+                "resentOn": "Herzonden op:"
             },
             "recipientCount": "Ontvanger(s): {{total_recipients}}",
             "kind": {
@@ -3508,7 +3508,7 @@
                     },
                     "title": "Leskaart verwijderen:",
                     "askConfirmation": "Waarschuwing! Deze actie is definitief. Deze kaart zal hierna niet meer zichtbaar of te koop zijn.",
-                    "thereAreConsumers": "Belangrijk! Het is mogelijk dat leden deze leskaart al hebben gekocht. Leden zullen hun credits nog kunnen gebruiken, maar als je deze leskaart direct onbruikbaar wilt maken raden we aan om het aantal credits op 0 te zetten. \n\nLeden zullen deze leskaart niet meer kunnen zien en kopen.",
+                    "thereAreConsumers": "Belangrijk! Het is mogelijk dat leden deze leskaart al hebben gekocht. Leden zullen hun credits nog kunnen gebruiken, maar als je deze leskaart direct onbruikbaar wilt maken raden we aan om het aantal credits op 0 te zetten. Leden zullen deze leskaart niet meer kunnen zien en kopen.",
                     "isUsedInCombo": "Waarschuwing! Door deze leskaart te verwijderen wordt het ook onbruikbaar bij de relevante pakketten."
                 },
                 "theoricalMarginValue": {
@@ -4893,7 +4893,7 @@
                 },
                 "explanation": "Heeft X formulieren ingevuld bij A% op datum B ",
                 "between": "en",
-                "to": "naar",
+                "to": " ",
                 "third": "met een percentage",
                 "second": "onder",
                 "none": "geen formulier",
@@ -4907,7 +4907,7 @@
             "101": {
                 "explanation": "Is minder/meer/precies...",
                 "second": "jaren (inclusief)",
-                "to": "naar",
+                "to": " ",
                 "between": "en",
                 "first": "Heeft een leeftijd",
                 "name": "Leeftijd"
@@ -5154,7 +5154,7 @@
                 "month_plural": "Elke {{ count }} maanden"
             },
             "warning": {
-                "groupsWithOutOfTheRangeOffers": "De onderstaande groepsessies zullen niet worden aangemaakt, \nomdat deze sessies meer dan 3 jaar later plaatsvinden.",
+                "groupsWithOutOfTheRangeOffers": "De onderstaande groepsessies zullen niet worden aangemaakt, omdat deze sessies meer dan 3 jaar later plaatsvinden.",
                 "uncreatedGroups": "Sommige groepen worden niet aangemaakt.\nU vindt ze in de sectie \"Niet aangemaakte groepen\" onderaan deze lijst"
             },
             "errors": {

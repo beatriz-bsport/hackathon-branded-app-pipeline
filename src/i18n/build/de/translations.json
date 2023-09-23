@@ -16004,7 +16004,7 @@
             "rotation": "Drehung",
             "redo": "Weiter",
             "undo": "Vorherige",
-            "eraser": "Kaugummi",
+            "eraser": "Radierer",
             "sections": {
                 "custom": "Anpassung",
                 "elements": "Elemente",
@@ -16041,9 +16041,9 @@
             "freeImageLabel": "Standort verfügbar"
         },
         "toolbar": {
-            "save": "Confirmer",
+            "save": "Speichern",
             "titleLabel": "Name des Plans",
-            "exit": "Ausfahrt",
+            "exit": "Schließen",
             "loadExistingBlueprint": "Einen bestehenden Plan laden",
             "spiviHelperText": "Siehe Übereinstimmung mit Spivi-Spots",
             "spivi": "Spivi"

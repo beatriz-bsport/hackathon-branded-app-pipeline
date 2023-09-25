@@ -44,6 +44,7 @@
   letter-spacing: var(--body1-letterSpacing);
   line-height: var(--body1-lineHeight);
   font-family: var(--fontFamily);
+  border-radius: var(--border-radius-1);
 }
 
 .bs-booking-item-status-chip__unpaid {

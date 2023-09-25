@@ -45,6 +45,7 @@
   line-height: var(--subtitle1-lineHeight);
   font-family: var(--fontFamily);
   padding: calc(var(--spacing-1) / 2) var(--spacing-1);
+  border-radius: var(--border-radius-1);
 }
 
 .bs-booker-module-offer-summary-item__status-chips--hidden {

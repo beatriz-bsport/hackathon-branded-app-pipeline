@@ -762,7 +762,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.state.isSpotSelectorOpen &&
       !this.props.assetForBlueprintLoading &&
       !this.props.roomBlueprintLoading &&
-      !this.props.spotForBlueprintLoading
+      !this.props.spotForBlueprintLoading &&
+      !isWaitingList
     ) {
       return (
         <div className="bs-new-offer-booking-page">

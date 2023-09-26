@@ -362,6 +362,8 @@ exports.default = {
     form: {
       updateTitle: 'Editing the name of the cadence',
       trigger: {
+        selectEvent: 'Select an event',
+        selectSmartlist: 'Select a smartlist',
         helpers: {
           exitFail:
             'Define here the trigger that causes a member to be considered lost and to exit the cadence.',
@@ -371,6 +373,9 @@ exports.default = {
           cadence:
             'Define the triggers for entering the cadence here. Members will need to match the criteria listed below to begin the marketing sequence.',
         },
+        triggerTimeoutLabel: 'Trigger after',
+        triggerTimeoutDays: 'day.',
+        triggerTimeoutDays_plural: 'days.',
         trigger_timeout_explain_value_selected:
           'If the member is still present in the cadence after {{ days }} days then it will automatically be removed from the cadence and considered lost.',
         trigger_timeout_select_label: 'days maximum in the cadence',
@@ -593,7 +598,7 @@ exports.default = {
       previous: 'Previous',
       changeInExit: { title: 'Exit', label: 'Consider the member as' },
       entryTrigger: {
-        addTrigger: 'Add an entry trigger',
+        addTrigger: 'Add an input trigger',
         helperText:
           'Please define when and who will enter this cadence with the selected criteria and triggers.',
         title: 'Entry',

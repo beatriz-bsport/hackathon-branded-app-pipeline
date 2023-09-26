@@ -85,7 +85,7 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
             <CustomMuiIcon
               defaultBackGround
               customColor={SequentialMarketingColors.GREY_FILTER_COLOR}
-              icon="FilterList"
+              icon="Add"
               withBackground={false}
             />
             <CadenceChip

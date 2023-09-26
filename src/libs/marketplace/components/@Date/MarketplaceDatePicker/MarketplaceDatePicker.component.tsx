@@ -31,6 +31,7 @@ export type Props = {
   rangeSize?: number;
   onSelect: (date: string) => void;
   isInputButton?: boolean;
+  startWeekOnDaySelected?: boolean;
 };
 
 const MarketplaceDatePicker: React.FC<Props> = ({
@@ -39,6 +40,7 @@ const MarketplaceDatePicker: React.FC<Props> = ({
   onSelect,
   isInputButton,
   disablePast,
+  startWeekOnDaySelected,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dateDisplayed, setDateDisplayed] = useState<Moment>(null);
@@ -108,10 +110,14 @@ const MarketplaceDatePicker: React.FC<Props> = ({
   );
 
   const getDateDisplay = useCallback(() => {
-    const start = moment(dateSelected).startOf('week');
-    const end = moment(dateSelected)
-      .startOf('week')
-      .add(rangeSize - 1, 'day');
+    const start = startWeekOnDaySelected
+      ? moment(dateSelected)
+      : moment(dateSelected).startOf('week');
+    const end = startWeekOnDaySelected
+      ? moment(dateSelected).add(rangeSize - 1, 'day')
+      : moment(dateSelected)
+          .startOf('week')
+          .add(rangeSize - 1, 'day');
 
     if (start.year() !== end.year() || start.year() !== moment().year()) {
       return `${start.format('ddd DD/MM YYYY')} - ${end.format(
@@ -122,7 +128,7 @@ const MarketplaceDatePicker: React.FC<Props> = ({
     return `${formatAsTitle(start.format(DATE_FORMAT))} - ${formatAsTitle(
       end.format(DATE_FORMAT),
     )}`;
-  }, [dateSelected, rangeSize]);
+  }, [dateSelected, rangeSize, startWeekOnDaySelected]);
 
   const startOfMonth = useMemo(
     () => moment(dateDisplayed).startOf('month'),

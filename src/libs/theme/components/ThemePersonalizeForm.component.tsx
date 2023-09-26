@@ -601,6 +601,10 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             name="show_past_sessions_calendar"
           />
           <SwitchField
+            label={t('forms.themePersonalization.startWeekOnToday')}
+            name="start_calendar_week_on_today"
+          />
+          <SwitchField
             label={t('forms.themePersonalization.hideCoach')}
             name="hideCoach"
           />
@@ -1041,6 +1045,7 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
   show_free_session_label: Yup.boolean().required(),
   hide_book_button: Yup.boolean().required(),
   show_past_sessions_calendar: Yup.boolean().required(),
+  start_calendar_week_on_today: Yup.boolean().required(),
 });
 
 const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
@@ -1132,6 +1137,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         show_free_session_label: theme.show_free_session_label,
         hide_book_button: theme.hide_book_button,
         show_past_sessions_calendar: theme.show_past_sessions_calendar,
+        start_calendar_week_on_today: theme.start_calendar_week_on_today,
       };
     }
     return {
@@ -1174,6 +1180,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       show_free_session_label: false,
       hide_book_button: false,
       show_past_sessions_calendar: true,
+      start_calendar_week_on_today: false,
     };
   },
   validationSchema: ThemePersonalizeFormSchema,
@@ -1218,6 +1225,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'show_free_session_label',
       'hide_book_button',
       'show_past_sessions_calendar',
+      'start_calendar_week_on_today',
     ];
     keys.forEach((key) => {
       if (key === 'show_studio_on_general_app') {

@@ -11766,7 +11766,8 @@
           "dialogDescription": "By hiding the \"{{-bookButtonTranslation}}\" button, you can click on the pass to book the session."
         },
         "doubleBookingDisabledWithSpivi": "Double booking not compatible with Spivi integration",
-        "showPastSessionsCalendar": "Show past sessions on the calendar of your members"
+        "showPastSessionsCalendar": "Show past sessions on the calendar of your members",
+        "startWeekOnToday": "Start the calendar of your members on today’s date if the display is in week view card mode"
       },
       "cover": { "label": "Logo", "helperText": "Upload here your logo with a transparent background (use a .PNG file)." },
       "primary_color": { "label": "Primary color", "helperText": "Choose a theme color (avoid a monochrome setup)." },

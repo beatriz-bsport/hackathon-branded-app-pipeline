@@ -89,7 +89,6 @@ import { getBookCalendarUrl } from '#libs/marketplace/routing-utils';
 
 type OwnProps = {
   companyId: number;
-  startWeekThisWeekday?: boolean;
   compactMode: boolean;
   groupSessionByPeriod: boolean;
   variant?: 'activityName' | 'coach' | 'time';
@@ -149,15 +148,17 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     offerSearchResult: { query: '', offerList: null },
   };
 
+  start_date = () =>
+    this.props.theme.start_calendar_week_on_today
+      ? moment(this.props.otherParams.date).format(DATE_FORMAT)
+      : moment(this.props.otherParams.date).startOf('week').format(DATE_FORMAT);
+
+  end_date = () =>
+    this.props.theme.start_calendar_week_on_today
+      ? moment(this.props.otherParams.date).add(7, 'days').format(DATE_FORMAT)
+      : moment(this.props.otherParams.date).endOf('week').format(DATE_FORMAT);
+
   fetchData = () => {
-    const min_date = moment(this.props.otherParams.date)
-      .startOf('week')
-      .format(DATE_FORMAT);
-
-    const max_date = moment(this.props.otherParams.date)
-      .endOf('week')
-      .format(DATE_FORMAT);
-
     this.props.fetchEstablishmentBulk(this.props.filters.establishments || []);
 
     this.props.fetchAssociatedCoachBulkFromCoachIds(
@@ -190,8 +191,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     });
     this.props.fetchOfferList({
       company: this.props.companyId,
-      min_date,
-      max_date,
+      min_date: this.start_date(),
+      max_date: this.end_date(),
       ...(this.props.username
         ? { username: encodeURI(this.props.username) }
         : {}),
@@ -215,9 +216,13 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   componentDidUpdate(prevProps: Props, prevState: State) {
     const filtersPropsChanged = !isEqual(prevProps.filters, this.props.filters);
-    const selectedWeekChanged = !moment(prevProps.otherParams.date)
-      .startOf('week')
-      .isSame(moment(this.props.otherParams.date).startOf('week'));
+    const selectedWeekChanged = this.props.theme.start_calendar_week_on_today
+      ? !moment(prevProps.otherParams.date).isSame(
+          moment(this.props.otherParams.date),
+        )
+      : !moment(prevProps.otherParams.date)
+          .startOf('week')
+          .isSame(moment(this.props.otherParams.date).startOf('week'));
     if (filtersPropsChanged || selectedWeekChanged) {
       this.fetchData();
     }
@@ -410,7 +415,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       coaches,
       activeCustomLevels,
       customLevels,
-      startWeekThisWeekday,
       establishmentGroupList,
       loading,
       metaActivities,
@@ -491,7 +495,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           showMultiLocalization={this.props.theme.enable_multi_localization}
           showOfferFilling={this.props.theme.show_offers_filling}
           showOfferGender={this.props.theme.show_booked_gender_offer}
-          startWeekThisWeekday={startWeekThisWeekday}
+          startWeekOnDaySelected={this.props.theme.start_calendar_week_on_today}
           theme={this.props.theme}
           toggleFiltersOpen={this.toggleFiltersOpen}
           variant={this.props.variant}

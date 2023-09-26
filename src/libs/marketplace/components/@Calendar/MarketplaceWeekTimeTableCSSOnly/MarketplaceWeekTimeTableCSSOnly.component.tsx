@@ -14,7 +14,6 @@ import memoize from 'memoize-one';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import {
-  DATE_FORMAT,
   formatAsDateWithWeekday,
   formatWeekDay,
 } from '../../../../../utils/datetime';
@@ -66,22 +65,26 @@ export type Props = {
   showDayParts: boolean;
   forceDayDisplayOnly: boolean;
   searchedOffers: Offer[] | null;
+  startWeekOnDaySelected?: boolean;
 };
 
 type State = {
   panelsStatus: Array<boolean>;
 };
 
-const getWeekOffers = (selectedDate: string, offers: Array<Offer>) => {
-  const date_start = Moment(selectedDate, DATE_FORMAT).clone().startOf('week');
-  const weekdays = Moment.weekdays(true);
+const getWeekOffers = (
+  selectedDate: string,
+  offers: Array<Offer>,
+  themeOptions?: { startWeekOnDaySelected?: boolean },
+) => {
+  const date_start = themeOptions?.startWeekOnDaySelected
+    ? Moment(selectedDate)
+    : Moment(selectedDate).startOf('week');
   // split offers par week days
-  return weekdays.map((_: any, i) => {
+  return [...Array(7)].map((_: any, i) => {
     const currentDate = Moment(date_start).add(i, 'days');
-    return offers.filter(
-      (o) =>
-        currentDate.weekday() === i &&
-        Moment(o.date_start).isSame(currentDate, 'day'),
+    return offers.filter((o) =>
+      Moment(o.date_start).isSame(currentDate, 'day'),
     );
   });
 };
@@ -128,7 +131,9 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     const morning: Array<Array<Offer>> = [];
     const afternoon: Array<Array<Offer>> = [];
     const evening: Array<Array<Offer>> = [];
-    const weekOffers = getWeekOffers(date, offers);
+    const weekOffers = getWeekOffers(date, offers, {
+      startWeekOnDaySelected: this.props.startWeekOnDaySelected,
+    });
     (weekOffers || []).map((dayOffers: Array<Offer>, i) => {
       morning[i] = dayOffers.filter(
         (offer: Offer) =>
@@ -265,7 +270,9 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   };
 
   renderOffersCardVersion = (periodOffers: Array<Array<Array<Offer>>>) => {
-    const weekOffers = getWeekOffers(this.props.date, this.props.offers);
+    const weekOffers = getWeekOffers(this.props.date, this.props.offers, {
+      startWeekOnDaySelected: this.props.startWeekOnDaySelected,
+    });
     const offersRows = this.periodByRow(weekOffers);
 
     return (
@@ -406,7 +413,9 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
 
     const weekDays = Moment.weekdaysShort(true);
     const periodOffers = this.getOffersByPeriod(date, offers);
-    const start_date = moment(date, DATE_FORMAT).clone().startOf('week');
+    const start_date = this.props.startWeekOnDaySelected
+      ? moment(date)
+      : moment(date).startOf('week');
     const main_date = moment(date).clone();
     const isCardModeDisplay = !(this.props.isCompact && !this.props.isLarge);
     const bs_week = classNames({

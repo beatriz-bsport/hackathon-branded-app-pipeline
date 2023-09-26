@@ -31,7 +31,7 @@ const LoadingIndicator = () => (
 
 type Props = {
   onSelectDate: () => void;
-  selectedDate: any;
+  selectedDate: string;
   offers: Array<Offer>;
   genderCount: Object;
   group: Object;
@@ -67,6 +67,7 @@ type Props = {
   onSearch: (searchText: string) => void;
   onClearInput: () => void;
   searchedOffers: Offer[];
+  startWeekOnDaySelected?: boolean;
 };
 
 export const MarketplaceCalendar = (props: Props) => {
@@ -86,14 +87,20 @@ export const MarketplaceCalendar = (props: Props) => {
     onSearch,
     onClearInput,
     searchedOffers,
+    startWeekOnDaySelected,
   } = props;
 
   const weekOffers = useMemo(
     () =>
       offers.filter((offer) =>
-        moment(offer.date_start).isSame(selectedDate, 'week'),
+        startWeekOnDaySelected
+          ? moment(offer.date_start).isBetween(
+              moment(selectedDate),
+              moment(selectedDate).add(7, 'days'),
+            )
+          : moment(offer.date_start).isSame(selectedDate, 'week'),
       ),
-    [offers, selectedDate],
+    [offers, selectedDate, startWeekOnDaySelected],
   );
   const refContainer = useRef(null);
 
@@ -159,6 +166,7 @@ export const MarketplaceCalendar = (props: Props) => {
             events={props.events}
             offerFilters={filters}
             onSelect={onSelectDate}
+            startWeekOnDaySelected={startWeekOnDaySelected}
           />
         </div>
       )}
@@ -207,6 +215,7 @@ export const MarketplaceCalendar = (props: Props) => {
             showDayParts={showDayParts}
             showOfferFilling={props.showOfferFilling}
             showOfferGender={props.showOfferGender}
+            startWeekOnDaySelected={startWeekOnDaySelected}
             theme={props.theme}
             variant={props.variant}
           />

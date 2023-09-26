@@ -1,18 +1,22 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Connection, Handle, Position } from 'react-flow-renderer';
+import { Popover } from '@material-ui/core';
 
-import { Popover, type PopoverOrigin } from '@material-ui/core';
-import InnerStepCard, { InnerStepCardProps } from './InnerStepCard.component';
+import InnerStepCard, {
+  type InnerStepCardProps,
+} from './InnerStepCard.component';
+import StepEditionBubble, {
+  type StepEditionBubbleProps,
+} from '#libs/sequential_marketing/components/graph/bubbles/StepEditionBubble.component';
+import type { StepMarketingActions } from '#libs/sequential_marketing/types';
+
 import {
   LEFT_HANDLE_STYLE,
   RIGHT_HANDLE_STYLE,
   HandleTypeChoices,
 } from '#libs/sequential_marketing/constants/steps';
-import type { StepMarketingActions } from '#libs/sequential_marketing/types';
-import StepEditionBubble, {
-  type StepEditionBubbleProps,
-} from '../../bubbles/StepEditionBubble.component';
+import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/usePopoverBubble.hook';
 
 type FlowProps = {
   data: {
@@ -21,28 +25,11 @@ type FlowProps = {
   } & InnerStepCardProps;
 };
 
-const anchorOrigin: PopoverOrigin = {
-  vertical: 'center',
-  horizontal: 'right',
-};
-
-const popoverStyle = {
-  style: {
-    backgroundColor: 'transparent',
-    boxShadow: 'none',
-  },
-};
-
-const transformOrigin: PopoverOrigin = {
-  vertical: 'center',
-  horizontal: 'left',
-};
-
 export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   const { t } = useTranslation('marketing');
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null,
-  );
+
+  const { anchorOrigin, popoverStyle, transformOrigin, anchorEl, setAnchorEl } =
+    usePopoverBubble();
 
   const handleConnect = React.useCallback(
     (params: Connection) => data.onConnectToStep?.(params.target),
@@ -54,10 +41,13 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
       data.onCardClick?.(event);
       setAnchorEl(event?.currentTarget);
     },
-    [data],
+    [data, setAnchorEl],
   );
 
-  const handleCloseBubble = React.useCallback(() => setAnchorEl(null), []);
+  const handleCloseBubble = React.useCallback(
+    () => setAnchorEl(null),
+    [setAnchorEl],
+  );
 
   const handleSubmitForm = React.useCallback(
     (param: { list: StepMarketingActions[]; step: number }) => {

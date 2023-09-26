@@ -349,7 +349,15 @@
                         "refunded": "À chaque annulation remboursée",
                         "notRefunded": "À chaque annulation hors délai"
                     },
-                    "birthday": "Envoyer à la date d'anniversaire"
+                    "birthday": "Envoyer à la date d'anniversaire",
+                    "day_after": "Cette notification sera envoyée {{days}} jour après la fin de la séance.",
+                    "day_after_plural": "Cette notification sera envoyée {{days}} jours après la fin de la séance.",
+                    "day_before": "Cette notification sera envoyée {{days}} jour avant la fin de la séance.",
+                    "day_before_plural": "Cette notification sera envoyée {{days}} jours avant la fin de la séance.",
+                    "hour_before": "Cette notification sera envoyée {{hours}} heure avant la fin de la séance.",
+                    "hour_before_plural": "Cette notification sera envoyée {{hours}} heures avant la fin de la séance.",
+                    "hour_after": "Cette notification sera envoyée {{hours}} heure après la fin de la séance.",
+                    "hour_after_plural": "Cette notification sera envoyée {{hours}} heures après la fin de la séance."
                 },
                 "sendingMethod": "Méthode d’envoi",
                 "mail": "Mail",
@@ -9902,6 +9910,9 @@
                     },
                     "tags": {
                         "_label": "Tags"
+                    },
+                    "cadence": {
+                        "_label": "Cadence"
                     }
                 },
                 "digitalOffer": {
@@ -9990,6 +10001,9 @@
                 },
                 "tutorial": {
                     "_label": "Tutoriel"
+                },
+                "inbox": {
+                    "_label": "Inbox"
                 }
             },
             "franchiseMenu": {

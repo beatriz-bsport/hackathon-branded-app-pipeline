@@ -17,7 +17,6 @@ import {
   Events,
   FilterIdentifier,
   TriggerKind,
-  UNKNOWN_TRIGGER_KIND,
   MarketingActionKind,
   MarketingActions,
 } from '#libs/sequential_marketing/constants';
@@ -228,7 +227,7 @@ export const EventTriggerDetailText = ({
 
 /** Get the trigger kind of the connected trigger in parameter
  * @param {ConnectedTrigger} connected_trigger_config - Cadence connected trigger config
- * @returns {string} - Return the kind of the trigger passed in paramater or UNKNOWN_TRIGGER_KIND if not recognized
+ * @returns {string} - Return the kind of the trigger passed in paramater or TriggerKind.ONLY_EVENT_TRIGGER if not recognized
  */
 export const getTriggerKind = (connected_trigger_config: ConnectedTrigger) => {
   switch (connected_trigger_config?.trigger_config?.identifier) {
@@ -249,9 +248,9 @@ export const getTriggerKind = (connected_trigger_config: ConnectedTrigger) => {
       ) {
         return TriggerKind.ONLY_SMARTLIST_FILTERING;
       }
-      return UNKNOWN_TRIGGER_KIND;
+      return TriggerKind.ONLY_EVENT_TRIGGER;
     default:
-      return UNKNOWN_TRIGGER_KIND;
+      return TriggerKind.ONLY_EVENT_TRIGGER;
   }
 };
 
@@ -262,7 +261,7 @@ export const getTriggerKind = (connected_trigger_config: ConnectedTrigger) => {
  */
 export const getTriggerIcon = (connected_trigger_config: ConnectedTrigger) => {
   const kind = getTriggerKind(connected_trigger_config);
-  return triggerIconByKind[kind === UNKNOWN_TRIGGER_KIND ? 0 : kind];
+  return triggerIconByKind[kind];
 };
 
 /** Get the icon name which corresponds to the StepMarketingAction in parameter

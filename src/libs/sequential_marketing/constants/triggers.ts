@@ -50,10 +50,12 @@ export enum TriggerKind {
   ONLY_TIMEOUT = 3,
 }
 
-/**
- * @description This constant represents a trigger kind which is not recognized
- */
-export const UNKNOWN_TRIGGER_KIND = 4;
+export const TRIGGER_KIND_CHOICES = [
+  TriggerKind.ONLY_EVENT_TRIGGER,
+  TriggerKind.ONLY_SMARTLIST_FILTERING,
+  TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING,
+  TriggerKind.ONLY_TIMEOUT,
+];
 
 // ========== CADENCE HANDLE STYLE ==========
 

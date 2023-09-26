@@ -17,7 +17,6 @@ import {
   DestinationKind,
   DestinationStatus,
   TriggerKind,
-  UNKNOWN_TRIGGER_KIND,
   DESTINATION_KIND_CHOICES,
   DESTINATION_STATUS_CHOICES,
 } from './triggers';
@@ -51,7 +50,6 @@ export {
   DestinationKind,
   DestinationStatus,
   TriggerKind,
-  UNKNOWN_TRIGGER_KIND,
   DESTINATION_KIND_CHOICES,
   DESTINATION_STATUS_CHOICES,
   // FILTER
